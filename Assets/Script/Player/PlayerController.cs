@@ -29,19 +29,28 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isRun == false)
+        if (rb.velocity != Vector2.zero  && DatabaseManager.weaponStopMove == true && isGrounded == true)
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isRun == false && DatabaseManager.weaponStopMove == false)
         {
             isRun = true;
         }
-        else if ((Input.GetKeyDown(KeyCode.LeftShift) && isRun == true))
+        else if ((Input.GetKeyDown(KeyCode.LeftShift) && isRun == true) && DatabaseManager.weaponStopMove == false)
         {
             isRun = false;
         }
         // 이동
-        Move();
+        if(DatabaseManager.weaponStopMove == false)
+        {
+            Move();
+        }
+
 
         // 대쉬
-        if (Input.GetKeyDown(KeyCode.Z) && dashTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.Z) && dashTimer <= 0f && DatabaseManager.weaponStopMove == false)
         {
             Dash();
         }
@@ -49,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
 
         // 점프
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && DatabaseManager.weaponStopMove == false)
         {
             if(isWall == true)
             {
@@ -134,7 +143,6 @@ public class PlayerController : MonoBehaviour
     void WallJump()
     {
         states = "wallJump";
-        // 대쉬 속도로만 이동하도록 설정
         if (transform.localScale == new Vector3(-chInRommSize, chInRommSize, 1))
         {
             jumpsRemaining--;
@@ -180,9 +188,9 @@ public class PlayerController : MonoBehaviour
         }
         if(states != "dash")
         {
-            RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right, 0.7f, LayerMask.GetMask("Ground"));
-            RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left, 0.7f, LayerMask.GetMask("Ground"));
-            if (((hitWall.collider != null && hitWall.collider.CompareTag("Ground"))||( hitWall2.collider != null && hitWall2.collider.CompareTag("Ground"))) && isGrounded ==false)
+            RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, LayerMask.GetMask("Ground"));
+            RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, LayerMask.GetMask("Ground"));
+            if (((hitWall.collider != null && hitWall.collider.CompareTag("Ground") && transform.localScale == new Vector3(chInRommSize, chInRommSize, 1)) ||( hitWall2.collider != null && hitWall2.collider.CompareTag("Ground") && transform.localScale == new Vector3(-chInRommSize, chInRommSize, 1)) ) && isGrounded ==false)
             {
                 float horizontalInput = Input.GetAxisRaw("Horizontal");
                     if (isWallReset == false && horizontalInput != 0)
