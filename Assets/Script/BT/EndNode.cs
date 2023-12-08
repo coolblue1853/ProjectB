@@ -5,16 +5,16 @@ using UnityEngine;
 public class EndNode : BTNode
 {
 
-    public BTBrain ai;
+
 
     // Start is called before the first frame update
-    public EndNode(BTBrain brain)
+    public EndNode()
     {
-        ai = brain;
+
     }
     public override NodeState Evaluate()
     {
-         ai.EndNode();
+        brain.EndNode();
         return NodeState.SUCCESS;
     }
 }

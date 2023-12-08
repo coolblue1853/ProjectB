@@ -47,7 +47,12 @@ public class BTBrain : MonoBehaviour
     }
     private void ConstructBehaviourTree()
     {
+        for (int i = 0; i < node.Count; i++)
+        {
+            node[i].brain = this.transform.GetComponent<BTBrain>();
+        }
         test = new BTSequence(node);
+
     }
 
     public void EndNode()
