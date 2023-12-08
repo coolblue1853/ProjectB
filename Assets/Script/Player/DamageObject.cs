@@ -15,7 +15,7 @@ public class DamageObject : MonoBehaviour
     private void DestroyObject()
     {
         Sequence sequence = DOTween.Sequence()
-        .AppendInterval(holdingTime) 
+        .AppendInterval(holdingTime)
         .AppendCallback(() => Destroy(this.gameObject));
     }
 

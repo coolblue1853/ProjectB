@@ -130,7 +130,9 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
             // 대쉬 타이머 설정
             dashTimer = dashWait;
-            Sequence sequence = DOTween.Sequence()
+
+
+                         Sequence sequence = DOTween.Sequence()
             .AppendInterval(dashDuration) // 2초 대기
             .AppendCallback(() => rb.gravityScale = 3f)
             .AppendCallback(() => rb.velocity = new Vector2(0f, 0f))
