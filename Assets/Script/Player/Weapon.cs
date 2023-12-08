@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     public int nowConboCount = 0;
     public float maxComboTime = 0; // 콤보 최대 유지시간
     public float attckSpeed = 0;   // 공격 주기, 짧을수록 더 빠르게 공격 가능.
-    private bool isAttackWait = false;
+    public bool isAttackWait = false;
     public bool isWeaponStopMove = false;
     public float time;
     public GameObject attackPivot;
@@ -21,11 +21,12 @@ public class Weapon : MonoBehaviour
     public void MeleeAttack()
     {
         time = 0;
-        if (nowConboCount == 0)
+        if (nowConboCount == 0 )
         {
             nowConboCount++;
             //프리팹 소환
             GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation,this.transform);
+            CheckAttackWait();
         }
         else
         {
@@ -33,15 +34,16 @@ public class Weapon : MonoBehaviour
             {
                 nowConboCount++;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+                CheckAttackWait();
             }
             else if (nowConboCount >= maxComboCount && time <= maxComboTime && isAttackWait == true) // 콤보수 초기화 및 다시 카운트 1로 내려옴.
             {
                 nowConboCount = 1;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
-
+                CheckAttackWait();
             }
         }
-        CheckAttackWait();
+
     }
     private void CheckAttackWait()
     {

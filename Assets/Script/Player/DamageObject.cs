@@ -18,4 +18,14 @@ public class DamageObject : MonoBehaviour
         .AppendInterval(holdingTime) 
         .AppendCallback(() => Destroy(this.gameObject));
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+            enemyHealth.damage2Enemy(damage);
+        }
+    }
+
 }
