@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class BTBrain : MonoBehaviour
 {
     public bool IsWaiting, isEnd, isAttacked, inRecognize;
@@ -12,6 +12,7 @@ public class BTBrain : MonoBehaviour
     BTSequence test;
     public List<BTNode> node;
     public Coroutine evaluateCoroutine;
+    public Vector2 originPosition;
     IEnumerator StartEvaluate()
     {
        test.Evaluate();
@@ -20,6 +21,7 @@ public class BTBrain : MonoBehaviour
     }
     void Start()
     {
+        originPosition = transform.position;
           ConstructBehaviourTree();
            evaluateCoroutine = StartCoroutine(StartEvaluate());
     }
@@ -71,4 +73,23 @@ public class BTBrain : MonoBehaviour
         evaluateCoroutine = StartCoroutine(StartEvaluate());
 
     }
+
+
+
+    public void KillAllTweensForObject() // 모든 트윈 삭제, 즉 경직 구현
+    {
+        foreach (var currentNode in node)
+        {
+            // 노드가 StopMoveX 함수를 가지고 있는지 확인 후 호출
+            if (currentNode != null)
+            {
+                BTNode bTNode = currentNode.GetComponent<BTNode>();
+                if (bTNode != null)
+                {
+                    bTNode.StopTween();
+                }
+            }
+        }
+    }
+
 }

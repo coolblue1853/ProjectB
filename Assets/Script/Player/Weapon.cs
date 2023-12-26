@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     public int nowConboCount = 0;
     public float maxComboTime = 0; // 콤보 최대 유지시간
     public float attckSpeed = 0;   // 공격 주기, 짧을수록 더 빠르게 공격 가능.
+
     public bool isAttackWait = false;
     public bool isWeaponStopMove = false;
     public float time;

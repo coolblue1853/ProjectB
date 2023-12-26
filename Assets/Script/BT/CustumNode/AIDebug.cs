@@ -7,7 +7,6 @@ public class AIDebug : BTNode
     public string message;
 
 
-
     // Start is called before the first frame update
     public AIDebug(string debug)
     {
@@ -27,7 +26,7 @@ public class AIDebug : BTNode
         }
         else
         {
-            Sequence sequence = DOTween.Sequence()
+             sequence = DOTween.Sequence()
            .AppendInterval(waitTime) // 대기 시간 사용
            .OnComplete(() => brain.StopEvaluateCoroutine())
            .OnComplete(() => OnSequenceComplete());
@@ -36,6 +35,7 @@ public class AIDebug : BTNode
         }
 
     }
+
 
     private void OnSequenceComplete()
     {

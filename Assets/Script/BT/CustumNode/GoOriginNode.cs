@@ -1,8 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-public class PatrolNode : BTNode
+
+public class GoOriginNode : BTNode
 {
     Vector2 originPosition;
 
@@ -20,7 +21,7 @@ public class PatrolNode : BTNode
         originPosition = brain.originPosition;
     }
     // Start is called before the first frame update
-    public PatrolNode()
+    public GoOriginNode()
     {
     }
     public override NodeState Evaluate()
@@ -46,10 +47,8 @@ public class PatrolNode : BTNode
                 }
             } while (enemyObject.transform.position.x - originPosition.x + movePoint > originMax);
 
-
-            Debug.Log("move");
-             sequence = DOTween.Sequence()
-           .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x+ movePoint, Mathf.Abs(movePoint)+ moveDuration))
+            Sequence sequence = DOTween.Sequence()
+           .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, Mathf.Abs(movePoint) + moveDuration))
            .OnComplete(() => brain.StopEvaluateCoroutine())
            .OnComplete(() => OnSequenceComplete());
             return NodeState.FAILURE;

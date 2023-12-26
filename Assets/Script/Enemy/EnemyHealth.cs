@@ -1,25 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class EnemyHealth : MonoBehaviour
 {
+    public Sequence sequence;
     public int maxHP = 100;
     private int nowHP = 0;
     public HealthBarCut hpBar;
     public GameObject hpObject;
     public float hpHeight;
-
+    public bool isSuperArmor;
     public GameObject hpCanvas;
     private Coroutine toggleCoroutine;
 
+    BTBrain brain;
     private void Start()
     {
+        brain = transform.GetComponent<BTBrain>();
         nowHP = maxHP;
         hpBar.setHpBar(maxHP);
     }
-    public void damage2Enemy(int damage)
+    public void damage2Enemy(int damage, float stiffTime)
     {
+
+        brain.isAttacked = true;
+        if(isSuperArmor == false)
+        {
+            sequence.Kill(); // 재공격시 경직 시간 초기화.
+            brain.KillAllTweensForObject();
+            sequence = DOTween.Sequence()
+            .AppendInterval(stiffTime)
+            .OnComplete(() => EndStiffness());
+        }
+
+        brain.StopEvaluateCoroutine();
         ToggleObject();
         nowHP -= damage;
         hpBar.healthSystem.Damage(damage);
@@ -27,6 +42,11 @@ public class EnemyHealth : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void EndStiffness()
+    {
+        brain.restartEvaluate();
     }
     private void Update()
     {
