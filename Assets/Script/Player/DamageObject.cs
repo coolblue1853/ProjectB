@@ -5,7 +5,7 @@ using DG.Tweening;
 public class DamageObject : MonoBehaviour
 {
     public float holdingTime = 0;
-    public float damage = 0;
+    public int damage = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +24,7 @@ public class DamageObject : MonoBehaviour
         if (collision.tag == "Enemy")
         {
             EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+         
             enemyHealth.damage2Enemy(damage);
         }
     }
