@@ -4,12 +4,15 @@ public class PlayerController : MonoBehaviour
 {
     float chInRommSize = 1f;
     public float runSpeed = 10f;  // 이동 속도
+    public int runStemina; // 달리기시 사용하는 스테미나
+    public float intervalRunStemina; // 달리기시 사용하는 스테미나
     public float moveSpeed = 10f;  // 이동 속도
     public float jumpForce = 13f; // 점프 힘
     public float dashSpeed = 20f; // 대쉬 속도
     public float dashDuration = 0.2f; // 대쉬 지속 시간
     private float dashWait = 2f; // 대쉬 타이머
     private float dashTimer; // 대쉬 타이머
+    public int dashStemina; // 대쉬시 사용하는 스테미나
     public int maxJumps = 2;      // 최대 점프 횟수
     public int jumpsRemaining;    // 남은 점프 횟수
     private bool isChangeDirection = false;    // 남은 점프 횟수
@@ -19,7 +22,9 @@ public class PlayerController : MonoBehaviour
     public bool isWall = false;
     private bool isWallReset = false;
     Vector2 moveVelocity = Vector2.zero;
+    float horizontalInput;
 
+    Sequence waitSequence;
     public string states = "";
     void Start()
     {
@@ -34,9 +39,10 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isRun == false && DatabaseManager.weaponStopMove == false)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isRun == false && DatabaseManager.weaponStopMove == false && Mathf.Abs(horizontalInput)>0)
         {
             isRun = true;
+            runSteminaDown();
         }
         else if ((Input.GetKeyDown(KeyCode.LeftShift) && isRun == true) && DatabaseManager.weaponStopMove == false)
         {
@@ -50,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
 
         // 대쉬
-        if (Input.GetKeyDown(KeyCode.Z) && dashTimer <= 0f && DatabaseManager.weaponStopMove == false)
+        if (Input.GetKeyDown(KeyCode.Z) && dashTimer <= 0f && DatabaseManager.weaponStopMove == false && PlayerHealthManager.Instance.nowStemina > dashStemina)
         {
             Dash();
         }
@@ -77,14 +83,31 @@ public class PlayerController : MonoBehaviour
             dashTimer -= Time.deltaTime;
         }
     }
+    private void runSteminaDown()
+    {
+        if (PlayerHealthManager.Instance.nowStemina > runStemina)
+        {
+            PlayerHealthManager.Instance.SteminaDown(runStemina);
+        }
+        else
+        {
+            isRun = false;
+        }
 
+        if (isRun == true)
+        {
+            waitSequence = DOTween.Sequence()
+                .AppendInterval(intervalRunStemina)
+                .OnComplete(() => runSteminaDown());
+        }
+    }
     void Move()
     {
         moveVelocity = Vector2.zero;
 
         if (states != "dash" && states != "wallJump")
         {
-            float horizontalInput = Input.GetAxisRaw("Horizontal");
+             horizontalInput = Input.GetAxisRaw("Horizontal");
 
             if (horizontalInput < 0)
             {
@@ -124,6 +147,7 @@ public class PlayerController : MonoBehaviour
     {
         if(states != "wallJump")
         {
+            PlayerHealthManager.Instance.SteminaDown(dashStemina);
             states = "dash";
             rb.gravityScale = 0f;
             // 대쉬 속도로만 이동하도록 설정

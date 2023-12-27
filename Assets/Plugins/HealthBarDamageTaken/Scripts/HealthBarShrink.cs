@@ -27,31 +27,39 @@ public class HealthBarShrink : MonoBehaviour {
 
     private float damagedHealthShrinkTimer;
 
-
-    public HealthSystem healthSystem;
-    public HealthSystem MentalSystem;
+    [HideInInspector]
+     public HealthSystem healthSystem;
+    public HealthSystem steminaSystem;
     private void Awake() {
 
     }
 
-    public void ResetHp()
+    public void ResetHp(int HP)
     {
-       // healthSystem = new HealthSystem(DataBaseManager.hp);
+       healthSystem = new HealthSystem(HP);
         SetHealth(healthSystem.GetHealthNormalized());
         damagedBarImage.fillAmount = barImage.fillAmount;
         healthSystem.OnDamaged += HealthSystem_OnDamaged;
         healthSystem.OnHealed += HealthSystem_OnHealed;
     }
+    public void ResetStemina(int Stemina)
+    {
+        steminaSystem = new HealthSystem(Stemina);
+        SetHealth(steminaSystem.GetHealthNormalized());
+        damagedBarImage.fillAmount = barImage.fillAmount;
+        steminaSystem.OnDamaged += HealthSystem_OnDamaged;
+        steminaSystem.OnHealed += HealthSystem_OnHealed;
+    }
 
     private void Start() {
-        //healthSystem = new HealthSystem(DataBaseManager.hp);
-        SetHealth(healthSystem.GetHealthNormalized());
-        damagedBarImage.fillAmount = barImage.fillAmount;
+       // healthSystem = new HealthSystem(100);
+     //   SetHealth(healthSystem.GetHealthNormalized());
+      //  damagedBarImage.fillAmount = barImage.fillAmount;
 
 
 
-        healthSystem.OnDamaged += HealthSystem_OnDamaged;
-        healthSystem.OnHealed += HealthSystem_OnHealed;
+       // healthSystem.OnDamaged += HealthSystem_OnDamaged;
+        //healthSystem.OnHealed += HealthSystem_OnHealed;
     }
 
     private void Update() {
