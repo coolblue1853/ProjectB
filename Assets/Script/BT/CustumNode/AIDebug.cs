@@ -39,9 +39,13 @@ public class AIDebug : BTNode
 
     private void OnSequenceComplete()
     {
-        Debug.Log(message);
-        // 시퀀스가 끝나면 SUCCESS로 변경합니다.
-        IsWaiting = true;
-        brain.restartEvaluate();
+        if (this.transform != null)
+        {
+            Debug.Log(message);
+            // 시퀀스가 끝나면 SUCCESS로 변경합니다.
+            IsWaiting = true;
+            brain.restartEvaluate();
+        }
+
     }
 }

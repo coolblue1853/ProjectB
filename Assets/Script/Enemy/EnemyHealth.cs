@@ -13,23 +13,37 @@ public class EnemyHealth : MonoBehaviour
     public bool isSuperArmor;
     public GameObject hpCanvas;
     private Coroutine toggleCoroutine;
-
+     Rigidbody2D rb;
+    // 넉백에 사용될 방향
+    Vector2 knockbackDirection = new Vector2(0f, 1f);
     BTBrain brain;
     private void Start()
     {
+        rb = transform. GetComponent<Rigidbody2D>();
         brain = transform.GetComponent<BTBrain>();
         nowHP = maxHP;
         hpBar.setHpBar(maxHP);
     }
-    public void damage2Enemy(int damage, float stiffTime)
+    public void damage2Enemy(int damage, float stiffTime, float force, Vector2 knockbackDir, float x)
     {
+        if (nowHP <= 0)
+        {
+            Destroy(this.gameObject);
+            /*
+            sequence = DOTween.Sequence()
+            .AppendCallback(() =>brain.KillAllTweensForObject())
+            .OnComplete(() => Destroy(this.gameObject));
+            */
 
-        brain.isAttacked = true;
+        }
+
+            brain.isAttacked = true;
         if(isSuperArmor == false)
         {
             sequence.Kill(); // 재공격시 경직 시간 초기화.
             brain.KillAllTweensForObject();
             sequence = DOTween.Sequence()
+            .AppendCallback(() => KnockbackActive(force, knockbackDir, x))
             .AppendInterval(stiffTime)
             .OnComplete(() => EndStiffness());
         }
@@ -38,21 +52,37 @@ public class EnemyHealth : MonoBehaviour
         ToggleObject();
         nowHP -= damage;
         hpBar.healthSystem.Damage(damage);
-        if (nowHP <= 0)
-        {
-            Destroy(this.gameObject);
-        }
+
     }
 
     private void EndStiffness()
     {
-        brain.restartEvaluate();
+        if(this != null)
+        {
+            brain.restartEvaluate();
+        }
+
     }
     private void Update()
     {
         hpObject.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, hpHeight, 0));
     }
 
+
+    private void KnockbackActive(float knockbackForce, Vector2 knockbackDir, float x)
+    {
+
+        if (rb != null)
+        {
+            if(x> transform.position.x)
+            {
+                knockbackDir.x = -knockbackDir.x;
+            }
+            // 힘을 가해 넉백을 적용
+            rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
+        }
+
+    }
     private void ToggleObject()
     {
         // 이전에 실행 중인 코루틴이 있다면 중지

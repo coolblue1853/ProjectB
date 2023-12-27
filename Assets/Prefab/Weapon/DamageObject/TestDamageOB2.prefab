@@ -101,6 +101,8 @@ MonoBehaviour:
   holdingTime: 0.5
   damage: 2
   stiffnessTime: 1
+  knockForce: 10
+  knockbackDir: {x: 0, y: 1}
 --- !u!61 &7398907887349000800
 BoxCollider2D:
   m_ObjectHideFlags: 0

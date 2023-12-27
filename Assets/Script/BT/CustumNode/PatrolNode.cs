@@ -59,7 +59,11 @@ public class PatrolNode : BTNode
 
     private void OnSequenceComplete()
     {
-        IsWaiting = true;
-        brain.restartEvaluate();
+        if(this.transform != null)
+        {
+            IsWaiting = true;
+            brain.restartEvaluate();
+        }
+
     }
 }
