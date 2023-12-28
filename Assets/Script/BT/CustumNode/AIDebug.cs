@@ -30,22 +30,16 @@ public class AIDebug : BTNode
            .AppendInterval(waitTime) // 대기 시간 사용
            .OnComplete(() => brain.StopEvaluateCoroutine())
            .OnComplete(() => OnSequenceComplete());
-            Debug.Log("작동중");
             return NodeState.FAILURE;
         }
 
     }
-
-
     private void OnSequenceComplete()
     {
         if (this.transform != null)
         {
-            Debug.Log(message);
-            // 시퀀스가 끝나면 SUCCESS로 변경합니다.
             IsWaiting = true;
             brain.restartEvaluate();
         }
-
     }
 }

@@ -16,11 +16,14 @@ public class EnemyHealth : MonoBehaviour
      Rigidbody2D rb;
     // 넉백에 사용될 방향
     Vector2 knockbackDirection = new Vector2(0f, 1f);
-    BTBrain brain;
+    public BTBrain brain;
+
+     EnemyFSM enemyFSM;
     private void Start()
     {
+        enemyFSM = transform.GetComponent<EnemyFSM>();
         rb = transform. GetComponent<Rigidbody2D>();
-        brain = transform.GetComponent<BTBrain>();
+       // brain = transform.GetComponent<BTBrain>();
         nowHP = maxHP;
         hpBar.setHpBar(maxHP);
     }
@@ -29,14 +32,7 @@ public class EnemyHealth : MonoBehaviour
         if (nowHP <= 0)
         {
             Destroy(this.gameObject);
-            /*
-            sequence = DOTween.Sequence()
-            .AppendCallback(() =>brain.KillAllTweensForObject())
-            .OnComplete(() => Destroy(this.gameObject));
-            */
-
         }
-
             brain.isAttacked = true;
         if(isSuperArmor == false)
         {
@@ -59,7 +55,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if(this != null)
         {
-            brain.restartEvaluate();
+            enemyFSM.StateChanger("Hit");
         }
 
     }

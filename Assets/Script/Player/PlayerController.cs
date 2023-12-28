@@ -162,9 +162,6 @@ public class PlayerController : MonoBehaviour
             .AppendCallback(() => rb.velocity = new Vector2(0f, 0f))
             .AppendCallback(() => states = "s");
         }
-
-
-        
     }
     void WallJump()
     {

@@ -6,7 +6,7 @@ public class DamageObject : MonoBehaviour
 {
     public float holdingTime = 0;
     public int damage = 0;
-    public float stiffnessTime = 0;   // 공격 주기, 짧을수록 더 빠르게 공격 가능.
+    public float stiffnessTime = 0;   // 경직 시간.
     public float knockForce = 0;
     public Vector2 knockbackDir;
     // Start is called before the first frame update

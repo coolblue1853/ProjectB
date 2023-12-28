@@ -4,31 +4,30 @@ using UnityEngine;
 using DG.Tweening;
 public class BTBrain : MonoBehaviour
 {
-    public bool IsWaiting, isEnd, isAttacked, inRecognize;
+    public bool IsWaiting, isEnd, isAttacked, inRecognize, isBrainActive = false;
     public bool nearPlayer;
-   // [SerializeField]
-   // public BTNode[] testNode;
 
     BTSequence test;
     public List<BTNode> node;
     public Coroutine evaluateCoroutine;
     public Vector2 originPosition;
+
     IEnumerator StartEvaluate()
     {
+        isBrainActive = true;
        test.Evaluate();
         yield return null;
 
     }
-    void Start()
+    private void Awake()
     {
         originPosition = transform.position;
-          ConstructBehaviourTree();
-           evaluateCoroutine = StartCoroutine(StartEvaluate());
+        ConstructBehaviourTree();
+        // evaluateCoroutine = StartCoroutine(StartEvaluate());
     }
 
     void Update()
     {
-
         if(isEnd == true)
         {
             isEnd = false;
@@ -39,12 +38,11 @@ public class BTBrain : MonoBehaviour
 
     public void StartEvaluateCoroutine()
     {
-
         evaluateCoroutine = StartCoroutine(StartEvaluate());
     }
     public void StopEvaluateCoroutine()
     {
-        // aIPath.enabled = false;
+        isBrainActive = false;
         StopCoroutine(evaluateCoroutine);
     }
     private void ConstructBehaviourTree()
@@ -54,7 +52,6 @@ public class BTBrain : MonoBehaviour
             node[i].brain = this.transform.GetComponent<BTBrain>();
         }
         test = new BTSequence(node);
-
     }
 
     public void EndNode()
@@ -67,15 +64,11 @@ public class BTBrain : MonoBehaviour
         isEnd = true;
 
     }
-
     public void restartEvaluate()
     {
         evaluateCoroutine = StartCoroutine(StartEvaluate());
 
     }
-
-
-
     public void KillAllTweensForObject() // 모든 트윈 삭제, 즉 경직 구현
     {
         foreach (var currentNode in node)
@@ -91,5 +84,4 @@ public class BTBrain : MonoBehaviour
             }
         }
     }
-
 }

@@ -25,7 +25,6 @@ public class PlayerHealthManager : MonoBehaviour
     bool isSteminaDown;
     public float intervalTimeSteminaHeal;
 
-    public int setFullness;
     public int fullFullness = 100;
     public int nowFullness;
     public int nomalizedFullness;
@@ -49,8 +48,6 @@ public class PlayerHealthManager : MonoBehaviour
         nomalizedStemina = 1 / fullStemina;
 
         nowFullness = fullFullness;
-        setFullness = 1;
-        nomalizedFullness = 1 / fullFullness;
     }
 
     // Update is called once per frame
@@ -66,21 +63,19 @@ public class PlayerHealthManager : MonoBehaviour
         if (healed > fullFullness - nowFullness)
         {
             healed = fullFullness - nowFullness;
-            nowFullness += healed;
-            setFullness = (setFullness - nowFullness * healed);
+
             fullnesBar.healthSystem.Heal(healed);
         }
         else
         {
             nowFullness += healed;
-            setFullness = (setFullness - nowFullness * healed);
+
             fullnesBar.healthSystem.Heal(healed);
         }
     }
     public void FullnessDown(int damage)
     {
         nowFullness -= damage;
-        setFullness = (setFullness - nomalizedFullness * damage);
         fullnesBar.healthSystem.Damage(damage);
     }
 

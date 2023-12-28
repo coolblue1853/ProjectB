@@ -54,10 +54,9 @@ public class Weapon : MonoBehaviour
         }
         isAttackWait = false;
         Sequence sequence = DOTween.Sequence()
-        .AppendInterval(attckSpeed) // 2초 대기
+        .AppendInterval(attckSpeed) // 사전에 지정한 공격 주기만큼 대기.
         .AppendCallback(() => DatabaseManager.weaponStopMove = false)
         .AppendCallback(() => isAttackWait = true);
-
     }
 
     private void Update()
@@ -71,7 +70,5 @@ public class Weapon : MonoBehaviour
             nowConboCount = 0;
                time = 0;
         }
-
-
     }
 }
