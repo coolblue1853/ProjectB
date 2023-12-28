@@ -40,6 +40,29 @@ public class EnemyFSM : MonoBehaviour
         }
 
     }
+
+    public void KillBrainSequence()
+    {
+        for (int i = 0; i < state.Count; i++)
+        {
+            if (state[i] == nowState)
+            {
+                brain[i].isAttacked = true;
+                brain[i].StopEvaluateCoroutine();
+                brain[i].KillAllTweensForObject();
+            }
+        }
+    }
+    public void ReActiveBrainSequence()
+    {
+        for (int i = 0; i < state.Count; i++)
+        {
+            if (state[i] == nowState && beforeState == nowState)
+            {
+                brain[i].restartEvaluate();
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
