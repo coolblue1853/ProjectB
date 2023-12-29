@@ -20,7 +20,7 @@ public class testFunc : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            PlayerHealthManager.Instance.FullnessUp(10);
+           // PlayerHealthManager.Instance.FullnessUp(10);
 
         }
     }
