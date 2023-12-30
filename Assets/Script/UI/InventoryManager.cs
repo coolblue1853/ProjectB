@@ -15,62 +15,48 @@ public class InventoryManager : MonoBehaviour
     int[,] inventoryArray;
 
     public int nowBox;  // 이것으로 배열의 값을 읽어오면 됨. 즉, nowBox가 2일때의 15번재는 30 +15 -> 45번째 칸에 있는 아이템이라는 말이 됨.
-
-
-    public void OpenBox1() 
-    {
-        inventoryUI[0].SetActive(true);
-        inventoryUI[1].SetActive(false);
-        inventoryUI[2].SetActive(false);
-        inventoryUI[3].SetActive(false);
-        inventoryUI[4].SetActive(false);
-        GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[0]);
-        cusor.transform.position = insPositon.transform.position;
-        nowBox = 1;
-    }
-    public void OpenBox2()
-    {
-        inventoryUI[0].SetActive(false);
-        inventoryUI[1].SetActive(true);
-        inventoryUI[2].SetActive(false);
-        inventoryUI[3].SetActive(false);
-        inventoryUI[4].SetActive(false);
-        GameObject insPositon = GetNthChildGameObject(inventoryUI[1], cusorCount[1]);
-        cusor.transform.position = insPositon.transform.position;
-        nowBox = 2;
-    }
     public GameObject Inventory;
 
-    private void Awake()
+
+    public void ResetInventoryBox()
     {
-
-
+        for (int i = 0; i < 5; i++)
+        {
+            inventoryUI[i].SetActive(false);
+        }
     }
+    public void OpenBox(int num) 
+    {
+        ResetInventoryBox();
+        inventoryUI[num].SetActive(true);
+        GameObject insPositon = GetNthChildGameObject(inventoryUI[num], cusorCount[num]);
+        cusor.transform.position = insPositon.transform.position;
+        nowBox = num;
+    }
+
+
     private void Start()
     {
         Inventory.SetActive(true);
-        makeInventoryBox();
+        MakeInventoryBox();
         inventoryArray = new int[maxBoxNum, 5];
         Invoke("ActiveFalse", 0.000000001f); // 인벤토리 리로드, 이 과정이 없으면 GridLayoutGroup이 정상작동하지 않음.
     }
 
     void ActiveFalse()
     {
-        cusorCount[0] = 0;
-        cusorCount[1] = 0;
-        cusorCount[2] = 0;
-        cusorCount[3] = 0;
-        cusorCount[4] = 0;
+        for(int i = 0; i < 5; i++)
+        {
+            cusorCount[i] = 0;
+        }
         GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[0]);
         cusor.transform.position = insPositon.transform.position;
-        Inventory.SetActive(false); 
-        inventoryUI[1].SetActive(false);
-        inventoryUI[2].SetActive(false);
-        inventoryUI[3].SetActive(false);
-        inventoryUI[4].SetActive(false);
+        Inventory.SetActive(false);
+        ResetInventoryBox();
+        inventoryUI[0].SetActive(true);
     }
 
-    void makeInventoryBox()
+    void MakeInventoryBox()
     {
         for (int i = 0; i < maxBoxNum; i++)
         {
@@ -90,7 +76,7 @@ public class InventoryManager : MonoBehaviour
             {
                 Instantiate(inventoryBoxPrefab, inventoryUI[3].transform);
             }
-            else if (i < 50)
+            else if (i < 150)
             {
                 Instantiate(inventoryBoxPrefab, inventoryUI[4].transform);
             }
@@ -124,75 +110,43 @@ public class InventoryManager : MonoBehaviour
     }
     void CusorChecker()
     {
-        if(Inventory.activeSelf == true && inventoryUI[0].activeSelf == true)
+        if(Inventory.activeSelf == true )
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow) && (cusorCount[0] < maxBoxNum-1 && cusorCount[0] < 29))
+            if (Input.GetKeyDown(KeyCode.RightArrow) && (cusorCount[nowBox] < maxBoxNum-1 && cusorCount[nowBox] < 29))
             {
-                cusorCount[0] += 1;
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[0]);
+                cusorCount[nowBox] += 1;
+                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                 cusor.transform.position = insPositon.transform.position;
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) && (cusorCount[0] == maxBoxNum - 1 || cusorCount[0] == 29))
+            else if (Input.GetKeyDown(KeyCode.RightArrow) && (cusorCount[nowBox] == maxBoxNum - 1 || cusorCount[nowBox] == 29))
             {
-                cusorCount[0] = 0;
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[0]);
+                cusorCount[nowBox] = 0;
+                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                 cusor.transform.position = insPositon.transform.position;
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && (cusorCount[0] > 0))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && (cusorCount[nowBox] > 0))
             {
-                cusorCount[0] -= 1;
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[0]);
+                cusorCount[nowBox] -= 1;
+                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                 cusor.transform.position = insPositon.transform.position;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) && cusorCount[0] == 0)
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) && cusorCount[nowBox] == 0)
             {
                 if(maxBoxNum < 29)
                 {
-                    cusorCount[0] = maxBoxNum-1;
+                    cusorCount[nowBox] = maxBoxNum-1;
                 }
                 else
                 {
-                    cusorCount[0] = 29;
+                    cusorCount[nowBox] = 29;
                 }
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[0]);
+                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                 cusor.transform.position = insPositon.transform.position;
             }
         }
-        if (Inventory.activeSelf == true && inventoryUI[1].activeSelf == true)
-        {
-            if (Input.GetKeyDown(KeyCode.RightArrow) && (cusorCount[1] < maxBoxNum - 1 && cusorCount[1] < 29))
-            {
-                cusorCount[1] += 1;
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[1]);
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) && (cusorCount[1] == maxBoxNum - 1 || cusorCount[1] == 29))
-            {
-                cusorCount[1] = 0;
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[1]);
-                cusor.transform.position = insPositon.transform.position;
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && (cusorCount[1] > 0))
-            {
-                cusorCount[1] -= 1;
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[1]);
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) && cusorCount[1] == 0)
-            {
-                if (maxBoxNum < 29)
-                {
-                    cusorCount[1] = maxBoxNum - 1;
-                }
-                else
-                {
-                    cusorCount[1] = 29;
-                }
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[1]);
-                cusor.transform.position = insPositon.transform.position;
-            }
-        }
+
     }
+
     public void testCreat(string itemName)
     {
         bool isCreate = false;
