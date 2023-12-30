@@ -14,7 +14,7 @@ using System.Reflection;
 using UnityEngine;
 
 
-namespace TestSheet
+namespace ItemSheet
 {
     [GoogleSheet.Attribute.TableStruct]
     public partial class Data : ITable
@@ -23,7 +23,7 @@ namespace TestSheet
         public delegate void OnLoadedFromGoogleSheets(List<Data> loadedList, Dictionary<int, Data> loadedDictionary);
 
         static bool isLoaded = false;
-        static string spreadSheetID = "1H6ktuknq1LSejq62vZtGZIQwFcuVUlU2bR9kX6dbuQ0"; // it is file id
+        static string spreadSheetID = "1WBthR8nQfch-VLpJBKighYF0HKLneZHpF_off4XfCVg"; // it is file id
         static string sheetID = "0"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
@@ -78,7 +78,7 @@ namespace TestSheet
                  return;
             }
 
-            string text = reader.ReadData("TestSheet"); 
+            string text = reader.ReadData("ItemSheet"); 
             if (text != null)
             {
                 var result = Newtonsoft.Json.JsonConvert.DeserializeObject<ReadSpreadSheetResult>(text);

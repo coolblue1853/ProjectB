@@ -52,8 +52,8 @@ public class TestDBLoad : MonoBehaviour
             if (list.Count > 0)
             {
                 // 첫 번째 요소의 intValue 값을 가져옴
-                int firstIntValue = list[0].intValue;
-                Debug.Log("첫 번째 intValue: " + firstIntValue);
+             //   int firstIntValue = list[0].intValue;
+         //       Debug.Log("첫 번째 intValue: " + firstIntValue);
             }
             else
             {

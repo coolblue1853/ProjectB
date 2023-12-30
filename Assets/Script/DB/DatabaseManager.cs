@@ -2,12 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UGS;
+
+public class Item
+{
+    public string name { get; set; }
+    public string type { get; set; }
+    public string description { get; set; }
+    public int price { get; set; }
+    public int weight { get; set; }
+    public string acqPath { get; set; }
+
+}
 public class DatabaseManager : MonoBehaviour
 {
     public static bool weaponStopMove = false;
 
 
-    private List<TestSheet.Data> etcItemDataList;
+    private List<ItemSheet.Data> ItemDataList;
 
     static public DatabaseManager instance;
     private void Awake()
@@ -22,16 +33,16 @@ public class DatabaseManager : MonoBehaviour
             instance = this;
         }
         UnityGoogleSheet.LoadAllData();
-        LoadAllETCItemData();
+        LoadAllItemData();
     }
 
-    public void LoadAllETCItemData()
+    public void LoadAllItemData() // 기타 아이템
     {
-        UnityGoogleSheet.LoadFromGoogle<int, TestSheet.Data>((list, map) => {
+        UnityGoogleSheet.LoadFromGoogle<int, ItemSheet.Data>((list, map) => {
             // list에는 로드한 데이터가 들어 있음
-            etcItemDataList = list;
+            ItemDataList = list;
 
-            if (etcItemDataList.Count > 0)
+            if (ItemDataList.Count > 0)
             {
                 Debug.Log("데이터를 성공적으로 불러왔습니다.");
             }
@@ -42,59 +53,53 @@ public class DatabaseManager : MonoBehaviour
         }, true);
     }
 
-    public void LoadETCItemData(int itemNum)
+    public Item LoadItemData(int itemNum)
     {
-        if (etcItemDataList != null && itemNum >= 0 && itemNum < etcItemDataList.Count)
+        if (ItemDataList != null && itemNum >= 0 && itemNum < ItemDataList.Count)
         {
-            int intValue = etcItemDataList[itemNum].intValue;
-            Debug.Log("intValue: " + intValue);
+            Item newItem = new Item
+            {
+                name = ItemDataList[itemNum].name,
+                type = ItemDataList[itemNum].type,
+                description = ItemDataList[itemNum].description,
+                price = ItemDataList[itemNum].price,
+                weight = ItemDataList[itemNum].weight,
+                acqPath = ItemDataList[itemNum].acqPath,
+            };
+            return newItem;
+
+
         }
         else
         {
             Debug.Log("데이터를 불러오지 못했거나 유효하지 않은 인덱스입니다.");
+            return null;
         }
     }
-    void Start()
+
+    public int FindItemDataIndex(string targetValue)
     {
+        if (ItemDataList != null)
+        {
+            for (int i = 0; i < ItemDataList.Count; i++)
+            {
+                if (ItemDataList[i].name == targetValue)
+                {
+                    // 입력한 값과 일치하는 데이터를 찾으면 해당 인덱스 반환
+                    return i;
+                }
+            }
 
-
-
-
-
-        /*
-       UnityGoogleSheet.LoadFromGoogle<int, TestSheet.Data>((list, map) => {
-           list.ForEach(x => {
-               Debug.Log(x.intValue);
-           });
-       }, true);
-
-       foreach (var value in DefaultTable.Data.DataList)
-       {
-           Debug.Log(value.index + "," + value.intValue + "," + value.strValue);
-       }
-       var dataFromMap = DefaultTable.Data.DataMap[0];
-       Debug.Log("dataFromMap : " + dataFromMap.index + ", " + dataFromMap.intValue + "," + dataFromMap.strValue);
-       */
+            // 일치하는 데이터가 없으면 -1 반환
+            return -1;
+        }
+        else
+        {
+            // 데이터 리스트가 비어있으면 -1 반환
+            return -1;
+        }
     }
 
-    /*
-    public void LoadETCItemData(int itemNum)
-    {
-        UnityGoogleSheet.LoadFromGoogle<int, TestSheet.Data>((list, map) => {
-            // list에는 로드한 데이터가 들어 있음
-
-            if (list.Count > 0)
-            {
-                // 첫 번째 요소의 intValue 값을 가져옴
-                int firstIntValue = list[itemNum].intValue;
-                Debug.Log("첫 번째 intValue: " + firstIntValue);
-            }
-            else
-            {
-                Debug.Log("데이터가 없습니다.");
-            }
-        }, true);
-    }
-    */
 
 }
+
