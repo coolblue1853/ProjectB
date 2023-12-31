@@ -112,38 +112,115 @@ public class InventoryManager : MonoBehaviour
     {
         if(Inventory.activeSelf == true )
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow) && (cusorCount[nowBox] < maxBoxNum-1 && cusorCount[nowBox] < 29))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                cusorCount[nowBox] += 1;
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) && (cusorCount[nowBox] == maxBoxNum - 1 || cusorCount[nowBox] == 29))
-            {
-                cusorCount[nowBox] = 0;
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                cusor.transform.position = insPositon.transform.position;
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && (cusorCount[nowBox] > 0))
-            {
-                cusorCount[nowBox] -= 1;
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) && cusorCount[nowBox] == 0)
-            {
-                if(maxBoxNum < 29)
+                int nowBoxMax = 0;
+                if ((nowBox + 1) * 30 < maxBoxNum)
                 {
-                    cusorCount[nowBox] = maxBoxNum-1;
+                    nowBoxMax = 30;
                 }
                 else
                 {
-                    cusorCount[nowBox] = 29;
+                    nowBoxMax = ((nowBox + 1) * 30) - maxBoxNum;
                 }
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                cusor.transform.position = insPositon.transform.position;
+                if (cusorCount[nowBox] + 1 < nowBoxMax)
+                {
+                    cusorCount[nowBox] += 1;
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+                    cusor.transform.position = insPositon.transform.position;
+                }
+                else
+                {
+                    cusorCount[nowBox] -= nowBoxMax-1;
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+                    cusor.transform.position = insPositon.transform.position;
+                }
+
             }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                int nowBoxMax = 0;
+                if ((nowBox + 1) * 30 < maxBoxNum)
+                {
+                    nowBoxMax = 30;
+                }
+                else
+                {
+                    nowBoxMax = ((nowBox + 1) * 30) - maxBoxNum;
+                }
+                if (cusorCount[nowBox] - 1 >=0)
+                {
+                    cusorCount[nowBox] -= 1;
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+                    cusor.transform.position = insPositon.transform.position;
+                }
+                else
+                {
+                    cusorCount[nowBox] = nowBoxMax - 1;
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+                    cusor.transform.position = insPositon.transform.position;
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                int nowBoxMax = 0;
+                if ((nowBox + 1) * 30 < maxBoxNum)
+                {
+                    nowBoxMax = 30;
+                }
+                else
+                {
+                    nowBoxMax = ((nowBox + 1) * 30) - maxBoxNum;
+                }
+                if (cusorCount[nowBox] + 6 < nowBoxMax)
+                {
+                    cusorCount[nowBox] += 6;
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+                    cusor.transform.position = insPositon.transform.position;
+                }
+                else
+                {
+                    cusorCount[nowBox] = cusorCount[nowBox] % 6;
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+                    cusor.transform.position = insPositon.transform.position;
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                int nowBoxMax = 0;
+                if ((nowBox + 1) * 30 < maxBoxNum)
+                {
+                    nowBoxMax = 30;
+                }
+                else
+                {
+                    nowBoxMax = ((nowBox + 1) * 30) - maxBoxNum;
+                }
+                if (cusorCount[nowBox] - 6 >= 0)
+                {
+                    cusorCount[nowBox] -= 6;
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+                    cusor.transform.position = insPositon.transform.position;
+                }
+                else
+                {
+                    while (cusorCount[nowBox] +6 < nowBoxMax)
+                    {
+                        cusorCount[nowBox] +=6;
+                    }
+
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+                    cusor.transform.position = insPositon.transform.position;
+                }
+            }
+
+
         }
+
+
+
+
 
     }
 
