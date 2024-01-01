@@ -13,6 +13,7 @@ public class ItemCheck : MonoBehaviour
     public int price;
     public int weight;
     public string acqPath;
+    public Image image;
     Item item;
 
 
@@ -66,6 +67,7 @@ public class ItemCheck : MonoBehaviour
 
             // Image 컴포넌트의 sprite 변경
             imageComponent.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            image = imageComponent;
         }
         else
         {

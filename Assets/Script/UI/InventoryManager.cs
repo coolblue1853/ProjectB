@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject inventoryBoxPrefab; // 생성되는 Box 인스턴스
@@ -15,9 +15,23 @@ public class InventoryManager : MonoBehaviour
     int[,] inventoryArray;
 
     public int nowBox;  // 이것으로 배열의 값을 읽어오면 됨. 즉, nowBox가 2일때의 15번재는 30 +15 -> 45번째 칸에 있는 아이템이라는 말이 됨.
-    public GameObject Inventory;
+    public GameObject inventory;
+    public GameObject miscDetail;
+    int detailX = 150, detailY =12;
+    static public InventoryManager instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
 
-
+    }
     public void ResetInventoryBox()
     {
         for (int i = 0; i < 5; i++)
@@ -34,10 +48,32 @@ public class InventoryManager : MonoBehaviour
         nowBox = num;
     }
 
+    public bool CheckBoxCanCreat(int num)
+    {
+        bool isCreat = false;
+        for (int i = 0; i < 30; i++)
+        {
+            if(inventoryArray[i, num] == 0 && num * 30+ i <maxBoxNum )
+            {
+                isCreat = true;
+  
+                break;
+            }
 
+        }
+        if(isCreat == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
     private void Start()
     {
-        Inventory.SetActive(true);
+        inventory.SetActive(true);
         MakeInventoryBox();
         inventoryArray = new int[maxBoxNum, 5];
         Invoke("ActiveFalse", 0.000000001f); // 인벤토리 리로드, 이 과정이 없으면 GridLayoutGroup이 정상작동하지 않음.
@@ -51,7 +87,7 @@ public class InventoryManager : MonoBehaviour
         }
         GameObject insPositon = GetNthChildGameObject(inventoryUI[0], cusorCount[0]);
         cusor.transform.position = insPositon.transform.position;
-        Inventory.SetActive(false);
+        inventory.SetActive(false);
         ResetInventoryBox();
         inventoryUI[0].SetActive(true);
     }
@@ -86,34 +122,42 @@ public class InventoryManager : MonoBehaviour
     private void Update()
     {
         CusorChecker();
+        if(inventory.activeSelf== true)
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                BoxContentChecker();
+            }
 
-        
+
+        }
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            TestDelet(0,3);
+            CreatItem("Wood");
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            testCreat("Rock");
+            CreatItem("Rock");
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if (Inventory.activeSelf == true)
+            if (inventory.activeSelf == true)
             {
-                Inventory.SetActive(false);
+                inventory.SetActive(false);
             }
             else
             {
-                Inventory.SetActive(true);
+                inventory.SetActive(true);
             }
         }
     }
     void CusorChecker()
     {
-        if(Inventory.activeSelf == true )
+        if(inventory.activeSelf == true )
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
+                DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
                 {
@@ -140,6 +184,7 @@ public class InventoryManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
                 {
@@ -164,6 +209,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
+                DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
                 {
@@ -188,6 +234,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
+                DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
                 {
@@ -224,7 +271,36 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    public void testCreat(string itemName)
+    void BoxContentChecker() // Z키 클릭시 인벤토리창
+    {
+        if(inventoryArray[cusorCount[nowBox], nowBox] == 1)
+        {
+            //inventoryArray[cusorCount[nowBox], nowBox] = 0;     현재 커서가 있는 칸 , 현재 박스
+            //  RemoveFirstChild(GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));  현재 커서가 있는 박스에 접근할때 필요한 숫자들.
+
+            GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
+            //Debug.Log(gameObject.transform.GetChild(0));
+            ItemCheck detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
+            if (detail.type == "Misc")
+            {
+                Transform misc =  miscDetail.gameObject.transform;
+                misc.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+                misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+                misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+                misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
+                misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
+                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+                miscDetail.transform.localPosition = new Vector2 (cusor.transform.localPosition.x- detailX, detailY);
+                miscDetail.SetActive(true);
+               // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+            }
+        }
+
+
+    }
+
+    public void CreatItem(string itemName)
     {
         bool isCreate = false;
         for (int j = 0; j < 5; j++)
@@ -290,10 +366,76 @@ public class InventoryManager : MonoBehaviour
     }
 
 
+    public void CreatItemSelected(string itemName, int boxNum)
+    {
+
+        for (int i = 0; i < 30; i++)
+        {
+            if (maxBoxNum > (boxNum * 30) + i)
+            {
+                if (inventoryArray[i, boxNum] == 0)
+                {
+                    inventoryArray[i, boxNum] = 1; // i번째 위치한 인벤토리 창 열기.
+                    if (boxNum == 0)
+                    {
+                        GameObject insPositon = GetNthChildGameObject(inventoryUI[0], i);
+                        GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
+                        ItemCheck check = item.GetComponent<ItemCheck>();
+                        check.SetItem(itemName);
+                        break;
+                    }
+                    else if (boxNum == 1)
+                    {
+                        GameObject insPositon = GetNthChildGameObject(inventoryUI[1], i);
+                        GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
+                        ItemCheck check = item.GetComponent<ItemCheck>();
+                        check.SetItem(itemName);
+                        break;
+                    }
+                    else if (boxNum == 2)
+                    {
+                        GameObject insPositon = GetNthChildGameObject(inventoryUI[2], i);
+                        GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
+                        ItemCheck check = item.GetComponent<ItemCheck>();
+                        check.SetItem(itemName);
+                        break;
+                    }
+                    else if (boxNum == 3)
+                    {
+                        GameObject insPositon = GetNthChildGameObject(inventoryUI[3], i);
+                        GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
+                        ItemCheck check = item.GetComponent<ItemCheck>();
+                        check.SetItem(itemName);
+                        break;
+                    }
+                    else if (boxNum == 4)
+                    {
+                        GameObject insPositon = GetNthChildGameObject(inventoryUI[4], i);
+                        GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
+                        ItemCheck check = item.GetComponent<ItemCheck>();
+                        check.SetItem(itemName);
+                        break;
+                    }
+                }
+            }
+        }
+
+    }
     public void TestDelet(int uiNum, int boxNum)
     {
         inventoryArray[boxNum, uiNum] = 0;
         RemoveFirstChild(GetNthChildGameObject(inventoryUI[uiNum], boxNum));
+    }
+    public void ResetArray(int uiNum, int boxNum)
+    {
+        inventoryArray[boxNum, uiNum] = 1;
+    }
+
+
+
+    public void MoveItem(int uiNum, int boxNum)
+    {
+        inventoryArray[uiNum , boxNum] = 1;
     }
     GameObject GetNthChildGameObject(GameObject parent, int n)
     {
@@ -312,6 +454,7 @@ public class InventoryManager : MonoBehaviour
         return null;
     }
 
+
     // 첫 번째 자식의 첫 번째 자식을 삭제하는 함수
     void RemoveFirstChild(GameObject parent)
     {
@@ -323,5 +466,10 @@ public class InventoryManager : MonoBehaviour
             // 첫 번째 자식을 삭제
             Destroy(firstChild.gameObject);
         }
+    }
+
+    void DetailOff()
+    {
+        miscDetail.SetActive(false);
     }
 }
