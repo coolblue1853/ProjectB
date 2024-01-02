@@ -63,6 +63,7 @@ namespace ItemSheet
 		public System.Int32 price;
 		public System.Int32 weight;
 		public System.String acqPath;
+		public System.Int32 maxStack;
   
 
 #region fuctions

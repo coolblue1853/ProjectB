@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-
+using TMPro;
 public class ItemCheck : MonoBehaviour
 {
     //코드 / 종류((장비인지 소모품인지)  / 이름 / 설명 / 보유수 / 가격 / 무게 // 획득방법
@@ -13,6 +13,9 @@ public class ItemCheck : MonoBehaviour
     public int price;
     public int weight;
     public string acqPath;
+    public int maxStack;
+    public int nowStack;
+    public TextMeshProUGUI stackText;
     public Image image;
     Item item;
 
@@ -27,14 +30,25 @@ public class ItemCheck : MonoBehaviour
         price = item.price;
         weight = item.weight;
         acqPath = item.acqPath;
-
+        maxStack = item.maxStack;
+        nowStack = 1;
+        stackText.text = nowStack.ToString();
         LoadImage();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(nowStack == 1)
+        {
+            stackText.text = "1";
+            stackText.gameObject.SetActive(false);
+        }
+        else
+        {
+            stackText.text = nowStack.ToString();
+            stackText.gameObject.SetActive(true);
+        }
     }
 
 

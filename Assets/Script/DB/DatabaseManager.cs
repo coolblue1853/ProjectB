@@ -11,7 +11,7 @@ public class Item
     public int price { get; set; }
     public int weight { get; set; }
     public string acqPath { get; set; }
-
+    public int maxStack { get; set; }
 }
 public class DatabaseManager : MonoBehaviour
 {
@@ -65,6 +65,7 @@ public class DatabaseManager : MonoBehaviour
                 price = ItemDataList[itemNum].price,
                 weight = ItemDataList[itemNum].weight,
                 acqPath = ItemDataList[itemNum].acqPath,
+                maxStack = ItemDataList[itemNum].maxStack,
             };
             return newItem;
 

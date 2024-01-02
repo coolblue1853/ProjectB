@@ -13,6 +13,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     ItemCheck itemCheck;
     int siblingParentIndex;
     int siblingIndex;
+
     private void Start()
     {
         itemCheck = this.transform.GetComponent<ItemCheck>();
@@ -79,7 +80,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
                 this.transform.SetParent(changeParent);
                 this.transform.position = changeParent.transform.position;
-                InventoryManager.instance.ResetArray(siblingParentIndex, siblingIndex);
+                InventoryManager.instance.TestDelet(siblingParentIndex, siblingIndex);
             }
 
         }
@@ -94,12 +95,12 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         if(changeBox != null)
         {
             int siblingParentIndex = changeBox.transform.GetSiblingIndex();
-
+            Debug.Log(siblingParentIndex);
             if (InventoryManager.instance.nowBox != siblingParentIndex)
             {
                 if (InventoryManager.instance.CheckBoxCanCreat(siblingParentIndex))
                 {
-                    InventoryManager.instance.CreatItemSelected(itemCheck.name, siblingParentIndex);
+                    InventoryManager.instance.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
                     Destroy(this.gameObject);
                 }
             }
