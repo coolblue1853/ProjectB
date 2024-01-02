@@ -23,6 +23,9 @@ public class InventoryManager : MonoBehaviour
     int detailX = 150, detailY =12;
     static public InventoryManager instance;
     public string state;
+    public GameObject divideUI;
+    public DivideSlider divideSlider;
+
     private void Awake()
     {
         if (instance != null)
@@ -87,6 +90,34 @@ public class InventoryManager : MonoBehaviour
     public GameObject beforBox;
     public GameObject afterBox;
     int beforeCusorInt;
+
+
+    void OpenDivide()
+    {
+        if(state == "detail")
+        {
+            GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
+            ItemCheck nowDivideItem = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
+            if(nowDivideItem.nowStack > 1)
+            {
+                state = "divide";
+                divideSlider.currentValue = nowDivideItem.nowStack;
+                divideSlider.gameObject.SetActive(true);
+                divideSlider.itemCheck = nowDivideItem;
+                divideSlider.ResetData();
+            }
+
+        }
+    }
+    public void DownNowStack(int output)
+    {
+
+        GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
+        ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
+        item.nowStack -= output;
+        CreatItemSelected(item.name,nowBox, output);
+    }
+
     void ActiveChangeCursor()
     {
 
@@ -258,7 +289,10 @@ public class InventoryManager : MonoBehaviour
             {
                 BoxContentChecker();
             }
-
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                OpenDivide();
+            }
 
         }
         if (Input.GetKeyDown(KeyCode.F3))
@@ -268,6 +302,7 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2))
         {
             CreatItem("Rock");
+
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -503,17 +538,26 @@ public class InventoryManager : MonoBehaviour
 
         }
     }
-    void BoxContentChecker() // Z키 클릭시 인벤토리창
+    public void BoxContentChecker(GameObject ob = null) // Z키 클릭시 인벤토리창
     {
         if(inventoryArray[cusorCount[nowBox], nowBox] == 1 && state == "")
         {
+            ItemCheck detail;
             state = "detail";
             //inventoryArray[cusorCount[nowBox], nowBox] = 0;     현재 커서가 있는 칸 , 현재 박스
             //  RemoveFirstChild(GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));  현재 커서가 있는 박스에 접근할때 필요한 숫자들.
 
-            GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
-            //Debug.Log(gameObject.transform.GetChild(0));
-            ItemCheck detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
+            if(ob != null)
+            {
+                detail = ob.transform.GetComponent<ItemCheck>();
+            }
+            else
+            {
+                GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
+                //Debug.Log(gameObject.transform.GetChild(0));
+                 detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
+            }
+
             if (detail.type == "Misc")
             {
                 Transform misc =  miscDetail.gameObject.transform;
@@ -524,7 +568,14 @@ public class InventoryManager : MonoBehaviour
                 misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
                 misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
                 misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
-                miscDetail.transform.localPosition = new Vector2 (cusor.transform.localPosition.x- detailX, detailY);
+                if(ob != null)
+                {
+                    miscDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
+                }
+                else
+                {
+                    miscDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
+                }
                 miscDetail.SetActive(true);
                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
             }
@@ -565,8 +616,32 @@ public class InventoryManager : MonoBehaviour
 
 
     }
+    public void ExchangeItem(GameObject nowBoxOb, GameObject afterBoxOb)
+    {
 
 
+        GameObject changeItem = afterBoxOb.transform.GetChild(0).gameObject;
+        Debug.Log(changeItem); 
+        changeItem.transform.SetParent(nowBoxOb.transform);
+        changeItem.transform.position = nowBoxOb.transform.position;
+
+
+        GameObject beforitem = nowBoxOb.transform.GetChild(0).gameObject;
+        Debug.Log(beforitem);
+        beforitem.transform.SetParent(afterBoxOb.transform);
+        beforitem.transform.position = afterBoxOb.transform.position;
+        MoveItem(cusorCount[nowBox], nowBox);
+
+        GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+        cusor.transform.position = insPositon.transform.position;
+        changeCusor.SetActive(false);
+        state = "";
+    }
+    public void ChangeCusor(GameObject ob)
+    {
+        cusorCount[nowBox] = ob.transform.GetSiblingIndex();
+        cusor.transform.position = ob.transform.position;
+    }
     bool CheckStack(string itemName)
     {
 
@@ -667,7 +742,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void DetailOff()
+    public void DetailOff()
     {
         state = "";
         miscDetail.SetActive(false);

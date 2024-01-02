@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
 
 {
     public static Vector2 DefaultPos;
@@ -17,6 +17,19 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     private void Start()
     {
         itemCheck = this.transform.GetComponent<ItemCheck>();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            Debug.Log(this.name); // 나누기창 띄우기.
+        }
+        else if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            InventoryManager.instance.ChangeCusor(this.gameObject.transform.parent.gameObject);
+        }
+
     }
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
@@ -33,8 +46,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             {
                 // 부모의 부모의 자식으로 현재 객체 추가
                 transform.SetParent(grandParent);
-
-
                 InventoryManager.instance.TestDelet(siblingParentIndex, siblingIndex);
             }
             else
@@ -69,33 +80,28 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
                 int siblingParentIndex = changeParent.transform.parent.GetSiblingIndex();
                 int siblingIndex = changeParent.transform.GetSiblingIndex();
-
+                //InventoryManager.instance.TestDelet(siblingParentIndex, siblingIndex);
                 InventoryManager.instance.MoveItem(siblingIndex, siblingParentIndex);
             }
             else
             {
+
                 GameObject changeItem = changeParent.GetChild(0).gameObject;
                 changeItem.transform.SetParent(currentParent);
                 changeItem.transform.position = currentParent.transform.position;
 
                 this.transform.SetParent(changeParent);
                 this.transform.position = changeParent.transform.position;
-                InventoryManager.instance.TestDelet(siblingParentIndex, siblingIndex);
+                InventoryManager.instance.MoveItem(siblingIndex, siblingParentIndex);
+
+                // InventoryManager.instance.ExchangeItem(currentParent.gameObject, changeParent.gameObject);
             }
 
+            InventoryManager.instance.ChangeCusor(changeParent.gameObject);
         }
-        else
-        {
-            transform.SetParent(currentParent);
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            this.transform.position = currentParent.transform.position;
-        }
-
-
-        if(changeBox != null)
+       else if(changeBox != null && changeBox.transform.GetSiblingIndex() != InventoryManager.instance.nowBox)
         {
             int siblingParentIndex = changeBox.transform.GetSiblingIndex();
-            Debug.Log(siblingParentIndex);
             if (InventoryManager.instance.nowBox != siblingParentIndex)
             {
                 if (InventoryManager.instance.CheckBoxCanCreat(siblingParentIndex))
@@ -104,6 +110,14 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     Destroy(this.gameObject);
                 }
             }
+            InventoryManager.instance.ChangeCusor(currentParent.gameObject);
+        }
+        else
+        {
+            transform.SetParent(currentParent);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            this.transform.position = currentParent.transform.position;
+            InventoryManager.instance.ChangeCusor(currentParent.gameObject);
         }
 
 
@@ -137,5 +151,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             changeBox = null;
         }
     }
+
 
 }
