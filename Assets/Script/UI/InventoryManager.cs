@@ -618,7 +618,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                Debug.Log("Ã¼Å©Áß2");
+
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
                 {

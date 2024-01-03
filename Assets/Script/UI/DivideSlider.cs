@@ -53,7 +53,26 @@ public class DivideSlider : MonoBehaviour
         InventoryManager.instance.DownNowStack(output);
         InventoryManager.instance.state = "detail";
         this.gameObject.SetActive(false);
-
     }
 
+    private void Update()
+    {
+        if(InventoryManager.instance.state == "divide")
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                Divide();
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow) && divideSlider.value < divideSlider.maxValue)
+            {
+                divideSlider.value += 1;
+                uiTxt.text = output.ToString() + "/" + currentValue.ToString();
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) && divideSlider.value>1)
+            {
+                divideSlider.value -= 1;
+                uiTxt.text = output.ToString() + "/" + currentValue.ToString();
+            }
+        }
+    }
 }

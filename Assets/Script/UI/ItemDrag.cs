@@ -72,7 +72,8 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         if(changeParent != null)
         {
-            if(changeParent.childCount == 0)
+            InventoryManager.instance.ChangeCusor(changeParent.gameObject);
+            if (changeParent.childCount == 0)
             {
                 transform.SetParent(changeParent);
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -85,19 +86,54 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             }
             else
             {
-
                 GameObject changeItem = changeParent.GetChild(0).gameObject;
-                changeItem.transform.SetParent(currentParent);
-                changeItem.transform.position = currentParent.transform.position;
+                ItemCheck itemC = changeItem.GetComponent<ItemCheck>();
+                ItemCheck itemB = this.GetComponent<ItemCheck>();
+                if (itemC.name == itemB.name && (itemC.nowStack != itemC.maxStack && itemB.nowStack != itemB.maxStack))
+                {
 
-                this.transform.SetParent(changeParent);
-                this.transform.position = changeParent.transform.position;
+                    if (itemC.nowStack + itemB.nowStack <= itemC.maxStack)
+                    {
+                        Debug.Log("동작중1");
+                        itemC.nowStack += itemB.nowStack;
+                        changeItem.transform.SetParent(changeParent);
+                        changeItem.transform.position = changeParent.transform.position;
+                        Destroy(itemB.gameObject);
+                    }
+                    else
+                    {
+                        Debug.Log("동작중2");
+                        itemB.nowStack -= (itemC.maxStack - itemC.nowStack);
+                        itemC.nowStack = itemC.maxStack;
+                        changeItem.transform.SetParent(changeParent);
+                        changeItem.transform.position = changeParent.transform.position;
+                        this.transform.SetParent(currentParent);
+                        this.transform.position = currentParent.transform.position;
+                    }
+
+
+
+
+                }
+                else
+                {
+    
+                    changeItem.transform.SetParent(currentParent);
+                    changeItem.transform.position = currentParent.transform.position;
+
+                    this.transform.SetParent(changeParent);
+                    this.transform.position = changeParent.transform.position;
+
+                }
+
+
+
                 InventoryManager.instance.MoveItem(siblingIndex, siblingParentIndex);
 
                 // InventoryManager.instance.ExchangeItem(currentParent.gameObject, changeParent.gameObject);
             }
 
-            InventoryManager.instance.ChangeCusor(changeParent.gameObject);
+
         }
        else if(changeBox != null && changeBox.transform.GetSiblingIndex() != InventoryManager.instance.nowBox)
         {
