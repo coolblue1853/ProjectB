@@ -50,14 +50,6 @@ public class ItemCheck : MonoBehaviour
             stackText.gameObject.SetActive(true);
         }
     }
-
-
-
-    void Start()
-    {
-
-    }
-
     void LoadImage()
     {
         // 이미지 파일이 저장된 폴더 경로

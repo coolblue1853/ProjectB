@@ -13,7 +13,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject cusor; // 인벤토리 커서
     public GameObject changeCusor; // 인벤토리 커서
     int[] cusorCount = new int[5]; // 인벤토리 커서
-     
+    int boxCusor = 0; // 박스 이동시 커서 int
+    int maxBoxCusor = 0; // 최대 이동 가능 박스 커서
     public int maxBoxNum;
     int[,] inventoryArray;
 
@@ -91,7 +92,26 @@ public class InventoryManager : MonoBehaviour
     public GameObject afterBox;
     int beforeCusorInt;
 
+    void BoxChange(int num)
+    {
+        GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], beforeCusorInt);
+        GameObject item = itemBox.transform.GetChild(0).gameObject;
+        ItemCheck itemCheck = item.transform.GetComponent<ItemCheck>();
+        int siblingParentIndex = inventoryUI[num].transform.GetSiblingIndex();
 
+        if (nowBox != siblingParentIndex)
+        {
+            if (CheckBoxCanCreat(siblingParentIndex))
+            {
+                ResetArray(nowBox, beforeCusorInt);
+                CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
+                Destroy(item.gameObject);
+                cusorCount[nowBox] = beforeCusorInt;
+                changeCusor.SetActive(false);
+                state = "";
+            }
+        }
+    }
     void OpenDivide()
     {
         if(state == "detail")
@@ -133,23 +153,56 @@ public class InventoryManager : MonoBehaviour
         }
         else if (state == "change")
         {
+            bool isSame = false;
             afterBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-         
-            if(afterBox.transform.childCount != 0)
+            GameObject changeItem;
+            GameObject beforitem;
+            ItemCheck beforeItemCheck;
+            ItemCheck afterItemCheck;
+            if (afterBox.transform.childCount != 0)
             {
-                GameObject changeItem = afterBox.transform.GetChild(0).gameObject;
-                changeItem.transform.SetParent(beforBox.transform);
-                changeItem.transform.position = beforBox.transform.position;
+                changeItem = afterBox.transform.GetChild(0).gameObject;
+                afterItemCheck = changeItem.GetComponent<ItemCheck>();
+                beforitem = beforBox.transform.GetChild(0).gameObject;
+                beforeItemCheck = beforitem.GetComponent<ItemCheck>();
+                if (afterItemCheck.name == beforeItemCheck.name && (afterItemCheck.nowStack != afterItemCheck.maxStack && beforeItemCheck.nowStack != beforeItemCheck.maxStack ))
+                {
+                    isSame = true; // 같다면 가능한 만큼 스택을 합친다.
+
+                    if(afterItemCheck.nowStack + beforeItemCheck.nowStack <= afterItemCheck.maxStack)
+                    {
+                        Debug.Log("동작중1");
+                        afterItemCheck.nowStack += beforeItemCheck.nowStack;
+                        Destroy(beforitem);
+                    }
+                    else
+                    {
+                        Debug.Log("동작중2");
+                        beforeItemCheck.nowStack -= (afterItemCheck.maxStack - afterItemCheck.nowStack);
+                        afterItemCheck.nowStack = afterItemCheck.maxStack;
+
+                    }
+                }
+                else
+                {
+
+                    changeItem = afterBox.transform.GetChild(0).gameObject;
+                    changeItem.transform.SetParent(beforBox.transform);
+                    changeItem.transform.position = beforBox.transform.position;
+                }
             }
             else
             {
                 ResetArray(nowBox, beforeCusorInt);
             }
-            GameObject beforitem = beforBox.transform.GetChild(0).gameObject;
-            beforitem.transform.SetParent(afterBox.transform);
-            beforitem.transform.position = afterBox.transform.position;
-            MoveItem(cusorCount[nowBox], nowBox );
-
+            
+            if(isSame == false)
+            {
+                beforitem = beforBox.transform.GetChild(0).gameObject;
+                beforitem.transform.SetParent(afterBox.transform);
+                beforitem.transform.position = afterBox.transform.position;
+                MoveItem(cusorCount[nowBox], nowBox);
+            }
             GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
             cusor.transform.position = insPositon.transform.position;
             changeCusor.SetActive(false);
@@ -157,31 +210,7 @@ public class InventoryManager : MonoBehaviour
 
         }
     }
-    void BoxChange()
-    {
-         if (Input.GetKeyDown(KeyCode.Alpha2) && nowBox != 1)
-        {
-            GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], beforeCusorInt);
-            GameObject item = itemBox.transform.GetChild(0).gameObject;
-            ItemCheck itemCheck = item.transform.GetComponent<ItemCheck>();
-            int siblingParentIndex = inventoryUI[1].transform.GetSiblingIndex();
 
-            Debug.Log(siblingParentIndex);
-            if (nowBox != siblingParentIndex)
-            {
-                if (CheckBoxCanCreat(siblingParentIndex))
-                {
-                    ResetArray(nowBox, beforeCusorInt);
-                    CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
-                    Destroy(item.gameObject);
-                    cusorCount[nowBox] = beforeCusorInt;
-                    changeCusor.SetActive(false);
-                    state = "";
-                }
-            }
-
-        }
-    }
 
     void ActiveFalse()
     {
@@ -198,26 +227,47 @@ public class InventoryManager : MonoBehaviour
 
     void MakeInventoryBox()
     {
+        
         for (int i = 0; i < maxBoxNum; i++)
         {
             if (i < 30)
             {
+                if (maxBoxCusor != 1)
+                {
+                    maxBoxCusor = 1;
+                }
                 Instantiate(inventoryBoxPrefab, inventoryUI[0].transform);
             }
             else if (i < 60)
             {
+                if (maxBoxCusor != 2)
+                {
+                    maxBoxCusor = 2;
+                }
                 Instantiate(inventoryBoxPrefab, inventoryUI[1].transform);
             }
             else if (i < 90)
             {
+                if (maxBoxCusor != 3)
+                {
+                    maxBoxCusor = 3;
+                }
                 Instantiate(inventoryBoxPrefab, inventoryUI[2].transform);
             }
             else if (i < 120)
             {
+                if (maxBoxCusor != 4)
+                {
+                    maxBoxCusor = 4;
+                }
                 Instantiate(inventoryBoxPrefab, inventoryUI[3].transform);
             }
             else if (i < 150)
             {
+                if (maxBoxCusor != 5)
+                {
+                    maxBoxCusor = 5;
+                }
                 Instantiate(inventoryBoxPrefab, inventoryUI[4].transform);
             }
 
@@ -261,30 +311,109 @@ public class InventoryManager : MonoBehaviour
             OpenBox(4);
         }
     }
+
+    void BoxChangeByKey()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow) && maxBoxCusor-1 > boxCusor)
+        {
+            boxCusor += 1;
+            GameObject insPositon = inventoryBox[boxCusor];
+            if(state == "boxChange")
+            {
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (state == "itemBoxChange")
+            {
+                changeCusor.transform.position = insPositon.transform.position;
+            }
+
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow) && maxBoxCusor-1 == boxCusor)
+        {
+            boxCusor = 0;
+            GameObject insPositon = inventoryBox[boxCusor];
+            if (state == "boxChange")
+            {
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (state == "itemBoxChange")
+            {
+                changeCusor.transform.position = insPositon.transform.position;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && 0 < boxCusor)
+        {
+            boxCusor -= 1;
+            GameObject insPositon = inventoryBox[boxCusor];
+            if (state == "boxChange")
+            {
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (state == "itemBoxChange")
+            {
+                changeCusor.transform.position = insPositon.transform.position;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow) && 0 == boxCusor)
+        {
+            boxCusor = maxBoxCusor - 1;
+            GameObject insPositon = inventoryBox[boxCusor];
+            if (state == "boxChange")
+            {
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (state == "itemBoxChange")
+            {
+                changeCusor.transform.position = insPositon.transform.position;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+       {
+
+
+            GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+           
+            if (state == "boxChange")
+            {
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (state == "itemBoxChange")
+            {
+                changeCusor.transform.position = insPositon.transform.position;
+            }
+            if (state == "boxChange")
+            {
+                state = "";
+            }
+            else if (state == "itemBoxChange")
+            {
+                state = "change";
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.X) && state == "boxChange")
+        {
+            ResetInventoryBox();
+            nowBox = boxCusor;
+            inventoryUI[boxCusor].SetActive(true);
+            state = "";
+            GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+            cusor.transform.position = insPositon.transform.position;
+        }
+        if (Input.GetKeyDown(KeyCode.X) && state == "itemBoxChange" && boxCusor!=nowBox)    
+        {
+            BoxChange(boxCusor);
+            state = "";
+            GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+            cusor.transform.position = insPositon.transform.position;
+        }
+    }
     private void Update()
     {
 
-        if(state == "")
+        if(state == "" && inventory.activeSelf == true)
         {
             BoxOpen();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            CloseCheck();
-        }
-        CusorChecker();
-        ChangeCusorChecker();
-        if (Input.GetKeyDown(KeyCode.X) && inventory.activeSelf == true)
-        {
-            ActiveChangeCursor();
-        }
-        if(state == "change" && inventory.activeSelf == true)
-        {
-            BoxChange();
-        }
 
-        if (inventory.activeSelf== true)
-        {
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 BoxContentChecker();
@@ -293,8 +422,33 @@ public class InventoryManager : MonoBehaviour
             {
                 OpenDivide();
             }
-
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseCheck();
+        }
+        if((state =="" ||state =="detail")&& inventory.activeSelf== true)
+        {
+            CusorChecker();
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                OpenDivide();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.X) && inventory.activeSelf == true)
+        {
+            ActiveChangeCursor();
+        }
+        if(state == "change")
+        {
+            ChangeCusorChecker();
+        }
+        if ((state == "boxChange" || state == "itemBoxChange") && inventory.activeSelf == true)
+        {
+            BoxChangeByKey();
+        }
+
         if (Input.GetKeyDown(KeyCode.F3))
         {
             CreatItem("Wood");
@@ -348,6 +502,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                Debug.Log("체크중1");
                 DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
@@ -358,18 +513,21 @@ public class InventoryManager : MonoBehaviour
                 {
                     nowBoxMax = ((nowBox + 1) * 30) - maxBoxNum;
                 }
-                if (cusorCount[nowBox] - 1 >=0)
+                if (cusorCount[nowBox] %6 == 0)
+                {
+                    state = "boxChange";
+                    boxCusor = 0;
+                    GameObject insPositon = inventoryBox[boxCusor];
+                    cusor.transform.position = insPositon.transform.position;
+                }
+               else
                 {
                     cusorCount[nowBox] -= 1;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
                 }
-                else
-                {
-                    cusorCount[nowBox] = nowBoxMax - 1;
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                    cusor.transform.position = insPositon.transform.position;
-                }
+        
+
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -460,6 +618,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                Debug.Log("체크중2");
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
                 {
@@ -469,18 +628,20 @@ public class InventoryManager : MonoBehaviour
                 {
                     nowBoxMax = ((nowBox + 1) * 30) - maxBoxNum;
                 }
-                if (cusorCount[nowBox] - 1 >= 0)
+                if (cusorCount[nowBox] % 6 == 0)
+                {
+                    state = "itemBoxChange";
+                    boxCusor = 0;
+                    GameObject insPositon = inventoryBox[boxCusor];
+                    changeCusor.transform.position = insPositon.transform.position;
+                }
+                else
                 {
                     cusorCount[nowBox] -= 1;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     changeCusor.transform.position = insPositon.transform.position;
                 }
-                else
-                {
-                    cusorCount[nowBox] = nowBoxMax - 1;
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                    changeCusor.transform.position = insPositon.transform.position;
-                }
+
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -635,6 +796,7 @@ public class InventoryManager : MonoBehaviour
         GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
         cusor.transform.position = insPositon.transform.position;
         changeCusor.SetActive(false);
+        Debug.Log("체크중1");
         state = "";
     }
     public void ChangeCusor(GameObject ob)
