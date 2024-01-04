@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject inventoryBoxPrefab; // 생성되는 Box 인스턴스
@@ -34,8 +35,8 @@ public class InventoryManager : MonoBehaviour
     InputAction rightInventoryAction;
     InputAction upInventoryAction;
     InputAction downInventoryAction;
-
-
+    InputAction verticalCheck;
+    InputAction horizontalCheck;
     private void OnEnable()
     {
 
@@ -44,8 +45,8 @@ public class InventoryManager : MonoBehaviour
         rightInventoryAction.Enable();
         upInventoryAction.Enable();
         downInventoryAction.Enable();
-
-
+        verticalCheck.Enable();
+        horizontalCheck.Enable();
     }
 
 
@@ -57,7 +58,8 @@ public class InventoryManager : MonoBehaviour
         rightInventoryAction.Disable();
         upInventoryAction.Disable();
         downInventoryAction.Disable();
-
+        verticalCheck.Disable();
+        horizontalCheck.Disable();
     }
 
 
@@ -69,7 +71,8 @@ public class InventoryManager : MonoBehaviour
         rightInventoryAction = action.UI.RightInventory;
         upInventoryAction = action.UI.UPInventory;
         downInventoryAction = action.UI.DownInventory;
-
+        verticalCheck = action.UI.verticalCheck;
+        horizontalCheck = action.UI.horizontalCheck;
 
         if (instance != null)
         {
@@ -411,8 +414,12 @@ public class InventoryManager : MonoBehaviour
         }
         if (rightInventoryAction.triggered)
        {
+            checkRepeat = true;
+            sequence.Kill();
 
-
+            sequence = DOTween.Sequence()
+            .AppendInterval(waitTime)
+            .OnComplete(() => ResetCheckRepeat());
             GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
            
             if (state == "boxChange")
@@ -449,12 +456,14 @@ public class InventoryManager : MonoBehaviour
             cusor.transform.position = insPositon.transform.position;
         }
     }
-    bool once = false;
+
     public string stick = "";
-   
+    float verticalInput;
+    float horizontalInput;
     private void Update()
     {
-
+        verticalInput =(verticalCheck.ReadValue<float>());
+        horizontalInput = (horizontalCheck.ReadValue<float>());
         if (state == "" && inventory.activeSelf == true)
         {
             BoxOpen();
@@ -518,13 +527,24 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
+    bool checkRepeat= false;
+    float waitTime = 0.18f;
+    public Sequence sequence;
     void CusorChecker()
     {
         if (inventory.activeSelf == true && state != "change")
         {
 
-            if (rightInventoryAction.triggered)
+            if ((rightInventoryAction.triggered ) || (checkRepeat == false && horizontalInput == 1))
             {
+                checkRepeat = true;
+                sequence.Kill(); 
+
+                sequence = DOTween.Sequence()
+                .AppendInterval(waitTime)
+                .OnComplete(() => ResetCheckRepeat());
+
+
                 DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
@@ -549,10 +569,15 @@ public class InventoryManager : MonoBehaviour
                 }
 
             }
-             if (leftInventoryAction.triggered )
+             if ((leftInventoryAction.triggered ) || (checkRepeat == false && horizontalInput == -1))
             {
 
-                once = true;
+                checkRepeat = true;
+                sequence.Kill();
+
+                sequence = DOTween.Sequence()
+                .AppendInterval(waitTime)
+                .OnComplete(() => ResetCheckRepeat());
                 DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
@@ -579,8 +604,14 @@ public class InventoryManager : MonoBehaviour
 
 
             }
-             if (downInventoryAction.triggered )
+             if ((downInventoryAction.triggered ) ||( checkRepeat == false && verticalInput == -1))
             {
+                checkRepeat = true;
+                sequence.Kill();
+
+                sequence = DOTween.Sequence()
+                .AppendInterval(waitTime)
+                .OnComplete(() => ResetCheckRepeat());
                 DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
@@ -604,9 +635,14 @@ public class InventoryManager : MonoBehaviour
                     cusor.transform.position = insPositon.transform.position;
                 }
             }
-             if (upInventoryAction.triggered )
+             if ((upInventoryAction.triggered ) || (checkRepeat == false && verticalInput == 1))
             {
-                once = true;
+                checkRepeat = true;
+                sequence.Kill();
+
+                sequence = DOTween.Sequence()
+                .AppendInterval(waitTime)
+                .OnComplete(() => ResetCheckRepeat());
                 DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
@@ -638,6 +674,12 @@ public class InventoryManager : MonoBehaviour
 
         }
     }
+
+    void ResetCheckRepeat()
+    {
+        checkRepeat = false;
+    }
+
     void ChangeCusorChecker()
     {
         if (inventory.activeSelf == true && state == "change")

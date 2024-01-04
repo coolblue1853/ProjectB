@@ -278,6 +278,24 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""verticalCheck"",
+                    ""type"": ""Value"",
+                    ""id"": ""44d21c14-01c1-4771-929b-c8b1051d78a2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""horizontalCheck"",
+                    ""type"": ""Value"",
+                    ""id"": ""4e716015-77e9-4a9b-9bb6-12bdec7c1da6"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -434,6 +452,138 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""action"": ""RightInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""bb3f9c48-327e-473a-99af-66e85f12d517"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""verticalCheck"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""7fcb45dc-02b9-46da-877b-6119bf2b675d"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""verticalCheck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""5eebd86e-4462-43ec-b9d7-a0a0fe154110"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""verticalCheck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""49993a4d-ada8-4b32-885b-d258a7256e37"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""verticalCheck"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""c3ed2c5b-e5c6-4655-bd47-e6644ede7513"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""verticalCheck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""b8054b95-16b8-4884-819c-14fffc1d0551"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""verticalCheck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""a4d85af1-c24b-460b-910d-43ccc42d55fb"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""horizontalCheck"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""13ff9cfb-da38-4cbc-8683-a3a2e2919cbe"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""horizontalCheck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""addaf443-34e5-4f1d-9c34-339dd391b9fb"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""horizontalCheck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""1cb86d83-5b8c-4134-8f1f-8a384d24a059"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""horizontalCheck"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""196803fb-285a-497f-a2ab-0e1693ed4148"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""horizontalCheck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""951b7aef-f73f-446c-9334-18ff9ee9fa59"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""horizontalCheck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -454,6 +604,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         m_UI_DownInventory = m_UI.FindAction("DownInventory", throwIfNotFound: true);
         m_UI_LeftInventory = m_UI.FindAction("LeftInventory", throwIfNotFound: true);
         m_UI_RightInventory = m_UI.FindAction("RightInventory", throwIfNotFound: true);
+        m_UI_verticalCheck = m_UI.FindAction("verticalCheck", throwIfNotFound: true);
+        m_UI_horizontalCheck = m_UI.FindAction("horizontalCheck", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -598,6 +750,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_DownInventory;
     private readonly InputAction m_UI_LeftInventory;
     private readonly InputAction m_UI_RightInventory;
+    private readonly InputAction m_UI_verticalCheck;
+    private readonly InputAction m_UI_horizontalCheck;
     public struct UIActions
     {
         private @KeyAction m_Wrapper;
@@ -607,6 +761,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         public InputAction @DownInventory => m_Wrapper.m_UI_DownInventory;
         public InputAction @LeftInventory => m_Wrapper.m_UI_LeftInventory;
         public InputAction @RightInventory => m_Wrapper.m_UI_RightInventory;
+        public InputAction @verticalCheck => m_Wrapper.m_UI_verticalCheck;
+        public InputAction @horizontalCheck => m_Wrapper.m_UI_horizontalCheck;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -631,6 +787,12 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @RightInventory.started += instance.OnRightInventory;
             @RightInventory.performed += instance.OnRightInventory;
             @RightInventory.canceled += instance.OnRightInventory;
+            @verticalCheck.started += instance.OnVerticalCheck;
+            @verticalCheck.performed += instance.OnVerticalCheck;
+            @verticalCheck.canceled += instance.OnVerticalCheck;
+            @horizontalCheck.started += instance.OnHorizontalCheck;
+            @horizontalCheck.performed += instance.OnHorizontalCheck;
+            @horizontalCheck.canceled += instance.OnHorizontalCheck;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -650,6 +812,12 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @RightInventory.started -= instance.OnRightInventory;
             @RightInventory.performed -= instance.OnRightInventory;
             @RightInventory.canceled -= instance.OnRightInventory;
+            @verticalCheck.started -= instance.OnVerticalCheck;
+            @verticalCheck.performed -= instance.OnVerticalCheck;
+            @verticalCheck.canceled -= instance.OnVerticalCheck;
+            @horizontalCheck.started -= instance.OnHorizontalCheck;
+            @horizontalCheck.performed -= instance.OnHorizontalCheck;
+            @horizontalCheck.canceled -= instance.OnHorizontalCheck;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -682,5 +850,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         void OnDownInventory(InputAction.CallbackContext context);
         void OnLeftInventory(InputAction.CallbackContext context);
         void OnRightInventory(InputAction.CallbackContext context);
+        void OnVerticalCheck(InputAction.CallbackContext context);
+        void OnHorizontalCheck(InputAction.CallbackContext context);
     }
 }
