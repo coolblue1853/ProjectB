@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     float chInRommSize = 1f;
@@ -23,9 +24,36 @@ public class PlayerController : MonoBehaviour
     private bool isWallReset = false;
     Vector2 moveVelocity = Vector2.zero;
     float horizontalInput;
-
+  
+    KeyAction action;
+    InputAction moveAction;
+    InputAction jumpAction;
+    InputAction dashAction;
+    InputAction runAction;
     Sequence waitSequence;
     public string states = "";
+    private void OnEnable()
+    {
+        moveAction.Enable();
+        jumpAction.Enable();
+        dashAction.Enable();
+        runAction.Enable();
+    }
+    private void OnDisable()
+    {
+        moveAction.Disable();
+        jumpAction.Disable();
+        dashAction.Disable();
+        runAction.Disable();
+    }
+    private void Awake()
+    {
+        action = new KeyAction();
+        moveAction = action.Player.Move;
+        jumpAction = action.Player.Jump;
+        dashAction = action.Player.Dash;
+        runAction = action.Player.Run;
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,18 +62,21 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+       //Debug.Log(moveAction.ReadValue<float>());
+
         if (rb.velocity != Vector2.zero  && DatabaseManager.weaponStopMove == true && isGrounded == true)
         {
             rb.velocity = Vector2.zero;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isRun == false && DatabaseManager.weaponStopMove == false && Mathf.Abs(horizontalInput)>0)
+        if (runAction .triggered&& isRun == false && DatabaseManager.weaponStopMove == false && Mathf.Abs(horizontalInput)>0)
         {
             isRun = true;
             runSteminaDown();
         }
-        else if ((Input.GetKeyDown(KeyCode.LeftShift) && isRun == true) && DatabaseManager.weaponStopMove == false)
+        else if ((runAction.triggered && isRun == true) && DatabaseManager.weaponStopMove == false)
         {
+
             isRun = false;
         }
         // 이동
@@ -56,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
 
         // 대쉬
-        if (Input.GetKeyDown(KeyCode.Z) && dashTimer <= 0f && DatabaseManager.weaponStopMove == false && PlayerHealthManager.Instance.nowStemina > dashStemina)
+        if (dashAction.triggered && dashTimer <= 0f && DatabaseManager.weaponStopMove == false && PlayerHealthManager.Instance.nowStemina > dashStemina)
         {
             Dash();
         }
@@ -64,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
 
         // 점프
-        if (Input.GetKeyDown(KeyCode.C) && DatabaseManager.weaponStopMove == false)
+        if (jumpAction.triggered && DatabaseManager.weaponStopMove == false)
         {
             if(isWall == true)
             {
@@ -107,8 +138,7 @@ public class PlayerController : MonoBehaviour
 
         if (states != "dash" && states != "wallJump")
         {
-             horizontalInput = Input.GetAxisRaw("Horizontal");
-
+            horizontalInput = moveAction.ReadValue<float>();
             if (horizontalInput < 0)
             {
                 states = "moveLeft";
@@ -121,11 +151,11 @@ public class PlayerController : MonoBehaviour
                 moveVelocity = Vector2.right * (isRun ? runSpeed : moveSpeed);
                 transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
             }
-            else if (horizontalInput == 0 && states != "move")
+            else if (horizontalInput == 0 && states != "move" && check ==false)
             {
-                states = "move";
+                check = true;
                 Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(0.2f)
+                    .AppendInterval(0.3f)
                     .AppendCallback(() => RunChecker());
             }
             // Applying velocity to the Rigidbody2D
@@ -135,10 +165,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    bool check = false;
     void RunChecker()
     {
-        if(Input.GetAxisRaw("Horizontal")== 0)
+        check = false;
+        if (horizontalInput == 0)
         {
+
+            states = "move";
             isRun = false;
         }
     }
@@ -215,8 +249,8 @@ public class PlayerController : MonoBehaviour
             RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, LayerMask.GetMask("Ground"));
             if (((hitWall.collider != null && hitWall.collider.CompareTag("Ground") && transform.localScale == new Vector3(chInRommSize, chInRommSize, 1)) ||( hitWall2.collider != null && hitWall2.collider.CompareTag("Ground") && transform.localScale == new Vector3(-chInRommSize, chInRommSize, 1)) ) && isGrounded ==false)
             {
-                float horizontalInput = Input.GetAxisRaw("Horizontal");
-                    if (isWallReset == false && horizontalInput != 0)
+                horizontalInput = moveAction.ReadValue<float>();
+                if (isWallReset == false && horizontalInput != 0)
                 {
                     Debug.Log("1회동작");
                     isWallReset = true;
