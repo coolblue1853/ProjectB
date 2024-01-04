@@ -16,7 +16,7 @@ public class Item
 public class DatabaseManager : MonoBehaviour
 {
     public static bool weaponStopMove = false;
-
+    public static bool isOpenUI = false;
 
     private List<ItemSheet.Data> ItemDataList;
 

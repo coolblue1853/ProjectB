@@ -64,55 +64,59 @@ public class PlayerController : MonoBehaviour
     {
        //Debug.Log(moveAction.ReadValue<float>());
 
-        if (rb.velocity != Vector2.zero  && DatabaseManager.weaponStopMove == true && isGrounded == true)
+        if(DatabaseManager.isOpenUI == false)
         {
-            rb.velocity = Vector2.zero;
-        }
-
-        if (runAction .triggered&& isRun == false && DatabaseManager.weaponStopMove == false && Mathf.Abs(horizontalInput)>0)
-        {
-            isRun = true;
-            runSteminaDown();
-        }
-        else if ((runAction.triggered && isRun == true) && DatabaseManager.weaponStopMove == false)
-        {
-
-            isRun = false;
-        }
-        // 이동
-        if(DatabaseManager.weaponStopMove == false)
-        {
-            Move();
-        }
-
-
-        // 대쉬
-        if (dashAction.triggered && dashTimer <= 0f && DatabaseManager.weaponStopMove == false && PlayerHealthManager.Instance.nowStemina > dashStemina)
-        {
-            Dash();
-        }
-
-
-
-        // 점프
-        if (jumpAction.triggered && DatabaseManager.weaponStopMove == false)
-        {
-            if(isWall == true)
+            if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true && isGrounded == true)
             {
-                WallJump();
-            }
-            else if((isGrounded || jumpsRemaining > 0) && states != "dash")
-            {
-                Jump();
+                rb.velocity = Vector2.zero;
             }
 
-        }
+            if (runAction.triggered && isRun == false && DatabaseManager.weaponStopMove == false && Mathf.Abs(horizontalInput) > 0)
+            {
+                isRun = true;
+                runSteminaDown();
+            }
+            else if ((runAction.triggered && isRun == true) && DatabaseManager.weaponStopMove == false)
+            {
 
-        // 대쉬 타이머 업데이트
-        if (dashTimer > 0f)
-        {
-            dashTimer -= Time.deltaTime;
+                isRun = false;
+            }
+            // 이동
+            if (DatabaseManager.weaponStopMove == false)
+            {
+                Move();
+            }
+
+
+            // 대쉬
+            if (dashAction.triggered && dashTimer <= 0f && DatabaseManager.weaponStopMove == false && PlayerHealthManager.Instance.nowStemina > dashStemina)
+            {
+                Dash();
+            }
+
+
+
+            // 점프
+            if (jumpAction.triggered && DatabaseManager.weaponStopMove == false)
+            {
+                if (isWall == true)
+                {
+                    WallJump();
+                }
+                else if ((isGrounded || jumpsRemaining > 0) && states != "dash")
+                {
+                    Jump();
+                }
+
+            }
+
+            // 대쉬 타이머 업데이트
+            if (dashTimer > 0f)
+            {
+                dashTimer -= Time.deltaTime;
+            }
         }
+    
     }
     private void runSteminaDown()
     {

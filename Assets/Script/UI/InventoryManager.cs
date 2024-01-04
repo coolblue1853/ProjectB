@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject inventoryBoxPrefab; // 생성되는 Box 인스턴스
@@ -27,8 +28,49 @@ public class InventoryManager : MonoBehaviour
     public GameObject divideUI;
     public DivideSlider divideSlider;
 
+    KeyAction action;
+    InputAction openInventoryAction;
+    InputAction leftInventoryAction;
+    InputAction rightInventoryAction;
+    InputAction upInventoryAction;
+    InputAction downInventoryAction;
+
+
+    private void OnEnable()
+    {
+
+        openInventoryAction.Enable();
+        leftInventoryAction.Enable();
+        rightInventoryAction.Enable();
+        upInventoryAction.Enable();
+        downInventoryAction.Enable();
+
+
+    }
+
+
+    private void OnDisable()
+    {
+
+        openInventoryAction.Disable();
+        leftInventoryAction.Disable();
+        rightInventoryAction.Disable();
+        upInventoryAction.Disable();
+        downInventoryAction.Disable();
+
+    }
+
+
     private void Awake()
     {
+        action = new KeyAction();
+        openInventoryAction = action.UI.OpenInventory;
+        leftInventoryAction = action.UI.LeftInventory;
+        rightInventoryAction = action.UI.RightInventory;
+        upInventoryAction = action.UI.UPInventory;
+        downInventoryAction = action.UI.DownInventory;
+
+
         if (instance != null)
         {
             Destroy(this.gameObject);
@@ -314,7 +356,7 @@ public class InventoryManager : MonoBehaviour
 
     void BoxChangeByKey()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow) && maxBoxCusor-1 > boxCusor)
+        if (downInventoryAction.triggered && maxBoxCusor-1 > boxCusor)
         {
             boxCusor += 1;
             GameObject insPositon = inventoryBox[boxCusor];
@@ -328,7 +370,7 @@ public class InventoryManager : MonoBehaviour
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) && maxBoxCusor-1 == boxCusor)
+        else if (downInventoryAction.triggered && maxBoxCusor-1 == boxCusor)
         {
             boxCusor = 0;
             GameObject insPositon = inventoryBox[boxCusor];
@@ -341,7 +383,7 @@ public class InventoryManager : MonoBehaviour
                 changeCusor.transform.position = insPositon.transform.position;
             }
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow) && 0 < boxCusor)
+        if ((upInventoryAction.triggered) && 0 < boxCusor)
         {
             boxCusor -= 1;
             GameObject insPositon = inventoryBox[boxCusor];
@@ -354,7 +396,7 @@ public class InventoryManager : MonoBehaviour
                 changeCusor.transform.position = insPositon.transform.position;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow) && 0 == boxCusor)
+        else if (upInventoryAction.triggered && 0 == boxCusor)
         {
             boxCusor = maxBoxCusor - 1;
             GameObject insPositon = inventoryBox[boxCusor];
@@ -367,7 +409,7 @@ public class InventoryManager : MonoBehaviour
                 changeCusor.transform.position = insPositon.transform.position;
             }
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (rightInventoryAction.triggered)
        {
 
 
@@ -407,10 +449,13 @@ public class InventoryManager : MonoBehaviour
             cusor.transform.position = insPositon.transform.position;
         }
     }
+    bool once = false;
+    public string stick = "";
+   
     private void Update()
     {
 
-        if(state == "" && inventory.activeSelf == true)
+        if (state == "" && inventory.activeSelf == true)
         {
             BoxOpen();
 
@@ -427,9 +472,10 @@ public class InventoryManager : MonoBehaviour
         {
             CloseCheck();
         }
-        if((state =="" ||state =="detail")&& inventory.activeSelf== true)
+        if((state =="" || state =="detail")&& inventory.activeSelf== true)
         {
             CusorChecker();
+
             if (Input.GetKeyDown(KeyCode.C))
             {
                 OpenDivide();
@@ -458,23 +504,26 @@ public class InventoryManager : MonoBehaviour
             CreatItem("Rock");
 
         }
-        if (Input.GetKeyDown(KeyCode.I))
+        if (openInventoryAction.triggered)
         {
             if (inventory.activeSelf == true)
             {
+                DatabaseManager.isOpenUI = false;
                 inventory.SetActive(false);
             }
             else
             {
+                DatabaseManager.isOpenUI = true;
                 inventory.SetActive(true);
             }
         }
     }
     void CusorChecker()
     {
-        if(inventory.activeSelf == true && state != "change")
+        if (inventory.activeSelf == true && state != "change")
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+
+            if (rightInventoryAction.triggered)
             {
                 DetailOff();
                 int nowBoxMax = 0;
@@ -494,15 +543,16 @@ public class InventoryManager : MonoBehaviour
                 }
                 else
                 {
-                    cusorCount[nowBox] -= nowBoxMax-1;
+                    cusorCount[nowBox] -= nowBoxMax - 1;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
                 }
 
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+             if (leftInventoryAction.triggered )
             {
-                Debug.Log("체크중1");
+
+                once = true;
                 DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
@@ -513,23 +563,23 @@ public class InventoryManager : MonoBehaviour
                 {
                     nowBoxMax = ((nowBox + 1) * 30) - maxBoxNum;
                 }
-                if (cusorCount[nowBox] %6 == 0)
+                if (cusorCount[nowBox] % 6 == 0)
                 {
                     state = "boxChange";
                     boxCusor = 0;
                     GameObject insPositon = inventoryBox[boxCusor];
                     cusor.transform.position = insPositon.transform.position;
                 }
-               else
+                else
                 {
                     cusorCount[nowBox] -= 1;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
                 }
-        
+
 
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+             if (downInventoryAction.triggered )
             {
                 DetailOff();
                 int nowBoxMax = 0;
@@ -554,8 +604,9 @@ public class InventoryManager : MonoBehaviour
                     cusor.transform.position = insPositon.transform.position;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+             if (upInventoryAction.triggered )
             {
+                once = true;
                 DetailOff();
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
@@ -591,7 +642,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (inventory.activeSelf == true && state == "change")
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (rightInventoryAction.triggered)
             {
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
@@ -616,9 +667,9 @@ public class InventoryManager : MonoBehaviour
                 }
 
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (leftInventoryAction.triggered)
             {
-
+       
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
                 {
@@ -643,7 +694,7 @@ public class InventoryManager : MonoBehaviour
                 }
 
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (downInventoryAction.triggered)
             {
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
@@ -667,8 +718,9 @@ public class InventoryManager : MonoBehaviour
                     changeCusor.transform.position = insPositon.transform.position;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (upInventoryAction.triggered)
             {
+
                 int nowBoxMax = 0;
                 if ((nowBox + 1) * 30 < maxBoxNum)
                 {
