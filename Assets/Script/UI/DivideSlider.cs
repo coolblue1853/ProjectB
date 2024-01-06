@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
+using DG.Tweening;
 public class DivideSlider : MonoBehaviour
 {
     public int currentValue = 10; // 현재 가지고 있는 int 수
@@ -10,7 +12,42 @@ public class DivideSlider : MonoBehaviour
     public TextMeshProUGUI uiTxt;
     int output;
     public ItemCheck itemCheck;
-    void Start()
+    bool checkRepeat = false;
+    Sequence sequence;
+
+    KeyAction action;
+    InputAction leftAction;
+    InputAction rightAction;
+    InputAction enterAction;
+    InputAction horizontalCheck;
+    float horizontalInput;
+    private void OnEnable()
+    {
+        leftAction.Enable();
+        rightAction.Enable();
+        enterAction.Enable();
+        horizontalCheck.Enable();
+    }
+
+
+    private void OnDisable()
+    {
+        leftAction.Disable();
+        rightAction.Disable();
+        enterAction.Disable();
+        horizontalCheck.Disable();
+    }
+    private void Awake()
+    {
+        action = new KeyAction();
+        leftAction = action.UI.LeftInventory;
+        rightAction = action.UI.RightInventory;
+        enterAction = action.UI.Enter;
+        horizontalCheck = action.UI.horizontalCheck;
+    }
+
+
+        void Start()
     {
         // 슬라이더 초기화
         InitializeSlider();
@@ -24,7 +61,7 @@ public class DivideSlider : MonoBehaviour
     {
         // 슬라이더의 최소값과 최대값 설정
         divideSlider.minValue = 1;
-        divideSlider.maxValue = currentValue;
+        divideSlider.maxValue = currentValue-1;
 
         // 슬라이더의 현재 값 설정
         divideSlider.value = 1;
@@ -41,7 +78,7 @@ public class DivideSlider : MonoBehaviour
     public void ResetData()
     {
         divideSlider.minValue = 1;
-        divideSlider.maxValue = currentValue;
+        divideSlider.maxValue = currentValue-1;
 
         // 슬라이더의 현재 값 설정
         divideSlider.value = 1;
@@ -51,28 +88,54 @@ public class DivideSlider : MonoBehaviour
     public void Divide()
     {
         InventoryManager.instance.DownNowStack(output);
-        InventoryManager.instance.state = "detail";
+        InventoryManager.instance.DetailOff();
         this.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if(InventoryManager.instance.state == "divide")
+        horizontalInput = (horizontalCheck.ReadValue<float>());
+        if (InventoryManager.instance.state == "divide")
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (enterAction.triggered)
             {
                 Divide();
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) && divideSlider.value < divideSlider.maxValue)
+            else if ((rightAction.triggered) || (checkRepeat == false && horizontalInput == 1) && divideSlider.value < divideSlider.maxValue)
             {
-                divideSlider.value += 1;
-                uiTxt.text = output.ToString() + "/" + currentValue.ToString();
+                RightMove();
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) && divideSlider.value>1)
+            else if ((leftAction.triggered) || (checkRepeat == false && horizontalInput == -1) && divideSlider.value>1 )
             {
-                divideSlider.value -= 1;
-                uiTxt.text = output.ToString() + "/" + currentValue.ToString();
+                LeftMove();
             }
         }
+    }
+    float waitTime = 0.18f;
+    void RightMove()
+    {
+        checkRepeat = true;
+        sequence.Kill();
+
+        sequence = DOTween.Sequence()
+        .AppendInterval(waitTime)
+        .OnComplete(() => ResetCheckRepeat());
+        divideSlider.value += 1;
+        uiTxt.text = output.ToString() + "/" + currentValue.ToString();
+    }
+    void LeftMove()
+    {
+        checkRepeat = true;
+        sequence.Kill();
+
+        sequence = DOTween.Sequence()
+        .AppendInterval(waitTime)
+        .OnComplete(() => ResetCheckRepeat());
+        divideSlider.value -= 1;
+        uiTxt.text = output.ToString() + "/" + currentValue.ToString();
+    }
+    void ResetCheckRepeat()
+    {
+        checkRepeat = false;
     }
 }
