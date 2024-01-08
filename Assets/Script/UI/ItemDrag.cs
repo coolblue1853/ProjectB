@@ -82,7 +82,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 int siblingParentIndex = changeParent.transform.parent.GetSiblingIndex();
                 int siblingIndex = changeParent.transform.GetSiblingIndex();
                 //InventoryManager.instance.TestDelet(siblingParentIndex, siblingIndex);
-                InventoryManager.instance.MoveItem(siblingIndex, siblingParentIndex);
             }
             else
             {
@@ -125,12 +124,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     this.transform.position = changeParent.transform.position;
 
                 }
-
-
-
-                InventoryManager.instance.MoveItem(siblingIndex, siblingParentIndex);
-
-                // InventoryManager.instance.ExchangeItem(currentParent.gameObject, changeParent.gameObject);
             }
 
 
