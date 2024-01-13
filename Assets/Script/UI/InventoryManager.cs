@@ -14,8 +14,8 @@ public class InventoryManager : MonoBehaviour
     Image cusorImage;
     public GameObject cusor; // 인벤토리 커서
     public GameObject changeCusor; // 인벤토리 커서
-    int[] cusorCount = new int[5]; // 인벤토리 커서
-    int boxCusor = 0; // 박스 이동시 커서 int
+    public int[] cusorCount = new int[5]; // 인벤토리 커서
+    public int boxCusor = 0; // 박스 이동시 커서 int
     int maxBoxCusor = 0; // 최대 이동 가능 박스 커서
     public int maxBoxNum;
     public int[,] inventoryArray;
@@ -1190,5 +1190,12 @@ public class InventoryManager : MonoBehaviour
     {
         state = "chestOpen";
         chest = input;
+    }
+
+
+    public void ResetBoxOrigin()
+    {
+        GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+        cusor.transform.position = insPositon.transform.position;
     }
 }

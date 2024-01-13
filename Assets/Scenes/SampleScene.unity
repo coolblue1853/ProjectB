@@ -12616,7 +12616,12 @@ MonoBehaviour:
   - {fileID: 16218383}
   - {fileID: 1376290705}
   - {fileID: 635492106}
-  inventoryBox: []
+  inventoryBox:
+  - {fileID: 218669048}
+  - {fileID: 1760831789}
+  - {fileID: 1086434366}
+  - {fileID: 1253413660}
+  - {fileID: 14056945}
   cusor: {fileID: 1523633293}
   changeCusor: {fileID: 822225008}
   maxBoxNum: 150
@@ -12630,6 +12635,8 @@ MonoBehaviour:
   maxHor: 6
   maxVer: 5
   DoubleCheckController: 0
+  beforBox: {fileID: 0}
+  afterBox: {fileID: 0}
   stick: 
 --- !u!1 &968492878
 GameObject:

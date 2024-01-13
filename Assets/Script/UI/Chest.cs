@@ -10,7 +10,8 @@ public class Chest : MonoBehaviour
     Image cusorImage;
     public GameObject inventoryOb;
     public GameObject chestOb;
-    bool isChestActive;
+    public bool isChestClose;
+    public  bool isChestActive;
     public GameObject itemPrefab;
     public GameObject[] inventoryUI;
     public GameObject[] inventoryBox;
@@ -19,14 +20,14 @@ public class Chest : MonoBehaviour
     public GameObject changeCusor; // 인벤토리 커서
     int[] cusorCount = new int[5]; // 인벤토리 커서
     int boxCusor = 0; // 박스 이동시 커서 int
-    int maxBoxCusor = 0; // 최대 이동 가능 박스 커서
+    int maxBoxCusor = 5; // 최대 이동 가능 박스 커서
     public int maxBoxNum;
     public int[,] inventoryArray;
 
     public int nowBox;  // 이것으로 배열의 값을 읽어오면 됨. 즉, nowBox가 2일때의 15번재는 30 +15 -> 45번째 칸에 있는 아이템이라는 말이 됨.
     public GameObject inventory;
     public GameObject miscDetail;
-    int detailX = 150, detailY = 12;
+    int detailX = -100  , detailY = 12;
     static public InventoryManager instance;
     public string state;
     public GameObject divideUI;
@@ -45,11 +46,21 @@ public class Chest : MonoBehaviour
     InputAction verticalCheck;
     InputAction horizontalCheck;
 
+    InputAction selectAction;
+    InputAction changeAction;
+    InputAction divideAction;
+    InputAction backAction;
+    InputAction chestMoveAction;
+
     bool checkRepeat = false;
     float waitTime = 0.18f;
     public Sequence sequence;
     Sequence dcSequence;
     public bool DoubleCheckController = false;
+
+    public GameObject beforBox;
+    public GameObject afterBox;
+    int beforeCusorInt;
     private void OnEnable()
     {
         upAction.Enable();
@@ -59,6 +70,11 @@ public class Chest : MonoBehaviour
         downInventoryAction.Enable();
         verticalCheck.Enable();
         horizontalCheck.Enable();
+        selectAction.Enable();
+        changeAction.Enable();
+        divideAction.Enable();
+        backAction.Enable();
+        chestMoveAction.Enable();
     }
 
 
@@ -71,6 +87,11 @@ public class Chest : MonoBehaviour
         downInventoryAction.Disable();
         verticalCheck.Disable();
         horizontalCheck.Disable();
+        selectAction.Disable();
+        changeAction.Disable();
+        divideAction.Disable();
+        backAction.Disable();
+        chestMoveAction.Disable();
     }
     private void Awake()
     {
@@ -85,27 +106,146 @@ public class Chest : MonoBehaviour
         downInventoryAction = action.UI.DownInventory;
         verticalCheck = action.UI.verticalCheck;
         horizontalCheck = action.UI.horizontalCheck;
+
+        selectAction = action.UI.Select;
+        changeAction = action.UI.Change;
+        divideAction = action.UI.Divide;
+        backAction = action.UI.Back;
+        chestMoveAction = action.UI.ChestMoveActive;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.transform.tag == "Player")
         {
-            isChestActive = true;
+            isChestClose = true;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.tag == "Player")
         {
-            isChestActive = false;
+            isChestClose = false;
         }
+    }
+    void BoxChangeByKey()
+    {
+        if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1))
+        {
+            checkRepeat = true;
+            sequence.Kill();
+
+            sequence = DOTween.Sequence()
+            .AppendInterval(waitTime)
+            .OnComplete(() => ResetCheckRepeat());
+
+            if (maxBoxCusor - 1 > boxCusor)
+            {
+                boxCusor += 1;
+            }
+            else
+            {
+                boxCusor = 0;
+            }
+            GameObject insPositon = inventoryBox[boxCusor];
+            if (state == "boxChange")
+            {
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (state == "itemBoxChange")
+            {
+                changeCusor.transform.position = insPositon.transform.position;
+            }
+        }
+        if ((leftInventoryAction.triggered) || (checkRepeat == false && horizontalInput == -1))
+        {
+            checkRepeat = true;
+            sequence.Kill();
+
+            sequence = DOTween.Sequence()
+            .AppendInterval(waitTime)
+            .OnComplete(() => ResetCheckRepeat());
+
+            if (0 < boxCusor)
+            {
+                boxCusor -= 1;
+            }
+            else
+            {
+                boxCusor = maxBoxCusor - 1;
+            }
+
+            GameObject insPositon = inventoryBox[boxCusor];
+            if (state == "boxChange")
+            {
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (state == "itemBoxChange")
+            {
+                changeCusor.transform.position = insPositon.transform.position;
+            }
+         
+        }
+        /*
+        if (rightInventoryAction.triggered && checkRepeat == false)
+        {
+            checkRepeat = true;
+            sequence.Kill();
+
+            sequence = DOTween.Sequence()
+            .AppendInterval(waitTime)
+            .OnComplete(() => ResetCheckRepeat());
+            GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+
+        }
+        if (leftInventoryAction.triggered && checkRepeat == false)
+        {
+
+
+        }
+        */
+
+
+        if (selectAction.triggered && state == "boxChange")
+        {
+            ResetInventoryBox();
+            nowBox = boxCusor;
+            inventoryUI[boxCusor].SetActive(true);
+            state = "";
+            GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+            cusor.transform.position = insPositon.transform.position;
+        }
+        if (changeAction.triggered && state == "itemBoxChange" && boxCusor != nowBox)
+        {
+            //BoxChange(boxCusor);
+            state = "";
+            GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+            cusor.transform.position = insPositon.transform.position;
+        }
+    }
+    void ResetChest()
+    {
+        ResetInventoryBox();
+        InventoryManager.instance.ResetInventoryBox();
+
+        cusor.SetActive(false);
+        inventoryUI[0].SetActive(true);
+        InventoryManager.instance.inventoryUI[0].SetActive(true);
+        InventoryManager.instance.nowBox = 0;
+        InventoryManager.instance.boxCusor = 0;
+        InventoryManager.instance.ResetBoxOrigin();
+        nowBox = 0;
+        boxCusor = 0;
+
+        InventoryManager.instance.cusor.SetActive(true);
+
+        InventoryManager.instance.state = "chestOpen";
     }
     private void Update()
     {
 
-        if (isChestActive == true&& upAction.triggered && DatabaseManager.isOpenUI == false)
+        if (isChestClose == true&& upAction.triggered && DatabaseManager.isOpenUI == false)
         {
-
+            state = "";
             Debug.Log("작동중");
             InventoryManager.instance.RepeatCheck();
             DatabaseManager.isOpenUI = true;
@@ -113,15 +253,88 @@ public class Chest : MonoBehaviour
             inventoryOb.SetActive(true);
             chestOb.SetActive(true);
 
+            ResetChest();
         }
         if(isCusorChest == true)
         {
-            CusorChecker();
+            if (inventory.activeSelf == true)
+            {
+                if (state == "")
+                {
+           //         BoxOpen();
+
+                }
+                if (selectAction.triggered)
+                {
+                    if (state == "")
+                    {
+                        BoxContentChecker();
+                    }
+                    else if (state == "detail")
+                    {
+                        CloseCheck();
+                    }
+                    if (state == "I2CMove")
+                   {
+                  //      I2CMove();
+                   }
+                }
+                if (chestMoveAction.triggered)
+                {
+                    if (state == "chestOpen")
+                    {
+                        state = "I2CMove"; // 인벤토리에서 창고로 물건 이동
+                        cusorImage.color = new Color(23f / 255f, 123f / 255f, 161f / 255f);
+
+                    }
+                    else if (state == "I2CMove")
+                    {
+                        state = "chestOpen";
+                        cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+                    }
+                }
+            }
+            if (backAction.triggered)
+            {
+                CloseCheck();
+            }
+            if ((state == "" || state == "detail" || state == "chestOpen" || state == "I2CMove") && inventory.activeSelf == true)
+            {
+                CusorChecker();
+
+                if (divideAction.triggered)
+                {
+         //           OpenDivide();
+                }
+            }
+
+            if (changeAction.triggered && inventory.activeSelf == true)
+            {
+          //      ActiveChangeCursor();
+            }
+            if (state == "change")
+            {
+            //    ChangeCusorChecker();
+            }
+            if ((state == "boxChange" || state == "itemBoxChange") && inventory.activeSelf == true)
+            {
+                BoxChangeByKey();
+            }
+
+            verticalInput = (verticalCheck.ReadValue<float>());
+            horizontalInput = (horizontalCheck.ReadValue<float>());
+
         }
     }
 
     public void CusorMove2Chest()
     {
+        checkRepeat = true;
+        sequence.Kill();
+        state = "";
+        sequence = DOTween.Sequence()
+        .AppendInterval(waitTime)
+        .OnComplete(() => ResetCheckRepeat());
         isChestActive = true;
         cusor.SetActive(true);
         GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
@@ -257,12 +470,15 @@ public class Chest : MonoBehaviour
                 }
                 if (cusorCount[nowBox] - maxHor >= 0)
                 {
+   
                     cusorCount[nowBox] -= maxHor;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
+       
+
                 }
                 else
-                {
+                {/*
                     while (cusorCount[nowBox] + maxHor < nowBoxMax)
                     {
                         cusorCount[nowBox] += maxHor;
@@ -270,7 +486,14 @@ public class Chest : MonoBehaviour
 
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
+                    */
+                    state = "boxChange";
+                    boxCusor = 0;
+                    GameObject insPositon = inventoryBox[boxCusor];
+                    cusor.transform.position = insPositon.transform.position;
+
                 }
+
             }
         }
     }
@@ -296,60 +519,59 @@ public class Chest : MonoBehaviour
 
             for (int j = 0; j < 5; j++)
             {
-                for (int i = 0; i < (maxHor * maxVer); i++)
+             
+            }
+
+            for (int i = 0; i < (maxHor * maxVer); i++)
+            {
+                if (maxBoxNum > (nowBox * (maxHor * maxVer)) + i)
                 {
-                    if (maxBoxNum > (j * (maxHor * maxVer)) + i)
+                    if (inventoryArray[i, nowBox] == 0)
                     {
-                        if (inventoryArray[i, j] == 0)
-                        {
-                            //inventoryArray[i, j] = 1; // i번째 위치한 인벤토리 창 열기.
-                            GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
-                            GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
-                            float scaleFactor = 0.8f; // 크기를 조절할 비율
-                            item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-                            ItemCheck check = item.GetComponent<ItemCheck>();
-                            check.SetItem(itemName);
-                            isCreate = true;
-                            InventoryManager.instance.itemCheck.nowStack -= 1;
-                            break;
-                        }
+                        //inventoryArray[i, j] = 1; // i번째 위치한 인벤토리 창 열기.
+                        GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], i);
+                        GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
+                        float scaleFactor = 0.8f; // 크기를 조절할 비율
+                        item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+                        ItemCheck check = item.GetComponent<ItemCheck>();
+                        check.SetItem(itemName);
+                        isCreate = true;
+                        InventoryManager.instance.itemCheck.nowStack -= 1;
+                        break;
                     }
                 }
-                if (isCreate == true)
-                {
-                    break;
-                }
+            }
+            if (isCreate == true)
+            {
+  
             }
         }
 
     }
     bool CheckStack(string itemName, int stack =1)
     {
-        for (int j = 0; j < 5; j++)
+        for (int i = 0; i < (maxHor * maxVer); i++)
         {
-            for (int i = 0; i < (maxHor * maxVer); i++)
+            if (maxBoxNum > (nowBox * (maxHor * maxVer)) + i)
             {
-                if (maxBoxNum > (j * (maxHor * maxVer)) + i)
+                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], i);
+                if (insPositon.transform.childCount > 0)
                 {
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
-                    if (insPositon.transform.childCount > 0)
+                    GameObject item = insPositon.transform.GetChild(0).gameObject;
+                    ItemCheck check = item.GetComponent<ItemCheck>();
+                    if (check.name == itemName)
                     {
-                        GameObject item = insPositon.transform.GetChild(0).gameObject;
-                        ItemCheck check = item.GetComponent<ItemCheck>();
-                        if (check.name == itemName)
+                        if (check.maxStack > check.nowStack)
                         {
-                            if (check.maxStack > check.nowStack)
-                            {
-                                InventoryManager.instance.itemCheck.nowStack -= 1;
-                                check.nowStack += stack;
-                                return true;
-                            }
- 
-
+                            InventoryManager.instance.itemCheck.nowStack -= 1;
+                            check.nowStack += stack;
+                            return true;
                         }
-                    }
 
+
+                    }
                 }
+
             }
         }
         return false;
@@ -400,6 +622,72 @@ public class Chest : MonoBehaviour
             }
         }
 
+    }
+    public void BoxContentChecker(GameObject ob = null) // Z키 클릭시 인벤토리창
+    {
+        if (inventoryArray[cusorCount[nowBox], nowBox] == 1 && state == "")
+        {
+            ItemCheck detail;
+            state = "detail";
+
+            if (ob != null)
+            {
+                detail = ob.transform.GetComponent<ItemCheck>();
+            }
+            else
+            {
+                GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
+                //Debug.Log(gameObject.transform.GetChild(0));
+                detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
+            }
+
+            if (detail.type == "Misc")
+            {
+                Transform misc = miscDetail.gameObject.transform;
+                misc.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+                misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+                misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+                misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
+                misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
+                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+                if (ob != null)
+                {
+                    miscDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
+                }
+                else
+                {
+                    miscDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
+                }
+                miscDetail.SetActive(true);
+            }
+        }
+
+
+    }
+    void CloseCheck()
+    {
+        if (state == "detail")
+        {
+            state = "";
+            DetailOff();
+        }
+        else if (state == "change")
+        {
+            state = "";
+            BoxContentChecker();
+            cusorCount[nowBox] = beforeCusorInt;
+            changeCusor.SetActive(false);
+        }
+        else if (state == "divide")
+        {
+            CloseDivide();
+        }
+    }
+    public void CloseDivide()
+    {
+        divideSlider.gameObject.SetActive(false);
+        state = "";
     }
     public bool CheckBoxCanCreat()
     {
