@@ -234,8 +234,19 @@ public class InventoryManager : MonoBehaviour
     }
     public void CloseDivide()
     {
-        divideSlider.gameObject.SetActive(false);
-        state = "";
+        if(chest == null)
+        {
+            divideSlider.gameObject.SetActive(false);
+            state = "";
+
+        }
+        else
+        {
+            divideSlider.gameObject.SetActive(false);
+            state = "chestOpen";
+
+        }
+
     }
     public void DownNowStack(int output)
     {
@@ -249,7 +260,7 @@ public class InventoryManager : MonoBehaviour
     void ActiveChangeCursor()
     {
 
-        if (state == "" || state == "detail")
+        if (state == "" || state == "detail" || state == "chestOpen")
         {
             beforBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
             if(beforBox.transform.childCount != 0)
@@ -386,15 +397,36 @@ public class InventoryManager : MonoBehaviour
     {
         if(state == "detail")
         {
-            state = "";
-            DetailOff();
+            if(chest == null)
+            {
+                state = "";
+                DetailOff();
+            }
+            else
+            {
+                state = "chestOpen";
+                DetailOff();
+            }
+
         }
         else if(state == "change")
         {
-             state = "";
-            BoxContentChecker();
-            cusorCount[nowBox] = beforeCusorInt;
-            changeCusor.SetActive(false);
+            if (chest == null)
+            {
+                state = "";
+                //  BoxContentChecker();
+                DetailOff();
+                cusorCount[nowBox] = beforeCusorInt;
+                changeCusor.SetActive(false);
+            }
+            else
+            {
+                state = "chestOpen";
+                DetailOff();
+                cusorCount[nowBox] = beforeCusorInt;
+                changeCusor.SetActive(false);
+            }
+
         }
         if (state == "divide")
         {
@@ -530,7 +562,7 @@ public class InventoryManager : MonoBehaviour
         }
         if (leftInventoryAction.triggered && checkRepeat == false)
         {
-            if (chest != null)
+            if (chest != null && state != "itemBoxChange")
             {
                 cusor.SetActive(false);
                 state = "InChestMove";
@@ -583,7 +615,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (selectAction.triggered)
             {
-                if (state == "")
+                if (state == "" || state == "chestOpen")
                 {
                     BoxContentChecker();
                 }
@@ -983,7 +1015,7 @@ public class InventoryManager : MonoBehaviour
     }
     public void BoxContentChecker(GameObject ob = null) // Z키 클릭시 인벤토리창
     {
-        if(inventoryArray[cusorCount[nowBox], nowBox] == 1 && state == "")
+        if (inventoryArray[cusorCount[nowBox], nowBox] == 1 && (state == "" || state == "chestOpen"))
         {
             ItemCheck detail;
             state = "detail";
@@ -1173,9 +1205,14 @@ public class InventoryManager : MonoBehaviour
 
     public void DetailOff()
     {
-        if (state != "chestOpen" && state != "I2CMove")
+        if ((state == "chestOpen" || chest != null)&& state != "I2CMove")
         {
-        state = "";
+            state = "chestOpen";
+        }
+        else if (state != "chestOpen" && state != "I2CMove")
+        {
+            Debug.Log("삭제");
+            state = "";
         }
 
         miscDetail.SetActive(false);

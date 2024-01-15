@@ -337,6 +337,7 @@ public class Chest : MonoBehaviour
         .OnComplete(() => ResetCheckRepeat());
         isChestActive = true;
         cusor.SetActive(true);
+        InventoryManager.instance.changeCusor.SetActive(false);
         GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
         cusor.transform.position = insPositon.transform.position;
     }
@@ -488,7 +489,7 @@ public class Chest : MonoBehaviour
                     cusor.transform.position = insPositon.transform.position;
                     */
                     state = "boxChange";
-                    boxCusor = 0;
+                    boxCusor = nowBox;
                     GameObject insPositon = inventoryBox[boxCusor];
                     cusor.transform.position = insPositon.transform.position;
 

@@ -2279,7 +2279,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &154202204
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9513,7 +9513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &758715847
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12609,6 +12609,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryOb: {fileID: 1631468873}
   chestOb: {fileID: 1569622228}
+  isChestClose: 0
+  isChestActive: 0
   itemPrefab: {fileID: 179528684802123196, guid: 24c4f62a7e2d66842b9fe0864de47ddb, type: 3}
   inventoryUI:
   - {fileID: 253643360}
@@ -15765,7 +15767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1169477079
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19558,7 +19560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1472618889
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28832,6 +28834,8 @@ MonoBehaviour:
   - {fileID: 2040446540}
   cusor: {fileID: 7499933541186713696}
   changeCusor: {fileID: 856413015}
+  cusorCount: 0000000000000000000000000000000000000000
+  boxCusor: 0
   maxBoxNum: 45
   nowBox: 0
   inventory: {fileID: 1631468873}
