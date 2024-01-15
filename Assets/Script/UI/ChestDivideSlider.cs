@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 using DG.Tweening;
-public class DivideSlider : MonoBehaviour
+public class ChestDivideSlider : MonoBehaviour
 {
     public int currentValue = 10; // 현재 가지고 있는 int 수
     public Slider divideSlider; // Unity Inspector에서 Slider를 할당
@@ -22,6 +22,7 @@ public class DivideSlider : MonoBehaviour
     InputAction horizontalCheck;
     float horizontalInput;
 
+    public Chest chest;
 
     private void OnEnable()
     {
@@ -89,15 +90,15 @@ public class DivideSlider : MonoBehaviour
     }
     public void Divide()
     {
-        InventoryManager.instance.DownNowStack(output);
-        InventoryManager.instance.DetailOff();
+        chest.DownNowStack(output);
+        chest.DetailOff();
         this.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         horizontalInput = (horizontalCheck.ReadValue<float>());
-        if (InventoryManager.instance.state == "divide")
+        if (chest.state == "divide")
         {
             if (enterAction.triggered)
             {

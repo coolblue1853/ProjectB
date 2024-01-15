@@ -127,17 +127,17 @@ public class InventoryManager : MonoBehaviour
     public bool CheckBoxCanCreat(int num)
     {
         bool isCreat = false;
-        for (int i = 0; i < maxHor*maxVer; i++)
+        for (int i = 0; i < maxHor * maxVer; i++)
         {
-            if(inventoryArray[i, num] == 0 && num * maxHor * maxVer + i <maxBoxNum )
+            if (inventoryArray[i, num] == 0 && num * maxHor * maxVer + i < maxBoxNum)
             {
                 isCreat = true;
-  
+
                 break;
             }
 
         }
-        if(isCreat == true)
+        if (isCreat == true)
         {
             return true;
         }
@@ -1057,7 +1057,7 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    public void CreatItem(string itemName)
+    public void CreatItem(string itemName, bool isC2I = false)
     {
         if(CheckStack(itemName) == false)
         {
@@ -1070,10 +1070,12 @@ public class InventoryManager : MonoBehaviour
                     {
                         if (inventoryArray[i, j] == 0)
                         {
+
                             GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
                             GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                             ItemCheck check = item.GetComponent<ItemCheck>();
                             check.SetItem(itemName);
+
                             isCreate = true;
                             break;
                         }
@@ -1086,6 +1088,10 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
+        if (isC2I == true)
+        {
+            chest.itemCheck.nowStack -= 1;
+        }
 
     }
     public void ExchangeItem(GameObject nowBoxOb, GameObject afterBoxOb)
