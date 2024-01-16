@@ -368,12 +368,8 @@ public class Chest : MonoBehaviour
 
             if (itemCheck.nowStack <= 0)
             {
-                Debug.Log("삭제 진행");
                 Destroy(item.gameObject);
-
             }
-
-
         }
     }
     void OnlyDetailObOff()
@@ -1090,4 +1086,31 @@ public class Chest : MonoBehaviour
         }
 
     }
+    public void ChangeCusor(GameObject ob)
+    {
+
+        isChestActive = true;
+        isCusorChest = true;
+        cusorCount[nowBox] = ob.transform.GetSiblingIndex();
+        Debug.Log(cusorCount[nowBox]);
+        cusor.transform.position = ob.transform.position;
+        changeCusor.SetActive(false);
+        InventoryManager.instance.CloseDivide();
+        state = "";
+        isChestActive = true;
+        cusor.SetActive(true);
+        InventoryManager.instance.state = "InChestMove";
+        InventoryManager.instance.changeCusor.SetActive(false);
+        InventoryManager.instance.cusor.SetActive(false);
+
+
+    }
+
+    public void DragReset()
+    {
+        divideUI.SetActive(false);
+        changeCusor.SetActive(false);
+        state = "";
+    }
+
 }

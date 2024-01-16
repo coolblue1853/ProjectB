@@ -8,6 +8,9 @@ TagManager:
   - Enemy
   - Box
   - UpperBox
+  - dragCanvas
+  - Inventory
+  - Chest
   layers:
   - Default
   - TransparentFX

@@ -13,10 +13,13 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     ItemCheck itemCheck;
     int siblingParentIndex;
     int siblingIndex;
+    public GameObject dragCanvus;
+
 
     private void Start()
     {
         itemCheck = this.transform.GetComponent<ItemCheck>();
+        dragCanvus = GameObject.FindWithTag("dragCanvas");
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -27,12 +30,30 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
         else if (eventData.button == PointerEventData.InputButton.Left)
         {
-            InventoryManager.instance.ChangeCusor(this.gameObject.transform.parent.gameObject);
+            if(this.gameObject.transform.parent.parent != null)
+            {
+                if (this.gameObject.transform.parent.parent.gameObject.transform.tag == "Inventory")
+                {
+                    InventoryManager.instance.ChangeCusor(this.gameObject.transform.parent.gameObject);
+                }
+                else if (this.gameObject.transform.parent.parent.gameObject.transform.tag == "Chest")
+                {
+
+                    InventoryManager.instance.chest.ChangeCusor(this.gameObject);
+                }
+            }
+
+
         }
 
     }
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
+        if(InventoryManager.instance.chest != null && this.gameObject.transform.parent.parent.gameObject.transform.tag == "Chest")
+        {
+            InventoryManager.instance.chest.DragReset();
+        }
+        InventoryManager.instance.DragReset();
          currentParent = transform.parent;
 
         if (currentParent != null)
@@ -45,7 +66,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             if (grandParent != null)
             {
                 // 부모의 부모의 자식으로 현재 객체 추가
-                transform.SetParent(grandParent);
+                transform.SetParent(dragCanvus.transform);
                 InventoryManager.instance.TestDelet(siblingParentIndex, siblingIndex);
             }
             else
@@ -72,7 +93,23 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         if(changeParent != null)
         {
-            InventoryManager.instance.ChangeCusor(changeParent.gameObject);
+            if(changeParent.parent.tag == "Inventory")
+            {
+               if(InventoryManager.instance.chest != null)
+                {
+                    InventoryManager.instance.chest.cusor.SetActive(false);
+                }
+                InventoryManager.instance.cusor.SetActive(true);
+                InventoryManager.instance.ChangeCusor(changeParent.gameObject);
+            }
+            else if (changeParent.parent.tag == "Chest")
+            {
+                InventoryManager.instance.cusor.SetActive(false);
+                InventoryManager.instance.chest.cusor.SetActive(true);
+                InventoryManager.instance.chest.ChangeCusor(changeParent.gameObject);
+
+            }
+
             if (changeParent.childCount == 0)
             {
                 transform.SetParent(changeParent);
@@ -143,10 +180,22 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
         else
         {
-            transform.SetParent(currentParent);
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            this.transform.position = currentParent.transform.position;
-            InventoryManager.instance.ChangeCusor(currentParent.gameObject);
+            if(currentParent.parent.tag == "Inventory")
+            {
+                Debug.Log("작동중");
+                transform.SetParent(currentParent);
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                this.transform.position = currentParent.transform.position;
+                InventoryManager.instance.ChangeCusor(currentParent.gameObject);
+            }
+            else if (currentParent.parent.tag == "Chest")
+            {
+                transform.SetParent(currentParent);
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                this.transform.position = currentParent.transform.position;
+                InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
+            }
+
         }
 
 

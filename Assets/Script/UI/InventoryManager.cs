@@ -238,15 +238,12 @@ public class InventoryManager : MonoBehaviour
         {
             divideSlider.gameObject.SetActive(false);
             state = "";
-
         }
         else
         {
             divideSlider.gameObject.SetActive(false);
             state = "chestOpen";
-
         }
-
     }
     public void DownNowStack(int output)
     {
@@ -319,9 +316,13 @@ public class InventoryManager : MonoBehaviour
             
             if(isSame == false)
             {
-                beforitem = beforBox.transform.GetChild(0).gameObject;
-                beforitem.transform.SetParent(afterBox.transform);
-                beforitem.transform.position = afterBox.transform.position;
+                if(beforBox.transform.childCount > 0)
+                {
+                    beforitem = beforBox.transform.GetChild(0).gameObject;
+                    beforitem.transform.SetParent(afterBox.transform);
+                    beforitem.transform.position = afterBox.transform.position;
+                }
+
             }
             GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
             cusor.transform.position = insPositon.transform.position;
@@ -1120,7 +1121,14 @@ public class InventoryManager : MonoBehaviour
     {
         cusorCount[nowBox] = ob.transform.GetSiblingIndex();
         cusor.transform.position = ob.transform.position;
+        cusor.SetActive(true);
+        chest.changeCusor.SetActive(false);
+        chest.cusor.SetActive(false);
+        chest.isCusorChest = false;
+        state = "chestOpen";
     }
+
+
     bool CheckStack(string itemName)
     {
 
@@ -1164,7 +1172,8 @@ public class InventoryManager : MonoBehaviour
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[boxNum], i);
                     GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                     ItemCheck check = item.GetComponent<ItemCheck>();
-
+                    float scaleFactor = 0.8f; // 크기를 조절할 비율
+                    item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                     check.SetItem(itemName);
                     check.nowStack = Stack;
                     break;
@@ -1217,7 +1226,7 @@ public class InventoryManager : MonoBehaviour
         }
         else if (state != "chestOpen" && state != "I2CMove")
         {
-            Debug.Log("삭제");
+
             state = "";
         }
 
@@ -1240,5 +1249,11 @@ public class InventoryManager : MonoBehaviour
     {
         GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
         cusor.transform.position = insPositon.transform.position;
+    }
+
+    public void DragReset()
+    {
+        changeCusor.SetActive(false);
+        state = "";
     }
 }

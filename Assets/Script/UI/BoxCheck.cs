@@ -8,12 +8,21 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
     int siblingIndex;
     int grandSiblingIndex;
     public int arrayCheck;
+    Chest chestComponent;
     public void OnPointerClick(PointerEventData eventData)
     {
 
         if  (eventData.button == PointerEventData.InputButton.Left)
         {
-           InventoryManager.instance.ChangeCusor(this.gameObject);
+            if (isInventoryBox)
+            {
+                InventoryManager.instance.ChangeCusor(this.gameObject);
+            }
+            else
+            {
+                chestComponent.ChangeCusor(this.gameObject);
+            }
+
         }
 
     }
@@ -38,7 +47,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
     }
     void ChestChildCheck()
     {
-        Chest chestComponent = FindParentWithChestScript(transform);
+         chestComponent = FindParentWithChestScript(transform);
 
         if (this.transform.childCount > 0 && isSetArray == false)
         {
