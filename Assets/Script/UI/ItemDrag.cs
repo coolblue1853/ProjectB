@@ -38,8 +38,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 }
                 else if (this.gameObject.transform.parent.parent.gameObject.transform.tag == "Chest")
                 {
-
-                    InventoryManager.instance.chest.ChangeCusor(this.gameObject);
+                    InventoryManager.instance.chest.ChangeCusor(this.gameObject.transform.parent.gameObject);
                 }
             }
 
@@ -167,16 +166,47 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
        else if(changeBox != null && changeBox.transform.GetSiblingIndex() != InventoryManager.instance.nowBox)
         {
-            int siblingParentIndex = changeBox.transform.GetSiblingIndex();
-            if (InventoryManager.instance.nowBox != siblingParentIndex)
+            if (changeBox.parent.tag == "Inventory")
             {
-                if (InventoryManager.instance.CheckBoxCanCreat(siblingParentIndex))
+                int siblingParentIndex = changeBox.transform.GetSiblingIndex();
+                if (InventoryManager.instance.nowBox != siblingParentIndex)
                 {
-                    InventoryManager.instance.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
-                    Destroy(this.gameObject);
+                    if (InventoryManager.instance.CheckBoxCanCreat(siblingParentIndex))
+                    {
+                        InventoryManager.instance.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
+                        Destroy(this.gameObject);
+                    }
+                }
+                if (currentParent.parent.tag == "Inventory")
+                {
+                    InventoryManager.instance.ChangeCusor(currentParent.gameObject);
+                }
+                else if (currentParent.parent.tag == "Chest")
+                {
+                    InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
+                }
+
+            }
+            else if (changeBox.parent.tag == "Chest")
+            {
+                int siblingParentIndex = changeBox.transform.GetSiblingIndex();
+                if (InventoryManager.instance.chest.nowBox != siblingParentIndex)
+                {
+                    if (InventoryManager.instance.chest.CheckBoxCanCreat(siblingParentIndex))
+                    {
+                        InventoryManager.instance.chest.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
+                        Destroy(this.gameObject);
+                    }
+                }
+                if (currentParent.parent.tag == "Inventory")
+                {
+                    InventoryManager.instance.ChangeCusor(currentParent.gameObject);
+                }
+                else if (currentParent.parent.tag == "Chest")
+                {
+                    InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
                 }
             }
-            InventoryManager.instance.ChangeCusor(currentParent.gameObject);
         }
         else
         {

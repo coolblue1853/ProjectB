@@ -903,6 +903,7 @@ public class Chest : MonoBehaviour
         {
             inventoryUI[i].SetActive(false);
         }
+
     }
     public void CreatItemSelected(string itemName, int boxNum, int Stack = 1)
     {
@@ -1086,9 +1087,17 @@ public class Chest : MonoBehaviour
         }
 
     }
+    public void OpenBox(int num)
+    {
+        ResetInventoryBox();
+        inventoryUI[num].transform.SetAsLastSibling();
+        GameObject insPositon = GetNthChildGameObject(inventoryUI[num], cusorCount[num]);
+        cusor.transform.position = insPositon.transform.position;
+        nowBox = num;
+    }
     public void ChangeCusor(GameObject ob)
     {
-
+        Debug.Log(ob);
         isChestActive = true;
         isCusorChest = true;
         cusorCount[nowBox] = ob.transform.GetSiblingIndex();

@@ -6,7 +6,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
 {
     public bool isInventoryBox = true;
     int siblingIndex;
-    int grandSiblingIndex;
+     int grandSiblingIndex;
     public int arrayCheck;
     Chest chestComponent;
     public void OnPointerClick(PointerEventData eventData)
@@ -31,14 +31,12 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
     {
         if(this.transform.childCount > 0&& isSetArray ==false)
         {
-            CheckArray();
             isSetArray = true;
             InventoryManager.instance.inventoryArray[siblingIndex, grandSiblingIndex] = 1;
             arrayCheck = 1;
         }
         else if (this.transform.childCount <= 0 && isSetArray == true)
         {
-            CheckArray();
             isSetArray = false;
             InventoryManager.instance.inventoryArray[siblingIndex, grandSiblingIndex] = 0;
             arrayCheck = 0;
@@ -51,14 +49,12 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
 
         if (this.transform.childCount > 0 && isSetArray == false)
         {
-            CheckArray();
             isSetArray = true;
             chestComponent.inventoryArray[siblingIndex, grandSiblingIndex] = 1;
             arrayCheck = 1;
         }
         else if (this.transform.childCount <= 0 && isSetArray == true)
         {
-            CheckArray();
             isSetArray = false;
             chestComponent.inventoryArray[siblingIndex, grandSiblingIndex] = 0;
             arrayCheck = 0;
@@ -107,7 +103,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
                 if (grandparentTransform != null)
                 {
                     // 자신이 부모의 부모의 몇 번째 자식인지 확인
-                    grandSiblingIndex = parentTransform.GetSiblingIndex();
+                  grandSiblingIndex = parentTransform.GetSiblingIndex();
                 }
             }
         }
@@ -116,7 +112,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-
+        CheckArray();
     }
 
     // Update is called once per frame

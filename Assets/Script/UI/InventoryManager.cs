@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryBoxPrefab; // 생성되는 Box 인스턴스
     public GameObject itemPrefab; // 생성되는 Box 인스턴스
     public GameObject[] inventoryUI;
+    public GameObject[] inventoryUIBack;
     public GameObject[] inventoryBox;
     Image cusorImage;
     public GameObject cusor; // 인벤토리 커서
@@ -112,13 +113,18 @@ public class InventoryManager : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            inventoryUI[i].SetActive(false);
+            inventoryUI[i].SetActive(true);
+            InventoryAlpha inventoryAlpha = inventoryUI[i].GetComponent<InventoryAlpha>();
+            inventoryAlpha.A20();
         }
+
     }
     public void OpenBox(int num) 
     {
         ResetInventoryBox();
-        inventoryUI[num].SetActive(true);
+        inventoryUI[num].transform.SetAsLastSibling();
+        InventoryAlpha inventoryAlpha = inventoryUI[num].GetComponent<InventoryAlpha>();
+        inventoryAlpha.ChangeAlpha();
         GameObject insPositon = GetNthChildGameObject(inventoryUI[num], cusorCount[num]);
         cusor.transform.position = insPositon.transform.position;
         nowBox = num;
@@ -153,6 +159,7 @@ public class InventoryManager : MonoBehaviour
         MakeInventoryBox();
         inventoryArray = new int[maxBoxNum, 5];
         Invoke("ActiveFalse", 0.000000001f); // 인벤토리 리로드, 이 과정이 없으면 GridLayoutGroup이 정상작동하지 않음.
+
     }
 
     // 나중에 퍼블릭 해체;
@@ -343,7 +350,9 @@ public class InventoryManager : MonoBehaviour
         cusor.transform.position = insPositon.transform.position;
         inventory.SetActive(false);
         ResetInventoryBox();
-        inventoryUI[0].SetActive(true);
+        inventoryUI[0].transform.SetAsLastSibling();
+        InventoryAlpha inventoryAlpha = inventoryUI[0].GetComponent<InventoryAlpha>();
+        inventoryAlpha.A21();
     }
 
     void MakeInventoryBox()
@@ -1122,9 +1131,13 @@ public class InventoryManager : MonoBehaviour
         cusorCount[nowBox] = ob.transform.GetSiblingIndex();
         cusor.transform.position = ob.transform.position;
         cusor.SetActive(true);
-        chest.changeCusor.SetActive(false);
-        chest.cusor.SetActive(false);
-        chest.isCusorChest = false;
+        if(chest != null)
+        {
+            chest.changeCusor.SetActive(false);
+            chest.cusor.SetActive(false);
+            chest.isCusorChest = false;
+        }
+
         state = "chestOpen";
     }
 

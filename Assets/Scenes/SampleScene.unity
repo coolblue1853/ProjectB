@@ -530,7 +530,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 14056949}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 959450299}
+        m_TargetAssemblyTypeName: Chest, Assembly-CSharp
+        m_MethodName: OpenBox
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &14056949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2371,8 +2383,10 @@ GameObject:
   m_Component:
   - component: {fileID: 154202204}
   - component: {fileID: 154202205}
+  - component: {fileID: 154202207}
+  - component: {fileID: 154202208}
   m_Layer: 0
-  m_Name: InventoryBox (4)
+  m_Name: 5
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2395,8 +2409,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 292.20734, y: -17.999985}
-  m_SizeDelta: {x: 516.2255, y: 494.0897}
+  m_AnchoredPosition: {x: 265.61426, y: -17.999985}
+  m_SizeDelta: {x: 463.0394, y: 494.0897}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &154202205
 MonoBehaviour:
@@ -2413,15 +2427,35 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 10
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 75, y: 75}
+  m_CellSize: {x: 70, y: 70}
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!222 &154202207
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154202203}
+  m_CullTransparentMesh: 1
+--- !u!114 &154202208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154202203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &164371767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2738,7 +2772,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 218669052}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 959450299}
+        m_TargetAssemblyTypeName: Chest, Assembly-CSharp
+        m_MethodName: OpenBox
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &218669052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2939,8 +2985,10 @@ GameObject:
   m_Component:
   - component: {fileID: 226625652}
   - component: {fileID: 226625653}
+  - component: {fileID: 226625655}
+  - component: {fileID: 226625656}
   m_Layer: 0
-  m_Name: InventoryBox
+  m_Name: 1
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2981,15 +3029,35 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 10
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 70, y: 70}
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!222 &226625655
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226625651}
+  m_CullTransparentMesh: 1
+--- !u!114 &226625656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226625651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &228615805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3654,7 +3722,7 @@ RectTransform:
   - {fileID: 1376290706}
   - {fileID: 635492107}
   m_Father: {fileID: 1569622229}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6871,6 +6939,42 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 179528684802123199, guid: 7500a998f8e73df4a9393f16e5d39424, type: 3}
   m_PrefabInstance: {fileID: 564269012}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &568792283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 568792284}
+  m_Layer: 0
+  m_Name: InventoryBoxBackground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &568792284
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568792283}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1631468874}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 35, y: -42}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &577557088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7996,7 +8100,7 @@ RectTransform:
   - {fileID: 109426075}
   - {fileID: 836935844}
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9731,8 +9835,10 @@ GameObject:
   m_Component:
   - component: {fileID: 758715847}
   - component: {fileID: 758715848}
+  - component: {fileID: 758715850}
+  - component: {fileID: 758715851}
   m_Layer: 0
-  m_Name: InventoryBox (1)
+  m_Name: 2
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9755,8 +9861,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 292.20734, y: -17.999985}
-  m_SizeDelta: {x: 516.2255, y: 494.0897}
+  m_AnchoredPosition: {x: 265.61426, y: -17.999985}
+  m_SizeDelta: {x: 463.0394, y: 494.0897}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &758715848
 MonoBehaviour:
@@ -9773,15 +9879,35 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 10
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 75, y: 75}
+  m_CellSize: {x: 70, y: 70}
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!222 &758715850
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758715846}
+  m_CullTransparentMesh: 1
+--- !u!114 &758715851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758715846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &764915403
 GameObject:
   m_ObjectHideFlags: 0
@@ -10772,7 +10898,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1569622229}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -11353,7 +11479,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -11482,8 +11608,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2814936886037614100}
-        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+      - m_Target: {fileID: 959450299}
+        m_TargetAssemblyTypeName: Chest, Assembly-CSharp
         m_MethodName: CloseDivide
         m_Mode: 1
         m_Arguments:
@@ -15164,7 +15290,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1086434370}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 959450299}
+        m_TargetAssemblyTypeName: Chest, Assembly-CSharp
+        m_MethodName: OpenBox
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1086434370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16220,8 +16358,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1169477079}
   - component: {fileID: 1169477080}
+  - component: {fileID: 1169477082}
+  - component: {fileID: 1169477083}
   m_Layer: 0
-  m_Name: InventoryBox (3)
+  m_Name: 4
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16244,8 +16384,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 292.20734, y: -17.999985}
-  m_SizeDelta: {x: 516.2255, y: 494.0897}
+  m_AnchoredPosition: {x: 265.61426, y: -17.999985}
+  m_SizeDelta: {x: 463.0394, y: 494.0897}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1169477080
 MonoBehaviour:
@@ -16262,15 +16402,35 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 10
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 75, y: 75}
+  m_CellSize: {x: 70, y: 70}
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!222 &1169477082
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169477078}
+  m_CullTransparentMesh: 1
+--- !u!114 &1169477083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169477078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1183946185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16987,7 +17147,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1253413664}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 959450299}
+        m_TargetAssemblyTypeName: Chest, Assembly-CSharp
+        m_MethodName: OpenBox
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1253413664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18304,7 +18476,7 @@ GameObject:
   - component: {fileID: 1319370214}
   m_Layer: 0
   m_Name: BoxButton
-  m_TagString: Untagged
+  m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18327,7 +18499,7 @@ RectTransform:
   - {fileID: 993518706}
   - {fileID: 2040446541}
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18852,7 +19024,7 @@ RectTransform:
   - {fileID: 1147514846}
   - {fileID: 772378689}
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -19903,8 +20075,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1472618889}
   - component: {fileID: 1472618890}
+  - component: {fileID: 1472618892}
+  - component: {fileID: 1472618893}
   m_Layer: 0
-  m_Name: InventoryBox (2)
+  m_Name: 3
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19927,8 +20101,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 292.20734, y: -17.999985}
-  m_SizeDelta: {x: 516.2255, y: 494.0897}
+  m_AnchoredPosition: {x: 265.61426, y: -17.999985}
+  m_SizeDelta: {x: 463.0394, y: 494.0897}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1472618890
 MonoBehaviour:
@@ -19945,15 +20119,35 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 10
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 75, y: 75}
+  m_CellSize: {x: 70, y: 70}
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!222 &1472618892
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472618888}
+  m_CullTransparentMesh: 1
+--- !u!114 &1472618893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472618888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1477865865
 GameObject:
   m_ObjectHideFlags: 0
@@ -20371,7 +20565,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1569622229}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -20888,10 +21082,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 326004593}
-  - {fileID: 1523633294}
-  - {fileID: 822225009}
   - {fileID: 2029443843}
   - {fileID: 263653988}
+  - {fileID: 1523633294}
+  - {fileID: 822225009}
   m_Father: {fileID: 1478901406}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21068,10 +21262,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 128775413}
-  - {fileID: 7499933541186713699}
-  - {fileID: 856413016}
   - {fileID: 1319370213}
+  - {fileID: 568792284}
+  - {fileID: 7499933541186713699}
   - {fileID: 1994211452}
+  - {fileID: 856413016}
   - {fileID: 1372465313}
   - {fileID: 614637834}
   m_Father: {fileID: 2814936887277019436}
@@ -22938,7 +23133,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1760831793}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 959450299}
+        m_TargetAssemblyTypeName: Chest, Assembly-CSharp
+        m_MethodName: OpenBox
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1760831793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25951,8 +26158,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DivideSlider, Assembly-CSharp
+      - m_Target: {fileID: 1966374521}
+        m_TargetAssemblyTypeName: ChestDivideSlider, Assembly-CSharp
         m_MethodName: Divide
         m_Mode: 1
         m_Arguments:
@@ -26013,7 +26220,7 @@ GameObject:
   - component: {fileID: 2029443844}
   m_Layer: 0
   m_Name: BoxButton
-  m_TagString: Untagged
+  m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26036,7 +26243,7 @@ RectTransform:
   - {fileID: 1253413661}
   - {fileID: 14056946}
   m_Father: {fileID: 1569622229}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -29043,6 +29250,12 @@ MonoBehaviour:
   - {fileID: 1472618888}
   - {fileID: 1169477078}
   - {fileID: 154202203}
+  inventoryUIBack:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   inventoryBox:
   - {fileID: 2104251209}
   - {fileID: 46587274}
@@ -29589,7 +29802,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
