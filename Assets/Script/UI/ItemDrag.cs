@@ -164,7 +164,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
 
         }
-       else if(changeBox != null && changeBox.transform.GetSiblingIndex() != InventoryManager.instance.nowBox)
+       else if(changeBox != null )
         {
             if (changeBox.parent.tag == "Inventory")
             {
@@ -176,6 +176,13 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                         InventoryManager.instance.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
                         Destroy(this.gameObject);
                     }
+                }
+                else
+                {
+                    transform.SetParent(currentParent);
+                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    this.transform.position = currentParent.transform.position;
+                    InventoryManager.instance.ChangeCusor(currentParent.gameObject);
                 }
                 if (currentParent.parent.tag == "Inventory")
                 {
@@ -198,6 +205,14 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                         Destroy(this.gameObject);
                     }
                 }
+                else
+                {
+                    transform.SetParent(currentParent);
+                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    this.transform.position = currentParent.transform.position;
+                    InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
+                }
+
                 if (currentParent.parent.tag == "Inventory")
                 {
                     InventoryManager.instance.ChangeCusor(currentParent.gameObject);
@@ -210,7 +225,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
         else
         {
-            if(currentParent.parent.tag == "Inventory")
+            if (currentParent.parent.tag == "Inventory")
             {
                 Debug.Log("¿€µø¡ﬂ");
                 transform.SetParent(currentParent);

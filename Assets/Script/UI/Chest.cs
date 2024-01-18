@@ -243,7 +243,7 @@ public class Chest : MonoBehaviour
     void ResetChest()
     {
         ResetInventoryBox();
-        InventoryManager.instance.ResetInventoryBox();
+        //InventoryManager.instance.ResetInventoryBox();
 
         cusor.SetActive(false);
         inventoryUI[0].SetActive(true);
@@ -258,6 +258,12 @@ public class Chest : MonoBehaviour
 
         InventoryManager.instance.state = "chestOpen";
     }
+    private void Start()
+    {
+        inventoryUI[0].transform.SetAsLastSibling();
+        InventoryAlpha inventoryAlpha = inventoryUI[0].GetComponent<InventoryAlpha>();
+        inventoryAlpha.A21();
+    }
     private void Update()
     {
 
@@ -271,7 +277,7 @@ public class Chest : MonoBehaviour
             inventoryOb.SetActive(true);
             chestOb.SetActive(true);
 
-            ResetChest();
+           // ResetChest();
         }
         if(isCusorChest == true)
         {
@@ -901,9 +907,21 @@ public class Chest : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            inventoryUI[i].SetActive(false);
+            inventoryUI[i].SetActive(true);
+            InventoryAlpha inventoryAlpha = inventoryUI[i].GetComponent<InventoryAlpha>();
+            inventoryAlpha.A20();
         }
 
+    }
+    public void OpenBox(int num)
+    {
+        ResetInventoryBox();
+        inventoryUI[num].transform.SetAsLastSibling();
+        InventoryAlpha inventoryAlpha = inventoryUI[num].GetComponent<InventoryAlpha>();
+        inventoryAlpha.ChangeAlpha();
+        GameObject insPositon = GetNthChildGameObject(inventoryUI[num], cusorCount[num]);
+        cusor.transform.position = insPositon.transform.position;
+        nowBox = num;
     }
     public void CreatItemSelected(string itemName, int boxNum, int Stack = 1)
     {
@@ -916,7 +934,7 @@ public class Chest : MonoBehaviour
                 if (inventoryArray[i, boxNum] == 0)
                 {
 
-                    inventoryArray[i, boxNum] = 1; // i번째 위치한 인벤토리 창 열기.
+                    //inventoryArray[i, boxNum] = 1; // i번째 위치한 인벤토리 창 열기.
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[boxNum], i);
                     GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                     ItemCheck check = item.GetComponent<ItemCheck>();
@@ -1071,6 +1089,7 @@ public class Chest : MonoBehaviour
         {
             if (inventoryArray[i, num] == 0 && num * maxHor * maxVer + i < maxBoxNum)
             {
+                Debug.Log(i);
                 isCreat = true;
 
                 break;
@@ -1087,21 +1106,12 @@ public class Chest : MonoBehaviour
         }
 
     }
-    public void OpenBox(int num)
-    {
-        ResetInventoryBox();
-        inventoryUI[num].transform.SetAsLastSibling();
-        GameObject insPositon = GetNthChildGameObject(inventoryUI[num], cusorCount[num]);
-        cusor.transform.position = insPositon.transform.position;
-        nowBox = num;
-    }
+
     public void ChangeCusor(GameObject ob)
     {
-        Debug.Log(ob);
         isChestActive = true;
         isCusorChest = true;
         cusorCount[nowBox] = ob.transform.GetSiblingIndex();
-        Debug.Log(cusorCount[nowBox]);
         cusor.transform.position = ob.transform.position;
         changeCusor.SetActive(false);
         InventoryManager.instance.CloseDivide();

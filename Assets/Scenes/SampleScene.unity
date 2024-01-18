@@ -697,6 +697,7 @@ GameObject:
   m_Component:
   - component: {fileID: 16218384}
   - component: {fileID: 16218385}
+  - component: {fileID: 16218386}
   m_Layer: 0
   m_Name: InventoryBox (2)
   m_TagString: Chest
@@ -778,6 +779,18 @@ MonoBehaviour:
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &16218386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16218383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &29494213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3169,6 +3182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 243612877}
   - component: {fileID: 243612878}
+  - component: {fileID: 243612879}
   m_Layer: 0
   m_Name: InventoryBox (1)
   m_TagString: Chest
@@ -3250,6 +3264,18 @@ MonoBehaviour:
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &243612879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243612876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &247424661
 GameObject:
   m_ObjectHideFlags: 0
@@ -3501,6 +3527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 253643361}
   - component: {fileID: 253643362}
+  - component: {fileID: 253643363}
   m_Layer: 0
   m_Name: InventoryBox
   m_TagString: Chest
@@ -3582,6 +3609,18 @@ MonoBehaviour:
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &253643363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253643360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &258050795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3722,7 +3761,7 @@ RectTransform:
   - {fileID: 1376290706}
   - {fileID: 635492107}
   m_Father: {fileID: 1569622229}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8489,6 +8528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 635492107}
   - component: {fileID: 635492108}
+  - component: {fileID: 635492109}
   m_Layer: 0
   m_Name: InventoryBox (4)
   m_TagString: Chest
@@ -8570,6 +8610,18 @@ MonoBehaviour:
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &635492109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635492106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &638141363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10898,7 +10950,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1569622229}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -11479,7 +11531,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -19079,6 +19131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1376290706}
   - component: {fileID: 1376290707}
+  - component: {fileID: 1376290708}
   m_Layer: 0
   m_Name: InventoryBox (3)
   m_TagString: Chest
@@ -19160,6 +19213,18 @@ MonoBehaviour:
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1376290708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376290705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1386138616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20565,7 +20630,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1569622229}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -21082,10 +21147,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 326004593}
-  - {fileID: 2029443843}
-  - {fileID: 263653988}
   - {fileID: 1523633294}
   - {fileID: 822225009}
+  - {fileID: 2029443843}
+  - {fileID: 263653988}
   m_Father: {fileID: 1478901406}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21265,8 +21330,8 @@ RectTransform:
   - {fileID: 1319370213}
   - {fileID: 568792284}
   - {fileID: 7499933541186713699}
-  - {fileID: 1994211452}
   - {fileID: 856413016}
+  - {fileID: 1994211452}
   - {fileID: 1372465313}
   - {fileID: 614637834}
   m_Father: {fileID: 2814936887277019436}
@@ -25961,7 +26026,7 @@ RectTransform:
   - {fileID: 1169477079}
   - {fileID: 154202204}
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -26243,7 +26308,7 @@ RectTransform:
   - {fileID: 1253413661}
   - {fileID: 14056946}
   m_Father: {fileID: 1569622229}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

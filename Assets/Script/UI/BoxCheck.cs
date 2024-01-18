@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 public class BoxCheck : MonoBehaviour, IPointerClickHandler
 {
     public bool isInventoryBox = true;
-    int siblingIndex;
-     int grandSiblingIndex;
+    public int siblingIndex;
+    public int grandSiblingIndex;
     public int arrayCheck;
     Chest chestComponent;
     public void OnPointerClick(PointerEventData eventData)

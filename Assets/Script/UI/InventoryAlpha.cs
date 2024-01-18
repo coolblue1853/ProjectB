@@ -21,12 +21,13 @@ public class InventoryAlpha : MonoBehaviour
         foreach (Transform child in transform)
         {
             Image image = child.GetComponent<Image>();
-
+            Collider2D collider = child.GetComponent<Collider2D>();
             if (image != null)
             {
                 // A가 부모의 마지막 자식이 아니면 알파값을 0으로 설정
                 // 그렇지 않으면 알파값을 1로 설정
                 image.color = new Color(image.color.r, image.color.g, image.color.b, isLastChild ? 1f : 0f);
+                collider.enabled  =isLastChild ? true : false;
             }
         }
     }
@@ -35,12 +36,13 @@ public class InventoryAlpha : MonoBehaviour
         foreach (Transform child in transform)
         {
             Image image = child.GetComponent<Image>();
-
+            Collider2D collider = child.GetComponent<Collider2D>();
             if (image != null)
             {
                 // A가 부모의 마지막 자식이 아니면 알파값을 0으로 설정
                 // 그렇지 않으면 알파값을 1로 설정
                 image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);
+                collider.enabled = false;
             }
         }
     }
@@ -49,12 +51,13 @@ public class InventoryAlpha : MonoBehaviour
         foreach (Transform child in transform)
         {
             Image image = child.GetComponent<Image>();
-
+            Collider2D collider = child.GetComponent<Collider2D>();
             if (image != null)
             {
                 // A가 부모의 마지막 자식이 아니면 알파값을 0으로 설정
                 // 그렇지 않으면 알파값을 1로 설정
                 image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
+                collider.enabled = true;
             }
         }
     }
