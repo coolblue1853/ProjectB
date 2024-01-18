@@ -4,10 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 public class InventoryAlpha : MonoBehaviour
 {
+   public  bool isLastChild;
+    public bool isInventoryBox = true;
+    public int siblingIndex;
+    public int grandSiblingIndex;
+    public int arrayCheck;
     Transform parent;
     // Start is called before the first frame update
     void Start()
     {
+         CheckArray();
          parent = transform.parent;
 
     }
@@ -15,8 +21,7 @@ public class InventoryAlpha : MonoBehaviour
     {
   
         // A가 부모의 마지막 자식인지 확인
-        bool isLastChild = transform.GetSiblingIndex() == parent.childCount - 1;
-        Debug.Log(isLastChild);
+         isLastChild = transform.GetSiblingIndex() == parent.childCount - 1;
         // A의 자식들을 반복
         foreach (Transform child in transform)
         {
@@ -62,6 +67,12 @@ public class InventoryAlpha : MonoBehaviour
         }
     }
     // Update is called once per frame
+    void CheckArray()
+    {
+
+        // siblingIndex = transform.GetSiblingIndex();
+        siblingIndex = int.Parse(this.transform.name);
+    }
     void Update()
     {
         

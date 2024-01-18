@@ -699,7 +699,7 @@ GameObject:
   - component: {fileID: 16218385}
   - component: {fileID: 16218386}
   m_Layer: 0
-  m_Name: InventoryBox (2)
+  m_Name: 2
   m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -791,6 +791,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastChild: 0
+  isInventoryBox: 1
+  siblingIndex: 0
+  grandSiblingIndex: 0
+  arrayCheck: 0
 --- !u!1001 &29494213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2399,7 +2404,7 @@ GameObject:
   - component: {fileID: 154202207}
   - component: {fileID: 154202208}
   m_Layer: 0
-  m_Name: 5
+  m_Name: 4
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2469,6 +2474,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastChild: 0
+  isInventoryBox: 1
+  siblingIndex: 0
+  grandSiblingIndex: 0
+  arrayCheck: 0
 --- !u!1001 &164371767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3001,7 +3011,7 @@ GameObject:
   - component: {fileID: 226625655}
   - component: {fileID: 226625656}
   m_Layer: 0
-  m_Name: 1
+  m_Name: 0
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3071,6 +3081,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastChild: 0
+  isInventoryBox: 1
+  siblingIndex: 0
+  grandSiblingIndex: 0
+  arrayCheck: 0
 --- !u!1001 &228615805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3184,7 +3199,7 @@ GameObject:
   - component: {fileID: 243612878}
   - component: {fileID: 243612879}
   m_Layer: 0
-  m_Name: InventoryBox (1)
+  m_Name: 1
   m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3276,6 +3291,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastChild: 0
+  isInventoryBox: 1
+  siblingIndex: 0
+  grandSiblingIndex: 0
+  arrayCheck: 0
 --- !u!1 &247424661
 GameObject:
   m_ObjectHideFlags: 0
@@ -3529,7 +3549,7 @@ GameObject:
   - component: {fileID: 253643362}
   - component: {fileID: 253643363}
   m_Layer: 0
-  m_Name: InventoryBox
+  m_Name: 0
   m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3621,6 +3641,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastChild: 0
+  isInventoryBox: 1
+  siblingIndex: 0
+  grandSiblingIndex: 0
+  arrayCheck: 0
 --- !u!1001 &258050795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7007,7 +7032,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8530,7 +8555,7 @@ GameObject:
   - component: {fileID: 635492108}
   - component: {fileID: 635492109}
   m_Layer: 0
-  m_Name: InventoryBox (4)
+  m_Name: 4
   m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8622,6 +8647,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastChild: 0
+  isInventoryBox: 1
+  siblingIndex: 0
+  grandSiblingIndex: 0
+  arrayCheck: 0
 --- !u!1001 &638141363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9890,7 +9920,7 @@ GameObject:
   - component: {fileID: 758715850}
   - component: {fileID: 758715851}
   m_Layer: 0
-  m_Name: 2
+  m_Name: 1
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9960,6 +9990,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastChild: 0
+  isInventoryBox: 1
+  siblingIndex: 0
+  grandSiblingIndex: 0
+  arrayCheck: 0
 --- !u!1 &764915403
 GameObject:
   m_ObjectHideFlags: 0
@@ -11531,7 +11566,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -16413,7 +16448,7 @@ GameObject:
   - component: {fileID: 1169477082}
   - component: {fileID: 1169477083}
   m_Layer: 0
-  m_Name: 4
+  m_Name: 3
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16483,6 +16518,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastChild: 0
+  isInventoryBox: 1
+  siblingIndex: 0
+  grandSiblingIndex: 0
+  arrayCheck: 0
 --- !u!1001 &1183946185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18551,7 +18591,7 @@ RectTransform:
   - {fileID: 993518706}
   - {fileID: 2040446541}
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -19133,7 +19173,7 @@ GameObject:
   - component: {fileID: 1376290707}
   - component: {fileID: 1376290708}
   m_Layer: 0
-  m_Name: InventoryBox (3)
+  m_Name: 3
   m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19225,6 +19265,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastChild: 0
+  isInventoryBox: 1
+  siblingIndex: 0
+  grandSiblingIndex: 0
+  arrayCheck: 0
 --- !u!1001 &1386138616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20143,7 +20188,7 @@ GameObject:
   - component: {fileID: 1472618892}
   - component: {fileID: 1472618893}
   m_Layer: 0
-  m_Name: 3
+  m_Name: 2
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20213,6 +20258,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfa9218e485d6749ad5ca2cced0ecc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLastChild: 0
+  isInventoryBox: 1
+  siblingIndex: 0
+  grandSiblingIndex: 0
+  arrayCheck: 0
 --- !u!1 &1477865865
 GameObject:
   m_ObjectHideFlags: 0
@@ -21327,11 +21377,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 128775413}
-  - {fileID: 1319370213}
   - {fileID: 568792284}
   - {fileID: 7499933541186713699}
   - {fileID: 856413016}
   - {fileID: 1994211452}
+  - {fileID: 1319370213}
   - {fileID: 1372465313}
   - {fileID: 614637834}
   m_Father: {fileID: 2814936887277019436}
@@ -26026,7 +26076,7 @@ RectTransform:
   - {fileID: 1169477079}
   - {fileID: 154202204}
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -29867,7 +29917,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631468874}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}

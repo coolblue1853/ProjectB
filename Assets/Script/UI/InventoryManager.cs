@@ -169,10 +169,14 @@ public class InventoryManager : MonoBehaviour
 
     void BoxChange(int num)
     {
+        changeCusor.SetActive(false);
         GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], beforeCusorInt);
         GameObject item = itemBox.transform.GetChild(0).gameObject;
         ItemCheck itemCheck = item.transform.GetComponent<ItemCheck>();
-        int siblingParentIndex = inventoryUI[num].transform.GetSiblingIndex();
+
+        InventoryAlpha boxCheck = inventoryUI[num].GetComponent<InventoryAlpha>();
+       int siblingParentIndex = boxCheck.siblingIndex;
+
 
         if (nowBox != siblingParentIndex)
         {
@@ -195,7 +199,6 @@ public class InventoryManager : MonoBehaviour
            GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
         if (itemBox.transform.childCount > 0)
         {
-            Debug.Log("¿€µø¡ﬂ2");
             GameObject item = itemBox.transform.GetChild(0).gameObject;
              itemCheck = item.transform.GetComponent<ItemCheck>();
             //int siblingParentIndex = inventoryUI[num].transform.GetSiblingIndex();
@@ -334,7 +337,15 @@ public class InventoryManager : MonoBehaviour
             GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
             cusor.transform.position = insPositon.transform.position;
             changeCusor.SetActive(false);
-            state = "";
+            if(chest != null)
+            {
+                state = "chestOpen";
+            }
+            else
+            {
+                state = "";
+            }
+
 
         }
     }
@@ -585,7 +596,7 @@ public class InventoryManager : MonoBehaviour
         {
             ResetInventoryBox();
             nowBox = boxCusor;
-            inventoryUI[boxCusor].SetActive(true);
+            OpenBox(nowBox);
             state = "";
             GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
             cusor.transform.position = insPositon.transform.position;
@@ -760,7 +771,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] + 1 < nowBoxMax)
                 {
@@ -793,7 +804,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] % maxHor == 0)
                 {
@@ -825,20 +836,23 @@ public class InventoryManager : MonoBehaviour
                 if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
                 {
                     nowBoxMax = (maxHor * maxVer);
+
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
+                    Debug.Log(nowBoxMax);
                 }
-                if (cusorCount[nowBox] + maxVer < nowBoxMax)
+                if (cusorCount[nowBox] + maxHor < nowBoxMax)
                 {
-                    cusorCount[nowBox] += maxVer;
+                    cusorCount[nowBox] += maxHor;
+                 //   Debug.Log(cusorCount[nowBox]);
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
                 }
                 else
                 {
-                    cusorCount[nowBox] = cusorCount[nowBox] % maxVer;
+                    cusorCount[nowBox] = cusorCount[nowBox] % maxHor;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
                 }
@@ -856,22 +870,24 @@ public class InventoryManager : MonoBehaviour
                 if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
                 {
                     nowBoxMax = (maxHor * maxVer);
+                    Debug.Log(nowBoxMax);
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
+                    Debug.Log(nowBoxMax);
                 }
-                if (cusorCount[nowBox] - maxVer >= 0)
+                if (cusorCount[nowBox] - maxHor >= 0)
                 {
-                    cusorCount[nowBox] -= maxVer;
+                    cusorCount[nowBox] -= maxHor;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
                 }
                 else
                 {
-                    while (cusorCount[nowBox] + maxVer < nowBoxMax)
+                    while (cusorCount[nowBox] + maxHor < nowBoxMax)
                     {
-                        cusorCount[nowBox] += maxVer;
+                        cusorCount[nowBox] += maxHor;
                     }
 
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
@@ -905,7 +921,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] + 1 < nowBoxMax)
                 {
@@ -937,7 +953,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] % maxHor == 0)
                 {
@@ -969,7 +985,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] + maxVer < nowBoxMax)
                 {
@@ -1000,7 +1016,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] - maxVer >= 0)
                 {

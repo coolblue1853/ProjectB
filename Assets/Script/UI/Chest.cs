@@ -227,7 +227,7 @@ public class Chest : MonoBehaviour
         {
             ResetInventoryBox();
             nowBox = boxCusor;
-            inventoryUI[boxCusor].SetActive(true);
+            OpenBox(nowBox);
             state = "";
             GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
             cusor.transform.position = insPositon.transform.position;
@@ -260,6 +260,7 @@ public class Chest : MonoBehaviour
     }
     private void Start()
     {
+
         inventoryUI[0].transform.SetAsLastSibling();
         InventoryAlpha inventoryAlpha = inventoryUI[0].GetComponent<InventoryAlpha>();
         inventoryAlpha.A21();
@@ -269,8 +270,7 @@ public class Chest : MonoBehaviour
 
         if (isChestClose == true&& upAction.triggered && DatabaseManager.isOpenUI == false)
         {
-            state = "";
-            Debug.Log("작동중");
+            state = ""; 
             InventoryManager.instance.RepeatCheck();
             DatabaseManager.isOpenUI = true;
             InventoryManager.instance.CheckNowChest(this);
@@ -306,6 +306,7 @@ public class Chest : MonoBehaviour
                 {
                     if (state == "")
                     {
+
                         BoxContentChecker();
                     }
                     else if (state == "detail")
@@ -503,7 +504,7 @@ public class Chest : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] + 1 < nowBoxMax)
                 {
@@ -536,7 +537,7 @@ public class Chest : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] % maxHor == 0)
                 {/*
@@ -570,7 +571,7 @@ public class Chest : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] + maxHor < nowBoxMax)
                 {
@@ -602,7 +603,7 @@ public class Chest : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] - maxHor >= 0)
                 {
@@ -671,7 +672,7 @@ public class Chest : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (((cusorCount[nowBox]+1) % (maxHor)) ==0 && cusorCount[nowBox] !=0)
                 {
@@ -706,8 +707,8 @@ public class Chest : MonoBehaviour
                     nowBoxMax = (maxHor * maxVer);
                 }
                 else
-                {                        
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                {
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] %maxHor == 0)
                 { /*
@@ -744,7 +745,7 @@ public class Chest : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] + maxHor < nowBoxMax)
                 {
@@ -777,7 +778,7 @@ public class Chest : MonoBehaviour
                 }
                 else
                 {
-                    nowBoxMax = ((nowBox + 1) * (maxHor * maxVer)) - maxBoxNum;
+                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
                 }
                 if (cusorCount[nowBox] - maxHor >= 0)
                 {
@@ -950,8 +951,10 @@ public class Chest : MonoBehaviour
     }
     public void BoxContentChecker(GameObject ob = null) // Z키 클릭시 인벤토리창
     {
+
         if (inventoryArray[cusorCount[nowBox], nowBox] == 1 && state == "")
         {
+            Debug.Log("세부 확인");
             ItemCheck detail;
             state = "detail";
 
@@ -961,6 +964,7 @@ public class Chest : MonoBehaviour
             }
             else
             {
+                Debug.Log("세부 확인2");
                 GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
                 //Debug.Log(gameObject.transform.GetChild(0));
                 detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
@@ -1065,15 +1069,23 @@ public class Chest : MonoBehaviour
         }
     void BoxChange(int num)
     {
+        changeCusor.SetActive(false);
         GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], beforeCusorInt);
         GameObject item = itemBox.transform.GetChild(0).gameObject;
         ItemCheck itemCheck = item.transform.GetComponent<ItemCheck>();
-        int siblingParentIndex = inventoryUI[num].transform.GetSiblingIndex();
 
+        InventoryAlpha boxCheck = inventoryUI[num].GetComponent<InventoryAlpha>();
+        int siblingParentIndex = boxCheck.siblingIndex;
+        Debug.Log("이동할 박스 : "+siblingParentIndex);
+        Debug.Log("현재 박수 : "+nowBox);
+
+        Debug.Log("작동중1");
         if (nowBox != siblingParentIndex)
         {
+            Debug.Log("작동중2");
             if (CheckBoxCanCreat(siblingParentIndex))
             {
+                Debug.Log("작동중3");
                 CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
                 Destroy(item.gameObject);
                 cusorCount[nowBox] = beforeCusorInt;
@@ -1082,6 +1094,7 @@ public class Chest : MonoBehaviour
             }
         }
     }
+
     public bool CheckBoxCanCreat(int num)
     {
         bool isCreat = false;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class BoxCheck : MonoBehaviour, IPointerClickHandler
 {
@@ -9,10 +10,11 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
     public int grandSiblingIndex;
     public int arrayCheck;
     Chest chestComponent;
+    InventoryAlpha boxCheck;
     public void OnPointerClick(PointerEventData eventData)
     {
 
-        if  (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (isInventoryBox)
             {
@@ -26,10 +28,10 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
         }
 
     }
-    bool isSetArray= false;
+    bool isSetArray = false;
     void ChildCheck()
     {
-        if(this.transform.childCount > 0&& isSetArray ==false)
+        if (this.transform.childCount > 0 && isSetArray == false)
         {
             isSetArray = true;
             InventoryManager.instance.inventoryArray[siblingIndex, grandSiblingIndex] = 1;
@@ -45,16 +47,18 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
     }
     void ChestChildCheck()
     {
-         chestComponent = FindParentWithChestScript(transform);
+        chestComponent = FindParentWithChestScript(transform);
 
         if (this.transform.childCount > 0 && isSetArray == false)
         {
+            Debug.Log("박스 있음");
             isSetArray = true;
             chestComponent.inventoryArray[siblingIndex, grandSiblingIndex] = 1;
             arrayCheck = 1;
         }
         else if (this.transform.childCount <= 0 && isSetArray == true)
         {
+            Debug.Log("박스 없음");
             isSetArray = false;
             chestComponent.inventoryArray[siblingIndex, grandSiblingIndex] = 0;
             arrayCheck = 0;
@@ -86,7 +90,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
     void CheckArray()
     {
 
-        if(parentTransform == null)
+        if (parentTransform == null)
         {
             parentTransform = transform.parent;
 
@@ -102,8 +106,10 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
 
                 if (grandparentTransform != null)
                 {
+                    boxCheck = this.transform.parent.GetComponent<InventoryAlpha>();
+                    grandSiblingIndex = boxCheck.siblingIndex;
                     // 자신이 부모의 부모의 몇 번째 자식인지 확인
-                  grandSiblingIndex = parentTransform.GetSiblingIndex();
+                    //     grandSiblingIndex = parentTransform.GetSiblingIndex();
                 }
             }
         }
@@ -115,10 +121,11 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
         CheckArray();
     }
 
+    bool onceCheck = false;
     // Update is called once per frame
     void Update()
     {
-        if(isInventoryBox == true)
+        if (isInventoryBox == true)
         {
             ChildCheck();
         }
@@ -127,6 +134,6 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
             ChestChildCheck();
         }
 
-
     }
+
 }

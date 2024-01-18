@@ -49,7 +49,9 @@ public class ItemCheck : MonoBehaviour
             stackText.text = nowStack.ToString();
             stackText.gameObject.SetActive(true);
         }
+
     }
+   
     void LoadImage()
     {
         // 이미지 파일이 저장된 폴더 경로
