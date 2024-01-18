@@ -242,7 +242,7 @@ public class Chest : MonoBehaviour
     }
     void ResetChest()
     {
-        ResetInventoryBox();
+        //ResetInventoryBox();
         //InventoryManager.instance.ResetInventoryBox();
 
         cusor.SetActive(false);
@@ -276,8 +276,8 @@ public class Chest : MonoBehaviour
             InventoryManager.instance.CheckNowChest(this);
             inventoryOb.SetActive(true);
             chestOb.SetActive(true);
-
-           // ResetChest();
+            
+            ResetChest();
         }
         if(isCusorChest == true)
         {

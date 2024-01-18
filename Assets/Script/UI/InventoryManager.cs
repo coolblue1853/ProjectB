@@ -718,6 +718,10 @@ public class InventoryManager : MonoBehaviour
             {
                 DatabaseManager.isOpenUI = true;
                 inventory.SetActive(true);
+                cusor.SetActive(true);
+                instance.nowBox = 0;
+              instance.boxCusor = 0;
+                instance.ResetBoxOrigin();
             }
         }
     }
