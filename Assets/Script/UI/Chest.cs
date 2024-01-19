@@ -207,7 +207,7 @@ public class Chest : MonoBehaviour
 
             if (state == "boxChange")
             {
-                state = "chestOpen";
+                state = "";
             }
             else if (state == "itemBoxChange")
             {
@@ -801,6 +801,7 @@ public class Chest : MonoBehaviour
                     */
                     state = "boxChange";
                     boxCusor = nowBox;
+                    cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
                     GameObject insPositon = inventoryBox[boxCusor];
                     cusor.transform.position = insPositon.transform.position;
 
@@ -812,8 +813,9 @@ public class Chest : MonoBehaviour
         public void DetailOff()
         {
             if (state != "chestOpen" && state != "C2IMove")
-            {
-                state = "";
+        {
+            cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+            state = "";
             }
 
             miscDetail.SetActive(false);
@@ -916,6 +918,8 @@ public class Chest : MonoBehaviour
     }
     public void OpenBox(int num)
     {
+        state = "";
+        cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
         ResetInventoryBox();
         inventoryUI[num].transform.SetAsLastSibling();
         InventoryAlpha inventoryAlpha = inventoryUI[num].GetComponent<InventoryAlpha>();
@@ -1128,6 +1132,7 @@ public class Chest : MonoBehaviour
         cusor.transform.position = ob.transform.position;
         changeCusor.SetActive(false);
         InventoryManager.instance.CloseDivide();
+        cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
         state = "";
         isChestActive = true;
         cusor.SetActive(true);

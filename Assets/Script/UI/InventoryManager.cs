@@ -119,8 +119,17 @@ public class InventoryManager : MonoBehaviour
         }
 
     }
-    public void OpenBox(int num) 
+    public void OpenBox(int num)
     {
+        if(chest != null)
+        {
+            state = "chestOpen";
+        }
+        else
+        {
+            state = "";
+        }
+        cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
         ResetInventoryBox();
         inventoryUI[num].transform.SetAsLastSibling();
         InventoryAlpha inventoryAlpha = inventoryUI[num].GetComponent<InventoryAlpha>();
@@ -719,8 +728,8 @@ public class InventoryManager : MonoBehaviour
                 DatabaseManager.isOpenUI = true;
                 inventory.SetActive(true);
                 cusor.SetActive(true);
-                instance.nowBox = 0;
-              instance.boxCusor = 0;
+                  instance.nowBox = 0;
+                 instance.boxCusor = 0;
                 instance.ResetBoxOrigin();
             }
         }
@@ -1153,12 +1162,18 @@ public class InventoryManager : MonoBehaviour
         cusor.SetActive(true);
         if(chest != null)
         {
+            cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
             chest.changeCusor.SetActive(false);
             chest.cusor.SetActive(false);
             chest.isCusorChest = false;
+            state = "chestOpen";
+        }
+        else
+        {
+            cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+            state = "";
         }
 
-        state = "chestOpen";
     }
 
 
@@ -1255,11 +1270,12 @@ public class InventoryManager : MonoBehaviour
     {
         if ((state == "chestOpen" || chest != null)&& state != "I2CMove")
         {
+            cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
             state = "chestOpen";
         }
         else if (state != "chestOpen" && state != "I2CMove")
         {
-
+            cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
             state = "";
         }
 

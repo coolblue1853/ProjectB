@@ -51,14 +51,12 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
 
         if (this.transform.childCount > 0 && isSetArray == false)
         {
-            Debug.Log("박스 있음");
             isSetArray = true;
             chestComponent.inventoryArray[siblingIndex, grandSiblingIndex] = 1;
             arrayCheck = 1;
         }
         else if (this.transform.childCount <= 0 && isSetArray == true)
         {
-            Debug.Log("박스 없음");
             isSetArray = false;
             chestComponent.inventoryArray[siblingIndex, grandSiblingIndex] = 0;
             arrayCheck = 0;
