@@ -64,6 +64,8 @@ namespace ItemSheet
 		public System.Int32 weight;
 		public System.String acqPath;
 		public System.Int32 maxStack;
+		public System.String effectOb;
+		public System.Int32 effectPow;
   
 
 #region fuctions

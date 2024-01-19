@@ -337,6 +337,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ActiveConsum",
+                    "type": "Button",
+                    "id": "757a62aa-feae-4b4c-a0d6-d7c3f15e8e4a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -843,6 +852,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ChestMoveActive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15be1296-bf44-43be-9868-a51a9c97d934",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActiveConsum",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

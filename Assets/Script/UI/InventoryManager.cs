@@ -24,6 +24,7 @@ public class InventoryManager : MonoBehaviour
     public int nowBox;  // 이것으로 배열의 값을 읽어오면 됨. 즉, nowBox가 2일때의 15번재는 30 +15 -> 45번째 칸에 있는 아이템이라는 말이 됨.
     public GameObject inventory;
     public GameObject miscDetail;
+    public GameObject consumDetail;
     int detailX = 150, detailY =12;
     static public InventoryManager instance;
     public string state;
@@ -44,6 +45,7 @@ public class InventoryManager : MonoBehaviour
     InputAction divideAction;
     InputAction backAction;
     InputAction chestMoveAction;
+    InputAction consumAction;
 
     public int maxHor = 5;
     public int maxVer = 5;
@@ -64,6 +66,7 @@ public class InventoryManager : MonoBehaviour
         divideAction.Enable();
         backAction.Enable();
         chestMoveAction.Enable();
+        consumAction.Enable();
     }
     private void OnDisable()
     {
@@ -80,6 +83,7 @@ public class InventoryManager : MonoBehaviour
         divideAction.Disable();
         backAction.Disable();
         chestMoveAction.Disable();
+        consumAction.Disable();
     }
     private void Awake()
     {
@@ -97,6 +101,7 @@ public class InventoryManager : MonoBehaviour
         divideAction = action.UI.Divide;
         backAction = action.UI.Back;
         chestMoveAction = action.UI.ChestMoveActive;
+        consumAction = action.UI.ActiveConsum;
 
         if (instance != null)
         {
@@ -638,7 +643,11 @@ public class InventoryManager : MonoBehaviour
         horizontalInput = (horizontalCheck.ReadValue<float>());
         if (inventory.activeSelf == true)
         {
-            if(state == "")
+            if (consumAction.triggered && state == "")
+            {
+                ActiveConsum();
+            }
+            if (state == "")
             {
                 BoxOpen();
 
@@ -652,6 +661,8 @@ public class InventoryManager : MonoBehaviour
                 else if(state == "detail")
                 {
                     CloseCheck();
+
+
                 }
                 if(state == "I2CMove")
                 {
@@ -703,11 +714,11 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F3))
         {
 
-            CreatItem("Wood");
+            CreatItem("Food");
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            CreatItem("Rock");
+            CreatItem("Potion");
 
         }
         if (openInventoryAction.triggered)
@@ -740,6 +751,20 @@ public class InventoryManager : MonoBehaviour
     Sequence dcSequence;
     public bool DoubleCheckController = false;
  
+
+    public void ActiveConsum()
+    {
+        GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
+        if(gameObject.transform.childCount > 0)
+        {
+            ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
+            if (item.type == "Consum")
+            {
+                item.ConsumItemActive();
+            }
+        }
+
+    }
     public void RepeatCheck()
     {
         DoubleCheckController = true;
@@ -1091,6 +1116,28 @@ public class InventoryManager : MonoBehaviour
                 miscDetail.SetActive(true);
                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
             }
+            if (detail.type == "Consum")
+            {
+                   Transform  consum = consumDetail.gameObject.transform;
+                consum.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+                consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+                consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+                consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
+                consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
+                string[] effectString = detail.effectOb.Split();
+                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = effectString[0] + " : "+ effectString[1] + detail.effectPow;
+                if (ob != null)
+                {
+                    consumDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
+                }
+                else
+                {
+                    consumDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
+                }
+                consumDetail.SetActive(true);
+                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+            }
         }
 
 
@@ -1280,10 +1327,12 @@ public class InventoryManager : MonoBehaviour
         }
 
         miscDetail.SetActive(false);
+        consumDetail.SetActive(false);
     }
     void OnlyDetailObOff()
     {
         miscDetail.SetActive(false);
+        consumDetail.SetActive(false);
     }
 
     public Chest chest;

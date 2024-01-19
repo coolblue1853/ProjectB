@@ -359,6 +359,15 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActiveConsum"",
+                    ""type"": ""Button"",
+                    ""id"": ""757a62aa-feae-4b4c-a0d6-d7c3f15e8e4a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -867,6 +876,17 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""action"": ""ChestMoveActive"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15be1296-bf44-43be-9868-a51a9c97d934"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActiveConsum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -896,6 +916,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         m_UI_Enter = m_UI.FindAction("Enter", throwIfNotFound: true);
         m_UI_Up = m_UI.FindAction("Up", throwIfNotFound: true);
         m_UI_ChestMoveActive = m_UI.FindAction("ChestMoveActive", throwIfNotFound: true);
+        m_UI_ActiveConsum = m_UI.FindAction("ActiveConsum", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1049,6 +1070,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Enter;
     private readonly InputAction m_UI_Up;
     private readonly InputAction m_UI_ChestMoveActive;
+    private readonly InputAction m_UI_ActiveConsum;
     public struct UIActions
     {
         private @KeyAction m_Wrapper;
@@ -1067,6 +1089,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         public InputAction @Enter => m_Wrapper.m_UI_Enter;
         public InputAction @Up => m_Wrapper.m_UI_Up;
         public InputAction @ChestMoveActive => m_Wrapper.m_UI_ChestMoveActive;
+        public InputAction @ActiveConsum => m_Wrapper.m_UI_ActiveConsum;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1118,6 +1141,9 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @ChestMoveActive.started += instance.OnChestMoveActive;
             @ChestMoveActive.performed += instance.OnChestMoveActive;
             @ChestMoveActive.canceled += instance.OnChestMoveActive;
+            @ActiveConsum.started += instance.OnActiveConsum;
+            @ActiveConsum.performed += instance.OnActiveConsum;
+            @ActiveConsum.canceled += instance.OnActiveConsum;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1164,6 +1190,9 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @ChestMoveActive.started -= instance.OnChestMoveActive;
             @ChestMoveActive.performed -= instance.OnChestMoveActive;
             @ChestMoveActive.canceled -= instance.OnChestMoveActive;
+            @ActiveConsum.started -= instance.OnActiveConsum;
+            @ActiveConsum.performed -= instance.OnActiveConsum;
+            @ActiveConsum.canceled -= instance.OnActiveConsum;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1205,5 +1234,6 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         void OnEnter(InputAction.CallbackContext context);
         void OnUp(InputAction.CallbackContext context);
         void OnChestMoveActive(InputAction.CallbackContext context);
+        void OnActiveConsum(InputAction.CallbackContext context);
     }
 }

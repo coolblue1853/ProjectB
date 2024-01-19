@@ -15,6 +15,8 @@ public class ItemCheck : MonoBehaviour
     public string acqPath;
     public int maxStack;
     public int nowStack;
+    public string effectOb;
+    public int effectPow;
     public TextMeshProUGUI stackText;
     public Image image;
     Item item;
@@ -33,7 +35,36 @@ public class ItemCheck : MonoBehaviour
         maxStack = item.maxStack;
         nowStack = 1;
         stackText.text = nowStack.ToString();
+        if(type == "Consum")
+        {
+            effectOb = item.effectOb;
+            effectPow = item.effectPow;
+        }
         LoadImage();
+    }
+
+    public void ConsumItemActive()
+    {
+        nowStack -= 1;
+        string[] effect = effectOb.Split();
+        if (effect[0] == "stemina")
+        {
+            if(effect[1] == "+")
+            {
+                PlayerHealthManager.Instance.SteminaUp(effectPow);
+            }
+        }
+        if (effect[0] == "fullness")
+        {
+            if (effect[1] == "+")
+            {
+                PlayerHealthManager.Instance.FullnessUp(effectPow);
+            }
+        }
+        if (this.nowStack == 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame
