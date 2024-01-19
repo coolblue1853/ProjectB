@@ -281,74 +281,80 @@ public class Chest : MonoBehaviour
         }
         if(isCusorChest == true)
         {
-            if (chestMoveAction.triggered)
-            {
-                if (state == "")
-                {
-                    state = "C2IMove"; // 인벤토리에서 창고로 물건 이동
-                    cusorImage.color = new Color(23f / 255f, 123f / 255f, 161f / 255f);
 
-                }
-                else if (state == "C2IMove")
-                {
-                    state = "";
-                    cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
-                }
-            }
-            if (inventory.activeSelf == true)
+            if(InventoryManager.instance.state == "InChestMove")
             {
-                if (state == "")
-                {
-           //         BoxOpen();
-
-                }
-                if (selectAction.triggered)
+                if (chestMoveAction.triggered)
                 {
                     if (state == "")
                     {
+                        state = "C2IMove"; // 인벤토리에서 창고로 물건 이동
+                        cusorImage.color = new Color(23f / 255f, 123f / 255f, 161f / 255f);
 
-                        BoxContentChecker();
                     }
-                    else if (state == "detail")
+                    else if (state == "C2IMove")
                     {
-                        CloseCheck();
+                        state = "";
+                        cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
                     }
-                    if (state == "C2IMove")
-                   {
-                          C2IMove();
-                   }
                 }
-             
-            }
-            if (backAction.triggered)
-            {
-                CloseCheck();
-            }
-            if ((state == "" || state == "detail" || state == "chestOpen" || state == "C2IMove") && inventory.activeSelf == true)
-            {
-                CusorChecker();
-
-                if (divideAction.triggered)
+                if (inventory.activeSelf == true)
                 {
-            OpenDivide();
+                    if (state == "")
+                    {
+                        //         BoxOpen();
+
+                    }
+                    if (selectAction.triggered)
+                    {
+                        if (state == "")
+                        {
+
+                            BoxContentChecker();
+                        }
+                        else if (state == "detail")
+                        {
+                            CloseCheck();
+                        }
+                        if (state == "C2IMove")
+                        {
+                            C2IMove();
+                        }
+                    }
+
                 }
+                if (backAction.triggered)
+                {
+                    CloseCheck();
+                }
+                if ((state == "" || state == "detail" || state == "chestOpen" || state == "C2IMove") && inventory.activeSelf == true)
+                {
+                    CusorChecker();
+
+                    if (divideAction.triggered)
+                    {
+                        OpenDivide();
+                    }
+                }
+
+                if (changeAction.triggered && inventory.activeSelf == true)
+                {
+                    ActiveChangeCursor();
+                }
+                if (state == "change")
+                {
+                    ChangeCusorChecker();
+                }
+                if ((state == "boxChange" || state == "itemBoxChange") && inventory.activeSelf == true)
+                {
+                    BoxChangeByKey();
+                }
+
+                verticalInput = (verticalCheck.ReadValue<float>());
+                horizontalInput = (horizontalCheck.ReadValue<float>());
             }
 
-            if (changeAction.triggered && inventory.activeSelf == true)
-            {
-               ActiveChangeCursor();
-            }
-            if (state == "change")
-            {
-                ChangeCusorChecker();
-            }
-            if ((state == "boxChange" || state == "itemBoxChange") && inventory.activeSelf == true)
-            {
-                BoxChangeByKey();
-            }
 
-            verticalInput = (verticalCheck.ReadValue<float>());
-            horizontalInput = (horizontalCheck.ReadValue<float>());
 
         }
     }
