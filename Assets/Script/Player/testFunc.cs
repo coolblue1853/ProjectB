@@ -42,8 +42,8 @@ public class testFunc : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            PlayerHealthManager.Instance.SteminaDown(1);
-            // PlayerHealthManager.Instance.HpDown(1);
+            PlayerHealthManager.Instance.HpDown(50);
+
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {

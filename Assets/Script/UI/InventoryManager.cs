@@ -714,11 +714,11 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F3))
         {
 
-            CreatItem("Food");
+            CreatItem("PickAxe");
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            CreatItem("Potion");
+            CreatItem("Cap");
 
         }
         if (openInventoryAction.triggered)

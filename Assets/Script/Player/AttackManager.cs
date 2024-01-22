@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class AttackManager : MonoBehaviour
 {
-    Weapon equipWeapon;
+  public Weapon equipWeapon;
 
     KeyAction action;
     InputAction attackAction;
@@ -12,12 +12,10 @@ public class AttackManager : MonoBehaviour
     public string states = "";
     private void OnEnable()
     {
-
         attackAction.Enable();
     }
     private void OnDisable()
     {
-
         attackAction.Disable();
     }
     private void Awake()
@@ -28,13 +26,13 @@ public class AttackManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        equipWeapon = transform.GetChild(0).GetComponent<Weapon>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (attackAction.triggered)
+        if (attackAction.triggered && equipWeapon != null)
         {
             equipWeapon.MeleeAttack();
         }

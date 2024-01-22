@@ -33,7 +33,14 @@ public class HealthBarShrink : MonoBehaviour {
     private void Awake() {
 
     }
-
+    public void ResetEquipHp(int HP)
+    {
+        healthSystem = new HealthSystem(HP);
+        SetHealth(healthSystem.GetHealthNormalized());
+        damagedBarImage.fillAmount = barImage.fillAmount;
+        healthSystem.OnDamaged += HealthSystem_OnDamaged;
+        healthSystem.OnHealed += HealthSystem_OnHealed;
+    }
     public void ResetHp(int HP)
     {
        healthSystem = new HealthSystem(HP);

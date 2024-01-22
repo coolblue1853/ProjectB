@@ -10,6 +10,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     Transform currentParent;
     Transform changeParent;
     Transform changeBox;
+    Transform equipBox;
     ItemCheck itemCheck;
     int siblingParentIndex;
     int siblingIndex;
@@ -223,6 +224,36 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 }
             }
         }
+        else if(equipBox != null)
+        {
+            EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
+            if(this.itemCheck.equipArea == equipBoxCheck.equipArea)
+            {
+                transform.SetParent(equipBox);
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                this.transform.position = equipBox.transform.position;
+                equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea);
+
+            }
+            else
+            {
+                if (currentParent.parent.tag == "Inventory")
+                {
+                    Debug.Log("¿€µø¡ﬂ");
+                    transform.SetParent(currentParent);
+                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    this.transform.position = currentParent.transform.position;
+                    InventoryManager.instance.ChangeCusor(currentParent.gameObject);
+                }
+                else if (currentParent.parent.tag == "Chest")
+                {
+                    transform.SetParent(currentParent);
+                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    this.transform.position = currentParent.transform.position;
+                    InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
+                }
+            }
+        }
         else
         {
             if (currentParent.parent.tag == "Inventory")
@@ -260,7 +291,11 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         {
             changeBox = collision.transform;
         }
-
+        if (collision.transform.tag == "EquipBox")
+        {
+            equipBox = collision.transform;
+        }
+        
 
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -272,6 +307,10 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         if (collision.transform.tag == "UpperBox")
         {
             changeBox = null;
+        }
+        if (collision.transform.tag == "UpperBox")
+        {
+            equipBox = null;
         }
     }
 

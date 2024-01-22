@@ -11,6 +11,9 @@ TagManager:
   - dragCanvas
   - Inventory
   - Chest
+  - Weapon1
+  - New tag
+  - EquipBox
   layers:
   - Default
   - TransparentFX

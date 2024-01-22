@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 public class PlayerHealthManager : MonoBehaviour
 {
+
+
     Sequence sequence;
     Sequence waitSequence;
     public int setHP;
@@ -36,6 +38,30 @@ public class PlayerHealthManager : MonoBehaviour
         fullnesBar.ResetHp(fullFullness);
     }
 
+    public void EquipmentActiveTrue(int hp, int armor)
+    {
+        int checkHP =  nowHp;
+        // 방어도 적용은 나중에 시켜주어야 함.
+        fullHP += hp;
+      
+        setHP = 1;
+        nomalizedHP = 1 / fullHP;
+        int minus = fullHP - checkHP;
+        healthBar.ResetHp(fullHP);
+        healthBar.healthSystem.Damage(minus);
+    }
+    public void EquipmentActiveFalse(int hp, int armor)
+    {
+
+        // 방어도 적용은 나중에 시켜주어야 함.
+        fullHP -= hp;
+
+        setHP = 1;
+        nomalizedHP = 1 / fullHP;
+        int minus = fullHP - nowHp;
+        healthBar.ResetHp(fullHP);
+        healthBar.healthSystem.Damage(minus);
+    }
     //체력바 관련
     private void ResetMHp()
     {
@@ -53,7 +79,10 @@ public class PlayerHealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(nowHp == 0)
+        {
+            Debug.Log("죽었습니다");
+        }
     }
 
     private static PlayerHealthManager instance = null;

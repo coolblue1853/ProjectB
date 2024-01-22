@@ -66,6 +66,8 @@ namespace ItemSheet
 		public System.Int32 maxStack;
 		public System.String effectOb;
 		public System.Int32 effectPow;
+		public System.String EquipArea;
+		public System.String SetEffect;
   
 
 #region fuctions

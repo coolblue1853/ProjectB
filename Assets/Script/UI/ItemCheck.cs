@@ -17,6 +17,7 @@ public class ItemCheck : MonoBehaviour
     public int nowStack;
     public string effectOb;
     public int effectPow;
+    public string equipArea;
     public TextMeshProUGUI stackText;
     public Image image;
     Item item;
@@ -39,6 +40,11 @@ public class ItemCheck : MonoBehaviour
         {
             effectOb = item.effectOb;
             effectPow = item.effectPow;
+        }
+        if (type == "Equip")
+        {
+            equipArea = item.equipArea;
+
         }
         LoadImage();
     }

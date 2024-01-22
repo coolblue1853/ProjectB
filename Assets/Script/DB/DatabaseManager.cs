@@ -14,12 +14,15 @@ public class Item
     public int maxStack { get; set; }
     public string effectOb { get; set; }
     public int effectPow { get; set; }
-
+    public string equipArea { get; set; }
 }
 public class DatabaseManager : MonoBehaviour
 {
     public static bool weaponStopMove = false;
     public static bool isOpenUI = false;
+
+
+
 
     private List<ItemSheet.Data> ItemDataList;
 
@@ -71,6 +74,7 @@ public class DatabaseManager : MonoBehaviour
                 maxStack = ItemDataList[itemNum].maxStack,
                 effectOb = ItemDataList[itemNum].effectOb,
                 effectPow = ItemDataList[itemNum].effectPow,
+                equipArea = ItemDataList[itemNum].EquipArea,
             };
             return newItem;
 

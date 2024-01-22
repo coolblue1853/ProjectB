@@ -47,6 +47,14 @@ public class HealthSystem : MonoBehaviour {
     public float GetHealthNormalized() {
         return (float)healthAmount / healthAmountMax;
     }
+    public void SetMaxHealth(int maxHealth)
+    {
+        healthAmountMax = maxHealth;
+        if (healthAmount > healthAmountMax)
+        {
+            healthAmount = healthAmountMax;
+        }
+    }
     void Update()
     {
 
