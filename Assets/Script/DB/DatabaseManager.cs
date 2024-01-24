@@ -15,6 +15,7 @@ public class Item
     public string effectOb { get; set; }
     public int effectPow { get; set; }
     public string equipArea { get; set; }
+
 }
 public class DatabaseManager : MonoBehaviour
 {

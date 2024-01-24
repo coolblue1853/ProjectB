@@ -42,7 +42,7 @@ public class testFunc : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            PlayerHealthManager.Instance.HpDown(50);
+            PlayerHealthManager.Instance.HpUp(50);
 
         }
         if (Input.GetKeyDown(KeyCode.F2))

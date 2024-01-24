@@ -714,10 +714,13 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F3))
         {
 
-            CreatItem("PickAxe");
+       
+            CreatItem("Armor");
         }
+
         if (Input.GetKeyDown(KeyCode.F2))
         {
+          //  CreatItem("PickAxe");
             CreatItem("Cap");
 
         }
