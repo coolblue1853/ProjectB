@@ -19,6 +19,12 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
     public void ActivePrefab(string reciveEquipArea)
     {
+        if(equipPrefab == null)
+        {
+            GameObject ob = transform.GetChild(0).gameObject;
+            ItemCheck obItemCheck = ob.GetComponent<ItemCheck>();
+           LoadPrefab(obItemCheck.name, obItemCheck.equipArea);
+        }
         if (reciveEquipArea == "Weapon" && weapon == null)
         {
              weapon = equipPrefab.GetComponent<Weapon>();
@@ -32,11 +38,12 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         }
         else if (reciveEquipArea == "Chest" && chest == null)
         {
+
             chest = equipPrefab.GetComponent<Equipment>();
             PlayerHealthManager.Instance.EquipmentActiveTrue(chest.hp, chest.armor);
         }
 
-        ActiveBoolCheck(reciveEquipArea);
+
     }
     public void DeletPrefab(string reciveEquipArea)
     {
@@ -65,7 +72,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             Destroy(chest.gameObject);
             chest = null;
         }
-        DeletBoolCheck(reciveEquipArea);
+ 
     }
 
 

@@ -10,7 +10,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     Transform currentParent;
     Transform changeParent;
     Transform changeBox;
-    Transform equipBox;
+   public  Transform equipBox;
     ItemCheck itemCheck;
     int siblingParentIndex;
     int siblingIndex;
@@ -133,49 +133,52 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             }
             else
             {
-                GameObject changeItem = changeParent.GetChild(0).gameObject;
-                ItemCheck itemC = changeItem.GetComponent<ItemCheck>();
-                ItemCheck itemB = this.GetComponent<ItemCheck>();
-                if (itemC.name == itemB.name && (itemC.nowStack != itemC.maxStack && itemB.nowStack != itemB.maxStack))
+                if(equipBox == null)
                 {
-
-                    if (itemC.nowStack + itemB.nowStack <= itemC.maxStack)
+                    Debug.Log("작작동");
+                    GameObject changeItem = changeParent.GetChild(0).gameObject;
+                    ItemCheck itemC = changeItem.GetComponent<ItemCheck>();
+                    ItemCheck itemB = this.GetComponent<ItemCheck>();
+                    if (itemC.name == itemB.name && (itemC.nowStack != itemC.maxStack && itemB.nowStack != itemB.maxStack))
                     {
-                        itemC.nowStack += itemB.nowStack;
-                        changeItem.transform.SetParent(changeParent);
-                        changeItem.transform.position = changeParent.transform.position;
-                        Destroy(itemB.gameObject);
+
+                        if (itemC.nowStack + itemB.nowStack <= itemC.maxStack)
+                        {
+                            itemC.nowStack += itemB.nowStack;
+                            changeItem.transform.SetParent(changeParent);
+                            changeItem.transform.position = changeParent.transform.position;
+                            Destroy(itemB.gameObject);
+                        }
+                        else
+                        {
+                            itemB.nowStack -= (itemC.maxStack - itemC.nowStack);
+                            itemC.nowStack = itemC.maxStack;
+                            changeItem.transform.SetParent(changeParent);
+                            changeItem.transform.position = changeParent.transform.position;
+                            this.transform.SetParent(currentParent);
+                            this.transform.position = currentParent.transform.position;
+                        }
                     }
                     else
                     {
-                        itemB.nowStack -= (itemC.maxStack - itemC.nowStack);
-                        itemC.nowStack = itemC.maxStack;
-                        changeItem.transform.SetParent(changeParent);
-                        changeItem.transform.position = changeParent.transform.position;
-                        this.transform.SetParent(currentParent);
-                        this.transform.position = currentParent.transform.position;
+
+                        changeItem.transform.SetParent(currentParent);
+                        changeItem.transform.position = currentParent.transform.position;
+
+                        this.transform.SetParent(changeParent);
+                        this.transform.position = changeParent.transform.position;
+
                     }
-
-
-
-
                 }
-                else
-                {
-    
-                    changeItem.transform.SetParent(currentParent);
-                    changeItem.transform.position = currentParent.transform.position;
 
-                    this.transform.SetParent(changeParent);
-                    this.transform.position = changeParent.transform.position;
 
-                }
             }
 
 
         }
        else if(changeBox != null )
         {
+            Debug.Log("Check0");
             equipBox = null;
             if (changeBox.parent.tag == "Inventory")
             {
@@ -240,10 +243,9 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
             if(this.itemCheck.equipArea == equipBoxCheck.equipArea)
             {
-                Debug.Log("Check0");
+
                 if (equipBox.childCount == 0)
                 {
-                    Debug.Log("Check1");
                     transform.SetParent(equipBox);
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
@@ -251,7 +253,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 }
                 else
                 {
-                    Debug.Log("Check2");
                     // 아이템을 해체한는 부분
                     DetechItem(itemCheck.equipArea);
                     equipBoxCheck.DeletPrefab(itemCheck.equipArea);
@@ -266,7 +267,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             }
             else
             {
-                Debug.Log("Check3");
                 if (currentParent.parent.tag == "Inventory")
                 {
                     transform.SetParent(currentParent);
@@ -339,15 +339,12 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.transform.tag == "Box")
         {
-
             changeParent = collision.transform;
         }
         if (collision.transform.tag == "UpperBox")
         {
-
             changeBox = collision.transform;
         }
         if (collision.transform.tag == "EquipBox")
@@ -356,13 +353,9 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             {
                 equipBox = collision.transform;
             }
-
-
-
         }
-        
-
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.tag == "Box")
