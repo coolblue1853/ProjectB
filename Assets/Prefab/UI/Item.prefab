@@ -101,6 +101,9 @@ MonoBehaviour:
   acqPath: 
   maxStack: 0
   nowStack: 0
+  effectOb: 
+  effectPow: 0
+  equipArea: 
   stackText: {fileID: 971586147603965060}
   image: {fileID: 0}
 --- !u!114 &2163759216623664983
@@ -115,6 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9018c21baac73794fa4472af88e3a30f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dragCanvus: {fileID: 0}
+  weaponBox: {fileID: 0}
+  headBox: {fileID: 0}
+  ChestBox: {fileID: 0}
 --- !u!61 &-9054572238250600274
 BoxCollider2D:
   m_ObjectHideFlags: 0

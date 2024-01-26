@@ -21,6 +21,16 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         itemCheck = this.transform.GetComponent<ItemCheck>();
         dragCanvus = GameObject.FindWithTag("dragCanvas");
+        GetEquipmentBox();
+    }
+    void GetEquipmentBox()
+    {
+
+        GameObject upper = GameObject.FindWithTag("Equipment");
+        weaponBox = upper.transform.GetChild(0).gameObject;
+        headBox = upper.transform.GetChild(1).gameObject;
+        ChestBox = upper.transform.GetChild(2).gameObject;
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -88,12 +98,13 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
 
     }
-
+    EquipBoxCheck equipBoxCheck;
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
         if(changeParent != null)
         {
-            if(changeParent.parent.tag == "Inventory")
+            equipBox = null;
+            if (changeParent.parent.tag == "Inventory")
             {
                if(InventoryManager.instance.chest != null)
                 {
@@ -130,7 +141,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
                     if (itemC.nowStack + itemB.nowStack <= itemC.maxStack)
                     {
-                        Debug.Log("동작중1");
                         itemC.nowStack += itemB.nowStack;
                         changeItem.transform.SetParent(changeParent);
                         changeItem.transform.position = changeParent.transform.position;
@@ -138,7 +148,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     }
                     else
                     {
-                        Debug.Log("동작중2");
                         itemB.nowStack -= (itemC.maxStack - itemC.nowStack);
                         itemC.nowStack = itemC.maxStack;
                         changeItem.transform.SetParent(changeParent);
@@ -167,6 +176,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
        else if(changeBox != null )
         {
+            equipBox = null;
             if (changeBox.parent.tag == "Inventory")
             {
                 int siblingParentIndex = changeBox.transform.GetSiblingIndex();
@@ -224,22 +234,41 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 }
             }
         }
-        else if(equipBox != null)
+        else if(equipBox != null )
         {
-            EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
+
+            equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
             if(this.itemCheck.equipArea == equipBoxCheck.equipArea)
             {
-                transform.SetParent(equipBox);
-                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                this.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea);
+                Debug.Log("Check0");
+                if (equipBox.childCount == 0)
+                {
+                    Debug.Log("Check1");
+                    transform.SetParent(equipBox);
+                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    this.transform.position = equipBox.transform.position;
+                    equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea);
+                }
+                else
+                {
+                    Debug.Log("Check2");
+                    // 아이템을 해체한는 부분
+                    DetechItem(itemCheck.equipArea);
+                    equipBoxCheck.DeletPrefab(itemCheck.equipArea);
+
+                    transform.SetParent(equipBox);
+                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    this.transform.position = equipBox.transform.position;
+                    equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea);
+                    equipBoxCheck.ActivePrefab(itemCheck.equipArea);
+                }
 
             }
             else
             {
+                Debug.Log("Check3");
                 if (currentParent.parent.tag == "Inventory")
                 {
-                    Debug.Log("작동중");
                     transform.SetParent(currentParent);
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = currentParent.transform.position;
@@ -252,13 +281,20 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     this.transform.position = currentParent.transform.position;
                     InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
                 }
+                else
+                {
+                    transform.SetParent(equipBox);
+                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    this.transform.position = equipBox.transform.position;
+
+                }
             }
         }
         else
         {
+            Debug.Log("Check");
             if (currentParent.parent.tag == "Inventory")
             {
-                Debug.Log("작동중");
                 transform.SetParent(currentParent);
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 this.transform.position = currentParent.transform.position;
@@ -274,26 +310,55 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
         }
 
+    }
 
+     GameObject weaponBox;
+     GameObject headBox;
+     GameObject ChestBox;
 
-
-
+    public void DetechItem(string equipArea)
+    {
+        if (equipArea == "Weapon")
+        {
+            GameObject moveItem = weaponBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(currentParent);
+        }
+        else if (equipArea == "Head")
+        {
+            GameObject moveItem = headBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(currentParent);
+        }
+        else if (equipArea == "Chest")
+        {
+            GameObject moveItem = ChestBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(currentParent);
+            moveItem.transform.position = currentParent.transform.position;
+        }
 
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
         if (collision.transform.tag == "Box")
         {
+
             changeParent = collision.transform;
         }
         if (collision.transform.tag == "UpperBox")
         {
+
             changeBox = collision.transform;
         }
         if (collision.transform.tag == "EquipBox")
         {
-            equipBox = collision.transform;
+            if(equipBox == null)
+            {
+                equipBox = collision.transform;
+            }
+
+
+
         }
         
 
@@ -308,9 +373,9 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         {
             changeBox = null;
         }
-        if (collision.transform.tag == "UpperBox")
+        if (collision.transform.tag == "EquipBox")
         {
-            equipBox = null;
+           // equipBox = null;
         }
     }
 

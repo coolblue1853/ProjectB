@@ -721,7 +721,7 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2))
         {
           //  CreatItem("PickAxe");
-            CreatItem("Cap");
+            CreatItem("HighArmor");
 
         }
         if (openInventoryAction.triggered)

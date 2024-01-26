@@ -12,36 +12,95 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     public GameObject equipPrefab;
     public AttackManager attackManager; // 무기 장착을 위한  AttackManager
     GameObject instantiatedPrefab;
+    Weapon weapon;
+    Equipment head;
+    Equipment chest;
+
+
     public void ActivePrefab(string reciveEquipArea)
     {
-        if (reciveEquipArea == "Weapon")
+        if (reciveEquipArea == "Weapon" && weapon == null)
         {
-            Weapon weapon = equipPrefab.GetComponent<Weapon>();
+             weapon = equipPrefab.GetComponent<Weapon>();
             attackManager.equipWeapon = weapon;
 
         }
-        else
+        else if (reciveEquipArea == "Head" && head == null)
         {
-            Equipment equipment = equipPrefab.GetComponent<Equipment>();
-            PlayerHealthManager.Instance.EquipmentActiveTrue(equipment.hp, equipment.armor);
+            head = equipPrefab.GetComponent<Equipment>();
+            PlayerHealthManager.Instance.EquipmentActiveTrue(head.hp, head.armor);
+        }
+        else if (reciveEquipArea == "Chest" && chest == null)
+        {
+            chest = equipPrefab.GetComponent<Equipment>();
+            PlayerHealthManager.Instance.EquipmentActiveTrue(chest.hp, chest.armor);
         }
 
+        ActiveBoolCheck(reciveEquipArea);
     }
     public void DeletPrefab(string reciveEquipArea)
     {
         if (reciveEquipArea == "Weapon")
         {
-            Weapon weapon = equipPrefab.GetComponent<Weapon>();
+            // weapon = equipPrefab.GetComponent<Weapon>();
             attackManager.equipWeapon = null;
-            Destroy(instantiatedPrefab.gameObject);
+
+            Destroy(weapon.gameObject);
+            //    Destroy(instantiatedPrefab.gameObject);
+            weapon = null;
         }
-        else
+        else if (reciveEquipArea == "Head")
         {
-            Equipment equipment = equipPrefab.GetComponent<Equipment>();
-            PlayerHealthManager.Instance.EquipmentActiveFalse(equipment.hp, equipment.armor);
-            Destroy(instantiatedPrefab.gameObject);
+            //  head = equipPrefab.GetComponent<Equipment>();
+
+            PlayerHealthManager.Instance.EquipmentActiveFalse(head.hp, head.armor);
+            Destroy(head.gameObject);
+            head = null;
+        }
+        else if (reciveEquipArea == "Chest")
+        {
+            //  chest = equipPrefab.GetComponent<Equipment>();
+
+            PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp, chest.armor);
+            Destroy(chest.gameObject);
+            chest = null;
+        }
+        DeletBoolCheck(reciveEquipArea);
+    }
+
+
+    public void ActiveBoolCheck(string reciveEquipArea)
+    {
+        if (reciveEquipArea == "Head")
+        {
+
+        }
+        else if (reciveEquipArea == "Head")
+        {
+
+        }
+        else if (reciveEquipArea == "Chest")
+        {
+
         }
     }
+    public void DeletBoolCheck(string reciveEquipArea)
+    {
+        if (reciveEquipArea == "Head")
+        {
+
+        }
+        else if (reciveEquipArea == "Head")
+        {
+
+        }
+        else if (reciveEquipArea == "Chest")
+        {
+
+        }
+    }
+
+
 
     public void LoadPrefab(string equipName, string equipArea)
     {
@@ -133,5 +192,5 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             isSetArray = false;
             DeletPrefab(reciveEquipArea);
         }
-    }
+    }   
 }
