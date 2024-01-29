@@ -13,10 +13,14 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     public AttackManager attackManager; // 무기 장착을 위한  AttackManager
     GameObject instantiatedPrefab;
     Weapon weapon;
+    Weapon sideWeapon;
     Equipment head;
     Equipment chest;
-
-
+    Equipment leg;
+    Equipment hand;
+    Equipment necklace;
+    Equipment ring;
+    public bool isSideWeaponBox = false;
     public void ActivePrefab(string reciveEquipArea)
     {
         if(equipPrefab == null)
@@ -25,10 +29,16 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             ItemCheck obItemCheck = ob.GetComponent<ItemCheck>();
            LoadPrefab(obItemCheck.name, obItemCheck.equipArea);
         }
-        if (reciveEquipArea == "Weapon" && weapon == null)
+        if (reciveEquipArea == "Weapon" && weapon == null && isSideWeaponBox == false)
         {
              weapon = equipPrefab.GetComponent<Weapon>();
             attackManager.equipWeapon = weapon;
+
+        }
+        if (reciveEquipArea == "Weapon" && sideWeapon == null && isSideWeaponBox == true)
+        {
+            sideWeapon = equipPrefab.GetComponent<Weapon>();
+            attackManager.equipSideWeapon = sideWeapon;
 
         }
         else if (reciveEquipArea == "Head" && head == null)
@@ -42,19 +52,47 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             chest = equipPrefab.GetComponent<Equipment>();
             PlayerHealthManager.Instance.EquipmentActiveTrue(chest.hp, chest.armor);
         }
-
-
+        else if (reciveEquipArea == "Leg" && leg == null)
+        {
+            leg = equipPrefab.GetComponent<Equipment>();
+            PlayerHealthManager.Instance.EquipmentActiveTrue(leg.hp, leg.armor);
+        }
+        else if (reciveEquipArea == "Hand" && hand == null)
+        {
+            hand = equipPrefab.GetComponent<Equipment>();
+            PlayerHealthManager.Instance.EquipmentActiveTrue(hand.hp, hand.armor);
+        }
+        else if (reciveEquipArea == "Necklace" && hand == null)
+        {
+            necklace = equipPrefab.GetComponent<Equipment>();
+            PlayerHealthManager.Instance.EquipmentActiveTrue(necklace.hp, necklace.armor);
+        }
+        else if (reciveEquipArea == "Ring" && hand == null)
+        {
+            ring = equipPrefab.GetComponent<Equipment>();
+            PlayerHealthManager.Instance.EquipmentActiveTrue(ring.hp, ring.armor);
+        }
+        
     }
     public void DeletPrefab(string reciveEquipArea)
     {
         if (reciveEquipArea == "Weapon")
         {
-            // weapon = equipPrefab.GetComponent<Weapon>();
-            attackManager.equipWeapon = null;
+            if(sideWeapon == false)
+            {
+                attackManager.equipWeapon = null;
 
-            Destroy(weapon.gameObject);
-            //    Destroy(instantiatedPrefab.gameObject);
-            weapon = null;
+                Destroy(weapon.gameObject);
+                weapon = null;
+            }
+            else
+            {
+                attackManager.equipSideWeapon = null;
+
+                Destroy(sideWeapon.gameObject);
+                sideWeapon = null;
+            }
+
         }
         else if (reciveEquipArea == "Head")
         {
@@ -66,46 +104,37 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         }
         else if (reciveEquipArea == "Chest")
         {
-            //  chest = equipPrefab.GetComponent<Equipment>();
-
             PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp, chest.armor);
             Destroy(chest.gameObject);
             chest = null;
         }
- 
-    }
-
-
-    public void ActiveBoolCheck(string reciveEquipArea)
-    {
-        if (reciveEquipArea == "Head")
+        else if (reciveEquipArea == "Leg")
         {
-
+            PlayerHealthManager.Instance.EquipmentActiveFalse(leg.hp, leg.armor);
+            Destroy(leg.gameObject);
+            leg = null;
         }
-        else if (reciveEquipArea == "Head")
+        else if (reciveEquipArea == "Hand")
         {
-
+            PlayerHealthManager.Instance.EquipmentActiveFalse(hand.hp, hand.armor);
+            Destroy(hand.gameObject);
+            hand = null;
         }
-        else if (reciveEquipArea == "Chest")
+        else if (reciveEquipArea == "Necklace")
         {
-
+            PlayerHealthManager.Instance.EquipmentActiveFalse(necklace.hp, necklace.armor);
+            Destroy(necklace.gameObject);
+            necklace = null;
         }
-    }
-    public void DeletBoolCheck(string reciveEquipArea)
-    {
-        if (reciveEquipArea == "Head")
+        else if (reciveEquipArea == "Ring")
         {
-
-        }
-        else if (reciveEquipArea == "Head")
-        {
-
-        }
-        else if (reciveEquipArea == "Chest")
-        {
-
+            PlayerHealthManager.Instance.EquipmentActiveFalse(ring.hp, ring.armor);
+            Destroy(ring.gameObject);
+            ring = null;
         }
     }
+
+
 
 
 
@@ -134,7 +163,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
         }
 
-        if (equipArea == "Head")
+      else if (equipArea == "Head")
         {
             string folderPath = "Head/";
 
@@ -155,9 +184,93 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             }
 
         }
-        if (equipArea == "Chest")
+        else if (equipArea == "Chest")
         {
             string folderPath = "Chest/";
+
+            // 리소스 폴더 내의 equipName을 로드합니다.
+            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
+
+            if (prefab != null)
+            {
+                // Set the instantiated prefab as a child of the current GameObject
+                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
+
+                // Now, 'equipPrefab' refers to the instantiated prefab
+                equipPrefab = instantiatedPrefab;
+            }
+            else
+            {
+                Debug.LogError("Failed to load prefab: " + equipName);
+            }
+
+        }
+        else if (equipArea == "Leg")
+        {
+            string folderPath = "Leg/";
+
+            // 리소스 폴더 내의 equipName을 로드합니다.
+            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
+
+            if (prefab != null)
+            {
+                // Set the instantiated prefab as a child of the current GameObject
+                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
+
+                // Now, 'equipPrefab' refers to the instantiated prefab
+                equipPrefab = instantiatedPrefab;
+            }
+            else
+            {
+                Debug.LogError("Failed to load prefab: " + equipName);
+            }
+
+        }
+        else if (equipArea == "Hand")
+        {
+            string folderPath = "Hand/";
+
+            // 리소스 폴더 내의 equipName을 로드합니다.
+            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
+
+            if (prefab != null)
+            {
+                // Set the instantiated prefab as a child of the current GameObject
+                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
+
+                // Now, 'equipPrefab' refers to the instantiated prefab
+                equipPrefab = instantiatedPrefab;
+            }
+            else
+            {
+                Debug.LogError("Failed to load prefab: " + equipName);
+            }
+
+        }
+        else if (equipArea == "Necklace")
+        {
+            string folderPath = "Necklace/";
+
+            // 리소스 폴더 내의 equipName을 로드합니다.
+            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
+
+            if (prefab != null)
+            {
+                // Set the instantiated prefab as a child of the current GameObject
+                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
+
+                // Now, 'equipPrefab' refers to the instantiated prefab
+                equipPrefab = instantiatedPrefab;
+            }
+            else
+            {
+                Debug.LogError("Failed to load prefab: " + equipName);
+            }
+
+        }
+        else if (equipArea == "Ring")
+        {
+            string folderPath = "Ring/";
 
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);

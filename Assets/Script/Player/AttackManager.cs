@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class AttackManager : MonoBehaviour
 {
   public Weapon equipWeapon;
-
+    public Weapon equipSideWeapon;
     KeyAction action;
     InputAction attackAction;
 
@@ -33,6 +33,10 @@ public class AttackManager : MonoBehaviour
     void Update()
     {
         if (attackAction.triggered && equipWeapon != null)
+        {
+            equipWeapon.MeleeAttack();
+        }
+        else if (attackAction.triggered && equipSideWeapon != null)
         {
             equipWeapon.MeleeAttack();
         }

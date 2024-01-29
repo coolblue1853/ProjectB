@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1291193055134064077}
   - component: {fileID: 6823470286088001978}
   m_Layer: 7
-  m_Name: Cap
+  m_Name: HandArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

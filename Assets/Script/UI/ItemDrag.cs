@@ -103,7 +103,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         if(changeParent != null)
         {
-            equipBox = null;
+            
             if (changeParent.parent.tag == "Inventory")
             {
                if(InventoryManager.instance.chest != null)
@@ -133,12 +133,13 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             }
             else
             {
-                if(equipBox == null)
+                Debug.Log("작작동");
+                GameObject changeItem = changeParent.GetChild(0).gameObject;
+                ItemCheck itemC = changeItem.GetComponent<ItemCheck>();
+                ItemCheck itemB = this.GetComponent<ItemCheck>();
+
+                if (itemB.equipArea == itemC.equipArea || equipBox == null)
                 {
-                    Debug.Log("작작동");
-                    GameObject changeItem = changeParent.GetChild(0).gameObject;
-                    ItemCheck itemC = changeItem.GetComponent<ItemCheck>();
-                    ItemCheck itemB = this.GetComponent<ItemCheck>();
                     if (itemC.name == itemB.name && (itemC.nowStack != itemC.maxStack && itemB.nowStack != itemB.maxStack))
                     {
 
@@ -170,11 +171,17 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
                     }
                 }
+                else
+                {
+                    transform.SetParent(equipBox);
+                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    this.transform.position = equipBox.transform.position;
+                }
 
 
             }
 
-
+            equipBox = null;
         }
        else if(changeBox != null )
         {
@@ -241,7 +248,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         {
 
             equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
-            if(this.itemCheck.equipArea == equipBoxCheck.equipArea)
+            if (this.itemCheck.equipArea == equipBoxCheck.equipArea)
             {
 
                 if (equipBox.childCount == 0)
@@ -273,6 +280,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = currentParent.transform.position;
                     InventoryManager.instance.ChangeCusor(currentParent.gameObject);
+                    equipBox = null;
                 }
                 else if (currentParent.parent.tag == "Chest")
                 {
@@ -280,6 +288,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = currentParent.transform.position;
                     InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
+                    equipBox = null;
                 }
                 else
                 {
@@ -292,7 +301,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
         else
         {
-            Debug.Log("Check");
             if (currentParent.parent.tag == "Inventory")
             {
                 transform.SetParent(currentParent);
@@ -307,7 +315,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 this.transform.position = currentParent.transform.position;
                 InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
             }
-
+            equipBox = null;
         }
 
     }
@@ -349,10 +357,17 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
         if (collision.transform.tag == "EquipBox")
         {
-            if(equipBox == null)
+            equipBoxCheck = collision.GetComponent<EquipBoxCheck>();
+            if (this.itemCheck.equipArea == equipBoxCheck.equipArea)
             {
                 equipBox = collision.transform;
+                if (equipBox == null)
+                {
+
+                }
             }
+
+
         }
     }
 
@@ -372,5 +387,8 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
     }
 
-
+    private void Update()
+    {
+        
+    }
 }
