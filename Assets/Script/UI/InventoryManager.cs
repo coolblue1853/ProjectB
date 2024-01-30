@@ -25,7 +25,9 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventory;
     public GameObject miscDetail;
     public GameObject consumDetail;
+    public GameObject equipDetail;
     int detailX = 150, detailY =12;
+    int equipDetailX = 150;
     static public InventoryManager instance;
     public string state;
     public GameObject divideUI;
@@ -50,6 +52,14 @@ public class InventoryManager : MonoBehaviour
     public int maxHor = 5;
     public int maxVer = 5;
 
+    public GameObject handBox;
+    public GameObject chestBox;
+    public GameObject sideWeaponBox;
+    public GameObject necklesBox;
+    public GameObject headBox;
+    public GameObject ringBox;
+    public GameObject legBox;
+    public GameObject weaponBox;
 
     private void OnEnable()
     {
@@ -444,6 +454,10 @@ public class InventoryManager : MonoBehaviour
             }
 
         }
+        if(state == "Equipment")
+        {
+            OnlyDetailObOff();
+        }
         else if(state == "change")
         {
             if (chest == null)
@@ -504,6 +518,190 @@ public class InventoryManager : MonoBehaviour
 
     }
 
+    void EquipmentCusorManage()
+    {
+        if(nowEquipBox == handBox)
+        {
+            if (leftInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = chestBox.gameObject;
+                nowEquipBox = chestBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (downInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = sideWeaponBox.gameObject;
+                nowEquipBox = sideWeaponBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (upInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = necklesBox.gameObject;
+                nowEquipBox = necklesBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (rightInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                nowEquipBox = null;
+                state = "boxChange";
+                boxCusor = 0;
+                GameObject insPositon = inventoryBox[boxCusor];
+                cusor.transform.position = insPositon.transform.position;
+            }
+        }
+       else if (nowEquipBox == necklesBox)
+        {
+            if (leftInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = headBox.gameObject;
+                nowEquipBox = headBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (downInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = handBox.gameObject;
+                nowEquipBox = handBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (rightInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                nowEquipBox = null;
+                state = "boxChange";
+                boxCusor = 0;
+                GameObject insPositon = inventoryBox[boxCusor];
+                cusor.transform.position = insPositon.transform.position;
+            }
+        }
+        else if (nowEquipBox == sideWeaponBox)
+        {
+            if (leftInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = legBox.gameObject;
+                nowEquipBox = legBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (upInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = handBox.gameObject;
+                nowEquipBox = handBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (rightInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                nowEquipBox = null;
+                state = "boxChange";
+                boxCusor = 0;
+                GameObject insPositon = inventoryBox[boxCusor];
+                cusor.transform.position = insPositon.transform.position;
+            }
+        }
+        else if (nowEquipBox == chestBox)
+        {
+
+             if (downInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = legBox.gameObject;
+                nowEquipBox = legBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (upInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = headBox.gameObject;
+                nowEquipBox = headBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (rightInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = handBox.gameObject;
+                nowEquipBox = handBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+        }
+        else if (nowEquipBox == legBox)
+        {
+            if (leftInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = weaponBox.gameObject;
+                nowEquipBox = weaponBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (upInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = chestBox.gameObject;
+                nowEquipBox = chestBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (rightInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = sideWeaponBox.gameObject;
+                nowEquipBox = sideWeaponBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+        }
+        else if (nowEquipBox == headBox)
+        {
+            if (leftInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = ringBox.gameObject;
+                nowEquipBox = ringBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (downInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = chestBox.gameObject;
+                nowEquipBox = chestBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+            else if (rightInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = necklesBox.gameObject;
+                nowEquipBox = necklesBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+        }
+        else if (nowEquipBox == ringBox)
+        {
+        if (rightInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = headBox.gameObject;
+                nowEquipBox = headBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+
+        }
+        else if (nowEquipBox == weaponBox)
+        {
+            if (rightInventoryAction.triggered)
+            {
+                OnlyDetailObOff();
+                GameObject insPositon = legBox.gameObject;
+                nowEquipBox = legBox;
+                cusor.transform.position = insPositon.transform.position;
+            }
+
+        }
+    }
+    GameObject nowEquipBox;
     void BoxChangeByKey()
     {
         if ((upInventoryAction.triggered) || (checkRepeat == false && verticalInput == 1))
@@ -604,6 +802,14 @@ public class InventoryManager : MonoBehaviour
                 chest.isCusorChest = true;
                 chest.CusorMove2Chest();
             }
+            else if(chest == null)
+            {
+                changeCusor.SetActive(false);
+                GameObject insPositon = handBox.gameObject;
+                nowEquipBox = handBox;
+                cusor.transform.position = insPositon.transform.position;
+                state = "Equipment";
+            }
 
         }
         if (selectAction.triggered&& state == "boxChange")
@@ -643,6 +849,12 @@ public class InventoryManager : MonoBehaviour
         horizontalInput = (horizontalCheck.ReadValue<float>());
         if (inventory.activeSelf == true)
         {
+            if (state == "Equipment")
+            {
+                EquipmentCusorManage();
+                if (selectAction.triggered && nowEquipBox.transform.childCount!=0)
+                    BoxContentChecker();
+            }
             if (consumAction.triggered && state == "")
             {
                 ActiveConsum();
@@ -1094,7 +1306,7 @@ public class InventoryManager : MonoBehaviour
             ItemCheck detail;
             state = "detail";
 
-            if(ob != null)
+            if (ob != null)
             {
                 detail = ob.transform.GetComponent<ItemCheck>();
             }
@@ -1102,12 +1314,12 @@ public class InventoryManager : MonoBehaviour
             {
                 GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
                 //Debug.Log(gameObject.transform.GetChild(0));
-                 detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
+                detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
             }
 
             if (detail.type == "Misc")
             {
-                Transform misc =  miscDetail.gameObject.transform;
+                Transform misc = miscDetail.gameObject.transform;
                 misc.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
                 misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
                 misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
@@ -1115,7 +1327,7 @@ public class InventoryManager : MonoBehaviour
                 misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
                 misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
                 misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
-                if(ob != null)
+                if (ob != null)
                 {
                     miscDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
                 }
@@ -1124,11 +1336,11 @@ public class InventoryManager : MonoBehaviour
                     miscDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
                 }
                 miscDetail.SetActive(true);
-               // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
             }
             if (detail.type == "Consum")
             {
-                   Transform  consum = consumDetail.gameObject.transform;
+                Transform consum = consumDetail.gameObject.transform;
                 consum.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
                 consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
                 consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
@@ -1136,7 +1348,7 @@ public class InventoryManager : MonoBehaviour
                 consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
                 consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
                 string[] effectString = detail.effectOb.Split();
-                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = effectString[0] + " : "+ effectString[1] + detail.effectPow;
+                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = effectString[0] + " : " + effectString[1] + detail.effectPow;
                 if (ob != null)
                 {
                     consumDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
@@ -1148,11 +1360,65 @@ public class InventoryManager : MonoBehaviour
                 consumDetail.SetActive(true);
                 // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
             }
+            if (detail.type == "Equip")
+            {
+                Transform equip = equipDetail.gameObject.transform;
+                equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
+                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
+                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+                if (ob != null)
+                {
+                    equipDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
+                }
+                else
+                {
+                    equipDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
+                }
+                equipDetail.SetActive(true);
+                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+            }
         }
+        else if (state == "Equipment")
+        {
+            ItemCheck detail;
+            // state = "detail";
 
+            if (ob != null)
+            {
+                detail = ob.transform.GetComponent<ItemCheck>();
+            }
+            else
+            {
+                GameObject gameObject = (nowEquipBox);
+                //Debug.Log(gameObject.transform.GetChild(0));
+                detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
+            }
 
+            Transform equip = equipDetail.gameObject.transform;
+            equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+            if (ob != null)
+            {
+                equipDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x + equipDetailX, detailY);
+            }
+            else
+            {
+                equipDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x + equipDetailX, detailY);
+            }
+            equipDetail.SetActive(true);
+            // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+
+        }
     }
-
     public void CreatItem(string itemName, bool isC2I = false)
     {
         if(CheckStack(itemName) == false)
@@ -1336,13 +1602,16 @@ public class InventoryManager : MonoBehaviour
             state = "";
         }
 
+
         miscDetail.SetActive(false);
         consumDetail.SetActive(false);
+        equipDetail.SetActive(false);
     }
     void OnlyDetailObOff()
     {
         miscDetail.SetActive(false);
         consumDetail.SetActive(false);
+        equipDetail.SetActive(false);
     }
 
     public Chest chest;
