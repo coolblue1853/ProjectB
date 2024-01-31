@@ -27,9 +27,14 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
 
         GameObject upper = GameObject.FindWithTag("Equipment");
-        weaponBox = upper.transform.GetChild(0).gameObject;
-        headBox = upper.transform.GetChild(1).gameObject;
-        ChestBox = upper.transform.GetChild(2).gameObject;
+        handBox = upper.transform.GetChild(0).gameObject;
+        chestBox = upper.transform.GetChild(1).gameObject;
+        sideWeaponBox = upper.transform.GetChild(2).gameObject;
+        necklesBox = upper.transform.GetChild(3).gameObject;
+        headBox = upper.transform.GetChild(4).gameObject;
+        ringBox = upper.transform.GetChild(5).gameObject;
+        legBox = upper.transform.GetChild(6).gameObject;
+        weaponBox = upper.transform.GetChild(7).gameObject;
 
     }
 
@@ -322,27 +327,69 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
      GameObject weaponBox;
      GameObject headBox;
-     GameObject ChestBox;
+     GameObject chestBox;
+    GameObject ringBox;
+    GameObject necklesBox;
+    GameObject sideWeaponBox;
+    GameObject legBox;
+    GameObject handBox;
 
     public void DetechItem(string equipArea)
     {
         if (equipArea == "Weapon")
         {
-            GameObject moveItem = weaponBox.transform.GetChild(0).gameObject;
-            moveItem.transform.SetParent(currentParent);
+            if(equipBox.name == "SideWeapon")
+            {
+                GameObject moveItem = sideWeaponBox.transform.GetChild(0).gameObject;
+                moveItem.transform.SetParent(currentParent);
+                moveItem.transform.position = currentParent.transform.position;
+            }
+            else
+            {
+                GameObject moveItem = weaponBox.transform.GetChild(0).gameObject;
+                moveItem.transform.SetParent(currentParent);
+                moveItem.transform.position = currentParent.transform.position;
+
+            }
+
         }
         else if (equipArea == "Head")
         {
             GameObject moveItem = headBox.transform.GetChild(0).gameObject;
             moveItem.transform.SetParent(currentParent);
+            moveItem.transform.position = currentParent.transform.position;
+
         }
         else if (equipArea == "Chest")
         {
-            GameObject moveItem = ChestBox.transform.GetChild(0).gameObject;
+            GameObject moveItem = chestBox.transform.GetChild(0).gameObject;
             moveItem.transform.SetParent(currentParent);
             moveItem.transform.position = currentParent.transform.position;
         }
-
+        else if (equipArea == "Hand")
+        {
+            GameObject moveItem = handBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(currentParent);
+            moveItem.transform.position = currentParent.transform.position;
+        }
+        else if (equipArea == "Neckles")
+        {
+            GameObject moveItem = necklesBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(currentParent);
+            moveItem.transform.position = currentParent.transform.position;
+        }
+        else if (equipArea == "Ring")
+        {
+            GameObject moveItem = ringBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(currentParent);
+            moveItem.transform.position = currentParent.transform.position;
+        }
+        else if (equipArea == "Leg")
+        {
+            GameObject moveItem = legBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(currentParent);
+            moveItem.transform.position = currentParent.transform.position;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -843,6 +843,122 @@ public class InventoryManager : MonoBehaviour
         GameObject insPositon = inventoryBox[boxCusor];
         cusor.transform.position = insPositon.transform.position;
     }
+    
+
+    GameObject SetEquipBox()
+    {
+        if(detail.equipArea == "Hand")
+        {
+            return handBox;
+        }
+        else if (detail.equipArea == "Chest")
+        {
+            return chestBox;
+        }
+        else if (detail.equipArea == "Weapon")
+        {
+            return weaponBox;
+        }  // 메인 무장이 없으면 메인 무장 먼저, 있으면 사이드 웨폰에다가 무기를 넣어야함
+        else if (detail.equipArea == "Neckles")
+        {
+            return necklesBox;
+        }
+        else if (detail.equipArea == "Head")
+        {
+            return headBox;
+        }
+        else if (detail.equipArea == "Ring")
+        {
+            return ringBox;
+
+        }
+        else if (detail.equipArea == "Leg")
+        {
+            return legBox;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+    void UseEquipment()
+    {
+        Debug.Log("작동중");
+        GameObject equipBox = SetEquipBox();
+        GameObject nowEquipItem = detail.gameObject;
+
+
+      EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
+        if (equipBox.transform.childCount == 0)
+        {
+            nowEquipItem.transform.SetParent(equipBox.transform);
+            //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            nowEquipItem.transform.position = equipBox.transform.position;
+            equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+        }
+        else
+        {
+            // 아이템을 해체한는 부분
+            DetechItem(detail.equipArea);
+            equipBoxCheck.DeletPrefab(detail.equipArea);
+
+            transform.SetParent(equipBox.transform);
+            //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            this.transform.position = equipBox.transform.position;
+            equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+            equipBoxCheck.ActivePrefab(detail.equipArea);
+        }
+    }
+    public void DetechItem(string equipArea)
+    {
+        GameObject equipChangeBox = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
+        if (equipArea == "Weapon") // 이거도 부 무장도 빼질 수 있도록 변경해 주어야 함
+        {
+            GameObject moveItem = weaponBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(equipChangeBox.transform);
+            moveItem.transform.position = equipChangeBox.transform.position;
+
+        }
+        else if (equipArea == "Head")
+        {
+            GameObject moveItem = headBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(equipChangeBox.transform);
+            moveItem.transform.position = equipChangeBox.transform.position;
+
+        }
+        else if (equipArea == "Chest")
+        {
+            GameObject moveItem = chestBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(equipChangeBox.transform);
+            moveItem.transform.position = equipChangeBox.transform.position;
+        }
+        else if (equipArea == "Hand")
+        {
+            GameObject moveItem = handBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(equipChangeBox.transform);
+            moveItem.transform.position = equipChangeBox.transform.position;
+        }
+        else if (equipArea == "Neckles")
+        {
+            GameObject moveItem = necklesBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(equipChangeBox.transform);
+            moveItem.transform.position = equipChangeBox.transform.position;
+        }
+        else if (equipArea == "Ring")
+        {
+            GameObject moveItem = ringBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(equipChangeBox.transform);
+            moveItem.transform.position = equipChangeBox.transform.position;
+        }
+        else if (equipArea == "Leg")
+        {
+            GameObject moveItem = legBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(equipChangeBox.transform);
+            moveItem.transform.position = equipChangeBox.transform.position;
+        }
+    }
     private void Update()
     {
         verticalInput =(verticalCheck.ReadValue<float>());
@@ -852,8 +968,11 @@ public class InventoryManager : MonoBehaviour
             if (state == "Equipment")
             {
                 EquipmentCusorManage();
-                if (selectAction.triggered && nowEquipBox.transform.childCount!=0)
+                if (selectAction.triggered && nowEquipBox.transform.childCount != 0)
+                {
                     BoxContentChecker();
+                }
+  
             }
             if (consumAction.triggered && state == "")
             {
@@ -869,11 +988,22 @@ public class InventoryManager : MonoBehaviour
                 if (state == "" || state == "chestOpen")
                 {
                     BoxContentChecker();
+
+
                 }
                 else if(state == "detail")
                 {
-                    CloseCheck();
 
+                    if (equipDetail.activeSelf == true)
+                    {
+                        UseEquipment();
+                        CloseCheck();
+                    }
+                    else
+                    {
+                        CloseCheck();
+
+                    }
 
                 }
                 if(state == "I2CMove")
@@ -1299,11 +1429,12 @@ public class InventoryManager : MonoBehaviour
 
         }
     }
+    ItemCheck detail;
     public void BoxContentChecker(GameObject ob = null) // Z키 클릭시 인벤토리창
     {
         if (inventoryArray[cusorCount[nowBox], nowBox] == 1 && (state == "" || state == "chestOpen"))
         {
-            ItemCheck detail;
+
             state = "detail";
 
             if (ob != null)
@@ -1384,7 +1515,6 @@ public class InventoryManager : MonoBehaviour
         }
         else if (state == "Equipment")
         {
-            ItemCheck detail;
             // state = "detail";
 
             if (ob != null)
@@ -1475,7 +1605,6 @@ public class InventoryManager : MonoBehaviour
         GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
         cusor.transform.position = insPositon.transform.position;
         changeCusor.SetActive(false);
-        Debug.Log("체크중1");
         state = "";
     }
     public void ChangeCusor(GameObject ob)
