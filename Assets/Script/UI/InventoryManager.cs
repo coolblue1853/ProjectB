@@ -885,7 +885,6 @@ public class InventoryManager : MonoBehaviour
 
     void UseEquipment()
     {
-        Debug.Log("¿€µø¡ﬂ");
         GameObject equipBox = SetEquipBox();
         GameObject nowEquipItem = detail.gameObject;
 
@@ -904,9 +903,9 @@ public class InventoryManager : MonoBehaviour
             DetechItem(detail.equipArea);
             equipBoxCheck.DeletPrefab(detail.equipArea);
 
-            transform.SetParent(equipBox.transform);
+            nowEquipItem.transform.SetParent(equipBox.transform);
             //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            this.transform.position = equipBox.transform.position;
+            nowEquipItem.transform.position = equipBox.transform.position;
             equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
             equipBoxCheck.ActivePrefab(detail.equipArea);
         }
@@ -1062,7 +1061,7 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            CreatItem("Ring");
+            CreatItem("HighArmor");
           //  CreatItem("Necklace");
 
 
