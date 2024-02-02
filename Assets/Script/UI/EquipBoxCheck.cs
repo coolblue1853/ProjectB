@@ -23,6 +23,12 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     Equipment ring;
     public bool isSideWeaponBox = false;
     public GameObject nowBox;
+
+    public void EquipSideWeapon()
+    {
+        sideWeapon = equipPrefab.GetComponent<Weapon>();
+        attackManager.equipSideWeapon = sideWeapon;
+    }
     public void ActivePrefab(string reciveEquipArea)
     {
         if(equipPrefab == null)
@@ -76,24 +82,85 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
     }
     GameObject deletChile ;
-    public void DeletPrefab(string reciveEquipArea, bool isFalse= true)
+    public void DeletPrefab(string reciveEquipArea, bool isFalse= true, bool isSideWeapon = false)
     {
 
         if (reciveEquipArea == "Weapon")
         {
-            if(sideWeapon == false)
+            if(isSideWeapon == true)
             {
-                attackManager.equipWeapon = null;
+                Debug.Log("부무장 장착 1");
+                if (isFalse == false)
+                {
+                    Sequence waitSequence = DOTween.Sequence()
+    .AppendCallback(() => attackManager.equipSideWeapon = null)
+      .AppendCallback(() => Destroy(sideWeapon.gameObject))
+     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
+     .OnComplete(() => Destroy(deletChile));
+                }
+                else
+                {
+                    if (sideWeapon != null)
+                    {
 
-                Destroy(weapon.gameObject);
-                weapon = null;
+                        attackManager.equipSideWeapon = null;
+                        Destroy(sideWeapon.gameObject);
+                        sideWeapon = null;
+                    }
+
+
+                }
+            }
+           else if(sideWeapon == false)
+            {
+                Debug.Log("주무장 장착 1");
+                if (isFalse == false)
+                {
+                    Sequence waitSequence = DOTween.Sequence()
+    .AppendCallback(() => attackManager.equipWeapon = null)
+      .AppendCallback(() => Destroy(weapon.gameObject))
+     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
+     .OnComplete(() => Destroy(deletChile));
+                }
+                else
+                {
+                    if (weapon != null)
+                    {
+
+                        attackManager.equipWeapon = null;
+                        Destroy(weapon.gameObject);
+                        weapon = null;
+                    }
+
+
+                }
+
             }
             else
             {
-                attackManager.equipSideWeapon = null;
+                Debug.Log("부무장 장착 2");
+                Debug.Log("주무장 장착 1");
+                if (isFalse == false)
+                {
+                    Sequence waitSequence = DOTween.Sequence()
+    .AppendCallback(() => attackManager.equipWeapon = null)
+      .AppendCallback(() => Destroy(weapon.gameObject))
+     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
+     .OnComplete(() => Destroy(deletChile));
+                }
+                else
+                {
+                    if (weapon != null)
+                    {
 
-                Destroy(sideWeapon.gameObject);
-                sideWeapon = null;
+                        attackManager.equipWeapon = null;
+                        Destroy(weapon.gameObject);
+                        weapon = null;
+                    }
+
+
+                }
+
             }
 
         }
@@ -126,7 +193,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         {
             if (isFalse == false)
             {
-                Debug.Log("작동중1");
+
                 Sequence waitSequence = DOTween.Sequence()
 .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp, chest.armor))
 .AppendCallback(() => Destroy(chest.gameObject))
@@ -137,7 +204,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (chest != null)
                 {
-                    Debug.Log("작동중2");
+
                     PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp, chest.armor);
                     Destroy(chest.gameObject);
                     chest = null;
@@ -257,6 +324,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         reciveEquipArea = equipArea;
         if (equipArea == "Weapon")
         {
+
             string folderPath = "Weapon/";
 
             // 리소스 폴더 내의 equipName을 로드합니다.
@@ -425,7 +493,15 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         {
             Debug.Log("이쪽인가");
             isSetArray = false;
-            DeletPrefab(reciveEquipArea);
+            if(isSideWeaponBox == true)
+            {
+                DeletPrefab(reciveEquipArea, false, true);
+            }
+            else
+            {
+                DeletPrefab(reciveEquipArea, false);
+            }
+
         }
     }   
 }

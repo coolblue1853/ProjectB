@@ -728,7 +728,7 @@ public class InventoryManager : MonoBehaviour
 
         }
     }
-    GameObject nowEquipBox;
+   public GameObject nowEquipBox;
     void BoxChangeByKey()
     {
         if ((upInventoryAction.triggered) || (checkRepeat == false && verticalInput == 1))
@@ -884,7 +884,23 @@ public class InventoryManager : MonoBehaviour
         }
         else if (detail.equipArea == "Weapon")
         {
-            return weaponBox;
+            if (nowEquipBox != null)
+            {
+                if (nowEquipBox.name == "SideWeapon")
+                {
+                    return sideWeaponBox;
+                }
+                else
+                {
+                    return weaponBox;
+                }
+            }
+            else
+            {
+                return weaponBox;
+            }
+
+
         }  // 메인 무장이 없으면 메인 무장 먼저, 있으면 사이드 웨폰에다가 무기를 넣어야함
         else if (detail.equipArea == "Neckles")
         {
@@ -919,13 +935,28 @@ public class InventoryManager : MonoBehaviour
 
         if(CheckBoxCanCreatAll() == true)
         {
-            Sequence waitSequence = DOTween.Sequence()
+            if(nowEquipBox.name == "SideWeapon")
+            {
+                Debug.Log("sideWeapon");
+                Sequence waitSequence = DOTween.Sequence()
+.AppendCallback(() => equipBoxCheck.isSetArray = false)
+.OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false, true));
+
+
+                CreatItem(detail.name);
+            }
+            else
+            {
+
+                Sequence waitSequence = DOTween.Sequence()
 .AppendCallback(() => equipBoxCheck.isSetArray = false)
 .OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false));
 
 
-            CreatItem(detail.name);
-          //  DetechItem(detail.equipArea);
+                CreatItem(detail.name);
+                //  DetechItem(detail.equipArea);
+            }
+
         }
        
 
@@ -944,25 +975,64 @@ public class InventoryManager : MonoBehaviour
 
 
       EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
-        if (equipBox.transform.childCount == 0)
+
+        if(detail.equipArea != "Weapon")
         {
-            nowEquipItem.transform.SetParent(equipBox.transform);
-            //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            nowEquipItem.transform.position = equipBox.transform.position;
-            equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+            if (equipBox.transform.childCount == 0)
+            {
+                nowEquipItem.transform.SetParent(equipBox.transform);
+                //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                nowEquipItem.transform.position = equipBox.transform.position;
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+            }
+            else
+            {
+                // 아이템을 해체한는 부분
+                DetechItem(detail.equipArea);
+                equipBoxCheck.DeletPrefab(detail.equipArea);
+
+                nowEquipItem.transform.SetParent(equipBox.transform);
+                //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                nowEquipItem.transform.position = equipBox.transform.position;
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+                equipBoxCheck.ActivePrefab(detail.equipArea);
+            }
         }
         else
         {
-            // 아이템을 해체한는 부분
-            DetechItem(detail.equipArea);
-            equipBoxCheck.DeletPrefab(detail.equipArea);
+            if (equipBox.transform.childCount == 0)
+            {
 
-            nowEquipItem.transform.SetParent(equipBox.transform);
-            //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            nowEquipItem.transform.position = equipBox.transform.position;
-            equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
-            equipBoxCheck.ActivePrefab(detail.equipArea);
+                nowEquipItem.transform.SetParent(equipBox.transform);
+                //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                nowEquipItem.transform.position = equipBox.transform.position;
+             equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+            }
+            else if(sideWeaponBox.transform.childCount == 0)
+            {
+
+                nowEquipItem.transform.SetParent(sideWeaponBox.transform);
+                //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                nowEquipItem.transform.position = sideWeaponBox.transform.position;
+                equipBoxCheck.EquipSideWeapon();
+              //  equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+            }
+            else
+            {
+
+                // 아이템을 해체한는 부분
+                DetechItem(detail.equipArea);
+                equipBoxCheck.DeletPrefab(detail.equipArea);
+
+                nowEquipItem.transform.SetParent(equipBox.transform);
+                //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                nowEquipItem.transform.position = equipBox.transform.position;
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+                equipBoxCheck.ActivePrefab(detail.equipArea);
+            }
         }
+
+
     }
     public void DetechItem(string equipArea)
     {
@@ -1123,7 +1193,7 @@ public class InventoryManager : MonoBehaviour
         {
 
        
-            CreatItem("Armor");
+            CreatItem("PickAxe");
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
@@ -1145,7 +1215,8 @@ public class InventoryManager : MonoBehaviour
             {
                 DatabaseManager.isOpenUI = false;
                 inventory.SetActive(false);
-                if(chest != null)
+                CloseCheck();
+                if (chest != null)
                 {
                     chest.CloseChest();
                     chest = null;

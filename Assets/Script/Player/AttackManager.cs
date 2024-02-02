@@ -38,7 +38,7 @@ public class AttackManager : MonoBehaviour
         }
         else if (attackAction.triggered && equipSideWeapon != null)
         {
-            equipWeapon.MeleeAttack();
+            equipSideWeapon.MeleeAttack();
         }
     }
 }
