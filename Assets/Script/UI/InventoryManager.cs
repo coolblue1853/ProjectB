@@ -177,6 +177,33 @@ public class InventoryManager : MonoBehaviour
         }
 
     }
+    public bool CheckBoxCanCreatAll()
+    {
+        bool isCreat = false;
+        for (int j = 0; j <5; j++)
+        {
+            for (int i = 0; i < maxHor * maxVer; i++)
+            {
+                if (inventoryArray[i, j] == 0 && j * maxHor * maxVer + i < maxBoxNum)
+                {
+                    isCreat = true;
+
+                    break;
+                }
+
+            }
+        }
+
+        if (isCreat == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
     private void Start()
     {
         inventory.SetActive(true);
@@ -882,9 +909,36 @@ public class InventoryManager : MonoBehaviour
         }
 
     }
+    void UnUseEquipment()
+    {
+        GameObject equipBox = SetEquipBox();
+        GameObject nowEquipItem = detail.gameObject;
 
+
+        EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
+
+        if(CheckBoxCanCreatAll() == true)
+        {
+            Sequence waitSequence = DOTween.Sequence()
+.AppendCallback(() => equipBoxCheck.isSetArray = false)
+.OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false));
+
+
+            CreatItem(detail.name);
+          //  DetechItem(detail.equipArea);
+        }
+       
+
+        /*
+        nowEquipItem.transform.SetParent(equipBox.transform);
+        nowEquipItem.transform.position = equipBox.transform.position;
+        equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+        equipBoxCheck.ActivePrefab(detail.equipArea);
+        */
+    }
     void UseEquipment()
     {
+
         GameObject equipBox = SetEquipBox();
         GameObject nowEquipItem = detail.gameObject;
 
@@ -915,6 +969,7 @@ public class InventoryManager : MonoBehaviour
         GameObject equipChangeBox = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         if (equipArea == "Weapon") // 이거도 부 무장도 빼질 수 있도록 변경해 주어야 함
         {
+
             GameObject moveItem = weaponBox.transform.GetChild(0).gameObject;
             moveItem.transform.SetParent(equipChangeBox.transform);
             moveItem.transform.position = equipChangeBox.transform.position;
@@ -969,7 +1024,18 @@ public class InventoryManager : MonoBehaviour
                 EquipmentCusorManage();
                 if (selectAction.triggered && nowEquipBox.transform.childCount != 0)
                 {
-                    BoxContentChecker();
+                    if (equipDetail.activeSelf == true)
+                    {
+                        UnUseEquipment();
+                        CloseCheck();
+                    }
+                    else
+                    {
+                        BoxContentChecker();
+                        // CloseCheck();
+
+                    }
+
                 }
   
             }
@@ -995,6 +1061,7 @@ public class InventoryManager : MonoBehaviour
 
                     if (equipDetail.activeSelf == true)
                     {
+
                         UseEquipment();
                         CloseCheck();
                     }
