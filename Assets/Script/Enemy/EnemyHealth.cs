@@ -17,11 +17,12 @@ public class EnemyHealth : MonoBehaviour
     // 넉백에 사용될 방향
     Vector2 knockbackDirection = new Vector2(0f, 1f);
     public BTBrain brain;
-
-     EnemyFSM enemyFSM;
+    public DropManager dropManager;
+    EnemyFSM enemyFSM;
     private void Start()
     {
-        enemyFSM = transform.GetComponent<EnemyFSM>();
+        dropManager = transform.GetComponent<DropManager>();
+           enemyFSM = transform.GetComponent<EnemyFSM>();
         rb = transform. GetComponent<Rigidbody2D>();
        // brain = transform.GetComponent<BTBrain>();
         nowHP = maxHP;
@@ -31,6 +32,8 @@ public class EnemyHealth : MonoBehaviour
     {
         if (nowHP <= 0)
         {
+
+            dropManager.DropItems(transform.position    );
             Destroy(this.gameObject);
         }
 

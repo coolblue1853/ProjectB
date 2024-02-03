@@ -890,9 +890,14 @@ public class InventoryManager : MonoBehaviour
                 {
                     return sideWeaponBox;
                 }
-                else
+                else if (nowEquipBox.name == "Weapon")
                 {
                     return weaponBox;
+                }
+                else
+                {
+                    Debug.Log("Null");
+                    return null;
                 }
             }
             else
@@ -1000,7 +1005,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            if (equipBox.transform.childCount == 0)
+            if (weaponBox.transform.childCount == 0)
             {
 
                 nowEquipItem.transform.SetParent(equipBox.transform);
@@ -1052,7 +1057,7 @@ public class InventoryManager : MonoBehaviour
             moveItem.transform.position = equipChangeBox.transform.position;
 
         }
-        else if (equipArea == "Chest")
+        else if (equipArea == "Chest")  
         {
             GameObject moveItem = chestBox.transform.GetChild(0).gameObject;
             moveItem.transform.SetParent(equipChangeBox.transform);

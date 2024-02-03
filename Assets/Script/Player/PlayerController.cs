@@ -234,17 +234,19 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // 바닥 감지 레이캐스트
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, LayerMask.GetMask("Ground"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 2f, LayerMask.GetMask("Ground"));
 
         // Ground 태그를 가진 오브젝트에 닿았고, 각도가 일정 범위 내에 있으면 점프 횟수 초기화
         if (hit.collider != null && hit.collider.CompareTag("Ground") && IsGrounded(hit.normal))
         {
+
             isWallReset = false;
             isGrounded = true;
             jumpsRemaining = maxJumps;
         }
         else
         {
+
             isGrounded = false;
         }
         if(states != "dash")
@@ -256,7 +258,7 @@ public class PlayerController : MonoBehaviour
                 horizontalInput = moveAction.ReadValue<float>();
                 if (isWallReset == false && horizontalInput != 0)
                 {
-                    Debug.Log("1회동작");
+
                     isWallReset = true;
                     isWall = true;
                     rb.velocity = new Vector2(0f, 0f);

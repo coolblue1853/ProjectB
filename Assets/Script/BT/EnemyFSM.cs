@@ -13,9 +13,13 @@ public class EnemyFSM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nowState = state[0];
-        beforeState = nowState;
-        brain[0].restartEvaluate();
+        if(brain[0] != null)
+        {
+            nowState = state[0];
+            beforeState = nowState;
+            brain[0].restartEvaluate();
+        }
+
     }
 
     public void StateChanger(string InputState)
@@ -28,7 +32,7 @@ public class EnemyFSM : MonoBehaviour
         {
             if (state[i] != nowState)
             {
-                brain[i].StopEvaluateCoroutine();
+                brain[i].StopEvaluateCoroutine();   
             }
         }
         for (int i = 0; i < state.Count; i++)
