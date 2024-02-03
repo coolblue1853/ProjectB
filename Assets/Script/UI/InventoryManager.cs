@@ -1129,7 +1129,7 @@ public class InventoryManager : MonoBehaviour
                 else if(state == "detail")
                 {
 
-                    if (equipDetail.activeSelf == true)
+                    if (equipDetail.activeSelf == true && chest == null)
                     {
 
                         UseEquipment();
@@ -1699,7 +1699,7 @@ public class InventoryManager : MonoBehaviour
                     {
                         if (inventoryArray[i, j] == 0)
                         {
-
+                            inventoryArray[i, j] = 1;
                             GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
                             GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                             ItemCheck check = item.GetComponent<ItemCheck>();

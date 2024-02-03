@@ -28,6 +28,8 @@ public class Chest : MonoBehaviour
     public GameObject inventory;
     public GameObject miscDetail;
     int detailX = -100  , detailY = 12;
+
+    int equipDetailX = 150;
     static public InventoryManager instance;
     public string state;
     public GameObject divideUI;
@@ -388,7 +390,11 @@ public class Chest : MonoBehaviour
     void OnlyDetailObOff()
     {
         miscDetail.SetActive(false);
+        consumDetail.SetActive(false);
+        equipDetail.SetActive(false);
     }
+    public GameObject consumDetail;
+    public GameObject equipDetail;
     void ActiveChangeCursor()
     {
 
@@ -816,17 +822,21 @@ public class Chest : MonoBehaviour
             }
         }
     }
-        public void DetailOff()
-        {
-            if (state != "chestOpen" && state != "C2IMove")
+    public void DetailOff()
+    {
+        if (state != "chestOpen" && state != "C2IMove")
         {
             cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
             state = "";
-            }
-
-            miscDetail.SetActive(false);
         }
-        public void CloseChest()
+
+        miscDetail.SetActive(false);
+        consumDetail.SetActive(false);
+        equipDetail.SetActive(false);
+    }
+
+
+    public void CloseChest()
     {
         chestOb.SetActive(false);
     }
@@ -959,13 +969,12 @@ public class Chest : MonoBehaviour
         }
 
     }
+    ItemCheck detail;
     public void BoxContentChecker(GameObject ob = null) // Z키 클릭시 인벤토리창
     {
-
-        if (inventoryArray[cusorCount[nowBox], nowBox] == 1 && state == "")
+        if (inventoryArray[cusorCount[nowBox], nowBox] == 1 && (state == "" || state == "chestOpen"))
         {
-            Debug.Log("세부 확인");
-            ItemCheck detail;
+
             state = "detail";
 
             if (ob != null)
@@ -974,7 +983,6 @@ public class Chest : MonoBehaviour
             }
             else
             {
-                Debug.Log("세부 확인2");
                 GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
                 //Debug.Log(gameObject.transform.GetChild(0));
                 detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
@@ -999,10 +1007,87 @@ public class Chest : MonoBehaviour
                     miscDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
                 }
                 miscDetail.SetActive(true);
+                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+            }
+            if (detail.type == "Consum")
+            {
+                Transform consum = consumDetail.gameObject.transform;
+                consum.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+                consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+                consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+                consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
+                consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
+                string[] effectString = detail.effectOb.Split();
+                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = effectString[0] + " : " + effectString[1] + detail.effectPow;
+                if (ob != null)
+                {
+                    consumDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
+                }
+                else
+                {
+                    consumDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
+                }
+                consumDetail.SetActive(true);
+                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+            }
+            if (detail.type == "Equip")
+            {
+                Transform equip = equipDetail.gameObject.transform;
+                equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
+                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
+                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+                if (ob != null)
+                {
+                    equipDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
+                }
+                else
+                {
+                    equipDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
+                }
+                equipDetail.SetActive(true);
+                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
             }
         }
+        else if (state == "Equipment")
+        {
+            // state = "detail";
 
+            if (ob != null)
+            {
+                detail = ob.transform.GetComponent<ItemCheck>();
+            }
+            else
+            {
+               // GameObject gameObject = (nowEquipBox);
+                //Debug.Log(gameObject.transform.GetChild(0));
+                detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
+            }
 
+            Transform equip = equipDetail.gameObject.transform;
+            equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+            if (ob != null)
+            {
+                equipDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x + equipDetailX, detailY);
+            }
+            else
+            {
+                equipDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x + equipDetailX, detailY);
+            }
+            equipDetail.SetActive(true);
+            // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+
+        }
     }
     void CloseCheck()
     {
