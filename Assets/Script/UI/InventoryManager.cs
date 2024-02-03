@@ -796,7 +796,7 @@ public class InventoryManager : MonoBehaviour
             GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
              if (state == "boxChange")
             {
-                Debug.Log("ÀÛµ¿Áß");
+
                 cusor.transform.position = insPositon.transform.position;
             }
             else if (state == "itemBoxChange")
@@ -939,8 +939,8 @@ public class InventoryManager : MonoBehaviour
             {
                 Debug.Log("sideWeapon");
                 Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => equipBoxCheck.isSetArray = false)
-.OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false, true));
+               .AppendCallback(() => equipBoxCheck.isSetArray = false)
+               .OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false, true));
 
 
                 CreatItem(detail.name);
@@ -1397,7 +1397,7 @@ public class InventoryManager : MonoBehaviour
                 if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
                 {
                     nowBoxMax = (maxHor * maxVer);
-                    Debug.Log(nowBoxMax);
+
                 }
                 else
                 {

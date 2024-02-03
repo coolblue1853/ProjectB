@@ -491,16 +491,8 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         }
         else if (this.transform.childCount <= 0 && isSetArray == true)
         {
-            Debug.Log("이쪽인가");
+
             isSetArray = false;
-            if(isSideWeaponBox == true)
-            {
-                DeletPrefab(reciveEquipArea, false, true);
-            }
-            else
-            {
-                DeletPrefab(reciveEquipArea, false);
-            }
 
         }
     }   

@@ -7,7 +7,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
 {
     public static Vector2 DefaultPos;
-    Transform currentParent;
+   public Transform currentParent;
     Transform changeParent;
     Transform changeBox;
    public  Transform equipBox;
@@ -108,15 +108,26 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         if(changeParent != null)
         {
+
             
             if (changeParent.parent.tag == "Inventory")
             {
-               if(InventoryManager.instance.chest != null)
+                Debug.Log("찾기1");
+                if (InventoryManager.instance.chest != null)
                 {
                     InventoryManager.instance.chest.cusor.SetActive(false);
                 }
                 InventoryManager.instance.cusor.SetActive(true);
                 InventoryManager.instance.ChangeCusor(changeParent.gameObject);
+
+                if(currentParent.GetComponent<EquipBoxCheck>() != null)
+                {
+                    Debug.Log("찾기2");
+                    EquipBoxCheck nowEquipBox = currentParent.GetComponent<EquipBoxCheck>();
+                    ItemCheck item = this.GetComponent<ItemCheck>();
+                    nowEquipBox.DeletPrefab(item.equipArea);
+                }
+
             }
             else if (changeParent.parent.tag == "Chest")
             {
@@ -128,6 +139,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
             if (changeParent.childCount == 0)
             {
+
                 transform.SetParent(changeParent);
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 this.transform.position = changeParent.transform.position;
@@ -138,7 +150,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             }
             else
             {
-                Debug.Log("작작동");
+
                 GameObject changeItem = changeParent.GetChild(0).gameObject;
                 ItemCheck itemC = changeItem.GetComponent<ItemCheck>();
                 ItemCheck itemB = this.GetComponent<ItemCheck>();
@@ -190,6 +202,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
        else if(changeBox != null )
         {
+
             Debug.Log("Check0");
             equipBox = null;
             if (changeBox.parent.tag == "Inventory")
@@ -261,6 +274,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     transform.SetParent(equipBox);
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
+                    currentParent = equipBox;
                     equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea);
                 }
                 else
@@ -279,6 +293,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             }
             else
             {
+
                 if (currentParent.parent.tag == "Inventory")
                 {
                     transform.SetParent(currentParent);
@@ -306,6 +321,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
         else
         {
+
             if (currentParent.parent.tag == "Inventory")
             {
                 transform.SetParent(currentParent);
