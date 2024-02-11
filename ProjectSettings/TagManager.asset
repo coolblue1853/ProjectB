@@ -15,6 +15,7 @@ TagManager:
   - New tag
   - EquipBox
   - Equipment
+  - Cooldown
   layers:
   - Default
   - TransparentFX

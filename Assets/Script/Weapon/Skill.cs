@@ -7,20 +7,27 @@ public class Skill : MonoBehaviour
     public GameObject skillPivot;
 
    public bool isButtonDownSkill;
+    public float SkillCoolTime;
+    private void Awake()
+    {
 
+        skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
+    }
     public GameObject[] skillprefab;
+    public SkillCooldown skillCooldown;
     // Start is called before the first frame update
     void Start()
     {
-        
+        skillCooldown.cooldownTime = SkillCoolTime;
     }
     public void ActiveLeft()
     {
 
-        if (isButtonDownSkill)
+        if (isButtonDownSkill && skillCooldown.isCooldown == false)
         {
 
             GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+            skillCooldown.UseSkill();
         }
 
     }

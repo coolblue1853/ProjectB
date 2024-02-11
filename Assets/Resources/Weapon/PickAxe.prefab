@@ -46,8 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPivot: {fileID: 1291193055778619313}
   isButtonDownSkill: 1
+  SkillCoolTime: 3
   skillprefab:
   - {fileID: 4960005499486500231, guid: c6983d2e3ac80e04b8d06ecc4aeb0cbe, type: 3}
+  skillCooldown: {fileID: 0}
 --- !u!1 &1183539049
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,8 +96,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPivot: {fileID: 1291193055778619313}
   isButtonDownSkill: 1
+  SkillCoolTime: 5
   skillprefab:
   - {fileID: 4960005499486500231, guid: cad14f2621e1f9a409cdb8cf278b3805, type: 3}
+  skillCooldown: {fileID: 0}
 --- !u!1 &1291193055431298620
 GameObject:
   m_ObjectHideFlags: 0
