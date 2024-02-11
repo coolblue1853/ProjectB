@@ -40,7 +40,11 @@ public class EnemyHealth : MonoBehaviour
         if(isSuperArmor == false)
         {
             sequence.Kill(); // 재공격시 경직 시간 초기화.
-            enemyFSM.KillBrainSequence();
+            if(enemyFSM != null)
+            {
+                enemyFSM.KillBrainSequence();
+            }
+
             sequence = DOTween.Sequence()
             .AppendCallback(() => KnockbackActive(force, knockbackDir, x))
             .AppendInterval(stiffTime)

@@ -15,10 +15,31 @@ public class Weapon : MonoBehaviour
     public GameObject attackPivot;
 
     public GameObject[] attackPrefab;
+    public Skill skillLeft;
+    public Skill skillRight;
     private void Start()
     {
 
     }
+
+    public void ActiveLeftSkill()
+    {
+        if(skillLeft != null)
+        {
+            skillLeft.ActiveLeft();
+        }
+
+    }
+    public void ActiveRightSkill()
+    {
+        if (skillLeft != null)
+        {
+            skillRight.ActiveRight();
+        }
+
+    }
+
+
     public void MeleeAttack()
     {
         time = 0;

@@ -8,20 +8,28 @@ public class AttackManager : MonoBehaviour
     public Weapon equipSideWeapon;
     KeyAction action;
     InputAction attackAction;
+    InputAction skillAAction;
+    InputAction skillSAction;
 
     public string states = "";
     private void OnEnable()
     {
         attackAction.Enable();
+        skillAAction.Enable();
+        skillSAction.Enable();
     }
     private void OnDisable()
     {
         attackAction.Disable();
+        skillAAction.Disable();
+        skillSAction.Disable();
     }
     private void Awake()
     {
         action = new KeyAction();
         attackAction = action.Player.Attack;
+        skillAAction = action.Player.SkillA;
+        skillSAction = action.Player.SkillS;
     }
     // Start is called before the first frame update
     void Start()
@@ -40,5 +48,15 @@ public class AttackManager : MonoBehaviour
         {
             equipSideWeapon.MeleeAttack();
         }
+
+        else if (skillAAction.triggered && equipWeapon != null)
+        {
+            equipWeapon.ActiveLeftSkill();
+        }
+        else if (skillSAction.triggered && equipWeapon != null)
+        {
+            equipWeapon.ActiveRightSkill();
+        }
+        
     }
 }
