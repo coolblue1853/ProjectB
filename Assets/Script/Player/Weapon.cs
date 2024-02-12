@@ -76,13 +76,13 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            if (nowConboCount < maxComboCount && time <= maxComboTime && isAttackWait == true)
+            if (nowConboCount < maxComboCount && time <= maxComboTime && (isAttackWait == true || isSkillCancel == true))
             {
                 nowConboCount++;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
                 CheckAttackWait();
             }
-            else if (nowConboCount >= maxComboCount && time <= maxComboTime && isAttackWait == true) // 콤보수 초기화 및 다시 카운트 1로 내려옴.
+            else if (nowConboCount >= maxComboCount && time <= maxComboTime && (isAttackWait == true || isSkillCancel == true)) // 콤보수 초기화 및 다시 카운트 1로 내려옴.
             {
                 nowConboCount = 1;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);

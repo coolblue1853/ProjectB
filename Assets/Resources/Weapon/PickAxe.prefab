@@ -173,7 +173,7 @@ MonoBehaviour:
   - {fileID: 4960005499486500231, guid: 4429c1aec8f8b974cb3f1086e8626256, type: 3}
   skillLeft: {fileID: 342058023}
   skillRight: {fileID: 1183539051}
-  isSkillCancel: 0
+  isSkillCancel: 1
 --- !u!1 &1291193055778619313
 GameObject:
   m_ObjectHideFlags: 0
