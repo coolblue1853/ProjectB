@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class AttackManager : MonoBehaviour
 {
-  public Weapon equipWeapon;
+    public Weapon equipWeapon;
     public Weapon equipSideWeapon;
     KeyAction action;
     InputAction attackAction;
     InputAction skillAAction;
     InputAction skillSAction;
+    InputAction skillDAction;
+    InputAction skillFAction;
+    public SkillCooldown skillCooldown;
 
     public string states = "";
     private void OnEnable()
@@ -17,12 +20,16 @@ public class AttackManager : MonoBehaviour
         attackAction.Enable();
         skillAAction.Enable();
         skillSAction.Enable();
+        skillDAction.Enable();
+        skillFAction.Enable();
     }
     private void OnDisable()
     {
         attackAction.Disable();
         skillAAction.Disable();
         skillSAction.Disable();
+        skillDAction.Disable();
+        skillFAction.Disable();
     }
     private void Awake()
     {
@@ -30,11 +37,24 @@ public class AttackManager : MonoBehaviour
         attackAction = action.Player.Attack;
         skillAAction = action.Player.SkillA;
         skillSAction = action.Player.SkillS;
+        skillDAction = action.Player.SkillD;
+        skillFAction = action.Player.SkillF;
     }
     // Start is called before the first frame update
     void Start()
     {
 
+    }
+
+    public void EquipMainWeaopon()
+    {
+        equipWeapon.CheckSkill();
+    }
+    public void EquipSideWeaopon()
+    {
+        Debug.Log("s¿€µø");
+
+        equipSideWeapon.ChecSidekSkill();
     }
 
     // Update is called once per frame
@@ -57,6 +77,14 @@ public class AttackManager : MonoBehaviour
         {
             equipWeapon.ActiveRightSkill();
         }
-        
+        else if (skillDAction.triggered && equipSideWeapon != null)
+        {
+            equipSideWeapon.ActiveSideLeftSkill();
+        }
+        else if (skillFAction.triggered && equipSideWeapon != null)
+        {
+            equipSideWeapon.ActiveSideRightSkill();
+        }
+
     }
 }

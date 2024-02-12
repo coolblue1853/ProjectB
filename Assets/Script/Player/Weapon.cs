@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour
     public float maxComboTime = 0; // 콤보 최대 유지시간
     public float attckSpeed = 0;   // 공격 주기, 짧을수록 더 빠르게 공격 가능.
 
-    public bool isAttackWait = false;
+    public bool isAttackWait = true;
     public bool isWeaponStopMove = false;
     public float time;
     public GameObject attackPivot;
@@ -19,7 +19,17 @@ public class Weapon : MonoBehaviour
     public Skill skillRight;
     private void Start()
     {
-
+        isAttackWait = true;
+    }
+    public void CheckSkill()
+    {
+        skillLeft.ActiveMainSkill();
+        skillRight.ActiveMainSkill();
+    }
+    public void ChecSidekSkill()
+    {
+        skillLeft.ActiveSideSkill();
+        skillRight.ActiveSideSkill();
     }
 
     public void ActiveLeftSkill()
@@ -32,18 +42,32 @@ public class Weapon : MonoBehaviour
     }
     public void ActiveRightSkill()
     {
-        if (skillLeft != null)
+        if (skillRight != null)
         {
             skillRight.ActiveRight();
         }
+    }
+    public void ActiveSideLeftSkill()
+    {
+        if (skillLeft != null)
+        {
+            skillLeft.ActiveSideLeft();
+        }
 
     }
-
+    public bool isSkillCancel = false;
+    public void ActiveSideRightSkill()
+    {
+        if (skillRight != null)
+        {
+            skillRight.ActiveSideRight();
+        }
+    }
 
     public void MeleeAttack()
     {
         time = 0;
-        if (nowConboCount == 0 )
+        if (nowConboCount == 0 && (isAttackWait == true || isSkillCancel == true))
         {
             nowConboCount++;
             //프리팹 소환

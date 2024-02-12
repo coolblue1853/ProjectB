@@ -3,42 +3,129 @@ using UnityEngine.UI;
 
 public class SkillCooldown : MonoBehaviour
 {
-    public Image cooldownImage; // 쿨타임 이미지
-    public float cooldownTime = 5f; // 쿨타임 시간 (초)
-    public bool isCooldown = false; // 쿨타임 중인지 여부 확인을 위한 변수
-    private float cooldownTimer = 0f; // 쿨타임 타이머
+    public Image cooldownImageA; // 쿨타임 이미지
+    public float cooldownTimeA = 5f; // 쿨타임 시간 (초)
+    public bool isCooldownA = false; // 쿨타임 중인지 여부 확인을 위한 변수
+    private float cooldownTimerA = 0f; // 쿨타임 타이머
 
+    public Image cooldownImageB; // 쿨타임 이미지
+    public float cooldownTimeB = 5f; // 쿨타임 시간 (초)
+    public bool isCooldownB = false; // 쿨타임 중인지 여부 확인을 위한 변수
+    private float cooldownTimerB = 0f; // 쿨타임 타이머
+
+    public Image cooldownImageC; // 쿨타임 이미지
+    public float cooldownTimeC = 5f; // 쿨타임 시간 (초)
+    public bool isCooldownC = false; // 쿨타임 중인지 여부 확인을 위한 변수
+    private float cooldownTimerC = 0f; // 쿨타임 타이머
+
+    public Image cooldownImageD; // 쿨타임 이미지
+    public float cooldownTimeD = 5f; // 쿨타임 시간 (초)
+    public bool isCooldownD = false; // 쿨타임 중인지 여부 확인을 위한 변수
+    private float cooldownTimerD = 0f; // 쿨타임 타이머
     void Update()
     {
         // 쿨타임 중이라면
-        if (isCooldown)
+        if (isCooldownA && cooldownImageA != null)
         {
-            cooldownTimer -= Time.deltaTime; // 쿨타임 타이머를 감소시킵니다.
-            cooldownImage.fillAmount = 1-(cooldownTimer / cooldownTime); // 이미지를 업데이트하여 쿨타임을 표시합니다.
+            cooldownTimerA -= Time.deltaTime; // 쿨타임 타이머를 감소시킵니다.
+            cooldownImageA.fillAmount = 1-(cooldownTimerA / cooldownTimeA); // 이미지를 업데이트하여 쿨타임을 표시합니다.
 
             // 쿨타임이 완료되었을 때
-            if (cooldownTimer <= 0)
+            if (cooldownTimerA <= 0)
             {
-                isCooldown = false; // 쿨타임 상태를 해제합니다.
-                cooldownImage.fillAmount = 1; // 이미지를 가득 채웁니다.
+                isCooldownA = false; // 쿨타임 상태를 해제합니다.
+                cooldownImageA.fillAmount = 1; // 이미지를 가득 채웁니다.
+            }
+        }
+        // 쿨타임 중이라면
+        if (isCooldownB && cooldownImageB != null)
+        {
+            cooldownTimerB -= Time.deltaTime; // 쿨타임 타이머를 감소시킵니다.
+            cooldownImageB.fillAmount = 1 - (cooldownTimerB / cooldownTimeB); // 이미지를 업데이트하여 쿨타임을 표시합니다.
+
+            // 쿨타임이 완료되었을 때
+            if (cooldownTimerB <= 0)
+            {
+                isCooldownB = false; // 쿨타임 상태를 해제합니다.
+                cooldownImageB.fillAmount = 1; // 이미지를 가득 채웁니다.
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (isCooldownC && cooldownImageC != null)
         {
-            UseSkill();
+            cooldownTimerC -= Time.deltaTime; // 쿨타임 타이머를 감소시킵니다.
+            cooldownImageC.fillAmount = 1 - (cooldownTimerC / cooldownTimeC); // 이미지를 업데이트하여 쿨타임을 표시합니다.
+
+            // 쿨타임이 완료되었을 때
+            if (cooldownTimerC <= 0)
+            {
+                isCooldownC = false; // 쿨타임 상태를 해제합니다.
+                cooldownImageC.fillAmount = 1; // 이미지를 가득 채웁니다.
+            }
+        }
+
+        if (isCooldownD && cooldownImageD != null)
+        {
+            cooldownTimerD -= Time.deltaTime; // 쿨타임 타이머를 감소시킵니다.
+            cooldownImageD.fillAmount = 1 - (cooldownTimerD / cooldownTimeD); // 이미지를 업데이트하여 쿨타임을 표시합니다.
+
+            // 쿨타임이 완료되었을 때
+            if (cooldownTimerD <= 0)
+            {
+                isCooldownD = false; // 쿨타임 상태를 해제합니다.
+                cooldownImageD.fillAmount = 1; // 이미지를 가득 채웁니다.
+            }
         }
     }
-
+    public void DeletLeftSkill()
+    {
+        cooldownImageA.sprite = null;
+        cooldownImageB.sprite = null;
+        //  cooldownImageA.fillAmount = 1;
+    }
+    public void DeletRightSkill()
+    {
+        cooldownImageC.sprite = null;
+        cooldownImageD.sprite = null;
+    }
     // 스킬을 사용할 때 호출되는 함수
     public void UseSkill()
     {
-        Debug.Log("wkrehd");
-        if (!isCooldown) // 쿨타임 중이 아니라면
+        if (!isCooldownA) // 쿨타임 중이 아니라면
         {
-            isCooldown = true; // 쿨타임을 시작합니다.
-            cooldownTimer = cooldownTime; // 쿨타임 타이머를 초기화합니다.
-            cooldownImage.fillAmount = 0; // 이미지를 초기화합니다.
+            isCooldownA = true; // 쿨타임을 시작합니다.
+            cooldownTimerA = cooldownTimeA; // 쿨타임 타이머를 초기화합니다.
+            cooldownImageA.fillAmount = 0; // 이미지를 초기화합니다.
+            // 스킬 사용 로직을 추가합니다.
+        }
+    }
+    public void UseSkillB()
+    {
+        if (!isCooldownB) // 쿨타임 중이 아니라면
+        {
+            isCooldownB = true; // 쿨타임을 시작합니다.
+            cooldownTimerB = cooldownTimeB; // 쿨타임 타이머를 초기화합니다.
+            cooldownImageB.fillAmount = 0; // 이미지를 초기화합니다.
+            // 스킬 사용 로직을 추가합니다.
+        }
+    }
+    public void UseSkillC()
+    {
+        if (!isCooldownC) // 쿨타임 중이 아니라면
+        {
+            isCooldownC = true; // 쿨타임을 시작합니다.
+            cooldownTimerC = cooldownTimeC; // 쿨타임 타이머를 초기화합니다.
+            cooldownImageC.fillAmount = 0; // 이미지를 초기화합니다.
+            // 스킬 사용 로직을 추가합니다.
+        }
+    }
+    public void UseSkillD()
+    {
+        if (!isCooldownD) // 쿨타임 중이 아니라면
+        {
+            isCooldownD = true; // 쿨타임을 시작합니다.
+            cooldownTimerD = cooldownTimeD; // 쿨타임 타이머를 초기화합니다.
+            cooldownImageD.fillAmount = 0; // 이미지를 초기화합니다.
             // 스킬 사용 로직을 추가합니다.
         }
     }

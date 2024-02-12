@@ -89,6 +89,24 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkillD"",
+                    ""type"": ""Button"",
+                    ""id"": ""6637620d-f21c-43c6-9814-ef028a2160bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkillF"",
+                    ""type"": ""Button"",
+                    ""id"": ""35e4f6a1-853f-4859-9838-14537f58a8a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -276,6 +294,61 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SkillS"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6d636cb-857f-453c-99eb-90f0ae34d48f"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkillS"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2686d027-d87c-4d23-b231-77334bf6ef25"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkillD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23da81ff-c7b8-4464-9eeb-8d3718d5bb16"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkillD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5081be16-d6c6-4251-96db-e589d44e9d1d"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkillF"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7bec353-b6a7-4831-bb03-b44d673c0d8b"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkillF"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -953,6 +1026,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_SkillA = m_Player.FindAction("SkillA", throwIfNotFound: true);
         m_Player_SkillS = m_Player.FindAction("SkillS", throwIfNotFound: true);
+        m_Player_SkillD = m_Player.FindAction("SkillD", throwIfNotFound: true);
+        m_Player_SkillF = m_Player.FindAction("SkillF", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_OpenInventory = m_UI.FindAction("OpenInventory", throwIfNotFound: true);
@@ -1038,6 +1113,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_SkillA;
     private readonly InputAction m_Player_SkillS;
+    private readonly InputAction m_Player_SkillD;
+    private readonly InputAction m_Player_SkillF;
     public struct PlayerActions
     {
         private @KeyAction m_Wrapper;
@@ -1049,6 +1126,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @SkillA => m_Wrapper.m_Player_SkillA;
         public InputAction @SkillS => m_Wrapper.m_Player_SkillS;
+        public InputAction @SkillD => m_Wrapper.m_Player_SkillD;
+        public InputAction @SkillF => m_Wrapper.m_Player_SkillF;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1079,6 +1158,12 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @SkillS.started += instance.OnSkillS;
             @SkillS.performed += instance.OnSkillS;
             @SkillS.canceled += instance.OnSkillS;
+            @SkillD.started += instance.OnSkillD;
+            @SkillD.performed += instance.OnSkillD;
+            @SkillD.canceled += instance.OnSkillD;
+            @SkillF.started += instance.OnSkillF;
+            @SkillF.performed += instance.OnSkillF;
+            @SkillF.canceled += instance.OnSkillF;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1104,6 +1189,12 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @SkillS.started -= instance.OnSkillS;
             @SkillS.performed -= instance.OnSkillS;
             @SkillS.canceled -= instance.OnSkillS;
+            @SkillD.started -= instance.OnSkillD;
+            @SkillD.performed -= instance.OnSkillD;
+            @SkillD.canceled -= instance.OnSkillD;
+            @SkillF.started -= instance.OnSkillF;
+            @SkillF.performed -= instance.OnSkillF;
+            @SkillF.canceled -= instance.OnSkillF;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1288,6 +1379,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnSkillA(InputAction.CallbackContext context);
         void OnSkillS(InputAction.CallbackContext context);
+        void OnSkillD(InputAction.CallbackContext context);
+        void OnSkillF(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

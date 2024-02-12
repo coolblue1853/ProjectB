@@ -28,6 +28,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     {
         sideWeapon = equipPrefab.GetComponent<Weapon>();
         attackManager.equipSideWeapon = sideWeapon;
+        attackManager.EquipSideWeaopon();
     }
     public void ActivePrefab(string reciveEquipArea)
     {
@@ -41,6 +42,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         {
              weapon = equipPrefab.GetComponent<Weapon>();
             attackManager.equipWeapon = weapon;
+            attackManager.EquipMainWeaopon();
 
         }
         if (reciveEquipArea == "Weapon" && sideWeapon == null && isSideWeaponBox == true)
@@ -89,7 +91,6 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         {
             if(isSideWeapon == true)
             {
-                Debug.Log("何公厘 厘馒 1");
                 if (isFalse == false)
                 {
                     Sequence waitSequence = DOTween.Sequence()
@@ -113,7 +114,6 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             }
            else if(sideWeapon == false)
             {
-                Debug.Log("林公厘 厘馒 1");
                 if (isFalse == false)
                 {
                     Sequence waitSequence = DOTween.Sequence()
@@ -138,8 +138,6 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             }
             else
             {
-                Debug.Log("何公厘 厘馒 2");
-                Debug.Log("林公厘 厘馒 1");
                 if (isFalse == false)
                 {
                     Sequence waitSequence = DOTween.Sequence()

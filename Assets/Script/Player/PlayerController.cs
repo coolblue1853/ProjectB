@@ -251,8 +251,8 @@ public class PlayerController : MonoBehaviour
         }
         if(states != "dash")
         {
-            RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, LayerMask.GetMask("Ground"));
-            RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, LayerMask.GetMask("Ground"));
+            RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right, 1f, LayerMask.GetMask("Ground"));
+            RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left,1f, LayerMask.GetMask("Ground"));
             if (((hitWall.collider != null && hitWall.collider.CompareTag("Ground") && transform.localScale == new Vector3(chInRommSize, chInRommSize, 1)) ||( hitWall2.collider != null && hitWall2.collider.CompareTag("Ground") && transform.localScale == new Vector3(-chInRommSize, chInRommSize, 1)) ) && isGrounded ==false)
             {
                 horizontalInput = moveAction.ReadValue<float>();

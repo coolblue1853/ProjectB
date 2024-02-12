@@ -930,6 +930,7 @@ public class InventoryManager : MonoBehaviour
         }
 
     }
+    public SkillCooldown skillCooldown;
     void UnUseEquipment()
     {
         GameObject equipBox = SetEquipBox();
@@ -947,17 +948,17 @@ public class InventoryManager : MonoBehaviour
                .AppendCallback(() => equipBoxCheck.isSetArray = false)
                .OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false, true));
 
-
+                skillCooldown.DeletRightSkill();
                 CreatItem(detail.name);
             }
             else
             {
 
-                Sequence waitSequence = DOTween.Sequence()
+Sequence waitSequence = DOTween.Sequence()
 .AppendCallback(() => equipBoxCheck.isSetArray = false)
 .OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false));
 
-
+                skillCooldown.DeletLeftSkill();
                 CreatItem(detail.name);
                 //  DetechItem(detail.equipArea);
             }
@@ -1035,6 +1036,8 @@ public class InventoryManager : MonoBehaviour
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
             }
+
+
         }
 
 
