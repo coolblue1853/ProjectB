@@ -45,6 +45,10 @@ public class DatabaseManager : MonoBehaviour
 
     public void LoadAllItemData() // 기타 아이템
     {
+
+
+        ItemDataList = ItemSheet.Data.DataList;
+        /*  인터넷에서 정보를 받아오는 방법.
         UnityGoogleSheet.LoadFromGoogle<int, ItemSheet.Data>((list, map) => {
             // list에는 로드한 데이터가 들어 있음
             ItemDataList = list;
@@ -58,6 +62,7 @@ public class DatabaseManager : MonoBehaviour
                 Debug.Log("데이터가 없습니다.");
             }
         }, true);
+        */
     }
 
     public Item LoadItemData(int itemNum)
