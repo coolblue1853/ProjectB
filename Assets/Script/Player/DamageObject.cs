@@ -26,25 +26,32 @@ public class DamageObject : MonoBehaviour
         .AppendCallback(() => Destroy(this.gameObject));
     }
 
+    private Dictionary<Collider2D, bool> damagedEnemies = new Dictionary<Collider2D, bool>();
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy")
         {
-            EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
-
-            if (isPlayerAttack == true)
+            if (!damagedEnemies.ContainsKey(collision) || !damagedEnemies[collision])
             {
-                if (player.transform.position.x > transform.position.x)
+                EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+
+                if (isPlayerAttack == true)
                 {
-                    knockbackDir.x = -knockbackDir.x;
+                    if (player.transform.position.x > transform.position.x)
+                    {
+                        knockbackDir.x = -knockbackDir.x;
+                    }
                 }
 
+                enemyHealth.damage2Enemy(damage, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
+                if (isPosionAttack)
+                {
+                    enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
+                }
 
-            }
-            enemyHealth.damage2Enemy(damage, stiffnessTime, knockForce, knockbackDir,this.transform.position.x, isNockBackChangeDir);
-            if (isPosionAttack)
-            {
-                enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
+                // Mark the enemy as damaged
+                damagedEnemies[collision] = true;
             }
         }
     }
