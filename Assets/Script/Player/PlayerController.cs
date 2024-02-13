@@ -59,13 +59,19 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         jumpsRemaining = maxJumps;
     }
-
+    bool once = false;
     void Update()
     {
        //Debug.Log(moveAction.ReadValue<float>());
 
+        if(DatabaseManager.isOpenUI == true && rb.velocity != Vector2.zero && once == false)
+        {
+            once = true;
+            rb.velocity = Vector2.zero;
+        }
         if(DatabaseManager.isOpenUI == false)
         {
+            once = false;
             if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true && isGrounded == true)
             {
                 rb.velocity = Vector2.zero;

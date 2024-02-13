@@ -60,31 +60,35 @@ public class AttackManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (attackAction.triggered && equipWeapon != null)
+        if(DatabaseManager.isOpenUI == false)
         {
-            equipWeapon.MeleeAttack();
-        }
-        else if (attackAction.triggered && equipSideWeapon != null)
-        {
-            equipSideWeapon.MeleeAttack();
+            if (attackAction.triggered && equipWeapon != null)
+            {
+                equipWeapon.MeleeAttack();
+            }
+            else if (attackAction.triggered && equipSideWeapon != null)
+            {
+                equipSideWeapon.MeleeAttack();
+            }
+
+            else if (skillAAction.triggered && equipWeapon != null)
+            {
+                equipWeapon.ActiveLeftSkill();
+            }
+            else if (skillSAction.triggered && equipWeapon != null)
+            {
+                equipWeapon.ActiveRightSkill();
+            }
+            else if (skillDAction.triggered && equipSideWeapon != null)
+            {
+                equipSideWeapon.ActiveSideLeftSkill();
+            }
+            else if (skillFAction.triggered && equipSideWeapon != null)
+            {
+                equipSideWeapon.ActiveSideRightSkill();
+            }
         }
 
-        else if (skillAAction.triggered && equipWeapon != null)
-        {
-            equipWeapon.ActiveLeftSkill();
-        }
-        else if (skillSAction.triggered && equipWeapon != null)
-        {
-            equipWeapon.ActiveRightSkill();
-        }
-        else if (skillDAction.triggered && equipSideWeapon != null)
-        {
-            equipSideWeapon.ActiveSideLeftSkill();
-        }
-        else if (skillFAction.triggered && equipSideWeapon != null)
-        {
-            equipSideWeapon.ActiveSideRightSkill();
-        }
 
     }
 }

@@ -8976,7 +8976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 50
+  maxHP: 300
   hpBar: {fileID: 1139561174}
   hpObject: {fileID: 1396695232}
   hpHeight: 3
@@ -8984,6 +8984,7 @@ MonoBehaviour:
   hpCanvas: {fileID: 1396695232}
   brain: {fileID: 0}
   dropManager: {fileID: 0}
+  poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68, type: 3}
 --- !u!50 &610962616
 Rigidbody2D:
   serializedVersion: 4
@@ -33563,6 +33564,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySample
       objectReference: {fileID: 0}
+    - target: {fileID: 2273232741891995657, guid: d9bf98470b9d9a548b3ec841239e5750, type: 3}
+      propertyPath: poisonPrefab
+      value: 
+      objectReference: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68, type: 3}
     - target: {fileID: 2273232741891995658, guid: d9bf98470b9d9a548b3ec841239e5750, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -34122,6 +34127,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySampleChase
       objectReference: {fileID: 0}
+    - target: {fileID: 6418786007303844005, guid: 2b939a845fc94874cba5879b168434ee, type: 3}
+      propertyPath: poisonPrefab
+      value: 
+      objectReference: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68, type: 3}
     - target: {fileID: 6418786007303844008, guid: 2b939a845fc94874cba5879b168434ee, type: 3}
       propertyPath: m_RootOrder
       value: 6

@@ -103,6 +103,9 @@ MonoBehaviour:
   stiffnessTime: 2
   knockForce: 20
   knockbackDir: {x: 1, y: 1}
+  isNockBackChangeDir: 0
+  isPlayerAttack: 1
+  player: {fileID: 0}
 --- !u!61 &-5085243163096890008
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -9,9 +9,13 @@ public class DamageObject : MonoBehaviour
     public float stiffnessTime = 0;   // 경직 시간.
     public float knockForce = 0;
     public Vector2 knockbackDir;
+    public bool isNockBackChangeDir;
+    public bool isPlayerAttack;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
         DestroyObject();
     }
 
@@ -27,9 +31,29 @@ public class DamageObject : MonoBehaviour
         if (collision.tag == "Enemy")
         {
             EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
-         
-            enemyHealth.damage2Enemy(damage, stiffnessTime, knockForce, knockbackDir,this.transform.position.x);
+
+            if (isPlayerAttack == true)
+            {
+                if (player.transform.position.x > transform.position.x)
+                {
+                    knockbackDir.x = -knockbackDir.x;
+                }
+
+
+            }
+            enemyHealth.damage2Enemy(damage, stiffnessTime, knockForce, knockbackDir,this.transform.position.x, isNockBackChangeDir);
+            if (isPosionAttack)
+            {
+                enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
+            }
         }
     }
+
+    public bool isPosionAttack;
+    public int poisonDamage;
+    public float damageInterval;
+    public int damageCount;
+
+
 
 }

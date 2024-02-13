@@ -28,7 +28,7 @@ public class EnemyHealth : MonoBehaviour
         nowHP = maxHP;
         hpBar.setHpBar(maxHP);
     }
-    public void damage2Enemy(int damage, float stiffTime, float force, Vector2 knockbackDir, float x)
+    public void damage2Enemy(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
     {
         if (nowHP <= 0)
         {
@@ -46,7 +46,7 @@ public class EnemyHealth : MonoBehaviour
             }
 
             sequence = DOTween.Sequence()
-            .AppendCallback(() => KnockbackActive(force, knockbackDir, x))
+            .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
             .AppendInterval(stiffTime)
             .OnComplete(() => EndStiffness());
         }
@@ -73,12 +73,12 @@ public class EnemyHealth : MonoBehaviour
     }
 
 
-    private void KnockbackActive(float knockbackForce, Vector2 knockbackDir, float x)
+    private void KnockbackActive(float knockbackForce, Vector2 knockbackDir, float x, bool isDirChange)
     {
 
         if (rb != null)
         {
-            if(x> transform.position.x)
+            if(x> transform.position.x && isDirChange == true)
             {
                 knockbackDir.x = -knockbackDir.x;
             }
@@ -110,4 +110,16 @@ public class EnemyHealth : MonoBehaviour
         // 오브젝트를 꺼주기
         hpCanvas.SetActive(false);
     }
+
+    public GameObject poisonPrefab;
+
+    public void CreatPoisonPrefab(int poisonDamage, float damageInterval,int damageCount)
+    {
+        GameObject poisonObject = Instantiate(poisonPrefab,transform.position, transform.rotation, this.transform);
+        PosionAttack posionAttack = poisonObject.GetComponent<PosionAttack>();
+        posionAttack.enemyHealth = this.GetComponent<EnemyHealth>();
+        posionAttack.ActivePoison(poisonDamage, damageInterval, damageCount);
+
+    }
+
 }

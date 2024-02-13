@@ -29,8 +29,8 @@ public class HealthBarCutFallDown : MonoBehaviour
         rectTransform = transform.GetComponent<RectTransform>();
         image = transform.GetComponent<Image>();
         color = image.color;
-        fallDownTimer = .6f;
-        fadeTimer = .5f;
+        fallDownTimer = .2f;
+        fadeTimer = .15f;
     }
 
     private void Update()

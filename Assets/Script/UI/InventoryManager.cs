@@ -1206,7 +1206,7 @@ Sequence waitSequence = DOTween.Sequence()
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            CreatItem("HighArmor");
+            CreatItem("ToxicPickAxe");
           //  CreatItem("Necklace");
 
 

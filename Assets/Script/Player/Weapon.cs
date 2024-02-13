@@ -116,4 +116,8 @@ public class Weapon : MonoBehaviour
                time = 0;
         }
     }
+
+
+
+
 }
