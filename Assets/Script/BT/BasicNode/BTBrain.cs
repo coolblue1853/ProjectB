@@ -23,7 +23,7 @@ public class BTBrain : MonoBehaviour
     {
         originPosition = transform.position;
         ConstructBehaviourTree();
-        // evaluateCoroutine = StartCoroutine(StartEvaluate());
+       //  evaluateCoroutine = StartCoroutine(StartEvaluate());
     }
 
     void Update()

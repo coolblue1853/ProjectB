@@ -30,6 +30,12 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         attackManager.equipSideWeapon = sideWeapon;
         attackManager.EquipSideWeaopon();
     }
+    public void EquipMainWeapon()
+    {
+       // weapon = equipPrefab.GetComponent<Weapon>();
+        attackManager.equipWeapon = weapon;
+        attackManager.EquipMainWeaopon();
+    }
     public void ActivePrefab(string reciveEquipArea)
     {
         if(equipPrefab == null)
@@ -45,10 +51,11 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             attackManager.EquipMainWeaopon();
 
         }
-        if (reciveEquipArea == "Weapon" && sideWeapon == null && isSideWeaponBox == true)
+        else if (reciveEquipArea == "Weapon" && sideWeapon == null && isSideWeaponBox == true)
         {
             sideWeapon = equipPrefab.GetComponent<Weapon>();
             attackManager.equipSideWeapon = sideWeapon;
+            attackManager.EquipSideWeaopon();
 
         }
         else if (reciveEquipArea == "Head" && head == null)

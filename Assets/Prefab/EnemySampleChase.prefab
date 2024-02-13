@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce72e8afe76cff4db7ab5ab444c9345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 6418786007303844004}
+  brain: {fileID: 0}
   IsWaiting: 0
   waitTime: 0
   enemyObject: {fileID: 6418786007303844002}
@@ -112,8 +112,8 @@ GameObject:
   - component: {fileID: 6418786007303844009}
   - component: {fileID: 6418786007303844006}
   - component: {fileID: 6418786007303844007}
-  - component: {fileID: 6418786007303844004}
   - component: {fileID: 6418786007303844005}
+  - component: {fileID: 1222905624972875225}
   m_Layer: 6
   m_Name: EnemySampleChase
   m_TagString: Enemy
@@ -237,31 +237,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &6418786007303844004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6418786007303844002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d63f94bbcd1be414b856d036a215b60c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsWaiting: 0
-  isEnd: 0
-  isAttacked: 0
-  inRecognize: 0
-  isBrainActive: 0
-  nearPlayer: 0
-  node:
-  - {fileID: 6418786008706654900}
-  - {fileID: 6418786007071781085}
-  - {fileID: 6418786008049815639}
-  - {fileID: 6418786007071781085}
-  - {fileID: 6418786008423460515}
-  originPosition: {x: 0, y: 0}
 --- !u!114 &6418786007303844005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +256,22 @@ MonoBehaviour:
   isSuperArmor: 0
   hpCanvas: {fileID: 6418786008854359723}
   brain: {fileID: 0}
+  dropManager: {fileID: 1222905624972875225}
+  poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68, type: 3}
+--- !u!114 &1222905624972875225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6418786007303844002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a, type: 3}
+  dropItems: []
 --- !u!1 &6418786007442225850
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,7 +806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688dd114f3d6bd447ba2358033bf3857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 6418786007303844004}
+  brain: {fileID: 0}
   IsWaiting: 0
   waitTime: 0
   enemyObject: {fileID: 6418786007303844002}

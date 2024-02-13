@@ -48,7 +48,7 @@ MonoBehaviour:
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
-  SkillCoolTime: 3
+  SkillCoolTime: 0
   skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
   isWeaponStopMove: 1
   useStemina: 5
@@ -104,13 +104,13 @@ MonoBehaviour:
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
-  SkillCoolTime: 5
+  SkillCoolTime: 0.2
   skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
   isWeaponStopMove: 0
-  useStemina: 10
-  attckSpeed: 0.5
+  useStemina: 1
+  attckSpeed: 0.1
   skillprefab:
-  - {fileID: 4960005499486500231, guid: cad14f2621e1f9a409cdb8cf278b3805, type: 3}
+  - {fileID: 4960005499486500231, guid: ba412d079716d1849a1fb2641d1fe13c, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1291193055431298620
 GameObject:

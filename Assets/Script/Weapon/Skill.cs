@@ -73,6 +73,8 @@ public class Skill : MonoBehaviour
             skillCooldown.UseSkillD();
         }
     }
+
+
     public void ActiveLeft()
     {
 

@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 public class InventoryManager : MonoBehaviour
 {
+    public GameObject player;
     public GameObject inventoryBoxPrefab; // 생성되는 Box 인스턴스
     public GameObject itemPrefab; // 생성되는 Box 인스턴스
     public GameObject[] inventoryUI;
@@ -973,8 +974,10 @@ Sequence waitSequence = DOTween.Sequence()
         equipBoxCheck.ActivePrefab(detail.equipArea);
         */
     }
+    public EquipBoxCheck sideWeaponBoxCheck;
     void UseEquipment()
     {
+        AttackManager attackManager = player.GetComponent<AttackManager>();
 
         GameObject equipBox = SetEquipBox();
         GameObject nowEquipItem = detail.gameObject;
@@ -1006,22 +1009,21 @@ Sequence waitSequence = DOTween.Sequence()
         }
         else
         {
-            if (weaponBox.transform.childCount == 0)
+            if (attackManager.equipWeapon == null)
             {
 
                 nowEquipItem.transform.SetParent(equipBox.transform);
-                //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
-             equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+              //  equipBoxCheck.EquipMainWeapon();
             }
-            else if(sideWeaponBox.transform.childCount == 0)
+            else if(attackManager.equipSideWeapon == null)
             {
 
                 nowEquipItem.transform.SetParent(sideWeaponBox.transform);
-                //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = sideWeaponBox.transform.position;
-                equipBoxCheck.EquipSideWeapon();
-              //  equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+                sideWeaponBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+                //  equipBoxCheck.EquipSideWeapon();
             }
             else
             {

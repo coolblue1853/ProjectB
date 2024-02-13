@@ -52,8 +52,6 @@ public class AttackManager : MonoBehaviour
     }
     public void EquipSideWeaopon()
     {
-        Debug.Log("s¿€µø");
-
         equipSideWeapon.ChecSidekSkill();
     }
 

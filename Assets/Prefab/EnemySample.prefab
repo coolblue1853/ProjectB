@@ -765,13 +765,14 @@ GameObject:
   - component: {fileID: 2273232741891995661}
   - component: {fileID: 2273232741891995657}
   - component: {fileID: 2273232741891995656}
+  - component: {fileID: 1905305390402963519}
   m_Layer: 6
   m_Name: EnemySample
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2273232741891995658
 Transform:
   m_ObjectHideFlags: 0
@@ -908,6 +909,8 @@ MonoBehaviour:
   isSuperArmor: 0
   hpCanvas: {fileID: 858036223905707814}
   brain: {fileID: 2273232740773812778}
+  dropManager: {fileID: 0}
+  poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68, type: 3}
 --- !u!114 &2273232741891995656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,6 +931,20 @@ MonoBehaviour:
   - Hit
   nowState: 
   beforeState: 
+--- !u!114 &1905305390402963519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273232741891995648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a, type: 3}
+  dropItems: []
 --- !u!1 &2273232741974265751
 GameObject:
   m_ObjectHideFlags: 0

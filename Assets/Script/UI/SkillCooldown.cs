@@ -4,22 +4,22 @@ using UnityEngine.UI;
 public class SkillCooldown : MonoBehaviour
 {
     public Image cooldownImageA; // 쿨타임 이미지
-    public float cooldownTimeA = 5f; // 쿨타임 시간 (초)
+    public float cooldownTimeA = 0f; // 쿨타임 시간 (초)
     public bool isCooldownA = false; // 쿨타임 중인지 여부 확인을 위한 변수
     private float cooldownTimerA = 0f; // 쿨타임 타이머
 
     public Image cooldownImageB; // 쿨타임 이미지
-    public float cooldownTimeB = 5f; // 쿨타임 시간 (초)
+    public float cooldownTimeB = 0f; // 쿨타임 시간 (초)
     public bool isCooldownB = false; // 쿨타임 중인지 여부 확인을 위한 변수
     private float cooldownTimerB = 0f; // 쿨타임 타이머
 
     public Image cooldownImageC; // 쿨타임 이미지
-    public float cooldownTimeC = 5f; // 쿨타임 시간 (초)
+    public float cooldownTimeC = 0f; // 쿨타임 시간 (초)
     public bool isCooldownC = false; // 쿨타임 중인지 여부 확인을 위한 변수
     private float cooldownTimerC = 0f; // 쿨타임 타이머
 
     public Image cooldownImageD; // 쿨타임 이미지
-    public float cooldownTimeD = 5f; // 쿨타임 시간 (초)
+    public float cooldownTimeD = 0f; // 쿨타임 시간 (초)
     public bool isCooldownD = false; // 쿨타임 중인지 여부 확인을 위한 변수
     private float cooldownTimerD = 0f; // 쿨타임 타이머
     void Update()
