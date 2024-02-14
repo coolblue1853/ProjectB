@@ -44,12 +44,15 @@ public class PatrolNode : BTNode
                 {
                     movePoint = -movePoint;
                 }
-            } while (enemyObject.transform.position.x - originPosition.x + movePoint > originMax);
+                // 이동 거리를 계산할 때 originPosition.x를 사용하여 현재 위치에서 벗어나지 않도록 함
+            } while (Mathf.Abs(enemyObject.transform.position.x + movePoint - originPosition.x) > originMax);
 
 
             Debug.Log("move");
              sequence = DOTween.Sequence()
-           .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x+ movePoint, Mathf.Abs(movePoint)+ moveDuration))
+                .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
+
+           // .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x+ movePoint, Mathf.Abs(movePoint)+ moveDuration))
            .OnComplete(() => brain.StopEvaluateCoroutine())
            .OnComplete(() => OnSequenceComplete());
             return NodeState.FAILURE;

@@ -16,7 +16,6 @@ public class EnemyHealth : MonoBehaviour
      Rigidbody2D rb;
     // 넉백에 사용될 방향
     Vector2 knockbackDirection = new Vector2(0f, 1f);
-    public BTBrain brain;
     public DropManager dropManager;
     EnemyFSM enemyFSM;
     private void Start()
@@ -28,8 +27,13 @@ public class EnemyHealth : MonoBehaviour
         nowHP = maxHP;
         hpBar.setHpBar(maxHP);
     }
+    bool notStiff;
     public void damage2Enemy(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
     {
+        ToggleObject();
+        nowHP -= damage;
+        hpBar.healthSystem.Damage(damage);
+
         if (nowHP <= 0)
         {
 
@@ -42,26 +46,44 @@ public class EnemyHealth : MonoBehaviour
             sequence.Kill(); // 재공격시 경직 시간 초기화.
             if(enemyFSM != null)
             {
-                enemyFSM.KillBrainSequence();
+
+                if(stiffTime == 0)
+                {
+                    notStiff = true;
+                }
+                enemyFSM.KillBrainSequence(notStiff);
             }
 
-            sequence = DOTween.Sequence()
+                sequence = DOTween.Sequence()
             .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
             .AppendInterval(stiffTime)
             .OnComplete(() => EndStiffness());
         }
 
 
+
+
+    }
+
+    public void onlyDamage2Enemy(int damage)
+    {
         ToggleObject();
         nowHP -= damage;
         hpBar.healthSystem.Damage(damage);
 
-    }
+        if (nowHP <= 0)
+        {
+            dropManager.DropItems(transform.position);
+            Destroy(this.gameObject);
+        }
 
+
+    }
     private void EndStiffness()
     {
         if(this != null)
         {
+            Debug.Log("EndStiff");
             enemyFSM.StateChanger("Hit");
             enemyFSM.ReActiveBrainSequence();
         }

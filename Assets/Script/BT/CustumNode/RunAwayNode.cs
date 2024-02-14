@@ -2,22 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-public class HitChaseNode : BTNode
+public class RunAwayNode : BTNode
 {
-    Vector2 originPosition;
-    GameObject player;
+
+
     public GameObject enemyObject;
-    public float moveDuration;
-    public float moveDistance;
-    float direction;
+    public float runTimer;
+    bool isEndTime;
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
-        originPosition = brain.originPosition;
+
     }
     // Start is called before the first frame update
+    public RunAwayNode()
+    {
+    }
     public override NodeState Evaluate()
     {
+        brain.StopEvaluateCoroutine();
+        brain.isAttacked = false;
+        sequence = DOTween.Sequence()
+       .AppendInterval(runTimer)
+       .OnComplete(() => OnSequenceComplete());
+        return NodeState.FAILURE;
+
+        /*
         if (brain.isAttacked == false)
         {
             return NodeState.SUCCESS;
@@ -25,15 +34,14 @@ public class HitChaseNode : BTNode
         else
         {
             brain.StopEvaluateCoroutine();
+            brain.isAttacked = false;
             sequence = DOTween.Sequence()
-           .AppendCallback(() => direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x))
-           .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
+           .Append(enemyObject.transform.DOMoveX(brain.originPosition.x, Mathf.Abs(brain.originPosition.x - enemyObject.transform.position.x)/2))
            .OnComplete(() => OnSequenceComplete());
             return NodeState.FAILURE;
         }
-
+        */
     }
-
 
 
     private void OnSequenceComplete()
@@ -41,6 +49,8 @@ public class HitChaseNode : BTNode
         if (this.transform != null)
         {
             brain.restartEvaluate();
+            GameObject A = this.transform.parent.parent.gameObject.GetComponent<GameObject>();
+            Destroy(A);
         }
 
     }

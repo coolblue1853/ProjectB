@@ -45,7 +45,7 @@ public class EnemyFSM : MonoBehaviour
 
     }
 
-    public void KillBrainSequence()
+    public void KillBrainSequence(bool isStiff = false)
     {
         if(brain != null)
         {
@@ -53,7 +53,11 @@ public class EnemyFSM : MonoBehaviour
             {
                 if (state[i] == nowState)
                 {
-                    brain[i].isAttacked = true;
+                    if(isStiff == false)
+                    {
+                        brain[i].isAttacked = true;
+                    }
+
                     brain[i].StopEvaluateCoroutine();
                     brain[i].KillAllTweensForObject();
                 }
@@ -65,6 +69,7 @@ public class EnemyFSM : MonoBehaviour
     {
         for (int i = 0; i < state.Count; i++)
         {
+            brain[i].isAttacked = false;
             if (state[i] == nowState && beforeState == nowState)
             {
                 brain[i].restartEvaluate();

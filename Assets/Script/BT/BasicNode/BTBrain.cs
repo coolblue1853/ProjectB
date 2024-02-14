@@ -7,6 +7,7 @@ public class BTBrain : MonoBehaviour
     public bool IsWaiting, isEnd, isAttacked, inRecognize, isBrainActive = false;
     public bool nearPlayer;
 
+    public EnemyFSM enemyFSM;
     BTSequence test;
     public List<BTNode> node;
     public Coroutine evaluateCoroutine;
@@ -21,7 +22,8 @@ public class BTBrain : MonoBehaviour
     }
     private void Awake()
     {
-        originPosition = transform.position;
+        enemyFSM = transform.parent.GetComponent<EnemyFSM>();
+           originPosition = transform.position;
         ConstructBehaviourTree();
        //  evaluateCoroutine = StartCoroutine(StartEvaluate());
     }
@@ -43,7 +45,11 @@ public class BTBrain : MonoBehaviour
     public void StopEvaluateCoroutine()
     {
         isBrainActive = false;
-        StopCoroutine(evaluateCoroutine);
+        if(evaluateCoroutine != null)
+        {
+            StopCoroutine(evaluateCoroutine);
+        }
+
     }
     private void ConstructBehaviourTree()
     {
@@ -64,11 +70,18 @@ public class BTBrain : MonoBehaviour
         isEnd = true;
 
     }
+    public void EndNodeState(string state)
+    {
+        enemyFSM.StateChanger(state);
+        enemyFSM.ReActiveBrainSequence();
+
+    }
     public void restartEvaluate()
     {
         evaluateCoroutine = StartCoroutine(StartEvaluate());
 
     }
+
     public void KillAllTweensForObject() // 모든 트윈 삭제, 즉 경직 구현
     {
         foreach (var currentNode in node)

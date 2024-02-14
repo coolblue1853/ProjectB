@@ -8,7 +8,7 @@ public class HitGoOriginNode : BTNode
 
     public GameObject enemyObject;
     public float moveDuration;
-
+    bool isArriveOrigin = false;
     private void Start()
     {
         originPosition = brain.originPosition;
@@ -19,19 +19,24 @@ public class HitGoOriginNode : BTNode
     }
     public override NodeState Evaluate()
     {
-        if (brain.isAttacked == false)
+        if(isArriveOrigin == false)
         {
-            return NodeState.SUCCESS;
-        }
-        else
-        {
+            Debug.Log("goToOrigin");
             brain.StopEvaluateCoroutine();
             brain.isAttacked = false;
             sequence = DOTween.Sequence()
-           .Append(enemyObject.transform.DOMoveX(brain.originPosition.x, Mathf.Abs(brain.originPosition.x - enemyObject.transform.position.x)/2))
+
+           .Append(enemyObject.transform.DOMoveX(brain.originPosition.x, moveDuration).SetEase(Ease.Linear))
+
            .OnComplete(() => OnSequenceComplete());
             return NodeState.FAILURE;
         }
+        else
+        {
+            isArriveOrigin = false;
+            return NodeState.SUCCESS;
+        }
+
 
     }
 
@@ -40,6 +45,7 @@ public class HitGoOriginNode : BTNode
     {
         if (this.transform != null)
         {
+            isArriveOrigin = true;
             brain.restartEvaluate();
         }
 

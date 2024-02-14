@@ -24,7 +24,7 @@ public class PosionAttack : MonoBehaviour
         }
         else
         {
-            enemyHealth.damage2Enemy(damage, 0, 0, new Vector2(0, 0), 0, false);
+            enemyHealth.onlyDamage2Enemy(damage);
             count -= 1;
         }
 
@@ -40,7 +40,7 @@ public class PosionAttack : MonoBehaviour
         }
         else
         {
-            enemyHealth.damage2Enemy(damage, 0, 0, new Vector2(0, 0), 0, false);
+            enemyHealth.onlyDamage2Enemy(damage);
             count -= 1;
         }
 
