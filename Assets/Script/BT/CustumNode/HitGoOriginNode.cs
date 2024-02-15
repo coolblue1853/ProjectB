@@ -33,7 +33,6 @@ public class HitGoOriginNode : BTNode
         }
         else
         {
-            Debug.Log("ÁýÀ¸·Î");
             isArriveOrigin = false;
             return NodeState.SUCCESS;
         }
