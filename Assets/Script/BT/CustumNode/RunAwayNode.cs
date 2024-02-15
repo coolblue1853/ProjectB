@@ -5,7 +5,7 @@ using DG.Tweening;
 public class RunAwayNode : BTNode
 {
 
-
+    public RabbitReset rabbitReset;
     public GameObject enemyObject;
     public float runTimer;
     bool isEndTime;
@@ -19,6 +19,7 @@ public class RunAwayNode : BTNode
     }
     public override NodeState Evaluate()
     {
+
         brain.StopEvaluateCoroutine();
         brain.isAttacked = false;
         sequence = DOTween.Sequence()
@@ -46,11 +47,11 @@ public class RunAwayNode : BTNode
 
     private void OnSequenceComplete()
     {
+
         if (this.transform != null)
         {
-            brain.restartEvaluate();
-            GameObject A = this.transform.parent.parent.gameObject.GetComponent<GameObject>();
-            Destroy(A);
+            rabbitReset.ResetRabbit();
+
         }
 
     }
