@@ -20,7 +20,8 @@ public class DamageObject : MonoBehaviour
 
     public bool isDeletByGround = false;
 
-    
+    private Sequence sequence; // 시퀀스를 저장하기 위한 변수 추가
+
     void Start()
     {
         player = GameObject.FindWithTag("Player");
@@ -41,11 +42,20 @@ public class DamageObject : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        // Stop any active DOTween sequences when the object is destroyed
+        if (sequence != null)
+        {
+            sequence.Kill(); // 시퀀스를 중지
+        }
+    }
+
     private void DestroyObject()
     {
-        Sequence sequence = DOTween.Sequence()
-        .AppendInterval(holdingTime)
-        .AppendCallback(() => Destroy(this.gameObject));
+        sequence = DOTween.Sequence()
+            .AppendInterval(holdingTime)
+            .AppendCallback(() => Destroy(this.gameObject));
     }
 
     private Dictionary<Collider2D, bool> damagedEnemies = new Dictionary<Collider2D, bool>();

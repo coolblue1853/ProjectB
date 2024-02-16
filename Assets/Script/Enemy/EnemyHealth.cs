@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 public class EnemyHealth : MonoBehaviour
 {
     public Sequence sequence;
@@ -84,7 +85,14 @@ public class EnemyHealth : MonoBehaviour
         if(this != null)
         {
             Debug.Log("EndStiff");
-            enemyFSM.StateChanger("Hit");
+
+            if (enemyFSM.state.Contains("Hit"))
+            {
+                enemyFSM.StateChanger("Hit");
+            }
+
+            
+
             enemyFSM.ReActiveBrainSequence();
         }
 
