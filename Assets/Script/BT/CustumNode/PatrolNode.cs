@@ -14,9 +14,10 @@ public class PatrolNode : BTNode
 
     int movePoint;
     public float moveDuration;
-
+    float chInRommSize;
     private void Start()
     {
+        chInRommSize = enemyObject.transform.localScale.x;
         originPosition = brain.originPosition;
     }
     // Start is called before the first frame update
@@ -47,11 +48,17 @@ public class PatrolNode : BTNode
                 // 이동 거리를 계산할 때 originPosition.x를 사용하여 현재 위치에서 벗어나지 않도록 함
             } while (Mathf.Abs(enemyObject.transform.position.x + movePoint - originPosition.x) > originMax);
 
-
+            if (movePoint > 0)
+            {
+                enemyObject.transform.localScale = new Vector3(chInRommSize, enemyObject.transform.localScale.y, 1);
+            }
+            else if (movePoint < 0)
+            {
+                enemyObject.transform.localScale = new Vector3(-chInRommSize, enemyObject.transform.localScale.y, 1);
+            }
             Debug.Log("move");
              sequence = DOTween.Sequence()
                 .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
-
            // .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x+ movePoint, Mathf.Abs(movePoint)+ moveDuration))
            .OnComplete(() => brain.StopEvaluateCoroutine())
            .OnComplete(() => OnSequenceComplete());

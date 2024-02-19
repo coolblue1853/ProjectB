@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 public class BTBrain : MonoBehaviour
 {
+    public bool brainActive;
     public bool IsWaiting, isEnd, isAttacked, inRecognize, isBrainActive = false;
     public bool nearPlayer;
 

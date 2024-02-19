@@ -6,7 +6,7 @@ using DG.Tweening;
 public class PlayerHealthManager : MonoBehaviour
 {
 
-
+    bool isSuperArmor = false;
     Sequence sequence;
     Sequence waitSequence;
     public int setHP;
@@ -30,8 +30,12 @@ public class PlayerHealthManager : MonoBehaviour
     public int fullFullness = 100;
     public int nowFullness;
     public int nomalizedFullness;
+
+    public GameObject player;
+    Rigidbody2D rb;
     void Start()
     {
+        rb = player.GetComponent<Rigidbody2D>();
         ResetMHp();
         healthBar.ResetHp(fullHP);
         steminaBar.ResetHp(fullStemina);
@@ -90,6 +94,46 @@ public class PlayerHealthManager : MonoBehaviour
         }
     }
 
+    public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
+    {
+        HpDown(damage);
+
+        if (isSuperArmor == false && stiffTime>0)
+        {
+            sequence.Kill(); // 재공격시 경직 시간 초기화.
+
+
+         sequence = DOTween.Sequence()
+        .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
+        .AppendInterval(stiffTime)
+        .OnComplete(() => EndStiffness());
+        }
+
+    }
+    private void KnockbackActive(float knockbackForce, Vector2 knockbackDir, float x, bool isDirChange)
+    {
+
+        if (rb != null)
+        {
+            if (x > transform.position.x && isDirChange == true)
+            {
+                knockbackDir.x = -knockbackDir.x;
+            }
+            // 힘을 가해 넉백을 적용
+            rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
+        }
+
+    }
+    private void EndStiffness()
+    {
+        if (this != null)
+        {
+            //Debug.Log("EndStiff");
+
+
+        }
+
+    }
     private static PlayerHealthManager instance = null;
 
     public void FullnessUp(int healed)

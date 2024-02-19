@@ -6,18 +6,22 @@ public class EnemyFSM : MonoBehaviour
 {
     public List<BTBrain> brain;
     public List<string> state;
-    [HideInInspector]
+
     public string nowState;
     [HideInInspector]
     public string beforeState;
+    Rigidbody2D rd;
+
     // Start is called before the first frame update
     void Start()
     {
-        if(brain[0] != null)
+        rd = this.GetComponent<Rigidbody2D>();
+        if (brain[0] != null)
         {
             nowState = state[0];
             beforeState = nowState;
             brain[0].restartEvaluate();
+            brain[0].brainActive = true;
         }
 
     }
@@ -32,7 +36,8 @@ public class EnemyFSM : MonoBehaviour
         {
             if (state[i] != nowState)
             {
-                brain[i].StopEvaluateCoroutine();   
+                brain[i].StopEvaluateCoroutine();
+                brain[i].brainActive = false;
             }
         }
         for (int i = 0; i < state.Count; i++)
@@ -40,6 +45,7 @@ public class EnemyFSM : MonoBehaviour
             if(state[i] == nowState)
             {
                 brain[i].restartEvaluate();
+                brain[i].brainActive = true;
             }
         }
 
@@ -60,6 +66,7 @@ public class EnemyFSM : MonoBehaviour
 
                     brain[i].StopEvaluateCoroutine();
                     brain[i].KillAllTweensForObject();
+                    brain[i].brainActive = false;
                 }
             }
         }
@@ -73,8 +80,22 @@ public class EnemyFSM : MonoBehaviour
             if (state[i] == nowState && beforeState == nowState)
             {
                 brain[i].restartEvaluate();
+                brain[i].brainActive = true;
             }
         }
+    }
+
+    public bool CheckBrainActive()
+    {
+        for (int i = 0; i < state.Count; i++)
+        {
+            if (brain[i].brainActive == true)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
     // Update is called once per frame
     void Update()
@@ -84,5 +105,6 @@ public class EnemyFSM : MonoBehaviour
             beforeState = nowState;
             BTBrainActiver();
         }
+
     }
 }
