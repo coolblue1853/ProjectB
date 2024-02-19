@@ -54,6 +54,9 @@ public class PlayerController : MonoBehaviour
         dashAction = action.Player.Dash;
         runAction = action.Player.Run;
     }
+
+    public  bool isAttacked;
+    public bool isAttackedUp;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -88,7 +91,7 @@ public class PlayerController : MonoBehaviour
                 isRun = false;
             }
             // ¿Ãµø
-            if (DatabaseManager.weaponStopMove == false)
+            if (DatabaseManager.weaponStopMove == false && isAttacked == false)
             {
                 Move();
             }
@@ -249,10 +252,16 @@ public class PlayerController : MonoBehaviour
             isWallReset = false;
             isGrounded = true;
             jumpsRemaining = maxJumps;
+
+            if(isAttacked == true && rb.velocity.y == 0)
+            {
+                isAttackedUp = false;
+                rb.velocity = new Vector2(0f, 0f);
+            }
+
         }
         else
         {
-
             isGrounded = false;
         }
         if(states != "dash")

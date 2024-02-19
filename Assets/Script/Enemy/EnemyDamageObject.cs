@@ -70,7 +70,7 @@ public class EnemyDamageObject : MonoBehaviour
 
                 if (isPlayerAttack == true)
                 {
-                    if (player.transform.position.x > transform.position.x)
+                    if (player.transform.position.x < transform.position.x)
                     {
                         knockbackDir.x = -knockbackDir.x;
                     }

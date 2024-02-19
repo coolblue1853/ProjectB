@@ -27,6 +27,9 @@ public class testFunc : MonoBehaviour
 
 
     }
+    public Rigidbody2D rb;
+    public Vector2 knockbackDir;
+    public float knockbackForce;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +45,7 @@ public class testFunc : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            PlayerHealthManager.Instance.HpUp(50);
+            rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
 
         }
         if (Input.GetKeyDown(KeyCode.F2))

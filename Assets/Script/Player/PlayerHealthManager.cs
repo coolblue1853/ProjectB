@@ -36,6 +36,7 @@ public class PlayerHealthManager : MonoBehaviour
     void Start()
     {
         rb = player.GetComponent<Rigidbody2D>();
+        playerController = player.GetComponent<PlayerController>();
         ResetMHp();
         healthBar.ResetHp(fullHP);
         steminaBar.ResetHp(fullStemina);
@@ -93,7 +94,7 @@ public class PlayerHealthManager : MonoBehaviour
             Debug.Log("죽었습니다");
         }
     }
-
+    PlayerController playerController;
     public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
     {
         HpDown(damage);
@@ -101,9 +102,10 @@ public class PlayerHealthManager : MonoBehaviour
         if (isSuperArmor == false && stiffTime>0)
         {
             sequence.Kill(); // 재공격시 경직 시간 초기화.
+            playerController.isAttacked = true;
+            playerController.isAttackedUp = true;
 
-
-         sequence = DOTween.Sequence()
+            sequence = DOTween.Sequence()
         .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
         .AppendInterval(stiffTime)
         .OnComplete(() => EndStiffness());
@@ -115,7 +117,7 @@ public class PlayerHealthManager : MonoBehaviour
 
         if (rb != null)
         {
-            if (x > transform.position.x && isDirChange == true)
+            if (x < transform.position.x && isDirChange == true)
             {
                 knockbackDir.x = -knockbackDir.x;
             }
@@ -128,7 +130,7 @@ public class PlayerHealthManager : MonoBehaviour
     {
         if (this != null)
         {
-            //Debug.Log("EndStiff");
+            playerController.isAttacked = false;
 
 
         }
