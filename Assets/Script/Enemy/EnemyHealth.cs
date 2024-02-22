@@ -82,7 +82,7 @@ public class EnemyHealth : MonoBehaviour
     }
     private void EndStiffness()
     {
-        if(this != null)
+        if(this != null && enemyFSM != null)
         {
             Debug.Log("EndStiff");
 
@@ -91,9 +91,9 @@ public class EnemyHealth : MonoBehaviour
                 enemyFSM.StateChanger("Hit");
             }
 
-            
-
             enemyFSM.ReActiveBrainSequence();
+
+
         }
 
     }

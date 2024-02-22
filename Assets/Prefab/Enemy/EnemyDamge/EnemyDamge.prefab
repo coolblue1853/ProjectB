@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1799378379411631009}
   - component: {fileID: 1799378379411631008}
-  - component: {fileID: 1799378379411631023}
   - component: {fileID: 1125193792417791933}
   - component: {fileID: -1790378529860103774}
   m_Layer: 0
@@ -87,35 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1799378379411631023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799378379411631010}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDestroyByTime: 1
-  holdingTime: 0.5
-  damage: 2
-  stiffnessTime: 1
-  knockForce: 10
-  knockbackDir: {x: 0, y: 1}
-  isNockBackChangeDir: 0
-  isPlayerAttack: 1
-  player: {fileID: 0}
-  isLaunch: 0
-  launchForce: 0
-  launchDir: {x: 0, y: 0}
-  isDeletByGround: 0
-  isPosionAttack: 0
-  poisonDamage: 0
-  damageInterval: 0
-  damageCount: 0
 --- !u!61 &1125193792417791933
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -157,7 +127,7 @@ MonoBehaviour:
   isDestroyByTime: 1
   holdingTime: 0.5
   damage: 10
-  stiffnessTime: 10
+  stiffnessTime: 1
   knockForce: 10
   knockbackDir: {x: 1, y: 1}
   isNockBackChangeDir: 0

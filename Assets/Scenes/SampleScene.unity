@@ -15246,6 +15246,8 @@ MonoBehaviour:
   jumpsRemaining: 0
   isWall: 0
   states: 
+  isAttacked: 0
+  isAttackedUp: 0
 --- !u!212 &968492882
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17058,7 +17060,7 @@ MonoBehaviour:
   brain: {fileID: 1234473153}
   IsWaiting: 0
   waitTime: 0
-  attackWaitTime: 2
+  attackWaitTime: 0.7
   damageOb: {fileID: 1799378379411631010, guid: 6286bb3476fcde343a7f9a5de9aa1484, type: 3}
   attackPivot: {fileID: 125229878}
   enemyObject: {fileID: 1893175212732646185}
@@ -34177,6 +34179,7 @@ MonoBehaviour:
   - Attack
   nowState: 
   beforeState: 
+  isNeedReset: 0
 --- !u!212 &1893175212732646178
 SpriteRenderer:
   m_ObjectHideFlags: 0

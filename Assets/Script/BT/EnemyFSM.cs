@@ -72,17 +72,11 @@ public class EnemyFSM : MonoBehaviour
         }
 
     }
+   public  bool isNeedReset;
     public void ReActiveBrainSequence()
     {
-        for (int i = 0; i < state.Count; i++)
-        {
-            brain[i].isAttacked = false;
-            if (state[i] == nowState && beforeState == nowState)
-            {
-                brain[i].restartEvaluate();
-                brain[i].brainActive = true;
-            }
-        }
+        isNeedReset = true;
+
     }
 
     public bool CheckBrainActive()
@@ -103,8 +97,21 @@ public class EnemyFSM : MonoBehaviour
         if(beforeState != nowState)
         {
             beforeState = nowState;
-            BTBrainActiver();
+         //   BTBrainActiver();
         }
 
+        if(isNeedReset == true && CheckBrainActive() == false)
+        {
+            isNeedReset = false;
+            for (int i = 0; i < state.Count; i++)
+            {
+                brain[i].isAttacked = false;
+                if (state[i] == nowState)
+                {
+                    brain[i].restartEvaluate();
+                    brain[i].brainActive = true;
+                }
+            }
+        }
     }
 }

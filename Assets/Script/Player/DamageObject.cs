@@ -21,7 +21,10 @@ public class DamageObject : MonoBehaviour
     public bool isDeletByGround = false;
 
     private Sequence sequence; // 시퀀스를 저장하기 위한 변수 추가
-
+    private void Awake()
+    {
+        player = GameObject.FindWithTag("Player");
+    }
     void Start()
     {
         player = GameObject.FindWithTag("Player");
@@ -58,42 +61,48 @@ public class DamageObject : MonoBehaviour
             .AppendCallback(() => Destroy(this.gameObject));
     }
 
-    private Dictionary<Collider2D, bool> damagedEnemies = new Dictionary<Collider2D, bool>();
+    public int maxDamagedEnemies = 1; // 최대 데미지를 입힐 적의 수
+    private List<Collider2D> damagedEnemies = new List<Collider2D>(); // 데미지를 입힌 적들의 리스트
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy")
         {
-            if (!damagedEnemies.ContainsKey(collision) || !damagedEnemies[collision])
+            // 데미지를 입힌 적의 수가 최대치를 초과하지 않은 경우에만 실행
+            if (damagedEnemies.Count < maxDamagedEnemies)
             {
-                EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
-
-                if (isPlayerAttack == true)
+                // 이미 데미지를 입힌 적인지 확인하고, 데미지를 입히지 않은 경우에만 실행
+                if (!damagedEnemies.Contains(collision))
                 {
-                    if (player.transform.position.x > transform.position.x)
+                    EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+
+                    if (isPlayerAttack == true)
                     {
-                        knockbackDir.x = -knockbackDir.x;
+                        if (player.transform.position.x > transform.position.x)
+                        {
+                            knockbackDir.x = -knockbackDir.x;
+                        }
                     }
-                }
 
-                enemyHealth.damage2Enemy(damage, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
-                if (isPosionAttack)
-                {
-                    enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
-                }
+                    // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
+                    enemyHealth.damage2Enemy(damage, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
+                    if (isPosionAttack)
+                    {
+                        enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
+                    }
 
-                // Mark the enemy as damaged
-                damagedEnemies[collision] = true;
+                    // 데미지를 입힌 적 리스트에 추가
+                    damagedEnemies.Add(collision);
+                }
             }
         }
-        if (collision.tag == "Ground")
+        else if (collision.tag == "Ground")
         {
             if (isDeletByGround)
             {
                 Destroy(this.gameObject);
             }
         }
-    
     }
 
     public bool isPosionAttack;

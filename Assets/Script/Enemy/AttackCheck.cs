@@ -23,6 +23,7 @@ public class AttackCheck : MonoBehaviour
             {
                 enemyFSM.ReActiveBrainSequence();
             }
+
         }
 
     }

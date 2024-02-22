@@ -63,6 +63,7 @@ public class BTBrain : MonoBehaviour
 
     public void EndNode()
     {
+        isBrainActive = true;
         StopCoroutine(evaluateCoroutine);
         for(int i = 0; i < node.Count; i++)
         {
@@ -73,6 +74,8 @@ public class BTBrain : MonoBehaviour
     }
     public void EndNodeState(string state)
     {
+       brainActive = false;
+        Debug.Log(state);
         enemyFSM.StateChanger(state);
         enemyFSM.ReActiveBrainSequence();
 

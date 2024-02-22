@@ -38,6 +38,7 @@ public class AttackNode : BTNode
         }
         else if(isAttack == false)
         {
+            Invoke("ReActiveBool", attackWaitTime);
             isAttackRepeat = false;
             brain.StopEvaluateCoroutine();
             sequence = DOTween.Sequence()
@@ -76,9 +77,13 @@ public class AttackNode : BTNode
     {
         GameObject damageObject = Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
     }
-    private void OnSequenceComplete()
+    private void ReActiveBool()
     {
         isAttackRepeat = true;
+    }
+    private void OnSequenceComplete()
+    {
+        //isAttackRepeat = true;
         if (this.transform != null)
         {
             isAttack = true;

@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
             once = true;
             rb.velocity = Vector2.zero;
         }
-        if(DatabaseManager.isOpenUI == false)
+        if(DatabaseManager.isOpenUI == false && isAttacked == false)
         {
             once = false;
             if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true && isGrounded == true)
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
                 isRun = false;
             }
             // ¿Ãµø
-            if (DatabaseManager.weaponStopMove == false && isAttacked == false)
+            if (DatabaseManager.weaponStopMove == false )
             {
                 Move();
             }

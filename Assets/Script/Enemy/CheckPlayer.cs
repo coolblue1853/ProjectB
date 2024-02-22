@@ -14,6 +14,7 @@ public class CheckPlayer : MonoBehaviour
 
             enemyFSM.KillBrainSequence();
             enemyFSM.StateChanger("Chase");
+            enemyFSM.ReActiveBrainSequence();
 
         }
     }
@@ -24,7 +25,7 @@ public class CheckPlayer : MonoBehaviour
 
             enemyFSM.KillBrainSequence();
             enemyFSM.StateChanger("Stay");
-
+            enemyFSM.ReActiveBrainSequence();
         }
     }
 }
