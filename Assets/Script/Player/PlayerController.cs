@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.InputSystem;
@@ -18,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public int jumpsRemaining;    // 남은 점프 횟수
     private bool isChangeDirection = false;    // 남은 점프 횟수
     private Rigidbody2D rb;
-    private bool isGrounded;
+    public bool isGrounded;
     private bool isRun = false;
     public bool isWall = false;
     private bool isWallReset = false;
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
     InputAction dashAction;
     InputAction runAction;
     Sequence waitSequence;
+    InputAction verticalAction;
     public string states = "";
     private void OnEnable()
     {
@@ -38,6 +41,7 @@ public class PlayerController : MonoBehaviour
         jumpAction.Enable();
         dashAction.Enable();
         runAction.Enable();
+        verticalAction.Enable();
     }
     private void OnDisable()
     {
@@ -45,6 +49,7 @@ public class PlayerController : MonoBehaviour
         jumpAction.Disable();
         dashAction.Disable();
         runAction.Disable();
+        verticalAction.Disable();
     }
     private void Awake()
     {
@@ -53,7 +58,9 @@ public class PlayerController : MonoBehaviour
         jumpAction = action.Player.Jump;
         dashAction = action.Player.Dash;
         runAction = action.Player.Run;
+        verticalAction = action.UI.verticalCheck;
     }
+
 
     public  bool isAttacked;
     public bool isAttackedUp;
@@ -108,7 +115,11 @@ public class PlayerController : MonoBehaviour
             // 점프
             if (jumpAction.triggered && DatabaseManager.weaponStopMove == false)
             {
-                if (isWall == true)
+                if (verticalInput < 0 && currentOneWayPlatform != null)
+                {
+                  DisableCollision();
+                }
+                else if (isWall == true)
                 {
                     WallJump();
                 }
@@ -125,7 +136,45 @@ public class PlayerController : MonoBehaviour
                 dashTimer -= Time.deltaTime;
             }
         }
-    
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            BaseGround baseGround = collision.gameObject.GetComponent<BaseGround>();
+
+            if(baseGround == null)
+            {
+                currentOneWayPlatform = collision.gameObject;
+            }
+
+
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            currentOneWayPlatform = null;
+        }
+    }
+    BoxCollider2D platformCollider;
+    private void DisableCollision()
+    {
+         platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
+
+        Physics2D.IgnoreCollision(playerCollider, platformCollider);
+    }
+    public void AbleCollision()
+    {
+        if(platformCollider != null)
+        {
+            Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
+        }
+
     }
     private void runSteminaDown()
     {
@@ -145,6 +194,7 @@ public class PlayerController : MonoBehaviour
                 .OnComplete(() => runSteminaDown());
         }
     }
+    float verticalInput;
     void Move()
     {
         moveVelocity = Vector2.zero;
@@ -152,6 +202,7 @@ public class PlayerController : MonoBehaviour
         if (states != "dash" && states != "wallJump")
         {
             horizontalInput = moveAction.ReadValue<float>();
+            verticalInput = verticalAction.ReadValue<float>();
             if (horizontalInput < 0)
             {
                 states = "moveLeft";
@@ -239,14 +290,15 @@ public class PlayerController : MonoBehaviour
         // 점프 후에도 isGrounded를 false로 유지하여 FixedUpdate에서 다시 체크할 수 있도록 합니다.
         isGrounded = false;
     }
-
+    public GameObject groundCheck;
+    public bool isPlafromCheck = true;
     void FixedUpdate()
     {
         // 바닥 감지 레이캐스트
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 2f, LayerMask.GetMask("Ground"));
+        RaycastHit2D hit = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
 
         // Ground 태그를 가진 오브젝트에 닿았고, 각도가 일정 범위 내에 있으면 점프 횟수 초기화
-        if (hit.collider != null && hit.collider.CompareTag("Ground") && IsGrounded(hit.normal))
+        if (hit.collider != null && hit.collider.CompareTag("Ground") && IsGrounded(hit.normal) && isPlafromCheck == true)
         {
 
             isWallReset = false;
@@ -264,7 +316,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
-        if(states != "dash")
+        if(states != "dash" && isPlafromCheck == true)
         {
             RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right, 1f, LayerMask.GetMask("Ground"));
             RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left,1f, LayerMask.GetMask("Ground"));
@@ -290,6 +342,14 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+    public GameObject currentOneWayPlatform;
+
+    [SerializeField] private BoxCollider2D playerCollider;
+
+
+
+
     bool IsWall(Vector2 normal)
     {
         // Calculate the angle between the normal vector and the up vector
