@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     InputAction runAction;
     Sequence waitSequence;
     InputAction verticalAction;
+    InputAction  upAction;
     public string states = "";
     private void OnEnable()
     {
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
         dashAction.Enable();
         runAction.Enable();
         verticalAction.Enable();
+        upAction.Enable();
     }
     private void OnDisable()
     {
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
         dashAction.Disable();
         runAction.Disable();
         verticalAction.Disable();
+        upAction.Disable();
     }
     private void Awake()
     {
@@ -59,6 +62,7 @@ public class PlayerController : MonoBehaviour
         dashAction = action.Player.Dash;
         runAction = action.Player.Run;
         verticalAction = action.UI.verticalCheck;
+        upAction = action.UI.UPInventory;
     }
 
 
@@ -137,7 +141,17 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (states != "dash" && states != "wallJump" && isLadder == true)
+        {
+            if(upAction.triggered == true)
+            {
+                this.gameObject.transform.position = new Vector2(nowLadder.transform.position.x, this.transform.position.y);
+            }
+
+
+        }
     }
+    GameObject nowLadder;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -363,5 +377,24 @@ public class PlayerController : MonoBehaviour
         // 내적을 사용하여 각도가 일정 범위 내에 있는지 확인
         float dot = Vector2.Dot(normal, Vector2.up);
         return dot >= 0.9f; // 내적 값이 0.9 이상이면 일정 범위 내에 있다고 판단
+    }
+    public bool isLadder;
+    bool isUpLadder;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Ladder")
+        {
+            isLadder = true;
+            nowLadder = collision.gameObject;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Ladder")
+        {
+            isLadder = false;
+            nowLadder = collision.gameObject;
+        }
     }
 }
