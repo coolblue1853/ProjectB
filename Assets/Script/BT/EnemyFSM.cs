@@ -102,12 +102,14 @@ public class EnemyFSM : MonoBehaviour
 
         if(isNeedReset == true && CheckBrainActive() == false)
         {
-            isNeedReset = false;
+
             for (int i = 0; i < state.Count; i++)
             {
                 brain[i].isAttacked = false;
                 if (state[i] == nowState)
                 {
+                    isNeedReset = false;
+                    Debug.Log("restart");
                     brain[i].restartEvaluate();
                     brain[i].brainActive = true;
                 }

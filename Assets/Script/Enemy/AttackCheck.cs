@@ -21,6 +21,7 @@ public class AttackCheck : MonoBehaviour
 
             if (enemyFSM.CheckBrainActive() == false)
             {
+                attackNode.isAttackRepeat = false;
                 enemyFSM.ReActiveBrainSequence();
             }
 

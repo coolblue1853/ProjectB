@@ -38,6 +38,7 @@ public class AttackNode : BTNode
         }
         else if(isAttack == false)
         {
+
             Invoke("ReActiveBool", attackWaitTime);
             isAttackRepeat = false;
             brain.StopEvaluateCoroutine();
