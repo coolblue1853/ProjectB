@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     Sequence waitSequence;
     InputAction verticalAction;
     InputAction  upAction;
+    InputAction downAction;
     public string states = "";
     private void OnEnable()
     {
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
         runAction.Enable();
         verticalAction.Enable();
         upAction.Enable();
+        downAction.Enable();
     }
     private void OnDisable()
     {
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
         runAction.Disable();
         verticalAction.Disable();
         upAction.Disable();
+        downAction.Disable();
     }
     private void Awake()
     {
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour
         runAction = action.Player.Run;
         verticalAction = action.UI.verticalCheck;
         upAction = action.UI.UPInventory;
+        downAction = action.UI.DownInventory;
     }
 
 
@@ -91,7 +95,7 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = Vector2.zero;
             }
 
-            if (runAction.triggered && isRun == false && DatabaseManager.weaponStopMove == false && Mathf.Abs(horizontalInput) > 0)
+            if (runAction.triggered && isRun == false && DatabaseManager.weaponStopMove == false && Mathf.Abs(horizontalInput) > 0 )
             {
                 isRun = true;
                 runSteminaDown();
@@ -102,7 +106,7 @@ public class PlayerController : MonoBehaviour
                 isRun = false;
             }
             // ¿Ãµø
-            if (DatabaseManager.weaponStopMove == false )
+            if (DatabaseManager.weaponStopMove == false && isUpLadder == false)
             {
                 Move();
             }
@@ -111,6 +115,8 @@ public class PlayerController : MonoBehaviour
             // ¥ÎΩ¨
             if (dashAction.triggered && dashTimer <= 0f && DatabaseManager.weaponStopMove == false && PlayerHealthManager.Instance.nowStemina > dashStemina)
             {
+                rb.gravityScale =3;
+                isUpLadder = false;
                 Dash();
             }
 
@@ -129,6 +135,8 @@ public class PlayerController : MonoBehaviour
                 }
                 else if ((isGrounded || jumpsRemaining > 0) && states != "dash")
                 {
+                    rb.gravityScale = 3;
+                    isUpLadder = false;
                     Jump();
                 }
 
@@ -143,16 +151,63 @@ public class PlayerController : MonoBehaviour
 
         if (states != "dash" && states != "wallJump" && isLadder == true)
         {
-            if(upAction.triggered == true)
+            if(upAction.triggered == true|| downAction.triggered)
             {
+                jumpsRemaining = maxJumps;
+                rb.velocity = Vector2.zero;
+                rb.gravityScale = 0;
+                isUpLadder = true;
+
+
+
+
                 this.gameObject.transform.position = new Vector2(nowLadder.transform.position.x, this.transform.position.y);
             }
 
 
         }
+
+        if(isUpLadder == true)
+        {
+            LadderMove();
+
+            if (currentOneWayPlatform != null)
+            {
+                DisableCollision();
+            }
+        }
     }
     GameObject nowLadder;
+    void LadderMove()
+    {
+        moveVelocity = Vector2.zero;
 
+        if (states != "dash" && states != "wallJump")
+        {
+            verticalInput = verticalAction.ReadValue<float>();
+            if (verticalInput < 0)
+            {
+                states = "moveDown";
+                moveVelocity = Vector2.down * (isRun ? runSpeed : moveSpeed);
+            }
+            else if (verticalInput > 0)
+            {
+                states = "moveUp";
+                moveVelocity = Vector2.up * (isRun ? runSpeed : moveSpeed);
+            }
+            else if (verticalInput == 0 && states != "move" && check == false)
+            {
+                Debug.Log("∏ÿ√„");
+                check = true;
+                Sequence sequence = DOTween.Sequence()
+                    .AppendInterval(0.3f)
+                    .AppendCallback(() => VerticalRunChecker());
+            }
+            // Applying velocity to the Rigidbody2D
+            rb.velocity = new Vector2(rb.velocity.x, moveVelocity.y);
+        }
+
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -240,7 +295,6 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
         }
 
-
     }
 
     bool check = false;
@@ -254,7 +308,16 @@ public class PlayerController : MonoBehaviour
             isRun = false;
         }
     }
+    void VerticalRunChecker()
+    {
+        check = false;
+        if (verticalInput == 0)
+        {
 
+            states = "move";
+            isRun = false;
+        }
+    }
     void Dash()
     {
         if(states != "wallJump")
@@ -330,7 +393,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
-        if(states != "dash" && isPlafromCheck == true)
+        if(states != "dash" && isPlafromCheck == true && isUpLadder == false)
         {
             RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right, 1f, LayerMask.GetMask("Ground"));
             RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left,1f, LayerMask.GetMask("Ground"));
@@ -395,6 +458,12 @@ public class PlayerController : MonoBehaviour
         {
             isLadder = false;
             nowLadder = collision.gameObject;
+
+            if(isUpLadder == true)
+            {
+                isUpLadder = false;
+                nowLadder = null;
+            }
         }
     }
 }
