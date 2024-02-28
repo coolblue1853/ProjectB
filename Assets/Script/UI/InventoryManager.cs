@@ -260,7 +260,8 @@ public class InventoryManager : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                   chest.CreatItem(itemCheck.name);
-   
+                DatabaseManager.MinusInventoryDict(itemCheck.name, 1);
+
             }
 
             if (itemCheck.nowStack <= 0)
@@ -313,6 +314,7 @@ public class InventoryManager : MonoBehaviour
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
         item.nowStack -= output;
+
         CreatItemSelected(item.name,nowBox, output);
     }
 
@@ -1203,7 +1205,7 @@ Sequence waitSequence = DOTween.Sequence()
         {
 
        
-            CreatItem("PickAxe");
+            CreatItem("Potion");
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
@@ -1714,7 +1716,7 @@ Sequence waitSequence = DOTween.Sequence()
                             GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                             ItemCheck check = item.GetComponent<ItemCheck>();
                             check.SetItem(itemName);
-
+                            DatabaseManager.PlusInventoryDict(itemName, 1);
                             isCreate = true;
                             break;
                         }
@@ -1796,6 +1798,7 @@ Sequence waitSequence = DOTween.Sequence()
                             if (check.maxStack > check.nowStack)
                             {
                                 check.nowStack += 1;
+                                DatabaseManager.PlusInventoryDict(itemName, 1);
                                 return true;
                             }
 

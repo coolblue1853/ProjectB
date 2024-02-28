@@ -22,6 +22,43 @@ public class DatabaseManager : MonoBehaviour
     public static bool weaponStopMove = false;
     public static bool isOpenUI = false;
 
+    public static Dictionary<string, int> inventoryItemStack = new Dictionary<string, int>();
+
+    public static void PlusInventoryDict(string name, int count)
+    {
+        bool isContain = false;
+        foreach(var value in inventoryItemStack)
+        {
+            if(value.Key == name)
+            {
+                isContain = true;
+                break;
+            }
+        }
+        if(isContain == false)
+        {
+            Debug.Log("Add1");
+            //inventoryItemStack.Add(name,count);
+            inventoryItemStack[name] = count;
+        }
+        else
+        {
+            Debug.Log("Add2");
+            inventoryItemStack[name] += count;
+        }
+    }
+
+    public static void MinusInventoryDict(string name, int count)
+    {
+        inventoryItemStack[name] -= count;
+        // 만약 값이 0이 되면 해당 키를 제거할 수 있음
+        if (inventoryItemStack[name] == 0)
+        {
+            inventoryItemStack.Remove(name);
+        }
+
+    }
+
 
 
 

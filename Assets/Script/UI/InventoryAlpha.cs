@@ -69,7 +69,6 @@ public class InventoryAlpha : MonoBehaviour
     // Update is called once per frame
     void CheckArray()
     {
-
         // siblingIndex = transform.GetSiblingIndex();
         siblingIndex = int.Parse(this.transform.name);
     }

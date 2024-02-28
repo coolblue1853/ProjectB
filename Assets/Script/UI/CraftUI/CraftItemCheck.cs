@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using TMPro;
-public class ItemCheck : MonoBehaviour
+public class CraftItemCheck : MonoBehaviour
 {
     //코드 / 종류((장비인지 소모품인지)  / 이름 / 설명 / 보유수 / 가격 / 무게 // 획득방법
     public string name;
@@ -22,10 +22,14 @@ public class ItemCheck : MonoBehaviour
     public Image image;
     Item item;
 
+    private void Start()
+    {
+
+       SetItem(this.transform.name);
+    }
 
     public void SetItem(string itemName)
     {
-
         item = DatabaseManager.instance.LoadItemData(DatabaseManager.instance.FindItemDataIndex(itemName));
         name = item.name;
         type = item.type;
@@ -34,9 +38,9 @@ public class ItemCheck : MonoBehaviour
         weight = item.weight;
         acqPath = item.acqPath;
         maxStack = item.maxStack;
-        nowStack = 1;
+        nowStack = 0;
         stackText.text = nowStack.ToString();
-        if(type == "Consum")
+        if (type == "Consum")
         {
             effectOb = item.effectOb;
             effectPow = item.effectPow;
@@ -44,7 +48,6 @@ public class ItemCheck : MonoBehaviour
         if (type == "Equip")
         {
             equipArea = item.equipArea;
-
         }
         LoadImage();
     }
@@ -55,7 +58,7 @@ public class ItemCheck : MonoBehaviour
         string[] effect = effectOb.Split();
         if (effect[0] == "stemina")
         {
-            if(effect[1] == "+")
+            if (effect[1] == "+")
             {
                 PlayerHealthManager.Instance.SteminaUp(effectPow);
             }
@@ -76,20 +79,16 @@ public class ItemCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(nowStack == 1)
+        stackText.text = nowStack.ToString();   
+        stackText.gameObject.SetActive(true);
+        if (DatabaseManager.inventoryItemStack.ContainsKey(this.transform.name) == true)
         {
-            stackText.text = "1";
-            stackText.gameObject.SetActive(false);
+            nowStack = DatabaseManager.inventoryItemStack[name];
         }
-        else
-        {
-            stackText.text = nowStack.ToString();
-            stackText.gameObject.SetActive(true);
-        }
-        
     }
-   
+
+
+
     void LoadImage()
     {
         // 이미지 파일이 저장된 폴더 경로
