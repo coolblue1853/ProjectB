@@ -22,10 +22,15 @@ public class CraftItemCheck : MonoBehaviour
     public Image image;
     Item item;
 
+    private void Awake()
+    {
+        SetItem(this.transform.name);
+    }
+
     private void Start()
     {
 
-       SetItem(this.transform.name);
+
     }
 
     public void SetItem(string itemName)
