@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class NeedItem : MonoBehaviour
 {
+
+    public List<string> needItem = new List<string>();
+    public List<int> needItemAmount = new List<int>();
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

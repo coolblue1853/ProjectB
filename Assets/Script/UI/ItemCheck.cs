@@ -18,10 +18,12 @@ public class ItemCheck : MonoBehaviour
     public string effectOb;
     public int effectPow;
     public string equipArea;
+    public int needCount;
     public TextMeshProUGUI stackText;
     public Image image;
     Item item;
 
+    public bool isCraftItem = false;
 
     public void SetItem(string itemName)
     {
@@ -35,6 +37,7 @@ public class ItemCheck : MonoBehaviour
         acqPath = item.acqPath;
         maxStack = item.maxStack;
         nowStack = 1;
+        if(stackText != null)
         stackText.text = nowStack.ToString();
         if(type == "Consum")
         {
@@ -76,16 +79,31 @@ public class ItemCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(nowStack == 1)
+        if(isCraftItem == false)
         {
-            stackText.text = "1";
-            stackText.gameObject.SetActive(false);
+            if (nowStack == 1)
+            {
+                stackText.text = "1";
+                stackText.gameObject.SetActive(false);
+            }
+            else
+            {
+                stackText.text = nowStack.ToString();
+                stackText.gameObject.SetActive(true);
+            }
         }
-        else
+
+
+        if(isCraftItem == true)
         {
-            stackText.text = nowStack.ToString();
-            stackText.gameObject.SetActive(true);
+            if (DatabaseManager.inventoryItemStack.ContainsKey(name) == false)
+            {
+                stackText.text = "0/" + needCount;
+            }
+            else
+            {
+                stackText.text = + DatabaseManager.inventoryItemStack[name]+"/" + needCount;
+            }
         }
         
     }

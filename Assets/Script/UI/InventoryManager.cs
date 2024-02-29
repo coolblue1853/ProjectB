@@ -1205,12 +1205,12 @@ Sequence waitSequence = DOTween.Sequence()
         {
 
        
-            CreatItem("Potion");
+            CreatItem("Wood");
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            CreatItem("ToxicPickAxe");
+            CreatItem("Ring");
           //  CreatItem("Necklace");
 
 
@@ -1218,7 +1218,7 @@ Sequence waitSequence = DOTween.Sequence()
         if (Input.GetKeyDown(KeyCode.F4))
         {
             //  CreatItem("PickAxe");
-            CreatItem("Cap");
+            CreatItem("Potion");
 
         }
         if (openInventoryAction.triggered)
@@ -1776,7 +1776,40 @@ Sequence waitSequence = DOTween.Sequence()
         }
 
     }
+   public  void DeletItemByName(string itemName, int count = 1)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            for (int i = 0; i < (maxHor * maxVer); i++)
+            {
+                if (maxBoxNum > (j * (maxHor * maxVer)) + i)
+                {
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
+                    if (insPositon.transform.childCount > 0)
+                    {
+                        GameObject item = insPositon.transform.GetChild(0).gameObject;
+                        ItemCheck check = item.GetComponent<ItemCheck>();
+                        if (check.name == itemName)
+                        {
+                            if (check.nowStack>0)
+                            {
+                                check.nowStack -= count;
+                                DatabaseManager.MinusInventoryDict(itemName, count);
+                            }
 
+                        }
+                        if (check.nowStack <= 0)
+                        {
+                            Destroy(item);
+                        }
+                    }
+
+                }
+            }
+        }
+
+  
+    }
 
     bool CheckStack(string itemName)
     {

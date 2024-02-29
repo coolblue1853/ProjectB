@@ -8,6 +8,7 @@ public class CraftingManager : MonoBehaviour
 
     public GameObject[] LV1;
     CraftItemCheck nowCraftItem;
+    NeedItem nowNeedItem;
     public TextMeshProUGUI name;
     public TextMeshProUGUI type;
     public TextMeshProUGUI description;
@@ -18,10 +19,15 @@ public class CraftingManager : MonoBehaviour
     public TextMeshProUGUI effectPow;
     public TextMeshProUGUI equipArea;
     public Image image;
+
+    public GameObject needMaterail;
+    public GameObject itemPrefab; // 생성되는 Box 인스턴스
     // Start is called before the first frame update
     void Start()
     {
         nowCraftItem = LV1[0].transform.GetChild(0).GetComponent<CraftItemCheck>();
+        nowNeedItem = LV1[0].transform.GetChild(0).GetComponent<NeedItem>();
+        SetNeedItem();
         SetDetail();
     }
 
@@ -43,11 +49,83 @@ public class CraftingManager : MonoBehaviour
         {
           //  equipArea.text = nowCraftItem.equipArea;
         }
+
+    }
+
+    public void Craft()
+    {
+        if(NeedCountCheck() == true)
+        {
+            Debug.Log("제작 성공");
+            for (int i = 0; i < nowNeedItem.needItem.Count; i++)
+            {
+                InventoryManager.instance.DeletItemByName(needItemList[i].name, needItemList[i].needCount);
+            }
+            InventoryManager.instance.CreatItem(name.text);
+        }
+        else
+        {
+            Debug.Log("제작 실패");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    //DatabaseManager.inventoryItemStack[name]+"/" + needCount
+    bool NeedCountCheck()
+    {
+        for (int i = 0; i < nowNeedItem.needItem.Count; i++)
+        {
+            if(DatabaseManager.inventoryItemStack.ContainsKey(needItemList[i].name) == true)
+            {
+                if (DatabaseManager.inventoryItemStack[needItemList[i].name] < needItemList[i].needCount)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
+
+        return true;
+    }
+
+    ItemCheck[] needItemList;
+    void SetNeedItem()
+    {
+        needItemList = new ItemCheck[nowNeedItem.needItem.Count];
+        for (int i =0; i < nowNeedItem.needItem.Count; i++)
+        {
+            GameObject item = Instantiate(itemPrefab, needMaterail.transform.position, Quaternion.identity, needMaterail.transform);
+            ItemCheck itemCheck = item.GetComponent<ItemCheck>();
+            needItemList[i] = itemCheck;
+            itemCheck.SetItem(nowNeedItem.needItem[i]);
+            itemCheck.needCount = nowNeedItem.needItemAmount[i];
+        }
+    }
+
+
+    void DeleteAllChildren(GameObject parent)
+    {
+        // 부모 GameObject의 자식 GameObject를 모두 가져와서 배열에 저장
+        GameObject[] children = new GameObject[parent.transform.childCount];
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            children[i] = parent.transform.GetChild(i).gameObject;
+        }
+
+        // 배열에 저장된 모든 자식 GameObject를 삭제
+        foreach (GameObject child in children)
+        {
+            Destroy(child);
+        }
     }
 }
