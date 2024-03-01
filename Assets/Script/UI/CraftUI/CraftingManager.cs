@@ -22,13 +22,24 @@ public class CraftingManager : MonoBehaviour
 
     public GameObject needMaterail;
     public GameObject itemPrefab; // 생성되는 Box 인스턴스
-    // Start is called before the first frame update
+                                  // Start is called before the first frame update
+
+    int lV = 0;
+    int line = 0;
+    int childCount = 0;
+    public GameObject CraftUI;
+    public GameObject cusor;
     void Start()
     {
+        lV = 1;
+        line = 0;
+        childCount = 0;
         nowCraftItem = LV1[0].transform.GetChild(0).GetComponent<CraftItemCheck>();
         nowNeedItem = LV1[0].transform.GetChild(0).GetComponent<NeedItem>();
         SetNeedItem();
-        SetDetail();
+       // Invoke("SetDetail", 1f); // 일단 1초뒤에 하도록 해서 딜레이 체크를 했는데 이거는 확인해야할듯
+
+
     }
 
     void SetDetail()
@@ -72,7 +83,53 @@ public class CraftingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(CraftUI.activeSelf == true)
+        {
+            MoveCusor();
+        }
+
+
+
+        if (name.text == "")
+        {
+            SetDetail();
+        }
+
+    }
+
+
+    void MoveCusor()
+    {
+        if(lV == 1)
+        {
+            cusor.transform.position = LV1[line].transform.GetChild(childCount).position;
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (LV1[line].transform.childCount > childCount + 1)
+                {
+                    childCount += 1;
+                    DeleteAllChildren(needMaterail);
+                    nowCraftItem = LV1[line].transform.GetChild(childCount).GetComponent<CraftItemCheck>();
+                    nowNeedItem = LV1[line].transform.GetChild(childCount).GetComponent<NeedItem>();
+                    SetNeedItem();
+                    SetDetail();
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                if (childCount > 0)
+                {
+                    childCount -= 1;
+                    DeleteAllChildren(needMaterail);
+                    nowCraftItem = LV1[line].transform.GetChild(childCount).GetComponent<CraftItemCheck>();
+                    nowNeedItem = LV1[line].transform.GetChild(childCount).GetComponent<NeedItem>();
+                    SetNeedItem();
+                    SetDetail();
+                }
+            }
+        }
+
+
     }
 
     //DatabaseManager.inventoryItemStack[name]+"/" + needCount

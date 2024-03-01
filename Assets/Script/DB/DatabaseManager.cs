@@ -143,6 +143,7 @@ public class DatabaseManager : MonoBehaviour
                 }
             }
 
+            Debug.Log("찾지 못했습니다");
             // 일치하는 데이터가 없으면 -1 반환
             return -1;
         }

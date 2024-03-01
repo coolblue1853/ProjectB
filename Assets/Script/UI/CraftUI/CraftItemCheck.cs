@@ -24,12 +24,12 @@ public class CraftItemCheck : MonoBehaviour
 
     private void Awake()
     {
-        SetItem(this.transform.name);
+
     }
 
     private void Start()
     {
-
+        SetItem(this.transform.name);
 
     }
 
@@ -56,7 +56,7 @@ public class CraftItemCheck : MonoBehaviour
         }
         LoadImage();
     }
-
+    /*
     public void ConsumItemActive()
     {
         nowStack -= 1;
@@ -80,7 +80,7 @@ public class CraftItemCheck : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
+    */
     // Update is called once per frame
     void Update()
     {
@@ -116,7 +116,7 @@ public class CraftItemCheck : MonoBehaviour
             Image imageComponent = GetComponent<Image>();
 
             // Image 컴포넌트의 sprite 변경
-            imageComponent.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+           // imageComponent.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
             image = imageComponent;
         }
         else
