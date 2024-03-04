@@ -7,6 +7,8 @@ public class CraftingManager : MonoBehaviour
 {
 
     public GameObject[] LV1;
+    public GameObject nowLine;
+
     CraftItemCheck nowCraftItem;
     NeedItem nowNeedItem;
     public TextMeshProUGUI name;
@@ -29,13 +31,14 @@ public class CraftingManager : MonoBehaviour
     int childCount = 0;
     public GameObject CraftUI;
     public GameObject cusor;
+    public GameObject[] LV1craftBox;
     void Start()
     {
-        lV = 1;
+        lV = 0;
         line = 0;
         childCount = 0;
-        nowCraftItem = LV1[0].transform.GetChild(0).GetComponent<CraftItemCheck>();
-        nowNeedItem = LV1[0].transform.GetChild(0).GetComponent<NeedItem>();
+        nowCraftItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(0).GetComponent<CraftItemCheck>();
+        nowNeedItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(0).GetComponent<NeedItem>();
         SetNeedItem();
        // Invoke("SetDetail", 1f); // 일단 1초뒤에 하도록 해서 딜레이 체크를 했는데 이거는 확인해야할듯
 
@@ -100,36 +103,47 @@ public class CraftingManager : MonoBehaviour
 
     void MoveCusor()
     {
-        if(lV == 1)
+        cusor.transform.position = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(childCount).position; // lv 상자의 line 줄의 count 위치.
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            cusor.transform.position = LV1[line].transform.GetChild(childCount).position;
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (LV1craftBox[lV].transform.GetChild(line).transform.childCount > childCount + 1)
             {
-                if (LV1[line].transform.childCount > childCount + 1)
-                {
-                    childCount += 1;
-                    DeleteAllChildren(needMaterail);
-                    nowCraftItem = LV1[line].transform.GetChild(childCount).GetComponent<CraftItemCheck>();
-                    nowNeedItem = LV1[line].transform.GetChild(childCount).GetComponent<NeedItem>();
-                    SetNeedItem();
-                    SetDetail();
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                if (childCount > 0)
-                {
-                    childCount -= 1;
-                    DeleteAllChildren(needMaterail);
-                    nowCraftItem = LV1[line].transform.GetChild(childCount).GetComponent<CraftItemCheck>();
-                    nowNeedItem = LV1[line].transform.GetChild(childCount).GetComponent<NeedItem>();
-                    SetNeedItem();
-                    SetDetail();
-                }
+                childCount += 1;
+                DeleteAllChildren(needMaterail);
+                nowCraftItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(childCount).GetComponent<CraftItemCheck>();
+                nowNeedItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
+                SetNeedItem();
+                SetDetail();
             }
         }
-
-
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (childCount > 0)
+            {
+                childCount -= 1;
+                DeleteAllChildren(needMaterail);
+                nowCraftItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(childCount).GetComponent<CraftItemCheck>();
+                nowNeedItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
+                SetNeedItem();
+                SetDetail();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow) && LV1craftBox[lV].transform.childCount > line+1)
+        {
+            if (LV1craftBox[lV].transform.GetChild(line+1).transform.childCount < childCount+1)  //. 1, 2번째줄의 자식카운트 = 2 > 내카운트 2+1
+            {
+                childCount = LV1craftBox[lV].transform.GetChild(line+1).transform.childCount - 1;
+            }
+            line += 1;
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && 0 < line)
+        {
+            if (LV1craftBox[lV].transform.GetChild(line-1).transform.childCount < childCount +1) //  저게 2     지금이 3
+            {
+                childCount = LV1craftBox[lV].transform.GetChild(line-1).transform.childCount - 1;
+            }
+            line -= 1;
+        }
     }
 
     //DatabaseManager.inventoryItemStack[name]+"/" + needCount
