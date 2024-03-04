@@ -26,19 +26,21 @@ public class CraftingManager : MonoBehaviour
     public GameObject itemPrefab; // 생성되는 Box 인스턴스
                                   // Start is called before the first frame update
 
-    int lV = 0;
+    int nowLv = 0;
     int line = 0;
     int childCount = 0;
     public GameObject CraftUI;
     public GameObject cusor;
     public GameObject[] LV1craftBox;
+    int nowPage = 0;
     void Start()
     {
-        lV = 0;
+        nowLv = 0;
         line = 0;
+        nowPage = 0;
         childCount = 0;
-        nowCraftItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(0).GetComponent<CraftItemCheck>();
-        nowNeedItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(0).GetComponent<NeedItem>();
+        nowCraftItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(0).GetComponent<CraftItemCheck>();
+        nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(0).GetComponent<NeedItem>();
         SetNeedItem();
        // Invoke("SetDetail", 1f); // 일단 1초뒤에 하도록 해서 딜레이 체크를 했는데 이거는 확인해야할듯
 
@@ -103,15 +105,15 @@ public class CraftingManager : MonoBehaviour
 
     void MoveCusor()
     {
-        cusor.transform.position = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(childCount).position; // lv 상자의 line 줄의 count 위치.
+        cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv 상자의 line 줄의 count 위치.
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (LV1craftBox[lV].transform.GetChild(line).transform.childCount > childCount + 1)
+            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.childCount > childCount + 1)
             {
                 childCount += 1;
                 DeleteAllChildren(needMaterail);
-                nowCraftItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(childCount).GetComponent<CraftItemCheck>();
-                nowNeedItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
+                nowCraftItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<CraftItemCheck>();
+                nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
                 SetNeedItem();
                 SetDetail();
             }
@@ -122,28 +124,49 @@ public class CraftingManager : MonoBehaviour
             {
                 childCount -= 1;
                 DeleteAllChildren(needMaterail);
-                nowCraftItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(childCount).GetComponent<CraftItemCheck>();
-                nowNeedItem = LV1craftBox[lV].transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
+                nowCraftItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<CraftItemCheck>();
+                nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
                 SetNeedItem();
                 SetDetail();
             }
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && LV1craftBox[lV].transform.childCount > line+1)
+        if (Input.GetKeyDown(KeyCode.DownArrow) && LV1craftBox[nowLv].transform.GetChild(nowPage).transform.childCount > line+1)
         {
-            if (LV1craftBox[lV].transform.GetChild(line+1).transform.childCount < childCount+1)  //. 1, 2번째줄의 자식카운트 = 2 > 내카운트 2+1
+            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line+1).transform.childCount < childCount+1)  //. 1, 2번째줄의 자식카운트 = 2 > 내카운트 2+1
             {
-                childCount = LV1craftBox[lV].transform.GetChild(line+1).transform.childCount - 1;
+                childCount = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line+1).transform.childCount - 1;
             }
             line += 1;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && 0 < line)
         {
-            if (LV1craftBox[lV].transform.GetChild(line-1).transform.childCount < childCount +1) //  저게 2     지금이 3
+            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line-1).transform.childCount < childCount +1) //  저게 2     지금이 3
             {
-                childCount = LV1craftBox[lV].transform.GetChild(line-1).transform.childCount - 1;
+                childCount = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line-1).transform.childCount - 1;
             }
             line -= 1;
         }
+        if (Input.GetKeyDown(KeyCode.E) && LV1craftBox[nowLv].transform.childCount > nowPage + 1)
+        {
+            LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(false);
+            line = 0;
+            childCount = 0;
+            nowPage += 1;
+            LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(true);
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.Q) && 0 < nowPage)
+        {
+            LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(false);
+            line = 0;
+            childCount = 0;
+            nowPage -= 1;
+            LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(true);
+
+
+        }
+
     }
 
     //DatabaseManager.inventoryItemStack[name]+"/" + needCount
