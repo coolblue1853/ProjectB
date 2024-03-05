@@ -510,6 +510,15 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenCraft"",
+                    ""type"": ""Button"",
+                    ""id"": ""f01700c6-0b83-472e-8611-04f3484ad8d1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1073,6 +1082,28 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""action"": ""NextLeftPage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b9624b4-a088-40f3-beaf-eeef0ecef151"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenCraft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9667bc21-2ad3-44cb-b7d6-5568699664a1"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenCraft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1109,6 +1140,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         m_UI_ActiveConsum = m_UI.FindAction("ActiveConsum", throwIfNotFound: true);
         m_UI_NextRightPage = m_UI.FindAction("NextRightPage", throwIfNotFound: true);
         m_UI_NextLeftPage = m_UI.FindAction("NextLeftPage", throwIfNotFound: true);
+        m_UI_OpenCraft = m_UI.FindAction("OpenCraft", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1297,6 +1329,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_ActiveConsum;
     private readonly InputAction m_UI_NextRightPage;
     private readonly InputAction m_UI_NextLeftPage;
+    private readonly InputAction m_UI_OpenCraft;
     public struct UIActions
     {
         private @KeyAction m_Wrapper;
@@ -1318,6 +1351,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         public InputAction @ActiveConsum => m_Wrapper.m_UI_ActiveConsum;
         public InputAction @NextRightPage => m_Wrapper.m_UI_NextRightPage;
         public InputAction @NextLeftPage => m_Wrapper.m_UI_NextLeftPage;
+        public InputAction @OpenCraft => m_Wrapper.m_UI_OpenCraft;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1378,6 +1412,9 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @NextLeftPage.started += instance.OnNextLeftPage;
             @NextLeftPage.performed += instance.OnNextLeftPage;
             @NextLeftPage.canceled += instance.OnNextLeftPage;
+            @OpenCraft.started += instance.OnOpenCraft;
+            @OpenCraft.performed += instance.OnOpenCraft;
+            @OpenCraft.canceled += instance.OnOpenCraft;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1433,6 +1470,9 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @NextLeftPage.started -= instance.OnNextLeftPage;
             @NextLeftPage.performed -= instance.OnNextLeftPage;
             @NextLeftPage.canceled -= instance.OnNextLeftPage;
+            @OpenCraft.started -= instance.OnOpenCraft;
+            @OpenCraft.performed -= instance.OnOpenCraft;
+            @OpenCraft.canceled -= instance.OnOpenCraft;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1481,5 +1521,6 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         void OnActiveConsum(InputAction.CallbackContext context);
         void OnNextRightPage(InputAction.CallbackContext context);
         void OnNextLeftPage(InputAction.CallbackContext context);
+        void OnOpenCraft(InputAction.CallbackContext context);
     }
 }

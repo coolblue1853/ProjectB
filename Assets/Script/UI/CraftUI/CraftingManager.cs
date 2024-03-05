@@ -33,6 +33,7 @@ public class CraftingManager : MonoBehaviour
     int childCount = 0;
     public GameObject CraftUI;
     public GameObject cusor;
+    public GameObject craftCusor;
     public GameObject[] LV1craftBox;
     int nowPage = 0;
 
@@ -56,6 +57,7 @@ public class CraftingManager : MonoBehaviour
     InputAction leftSholderAction;
     InputAction rightSholderAction;
 
+    InputAction openCraftUiAction;
     private void OnEnable()
     {
 
@@ -74,6 +76,7 @@ public class CraftingManager : MonoBehaviour
         consumAction.Enable();
         rightSholderAction.Enable();
         leftSholderAction.Enable();
+        openCraftUiAction.Enable();
     }
     private void OnDisable()
     {
@@ -93,6 +96,7 @@ public class CraftingManager : MonoBehaviour
         consumAction.Disable();
         rightSholderAction.Disable();
         leftSholderAction.Disable();
+        openCraftUiAction.Disable();
     }
     private void Awake()
     {
@@ -112,6 +116,7 @@ public class CraftingManager : MonoBehaviour
         consumAction = action.UI.ActiveConsum;
         leftSholderAction = action.UI.NextLeftPage;
         rightSholderAction = action.UI.NextRightPage;
+        openCraftUiAction = action.UI.OpenCraft;
     }
     void Start()
     {
@@ -121,7 +126,7 @@ public class CraftingManager : MonoBehaviour
         childCount = 0;
         nowCraftItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(0).GetComponent<CraftItemCheck>();
         nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(0).GetComponent<NeedItem>();
-        SetNeedItem();
+        SetNeedItem(); 
         // Invoke("SetDetail", 1f); // 일단 1초뒤에 하도록 해서 딜레이 체크를 했는데 이거는 확인해야할듯
 
     }
@@ -155,9 +160,13 @@ public class CraftingManager : MonoBehaviour
             Debug.Log("제작 성공");
             for (int i = 0; i < nowNeedItem.needItem.Count; i++)
             {
-                InventoryManager.instance.DeletItemByName(needItemList[i].name, needItemList[i].needCount);
+                for(int j = 0; j < needItemList[i].needCount; j++)
+                {
+                    InventoryManager.instance.DeletItemByName(needItemList[i].name, 1);
+                }
+
             }
-            InventoryManager.instance.CreatItem(name.text);
+            Invoke("CreatItem", 0.2f);
         }
         else
         {
@@ -165,16 +174,57 @@ public class CraftingManager : MonoBehaviour
         }
     }
 
+    void CreatItem()
+    {
+        InventoryManager.instance.CreatItem(name.text);
+    }
+
     // Update is called once per frame
     void Update()
     {
         if(CraftUI.activeSelf == true)
         {
-            verticalInput = (verticalCheck.ReadValue<float>());
-            horizontalInput = (horizontalCheck.ReadValue<float>());
-            MoveCusor();
+            if (cusor.activeSelf == false && craftCusor.activeSelf == true)
+            {
+                if (selectAction.triggered == true && isCraft == true)
+                {
+                    Craft();
+                }
+                if (backAction.triggered == true)
+                {
+                    isCraft = false;
+                    cusor.SetActive(true);
+                    craftCusor.SetActive(false);
+                }
+
+            }
+            if (cusor.activeSelf == true && isMoveCusor == true)
+            {
+                verticalInput = (verticalCheck.ReadValue<float>());
+                horizontalInput = (horizontalCheck.ReadValue<float>());
+                MoveCusor();
+            }
+
+            if (cusor.activeSelf == true && craftCusor.activeSelf == false && selectAction.triggered == true)
+            {
+                Invoke("ChangeisCarft", 0.1f);
+                cusor.SetActive(false);
+                craftCusor.SetActive(true);
+            }
         }
 
+        if (CraftUI.activeSelf == false && openCraftUiAction.triggered && DatabaseManager.isOpenUI == false)
+        {
+            Invoke("ChangeisMoveCusor", 0.2f);
+            CraftUI.SetActive(true);
+            DatabaseManager.isOpenUI = true;
+        }
+        else if (CraftUI.activeSelf == true && backAction.triggered && cusor.activeSelf == true)
+        {
+            isMoveCusor = false;
+            CraftUI.SetActive(false);
+            DatabaseManager.isOpenUI = false;
+        }
 
 
         if (name.text == "")
@@ -182,7 +232,21 @@ public class CraftingManager : MonoBehaviour
             SetDetail();
         }
 
+
+
+
     }
+    bool isCraft = false;
+    void ChangeisCarft()
+    {
+        isCraft = true;
+    }
+    bool isMoveCusor = false;
+    void ChangeisMoveCusor()
+    {
+        isMoveCusor = true;
+    }
+
     float verticalInput;
     float horizontalInput;
     public bool checkRepeat = false;

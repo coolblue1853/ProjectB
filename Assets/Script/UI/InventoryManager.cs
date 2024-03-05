@@ -1223,7 +1223,7 @@ Sequence waitSequence = DOTween.Sequence()
         }
         if (openInventoryAction.triggered)
         {
-            if (inventory.activeSelf == true)
+            if (inventory.activeSelf == true )
             {
                 DatabaseManager.isOpenUI = false;
                 inventory.SetActive(false);
@@ -1235,7 +1235,7 @@ Sequence waitSequence = DOTween.Sequence()
                 }
                 state = "";
             }
-            else
+            else if (inventory.activeSelf == false && DatabaseManager.isOpenUI == false)
             {
                 DatabaseManager.isOpenUI = true;
                 inventory.SetActive(true);
@@ -1774,7 +1774,7 @@ Sequence waitSequence = DOTween.Sequence()
             cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
             state = "";
         }
-
+        
     }
    public  void DeletItemByName(string itemName, int count = 1)
     {
@@ -1789,18 +1789,21 @@ Sequence waitSequence = DOTween.Sequence()
                     {
                         GameObject item = insPositon.transform.GetChild(0).gameObject;
                         ItemCheck check = item.GetComponent<ItemCheck>();
-                        if (check.name == itemName)
+                        if (check.name == itemName && count >0)
                         {
                             if (check.nowStack>0)
                             {
-                                check.nowStack -= count;
-                                DatabaseManager.MinusInventoryDict(itemName, count);
+                                Debug.Log("삭제 진행");
+                                check.nowStack -= 1;
+                                count -= 1;
+                                DatabaseManager.MinusInventoryDict(itemName, 1);
                             }
 
                         }
                         if (check.nowStack <= 0)
                         {
                             Destroy(item);
+                            inventoryArray[i, j] = 0;
                         }
                     }
 
