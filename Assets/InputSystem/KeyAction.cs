@@ -492,6 +492,24 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextRightPage"",
+                    ""type"": ""Button"",
+                    ""id"": ""9f3a8217-eede-4ff5-88e3-bec9e7af9d1b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextLeftPage"",
+                    ""type"": ""Button"",
+                    ""id"": ""a9b7cb42-de0d-409b-9d14-dd7d54c3c7f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1011,6 +1029,50 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""action"": ""ActiveConsum"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9de3ccbc-47c4-491f-9686-51754ef1eecc"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextRightPage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e43dc81-9ed7-44c8-a27d-4ffff4d0185e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextRightPage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c1efe0b-1aa9-4fab-b050-f9aaed418eb5"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextLeftPage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43797473-e0b1-458d-a63f-6bf8d11a51d1"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextLeftPage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1045,6 +1107,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         m_UI_Up = m_UI.FindAction("Up", throwIfNotFound: true);
         m_UI_ChestMoveActive = m_UI.FindAction("ChestMoveActive", throwIfNotFound: true);
         m_UI_ActiveConsum = m_UI.FindAction("ActiveConsum", throwIfNotFound: true);
+        m_UI_NextRightPage = m_UI.FindAction("NextRightPage", throwIfNotFound: true);
+        m_UI_NextLeftPage = m_UI.FindAction("NextLeftPage", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1231,6 +1295,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Up;
     private readonly InputAction m_UI_ChestMoveActive;
     private readonly InputAction m_UI_ActiveConsum;
+    private readonly InputAction m_UI_NextRightPage;
+    private readonly InputAction m_UI_NextLeftPage;
     public struct UIActions
     {
         private @KeyAction m_Wrapper;
@@ -1250,6 +1316,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         public InputAction @Up => m_Wrapper.m_UI_Up;
         public InputAction @ChestMoveActive => m_Wrapper.m_UI_ChestMoveActive;
         public InputAction @ActiveConsum => m_Wrapper.m_UI_ActiveConsum;
+        public InputAction @NextRightPage => m_Wrapper.m_UI_NextRightPage;
+        public InputAction @NextLeftPage => m_Wrapper.m_UI_NextLeftPage;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1304,6 +1372,12 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @ActiveConsum.started += instance.OnActiveConsum;
             @ActiveConsum.performed += instance.OnActiveConsum;
             @ActiveConsum.canceled += instance.OnActiveConsum;
+            @NextRightPage.started += instance.OnNextRightPage;
+            @NextRightPage.performed += instance.OnNextRightPage;
+            @NextRightPage.canceled += instance.OnNextRightPage;
+            @NextLeftPage.started += instance.OnNextLeftPage;
+            @NextLeftPage.performed += instance.OnNextLeftPage;
+            @NextLeftPage.canceled += instance.OnNextLeftPage;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1353,6 +1427,12 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @ActiveConsum.started -= instance.OnActiveConsum;
             @ActiveConsum.performed -= instance.OnActiveConsum;
             @ActiveConsum.canceled -= instance.OnActiveConsum;
+            @NextRightPage.started -= instance.OnNextRightPage;
+            @NextRightPage.performed -= instance.OnNextRightPage;
+            @NextRightPage.canceled -= instance.OnNextRightPage;
+            @NextLeftPage.started -= instance.OnNextLeftPage;
+            @NextLeftPage.performed -= instance.OnNextLeftPage;
+            @NextLeftPage.canceled -= instance.OnNextLeftPage;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1399,5 +1479,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         void OnUp(InputAction.CallbackContext context);
         void OnChestMoveActive(InputAction.CallbackContext context);
         void OnActiveConsum(InputAction.CallbackContext context);
+        void OnNextRightPage(InputAction.CallbackContext context);
+        void OnNextLeftPage(InputAction.CallbackContext context);
     }
 }
