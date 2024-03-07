@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using TMPro;
+
+
 public class CraftItemCheck : MonoBehaviour
 {
     //코드 / 종류((장비인지 소모품인지)  / 이름 / 설명 / 보유수 / 가격 / 무게 // 획득방법
@@ -21,6 +23,14 @@ public class CraftItemCheck : MonoBehaviour
     public TextMeshProUGUI stackText;
     public Image image;
     Item item;
+    public CraftingManager craftingManager;
+    public void OnPointerEnter()
+    {
+        Debug.Log(this.transform.name);
+        craftingManager.MoveCusorByMouse( this.transform.parent.GetSiblingIndex(), this.transform.GetSiblingIndex());
+    }
+
+
 
     private void Awake()
     {
