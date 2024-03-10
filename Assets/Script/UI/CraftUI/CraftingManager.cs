@@ -421,7 +421,11 @@ public class CraftingManager : MonoBehaviour
         line = inline;
         childCount = inchild;
         cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv 상자의 line 줄의 count 위치.
-
+        DeleteAllChildren(needMaterail);
+        nowCraftItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<CraftItemCheck>();
+        nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
+        SetNeedItem();
+        SetDetail();
     }
     void MoveCusor()
     {

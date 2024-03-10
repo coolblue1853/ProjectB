@@ -1947,5 +1947,12 @@ Sequence waitSequence = DOTween.Sequence()
     {
         changeCusor.SetActive(false);
         state = "";
+        miscDetail.SetActive(false);    
+      consumDetail.SetActive(false);
+        equipDetail.SetActive(false);
+        divideUI.SetActive(false);
+
     }
+
+
 }

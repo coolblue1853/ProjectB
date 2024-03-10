@@ -71,6 +71,9 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         InventoryManager.instance.DragReset();
          currentParent = transform.parent;
 
+        // 드래그 시작시 디테일 끄기, 디바이드 끄기, state == ""로 바꾸기.
+
+
         if (currentParent != null)
         {
             // 부모의 부모(Transform) 찾기
