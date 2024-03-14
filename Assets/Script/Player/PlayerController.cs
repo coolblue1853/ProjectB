@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
-    float chInRommSize = 1f;
+    float chInRommSize = 1.264f;
     public float runSpeed = 10f;  // 이동 속도
     public int runStemina; // 달리기시 사용하는 스테미나
     public float intervalRunStemina; // 달리기시 사용하는 스테미나
@@ -20,13 +20,16 @@ public class PlayerController : MonoBehaviour
     public int jumpsRemaining;    // 남은 점프 횟수
     private bool isChangeDirection = false;    // 남은 점프 횟수
     private Rigidbody2D rb;
-    public bool isGrounded;
+    public bool isGround;
     private bool isRun = false;
     public bool isWall = false;
     private bool isWallReset = false;
     Vector2 moveVelocity = Vector2.zero;
     float horizontalInput;
-  
+
+    public GameObject rightWallCheckPoint;
+    public GameObject WallCheckPoint;
+
     KeyAction action;
     InputAction moveAction;
     InputAction jumpAction;
@@ -90,7 +93,7 @@ public class PlayerController : MonoBehaviour
         if(DatabaseManager.isOpenUI == false && isAttacked == false)
         {
             once = false;
-            if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true && isGrounded == true)
+            if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true && isGround == true)
             {
                 rb.velocity = Vector2.zero;
             }
@@ -133,7 +136,7 @@ public class PlayerController : MonoBehaviour
                 {
                     WallJump();
                 }
-                else if ((isGrounded || jumpsRemaining > 0) && states != "dash")
+                else if ((isGround || jumpsRemaining > 0) && states != "dash")
                 {
                     rb.gravityScale = 3;
                     isUpLadder = false;
@@ -236,12 +239,16 @@ public class PlayerController : MonoBehaviour
          platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
 
         Physics2D.IgnoreCollision(playerCollider, platformCollider);
+        isDownJump = true;
     }
+
+    bool isDownJump;
     public void AbleCollision()
     {
         if(platformCollider != null)
         {
             Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
+            isDownJump = false;
         }
 
     }
@@ -351,6 +358,7 @@ public class PlayerController : MonoBehaviour
             jumpsRemaining--;
             rb.velocity = new Vector2(-1, 1.5f) * 10f;
         }
+        Invoke("ReturnIsGround", 0.2f);
         Sequence sequence = DOTween.Sequence()
         .AppendInterval(0.4f) // 2초 대기
         .AppendCallback(() => isWallReset =false)
@@ -363,26 +371,45 @@ public class PlayerController : MonoBehaviour
         states = "jump";
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         jumpsRemaining--;
-
+        isGround = false;
         // 점프 후에도 isGrounded를 false로 유지하여 FixedUpdate에서 다시 체크할 수 있도록 합니다.
-        isGrounded = false;
+        Invoke("ReturnIsGround", 0.2f);
+    }
+
+    void ReturnIsGround()
+    {
+        isOnGround = true;
     }
     public GameObject groundCheck;
+    public GameObject groundCheck2;
     public bool isPlafromCheck = true;
+    public bool isOnGround = true;
+    RaycastHit2D hit1;
+    RaycastHit2D hit2;
     void FixedUpdate()
     {
+        hit1 = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, 0.3f, LayerMask.GetMask("Ground"));
+        hit2 = Physics2D.Raycast(groundCheck2.transform.position, Vector2.down, 0.3f, LayerMask.GetMask("Ground"));
+        Debug.DrawRay(groundCheck.transform.position, Vector2.down * 0.3f, Color.red);
+
         // 바닥 감지 레이캐스트
-        RaycastHit2D hit = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
+
+        if ((hit1.collider != null && hit1.collider.CompareTag("Ground") || hit2.collider != null && hit2.collider.CompareTag("Ground")) && isOnGround == true)
+        {
+            isOnGround = false;
+            Debug.Log("작동중");
+            jumpsRemaining = maxJumps;
+        }
 
         // Ground 태그를 가진 오브젝트에 닿았고, 각도가 일정 범위 내에 있으면 점프 횟수 초기화
-        if (hit.collider != null && hit.collider.CompareTag("Ground") && IsGrounded(hit.normal) && isPlafromCheck == true)
+        if (hit1.collider != null && hit1.collider.CompareTag("Ground") && IsGrounded(hit1.normal) && isOnGround == true)//&& isPlafromCheck == true
         {
 
             isWallReset = false;
-            isGrounded = true;
+            isGround = true;
             jumpsRemaining = maxJumps;
 
-            if(isAttacked == true && rb.velocity.y == 0)
+            if (isAttacked == true && rb.velocity.y == 0)
             {
                 isAttackedUp = false;
                 rb.velocity = new Vector2(0f, 0f);
@@ -391,13 +418,13 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            isGrounded = false;
+            isGround = false;
         }
-        if(states != "dash" && isPlafromCheck == true && isUpLadder == false)
+        if(states != "dash" &&  isUpLadder == false&& isDownJump ==false)//&&isPlafromCheck == true 
         {
-            RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right, 1f, LayerMask.GetMask("Ground"));
-            RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left,1f, LayerMask.GetMask("Ground"));
-            if (((hitWall.collider != null && hitWall.collider.CompareTag("Ground") && transform.localScale == new Vector3(chInRommSize, chInRommSize, 1)) ||( hitWall2.collider != null && hitWall2.collider.CompareTag("Ground") && transform.localScale == new Vector3(-chInRommSize, chInRommSize, 1)) ) && isGrounded ==false)
+            RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right,1f, LayerMask.GetMask("Ground"));
+            RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left, 1f, LayerMask.GetMask("Ground"));
+            if (((hitWall.collider != null && hitWall.collider.CompareTag("Ground") && transform.localScale == new Vector3(chInRommSize, chInRommSize, 1)) ||( hitWall2.collider != null && hitWall2.collider.CompareTag("Ground") && transform.localScale == new Vector3(-chInRommSize, chInRommSize, 1)) ) && isGround ==false)
             {
                 horizontalInput = moveAction.ReadValue<float>();
                 if (isWallReset == false && horizontalInput != 0)
