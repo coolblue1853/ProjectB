@@ -7,20 +7,22 @@ public class OneWayPlatformCheck : MonoBehaviour
    public PlayerController pc;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Ground")
+        if(collision.tag == "InGroundPlayer")
         {
+
             pc.isPlafromCheck = false;
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Ground")
+        if (collision.tag == "InGroundPlayer")
         {
+
             pc.AbleCollision();
             pc.isPlafromCheck = true;
         }
     }
-
 
 
 }

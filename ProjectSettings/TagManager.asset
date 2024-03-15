@@ -17,6 +17,7 @@ TagManager:
   - Equipment
   - Cooldown
   - Ladder
+  - InGroundPlayer
   layers:
   - Default
   - TransparentFX
@@ -53,4 +54,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 1282031933
     locked: 0

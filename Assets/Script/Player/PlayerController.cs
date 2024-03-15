@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
-    float chInRommSize = 1.264f;
+    float chInRommSize = 1f;
     public float runSpeed = 10f;  // 이동 속도
     public int runStemina; // 달리기시 사용하는 스테미나
     public float intervalRunStemina; // 달리기시 사용하는 스테미나
@@ -138,9 +138,13 @@ public class PlayerController : MonoBehaviour
                 }
                 else if ((isGround || jumpsRemaining > 0) && states != "dash")
                 {
-                    rb.gravityScale = 3;
-                    isUpLadder = false;
-                    Jump();
+                    if(jumpsRemaining > 0)
+                    {
+                        rb.gravityScale = 3;
+                        isUpLadder = false;
+                        Jump();
+                    }
+
                 }
 
             }
@@ -161,10 +165,14 @@ public class PlayerController : MonoBehaviour
                 rb.gravityScale = 0;
                 isUpLadder = true;
 
+                // 로프 위에 고정시키기
+                Vector2 newPosition = new Vector2(nowLadder.transform.position.x, transform.position.y);
 
+                // 현재 위치와 로프 위치 사이의 거리 계산
+                Vector2 distance = newPosition - (Vector2)transform.position;
 
-
-                this.gameObject.transform.position = new Vector2(nowLadder.transform.position.x, this.transform.position.y);
+                // Rigidbody 이동으로 순간 이동 방지
+                rb.MovePosition(rb.position + distance);
             }
 
 
@@ -200,7 +208,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (verticalInput == 0 && states != "move" && check == false)
             {
-                Debug.Log("멈춤");
+
                 check = true;
                 Sequence sequence = DOTween.Sequence()
                     .AppendInterval(0.3f)
@@ -345,18 +353,19 @@ public class PlayerController : MonoBehaviour
             .AppendCallback(() => states = "s");
         }
     }
+    public float wallJumpForce;
     void WallJump()
     {
         states = "wallJump";
         if (transform.localScale == new Vector3(-chInRommSize, chInRommSize, 1))
         {
             jumpsRemaining--;
-            rb.velocity = new Vector2(1, 1.5f) * 10f;
+            rb.velocity = new Vector2(1, 1.5f) * wallJumpForce;
         }
         else
         {
             jumpsRemaining--;
-            rb.velocity = new Vector2(-1, 1.5f) * 10f;
+            rb.velocity = new Vector2(-1, 1.5f) * wallJumpForce;
         }
         Invoke("ReturnIsGround", 0.2f);
         Sequence sequence = DOTween.Sequence()
@@ -394,20 +403,23 @@ public class PlayerController : MonoBehaviour
 
         // 바닥 감지 레이캐스트
 
-        if ((hit1.collider != null && hit1.collider.CompareTag("Ground") || hit2.collider != null && hit2.collider.CompareTag("Ground")) && isOnGround == true)
+        if ((hit1.collider != null && hit1.collider.CompareTag("Ground") && IsGrounded(hit1.normal) || hit2.collider != null && hit2.collider.CompareTag("Ground") && IsGrounded(hit2.normal)) && isOnGround == true && isPlafromCheck == true)
         {
+
             isOnGround = false;
             Debug.Log("작동중");
             jumpsRemaining = maxJumps;
+
+
         }
 
         // Ground 태그를 가진 오브젝트에 닿았고, 각도가 일정 범위 내에 있으면 점프 횟수 초기화
         if (hit1.collider != null && hit1.collider.CompareTag("Ground") && IsGrounded(hit1.normal) && isOnGround == true)//&& isPlafromCheck == true
         {
-
+            Debug.Log("작동중");
             isWallReset = false;
             isGround = true;
-            jumpsRemaining = maxJumps;
+           // jumpsRemaining = maxJumps;
 
             if (isAttacked == true && rb.velocity.y == 0)
             {
@@ -420,7 +432,7 @@ public class PlayerController : MonoBehaviour
         {
             isGround = false;
         }
-        if(states != "dash" &&  isUpLadder == false&& isDownJump ==false)//&&isPlafromCheck == true 
+        if(states != "dash" &&  isUpLadder == false&& isDownJump ==false && isPlafromCheck == true)//&&isPlafromCheck == true 
         {
             RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right,1f, LayerMask.GetMask("Ground"));
             RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left, 1f, LayerMask.GetMask("Ground"));
