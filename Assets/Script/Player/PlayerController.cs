@@ -85,6 +85,11 @@ public class PlayerController : MonoBehaviour
     {
        //Debug.Log(moveAction.ReadValue<float>());
 
+        if(rb.velocity.y == 0 && isPlafromCheck == true)
+        {
+            jumpsRemaining = maxJumps;
+        }
+
         if(DatabaseManager.isOpenUI == true && rb.velocity != Vector2.zero && once == false)
         {
             once = true;
