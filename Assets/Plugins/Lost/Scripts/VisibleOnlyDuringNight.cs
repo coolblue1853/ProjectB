@@ -13,7 +13,6 @@ public class VisibleOnlyDuringNight : MonoBehaviour
 
     void Update()
     {
-        if (m_Renderer != null && m_LightController != null)
-            m_Renderer.enabled = m_LightController.timeValue > 0.0f;
+
     }
 }

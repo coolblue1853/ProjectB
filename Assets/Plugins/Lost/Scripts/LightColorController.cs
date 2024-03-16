@@ -10,12 +10,12 @@ public interface ColorSetterInterface
 [ExecuteInEditMode]
 public class LightColorController : MonoBehaviour
 {
-    [SerializeField] [Range(0,1)] float time;
+ [SerializeField]  public static float time;
 
     private ColorSetterInterface[] setters;
     private float currentTime = 0;
+    public static float timeValue;
 
-    public float timeValue => currentTime;
 
     public void GetSetters()
     {
