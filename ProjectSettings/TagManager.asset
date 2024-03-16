@@ -3,32 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Ground
-  - Enemy
-  - Box
-  - UpperBox
-  - dragCanvas
-  - Inventory
-  - Chest
-  - Weapon1
-  - New tag
-  - EquipBox
-  - Equipment
-  - Cooldown
-  - Ladder
-  - InGroundPlayer
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - 
   - Water
   - UI
-  - Enemy
-  - Player
-  - DropItem
-  - Ladder
+  - 
+  - 
+  - Ground Soft
+  - Ground Hard
   - 
   - 
   - 
@@ -52,9 +38,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3936676035
+    locked: 0
+  - name: Near Background
+    uniqueID: 1988455705
+    locked: 0
+  - name: Cave
+    uniqueID: 222040141
+    locked: 0
+  - name: Exterior
+    uniqueID: 1752682665
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Ground
-    uniqueID: 1282031933
+  - name: Foreground
+    uniqueID: 1950422495
+    locked: 0
+  - name: Near Foreground
+    uniqueID: 2727812175
     locked: 0

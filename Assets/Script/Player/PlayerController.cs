@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
     {
        //Debug.Log(moveAction.ReadValue<float>());
 
-        if(rb.velocity.y == 0 && isPlafromCheck == true)
+        if(Mathf.Abs(rb.velocity.y) < 0.001f && isPlafromCheck == true)
         {
             jumpsRemaining = maxJumps;
         }
