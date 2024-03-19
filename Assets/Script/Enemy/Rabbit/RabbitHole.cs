@@ -13,7 +13,7 @@ public class RabbitHole : MonoBehaviour
     void Start()
     {
         rabbitActive = new GameObject[rabbitCount];
-        Invoke("CreatRabbit", 1f);
+       Invoke("CreatRabbit", 1f);
     }
 
     void CreatRabbit()

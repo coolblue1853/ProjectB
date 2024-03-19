@@ -72,6 +72,16 @@ public class BTBrain : MonoBehaviour
         isEnd = true;
 
     }
+    public void OnlyEndNode()
+    {
+
+        for (int i = 0; i < node.Count; i++)
+        {
+            node[i].IsWaiting = false;
+        }
+
+
+    }
     public void EndNodeState(string state)
     {
        brainActive = false;

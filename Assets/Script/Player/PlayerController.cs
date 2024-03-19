@@ -412,7 +412,7 @@ public class PlayerController : MonoBehaviour
         {
 
             isOnGround = false;
-            Debug.Log("작동중");
+          //  Debug.Log("작동중");
             jumpsRemaining = maxJumps;
 
 

@@ -63,7 +63,7 @@ public class EnemyFSM : MonoBehaviour
                     {
                         brain[i].isAttacked = true;
                     }
-
+                    brain[i].OnlyEndNode();
                     brain[i].StopEvaluateCoroutine();
                     brain[i].KillAllTweensForObject();
                     brain[i].brainActive = false;
@@ -93,22 +93,22 @@ public class EnemyFSM : MonoBehaviour
     }
     // Update is called once per frame
     void Update()
-    {
+    {/*
         if(beforeState != nowState)
         {
             beforeState = nowState;
          //   BTBrainActiver();
         }
-
+        */
         if(isNeedReset == true && CheckBrainActive() == false)
         {
-
+            isNeedReset = false;
             for (int i = 0; i < state.Count; i++)
             {
                 brain[i].isAttacked = false;
                 if (state[i] == nowState)
                 {
-                    isNeedReset = false;
+
                     Debug.Log("restart");
                     brain[i].restartEvaluate();
                     brain[i].brainActive = true;

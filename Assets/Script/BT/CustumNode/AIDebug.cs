@@ -6,7 +6,8 @@ public class AIDebug : BTNode
 {
     public string message;
 
-
+   public float minWait;
+    public float maxWait;
 
     // Start is called before the first frame update
     public AIDebug(string debug)
@@ -27,6 +28,7 @@ public class AIDebug : BTNode
         }
         else
         {
+            float waitTime = Random.Range(minWait, maxWait);
             brain.StopEvaluateCoroutine();
              sequence = DOTween.Sequence()
            .AppendInterval(waitTime) // 대기 시간 사용
