@@ -179,8 +179,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f0eace842783b848810014d6213a101
-      internalID: -1209875511
+      spriteID: 519bac78823279046b53df73cf955713
+      internalID: -1576616885
       vertices: []
       indices: 
       edges: []
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1701607fa673c2641978fe003a64053f
-      internalID: 1883673745
+      spriteID: f288bfd691bbb1448b5723c6ff15cc90
+      internalID: 229088125
       vertices: []
       indices: 
       edges: []
@@ -221,8 +221,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89f844d19fdfc4048a12bd9ecb6c96f6
-      internalID: -2014361571
+      spriteID: 8ffa501ec670f63468f73ce4c957d995
+      internalID: 409988838
       vertices: []
       indices: 
       edges: []
@@ -242,8 +242,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15f7cc78d48419f428c2d0ea93029085
-      internalID: 1298004435
+      spriteID: a2a69bf03194f45428014d732af515ec
+      internalID: 184091217
       vertices: []
       indices: 
       edges: []
@@ -259,10 +259,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TileMap4_0: -1209875511
-      TileMap4_1: 1883673745
-      TileMap4_2: -2014361571
-      TileMap4_3: 1298004435
+      TileMap4_0: -1576616885
+      TileMap4_1: 229088125
+      TileMap4_2: 409988838
+      TileMap4_3: 184091217
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

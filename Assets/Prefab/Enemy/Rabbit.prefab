@@ -49,7 +49,7 @@ MonoBehaviour:
   groundCheck2: {fileID: 2120935202}
   EnemyFSM: {fileID: 2186892472464217989}
   patrolNode: {fileID: 2186892472540714418}
-  enemyHealth: {fileID: 0}
+  enemyHealth: {fileID: 2186892472464217988}
   isGroundCheck: 0
 --- !u!1 &1159455473
 GameObject:
@@ -978,6 +978,7 @@ MonoBehaviour:
   isSuperArmor: 0
   hpCanvas: {fileID: 737773787309136043}
   dropManager: {fileID: 0}
+  isAttackGround: 0
   poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68,
     type: 3}
 --- !u!114 &2186892472464217989
