@@ -16,17 +16,21 @@ public class Skill : MonoBehaviour
     public int useStemina;
     public float attckSpeed;
     Weapon weapon;
+
+   public Rigidbody2D rb;
+
     private void Awake()
     {
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
         weapon = transform.parent.gameObject.GetComponent<Weapon>();
+
     }
     public GameObject[] skillprefab;
     public SkillCooldown skillCooldown;
     // Start is called before the first frame update
     void Start()
     {
-
+        rb = transform.parent.parent.GetComponent<Rigidbody2D>();
 
     }
     private void CheckAttackWait()
@@ -34,6 +38,7 @@ public class Skill : MonoBehaviour
         if (isWeaponStopMove == true)
         {
             DatabaseManager.weaponStopMove = true;
+            rb.velocity = Vector2.zero;
         }
         weapon.isAttackWait = false;
         Sequence sequence = DOTween.Sequence()

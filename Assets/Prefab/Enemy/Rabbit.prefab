@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 751536158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.953, y: -1.182, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50c66b6511815b04a86153eefbad7216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheck: {fileID: 1159455473}
   groundCheck2: {fileID: 2120935202}
   EnemyFSM: {fileID: 2186892472464217989}
   patrolNode: {fileID: 2186892472540714418}
@@ -106,7 +105,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120935202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.32, y: -0.32, z: 0}
+  m_LocalPosition: {x: 0.022, y: -0.012, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -829,6 +828,7 @@ GameObject:
   - component: {fileID: 2186892472464217989}
   - component: {fileID: 1991790705175816114}
   - component: {fileID: 644516861}
+  - component: {fileID: 1614819065247759038}
   m_Layer: 6
   m_Name: Rabbit
   m_TagString: Enemy
@@ -845,7 +845,7 @@ Transform:
   m_GameObject: {fileID: 2186892472464217997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -34.6, y: 0.49, z: -0.07721957}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 0.34564516, y: 0.34564516, z: 0.34564516}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 737773787612734488}
@@ -897,12 +897,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 39
-  m_Sprite: {fileID: 21300000, guid: 0ccc508108fa6ed4fa11b4a467d7f609, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 51e49b14c11163d4e9090029bb7e6067, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 3.04, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -921,18 +921,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.11521649, y: -0.44645113}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 3.04, y: 2.56}
+    newSize: {x: 3.04, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 2.6272058, y: 1.5329026}
   m_EdgeRadius: 0
 --- !u!50 &2186892472464217984
 Rigidbody2D:
@@ -970,7 +970,7 @@ MonoBehaviour:
   maxHP: 1000
   hpBar: {fileID: 737773786641763162}
   hpObject: {fileID: 737773787309136043}
-  hpHeight: 3
+  hpHeight: 1
   isSuperArmor: 0
   hpCanvas: {fileID: 737773787309136043}
   dropManager: {fileID: 0}
@@ -1025,6 +1025,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rabbitHole: {fileID: 0}
+--- !u!95 &1614819065247759038
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2186892472464217997}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8b4b01293eee6424c88396be164edb14, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2186892472540714428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,11 +1096,11 @@ MonoBehaviour:
   enemyObject: {fileID: 2186892472464217997}
   xMin: 3
   xMax: 5
-  originMax: 10
+  originMax: 20
   isStop: 0
   isGroundCheck: 1
   groundCheck: {fileID: 751536160}
-  desiredSpeed: 3
+  desiredSpeed: 1
 --- !u!1 &3154176659443405454
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4061564298556084560
 Transform:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using DG.Tweening;
 using System.Linq;
 public class EnemyHealth : MonoBehaviour
 {
+    Animator anim;
     public Sequence sequence;
     public int maxHP = 100;
     private int nowHP = 0;
@@ -21,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
     EnemyFSM enemyFSM;
     private void Start()
     {
+        anim = transform.GetComponent<Animator>();
         dropManager = transform.GetComponent<DropManager>();
            enemyFSM = transform.GetComponent<EnemyFSM>();
         rb = transform. GetComponent<Rigidbody2D>();
@@ -45,7 +47,12 @@ public class EnemyHealth : MonoBehaviour
         if(isSuperArmor == false)
         {
             sequence.Kill(); // 재공격시 경직 시간 초기화.
-            if(enemyFSM != null)
+
+            if (anim != null)
+            {
+                anim.SetBool("isHit", true);
+            }
+            if (enemyFSM != null)
             {
 
                 if(stiffTime == 0)
@@ -84,6 +91,10 @@ public class EnemyHealth : MonoBehaviour
     {
         if(this != null && enemyFSM != null)
         {
+            if (anim != null)
+            {
+                anim.SetBool("isHit", false);
+            }
             Debug.Log("EndStiff");
 
             if (enemyFSM.state.Contains("Hit"))

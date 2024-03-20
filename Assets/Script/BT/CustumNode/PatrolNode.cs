@@ -19,10 +19,13 @@ public class PatrolNode : BTNode
     int movePoint;
     public float desiredSpeed;
     float chInRommSize;
+    Animator anim;
+
     private void Start()
     {
         chInRommSize = enemyObject.transform.localScale.x;
         originPosition = brain.originPosition;
+        anim = transform.parent.parent.GetComponent<Animator>();
     }
     // Start is called before the first frame update
     public PatrolNode()
@@ -84,6 +87,12 @@ public class PatrolNode : BTNode
             {
                 groundCheck.isGroundCheck = true;
             }
+            // 이동애니메이션 바꾸기
+            if(anim != null)
+            {
+                anim.SetBool("isWalk", true);
+            }
+
             float distanceToMove = Mathf.Abs(movePoint); // 이동해야 할 거리의 절대값을 계산합니다.
             float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 일정한 속도로 이동하는 데 걸리는 시간을 계산합니다.
             Debug.Log("move");
@@ -103,7 +112,10 @@ public class PatrolNode : BTNode
         {
 
             isStop = false;
-
+            if (anim != null)
+            {
+                anim.SetBool("isWalk", false);
+            }
             IsWaiting = true;
             brain.restartEvaluate();
         }

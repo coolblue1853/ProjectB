@@ -5,15 +5,15 @@ using DG.Tweening;
 public class AIDebug : BTNode
 {
     public string message;
-
-   public float minWait;
+    Animator anim;
+    public float minWait;
     public float maxWait;
 
     // Start is called before the first frame update
     public AIDebug(string debug)
     {
         message = debug;
-
+        anim = transform.parent.parent.GetComponent<Animator>();
     }
     public override NodeState Evaluate()
     {
@@ -28,6 +28,11 @@ public class AIDebug : BTNode
         }
         else
         {
+            if (anim != null)
+            {
+                anim.SetBool("isWalk", false);
+            }
+
             float waitTime = Random.Range(minWait, maxWait);
             brain.StopEvaluateCoroutine();
              sequence = DOTween.Sequence()

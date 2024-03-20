@@ -1217,7 +1217,7 @@ Sequence waitSequence = DOTween.Sequence()
         }
         if (Input.GetKeyDown(KeyCode.F4))
         {
-            CreatItem("ToxicPickAxe");
+            CreatItem("PickAxe");
             //CreatItem("Potion");
 
         }
