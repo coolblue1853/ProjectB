@@ -98,9 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSkill: 0
   isDestroyByTime: 1
   holdingTime: 1
-  damage: 20
+  damageArr: 
   stiffnessTime: 2
   knockForce: 1
   knockbackDir: {x: 0, y: 1}
@@ -111,6 +112,7 @@ MonoBehaviour:
   launchForce: 0
   launchDir: {x: 0, y: 0}
   isDeletByGround: 0
+  maxDamagedEnemies: 1
   isPosionAttack: 1
   poisonDamage: 1
   damageInterval: 0.5

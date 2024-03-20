@@ -7,8 +7,22 @@ public class Weapon : MonoBehaviour
     public int maxComboCount = 0 ;
     public int nowConboCount = 0;
     public float maxComboTime = 0; // 콤보 최대 유지시간
-    public float attckSpeed = 0;   // 공격 주기, 짧을수록 더 빠르게 공격 가능.
 
+    public int minDmg=0;        // 최소댐
+    public int maxDmg=0;       // 최대댐
+    public int critPer = 0;   //  치명 확률%
+    public int critDmg = 0;   //  치명피해%
+    public int incDmg = 0;   // 데미지증가%
+    public int ignDef = 0; // 방어력 무시%
+    public int skillDmg = 0; // 스킬 공격력%
+    public int finDmg = 0; // 최종뎀%  
+    public int addDmg = 0; // 최종뎀%  
+    PlayerHealthManager phm;
+
+
+
+    public int[] damgeArray = new int[10];
+    public float attckSpeed = 0;   // 공격 주기, 짧을수록 더 빠르게 공격 가능.
     public bool isAttackWait = true;
     public bool isWeaponStopMove = false;
     public float time;
@@ -17,9 +31,24 @@ public class Weapon : MonoBehaviour
     public GameObject[] attackPrefab;
     public Skill skillLeft;
     public Skill skillRight;
+    void SetDmgArray()
+    {
+        damgeArray[0] = minDmg;
+        damgeArray[1] = maxDmg;
+        damgeArray[2] = critPer;
+        damgeArray[3] = critDmg;
+        damgeArray[4] = incDmg;
+        damgeArray[5] = ignDef;
+        damgeArray[6] = skillDmg;
+        damgeArray[7] = finDmg;
+        damgeArray[8] = addDmg;
+        damgeArray[9] = phm.armorAtp;
+    }
     private void Start()
     {
-        isAttackWait = true;
+        phm = transform.parent.transform.GetChild(0).GetComponent<PlayerHealthManager>();
+           isAttackWait = true;
+        SetDmgArray();
     }
     public void CheckSkill()
     {
@@ -72,6 +101,8 @@ public class Weapon : MonoBehaviour
             nowConboCount++;
             //프리팹 소환
             GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation,this.transform);
+            DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+            dmOb.SetDamge(damgeArray);
             CheckAttackWait();
         }
         else
@@ -80,12 +111,16 @@ public class Weapon : MonoBehaviour
             {
                 nowConboCount++;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+                DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+                dmOb.SetDamge(damgeArray);
                 CheckAttackWait();
             }
             else if (nowConboCount >= maxComboCount && time <= maxComboTime && (isAttackWait == true || isSkillCancel == true)) // 콤보수 초기화 및 다시 카운트 1로 내려옴.
             {
                 nowConboCount = 1;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+                DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+                dmOb.SetDamge(damgeArray);
                 CheckAttackWait();
             }
         }

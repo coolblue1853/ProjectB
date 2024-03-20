@@ -4,9 +4,10 @@ using UnityEngine;
 using DG.Tweening;
 public class DamageObject : MonoBehaviour
 {
+    public  bool isSkill = false;
     public bool isDestroyByTime = true;
     public float holdingTime = 0;
-    public int damage = 0;
+    public int[] damageArr;
     public float stiffnessTime = 0;   // 경직 시간.
     public float knockForce = 0;
     public Vector2 knockbackDir;
@@ -84,8 +85,9 @@ public class DamageObject : MonoBehaviour
                         }
                     }
 
+
                     // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
-                    enemyHealth.damage2Enemy(damage, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
+                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill);
                     if (isPosionAttack)
                     {
                         enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
@@ -103,6 +105,15 @@ public class DamageObject : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+    }
+
+
+
+
+    public void SetDamge(int[] damgeArray)
+    {
+        damageArr = damgeArray;
+        //this.gameObject.SetActive(true);
     }
 
     public bool isPosionAttack;

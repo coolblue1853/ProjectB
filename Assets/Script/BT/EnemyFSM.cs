@@ -76,7 +76,7 @@ public class EnemyFSM : MonoBehaviour
     public void ReActiveBrainSequence()
     {
         isNeedReset = true;
-
+        Debug.Log("RE");
     }
 
     public bool CheckBrainActive()

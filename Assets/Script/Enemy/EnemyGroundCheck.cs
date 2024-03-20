@@ -11,6 +11,7 @@ public class EnemyGroundCheck : MonoBehaviour
     public EnemyFSM EnemyFSM;
     Rigidbody2D rb;
     public PatrolNode patrolNode;
+    public EnemyHealth enemyHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,7 @@ public class EnemyGroundCheck : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(isGroundCheck == true)
+        if(isGroundCheck == true && enemyHealth.isAttackGround == false)
         {
             hit2 = Physics2D.Raycast(groundCheck2.transform.position, Vector2.down, 0.3f, LayerMask.GetMask("Ground"));
             Debug.DrawRay(groundCheck2.transform.position, Vector2.down, Color.red, 0.3f);
@@ -38,11 +39,12 @@ public class EnemyGroundCheck : MonoBehaviour
             {
 
                 EnemyFSM.KillBrainSequence();
-                rb.velocity = Vector2.zero;
+            //  rb.velocity = Vector2.zero;
            patrolNode.isStop = true;
              EnemyFSM.ReActiveBrainSequence();
              isGroundCheck = false;
             }
+
         }
 
     }

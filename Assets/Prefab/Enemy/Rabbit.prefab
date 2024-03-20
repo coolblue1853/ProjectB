@@ -49,6 +49,7 @@ MonoBehaviour:
   groundCheck2: {fileID: 2120935202}
   EnemyFSM: {fileID: 2186892472464217989}
   patrolNode: {fileID: 2186892472540714418}
+  enemyHealth: {fileID: 0}
   isGroundCheck: 0
 --- !u!1 &1159455473
 GameObject:
@@ -170,7 +171,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -643,7 +644,7 @@ MonoBehaviour:
   IsWaiting: 0
   waitTime: 0
   enemyObject: {fileID: 2186892472464217997}
-  moveDuration: 0.1
+  desiredSpeed: 1
 --- !u!1 &2186892471315211984
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,6 +968,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
+    type: 3}
+  enemyDef: 1
   maxHP: 1000
   hpBar: {fileID: 737773786641763162}
   hpObject: {fileID: 737773787309136043}
@@ -1126,7 +1130,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3154176659443405454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.44, y: 0.17, z: 0.06434964}
+  m_LocalPosition: {x: -0.51, y: -7.58, z: 0.06434964}
   m_LocalScale: {x: 0.2461, y: 0.1708, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

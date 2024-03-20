@@ -16,18 +16,19 @@ public class Skill : MonoBehaviour
     public int useStemina;
     public float attckSpeed;
     Weapon weapon;
-
-   public Rigidbody2D rb;
+    int[] damgeArray = new int[10];
+    public Rigidbody2D rb;
 
     private void Awake()
     {
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
         weapon = transform.parent.gameObject.GetComponent<Weapon>();
-
+        damgeArray = weapon.damgeArray;
     }
     public GameObject[] skillprefab;
     public SkillCooldown skillCooldown;
     // Start is called before the first frame update
+
     void Start()
     {
         rb = transform.parent.parent.GetComponent<Rigidbody2D>();
@@ -87,6 +88,8 @@ public class Skill : MonoBehaviour
         {
             PlayerHealthManager.Instance.SteminaDown(useStemina);
             GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+            DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+            dmOb.SetDamge(damgeArray);
             skillCooldown.UseSkill();
             CheckAttackWait();
         }
@@ -99,6 +102,8 @@ public class Skill : MonoBehaviour
         {
             PlayerHealthManager.Instance.SteminaDown(useStemina);
             GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+            DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+            dmOb.SetDamge(damgeArray);
             skillCooldown.UseSkillB();
             CheckAttackWait();
         }
@@ -110,6 +115,8 @@ public class Skill : MonoBehaviour
         {
             PlayerHealthManager.Instance.SteminaDown(useStemina);
             GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+            DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+            dmOb.SetDamge(damgeArray);
             skillCooldown.UseSkillC();
             CheckAttackWait();
         }
@@ -122,6 +129,8 @@ public class Skill : MonoBehaviour
         {
             PlayerHealthManager.Instance.SteminaDown(useStemina);
             GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+            DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+            dmOb.SetDamge(damgeArray);
             skillCooldown.UseSkillD();
             CheckAttackWait();
         }

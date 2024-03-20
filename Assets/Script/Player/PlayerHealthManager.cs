@@ -13,7 +13,7 @@ public class PlayerHealthManager : MonoBehaviour
     public int fullHP;
     public int nowHp;
     public int nomalizedHP;
-
+    public int armorAtp = 0;
     public HealthBarShrink healthBar;
     public HealthBarShrink steminaBar;
     public HealthBarShrink fullnesBar;
