@@ -7,15 +7,33 @@ public class RabbitHole : MonoBehaviour
     public GameObject rabbit;
     public int rabbitCount;
 
+    public float CycleFloat;
     public GameObject[] rabbitActive;
      
     // Start is called before the first frame update
     void Start()
     {
         rabbitActive = new GameObject[rabbitCount];
-       Invoke("CreatRabbit", 1f);
+      // Invoke("CreatRabbit", 1f);
+        InvokeRepeating("CycleCheck", 1f, CycleFloat);
     }
 
+
+    void CycleCheck()
+    {
+        for (int i = 0; i < rabbitCount; i++)
+        {
+            if (rabbitActive[i] == null)
+            {
+                float xPosition = Random.Range(-1f, 1f);
+                GameObject r = Instantiate(rabbit, this.transform.position + new Vector3(xPosition, 0), this.transform.rotation);
+                rabbitActive[i] = r;
+                RabbitReset RH = r.GetComponent<RabbitReset>(); 
+                RH.rabbitHole = this.GetComponent<RabbitHole>();
+            }
+
+        }
+    }
     void CreatRabbit()
     {
 

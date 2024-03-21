@@ -23,6 +23,8 @@ public class EnemyHealth : MonoBehaviour
     Vector2 knockbackDirection = new Vector2(0f, 1f);
     public DropManager dropManager;
     EnemyFSM enemyFSM;
+
+    public GameObject deadBody;
     private void Start()
     {
         anim = transform.GetComponent<Animator>();
@@ -73,6 +75,8 @@ public class EnemyHealth : MonoBehaviour
     float dmgByDmg;
     float finDmg;
     float addDmg;
+    float shakeTime;
+    public float ShakeCorrection = 1.0f;
     public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill)
     {
         float dmg = SetDmg(damage, isSkill); // 방어력 적용전 데미지;
@@ -96,14 +100,18 @@ public class EnemyHealth : MonoBehaviour
             float addFloat = damage[8];
             addDmg = finDmg  * ((addFloat / 100.0f)); // 추뎀 계산
             Debug.Log(addDmg);
-        } 
-
+        }
+        shakeTime = finDmg / maxHP* ShakeCorrection ;
         ToggleObject();
         nowHP -= (int)finDmg;
         hpBar.healthSystem.Damage((int)finDmg);
         damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
 
 
+        if(isSuperArmor == true)
+        {
+            transform.DOShakePosition(shakeTime, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
+        }
         if ((int)addDmg != 0)
         {
             nowHP -= (int)addDmg;
@@ -116,7 +124,9 @@ public class EnemyHealth : MonoBehaviour
         if (nowHP <= 0)
         {
 
-            dropManager.DropItems(transform.position    );
+            GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
+            DeadBody dBB = dB.transform.GetComponent<DeadBody>();
+            dBB.Force2DeadBody(Mathf.Abs(nowHP));
             Destroy(this.gameObject);
         }
 
@@ -138,7 +148,12 @@ public class EnemyHealth : MonoBehaviour
                 enemyFSM.KillBrainSequence(notStiff);
             }
             isAttackGround = true;
-                sequence = DOTween.Sequence()
+
+
+            sequence.Kill();
+             sequence = DOTween.Sequence()
+            .AppendCallback(()=>transform.DOShakePosition(shakeTime, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false))
+            .AppendInterval(shakeTime)
             .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
             .AppendInterval(stiffTime)
             .OnComplete(() => EndStiffness());
@@ -157,6 +172,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (nowHP <= 0)
         {
+            GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
             dropManager.DropItems(transform.position);
             Destroy(this.gameObject);
         }
@@ -193,6 +209,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void KnockbackActive(float knockbackForce, Vector2 knockbackDir, float x, bool isDirChange)
     {
+        Debug.Log("넉백발동");
 
         if (rb != null)
         {
@@ -202,6 +219,7 @@ public class EnemyHealth : MonoBehaviour
             }
             // 힘을 가해 넉백을 적용
             rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
+        //    transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
         }
 
     }

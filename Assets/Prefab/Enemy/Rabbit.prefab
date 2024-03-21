@@ -829,7 +829,8 @@ GameObject:
   - component: {fileID: 2186892472464217989}
   - component: {fileID: 1991790705175816114}
   - component: {fileID: 644516861}
-  - component: {fileID: 1614819065247759038}
+  - component: {fileID: 1306251216}
+  - component: {fileID: 7352353077923646852}
   m_Layer: 6
   m_Name: Rabbit
   m_TagString: Enemy
@@ -916,7 +917,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2186892472464217997}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -970,14 +971,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
-  enemyDef: 100
-  maxHP: 1000
+  enemyDef: 1
+  maxHP: 50
   hpBar: {fileID: 737773786641763162}
   hpObject: {fileID: 737773787309136043}
   hpHeight: 1
   isSuperArmor: 0
   hpCanvas: {fileID: 737773787309136043}
   dropManager: {fileID: 0}
+  deadBody: {fileID: 8476206652666059570, guid: 78482465366bd0f49a14f340a0885ab2,
+    type: 3}
+  ShakeCorrection: 1.2
   isAttackGround: 0
   poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68,
     type: 3}
@@ -1030,7 +1034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rabbitHole: {fileID: 0}
---- !u!95 &1614819065247759038
+--- !u!95 &1306251216
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -1051,6 +1055,71 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!60 &7352353077923646852
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2186892472464217997}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.04, y: 2.56}
+    newSize: {x: 3.04, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.45, y: -1.13}
+      - {x: 0.53999996, y: -1.22}
+      - {x: 0.96, y: -1.22}
+      - {x: 0.97999996, y: -1.1999999}
+      - {x: 1.06, y: -0.88}
+      - {x: 1.14, y: -0.71999997}
+      - {x: 1.15, y: -0.22999999}
+      - {x: 1.0699999, y: -0.19999999}
+      - {x: 1.16, y: 0.07}
+      - {x: 1.3, y: 0.42999998}
+      - {x: 1.3, y: 0.98999995}
+      - {x: 1.23, y: 1.06}
+      - {x: 0.95, y: 1.06}
+      - {x: 0.85999995, y: 1}
+      - {x: 0.76, y: 0.81}
+      - {x: 0.65, y: 0.42}
+      - {x: 0.32, y: 0.58}
+      - {x: 0.26999998, y: 0.65}
+      - {x: 0.11, y: 0.81}
+      - {x: 0, y: 0.9}
+      - {x: -0.32999998, y: 0.90999997}
+      - {x: -0.42999998, y: 0.81}
+      - {x: -0.42999998, y: 0.55}
+      - {x: -0.52, y: 0.48999998}
+      - {x: -0.57, y: 0.42999998}
+      - {x: -0.72999996, y: 0.26999998}
+      - {x: -0.89, y: 0.12}
+      - {x: -1.06, y: -0.049999997}
+      - {x: -1.3, y: -0.19999999}
+      - {x: -1.38, y: -0.29}
+      - {x: -1.4599999, y: -0.48}
+      - {x: -1.4599999, y: -0.75}
+      - {x: -1.39, y: -0.82}
+      - {x: -1.14, y: -0.83}
+      - {x: -1.15, y: -1.13}
+      - {x: -1.0699999, y: -1.22}
+      - {x: -0.69, y: -1.22}
+      - {x: -0.61, y: -1.14}
+      - {x: -0.56, y: -1.06}
+      - {x: 0.45999998, y: -1.06}
 --- !u!1 &2186892472540714428
 GameObject:
   m_ObjectHideFlags: 0
