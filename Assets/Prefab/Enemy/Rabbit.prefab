@@ -970,7 +970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
-  enemyDef: 1
+  enemyDef: 100
   maxHP: 1000
   hpBar: {fileID: 737773786641763162}
   hpObject: {fileID: 737773787309136043}

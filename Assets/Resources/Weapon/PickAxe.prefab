@@ -172,7 +172,7 @@ MonoBehaviour:
   ignDef: 0
   skillDmg: 0
   finDmg: 0
-  addDmg: 0
+  addDmg: 10
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed: 0.5
   isAttackWait: 0

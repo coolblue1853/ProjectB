@@ -48,12 +48,12 @@ public class EnemyHealth : MonoBehaviour
     public int addDmg = 0; // 추가뎀%   8
     public int ArmAtp = 0; // 방어구 기본뎀 9  
      */
-    int outDmg;
-    int SetDmg(int[] damage, bool isSkill)
+    float outDmg;
+    float SetDmg(int[] damage, bool isSkill)
     {
-        int baseDmg = Random.Range(damage[0], damage[1]);
+        float baseDmg = Random.Range(damage[0], damage[1]);
         int checkCrit = Random.Range(1, 101);
-
+        Debug.Log(baseDmg);
         if(checkCrit <= damage[2]) // 치명타 성공시
         {// 기본 치피는 20
             outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3]) / 100)) * (1 + ((damage[4]) / 100));  // 기본뎀 * 치뎀 * 뎀증
@@ -67,39 +67,49 @@ public class EnemyHealth : MonoBehaviour
         {
             outDmg *= 1 + ((damage[6]) / 100);
         }
-
+        Debug.Log(outDmg);
         return outDmg;
     }
-    int dmgByDmg;
-    int finDmg;
+    float dmgByDmg;
+    float finDmg;
+    float addDmg;
     public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill)
     {
-        int dmg = SetDmg(damage, isSkill); // 방어력 적용전 데미지;
-        if(damage[5] !=0 && enemyDef != 0)
+        float dmg = SetDmg(damage, isSkill); // 방어력 적용전 데미지;
+        Debug.Log(dmg);
+        if (damage[5] !=0 && enemyDef != 0)
         {
-             dmgByDmg = (dmg / (dmg + (enemyDef * (damage[5] / 100)))); // 방무 적용후
+             dmgByDmg = dmg * (dmg / (dmg + (enemyDef * (damage[5] / 100)))); // 방무 적용후
              finDmg = dmgByDmg * (1 + ((damage[7]) / 100)); // 최종뎀 추가
         }
         else
         {
-            finDmg = dmg * (1 + ((damage[7]) / 100)); // 최종뎀 추가
+            dmgByDmg = dmg * (dmg / (dmg + enemyDef)); // 방무 미적용
+            Debug.Log(dmgByDmg);
+            finDmg = dmgByDmg * (1 + ((damage[7]) / 100)); // 최종뎀 추가
+            Debug.Log(finDmg);
         }
 
-        int addDmg = 0;
-        if (damage[9] != 0)
+         addDmg = 0;
+        if (damage[8] != 0)
         {
-            addDmg = finDmg  * (((damage[7]) / 100)); // 추뎀 계산
+            float addFloat = damage[8];
+            addDmg = finDmg  * ((addFloat / 100.0f)); // 추뎀 계산
+            Debug.Log(addDmg);
         } 
 
         ToggleObject();
-        nowHP -= finDmg;
-        hpBar.healthSystem.Damage(finDmg);
-       damageNumber.Spawn(transform.position + Vector3.up, finDmg);
-        if (addDmg != 0)
+        nowHP -= (int)finDmg;
+        hpBar.healthSystem.Damage((int)finDmg);
+        damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
+
+
+        if ((int)addDmg != 0)
         {
-            nowHP -= addDmg;
-            hpBar.healthSystem.Damage(addDmg);
-           damageNumber.Spawn(transform.position, addDmg);
+            nowHP -= (int)addDmg;
+            hpBar.healthSystem.Damage((int)addDmg);
+            damageNumber.Spawn(transform.position + Vector3.up, (int)addDmg);
+
         }
 
 
