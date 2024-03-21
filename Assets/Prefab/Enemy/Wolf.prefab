@@ -401,7 +401,8 @@ MonoBehaviour:
   IsWaiting: 0
   waitTime: 0
   attackWaitTime: 1
-  damageOb: {fileID: 1799378379411631010, guid: 6286bb3476fcde343a7f9a5de9aa1484, type: 3}
+  damageOb: {fileID: 1799378379411631010, guid: 6286bb3476fcde343a7f9a5de9aa1484,
+    type: 3}
   attackPivot: {fileID: 167656133091569253}
   enemyObject: {fileID: 1735656680993158778}
   isAttackRepeat: 0
@@ -528,7 +529,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -587,6 +589,8 @@ MonoBehaviour:
   IsWaiting: 0
   waitTime: 0.5
   message: 1111
+  minWait: 0
+  maxWait: 0
 --- !u!1 &748121867218088156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,6 +1229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageNumber: {fileID: 0}
+  enemyDef: 0
   maxHP: 1000
   hpBar: {fileID: 896837319480666797}
   hpObject: {fileID: 896837317999868252}
@@ -1232,7 +1238,13 @@ MonoBehaviour:
   isSuperArmor: 0
   hpCanvas: {fileID: 896837317999868252}
   dropManager: {fileID: 0}
-  poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68, type: 3}
+  deadBody: {fileID: 0}
+  ShakeCorrection: 1
+  isAttackGround: 0
+  maxXSpeed: 15
+  maxYSpeed: 15
+  poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68,
+    type: 3}
 --- !u!114 &1735656680993158770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1268,7 +1280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a, type: 3}
+  itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
+    type: 3}
   dropItems: []
 --- !u!1 &1735656681189553227
 GameObject:
@@ -1321,7 +1334,10 @@ MonoBehaviour:
   xMin: 2
   xMax: 5
   originMax: 10
-  moveDuration: 0.1
+  isStop: 0
+  isGroundCheck: 0
+  groundCheck: {fileID: 0}
+  desiredSpeed: 0
 --- !u!1 &1735656681235118813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1539,3 +1555,5 @@ MonoBehaviour:
   IsWaiting: 0
   waitTime: 1
   message: 1111
+  minWait: 0
+  maxWait: 0

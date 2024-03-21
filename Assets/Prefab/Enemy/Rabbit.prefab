@@ -823,7 +823,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2186892472464217991}
   - component: {fileID: 2186892472464217990}
-  - component: {fileID: 2186892472464217985}
   - component: {fileID: 2186892472464217984}
   - component: {fileID: 2186892472464217988}
   - component: {fileID: 2186892472464217989}
@@ -910,32 +909,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2186892472464217985
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2186892472464217997}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.11521649, y: -0.44645113}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.04, y: 2.56}
-    newSize: {x: 3.04, y: 2.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.6272058, y: 1.5329026}
-  m_EdgeRadius: 0
 --- !u!50 &2186892472464217984
 Rigidbody2D:
   serializedVersion: 4
@@ -983,6 +956,8 @@ MonoBehaviour:
     type: 3}
   ShakeCorrection: 1.2
   isAttackGround: 0
+  maxXSpeed: 15
+  maxYSpeed: 15
   poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68,
     type: 3}
 --- !u!114 &2186892472464217989

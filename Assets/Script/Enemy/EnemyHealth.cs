@@ -6,6 +6,7 @@ using System.Linq;
 using DamageNumbersPro;
 public class EnemyHealth : MonoBehaviour
 {
+
     public DamageNumber damageNumber;
     public int enemyDef = 0;
     Animator anim;
@@ -77,8 +78,9 @@ public class EnemyHealth : MonoBehaviour
     float addDmg;
     float shakeTime;
     public float ShakeCorrection = 1.0f;
-    public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill)
+    public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking)
     {
+        shakeTime = shaking;
         float dmg = SetDmg(damage, isSkill); // 방어력 적용전 데미지;
         Debug.Log(dmg);
         if (damage[5] !=0 && enemyDef != 0)
@@ -101,7 +103,7 @@ public class EnemyHealth : MonoBehaviour
             addDmg = finDmg  * ((addFloat / 100.0f)); // 추뎀 계산
             Debug.Log(addDmg);
         }
-        shakeTime = finDmg / maxHP* ShakeCorrection ;
+       // shakeTime = finDmg / maxHP* ShakeCorrection ;
         ToggleObject();
         nowHP -= (int)finDmg;
         hpBar.healthSystem.Damage((int)finDmg);
@@ -110,7 +112,7 @@ public class EnemyHealth : MonoBehaviour
 
         if(isSuperArmor == true)
         {
-            transform.DOShakePosition(shakeTime, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
+            transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
         }
         if ((int)addDmg != 0)
         {
@@ -206,20 +208,39 @@ public class EnemyHealth : MonoBehaviour
         hpObject.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, hpHeight, 0));
     }
 
-
+    public float maxXSpeed =10f; // x축 넉백 속도 상한
+    public float maxYSpeed =10f; //y 축 넉백 속도 상한
     private void KnockbackActive(float knockbackForce, Vector2 knockbackDir, float x, bool isDirChange)
     {
         Debug.Log("넉백발동");
 
         if (rb != null)
         {
-            if(x> transform.position.x && isDirChange == true)
+            rb.velocity = Vector2.zero;
+            if (x> transform.position.x && isDirChange == true)
             {
                 knockbackDir.x = -knockbackDir.x;
             }
             // 힘을 가해 넉백을 적용
             rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
-        //    transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
+            //    transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
+            Vector2 currentVelocity = rb.velocity;
+
+
+            // x 속도가 최대값을 초과하는지 확인하고, 초과하면 최대값으로 설정
+            if (Mathf.Abs(currentVelocity.x) > maxXSpeed)
+            {
+                currentVelocity.x = Mathf.Sign(currentVelocity.x) * maxXSpeed;
+            }
+
+            // y 속도가 최대값을 초과하는지 확인하고, 초과하면 최대값으로 설정
+            if (Mathf.Abs(currentVelocity.y) > maxYSpeed)
+            {
+                currentVelocity.y = Mathf.Sign(currentVelocity.y) * maxYSpeed;
+            }
+
+            // 최종 속도 적용
+            rb.velocity = currentVelocity;
         }
 
     }
