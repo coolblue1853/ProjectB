@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 13f; // 점프 힘
     public float dashSpeed = 20f; // 대쉬 속도
     public float dashDuration = 0.2f; // 대쉬 지속 시간
-    private float dashWait = 2f; // 대쉬 타이머
+    public float dashWait = 2f; // 대쉬 타이머
     private float dashTimer; // 대쉬 타이머
     public int dashStemina; // 대쉬시 사용하는 스테미나
     public int maxJumps = 2;      // 최대 점프 횟수
@@ -87,7 +87,13 @@ public class PlayerController : MonoBehaviour
 
         if(Mathf.Abs(rb.velocity.y) < 0.001f && isPlafromCheck == true)
         {
-            jumpsRemaining = maxJumps;
+            RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right, 1f, LayerMask.GetMask("Ground"));
+            RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left, 1f, LayerMask.GetMask("Ground"));
+            if (((hitWall.collider != null && hitWall.collider.CompareTag("Ground") || (hitWall2.collider != null && hitWall2.collider.CompareTag("Ground")))))
+            {
+                jumpsRemaining = maxJumps;
+            }
+
         }
 
         if(DatabaseManager.isOpenUI == true && rb.velocity != Vector2.zero && once == false)
@@ -114,7 +120,7 @@ public class PlayerController : MonoBehaviour
                 isRun = false;
             }
             // 이동
-            if (DatabaseManager.weaponStopMove == false && isUpLadder == false)
+            if (DatabaseManager.weaponStopMove == false && isUpLadder == false&& states != "dash")
             {
                 Move();
             }
@@ -123,6 +129,7 @@ public class PlayerController : MonoBehaviour
             // 대쉬
             if (dashAction.triggered && dashTimer <= 0f && DatabaseManager.weaponStopMove == false && PlayerHealthManager.Instance.nowStemina > dashStemina)
             {
+                Debug.Log("대쉬작동");
                 rb.gravityScale =3;
                 isUpLadder = false;
                 Dash();
@@ -284,9 +291,11 @@ public class PlayerController : MonoBehaviour
         }
     }
     float verticalInput;
+    Sequence moveSequence;
     void Move()
     {
         moveVelocity = Vector2.zero;
+
 
         if (states != "dash" && states != "wallJump")
         {
@@ -307,7 +316,7 @@ public class PlayerController : MonoBehaviour
             else if (horizontalInput == 0 && states != "move" && check ==false)
             {
                 check = true;
-                Sequence sequence = DOTween.Sequence()
+                moveSequence = DOTween.Sequence()
                     .AppendInterval(0.3f)
                     .AppendCallback(() => RunChecker());
             }
@@ -323,7 +332,12 @@ public class PlayerController : MonoBehaviour
         check = false;
         if (horizontalInput == 0)
         {
+            if (states != "dash")
+            {
+                states = "move";
+                isRun = false;
 
+            }
             states = "move";
             isRun = false;
         }
@@ -338,6 +352,8 @@ public class PlayerController : MonoBehaviour
             isRun = false;
         }
     }
+    Sequence dashSequence;
+    public float dashMovePoint;
     void Dash()
     {
         if(states != "wallJump")
@@ -350,12 +366,13 @@ public class PlayerController : MonoBehaviour
             // 대쉬 타이머 설정
             dashTimer = dashWait;
 
-
-                         Sequence sequence = DOTween.Sequence()
-            .AppendInterval(dashDuration) // 2초 대기
-            .AppendCallback(() => rb.gravityScale = 3f)
-            .AppendCallback(() => rb.velocity = new Vector2(0f, 0f))
-            .AppendCallback(() => states = "s");
+            moveSequence.Kill();
+            dashSequence.Kill();
+           dashSequence = DOTween.Sequence()
+           .AppendInterval(dashDuration) // 2초 대기
+            .OnComplete(() => rb.gravityScale = 3f)
+          .OnComplete(() => rb.velocity = new Vector2(0f, 0f))
+            .OnComplete(() => states = "move");
         }
     }
     public float wallJumpForce;
@@ -438,8 +455,9 @@ public class PlayerController : MonoBehaviour
         }
         if(states != "dash" &&  isUpLadder == false&& isDownJump ==false && isPlafromCheck == true)//&&isPlafromCheck == true 
         {
-            RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right,1f, LayerMask.GetMask("Ground"));
-            RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left, 1f, LayerMask.GetMask("Ground"));
+            RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right,0.3f, LayerMask.GetMask("Ground"));
+            RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left, 0.3f, LayerMask.GetMask("Ground"));
+
             if (((hitWall.collider != null && hitWall.collider.CompareTag("Ground") && transform.localScale == new Vector3(chInRommSize, chInRommSize, 1)) ||( hitWall2.collider != null && hitWall2.collider.CompareTag("Ground") && transform.localScale == new Vector3(-chInRommSize, chInRommSize, 1)) ) && isGround ==false)
             {
                 horizontalInput = moveAction.ReadValue<float>();
@@ -504,8 +522,10 @@ public class PlayerController : MonoBehaviour
 
             if(isUpLadder == true)
             {
+                rb.gravityScale = 3;
                 isUpLadder = false;
                 nowLadder = null;
+                
             }
         }
     }
