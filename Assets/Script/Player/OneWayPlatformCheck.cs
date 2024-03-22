@@ -11,6 +11,7 @@ public class OneWayPlatformCheck : MonoBehaviour
         {
 
             pc.isPlafromCheck = false;
+
         }
     }
 
@@ -21,6 +22,7 @@ public class OneWayPlatformCheck : MonoBehaviour
 
             pc.AbleCollision();
             pc.isPlafromCheck = true;
+
         }
     }
 

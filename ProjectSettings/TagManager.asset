@@ -16,6 +16,7 @@ TagManager:
   - InGroundPlayer
   - Equipment
   - Enemy
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Ground Soft
   - Ground Hard
   - DeadBody
-  - 
+  - Platform
   - 
   - 
   - 

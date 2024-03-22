@@ -72,31 +72,30 @@ public class PlayerController : MonoBehaviour
         downAction = action.UI.DownInventory;
     }
 
-
-    public  bool isAttacked;
+    public bool boxColliderTrue = false;
+  public  bool platformTrue = false;
+    BoxCollider2D bc;
+    public bool isAttacked;
     public bool isAttackedUp;
     void Start()
     {
+        bc = this.GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         jumpsRemaining = maxJumps;
     }
     bool once = false;
     void Update()
     {
-       //Debug.Log(moveAction.ReadValue<float>());
-
-        if(Mathf.Abs(rb.velocity.y) < 0.001f && isPlafromCheck == true)
+        if(boxColliderTrue == false && platformTrue == false)
         {
-            RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right, 1f, LayerMask.GetMask("Ground"));
-            RaycastHit2D hitWall2 = Physics2D.Raycast(transform.position, Vector2.left, 1f, LayerMask.GetMask("Ground"));
-            if (((hitWall.collider != null && hitWall.collider.CompareTag("Ground") || (hitWall2.collider != null && hitWall2.collider.CompareTag("Ground")))))
-            {
-                jumpsRemaining = maxJumps;
-            }
-
+            bc.isTrigger = false;
+        }
+        else
+        {
+            bc.isTrigger = true;
         }
 
-        if(DatabaseManager.isOpenUI == true && rb.velocity != Vector2.zero && once == false)
+        if (DatabaseManager.isOpenUI == true && rb.velocity != Vector2.zero && once == false)
         {
             once = true;
             rb.velocity = Vector2.zero;
@@ -140,7 +139,7 @@ public class PlayerController : MonoBehaviour
             // 점프
             if (jumpAction.triggered && DatabaseManager.weaponStopMove == false)
             {
-                if (verticalInput < 0 && currentOneWayPlatform != null)
+                if (verticalInput < -0.5f && currentOneWayPlatform != null)
                 {
                   DisableCollision();
                 }
@@ -172,6 +171,7 @@ public class PlayerController : MonoBehaviour
         {
             if(upAction.triggered == true|| downAction.triggered)
             {
+
                 jumpsRemaining = maxJumps;
                 rb.velocity = Vector2.zero;
                 rb.gravityScale = 0;
@@ -182,7 +182,8 @@ public class PlayerController : MonoBehaviour
 
                 // 현재 위치와 로프 위치 사이의 거리 계산
                 Vector2 distance = newPosition - (Vector2)transform.position;
-
+                BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
+                boxColliderTrue = true;
                 // Rigidbody 이동으로 순간 이동 방지
                 rb.MovePosition(rb.position + distance);
             }
@@ -196,10 +197,26 @@ public class PlayerController : MonoBehaviour
 
             if (currentOneWayPlatform != null)
             {
-                DisableCollision();
+              //  DisableCollision();
             }
         }
+        /*
+        else if (isLadder == false && ladderJumpCheck ==true)
+        {
+            if (currentOneWayPlatform != null)
+            {
+                ladderJumpCheck = false;
+                bool isCollisionIgnored = Physics2D.GetIgnoreCollision(playerCollider, platformCollider);
+                if (isCollisionIgnored)
+                {
+                   // AbleCollision();
+                }
+            }
+        }
+        */
+
     }
+    bool ladderJumpCheck = false;
     GameObject nowLadder;
     void LadderMove()
     {
@@ -233,6 +250,8 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+
         if (collision.gameObject.CompareTag("Ground"))
         {
             BaseGround baseGround = collision.gameObject.GetComponent<BaseGround>();
@@ -250,14 +269,16 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            currentOneWayPlatform = null;
+           // currentOneWayPlatform = null;
         }
     }
+
+    BoxCollider2D lastPlatform;
     BoxCollider2D platformCollider;
     private void DisableCollision()
     {
          platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
-
+        
         Physics2D.IgnoreCollision(playerCollider, platformCollider);
         isDownJump = true;
     }
@@ -358,6 +379,15 @@ public class PlayerController : MonoBehaviour
     {
         if(states != "wallJump")
         {
+            BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
+            /*
+            if (bc.isTrigger == true)
+            {
+                bc.isTrigger = false;
+            }
+            */
+
+            boxColliderTrue = false;
             PlayerHealthManager.Instance.SteminaDown(dashStemina);
             states = "dash";
             rb.gravityScale = 0f;
@@ -398,6 +428,14 @@ public class PlayerController : MonoBehaviour
     }
     void Jump()
     {
+        BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
+        /*
+        if(bc.isTrigger == true)
+        {
+            bc.isTrigger = false;
+        }
+        */
+        boxColliderTrue = false;
         isWallReset = false;
         states = "jump";
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -425,7 +463,7 @@ public class PlayerController : MonoBehaviour
 
         // 바닥 감지 레이캐스트
 
-        if ((hit1.collider != null && hit1.collider.CompareTag("Ground") && IsGrounded(hit1.normal) || hit2.collider != null && hit2.collider.CompareTag("Ground") && IsGrounded(hit2.normal)) && isOnGround == true && isPlafromCheck == true)
+        if (((hit1.collider != null && hit1.collider.CompareTag("Ground") && IsGrounded(hit1.normal)) ||( hit2.collider != null && hit2.collider.CompareTag("Ground") && IsGrounded(hit2.normal))) && isOnGround == true && isPlafromCheck == true)
         {
 
             isOnGround = false;
@@ -437,7 +475,7 @@ public class PlayerController : MonoBehaviour
         // Ground 태그를 가진 오브젝트에 닿았고, 각도가 일정 범위 내에 있으면 점프 횟수 초기화
         if (hit1.collider != null && hit1.collider.CompareTag("Ground") && IsGrounded(hit1.normal) && isOnGround == true)//&& isPlafromCheck == true
         {
-            Debug.Log("작동중");
+
             isWallReset = false;
             isGround = true;
            // jumpsRemaining = maxJumps;
@@ -508,8 +546,23 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.tag == "Ladder")
         {
+            ladderJumpCheck = true;
             isLadder = true;
             nowLadder = collision.gameObject;
+        }
+        if (collision.tag == "InGroundPlayer")
+        {
+            Debug.Log(collision.name);
+           
+            if(jumpsRemaining != maxJumps)
+            {
+                jumpsRemaining = maxJumps;
+            }
+            if(isUpLadder == true)
+            {
+                platformTrue = true;
+            }
+
         }
     }
 
@@ -519,14 +572,22 @@ public class PlayerController : MonoBehaviour
         {
             isLadder = false;
             nowLadder = collision.gameObject;
+            BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
 
-            if(isUpLadder == true)
+            if (isUpLadder == true)
             {
+                //bc.isTrigger = false;
+                boxColliderTrue = false;
                 rb.gravityScale = 3;
                 isUpLadder = false;
                 nowLadder = null;
-                
+                AbleCollision();
             }
+        }
+        if (collision.tag == "InGroundPlayer")
+        {
+            Debug.Log("나감");
+            platformTrue = false;
         }
     }
 }
