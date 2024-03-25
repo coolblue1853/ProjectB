@@ -98,7 +98,7 @@ public class PlayerHealthManager : MonoBehaviour
     public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
     {
         HpDown(damage);
-
+        rb.velocity = Vector2.zero;
         if (isSuperArmor == false && stiffTime>0)
         {
             sequence.Kill(); // 재공격시 경직 시간 초기화.

@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
     bool once = false;
     void Update()
     {
+
         if(boxColliderTrue == false && platformTrue == false)
         {
             bc.isTrigger = false;
@@ -215,7 +216,7 @@ public class PlayerController : MonoBehaviour
         }
         */
 
-    }
+        }
     bool ladderJumpCheck = false;
     GameObject nowLadder;
     void LadderMove()
@@ -468,7 +469,12 @@ public class PlayerController : MonoBehaviour
 
             isOnGround = false;
             jumpsRemaining = maxJumps;
-
+            if (isAttacked == true)
+            {
+                Debug.Log("ÂøÁö");
+                isAttacked = false;
+                rb.velocity = new Vector2(0f, 0f);
+            }
 
         }
 
@@ -480,11 +486,7 @@ public class PlayerController : MonoBehaviour
             isGround = true;
            // jumpsRemaining = maxJumps;
 
-            if (isAttacked == true && rb.velocity.y == 0)
-            {
-                isAttackedUp = false;
-                rb.velocity = new Vector2(0f, 0f);
-            }
+
 
         }
         else
@@ -563,6 +565,16 @@ public class PlayerController : MonoBehaviour
                 platformTrue = true;
             }
 
+        }
+
+        if(collision.tag == "InGroundPlayer")
+        {
+            if (isAttacked == true && rb.velocity.y == 0)
+            {
+                Debug.Log("ÂøÁö");
+                isAttacked = false;
+                rb.velocity = new Vector2(0f, 0f);
+            }
         }
     }
 

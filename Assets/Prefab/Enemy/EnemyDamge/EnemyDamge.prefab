@@ -127,8 +127,8 @@ MonoBehaviour:
   isDestroyByTime: 1
   holdingTime: 0.5
   damage: 10
-  stiffnessTime: 1
-  knockForce: 10
+  stiffnessTime: 0.5
+  knockForce: 30
   knockbackDir: {x: 1, y: 1}
   isNockBackChangeDir: 0
   isPlayerAttack: 1
