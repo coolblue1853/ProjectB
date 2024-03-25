@@ -11,6 +11,7 @@ public class AttackCheck : MonoBehaviour
     public EndNode ChaseEndNode;
     public EndNode AttackEndNode;
     public bool isNearPlayer;
+    public CheckPlayer checkPlayer;
     private void Update()
     {
         if (attackNode.isAttackRepeat == true && isNearPlayer == true)
@@ -32,7 +33,6 @@ public class AttackCheck : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-
             isNearPlayer = true;
 
 
@@ -46,9 +46,10 @@ public class AttackCheck : MonoBehaviour
             Debug.Log("Ãß°Ý");
             AttackEndNode.isNRepeat = true;
             AttackEndNode.state = "Chase";
-
             //enemyFSM.KillBrainSequence();
             //enemyFSM.StateChanger("Chase");
+
+
 
         }
     }

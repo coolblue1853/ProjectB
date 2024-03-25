@@ -96,7 +96,7 @@ public class Weapon : MonoBehaviour
     public void MeleeAttack()
     {
         time = 0;
-        if (nowConboCount == 0 && (isAttackWait == true || isSkillCancel == true))
+        if (nowConboCount == 0 && (isAttackWait == true))//|| isSkillCancel == true)
         {
             nowConboCount++;
             //프리팹 소환
@@ -107,7 +107,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            if (nowConboCount < maxComboCount && time <= maxComboTime && (isAttackWait == true || isSkillCancel == true))
+            if (nowConboCount < maxComboCount && time <= maxComboTime && (isAttackWait == true ))//|| isSkillCancel == true
             {
                 nowConboCount++;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
@@ -115,7 +115,7 @@ public class Weapon : MonoBehaviour
                 dmOb.SetDamge(damgeArray);
                 CheckAttackWait();
             }
-            else if (nowConboCount >= maxComboCount && time <= maxComboTime && (isAttackWait == true || isSkillCancel == true)) // 콤보수 초기화 및 다시 카운트 1로 내려옴.
+            else if (nowConboCount >= maxComboCount && time <= maxComboTime && (isAttackWait == true)) // 콤보수 초기화 및 다시 카운트 1로 내려옴. || isSkillCancel == true
             {
                 nowConboCount = 1;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);

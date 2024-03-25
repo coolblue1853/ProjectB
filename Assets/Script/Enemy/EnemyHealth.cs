@@ -26,6 +26,7 @@ public class EnemyHealth : MonoBehaviour
     EnemyFSM enemyFSM;
 
     public GameObject deadBody;
+    public GameObject enemySensor;
     private void Start()
     {
         anim = transform.GetComponent<Animator>();
@@ -35,6 +36,11 @@ public class EnemyHealth : MonoBehaviour
        // brain = transform.GetComponent<BTBrain>();
         nowHP = maxHP;
         hpBar.setHpBar(maxHP);
+
+        if(checkPlayer.isPreemptive == true&& enemySensor.activeSelf ==false)
+        {
+            enemySensor.SetActive(true);
+        }
     }
     bool notStiff;
 
@@ -80,6 +86,7 @@ public class EnemyHealth : MonoBehaviour
     public float ShakeCorrection = 1.0f;
     public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking)
     {
+
         shakeTime = shaking;
         float dmg = SetDmg(damage, isSkill); // 방어력 적용전 데미지;
         Debug.Log(dmg);
@@ -110,6 +117,7 @@ public class EnemyHealth : MonoBehaviour
         damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
 
 
+
         if(isSuperArmor == true)
         {
             transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
@@ -119,13 +127,11 @@ public class EnemyHealth : MonoBehaviour
             nowHP -= (int)addDmg;
             hpBar.healthSystem.Damage((int)addDmg);
             damageNumber.Spawn(transform.position + Vector3.up, (int)addDmg);
-
         }
 
 
         if (nowHP <= 0)
         {
-
             GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
             DeadBody dBB = dB.transform.GetComponent<DeadBody>();
             dBB.Force2DeadBody(Mathf.Abs(nowHP));
@@ -182,6 +188,7 @@ public class EnemyHealth : MonoBehaviour
 
     }
    public bool isAttackGround;
+    public CheckPlayer checkPlayer;
     private void EndStiffness()
     {
         if(this != null && enemyFSM != null)
@@ -190,6 +197,7 @@ public class EnemyHealth : MonoBehaviour
             {
                 anim.SetBool("isHit", false);
             }
+
             isAttackGround = false;
 
             if (enemyFSM.state.Contains("Hit"))
@@ -197,7 +205,22 @@ public class EnemyHealth : MonoBehaviour
                 enemyFSM.StateChanger("Hit");
             }
 
-           enemyFSM.ReActiveBrainSequence();
+
+            if (checkPlayer.isPreemptive == false && enemySensor.activeSelf == false)
+            {
+                enemySensor.SetActive(true);
+            }
+            else if (enemyFSM.state.Contains("Chase")) // 공격받았을때 최초가 아니고, 비선공 몬스터라면 다시 재 추격을 시작한다.
+            {
+               Debug.Log("11111111111111");
+                 enemyFSM.StateChanger("Chase");
+               enemyFSM.ReActiveBrainSequence();
+            }
+            else
+            {
+                enemyFSM.ReActiveBrainSequence();
+            }
+
 
 
         }

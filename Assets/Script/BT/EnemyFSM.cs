@@ -23,12 +23,14 @@ public class EnemyFSM : MonoBehaviour
             brain[0].restartEvaluate();
             brain[0].brainActive = true;
         }
-
     }
+
 
     public void StateChanger(string InputState)
     {
+        Debug.Log("ChaneState to : "+InputState);
         nowState = InputState;
+
     }
     void BTBrainActiver()
     {
@@ -76,7 +78,7 @@ public class EnemyFSM : MonoBehaviour
     public void ReActiveBrainSequence()
     {
         isNeedReset = true;
-        Debug.Log("RE");
+
     }
 
     public bool CheckBrainActive()
@@ -108,8 +110,9 @@ public class EnemyFSM : MonoBehaviour
                 brain[i].isAttacked = false;
                 if (state[i] == nowState)
                 {
+                    Debug.Log("현재state는 " + state[i]);
+                    Debug.Log("현재brain는 " + brain[i]);
 
-                    Debug.Log("restart");
                     brain[i].restartEvaluate();
                     brain[i].brainActive = true;
                 }

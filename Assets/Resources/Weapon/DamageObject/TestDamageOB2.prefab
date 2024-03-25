@@ -104,7 +104,7 @@ MonoBehaviour:
   holdingTime: 0.5
   damageArr: 
   stiffnessTime: 1
-  knockForce: 100
+  knockForce: 10
   knockbackDir: {x: 0, y: 1}
   isNockBackChangeDir: 0
   isPlayerAttack: 1

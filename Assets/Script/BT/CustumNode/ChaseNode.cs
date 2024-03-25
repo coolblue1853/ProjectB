@@ -25,7 +25,7 @@ public class ChaseNode : BTNode
         brain.StopEvaluateCoroutine();
         sequence = DOTween.Sequence()
        .AppendCallback(() => direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x))
-              .AppendCallback(() => ChangeFace())
+        .AppendCallback(() => ChangeFace())
        .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
        .OnComplete(() => OnSequenceComplete());
         return NodeState.FAILURE;
