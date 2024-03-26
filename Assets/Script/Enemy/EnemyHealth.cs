@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System.Linq;
+using UnityEngine.UI;
 using DamageNumbersPro;
 public class EnemyHealth : MonoBehaviour
 {
@@ -134,6 +135,7 @@ public class EnemyHealth : MonoBehaviour
         {
             GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
             DeadBody dBB = dB.transform.GetComponent<DeadBody>();
+            dBB.parentEnemy = this.transform.gameObject;
             dBB.Force2DeadBody(Mathf.Abs(nowHP));
             Destroy(this.gameObject);
         }
@@ -300,6 +302,15 @@ public class EnemyHealth : MonoBehaviour
         posionAttack.enemyHealth = this.GetComponent<EnemyHealth>();
         posionAttack.ActivePoison(poisonDamage, damageInterval, damageCount);
 
+    }
+
+    public void DisaperByTime()
+    {
+        SpriteRenderer img = this.GetComponent<SpriteRenderer>();
+        Sequence disSequence = DOTween.Sequence()
+ .AppendCallback(() => img.DOFade(0, 1.5f))
+ .AppendInterval(1.5f)
+.OnComplete(() => Destroy(this.gameObject));
     }
 
 }

@@ -351,14 +351,15 @@ MonoBehaviour:
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
   enemyDef: 0
-  maxHP: 1000
+  maxHP: 100
   hpBar: {fileID: 8615510446317490927}
   hpObject: {fileID: 8615510446984429854}
   hpHeight: 3
   isSuperArmor: 0
   hpCanvas: {fileID: 8615510446984429854}
   dropManager: {fileID: 0}
-  deadBody: {fileID: 0}
+  deadBody: {fileID: 2624621650581405129, guid: 5f5051d5fdc09344aa9912f3d18e95ed,
+    type: 3}
   enemySensor: {fileID: 8769044544770887930}
   ShakeCorrection: 1
   isAttackGround: 0
@@ -1318,7 +1319,7 @@ MonoBehaviour:
   IsWaiting: 0
   waitTime: 0
   attackWaitTime: 1
-  damageOb: {fileID: 1799378379411631010, guid: 6286bb3476fcde343a7f9a5de9aa1484,
+  damageOb: {fileID: 8822647387501680376, guid: dd47d9c36ada4f848b50f91fc48ad58b,
     type: 3}
   attackPivot: {fileID: 8769044545041602087}
   enemyObject: {fileID: 7202398604588207672}
@@ -1340,7 +1341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8769044545041602086
 Transform:
   m_ObjectHideFlags: 0

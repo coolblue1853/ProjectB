@@ -5,10 +5,21 @@ using UnityEngine;
 public class DeadBody : MonoBehaviour
 {
     GameObject player;
+   public GameObject parentEnemy;
     Vector2 knockbackDir;
     private void Start()
     {
         Invoke("DistroyIt", 3f);
+        if(parentEnemy.transform.localScale.x < 0)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Transform T = transform.GetChild(i);
+
+                T.localScale = new Vector3(-T.localScale.x, T.localScale.y, T.localScale.z); ;
+            }
+
+        }
     }
     void DistroyIt()
     {

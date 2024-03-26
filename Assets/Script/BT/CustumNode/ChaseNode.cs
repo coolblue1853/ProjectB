@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 public class ChaseNode : BTNode
 {
+    Animator anim;
     Vector2 originPosition;
     GameObject player;
     public GameObject enemyObject;
@@ -15,6 +16,7 @@ public class ChaseNode : BTNode
     bool endChase = false;
     private void Start()
     {
+        anim = transform.parent.parent.GetComponent<Animator>();
         chInRommSize = enemyObject.transform.localScale.x;
         player = GameObject.FindWithTag("Player");
         originPosition = brain.originPosition;
@@ -22,6 +24,10 @@ public class ChaseNode : BTNode
     // Start is called before the first frame update
     public override NodeState Evaluate()
     {
+        if (anim != null)
+        {
+            anim.SetBool("isWalk", true);
+        }
         brain.StopEvaluateCoroutine();
         sequence = DOTween.Sequence()
        .AppendCallback(() => direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x))
@@ -48,6 +54,10 @@ public class ChaseNode : BTNode
     {
         if (this.transform != null)
         {
+            if (anim != null)
+            {
+                anim.SetBool("isWalk", false);
+            }
             endChase = true;
             brain.restartEvaluate();
         }

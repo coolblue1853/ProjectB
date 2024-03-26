@@ -17,6 +17,7 @@ TagManager:
   - Equipment
   - Enemy
   - Platform
+  - Spowner
   layers:
   - Default
   - TransparentFX
