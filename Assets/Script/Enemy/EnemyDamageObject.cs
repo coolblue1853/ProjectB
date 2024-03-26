@@ -21,10 +21,12 @@ public class EnemyDamageObject : MonoBehaviour
     public bool isDeletByGround = false;
 
     private Sequence sequence; // 시퀀스를 저장하기 위한 변수 추가
+    GameObject enemyOb;
 
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        enemyOb = transform.parent.gameObject;
+           player = GameObject.FindWithTag("Player");
         if (isDestroyByTime)
         {
             DestroyObject();
@@ -70,10 +72,13 @@ public class EnemyDamageObject : MonoBehaviour
 
                 if (isPlayerAttack == true)
                 {
-                    if (player.transform.position.x < transform.position.x)
+
+                    if (player.transform.position.x < enemyOb.transform.position.x )
                     {
                         knockbackDir.x = -knockbackDir.x;
                     }
+
+
                 }
 
                 playerHealth.damage2Player(damage, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);

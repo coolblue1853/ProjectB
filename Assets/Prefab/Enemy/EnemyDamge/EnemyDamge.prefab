@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDestroyByTime: 1
-  holdingTime: 0.5
+  holdingTime: 1
   damage: 10
   stiffnessTime: 0.5
   knockForce: 30

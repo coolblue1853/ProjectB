@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class AttackNode : BTNode
 {
+    Animator anim;
     private Brain ai;
     GameObject player;
     bool isAttack= false;
@@ -20,6 +21,7 @@ public class AttackNode : BTNode
     // Start is called before the first frame update
     private void Start()
     {
+        anim = transform.parent.parent.GetComponent<Animator>();
         chInRommSize = enemyObject.transform.localScale.x;
         player = GameObject.FindWithTag("Player");
         isAttackRepeat = true;
@@ -28,6 +30,10 @@ public class AttackNode : BTNode
     {
 
         ai = brain;
+    }
+    private void Update()
+    {
+
     }
     public override NodeState Evaluate()
     {
@@ -38,10 +44,17 @@ public class AttackNode : BTNode
         }
         else if(isAttack == false)
         {
+            if (anim != null)
+            {
+                anim.SetBool("isAttack", true);
+
+            }
 
             Invoke("ReActiveBool", attackWaitTime);
             isAttackRepeat = false;
             brain.StopEvaluateCoroutine();
+
+
             sequence = DOTween.Sequence()
            .AppendCallback(() => direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x))
            .AppendCallback(() => FaceChange())
@@ -76,7 +89,7 @@ public class AttackNode : BTNode
 
     public void CreatDamageOb()
     {
-        GameObject damageObject = Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+        GameObject damageObject = Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation,this.transform.parent.parent.transform);
     }
     private void ReActiveBool()
     {
@@ -87,6 +100,11 @@ public class AttackNode : BTNode
         //isAttackRepeat = true;
         if (this.transform != null)
         {
+            if (anim != null)
+            {
+                anim.SetBool("isAttack", false);
+                anim.SetBool("AttackOnce", true);
+            }
             isAttack = true;
             brain.restartEvaluate();
         }
