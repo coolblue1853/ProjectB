@@ -16,6 +16,7 @@ public class EndNode : BTNode
     {
         if (isNRepeat)
         {
+            isNRepeat = false;
             brain.EndNodeState(state);
         }
         else

@@ -469,12 +469,6 @@ public class PlayerController : MonoBehaviour
 
             isOnGround = false;
             jumpsRemaining = maxJumps;
-            if (isAttacked == true)
-            {
-                Debug.Log("ÂøÁö");
-                isAttacked = false;
-                rb.velocity = new Vector2(0f, 0f);
-            }
 
         }
 
@@ -569,12 +563,7 @@ public class PlayerController : MonoBehaviour
 
         if(collision.tag == "InGroundPlayer")
         {
-            if (isAttacked == true && rb.velocity.y == 0)
-            {
-                Debug.Log("ÂøÁö");
-                isAttacked = false;
-                rb.velocity = new Vector2(0f, 0f);
-            }
+
         }
     }
 

@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using DamageNumbersPro;
 public class EnemyHealth : MonoBehaviour
 {
-
     public DamageNumber damageNumber;
     public int enemyDef = 0;
     Animator anim;
@@ -191,8 +190,24 @@ public class EnemyHealth : MonoBehaviour
     }
    public bool isAttackGround;
     public CheckPlayer checkPlayer;
+    public void ResetBoolParameters()
+    {
+        // 애니메이터에 등록된 모든 파라미터 가져오기
+        AnimatorControllerParameter[] parameters = anim.parameters;
+
+        // 모든 불리언 파라미터의 값을 false로 설정
+        foreach (AnimatorControllerParameter parameter in parameters)
+        {
+            if (parameter.type == AnimatorControllerParameterType.Bool)
+            {
+                Debug.Log(parameter.name);
+                anim.SetBool(parameter.name, false);
+            }
+        }
+    }
     private void EndStiffness()
     {
+        Debug.Log("넉백 종료");
         if(this != null && enemyFSM != null)
         {
             if (anim != null)
@@ -210,12 +225,15 @@ public class EnemyHealth : MonoBehaviour
 
             if (checkPlayer.isPreemptive == false && enemySensor.activeSelf == false)
             {
+                ResetBoolParameters();
                 enemySensor.SetActive(true);
+               // enemyFSM.StateChanger("Chase");
+                enemyFSM.ReActiveBrainSequence();
             }
             else if (enemyFSM.state.Contains("Chase")) // 공격받았을때 최초가 아니고, 비선공 몬스터라면 다시 재 추격을 시작한다.
             {
                Debug.Log("11111111111111");
-                 enemyFSM.StateChanger("Chase");
+              // enemyFSM.StateChanger("Chase");
                enemyFSM.ReActiveBrainSequence();
             }
             else

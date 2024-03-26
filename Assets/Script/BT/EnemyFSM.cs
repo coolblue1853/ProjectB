@@ -93,6 +93,20 @@ public class EnemyFSM : MonoBehaviour
 
         return false;
     }
+
+    public int CheckBrainActiveNum()
+    {
+        for (int i = 0; i < state.Count; i++)
+        {
+            if (brain[i].brainActive == true)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     // Update is called once per frame
     void Update()
     {/*
@@ -110,9 +124,6 @@ public class EnemyFSM : MonoBehaviour
                 brain[i].isAttacked = false;
                 if (state[i] == nowState)
                 {
-                    Debug.Log("현재state는 " + state[i]);
-                    Debug.Log("현재brain는 " + brain[i]);
-
                     brain[i].restartEvaluate();
                     brain[i].brainActive = true;
                 }
