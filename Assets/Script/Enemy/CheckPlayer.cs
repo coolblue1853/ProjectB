@@ -9,9 +9,10 @@ public class CheckPlayer : MonoBehaviour
     public bool isPreemptive = true; // 선제공격인지 아닌지. 아니라면 맞았을때에만 플레이어를 추적하게 된다.
     public bool isPlayerCheckActive = false;
     private Animator animator;
-
+    EnemyHealth enemyHealth;
     void Start()
     {
+        enemyHealth = transform.parent.parent.GetComponent<EnemyHealth>();
         animator =transform.parent.parent.GetComponent<Animator>();
         ResetBoolParameters();
     }
@@ -33,7 +34,7 @@ public class CheckPlayer : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.tag == "Player" && enemyHealth.isStun == false)
         {
             Debug.Log("들어옴!");
          //   ResetBoolParameters();
@@ -46,7 +47,7 @@ public class CheckPlayer : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && enemyHealth.isStun == false)
         {
           ResetBoolParameters();
                enemyFSM.KillBrainSequence();

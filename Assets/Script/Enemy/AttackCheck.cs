@@ -12,9 +12,14 @@ public class AttackCheck : MonoBehaviour
     public EndNode AttackEndNode;
     public bool isNearPlayer;
     public CheckPlayer checkPlayer;
+    EnemyHealth enemyHealth;
+    private void Start()
+    {
+        enemyHealth = transform.parent.parent.GetComponent<EnemyHealth>();
+    }
     private void Update()
     {
-        if (attackNode.isAttackRepeat == true && isNearPlayer == true)
+        if (attackNode.isAttackRepeat == true && isNearPlayer == true&& enemyHealth.isStun == false)
         {
             enemyFSM.KillBrainSequence();
             AttackEndNode.isNRepeat = false;

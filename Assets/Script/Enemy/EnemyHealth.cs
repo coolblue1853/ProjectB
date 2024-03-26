@@ -84,6 +84,7 @@ public class EnemyHealth : MonoBehaviour
     float addDmg;
     float shakeTime;
     public float ShakeCorrection = 1.0f;
+    Sequence striffSequence;
     public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking)
     {
 
@@ -141,7 +142,7 @@ public class EnemyHealth : MonoBehaviour
 
         if(isSuperArmor == false)
         {
-            sequence.Kill(); // 재공격시 경직 시간 초기화.
+            striffSequence.Kill(); // 재공격시 경직 시간 초기화.
 
             if (anim != null)
             {
@@ -157,10 +158,7 @@ public class EnemyHealth : MonoBehaviour
                 enemyFSM.KillBrainSequence(notStiff);
             }
             isAttackGround = true;
-
-
-            sequence.Kill();
-             sequence = DOTween.Sequence()
+            striffSequence = DOTween.Sequence()
             .AppendCallback(()=>transform.DOShakePosition(shakeTime, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false))
             .AppendInterval(shakeTime)
             .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
@@ -208,7 +206,8 @@ public class EnemyHealth : MonoBehaviour
     private void EndStiffness()
     {
         Debug.Log("넉백 종료");
-        if(this != null && enemyFSM != null)
+        isStun = false;
+        if (this != null && enemyFSM != null)
         {
             if (anim != null)
             {
@@ -253,8 +252,10 @@ public class EnemyHealth : MonoBehaviour
 
     public float maxXSpeed =10f; // x축 넉백 속도 상한
     public float maxYSpeed =10f; //y 축 넉백 속도 상한
+    public bool isStun;
     private void KnockbackActive(float knockbackForce, Vector2 knockbackDir, float x, bool isDirChange)
     {
+        isStun = true;
         Debug.Log("넉백발동");
 
         if (rb != null)
