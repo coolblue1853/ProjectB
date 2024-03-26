@@ -86,8 +86,16 @@ public class PlayerController : MonoBehaviour
     bool once = false;
     void Update()
     {
+        if (DatabaseManager.isOpenUI == false && isAttacked == false && isAttackedUp == true)
+        {
+            isAttackedUp = false;
+            if (rb.velocity != Vector2.zero )
+            {
+                rb.velocity = Vector2.zero;
+            }
+        }
 
-        if(boxColliderTrue == false && platformTrue == false)
+            if (boxColliderTrue == false && platformTrue == false)
         {
             bc.isTrigger = false;
         }

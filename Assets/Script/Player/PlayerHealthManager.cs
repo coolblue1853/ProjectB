@@ -95,17 +95,18 @@ public class PlayerHealthManager : MonoBehaviour
         }
     }
     PlayerController playerController;
+    Sequence mysequence;
     public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
     {
         HpDown(damage);
         rb.velocity = Vector2.zero;
         if (isSuperArmor == false && stiffTime>0)
         {
-            sequence.Kill(); // 재공격시 경직 시간 초기화.
+            mysequence.Kill(); // 재공격시 경직 시간 초기화.
             playerController.isAttacked = true;
             playerController.isAttackedUp = true;
 
-            sequence = DOTween.Sequence()
+            mysequence = DOTween.Sequence()
         .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
         .AppendInterval(stiffTime)
         .OnComplete(() => EndStiffness());
