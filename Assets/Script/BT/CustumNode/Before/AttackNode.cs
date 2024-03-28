@@ -35,6 +35,9 @@ public class AttackNode : BTNode
     {
 
     }
+
+
+
     public override NodeState Evaluate()
     {
         if (attackCheck.isNearPlayer == false)
@@ -53,8 +56,8 @@ public class AttackNode : BTNode
             Invoke("ReActiveBool", attackWaitTime);
             isAttackRepeat = false;
             brain.StopEvaluateCoroutine();
-
-
+            Debug.Log("공격격");
+            
             sequence = DOTween.Sequence()
            .AppendCallback(() => direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x))
            .AppendCallback(() => FaceChange())
@@ -86,13 +89,17 @@ public class AttackNode : BTNode
         }
     }
 
-
+    GameObject damageObject;
     public void CreatDamageOb()
     {
-        GameObject damageObject = Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation,this.transform.parent.parent.transform);
+        damageObject = Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation, this.transform.parent.parent.transform);
+
     }
+
+
     private void ReActiveBool()
     {
+        anim.SetBool("isAttack", false);
         isAttackRepeat = true;
     }
     private void OnSequenceComplete()
@@ -102,8 +109,9 @@ public class AttackNode : BTNode
         {
             if (anim != null)
             {
-                anim.SetBool("isAttack", false);
-                anim.SetBool("AttackOnce", true);
+
+              //  anim.SetBool("isAttack", false);
+               // anim.SetBool("AttackOnce", true);
             }
             isAttack = true;
             brain.restartEvaluate();

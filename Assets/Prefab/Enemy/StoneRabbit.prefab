@@ -366,6 +366,7 @@ MonoBehaviour:
   checkPlayer: {fileID: 8769044546360345887}
   maxXSpeed: 15
   maxYSpeed: 15
+  isStun: 0
   poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68,
     type: 3}
 --- !u!114 &7202398604588207664

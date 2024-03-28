@@ -17,11 +17,10 @@ public class EnemyDamageObject : MonoBehaviour
     public bool isLaunch;
     public float launchForce = 0;
     public Vector2 launchDir;
-
-    public bool isDeletByGround = false;
+    public bool isGroundDestroy = false;
 
     private Sequence sequence; // 시퀀스를 저장하기 위한 변수 추가
-    GameObject enemyOb;
+     GameObject enemyOb;
 
     void Start()
     {
@@ -35,12 +34,9 @@ public class EnemyDamageObject : MonoBehaviour
         if (isLaunch)
         {
             transform.parent = null;
-            if (player.transform.position.x > transform.position.x)
-            {
-                launchDir.x = -launchDir.x;
-            }
+            Vector3 direction = (player.transform.position - this.transform.position).normalized;
             Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-            rigidbody2D.AddForce(launchDir * launchForce, ForceMode2D.Impulse);
+            rigidbody2D.AddForce(direction * launchForce, ForceMode2D.Impulse);
         }
     }
 
@@ -95,9 +91,9 @@ public class EnemyDamageObject : MonoBehaviour
 
 
 
-        if (collision.tag == "Ground")
+        if (collision.tag == "Ground" )
         {
-            if (isDeletByGround)
+            if (isGroundDestroy== true)
             {
                 Destroy(this.gameObject);
             }
