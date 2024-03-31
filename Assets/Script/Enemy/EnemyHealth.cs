@@ -36,11 +36,15 @@ public class EnemyHealth : MonoBehaviour
        // brain = transform.GetComponent<BTBrain>();
         nowHP = maxHP;
         hpBar.setHpBar(maxHP);
-
-        if(checkPlayer.isPreemptive == true&& enemySensor.activeSelf ==false)
+        
+        if (enemySensor != null)
         {
-            enemySensor.SetActive(true);
+            if (checkPlayer.isPreemptive == true && enemySensor.activeSelf == false)
+            {
+                enemySensor.SetActive(true);
+            }
         }
+     
     }
     bool notStiff;
 

@@ -81,7 +81,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.48, y: 0.48}
+  m_Size: {x: 2.96, y: 1.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -164,7 +164,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 2.96, y: 1.68}
-    newSize: {x: 0.48, y: 0.48}
+    newSize: {x: 2.96, y: 1.68}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -245,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8db1b41a9445034a8666946398a79ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentEnemy: {fileID: 0}
 --- !u!1 &2624621651293800625
 GameObject:
   m_ObjectHideFlags: 0

@@ -954,10 +954,13 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   deadBody: {fileID: 8476206652666059570, guid: 78482465366bd0f49a14f340a0885ab2,
     type: 3}
+  enemySensor: {fileID: 0}
   ShakeCorrection: 1.2
   isAttackGround: 0
+  checkPlayer: {fileID: 0}
   maxXSpeed: 15
   maxYSpeed: 15
+  isStun: 0
   poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68,
     type: 3}
 --- !u!114 &2186892472464217989
