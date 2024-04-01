@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
-    float chInRommSize = 1f;
+    float chInRommSize = 1.5f;
     public float runSpeed = 10f;  // 이동 속도
     public int runStemina; // 달리기시 사용하는 스테미나
     public float intervalRunStemina; // 달리기시 사용하는 스테미나
