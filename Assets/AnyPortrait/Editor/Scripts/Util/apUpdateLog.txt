@@ -1,0 +1,363 @@
+﻿(업데이트 이미지 개수)
+0
+-----------------------------------------
+(영어)
+<size=16>AnyPortrait Update Log v1.4.8</size>
+(December 8, 2023)
+
+<size=13>Improvements</size>
+
+- <color=blue>Improved compatibility in Unity 2023</color>
+    A feature has been added to resolve the issue of "excessively slow performance after the focus is moved to an external program while the AnyPortrait editor is turned on."
+    Some code has been fixed due to deprecated APIs in Unity 2023.
+    An issue where some UI, such as the modifier list, was displayed abnormally in Unity 2023 has been fixed.
+
+- <color=blue>Update Options</color>
+    An option to change when the main logic is executed has been added to the Bake dialog and Inspector.
+
+- <color=blue>Root Motion</color>
+    A "Root Motion" option has been added to the Bake dialog and Inspector to anchor the root bone to the origin of the parent GameObject and move the parent GameObject instead.
+
+- When the "Animator" component is added according to the Mecanim option, the default properties have been changed so that the character's Local Position is not fixed to (0, 0, 0).
+- The Inspector UI has been improved to look a little better.
+- The color of the grid UI of the animation timeline has been modified so that it is not too bright.
+
+
+
+<size=13>Fixed issues</size>
+
+- An issue is fixed where meshes become invisible before the first keyframe of a non-Loop animation because the Transform value of the object becomes 0.
+- An issue is fixed where the editor update frequency remained reduced even when the mouse was dragged when the performance optimization function for laptops was turned on.
+- An issue is fixed where the UI of the dialog for selecting presets for control parameters was displayed abnormally.
+
+
+
+
+-----------------------------------------
+(한국어)
+<size=16>AnyPortrait 업데이트 로그 v1.4.8</size>
+(2023년 12월 8일)
+
+<size=13>개선된 사항</size>
+
+- <color=blue>Unity 2023 호환성 개선</color>
+    AnyPortrait 에디터가 켜진 상태에서 외부 프로그램으로 포커스가 이동한 이후에 성능이 지나치게 느려지는 문제를 해결하는 기능이 추가됨
+    Unity 2023에서 사용되지 않는 API에 맞추어 일부 코드가 수정됨
+    Unity 2023에서 모디파이어 리스트 등의 일부 UI가 비정상적으로 출력되는 문제가 수정됨
+
+- <color=blue>업데이트 옵션</color>
+    메인 로직이 실행되는 시점을 변경할 수 있는 옵션이 Bake 다이얼로그와 Inspector에 추가됨
+
+- <color=blue>루트 모션 (Root Motion)</color>
+    루트 본이 부모 GameObject의 원점에 위치하도록 고정하고, 부모 GameObject를 대신 움직이는 "루트 모션 (Root Motion)" 옵션이 Bake 다이얼로그와 Inspector에 추가됨
+
+- 메카님을 사용하도록 설정하여 Animator 컴포넌트가 새로 추가되었을 때의 기본 속성이 캐릭터의 Local Position을 (0, 0, 0)으로 고정하지 않도록 변경됨
+- Inspector UI가 조금 더 보기 좋도록 개선됨
+- 애니메이션 타임라인의 그리드 UI의 색상이 너무 밝지 않도록 수정됨
+
+
+
+<size=13>수정된 문제점</size>
+
+- Loop가 아닌 애니메이션의 첫 키프레임보다 앞에서는 해당 객체의 Transform 값이 0이 되어버려서 메시들이 보이지 않게 되는 문제가 수정됨
+- 노트북을 위한 성능 최적화 기능을 켰을 때 마우스 드래그시에도 에디터 갱신 빈도가 줄어든 상태가 유지되는 문제가 수정됨
+- 컨트롤 파라미터의 프리셋을 선택하는 다이얼로그의 UI가 비정상적으로 출력되는 문제가 수정됨
+
+
+
+
+-----------------------------------------
+(프랑스어)
+<size=16>Fichier de mise à jour AnyPortrait v1.4.8</size>
+(8 décembre 2023)
+
+<size=13>Améliorations</size>
+
+- <color=blue>Compatibilité améliorée dans Unity 2023</color>
+    Une fonctionnalité a été ajoutée pour résoudre le problème des « performances excessivement lentes après que le focus soit déplacé vers un programme externe alors que l'éditeur AnyPortrait est activé ».
+    Certains codes ont été corrigés en raison d'API obsolètes dans Unity 2023.
+    Un problème où certaines interfaces utilisateur, telles que la liste des modificateurs, s'affichaient anormalement dans Unity 2023 a été corrigé.
+
+- <color=blue>Options de mise à jour</color>
+    Une option permettant de modifier le moment où la logique principale est exécutée a été ajoutée à la boîte de dialogue Bake et à l'inspecteur.
+
+- <color=blue>Root Motion</color>
+    Une option "Root Motion" a été ajoutée à la boîte de dialogue Bake et à l'inspecteur pour ancrer l'os racine à l'origine du GameObject parent et déplacer le GameObject parent à la place.
+
+- Lorsque le composant "Animateur" est ajouté selon l'option Mecanim, les propriétés par défaut ont été modifiées afin que la Position Locale du personnage ne soit pas fixée à (0, 0, 0).
+- L'interface utilisateur de l'inspecteur a été améliorée pour être un peu meilleure.
+- La couleur de l'interface utilisateur de la grille de la timeline de l'animation a été modifiée afin qu'elle ne soit pas trop lumineuse.
+
+
+
+<size=13>Problème résolu</size>
+
+- Un problème est résolu où les maillages deviennent invisibles avant la première image clé d'une animation sans boucle car la valeur de transformation de l'objet devient 0.
+- Un problème est résolu où la fréquence de mise à jour de l'éditeur restait réduite même lorsque la souris était déplacée lorsque la fonction d'optimisation des performances pour les ordinateurs portables était activée.
+- Un problème est résolu où l'interface utilisateur de la boîte de dialogue de sélection des préréglages pour les paramètres de contrôle s'affichait anormalement.
+
+
+
+-----------------------------------------
+(독일어)
+<size=16>AnyPortrait-Aktualisierungsprotokoll v1.4.8</size>
+(8. Dezember 2023)
+
+<size=13>Verbesserungen</size>
+
+- <color=blue>Verbesserte Kompatibilität in Unity 2023</color>
+    Es wurde eine Funktion hinzugefügt, um das Problem der „übermäßig langsamen Leistung, nachdem der Fokus auf ein externes Programm verschoben wurde, während der AnyPortrait-Editor aktiviert ist“ zu beheben.
+    Einige Codes wurden aufgrund veralteter APIs in Unity 2023 behoben.
+    Ein Problem, bei dem einige Benutzeroberflächen, wie z. B. die Modifikatorliste, in Unity 2023 ungewöhnlich angezeigt wurden, wurde behoben.
+
+- <color=blue>Update-Optionen</color>
+    Dem Bake-Dialog und dem Inspektor wurde eine Option hinzugefügt, mit der geändert werden kann, wann die Hauptlogik ausgeführt wird.
+
+- <color=blue>Root Motion</color>
+    Dem Backen-Dialogfeld und dem Inspektor wurde die Option „Root Motion“ hinzugefügt, um den Root-Bone am Ursprung des übergeordneten GameObjects zu verankern und stattdessen das übergeordnete GameObject zu verschieben.
+
+- Wenn die Komponente „Animator“ gemäß der Mecanim-Option hinzugefügt wird, wurden die Standardeigenschaften geändert, sodass die lokale Position des Charakters nicht auf (0, 0, 0) festgelegt ist.
+- Die Benutzeroberfläche des Inspektors wurde verbessert und sieht nun etwas besser aus.
+- Die Farbe der Raster-Benutzeroberfläche der Animationszeitleiste wurde geändert, sodass sie nicht zu hell ist.
+
+
+
+<size=13>Problem behoben</size>
+
+- Es wurde ein Problem behoben, bei dem Netze vor dem ersten Keyframe einer Nicht-Loop-Animation unsichtbar wurden, weil der Transformationswert des Objekts 0 wird.
+- Es wurde ein Problem behoben, bei dem die Aktualisierungshäufigkeit des Editors reduziert blieb, selbst wenn die Maus gezogen wurde, während die Leistungsoptimierungsfunktion für Laptops aktiviert war.
+- Es wurde ein Problem behoben, bei dem die Benutzeroberfläche des Dialogs zur Auswahl von Voreinstellungen für Steuerungsparameter nicht ordnungsgemäß angezeigt wurde.
+
+
+
+
+-----------------------------------------
+(스페인어)
+<size=16>AnyPortrait Update Log v1.4.8</size>
+(8 de diciembre de 2023)
+
+<size=13>Mejoras</size>
+
+- <color=blue>Compatibilidad mejorada en Unity 2023</color>
+    Se agregó una función para resolver el problema de "rendimiento excesivamente lento después de mover el foco a un programa externo mientras el editor AnyPortrait está activado".
+    Se ha corregido parte del código debido a API obsoletas en Unity 2023.
+    Se solucionó un problema por el cual alguna interfaz de usuario, como la lista de modificadores, se mostraba de manera anormal en Unity 2023.
+
+- <color=blue>Opciones de actualización</color>
+    Se agregó una opción para cambiar cuándo se ejecuta la lógica principal al cuadro de diálogo Hornear y al Inspector.
+
+- <color=blue>Root Motion</color>
+    Se agregó una opción de "Movimiento de raíz" al cuadro de diálogo Bake y al Inspector para anclar el hueso de raíz al origen del GameObject principal y mover el GameObject principal en su lugar.
+
+- Cuando se agrega el componente "Animador" según la opción Mecanim, las propiedades predeterminadas se han cambiado para que la Posición local del personaje no esté fijada en (0, 0, 0).
+- La interfaz de usuario del Inspector se ha mejorado para que se vea un poco mejor.
+- Se ha modificado el color de la interfaz de usuario de la cuadrícula de la línea de tiempo de la animación para que no sea demasiado brillante.
+
+
+
+<size=13>Problema solucionado</size>
+
+- Se solucionó un problema por el cual las mallas se volvían invisibles antes del primer fotograma clave de una animación sin bucle porque el valor de Transformación del objeto se convertía en 0.
+- Se solucionó un problema por el cual la frecuencia de actualización del editor permanecía reducida incluso cuando se arrastraba el mouse cuando la función de optimización del rendimiento para computadoras portátiles estaba activada.
+- Se solucionó un problema por el cual la interfaz de usuario del cuadro de diálogo para seleccionar ajustes preestablecidos para los parámetros de control se mostraba de manera anormal.
+
+
+
+-----------------------------------------
+(이탈리아어)
+<size=16>Registro aggiornamenti AnyPortrait v1.4.8</size>
+(8 dicembre 2023)
+
+<size=13>Miglioramenti</size>
+
+- <color=blue>Compatibilità migliorata in Unity 2023</color>
+    È stata aggiunta una funzionalità per risolvere il problema delle "prestazioni eccessivamente lente dopo lo spostamento dello stato attivo su un programma esterno mentre l'editor AnyPortrait è attivo".
+    Alcuni codici sono stati corretti a causa delle API deprecate in Unity 2023.
+    È stato risolto un problema per cui alcune interfacce utente, come l'elenco dei modificatori, venivano visualizzate in modo anomalo in Unity 2023.
+
+- <color=blue>Opzioni di aggiornamento</color>
+    Un'opzione per modificare il momento in cui viene eseguita la logica principale è stata aggiunta alla finestra di dialogo Bake e all'Inspector.
+
+- <color=blue>Root Motion</color>
+    Un'opzione "Root Motion" è stata aggiunta alla finestra di dialogo Bake e all'Ispettore per ancorare l'osso della radice all'origine del GameObject genitore e spostare invece il GameObject genitore.
+
+- Quando il componente "Animatore" viene aggiunto in base all'opzione Mecanim, le proprietà predefinite sono state modificate in modo che la posizione locale del personaggio non sia fissa su (0, 0, 0).
+- L'interfaccia utente dell'ispettore è stata migliorata per avere un aspetto leggermente migliore.
+- Il colore dell'interfaccia utente della griglia della timeline dell'animazione è stato modificato in modo che non sia troppo luminoso.
+
+
+
+<size=13>Risolto il problema</size>
+
+- È stato risolto un problema per cui le mesh diventavano invisibili prima del primo fotogramma chiave di un'animazione non loop perché il valore di trasformazione dell'oggetto diventa 0.
+- È stato risolto un problema per cui la frequenza di aggiornamento dell'editor rimaneva ridotta anche quando il mouse veniva trascinato quando era attivata la funzione di ottimizzazione delle prestazioni per i laptop.
+- È stato risolto un problema per cui l'interfaccia utente della finestra di dialogo per la selezione delle preimpostazioni per i parametri di controllo veniva visualizzata in modo anomalo.
+
+
+
+-----------------------------------------
+(덴마크어)
+<size=16>AnyPortrait Update Log v1.4.8</size>
+(8. december 2023)
+
+<size=13>Forbedringer</size>
+
+- <color=blue>Forbedret kompatibilitet i Unity 2023</color>
+    En funktion er blevet tilføjet for at løse problemet med "overdrevent langsom ydeevne, efter at fokus er flyttet til et eksternt program, mens AnyPortrait-editoren er tændt."
+    Noget kode er blevet rettet på grund af forældede API'er i Unity 2023.
+    Et problem, hvor nogle brugergrænseflader, såsom ændringslisten, blev vist unormalt i Unity 2023, er blevet rettet.
+
+- <color=blue>Opdateringsindstillinger</color>
+    En mulighed for at ændre, når hovedlogikken udføres, er blevet tilføjet til Bake-dialogen og Inspector.
+
+- <color=blue>Root Motion</color>
+    En "Root Motion"-indstilling er blevet tilføjet til Bake-dialogen og Inspector for at forankre rodknoglen til oprindelsen af det overordnede GameObject og flytte det overordnede GameObject i stedet.
+
+- Når "Animator"-komponenten tilføjes i henhold til Mecanim-indstillingen, er standardegenskaberne blevet ændret, så karakterens lokale position ikke er fastsat til (0, 0, 0).
+- Inspector UI er blevet forbedret til at se lidt bedre ud.
+- Farven på gitterets brugergrænseflade på animationstidslinjen er blevet ændret, så den ikke er for lys.
+
+
+
+<size=13>Faste problem</size>
+
+- Et problem er rettet, hvor mesh bliver usynlig før den første keyframe i en ikke-loop-animation, fordi transformationsværdien for objektet bliver 0.
+- Et problem er rettet, hvor editorens opdateringsfrekvens forblev reduceret, selv når musen blev trukket, når ydelsesoptimeringsfunktionen for bærbare computere blev slået til.
+- Et problem er rettet, hvor brugergrænsefladen i dialogen til valg af forudindstillinger for kontrolparametre blev vist unormalt.
+
+
+
+
+-----------------------------------------
+(일본어)
+<size=16> AnyPortrait更新ログv1.4.8</size>
+(2023年12月8日)
+
+<size=13>改善点</size>
+
+- <color=blue>Unity 2023 での互換性の向上</color>
+    「AnyPortraitエディターをONにした状態で、外部プログラムにフォーカスを移動すると動作が異常に遅くなる」問題を解決する機能を追加しました。
+    Unity 2023 で非推奨となった API のため、一部のコードが修正されました。
+    Unity 2023 でモディファイアリストなどの一部の UI が異常に表示される問題が修正されました。
+
+- <color=blue>アップデートオプション</color>
+    メインロジックの実行時に変更するオプションがベイクダイアログとインスペクターに追加されました。
+
+- <color=blue>ルートモーション</color>
+    「ルートモーション」オプションがベイク ダイアログとインスペクターに追加され、ルート ボーンを親ゲームオブジェクトの原点に固定し、代わりに親ゲームオブジェクトを移動します。
+
+- 「Mecanim」オプションにより「Animator」コンポーネントを追加した場合、キャラクターのLocal Positionが(0, 0, 0)に固定されないようにデフォルトのプロパティが変更されました。
+- インスペクター UI が改善され、見た目が少し良くなりました。
+- アニメーションタイムラインのグリッドUIの色が明るすぎないように修正されました。
+
+
+
+<size=13>修正された問題</size>
+
+- オブジェクトの Transform 値が 0 になるため、非ループ アニメーションの最初のキーフレームの前にメッシュが非表示になる問題が修正されました。
+- ノートパソコンのパフォーマンス最適化機能がオンの場合、マウスをドラッグしてもエディタの更新頻度が低下したままになる問題を修正しました。
+- 制御パラメータのプリセットを選択するダイアログのUIが異常に表示される問題を修正しました。
+
+
+
+
+-----------------------------------------
+(중국어-번체)
+<size=16>AnyPortrait更新日誌v1.4.8</size>
+（2023年12月8日）
+
+<size=13>改進</size>
+
+- <color=blue>改進了 Unity 2023 中的相容性</color>
+    新增了一項功能來解決「開啟 AnyPortrait 編輯器時焦點移至外部程式後效能過慢」的問題。
+    由於 Unity 2023 中已棄用 API，因此部分程式碼已修復。
+    修正了Unity 2023中部分UI（例如修改器清單）顯示異常的問題。
+
+- <color=blue>更新選項</color>
+    烘焙對話方塊和檢查器中新增了執行主邏輯時變更的選項。
+
+- <color=blue>根運動</color>
+    「烘焙」對話方塊和檢視器中新增了「根運動」選項，以將根骨骼錨定到父遊戲物件的原點並移動父遊戲物件。
+
+- 當根據「Mecanim」選項新增「Animator」元件時，預設屬性已更改，因此角色的本地位置不固定為(0, 0, 0)。
+- 檢查器 UI 已改進，看起來更好一些。
+- 動畫時間軸網格UI的顏色已修改，使其不會太亮。
+
+
+
+<size=13>修復了問題</size>
+
+- 修正了以下問題：由於物件的變換值變為 0，網格在非循環動畫的第一個關鍵影格之前變得不可見。
+- 修正了筆記型電腦效能最佳化功能開啟時，即使拖曳滑鼠，編輯器更新頻率仍然降低的問題。
+- 修正了用於選擇控制參數預設的對話框 UI 顯示異常的問題。
+
+
+
+
+-----------------------------------------
+(중국어-간체)
+<size=16>AnyPortrait更新日志v1.4.8</size>
+（2023年12月8日）
+
+<size=13>改进</size>
+
+- <color=blue>改进了 Unity 2023 中的兼容性</color>
+    添加了一项功能来解决“打开 AnyPortrait 编辑器时焦点移至外部程序后性能过慢”的问题。
+    由于 Unity 2023 中已弃用 API，一些代码已得到修复。
+    修复了Unity 2023中部分UI（例如修改器列表）显示异常的问题。
+
+- <color=blue>更新选项</color>
+    烘焙对话框和检查器中添加了执行主逻辑时更改的选项。
+
+- <color=blue>根运动</color>
+    “烘焙”对话框和检查器中添加了“根运动”选项，以将根骨骼锚定到父游戏对象的原点并移动父游戏对象。
+
+- 当根据 Mecanim 选项添加“Animator”组件时，默认属性已更改，因此角色的本地位置不固定为 (0, 0, 0)。
+- 检查器 UI 已得到改进，看起来更好一些。
+- 动画时间轴网格UI的颜色已修改，使其不会太亮。
+
+
+
+<size=13>修复了问题</size>
+
+- 修复了以下问题：由于对象的变换值变为 0，网格在非循环动画的第一个关键帧之前变得不可见。
+- 修复了笔记本电脑性能优化功能打开时，即使拖动鼠标，编辑器更新频率仍然降低的问题。
+- 修复了用于选择控制参数预设的对话框 UI 显示异常的问题。
+
+
+
+
+-----------------------------------------
+(폴란드어)
+<size=16>Dziennik aktualizacji AnyPortret v1.4.8</size>
+(8 grudnia 2023 r.)
+
+<size=13>Ulepszenia</size>
+
+- <color=blue>Poprawiona kompatybilność w Unity 2023</color>
+    Dodano funkcję rozwiązującą problem „zbyt niskiej wydajności po przeniesieniu fokusu na program zewnętrzny, gdy włączony jest edytor AnyPortrait”.
+    Część kodu została naprawiona z powodu przestarzałych interfejsów API w Unity 2023.
+    Naprawiono problem polegający na tym, że niektóre interfejsy użytkownika, takie jak lista modyfikatorów, były nieprawidłowo wyświetlane w Unity 2023.
+
+- <color=blue>Opcje aktualizacji</color>
+    Do okna dialogowego pieczenia i inspektora dodano opcję zmiany czasu wykonywania głównej logiki.
+
+- <color=blue>Root Motion</color>
+    Do okna dialogowego Bake i Inspektora dodano opcję „Root Motion”, która pozwala zakotwiczyć kość korzenia w początku nadrzędnego obiektu GameObject i zamiast tego przenieść nadrzędny obiekt GameObject.
+
+- Po dodaniu komponentu „Animator” zgodnie z opcją Mecanim, domyślne właściwości zostały zmienione w taki sposób, że pozycja lokalna postaci nie jest ustalona na (0, 0, 0).
+- Interfejs Inspektora został ulepszony i wygląda nieco lepiej.
+- Kolor interfejsu siatki osi czasu animacji został zmodyfikowany, aby nie był zbyt jasny.
+
+
+
+<size=13>Naprawiono problem</size>
+
+- Naprawiono problem polegający na tym, że siatki stają się niewidoczne przed pierwszą klatką kluczową animacji innej niż pętla, ponieważ wartość transformacji obiektu wynosi 0.
+- Naprawiono problem polegający na tym, że częstotliwość aktualizacji edytora pozostawała zmniejszona nawet po przeciągnięciu myszy, gdy włączona była funkcja optymalizacji wydajności dla laptopów.
+- Naprawiono problem polegający na tym, że interfejs użytkownika okna dialogowego wyboru ustawień wstępnych parametrów kontrolnych był wyświetlany nieprawidłowo.
+
+
+
+
+-----------------------------------------
