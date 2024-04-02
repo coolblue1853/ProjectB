@@ -1,0 +1,231 @@
+﻿148
+Player
+202442_16_52
+------------------------------------------------
+35
+76
+0:System.Collections.Generic.List`1[[AnyPortrait.apTextureData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib
+1:System.Collections.Generic.List`1[[AnyPortrait.apMesh, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib
+2:System.Collections.Generic.List`1[[AnyPortrait.apMeshGroup, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib
+3:AnyPortrait.apController, Assembly-CSharp
+4:System.Collections.Generic.List`1[[AnyPortrait.apAnimClip, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib
+5:AnyPortrait.apAnimPlayManager, Assembly-CSharp
+6:System.Collections.Generic.List`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib
+7:System.Collections.Generic.List`1[[AnyPortrait.apRootUnit, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib
+8:System.Int32, mscorlib
+9:System.Single, mscorlib
+10:System.String, mscorlib
+11:System.Boolean, mscorlib
+12:AnyPortrait.apPortrait+SORTING_ORDER_OPTION, Assembly-CSharp
+13:AnyPortrait.apPortrait+BILLBOARD_TYPE, Assembly-CSharp
+14:AnyPortrait.apPortrait+VR_SUPPORT_MODE, Assembly-CSharp
+15:AnyPortrait.apPortrait+VR_RT_SIZE, Assembly-CSharp
+16:AnyPortrait.apPortrait+SHADOW_CASTING_MODE, Assembly-CSharp
+17:System.Collections.Generic.List`1[[AnyPortrait.apMaterialSet, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib
+18:AnyPortrait.apMaterialSet, Assembly-CSharp
+19:AnyPortrait.apPortrait+FLIPPED_MESH_CHECK, Assembly-CSharp
+20:AnyPortrait.apPortrait+ROOT_BONE_SCALE_METHOD, Assembly-CSharp
+21:AnyPortrait.apPortrait+UNSPECIFIED_ANIM_CONTROL_PARAM, Assembly-CSharp
+22:AnyPortrait.apPortrait+MESH_UPDATE_FREQUENCY, Assembly-CSharp
+23:AnyPortrait.apPortrait+PROCESS_EVENT_ON, Assembly-CSharp
+24:AnyPortrait.apPortrait+ROOT_MOTION_MODE, Assembly-CSharp
+25:AnyPortrait.apPortrait+ROOT_MOTION_MOVE_TYPE_PER_AXIS, Assembly-CSharp
+26:AnyPortrait.apPortrait+ROOT_MOTION_TARGET_TRANSFORM, Assembly-CSharp
+27:System.Collections.Generic.List`1[[AnyPortrait.apControlParam, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib
+28:System.Collections.Generic.List`1[[AnyPortrait.apAnimPlayData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib
+29:AnyPortrait.apMaterialSet+ICON, Assembly-CSharp
+30:System.Collections.Generic.List`1[[AnyPortrait.apMaterialSet+PropertySet, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib
+31:AnyPortrait.apMaterialSet+PropertySet, Assembly-CSharp
+32:AnyPortrait.apMaterialSet+SHADER_PROP_TYPE, Assembly-CSharp
+33:UnityEngine.Vector4, UnityEngine.CoreModule
+34:UnityEngine.Color, UnityEngine.CoreModule
+0:_textureData
+1:_meshes
+2:_meshGroups
+3:_controller
+4:_animClips
+5:_animPlayManager
+6:_mainMeshGroupIDList
+7:_rootUnits
+8:_FPS
+9:_bakeScale
+10:_bakeZSize
+11:_imageFilePath_Thumbnail
+12:_isPhysicsPlay_Editor
+13:_isImportant
+14:_autoPlayAnimClipID
+15:_isOptimizedPortrait
+16:_sortingLayerID
+17:_sortingOrder
+18:_sortingOrderOption
+19:_sortingOrderPerDepth
+20:_isUsingMecanim
+21:_mecanimAnimClipResourcePath
+22:_billboardType
+23:_vrSupportMode
+24:_vrRenderTextureSize
+25:_isForceCamSortModeToOrthographic
+26:_meshShadowCastingMode
+27:_meshReceiveShadow
+28:_materialSets
+29:_flippedMeshOption
+30:_rootBoneScaleMethod
+31:_unspecifiedAnimControlParamOption
+32:_isTeleportCorrectionOption
+33:_teleportMovementDist
+34:_meshRefreshRateOption
+35:_meshRefreshRateFPS
+36:_mainProcessEvent
+37:_rootMotionModeOption
+38:_rootMotionAxisOption_X
+39:_rootMotionAxisOption_Y
+40:_rootMotionTargetTransformType
+41:_controlParams
+42:_animPlayDataList
+43:_name
+44:_uniqueID
+45:_linkedPresetID
+46:_isDefault
+47:_icon
+48:_shaderPath_Normal_AlphaBlend
+49:_shaderPath_Normal_Additive
+50:_shaderPath_Normal_SoftAdditive
+51:_shaderPath_Normal_Multiplicative
+52:_shaderPath_Clipped_AlphaBlend
+53:_shaderPath_Clipped_Additive
+54:_shaderPath_Clipped_SoftAdditive
+55:_shaderPath_Clipped_Multiplicative
+56:_shaderPath_L_Normal_AlphaBlend
+57:_shaderPath_L_Normal_Additive
+58:_shaderPath_L_Normal_SoftAdditive
+59:_shaderPath_L_Normal_Multiplicative
+60:_shaderPath_L_Clipped_AlphaBlend
+61:_shaderPath_L_Clipped_Additive
+62:_shaderPath_L_Clipped_SoftAdditive
+63:_shaderPath_L_Clipped_Multiplicative
+64:_shaderPath_AlphaMask
+65:_propertySets
+66:_isNeedToSetBlackColoredAmbient
+67:_isReserved
+68:_isOptionEnabled
+69:_propType
+70:_value_Float
+71:_value_Int
+72:_value_Vector
+73:_value_Color
+74:_isCommonTexture
+75:_commonTexturePath
+------------------------------------------------
+000R
+001N0010001016000010
+001N0011001116000010
+001N0012001216000010
+001N0013001315000011
+002N002410022716000010
+001N0014001416000010
+001N0015001515000011
+002N002420022816000010
+001N0016001616000010
+001N0017001716000010
+001N00180018010000230
+001N0019001901000040.01
+001N00210001901000011
+001N00211002100300000
+001N00212002110100004True
+001N00213002110100004True
+001N0021400180100002-1
+001N00215002110100005False
+001N00216001801000010
+001N00217001801000010
+001N002180021202000010
+001N00219001801000011
+001N00220002110100005False
+001N00221002100300000
+001N002220021302000010
+001N002230021402000010
+001N002240021502000010
+001N00225002110100004True
+001N002260021602000010
+001N00227002110100005False
+001N002280021716000011
+002I001000218150000224
+003N00243002100300010Unlit (v2)
+003N002440018010000598130
+003N00245001801000012
+003N00246002110100004True
+003N002470022902000010
+003N00248002100300072Assets/AnyPortrait/Assets/Shaders/Unlit 2/apShader_Unlit2_T_Alpha.shader
+003N00249002100300070Assets/AnyPortrait/Assets/Shaders/Unlit 2/apShader_Unlit2_T_Add.shader
+003N00250002100300071Assets/AnyPortrait/Assets/Shaders/Unlit 2/apShader_Unlit2_T_Soft.shader
+003N00251002100300070Assets/AnyPortrait/Assets/Shaders/Unlit 2/apShader_Unlit2_T_Mul.shader
+003N00252002100300072Assets/AnyPortrait/Assets/Shaders/Unlit 2/apShader_Unlit2_C_Alpha.shader
+003N00253002100300070Assets/AnyPortrait/Assets/Shaders/Unlit 2/apShader_Unlit2_C_Add.shader
+003N00254002100300071Assets/AnyPortrait/Assets/Shaders/Unlit 2/apShader_Unlit2_C_Soft.shader
+003N00255002100300070Assets/AnyPortrait/Assets/Shaders/Unlit 2/apShader_Unlit2_C_Mul.shader
+003N00256002100300081Assets/AnyPortrait/Assets/Shaders/Unlit 2/Linear/apShader_L_Unlit2_T_Alpha.shader
+003N00257002100300079Assets/AnyPortrait/Assets/Shaders/Unlit 2/Linear/apShader_L_Unlit2_T_Add.shader
+003N00258002100300080Assets/AnyPortrait/Assets/Shaders/Unlit 2/Linear/apShader_L_Unlit2_T_Soft.shader
+003N00259002100300079Assets/AnyPortrait/Assets/Shaders/Unlit 2/Linear/apShader_L_Unlit2_T_Mul.shader
+003N00260002100300081Assets/AnyPortrait/Assets/Shaders/Unlit 2/Linear/apShader_L_Unlit2_C_Alpha.shader
+003N00261002100300079Assets/AnyPortrait/Assets/Shaders/Unlit 2/Linear/apShader_L_Unlit2_C_Add.shader
+003N00262002100300080Assets/AnyPortrait/Assets/Shaders/Unlit 2/Linear/apShader_L_Unlit2_C_Soft.shader
+003N00263002100300079Assets/AnyPortrait/Assets/Shaders/Unlit 2/Linear/apShader_L_Unlit2_C_Mul.shader
+003N00264002100300074Assets/AnyPortrait/Assets/Shaders/Unlit 2/apShader_Unlit2_AlphaMask.shader
+003N002650023016000014
+004I001000231150000210
+005N00243002100300006_Color
+005N00267002110100004True
+005N00268002110100004True
+005N002690023202000014
+005N00270001901000010
+005N00271001801000010
+005N002720023306000070/0/0/0
+005N002730023407000070/0/0/1
+005N00274002110100004True
+005N00275002100300000
+004I001100231150000210
+005N00243002100300008_MainTex
+005N00267002110100004True
+005N00268002110100004True
+005N002690023202000013
+005N00270001901000010
+005N00271001801000010
+005N002720023306000070/0/0/0
+005N002730023407000070/0/0/1
+005N00274002110100004True
+005N00275002100300000
+004I001200231150000210
+005N00243002100300008_MaskTex
+005N00267002110100004True
+005N00268002110100004True
+005N002690023202000013
+005N00270001901000010
+005N00271001801000010
+005N002720023306000070/0/0/0
+005N002730023407000070/0/0/1
+005N00274002110100004True
+005N00275002100300000
+004I001300231150000210
+005N00243002100300022_MaskScreenSpaceOffset
+005N00267002110100004True
+005N00268002110100004True
+005N002690023202000012
+005N00270001901000010
+005N00271001801000010
+005N002720023306000070/0/0/0
+005N002730023407000070/0/0/1
+005N00274002110100004True
+005N00275002100300000
+003N00266002110100005False
+001N002290021902000010
+001N002300022002000010
+001N002310022102000010
+001N00232002110100005False
+001N002330019010000210
+001N002340022202000010
+001N002350018010000224
+001N002360022302000010
+001N002370022402000010
+001N002380022502000012
+001N002390022502000012
+001N002400022602000010
