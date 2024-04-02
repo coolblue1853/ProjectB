@@ -14,22 +14,15 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     public AttackManager attackManager; // 무기 장착을 위한  AttackManager
     GameObject instantiatedPrefab;
     Weapon weapon;
-    Weapon sideWeapon;
     Equipment head;
     Equipment chest;
     Equipment leg;
     Equipment hand;
     Equipment necklace;
     Equipment ring;
-    public bool isSideWeaponBox = false;
     public GameObject nowBox;
 
-    public void EquipSideWeapon()
-    {
-        sideWeapon = equipPrefab.GetComponent<Weapon>();
-        attackManager.equipSideWeapon = sideWeapon;
-        attackManager.EquipSideWeaopon();
-    }
+
     public void EquipMainWeapon()
     {
        // weapon = equipPrefab.GetComponent<Weapon>();
@@ -44,18 +37,11 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             ItemCheck obItemCheck = ob.GetComponent<ItemCheck>();
            LoadPrefab(obItemCheck.name, obItemCheck.equipArea);
         }
-        if (reciveEquipArea == "Weapon" && weapon == null && isSideWeaponBox == false)
+        if (reciveEquipArea == "Weapon" && weapon == null)
         {
              weapon = equipPrefab.GetComponent<Weapon>();
             attackManager.equipWeapon = weapon;
             attackManager.EquipMainWeaopon();
-
-        }
-        else if (reciveEquipArea == "Weapon" && sideWeapon == null && isSideWeaponBox == true)
-        {
-            sideWeapon = equipPrefab.GetComponent<Weapon>();
-            attackManager.equipSideWeapon = sideWeapon;
-            attackManager.EquipSideWeaopon();
 
         }
         else if (reciveEquipArea == "Head" && head == null)
@@ -91,83 +77,31 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
     }
     GameObject deletChile ;
-    public void DeletPrefab(string reciveEquipArea, bool isFalse= true, bool isSideWeapon = false)
+    public void DeletPrefab(string reciveEquipArea, bool isFalse= true)
     {
 
         if (reciveEquipArea == "Weapon")
         {
-            if(isSideWeapon == true)
+            if (isFalse == false)
             {
-                if (isFalse == false)
-                {
-                    Sequence waitSequence = DOTween.Sequence()
-    .AppendCallback(() => attackManager.equipSideWeapon = null)
-      .AppendCallback(() => Destroy(sideWeapon.gameObject))
-     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
-     .OnComplete(() => Destroy(deletChile));
-                }
-                else
-                {
-                    if (sideWeapon != null)
-                    {
-
-                        attackManager.equipSideWeapon = null;
-                        Destroy(sideWeapon.gameObject);
-                        sideWeapon = null;
-                    }
-
-
-                }
-            }
-           else if(sideWeapon == false)
-            {
-                if (isFalse == false)
-                {
-                    Sequence waitSequence = DOTween.Sequence()
-    .AppendCallback(() => attackManager.equipWeapon = null)
-      .AppendCallback(() => Destroy(weapon.gameObject))
-     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
-     .OnComplete(() => Destroy(deletChile));
-                }
-                else
-                {
-                    if (weapon != null)
-                    {
-
-                        attackManager.equipWeapon = null;
-                        Destroy(weapon.gameObject);
-                        weapon = null;
-                    }
-
-
-                }
-
+                Sequence waitSequence = DOTween.Sequence()
+.AppendCallback(() => attackManager.equipWeapon = null)
+  .AppendCallback(() => Destroy(weapon.gameObject))
+ .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
+ .OnComplete(() => Destroy(deletChile));
             }
             else
             {
-                if (isFalse == false)
+                if (weapon != null)
                 {
-                    Sequence waitSequence = DOTween.Sequence()
-    .AppendCallback(() => attackManager.equipWeapon = null)
-      .AppendCallback(() => Destroy(weapon.gameObject))
-     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
-     .OnComplete(() => Destroy(deletChile));
+
+                    attackManager.equipWeapon = null;
+                    Destroy(weapon.gameObject);
+                    weapon = null;
                 }
-                else
-                {
-                    if (weapon != null)
-                    {
 
-                        attackManager.equipWeapon = null;
-                        Destroy(weapon.gameObject);
-                        weapon = null;
-                    }
-
-
-                }
 
             }
-
         }
          if (reciveEquipArea == "Head")
         {

@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 public class AttackManager : MonoBehaviour
 {
     public Weapon equipWeapon;
-    public Weapon equipSideWeapon;
     KeyAction action;
     InputAction attackAction;
     InputAction skillAAction;
@@ -50,10 +49,7 @@ public class AttackManager : MonoBehaviour
     {
         equipWeapon.CheckSkill();
     }
-    public void EquipSideWeaopon()
-    {
-        equipSideWeapon.ChecSidekSkill();
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -64,10 +60,7 @@ public class AttackManager : MonoBehaviour
             {
                 equipWeapon.MeleeAttack();
             }
-            else if (attackAction.triggered && equipSideWeapon != null)
-            {
-                equipSideWeapon.MeleeAttack();
-            }
+      
 
             else if (skillAAction.triggered && equipWeapon != null)
             {
@@ -77,6 +70,7 @@ public class AttackManager : MonoBehaviour
             {
                 equipWeapon.ActiveRightSkill();
             }
+            /*
             else if (skillDAction.triggered && equipSideWeapon != null)
             {
                 equipSideWeapon.ActiveSideLeftSkill();
@@ -85,6 +79,7 @@ public class AttackManager : MonoBehaviour
             {
                 equipSideWeapon.ActiveSideRightSkill();
             }
+            */
         }
 
 

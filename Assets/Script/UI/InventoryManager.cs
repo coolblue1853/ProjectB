@@ -55,7 +55,7 @@ public class InventoryManager : MonoBehaviour
 
     public GameObject handBox;
     public GameObject chestBox;
-    public GameObject sideWeaponBox;
+    public GameObject shoseBox;
     public GameObject necklesBox;
     public GameObject headBox;
     public GameObject ringBox;
@@ -562,8 +562,8 @@ public class InventoryManager : MonoBehaviour
             else if (downInventoryAction.triggered)
             {
                 OnlyDetailObOff();
-                GameObject insPositon = sideWeaponBox.gameObject;
-                nowEquipBox = sideWeaponBox;
+                GameObject insPositon = shoseBox.gameObject;
+                nowEquipBox = shoseBox;
                 cusor.transform.position = insPositon.transform.position;
             }
             else if (upInventoryAction.triggered)
@@ -609,7 +609,7 @@ public class InventoryManager : MonoBehaviour
                 cusor.transform.position = insPositon.transform.position;
             }
         }
-        else if (nowEquipBox == sideWeaponBox)
+        else if (nowEquipBox == shoseBox)
         {
             if (leftInventoryAction.triggered)
             {
@@ -679,8 +679,8 @@ public class InventoryManager : MonoBehaviour
             else if (rightInventoryAction.triggered)
             {
                 OnlyDetailObOff();
-                GameObject insPositon = sideWeaponBox.gameObject;
-                nowEquipBox = sideWeaponBox;
+                GameObject insPositon = shoseBox.gameObject;
+                nowEquipBox = shoseBox;
                 cusor.transform.position = insPositon.transform.position;
             }
         }
@@ -889,11 +889,8 @@ public class InventoryManager : MonoBehaviour
         {
             if (nowEquipBox != null)
             {
-                if (nowEquipBox.name == "SideWeapon")
-                {
-                    return sideWeaponBox;
-                }
-                else if (nowEquipBox.name == "Weapon")
+
+                if (nowEquipBox.name == "Weapon")
                 {
                     return weaponBox;
                 }
@@ -927,6 +924,11 @@ public class InventoryManager : MonoBehaviour
         {
             return legBox;
         }
+        else if (detail.equipArea == "Shose")
+        {
+            return shoseBox;
+        }
+        
         else
         {
             return null;
@@ -944,30 +946,16 @@ public class InventoryManager : MonoBehaviour
 
         if(CheckBoxCanCreatAll() == true)
         {
-            if(nowEquipBox.name == "SideWeapon")
-            {
-                Debug.Log("sideWeapon");
-                Sequence waitSequence = DOTween.Sequence()
-               .AppendCallback(() => equipBoxCheck.isSetArray = false)
-               .OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false, true));
+            Sequence waitSequence = DOTween.Sequence()
+            .AppendCallback(() => equipBoxCheck.isSetArray = false)
+            .OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false));
 
-                skillCooldown.DeletRightSkill();
-                CreatItem(detail.name);
-            }
-            else
-            {
-
-Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => equipBoxCheck.isSetArray = false)
-.OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false));
-
-                skillCooldown.DeletLeftSkill();
-                CreatItem(detail.name);
-                //  DetechItem(detail.equipArea);
-            }
+            skillCooldown.DeletLeftSkill();
+            CreatItem(detail.name);
+            //  DetechItem(detail.equipArea);
 
         }
-       
+
 
         /*
         nowEquipItem.transform.SetParent(equipBox.transform);
@@ -1018,14 +1006,6 @@ Sequence waitSequence = DOTween.Sequence()
                 nowEquipItem.transform.position = equipBox.transform.position;
                  equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
               //  equipBoxCheck.EquipMainWeapon();
-            }
-            else if(attackManager.equipSideWeapon == null)
-            {
-
-                nowEquipItem.transform.SetParent(sideWeaponBox.transform);
-                nowEquipItem.transform.position = sideWeaponBox.transform.position;
-                sideWeaponBoxCheck.LoadPrefab(detail.name, detail.equipArea);
-                //  equipBoxCheck.EquipSideWeapon();
             }
             else
             {
@@ -1204,8 +1184,8 @@ Sequence waitSequence = DOTween.Sequence()
         if (Input.GetKeyDown(KeyCode.F3))
         {
 
-       
-            CreatItem("Wood");
+            CreatItem("ToxicPickAxe");
+            //CreatItem("Wood");
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
