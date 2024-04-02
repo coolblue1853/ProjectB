@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.InputSystem;
+using AnyPortrait;
 public class PlayerController : MonoBehaviour
 {
     float chInRommSize = 1.5f;
@@ -40,6 +41,10 @@ public class PlayerController : MonoBehaviour
     InputAction  upAction;
     InputAction downAction;
     public string states = "";
+
+    // 애니메이션
+    public apPortrait mainCharacter;
+
     private void OnEnable()
     {
         moveAction.Enable();
@@ -73,7 +78,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public bool boxColliderTrue = false;
-  public  bool platformTrue = false;
+  public  bool platformTrue = false; 
+ 
     BoxCollider2D bc;
     public bool isAttacked;
     public bool isAttackedUp;
@@ -86,6 +92,7 @@ public class PlayerController : MonoBehaviour
     bool once = false;
     void Update()
     {
+
         if (DatabaseManager.isOpenUI == false && isAttacked == false && isAttackedUp == true)
         {
             isAttackedUp = false;
@@ -130,6 +137,7 @@ public class PlayerController : MonoBehaviour
             // 이동
             if (DatabaseManager.weaponStopMove == false && isUpLadder == false&& states != "dash")
             {
+                mainCharacter.Play("Walk");
                 Move();
             }
 
