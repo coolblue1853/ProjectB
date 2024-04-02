@@ -1,5 +1,5 @@
 ﻿Backup Table
-3
+5
 SampleScene
 Player
 7
@@ -15,6 +15,18 @@ PlayerBaseType2
 SampleScene
 PlayerType2
 1
+2024
+4
+2
+SampleScene
+PlayerBaseSuit
+10
+2024
+4
+2
+SampleScene
+PlayerTamplet
+10
 2024
 4
 2

@@ -43,7 +43,10 @@ public class PlayerController : MonoBehaviour
     public string states = "";
 
     // 애니메이션
+    public Transform characterGroup;
     public apPortrait mainCharacter;
+    public Texture2D CharBaseSuit2;
+
 
     private void OnEnable()
     {
@@ -92,8 +95,26 @@ public class PlayerController : MonoBehaviour
     bool once = false;
     void Update()
     {
-
-        if (DatabaseManager.isOpenUI == false && isAttacked == false && isAttackedUp == true)
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+         
+            mainCharacter.SetMeshImage("Hat", CharBaseSuit2);
+            mainCharacter.SetMeshImage("RArm", CharBaseSuit2);
+            mainCharacter.SetMeshImage("Rsholder", CharBaseSuit2);
+            mainCharacter.SetMeshImage("RHand", CharBaseSuit2);
+            mainCharacter.SetMeshImage("LArm", CharBaseSuit2);
+            mainCharacter.SetMeshImage("LSholder", CharBaseSuit2);
+            mainCharacter.SetMeshImage("LHand", CharBaseSuit2);
+            mainCharacter.SetMeshImage("RDownLeg", CharBaseSuit2);
+            mainCharacter.SetMeshImage("RUpperLeg", CharBaseSuit2);
+            mainCharacter.SetMeshImage("RFoot", CharBaseSuit2);
+            mainCharacter.SetMeshImage("LDownLeg", CharBaseSuit2);
+            mainCharacter.SetMeshImage("LUpperLeg", CharBaseSuit2);
+            mainCharacter.SetMeshImage("LFoot", CharBaseSuit2);
+            mainCharacter.SetMeshImage("UppderBody", CharBaseSuit2);
+            mainCharacter.SetMeshImage("DwonBody", CharBaseSuit2);
+        }
+            if (DatabaseManager.isOpenUI == false && isAttacked == false && isAttackedUp == true)
         {
             isAttackedUp = false;
             if (rb.velocity != Vector2.zero )
@@ -137,7 +158,7 @@ public class PlayerController : MonoBehaviour
             // 이동
             if (DatabaseManager.weaponStopMove == false && isUpLadder == false&& states != "dash")
             {
-                mainCharacter.Play("Walk");
+
                 Move();
             }
 
@@ -341,18 +362,21 @@ public class PlayerController : MonoBehaviour
             verticalInput = verticalAction.ReadValue<float>();
             if (horizontalInput < 0)
             {
+                mainCharacter.Play("Walk");
                 states = "moveLeft";
                 moveVelocity = Vector2.left * (isRun ? runSpeed : moveSpeed);
                 transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
             }
             else if (horizontalInput > 0)
             {
+                mainCharacter.Play("Walk");
                 states = "moveRight";
                 moveVelocity = Vector2.right * (isRun ? runSpeed : moveSpeed);
                 transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
             }
             else if (horizontalInput == 0 && states != "move" && check ==false)
             {
+                mainCharacter.Play("Idle");
                 check = true;
                 moveSequence = DOTween.Sequence()
                     .AppendInterval(0.3f)
