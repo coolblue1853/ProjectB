@@ -362,14 +362,31 @@ public class PlayerController : MonoBehaviour
             verticalInput = verticalAction.ReadValue<float>();
             if (horizontalInput < 0)
             {
-                mainCharacter.Play("Walk");
+                if (isRun)
+                {
+                    mainCharacter.Play("Run");
+
+                }
+                else
+                {
+                    mainCharacter.Play("Walk");
+                }
+
                 states = "moveLeft";
                 moveVelocity = Vector2.left * (isRun ? runSpeed : moveSpeed);
                 transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
             }
             else if (horizontalInput > 0)
             {
-                mainCharacter.Play("Walk");
+                if (isRun)
+                {
+                    mainCharacter.Play("Run");
+
+                }
+                else
+                {
+                    mainCharacter.Play("Walk");
+                }
                 states = "moveRight";
                 moveVelocity = Vector2.right * (isRun ? runSpeed : moveSpeed);
                 transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
