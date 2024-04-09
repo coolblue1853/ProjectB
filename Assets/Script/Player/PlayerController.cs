@@ -95,6 +95,15 @@ public class PlayerController : MonoBehaviour
     bool once = false;
     void Update()
     {
+
+        if (horizontalInput == 0 && states != "move")
+        {
+            if (isJumpAnim == false)
+            {
+                mainCharacter.Play("Idle");
+            }
+
+        }
         if (Input.GetKeyDown(KeyCode.W))
         {
          
@@ -362,15 +371,19 @@ public class PlayerController : MonoBehaviour
             verticalInput = verticalAction.ReadValue<float>();
             if (horizontalInput < 0)
             {
-                if (isRun)
-                {
-                    mainCharacter.Play("Run");
+              if (isJumpAnim == false)
+                    {
+                        if (isRun)
+                        {
+                            mainCharacter.Play("Run");
 
-                }
-                else
-                {
-                    mainCharacter.Play("Walk");
-                }
+                        }
+                        else
+                        {
+                            mainCharacter.Play("Walk");
+                        }
+                    }
+
 
                 states = "moveLeft";
                 moveVelocity = Vector2.left * (isRun ? runSpeed : moveSpeed);
@@ -378,22 +391,27 @@ public class PlayerController : MonoBehaviour
             }
             else if (horizontalInput > 0)
             {
-                if (isRun)
+                if (isJumpAnim == false)
                 {
-                    mainCharacter.Play("Run");
+                    if (isRun)
+                    {
+                        mainCharacter.Play("Run");
 
+                    }
+                    else
+                    {
+                        mainCharacter.Play("Walk");
+                    }
                 }
-                else
-                {
-                    mainCharacter.Play("Walk");
-                }
+
                 states = "moveRight";
                 moveVelocity = Vector2.right * (isRun ? runSpeed : moveSpeed);
                 transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
             }
             else if (horizontalInput == 0 && states != "move" && check ==false)
             {
-                mainCharacter.Play("Idle");
+                if (isJumpAnim == false)
+                    mainCharacter.Play("Idle");
                 check = true;
                 moveSequence = DOTween.Sequence()
                     .AppendInterval(0.3f)
@@ -484,6 +502,7 @@ public class PlayerController : MonoBehaviour
         .AppendCallback(() => states = "s");
 
     }
+    bool isJumpAnim = false;
     void Jump()
     {
         BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
@@ -492,7 +511,12 @@ public class PlayerController : MonoBehaviour
         {
             bc.isTrigger = false;
         }
+
         */
+
+        isJumpAnim = true;
+        mainCharacter.Play("Jump");
+
         boxColliderTrue = false;
         isWallReset = false;
         states = "jump";
@@ -526,6 +550,13 @@ public class PlayerController : MonoBehaviour
 
             isOnGround = false;
             jumpsRemaining = maxJumps;
+            if (isJumpAnim == true)
+            {
+                isJumpAnim = false;
+                mainCharacter.Play("Idle");
+
+            }
+
 
         }
 
@@ -606,8 +637,13 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "InGroundPlayer")
         {
             Debug.Log(collision.name);
-           
-            if(jumpsRemaining != maxJumps)
+            if (isJumpAnim == true)
+            {
+                isJumpAnim = false;
+                mainCharacter.Play("Idle");
+
+            }
+            if (jumpsRemaining != maxJumps)
             {
                 jumpsRemaining = maxJumps;
             }
