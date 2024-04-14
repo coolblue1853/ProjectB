@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using AnyPortrait;
 public class PlayerController : MonoBehaviour
 {
+    int LadderLayer = 31;
     float chInRommSize = 1.5f;
     public float runSpeed = 10f;  // 이동 속도
     public int runStemina; // 달리기시 사용하는 스테미나
@@ -95,15 +96,25 @@ public class PlayerController : MonoBehaviour
     bool once = false;
     void Update()
     {
-
-        if (horizontalInput == 0 && states != "move")
+       if (verticalInput == 0 && states != "move" && isUpLadder ==true)
         {
-            if (isJumpAnim == false)
+            mainCharacter.Play("RopeStay");
+
+        }
+        if (horizontalInput == 0 && states != "move"&& isUpLadder == false)
+        {
+            if (isJumpAnim == false && isUpLadder == false)
             {
                 mainCharacter.Play("Idle");
             }
 
         }
+        if (rb.velocity.y ==0 && isJumpAnim == true)
+        {
+            isJumpAnim = false;
+        }
+
+
         if (Input.GetKeyDown(KeyCode.W))
         {
          
@@ -178,6 +189,8 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("대쉬작동");
                 rb.gravityScale =3;
                 isUpLadder = false;
+                ChangeLadderLayerOrder();
+
                 Dash();
             }
 
@@ -200,6 +213,7 @@ public class PlayerController : MonoBehaviour
                     {
                         rb.gravityScale = 3;
                         isUpLadder = false;
+                        ChangeLadderLayerOrder();
                         Jump();
                     }
 
@@ -226,6 +240,11 @@ public class PlayerController : MonoBehaviour
 
                 // 로프 위에 고정시키기
                 Vector2 newPosition = new Vector2(nowLadder.transform.position.x, transform.position.y);
+                
+                //로프 애니메이션 재생, 레이어 순서 변경
+                SpriteRenderer sR = nowLadder.GetComponent<SpriteRenderer>();
+                SpriteRenderer playerSR = GetComponent<SpriteRenderer>();
+                sR.sortingOrder = playerSR.sortingOrder + 1;
 
                 // 현재 위치와 로프 위치 사이의 거리 계산
                 Vector2 distance = newPosition - (Vector2)transform.position;
@@ -272,19 +291,23 @@ public class PlayerController : MonoBehaviour
         if (states != "dash" && states != "wallJump")
         {
             verticalInput = verticalAction.ReadValue<float>();
-            if (verticalInput < 0)
+            if (verticalInput < -0.2f)
             {
                 states = "moveDown";
+                mainCharacter.Play("RopeDown");
                 moveVelocity = Vector2.down * (isRun ? runSpeed : moveSpeed);
             }
-            else if (verticalInput > 0)
+            else if (verticalInput > 0.2f)
             {
+
+                Debug.Log("올라가는중");
                 states = "moveUp";
+                mainCharacter.Play("RopeUp");
                 moveVelocity = Vector2.up * (isRun ? runSpeed : moveSpeed);
             }
             else if (verticalInput == 0 && states != "move" && check == false)
             {
-
+                mainCharacter.Play("RopeStay");
                 check = true;
                 Sequence sequence = DOTween.Sequence()
                     .AppendInterval(0.3f)
@@ -325,7 +348,8 @@ public class PlayerController : MonoBehaviour
     private void DisableCollision()
     {
          platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
-        
+        isJumpAnim = true;
+        mainCharacter.Play("Jump");
         Physics2D.IgnoreCollision(playerCollider, platformCollider);
         isDownJump = true;
     }
@@ -410,7 +434,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (horizontalInput == 0 && states != "move" && check ==false)
             {
-                if (isJumpAnim == false)
+                if (isJumpAnim == false && isUpLadder == false)
                     mainCharacter.Play("Idle");
                 check = true;
                 moveSequence = DOTween.Sequence()
@@ -447,6 +471,11 @@ public class PlayerController : MonoBehaviour
 
             states = "move";
             isRun = false;
+
+            if(isUpLadder == true)
+            {
+                mainCharacter.Play("RopeStay");
+            }
         }
     }
     Sequence dashSequence;
@@ -550,7 +579,7 @@ public class PlayerController : MonoBehaviour
 
             isOnGround = false;
             jumpsRemaining = maxJumps;
-            if (isJumpAnim == true)
+            if (isJumpAnim == true && isUpLadder == false)
             {
                 isJumpAnim = false;
                 mainCharacter.Play("Idle");
@@ -626,6 +655,17 @@ public class PlayerController : MonoBehaviour
     }
     public bool isLadder;
     bool isUpLadder;
+
+    void ChangeLadderLayerOrder()
+    {
+        if(nowLadder != null)
+        {
+            SpriteRenderer sR = nowLadder.GetComponent<SpriteRenderer>();
+            SpriteRenderer playerSR = GetComponent<SpriteRenderer>();
+            sR.sortingOrder = LadderLayer;
+        }
+
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Ladder")
@@ -637,7 +677,7 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "InGroundPlayer")
         {
             Debug.Log(collision.name);
-            if (isJumpAnim == true)
+            if (isJumpAnim == true&& isUpLadder == false && rb.velocity.y == 0)
             {
                 isJumpAnim = false;
                 mainCharacter.Play("Idle");
@@ -659,6 +699,7 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -674,6 +715,7 @@ public class PlayerController : MonoBehaviour
                 boxColliderTrue = false;
                 rb.gravityScale = 3;
                 isUpLadder = false;
+                ChangeLadderLayerOrder();
                 nowLadder = null;
                 AbleCollision();
             }
