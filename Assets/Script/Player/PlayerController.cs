@@ -101,18 +101,27 @@ public class PlayerController : MonoBehaviour
             mainCharacter.Play("RopeStay");
 
         }
-        if (horizontalInput == 0 && states != "move"&& isUpLadder == false)
+        if (horizontalInput == 0&& isUpLadder == false)
         {
-            if (isJumpAnim == false && isUpLadder == false)
+            if (isJumpAnim == false && isUpLadder == false && states != "dash")
             {
+
                 mainCharacter.Play("Idle");
             }
+
+        }
+        if (isJumpAnim == false && isUpLadder == false && states != "dash")
+        {
+            rb.gravityScale = 3f;
 
         }
         if (rb.velocity.y ==0 && isJumpAnim == true)
         {
             isJumpAnim = false;
         }
+
+
+
 
 
         if (Input.GetKeyDown(KeyCode.W))
@@ -434,7 +443,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (horizontalInput == 0 && states != "move" && check ==false)
             {
-                if (isJumpAnim == false && isUpLadder == false)
+                if (isJumpAnim == false && isUpLadder == false&& states != "dash")
                     mainCharacter.Play("Idle");
                 check = true;
                 moveSequence = DOTween.Sequence()
@@ -491,10 +500,12 @@ public class PlayerController : MonoBehaviour
                 bc.isTrigger = false;
             }
             */
-
+            mainCharacter.Play("Dash");
             boxColliderTrue = false;
             PlayerHealthManager.Instance.SteminaDown(dashStemina);
             states = "dash";
+            
+
             rb.gravityScale = 0f;
             // 대쉬 속도로만 이동하도록 설정
             rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
@@ -506,10 +517,12 @@ public class PlayerController : MonoBehaviour
            dashSequence = DOTween.Sequence()
            .AppendInterval(dashDuration) // 2초 대기
             .OnComplete(() => rb.gravityScale = 3f)
-          .OnComplete(() => rb.velocity = new Vector2(0f, 0f))
+            .OnComplete(() => rb.velocity = new Vector2(0f, 0f))
             .OnComplete(() => states = "move");
         }
     }
+
+
     public float wallJumpForce;
     void WallJump()
     {
@@ -579,7 +592,7 @@ public class PlayerController : MonoBehaviour
 
             isOnGround = false;
             jumpsRemaining = maxJumps;
-            if (isJumpAnim == true && isUpLadder == false)
+            if (isJumpAnim == true && isUpLadder == false && states != "dash")
             {
                 isJumpAnim = false;
                 mainCharacter.Play("Idle");
@@ -677,7 +690,7 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "InGroundPlayer")
         {
             Debug.Log(collision.name);
-            if (isJumpAnim == true&& isUpLadder == false && rb.velocity.y == 0)
+            if (isJumpAnim == true&& isUpLadder == false && rb.velocity.y == 0 && states != "dash")
             {
                 isJumpAnim = false;
                 mainCharacter.Play("Idle");
