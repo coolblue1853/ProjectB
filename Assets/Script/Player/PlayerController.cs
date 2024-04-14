@@ -105,7 +105,6 @@ public class PlayerController : MonoBehaviour
         {
             if (isJumpAnim == false && isUpLadder == false && states != "dash")
             {
-
                 mainCharacter.Play("Idle");
             }
 
@@ -115,7 +114,7 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 3f;
 
         }
-        if (rb.velocity.y ==0 && isJumpAnim == true)
+        if (rb.velocity.y ==0 && isJumpAnim == true && states != "dash")
         {
             isJumpAnim = false;
         }
@@ -514,14 +513,13 @@ public class PlayerController : MonoBehaviour
 
             moveSequence.Kill();
             dashSequence.Kill();
-           dashSequence = DOTween.Sequence()
-           .AppendInterval(dashDuration) // 2초 대기
+            dashSequence = DOTween.Sequence()
+            .AppendInterval(dashDuration) // 2초 대기
             .OnComplete(() => rb.gravityScale = 3f)
             .OnComplete(() => rb.velocity = new Vector2(0f, 0f))
             .OnComplete(() => states = "move");
         }
     }
-
 
     public float wallJumpForce;
     void WallJump()
