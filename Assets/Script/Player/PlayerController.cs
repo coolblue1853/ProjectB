@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
         if(DatabaseManager.isOpenUI == false && isAttacked == false)
         {
             once = false;
-            if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true)
+            if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true)// isGround가 있으면 
             {
                 rb.velocity = Vector2.zero;
             }
