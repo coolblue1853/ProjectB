@@ -25,7 +25,7 @@ public class EnemyDamageObject : MonoBehaviour
     void Start()
     {
         enemyOb = transform.parent.gameObject;
-           player = GameObject.FindWithTag("Player");
+       player = GameObject.FindWithTag("Player");
         if (isDestroyByTime)
         {
             DestroyObject();

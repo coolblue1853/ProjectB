@@ -27,9 +27,10 @@ public class Weapon : MonoBehaviour
     public bool isAttackWait = true;
     public bool isWeaponStopMove = false;
     public float time;
-    public GameObject attackPivot;
+   // public GameObject attackPivot;
 
     public GameObject[] attackPrefab;
+    public GameObject[] attackPivot;
     public string[] attackAnimName;
     public Skill skillLeft;
     public Skill skillRight;
@@ -102,7 +103,7 @@ public class Weapon : MonoBehaviour
         {
             nowConboCount++;
             //프리팹 소환
-            GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation,this.transform);
+            GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation,this.transform);
             pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed);
             DamageObject dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
@@ -113,7 +114,7 @@ public class Weapon : MonoBehaviour
             if (nowConboCount < maxComboCount && time <= maxComboTime && (isAttackWait == true ))//|| isSkillCancel == true
             {
                 nowConboCount++;
-                GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+                GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
                 pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed);
                 DamageObject dmOb = damageObject.GetComponent<DamageObject>();
                 dmOb.SetDamge(damgeArray);
@@ -122,7 +123,7 @@ public class Weapon : MonoBehaviour
             else if (nowConboCount >= maxComboCount && time <= maxComboTime && (isAttackWait == true)) // 콤보수 초기화 및 다시 카운트 1로 내려옴. || isSkillCancel == true
             {
                 nowConboCount = 1;
-                GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+                GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
                 pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed);
                 DamageObject dmOb = damageObject.GetComponent<DamageObject>();
                 dmOb.SetDamge(damgeArray);

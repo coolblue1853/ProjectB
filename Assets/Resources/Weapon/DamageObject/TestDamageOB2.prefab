@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1572206402169297901}
   - component: {fileID: 1572206402169297903}
   - component: {fileID: 7398907887349000800}
+  - component: {fileID: 5972815358273302594}
   m_Layer: 0
   m_Name: TestDamageOB2
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1572206402169297890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.11, y: 0.96, z: -0.0568}
-  m_LocalScale: {x: 7.1948028, y: 7.1948028, z: 7.1948028}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 7.1948028}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4a231ba0e81e63849a8f985c228e8acd, type: 3}
+  m_SortingOrder: 45
+  m_Sprite: {fileID: 21300000, guid: 84187b7a628ff9347a0747a8bf03b297, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,13 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShakeTime: 0.15
+  ShakeTime: 0.5
   isSkill: 0
   isDestroyByTime: 1
   holdingTime: 0.5
   damageArr: 
-  stiffnessTime: 1
-  knockForce: 10
+  stiffnessTime: 2
+  knockForce: 100
   knockbackDir: {x: 0, y: 1}
   isNockBackChangeDir: 0
   isPlayerAttack: 1
@@ -131,16 +132,37 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -1.0328512, y: -0.05556345}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 8.16, y: 6.8}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 6.433279, y: 5.4096403}
   m_EdgeRadius: 0
+--- !u!95 &5972815358273302594
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572206402169297890}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d19669b8fb6e4744fbd96b4eb6d7cd1d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
