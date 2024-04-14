@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     InputAction dashAction;
     InputAction runAction;
     Sequence waitSequence;
+
     InputAction verticalAction;
     InputAction  upAction;
     InputAction downAction;
@@ -96,16 +97,20 @@ public class PlayerController : MonoBehaviour
     bool once = false;
     void Update()
     {
-       if (verticalInput == 0 && states != "move" && isUpLadder ==true)
+       if (verticalInput == 0 && states != "move" && isUpLadder ==true && isAttackAnim == false)
         {
             mainCharacter.Play("RopeStay");
 
         }
         if (horizontalInput == 0&& isUpLadder == false)
         {
-            if (isJumpAnim == false && isUpLadder == false && states != "dash")
+            if (isJumpAnim == false && isUpLadder == false && states != "dash" && isAttackAnim == false)
             {
                 mainCharacter.Play("Idle");
+            }
+            if (isJumpAnim == false && isUpLadder == true && states != "dash" && isAttackAnim == false)
+            {
+                mainCharacter.Play("RopeStay");
             }
 
         }
@@ -168,7 +173,7 @@ public class PlayerController : MonoBehaviour
         if(DatabaseManager.isOpenUI == false && isAttacked == false)
         {
             once = false;
-            if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true && isGround == true)
+            if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true)
             {
                 rb.velocity = Vector2.zero;
             }
@@ -299,13 +304,13 @@ public class PlayerController : MonoBehaviour
         if (states != "dash" && states != "wallJump")
         {
             verticalInput = verticalAction.ReadValue<float>();
-            if (verticalInput < -0.2f)
+            if (verticalInput < -0.2f && isAttackAnim == false)
             {
                 states = "moveDown";
                 mainCharacter.Play("RopeDown");
                 moveVelocity = Vector2.down * (isRun ? runSpeed : moveSpeed);
             }
-            else if (verticalInput > 0.2f)
+            else if (verticalInput > 0.2f && isAttackAnim == false)
             {
 
                 Debug.Log("올라가는중");
@@ -313,13 +318,14 @@ public class PlayerController : MonoBehaviour
                 mainCharacter.Play("RopeUp");
                 moveVelocity = Vector2.up * (isRun ? runSpeed : moveSpeed);
             }
-            else if (verticalInput == 0 && states != "move" && check == false)
+            else if (verticalInput == 0 && states != "move" && check == false && isAttackAnim == false)
             {
                 mainCharacter.Play("RopeStay");
                 check = true;
                 Sequence sequence = DOTween.Sequence()
                     .AppendInterval(0.3f)
                     .AppendCallback(() => VerticalRunChecker());
+
             }
             // Applying velocity to the Rigidbody2D
             rb.velocity = new Vector2(rb.velocity.x, moveVelocity.y);
@@ -357,7 +363,12 @@ public class PlayerController : MonoBehaviour
     {
          platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
         isJumpAnim = true;
-        mainCharacter.Play("Jump");
+        if ( isAttackAnim == false)
+        {
+            mainCharacter.Play("Jump");
+        }
+
+
         Physics2D.IgnoreCollision(playerCollider, platformCollider);
         isDownJump = true;
     }
@@ -403,7 +414,7 @@ public class PlayerController : MonoBehaviour
             verticalInput = verticalAction.ReadValue<float>();
             if (horizontalInput < 0)
             {
-              if (isJumpAnim == false)
+              if (isJumpAnim == false&& isAttackAnim == false)
                     {
                         if (isRun)
                         {
@@ -423,7 +434,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (horizontalInput > 0)
             {
-                if (isJumpAnim == false)
+                if (isJumpAnim == false && isAttackAnim == false)
                 {
                     if (isRun)
                     {
@@ -442,7 +453,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (horizontalInput == 0 && states != "move" && check ==false)
             {
-                if (isJumpAnim == false && isUpLadder == false&& states != "dash")
+                if (isJumpAnim == false && isUpLadder == false&& states != "dash" && isAttackAnim == false)
                     mainCharacter.Play("Idle");
                 check = true;
                 moveSequence = DOTween.Sequence()
@@ -480,7 +491,7 @@ public class PlayerController : MonoBehaviour
             states = "move";
             isRun = false;
 
-            if(isUpLadder == true)
+            if(isUpLadder == true && isAttackAnim == false)
             {
                 mainCharacter.Play("RopeStay");
             }
@@ -499,7 +510,12 @@ public class PlayerController : MonoBehaviour
                 bc.isTrigger = false;
             }
             */
-            mainCharacter.Play("Dash");
+            if( isAttackAnim == false)
+            {
+                mainCharacter.Play("Dash");
+
+            }
+
             boxColliderTrue = false;
             PlayerHealthManager.Instance.SteminaDown(dashStemina);
             states = "dash";
@@ -555,7 +571,11 @@ public class PlayerController : MonoBehaviour
         */
 
         isJumpAnim = true;
-        mainCharacter.Play("Jump");
+        if(isAttackAnim == false)
+        {
+            mainCharacter.Play("Jump");
+        }
+
 
         boxColliderTrue = false;
         isWallReset = false;
@@ -590,7 +610,7 @@ public class PlayerController : MonoBehaviour
 
             isOnGround = false;
             jumpsRemaining = maxJumps;
-            if (isJumpAnim == true && isUpLadder == false && states != "dash")
+            if (isJumpAnim == true && isUpLadder == false && states != "dash" && isAttackAnim ==false)
             {
                 isJumpAnim = false;
                 mainCharacter.Play("Idle");
@@ -667,6 +687,20 @@ public class PlayerController : MonoBehaviour
     public bool isLadder;
     bool isUpLadder;
 
+
+    bool isAttackAnim = false;
+    Sequence attackAnimSequence;
+    public void ActiveAttackAnim(string anim, float time)
+    {
+        mainCharacter.Play(anim);
+        isAttackAnim = true;
+
+        attackAnimSequence.Kill();
+         attackAnimSequence = DOTween.Sequence()
+        .AppendInterval(time)
+        .AppendCallback(() => isAttackAnim = false);
+        
+    }
     void ChangeLadderLayerOrder()
     {
         if(nowLadder != null)
@@ -688,7 +722,7 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "InGroundPlayer")
         {
             Debug.Log(collision.name);
-            if (isJumpAnim == true&& isUpLadder == false && rb.velocity.y == 0 && states != "dash")
+            if (isJumpAnim == true&& isUpLadder == false && rb.velocity.y == 0 && states != "dash"&& isAttackAnim== false)
             {
                 isJumpAnim = false;
                 mainCharacter.Play("Idle");

@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 public class Weapon : MonoBehaviour
 {
+    public PlayerController pC;
     public int maxComboCount = 0 ;
     public int nowConboCount = 0;
     public float maxComboTime = 0; // 콤보 최대 유지시간
@@ -29,6 +30,7 @@ public class Weapon : MonoBehaviour
     public GameObject attackPivot;
 
     public GameObject[] attackPrefab;
+    public string[] attackAnimName;
     public Skill skillLeft;
     public Skill skillRight;
     void SetDmgArray()
@@ -101,6 +103,7 @@ public class Weapon : MonoBehaviour
             nowConboCount++;
             //프리팹 소환
             GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation,this.transform);
+            pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed);
             DamageObject dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
             CheckAttackWait();
@@ -111,6 +114,7 @@ public class Weapon : MonoBehaviour
             {
                 nowConboCount++;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed);
                 DamageObject dmOb = damageObject.GetComponent<DamageObject>();
                 dmOb.SetDamge(damgeArray);
                 CheckAttackWait();
@@ -119,6 +123,7 @@ public class Weapon : MonoBehaviour
             {
                 nowConboCount = 1;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed);
                 DamageObject dmOb = damageObject.GetComponent<DamageObject>();
                 dmOb.SetDamge(damgeArray);
                 CheckAttackWait();

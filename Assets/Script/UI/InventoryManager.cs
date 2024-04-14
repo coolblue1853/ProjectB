@@ -1184,7 +1184,7 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F3))
         {
 
-            CreatItem("ToxicPickAxe");
+            CreatItem("PickAxe");
             //CreatItem("Wood");
         }
 
@@ -1773,7 +1773,6 @@ public class InventoryManager : MonoBehaviour
                         {
                             if (check.nowStack>0)
                             {
-                                Debug.Log("삭제 진행");
                                 check.nowStack -= 1;
                                 count -= 1;
                                 DatabaseManager.MinusInventoryDict(itemName, 1);

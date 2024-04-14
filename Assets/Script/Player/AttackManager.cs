@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using AnyPortrait;
 public class AttackManager : MonoBehaviour
 {
+    public apPortrait portrait;
     public Weapon equipWeapon;
     KeyAction action;
     InputAction attackAction;
@@ -12,7 +14,7 @@ public class AttackManager : MonoBehaviour
     InputAction skillDAction;
     InputAction skillFAction;
     public SkillCooldown skillCooldown;
-
+    public Transform sword;
     public string states = "";
     private void OnEnable()
     {
@@ -47,6 +49,7 @@ public class AttackManager : MonoBehaviour
 
     public void EquipMainWeaopon()
     {
+        equipWeapon.pC = this.GetComponent<PlayerController>();
         equipWeapon.CheckSkill();
     }
 
@@ -54,7 +57,19 @@ public class AttackManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(DatabaseManager.isOpenUI == false)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // 앞서 만든 두개의 본의 소켓을 가져옵니다.
+            Transform socketR = portrait.GetBoneSocket("RightWeapon");
+            // 검 (Weapon_Sword)을 오른손 본의 소켓의 자식으로 등록합니다.
+            sword.parent = socketR;
+            sword.localPosition = Vector3.zero;
+            sword.localRotation = Quaternion.identity;
+
+        }
+
+
+        if (DatabaseManager.isOpenUI == false)
         {
             if (attackAction.triggered && equipWeapon != null)
             {

@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfacdb80f0914454f92395bab7c72ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pC: {fileID: 0}
   maxComboCount: 3
   nowConboCount: 0
   maxComboTime: 1
@@ -176,13 +177,17 @@ MonoBehaviour:
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed: 0.5
   isAttackWait: 0
-  isWeaponStopMove: 0
+  isWeaponStopMove: 1
   time: 0
   attackPivot: {fileID: 1291193055778619313}
   attackPrefab:
   - {fileID: 1799378379411631010, guid: 41edd87382a08ab4d8aad60f92795803, type: 3}
   - {fileID: 1572206402169297890, guid: b40f7f9edc5c1724aab3ed96423af40e, type: 3}
   - {fileID: 4960005499486500231, guid: 4429c1aec8f8b974cb3f1086e8626256, type: 3}
+  attackAnimName:
+  - RightHandVashDown_OneHand
+  - RightHandVashUp_OneHand
+  - RightHandstabbing_OneHand
   skillLeft: {fileID: 342058023}
   skillRight: {fileID: 1183539051}
   isSkillCancel: 1
