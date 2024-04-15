@@ -180,16 +180,16 @@ MonoBehaviour:
   isWeaponStopMove: 1
   time: 0
   attackPrefab:
-  - {fileID: 1799378379411631010, guid: 41edd87382a08ab4d8aad60f92795803, type: 3}
-  - {fileID: 4960005499486500231, guid: 4429c1aec8f8b974cb3f1086e8626256, type: 3}
-  - {fileID: 1572206402169297890, guid: b40f7f9edc5c1724aab3ed96423af40e, type: 3}
+  - {fileID: 7429380887833962885, guid: f8277c5f5d5e59c49a0b65d26652e8d0, type: 3}
+  - {fileID: 8267161789949130192, guid: 289ed1c71ae94a145990ab1dcb06f995, type: 3}
+  - {fileID: 7426321897877124849, guid: 1aeeab0968bee78428482564a8074068, type: 3}
   attackPivot:
-  - {fileID: 1291193055778619313}
   - {fileID: 4185027361106519671}
+  - {fileID: 1291193055778619313}
   - {fileID: 2659370571445974256}
   attackAnimName:
-  - RightHandVashDown_OneHand
   - RightHandstabbing_OneHand
+  - RightHandVashDown_OneHand
   - RightHandVashUp_OneHand
   skillLeft: {fileID: 342058023}
   skillRight: {fileID: 1183539051}

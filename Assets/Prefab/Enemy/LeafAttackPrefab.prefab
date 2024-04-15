@@ -136,7 +136,7 @@ MonoBehaviour:
   isPlayerAttack: 1
   player: {fileID: 0}
   isLaunch: 1
-  launchForce: 5
+  launchForce: 50
   launchDir: {x: 0, y: 0}
   isGroundDestroy: 0
   isPosionAttack: 0

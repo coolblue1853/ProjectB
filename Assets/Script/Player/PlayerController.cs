@@ -303,6 +303,7 @@ public class PlayerController : MonoBehaviour
 
         if (states != "dash" && states != "wallJump")
         {
+            horizontalInput = moveAction.ReadValue<float>();
             verticalInput = verticalAction.ReadValue<float>();
             if (verticalInput < -0.2f && isAttackAnim == false)
             {
@@ -329,6 +330,18 @@ public class PlayerController : MonoBehaviour
             }
             // Applying velocity to the Rigidbody2D
             rb.velocity = new Vector2(rb.velocity.x, moveVelocity.y);
+
+
+            if (horizontalInput < 0)
+            {
+
+                transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
+            }
+            else if (horizontalInput > 0)
+            {
+
+                transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
+            }
         }
 
     }
@@ -685,7 +698,7 @@ public class PlayerController : MonoBehaviour
         return dot >= 0.9f; // 내적 값이 0.9 이상이면 일정 범위 내에 있다고 판단
     }
     public bool isLadder;
-    bool isUpLadder;
+    public bool isUpLadder;
 
 
     bool isAttackAnim = false;
@@ -694,13 +707,27 @@ public class PlayerController : MonoBehaviour
     {
         mainCharacter.Play(anim);
         isAttackAnim = true;
+        if(isUpLadder == true)
+        {
+            Debug.Log("공격시작");
+            isRopeAttack = true;
+        }
 
         attackAnimSequence.Kill();
-         attackAnimSequence = DOTween.Sequence()
-        .AppendInterval(time)
-        .AppendCallback(() => isAttackAnim = false);
-        
+        attackAnimSequence = DOTween.Sequence()
+       .AppendInterval(time)
+       
+       .AppendCallback(() => isAttackAnim = false)
+     .AppendCallback(() => EndRopeAttackAnim());
+
+
     }
+    void EndRopeAttackAnim()
+    {
+        isRopeAttack = false;
+        mainCharacter.Play("RopeStay");
+    }
+
     void ChangeLadderLayerOrder()
     {
         if(nowLadder != null)
@@ -713,7 +740,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Ladder")
+        if(collision.tag == "Ladder" )
         {
             ladderJumpCheck = true;
             isLadder = true;
@@ -744,25 +771,34 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-    
 
+    bool isRopeAttack = false;
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Ladder")
+        if (collision.tag == "Ladder" )
         {
-            isLadder = false;
-            nowLadder = collision.gameObject;
-            BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
-
-            if (isUpLadder == true)
+            if(isRopeAttack == false)
             {
-                //bc.isTrigger = false;
-                boxColliderTrue = false;
-                rb.gravityScale = 3;
-                isUpLadder = false;
-                ChangeLadderLayerOrder();
-                nowLadder = null;
-                AbleCollision();
+                isLadder = false;
+                nowLadder = collision.gameObject;
+                BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
+
+                if (isUpLadder == true)
+                {
+                    //bc.isTrigger = false;
+                    boxColliderTrue = false;
+                    rb.gravityScale = 3;
+                    isUpLadder = false;
+                    ChangeLadderLayerOrder();
+                    nowLadder = null;
+                    AbleCollision();
+                }
+            }
+            else if (isRopeAttack == true)
+            {
+                Debug.Log("공격끝");
+                isRopeAttack = false;
+                mainCharacter.Play("RopeStay");
             }
         }
         if (collision.tag == "InGroundPlayer")
