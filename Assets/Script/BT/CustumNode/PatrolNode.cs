@@ -95,7 +95,7 @@ public class PatrolNode : BTNode
 
             float distanceToMove = Mathf.Abs(movePoint); // 이동해야 할 거리의 절대값을 계산합니다.
             float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 일정한 속도로 이동하는 데 걸리는 시간을 계산합니다.
-            Debug.Log("move");
+          //  Debug.Log("move");
              sequence = DOTween.Sequence()
                 .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
            // .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x+ movePoint, Mathf.Abs(movePoint)+ moveDuration))

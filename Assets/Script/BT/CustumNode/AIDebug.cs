@@ -47,7 +47,7 @@ public class AIDebug : BTNode
     {
         if (this.transform != null)
         {
-            Debug.Log("CompWait");
+        //    Debug.Log("CompWait");
             IsWaiting = true;
             brain.restartEvaluate();
         }

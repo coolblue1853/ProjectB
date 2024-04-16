@@ -22,7 +22,7 @@ public class CraftItemCheck : MonoBehaviour
     public string equipArea;
     public TextMeshProUGUI stackText;
     public Image image;
-    Item item;
+    ItemData item;
     public CraftingManager craftingManager;
     public void OnPointerEnter()
     {

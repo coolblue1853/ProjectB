@@ -5,16 +5,7 @@ using UGS;
 
 public class Item
 {
-    public string name { get; set; }
-    public string type { get; set; }
-    public string description { get; set; }
-    public int price { get; set; }
-    public int weight { get; set; }
-    public string acqPath { get; set; }
-    public int maxStack { get; set; }
-    public string effectOb { get; set; }
-    public int effectPow { get; set; }
-    public string equipArea { get; set; }
+
 
 }
 public class DatabaseManager : MonoBehaviour
@@ -23,7 +14,7 @@ public class DatabaseManager : MonoBehaviour
     public static bool isOpenUI = false;
 
     public static Dictionary<string, int> inventoryItemStack = new Dictionary<string, int>();
-
+    ItemDatabase itemDatabase;
     public static void PlusInventoryDict(string name, int count)
     {
         bool isContain = false;
@@ -37,13 +28,13 @@ public class DatabaseManager : MonoBehaviour
         }
         if(isContain == false)
         {
-            Debug.Log("Add1");
+         //   Debug.Log("Add1");
             //inventoryItemStack.Add(name,count);
             inventoryItemStack[name] = count;
         }
         else
         {
-            Debug.Log("Add2");
+         //   Debug.Log("Add2");
             inventoryItemStack[name] += count;
         }
     }
@@ -62,11 +53,12 @@ public class DatabaseManager : MonoBehaviour
 
 
 
-    private List<ItemSheet.Data> ItemDataList;
+
 
     static public DatabaseManager instance;
     private void Awake()
     {
+        itemDatabase = this.GetComponent<ItemDatabase>();
         if (instance != null)
         {
             Destroy(this.gameObject);
@@ -76,15 +68,16 @@ public class DatabaseManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             instance = this;
         }
-        UnityGoogleSheet.LoadAllData();
+    //    ItemSheet.Data.Load();
+       // UnityGoogleSheet.LoadAllData();
         LoadAllItemData();
     }
 
     public void LoadAllItemData() // 기타 아이템
     {
+        ItemDataList = itemDatabase.items;
+        //    ItemDataList = ItemSheet.Data.DataList;
 
-
-        ItemDataList = ItemSheet.Data.DataList;
         /*  인터넷에서 정보를 받아오는 방법.
         UnityGoogleSheet.LoadFromGoogle<int, ItemSheet.Data>((list, map) => {
             // list에는 로드한 데이터가 들어 있음
@@ -101,12 +94,12 @@ public class DatabaseManager : MonoBehaviour
         }, true);
         */
     }
-
-    public Item LoadItemData(int itemNum)
+    private List<ItemData> ItemDataList;
+    public ItemData LoadItemData(int itemNum)
     {
         if (ItemDataList != null && itemNum >= 0 && itemNum < ItemDataList.Count)
         {
-            Item newItem = new Item
+            ItemData newItem = new ItemData
             {
                 name = ItemDataList[itemNum].name,
                 type = ItemDataList[itemNum].type,
@@ -117,7 +110,7 @@ public class DatabaseManager : MonoBehaviour
                 maxStack = ItemDataList[itemNum].maxStack,
                 effectOb = ItemDataList[itemNum].effectOb,
                 effectPow = ItemDataList[itemNum].effectPow,
-                equipArea = ItemDataList[itemNum].EquipArea,
+                equipArea = ItemDataList[itemNum].equipArea,
             };
             return newItem;
 
@@ -156,4 +149,5 @@ public class DatabaseManager : MonoBehaviour
 
 
 }
+
 

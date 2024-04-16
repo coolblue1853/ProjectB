@@ -748,7 +748,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.tag == "InGroundPlayer")
         {
-            Debug.Log(collision.name);
+          //  Debug.Log(collision.name);
             if (isJumpAnim == true&& isUpLadder == false && rb.velocity.y == 0 && states != "dash"&& isAttackAnim== false)
             {
                 isJumpAnim = false;

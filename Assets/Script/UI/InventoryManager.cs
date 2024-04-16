@@ -917,6 +917,7 @@ public class InventoryManager : MonoBehaviour
         }
         else if (detail.equipArea == "Ring")
         {
+            Debug.Log("작동중");
             return ringBox;
 
         }
@@ -971,7 +972,6 @@ public class InventoryManager : MonoBehaviour
 
         GameObject equipBox = SetEquipBox();
         GameObject nowEquipItem = detail.gameObject;
-
 
       EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
 
@@ -1185,7 +1185,7 @@ public class InventoryManager : MonoBehaviour
         {
 
             CreatItem("PickAxe");
-            //CreatItem("Wood");
+            //
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
@@ -1197,7 +1197,7 @@ public class InventoryManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F4))
         {
-            CreatItem("PickAxe");
+            CreatItem("Wood");
             //CreatItem("Potion");
 
         }
@@ -1558,7 +1558,7 @@ public class InventoryManager : MonoBehaviour
 
         }
     }
-    ItemCheck detail;
+   public ItemCheck detail;
     public void BoxContentChecker(GameObject ob = null) // Z키 클릭시 인벤토리창
     {
         if (inventoryArray[cusorCount[nowBox], nowBox] == 1 && (state == "" || state == "chestOpen"))

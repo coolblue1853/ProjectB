@@ -21,7 +21,7 @@ public class DropItemCheck : MonoBehaviour
     public string equipArea;
     public TextMeshProUGUI stackText;
     public Image image;
-    Item item;
+    ItemData item;
 
 
     public void SetItem(string itemName)
