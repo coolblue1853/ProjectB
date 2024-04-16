@@ -1678,7 +1678,30 @@ public class InventoryManager : MonoBehaviour
 
         }
     }
-    public void CreatItem(string itemName, bool isC2I = false)
+    public bool BoxFullCheck()
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            for (int i = 0; i < (maxHor * maxVer); i++)
+            {
+                if (maxBoxNum > (j * (maxHor * maxVer)) + i)
+                {
+                    if (inventoryArray[i, j] == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+
+
+
+public void CreatItem(string itemName, bool isC2I = false)
     {
         if(CheckStack(itemName) == false)
         {
@@ -1792,8 +1815,39 @@ public class InventoryManager : MonoBehaviour
 
   
     }
+    public bool OnlyCheckStack(string itemName)
+    {
 
-    bool CheckStack(string itemName)
+
+        for (int j = 0; j < 5; j++)
+        {
+            for (int i = 0; i < (maxHor * maxVer); i++)
+            {
+                if (maxBoxNum > (j * (maxHor * maxVer)) + i)
+                {
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
+                    if (insPositon.transform.childCount > 0)
+                    {
+                        GameObject item = insPositon.transform.GetChild(0).gameObject;
+                        ItemCheck check = item.GetComponent<ItemCheck>();
+                        if (check.name == itemName)
+                        {
+                            if (check.maxStack > check.nowStack)
+                            {
+                                return true;
+                            }
+
+                        }
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public bool CheckStack(string itemName)
     {
 
 

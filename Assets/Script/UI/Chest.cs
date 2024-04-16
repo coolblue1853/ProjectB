@@ -364,28 +364,61 @@ public class Chest : MonoBehaviour
    public  ItemCheck itemCheck ;
    void C2IMove()
     {
-
-        GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-        if (itemBox.transform.childCount > 0)
+        if( InventoryManager.instance.BoxFullCheck() == true) // 빈공간이 있다면
         {
-
-             item = itemBox.transform.GetChild(0).gameObject;
-              itemCheck = item.transform.GetComponent<ItemCheck>();
-            //int siblingParentIndex = inventoryUI[num].transform.GetSiblingIndex();
-
-            int count = itemCheck.nowStack;
-
-            for (int i = 0; i < count; i++)
+            GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+            if (itemBox.transform.childCount > 0)
             {
 
-                InventoryManager.instance.CreatItem(itemCheck.name, true) ;
-            }
+                item = itemBox.transform.GetChild(0).gameObject;
+                itemCheck = item.transform.GetComponent<ItemCheck>();
+                //int siblingParentIndex = inventoryUI[num].transform.GetSiblingIndex();
 
-            if (itemCheck.nowStack <= 0)
-            {
-                Destroy(item.gameObject);
+                int count = itemCheck.nowStack;
+
+                for (int i = 0; i < count; i++)
+                {
+
+                    InventoryManager.instance.CreatItem(itemCheck.name, true);
+                }
+
+                if (itemCheck.nowStack <= 0)
+                {
+                    Destroy(item.gameObject);
+                }
             }
         }
+        else
+        {
+            GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+
+            if (itemBox.transform.childCount > 0)
+            {
+
+                item = itemBox.transform.GetChild(0).gameObject;
+                itemCheck = item.transform.GetComponent<ItemCheck>();
+            }
+
+            if (InventoryManager.instance.CheckStack(itemCheck.name) == true) // 빈공간이없다면
+            {
+
+                if (itemBox.transform.childCount > 0)
+                {
+                    while (InventoryManager.instance.OnlyCheckStack(itemCheck.name) == true)
+                    {
+                        itemCheck.nowStack -= 1;
+                        InventoryManager.instance.CreatItem(itemCheck.name, true);
+
+                    }
+
+      
+                }
+            }
+
+        }
+
+
+        
     }
     void OnlyDetailObOff()
     {
