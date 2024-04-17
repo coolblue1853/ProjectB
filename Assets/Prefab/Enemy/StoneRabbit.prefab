@@ -406,7 +406,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Wood
+    dropProbability: 1
 --- !u!60 &1772698769
 PolygonCollider2D:
   m_ObjectHideFlags: 0

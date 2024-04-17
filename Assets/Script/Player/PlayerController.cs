@@ -378,7 +378,7 @@ public class PlayerController : MonoBehaviour
         isJumpAnim = true;
         if ( isAttackAnim == false)
         {
-            mainCharacter.Play("Jump");
+        //    mainCharacter.Play("Jump");
         }
 
 

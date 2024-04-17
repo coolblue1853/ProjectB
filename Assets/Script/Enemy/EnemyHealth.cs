@@ -141,6 +141,7 @@ public class EnemyHealth : MonoBehaviour
             DeadBody dBB = dB.transform.GetComponent<DeadBody>();
             dBB.parentEnemy = this.transform.gameObject;
             dBB.Force2DeadBody(Mathf.Abs(nowHP));
+            dropManager.DropItems(transform.position);
             Destroy(this.gameObject);
         }
 

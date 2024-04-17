@@ -12,7 +12,7 @@ public class DatabaseManager : MonoBehaviour
 {
     public static bool weaponStopMove = false;
     public static bool isOpenUI = false;
-
+    public static bool isUsePortal = false;
     public static Dictionary<string, int> inventoryItemStack = new Dictionary<string, int>();
     ItemDatabase itemDatabase;
     public static void PlusInventoryDict(string name, int count)

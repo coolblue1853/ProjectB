@@ -106,32 +106,22 @@ public class CraftItemCheck : MonoBehaviour
 
     void LoadImage()
     {
-        // 이미지 파일이 저장된 폴더 경로
-        string folderPath = "Assets/Sprite/Item/";
+        // 리소스 폴더 내에 있는 이미지 파일의 경로
+        string resourcePath = "Item/" + name;
 
-        // 이미지 파일의 전체 경로
-        string imagePath = Path.Combine(folderPath, name + ".png");
+        // 리소스로드를 통해 이미지를 가져옵니다.
+        Sprite sprite = Resources.Load<Sprite>(resourcePath);
 
-        // 이미지 파일이 존재하는지 확인
-        if (File.Exists(imagePath))
+        if (sprite != null)
         {
-            // 이미지 파일을 바이트 배열로 읽어오기
-            byte[] imageData = File.ReadAllBytes(imagePath);
-
-            // Texture2D를 생성하고 이미지 데이터를 로드
-            Texture2D texture = new Texture2D(2, 2);
-            texture.LoadImage(imageData);
-
-            // 현재 GameObject의 Image 컴포넌트 가져오기
+            // 이미지를 성공적으로 불러왔을 때의 처리
             Image imageComponent = GetComponent<Image>();
-
-            // Image 컴포넌트의 sprite 변경
-           // imageComponent.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            imageComponent.sprite = sprite;
             image = imageComponent;
         }
         else
         {
-            Debug.LogError("이미지 파일이 존재하지 않습니다: " + imagePath);
+            Debug.LogError("이미지 파일을 로드하지 못했습니다: " + resourcePath);
         }
     }
 }
