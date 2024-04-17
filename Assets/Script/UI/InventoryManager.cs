@@ -1213,7 +1213,7 @@ public class InventoryManager : MonoBehaviour
         }
         if (openInventoryAction.triggered)
         {
-            if (inventory.activeSelf == true )
+            if (inventory.activeSelf == true && ShopGameObject.activeSelf == false)
             {
                 DatabaseManager.isOpenUI = false;
                 inventory.SetActive(false);
@@ -1771,6 +1771,10 @@ public void CreatItem(string itemName, bool isC2I = false)
     }
     public void ChangeCusor(GameObject ob)
     {
+        if(ShopGameObject.activeSelf == true)
+        {
+            ShopUI.cusor.SetActive(false);
+        }
         cusorCount[nowBox] = ob.transform.GetSiblingIndex();
         cusor.transform.position = ob.transform.position;
         cusor.SetActive(true);

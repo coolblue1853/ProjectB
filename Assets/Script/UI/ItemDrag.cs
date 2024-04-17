@@ -419,7 +419,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         {
             changeBox = collision.transform;
         }
-        if (collision.transform.tag == "EquipBox")
+        if (collision.transform.tag == "EquipBox"&& InventoryManager.instance.ShopGameObject.activeSelf == false)
         {
             equipBoxCheck = collision.GetComponent<EquipBoxCheck>();
             if (this.itemCheck.equipArea == equipBoxCheck.equipArea)

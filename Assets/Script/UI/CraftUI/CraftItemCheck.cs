@@ -27,6 +27,7 @@ public class CraftItemCheck : MonoBehaviour
     public void OnPointerEnter()
     {
         Debug.Log(this.transform.name);
+        
         craftingManager.MoveCusorByMouse(this.transform.parent.GetSiblingIndex(), this.transform.GetSiblingIndex());
     }
 
