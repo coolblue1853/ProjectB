@@ -732,6 +732,8 @@ public class InventoryManager : MonoBehaviour
         }
     }
    public GameObject nowEquipBox;
+    public GameObject ShopGameObject;
+    public ShopManager ShopUI;
     void BoxChangeByKey()
     {
         if ((upInventoryAction.triggered) || (checkRepeat == false && verticalInput == 1))
@@ -832,8 +834,16 @@ public class InventoryManager : MonoBehaviour
                 chest.isCusorChest = true;
                 chest.CusorMove2Chest();
             }
-            else if(chest == null)
+            else if(ShopGameObject.activeSelf == true)
             {
+                ShopUI.checkRepeat = true;
+                cusor.SetActive(false);
+                state = "ShopCusorOn";
+                ShopUI.ChangeCusor();
+            }
+            else
+            {
+                Debug.Log("인벤토리");
                 changeCusor.SetActive(false);
                 GameObject insPositon = handBox.gameObject;
                 nowEquipBox = handBox;
