@@ -11,6 +11,7 @@ public class ItemCheck : MonoBehaviour
     public string type;
     public string description;
     public int price;
+    public int Buyprice;
     public int weight;
     public string acqPath;
     public int maxStack;
@@ -24,7 +25,15 @@ public class ItemCheck : MonoBehaviour
     ItemData item;
 
     public bool isCraftItem = false;
+    public bool isShopItem = false;
+    private void Start()
+    {
+        if (isShopItem)
+        {
+            SetItem(this.transform.name);
+        }
 
+    }
     public void SetItem(string itemName)
     {
 
@@ -33,6 +42,7 @@ public class ItemCheck : MonoBehaviour
         type = item.type;
         description = item.description;
         price = item.price;
+        Buyprice = (int)(price * 1.5f);
         weight = item.weight;
         acqPath = item.acqPath;
         maxStack = item.maxStack;
@@ -76,10 +86,12 @@ public class ItemCheck : MonoBehaviour
         }
     }
 
+
+    public TextMeshProUGUI Cost;
     // Update is called once per frame
     void Update()
     {
-        if(isCraftItem == false)
+        if(isCraftItem == false && isShopItem == false)
         {
             if (nowStack == 1)
             {
@@ -94,7 +106,7 @@ public class ItemCheck : MonoBehaviour
         }
 
 
-        if(isCraftItem == true)
+       else  if(isCraftItem == true)
         {
             if (DatabaseManager.inventoryItemStack.ContainsKey(name) == false)
             {
@@ -105,7 +117,27 @@ public class ItemCheck : MonoBehaviour
                 stackText.text = + DatabaseManager.inventoryItemStack[name]+"/" + needCount;
             }
         }
+
+        else  if(isShopItem == true)
+        {
+            if (Cost.text == "")
+            {
+                Cost.text = Buyprice.ToString();
+            }
+
+
+                if (DatabaseManager.inventoryItemStack.ContainsKey(name) == false)
+            {
+                if(stackText.text != "0")
+                     stackText.text = "0";
         
+            }
+            else
+            {
+                if(stackText.text != DatabaseManager.inventoryItemStack[name].ToString())
+                     stackText.text = DatabaseManager.inventoryItemStack[name].ToString();
+            }
+        }
     }
 
     void LoadImage()

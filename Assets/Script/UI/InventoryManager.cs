@@ -321,6 +321,7 @@ public class InventoryManager : MonoBehaviour
     void ActiveChangeCursor()
     {
 
+
         if (state == "" || state == "detail" || state == "chestOpen")
         {
             beforBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
@@ -470,7 +471,13 @@ public class InventoryManager : MonoBehaviour
     }
     void CloseCheck()
     {
-        if(state == "detail")
+
+        if (state == "Sell")
+        {
+            state = "detail";
+            sellUIGameObject.SetActive(false);
+        }
+       else if(state == "detail")
         {
             if(chest == null)
             {
@@ -484,7 +491,7 @@ public class InventoryManager : MonoBehaviour
             }
 
         }
-        if(state == "Equipment")
+       else if(state == "Equipment")
         {
             OnlyDetailObOff();
         }
@@ -507,9 +514,19 @@ public class InventoryManager : MonoBehaviour
             }
 
         }
-        if (state == "divide")
+       else if (state == "divide")
         {
             CloseDivide();
+        }
+        else
+        {
+            inventory.SetActive(false);
+            DatabaseManager.isOpenUI = false;
+
+            if(ShopGameObject.activeSelf == true)
+            {
+                ShopUI.CloseShop();
+            }
         }
     }
     public void ExCheckMove()
@@ -836,14 +853,15 @@ public class InventoryManager : MonoBehaviour
             }
             else if(ShopGameObject.activeSelf == true)
             {
-                ShopUI.checkRepeat = true;
+                Debug.Log("상점인");
+                ShopUI.leftKeyCheck = true;
                 cusor.SetActive(false);
                 state = "ShopCusorOn";
                 ShopUI.ChangeCusor();
             }
             else
             {
-                Debug.Log("인벤토리");
+
                 changeCusor.SetActive(false);
                 GameObject insPositon = handBox.gameObject;
                 nowEquipBox = handBox;
@@ -1085,6 +1103,16 @@ public class InventoryManager : MonoBehaviour
             moveItem.transform.position = equipChangeBox.transform.position;
         }
     }
+
+    public GameObject sellUIGameObject;
+    int totalSellPrice;
+    public TextMeshProUGUI sellText;
+    public void SellItemUI()
+    {
+        state = "Sell";
+        sellUIGameObject.SetActive(true);
+    }
+
     private void Update()
     {
         verticalInput =(verticalCheck.ReadValue<float>());
@@ -1131,12 +1159,18 @@ public class InventoryManager : MonoBehaviour
                 else if(state == "detail")
                 {
 
-                    if (equipDetail.activeSelf == true && chest == null)
+                    if (equipDetail.activeSelf == true && chest == null && ShopGameObject.activeSelf == false)
                     {
 
                         UseEquipment();
                         CloseCheck();
                     }
+                    else if (ShopGameObject.activeSelf == true)
+                    {
+                        // 판매 함수
+                        SellItemUI();
+                    }
+
                     else
                     {
                         CloseCheck();
@@ -1207,7 +1241,7 @@ public class InventoryManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F4))
         {
-            CreatItem("Wood");
+            CreatItem("Armor");
             //CreatItem("Potion");
 
         }
