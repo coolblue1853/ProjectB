@@ -15,6 +15,7 @@ public class DatabaseManager : MonoBehaviour
     public static bool isUsePortal = false;
     public static Dictionary<string, int> inventoryItemStack = new Dictionary<string, int>();
     ItemDatabase itemDatabase;
+    public static int money;
     public static void PlusInventoryDict(string name, int count)
     {
         bool isContain = false;
