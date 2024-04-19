@@ -80,6 +80,15 @@ public class ItemCheck : MonoBehaviour
                 PlayerHealthManager.Instance.FullnessUp(effectPow);
             }
         }
+        if (effect[0] == "hp")
+        {
+            if (effect[1] == "+")
+            {
+                PlayerHealthManager.Instance.HpUp(effectPow);
+            }
+        }
+
+        
         if (this.nowStack == 0)
         {
             Destroy(this.gameObject);

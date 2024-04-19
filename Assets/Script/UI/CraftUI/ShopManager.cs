@@ -136,7 +136,7 @@ public class ShopManager : MonoBehaviour
         name.text = nowShopItem.name;
         type.text = nowShopItem.type;
         description.text = nowShopItem.description;
-        price.text =(nowShopItem.price).ToString();
+        price.text =(nowShopItem.Buyprice).ToString();
         weight.text = nowShopItem.weight.ToString();
         acqPath.text = nowShopItem.acqPath;
         Image changeImage = nowShopItem.transform.GetChild(0).GetComponent<Image>();
@@ -162,49 +162,51 @@ public class ShopManager : MonoBehaviour
     public GameObject consumDetail;
     public GameObject equipDetail;
     ItemCheck detail;
+    public bool isBuyDetail;
     void SetNeedDetail()
     {
-        if (detail.type == "Misc")
+        isBuyDetail = true;
+        if (nowShopItem.type == "Misc")
         {
             Transform misc = miscDetail.gameObject.transform;
-            misc.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
-            misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-            misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-            misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-            misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+            misc.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
+            misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.name;
+            misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
+            misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
+            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (nowShopItem.Buyprice).ToString();
+            misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = nowShopItem.weight.ToString();
+            misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = nowShopItem.acqPath;
             miscDetail.transform.localPosition = new Vector2(detailX, detailY);
             miscDetail.SetActive(true);
             consumDetail.SetActive(false);
             equipDetail.SetActive(false);
         }
-        if (detail.type == "Consum")
+        if (nowShopItem.type == "Consum")
         {
             Transform consum = consumDetail.gameObject.transform;
-            consum.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
-            consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-            consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-            consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-            string[] effectString = detail.effectOb.Split();
-            consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = effectString[0] + " : " + effectString[1] + detail.effectPow;
+            consum.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
+            consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.name;
+            consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
+            consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
+            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (nowShopItem.Buyprice).ToString();
+            consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = nowShopItem.weight.ToString();
+            string[] effectString = nowShopItem.effectOb.Split();
+            consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = effectString[0] + " : " + effectString[1] + nowShopItem.effectPow;
             consumDetail.transform.localPosition = new Vector2(detailX, detailY);
             miscDetail.SetActive(false);
             consumDetail.SetActive(true);
             equipDetail.SetActive(false);
         }
-        if (detail.type == "Equip")
+        if (nowShopItem.type == "Equip")
         {
             Transform equip = equipDetail.gameObject.transform;
-            equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+            equip.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
+            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.name;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (nowShopItem.Buyprice).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = nowShopItem.weight.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = nowShopItem.acqPath;
             equipDetail.transform.localPosition = new Vector2(detailX, detailY);
             miscDetail.SetActive(false);
             consumDetail.SetActive(false);
@@ -295,13 +297,127 @@ public class ShopManager : MonoBehaviour
        .OnComplete(() => ResetCheckRepeat());
 
     }
+
+
+    public int currentSellValue = 0; // 현재 가지고 있는 int 수
+    public GameObject sellUIGameObject;
+    int totalSellPrice;
+    public TextMeshProUGUI sellText;
+    public Slider sellSlider; // Unity Inspector에서 Slider를 할당
+    int output;
+    public void SellItemUI()
+    {
+        InitializeSlider();
+        state = "Buy";
+        sellUIGameObject.SetActive(true);
+        totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
+        sellText.text = "Buy " + nowShopItem.name + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+    }
+    void OnSliderValueChanged(float value)
+    {
+        output = Mathf.RoundToInt(value);
+
+    }
+    void RightMove()
+    {
+        Debug.Log("작동");
+        checkRepeat = true;
+        sequence.Kill();
+        sequence = DOTween.Sequence()
+        .AppendInterval(waitTime)
+        .OnComplete(() => ResetCheckRepeat());
+        sellSlider.value += 1;
+        totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
+        sellText.text = "Buy " + nowShopItem.name + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+    }
+    void LeftMove()
+    {
+        checkRepeat = true;
+        sequence.Kill();
+        sequence = DOTween.Sequence()
+        .AppendInterval(waitTime)
+        .OnComplete(() => ResetCheckRepeat());
+        sellSlider.value -= 1;
+        totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
+        sellText.text = "Buy " + nowShopItem.name + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+    }
+
+    void InitializeSlider()
+    {
+        sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
+        sellSlider.maxValue = Mathf.Min(nowShopItem.maxStack, DatabaseManager.money / nowShopItem.Buyprice);
+        // 슬라이더의 최소값과 최대값 설정
+        sellSlider.minValue = 1;
+        // 슬라이더의 현재 값 설정
+        sellSlider.value = 1;
+        output = 1;
+    }
+    void BuyItem()
+    {
+
+        for(int i =0; i < sellSlider.value; i++)
+        {
+            if (InventoryManager.instance.CheckBoxCanCreatAll() == true || InventoryManager.instance.OnlyCheckStack(nowShopItem.name) == true)
+            {
+                DatabaseManager.money -= nowShopItem.Buyprice;
+                InventoryManager.instance.CreatItem(nowShopItem.name);
+            }
+
+
+        }
+
+
+        InventoryManager.instance.state = "ShopCusorOn";
+        sellUIGameObject.SetActive(false);
+        state = "";
+        cusor.SetActive(true);
+        isMoveCusor = true;
+        DetailOff();
+        /*
+        nowShopItem.nowStack -= (int)sellSlider.value;
+        if (nowShopItem.nowStack == 0)
+        {
+            Destroy(nowShopItem.gameObject);
+        }
+        DatabaseManager.money += totalSellPrice;
+        sellUIGameObject.SetActive(false);
+        miscDetail.SetActive(false);
+        consumDetail.SetActive(false);
+        equipDetail.SetActive(false);
+        Sequence seq = DOTween.Sequence()
+.AppendInterval(waitTime)
+.OnComplete(() => state = "");
+        */
+
+
+    }
+
+    public void CloseBuyUI()
+    {
+        InventoryManager.instance.state = "ShopCusorOn";
+        sellUIGameObject.SetActive(false);
+    }
     // Update is called once per frame
     void Update()
     {
 
+        if (InventoryManager.instance.state == "BuyDetail")
+        {
+            if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1) && sellSlider.value < sellSlider.maxValue)
+            {
+                RightMove();
+            }
+            else if ((leftInventoryAction.triggered) || (checkRepeat == false && horizontalInput == -1) && sellSlider.value > 1)
+            {
+                LeftMove();
+            };
+            if (selectAction.triggered)
+            {
+                BuyItem();
+            }
+        }
 
-
-        if(ShopUI.activeSelf == true && InventoryManager.instance.state == "ShopCusorOn")
+        if (ShopUI.activeSelf == true && InventoryManager.instance.state == "ShopCusorOn")
         {
             if(isCheckDetail == true)
             {
@@ -334,19 +450,29 @@ public class ShopManager : MonoBehaviour
                     SetNeedDetail();
                 }
             }
-            if (cusor.activeSelf == true && isMoveCusor == true)
+            if (cusor.activeSelf == true && isMoveCusor == true&& state == "")
             {
                 verticalInput = (verticalCheck.ReadValue<float>());
                 horizontalInput = (horizontalCheck.ReadValue<float>());
                 MoveCusor();
             }
 
-            if (cusor.activeSelf == true && craftCusor.activeSelf == false && selectAction.triggered == true)
+            if (cusor.activeSelf == true && craftCusor.activeSelf == false && selectAction.triggered == true && isBuyDetail ==false)
             {
-                Invoke("ChangeisCarft", 0.1f);
-                cusor.SetActive(false);
-                craftCusor.SetActive(true);
+                //InventoryManager.instance.state = "BuyDetail";
+                isCheckDetail = true;
+                SetNeedDetail();
             }
+            else if(isBuyDetail == true && selectAction.triggered == true)
+            {
+                InventoryManager.instance.state = "BuyDetail";
+                SellItemUI();
+            }
+
+
+
+
+
         }
 
 
@@ -358,6 +484,7 @@ public class ShopManager : MonoBehaviour
         {
             InventoryManager.instance.inventoryUI[0].SetActive(true);
             InventoryManager.instance.nowBox = 0;
+            InventoryManager.instance.state = "";
             InventoryManager.instance.boxCusor = 0;
             InventoryManager.instance.ResetBoxOrigin();
             InventoryManager.instance.cusor.SetActive(true);
@@ -365,6 +492,7 @@ public class ShopManager : MonoBehaviour
             Invoke("ChangeisMoveCusor", 0.2f);
             ShopUI.SetActive(true);
             Inventory.SetActive(true);
+
           //  needMaterailUI.SetActive(true);
             DatabaseManager.isOpenUI = true;
         }
@@ -383,6 +511,14 @@ public class ShopManager : MonoBehaviour
 
 
 
+    }
+    public string state = "";
+    public void DetailOff()
+    {
+        isBuyDetail = false;
+        miscDetail.SetActive(false);
+        consumDetail.SetActive(false);
+        equipDetail.SetActive(false);
     }
     public void CloseShop()
     {
@@ -406,7 +542,7 @@ public class ShopManager : MonoBehaviour
     {
         isCraft = false;
     }
-    bool isMoveCusor = false;
+    public bool isMoveCusor = false;
     void ChangeisMoveCusor()
     {
         isMoveCusor = true;
@@ -456,6 +592,7 @@ public class ShopManager : MonoBehaviour
               //  nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
                 //SetNeedItem();
                 SetDetail();
+                DetailOff();
             }
             else
             {
@@ -463,6 +600,7 @@ public class ShopManager : MonoBehaviour
                 InventoryManager.instance.ExCheckMove();
                 InventoryManager.instance.CusorChest2Inven();
                 cusor.SetActive(false);
+                DetailOff();
             }
         }
         if (((leftInventoryAction.triggered) || (checkRepeat == false && horizontalInput == -1)) && leftKeyCheck == false)
@@ -482,6 +620,7 @@ public class ShopManager : MonoBehaviour
                 //nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
                 //SetNeedItem();
                 SetDetail();
+                DetailOff();
             }
         }
         if (((downInventoryAction.triggered) || (checkRepeat == false && verticalInput == -1)) && LV1craftBox[nowLv].transform.GetChild(nowPage).transform.childCount > line+1)
@@ -502,6 +641,7 @@ public class ShopManager : MonoBehaviour
             //nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
             //SetNeedItem();
             SetDetail();
+            DetailOff();
         }
         if (((upInventoryAction.triggered) || (checkRepeat == false && verticalInput == 1)) && 0 < line)
         {
@@ -521,6 +661,7 @@ public class ShopManager : MonoBehaviour
            // nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
             //SetNeedItem();
             SetDetail();
+            DetailOff();
         }
 
 

@@ -4,7 +4,7 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 1,Wood,Misc,String2,200,2,odnw,5,-,0,-
 2,PickAxe,Equip,equipment,300,2,diopvh,1,-,0,Weapon
 3,test4,Misc,World,400,1,soie,1,-,0,-
-4,Potion,Consum,World,400,1,soie,5,stemina +,50,-
+4,Potion,Consum,World,400,1,soie,5,hp +,200,-
 5,Food,Consum,eat!,50,5,cook,3,fullness +,100,-
 6,Cap,Equip,equipment,500,50,Buy,1,-,0,Head
 7,Armor,Equip,equipment,500,50,Buy,1,-,0,Chest

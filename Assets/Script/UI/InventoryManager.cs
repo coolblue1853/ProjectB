@@ -477,7 +477,21 @@ public class InventoryManager : MonoBehaviour
             state = "detail";
             sellUIGameObject.SetActive(false);
         }
-       else if(state == "detail")
+        else if(state == "BuyDetail")
+        {
+            ShopUI.CloseBuyUI();
+        }
+        else if (ShopUI.isBuyDetail == true)
+        {
+            state = "ShopCusorOn";
+            ShopUI.state = "";
+            ShopUI.cusor.SetActive(true);
+            ShopUI.isMoveCusor = true;
+            ShopUI.DetailOff();
+
+        }
+        
+        else if(state == "detail")
         {
             if(chest == null)
             {
@@ -525,6 +539,7 @@ public class InventoryManager : MonoBehaviour
 
             if(ShopGameObject.activeSelf == true)
             {
+                InventoryManager.instance.state = "";
                 ShopUI.CloseShop();
             }
         }

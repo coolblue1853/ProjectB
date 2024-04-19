@@ -59,6 +59,7 @@ public class DatabaseManager : MonoBehaviour
     static public DatabaseManager instance;
     private void Awake()
     {
+        money += 1800;
         itemDatabase = this.GetComponent<ItemDatabase>();
         if (instance != null)
         {
