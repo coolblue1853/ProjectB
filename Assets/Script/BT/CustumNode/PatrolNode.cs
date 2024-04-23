@@ -59,14 +59,7 @@ public class PatrolNode : BTNode
                 }
                 else if (isStop == true)
                 {
-                    if (enemyObject.transform.localScale .x> 0)
-                    {
-                        movePoint = -movePoint;
-                    }
-                    else
-                    {
-                        movePoint = Mathf.Abs(movePoint);
-                    }
+
 
 
                 }

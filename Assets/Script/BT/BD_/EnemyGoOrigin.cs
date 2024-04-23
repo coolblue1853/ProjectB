@@ -18,7 +18,14 @@ public class EnemyGoOrigin : EnemyAction
     }
     public override TaskStatus OnUpdate()
     {
-
+        if (Mathf.Abs(enemyObject.transform.position.y - originPosition.y) < 1)
+        {
+            isArriveOrigin = true;
+        }
+        else
+        {
+            isArriveOrigin = false;
+        }
         return (isEnd== true && isArriveOrigin == true) ? TaskStatus.Success : TaskStatus.Running;
     }
     public void StartGoOrigin()
@@ -56,10 +63,6 @@ public class EnemyGoOrigin : EnemyAction
     {
         if (this.transform != null)
         {
-            if(enemyObject.transform.position.y == originPosition.y)
-            {
-                isArriveOrigin = true;
-            }
 
             isEnd = true;
         }

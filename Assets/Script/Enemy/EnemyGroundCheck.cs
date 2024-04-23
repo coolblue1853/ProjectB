@@ -6,7 +6,6 @@ public class EnemyGroundCheck : MonoBehaviour
 {
 
     public GameObject groundCheck2;
-
     RaycastHit2D hit2;
     public EnemyFSM EnemyFSM;
     Rigidbody2D rb;
@@ -37,12 +36,8 @@ public class EnemyGroundCheck : MonoBehaviour
             Debug.DrawRay(groundCheck2.transform.position, Vector2.down, Color.red, 0.3f);
              if (hit2.collider == null) //right
             {
+     
 
-                EnemyFSM.KillBrainSequence();
-            //  rb.velocity = Vector2.zero;
-           patrolNode.isStop = true;
-             EnemyFSM.ReActiveBrainSequence();
-             isGroundCheck = false;
             }
 
         }
