@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +6,14 @@ using UnityEditor;
 using TMPro;
 using UnityEngine.Rendering;
 using DamageNumbersPro.Internal;
+using UnityEditor.SceneManagement;
 
 namespace DamageNumbersPro
 {
     [CustomEditor(typeof(DamageNumber), true), CanEditMultipleObjects]
     public class DamageNumberEditor : Editor
     {
-        public static string version = "4.31";
+        public static string version = "4.32";
 
         void OnEnable()
         {
@@ -128,7 +128,7 @@ namespace DamageNumbersPro
             }
 
             //External Editors:
-            DNPEditorInternal.Externalnspectors(isMesh);
+            DNPEditorInternal.Externalnspectors(isMesh, target);
             DNPEditorInternal.FinalInformation();
 
             DNPEditorInternal.EndInspector();
@@ -1549,6 +1549,12 @@ namespace DamageNumbersPro
             EditorGUILayout.Space(2);
             DNPEditorInternal.StartBox();
 
+            bool editingPrefabPreview = DNPEditorInternal.EditingPrefabPreview(target);
+            if (editingPrefabPreview)
+            {
+                GUI.enabled = false;
+            }
+
             //Font:
             bool mixedFontAssets = false;
             TMP_FontAsset fontAsset = null;
@@ -1627,6 +1633,7 @@ namespace DamageNumbersPro
                     }
                 }
             }
+
             EditorGUI.showMixedValue = mixedColor;
             EditorGUI.BeginChangeCheck();
             Color newColor = EditorGUILayout.ColorField(new GUIContent("Color", "The vertex color used by text mesh pro."), vertexColor);
@@ -1643,11 +1650,21 @@ namespace DamageNumbersPro
                 }
             }
 
+            GUI.enabled = true;
+
             //Info:
             DNPEditorInternal.Lines();
             GUI.color = new Color(1, 1, 1, 0.7f);
-            DNPEditorInternal.ScalingLabel("Check out the <b>TextMeshPro</b> component for more settings.",355);
-            GUI.color = Color.white;
+            if (editingPrefabPreview)
+            {
+                DNPEditorInternal.ScalingLabel("You need to <b>open</b> the <b>prefab</b> to access these settings.", 355);
+                DNPEditorInternal.OpenPrefabButton(target);
+            }
+            else
+            {
+                DNPEditorInternal.ScalingLabel("Check out the <b>TextMeshPro</b> component for more settings.", 355);
+                GUI.color = Color.white;
+            }
 
             DNPEditorInternal.CloseBox();
         }

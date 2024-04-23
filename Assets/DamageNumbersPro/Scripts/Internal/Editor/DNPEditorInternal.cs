@@ -7,6 +7,7 @@ using UnityEditor;
 using TMPro;
 using DamageNumbersPro;
 using UnityEngine.Rendering;
+using UnityEditor.SceneManagement;
 
 namespace DamageNumbersPro.Internal {
     public static class DNPEditorInternal
@@ -422,7 +423,7 @@ namespace DamageNumbersPro.Internal {
             EditorGUILayout.Space(5);
         }
 
-        public static void Externalnspectors(bool isMesh)
+        public static void Externalnspectors(bool isMesh, Object target)
         {
             EditorGUILayout.Space(2);
             Lines();
@@ -433,6 +434,20 @@ namespace DamageNumbersPro.Internal {
             StartBox(externalInspectorColor);
             GUI.backgroundColor = externalInspectorColor;
             EditorGUILayout.BeginVertical();
+
+            bool editingPrefabPreview = EditingPrefabPreview(target); ;
+
+            if (editingPrefabPreview)
+            {
+                GUI.color = new Color(1, 1, 1f, 0.75f);
+                ScalingLabel("<b>Open</b> the prefab to access the <b>presets</b>, <b>material</b> and <b>text mesh pro</b> tabs.", 440);
+                OpenPrefabButton(target);
+
+                GUI.backgroundColor = Color.white;
+                EditorGUILayout.EndVertical();
+                CloseBox(externalInspectorColor);
+                return;
+            }
 
             int previousEditor = currentEditor;
             if (cleanEditor)
@@ -1129,6 +1144,27 @@ namespace DamageNumbersPro.Internal {
         {
             repaintViews = true;
             GUI.FocusControl("");
+        }
+
+        public static bool EditingPrefabPreview(Object target)
+        {
+            return EditorUtility.IsPersistent(target) && PrefabStageUtility.GetCurrentPrefabStage() == null;
+        }
+
+        public static void OpenPrefabButton(Object target)
+        {
+            GUI.color = Color.white;
+            if (GUILayout.Button("Click here to open the prefab."))
+            {
+                try
+                {
+                    PrefabStageUtility.OpenPrefab(AssetDatabase.GetAssetPath(target));
+                }
+                catch
+                {
+                    EditorUtility.DisplayDialog("Something went wrong.", "Please open the prefab manually, by double-clicking it in the project window.", "Okay");
+                }
+            }
         }
         #endregion
 

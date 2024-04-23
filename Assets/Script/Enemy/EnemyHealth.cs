@@ -5,14 +5,16 @@ using DG.Tweening;
 using System.Linq;
 using UnityEngine.UI;
 using DamageNumbersPro;
+using BehaviorDesigner.Runtime;
+using BehaviorDesigner.Runtime.Tasks;
 public class EnemyHealth : MonoBehaviour
 {
     public DamageNumber damageNumber;
     public int enemyDef = 0;
     Animator anim;
-    public Sequence sequence;
+    public DG.Tweening.Sequence sequence;
     public int maxHP = 100;
-    private int nowHP = 0;
+    public int nowHP = 100;
     public HealthBarCut hpBar;
     public GameObject hpObject;
     public float hpHeight;
@@ -24,16 +26,21 @@ public class EnemyHealth : MonoBehaviour
     Vector2 knockbackDirection = new Vector2(0f, 1f);
     public DropManager dropManager;
     EnemyFSM enemyFSM;
+    BehaviorTree behaviorTree;
 
     public GameObject deadBody;
     public GameObject enemySensor;
+
+
     private void Start()
     {
+
         anim = transform.GetComponent<Animator>();
         dropManager = transform.GetComponent<DropManager>();
-           enemyFSM = transform.GetComponent<EnemyFSM>();
+       //    enemyFSM = transform.GetComponent<EnemyFSM>();
         rb = transform. GetComponent<Rigidbody2D>();
-       // brain = transform.GetComponent<BTBrain>();
+        // brain = transform.GetComponent<BTBrain>();
+        behaviorTree = transform.GetComponent<BehaviorTree>();
         nowHP = maxHP;
         hpBar.setHpBar(maxHP);
         
@@ -66,7 +73,7 @@ public class EnemyHealth : MonoBehaviour
     {
         float baseDmg = Random.Range(damage[0], damage[1]);
         int checkCrit = Random.Range(1, 101);
-        Debug.Log(baseDmg);
+
         if(checkCrit <= damage[2]) // 치명타 성공시
         {// 기본 치피는 20
             outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3]) / 100)) * (1 + ((damage[4]) / 100));  // 기본뎀 * 치뎀 * 뎀증
@@ -80,7 +87,7 @@ public class EnemyHealth : MonoBehaviour
         {
             outDmg *= 1 + ((damage[6]) / 100);
         }
-        Debug.Log(outDmg);
+
         return outDmg;
     }
     float dmgByDmg;
@@ -88,13 +95,13 @@ public class EnemyHealth : MonoBehaviour
     float addDmg;
     float shakeTime;
     public float ShakeCorrection = 1.0f;
-    Sequence striffSequence;
+    DG.Tweening.Sequence striffSequence;
     public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking)
     {
 
         shakeTime = shaking;
         float dmg = SetDmg(damage, isSkill); // 방어력 적용전 데미지;
-        Debug.Log(dmg);
+
         if (damage[5] !=0 && enemyDef != 0)
         {
              dmgByDmg = dmg * (dmg / (dmg + (enemyDef * (damage[5] / 100)))); // 방무 적용후
@@ -103,9 +110,9 @@ public class EnemyHealth : MonoBehaviour
         else
         {
             dmgByDmg = dmg * (dmg / (dmg + enemyDef)); // 방무 미적용
-            Debug.Log(dmgByDmg);
+
             finDmg = dmgByDmg * (1 + ((damage[7]) / 100)); // 최종뎀 추가
-            Debug.Log(finDmg);
+
         }
 
          addDmg = 0;
@@ -113,7 +120,7 @@ public class EnemyHealth : MonoBehaviour
         {
             float addFloat = damage[8];
             addDmg = finDmg  * ((addFloat / 100.0f)); // 추뎀 계산
-            Debug.Log(addDmg);
+
         }
        // shakeTime = finDmg / maxHP* ShakeCorrection ;
         ToggleObject();
@@ -153,15 +160,20 @@ public class EnemyHealth : MonoBehaviour
             {
                 anim.SetBool("isHit", true);
             }
-            if (enemyFSM != null)
+            if (behaviorTree != null) // 원래enemyFSM 였음
             {
 
                 if(stiffTime == 0)
                 {
                     notStiff = true;
                 }
-                enemyFSM.KillBrainSequence(notStiff);
+                StopAllActions();
+                behaviorTree.enabled = false;
+
+                //  enemyFSM.KillBrainSequence(notStiff);
             }
+
+
             isAttackGround = true;
             striffSequence = DOTween.Sequence()
             .AppendCallback(()=>transform.DOShakePosition(shakeTime, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false))
@@ -203,14 +215,15 @@ public class EnemyHealth : MonoBehaviour
         {
             if (parameter.type == AnimatorControllerParameterType.Bool)
             {
-                Debug.Log(parameter.name);
+
                 anim.SetBool(parameter.name, false);
             }
         }
     }
+
     private void EndStiffness()
     {
-        Debug.Log("넉백 종료");
+        behaviorTree.enabled = true;
         isStun = false;
         if (this != null && enemyFSM != null)
         {
@@ -327,11 +340,31 @@ public class EnemyHealth : MonoBehaviour
         posionAttack.ActivePoison(poisonDamage, damageInterval, damageCount);
 
     }
+    public void StopAllActions()
+    {
+        // GetActiveTasks 메서드가 null을 반환할 수 있으므로 예외 처리
+        List<BehaviorDesigner.Runtime.Tasks.Task> activeTasks = behaviorTree.GetActiveTasks();
+        if (activeTasks != null)
+        {
+            // Behavior Tree에서 실행 중인 모든 Task를 찾아서 중지
+            foreach (BehaviorDesigner.Runtime.Tasks.Task task in activeTasks)
+            {
+                if (task is EnemyAction)
+                {
+                    EnemyAction enemyAction = (EnemyAction)task;
+                    if (enemyAction != null)
+                    {
+                        enemyAction.StopAction();
+                    }
+                }
+            }
+        }
+    }
 
     public void DisaperByTime()
     {
         SpriteRenderer img = this.GetComponent<SpriteRenderer>();
-        Sequence disSequence = DOTween.Sequence()
+        DG.Tweening.Sequence disSequence = DOTween.Sequence()
  .AppendCallback(() => img.DOFade(0, 1.5f))
  .AppendInterval(1.5f)
 .OnComplete(() => Destroy(this.gameObject));
