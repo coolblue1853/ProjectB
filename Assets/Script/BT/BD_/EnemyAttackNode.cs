@@ -52,7 +52,6 @@ public class EnemyAttackNode : EnemyAction
     {
         if (this.transform != null)
         {
-            anim.SetBool("isAttack", false);
             isEnd = true;
         }
     }
