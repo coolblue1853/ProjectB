@@ -7,8 +7,9 @@ public class ChaseNode : BTNode
 {
     Animator anim;
     Vector2 originPosition;
-    GameObject player;
+  
     public GameObject enemyObject;
+    GameObject player;
     public float moveDuration;
     public float moveDistance;
     float direction;

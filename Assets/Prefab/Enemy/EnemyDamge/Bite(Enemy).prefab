@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8822647387501680376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1730.84, y: 7.581, z: -0.0568}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0568}
   m_LocalScale: {x: 1, y: 1, z: 7.1948028}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -137,7 +137,7 @@ MonoBehaviour:
   isLaunch: 0
   launchForce: 0
   launchDir: {x: 0, y: 0}
-  isDeletByGround: 0
+  isGroundDestroy: 0
   isPosionAttack: 0
   poisonDamage: 0
   damageInterval: 0
