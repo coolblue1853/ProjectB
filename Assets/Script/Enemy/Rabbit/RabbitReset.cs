@@ -8,7 +8,12 @@ public class RabbitReset : MonoBehaviour
 
     public void ResetRabbit()
     {
-        rabbitHole.ResetRabbit();
+        if(rabbitHole!= null)
+        {
+            rabbitHole.ResetRabbit();
+
+        }
+
         Destroy(this.gameObject);
     }
 }

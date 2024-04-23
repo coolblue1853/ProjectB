@@ -225,7 +225,7 @@ public class EnemyHealth : MonoBehaviour
     {
         behaviorTree.enabled = true;
         isStun = false;
-        if (this != null && enemyFSM != null)
+        if (this != null && behaviorTree != null)
         {
             if (anim != null)
             {

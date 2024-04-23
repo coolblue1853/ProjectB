@@ -41,7 +41,7 @@ public class HitGoOriginNode : BTNode
             }
             sequence = DOTween.Sequence()
 
-  .Append(enemyObject.transform.DOMoveX(originX, moveDuration).SetEase(Ease.Linear)) // 원점으로 이동합니다.
+            .Append(enemyObject.transform.DOMoveX(originX, moveDuration).SetEase(Ease.Linear)) // 원점으로 이동합니다.
 
            .OnComplete(() => OnSequenceComplete());
             return NodeState.FAILURE;

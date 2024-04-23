@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
-using BehaviorDesigner.Runtime;
 using DG.Tweening;
+using UnityEngine;
 public class EnemyPatrol : EnemyAction
 {
     public int xMin;
@@ -17,19 +14,17 @@ public class EnemyPatrol : EnemyAction
 
     int movePoint;
     public float desiredSpeed;
-    float chInRommSize;
 
     public override void OnStart()
     {
         isEnd = false;
-        chInRommSize = enemyObject.transform.localScale.x;
-        StartJump();
+        StartPatrol();
     }
     public override TaskStatus OnUpdate()
     {
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
-    public void StartJump()
+    public void StartPatrol()
     {
 
         do
