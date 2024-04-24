@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.InputSystem;
 using AnyPortrait;
+using DarkTonic.MasterAudio;
 public class PlayerController : MonoBehaviour
 {
     int LadderLayer = 31;
@@ -430,13 +431,16 @@ public class PlayerController : MonoBehaviour
               if (isJumpAnim == false&& isAttackAnim == false)
                     {
                         if (isRun)
-                        {
-                            mainCharacter.Play("Run");
+                    {
+                        PlayRunSound();
+                        mainCharacter.Play("Run");
 
                         }
                         else
-                        {
-                            mainCharacter.Play("Walk");
+                    {
+
+                        PlayWalkSound();
+                        mainCharacter.Play("Walk");
                         }
                     }
 
@@ -452,10 +456,13 @@ public class PlayerController : MonoBehaviour
                     if (isRun)
                     {
                         mainCharacter.Play("Run");
-
+                        PlayRunSound();
                     }
                     else
                     {
+                        PlayWalkSound();
+  
+               
                         mainCharacter.Play("Walk");
                     }
                 }
@@ -574,6 +581,7 @@ public class PlayerController : MonoBehaviour
     bool isJumpAnim = false;
     void Jump()
     {
+        MasterAudio.PlaySound("Jump");
         BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
         /*
         if(bc.isTrigger == true)
@@ -805,6 +813,22 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("³ª°¨");
             platformTrue = false;
+        }
+    }
+
+    void PlayRunSound()
+    {
+
+            if (!MasterAudio.IsSoundGroupPlaying("SoilRun"))
+        {
+            MasterAudio.PlaySound3DAtTransform("SoilRun", this.transform,1f,1.6f);
+        }
+    }
+    void PlayWalkSound()
+    {
+        if (!MasterAudio.IsSoundGroupPlaying("SoilWalk"))
+        {
+            MasterAudio.PlaySound3DAtTransform("SoilWalk", this.transform);
         }
     }
 }
