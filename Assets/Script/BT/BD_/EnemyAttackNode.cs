@@ -23,9 +23,8 @@ public class EnemyAttackNode : EnemyAction
             anim.SetBool("isAttack", true);
 
         }
+        FaceChange();
         sequence = DOTween.Sequence()
-       .AppendCallback(() => direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x))
-       .AppendCallback(() => FaceChange())
        .AppendCallback(() => CreatDamageOb())
        //  .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
        .OnComplete(() => OnSequenceComplete());
@@ -33,6 +32,8 @@ public class EnemyAttackNode : EnemyAction
     }
     void FaceChange()
     {
+        direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
+        Debug.Log(direction);
         if (direction > 0)
         {
             enemyObject.transform.localScale = new Vector3(chInRommSize, enemyObject.transform.localScale.y, 1);

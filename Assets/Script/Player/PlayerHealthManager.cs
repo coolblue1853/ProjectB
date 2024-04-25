@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using AnyPortrait;
 public class PlayerHealthManager : MonoBehaviour
 {
-
+    public apPortrait mainCharacter;
     bool isSuperArmor = false;
     Sequence sequence;
     Sequence waitSequence;
@@ -33,6 +34,10 @@ public class PlayerHealthManager : MonoBehaviour
 
     public GameObject player;
     Rigidbody2D rb;
+
+    Sequence noDamgeSycle;
+    public float noDamgeTime;
+    bool isNoDamge = false;
     void Start()
     {
         rb = player.GetComponent<Rigidbody2D>();
@@ -98,19 +103,33 @@ public class PlayerHealthManager : MonoBehaviour
     Sequence mysequence;
     public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
     {
-        HpDown(damage);
-        rb.velocity = Vector2.zero;
-        if (isSuperArmor == false && stiffTime>0)
-        {
-            mysequence.Kill(); // 재공격시 경직 시간 초기화.
-            playerController.isAttacked = true;
-            playerController.isAttackedUp = true;
 
-            mysequence = DOTween.Sequence()
-        .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
-        .AppendInterval(stiffTime)
-        .OnComplete(() => EndStiffness());
+        if(isNoDamge == false)
+        {
+
+            noDamgeSycle = DOTween.Sequence()      
+            .AppendCallback(() => isNoDamge = true)
+            .AppendCallback(() => mainCharacter.SetControlParamInt("Eye Param", 4))
+            .AppendInterval(noDamgeTime)
+            .AppendCallback(() => mainCharacter.SetControlParamInt("Eye Param", 0))
+            .OnComplete(() => isNoDamge = false);
+
+            HpDown(damage);
+            rb.velocity = Vector2.zero;
+            if (isSuperArmor == false && stiffTime > 0)
+            {
+                mysequence.Kill(); // 재공격시 경직 시간 초기화.
+                playerController.isAttacked = true;
+                playerController.isAttackedUp = true;
+
+                mysequence = DOTween.Sequence()
+            .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
+            .AppendInterval(stiffTime)
+            .OnComplete(() => EndStiffness());
+            }
+
         }
+
 
     }
     private void KnockbackActive(float knockbackForce, Vector2 knockbackDir, float x, bool isDirChange)

@@ -17,6 +17,7 @@ public class EnemyAction : Action
 
     public override void OnAwake()
     {
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         enemyObject = this.gameObject;
         chInRommSize = enemyObject.transform.localScale.x;
         body = GetComponent<Rigidbody2D>();

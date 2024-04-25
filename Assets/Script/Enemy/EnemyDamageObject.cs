@@ -18,12 +18,26 @@ public class EnemyDamageObject : MonoBehaviour
     public float launchForce = 0;
     public Vector2 launchDir;
     public bool isGroundDestroy = false;
-
+    float desiredSpeed = 5f; // 원하는 속도 설정
+    
     private Sequence sequence; // 시퀀스를 저장하기 위한 변수 추가
      GameObject enemyOb;
-
+    Rigidbody2D rigidbody2D;
+    private void Update()
+    {
+        if (isLaunch)
+        {
+            float currentSpeed = rigidbody2D.velocity.magnitude;
+            if (currentSpeed != desiredSpeed)
+            {
+                Vector2 newVelocity = rigidbody2D.velocity.normalized * desiredSpeed;
+                rigidbody2D.velocity = newVelocity;
+            }
+        }
+    }
     void Start()
     {
+         rigidbody2D = GetComponent<Rigidbody2D>();
         enemyOb = transform.parent.gameObject;
        player = GameObject.FindWithTag("Player");
         if (isDestroyByTime)
