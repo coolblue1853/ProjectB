@@ -247,8 +247,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 65, y: 67.26706}
-  m_SizeDelta: {x: 204.1934, y: 21}
+  m_AnchoredPosition: {x: -74.8, y: -169.1}
+  m_SizeDelta: {x: 91.9823, y: 9.4598}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2912216099331353062
 GameObject:
@@ -393,8 +393,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 204.19, y: 21}
+  m_AnchoredPosition: {x: 0, y: 0.000031948}
+  m_SizeDelta: {x: 91.982, y: 9.4598}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &2912216099628555643
 CanvasRenderer:
@@ -617,7 +617,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4327461545348258416}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -410.3182, y: 136.2106, z: -0.07721957}
   m_LocalScale: {x: 0.5023607, y: 0.5023607, z: 0.5023607}
   m_ConstrainProportionsScale: 0
@@ -722,7 +722,7 @@ MonoBehaviour:
   nowHP: 0
   hpBar: {fileID: 2912216098159019687}
   hpObject: {fileID: 2912216099094664534}
-  hpHeight: 1
+  hpHeight: -1.2
   isSuperArmor: 0
   hpCanvas: {fileID: 2912216099094664534}
   dropManager: {fileID: 0}

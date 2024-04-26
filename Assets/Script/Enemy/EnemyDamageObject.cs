@@ -47,10 +47,21 @@ public class EnemyDamageObject : MonoBehaviour
 
         if (isLaunch)
         {
+            this.transform.parent = null;
+            transform.localScale = new Vector3(Mathf.Abs( transform.localScale.x), transform.localScale.y, 1);
             transform.parent = null;
             Vector3 direction = (player.transform.position - this.transform.position).normalized;
             Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
             rigidbody2D.AddForce(direction * launchForce, ForceMode2D.Impulse);
+
+            // 오브젝트가 날아가는 방향을 기준으로 회전하기 위해 각도를 계산합니다.
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            // Z축을 기준으로 회전하기 때문에, Z축을 기준으로 회전되도록 쿼터니언(quaternion)을 생성합니다.
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            // 회전을 적용합니다.
+            transform.rotation = rotation;
+
+
         }
     }
 

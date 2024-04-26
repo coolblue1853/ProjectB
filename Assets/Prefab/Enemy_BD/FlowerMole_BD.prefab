@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 204.19, y: 21}
+  m_AnchoredPosition: {x: 0, y: 0.000026941}
+  m_SizeDelta: {x: 93.717, y: 9.6381}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1117283437971735396
 CanvasRenderer:
@@ -188,8 +188,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 65, y: 67.26706}
-  m_SizeDelta: {x: 204.1934, y: 21}
+  m_AnchoredPosition: {x: 255.1, y: -169.7}
+  m_SizeDelta: {x: 93.7177, y: 9.6382}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1117283438813165561
 GameObject:
@@ -616,7 +616,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010044806525764719}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -404.36, y: 136.42, z: -0.07721957}
   m_LocalScale: {x: 0.5462168, y: 0.5462168, z: 0.5462168}
   m_ConstrainProportionsScale: 0
@@ -721,7 +721,7 @@ MonoBehaviour:
   nowHP: 0
   hpBar: {fileID: 1117283439985449144}
   hpObject: {fileID: 1117283438505036617}
-  hpHeight: 2
+  hpHeight: -1.2
   isSuperArmor: 0
   hpCanvas: {fileID: 1117283438505036617}
   dropManager: {fileID: 0}
@@ -809,8 +809,8 @@ MonoBehaviour:
         Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":3},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isAttack"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(14.1934814,176.129028)"},"ID":15,"Name":"Inverter","Instant":true,"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(20,120)"},"ID":16,"Name":"Set
         Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":4},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(165.161285,169.999878)"},"ID":17,"Name":"Inverter","Instant":true,"Children":[{"Type":"EnemyChase","NodeData":{"Offset":"(10,120)"},"ID":18,"Name":"Enemy
         Chase","Instant":true,"SinglemoveDuration":0.1,"SinglemoveDistance":0.1,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(310,290)"},"ID":19,"Name":"Set
-        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":5},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-72.66639,373.280518)"},"ID":20,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"EnemyGroundChecker","NodeData":{"Offset":"(-141.285553,163.999023)"},"ID":21,"Name":"Enemy
-        Ground Checker","Instant":true,"GameObjectgroundCheck2":6,"BooleanisGroundCheck":false},{"Type":"EnemyGoRevers","NodeData":{"Offset":"(61.6576538,146.215637)"},"ID":22,"Name":"Enemy
+        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":5},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-72.66639,342.977478)"},"ID":20,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"EnemyGroundChecker","NodeData":{"Offset":"(-113.656342,163.999023)"},"ID":21,"Name":"Enemy
+        Ground Checker","Instant":true,"GameObjectgroundCheck2":6,"BooleanisGroundCheck":false},{"Type":"EnemyGoRevers","NodeData":{"Offset":"(61.6576538,165.4464)"},"ID":22,"Name":"Enemy
         Go Revers","Instant":true,"Int32xMin":1,"Int32xMax":3,"Int32originMax":10,"BooleanisStop":false,"BooleanisGroundCheck":false,"SingledesiredSpeed":3,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(303.008362,349.1697)"},"ID":23,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-126.276993,178.982346)"},"ID":24,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":2},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(11.1281242,179.999985)"},"ID":25,"Name":"Set
         Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":7},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false},{"Type":"EnemyPatrol","NodeData":{"Offset":"(160.515717,178.354446)"},"ID":26,"Name":"Enemy
         Patrol","Instant":true,"Int32xMin":1,"Int32xMax":3,"Int32originMax":10,"BooleanisStop":false,"BooleanisGroundCheck":false,"SingledesiredSpeed":1,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(297.09668,190)"},"ID":27,"Name":"Set

@@ -30,6 +30,7 @@ public class EnemyAttackNode : EnemyAction
        .OnComplete(() => OnSequenceComplete());
 
     }
+
     void FaceChange()
     {
         direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
@@ -42,6 +43,8 @@ public class EnemyAttackNode : EnemyAction
         {
             enemyObject.transform.localScale = new Vector3(-chInRommSize, enemyObject.transform.localScale.y, 1);
         }
+
+
     }
 
     public void CreatDamageOb()

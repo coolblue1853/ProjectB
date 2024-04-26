@@ -44,10 +44,7 @@ public class EnemyChase : EnemyAction
     {
         if (this.transform != null)
         {
-            if (anim != null)
-            {
-                anim.SetBool("isWalk", false);
-            }
+
             isEnd = true;
         }
     }
