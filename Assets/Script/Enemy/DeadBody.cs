@@ -39,10 +39,16 @@ public class DeadBody : MonoBehaviour
 
         for(int i =0; i < transform.childCount; i++)
         {
+            DeadBodyEffect dBE = transform.GetChild(i).GetComponent<DeadBodyEffect>();
 
-            Rigidbody2D rb = transform.GetChild(i).GetComponent<Rigidbody2D>();
-            float forceRange = Random.Range(knockbackForce*0.2f, knockbackForce);
-            rb.AddForce(knockbackDir.normalized * forceRange, ForceMode2D.Impulse);
+            if(dBE == null)
+            {
+                Rigidbody2D rb = transform.GetChild(i).GetComponent<Rigidbody2D>();
+                float forceRange = Random.Range(knockbackForce * 0.2f, knockbackForce);
+                rb.AddForce(knockbackDir.normalized * forceRange, ForceMode2D.Impulse);
+            }
+
+
         }
     }
 

@@ -6,7 +6,7 @@ public class EnemyAttackNode : EnemyAction
     public GameObject damageOb;
     public GameObject attackPivot;
     float direction;
-
+    public bool isSummonPlayerPosX = false;
     public override void OnStart()
     {
         isEnd = false;
@@ -49,7 +49,20 @@ public class EnemyAttackNode : EnemyAction
 
     public void CreatDamageOb()
     {
-      var  damage = Object.Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+        if (isSummonPlayerPosX == true)
+        {
+            var damage = Object.Instantiate(damageOb, new Vector2(player.transform.position.x, attackPivot.transform.position.y), attackPivot.transform.rotation);
+   
+
+        }
+        else
+        {
+            var damage = Object.Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+
+        }
+
+
+
 
     }
     private void OnSequenceComplete()
