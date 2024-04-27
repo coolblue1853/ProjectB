@@ -135,9 +135,14 @@ MonoBehaviour:
   isPlayerAttack: 1
   player: {fileID: 0}
   isLaunch: 0
+  isNonTrakingPlayer: 0
   launchForce: 0
   launchDir: {x: 0, y: 0}
   isGroundDestroy: 0
+  isRandForce: 0
+  maxForce: 0
+  minForce: 0
+  isGravityFall: 0
   isPosionAttack: 0
   poisonDamage: 0
   damageInterval: 0
@@ -152,7 +157,7 @@ Animator:
   m_GameObject: {fileID: 8822647387501680376}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: efd7fc3a7bad4c048a2410f63ca4b5e4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8f712eea78c57d84db2b7273214f36ad, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

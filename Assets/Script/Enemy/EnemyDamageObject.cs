@@ -30,19 +30,23 @@ public class EnemyDamageObject : MonoBehaviour
     public float minForce;
     private void FixedUpdate()
     {
-        Vector3 deltaPos = transform.position - prevPosition;                     // 현재위치 - 이전위치 = 방향
-
-        float angle = Mathf.Atan2(deltaPos.y, deltaPos.x) * Mathf.Rad2Deg;// 삼각함수로 각도를 구함.
-
-
-
-        if (0 != angle)    // 물리연산과 렌더링연산의 차이를 위해서 체크
+        if (isLaunch && isGravityFall == true)
         {
+            Vector3 deltaPos = transform.position - prevPosition;                     // 현재위치 - 이전위치 = 방향
 
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+            float angle = Mathf.Atan2(deltaPos.y, deltaPos.x) * Mathf.Rad2Deg;// 삼각함수로 각도를 구함.
 
-            prevPosition = transform.position;
+
+
+            if (0 != angle)    // 물리연산과 렌더링연산의 차이를 위해서 체크
+            {
+
+                transform.rotation = Quaternion.Euler(0, 0, angle);
+
+                prevPosition = transform.position;
+            }
         }
+
     }
     public bool isGravityFall = false;
     void LookAtDirection(Vector2 direction)
@@ -146,7 +150,7 @@ public class EnemyDamageObject : MonoBehaviour
             {
                 PlayerHealthManager playerHealth = collision.transform.GetChild(0).GetComponent<PlayerHealthManager>();
 
-                if (isPlayerAttack == true)
+                if (isPlayerAttack == true && enemyOb !=null)
                 {
 
                     if (player.transform.position.x < enemyOb.transform.position.x )
