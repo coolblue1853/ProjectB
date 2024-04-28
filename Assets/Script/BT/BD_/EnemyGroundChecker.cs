@@ -7,7 +7,7 @@ public class EnemyGroundChecker : EnemyConditional
 {
     public GameObject groundCheck2;
     RaycastHit2D hit2;
-
+    public float groundRayLength;
     public override void OnStart()
     {
 
@@ -15,9 +15,10 @@ public class EnemyGroundChecker : EnemyConditional
 
     public override TaskStatus OnUpdate()
     {
-        hit2 = Physics2D.Raycast(groundCheck2.transform.position, Vector2.down, 2f, LayerMask.GetMask("Ground"));
-        Debug.DrawRay(groundCheck2.transform.position, Vector2.down, Color.red, 2f);
-        if (hit2.collider == null) //right
+        
+        hit2 = Physics2D.Raycast(groundCheck2.transform.position, Vector2.down, groundRayLength, LayerMask.GetMask("Ground"));
+        Debug.DrawRay(groundCheck2.transform.position, Vector2.down, Color.red, groundRayLength);
+        if (hit2.collider == null && isJumping == false) //right
         {
             StopAllActions();
             return TaskStatus.Success;

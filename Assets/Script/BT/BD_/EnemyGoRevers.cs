@@ -17,6 +17,7 @@ public class EnemyGoRevers : EnemyAction
 
     public override void OnStart()
     {
+        sequence.Kill();
         isEnd = false;
         StartPatrol();
     }
@@ -27,30 +28,21 @@ public class EnemyGoRevers : EnemyAction
     public void StartPatrol()
     {
 
-        do
+        movePoint = Random.Range(xMin, xMax);
+        if (isStop == false)
         {
-            movePoint = Random.Range(xMin, xMax);
-            if (isStop == false)
+            int direction = Random.Range(0, 2);
+
+            if (enemyObject.transform.localScale.x > 0)
             {
-                int direction = Random.Range(0, 2);
-
-                if (enemyObject.transform.localScale.x > 0)
-                {
-                    movePoint = -movePoint;
-                }
-                else
-                {
-                    movePoint = Mathf.Abs(movePoint);
-                }
-
+                movePoint = -movePoint;
+            }
+            else
+            {
+                movePoint = Mathf.Abs(movePoint);
             }
 
-
-
-
-
-            // 이동 거리를 계산할 때 originPosition.x를 사용하여 현재 위치에서 벗어나지 않도록 함
-        } while (Mathf.Abs(enemyObject.transform.position.x + movePoint - originPosition.x) > originMax);
+        }
 
         if (movePoint > 0)
         {

@@ -12,6 +12,7 @@ public class EnemyConditional : Conditional
     public PlayerController player;
     public EnemyHealth enemyHealth;
     public BehaviorTree behaviorTree;
+    public static bool isJumping;
     public override void OnAwake()
     {
         enemyObject = this.gameObject;

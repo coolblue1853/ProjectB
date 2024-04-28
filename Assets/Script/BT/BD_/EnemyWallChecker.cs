@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
+using DG.Tweening;
 public class EnemyWallChecker : EnemyConditional
 {
+    DG.Tweening.Sequence seq;
     public GameObject wallCheck;
     RaycastHit2D hit2;
     public float wallRay = 0.2f;
     public override void OnStart()
     {
-        chInRommSize = enemyObject.transform.localScale.x;
+
+        isJumping = true;
+        seq.Kill();
+         seq = DOTween.Sequence()
+           .AppendInterval(2f)
+         .OnComplete(() => isJumping = false);
 
 
     }
@@ -18,7 +25,8 @@ public class EnemyWallChecker : EnemyConditional
 
     public override TaskStatus OnUpdate()
     {
-        if(chInRommSize > 0)
+        chInRommSize = enemyObject.transform.localScale.x;
+        if (chInRommSize > 0)
         {
             hit2 = Physics2D.Raycast(wallCheck.transform.position, Vector2.right, wallRay, LayerMask.GetMask("Ground"));
             Debug.DrawRay(wallCheck.transform.position, Vector2.right, Color.blue, wallRay);

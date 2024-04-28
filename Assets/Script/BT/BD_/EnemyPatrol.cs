@@ -22,6 +22,12 @@ public class EnemyPatrol : EnemyAction
     }
     public override TaskStatus OnUpdate()
     {
+        if(sequence.IsActive() == false)
+        {
+            isEnd = true;
+        }
+
+
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
     public void StartPatrol()
