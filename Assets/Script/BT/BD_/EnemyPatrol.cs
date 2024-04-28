@@ -26,8 +26,6 @@ public class EnemyPatrol : EnemyAction
         {
             isEnd = true;
         }
-
-
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
     public void StartPatrol()

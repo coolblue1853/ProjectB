@@ -17,32 +17,32 @@ public class EnemyGoRevers : EnemyAction
 
     public override void OnStart()
     {
-        sequence.Kill();
         isEnd = false;
         StartPatrol();
     }
     public override TaskStatus OnUpdate()
     {
+        if (sequence.IsActive() == false)
+        {
+            isEnd = true;
+        }
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
     public void StartPatrol()
     {
 
         movePoint = Random.Range(xMin, xMax);
-        if (isStop == false)
+        int direction = Random.Range(0, 2);
+
+        if (enemyObject.transform.localScale.x > 0)
         {
-            int direction = Random.Range(0, 2);
-
-            if (enemyObject.transform.localScale.x > 0)
-            {
-                movePoint = -movePoint;
-            }
-            else
-            {
-                movePoint = Mathf.Abs(movePoint);
-            }
-
+            movePoint = -movePoint;
         }
+        else
+        {
+            movePoint = Mathf.Abs(movePoint);
+        }
+
 
         if (movePoint > 0)
         {

@@ -19,7 +19,7 @@ public class EnemyJump : EnemyAction
     {
 
         //StopAction();
-       body.velocity = new Vector2(body.velocity.x, jumpForce);
+       body.velocity = new Vector2(body.velocity.x+3, jumpForce);
 
 
         //body.AddForce(jumpDir.normalized * jumpForce, ForceMode2D.Impulse);

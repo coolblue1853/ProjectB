@@ -20,7 +20,7 @@ public class EnemyGroundChecker : EnemyConditional
         Debug.DrawRay(groundCheck2.transform.position, Vector2.down, Color.red, groundRayLength);
         if (hit2.collider == null && isJumping == false) //right
         {
-            StopAllActions();
+   
             return TaskStatus.Success;
 
         }
