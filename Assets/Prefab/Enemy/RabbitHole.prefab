@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8498de3bbdb3aae469d79fa8e0c2f024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rabbit: {fileID: 2186892472464217997, guid: 764130404cc0e4d43b1c06b3ce6037fa, type: 3}
+  rabbit: {fileID: 8398182370917137815, guid: 546c40fd66dc4074baa03271c2adc9ac, type: 3}
   rabbitCount: 4
+  CycleFloat: 0
   rabbitActive: []

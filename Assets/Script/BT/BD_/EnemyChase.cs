@@ -11,6 +11,7 @@ public class EnemyChase : EnemyAction
 
     public override void OnStart()
     {
+        sequence.Kill();
         isEnd = false;
         player = GameObject.FindWithTag("Player");
         StartChase();

@@ -18,7 +18,20 @@ public class RabbitHole : MonoBehaviour
         InvokeRepeating("CycleCheck", 1f, CycleFloat);
     }
 
+    public void DestroyRabbit()
+    {
+        for (int i = 0; i < rabbitCount; i++)
+        {
+            if (rabbitActive[i] != null)
+            {
+                EnemyHealth eh = rabbitActive[i].GetComponent<EnemyHealth>();
+                eh.DisaperByTime();
 
+            }
+
+        }
+
+    }
     void CycleCheck()
     {
         for (int i = 0; i < rabbitCount; i++)

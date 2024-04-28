@@ -30,7 +30,7 @@ public class EnemyHealth : MonoBehaviour
 
     public GameObject deadBody;
     public GameObject enemySensor;
-
+    public bool isBossMob = false;
 
     private void Start()
     {
@@ -123,14 +123,18 @@ public class EnemyHealth : MonoBehaviour
 
         }
        // shakeTime = finDmg / maxHP* ShakeCorrection ;
-        ToggleObject();
+       if(isBossMob == false)
+        {
+            ToggleObject();
+
+        }
+
         nowHP -= (int)finDmg;
         hpBar.healthSystem.Damage((int)finDmg);
         damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
 
 
-
-        if(isSuperArmor == true)
+        if (isSuperArmor == true)
         {
             transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
         }
@@ -265,7 +269,11 @@ public class EnemyHealth : MonoBehaviour
     }
     private void Update()
     {
-        hpObject.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, hpHeight, 0));
+        if(isBossMob == false)
+        {
+            hpObject.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, hpHeight, 0));
+        }
+
     }
 
     public float maxXSpeed =10f; // x축 넉백 속도 상한

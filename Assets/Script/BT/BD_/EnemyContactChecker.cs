@@ -12,6 +12,7 @@ public class EnemyContactChecker : EnemyConditional
     {
         if(isChecked.Value == false)
         {
+            StopAllActions();
             isChecked = true;
             return TaskStatus.Success;
         }

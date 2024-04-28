@@ -20,11 +20,7 @@ public class EnemyAttackNode : EnemyAction
     }
     public void StartPatrol()
     {
-        if (anim != null)
-        {
-            anim.SetBool("isAttack", true);
 
-        }
         FaceChange();
         sequence = DOTween.Sequence()
        .AppendCallback(() => CreatDamageOb())

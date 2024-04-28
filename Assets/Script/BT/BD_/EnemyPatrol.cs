@@ -27,13 +27,12 @@ public class EnemyPatrol : EnemyAction
     public void StartPatrol()
     {
 
-        do
-        {
+ 
             movePoint = Random.Range(xMin, xMax);
             if (isStop == false)
             {
-                int direction = Random.Range(0, 2);
-
+                   int direction = Random.Range(0, 2);
+               // int direction = 1;
                 if (direction == 0)
                 {
                     movePoint = -movePoint;
@@ -53,8 +52,8 @@ public class EnemyPatrol : EnemyAction
 
             }
 
-            // 이동 거리를 계산할 때 originPosition.x를 사용하여 현재 위치에서 벗어나지 않도록 함
-        } while (Mathf.Abs(enemyObject.transform.position.x + movePoint - originPosition.x) > originMax);
+
+
 
         if (movePoint > 0)
         {
@@ -75,12 +74,32 @@ public class EnemyPatrol : EnemyAction
             anim.SetBool("isWalk", true);
         }
 
-        float distanceToMove = Mathf.Abs(movePoint); // 이동해야 할 거리의 절대값을 계산합니다.
-        float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 일정한 속도로 이동하는 데 걸리는 시간을 계산합니다.
-                                                            //  Debug.Log("move");
-        sequence = DOTween.Sequence()
-       .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
-       .OnComplete(() => OnSequenceComplete());
+
+        if (Mathf.Abs(enemyObject.transform.position.x + movePoint - originPosition.x) > originMax)
+        {
+            if(enemyObject.transform.position.x > originPosition.x)
+            {
+                enemyObject.transform.localScale = new Vector3(-chInRommSize, enemyObject.transform.localScale.y, 1);
+            }
+            else
+            {
+                enemyObject.transform.localScale = new Vector3(chInRommSize, enemyObject.transform.localScale.y, 1);
+            }
+            float distanceToMove = Mathf.Abs(enemyObject.transform.position.x - originPosition.x); // 이동해야 할 거리의 절대값을 계산합니다.
+            float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 일정한 속도로 이동하는 데 걸리는 시간을 계산합니다.
+            sequence = DOTween.Sequence()
+            .Append(enemyObject.transform.DOMoveX(originPosition.x, moveDuration).SetEase(Ease.Linear))
+            .OnComplete(() => OnSequenceComplete());
+        }
+        else
+        {
+            float distanceToMove = Mathf.Abs(movePoint); // 이동해야 할 거리의 절대값을 계산합니다.
+            float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 일정한 속도로 이동하는 데 걸리는 시간을 계산합니다.
+            sequence = DOTween.Sequence()
+            .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
+            .OnComplete(() => OnSequenceComplete());
+        }
+
 
     }
     private void OnSequenceComplete()

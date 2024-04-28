@@ -33,6 +33,8 @@ public class EnemySpowner : MonoBehaviour
     public GameObject[] enemyPositionArray;
 
     public bool isDaytimeSpowner;
+
+    public bool isRandSpawn = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,10 +56,20 @@ public class EnemySpowner : MonoBehaviour
         {
             if (enemySlot[i] == null)
             {
-                float xPosition = Random.Range(-1f, 1f);
-                int x = Random.Range(0, enemyCount);
-                GameObject r = Instantiate(enemyPrefab, enemyPositionArray[x].transform.position+ new Vector3(xPosition,0), enemyPositionArray[x].transform.rotation);
-                enemySlot[i] = r;
+                if(isRandSpawn == true)
+                {
+                    float xPosition = Random.Range(-1f, 1f);
+                    int x = Random.Range(0, enemyCount);
+                    GameObject r = Instantiate(enemyPrefab, enemyPositionArray[x].transform.position + new Vector3(xPosition, 0), enemyPositionArray[x].transform.rotation);
+                    enemySlot[i] = r;
+                }
+                else
+                {
+                    float xPosition = Random.Range(-1f, 1f);
+                    GameObject r = Instantiate(enemyPrefab, enemyPositionArray[i].transform.position + new Vector3(xPosition, 0), enemyPositionArray[i].transform.rotation);
+                    enemySlot[i] = r;
+                }
+
             }
 
         }
@@ -69,7 +81,16 @@ public class EnemySpowner : MonoBehaviour
             if (enemySlot[i] != null)
             {
                 EnemyHealth eh = enemySlot[i].GetComponent<EnemyHealth>();
-                eh.DisaperByTime();
+                RabbitHole rH = enemySlot[i].GetComponent<RabbitHole>();
+                if (eh != null)
+                {
+                    eh.DisaperByTime();
+                }
+                if (rH != null)
+                {
+                    rH.DestroyRabbit();
+                    Destroy(enemySlot[i].gameObject);
+                }
             }
 
         }
@@ -123,7 +144,20 @@ public class EnemySpowner : MonoBehaviour
                 CancelInvoke("CycleCheck");
                 EndInvokeDaytime();
             }
+            if (TimeChange.instance.isDaytime == false && isDaytimeSpowner == false && activeOnce == true)
+            {
+                StartInvokeDaytime();
+            }
+            else if (TimeChange.instance.isDaytime == true && isDaytimeSpowner == false && activeOnce == false)
+            {
+                CancelInvoke("CycleCheck");
+                EndInvokeDaytime();
+            }
         }
+
+
+
+
         else if(isInPlayer == false && once == false)
         {
             once = true;
