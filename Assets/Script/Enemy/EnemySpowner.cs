@@ -58,15 +58,17 @@ public class EnemySpowner : MonoBehaviour
             {
                 if(isRandSpawn == true)
                 {
+                    float zPosition = Random.Range(-1f, 1f);
                     float xPosition = Random.Range(-1f, 1f);
                     int x = Random.Range(0, enemyCount);
-                    GameObject r = Instantiate(enemyPrefab, enemyPositionArray[x].transform.position + new Vector3(xPosition, 0), enemyPositionArray[x].transform.rotation);
+                    GameObject r = Instantiate(enemyPrefab, enemyPositionArray[x].transform.position + new Vector3(xPosition, 0, zPosition), enemyPositionArray[x].transform.rotation);
                     enemySlot[i] = r;
                 }
                 else
                 {
+                    float zPosition = Random.Range(-1f, 1f);
                     float xPosition = Random.Range(-1f, 1f);
-                    GameObject r = Instantiate(enemyPrefab, enemyPositionArray[i].transform.position + new Vector3(xPosition, 0), enemyPositionArray[i].transform.rotation);
+                    GameObject r = Instantiate(enemyPrefab, enemyPositionArray[i].transform.position + new Vector3(xPosition, 0, zPosition), enemyPositionArray[i].transform.rotation);
                     enemySlot[i] = r;
                 }
 
