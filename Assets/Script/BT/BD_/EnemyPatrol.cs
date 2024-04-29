@@ -1,5 +1,6 @@
 using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
+using BehaviorDesigner.Runtime;
 using UnityEngine;
 public class EnemyPatrol : EnemyAction
 {
@@ -15,17 +16,17 @@ public class EnemyPatrol : EnemyAction
     int movePoint;
     public float desiredSpeed;
 
+
+    BehaviorTree bt;
     public override void OnStart()
     {
-        isEnd = false;
+        bt = this.transform.GetComponent<BehaviorTree>();
+           isEnd = false;
         StartPatrol();
     }
     public override TaskStatus OnUpdate()
     {
-        if(sequence.IsActive() == false)
-        {
-            isEnd = true;
-        }
+
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
     public void StartPatrol()
@@ -91,7 +92,7 @@ public class EnemyPatrol : EnemyAction
             }
             float distanceToMove = Mathf.Abs(enemyObject.transform.position.x - originPosition.x); // 이동해야 할 거리의 절대값을 계산합니다.
             float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 일정한 속도로 이동하는 데 걸리는 시간을 계산합니다.
-            sequence = DOTween.Sequence()
+            bt.sequence = DOTween.Sequence()
             .Append(enemyObject.transform.DOMoveX(originPosition.x, moveDuration).SetEase(Ease.Linear))
             .OnComplete(() => OnSequenceComplete());
         }
@@ -99,8 +100,8 @@ public class EnemyPatrol : EnemyAction
         {
             float distanceToMove = Mathf.Abs(movePoint); // 이동해야 할 거리의 절대값을 계산합니다.
             float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 일정한 속도로 이동하는 데 걸리는 시간을 계산합니다.
-            sequence = DOTween.Sequence()
-            .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
+            bt.sequence = DOTween.Sequence()
+                .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
             .OnComplete(() => OnSequenceComplete());
         }
 

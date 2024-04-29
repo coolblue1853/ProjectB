@@ -6,19 +6,21 @@ using BehaviorDesigner.Runtime;
 using DG.Tweening;
 public class EnemyWallChecker : EnemyConditional
 {
-    DG.Tweening.Sequence seq;
+    BehaviorTree bt;
     public GameObject wallCheck;
     RaycastHit2D hit2;
     public float wallRay = 0.2f;
     public override void OnStart()
     {
+        bt = this.transform.GetComponent<BehaviorTree>();
 
-        isJumping = true;
-        seq.Kill();
-         seq = DOTween.Sequence()
+       bt.isJumping = true;
+        bt.sequence.Kill();
+        bt.sequence = DOTween.Sequence()
            .AppendInterval(2f)
-         .OnComplete(() => isJumping = false);
+         .OnComplete(() => bt.isJumping = false);
 
+      
 
     }
     public bool isGroundCheck = false;

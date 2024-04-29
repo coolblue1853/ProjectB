@@ -1,27 +1,24 @@
 using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
+using BehaviorDesigner.Runtime;
 using UnityEngine;
 public class EnemyKillSeq : EnemyAction
 {
+    BehaviorTree bt;
     public override void OnAwake()
     {
         base.OnAwake();
     }
     public override void OnStart()
     {
-
-       // StartJump();
+        bt = this.transform.GetComponent<BehaviorTree>();
+        bt.sequence.Kill();
+        // StartJump();
+        isEnd = true;
     }
     public override TaskStatus OnUpdate()
     {
-        if (sequence != null && sequence.IsActive())
-        {
-            sequence.Kill();
-        }
-        else if(sequence.IsActive() == false)
-        {
-            OnSequenceComplete();
-        }
+
 
             return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
