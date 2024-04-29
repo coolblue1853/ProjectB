@@ -1,12 +1,11 @@
 using BehaviorDesigner.Runtime.Tasks;
-using BehaviorDesigner.Runtime;
 using DG.Tweening;
 using UnityEngine;
 public class EnemyJump : EnemyAction
 {
-    
+    public float xJumpForce = 0f;
     public float jumpForce;
-    Vector2 jumpDir;
+    Vector2 jumpDir = new Vector2(1,0);
     public override void OnStart()
     {
 
@@ -20,8 +19,8 @@ public class EnemyJump : EnemyAction
     {
 
         //StopAction();
-       body.velocity = new Vector2(body.velocity.x+3, jumpForce);
-
+       body.velocity = new Vector2(body.velocity.x, jumpForce);
+        body.AddForce(jumpDir.normalized * xJumpForce, ForceMode2D.Impulse);
 
         //body.AddForce(jumpDir.normalized * jumpForce, ForceMode2D.Impulse);
 

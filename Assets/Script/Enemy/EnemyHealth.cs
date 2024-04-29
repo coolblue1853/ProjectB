@@ -171,7 +171,8 @@ public class EnemyHealth : MonoBehaviour
                 {
                     notStiff = true;
                 }
-                StopAllActions();
+                behaviorTree.sequence.Kill();
+               // StopAllActions();
                 behaviorTree.enabled = false;
 
                 //  enemyFSM.KillBrainSequence(notStiff);

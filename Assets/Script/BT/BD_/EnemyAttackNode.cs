@@ -49,7 +49,7 @@ public class EnemyAttackNode : EnemyAction
     {
         if (isSummonPlayerPosX == true)
         {
-            var damage = Object.Instantiate(damageOb, new Vector2(player.transform.position.x, attackPivot.transform.position.y), attackPivot.transform.rotation);
+            var damage = Object.Instantiate(damageOb, new Vector2(player.transform.position.x, player.transform.position.y - 1f), attackPivot.transform.rotation);
    
 
         }

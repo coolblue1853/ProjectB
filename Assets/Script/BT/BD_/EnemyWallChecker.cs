@@ -15,7 +15,7 @@ public class EnemyWallChecker : EnemyConditional
         bt = this.transform.GetComponent<BehaviorTree>();
 
        bt.isJumping = true;
-        bt.sequence.Kill();
+       // bt.sequence.Kill();
         bt.sequence = DOTween.Sequence()
            .AppendInterval(2f)
          .OnComplete(() => bt.isJumping = false);
