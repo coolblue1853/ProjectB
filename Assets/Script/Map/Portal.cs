@@ -9,6 +9,7 @@ public class Portal : MonoBehaviour
     public GameObject OpenMap;
     public GameObject OpenParrlex;
     public ProCamera2D proCamera;
+    bool isMapChange = true;
     private void Start()
     {
         
@@ -19,7 +20,7 @@ public class Portal : MonoBehaviour
         if (collision.transform.tag == "Player")
         {
             Debug.Log("´ê¾ÆÀÖÀ½");
-            if( Input.GetKey(KeyCode.UpArrow) && DatabaseManager.isUsePortal == false)
+            if( Input.GetKey(KeyCode.UpArrow) && DatabaseManager.isUsePortal == false && isMapChange== true)
             {
                 DatabaseManager.isUsePortal = true;
               Sequence seq = DOTween.Sequence()
@@ -30,8 +31,16 @@ public class Portal : MonoBehaviour
              .AppendInterval(1f)
              .OnComplete(() => OpenParrelx());
             }
+            else if (Input.GetKey(KeyCode.UpArrow) && DatabaseManager.isUsePortal == false && isMapChange == false)
+            {
+                DatabaseManager.isUsePortal = true;
+                Sequence seq = DOTween.Sequence()
+               .AppendCallback(() => collision.transform.position = destination.position)
+               .AppendCallback(() => proCamera.CenterOnTargets())
+               .AppendInterval(1f)
+               .OnComplete(() => EndOnlyMove());
+            }
 
-           
 
          ;
             
@@ -41,6 +50,11 @@ public class Portal : MonoBehaviour
     }
 
 
+    void EndOnlyMove()
+    {
+        DatabaseManager.isUsePortal = false;
+
+    }
     void OpenParrelx()
     {
         DatabaseManager.isUsePortal = false;

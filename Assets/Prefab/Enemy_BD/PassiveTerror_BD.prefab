@@ -674,8 +674,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
-  enemyDef: 20
-  maxHP: 200
+  enemyDef: 1
+  maxHP: 1
   nowHP: 0
   hpBar: {fileID: 5086343724026323662}
   hpObject: {fileID: 5086343724702052671}
@@ -683,7 +683,7 @@ MonoBehaviour:
   isSuperArmor: 1
   hpCanvas: {fileID: 5086343724702052671}
   dropManager: {fileID: 0}
-  deadBody: {fileID: 4889259937849075969, guid: 6fc9008dc6ec76e419a340779152defb,
+  deadBody: {fileID: 4256401763079527673, guid: 4040cc833a0a40e4c90d9ddd9ed36f09,
     type: 3}
   enemySensor: {fileID: 0}
   isBossMob: 1

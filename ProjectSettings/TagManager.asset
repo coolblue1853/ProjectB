@@ -19,6 +19,7 @@ TagManager:
   - Platform
   - Spowner
   - Boundary
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -34,7 +35,7 @@ TagManager:
   - Platform
   - DropItem
   - Boundary
-  - 
+  - Wall
   - 
   - 
   - 

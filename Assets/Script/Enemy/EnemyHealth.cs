@@ -129,9 +129,13 @@ public class EnemyHealth : MonoBehaviour
 
         }
 
-        nowHP -= (int)finDmg;
-        hpBar.healthSystem.Damage((int)finDmg);
-        damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
+       if(hpBar != null)
+        {
+            nowHP -= (int)finDmg;
+            hpBar.healthSystem.Damage((int)finDmg);
+            damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
+        }
+
 
 
         if (isSuperArmor == true)
