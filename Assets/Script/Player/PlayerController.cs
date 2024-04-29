@@ -535,7 +535,8 @@ public class PlayerController : MonoBehaviour
                 mainCharacter.Play("Dash");
 
             }
-
+            DatabaseManager.isInvincibility = true;
+            Invoke("EndInvincible", dashDuration);
             boxColliderTrue = false;
             PlayerHealthManager.Instance.SteminaDown(dashStemina);
             states = "dash";
@@ -555,6 +556,10 @@ public class PlayerController : MonoBehaviour
             .OnComplete(() => rb.velocity = new Vector2(0f, 0f))
             .OnComplete(() => states = "move");
         }
+    }
+    void EndInvincible()
+    {
+        DatabaseManager.isInvincibility = false;
     }
 
     public float wallJumpForce;

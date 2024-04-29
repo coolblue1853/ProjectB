@@ -104,7 +104,7 @@ public class PlayerHealthManager : MonoBehaviour
     public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
     {
 
-        if(isNoDamge == false)
+        if(isNoDamge == false && DatabaseManager.isInvincibility == false)
         {
 
             noDamgeSycle = DOTween.Sequence()      

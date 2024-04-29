@@ -10,6 +10,7 @@ public class Item
 }
 public class DatabaseManager : MonoBehaviour
 {
+    public static bool isInvincibility = false;
     public static bool weaponStopMove = false;
     public static bool isOpenUI = false;
     public static bool isUsePortal = false;
