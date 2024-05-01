@@ -1,10 +1,11 @@
-
+using BehaviorDesigner.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 public class ChaseNode : BTNode
 {
+    BehaviorTree bt;
     Animator anim;
     Vector2 originPosition;
   
@@ -17,6 +18,7 @@ public class ChaseNode : BTNode
     bool endChase = false;
     private void Start()
     {
+        
         anim = transform.parent.parent.GetComponent<Animator>();
         chInRommSize = enemyObject.transform.localScale.x;
         player = GameObject.FindWithTag("Player");

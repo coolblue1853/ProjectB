@@ -1,8 +1,10 @@
 using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using BehaviorDesigner.Runtime;
 public class EnemyChase : EnemyAction
 {
+    BehaviorTree bt;
     GameObject player;
     public float moveDuration;
     public float moveDistance;
@@ -11,7 +13,8 @@ public class EnemyChase : EnemyAction
 
     public override void OnStart()
     {
-        sequence.Kill();
+        bt = this.transform.GetComponent<BehaviorTree>();
+        bt.sequence.Kill();
         isEnd = false;
         player = GameObject.FindWithTag("Player");
         StartChase();
