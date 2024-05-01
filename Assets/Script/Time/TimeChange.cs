@@ -10,13 +10,14 @@ public class TimeChange : MonoBehaviour
 
     public bool isTest = false;
     public float time;
-    public float startDaytime;
-    public float endDaytime;
-
+    public float startNighttime;
+    public float endNighttime;
+    public float value;
+    float progress;
     public bool isDaytime = false;
     void Start()
     {
-        startTime = Time.time;
+           startTime = Time.time;
         LightColorController = this.GetComponent<LightColorController>();
     }
 
@@ -33,17 +34,20 @@ public class TimeChange : MonoBehaviour
                 elapsedTime = 0;
             }
 
-            float progress = elapsedTime / totalTime;
-            float value = Mathf.Lerp(0, 1, progress);
-            LightColorController.time = value;
-            if (value >= endDaytime && isDaytime == true)
-            {
-                isDaytime = false;
+             progress = elapsedTime / totalTime;
+             value = Mathf.Lerp(0, 1, progress);
 
-            }
-            else if (value >= startDaytime && value <= endDaytime && isDaytime == false)
+
+
+            LightColorController.time = value;
+            if ((value >= endNighttime || value <= startNighttime  ) && isDaytime == false)
             {
                 isDaytime = true;
+
+            }
+            else if (value >= startNighttime && value <= endNighttime && isDaytime == true)
+            {
+                isDaytime = false;
 
             }
 
@@ -51,14 +55,14 @@ public class TimeChange : MonoBehaviour
         else
         {
             LightColorController.time = time;
-            if (time >= endDaytime && isDaytime == true)
-            {
-                isDaytime = false;
-
-            }
-            else if (time >= startDaytime && time <= endDaytime && isDaytime == false)
+            if ((time >= endNighttime || time <= startNighttime  ) && isDaytime == false)
             {
                 isDaytime = true;
+
+            }
+            else if (time >= startNighttime && time <= endNighttime && isDaytime == true)
+            {
+                isDaytime = false;
 
             }
         }
