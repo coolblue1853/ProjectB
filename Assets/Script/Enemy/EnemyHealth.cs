@@ -96,6 +96,8 @@ public class EnemyHealth : MonoBehaviour
     float shakeTime;
     public float ShakeCorrection = 1.0f;
     DG.Tweening.Sequence striffSequence;
+
+    public float stiffShakeTime = 0;
     public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking)
     {
 
@@ -162,7 +164,9 @@ public class EnemyHealth : MonoBehaviour
 
         if(isSuperArmor == false)
         {
-            striffSequence.Kill(); // 재공격시 경직 시간 초기화.
+
+
+
 
             if (anim != null)
             {
@@ -181,22 +185,29 @@ public class EnemyHealth : MonoBehaviour
 
                 //  enemyFSM.KillBrainSequence(notStiff);
             }
-
-
-            isAttackGround = true;
-            striffSequence = DOTween.Sequence()
-            .AppendCallback(()=>transform.DOShakePosition(shakeTime, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false))
-            .AppendInterval(shakeTime)
-            .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
-            .AppendInterval(stiffTime)
-            .OnComplete(() => EndStiffness());
+            if (stiffShakeTime < shakeTime + stiffTime)
+            {
+                striffSequence.Kill(); // 재공격시 경직 시간 초기화.
+                stiffShakeTime = shakeTime + stiffTime;
+                isAttackGround = true;
+                striffSequence = DOTween.Sequence()
+                .AppendCallback(() => transform.DOShakePosition(shakeTime, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false))
+                .AppendInterval(shakeTime)
+                .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
+                .AppendInterval(stiffTime)
+                .OnComplete(() => EndStiffness());
+            }
+            else
+            {
+                onlyShakeSeq.Kill(); // 재공격시 경직 시간 초기화.
+                onlyShakeSeq = DOTween.Sequence()
+               .AppendCallback(() => transform.DOShakePosition(shakeTime, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false));
+            }
         }
-
-
-
 
     }
 
+   DG.Tweening.Sequence onlyShakeSeq;
     public void onlyDamage2Enemy(int damage)
     {
         ToggleObject();
@@ -278,7 +289,10 @@ public class EnemyHealth : MonoBehaviour
         {
             hpObject.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, hpHeight, 0));
         }
-
+        if(stiffShakeTime > 0)
+        {
+            stiffShakeTime -= Time.deltaTime;
+        }
     }
 
     public float maxXSpeed =10f; // x축 넉백 속도 상한

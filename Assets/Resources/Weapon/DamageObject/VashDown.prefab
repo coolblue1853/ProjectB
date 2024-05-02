@@ -104,7 +104,7 @@ MonoBehaviour:
   isDestroyByTime: 1
   holdingTime: 0.5
   damageArr: 
-  stiffnessTime: 1
+  stiffnessTime: 0.1
   knockForce: 10
   knockbackDir: {x: 1, y: 0}
   isNockBackChangeDir: 0
