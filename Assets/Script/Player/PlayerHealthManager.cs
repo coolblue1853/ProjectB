@@ -98,26 +98,53 @@ public class PlayerHealthManager : MonoBehaviour
         {
             Debug.Log("죽었습니다");
         }
+
+        if(isAlphaChange == false && alphaSequence.IsActive() == true)
+        {
+
+            alphaSequence.Kill();
+            mainCharacter.SetMeshAlphaAll(1f);
+        }
     }
     PlayerController playerController;
     Sequence mysequence;
+    Sequence alphaSequence;
+    private void RepeatAnimation()
+    {
+        alphaSequence = DOTween.Sequence()
+        // 애니메이션 함수 호출 및 반복 설정
+        .AppendCallback(() => mainCharacter.SetMeshAlphaAll(0.85f))
+        .AppendInterval(0.1f)
+        .AppendCallback(() => mainCharacter.SetMeshAlphaAll(1f))
+        .AppendInterval(0.1f)
+        .OnComplete(() => RepeatAnimation());
+    }
+    bool isAlphaChange = false;
     public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
     {
 
         if(isNoDamge == false && DatabaseManager.isInvincibility == false)
         {
-
+            isAlphaChange = true;
+            RepeatAnimation();
             noDamgeSycle = DOTween.Sequence()      
             .AppendCallback(() => isNoDamge = true)
             .AppendCallback(() => mainCharacter.SetControlParamInt("Eye Param", 4))
             .AppendInterval(noDamgeTime)
             .AppendCallback(() => mainCharacter.SetControlParamInt("Eye Param", 0))
-            .OnComplete(() => isNoDamge = false);
+            .AppendCallback(() => isNoDamge = false)
+            .AppendCallback(() => alphaSequence.Kill())
+            .AppendCallback(() => isAlphaChange = false);
+
 
             HpDown(damage);
             rb.velocity = Vector2.zero;
             if (isSuperArmor == false && stiffTime > 0)
             {
+          
+
+
+
                 mysequence.Kill(); // 재공격시 경직 시간 초기화.
                 playerController.isAttacked = true;
                 playerController.isAttackedUp = true;
