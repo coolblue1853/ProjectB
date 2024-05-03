@@ -16,6 +16,9 @@ public class AttackManager : MonoBehaviour
     public SkillCooldown skillCooldown;
     public Transform sword;
     public string states = "";
+    public GameObject rightHand;
+    public GameObject leftHand;
+
     private void OnEnable()
     {
         attackAction.Enable();
@@ -51,12 +54,25 @@ public class AttackManager : MonoBehaviour
     {
         equipWeapon.pC = this.GetComponent<PlayerController>();
         equipWeapon.CheckSkill();
+        equipWeapon.EquipWeqpon(portrait);
     }
+    public void UnEquipMainWeaopon()
+    {
+        
 
+        if(rightHand.transform.GetChild(0) != null)
+        {
+            Destroy(rightHand.transform.GetChild(0).gameObject);
+        }
+        if (leftHand.transform.GetChild(0) != null)
+        {
+            Destroy(leftHand.transform.GetChild(0).gameObject);
+        }
+    }
 
     // Update is called once per frame
     void Update()
-    {
+    {/*
         if (Input.GetKeyDown(KeyCode.E))
         {
             // 앞서 만든 두개의 본의 소켓을 가져옵니다.
@@ -67,7 +83,7 @@ public class AttackManager : MonoBehaviour
             sword.localRotation = Quaternion.identity;
 
         }
-
+        */
 
         if (DatabaseManager.isOpenUI == false)
         {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using AnyPortrait;
 public class Weapon : MonoBehaviour
 {
     public PlayerController pC;
@@ -34,6 +35,9 @@ public class Weapon : MonoBehaviour
     public string[] attackAnimName;
     public Skill skillLeft;
     public Skill skillRight;
+    public GameObject leftWeqponSprite;
+    public GameObject RightWeqponSprite;
+
     void SetDmgArray()
     {
         damgeArray[0] = minDmg;
@@ -53,6 +57,27 @@ public class Weapon : MonoBehaviour
            isAttackWait = true;
         SetDmgArray();
     }
+   public void EquipWeqpon(apPortrait portrait)
+    {
+        if(RightWeqponSprite!= null)
+        {
+            Transform socketR = portrait.GetBoneSocket("RightWeapon");
+            // 검 (Weapon_Sword)을 오른손 본의 소켓의 자식으로 등록합니다.
+            RightWeqponSprite.transform.parent = socketR;
+            RightWeqponSprite.transform.localPosition = new Vector3(0, 0, 25f);
+            RightWeqponSprite.transform.localRotation = Quaternion.identity;
+        }
+        if (leftWeqponSprite != null)
+        {
+            Transform socketL = portrait.GetBoneSocket("LeftWeapon");
+            // 검 (Weapon_Sword)을 오른손 본의 소켓의 자식으로 등록합니다.
+            leftWeqponSprite.transform.parent = socketL;
+            leftWeqponSprite.transform.localPosition = new Vector3(0,0,35f);
+            leftWeqponSprite.transform.localRotation = Quaternion.identity;
+        }
+
+    }
+
     public void CheckSkill()
     {
         skillLeft.ActiveMainSkill();

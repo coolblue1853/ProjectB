@@ -39,6 +39,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         }
         if (reciveEquipArea == "Weapon" && weapon == null)
         {
+
              weapon = equipPrefab.GetComponent<Weapon>();
             attackManager.equipWeapon = weapon;
             attackManager.EquipMainWeaopon();
@@ -84,6 +85,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         {
             if (isFalse == false)
             {
+                attackManager.UnEquipMainWeaopon();
                 Sequence waitSequence = DOTween.Sequence()
 .AppendCallback(() => attackManager.equipWeapon = null)
   .AppendCallback(() => Destroy(weapon.gameObject))
@@ -94,8 +96,10 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (weapon != null)
                 {
+                    attackManager.UnEquipMainWeaopon();
 
                     attackManager.equipWeapon = null;
+       
                     Destroy(weapon.gameObject);
                     weapon = null;
                 }

@@ -1079,6 +1079,7 @@ public class InventoryManager : MonoBehaviour
             moveItem.transform.SetParent(equipChangeBox.transform);
             moveItem.transform.position = equipChangeBox.transform.position;
 
+
         }
         else if (equipArea == "Head")
         {

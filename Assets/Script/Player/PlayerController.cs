@@ -739,8 +739,12 @@ public class PlayerController : MonoBehaviour
     }
     void EndRopeAttackAnim()
     {
-        isRopeAttack = false;
-        mainCharacter.Play("RopeStay");
+        if(isUpLadder == true)
+        {
+            isRopeAttack = false;
+            mainCharacter.Play("RopeStay");
+        }
+
     }
 
     void ChangeLadderLayerOrder()
