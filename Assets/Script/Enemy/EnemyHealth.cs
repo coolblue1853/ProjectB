@@ -185,6 +185,8 @@ public class EnemyHealth : MonoBehaviour
 
                 //  enemyFSM.KillBrainSequence(notStiff);
             }
+
+
             if (stiffShakeTime < shakeTime + stiffTime)
             {
                 striffSequence.Kill(); // 재공격시 경직 시간 초기화.

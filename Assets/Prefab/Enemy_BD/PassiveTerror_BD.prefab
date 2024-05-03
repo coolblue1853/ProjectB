@@ -734,6 +734,7 @@ MonoBehaviour:
   enemySensor: {fileID: 0}
   isBossMob: 1
   ShakeCorrection: 1.2
+  stiffShakeTime: 0
   isAttackGround: 0
   checkPlayer: {fileID: 0}
   maxXSpeed: 15

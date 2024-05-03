@@ -6,13 +6,14 @@ using BehaviorDesigner.Runtime;
 using DG.Tweening;
 public class EnemyGoOrigin : EnemyAction
 {
-
+    BehaviorTree bt;
 
     bool isArriveOrigin = false;
     public float desiredSpeed;
 
     public override void OnStart()
     {
+        bt = this.transform.GetComponent<BehaviorTree>();
         isEnd = false;
         StartGoOrigin();
     }
@@ -50,7 +51,7 @@ public class EnemyGoOrigin : EnemyAction
             {
                 enemyObject.transform.localScale = new Vector3(-chInRommSize, enemyObject.transform.localScale.y, 1);
             }
-            sequence = DOTween.Sequence()
+            bt.sequence = DOTween.Sequence()
 
             .Append(enemyObject.transform.DOMoveX(originX, moveDuration).SetEase(Ease.Linear)) // 원점으로 이동합니다.
 

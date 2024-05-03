@@ -23,12 +23,12 @@ public class TimeChange : MonoBehaviour
     }
 
     void Update()
-    {/*
+    {
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            AddTime(60); 시간 추가
+            AddTime(60); //시간 추가
         }
-        */
+        
         if (isTest == false)
         {
             float elapsedTime = Time.time - startTime;
