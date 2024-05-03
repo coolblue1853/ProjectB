@@ -98,7 +98,7 @@ public class EnemyHealth : MonoBehaviour
     DG.Tweening.Sequence striffSequence;
 
     public float stiffShakeTime = 0;
-    public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking)
+    public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking, float dmgRatio)
     {
 
         shakeTime = shaking;
@@ -107,13 +107,13 @@ public class EnemyHealth : MonoBehaviour
         if (damage[5] !=0 && enemyDef != 0)
         {
              dmgByDmg = dmg * (dmg / (dmg + (enemyDef * (damage[5] / 100)))); // 방무 적용후
-             finDmg = dmgByDmg * (1 + ((damage[7]) / 100)); // 최종뎀 추가
+            finDmg = dmgByDmg * (1 + ((damage[7]) / 100)) * dmgRatio; // 최종뎀 추가 * 계수
         }
         else
         {
             dmgByDmg = dmg * (dmg / (dmg + enemyDef)); // 방무 미적용
 
-            finDmg = dmgByDmg * (1 + ((damage[7]) / 100)); // 최종뎀 추가
+            finDmg = dmgByDmg * (1 + ((damage[7]) / 100)) * dmgRatio; // 최종뎀 추가 * 계수
 
         }
 

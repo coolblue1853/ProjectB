@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (isWall == true)
                 {
-                    WallJump();
+                 //   WallJump();
                 }
                 else if ((isGround || jumpsRemaining > 0) && states != "dash")
                 {
@@ -661,6 +661,8 @@ public class PlayerController : MonoBehaviour
         {
             isGround = false;
         }
+
+        /*
         if(states != "dash" &&  isUpLadder == false&& isDownJump ==false && isPlafromCheck == true)//&&isPlafromCheck == true 
         {
             RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right,0.3f, LayerMask.GetMask("Ground"));
@@ -685,7 +687,7 @@ public class PlayerController : MonoBehaviour
                 rb.gravityScale = 3f;
             }
         }
-
+        */
 
     }
 

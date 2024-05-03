@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 public class DamageObject : MonoBehaviour
 {
+    public float dmgRatio = 1.0f;
     public float ShakeTime;
     public  bool isSkill = false;
     public bool isDestroyByTime = true;
@@ -88,7 +89,7 @@ public class DamageObject : MonoBehaviour
 
 
                     // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
-                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime);
+                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
                     if (isPosionAttack)
                     {
                         enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);

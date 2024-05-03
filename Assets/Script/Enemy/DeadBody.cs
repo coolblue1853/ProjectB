@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DeadBody : MonoBehaviour
 {
+    public float maxNForce = 10; // ÃÖ´ë ³Ë¹é Èû
     GameObject player;
    public GameObject parentEnemy;
     Vector2 knockbackDir;
@@ -27,6 +28,10 @@ public class DeadBody : MonoBehaviour
     }
     public void Force2DeadBody(float knockbackForce)
     {
+        if(knockbackForce > maxNForce) // ÃÖ´ë ³Ë¹é ¼Óµµ
+        {
+            knockbackForce = maxNForce;
+        }
         player = GameObject.FindWithTag("Player");
         if (player.transform.position.x > this.transform.position.x)
         {
