@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using System.IO;
 using TMPro;
 using DG.Tweening;
+using AnyPortrait;
 public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 {
     public string equipArea = "";
@@ -21,8 +22,11 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     Equipment necklace;
     Equipment ring;
     public GameObject nowBox;
-
-
+    public Texture2D defaultOffset;
+    public apPortrait mainCharacter;
+    private void Start()
+    {
+    }
     public void EquipMainWeapon()
     {
        // weapon = equipPrefab.GetComponent<Weapon>();
@@ -35,7 +39,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         {
             GameObject ob = transform.GetChild(0).gameObject;
             ItemCheck obItemCheck = ob.GetComponent<ItemCheck>();
-           LoadPrefab(obItemCheck.name, obItemCheck.equipArea);
+           LoadPrefab(obItemCheck.name, obItemCheck.equipArea, obItemCheck.tfName);
         }
         if (reciveEquipArea == "Weapon" && weapon == null)
         {
@@ -54,6 +58,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         {
             chest = equipPrefab.GetComponent<Equipment>();
             PlayerHealthManager.Instance.EquipmentActiveTrue(chest.hp, chest.armor);
+
         }
         else if (reciveEquipArea == "Leg" && leg == null)
         {
@@ -109,6 +114,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         }
          if (reciveEquipArea == "Head")
         {
+            mainCharacter.SetMeshImage("Hat", defaultOffset);
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
@@ -134,6 +140,12 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         }
          if (reciveEquipArea == "Chest")
         {
+            mainCharacter.SetMeshImage("RArm", defaultOffset);
+            mainCharacter.SetMeshImage("Rsholder", defaultOffset);
+            mainCharacter.SetMeshImage("LArm", defaultOffset);
+            mainCharacter.SetMeshImage("LSholder", defaultOffset);
+            mainCharacter.SetMeshImage("UppderBody", defaultOffset);
+            mainCharacter.SetMeshImage("DwonBody", defaultOffset);
             if (isFalse == false)
             {
 
@@ -161,6 +173,10 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
          if (reciveEquipArea == "Leg")
         {
+            mainCharacter.SetMeshImage("RDownLeg", defaultOffset);
+            mainCharacter.SetMeshImage("RUpperLeg", defaultOffset);
+            mainCharacter.SetMeshImage("LDownLeg", defaultOffset);
+            mainCharacter.SetMeshImage("LUpperLeg", defaultOffset);
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
@@ -184,6 +200,8 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         }
          if (reciveEquipArea == "Hand")
         {
+            mainCharacter.SetMeshImage("RHand", defaultOffset);
+            mainCharacter.SetMeshImage("LHand", defaultOffset);
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
@@ -262,7 +280,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     }
 
 
-    public void LoadPrefab(string equipName, string equipArea)
+    public void LoadPrefab(string equipName, string equipArea, string tfName)
     {
         reciveEquipArea = equipArea;
         if (equipArea == "Weapon")
@@ -294,7 +312,13 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
+            string texturePath = "Sprite/";
+            Texture2D sprite = Resources.Load<Texture2D>(texturePath + tfName);
 
+            if (sprite != null)
+            {
+                mainCharacter.SetMeshImage("Hat", sprite);
+            }
             if (prefab != null)
             {
                 // Set the instantiated prefab as a child of the current GameObject
@@ -315,7 +339,18 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
+            string texturePath = "Sprite/";
+            Texture2D sprite = Resources.Load<Texture2D>(texturePath+ tfName);
 
+            if(sprite != null)
+            {
+                mainCharacter.SetMeshImage("RArm", sprite);
+                mainCharacter.SetMeshImage("Rsholder", sprite);
+                mainCharacter.SetMeshImage("LArm", sprite);
+                mainCharacter.SetMeshImage("LSholder", sprite);
+                mainCharacter.SetMeshImage("UppderBody", sprite);
+                mainCharacter.SetMeshImage("DwonBody", sprite);
+            }
             if (prefab != null)
             {
                 // Set the instantiated prefab as a child of the current GameObject
@@ -333,7 +368,16 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         else if (equipArea == "Leg")
         {
             string folderPath = "Leg/";
+            string texturePath = "Sprite/";
+            Texture2D sprite = Resources.Load<Texture2D>(texturePath + tfName);
 
+            if (sprite != null)
+            {
+                mainCharacter.SetMeshImage("RDownLeg", sprite);
+                mainCharacter.SetMeshImage("RUpperLeg", sprite);
+                mainCharacter.SetMeshImage("LDownLeg", sprite);
+                mainCharacter.SetMeshImage("LUpperLeg", sprite);
+            }
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
 
@@ -357,7 +401,16 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
+            string texturePath = "Sprite/";
+            Texture2D sprite = Resources.Load<Texture2D>(texturePath + tfName);
 
+            if (sprite != null)
+            {
+                mainCharacter.SetMeshImage("RHand", sprite);
+                mainCharacter.SetMeshImage("LHand", sprite);
+
+            }
+            // 
             if (prefab != null)
             {
                 // Set the instantiated prefab as a child of the current GameObject

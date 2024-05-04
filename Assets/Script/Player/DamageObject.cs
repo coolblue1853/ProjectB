@@ -111,7 +111,6 @@ public class DamageObject : MonoBehaviour
 
 
 
-
     public void SetDamge(int[] damgeArray)
     {
         damageArr = damgeArray;

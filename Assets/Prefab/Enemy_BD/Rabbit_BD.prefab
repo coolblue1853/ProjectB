@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1640908899}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3946403597737313503}
   - component: {fileID: 3946403597737313496}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wait1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5947181939283344202}
   - component: {fileID: 3556615925130425939}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 6982875316974952767}
   - component: {fileID: 6982875316974952766}
   - component: {fileID: 6982875316974952768}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 6982875317489837626}
   - component: {fileID: 6982875317489837625}
   - component: {fileID: 6982875317489837624}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,7 +386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6982875317650453170}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthBarCut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6982875317878803970}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 6982875318186637954}
   - component: {fileID: 6982875318186637980}
   - component: {fileID: 6982875318186637955}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: damagedBarTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 6982875318377164113}
   - component: {fileID: 6982875318377164115}
   - component: {fileID: 6982875318377164114}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -610,7 +610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7420735982282718007}
   - component: {fileID: 7420735982282718006}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -659,7 +659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7698113302605963781}
   - component: {fileID: 7698113302605963834}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -708,7 +708,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7698113303908240697}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: GroundCheckRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,7 +740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8398182369061417265}
   - component: {fileID: 8398182369061417266}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HitGoOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -789,7 +789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8398182369902333131}
   - component: {fileID: 8398182369902333132}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: BT_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -847,7 +847,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8398182370031214524}
   - component: {fileID: 8398182370031214525}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: BT_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -914,7 +914,7 @@ GameObject:
   - component: {fileID: 7698113303160677834}
   - component: {fileID: 927177922708613022}
   - component: {fileID: 927177922708613023}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Rabbit_BD
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1234,7 +1234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8398182370961590785}
   - component: {fileID: 8398182370961590787}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RunAwayNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1284,7 +1284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8398182371119202215}
   - component: {fileID: 8398182371119202216}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Patrol
   m_TagString: Untagged
   m_Icon: {fileID: 0}

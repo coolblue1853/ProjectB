@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1186367242}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7441908731795135370}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7441908731830578481}
   - component: {fileID: 7441908731830578482}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: CheckPlayerSize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7441908732630015731}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7441908732695900588}
   - component: {fileID: 7441908732695900589}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 8515180937943836376}
   - component: {fileID: 1162827938235262093}
   - component: {fileID: 1162827938235262092}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: RatChief_BD
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -328,6 +328,7 @@ MonoBehaviour:
   enemySensor: {fileID: 0}
   isBossMob: 0
   ShakeCorrection: 1.2
+  stiffShakeTime: 0
   isAttackGround: 0
   checkPlayer: {fileID: 0}
   maxXSpeed: 15
@@ -400,31 +401,30 @@ MonoBehaviour:
       parentIndex: 
       startIndex: 
       variableStartIndex: 
-      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(114,152.666656)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(3.99999046,159.9394)"},"ID":1,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(-1.22721481,170.848312)"},"ID":2,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-411.6665,170)"},"ID":3,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"EnemyHealthChecker","NodeData":{"Offset":"(-630,240)"},"ID":4,"Name":"Enemy
-        Health Checker","Instant":true,"SharedInthealthTreshold":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolisHitChecker":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SinglechInRommSize":0},{"Type":"PlayerChecker","NodeData":{"Offset":"(-440,230)"},"ID":5,"Name":"Player
-        Checker","Instant":true,"Vector2boxSize":"(20,10)","LayerMasklayerMask":8191,"StringplayerTag":"Player","SinglechInRommSize":0},{"Type":"EnemyKillSeq","NodeData":{"Offset":"(-289.6001,227.266724)"},"ID":6,"Name":"Enemy
-        Kill Seq","Instant":true,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(-224.313782,297.5445)"},"ID":7,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-585.3085,134.196777)"},"ID":8,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"EnemyWallChecker","NodeData":{"Offset":"(-174.058472,172.946533)"},"ID":9,"Name":"Enemy
-        Wall Checker","Instant":true,"GameObjectwallCheck":0,"SinglewallRay":1,"BooleanisGroundCheck":false,"SinglechInRommSize":0},{"Type":"EnemyJump","NodeData":{"Offset":"(15.9415283,182.946533)"},"ID":10,"Name":"Enemy
-        Jump","Instant":true,"SinglexJumpForce":0,"SinglejumpForce":10,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(-327.57135,147.68689)"},"ID":11,"Name":"Inverter","Instant":true,"Children":[{"Type":"PlayerChecker","NodeData":{"Offset":"(1.423151,161.081787)"},"ID":12,"Name":"Player
-        Checker","Instant":true,"Vector2boxSize":"(20,10)","LayerMasklayerMask":8191,"StringplayerTag":"Player","SinglechInRommSize":0}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-156.960876,300)"},"ID":13,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"PlayerChecker","NodeData":{"Offset":"(-442.841461,237.850937)"},"ID":14,"Name":"Player
-        Checker","Instant":true,"Vector2boxSize":"(2,2)","LayerMasklayerMask":8191,"StringplayerTag":"Player","SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(-305.510742,239.7959)"},"ID":15,"Name":"Set
-        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":1},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-189.204391,242.408081)"},"ID":16,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.5},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(-42.58025,239.354736)"},"ID":17,"Name":"Set
-        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":2},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isAttack"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false},{"Type":"EnemyAttackNode","NodeData":{"Offset":"(125.936546,235.856567)"},"ID":18,"Name":"Enemy
-        Attack Node","Instant":true,"GameObjectdamageOb":3,"GameObjectattackPivot":4,"BooleanisSummonPlayerPosX":false,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(267.204,245.295715)"},"ID":19,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.5},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(421.612732,250)"},"ID":20,"Name":"Set
-        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":5},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isAttack"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(14.1934814,176.129028)"},"ID":21,"Name":"Inverter","Instant":true,"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(20,120)"},"ID":22,"Name":"Set
-        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":6},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(165.161285,169.999878)"},"ID":23,"Name":"Inverter","Instant":true,"Children":[{"Type":"EnemyChase","NodeData":{"Offset":"(10,120)"},"ID":24,"Name":"Enemy
-        Chase","Instant":true,"SinglemoveDuration":0.1,"SinglemoveDistance":0.25,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(310,290)"},"ID":25,"Name":"Set
-        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":7},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(38.0456848,224.739746)"},"ID":26,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"EnemyWallChecker","NodeData":{"Offset":"(-325.111938,157.8971)"},"ID":27,"Name":"Enemy
-        Wall Checker","Instant":true,"GameObjectwallCheck":8,"SinglewallRay":1,"BooleanisGroundCheck":false,"SinglechInRommSize":0},{"Type":"EnemyJump","NodeData":{"Offset":"(-165.111938,157.8971)"},"ID":28,"Name":"Enemy
-        Jump","Instant":true,"SinglexJumpForce":0,"SinglejumpForce":10,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-35.11194,157.8971)"},"ID":29,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.2},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":2},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(538.0454,194.739746)"},"ID":30,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"EnemyGroundChecker","NodeData":{"Offset":"(-355.111938,147.8971)"},"ID":31,"Name":"Enemy
-        Ground Checker","Instant":true,"GameObjectgroundCheck2":9,"SinglegroundRayLength":2,"SinglechInRommSize":0},{"Type":"EnemyKillSeq","NodeData":{"Offset":"(-185.111938,157.8971)"},"ID":32,"Name":"Enemy
-        Kill Seq","Instant":true,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-65.11182,147.8971)"},"ID":33,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":2}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(64.88806,147.8971)"},"ID":34,"Name":"           
-        isEnd = true;","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false},{"Type":"EnemyGoRevers","NodeData":{"Offset":"(214.888062,147.8971)"},"ID":35,"Name":"Enemy
-        Go Revers","Instant":true,"Int32xMin":1,"Int32xMax":3,"Int32originMax":100,"BooleanisStop":false,"BooleanisGroundCheck":false,"SingledesiredSpeed":2.5,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(364.888062,137.8971)"},"ID":36,"Name":"           
-        isEnd = true;","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(1038.04565,254.739746)"},"ID":37,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-155.112061,227.8971)"},"ID":38,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":2},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(-15.1119385,227.8971)"},"ID":39,"Name":"Set
-        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false},{"Type":"EnemyPatrol","NodeData":{"Offset":"(154.888062,227.8971)"},"ID":40,"Name":"Enemy
-        Patrol","Instant":true,"Int32xMin":3,"Int32xMax":5,"Int32originMax":20,"BooleanisStop":false,"BooleanisGroundCheck":false,"SingledesiredSpeed":2.5,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(304.888062,217.8971)"},"ID":41,"Name":"           
-        isEnd = true;","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(464.888062,237.8971)"},"ID":42,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":2},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}}]}]}]}}'
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(114,152.666656)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(3.99999046,159.9394)"},"ID":1,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(-1.22721481,170.848312)"},"ID":2,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-411.6665,170)"},"ID":3,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"PlayerChecker","NodeData":{"Offset":"(-440,230)"},"ID":4,"Name":"Player
+        Checker","Instant":true,"Vector2boxSize":"(20,10)","LayerMasklayerMask":8191,"StringplayerTag":"Player","SinglechInRommSize":0},{"Type":"EnemyKillSeq","NodeData":{"Offset":"(-289.6001,227.266724)"},"ID":5,"Name":"Enemy
+        Kill Seq","Instant":true,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(-224.313782,297.5445)"},"ID":6,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-585.3085,134.196777)"},"ID":7,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"EnemyWallChecker","NodeData":{"Offset":"(-174.058472,172.946533)"},"ID":8,"Name":"Enemy
+        Wall Checker","Instant":true,"GameObjectwallCheck":0,"SinglewallRay":1,"BooleanisGroundCheck":false,"SinglechInRommSize":0},{"Type":"EnemyJump","NodeData":{"Offset":"(15.9415283,182.946533)"},"ID":9,"Name":"Enemy
+        Jump","Instant":true,"SinglexJumpForce":0,"SinglejumpForce":10,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(-327.57135,147.68689)"},"ID":10,"Name":"Inverter","Instant":true,"Children":[{"Type":"PlayerChecker","NodeData":{"Offset":"(1.423151,161.081787)"},"ID":11,"Name":"Player
+        Checker","Instant":true,"Vector2boxSize":"(20,10)","LayerMasklayerMask":8191,"StringplayerTag":"Player","SinglechInRommSize":0}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-156.960876,300)"},"ID":12,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"PlayerChecker","NodeData":{"Offset":"(-442.841461,237.850937)"},"ID":13,"Name":"Player
+        Checker","Instant":true,"Vector2boxSize":"(2,2)","LayerMasklayerMask":8191,"StringplayerTag":"Player","SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(-305.510742,239.7959)"},"ID":14,"Name":"Set
+        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":1},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-189.204391,242.408081)"},"ID":15,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.5},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(-42.58025,239.354736)"},"ID":16,"Name":"Set
+        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":2},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isAttack"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false},{"Type":"EnemyAttackNode","NodeData":{"Offset":"(125.936546,235.856567)"},"ID":17,"Name":"Enemy
+        Attack Node","Instant":true,"GameObjectdamageOb":3,"GameObjectattackPivot":4,"BooleanisSummonPlayerPosX":false,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(267.204,245.295715)"},"ID":18,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.5},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(421.612732,250)"},"ID":19,"Name":"Set
+        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":5},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isAttack"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(14.1934814,176.129028)"},"ID":20,"Name":"Inverter","Instant":true,"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(20,120)"},"ID":21,"Name":"Set
+        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":6},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(165.161285,169.999878)"},"ID":22,"Name":"Inverter","Instant":true,"Children":[{"Type":"EnemyChase","NodeData":{"Offset":"(10,120)"},"ID":23,"Name":"Enemy
+        Chase","Instant":true,"SinglemoveDuration":0.1,"SinglemoveDistance":0.25,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(310,290)"},"ID":24,"Name":"Set
+        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":7},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(38.0456848,224.739746)"},"ID":25,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"EnemyWallChecker","NodeData":{"Offset":"(-325.111938,157.8971)"},"ID":26,"Name":"Enemy
+        Wall Checker","Instant":true,"GameObjectwallCheck":8,"SinglewallRay":1,"BooleanisGroundCheck":false,"SinglechInRommSize":0},{"Type":"EnemyJump","NodeData":{"Offset":"(-165.111938,157.8971)"},"ID":27,"Name":"Enemy
+        Jump","Instant":true,"SinglexJumpForce":0,"SinglejumpForce":10,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-35.11194,157.8971)"},"ID":28,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.2},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":2},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(538.0454,194.739746)"},"ID":29,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"EnemyGroundChecker","NodeData":{"Offset":"(-355.111938,147.8971)"},"ID":30,"Name":"Enemy
+        Ground Checker","Instant":true,"GameObjectgroundCheck2":9,"SinglegroundRayLength":2,"SinglechInRommSize":0},{"Type":"EnemyKillSeq","NodeData":{"Offset":"(-185.111938,157.8971)"},"ID":31,"Name":"Enemy
+        Kill Seq","Instant":true,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-65.11182,147.8971)"},"ID":32,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":2}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(64.88806,147.8971)"},"ID":33,"Name":"           
+        isEnd = true;","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false},{"Type":"EnemyGoRevers","NodeData":{"Offset":"(214.888062,147.8971)"},"ID":34,"Name":"Enemy
+        Go Revers","Instant":true,"Int32xMin":1,"Int32xMax":3,"Int32originMax":100,"BooleanisStop":false,"BooleanisGroundCheck":false,"SingledesiredSpeed":2.5,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(364.888062,137.8971)"},"ID":35,"Name":"           
+        isEnd = true;","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(1038.04565,254.739746)"},"ID":36,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-155.112061,227.8971)"},"ID":37,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":2},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(-15.1119385,227.8971)"},"ID":38,"Name":"Set
+        Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false},{"Type":"EnemyPatrol","NodeData":{"Offset":"(154.888062,227.8971)"},"ID":39,"Name":"Enemy
+        Patrol","Instant":true,"Int32xMin":3,"Int32xMax":5,"Int32originMax":20,"BooleanisStop":false,"BooleanisGroundCheck":false,"SingledesiredSpeed":2.5,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(304.888062,217.8971)"},"ID":40,"Name":"           
+        isEnd = true;","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(464.888062,237.8971)"},"ID":41,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":2},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}}]}]}]}}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -533,7 +533,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8941587732418415888}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -565,7 +565,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8941587732651438496}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthBarCut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 8941587733186574736}
   - component: {fileID: 8941587733186574734}
   - component: {fileID: 8941587733186574737}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: damagedBarTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -682,7 +682,7 @@ GameObject:
   - component: {fileID: 8941587733269098051}
   - component: {fileID: 8941587733269098049}
   - component: {fileID: 8941587733269098048}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -760,7 +760,7 @@ GameObject:
   - component: {fileID: 8941587733594939949}
   - component: {fileID: 8941587733594939948}
   - component: {fileID: 8941587733594939986}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -878,7 +878,7 @@ GameObject:
   - component: {fileID: 8941587734151767336}
   - component: {fileID: 8941587734151767339}
   - component: {fileID: 8941587734151767338}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

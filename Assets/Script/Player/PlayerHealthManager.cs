@@ -8,8 +8,8 @@ public class PlayerHealthManager : MonoBehaviour
 {
     public apPortrait mainCharacter;
     bool isSuperArmor = false;
-    Sequence sequence;
-    Sequence waitSequence;
+    Sequence sequence; Sequence hpSequence;
+    Sequence waitSequence; Sequence waitHpSequence;
     public int setHP;
     public int fullHP;
     public int nowHp;
@@ -24,10 +24,12 @@ public class PlayerHealthManager : MonoBehaviour
     public int nowStemina;
     public int nomalizedStemina;
     public float waitTimeSteminaHeal;
+    public float waitTimeHpHeal;
     public int steminaHealPoint;
-    bool isSteminaDown;
+    public int HpHealPoint;
+    bool isSteminaDown; bool isHpDown;
     public float intervalTimeSteminaHeal;
-
+    public float intervalTimeHpHeal;
     public int fullFullness = 100;
     public int nowFullness;
     public int nomalizedFullness;
@@ -213,7 +215,15 @@ public class PlayerHealthManager : MonoBehaviour
         nowHp -= damage;
         setHP = (setHP - nomalizedHP * damage);
         healthBar.healthSystem.Damage(damage);
+
+        isHpDown = true;
+        hpSequence.Kill();
+        waitHpSequence.Kill();
+        hpSequence = DOTween.Sequence()
+        .AppendInterval(waitTimeHpHeal) // 대기 시간 사용
+        .OnComplete(() => OnHpSequenceComplete());
     }
+
 
     public void SteminaDown(int damage)
     {
@@ -233,7 +243,7 @@ public class PlayerHealthManager : MonoBehaviour
         if(nowFullness >= 1)
         {
             FullnessDown(1);
-               
+
             isSteminaDown = false;
             if (nowStemina < fullStemina)
             {
@@ -257,7 +267,35 @@ public class PlayerHealthManager : MonoBehaviour
         }
        
     }
+    private void OnHpSequenceComplete()
+    {
+        if (nowFullness >= 3)
+        {
+            FullnessDown(3);
 
+            isHpDown = false;
+            if (nowHp < fullHP)
+            {
+                if (fullHP - nowHp < HpHealPoint)
+                {
+                    HpUp(fullHP - nowHp);
+                }
+                else
+                {
+                    HpUp(HpHealPoint);
+                }
+
+                if (isHpDown == false)
+                {
+                    waitHpSequence = DOTween.Sequence()
+                        .AppendInterval(intervalTimeHpHeal)
+                        .OnComplete(() => OnHpSequenceComplete());
+                }
+
+            }
+        }
+
+    }
     public void HpUp(int healed)
     {
         if (healed > fullHP - nowHp)

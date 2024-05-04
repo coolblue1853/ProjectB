@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DeadBody : MonoBehaviour
 {
+
     public float maxNForce = 10; // ÃÖ´ë ³Ë¹é Èû
     GameObject player;
    public GameObject parentEnemy;

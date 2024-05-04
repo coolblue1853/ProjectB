@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 934053102}
   - component: {fileID: 934053103}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: OrriginRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1725539956}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4843469005305202269}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackTwoPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4843469005820175400}
   - component: {fileID: 4843469005820175401}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackRange2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 5086343724026323633}
   - component: {fileID: 5086343724026323632}
   - component: {fileID: 5086343724026323662}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 5086343724608382388}
   - component: {fileID: 5086343724608382391}
   - component: {fileID: 5086343724608382390}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5086343724702052668}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthBarCut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5086343724997315980}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 5086343725238040844}
   - component: {fileID: 5086343725238040850}
   - component: {fileID: 5086343725238040845}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: damagedBarTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 5086343725327871711}
   - component: {fileID: 5086343725327871709}
   - component: {fileID: 5086343725327871708}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -602,7 +602,7 @@ GameObject:
   - component: {fileID: 5524592874086934084}
   - component: {fileID: 3072446537878692881}
   - component: {fileID: 3072446537878692894}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: PassiveTerror_BD
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -721,7 +721,7 @@ MonoBehaviour:
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
   enemyDef: 1
-  maxHP: 1
+  maxHP: 1000
   nowHP: 0
   hpBar: {fileID: 5086343724026323662}
   hpObject: {fileID: 5086343724702052671}
@@ -1035,7 +1035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6757172473773169430}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackOnePivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,7 +1067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6757172473808645549}
   - component: {fileID: 6757172473808645550}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: CheckPlayerSize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1111,7 +1111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6757172474078617199}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1143,7 +1143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6757172474153906480}
   - component: {fileID: 6757172474153906481}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}

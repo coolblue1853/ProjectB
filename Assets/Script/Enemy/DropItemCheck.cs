@@ -20,6 +20,7 @@ public class DropItemCheck : MonoBehaviour
     public int effectPow;
     public string equipArea;
     public TextMeshProUGUI stackText;
+    public string tfName;
     public SpriteRenderer spriteRenderer;
     ItemData item;
 
@@ -39,6 +40,7 @@ public class DropItemCheck : MonoBehaviour
         acqPath = item.acqPath;
         maxStack = item.maxStack;
         nowStack = 1;
+        tfName = item.tfName;
         stackText.text = nowStack.ToString();
         if (type == "Consum")
         {
@@ -51,6 +53,7 @@ public class DropItemCheck : MonoBehaviour
 
         }
         LoadImage();
+
     }
 
     public void ConsumItemActive()
@@ -154,4 +157,5 @@ public class DropItemCheck : MonoBehaviour
             Debug.LogError("이미지 파일을 로드하지 못했습니다: " + resourcePath);
         }
     }
+
 }

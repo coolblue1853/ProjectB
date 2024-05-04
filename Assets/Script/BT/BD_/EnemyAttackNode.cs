@@ -1,14 +1,17 @@
 using BehaviorDesigner.Runtime.Tasks;
+using BehaviorDesigner.Runtime;
 using DG.Tweening;
 using UnityEngine;
 public class EnemyAttackNode : EnemyAction
 {
+    BehaviorTree bt;
     public GameObject damageOb;
     public GameObject attackPivot;
     float direction;
     public bool isSummonPlayerPosX = false;
     public override void OnStart()
     {
+        bt = this.transform.GetComponent<BehaviorTree>();
         StopAction();
         isEnd = false;
         StartPatrol();
@@ -22,7 +25,7 @@ public class EnemyAttackNode : EnemyAction
     {
 
         FaceChange();
-        sequence = DOTween.Sequence()
+        bt.sequence = DOTween.Sequence()
        .AppendCallback(() => CreatDamageOb())
        //  .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
        .OnComplete(() => OnSequenceComplete());

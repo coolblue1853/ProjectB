@@ -41,10 +41,12 @@ public class Skill : MonoBehaviour
             DatabaseManager.weaponStopMove = true;
             rb.velocity = Vector2.zero;
         }
+        DatabaseManager.checkAttackLadder = true;
         weapon.isAttackWait = false;
         Sequence sequence = DOTween.Sequence()
         .AppendInterval(attckSpeed) // 사전에 지정한 공격 주기만큼 대기.
         .AppendCallback(() => DatabaseManager.weaponStopMove = false)
+        .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
         .AppendCallback(() => weapon.isAttackWait = true);
     }
     public void ActiveMainSkill()

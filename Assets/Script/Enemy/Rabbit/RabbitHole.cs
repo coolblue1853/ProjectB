@@ -38,8 +38,9 @@ public class RabbitHole : MonoBehaviour
         {
             if (rabbitActive[i] == null)
             {
+                float zPosition = Random.Range(-1f, 1f);
                 float xPosition = Random.Range(-1f, 1f);
-                GameObject r = Instantiate(rabbit, this.transform.position + new Vector3(xPosition, 0), this.transform.rotation);
+                GameObject r = Instantiate(rabbit, this.transform.position + new Vector3(xPosition, 0, zPosition), this.transform.rotation);
                 rabbitActive[i] = r;
                 RabbitReset RH = r.GetComponent<RabbitReset>(); 
                 RH.rabbitHole = this.GetComponent<RabbitHole>();

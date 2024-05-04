@@ -263,7 +263,7 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
                     currentParent = equipBox;
-                    equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea);
+                    equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea, itemCheck.tfName);
                 }
                 else
                 {
@@ -274,7 +274,7 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                     transform.SetParent(equipBox);
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
-                    equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea);
+                    equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea, itemCheck.tfName);
                     equipBoxCheck.ActivePrefab(itemCheck.equipArea);
                 }
 

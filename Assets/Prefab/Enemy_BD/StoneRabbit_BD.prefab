@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 917310111}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Wallcheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2912216098159019736}
   - component: {fileID: 2912216098159019737}
   - component: {fileID: 2912216098159019687}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 2912216098646573533}
   - component: {fileID: 2912216098646573534}
   - component: {fileID: 2912216098646573535}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2912216099094664533}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthBarCut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2912216099331353061}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 2912216099408136886}
   - component: {fileID: 2912216099408136884}
   - component: {fileID: 2912216099408136885}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 2912216099628555621}
   - component: {fileID: 2912216099628555643}
   - component: {fileID: 2912216099628555620}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: damagedBarTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,7 +475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3691363071147133380}
   - component: {fileID: 3691363071147133383}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: CheckPlayerSize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,7 +519,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3691363071178915711}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3691363071408863750}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3691363071473522009}
   - component: {fileID: 3691363071473522008}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 2474547972881908269}
   - component: {fileID: 4926817520833413241}
   - component: {fileID: 4926817520833413240}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: StoneRabbit_BD
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -763,6 +763,7 @@ MonoBehaviour:
   enemySensor: {fileID: 0}
   isBossMob: 0
   ShakeCorrection: 1.2
+  stiffShakeTime: 0
   isAttackGround: 0
   checkPlayer: {fileID: 0}
   maxXSpeed: 15

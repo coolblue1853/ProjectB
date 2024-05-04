@@ -1020,12 +1020,12 @@ public class InventoryManager : MonoBehaviour
 
         if(detail.equipArea != "Weapon")
         {
-            if (equipBox.transform.childCount == 0)
+            if (equipBox.transform.childCount == 0) // 무기가 아니고 방어구라면
             {
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
             }
             else
             {
@@ -1036,7 +1036,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
             }
         }
@@ -1047,7 +1047,7 @@ public class InventoryManager : MonoBehaviour
 
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
               //  equipBoxCheck.EquipMainWeapon();
             }
             else
@@ -1060,7 +1060,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
             }
 
@@ -1347,9 +1347,14 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F4))
 
         {
-            CreatItem("Wood");
+           // CreatItem("Wood");
 
-            // CreatItem("Armor");
+             CreatItem("Armor");
+            CreatItem("Cap");
+            CreatItem("LegArmor");
+            CreatItem("HandArmor");
+            
+
             //CreatItem("Potion");
 
         }

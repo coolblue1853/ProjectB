@@ -1106,6 +1106,34 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Portal"",
+            ""id"": ""32ccc16e-191e-4b59-b8e3-5caac5557883"",
+            ""actions"": [
+                {
+                    ""name"": ""PortalOn"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4a1a1e7-8252-40bf-9078-ff40b4ecc735"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""130230b9-9675-4682-b9bc-f8594cd4d3e2"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PortalOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -1141,6 +1169,9 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         m_UI_NextRightPage = m_UI.FindAction("NextRightPage", throwIfNotFound: true);
         m_UI_NextLeftPage = m_UI.FindAction("NextLeftPage", throwIfNotFound: true);
         m_UI_OpenCraft = m_UI.FindAction("OpenCraft", throwIfNotFound: true);
+        // Portal
+        m_Portal = asset.FindActionMap("Portal", throwIfNotFound: true);
+        m_Portal_PortalOn = m_Portal.FindAction("PortalOn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1490,6 +1521,52 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // Portal
+    private readonly InputActionMap m_Portal;
+    private List<IPortalActions> m_PortalActionsCallbackInterfaces = new List<IPortalActions>();
+    private readonly InputAction m_Portal_PortalOn;
+    public struct PortalActions
+    {
+        private @KeyAction m_Wrapper;
+        public PortalActions(@KeyAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @PortalOn => m_Wrapper.m_Portal_PortalOn;
+        public InputActionMap Get() { return m_Wrapper.m_Portal; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PortalActions set) { return set.Get(); }
+        public void AddCallbacks(IPortalActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PortalActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PortalActionsCallbackInterfaces.Add(instance);
+            @PortalOn.started += instance.OnPortalOn;
+            @PortalOn.performed += instance.OnPortalOn;
+            @PortalOn.canceled += instance.OnPortalOn;
+        }
+
+        private void UnregisterCallbacks(IPortalActions instance)
+        {
+            @PortalOn.started -= instance.OnPortalOn;
+            @PortalOn.performed -= instance.OnPortalOn;
+            @PortalOn.canceled -= instance.OnPortalOn;
+        }
+
+        public void RemoveCallbacks(IPortalActions instance)
+        {
+            if (m_Wrapper.m_PortalActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPortalActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PortalActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PortalActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PortalActions @Portal => new PortalActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -1522,5 +1599,9 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         void OnNextRightPage(InputAction.CallbackContext context);
         void OnNextLeftPage(InputAction.CallbackContext context);
         void OnOpenCraft(InputAction.CallbackContext context);
+    }
+    public interface IPortalActions
+    {
+        void OnPortalOn(InputAction.CallbackContext context);
     }
 }

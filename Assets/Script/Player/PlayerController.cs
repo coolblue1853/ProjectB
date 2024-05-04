@@ -198,8 +198,9 @@ public class PlayerController : MonoBehaviour
 
 
             // 대쉬
-            if (dashAction.triggered && dashTimer <= 0f && DatabaseManager.weaponStopMove == false && PlayerHealthManager.Instance.nowStemina > dashStemina)
+            if (dashAction.triggered && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false 
             {
+                DatabaseManager.weaponStopMove = false;
                 Debug.Log("대쉬작동");
                 rb.gravityScale =3;
                 isUpLadder = false;
@@ -242,7 +243,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (states != "dash" && states != "wallJump" && isLadder == true)
+        if (states != "dash" && states != "wallJump" && isLadder == true && DatabaseManager.checkAttackLadder == false)
         {
             if(upAction.triggered == true|| downAction.triggered)
             {
@@ -298,6 +299,7 @@ public class PlayerController : MonoBehaviour
         }
     bool ladderJumpCheck = false;
     GameObject nowLadder;
+
     void LadderMove()
     {
         moveVelocity = Vector2.zero;
@@ -490,7 +492,7 @@ public class PlayerController : MonoBehaviour
     void RunChecker()
     {
         check = false;
-        if (horizontalInput == 0)
+        if (horizontalInput < 0.1f)
         {
             if (states != "dash")
             {
@@ -759,72 +761,79 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Ladder" )
-        {
-            ladderJumpCheck = true;
-            isLadder = true;
-            nowLadder = collision.gameObject;
-        }
-        if (collision.tag == "InGroundPlayer")
-        {
-          //  Debug.Log(collision.name);
-            if (isJumpAnim == true&& isUpLadder == false && rb.velocity.y == 0 && states != "dash"&& isAttackAnim== false)
+    
+            if (collision.tag == "Ladder"&& DatabaseManager.checkAttackLadder == false)
             {
-                isJumpAnim = false;
-                mainCharacter.Play("Idle");
+                ladderJumpCheck = true;
+                isLadder = true;
+                nowLadder = collision.gameObject;
+            }
+            if (collision.tag == "InGroundPlayer")
+            {
+                //  Debug.Log(collision.name);
+                if (isJumpAnim == true && isUpLadder == false && rb.velocity.y == 0 && states != "dash" && isAttackAnim == false)
+                {
+                    isJumpAnim = false;
+                    mainCharacter.Play("Idle");
+
+                }
+                if (jumpsRemaining != maxJumps)
+                {
+                    jumpsRemaining = maxJumps;
+                }
+                if (isUpLadder == true)
+                {
+                    platformTrue = true;
+                }
 
             }
-            if (jumpsRemaining != maxJumps)
+
+            if (collision.tag == "InGroundPlayer")
             {
-                jumpsRemaining = maxJumps;
+
             }
-            if(isUpLadder == true)
-            {
-                platformTrue = true;
-            }
+        
 
-        }
 
-        if(collision.tag == "InGroundPlayer")
-        {
-
-        }
     }
 
     bool isRopeAttack = false;
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Ladder" )
-        {
-            if(isRopeAttack == false)
-            {
-                isLadder = false;
-                nowLadder = collision.gameObject;
-                BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
 
-                if (isUpLadder == true)
+            if (collision.tag == "Ladder")
+            {
+                if (isRopeAttack == false)
                 {
-                    //bc.isTrigger = false;
-                    boxColliderTrue = false;
-                    rb.gravityScale = 3;
-                    isUpLadder = false;
-                    ChangeLadderLayerOrder();
-                    nowLadder = null;
-                    AbleCollision();
+                    isLadder = false;
+                    nowLadder = collision.gameObject;
+                    BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
+
+                    if (isUpLadder == true)
+                    {
+                        //bc.isTrigger = false;
+                        boxColliderTrue = false;
+                        rb.gravityScale = 3;
+                        isUpLadder = false;
+                        ChangeLadderLayerOrder();
+                        nowLadder = null;
+                        AbleCollision();
+                    }
+                }
+                else if (isRopeAttack == true)
+                {
+                    Debug.Log("공격끝");
+                    isRopeAttack = false;
+                    mainCharacter.Play("RopeStay");
                 }
             }
-            else if (isRopeAttack == true)
+            if (collision.tag == "InGroundPlayer")
             {
-                Debug.Log("공격끝");
-                isRopeAttack = false;
-                mainCharacter.Play("RopeStay");
+                Debug.Log("나감");
+                platformTrue = false;
             }
-        }
-        if (collision.tag == "InGroundPlayer")
-        {
-            Debug.Log("나감");
-            platformTrue = false;
-        }
+        
+
     }
 
     void PlayRunSound()

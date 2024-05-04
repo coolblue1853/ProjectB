@@ -1084,6 +1084,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Portal",
+            "id": "32ccc16e-191e-4b59-b8e3-5caac5557883",
+            "actions": [
+                {
+                    "name": "PortalOn",
+                    "type": "Button",
+                    "id": "f4a1a1e7-8252-40bf-9078-ff40b4ecc735",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "130230b9-9675-4682-b9bc-f8594cd4d3e2",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PortalOn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

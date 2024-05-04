@@ -23,6 +23,8 @@ public class CraftItemCheck : MonoBehaviour
     public TextMeshProUGUI stackText;
     public Image image;
     ItemData item;
+    public string tfName;
+
     public CraftingManager craftingManager;
     public void OnPointerEnter()
     {
@@ -55,6 +57,7 @@ public class CraftItemCheck : MonoBehaviour
         acqPath = item.acqPath;
         maxStack = item.maxStack;
         nowStack = 0;
+        tfName = item.tfName;
         stackText.text = nowStack.ToString();
         if (type == "Consum")
         {
@@ -66,7 +69,9 @@ public class CraftItemCheck : MonoBehaviour
             equipArea = item.equipArea;
         }
         LoadImage();
+
     }
+
     /*
     public void ConsumItemActive()
     {

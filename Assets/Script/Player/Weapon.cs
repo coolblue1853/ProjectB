@@ -163,10 +163,12 @@ public class Weapon : MonoBehaviour
         {
             DatabaseManager.weaponStopMove = true;
         }
+        DatabaseManager.checkAttackLadder = true;
         isAttackWait = false;
         Sequence sequence = DOTween.Sequence()
         .AppendInterval(attckSpeed) // 사전에 지정한 공격 주기만큼 대기.
         .AppendCallback(() => DatabaseManager.weaponStopMove = false)
+        .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
         .AppendCallback(() => isAttackWait = true);
     }
 

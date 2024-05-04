@@ -12,6 +12,7 @@ public class DatabaseManager : MonoBehaviour
 {
     public static bool isInvincibility = false;
     public static bool weaponStopMove = false;
+    public static bool checkAttackLadder = false;
     public static bool isOpenUI = false;
     public static bool isUsePortal = false;
     public static Dictionary<string, int> inventoryItemStack = new Dictionary<string, int>();
@@ -114,6 +115,7 @@ public class DatabaseManager : MonoBehaviour
                 effectOb = ItemDataList[itemNum].effectOb,
                 effectPow = ItemDataList[itemNum].effectPow,
                 equipArea = ItemDataList[itemNum].equipArea,
+                tfName = ItemDataList[itemNum].tfName,
             };
             return newItem;
 

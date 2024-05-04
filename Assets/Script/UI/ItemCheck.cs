@@ -22,6 +22,8 @@ public class ItemCheck : MonoBehaviour
     public int needCount;
     public TextMeshProUGUI stackText;
     public Image image;
+
+    public string tfName;
     ItemData item;
 
     public bool isCraftItem = false;
@@ -47,7 +49,8 @@ public class ItemCheck : MonoBehaviour
         acqPath = item.acqPath;
         maxStack = item.maxStack;
         nowStack = 1;
-        if(stackText != null)
+        tfName = item.tfName;
+        if (stackText != null)
         stackText.text = nowStack.ToString();
         if(type == "Consum")
         {
@@ -169,4 +172,5 @@ public class ItemCheck : MonoBehaviour
             Debug.LogError("이미지 파일을 로드하지 못했습니다: " + resourcePath);
         }
     }
+
 }
