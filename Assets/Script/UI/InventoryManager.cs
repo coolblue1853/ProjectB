@@ -55,11 +55,11 @@ public class InventoryManager : MonoBehaviour
 
     public GameObject handBox;
     public GameObject chestBox;
-    public GameObject shoseBox;
     public GameObject necklesBox;
     public GameObject headBox;
     public GameObject ringBox;
     public GameObject legBox;
+    public GameObject shoesBox;
     public GameObject weaponBox;
 
     private void OnEnable()
@@ -594,8 +594,8 @@ public class InventoryManager : MonoBehaviour
             else if (downInventoryAction.triggered)
             {
                 OnlyDetailObOff();
-                GameObject insPositon = shoseBox.gameObject;
-                nowEquipBox = shoseBox;
+                GameObject insPositon = shoesBox.gameObject;
+                nowEquipBox = shoesBox;
                 cusor.transform.position = insPositon.transform.position;
             }
             else if (upInventoryAction.triggered)
@@ -641,7 +641,7 @@ public class InventoryManager : MonoBehaviour
                 cusor.transform.position = insPositon.transform.position;
             }
         }
-        else if (nowEquipBox == shoseBox)
+        else if (nowEquipBox == shoesBox)
         {
             if (leftInventoryAction.triggered)
             {
@@ -711,8 +711,8 @@ public class InventoryManager : MonoBehaviour
             else if (rightInventoryAction.triggered)
             {
                 OnlyDetailObOff();
-                GameObject insPositon = shoseBox.gameObject;
-                nowEquipBox = shoseBox;
+                GameObject insPositon = shoesBox.gameObject;
+                nowEquipBox = shoesBox;
                 cusor.transform.position = insPositon.transform.position;
             }
         }
@@ -960,7 +960,6 @@ public class InventoryManager : MonoBehaviour
         }
         else if (detail.equipArea == "Ring")
         {
-            Debug.Log("작동중");
             return ringBox;
 
         }
@@ -968,11 +967,10 @@ public class InventoryManager : MonoBehaviour
         {
             return legBox;
         }
-        else if (detail.equipArea == "Shose")
+        else if (detail.equipArea == "Shoes")
         {
-            return shoseBox;
+            return shoesBox;
         }
-        
         else
         {
             return null;
@@ -1074,12 +1072,9 @@ public class InventoryManager : MonoBehaviour
         GameObject equipChangeBox = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         if (equipArea == "Weapon") // 이거도 부 무장도 빼질 수 있도록 변경해 주어야 함
         {
-
             GameObject moveItem = weaponBox.transform.GetChild(0).gameObject;
             moveItem.transform.SetParent(equipChangeBox.transform);
             moveItem.transform.position = equipChangeBox.transform.position;
-
-
         }
         else if (equipArea == "Head")
         {
@@ -1115,6 +1110,12 @@ public class InventoryManager : MonoBehaviour
         else if (equipArea == "Leg")
         {
             GameObject moveItem = legBox.transform.GetChild(0).gameObject;
+            moveItem.transform.SetParent(equipChangeBox.transform);
+            moveItem.transform.position = equipChangeBox.transform.position;
+        }
+        else if (equipArea == "Shoes")
+        {
+            GameObject moveItem = shoesBox.transform.GetChild(0).gameObject;
             moveItem.transform.SetParent(equipChangeBox.transform);
             moveItem.transform.position = equipChangeBox.transform.position;
         }
@@ -1353,6 +1354,7 @@ public class InventoryManager : MonoBehaviour
             CreatItem("Cap");
             CreatItem("LegArmor");
             CreatItem("HandArmor");
+            CreatItem("Shoes");
             
 
             //CreatItem("Potion");

@@ -22,6 +22,23 @@ public class SkillCooldown : MonoBehaviour
     public float cooldownTimeD = 0f; // 쿨타임 시간 (초)
     public bool isCooldownD = false; // 쿨타임 중인지 여부 확인을 위한 변수
     private float cooldownTimerD = 0f; // 쿨타임 타이머
+
+
+    static public SkillCooldown instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+        //    ItemSheet.Data.Load();
+        // UnityGoogleSheet.LoadAllData();
+    }
     void Update()
     {
         // 쿨타임 중이라면

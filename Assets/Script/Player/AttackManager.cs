@@ -58,13 +58,13 @@ public class AttackManager : MonoBehaviour
     }
     public void UnEquipMainWeaopon()
     {
-        
-
-        if(rightHand.transform.GetChild(0) != null)
+        SkillCooldown.instance.DeletLeftSkill();
+        SkillCooldown.instance.DeletRightSkill();
+        if (rightHand.transform.childCount != 0)
         {
             Destroy(rightHand.transform.GetChild(0).gameObject);
         }
-        if (leftHand.transform.GetChild(0) != null)
+        if (leftHand.transform.childCount != 0)
         {
             Destroy(leftHand.transform.GetChild(0).gameObject);
         }

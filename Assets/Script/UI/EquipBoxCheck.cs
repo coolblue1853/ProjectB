@@ -21,6 +21,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     Equipment hand;
     Equipment necklace;
     Equipment ring;
+    Equipment shoes;
     public GameObject nowBox;
     public Texture2D defaultOffset;
     public apPortrait mainCharacter;
@@ -79,6 +80,11 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         {
             ring = equipPrefab.GetComponent<Equipment>();
             PlayerHealthManager.Instance.EquipmentActiveTrue(ring.hp, ring.armor);
+        }
+        else if (reciveEquipArea == "Shoes" && shoes == null)
+        {
+            shoes = equipPrefab.GetComponent<Equipment>();
+            PlayerHealthManager.Instance.EquipmentActiveTrue(shoes.hp, shoes.armor);
         }
 
     }
@@ -265,12 +271,28 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                 }
 
             }
-
-
-
-
         }
+        if (reciveEquipArea == "Shoes")
+        {
+            if (isFalse == false)
+            {
+                Sequence waitSequence = DOTween.Sequence()
+       .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp, shoes.armor))
+.AppendCallback(() => Destroy(shoes.gameObject))
+.AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
+.OnComplete(() => Destroy(deletChile));
+            }
+            else
+            {
+                if (shoes != null)
+                {
+                    PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp, shoes.armor);
+                    Destroy(shoes.gameObject);
+                    shoes = null;
+                }
 
+            }
+        }
     }
 
 
@@ -449,6 +471,27 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         else if (equipArea == "Ring")
         {
             string folderPath = "Ring/";
+
+            // 리소스 폴더 내의 equipName을 로드합니다.
+            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
+
+            if (prefab != null)
+            {
+                // Set the instantiated prefab as a child of the current GameObject
+                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
+
+                // Now, 'equipPrefab' refers to the instantiated prefab
+                equipPrefab = instantiatedPrefab;
+            }
+            else
+            {
+                Debug.LogError("Failed to load prefab: " + equipName);
+            }
+
+        }
+        else if (equipArea == "Shoes")
+        {
+            string folderPath = "Shoes/";
 
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);

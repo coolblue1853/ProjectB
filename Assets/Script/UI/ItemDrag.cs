@@ -29,7 +29,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         GameObject upper = GameObject.FindWithTag("Equipment");
         handBox = upper.transform.GetChild(0).gameObject;
         chestBox = upper.transform.GetChild(1).gameObject;
-        sideWeaponBox = upper.transform.GetChild(2).gameObject;
+        shoesBox = upper.transform.GetChild(2).gameObject;
         necklesBox = upper.transform.GetChild(3).gameObject;
         headBox = upper.transform.GetChild(4).gameObject;
         ringBox = upper.transform.GetChild(5).gameObject;
@@ -83,7 +83,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             {
                 // 부모의 부모의 자식으로 현재 객체 추가
                 transform.SetParent(dragCanvus.transform);
-                InventoryManager.instance.TestDelet(siblingParentIndex, siblingIndex);
+              //  InventoryManager.instance.TestDelet(siblingParentIndex, siblingIndex);
             }
             else
             {
@@ -349,6 +349,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     GameObject necklesBox;
     GameObject sideWeaponBox;
     GameObject legBox;
+    GameObject shoesBox;
     GameObject handBox;
 
     public void DetechItem(string equipArea)
