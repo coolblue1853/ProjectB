@@ -28,7 +28,9 @@ public class Weapon : MonoBehaviour
     public bool isAttackWait = true;
     public bool isWeaponStopMove = false;
     public float time;
-   // public GameObject attackPivot;
+    // public GameObject attackPivot;
+
+    public bool isOverHand =false;
 
     public GameObject[] attackPrefab;
     public GameObject[] attackPivot;
@@ -64,7 +66,11 @@ public class Weapon : MonoBehaviour
             Transform socketR = portrait.GetBoneSocket("RightWeapon");
             // 검 (Weapon_Sword)을 오른손 본의 소켓의 자식으로 등록합니다.
             RightWeqponSprite.transform.parent = socketR;
-            RightWeqponSprite.transform.localPosition = new Vector3(0, 0, 25f);
+            if (!isOverHand)
+                RightWeqponSprite.transform.localPosition = new Vector3(0, 0, 25f);
+            else
+                RightWeqponSprite.transform.localPosition = new Vector3(0, 0, 0f);
+
             RightWeqponSprite.transform.localRotation = Quaternion.identity;
         }
         if (leftWeqponSprite != null)
@@ -72,7 +78,12 @@ public class Weapon : MonoBehaviour
             Transform socketL = portrait.GetBoneSocket("LeftWeapon");
             // 검 (Weapon_Sword)을 오른손 본의 소켓의 자식으로 등록합니다.
             leftWeqponSprite.transform.parent = socketL;
-            leftWeqponSprite.transform.localPosition = new Vector3(0,0,35f);
+            if (!isOverHand)
+                leftWeqponSprite.transform.localPosition = new Vector3(0,0,35f);
+            else
+            {
+                leftWeqponSprite.transform.localPosition = new Vector3(0, 0, 5f);
+            }
             leftWeqponSprite.transform.localRotation = Quaternion.identity;
         }
 
