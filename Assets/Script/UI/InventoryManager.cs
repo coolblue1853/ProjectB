@@ -1333,6 +1333,7 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
+            //CreatItem("Wood Spear");
             CreatItem("Leather Knuckles");
             //CreatItem("PickAxe");
             //

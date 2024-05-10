@@ -177,7 +177,9 @@ MonoBehaviour:
   finDmg: 0
   addDmg: 10
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
-  attckSpeed: 0.3
+  attckSpeed:
+  - 0.8
+  - 0.8
   isAttackWait: 0
   isWeaponStopMove: 1
   time: 0

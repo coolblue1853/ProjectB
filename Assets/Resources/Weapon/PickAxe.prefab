@@ -177,10 +177,14 @@ MonoBehaviour:
   finDmg: 0
   addDmg: 10
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
-  attckSpeed: 0.6
+  attckSpeed:
+  - 0.7
+  - 0.7
+  - 1
   isAttackWait: 0
   isWeaponStopMove: 1
   time: 0
+  isOverHand: 0
   attackPrefab:
   - {fileID: 7429380887833962885, guid: f8277c5f5d5e59c49a0b65d26652e8d0, type: 3}
   - {fileID: 8267161789949130192, guid: 289ed1c71ae94a145990ab1dcb06f995, type: 3}

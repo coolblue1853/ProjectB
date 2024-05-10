@@ -16,7 +16,7 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 13,ToxicPickAxe,Equip,ToxicPickAxe,300,2,diopvh,1,-,0,Weapon,
 14,Shoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,RabbitArmor
 15,Leather Knuckles,Equip,equipment,500,50,Buy,1,-,0,Weapon,
-16,-,-,-,0,0,-,0,-,0,-,
+16,Wood Spear,Equip,equipment,500,50,Buy,1,-,0,Weapon,
 17,-,-,-,0,0,-,0,-,0,-,
 18,-,-,-,0,0,-,0,-,0,-,
 19,-,-,-,0,0,-,0,-,0,-,
