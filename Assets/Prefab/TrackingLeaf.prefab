@@ -119,7 +119,7 @@ MonoBehaviour:
   isTrackingEnemy: 1
   desiredSpeed: 10
   boxSize: {x: 10, y: 5}
-  maxDamagedEnemies: 1
+  maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0
   damageInterval: 0

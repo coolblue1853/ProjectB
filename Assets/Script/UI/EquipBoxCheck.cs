@@ -276,6 +276,8 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         {
             if (isFalse == false)
             {
+                mainCharacter.SetMeshImage("RFoot", defaultOffset);
+                mainCharacter.SetMeshImage("LFoot", defaultOffset);
                 Sequence waitSequence = DOTween.Sequence()
        .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp, shoes.armor))
 .AppendCallback(() => Destroy(shoes.gameObject))
@@ -495,7 +497,15 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
+            string texturePath = "Sprite/";
+            Texture2D sprite = Resources.Load<Texture2D>(texturePath + tfName);
 
+            if (sprite != null)
+            {
+                mainCharacter.SetMeshImage("RFoot", sprite);
+                mainCharacter.SetMeshImage("LFoot", sprite);
+
+            }
             if (prefab != null)
             {
                 // Set the instantiated prefab as a child of the current GameObject
