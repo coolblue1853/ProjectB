@@ -160,8 +160,9 @@ public class DamageObject : MonoBehaviour
                     damagedEnemies.Add(collision);
                 }
             }
-
         }
+
+
         else if (collision.tag == "Ground")
         {
             if (isDeletByGround)

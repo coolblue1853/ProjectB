@@ -252,6 +252,10 @@ public class EnemyHealth : MonoBehaviour
             if (anim != null)
             {
                 anim.SetBool("isHit", false);
+                if ( anim.GetBool("isAttack"))
+                {
+                    anim.SetBool("isAttack", false);
+                }
             }
 
             isAttackGround = false;

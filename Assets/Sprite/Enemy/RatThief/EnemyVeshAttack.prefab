@@ -129,19 +129,30 @@ MonoBehaviour:
   holdingTime: 1
   damage: 15
   stiffnessTime: 0.5
-  knockForce: 5
-  knockbackDir: {x: 1, y: 0}
+  knockForce: 10
+  knockbackDir: {x: 1, y: 1}
   isNockBackChangeDir: 0
   isPlayerAttack: 1
   player: {fileID: 0}
   isLaunch: 0
+  isNonTrakingPlayer: 0
   launchForce: 0
   launchDir: {x: 0, y: 0}
   isGroundDestroy: 0
+  isRandForce: 0
+  maxForce: 0
+  minForce: 0
+  isGravityFall: 0
   isPosionAttack: 0
   poisonDamage: 0
   damageInterval: 0
   damageCount: 0
+  isApcAttack: 0
+  maxDamagedEnemies: 1
+  damageArr: 
+  dmgRatio: 1
+  ShakeTime: 0
+  isSkill: 0
 --- !u!95 &2725113478970875896
 Animator:
   serializedVersion: 5

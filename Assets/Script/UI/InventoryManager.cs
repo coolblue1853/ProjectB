@@ -1334,14 +1334,14 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F3))
         {
             //CreatItem("Wood Spear");
-            CreatItem("Leather Knuckles");
+           // CreatItem("Leather Knuckles");
             //CreatItem("PickAxe");
             //
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            CreatItem("DoubleDagger");
+            CreatItem("LeafAdae");
           //  CreatItem("Necklace");
 
 
@@ -1351,17 +1351,17 @@ public class InventoryManager : MonoBehaviour
         {
             // CreatItem("Wood");
 
-            //  CreatItem("LeafCap");
-            //  CreatItem("LeafArmor");
-            //  CreatItem("LeafLegArmor");
-            // CreatItem("LeafHandArmor");
-            // CreatItem("LeafShoes");
+              CreatItem("LeafCap");
+              CreatItem("LeafArmor");
+              CreatItem("LeafLegArmor");
+             CreatItem("LeafHandArmor");
+             CreatItem("LeafShoes");
 
-            CreatItem("RatCap");
-            CreatItem("RatArmor");
-            CreatItem("RatLegArmor");
-            CreatItem("RatHandArmor");
-            CreatItem("RatShoes");
+           // CreatItem("RatCap");
+         //   CreatItem("RatArmor");
+         //   CreatItem("RatLegArmor");
+          //  CreatItem("RatHandArmor");
+          //  CreatItem("RatShoes");
 
             //CreatItem("Potion");
 

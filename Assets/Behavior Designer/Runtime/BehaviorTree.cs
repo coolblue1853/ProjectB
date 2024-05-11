@@ -6,6 +6,7 @@ namespace BehaviorDesigner.Runtime
     [AddComponentMenu("Behavior Designer/Behavior Tree")]
     public class BehaviorTree : Behavior
     {
+        public GameObject aPC;
         public bool isJumping = false;
         public Sequence sequence;
         // intentionally left blank

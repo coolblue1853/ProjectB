@@ -20,6 +20,7 @@ TagManager:
   - Spowner
   - Boundary
   - Wall
+  - APC
   layers:
   - Default
   - TransparentFX

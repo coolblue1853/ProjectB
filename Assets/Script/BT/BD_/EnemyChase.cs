@@ -9,7 +9,7 @@ public class EnemyChase : EnemyAction
     public float moveDuration;
     public float moveDistance;
     float direction;
-
+    public bool isChaseEnemy = false;
 
     public override void OnStart()
     {
@@ -25,12 +25,23 @@ public class EnemyChase : EnemyAction
     }
     public void StartChase()
     {
+        if(isChaseEnemy == false)
+        {
+            bt.sequence = DOTween.Sequence()
+.AppendCallback(() => direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x))
+.AppendCallback(() => ChangeFace())
+.Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
+.OnComplete(() => OnSequenceComplete());
+        }
+        else
+        {
+            bt.sequence = DOTween.Sequence()
+.AppendCallback(() => direction = Mathf.Sign(behaviorTree.aPC.transform.position.x - enemyObject.transform.position.x))
+.AppendCallback(() => ChangeFace())
+.Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
+.OnComplete(() => OnSequenceComplete());
+        }
 
-        bt.sequence = DOTween.Sequence()
-       .AppendCallback(() => direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x))
-        .AppendCallback(() => ChangeFace())
-       .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
-       .OnComplete(() => OnSequenceComplete());
 
     }
     void ChangeFace()

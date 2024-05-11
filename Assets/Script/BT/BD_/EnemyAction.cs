@@ -6,6 +6,7 @@ using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
 public class EnemyAction : Action
 {
+
     public BehaviorTree behaviorTree;
     public Rigidbody2D body;
     public Animator anim;

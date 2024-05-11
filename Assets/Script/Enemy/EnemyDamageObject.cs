@@ -28,6 +28,7 @@ public class EnemyDamageObject : MonoBehaviour
     public bool isRandForce;
     public float maxForce;
     public float minForce;
+
     private void FixedUpdate()
     {
         if (isLaunch && isGravityFall == true)
@@ -140,7 +141,7 @@ public class EnemyDamageObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && isApcAttack == false)
         {
             if (!damagedPlayer.ContainsKey(collision) || !damagedPlayer[collision])
             {
@@ -171,6 +172,69 @@ public class EnemyDamageObject : MonoBehaviour
 
 
 
+
+        if (collision.tag == "Enemy" && isApcAttack == true)
+        {
+            // 데미지를 입힌 적의 수가 최대치를 초과하지 않은 경우에만 실행
+            if (damagedEnemies.Count < maxDamagedEnemies)
+            {
+                // 이미 데미지를 입힌 적인지 확인하고, 데미지를 입히지 않은 경우에만 실행
+                if (!damagedEnemies.Contains(collision))
+                {
+                    EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+
+                    if (isPlayerAttack == true)
+                    {
+                        if (player.transform.position.x > transform.position.x)
+                        {
+                            knockbackDir.x = -knockbackDir.x;
+                        }
+                    }
+
+
+                    // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
+                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
+                    if (isPosionAttack)
+                    {
+                        enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
+                    }
+
+                    // 데미지를 입힌 적 리스트에 추가
+                    damagedEnemies.Add(collision);
+                }
+            }
+        }
+        if (collision.tag == "APC" && isApcAttack == false)
+        {
+            // 데미지를 입힌 적의 수가 최대치를 초과하지 않은 경우에만 실행
+            if (damagedEnemies.Count < maxDamagedEnemies)
+            {
+                // 이미 데미지를 입힌 적인지 확인하고, 데미지를 입히지 않은 경우에만 실행
+                if (!damagedEnemies.Contains(collision))
+                {
+                    EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+
+                    if (isPlayerAttack == true)
+                    {
+                        if (player.transform.position.x > transform.position.x)
+                        {
+                            knockbackDir.x = -knockbackDir.x;
+                        }
+                    }
+
+                    int[] damageArr = { damage, damage,0,0,0,0,0,0,0,0 };
+                    // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
+                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
+                    if (isPosionAttack)
+                    {
+                        enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
+                    }
+
+                    // 데미지를 입힌 적 리스트에 추가
+                    damagedEnemies.Add(collision);
+                }
+            }
+        }
         if (collision.tag == "Ground" )
         {
             if (isGroundDestroy== true)
@@ -186,6 +250,12 @@ public class EnemyDamageObject : MonoBehaviour
     public float damageInterval;
     public int damageCount;
 
-
+    public bool isApcAttack = false;
+    public int maxDamagedEnemies = 1; // 최대 데미지를 입힐 적의 수
+    private List<Collider2D> damagedEnemies = new List<Collider2D>(); // 데미지를 입힌 적들의 리스트
+    public int[] damageArr;
+    public float dmgRatio = 1.0f;
+    public float ShakeTime;
+    public bool isSkill = false;
 
 }

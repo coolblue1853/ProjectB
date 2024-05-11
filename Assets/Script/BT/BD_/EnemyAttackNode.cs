@@ -34,8 +34,18 @@ public class EnemyAttackNode : EnemyAction
 
     void FaceChange()
     {
-        direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
-        Debug.Log(direction);
+        if(behaviorTree.aPC == null)
+        {
+            direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
+        }
+        else
+        {
+            direction = Mathf.Sign(behaviorTree.aPC.transform.position.x - enemyObject.transform.position.x);
+        }
+
+
+
+
         if (direction > 0)
         {
             enemyObject.transform.localScale = new Vector3(chInRommSize, enemyObject.transform.localScale.y, 1);
