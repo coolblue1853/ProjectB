@@ -598,9 +598,10 @@ public class PlayerController : MonoBehaviour
 
         */
 
-        isJumpAnim = true;
+
         if(isAttackAnim == false)
         {
+            isJumpAnim = true;
             mainCharacter.Play("Jump");
         }
 
@@ -722,6 +723,10 @@ public class PlayerController : MonoBehaviour
     Sequence attackAnimSequence;
     public void ActiveAttackAnim(string anim, float time)
     {
+        if(isJumpAnim == transform)
+        {
+            isJumpAnim = false;
+        }
         mainCharacter.Play(anim);
         isAttackAnim = true;
         if(isUpLadder == true)
@@ -733,7 +738,6 @@ public class PlayerController : MonoBehaviour
         attackAnimSequence.Kill();
         attackAnimSequence = DOTween.Sequence()
        .AppendInterval(time)
-       
        .AppendCallback(() => isAttackAnim = false)
      .AppendCallback(() => EndRopeAttackAnim());
 

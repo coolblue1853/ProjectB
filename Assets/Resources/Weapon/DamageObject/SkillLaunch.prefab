@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4960005499486500231}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.11, y: 0.96, z: -0.0568}
-  m_LocalScale: {x: 7.1948028, y: 7.1948028, z: 7.1948028}
+  m_LocalPosition: {x: -0.8113, y: -0.8113, z: 50}
+  m_LocalScale: {x: 0.097861044, y: 0.097861044, z: 0.097861044}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 626b9cddb29049e4cac50cd87b419945, type: 3}
+  m_SortingOrder: 60
+  m_Sprite: {fileID: 21300000, guid: 3e54041ad18a02f4e8985cfabc1f9ff3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmgRatio: 20
   ShakeTime: 0.1
-  isSkill: 1
+  isSkill: 0
   isDestroyByTime: 1
   holdingTime: 1
   damageArr: 
@@ -112,9 +113,9 @@ MonoBehaviour:
   player: {fileID: 0}
   isLaunch: 1
   launchForce: 80
-  launchDir: {x: 1, y: 1}
-  isDeletByGround: 1
-  maxDamagedEnemies: 1
+  launchDir: {x: 1, y: 0}
+  isDeletByGround: 0
+  maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0
   damageInterval: 0
@@ -132,18 +133,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.022873282, y: -0.015249133}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 2.56, y: 2.56}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 2.378607, y: 2.515848}
   m_EdgeRadius: 0
 --- !u!50 &5434944265703854784
 Rigidbody2D:
@@ -159,8 +160,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 5
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

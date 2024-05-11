@@ -23,20 +23,80 @@ public class DamageObject : MonoBehaviour
 
     public bool isDeletByGround = false;
 
+    public bool isTrackingEnemy = false;
+    public float desiredSpeed;
     private Sequence sequence; // 시퀀스를 저장하기 위한 변수 추가
+    Rigidbody2D rigidbody2D;
+    public Vector2 boxSize; // 확인할 직사각형 영역의 크기
+    private void Update()
+    {
+        if (damagedEnemies.Count == maxDamagedEnemies && isLaunch == true)
+        {
+            Destroy(this.gameObject);
+        }
+        if (isLaunch && isTrackingEnemy)
+        {
+            float currentSpeed = rigidbody2D.velocity.magnitude;
+            if (currentSpeed != desiredSpeed)
+            {
+                Vector2 newVelocity = rigidbody2D.velocity.normalized * desiredSpeed;
+                rigidbody2D.velocity = newVelocity;
+            }
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        // 현재 오브젝트의 위치에서 boxSize를 기준으로 직사각형 그리기
+        Gizmos.DrawWireCube(transform.position, new Vector3(boxSize.x, boxSize.y, 1));
+    }
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
     }
     void Start()
     {
+        rigidbody2D = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
         if (isDestroyByTime)
         {
             DestroyObject();
         }
 
-        if (isLaunch)
+        if (isTrackingEnemy)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
+            transform.parent = null;
+
+            GameObject enemy = CheckEnemy();
+            Vector3 direction;
+            if (enemy != null)
+            {
+                 direction = (enemy.transform.position - this.transform.position).normalized;
+
+            }
+            else
+            {
+                if (player.transform.position.x > transform.position.x)
+                {
+                    launchDir.x = -launchDir.x;
+                }
+                direction = launchDir;
+            }
+           
+            Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
+            rigidbody2D.AddForce(direction * launchForce, ForceMode2D.Impulse);
+
+            // 오브젝트가 날아가는 방향을 기준으로 회전하기 위해 각도를 계산합니다.
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            // Z축을 기준으로 회전하기 때문에, Z축을 기준으로 회전되도록 쿼터니언(quaternion)을 생성합니다.
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            // 회전을 적용합니다.
+            transform.rotation = rotation;
+
+
+        }
+        else if (isLaunch)
         {
             transform.parent = null;
             if (player.transform.position.x > transform.position.x)
@@ -46,6 +106,7 @@ public class DamageObject : MonoBehaviour
             Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
             rigidbody2D.AddForce(launchDir * launchForce, ForceMode2D.Impulse);
         }
+
     }
 
     private void OnDestroy()
@@ -99,6 +160,7 @@ public class DamageObject : MonoBehaviour
                     damagedEnemies.Add(collision);
                 }
             }
+
         }
         else if (collision.tag == "Ground")
         {
@@ -123,5 +185,25 @@ public class DamageObject : MonoBehaviour
     public int damageCount;
 
 
+    public LayerMask layerMask; // 검출할 레이어
+    public string enemyTag = "Enemy"; // 플레이어 태그
 
+    public GameObject CheckEnemy()
+    {
+        // 주변에 있는 모든 Collider를 가져옴
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxSize, 0f, layerMask);
+
+        // 가져온 Collider를 순회하면서 Player 태그를 가진 오브젝트가 있는지 확인
+        foreach (Collider2D col in colliders)
+        {
+            if (col.CompareTag(enemyTag))
+            {
+                // Player 태그를 가진 오브젝트가 있으면 Success 반환
+                return  col.gameObject;
+            }
+        }
+
+        // 주변에 Player 태그를 가진 오브젝트가 없으면 Failure 반환
+        return null;
+    }
 }

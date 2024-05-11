@@ -49,11 +49,7 @@ public class EnemyDamageObject : MonoBehaviour
 
     }
     public bool isGravityFall = false;
-    void LookAtDirection(Vector2 direction)
-    {
-        // 탄환의 방향으로 회전
-        transform.up = direction.normalized;
-    }
+
     private void Update()
     {
         if (isLaunch && isGravityFall ==false)

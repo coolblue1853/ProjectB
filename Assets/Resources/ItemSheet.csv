@@ -22,8 +22,8 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 19,LeafLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,LeafArmor
 20,LeafHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,LeafArmor
 21,LeafShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,LeafArmor
-22,-,-,-,0,0,-,0,-,0,-,
-23,-,-,-,0,0,-,0,-,0,-,
+22,LeafStaff,Equip,equipment,500,50,Buy,1,-,0,Weapon,
+23,LeafAdae,Equip,equipment,500,50,Buy,1,-,0,Weapon,
 24,-,-,-,0,0,-,0,-,0,-,
 25,-,-,-,0,0,-,0,-,0,-,
 26,-,-,-,0,0,-,0,-,0,-,
