@@ -1351,11 +1351,11 @@ public class InventoryManager : MonoBehaviour
         {
            // CreatItem("Wood");
 
-             CreatItem("Armor");
-            CreatItem("Cap");
-            CreatItem("LegArmor");
-            CreatItem("HandArmor");
-            CreatItem("Shoes");
+             CreatItem("LeafCap");
+            CreatItem("LeafArmor");
+            CreatItem("LeafLegArmor");
+            CreatItem("LeafHandArmor");
+            CreatItem("LeafShoes");
             
 
             //CreatItem("Potion");
