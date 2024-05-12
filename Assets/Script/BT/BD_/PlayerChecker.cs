@@ -37,6 +37,7 @@ public class PlayerChecker : EnemyConditional
             {
                 if (col.CompareTag("Enemy"))
                 {
+                    behaviorTree.enemy = col.gameObject;
                     // Player 태그를 가진 오브젝트가 있으면 Success 반환
                     return TaskStatus.Success;
                 }

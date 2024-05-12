@@ -112,7 +112,7 @@ MonoBehaviour:
   attckSpeed: 0.5
   rb: {fileID: 0}
   skillprefab:
-  - {fileID: 4960005499486500231, guid: ba412d079716d1849a1fb2641d1fe13c, type: 3}
+  - {fileID: 4960005499486500231, guid: 66064b317d246af4cba780b0057939b1, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1291193055431298620
 GameObject:

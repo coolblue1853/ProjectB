@@ -21,25 +21,43 @@ public class EnemyChase : EnemyAction
     }
     public override TaskStatus OnUpdate()
     {
+        if (bt.sequence.active == false)
+        {
+            isEnd = true;
+        }
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
+
+
     }
     public void StartChase()
     {
         if(isChaseEnemy == false)
         {
-            bt.sequence = DOTween.Sequence()
+            if(behaviorTree.aPC == null)
+            {
+                bt.sequence = DOTween.Sequence()
 .AppendCallback(() => direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x))
 .AppendCallback(() => ChangeFace())
 .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
 .OnComplete(() => OnSequenceComplete());
-        }
-        else
-        {
-            bt.sequence = DOTween.Sequence()
+            }
+            else
+            {
+                bt.sequence = DOTween.Sequence()
 .AppendCallback(() => direction = Mathf.Sign(behaviorTree.aPC.transform.position.x - enemyObject.transform.position.x))
 .AppendCallback(() => ChangeFace())
 .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
 .OnComplete(() => OnSequenceComplete());
+            }
+
+        }
+        else
+        {
+            bt.sequence = DOTween.Sequence()
+            .AppendCallback(() => direction = Mathf.Sign(behaviorTree.enemy.transform.position.x - enemyObject.transform.position.x))
+            .AppendCallback(() => ChangeFace())
+            .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
+            .OnComplete(() => OnSequenceComplete());
         }
 
 

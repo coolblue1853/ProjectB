@@ -264,28 +264,6 @@ public class EnemyHealth : MonoBehaviour
             {
                 enemyFSM.StateChanger("Hit");
             }
-
-
-            if (checkPlayer.isPreemptive == false && enemySensor.activeSelf == false)
-            {
-                ResetBoolParameters();
-                enemySensor.SetActive(true);
-               // enemyFSM.StateChanger("Chase");
-                enemyFSM.ReActiveBrainSequence();
-            }
-            else if (enemyFSM.state.Contains("Chase")) // 공격받았을때 최초가 아니고, 비선공 몬스터라면 다시 재 추격을 시작한다.
-            {
-               Debug.Log("11111111111111");
-              // enemyFSM.StateChanger("Chase");
-               enemyFSM.ReActiveBrainSequence();
-            }
-            else
-            {
-                enemyFSM.ReActiveBrainSequence();
-            }
-
-
-
         }
 
     }

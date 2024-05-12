@@ -7,6 +7,7 @@ namespace BehaviorDesigner.Runtime
     public class BehaviorTree : Behavior
     {
         public GameObject aPC;
+        public GameObject enemy;
         public bool isJumping = false;
         public Sequence sequence;
         // intentionally left blank

@@ -150,9 +150,9 @@ public class EnemyDamageObject : MonoBehaviour
                 if (isPlayerAttack == true && enemyOb !=null)
                 {
 
-                    if (player.transform.position.x < enemyOb.transform.position.x )
+                    if (collision.gameObject.transform.position.x < enemyOb.transform.position.x )
                     {
-                        knockbackDir.x = -knockbackDir.x;
+                        knockbackDir.x = - Mathf.Abs( knockbackDir.x);
                     }
 
 
@@ -185,9 +185,9 @@ public class EnemyDamageObject : MonoBehaviour
 
                     if (isPlayerAttack == true)
                     {
-                        if (player.transform.position.x > transform.position.x)
+                        if (collision.gameObject.transform.position.x < transform.position.x)
                         {
-                            knockbackDir.x = -knockbackDir.x;
+                            knockbackDir.x = -Mathf.Abs(knockbackDir.x);
                         }
                     }
 
@@ -216,15 +216,15 @@ public class EnemyDamageObject : MonoBehaviour
 
                     if (isPlayerAttack == true)
                     {
-                        if (player.transform.position.x > transform.position.x)
+                        if (collision.gameObject.transform.position.x < transform.position.x)
                         {
-                            knockbackDir.x = -knockbackDir.x;
+                            knockbackDir.x = -Mathf.Abs(knockbackDir.x);
                         }
                     }
 
                     int[] damageArr = { damage, damage,0,0,0,0,0,0,0,0 };
                     // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
-                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
+                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime+0.2f, dmgRatio);
                     if (isPosionAttack)
                     {
                         enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);

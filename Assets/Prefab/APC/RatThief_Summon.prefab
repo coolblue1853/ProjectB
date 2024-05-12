@@ -734,6 +734,7 @@ MonoBehaviour:
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
   aPC: {fileID: 0}
+  enemy: {fileID: 0}
   isJumping: 0
 --- !u!60 &5342303817019592403
 PolygonCollider2D:

@@ -38,12 +38,14 @@ public class EnemyAttackNode : EnemyAction
         {
             direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
         }
+        else if( behaviorTree.enemy != null)
+        {
+            direction = Mathf.Sign(behaviorTree.enemy.transform.position.x - enemyObject.transform.position.x);
+        }
         else
         {
             direction = Mathf.Sign(behaviorTree.aPC.transform.position.x - enemyObject.transform.position.x);
         }
-
-
 
 
         if (direction > 0)
