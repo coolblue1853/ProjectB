@@ -180,10 +180,7 @@ public class EnemyHealth : MonoBehaviour
                     notStiff = true;
                 }
                 behaviorTree.sequence.Kill();
-               // StopAllActions();
                 behaviorTree.enabled = false;
-
-                //  enemyFSM.KillBrainSequence(notStiff);
             }
 
 
@@ -219,13 +216,17 @@ public class EnemyHealth : MonoBehaviour
         if (nowHP <= 0)
         {
             GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
+            DeadBody dBB = dB.transform.GetComponent<DeadBody>();
+            dBB.parentEnemy = this.transform.gameObject;
+            dBB.Force2DeadBody(Mathf.Abs(nowHP));
             dropManager.DropItems(transform.position);
             Destroy(this.gameObject);
         }
 
 
+
     }
-   public bool isAttackGround;
+    public bool isAttackGround;
     public CheckPlayer checkPlayer;
     public void ResetBoolParameters()
     {

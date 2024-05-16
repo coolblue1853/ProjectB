@@ -481,6 +481,7 @@ GameObject:
   - component: {fileID: 3182746617372658823}
   - component: {fileID: 5342303817019592402}
   - component: {fileID: 5342303817019592403}
+  - component: {fileID: 5720547953824402409}
   m_Layer: 6
   m_Name: RatThief_Summon
   m_TagString: APC
@@ -693,7 +694,7 @@ MonoBehaviour:
         Checker","Instant":true,"Vector2boxSize":"(2,2)","LayerMasklayerMask":8191,"StringplayerTag":"Player","BooleanisEnemyCheck":true,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(-305.510742,239.7959)"},"ID":14,"Name":"Set
         Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":1},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-189.204391,242.408081)"},"ID":15,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.5},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(-42.58025,239.354736)"},"ID":16,"Name":"Set
         Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":2},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isAttack"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false},{"Type":"EnemyAttackNode","NodeData":{"Offset":"(125.936546,235.856567)"},"ID":17,"Name":"Enemy
-        Attack Node","Instant":true,"GameObjectdamageOb":3,"GameObjectattackPivot":4,"BooleanisSummonPlayerPosX":false,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(267.204,245.295715)"},"ID":18,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.5},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(421.612732,250)"},"ID":19,"Name":"Set
+        Attack Node","Instant":true,"BooleanisApc":true,"GameObjectdamageOb":3,"GameObjectattackPivot":4,"BooleanisSummonPlayerPosX":false,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(267.204,245.295715)"},"ID":18,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.5},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(421.612732,250)"},"ID":19,"Name":"Set
         Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":5},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isAttack"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"BooleansetOnce":false}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(14.1934814,176.129028)"},"ID":20,"Name":"Inverter","Instant":true,"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(20,120)"},"ID":21,"Name":"Set
         Bool Parameter","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null,"GameObjectmValue":6},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"isWalk"},"SharedBoolboolValue":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"BooleansetOnce":false}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(165.161285,169.999878)"},"ID":22,"Name":"Inverter","Instant":true,"Children":[{"Type":"EnemyChase","NodeData":{"Offset":"(10,120)"},"ID":23,"Name":"Enemy
         Chase","Instant":true,"SinglemoveDuration":0.1,"SinglemoveDistance":0.3,"BooleanisChaseEnemy":true,"Vector2originPosition":"(0,0)","BooleanisEnd":false,"SinglechInRommSize":0}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetBoolParameter","NodeData":{"Offset":"(310,290)"},"ID":24,"Name":"Set
@@ -813,6 +814,19 @@ PolygonCollider2D:
       - {x: -0.90999997, y: -0.11}
       - {x: -0.90999997, y: -0.21}
       - {x: -0.93, y: -0.21}
+--- !u!114 &5720547953824402409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3634972462984041690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abb1352251292043afaae5cd4059d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killTime: 60
 --- !u!1 &4415326766917257071
 GameObject:
   m_ObjectHideFlags: 0

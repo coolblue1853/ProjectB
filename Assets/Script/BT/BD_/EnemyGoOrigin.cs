@@ -27,6 +27,12 @@ public class EnemyGoOrigin : EnemyAction
         {
             isArriveOrigin = false;
         }
+        if(bt.sequence.active == false)
+        {
+            isArriveOrigin = false;
+            StartGoOrigin();
+        }
+
         return (isEnd== true && isArriveOrigin == true) ? TaskStatus.Success : TaskStatus.Running;
     }
     public void StartGoOrigin()
@@ -51,10 +57,9 @@ public class EnemyGoOrigin : EnemyAction
             {
                 enemyObject.transform.localScale = new Vector3(-chInRommSize, enemyObject.transform.localScale.y, 1);
             }
+
             bt.sequence = DOTween.Sequence()
-
             .Append(enemyObject.transform.DOMoveX(originX, moveDuration).SetEase(Ease.Linear)) // 원점으로 이동합니다.
-
            .OnComplete(() => OnSequenceComplete());
 
         }

@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 public class EnemyAttackNode : EnemyAction
 {
+    public bool isApc = false;
     BehaviorTree bt;
     public GameObject damageOb;
     public GameObject attackPivot;
@@ -34,18 +35,26 @@ public class EnemyAttackNode : EnemyAction
 
     void FaceChange()
     {
-        if(behaviorTree.aPC == null)
+
+        if (isApc == true)
         {
-            direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
-        }
-        else if( behaviorTree.enemy != null)
-        {
-            direction = Mathf.Sign(behaviorTree.enemy.transform.position.x - enemyObject.transform.position.x);
+            if (behaviorTree.enemy != null)
+            {
+                direction = Mathf.Sign(behaviorTree.enemy.transform.position.x - enemyObject.transform.position.x);
+            }
         }
         else
         {
-            direction = Mathf.Sign(behaviorTree.aPC.transform.position.x - enemyObject.transform.position.x);
+            if (behaviorTree.aPC == null)
+            {
+                direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
+            }
+            else
+            {
+                direction = Mathf.Sign(behaviorTree.aPC.transform.position.x - enemyObject.transform.position.x);
+            }
         }
+
 
 
         if (direction > 0)

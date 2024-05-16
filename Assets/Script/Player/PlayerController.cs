@@ -81,8 +81,18 @@ public class PlayerController : MonoBehaviour
         verticalAction = action.UI.verticalCheck;
         upAction = action.UI.UPInventory;
         downAction = action.UI.DownInventory;
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
     }
 
+    static public PlayerController instance;
     public bool boxColliderTrue = false;
   public  bool platformTrue = false; 
  
@@ -723,7 +733,11 @@ public class PlayerController : MonoBehaviour
     Sequence attackAnimSequence;
     public void ActiveAttackAnim(string anim, float time)
     {
-        if(isJumpAnim == transform)
+        if(anim == null || anim == "")
+        {
+            return;
+        }
+        if(isJumpAnim == true)
         {
             isJumpAnim = false;
         }
@@ -855,4 +869,5 @@ public class PlayerController : MonoBehaviour
             MasterAudio.PlaySound3DAtTransform("SoilWalk", this.transform);
         }
     }
+
 }

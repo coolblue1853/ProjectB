@@ -11,7 +11,7 @@ public class Skill : MonoBehaviour
     public bool isButtonDownSkill;
     public float SkillCoolTime;
     public Sprite skillImage;
-
+    public string skillAnim;
     public bool isWeaponStopMove;
     public int useStemina;
     public float attckSpeed;
@@ -92,6 +92,7 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownA == false && PlayerHealthManager.Instance.nowStemina > useStemina &&weapon.isAttackWait)
         {
+            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
             GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
             DamageObject dmOb = damageObject.GetComponent<DamageObject>();
@@ -106,6 +107,7 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownB == false && PlayerHealthManager.Instance.nowStemina > useStemina && weapon.isAttackWait)
         {
+            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
             GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
             DamageObject dmOb = damageObject.GetComponent<DamageObject>();
@@ -119,6 +121,7 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownC == false && PlayerHealthManager.Instance.nowStemina > useStemina && weapon.isAttackWait)
         {
+            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
             GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
             DamageObject dmOb = damageObject.GetComponent<DamageObject>();
@@ -133,6 +136,7 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownD == false && PlayerHealthManager.Instance.nowStemina > useStemina && weapon.isAttackWait)
         {
+            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
             GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
             DamageObject dmOb = damageObject.GetComponent<DamageObject>();

@@ -36,6 +36,7 @@ public class Weapon : MonoBehaviour
     public GameObject[] attackPivot;
     public string[] attackAnimName;
     public Skill skillLeft;
+    public string skillLeftAnim;
     public Skill skillRight;
     public GameObject leftWeqponSprite;
     public GameObject RightWeqponSprite;

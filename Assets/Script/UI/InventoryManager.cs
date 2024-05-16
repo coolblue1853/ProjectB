@@ -1332,18 +1332,20 @@ public class InventoryManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.F3))
-        {
-            //CreatItem("Wood Spear");
-           // CreatItem("Leather Knuckles");
-            //CreatItem("PickAxe");
-            //
+        {            CreatItem("LeafAdae");
+                     //CreatItem("Wood Spear");
+                     // CreatItem("Leather Knuckles");
+                     //CreatItem("PickAxe");
+                     //
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            CreatItem("DoubleDagger");
-            //CreatItem("LeafAdae");
-          //  CreatItem("Necklace");
+            CreatItem("RatCheifDagger");
+            // CreatItem("PoisonSword");
+            // CreatItem("DoubleDagger");
+
+            //  CreatItem("Necklace");
 
 
         }

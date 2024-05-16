@@ -30,8 +30,8 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 27,RatHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,RatArmor
 28,RatShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,RatArmor
 29,DoubleDagger,Equip,equipment,300,2,diopvh,1,-,0,Weapon,
-30,-,-,-,0,0,-,0,-,0,-,
-31,-,-,-,0,0,-,0,-,0,-,
+30,PoisonSword,Equip,equipment,300,2,diopvh,1,-,0,Weapon,
+31,RatCheifDagger,Equip,equipment,300,2,diopvh,1,-,0,Weapon,
 32,-,-,-,0,0,-,0,-,0,-,
 33,-,-,-,0,0,-,0,-,0,-,
 34,-,-,-,0,0,-,0,-,0,-,
