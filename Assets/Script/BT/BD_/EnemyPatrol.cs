@@ -21,7 +21,8 @@ public class EnemyPatrol : EnemyAction
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
-           isEnd = false;
+        bt.sequence.Kill();
+        isEnd = false;
         StartPatrol();
     }
     public override TaskStatus OnUpdate()
@@ -53,8 +54,6 @@ public class EnemyPatrol : EnemyAction
                 {
                     movePoint = Mathf.Abs(movePoint);
                 }
-
-
             }
 
 

@@ -6,13 +6,20 @@ public class SummonSkill : MonoBehaviour
 {
     public GameObject summonObject;
     public int summonCount;
+    public float[] summonPosition;
+    public float yPos;
     // Start is called before the first frame update
     void Start()
     {
-        float zPosition = Random.Range(-1f, 1f);
-        float xPosition = Random.Range(-1f, 1f);
-        GameObject r = Instantiate(summonObject, this.transform.position + new Vector3(xPosition, 0, zPosition), this.transform.rotation);
-        Destroy(this.gameObject);
+        summonPosition = new float[summonCount];
+        for (int i =0; i < summonCount; i++)
+        {
+            float zPosition = Random.Range(-1f, 1f);
+
+            GameObject r = Instantiate(summonObject, this.transform.position + new Vector3(0, yPos, zPosition), this.transform.rotation);
+        }
+
+      // Destroy(this.gameObject);
     }
 
     // Update is called once per frame

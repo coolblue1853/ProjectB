@@ -127,7 +127,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   summonObject: {fileID: 3634972462984041690, guid: f82ece34b9ec683439b7e697af8c506a,
     type: 3}
-  summonCount: 2
+  summonCount: 1
+  summonPosition:
+  - 0.5
+  yPos: 0.5
 --- !u!114 &5036847369084816107
 MonoBehaviour:
   m_ObjectHideFlags: 0

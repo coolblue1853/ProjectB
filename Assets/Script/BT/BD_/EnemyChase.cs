@@ -14,10 +14,11 @@ public class EnemyChase : EnemyAction
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
-        bt.sequence.Kill();
+ 
         isEnd = false;
         player = GameObject.FindWithTag("Player");
         StartChase();
+    
     }
     public override TaskStatus OnUpdate()
     {
@@ -31,7 +32,8 @@ public class EnemyChase : EnemyAction
     }
     public void StartChase()
     {
-        if(isChaseEnemy == false)
+
+        if (isChaseEnemy == false)
         {
             if(behaviorTree.aPC == null)
             {

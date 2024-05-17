@@ -11,5 +11,7 @@ namespace BehaviorDesigner.Runtime
         public bool isJumping = false;
         public Sequence sequence;
         // intentionally left blank
+
+
     }
 }

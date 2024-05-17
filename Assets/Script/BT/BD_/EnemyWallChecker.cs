@@ -13,13 +13,13 @@ public class EnemyWallChecker : EnemyConditional
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
-
+        /* 이 부분이 있어서 kill 이 작동하지 않는 것이었음. 점프시에 돌아버리는 문제가 발생하면 여기 바꾸야함.
        bt.isJumping = true;
-       // bt.sequence.Kill();
+       bt.sequence.Kill();
         bt.sequence = DOTween.Sequence()
            .AppendInterval(2f)
          .OnComplete(() => bt.isJumping = false);
-
+        */
       
 
     }

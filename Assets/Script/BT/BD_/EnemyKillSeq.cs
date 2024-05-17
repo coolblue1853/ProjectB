@@ -12,7 +12,8 @@ public class EnemyKillSeq : EnemyAction
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
-        bt.sequence.Kill();
+         bt.sequence.Kill();
+
         // StartJump();
         isEnd = true;
     }

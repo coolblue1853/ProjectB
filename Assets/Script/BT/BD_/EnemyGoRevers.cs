@@ -1,6 +1,7 @@
 using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using BehaviorDesigner.Runtime;
 public class EnemyGoRevers : EnemyAction
 {
     public int xMin;
@@ -14,15 +15,17 @@ public class EnemyGoRevers : EnemyAction
 
     int movePoint;
     public float desiredSpeed;
-
+    BehaviorTree bt;
     public override void OnStart()
     {
+        bt = this.transform.GetComponent<BehaviorTree>();
+        bt.sequence.Kill();
         isEnd = false;
         StartPatrol();
     }
     public override TaskStatus OnUpdate()
     {
-        if (sequence.IsActive() == false)
+        if (bt.sequence.active == false)
         {
             isEnd = true;
         }
@@ -66,7 +69,7 @@ public class EnemyGoRevers : EnemyAction
         float distanceToMove = Mathf.Abs(movePoint); // 이동해야 할 거리의 절대값을 계산합니다.
         float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 일정한 속도로 이동하는 데 걸리는 시간을 계산합니다.
                                                             //  Debug.Log("move");
-        sequence = DOTween.Sequence()
+        bt.sequence = DOTween.Sequence()
        .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
        .OnComplete(() => OnSequenceComplete());
 
