@@ -10,9 +10,12 @@ public class EnemyWallChecker : EnemyConditional
     public GameObject wallCheck;
     RaycastHit2D hit2;
     public float wallRay = 0.2f;
+    public Vector2 startPos;
+    public Vector2 EndPos;
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
+        startPos = this.transform.position;
         /* 이 부분이 있어서 kill 이 작동하지 않는 것이었음. 점프시에 돌아버리는 문제가 발생하면 여기 바꾸야함.
        bt.isJumping = true;
        bt.sequence.Kill();
@@ -20,7 +23,7 @@ public class EnemyWallChecker : EnemyConditional
            .AppendInterval(2f)
          .OnComplete(() => bt.isJumping = false);
         */
-      
+
 
     }
     public bool isGroundCheck = false;
@@ -41,12 +44,17 @@ public class EnemyWallChecker : EnemyConditional
 
         if (hit2.collider == null) //right
         {
-
             return TaskStatus.Failure;
 
         }
         else
         {
+            EndPos = this.transform.position;
+
+            if(Mathf.Abs(startPos.x)- Mathf.Abs(EndPos.x) < 0.1 || Mathf.Abs(startPos.y) - Mathf.Abs(EndPos.y) < 0.1)
+            {
+                return TaskStatus.Failure;
+            }
             return TaskStatus.Success;
         }
     }

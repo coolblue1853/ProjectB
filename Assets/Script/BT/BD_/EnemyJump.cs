@@ -8,7 +8,8 @@ public class EnemyJump : EnemyAction
     public float jumpForce;
     Vector2 jumpDir = new Vector2(1,0);
     BehaviorTree bt;
-
+    public float jumpWaitTime = 0.2f;
+    public Vector2 startPos;
     
     public override void OnStart()
     {
@@ -22,13 +23,11 @@ public class EnemyJump : EnemyAction
     }
     public void StartJump()
     {
-
-
         body.velocity = new Vector2(body.velocity.x, jumpForce);
-     //   body.AddForce(jumpDir.normalized * xJumpForce, ForceMode2D.Impulse);
-
+        body.AddForce(jumpDir.normalized * xJumpForce, ForceMode2D.Impulse);
 
         OnSequenceComplete();
+
     }
     private void OnSequenceComplete()
     {
