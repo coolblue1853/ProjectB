@@ -1354,11 +1354,11 @@ public class InventoryManager : MonoBehaviour
         {
             // CreatItem("Wood");
 
-              CreatItem("LeafCap");
-              CreatItem("LeafArmor");
-              CreatItem("LeafLegArmor");
-             CreatItem("LeafHandArmor");
-             CreatItem("LeafShoes");
+              CreatItem("ScareCap");
+              CreatItem("ScareArmor");
+              CreatItem("ScareLegArmor");
+             CreatItem("ScareHandArmor");
+             CreatItem("ScareShoes");
 
            // CreatItem("RatCap");
          //   CreatItem("RatArmor");

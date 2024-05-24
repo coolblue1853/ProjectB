@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 public class DamageObject : MonoBehaviour
 {
+    Transform playerTf;
     public float dmgRatio = 1.0f;
     public float ShakeTime;
     public  bool isSkill = false;
@@ -28,6 +29,7 @@ public class DamageObject : MonoBehaviour
     private Sequence sequence; // 시퀀스를 저장하기 위한 변수 추가
     Rigidbody2D rigidbody2D;
     public Vector2 boxSize; // 확인할 직사각형 영역의 크기
+    public float trackingPivot = 0f;
     private void Update()
     {
         if (damagedEnemies.Count == maxDamagedEnemies && isLaunch == true)
@@ -48,11 +50,20 @@ public class DamageObject : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         // 현재 오브젝트의 위치에서 boxSize를 기준으로 직사각형 그리기
-        Gizmos.DrawWireCube(transform.position, new Vector3(boxSize.x, boxSize.y, 1));
+        if(player.transform.localScale.x > 0)
+        {
+            Gizmos.DrawWireCube(new Vector2(transform.position.x + (trackingPivot), transform.position.y), new Vector3(boxSize.x, boxSize.y, 1));
+        }
+        else
+        {
+            Gizmos.DrawWireCube(new Vector2(transform.position.x - (trackingPivot), transform.position.y), new Vector3(boxSize.x, boxSize.y, 1));
+        }
+
     }
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
+        playerTf = player.GetComponent<Transform>();
     }
     void Start()
     {
@@ -191,9 +202,18 @@ public class DamageObject : MonoBehaviour
 
     public GameObject CheckEnemy()
     {
-        // 주변에 있는 모든 Collider를 가져옴
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxSize, 0f, layerMask);
 
+        // 주변에 있는 모든 Collider를 가져옴
+        Collider2D[] colliders;
+
+        if (player.transform.localScale.x > 0)
+        {
+             colliders = Physics2D.OverlapBoxAll(new Vector2(transform.position.x + (trackingPivot), transform.position.y), boxSize, 0f, layerMask);
+        }
+        else
+        {
+              colliders = Physics2D.OverlapBoxAll(new Vector2(transform.position.x - (trackingPivot), transform.position.y), boxSize, 0f, layerMask);
+        }
         // 가져온 Collider를 순회하면서 Player 태그를 가진 오브젝트가 있는지 확인
         foreach (Collider2D col in colliders)
         {
