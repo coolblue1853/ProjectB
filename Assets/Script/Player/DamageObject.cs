@@ -49,15 +49,19 @@ public class DamageObject : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        // 현재 오브젝트의 위치에서 boxSize를 기준으로 직사각형 그리기
-        if(player.transform.localScale.x > 0)
+        if (player != null)
         {
-            Gizmos.DrawWireCube(new Vector2(transform.position.x + (trackingPivot), transform.position.y), new Vector3(boxSize.x, boxSize.y, 1));
+            // 현재 오브젝트의 위치에서 boxSize를 기준으로 직사각형 그리기
+            if (player.transform.localScale.x > 0)
+            {
+                Gizmos.DrawWireCube(new Vector2(transform.position.x + (trackingPivot), transform.position.y), new Vector3(boxSize.x, boxSize.y, 1));
+            }
+            else
+            {
+                Gizmos.DrawWireCube(new Vector2(transform.position.x - (trackingPivot), transform.position.y), new Vector3(boxSize.x, boxSize.y, 1));
+            }
         }
-        else
-        {
-            Gizmos.DrawWireCube(new Vector2(transform.position.x - (trackingPivot), transform.position.y), new Vector3(boxSize.x, boxSize.y, 1));
-        }
+
 
     }
     private void Awake()
