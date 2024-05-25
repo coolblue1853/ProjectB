@@ -37,8 +37,8 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 34,ScareLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,ScareArmor
 35,ScareHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,ScareArmor
 36,ScareShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,ScareArmor
-37,-,-,-,0,0,-,0,-,0,-,
-38,-,-,-,0,0,-,0,-,0,-,
+37,SacreGreatSword,Equip,equipment,300,2,diopvh,1,-,0,Weapon,
+38,ScareStaff,Equip,equipment,300,2,diopvh,1,-,0,Weapon,
 39,-,-,-,0,0,-,0,-,0,-,
 40,-,-,-,0,0,-,0,-,0,-,
 41,-,-,-,0,0,-,0,-,0,-,
