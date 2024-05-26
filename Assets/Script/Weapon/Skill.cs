@@ -63,6 +63,8 @@ public class Skill : MonoBehaviour
     Sequence sequenceB;
     Sequence sequenceC;
     Sequence sequenceD;
+
+
     private void Awake()
     {
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
@@ -94,11 +96,21 @@ public class Skill : MonoBehaviour
         }
         DatabaseManager.checkAttackLadder = true;
         weapon.isAttackWait = false;
-        Sequence sequence = DOTween.Sequence()
-        .AppendInterval(attckSpeed) // 사전에 지정한 공격 주기만큼 대기.
-        .AppendCallback(() => DatabaseManager.weaponStopMove = false)
-        .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
-        .AppendCallback(() => weapon.isAttackWait = true);
+        if (isHoldSkill == false)
+        {
+            Sequence sequence = DOTween.Sequence()
+.AppendInterval(attckSpeed) // 사전에 지정한 공격 주기만큼 대기.
+.AppendCallback(() => DatabaseManager.weaponStopMove = false)
+.AppendCallback(() => DatabaseManager.checkAttackLadder = false)
+.AppendCallback(() => weapon.isAttackWait = true);
+        }
+        else
+        {
+            DatabaseManager.weaponStopMove = false;
+            DatabaseManager.checkAttackLadder = false;
+            weapon.isAttackWait = true;
+        }
+
     }
 
     public void ActiveMainSkill()
@@ -286,6 +298,7 @@ public class Skill : MonoBehaviour
                 sequenceA.Kill();
                 skillCooldown.UseSkill();
                 CheckAttackWait();
+                PlayerController.instance.StopAttackAnim();
                 dmOb.DestroyObject();
             }
         }
@@ -302,6 +315,7 @@ public class Skill : MonoBehaviour
                 sequenceB.Kill();
                 skillCooldown.UseSkillB();
                 CheckAttackWait();
+                PlayerController.instance.StopAttackAnim();
                 dmOb.DestroyObject();
             }
         }
@@ -318,6 +332,7 @@ public class Skill : MonoBehaviour
                 sequenceC.Kill();
                 skillCooldown.UseSkillC();
                 CheckAttackWait();
+                PlayerController.instance.StopAttackAnim();
                 dmOb.DestroyObject();
             }
         }
@@ -334,6 +349,7 @@ public class Skill : MonoBehaviour
                 sequenceD.Kill();
                 skillCooldown.UseSkillD();
                 CheckAttackWait();
+                PlayerController.instance.StopAttackAnim();
                 dmOb.DestroyObject();
             }
         }

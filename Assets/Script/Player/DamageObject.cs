@@ -37,7 +37,8 @@ public class DamageObject : MonoBehaviour
     public int holdingBuffPower;
     public bool addSuperArmor =false;
 
-
+    public bool isDashAttack = false;
+    public float dashSpeed = 10;
     private void Update()
     {
 
@@ -81,13 +82,14 @@ public class DamageObject : MonoBehaviour
 
     void BuffOn()
     {
-        if(holdingBuffEffect == "Def")
+        if (addSuperArmor == true)
+        {
+            DatabaseManager.isSuperArmor = true;
+        }
+        if (holdingBuffEffect == "Def")
         {
             DatabaseManager.playerDef += holdingBuffPower;
-            if(addSuperArmor == true)
-            {
-                DatabaseManager.isSuperArmor = true;
-            }
+
         }
     }
     void BuffOff()
@@ -96,20 +98,25 @@ public class DamageObject : MonoBehaviour
         {
             DatabaseManager.weaponStopMove = false;
         }
+        if (addSuperArmor == true)
+        {
+            DatabaseManager.isSuperArmor = false;
+        }
         if (holdingBuffEffect == "Def")
         {
             
             DatabaseManager.playerDef -= holdingBuffPower;
-            if (addSuperArmor == true)
-            {
-                DatabaseManager.isSuperArmor = false;
-            }
+
         }
     }
 
 
     void Start()
     {
+        if (isDashAttack)
+        {
+            PlayerController.instance.SkillDash(holdingTime, dashSpeed);
+        }
         if (isHoldingBuffObject)
         {
             BuffOn();

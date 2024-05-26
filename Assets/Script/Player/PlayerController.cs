@@ -536,12 +536,6 @@ public class PlayerController : MonoBehaviour
         if(states != "wallJump")
         {
             BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
-            /*
-            if (bc.isTrigger == true)
-            {
-                bc.isTrigger = false;
-            }
-            */
             if( isAttackAnim == false)
             {
                 mainCharacter.Play("Dash");
@@ -568,6 +562,32 @@ public class PlayerController : MonoBehaviour
             .OnComplete(() => rb.velocity = new Vector2(0f, 0f))
             .OnComplete(() => states = "move");
         }
+    }
+
+    public void SkillDash(float dashDu, float dashSpd)
+    {
+        states = "dash";
+        Debug.Log("대쉬공격");
+        DatabaseManager.isSuperArmor = true;
+        Invoke("EndSuperArmor", dashDu);
+        boxColliderTrue = false;
+        rb.gravityScale = 0f;
+        // 대쉬 속도로만 이동하도록 설정
+        rb.velocity = new Vector2(transform.localScale.x * dashSpd, 0f);
+        moveSequence.Kill();
+        dashSequence.Kill();
+        dashSequence = DOTween.Sequence()
+        .AppendInterval(dashDu) // 2초 대기
+        .OnComplete(() => rb.gravityScale = 3f)
+        .OnComplete(() => rb.velocity = new Vector2(0f, 0f))
+        .OnComplete(() => states = "move");
+    }
+
+
+
+    void EndSuperArmor()
+    {
+        DatabaseManager.isSuperArmor = false;
     }
     void EndInvincible()
     {
@@ -753,9 +773,15 @@ public class PlayerController : MonoBehaviour
         attackAnimSequence = DOTween.Sequence()
        .AppendInterval(time)
        .AppendCallback(() => isAttackAnim = false)
-     .AppendCallback(() => EndRopeAttackAnim());
+       .AppendCallback(() => EndRopeAttackAnim());
 
 
+    }
+    public void StopAttackAnim()
+    {
+        attackAnimSequence.Kill();
+       isAttackAnim = false;
+        EndRopeAttackAnim();
     }
     void EndRopeAttackAnim()
     {

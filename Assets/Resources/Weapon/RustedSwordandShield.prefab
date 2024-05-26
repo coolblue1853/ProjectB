@@ -48,17 +48,17 @@ MonoBehaviour:
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
-  SkillCoolTime: 0.1
+  SkillCoolTime: 3
   skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
-  skillAnim: 
+  skillAnim: RightHandstabbing_OneHand
   isWeaponStopMove: 1
   useStemina: 5
-  attckSpeed: 1
+  attckSpeed: 0.5
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
   skillprefab:
-  - {fileID: 4960005499486500231, guid: c6983d2e3ac80e04b8d06ecc4aeb0cbe, type: 3}
+  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1183539049
 GameObject:
@@ -104,21 +104,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPivot: {fileID: 1291193055778619313}
+  skillPivot: {fileID: 6670995367221187479}
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
-  SkillCoolTime: 0.1
+  SkillCoolTime: 5
   skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
-  skillAnim: 
-  isWeaponStopMove: 1
+  skillAnim: ShieldUp
+  isWeaponStopMove: 0
   useStemina: 1
-  attckSpeed: 0.5
+  attckSpeed: 0.4
   rb: {fileID: 0}
   isHoldSkill: 0
-  holdingTime: 0
+  holdingTime: 1
   skillprefab:
-  - {fileID: 4960005499486500231, guid: ba412d079716d1849a1fb2641d1fe13c, type: 3}
+  - {fileID: 8267161789949130192, guid: 33fcee089b6c6ee438bdb4443fe91ab9, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1291193055431298620
 GameObject:
@@ -438,10 +438,10 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 1
   skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
-  skillAnim: 
+  skillAnim: ShieldUp
   isWeaponStopMove: 1
   useStemina: 1
-  attckSpeed: 0.5
+  attckSpeed: 1
   rb: {fileID: 0}
   isHoldSkill: 1
   holdingTime: 1
@@ -627,8 +627,40 @@ Transform:
   - {fileID: 8046027854293589565}
   - {fileID: 7431735090551928109}
   - {fileID: 8901723236847964248}
+  - {fileID: 1321011218703989369}
   m_Father: {fileID: 1291193055134064077}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6670995367221187479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1321011218703989369}
+  m_Layer: 7
+  m_Name: DashPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1321011218703989369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670995367221187479}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.011, y: 0.016, z: 0.05680936}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6173382247617428609}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8341864255033881453
 GameObject:

@@ -101,9 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgRatio: 1
   ShakeTime: 0.15
-  isSkill: 0
+  isSkill: 1
   isDestroyByTime: 1
-  holdingTime: 0.5
+  holdingTime: 0.7
   damageArr: 
   stiffnessTime: 1
   knockForce: 10
@@ -119,6 +119,10 @@ MonoBehaviour:
   desiredSpeed: 0
   boxSize: {x: 0, y: 0}
   trackingPivot: 0
+  isHoldingBuffObject: 0
+  holdingBuffEffect: 
+  holdingBuffPower: 0
+  addSuperArmor: 0
   maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0
