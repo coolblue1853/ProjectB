@@ -35,7 +35,8 @@ public class Skill : MonoBehaviour
         skillFAction.canceled -= OnSkillFReleased;
     }
 
-    public GameObject skillPivot;
+    public GameObject[] skillPivot;
+    public float[] interval;
     public bool isLeft;
     public bool isRight;
     public bool isButtonDownSkill;
@@ -146,6 +147,25 @@ public class Skill : MonoBehaviour
     }
 
 
+    private IEnumerator SpawnSkills()
+    {
+        // interval[0]의 시간만큼 대기
+        yield return new WaitForSeconds(interval[0]);
+
+        // 첫 번째 요소는 건너뛰고 두 번째 요소부터 생성
+        for (int i = 1; i < skillprefab.Length && i < skillPivot.Length; i++)
+        {
+            // 스킬 프리팹을 피벗 위치에 인스턴스화
+            damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
+            dmOb = damageObject.GetComponent<DamageObject>();
+            dmOb.SetDamge(damgeArray);
+            // 다음 스킬을 생성하기 전에 interval[i]의 시간만큼 대기
+            if (i < interval.Length)
+            {
+                yield return new WaitForSeconds(interval[i]);
+            }
+        }
+    }
     public void ActiveLeft()
     {
 
@@ -153,10 +173,16 @@ public class Skill : MonoBehaviour
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
-             damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+
+
+             damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
+
              dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
-;
+            if (skillprefab.Length > 1)
+            {
+                StartCoroutine(SpawnSkills());
+            }
 
             if (isHoldSkill == false)
             {
@@ -179,6 +205,8 @@ public class Skill : MonoBehaviour
                .AppendCallback(() => dmOb.DestroyObject());
 
             }
+
+
         }
 
     }
@@ -189,10 +217,15 @@ public class Skill : MonoBehaviour
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
-             damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+
+             damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
+
              dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
-
+            if (skillprefab.Length > 1)
+            {
+                StartCoroutine(SpawnSkills());
+            }
             if (isHoldSkill == false)
             {
                 skillCooldown.UseSkillB();
@@ -223,11 +256,14 @@ public class Skill : MonoBehaviour
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
-             damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+             damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
              dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
-
-            if(isHoldSkill == false)
+            if (skillprefab.Length > 1)
+            {
+                StartCoroutine(SpawnSkills());
+            }
+            if (isHoldSkill == false)
             {
                 skillCooldown.UseSkillC();
                 CheckAttackWait();
@@ -257,10 +293,13 @@ public class Skill : MonoBehaviour
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
-             damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+             damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
              dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
-
+            if (skillprefab.Length > 1)
+            {
+                StartCoroutine(SpawnSkills());
+            }
             if (isHoldSkill == false)
             {
                 skillCooldown.UseSkillD();

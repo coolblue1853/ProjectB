@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+
 public class DamageObject : MonoBehaviour
 {
+
     Transform playerTf;
     public float dmgRatio = 1.0f;
     public float ShakeTime;
     public  bool isSkill = false;
     public bool isDestroyByTime = true;
     public float holdingTime = 0;
+    public int hitCount = 1 ; //다단히트수.
     public int[] damageArr;
     public float stiffnessTime = 0;   // 경직 시간.
     public float knockForce = 0;
@@ -39,6 +42,9 @@ public class DamageObject : MonoBehaviour
 
     public bool isDashAttack = false;
     public float dashSpeed = 10;
+
+
+    BoxCollider2D boxCol;
     private void Update()
     {
 
@@ -113,6 +119,11 @@ public class DamageObject : MonoBehaviour
 
     void Start()
     {
+        boxCol = this.GetComponent<BoxCollider2D>();
+        if (hitCount != 1)
+        {
+            ResetDamagedEnemies();
+        }
         if (isDashAttack)
         {
             PlayerController.instance.SkillDash(holdingTime, dashSpeed);
@@ -196,6 +207,25 @@ public class DamageObject : MonoBehaviour
 
     public int maxDamagedEnemies = 1; // 최대 데미지를 입힐 적의 수
     private List<Collider2D> damagedEnemies = new List<Collider2D>(); // 데미지를 입힌 적들의 리스트
+
+    void ResetDamagedEnemies()
+    {
+        if(this.gameObject != null)
+        {
+
+            float resetTime = holdingTime / hitCount + 0.02f;
+
+            Sequence seq = DOTween.Sequence()
+           .AppendInterval(resetTime)
+            .AppendCallback(() => damagedEnemies.Clear())
+            .AppendCallback(() => boxCol.enabled =false)
+            .AppendInterval(0.01f)
+            .AppendCallback(() => boxCol.enabled = true)
+           .AppendCallback(() => ResetDamagedEnemies());
+        }
+
+
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

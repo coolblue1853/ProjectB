@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPivot: {fileID: 6472664383328753381}
+  skillPivot:
+  - {fileID: 6472664383328753381}
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
@@ -55,6 +56,8 @@ MonoBehaviour:
   useStemina: 5
   attckSpeed: 0.7
   rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
   skillprefab:
   - {fileID: 8267161789949130192, guid: 0b921379846ec4c439e259f7b15eceab, type: 3}
   skillCooldown: {fileID: 0}
@@ -102,7 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPivot: {fileID: 1291193055778619313}
+  skillPivot:
+  - {fileID: 1291193055778619313}
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
@@ -113,6 +117,8 @@ MonoBehaviour:
   useStemina: 1
   attckSpeed: 0.4
   rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
   skillprefab:
   - {fileID: 9102525924616103397, guid: 5b1f1d735aab637408520bff8bbaad4b, type: 3}
   skillCooldown: {fileID: 0}
@@ -198,9 +204,10 @@ MonoBehaviour:
   - RightHandstabbing_OneHand
   - RightHandVashDown_OneHand
   - RightHandVashUp_OneHand
-  skillLeft: {fileID: 342058023}
-  skillLeftAnim: 
-  skillRight: {fileID: 1183539051}
+  skillA: {fileID: 342058023}
+  skillB: {fileID: 1183539051}
+  skillC: {fileID: 0}
+  skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 1

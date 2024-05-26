@@ -1342,8 +1342,8 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2))
         {
 
-            CreatItem("RustedSwordandShield");
-            //CreatItem("ScareClow");
+            CreatItem("Wood Spear");
+           // CreatItem("RustedSword");
             //  CreatItem("ScareSide");
             //CreatItem("ScareStaff");
             //CreatItem("SacreGreatSword");

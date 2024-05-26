@@ -286,7 +286,7 @@ public class EnemyHealth : MonoBehaviour
     private void KnockbackActive(float knockbackForce, Vector2 knockbackDir, float x, bool isDirChange)
     {
         isStun = true;
-        Debug.Log("³Ë¹é¹ßµ¿");
+
 
         if (rb != null)
         {

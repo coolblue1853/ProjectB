@@ -44,18 +44,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPivot: {fileID: 1291193055778619313}
+  skillPivot:
+  - {fileID: 4178163973471080108}
+  - {fileID: 7324553074625708386}
+  interval:
+  - 0.2
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
+  skillAnim: StrongStab
   isWeaponStopMove: 1
   useStemina: 5
   attckSpeed: 1
   rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
   skillprefab:
-  - {fileID: 4960005499486500231, guid: c6983d2e3ac80e04b8d06ecc4aeb0cbe, type: 3}
+  - {fileID: 7429380887833962885, guid: 947d39c48664f3e45876510cd957faa0, type: 3}
+  - {fileID: 7429380887833962885, guid: 947d39c48664f3e45876510cd957faa0, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1183539049
 GameObject:
@@ -83,7 +91,7 @@ Transform:
   m_GameObject: {fileID: 1183539049}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1291193055134064077}
@@ -101,18 +109,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPivot: {fileID: 1291193055778619313}
+  skillPivot:
+  - {fileID: 5961042638513520153}
+  interval: []
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
-  isWeaponStopMove: 1
+  skillAnim: RightHandstabbing_OneHand
+  isWeaponStopMove: 0
   useStemina: 1
-  attckSpeed: 0.5
+  attckSpeed: 0.4
   rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
   skillprefab:
-  - {fileID: 4960005499486500231, guid: ba412d079716d1849a1fb2641d1fe13c, type: 3}
+  - {fileID: 8267161789949130192, guid: af344fb2d2316eb4a9c0cd652af1395b, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1291193055431298620
 GameObject:
@@ -163,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pC: {fileID: 0}
-  maxComboCount: 3
+  maxComboCount: 1
   nowConboCount: 0
   maxComboTime: 1
   minDmg: 5
@@ -177,27 +190,21 @@ MonoBehaviour:
   addDmg: 10
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed:
-  - 0.7
-  - 0.7
-  - 1
+  - 0.55
   isAttackWait: 0
   isWeaponStopMove: 1
   time: 0
   isOverHand: 0
   attackPrefab:
   - {fileID: 7429380887833962885, guid: f8277c5f5d5e59c49a0b65d26652e8d0, type: 3}
-  - {fileID: 8267161789949130192, guid: 289ed1c71ae94a145990ab1dcb06f995, type: 3}
-  - {fileID: 7426321897877124849, guid: 1aeeab0968bee78428482564a8074068, type: 3}
   attackPivot:
-  - {fileID: 4185027361106519671}
   - {fileID: 1291193055778619313}
-  - {fileID: 2659370571445974256}
   attackAnimName:
   - RightHandstabbing_OneHand
-  - RightHandVashDown_OneHand
-  - StrongStab
-  skillLeft: {fileID: 342058023}
-  skillRight: {fileID: 1183539051}
+  skillA: {fileID: 342058023}
+  skillB: {fileID: 1183539051}
+  skillC: {fileID: 0}
+  skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 1
@@ -232,7 +239,7 @@ Transform:
   m_Father: {fileID: 6173382247617428609}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2659370571445974256
+--- !u!1 &4178163973471080108
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,60 +247,29 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7431735090551928109}
+  - component: {fileID: 213954500842362814}
   m_Layer: 7
-  m_Name: AttackPivot (2)
+  m_Name: DoubleStebPivot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7431735090551928109
+--- !u!4 &213954500842362814
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2659370571445974256}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.447, y: 0.016, z: 0.05680936}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6173382247617428609}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4185027361106519671
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8046027854293589565}
-  m_Layer: 7
-  m_Name: AttackPivot (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8046027854293589565
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4185027361106519671}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.392, y: -0.25, z: 0.05680936}
+  m_GameObject: {fileID: 4178163973471080108}
+  m_LocalRotation: {x: -0, y: -0, z: -0.11507417, w: 0.99335694}
+  m_LocalPosition: {x: 0.4, y: -0.211, z: 0.05680936}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6173382247617428609}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13.216}
 --- !u!1 &5146013849398141502
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,6 +386,37 @@ Transform:
   m_Father: {fileID: 1291193055134064077}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5961042638513520153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1742963218648432569}
+  m_Layer: 7
+  m_Name: AttackPivot (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1742963218648432569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5961042638513520153}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.83, y: -0.211, z: 0.05680936}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6173382247617428609}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6126978398355020447
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,8 +446,40 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1291193055778619312}
-  - {fileID: 8046027854293589565}
-  - {fileID: 7431735090551928109}
+  - {fileID: 213954500842362814}
+  - {fileID: 4192733868206388381}
+  - {fileID: 1742963218648432569}
   m_Father: {fileID: 1291193055134064077}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7324553074625708386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4192733868206388381}
+  m_Layer: 7
+  m_Name: DoubleStebPivot2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4192733868206388381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7324553074625708386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.546, y: -0.091, z: 0.05680936}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6173382247617428609}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
