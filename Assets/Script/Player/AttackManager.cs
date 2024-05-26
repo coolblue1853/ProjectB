@@ -95,22 +95,21 @@ public class AttackManager : MonoBehaviour
 
             else if (skillAAction.triggered && equipWeapon != null)
             {
-                equipWeapon.ActiveLeftSkill();
+                equipWeapon.ActiveASkill();
             }
             else if (skillSAction.triggered && equipWeapon != null)
             {
-                equipWeapon.ActiveRightSkill();
+                equipWeapon.ActiveBSkill();
             }
-            /*
-            else if (skillDAction.triggered && equipSideWeapon != null)
+            else if (skillDAction.triggered && equipWeapon != null)
             {
-                equipSideWeapon.ActiveSideLeftSkill();
+                equipWeapon.ActiveCSkill();
             }
-            else if (skillFAction.triggered && equipSideWeapon != null)
+            else if (skillFAction.triggered && equipWeapon != null)
             {
-                equipSideWeapon.ActiveSideRightSkill();
+                //equipWeapon.ActiveSideRightSkill();
             }
-            */
+    
         }
 
 

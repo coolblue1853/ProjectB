@@ -30,8 +30,17 @@ public class DamageObject : MonoBehaviour
     Rigidbody2D rigidbody2D;
     public Vector2 boxSize; // 확인할 직사각형 영역의 크기
     public float trackingPivot = 0f;
+
+    // 여기부터는 스킬 사용시 버프/디버프 관련 스크립트.
+    public bool isHoldingBuffObject = false;
+    public string holdingBuffEffect;
+    public int holdingBuffPower;
+    public bool addSuperArmor =false;
+
+
     private void Update()
     {
+
         if (damagedEnemies.Count == maxDamagedEnemies && isLaunch == true)
         {
             Destroy(this.gameObject);
@@ -69,11 +78,45 @@ public class DamageObject : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerTf = player.GetComponent<Transform>();
     }
+
+    void BuffOn()
+    {
+        if(holdingBuffEffect == "Def")
+        {
+            DatabaseManager.playerDef += holdingBuffPower;
+            if(addSuperArmor == true)
+            {
+                DatabaseManager.isSuperArmor = true;
+            }
+        }
+    }
+    void BuffOff()
+    {
+        if (DatabaseManager.weaponStopMove == true)
+        {
+            DatabaseManager.weaponStopMove = false;
+        }
+        if (holdingBuffEffect == "Def")
+        {
+            
+            DatabaseManager.playerDef -= holdingBuffPower;
+            if (addSuperArmor == true)
+            {
+                DatabaseManager.isSuperArmor = false;
+            }
+        }
+    }
+
+
     void Start()
     {
+        if (isHoldingBuffObject)
+        {
+            BuffOn();
+        }
         rigidbody2D = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
-        if (isDestroyByTime)
+        if (isDestroyByTime && isHoldingBuffObject == false)
         {
             DestroyObject();
         }
@@ -133,8 +176,12 @@ public class DamageObject : MonoBehaviour
         }
     }
 
-    private void DestroyObject()
+    public void DestroyObject()
     {
+        if (isHoldingBuffObject)
+        {
+            BuffOff();
+        }
         sequence = DOTween.Sequence()
             .AppendInterval(holdingTime)
             .AppendCallback(() => Destroy(this.gameObject));
@@ -231,4 +278,7 @@ public class DamageObject : MonoBehaviour
         // 주변에 Player 태그를 가진 오브젝트가 없으면 Failure 반환
         return null;
     }
+
+
+
 }

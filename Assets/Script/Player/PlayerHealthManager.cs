@@ -7,7 +7,7 @@ using AnyPortrait;
 public class PlayerHealthManager : MonoBehaviour
 {
     public apPortrait mainCharacter;
-    bool isSuperArmor = false;
+   // bool isSuperArmor = false;
     Sequence sequence; Sequence hpSequence;
     Sequence waitSequence; Sequence waitHpSequence;
     public int setHP;
@@ -40,6 +40,7 @@ public class PlayerHealthManager : MonoBehaviour
     Sequence noDamgeSycle;
     public float noDamgeTime;
     bool isNoDamge = false;
+    public int Def;
     void Start()
     {
         rb = player.GetComponent<Rigidbody2D>();
@@ -96,7 +97,8 @@ public class PlayerHealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(nowHp == 0)
+        Def = DatabaseManager.playerDef;
+        if (nowHp == 0)
         {
             Debug.Log("죽었습니다");
         }
@@ -139,22 +141,25 @@ public class PlayerHealthManager : MonoBehaviour
             .AppendCallback(() => isAlphaChange = false);
 
 
-            HpDown(damage);
+
+            int dmgAfDef = damage * (damage / (damage + DatabaseManager.playerDef)); // 방무 미적용
+            HpDown(dmgAfDef);
             rb.velocity = Vector2.zero;
-            if (isSuperArmor == false && stiffTime > 0)
+            if (DatabaseManager.isSuperArmor == false && stiffTime > 0)
             {
-          
-
-
-
+       
                 mysequence.Kill(); // 재공격시 경직 시간 초기화.
                 playerController.isAttacked = true;
                 playerController.isAttackedUp = true;
 
-                mysequence = DOTween.Sequence()
+            mysequence = DOTween.Sequence()
             .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))
             .AppendInterval(stiffTime)
             .OnComplete(() => EndStiffness());
+            }
+            else if (DatabaseManager.isSuperArmor == true && stiffTime > 0)
+            {
+                KnockbackActive(force*0.1f, knockbackDir, x, isDirChange);
             }
 
         }

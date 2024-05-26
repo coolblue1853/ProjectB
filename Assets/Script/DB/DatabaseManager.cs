@@ -10,6 +10,8 @@ public class Item
 }
 public class DatabaseManager : MonoBehaviour
 {
+    public static bool isSuperArmor = false;
+    public static int playerDef = 0;
     public static bool isInvincibility = false;
     public static bool weaponStopMove = false;
     public static bool checkAttackLadder = false;

@@ -35,9 +35,12 @@ public class Weapon : MonoBehaviour
     public GameObject[] attackPrefab;
     public GameObject[] attackPivot;
     public string[] attackAnimName;
-    public Skill skillLeft;
-    public string skillLeftAnim;
-    public Skill skillRight;
+
+    public Skill skillA;
+    public Skill skillB;
+    public Skill skillC;
+    public Skill skillD;
+
     public GameObject leftWeqponSprite;
     public GameObject RightWeqponSprite;
 
@@ -92,44 +95,45 @@ public class Weapon : MonoBehaviour
 
     public void CheckSkill()
     {
-        skillLeft.ActiveMainSkill();
-        skillRight.ActiveMainSkill();
-    }
-    public void ChecSidekSkill()
-    {
-        skillLeft.ActiveSideSkill();
-        skillRight.ActiveSideSkill();
+        if (skillA != null)
+            skillA.ActiveMainSkill();
+        if (skillB != null)
+            skillB.ActiveMainSkill();
+        if (skillC != null)
+            skillC.ActiveSideSkill();
+        if (skillD != null)
+            skillD.ActiveSideSkill();
     }
 
-    public void ActiveLeftSkill()
+    public void ActiveASkill()
     {
-        if(skillLeft != null)
+        if(skillA != null)
         {
-            skillLeft.ActiveLeft();
+            skillA.ActiveLeft();
         }
 
     }
-    public void ActiveRightSkill()
+    public void ActiveBSkill()
     {
-        if (skillRight != null)
+        if (skillB != null)
         {
-            skillRight.ActiveRight();
+            skillB.ActiveRight();
         }
     }
-    public void ActiveSideLeftSkill()
+    public void ActiveCSkill()
     {
-        if (skillLeft != null)
+        if (skillC != null)
         {
-            skillLeft.ActiveSideLeft();
+            skillC.ActiveSideLeft();
         }
 
     }
     public bool isSkillCancel = false;
     public void ActiveSideRightSkill()
     {
-        if (skillRight != null)
+        if (skillB != null)
         {
-            skillRight.ActiveSideRight();
+            skillB.ActiveSideRight();
         }
     }
 

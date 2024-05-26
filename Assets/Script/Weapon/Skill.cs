@@ -3,8 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 public class Skill : MonoBehaviour
 {
+    KeyAction action;
+    InputAction attackAction;
+    InputAction skillAAction;
+    InputAction skillSAction;
+    InputAction skillDAction;
+    InputAction skillFAction;
+    private void OnEnable()
+    {
+        skillAAction.Enable();
+        skillAAction.canceled += OnSkillAReleased;
+        skillSAction.Enable();
+        skillSAction.canceled += OnSkillSReleased;
+        skillDAction.Enable();
+        skillDAction.canceled += OnSkillDReleased;
+        skillFAction.Enable();
+        skillFAction.canceled += OnSkillFReleased;
+    }
+    private void OnDisable()
+    {
+        skillAAction.Disable();
+        skillAAction.canceled -= OnSkillAReleased;
+        skillSAction.Disable();
+        skillSAction.canceled -= OnSkillSReleased;
+        skillDAction.Disable();
+        skillDAction.canceled -= OnSkillDReleased;
+        skillFAction.Disable();
+        skillFAction.canceled -= OnSkillFReleased;
+    }
+
     public GameObject skillPivot;
     public bool isLeft;
     public bool isRight;
@@ -19,11 +49,31 @@ public class Skill : MonoBehaviour
     int[] damgeArray = new int[10];
     public Rigidbody2D rb;
 
+    public bool isHoldSkill = false;
+    public float holdingTime = 0;
+
+    bool isActiveHoldA = false;
+    bool isActiveHoldB = false;
+    bool isActiveHoldC = false;
+    bool isActiveHoldD = false;
+    GameObject damageObject;
+    DamageObject dmOb;
+
+    Sequence sequenceA;
+    Sequence sequenceB;
+    Sequence sequenceC;
+    Sequence sequenceD;
     private void Awake()
     {
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
         weapon = transform.parent.gameObject.GetComponent<Weapon>();
         damgeArray = weapon.damgeArray;
+
+        action = new KeyAction();
+        skillAAction = action.Player.SkillA;
+        skillSAction = action.Player.SkillS;
+        skillDAction = action.Player.SkillD;
+        skillFAction = action.Player.SkillF;
     }
     public GameObject[] skillprefab;
     public SkillCooldown skillCooldown;
@@ -34,6 +84,7 @@ public class Skill : MonoBehaviour
         rb = transform.parent.parent.GetComponent<Rigidbody2D>();
 
     }
+    
     private void CheckAttackWait()
     {
         if (isWeaponStopMove == true)
@@ -49,11 +100,11 @@ public class Skill : MonoBehaviour
         .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
         .AppendCallback(() => weapon.isAttackWait = true);
     }
+
     public void ActiveMainSkill()
     {
         if (isLeft)
         {
-
             skillCooldown.cooldownTimeA = SkillCoolTime;
             skillCooldown.cooldownImageA.sprite = skillImage;
             skillCooldown.UseSkill();
@@ -66,10 +117,6 @@ public class Skill : MonoBehaviour
             skillCooldown.UseSkillB();
         }
     }
-
-
-
-
     public void ActiveSideSkill()
     {
         if (isLeft)
@@ -94,11 +141,32 @@ public class Skill : MonoBehaviour
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
-            GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
-            DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+             damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
-            skillCooldown.UseSkill();
-            CheckAttackWait();
+;
+
+            if (isHoldSkill == false)
+            {
+                skillCooldown.UseSkill();
+                CheckAttackWait();
+            }
+            else
+            {
+                if (isWeaponStopMove == true)
+                {
+                    DatabaseManager.weaponStopMove = true;
+                    rb.velocity = Vector2.zero;
+                }
+                isActiveHoldA = true;
+                sequenceA = DOTween.Sequence()
+               .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+               .AppendCallback(() => isActiveHoldA = false)
+               .AppendCallback(() => skillCooldown.UseSkill())
+               .AppendCallback(() => CheckAttackWait())
+               .AppendCallback(() => dmOb.DestroyObject());
+
+            }
         }
 
     }
@@ -109,11 +177,31 @@ public class Skill : MonoBehaviour
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
-            GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
-            DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+             damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
-            skillCooldown.UseSkillB();
-            CheckAttackWait();
+
+            if (isHoldSkill == false)
+            {
+                skillCooldown.UseSkillB();
+                CheckAttackWait();
+            }
+            else
+            {
+                if (isWeaponStopMove == true)
+                {
+                    DatabaseManager.weaponStopMove = true;
+                    rb.velocity = Vector2.zero;
+                }
+                isActiveHoldB = true;
+                sequenceB = DOTween.Sequence()
+               .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+               .AppendCallback(() => isActiveHoldB = false)
+               .AppendCallback(() => skillCooldown.UseSkillB())
+               .AppendCallback(() => CheckAttackWait())
+               .AppendCallback(() => dmOb.DestroyObject());
+
+            }
         }
     }
     public void ActiveSideLeft()
@@ -123,13 +211,32 @@ public class Skill : MonoBehaviour
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
-            GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
-            DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+             damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
-            skillCooldown.UseSkillC();
-            CheckAttackWait();
-        }
 
+            if(isHoldSkill == false)
+            {
+                skillCooldown.UseSkillC();
+                CheckAttackWait();
+            }
+            else
+            {
+                if (isWeaponStopMove == true)
+                {
+                    DatabaseManager.weaponStopMove = true;
+                    rb.velocity = Vector2.zero;
+                }
+                isActiveHoldC = true;
+                 sequenceC = DOTween.Sequence()
+                .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+                .AppendCallback(() => isActiveHoldC = false)
+                .AppendCallback(() => skillCooldown.UseSkillC())
+                .AppendCallback(() => CheckAttackWait())
+                .AppendCallback(() => dmOb.DestroyObject());
+
+            }
+        }
     }
     public void ActiveSideRight()
     {
@@ -138,11 +245,97 @@ public class Skill : MonoBehaviour
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
-            GameObject damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
-            DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+             damageObject = Instantiate(skillprefab[0], skillPivot.transform.position, skillPivot.transform.rotation, this.transform);
+             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
-            skillCooldown.UseSkillD();
-            CheckAttackWait();
+
+            if (isHoldSkill == false)
+            {
+                skillCooldown.UseSkillD();
+                CheckAttackWait();
+            }
+            else
+            {
+                if (isWeaponStopMove == true)
+                {
+                    DatabaseManager.weaponStopMove = true;
+                    rb.velocity = Vector2.zero;
+                }
+                isActiveHoldD = true;
+                sequenceD = DOTween.Sequence()
+               .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+               .AppendCallback(() => isActiveHoldD = false)
+               .AppendCallback(() => skillCooldown.UseSkillD())
+               .AppendCallback(() => CheckAttackWait())
+               .AppendCallback(() => dmOb.DestroyObject());
+
+            }
+        }
+    }
+
+
+    void OnSkillAReleased(InputAction.CallbackContext context)
+    {
+        if (isHoldSkill == true)
+        {
+            if (isActiveHoldA == true)
+            {
+                Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
+                // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
+                isActiveHoldA = false;
+                sequenceA.Kill();
+                skillCooldown.UseSkill();
+                CheckAttackWait();
+                dmOb.DestroyObject();
+            }
+        }
+    }
+    void OnSkillSReleased(InputAction.CallbackContext context)
+    {
+        if (isHoldSkill == true)
+        {
+            if (isActiveHoldB == true)
+            {
+                Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
+                // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
+                isActiveHoldB = false;
+                sequenceB.Kill();
+                skillCooldown.UseSkillB();
+                CheckAttackWait();
+                dmOb.DestroyObject();
+            }
+        }
+    }
+    void OnSkillDReleased(InputAction.CallbackContext context)
+    {
+        if (isHoldSkill == true)
+        {
+            if (isActiveHoldC == true)
+            {
+                Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
+                // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
+                isActiveHoldC = false;
+                sequenceC.Kill();
+                skillCooldown.UseSkillC();
+                CheckAttackWait();
+                dmOb.DestroyObject();
+            }
+        }
+    }
+    void OnSkillFReleased(InputAction.CallbackContext context)
+    {
+        if (isHoldSkill == true)
+        {
+            if (isActiveHoldD == true)
+            {
+                Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
+                // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
+                isActiveHoldD = false;
+                sequenceD.Kill();
+                skillCooldown.UseSkillD();
+                CheckAttackWait();
+                dmOb.DestroyObject();
+            }
         }
     }
 
@@ -150,6 +343,6 @@ public class Skill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
