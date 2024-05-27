@@ -23,6 +23,7 @@ public class ItemCheck : MonoBehaviour
     public TextMeshProUGUI stackText;
     public Image image;
 
+    public string itemNameT;
     public string tfName;
     ItemData item;
 
@@ -48,6 +49,7 @@ public class ItemCheck : MonoBehaviour
         weight = item.weight;
         acqPath = item.acqPath;
         maxStack = item.maxStack;
+        itemNameT = item.itemNameT;
         nowStack = 1;
         tfName = item.tfName;
         if (stackText != null)

@@ -170,7 +170,7 @@ public class ShopManager : MonoBehaviour
         {
             Transform misc = miscDetail.gameObject.transform;
             misc.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
-            misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.name;
+            misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemNameT;
             misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
             misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
             misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (nowShopItem.Buyprice).ToString();
@@ -185,7 +185,7 @@ public class ShopManager : MonoBehaviour
         {
             Transform consum = consumDetail.gameObject.transform;
             consum.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
-            consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.name;
+            consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemNameT;
             consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
             consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
             consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (nowShopItem.Buyprice).ToString();
@@ -201,7 +201,7 @@ public class ShopManager : MonoBehaviour
         {
             Transform equip = equipDetail.gameObject.transform;
             equip.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
-            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.name;
+            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemNameT;
             equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
             equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
             equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (nowShopItem.Buyprice).ToString();
@@ -311,7 +311,7 @@ public class ShopManager : MonoBehaviour
         state = "Buy";
         sellUIGameObject.SetActive(true);
         totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
-        sellText.text = "Buy " + nowShopItem.name + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = "Buy " + nowShopItem.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void OnSliderValueChanged(float value)
     {
@@ -328,7 +328,7 @@ public class ShopManager : MonoBehaviour
         .OnComplete(() => ResetCheckRepeat());
         sellSlider.value += 1;
         totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
-        sellText.text = "Buy " + nowShopItem.name + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = "Buy " + nowShopItem.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void LeftMove()
     {
@@ -339,7 +339,7 @@ public class ShopManager : MonoBehaviour
         .OnComplete(() => ResetCheckRepeat());
         sellSlider.value -= 1;
         totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
-        sellText.text = "Buy " + nowShopItem.name + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = "Buy " + nowShopItem.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
 
     void InitializeSlider()

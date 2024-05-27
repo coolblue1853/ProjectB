@@ -24,7 +24,7 @@ public class CraftItemCheck : MonoBehaviour
     public Image image;
     ItemData item;
     public string tfName;
-
+    public string itemNameT;
     public CraftingManager craftingManager;
     public void OnPointerEnter()
     {
@@ -58,6 +58,7 @@ public class CraftItemCheck : MonoBehaviour
         maxStack = item.maxStack;
         nowStack = 0;
         tfName = item.tfName;
+        itemNameT = item.itemNameT;
         stackText.text = nowStack.ToString();
         if (type == "Consum")
         {

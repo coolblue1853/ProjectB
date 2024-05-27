@@ -1025,7 +1025,7 @@ public class Chest : MonoBehaviour
             {
                 Transform misc = miscDetail.gameObject.transform;
                 misc.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+                misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
                 misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
                 misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
                 misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
@@ -1046,7 +1046,7 @@ public class Chest : MonoBehaviour
             {
                 Transform consum = consumDetail.gameObject.transform;
                 consum.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+                consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
                 consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
                 consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
                 consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
@@ -1068,7 +1068,7 @@ public class Chest : MonoBehaviour
             {
                 Transform equip = equipDetail.gameObject.transform;
                 equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
                 equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
                 equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
                 equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
@@ -1103,7 +1103,7 @@ public class Chest : MonoBehaviour
 
             Transform equip = equipDetail.gameObject.transform;
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.name;
+            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
             equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
             equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
             equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();

@@ -60,8 +60,11 @@ public class ItemDatabase : MonoBehaviour
                     case 10: // equipArea
                         item.equipArea = values[j].Trim();
                         break;
-                    case 11: // equipArea
+                    case 11: // tfName
                         item.tfName = values[j].Trim();
+                        break;
+                    case 12: // itemName
+                        item.itemNameT = values[j].Trim();
                         break;
                         // 필요한 다른 열에 대한 처리를 추가합니다.
                 }
@@ -86,5 +89,7 @@ public class ItemData
     public int effectPow;
     public string equipArea;
     public string tfName;
-    
+    public string itemNameT;
+
+
 }

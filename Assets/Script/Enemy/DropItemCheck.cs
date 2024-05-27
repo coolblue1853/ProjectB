@@ -23,7 +23,7 @@ public class DropItemCheck : MonoBehaviour
     public string tfName;
     public SpriteRenderer spriteRenderer;
     ItemData item;
-
+    public string itemNameT;
     private void Start()
     {
 
@@ -41,6 +41,7 @@ public class DropItemCheck : MonoBehaviour
         maxStack = item.maxStack;
         nowStack = 1;
         tfName = item.tfName;
+        itemNameT = item.itemNameT;
         stackText.text = nowStack.ToString();
         if (type == "Consum")
         {

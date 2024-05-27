@@ -118,6 +118,7 @@ public class DatabaseManager : MonoBehaviour
                 effectPow = ItemDataList[itemNum].effectPow,
                 equipArea = ItemDataList[itemNum].equipArea,
                 tfName = ItemDataList[itemNum].tfName,
+                itemNameT = ItemDataList[itemNum].itemNameT,
             };
             return newItem;
 
