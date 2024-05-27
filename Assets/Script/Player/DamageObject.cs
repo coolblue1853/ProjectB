@@ -42,8 +42,8 @@ public class DamageObject : MonoBehaviour
 
     public bool isDashAttack = false;
     public float dashSpeed = 10;
-
-
+    public bool isDashInvins = false;
+    public bool isBackDash = false;
     BoxCollider2D boxCol;
     private void Update()
     {
@@ -126,7 +126,7 @@ public class DamageObject : MonoBehaviour
         }
         if (isDashAttack)
         {
-            PlayerController.instance.SkillDash(holdingTime, dashSpeed);
+            PlayerController.instance.SkillDash(holdingTime, dashSpeed, isDashInvins, isBackDash);
         }
         if (isHoldingBuffObject)
         {

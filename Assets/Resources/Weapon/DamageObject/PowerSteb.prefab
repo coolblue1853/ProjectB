@@ -104,6 +104,7 @@ MonoBehaviour:
   isSkill: 0
   isDestroyByTime: 1
   holdingTime: 0.5
+  hitCount: 1
   damageArr: 
   stiffnessTime: 1
   knockForce: 10
@@ -125,6 +126,8 @@ MonoBehaviour:
   addSuperArmor: 0
   isDashAttack: 0
   dashSpeed: 10
+  isDashInvins: 0
+  isBackDash: 0
   maxDamagedEnemies: 1
   isPosionAttack: 0
   poisonDamage: 0
@@ -170,7 +173,7 @@ Animator:
   m_GameObject: {fileID: 7429380887833962885}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f4076cef9b4345b4fb2bdba02c26903c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3ca0c67e72b48754b8bfa44a40b31025, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

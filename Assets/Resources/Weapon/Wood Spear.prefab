@@ -125,7 +125,7 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   skillprefab:
-  - {fileID: 8267161789949130192, guid: af344fb2d2316eb4a9c0cd652af1395b, type: 3}
+  - {fileID: 8267161789949130192, guid: 091514897fc27e74986309575a958eee, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1291193055431298620
 GameObject:

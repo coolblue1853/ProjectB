@@ -930,6 +930,8 @@ public class InventoryManager : MonoBehaviour
         }
         else if (detail.equipArea == "Weapon")
         {
+            return weaponBox;
+            /*
             if (nowEquipBox != null)
             {
 
@@ -947,7 +949,7 @@ public class InventoryManager : MonoBehaviour
             {
                 return weaponBox;
             }
-
+            */
 
         }  // 메인 무장이 없으면 메인 무장 먼저, 있으면 사이드 웨폰에다가 무기를 넣어야함
         else if (detail.equipArea == "Neckles")
@@ -1341,9 +1343,10 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-
-            CreatItem("Wood Spear");
-           // CreatItem("RustedSword");
+            CreatItem("RustedSword");
+            CreatItem("RustedSwordandShield");
+            CreatItem("Leather Knuckles");
+             CreatItem("Wood Spear");
             //  CreatItem("ScareSide");
             //CreatItem("ScareStaff");
             //CreatItem("SacreGreatSword");

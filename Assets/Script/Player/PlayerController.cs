@@ -564,26 +564,44 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SkillDash(float dashDu, float dashSpd)
+    public void SkillDash(float dashDu, float dashSpd, bool isDashInvins, bool isBackDash)
     {
+        DatabaseManager.weaponStopMove = false;
         states = "dash";
         Debug.Log("대쉬공격");
+        if(isDashInvins == true)
+        {
+            DatabaseManager.isInvincibility = true;
+        }
+
         DatabaseManager.isSuperArmor = true;
         Invoke("EndSuperArmor", dashDu);
         boxColliderTrue = false;
         rb.gravityScale = 0f;
         // 대쉬 속도로만 이동하도록 설정
-        rb.velocity = new Vector2(transform.localScale.x * dashSpd, 0f);
+        if(isBackDash == true)
+        {
+            rb.velocity = new Vector2(transform.localScale.x * -dashSpd, 0f);
+        }
+        else
+        {
+            rb.velocity = new Vector2(transform.localScale.x * dashSpd, 0f);
+        }
+
         moveSequence.Kill();
         dashSequence.Kill();
         dashSequence = DOTween.Sequence()
         .AppendInterval(dashDu) // 2초 대기
         .OnComplete(() => rb.gravityScale = 3f)
         .OnComplete(() => rb.velocity = new Vector2(0f, 0f))
+         .OnComplete(() => EndInvincibility(isDashInvins))
         .OnComplete(() => states = "move");
     }
 
-
+    void EndInvincibility(bool isDashInvins)
+    {
+        if (isDashInvins == true) DatabaseManager.isInvincibility = false;
+    }
 
     void EndSuperArmor()
     {

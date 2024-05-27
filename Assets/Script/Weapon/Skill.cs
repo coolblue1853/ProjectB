@@ -52,6 +52,7 @@ public class Skill : MonoBehaviour
 
     public bool isHoldSkill = false;
     public float holdingTime = 0;
+    public bool isCancleAttack = false;
 
     bool isActiveHoldA = false;
     bool isActiveHoldB = false;
@@ -169,7 +170,7 @@ public class Skill : MonoBehaviour
     public void ActiveLeft()
     {
 
-        if (isButtonDownSkill && skillCooldown.isCooldownA == false && PlayerHealthManager.Instance.nowStemina > useStemina &&weapon.isAttackWait)
+        if (isButtonDownSkill && skillCooldown.isCooldownA == false && PlayerHealthManager.Instance.nowStemina > useStemina &&(weapon.isAttackWait|| isCancleAttack))
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
@@ -213,8 +214,9 @@ public class Skill : MonoBehaviour
     public void ActiveRight()
     {
 
-        if (isButtonDownSkill && skillCooldown.isCooldownB == false && PlayerHealthManager.Instance.nowStemina > useStemina && weapon.isAttackWait)
+        if (isButtonDownSkill && skillCooldown.isCooldownB == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
         {
+
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
 
@@ -252,7 +254,7 @@ public class Skill : MonoBehaviour
     public void ActiveSideLeft()
     {
 
-        if (isButtonDownSkill && skillCooldown.isCooldownC == false && PlayerHealthManager.Instance.nowStemina > useStemina && weapon.isAttackWait)
+        if (isButtonDownSkill && skillCooldown.isCooldownC == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
@@ -289,7 +291,7 @@ public class Skill : MonoBehaviour
     public void ActiveSideRight()
     {
 
-        if (isButtonDownSkill && skillCooldown.isCooldownD == false && PlayerHealthManager.Instance.nowStemina > useStemina && weapon.isAttackWait)
+        if (isButtonDownSkill && skillCooldown.isCooldownD == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
         {
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
             PlayerHealthManager.Instance.SteminaDown(useStemina);
