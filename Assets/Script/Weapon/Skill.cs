@@ -90,7 +90,7 @@ public class Skill : MonoBehaviour
     }
     
     private void CheckAttackWait()
-    {
+    {   
         if (isWeaponStopMove == true)
         {
             DatabaseManager.weaponStopMove = true;
@@ -101,7 +101,7 @@ public class Skill : MonoBehaviour
         if (isHoldSkill == false)
         {
             Sequence sequence = DOTween.Sequence()
-.AppendInterval(attckSpeed) // 사전에 지정한 공격 주기만큼 대기.
+.AppendInterval(attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100))) // 사전에 지정한 공격 주기만큼 대기.
 .AppendCallback(() => DatabaseManager.weaponStopMove = false)
 .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
 .AppendCallback(() => weapon.isAttackWait = true);
@@ -137,7 +137,7 @@ public class Skill : MonoBehaviour
         {
             skillCooldown.cooldownTimeC = SkillCoolTime;
             skillCooldown.cooldownImageC.sprite = skillImage;
-           skillCooldown.UseSkillC();
+            skillCooldown.UseSkillC();
         }
         else if (isRight)
         {
@@ -172,7 +172,7 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownA == false && PlayerHealthManager.Instance.nowStemina > useStemina &&(weapon.isAttackWait|| isCancleAttack))
         {
-            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
+            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             PlayerHealthManager.Instance.SteminaDown(useStemina);
 
 
@@ -217,7 +217,7 @@ public class Skill : MonoBehaviour
         if (isButtonDownSkill && skillCooldown.isCooldownB == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
         {
 
-            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
+            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             PlayerHealthManager.Instance.SteminaDown(useStemina);
 
              damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
@@ -256,7 +256,7 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownC == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
         {
-            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
+            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             PlayerHealthManager.Instance.SteminaDown(useStemina);
              damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
              dmOb = damageObject.GetComponent<DamageObject>();
@@ -293,7 +293,7 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownD == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
         {
-            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed);
+            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             PlayerHealthManager.Instance.SteminaDown(useStemina);
              damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
              dmOb = damageObject.GetComponent<DamageObject>();

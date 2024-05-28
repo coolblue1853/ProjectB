@@ -25,6 +25,26 @@ public class SkillCooldown : MonoBehaviour
 
 
     static public SkillCooldown instance;
+
+    public void ResetCoolTime()
+    {
+        cooldownImageA.sprite = null;
+        cooldownImageB.sprite = null;
+        cooldownImageC.sprite = null;
+        cooldownImageD.sprite = null;
+        cooldownTimeA = 0;
+        isCooldownA = false;
+        cooldownTimerA = 0;
+        cooldownTimeB = 0;
+        isCooldownB = false;
+        cooldownTimerB = 0;
+        cooldownTimeC = 0;
+        isCooldownC = false;
+        cooldownTimerC = 0;
+        cooldownTimeD = 0;
+        isCooldownD = false;
+        cooldownTimerD = 0;
+    }
     private void Awake()
     {
         if (instance != null)

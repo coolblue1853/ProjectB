@@ -45,6 +45,7 @@ public class DamageObject : MonoBehaviour
     public bool isDashInvins = false;
     public bool isBackDash = false;
     BoxCollider2D boxCol;
+    public GameObject buffObject;
     private void Update()
     {
 
@@ -119,6 +120,11 @@ public class DamageObject : MonoBehaviour
 
     void Start()
     {
+        if(buffObject != null)
+        {
+            AttackManager att = player.GetComponent<AttackManager>();
+            GameObject buff = Instantiate(buffObject, Vector2.zero, Quaternion.identity, att.BuffSlot.transform);
+        }
         boxCol = this.GetComponent<BoxCollider2D>();
         if (hitCount != 1)
         {

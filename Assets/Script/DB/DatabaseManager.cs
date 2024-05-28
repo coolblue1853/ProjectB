@@ -11,6 +11,8 @@ public class Item
 public class DatabaseManager : MonoBehaviour
 {
     public static bool isSuperArmor = false;
+    public static int attackSpeedBuff = 0;
+    public static int SpeedBuff = 0;
     public static int playerDef = 0;
     public static bool isInvincibility = false;
     public static bool weaponStopMove = false;

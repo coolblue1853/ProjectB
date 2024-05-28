@@ -145,7 +145,7 @@ public class Weapon : MonoBehaviour
             nowConboCount++;
             //프리팹 소환
             GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation,this.transform);
-            pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1]);
+            pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1]  / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             DamageObject dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
             CheckAttackWait();
@@ -156,7 +156,7 @@ public class Weapon : MonoBehaviour
             {
                 nowConboCount++;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
-                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1]);
+                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
                 DamageObject dmOb = damageObject.GetComponent<DamageObject>();
                 dmOb.SetDamge(damgeArray);
                 CheckAttackWait();
@@ -165,7 +165,7 @@ public class Weapon : MonoBehaviour
             {
                 nowConboCount = 1;
                 GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
-                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1]);
+                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
                 DamageObject dmOb = damageObject.GetComponent<DamageObject>();
                 dmOb.SetDamge(damgeArray);
                 CheckAttackWait();
@@ -182,7 +182,7 @@ public class Weapon : MonoBehaviour
         DatabaseManager.checkAttackLadder = true;
         isAttackWait = false;
         Sequence sequence = DOTween.Sequence()
-        .AppendInterval(attckSpeed[nowConboCount - 1]) // 사전에 지정한 공격 주기만큼 대기.
+        .AppendInterval(attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100))) // 사전에 지정한 공격 주기만큼 대기.
         .AppendCallback(() => DatabaseManager.weaponStopMove = false)
         .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
         .AppendCallback(() => isAttackWait = true);

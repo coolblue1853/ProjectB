@@ -44,18 +44,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPivot: {fileID: 1291193055778619313}
+  skillPivot:
+  - {fileID: 4377538758266461313}
+  - {fileID: 2656040342903920571}
+  - {fileID: 7175687530117558795}
+  interval:
+  - 0
+  - 0
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
-  SkillCoolTime: 0.1
+  SkillCoolTime: 1
   skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
+  skillAnim: RightHandVashDown_OneHand
   isWeaponStopMove: 1
   useStemina: 5
-  attckSpeed: 1
+  attckSpeed: 0.4
   rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
+  isCancleAttack: 0
   skillprefab:
-  - {fileID: 4960005499486500231, guid: c6983d2e3ac80e04b8d06ecc4aeb0cbe, type: 3}
+  - {fileID: 4960005499486500231, guid: 5886dda8a26a85347b881c750f4cd8a7, type: 3}
+  - {fileID: 4960005499486500231, guid: 83a73eeaff521794db0d6bc3f0f92eef, type: 3}
+  - {fileID: 4960005499486500231, guid: 3df1e1a9b644b4d4992275a575519679, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1183539049
 GameObject:
@@ -101,18 +113,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPivot: {fileID: 1291193055778619313}
+  skillPivot:
+  - {fileID: 2659370571445974256}
+  interval: []
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
-  SkillCoolTime: 0.1
+  SkillCoolTime: 1
   skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillAnim: AdeaAttSpeadBuff
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5
   rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
+  isCancleAttack: 0
   skillprefab:
-  - {fileID: 4960005499486500231, guid: ba412d079716d1849a1fb2641d1fe13c, type: 3}
+  - {fileID: 8267161789949130192, guid: 284781346bc2e3543810fc1434071cbe, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1291193055431298620
 GameObject:
@@ -145,6 +163,7 @@ Transform:
   m_Children:
   - {fileID: 342058022}
   - {fileID: 1183539050}
+  - {fileID: 3801199644192456305}
   - {fileID: 6173382247617428609}
   - {fileID: 5146013849899753335}
   m_Father: {fileID: 0}
@@ -188,8 +207,10 @@ MonoBehaviour:
   - {fileID: 4185027361106519671}
   attackAnimName:
   - RightHandVashDown_OneHand
-  skillLeft: {fileID: 342058023}
-  skillRight: {fileID: 1183539051}
+  skillA: {fileID: 342058023}
+  skillB: {fileID: 1183539051}
+  skillC: {fileID: 8416883724471478311}
+  skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 1
@@ -224,6 +245,37 @@ Transform:
   m_Father: {fileID: 6173382247617428609}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2656040342903920571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5541986091554311484}
+  m_Layer: 7
+  m_Name: SkillPivot1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5541986091554311484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2656040342903920571}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4, y: -0.211, z: 0.05680936}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6173382247617428609}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2659370571445974256
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +300,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2659370571445974256}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.447, y: 0.016, z: 0.05680936}
+  m_LocalPosition: {x: 0.063, y: 0.016, z: 0.05680936}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -285,6 +337,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6173382247617428609}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4377538758266461313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6645777806120177138}
+  m_Layer: 7
+  m_Name: SkillPivot1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6645777806120177138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4377538758266461313}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4, y: -0.211, z: 0.05680936}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6173382247617428609}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5146013849398141502
 GameObject:
@@ -400,8 +483,71 @@ Transform:
   m_Children:
   - {fileID: 5146013849398141503}
   m_Father: {fileID: 1291193055134064077}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5205465439248650369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3801199644192456305}
+  - component: {fileID: 8416883724471478311}
+  m_Layer: 7
+  m_Name: CSkill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3801199644192456305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5205465439248650369}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1291193055134064077}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8416883724471478311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5205465439248650369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillPivot:
+  - {fileID: 2659370571445974256}
+  interval: []
+  isLeft: 1
+  isRight: 0
+  isButtonDownSkill: 1
+  SkillCoolTime: 1
+  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillAnim: SpeadBuff
+  isWeaponStopMove: 1
+  useStemina: 1
+  attckSpeed: 0.5
+  rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
+  isCancleAttack: 0
+  skillprefab:
+  - {fileID: 8267161789949130192, guid: bd72bc2375851e948918f59823c1505b, type: 3}
+  skillCooldown: {fileID: 0}
 --- !u!1 &6126978398355020447
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +579,40 @@ Transform:
   - {fileID: 1291193055778619312}
   - {fileID: 8046027854293589565}
   - {fileID: 7431735090551928109}
+  - {fileID: 6645777806120177138}
+  - {fileID: 5541986091554311484}
+  - {fileID: 3777838720990406299}
   m_Father: {fileID: 1291193055134064077}
-  m_RootOrder: 2
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7175687530117558795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3777838720990406299}
+  m_Layer: 7
+  m_Name: SkillPivot1 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3777838720990406299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7175687530117558795}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4, y: -0.211, z: 0.05680936}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6173382247617428609}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

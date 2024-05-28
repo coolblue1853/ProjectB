@@ -19,6 +19,7 @@ public class AttackManager : MonoBehaviour
     public GameObject rightHand;
     public GameObject leftHand;
 
+    public GameObject BuffSlot;
     private void OnEnable()
     {
         attackAction.Enable();

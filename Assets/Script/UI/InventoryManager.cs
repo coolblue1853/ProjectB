@@ -1042,6 +1042,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
+            skillCooldown.ResetCoolTime();
             if (attackManager.equipWeapon == null)
             {
 
@@ -1334,8 +1335,8 @@ public class InventoryManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.F3))
-        {            CreatItem("LeafAdae");
-                     //CreatItem("Wood Spear");
+        {            CreatItem("LeafStaff");
+                     CreatItem("Wood Spear");
                      // CreatItem("Leather Knuckles");
                      //CreatItem("PickAxe");
                      //

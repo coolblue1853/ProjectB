@@ -322,7 +322,7 @@ public class PlayerController : MonoBehaviour
             {
                 states = "moveDown";
                 mainCharacter.Play("RopeDown");
-                moveVelocity = Vector2.down * (isRun ? runSpeed : moveSpeed);
+                moveVelocity = Vector2.down * (isRun ? runSpeed * (1 + (DatabaseManager.SpeedBuff / 100)) : moveSpeed * (1 + (DatabaseManager.SpeedBuff / 100)));
             }
             else if (verticalInput > 0.2f && isAttackAnim == false)
             {
@@ -330,7 +330,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("올라가는중");
                 states = "moveUp";
                 mainCharacter.Play("RopeUp");
-                moveVelocity = Vector2.up * (isRun ? runSpeed : moveSpeed);
+                moveVelocity = Vector2.up * (isRun ? runSpeed * (1 + (DatabaseManager.SpeedBuff / 100)) : moveSpeed * (1 + (DatabaseManager.SpeedBuff / 100)));
             }
             else if (verticalInput == 0 && states != "move" && check == false && isAttackAnim == false)
             {
@@ -458,7 +458,7 @@ public class PlayerController : MonoBehaviour
 
 
                 states = "moveLeft";
-                moveVelocity = Vector2.left * (isRun ? runSpeed : moveSpeed);
+                moveVelocity = Vector2.left * (isRun ? runSpeed * (1 + (DatabaseManager.SpeedBuff / 100)) : moveSpeed * (1 + (DatabaseManager.SpeedBuff / 100)));
                 transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
             }
             else if (horizontalInput > 0)
@@ -480,7 +480,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 states = "moveRight";
-                moveVelocity = Vector2.right * (isRun ? runSpeed : moveSpeed);
+                moveVelocity = Vector2.right * (isRun ? runSpeed * (1 + (DatabaseManager.SpeedBuff / 100)) : moveSpeed * (1 + (DatabaseManager.SpeedBuff / 100)));
                 transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
             }
             else if (horizontalInput == 0 && states != "move" && check ==false)
@@ -533,35 +533,32 @@ public class PlayerController : MonoBehaviour
     public float dashMovePoint;
     void Dash()
     {
-        if(states != "wallJump")
+        BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
+        if (isAttackAnim == false)
         {
-            BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
-            if( isAttackAnim == false)
-            {
-                mainCharacter.Play("Dash");
+            mainCharacter.Play("Dash");
 
-            }
-            DatabaseManager.isInvincibility = true;
-            Invoke("EndInvincible", dashDuration);
-            boxColliderTrue = false;
-            PlayerHealthManager.Instance.SteminaDown(dashStemina);
-            states = "dash";
-            
-
-            rb.gravityScale = 0f;
-            // 대쉬 속도로만 이동하도록 설정
-            rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
-            // 대쉬 타이머 설정
-            dashTimer = dashWait;
-
-            moveSequence.Kill();
-            dashSequence.Kill();
-            dashSequence = DOTween.Sequence()
-            .AppendInterval(dashDuration) // 2초 대기
-            .OnComplete(() => rb.gravityScale = 3f)
-            .OnComplete(() => rb.velocity = new Vector2(0f, 0f))
-            .OnComplete(() => states = "move");
         }
+        DatabaseManager.isInvincibility = true;
+        Invoke("EndInvincible", dashDuration);
+        boxColliderTrue = false;
+        PlayerHealthManager.Instance.SteminaDown(dashStemina);
+        states = "dash";
+
+
+        rb.gravityScale = 0f;
+        // 대쉬 속도로만 이동하도록 설정
+        rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
+        // 대쉬 타이머 설정
+        dashTimer = dashWait;
+
+        moveSequence.Kill();
+        dashSequence.Kill();
+        dashSequence = DOTween.Sequence()
+        .AppendInterval(dashDuration) // 2초 대기
+        .AppendCallback(() => rb.gravityScale = 3f)
+        .AppendCallback(() => rb.velocity = new Vector2(0f, 0f))
+        .AppendCallback(() => states = "move");
     }
 
     public void SkillDash(float dashDu, float dashSpd, bool isDashInvins, bool isBackDash)
@@ -592,10 +589,10 @@ public class PlayerController : MonoBehaviour
         dashSequence.Kill();
         dashSequence = DOTween.Sequence()
         .AppendInterval(dashDu) // 2초 대기
-        .OnComplete(() => rb.gravityScale = 3f)
-        .OnComplete(() => rb.velocity = new Vector2(0f, 0f))
-         .OnComplete(() => EndInvincibility(isDashInvins))
-        .OnComplete(() => states = "move");
+        .AppendCallback(() => rb.gravityScale = 3f)
+        .AppendCallback(() => rb.velocity = new Vector2(0f, 0f))
+         .AppendCallback(() => EndInvincibility(isDashInvins))
+        .AppendCallback(() => states = "move");
     }
 
     void EndInvincibility(bool isDashInvins)
