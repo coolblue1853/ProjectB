@@ -64,6 +64,14 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 0
+  player: {fileID: 0}
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
   skillprefab:
   - {fileID: 4960005499486500231, guid: 5886dda8a26a85347b881c750f4cd8a7, type: 3}
   - {fileID: 4960005499486500231, guid: 83a73eeaff521794db0d6bc3f0f92eef, type: 3}
@@ -129,6 +137,14 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 0
+  player: {fileID: 0}
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
   skillprefab:
   - {fileID: 8267161789949130192, guid: 284781346bc2e3543810fc1434071cbe, type: 3}
   skillCooldown: {fileID: 0}
@@ -545,6 +561,14 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 0
+  player: {fileID: 0}
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
   skillprefab:
   - {fileID: 8267161789949130192, guid: bd72bc2375851e948918f59823c1505b, type: 3}
   skillCooldown: {fileID: 0}

@@ -994,7 +994,7 @@ public class InventoryManager : MonoBehaviour
             .AppendCallback(() => equipBoxCheck.isSetArray = false)
             .OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false));
 
-            skillCooldown.DeletLeftSkill();
+          //  skillCooldown.DeletLeftSkill();
             CreatItem(detail.name);
             //  DetechItem(detail.equipArea);
 

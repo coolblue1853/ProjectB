@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5188143695280053146}
   - component: {fileID: 6923429078490928227}
   - component: {fileID: 1955040889417559777}
+  - component: {fileID: -3469022750594012773}
   m_Layer: 0
   m_Name: TelePort
   m_TagString: Untagged
@@ -124,7 +125,7 @@ MonoBehaviour:
   holdingBuffEffect: 
   holdingBuffPower: 0
   addSuperArmor: 0
-  isDashAttack: 1
+  isDashAttack: 0
   dashSpeed: 40
   isDashInvins: 0
   isBackDash: 0
@@ -185,3 +186,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-3469022750594012773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267161789949130192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1630631856d2100478640beb8443781c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 1, y: 0}
+  distance: 5
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  damageObject: {fileID: 5188143695280053146}
+  player: {fileID: 0}

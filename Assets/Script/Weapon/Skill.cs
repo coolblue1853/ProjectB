@@ -60,11 +60,21 @@ public class Skill : MonoBehaviour
     bool isActiveHoldD = false;
     GameObject damageObject;
     DamageObject dmOb;
-
+    public GameObject player;
     Sequence sequenceA;
     Sequence sequenceB;
     Sequence sequenceC;
     Sequence sequenceD;
+
+    public bool isRayCheckSkill = false; // 전방으로 나가는 기술. 벽 앞에서 멈춘다.
+    [ConditionalHide("isRayCheckSkill")]
+    public Vector2[] direction; // 이동 방향, 리스트형태임. 인터벌과 마찬가지로 전체 스킬-1개만큼 존재
+    [ConditionalHide("isRayCheckSkill")]
+    public float[] distance;    // 이동 거리
+    [ConditionalHide("isRayCheckSkill")]
+    public GameObject rayPositon;    // ray가 시작하는 위치.
+    [ConditionalHide("isRayCheckSkill")]
+    public LayerMask collisionLayer; // 충돌 체크를 위한 레이어
 
 
     private void Awake()
@@ -85,6 +95,7 @@ public class Skill : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
         rb = transform.parent.parent.GetComponent<Rigidbody2D>();
 
     }
@@ -156,8 +167,39 @@ public class Skill : MonoBehaviour
         // 첫 번째 요소는 건너뛰고 두 번째 요소부터 생성
         for (int i = 1; i < skillprefab.Length && i < skillPivot.Length; i++)
         {
-            // 스킬 프리팹을 피벗 위치에 인스턴스화
-            damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
+            if(isRayCheckSkill == false)
+            {
+                // 스킬 프리팹을 피벗 위치에 인스턴스화
+                damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
+            }
+            else // ray를 사용하는 기술. 전방으로 향하는 기술로서 pivot이 하나만 있어도 된다.
+            {
+                Vector2 newDir = new Vector2(Mathf.Abs(direction[i - 1].x), direction[i - 1].y);
+                if (player.transform.localScale.x < 0)
+                {
+                    newDir = new Vector2(-Mathf.Abs(direction[i - 1].x), direction[i - 1].y);
+                }
+                Vector2 currentPosition = new Vector2(rayPositon.transform.position.x, rayPositon.transform.position.y);
+                Vector2 destination = currentPosition + newDir.normalized * distance[i - 1];
+                RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, distance[i - 1], collisionLayer);
+
+                if (hit.collider == null)
+                {
+                    damageObject = Instantiate(skillprefab[i], new Vector2(destination.x,skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+                }
+                else
+                {
+                    // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
+                    Vector2 safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
+                    safePosition = new Vector2(safePosition.x, safePosition.y);
+                    damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+
+                }
+                damageObject.transform.parent = null;
+            }
+
+           
+            
             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
             // 다음 스킬을 생성하기 전에 interval[i]의 시간만큼 대기

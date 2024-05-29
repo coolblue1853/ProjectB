@@ -11,6 +11,7 @@ public class DamageObject : MonoBehaviour
     public float ShakeTime;
     public  bool isSkill = false;
     public bool isDestroyByTime = true;
+    [ConditionalHide("isDestroyByTime")]
     public float holdingTime = 0;
     public int hitCount = 1 ; //다단히트수.
     public int[] damageArr;
@@ -22,29 +23,41 @@ public class DamageObject : MonoBehaviour
     public GameObject player;
     // Start is called before the first frame update
     public bool isLaunch;
+    [ConditionalHide("isLaunch")]
     public float launchForce = 0;
+    [ConditionalHide("isLaunch")]
     public Vector2 launchDir;
 
     public bool isDeletByGround = false;
 
     public bool isTrackingEnemy = false;
+    [ConditionalHide("isTrackingEnemy")]
     public float desiredSpeed;
     private Sequence sequence; // 시퀀스를 저장하기 위한 변수 추가
     Rigidbody2D rigidbody2D;
+    [ConditionalHide("isTrackingEnemy")]
     public Vector2 boxSize; // 확인할 직사각형 영역의 크기
+    [ConditionalHide("isTrackingEnemy")]
     public float trackingPivot = 0f;
 
     // 여기부터는 스킬 사용시 버프/디버프 관련 스크립트.
     public bool isHoldingBuffObject = false;
+    [ConditionalHide("isHoldingBuffObject")]
     public string holdingBuffEffect;
+    [ConditionalHide("isHoldingBuffObject")]
     public int holdingBuffPower;
+
     public bool addSuperArmor =false;
 
     public bool isDashAttack = false;
+    [ConditionalHide("isDashAttack")]
     public float dashSpeed = 10;
+    [ConditionalHide("isDashAttack")]
     public bool isDashInvins = false;
+    [ConditionalHide("isDashAttack")]
     public bool isBackDash = false;
     BoxCollider2D boxCol;
+    [ConditionalHide("isHoldingBuffObject")]
     public GameObject buffObject;
     private void Update()
     {
