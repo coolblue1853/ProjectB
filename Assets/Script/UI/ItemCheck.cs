@@ -25,6 +25,9 @@ public class ItemCheck : MonoBehaviour
 
     public string itemNameT;
     public string tfName;
+    public int tear;
+    public string rarity;
+    public int upgrade;
     ItemData item;
 
     public bool isCraftItem = false;
@@ -52,6 +55,9 @@ public class ItemCheck : MonoBehaviour
         itemNameT = item.itemNameT;
         nowStack = 1;
         tfName = item.tfName;
+        tear = item.tear;
+        rarity = item.rarity;
+        upgrade = item.upgrade;
         if (stackText != null)
         stackText.text = nowStack.ToString();
         if(type == "Consum")

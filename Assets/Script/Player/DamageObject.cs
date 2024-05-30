@@ -59,6 +59,14 @@ public class DamageObject : MonoBehaviour
     BoxCollider2D boxCol;
     [ConditionalHide("isHoldingBuffObject")]
     public GameObject buffObject;
+
+    public bool isHealSkill = false;
+    [ConditionalHide("isHealSkill")]
+    public float waitNextHeal = 0;
+    [ConditionalHide("isHealSkill")]
+    public int healPower = 0;
+    [ConditionalHide("isHealSkill")]
+    public int healCount = 0;
     private void Update()
     {
 
@@ -133,7 +141,13 @@ public class DamageObject : MonoBehaviour
 
     void Start()
     {
-        if(buffObject != null)
+
+        if (isHealSkill == true)
+        {
+            holdingTime = healCount * waitNextHeal;
+            ResetHealGround();
+        }
+        if (buffObject != null)
         {
             AttackManager att = player.GetComponent<AttackManager>();
             GameObject buff = Instantiate(buffObject, Vector2.zero, Quaternion.identity, att.BuffSlot.transform);
@@ -143,6 +157,7 @@ public class DamageObject : MonoBehaviour
         {
             ResetDamagedEnemies();
         }
+
         if (isDashAttack)
         {
             PlayerController.instance.SkillDash(holdingTime, dashSpeed, isDashInvins, isBackDash);
@@ -242,13 +257,26 @@ public class DamageObject : MonoBehaviour
             .AppendCallback(() => boxCol.enabled = true)
            .AppendCallback(() => ResetDamagedEnemies());
         }
+    }
+    void ResetHealGround()
+    {
+        if (this.gameObject != null && healCount != 0)
+        {
+            healCount -= 1;
+            float resetTime = waitNextHeal;
 
-
+            Sequence seq = DOTween.Sequence()
+           .AppendInterval(resetTime)
+            .AppendCallback(() => boxCol.enabled = false)
+            .AppendInterval(0.01f)
+            .AppendCallback(() => boxCol.enabled = true)
+           .AppendCallback(() => ResetHealGround());
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.tag == "Enemy" && isHealSkill == false)
         {
             // 데미지를 입힌 적의 수가 최대치를 초과하지 않은 경우에만 실행
             if (damagedEnemies.Count < maxDamagedEnemies)
@@ -279,7 +307,10 @@ public class DamageObject : MonoBehaviour
                 }
             }
         }
-
+        if (collision.tag == "Player" && isHealSkill == true)
+        {
+           PlayerHealthManager.Instance.HpUp(healPower);
+        }
 
         else if (collision.tag == "Ground")
         {

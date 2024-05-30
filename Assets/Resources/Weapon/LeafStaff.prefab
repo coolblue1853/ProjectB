@@ -61,6 +61,7 @@ MonoBehaviour:
   holdingTime: 0
   isCancleAttack: 0
   player: {fileID: 0}
+  isNullParent: 0
   isRayCheckSkill: 0
   direction: []
   distance: []
@@ -136,6 +137,7 @@ MonoBehaviour:
   holdingTime: 0
   isCancleAttack: 0
   player: {fileID: 0}
+  isNullParent: 0
   isRayCheckSkill: 1
   direction:
   - {x: 1, y: 0}
@@ -214,6 +216,7 @@ Transform:
   m_Children:
   - {fileID: 342058022}
   - {fileID: 1183539050}
+  - {fileID: 7849444336119972244}
   - {fileID: 6173382247617428609}
   - {fileID: 5146013849899753335}
   m_Father: {fileID: 0}
@@ -264,7 +267,7 @@ MonoBehaviour:
   - RightHandVashDown_OneHand
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
-  skillC: {fileID: 0}
+  skillC: {fileID: 549325797307999061}
   skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
@@ -300,6 +303,78 @@ Transform:
   m_Father: {fileID: 6173382247617428609}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1977320052155788741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7849444336119972244}
+  - component: {fileID: 549325797307999061}
+  m_Layer: 7
+  m_Name: CSkill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7849444336119972244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977320052155788741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1291193055134064077}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &549325797307999061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977320052155788741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillPivot:
+  - {fileID: 565538375676767284}
+  interval: []
+  isLeft: 1
+  isRight: 0
+  isButtonDownSkill: 1
+  SkillCoolTime: 0.1
+  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillAnim: StaffStraight
+  isWeaponStopMove: 1
+  useStemina: 1
+  attckSpeed: 1
+  rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
+  isCancleAttack: 0
+  player: {fileID: 0}
+  isNullParent: 1
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 8823588110331636517}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  skillprefab:
+  - {fileID: 8267161789949130192, guid: f06512837d1917c4e99175cf63a330f1, type: 3}
+  skillCooldown: {fileID: 0}
 --- !u!1 &2659370571445974256
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +551,7 @@ Transform:
   m_Children:
   - {fileID: 5146013849398141503}
   m_Father: {fileID: 1291193055134064077}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6126978398355020447
 GameObject:
@@ -512,7 +587,7 @@ Transform:
   - {fileID: 1350944569736526743}
   - {fileID: 6323406604569092404}
   m_Father: {fileID: 1291193055134064077}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8823588110331636517
 GameObject:

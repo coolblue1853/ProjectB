@@ -121,6 +121,9 @@ public class DatabaseManager : MonoBehaviour
                 equipArea = ItemDataList[itemNum].equipArea,
                 tfName = ItemDataList[itemNum].tfName,
                 itemNameT = ItemDataList[itemNum].itemNameT,
+                tear = ItemDataList[itemNum].tear,
+                rarity = ItemDataList[itemNum].rarity,
+                upgrade = ItemDataList[itemNum].upgrade,
             };
             return newItem;
 

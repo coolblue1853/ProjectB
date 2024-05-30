@@ -26,6 +26,9 @@ public class CraftItemCheck : MonoBehaviour
     public string tfName;
     public string itemNameT;
     public CraftingManager craftingManager;
+    public int tear;
+    public string rarity;
+    public int upgrade;
     public void OnPointerEnter()
     {
         Debug.Log(this.transform.name);
@@ -59,6 +62,9 @@ public class CraftItemCheck : MonoBehaviour
         nowStack = 0;
         tfName = item.tfName;
         itemNameT = item.itemNameT;
+        tear = item.tear;
+        rarity = item.rarity;
+        upgrade = item.upgrade;
         stackText.text = nowStack.ToString();
         if (type == "Consum")
         {

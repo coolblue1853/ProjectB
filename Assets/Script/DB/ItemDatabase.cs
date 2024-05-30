@@ -66,6 +66,15 @@ public class ItemDatabase : MonoBehaviour
                     case 12: // itemName
                         item.itemNameT = values[j].Trim();
                         break;
+                    case 13: // tear
+                        item.tear = int.Parse(values[j].Trim());
+                        break;
+                    case 14: // rarity
+                        item.rarity = values[j].Trim();
+                        break;
+                    case 15: // upgrade
+                        item.upgrade = int.Parse(values[j].Trim());
+                        break;
                         // 필요한 다른 열에 대한 처리를 추가합니다.
                 }
             }
@@ -90,6 +99,7 @@ public class ItemData
     public string equipArea;
     public string tfName;
     public string itemNameT;
-
-
+    public int tear;
+    public string rarity;
+    public int upgrade;
 }

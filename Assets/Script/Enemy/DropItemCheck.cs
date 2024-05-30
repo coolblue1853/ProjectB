@@ -24,6 +24,9 @@ public class DropItemCheck : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     ItemData item;
     public string itemNameT;
+    public int tear;
+    public string rarity;
+    public int upgrade;
     private void Start()
     {
 
@@ -42,6 +45,9 @@ public class DropItemCheck : MonoBehaviour
         nowStack = 1;
         tfName = item.tfName;
         itemNameT = item.itemNameT;
+        tear = item.tear;
+        rarity = item.rarity;
+        upgrade = item.upgrade;
         stackText.text = nowStack.ToString();
         if (type == "Consum")
         {

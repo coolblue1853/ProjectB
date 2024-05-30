@@ -65,7 +65,7 @@ public class Skill : MonoBehaviour
     Sequence sequenceB;
     Sequence sequenceC;
     Sequence sequenceD;
-
+    public bool isNullParent = false;
     public bool isRayCheckSkill = false; // 전방으로 나가는 기술. 벽 앞에서 멈춘다.
     [ConditionalHide("isRayCheckSkill")]
     public Vector2[] direction; // 이동 방향, 리스트형태임. 인터벌과 마찬가지로 전체 스킬-1개만큼 존재
@@ -219,8 +219,11 @@ public class Skill : MonoBehaviour
 
 
              damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
-
-             dmOb = damageObject.GetComponent<DamageObject>();
+            if (isNullParent == true)
+            {
+                damageObject.transform.parent = null;
+            }
+            dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
             if (skillprefab.Length > 1)
             {
@@ -263,8 +266,11 @@ public class Skill : MonoBehaviour
             PlayerHealthManager.Instance.SteminaDown(useStemina);
 
              damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
-
-             dmOb = damageObject.GetComponent<DamageObject>();
+            if (isNullParent == true)
+            {
+                damageObject.transform.parent = null;
+            }
+            dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
             if (skillprefab.Length > 1)
             {
@@ -301,7 +307,11 @@ public class Skill : MonoBehaviour
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             PlayerHealthManager.Instance.SteminaDown(useStemina);
              damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
-             dmOb = damageObject.GetComponent<DamageObject>();
+            if (isNullParent == true)
+            {
+                damageObject.transform.parent = null;
+            }
+            dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
             if (skillprefab.Length > 1)
             {
@@ -338,7 +348,11 @@ public class Skill : MonoBehaviour
             PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             PlayerHealthManager.Instance.SteminaDown(useStemina);
              damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
-             dmOb = damageObject.GetComponent<DamageObject>();
+            if (isNullParent == true)
+            {
+                damageObject.transform.parent = null;
+            }
+            dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
             if (skillprefab.Length > 1)
             {
