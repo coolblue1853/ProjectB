@@ -99,11 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmgRatio: 20
+  dmgRatio: 1.2
   ShakeTime: 0.1
   isSkill: 0
   isDestroyByTime: 1
   holdingTime: 1
+  hitCount: 1
   damageArr: 
   stiffnessTime: 2
   knockForce: 40
@@ -115,11 +116,32 @@ MonoBehaviour:
   launchForce: 80
   launchDir: {x: 1, y: 0}
   isDeletByGround: 0
+  isTrackingEnemy: 0
+  desiredSpeed: 0
+  boxSize: {x: 0, y: 0}
+  trackingPivot: 0
+  isHoldingBuffObject: 0
+  holdingBuffEffect: 
+  holdingBuffPower: 0
+  addSuperArmor: 0
+  isDashAttack: 0
+  dashSpeed: 10
+  isDashInvins: 0
+  isBackDash: 0
+  buffObject: {fileID: 0}
+  isHealSkill: 0
+  waitNextHeal: 0
+  healPower: 0
+  healCount: 0
   maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0
   damageInterval: 0
   damageCount: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyTag: Enemy
 --- !u!61 &-5085243163096890008
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmgRatio: 1
+  dmgRatio: 2
   ShakeTime: 0.15
   isSkill: 1
   isDestroyByTime: 1
@@ -129,6 +129,10 @@ MonoBehaviour:
   isDashInvins: 0
   isBackDash: 0
   buffObject: {fileID: 0}
+  isHealSkill: 0
+  waitNextHeal: 0
+  healPower: 0
+  healCount: 0
   maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0

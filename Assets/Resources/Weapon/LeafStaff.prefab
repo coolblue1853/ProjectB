@@ -61,7 +61,7 @@ MonoBehaviour:
   holdingTime: 0
   isCancleAttack: 0
   player: {fileID: 0}
-  isNullParent: 0
+  isNullParent: 1
   isRayCheckSkill: 0
   direction: []
   distance: []
@@ -69,6 +69,13 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 0
+  objectMaxCount: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 3
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  yPivot: 0
   skillprefab:
   - {fileID: 8267161789949130192, guid: 75a1cc5b4a05b6c49a38fd7f2db49584, type: 3}
   skillCooldown: {fileID: 0}
@@ -120,7 +127,11 @@ MonoBehaviour:
   - {fileID: 565538375676767284}
   - {fileID: 565538375676767284}
   - {fileID: 565538375676767284}
+  - {fileID: 565538375676767284}
+  - {fileID: 565538375676767284}
   interval:
+  - 0.3
+  - 0.3
   - 0.3
   - 0.3
   isLeft: 0
@@ -137,19 +148,33 @@ MonoBehaviour:
   holdingTime: 0
   isCancleAttack: 0
   player: {fileID: 0}
-  isNullParent: 0
+  isNullParent: 1
   isRayCheckSkill: 1
   direction:
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
   - {x: 1, y: 0}
   - {x: 1, y: 0}
   distance:
   - 2
   - 3.5
+  - 5
+  - 6
+  - 7
   rayPositon: {fileID: 8823588110331636517}
   collisionLayer:
     serializedVersion: 2
     m_Bits: 8
+  objectMaxCount: 3
+  isGorundCheckSkill: 1
+  groundCheckLength: 3
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  yPivot: 0
   skillprefab:
+  - {fileID: 8267161789949130192, guid: b26d571b465f8f749a31dcdbeb16d3da, type: 3}
+  - {fileID: 8267161789949130192, guid: b26d571b465f8f749a31dcdbeb16d3da, type: 3}
   - {fileID: 8267161789949130192, guid: b26d571b465f8f749a31dcdbeb16d3da, type: 3}
   - {fileID: 8267161789949130192, guid: b26d571b465f8f749a31dcdbeb16d3da, type: 3}
   - {fileID: 8267161789949130192, guid: b26d571b465f8f749a31dcdbeb16d3da, type: 3}
@@ -238,8 +263,8 @@ MonoBehaviour:
   maxComboCount: 2
   nowConboCount: 0
   maxComboTime: 1
-  minDmg: 5
-  maxDmg: 10
+  minDmg: 15
+  maxDmg: 20
   critPer: 0
   critDmg: 0
   incDmg: 0
@@ -328,7 +353,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977320052155788741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -348,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPivot:
-  - {fileID: 565538375676767284}
+  - {fileID: 2420472160056746311}
   interval: []
   isLeft: 1
   isRight: 0
@@ -372,9 +397,47 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 8
+  objectMaxCount: 0
+  isGorundCheckSkill: 1
+  groundCheckLength: 3
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  yPivot: 0.3
   skillprefab:
   - {fileID: 8267161789949130192, guid: f06512837d1917c4e99175cf63a330f1, type: 3}
   skillCooldown: {fileID: 0}
+--- !u!1 &2420472160056746311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7486870631517034418}
+  m_Layer: 7
+  m_Name: SkillRPicot (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7486870631517034418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420472160056746311}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.532, y: 0.223, z: 0.05680936}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6173382247617428609}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2659370571445974256
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,6 +649,7 @@ Transform:
   - {fileID: 7431735090551928109}
   - {fileID: 1350944569736526743}
   - {fileID: 6323406604569092404}
+  - {fileID: 7486870631517034418}
   m_Father: {fileID: 1291193055134064077}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

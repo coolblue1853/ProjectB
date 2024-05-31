@@ -75,8 +75,15 @@ public class Skill : MonoBehaviour
     public GameObject rayPositon;    // ray가 시작하는 위치.
     [ConditionalHide("isRayCheckSkill")]
     public LayerMask collisionLayer; // 충돌 체크를 위한 레이어
-
-
+    [ConditionalHide("isRayCheckSkill")]
+    public int objectMaxCount; // 최대 발생량이 증가하는 아이템 효과를 위함. 아무리 많아도 여기에 지정된 횟수만큼 나감.
+    public bool isGorundCheckSkill = false; // 땅에서 생성되는 기술.
+    [ConditionalHide("isGorundCheckSkill")]
+    public float groundCheckLength;
+    [ConditionalHide("isGorundCheckSkill")]
+    public LayerMask groundCollisionLayer; // 충돌 체크를 위한 레이어
+    [ConditionalHide("isGorundCheckSkill")]
+    public float yPivot; // 충돌 체크를 위한 레이어
     private void Awake()
     {
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
@@ -165,12 +172,35 @@ public class Skill : MonoBehaviour
         yield return new WaitForSeconds(interval[0]);
 
         // 첫 번째 요소는 건너뛰고 두 번째 요소부터 생성
-        for (int i = 1; i < skillprefab.Length && i < skillPivot.Length; i++)
+        for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && i < objectMaxCount; i++)
         {
             if(isRayCheckSkill == false)
             {
-                // 스킬 프리팹을 피벗 위치에 인스턴스화
-                damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
+                if(isGorundCheckSkill == false)
+                {
+                    // 스킬 프리팹을 피벗 위치에 인스턴스화
+                    damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
+                }
+                else
+                {
+                    Vector2 newDir = new Vector2(0, -1);
+                    Vector2 currentPosition = new Vector2(rayPositon.transform.position.x, rayPositon.transform.position.y);
+                    Vector2 destination = currentPosition + newDir.normalized * groundCheckLength;
+                    RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, groundCheckLength, collisionLayer);
+
+                    if (hit.collider == null) // 충돌이 없으면 소환 x 아예 사용이 안됨
+                    {
+                    }
+                    else
+                    {
+                        // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
+                        Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
+                        safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
+                        damageObject = Instantiate(skillprefab[i], new Vector2(skillPivot[i].transform.position.x, safePosition.y), skillPivot[i].transform.rotation, this.transform);
+
+                    }
+                }
+
             }
             else // ray를 사용하는 기술. 전방으로 향하는 기술로서 pivot이 하나만 있어도 된다.
             {
@@ -183,17 +213,52 @@ public class Skill : MonoBehaviour
                 Vector2 destination = currentPosition + newDir.normalized * distance[i - 1];
                 RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, distance[i - 1], collisionLayer);
 
+
                 if (hit.collider == null)
                 {
-                    damageObject = Instantiate(skillprefab[i], new Vector2(destination.x,skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+
+                    if (isGorundCheckSkill == false)
+                    {
+                        damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+                    }
+                    else
+                    {
+                        Vector2 newDir2 = new Vector2(0, -1);
+                        Vector2 currentPosition2 = new Vector2(destination.x, rayPositon.transform.position.y);
+                        Vector2 destination2 = currentPosition2 + newDir2.normalized * groundCheckLength;
+                        RaycastHit2D hit2 = Physics2D.Raycast(currentPosition2, newDir2, groundCheckLength, collisionLayer);
+                        if (hit2.collider != null) // 충돌이 없으면 소환 x 아예 사용이 안됨
+                        {                            // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
+                            Vector2 safePosition2 = hit2.point - newDir2.normalized; // 충돌 지점에서 약간 떨어진 위치
+                            safePosition2 = new Vector2(safePosition2.x, safePosition2.y + yPivot);
+                            damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, safePosition2.y), skillPivot[i].transform.rotation, this.transform);
+                        }
+                    }
+
                 }
                 else
                 {
-                    // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
-                    Vector2 safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
-                    safePosition = new Vector2(safePosition.x, safePosition.y);
-                    damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
-
+                    if (isGorundCheckSkill == false)
+                    {
+                        // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
+                        Vector2 safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
+                        safePosition = new Vector2(safePosition.x, safePosition.y);
+                        damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+                    }
+                    else
+                    {                        // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
+                        Vector2 safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
+                        safePosition = new Vector2(safePosition.x, safePosition.y);
+                        Vector2 newDir2 = new Vector2(0, -1);
+                        Vector2 currentPosition2 = new Vector2(safePosition.x, rayPositon.transform.position.y);
+                        RaycastHit2D hit2 = Physics2D.Raycast(currentPosition2, newDir2, groundCheckLength, collisionLayer);
+                        if (hit2.collider != null) // 충돌이 없으면 소환 x 아예 사용이 안됨
+                        {                            // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
+                            Vector2 safePosition2 = hit2.point - newDir2.normalized; // 충돌 지점에서 약간 떨어진 위치
+                            safePosition2 = new Vector2(safePosition2.x, safePosition2.y + yPivot);
+                            damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, safePosition2.y), skillPivot[i].transform.rotation, this.transform);
+                        }
+                    }
                 }
                 damageObject.transform.parent = null;
             }
@@ -214,43 +279,73 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownA == false && PlayerHealthManager.Instance.nowStemina > useStemina &&(weapon.isAttackWait|| isCancleAttack))
         {
-            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            PlayerHealthManager.Instance.SteminaDown(useStemina);
+            bool isActive = true;
 
-
-             damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
-            if (isNullParent == true)
+            if (isGorundCheckSkill == false)
             {
-                damageObject.transform.parent = null;
-            }
-            dmOb = damageObject.GetComponent<DamageObject>();
-            dmOb.SetDamge(damgeArray);
-            if (skillprefab.Length > 1)
-            {
-                StartCoroutine(SpawnSkills());
-            }
-
-            if (isHoldSkill == false)
-            {
-                skillCooldown.UseSkill();
-                CheckAttackWait();
+                damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
             }
             else
             {
-                if (isWeaponStopMove == true)
-                {
-                    DatabaseManager.weaponStopMove = true;
-                    rb.velocity = Vector2.zero;
-                }
-                isActiveHoldA = true;
-                sequenceA = DOTween.Sequence()
-               .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
-               .AppendCallback(() => isActiveHoldA = false)
-               .AppendCallback(() => skillCooldown.UseSkill())
-               .AppendCallback(() => CheckAttackWait())
-               .AppendCallback(() => dmOb.DestroyObject());
+                Vector2 newDir = new Vector2(0, -1);
+                Vector2 currentPosition = new Vector2(rayPositon.transform.position.x, rayPositon.transform.position.y);
+                Vector2 destination = currentPosition + newDir.normalized * groundCheckLength;
+                RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, groundCheckLength, collisionLayer);
 
+                if (hit.collider == null) // 충돌이 없으면 소환 x 아예 사용이 안됨
+                {
+                    isActive = false;
+                }
+                else
+                {
+                    // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
+                    Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
+                    safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
+                    damageObject = Instantiate(skillprefab[0], new Vector2(skillPivot[0].transform.position.x, safePosition.y), skillPivot[0].transform.rotation, this.transform);
+
+                }
             }
+
+
+            if(isActive == true)
+            {
+                PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+                PlayerHealthManager.Instance.SteminaDown(useStemina);
+
+                if (isNullParent == true)
+                {
+                    damageObject.transform.parent = null;
+                }
+                dmOb = damageObject.GetComponent<DamageObject>();
+                dmOb.SetDamge(damgeArray);
+                if (skillprefab.Length > 1)
+                {
+                    StartCoroutine(SpawnSkills());
+                }
+
+                if (isHoldSkill == false)
+                {
+                    skillCooldown.UseSkill();
+                    CheckAttackWait();
+                }
+                else
+                {
+                    if (isWeaponStopMove == true)
+                    {
+                        DatabaseManager.weaponStopMove = true;
+                        rb.velocity = Vector2.zero;
+                    }
+                    isActiveHoldA = true;
+                    sequenceA = DOTween.Sequence()
+                   .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+                   .AppendCallback(() => isActiveHoldA = false)
+                   .AppendCallback(() => skillCooldown.UseSkill())
+                   .AppendCallback(() => CheckAttackWait())
+                   .AppendCallback(() => dmOb.DestroyObject());
+
+                }
+            }
+         
 
 
         }
@@ -261,42 +356,70 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownB == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
         {
+            bool isActive = true;
 
-            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            PlayerHealthManager.Instance.SteminaDown(useStemina);
-
-             damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
-            if (isNullParent == true)
+            if (isGorundCheckSkill == false)
             {
-                damageObject.transform.parent = null;
-            }
-            dmOb = damageObject.GetComponent<DamageObject>();
-            dmOb.SetDamge(damgeArray);
-            if (skillprefab.Length > 1)
-            {
-                StartCoroutine(SpawnSkills());
-            }
-            if (isHoldSkill == false)
-            {
-                skillCooldown.UseSkillB();
-                CheckAttackWait();
+                damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
             }
             else
             {
-                if (isWeaponStopMove == true)
-                {
-                    DatabaseManager.weaponStopMove = true;
-                    rb.velocity = Vector2.zero;
-                }
-                isActiveHoldB = true;
-                sequenceB = DOTween.Sequence()
-               .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
-               .AppendCallback(() => isActiveHoldB = false)
-               .AppendCallback(() => skillCooldown.UseSkillB())
-               .AppendCallback(() => CheckAttackWait())
-               .AppendCallback(() => dmOb.DestroyObject());
+                Vector2 newDir = new Vector2(0, -1);
+                Vector2 currentPosition = new Vector2(rayPositon.transform.position.x, rayPositon.transform.position.y);
+                Vector2 destination = currentPosition + newDir.normalized * groundCheckLength;
+                RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, groundCheckLength, collisionLayer);
 
+                if (hit.collider == null) // 충돌이 없으면 소환 x 아예 사용이 안됨
+                {
+                    isActive = false;
+                }
+                else
+                {
+                    // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
+                    Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
+                    safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
+                    damageObject = Instantiate(skillprefab[0], new Vector2(skillPivot[0].transform.position.x, safePosition.y), skillPivot[0].transform.rotation, this.transform);
+
+                }
             }
+
+            if (isActive == true)
+            {
+                PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+                PlayerHealthManager.Instance.SteminaDown(useStemina);
+                if (isNullParent == true)
+                {
+                    damageObject.transform.parent = null;
+                }
+                dmOb = damageObject.GetComponent<DamageObject>();
+                dmOb.SetDamge(damgeArray);
+                if (skillprefab.Length > 1)
+                {
+                    StartCoroutine(SpawnSkills());
+                }
+                if (isHoldSkill == false)
+                {
+                    skillCooldown.UseSkillB();
+                    CheckAttackWait();
+                }
+                else
+                {
+                    if (isWeaponStopMove == true)
+                    {
+                        DatabaseManager.weaponStopMove = true;
+                        rb.velocity = Vector2.zero;
+                    }
+                    isActiveHoldB = true;
+                    sequenceB = DOTween.Sequence()
+                   .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+                   .AppendCallback(() => isActiveHoldB = false)
+                   .AppendCallback(() => skillCooldown.UseSkillB())
+                   .AppendCallback(() => CheckAttackWait())
+                   .AppendCallback(() => dmOb.DestroyObject());
+
+                }
+            }
+                
         }
     }
     public void ActiveSideLeft()
@@ -304,40 +427,72 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownC == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
         {
-            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            PlayerHealthManager.Instance.SteminaDown(useStemina);
-             damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
-            if (isNullParent == true)
+            bool isActive = true;
+
+            if(isGorundCheckSkill == false)
             {
-                damageObject.transform.parent = null;
-            }
-            dmOb = damageObject.GetComponent<DamageObject>();
-            dmOb.SetDamge(damgeArray);
-            if (skillprefab.Length > 1)
-            {
-                StartCoroutine(SpawnSkills());
-            }
-            if (isHoldSkill == false)
-            {
-                skillCooldown.UseSkillC();
-                CheckAttackWait();
+                damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
             }
             else
             {
-                if (isWeaponStopMove == true)
-                {
-                    DatabaseManager.weaponStopMove = true;
-                    rb.velocity = Vector2.zero;
-                }
-                isActiveHoldC = true;
-                 sequenceC = DOTween.Sequence()
-                .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
-                .AppendCallback(() => isActiveHoldC = false)
-                .AppendCallback(() => skillCooldown.UseSkillC())
-                .AppendCallback(() => CheckAttackWait())
-                .AppendCallback(() => dmOb.DestroyObject());
+                Vector2 newDir = new Vector2(0, -1);
+                Vector2 currentPosition = new Vector2(rayPositon.transform.position.x, rayPositon.transform.position.y);
+                Vector2 destination = currentPosition + newDir.normalized * groundCheckLength;
+                RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, groundCheckLength, collisionLayer);
 
+                if (hit.collider == null) // 충돌이 없으면 소환 x 아예 사용이 안됨
+                {
+                    isActive = false;
+                }
+                else
+                {
+                    // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
+                    Vector2 safePosition = hit.point - newDir.normalized ; // 충돌 지점에서 약간 떨어진 위치
+                    safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
+                    damageObject = Instantiate(skillprefab[0], new Vector2(skillPivot[0].transform.position.x, safePosition.y), skillPivot[0].transform.rotation, this.transform);
+
+                }
             }
+
+
+            if(isActive == true)
+            {
+                PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+                PlayerHealthManager.Instance.SteminaDown(useStemina);
+                if (isNullParent == true)
+                {
+                    damageObject.transform.parent = null;
+                }
+                dmOb = damageObject.GetComponent<DamageObject>();
+                dmOb.SetDamge(damgeArray);
+                if (skillprefab.Length > 1)
+                {
+                    StartCoroutine(SpawnSkills());
+                }
+                if (isHoldSkill == false)
+                {
+                    skillCooldown.UseSkillC();
+                    CheckAttackWait();
+                }
+                else
+                {
+                    if (isWeaponStopMove == true)
+                    {
+                        DatabaseManager.weaponStopMove = true;
+                        rb.velocity = Vector2.zero;
+                    }
+                    isActiveHoldC = true;
+                    sequenceC = DOTween.Sequence()
+                   .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+                   .AppendCallback(() => isActiveHoldC = false)
+                   .AppendCallback(() => skillCooldown.UseSkillC())
+                   .AppendCallback(() => CheckAttackWait())
+                   .AppendCallback(() => dmOb.DestroyObject());
+
+                }
+            }
+
+           
         }
     }
     public void ActiveSideRight()
@@ -345,40 +500,70 @@ public class Skill : MonoBehaviour
 
         if (isButtonDownSkill && skillCooldown.isCooldownD == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
         {
-            PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            PlayerHealthManager.Instance.SteminaDown(useStemina);
-             damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
-            if (isNullParent == true)
+            bool isActive = true;
+
+            if (isGorundCheckSkill == false)
             {
-                damageObject.transform.parent = null;
-            }
-            dmOb = damageObject.GetComponent<DamageObject>();
-            dmOb.SetDamge(damgeArray);
-            if (skillprefab.Length > 1)
-            {
-                StartCoroutine(SpawnSkills());
-            }
-            if (isHoldSkill == false)
-            {
-                skillCooldown.UseSkillD();
-                CheckAttackWait();
+                damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
             }
             else
             {
-                if (isWeaponStopMove == true)
-                {
-                    DatabaseManager.weaponStopMove = true;
-                    rb.velocity = Vector2.zero;
-                }
-                isActiveHoldD = true;
-                sequenceD = DOTween.Sequence()
-               .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
-               .AppendCallback(() => isActiveHoldD = false)
-               .AppendCallback(() => skillCooldown.UseSkillD())
-               .AppendCallback(() => CheckAttackWait())
-               .AppendCallback(() => dmOb.DestroyObject());
+                Vector2 newDir = new Vector2(0, -1);
+                Vector2 currentPosition = new Vector2(rayPositon.transform.position.x, rayPositon.transform.position.y);
+                Vector2 destination = currentPosition + newDir.normalized * groundCheckLength;
+                RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, groundCheckLength, collisionLayer);
 
+                if (hit.collider == null) // 충돌이 없으면 소환 x 아예 사용이 안됨
+                {
+                    isActive = false;
+                }
+                else
+                {
+                    // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
+                    Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
+                    safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
+                    damageObject = Instantiate(skillprefab[0], new Vector2(skillPivot[0].transform.position.x, safePosition.y), skillPivot[0].transform.rotation, this.transform);
+
+                }
             }
+            if (isActive == true)
+            {
+                PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+                PlayerHealthManager.Instance.SteminaDown(useStemina);
+                if (isNullParent == true)
+                {
+                    damageObject.transform.parent = null;
+                }
+
+                dmOb = damageObject.GetComponent<DamageObject>();
+                dmOb.SetDamge(damgeArray);
+                if (skillprefab.Length > 1)
+                {
+                    StartCoroutine(SpawnSkills());
+                }
+                if (isHoldSkill == false)
+                {
+                    skillCooldown.UseSkillD();
+                    CheckAttackWait();
+                }
+                else
+                {
+                    if (isWeaponStopMove == true)
+                    {
+                        DatabaseManager.weaponStopMove = true;
+                        rb.velocity = Vector2.zero;
+                    }
+                    isActiveHoldD = true;
+                    sequenceD = DOTween.Sequence()
+                   .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+                   .AppendCallback(() => isActiveHoldD = false)
+                   .AppendCallback(() => skillCooldown.UseSkillD())
+                   .AppendCallback(() => CheckAttackWait())
+                   .AppendCallback(() => dmOb.DestroyObject());
+
+                }
+            }
+              
         }
     }
 

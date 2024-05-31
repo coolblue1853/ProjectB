@@ -77,15 +77,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 45
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d15cb839eb7c9a74f872aae0be8d0555, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 9.52, y: 8.24}
+  m_Size: {x: 8, y: 8.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &5188143695280053146
@@ -104,7 +104,7 @@ MonoBehaviour:
   ShakeTime: 0
   isSkill: 1
   isDestroyByTime: 1
-  holdingTime: 0.05
+  holdingTime: 0.3
   hitCount: 1
   damageArr: 
   stiffnessTime: 1
@@ -130,6 +130,10 @@ MonoBehaviour:
   isDashInvins: 0
   isBackDash: 0
   buffObject: {fileID: 0}
+  isHealSkill: 0
+  waitNextHeal: 0
+  healPower: 0
+  healCount: 0
   maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0
@@ -156,8 +160,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.52, y: 8.24}
-    newSize: {x: 9.52, y: 8.24}
+    oldSize: {x: 8, y: 8.24}
+    newSize: {x: 8, y: 8.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -175,7 +179,7 @@ Animator:
   m_GameObject: {fileID: 8267161789949130192}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 05389c0123d90a14991c8b486631fe5d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -203,5 +207,4 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 8
-  damageObject: {fileID: 5188143695280053146}
   player: {fileID: 0}
