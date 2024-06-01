@@ -235,6 +235,7 @@ MonoBehaviour:
   attckSpeed:
   - 0.7
   isAttackWait: 0
+  isSkillAttackWait: 1
   isWeaponStopMove: 0
   time: 0
   isOverHand: 1

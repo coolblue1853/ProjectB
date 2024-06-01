@@ -14,6 +14,8 @@ public class PlayerBuff : MonoBehaviour
             DatabaseManager.attackSpeedBuff += buffPower;
         if (buffType == "Speed")
             DatabaseManager.SpeedBuff += buffPower;
+        if(buffType == "HitCount")
+            DatabaseManager.hitCount += buffPower;
 
         Invoke("DestoryBuff", buffTime);
     }
@@ -24,6 +26,8 @@ public class PlayerBuff : MonoBehaviour
             DatabaseManager.attackSpeedBuff -= buffPower;
         if (buffType == "Speed")
             DatabaseManager.SpeedBuff -= buffPower;
+        if (buffType == "HitCount")
+            DatabaseManager.hitCount -= buffPower;
 
         Destroy(this.gameObject);
 

@@ -192,6 +192,10 @@ public class Skill : MonoBehaviour
                 {
                     // 스킬 프리팹을 피벗 위치에 인스턴스화
                     damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
+                    if (isNullParent == true)
+                    {
+                        damageObject.transform.parent = null;
+                    }
                 }
                 else
                 {
@@ -209,6 +213,10 @@ public class Skill : MonoBehaviour
                         Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
                         safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
                         damageObject = Instantiate(skillprefab[i], new Vector2(skillPivot[i].transform.position.x, safePosition.y), skillPivot[i].transform.rotation, this.transform);
+                        if (isNullParent == true)
+                        {
+                            damageObject.transform.parent = null;
+                        }
 
                     }
                 }
@@ -232,6 +240,10 @@ public class Skill : MonoBehaviour
                     if (isGorundCheckSkill == false)
                     {
                         damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+                        if (isNullParent == true)
+                        {
+                            damageObject.transform.parent = null;
+                        }
                     }
                     else
                     {
@@ -256,6 +268,10 @@ public class Skill : MonoBehaviour
                         Vector2 safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
                         safePosition = new Vector2(safePosition.x, safePosition.y);
                         damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+                        if (isNullParent == true)
+                        {
+                            damageObject.transform.parent = null;
+                        }
                     }
                     else
                     {                        // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
@@ -269,10 +285,14 @@ public class Skill : MonoBehaviour
                             Vector2 safePosition2 = hit2.point - newDir2.normalized; // 충돌 지점에서 약간 떨어진 위치
                             safePosition2 = new Vector2(safePosition2.x, safePosition2.y + yPivot);
                             damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, safePosition2.y), skillPivot[i].transform.rotation, this.transform);
+                            if (isNullParent == true)
+                            {
+                                damageObject.transform.parent = null;
+                            }
                         }
                     }
                 }
-                damageObject.transform.parent = null;
+          
             }
 
            

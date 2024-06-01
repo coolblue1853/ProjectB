@@ -59,7 +59,6 @@ public class DamageObject : MonoBehaviour
     [ConditionalHide("isDashAttack")]
     public bool isBackDash = false;
     BoxCollider2D boxCol;
-    [ConditionalHide("isHoldingBuffObject")]
     public GameObject buffObject;
 
     public bool isHealSkill = false;
@@ -156,7 +155,7 @@ public class DamageObject : MonoBehaviour
             GameObject buff = Instantiate(buffObject, Vector2.zero, Quaternion.identity, att.BuffSlot.transform);
         }
         boxCol = this.GetComponent<BoxCollider2D>();
-        if (hitCount != 1)
+        if ((hitCount+DatabaseManager.hitCount) != 1)
         {
             ResetDamagedEnemies();
         }
@@ -261,7 +260,7 @@ public class DamageObject : MonoBehaviour
         if(this.gameObject != null)
         {
 
-            float resetTime = holdingTime / hitCount + 0.02f;
+            float resetTime = holdingTime / (hitCount+DatabaseManager.hitCount) + 0.01f;
 
             Sequence seq = DOTween.Sequence()
            .AppendInterval(resetTime)
