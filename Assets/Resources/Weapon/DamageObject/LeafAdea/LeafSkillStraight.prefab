@@ -116,6 +116,7 @@ MonoBehaviour:
   isLaunch: 1
   launchForce: 50
   launchDir: {x: 1, y: 0}
+  isRoundLunch: 1
   isDeletByGround: 0
   isTrackingEnemy: 0
   desiredSpeed: 0
@@ -130,6 +131,10 @@ MonoBehaviour:
   isDashInvins: 0
   isBackDash: 0
   buffObject: {fileID: 0}
+  isHealSkill: 0
+  waitNextHeal: 0
+  healPower: 0
+  healCount: 0
   maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0

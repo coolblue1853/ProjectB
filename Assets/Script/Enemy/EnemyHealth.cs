@@ -98,6 +98,7 @@ public class EnemyHealth : MonoBehaviour
     DG.Tweening.Sequence striffSequence;
 
     public float stiffShakeTime = 0;
+    bool deadOnec = false;
     public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking, float dmgRatio)
     {
 
@@ -152,8 +153,9 @@ public class EnemyHealth : MonoBehaviour
         }
 
 
-        if (nowHP <= 0)
+        if (nowHP <= 0 && deadOnec == false)
         {
+            deadOnec = true;
             GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
             DeadBody dBB = dB.transform.GetComponent<DeadBody>();
             dBB.parentEnemy = this.transform.gameObject;

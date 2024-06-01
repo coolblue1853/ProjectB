@@ -27,6 +27,8 @@ public class DamageObject : MonoBehaviour
     public float launchForce = 0;
     [ConditionalHide("isLaunch")]
     public Vector2 launchDir;
+    [ConditionalHide("isLaunch")]
+    public bool isRoundLunch;
 
     public bool isDeletByGround = false;
 
@@ -83,6 +85,7 @@ public class DamageObject : MonoBehaviour
                 rigidbody2D.velocity = newVelocity;
             }
         }
+
     }
     private void OnDrawGizmos()
     {
@@ -209,12 +212,23 @@ public class DamageObject : MonoBehaviour
         else if (isLaunch)
         {
             transform.parent = null;
-            if (player.transform.position.x > transform.position.x)
+
+            if(isRoundLunch == false)
             {
-                launchDir.x = -launchDir.x;
+                if (player.transform.position.x > transform.position.x)
+                {
+                    launchDir.x = -launchDir.x;
+                }
+                Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
+                rigidbody2D.AddForce(launchDir * launchForce, ForceMode2D.Impulse);
             }
-            Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-            rigidbody2D.AddForce(launchDir * launchForce, ForceMode2D.Impulse);
+            else
+            {
+                Vector2 launchDir = transform.up;
+                Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
+                rigidbody2D.AddForce(launchDir * launchForce, ForceMode2D.Impulse);
+            }
+
         }
 
     }

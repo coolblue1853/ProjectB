@@ -1348,6 +1348,8 @@ public class InventoryManager : MonoBehaviour
             CreatItem("RustedSwordandShield");
             CreatItem("Leather Knuckles");
              CreatItem("Wood Spear");
+            CreatItem("LeafStaff");
+            CreatItem("LeafAdae");
             //  CreatItem("ScareSide");
             //CreatItem("ScareStaff");
             //CreatItem("SacreGreatSword");

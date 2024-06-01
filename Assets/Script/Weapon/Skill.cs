@@ -53,7 +53,7 @@ public class Skill : MonoBehaviour
     public bool isHoldSkill = false;
     public float holdingTime = 0;
     public bool isCancleAttack = false;
-
+    public int objectMaxCount; // 최대 발생량이 증가하는 아이템 효과를 위함. 아무리 많아도 여기에 지정된 횟수만큼 나감.
     bool isActiveHoldA = false;
     bool isActiveHoldB = false;
     bool isActiveHoldC = false;
@@ -75,8 +75,8 @@ public class Skill : MonoBehaviour
     public GameObject rayPositon;    // ray가 시작하는 위치.
     [ConditionalHide("isRayCheckSkill")]
     public LayerMask collisionLayer; // 충돌 체크를 위한 레이어
-    [ConditionalHide("isRayCheckSkill")]
-    public int objectMaxCount; // 최대 발생량이 증가하는 아이템 효과를 위함. 아무리 많아도 여기에 지정된 횟수만큼 나감.
+
+
     public bool isGorundCheckSkill = false; // 땅에서 생성되는 기술.
     [ConditionalHide("isGorundCheckSkill")]
     public float groundCheckLength;
@@ -84,6 +84,19 @@ public class Skill : MonoBehaviour
     public LayerMask groundCollisionLayer; // 충돌 체크를 위한 레이어
     [ConditionalHide("isGorundCheckSkill")]
     public float yPivot; // 충돌 체크를 위한 레이어
+
+
+    public bool isRoundAttack; // 원형의공격, 특정 각도내에 전채로 뿌리는 공격형식
+    [ConditionalHide("isRoundAttack")]
+     public float radius = 5f;       // 원의 반지름
+    [ConditionalHide("isRoundAttack")]
+    public float startAngle = 0f;   // 시작 각도
+    [ConditionalHide("isRoundAttack")]
+    public float endAngle = 360f;   // 끝 각도
+    [ConditionalHide("isRoundAttack")]
+    public int bulletCount = 30;    // 생성할 탄막 개수
+
+
     private void Awake()
     {
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
@@ -170,7 +183,6 @@ public class Skill : MonoBehaviour
     {
         // interval[0]의 시간만큼 대기
         yield return new WaitForSeconds(interval[0]);
-
         // 첫 번째 요소는 건너뛰고 두 번째 요소부터 생성
         for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && i < objectMaxCount; i++)
         {
@@ -274,14 +286,56 @@ public class Skill : MonoBehaviour
             }
         }
     }
+
+    public void RoundAttack(GameObject damageOb, GameObject attackPivot)
+    {
+        float angleStep = (endAngle - startAngle) / (bulletCount - 1); // 탄막 간격 계산
+
+        for (int i = 0; i < bulletCount; i++)
+        {
+            float angle = startAngle + i * angleStep; // 현재 탄막의 각도 계산
+
+            // 적 오브젝트의 방향에 따라 탄막의 각도를 조정합니다.
+            if (player.transform.localScale.x < 0)
+            {
+                angle = 180f - angle;
+            }
+
+            // 각도를 라디안으로 변환합니다.
+            float angleInRadians = angle * Mathf.Deg2Rad;
+
+            // 탄막의 위치 계산
+            float x = radius * Mathf.Cos(angleInRadians);
+            float y = radius * Mathf.Sin(angleInRadians);
+
+            // 탄막 생성
+            GameObject bullet = GameObject.Instantiate(damageOb, attackPivot.transform.position + new Vector3(x, y, 0f), Quaternion.identity, this.transform);
+            if (bullet != null)
+            {
+                if (isNullParent == true)
+                {
+                    bullet.transform.parent = null;
+                }
+                dmOb = bullet.GetComponent<DamageObject>();
+                dmOb.SetDamge(damgeArray);
+
+                // 탄막 방향 설정
+                bullet.transform.up = new Vector2(x, y).normalized;
+            }
+        }
+    }
+
     public void ActiveLeft()
     {
-
         if (isButtonDownSkill && skillCooldown.isCooldownA == false && PlayerHealthManager.Instance.nowStemina > useStemina &&(weapon.isAttackWait|| isCancleAttack))
         {
             bool isActive = true;
 
-            if (isGorundCheckSkill == false)
+            if(isRoundAttack == true)
+            {
+                RoundAttack(skillprefab[0], skillPivot[0]);
+            }
+            else if (isGorundCheckSkill == false)
             {
                 damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
             }
@@ -312,12 +366,16 @@ public class Skill : MonoBehaviour
                 PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
                 PlayerHealthManager.Instance.SteminaDown(useStemina);
 
-                if (isNullParent == true)
+                if(damageObject != null)
                 {
-                    damageObject.transform.parent = null;
+                    if (isNullParent == true)
+                    {
+                        damageObject.transform.parent = null;
+                    }
+                    dmOb = damageObject.GetComponent<DamageObject>();
+                    dmOb.SetDamge(damgeArray);
                 }
-                dmOb = damageObject.GetComponent<DamageObject>();
-                dmOb.SetDamge(damgeArray);
+
                 if (skillprefab.Length > 1)
                 {
                     StartCoroutine(SpawnSkills());

@@ -46,10 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPivot:
   - {fileID: 4377538758266461313}
-  - {fileID: 2656040342903920571}
-  - {fileID: 7175687530117558795}
   interval:
-  - 0
   - 0
   isLeft: 1
   isRight: 0
@@ -64,7 +61,9 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 0
+  objectMaxCount: 1
   player: {fileID: 0}
+  isNullParent: 0
   isRayCheckSkill: 0
   direction: []
   distance: []
@@ -72,10 +71,19 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 1
+  radius: 0.5
+  startAngle: -30
+  endAngle: 30
+  bulletCount: 4
   skillprefab:
-  - {fileID: 4960005499486500231, guid: 5886dda8a26a85347b881c750f4cd8a7, type: 3}
   - {fileID: 4960005499486500231, guid: 83a73eeaff521794db0d6bc3f0f92eef, type: 3}
-  - {fileID: 4960005499486500231, guid: 3df1e1a9b644b4d4992275a575519679, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1183539049
 GameObject:
@@ -137,7 +145,9 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 0
+  objectMaxCount: 0
   player: {fileID: 0}
+  isNullParent: 0
   isRayCheckSkill: 0
   direction: []
   distance: []
@@ -145,6 +155,17 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
   skillprefab:
   - {fileID: 8267161789949130192, guid: 284781346bc2e3543810fc1434071cbe, type: 3}
   skillCooldown: {fileID: 0}
@@ -561,7 +582,9 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 0
+  objectMaxCount: 0
   player: {fileID: 0}
+  isNullParent: 0
   isRayCheckSkill: 0
   direction: []
   distance: []
@@ -569,6 +592,17 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
   skillprefab:
   - {fileID: 8267161789949130192, guid: bd72bc2375851e948918f59823c1505b, type: 3}
   skillCooldown: {fileID: 0}
