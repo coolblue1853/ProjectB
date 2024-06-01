@@ -256,6 +256,10 @@ public class Skill : MonoBehaviour
                             Vector2 safePosition2 = hit2.point - newDir2.normalized; // 충돌 지점에서 약간 떨어진 위치
                             safePosition2 = new Vector2(safePosition2.x, safePosition2.y + yPivot);
                             damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, safePosition2.y), skillPivot[i].transform.rotation, this.transform);
+                            if (isNullParent == true)
+                            {
+                                damageObject.transform.parent = null;
+                            }
                         }
                     }
 

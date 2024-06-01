@@ -1,9 +1,10 @@
 using BehaviorDesigner.Runtime.Tasks;
+using BehaviorDesigner.Runtime;
 using DG.Tweening;
 using UnityEngine;
 public class EnemyRoundAttackNode : EnemyAction
 {
-
+    BehaviorTree bt;
 
     public float radius = 5f;       // 원의 반지름
     public float startAngle = 0f;   // 시작 각도
@@ -15,11 +16,17 @@ public class EnemyRoundAttackNode : EnemyAction
     public bool isSummonPlayerPosX = false;
     public override void OnStart()
     {
+
+        bt = this.transform.GetComponent<BehaviorTree>();
         isEnd = false;
         StartPatrol();
     }
     public override TaskStatus OnUpdate()
     {
+        if(bt.sequence.active == false)
+        {
+            isEnd = true;
+        }
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
     public void StartPatrol()
@@ -30,7 +37,7 @@ public class EnemyRoundAttackNode : EnemyAction
 
         }
         FaceChange();
-        sequence = DOTween.Sequence()
+        bt.sequence = DOTween.Sequence()
        .AppendCallback(() => CreatDamageOb())
        //  .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
        .OnComplete(() => OnSequenceComplete());

@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDestroyByTime: 1
   holdingTime: 0.75
-  damage: 10
+  damage: 50
   stiffnessTime: 0.5
   knockForce: 30
   knockbackDir: {x: 1, y: 1}
@@ -148,7 +148,7 @@ MonoBehaviour:
   damageInterval: 0
   damageCount: 0
   isApcAttack: 0
-  maxDamagedEnemies: 1
+  maxDamagedEnemies: 10
   damageArr: 
   dmgRatio: 1
   ShakeTime: 0

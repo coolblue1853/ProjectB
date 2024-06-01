@@ -1335,15 +1335,19 @@ public class InventoryManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.F3))
-        {            CreatItem("DoubleDagger");
-                     //CreatItem("Wood Spear");
-                     // CreatItem("Leather Knuckles");
-                     //CreatItem("PickAxe");
-                     //
+        {
+
+            CreatItem("RatCheifDagger");
+            //CreatItem("PoisonSword");
+            //CreatItem("Wood Spear");
+            // CreatItem("Leather Knuckles");
+            //CreatItem("PickAxe");
+            //
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
+            CreatItem("DoubleDagger");
             CreatItem("RustedSword");
             CreatItem("RustedSwordandShield");
             CreatItem("Leather Knuckles");

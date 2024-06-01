@@ -215,9 +215,10 @@ public class EnemyHealth : MonoBehaviour
         nowHP -= damage;
         hpBar.healthSystem.Damage(damage);
 
-        if (nowHP <= 0)
+        if (nowHP <= 0 && deadOnec == false)
         {
-            GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
+            deadOnec = true;
+               GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
             DeadBody dBB = dB.transform.GetComponent<DeadBody>();
             dBB.parentEnemy = this.transform.gameObject;
             dBB.Force2DeadBody(Mathf.Abs(nowHP));

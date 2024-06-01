@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DamageNumbersPro;
 public class PosionAttack : MonoBehaviour
 {
+    public DamageNumber damageNumber;
     int damage = 0;
     float Interval;
     int count;
@@ -25,6 +26,7 @@ public class PosionAttack : MonoBehaviour
         else
         {
             enemyHealth.onlyDamage2Enemy(damage);
+            damageNumber.Spawn(transform.position + Vector3.up, (int)damage);
             count -= 1;
         }
 
@@ -41,6 +43,7 @@ public class PosionAttack : MonoBehaviour
         else
         {
             enemyHealth.onlyDamage2Enemy(damage);
+            damageNumber.Spawn(transform.position + Vector3.up, (int)damage);
             count -= 1;
         }
 
