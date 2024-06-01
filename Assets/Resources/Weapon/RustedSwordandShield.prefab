@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPivot:
   - {fileID: 1291193055778619313}
+  interval: []
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
@@ -58,6 +59,28 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  isCancleAttack: 0
+  objectMaxCount: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
   skillprefab:
   - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
   skillCooldown: {fileID: 0}
@@ -107,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPivot:
   - {fileID: 6670995367221187479}
+  interval: []
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
@@ -119,6 +143,28 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 1
+  isCancleAttack: 0
+  objectMaxCount: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
   skillprefab:
   - {fileID: 8267161789949130192, guid: 33fcee089b6c6ee438bdb4443fe91ab9, type: 3}
   skillCooldown: {fileID: 0}
@@ -191,6 +237,7 @@ MonoBehaviour:
   - 0.7
   - 1
   isAttackWait: 0
+  isSkillAttackWait: 1
   isWeaponStopMove: 1
   time: 0
   isOverHand: 0
@@ -212,7 +259,7 @@ MonoBehaviour:
   skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 8341864255033881453}
   RightWeqponSprite: {fileID: 5146013849899753334}
-  isSkillCancel: 1
+  isSkillCancel: 0
 --- !u!1 &1291193055778619313
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPivot:
   - {fileID: 5311263774919619352}
+  interval: []
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
@@ -448,6 +496,28 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 1
   holdingTime: 1
+  isCancleAttack: 0
+  objectMaxCount: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
   skillprefab:
   - {fileID: 8267161789949130192, guid: 72505f3ec0e05be4a8c0ac87f79915c1, type: 3}
   skillCooldown: {fileID: 0}

@@ -60,6 +60,27 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 1
+  objectMaxCount: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
   skillprefab:
   - {fileID: 8267161789949130192, guid: af344fb2d2316eb4a9c0cd652af1395b, type: 3}
   skillCooldown: {fileID: 0}
@@ -123,6 +144,27 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 1
+  objectMaxCount: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
   skillprefab:
   - {fileID: 8267161789949130192, guid: fbbca9f5cdb738542a5b298006ae13e5, type: 3}
   skillCooldown: {fileID: 0}
@@ -256,6 +298,7 @@ MonoBehaviour:
   - 0.35
   - 0.35
   isAttackWait: 0
+  isSkillAttackWait: 1
   isWeaponStopMove: 1
   time: 0
   isOverHand: 1
@@ -473,7 +516,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 1
   skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
-  skillAnim: UpperCut
+  skillAnim: upperCut
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.4
@@ -481,6 +524,27 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 1
+  objectMaxCount: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
   skillprefab:
   - {fileID: 4147001287451143251, guid: 64701844cb18e9f48a015b26d0dc35c0, type: 3}
   skillCooldown: {fileID: 0}

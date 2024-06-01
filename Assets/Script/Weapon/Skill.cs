@@ -128,20 +128,20 @@ public class Skill : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
         DatabaseManager.checkAttackLadder = true;
-        weapon.isAttackWait = false;
+        weapon.isSkillAttackWait = false;
         if (isHoldSkill == false)
         {
             Sequence sequence = DOTween.Sequence()
 .AppendInterval(attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100))) // 사전에 지정한 공격 주기만큼 대기.
 .AppendCallback(() => DatabaseManager.weaponStopMove = false)
 .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
-.AppendCallback(() => weapon.isAttackWait = true);
+.AppendCallback(() => weapon.isSkillAttackWait = true);
         }
         else
         {
             DatabaseManager.weaponStopMove = false;
             DatabaseManager.checkAttackLadder = false;
-            weapon.isAttackWait = true;
+            weapon.isSkillAttackWait = true;
         }
 
     }
@@ -327,7 +327,7 @@ public class Skill : MonoBehaviour
 
     public void ActiveLeft()
     {
-        if (isButtonDownSkill && skillCooldown.isCooldownA == false && PlayerHealthManager.Instance.nowStemina > useStemina &&(weapon.isAttackWait|| isCancleAttack))
+        if (isButtonDownSkill && skillCooldown.isCooldownA == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
             bool isActive = true;
 
@@ -412,7 +412,7 @@ public class Skill : MonoBehaviour
     public void ActiveRight()
     {
 
-        if (isButtonDownSkill && skillCooldown.isCooldownB == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
+        if (isButtonDownSkill && skillCooldown.isCooldownB == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
             bool isActive = true;
 
@@ -483,7 +483,7 @@ public class Skill : MonoBehaviour
     public void ActiveSideLeft()
     {
 
-        if (isButtonDownSkill && skillCooldown.isCooldownC == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
+        if (isButtonDownSkill && skillCooldown.isCooldownC == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
             bool isActive = true;
 
@@ -556,7 +556,7 @@ public class Skill : MonoBehaviour
     public void ActiveSideRight()
     {
 
-        if (isButtonDownSkill && skillCooldown.isCooldownD == false && PlayerHealthManager.Instance.nowStemina > useStemina && (weapon.isAttackWait || isCancleAttack))
+        if (isButtonDownSkill && skillCooldown.isCooldownD == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
             bool isActive = true;
 

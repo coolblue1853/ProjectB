@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPivot:
   - {fileID: 6472664383328753381}
+  interval: []
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
@@ -58,6 +59,28 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  isCancleAttack: 0
+  objectMaxCount: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
   skillprefab:
   - {fileID: 8267161789949130192, guid: 0b921379846ec4c439e259f7b15eceab, type: 3}
   skillCooldown: {fileID: 0}
@@ -107,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPivot:
   - {fileID: 1291193055778619313}
+  interval: []
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
@@ -119,6 +143,28 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  isCancleAttack: 0
+  objectMaxCount: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
   skillprefab:
   - {fileID: 9102525924616103397, guid: 5b1f1d735aab637408520bff8bbaad4b, type: 3}
   skillCooldown: {fileID: 0}
@@ -189,6 +235,7 @@ MonoBehaviour:
   - 0.5
   - 0.7
   isAttackWait: 0
+  isSkillAttackWait: 1
   isWeaponStopMove: 1
   time: 0
   isOverHand: 0
@@ -210,7 +257,7 @@ MonoBehaviour:
   skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
-  isSkillCancel: 1
+  isSkillCancel: 0
 --- !u!1 &1291193055778619313
 GameObject:
   m_ObjectHideFlags: 0
