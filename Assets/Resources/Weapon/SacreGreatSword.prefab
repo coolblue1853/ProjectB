@@ -243,6 +243,8 @@ MonoBehaviour:
   - {fileID: 8267161789949130192, guid: 289ed1c71ae94a145990ab1dcb06f995, type: 3}
   attackPivot:
   - {fileID: 4185027361106519671}
+  delayTime:
+  - 0.5
   attackAnimName:
   - GreatVashDown
   skillA: {fileID: 0}

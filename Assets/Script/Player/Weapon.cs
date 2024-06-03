@@ -146,8 +146,9 @@ public class Weapon : MonoBehaviour
         if (nowConboCount == 0 && (isAttackWait == true && (isSkillAttackWait || isSkillCancel)))//|| isSkillCancel == true)
         {
             nowConboCount++;
+            pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             //프리팹 소환
-            if(delayTime.Length > 0)
+            if (delayTime.Length > 0)
             {
                 Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1]);
             }
@@ -163,13 +164,29 @@ public class Weapon : MonoBehaviour
             if (nowConboCount < maxComboCount && time <= maxComboTime && (isAttackWait == true && (isSkillAttackWait || isSkillCancel)))//|| isSkillCancel == true
             {
                 nowConboCount++;
-                CreatAttackPrefab();
+                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+                if (delayTime.Length > 0)
+                {
+                    Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1]);
+                }
+                else
+                {
+                    CreatAttackPrefab();
+                }
                 CheckAttackWait();
             }
             else if (nowConboCount >= maxComboCount && time <= maxComboTime && (isAttackWait == true && (isSkillAttackWait || isSkillCancel))) // 콤보수 초기화 및 다시 카운트 1로 내려옴. || isSkillCancel == true
             {
                 nowConboCount = 1;
-                CreatAttackPrefab();
+                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+                if (delayTime.Length > 0)
+                {
+                    Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1]);
+                }
+                else
+                {
+                    CreatAttackPrefab();
+                }
                 CheckAttackWait();
             }
         }
@@ -179,7 +196,6 @@ public class Weapon : MonoBehaviour
     public void CreatAttackPrefab()
     {
         GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
-        pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         DamageObject dmOb = damageObject.GetComponent<DamageObject>();
         dmOb.SetDamge(damgeArray);
     }
