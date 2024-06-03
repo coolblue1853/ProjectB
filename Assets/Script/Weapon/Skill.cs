@@ -53,6 +53,8 @@ public class Skill : MonoBehaviour
     public bool isHoldSkill = false;
     public float holdingTime = 0;
     public bool isCancleAttack = false;
+    public bool isEffectMaxAdd; // 최대 발생량 증가가 영향을 끼치는 아이템인지 확인
+    [ConditionalHide("isEffectMaxAdd")]
     public int objectMaxCount; // 최대 발생량이 증가하는 아이템 효과를 위함. 아무리 많아도 여기에 지정된 횟수만큼 나감.
     bool isActiveHoldA = false;
     bool isActiveHoldB = false;
@@ -184,7 +186,7 @@ public class Skill : MonoBehaviour
         // interval[0]의 시간만큼 대기
         yield return new WaitForSeconds(interval[0]);
         // 첫 번째 요소는 건너뛰고 두 번째 요소부터 생성
-        for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && i < objectMaxCount; i++)
+        for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && (isEffectMaxAdd == false || i < objectMaxCount); i++)
         {
             if(isRayCheckSkill == false)
             {

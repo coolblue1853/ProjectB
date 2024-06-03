@@ -1336,8 +1336,8 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
+           CreatItem("SacreGreatSword");
 
-            CreatItem("RatCheifDagger");
             //CreatItem("PoisonSword");
             //CreatItem("Wood Spear");
             // CreatItem("Leather Knuckles");
@@ -1347,6 +1347,7 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
+            CreatItem("RatCheifDagger");
             CreatItem("DoubleDagger");
             CreatItem("RustedSword");
             CreatItem("RustedSwordandShield");

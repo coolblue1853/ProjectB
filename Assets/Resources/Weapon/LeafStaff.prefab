@@ -60,6 +60,7 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 0
+  isEffectMaxAdd: 0
   objectMaxCount: 0
   player: {fileID: 0}
   isNullParent: 1
@@ -152,6 +153,7 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 0
+  isEffectMaxAdd: 1
   objectMaxCount: 3
   player: {fileID: 0}
   isNullParent: 1
@@ -399,6 +401,7 @@ MonoBehaviour:
   isHoldSkill: 0
   holdingTime: 0
   isCancleAttack: 0
+  isEffectMaxAdd: 0
   objectMaxCount: 0
   player: {fileID: 0}
   isNullParent: 1

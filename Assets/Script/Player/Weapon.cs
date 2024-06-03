@@ -35,6 +35,7 @@ public class Weapon : MonoBehaviour
 
     public GameObject[] attackPrefab;
     public GameObject[] attackPivot;
+    public float[] delayTime;
     public string[] attackAnimName;
 
     public Skill skillA;
@@ -146,10 +147,15 @@ public class Weapon : MonoBehaviour
         {
             nowConboCount++;
             //프리팹 소환
-            GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation,this.transform);
-            pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1]  / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            DamageObject dmOb = damageObject.GetComponent<DamageObject>();
-            dmOb.SetDamge(damgeArray);
+            if(delayTime.Length > 0)
+            {
+                Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1]);
+            }
+            else
+            {
+                CreatAttackPrefab();
+            }
+
             CheckAttackWait();
         }
         else
@@ -157,23 +163,25 @@ public class Weapon : MonoBehaviour
             if (nowConboCount < maxComboCount && time <= maxComboTime && (isAttackWait == true && (isSkillAttackWait || isSkillCancel)))//|| isSkillCancel == true
             {
                 nowConboCount++;
-                GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
-                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-                DamageObject dmOb = damageObject.GetComponent<DamageObject>();
-                dmOb.SetDamge(damgeArray);
+                CreatAttackPrefab();
                 CheckAttackWait();
             }
             else if (nowConboCount >= maxComboCount && time <= maxComboTime && (isAttackWait == true && (isSkillAttackWait || isSkillCancel))) // 콤보수 초기화 및 다시 카운트 1로 내려옴. || isSkillCancel == true
             {
                 nowConboCount = 1;
-                GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
-                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-                DamageObject dmOb = damageObject.GetComponent<DamageObject>();
-                dmOb.SetDamge(damgeArray);
+                CreatAttackPrefab();
                 CheckAttackWait();
             }
         }
 
+    }
+
+    public void CreatAttackPrefab()
+    {
+        GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
+        pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+        DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+        dmOb.SetDamge(damgeArray);
     }
     private void CheckAttackWait()
     {
