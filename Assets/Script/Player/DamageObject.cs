@@ -68,6 +68,14 @@ public class DamageObject : MonoBehaviour
     public int healPower = 0;
     [ConditionalHide("isHealSkill")]
     public int healCount = 0;
+
+    public bool isAbsorberSkill = false; // 특정 위치로 적을 모으는 기술
+    [ConditionalHide("isAbsorberSkill")]
+    public GameObject absorbPivot;// 빨아들여지는 위치
+    [ConditionalHide("isAbsorberSkill")]
+    public float absorbPower = 0;
+    [ConditionalHide("isAbsorberSkill")]
+    public Vector2 absorbDir;
     private void Update()
     {
 
@@ -299,17 +307,38 @@ public class DamageObject : MonoBehaviour
                 {
                     EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
 
-                    if (isPlayerAttack == true)
+                    if (isAbsorberSkill == false)
                     {
-                        if (player.transform.position.x > transform.position.x)
+
+                        if (isPlayerAttack == true)
                         {
-                            knockbackDir.x = -knockbackDir.x;
+                            if (player.transform.position.x > transform.position.x)
+                            {
+                                knockbackDir.x = -knockbackDir.x;
+                            }
                         }
+                        // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
+                        enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
+
+                    }
+                    else
+                    {
+                        if (isPlayerAttack == true)
+                        {
+                            if (collision.transform.position.x > absorbPivot.transform.position.x)
+                            {
+                                absorbDir.x = -Mathf.Abs(absorbDir.x);
+                            }
+                            else
+                            {
+                                absorbDir.x = Mathf.Abs(absorbDir.x);
+                            }
+                        }
+                        // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
+                        enemyHealth.damage2Enemy(damageArr, stiffnessTime, absorbPower, absorbDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
                     }
 
 
-                    // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
-                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
                     if (isPosionAttack)
                     {
                         enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);

@@ -253,7 +253,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (states != "dash" && states != "wallJump" && isLadder == true && DatabaseManager.checkAttackLadder == false)
+        if (states != "dash" && states != "wallJump" && isLadder == true && DatabaseManager.checkAttackLadder == false && DatabaseManager.isOpenUI == false)
         {
             if(upAction.triggered == true|| downAction.triggered)
             {
@@ -314,7 +314,7 @@ public class PlayerController : MonoBehaviour
     {
         moveVelocity = Vector2.zero;
 
-        if (states != "dash" && states != "wallJump")
+        if (states != "dash" && states != "wallJump"&& DatabaseManager.isOpenUI == false)
         {
             horizontalInput = moveAction.ReadValue<float>();
             verticalInput = verticalAction.ReadValue<float>();
@@ -766,7 +766,7 @@ public class PlayerController : MonoBehaviour
 
     bool isAttackAnim = false;
     Sequence attackAnimSequence;
-    public void ActiveAttackAnim(string anim, float time)
+    public void ActiveAttackAnim(string anim, float time, bool isDelay = false)
     {
         if(anim == null || anim == "")
         {
@@ -784,11 +784,16 @@ public class PlayerController : MonoBehaviour
             isRopeAttack = true;
         }
 
-        attackAnimSequence.Kill();
-        attackAnimSequence = DOTween.Sequence()
-       .AppendInterval(time)
-       .AppendCallback(() => isAttackAnim = false)
-       .AppendCallback(() => EndRopeAttackAnim());
+        if(isDelay == false)
+        {
+            attackAnimSequence.Kill();
+            attackAnimSequence = DOTween.Sequence()
+           .AppendInterval(time)
+           .AppendCallback(() => isAttackAnim = false)
+           .AppendCallback(() => EndRopeAttackAnim());
+
+        }
+
 
 
     }

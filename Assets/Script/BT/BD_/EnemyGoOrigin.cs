@@ -27,13 +27,14 @@ public class EnemyGoOrigin : EnemyAction
         {
             isArriveOrigin = false;
         }
-        if(bt.sequence.active == false)
+        return (isEnd == true && isArriveOrigin == true) ? TaskStatus.Success : TaskStatus.Running;
+        if (bt.sequence.active == false)
         {
             isArriveOrigin = false;
             StartGoOrigin();
         }
 
-        return (isEnd== true && isArriveOrigin == true) ? TaskStatus.Success : TaskStatus.Running;
+
     }
     public void StartGoOrigin()
     {
