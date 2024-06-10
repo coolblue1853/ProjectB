@@ -21,6 +21,7 @@ TagManager:
   - Boundary
   - Wall
   - APC
+  - Totem
   layers:
   - Default
   - TransparentFX
@@ -38,7 +39,7 @@ TagManager:
   - Boundary
   - Wall
   - SummonCheck
-  - 
+  - ToTem
   - 
   - 
   - 

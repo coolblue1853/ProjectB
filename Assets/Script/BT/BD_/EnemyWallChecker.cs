@@ -12,6 +12,7 @@ public class EnemyWallChecker : EnemyConditional
     public float wallRay = 0.2f;
     public Vector2 startPos;
     public Vector2 EndPos;
+     bool isEndWait = false;
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
@@ -33,12 +34,12 @@ public class EnemyWallChecker : EnemyConditional
         chInRommSize = enemyObject.transform.localScale.x;
         if (chInRommSize > 0)
         {
-            hit2 = Physics2D.Raycast(wallCheck.transform.position, Vector2.right, wallRay, LayerMask.GetMask("Ground"));
+            hit2 = Physics2D.Raycast(wallCheck.transform.position, Vector2.right, wallRay, LayerMask.GetMask("Wall"));
             Debug.DrawRay(wallCheck.transform.position, Vector2.right, Color.blue, wallRay);
         }
         else
         {
-            hit2 = Physics2D.Raycast(wallCheck.transform.position, Vector2.left, wallRay, LayerMask.GetMask("Ground"));
+            hit2 = Physics2D.Raycast(wallCheck.transform.position, Vector2.left, wallRay, LayerMask.GetMask("Wall"));
             Debug.DrawRay(wallCheck.transform.position, Vector2.left, Color.blue, wallRay);
         }
 
@@ -49,12 +50,15 @@ public class EnemyWallChecker : EnemyConditional
         }
         else
         {
-            EndPos = this.transform.position;
 
+            /*
+            EndPos = this.transform.position;
             if(Mathf.Abs(startPos.x)- Mathf.Abs(EndPos.x) < 0.1 || Mathf.Abs(startPos.y) - Mathf.Abs(EndPos.y) < 0.1)
             {
+                Debug.Log("º®¿¡ ´êÀ½2");
                 return TaskStatus.Failure;
             }
+            */
             return TaskStatus.Success;
         }
     }

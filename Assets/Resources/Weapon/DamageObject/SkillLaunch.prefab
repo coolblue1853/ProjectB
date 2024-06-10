@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4960005499486500228}
   - component: {fileID: -5085243163096890008}
   - component: {fileID: 5434944265703854784}
+  - component: {fileID: 3501374396159642186}
   m_Layer: 0
   m_Name: SkillLaunch
   m_TagString: Untagged
@@ -105,6 +106,9 @@ MonoBehaviour:
   isDestroyByTime: 1
   holdingTime: 1
   hitCount: 1
+  isDeletByMaxHit: 1
+  isHitIntervelEven: 1
+  hitIntervalTime: 0
   damageArr: 
   stiffnessTime: 2
   knockForce: 40
@@ -115,6 +119,7 @@ MonoBehaviour:
   isLaunch: 1
   launchForce: 80
   launchDir: {x: 1, y: 0}
+  isRoundLunch: 0
   isDeletByGround: 0
   isTrackingEnemy: 0
   desiredSpeed: 0
@@ -133,6 +138,10 @@ MonoBehaviour:
   waitNextHeal: 0
   healPower: 0
   healCount: 0
+  isAbsorberSkill: 0
+  absorbPivot: {fileID: 0}
+  absorbPower: 0
+  absorbDir: {x: 0, y: 0}
   maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0
@@ -189,3 +198,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &3501374396159642186
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960005499486500231}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 45e69b12953af3d4089fd9af177eee01, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

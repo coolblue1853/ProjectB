@@ -6,7 +6,7 @@ public class EnemyJump : EnemyAction
 {
     public float xJumpForce = 0f;
     public float jumpForce;
-    Vector2 jumpDir = new Vector2(1,0);
+    Vector2 jumpDir;
     BehaviorTree bt;
     public float jumpWaitTime = 0.2f;
     public Vector2 startPos;
@@ -24,6 +24,16 @@ public class EnemyJump : EnemyAction
     public void StartJump()
     {
         body.velocity = new Vector2(body.velocity.x, jumpForce);
+       float cSize = enemyObject.transform.localScale.x;
+        if (cSize > 0)
+        {
+            jumpDir = new Vector2(1, 0);
+        }
+        else
+        {
+            jumpDir = new Vector2(-1, 0);
+        }
+
         body.AddForce(jumpDir.normalized * xJumpForce, ForceMode2D.Impulse);
 
         OnSequenceComplete();
@@ -31,6 +41,7 @@ public class EnemyJump : EnemyAction
     }
     private void OnSequenceComplete()
     {
+
         if (this.transform != null)
         {
             isEnd = true;

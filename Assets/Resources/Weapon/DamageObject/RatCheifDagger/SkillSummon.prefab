@@ -126,12 +126,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3101449cfa2fde49b86e7c1da097b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   summonObject: {fileID: 3634972462984041690, guid: f82ece34b9ec683439b7e697af8c506a,
     type: 3}
   summonCount: 1
   summonPosition:
   - 0.5
   yPos: 0.5
+  summonDistance: 1
+  rayDistance: 3
+  ackFloat: 1
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &5036847369084816107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +157,9 @@ MonoBehaviour:
   isDestroyByTime: 1
   holdingTime: 0.3
   hitCount: 1
+  isDeletByMaxHit: 1
+  isHitIntervelEven: 1
+  hitIntervalTime: 0
   damageArr: 
   stiffnessTime: 0
   knockForce: 0
@@ -179,6 +189,10 @@ MonoBehaviour:
   waitNextHeal: 0
   healPower: 0
   healCount: 0
+  isAbsorberSkill: 0
+  absorbPivot: {fileID: 0}
+  absorbPower: 0
+  absorbDir: {x: 0, y: 0}
   maxDamagedEnemies: 1
   isPosionAttack: 0
   poisonDamage: 0

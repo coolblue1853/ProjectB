@@ -98,6 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rabbit: {fileID: 8398182370917137815, guid: 546c40fd66dc4074baa03271c2adc9ac, type: 3}
-  rabbitCount: 3
+  rabbitCount: 4
   CycleFloat: 10
   rabbitActive: []

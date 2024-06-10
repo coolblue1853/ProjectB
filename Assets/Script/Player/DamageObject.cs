@@ -14,6 +14,9 @@ public class DamageObject : MonoBehaviour
     [ConditionalHide("isDestroyByTime")]
     public float holdingTime = 0;
     public int hitCount = 1 ; //다단히트수.
+    public bool isDeletByMaxHit = true;//최대 히트인원을 체우면 자동파괴
+    public bool isHitIntervelEven = true;
+    public float hitIntervalTime = 0; //다단히트수.
     public int[] damageArr;
     public float stiffnessTime = 0;   // 경직 시간.
     public float knockForce = 0;
@@ -79,7 +82,7 @@ public class DamageObject : MonoBehaviour
     private void Update()
     {
 
-        if (damagedEnemies.Count == maxDamagedEnemies && isLaunch == true)
+        if (isDeletByMaxHit == true && damagedEnemy.Count == maxDamagedEnemies && isLaunch == true)
         {
             Destroy(this.gameObject);
         }
@@ -261,23 +264,32 @@ public class DamageObject : MonoBehaviour
     }
 
     public int maxDamagedEnemies = 1; // 최대 데미지를 입힐 적의 수
-    private List<Collider2D> damagedEnemies = new List<Collider2D>(); // 데미지를 입힌 적들의 리스트
-
+   // private List<Collider2D> damagedEnemies = new List<Collider2D>(); // 데미지를 입힌 적들의 리스트
+    private Dictionary<Collider2D, int> damagedEnemy = new Dictionary<Collider2D, int>();
     void ResetDamagedEnemies()
     {
         if(this.gameObject != null)
         {
+            float resetTime;
 
-            float resetTime = holdingTime / (hitCount+DatabaseManager.hitCount) + 0.01f;
+            // 
+            if (isHitIntervelEven == true)
+            {
+                 resetTime = holdingTime / (hitCount + DatabaseManager.hitCount) + 0.01f;
+            }
+            else
+            {
+                 resetTime = hitIntervalTime;
+            }
 
             Sequence seq = DOTween.Sequence()
            .AppendInterval(resetTime)
-            .AppendCallback(() => damagedEnemies.Clear())
+           // .AppendCallback(() => damagedEnemies.Clear())
             .AppendCallback(() => boxCol.enabled =false)
             .AppendInterval(0.01f)
             .AppendCallback(() => boxCol.enabled = true)
            .AppendCallback(() => ResetDamagedEnemies());
-        }
+        } 
     }
     void ResetHealGround()
     {
@@ -300,11 +312,11 @@ public class DamageObject : MonoBehaviour
         if (collision.tag == "Enemy" && isHealSkill == false)
         {
             // 데미지를 입힌 적의 수가 최대치를 초과하지 않은 경우에만 실행
-            if (damagedEnemies.Count < maxDamagedEnemies)
-            {
+     
                 // 이미 데미지를 입힌 적인지 확인하고, 데미지를 입히지 않은 경우에만 실행
-                if (!damagedEnemies.Contains(collision))
+                if ((!damagedEnemy.ContainsKey(collision)&& damagedEnemy.Count < maxDamagedEnemies) ||(damagedEnemy.ContainsKey(collision) && damagedEnemy[collision] < hitCount))
                 {
+
                     EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
 
                     if (isAbsorberSkill == false)
@@ -344,9 +356,17 @@ public class DamageObject : MonoBehaviour
                         enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
                     }
 
+                    if (!damagedEnemy.ContainsKey(collision))
+                    {
+                        damagedEnemy.Add(collision,1);
+                    }
+                    else
+                    {
+                        damagedEnemy[collision] += 1;
+                    }
                     // 데미지를 입힌 적 리스트에 추가
-                    damagedEnemies.Add(collision);
-                }
+                
+                
             }
         }
         if (collision.tag == "Player" && isHealSkill == true)

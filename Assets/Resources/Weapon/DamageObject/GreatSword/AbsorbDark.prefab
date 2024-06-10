@@ -258,6 +258,8 @@ MonoBehaviour:
   isDestroyByTime: 1
   holdingTime: 8
   hitCount: 48
+  isDeletByMaxHit: 1
+  hitIntervalTime: 0.2
   damageArr: 
   stiffnessTime: 1
   knockForce: 0

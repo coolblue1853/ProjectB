@@ -105,6 +105,9 @@ MonoBehaviour:
   isDestroyByTime: 1
   holdingTime: 0.7
   hitCount: 2
+  isDeletByMaxHit: 1
+  isHitIntervelEven: 1
+  hitIntervalTime: 0
   damageArr: 
   stiffnessTime: 1
   knockForce: 10
@@ -134,6 +137,10 @@ MonoBehaviour:
   waitNextHeal: 0
   healPower: 0
   healCount: 0
+  isAbsorberSkill: 0
+  absorbPivot: {fileID: 0}
+  absorbPower: 0
+  absorbDir: {x: 0, y: 0}
   maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0

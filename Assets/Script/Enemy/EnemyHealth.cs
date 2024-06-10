@@ -31,19 +31,23 @@ public class EnemyHealth : MonoBehaviour
     public GameObject deadBody;
     public GameObject enemySensor;
     public bool isBossMob = false;
-
-    private void Start()
+    private void Awake()
     {
-
         anim = transform.GetComponent<Animator>();
         dropManager = transform.GetComponent<DropManager>();
-       //    enemyFSM = transform.GetComponent<EnemyFSM>();
-        rb = transform. GetComponent<Rigidbody2D>();
+        //    enemyFSM = transform.GetComponent<EnemyFSM>();
+        rb = transform.GetComponent<Rigidbody2D>();
         // brain = transform.GetComponent<BTBrain>();
         behaviorTree = transform.GetComponent<BehaviorTree>();
         nowHP = maxHP;
         hpBar.setHpBar(maxHP);
-        
+
+    }
+    private void Start()
+    {
+
+
+
         if (enemySensor != null)
         {
             if (checkPlayer.isPreemptive == true && enemySensor.activeSelf == false)
@@ -100,7 +104,43 @@ public class EnemyHealth : MonoBehaviour
     public float stiffShakeTime = 0;
     bool deadOnec = false;
     public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking, float dmgRatio)
-    {
+    {    // Null 체크 및 디버그 로그 추가
+        if (damage == null)
+        {
+            Debug.LogError("damage array is null");
+            return;
+        }
+
+        if (hpBar == null)
+        {
+            Debug.LogError("hpBar is null");
+            return;
+        }
+
+        if (damageNumber == null)
+        {
+            Debug.LogError("damageNumber is null");
+            return;
+        }
+
+        if (dropManager == null)
+        {
+            Debug.LogError("dropManager is null");
+            return;
+        }
+
+        if (deadBody == null)
+        {
+            Debug.LogError("deadBody is null");
+            return;
+        }
+
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D (rb) is null");
+            return;
+        }
+
 
         shakeTime = shaking;
         float dmg = SetDmg(damage, isSkill); // 방어력 적용전 데미지;
@@ -134,8 +174,8 @@ public class EnemyHealth : MonoBehaviour
 
        if(hpBar != null)
         {
-            nowHP -= (int)finDmg;
             hpBar.healthSystem.Damage((int)finDmg);
+            nowHP -= (int)finDmg;
             damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
         }
 
