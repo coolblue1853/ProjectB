@@ -126,7 +126,7 @@ public class SkillCooldown : MonoBehaviour
         cooldownImageD.sprite = null;
     }
     // 스킬을 사용할 때 호출되는 함수
-    public void UseSkill()
+    public void UseSkillA()
     {
         if (!isCooldownA) // 쿨타임 중이 아니라면
         {

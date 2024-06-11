@@ -32,10 +32,10 @@ public class SummonSkill : MonoBehaviour
             }
 
             Vector2 currentPosition = new Vector2(player.transform.position.x, player.transform.position.y - 0.55f);
-            Vector3 destination = currentPosition + direction.normalized * summonDistance;
+            Vector3 destination = currentPosition + newDir.normalized * summonDistance;
             destination = new Vector3(destination.x, destination.y + 0.55f);
             // 목표 위치까지의 경로를 검사
-            RaycastHit2D hit = Physics2D.Raycast(currentPosition, direction, rayDistance, collisionLayer);
+            RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, rayDistance, collisionLayer);
 
             if (hit.collider == null)
 

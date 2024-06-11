@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
     public int addDmg = 0; // 최종뎀%  
     PlayerHealthManager phm;
 
-
+   
 
     public int[] damgeArray = new int[10];
     public float[] attckSpeed;   // 공격 주기, 짧을수록 더 빠르게 공격 가능.

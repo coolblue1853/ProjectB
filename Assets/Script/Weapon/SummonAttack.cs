@@ -11,9 +11,11 @@ public class SummonAttack : MonoBehaviour
    public float firstIntervel = 0;
     public float attackIntervel =0;
     public float holdingTime = 0;
+    public Animator anim;
     // Start is called before the first frame update
     void Start()
     {
+        anim = transform.GetComponent<Animator>();
         Invoke("SummonAttackPrefab", firstIntervel);
         Invoke("DestroyObjet", holdingTime);
 
@@ -29,11 +31,14 @@ public class SummonAttack : MonoBehaviour
     {
         if (this.gameObject != null)
         {
+            anim.SetBool("Attack", true);
             GameObject damageObject = Instantiate(attackPrefab, attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
             DamageObject dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.SetDamge(damgeArray);
             Sequence seq = DOTween.Sequence()
-            .AppendInterval(attackIntervel)
+            .AppendInterval(attackIntervel/2)
+            .AppendCallback(() => anim.SetBool("Attack",false))
+            .AppendInterval(attackIntervel / 2)
            .AppendCallback(() => SummonAttackPrefab());
         }
     }
