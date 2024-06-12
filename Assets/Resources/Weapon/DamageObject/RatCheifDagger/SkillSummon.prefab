@@ -135,7 +135,7 @@ MonoBehaviour:
   yPos: 0.5
   summonDistance: 1
   rayDistance: 3
-  ackFloat: 1
+  ackFloat: 2
   collisionLayer:
     serializedVersion: 2
     m_Bits: 8

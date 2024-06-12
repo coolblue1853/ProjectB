@@ -275,7 +275,7 @@ public class DamageObject : MonoBehaviour
             // 
             if (isHitIntervelEven == true)
             {
-                 resetTime = holdingTime / (hitCount + DatabaseManager.hitCount) + 0.01f;
+                    resetTime = holdingTime / (hitCount + DatabaseManager.hitCount) + 0.01f;
             }
             else
             {
@@ -284,12 +284,18 @@ public class DamageObject : MonoBehaviour
 
             Sequence seq = DOTween.Sequence()
            .AppendInterval(resetTime)
-           // .AppendCallback(() => damagedEnemies.Clear())
+                       // .AppendCallback(() => damagedEnemies.Clear())
+             .AppendCallback(() => ResetDict())
             .AppendCallback(() => boxCol.enabled =false)
             .AppendInterval(0.01f)
             .AppendCallback(() => boxCol.enabled = true)
            .AppendCallback(() => ResetDamagedEnemies());
         } 
+    }
+    void ResetDict()
+    {
+        if(isHitIntervelEven)
+        damagedEnemy.Clear();
     }
     void ResetHealGround()
     {
@@ -314,7 +320,7 @@ public class DamageObject : MonoBehaviour
             // 데미지를 입힌 적의 수가 최대치를 초과하지 않은 경우에만 실행
      
                 // 이미 데미지를 입힌 적인지 확인하고, 데미지를 입히지 않은 경우에만 실행
-                if ((!damagedEnemy.ContainsKey(collision)&& damagedEnemy.Count < maxDamagedEnemies) ||(damagedEnemy.ContainsKey(collision) && damagedEnemy[collision] < hitCount))
+                if ((!damagedEnemy.ContainsKey(collision)&& damagedEnemy.Count < maxDamagedEnemies) ||(isHitIntervelEven == false &&damagedEnemy.ContainsKey(collision) && damagedEnemy[collision] < hitCount))
                 {
 
                     EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();

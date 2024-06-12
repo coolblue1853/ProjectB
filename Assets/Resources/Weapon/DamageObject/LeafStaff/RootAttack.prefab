@@ -148,7 +148,7 @@ MonoBehaviour:
   damageCount: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16392
   enemyTag: Enemy
 --- !u!61 &6923429078490928227
 BoxCollider2D:

@@ -104,6 +104,7 @@ public class Skill : MonoBehaviour
     public int bulletCount = 30;    // 생성할 탄막 개수
 
 
+    public GameObject delayEffectPrefab;
     private void Awake()
     {
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
@@ -364,11 +365,11 @@ public class Skill : MonoBehaviour
 
             if (isRoundAttack == true)
             {
-                RountAttack(skillAWaitTime);
+                RountAttack(skillAWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             }
             else if (isGorundCheckSkill == false)
             {
-                NomalAttack(skillAWaitTime);
+                NomalAttack(skillAWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             }
             else
             {
@@ -379,10 +380,11 @@ public class Skill : MonoBehaviour
                 else
                 {
                     Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillAWaitTime)
+                    .AppendInterval(skillAWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)))
                     .AppendCallback(() => GroundAttack());
                 }
             }
+
             SkillAnimCheck("A");
         }
     }
@@ -394,32 +396,23 @@ public class Skill : MonoBehaviour
             isActive = true;
             if (isRoundAttack == true)
             {
-                if (skillBWaitTime == 0)
-                {
-                    RountAttack(skillBWaitTime);
-                }
-                else
-                {
-                    Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillBWaitTime)
-                    .AppendCallback(() => RoundAttack(skillprefab[0], skillPivot[0]));
-                }
+                RountAttack(skillBWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
 
             }
             else if (isGorundCheckSkill == false)
             {
-                NomalAttack(skillBWaitTime);
+                NomalAttack(skillBWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             }
             else
             {
-                if (skillAWaitTime == 0)
+                if (skillBWaitTime == 0)
                 {
                     GroundAttack();
                 }
                 else
                 {
                     Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillBWaitTime)
+                    .AppendInterval(skillBWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)))
                     .AppendCallback(() => GroundAttack());
                 }
             }
@@ -434,32 +427,23 @@ public class Skill : MonoBehaviour
             isActive = true;
             if (isRoundAttack == true)
             {
-                if (skillCWaitTime == 0)
-                {
-                    RountAttack(skillCWaitTime);
-                }
-                else
-                {
-                    Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillCWaitTime)
-                    .AppendCallback(() => RoundAttack(skillprefab[0], skillPivot[0]));
-                }
+                RountAttack(skillCWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
 
             }
             else if (isGorundCheckSkill == false)
             {
-                NomalAttack(skillCWaitTime);
+                NomalAttack(skillCWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             }
             else
             {
-                if (skillAWaitTime == 0)
+                if (skillCWaitTime == 0)
                 {
                     GroundAttack();
                 }
                 else
                 {
                     Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillCWaitTime)
+                    .AppendInterval(skillCWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)))
                     .AppendCallback(() => GroundAttack());
                 }
             }
@@ -475,31 +459,22 @@ public class Skill : MonoBehaviour
             isActive = true;
             if (isRoundAttack == true)
             {
-                if (skillDWaitTime == 0)
-                {
-                    RountAttack(skillDWaitTime);
-                }
-                else
-                {
-                    Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillDWaitTime)
-                    .AppendCallback(() => RoundAttack(skillprefab[0], skillPivot[0]));
-                }
+                RountAttack(skillDWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             }
             else if (isGorundCheckSkill == false)
             {
-                NomalAttack(skillDWaitTime);
+                NomalAttack(skillDWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             }
             else
             {
-                if (skillAWaitTime == 0)
+                if (skillDWaitTime == 0)
                 {
                     GroundAttack();
                 }
                 else
                 {
                     Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillDWaitTime)
+                    .AppendInterval(skillDWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)))
                     .AppendCallback(() => GroundAttack());
                 }
             }
@@ -599,22 +574,64 @@ public class Skill : MonoBehaviour
         }
     }
 
-    void SkillEffect() // 기술 에니메이션 및 데미지 오브젝트에 공격설정
+    void SkillEffect(string skillNum) // 기술 에니메이션 및 데미지 오브젝트에 공격설정
     {
         PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         PlayerHealthManager.Instance.SteminaDown(useStemina);
+
+
+        float waitTime = 0;
+
+        switch (skillNum)
+        {
+            case "A":
+                waitTime = skillAWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+                break;
+            case "B":
+                waitTime = skillBWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+                break;
+            case "C":
+                waitTime = skillCWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+                break;
+            case "D":
+                waitTime = skillDWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+                break;
+        }
+
+        if (delayEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(delayEffectPrefab, new Vector2(skillPivot[0].transform.position.x, skillPivot[0].transform.position.y), skillPivot[0].transform.rotation);
+            DestoryByTime dBT = effect.GetComponent<DestoryByTime>();
+            dBT.DestroyEffect(waitTime);
+        }
+        if (waitTime == 0)
+        {
+            SetSkillDmg();
+
+            //GroundAttack();
+        }
+        else
+        {
+            sequenceA = DOTween.Sequence()
+           .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
+           .AppendCallback(() => SetSkillDmg());
+        }
+
+
+
+    }
+    void SetSkillDmg()
+    {
         if (isNullParent == true)
         {
             damageObject.transform.parent = null;
         }
-
         dmOb = damageObject.GetComponent<DamageObject>();
         dmOb.SetDamge(damgeArray);
         if (skillprefab.Length > 1)
         {
             StartCoroutine(SpawnSkills());
         }
-
     }
 
     void NomalAttack(float waitTime) // 일반적인 공격의 생성
@@ -649,7 +666,7 @@ public class Skill : MonoBehaviour
         {
             if(isRoundAttack == false)
             {
-                SkillEffect();
+                SkillEffect(skillNum);
             }
 
             if (isHoldSkill == false)

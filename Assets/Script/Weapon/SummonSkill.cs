@@ -47,8 +47,16 @@ public class SummonSkill : MonoBehaviour
             }
             else
             {
+                Vector3 safePosition;
                 // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
-                Vector3 safePosition = hit.point - new Vector2 (ackFloat,0); // 충돌 지점에서 약간 떨어진 위치
+                if (newDir.x < 0)
+                {
+                     safePosition = hit.point + new Vector2(ackFloat, 0); // 충돌 지점에서 약간 떨어진 위치
+                }
+                else
+                {
+                     safePosition = hit.point - new Vector2(ackFloat, 0); // 충돌 지점에서 약간 떨어진 위치
+                }
                 safePosition = new Vector3(safePosition.x, safePosition.y + 0.55f);
                 GameObject r = Instantiate(summonObject, safePosition + new Vector3(0, yPos, zPosition), this.transform.rotation);
 

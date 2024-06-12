@@ -62,6 +62,10 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -155,6 +159,10 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 1
   objectMaxCount: 3
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 1
@@ -172,12 +180,12 @@ MonoBehaviour:
   rayPositon: {fileID: 8823588110331636517}
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 16392
   isGorundCheckSkill: 1
   groundCheckLength: 3
   groundCollisionLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 16392
   yPivot: 0
   isRoundAttack: 0
   radius: 5
@@ -300,6 +308,9 @@ MonoBehaviour:
   attackPivot:
   - {fileID: 4185027361106519671}
   - {fileID: 1291193055778619313}
+  isHasDelayTime: 0
+  delayTime: []
+  delayAnimName: []
   attackAnimName:
   - RightHandVashUp_OneHand
   - RightHandVashDown_OneHand
@@ -403,6 +414,10 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
