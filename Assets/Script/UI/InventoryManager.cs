@@ -1336,8 +1336,8 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            CreatItem("ScareStaff");
 
+            CreatItem("ScareClow");
             //CreatItem("PoisonSword");
             //CreatItem("Wood Spear");
             // CreatItem("Leather Knuckles");
@@ -1347,6 +1347,7 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
+            CreatItem("ScareStaff");
             CreatItem("SacreGreatSword");
             CreatItem("RatCheifDagger");
             CreatItem("DoubleDagger");
@@ -1357,13 +1358,7 @@ public class InventoryManager : MonoBehaviour
             CreatItem("LeafStaff");
             CreatItem("LeafAdae");
             //  CreatItem("ScareSide");
-            //CreatItem("ScareStaff");
-            //CreatItem("SacreGreatSword");
-            //CreatItem("RatCheifDagger");
-            // CreatItem("PoisonSword");
-            // CreatItem("DoubleDagger");
 
-            //  CreatItem("Necklace");
 
 
         }

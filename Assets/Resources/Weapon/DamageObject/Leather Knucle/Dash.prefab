@@ -105,6 +105,9 @@ MonoBehaviour:
   isDestroyByTime: 1
   holdingTime: 0.1
   hitCount: 1
+  isDeletByMaxHit: 1
+  isHitIntervelEven: 1
+  hitIntervalTime: 0
   damageArr: 
   stiffnessTime: 0
   knockForce: 0
@@ -115,6 +118,7 @@ MonoBehaviour:
   isLaunch: 0
   launchForce: 0
   launchDir: {x: 0, y: 0}
+  isRoundLunch: 0
   isDeletByGround: 0
   isTrackingEnemy: 0
   desiredSpeed: 0
@@ -126,7 +130,22 @@ MonoBehaviour:
   addSuperArmor: 0
   isDashAttack: 1
   dashSpeed: 15
+  dashYSpeed: 0
   isDashInvins: 1
+  isBackDash: 0
+  isEffectGrvity: 0
+  isXbaseDash: 1
+  buffObject: {fileID: 0}
+  isHealSkill: 0
+  waitNextHeal: 0
+  healPower: 0
+  healCount: 0
+  isAbsorberSkill: 0
+  absorbPivot: {fileID: 0}
+  absorbPower: 0
+  absorbDir: {x: 0, y: 0}
+  isShortTime: 0
+  disEffectbyTime: 0
   maxDamagedEnemies: 0
   isPosionAttack: 0
   poisonDamage: 0

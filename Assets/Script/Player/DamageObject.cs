@@ -58,9 +58,15 @@ public class DamageObject : MonoBehaviour
     [ConditionalHide("isDashAttack")]
     public float dashSpeed = 10;
     [ConditionalHide("isDashAttack")]
+    public float dashYSpeed = 0;
+    [ConditionalHide("isDashAttack")]
     public bool isDashInvins = false;
     [ConditionalHide("isDashAttack")]
     public bool isBackDash = false;
+    [ConditionalHide("isDashAttack")]
+    public bool isEffectGrvity = false;
+    [ConditionalHide("isDashAttack")]
+    public bool isXbaseDash = true; //  이것에 따라서 보정될것이 y축인지 x축인지 결정됨
     BoxCollider2D boxCol;
     public GameObject buffObject;
 
@@ -79,6 +85,9 @@ public class DamageObject : MonoBehaviour
     public float absorbPower = 0;
     [ConditionalHide("isAbsorberSkill")]
     public Vector2 absorbDir;
+
+    public bool isShortTime = false; // 단축된 시간으로 오브젝트 이펙트가 사라질 것인지 아닌지./
+    public bool disEffectbyTime = false; // 아예 영향을 받지 않을것인지
     private void Update()
     {
 
@@ -173,7 +182,15 @@ public class DamageObject : MonoBehaviour
 
         if (isDashAttack)
         {
-            PlayerController.instance.SkillDash(holdingTime, dashSpeed, isDashInvins, isBackDash);
+            if (isXbaseDash)
+            {
+                PlayerController.instance.SkillDash(holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100)), dashSpeed * (1 + (DatabaseManager.attackSpeedBuff / 100)), dashYSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)), isDashInvins, isBackDash, isEffectGrvity);
+            }
+            else
+            {
+                PlayerController.instance.SkillDash(holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100)), dashSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)), dashYSpeed * (1 + (DatabaseManager.attackSpeedBuff / 100)), isDashInvins, isBackDash, isEffectGrvity);
+            }
+         
         }
         if (isHoldingBuffObject)
         {
@@ -258,8 +275,39 @@ public class DamageObject : MonoBehaviour
         {
             BuffOff();
         }
+
+        float resetTime = 0;
+
+        // 
+
+
+
+         if (isHitIntervelEven == true)
+        {
+            resetTime = (holdingTime) / (1 + (DatabaseManager.attackSpeedBuff / 100));
+            Sequence sequence = DOTween.Sequence()
+    .AppendInterval(resetTime)
+    .AppendCallback(() => isEndBoxCollider = true)
+    .AppendCallback(() => boxCol.enabled = false);
+
+        }
+        else
+        {
+         //   resetTime = holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+        }
+
+
+        float destroyTime = 0;
+        if (isShortTime)
+        {
+            destroyTime = resetTime;
+        }
+        else
+        {
+            destroyTime = holdingTime;
+        }
         sequence = DOTween.Sequence()
-            .AppendInterval(holdingTime)
+            .AppendInterval(destroyTime)
             .AppendCallback(() => Destroy(this.gameObject));
     }
 
@@ -275,27 +323,36 @@ public class DamageObject : MonoBehaviour
             // 
             if (isHitIntervelEven == true)
             {
-                    resetTime = holdingTime / (hitCount + DatabaseManager.hitCount) + 0.01f;
+                    resetTime =( holdingTime / (hitCount + DatabaseManager.hitCount) + 0.01f) / (1 + (DatabaseManager.attackSpeedBuff / 100));
             }
             else
             {
-                 resetTime = hitIntervalTime;
+                 resetTime = hitIntervalTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
             }
 
             Sequence seq = DOTween.Sequence()
            .AppendInterval(resetTime)
                        // .AppendCallback(() => damagedEnemies.Clear())
              .AppendCallback(() => ResetDict())
-            .AppendCallback(() => boxCol.enabled =false)
+            .AppendCallback(() => CollOnOff(false))
             .AppendInterval(0.01f)
-            .AppendCallback(() => boxCol.enabled = true)
+            .AppendCallback(() => CollOnOff(true))
            .AppendCallback(() => ResetDamagedEnemies());
         } 
+    }
+    bool isEndBoxCollider = false;
+    public void CollOnOff(bool boolen)
+    {
+        if (isEndBoxCollider == false)
+        {
+            boxCol.enabled = boolen;
+        }
+
     }
     void ResetDict()
     {
         if(isHitIntervelEven)
-        damagedEnemy.Clear();
+             damagedEnemy.Clear();
     }
     void ResetHealGround()
     {

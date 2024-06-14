@@ -259,6 +259,7 @@ MonoBehaviour:
   holdingTime: 8
   hitCount: 48
   isDeletByMaxHit: 1
+  isHitIntervelEven: 1
   hitIntervalTime: 0.2
   damageArr: 
   stiffnessTime: 1
@@ -282,8 +283,11 @@ MonoBehaviour:
   addSuperArmor: 0
   isDashAttack: 0
   dashSpeed: 10
+  dashYSpeed: 0
   isDashInvins: 0
   isBackDash: 0
+  isEffectGrvity: 0
+  isXbaseDash: 1
   buffObject: {fileID: 0}
   isHealSkill: 0
   waitNextHeal: 0
@@ -293,6 +297,7 @@ MonoBehaviour:
   absorbPivot: {fileID: 1055346314915169795}
   absorbPower: 10
   absorbDir: {x: 1, y: 1}
+  isShortTime: 1
   maxDamagedEnemies: 10
   isPosionAttack: 0
   poisonDamage: 0

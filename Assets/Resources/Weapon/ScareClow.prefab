@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPivot: {fileID: 1291193055778619313}
+  skillPivot:
+  - {fileID: 2659370571445974256}
+  interval: []
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
@@ -53,10 +55,40 @@ MonoBehaviour:
   skillAnim: 
   isWeaponStopMove: 1
   useStemina: 5
-  attckSpeed: 1
+  attckSpeed: 0.4
   rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
+  isCancleAttack: 1
+  isEffectMaxAdd: 0
+  objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
-  - {fileID: 4960005499486500231, guid: c6983d2e3ac80e04b8d06ecc4aeb0cbe, type: 3}
+  - {fileID: 8267161789949130192, guid: 5baa722388f802146b86c2e14d883eab, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1183539049
 GameObject:
@@ -102,7 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPivot: {fileID: 1291193055778619313}
+  skillPivot:
+  - {fileID: 4185027361106519671}
+  interval: []
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
@@ -113,8 +147,38 @@ MonoBehaviour:
   useStemina: 1
   attckSpeed: 0.5
   rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
+  isCancleAttack: 0
+  isEffectMaxAdd: 0
+  objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
-  - {fileID: 4960005499486500231, guid: ba412d079716d1849a1fb2641d1fe13c, type: 3}
+  - {fileID: 8267161789949130192, guid: dec55c4006833194aaaee6a4401e2444, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1291193055431298620
 GameObject:
@@ -147,6 +211,7 @@ Transform:
   m_Children:
   - {fileID: 342058022}
   - {fileID: 1183539050}
+  - {fileID: 2205578218362467266}
   - {fileID: 6173382247617428609}
   - {fileID: 5146013849899753335}
   - {fileID: 2579587913594199420}
@@ -180,9 +245,10 @@ MonoBehaviour:
   addDmg: 10
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed:
-  - 0.8
-  - 0.8
+  - 0.4
+  - 0.4
   isAttackWait: 0
+  isSkillAttackWait: 1
   isWeaponStopMove: 1
   time: 0
   isOverHand: 1
@@ -192,15 +258,19 @@ MonoBehaviour:
   attackPivot:
   - {fileID: 4185027361106519671}
   - {fileID: 1291193055778619313}
+  isHasDelayTime: 0
+  delayTime: []
+  delayAnimName: []
   attackAnimName:
   - RightPunch
   - LeftPunch
-  skillLeft: {fileID: 342058023}
-  skillLeftAnim: 
-  skillRight: {fileID: 1183539051}
+  skillA: {fileID: 342058023}
+  skillB: {fileID: 1183539051}
+  skillC: {fileID: 7713458429164400372}
+  skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 8341864255033881453}
   RightWeqponSprite: {fileID: 5146013849899753334}
-  isSkillCancel: 1
+  isSkillCancel: 0
 --- !u!1 &1291193055778619313
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +562,7 @@ Transform:
   m_Children:
   - {fileID: 5146013849398141503}
   m_Father: {fileID: 1291193055134064077}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6126978398355020447
 GameObject:
@@ -526,7 +596,7 @@ Transform:
   - {fileID: 8046027854293589565}
   - {fileID: 7431735090551928109}
   m_Father: {fileID: 1291193055134064077}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8341864255033881453
 GameObject:
@@ -558,5 +628,95 @@ Transform:
   m_Children:
   - {fileID: 1075694149241428285}
   m_Father: {fileID: 1291193055134064077}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8504221797591016507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2205578218362467266}
+  - component: {fileID: 7713458429164400372}
+  m_Layer: 7
+  m_Name: Dskill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2205578218362467266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504221797591016507}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1291193055134064077}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7713458429164400372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504221797591016507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillPivot:
+  - {fileID: 2659370571445974256}
+  interval: []
+  isLeft: 1
+  isRight: 0
+  isButtonDownSkill: 1
+  SkillCoolTime: 0.1
+  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillAnim: 
+  isWeaponStopMove: 1
+  useStemina: 1
+  attckSpeed: 0.5
+  rb: {fileID: 0}
+  isHoldSkill: 0
+  holdingTime: 0
+  isCancleAttack: 0
+  isEffectMaxAdd: 0
+  objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
+  player: {fileID: 0}
+  isNullParent: 0
+  isRayCheckSkill: 0
+  direction: []
+  distance: []
+  rayPositon: {fileID: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGorundCheckSkill: 0
+  groundCheckLength: 0
+  groundCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
+  skillprefab:
+  - {fileID: 8267161789949130192, guid: 284781346bc2e3543810fc1434071cbe, type: 3}
+  skillCooldown: {fileID: 0}

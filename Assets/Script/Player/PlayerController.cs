@@ -561,7 +561,7 @@ public class PlayerController : MonoBehaviour
         .AppendCallback(() => states = "move");
     }
 
-    public void SkillDash(float dashDu, float dashSpd, bool isDashInvins, bool isBackDash)
+    public void SkillDash(float dashDu, float dashSpd, float dashYSpeed, bool isDashInvins, bool isBackDash, bool isGravity = false)
     {
         DatabaseManager.weaponStopMove = false;
         states = "dash";
@@ -574,21 +574,25 @@ public class PlayerController : MonoBehaviour
         DatabaseManager.isSuperArmor = true;
         Invoke("EndSuperArmor", dashDu);
         boxColliderTrue = false;
-        rb.gravityScale = 0f;
+        if(isGravity == false)
+        {
+            rb.gravityScale = 0f;
+        }
+
         // 대쉬 속도로만 이동하도록 설정
         if(isBackDash == true)
         {
-            rb.velocity = new Vector2(transform.localScale.x * -dashSpd, 0f);
+            rb.velocity = new Vector2(transform.localScale.x * -dashSpd, transform.localScale.y * dashYSpeed);
         }
         else
         {
-            rb.velocity = new Vector2(transform.localScale.x * dashSpd, 0f);
+            rb.velocity = new Vector2(transform.localScale.x * dashSpd, transform.localScale.y * dashYSpeed);
         }
 
         moveSequence.Kill();
         dashSequence.Kill();
         dashSequence = DOTween.Sequence()
-        .AppendInterval(dashDu) // 2초 대기
+        .AppendInterval(dashDu) //
         .AppendCallback(() => rb.gravityScale = 3f)
         .AppendCallback(() => rb.velocity = new Vector2(0f, 0f))
          .AppendCallback(() => EndInvincibility(isDashInvins))

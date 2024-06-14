@@ -52,6 +52,7 @@ public class Skill : MonoBehaviour
 
     public bool isHoldSkill = false;
     public float holdingTime = 0;
+    public bool holdDisEffectByTime = false;
     public bool isCancleAttack = false;
     public bool isEffectMaxAdd; // 최대 발생량 증가가 영향을 끼치는 아이템인지 확인
     [ConditionalHide("isEffectMaxAdd")]
@@ -696,12 +697,22 @@ public class Skill : MonoBehaviour
                     DatabaseManager.weaponStopMove = true;
                     rb.velocity = Vector2.zero;
                 }
+
+                float waitTime =0;
+                if (holdDisEffectByTime)
+                {
+                    waitTime = holdingTime;
+                }
+                else
+                {
+                    waitTime =holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+                }
                 switch (skillNum)
                 {
                     case "A":
                         isActiveHoldA = true;
                         sequenceA = DOTween.Sequence()
-                       .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+                       .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
                        .AppendCallback(() => isActiveHoldA = false)
                        .AppendCallback(() => skillCooldown.UseSkillA())
                        .AppendCallback(() => CheckAttackWait())
@@ -710,7 +721,7 @@ public class Skill : MonoBehaviour
                     case "B":
                         isActiveHoldB = true;
                         sequenceB = DOTween.Sequence()
-                       .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+                       .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
                        .AppendCallback(() => isActiveHoldB = false)
                        .AppendCallback(() => skillCooldown.UseSkillB())
                        .AppendCallback(() => CheckAttackWait())
@@ -719,7 +730,7 @@ public class Skill : MonoBehaviour
                     case "C":
                         isActiveHoldC = true;
                         sequenceC = DOTween.Sequence()
-                       .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+                       .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
                        .AppendCallback(() => isActiveHoldC = false)
                        .AppendCallback(() => skillCooldown.UseSkillC())
                        .AppendCallback(() => CheckAttackWait())
@@ -728,7 +739,7 @@ public class Skill : MonoBehaviour
                     case "D":
                         isActiveHoldD = true;
                         sequenceD = DOTween.Sequence()
-                       .AppendInterval(holdingTime) // 사전에 지정한 공격 주기만큼 대기.
+                       .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
                        .AppendCallback(() => isActiveHoldD = false)
                        .AppendCallback(() => skillCooldown.UseSkillD())
                        .AppendCallback(() => CheckAttackWait())

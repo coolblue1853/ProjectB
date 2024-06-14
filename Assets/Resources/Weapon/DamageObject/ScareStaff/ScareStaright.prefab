@@ -131,8 +131,11 @@ MonoBehaviour:
   addSuperArmor: 0
   isDashAttack: 0
   dashSpeed: 10
+  dashYSpeed: 0
   isDashInvins: 0
   isBackDash: 0
+  isEffectGrvity: 0
+  isXbaseDash: 1
   buffObject: {fileID: 0}
   isHealSkill: 0
   waitNextHeal: 0
@@ -142,6 +145,8 @@ MonoBehaviour:
   absorbPivot: {fileID: 0}
   absorbPower: 0
   absorbDir: {x: 0, y: 0}
+  isShortTime: 1
+  disEffectbyTime: 0
   maxDamagedEnemies: 10
   isPosionAttack: 0
   poisonDamage: 0
