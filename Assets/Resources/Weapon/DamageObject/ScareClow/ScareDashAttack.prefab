@@ -100,19 +100,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgRatio: 1
-  ShakeTime: 0.15
+  ShakeTime: 0
   isSkill: 1
   isDestroyByTime: 1
   holdingTime: 0.4
   hitCount: 3
   isDeletByMaxHit: 1
   isHitIntervelEven: 0
-  hitIntervalTime: 0.2
+  hitIntervalTime: 0.1
   damageArr: 
   stiffnessTime: 1
-  knockForce: 10
+  knockForce: 30
   knockbackDir: {x: 1, y: 0}
   isNockBackChangeDir: 0
+  nonChangeNockDir: 1
   isPlayerAttack: 1
   player: {fileID: 0}
   isLaunch: 0
@@ -144,6 +145,8 @@ MonoBehaviour:
   absorbPivot: {fileID: 0}
   absorbPower: 0
   absorbDir: {x: 0, y: 0}
+  isShortTime: 0
+  disEffectbyTime: 0
   maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0

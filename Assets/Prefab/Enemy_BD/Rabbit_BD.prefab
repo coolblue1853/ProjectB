@@ -914,6 +914,7 @@ GameObject:
   - component: {fileID: 7698113303160677834}
   - component: {fileID: 927177922708613022}
   - component: {fileID: 927177922708613023}
+  - component: {fileID: 9189773307699477478}
   m_Layer: 7
   m_Name: Rabbit_BD
   m_TagString: Enemy
@@ -1107,7 +1108,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8398182370917137815}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -1223,7 +1224,35 @@ MonoBehaviour:
       Version: 1.7.9
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
+  aPC: {fileID: 0}
+  enemy: {fileID: 0}
   isJumping: 0
+--- !u!61 &9189773307699477478
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8398182370917137815}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0031819344, y: -0.3479831}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.04, y: 2.56}
+    newSize: {x: 3.04, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.2562928, y: 1.751132}
+  m_EdgeRadius: 0
 --- !u!1 &8398182370961590784
 GameObject:
   m_ObjectHideFlags: 0

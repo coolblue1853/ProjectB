@@ -52,7 +52,7 @@ public class Skill : MonoBehaviour
 
     public bool isHoldSkill = false;
     public float holdingTime = 0;
-    public bool holdDisEffectByTime = false;
+    public bool holdDisEffectByTime = false; // 이게 켜져 있으면 공속 버프에 영향을 안받게 됨
     public bool isCancleAttack = false;
     public bool isEffectMaxAdd; // 최대 발생량 증가가 영향을 끼치는 아이템인지 확인
     [ConditionalHide("isEffectMaxAdd")]

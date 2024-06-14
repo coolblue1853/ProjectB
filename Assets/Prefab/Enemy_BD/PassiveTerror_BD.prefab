@@ -602,6 +602,7 @@ GameObject:
   - component: {fileID: 5524592874086934084}
   - component: {fileID: 3072446537878692881}
   - component: {fileID: 3072446537878692894}
+  - component: {fileID: 2152888287495371102}
   m_Layer: 7
   m_Name: PassiveTerror_BD
   m_TagString: Enemy
@@ -907,7 +908,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5976889062470221337}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -1034,6 +1035,32 @@ PolygonCollider2D:
       - {x: -0.19, y: 1.09}
       - {x: -0.19, y: 1.0699999}
       - {x: -0.21, y: 1.0699999}
+--- !u!61 &2152888287495371102
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976889062470221337}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.3064605, y: -0.63631845}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8.32, y: 7.84}
+    newSize: {x: 8.32, y: 7.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.5370533, y: 4.938439}
+  m_EdgeRadius: 0
 --- !u!1 &6757172473773169429
 GameObject:
   m_ObjectHideFlags: 0

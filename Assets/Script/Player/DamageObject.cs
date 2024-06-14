@@ -22,6 +22,7 @@ public class DamageObject : MonoBehaviour
     public float knockForce = 0;
     public Vector2 knockbackDir;
     public bool isNockBackChangeDir;
+    public bool nonChangeNockDir = false;
     public bool isPlayerAttack;
     public GameObject player;
     // Start is called before the first frame update
@@ -306,6 +307,7 @@ public class DamageObject : MonoBehaviour
         {
             destroyTime = holdingTime;
         }
+
         sequence = DOTween.Sequence()
             .AppendInterval(destroyTime)
             .AppendCallback(() => Destroy(this.gameObject));
@@ -392,8 +394,21 @@ public class DamageObject : MonoBehaviour
                                 knockbackDir.x = -knockbackDir.x;
                             }
                         }
-                        // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
-                        enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
+
+                        if(nonChangeNockDir)
+                    {
+                        if(player.transform.localScale.x >0)
+                        {
+                            knockbackDir.x = Mathf.Abs(knockbackDir.x);
+                        }
+                        else
+                        {
+                            knockbackDir.x = -Mathf.Abs(knockbackDir.x);
+                        }
+                    }
+  
+                    // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
+                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
 
                     }
                     else

@@ -633,6 +633,7 @@ GameObject:
   - component: {fileID: 413339439137889330}
   - component: {fileID: 7184565408316350055}
   - component: {fileID: 7184565408316350054}
+  - component: {fileID: 4601291681071019723}
   m_Layer: 7
   m_Name: FlowerMole_BD
   m_TagString: Enemy
@@ -877,6 +878,8 @@ MonoBehaviour:
       Version: 1.7.9
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
+  aPC: {fileID: 0}
+  enemy: {fileID: 0}
   isJumping: 0
 --- !u!60 &7184565408316350054
 PolygonCollider2D:
@@ -885,7 +888,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010044806525764719}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -973,3 +976,29 @@ PolygonCollider2D:
       - {x: -0.58, y: -1.48}
       - {x: -0.44, y: -1.5}
       - {x: 1.3199999, y: -1.5}
+--- !u!61 &4601291681071019723
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010044806525764719}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.032642484, y: -0.51270556}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.72, y: 4.72}
+    newSize: {x: 4.72, y: 4.72}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.6978343, y: 1.8319762}
+  m_EdgeRadius: 0

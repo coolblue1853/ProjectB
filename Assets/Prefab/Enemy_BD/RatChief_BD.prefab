@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 8515180937943836376}
   - component: {fileID: 1162827938235262093}
   - component: {fileID: 1162827938235262092}
+  - component: {fileID: 836267188682070349}
   m_Layer: 7
   m_Name: RatChief_BD
   m_TagString: Enemy
@@ -446,6 +447,8 @@ MonoBehaviour:
       Version: 1.7.9
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
+  aPC: {fileID: 0}
+  enemy: {fileID: 0}
   isJumping: 0
 --- !u!60 &1162827938235262092
 PolygonCollider2D:
@@ -454,7 +457,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7526246080204160645}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -524,6 +527,32 @@ PolygonCollider2D:
       - {x: -0.90999997, y: -0.11}
       - {x: -0.90999997, y: -0.21}
       - {x: -0.93, y: -0.21}
+--- !u!61 &836267188682070349
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7526246080204160645}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.121065855, y: -0.05504012}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4, y: 3.36}
+    newSize: {x: 4, y: 3.36}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.9524274, y: 2.127099}
+  m_EdgeRadius: 0
 --- !u!1 &8941587732418415891
 GameObject:
   m_ObjectHideFlags: 0

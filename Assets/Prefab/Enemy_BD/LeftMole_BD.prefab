@@ -481,6 +481,7 @@ GameObject:
   - component: {fileID: 3088851545973148310}
   - component: {fileID: 5536331550269704387}
   - component: {fileID: 5536331550269704386}
+  - component: {fileID: 6039785008757734497}
   m_Layer: 7
   m_Name: LeftMole_BD
   m_TagString: Enemy
@@ -737,7 +738,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3784335404955210443}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -824,6 +825,32 @@ PolygonCollider2D:
       - {x: -0.56, y: -1.43}
       - {x: -0.44, y: -1.5}
       - {x: 1.3199999, y: -1.5}
+--- !u!61 &6039785008757734497
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784335404955210443}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.08664894, y: -0.365397}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.72, y: 4.72}
+    newSize: {x: 4.72, y: 4.72}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.7064943, y: 2.1148782}
+  m_EdgeRadius: 0
 --- !u!1 &4301159191645681607
 GameObject:
   m_ObjectHideFlags: 0
