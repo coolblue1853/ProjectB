@@ -61,9 +61,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 2
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -84,6 +89,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 6313349558522444943, guid: ef487b766f920904da58f8ffef7126b0, type: 3}
   - {fileID: 919432640579615980, guid: c8a070d2fe94483498bdc18a27553596, type: 3}
@@ -151,9 +157,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -174,6 +185,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 2171719538482655060, guid: 889037d99cfcefb4783257c4a7528eb4, type: 3}
   - {fileID: 2171719538482655060, guid: 31d7546518159f54ea49456db032f65d, type: 3}
@@ -291,10 +303,14 @@ MonoBehaviour:
   - {fileID: 4185027361106519671}
   - {fileID: 1291193055778619313}
   - {fileID: 1291193055778619313}
+  isHasDelayTime: 0
+  delayTime: []
+  delayAnimName: []
   attackAnimName:
   - RightHandstabbing_OneHand
   - RightHandstabbing_OneHand
   - RightHandVashDown_OneHand
+  spriteReverse: 000000
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
   skillC: {fileID: 3322576103217294678}
@@ -600,9 +616,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -623,6 +644,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 4960005499486500231, guid: 66064b317d246af4cba780b0057939b1, type: 3}
   skillCooldown: {fileID: 0}

@@ -59,8 +59,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
+  isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -81,6 +87,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8329519319443730263, guid: b49cfb5bc3551c541983e96dce936353, type: 3}
   skillCooldown: {fileID: 0}
@@ -143,8 +150,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
+  isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -165,6 +178,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 180224957722750219, guid: c1d15a7b1f1b568439a9393375fd3a60, type: 3}
   skillCooldown: {fileID: 0}
@@ -244,9 +258,13 @@ MonoBehaviour:
   attackPivot:
   - {fileID: 4185027361106519671}
   - {fileID: 1291193055778619313}
+  isHasDelayTime: 0
+  delayTime: []
+  delayAnimName: []
   attackAnimName:
   - RightHandVashDown_OneHand
   - SideAttack
+  spriteReverse: 0000
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
   skillC: {fileID: 0}

@@ -61,8 +61,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
+  isEffectMaxAdd: 0
   objectMaxCount: 2
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -78,6 +84,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 7429380887833962885, guid: 947d39c48664f3e45876510cd957faa0, type: 3}
   - {fileID: 7429380887833962885, guid: 947d39c48664f3e45876510cd957faa0, type: 3}
@@ -141,8 +153,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
+  isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -158,6 +176,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   yPivot: 0
+  isRoundAttack: 0
+  radius: 5
+  startAngle: 0
+  endAngle: 360
+  bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: 091514897fc27e74986309575a958eee, type: 3}
   skillCooldown: {fileID: 0}
@@ -226,6 +250,7 @@ MonoBehaviour:
   attckSpeed:
   - 0.55
   isAttackWait: 0
+  isSkillAttackWait: 1
   isWeaponStopMove: 1
   time: 0
   isOverHand: 0
@@ -233,8 +258,12 @@ MonoBehaviour:
   - {fileID: 7429380887833962885, guid: f8277c5f5d5e59c49a0b65d26652e8d0, type: 3}
   attackPivot:
   - {fileID: 1291193055778619313}
+  isHasDelayTime: 0
+  delayTime: []
+  delayAnimName: []
   attackAnimName:
   - RightHandstabbing_OneHand
+  spriteReverse: 00
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
   skillC: {fileID: 0}

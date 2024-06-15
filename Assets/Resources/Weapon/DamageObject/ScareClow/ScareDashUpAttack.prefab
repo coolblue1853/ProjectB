@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8267161789949130192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.11, y: 0.96, z: -0.0568}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 7.1948028}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 7.1948028}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 45
-  m_Sprite: {fileID: 21300000, guid: 5bea3b45683de724b8e92968ddcf8d83, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 886f4eb248b9a1c4e96f45bca6ace4e6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.90588236}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -113,6 +113,7 @@ MonoBehaviour:
   knockForce: 100
   knockbackDir: {x: 0, y: 1}
   isNockBackChangeDir: 0
+  nonChangeNockDir: 0
   isPlayerAttack: 1
   player: {fileID: 0}
   isLaunch: 0
@@ -144,6 +145,8 @@ MonoBehaviour:
   absorbPivot: {fileID: 0}
   absorbPower: 0
   absorbDir: {x: 0, y: 0}
+  isShortTime: 0
+  disEffectbyTime: 0
   maxDamagedEnemies: 3
   isPosionAttack: 0
   poisonDamage: 0
@@ -166,18 +169,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00992012, y: 0.34937394}
+  m_Offset: {x: -0.30072606, y: -0.045290947}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.52, y: 8.24}
+    oldSize: {x: 8, y: 8}
     newSize: {x: 9.52, y: 8.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.5841637, y: 7.0184803}
+  m_Size: {x: 5.590067, y: 6.229151}
   m_EdgeRadius: 0
 --- !u!95 &1955040889417559777
 Animator:
@@ -189,7 +192,7 @@ Animator:
   m_GameObject: {fileID: 8267161789949130192}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 62d91d29a645f1a48832cb0e17e73540, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9547742131bedbb44859f4b54c8b91d7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

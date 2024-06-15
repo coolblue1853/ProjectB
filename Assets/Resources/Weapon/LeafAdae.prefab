@@ -60,8 +60,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
+  isEffectMaxAdd: 0
   objectMaxCount: 1
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -82,6 +88,7 @@ MonoBehaviour:
   startAngle: -30
   endAngle: 30
   bulletCount: 4
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 4960005499486500231, guid: 83a73eeaff521794db0d6bc3f0f92eef, type: 3}
   skillCooldown: {fileID: 0}
@@ -144,8 +151,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
+  isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -166,6 +179,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: 284781346bc2e3543810fc1434071cbe, type: 3}
   skillCooldown: {fileID: 0}
@@ -243,8 +257,12 @@ MonoBehaviour:
   - {fileID: 5043422954099478137, guid: 4d477ca6cb404b446904eab06b384ae2, type: 3}
   attackPivot:
   - {fileID: 4185027361106519671}
+  isHasDelayTime: 0
+  delayTime: []
+  delayAnimName: []
   attackAnimName:
   - RightHandVashDown_OneHand
+  spriteReverse: 00
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
   skillC: {fileID: 8416883724471478311}
@@ -582,8 +600,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
+  isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -604,6 +628,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: bd72bc2375851e948918f59823c1505b, type: 3}
   skillCooldown: {fileID: 0}

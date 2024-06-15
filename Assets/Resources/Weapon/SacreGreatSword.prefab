@@ -59,9 +59,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 1
   holdingTime: 8
+  holdDisEffectByTime: 0
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -82,6 +87,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8672800351859898982, guid: f02015635d052034db0bf6d67e5e3eff, type: 3}
   skillCooldown: {fileID: 0}
@@ -144,9 +150,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
+  skillAWaitTime: 0
+  skillBWaitTime: 0
+  skillCWaitTime: 0
+  skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -167,6 +178,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 2727774066832764257, guid: 56fc490d9db018a4fac1bc86f27d504d, type: 3}
   skillCooldown: {fileID: 0}
@@ -248,14 +260,15 @@ MonoBehaviour:
   - {fileID: 4185027361106519671}
   isHasDelayTime: 0
   delayTime:
-  - 0.3
-  - 0.3
+  - 0
+  - 0
   delayAnimName:
   - GreatVashDownDelay
   - GreatSideAttackDelay
   attackAnimName:
   - GreatVashDown
   - GreatSideAttack
+  spriteReverse: 0000
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
   skillC: {fileID: 0}

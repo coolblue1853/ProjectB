@@ -45,20 +45,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPivot:
-  - {fileID: 2659370571445974256}
-  interval: []
+  - {fileID: 6573757590219980866}
+  - {fileID: 6573757590219980866}
+  - {fileID: 6573757590219980866}
+  - {fileID: 6573757590219980866}
+  - {fileID: 6573757590219980866}
+  - {fileID: 6573757590219980866}
+  interval:
+  - 0
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.25
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
-  skillAnim: 
+  skillAnim: Dash
   isWeaponStopMove: 1
   useStemina: 5
   attckSpeed: 0.4
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 1
   isEffectMaxAdd: 0
   objectMaxCount: 0
@@ -67,7 +78,7 @@ MonoBehaviour:
   skillCWaitTime: 0
   skillDWaitTime: 0
   player: {fileID: 0}
-  isNullParent: 0
+  isNullParent: 1
   isRayCheckSkill: 0
   direction: []
   distance: []
@@ -89,6 +100,11 @@ MonoBehaviour:
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: 5baa722388f802146b86c2e14d883eab, type: 3}
+  - {fileID: 4984365012131694445, guid: 8ad74a29622be5543ba108d36d1c9642, type: 3}
+  - {fileID: 3316831462797002195, guid: 60796a70c2cabe942be764f404d7d313, type: 3}
+  - {fileID: 4984365012131694445, guid: 8ad74a29622be5543ba108d36d1c9642, type: 3}
+  - {fileID: 3316831462797002195, guid: 60796a70c2cabe942be764f404d7d313, type: 3}
+  - {fileID: 4984365012131694445, guid: 8ad74a29622be5543ba108d36d1c9642, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1183539049
 GameObject:
@@ -135,20 +151,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPivot:
-  - {fileID: 4185027361106519671}
+  - {fileID: 2799854316043845083}
   interval: []
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
-  skillAnim: 
+  skillAnim: Dash
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
@@ -253,8 +270,8 @@ MonoBehaviour:
   time: 0
   isOverHand: 1
   attackPrefab:
-  - {fileID: 7429380887833962885, guid: f8277c5f5d5e59c49a0b65d26652e8d0, type: 3}
-  - {fileID: 8267161789949130192, guid: 289ed1c71ae94a145990ab1dcb06f995, type: 3}
+  - {fileID: 4984365012131694445, guid: 9eff26159f4b9a342a8edd774239b8df, type: 3}
+  - {fileID: 3316831462797002195, guid: 80ca562362efe3b4b8e5cfda47119136, type: 3}
   attackPivot:
   - {fileID: 4185027361106519671}
   - {fileID: 1291193055778619313}
@@ -264,6 +281,7 @@ MonoBehaviour:
   attackAnimName:
   - RightPunch
   - LeftPunch
+  spriteReverse: 0000
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
   skillC: {fileID: 7713458429164400372}
@@ -416,6 +434,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6173382247617428609}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2799854316043845083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4469660586345185677}
+  m_Layer: 7
+  m_Name: AttackPivot (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4469660586345185677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2799854316043845083}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.103, y: 0.148, z: 0.05680936}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6173382247617428609}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4185027361106519671
 GameObject:
@@ -595,7 +644,40 @@ Transform:
   - {fileID: 1291193055778619312}
   - {fileID: 8046027854293589565}
   - {fileID: 7431735090551928109}
+  - {fileID: 34076046550294238}
+  - {fileID: 4469660586345185677}
   m_Father: {fileID: 1291193055134064077}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6573757590219980866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 34076046550294238}
+  m_Layer: 7
+  m_Name: AttackPivot (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &34076046550294238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6573757590219980866}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.17, y: -0.072, z: 0.05680936}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6173382247617428609}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8341864255033881453
@@ -689,6 +771,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   isHoldSkill: 0
   holdingTime: 0
+  holdDisEffectByTime: 0
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0

@@ -14,6 +14,7 @@ public class DamageObject : MonoBehaviour
     [ConditionalHide("isDestroyByTime")]
     public float holdingTime = 0;
     public int hitCount = 1 ; //다단히트수.
+    public float waitInterval = 0; // 최초 공격이후 뒤의 다단히트까지의 대기시간
     public bool isDeletByMaxHit = true;//최대 히트인원을 체우면 자동파괴
     public bool isHitIntervelEven = true;
     public float hitIntervalTime = 0; //다단히트수.
@@ -178,7 +179,10 @@ public class DamageObject : MonoBehaviour
         boxCol = this.GetComponent<BoxCollider2D>();
         if ((hitCount+DatabaseManager.hitCount) != 1)
         {
-            ResetDamagedEnemies();
+           Sequence waitSeq = DOTween.Sequence()
+       .AppendInterval(waitInterval)
+       .AppendCallback(() => ResetDamagedEnemies());
+
         }
 
         if (isDashAttack)

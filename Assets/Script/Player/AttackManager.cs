@@ -108,7 +108,7 @@ public class AttackManager : MonoBehaviour
             }
             else if (skillFAction.triggered && equipWeapon != null)
             {
-                //equipWeapon.ActiveSideRightSkill();
+                equipWeapon.ActiveDSkill();
             }
     
         }

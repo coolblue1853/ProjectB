@@ -770,7 +770,9 @@ public class PlayerController : MonoBehaviour
 
     bool isAttackAnim = false;
     Sequence attackAnimSequence;
-    public void ActiveAttackAnim(string anim, float time, bool isDelay = false)
+    public GameObject RightSoket;
+    GameObject revOb;
+    public void ActiveAttackAnim(bool isRevers, string anim, float time, bool isDelay = false)
     {
         if(anim == null || anim == "")
         {
@@ -787,6 +789,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log("공격시작");
             isRopeAttack = true;
         }
+        if (isRevers)
+        {
+             revOb = RightSoket.transform.GetChild(0).gameObject;
+            revOb.transform.localScale = new Vector3(-Mathf.Abs(revOb.transform.localScale.x), revOb.transform.localScale.y, revOb.transform.localScale.z);
+        }
 
         if(isDelay == false)
         {
@@ -794,12 +801,21 @@ public class PlayerController : MonoBehaviour
             attackAnimSequence = DOTween.Sequence()
            .AppendInterval(time)
            .AppendCallback(() => isAttackAnim = false)
+           .AppendCallback(() => ReversSprite(isRevers))
            .AppendCallback(() => EndRopeAttackAnim());
 
         }
 
 
 
+    }
+
+    void ReversSprite(bool isRev)
+    {
+        if (isRev)
+        {
+            revOb.transform.localScale = new Vector3(Mathf.Abs(revOb.transform.localScale.x), revOb.transform.localScale.y, revOb.transform.localScale.z);
+        }
     }
     public void StopAttackAnim()
     {

@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
     public string[] delayAnimName;
 
     public string[] attackAnimName;
-
+    public bool[] spriteReverse;
     public Skill skillA;
     public Skill skillB;
     public Skill skillC;
@@ -136,6 +136,14 @@ public class Weapon : MonoBehaviour
         }
 
     }
+    public void ActiveDSkill()
+    {
+        if (skillD != null)
+        {
+            skillD.ActiveSideRight();
+        }
+
+    }
     public bool isSkillCancel = false;
     public void ActiveSideRightSkill()
     {
@@ -155,13 +163,13 @@ public class Weapon : MonoBehaviour
             //ÇÁ¸®ÆÕ ¼ÒÈ¯
             if (delayTime.Length > 0)
             {
-                pC.ActiveAttackAnim(delayAnimName[nowConboCount - 1], delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)), true);
+            //    pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1],delayAnimName[nowConboCount - 1], delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)), true);
                 Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
 
             }
             else
             {
-                pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+               // pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1],attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
                 CreatAttackPrefab();
 
             }
@@ -175,13 +183,13 @@ public class Weapon : MonoBehaviour
 
                 if (delayTime.Length > 0)
                 {
-                    pC.ActiveAttackAnim(delayAnimName[nowConboCount - 1], delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)), true);
+                //   pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], delayAnimName[nowConboCount - 1], delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)), true);
                     Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
 
                 }
                 else
                 {
-                    pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+                   // pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
                     CreatAttackPrefab();
 
                 }
@@ -193,13 +201,13 @@ public class Weapon : MonoBehaviour
 
                 if (delayTime.Length > 0)
                 {
-                    pC.ActiveAttackAnim(delayAnimName[nowConboCount - 1], delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)), true);
+                  //  pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], delayAnimName[nowConboCount - 1], delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)), true);
                     Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
 
                 }
                 else
                 {
-                    pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+                 //   pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
                     CreatAttackPrefab();
   
                 }
@@ -212,7 +220,7 @@ public class Weapon : MonoBehaviour
 
     public void CreatAttackPrefab()
     {
-        pC.ActiveAttackAnim(attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+        pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
         DamageObject dmOb = damageObject.GetComponent<DamageObject>();
         dmOb.SetDamge(damgeArray);

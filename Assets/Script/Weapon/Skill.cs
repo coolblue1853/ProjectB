@@ -191,7 +191,7 @@ public class Skill : MonoBehaviour
     private IEnumerator SpawnSkills()
     {
         // interval[0]의 시간만큼 대기
-        yield return new WaitForSeconds(interval[0]);
+        yield return new WaitForSeconds(interval[0] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         // 첫 번째 요소는 건너뛰고 두 번째 요소부터 생성
         for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && (isEffectMaxAdd == false || i < objectMaxCount); i++)
         {
@@ -315,7 +315,7 @@ public class Skill : MonoBehaviour
             // 다음 스킬을 생성하기 전에 interval[i]의 시간만큼 대기
             if (i < interval.Length)
             {
-                yield return new WaitForSeconds(interval[i]);
+                yield return new WaitForSeconds(interval[i] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             }
         }
     }
@@ -577,7 +577,7 @@ public class Skill : MonoBehaviour
 
     void SkillEffect(string skillNum) // 기술 에니메이션 및 데미지 오브젝트에 공격설정
     {
-        PlayerController.instance.ActiveAttackAnim(skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+        PlayerController.instance.ActiveAttackAnim(false,skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         PlayerHealthManager.Instance.SteminaDown(useStemina);
 
 
