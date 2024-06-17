@@ -22,7 +22,6 @@ public class SetItem : MonoBehaviour
 
     public void CheckSetEffect(string name, int level)
     {
-        Debug.Log(name + "_" + level);
         SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name+"_"+level));
         if(item != null)
         {
@@ -31,7 +30,6 @@ public class SetItem : MonoBehaviour
     }
     public void CheckSetDisEffect(string name, int level)
     {
-        Debug.Log(name + "_" + level);
         SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name + "_" + level));
         if (item != null)
         {
@@ -49,8 +47,6 @@ public class SetItem : MonoBehaviour
             string[] sprateStr = value.Split(")");
             string sign = sprateStr[0].Substring(1,1);
             string[] effectSub = sprateStr[1].Split(":");
-            Debug.Log(sign + " " + effectSub[0]);
-
             if(isEffect == true)
             {
                 switch (effectSub[0])

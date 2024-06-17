@@ -40,7 +40,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         {
             GameObject ob = transform.GetChild(0).gameObject;
             ItemCheck obItemCheck = ob.GetComponent<ItemCheck>();
-           LoadPrefab(obItemCheck.name, obItemCheck.equipArea, obItemCheck.tfName);
+           LoadPrefab(obItemCheck.name, obItemCheck.equipArea, obItemCheck.setName);
         }
         if (reciveEquipArea == "Weapon" && weapon == null)
         {
@@ -91,7 +91,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     GameObject deletChile ;
     public void DeletPrefab(ItemCheck detail, string reciveEquipArea, bool isFalse= true)
     {
-        DatabaseManager.MinusSetDict(detail.tfName, 1);
+        DatabaseManager.MinusSetDict(detail.setName, 1);
         if (reciveEquipArea == "Weapon")
         {
             if (isFalse == false)

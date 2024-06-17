@@ -179,6 +179,7 @@ public class DatabaseManager : MonoBehaviour
                 tear = ItemDataList[itemNum].tear,
                 rarity = ItemDataList[itemNum].rarity,
                 upgrade = ItemDataList[itemNum].upgrade,
+                setName = ItemDataList[itemNum].setName,
             };
             return newItem;
 

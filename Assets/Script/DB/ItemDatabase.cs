@@ -75,6 +75,9 @@ public class ItemDatabase : MonoBehaviour
                     case 15: // upgrade
                         item.upgrade = int.Parse(values[j].Trim());
                         break;
+                    case 16: // upgrade
+                        item.setName =(values[j].Trim());
+                        break;
                         // 필요한 다른 열에 대한 처리를 추가합니다.
                 }
             }
@@ -102,4 +105,5 @@ public class ItemData
     public int tear;
     public string rarity;
     public int upgrade;
+    public string setName;
 }

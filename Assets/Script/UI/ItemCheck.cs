@@ -20,6 +20,7 @@ public class ItemCheck : MonoBehaviour
     public int effectPow;
     public string equipArea;
     public int needCount;
+    public string setName;
     public TextMeshProUGUI stackText;
     public Image image;
 
@@ -58,6 +59,7 @@ public class ItemCheck : MonoBehaviour
         tear = item.tear;
         rarity = item.rarity;
         upgrade = item.upgrade;
+        setName = item.setName;
         if (stackText != null)
         stackText.text = nowStack.ToString();
         if(type == "Consum")

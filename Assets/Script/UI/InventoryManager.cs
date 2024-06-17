@@ -1025,7 +1025,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.setName);
             }
             else
             {
@@ -1036,7 +1036,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.setName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
             }
         }
@@ -1048,7 +1048,7 @@ public class InventoryManager : MonoBehaviour
 
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
+                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.setName);
               //  equipBoxCheck.EquipMainWeapon();
             }
             else
@@ -1060,7 +1060,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.setName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
             }
 
@@ -1336,7 +1336,7 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F3))
         {
          CreatItem("ScareSide");
-
+            CreatItem("Wood");
             //CreatItem("PoisonSword");
             //CreatItem("Wood Spear");
             // CreatItem("Leather Knuckles");
@@ -1365,7 +1365,7 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F4))
 
         {
-            // CreatItem("Wood");
+        
 
               CreatItem("Cap");
               CreatItem("Armor");
@@ -1793,9 +1793,16 @@ public class InventoryManager : MonoBehaviour
                 misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
                 misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
                 misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-                misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : "+(detail.price).ToString();
+                misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T"+detail.tear.ToString();
+
+                switch (detail.rarity)
+                {
+                    case ("C"):
+                        misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = "Common";
+                        break;
+                }
+
                 if (ob != null)
                 {
                     miscDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
