@@ -53,45 +53,45 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         else if (reciveEquipArea == "Head" && head == null)
         {
             head = equipPrefab.GetComponent<Equipment>();
-            PlayerHealthManager.Instance.EquipmentActiveTrue(head.hp, head.armor);
+            PlayerHealthManager.Instance.EquipmentActiveTrue(head.hp);
         }
         else if (reciveEquipArea == "Chest" && chest == null)
         {
             chest = equipPrefab.GetComponent<Equipment>();
-            PlayerHealthManager.Instance.EquipmentActiveTrue(chest.hp, chest.armor);
+            PlayerHealthManager.Instance.EquipmentActiveTrue(chest.hp);
 
         }
         else if (reciveEquipArea == "Leg" && leg == null)
         {
             leg = equipPrefab.GetComponent<Equipment>();
-            PlayerHealthManager.Instance.EquipmentActiveTrue(leg.hp, leg.armor);
+            PlayerHealthManager.Instance.EquipmentActiveTrue(leg.hp);
         }
         else if (reciveEquipArea == "Hand" && hand == null)
         {
             hand = equipPrefab.GetComponent<Equipment>();
-            PlayerHealthManager.Instance.EquipmentActiveTrue(hand.hp, hand.armor);
+            PlayerHealthManager.Instance.EquipmentActiveTrue(hand.hp);
         }
         else if (reciveEquipArea == "Necklace" && hand == null)
         {
             necklace = equipPrefab.GetComponent<Equipment>();
-            PlayerHealthManager.Instance.EquipmentActiveTrue(necklace.hp, necklace.armor);
+            PlayerHealthManager.Instance.EquipmentActiveTrue(necklace.hp);
         }
         else if (reciveEquipArea == "Ring" && hand == null)
         {
             ring = equipPrefab.GetComponent<Equipment>();
-            PlayerHealthManager.Instance.EquipmentActiveTrue(ring.hp, ring.armor);
+            PlayerHealthManager.Instance.EquipmentActiveTrue(ring.hp);
         }
         else if (reciveEquipArea == "Shoes" && shoes == null)
         {
             shoes = equipPrefab.GetComponent<Equipment>();
-            PlayerHealthManager.Instance.EquipmentActiveTrue(shoes.hp, shoes.armor);
+            PlayerHealthManager.Instance.EquipmentActiveTrue(shoes.hp);
         }
 
     }
     GameObject deletChile ;
-    public void DeletPrefab(string reciveEquipArea, bool isFalse= true)
+    public void DeletPrefab(ItemCheck detail, string reciveEquipArea, bool isFalse= true)
     {
-
+        DatabaseManager.MinusSetDict(detail.tfName, 1);
         if (reciveEquipArea == "Weapon")
         {
             if (isFalse == false)
@@ -124,7 +124,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(head.hp, head.armor))
+.AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(head.hp))
   .AppendCallback(() => Destroy(head.gameObject))
  .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
  .OnComplete(() => Destroy(deletChile));
@@ -133,7 +133,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if(head != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(head.hp, head.armor);
+                    PlayerHealthManager.Instance.EquipmentActiveFalse(head.hp);
                     Destroy(head.gameObject);
                     head = null;
                 }
@@ -156,7 +156,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
 
                 Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp, chest.armor))
+.AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp))
 .AppendCallback(() => Destroy(chest.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -166,7 +166,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                 if (chest != null)
                 {
 
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp, chest.armor);
+                    PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp);
                     Destroy(chest.gameObject);
                     chest = null;
                 }
@@ -186,7 +186,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(leg.hp, leg.armor))
+.AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(leg.hp))
 .AppendCallback(() => Destroy(leg.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -195,7 +195,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (leg != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(leg.hp, leg.armor);
+                    PlayerHealthManager.Instance.EquipmentActiveFalse(leg.hp);
                     Destroy(leg.gameObject);
                     leg = null;
                 }
@@ -211,7 +211,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-    .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(hand.hp, hand.armor))
+    .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(hand.hp))
     .AppendCallback(() => Destroy(hand.gameObject))
     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
     .OnComplete(() => Destroy(deletChile));
@@ -220,7 +220,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (hand != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(hand.hp, hand.armor);
+                    PlayerHealthManager.Instance.EquipmentActiveFalse(hand.hp);
                     Destroy(hand.gameObject);
                     hand = null;
                 }
@@ -234,7 +234,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-    .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(necklace.hp, necklace.armor))
+    .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(necklace.hp))
     .AppendCallback(() => Destroy(necklace.gameObject))
     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
     .OnComplete(() => Destroy(deletChile));
@@ -243,7 +243,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (necklace != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(necklace.hp, necklace.armor);
+                    PlayerHealthManager.Instance.EquipmentActiveFalse(necklace.hp);
                     Destroy(necklace.gameObject);
                     necklace = null;
                 }
@@ -256,7 +256,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             if(isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-       .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(ring.hp, ring.armor))
+       .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(ring.hp))
 .AppendCallback(() => Destroy(ring.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -265,7 +265,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (ring != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(ring.hp, ring.armor);
+                    PlayerHealthManager.Instance.EquipmentActiveFalse(ring.hp);
                     Destroy(ring.gameObject);
                     ring = null;
                 }
@@ -279,7 +279,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                 mainCharacter.SetMeshImage("RFoot", defaultOffset);
                 mainCharacter.SetMeshImage("LFoot", defaultOffset);
                 Sequence waitSequence = DOTween.Sequence()
-       .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp, shoes.armor))
+       .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp))
 .AppendCallback(() => Destroy(shoes.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -288,7 +288,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (shoes != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp, shoes.armor);
+                    PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp);
                     Destroy(shoes.gameObject);
                     shoes = null;
                 }
@@ -306,6 +306,9 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
     public void LoadPrefab(string equipName, string equipArea, string tfName)
     {
+        DatabaseManager.PlusSetDict(tfName,1);
+
+
         reciveEquipArea = equipArea;
         if (equipArea == "Weapon")
         {

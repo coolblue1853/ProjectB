@@ -51,7 +51,7 @@ public class PlayerHealthManager : MonoBehaviour
         fullnesBar.ResetHp(fullFullness);
     }
 
-    public void EquipmentActiveTrue(int hp, int armor)
+    public void EquipmentActiveTrue(int hp)
     {
         int checkHP =  nowHp;
         // 방어도 적용은 나중에 시켜주어야 함.
@@ -62,9 +62,11 @@ public class PlayerHealthManager : MonoBehaviour
         int minus = fullHP - checkHP;
         healthBar.ResetHp(fullHP);
         healthBar.healthSystem.Damage(minus);
+        waitHpSequence.Kill();
 
+        HpUp(hp);
     }
-    public void EquipmentActiveFalse(int hp, int armor)
+    public void EquipmentActiveFalse(int hp)
     {
 
         // 방어도 적용은 나중에 시켜주어야 함.

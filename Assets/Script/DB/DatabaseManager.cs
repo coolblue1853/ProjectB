@@ -1,3 +1,5 @@
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,8 +23,61 @@ public class DatabaseManager : MonoBehaviour
     public static bool isOpenUI = false;
     public static bool isUsePortal = false;
     public static Dictionary<string, int> inventoryItemStack = new Dictionary<string, int>();
+    public static Dictionary<string, int> setsEffectStack = new Dictionary<string, int>();
     ItemDatabase itemDatabase;
+    SetItem setDatabase;
     public static int money;
+
+
+    public static void PlusSetDict(string name, int count)
+    {
+
+        bool isContain = false;
+        foreach (var value in setsEffectStack)
+        {
+            if (value.Key == name)
+            {
+                isContain = true;
+                break;
+            }
+        }
+        if (isContain == false)
+        {
+            setsEffectStack[name] = count;
+        }
+        else
+        {
+            setsEffectStack[name] += count;
+        }
+
+        SetEffectActvie(name, setsEffectStack[name]);
+
+    }
+    public static void MinusSetDict(string name, int count)
+    {
+        SetEffectDisactvie(name, setsEffectStack[name]);
+        setsEffectStack[name] -= count;
+        // 만약 값이 0이 되면 해당 키를 제거할 수 있음
+        if (setsEffectStack[name] == 0)
+        {
+            setsEffectStack.Remove(name);
+        }
+
+    }
+
+
+    public static void SetEffectActvie(string name, int level)
+    {
+        SetItem setItem = new SetItem();
+        setItem.CheckSetEffect(name, level);
+    }
+    public static void SetEffectDisactvie(string name, int level)
+    {
+        SetItem setItem = new SetItem();
+     setItem.CheckSetDisEffect(name, level);
+    }
+
+
     public static void PlusInventoryDict(string name, int count)
     {
         bool isContain = false;
@@ -36,13 +91,10 @@ public class DatabaseManager : MonoBehaviour
         }
         if(isContain == false)
         {
-         //   Debug.Log("Add1");
-            //inventoryItemStack.Add(name,count);
             inventoryItemStack[name] = count;
         }
         else
         {
-         //   Debug.Log("Add2");
             inventoryItemStack[name] += count;
         }
     }
@@ -68,6 +120,7 @@ public class DatabaseManager : MonoBehaviour
     {
         money += 1800;
         itemDatabase = this.GetComponent<ItemDatabase>();
+        setDatabase = this.GetComponent<SetItem>();
         if (instance != null)
         {
             Destroy(this.gameObject);
@@ -85,6 +138,7 @@ public class DatabaseManager : MonoBehaviour
     public void LoadAllItemData() // 기타 아이템
     {
         ItemDataList = itemDatabase.items;
+        setsDataList = setDatabase.items;
         //    ItemDataList = ItemSheet.Data.DataList;
 
         /*  인터넷에서 정보를 받아오는 방법.
@@ -136,7 +190,27 @@ public class DatabaseManager : MonoBehaviour
             return null;
         }
     }
+    private List<SetData> setsDataList;
+    public SetData LoadSetsData(int itemNum)
+    {
+        if (setsDataList != null && itemNum >= 0 && itemNum < setsDataList.Count)
+        {
+            SetData newItem = new SetData
+            {
+                setName = setsDataList[itemNum].setName,
+                effect = setsDataList[itemNum].effect,
+    
+            };
+            return newItem;
 
+
+        }
+        else
+        {
+      //      Debug.Log("데이터를 불러오지 못했거나 유효하지 않은 인덱스입니다.");
+            return null;
+        }
+    }
     public int FindItemDataIndex(string targetValue)
     {
         if (ItemDataList != null)
@@ -161,6 +235,29 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
+    public int FindSetsDataIndex(string targetValue)
+    {
+        if (setsDataList != null)
+        {
+            for (int i = 0; i < setsDataList.Count; i++)
+            {
+                if (setsDataList[i].setName == targetValue)
+                {
+                    // 입력한 값과 일치하는 데이터를 찾으면 해당 인덱스 반환
+                    return i;
+                }
+            }
+
+//            Debug.Log("찾지 못했습니다");
+            // 일치하는 데이터가 없으면 -1 반환
+            return -1;
+        }
+        else
+        {
+            // 데이터 리스트가 비어있으면 -1 반환
+            return -1;
+        }
+    }
 
 }
 

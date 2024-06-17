@@ -113,7 +113,7 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                     Debug.Log("찾기2");
                     EquipBoxCheck nowEquipBox = currentParent.GetComponent<EquipBoxCheck>();
                     ItemCheck item = this.GetComponent<ItemCheck>();
-                    nowEquipBox.DeletPrefab(item.equipArea);
+                    nowEquipBox.DeletPrefab(item,item.equipArea);
                 }
 
             }
@@ -269,7 +269,7 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 {
                     // 아이템을 해체한는 부분
                     DetechItem(itemCheck.equipArea);
-                    equipBoxCheck.DeletPrefab(itemCheck.equipArea);
+                    equipBoxCheck.DeletPrefab(itemCheck,itemCheck.equipArea);
 
                     transform.SetParent(equipBox);
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -992,7 +992,7 @@ public class InventoryManager : MonoBehaviour
         {
             Sequence waitSequence = DOTween.Sequence()
             .AppendCallback(() => equipBoxCheck.isSetArray = false)
-            .OnComplete(() => equipBoxCheck.DeletPrefab(detail.equipArea, false));
+            .OnComplete(() => equipBoxCheck.DeletPrefab(detail,detail.equipArea, false));
 
           //  skillCooldown.DeletLeftSkill();
             CreatItem(detail.name);
@@ -1031,7 +1031,7 @@ public class InventoryManager : MonoBehaviour
             {
                 // 아이템을 해체한는 부분
                 DetechItem(detail.equipArea);
-                equipBoxCheck.DeletPrefab(detail.equipArea);
+                equipBoxCheck.DeletPrefab(detail,detail.equipArea);
 
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -1056,8 +1056,7 @@ public class InventoryManager : MonoBehaviour
 
                 // 아이템을 해체한는 부분
                 DetechItem(detail.equipArea);
-                equipBoxCheck.DeletPrefab(detail.equipArea);
-
+                equipBoxCheck.DeletPrefab(detail,detail.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
@@ -1368,11 +1367,11 @@ public class InventoryManager : MonoBehaviour
         {
             // CreatItem("Wood");
 
-              CreatItem("ScareCap");
-              CreatItem("ScareArmor");
-              CreatItem("ScareLegArmor");
-             CreatItem("ScareHandArmor");
-             CreatItem("ScareShoes");
+              CreatItem("Cap");
+              CreatItem("Armor");
+              CreatItem("LegArmor");
+             CreatItem("HandArmor");
+             CreatItem("Shoes");
 
            // CreatItem("RatCap");
          //   CreatItem("RatArmor");
