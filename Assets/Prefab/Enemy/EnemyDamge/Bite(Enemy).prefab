@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDestroyByTime: 1
   holdingTime: 1
-  damage: 10
+  damage: 20
   stiffnessTime: 0.5
   knockForce: 30
   knockbackDir: {x: 1, y: 1}
@@ -147,6 +147,12 @@ MonoBehaviour:
   poisonDamage: 0
   damageInterval: 0
   damageCount: 0
+  isApcAttack: 0
+  maxDamagedEnemies: 1
+  damageArr: 
+  dmgRatio: 1
+  ShakeTime: 0
+  isSkill: 0
 --- !u!95 &8822647387501680377
 Animator:
   serializedVersion: 5

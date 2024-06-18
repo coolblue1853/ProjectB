@@ -37,6 +37,15 @@ public class SetItem : MonoBehaviour
         }
     }
 
+    public string SetEffectStr(string name, int level) //외부에서 세트 아이템의 효과를 확인할 수 있는 항목.
+    {
+        SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name + "_" + level));
+        if (item != null)
+        {
+            return item.effect;
+        }
+        return "";
+    }
     public void ActiveSetEffect(string effect, bool isEffect)
     {
         string[] effectList = effect.Split("/");
@@ -46,28 +55,28 @@ public class SetItem : MonoBehaviour
 
             string[] sprateStr = value.Split(")");
             string sign = sprateStr[0].Substring(1,1);
-            string[] effectSub = sprateStr[1].Split(":");
+            string[] effectSub = sprateStr[1].Split(" ");
             if(isEffect == true)
             {
-                switch (effectSub[0])
+                switch (effectSub[1])
                 {
                     case ("Def"):
-                        if (sign == "+") DatabaseManager.playerDef += int.Parse(effectSub[1]);
+                        if (sign == "+") DatabaseManager.playerDef += int.Parse(effectSub[0]);
                         break;
                     case ("Hp"):
-                        if (sign == "+") PlayerHealthManager.Instance.EquipmentActiveTrue(int.Parse(effectSub[1]));
+                        if (sign == "+") PlayerHealthManager.Instance.EquipmentActiveTrue(int.Parse(effectSub[0]));
                         break;
                 }
             }
             else
             {
-                switch (effectSub[0])
+                switch (effectSub[1])
                 {
                     case ("Def"):
-                        if (sign == "+") DatabaseManager.playerDef -= int.Parse(effectSub[1]);
+                        if (sign == "+") DatabaseManager.playerDef -= int.Parse(effectSub[0]);
                         break;
                     case ("Hp"):
-                        if (sign == "+") PlayerHealthManager.Instance.EquipmentActiveFalse(int.Parse(effectSub[1]));
+                        if (sign == "+") PlayerHealthManager.Instance.EquipmentActiveFalse(int.Parse(effectSub[0]));
                         break;
                 }
             }

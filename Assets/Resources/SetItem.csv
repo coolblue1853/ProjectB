@@ -1,3 +1,4 @@
 string,string
 setName,effect
-Basic Gear_2,(+)Def:10/(+)Hp:100
+RabbitArmor_2,(+)10 Def
+RabbitArmor_5,(+)100 Hp

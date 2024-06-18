@@ -27,7 +27,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject miscDetail;
     public GameObject consumDetail;
     public GameObject equipDetail;
-    int detailX = 150, detailY =12;
+    int detailX = 200, detailY =12;
     int equipDetailX = 150;
     static public InventoryManager instance;
     public string state;
@@ -1025,7 +1025,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.setName);
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
             }
             else
             {
@@ -1036,7 +1036,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.setName);
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
             }
         }
@@ -1048,7 +1048,7 @@ public class InventoryManager : MonoBehaviour
 
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.setName);
+                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
               //  equipBoxCheck.EquipMainWeapon();
             }
             else
@@ -1060,7 +1060,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.setName);
+                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
             }
 
@@ -1373,7 +1373,7 @@ public class InventoryManager : MonoBehaviour
              CreatItem("HandArmor");
              CreatItem("Shoes");
 
-           // CreatItem("RatCap");
+            CreatItem("RatCap");
          //   CreatItem("RatArmor");
          //   CreatItem("RatLegArmor");
           //  CreatItem("RatHandArmor");
@@ -1839,13 +1839,78 @@ public class InventoryManager : MonoBehaviour
             if (detail.type == "Equip")
             {
                 Transform equip = equipDetail.gameObject.transform;
-                equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+
+                string folderPath = detail.equipArea + "/";
+
+                // 리소스 폴더 내의 equipName을 로드합니다.
+                GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
+
+
+                if (detail.equipArea != "Weapon") // 방어구라면
+                {
+                 Equipment equipment = prefab.GetComponent<Equipment>();
+                    equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+                    equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
+                    equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type+" : "+ detail.equipArea;
+                    equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                    equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                    equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+                    equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+                    switch (detail.rarity)
+                    {
+                        case ("C"):
+                            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = "Common";
+                            break;
+                    }
+
+                    // 방어구의 기본적인 스탯수치
+                    string basicStr = ""; 
+                    if (equipment.armor != 0)
+                    {
+
+                        if(equipment.armor >0) basicStr += "+" + equipment.armor.ToString() +" Def\n" ;
+                        else basicStr += "-" + equipment.armor.ToString() + " Def\n";
+                    }
+                    if (equipment.hp != 0)
+                    {
+
+                        if (equipment.hp > 0) basicStr += "+" + equipment.hp.ToString() + " Hp\n";
+                        else basicStr += "-" + equipment.hp.ToString() + " Hp\n";
+                    }
+                    equip.GetChild(7).GetComponent<TextMeshProUGUI>().text = basicStr;
+
+                    // 방어구의 세트효과
+                    string allSetStr = "";
+                    if (detail.setName != "") allSetStr = "< " + detail.setName + " >\n";
+
+                    SetItem setItem = new SetItem();
+                    for(int i =0; i< 8; i++)
+                    {
+                        string effecStr = setItem.SetEffectStr(detail.tfName, i);
+                        if (effecStr != "")
+                        {
+                            // Step 1: Remove the parentheses
+                            string noParentheses = effecStr.Replace("(", "").Replace(")", "");
+                            // Step 2: Replace / with ,
+                            string result = noParentheses.Replace("/", " , ");
+                            allSetStr += "("+i+") "+result + "\n";
+                        }
+
+                    }
+
+                    equip.GetChild(8).GetComponent<TextMeshProUGUI>().text = allSetStr;
+
+                }
+                else
+                {
+                    equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+                    equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
+                    equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+                    equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                    equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+                    equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+
+                }
                 if (ob != null)
                 {
                     equipDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
@@ -1855,7 +1920,7 @@ public class InventoryManager : MonoBehaviour
                     equipDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
                 }
                 equipDetail.SetActive(true);
-                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+
             }
         }
         else if (state == "Equipment")
@@ -1872,15 +1937,76 @@ public class InventoryManager : MonoBehaviour
                 //Debug.Log(gameObject.transform.GetChild(0));
                 detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
             }
+            string folderPath = detail.equipArea + "/";
 
+            // 리소스 폴더 내의 equipName을 로드합니다.
+            GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
             Transform equip = equipDetail.gameObject.transform;
-            equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
+            if (detail.equipArea != "Weapon") // 방어구라면
+            {
+                Equipment equipment = prefab.GetComponent<Equipment>();
+                equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
+                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+                switch (detail.rarity)
+                {
+                    case ("C"):
+                        equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = "Common";
+                        break;
+                }
+
+                // 방어구의 기본적인 스탯수치
+                string basicStr = "";
+                if (equipment.armor != 0)
+                {
+
+                    if (equipment.armor > 0) basicStr += "+" + equipment.armor.ToString() + " Def\n";
+                    else basicStr += "-" + equipment.armor.ToString() + " Def\n";
+                }
+                if (equipment.hp != 0)
+                {
+
+                    if (equipment.hp > 0) basicStr += "+" + equipment.hp.ToString() + " Hp\n";
+                    else basicStr += "-" + equipment.hp.ToString() + " Hp\n";
+                }
+                equip.GetChild(7).GetComponent<TextMeshProUGUI>().text = basicStr;
+
+                // 방어구의 세트효과
+                string allSetStr = "";
+                if (detail.setName != "") allSetStr = "< " + detail.setName + " >\n";
+
+                SetItem setItem = new SetItem();
+                for (int i = 0; i < 8; i++)
+                {
+                    string effecStr = setItem.SetEffectStr(detail.tfName, i);
+                    if (effecStr != "")
+                    {
+                        // Step 1: Remove the parentheses
+                        string noParentheses = effecStr.Replace("(", "").Replace(")", "");
+                        // Step 2: Replace / with ,
+                        string result = noParentheses.Replace("/", " , ");
+                        allSetStr += "(" + i + ") " + result + "\n";
+                    }
+
+                }
+
+                equip.GetChild(8).GetComponent<TextMeshProUGUI>().text = allSetStr;
+
+            }
+            else
+            {
+                equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
+                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+
+            }
             if (ob != null)
             {
                 equipDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x + equipDetailX, detailY);
