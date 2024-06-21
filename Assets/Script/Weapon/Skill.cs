@@ -105,6 +105,9 @@ public class Skill : MonoBehaviour
     public int bulletCount = 30;    // 생성할 탄막 개수
 
 
+    public string skillName;
+    public string skillDetail;
+
     public GameObject delayEffectPrefab;
     private void Awake()
     {

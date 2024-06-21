@@ -87,6 +87,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: < Fierce Thrust >
+  skillDetail: Thrusts powerfully forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
@@ -178,6 +180,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: < Shield Charge >
+  skillDetail: Charges forward with a shield, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: 33fcee089b6c6ee438bdb4443fe91ab9, type: 3}
@@ -238,11 +242,11 @@ MonoBehaviour:
   maxComboTime: 1
   minDmg: 5
   maxDmg: 10
-  critPer: 0
-  critDmg: 0
-  incDmg: 0
-  ignDef: 0
-  skillDmg: 0
+  critPer: 1
+  critDmg: 1
+  incDmg: 1
+  ignDef: 1
+  skillDmg: 1
   finDmg: 0
   addDmg: 10
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -271,10 +275,13 @@ MonoBehaviour:
   - RightHandVashDown_OneHand
   - RightHandVashUp_OneHand
   spriteReverse: 000000
-  skillA: {fileID: 342058023}
-  skillB: {fileID: 1183539051}
-  skillC: {fileID: 3836805803425998890}
-  skillD: {fileID: 0}
+  skill:
+  - {fileID: 342058023}
+  - {fileID: 1183539051}
+  - {fileID: 3836805803425998890}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   leftWeqponSprite: {fileID: 8341864255033881453}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 0
@@ -542,6 +549,9 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: < Hold the Line >
+  skillDetail: Enters a super armor state for up to 1 second, increasing defense
+    by 100.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: 72505f3ec0e05be4a8c0ac87f79915c1, type: 3}

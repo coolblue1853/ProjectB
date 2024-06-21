@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
     public int ignDef = 0; // 방어력 무시%
     public int skillDmg = 0; // 스킬 공격력%
     public int finDmg = 0; // 최종뎀%  
-    public int addDmg = 0; // 최종뎀%  
+    public int addDmg = 0; // 추뎀%  
     PlayerHealthManager phm;
 
    
@@ -43,10 +43,8 @@ public class Weapon : MonoBehaviour
 
     public string[] attackAnimName;
     public bool[] spriteReverse;
-    public Skill skillA;
-    public Skill skillB;
-    public Skill skillC;
-    public Skill skillD;
+    public Skill[] skill;
+
 
     public GameObject leftWeqponSprite;
     public GameObject RightWeqponSprite;
@@ -103,55 +101,48 @@ public class Weapon : MonoBehaviour
 
     public void CheckSkill()
     {
-        if (skillA != null)
-            skillA.ActiveMainSkill();
-        if (skillB != null)
-            skillB.ActiveMainSkill();
-        if (skillC != null)
-            skillC.ActiveSideSkill();
-        if (skillD != null)
-            skillD.ActiveSideSkill();
+        if (skill[0] != null)
+            skill[0].ActiveMainSkill();
+        if (skill[1] != null)
+            skill[1].ActiveMainSkill();
+        if (skill[2] != null)
+            skill[2].ActiveSideSkill();
+        if (skill[3] != null)
+            skill[4].ActiveSideSkill();
     }
 
     public void ActiveASkill()
     {
-        if(skillA != null)
+        if(skill[0] != null)
         {
-            skillA.ActiveLeft();
+            skill[0].ActiveLeft();
         }
 
     }
     public void ActiveBSkill()
     {
-        if (skillB != null)
+        if (skill[1] != null)
         {
-            skillB.ActiveRight();
+            skill[1].ActiveRight();
         }
     }
     public void ActiveCSkill()
     {
-        if (skillC != null)
+        if (skill[2] != null)
         {
-            skillC.ActiveSideLeft();
+            skill[2].ActiveSideLeft();
         }
 
     }
     public void ActiveDSkill()
     {
-        if (skillD != null)
+        if (skill[3] != null)
         {
-            skillD.ActiveSideRight();
+            skill[3].ActiveSideRight();
         }
 
     }
     public bool isSkillCancel = false;
-    public void ActiveSideRightSkill()
-    {
-        if (skillB != null)
-        {
-            skillB.ActiveSideRight();
-        }
-    }
 
     public void MeleeAttack()
     {

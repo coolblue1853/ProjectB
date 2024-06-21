@@ -89,6 +89,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: 
+  skillDetail: 
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 7429380887833962885, guid: 947d39c48664f3e45876510cd957faa0, type: 3}
@@ -181,6 +183,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: 
+  skillDetail: 
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: 091514897fc27e74986309575a958eee, type: 3}
@@ -264,6 +268,13 @@ MonoBehaviour:
   attackAnimName:
   - RightHandstabbing_OneHand
   spriteReverse: 00
+  skill:
+  - {fileID: 342058023}
+  - {fileID: 1183539051}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
   skillC: {fileID: 0}

@@ -87,6 +87,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: 
+  skillDetail: 
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: af344fb2d2316eb4a9c0cd652af1395b, type: 3}
@@ -178,6 +180,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: 
+  skillDetail: 
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: fbbca9f5cdb738542a5b298006ae13e5, type: 3}
@@ -329,6 +333,13 @@ MonoBehaviour:
   - RightPunch
   - LeftPunch
   spriteReverse: 0000
+  skill:
+  - {fileID: 342058023}
+  - {fileID: 1183539051}
+  - {fileID: 5008726423870697781}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
   skillC: {fileID: 5008726423870697781}
@@ -569,6 +580,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: 
+  skillDetail: 
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 4147001287451143251, guid: 64701844cb18e9f48a015b26d0dc35c0, type: 3}

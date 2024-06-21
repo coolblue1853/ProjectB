@@ -87,6 +87,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: 
+  skillDetail: 
   delayEffectPrefab: {fileID: 4098006253883215037, guid: 08b38366644656c43848cda8e46e0d0c,
     type: 3}
   skillprefab:
@@ -179,6 +181,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: 
+  skillDetail: 
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: 0f183596ff4a09444ab485bd75230480, type: 3}
@@ -264,6 +268,13 @@ MonoBehaviour:
   - StaffAttack
   - StaffAttack
   spriteReverse: 0000
+  skill:
+  - {fileID: 342058023}
+  - {fileID: 1183539051}
+  - {fileID: 2955254956640607774}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
   skillC: {fileID: 2955254956640607774}
@@ -633,6 +644,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: 
+  skillDetail: 
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8326595189231288729, guid: a6d08e847713a9549a9c641b12103902, type: 3}

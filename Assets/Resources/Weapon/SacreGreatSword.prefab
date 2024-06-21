@@ -87,6 +87,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: 
+  skillDetail: 
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8672800351859898982, guid: f02015635d052034db0bf6d67e5e3eff, type: 3}
@@ -178,6 +180,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  skillName: 
+  skillDetail: 
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 2727774066832764257, guid: 56fc490d9db018a4fac1bc86f27d504d, type: 3}
@@ -269,6 +273,13 @@ MonoBehaviour:
   - GreatVashDown
   - GreatSideAttack
   spriteReverse: 0000
+  skill:
+  - {fileID: 342058023}
+  - {fileID: 1183539051}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillA: {fileID: 342058023}
   skillB: {fileID: 1183539051}
   skillC: {fileID: 0}
