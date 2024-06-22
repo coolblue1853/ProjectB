@@ -87,8 +87,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Teleport
+  skillDetail: Instantly teleport forward.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: 75a1cc5b4a05b6c49a38fd7f2db49584, type: 3}
@@ -197,8 +197,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Rising Roots
+  skillDetail: Summon roots that burst from the ground in front, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: b26d571b465f8f749a31dcdbeb16d3da, type: 3}
@@ -330,10 +330,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  skillA: {fileID: 342058023}
-  skillB: {fileID: 1183539051}
-  skillC: {fileID: 549325797307999061}
-  skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 0
@@ -455,8 +451,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Nature's Healing
+  skillDetail: Create a healing zone that restores health to those inside.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: f06512837d1917c4e99175cf63a330f1, type: 3}

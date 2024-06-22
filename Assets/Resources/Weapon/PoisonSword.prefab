@@ -87,8 +87,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Vile Ambush
+  skillDetail: Deal significant damage to the enemy and poison them.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8329519319443730263, guid: b49cfb5bc3551c541983e96dce936353, type: 3}
@@ -180,8 +180,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: This is Our Turf
+  skillDetail: Create a toxic mire that poisons enemies within the area.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 180224957722750219, guid: c1d15a7b1f1b568439a9393375fd3a60, type: 3}
@@ -276,10 +276,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  skillA: {fileID: 342058023}
-  skillB: {fileID: 1183539051}
-  skillC: {fileID: 0}
-  skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 1

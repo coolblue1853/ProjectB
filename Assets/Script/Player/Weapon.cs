@@ -108,7 +108,7 @@ public class Weapon : MonoBehaviour
         if (skill[2] != null)
             skill[2].ActiveSideSkill();
         if (skill[3] != null)
-            skill[4].ActiveSideSkill();
+            skill[3].ActiveSideSkill();
     }
 
     public void ActiveASkill()

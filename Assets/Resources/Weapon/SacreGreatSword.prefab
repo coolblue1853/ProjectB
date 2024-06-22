@@ -87,8 +87,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Gathering Nightmare
+  skillDetail: Create a zone that pulls enemies to the center and deals damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8672800351859898982, guid: f02015635d052034db0bf6d67e5e3eff, type: 3}
@@ -180,8 +180,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Approaching Nightmare
+  skillDetail: Send a sword slash forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 2727774066832764257, guid: 56fc490d9db018a4fac1bc86f27d504d, type: 3}
@@ -280,10 +280,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  skillA: {fileID: 342058023}
-  skillB: {fileID: 1183539051}
-  skillC: {fileID: 0}
-  skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 1

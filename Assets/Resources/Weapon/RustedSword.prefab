@@ -87,8 +87,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Smash Down
+  skillDetail: Strike the enemy from above, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: 0b921379846ec4c439e259f7b15eceab, type: 3}
@@ -180,8 +180,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Slash Attck
+  skillDetail: Slash the enemy, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 9102525924616103397, guid: 5b1f1d735aab637408520bff8bbaad4b, type: 3}
@@ -280,10 +280,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  skillA: {fileID: 342058023}
-  skillB: {fileID: 1183539051}
-  skillC: {fileID: 0}
-  skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 0

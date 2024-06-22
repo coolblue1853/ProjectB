@@ -72,14 +72,17 @@ public class EnemyHealth : MonoBehaviour
     public int addDmg = 0; // 추가뎀%   8
     public int ArmAtp = 0; // 방어구 기본뎀 9  
      */
+    bool isCrit = false;
     float outDmg;
     float SetDmg(int[] damage, bool isSkill)
     {
+        isCrit = false;
         float baseDmg = Random.Range(damage[0], damage[1]);
         int checkCrit = Random.Range(1, 101);
 
-        if(checkCrit <= damage[2]) // 치명타 성공시
+        if(checkCrit <= damage[2]+ DatabaseManager.playerCritRate) // 치명타 성공시
         {// 기본 치피는 20
+            isCrit = true;
             outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3]) / 100)) * (1 + ((damage[4]) / 100));  // 기본뎀 * 치뎀 * 뎀증
         }
         else
@@ -176,7 +179,9 @@ public class EnemyHealth : MonoBehaviour
         {
             hpBar.healthSystem.Damage((int)finDmg);
             nowHP -= (int)finDmg;
-            damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
+            if (isCrit) damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg+"!");
+            else damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
+
         }
 
 

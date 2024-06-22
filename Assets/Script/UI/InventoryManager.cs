@@ -953,7 +953,8 @@ public class InventoryManager : MonoBehaviour
             */
 
         }  // 메인 무장이 없으면 메인 무장 먼저, 있으면 사이드 웨폰에다가 무기를 넣어야함
-        else if (detail.equipArea == "Neckles")
+       
+        else if (detail.equipArea == "Necklace")
         {
             return necklesBox;
         }
@@ -992,7 +993,7 @@ public class InventoryManager : MonoBehaviour
         if (CheckBoxCanCreatAll() == true)
         {
             Sequence waitSequence = DOTween.Sequence()
-            .AppendCallback(() => equipBoxCheck.isSetArray = false)
+          //  .AppendCallback(() => equipBoxCheck.isSetArray = false)
             .OnComplete(() => equipBoxCheck.DeletPrefab(detail, detail.equipArea, false));
 
             //  skillCooldown.DeletLeftSkill();
@@ -1201,6 +1202,7 @@ public class InventoryManager : MonoBehaviour
 
 
 
+
         verticalInput = (verticalCheck.ReadValue<float>());
         horizontalInput = (horizontalCheck.ReadValue<float>());
         if (inventory.activeSelf == true)
@@ -1336,9 +1338,9 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            CreatItem("ScareSide");
-            CreatItem("Wood");
-            //CreatItem("PoisonSword");
+
+            CreatItem("Four-Leaf Clover Ring");
+            CreatItem("Rabbit's Foot");
             //CreatItem("Wood Spear");
             // CreatItem("Leather Knuckles");
             //CreatItem("PickAxe");
@@ -1347,6 +1349,8 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
+            CreatItem("ScareSide");
+            CreatItem("PoisonSword");
             CreatItem("ScareClow");
             CreatItem("ScareStaff");
             CreatItem("SacreGreatSword");
@@ -2055,6 +2059,18 @@ public class InventoryManager : MonoBehaviour
 
             if (equipment.hp > 0) basicStr += "+" + equipment.hp.ToString() + " Hp\n";
             else basicStr += "-" + equipment.hp.ToString() + " Hp\n";
+        }
+        if (equipment.critical != 0)
+        {
+
+            if (equipment.critical > 0) basicStr += "+" + equipment.critical.ToString() + " Critical Rate\n";
+            else basicStr += "-" + equipment.critical.ToString() + " Critical Rate\n";
+        }
+        if (equipment.dropRate != 0)
+        {
+
+            if (equipment.dropRate > 0) basicStr += "+" + equipment.dropRate.ToString() + " Drop Rate\n";
+            else basicStr += "-" + equipment.dropRate.ToString() + " Drop Rate\n";
         }
         textObject.GetComponent<TextMeshProUGUI>().text = basicStr;
     }

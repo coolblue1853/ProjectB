@@ -41,6 +41,8 @@ public class PlayerHealthManager : MonoBehaviour
     public float noDamgeTime;
     bool isNoDamge = false;
     public int Def;
+    public int Critical;
+    public int Drop;
     void Start()
     {
         rb = player.GetComponent<Rigidbody2D>();
@@ -100,6 +102,8 @@ public class PlayerHealthManager : MonoBehaviour
     void Update()
     {
         Def = DatabaseManager.playerDef;
+        Critical = DatabaseManager.playerCritRate;
+        Drop = DatabaseManager.playerDropRate;
         if (nowHp == 0)
         {
             Debug.Log("ав╬З╫ю╢о╢ы");

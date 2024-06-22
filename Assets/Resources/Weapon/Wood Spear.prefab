@@ -89,8 +89,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Double Strike
+  skillDetail: Stab the enemy twice, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 7429380887833962885, guid: 947d39c48664f3e45876510cd957faa0, type: 3}
@@ -183,8 +183,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Charge Forward!
+  skillDetail: Dash forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 8267161789949130192, guid: 091514897fc27e74986309575a958eee, type: 3}
@@ -275,10 +275,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  skillA: {fileID: 342058023}
-  skillB: {fileID: 1183539051}
-  skillC: {fileID: 0}
-  skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 1

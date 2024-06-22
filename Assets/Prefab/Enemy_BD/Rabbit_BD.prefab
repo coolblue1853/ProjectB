@@ -1065,7 +1065,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Ring
+    dropProbability: 0.2
   impulseForce: 10
 --- !u!114 &7698113302431834599
 MonoBehaviour:

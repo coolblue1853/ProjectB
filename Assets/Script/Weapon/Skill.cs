@@ -626,16 +626,20 @@ public class Skill : MonoBehaviour
     }
     void SetSkillDmg()
     {
-        if (isNullParent == true)
+        if(isRoundAttack == false)
         {
-            damageObject.transform.parent = null;
+            if (isNullParent == true)
+            {
+                damageObject.transform.parent = null;
+            }
+            dmOb = damageObject.GetComponent<DamageObject>();
+            dmOb.SetDamge(damgeArray);
+            if (skillprefab.Length > 1)
+            {
+                StartCoroutine(SpawnSkills());
+            }
         }
-        dmOb = damageObject.GetComponent<DamageObject>();
-        dmOb.SetDamge(damgeArray);
-        if (skillprefab.Length > 1)
-        {
-            StartCoroutine(SpawnSkills());
-        }
+
     }
 
     void NomalAttack(float waitTime) // 일반적인 공격의 생성
@@ -668,10 +672,7 @@ public class Skill : MonoBehaviour
     {
         if (isActive == true)
         {
-            if(isRoundAttack == false)
-            {
-                SkillEffect(skillNum);
-            }
+            SkillEffect(skillNum);
 
             if (isHoldSkill == false)
             {

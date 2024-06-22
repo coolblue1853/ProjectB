@@ -8,6 +8,7 @@ public class Equipment : MonoBehaviour
     // 체력증가
     public int armor;
     public int hp;
-
+    public int critical;
+    public int dropRate;
 
 }

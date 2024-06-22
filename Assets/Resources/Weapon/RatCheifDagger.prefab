@@ -89,8 +89,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Swift Assault
+  skillDetail: Slash the enemy twice, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 6313349558522444943, guid: ef487b766f920904da58f8ffef7126b0, type: 3}
@@ -187,8 +187,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Ground Sweep
+  skillDetail: Generate a sweeping sword slash forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 2171719538482655060, guid: 889037d99cfcefb4783257c4a7528eb4, type: 3}
@@ -322,10 +322,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  skillA: {fileID: 342058023}
-  skillB: {fileID: 1183539051}
-  skillC: {fileID: 3322576103217294678}
-  skillD: {fileID: 0}
   leftWeqponSprite: {fileID: 8341864255033881453}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 1
@@ -655,8 +651,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: 
-  skillDetail: 
+  skillName: Rally Now!
+  skillDetail: Summon a Rat Thief to fight alongside you.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
   - {fileID: 4960005499486500231, guid: 66064b317d246af4cba780b0057939b1, type: 3}

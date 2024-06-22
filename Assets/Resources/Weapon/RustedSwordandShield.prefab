@@ -87,7 +87,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: < Fierce Thrust >
+  skillName: Fierce Thrust
   skillDetail: Thrusts powerfully forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -180,7 +180,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: < Shield Charge >
+  skillName: Shield Charge
   skillDetail: Charges forward with a shield, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -549,7 +549,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: < Hold the Line >
+  skillName: Hold the Line
   skillDetail: Enters a super armor state for up to 1 second, increasing defense
     by 100.
   delayEffectPrefab: {fileID: 0}

@@ -45,8 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88e1659a6e91b4447964ce2dd730882e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 10
-  hp: 100
+  armor: 0
+  hp: 0
+  critical: 5
+  dropRate: 0
 --- !u!1 &1291193055778619313
 GameObject:
   m_ObjectHideFlags: 0

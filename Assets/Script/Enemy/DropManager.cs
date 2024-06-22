@@ -25,13 +25,15 @@ public class DropManager : MonoBehaviour
     public void DropItems(Vector3 dropPosition)
     {
 
+
         float offsetX = 0f;  // 아이템 간격 조절을 위한 오프셋
 
         // 랜덤한 값을 생성하여 확률에 따라 아이템을 떨어뜨림
         foreach (DropItem dropItem in dropItems)
         {
-            if (Random.value <= dropItem.dropProbability)
+            if (Random.value <= dropItem.dropProbability + ((float)DatabaseManager.playerDropRate / 100 ))
             {
+                Debug.Log(dropItem.dropProbability + ((float)DatabaseManager.playerDropRate / 100));
                 // 아이템 이름을 기반으로 프리팹을 찾아서 생성
                 if (itemPrefab != null)
                 {
