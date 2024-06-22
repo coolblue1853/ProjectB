@@ -55,7 +55,7 @@ public class ItemDatabase : MonoBehaviour
                         item.effectOb = values[j].Trim();
                         break;
                     case 9: // effectPow
-                        item.effectPow = int.Parse(values[j].Trim());
+                        item.effectPow = (values[j].Trim());
                         break;
                     case 10: // equipArea
                         item.equipArea = values[j].Trim();
@@ -98,7 +98,7 @@ public class ItemData
     public string acqPath;
     public int maxStack;
     public string effectOb;
-    public int effectPow;
+    public string effectPow;
     public string equipArea;
     public string tfName;
     public string itemNameT;

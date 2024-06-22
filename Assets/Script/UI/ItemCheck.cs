@@ -17,7 +17,7 @@ public class ItemCheck : MonoBehaviour
     public int maxStack;
     public int nowStack;
     public string effectOb;
-    public int effectPow;
+    public string effectPow;
     public string equipArea;
     public int needCount;
     public string setName;
@@ -30,7 +30,7 @@ public class ItemCheck : MonoBehaviour
     public string rarity;
     public int upgrade;
     ItemData item;
-
+    public GameObject defBuffObject;
     public bool isCraftItem = false;
     public bool isShopItem = false;
     private void Start()
@@ -74,34 +74,57 @@ public class ItemCheck : MonoBehaviour
         }
         LoadImage();
     }
-
+    public AttackManager att;
     public void ConsumItemActive()
     {
+        Debug.Log("∏‘±‚ ¿€µø2");
         nowStack -= 1;
-        string[] effect = effectOb.Split();
-        if (effect[0] == "stemina")
+        string[] effect = effectOb.Split("/");
+        string[] effectPower = effectPow.Split("/");
+
+        for (int i =0; i < effect.Length; i++)
         {
-            if(effect[1] == "+")
+            string[] effectStr = effect[i].Split();
+            string[] effectPowerDetail = effectPower[i].Split("_");
+            if (effectStr[0] == "stemina")
             {
-                PlayerHealthManager.Instance.SteminaUp(effectPow);
+                if (effectStr[1] == "+")
+                {
+                    PlayerHealthManager.Instance.SteminaUp(int.Parse(effectPowerDetail[0]));
+                }
             }
-        }
-        if (effect[0] == "fullness")
-        {
-            if (effect[1] == "+")
+            if (effectStr[0] == "fullness")
             {
-                PlayerHealthManager.Instance.FullnessUp(effectPow);
+
+                if (effectStr[1] == "+")
+                {
+                    PlayerHealthManager.Instance.FullnessUp(int.Parse(effectPowerDetail[0]));
+                }
             }
-        }
-        if (effect[0] == "hp")
-        {
-            if (effect[1] == "+")
+            if (effectStr[0] == "hp")
             {
-                PlayerHealthManager.Instance.HpUp(effectPow);
+                if (effectStr[1] == "+")
+                {
+                    PlayerHealthManager.Instance.HpUp(int.Parse(effectPowerDetail[0]));
+                }
+            }
+            if (effectStr[0] == "def")
+            {
+                if (effectStr[1] == "+")
+                {
+                    AttackManager  player = GameObject.FindWithTag("Player").GetComponent<AttackManager>();
+                    GameObject buff = Instantiate(defBuffObject, Vector2.zero, Quaternion.identity, player.BuffSlot.transform);
+                    PlayerBuff playerBuff = buff.GetComponent<PlayerBuff>();
+                    playerBuff.buffPower = int.Parse(effectPowerDetail[0]);
+                    playerBuff.buffTime = int.Parse(effectPowerDetail[1]);
+                    playerBuff.ActiveBuff();
+                    // PlayerHealthManager.Instance.HpUp(int.Parse(effectPowerDetail[0]));
+                }
             }
         }
 
-        
+
+
         if (this.nowStack == 0)
         {
             Destroy(this.gameObject);

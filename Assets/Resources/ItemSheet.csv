@@ -5,7 +5,7 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 2,PickAxe,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,PickAxe,0,C,0,
 3,test4,Misc,World,400,1,soie,1,-,0,-,,test4,0,C,0,
 4,Potion,Consum,World,400,1,soie,5,hp +,200,-,,Potion,0,C,0,
-5,Food,Consum,eat!,50,5,cook,3,fullness +,100,-,,Food,0,C,0,
+5,Food,Consum,eat!,50,5,cook,3,fullness +/def +,100/5,-,,Food,0,C,0,
 6,Cap,Equip,equipment,500,50,Buy,1,-,0,Head,RabbitArmor,Cap,0,C,0,Basic Gear
 7,Armor,Equip,equipment,500,50,Buy,1,-,0,Chest,RabbitArmor,Armor,0,C,0,Basic Gear
 8,HighArmor,Equip,equipment,5000,0,Buy,1,-,0,Chest,,HighArmor,0,C,0,
@@ -44,8 +44,8 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 41,RustedSword,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,RustedSword,0,C,0,
 42,RustedSwordandShield,Equip,equipment,300,2,diopvh,1,-,0,Weapon,RabbitArmor,Rusted Sword and Shield,0,C,0,Basic Gear
 43,Four-Leaf Clover Ring,Equip,equipment,100,1,-,1,-,0,Ring,,Four-Leaf Clover Ring,0,R,0,
-44,Rabbit's Foot,Equip,equipment,100,1,-,1,-,0,Ring,,Rabbit's Foot,0,R,0,
-45,Rabbit Meat Stew,Misc,World,100,1,-,30,-,0,-,,Rabbit Meat Stew,0,C,0,
+44,Rabbit's Foot,Equip,equipment,100,1,-,1,-,0,Necklace,,Rabbit's Foot,0,R,0,
+45,Rabbit Meat Stew,Consum,eat!,50,5,cook,3,fullness +/def +,100/5_180,-,,Rabbit Meat Stew,0,C,0,
 46,Rabbit Meat,Misc,World,100,1,-,50,-,0,-,,Rabbit Meat,0,C,0,
 47,Small Bone,Misc,World,100,1,-,99,-,0,-,,Small Bone,0,C,0,
 48,Rabbit Hide,Misc,World,100,1,-,99,-,0,-,,Rabbit Hide,0,C,0,

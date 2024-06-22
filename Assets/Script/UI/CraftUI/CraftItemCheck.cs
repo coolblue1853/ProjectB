@@ -18,7 +18,7 @@ public class CraftItemCheck : MonoBehaviour
     public int maxStack;
     public int nowStack;
     public string effectOb;
-    public int effectPow;
+    public string effectPow;
     public string equipArea;
     public TextMeshProUGUI stackText;
     public Image image;

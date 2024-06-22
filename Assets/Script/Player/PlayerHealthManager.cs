@@ -201,10 +201,13 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void FullnessUp(int healed)
     {
+       
         if (healed > fullFullness - nowFullness)
         {
-            healed = fullFullness - nowFullness;
 
+            healed = fullFullness - nowFullness;
+            Debug.Log("∏‘±‚ ¿€µø" + healed);
+            nowFullness += healed;
             fullnesBar.healthSystem.Heal(healed);
         }
         else

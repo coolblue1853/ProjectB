@@ -97,6 +97,7 @@ MonoBehaviour:
   type: 
   description: 
   price: 0
+  Buyprice: 0
   weight: 0
   acqPath: 
   maxStack: 0
@@ -104,8 +105,21 @@ MonoBehaviour:
   effectOb: 
   effectPow: 0
   equipArea: 
+  needCount: 0
+  setName: 
   stackText: {fileID: 971586147603965060}
   image: {fileID: 0}
+  itemNameT: 
+  tfName: 
+  tear: 0
+  rarity: 
+  upgrade: 0
+  defBuffObject: {fileID: 5196891618570563601, guid: df4b28f4795338c44997dedb7fb374ce,
+    type: 3}
+  isCraftItem: 0
+  isShopItem: 0
+  att: {fileID: 0}
+  Cost: {fileID: 0}
 --- !u!114 &2163759216623664983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,10 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9018c21baac73794fa4472af88e3a30f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentParent: {fileID: 0}
+  equipBox: {fileID: 0}
   dragCanvus: {fileID: 0}
-  weaponBox: {fileID: 0}
-  headBox: {fileID: 0}
-  ChestBox: {fileID: 0}
 --- !u!61 &-9054572238250600274
 BoxCollider2D:
   m_ObjectHideFlags: 0

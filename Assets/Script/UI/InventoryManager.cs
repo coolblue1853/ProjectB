@@ -1250,7 +1250,7 @@ public class InventoryManager : MonoBehaviour
                 }
 
             }
-            if (consumAction.triggered && state == "")
+            if (selectAction.triggered && state == "detail" &&detail.type == "Consum")
             {
                 ActiveConsum();
             }
@@ -1339,8 +1339,14 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F3))
         {
 
-            CreatItem("Four-Leaf Clover Ring");
-            CreatItem("Rabbit's Foot");
+            CreatItem("Rabbit Meat Stew");
+            CreatItem("Small Bone");
+            CreatItem("Rabbit Hide");
+            CreatItem("Fine Rabbit Hide");
+            CreatItem("Round Bone");
+            
+
+
             //CreatItem("Wood Spear");
             // CreatItem("Leather Knuckles");
             //CreatItem("PickAxe");
@@ -1421,6 +1427,7 @@ public class InventoryManager : MonoBehaviour
 
     public void ActiveConsum()
     {
+        Debug.Log("¸Ô±â ÀÛµ¿");
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         if (gameObject.transform.childCount > 0)
         {

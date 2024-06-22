@@ -17,7 +17,7 @@ public class DropItemCheck : MonoBehaviour
     public int maxStack;
     public int nowStack;
     public string effectOb;
-    public int effectPow;
+    public string effectPow;
     public string equipArea;
     public TextMeshProUGUI stackText;
     public string tfName;
@@ -63,29 +63,7 @@ public class DropItemCheck : MonoBehaviour
 
     }
 
-    public void ConsumItemActive()
-    {
-        nowStack -= 1;
-        string[] effect = effectOb.Split();
-        if (effect[0] == "stemina")
-        {
-            if (effect[1] == "+")
-            {
-                PlayerHealthManager.Instance.SteminaUp(effectPow);
-            }
-        }
-        if (effect[0] == "fullness")
-        {
-            if (effect[1] == "+")
-            {
-                PlayerHealthManager.Instance.FullnessUp(effectPow);
-            }
-        }
-        if (this.nowStack == 0)
-        {
-            Destroy(this.gameObject);
-        }
-    }
+
 
     // Update is called once per frame
     void Update()

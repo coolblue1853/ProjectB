@@ -7,18 +7,41 @@ public class PlayerBuff : MonoBehaviour
     public string buffType;
     public int buffTime;
     public int buffPower;
+    public bool isStartIm = true; // 즉시 버프를 시작하는가
     // Start is called before the first frame update
     void Start()
     {
-        if(buffType == "AttSpeed")
+        if(isStartIm == true)
+        {
+            if (buffType == "AttSpeed")
+                DatabaseManager.attackSpeedBuff += buffPower;
+            if (buffType == "Speed")
+                DatabaseManager.SpeedBuff += buffPower;
+            if (buffType == "HitCount")
+                DatabaseManager.hitCount += buffPower;
+            if (buffType == "def")
+                DatabaseManager.playerDef += buffPower;
+
+            Invoke("DestoryBuff", buffTime);
+        }
+
+    }
+
+
+    public void ActiveBuff()
+    {
+        if (buffType == "AttSpeed")
             DatabaseManager.attackSpeedBuff += buffPower;
         if (buffType == "Speed")
             DatabaseManager.SpeedBuff += buffPower;
-        if(buffType == "HitCount")
+        if (buffType == "HitCount")
             DatabaseManager.hitCount += buffPower;
+        if (buffType == "def")
+            DatabaseManager.playerDef += buffPower;
 
         Invoke("DestoryBuff", buffTime);
     }
+
 
     void DestoryBuff()
     {
@@ -28,7 +51,8 @@ public class PlayerBuff : MonoBehaviour
             DatabaseManager.SpeedBuff -= buffPower;
         if (buffType == "HitCount")
             DatabaseManager.hitCount -= buffPower;
-
+        if (buffType == "def")
+            DatabaseManager.playerDef -= buffPower;
         Destroy(this.gameObject);
 
     }
