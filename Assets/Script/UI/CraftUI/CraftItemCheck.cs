@@ -65,6 +65,7 @@ public class CraftItemCheck : MonoBehaviour
         tear = item.tear;
         rarity = item.rarity;
         upgrade = item.upgrade;
+        if(stackText != null)
         stackText.text = nowStack.ToString();
         if (type == "Consum")
         {
@@ -75,6 +76,7 @@ public class CraftItemCheck : MonoBehaviour
         {
             equipArea = item.equipArea;
         }
+        if(image != null)
         LoadImage();
 
     }

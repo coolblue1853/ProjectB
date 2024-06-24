@@ -9,9 +9,7 @@ public class CraftingManager : MonoBehaviour
 {
     //-105
 
-    int detailX = -105;
-    int detailY = 22;
-
+    public GameObject detailPos;
     public GameObject[] LV1;
     public GameObject nowLine;
 
@@ -40,7 +38,7 @@ public class CraftingManager : MonoBehaviour
     public GameObject craftCusor;
     public GameObject[] LV1craftBox;
     int nowPage = 0;
-
+    public GameObject skillDetailUi;
 
     KeyAction action;
     InputAction openInventoryAction;
@@ -144,7 +142,7 @@ public class CraftingManager : MonoBehaviour
         tear.text = "T" + nowCraftItem.tear.ToString();
         rarity.text = InventoryManager.instance.SetRarity(nowCraftItem.rarity);
 
-        Image changeImage = nowCraftItem.transform.GetChild(0).GetComponent<Image>();
+        Image changeImage = nowCraftItem.image;
         image.sprite = changeImage.sprite;
     }
 
@@ -177,9 +175,25 @@ public class CraftingManager : MonoBehaviour
     public GameObject consumDetail;
     public GameObject equipDetail;
     ItemCheck detail;
-    void SetNeedDetail()
+
+    public void ResetDetail()
     {
-        detail = needMaterail.transform.GetChild(detailCount).transform.GetComponent<ItemCheck>();
+        miscDetail.SetActive(false);
+        consumDetail.SetActive(false);
+        equipDetail.SetActive(false);
+        skillDetailUi.SetActive(false);
+    }
+    void SetNeedDetail(bool isCraftMain = false)
+    {
+        if (isCraftMain)
+        {
+            detail = nowCraftItem.transform.GetComponent<ItemCheck>();
+        }
+        else
+        {
+            detail = needMaterail.transform.GetChild(detailCount).transform.GetComponent<ItemCheck>();
+        }
+
         if (detail.type == "Misc")
         {
             Transform misc = miscDetail.gameObject.transform;
@@ -187,13 +201,16 @@ public class CraftingManager : MonoBehaviour
             misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
             misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
             misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-            misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-            misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
-            miscDetail.transform.localPosition = new Vector2(detailX, detailY);
+            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+            misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+            misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+            miscDetail.transform.position = detailPos.transform.position;
+
+
             miscDetail.SetActive(true);
             consumDetail.SetActive(false);
             equipDetail.SetActive(false);
+            skillDetailUi.SetActive(false);
         }
         if (detail.type == "Consum")
         {
@@ -202,33 +219,60 @@ public class CraftingManager : MonoBehaviour
             consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
             consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
             consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-            consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-            string[] effectString = detail.effectOb.Split();
-            consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = effectString[0] + " : " + effectString[1] + detail.effectPow;
-            consumDetail.transform.localPosition = new Vector2(detailX, detailY);
+            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+            consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+            consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+            InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, detail);
+
+
+            consum.transform.position = detailPos.transform.position;
             miscDetail.SetActive(false);
             consumDetail.SetActive(true);
             equipDetail.SetActive(false);
+            skillDetailUi.SetActive(false);
         }
         if (detail.type == "Equip")
         {
             Transform equip = equipDetail.gameObject.transform;
+
+            string folderPath = detail.equipArea + "/";
+
+            // 리소스 폴더 내의 equipName을 로드합니다.
+            GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
             equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
-            equipDetail.transform.localPosition = new Vector2(detailX, detailY);
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+            InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
+            if (detail.equipArea != "Weapon") // 방어구라면
+            {
+                Equipment equipment = prefab.GetComponent<Equipment>();
+                InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
+            }
+            else // 무기인 경우
+            {
+                Weapon weapon = prefab.GetComponent<Weapon>();
+                InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
+                InventoryManager.instance.CheckSkillDetail(weapon);
+            }
+
+
+            equip.transform.position = detailPos.transform.position;
             miscDetail.SetActive(false);
             consumDetail.SetActive(false);
             equipDetail.SetActive(true);
+
         }
         
 
     }
+
+
+
     public GameObject detailCusor;
     bool isCheckDetail;
     int detailCount = 0;
@@ -255,7 +299,7 @@ public class CraftingManager : MonoBehaviour
         }
         if(downInventoryAction.triggered == true)
         {
-            if(detailCount < 4 && needMaterail.transform.childCount > detailCount+4) // 현재 0 1 2 3   4 가 있을때 
+            if (detailCount < 4 && needMaterail.transform.childCount > detailCount+4) // 현재 0 1 2 3   4 가 있을때 
             {
                 detailCount += 4;
                 SetNeedDetail();
@@ -267,6 +311,7 @@ public class CraftingManager : MonoBehaviour
                     miscDetail.SetActive(false);
                     consumDetail.SetActive(false);
                     equipDetail.SetActive(false);
+                    skillDetailUi.SetActive(false);
                     Invoke("ChangeCheckDetail", 0.1f);
                     craftCusor.SetActive(true);
                     detailCusor.SetActive(false);
@@ -290,6 +335,7 @@ public class CraftingManager : MonoBehaviour
             miscDetail.SetActive(false);
             consumDetail.SetActive(false);
             equipDetail.SetActive(false);
+            skillDetailUi.SetActive(false);
             Invoke("ChangeCheckDetail", 0.1f);
             craftCusor.SetActive(true);
             detailCusor.SetActive(false);
@@ -318,10 +364,12 @@ public class CraftingManager : MonoBehaviour
             {
                 if (selectAction.triggered == true && isCraft == true)
                 {
+                    ResetDetail();
                     Craft();
                 }
                 if ((backAction.triggered == true && isCheckDetail == false) || leftInventoryAction.triggered == true)
                 {
+                    ResetDetail();
                     Invoke("ChangeisCarftFalse",0.1f);
 
                     cusor.SetActive(true);
@@ -348,6 +396,7 @@ public class CraftingManager : MonoBehaviour
 
             if (cusor.activeSelf == true && craftCusor.activeSelf == false && selectAction.triggered == true)
             {
+                ResetDetail();
                 Invoke("ChangeisCarft", 0.1f);
                 cusor.SetActive(false);
                 craftCusor.SetActive(true);
@@ -363,12 +412,21 @@ public class CraftingManager : MonoBehaviour
         }
         else if (CraftUI.activeSelf == true && backAction.triggered && cusor.activeSelf == true && isCheckDetail == false && isCraft ==false)
         {
+            ResetDetail();
             isMoveCusor = false;
             CraftUI.SetActive(false);
             needMaterailUI.SetActive(false);
             DatabaseManager.isOpenUI = false;
         }
 
+         if (CraftUI.activeSelf == true && changeAction.triggered && cusor.activeSelf == true ) // 만들려는 아이템의디테일창을 키는 것
+        {
+            SetNeedDetail(true);
+        //    isMoveCusor = false;
+        //   CraftUI.SetActive(false);
+        //   needMaterailUI.SetActive(false);
+        //    DatabaseManager.isOpenUI = false;
+        }
 
         if (name.text == "")
         {
@@ -422,6 +480,7 @@ public class CraftingManager : MonoBehaviour
         cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv 상자의 line 줄의 count 위치.
         if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1))
         {
+            ResetDetail();
             if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.childCount > childCount + 1)
             {
                 checkRepeat = true;
@@ -441,6 +500,7 @@ public class CraftingManager : MonoBehaviour
         }
         if ((leftInventoryAction.triggered) || (checkRepeat == false && horizontalInput == -1))
         {
+            ResetDetail();
             if (childCount > 0)
             {
                 checkRepeat = true;
@@ -460,6 +520,7 @@ public class CraftingManager : MonoBehaviour
         }
         if (((downInventoryAction.triggered) || (checkRepeat == false && verticalInput == -1)) && LV1craftBox[nowLv].transform.GetChild(nowPage).transform.childCount > line+1)
         {
+            ResetDetail();
             checkRepeat = true;
             sequence.Kill();
 
@@ -479,6 +540,7 @@ public class CraftingManager : MonoBehaviour
         }
         if (((upInventoryAction.triggered) || (checkRepeat == false && verticalInput == 1)) && 0 < line)
         {
+            ResetDetail();
             checkRepeat = true;
             sequence.Kill();
 
@@ -501,6 +563,7 @@ public class CraftingManager : MonoBehaviour
 
         if (rightSholderAction.triggered && LV1craftBox[nowLv].transform.childCount > nowPage + 1)
         {
+            ResetDetail();
             LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(false);
             line = 0;
             childCount = 0;
@@ -515,6 +578,7 @@ public class CraftingManager : MonoBehaviour
         }
         if (leftSholderAction.triggered && 0 < nowPage)
         {
+            ResetDetail();
             LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(false);
             line = 0;
             childCount = 0;

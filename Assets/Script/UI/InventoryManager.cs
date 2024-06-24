@@ -481,6 +481,11 @@ public class InventoryManager : MonoBehaviour
         else if (state == "BuyDetail")
         {
             ShopUI.CloseBuyUI();
+            state = "ShopCusorOn";
+            ShopUI.state = "";
+            ShopUI.cusor.SetActive(true);
+            ShopUI.isMoveCusor = true;
+            ShopUI.DetailOff();
         }
         else if (ShopUI.isBuyDetail == true)
         {
@@ -515,7 +520,6 @@ public class InventoryManager : MonoBehaviour
             if (chest == null)
             {
                 state = "";
-                //  BoxContentChecker();
                 DetailOff();
                 cusorCount[nowBox] = beforeCusorInt;
                 changeCusor.SetActive(false);
@@ -1179,6 +1183,7 @@ public class InventoryManager : MonoBehaviour
     void SellItem()
     {
         detail.nowStack -= (int)sellSlider.value;
+        DatabaseManager.MinusInventoryDict(detail.name, (int)sellSlider.value);
         if (detail.nowStack == 0)
         {
             Destroy(detail.gameObject);
@@ -1250,7 +1255,7 @@ public class InventoryManager : MonoBehaviour
                 }
 
             }
-            if (selectAction.triggered && state == "detail" &&detail.type == "Consum")
+            if (selectAction.triggered && state == "detail" &&detail.type == "Consum" && ShopGameObject.activeSelf == false)
             {
                 ActiveConsum();
             }
@@ -1808,10 +1813,9 @@ public class InventoryManager : MonoBehaviour
                 misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
                 misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
                 misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
-
-
-
                 miscDetail.transform.position = detailPos.transform.position;
+
+
 
                 miscDetail.SetActive(true);
 
@@ -1854,8 +1858,6 @@ public class InventoryManager : MonoBehaviour
                 {
                     Equipment equipment = prefab.GetComponent<Equipment>();
                     SetArmorDetail(equip.GetChild(7).gameObject, equipment);
-
-
                 }
                 else // 무기인 경우
                 {
@@ -1889,66 +1891,30 @@ public class InventoryManager : MonoBehaviour
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
             Transform equip = equipDetail.gameObject.transform;
+            equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
+            SetEffectDetail(equip.GetChild(8).gameObject, detail);
             if (detail.equipArea != "Weapon") // 방어구라면
             {
                 Equipment equipment = prefab.GetComponent<Equipment>();
-                equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-                SetRarity(detail.rarity);
-
-                // 방어구의 기본적인 스탯수치
-                string basicStr = "";
-                if (equipment.armor != 0)
-                {
-
-                    if (equipment.armor > 0) basicStr += "+" + equipment.armor.ToString() + " Def\n";
-                    else basicStr += "-" + equipment.armor.ToString() + " Def\n";
-                }
-                if (equipment.hp != 0)
-                {
-
-                    if (equipment.hp > 0) basicStr += "+" + equipment.hp.ToString() + " Hp\n";
-                    else basicStr += "-" + equipment.hp.ToString() + " Hp\n";
-                }
-                equip.GetChild(7).GetComponent<TextMeshProUGUI>().text = basicStr;
-
-                // 방어구의 세트효과
-                string allSetStr = "";
-                if (detail.setName != "") allSetStr = "< " + detail.setName + " >\n";
-
-                SetItem setItem = new SetItem();
-                for (int i = 0; i < 8; i++)
-                {
-                    string effecStr = setItem.SetEffectStr(detail.tfName, i);
-                    if (effecStr != "")
-                    {
-                        // Step 1: Remove the parentheses
-                        string noParentheses = effecStr.Replace("(", "").Replace(")", "");
-                        // Step 2: Replace / with ,
-                        string result = noParentheses.Replace("/", " , ");
-                        allSetStr += "(" + i + ") " + result + "\n";
-                    }
-
-                }
-
-                equip.GetChild(8).GetComponent<TextMeshProUGUI>().text = allSetStr;
-
+                SetArmorDetail(equip.GetChild(7).gameObject, equipment);
             }
-            else
+            else // 무기인 경우
             {
-                equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-
+                Weapon weapon = prefab.GetComponent<Weapon>();
+                SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
+                CheckSkillDetail(weapon);
             }
+
+
+            equip.transform.position = detailPos.transform.position;
+            equipDetail.SetActive(true);
 
             equip.transform.position = detailPos.transform.position;
             equipDetail.SetActive(true);

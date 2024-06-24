@@ -137,7 +137,7 @@ public class ItemCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isCraftItem == false && isShopItem == false)
+        if(isCraftItem == false && isShopItem == false && stackText != null)
         {
             if (nowStack == 1)
             {
@@ -152,7 +152,7 @@ public class ItemCheck : MonoBehaviour
         }
 
 
-       else  if(isCraftItem == true)
+       else  if(isCraftItem == true && stackText != null)
         {
             if (DatabaseManager.inventoryItemStack.ContainsKey(name) == false)
             {
@@ -164,7 +164,7 @@ public class ItemCheck : MonoBehaviour
             }
         }
 
-        else  if(isShopItem == true)
+        else  if(isShopItem == true && stackText != null)
         {
             if (Cost.text == "")
             {

@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class ShopManager : MonoBehaviour
 {
     //-105
-
+    public GameObject detailPos;
     int detailX = -105;
     int detailY = 22;
-
+    public GameObject skillDetailUi;
     public GameObject[] LV1;
     public GameObject nowLine;
 
@@ -165,6 +165,7 @@ public class ShopManager : MonoBehaviour
     public bool isBuyDetail;
     void SetNeedDetail()
     {
+        //nowShopItem.type 
         isBuyDetail = true;
         if (nowShopItem.type == "Misc")
         {
@@ -173,13 +174,16 @@ public class ShopManager : MonoBehaviour
             misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemNameT;
             misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
             misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
-            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (nowShopItem.Buyprice).ToString();
-            misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = nowShopItem.weight.ToString();
-            misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = nowShopItem.acqPath;
-            miscDetail.transform.localPosition = new Vector2(detailX, detailY);
+            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.price).ToString();
+            misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.tear.ToString();
+            misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.rarity);
+            miscDetail.transform.position = detailPos.transform.position;
+
+
             miscDetail.SetActive(true);
             consumDetail.SetActive(false);
             equipDetail.SetActive(false);
+            skillDetailUi.SetActive(false);
         }
         if (nowShopItem.type == "Consum")
         {
@@ -188,26 +192,49 @@ public class ShopManager : MonoBehaviour
             consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemNameT;
             consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
             consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
-            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (nowShopItem.Buyprice).ToString();
-            consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = nowShopItem.weight.ToString();
-            string[] effectString = nowShopItem.effectOb.Split();
-            consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = effectString[0] + " : " + effectString[1] + nowShopItem.effectPow;
-            consumDetail.transform.localPosition = new Vector2(detailX, detailY);
+            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.price).ToString();
+            consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.tear.ToString();
+            consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.rarity);
+            InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, nowShopItem);
+
+
+            consum.transform.position = detailPos.transform.position;
             miscDetail.SetActive(false);
             consumDetail.SetActive(true);
             equipDetail.SetActive(false);
+            skillDetailUi.SetActive(false);
         }
         if (nowShopItem.type == "Equip")
         {
             Transform equip = equipDetail.gameObject.transform;
+
+            string folderPath = nowShopItem.equipArea + "/";
+
+            // 리소스 폴더 내의 equipName을 로드합니다.
+            GameObject prefab = Resources.Load<GameObject>(folderPath + nowShopItem.name);
             equip.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type + " : " + nowShopItem.equipArea;
             equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (nowShopItem.Buyprice).ToString();
-            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = nowShopItem.weight.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = nowShopItem.acqPath;
-            equipDetail.transform.localPosition = new Vector2(detailX, detailY);
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.price).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.tear.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.rarity);
+            InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, nowShopItem);
+            if (nowShopItem.equipArea != "Weapon") // 방어구라면
+            {
+                Equipment equipment = prefab.GetComponent<Equipment>();
+                InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
+            }
+            else // 무기인 경우
+            {
+                Weapon weapon = prefab.GetComponent<Weapon>();
+                InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
+                InventoryManager.instance.CheckSkillDetail(weapon);
+            }
+
+
+            equip.transform.position = detailPos.transform.position;
             miscDetail.SetActive(false);
             consumDetail.SetActive(false);
             equipDetail.SetActive(true);
@@ -362,8 +389,6 @@ public class ShopManager : MonoBehaviour
                 DatabaseManager.money -= nowShopItem.Buyprice;
                 InventoryManager.instance.CreatItem(nowShopItem.name);
             }
-
-
         }
 
 
@@ -373,23 +398,6 @@ public class ShopManager : MonoBehaviour
         cusor.SetActive(true);
         isMoveCusor = true;
         DetailOff();
-        /*
-        nowShopItem.nowStack -= (int)sellSlider.value;
-        if (nowShopItem.nowStack == 0)
-        {
-            Destroy(nowShopItem.gameObject);
-        }
-        DatabaseManager.money += totalSellPrice;
-        sellUIGameObject.SetActive(false);
-        miscDetail.SetActive(false);
-        consumDetail.SetActive(false);
-        equipDetail.SetActive(false);
-        Sequence seq = DOTween.Sequence()
-.AppendInterval(waitTime)
-.OnComplete(() => state = "");
-        */
-
-
     }
 
     public void CloseBuyUI()
@@ -411,7 +419,7 @@ public class ShopManager : MonoBehaviour
             {
                 LeftMove();
             };
-            if (selectAction.triggered)
+            if (selectAction.triggered && DatabaseManager.money >= nowShopItem.Buyprice)
             {
                 BuyItem();
             }
@@ -463,16 +471,11 @@ public class ShopManager : MonoBehaviour
                 isCheckDetail = true;
                 SetNeedDetail();
             }
-            else if(isBuyDetail == true && selectAction.triggered == true)
+            else if(isBuyDetail == true && selectAction.triggered == true && DatabaseManager.money >= nowShopItem.Buyprice)
             {
                 InventoryManager.instance.state = "BuyDetail";
                 SellItemUI();
             }
-
-
-
-
-
         }
 
 
