@@ -1807,7 +1807,8 @@ public class InventoryManager : MonoBehaviour
                 misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
                 misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
                 misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-                SetRarity(misc.GetChild(6).gameObject, detail.rarity);
+                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
+
 
 
                 miscDetail.transform.position = detailPos.transform.position;
@@ -1822,12 +1823,13 @@ public class InventoryManager : MonoBehaviour
                 consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
                 consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
                 consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-                consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-                string[] effectString = detail.effectOb.Split();
-                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = effectString[0] + " : " + effectString[1] + detail.effectPow;
-                consum.transform.position = detailPos.transform.position;
+                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+                consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
+                SetConsumEffect(consum.GetChild(7).gameObject, detail);
+   
 
+                consum.transform.position = detailPos.transform.position;
                 consumDetail.SetActive(true);
 
             }
@@ -1846,7 +1848,7 @@ public class InventoryManager : MonoBehaviour
                 equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
                 equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
                 equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-                SetRarity(equip.GetChild(6).gameObject, detail.rarity);
+                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
                 SetEffectDetail(equip.GetChild(8).gameObject, detail);
                 if (detail.equipArea != "Weapon") // 방어구라면
                 {
@@ -1897,7 +1899,7 @@ public class InventoryManager : MonoBehaviour
                 equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
                 equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
                 equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-                SetRarity(equip.GetChild(6).gameObject, detail.rarity);
+                SetRarity(detail.rarity);
 
                 // 방어구의 기본적인 스탯수치
                 string basicStr = "";
@@ -2005,7 +2007,22 @@ public class InventoryManager : MonoBehaviour
 
         textObject.GetComponent<TextMeshProUGUI>().text = allSetStr;
     }
+    public void SetConsumEffect(GameObject textObject, ItemCheck nowItem)
+    {
+        string allSetStr = "";
+        string[] effect = nowItem.effectOb.Split("/");
+        string[] effectPower = nowItem.effectPow.Split("/");
 
+        for (int i = 0; i < effect.Length; i++)
+        {
+            string[] effectStr = effect[i].Split();
+            string[] effectPowerDetail = effectPower[i].Split("_");
+
+
+            allSetStr +=effectStr[1] + CapitalizeFirstLetter(effectStr[0]) + " " + effectPowerDetail[0]+"\n";
+        }
+        textObject.GetComponent<TextMeshProUGUI>().text = allSetStr;
+    }
     public void SetWeaponDetail(GameObject textObject, Weapon weapon)
     {
         // 방어구의 기본적인 스탯수치
@@ -2051,6 +2068,16 @@ public class InventoryManager : MonoBehaviour
         }
         textObject.GetComponent<TextMeshProUGUI>().text = basicStr;
     }
+    public static string CapitalizeFirstLetter(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+        {
+            return input;
+        }
+
+        // 첫 번째 문자를 대문자로 바꾸고 나머지 부분은 그대로 둡니다.
+        return char.ToUpper(input[0]) + input.Substring(1);
+    }
     public void SetArmorDetail(GameObject textObject, Equipment equipment)
     {
         // 방어구의 기본적인 스탯수치
@@ -2081,14 +2108,17 @@ public class InventoryManager : MonoBehaviour
         }
         textObject.GetComponent<TextMeshProUGUI>().text = basicStr;
     }
-    public void SetRarity(GameObject textObject, string rarerity)
+    public string SetRarity(string rarerity)
     {
         switch (rarerity)
         {
             case ("C"):
-                textObject.GetComponent<TextMeshProUGUI>().text = "Common";
+                return "Common";
                 break;
+        
         }
+
+        return "";
     }
 
 

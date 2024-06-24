@@ -64,6 +64,7 @@ public class ItemCheck : MonoBehaviour
         stackText.text = nowStack.ToString();
         if(type == "Consum")
         {
+
             effectOb = item.effectOb;
             effectPow = item.effectPow;
         }

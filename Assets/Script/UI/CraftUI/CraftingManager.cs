@@ -21,11 +21,10 @@ public class CraftingManager : MonoBehaviour
     public TextMeshProUGUI type;
     public TextMeshProUGUI description;
     public TextMeshProUGUI price;
-    public TextMeshProUGUI weight;
-    public TextMeshProUGUI acqPath;
-    public TextMeshProUGUI effectOb;
-    public TextMeshProUGUI effectPow;
-    public TextMeshProUGUI equipArea;
+    public TextMeshProUGUI tear;
+    public TextMeshProUGUI rarity;
+
+
     public Image image;
 
     public GameObject needMaterail;
@@ -141,21 +140,12 @@ public class CraftingManager : MonoBehaviour
         name.text = nowCraftItem.itemNameT;
         type.text = nowCraftItem.type;
         description.text = nowCraftItem.description;
-        price.text =(nowCraftItem.price).ToString();
-        weight.text = nowCraftItem.weight.ToString();
-        acqPath.text = nowCraftItem.acqPath;
+        price.text = "Price : " + (nowCraftItem.price).ToString();
+        tear.text = "T" + nowCraftItem.tear.ToString();
+        rarity.text = InventoryManager.instance.SetRarity(nowCraftItem.rarity);
+
         Image changeImage = nowCraftItem.transform.GetChild(0).GetComponent<Image>();
         image.sprite = changeImage.sprite;
-        if (type.text == "Consum")
-        {
-          //  effectOb.text = nowCraftItem.effectOb;
-         //   effectPow.text = nowCraftItem.effectPow.ToString();
-        }
-        if (type.text == "Equip")
-        {
-          //  equipArea.text = nowCraftItem.equipArea;
-        }
-
     }
 
     public void Craft()
