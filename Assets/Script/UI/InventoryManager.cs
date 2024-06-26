@@ -1360,19 +1360,19 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            CreatItem("ScareSide");
+          //  CreatItem("ScareSide");
             CreatItem("PoisonSword");
-            CreatItem("ScareClow");
-            CreatItem("ScareStaff");
-            CreatItem("SacreGreatSword");
-            CreatItem("RatCheifDagger");
-            CreatItem("DoubleDagger");
-            CreatItem("RustedSword");
-            CreatItem("RustedSwordandShield");
-            CreatItem("Leather Knuckles");
-            CreatItem("Wood Spear");
-            CreatItem("LeafStaff");
-            CreatItem("LeafAdae");
+         //   CreatItem("ScareClow");
+         //   CreatItem("ScareStaff");
+         //   CreatItem("SacreGreatSword");
+          //  CreatItem("RatCheifDagger");
+          //  CreatItem("DoubleDagger");
+          //  CreatItem("RustedSword");
+          //  CreatItem("RustedSwordandShield");
+           // CreatItem("Leather Knuckles");
+          //  CreatItem("Wood Spear");
+          //  CreatItem("LeafStaff");
+          //  CreatItem("LeafAdae");
 
 
 

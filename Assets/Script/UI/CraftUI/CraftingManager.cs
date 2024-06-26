@@ -23,6 +23,7 @@ public class CraftingManager : MonoBehaviour
     public TextMeshProUGUI rarity;
 
 
+    public bool isSelfCraft;
     public Image image;
 
     public GameObject needMaterail;
@@ -119,6 +120,7 @@ public class CraftingManager : MonoBehaviour
         leftSholderAction = action.UI.NextLeftPage;
         rightSholderAction = action.UI.NextRightPage;
         openCraftUiAction = action.UI.OpenCraft;
+
     }
     void Start()
     {
@@ -128,7 +130,12 @@ public class CraftingManager : MonoBehaviour
         childCount = 0;
         nowCraftItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(0).GetComponent<CraftItemCheck>();
         nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(0).GetComponent<NeedItem>();
-        SetNeedItem(); 
+        if (isSelfCraft)
+        {
+            SetNeedItem();
+            SetDetail();
+        }
+
         // Invoke("SetDetail", 1f); // 일단 1초뒤에 하도록 해서 딜레이 체크를 했는데 이거는 확인해야할듯
 
     }
@@ -403,8 +410,17 @@ public class CraftingManager : MonoBehaviour
             }
         }
 
-        if (CraftUI.activeSelf == false && openCraftUiAction.triggered && DatabaseManager.isOpenUI == false)
+        if (isSelfCraft == true&& CraftUI.activeSelf == false && openCraftUiAction.triggered && DatabaseManager.isOpenUI == false)
         {
+            Invoke("ChangeisMoveCusor", 0.2f);
+            CraftUI.SetActive(true);
+            needMaterailUI.SetActive(true);
+            DatabaseManager.isOpenUI = true;
+        }
+       else if (isSelfCraft == false && CraftUI.activeSelf == false && Input.GetKeyDown(KeyCode.B) && DatabaseManager.isOpenUI == false)
+        {
+            SetNeedItem();
+            SetDetail();
             Invoke("ChangeisMoveCusor", 0.2f);
             CraftUI.SetActive(true);
             needMaterailUI.SetActive(true);
@@ -422,10 +438,6 @@ public class CraftingManager : MonoBehaviour
          if (CraftUI.activeSelf == true && changeAction.triggered && cusor.activeSelf == true ) // 만들려는 아이템의디테일창을 키는 것
         {
             SetNeedDetail(true);
-        //    isMoveCusor = false;
-        //   CraftUI.SetActive(false);
-        //   needMaterailUI.SetActive(false);
-        //    DatabaseManager.isOpenUI = false;
         }
 
         if (name.text == "")

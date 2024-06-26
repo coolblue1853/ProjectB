@@ -132,12 +132,6 @@ public class EnemyHealth : MonoBehaviour
             return;
         }
 
-        if (deadBody == null)
-        {
-            Debug.LogError("deadBody is null");
-            return;
-        }
-
         if (rb == null)
         {
             Debug.LogError("Rigidbody2D (rb) is null");
@@ -201,10 +195,15 @@ public class EnemyHealth : MonoBehaviour
         if (nowHP <= 0 && deadOnec == false)
         {
             deadOnec = true;
-            GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
-            DeadBody dBB = dB.transform.GetComponent<DeadBody>();
-            dBB.parentEnemy = this.transform.gameObject;
-            dBB.Force2DeadBody(Mathf.Abs(nowHP));
+            if(deadBody != null)
+            {
+                GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
+                DeadBody dBB = dB.transform.GetComponent<DeadBody>();
+                dBB.parentEnemy = this.transform.gameObject;
+                dBB.Force2DeadBody(Mathf.Abs(nowHP));
+
+            }
+
             dropManager.DropItems(transform.position);
             Destroy(this.gameObject);
         }
@@ -263,10 +262,15 @@ public class EnemyHealth : MonoBehaviour
         if (nowHP <= 0 && deadOnec == false)
         {
             deadOnec = true;
-               GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
-            DeadBody dBB = dB.transform.GetComponent<DeadBody>();
-            dBB.parentEnemy = this.transform.gameObject;
-            dBB.Force2DeadBody(Mathf.Abs(nowHP));
+
+            if(deadBody!= null)
+            {
+                GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
+                DeadBody dBB = dB.transform.GetComponent<DeadBody>();
+                dBB.parentEnemy = this.transform.gameObject;
+                dBB.Force2DeadBody(Mathf.Abs(nowHP));
+            }
+
             dropManager.DropItems(transform.position);
             Destroy(this.gameObject);
         }
