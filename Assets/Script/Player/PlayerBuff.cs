@@ -39,21 +39,26 @@ public class PlayerBuff : MonoBehaviour
         if (buffType == "def")
             DatabaseManager.playerDef += buffPower;
 
+
         Invoke("DestoryBuff", buffTime);
     }
 
 
-    void DestoryBuff()
+    public void DestoryBuff()
     {
-        if (buffType == "AttSpeed")
-            DatabaseManager.attackSpeedBuff -= buffPower;
-        if (buffType == "Speed")
-            DatabaseManager.SpeedBuff -= buffPower;
-        if (buffType == "HitCount")
-            DatabaseManager.hitCount -= buffPower;
-        if (buffType == "def")
-            DatabaseManager.playerDef -= buffPower;
-        Destroy(this.gameObject);
+        if (this.gameObject != null)
+        {
+            if (buffType == "AttSpeed")
+                DatabaseManager.attackSpeedBuff -= buffPower;
+            if (buffType == "Speed")
+                DatabaseManager.SpeedBuff -= buffPower;
+            if (buffType == "HitCount")
+                DatabaseManager.hitCount -= buffPower;
+            if (buffType == "def")
+                DatabaseManager.playerDef -= buffPower;
+            Destroy(this.gameObject);
+        }
+
 
     }
     // Update is called once per frame

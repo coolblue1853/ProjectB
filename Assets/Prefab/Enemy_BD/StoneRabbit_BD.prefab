@@ -786,7 +786,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Leather Knuckles
+    dropProbability: 0.001
+  - itemName: RustedSwordandShield
+    dropProbability: 0.001
+  - itemName: Rabbit's Foot
+    dropProbability: 0.0005
+  - itemName: Cap
+    dropProbability: 0.002
+  - itemName: Armor
+    dropProbability: 0.002
+  - itemName: T0_Ore
+    dropProbability: 0.15
+  - itemName: Round Bone
+    dropProbability: 0.1
+  - itemName: Fine Rabbit Hide
+    dropProbability: 0.1
+  - itemName: Rabbit Meat
+    dropProbability: 0.2
   impulseForce: 10
 --- !u!114 &2474547972440540672
 MonoBehaviour:

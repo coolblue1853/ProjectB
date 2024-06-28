@@ -1,7 +1,7 @@
 int,string,string,string,int,int,string,int,string,int,string,string,string,int,string,int,string
 index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equipArea,tfName,itemNameT,tear,rarity,upgrade,setName
-0,Rock,Misc,String,100,1,hand,5,-,0,-,,Rock,0,C,0,
-1,Wood,Misc,String2,200,2,odnw,5,-,0,-,,Wood,0,C,0,
+0,Rock,Misc,String,100,1,hand,99,-,0,-,,Rock,0,C,0,
+1,Wood,Misc,String2,200,2,odnw,60,-,0,-,,Wood,0,C,0,
 2,PickAxe,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,PickAxe,0,C,0,
 3,test4,Misc,World,400,1,soie,1,-,0,-,,test4,0,C,0,
 4,Potion,Consum,World,400,1,soie,5,hp +,200,-,,Potion,0,C,0,
@@ -52,7 +52,7 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 49,Fine Rabbit Hide,Misc,World,100,1,-,99,-,0,-,,Fine Rabbit Hide,0,R,0,
 50,Round Bone,Misc,World,100,1,-,99,-,0,-,,Round Bone,0,R,0,
 51,GreenHurb,Misc,World,100,1,-,99,-,0,-,,Green Hurb,0,C,0,
-52,-,-,-,0,0,-,0,-,0,-,,,0,,0,
+52,T0_Ore,Misc,World,100,1,-,99,-,0,-,,Pristine Low-Grade Ore,0,C,0,
 53,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 54,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 55,-,-,-,0,0,-,0,-,0,-,,,0,,0,

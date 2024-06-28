@@ -24,6 +24,7 @@ public class CraftingManager : MonoBehaviour
 
 
     public bool isSelfCraft;
+    public bool isCraftWeapon;
     public Image image;
 
     public GameObject needMaterail;
@@ -412,13 +413,27 @@ public class CraftingManager : MonoBehaviour
 
         if (isSelfCraft == true&& CraftUI.activeSelf == false && openCraftUiAction.triggered && DatabaseManager.isOpenUI == false)
         {
+            DeleteAllChildren(needMaterail);
+            SetNeedItem();
+            SetDetail();
             Invoke("ChangeisMoveCusor", 0.2f);
             CraftUI.SetActive(true);
             needMaterailUI.SetActive(true);
             DatabaseManager.isOpenUI = true;
         }
-       else if (isSelfCraft == false && CraftUI.activeSelf == false && Input.GetKeyDown(KeyCode.B) && DatabaseManager.isOpenUI == false)
+       else if (isSelfCraft == false && isCraftWeapon == true && CraftUI.activeSelf == false && Input.GetKeyDown(KeyCode.B) && DatabaseManager.isOpenUI == false) // 무기 제작인
         {
+            DeleteAllChildren(needMaterail);
+            SetNeedItem();
+            SetDetail();
+            Invoke("ChangeisMoveCusor", 0.2f);
+            CraftUI.SetActive(true);
+            needMaterailUI.SetActive(true);
+            DatabaseManager.isOpenUI = true;
+        }
+        else if (isSelfCraft == false && isCraftWeapon == false && CraftUI.activeSelf == false && Input.GetKeyDown(KeyCode.N) && DatabaseManager.isOpenUI == false) // 장비 제작인
+        {
+            DeleteAllChildren(needMaterail);
             SetNeedItem();
             SetDetail();
             Invoke("ChangeisMoveCusor", 0.2f);

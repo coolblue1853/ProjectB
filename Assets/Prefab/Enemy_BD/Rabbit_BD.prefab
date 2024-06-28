@@ -1067,23 +1067,23 @@ MonoBehaviour:
     type: 3}
   dropItems:
   - itemName: Rabbit Hide
-    dropProbability: 0.05
-  - itemName: Small Bone
-    dropProbability: 0.05
-  - itemName: Rabbit Meat
     dropProbability: 0.1
+  - itemName: Small Bone
+    dropProbability: 0.1
+  - itemName: Rabbit Meat
+    dropProbability: 0.15
   - itemName: Four-Leaf Clover Ring
-    dropProbability: 0.005
+    dropProbability: 0.001
   - itemName: Shoes
-    dropProbability: 0.02
+    dropProbability: 0.002
   - itemName: HandArmor
-    dropProbability: 0.02
+    dropProbability: 0.002
   - itemName: LegArmor
-    dropProbability: 0.02
+    dropProbability: 0.002
   - itemName: RustedSword
-    dropProbability: 0.01
+    dropProbability: 0.002
   - itemName: Wood Spear
-    dropProbability: 0.01
+    dropProbability: 0.002
   impulseForce: 10
 --- !u!114 &7698113302431834599
 MonoBehaviour:

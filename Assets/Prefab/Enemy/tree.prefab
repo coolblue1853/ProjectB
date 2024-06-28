@@ -511,6 +511,7 @@ MonoBehaviour:
     type: 3}
   enemyDef: 0
   maxHP: 100
+  nowHP: 100
   hpBar: {fileID: 4541466175332075844}
   hpObject: {fileID: 4541466175075089234}
   hpHeight: 3
@@ -519,7 +520,15 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   deadBody: {fileID: 2641561550339523049, guid: 6b6cc8843de21054f88ad21c313d7b7c,
     type: 3}
+  enemySensor: {fileID: 0}
+  isBossMob: 0
+  ShakeCorrection: 1
+  stiffShakeTime: 0
   isAttackGround: 0
+  checkPlayer: {fileID: 0}
+  maxXSpeed: 10
+  maxYSpeed: 10
+  isStun: 0
   poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68,
     type: 3}
 --- !u!114 &4541466175860119342
@@ -537,12 +546,13 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: Armor
+  - itemName: Wood
     dropProbability: 1
-  - itemName: Cap
+  - itemName: Wood
     dropProbability: 1
-  - itemName: Rock
+  - itemName: Wood
     dropProbability: 1
+  impulseForce: 5
 --- !u!60 &550321986
 PolygonCollider2D:
   m_ObjectHideFlags: 0

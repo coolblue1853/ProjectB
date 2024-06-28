@@ -19,6 +19,8 @@ public class AttackManager : MonoBehaviour
     public GameObject rightHand;
     public GameObject leftHand;
 
+    public PlayerBuff foodBuff;
+
     public GameObject BuffSlot;
     private void OnEnable()
     {
