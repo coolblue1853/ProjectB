@@ -144,7 +144,7 @@ MonoBehaviour:
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
-  SkillCoolTime: 1
+  SkillCoolTime: 20
   skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
   skillAnim: AdeaAttSpeadBuff
   isWeaponStopMove: 1

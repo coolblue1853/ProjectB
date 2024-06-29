@@ -1343,13 +1343,14 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
+            CreatItem("LeafAdae");
             CreatItem("LeafStaff");
-            CreatItem("Green Wreath");
-          //  CreatItem("Small Bone");
+            CreatItem("LeafLegArmor"); CreatItem("LeafHandArmor"); CreatItem("LeafShoes"); CreatItem("LeafArmor"); CreatItem("LeafCap");
+            //  CreatItem("Small Bone");
             //CreatItem("Rabbit Hide");
             //CreatItem("Fine Rabbit Hide");
-           // CreatItem("Round Bone");
-            
+            // CreatItem("Round Bone");
+
 
 
             //CreatItem("Wood Spear");
@@ -1963,11 +1964,43 @@ public class InventoryManager : MonoBehaviour
             string effecStr = setItem.SetEffectStr(nowItem.tfName, i);
             if (effecStr != "")
             {
-                // Step 1: Remove the parentheses
-                string noParentheses = effecStr.Replace("(", "").Replace(")", "");
-                // Step 2: Replace / with ,
-                string result = noParentheses.Replace("/", " , ");
-                allSetStr += "(" + i + ") " + result + "\n";
+                string noParentheses = effecStr.Replace("(", "").Replace(")", " ");
+                string[] box = noParentheses.Split("/");
+                allSetStr += "(" + i + ") ";
+                for (int k =0; k < box.Length; k++)
+                {
+                    // Step 1: Remove the parentheses
+                    string[] checkEffect = box[k].Split();
+                    if (checkEffect[2] == "skillHitCount")
+                    {
+                        allSetStr +=  checkEffect[0] + checkEffect[1] + " " + "["+checkEffect[3].Replace("_", " ") +"]"+ " count";
+    
+                    }
+                    else if (checkEffect[2] == "bulletCount")
+                    {
+                        allSetStr += checkEffect[0] + checkEffect[1] + " " + "[" + checkEffect[3].Replace("_", " ") + "]" + " count";
+                    }
+                    else if (checkEffect[2] == "coolDown")
+                    {
+                        allSetStr += "-" + checkEffect[1] + "% CoolDown " + "[" + checkEffect[3].Replace("_", " ") + "]" ;
+                    }
+                    else
+                    {
+                        allSetStr +=  checkEffect[0]+" "+ checkEffect[1];
+                    }
+
+                    if (k != box.Length - 1)
+                    {
+                        allSetStr += ",\n";
+                    }
+                    else
+                    {
+                        allSetStr += "\n";
+                    }
+
+
+                }
+
             }
         }
 
@@ -2071,6 +2104,13 @@ public class InventoryManager : MonoBehaviour
 
             if (equipment.dropRate > 0) basicStr += "+" + equipment.dropRate.ToString() + " Drop Rate\n";
             else basicStr += "-" + equipment.dropRate.ToString() + " Drop Rate\n";
+        }
+        if(equipment.coolDownSkill.Length != 0)
+        {
+            for(int i =0; i < equipment.coolDownSkill.Length; i++)
+            {
+                basicStr += "-" + equipment.coolDownSkill[i].coolDownCount.ToString() + "% Cooldown " + equipment.coolDownSkill[i].skillName;
+        }
         }
         textObject.GetComponent<TextMeshProUGUI>().text = basicStr;
     }

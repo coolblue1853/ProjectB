@@ -120,6 +120,8 @@ public class Skill : MonoBehaviour
         skillSAction = action.Player.SkillS;
         skillDAction = action.Player.SkillD;
         skillFAction = action.Player.SkillF;
+
+
     }
     public GameObject[] skillprefab;
     public SkillCooldown skillCooldown;
@@ -191,13 +193,22 @@ public class Skill : MonoBehaviour
         }
     }
 
-
+    int allObjectMaxCount;
     private IEnumerator SpawnSkills()
     {
+        if (DatabaseManager.skillHitCount.ContainsKey(skillName))
+        {
+            allObjectMaxCount = objectMaxCount + DatabaseManager.skillHitCount[skillName];
+        }
+        else
+        {
+            allObjectMaxCount = objectMaxCount;
+        }
+
         // interval[0]의 시간만큼 대기
         yield return new WaitForSeconds(interval[0] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         // 첫 번째 요소는 건너뛰고 두 번째 요소부터 생성
-        for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && (isEffectMaxAdd == false || i < objectMaxCount); i++)
+        for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && (isEffectMaxAdd == false || i < allObjectMaxCount); i++)
         {
             if (isRayCheckSkill == false)
             {
@@ -323,13 +334,24 @@ public class Skill : MonoBehaviour
                 yield return new WaitForSeconds(interval[i] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             }
         }
-    }
 
+
+    }
+    int allBullet = 0;
     public void RoundAttack(GameObject damageOb, GameObject attackPivot)
     {
-        float angleStep = (endAngle - startAngle) / (bulletCount - 1); // 탄막 간격 계산
+        if (DatabaseManager.skillBulletCount.ContainsKey(skillName))
+        {
+            allBullet = bulletCount + DatabaseManager.skillBulletCount[skillName];
+        }
+        else
+        {
+            allBullet = bulletCount;
+        }
 
-        for (int i = 0; i < bulletCount; i++)
+        float angleStep = (endAngle - startAngle) / (allBullet - 1); // 탄막 간격 계산
+
+        for (int i = 0; i < allBullet; i++)
         {
             float angle = startAngle + i * angleStep; // 현재 탄막의 각도 계산
 

@@ -54,7 +54,7 @@ public class DropManager : MonoBehaviour
                     itemCheck.SetItem(dropItem.itemName);
                     // 추가적인 아이템 설정이 필요하다면 여기서 처리
 
-                    offsetX += 1f;  // 다음 아이템의 위치를 오른쪽으로 옮김
+                    offsetX += 0.5f;  // 다음 아이템의 위치를 오른쪽으로 옮김
                 }
                 else
                 {

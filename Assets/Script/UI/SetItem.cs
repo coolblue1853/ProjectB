@@ -46,6 +46,7 @@ public class SetItem : MonoBehaviour
         }
         return "";
     }
+    string skillName = "";
     public void ActiveSetEffect(string effect, bool isEffect)
     {
         string[] effectList = effect.Split("/");
@@ -56,6 +57,10 @@ public class SetItem : MonoBehaviour
             string[] sprateStr = value.Split(")");
             string sign = sprateStr[0].Substring(1,1);
             string[] effectSub = sprateStr[1].Split(" ");
+            if(effectSub[1] == "skillHitCount" || effectSub[1] == "bulletCount")
+            {
+                 skillName = effectSub[2].Replace("_", " ");
+            }
             if(isEffect == true)
             {
                 switch (effectSub[1])
@@ -65,6 +70,48 @@ public class SetItem : MonoBehaviour
                         break;
                     case ("Hp"):
                         if (sign == "+") PlayerHealthManager.Instance.EquipmentActiveTrue(int.Parse(effectSub[0]));
+                        break;
+                    case ("skillHitCount"): // 특정 스킬의 생성 숫자 증가
+                        if (sign == "+")
+                        {
+
+                            if (DatabaseManager.skillHitCount.ContainsKey(skillName))
+                            {
+                                DatabaseManager.skillHitCount[skillName] += int.Parse(effectSub[0]);
+                            }
+                            else
+                            {
+                                DatabaseManager.skillHitCount.Add(skillName, int.Parse(effectSub[0]));
+                            }
+                        }
+                        break;
+                    case ("coolDown"): // 특정 스킬의 생성 숫자 증가
+                        if (sign == "+")
+                        {
+
+                            if (DatabaseManager.skillCoolDown.ContainsKey(skillName))
+                            {
+                                DatabaseManager.skillCoolDown[skillName] += int.Parse(effectSub[0]);
+                            }
+                            else
+                            {
+                                DatabaseManager.skillCoolDown.Add(skillName, int.Parse(effectSub[0]));
+                            }
+                        }
+                        break;
+                    case ("bulletCount"): // 특정 스킬의 생성 숫자 증가
+                        if (sign == "+")
+                        {
+                            
+                            if (DatabaseManager.skillBulletCount.ContainsKey(skillName))
+                            {
+                                DatabaseManager.skillBulletCount[skillName] += int.Parse(effectSub[0]);
+                            }
+                            else
+                            {
+                                DatabaseManager.skillBulletCount.Add(skillName, int.Parse(effectSub[0]));
+                            }
+                        }
                         break;
                 }
             }
@@ -77,6 +124,36 @@ public class SetItem : MonoBehaviour
                         break;
                     case ("Hp"):
                         if (sign == "+") PlayerHealthManager.Instance.EquipmentActiveFalse(int.Parse(effectSub[0]));
+                        break;
+                    case ("skillHitCount"): // 특정 스킬의 생성 숫자 증가
+                        if (sign == "+")
+                        {
+                            DatabaseManager.skillHitCount[skillName] -= int.Parse(effectSub[0]);
+                            if (DatabaseManager.skillHitCount[skillName] <= 0)
+                            {
+                                DatabaseManager.skillHitCount.Remove(skillName);
+                            }
+                        }
+                        break;
+                    case ("bulletCount"): // 특정 스킬의 생성 숫자 증가
+                        if (sign == "+")
+                        {
+                            DatabaseManager.skillBulletCount[skillName] -= int.Parse(effectSub[0]);
+                            if (DatabaseManager.skillBulletCount[skillName] <= 0)
+                            {
+                                DatabaseManager.skillBulletCount.Remove(skillName);
+                            }
+                        }
+                        break;
+                    case ("coolDown"): // 특정 스킬의 생성 숫자 증가
+                        if (sign == "+")
+                        {
+                            DatabaseManager.skillCoolDown[skillName] -= int.Parse(effectSub[0]);
+                            if (DatabaseManager.skillCoolDown[skillName] <= 0)
+                            {
+                                DatabaseManager.skillCoolDown.Remove(skillName);
+                            }
+                        }
                         break;
                 }
             }

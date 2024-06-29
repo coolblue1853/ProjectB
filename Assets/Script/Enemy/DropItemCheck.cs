@@ -89,7 +89,7 @@ public class DropItemCheck : MonoBehaviour
     bool isGround = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Ground")
+        if (collision.transform.tag == "Ground"|| collision.transform.tag == "Wall")
         {
             Rigidbody2D rigidbody = this.GetComponent<Rigidbody2D>();
             rigidbody.velocity = Vector2.zero;

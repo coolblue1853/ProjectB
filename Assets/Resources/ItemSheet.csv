@@ -17,11 +17,11 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 14,Shoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,RabbitArmor,Shoes,0,C,0,Basic Gear
 15,Leather Knuckles,Equip,equipment,500,50,Buy,1,-,0,Weapon,,Leather Knuckles,0,C,0,
 16,Wood Spear,Equip,equipment,500,50,Buy,1,-,0,Weapon,,Wood Spear,0,C,0,
-17,LeafCap,Equip,equipment,500,50,Buy,1,-,0,Head,LeafArmor,LeafCap,0,R,0,
-18,LeafArmor,Equip,equipment,500,50,Buy,1,-,0,Chest,LeafArmor,LeafArmor,0,R,0,
-19,LeafLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,LeafArmor,LeafLegArmor,0,R,0,
-20,LeafHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,LeafArmor,LeafHandArmor,0,R,0,
-21,LeafShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,LeafArmor,LeafShoes,0,R,0,
+17,LeafCap,Equip,equipment,500,50,Buy,1,-,0,Head,LeafArmor,LeafCap,0,R,0,Nature's Reward
+18,LeafArmor,Equip,equipment,500,50,Buy,1,-,0,Chest,LeafArmor,LeafArmor,0,R,0,Nature's Reward
+19,LeafLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,LeafArmor,LeafLegArmor,0,R,0,Nature's Reward
+20,LeafHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,LeafArmor,LeafHandArmor,0,R,0,Nature's Reward
+21,LeafShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,LeafArmor,LeafShoes,0,R,0,Nature's Reward
 22,LeafStaff,Equip,equipment,500,50,Buy,1,-,0,Weapon,,LeafStaff,0,R,0,
 23,LeafAdae,Equip,equipment,500,50,Buy,1,-,0,Weapon,,LeafAdae,0,R,0,
 24,RatCap,Equip,equipment,500,50,Buy,1,-,0,Head,RatArmor,RatCap,0,R,0,
