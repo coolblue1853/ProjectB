@@ -57,7 +57,7 @@ public class SetItem : MonoBehaviour
             string[] sprateStr = value.Split(")");
             string sign = sprateStr[0].Substring(1,1);
             string[] effectSub = sprateStr[1].Split(" ");
-            if(effectSub[1] == "skillHitCount" || effectSub[1] == "bulletCount")
+            if(effectSub[1] == "skillHitCount" || effectSub[1] == "bulletCount" || effectSub[1] == "coolDown") // 스킬 이름이 필요한 경우 여기에 추ㄱ해 줘야함
             {
                  skillName = effectSub[2].Replace("_", " ");
             }
@@ -88,7 +88,6 @@ public class SetItem : MonoBehaviour
                     case ("coolDown"): // 특정 스킬의 생성 숫자 증가
                         if (sign == "+")
                         {
-
                             if (DatabaseManager.skillCoolDown.ContainsKey(skillName))
                             {
                                 DatabaseManager.skillCoolDown[skillName] += int.Parse(effectSub[0]);
@@ -99,7 +98,7 @@ public class SetItem : MonoBehaviour
                             }
                         }
                         break;
-                    case ("bulletCount"): // 특정 스킬의 생성 숫자 증가
+                    case ("bulletCount"): // 특정 스킬의 생성 숫자 증가, 스킬 이름이 필요한 경우는 위에 ||에 해당 파트를 추가해 줘야함
                         if (sign == "+")
                         {
                             
