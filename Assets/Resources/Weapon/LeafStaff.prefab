@@ -50,7 +50,7 @@ MonoBehaviour:
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
-  SkillCoolTime: 0.1
+  SkillCoolTime: 4
   skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
   skillAnim: StaffMiddle
   isWeaponStopMove: 1
@@ -87,7 +87,7 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  skillName: Teleport
+  skillName: Leaf Teleport
   skillDetail: Instantly teleport forward.
   delayEffectPrefab: {fileID: 0}
   skillprefab:

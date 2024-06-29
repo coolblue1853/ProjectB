@@ -10,5 +10,15 @@ public class Equipment : MonoBehaviour
     public int hp;
     public int critical;
     public int dropRate;
+    [System.Serializable]
+    public struct SkillCoolTime
+    {
+        public string skillName;
+        public int coolDownCount;
+    
+    }
+
+    [SerializeField]
+    public SkillCoolTime[] coolDownSkill;
 
 }

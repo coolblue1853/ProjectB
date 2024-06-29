@@ -23,8 +23,11 @@ public class SkillCooldown : MonoBehaviour
     public bool isCooldownD = false; // 쿨타임 중인지 여부 확인을 위한 변수
     private float cooldownTimerD = 0f; // 쿨타임 타이머
 
+    
 
     static public SkillCooldown instance;
+
+   
 
     public void ResetCoolTime()
     {
@@ -65,6 +68,7 @@ public class SkillCooldown : MonoBehaviour
         if (isCooldownA && cooldownImageA != null)
         {
             cooldownTimerA -= Time.deltaTime; // 쿨타임 타이머를 감소시킵니다.
+
             cooldownImageA.fillAmount = 1-(cooldownTimerA / cooldownTimeA); // 이미지를 업데이트하여 쿨타임을 표시합니다.
 
             // 쿨타임이 완료되었을 때
@@ -126,42 +130,95 @@ public class SkillCooldown : MonoBehaviour
         cooldownImageD.sprite = null;
     }
     // 스킬을 사용할 때 호출되는 함수
-    public void UseSkillA()
+    public void UseSkillA(string skillName)
     {
         if (!isCooldownA) // 쿨타임 중이 아니라면
         {
+            float cooldownPower = 0;
+            if (DatabaseManager.skillCoolDown.ContainsKey(skillName))
+            {
+                cooldownPower = DatabaseManager.skillCoolDown[skillName];
+            }
+
             isCooldownA = true; // 쿨타임을 시작합니다.
-            cooldownTimerA = cooldownTimeA; // 쿨타임 타이머를 초기화합니다.
+            if(cooldownPower == 0)
+            {
+                cooldownTimerA = cooldownTimeA; // 쿨타임 타이머를 초기화합니다.
+            }
+            else
+            {
+         
+                cooldownTimerA = cooldownTimeA*(1- cooldownPower/100); // 쿨타임 타이머를 초기화합니다.
+                Debug.Log( (cooldownTimeA * (1 - cooldownPower / 100)));
+            }
+
             cooldownImageA.fillAmount = 0; // 이미지를 초기화합니다.
             // 스킬 사용 로직을 추가합니다.
         }
     }
-    public void UseSkillB()
+    public void UseSkillB(string skillName)
     {
         if (!isCooldownB) // 쿨타임 중이 아니라면
         {
+            float cooldownPower = 0;
+            if (DatabaseManager.skillCoolDown.ContainsKey(skillName))
+            {
+                cooldownPower = DatabaseManager.skillCoolDown[skillName];
+            }
             isCooldownB = true; // 쿨타임을 시작합니다.
-            cooldownTimerB = cooldownTimeB; // 쿨타임 타이머를 초기화합니다.
+            if (cooldownPower == 0)
+            {
+                cooldownTimerB = cooldownTimeB; // 쿨타임 타이머를 초기화합니다.
+            }
+            else
+            {
+                cooldownTimerB = cooldownTimeB * (1 - cooldownPower / 100); // 쿨타임 타이머를 초기화합니다.
+            }
             cooldownImageB.fillAmount = 0; // 이미지를 초기화합니다.
             // 스킬 사용 로직을 추가합니다.
         }
     }
-    public void UseSkillC()
+    public void UseSkillC(string skillName)
     {
         if (!isCooldownC) // 쿨타임 중이 아니라면
         {
+            float cooldownPower = 0;
+            if (DatabaseManager.skillCoolDown.ContainsKey(skillName))
+            {
+                cooldownPower = DatabaseManager.skillCoolDown[skillName];
+            }
             isCooldownC = true; // 쿨타임을 시작합니다.
-            cooldownTimerC = cooldownTimeC; // 쿨타임 타이머를 초기화합니다.
+            if (cooldownPower == 0)
+            {
+                cooldownTimerC = cooldownTimeC; // 쿨타임 타이머를 초기화합니다.
+            }
+            else
+            {
+                cooldownTimerC = cooldownTimeC * (1 - cooldownPower / 100); // 쿨타임 타이머를 초기화합니다.
+            }
+
             cooldownImageC.fillAmount = 0; // 이미지를 초기화합니다.
             // 스킬 사용 로직을 추가합니다.
         }
     }
-    public void UseSkillD()
+    public void UseSkillD(string skillName)
     {
         if (!isCooldownD) // 쿨타임 중이 아니라면
         {
+            float cooldownPower = 0;
+            if (DatabaseManager.skillCoolDown.ContainsKey(skillName))
+            {
+                cooldownPower = DatabaseManager.skillCoolDown[skillName];
+            }
             isCooldownD = true; // 쿨타임을 시작합니다.
-            cooldownTimerD = cooldownTimeD; // 쿨타임 타이머를 초기화합니다.
+            if (cooldownPower == 0)
+            {
+                cooldownTimerD = cooldownTimeD; // 쿨타임 타이머를 초기화합니다.
+            }
+            else
+            {
+                cooldownTimerD = cooldownTimeD * (1 - cooldownPower / 100); // 쿨타임 타이머를 초기화합니다.
+            }
             cooldownImageD.fillAmount = 0; // 이미지를 초기화합니다.
             // 스킬 사용 로직을 추가합니다.
         }

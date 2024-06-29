@@ -1343,8 +1343,8 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
-
-           CreatItem("Rabbit Meat Stew");
+            CreatItem("LeafStaff");
+            CreatItem("Green Wreath");
           //  CreatItem("Small Bone");
             //CreatItem("Rabbit Hide");
             //CreatItem("Fine Rabbit Hide");

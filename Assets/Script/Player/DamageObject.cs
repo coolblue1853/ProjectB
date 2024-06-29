@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class DamageObject : MonoBehaviour
 {
-
+    public string skillName;
     Transform playerTf;
     public float dmgRatio = 1.0f;
     public float ShakeTime;

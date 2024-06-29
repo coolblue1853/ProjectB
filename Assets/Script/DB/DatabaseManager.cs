@@ -26,6 +26,7 @@ public class DatabaseManager : MonoBehaviour
     public static bool isUsePortal = false;
     public static Dictionary<string, int> inventoryItemStack = new Dictionary<string, int>();
     public static Dictionary<string, int> setsEffectStack = new Dictionary<string, int>();
+    public static Dictionary<string, int> skillCoolDown = new Dictionary<string, int>();
     ItemDatabase itemDatabase;
     SetItem setDatabase;
     public static int money;

@@ -56,6 +56,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             SetEquipmentHp(head.hp);
             SetEquipmentCiritcalRate(head.critical);
             SetEquipmentDropRate(head.dropRate);
+            SetEquipmentSkillCool(head);
         }
         else if (reciveEquipArea == "Chest" && chest == null)
         {
@@ -63,7 +64,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             SetEquipmentHp(chest.hp);
             SetEquipmentCiritcalRate(chest.critical);
             SetEquipmentDropRate(chest.dropRate);
-
+            SetEquipmentSkillCool(chest);
         }
         else if (reciveEquipArea == "Leg" && leg == null)
         {
@@ -71,6 +72,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             SetEquipmentHp(leg.hp);
             SetEquipmentCiritcalRate(leg.critical);
             SetEquipmentDropRate(leg.dropRate);
+            SetEquipmentSkillCool(leg);
         }
         else if (reciveEquipArea == "Hand" && hand == null)
         {
@@ -78,6 +80,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             SetEquipmentHp(hand.hp);
             SetEquipmentCiritcalRate(hand.critical);
             SetEquipmentDropRate(hand.dropRate);
+            SetEquipmentSkillCool(hand);
         }
         else if (reciveEquipArea == "Necklace" && hand == null)
         {
@@ -85,6 +88,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             SetEquipmentHp(necklace.hp);
             SetEquipmentCiritcalRate(necklace.critical);
             SetEquipmentDropRate(necklace.dropRate);
+            SetEquipmentSkillCool(necklace);
         }
         else if (reciveEquipArea == "Ring" && hand == null)
         {
@@ -92,6 +96,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             SetEquipmentHp(ring.hp);
             SetEquipmentCiritcalRate(ring.critical);
             SetEquipmentDropRate(ring.dropRate);
+            SetEquipmentSkillCool(ring);
         }
         else if (reciveEquipArea == "Shoes" && shoes == null)
         {
@@ -99,9 +104,37 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             SetEquipmentHp(shoes.hp);
             SetEquipmentCiritcalRate(shoes.critical);
             SetEquipmentDropRate(shoes.dropRate);
+            SetEquipmentSkillCool(shoes);
         }
 
     }
+    public void SetEquipmentSkillCool(Equipment equip)
+    {
+        for(int i =0; i < equip.coolDownSkill.Length; i++)
+        {
+            if (DatabaseManager.skillCoolDown.ContainsKey(equip.coolDownSkill[i].skillName)) // 기술이 존재하는지 확인. 존재한다면 그냥 수치 추가
+            {
+                DatabaseManager.skillCoolDown[equip.coolDownSkill[i].skillName] += equip.coolDownSkill[i].coolDownCount;
+            }
+            else
+            {
+                DatabaseManager.skillCoolDown.Add(equip.coolDownSkill[i].skillName, equip.coolDownSkill[i].coolDownCount);
+            }
+        }
+    }
+    public void DownquipmentSkillCool(Equipment equip)
+    {
+        for (int i = 0; i < equip.coolDownSkill.Length; i++)
+        {
+            DatabaseManager.skillCoolDown[equip.coolDownSkill[i].skillName] -= equip.coolDownSkill[i].coolDownCount;
+            if(DatabaseManager.skillCoolDown[equip.coolDownSkill[i].skillName] <= 0)
+            {
+                DatabaseManager.skillCoolDown.Remove(equip.coolDownSkill[i].skillName);
+            }
+        }
+    }
+
+
     public void SetEquipmentDropRate(int num)
     {
         DatabaseManager.playerDropRate += num; 
@@ -162,6 +195,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(head.hp))
 .AppendCallback(() => DownEquipmentDropRate(head.dropRate))
 .AppendCallback(() => DownEquipmentCiritcalRate(head.critical))
+.AppendCallback(() => DownquipmentSkillCool(head))
   .AppendCallback(() => Destroy(head.gameObject))
  .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
  .OnComplete(() => Destroy(deletChile));
@@ -173,6 +207,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                     PlayerHealthManager.Instance.EquipmentActiveFalse(head.hp);
                     DownEquipmentDropRate(head.dropRate);
                     DownEquipmentCiritcalRate(head.critical);
+                    DownquipmentSkillCool(head);
                     Destroy(head.gameObject);
                     head = null;
                 }
@@ -198,6 +233,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp))
 .AppendCallback(() => DownEquipmentDropRate(chest.dropRate))
 .AppendCallback(() => DownEquipmentCiritcalRate(chest.critical))
+.AppendCallback(() => DownquipmentSkillCool(chest))
 .AppendCallback(() => Destroy(chest.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -210,6 +246,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                     PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp);
                     DownEquipmentDropRate(chest.dropRate);
                     DownEquipmentCiritcalRate(chest.critical);
+                    DownquipmentSkillCool(chest);
                     Destroy(chest.gameObject);
                     chest = null;
                 }
@@ -232,6 +269,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(leg.hp))
 .AppendCallback(() => DownEquipmentDropRate(leg.dropRate))
 .AppendCallback(() => DownEquipmentCiritcalRate(leg.critical))
+.AppendCallback(() => DownquipmentSkillCool(leg))
 .AppendCallback(() => Destroy(leg.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -243,6 +281,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                     PlayerHealthManager.Instance.EquipmentActiveFalse(leg.hp);
                     DownEquipmentDropRate(leg.dropRate);
                     DownEquipmentCiritcalRate(leg.critical);
+                    DownquipmentSkillCool(leg);
                     Destroy(leg.gameObject);
                     leg = null;
                 }
@@ -261,6 +300,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(hand.hp))
     .AppendCallback(() => DownEquipmentDropRate(hand.dropRate))
 .AppendCallback(() => DownEquipmentCiritcalRate(hand.critical))
+.AppendCallback(() => DownquipmentSkillCool(hand))
     .AppendCallback(() => Destroy(hand.gameObject))
     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
     .OnComplete(() => Destroy(deletChile));
@@ -272,6 +312,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                     PlayerHealthManager.Instance.EquipmentActiveFalse(hand.hp);
                     DownEquipmentDropRate(hand.dropRate);
                     DownEquipmentCiritcalRate(hand.critical);
+                    DownquipmentSkillCool(hand);
                     Destroy(hand.gameObject);
                     hand = null;
                 }
@@ -288,6 +329,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(necklace.hp))
     .AppendCallback(() => DownEquipmentDropRate(necklace.dropRate))
     .AppendCallback(() => DownEquipmentCiritcalRate(necklace.critical))
+.AppendCallback(() => DownquipmentSkillCool(necklace))
     .AppendCallback(() => Destroy(necklace.gameObject))
     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
     .OnComplete(() => Destroy(deletChile));
@@ -299,6 +341,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                     PlayerHealthManager.Instance.EquipmentActiveFalse(necklace.hp);
                     DownEquipmentDropRate(necklace.dropRate);
                     DownEquipmentCiritcalRate(necklace.critical);
+                    DownquipmentSkillCool(necklace);
                     Destroy(necklace.gameObject);
                     necklace = null;
                 }
@@ -314,6 +357,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
        .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(ring.hp))
        .AppendCallback(() => DownEquipmentDropRate(ring.dropRate))
 .AppendCallback(() => DownEquipmentCiritcalRate(ring.critical))
+.AppendCallback(() => DownquipmentSkillCool(ring))
 .AppendCallback(() => Destroy(ring.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -325,6 +369,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                     PlayerHealthManager.Instance.EquipmentActiveFalse(ring.hp);
                     DownEquipmentDropRate(ring.dropRate);
                     DownEquipmentCiritcalRate(ring.critical);
+                    DownquipmentSkillCool(ring);
                     Destroy(ring.gameObject);
                     ring = null;
                 }
@@ -340,7 +385,8 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                 Sequence waitSequence = DOTween.Sequence()
        .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp))
        .AppendCallback(() => DownEquipmentDropRate(shoes.dropRate))
-.AppendCallback(() => DownEquipmentCiritcalRate(shoes.critical))
+       .AppendCallback(() => DownEquipmentCiritcalRate(shoes.critical))
+.AppendCallback(() => DownquipmentSkillCool(shoes))
 .AppendCallback(() => Destroy(shoes.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -352,6 +398,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                     PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp);
                     DownEquipmentDropRate(shoes.dropRate);
                     DownEquipmentCiritcalRate(shoes.critical);
+                    DownquipmentSkillCool(shoes);
                     Destroy(shoes.gameObject);
                     shoes = null;
                 }

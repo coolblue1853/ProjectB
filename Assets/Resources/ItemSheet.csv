@@ -53,7 +53,7 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 50,Round Bone,Misc,World,100,1,-,99,-,0,-,,Round Bone,0,R,0,
 51,GreenHurb,Misc,World,100,1,-,99,-,0,-,,Green Hurb,0,C,0,
 52,T0_Ore,Misc,World,100,1,-,99,-,0,-,,Pristine Low-Grade Ore,0,C,0,
-53,-,-,-,0,0,-,0,-,0,-,,,0,,0,
+53,Green Wreath,Equip,equipment,100,1,-,1,-,0,Necklace,,Green Wreath,0,R,0,
 54,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 55,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 56,-,-,-,0,0,-,0,-,0,-,,,0,,0,
