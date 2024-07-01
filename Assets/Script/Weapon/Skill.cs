@@ -196,6 +196,12 @@ public class Skill : MonoBehaviour
     int allObjectMaxCount;
     private IEnumerator SpawnSkills()
     {
+        Vector2 originPoint = rayPositon.transform.position;
+        bool isChangeDir = false;
+        if (player.transform.localScale.x < 0)
+        {
+            isChangeDir = true;
+        }
         if (DatabaseManager.skillHitCount.ContainsKey(skillName))
         {
             allObjectMaxCount = objectMaxCount + DatabaseManager.skillHitCount[skillName];
@@ -224,7 +230,7 @@ public class Skill : MonoBehaviour
                 else
                 {
                     Vector2 newDir = new Vector2(0, -1);
-                    Vector2 currentPosition = new Vector2(rayPositon.transform.position.x, rayPositon.transform.position.y);
+                    Vector2 currentPosition = new Vector2(originPoint.x, originPoint.y);
                     Vector2 destination = currentPosition + newDir.normalized * groundCheckLength;
                     RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, groundCheckLength, collisionLayer);
 
@@ -249,11 +255,11 @@ public class Skill : MonoBehaviour
             else // ray를 사용하는 기술. 전방으로 향하는 기술로서 pivot이 하나만 있어도 된다.
             {
                 Vector2 newDir = new Vector2(Mathf.Abs(direction[i - 1].x), direction[i - 1].y);
-                if (player.transform.localScale.x < 0)
+                if (isChangeDir)
                 {
                     newDir = new Vector2(-Mathf.Abs(direction[i - 1].x), direction[i - 1].y);
                 }
-                Vector2 currentPosition = new Vector2(rayPositon.transform.position.x, rayPositon.transform.position.y);
+                Vector2 currentPosition = new Vector2(originPoint.x, originPoint.y);
                 Vector2 destination = currentPosition + newDir.normalized * distance[i - 1];
                 RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, distance[i - 1], collisionLayer);
 
@@ -272,7 +278,7 @@ public class Skill : MonoBehaviour
                     else
                     {
                         Vector2 newDir2 = new Vector2(0, -1);
-                        Vector2 currentPosition2 = new Vector2(destination.x, rayPositon.transform.position.y);
+                        Vector2 currentPosition2 = new Vector2(destination.x, originPoint.y);
                         Vector2 destination2 = currentPosition2 + newDir2.normalized * groundCheckLength;
                         RaycastHit2D hit2 = Physics2D.Raycast(currentPosition2, newDir2, groundCheckLength, collisionLayer);
                         if (hit2.collider != null) // 충돌이 없으면 소환 x 아예 사용이 안됨
@@ -306,7 +312,7 @@ public class Skill : MonoBehaviour
                         Vector2 safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
                         safePosition = new Vector2(safePosition.x, safePosition.y);
                         Vector2 newDir2 = new Vector2(0, -1);
-                        Vector2 currentPosition2 = new Vector2(safePosition.x, rayPositon.transform.position.y);
+                        Vector2 currentPosition2 = new Vector2(safePosition.x, originPoint.y);
                         RaycastHit2D hit2 = Physics2D.Raycast(currentPosition2, newDir2, groundCheckLength, collisionLayer);
                         if (hit2.collider != null) // 충돌이 없으면 소환 x 아예 사용이 안됨
                         {                            // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동

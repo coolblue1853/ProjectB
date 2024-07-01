@@ -349,6 +349,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems: []

@@ -631,9 +631,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: LeafStaff
+    dropProbability: 0.002
+  - itemName: LeafLegArmor
+    dropProbability: 0.002
+  - itemName: LeafHandArmor
+    dropProbability: 0.001
+  - itemName: LeafShoes
+    dropProbability: 0.001
+  - itemName: Green Wreath
+    dropProbability: 0.001
+  - itemName: GreenHurb
+    dropProbability: 0.005
+  - itemName: Small Tuber
+    dropProbability: 0.15
+  - itemName: Fresh Green Leaves
+    dropProbability: 0.1
+  - itemName: Sturdy Roots
+    dropProbability: 0.1
   impulseForce: 10
 --- !u!95 &3088851545973148310
 Animator:

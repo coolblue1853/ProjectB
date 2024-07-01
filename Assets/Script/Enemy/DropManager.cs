@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DropManager : MonoBehaviour
 {
+    public LayerMask collisionLayer; // 충돌 체크를 위한 레이어
     public GameObject itemPrefab;
     // 아이템과 확률을 담을 구조체
     [System.Serializable]
@@ -16,12 +17,10 @@ public class DropManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F10))
-        {
-            DropItems(this.transform.position);
-        }
+
     }
     public float impulseForce = 5f;
+    float rayLength = 0.5f;
     public void DropItems(Vector3 dropPosition)
     {
 
@@ -54,7 +53,23 @@ public class DropManager : MonoBehaviour
                     itemCheck.SetItem(dropItem.itemName);
                     // 추가적인 아이템 설정이 필요하다면 여기서 처리
 
-                    offsetX += 0.5f;  // 다음 아이템의 위치를 오른쪽으로 옮김
+                    Vector2 direction = new Vector2(1, 0);
+                    Vector2 currentPosition = dropPosition;
+                    // 목표 위치까지의 경로를 검사
+                    RaycastHit2D hit = Physics2D.Raycast(currentPosition, direction, offsetX+0.7f, collisionLayer);
+
+                    if (hit.collider == null)
+                    {
+                        offsetX += rayLength;  // 다음 아이템의 위치를 오른쪽으로 옮김
+                    }
+                    else
+                    {
+
+                    }
+
+
+
+
                 }
                 else
                 {

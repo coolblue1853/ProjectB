@@ -2,5 +2,5 @@ string,string
 setName,effect
 RabbitArmor_2,(+)10 Def
 RabbitArmor_5,(+)100 Hp
-LeafArmor_2,(+)1 skillHitCount Rising_Roots/(+)1 bulletCount Scattering_Leaves
-LeafArmor_5,(+)1 skillHitCount Rising_Roots/(+)50 coolDown Haste
+LeafArmor_2,(+)1 skillHitCount Rising_Roots/(+)2 bulletCount Scattering_Leaves
+LeafArmor_5,(+)2 skillHitCount Rising_Roots/(+)50 coolDown Haste

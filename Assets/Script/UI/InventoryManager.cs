@@ -1343,9 +1343,10 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            CreatItem("LeafAdae");
-            CreatItem("LeafStaff");
-            CreatItem("LeafLegArmor"); CreatItem("LeafHandArmor"); CreatItem("LeafShoes"); CreatItem("LeafArmor"); CreatItem("LeafCap");
+            //   CreatItem("LeafAdae");
+            //   CreatItem("LeafStaff");
+            //  CreatItem("LeafLegArmor"); CreatItem("LeafHandArmor"); CreatItem("LeafShoes"); CreatItem("LeafArmor"); CreatItem("LeafCap");
+            CreatItem("Small Tuber"); CreatItem("Fresh Green Leaves"); CreatItem("Sturdy Roots");
             //  CreatItem("Small Bone");
             //CreatItem("Rabbit Hide");
             //CreatItem("Fine Rabbit Hide");
