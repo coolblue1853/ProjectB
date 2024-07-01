@@ -1346,7 +1346,7 @@ public class InventoryManager : MonoBehaviour
             //   CreatItem("LeafAdae");
             //   CreatItem("LeafStaff");
             //  CreatItem("LeafLegArmor"); CreatItem("LeafHandArmor"); CreatItem("LeafShoes"); CreatItem("LeafArmor"); CreatItem("LeafCap");
-            CreatItem("Small Tuber"); CreatItem("Fresh Green Leaves"); CreatItem("Sturdy Roots");
+            CreatItem("Small Tuber"); CreatItem("Fresh Green Leaves"); CreatItem("Sturdy Roots"); CreatItem("GreenHurb"); CreatItem("Wood"); CreatItem("T0_Ore");
             //  CreatItem("Small Bone");
             //CreatItem("Rabbit Hide");
             //CreatItem("Fine Rabbit Hide");
