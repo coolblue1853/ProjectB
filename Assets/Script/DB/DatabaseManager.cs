@@ -14,9 +14,11 @@ public class DatabaseManager : MonoBehaviour
 {
     public static bool isSuperArmor = false;
     public static int attackSpeedBuff = 0;
+    public static int addbasicDmg = 0;
     public static int SpeedBuff = 0;
     public static int playerDef = 0;
     public static int playerCritRate = 0;
+    public static int playerCritDmgRate = 0;
     public static int playerDropRate= 0;
     public static int hitCount = 0; // 공격 오브젝트의 타수
     public static bool isInvincibility = false;

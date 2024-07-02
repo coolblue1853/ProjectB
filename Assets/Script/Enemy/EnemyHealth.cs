@@ -77,13 +77,13 @@ public class EnemyHealth : MonoBehaviour
     float SetDmg(int[] damage, bool isSkill)
     {
         isCrit = false;
-        float baseDmg = Random.Range(damage[0], damage[1]);
+        float baseDmg = Random.Range(damage[0]+DatabaseManager.addbasicDmg, damage[1]+DatabaseManager.addbasicDmg);
         int checkCrit = Random.Range(1, 101);
 
         if(checkCrit <= damage[2]+ DatabaseManager.playerCritRate) // 치명타 성공시
         {// 기본 치피는 20
             isCrit = true;
-            outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3]) / 100)) * (1 + ((damage[4]) / 100));  // 기본뎀 * 치뎀 * 뎀증
+            outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3]+DatabaseManager.playerCritDmgRate) / 100)) * (1 + ((damage[4]) / 100));  // 기본뎀 * 치뎀 * 뎀증
         }
         else
         {

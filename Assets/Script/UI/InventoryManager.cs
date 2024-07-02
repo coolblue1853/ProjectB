@@ -1204,10 +1204,6 @@ public class InventoryManager : MonoBehaviour
     private void Update()
     {
 
-
-
-
-
         verticalInput = (verticalCheck.ReadValue<float>());
         horizontalInput = (horizontalCheck.ReadValue<float>());
         if (inventory.activeSelf == true)
@@ -1346,7 +1342,7 @@ public class InventoryManager : MonoBehaviour
             //   CreatItem("LeafAdae");
             //   CreatItem("LeafStaff");
             //  CreatItem("LeafLegArmor"); CreatItem("LeafHandArmor"); CreatItem("LeafShoes"); CreatItem("LeafArmor"); CreatItem("LeafCap");
-            CreatItem("Small Tuber"); CreatItem("Fresh Green Leaves"); CreatItem("Sturdy Roots"); CreatItem("GreenHurb"); CreatItem("Wood"); CreatItem("T0_Ore");
+            CreatItem("Nasty Rat Ring");
             //  CreatItem("Small Bone");
             //CreatItem("Rabbit Hide");
             //CreatItem("Fine Rabbit Hide");
@@ -2082,6 +2078,12 @@ public class InventoryManager : MonoBehaviour
     {
         // 방어구의 기본적인 스탯수치
         string basicStr = "";
+        if (equipment.basicDmg != 0)
+        {
+
+            if (equipment.basicDmg > 0) basicStr += "+" + equipment.basicDmg.ToString() + " Basic Dmg\n";
+            else basicStr += "-" + equipment.basicDmg.ToString() + " Basic Dmg\n";
+        }
         if (equipment.armor != 0)
         {
 
@@ -2106,7 +2108,25 @@ public class InventoryManager : MonoBehaviour
             if (equipment.dropRate > 0) basicStr += "+" + equipment.dropRate.ToString() + " Drop Rate\n";
             else basicStr += "-" + equipment.dropRate.ToString() + " Drop Rate\n";
         }
-        if(equipment.coolDownSkill.Length != 0)
+        if (equipment.moveSpeed != 0)
+        {
+
+            if (equipment.moveSpeed > 0) basicStr += "+" + equipment.moveSpeed.ToString() + " Movement Speed\n";
+            else basicStr += "-" + equipment.moveSpeed.ToString() + " Movement Speed\n";
+        }
+        if (equipment.attSpeed != 0)
+        {
+
+            if (equipment.attSpeed > 0) basicStr += "+" + equipment.attSpeed.ToString() + " Attack Speed\n";
+            else basicStr += "-" + equipment.attSpeed.ToString() + " Attack Speed\n";
+        }
+        if (equipment.criticalDmg != 0)
+        {
+
+            if (equipment.criticalDmg > 0) basicStr += "+" + equipment.criticalDmg.ToString() + " Critical Dmg\n";
+            else basicStr += "-" + equipment.criticalDmg.ToString() + " Critical Dmg\n";
+        }
+        if (equipment.coolDownSkill.Length != 0)
         {
             for(int i =0; i < equipment.coolDownSkill.Length; i++)
             {

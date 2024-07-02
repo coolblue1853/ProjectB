@@ -787,7 +787,27 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: LeafAdae
+    dropProbability: 0.001
+  - itemName: LeafCap
+    dropProbability: 0.002
+  - itemName: LeafArmor
+    dropProbability: 0.002
+  - itemName: Gentle Spring Guidance
+    dropProbability: 0.0007
+  - itemName: Sharp Petal Ring
+    dropProbability: 0.0005
+  - itemName: Small Tuber
+    dropProbability: 0.2
+  - itemName: GreenHurb
+    dropProbability: 0.01
+  - itemName: Sturdy Leaf
+    dropProbability: 0.1
+  - itemName: Sharp Petal
+    dropProbability: 0.1
+  - itemName: 
+    dropProbability: 0
   impulseForce: 10
 --- !u!95 &413339439137889330
 Animator:

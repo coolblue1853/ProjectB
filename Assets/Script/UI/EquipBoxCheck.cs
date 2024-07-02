@@ -53,58 +53,37 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         else if (reciveEquipArea == "Head" && head == null)
         {
             head = equipPrefab.GetComponent<Equipment>();
-            SetEquipmentHp(head.hp);
-            SetEquipmentCiritcalRate(head.critical);
-            SetEquipmentDropRate(head.dropRate);
-            SetEquipmentSkillCool(head);
+            SetEquipment(head);
         }
         else if (reciveEquipArea == "Chest" && chest == null)
         {
             chest = equipPrefab.GetComponent<Equipment>();
-            SetEquipmentHp(chest.hp);
-            SetEquipmentCiritcalRate(chest.critical);
-            SetEquipmentDropRate(chest.dropRate);
-            SetEquipmentSkillCool(chest);
+            SetEquipment(chest);
         }
         else if (reciveEquipArea == "Leg" && leg == null)
         {
             leg = equipPrefab.GetComponent<Equipment>();
-            SetEquipmentHp(leg.hp);
-            SetEquipmentCiritcalRate(leg.critical);
-            SetEquipmentDropRate(leg.dropRate);
-            SetEquipmentSkillCool(leg);
+            SetEquipment(leg);
         }
         else if (reciveEquipArea == "Hand" && hand == null)
         {
             hand = equipPrefab.GetComponent<Equipment>();
-            SetEquipmentHp(hand.hp);
-            SetEquipmentCiritcalRate(hand.critical);
-            SetEquipmentDropRate(hand.dropRate);
-            SetEquipmentSkillCool(hand);
+            SetEquipment(hand);
         }
         else if (reciveEquipArea == "Necklace" && hand == null)
         {
             necklace = equipPrefab.GetComponent<Equipment>();
-            SetEquipmentHp(necklace.hp);
-            SetEquipmentCiritcalRate(necklace.critical);
-            SetEquipmentDropRate(necklace.dropRate);
-            SetEquipmentSkillCool(necklace);
+            SetEquipment(necklace);
         }
         else if (reciveEquipArea == "Ring" && hand == null)
         {
             ring = equipPrefab.GetComponent<Equipment>();
-            SetEquipmentHp(ring.hp);
-            SetEquipmentCiritcalRate(ring.critical);
-            SetEquipmentDropRate(ring.dropRate);
-            SetEquipmentSkillCool(ring);
+            SetEquipment(ring);
         }
         else if (reciveEquipArea == "Shoes" && shoes == null)
         {
             shoes = equipPrefab.GetComponent<Equipment>();
-            SetEquipmentHp(shoes.hp);
-            SetEquipmentCiritcalRate(shoes.critical);
-            SetEquipmentDropRate(shoes.dropRate);
-            SetEquipmentSkillCool(shoes);
+            SetEquipment(shoes);
         }
 
     }
@@ -135,26 +114,30 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     }
 
 
-    public void SetEquipmentDropRate(int num)
+    public void SetEquipment(Equipment equip)
     {
-        DatabaseManager.playerDropRate += num; 
+        SetEquipmentSkillCool(equip);
+        DatabaseManager.playerDropRate += equip.dropRate;
+        DatabaseManager.playerCritRate += equip.critical;
+        DatabaseManager.SpeedBuff += equip.moveSpeed;
+        DatabaseManager.attackSpeedBuff += equip.attSpeed;
+        DatabaseManager.playerCritDmgRate += equip.criticalDmg;
+        DatabaseManager.addbasicDmg += equip.basicDmg;
+        PlayerHealthManager.Instance.EquipmentActiveTrue(equip.hp);
     }
-    public void SetEquipmentCiritcalRate(int num)
+    public void DisableEquipment(Equipment equip)
     {
-        DatabaseManager.playerCritRate += num;
+        DownquipmentSkillCool(equip);
+        DatabaseManager.playerDropRate -= equip.dropRate;
+        DatabaseManager.playerCritRate -= equip.critical;
+        DatabaseManager.SpeedBuff -= equip.moveSpeed;
+        DatabaseManager.attackSpeedBuff -= equip.attSpeed;
+        DatabaseManager.playerCritDmgRate -= equip.criticalDmg;
+        DatabaseManager.addbasicDmg -= equip.basicDmg;
+        PlayerHealthManager.Instance.EquipmentActiveFalse(equip.hp);
     }
-    public void SetEquipmentHp(int num)
-    {
-        PlayerHealthManager.Instance.EquipmentActiveTrue(num);
-    }
-    public void DownEquipmentDropRate(int num)
-    {
-        DatabaseManager.playerDropRate -= num; // 위의 함수가 2번 발동해서 *2를 해줘야 한다
-    }
-    public void DownEquipmentCiritcalRate(int num)
-    {
-        DatabaseManager.playerCritRate -= num;
-    }
+
+
 
     GameObject deletChile ;
     public void DeletPrefab(ItemCheck detail, string reciveEquipArea, bool isFalse= true)
@@ -192,10 +175,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(head.hp))
-.AppendCallback(() => DownEquipmentDropRate(head.dropRate))
-.AppendCallback(() => DownEquipmentCiritcalRate(head.critical))
-.AppendCallback(() => DownquipmentSkillCool(head))
+.AppendCallback(() => DisableEquipment(head))
   .AppendCallback(() => Destroy(head.gameObject))
  .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
  .OnComplete(() => Destroy(deletChile));
@@ -204,10 +184,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if(head != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(head.hp);
-                    DownEquipmentDropRate(head.dropRate);
-                    DownEquipmentCiritcalRate(head.critical);
-                    DownquipmentSkillCool(head);
+                    DisableEquipment(head);
                     Destroy(head.gameObject);
                     head = null;
                 }
@@ -230,10 +207,8 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
 
                 Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp))
-.AppendCallback(() => DownEquipmentDropRate(chest.dropRate))
-.AppendCallback(() => DownEquipmentCiritcalRate(chest.critical))
-.AppendCallback(() => DownquipmentSkillCool(chest))
+
+.AppendCallback(() => DisableEquipment(chest))
 .AppendCallback(() => Destroy(chest.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -242,11 +217,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (chest != null)
                 {
-
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(chest.hp);
-                    DownEquipmentDropRate(chest.dropRate);
-                    DownEquipmentCiritcalRate(chest.critical);
-                    DownquipmentSkillCool(chest);
+                    DisableEquipment(chest);
                     Destroy(chest.gameObject);
                     chest = null;
                 }
@@ -266,10 +237,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(leg.hp))
-.AppendCallback(() => DownEquipmentDropRate(leg.dropRate))
-.AppendCallback(() => DownEquipmentCiritcalRate(leg.critical))
-.AppendCallback(() => DownquipmentSkillCool(leg))
+.AppendCallback(() => DisableEquipment(leg))
 .AppendCallback(() => Destroy(leg.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -278,10 +246,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (leg != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(leg.hp);
-                    DownEquipmentDropRate(leg.dropRate);
-                    DownEquipmentCiritcalRate(leg.critical);
-                    DownquipmentSkillCool(leg);
+                    DisableEquipment(leg);
                     Destroy(leg.gameObject);
                     leg = null;
                 }
@@ -297,10 +262,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-    .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(hand.hp))
-    .AppendCallback(() => DownEquipmentDropRate(hand.dropRate))
-.AppendCallback(() => DownEquipmentCiritcalRate(hand.critical))
-.AppendCallback(() => DownquipmentSkillCool(hand))
+.AppendCallback(() => DisableEquipment(hand))
     .AppendCallback(() => Destroy(hand.gameObject))
     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
     .OnComplete(() => Destroy(deletChile));
@@ -309,10 +271,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (hand != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(hand.hp);
-                    DownEquipmentDropRate(hand.dropRate);
-                    DownEquipmentCiritcalRate(hand.critical);
-                    DownquipmentSkillCool(hand);
+                    DisableEquipment(hand);
                     Destroy(hand.gameObject);
                     hand = null;
                 }
@@ -326,10 +285,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-    .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(necklace.hp))
-    .AppendCallback(() => DownEquipmentDropRate(necklace.dropRate))
-    .AppendCallback(() => DownEquipmentCiritcalRate(necklace.critical))
-.AppendCallback(() => DownquipmentSkillCool(necklace))
+.AppendCallback(() => DisableEquipment(necklace))
     .AppendCallback(() => Destroy(necklace.gameObject))
     .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
     .OnComplete(() => Destroy(deletChile));
@@ -338,10 +294,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (necklace != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(necklace.hp);
-                    DownEquipmentDropRate(necklace.dropRate);
-                    DownEquipmentCiritcalRate(necklace.critical);
-                    DownquipmentSkillCool(necklace);
+                    DisableEquipment(necklace);
                     Destroy(necklace.gameObject);
                     necklace = null;
                 }
@@ -354,10 +307,8 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             if(isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-       .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(ring.hp))
-       .AppendCallback(() => DownEquipmentDropRate(ring.dropRate))
-.AppendCallback(() => DownEquipmentCiritcalRate(ring.critical))
-.AppendCallback(() => DownquipmentSkillCool(ring))
+
+.AppendCallback(() => DisableEquipment(ring))
 .AppendCallback(() => Destroy(ring.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -366,10 +317,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (ring != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(ring.hp);
-                    DownEquipmentDropRate(ring.dropRate);
-                    DownEquipmentCiritcalRate(ring.critical);
-                    DownquipmentSkillCool(ring);
+                    DisableEquipment(ring);
                     Destroy(ring.gameObject);
                     ring = null;
                 }
@@ -383,10 +331,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
                 mainCharacter.SetMeshImage("RFoot", defaultOffset);
                 mainCharacter.SetMeshImage("LFoot", defaultOffset);
                 Sequence waitSequence = DOTween.Sequence()
-       .AppendCallback(() => PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp))
-       .AppendCallback(() => DownEquipmentDropRate(shoes.dropRate))
-       .AppendCallback(() => DownEquipmentCiritcalRate(shoes.critical))
-.AppendCallback(() => DownquipmentSkillCool(shoes))
+.AppendCallback(() => DisableEquipment(shoes))
 .AppendCallback(() => Destroy(shoes.gameObject))
 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
 .OnComplete(() => Destroy(deletChile));
@@ -395,10 +340,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             {
                 if (shoes != null)
                 {
-                    PlayerHealthManager.Instance.EquipmentActiveFalse(shoes.hp);
-                    DownEquipmentDropRate(shoes.dropRate);
-                    DownEquipmentCiritcalRate(shoes.critical);
-                    DownquipmentSkillCool(shoes);
+                    DisableEquipment(shoes);
                     Destroy(shoes.gameObject);
                     shoes = null;
                 }

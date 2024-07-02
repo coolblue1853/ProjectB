@@ -162,18 +162,20 @@ MonoBehaviour:
   skillDWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
-  isRayCheckSkill: 0
-  direction: []
-  distance: []
-  rayPositon: {fileID: 0}
+  isRayCheckSkill: 1
+  direction:
+  - {x: 1, y: 0}
+  distance:
+  - 0.1
+  rayPositon: {fileID: 8218835989649726422}
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 0
-  isGorundCheckSkill: 0
-  groundCheckLength: 0
+    m_Bits: 16392
+  isGorundCheckSkill: 1
+  groundCheckLength: 3
   groundCollisionLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16392
   yPivot: 0
   isRoundAttack: 0
   radius: 5
