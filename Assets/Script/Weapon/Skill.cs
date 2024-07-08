@@ -196,7 +196,9 @@ public class Skill : MonoBehaviour
     int allObjectMaxCount;
     private IEnumerator SpawnSkills()
     {
-        Vector2 originPoint = rayPositon.transform.position;
+
+
+
         bool isChangeDir = false;
         if (player.transform.localScale.x < 0)
         {
@@ -229,6 +231,8 @@ public class Skill : MonoBehaviour
                 }
                 else
                 {
+                    Vector2 originPoint = rayPositon.transform.position;
+
                     Vector2 newDir = new Vector2(0, -1);
                     Vector2 currentPosition = new Vector2(originPoint.x, originPoint.y);
                     Vector2 destination = currentPosition + newDir.normalized * groundCheckLength;
@@ -254,6 +258,8 @@ public class Skill : MonoBehaviour
             }
             else // ray를 사용하는 기술. 전방으로 향하는 기술로서 pivot이 하나만 있어도 된다.
             {
+                Vector2 originPoint = rayPositon.transform.position;
+
                 Vector2 newDir = new Vector2(Mathf.Abs(direction[i - 1].x), direction[i - 1].y);
                 if (isChangeDir)
                 {

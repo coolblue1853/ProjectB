@@ -186,6 +186,8 @@ MonoBehaviour:
   isStun: 0
   poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68,
     type: 3}
+  bleedingPrefab: {fileID: 4315359909622191748, guid: ef47a78245ca3b54fa0d2a3050c786ed,
+    type: 3}
 --- !u!114 &473271953019362368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +205,23 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Nasty Rat Ring
+    dropProbability: 0.0005
+  - itemName: DoubleDagger
+    dropProbability: 0.001
+  - itemName: RatLegArmor
+    dropProbability: 0.002
+  - itemName: RatHandArmor
+    dropProbability: 0.002
+  - itemName: RatShoes
+    dropProbability: 0.002
+  - itemName: Disgusting Rat Meat
+    dropProbability: 0.1
+  - itemName: Rat Thief's Stash
+    dropProbability: 0.1
+  - itemName: Filthy Rat Hide
+    dropProbability: 0.5
   impulseForce: 10
 --- !u!95 &2104629369835746338
 Animator:

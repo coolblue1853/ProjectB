@@ -126,6 +126,20 @@ public class ItemCheck : MonoBehaviour
                     playerBuff.ActiveBuff();
                     // PlayerHealthManager.Instance.HpUp(int.Parse(effectPowerDetail[0]));
                 }
+                else
+                {
+                    AttackManager player = GameObject.FindWithTag("Player").GetComponent<AttackManager>();
+                    if (player.foodBuff != null) // 이미 버프면
+                    {
+                        player.foodBuff.DestoryBuff();
+                    }
+                    GameObject buff = Instantiate(defBuffObject, Vector2.zero, Quaternion.identity, player.BuffSlot.transform);
+                    PlayerBuff playerBuff = buff.GetComponent<PlayerBuff>();
+                    player.foodBuff = playerBuff;
+                    playerBuff.buffPower = -int.Parse(effectPowerDetail[0]);
+                    playerBuff.buffTime = int.Parse(effectPowerDetail[1]);
+                    playerBuff.ActiveBuff();
+                }
             }
         }
 

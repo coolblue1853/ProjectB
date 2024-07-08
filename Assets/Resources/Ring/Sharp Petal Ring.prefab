@@ -47,11 +47,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   armor: 0
   hp: 0
+  basicDmg: 0
   critical: 10
   criticalDmg: 10
   dropRate: 0
   attSpeed: 0
   moveSpeed: 0
+  isBleeding: 0
+  bleedingPerCent: 100
+  bleedingDamage: 10
+  bleedingDamageInterval: 1
+  bleedingDamageCount: 3
   coolDownSkill: []
 --- !u!1 &1291193055778619313
 GameObject:

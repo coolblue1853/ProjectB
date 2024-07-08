@@ -1342,13 +1342,8 @@ public class InventoryManager : MonoBehaviour
             //   CreatItem("LeafAdae");
             //   CreatItem("LeafStaff");
             //  CreatItem("LeafLegArmor"); CreatItem("LeafHandArmor"); CreatItem("LeafShoes"); CreatItem("LeafArmor"); CreatItem("LeafCap");
-            CreatItem("Nasty Rat Ring");
-            //  CreatItem("Small Bone");
-            //CreatItem("Rabbit Hide");
-            //CreatItem("Fine Rabbit Hide");
-            // CreatItem("Round Bone");
-
-
+            //CreatItem("Stinky Rat Meat Stew");
+            CreatItem("Sharp Petal Ring"); CreatItem("Rat Thief's Stash"); CreatItem("Wood"); CreatItem("T0_Ore"); CreatItem("DoubleDagger");
 
             //CreatItem("Wood Spear");
             // CreatItem("Leather Knuckles");
@@ -2015,7 +2010,15 @@ public class InventoryManager : MonoBehaviour
             string[] effectPowerDetail = effectPower[i].Split("_");
 
 
-            allSetStr +=effectStr[1] + CapitalizeFirstLetter(effectStr[0]) + " " + effectPowerDetail[0]+"\n";
+            if(effectPowerDetail.Length < 2)
+            {
+                allSetStr += effectStr[1] + CapitalizeFirstLetter(effectStr[0]) + " " + effectPowerDetail[0] + "\n";
+            }
+            else // 2번째 있다면 그건 시간
+            {
+                allSetStr += effectStr[1] + CapitalizeFirstLetter(effectStr[0]) + " " + effectPowerDetail[0] + " : "+ effectPowerDetail[1]+" Sec" + "\n";
+            }
+
         }
         textObject.GetComponent<TextMeshProUGUI>().text = allSetStr;
     }

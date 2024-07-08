@@ -395,6 +395,7 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public GameObject poisonPrefab;
+    public GameObject bleedingPrefab;
 
     public void CreatPoisonPrefab(int poisonDamage, float damageInterval,int damageCount)
     {
@@ -404,6 +405,14 @@ public class EnemyHealth : MonoBehaviour
         posionAttack.ActivePoison(poisonDamage, damageInterval, damageCount);
 
     }
+    public void CreatBleedingPrefab(int bleedingDamage, float bleedingDamageInterval, int bleedingDamageCount)
+    {
+        GameObject poisonObject = Instantiate(bleedingPrefab, transform.position, transform.rotation, this.transform);
+        BleedingAttack posionAttack = poisonObject.GetComponent<BleedingAttack>();
+        posionAttack.enemyHealth = this.GetComponent<EnemyHealth>();
+        posionAttack.ActivePoison(bleedingDamage, bleedingDamageInterval, bleedingDamageCount);
+    }
+    
     public void StopAllActions()
     {
         // GetActiveTasks 메서드가 null을 반환할 수 있으므로 예외 처리

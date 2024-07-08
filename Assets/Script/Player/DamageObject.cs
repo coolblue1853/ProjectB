@@ -90,6 +90,7 @@ public class DamageObject : MonoBehaviour
 
     public bool isShortTime = false; // 단축된 시간으로 오브젝트 이펙트가 사라질 것인지 아닌지./
     public bool disEffectbyTime = false; // 아예 영향을 받지 않을것인지
+    
     private void Update()
     {
 
@@ -130,6 +131,18 @@ public class DamageObject : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         playerTf = player.GetComponent<Transform>();
+
+        foreach(var value in DatabaseManager.bleedingEquipment)
+        {
+            if(Random.value <= (float)value.Value[0] / 100)
+            {
+                isBleedingAttack = true;
+                bleedingDamage = value.Value[1];
+                bleedingDamageCount = value.Value[2];
+                bleedingDamageInterval = DatabaseManager.bleedingEquipmentInterval[value.Key];
+            }
+
+        }
     }
 
     void BuffOn()
@@ -433,12 +446,16 @@ public class DamageObject : MonoBehaviour
                     }
 
 
-                    if (isPosionAttack)
-                    {
-                        enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
-                    }
+                if (isPosionAttack)
+                {
+                    enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
+                }
+                if (isBleedingAttack)
+                {
+                    enemyHealth.CreatBleedingPrefab(bleedingDamage, bleedingDamageInterval, bleedingDamageCount);
+                }
 
-                    if (!damagedEnemy.ContainsKey(collision))
+                if (!damagedEnemy.ContainsKey(collision))
                     {
                         damagedEnemy.Add(collision,1);
                     }
@@ -474,11 +491,20 @@ public class DamageObject : MonoBehaviour
     }
 
     public bool isPosionAttack;
+    [ConditionalHide("isPosionAttack")]
     public int poisonDamage;
+    [ConditionalHide("isPosionAttack")]
     public float damageInterval;
+    [ConditionalHide("isPosionAttack")]
     public int damageCount;
 
-
+    public bool isBleedingAttack;
+    [ConditionalHide("isBleedingAttack")]
+    public int bleedingDamage;
+    [ConditionalHide("isBleedingAttack")]
+    public float bleedingDamageInterval;
+    [ConditionalHide("isBleedingAttack")]
+    public int bleedingDamageCount;
     public LayerMask layerMask; // 검출할 레이어
     public string enemyTag = "Enemy"; // 플레이어 태그
 

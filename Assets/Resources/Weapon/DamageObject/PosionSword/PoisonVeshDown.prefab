@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillName: 
   dmgRatio: 1
   ShakeTime: 0.15
   isSkill: 0
@@ -153,6 +154,10 @@ MonoBehaviour:
   poisonDamage: 1
   damageInterval: 0.5
   damageCount: 10
+  isBleedingAttack: 0
+  bleedingDamage: 10
+  bleedingDamageInterval: 1
+  bleedingDamageCount: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 0

@@ -772,6 +772,8 @@ MonoBehaviour:
   isStun: 0
   poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68,
     type: 3}
+  bleedingPrefab: {fileID: 4315359909622191748, guid: ef47a78245ca3b54fa0d2a3050c786ed,
+    type: 3}
 --- !u!114 &4175715720350149199
 MonoBehaviour:
   m_ObjectHideFlags: 0

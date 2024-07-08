@@ -31,6 +31,8 @@ public class DatabaseManager : MonoBehaviour
     public static Dictionary<string, int> skillCoolDown = new Dictionary<string, int>();
     public static Dictionary<string, int> skillHitCount = new Dictionary<string, int>();
     public static Dictionary<string, int> skillBulletCount = new Dictionary<string, int>();
+    public static Dictionary<string, int[]> bleedingEquipment = new Dictionary<string, int[]>();
+    public static Dictionary<string, float> bleedingEquipmentInterval = new Dictionary<string, float>();
     ItemDatabase itemDatabase;
     SetItem setDatabase;
     public static int money;

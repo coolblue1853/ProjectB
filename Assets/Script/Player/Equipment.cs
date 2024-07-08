@@ -14,6 +14,19 @@ public class Equipment : MonoBehaviour
     public int dropRate;
     public int attSpeed; // 기본 공격 속도
     public int moveSpeed;
+
+    public bool isBleeding;
+    [ConditionalHide("isBleeding")]
+    public int bleedingPerCent;
+    [ConditionalHide("isBleeding")]
+    public int bleedingDamage;
+    [ConditionalHide("isBleeding")]
+    public float bleedingDamageInterval;
+    [ConditionalHide("isBleeding")]
+    public int bleedingDamageCount;
+    
+    
+
     [System.Serializable]
     public struct SkillCoolTime
     {

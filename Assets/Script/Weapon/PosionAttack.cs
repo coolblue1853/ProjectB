@@ -10,7 +10,7 @@ public class PosionAttack : MonoBehaviour
     int count;
     public EnemyHealth enemyHealth;
 
-
+    public bool isBleeding = false;
 
     public void ActivePoison(int poisonDamage, float damageInterval, int damageCount)
     {

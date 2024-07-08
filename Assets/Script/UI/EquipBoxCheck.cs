@@ -124,6 +124,14 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         DatabaseManager.playerCritDmgRate += equip.criticalDmg;
         DatabaseManager.addbasicDmg += equip.basicDmg;
         PlayerHealthManager.Instance.EquipmentActiveTrue(equip.hp);
+
+        // ÃâÇ÷°ü·Ã
+        if (equip.isBleeding)
+        {
+            Debug.Log(equip.name);
+            DatabaseManager.bleedingEquipment.Add(equip.name, new int[] { equip.bleedingPerCent, equip.bleedingDamage, equip.bleedingDamageCount });
+            DatabaseManager.bleedingEquipmentInterval.Add(equip.name, equip.bleedingDamageInterval);
+        }
     }
     public void DisableEquipment(Equipment equip)
     {
