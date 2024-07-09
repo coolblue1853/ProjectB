@@ -14,7 +14,7 @@ public class PosionAttack : MonoBehaviour
 
     public void ActivePoison(int poisonDamage, float damageInterval, int damageCount)
     {
-        damage = poisonDamage;
+        damage = poisonDamage + DatabaseManager.addPoisonDmg;
         Interval = damageInterval;
         count = damageCount;
 

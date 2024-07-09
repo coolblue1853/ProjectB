@@ -12,6 +12,7 @@ public class BleedingAttack : MonoBehaviour
 
     public void ActivePoison(int poisonDamage, float damageInterval, int damageCount)
     {
+        enemyHealth.isBleeding = true;
         damage = poisonDamage;
         Interval = damageInterval;
         count = damageCount;
@@ -19,6 +20,7 @@ public class BleedingAttack : MonoBehaviour
         
         if(count == 0)
         {
+            enemyHealth.isBleeding = false;
             Destroy(this.gameObject);
         }
         else
@@ -36,6 +38,7 @@ public class BleedingAttack : MonoBehaviour
 
         if (count == 0)
         {
+            enemyHealth.isBleeding = false;
             Destroy(this.gameObject);
         }
         else

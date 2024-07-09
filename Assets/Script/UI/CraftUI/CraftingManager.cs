@@ -297,7 +297,7 @@ public class CraftingManager : MonoBehaviour
                 SetNeedDetail();
             }
         }
-        if (leftInventoryAction.triggered == true)
+        if (leftInventoryAction.triggered == true&& isLeftCraft == false)
         {
             if (0 < detailCount)
             {
@@ -350,6 +350,7 @@ public class CraftingManager : MonoBehaviour
             cusor.SetActive(false);
         }
     }
+    bool isLeftCraft = false;
     void ChangeCheckDetail()
     {
         isCheckDetail = false;
@@ -377,6 +378,10 @@ public class CraftingManager : MonoBehaviour
                 }
                 if ((backAction.triggered == true && isCheckDetail == false) || leftInventoryAction.triggered == true)
                 {
+                    isLeftCraft = true;
+                    Sequence seq = DOTween.Sequence()
+                     .AppendInterval(waitTime)
+                     .AppendCallback(() => isLeftCraft = false);
                     ResetDetail();
                     Invoke("ChangeisCarftFalse",0.1f);
 
@@ -507,6 +512,7 @@ public class CraftingManager : MonoBehaviour
         cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv 상자의 line 줄의 count 위치.
         if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1))
         {
+      
             ResetDetail();
             if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.childCount > childCount + 1)
             {
@@ -525,7 +531,7 @@ public class CraftingManager : MonoBehaviour
                 SetDetail();
             }
         }
-        if ((leftInventoryAction.triggered) || (checkRepeat == false && horizontalInput == -1))
+        if (((leftInventoryAction.triggered) || (checkRepeat == false && horizontalInput == -1)) && isLeftCraft == false)
         {
             ResetDetail();
             if (childCount > 0)

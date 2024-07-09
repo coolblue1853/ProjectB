@@ -9,6 +9,7 @@ using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 public class EnemyHealth : MonoBehaviour
 {
+    public bool isBleeding = false;
     public DamageNumber damageNumber;
     public int enemyDef = 0;
     Animator anim;
@@ -76,6 +77,10 @@ public class EnemyHealth : MonoBehaviour
     float outDmg;
     float SetDmg(int[] damage, bool isSkill)
     {
+        // 특정 조건 만족시 뎀증
+        // 출혈시 뎀증
+
+
         isCrit = false;
         float baseDmg = Random.Range(damage[0]+DatabaseManager.addbasicDmg, damage[1]+DatabaseManager.addbasicDmg);
         int checkCrit = Random.Range(1, 101);
@@ -83,11 +88,27 @@ public class EnemyHealth : MonoBehaviour
         if(checkCrit <= damage[2]+ DatabaseManager.playerCritRate) // 치명타 성공시
         {// 기본 치피는 20
             isCrit = true;
-            outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3]+DatabaseManager.playerCritDmgRate) / 100)) * (1 + ((damage[4]) / 100));  // 기본뎀 * 치뎀 * 뎀증
+            if (isBleeding)
+            {
+                outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3] + DatabaseManager.playerCritDmgRate) / 100)) * (1 + ((damage[4]+DatabaseManager.bleedingAddDmg) / 100));  // 기본뎀 * 치뎀 * 뎀증
+            }
+            else
+            {
+                outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3] + DatabaseManager.playerCritDmgRate) / 100)) * (1 + ((damage[4]) / 100));  // 기본뎀 * 치뎀 * 뎀증
+            }
+
         }
         else
         {
-            outDmg = (baseDmg + damage[9]) * (1 + ((damage[4]) / 100));  // 기본뎀 * 뎀증
+            if (isBleeding)
+            {
+                outDmg = (baseDmg + damage[9]) * (1 + ((damage[4]+DatabaseManager.bleedingAddDmg) / 100));  // 기본뎀 * 뎀증
+            }
+            else
+            {
+                outDmg = (baseDmg + damage[9]) * (1 + ((damage[4]) / 100));  // 기본뎀 * 뎀증
+            }
+
         }
 
         if (isSkill == true)
@@ -399,18 +420,23 @@ public class EnemyHealth : MonoBehaviour
 
     public void CreatPoisonPrefab(int poisonDamage, float damageInterval,int damageCount)
     {
-        GameObject poisonObject = Instantiate(poisonPrefab,transform.position, transform.rotation, this.transform);
-        PosionAttack posionAttack = poisonObject.GetComponent<PosionAttack>();
-        posionAttack.enemyHealth = this.GetComponent<EnemyHealth>();
-        posionAttack.ActivePoison(poisonDamage, damageInterval, damageCount);
-
+        if (this.gameObject != null)
+        {
+            GameObject poisonObject = Instantiate(poisonPrefab, transform.position, transform.rotation, this.transform);
+            PosionAttack posionAttack = poisonObject.GetComponent<PosionAttack>();
+            posionAttack.enemyHealth = this.GetComponent<EnemyHealth>();
+            posionAttack.ActivePoison(poisonDamage, damageInterval, damageCount);
+        }
     }
     public void CreatBleedingPrefab(int bleedingDamage, float bleedingDamageInterval, int bleedingDamageCount)
     {
-        GameObject poisonObject = Instantiate(bleedingPrefab, transform.position, transform.rotation, this.transform);
-        BleedingAttack posionAttack = poisonObject.GetComponent<BleedingAttack>();
-        posionAttack.enemyHealth = this.GetComponent<EnemyHealth>();
-        posionAttack.ActivePoison(bleedingDamage, bleedingDamageInterval, bleedingDamageCount);
+        if(this.gameObject != null)
+        {
+            GameObject poisonObject = Instantiate(bleedingPrefab, transform.position, transform.rotation, this.transform);
+            BleedingAttack posionAttack = poisonObject.GetComponent<BleedingAttack>();
+            posionAttack.enemyHealth = this.GetComponent<EnemyHealth>();
+            posionAttack.ActivePoison(bleedingDamage, bleedingDamageInterval, bleedingDamageCount);
+        }
     }
     
     public void StopAllActions()

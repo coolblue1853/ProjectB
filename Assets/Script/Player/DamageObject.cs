@@ -450,6 +450,7 @@ public class DamageObject : MonoBehaviour
                 {
                     enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
                 }
+
                 if (isBleedingAttack)
                 {
                     enemyHealth.CreatBleedingPrefab(bleedingDamage, bleedingDamageInterval, bleedingDamageCount);

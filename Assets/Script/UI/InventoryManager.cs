@@ -1343,8 +1343,9 @@ public class InventoryManager : MonoBehaviour
             //   CreatItem("LeafStaff");
             //  CreatItem("LeafLegArmor"); CreatItem("LeafHandArmor"); CreatItem("LeafShoes"); CreatItem("LeafArmor"); CreatItem("LeafCap");
             //CreatItem("Stinky Rat Meat Stew");
-            CreatItem("Sharp Petal Ring"); CreatItem("Rat Thief's Stash"); CreatItem("Wood"); CreatItem("T0_Ore"); CreatItem("DoubleDagger");
-
+            CreatItem("Rat Cheif 's Loot"); CreatItem("Rat Thief's Stash"); CreatItem("Wood"); CreatItem("T0_Ore");
+            CreatItem("Filthy Rat Hide"); CreatItem("Tough Rat Hide");
+            //    CreatItem("Necklace of Spreading Corruption"); CreatItem("Necklace of the Sly Plunderer"); CreatItem("Ring Finger that Tears Wounds"); CreatItem("DoubleDagger");
             //CreatItem("Wood Spear");
             // CreatItem("Leather Knuckles");
             //CreatItem("PickAxe");
@@ -2083,49 +2084,41 @@ public class InventoryManager : MonoBehaviour
         string basicStr = "";
         if (equipment.basicDmg != 0)
         {
-
             if (equipment.basicDmg > 0) basicStr += "+" + equipment.basicDmg.ToString() + " Basic Dmg\n";
             else basicStr += "-" + equipment.basicDmg.ToString() + " Basic Dmg\n";
         }
         if (equipment.armor != 0)
         {
-
             if (equipment.armor > 0) basicStr += "+" + equipment.armor.ToString() + " Def\n";
             else basicStr += "-" + equipment.armor.ToString() + " Def\n";
         }
         if (equipment.hp != 0)
         {
-
             if (equipment.hp > 0) basicStr += "+" + equipment.hp.ToString() + " Hp\n";
             else basicStr += "-" + equipment.hp.ToString() + " Hp\n";
         }
         if (equipment.critical != 0)
         {
-
             if (equipment.critical > 0) basicStr += "+" + equipment.critical.ToString() + " Critical Rate\n";
             else basicStr += "-" + equipment.critical.ToString() + " Critical Rate\n";
         }
         if (equipment.dropRate != 0)
         {
-
             if (equipment.dropRate > 0) basicStr += "+" + equipment.dropRate.ToString() + " Drop Rate\n";
             else basicStr += "-" + equipment.dropRate.ToString() + " Drop Rate\n";
         }
         if (equipment.moveSpeed != 0)
         {
-
             if (equipment.moveSpeed > 0) basicStr += "+" + equipment.moveSpeed.ToString() + " Movement Speed\n";
             else basicStr += "-" + equipment.moveSpeed.ToString() + " Movement Speed\n";
         }
         if (equipment.attSpeed != 0)
         {
-
             if (equipment.attSpeed > 0) basicStr += "+" + equipment.attSpeed.ToString() + " Attack Speed\n";
             else basicStr += "-" + equipment.attSpeed.ToString() + " Attack Speed\n";
         }
         if (equipment.criticalDmg != 0)
         {
-
             if (equipment.criticalDmg > 0) basicStr += "+" + equipment.criticalDmg.ToString() + " Critical Dmg\n";
             else basicStr += "-" + equipment.criticalDmg.ToString() + " Critical Dmg\n";
         }
@@ -2135,6 +2128,19 @@ public class InventoryManager : MonoBehaviour
             {
                 basicStr += "-" + equipment.coolDownSkill[i].coolDownCount.ToString() + "% Cooldown " + equipment.coolDownSkill[i].skillName;
         }
+        }
+
+        if (equipment.isBleeding == true)
+        {
+            basicStr += "+"+equipment.bleedingPerCent + "% Chance to Cause Bleeding\n";
+        }
+        if (equipment.bleedingDmgPer != 0)
+        {
+            basicStr += "+" + equipment.bleedingDmgPer + "% Dmg to Bleeding Enemies\n";
+        }
+        if (equipment.poisonDmg != 0)
+        {
+            basicStr += "+" + equipment.poisonDmg + " Posion Dmg\n";
         }
         textObject.GetComponent<TextMeshProUGUI>().text = basicStr;
     }

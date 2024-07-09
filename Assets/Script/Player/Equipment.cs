@@ -24,8 +24,10 @@ public class Equipment : MonoBehaviour
     public float bleedingDamageInterval;
     [ConditionalHide("isBleeding")]
     public int bleedingDamageCount;
-    
-    
+    public int bleedingDmgPer; // 출혈시 데미지 증가.
+
+    public int poisonDmg;// 중독 데미지 수치 증가
+
 
     [System.Serializable]
     public struct SkillCoolTime

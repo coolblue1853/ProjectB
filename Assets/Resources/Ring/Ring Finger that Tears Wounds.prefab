@@ -48,16 +48,18 @@ MonoBehaviour:
   armor: 0
   hp: 0
   basicDmg: 0
-  critical: 10
-  criticalDmg: 10
+  critical: 0
+  criticalDmg: 0
   dropRate: 0
   attSpeed: 0
   moveSpeed: 0
   isBleeding: 1
-  bleedingPerCent: 100
+  bleedingPerCent: 10
   bleedingDamage: 10
   bleedingDamageInterval: 1
   bleedingDamageCount: 3
+  bleedingDmgPer: 30
+  poisonDmg: 0
   coolDownSkill: []
 --- !u!1 &1291193055778619313
 GameObject:

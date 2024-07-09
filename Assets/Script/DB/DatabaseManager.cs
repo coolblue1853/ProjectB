@@ -19,6 +19,8 @@ public class DatabaseManager : MonoBehaviour
     public static int playerDef = 0;
     public static int playerCritRate = 0;
     public static int playerCritDmgRate = 0;
+    public static int addPoisonDmg = 0;
+    public static int bleedingAddDmg = 0; // 출혈시 증뎀
     public static int playerDropRate= 0;
     public static int hitCount = 0; // 공격 오브젝트의 타수
     public static bool isInvincibility = false;

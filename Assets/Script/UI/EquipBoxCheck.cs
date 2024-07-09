@@ -124,11 +124,11 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         DatabaseManager.playerCritDmgRate += equip.criticalDmg;
         DatabaseManager.addbasicDmg += equip.basicDmg;
         PlayerHealthManager.Instance.EquipmentActiveTrue(equip.hp);
-
+        DatabaseManager.bleedingAddDmg += equip.bleedingDmgPer;
+        DatabaseManager.addPoisonDmg += equip.poisonDmg;
         // ÃâÇ÷°ü·Ã
         if (equip.isBleeding)
         {
-            Debug.Log(equip.name);
             DatabaseManager.bleedingEquipment.Add(equip.name, new int[] { equip.bleedingPerCent, equip.bleedingDamage, equip.bleedingDamageCount });
             DatabaseManager.bleedingEquipmentInterval.Add(equip.name, equip.bleedingDamageInterval);
         }
@@ -143,6 +143,13 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         DatabaseManager.playerCritDmgRate -= equip.criticalDmg;
         DatabaseManager.addbasicDmg -= equip.basicDmg;
         PlayerHealthManager.Instance.EquipmentActiveFalse(equip.hp);
+        DatabaseManager.bleedingAddDmg -= equip.bleedingDmgPer;
+        DatabaseManager.addPoisonDmg -= equip.poisonDmg;
+        if (equip.isBleeding)
+        {
+            DatabaseManager.bleedingEquipment.Remove(equip.name);
+            DatabaseManager.bleedingEquipmentInterval.Remove(equip.name);
+        }
     }
 
 
