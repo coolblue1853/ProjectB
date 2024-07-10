@@ -18,9 +18,11 @@ public class TimeChange : MonoBehaviour
 
     void Start()
     {
-        startTime = Time.time;
+        startTime = Time.time -SaveManager.instance.datas.time;
         LightColorController = this.GetComponent<LightColorController>();
+
     }
+
 
     void Update()
     {
@@ -32,9 +34,10 @@ public class TimeChange : MonoBehaviour
         if (isTest == false)
         {
             float elapsedTime = Time.time - startTime;
-
+            SaveManager.instance.datas.time = elapsedTime;
             if (elapsedTime >= totalTime)
             {
+
                 startTime = Time.time;
                 elapsedTime = 0;
             }

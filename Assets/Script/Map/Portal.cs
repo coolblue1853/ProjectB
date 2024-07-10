@@ -100,6 +100,7 @@ public class Portal : MonoBehaviour
     }
     void OpenParrelx()
     {
+        SaveManager.instance.SavePos();
         DatabaseManager.isUsePortal = false;
         OpenParrlex.SetActive(true);
         CloseParrlex.SetActive(false);

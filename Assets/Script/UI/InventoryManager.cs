@@ -155,6 +155,71 @@ public class InventoryManager : MonoBehaviour
         cusor.transform.position = insPositon.transform.position;
         nowBox = num;
     }
+    public void SaveInventory()
+    {
+        string[,,] saveInven = new string[5, maxHor * maxVer, 1]; // 몇번째인벤, 칸, 이름
+        for(int i =0; i < 5; i++)
+        {
+            int childCount = inventoryUI[i].transform.childCount;
+            if(childCount != 0 )
+            {
+                for (int j = 0; j < childCount; j++)
+                {
+                    GameObject box = inventoryUI[i].transform.GetChild(j).gameObject;
+                    Debug.Log(box.transform.childCount);
+                    if (box.transform.childCount > 0 && box.transform.GetChild(0).GetComponent<ItemCheck>() != null)
+                    {
+                        saveInven[i, j, 0] = box.transform.GetChild(0).GetComponent<ItemCheck>().name;
+                        Debug.Log(saveInven[i, j, 0]);
+                    }
+                    else
+                    {
+                        saveInven[i, j, 0] = "non";
+                    }
+
+                }
+            }
+
+        }
+        SaveManager.instance.datas.invenItem = saveInven;
+        SaveManager.instance.DataSave();
+
+    }
+    public void LoadInventory()
+    {
+        if(SaveManager.instance.datas.invenItem == null)
+        {
+            SaveInventory();
+        }
+        else
+        {
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                int childCount = inventoryUI[i].transform.childCount;
+                if (childCount != 0)
+                {
+                    for (int j = 0; j < childCount; j++)
+                    {
+                        // 현재에는 단순히 아이템만  이름만 확인해서 가져오지만, 여기에 수정해서 현재 스택 수치, 강화수치 이런것도 가져와야함
+                        if (SaveManager.instance.datas.invenItem[i, j, 0] != "non" && SaveManager.instance.datas.invenItem[i, j, 0]!= null)
+                        {
+                            inventoryArray[j, i] = 1;
+                            GameObject insPositon = GetNthChildGameObject(inventoryUI[i], j);
+                            GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
+                            ItemCheck check = item.GetComponent<ItemCheck>();
+                            check.SetItem(SaveManager.instance.datas.invenItem[i, j, 0]);
+                            DatabaseManager.PlusInventoryDict(SaveManager.instance.datas.invenItem[i, j, 0], 1);
+                        }
+                    
+                    }
+                }
+
+            }
+              
+        }
+    }
 
     public bool CheckBoxCanCreat(int num)
     {
@@ -212,6 +277,7 @@ public class InventoryManager : MonoBehaviour
         MakeInventoryBox();
         inventoryArray = new int[maxBoxNum, 5];
         Invoke("ActiveFalse", 0.000000001f); // 인벤토리 리로드, 이 과정이 없으면 GridLayoutGroup이 정상작동하지 않음.
+
 
     }
 
@@ -420,6 +486,7 @@ public class InventoryManager : MonoBehaviour
         inventoryUI[0].transform.SetAsLastSibling();
         InventoryAlpha inventoryAlpha = inventoryUI[0].GetComponent<InventoryAlpha>();
         inventoryAlpha.A21();
+        LoadInventory();
     }
 
     void MakeInventoryBox()
@@ -539,6 +606,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
+            SaveInventory();
             inventory.SetActive(false);
             DatabaseManager.isOpenUI = false;
 
@@ -1397,6 +1465,7 @@ public class InventoryManager : MonoBehaviour
             if (inventory.activeSelf == true && ShopGameObject.activeSelf == false)
             {
                 DatabaseManager.isOpenUI = false;
+                SaveInventory();
                 inventory.SetActive(false);
                 CloseCheck();
                 if (chest != null)

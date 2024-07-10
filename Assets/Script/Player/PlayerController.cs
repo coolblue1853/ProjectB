@@ -5,8 +5,10 @@ using DG.Tweening;
 using UnityEngine.InputSystem;
 using AnyPortrait;
 using DarkTonic.MasterAudio;
+using Com.LuisPedroFonseca.ProCamera2D;
 public class PlayerController : MonoBehaviour
 {
+    public ProCamera2D proCamera;
     int LadderLayer = 31;
     float chInRommSize = 1.5f;
     public float runSpeed = 10f;  // 이동 속도
@@ -101,6 +103,8 @@ public class PlayerController : MonoBehaviour
     public bool isAttackedUp;
     void Start()
     {
+        this.gameObject.transform.position = SaveManager.instance.datas.playerPos;
+        proCamera.CenterOnTargets();
         bc = this.GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         jumpsRemaining = maxJumps;
