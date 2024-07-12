@@ -11,6 +11,7 @@ public class Equipment : MonoBehaviour
     public int basicDmg; // 최소 공격력 증가
     public int critical;
     public int criticalDmg;
+    public int incDmg; // 데미지 증가
     public int dropRate;
     public int attSpeed; // 기본 공격 속도
     public int moveSpeed;
@@ -28,6 +29,7 @@ public class Equipment : MonoBehaviour
 
     public int poisonDmg;// 중독 데미지 수치 증가
 
+    public int addIncomingDmg;
 
     [System.Serializable]
     public struct SkillCoolTime

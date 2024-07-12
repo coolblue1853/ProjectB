@@ -146,7 +146,7 @@ public class PlayerHealthManager : MonoBehaviour
             .AppendCallback(() => alphaSequence.Kill())
             .AppendCallback(() => isAlphaChange = false);
 
-
+            damage = damage * (1 + ((DatabaseManager.incIncomingDmg) / 100));
             //dmg * (dmg / (dmg + enemyDef))
             int dmgAfDef = (int)Mathf.Floor((float)damage * ((float)damage / ((float)damage + (float)Def))); // 방무 미적용   20 / 20 + 10
             Debug.Log(dmgAfDef);

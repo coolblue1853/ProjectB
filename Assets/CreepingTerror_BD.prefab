@@ -313,6 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBleeding: 0
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
   enemyDef: 1
@@ -356,7 +357,21 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: SacreGreatSword
+    dropProbability: 0.001
+  - itemName: ScareStaff
+    dropProbability: 0.001
+  - itemName: ScareCap
+    dropProbability: 0.002
+  - itemName: ScareArmor
+    dropProbability: 0.002
+  - itemName: Ominous Black Liquid
+    dropProbability: 0.2
+  - itemName: Malice-Infused Branch
+    dropProbability: 0.1
+  - itemName: Gloomy Cloth Scrap
+    dropProbability: 0.1
   impulseForce: 10
 --- !u!95 &1189416546038502013
 Animator:

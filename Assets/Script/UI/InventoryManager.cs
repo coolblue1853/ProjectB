@@ -1429,30 +1429,26 @@ public class InventoryManager : MonoBehaviour
             //   CreatItem("LeafStaff");
             //  CreatItem("LeafLegArmor"); CreatItem("LeafHandArmor"); CreatItem("LeafShoes"); CreatItem("LeafArmor"); CreatItem("LeafCap");
             //CreatItem("Stinky Rat Meat Stew");
-            CreatItem("Rat Cheif 's Loot"); CreatItem("Rat Thief's Stash"); CreatItem("Wood"); CreatItem("T0_Ore");
-            CreatItem("Filthy Rat Hide"); CreatItem("Tough Rat Hide");
-            //    CreatItem("Necklace of Spreading Corruption"); CreatItem("Necklace of the Sly Plunderer"); CreatItem("Ring Finger that Tears Wounds"); CreatItem("DoubleDagger");
-            //CreatItem("Wood Spear");
-            // CreatItem("Leather Knuckles");
-            //CreatItem("PickAxe");
+            CreatItem("Ominous Black Liquid"); CreatItem("Wood"); CreatItem("T0_Ore");
+            CreatItem("Blackened Branch"); CreatItem("Eerie Cloth Scrap");
             //
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
           //  CreatItem("ScareSide");
-            CreatItem("PoisonSword");
-         //   CreatItem("ScareClow");
-         //   CreatItem("ScareStaff");
-         //   CreatItem("SacreGreatSword");
-          //  CreatItem("RatCheifDagger");
-          //  CreatItem("DoubleDagger");
-          //  CreatItem("RustedSword");
-          //  CreatItem("RustedSwordandShield");
-           // CreatItem("Leather Knuckles");
-          //  CreatItem("Wood Spear");
-          //  CreatItem("LeafStaff");
-          //  CreatItem("LeafAdae");
+            CreatItem("PoisonSword"); CreatItem("Necklace of Silent Screams");
+            //   CreatItem("ScareClow");
+            //   CreatItem("ScareStaff");
+            //   CreatItem("SacreGreatSword");
+            //  CreatItem("RatCheifDagger");
+            //  CreatItem("DoubleDagger");
+            //  CreatItem("RustedSword");
+            //  CreatItem("RustedSwordandShield");
+            // CreatItem("Leather Knuckles");
+            //  CreatItem("Wood Spear");
+            //  CreatItem("LeafStaff");
+            //  CreatItem("LeafAdae");
 
 
 
@@ -2216,7 +2212,16 @@ public class InventoryManager : MonoBehaviour
                 basicStr += "-" + equipment.coolDownSkill[i].coolDownCount.ToString() + "% Cooldown " + equipment.coolDownSkill[i].skillName;
         }
         }
-
+        if (equipment.incDmg != 0)
+        {
+            if (equipment.incDmg > 0) basicStr += "+" + equipment.incDmg.ToString() + "% Dmg\n";
+            else basicStr += "-" + equipment.incDmg.ToString() + "% Dmg\n";
+        }
+        if (equipment.addIncomingDmg != 0)
+        {
+            if (equipment.addIncomingDmg > 0) basicStr += "+" + equipment.addIncomingDmg.ToString() + "% Incoming Dmg\n";
+            else basicStr += "-" + equipment.addIncomingDmg.ToString() + "% Incoming Dmg\n";
+        }
         if (equipment.isBleeding == true)
         {
             basicStr += "+"+equipment.bleedingPerCent + "% Chance to Cause Bleeding\n";

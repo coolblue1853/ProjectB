@@ -125,6 +125,8 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         DatabaseManager.addbasicDmg += equip.basicDmg;
         PlayerHealthManager.Instance.EquipmentActiveTrue(equip.hp);
         DatabaseManager.bleedingAddDmg += equip.bleedingDmgPer;
+        DatabaseManager.incIncomingDmg += equip.addIncomingDmg;
+        DatabaseManager.incDmg += equip.incDmg;
         DatabaseManager.addPoisonDmg += equip.poisonDmg;
         // ÃâÇ÷°ü·Ã
         if (equip.isBleeding)
@@ -144,6 +146,8 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         DatabaseManager.addbasicDmg -= equip.basicDmg;
         PlayerHealthManager.Instance.EquipmentActiveFalse(equip.hp);
         DatabaseManager.bleedingAddDmg -= equip.bleedingDmgPer;
+        DatabaseManager.incIncomingDmg -= equip.addIncomingDmg;
+        DatabaseManager.incDmg -= equip.incDmg;
         DatabaseManager.addPoisonDmg -= equip.poisonDmg;
         if (equip.isBleeding)
         {
