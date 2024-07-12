@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 public class InventoryManager : MonoBehaviour
 {
+    public bool deletInventory;
     public GameObject player;
     public GameObject inventoryBoxPrefab; // 생성되는 Box 인스턴스
     public GameObject itemPrefab; // 생성되는 Box 인스턴스
@@ -157,7 +158,7 @@ public class InventoryManager : MonoBehaviour
     }
     public void SaveInventory()
     {
-        string[,,] saveInven = new string[5, maxHor * maxVer, 1]; // 몇번째인벤, 칸, 이름
+        string[,,] saveInven = new string[5, maxHor * maxVer, 4]; // 몇번째인벤, 칸, 이름
         for(int i =0; i < 5; i++)
         {
             int childCount = inventoryUI[i].transform.childCount;
@@ -169,8 +170,12 @@ public class InventoryManager : MonoBehaviour
                     Debug.Log(box.transform.childCount);
                     if (box.transform.childCount > 0 && box.transform.GetChild(0).GetComponent<ItemCheck>() != null)
                     {
-                        saveInven[i, j, 0] = box.transform.GetChild(0).GetComponent<ItemCheck>().name;
-                        Debug.Log(saveInven[i, j, 0]);
+                        ItemCheck item = box.transform.GetChild(0).GetComponent<ItemCheck>();
+                        saveInven[i, j, 0] = item.name;
+                        saveInven[i, j, 1] = item.nowStack.ToString();
+                        saveInven[i, j, 2] = item.tear.ToString();
+                        saveInven[i, j, 3] = item.upgrade.ToString();
+
                     }
                     else
                     {
@@ -210,7 +215,11 @@ public class InventoryManager : MonoBehaviour
                             GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                             ItemCheck check = item.GetComponent<ItemCheck>();
                             check.SetItem(SaveManager.instance.datas.invenItem[i, j, 0]);
-                            DatabaseManager.PlusInventoryDict(SaveManager.instance.datas.invenItem[i, j, 0], 1);
+                            check.nowStack = int.Parse(SaveManager.instance.datas.invenItem[i, j, 1]);
+                            check.tear = int.Parse(SaveManager.instance.datas.invenItem[i, j, 2]);
+                            check.upgrade = int.Parse(SaveManager.instance.datas.invenItem[i, j, 3]);
+
+                            DatabaseManager.PlusInventoryDict(SaveManager.instance.datas.invenItem[i, j, 0], check.nowStack);
                         }
                     
                     }
@@ -486,7 +495,16 @@ public class InventoryManager : MonoBehaviour
         inventoryUI[0].transform.SetAsLastSibling();
         InventoryAlpha inventoryAlpha = inventoryUI[0].GetComponent<InventoryAlpha>();
         inventoryAlpha.A21();
-        LoadInventory();
+        if(deletInventory == false)
+        {
+            LoadInventory();
+        }
+        else
+        {
+            SaveInventory();
+
+        }
+
     }
 
     void MakeInventoryBox()
