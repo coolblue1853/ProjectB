@@ -340,13 +340,13 @@ public class PlayerController : MonoBehaviour
             if (verticalInput < -0.2f && isAttackAnim == false)
             {
                 states = "moveDown";
+                PlayRopeSound();
                 mainCharacter.Play("RopeDown");
                 moveVelocity = Vector2.down * (isRun ? runSpeed * (1 + (DatabaseManager.SpeedBuff / 100)) : moveSpeed * (1 + (DatabaseManager.SpeedBuff / 100)));
             }
             else if (verticalInput > 0.2f && isAttackAnim == false)
             {
-
-                Debug.Log("올라가는중");
+                PlayRopeSound();
                 states = "moveUp";
                 mainCharacter.Play("RopeUp");
                 moveVelocity = Vector2.up * (isRun ? runSpeed * (1 + (DatabaseManager.SpeedBuff / 100)) : moveSpeed * (1 + (DatabaseManager.SpeedBuff / 100)));
@@ -552,6 +552,7 @@ public class PlayerController : MonoBehaviour
     public float dashMovePoint;
     void Dash()
     {
+        MasterAudio.PlaySound("Dash");
         BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
         if (isAttackAnim == false)
         {
@@ -656,6 +657,7 @@ public class PlayerController : MonoBehaviour
     bool isJumpAnim = false;
     void Jump()
     {
+
         MasterAudio.PlaySound("Jump");
         BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
         /*
@@ -954,5 +956,11 @@ public class PlayerController : MonoBehaviour
             MasterAudio.PlaySound3DAtTransform("SoilWalk", this.transform);
         }
     }
-
+    void PlayRopeSound()
+    {
+        if (!MasterAudio.IsSoundGroupPlaying("Rope"))
+        {
+            MasterAudio.PlaySound3DAtTransform("Rope", this.transform);
+        }
+    }
 }
