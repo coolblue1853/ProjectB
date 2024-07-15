@@ -24,78 +24,96 @@ public class TouchLightManager : MonoBehaviour
     }
     void Start()
     {
+
+    }
+    bool isStart = false;
+
+    public void StartLighting(float attP,float lightMaxT, float lightT)
+    {
+        attPower = attP;
+        lightMaxTime = lightMaxT;
+        lightTime = lightT;
+
+
         lightMinus = nowLight / (lightTime - lightMaxTime);
-           startTime = Time.time;
-           maxAttTime = ((1 - startAttenuation + endAttenuation) / 2) - (1-startAttenuation);
+        startTime = Time.time;
+        maxAttTime = ((1 - startAttenuation + endAttenuation) / 2) - (1 - startAttenuation);
         // 인보크로 1초마다 감쇠 조정
+
+        isStart = true;
     }
     void SetAttenuation()
     {
-        float time = TimeChange.instance.value;
-        if(time > endAttenuation && time < startAttenuation) // 해당 시간 내면 인보크 정지
+        if(this.gameObject != null)
         {
-            isActiveAtt = false;
-            return;
-        }
-        if(time >= startAttenuation) 
-        {
-            nowAtt =  (time - (startAttenuation))*2; //이게 아니라 늘다가 줄어드는 방식으로 감쇠가 진행 되어야 함. 
-        }
-        else if(time >=0 && time <= maxAttTime) // 중간값 까지는 계속해서 상성
-        {
-            nowAtt = (time + (1 - startAttenuation))*2; // 0.25 +(1- 0.85) -> 
-        }
-        else if(time > maxAttTime && time <= endAttenuation)
-        {
-            nowAtt = maxAttenuation - (time - maxAttTime) * 2;
+            float time = TimeChange.instance.value;
+            if (time > endAttenuation && time < startAttenuation) // 해당 시간 내면 인보크 정지
+            {
+                isActiveAtt = false;
+                return;
+            }
+            if (time >= startAttenuation)
+            {
+                nowAtt = (time - (startAttenuation)) * 2; //이게 아니라 늘다가 줄어드는 방식으로 감쇠가 진행 되어야 함. 
+            }
+            else if (time >= 0 && time <= maxAttTime) // 중간값 까지는 계속해서 상성
+            {
+                nowAtt = (time + (1 - startAttenuation)) * 2; // 0.25 +(1- 0.85) -> 
+            }
+            else if (time > maxAttTime && time <= endAttenuation)
+            {
+                nowAtt = maxAttenuation - (time - maxAttTime) * 2;
+            }
+
+            light.intensity = nowLight * (1 - (nowAtt)); // 나중에 저 1이 감쇠하는값임.
+
+            Invoke("SetAttenuation", 1f);
         }
 
-        light.intensity = nowLight * (1-(nowAtt)); // 나중에 저 1이 감쇠하는값임.
-
-        Invoke("SetAttenuation", 1f);
     }
     bool isActiveAtt = false; // 감쇠가 진행되었는지 체크
     bool isMaxLightEnd = false;
     private void Update()
     {
-        if (isActiveAtt == false) // 해당 시간 내면 인보크 정지
+        if(isStart == true)
         {
-            if (TimeChange.instance.value >= startAttenuation)
+            if (isActiveAtt == false) // 해당 시간 내면 인보크 정지
             {
-                isActiveAtt = true;
-                SetAttenuation();
+                if (TimeChange.instance.value >= startAttenuation)
+                {
+                    isActiveAtt = true;
+                    SetAttenuation();
+                }
+                else if (TimeChange.instance.value >= 0 && TimeChange.instance.value <= endAttenuation)
+                {
+                    isActiveAtt = true;
+                    SetAttenuation();
+                }
             }
-            else if (TimeChange.instance.value >= 0 && TimeChange.instance.value <= endAttenuation)
+
+            if (Time.time - startTime > lightMaxTime && isMaxLightEnd == false) //
             {
-                isActiveAtt = true;
-                SetAttenuation();
+                isMaxLightEnd = true;
+                DarkerLight();
             }
-        }
-        /*
-        if (light.intensity != 1 && TimeChange.instance.value > endAttenuation && TimeChange.instance.value < startAttenuation)
-        {
-            light.intensity = 1;
-        }
-        */
+            if (Time.time - startTime > lightTime) //
+            {
+                Destroy(this.gameObject);
+            }
 
-
-
-        if(Time.time - startTime > lightMaxTime && isMaxLightEnd ==false) //
-        {
-            isMaxLightEnd = true;
-            DarkerLight();
         }
-        if (Time.time - startTime > lightTime) //
-        {
-            Destroy(this.gameObject);
-        }
+
     }
 
 
     void DarkerLight() // 점점 밝기가 줄어들게
     {
-        nowLight -= lightMinus;
+        if (this.gameObject != null)
+        {
+            nowLight -= lightMinus;
 
-        Invoke("DarkerLight", 1f);
+            Invoke("DarkerLight", 1f);
+        }
+
     }
 }

@@ -109,7 +109,14 @@ public class ItemCheck : MonoBehaviour
                     PlayerHealthManager.Instance.HpUp(int.Parse(effectPowerDetail[0]));
                 }
             }
-            if (effectStr[0] == "def")
+            if (effectStr[0] == "light")
+            {
+                if (effectStr[1] == "+")
+                {
+                    PlayerController.instance.TouchLightOn(float.Parse(effectPowerDetail[0]), float.Parse(effectPowerDetail[1]), float.Parse(effectPowerDetail[2]));
+                }
+            }
+                if (effectStr[0] == "def")
             {
                 if (effectStr[1] == "+")
                 {

@@ -110,6 +110,21 @@ public class PlayerController : MonoBehaviour
         jumpsRemaining = maxJumps;
     }
     bool once = false;
+    public GameObject touchLight;
+    public GameObject nowTouch;
+    public void TouchLightOn(float attP, float lightMaxT, float lightT)
+    {
+        if(nowTouch != null)
+        {
+            Destroy(nowTouch.gameObject);
+        }
+
+        GameObject touch = Instantiate(touchLight, this.transform.position, Quaternion.identity, this.transform);
+        nowTouch = touch;
+        TouchLightManager touchLightManager = touch.GetComponent<TouchLightManager>();
+        touchLightManager.StartLighting(attP, lightMaxT, lightT);
+    }
+
     void Update()
     {
        if (verticalInput == 0 && states != "move" && isUpLadder ==true && isAttackAnim == false)
