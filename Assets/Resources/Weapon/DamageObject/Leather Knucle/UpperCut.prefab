@@ -99,22 +99,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSound: Punch Impact
+  skillName: 
   dmgRatio: 1
   ShakeTime: 0.15
   isSkill: 0
   isDestroyByTime: 1
   holdingTime: 0.5
   hitCount: 1
+  waitInterval: 0
+  isDeletByMaxHit: 1
+  isHitIntervelEven: 1
+  hitIntervalTime: 0
   damageArr: 
   stiffnessTime: 1
   knockForce: 10
   knockbackDir: {x: 1, y: 0}
   isNockBackChangeDir: 0
+  nonChangeNockDir: 0
   isPlayerAttack: 1
   player: {fileID: 0}
   isLaunch: 0
   launchForce: 0
   launchDir: {x: 0, y: 0}
+  isRoundLunch: 0
   isDeletByGround: 0
   isTrackingEnemy: 0
   desiredSpeed: 0
@@ -126,13 +134,31 @@ MonoBehaviour:
   addSuperArmor: 0
   isDashAttack: 0
   dashSpeed: 10
+  dashYSpeed: 0
   isDashInvins: 0
   isBackDash: 0
+  isEffectGrvity: 0
+  isXbaseDash: 1
+  buffObject: {fileID: 0}
+  isHealSkill: 0
+  waitNextHeal: 0
+  healPower: 0
+  healCount: 0
+  isAbsorberSkill: 0
+  absorbPivot: {fileID: 0}
+  absorbPower: 0
+  absorbDir: {x: 0, y: 0}
+  isShortTime: 0
+  disEffectbyTime: 0
   maxDamagedEnemies: 1
   isPosionAttack: 0
   poisonDamage: 0
   damageInterval: 0
   damageCount: 0
+  isBleedingAttack: 0
+  bleedingDamage: 0
+  bleedingDamageInterval: 0
+  bleedingDamageCount: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 0

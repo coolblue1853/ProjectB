@@ -99,12 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSound: 
+  skillName: 
   dmgRatio: 0
   ShakeTime: 0
   isSkill: 0
   isDestroyByTime: 1
   holdingTime: 0
   hitCount: 1
+  waitInterval: 0
   isDeletByMaxHit: 1
   isHitIntervelEven: 1
   hitIntervalTime: 0
@@ -113,6 +116,7 @@ MonoBehaviour:
   knockForce: 0
   knockbackDir: {x: 0, y: 0}
   isNockBackChangeDir: 0
+  nonChangeNockDir: 0
   isPlayerAttack: 1
   player: {fileID: 0}
   isLaunch: 0
@@ -151,6 +155,10 @@ MonoBehaviour:
   poisonDamage: 0
   damageInterval: 0
   damageCount: 0
+  isBleedingAttack: 0
+  bleedingDamage: 0
+  bleedingDamageInterval: 0
+  bleedingDamageCount: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 0

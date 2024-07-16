@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using AnyPortrait;
+using DarkTonic.MasterAudio;
 public class Weapon : MonoBehaviour
 {
     public PlayerController pC;
@@ -21,8 +22,8 @@ public class Weapon : MonoBehaviour
     public int addDmg = 0; // 추뎀%  
     PlayerHealthManager phm;
 
-   
 
+    public string[] weaponSound;
     public int[] damgeArray = new int[10];
     public float[] attckSpeed;   // 공격 주기, 짧을수록 더 빠르게 공격 가능.
     public bool isAttackWait = true;
@@ -150,10 +151,11 @@ public class Weapon : MonoBehaviour
         if (nowConboCount == 0 && (isAttackWait == true && (isSkillAttackWait || isSkillCancel)))//|| isSkillCancel == true)
         {
             nowConboCount++;
- 
+            
             //프리팹 소환
             if (delayTime.Length > 0)
             {
+
             //    pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1],delayAnimName[nowConboCount - 1], delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)), true);
                 Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
 
@@ -164,6 +166,7 @@ public class Weapon : MonoBehaviour
                 CreatAttackPrefab();
 
             }
+            MasterAudio.PlaySound(weaponSound[nowConboCount - 1]);
             CheckAttackWait();
         }
         else
@@ -184,6 +187,7 @@ public class Weapon : MonoBehaviour
                     CreatAttackPrefab();
 
                 }
+                MasterAudio.PlaySound(weaponSound[nowConboCount - 1]);
                 CheckAttackWait();
             }
             else if (nowConboCount >= maxComboCount && time <= maxComboTime && (isAttackWait == true && (isSkillAttackWait || isSkillCancel))) // 콤보수 초기화 및 다시 카운트 1로 내려옴. || isSkillCancel == true
@@ -200,8 +204,9 @@ public class Weapon : MonoBehaviour
                 {
                  //   pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
                     CreatAttackPrefab();
-  
+ 
                 }
+                MasterAudio.PlaySound(weaponSound[nowConboCount - 1]);
                 CheckAttackWait();
 
             }

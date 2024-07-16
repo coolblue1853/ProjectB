@@ -657,7 +657,7 @@ public class PlayerController : MonoBehaviour
     bool isJumpAnim = false;
     void Jump()
     {
-
+       
         MasterAudio.PlaySound("Jump");
         BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
         /*

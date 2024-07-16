@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Nature TelePort
   skillPivot:
   - {fileID: 2659370571445974256}
   interval: []
@@ -137,6 +139,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Nature Spell
+  - Nature Spell
+  - Nature Spell
+  - Nature Spell
+  - Nature Spell
+  - Nature Spell
   skillPivot:
   - {fileID: 565538375676767284}
   - {fileID: 565538375676767284}
@@ -305,6 +314,10 @@ MonoBehaviour:
   skillDmg: 0
   finDmg: 0
   addDmg: 10
+  weaponSound:
+  - Nature Whip
+  - Nature Whip
+  - Nature Whip
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed:
   - 0.7
@@ -413,6 +426,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Nature Spell
   skillPivot:
   - {fileID: 2420472160056746311}
   interval: []

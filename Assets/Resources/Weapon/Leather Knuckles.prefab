@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Dash
   skillPivot:
   - {fileID: 2659370571445974256}
   interval: []
@@ -137,6 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - BackDash
   skillPivot:
   - {fileID: 501978785015726080}
   interval: []
@@ -311,6 +315,9 @@ MonoBehaviour:
   skillDmg: 0
   finDmg: 0
   addDmg: 10
+  weaponSound:
+  - Punch Swing
+  - Punch Swing
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed:
   - 0.35
@@ -533,6 +540,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Punch Swing
   skillPivot:
   - {fileID: 1253820824490114480}
   interval: []

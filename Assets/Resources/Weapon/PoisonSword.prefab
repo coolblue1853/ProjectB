@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Sword
   skillPivot:
   - {fileID: 5918456000577099890}
   interval: []
@@ -137,6 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Poison
   skillPivot:
   - {fileID: 8218835989649726422}
   interval: []
@@ -249,6 +253,9 @@ MonoBehaviour:
   skillDmg: 0
   finDmg: 0
   addDmg: 10
+  weaponSound:
+  - Sword
+  - Sword
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed:
   - 0.3

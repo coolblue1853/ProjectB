@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.InputSystem;
+using DarkTonic.MasterAudio;
 public class Skill : MonoBehaviour
 {
     KeyAction action;
@@ -12,6 +13,7 @@ public class Skill : MonoBehaviour
     InputAction skillSAction;
     InputAction skillDAction;
     InputAction skillFAction;
+    public string[] skillSound;
     private void OnEnable()
     {
         skillAAction.Enable();
@@ -224,6 +226,7 @@ public class Skill : MonoBehaviour
                 {
                     // 스킬 프리팹을 피벗 위치에 인스턴스화
                     damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
+                    MasterAudio.PlaySound(skillSound[i]);
                     if (isNullParent == true)
                     {
                         damageObject.transform.parent = null;
@@ -247,6 +250,7 @@ public class Skill : MonoBehaviour
                         Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
                         safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
                         damageObject = Instantiate(skillprefab[i], new Vector2(skillPivot[i].transform.position.x, safePosition.y), skillPivot[i].transform.rotation, this.transform);
+                        MasterAudio.PlaySound(skillSound[i]);
                         if (isNullParent == true)
                         {
                             damageObject.transform.parent = null;
@@ -276,6 +280,7 @@ public class Skill : MonoBehaviour
                     if (isGorundCheckSkill == false)
                     {
                         damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+                        MasterAudio.PlaySound(skillSound[i]);
                         if (isNullParent == true)
                         {
                             damageObject.transform.parent = null;
@@ -292,6 +297,7 @@ public class Skill : MonoBehaviour
                             Vector2 safePosition2 = hit2.point - newDir2.normalized; // 충돌 지점에서 약간 떨어진 위치
                             safePosition2 = new Vector2(safePosition2.x, safePosition2.y + yPivot);
                             damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, safePosition2.y), skillPivot[i].transform.rotation, this.transform);
+                            MasterAudio.PlaySound(skillSound[i]);
                             if (isNullParent == true)
                             {
                                 damageObject.transform.parent = null;
@@ -308,6 +314,7 @@ public class Skill : MonoBehaviour
                         Vector2 safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
                         safePosition = new Vector2(safePosition.x, safePosition.y);
                         damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+                        MasterAudio.PlaySound(skillSound[i]);
                         if (isNullParent == true)
                         {
                             damageObject.transform.parent = null;
@@ -325,6 +332,7 @@ public class Skill : MonoBehaviour
                             Vector2 safePosition2 = hit2.point - newDir2.normalized; // 충돌 지점에서 약간 떨어진 위치
                             safePosition2 = new Vector2(safePosition2.x, safePosition2.y + yPivot);
                             damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, safePosition2.y), skillPivot[i].transform.rotation, this.transform);
+                            MasterAudio.PlaySound(skillSound[i]);
                             if (isNullParent == true)
                             {
                                 damageObject.transform.parent = null;
@@ -611,6 +619,7 @@ public class Skill : MonoBehaviour
             Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
             safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
             damageObject = Instantiate(skillprefab[0], new Vector2(skillPivot[0].transform.position.x, safePosition.y), skillPivot[0].transform.rotation, this.transform);
+            MasterAudio.PlaySound(skillSound[0]);
 
         }
     }
@@ -642,6 +651,7 @@ public class Skill : MonoBehaviour
         if (delayEffectPrefab != null)
         {
             GameObject effect = Instantiate(delayEffectPrefab, new Vector2(skillPivot[0].transform.position.x, skillPivot[0].transform.position.y), skillPivot[0].transform.rotation);
+            MasterAudio.PlaySound(skillSound[0]);
             DestoryByTime dBT = effect.GetComponent<DestoryByTime>();
             dBT.DestroyEffect(waitTime);
         }
@@ -685,12 +695,14 @@ public class Skill : MonoBehaviour
         if (waitTime == 0)
         {
             damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
+            MasterAudio.PlaySound(skillSound[0]);
         }
         else
         {
             Sequence sequence = DOTween.Sequence()
             .AppendInterval(waitTime)
             .AppendCallback(() => damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform));
+            MasterAudio.PlaySound(skillSound[0]);
         }
     }
     void RountAttack(float waitTime)
@@ -698,16 +710,20 @@ public class Skill : MonoBehaviour
         if (waitTime == 0)
         {
             RoundAttack(skillprefab[0], skillPivot[0]);
+            MasterAudio.PlaySound(skillSound[0]);
         }
         else
         {
             Sequence sequence = DOTween.Sequence()
             .AppendInterval(waitTime)
             .AppendCallback(() => RoundAttack(skillprefab[0], skillPivot[0]));
+            MasterAudio.PlaySound(skillSound[0]);
         }
     }
     void SkillAnimCheck(string skillNum) // 기술의 애니메이션 재생과 홀드 스킬의 구분
     {
+
+
         if (isActive == true)
         {
             SkillEffect(skillNum);

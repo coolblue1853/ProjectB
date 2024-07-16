@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Dagger Swing
+  - Dagger Swing
   skillPivot:
   - {fileID: 156242394544898117}
   - {fileID: 156242394544898117}
@@ -140,6 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - PowerSlash
+  - PowerSlash
+  - PowerSlash
   skillPivot:
   - {fileID: 4091208253614354058}
   - {fileID: 2185068538788492895}
@@ -289,6 +296,10 @@ MonoBehaviour:
   skillDmg: 0
   finDmg: 0
   addDmg: 10
+  weaponSound:
+  - Dagger Swing
+  - Dagger Swing
+  - Dagger Swing
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed:
   - 0.3
@@ -608,6 +619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Horn
   skillPivot:
   - {fileID: 2659370571445974256}
   interval: []

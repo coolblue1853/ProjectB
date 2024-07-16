@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96eb8d1fab69f894fa27c52f885c8a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSound: Dagger Attack
   isDestroyByTime: 1
   holdingTime: 1
   damage: 15

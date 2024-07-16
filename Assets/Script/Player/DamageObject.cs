@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using DarkTonic.MasterAudio;
 
 public class DamageObject : MonoBehaviour
 {
+    public string damageSound;
     public string skillName;
     Transform playerTf;
     public float dmgRatio = 1.0f;
@@ -378,6 +380,8 @@ public class DamageObject : MonoBehaviour
         if (this.gameObject != null && healCount != 0)
         {
             healCount -= 1;
+            if (!MasterAudio.IsSoundGroupPlaying(damageSound))
+                MasterAudio.PlaySound(damageSound);
             float resetTime = waitNextHeal;
 
             Sequence seq = DOTween.Sequence()
@@ -444,6 +448,8 @@ public class DamageObject : MonoBehaviour
                         // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
                         enemyHealth.damage2Enemy(damageArr, stiffnessTime, absorbPower, absorbDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
                     }
+
+                MasterAudio.PlaySound(damageSound);
 
 
                 if (isPosionAttack)

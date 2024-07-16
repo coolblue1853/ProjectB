@@ -597,6 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBleeding: 0
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
   enemyDef: 1
@@ -621,6 +622,7 @@ MonoBehaviour:
   isStun: 0
   poisonPrefab: {fileID: 4315359909622191748, guid: b174ee81df0b3ea4e8fddc9dcdb5db68,
     type: 3}
+  bleedingPrefab: {fileID: 0}
 --- !u!114 &4003454019311035621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,6 +635,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems: []

@@ -44,6 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Dagger Swing
+  - Dagger Swing
+  - Dagger Swing
+  - Dagger Swing
+  - Dagger Swing
+  - Dagger Swing
+  - Dagger Swing
+  - Dagger Swing
+  - Dagger Swing
+  - Dagger Swing
   skillPivot:
   - {fileID: 4364040306126853957}
   - {fileID: 4233942348891947931}
@@ -109,16 +120,16 @@ MonoBehaviour:
   skillDetail: Savagely stab the enemy in front, dealing significant damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
-  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
-  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
-  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
-  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
-  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
-  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
-  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
-  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
-  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
-  - {fileID: 7429380887833962885, guid: 217167401ed6d264c96cde8475d82e77, type: 3}
+  - {fileID: 7429380887833962885, guid: 900d7f802af1d1742bed43890c4a0bed, type: 3}
+  - {fileID: 7429380887833962885, guid: 900d7f802af1d1742bed43890c4a0bed, type: 3}
+  - {fileID: 7429380887833962885, guid: 900d7f802af1d1742bed43890c4a0bed, type: 3}
+  - {fileID: 7429380887833962885, guid: 900d7f802af1d1742bed43890c4a0bed, type: 3}
+  - {fileID: 7429380887833962885, guid: 900d7f802af1d1742bed43890c4a0bed, type: 3}
+  - {fileID: 7429380887833962885, guid: 900d7f802af1d1742bed43890c4a0bed, type: 3}
+  - {fileID: 7429380887833962885, guid: 900d7f802af1d1742bed43890c4a0bed, type: 3}
+  - {fileID: 7429380887833962885, guid: 900d7f802af1d1742bed43890c4a0bed, type: 3}
+  - {fileID: 7429380887833962885, guid: 900d7f802af1d1742bed43890c4a0bed, type: 3}
+  - {fileID: 7429380887833962885, guid: 900d7f802af1d1742bed43890c4a0bed, type: 3}
   skillCooldown: {fileID: 0}
 --- !u!1 &1183539049
 GameObject:
@@ -164,6 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - LightBuff
   skillPivot:
   - {fileID: 3888499126109563205}
   interval: []
@@ -257,6 +270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - LightBuff
   skillPivot:
   - {fileID: 2079777702961487247}
   interval: []
@@ -400,6 +415,10 @@ MonoBehaviour:
   skillDmg: 0
   finDmg: 0
   addDmg: 10
+  weaponSound:
+  - Dagger Swing
+  - Dagger Swing
+  - Dagger Swing
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed:
   - 0.3
@@ -411,9 +430,9 @@ MonoBehaviour:
   time: 0
   isOverHand: 0
   attackPrefab:
-  - {fileID: 7429380887833962885, guid: f8277c5f5d5e59c49a0b65d26652e8d0, type: 3}
-  - {fileID: 7429380887833962885, guid: f8277c5f5d5e59c49a0b65d26652e8d0, type: 3}
-  - {fileID: 8267161789949130192, guid: 289ed1c71ae94a145990ab1dcb06f995, type: 3}
+  - {fileID: 7429380887833962885, guid: 73fd7ecc15c9ef64ea58339af6d2b9fb, type: 3}
+  - {fileID: 7429380887833962885, guid: 73fd7ecc15c9ef64ea58339af6d2b9fb, type: 3}
+  - {fileID: 8267161789949130192, guid: a03358b091b89e24c98491b59269af61, type: 3}
   attackPivot:
   - {fileID: 4185027361106519671}
   - {fileID: 1291193055778619313}

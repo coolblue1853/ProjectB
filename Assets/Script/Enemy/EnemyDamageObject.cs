@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using DarkTonic.MasterAudio;
 public class EnemyDamageObject : MonoBehaviour
 {
+    public string attackSound;
     public bool isDestroyByTime = true;
     public float holdingTime = 0;
     public int damage = 0;
@@ -157,8 +159,10 @@ public class EnemyDamageObject : MonoBehaviour
 
 
                 }
-
+                if (attackSound != null)
+                    MasterAudio.PlaySound(attackSound);
                 playerHealth.damage2Player(damage, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
+
                 /*
                 if (isPosionAttack)
                 {
@@ -190,7 +194,8 @@ public class EnemyDamageObject : MonoBehaviour
                             knockbackDir.x = -Mathf.Abs(knockbackDir.x);
                         }
                     }
-
+                    if (attackSound != null)
+                        MasterAudio.PlaySound(attackSound);
 
                     // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
                     enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);

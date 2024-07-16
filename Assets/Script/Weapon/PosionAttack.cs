@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DamageNumbersPro;
+using DarkTonic.MasterAudio;
 public class PosionAttack : MonoBehaviour
 {
     public DamageNumber damageNumber;
@@ -26,6 +27,10 @@ public class PosionAttack : MonoBehaviour
         else
         {
             enemyHealth.onlyDamage2Enemy(damage);
+            if (!MasterAudio.IsSoundGroupPlaying("Poison"))
+            {
+                MasterAudio.PlaySound("Poison");
+            }
             damageNumber.Spawn(transform.position + Vector3.up, (int)damage);
             count -= 1;
         }
@@ -43,6 +48,10 @@ public class PosionAttack : MonoBehaviour
         else
         {
             enemyHealth.onlyDamage2Enemy(damage);
+            if (!MasterAudio.IsSoundGroupPlaying("Poison"))
+            {
+                MasterAudio.PlaySound("Poison");
+            }
             damageNumber.Spawn(transform.position + Vector3.up, (int)damage);
             count -= 1;
         }

@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - SpearSwing
+  - SpearSwing
   skillPivot:
   - {fileID: 4178163973471080108}
   - {fileID: 7324553074625708386}
@@ -140,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Dash
   skillPivot:
   - {fileID: 5961042638513520153}
   interval: []
@@ -250,6 +255,8 @@ MonoBehaviour:
   skillDmg: 0
   finDmg: 0
   addDmg: 10
+  weaponSound:
+  - SpearSwing
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed:
   - 0.55
@@ -259,7 +266,7 @@ MonoBehaviour:
   time: 0
   isOverHand: 0
   attackPrefab:
-  - {fileID: 7429380887833962885, guid: f8277c5f5d5e59c49a0b65d26652e8d0, type: 3}
+  - {fileID: 7429380887833962885, guid: 1e47836817251274ba75210825734e1c, type: 3}
   attackPivot:
   - {fileID: 1291193055778619313}
   isHasDelayTime: 0
