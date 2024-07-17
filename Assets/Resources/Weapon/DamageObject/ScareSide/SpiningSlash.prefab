@@ -132,6 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSound: Dagger Attack
+  skillName: 
   dmgRatio: 0.3
   ShakeTime: 0.05
   isSkill: 1
@@ -186,6 +188,10 @@ MonoBehaviour:
   poisonDamage: 0
   damageInterval: 0
   damageCount: 0
+  isBleedingAttack: 0
+  bleedingDamage: 0
+  bleedingDamageInterval: 0
+  bleedingDamageCount: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 0

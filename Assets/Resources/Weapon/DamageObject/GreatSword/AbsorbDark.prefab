@@ -252,12 +252,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22a04babf0c7fa41845a765ead08714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSound: HeavySword Stab
+  skillName: 
   dmgRatio: 0.3
   ShakeTime: 0.05
   isSkill: 1
   isDestroyByTime: 1
   holdingTime: 8
   hitCount: 48
+  waitInterval: 0
   isDeletByMaxHit: 1
   isHitIntervelEven: 1
   hitIntervalTime: 0.2
@@ -266,6 +269,7 @@ MonoBehaviour:
   knockForce: 0
   knockbackDir: {x: 0, y: 0}
   isNockBackChangeDir: 0
+  nonChangeNockDir: 0
   isPlayerAttack: 1
   player: {fileID: 0}
   isLaunch: 0
@@ -298,11 +302,16 @@ MonoBehaviour:
   absorbPower: 10
   absorbDir: {x: 1, y: 1}
   isShortTime: 1
+  disEffectbyTime: 0
   maxDamagedEnemies: 10
   isPosionAttack: 0
   poisonDamage: 0
   damageInterval: 0
   damageCount: 0
+  isBleedingAttack: 0
+  bleedingDamage: 0
+  bleedingDamageInterval: 0
+  bleedingDamageCount: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 0

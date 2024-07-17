@@ -44,6 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - Heavy Sword Swing
+  - Heavy Sword Swing
+  - Heavy Sword Swing
+  - Heavy Sword Swing
+  - Heavy Sword Swing
+  - Heavy Sword Swing
   skillPivot:
   - {fileID: 6573757590219980866}
   - {fileID: 6573757590219980866}
@@ -152,6 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - DarkMagic
   skillPivot:
   - {fileID: 2799854316043845083}
   interval: []
@@ -264,6 +273,9 @@ MonoBehaviour:
   skillDmg: 0
   finDmg: 0
   addDmg: 10
+  weaponSound:
+  - Dagger Swing
+  - Dagger Swing
   damgeArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   attckSpeed:
   - 0.4
@@ -763,6 +775,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb914640db88fe64d8f75a7155059eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSound:
+  - LightBuff
   skillPivot:
   - {fileID: 2659370571445974256}
   interval: []
