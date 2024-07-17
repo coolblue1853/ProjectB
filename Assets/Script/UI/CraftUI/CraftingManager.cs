@@ -426,33 +426,16 @@ public class CraftingManager : MonoBehaviour
             needMaterailUI.SetActive(true);
             DatabaseManager.isOpenUI = true;
         }
-       else if (isSelfCraft == false && isCraftWeapon == true && CraftUI.activeSelf == false && Input.GetKeyDown(KeyCode.B) && DatabaseManager.isOpenUI == false) // 무기 제작인
-        {
-            DeleteAllChildren(needMaterail);
-            SetNeedItem();
-            SetDetail();
-            Invoke("ChangeisMoveCusor", 0.2f);
-            CraftUI.SetActive(true);
-            needMaterailUI.SetActive(true);
-            DatabaseManager.isOpenUI = true;
-        }
-        else if (isSelfCraft == false && isCraftWeapon == false && CraftUI.activeSelf == false && Input.GetKeyDown(KeyCode.N) && DatabaseManager.isOpenUI == false) // 장비 제작인
-        {
-            DeleteAllChildren(needMaterail);
-            SetNeedItem();
-            SetDetail();
-            Invoke("ChangeisMoveCusor", 0.2f);
-            CraftUI.SetActive(true);
-            needMaterailUI.SetActive(true);
-            DatabaseManager.isOpenUI = true;
-        }
+
         else if (CraftUI.activeSelf == true && backAction.triggered && cusor.activeSelf == true && isCheckDetail == false && isCraft ==false)
         {
+            PlayerController.instance.DashWait2F();
             ResetDetail();
             isMoveCusor = false;
             CraftUI.SetActive(false);
             needMaterailUI.SetActive(false);
             DatabaseManager.isOpenUI = false;
+
         }
 
          if (CraftUI.activeSelf == true && changeAction.triggered && cusor.activeSelf == true ) // 만들려는 아이템의디테일창을 키는 것
@@ -465,11 +448,37 @@ public class CraftingManager : MonoBehaviour
             SetDetail();
         }
 
-
-
-
     }
     bool isCraft = false;
+
+    public void WeaponOpen()
+    {
+          if (isSelfCraft == false && isCraftWeapon == true && CraftUI.activeSelf == false && DatabaseManager.isOpenUI == false) // 무기 제작인
+        {
+            PlayerController.instance.uiDashWait = true;
+            DeleteAllChildren(needMaterail);
+            SetNeedItem();
+            SetDetail();
+            Invoke("ChangeisMoveCusor", 0.2f);
+            CraftUI.SetActive(true);
+            needMaterailUI.SetActive(true);
+            DatabaseManager.isOpenUI = true;
+        }
+    }
+    public void EquipOpen()
+    {
+         if (isSelfCraft == false && isCraftWeapon == false && CraftUI.activeSelf == false && DatabaseManager.isOpenUI == false) // 장비 제작인
+        {
+            PlayerController.instance.uiDashWait = true;
+            DeleteAllChildren(needMaterail);
+            SetNeedItem();
+            SetDetail();
+            Invoke("ChangeisMoveCusor", 0.2f);
+            CraftUI.SetActive(true);
+            needMaterailUI.SetActive(true);
+            DatabaseManager.isOpenUI = true;
+        }
+    }
     void ChangeisCarft()
     {
         isCraft = true;

@@ -80,7 +80,7 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 77,Gloomy Cloth Scrap,Misc,World,100,1,-,99,-,0,-,,Gloomy Cloth Scrap,0,,0,
 78,Necklace of Silent Screams,Equip,equipment,100,1,-,1,-,0,Necklace,,Necklace of Silent Screams,0,,0,
 79,Torch,Consum,on the light,50,5,cook,20,light +,1.4_60_180,-,,Torch,0,,0,
-80,-,-,-,0,0,-,0,-,0,-,,,0,,0,
+80,Emergency Rations,Consum,eat!,150,5,cook,50,fullness +,300,-,,Emergency Rations,0,,0,
 81,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 82,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 83,-,-,-,0,0,-,0,-,0,-,,,0,,0,

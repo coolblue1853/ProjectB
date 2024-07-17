@@ -188,7 +188,6 @@ public class InventoryManager : MonoBehaviour
         }
         SaveManager.instance.datas.invenItem = saveInven;
         SaveManager.instance.DataSave();
-
     }
     public void LoadInventory()
     {
@@ -198,8 +197,6 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-
-
             for (int i = 0; i < 5; i++)
             {
                 int childCount = inventoryUI[i].transform.childCount;
@@ -632,6 +629,11 @@ public class InventoryManager : MonoBehaviour
             {
                 InventoryManager.instance.state = "";
                 ShopUI.CloseShop();
+            }
+            if (chest != null)
+            {
+                chest.CloseChest();
+                chest = null;
             }
         }
     }
@@ -1482,11 +1484,7 @@ public class InventoryManager : MonoBehaviour
                 SaveInventory();
                 inventory.SetActive(false);
                 CloseCheck();
-                if (chest != null)
-                {
-                    chest.CloseChest();
-                    chest = null;
-                }
+
                 state = "";
             }
             else if (inventory.activeSelf == false && DatabaseManager.isOpenUI == false)
@@ -1509,7 +1507,7 @@ public class InventoryManager : MonoBehaviour
 
     public void ActiveConsum()
     {
-        Debug.Log("¸Ô±â ÀÛµ¿");
+
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         if (gameObject.transform.childCount > 0)
         {
@@ -1517,6 +1515,7 @@ public class InventoryManager : MonoBehaviour
             if (item.type == "Consum")
             {
                 item.ConsumItemActive();
+                DatabaseManager.MinusInventoryDict(item.name,1);
             }
         }
 
@@ -2308,7 +2307,7 @@ public void CreatItem(string itemName, bool isC2I = false)
         {
             chest.itemCheck.nowStack -= 1;
         }
-
+        SaveInventory();
     }
 
 

@@ -112,6 +112,15 @@ public class PlayerController : MonoBehaviour
     bool once = false;
     public GameObject touchLight;
     public GameObject nowTouch;
+    public bool uiDashWait = false;
+    public void DashWait2F()
+    {
+        Sequence waitDash = DOTween.Sequence()
+       .AppendInterval(0.1f)
+       .AppendCallback(() => uiDashWait = false);
+     
+    }
+
     public void TouchLightOn(float attP, float lightMaxT, float lightT)
     {
         if(nowTouch != null)
@@ -153,14 +162,8 @@ public class PlayerController : MonoBehaviour
         {
             isJumpAnim = false;
         }
-
-
-
-
-
         if (Input.GetKeyDown(KeyCode.W))
         {
-         
             mainCharacter.SetMeshImage("Hat", CharBaseSuit2);
             mainCharacter.SetMeshImage("RArm", CharBaseSuit2);
             mainCharacter.SetMeshImage("Rsholder", CharBaseSuit2);
@@ -227,14 +230,12 @@ public class PlayerController : MonoBehaviour
 
 
             // 대쉬
-            if (dashAction.triggered && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false 
+            if (DatabaseManager.isOpenUI == false && uiDashWait == false &&dashAction.triggered && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false 
             {
                 DatabaseManager.weaponStopMove = false;
-                Debug.Log("대쉬작동");
                 rb.gravityScale =3;
                 isUpLadder = false;
                 ChangeLadderLayerOrder();
-
                 Dash();
             }
 

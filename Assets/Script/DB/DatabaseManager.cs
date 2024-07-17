@@ -114,12 +114,16 @@ public class DatabaseManager : MonoBehaviour
 
     public static void MinusInventoryDict(string name, int count)
     {
-        inventoryItemStack[name] -= count;
-        // 만약 값이 0이 되면 해당 키를 제거할 수 있음
-        if (inventoryItemStack[name] == 0)
+        if (inventoryItemStack.ContainsKey(name))
         {
-            inventoryItemStack.Remove(name);
+            inventoryItemStack[name] -= count;
+            // 만약 값이 0이 되면 해당 키를 제거할 수 있음
+            if (inventoryItemStack[name] == 0)
+            {
+                inventoryItemStack.Remove(name);
+            }
         }
+
 
     }
 

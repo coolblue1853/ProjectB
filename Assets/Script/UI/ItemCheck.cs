@@ -43,7 +43,6 @@ public class ItemCheck : MonoBehaviour
     }
     public void SetItem(string itemName)
     {
-
         item = DatabaseManager.instance.LoadItemData(DatabaseManager.instance.FindItemDataIndex(itemName));
         name = item.name;
         type = item.type;
@@ -78,7 +77,6 @@ public class ItemCheck : MonoBehaviour
     public AttackManager att;
     public void ConsumItemActive()
     {
-        Debug.Log("∏‘±‚ ¿€µø2");
         nowStack -= 1;
         string[] effect = effectOb.Split("/");
         string[] effectPower = effectPow.Split("/");

@@ -483,26 +483,6 @@ public class ShopManager : MonoBehaviour
 
 
         // 아래는 UI를 키고 끄는 역할
-        if (ShopUI.activeSelf == false && Input.GetKeyDown(KeyCode.P) && DatabaseManager.isOpenUI == false)
-        {
-            InventoryManager.instance.inventoryUI[0].SetActive(true);
-            InventoryManager.instance.nowBox = 0;
-            InventoryManager.instance.state = "";
-            InventoryManager.instance.boxCusor = 0;
-            InventoryManager.instance.ResetBoxOrigin();
-            InventoryManager.instance.cusor.SetActive(true);
-            ResetShopUi();
-            Invoke("ChangeisMoveCusor", 0.2f);
-            ShopUI.SetActive(true);
-            Inventory.SetActive(true);
-
-          //  needMaterailUI.SetActive(true);
-            DatabaseManager.isOpenUI = true;
-        }
-        else if (ShopUI.activeSelf == true && (backAction.triggered ||Input.GetKeyDown(KeyCode.P))&& InventoryManager.instance.state != "Sell" )
-        {
-
-        }
 
 
         if (name.text == "")
@@ -515,6 +495,26 @@ public class ShopManager : MonoBehaviour
 
 
     }
+    public void OpenShop()
+    {
+        if (ShopUI.activeSelf == false&& DatabaseManager.isOpenUI == false)
+        {
+            InventoryManager.instance.inventoryUI[0].SetActive(true);
+            InventoryManager.instance.nowBox = 0;
+            InventoryManager.instance.state = "";
+            InventoryManager.instance.boxCusor = 0;
+            InventoryManager.instance.ResetBoxOrigin();
+            InventoryManager.instance.cusor.SetActive(true);
+            ResetShopUi();
+            Invoke("ChangeisMoveCusor", 0.2f);
+            ShopUI.SetActive(true);
+            Inventory.SetActive(true);
+
+            //  needMaterailUI.SetActive(true);
+            DatabaseManager.isOpenUI = true;
+        }
+    }
+
     public string state = "";
     public void DetailOff()
     {

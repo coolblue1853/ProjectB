@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 public class Chest : MonoBehaviour
 {
+    public bool deletChest = false;
     public Image cusorImage;
     public GameObject inventoryOb;
     public GameObject chestOb;
@@ -129,6 +130,69 @@ public class Chest : MonoBehaviour
             isChestClose = false;
         }
     }
+
+
+    public void SaveChest()
+    {
+        string[,,] saveChest = new string[5, 30, 4]; // 몇번째인벤, 칸, 이름
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 30; j++)
+            {
+                GameObject box = inventoryUI[i].transform.GetChild(j).gameObject;
+                if (box.transform.childCount > 0 && box.transform.GetChild(0).GetComponent<ItemCheck>() != null)
+                {
+                    ItemCheck item = box.transform.GetChild(0).GetComponent<ItemCheck>();
+                    saveChest[i, j, 0] = item.name;
+                    saveChest[i, j, 1] = item.nowStack.ToString();
+                    saveChest[i, j, 2] = item.tear.ToString();
+                    saveChest[i, j, 3] = item.upgrade.ToString();
+
+                }
+                else
+                {
+                    saveChest[i, j, 0] = "non";
+                }
+            }
+        }
+        SaveManager.instance.datas.chestItem = saveChest;
+        SaveManager.instance.DataSave();
+    }
+    public void LoadChest()
+    {
+        if (SaveManager.instance.datas.chestItem == null)
+        {
+            SaveChest();
+        }
+        else
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                int childCount = inventoryUI[i].transform.childCount;
+                if (childCount != 0)
+                {
+                    for (int j = 0; j < childCount; j++)
+                    {
+                        if (SaveManager.instance.datas.chestItem[i, j, 0] != "non" && SaveManager.instance.datas.chestItem[i, j, 0] != null)
+                        {
+                            GameObject insPositon = GetNthChildGameObject(inventoryUI[i], j);
+                            GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
+                            float scaleFactor = 0.8f; // 크기를 조절할 비율
+                            item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+                            ItemCheck check = item.GetComponent<ItemCheck>();
+                            check.SetItem(SaveManager.instance.datas.chestItem[i, j, 0]);
+                            check.nowStack = int.Parse(SaveManager.instance.datas.chestItem[i, j, 1]);
+                            check.tear = int.Parse(SaveManager.instance.datas.chestItem[i, j, 2]);
+                            check.upgrade = int.Parse(SaveManager.instance.datas.chestItem[i, j, 3]);
+
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
     void BoxChangeByKey()
     {
         if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1))
@@ -266,7 +330,24 @@ public class Chest : MonoBehaviour
         inventoryUI[0].transform.SetAsLastSibling();
         InventoryAlpha inventoryAlpha = inventoryUI[0].GetComponent<InventoryAlpha>();
         inventoryAlpha.A21();
+
+        Invoke("LoadSave", 1f);
     }
+    
+    void LoadSave()
+    {
+
+        if (deletChest == false)
+        {
+            LoadChest();
+        }
+        else
+        {
+            SaveChest();
+        }
+
+    }
+
     private void Update()
     {
 
@@ -871,6 +952,7 @@ public class Chest : MonoBehaviour
 
     public void CloseChest()
     {
+        SaveChest();
         chestOb.SetActive(false);
     }
     public void CreatItem(string itemName)
@@ -879,12 +961,6 @@ public class Chest : MonoBehaviour
 
         if (CheckStack(itemName) == false)
         {
-
-            for (int j = 0; j < 5; j++)
-            {
-             
-            }
-
             for (int i = 0; i < (maxHor * maxVer); i++)
             {
                 if (maxBoxNum > (nowBox * (maxHor * maxVer)) + i)
@@ -1138,6 +1214,11 @@ public class Chest : MonoBehaviour
         else if (state == "divide")
         {
             CloseDivide();
+        }
+        else
+        {
+            state = "";
+            CloseChest();
         }
     }
     public void CloseDivide()

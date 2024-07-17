@@ -11,6 +11,7 @@ public class Datas
     public Vector2 camPos;
     public float time;
     public string[,,] invenItem; // 박스 , 칸 , 아이템 이름.
+    public string[,,] chestItem; // 박스 , 칸 , 아이템 이름.
 }
 
 public class SaveManager : MonoBehaviour
