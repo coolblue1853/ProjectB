@@ -967,7 +967,7 @@ public class Chest : MonoBehaviour
                 {
                     if (inventoryArray[i, nowBox] == 0)
                     {
-                        //inventoryArray[i, j] = 1; // i번째 위치한 인벤토리 창 열기.
+                    //   inventoryArray[i, nowBox] = 1; // i번째 위치한 인벤토리 창 열기.
                         GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], i);
                         GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                         float scaleFactor = 0.8f; // 크기를 조절할 비율

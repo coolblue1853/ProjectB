@@ -158,6 +158,7 @@ public class InventoryManager : MonoBehaviour
     }
     public void SaveInventory()
     {
+        SaveManager.instance.datas.money = DatabaseManager.money;
         string[,,] saveInven = new string[5, maxHor * maxVer, 4]; // 몇번째인벤, 칸, 이름
         for(int i =0; i < 5; i++)
         {
@@ -193,10 +194,12 @@ public class InventoryManager : MonoBehaviour
     {
         if(SaveManager.instance.datas.invenItem == null)
         {
+            SaveManager.instance.datas.money = DatabaseManager.money;
             SaveInventory();
         }
         else
         {
+      DatabaseManager.money = SaveManager.instance.datas.money;
             for (int i = 0; i < 5; i++)
             {
                 int childCount = inventoryUI[i].transform.childCount;
@@ -1281,10 +1284,12 @@ public class InventoryManager : MonoBehaviour
         miscDetail.SetActive(false);
         consumDetail.SetActive(false);
         equipDetail.SetActive(false);
+        skillDetailUi.SetActive(false);
         Sequence seq = DOTween.Sequence()
-.AppendInterval(waitTime)
-.OnComplete(() => state = "");
+        .AppendInterval(waitTime)
+        .OnComplete(() => state = "");
 
+        SaveInventory();
 
 
     }

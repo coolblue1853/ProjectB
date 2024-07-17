@@ -28,7 +28,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
         }
 
     }
-    bool isSetArray = false;
+   public  bool isSetArray = false;
     void ChildCheck()
     {
         if (this.transform.childCount > 0 && isSetArray == false)
@@ -105,7 +105,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
                 if (grandparentTransform != null)
                 {
                     boxCheck = this.transform.parent.GetComponent<InventoryAlpha>();
-                    grandSiblingIndex = boxCheck.siblingIndex;
+                    grandSiblingIndex = int.Parse(parentTransform.name);
                     // 자신이 부모의 부모의 몇 번째 자식인지 확인
                     //     grandSiblingIndex = parentTransform.GetSiblingIndex();
                 }

@@ -398,6 +398,7 @@ public class ShopManager : MonoBehaviour
         cusor.SetActive(true);
         isMoveCusor = true;
         DetailOff();
+        InventoryManager.instance.SaveInventory();
     }
 
     public void CloseBuyUI()

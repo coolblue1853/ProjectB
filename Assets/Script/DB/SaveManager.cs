@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class Datas
 {
+    public int money;
     public int level = 0;
     public Vector2 playerPos;
     public Vector2 camPos;
