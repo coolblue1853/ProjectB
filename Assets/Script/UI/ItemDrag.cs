@@ -21,7 +21,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         itemCheck = this.transform.GetComponent<ItemCheck>();
         dragCanvus = GameObject.FindWithTag("dragCanvas");
-        GetEquipmentBox();
+        //GetEquipmentBox();
     }
     void GetEquipmentBox()
     {

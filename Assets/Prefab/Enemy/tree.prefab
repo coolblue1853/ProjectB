@@ -558,6 +558,8 @@ MonoBehaviour:
     dropProbability: 1
   - itemName: Wood
     dropProbability: 1
+  - itemName: Cap
+    dropProbability: 1
   impulseForce: 5
 --- !u!60 &550321986
 PolygonCollider2D:

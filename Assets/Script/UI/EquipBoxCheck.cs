@@ -34,6 +34,98 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         attackManager.equipWeapon = weapon;
         attackManager.EquipMainWeaopon();
     }
+    public void SaveEquipItem(ItemCheck itemCheck, bool isSave) // 저장할지 삭제할지.
+    {
+        string[] gear = new string[] { itemCheck.name , itemCheck.tear.ToString() , itemCheck.upgrade.ToString() };
+        if (itemCheck.equipArea == "Weapon")
+        {
+            if (isSave == true)
+            {
+                SaveManager.instance.datas.weaponGear = gear;
+            }
+            else
+            {
+                SaveManager.instance.datas.weaponGear = new string[3];
+            }
+        }
+        else if (itemCheck.equipArea == "Head")
+        {
+            if(isSave == true) 
+            {
+                SaveManager.instance.datas.headGear = gear;
+            }
+            else
+            {
+                SaveManager.instance.datas.headGear = new string[3];
+            }
+        }
+        else if (itemCheck.equipArea == "Chest")
+        {
+            if (isSave == true)
+            {
+                SaveManager.instance.datas.bodyGear = gear;
+            }
+            else
+            {
+                SaveManager.instance.datas.bodyGear = new string[3];
+            }
+        }
+        else if (itemCheck.equipArea == "Leg")
+        {
+            if (isSave == true)
+            {
+                SaveManager.instance.datas.legGear = gear;
+            }
+            else
+            {
+                SaveManager.instance.datas.legGear = new string[3];
+            }
+        }
+        else if (itemCheck.equipArea == "Hand")
+        {
+            if (isSave == true)
+            {
+                SaveManager.instance.datas.handGear = gear;
+            }
+            else
+            {
+                SaveManager.instance.datas.handGear = new string[3];
+            }
+        }
+        else if (itemCheck.equipArea == "Necklace")
+        {
+            if (isSave == true)
+            {
+                SaveManager.instance.datas.necklesGear = gear;
+            }
+            else
+            {
+                SaveManager.instance.datas.necklesGear = new string[3];
+            }
+        }
+        else if (itemCheck.equipArea == "Ring")
+        {
+            if (isSave == true)
+            {
+                SaveManager.instance.datas.ringGear = gear;
+            }
+            else
+            {
+                SaveManager.instance.datas.ringGear = new string[3];
+            }
+        } 
+        else if (itemCheck.equipArea == "Shoes")
+        {
+            if (isSave == true)
+            {
+                SaveManager.instance.datas.shoseGear = gear;
+            }
+            else
+            {
+                SaveManager.instance.datas.shoseGear = new string[3];
+            }
+        }
+    }
     public void ActivePrefab(string reciveEquipArea)
     {
         if(equipPrefab == null)
@@ -600,7 +692,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+      //  throw new System.NotImplementedException();
     }
 
     public bool isSetArray =  false;

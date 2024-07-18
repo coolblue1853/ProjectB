@@ -107,7 +107,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
                     boxCheck = this.transform.parent.GetComponent<InventoryAlpha>();
                     grandSiblingIndex = int.Parse(parentTransform.name);
                     // 자신이 부모의 부모의 몇 번째 자식인지 확인
-                    //     grandSiblingIndex = parentTransform.GetSiblingIndex();
+                    // grandSiblingIndex = parentTransform.GetSiblingIndex();
                 }
             }
         }

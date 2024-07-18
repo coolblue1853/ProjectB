@@ -200,6 +200,7 @@ public class InventoryManager : MonoBehaviour
         else
         {
       DatabaseManager.money = SaveManager.instance.datas.money;
+            LoadEquipItem();
             for (int i = 0; i < 5; i++)
             {
                 int childCount = inventoryUI[i].transform.childCount;
@@ -501,6 +502,15 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
+
+             SaveManager.instance.datas.headGear = new string[] { "", "",""};
+            SaveManager.instance.datas.bodyGear = new string[] { "", "", "" };
+            SaveManager.instance.datas.legGear = new string[] { "", "", "" };
+            SaveManager.instance.datas.shoseGear = new string[] { "", "", "" };
+            SaveManager.instance.datas.handGear = new string[] { "", "", "" };
+            SaveManager.instance.datas.weaponGear = new string[] { "", "", "" };
+            SaveManager.instance.datas.necklesGear = new string[] { "", "", "" };
+            SaveManager.instance.datas.ringGear = new string[] { "", "", "" };
             SaveInventory();
 
         }
@@ -1014,8 +1024,13 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    GameObject SetEquipBox()
+    GameObject SetEquipBox(ItemCheck nowItem = null)
     {
+        if(nowItem != null)
+        {
+            detail = nowItem;
+        }
+
         if (detail.equipArea == "Hand")
         {
             return handBox;
@@ -1027,25 +1042,7 @@ public class InventoryManager : MonoBehaviour
         else if (detail.equipArea == "Weapon")
         {
             return weaponBox;
-            /*
-            if (nowEquipBox != null)
-            {
 
-                if (nowEquipBox.name == "Weapon")
-                {
-                    return weaponBox;
-                }
-                else
-                {
-                    Debug.Log("Null");
-                    return null;
-                }
-            }
-            else
-            {
-                return weaponBox;
-            }
-            */
 
         }  // 메인 무장이 없으면 메인 무장 먼저, 있으면 사이드 웨폰에다가 무기를 넣어야함
        
@@ -1077,9 +1074,19 @@ public class InventoryManager : MonoBehaviour
 
     }
     public SkillCooldown skillCooldown;
-    void UnUseEquipment()
+    void UnUseEquipment(ItemCheck nowItem = null)
     {
-        GameObject equipBox = SetEquipBox();
+        GameObject equipBox;
+        if (nowItem != null)
+        {
+            detail = nowItem;
+            equipBox = SetEquipBox(nowItem);
+        }
+        else
+        {
+            equipBox = SetEquipBox();
+        }
+         equipBox = SetEquipBox();
         GameObject nowEquipItem = detail.gameObject;
 
 
@@ -1090,7 +1097,7 @@ public class InventoryManager : MonoBehaviour
             Sequence waitSequence = DOTween.Sequence()
           //  .AppendCallback(() => equipBoxCheck.isSetArray = false)
             .OnComplete(() => equipBoxCheck.DeletPrefab(detail, detail.equipArea, false));
-
+            equipBoxCheck.SaveEquipItem(detail, false);
             //  skillCooldown.DeletLeftSkill();
             CreatItem(detail.name);
             //  DetechItem(detail.equipArea);
@@ -1106,11 +1113,140 @@ public class InventoryManager : MonoBehaviour
         */
     }
     public EquipBoxCheck sideWeaponBoxCheck;
-    void UseEquipment()
-    {
-        AttackManager attackManager = player.GetComponent<AttackManager>();
 
-        GameObject equipBox = SetEquipBox();
+    void LoadEquipItem()
+    {
+
+        if(SaveManager.instance.datas.headGear != null)
+        {
+            if (SaveManager.instance.datas.headGear[0] != "")
+            {
+
+                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
+                ItemCheck head = equip.GetComponent<ItemCheck>();
+                head.SetItem(SaveManager.instance.datas.headGear[0]);
+                head.tear = int.Parse(SaveManager.instance.datas.headGear[1]);
+                head.upgrade = int.Parse(SaveManager.instance.datas.headGear[2]);
+                UseEquipment(head);
+            }
+        }
+
+        if (SaveManager.instance.datas.bodyGear != null)
+        {
+            if (SaveManager.instance.datas.bodyGear[0] != "")
+            {
+
+
+                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
+                ItemCheck body = equip.GetComponent<ItemCheck>();
+                body.SetItem(SaveManager.instance.datas.bodyGear[0]);
+                body.tear = int.Parse(SaveManager.instance.datas.bodyGear[1]);
+                body.upgrade = int.Parse(SaveManager.instance.datas.bodyGear[2]);
+                UseEquipment(body);
+            }
+
+        }
+        if (SaveManager.instance.datas.legGear != null)
+        {
+            if (SaveManager.instance.datas.legGear[0] != "")
+            {
+                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
+                ItemCheck leg = equip.GetComponent<ItemCheck>();
+                leg.SetItem(SaveManager.instance.datas.legGear[0]);
+                leg.tear = int.Parse(SaveManager.instance.datas.legGear[1]);
+                leg.upgrade = int.Parse(SaveManager.instance.datas.legGear[2]);
+                UseEquipment(leg);
+            }
+        }
+        if (SaveManager.instance.datas.shoseGear != null)
+        {
+            if (SaveManager.instance.datas.shoseGear[0] != "")
+            {
+                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
+                ItemCheck shose = equip.GetComponent<ItemCheck>();
+                shose.SetItem(SaveManager.instance.datas.shoseGear[0]);
+                shose.tear = int.Parse(SaveManager.instance.datas.shoseGear[1]);
+                shose.upgrade = int.Parse(SaveManager.instance.datas.shoseGear[2]);
+                UseEquipment(shose);
+            }
+        }
+        if (SaveManager.instance.datas.handGear != null)
+        {
+            if (SaveManager.instance.datas.handGear[0] != "")
+            {
+                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
+                ItemCheck hand = equip.GetComponent<ItemCheck>();
+                hand.SetItem(SaveManager.instance.datas.handGear[0]);
+                hand.tear = int.Parse(SaveManager.instance.datas.handGear[1]);
+                hand.upgrade = int.Parse(SaveManager.instance.datas.handGear[2]);
+                UseEquipment(hand);
+            }
+        }
+        if (SaveManager.instance.datas.weaponGear != null)
+        {
+            if (SaveManager.instance.datas.weaponGear[0] != "")
+            {
+                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
+                ItemCheck weapon = equip.GetComponent<ItemCheck>();
+                weapon.SetItem(SaveManager.instance.datas.weaponGear[0]);
+                weapon.tear = int.Parse(SaveManager.instance.datas.weaponGear[1]);
+                weapon.upgrade = int.Parse(SaveManager.instance.datas.weaponGear[2]);
+                UseEquipment(weapon);
+            }
+        }
+        if (SaveManager.instance.datas.ringGear != null)
+        {
+            if (SaveManager.instance.datas.ringGear[0] != "")
+            {
+                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
+                ItemCheck ring = equip.GetComponent<ItemCheck>();
+                ring.SetItem(SaveManager.instance.datas.ringGear[0]);
+                ring.tear = int.Parse(SaveManager.instance.datas.ringGear[1]);
+                ring.upgrade = int.Parse(SaveManager.instance.datas.ringGear[2]);
+                UseEquipment(ring);
+            }
+        }
+        if (SaveManager.instance.datas.necklesGear != null)
+        {
+            if (SaveManager.instance.datas.necklesGear[0] != "")
+            {
+                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
+                ItemCheck necklace = equip.GetComponent<ItemCheck>();
+                necklace.SetItem(SaveManager.instance.datas.necklesGear[0]);
+                necklace.tear = int.Parse(SaveManager.instance.datas.necklesGear[1]);
+                necklace.upgrade = int.Parse(SaveManager.instance.datas.necklesGear[2]);
+                UseEquipment(necklace);
+            }
+        }
+
+        Invoke("ResetInventory", 0.4f);
+    }
+
+    void ResetInventory()
+    {
+        sequence = DOTween.Sequence()
+        .AppendCallback(() => inventory.SetActive(true))
+         .AppendInterval(waitTime)
+         .AppendCallback(() => inventory.SetActive(false));
+
+        // 여기가 이제 로딩 끝나고 카메라가 밝아지는시점.
+
+    }
+
+    void UseEquipment(ItemCheck nowItem = null)
+    {
+        GameObject equipBox;
+        if (nowItem != null)
+        {
+            detail = nowItem;
+             equipBox = SetEquipBox(nowItem);
+        }
+        else
+        {
+             equipBox = SetEquipBox();
+        }
+    
+        AttackManager attackManager = player.GetComponent<AttackManager>();
         GameObject nowEquipItem = detail.gameObject;
 
         EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
@@ -1123,6 +1259,7 @@ public class InventoryManager : MonoBehaviour
                 //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
+                equipBoxCheck.SaveEquipItem(detail, true);
             }
             else
             {
@@ -1135,6 +1272,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.position = equipBox.transform.position;
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
+                equipBoxCheck.SaveEquipItem(detail, true);
             }
         }
         else
@@ -1146,6 +1284,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 nowEquipItem.transform.position = equipBox.transform.position;
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
+                equipBoxCheck.SaveEquipItem(detail, true);
                 //  equipBoxCheck.EquipMainWeapon();
             }
             else
@@ -1159,6 +1298,7 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.position = equipBox.transform.position;
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
+                equipBoxCheck.SaveEquipItem(detail, true);
             }
 
 
@@ -1444,7 +1584,7 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2))
         {
           //  CreatItem("ScareSide");
-            CreatItem("ScareClow"); CreatItem("ScareSide");
+            CreatItem("Cap"); CreatItem("ScareSide");
             //   CreatItem("ScareClow");
             //   CreatItem("ScareStaff");
             //   CreatItem("SacreGreatSword");
@@ -1464,15 +1604,15 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F4))
 
         {
-
-
+            CreatItem("ScareSide");
+            CreatItem("Four-Leaf Clover Ring"); CreatItem("Rabbit's Foot");
             CreatItem("Cap");
             CreatItem("Armor");
             CreatItem("LegArmor");
             CreatItem("HandArmor");
             CreatItem("Shoes");
 
-            CreatItem("RatCap");
+            //CreatItem("RatCap");
             //   CreatItem("RatArmor");
             //   CreatItem("RatLegArmor");
             //  CreatItem("RatHandArmor");
