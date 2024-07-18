@@ -259,15 +259,22 @@ public class InventoryManager : MonoBehaviour
         bool isCreat = false;
         for (int j = 0; j < 5; j++)
         {
-            for (int i = 0; i < maxHor * maxVer; i++)
+            int count = inventoryUI[j].transform.childCount;
+            for (int i = 0; i < count; i++)
             {
-                if (inventoryArray[i, j] == 0 && j * maxHor * maxVer + i < maxBoxNum)
+                GameObject boxCheck = inventoryUI[j].transform.GetChild(i).gameObject;
+
+                if (boxCheck.transform.childCount == 0)
                 {
                     isCreat = true;
 
                     break;
                 }
 
+            }
+            if (isCreat)
+            {
+                break;
             }
         }
 

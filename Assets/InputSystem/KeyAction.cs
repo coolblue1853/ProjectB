@@ -1009,7 +1009,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""23010175-c503-49b3-ad2d-f3ae0f572706"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
