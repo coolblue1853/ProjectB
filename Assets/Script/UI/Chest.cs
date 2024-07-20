@@ -28,6 +28,8 @@ public class Chest : MonoBehaviour
     public int nowBox;  // 이것으로 배열의 값을 읽어오면 됨. 즉, nowBox가 2일때의 15번재는 30 +15 -> 45번째 칸에 있는 아이템이라는 말이 됨.
     public GameObject inventory;
     public GameObject miscDetail;
+    public GameObject skillDetailUi;
+    public GameObject detailPos;
     int detailX = -100  , detailY = 12;
 
     int equipDetailX = 150;
@@ -506,6 +508,7 @@ public class Chest : MonoBehaviour
         miscDetail.SetActive(false);
         consumDetail.SetActive(false);
         equipDetail.SetActive(false);
+        skillDetailUi.SetActive(false);
     }
     public GameObject consumDetail;
     public GameObject equipDetail;
@@ -947,6 +950,7 @@ public class Chest : MonoBehaviour
         miscDetail.SetActive(false);
         consumDetail.SetActive(false);
         equipDetail.SetActive(false);
+        skillDetailUi.SetActive(false);
     }
 
 
@@ -1104,19 +1108,16 @@ public class Chest : MonoBehaviour
                 misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
                 misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
                 misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-                misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
-                if (ob != null)
-                {
-                    miscDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
-                }
-                else
-                {
-                    miscDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
-                }
+                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+                misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+                miscDetail.transform.position = detailPos.transform.position;
+
+
                 miscDetail.SetActive(true);
-                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+                consumDetail.SetActive(false);
+                equipDetail.SetActive(false);
+                skillDetailUi.SetActive(false);
             }
             if (detail.type == "Consum")
             {
@@ -1125,76 +1126,85 @@ public class Chest : MonoBehaviour
                 consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
                 consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
                 consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-                consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-                string[] effectString = detail.effectOb.Split();
-                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = effectString[0] + " : " + effectString[1] + detail.effectPow;
-                if (ob != null)
-                {
-                    consumDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
-                }
-                else
-                {
-                    consumDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
-                }
+                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+                consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+                InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, detail);
+
+
+                consum.transform.position = detailPos.transform.position;
+                miscDetail.SetActive(false);
                 consumDetail.SetActive(true);
-                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
+                equipDetail.SetActive(false);
+                skillDetailUi.SetActive(false);
             }
             if (detail.type == "Equip")
             {
                 Transform equip = equipDetail.gameObject.transform;
+                string folderPath = detail.equipArea + "/";
+                // 리소스 폴더 내의 equipName을 로드합니다.
+                GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
                 equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
                 equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
                 equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
-                if (ob != null)
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+                InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
+                if (detail.equipArea != "Weapon") // 방어구라면
                 {
-                    equipDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x - detailX, detailY);
+                    Equipment equipment = prefab.GetComponent<Equipment>();
+                    InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
                 }
-                else
+                else // 무기인 경우
                 {
-                    equipDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x - detailX, detailY);
+                    Weapon weapon = prefab.GetComponent<Weapon>();
+                    InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
+                    InventoryManager.instance.CheckSkillDetail(weapon);
                 }
+
+
+                equip.transform.position = detailPos.transform.position;
+                miscDetail.SetActive(false);
+                consumDetail.SetActive(false);
                 equipDetail.SetActive(true);
-                // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
             }
         }
+
         else if (state == "Equipment")
         {
-            // state = "detail";
-
-            if (ob != null)
-            {
-                detail = ob.transform.GetComponent<ItemCheck>();
-            }
-            else
-            {
-               // GameObject gameObject = (nowEquipBox);
-                //Debug.Log(gameObject.transform.GetChild(0));
-                detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
-            }
-
             Transform equip = equipDetail.gameObject.transform;
+            string folderPath = detail.equipArea + "/";
+            // 리소스 폴더 내의 equipName을 로드합니다.
+            GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
             equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = (detail.price).ToString();
-            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = detail.weight.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = detail.acqPath;
-            if (ob != null)
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+            InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
+            if (detail.equipArea != "Weapon") // 방어구라면
             {
-                equipDetail.transform.localPosition = new Vector2(ob.transform.localPosition.x + equipDetailX, detailY);
+                Equipment equipment = prefab.GetComponent<Equipment>();
+                InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
             }
-            else
+            else // 무기인 경우
             {
-                equipDetail.transform.localPosition = new Vector2(cusor.transform.localPosition.x + equipDetailX, detailY);
+                Weapon weapon = prefab.GetComponent<Weapon>();
+                InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
+                InventoryManager.instance.CheckSkillDetail(weapon);
             }
+
+
+            equip.transform.position = detailPos.transform.position;
+            miscDetail.SetActive(false);
+            consumDetail.SetActive(false);
             equipDetail.SetActive(true);
-            // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
 
         }
     }

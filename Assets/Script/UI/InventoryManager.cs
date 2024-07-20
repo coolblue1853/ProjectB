@@ -64,6 +64,15 @@ public class InventoryManager : MonoBehaviour
     public GameObject shoesBox;
     public GameObject weaponBox;
 
+    public ItemCheck hand;
+    public ItemCheck armor;
+    public ItemCheck neckles;
+    public ItemCheck head;
+    public ItemCheck ring;
+    public ItemCheck leg;
+    public ItemCheck shoes;
+    public ItemCheck weapon;
+
     private void OnEnable()
     {
 
@@ -1095,7 +1104,7 @@ public class InventoryManager : MonoBehaviour
         }
          equipBox = SetEquipBox();
         GameObject nowEquipItem = detail.gameObject;
-
+       
 
         EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
 
@@ -1239,20 +1248,73 @@ public class InventoryManager : MonoBehaviour
         // 여기가 이제 로딩 끝나고 카메라가 밝아지는시점.
 
     }
+    public ItemCheck CheckNowEquipment(string equipArea)
+    {
+        switch (equipArea)
+        {
+            case ("Weapon"):
+                return weapon;
+            case ("Head"):
+                return head;
+            case ("Chest"):
+                return armor;
+            case ("Leg"):
+                return leg;
+            case ("Hand"):
+                return hand;
+            case ("Shoes"):
+                return shoes;
+            case ("Necklace"):
+                return neckles;
+            case ("Ring"):
+                return ring;
+        }
+        return null;
+    }
+    public void CheckNowEquipItem(string equipArea)
+    {
+        switch (equipArea)
+        {
+            case ("Weapon"):
+                weapon= detail;
+                break;
+            case ("Head"):
+                 head = detail;
+                break;
+            case ("Chest"):
+                 armor = detail;
+                break;
+            case ("Leg"):
+                 leg = detail;
+                break;
+            case ("Hand"):
+                 hand = detail;
+                break;
+            case ("Shoes"):
+                 shoes = detail;
+                break;
+            case ("Necklace"):
+                 neckles = detail;
+                break;
+            case ("Ring"):
+                 ring = detail;
+                break;
+        }
+    }
 
     void UseEquipment(ItemCheck nowItem = null)
     {
         GameObject equipBox;
         if (nowItem != null)
         {
-            detail = nowItem;
+             detail = nowItem;
              equipBox = SetEquipBox(nowItem);
         }
         else
         {
              equipBox = SetEquipBox();
         }
-    
+        ItemCheck beforeItem = CheckNowEquipment(detail.equipArea);
         AttackManager attackManager = player.GetComponent<AttackManager>();
         GameObject nowEquipItem = detail.gameObject;
 
@@ -1262,6 +1324,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (equipBox.transform.childCount == 0) // 무기가 아니고 방어구라면
             {
+                CheckNowEquipItem(detail.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
@@ -1270,9 +1333,11 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("아이템교체");
+                Debug.Log(beforeItem.name);
                 // 아이템을 해체한는 부분
                 DetechItem(detail.equipArea);
-                equipBoxCheck.DeletPrefab(detail, detail.equipArea);
+                equipBoxCheck.DeletPrefab(beforeItem, beforeItem.equipArea);
 
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -1280,6 +1345,7 @@ public class InventoryManager : MonoBehaviour
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
                 equipBoxCheck.SaveEquipItem(detail, true);
+                CheckNowEquipItem(detail.equipArea);
             }
         }
         else
@@ -1287,7 +1353,7 @@ public class InventoryManager : MonoBehaviour
             skillCooldown.ResetCoolTime();
             if (attackManager.equipWeapon == null)
             {
-
+                CheckNowEquipItem(detail.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 nowEquipItem.transform.position = equipBox.transform.position;
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
@@ -1299,13 +1365,14 @@ public class InventoryManager : MonoBehaviour
 
                 // 아이템을 해체한는 부분
                 DetechItem(detail.equipArea);
-                equipBoxCheck.DeletPrefab(detail, detail.equipArea);
+                equipBoxCheck.DeletPrefab(beforeItem, beforeItem.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
                 equipBoxCheck.SaveEquipItem(detail, true);
+                CheckNowEquipItem(detail.equipArea);
             }
 
 
@@ -1583,15 +1650,15 @@ public class InventoryManager : MonoBehaviour
             //   CreatItem("LeafStaff");
             //  CreatItem("LeafLegArmor"); CreatItem("LeafHandArmor"); CreatItem("LeafShoes"); CreatItem("LeafArmor"); CreatItem("LeafCap");
             //CreatItem("Stinky Rat Meat Stew");
-            CreatItem("Ominous Black Liquid"); CreatItem("Wood"); CreatItem("T0_Ore");
-            CreatItem("Blackened Branch"); CreatItem("Eerie Cloth Scrap");
+            CreatItem("LeafCap"); CreatItem("LeafArmor"); CreatItem("LeafLegArmor");
+            CreatItem("LeafHandArmor"); CreatItem("LeafShoes");
             //
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
           //  CreatItem("ScareSide");
-            CreatItem("Cap"); CreatItem("ScareSide");
+            CreatItem("Wood Spear"); 
             //   CreatItem("ScareClow");
             //   CreatItem("ScareStaff");
             //   CreatItem("SacreGreatSword");

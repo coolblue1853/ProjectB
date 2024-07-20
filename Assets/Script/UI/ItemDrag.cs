@@ -113,7 +113,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             
             if (changeParent.parent.tag == "Inventory")
             {
-                Debug.Log("찾기1");
                 if (InventoryManager.instance.chest != null)
                 {
                     InventoryManager.instance.chest.cusor.SetActive(false);
@@ -123,7 +122,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
                 if(currentParent.GetComponent<EquipBoxCheck>() != null)
                 {
-                    Debug.Log("찾기2");
                     EquipBoxCheck nowEquipBox = currentParent.GetComponent<EquipBoxCheck>();
                     ItemCheck item = this.GetComponent<ItemCheck>();
                     nowEquipBox.DeletPrefab(item,item.equipArea);
@@ -280,15 +278,18 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 }
                 else
                 {
+                    ItemCheck beforeItem = InventoryManager.instance.CheckNowEquipment(itemCheck.equipArea);
                     // 아이템을 해체한는 부분
                     DetechItem(itemCheck.equipArea);
-                    equipBoxCheck.DeletPrefab(itemCheck,itemCheck.equipArea);
+                    equipBoxCheck.DeletPrefab(beforeItem, beforeItem.equipArea);
 
                     transform.SetParent(equipBox);
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
                     equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea, itemCheck.tfName);
                     equipBoxCheck.ActivePrefab(itemCheck.equipArea);
+                    equipBoxCheck.SaveEquipItem(itemCheck, true);
+                    InventoryManager.instance.CheckNowEquipItem(itemCheck.equipArea);
                 }
 
             }
@@ -421,7 +422,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             changeBox = collision.transform;
         }
         if (collision.transform.tag == "EquipBox"&& InventoryManager.instance.ShopGameObject.activeSelf == false)
-        {
+        {/*
             equipBoxCheck = collision.GetComponent<EquipBoxCheck>();
             if (this.itemCheck.equipArea == equipBoxCheck.equipArea)
             {
@@ -431,7 +432,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
                 }
             }
-
+            */
 
         }
     }

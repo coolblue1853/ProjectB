@@ -13,7 +13,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
     InventoryAlpha boxCheck;
     public void OnPointerClick(PointerEventData eventData)
     {
-
+        /*
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (isInventoryBox)
@@ -26,7 +26,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
             }
 
         }
-
+        */
     }
    public  bool isSetArray = false;
     void ChildCheck()

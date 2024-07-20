@@ -76,6 +76,7 @@ public class DatabaseManager : MonoBehaviour
             setsEffectStack.Remove(name);
         }
 
+
     }
 
 
@@ -87,7 +88,7 @@ public class DatabaseManager : MonoBehaviour
     public static void SetEffectDisactvie(string name, int level)
     {
         SetItem setItem = new SetItem();
-     setItem.CheckSetDisEffect(name, level);
+        setItem.CheckSetDisEffect(name, level);
     }
 
 

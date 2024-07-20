@@ -86,7 +86,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179528684802123196}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -121,6 +121,7 @@ MonoBehaviour:
   siblingIndex: 0
   grandSiblingIndex: 0
   arrayCheck: 0
+  isSetArray: 0
 --- !u!114 &-991430142387682463
 MonoBehaviour:
   m_ObjectHideFlags: 0
