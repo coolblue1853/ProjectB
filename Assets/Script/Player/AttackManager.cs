@@ -59,8 +59,16 @@ public class AttackManager : MonoBehaviour
         equipWeapon.CheckSkill();
         equipWeapon.EquipWeqpon(portrait);
     }
+    public GameObject aBackGround;
+    public GameObject bBackGround;
+    public GameObject cBackGround;
+    public GameObject dBackGround;
     public void UnEquipMainWeaopon()
     {
+        aBackGround.SetActive(false);
+        bBackGround.SetActive(false);
+        cBackGround.SetActive(false);
+        dBackGround.SetActive(false);
         SkillCooldown.instance.DeletLeftSkill();
         SkillCooldown.instance.DeletRightSkill();
         if (rightHand.transform.childCount != 0)

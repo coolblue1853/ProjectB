@@ -314,7 +314,7 @@ public class CraftingManager : MonoBehaviour
             }
             else
             {
-                if (detailCount >= 4 || needMaterail.transform.childCount <=3)
+                if (detailCount >= 4 || needMaterail.transform.childCount <=4)
                 {
                     miscDetail.SetActive(false);
                     consumDetail.SetActive(false);

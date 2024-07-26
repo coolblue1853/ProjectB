@@ -380,7 +380,7 @@ public class Chest : MonoBehaviour
                     else if (state == "C2IMove")
                     {
                         state = "";
-                        cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+                        cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
                     }
                 }
                 if (inventory.activeSelf == true)
@@ -930,7 +930,7 @@ public class Chest : MonoBehaviour
                     */
                     state = "boxChange";
                     boxCusor = nowBox;
-                    cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+                    cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
                     GameObject insPositon = inventoryBox[boxCusor];
                     cusor.transform.position = insPositon.transform.position;
 
@@ -943,7 +943,7 @@ public class Chest : MonoBehaviour
     {
         if (state != "chestOpen" && state != "C2IMove")
         {
-            cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+            cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
             state = "";
         }
 
@@ -1047,8 +1047,8 @@ public class Chest : MonoBehaviour
     }
     public void OpenBox(int num)
     {
-        state = "";
-        cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+        state = ""; 
+        cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
         ResetInventoryBox();
         inventoryUI[num].transform.SetAsLastSibling();
         InventoryAlpha inventoryAlpha = inventoryUI[num].GetComponent<InventoryAlpha>();
@@ -1347,7 +1347,7 @@ public class Chest : MonoBehaviour
         cusor.transform.position = ob.transform.position;
         changeCusor.SetActive(false);
         InventoryManager.instance.CloseDivide();
-        cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+        cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
         state = "";
         isChestActive = true;
         cusor.SetActive(true);

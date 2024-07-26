@@ -114,6 +114,11 @@ public class Skill : MonoBehaviour
     private void Awake()
     {
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
+        aSkillBackGround = skillCooldown.transform.GetChild(1).gameObject;
+        bSkillBackGround = skillCooldown.transform.GetChild(2).gameObject;
+        cSkillBackGround = skillCooldown.transform.GetChild(3).gameObject;
+        dSkillBackGround = skillCooldown.transform.GetChild(4).gameObject;
+
         weapon = transform.parent.gameObject.GetComponent<Weapon>();
         damgeArray = weapon.damgeArray;
 
@@ -161,19 +166,47 @@ public class Skill : MonoBehaviour
         }
 
     }
+    public GameObject aSkillBackGround;
+    public GameObject bSkillBackGround;
+    public GameObject cSkillBackGround;
+    public GameObject dSkillBackGround;
+
+
+    public void DisactiveMainSkill(string type)
+    {
+        if (type == "A")
+        {
+            aSkillBackGround.SetActive(false);
+        }
+        else if (type == "B")
+        {
+            bSkillBackGround.SetActive(false);
+        }
+        else if (type == "C")
+        {
+            cSkillBackGround.SetActive(false);
+        }
+        else if (type == "D")
+        {
+            dSkillBackGround.SetActive(false);
+        }
+
+    }
+
 
     public void ActiveMainSkill()
     {
 
         if (isLeft)
         {
+            aSkillBackGround.SetActive(true);
             skillCooldown.cooldownTimeA = SkillCoolTime;
             skillCooldown.cooldownImageA.sprite = skillImage;
             skillCooldown.UseSkillA(skillName);
         }
         else if (isRight)
         {
-
+            bSkillBackGround.SetActive(true);
             skillCooldown.cooldownTimeB = SkillCoolTime;
             skillCooldown.cooldownImageB.sprite = skillImage;
             skillCooldown.UseSkillB(skillName);
@@ -183,17 +216,22 @@ public class Skill : MonoBehaviour
     {
         if (isLeft)
         {
+            cSkillBackGround.SetActive(true);
             skillCooldown.cooldownTimeC = SkillCoolTime;
             skillCooldown.cooldownImageC.sprite = skillImage;
             skillCooldown.UseSkillC(skillName);
         }
         else if (isRight)
         {
+            dSkillBackGround.SetActive(true);
             skillCooldown.cooldownTimeD = SkillCoolTime;
             skillCooldown.cooldownImageD.sprite = skillImage;
             skillCooldown.UseSkillD(skillName);
         }
     }
+
+
+
 
     int allObjectMaxCount;
     private IEnumerator SpawnSkills()

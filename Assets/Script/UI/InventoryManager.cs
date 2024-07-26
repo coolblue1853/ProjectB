@@ -156,7 +156,7 @@ public class InventoryManager : MonoBehaviour
         {
             state = "";
         }
-        cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+        cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
         ResetInventoryBox();
         inventoryUI[num].transform.SetAsLastSibling();
         InventoryAlpha inventoryAlpha = inventoryUI[num].GetComponent<InventoryAlpha>();
@@ -1032,7 +1032,7 @@ public class InventoryManager : MonoBehaviour
     public void CusorChest2Inven()
     {
         cusor.SetActive(true);
-        cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+        cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
         state = "boxChange";
         boxCusor = 0;
         GameObject insPositon = inventoryBox[boxCusor];
@@ -1090,6 +1090,8 @@ public class InventoryManager : MonoBehaviour
 
     }
     public SkillCooldown skillCooldown;
+
+
     void UnUseEquipment(ItemCheck nowItem = null)
     {
         GameObject equipBox;
@@ -1105,6 +1107,7 @@ public class InventoryManager : MonoBehaviour
          equipBox = SetEquipBox();
         GameObject nowEquipItem = detail.gameObject;
        
+ 
 
         EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
 
@@ -1613,7 +1616,7 @@ public class InventoryManager : MonoBehaviour
                 else if (state == "I2CMove")
                 {
                     state = "chestOpen";
-                    cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+                    cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
                 }
             }
         }
@@ -1823,7 +1826,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 if (cusorCount[nowBox] % maxHor == 0)
                 {
-                    cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+                    cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
                     state = "boxChange";
                     boxCusor = 0;
                     GameObject insPositon = inventoryBox[boxCusor];
@@ -2563,7 +2566,7 @@ public void CreatItem(string itemName, bool isC2I = false)
         cusor.SetActive(true);
         if(chest != null)
         {
-            cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+            cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
             chest.changeCusor.SetActive(false);
             chest.cusor.SetActive(false);
             chest.isCusorChest = false;
@@ -2571,7 +2574,7 @@ public void CreatItem(string itemName, bool isC2I = false)
         }
         else
         {
-            cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+            cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
             state = "";
         }
         
@@ -2738,12 +2741,12 @@ public void CreatItem(string itemName, bool isC2I = false)
     {
         if ((state == "chestOpen" || chest != null)&& state != "I2CMove")
         {
-            cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+            cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
             state = "chestOpen";
         }
         else if (state != "chestOpen" && state != "I2CMove")
         {
-            cusorImage.color = new Color(161f / 255f, 22f / 255f, 22f / 255f);
+            cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
             state = "";
         }
 

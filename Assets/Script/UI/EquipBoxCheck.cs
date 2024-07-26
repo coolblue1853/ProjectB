@@ -469,7 +469,8 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
 
     public void LoadPrefab(string equipName, string equipArea, string tfName)
     {
-        DatabaseManager.PlusSetDict(tfName,1);
+        if(tfName != null)
+         DatabaseManager.PlusSetDict(tfName,1);
 
 
         reciveEquipArea = equipArea;

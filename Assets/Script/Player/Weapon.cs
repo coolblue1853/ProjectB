@@ -100,16 +100,21 @@ public class Weapon : MonoBehaviour
 
     }
 
+
     public void CheckSkill()
     {
         if (skill[0] != null)
             skill[0].ActiveMainSkill();
+        else skill[0].DisactiveMainSkill("A");
         if (skill[1] != null)
             skill[1].ActiveMainSkill();
+        else skill[0].DisactiveMainSkill("B");
         if (skill[2] != null)
             skill[2].ActiveSideSkill();
+        else skill[0].DisactiveMainSkill("C");
         if (skill[3] != null)
             skill[3].ActiveSideSkill();
+        else skill[0].DisactiveMainSkill("D");
     }
 
     public void ActiveASkill()
