@@ -53,7 +53,7 @@ MonoBehaviour:
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 3
-  skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
+  skillImage: {fileID: 21300000, guid: d4365cb694b53984b972296ab50bdb45, type: 3}
   skillAnim: RightHandstabbing_OneHand
   isWeaponStopMove: 1
   useStemina: 5
@@ -89,6 +89,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Fierce Thrust
   skillDetail: Thrusts powerfully forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
@@ -148,7 +152,7 @@ MonoBehaviour:
   isRight: 1
   isButtonDownSkill: 1
   SkillCoolTime: 5
-  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillImage: {fileID: 21300000, guid: 83cd634214addb348a4c738449633eef, type: 3}
   skillAnim: ShieldUp
   isWeaponStopMove: 0
   useStemina: 1
@@ -184,6 +188,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Shield Charge
   skillDetail: Charges forward with a shield, dealing damage.
   delayEffectPrefab: {fileID: 0}
@@ -523,7 +531,7 @@ MonoBehaviour:
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 1
-  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillImage: {fileID: 21300000, guid: e1b9bceebee8b4f4ca69703592ba8ee4, type: 3}
   skillAnim: ShieldUp
   isWeaponStopMove: 1
   useStemina: 1
@@ -559,6 +567,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Hold the Line
   skillDetail: Enters a super armor state for up to 1 second, increasing defense
     by 100.

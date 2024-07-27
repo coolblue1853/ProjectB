@@ -106,7 +106,10 @@ public class Skill : MonoBehaviour
     [ConditionalHide("isRoundAttack")]
     public int bulletCount = 30;    // 생성할 탄막 개수
 
-
+    public GameObject aSkillBackGround;
+    public GameObject bSkillBackGround;
+    public GameObject cSkillBackGround;
+    public GameObject dSkillBackGround;
     public string skillName;
     public string skillDetail;
 
@@ -166,10 +169,7 @@ public class Skill : MonoBehaviour
         }
 
     }
-    public GameObject aSkillBackGround;
-    public GameObject bSkillBackGround;
-    public GameObject cSkillBackGround;
-    public GameObject dSkillBackGround;
+
 
 
     public void DisactiveMainSkill(string type)
@@ -202,6 +202,7 @@ public class Skill : MonoBehaviour
             aSkillBackGround.SetActive(true);
             skillCooldown.cooldownTimeA = SkillCoolTime;
             skillCooldown.cooldownImageA.sprite = skillImage;
+            skillCooldown.BackImageA.sprite = skillImage;
             skillCooldown.UseSkillA(skillName);
         }
         else if (isRight)
@@ -209,6 +210,7 @@ public class Skill : MonoBehaviour
             bSkillBackGround.SetActive(true);
             skillCooldown.cooldownTimeB = SkillCoolTime;
             skillCooldown.cooldownImageB.sprite = skillImage;
+            skillCooldown.BackImageB.sprite = skillImage;
             skillCooldown.UseSkillB(skillName);
         }
     }
@@ -219,6 +221,7 @@ public class Skill : MonoBehaviour
             cSkillBackGround.SetActive(true);
             skillCooldown.cooldownTimeC = SkillCoolTime;
             skillCooldown.cooldownImageC.sprite = skillImage;
+            skillCooldown.BackImageC.sprite = skillImage;
             skillCooldown.UseSkillC(skillName);
         }
         else if (isRight)
@@ -226,6 +229,7 @@ public class Skill : MonoBehaviour
             dSkillBackGround.SetActive(true);
             skillCooldown.cooldownTimeD = SkillCoolTime;
             skillCooldown.cooldownImageD.sprite = skillImage;
+            skillCooldown.BackImageD.sprite = skillImage;
             skillCooldown.UseSkillD(skillName);
         }
     }

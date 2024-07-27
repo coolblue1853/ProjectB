@@ -53,7 +53,7 @@ MonoBehaviour:
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 1
-  skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
+  skillImage: {fileID: 21300000, guid: 3cb5b5cf344d14748a555c43adcb4ba1, type: 3}
   skillAnim: Dash
   isWeaponStopMove: 0
   useStemina: 5
@@ -89,6 +89,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Ducking Dash
   skillDetail: Dash forward while evading.
   delayEffectPrefab: {fileID: 0}
@@ -148,7 +152,7 @@ MonoBehaviour:
   isRight: 1
   isButtonDownSkill: 1
   SkillCoolTime: 1
-  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillImage: {fileID: 21300000, guid: 927da2acacf1d8a43be70896733dc33e, type: 3}
   skillAnim: BackDash
   isWeaponStopMove: 0
   useStemina: 1
@@ -184,6 +188,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Sway Back
   skillDetail: Dash backward while evading.
   delayEffectPrefab: {fileID: 0}
@@ -549,7 +557,7 @@ MonoBehaviour:
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 1
-  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillImage: {fileID: 21300000, guid: 8017073b98ba96e4f8f79072995b2ab5, type: 3}
   skillAnim: upperCut
   isWeaponStopMove: 1
   useStemina: 1
@@ -585,6 +593,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Uppercut
   skillDetail: Strike the enemy with an uppercut, dealing damage.
   delayEffectPrefab: {fileID: 0}

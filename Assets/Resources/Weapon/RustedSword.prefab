@@ -53,7 +53,7 @@ MonoBehaviour:
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 4
-  skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
+  skillImage: {fileID: 21300000, guid: 272cd0aad114ae445aa40b469d5b6207, type: 3}
   skillAnim: GroundAttack
   isWeaponStopMove: 1
   useStemina: 5
@@ -89,6 +89,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Smash Down
   skillDetail: Strike the enemy from above, dealing damage.
   delayEffectPrefab: {fileID: 0}
@@ -148,7 +152,7 @@ MonoBehaviour:
   isRight: 1
   isButtonDownSkill: 1
   SkillCoolTime: 3
-  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillImage: {fileID: 21300000, guid: acf324f120b882f40a704f1d8e6787d1, type: 3}
   skillAnim: WideVesh
   isWeaponStopMove: 1
   useStemina: 1
@@ -184,6 +188,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Slash Attck
   skillDetail: Slash the enemy, dealing damage.
   delayEffectPrefab: {fileID: 0}

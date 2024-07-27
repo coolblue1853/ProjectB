@@ -53,7 +53,7 @@ MonoBehaviour:
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
+  skillImage: {fileID: 21300000, guid: f16cd36fd89685f48b375797d15b21ed, type: 3}
   skillAnim: SideAttack
   isWeaponStopMove: 1
   useStemina: 5
@@ -89,6 +89,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Vile Ambush
   skillDetail: Deal significant damage to the enemy and poison them.
   delayEffectPrefab: {fileID: 0}
@@ -148,7 +152,7 @@ MonoBehaviour:
   isRight: 1
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillImage: {fileID: 21300000, guid: 7292ceafe9f653d4a95d063f16a2b755, type: 3}
   skillAnim: SwordDown
   isWeaponStopMove: 1
   useStemina: 1
@@ -186,6 +190,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: This is Our Turf
   skillDetail: Create a toxic mire that poisons enemies within the area.
   delayEffectPrefab: {fileID: 0}

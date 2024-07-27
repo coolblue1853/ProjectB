@@ -3,21 +3,22 @@ using UnityEngine.UI;
 
 public class SkillCooldown : MonoBehaviour
 {
+    public Image BackImageA;
     public Image cooldownImageA; // 쿨타임 이미지
     public float cooldownTimeA = 0f; // 쿨타임 시간 (초)
     public bool isCooldownA = false; // 쿨타임 중인지 여부 확인을 위한 변수
     private float cooldownTimerA = 0f; // 쿨타임 타이머
-
+    public Image BackImageB;
     public Image cooldownImageB; // 쿨타임 이미지
     public float cooldownTimeB = 0f; // 쿨타임 시간 (초)
     public bool isCooldownB = false; // 쿨타임 중인지 여부 확인을 위한 변수
     private float cooldownTimerB = 0f; // 쿨타임 타이머
-
+    public Image BackImageC;
     public Image cooldownImageC; // 쿨타임 이미지
     public float cooldownTimeC = 0f; // 쿨타임 시간 (초)
     public bool isCooldownC = false; // 쿨타임 중인지 여부 확인을 위한 변수
     private float cooldownTimerC = 0f; // 쿨타임 타이머
-
+    public Image BackImageD;
     public Image cooldownImageD; // 쿨타임 이미지
     public float cooldownTimeD = 0f; // 쿨타임 시간 (초)
     public bool isCooldownD = false; // 쿨타임 중인지 여부 확인을 위한 변수
@@ -35,6 +36,10 @@ public class SkillCooldown : MonoBehaviour
         cooldownImageB.sprite = null;
         cooldownImageC.sprite = null;
         cooldownImageD.sprite = null;
+       // BackImageA.sprite = null;
+     //   BackImageB.sprite = null;
+     //   BackImageC.sprite = null;
+      //  BackImageD.sprite = null;
         cooldownTimeA = 0;
         isCooldownA = false;
         cooldownTimerA = 0;
@@ -122,12 +127,16 @@ public class SkillCooldown : MonoBehaviour
     {
         cooldownImageA.sprite = null;
         cooldownImageB.sprite = null;
+      //  BackImageA = null;
+      //  BackImageB = null;
         //  cooldownImageA.fillAmount = 1;
     }
     public void DeletRightSkill()
     {
         cooldownImageC.sprite = null;
         cooldownImageD.sprite = null;
+       // BackImageC = null;
+       // BackImageD = null;
     }
     // 스킬을 사용할 때 호출되는 함수
     public void UseSkillA(string skillName)

@@ -68,7 +68,7 @@ MonoBehaviour:
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
+  skillImage: {fileID: 21300000, guid: c7da0a71e3d4c8b44932df2dd7f693c8, type: 3}
   skillAnim: Dash
   isWeaponStopMove: 1
   useStemina: 5
@@ -104,6 +104,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Night Hunt
   skillDetail: Dash forward while clawing, dealing damage.
   delayEffectPrefab: {fileID: 0}
@@ -168,7 +172,7 @@ MonoBehaviour:
   isRight: 1
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillImage: {fileID: 21300000, guid: 3f34559540016944e8c58da076d4ad3c, type: 3}
   skillAnim: Dash
   isWeaponStopMove: 1
   useStemina: 1
@@ -204,6 +208,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Rising Dread
   skillDetail: Leap upward dramatically, dealing damage.
   delayEffectPrefab: {fileID: 0}
@@ -784,7 +792,7 @@ MonoBehaviour:
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillImage: {fileID: 21300000, guid: 4d45d05cc69d1234ca1b8c8afe6e4766, type: 3}
   skillAnim: 
   isWeaponStopMove: 1
   useStemina: 1
@@ -820,6 +828,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Encroaching Darkness
   skillDetail: Increase attack speed by 30%.
   delayEffectPrefab: {fileID: 0}

@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -1660,19 +1660,19 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-          //  CreatItem("ScareSide");
-            CreatItem("Wood Spear"); 
-            //   CreatItem("ScareClow");
-            //   CreatItem("ScareStaff");
-            //   CreatItem("SacreGreatSword");
-            //  CreatItem("RatCheifDagger");
-            //  CreatItem("DoubleDagger");
-            //  CreatItem("RustedSword");
-            //  CreatItem("RustedSwordandShield");
+            //               CreatItem("LeafAdae");            CreatItem("LeafStaff");
+            CreatItem("ScareSide");
+            //   CreatItem("Wood Spear");
+            //  CreatItem("RustedSword"); CreatItem("RustedSwordandShield");
+            CreatItem("ScareClow");
+               CreatItem("ScareStaff");
+               CreatItem("SacreGreatSword");
+              CreatItem("RatCheifDagger");
+              CreatItem("DoubleDagger");
+            CreatItem("PoisonSword");
             // CreatItem("Leather Knuckles");
             //  CreatItem("Wood Spear");
-            //  CreatItem("LeafStaff");
-            //  CreatItem("LeafAdae");
+
 
 
 

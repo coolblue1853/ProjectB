@@ -55,8 +55,8 @@ MonoBehaviour:
   isLeft: 1
   isRight: 0
   isButtonDownSkill: 1
-  SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: 9bc9fc7f0d0f0b94e985aaf9f21b1eae, type: 3}
+  SkillCoolTime: 2
+  skillImage: {fileID: 21300000, guid: 513683719aec6ba4983c3620febc6a25, type: 3}
   skillAnim: StrongStab
   isWeaponStopMove: 1
   useStemina: 5
@@ -92,6 +92,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Double Strike
   skillDetail: Stab the enemy twice, dealing damage.
   delayEffectPrefab: {fileID: 0}
@@ -152,7 +156,7 @@ MonoBehaviour:
   isRight: 1
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: acdd4f402ead19a449656ae6219d6816, type: 3}
+  skillImage: {fileID: 21300000, guid: cdb9bf10b51a13a4ba8c6213759e44d7, type: 3}
   skillAnim: RightHandstabbing_OneHand
   isWeaponStopMove: 0
   useStemina: 1
@@ -188,6 +192,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Charge Forward!
   skillDetail: Dash forward, dealing damage.
   delayEffectPrefab: {fileID: 0}

@@ -53,7 +53,7 @@ MonoBehaviour:
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
+  skillImage: {fileID: 21300000, guid: 425ddcacd5bea3c40a7245cedfc512a1, type: 3}
   skillAnim: RightHandVashDown_OneHand
   isWeaponStopMove: 1
   useStemina: 5
@@ -89,6 +89,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Sinister Slash
   skillDetail: Cleave the area in front, dealing damage.
   delayEffectPrefab: {fileID: 0}
@@ -148,7 +152,7 @@ MonoBehaviour:
   isRight: 1
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillImage: {fileID: 21300000, guid: c7b1f6305b9ee8a4a9dde9b40d83ac4f, type: 3}
   skillAnim: DeathSideGround
   isWeaponStopMove: 1
   useStemina: 1
@@ -184,6 +188,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Nightmare Eruption
   skillDetail: Create a burst of darkness that erupts from the ground, dealing damage.
   delayEffectPrefab: {fileID: 0}
@@ -243,7 +251,7 @@ MonoBehaviour:
   isRight: 1
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: 898c9b8538354db40860bd8056ab51d1, type: 3}
+  skillImage: {fileID: 21300000, guid: e63015cb0c267ee46a8e86c618ed8010, type: 3}
   skillAnim: GreatSideAttack
   isWeaponStopMove: 1
   useStemina: 1
@@ -279,6 +287,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Dark Harvest
   skillDetail: Dash forward, delivering a powerful slash that deals damage.
   delayEffectPrefab: {fileID: 0}
@@ -738,7 +750,7 @@ MonoBehaviour:
   isRight: 0
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
-  skillImage: {fileID: 21300000, guid: 114753ca6a402d944a52b6e1e0fee9c9, type: 3}
+  skillImage: {fileID: 21300000, guid: 367ebdd1f9d1ff245b0105f8bb419767, type: 3}
   skillAnim: Spining
   isWeaponStopMove: 0
   useStemina: 5
@@ -774,6 +786,10 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
+  aSkillBackGround: {fileID: 0}
+  bSkillBackGround: {fileID: 0}
+  cSkillBackGround: {fileID: 0}
+  dSkillBackGround: {fileID: 0}
   skillName: Whirling Malice
   skillDetail: Spin a scythe, pulling in enemies and dealing damage.
   delayEffectPrefab: {fileID: 0}
