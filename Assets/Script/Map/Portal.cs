@@ -8,9 +8,7 @@ public class Portal : MonoBehaviour
     InputAction upAction;
     public Transform destination; // 포탈의 목적지
     public GameObject CloseMap;
-    public GameObject CloseParrlex;
     public GameObject OpenMap;
-    public GameObject OpenParrlex;
     public ProCamera2D proCamera;
     bool isMapChange = true;
     public GameObject player;
@@ -102,8 +100,6 @@ public class Portal : MonoBehaviour
     {
         SaveManager.instance.SavePos();
         DatabaseManager.isUsePortal = false;
-        OpenParrlex.SetActive(true);
-        CloseParrlex.SetActive(false);
     }
 
 }

@@ -11,11 +11,11 @@ public class ParrelaxBacground : MonoBehaviour
     private float textureUnitSizeY;
     public bool isInfiniteHor;
     public bool isInfiniteVer;
-
+    public GameObject originPoint;
     private void Start()
     {
         cameraTransform = Camera.main.transform;
-        lastCameraPosition = cameraTransform.position;
+        lastCameraPosition = originPoint.transform.position;
         Sprite sprite = GetComponent<SpriteRenderer>().sprite;
         Texture2D texture = sprite.texture;
 
