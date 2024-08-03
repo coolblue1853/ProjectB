@@ -68,11 +68,11 @@ public class EnemyChase : EnemyAction
     {
         if (direction > 0)
         {
-            enemyObject.transform.localScale = new Vector3(chInRommSize, enemyObject.transform.localScale.y, 1);
+            enemyObject.transform.localScale = new Vector3(tfLocalScale, enemyObject.transform.localScale.y, 1);
         }
         else if (direction < 0)
         {
-            enemyObject.transform.localScale = new Vector3(-chInRommSize, enemyObject.transform.localScale.y, 1);
+            enemyObject.transform.localScale = new Vector3(-tfLocalScale, enemyObject.transform.localScale.y, 1);
         }
     }
     private void OnSequenceComplete()

@@ -89,10 +89,29 @@ public class DamageObject : MonoBehaviour
     public float absorbPower = 0;
     [ConditionalHide("isAbsorberSkill")]
     public Vector2 absorbDir;
+    public bool isPosionAttack;
+    [ConditionalHide("isPosionAttack")]
+    public int poisonDamage;
+    [ConditionalHide("isPosionAttack")]
+    public float damageInterval;
+    [ConditionalHide("isPosionAttack")]
+    public int damageCount;
+
+    public bool isBleedingAttack;
+    [ConditionalHide("isBleedingAttack")]
+    public int bleedingDamage;
+    [ConditionalHide("isBleedingAttack")]
+    public float bleedingDamageInterval;
+    [ConditionalHide("isBleedingAttack")]
+    public int bleedingDamageCount;
+    public LayerMask layerMask; // 검출할 레이어
+    public string enemyTag = "Enemy"; // 플레이어 태그
 
     public bool isShortTime = false; // 단축된 시간으로 오브젝트 이펙트가 사라질 것인지 아닌지./
     public bool disEffectbyTime = false; // 아예 영향을 받지 않을것인지
     
+
+
     private void Update()
     {
 
@@ -353,7 +372,6 @@ public class DamageObject : MonoBehaviour
 
             Sequence seq = DOTween.Sequence()
            .AppendInterval(resetTime)
-                       // .AppendCallback(() => damagedEnemies.Clear())
              .AppendCallback(() => ResetDict())
             .AppendCallback(() => CollOnOff(false))
             .AppendInterval(0.01f)
@@ -497,23 +515,7 @@ public class DamageObject : MonoBehaviour
         //this.gameObject.SetActive(true);
     }
 
-    public bool isPosionAttack;
-    [ConditionalHide("isPosionAttack")]
-    public int poisonDamage;
-    [ConditionalHide("isPosionAttack")]
-    public float damageInterval;
-    [ConditionalHide("isPosionAttack")]
-    public int damageCount;
 
-    public bool isBleedingAttack;
-    [ConditionalHide("isBleedingAttack")]
-    public int bleedingDamage;
-    [ConditionalHide("isBleedingAttack")]
-    public float bleedingDamageInterval;
-    [ConditionalHide("isBleedingAttack")]
-    public int bleedingDamageCount;
-    public LayerMask layerMask; // 검출할 레이어
-    public string enemyTag = "Enemy"; // 플레이어 태그
 
     public GameObject CheckEnemy()
     {

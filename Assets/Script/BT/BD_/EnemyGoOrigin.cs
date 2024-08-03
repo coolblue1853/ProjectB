@@ -33,8 +33,6 @@ public class EnemyGoOrigin : EnemyAction
             isArriveOrigin = false;
             StartGoOrigin();
         }
-
-
     }
     public void StartGoOrigin()
     {
@@ -52,11 +50,11 @@ public class EnemyGoOrigin : EnemyAction
 
             if (originX - currentPositionX > 0)
             {
-                enemyObject.transform.localScale = new Vector3(chInRommSize, enemyObject.transform.localScale.y, 1);
+                enemyObject.transform.localScale = new Vector3(tfLocalScale, enemyObject.transform.localScale.y, 1);
             }
             else if (originX - currentPositionX < 0)
             {
-                enemyObject.transform.localScale = new Vector3(-chInRommSize, enemyObject.transform.localScale.y, 1);
+                enemyObject.transform.localScale = new Vector3(-tfLocalScale, enemyObject.transform.localScale.y, 1);
             }
 
             bt.sequence = DOTween.Sequence()

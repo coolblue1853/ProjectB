@@ -49,11 +49,11 @@ public class EnemyGoRevers : EnemyAction
 
         if (movePoint > 0)
         {
-            enemyObject.transform.localScale = new Vector3(chInRommSize, enemyObject.transform.localScale.y, 1);
+            enemyObject.transform.localScale = new Vector3(tfLocalScale, enemyObject.transform.localScale.y, 1);
         }
         else if (movePoint < 0)
         {
-            enemyObject.transform.localScale = new Vector3(-chInRommSize, enemyObject.transform.localScale.y, 1);
+            enemyObject.transform.localScale = new Vector3(-tfLocalScale, enemyObject.transform.localScale.y, 1);
         }
 
         if (isGroundCheck == true)

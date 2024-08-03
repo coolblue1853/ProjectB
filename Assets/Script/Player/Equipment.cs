@@ -36,7 +36,6 @@ public class Equipment : MonoBehaviour
     {
         public string skillName;
         public int coolDownCount;
-    
     }
 
     [SerializeField]

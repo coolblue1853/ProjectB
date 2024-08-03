@@ -15,14 +15,14 @@ public class EnemyAction : Action
     public GameObject enemyObject;
     public static DG.Tweening.Sequence sequence;
     public bool isEnd;
-    public float chInRommSize = 0;
+    public float tfLocalScale = 0;
 
     public override void OnAwake()
     {
         behaviorTree = GetComponent<BehaviorTree>();
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         enemyObject = this.gameObject;
-        chInRommSize = enemyObject.transform.localScale.x;
+        tfLocalScale = enemyObject.transform.localScale.x;
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         originPosition = new Vector2(this.transform.position.x, this.transform.position.y);

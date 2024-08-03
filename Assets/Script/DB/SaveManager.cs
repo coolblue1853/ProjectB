@@ -13,14 +13,7 @@ public class Datas
     public float time;
     public string[,,] invenItem;
     public string[,,] chestItem;
-    public string[] headGear = new string[3];
-    public string[] bodyGear = new string[3];
-    public string[] legGear = new string[3];
-    public string[] shoseGear = new string[3];
-    public string[] handGear = new string[3];
-    public string[] weaponGear = new string[3];
-    public string[] necklesGear = new string[3];
-    public string[] ringGear = new string[3];
+    public string[,] equipGear = new string[10, 3]; // 장비아이템, [이름,티어,강화]
 }
 
 public class SaveManager : MonoBehaviour

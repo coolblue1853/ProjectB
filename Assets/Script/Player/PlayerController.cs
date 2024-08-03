@@ -162,24 +162,7 @@ public class PlayerController : MonoBehaviour
         {
             isJumpAnim = false;
         }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            mainCharacter.SetMeshImage("Hat", CharBaseSuit2);
-            mainCharacter.SetMeshImage("RArm", CharBaseSuit2);
-            mainCharacter.SetMeshImage("Rsholder", CharBaseSuit2);
-            mainCharacter.SetMeshImage("RHand", CharBaseSuit2);
-            mainCharacter.SetMeshImage("LArm", CharBaseSuit2);
-            mainCharacter.SetMeshImage("LSholder", CharBaseSuit2);
-            mainCharacter.SetMeshImage("LHand", CharBaseSuit2);
-            mainCharacter.SetMeshImage("RDownLeg", CharBaseSuit2);
-            mainCharacter.SetMeshImage("RUpperLeg", CharBaseSuit2);
-            mainCharacter.SetMeshImage("RFoot", CharBaseSuit2);
-            mainCharacter.SetMeshImage("LDownLeg", CharBaseSuit2);
-            mainCharacter.SetMeshImage("LUpperLeg", CharBaseSuit2);
-            mainCharacter.SetMeshImage("LFoot", CharBaseSuit2);
-            mainCharacter.SetMeshImage("UppderBody", CharBaseSuit2);
-            mainCharacter.SetMeshImage("DwonBody", CharBaseSuit2);
-        }
+
             if (DatabaseManager.isOpenUI == false && isAttacked == false && isAttackedUp == true)
         {
             isAttackedUp = false;
@@ -311,20 +294,7 @@ public class PlayerController : MonoBehaviour
               //  DisableCollision();
             }
         }
-        /*
-        else if (isLadder == false && ladderJumpCheck ==true)
-        {
-            if (currentOneWayPlatform != null)
-            {
-                ladderJumpCheck = false;
-                bool isCollisionIgnored = Physics2D.GetIgnoreCollision(playerCollider, platformCollider);
-                if (isCollisionIgnored)
-                {
-                   // AbleCollision();
-                }
-            }
-        }
-        */
+
 
         }
     bool ladderJumpCheck = false;

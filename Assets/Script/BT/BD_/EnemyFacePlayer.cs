@@ -16,28 +16,21 @@ public class EnemyFacePlayer : EnemyAction
     {
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
-    public void StartPatrol()
-    {
-        FaceChange();
-
-    }
-
     void FaceChange()
     {
         direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
         Debug.Log(direction);
         if (direction > 0)
         {
-            enemyObject.transform.localScale = new Vector3(chInRommSize, enemyObject.transform.localScale.y, 1);
+            enemyObject.transform.localScale = new Vector3(tfLocalScale, enemyObject.transform.localScale.y, 1);
         }
         else if (direction < 0)
         {
-            enemyObject.transform.localScale = new Vector3(-chInRommSize, enemyObject.transform.localScale.y, 1);
+            enemyObject.transform.localScale = new Vector3(-tfLocalScale, enemyObject.transform.localScale.y, 1);
         }
 
         OnSequenceComplete();
     }
-
 
     private void OnSequenceComplete()
     {

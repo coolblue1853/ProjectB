@@ -55,27 +55,18 @@ public class InventoryManager : MonoBehaviour
     public int maxHor = 5;
     public int maxVer = 5;
 
-    public GameObject handBox;
-    public GameObject chestBox;
-    public GameObject necklesBox;
-    public GameObject headBox;
-    public GameObject ringBox;
-    public GameObject legBox;
-    public GameObject shoesBox;
-    public GameObject weaponBox;
+    public GameObject[] equipBox; // 1: 반지, 2: 모자, 3: 목걸이, 5: 갑옷, 6: 장갑, 7: 무기, 8:바지, 9:신발
+    public ItemCheck[] equipItemCheck = new ItemCheck[10];
 
-    public ItemCheck hand;
-    public ItemCheck armor;
-    public ItemCheck neckles;
-    public ItemCheck head;
-    public ItemCheck ring;
-    public ItemCheck leg;
-    public ItemCheck shoes;
-    public ItemCheck weapon;
+    // 나중에 퍼블릭 해체;
+    public GameObject beforBox;
+    public GameObject afterBox;
+    int beforeCusorInt;
+
+    int equipCusor; // 장비창 커서 번호
 
     private void OnEnable()
     {
-
         openInventoryAction.Enable();
         leftInventoryAction.Enable();
         rightInventoryAction.Enable();
@@ -92,7 +83,6 @@ public class InventoryManager : MonoBehaviour
     }
     private void OnDisable()
     {
-
         openInventoryAction.Disable();
         leftInventoryAction.Disable();
         rightInventoryAction.Disable();
@@ -144,7 +134,6 @@ public class InventoryManager : MonoBehaviour
             InventoryAlpha inventoryAlpha = inventoryUI[i].GetComponent<InventoryAlpha>();
             inventoryAlpha.A20();
         }
-
     }
     public void OpenBox(int num)
     {
@@ -185,16 +174,13 @@ public class InventoryManager : MonoBehaviour
                         saveInven[i, j, 1] = item.nowStack.ToString();
                         saveInven[i, j, 2] = item.tear.ToString();
                         saveInven[i, j, 3] = item.upgrade.ToString();
-
                     }
                     else
                     {
                         saveInven[i, j, 0] = "non";
                     }
-
                 }
             }
-
         }
         SaveManager.instance.datas.invenItem = saveInven;
         SaveManager.instance.DataSave();
@@ -231,12 +217,9 @@ public class InventoryManager : MonoBehaviour
 
                             DatabaseManager.PlusInventoryDict(SaveManager.instance.datas.invenItem[i, j, 0], check.nowStack);
                         }
-                    
                     }
                 }
-
             }
-              
         }
     }
 
@@ -248,10 +231,8 @@ public class InventoryManager : MonoBehaviour
             if (inventoryArray[i, num] == 0 && num * maxHor * maxVer + i < maxBoxNum)
             {
                 isCreat = true;
-
                 break;
             }
-
         }
         if (isCreat == true)
         {
@@ -276,17 +257,14 @@ public class InventoryManager : MonoBehaviour
                 if (boxCheck.transform.childCount == 0)
                 {
                     isCreat = true;
-
                     break;
                 }
-
             }
             if (isCreat)
             {
                 break;
             }
         }
-
         if (isCreat == true)
         {
             return true;
@@ -295,7 +273,6 @@ public class InventoryManager : MonoBehaviour
         {
             return false;
         }
-
     }
     private void Start()
     {
@@ -303,14 +280,7 @@ public class InventoryManager : MonoBehaviour
         MakeInventoryBox();
         inventoryArray = new int[maxBoxNum, 5];
         Invoke("ActiveFalse", 0.000000001f); // 인벤토리 리로드, 이 과정이 없으면 GridLayoutGroup이 정상작동하지 않음.
-
-
     }
-
-    // 나중에 퍼블릭 해체;
-    public GameObject beforBox;
-    public GameObject afterBox;
-    int beforeCusorInt;
 
     void BoxChange(int num)
     {
@@ -321,8 +291,6 @@ public class InventoryManager : MonoBehaviour
 
         InventoryAlpha boxCheck = inventoryUI[num].GetComponent<InventoryAlpha>();
         int siblingParentIndex = boxCheck.siblingIndex;
-
-
         if (nowBox != siblingParentIndex)
         {
             if (CheckBoxCanCreat(siblingParentIndex))
@@ -340,30 +308,22 @@ public class InventoryManager : MonoBehaviour
     public ItemCheck itemCheck;
     void I2CMove()
     {
-
         GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
         if (itemBox.transform.childCount > 0)
         {
             GameObject item = itemBox.transform.GetChild(0).gameObject;
             itemCheck = item.transform.GetComponent<ItemCheck>();
-            //int siblingParentIndex = inventoryUI[num].transform.GetSiblingIndex();
 
             int count = itemCheck.nowStack;
-
             for (int i = 0; i < count; i++)
             {
                 chest.CreatItem(itemCheck.name);
                 DatabaseManager.MinusInventoryDict(itemCheck.name, 1);
-
             }
-
             if (itemCheck.nowStack <= 0)
             {
                 Destroy(item.gameObject);
-
             }
-
-
         }
     }
 
@@ -384,9 +344,7 @@ public class InventoryManager : MonoBehaviour
                 divideSlider.itemCheck = nowDivideItem;
                 divideSlider.ResetData();
             }
-
         }
-
     }
     public void CloseDivide()
     {
@@ -403,7 +361,6 @@ public class InventoryManager : MonoBehaviour
     }
     public void DownNowStack(int output)
     {
-
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
         item.nowStack -= output;
@@ -413,8 +370,6 @@ public class InventoryManager : MonoBehaviour
 
     void ActiveChangeCursor()
     {
-
-
         if (state == "" || state == "detail" || state == "chestOpen")
         {
             beforBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
@@ -427,8 +382,6 @@ public class InventoryManager : MonoBehaviour
                 OnlyDetailObOff();
                 state = "change";
             }
-
-
         }
         else if (state == "change")
         {
@@ -462,16 +415,11 @@ public class InventoryManager : MonoBehaviour
                 }
                 else
                 {
-
                     changeItem = afterBox.transform.GetChild(0).gameObject;
                     changeItem.transform.SetParent(beforBox.transform);
                     changeItem.transform.position = beforBox.transform.position;
                 }
             }
-            else
-            {
-            }
-
             if (isSame == false)
             {
                 if (beforBox.transform.childCount > 0)
@@ -480,7 +428,6 @@ public class InventoryManager : MonoBehaviour
                     beforitem.transform.SetParent(afterBox.transform);
                     beforitem.transform.position = afterBox.transform.position;
                 }
-
             }
             GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
             cusor.transform.position = insPositon.transform.position;
@@ -493,8 +440,6 @@ public class InventoryManager : MonoBehaviour
             {
                 state = "";
             }
-
-
         }
     }
 
@@ -519,23 +464,19 @@ public class InventoryManager : MonoBehaviour
         else
         {
 
-             SaveManager.instance.datas.headGear = new string[] { "", "",""};
-            SaveManager.instance.datas.bodyGear = new string[] { "", "", "" };
-            SaveManager.instance.datas.legGear = new string[] { "", "", "" };
-            SaveManager.instance.datas.shoseGear = new string[] { "", "", "" };
-            SaveManager.instance.datas.handGear = new string[] { "", "", "" };
-            SaveManager.instance.datas.weaponGear = new string[] { "", "", "" };
-            SaveManager.instance.datas.necklesGear = new string[] { "", "", "" };
-            SaveManager.instance.datas.ringGear = new string[] { "", "", "" };
+            for(int i =1; i < equipItemCheck.Length; i++)
+            {
+                for(int j =0; j < 3; j++)
+                {
+                    SaveManager.instance.datas.equipGear[i, j] = "";
+                }
+            }
             SaveInventory();
-
         }
-
     }
 
     void MakeInventoryBox()
     {
-
         for (int i = 0; i < maxBoxNum; i++)
         {
             if (i < (maxHor * maxVer))
@@ -583,7 +524,6 @@ public class InventoryManager : MonoBehaviour
     }
     void CloseCheck()
     {
-
         if (state == "Sell")
         {
             state = "detail";
@@ -605,9 +545,7 @@ public class InventoryManager : MonoBehaviour
             ShopUI.cusor.SetActive(true);
             ShopUI.isMoveCusor = true;
             ShopUI.DetailOff();
-
         }
-
         else if (state == "detail")
         {
             if (chest == null)
@@ -620,7 +558,6 @@ public class InventoryManager : MonoBehaviour
                 state = "chestOpen";
                 DetailOff();
             }
-
         }
         else if (state == "Equipment")
         {
@@ -653,7 +590,6 @@ public class InventoryManager : MonoBehaviour
             SaveInventory();
             inventory.SetActive(false);
             DatabaseManager.isOpenUI = false;
-
             if (ShopGameObject.activeSelf == true)
             {
                 InventoryManager.instance.state = "";
@@ -670,7 +606,6 @@ public class InventoryManager : MonoBehaviour
     {
         checkRepeat = true;
         sequence.Kill();
-
         sequence = DOTween.Sequence()
         .AppendInterval(waitTime)
         .OnComplete(() => ResetCheckRepeat());
@@ -698,314 +633,124 @@ public class InventoryManager : MonoBehaviour
         {
             OpenBox(4);
         }
-
-
     }
 
+    void MoveCusor2Inventory() // 장비창 => 인벤토리로 커서를 옮기는 함수
+    {
+        OnlyDetailObOff();
+        nowEquipBox = null;
+        state = "boxChange";
+        boxCusor = 0;
+        GameObject insPositon = inventoryBox[boxCusor];
+        cusor.transform.position = insPositon.transform.position;
+    }
+    void ChangeEquipCusor(int cusorNum)
+    {
+        OnlyDetailObOff();
+        nowEquipBox = equipBox[cusorNum];
+        cusor.transform.position = nowEquipBox.transform.position;
+    }
     void EquipmentCusorManage()
     {
-        if (nowEquipBox == handBox)
+        if(leftInventoryAction.triggered && (equipCusor != 5 && equipCusor %3 != 1))
         {
-            if (leftInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = chestBox.gameObject;
-                nowEquipBox = chestBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (downInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = shoesBox.gameObject;
-                nowEquipBox = shoesBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (upInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = necklesBox.gameObject;
-                nowEquipBox = necklesBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (rightInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                nowEquipBox = null;
-                state = "boxChange";
-                boxCusor = 0;
-                GameObject insPositon = inventoryBox[boxCusor];
-                cusor.transform.position = insPositon.transform.position;
-            }
+            equipCusor -= 1;
+            ChangeEquipCusor(equipCusor);
         }
-        else if (nowEquipBox == necklesBox)
+        else if(rightInventoryAction.triggered)
         {
-            if (leftInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = headBox.gameObject;
-                nowEquipBox = headBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (downInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = handBox.gameObject;
-                nowEquipBox = handBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (rightInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                nowEquipBox = null;
-                state = "boxChange";
-                boxCusor = 0;
-                GameObject insPositon = inventoryBox[boxCusor];
-                cusor.transform.position = insPositon.transform.position;
-            }
+            if (equipCusor % 3 != 0) equipCusor += 1;
+            else MoveCusor2Inventory();
+            ChangeEquipCusor(equipCusor);
         }
-        else if (nowEquipBox == shoesBox)
+        else if (upInventoryAction.triggered)
         {
-            if (leftInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = legBox.gameObject;
-                nowEquipBox = legBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (upInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = handBox.gameObject;
-                nowEquipBox = handBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (rightInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                nowEquipBox = null;
-                state = "boxChange";
-                boxCusor = 0;
-                GameObject insPositon = inventoryBox[boxCusor];
-                cusor.transform.position = insPositon.transform.position;
-            }
+            if (equipCusor == 7) equipCusor = 5;
+            else if (equipCusor > 3) equipCusor -= 3;
+            ChangeEquipCusor(equipCusor);
         }
-        else if (nowEquipBox == chestBox)
+        else if (downInventoryAction.triggered)
         {
-
-            if (downInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = legBox.gameObject;
-                nowEquipBox = legBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (upInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = headBox.gameObject;
-                nowEquipBox = headBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (rightInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = handBox.gameObject;
-                nowEquipBox = handBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-        }
-        else if (nowEquipBox == legBox)
-        {
-            if (leftInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = weaponBox.gameObject;
-                nowEquipBox = weaponBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (upInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = chestBox.gameObject;
-                nowEquipBox = chestBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (rightInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = shoesBox.gameObject;
-                nowEquipBox = shoesBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-        }
-        else if (nowEquipBox == headBox)
-        {
-            if (leftInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = ringBox.gameObject;
-                nowEquipBox = ringBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (downInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = chestBox.gameObject;
-                nowEquipBox = chestBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (rightInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = necklesBox.gameObject;
-                nowEquipBox = necklesBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-        }
-        else if (nowEquipBox == ringBox)
-        {
-            if (rightInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = headBox.gameObject;
-                nowEquipBox = headBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-
-        }
-        else if (nowEquipBox == weaponBox)
-        {
-            if (rightInventoryAction.triggered)
-            {
-                OnlyDetailObOff();
-                GameObject insPositon = legBox.gameObject;
-                nowEquipBox = legBox;
-                cusor.transform.position = insPositon.transform.position;
-            }
-
+            if (equipCusor == 1) equipCusor = 5;
+            else if (equipCusor < 7) equipCusor += 3;
+            ChangeEquipCusor(equipCusor);
         }
     }
     public GameObject nowEquipBox;
     public GameObject ShopGameObject;
     public ShopManager ShopUI;
+
+    void CusorContinuousInputCheck()
+    {
+        checkRepeat = true;
+        sequence.Kill();
+
+        sequence = DOTween.Sequence()
+        .AppendInterval(waitTime)
+        .OnComplete(() => ResetCheckRepeat());
+    }
     void BoxChangeByKey()
     {
         if ((upInventoryAction.triggered) || (checkRepeat == false && verticalInput == 1))
         {
-            checkRepeat = true;
-            sequence.Kill();
-
-            sequence = DOTween.Sequence()
-            .AppendInterval(waitTime)
-            .OnComplete(() => ResetCheckRepeat());
-
-            if (0 < boxCusor)
-            {
-                boxCusor -= 1;
-            }
-            else
-            {
-                boxCusor = maxBoxCusor - 1;
-            }
+            CusorContinuousInputCheck();
+            if (0 < boxCusor) boxCusor -= 1;
+            else boxCusor = maxBoxCusor - 1;
             GameObject insPositon = inventoryBox[boxCusor];
-            if (state == "boxChange")
-            {
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (state == "itemBoxChange")
-            {
-                changeCusor.transform.position = insPositon.transform.position;
-            }
+
+            if (state == "boxChange") cusor.transform.position = insPositon.transform.position;
+            else if (state == "itemBoxChange") changeCusor.transform.position = insPositon.transform.position;
         }
         if ((downInventoryAction.triggered) || (checkRepeat == false && verticalInput == -1))
         {
-            checkRepeat = true;
-            sequence.Kill();
+            CusorContinuousInputCheck();
 
-            sequence = DOTween.Sequence()
-            .AppendInterval(waitTime)
-            .OnComplete(() => ResetCheckRepeat());
-
-            if (maxBoxCusor - 1 > boxCusor)
-            {
-                boxCusor += 1;
-            }
-            else
-            {
-                boxCusor = 0;
-            }
+            if (maxBoxCusor - 1 > boxCusor) boxCusor += 1;
+            else boxCusor = 0;
             GameObject insPositon = inventoryBox[boxCusor];
-            if (state == "boxChange")
-            {
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (state == "itemBoxChange")
-            {
-                changeCusor.transform.position = insPositon.transform.position;
-            }
+
+            if (state == "boxChange") cusor.transform.position = insPositon.transform.position;
+            else if (state == "itemBoxChange") changeCusor.transform.position = insPositon.transform.position;
         }
         if (rightInventoryAction.triggered && checkRepeat == false)
         {
-            checkRepeat = true;
-            sequence.Kill();
-
-            sequence = DOTween.Sequence()
-            .AppendInterval(waitTime)
-            .OnComplete(() => ResetCheckRepeat());
+            CusorContinuousInputCheck();
             GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-            if (state == "boxChange")
-            {
 
-                cusor.transform.position = insPositon.transform.position;
-            }
-            else if (state == "itemBoxChange")
-            {
-                changeCusor.transform.position = insPositon.transform.position;
-            }
+            if (state == "boxChange") cusor.transform.position = insPositon.transform.position;
+            else if (state == "itemBoxChange") changeCusor.transform.position = insPositon.transform.position;
 
             if (state == "boxChange")
             {
-                if (chest != null)
-                {
-                    state = "chestOpen";
-                }
-                else
-                {
-                    state = "";
-                }
+                if (chest != null) state = "chestOpen";
+                else state = "";
             }
-            else if (state == "itemBoxChange")
-            {
-                state = "change";
-            }
+            else if (state == "itemBoxChange") state = "change";
         }
         if (leftInventoryAction.triggered && checkRepeat == false)
         {
-            if (chest != null && state != "itemBoxChange")
+            if (chest != null && state != "itemBoxChange") //창고 접촉
             {
                 cusor.SetActive(false);
                 state = "InChestMove";
                 chest.isCusorChest = true;
                 chest.CusorMove2Chest();
             }
-            else if (ShopGameObject.activeSelf == true)
+            else if (ShopGameObject.activeSelf == true) // 상점 접촉
             {
-                Debug.Log("상점인");
                 ShopUI.leftKeyCheck = true;
                 cusor.SetActive(false);
                 state = "ShopCusorOn";
                 ShopUI.ChangeCusor();
             }
-            else
+            else // 그외 장비창 접촉
             {
-
                 changeCusor.SetActive(false);
-                GameObject insPositon = handBox.gameObject;
-                nowEquipBox = handBox;
-                cusor.transform.position = insPositon.transform.position;
+                equipCusor = 6;
+                nowEquipBox = equipBox[equipCusor];
+                cusor.transform.position = nowEquipBox.transform.position;
                 state = "Equipment";
             }
-
         }
         if (selectAction.triggered && state == "boxChange")
         {
@@ -1042,52 +787,17 @@ public class InventoryManager : MonoBehaviour
 
     GameObject SetEquipBox(ItemCheck nowItem = null)
     {
-        if(nowItem != null)
-        {
-            detail = nowItem;
-        }
+        if(nowItem != null) detail = nowItem;
 
-        if (detail.equipArea == "Hand")
-        {
-            return handBox;
-        }
-        else if (detail.equipArea == "Chest")
-        {
-            return chestBox;
-        }
-        else if (detail.equipArea == "Weapon")
-        {
-            return weaponBox;
-
-
-        }  // 메인 무장이 없으면 메인 무장 먼저, 있으면 사이드 웨폰에다가 무기를 넣어야함
-       
-        else if (detail.equipArea == "Necklace")
-        {
-            return necklesBox;
-        }
-        else if (detail.equipArea == "Head")
-        {
-            return headBox;
-        }
-        else if (detail.equipArea == "Ring")
-        {
-            return ringBox;
-
-        }
-        else if (detail.equipArea == "Leg")
-        {
-            return legBox;
-        }
-        else if (detail.equipArea == "Shoes")
-        {
-            return shoesBox;
-        }
-        else
-        {
-            return null;
-        }
-
+         if (detail.equipArea == "Ring") return equipBox[1];
+        else if (detail.equipArea == "Head") return equipBox[2];
+        else if (detail.equipArea == "Necklace") return equipBox[3];
+        else if (detail.equipArea == "Chest") return equipBox[5];
+        else if(detail.equipArea == "Hand") return equipBox[6];
+        else if (detail.equipArea == "Weapon") return equipBox[7];
+        else if (detail.equipArea == "Leg") return equipBox[8];
+        else if (detail.equipArea == "Shoes") return equipBox[9];
+        else return null;
     }
     public SkillCooldown skillCooldown;
 
@@ -1106,138 +816,29 @@ public class InventoryManager : MonoBehaviour
         }
          equipBox = SetEquipBox();
         GameObject nowEquipItem = detail.gameObject;
-       
- 
-
         EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
-
         if (CheckBoxCanCreatAll() == true)
         {
             Sequence waitSequence = DOTween.Sequence()
-          //  .AppendCallback(() => equipBoxCheck.isSetArray = false)
             .OnComplete(() => equipBoxCheck.DeletPrefab(detail, detail.equipArea, false));
             equipBoxCheck.SaveEquipItem(detail, false);
-            //  skillCooldown.DeletLeftSkill();
             CreatItem(detail.name);
-            //  DetechItem(detail.equipArea);
-
         }
-
-
-        /*
-        nowEquipItem.transform.SetParent(equipBox.transform);
-        nowEquipItem.transform.position = equipBox.transform.position;
-        equipBoxCheck.LoadPrefab(detail.name, detail.equipArea);
-        equipBoxCheck.ActivePrefab(detail.equipArea);
-        */
     }
-    public EquipBoxCheck sideWeaponBoxCheck;
-
     void LoadEquipItem()
     {
-
-        if(SaveManager.instance.datas.headGear != null)
+        for(int i =1; i < equipItemCheck.Length; i++)
         {
-            if (SaveManager.instance.datas.headGear[0] != "")
-            {
-
-                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
-                ItemCheck head = equip.GetComponent<ItemCheck>();
-                head.SetItem(SaveManager.instance.datas.headGear[0]);
-                head.tear = int.Parse(SaveManager.instance.datas.headGear[1]);
-                head.upgrade = int.Parse(SaveManager.instance.datas.headGear[2]);
-                UseEquipment(head);
-            }
-        }
-
-        if (SaveManager.instance.datas.bodyGear != null)
-        {
-            if (SaveManager.instance.datas.bodyGear[0] != "")
-            {
-
-
-                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
-                ItemCheck body = equip.GetComponent<ItemCheck>();
-                body.SetItem(SaveManager.instance.datas.bodyGear[0]);
-                body.tear = int.Parse(SaveManager.instance.datas.bodyGear[1]);
-                body.upgrade = int.Parse(SaveManager.instance.datas.bodyGear[2]);
-                UseEquipment(body);
-            }
-
-        }
-        if (SaveManager.instance.datas.legGear != null)
-        {
-            if (SaveManager.instance.datas.legGear[0] != "")
+            if(SaveManager.instance.datas.equipGear[i, 0] != null && SaveManager.instance.datas.equipGear[i, 0] != "")
             {
                 GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
-                ItemCheck leg = equip.GetComponent<ItemCheck>();
-                leg.SetItem(SaveManager.instance.datas.legGear[0]);
-                leg.tear = int.Parse(SaveManager.instance.datas.legGear[1]);
-                leg.upgrade = int.Parse(SaveManager.instance.datas.legGear[2]);
-                UseEquipment(leg);
+                ItemCheck item = equip.GetComponent<ItemCheck>();
+                item.SetItem(SaveManager.instance.datas.equipGear[i, 0]);
+                item.tear = int.Parse(SaveManager.instance.datas.equipGear[i, 1]);
+                item.upgrade = int.Parse(SaveManager.instance.datas.equipGear[i, 2]);
+                UseEquipment(item);
             }
         }
-        if (SaveManager.instance.datas.shoseGear != null)
-        {
-            if (SaveManager.instance.datas.shoseGear[0] != "")
-            {
-                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
-                ItemCheck shose = equip.GetComponent<ItemCheck>();
-                shose.SetItem(SaveManager.instance.datas.shoseGear[0]);
-                shose.tear = int.Parse(SaveManager.instance.datas.shoseGear[1]);
-                shose.upgrade = int.Parse(SaveManager.instance.datas.shoseGear[2]);
-                UseEquipment(shose);
-            }
-        }
-        if (SaveManager.instance.datas.handGear != null)
-        {
-            if (SaveManager.instance.datas.handGear[0] != "")
-            {
-                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
-                ItemCheck hand = equip.GetComponent<ItemCheck>();
-                hand.SetItem(SaveManager.instance.datas.handGear[0]);
-                hand.tear = int.Parse(SaveManager.instance.datas.handGear[1]);
-                hand.upgrade = int.Parse(SaveManager.instance.datas.handGear[2]);
-                UseEquipment(hand);
-            }
-        }
-        if (SaveManager.instance.datas.weaponGear != null)
-        {
-            if (SaveManager.instance.datas.weaponGear[0] != "")
-            {
-                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
-                ItemCheck weapon = equip.GetComponent<ItemCheck>();
-                weapon.SetItem(SaveManager.instance.datas.weaponGear[0]);
-                weapon.tear = int.Parse(SaveManager.instance.datas.weaponGear[1]);
-                weapon.upgrade = int.Parse(SaveManager.instance.datas.weaponGear[2]);
-                UseEquipment(weapon);
-            }
-        }
-        if (SaveManager.instance.datas.ringGear != null)
-        {
-            if (SaveManager.instance.datas.ringGear[0] != "")
-            {
-                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
-                ItemCheck ring = equip.GetComponent<ItemCheck>();
-                ring.SetItem(SaveManager.instance.datas.ringGear[0]);
-                ring.tear = int.Parse(SaveManager.instance.datas.ringGear[1]);
-                ring.upgrade = int.Parse(SaveManager.instance.datas.ringGear[2]);
-                UseEquipment(ring);
-            }
-        }
-        if (SaveManager.instance.datas.necklesGear != null)
-        {
-            if (SaveManager.instance.datas.necklesGear[0] != "")
-            {
-                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
-                ItemCheck necklace = equip.GetComponent<ItemCheck>();
-                necklace.SetItem(SaveManager.instance.datas.necklesGear[0]);
-                necklace.tear = int.Parse(SaveManager.instance.datas.necklesGear[1]);
-                necklace.upgrade = int.Parse(SaveManager.instance.datas.necklesGear[2]);
-                UseEquipment(necklace);
-            }
-        }
-
         Invoke("ResetInventory", 0.4f);
     }
 
@@ -1248,29 +849,29 @@ public class InventoryManager : MonoBehaviour
          .AppendInterval(waitTime)
          .AppendCallback(() => inventory.SetActive(false));
 
-        // 여기가 이제 로딩 끝나고 카메라가 밝아지는시점.
+        // 여기가 로딩 끝나고 카메라가 밝아지는시점.
 
     }
     public ItemCheck CheckNowEquipment(string equipArea)
     {
         switch (equipArea)
         {
-            case ("Weapon"):
-                return weapon;
-            case ("Head"):
-                return head;
-            case ("Chest"):
-                return armor;
-            case ("Leg"):
-                return leg;
-            case ("Hand"):
-                return hand;
-            case ("Shoes"):
-                return shoes;
-            case ("Necklace"):
-                return neckles;
             case ("Ring"):
-                return ring;
+                return equipItemCheck[1];
+            case ("Head"):
+                return equipItemCheck[2];
+            case ("Necklace"):
+                return equipItemCheck[3];
+            case ("Chest"):
+                return equipItemCheck[5];
+            case ("Hand"):
+                return equipItemCheck[6];
+            case ("Weapon"):
+                return equipItemCheck[7];
+            case ("Leg"):
+                return equipItemCheck[8];
+            case ("Shoes"):
+                return equipItemCheck[9];
         }
         return null;
     }
@@ -1278,29 +879,29 @@ public class InventoryManager : MonoBehaviour
     {
         switch (equipArea)
         {
-            case ("Weapon"):
-                weapon= detail;
+            case ("Ring"):
+                equipItemCheck[1] = detail;
                 break;
             case ("Head"):
-                 head = detail;
-                break;
-            case ("Chest"):
-                 armor = detail;
-                break;
-            case ("Leg"):
-                 leg = detail;
-                break;
-            case ("Hand"):
-                 hand = detail;
-                break;
-            case ("Shoes"):
-                 shoes = detail;
+                equipItemCheck[2] = detail;
                 break;
             case ("Necklace"):
-                 neckles = detail;
+                equipItemCheck[3] = detail;
                 break;
-            case ("Ring"):
-                 ring = detail;
+            case ("Chest"):
+                equipItemCheck[5] = detail;
+                break;
+            case ("Hand"):
+                equipItemCheck[6] = detail;
+                break;
+            case ("Weapon"):
+                equipItemCheck [7]= detail;
+                break;
+            case ("Leg"):
+                equipItemCheck[8] = detail;
+                break;
+            case ("Shoes"):
+                equipItemCheck[9] = detail;
                 break;
         }
     }
@@ -1329,7 +930,6 @@ public class InventoryManager : MonoBehaviour
             {
                 CheckNowEquipItem(detail.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
-                //     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.SaveEquipItem(detail, true);
@@ -1343,7 +943,6 @@ public class InventoryManager : MonoBehaviour
                 equipBoxCheck.DeletPrefab(beforeItem, beforeItem.equipArea);
 
                 nowEquipItem.transform.SetParent(equipBox.transform);
-                //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
@@ -1361,87 +960,51 @@ public class InventoryManager : MonoBehaviour
                 nowEquipItem.transform.position = equipBox.transform.position;
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.SaveEquipItem(detail, true);
-                //  equipBoxCheck.EquipMainWeapon();
+
             }
             else
             {
-
                 // 아이템을 해체한는 부분
                 DetechItem(detail.equipArea);
                 equipBoxCheck.DeletPrefab(beforeItem, beforeItem.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
-                //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 nowEquipItem.transform.position = equipBox.transform.position;
                 equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
                 equipBoxCheck.ActivePrefab(detail.equipArea);
                 equipBoxCheck.SaveEquipItem(detail, true);
                 CheckNowEquipItem(detail.equipArea);
             }
-
-
         }
-
-
+    }
+    void MoveEquipItem2Inventory(GameObject moveItem, GameObject equipChangeBox)
+    {
+        moveItem.transform.SetParent(equipChangeBox.transform);
+        moveItem.transform.position = equipChangeBox.transform.position;
     }
     public void DetechItem(string equipArea)
     {
         GameObject equipChangeBox = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
-        if (equipArea == "Weapon") // 이거도 부 무장도 빼질 수 있도록 변경해 주어야 함
-        {
-            GameObject moveItem = weaponBox.transform.GetChild(0).gameObject;
-            moveItem.transform.SetParent(equipChangeBox.transform);
-            moveItem.transform.position = equipChangeBox.transform.position;
-        }
-        else if (equipArea == "Head")
-        {
-            GameObject moveItem = headBox.transform.GetChild(0).gameObject;
-            moveItem.transform.SetParent(equipChangeBox.transform);
-            moveItem.transform.position = equipChangeBox.transform.position;
-
-        }
-        else if (equipArea == "Chest")
-        {
-            GameObject moveItem = chestBox.transform.GetChild(0).gameObject;
-            moveItem.transform.SetParent(equipChangeBox.transform);
-            moveItem.transform.position = equipChangeBox.transform.position;
-        }
-        else if (equipArea == "Hand")
-        {
-            GameObject moveItem = handBox.transform.GetChild(0).gameObject;
-            moveItem.transform.SetParent(equipChangeBox.transform);
-            moveItem.transform.position = equipChangeBox.transform.position;
-        }
-        else if (equipArea == "Neckles")
-        {
-            GameObject moveItem = necklesBox.transform.GetChild(0).gameObject;
-            moveItem.transform.SetParent(equipChangeBox.transform);
-            moveItem.transform.position = equipChangeBox.transform.position;
-        }
-        else if (equipArea == "Ring")
-        {
-            GameObject moveItem = ringBox.transform.GetChild(0).gameObject;
-            moveItem.transform.SetParent(equipChangeBox.transform);
-            moveItem.transform.position = equipChangeBox.transform.position;
-        }
-        else if (equipArea == "Leg")
-        {
-            GameObject moveItem = legBox.transform.GetChild(0).gameObject;
-            moveItem.transform.SetParent(equipChangeBox.transform);
-            moveItem.transform.position = equipChangeBox.transform.position;
-        }
-        else if (equipArea == "Shoes")
-        {
-            GameObject moveItem = shoesBox.transform.GetChild(0).gameObject;
-            moveItem.transform.SetParent(equipChangeBox.transform);
-            moveItem.transform.position = equipChangeBox.transform.position;
-        }
+        GameObject moveItem = null;
+        if (equipArea == "Ring") moveItem = equipBox[1].transform.GetChild(0).gameObject;
+        else if (equipArea == "Head") moveItem = equipBox[2].transform.GetChild(0).gameObject;
+        else if (equipArea == "Neckles") moveItem = equipBox[3].transform.GetChild(0).gameObject;
+        else if (equipArea == "Chest") moveItem = equipBox[5].transform.GetChild(0).gameObject;
+        else if (equipArea == "Hand") moveItem = equipBox[6].transform.GetChild(0).gameObject;
+        else if (equipArea == "Weapon") moveItem = equipBox[7].transform.GetChild(0).gameObject;
+        else if (equipArea == "Leg") moveItem = equipBox[8].transform.GetChild(0).gameObject;
+        else if (equipArea == "Shoes") moveItem = equipBox[9].transform.GetChild(0).gameObject;
+        MoveEquipItem2Inventory(moveItem, equipChangeBox);
     }
+
+
+    // 상점 판매 변수
     public int currentSellValue = 0; // 현재 가지고 있는 int 수
     public GameObject sellUIGameObject;
     int totalSellPrice;
     public TextMeshProUGUI sellText;
     public Slider sellSlider; // Unity Inspector에서 Slider를 할당
     int output;
+
     public void SellItemUI()
     {
         InitializeSlider();
@@ -1543,6 +1106,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (state == "Equipment")
             {
+
                 EquipmentCusorManage();
                 if (selectAction.triggered && nowEquipBox.transform.childCount != 0)
                 {
@@ -1649,55 +1213,61 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            //   CreatItem("LeafAdae");
-            //   CreatItem("LeafStaff");
-            //  CreatItem("LeafLegArmor"); CreatItem("LeafHandArmor"); CreatItem("LeafShoes"); CreatItem("LeafArmor"); CreatItem("LeafCap");
-            //CreatItem("Stinky Rat Meat Stew");
             CreatItem("LeafCap"); CreatItem("LeafArmor"); CreatItem("LeafLegArmor");
             CreatItem("LeafHandArmor"); CreatItem("LeafShoes");
-            //
+            CreatItem("LeafStaff");
+            CreatItem("LeafAdae");
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            //               CreatItem("LeafAdae");            CreatItem("LeafStaff");
             CreatItem("ScareSide");
-            //   CreatItem("Wood Spear");
-            //  CreatItem("RustedSword"); CreatItem("RustedSwordandShield");
             CreatItem("ScareClow");
-               CreatItem("ScareStaff");
-               CreatItem("SacreGreatSword");
-              CreatItem("RatCheifDagger");
-              CreatItem("DoubleDagger");
-            CreatItem("PoisonSword");
-            // CreatItem("Leather Knuckles");
-            //  CreatItem("Wood Spear");
-
+            CreatItem("ScareStaff");
+            CreatItem("SacreGreatSword");
+            CreatItem("ScareCap"); CreatItem("ScareLegArmor"); CreatItem("ScareArmor");
+            CreatItem("ScareHandArmor"); CreatItem("ScareShoes");
 
 
 
 
         }
         if (Input.GetKeyDown(KeyCode.F4))
-
         {
-            CreatItem("ScareSide");
-            CreatItem("Four-Leaf Clover Ring"); CreatItem("Rabbit's Foot");
+            CreatItem("RatCap");
+            CreatItem("RatArmor");
+            CreatItem("RatLegArmor");
+            CreatItem("RatHandArmor");
+            CreatItem("RatShoes");
+            CreatItem("PoisonSword");
+            CreatItem("DoubleDagger");
+            CreatItem("RatCheifDagger");
+        }
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
             CreatItem("Cap");
             CreatItem("Armor");
             CreatItem("LegArmor");
             CreatItem("HandArmor");
             CreatItem("Shoes");
-
-            //CreatItem("RatCap");
-            //   CreatItem("RatArmor");
-            //   CreatItem("RatLegArmor");
-            //  CreatItem("RatHandArmor");
-            //  CreatItem("RatShoes");
-
-            //CreatItem("Potion");
-
+            CreatItem("RustedSwordandShield");
+            CreatItem("RustedSword");
+            CreatItem("Leather Knuckles"); CreatItem("Wood Spear");
         }
+
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            CreatItem("Rabbit Meat");
+            CreatItem("Wood");
+            CreatItem("T0_Ore");
+            CreatItem("GreenHurb");
+            CreatItem("Small Tuber");
+            CreatItem("Fresh Green Leaves");
+            CreatItem("Sturdy Roots");
+            CreatItem("Sturdy Leaf");
+            CreatItem("Sharp Petal");
+        }
+
         if (openInventoryAction.triggered)
         {
             if (inventory.activeSelf == true && ShopGameObject.activeSelf == false)
@@ -2271,7 +1841,6 @@ public class InventoryManager : MonoBehaviour
                     if (checkEffect[2] == "skillHitCount")
                     {
                         allSetStr +=  checkEffect[0] + checkEffect[1] + " " + "["+checkEffect[3].Replace("_", " ") +"]"+ " count";
-    
                     }
                     else if (checkEffect[2] == "bulletCount")
                     {
@@ -2283,7 +1852,7 @@ public class InventoryManager : MonoBehaviour
                     }
                     else
                     {
-                        allSetStr +=  checkEffect[0]+" "+ checkEffect[1];
+                        allSetStr +=  checkEffect[0]+" "+ checkEffect[1] + " " + checkEffect[2];
                     }
 
                     if (k != box.Length - 1)
@@ -2332,11 +1901,8 @@ public class InventoryManager : MonoBehaviour
         // 방어구의 기본적인 스탯수치
         string basicStr = "";
         basicStr += weapon.minDmg + "~" + weapon.maxDmg + " Dmg\n";
-
-
         if (weapon.critPer != 0)
         {
-
             if (weapon.critPer > 0) basicStr += "+" + weapon.critPer.ToString() + " Critical Chance\n";
             else basicStr += "-" + weapon.critPer.ToString() + " Critical Chance\n";
         }
@@ -2749,7 +2315,6 @@ public void CreatItem(string itemName, bool isC2I = false)
             cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
             state = "";
         }
-
         skillDetailUi.SetActive(false);
         miscDetail.SetActive(false);
         consumDetail.SetActive(false);

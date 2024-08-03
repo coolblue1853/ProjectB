@@ -37,92 +37,47 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     public void SaveEquipItem(ItemCheck itemCheck, bool isSave) // 저장할지 삭제할지.
     {
         string[] gear = new string[] { itemCheck.name , itemCheck.tear.ToString() , itemCheck.upgrade.ToString() };
-        if (itemCheck.equipArea == "Weapon")
+        int nowEquipNum =0; // 현재 저장해야할 장비 번호
+        switch (itemCheck.equipArea)
         {
-            if (isSave == true)
+            case "Ring":
+                nowEquipNum = 1;
+                break;
+            case "Head":
+                nowEquipNum = 2;
+                break;
+            case "Necklace":
+                nowEquipNum = 3;
+                break;
+            case "Chest":
+                nowEquipNum = 5;
+                break;
+            case "Hand":
+                nowEquipNum = 6;
+                break;
+            case "Weapon":
+                nowEquipNum = 7;
+                break;
+            case "Leg":
+                nowEquipNum = 8;
+                break;
+            case "Shoes":
+                nowEquipNum = 9;
+                break;
+        }
+
+        if (isSave == true)
+        {
+            for(int i =0; i< 3; i++)
             {
-                SaveManager.instance.datas.weaponGear = gear;
-            }
-            else
-            {
-                SaveManager.instance.datas.weaponGear = new string[3];
+                SaveManager.instance.datas.equipGear[nowEquipNum, i] = gear[i];
             }
         }
-        else if (itemCheck.equipArea == "Head")
+        else
         {
-            if(isSave == true) 
+            for (int i = 0; i < 3; i++)
             {
-                SaveManager.instance.datas.headGear = gear;
-            }
-            else
-            {
-                SaveManager.instance.datas.headGear = new string[3];
-            }
-        }
-        else if (itemCheck.equipArea == "Chest")
-        {
-            if (isSave == true)
-            {
-                SaveManager.instance.datas.bodyGear = gear;
-            }
-            else
-            {
-                SaveManager.instance.datas.bodyGear = new string[3];
-            }
-        }
-        else if (itemCheck.equipArea == "Leg")
-        {
-            if (isSave == true)
-            {
-                SaveManager.instance.datas.legGear = gear;
-            }
-            else
-            {
-                SaveManager.instance.datas.legGear = new string[3];
-            }
-        }
-        else if (itemCheck.equipArea == "Hand")
-        {
-            if (isSave == true)
-            {
-                SaveManager.instance.datas.handGear = gear;
-            }
-            else
-            {
-                SaveManager.instance.datas.handGear = new string[3];
-            }
-        }
-        else if (itemCheck.equipArea == "Necklace")
-        {
-            if (isSave == true)
-            {
-                SaveManager.instance.datas.necklesGear = gear;
-            }
-            else
-            {
-                SaveManager.instance.datas.necklesGear = new string[3];
-            }
-        }
-        else if (itemCheck.equipArea == "Ring")
-        {
-            if (isSave == true)
-            {
-                SaveManager.instance.datas.ringGear = gear;
-            }
-            else
-            {
-                SaveManager.instance.datas.ringGear = new string[3];
-            }
-        } 
-        else if (itemCheck.equipArea == "Shoes")
-        {
-            if (isSave == true)
-            {
-                SaveManager.instance.datas.shoseGear = gear;
-            }
-            else
-            {
-                SaveManager.instance.datas.shoseGear = new string[3];
+                SaveManager.instance.datas.equipGear[nowEquipNum, i] = null;
             }
         }
     }
@@ -136,11 +91,9 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         }
         if (reciveEquipArea == "Weapon" && weapon == null)
         {
-
              weapon = equipPrefab.GetComponent<Weapon>();
             attackManager.equipWeapon = weapon;
             attackManager.EquipMainWeaopon();
-
         }
         else if (reciveEquipArea == "Head" && head == null)
         {
