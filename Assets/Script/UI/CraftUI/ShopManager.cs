@@ -601,7 +601,7 @@ public class ShopManager : MonoBehaviour
             else
             {
                 InventoryManager.instance.checkRepeat = false;
-                InventoryManager.instance.ExCheckMove();
+                InventoryManager.instance.CusorContinuousInputCheck();
                 InventoryManager.instance.CusorChest2Inven();
                 cusor.SetActive(false);
                 DetailOff();

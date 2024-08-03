@@ -1,4 +1,5 @@
-    using System.Collections;
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -158,10 +159,10 @@ public class InventoryManager : MonoBehaviour
     {
         SaveManager.instance.datas.money = DatabaseManager.money;
         string[,,] saveInven = new string[5, maxHor * maxVer, 4]; // 몇번째인벤, 칸, 이름
-        for(int i =0; i < 5; i++)
+        for (int i = 0; i < 5; i++)
         {
             int childCount = inventoryUI[i].transform.childCount;
-            if(childCount != 0 )
+            if (childCount != 0)
             {
                 for (int j = 0; j < childCount; j++)
                 {
@@ -187,14 +188,14 @@ public class InventoryManager : MonoBehaviour
     }
     public void LoadInventory()
     {
-        if(SaveManager.instance.datas.invenItem == null)
+        if (SaveManager.instance.datas.invenItem == null)
         {
             SaveManager.instance.datas.money = DatabaseManager.money;
             SaveInventory();
         }
         else
         {
-      DatabaseManager.money = SaveManager.instance.datas.money;
+            DatabaseManager.money = SaveManager.instance.datas.money;
             LoadEquipItem();
             for (int i = 0; i < 5; i++)
             {
@@ -204,7 +205,7 @@ public class InventoryManager : MonoBehaviour
                     for (int j = 0; j < childCount; j++)
                     {
                         // 현재에는 단순히 아이템만  이름만 확인해서 가져오지만, 여기에 수정해서 현재 스택 수치, 강화수치 이런것도 가져와야함
-                        if (SaveManager.instance.datas.invenItem[i, j, 0] != "non" && SaveManager.instance.datas.invenItem[i, j, 0]!= null)
+                        if (SaveManager.instance.datas.invenItem[i, j, 0] != "non" && SaveManager.instance.datas.invenItem[i, j, 0] != null)
                         {
                             inventoryArray[j, i] = 1;
                             GameObject insPositon = GetNthChildGameObject(inventoryUI[i], j);
@@ -214,7 +215,6 @@ public class InventoryManager : MonoBehaviour
                             check.nowStack = int.Parse(SaveManager.instance.datas.invenItem[i, j, 1]);
                             check.tear = int.Parse(SaveManager.instance.datas.invenItem[i, j, 2]);
                             check.upgrade = int.Parse(SaveManager.instance.datas.invenItem[i, j, 3]);
-
                             DatabaseManager.PlusInventoryDict(SaveManager.instance.datas.invenItem[i, j, 0], check.nowStack);
                         }
                     }
@@ -242,7 +242,6 @@ public class InventoryManager : MonoBehaviour
         {
             return false;
         }
-
     }
     public bool CheckBoxCanCreatAll()
     {
@@ -410,7 +409,6 @@ public class InventoryManager : MonoBehaviour
                     {
                         beforeItemCheck.nowStack -= (afterItemCheck.maxStack - afterItemCheck.nowStack);
                         afterItemCheck.nowStack = afterItemCheck.maxStack;
-
                     }
                 }
                 else
@@ -457,16 +455,15 @@ public class InventoryManager : MonoBehaviour
         inventoryUI[0].transform.SetAsLastSibling();
         InventoryAlpha inventoryAlpha = inventoryUI[0].GetComponent<InventoryAlpha>();
         inventoryAlpha.A21();
-        if(deletInventory == false)
+        if (deletInventory == false)
         {
             LoadInventory();
         }
         else
         {
-
-            for(int i =1; i < equipItemCheck.Length; i++)
+            for (int i = 1; i < equipItemCheck.Length; i++)
             {
-                for(int j =0; j < 3; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     SaveManager.instance.datas.equipGear[i, j] = "";
                 }
@@ -602,15 +599,6 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-    public void ExCheckMove()
-    {
-        checkRepeat = true;
-        sequence.Kill();
-        sequence = DOTween.Sequence()
-        .AppendInterval(waitTime)
-        .OnComplete(() => ResetCheckRepeat());
-
-    }
     void BoxOpen()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && inventoryUI[0].activeSelf == false && inventoryBox[0].activeSelf == true)
@@ -652,12 +640,12 @@ public class InventoryManager : MonoBehaviour
     }
     void EquipmentCusorManage()
     {
-        if(leftInventoryAction.triggered && (equipCusor != 5 && equipCusor %3 != 1))
+        if (leftInventoryAction.triggered && (equipCusor != 5 && equipCusor % 3 != 1))
         {
             equipCusor -= 1;
             ChangeEquipCusor(equipCusor);
         }
-        else if(rightInventoryAction.triggered)
+        else if (rightInventoryAction.triggered)
         {
             if (equipCusor % 3 != 0) equipCusor += 1;
             else MoveCusor2Inventory();
@@ -680,11 +668,10 @@ public class InventoryManager : MonoBehaviour
     public GameObject ShopGameObject;
     public ShopManager ShopUI;
 
-    void CusorContinuousInputCheck()
+    public void CusorContinuousInputCheck()
     {
         checkRepeat = true;
         sequence.Kill();
-
         sequence = DOTween.Sequence()
         .AppendInterval(waitTime)
         .OnComplete(() => ResetCheckRepeat());
@@ -787,13 +774,13 @@ public class InventoryManager : MonoBehaviour
 
     GameObject SetEquipBox(ItemCheck nowItem = null)
     {
-        if(nowItem != null) detail = nowItem;
+        if (nowItem != null) detail = nowItem;
 
-         if (detail.equipArea == "Ring") return equipBox[1];
+        if (detail.equipArea == "Ring") return equipBox[1];
         else if (detail.equipArea == "Head") return equipBox[2];
         else if (detail.equipArea == "Necklace") return equipBox[3];
         else if (detail.equipArea == "Chest") return equipBox[5];
-        else if(detail.equipArea == "Hand") return equipBox[6];
+        else if (detail.equipArea == "Hand") return equipBox[6];
         else if (detail.equipArea == "Weapon") return equipBox[7];
         else if (detail.equipArea == "Leg") return equipBox[8];
         else if (detail.equipArea == "Shoes") return equipBox[9];
@@ -814,7 +801,7 @@ public class InventoryManager : MonoBehaviour
         {
             equipBox = SetEquipBox();
         }
-         equipBox = SetEquipBox();
+        equipBox = SetEquipBox();
         GameObject nowEquipItem = detail.gameObject;
         EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
         if (CheckBoxCanCreatAll() == true)
@@ -827,9 +814,9 @@ public class InventoryManager : MonoBehaviour
     }
     void LoadEquipItem()
     {
-        for(int i =1; i < equipItemCheck.Length; i++)
+        for (int i = 1; i < equipItemCheck.Length; i++)
         {
-            if(SaveManager.instance.datas.equipGear[i, 0] != null && SaveManager.instance.datas.equipGear[i, 0] != "")
+            if (SaveManager.instance.datas.equipGear[i, 0] != null && SaveManager.instance.datas.equipGear[i, 0] != "")
             {
                 GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
                 ItemCheck item = equip.GetComponent<ItemCheck>();
@@ -895,7 +882,7 @@ public class InventoryManager : MonoBehaviour
                 equipItemCheck[6] = detail;
                 break;
             case ("Weapon"):
-                equipItemCheck [7]= detail;
+                equipItemCheck[7] = detail;
                 break;
             case ("Leg"):
                 equipItemCheck[8] = detail;
@@ -911,12 +898,12 @@ public class InventoryManager : MonoBehaviour
         GameObject equipBox;
         if (nowItem != null)
         {
-             detail = nowItem;
-             equipBox = SetEquipBox(nowItem);
+            detail = nowItem;
+            equipBox = SetEquipBox(nowItem);
         }
         else
         {
-             equipBox = SetEquipBox();
+            equipBox = SetEquipBox();
         }
         ItemCheck beforeItem = CheckNowEquipment(detail.equipArea);
         AttackManager attackManager = player.GetComponent<AttackManager>();
@@ -936,8 +923,6 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("아이템교체");
-                Debug.Log(beforeItem.name);
                 // 아이템을 해체한는 부분
                 DetechItem(detail.equipArea);
                 equipBoxCheck.DeletPrefab(beforeItem, beforeItem.equipArea);
@@ -1020,22 +1005,14 @@ public class InventoryManager : MonoBehaviour
     }
     void RightMove()
     {
-        checkRepeat = true;
-        sequence.Kill();
-        sequence = DOTween.Sequence()
-        .AppendInterval(waitTime)
-        .OnComplete(() => ResetCheckRepeat());
+        CusorContinuousInputCheck();
         sellSlider.value += 1;
         totalSellPrice = (int)(sellSlider.value * detail.price);
         sellText.text = "Sell " + detail.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void LeftMove()
     {
-        checkRepeat = true;
-        sequence.Kill();
-        sequence = DOTween.Sequence()
-        .AppendInterval(waitTime)
-        .OnComplete(() => ResetCheckRepeat());
+        CusorContinuousInputCheck();
         sellSlider.value -= 1;
         totalSellPrice = (int)(sellSlider.value * detail.price);
         sellText.text = "Sell " + detail.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
@@ -1070,13 +1047,10 @@ public class InventoryManager : MonoBehaviour
         .OnComplete(() => state = "");
 
         SaveInventory();
-
-
     }
     public TextMeshProUGUI myMoney;
     private void Update()
     {
-
         verticalInput = (verticalCheck.ReadValue<float>());
         horizontalInput = (horizontalCheck.ReadValue<float>());
         if (inventory.activeSelf == true)
@@ -1085,8 +1059,6 @@ public class InventoryManager : MonoBehaviour
             {
                 myMoney.text = DatabaseManager.money.ToString();
             }
-
-
             if (state == "Sell")
             {
                 if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1) && sellSlider.value < sellSlider.maxValue)
@@ -1101,12 +1073,9 @@ public class InventoryManager : MonoBehaviour
                 {
                     SellItem();
                 }
-
-
             }
             if (state == "Equipment")
             {
-
                 EquipmentCusorManage();
                 if (selectAction.triggered && nowEquipBox.transform.childCount != 0)
                 {
@@ -1118,36 +1087,27 @@ public class InventoryManager : MonoBehaviour
                     else
                     {
                         BoxContentChecker();
-                        // CloseCheck();
-
                     }
-
                 }
-
             }
-            if (selectAction.triggered && state == "detail" &&detail.type == "Consum" && ShopGameObject.activeSelf == false)
+            if (selectAction.triggered && state == "detail" && detail.type == "Consum" && ShopGameObject.activeSelf == false)
             {
                 ActiveConsum();
             }
             if (state == "")
             {
                 BoxOpen();
-
             }
             if (selectAction.triggered)
             {
                 if (state == "" || state == "chestOpen")
                 {
                     BoxContentChecker();
-
-
                 }
                 else if (state == "detail")
                 {
-
                     if (equipDetail.activeSelf == true && chest == null && ShopGameObject.activeSelf == false)
                     {
-
                         UseEquipment();
                         CloseCheck();
                     }
@@ -1156,13 +1116,10 @@ public class InventoryManager : MonoBehaviour
                         // 판매 함수
                         SellItemUI();
                     }
-
                     else
                     {
                         CloseCheck();
-
                     }
-
                 }
                 if (state == "I2CMove")
                 {
@@ -1175,7 +1132,6 @@ public class InventoryManager : MonoBehaviour
                 {
                     state = "I2CMove"; // 인벤토리에서 창고로 물건 이동
                     cusorImage.color = new Color(23f / 255f, 123f / 255f, 161f / 255f);
-
                 }
                 else if (state == "I2CMove")
                 {
@@ -1218,7 +1174,6 @@ public class InventoryManager : MonoBehaviour
             CreatItem("LeafStaff");
             CreatItem("LeafAdae");
         }
-
         if (Input.GetKeyDown(KeyCode.F2))
         {
             CreatItem("ScareSide");
@@ -1227,10 +1182,6 @@ public class InventoryManager : MonoBehaviour
             CreatItem("SacreGreatSword");
             CreatItem("ScareCap"); CreatItem("ScareLegArmor"); CreatItem("ScareArmor");
             CreatItem("ScareHandArmor"); CreatItem("ScareShoes");
-
-
-
-
         }
         if (Input.GetKeyDown(KeyCode.F4))
         {
@@ -1299,7 +1250,6 @@ public class InventoryManager : MonoBehaviour
 
     public void ActiveConsum()
     {
-
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         if (gameObject.transform.childCount > 0)
         {
@@ -1307,10 +1257,9 @@ public class InventoryManager : MonoBehaviour
             if (item.type == "Consum")
             {
                 item.ConsumItemActive();
-                DatabaseManager.MinusInventoryDict(item.name,1);
+                DatabaseManager.MinusInventoryDict(item.name, 1);
             }
         }
-
     }
     public void RepeatCheck()
     {
@@ -1319,13 +1268,7 @@ public class InventoryManager : MonoBehaviour
         dcSequence = DOTween.Sequence()
         .AppendInterval(waitTime)
         .OnComplete(() => DoubleCheck());
-        checkRepeat = true;
-        sequence.Kill();
-
-        sequence = DOTween.Sequence()
-        .AppendInterval(waitTime * 2)
-        .OnComplete(() => ResetCheckRepeat());
-
+        CusorContinuousInputCheck();
     }
 
     void DoubleCheck()
@@ -1337,63 +1280,27 @@ public class InventoryManager : MonoBehaviour
     {
         if (inventory.activeSelf == true && state != "change")
         {
-
             if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1))
             {
-                checkRepeat = true;
-                sequence.Kill();
-
-                sequence = DOTween.Sequence()
-                .AppendInterval(waitTime)
-                .OnComplete(() => ResetCheckRepeat());
-
-
+                CusorContinuousInputCheck();
                 DetailOff();
                 int nowBoxMax = 0;
-                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
-                {
-                    nowBoxMax = (maxHor * maxVer);
-                }
-                else
-                {
-                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
+                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum) nowBoxMax = (maxHor * maxVer);
+                else nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
 
-                }
                 if (cusorCount[nowBox] + 1 < nowBoxMax && (cusorCount[nowBox] + 1) % maxHor != 0)
                 {
                     cusorCount[nowBox] += 1;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
                 }
-                else
-                {/*
-                    cusorCount[nowBox] -= nowBoxMax - 1;
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                    cusor.transform.position = insPositon.transform.position;
-                    */
-                }
-
             }
             if ((leftInventoryAction.triggered && DoubleCheckController == false) || (checkRepeat == false && horizontalInput == -1))
             {
 
-                checkRepeat = true;
-                sequence.Kill();
-
-                sequence = DOTween.Sequence()
-                .AppendInterval(waitTime)
-                .OnComplete(() => ResetCheckRepeat());
+                CusorContinuousInputCheck();
                 DetailOff();
-                int nowBoxMax = 0;
-                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
-                {
-                    nowBoxMax = (maxHor * maxVer);
-                }
-                else
-                {
-                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
 
-                }
                 if (cusorCount[nowBox] % maxHor == 0)
                 {
                     cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
@@ -1401,76 +1308,33 @@ public class InventoryManager : MonoBehaviour
                     boxCusor = 0;
                     GameObject insPositon = inventoryBox[boxCusor];
                     cusor.transform.position = insPositon.transform.position;
-
                 }
                 else
                 {
                     cusorCount[nowBox] -= 1;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
-
                 }
-
-
             }
             if ((downInventoryAction.triggered && DoubleCheckController == false) || (checkRepeat == false && verticalInput == -1))
             {
-                checkRepeat = true;
-                sequence.Kill();
-
-                sequence = DOTween.Sequence()
-                .AppendInterval(waitTime)
-                .OnComplete(() => ResetCheckRepeat());
+                CusorContinuousInputCheck();
                 DetailOff();
                 int nowBoxMax = 0;
-                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
-                {
-                    nowBoxMax = (maxHor * maxVer);
-
-                }
-                else
-                {
-                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
-
-                }
+                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum) nowBoxMax = (maxHor * maxVer);
+                else nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
 
                 if (cusorCount[nowBox] + maxHor < nowBoxMax)
                 {
                     cusorCount[nowBox] += maxHor;
-                    //   Debug.Log(cusorCount[nowBox]);
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
                 }
-                /*
-                 else
-                 {
-                     cusorCount[nowBox] = cusorCount[nowBox] % maxHor;
-                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                     cusor.transform.position = insPositon.transform.position;
-                 }
-                  */
-
             }
             if ((upInventoryAction.triggered && DoubleCheckController == false) || (checkRepeat == false && verticalInput == 1))
             {
-                checkRepeat = true;
-                sequence.Kill();
-
-                sequence = DOTween.Sequence()
-                .AppendInterval(waitTime)
-                .OnComplete(() => ResetCheckRepeat());
+                CusorContinuousInputCheck();
                 DetailOff();
-                int nowBoxMax = 0;
-                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
-                {
-                    nowBoxMax = (maxHor * maxVer);
-
-                }
-                else
-                {
-                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
-
-                }
 
                 if (cusorCount[nowBox] - maxHor >= 0)
                 {
@@ -1478,84 +1342,34 @@ public class InventoryManager : MonoBehaviour
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     cusor.transform.position = insPositon.transform.position;
                 }
-                /*
-               
-                else
-                {
-                    while (cusorCount[nowBox] + maxHor < nowBoxMax)
-                    {
-                        cusorCount[nowBox] += maxHor;
-                    }
-
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                    cusor.transform.position = insPositon.transform.position;
-                }
-                */
-
             }
         }
     }
-
     void ResetCheckRepeat()
     {
         checkRepeat = false;
     }
-
     void ChangeCusorChecker()
     {
         if (inventory.activeSelf == true && state == "change")
         {
             if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1))
             {
-                checkRepeat = true;
-                sequence.Kill();
-
-                sequence = DOTween.Sequence()
-                .AppendInterval(waitTime)
-                .OnComplete(() => ResetCheckRepeat());
+                CusorContinuousInputCheck();
                 int nowBoxMax = 0;
-                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
-                {
-                    nowBoxMax = (maxHor * maxVer);
-                }
-                else
-                {
-                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
-                }
+                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum) nowBoxMax = (maxHor * maxVer);
+                else nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
+
                 if (cusorCount[nowBox] + 1 < nowBoxMax && (cusorCount[nowBox] + 1) % maxHor != 0)
                 {
                     cusorCount[nowBox] += 1;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     changeCusor.transform.position = insPositon.transform.position;
                 }
-                else
-                {/*
-                    cusorCount[nowBox] -= nowBoxMax - 1;
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                    changeCusor.transform.position = insPositon.transform.position;
-                    */
-
-                }
-
             }
             if ((leftInventoryAction.triggered) || (checkRepeat == false && horizontalInput == -1))
             {
-                checkRepeat = true;
-                sequence.Kill();
-
-                sequence = DOTween.Sequence()
-                .AppendInterval(waitTime)
-                .OnComplete(() => ResetCheckRepeat());
-
-                int nowBoxMax = 0;
-                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
-                {
-                    nowBoxMax = (maxHor * maxVer);
-                }
-                else
-                {
-                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
-                }
+                CusorContinuousInputCheck();
                 if (cusorCount[nowBox] % maxHor == 0)
                 {
                     state = "itemBoxChange";
@@ -1565,91 +1379,36 @@ public class InventoryManager : MonoBehaviour
                 }
                 else
                 {
-
                     cusorCount[nowBox] -= 1;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     changeCusor.transform.position = insPositon.transform.position;
-
                 }
 
             }
             if ((downInventoryAction.triggered) || (checkRepeat == false && verticalInput == -1))
             {
-                checkRepeat = true;
-                sequence.Kill();
-
-                sequence = DOTween.Sequence()
-                .AppendInterval(waitTime)
-                .OnComplete(() => ResetCheckRepeat());
+                CusorContinuousInputCheck();
                 int nowBoxMax = 0;
-                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
-                {
-                    nowBoxMax = (maxHor * maxVer);
-                }
-                else
-                {
-                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
-                }
+                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum) nowBoxMax = (maxHor * maxVer);
+                else nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
+
                 if (cusorCount[nowBox] + maxHor < nowBoxMax)
                 {
                     cusorCount[nowBox] += maxHor;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     changeCusor.transform.position = insPositon.transform.position;
-
-                }
-                else
-                {/*
-                    cusorCount[nowBox] = cusorCount[nowBox] % maxHor;
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                    changeCusor.transform.position = insPositon.transform.position;
-                    */
-
                 }
             }
             if ((upInventoryAction.triggered) || (checkRepeat == false && verticalInput == 1))
             {
-                checkRepeat = true;
-                sequence.Kill();
-
-                sequence = DOTween.Sequence()
-                .AppendInterval(waitTime)
-                .OnComplete(() => ResetCheckRepeat());
-
-                int nowBoxMax = 0;
-                if ((nowBox + 1) * (maxHor * maxVer) < maxBoxNum)
-                {
-                    nowBoxMax = (maxHor * maxVer);
-
-                }
-                else
-                {
-                    nowBoxMax = (maxBoxNum) - ((nowBox * (maxHor * maxVer)));
-                    Debug.Log(nowBoxMax);
-
-                }
-
+                CusorContinuousInputCheck();
                 if (cusorCount[nowBox] - maxHor >= 0)
                 {
                     cusorCount[nowBox] -= maxHor;
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
                     changeCusor.transform.position = insPositon.transform.position;
                 }
-
-                else
-                {/*
-                while (cusorCount[nowBox] + maxHor < nowBoxMax)
-                {
-                    cusorCount[nowBox] += maxHor;
-                }
-
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-                changeCusor.transform.position = insPositon.transform.position;
-                    */
-                }
-
             }
-
-
         }
     }
     public ItemCheck detail;
@@ -1657,9 +1416,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (inventoryArray[cusorCount[nowBox], nowBox] == 1 && (state == "" || state == "chestOpen"))
         {
-
             state = "detail";
-
             if (ob != null)
             {
                 detail = ob.transform.GetComponent<ItemCheck>();
@@ -1667,10 +1424,8 @@ public class InventoryManager : MonoBehaviour
             else
             {
                 GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
-                //Debug.Log(gameObject.transform.GetChild(0));
                 detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
             }
-
             if (detail.type == "Misc")
             {
                 Transform misc = miscDetail.gameObject.transform;
@@ -1682,11 +1437,7 @@ public class InventoryManager : MonoBehaviour
                 misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
                 misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
                 miscDetail.transform.position = detailPos.transform.position;
-
-
-
                 miscDetail.SetActive(true);
-
             }
             if (detail.type == "Consum")
             {
@@ -1699,8 +1450,6 @@ public class InventoryManager : MonoBehaviour
                 consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
                 consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
                 SetConsumEffect(consum.GetChild(7).gameObject, detail);
-   
-
                 consum.transform.position = detailPos.transform.position;
                 consumDetail.SetActive(true);
 
@@ -1708,7 +1457,6 @@ public class InventoryManager : MonoBehaviour
             if (detail.type == "Equip")
             {
                 Transform equip = equipDetail.gameObject.transform;
-
                 string folderPath = detail.equipArea + "/";
 
                 // 리소스 폴더 내의 equipName을 로드합니다.
@@ -1733,8 +1481,6 @@ public class InventoryManager : MonoBehaviour
                     SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
                     CheckSkillDetail(weapon);
                 }
-
-
                 equip.transform.position = detailPos.transform.position;
                 equipDetail.SetActive(true);
 
@@ -1742,8 +1488,6 @@ public class InventoryManager : MonoBehaviour
         }
         else if (state == "Equipment")
         {
-            // state = "detail";
-
             if (ob != null)
             {
                 detail = ob.transform.GetComponent<ItemCheck>();
@@ -1751,7 +1495,6 @@ public class InventoryManager : MonoBehaviour
             else
             {
                 GameObject gameObject = (nowEquipBox);
-                //Debug.Log(gameObject.transform.GetChild(0));
                 detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
             }
             string folderPath = detail.equipArea + "/";
@@ -1779,23 +1522,18 @@ public class InventoryManager : MonoBehaviour
                 SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
                 CheckSkillDetail(weapon);
             }
-
-
             equip.transform.position = detailPos.transform.position;
             equipDetail.SetActive(true);
 
             equip.transform.position = detailPos.transform.position;
             equipDetail.SetActive(true);
-            // Debug.Log(detail.name + " " + detail.type + " " + detail.description + " " + detail.price + " " + detail.weight + " " + detail.acqPath);
-
         }
     }
-
     public GameObject skillDetailUi;
     public void CheckSkillDetail(Weapon weapon) // 기술 체크.
     {
         skillDetailUi.SetActive(true);
-        for (int i =0; i < 4; i++) // 기술 갯수가 늘어나면 여기 변경해 주어야함.
+        for (int i = 0; i < 4; i++) // 기술 갯수가 늘어나면 여기 변경해 주어야함.
         {
             GameObject skillSlot = skillDetailUi.transform.GetChild(i).gameObject;
             if (weapon.skill[i] != null)
@@ -1803,15 +1541,11 @@ public class InventoryManager : MonoBehaviour
                 skillSlot.SetActive(true);
                 Skill skill = weapon.skill[i];
 
-
                 skillSlot.transform.GetChild(0).GetComponent<Image>().sprite = skill.skillImage;
                 skillSlot.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = skill.skillName;
                 skillSlot.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = skill.useStemina.ToString();
                 skillSlot.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = skill.SkillCoolTime.ToString();
                 skillSlot.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = skill.skillDetail;
-
-                //  equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
-                // equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
             }
             else
             {
@@ -1819,7 +1553,6 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-
     public void SetEffectDetail(GameObject textObject, ItemCheck nowItem)
     {
         // 방어구의 세트효과
@@ -1834,13 +1567,13 @@ public class InventoryManager : MonoBehaviour
                 string noParentheses = effecStr.Replace("(", "").Replace(")", " ");
                 string[] box = noParentheses.Split("/");
                 allSetStr += "(" + i + ") ";
-                for (int k =0; k < box.Length; k++)
+                for (int k = 0; k < box.Length; k++)
                 {
                     // Step 1: Remove the parentheses
                     string[] checkEffect = box[k].Split();
                     if (checkEffect[2] == "skillHitCount")
                     {
-                        allSetStr +=  checkEffect[0] + checkEffect[1] + " " + "["+checkEffect[3].Replace("_", " ") +"]"+ " count";
+                        allSetStr += checkEffect[0] + checkEffect[1] + " " + "[" + checkEffect[3].Replace("_", " ") + "]" + " count";
                     }
                     else if (checkEffect[2] == "bulletCount")
                     {
@@ -1848,13 +1581,12 @@ public class InventoryManager : MonoBehaviour
                     }
                     else if (checkEffect[2] == "coolDown")
                     {
-                        allSetStr += "-" + checkEffect[1] + "% CoolDown " + "[" + checkEffect[3].Replace("_", " ") + "]" ;
+                        allSetStr += "-" + checkEffect[1] + "% CoolDown " + "[" + checkEffect[3].Replace("_", " ") + "]";
                     }
                     else
                     {
-                        allSetStr +=  checkEffect[0]+" "+ checkEffect[1] + " " + checkEffect[2];
+                        allSetStr += checkEffect[0] + " " + checkEffect[1] + " " + checkEffect[2];
                     }
-
                     if (k != box.Length - 1)
                     {
                         allSetStr += ",\n";
@@ -1863,13 +1595,9 @@ public class InventoryManager : MonoBehaviour
                     {
                         allSetStr += "\n";
                     }
-
-
                 }
-
             }
         }
-
         textObject.GetComponent<TextMeshProUGUI>().text = allSetStr;
     }
     public void SetConsumEffect(GameObject textObject, ItemCheck nowItem)
@@ -1882,17 +1610,14 @@ public class InventoryManager : MonoBehaviour
         {
             string[] effectStr = effect[i].Split();
             string[] effectPowerDetail = effectPower[i].Split("_");
-
-
-            if(effectPowerDetail.Length < 2)
+            if (effectPowerDetail.Length < 2)
             {
                 allSetStr += effectStr[1] + CapitalizeFirstLetter(effectStr[0]) + " " + effectPowerDetail[0] + "\n";
             }
             else // 2번째 있다면 그건 시간
             {
-                allSetStr += effectStr[1] + CapitalizeFirstLetter(effectStr[0]) + " " + effectPowerDetail[0] + " : "+ effectPowerDetail[1]+" Sec" + "\n";
+                allSetStr += effectStr[1] + CapitalizeFirstLetter(effectStr[0]) + " " + effectPowerDetail[0] + " : " + effectPowerDetail[1] + " Sec" + "\n";
             }
-
         }
         textObject.GetComponent<TextMeshProUGUI>().text = allSetStr;
     }
@@ -1908,31 +1633,26 @@ public class InventoryManager : MonoBehaviour
         }
         if (weapon.critDmg != 0)
         {
-
             if (weapon.critDmg > 0) basicStr += "+" + weapon.critDmg.ToString() + " Critical Dmg\n";
             else basicStr += "-" + weapon.critDmg.ToString() + " Critical Dmg\n";
         }
         if (weapon.incDmg != 0)
         {
-
             if (weapon.incDmg > 0) basicStr += "+" + weapon.incDmg.ToString() + " Dmg Increase\n";
             else basicStr += "-" + weapon.incDmg.ToString() + " Dmg Decrease\n";
         }
         if (weapon.ignDef != 0)
         {
-
             if (weapon.ignDef > 0) basicStr += "+" + weapon.ignDef.ToString() + " Armor Penetration\n";
             else basicStr += "-" + weapon.ignDef.ToString() + " Armor Penetration\n";
         }
         if (weapon.skillDmg != 0)
         {
-
             if (weapon.skillDmg > 0) basicStr += "+" + weapon.skillDmg.ToString() + " Skill Dmg\n";
             else basicStr += "-" + weapon.skillDmg.ToString() + " Skill Dmg\n";
         }
         if (weapon.addDmg != 0)
         {
-
             if (weapon.addDmg > 0) basicStr += "+" + weapon.addDmg.ToString() + " Additional Dmg\n";
             else basicStr += "-" + weapon.addDmg.ToString() + " Additional Dmg\n";
         }
@@ -1944,7 +1664,6 @@ public class InventoryManager : MonoBehaviour
         {
             return input;
         }
-
         // 첫 번째 문자를 대문자로 바꾸고 나머지 부분은 그대로 둡니다.
         return char.ToUpper(input[0]) + input.Substring(1);
     }
@@ -1994,10 +1713,10 @@ public class InventoryManager : MonoBehaviour
         }
         if (equipment.coolDownSkill.Length != 0)
         {
-            for(int i =0; i < equipment.coolDownSkill.Length; i++)
+            for (int i = 0; i < equipment.coolDownSkill.Length; i++)
             {
                 basicStr += "-" + equipment.coolDownSkill[i].coolDownCount.ToString() + "% Cooldown " + equipment.coolDownSkill[i].skillName;
-        }
+            }
         }
         if (equipment.incDmg != 0)
         {
@@ -2011,7 +1730,7 @@ public class InventoryManager : MonoBehaviour
         }
         if (equipment.isBleeding == true)
         {
-            basicStr += "+"+equipment.bleedingPerCent + "% Chance to Cause Bleeding\n";
+            basicStr += "+" + equipment.bleedingPerCent + "% Chance to Cause Bleeding\n";
         }
         if (equipment.bleedingDmgPer != 0)
         {
@@ -2030,13 +1749,10 @@ public class InventoryManager : MonoBehaviour
             case ("C"):
                 return "Common";
                 break;
-        
-        }
 
+        }
         return "";
     }
-
-
     public bool BoxFullCheck()
     {
         for (int j = 0; j < 5; j++)
@@ -2052,17 +1768,11 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
-
         return false;
     }
-
-
-
-
-
-public void CreatItem(string itemName, bool isC2I = false)
+    public void CreatItem(string itemName, bool isC2I = false)
     {
-        if(CheckStack(itemName) == false)
+        if (CheckStack(itemName) == false)
         {
             bool isCreate = false;
             for (int j = 0; j < 5; j++)
@@ -2090,31 +1800,23 @@ public void CreatItem(string itemName, bool isC2I = false)
                 }
             }
         }
-
         if (isC2I == true)
         {
             chest.itemCheck.nowStack -= 1;
         }
         SaveInventory();
     }
-
-
-
     public void ExchangeItem(GameObject nowBoxOb, GameObject afterBoxOb)
     {
-
-
         GameObject changeItem = afterBoxOb.transform.GetChild(0).gameObject;
-        Debug.Log(changeItem); 
+        Debug.Log(changeItem);
         changeItem.transform.SetParent(nowBoxOb.transform);
         changeItem.transform.position = nowBoxOb.transform.position;
-
 
         GameObject beforitem = nowBoxOb.transform.GetChild(0).gameObject;
         Debug.Log(beforitem);
         beforitem.transform.SetParent(afterBoxOb.transform);
         beforitem.transform.position = afterBoxOb.transform.position;
-
 
         GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
         cusor.transform.position = insPositon.transform.position;
@@ -2123,14 +1825,14 @@ public void CreatItem(string itemName, bool isC2I = false)
     }
     public void ChangeCusor(GameObject ob)
     {
-        if(ShopGameObject.activeSelf == true)
+        if (ShopGameObject.activeSelf == true)
         {
             ShopUI.cusor.SetActive(false);
         }
         cusorCount[nowBox] = ob.transform.GetSiblingIndex();
         cusor.transform.position = ob.transform.position;
         cusor.SetActive(true);
-        if(chest != null)
+        if (chest != null)
         {
             cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
             chest.changeCusor.SetActive(false);
@@ -2143,9 +1845,8 @@ public void CreatItem(string itemName, bool isC2I = false)
             cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
             state = "";
         }
-        
     }
-   public  void DeletItemByName(string itemName, int count = 1)
+    public void DeletItemByName(string itemName, int count = 1)
     {
         for (int j = 0; j < 5; j++)
         {
@@ -2158,15 +1859,14 @@ public void CreatItem(string itemName, bool isC2I = false)
                     {
                         GameObject item = insPositon.transform.GetChild(0).gameObject;
                         ItemCheck check = item.GetComponent<ItemCheck>();
-                        if (check.name == itemName && count >0)
+                        if (check.name == itemName && count > 0)
                         {
-                            if (check.nowStack>0)
+                            if (check.nowStack > 0)
                             {
                                 check.nowStack -= 1;
                                 count -= 1;
                                 DatabaseManager.MinusInventoryDict(itemName, 1);
                             }
-
                         }
                         if (check.nowStack <= 0)
                         {
@@ -2178,13 +1878,9 @@ public void CreatItem(string itemName, bool isC2I = false)
                 }
             }
         }
-
-  
     }
     public bool OnlyCheckStack(string itemName)
     {
-
-
         for (int j = 0; j < 5; j++)
         {
             for (int i = 0; i < (maxHor * maxVer); i++)
@@ -2211,12 +1907,8 @@ public void CreatItem(string itemName, bool isC2I = false)
         }
         return false;
     }
-
-
     public bool CheckStack(string itemName)
     {
-
-
         for (int j = 0; j < 5; j++)
         {
             for (int i = 0; i < (maxHor * maxVer); i++)
@@ -2224,7 +1916,7 @@ public void CreatItem(string itemName, bool isC2I = false)
                 if (maxBoxNum > (j * (maxHor * maxVer)) + i)
                 {
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
-                    if(insPositon.transform.childCount > 0)
+                    if (insPositon.transform.childCount > 0)
                     {
                         GameObject item = insPositon.transform.GetChild(0).gameObject;
                         ItemCheck check = item.GetComponent<ItemCheck>();
@@ -2236,10 +1928,8 @@ public void CreatItem(string itemName, bool isC2I = false)
                                 DatabaseManager.PlusInventoryDict(itemName, 1);
                                 return true;
                             }
-
                         }
                     }
-
                 }
             }
         }
@@ -2247,7 +1937,6 @@ public void CreatItem(string itemName, bool isC2I = false)
     }
     public void CreatItemSelected(string itemName, int boxNum, int Stack = 1)
     {
-
         for (int i = 0; i < (maxHor * maxVer); i++)
         {
             if (maxBoxNum > (boxNum * (maxHor * maxVer)) + i)
@@ -2265,31 +1954,25 @@ public void CreatItem(string itemName, bool isC2I = false)
                 }
             }
         }
-
     }
     public void TestDelet(int uiNum, int boxNum)
     {
-
         RemoveFirstChild(GetNthChildGameObject(inventoryUI[uiNum], boxNum));
     }
-
     GameObject GetNthChildGameObject(GameObject parent, int n)
     {
         if (parent != null && n >= 0 && n < parent.transform.childCount)
         {
             Transform childTransform = parent.transform.GetChild(n);
-
             if (childTransform != null)
             {
                 GameObject childGameObject = childTransform.gameObject;
                 return childGameObject;
             }
         }
-
         // 특정 오브젝트의 n번째 자식이 존재하지 않는 경우 또는 parent가 null인 경우
         return null;
     }
-
     // 첫 번째 자식의 첫 번째 자식을 삭제하는 함수
     void RemoveFirstChild(GameObject parent)
     {
@@ -2297,15 +1980,13 @@ public void CreatItem(string itemName, bool isC2I = false)
         if (parent != null && parent.transform.childCount > 0)
         {
             Transform firstChild = parent.transform.GetChild(0);
-
             // 첫 번째 자식을 삭제
             Destroy(firstChild.gameObject);
         }
     }
-
     public void DetailOff()
     {
-        if ((state == "chestOpen" || chest != null)&& state != "I2CMove")
+        if ((state == "chestOpen" || chest != null) && state != "I2CMove")
         {
             cusorImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
             state = "chestOpen";
@@ -2327,31 +2008,25 @@ public void CreatItem(string itemName, bool isC2I = false)
         consumDetail.SetActive(false);
         equipDetail.SetActive(false);
     }
-
     public Chest chest;
     public void CheckNowChest(Chest input)
     {
         state = "chestOpen";
         chest = input;
     }
-
-
     public void ResetBoxOrigin()
     {
         GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
         cusor.transform.position = insPositon.transform.position;
     }
-
     public void DragReset()
     {
         changeCusor.SetActive(false); skillDetailUi.SetActive(false);
         state = "";
-        miscDetail.SetActive(false);    
-      consumDetail.SetActive(false);
+        miscDetail.SetActive(false);
+        consumDetail.SetActive(false);
         equipDetail.SetActive(false);
         divideUI.SetActive(false);
 
     }
-
-
 }

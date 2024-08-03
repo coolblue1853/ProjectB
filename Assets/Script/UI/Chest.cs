@@ -806,7 +806,7 @@ public class Chest : MonoBehaviour
                 if (((cusorCount[nowBox]+1) % (maxHor)) ==0 && cusorCount[nowBox] !=0)
                 {
                     InventoryManager.instance.checkRepeat = false;
-                    InventoryManager.instance.ExCheckMove();
+                    InventoryManager.instance.CusorContinuousInputCheck();
                     cusor.SetActive(false);
                     isChestActive = false;
                     InventoryManager.instance.CusorChest2Inven();
