@@ -5,10 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 public class ShopManager : MonoBehaviour
 {
-    //-105
     public GameObject detailPos;
-    int detailX = -105;
-    int detailY = 22;
     public GameObject skillDetailUi;
     public GameObject[] LV1;
     public GameObject nowLine;
@@ -24,9 +21,7 @@ public class ShopManager : MonoBehaviour
     public TextMeshProUGUI effectPow;
     public TextMeshProUGUI equipArea;
     public Image image;
-
     public GameObject itemPrefab; // 생성되는 Box 인스턴스
-                                  // Start is called before the first frame update
 
     int nowLv = 0;
     int line = 0;
@@ -54,14 +49,11 @@ public class ShopManager : MonoBehaviour
     InputAction backAction;
     InputAction chestMoveAction;
     InputAction consumAction;
-
     InputAction leftSholderAction;
     InputAction rightSholderAction;
-
     InputAction openCraftUiAction;
     private void OnEnable()
     {
-
         openInventoryAction.Enable();
         leftInventoryAction.Enable();
         rightInventoryAction.Enable();
@@ -81,7 +73,6 @@ public class ShopManager : MonoBehaviour
     }
     private void OnDisable()
     {
-
         openInventoryAction.Disable();
         leftInventoryAction.Disable();
         rightInventoryAction.Disable();
@@ -126,11 +117,7 @@ public class ShopManager : MonoBehaviour
         nowPage = 0;
         childCount = 0;
         nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(0).GetComponent<ItemCheck>();
-     //   SetNeedItem(); 
-        // Invoke("SetDetail", 1f); // 일단 1초뒤에 하도록 해서 딜레이 체크를 했는데 이거는 확인해야할듯
-
     }
-
     void SetDetail()
     {
         name.text = nowShopItem.name;
@@ -141,31 +128,22 @@ public class ShopManager : MonoBehaviour
         acqPath.text = nowShopItem.acqPath;
         Image changeImage = nowShopItem.transform.GetChild(0).GetComponent<Image>();
         image.sprite = changeImage.sprite;
-        if (type.text == "Consum")
-        {
-          //  effectOb.text = nowCraftItem.effectOb;
-         //   effectPow.text = nowCraftItem.effectPow.ToString();
-        }
-        if (type.text == "Equip")
-        {
-          //  equipArea.text = nowCraftItem.equipArea;
-        }
-
-    }
-
-
-    void CreatItem()
-    {
-        InventoryManager.instance.CreatItem(name.text);
     }
     public GameObject miscDetail;
     public GameObject consumDetail;
     public GameObject equipDetail;
     ItemCheck detail;
     public bool isBuyDetail;
+    public void CusorContinuousInputCheck()
+    {
+        checkRepeat = true;
+        sequence.Kill();
+        sequence = DOTween.Sequence()
+        .AppendInterval(waitTime)
+        .OnComplete(() => ResetCheckRepeat());
+    }
     void SetNeedDetail()
     {
-        //nowShopItem.type 
         isBuyDetail = true;
         if (nowShopItem.type == "Misc")
         {
@@ -178,7 +156,6 @@ public class ShopManager : MonoBehaviour
             misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.tear.ToString();
             misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.rarity);
             miscDetail.transform.position = detailPos.transform.position;
-
 
             miscDetail.SetActive(true);
             consumDetail.SetActive(false);
@@ -197,7 +174,6 @@ public class ShopManager : MonoBehaviour
             consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.rarity);
             InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, nowShopItem);
 
-
             consum.transform.position = detailPos.transform.position;
             miscDetail.SetActive(false);
             consumDetail.SetActive(true);
@@ -207,9 +183,7 @@ public class ShopManager : MonoBehaviour
         if (nowShopItem.type == "Equip")
         {
             Transform equip = equipDetail.gameObject.transform;
-
             string folderPath = nowShopItem.equipArea + "/";
-
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + nowShopItem.name);
             equip.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
@@ -232,87 +206,15 @@ public class ShopManager : MonoBehaviour
                 InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
                 InventoryManager.instance.CheckSkillDetail(weapon);
             }
-
-
             equip.transform.position = detailPos.transform.position;
             miscDetail.SetActive(false);
             consumDetail.SetActive(false);
             equipDetail.SetActive(true);
         }
-        
-
     }
     public GameObject detailCusor;
     bool isCheckDetail;
     int detailCount = 0;
-    void MoveDetailCusor()
-    {
-    //   GameObject detailOb = needMaterail.transform.GetChild(detailCount).gameObject;
-     //  detailCusor.transform.position = new Vector2(detailOb.transform.position.x, detailOb.transform.position.y);
-
-        if (rightInventoryAction.triggered == true)
-        {
-            if (needMaterailUI.transform.GetChild(0).childCount > detailCount + 1)
-            {
-                 detailCount += 1;
-                SetNeedDetail();
-            }
-        }
-        if (leftInventoryAction.triggered == true)
-        {
-            if (0 < detailCount)
-            {
-                detailCount -= 1;
-                SetNeedDetail();
-            }
-        }
-        if(downInventoryAction.triggered == true)
-        {
-            if(detailCount < 4) // 현재 0 1 2 3   4 가 있을때 
-            {
-                detailCount += 4;
-                SetNeedDetail();
-            }
-            else
-            {
-                if (detailCount >= 4 )
-                {
-                    miscDetail.SetActive(false);
-                    consumDetail.SetActive(false);
-                    equipDetail.SetActive(false);
-                    Invoke("ChangeCheckDetail", 0.1f);
-                    craftCusor.SetActive(true);
-                    detailCusor.SetActive(false);
-                    cusor.SetActive(false);
-                }
-
-            }
-
-        }
-        if (upInventoryAction.triggered == true)
-        {
-            if (detailCount >= 4 ) // 현재 0 1 2 3   4 가 있을때 
-            {
-                detailCount -= 4;
-                SetNeedDetail();
-            }
-        }
-
-        if(backAction.triggered == true)
-        {
-          //  miscDetail.SetActive(false);
-          //  consumDetail.SetActive(false);
-          //  equipDetail.SetActive(false);
-          //  Invoke("ChangeCheckDetail", 0.1f);
-           // craftCusor.SetActive(true);
-          ////  detailCusor.SetActive(false);
-           // cusor.SetActive(false);
-        }
-    }
-    void ChangeCheckDetail()
-    {
-        isCheckDetail = false;
-    }
 
    public bool leftKeyCheck = false;
     public void ChangeCusor()
@@ -322,10 +224,7 @@ public class ShopManager : MonoBehaviour
         sequence = DOTween.Sequence()
        .AppendInterval(waitTime)
        .OnComplete(() => ResetCheckRepeat());
-
     }
-
-
     public int currentSellValue = 0; // 현재 가지고 있는 int 수
     public GameObject sellUIGameObject;
     int totalSellPrice;
@@ -343,32 +242,21 @@ public class ShopManager : MonoBehaviour
     void OnSliderValueChanged(float value)
     {
         output = Mathf.RoundToInt(value);
-
     }
     void RightMove()
     {
-        Debug.Log("작동");
-        checkRepeat = true;
-        sequence.Kill();
-        sequence = DOTween.Sequence()
-        .AppendInterval(waitTime)
-        .OnComplete(() => ResetCheckRepeat());
+        CusorContinuousInputCheck();
         sellSlider.value += 1;
         totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
         sellText.text = "Buy " + nowShopItem.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void LeftMove()
     {
-        checkRepeat = true;
-        sequence.Kill();
-        sequence = DOTween.Sequence()
-        .AppendInterval(waitTime)
-        .OnComplete(() => ResetCheckRepeat());
+        CusorContinuousInputCheck();
         sellSlider.value -= 1;
         totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
         sellText.text = "Buy " + nowShopItem.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
-
     void InitializeSlider()
     {
         sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
@@ -381,7 +269,6 @@ public class ShopManager : MonoBehaviour
     }
     void BuyItem()
     {
-
         for(int i =0; i < sellSlider.value; i++)
         {
             if (InventoryManager.instance.CheckBoxCanCreatAll() == true || InventoryManager.instance.OnlyCheckStack(nowShopItem.name) == true)
@@ -390,8 +277,6 @@ public class ShopManager : MonoBehaviour
                 InventoryManager.instance.CreatItem(nowShopItem.name);
             }
         }
-
-
         InventoryManager.instance.state = "ShopCusorOn";
         sellUIGameObject.SetActive(false);
         state = "";
@@ -400,7 +285,6 @@ public class ShopManager : MonoBehaviour
         DetailOff();
         InventoryManager.instance.SaveInventory();
     }
-
     public void CloseBuyUI()
     {
         InventoryManager.instance.state = "ShopCusorOn";
@@ -409,7 +293,6 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (InventoryManager.instance.state == "BuyDetail")
         {
             if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1) && sellSlider.value < sellSlider.maxValue)
@@ -419,39 +302,20 @@ public class ShopManager : MonoBehaviour
             else if ((leftInventoryAction.triggered) || (checkRepeat == false && horizontalInput == -1) && sellSlider.value > 1)
             {
                 LeftMove();
-            };
+            }
             if (selectAction.triggered && DatabaseManager.money >= nowShopItem.Buyprice)
             {
                 BuyItem();
             }
         }
-
         if (ShopUI.activeSelf == true && InventoryManager.instance.state == "ShopCusorOn")
         {
-            if(isCheckDetail == true)
+            if (cusor.activeSelf == false && craftCusor.activeSelf == true)
             {
-               // MoveDetailCusor();
-            }
-
-
-                if (cusor.activeSelf == false && craftCusor.activeSelf == true)
-            {
-                if (selectAction.triggered == true && isCraft == true)
-                {
-                    //Craft();
-                }
-                if ((backAction.triggered == true && isCheckDetail == false) || leftInventoryAction.triggered == true)
-                {
-                 //   Invoke("ChangeisCarftFalse",0.1f);
-
-                  //  cusor.SetActive(true);
-                   // craftCusor.SetActive(false);
-                }
-                if(upInventoryAction.triggered == true)
+      
+                if (upInventoryAction.triggered == true)
                 {
                     detailCount = 0;
-                  //  GameObject detailOb = needMaterail.transform.GetChild(detailCount).gameObject;
-                  //  detailCusor.transform.position = new Vector2(detailOb.transform.position.x, detailOb.transform.position.y);
                     craftCusor.SetActive(false);
                     detailCusor.SetActive(true);
 
@@ -478,23 +342,10 @@ public class ShopManager : MonoBehaviour
                 SellItemUI();
             }
         }
-
-
-
-
-
-        // 아래는 UI를 키고 끄는 역할
-
-
         if (name.text == "")
         {
-           // cusor.SetActive(false);
             SetDetail();
         }
-
-
-
-
     }
     public void OpenShop()
     {
@@ -506,16 +357,12 @@ public class ShopManager : MonoBehaviour
             InventoryManager.instance.boxCusor = 0;
             InventoryManager.instance.ResetBoxOrigin();
             InventoryManager.instance.cusor.SetActive(true);
-            ResetShopUi();
             Invoke("ChangeisMoveCusor", 0.2f);
             ShopUI.SetActive(true);
             Inventory.SetActive(true);
-
-            //  needMaterailUI.SetActive(true);
             DatabaseManager.isOpenUI = true;
         }
     }
-
     public string state = "";
     public void DetailOff()
     {
@@ -532,10 +379,6 @@ public class ShopManager : MonoBehaviour
         needMaterailUI.SetActive(false);
         DatabaseManager.isOpenUI = false;
     }
-    void ResetShopUi()
-    {
-
-    }
 
     bool isCraft = false;
     void ChangeisCarft()
@@ -551,7 +394,6 @@ public class ShopManager : MonoBehaviour
     {
         isMoveCusor = true;
     }
-
     float verticalInput;
     float horizontalInput;
     public bool checkRepeat = false;
@@ -570,10 +412,7 @@ public class ShopManager : MonoBehaviour
         line = inline;
         childCount = inchild;
         cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv 상자의 line 줄의 count 위치.
-       // DeleteAllChildren(needMaterail);
         nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
-     //   nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
-        //SetNeedItem();
         SetDetail();
     }
     void MoveCusor()
@@ -583,25 +422,15 @@ public class ShopManager : MonoBehaviour
         {
             if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.childCount > childCount + 1)
             {
-                checkRepeat = true;
-                sequence.Kill();
-
-                sequence = DOTween.Sequence()
-                .AppendInterval(waitTime)
-                .OnComplete(() => ResetCheckRepeat());
-
+                CusorContinuousInputCheck();
                 childCount += 1;
-               // DeleteAllChildren(needMaterail);
                 nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
-              //  nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
-                //SetNeedItem();
                 SetDetail();
                 DetailOff();
             }
             else
             {
                 InventoryManager.instance.checkRepeat = false;
-                InventoryManager.instance.CusorContinuousInputCheck();
                 InventoryManager.instance.CusorChest2Inven();
                 cusor.SetActive(false);
                 DetailOff();
@@ -611,65 +440,37 @@ public class ShopManager : MonoBehaviour
         {
             if (childCount > 0)
             {
-                checkRepeat = true;
-                sequence.Kill();
-
-                sequence = DOTween.Sequence()
-                .AppendInterval(waitTime)
-                .OnComplete(() => ResetCheckRepeat());
-
+                CusorContinuousInputCheck();
                 childCount -= 1;
-              //  DeleteAllChildren(needMaterail);
                 nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
-                //nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
-                //SetNeedItem();
                 SetDetail();
                 DetailOff();
             }
         }
         if (((downInventoryAction.triggered) || (checkRepeat == false && verticalInput == -1)) && LV1craftBox[nowLv].transform.GetChild(nowPage).transform.childCount > line+1)
         {
-            checkRepeat = true;
-            sequence.Kill();
-
-            sequence = DOTween.Sequence()
-            .AppendInterval(waitTime)
-            .OnComplete(() => ResetCheckRepeat());
+            CusorContinuousInputCheck();
             if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line+1).transform.childCount < childCount+1)  //. 1, 2번째줄의 자식카운트 = 2 > 내카운트 2+1
             {
                 childCount = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line+1).transform.childCount - 1;
             }
             line += 1;
-         //   DeleteAllChildren(needMaterail);
             nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
-            //nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
-            //SetNeedItem();
             SetDetail();
             DetailOff();
         }
         if (((upInventoryAction.triggered) || (checkRepeat == false && verticalInput == 1)) && 0 < line)
         {
-            checkRepeat = true;
-            sequence.Kill();
-
-            sequence = DOTween.Sequence()
-            .AppendInterval(waitTime)
-            .OnComplete(() => ResetCheckRepeat());
+            CusorContinuousInputCheck();
             if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line-1).transform.childCount < childCount +1) //  저게 2     지금이 3
             {
                 childCount = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line-1).transform.childCount - 1;
             }
             line -= 1;
-           // DeleteAllChildren(needMaterail);
             nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
-           // nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
-            //SetNeedItem();
             SetDetail();
             DetailOff();
         }
-
-
-
         if (rightSholderAction.triggered && LV1craftBox[nowLv].transform.childCount > nowPage + 1)
         {
             LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(false);
@@ -677,12 +478,8 @@ public class ShopManager : MonoBehaviour
             childCount = 0;
             nowPage += 1;
             LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(true);
-         //   DeleteAllChildren(needMaterail);
             nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
-        //    nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
-            //SetNeedItem();
             SetDetail();
-
         }
         if (leftSholderAction.triggered && 0 < nowPage)
         {
@@ -691,34 +488,8 @@ public class ShopManager : MonoBehaviour
             childCount = 0;
             nowPage -= 1;
             LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(true);
-         //   DeleteAllChildren(needMaterail);
             nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
-        //    nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
-            //SetNeedItem();
             SetDetail();
-
-        }
-
-    }
-
-    //DatabaseManager.inventoryItemStack[name]+"/" + needCount
-
-
-
-
-    void DeleteAllChildren(GameObject parent)
-    {
-        // 부모 GameObject의 자식 GameObject를 모두 가져와서 배열에 저장
-        GameObject[] children = new GameObject[parent.transform.childCount];
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            children[i] = parent.transform.GetChild(i).gameObject;
-        }
-
-        // 배열에 저장된 모든 자식 GameObject를 삭제
-        foreach (GameObject child in children)
-        {
-            Destroy(child);
         }
     }
 }
