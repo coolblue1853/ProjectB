@@ -7,7 +7,7 @@ using System.IO;
 using TMPro;
 using DG.Tweening;
 using AnyPortrait;
-public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
+public class EquipBoxCheck : MonoBehaviour
 {
     public string equipArea = "";
     string reciveEquipArea;
@@ -15,57 +15,74 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     public AttackManager attackManager; // 무기 장착을 위한  AttackManager
     GameObject instantiatedPrefab;
     Weapon weapon;
-    Equipment head;
-    Equipment chest;
-    Equipment leg;
-    Equipment hand;
-    Equipment necklace;
-    Equipment ring;
-    Equipment shoes;
+    Equipment[] equipmentList = new Equipment[10];
     public GameObject nowBox;
     public Texture2D defaultOffset;
     public apPortrait mainCharacter;
-    private void Start()
-    {
-    }
+
     public void EquipMainWeapon()
     {
-       // weapon = equipPrefab.GetComponent<Weapon>();
         attackManager.equipWeapon = weapon;
         attackManager.EquipMainWeaopon();
+    }
+    int CheckEquipBoxNum(string equipArea, bool isChangeTexture = false, Texture2D texture = null)
+    {
+        switch (equipArea)
+        {
+            case "Ring":
+                return  1;
+            case "Head":
+                if (isChangeTexture)
+                {
+                    mainCharacter.SetMeshImage("Hat", texture);
+                }
+                return  2;
+            case "Necklace":
+                return  3;
+            case "Chest":
+                if (isChangeTexture)
+                {
+                    mainCharacter.SetMeshImage("RArm", texture);
+                    mainCharacter.SetMeshImage("Rsholder", texture);
+                    mainCharacter.SetMeshImage("LArm", texture);
+                    mainCharacter.SetMeshImage("LSholder", texture);
+                    mainCharacter.SetMeshImage("UppderBody", texture);
+                    mainCharacter.SetMeshImage("DwonBody", texture);
+                }
+                return  5;
+            case "Hand":
+                if (isChangeTexture)
+                {
+                    mainCharacter.SetMeshImage("RHand", texture);
+                    mainCharacter.SetMeshImage("LHand", texture);
+                }
+                return  6;
+            case "Weapon":
+                return  7;
+            case "Leg":
+                if (isChangeTexture)
+                {
+                    mainCharacter.SetMeshImage("RDownLeg", texture);
+                    mainCharacter.SetMeshImage("RUpperLeg", texture);
+                    mainCharacter.SetMeshImage("LDownLeg", texture);
+                    mainCharacter.SetMeshImage("LUpperLeg", texture);
+                }
+                return  8;
+            case "Shoes":
+                if (isChangeTexture)
+                {
+                    mainCharacter.SetMeshImage("RFoot", texture);
+                    mainCharacter.SetMeshImage("LFoot", texture);
+                }
+                return  9;
+            default:
+                return 0;
+        }
     }
     public void SaveEquipItem(ItemCheck itemCheck, bool isSave) // 저장할지 삭제할지.
     {
         string[] gear = new string[] { itemCheck.name , itemCheck.tear.ToString() , itemCheck.upgrade.ToString() };
-        int nowEquipNum =0; // 현재 저장해야할 장비 번호
-        switch (itemCheck.equipArea)
-        {
-            case "Ring":
-                nowEquipNum = 1;
-                break;
-            case "Head":
-                nowEquipNum = 2;
-                break;
-            case "Necklace":
-                nowEquipNum = 3;
-                break;
-            case "Chest":
-                nowEquipNum = 5;
-                break;
-            case "Hand":
-                nowEquipNum = 6;
-                break;
-            case "Weapon":
-                nowEquipNum = 7;
-                break;
-            case "Leg":
-                nowEquipNum = 8;
-                break;
-            case "Shoes":
-                nowEquipNum = 9;
-                break;
-        }
-
+        int nowEquipNum = CheckEquipBoxNum(itemCheck.equipArea); // 현재 저장해야할 장비 번호
         if (isSave == true)
         {
             for(int i =0; i< 3; i++)
@@ -83,54 +100,27 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
     }
     public void ActivePrefab(string reciveEquipArea)
     {
-        if(equipPrefab == null)
+        int equipNum = CheckEquipBoxNum(reciveEquipArea);
+        if (equipPrefab == null)
         {
             GameObject ob = transform.GetChild(0).gameObject;
             ItemCheck obItemCheck = ob.GetComponent<ItemCheck>();
            LoadPrefab(obItemCheck.name, obItemCheck.equipArea, obItemCheck.tfName);
         }
-        if (reciveEquipArea == "Weapon" && weapon == null)
+        if (reciveEquipArea == "Weapon" && weapon == null) // 무기는 Weapon 스크립트를 사용하므로 예외
         {
              weapon = equipPrefab.GetComponent<Weapon>();
             attackManager.equipWeapon = weapon;
             attackManager.EquipMainWeaopon();
         }
-        else if (reciveEquipArea == "Head" && head == null)
+        else
         {
-            head = equipPrefab.GetComponent<Equipment>();
-            SetEquipment(head);
+            if (equipmentList[equipNum] == null)
+            {
+                equipmentList[equipNum] = equipPrefab.GetComponent<Equipment>();
+                SetEquipment(equipmentList[equipNum]);
+            }
         }
-        else if (reciveEquipArea == "Chest" && chest == null)
-        {
-            chest = equipPrefab.GetComponent<Equipment>();
-            SetEquipment(chest);
-        }
-        else if (reciveEquipArea == "Leg" && leg == null)
-        {
-            leg = equipPrefab.GetComponent<Equipment>();
-            SetEquipment(leg);
-        }
-        else if (reciveEquipArea == "Hand" && hand == null)
-        {
-            hand = equipPrefab.GetComponent<Equipment>();
-            SetEquipment(hand);
-        }
-        else if (reciveEquipArea == "Necklace" && hand == null)
-        {
-            necklace = equipPrefab.GetComponent<Equipment>();
-            SetEquipment(necklace);
-        }
-        else if (reciveEquipArea == "Ring" && hand == null)
-        {
-            ring = equipPrefab.GetComponent<Equipment>();
-            SetEquipment(ring);
-        }
-        else if (reciveEquipArea == "Shoes" && shoes == null)
-        {
-            shoes = equipPrefab.GetComponent<Equipment>();
-            SetEquipment(shoes);
-        }
-
     }
     public void SetEquipmentSkillCool(Equipment equip)
     {
@@ -157,8 +147,6 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
             }
         }
     }
-
-
     public void SetEquipment(Equipment equip)
     {
         SetEquipmentSkillCool(equip);
@@ -201,452 +189,82 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         }
     }
 
-
-
     GameObject deletChile ;
     public void DeletPrefab(ItemCheck detail, string reciveEquipArea, bool isFalse= true)
     {
         DatabaseManager.MinusSetDict(detail.tfName, 1);
-        if (reciveEquipArea == "Weapon")
+        if (reciveEquipArea == "Weapon") // 무기는 예외
         {
             if (isFalse == false)
             {
                 attackManager.UnEquipMainWeaopon();
                 Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => attackManager.equipWeapon = null)
-  .AppendCallback(() => Destroy(weapon.gameObject))
- .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
- .OnComplete(() => Destroy(deletChile));
+                .AppendCallback(() => attackManager.equipWeapon = null)
+                .AppendCallback(() => Destroy(weapon.gameObject))
+                .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
+                .OnComplete(() => Destroy(deletChile));
             }
             else
             {
                 if (weapon != null)
                 {
                     attackManager.UnEquipMainWeaopon();
-
                     attackManager.equipWeapon = null;
-       
                     Destroy(weapon.gameObject);
                     weapon = null;
                 }
-
-
             }
         }
-         if (reciveEquipArea == "Head")
+        else
         {
-            mainCharacter.SetMeshImage("Hat", defaultOffset);
+            int equipNum = CheckEquipBoxNum(reciveEquipArea, true, defaultOffset);
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => DisableEquipment(head))
-  .AppendCallback(() => Destroy(head.gameObject))
- .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
- .OnComplete(() => Destroy(deletChile));
+                .AppendCallback(() => DisableEquipment(equipmentList[equipNum]))
+                .AppendCallback(() => Destroy(equipmentList[equipNum].gameObject))
+                .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
+                .OnComplete(() => Destroy(deletChile));
             }
             else
             {
-                if(head != null)
+                if (equipmentList[equipNum] != null)
                 {
-                    DisableEquipment(head);
-                    Destroy(head.gameObject);
-                    head = null;
+                    DisableEquipment(equipmentList[equipNum]);
+                    Destroy(equipmentList[equipNum].gameObject);
+                    equipmentList[equipNum] = null;
                 }
-    
-
-            }
-
-           
-
-        }
-         if (reciveEquipArea == "Chest")
-        {
-            mainCharacter.SetMeshImage("RArm", defaultOffset);
-            mainCharacter.SetMeshImage("Rsholder", defaultOffset);
-            mainCharacter.SetMeshImage("LArm", defaultOffset);
-            mainCharacter.SetMeshImage("LSholder", defaultOffset);
-            mainCharacter.SetMeshImage("UppderBody", defaultOffset);
-            mainCharacter.SetMeshImage("DwonBody", defaultOffset);
-            if (isFalse == false)
-            {
-
-                Sequence waitSequence = DOTween.Sequence()
-
-.AppendCallback(() => DisableEquipment(chest))
-.AppendCallback(() => Destroy(chest.gameObject))
-.AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
-.OnComplete(() => Destroy(deletChile));
-            }
-            else
-            {
-                if (chest != null)
-                {
-                    DisableEquipment(chest);
-                    Destroy(chest.gameObject);
-                    chest = null;
-                }
-
-            }
-
-
-
-        }
-
-         if (reciveEquipArea == "Leg")
-        {
-            mainCharacter.SetMeshImage("RDownLeg", defaultOffset);
-            mainCharacter.SetMeshImage("RUpperLeg", defaultOffset);
-            mainCharacter.SetMeshImage("LDownLeg", defaultOffset);
-            mainCharacter.SetMeshImage("LUpperLeg", defaultOffset);
-            if (isFalse == false)
-            {
-                Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => DisableEquipment(leg))
-.AppendCallback(() => Destroy(leg.gameObject))
-.AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
-.OnComplete(() => Destroy(deletChile));
-            }
-            else
-            {
-                if (leg != null)
-                {
-                    DisableEquipment(leg);
-                    Destroy(leg.gameObject);
-                    leg = null;
-                }
-
-            }
-
-
-        }
-         if (reciveEquipArea == "Hand")
-        {
-            mainCharacter.SetMeshImage("RHand", defaultOffset);
-            mainCharacter.SetMeshImage("LHand", defaultOffset);
-            if (isFalse == false)
-            {
-                Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => DisableEquipment(hand))
-    .AppendCallback(() => Destroy(hand.gameObject))
-    .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
-    .OnComplete(() => Destroy(deletChile));
-            }
-            else
-            {
-                if (hand != null)
-                {
-                    DisableEquipment(hand);
-                    Destroy(hand.gameObject);
-                    hand = null;
-                }
-
-            }
-
-
-        }
-         if (reciveEquipArea == "Necklace")
-        {
-            if (isFalse == false)
-            {
-                Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => DisableEquipment(necklace))
-    .AppendCallback(() => Destroy(necklace.gameObject))
-    .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
-    .OnComplete(() => Destroy(deletChile));
-            }
-            else
-            {
-                if (necklace != null)
-                {
-                    DisableEquipment(necklace);
-                    Destroy(necklace.gameObject);
-                    necklace = null;
-                }
-
-            }
-
-        }
-         if (reciveEquipArea == "Ring")
-        {
-            if(isFalse == false)
-            {
-                Sequence waitSequence = DOTween.Sequence()
-
-.AppendCallback(() => DisableEquipment(ring))
-.AppendCallback(() => Destroy(ring.gameObject))
-.AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
-.OnComplete(() => Destroy(deletChile));
-            }
-            else
-            {
-                if (ring != null)
-                {
-                    DisableEquipment(ring);
-                    Destroy(ring.gameObject);
-                    ring = null;
-                }
-
-            }
-        }
-        if (reciveEquipArea == "Shoes")
-        {
-            if (isFalse == false)
-            {
-                mainCharacter.SetMeshImage("RFoot", defaultOffset);
-                mainCharacter.SetMeshImage("LFoot", defaultOffset);
-                Sequence waitSequence = DOTween.Sequence()
-.AppendCallback(() => DisableEquipment(shoes))
-.AppendCallback(() => Destroy(shoes.gameObject))
-.AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
-.OnComplete(() => Destroy(deletChile));
-            }
-            else
-            {
-                if (shoes != null)
-                {
-                    DisableEquipment(shoes);
-                    Destroy(shoes.gameObject);
-                    shoes = null;
-                }
-
             }
         }
     }
-
-
     private void Awake()
     {
         nowBox = this.gameObject;
     }
-
-
     public void LoadPrefab(string equipName, string equipArea, string tfName)
     {
         if(tfName != null)
          DatabaseManager.PlusSetDict(tfName,1);
-
-
         reciveEquipArea = equipArea;
-        if (equipArea == "Weapon")
+
+        string folderPath = equipArea+"/";
+        GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);        // 리소스 폴더 내의 equipName을 로드합니다.
+        if(equipArea != "Weapon")
         {
-
-            string folderPath = "Weapon/";
-
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
-
-            if (prefab != null)
-            {
-                // Set the instantiated prefab as a child of the current GameObject
-                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
-
-                // Now, 'equipPrefab' refers to the instantiated prefab
-                equipPrefab = instantiatedPrefab;
-            }
-            else
-            {
-                Debug.LogError("Failed to load prefab: " + equipName);
-            }
-
-        }
-
-      else if (equipArea == "Head")
-        {
-            string folderPath = "Head/";
-
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
             string texturePath = "Sprite/";
             Texture2D sprite = Resources.Load<Texture2D>(texturePath + tfName);
-
-            if (sprite != null)
-            {
-                mainCharacter.SetMeshImage("Hat", sprite);
-            }
-            if (prefab != null)
-            {
-                // Set the instantiated prefab as a child of the current GameObject
-                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
-
-                // Now, 'equipPrefab' refers to the instantiated prefab
-                equipPrefab = instantiatedPrefab;
-            }
-            else
-            {
-                Debug.LogError("Failed to load prefab: " + equipName);
-            }
+            int equipNum = CheckEquipBoxNum(reciveEquipArea, true, sprite);
 
         }
-        else if (equipArea == "Chest")
+        if (prefab != null)
         {
-            string folderPath = "Chest/";
-
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
-            string texturePath = "Sprite/";
-            Texture2D sprite = Resources.Load<Texture2D>(texturePath+ tfName);
-
-            if(sprite != null)
-            {
-                mainCharacter.SetMeshImage("RArm", sprite);
-                mainCharacter.SetMeshImage("Rsholder", sprite);
-                mainCharacter.SetMeshImage("LArm", sprite);
-                mainCharacter.SetMeshImage("LSholder", sprite);
-                mainCharacter.SetMeshImage("UppderBody", sprite);
-                mainCharacter.SetMeshImage("DwonBody", sprite);
-            }
-            if (prefab != null)
-            {
-                // Set the instantiated prefab as a child of the current GameObject
-                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
-
-                // Now, 'equipPrefab' refers to the instantiated prefab
-                equipPrefab = instantiatedPrefab;
-            }
-            else
-            {
-                Debug.LogError("Failed to load prefab: " + equipName);
-            }
-
+            instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
+            equipPrefab = instantiatedPrefab;
         }
-        else if (equipArea == "Leg")
+        else
         {
-            string folderPath = "Leg/";
-            string texturePath = "Sprite/";
-            Texture2D sprite = Resources.Load<Texture2D>(texturePath + tfName);
-
-            if (sprite != null)
-            {
-                mainCharacter.SetMeshImage("RDownLeg", sprite);
-                mainCharacter.SetMeshImage("RUpperLeg", sprite);
-                mainCharacter.SetMeshImage("LDownLeg", sprite);
-                mainCharacter.SetMeshImage("LUpperLeg", sprite);
-            }
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
-
-            if (prefab != null)
-            {
-                // Set the instantiated prefab as a child of the current GameObject
-                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
-
-                // Now, 'equipPrefab' refers to the instantiated prefab
-                equipPrefab = instantiatedPrefab;
-            }
-            else
-            {
-                Debug.LogError("Failed to load prefab: " + equipName);
-            }
-
+            Debug.LogError("Failed to load prefab: " + equipName);
         }
-        else if (equipArea == "Hand")
-        {
-            string folderPath = "Hand/";
-
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
-            string texturePath = "Sprite/";
-            Texture2D sprite = Resources.Load<Texture2D>(texturePath + tfName);
-
-            if (sprite != null)
-            {
-                mainCharacter.SetMeshImage("RHand", sprite);
-                mainCharacter.SetMeshImage("LHand", sprite);
-
-            }
-            // 
-            if (prefab != null)
-            {
-                // Set the instantiated prefab as a child of the current GameObject
-                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
-
-                // Now, 'equipPrefab' refers to the instantiated prefab
-                equipPrefab = instantiatedPrefab;
-            }
-            else
-            {
-                Debug.LogError("Failed to load prefab: " + equipName);
-            }
-
-        }
-        else if (equipArea == "Necklace")
-        {
-            string folderPath = "Necklace/";
-
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
-
-            if (prefab != null)
-            {
-                // Set the instantiated prefab as a child of the current GameObject
-                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
-
-                // Now, 'equipPrefab' refers to the instantiated prefab
-                equipPrefab = instantiatedPrefab;
-            }
-            else
-            {
-                Debug.LogError("Failed to load prefab: " + equipName);
-            }
-
-        }
-        else if (equipArea == "Ring")
-        {
-            string folderPath = "Ring/";
-
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
-
-            if (prefab != null)
-            {
-                // Set the instantiated prefab as a child of the current GameObject
-                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
-
-                // Now, 'equipPrefab' refers to the instantiated prefab
-                equipPrefab = instantiatedPrefab;
-            }
-            else
-            {
-                Debug.LogError("Failed to load prefab: " + equipName);
-            }
-
-        }
-        else if (equipArea == "Shoes")
-        {
-            string folderPath = "Shoes/";
-
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);
-            string texturePath = "Sprite/";
-            Texture2D sprite = Resources.Load<Texture2D>(texturePath + tfName);
-
-            if (sprite != null)
-            {
-                mainCharacter.SetMeshImage("RFoot", sprite);
-                mainCharacter.SetMeshImage("LFoot", sprite);
-
-            }
-            if (prefab != null)
-            {
-                // Set the instantiated prefab as a child of the current GameObject
-                instantiatedPrefab = Instantiate(prefab, attackManager.transform, false);
-
-                // Now, 'equipPrefab' refers to the instantiated prefab
-                equipPrefab = instantiatedPrefab;
-            }
-            else
-            {
-                Debug.LogError("Failed to load prefab: " + equipName);
-            }
-
-        }
-    }
-
-
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-      //  throw new System.NotImplementedException();
     }
 
     public bool isSetArray =  false;
@@ -661,9 +279,7 @@ public class EquipBoxCheck : MonoBehaviour, IPointerClickHandler
         }
         else if (this.transform.childCount <= 0 && isSetArray == true)
         {
-
             isSetArray = false;
-         
         }
     }   
 }
