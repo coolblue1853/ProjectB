@@ -46,6 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - Dash
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 2659370571445974256}
   interval: []
@@ -65,10 +70,7 @@ MonoBehaviour:
   isCancleAttack: 1
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -89,11 +91,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Ducking Dash
+  skillNum: 0
   skillDetail: Dash forward while evading.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -145,6 +144,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - BackDash
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 501978785015726080}
   interval: []
@@ -164,10 +168,7 @@ MonoBehaviour:
   isCancleAttack: 1
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -188,11 +189,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Sway Back
+  skillNum: 1
   skillDetail: Dash backward while evading.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -550,6 +548,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - Punch Swing
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 1253820824490114480}
   interval: []
@@ -569,10 +572,7 @@ MonoBehaviour:
   isCancleAttack: 1
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -593,11 +593,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Uppercut
+  skillNum: 2
   skillDetail: Strike the enemy with an uppercut, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:

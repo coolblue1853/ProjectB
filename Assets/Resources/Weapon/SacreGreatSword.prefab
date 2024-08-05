@@ -46,6 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - DarkWind
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 2659370571445974256}
   interval: []
@@ -65,10 +70,12 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  isActiveHold: 1
+  isActiveHoldA: 0
+  isActiveHoldB: 0
+  isActiveHoldC: 0
+  isActiveHoldD: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -89,11 +96,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Gathering Nightmare
+  skillNum: 0
   skillDetail: Create a zone that pulls enemies to the center and deals damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -145,6 +149,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - DarkAttack
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 1291193055778619313}
   interval: []
@@ -164,10 +173,12 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  isActiveHold: 0
+  isActiveHoldA: 0
+  isActiveHoldB: 0
+  isActiveHoldC: 0
+  isActiveHoldD: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -188,11 +199,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Approaching Nightmare
+  skillNum: 1
   skillDetail: Send a sword slash forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:

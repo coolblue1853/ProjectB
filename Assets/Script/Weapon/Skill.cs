@@ -36,22 +36,14 @@ public class Skill : MonoBehaviour
     public bool isEffectMaxAdd; // 최대 발생량 증가가 영향을 끼치는 아이템인지 확인
     [ConditionalHide("isEffectMaxAdd")]
     public int objectMaxCount; // 최대 발생량이 증가하는 아이템 효과를 위함. 아무리 많아도 여기에 지정된 횟수만큼 나감.
-    bool isActiveHoldA = false;
-    bool isActiveHoldB = false;
-    bool isActiveHoldC = false;
-    bool isActiveHoldD = false;
-    public float skillAWaitTime = 0; // 딜레이시간, 이 시간이 지나고 프리팹 생성
-    public float skillBWaitTime = 0; // 딜레이시간, 이 시간이 지나고 프리팹 생성
-    public float skillCWaitTime = 0; // 딜레이시간, 이 시간이 지나고 프리팹 생성
-    public float skillDWaitTime = 0; // 딜레이시간, 이 시간이 지나고 프리팹 생성
+     bool isActiveHold = false;
+
+    public float skillWaitTime = 0; // 딜레이시간, 이 시간이 지나고 프리팹 생성
 
     GameObject damageObject;
     DamageObject dmOb;
     public GameObject player;
-    Sequence sequenceA;
-    Sequence sequenceB;
-    Sequence sequenceC;
-    Sequence sequenceD;
+    Sequence skillSequence;
     public bool isNullParent = false;
     public bool isRayCheckSkill = false; // 전방으로 나가는 기술. 벽 앞에서 멈춘다.
 
@@ -90,8 +82,8 @@ public class Skill : MonoBehaviour
     [ConditionalHide("isRoundAttack")]
     public int bulletCount = 30;    // 생성할 탄막 개수
 
-
     public string skillName;
+    public int skillNum;
     public string skillDetail;
     public GameObject delayEffectPrefab;
     public GameObject[] skillprefab;
@@ -108,7 +100,7 @@ public class Skill : MonoBehaviour
         for(int i =0; i < skillAction.Length; i++)
         {
             skillAction[i].Enable();
-            skillAction[i].canceled += OnSkillAReleased;
+            skillAction[i].canceled += OnSkillReleased;
         }
     }
     private void OnDisable()
@@ -116,16 +108,15 @@ public class Skill : MonoBehaviour
         for (int i = 0; i < skillAction.Length; i++)
         {
             skillAction[i].Disable();
-            skillAction[i].canceled -= OnSkillAReleased;
+            skillAction[i].canceled -= OnSkillReleased;
         }
     }
     private void Awake()
     {
+        originPoint = Vector2.zero;
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
         for(int i =0; i < skillAction.Length; i++)
-        {
-            skillBackGround[i] = skillCooldown.transform.GetChild(i+1).gameObject;
-        }
+            skillBackGround[i] = skillCooldown.transform.GetChild(i + 1).gameObject;
 
         weapon = transform.parent.gameObject.GetComponent<Weapon>();
         damgeArray = weapon.damgeArray;
@@ -155,9 +146,10 @@ public class Skill : MonoBehaviour
         skillCooldown.UseSkill(num, skillName);
     }
 
-    void SkillRayCheck(bool isRayCheck, bool isChangeDir, int num)
+    void SkillRayCheck( bool isRayCheck, bool isChangeDir, int num)
     {
-         originPoint = rayPositon.transform.position;
+        if(originPoint == Vector2.zero)
+             originPoint = rayPositon.transform.position;
         Vector2 currentPosition = new Vector2(originPoint.x, originPoint.y);
         if (!isRayCheck)
         {
@@ -235,34 +227,23 @@ public class Skill : MonoBehaviour
             dmOb.SetDamge(damgeArray);
             // 다음 스킬을 생성하기 전에 interval[i]의 시간만큼 대기
             if (i < interval.Length)
-            {
                 yield return new WaitForSeconds(interval[i] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            }
         }
+        originPoint = Vector2.zero;
     }
 
-    public void RoundAttack(GameObject damageOb, GameObject attackPivot)
+    public void RoundSpawn(GameObject damageOb, GameObject attackPivot)
     {
         if (DatabaseManager.skillBulletCount.ContainsKey(skillName))
-        {
             allBullet = bulletCount + DatabaseManager.skillBulletCount[skillName];
-        }
         else
-        {
             allBullet = bulletCount;
-        }
-
         float angleStep = (endAngle - startAngle) / (allBullet - 1); // 탄막 간격 계산
-
         for (int i = 0; i < allBullet; i++)
         {
             float angle = startAngle + i * angleStep; // 현재 탄막의 각도 계산
-
             // 적 오브젝트의 방향에 따라 탄막의 각도를 조정합니다.
-            if (player.transform.localScale.x < 0)
-            {
-                angle = 180f - angle;
-            }
+            if (player.transform.localScale.x < 0) angle = 180f - angle;
 
             // 각도를 라디안으로 변환합니다.
             float angleInRadians = angle * Mathf.Deg2Rad;
@@ -275,10 +256,7 @@ public class Skill : MonoBehaviour
             GameObject bullet = GameObject.Instantiate(damageOb, attackPivot.transform.position + new Vector3(x, y, 0f), Quaternion.identity, this.transform);
             if (bullet != null)
             {
-                if (isNullParent == true)
-                {
-                    bullet.transform.parent = null;
-                }
+                if (isNullParent == true) bullet.transform.parent = null;
                 dmOb = bullet.GetComponent<DamageObject>();
                 dmOb.skillName = skillName;
                 dmOb.SetDamge(damgeArray);
@@ -289,252 +267,68 @@ public class Skill : MonoBehaviour
         }
     }
 
-    public void ActiveLeft()
+    public void ActiveSkill(int num)
     {
-        if (isButtonDownSkill && skillCooldown.isCooldown[0] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
+        if (isButtonDownSkill && skillCooldown.isCooldown[num] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
             isActive = true;
-
-            if (isRoundAttack == true)
-            {
-                RountAttack(skillAWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            }
-            else if (isGorundCheckSkill == false)
-            {
-                NomalAttack(skillAWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            }
+            if (isRoundAttack == true) RoundAttack(skillWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+            else if (isGorundCheckSkill == false) NomalAttack(skillWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             else
             {
-                if (skillAWaitTime == 0)
-                {
-                    GroundAttack();
-                }
+                if (skillWaitTime == 0) GroundAttack();
                 else
                 {
                     Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillAWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)))
+                    .AppendInterval(skillWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)))
                     .AppendCallback(() => GroundAttack());
                 }
             }
-
-            SkillAnimCheck("A");
+            SkillAnimCheck(num);
         }
     }
-    public void ActiveRight()
-    {
-
-        if (isButtonDownSkill && skillCooldown.isCooldown[1] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
-        {
-            isActive = true;
-            if (isRoundAttack == true)
-            {
-                RountAttack(skillBWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-
-            }
-            else if (isGorundCheckSkill == false)
-            {
-                NomalAttack(skillBWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            }
-            else
-            {
-                if (skillBWaitTime == 0)
-                {
-                    GroundAttack();
-                }
-                else
-                {
-                    Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillBWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)))
-                    .AppendCallback(() => GroundAttack());
-                }
-            }
-            SkillAnimCheck("B");
-        }
-    }
-    public void ActiveSideLeft()
-    {
-
-        if (isButtonDownSkill && skillCooldown.isCooldown[2] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
-        {
-            isActive = true;
-            if (isRoundAttack == true)
-            {
-                RountAttack(skillCWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-
-            }
-            else if (isGorundCheckSkill == false)
-            {
-                NomalAttack(skillCWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            }
-            else
-            {
-                if (skillCWaitTime == 0)
-                {
-                    GroundAttack();
-                }
-                else
-                {
-                    Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillCWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)))
-                    .AppendCallback(() => GroundAttack());
-                }
-            }
-            SkillAnimCheck("C");
-        }
-    }
-    public void ActiveSideRight()
-    {
-
-        if (isButtonDownSkill && skillCooldown.isCooldown[3] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
-        {
-
-            isActive = true;
-            if (isRoundAttack == true)
-            {
-                RountAttack(skillDWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            }
-            else if (isGorundCheckSkill == false)
-            {
-                NomalAttack(skillDWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            }
-            else
-            {
-                if (skillDWaitTime == 0)
-                {
-                    GroundAttack();
-                }
-                else
-                {
-                    Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillDWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)))
-                    .AppendCallback(() => GroundAttack());
-                }
-            }
-            SkillAnimCheck("D");
-
-        }
-    }
-
-
-    void OnSkillAReleased(InputAction.CallbackContext context)
+   
+    void OnSkillReleased(InputAction.CallbackContext context)
     {
         if (isHoldSkill == true)
         {
-            if (isActiveHoldA == true)
+            if (isActiveHold == true)
             {
                 Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
-                // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
-                isActiveHoldA = false;
-                sequenceA.Kill();
-                // skillCooldown.UseSkillA(skillName);
-                skillCooldown.UseSkill(0, skillName);
+                isActiveHold = false;
+                skillSequence.Kill();
+                skillCooldown.UseSkill(skillNum, skillName);
                 CheckAttackWait();
                 PlayerController.instance.StopAttackAnim();
                 dmOb.DestroyObject();
             }
         }
     }
-    void OnSkillSReleased(InputAction.CallbackContext context)
-    {
-        if (isHoldSkill == true)
-        {
-            if (isActiveHoldB == true)
-            {
-                Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
-                // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
-                isActiveHoldB = false;
-                sequenceB.Kill();
-                //    skillCooldown.UseSkillB(skillName);
-                skillCooldown.UseSkill(1, skillName);
-                CheckAttackWait();
-                PlayerController.instance.StopAttackAnim();
-                dmOb.DestroyObject();
-            }
-        }
-    }
-    void OnSkillDReleased(InputAction.CallbackContext context)
-    {
-        if (isHoldSkill == true)
-        {
-            if (isActiveHoldC == true)
-            {
-                Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
-                // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
-                isActiveHoldC = false;
-                sequenceC.Kill();
-                //     skillCooldown.UseSkillC(skillName);
-                skillCooldown.UseSkill(2, skillName);
-                CheckAttackWait();
-                PlayerController.instance.StopAttackAnim();
-                dmOb.DestroyObject();
-            }
-        }
-    }
-    void OnSkillFReleased(InputAction.CallbackContext context)
-    {
-        if (isHoldSkill == true)
-        {
-            if (isActiveHoldD == true)
-            {
-                Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
-                // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
-                isActiveHoldD = false;
-                sequenceD.Kill();
-                //   skillCooldown.UseSkillD(skillName);
-                skillCooldown.UseSkill(3, skillName);
-                CheckAttackWait();
-                PlayerController.instance.StopAttackAnim();
-                dmOb.DestroyObject();
-            }
-        }
-    }
-
-    void GroundAttack() // 땅에서 생성되는 기술
+  
+    void GroundAttack() // 땅에서 생성되는 기술, 단일 개체
     {
         Vector2 newDir = new Vector2(0, -1);
         Vector2 currentPosition = new Vector2(rayPositon.transform.position.x, rayPositon.transform.position.y);
         Vector2 destination = currentPosition + newDir.normalized * groundCheckLength;
         RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, groundCheckLength, collisionLayer);
-
         if (hit.collider == null) // 충돌이 없으면 소환 x 아예 사용이 안됨
-        {
             isActive = false;
-        }
         else
         {
-            // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
             Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
             safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
             damageObject = Instantiate(skillprefab[0], new Vector2(skillPivot[0].transform.position.x, safePosition.y), skillPivot[0].transform.rotation, this.transform);
             MasterAudio.PlaySound(skillSound[0]);
-
         }
     }
 
-    void SkillEffect(string skillNum) // 기술 에니메이션 및 데미지 오브젝트에 공격설정
+    void SkillEffect() // 기술 에니메이션 및 데미지 오브젝트에 공격설정
     {
         PlayerController.instance.ActiveAttackAnim(false,skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         PlayerHealthManager.Instance.SteminaDown(useStemina);
 
-
         float waitTime = 0;
-
-        switch (skillNum)
-        {
-            case "A":
-                waitTime = skillAWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
-                break;
-            case "B":
-                waitTime = skillBWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
-                break;
-            case "C":
-                waitTime = skillCWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
-                break;
-            case "D":
-                waitTime = skillDWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
-                break;
-        }
-
+        waitTime = skillWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
         if (delayEffectPrefab != null)
         {
             GameObject effect = Instantiate(delayEffectPrefab, new Vector2(skillPivot[0].transform.position.x, skillPivot[0].transform.position.y), skillPivot[0].transform.rotation);
@@ -542,37 +336,24 @@ public class Skill : MonoBehaviour
             DestoryByTime dBT = effect.GetComponent<DestoryByTime>();
             dBT.DestroyEffect(waitTime);
         }
-        if (waitTime == 0)
-        {
-            SetSkillDmg();
-
-            //GroundAttack();
-        }
+        if (waitTime == 0) SetSkillDmg();
         else
         {
-            sequenceA = DOTween.Sequence()
+            skillSequence = DOTween.Sequence()
            .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
            .AppendCallback(() => SetSkillDmg());
         }
-
-
 
     }
     void SetSkillDmg()
     {
         if(isRoundAttack == false)
         {
-            if (isNullParent == true)
-            {
-                damageObject.transform.parent = null;
-            }
+            if (isNullParent == true) damageObject.transform.parent = null;
             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.skillName = skillName;
             dmOb.SetDamge(damgeArray);
-            if (skillprefab.Length > 1)
-            {
-                StartCoroutine(SpawnSkills());
-            }
+            if (skillprefab.Length > 1) StartCoroutine(SpawnSkills());// 다수의 오브젝트를 생성하는 기술의 경우
         }
 
     }
@@ -592,51 +373,30 @@ public class Skill : MonoBehaviour
             MasterAudio.PlaySound(skillSound[0]);
         }
     }
-    void RountAttack(float waitTime)
+    void RoundAttack(float waitTime)
     {
         if (waitTime == 0)
         {
-            RoundAttack(skillprefab[0], skillPivot[0]);
+            RoundSpawn(skillprefab[0], skillPivot[0]);
             MasterAudio.PlaySound(skillSound[0]);
         }
         else
         {
             Sequence sequence = DOTween.Sequence()
             .AppendInterval(waitTime)
-            .AppendCallback(() => RoundAttack(skillprefab[0], skillPivot[0]));
+            .AppendCallback(() => RoundSpawn(skillprefab[0], skillPivot[0]));
             MasterAudio.PlaySound(skillSound[0]);
         }
     }
-    void SkillAnimCheck(string skillNum) // 기술의 애니메이션 재생과 홀드 스킬의 구분
+    void SkillAnimCheck(int skillNum) // 기술의 애니메이션 재생과 홀드 스킬의 구분
     {
-
-
         if (isActive == true)
         {
-            SkillEffect(skillNum);
+            SkillEffect();
 
             if (isHoldSkill == false)
             {
-                switch (skillNum)
-                {
-                    case "A":
-                        //  skillCooldown.UseSkillA(skillName);
-                        skillCooldown.UseSkill(0, skillName);
-                        break;
-                    case "B":
-                        // skillCooldown.UseSkillB(skillName);
-                        skillCooldown.UseSkill(1, skillName);
-                        break;
-                    case "C":
-                        //skillCooldown.UseSkillC(skillName);
-                        skillCooldown.UseSkill(2, skillName);
-                        break;
-                    case "D":
-                        //  skillCooldown.UseSkillD(skillName);
-                        skillCooldown.UseSkill(3, skillName);
-                        break;
-                }
-
+                skillCooldown.UseSkill(skillNum, skillName);
                 CheckAttackWait();
             }
             else
@@ -648,60 +408,15 @@ public class Skill : MonoBehaviour
                 }
 
                 float waitTime =0;
-                if (holdDisEffectByTime)
-                {
-                    waitTime = holdingTime;
-                }
-                else
-                {
-                    waitTime =holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
-                }
-                switch (skillNum)
-                {
-                    case "A":
-                        isActiveHoldA = true;
-                        sequenceA = DOTween.Sequence()
-                       .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
-                       .AppendCallback(() => isActiveHoldA = false)
-                                            // .AppendCallback(() => skillCooldown.UseSkillA(skillName))
-                                            .AppendCallback(() => skillCooldown.UseSkill(0, skillName))
-                       .AppendCallback(() => CheckAttackWait())
-                       .AppendCallback(() => dmOb.DestroyObject());
-                        break;
-                    case "B":
-                        isActiveHoldB = true;
-                        sequenceB = DOTween.Sequence()
-                       .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
-                       .AppendCallback(() => isActiveHoldB = false)
-                                            // .AppendCallback(() => skillCooldown.UseSkillB(skillName))
-                                            .AppendCallback(() => skillCooldown.UseSkill(1, skillName))
-                       .AppendCallback(() => CheckAttackWait())
-                       .AppendCallback(() => dmOb.DestroyObject());
-                        break;
-                    case "C":
-                        isActiveHoldC = true;
-                        sequenceC = DOTween.Sequence()
-                       .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
-                       .AppendCallback(() => isActiveHoldC = false)
-                                           //  .AppendCallback(() => skillCooldown.UseSkillC(skillName))
-                                           .AppendCallback(() => skillCooldown.UseSkill(2, skillName))
-                       .AppendCallback(() => CheckAttackWait())
-                       .AppendCallback(() => dmOb.DestroyObject());
-                        break;
-                    case "D":
-                        isActiveHoldD = true;
-                        sequenceD = DOTween.Sequence()
-                       .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
-                       .AppendCallback(() => isActiveHoldD = false)
-                                          //   .AppendCallback(() => skillCooldown.UseSkillD(skillName))
-                                          .AppendCallback(() => skillCooldown.UseSkill(3, skillName))
-                       .AppendCallback(() => CheckAttackWait())
-                       .AppendCallback(() => dmOb.DestroyObject());
-                        break;
-                }
-
-
-
+                if (holdDisEffectByTime) waitTime = holdingTime;
+                else waitTime = holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+                isActiveHold = true;
+                skillSequence = DOTween.Sequence()
+               .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
+               .AppendCallback(() => isActiveHold = false)      
+               .AppendCallback(() => skillCooldown.UseSkill(skillNum, skillName))
+               .AppendCallback(() => CheckAttackWait())
+               .AppendCallback(() => dmOb.DestroyObject());
             }
         }
     }

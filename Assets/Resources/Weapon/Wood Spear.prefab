@@ -47,6 +47,11 @@ MonoBehaviour:
   skillSound:
   - SpearSwing
   - SpearSwing
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 4178163973471080108}
   - {fileID: 7324553074625708386}
@@ -68,10 +73,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 2
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -92,11 +94,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Double Strike
+  skillNum: 0
   skillDetail: Stab the enemy twice, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -149,6 +148,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - Dash
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 5961042638513520153}
   interval: []
@@ -168,10 +172,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -192,11 +193,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Charge Forward!
+  skillNum: 1
   skillDetail: Dash forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:

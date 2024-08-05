@@ -1166,7 +1166,15 @@ public class InventoryManager : MonoBehaviour
         {
             BoxChangeByKey();
         }
-
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            CreatItem("LeafStaff"); CreatItem("LeafAdae");
+            CreatItem("ScareSide"); CreatItem("ScareStaff"); CreatItem("ScareClow");
+            CreatItem("PoisonSword"); CreatItem("DoubleDagger"); CreatItem("RatCheifDagger");
+            CreatItem("RustedSwordandShield");
+            CreatItem("RustedSword"); CreatItem("SacreGreatSword");
+            CreatItem("Leather Knuckles"); CreatItem("Wood Spear");
+        }
         if (Input.GetKeyDown(KeyCode.F3))
         {
             CreatItem("LeafCap"); CreatItem("LeafArmor"); CreatItem("LeafLegArmor");
@@ -1176,10 +1184,8 @@ public class InventoryManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            CreatItem("ScareSide");
-            CreatItem("ScareClow");
-            CreatItem("ScareStaff");
-            CreatItem("SacreGreatSword");
+
+    
             CreatItem("ScareCap"); CreatItem("ScareLegArmor"); CreatItem("ScareArmor");
             CreatItem("ScareHandArmor"); CreatItem("ScareShoes");
         }
@@ -1190,9 +1196,7 @@ public class InventoryManager : MonoBehaviour
             CreatItem("RatLegArmor");
             CreatItem("RatHandArmor");
             CreatItem("RatShoes");
-            CreatItem("PoisonSword");
-            CreatItem("DoubleDagger");
-            CreatItem("RatCheifDagger");
+
         }
         if (Input.GetKeyDown(KeyCode.F5))
         {

@@ -47,6 +47,11 @@ MonoBehaviour:
   skillSound:
   - Dagger Swing
   - Dagger Swing
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 156242394544898117}
   - {fileID: 156242394544898117}
@@ -68,10 +73,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 2
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -92,11 +94,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Swift Assault
+  skillNum: 0
   skillDetail: Slash the enemy twice, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -151,6 +150,11 @@ MonoBehaviour:
   - PowerSlash
   - PowerSlash
   - PowerSlash
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 4091208253614354058}
   - {fileID: 2185068538788492895}
@@ -174,10 +178,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -198,11 +199,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Ground Sweep
+  skillNum: 1
   skillDetail: Generate a sweeping sword slash forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -629,6 +627,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - Horn
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 2659370571445974256}
   interval: []
@@ -648,10 +651,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -672,11 +672,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Rally Now!
+  skillNum: 2
   skillDetail: Summon a Rat Thief to fight alongside you.
   delayEffectPrefab: {fileID: 0}
   skillprefab:

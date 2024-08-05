@@ -46,6 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - Nature TelePort
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 2659370571445974256}
   interval: []
@@ -65,10 +70,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -89,11 +91,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Leaf Teleport
+  skillNum: 0
   skillDetail: Instantly teleport forward.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -150,6 +149,11 @@ MonoBehaviour:
   - Nature Spell
   - Nature Spell
   - Nature Spell
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 565538375676767284}
   - {fileID: 565538375676767284}
@@ -179,10 +183,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 1
   objectMaxCount: 3
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 1
@@ -214,11 +215,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Rising Roots
+  skillNum: 1
   skillDetail: Summon roots that burst from the ground in front, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -436,6 +434,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - Nature Spell
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 2420472160056746311}
   interval: []
@@ -455,10 +458,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -479,11 +479,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Nature's Healing
+  skillNum: 2
   skillDetail: Create a healing zone that restores health to those inside.
   delayEffectPrefab: {fileID: 0}
   skillprefab:

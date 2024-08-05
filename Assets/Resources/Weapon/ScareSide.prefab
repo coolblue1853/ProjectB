@@ -46,6 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - Heavy Sword Swing
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 2659370571445974256}
   interval: []
@@ -65,10 +70,12 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  isActiveHold: 0
+  isActiveHoldA: 0
+  isActiveHoldB: 0
+  isActiveHoldC: 0
+  isActiveHoldD: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -89,11 +96,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Sinister Slash
+  skillNum: 0
   skillDetail: Cleave the area in front, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -145,6 +149,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - Heavy Sword Swing
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 2858974272207226977}
   interval: []
@@ -164,10 +173,12 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  isActiveHold: 0
+  isActiveHoldA: 0
+  isActiveHoldB: 0
+  isActiveHoldC: 0
+  isActiveHoldD: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -188,11 +199,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Nightmare Eruption
+  skillNum: 1
   skillDetail: Create a burst of darkness that erupts from the ground, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -244,6 +252,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - Dash
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 4671342526458100417}
   interval: []
@@ -263,10 +276,12 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  isActiveHold: 0
+  isActiveHoldA: 0
+  isActiveHoldB: 0
+  isActiveHoldC: 0
+  isActiveHoldD: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -287,11 +302,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Dark Harvest
+  skillNum: 3
   skillDetail: Dash forward, delivering a powerful slash that deals damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -743,6 +755,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - Heavy Sword Swing
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 1035209390501462703}
   interval: []
@@ -762,10 +779,12 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  isActiveHold: 0
+  isActiveHoldA: 0
+  isActiveHoldB: 0
+  isActiveHoldC: 0
+  isActiveHoldD: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -786,11 +805,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Whirling Malice
+  skillNum: 2
   skillDetail: Spin a scythe, pulling in enemies and dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:

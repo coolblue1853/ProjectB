@@ -111,37 +111,15 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void ActiveASkill()
+    public void ActiveWeaponSkill(int num)
     {
-        if(skill[0] != null)
+        if(skill[num] != null)
         {
-            skill[0].ActiveLeft();
+            skill[num].ActiveSkill(num);
         }
 
     }
-    public void ActiveBSkill()
-    {
-        if (skill[1] != null)
-        {
-            skill[1].ActiveRight();
-        }
-    }
-    public void ActiveCSkill()
-    {
-        if (skill[2] != null)
-        {
-            skill[2].ActiveSideLeft();
-        }
 
-    }
-    public void ActiveDSkill()
-    {
-        if (skill[3] != null)
-        {
-            skill[3].ActiveSideRight();
-        }
-
-    }
     public bool isSkillCancel = false;
 
     public void MeleeAttack()

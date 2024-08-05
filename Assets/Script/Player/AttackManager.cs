@@ -9,10 +9,7 @@ public class AttackManager : MonoBehaviour
     public Weapon equipWeapon;
     KeyAction action;
     InputAction attackAction;
-    InputAction skillAAction;
-    InputAction skillSAction;
-    InputAction skillDAction;
-    InputAction skillFAction;
+    InputAction[] skillAction = new InputAction[4];
     public SkillCooldown skillCooldown;
     public Transform sword;
     public string states = "";
@@ -26,27 +23,21 @@ public class AttackManager : MonoBehaviour
     private void OnEnable()
     {
         attackAction.Enable();
-        skillAAction.Enable();
-        skillSAction.Enable();
-        skillDAction.Enable();
-        skillFAction.Enable();
+        for (int i = 0; i < skillBackGround.Length; i++) skillAction[i].Enable();
     }
     private void OnDisable()
     {
         attackAction.Disable();
-        skillAAction.Disable();
-        skillSAction.Disable();
-        skillDAction.Disable();
-        skillFAction.Disable();
+        for (int i = 0; i < skillBackGround.Length; i++) skillAction[i].Disable();
     }
     private void Awake()
     {
         action = new KeyAction();
         attackAction = action.Player.Attack;
-        skillAAction = action.Player.SkillA;
-        skillSAction = action.Player.SkillS;
-        skillDAction = action.Player.SkillD;
-        skillFAction = action.Player.SkillF;
+        skillAction[0] = action.Player.SkillA;
+        skillAction[1] = action.Player.SkillS;
+        skillAction[2] = action.Player.SkillD;
+        skillAction[3] = action.Player.SkillF;
     }
     public void EquipMainWeaopon()
     {
@@ -69,10 +60,12 @@ public class AttackManager : MonoBehaviour
         if (DatabaseManager.isOpenUI == false && equipWeapon != null)
         {
             if (attackAction.triggered ) equipWeapon.MeleeAttack();
-            else if (skillAAction.triggered && equipWeapon != null) equipWeapon.ActiveASkill();
-            else if (skillSAction.triggered && equipWeapon != null) equipWeapon.ActiveBSkill();
-            else if (skillDAction.triggered && equipWeapon != null) equipWeapon.ActiveCSkill();
-            else if (skillFAction.triggered && equipWeapon != null) equipWeapon.ActiveDSkill();
+            SkillTriggeredCheck();
         }
+    }
+
+    void SkillTriggeredCheck()
+    {
+        for (int i = 0; i < skillBackGround.Length; i++) if (skillAction[i].triggered && equipWeapon != null) equipWeapon.ActiveWeaponSkill(i);
     }
 }

@@ -55,6 +55,11 @@ MonoBehaviour:
   - Dagger Swing
   - Dagger Swing
   - Dagger Swing
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 4364040306126853957}
   - {fileID: 4233942348891947931}
@@ -92,10 +97,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 1
   objectMaxCount: 6
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -116,11 +118,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Vicious Assault
+  skillNum: 0
   skillDetail: Savagely stab the enemy in front, dealing significant damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -181,6 +180,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - LightBuff
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 3888499126109563205}
   interval: []
@@ -200,10 +204,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -224,11 +225,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Double Step
+  skillNum: 1
   skillDetail: Increases the hit count of all attacks by 1.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -280,6 +278,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - LightBuff
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 2079777702961487247}
   interval: []
@@ -299,10 +302,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -323,11 +323,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Sly Stride
+  skillNum: 2
   skillDetail: Increases movement speed by 60%.
   delayEffectPrefab: {fileID: 0}
   skillprefab:

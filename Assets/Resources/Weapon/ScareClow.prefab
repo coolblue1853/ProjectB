@@ -51,6 +51,11 @@ MonoBehaviour:
   - Heavy Sword Swing
   - Heavy Sword Swing
   - Heavy Sword Swing
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 6573757590219980866}
   - {fileID: 6573757590219980866}
@@ -80,10 +85,7 @@ MonoBehaviour:
   isCancleAttack: 1
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 1
   isRayCheckSkill: 0
@@ -104,11 +106,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Night Hunt
+  skillNum: 0
   skillDetail: Dash forward while clawing, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -165,6 +164,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - DarkMagic
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 2799854316043845083}
   interval: []
@@ -184,10 +188,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -208,11 +209,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Rising Dread
+  skillNum: 1
   skillDetail: Leap upward dramatically, dealing damage.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
@@ -785,6 +783,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSound:
   - LightBuff
+  skillBackGround:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPivot:
   - {fileID: 2659370571445974256}
   interval: []
@@ -804,10 +807,7 @@ MonoBehaviour:
   isCancleAttack: 0
   isEffectMaxAdd: 0
   objectMaxCount: 0
-  skillAWaitTime: 0
-  skillBWaitTime: 0
-  skillCWaitTime: 0
-  skillDWaitTime: 0
+  skillWaitTime: 0
   player: {fileID: 0}
   isNullParent: 0
   isRayCheckSkill: 0
@@ -828,11 +828,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletCount: 30
-  aSkillBackGround: {fileID: 0}
-  bSkillBackGround: {fileID: 0}
-  cSkillBackGround: {fileID: 0}
-  dSkillBackGround: {fileID: 0}
   skillName: Encroaching Darkness
+  skillNum: 2
   skillDetail: Increase attack speed by 30%.
   delayEffectPrefab: {fileID: 0}
   skillprefab:
