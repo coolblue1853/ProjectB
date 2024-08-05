@@ -44,7 +44,7 @@ public class Weapon : MonoBehaviour
 
     public string[] attackAnimName;
     public bool[] spriteReverse;
-    public Skill[] skill;
+    public Skill[] skill = new Skill[4];
 
 
     public GameObject leftWeqponSprite;
@@ -103,18 +103,12 @@ public class Weapon : MonoBehaviour
 
     public void CheckSkill()
     {
-        if (skill[0] != null)
-            skill[0].ActiveMainSkill();
-        else skill[0].DisactiveMainSkill("A");
-        if (skill[1] != null)
-            skill[1].ActiveMainSkill();
-        else skill[0].DisactiveMainSkill("B");
-        if (skill[2] != null)
-            skill[2].ActiveSideSkill();
-        else skill[0].DisactiveMainSkill("C");
-        if (skill[3] != null)
-            skill[3].ActiveSideSkill();
-        else skill[0].DisactiveMainSkill("D");
+        for(int i = 0; i < 4; i++)
+        {
+            if (skill[i] != null)
+                skill[i].ActiveMainSkill(i);
+            else skill[0].DisactiveMainSkill(i);
+        }
     }
 
     public void ActiveASkill()

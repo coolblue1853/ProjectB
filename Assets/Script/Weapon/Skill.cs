@@ -9,38 +9,15 @@ public class Skill : MonoBehaviour
 {
     KeyAction action;
     InputAction attackAction;
-    InputAction skillAAction;
-    InputAction skillSAction;
-    InputAction skillDAction;
-    InputAction skillFAction;
+    InputAction[] skillAction = new InputAction[4]; // 키보드로  A S D F 순
     public string[] skillSound;
-    private void OnEnable()
-    {
-        skillAAction.Enable();
-        skillAAction.canceled += OnSkillAReleased;
-        skillSAction.Enable();
-        skillSAction.canceled += OnSkillSReleased;
-        skillDAction.Enable();
-        skillDAction.canceled += OnSkillDReleased;
-        skillFAction.Enable();
-        skillFAction.canceled += OnSkillFReleased;
-    }
-    private void OnDisable()
-    {
-        skillAAction.Disable();
-        skillAAction.canceled -= OnSkillAReleased;
-        skillSAction.Disable();
-        skillSAction.canceled -= OnSkillSReleased;
-        skillDAction.Disable();
-        skillDAction.canceled -= OnSkillDReleased;
-        skillFAction.Disable();
-        skillFAction.canceled -= OnSkillFReleased;
-    }
-
+    public GameObject[] skillBackGround = new GameObject[4];
     public GameObject[] skillPivot;
     public float[] interval;
+
     public bool isLeft;
     public bool isRight;
+
     public bool isButtonDownSkill;
     public float SkillCoolTime;
     public Sprite skillImage;
@@ -77,6 +54,7 @@ public class Skill : MonoBehaviour
     Sequence sequenceD;
     public bool isNullParent = false;
     public bool isRayCheckSkill = false; // 전방으로 나가는 기술. 벽 앞에서 멈춘다.
+
     [ConditionalHide("isRayCheckSkill")]
     public Vector2[] direction; // 이동 방향, 리스트형태임. 인터벌과 마찬가지로 전체 스킬-1개만큼 존재
     [ConditionalHide("isRayCheckSkill")]
@@ -85,7 +63,11 @@ public class Skill : MonoBehaviour
     public GameObject rayPositon;    // ray가 시작하는 위치.
     [ConditionalHide("isRayCheckSkill")]
     public LayerMask collisionLayer; // 충돌 체크를 위한 레이어
-
+    Vector2 originPoint;
+    Vector2 newDir; // rayCheck에 필요한 변수들
+    Vector2 destination;
+    RaycastHit2D hit;
+    Vector2 safePosition;
 
     public bool isGorundCheckSkill = false; // 땅에서 생성되는 기술.
     [ConditionalHide("isGorundCheckSkill")]
@@ -94,7 +76,9 @@ public class Skill : MonoBehaviour
     public LayerMask groundCollisionLayer; // 충돌 체크를 위한 레이어
     [ConditionalHide("isGorundCheckSkill")]
     public float yPivot; // 충돌 체크를 위한 레이어
-
+    Vector2 groundCheckDir;
+    Vector2 groundCheckPosition;
+    RaycastHit2D groundCheckHit;
 
     public bool isRoundAttack; // 원형의공격, 특정 각도내에 전채로 뿌리는 공격형식
     [ConditionalHide("isRoundAttack")]
@@ -106,290 +90,146 @@ public class Skill : MonoBehaviour
     [ConditionalHide("isRoundAttack")]
     public int bulletCount = 30;    // 생성할 탄막 개수
 
-    public GameObject aSkillBackGround;
-    public GameObject bSkillBackGround;
-    public GameObject cSkillBackGround;
-    public GameObject dSkillBackGround;
+
     public string skillName;
     public string skillDetail;
-
     public GameObject delayEffectPrefab;
+    public GameObject[] skillprefab;
+    public SkillCooldown skillCooldown;
+    int allObjectMaxCount;
+    int allBullet = 0;
+    bool isActive = true;
+
+
+
+    
+    private void OnEnable()
+    {
+        for(int i =0; i < skillAction.Length; i++)
+        {
+            skillAction[i].Enable();
+            skillAction[i].canceled += OnSkillAReleased;
+        }
+    }
+    private void OnDisable()
+    {
+        for (int i = 0; i < skillAction.Length; i++)
+        {
+            skillAction[i].Disable();
+            skillAction[i].canceled -= OnSkillAReleased;
+        }
+    }
     private void Awake()
     {
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
-        aSkillBackGround = skillCooldown.transform.GetChild(1).gameObject;
-        bSkillBackGround = skillCooldown.transform.GetChild(2).gameObject;
-        cSkillBackGround = skillCooldown.transform.GetChild(3).gameObject;
-        dSkillBackGround = skillCooldown.transform.GetChild(4).gameObject;
+        for(int i =0; i < skillAction.Length; i++)
+        {
+            skillBackGround[i] = skillCooldown.transform.GetChild(i+1).gameObject;
+        }
 
         weapon = transform.parent.gameObject.GetComponent<Weapon>();
         damgeArray = weapon.damgeArray;
 
         action = new KeyAction();
-        skillAAction = action.Player.SkillA;
-        skillSAction = action.Player.SkillS;
-        skillDAction = action.Player.SkillD;
-        skillFAction = action.Player.SkillF;
-
-
+        skillAction[0] = action.Player.SkillA;
+        skillAction[1] = action.Player.SkillS;
+        skillAction[2] = action.Player.SkillD;
+        skillAction[3] = action.Player.SkillF;
     }
-    public GameObject[] skillprefab;
-    public SkillCooldown skillCooldown;
-    // Start is called before the first frame update
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         rb = transform.parent.parent.GetComponent<Rigidbody2D>();
-
+    }
+    public void DisactiveMainSkill(int skillNum)
+    {
+        skillBackGround[skillNum].SetActive(false);
+    }
+    public void ActiveMainSkill(int num)
+    {
+        skillBackGround[num].SetActive(true);
+        skillCooldown.cooldownTime[num] = SkillCoolTime;
+        skillCooldown.cooldownImage[num].sprite = skillImage;
+        skillCooldown.backImage[num].sprite = skillImage;
+        skillCooldown.UseSkill(num, skillName);
     }
 
-    private void CheckAttackWait()
+    void SkillRayCheck(bool isRayCheck, bool isChangeDir, int num)
     {
-        if (isWeaponStopMove == true)
+         originPoint = rayPositon.transform.position;
+        Vector2 currentPosition = new Vector2(originPoint.x, originPoint.y);
+        if (!isRayCheck)
         {
-            DatabaseManager.weaponStopMove = true;
-            rb.velocity = Vector2.zero;
-        }
-        DatabaseManager.checkAttackLadder = true;
-        weapon.isSkillAttackWait = false;
-        if (isHoldSkill == false)
-        {
-            Sequence sequence = DOTween.Sequence()
-.AppendInterval(attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100))) // 사전에 지정한 공격 주기만큼 대기.
-.AppendCallback(() => DatabaseManager.weaponStopMove = false)
-.AppendCallback(() => DatabaseManager.checkAttackLadder = false)
-.AppendCallback(() => weapon.isSkillAttackWait = true);
+             newDir = new Vector2(0, -1);
+            destination = currentPosition + newDir.normalized * groundCheckLength;
+            hit = Physics2D.Raycast(currentPosition, newDir, groundCheckLength, collisionLayer);
         }
         else
         {
-            DatabaseManager.weaponStopMove = false;
-            DatabaseManager.checkAttackLadder = false;
-            weapon.isSkillAttackWait = true;
+             newDir = new Vector2(Mathf.Abs(direction[num - 1].x), direction[num - 1].y);
+            if (isChangeDir) newDir = new Vector2(-Mathf.Abs(direction[num - 1].x), direction[num - 1].y);
+             destination = currentPosition + newDir.normalized * distance[num - 1];
+             hit = Physics2D.Raycast(currentPosition, newDir, distance[num - 1], collisionLayer);
         }
-
+        safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
     }
-
-
-
-    public void DisactiveMainSkill(string type)
+    void SkillGroundCheck(bool isHit, int num)
     {
-        if (type == "A")
+         groundCheckDir = new Vector2(0, -1);
+         groundCheckPosition = new Vector2(destination.x, originPoint.y);
+         groundCheckHit = Physics2D.Raycast(groundCheckPosition, groundCheckDir, groundCheckLength, collisionLayer);
+        if (groundCheckHit.collider != null) // 충돌이 없으면 소환 x 아예 사용이 안됨
         {
-            aSkillBackGround.SetActive(false);
-        }
-        else if (type == "B")
-        {
-            bSkillBackGround.SetActive(false);
-        }
-        else if (type == "C")
-        {
-            cSkillBackGround.SetActive(false);
-        }
-        else if (type == "D")
-        {
-            dSkillBackGround.SetActive(false);
-        }
-
-    }
-
-
-    public void ActiveMainSkill()
-    {
-        if (isLeft)
-        {
-            aSkillBackGround.SetActive(true);
-            skillCooldown.cooldownTime[0] = SkillCoolTime;
-            skillCooldown.cooldownImage[0].sprite = skillImage;
-            skillCooldown.backImage[0].sprite = skillImage;
-            //skillCooldown.UseSkillA(skillName);
-            skillCooldown.UseSkill(0,skillName);
-        }
-        else if (isRight)
-        {
-            bSkillBackGround.SetActive(true);
-            skillCooldown.cooldownTime[1] = SkillCoolTime;
-            skillCooldown.cooldownImage[1].sprite = skillImage;
-            skillCooldown.backImage[1].sprite = skillImage;
-            skillCooldown.UseSkill(1, skillName);
-            //  skillCooldown.UseSkillB(skillName);
+            Vector2 groundSafePositon = groundCheckHit.point - groundCheckDir.normalized; // 충돌 지점에서 약간 떨어진 위치
+            groundSafePositon = new Vector2(groundSafePositon.x, groundSafePositon.y + yPivot);
+            if(isHit == false)
+                damageObject = Instantiate(skillprefab[num], new Vector2(destination.x, groundSafePositon.y), skillPivot[num].transform.rotation, this.transform);
+            else
+                damageObject = Instantiate(skillprefab[num], new Vector2(safePosition.x, groundSafePositon.y), skillPivot[num].transform.rotation, this.transform);
         }
     }
-    public void ActiveSideSkill()
+    private IEnumerator SpawnSkills() // 다수의 DamageObject를 생성해야 하는 경우
     {
-        if (isLeft)
-        {
-            cSkillBackGround.SetActive(true);
-            skillCooldown.cooldownTime[2] = SkillCoolTime;
-            skillCooldown.cooldownImage[2].sprite = skillImage;
-            skillCooldown.backImage[2].sprite = skillImage;
-            //  skillCooldown.UseSkillC(skillName);
-            skillCooldown.UseSkill(2, skillName);
-        }
-        else if (isRight)
-        {
-            dSkillBackGround.SetActive(true);
-            skillCooldown.cooldownTime[3] = SkillCoolTime;
-            skillCooldown.cooldownImage[3].sprite = skillImage;
-            skillCooldown.backImage[3].sprite = skillImage;
-            skillCooldown.UseSkill(3, skillName);
-            //  skillCooldown.UseSkillD(skillName);
-        }
-    }
-
-
-
-
-    int allObjectMaxCount;
-    private IEnumerator SpawnSkills()
-    {
-
-
-
         bool isChangeDir = false;
-        if (player.transform.localScale.x < 0)
-        {
-            isChangeDir = true;
-        }
-        if (DatabaseManager.skillHitCount.ContainsKey(skillName))
-        {
-            allObjectMaxCount = objectMaxCount + DatabaseManager.skillHitCount[skillName];
-        }
-        else
-        {
-            allObjectMaxCount = objectMaxCount;
-        }
-
-        // interval[0]의 시간만큼 대기
+        if (player.transform.localScale.x < 0) isChangeDir = true;
+        if (DatabaseManager.skillHitCount.ContainsKey(skillName)) allObjectMaxCount = objectMaxCount + DatabaseManager.skillHitCount[skillName];
+        else allObjectMaxCount = objectMaxCount;
         yield return new WaitForSeconds(interval[0] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-        // 첫 번째 요소는 건너뛰고 두 번째 요소부터 생성
         for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && (isEffectMaxAdd == false || i < allObjectMaxCount); i++)
         {
-            if (isRayCheckSkill == false)
+            if (isRayCheckSkill == false) //RayCast를 확인하는 기술인가
             {
-                if (isGorundCheckSkill == false)
-                {
-                    // 스킬 프리팹을 피벗 위치에 인스턴스화
+                if (isGorundCheckSkill == false) //일정 거리이상 점프시에 사용을 못하는 기술인가
                     damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
-                    MasterAudio.PlaySound(skillSound[i]);
-                    if (isNullParent == true)
-                    {
-                        damageObject.transform.parent = null;
-                    }
-                }
                 else
                 {
-                    Vector2 originPoint = rayPositon.transform.position;
-
-                    Vector2 newDir = new Vector2(0, -1);
-                    Vector2 currentPosition = new Vector2(originPoint.x, originPoint.y);
-                    Vector2 destination = currentPosition + newDir.normalized * groundCheckLength;
-                    RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, groundCheckLength, collisionLayer);
-
-                    if (hit.collider == null) // 충돌이 없으면 소환 x 아예 사용이 안됨
-                    {
-                    }
-                    else
-                    {
-                        // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
-                        Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
-                        safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
-                        damageObject = Instantiate(skillprefab[i], new Vector2(skillPivot[i].transform.position.x, safePosition.y), skillPivot[i].transform.rotation, this.transform);
-                        MasterAudio.PlaySound(skillSound[i]);
-                        if (isNullParent == true)
-                        {
-                            damageObject.transform.parent = null;
-                        }
-
-                    }
+                    SkillRayCheck(false, isChangeDir,i);
+                    Vector2 safePosition = hit.point - newDir.normalized; 
+                    safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
+                    damageObject = Instantiate(skillprefab[i], new Vector2(skillPivot[i].transform.position.x, safePosition.y), skillPivot[i].transform.rotation, this.transform);
                 }
-
             }
             else // ray를 사용하는 기술. 전방으로 향하는 기술로서 pivot이 하나만 있어도 된다.
             {
-                Vector2 originPoint = rayPositon.transform.position;
-
-                Vector2 newDir = new Vector2(Mathf.Abs(direction[i - 1].x), direction[i - 1].y);
-                if (isChangeDir)
-                {
-                    newDir = new Vector2(-Mathf.Abs(direction[i - 1].x), direction[i - 1].y);
-                }
-                Vector2 currentPosition = new Vector2(originPoint.x, originPoint.y);
-                Vector2 destination = currentPosition + newDir.normalized * distance[i - 1];
-                RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, distance[i - 1], collisionLayer);
-
-
+                SkillRayCheck(true, isChangeDir, i);
                 if (hit.collider == null)
                 {
-
                     if (isGorundCheckSkill == false)
-                    {
                         damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
-                        MasterAudio.PlaySound(skillSound[i]);
-                        if (isNullParent == true)
-                        {
-                            damageObject.transform.parent = null;
-                        }
-                    }
-                    else
-                    {
-                        Vector2 newDir2 = new Vector2(0, -1);
-                        Vector2 currentPosition2 = new Vector2(destination.x, originPoint.y);
-                        Vector2 destination2 = currentPosition2 + newDir2.normalized * groundCheckLength;
-                        RaycastHit2D hit2 = Physics2D.Raycast(currentPosition2, newDir2, groundCheckLength, collisionLayer);
-                        if (hit2.collider != null) // 충돌이 없으면 소환 x 아예 사용이 안됨
-                        {                            // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
-                            Vector2 safePosition2 = hit2.point - newDir2.normalized; // 충돌 지점에서 약간 떨어진 위치
-                            safePosition2 = new Vector2(safePosition2.x, safePosition2.y + yPivot);
-                            damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, safePosition2.y), skillPivot[i].transform.rotation, this.transform);
-                            MasterAudio.PlaySound(skillSound[i]);
-                            if (isNullParent == true)
-                            {
-                                damageObject.transform.parent = null;
-                            }
-                        }
-                    }
-
+                    else //groundCheck를 해줘야하는경우
+                        SkillGroundCheck(false, i);
                 }
                 else
                 {
                     if (isGorundCheckSkill == false)
-                    {
-                        // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
-                        Vector2 safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
-                        safePosition = new Vector2(safePosition.x, safePosition.y);
                         damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
-                        MasterAudio.PlaySound(skillSound[i]);
-                        if (isNullParent == true)
-                        {
-                            damageObject.transform.parent = null;
-                        }
-                    }
                     else
-                    {                        // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
-                        Vector2 safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
-                        safePosition = new Vector2(safePosition.x, safePosition.y);
-                        Vector2 newDir2 = new Vector2(0, -1);
-                        Vector2 currentPosition2 = new Vector2(safePosition.x, originPoint.y);
-                        RaycastHit2D hit2 = Physics2D.Raycast(currentPosition2, newDir2, groundCheckLength, collisionLayer);
-                        if (hit2.collider != null) // 충돌이 없으면 소환 x 아예 사용이 안됨
-                        {                            // 충돌이 있는 경우, 충돌 지점 앞에 오브젝트를 이동
-                            Vector2 safePosition2 = hit2.point - newDir2.normalized; // 충돌 지점에서 약간 떨어진 위치
-                            safePosition2 = new Vector2(safePosition2.x, safePosition2.y + yPivot);
-                            damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, safePosition2.y), skillPivot[i].transform.rotation, this.transform);
-                            MasterAudio.PlaySound(skillSound[i]);
-                            if (isNullParent == true)
-                            {
-                                damageObject.transform.parent = null;
-                            }
-                        }
-                    }
+                        SkillGroundCheck(true, i);
                 }
-
             }
-
-
-
+            MasterAudio.PlaySound(skillSound[i]);
+            if (isNullParent == true) damageObject.transform.parent = null;
             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.skillName = skillName;
             dmOb.SetDamge(damgeArray);
@@ -399,10 +239,8 @@ public class Skill : MonoBehaviour
                 yield return new WaitForSeconds(interval[i] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
             }
         }
-
-
     }
-    int allBullet = 0;
+
     public void RoundAttack(GameObject damageOb, GameObject attackPivot)
     {
         if (DatabaseManager.skillBulletCount.ContainsKey(skillName))
@@ -450,7 +288,7 @@ public class Skill : MonoBehaviour
             }
         }
     }
-    bool isActive = true;
+
     public void ActiveLeft()
     {
         if (isButtonDownSkill && skillCooldown.isCooldown[0] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
@@ -867,9 +705,29 @@ public class Skill : MonoBehaviour
             }
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
 
+    private void CheckAttackWait()
+    {
+        if (isWeaponStopMove == true)
+        {
+            DatabaseManager.weaponStopMove = true;
+            rb.velocity = Vector2.zero;
+        }
+        DatabaseManager.checkAttackLadder = true;
+        weapon.isSkillAttackWait = false;
+        if (isHoldSkill == false)
+        {
+            Sequence sequence = DOTween.Sequence()
+            .AppendInterval(attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100))) // 사전에 지정한 공격 주기만큼 대기.
+            .AppendCallback(() => DatabaseManager.weaponStopMove = false)
+            .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
+            .AppendCallback(() => weapon.isSkillAttackWait = true);
+        }
+        else
+        {
+            DatabaseManager.weaponStopMove = false;
+            DatabaseManager.checkAttackLadder = false;
+            weapon.isSkillAttackWait = true;
+        }
     }
 }
