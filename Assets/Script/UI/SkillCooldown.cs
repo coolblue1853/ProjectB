@@ -36,10 +36,6 @@ public class SkillCooldown : MonoBehaviour
         cooldownImageB.sprite = null;
         cooldownImageC.sprite = null;
         cooldownImageD.sprite = null;
-       // BackImageA.sprite = null;
-     //   BackImageB.sprite = null;
-     //   BackImageC.sprite = null;
-      //  BackImageD.sprite = null;
         cooldownTimeA = 0;
         isCooldownA = false;
         cooldownTimerA = 0;
@@ -64,8 +60,6 @@ public class SkillCooldown : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             instance = this;
         }
-        //    ItemSheet.Data.Load();
-        // UnityGoogleSheet.LoadAllData();
     }
     void Update()
     {
@@ -83,10 +77,9 @@ public class SkillCooldown : MonoBehaviour
                 cooldownImageA.fillAmount = 1; // 이미지를 가득 채웁니다.
             }
         }
-        // 쿨타임 중이라면
         if (isCooldownB && cooldownImageB != null)
         {
-            cooldownTimerB -= Time.deltaTime; // 쿨타임 타이머를 감소시킵니다.
+            cooldownTimerB -= Time.deltaTime; 
             cooldownImageB.fillAmount = 1 - (cooldownTimerB / cooldownTimeB); // 이미지를 업데이트하여 쿨타임을 표시합니다.
 
             // 쿨타임이 완료되었을 때
@@ -123,20 +116,12 @@ public class SkillCooldown : MonoBehaviour
             }
         }
     }
-    public void DeletLeftSkill()
+    public void DeletSkillSprite()
     {
         cooldownImageA.sprite = null;
         cooldownImageB.sprite = null;
-      //  BackImageA = null;
-      //  BackImageB = null;
-        //  cooldownImageA.fillAmount = 1;
-    }
-    public void DeletRightSkill()
-    {
         cooldownImageC.sprite = null;
         cooldownImageD.sprite = null;
-       // BackImageC = null;
-       // BackImageD = null;
     }
     // 스킬을 사용할 때 호출되는 함수
     public void UseSkillA(string skillName)

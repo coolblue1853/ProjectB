@@ -16,11 +16,13 @@ public class AttackManager : MonoBehaviour
     public SkillCooldown skillCooldown;
     public Transform sword;
     public string states = "";
-    public GameObject rightHand;
+    public GameObject rightHand; // 무기를 장착하는 소켓 오브젝트
     public GameObject leftHand;
 
     public PlayerBuff foodBuff;
     public GameObject BuffSlot;
+
+    public GameObject[] skillBackGround = new GameObject[4];
     private void OnEnable()
     {
         attackAction.Enable();
@@ -46,82 +48,31 @@ public class AttackManager : MonoBehaviour
         skillDAction = action.Player.SkillD;
         skillFAction = action.Player.SkillF;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     public void EquipMainWeaopon()
     {
         equipWeapon.pC = this.GetComponent<PlayerController>();
         equipWeapon.CheckSkill();
         equipWeapon.EquipWeqpon(portrait);
     }
-    public GameObject aBackGround;
-    public GameObject bBackGround;
-    public GameObject cBackGround;
-    public GameObject dBackGround;
+
     public void UnEquipMainWeaopon()
     {
-        aBackGround.SetActive(false);
-        bBackGround.SetActive(false);
-        cBackGround.SetActive(false);
-        dBackGround.SetActive(false);
-        SkillCooldown.instance.DeletLeftSkill();
-        SkillCooldown.instance.DeletRightSkill();
-        if (rightHand.transform.childCount != 0)
-        {
-            Destroy(rightHand.transform.GetChild(0).gameObject);
-        }
-        if (leftHand.transform.childCount != 0)
-        {
-            Destroy(leftHand.transform.GetChild(0).gameObject);
-        }
+        for (int i = 0; i < skillBackGround.Length; i++) skillBackGround[i].SetActive(false);
+        SkillCooldown.instance.DeletSkillSprite();
+        if (rightHand.transform.childCount != 0) Destroy(rightHand.transform.GetChild(0).gameObject);
+        if (leftHand.transform.childCount != 0) Destroy(leftHand.transform.GetChild(0).gameObject);
     }
 
     // Update is called once per frame
     void Update()
-    {/*
-        if (Input.GetKeyDown(KeyCode.E))
+    {
+        if (DatabaseManager.isOpenUI == false && equipWeapon != null)
         {
-            // 앞서 만든 두개의 본의 소켓을 가져옵니다.
-            Transform socketR = portrait.GetBoneSocket("RightWeapon");
-            // 검 (Weapon_Sword)을 오른손 본의 소켓의 자식으로 등록합니다.
-            sword.parent = socketR;
-            sword.localPosition = Vector3.zero;
-            sword.localRotation = Quaternion.identity;
-
+            if (attackAction.triggered ) equipWeapon.MeleeAttack();
+            else if (skillAAction.triggered && equipWeapon != null) equipWeapon.ActiveASkill();
+            else if (skillSAction.triggered && equipWeapon != null) equipWeapon.ActiveBSkill();
+            else if (skillDAction.triggered && equipWeapon != null) equipWeapon.ActiveCSkill();
+            else if (skillFAction.triggered && equipWeapon != null) equipWeapon.ActiveDSkill();
         }
-        */
-
-        if (DatabaseManager.isOpenUI == false)
-        {
-            if (attackAction.triggered && equipWeapon != null)
-            {
-                equipWeapon.MeleeAttack();
-            }
-      
-
-            else if (skillAAction.triggered && equipWeapon != null)
-            {
-                equipWeapon.ActiveASkill();
-            }
-            else if (skillSAction.triggered && equipWeapon != null)
-            {
-                equipWeapon.ActiveBSkill();
-            }
-            else if (skillDAction.triggered && equipWeapon != null)
-            {
-                equipWeapon.ActiveCSkill();
-            }
-            else if (skillFAction.triggered && equipWeapon != null)
-            {
-                equipWeapon.ActiveDSkill();
-            }
-    
-        }
-
-
     }
 }
