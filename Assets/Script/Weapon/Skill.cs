@@ -142,7 +142,7 @@ public class Skill : MonoBehaviour
         skillCooldown.UseSkill(num, skillName);
     }
 
-    void SkillRayCheck( bool isRayCheck, bool isChangeDir, int num)
+    void WallCheck( bool isRayCheck, bool isChangeDir, int num)
     {
         if(originPoint == Vector2.zero)
              originPoint = rayPositon.transform.position;
@@ -162,7 +162,7 @@ public class Skill : MonoBehaviour
         }
         safePosition = hit.point - newDir.normalized * 0.2f; // 충돌 지점에서 약간 떨어진 위치
     }
-    void SkillGroundCheck(bool isHit, int num)
+    void GroundCheck(bool isHit, int num)
     {
          groundCheckDir = new Vector2(0, -1);
          groundCheckPosition = new Vector2(destination.x, originPoint.y);
@@ -177,7 +177,7 @@ public class Skill : MonoBehaviour
                 damageObject = Instantiate(skillprefab[num], new Vector2(safePosition.x, groundSafePositon.y), skillPivot[num].transform.rotation, this.transform);
         }
     }
-    private IEnumerator SpawnSkills() // //<< 포폴에 넣자
+    private IEnumerator SpawnSkills() // 
     {
         bool isChangeDir = false;
         if (player.transform.localScale.x < 0) isChangeDir = true;
@@ -192,7 +192,7 @@ public class Skill : MonoBehaviour
                     damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
                 else
                 {
-                    SkillRayCheck(false, isChangeDir,i);
+                    WallCheck(false, isChangeDir,i);
                     Vector2 safePosition = hit.point - newDir.normalized; 
                     safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
                     damageObject = Instantiate(skillprefab[i], new Vector2(skillPivot[i].transform.position.x, safePosition.y), skillPivot[i].transform.rotation, this.transform);
@@ -200,20 +200,20 @@ public class Skill : MonoBehaviour
             }
             else // ray를 사용하는 기술. 전방으로 향하는 기술로서 pivot이 하나만 있어도 된다.
             {
-                SkillRayCheck(true, isChangeDir, i);
+                WallCheck(true, isChangeDir, i);
                 if (hit.collider == null)
                 {
                     if (isGorundCheckSkill == false)
                         damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
                     else //groundCheck를 해줘야하는경우
-                        SkillGroundCheck(false, i);
+                        GroundCheck(false, i);
                 }
                 else
                 {
                     if (isGorundCheckSkill == false)
                         damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
                     else
-                        SkillGroundCheck(true, i);
+                        GroundCheck(true, i);
                 }
             }
             MasterAudio.PlaySound(skillSound[i]);
@@ -231,7 +231,7 @@ public class Skill : MonoBehaviour
     public void RoundSpawn(GameObject damageOb, GameObject attackPivot)
     {
         if (DatabaseManager.skillBulletCount.ContainsKey(skillName))
-            allBullet = bulletCount + DatabaseManager.skillBulletCount[skillName];
+            allBullet = bulletCount + DatabaseManager.skillBulletCount[skillName]; // 아이템 중 해당 기술의 탄환 중가가 있는경우 숫자를 증가시킵니다.
         else
             allBullet = bulletCount;
         float angleStep = (endAngle - startAngle) / (allBullet - 1); // 탄막 간격 계산
@@ -265,7 +265,8 @@ public class Skill : MonoBehaviour
 
     public void ActiveSkill(int num)
     {
-        if (isButtonDownSkill && skillCooldown.isCooldown[num] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
+        if (isButtonDownSkill && skillCooldown.isCooldown[num] == false && PlayerHealthManager.Instance.nowStemina > useStemina 
+            && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
             isActive = true;
             if (isRoundAttack == true) RoundAttack(skillWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
