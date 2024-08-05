@@ -8,7 +8,6 @@ using DarkTonic.MasterAudio;
 public class Skill : MonoBehaviour
 {
     KeyAction action;
-    InputAction attackAction;
     InputAction[] skillAction = new InputAction[4]; // 키보드로  A S D F 순
     public string[] skillSound;
     public GameObject[] skillBackGround = new GameObject[4];
@@ -92,9 +91,6 @@ public class Skill : MonoBehaviour
     int allBullet = 0;
     bool isActive = true;
 
-
-
-    
     private void OnEnable()
     {
         for(int i =0; i < skillAction.Length; i++)
@@ -181,7 +177,7 @@ public class Skill : MonoBehaviour
                 damageObject = Instantiate(skillprefab[num], new Vector2(safePosition.x, groundSafePositon.y), skillPivot[num].transform.rotation, this.transform);
         }
     }
-    private IEnumerator SpawnSkills() // 다수의 DamageObject를 생성해야 하는 경우
+    private IEnumerator SpawnSkills() // //<< 포폴에 넣자
     {
         bool isChangeDir = false;
         if (player.transform.localScale.x < 0) isChangeDir = true;
@@ -393,7 +389,6 @@ public class Skill : MonoBehaviour
         if (isActive == true)
         {
             SkillEffect();
-
             if (isHoldSkill == false)
             {
                 skillCooldown.UseSkill(skillNum, skillName);

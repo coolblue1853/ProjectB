@@ -21,8 +21,6 @@ public class Weapon : MonoBehaviour
     public int finDmg = 0; // 최종뎀%  
     public int addDmg = 0; // 추뎀%  
     PlayerHealthManager phm;
-
-
     public string[] weaponSound;
     public int[] damgeArray = new int[10];
     public float[] attckSpeed;   // 공격 주기, 짧을수록 더 빠르게 공격 가능.
@@ -30,8 +28,7 @@ public class Weapon : MonoBehaviour
     public bool isSkillAttackWait = true;
     public bool isWeaponStopMove = false;
     public float time;
-    // public GameObject attackPivot;
-
+    Sequence comboSequence;
     public bool isOverHand =false;
 
     public GameObject[] attackPrefab;
@@ -46,10 +43,8 @@ public class Weapon : MonoBehaviour
     public bool[] spriteReverse;
     public Skill[] skill = new Skill[4];
 
-
     public GameObject leftWeqponSprite;
     public GameObject RightWeqponSprite;
-
     void SetDmgArray()
     {
         damgeArray[0] = minDmg;
@@ -66,16 +61,15 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         phm = transform.parent.transform.GetChild(0).GetComponent<PlayerHealthManager>();
-           isAttackWait = true;
+        isAttackWait = true;
         isSkillAttackWait = true;
         SetDmgArray();
     }
-   public void EquipWeqpon(apPortrait portrait)
+   public void EquipWeqpon(apPortrait portrait) // 무기 스프라이트를 소켓에 장착합니다.
     {
         if(RightWeqponSprite!= null)
         {
             Transform socketR = portrait.GetBoneSocket("RightWeapon");
-            // 검 (Weapon_Sword)을 오른손 본의 소켓의 자식으로 등록합니다.
             RightWeqponSprite.transform.parent = socketR;
             if (!isOverHand)
                 RightWeqponSprite.transform.localPosition = new Vector3(0, 0, 25f);
@@ -87,110 +81,59 @@ public class Weapon : MonoBehaviour
         if (leftWeqponSprite != null)
         {
             Transform socketL = portrait.GetBoneSocket("LeftWeapon");
-            // 검 (Weapon_Sword)을 오른손 본의 소켓의 자식으로 등록합니다.
             leftWeqponSprite.transform.parent = socketL;
             if (!isOverHand)
                 leftWeqponSprite.transform.localPosition = new Vector3(0,0,35f);
             else
-            {
                 leftWeqponSprite.transform.localPosition = new Vector3(0, 0, 5f);
-            }
             leftWeqponSprite.transform.localRotation = Quaternion.identity;
         }
-
     }
-
 
     public void CheckSkill()
     {
         for(int i = 0; i < 4; i++)
         {
-            if (skill[i] != null)
-                skill[i].ActiveMainSkill(i);
+            if (skill[i] != null) skill[i].ActiveMainSkill(i);
             else skill[0].DisactiveMainSkill(i);
         }
     }
 
     public void ActiveWeaponSkill(int num)
     {
-        if(skill[num] != null)
-        {
-            skill[num].ActiveSkill(num);
-        }
-
+        if(skill[num] != null) skill[num].ActiveSkill(num);
     }
 
     public bool isSkillCancel = false;
 
     public void MeleeAttack()
     {
-        time = 0;
-        if (nowConboCount == 0 && (isAttackWait == true && (isSkillAttackWait || isSkillCancel)))//|| isSkillCancel == true)
+        comboSequence.Kill();
+        comboSequence = DOTween.Sequence()
+        .AppendInterval(maxComboTime)
+        .AppendCallback(() => nowConboCount = 0);
+        if (isAttackWait == true && (isSkillAttackWait || isSkillCancel))
         {
-            nowConboCount++;
-            
-            //프리팹 소환
-            if (delayTime.Length > 0)
+            if (nowConboCount < maxComboCount)
             {
-
-            //    pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1],delayAnimName[nowConboCount - 1], delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)), true);
-                Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-
+                nowConboCount++;
+                MeleeAttackActive();
             }
             else
             {
-               // pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1],attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-                CreatAttackPrefab();
-
-            }
-            MasterAudio.PlaySound(weaponSound[nowConboCount - 1]);
-            CheckAttackWait();
-        }
-        else
-        {
-            if (nowConboCount < maxComboCount && time <= maxComboTime && (isAttackWait == true && (isSkillAttackWait || isSkillCancel)))//|| isSkillCancel == true
-            {
-                nowConboCount++;
-
-                if (delayTime.Length > 0)
-                {
-                //   pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], delayAnimName[nowConboCount - 1], delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)), true);
-                    Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-
-                }
-                else
-                {
-                   // pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-                    CreatAttackPrefab();
-
-                }
-                MasterAudio.PlaySound(weaponSound[nowConboCount - 1]);
-                CheckAttackWait();
-            }
-            else if (nowConboCount >= maxComboCount && time <= maxComboTime && (isAttackWait == true && (isSkillAttackWait || isSkillCancel))) // 콤보수 초기화 및 다시 카운트 1로 내려옴. || isSkillCancel == true
-            {
                 nowConboCount = 1;
-
-                if (delayTime.Length > 0)
-                {
-                  //  pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], delayAnimName[nowConboCount - 1], delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)), true);
-                    Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-
-                }
-                else
-                {
-                 //   pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-                    CreatAttackPrefab();
- 
-                }
-                MasterAudio.PlaySound(weaponSound[nowConboCount - 1]);
-                CheckAttackWait();
-
+                MeleeAttackActive();
             }
         }
-
     }
-
+    public void MeleeAttackActive()
+    {
+        if (delayTime.Length > 0)
+            Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+        else CreatAttackPrefab();
+        MasterAudio.PlaySound(weaponSound[nowConboCount - 1]);
+        CheckAttackWait();
+    }
     public void CreatAttackPrefab()
     {
         pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
@@ -200,47 +143,18 @@ public class Weapon : MonoBehaviour
     }
     private void CheckAttackWait()
     {
-        if (isWeaponStopMove == true)
-        {
-            DatabaseManager.weaponStopMove = true;
-        }
+        if (isWeaponStopMove == true) DatabaseManager.weaponStopMove = true;
         DatabaseManager.checkAttackLadder = true;
         isAttackWait = false;
-
+        float waitTime = 0;
         if (delayTime.Length > 0)
-        {
-            Sequence sequence = DOTween.Sequence()
-.AppendInterval((attckSpeed[nowConboCount - 1] + delayTime[nowConboCount - 1]) /(1 + (DatabaseManager.attackSpeedBuff / 100))) // 사전에 지정한 공격 주기만큼 대기.
-.AppendCallback(() => DatabaseManager.weaponStopMove = false)
-.AppendCallback(() => DatabaseManager.checkAttackLadder = false)
-.AppendCallback(() => isAttackWait = true);
-        }
+            waitTime = (attckSpeed[nowConboCount - 1] + delayTime[nowConboCount - 1]) / (1 + (DatabaseManager.attackSpeedBuff / 100));
         else
-        {
-            Sequence sequence = DOTween.Sequence()
-.AppendInterval(attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100))) // 사전에 지정한 공격 주기만큼 대기.
-.AppendCallback(() => DatabaseManager.weaponStopMove = false)
-.AppendCallback(() => DatabaseManager.checkAttackLadder = false)
-.AppendCallback(() => isAttackWait = true);
-        }
-
-
+            waitTime = (attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+        Sequence sequence = DOTween.Sequence()
+        .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
+        .AppendCallback(() => DatabaseManager.weaponStopMove = false)
+        .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
+        .AppendCallback(() => isAttackWait = true);
     }
-
-    private void Update()
-    {
-        if(nowConboCount!= 0 && time < maxComboTime)
-        {
-            time += Time.deltaTime;
-        }
-        else if(time > maxComboTime && time != 0)
-        {
-            nowConboCount = 0;
-               time = 0;
-        }
-    }
-
-
-
-
 }
