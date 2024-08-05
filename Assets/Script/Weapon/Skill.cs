@@ -196,22 +196,23 @@ public class Skill : MonoBehaviour
 
     public void ActiveMainSkill()
     {
-
         if (isLeft)
         {
             aSkillBackGround.SetActive(true);
-            skillCooldown.cooldownTimeA = SkillCoolTime;
-            skillCooldown.cooldownImageA.sprite = skillImage;
-            skillCooldown.BackImageA.sprite = skillImage;
-            skillCooldown.UseSkillA(skillName);
+            skillCooldown.cooldownTime[0] = SkillCoolTime;
+            skillCooldown.cooldownImage[0].sprite = skillImage;
+            skillCooldown.backImage[0].sprite = skillImage;
+            //skillCooldown.UseSkillA(skillName);
+            skillCooldown.UseSkill(0,skillName);
         }
         else if (isRight)
         {
             bSkillBackGround.SetActive(true);
-            skillCooldown.cooldownTimeB = SkillCoolTime;
-            skillCooldown.cooldownImageB.sprite = skillImage;
-            skillCooldown.BackImageB.sprite = skillImage;
-            skillCooldown.UseSkillB(skillName);
+            skillCooldown.cooldownTime[1] = SkillCoolTime;
+            skillCooldown.cooldownImage[1].sprite = skillImage;
+            skillCooldown.backImage[1].sprite = skillImage;
+            skillCooldown.UseSkill(1, skillName);
+            //  skillCooldown.UseSkillB(skillName);
         }
     }
     public void ActiveSideSkill()
@@ -219,18 +220,20 @@ public class Skill : MonoBehaviour
         if (isLeft)
         {
             cSkillBackGround.SetActive(true);
-            skillCooldown.cooldownTimeC = SkillCoolTime;
-            skillCooldown.cooldownImageC.sprite = skillImage;
-            skillCooldown.BackImageC.sprite = skillImage;
-            skillCooldown.UseSkillC(skillName);
+            skillCooldown.cooldownTime[2] = SkillCoolTime;
+            skillCooldown.cooldownImage[2].sprite = skillImage;
+            skillCooldown.backImage[2].sprite = skillImage;
+            //  skillCooldown.UseSkillC(skillName);
+            skillCooldown.UseSkill(2, skillName);
         }
         else if (isRight)
         {
             dSkillBackGround.SetActive(true);
-            skillCooldown.cooldownTimeD = SkillCoolTime;
-            skillCooldown.cooldownImageD.sprite = skillImage;
-            skillCooldown.BackImageD.sprite = skillImage;
-            skillCooldown.UseSkillD(skillName);
+            skillCooldown.cooldownTime[3] = SkillCoolTime;
+            skillCooldown.cooldownImage[3].sprite = skillImage;
+            skillCooldown.backImage[3].sprite = skillImage;
+            skillCooldown.UseSkill(3, skillName);
+            //  skillCooldown.UseSkillD(skillName);
         }
     }
 
@@ -450,7 +453,7 @@ public class Skill : MonoBehaviour
     bool isActive = true;
     public void ActiveLeft()
     {
-        if (isButtonDownSkill && skillCooldown.isCooldownA == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
+        if (isButtonDownSkill && skillCooldown.isCooldown[0] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
             isActive = true;
 
@@ -482,7 +485,7 @@ public class Skill : MonoBehaviour
     public void ActiveRight()
     {
 
-        if (isButtonDownSkill && skillCooldown.isCooldownB == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
+        if (isButtonDownSkill && skillCooldown.isCooldown[1] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
             isActive = true;
             if (isRoundAttack == true)
@@ -513,7 +516,7 @@ public class Skill : MonoBehaviour
     public void ActiveSideLeft()
     {
 
-        if (isButtonDownSkill && skillCooldown.isCooldownC == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
+        if (isButtonDownSkill && skillCooldown.isCooldown[2] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
             isActive = true;
             if (isRoundAttack == true)
@@ -544,7 +547,7 @@ public class Skill : MonoBehaviour
     public void ActiveSideRight()
     {
 
-        if (isButtonDownSkill && skillCooldown.isCooldownD == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
+        if (isButtonDownSkill && skillCooldown.isCooldown[3] == false && PlayerHealthManager.Instance.nowStemina > useStemina && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
 
             isActive = true;
@@ -585,7 +588,8 @@ public class Skill : MonoBehaviour
                 // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
                 isActiveHoldA = false;
                 sequenceA.Kill();
-                skillCooldown.UseSkillA(skillName);
+                // skillCooldown.UseSkillA(skillName);
+                skillCooldown.UseSkill(0, skillName);
                 CheckAttackWait();
                 PlayerController.instance.StopAttackAnim();
                 dmOb.DestroyObject();
@@ -602,7 +606,8 @@ public class Skill : MonoBehaviour
                 // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
                 isActiveHoldB = false;
                 sequenceB.Kill();
-                skillCooldown.UseSkillB(skillName);
+                //    skillCooldown.UseSkillB(skillName);
+                skillCooldown.UseSkill(1, skillName);
                 CheckAttackWait();
                 PlayerController.instance.StopAttackAnim();
                 dmOb.DestroyObject();
@@ -619,7 +624,8 @@ public class Skill : MonoBehaviour
                 // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
                 isActiveHoldC = false;
                 sequenceC.Kill();
-                skillCooldown.UseSkillC(skillName);
+                //     skillCooldown.UseSkillC(skillName);
+                skillCooldown.UseSkill(2, skillName);
                 CheckAttackWait();
                 PlayerController.instance.StopAttackAnim();
                 dmOb.DestroyObject();
@@ -636,7 +642,8 @@ public class Skill : MonoBehaviour
                 // -> 이거 말고 데미지 오브젝트에서 함수 발동하는 방식으로 변경!.
                 isActiveHoldD = false;
                 sequenceD.Kill();
-                skillCooldown.UseSkillD(skillName);
+                //   skillCooldown.UseSkillD(skillName);
+                skillCooldown.UseSkill(3, skillName);
                 CheckAttackWait();
                 PlayerController.instance.StopAttackAnim();
                 dmOb.DestroyObject();
@@ -775,16 +782,20 @@ public class Skill : MonoBehaviour
                 switch (skillNum)
                 {
                     case "A":
-                        skillCooldown.UseSkillA(skillName);
+                        //  skillCooldown.UseSkillA(skillName);
+                        skillCooldown.UseSkill(0, skillName);
                         break;
                     case "B":
-                        skillCooldown.UseSkillB(skillName);
+                        // skillCooldown.UseSkillB(skillName);
+                        skillCooldown.UseSkill(1, skillName);
                         break;
                     case "C":
-                        skillCooldown.UseSkillC(skillName);
+                        //skillCooldown.UseSkillC(skillName);
+                        skillCooldown.UseSkill(2, skillName);
                         break;
                     case "D":
-                        skillCooldown.UseSkillD(skillName);
+                        //  skillCooldown.UseSkillD(skillName);
+                        skillCooldown.UseSkill(3, skillName);
                         break;
                 }
 
@@ -814,7 +825,8 @@ public class Skill : MonoBehaviour
                         sequenceA = DOTween.Sequence()
                        .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
                        .AppendCallback(() => isActiveHoldA = false)
-                       .AppendCallback(() => skillCooldown.UseSkillA(skillName))
+                                            // .AppendCallback(() => skillCooldown.UseSkillA(skillName))
+                                            .AppendCallback(() => skillCooldown.UseSkill(0, skillName))
                        .AppendCallback(() => CheckAttackWait())
                        .AppendCallback(() => dmOb.DestroyObject());
                         break;
@@ -823,7 +835,8 @@ public class Skill : MonoBehaviour
                         sequenceB = DOTween.Sequence()
                        .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
                        .AppendCallback(() => isActiveHoldB = false)
-                       .AppendCallback(() => skillCooldown.UseSkillB(skillName))
+                                            // .AppendCallback(() => skillCooldown.UseSkillB(skillName))
+                                            .AppendCallback(() => skillCooldown.UseSkill(1, skillName))
                        .AppendCallback(() => CheckAttackWait())
                        .AppendCallback(() => dmOb.DestroyObject());
                         break;
@@ -832,7 +845,8 @@ public class Skill : MonoBehaviour
                         sequenceC = DOTween.Sequence()
                        .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
                        .AppendCallback(() => isActiveHoldC = false)
-                       .AppendCallback(() => skillCooldown.UseSkillC(skillName))
+                                           //  .AppendCallback(() => skillCooldown.UseSkillC(skillName))
+                                           .AppendCallback(() => skillCooldown.UseSkill(2, skillName))
                        .AppendCallback(() => CheckAttackWait())
                        .AppendCallback(() => dmOb.DestroyObject());
                         break;
@@ -841,7 +855,8 @@ public class Skill : MonoBehaviour
                         sequenceD = DOTween.Sequence()
                        .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
                        .AppendCallback(() => isActiveHoldD = false)
-                       .AppendCallback(() => skillCooldown.UseSkillD(skillName))
+                                          //   .AppendCallback(() => skillCooldown.UseSkillD(skillName))
+                                          .AppendCallback(() => skillCooldown.UseSkill(3, skillName))
                        .AppendCallback(() => CheckAttackWait())
                        .AppendCallback(() => dmOb.DestroyObject());
                         break;
