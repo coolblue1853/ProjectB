@@ -1,11 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using AnyPortrait;
+using System;
 public class PlayerHealthManager : MonoBehaviour
 {
+
     public apPortrait mainCharacter;
    // bool isSuperArmor = false;
     Sequence sequence; Sequence hpSequence;
@@ -43,14 +44,16 @@ public class PlayerHealthManager : MonoBehaviour
     public int Def;
     public int Critical;
     public int Drop;
+
+  
     void Start()
     {
         rb = player.GetComponent<Rigidbody2D>();
         playerController = player.GetComponent<PlayerController>();
         ResetMHp();
-        healthBar.ResetHp(fullHP);
-        steminaBar.ResetHp(fullStemina);
-        fullnesBar.ResetHp(fullFullness);
+        healthBar.ResetStat(fullHP);
+        steminaBar.ResetStat(fullStemina);
+        fullnesBar.ResetStat(fullFullness);
     }
 
     public void EquipmentActiveTrue(int hp)
@@ -62,8 +65,8 @@ public class PlayerHealthManager : MonoBehaviour
         setHP = 1;
         nomalizedHP = 1 / fullHP;
         int minus = fullHP - checkHP;
-        healthBar.ResetHp(fullHP);
-        healthBar.healthSystem.Damage(minus);
+        healthBar.ResetStat(fullHP);
+        healthBar.healthManager.Damage(minus);
         waitHpSequence.Kill();
 
         HpUp(hp);
@@ -77,8 +80,8 @@ public class PlayerHealthManager : MonoBehaviour
         setHP = 1;
         nomalizedHP = 1 / fullHP;
         int minus = fullHP - nowHp;
-        healthBar.ResetHp(fullHP);
-        healthBar.healthSystem.Damage(minus);
+        healthBar.ResetStat(fullHP);
+        healthBar.healthManager.Damage(minus);
         if (nowHp > fullHP)
         {
             nowHp = fullHP;
@@ -206,21 +209,20 @@ public class PlayerHealthManager : MonoBehaviour
         {
 
             healed = fullFullness - nowFullness;
-            Debug.Log("먹기 작동" + healed);
             nowFullness += healed;
-            fullnesBar.healthSystem.Heal(healed);
+            fullnesBar.healthManager.Heal(healed);
         }
         else
         {
             nowFullness += healed;
 
-            fullnesBar.healthSystem.Heal(healed);
+            fullnesBar.healthManager.Heal(healed);
         }
     }
     public void FullnessDown(int damage)
     {
         nowFullness -= damage;
-        fullnesBar.healthSystem.Damage(damage);
+        fullnesBar.healthManager.Damage(damage);
     }
 
 
@@ -229,7 +231,7 @@ public class PlayerHealthManager : MonoBehaviour
         //DamageNumber damageNumber = numberPrefab.Spawn(player.transform.position, damage);
         nowHp -= damage;
         setHP = (setHP - nomalizedHP * damage);
-        healthBar.healthSystem.Damage(damage);
+        healthBar.healthManager.Damage(damage);
 
         isHpDown = true;
         hpSequence.Kill();
@@ -247,7 +249,7 @@ public class PlayerHealthManager : MonoBehaviour
         waitSequence.Kill();
         nowStemina -= damage;
         setStemina = setStemina - nomalizedStemina * damage;
-        steminaBar.healthSystem.Damage(damage);
+        steminaBar.healthManager.Damage(damage);
         sequence = DOTween.Sequence()
         .AppendInterval(waitTimeSteminaHeal) // 대기 시간 사용
         .OnComplete(() => OnSequenceComplete());
@@ -318,13 +320,13 @@ public class PlayerHealthManager : MonoBehaviour
             healed = fullHP - nowHp;
             nowHp += healed;
             setHP = (setHP - nomalizedHP * healed);
-            healthBar.healthSystem.Heal(healed);
+            healthBar.healthManager.Heal(healed);
         }
         else
         {
             nowHp += healed;
             setHP = (setHP - nomalizedHP * healed);
-            healthBar.healthSystem.Heal(healed);
+            healthBar.healthManager.Heal(healed);
         }
     }
     public void SteminaUp(int damage)
@@ -334,13 +336,13 @@ public class PlayerHealthManager : MonoBehaviour
             damage = fullStemina - nowStemina;
             nowStemina += damage;
             setStemina = setStemina - nomalizedStemina * damage;
-            steminaBar.healthSystem.Heal(damage);
+            steminaBar.healthManager.Heal(damage);
         }
         else
         {
             nowStemina += damage;
             setStemina = setStemina - nomalizedStemina * damage;
-            steminaBar.healthSystem.Heal(damage);
+            steminaBar.healthManager.Heal(damage);
         }
     }
     void Awake()
@@ -355,7 +357,7 @@ public class PlayerHealthManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    //게임 매니저 인스턴스에 접근할 수 있는 프로퍼티. static이므로 다른 클래스에서 맘껏 호출할 수 있다.
+
     public static PlayerHealthManager Instance
     {
         get

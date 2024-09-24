@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine.UI;
 using DamageNumbersPro;
 using BehaviorDesigner.Runtime;
+using System;
 using BehaviorDesigner.Runtime.Tasks;
 public class EnemyHealth : MonoBehaviour
 {
@@ -32,22 +33,61 @@ public class EnemyHealth : MonoBehaviour
     public GameObject deadBody;
     public GameObject enemySensor;
     public bool isBossMob = false;
+
+    public event EventHandler OnDamaged;
+    public event EventHandler OnHealed;
+
+    public EnemyHealth(int healthAmount)
+    {
+        maxHP = healthAmount;
+        this.nowHP = healthAmount;
+    }
+
+    public void Damage(int amount)
+    {
+        nowHP -= amount;
+        if (nowHP < 0)
+        {
+            nowHP = 0;
+        }
+        if (OnDamaged != null) OnDamaged(this, EventArgs.Empty);
+    }
+
+    public void Heal(int amount)
+    {
+        nowHP += amount;
+        if (nowHP > maxHP)
+        {
+            nowHP = maxHP;
+        }
+        if (OnHealed != null) OnHealed(this, EventArgs.Empty);
+    }
+
+    public float GetHealthNormalized()
+    {
+        return (float)nowHP / maxHP;
+    }
+    public void SetMaxHealth(int maxHealth)
+    {
+        maxHP = maxHealth;
+        if (nowHP > maxHP)
+        {
+            nowHP = maxHP;
+        }
+    }
+
     private void Awake()
     {
         anim = transform.GetComponent<Animator>();
         dropManager = transform.GetComponent<DropManager>();
-        //    enemyFSM = transform.GetComponent<EnemyFSM>();
         rb = transform.GetComponent<Rigidbody2D>();
-        // brain = transform.GetComponent<BTBrain>();
         behaviorTree = transform.GetComponent<BehaviorTree>();
         nowHP = maxHP;
-        hpBar.setHpBar(maxHP);
+        hpBar.setHpBar(this); 
 
     }
     private void Start()
     {
-
-
 
         if (enemySensor != null)
         {
@@ -82,8 +122,8 @@ public class EnemyHealth : MonoBehaviour
 
 
         isCrit = false;
-        float baseDmg = Random.Range(damage[0]+DatabaseManager.addbasicDmg, damage[1]+DatabaseManager.addbasicDmg);
-        int checkCrit = Random.Range(1, 101);
+        float baseDmg = UnityEngine.Random.Range(damage[0]+DatabaseManager.addbasicDmg, damage[1]+DatabaseManager.addbasicDmg);
+        int checkCrit = UnityEngine.Random.Range(1, 101);
 
         if(checkCrit <= damage[2]+ DatabaseManager.playerCritRate) // 치명타 성공시
         {// 기본 치피는 20
@@ -128,37 +168,7 @@ public class EnemyHealth : MonoBehaviour
     public float stiffShakeTime = 0;
     bool deadOnec = false;
     public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking, float dmgRatio)
-    {    // Null 체크 및 디버그 로그 추가
-        if (damage == null)
-        {
-            Debug.LogError("damage array is null");
-            return;
-        }
-
-        if (hpBar == null)
-        {
-            Debug.LogError("hpBar is null");
-            return;
-        }
-
-        if (damageNumber == null)
-        {
-            Debug.LogError("damageNumber is null");
-            return;
-        }
-
-        if (dropManager == null)
-        {
-            Debug.LogError("dropManager is null");
-            return;
-        }
-
-        if (rb == null)
-        {
-            Debug.LogError("Rigidbody2D (rb) is null");
-            return;
-        }
-
+    {    
 
         shakeTime = shaking;
         float dmg = SetDmg(damage, isSkill); // 방어력 적용전 데미지;
@@ -183,32 +193,28 @@ public class EnemyHealth : MonoBehaviour
             addDmg = finDmg  * ((addFloat / 100.0f)); // 추뎀 계산
 
         }
-       // shakeTime = finDmg / maxHP* ShakeCorrection ;
+
        if(isBossMob == false)
         {
             ToggleObject();
 
         }
 
-       if(hpBar != null)
-        {
-            hpBar.healthSystem.Damage((int)finDmg);
-            nowHP -= (int)finDmg;
-            if (isCrit) damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg+"!");
-            else damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
-
-        }
-
+       // 최종데미지
+        Damage((int)finDmg);
+     //   nowHP -= (int)finDmg;
+        if (isCrit) damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg + "!");
+        else damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
 
 
         if (isSuperArmor == true)
         {
             transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
         }
-        if ((int)addDmg != 0)
+        if ((int)addDmg != 0) // 추가 데미지 판정
         {
-            nowHP -= (int)addDmg;
-            hpBar.healthSystem.Damage((int)addDmg);
+       //     nowHP -= (int)addDmg;
+           Damage((int)addDmg);
             damageNumber.Spawn(transform.position + Vector3.up, (int)addDmg);
         }
 
@@ -277,8 +283,8 @@ public class EnemyHealth : MonoBehaviour
     public void onlyDamage2Enemy(int damage)
     {
         ToggleObject();
-        nowHP -= damage;
-        hpBar.healthSystem.Damage(damage);
+       // nowHP -= damage;
+        Damage(damage);
 
         if (nowHP <= 0 && deadOnec == false)
         {
