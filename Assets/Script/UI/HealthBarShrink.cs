@@ -13,15 +13,35 @@ public class HealthBarShrink : MonoBehaviour
     private float damagedHealthShrinkTimer;
 
     [HideInInspector]
-    public EnemyHealthSystem healthManager;
+    public PlayerHealthManager healthManager;
 
-    public void ResetStat(int point)
+    public void ResetHealthStat(PlayerHealthManager health)
     {
-       healthManager = new EnemyHealthSystem(point);
-        SetHealth(healthManager.GetHealthNormalized());
+       healthManager = health;
+        SetHealth(healthManager.GetHpNormalized());
         damagedBarImage.fillAmount = barImage.fillAmount;
-        healthManager.OnDamaged += HealthSystem_OnDamaged;
-        healthManager.OnHealed += HealthSystem_OnHealed;
+
+       healthManager.OnHpDamaged += HpOnDamaged;
+      healthManager.OnHpHealed += HpOnHealed;
+    }
+    public void ResetFullnessStat(PlayerHealthManager fullness)
+    {
+        healthManager = fullness;
+        SetHealth(healthManager.GetFullnessNormalized());
+        damagedBarImage.fillAmount = barImage.fillAmount;
+
+        healthManager.OnFullnessDamaged += FullnessOnDamaged;
+        healthManager.OnFullnessHealed += FullnessOnHealed;
+    }
+
+    public void ResetSteminaStat(PlayerHealthManager stemina)
+    {
+        healthManager = stemina;
+        SetHealth(healthManager.GetSteminaNormalized());
+        damagedBarImage.fillAmount = barImage.fillAmount;
+
+        healthManager.OnSteminaDamaged += SteminaOnDamaged;
+        healthManager.OnSteminaHealed += SteminaOnHealed;
     }
 
     private void Update() 
@@ -37,15 +57,39 @@ public class HealthBarShrink : MonoBehaviour
         }
     }
 
-    private void HealthSystem_OnHealed(object sender, System.EventArgs e) {
-        SetHealth(healthManager.GetHealthNormalized());
+    private void SteminaOnHealed(object sender, System.EventArgs e) {
+        SetHealth(healthManager.GetSteminaNormalized());
         damagedBarImage.fillAmount = barImage.fillAmount;
     }
 
-    private void HealthSystem_OnDamaged(object sender, System.EventArgs e) {
+    private void SteminaOnDamaged(object sender, System.EventArgs e) {
         damagedHealthShrinkTimer = shrinkTime;
-        SetHealth(healthManager.GetHealthNormalized());
-    }   
+        SetHealth(healthManager.GetSteminaNormalized());
+    }
+
+    private void HpOnHealed(object sender, System.EventArgs e)
+    {
+        SetHealth(healthManager.GetHpNormalized());
+        damagedBarImage.fillAmount = barImage.fillAmount;
+    }
+
+    private void HpOnDamaged(object sender, System.EventArgs e)
+    {
+        damagedHealthShrinkTimer = shrinkTime;
+        SetHealth(healthManager.GetHpNormalized());
+    }
+    private void FullnessOnHealed(object sender, System.EventArgs e)
+    {
+        SetHealth(healthManager.GetFullnessNormalized());
+        damagedBarImage.fillAmount = barImage.fillAmount;
+    }
+
+    private void FullnessOnDamaged(object sender, System.EventArgs e)
+    {
+        damagedHealthShrinkTimer = shrinkTime;
+        SetHealth(healthManager.GetFullnessNormalized());
+    }
+
 
     private void SetHealth(float healthNormalized) 
     {

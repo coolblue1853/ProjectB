@@ -17,7 +17,7 @@ public class EnemyHealth : MonoBehaviour
     public DG.Tweening.Sequence sequence;
     public int maxHP = 100;
     public int nowHP = 100;
-    public HealthBarCut hpBar;
+    public EnemyHealthBar hpBar;
     public GameObject hpObject;
     public float hpHeight;
     public bool isSuperArmor;

@@ -20,6 +20,7 @@ public class PlayerHealthManager : MonoBehaviour
     public HealthBarShrink steminaBar;
     public HealthBarShrink fullnesBar;
 
+    Sequence noDamgeSycle;
     public int setStemina;
     public int fullStemina;
     public int nowStemina;
@@ -38,22 +39,104 @@ public class PlayerHealthManager : MonoBehaviour
     public GameObject player;
     Rigidbody2D rb;
 
-    Sequence noDamgeSycle;
     public float noDamgeTime;
     bool isNoDamge = false;
     public int Def;
     public int Critical;
     public int Drop;
 
-  
+    public event EventHandler OnHpDamaged;
+    public event EventHandler OnHpHealed;
+    public event EventHandler OnSteminaDamaged;
+    public event EventHandler OnSteminaHealed;
+    public event EventHandler OnFullnessDamaged;
+    public event EventHandler OnFullnessHealed;
+
+    public PlayerHealthManager(int healthAmount)
+    {
+        fullHP = healthAmount;
+        this.nowHp = healthAmount;
+    }
+
+    public void HpDamage(int amount)
+    {
+        nowHp -= amount;
+        if (nowHp < 0)
+        {
+            nowHp = 0;
+        }
+        if (OnHpDamaged != null) OnHpDamaged(this, EventArgs.Empty);
+    }
+    public void HpHeal(int amount)
+    {
+        nowHp += amount;
+        if (nowHp > fullHP)
+        {
+            nowHp = fullHP;
+        }
+        if (OnHpHealed != null) OnHpHealed(this, EventArgs.Empty);
+    }
+    public void FullnessDamage(int amount)
+    {
+        nowFullness -= amount;
+        if (nowFullness < 0)
+        {
+            nowFullness = 0;
+        }
+        if (OnFullnessDamaged != null) OnFullnessDamaged(this, EventArgs.Empty);
+    }
+    public void FullnessHeal(int amount)
+    {
+        nowFullness += amount;
+        if (nowFullness > fullFullness)
+        {
+            nowFullness = fullFullness;
+        }
+        if (OnFullnessHealed != null) OnFullnessHealed(this, EventArgs.Empty);
+    }
+    public void SteminaDamage(int amount)
+    {
+        nowStemina -= amount;
+        if (nowStemina < 0)
+        {
+            nowStemina = 0;
+        }
+        if (OnSteminaDamaged != null) OnSteminaDamaged(this, EventArgs.Empty);
+    }
+    public void SteminaHeal(int amount)
+    {
+        nowStemina += amount;
+        if (nowStemina > fullStemina)
+        {
+            nowStemina = fullStemina;
+        }
+        if (OnSteminaHealed != null) OnSteminaHealed(this, EventArgs.Empty);
+    }
+    public float GetHpNormalized()
+    {
+        return (float)nowHp / fullHP;
+    }
+    public float GetFullnessNormalized()
+    {
+        return (float)nowFullness / fullFullness;
+    }
+    public float GetSteminaNormalized()
+    {
+        return (float)nowStemina / fullStemina;
+    }
+
+
+
+
+
     void Start()
     {
         rb = player.GetComponent<Rigidbody2D>();
         playerController = player.GetComponent<PlayerController>();
         ResetMHp();
-        healthBar.ResetStat(fullHP);
-        steminaBar.ResetStat(fullStemina);
-        fullnesBar.ResetStat(fullFullness);
+        healthBar.ResetHealthStat(this);
+        steminaBar.ResetSteminaStat(this);
+        fullnesBar.ResetFullnessStat(this);
     }
 
     public void EquipmentActiveTrue(int hp)
@@ -65,10 +148,9 @@ public class PlayerHealthManager : MonoBehaviour
         setHP = 1;
         nomalizedHP = 1 / fullHP;
         int minus = fullHP - checkHP;
-        healthBar.ResetStat(fullHP);
-        healthBar.healthManager.Damage(minus);
+        healthBar.ResetHealthStat(this);
+        //HpDamage(minus); 
         waitHpSequence.Kill();
-
         HpUp(hp);
     }
     public void EquipmentActiveFalse(int hp)
@@ -80,8 +162,8 @@ public class PlayerHealthManager : MonoBehaviour
         setHP = 1;
         nomalizedHP = 1 / fullHP;
         int minus = fullHP - nowHp;
-        healthBar.ResetStat(fullHP);
-        healthBar.healthManager.Damage(minus);
+        healthBar.ResetHealthStat(this);
+        HpDamage(minus);
         if (nowHp > fullHP)
         {
             nowHp = fullHP;
@@ -150,9 +232,7 @@ public class PlayerHealthManager : MonoBehaviour
             .AppendCallback(() => isAlphaChange = false);
 
             damage = damage * (1 + ((DatabaseManager.incIncomingDmg) / 100));
-            //dmg * (dmg / (dmg + enemyDef))
             int dmgAfDef = (int)Mathf.Floor((float)damage * ((float)damage / ((float)damage + (float)Def))); // 방무 미적용   20 / 20 + 10
-            Debug.Log(dmgAfDef);
             HpDown(dmgAfDef);
             rb.velocity = Vector2.zero;
             if (DatabaseManager.isSuperArmor == false && stiffTime > 0)
@@ -209,29 +289,24 @@ public class PlayerHealthManager : MonoBehaviour
         {
 
             healed = fullFullness - nowFullness;
-            nowFullness += healed;
-            fullnesBar.healthManager.Heal(healed);
+            FullnessHeal(healed);
         }
         else
         {
-            nowFullness += healed;
-
-            fullnesBar.healthManager.Heal(healed);
+            FullnessHeal(healed);
         }
     }
     public void FullnessDown(int damage)
     {
-        nowFullness -= damage;
-        fullnesBar.healthManager.Damage(damage);
+        FullnessDamage(damage);
     }
 
 
     public void HpDown(int damage)
     {
         //DamageNumber damageNumber = numberPrefab.Spawn(player.transform.position, damage);
-        nowHp -= damage;
         setHP = (setHP - nomalizedHP * damage);
-        healthBar.healthManager.Damage(damage);
+        HpDamage(damage);
 
         isHpDown = true;
         hpSequence.Kill();
@@ -247,9 +322,8 @@ public class PlayerHealthManager : MonoBehaviour
         isSteminaDown = true;
         sequence.Kill();
         waitSequence.Kill();
-        nowStemina -= damage;
         setStemina = setStemina - nomalizedStemina * damage;
-        steminaBar.healthManager.Damage(damage);
+        SteminaDamage(damage);
         sequence = DOTween.Sequence()
         .AppendInterval(waitTimeSteminaHeal) // 대기 시간 사용
         .OnComplete(() => OnSequenceComplete());
@@ -318,15 +392,13 @@ public class PlayerHealthManager : MonoBehaviour
         if (healed > fullHP - nowHp)
         {
             healed = fullHP - nowHp;
-            nowHp += healed;
             setHP = (setHP - nomalizedHP * healed);
-            healthBar.healthManager.Heal(healed);
+            HpHeal(healed);
         }
         else
         {
-            nowHp += healed;
             setHP = (setHP - nomalizedHP * healed);
-            healthBar.healthManager.Heal(healed);
+            HpHeal(healed);
         }
     }
     public void SteminaUp(int damage)
@@ -334,15 +406,13 @@ public class PlayerHealthManager : MonoBehaviour
         if (damage > fullStemina - nowStemina)
         {
             damage = fullStemina - nowStemina;
-            nowStemina += damage;
             setStemina = setStemina - nomalizedStemina * damage;
-            steminaBar.healthManager.Heal(damage);
+            SteminaHeal(damage);
         }
         else
         {
-            nowStemina += damage;
             setStemina = setStemina - nomalizedStemina * damage;
-            steminaBar.healthManager.Heal(damage);
+            SteminaHeal(damage);
         }
     }
     void Awake()

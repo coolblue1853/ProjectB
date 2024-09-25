@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class HealthBarCut : MonoBehaviour
+public class EnemyHealthBar : MonoBehaviour
 {
 
     public float BAR_WIDTH = 0;
