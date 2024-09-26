@@ -37,10 +37,10 @@ public class EnemyHealth : MonoBehaviour
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
 
-    public EnemyHealth(int healthAmount)
+    public EnemyHealth(int hpAmount)
     {
-        maxHP = healthAmount;
-        this.nowHP = healthAmount;
+        maxHP = hpAmount;
+        this.nowHP = hpAmount;
     }
 
     public void Damage(int amount)
@@ -52,7 +52,6 @@ public class EnemyHealth : MonoBehaviour
         }
         if (OnDamaged != null) OnDamaged(this, EventArgs.Empty);
     }
-
     public void Heal(int amount)
     {
         nowHP += amount;

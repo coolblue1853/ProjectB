@@ -1,4 +1,4 @@
-
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -1544,7 +1544,6 @@ public class InventoryManager : MonoBehaviour
             {
                 skillSlot.SetActive(true);
                 Skill skill = weapon.skill[i];
-
                 skillSlot.transform.GetChild(0).GetComponent<Image>().sprite = skill.skillImage;
                 skillSlot.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = skill.skillName;
                 skillSlot.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = skill.useStemina.ToString();
@@ -1560,53 +1559,71 @@ public class InventoryManager : MonoBehaviour
     public void SetEffectDetail(GameObject textObject, ItemCheck nowItem)
     {
         // 방어구의 세트효과
-        string allSetStr = "";
-        if (nowItem.setName != "") allSetStr = "< " + nowItem.setName + " >\n";
+        StringBuilder allSetStr = new StringBuilder();
+
+        if (!string.IsNullOrEmpty(nowItem.setName))
+            allSetStr.Append("< ").Append(nowItem.setName).Append(" >\n");
+
         SetItem setItem = new SetItem();
+
         for (int i = 0; i < 8; i++)
         {
             string effecStr = setItem.SetEffectStr(nowItem.tfName, i);
-            if (effecStr != "")
+            if (!string.IsNullOrEmpty(effecStr))
             {
                 string noParentheses = effecStr.Replace("(", "").Replace(")", " ");
                 string[] box = noParentheses.Split("/");
-                allSetStr += "(" + i + ") ";
+
+                allSetStr.Append("(").Append(i).Append(") ");
+
                 for (int k = 0; k < box.Length; k++)
                 {
-                    // Step 1: Remove the parentheses
                     string[] checkEffect = box[k].Split();
+
                     if (checkEffect[2] == "skillHitCount")
                     {
-                        allSetStr += checkEffect[0] + checkEffect[1] + " " + "[" + checkEffect[3].Replace("_", " ") + "]" + " count";
+                        allSetStr.Append(checkEffect[0])
+                                 .Append(checkEffect[1])
+                                 .Append(" [").Append(checkEffect[3].Replace("_", " "))
+                                 .Append("] count");
                     }
                     else if (checkEffect[2] == "bulletCount")
                     {
-                        allSetStr += checkEffect[0] + checkEffect[1] + " " + "[" + checkEffect[3].Replace("_", " ") + "]" + " count";
+                        allSetStr.Append(checkEffect[0])
+                                 .Append(checkEffect[1])
+                                 .Append(" [").Append(checkEffect[3].Replace("_", " "))
+                                 .Append("] count");
                     }
                     else if (checkEffect[2] == "coolDown")
                     {
-                        allSetStr += "-" + checkEffect[1] + "% CoolDown " + "[" + checkEffect[3].Replace("_", " ") + "]";
+                        allSetStr.Append("-").Append(checkEffect[1])
+                                 .Append("% CoolDown [").Append(checkEffect[3].Replace("_", " "))
+                                 .Append("]");
                     }
                     else
                     {
-                        allSetStr += checkEffect[0] + " " + checkEffect[1] + " " + checkEffect[2];
+                        allSetStr.Append(checkEffect[0])
+                                 .Append(" ").Append(checkEffect[1])
+                                 .Append(" ").Append(checkEffect[2]);
                     }
+
                     if (k != box.Length - 1)
                     {
-                        allSetStr += ",\n";
+                        allSetStr.Append(",\n");
                     }
                     else
                     {
-                        allSetStr += "\n";
+                        allSetStr.Append("\n");
                     }
                 }
             }
         }
-        textObject.GetComponent<TextMeshProUGUI>().text = allSetStr;
+
+        textObject.GetComponent<TextMeshProUGUI>().text = allSetStr.ToString();
     }
     public void SetConsumEffect(GameObject textObject, ItemCheck nowItem)
     {
-        string allSetStr = "";
+        StringBuilder allSetStr = new StringBuilder();
         string[] effect = nowItem.effectOb.Split("/");
         string[] effectPower = nowItem.effectPow.Split("/");
 
@@ -1614,54 +1631,86 @@ public class InventoryManager : MonoBehaviour
         {
             string[] effectStr = effect[i].Split();
             string[] effectPowerDetail = effectPower[i].Split("_");
+
             if (effectPowerDetail.Length < 2)
             {
-                allSetStr += effectStr[1] + CapitalizeFirstLetter(effectStr[0]) + " " + effectPowerDetail[0] + "\n";
+                allSetStr.Append(effectStr[1])
+                         .Append(CapitalizeFirstLetter(effectStr[0]))
+                         .Append(" ")
+                         .Append(effectPowerDetail[0])
+                         .Append("\n");
             }
-            else // 2번째 있다면 그건 시간
+            else // 2번째 값이 있다면 시간 정보
             {
-                allSetStr += effectStr[1] + CapitalizeFirstLetter(effectStr[0]) + " " + effectPowerDetail[0] + " : " + effectPowerDetail[1] + " Sec" + "\n";
+                allSetStr.Append(effectStr[1])
+                         .Append(CapitalizeFirstLetter(effectStr[0]))
+                         .Append(" ")
+                         .Append(effectPowerDetail[0])
+                         .Append(" : ")
+                         .Append(effectPowerDetail[1])
+                         .Append(" Sec")
+                         .Append("\n");
             }
         }
-        textObject.GetComponent<TextMeshProUGUI>().text = allSetStr;
+
+        textObject.GetComponent<TextMeshProUGUI>().text = allSetStr.ToString();
     }
+
     public void SetWeaponDetail(GameObject textObject, Weapon weapon)
     {
+        StringBuilder basicStr = new StringBuilder();
+
         // 방어구의 기본적인 스탯수치
-        string basicStr = "";
-        basicStr += weapon.minDmg + "~" + weapon.maxDmg + " Dmg\n";
+        basicStr.Append(weapon.minDmg)
+                .Append("~")
+                .Append(weapon.maxDmg)
+                .Append(" Dmg\n");
+
         if (weapon.critPer != 0)
         {
-            if (weapon.critPer > 0) basicStr += "+" + weapon.critPer.ToString() + " Critical Chance\n";
-            else basicStr += "-" + weapon.critPer.ToString() + " Critical Chance\n";
+            basicStr.Append(weapon.critPer > 0 ? "+" : "-")
+                    .Append(weapon.critPer)
+                    .Append(" Critical Chance\n");
         }
+
         if (weapon.critDmg != 0)
         {
-            if (weapon.critDmg > 0) basicStr += "+" + weapon.critDmg.ToString() + " Critical Dmg\n";
-            else basicStr += "-" + weapon.critDmg.ToString() + " Critical Dmg\n";
+            basicStr.Append(weapon.critDmg > 0 ? "+" : "-")
+                    .Append(weapon.critDmg)
+                    .Append(" Critical Dmg\n");
         }
+
         if (weapon.incDmg != 0)
         {
-            if (weapon.incDmg > 0) basicStr += "+" + weapon.incDmg.ToString() + " Dmg Increase\n";
-            else basicStr += "-" + weapon.incDmg.ToString() + " Dmg Decrease\n";
+            basicStr.Append(weapon.incDmg > 0 ? "+" : "-")
+                    .Append(weapon.incDmg)
+                    .Append(weapon.incDmg > 0 ? " Dmg Increase\n" : " Dmg Decrease\n");
         }
+
         if (weapon.ignDef != 0)
         {
-            if (weapon.ignDef > 0) basicStr += "+" + weapon.ignDef.ToString() + " Armor Penetration\n";
-            else basicStr += "-" + weapon.ignDef.ToString() + " Armor Penetration\n";
+            basicStr.Append(weapon.ignDef > 0 ? "+" : "-")
+                    .Append(weapon.ignDef)
+                    .Append(" Armor Penetration\n");
         }
+
         if (weapon.skillDmg != 0)
         {
-            if (weapon.skillDmg > 0) basicStr += "+" + weapon.skillDmg.ToString() + " Skill Dmg\n";
-            else basicStr += "-" + weapon.skillDmg.ToString() + " Skill Dmg\n";
+            basicStr.Append(weapon.skillDmg > 0 ? "+" : "-")
+                    .Append(weapon.skillDmg)
+                    .Append(" Skill Dmg\n");
         }
+
         if (weapon.addDmg != 0)
         {
-            if (weapon.addDmg > 0) basicStr += "+" + weapon.addDmg.ToString() + " Additional Dmg\n";
-            else basicStr += "-" + weapon.addDmg.ToString() + " Additional Dmg\n";
+            basicStr.Append(weapon.addDmg > 0 ? "+" : "-")
+                    .Append(weapon.addDmg)
+                    .Append(" Additional Dmg\n");
         }
-        textObject.GetComponent<TextMeshProUGUI>().text = basicStr;
+
+        textObject.GetComponent<TextMeshProUGUI>().text = basicStr.ToString();
     }
+
     public static string CapitalizeFirstLetter(string input)
     {
         if (string.IsNullOrEmpty(input))
@@ -1673,90 +1722,130 @@ public class InventoryManager : MonoBehaviour
     }
     public void SetArmorDetail(GameObject textObject, Equipment equipment)
     {
+        StringBuilder basicStr = new StringBuilder();
+
         // 방어구의 기본적인 스탯수치
-        string basicStr = "";
         if (equipment.basicDmg != 0)
         {
-            if (equipment.basicDmg > 0) basicStr += "+" + equipment.basicDmg.ToString() + " Basic Dmg\n";
-            else basicStr += "-" + equipment.basicDmg.ToString() + " Basic Dmg\n";
+            basicStr.Append(equipment.basicDmg > 0 ? "+" : "-")
+                    .Append(equipment.basicDmg)
+                    .Append(" Basic Dmg\n");
         }
+
         if (equipment.armor != 0)
         {
-            if (equipment.armor > 0) basicStr += "+" + equipment.armor.ToString() + " Def\n";
-            else basicStr += "-" + equipment.armor.ToString() + " Def\n";
+            basicStr.Append(equipment.armor > 0 ? "+" : "-")
+                    .Append(equipment.armor)
+                    .Append(" Def\n");
         }
+
         if (equipment.hp != 0)
         {
-            if (equipment.hp > 0) basicStr += "+" + equipment.hp.ToString() + " Hp\n";
-            else basicStr += "-" + equipment.hp.ToString() + " Hp\n";
+            basicStr.Append(equipment.hp > 0 ? "+" : "-")
+                    .Append(equipment.hp)
+                    .Append(" Hp\n");
         }
+
         if (equipment.critical != 0)
         {
-            if (equipment.critical > 0) basicStr += "+" + equipment.critical.ToString() + " Critical Rate\n";
-            else basicStr += "-" + equipment.critical.ToString() + " Critical Rate\n";
+            basicStr.Append(equipment.critical > 0 ? "+" : "-")
+                    .Append(equipment.critical)
+                    .Append(" Critical Rate\n");
         }
+
         if (equipment.dropRate != 0)
         {
-            if (equipment.dropRate > 0) basicStr += "+" + equipment.dropRate.ToString() + " Drop Rate\n";
-            else basicStr += "-" + equipment.dropRate.ToString() + " Drop Rate\n";
+            basicStr.Append(equipment.dropRate > 0 ? "+" : "-")
+                    .Append(equipment.dropRate)
+                    .Append(" Drop Rate\n");
         }
+
         if (equipment.moveSpeed != 0)
         {
-            if (equipment.moveSpeed > 0) basicStr += "+" + equipment.moveSpeed.ToString() + " Movement Speed\n";
-            else basicStr += "-" + equipment.moveSpeed.ToString() + " Movement Speed\n";
+            basicStr.Append(equipment.moveSpeed > 0 ? "+" : "-")
+                    .Append(equipment.moveSpeed)
+                    .Append(" Movement Speed\n");
         }
+
         if (equipment.attSpeed != 0)
         {
-            if (equipment.attSpeed > 0) basicStr += "+" + equipment.attSpeed.ToString() + " Attack Speed\n";
-            else basicStr += "-" + equipment.attSpeed.ToString() + " Attack Speed\n";
+            basicStr.Append(equipment.attSpeed > 0 ? "+" : "-")
+                    .Append(equipment.attSpeed)
+                    .Append(" Attack Speed\n");
         }
+
         if (equipment.criticalDmg != 0)
         {
-            if (equipment.criticalDmg > 0) basicStr += "+" + equipment.criticalDmg.ToString() + " Critical Dmg\n";
-            else basicStr += "-" + equipment.criticalDmg.ToString() + " Critical Dmg\n";
+            basicStr.Append(equipment.criticalDmg > 0 ? "+" : "-")
+                    .Append(equipment.criticalDmg)
+                    .Append(" Critical Dmg\n");
         }
+
         if (equipment.coolDownSkill.Length != 0)
         {
             for (int i = 0; i < equipment.coolDownSkill.Length; i++)
             {
-                basicStr += "-" + equipment.coolDownSkill[i].coolDownCount.ToString() + "% Cooldown " + equipment.coolDownSkill[i].skillName;
+                basicStr.Append("-")
+                        .Append(equipment.coolDownSkill[i].coolDownCount)
+                        .Append("% Cooldown ")
+                        .Append(equipment.coolDownSkill[i].skillName)
+                        .Append("\n");
             }
         }
+
         if (equipment.incDmg != 0)
         {
-            if (equipment.incDmg > 0) basicStr += "+" + equipment.incDmg.ToString() + "% Dmg\n";
-            else basicStr += "-" + equipment.incDmg.ToString() + "% Dmg\n";
+            basicStr.Append(equipment.incDmg > 0 ? "+" : "-")
+                    .Append(equipment.incDmg)
+                    .Append("% Dmg\n");
         }
+
         if (equipment.addIncomingDmg != 0)
         {
-            if (equipment.addIncomingDmg > 0) basicStr += "+" + equipment.addIncomingDmg.ToString() + "% Incoming Dmg\n";
-            else basicStr += "-" + equipment.addIncomingDmg.ToString() + "% Incoming Dmg\n";
+            basicStr.Append(equipment.addIncomingDmg > 0 ? "+" : "-")
+                    .Append(equipment.addIncomingDmg)
+                    .Append("% Incoming Dmg\n");
         }
-        if (equipment.isBleeding == true)
+
+        if (equipment.isBleeding)
         {
-            basicStr += "+" + equipment.bleedingPerCent + "% Chance to Cause Bleeding\n";
+            basicStr.Append("+")
+                    .Append(equipment.bleedingPerCent)
+                    .Append("% Chance to Cause Bleeding\n");
         }
+
         if (equipment.bleedingDmgPer != 0)
         {
-            basicStr += "+" + equipment.bleedingDmgPer + "% Dmg to Bleeding Enemies\n";
+            basicStr.Append("+")
+                    .Append(equipment.bleedingDmgPer)
+                    .Append("% Dmg to Bleeding Enemies\n");
         }
+
         if (equipment.poisonDmg != 0)
         {
-            basicStr += "+" + equipment.poisonDmg + " Posion Dmg\n";
+            basicStr.Append("+")
+                    .Append(equipment.poisonDmg)
+                    .Append(" Poison Dmg\n");
         }
-        textObject.GetComponent<TextMeshProUGUI>().text = basicStr;
-    }
-    public string SetRarity(string rarerity)
-    {
-        switch (rarerity)
-        {
-            case ("C"):
-                return "Common";
-                break;
 
-        }
-        return "";
+        textObject.GetComponent<TextMeshProUGUI>().text = basicStr.ToString();
     }
+
+    public string SetRarity(string rarity)
+    {
+        switch (rarity)
+        {
+            case "C":
+                return "Common";
+            case "R":
+                return "Rare";
+            case "U":
+                return "Unique";
+            default:
+                return "";
+        }
+    }
+
     public bool BoxFullCheck()
     {
         for (int j = 0; j < 5; j++)
