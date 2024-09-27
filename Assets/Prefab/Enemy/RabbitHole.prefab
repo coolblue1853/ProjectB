@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7636556398461561658}
   - component: {fileID: 7636556398461561659}
   - component: {fileID: 7636556398461561660}
+  - component: {fileID: 2713025070441007792}
   m_Layer: 6
   m_Name: RabbitHole
   m_TagString: Enemy
@@ -101,3 +102,38 @@ MonoBehaviour:
   rabbitCount: 4
   CycleFloat: 10
   rabbitActive: []
+--- !u!114 &2713025070441007792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7636556398461561652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBleeding: 0
+  damageNumber: {fileID: 0}
+  enemyDef: 0
+  maxHP: 0
+  nowHP: 0
+  hpBar: {fileID: 0}
+  hpObject: {fileID: 0}
+  hpHeight: 0
+  isSuperArmor: 0
+  hpCanvas: {fileID: 0}
+  dropManager: {fileID: 0}
+  deadBody: {fileID: 0}
+  enemySensor: {fileID: 0}
+  isBossMob: 0
+  ShakeCorrection: 0
+  stiffShakeTime: 0
+  isAttackGround: 0
+  checkPlayer: {fileID: 0}
+  maxXSpeed: 0
+  maxYSpeed: 0
+  isStun: 0
+  poisonPrefab: {fileID: 0}
+  bleedingPrefab: {fileID: 0}

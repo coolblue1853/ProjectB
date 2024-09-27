@@ -7,9 +7,11 @@ using UnityEngine.UI;
 using DamageNumbersPro;
 using BehaviorDesigner.Runtime;
 using System;
+using UnityEngine.Pool;
 using BehaviorDesigner.Runtime.Tasks;
 public class EnemyHealth : MonoBehaviour
 {
+    public IObjectPool<GameObject> Pool { get; set; }
     public bool isBleeding = false;
     public DamageNumber damageNumber;
     public int enemyDef = 0;
@@ -82,7 +84,8 @@ public class EnemyHealth : MonoBehaviour
         rb = transform.GetComponent<Rigidbody2D>();
         behaviorTree = transform.GetComponent<BehaviorTree>();
         nowHP = maxHP;
-        hpBar.setHpBar(this); 
+        if(hpBar != null)
+         hpBar.setHpBar(this); 
 
     }
     private void Start()
@@ -231,7 +234,9 @@ public class EnemyHealth : MonoBehaviour
             }
 
             dropManager.DropItems(transform.position);
-            Destroy(this.gameObject);
+
+            Pool.Release(this.gameObject);
+          //  Destroy(this.gameObject);
         }
 
         if(isSuperArmor == false)
@@ -298,7 +303,8 @@ public class EnemyHealth : MonoBehaviour
             }
 
             dropManager.DropItems(transform.position);
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            Pool.Release(this.gameObject);
         }
 
 
@@ -348,7 +354,7 @@ public class EnemyHealth : MonoBehaviour
     }
     private void Update()
     {
-        if(isBossMob == false)
+        if(isBossMob == false && hpObject!= null)
         {
             hpObject.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, hpHeight, 0));
         }
@@ -469,9 +475,11 @@ public class EnemyHealth : MonoBehaviour
     {
         SpriteRenderer img = this.GetComponent<SpriteRenderer>();
         DG.Tweening.Sequence disSequence = DOTween.Sequence()
- .AppendCallback(() => img.DOFade(0, 1.5f))
- .AppendInterval(1.5f)
-.OnComplete(() => Destroy(this.gameObject));
+        .AppendCallback(() => img.DOFade(0, 1.5f))
+        .AppendInterval(1.5f)
+        //.OnComplete(() => Destroy(this.gameObject));
+        .OnComplete(() => Pool.Release(this.gameObject));
+
     }
 
 }
