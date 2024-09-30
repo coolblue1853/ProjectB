@@ -167,7 +167,7 @@ public class InventoryManager : MonoBehaviour
                 for (int j = 0; j < childCount; j++)
                 {
                     GameObject box = inventoryUI[i].transform.GetChild(j).gameObject;
-                    Debug.Log(box.transform.childCount);
+                  //  Debug.Log(box.transform.childCount);
                     if (box.transform.childCount > 0 && box.transform.GetChild(0).GetComponent<ItemCheck>() != null)
                     {
                         ItemCheck item = box.transform.GetChild(0).GetComponent<ItemCheck>();

@@ -5,14 +5,14 @@ using UnityEngine;
 public class EnemyRunAway : EnemyAction
 {
     BehaviorTree bt;
-    public RabbitReset rabbitReset;
+ //   public RabbitReset rabbitReset;
     public float runTimer;
     bool isEndTime;
 
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
-        rabbitReset = enemyObject.GetComponent<RabbitReset>();
+      //  rabbitReset = enemyObject.GetComponent<RabbitReset>();
            isEnd = false;
         StartPatrol();
     }
@@ -39,7 +39,7 @@ public class EnemyRunAway : EnemyAction
     {
         if (this.transform != null)
         {
-            rabbitReset.ResetRabbit();
+         //   rabbitReset.ResetRabbit();
         }
     }
 

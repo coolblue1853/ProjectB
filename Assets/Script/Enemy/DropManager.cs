@@ -32,11 +32,11 @@ public class DropManager : MonoBehaviour
         {
             if (Random.value <= dropItem.dropProbability * ( 1+ (float)DatabaseManager.playerDropRate / 100 ))
             {
-                Debug.Log(dropItem.dropProbability * (1 + (float)DatabaseManager.playerDropRate / 100));    
+
                 // 아이템 이름을 기반으로 프리팹을 찾아서 생성
                 if (itemPrefab != null)
                 {
-                    Debug.Log(dropItem.itemName);
+                   // Debug.Log(dropItem.itemName);
 
                     Vector3 newItemPosition = dropPosition + new Vector3(offsetX, 1f, 0f);
                     GameObject newItem = Instantiate(itemPrefab, newItemPosition, Quaternion.identity);

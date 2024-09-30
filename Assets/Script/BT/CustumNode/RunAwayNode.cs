@@ -5,7 +5,7 @@ using DG.Tweening;
 public class RunAwayNode : BTNode
 {
 
-    public RabbitReset rabbitReset;
+    
     public GameObject enemyObject;
     public float runTimer;
     bool isEndTime;
@@ -50,7 +50,7 @@ public class RunAwayNode : BTNode
 
         if (this.transform != null)
         {
-            rabbitReset.ResetRabbit();
+           // rabbitReset.ResetRabbit();
 
         }
 

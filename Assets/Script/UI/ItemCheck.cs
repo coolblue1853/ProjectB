@@ -60,7 +60,7 @@ public class ItemCheck : MonoBehaviour
         upgrade = item.upgrade;
         setName = item.setName;
 
-        Debug.Log(name);
+        //Debug.Log(name);
         if (stackText != null)
         stackText.text = nowStack.ToString();
         if(type == "Consum")
@@ -222,7 +222,7 @@ public class ItemCheck : MonoBehaviour
 
         if (sprite != null)
         {
-            Debug.Log(sprite);
+           
             // 이미지를 성공적으로 불러왔을 때의 처리
             Image imageComponent = GetComponent<Image>();
             imageComponent.sprite = sprite;

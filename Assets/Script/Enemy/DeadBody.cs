@@ -1,35 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Pool;
 public class DeadBody : MonoBehaviour
 {
-
+    public IObjectPool<GameObject> deadbodyPool { get; set; }
     public float maxNForce = 10; // √÷¥Î ≥ÀπÈ »˚
     GameObject player;
-   public GameObject parentEnemy;
+    public GameObject parentEnemy;
     Vector2 knockbackDir;
-    private void Start()
+    private Vector3[] partsPosition;
+    private GameObject[] partsObject;
+    private void Awake()
     {
-        Invoke("DistroyIt", 3f);
-        if(parentEnemy.transform.localScale.x < 0)
+        partsPosition = new Vector3[transform.childCount];
+        partsObject = new GameObject[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
         {
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                Transform T = transform.GetChild(i);
-
-                T.localScale = new Vector3(-T.localScale.x, T.localScale.y, T.localScale.z); ;
-            }
-
+            Transform T = transform.GetChild(i);
+            partsObject[i] = transform.GetChild(i).gameObject;
+            partsPosition[i] = new Vector3(-T.localScale.x, T.localScale.y, T.localScale.z); ;
         }
     }
-    void DistroyIt()
+
+    private void Start()
     {
-        Destroy(this.gameObject);
+
+        // Invoke("ResetParts", 3f);
+
+
+    }
+
+
+    void ResetParts()
+    {
+        this.gameObject.SetActive(false);
+        for (int i = 0; i < transform.childCount; i++)
+        {   
+            partsObject[i].transform.position = partsPosition[i];
+        }
     }
     public void Force2DeadBody(float knockbackForce)
     {
-        if(knockbackForce > maxNForce) // √÷¥Î ≥ÀπÈ º”µµ
+
+        Invoke("ResetParts", 3f);
+        if (knockbackForce > maxNForce) // √÷¥Î ≥ÀπÈ º”µµ
         {
             knockbackForce = maxNForce;
         }

@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
+
 public class EnemySpowner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public int enemyCount;
+    [System.Serializable]
+    private class ObjectInfo
+    {
+        // 오브젝트 이름
+        public string objectName;
+        // 오브젝트 풀에서 관리할 오브젝트
+        public GameObject perfab;
+        // 몇개를 미리 생성 해놓을건지
+        public int count;
+    }
 
+    public int enemyCount;
     public float cycleFloat;
     public GameObject[] enemySlot;
     public GameObject enemyPositon;
@@ -16,7 +26,7 @@ public class EnemySpowner : MonoBehaviour
     public bool isDaytimeSpowner;
 
     public bool isRandSpawn = true;
-    public IObjectPool<GameObject> Pool { get; private set; }
+
     public bool isInPlayer = false;
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -41,28 +51,60 @@ public class EnemySpowner : MonoBehaviour
     {
         Init();
     }
+    // 오브젝트풀 매니저 준비 완료표시
+    public bool isReady { get; private set; }
+
+    [SerializeField]
+    private ObjectInfo[] objectInfos = null;
+
+    // 생성할 오브젝트의 key값지정을 위한 변수
+    private string objectName;
+
+    // 오브젝트풀들을 관리할 딕셔너리
+    private Dictionary<string, IObjectPool<GameObject>> ojbectPoolDic = new Dictionary<string, IObjectPool<GameObject>>();
+
+    // 오브젝트풀에서 오브젝트를 새로 생성할때 사용할 딕셔너리
+    private Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
     private void Init()
     {
-        Pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
-        OnDestroyPoolObject, true, enemyCount, enemyCount);
+        isReady = false;
 
-        // 미리 오브젝트 생성 해놓기
-        for (int i = 0; i < enemyCount; i++)
+        for (int idx = 0; idx < objectInfos.Length; idx++)
         {
-               EnemyHealth enemy = CreatePooledItem().GetComponent<EnemyHealth>();
-               enemy.Pool.Release(enemy.gameObject);
+            IObjectPool<GameObject> pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
+            OnDestroyPoolObject, true, objectInfos[idx].count, objectInfos[idx].count);
+
+            if (goDic.ContainsKey(objectInfos[idx].objectName))
+            {
+                Debug.LogFormat("{0} 이미 등록된 오브젝트입니다.", objectInfos[idx].objectName);
+                return;
+            }
+
+            goDic.Add(objectInfos[idx].objectName, objectInfos[idx].perfab);
+            ojbectPoolDic.Add(objectInfos[idx].objectName, pool);
+
+            // 미리 오브젝트 생성 해놓기
+            for (int i = 0; i < objectInfos[idx].count; i++)
+            {
+                objectName = objectInfos[idx].objectName;
+                PoolAble poolAbleGo = CreatePooledItem().GetComponent<PoolAble>();
+                poolAbleGo.Pool.Release(poolAbleGo.gameObject);
+            }
         }
 
+        Debug.Log("오브젝트풀링 준비 완료");
+        isReady = true;
     }
+
     // 생성
     private GameObject CreatePooledItem()
     {
-        GameObject poolGo = Instantiate(enemyPrefab);
-        poolGo.GetComponent<EnemyHealth>().Pool = this.Pool;
+        GameObject poolGo = Instantiate(goDic[objectName]);
+        poolGo.GetComponent<PoolAble>().Pool = ojbectPoolDic[objectName];
         return poolGo;
     }
 
-    // 사용
+    // 대여
     private void OnTakeFromPool(GameObject poolGo)
     {
         poolGo.SetActive(true);
@@ -79,6 +121,19 @@ public class EnemySpowner : MonoBehaviour
     {
         Destroy(poolGo);
     }
+
+    public GameObject GetGo(string goName)
+    {
+        objectName = goName;
+
+        if (goDic.ContainsKey(goName) == false)
+        {
+            Debug.LogFormat("{0} 오브젝트풀에 등록되지 않은 오브젝트입니다.", goName);
+            return null;
+        }
+
+        return ojbectPoolDic[goName].Get();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -90,7 +145,12 @@ public class EnemySpowner : MonoBehaviour
         }
 
     }
-
+    private void OnEnemyReleased(int num)
+    {
+        enemySlot[num] = null;
+        // 적이 풀로 릴리즈되었을 때 수행할 작업
+        Debug.Log("Enemy released to pool");
+    }
 
     void CycleCheck()
     {
@@ -98,13 +158,12 @@ public class EnemySpowner : MonoBehaviour
         {
             if (enemySlot[i] == null)
             {
-                if(isRandSpawn == true)
+                var enemyObject = GetGo("enemy");
+                if (isRandSpawn == true)
                 {
                     float zPosition = Random.Range(-1f, 1f);
                     float xPosition = Random.Range(-1f, 1f);
                     int x = Random.Range(0, enemyCount);
-                  //  GameObject r = Instantiate(enemyPrefab, enemyPositionArray[x].transform.position + new Vector3(xPosition, 0, zPosition), enemyPositionArray[x].transform.rotation);
-                    var enemyObject =Pool.Get();
                     enemyObject.transform.position = enemyPositionArray[x].transform.position + new Vector3(xPosition, 0, zPosition);
                     enemySlot[i] = enemyObject;
                 }
@@ -112,14 +171,16 @@ public class EnemySpowner : MonoBehaviour
                 {
                     float zPosition = Random.Range(-1f, 1f);
                     float xPosition = Random.Range(-1f, 1f);
-                    // GameObject r = Instantiate(enemyPrefab, enemyPositionArray[i].transform.position + new Vector3(xPosition, 0, zPosition), enemyPositionArray[i].transform.rotation);
-                    var enemyObject = Pool.Get();
                     enemyObject.transform.position = enemyPositionArray[i].transform.position + new Vector3(xPosition, 0, zPosition);
                     enemySlot[i] = enemyObject;
                 }
-
+                // 이벤트 핸들러 등록
+                EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
+                enemyHealth.enemyNum = i;
+                enemyHealth.OnReleasedToPool -= OnEnemyReleased; // 중복 등록 방지
+                enemyHealth.OnReleasedToPool += OnEnemyReleased; // 이벤트 등록
+                enemySlot[i] = enemyObject;
             }
-
         }
     }
     void DeCycleCheck()
@@ -128,19 +189,13 @@ public class EnemySpowner : MonoBehaviour
         {
             if (enemySlot[i] != null)
             {
-                EnemyHealth eh = enemySlot[i].GetComponent<EnemyHealth>();
-                RabbitHole rH = enemySlot[i].GetComponent<RabbitHole>();
-                if (eh != null)
+                EnemyHealth enemyHealth = enemySlot[i].GetComponent<EnemyHealth>();
+
+                if (enemyHealth != null)
                 {
-                    eh.DisaperByTime();
-                }
-                if (rH != null)
-                {
-                    rH.DestroyRabbit();
-                    Pool.Release(enemySlot[i].gameObject);
+                    enemyHealth.DisaperByTime();
                 }
             }
-
         }
     }
 
@@ -168,17 +223,12 @@ public class EnemySpowner : MonoBehaviour
                 EndInvokeDaytime();
             }
         }
-
-
-
-
         else if(isInPlayer == false && once == false)
         {
             once = true;
             CancelInvoke("CycleCheck");
             EndInvokeDaytime();
         }
-
     }
     bool once = false;
 
@@ -187,13 +237,10 @@ public class EnemySpowner : MonoBehaviour
     {
         activeOnce = false;
         InvokeRepeating("CycleCheck", 1f, cycleFloat);
-
     }
     void EndInvokeDaytime()
     {
-        
         activeOnce = true;
         DeCycleCheck();
-
     }
 }

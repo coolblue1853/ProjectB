@@ -96,7 +96,7 @@ public class DropItemCheck : MonoBehaviour
             rigidbody.gravityScale = 0;
             BoxCollider2D boxCollider2D = this.GetComponent<BoxCollider2D>();
             boxCollider2D.isTrigger = true;
-            Debug.Log("持失2");
+           // Debug.Log("持失2");
             this.gameObject.layer = 1;
             Invoke("GroundCheckOn", 0.1f);
         }

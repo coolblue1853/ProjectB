@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class EnemyHealthBar : MonoBehaviour
 {
-
+    public List<Transform> damagedBars = new List<Transform>();
     public float BAR_WIDTH = 0;
     public RectTransform  hpBarRect;
     public Image barImage;
@@ -33,12 +33,16 @@ public class EnemyHealthBar : MonoBehaviour
     {
         float beforeDamagedBarFillAmount = barImage.fillAmount;
         SetHealth(healthSystem.GetHealthNormalized());
+
         Transform damagedBar = Instantiate(damagedBarTemplate, hpBarRect.transform);
         damagedBar.gameObject.SetActive(true);
         damagedBar.GetComponent<RectTransform>().anchoredPosition = new Vector2(barImage.fillAmount * BAR_WIDTH,
-            damagedBar.GetComponent<RectTransform>().anchoredPosition.y);
+        damagedBar.GetComponent<RectTransform>().anchoredPosition.y);
         damagedBar.GetComponent<Image>().fillAmount = beforeDamagedBarFillAmount - barImage.fillAmount;
         damagedBar.gameObject.AddComponent<HealthBarCutFallDown>();
+
+        // damagedBar를 리스트에 추가
+        damagedBars.Add(damagedBar);
     }
 
     private void SetHealth(float healthNormalized)

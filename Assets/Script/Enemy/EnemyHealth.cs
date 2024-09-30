@@ -9,9 +9,12 @@ using BehaviorDesigner.Runtime;
 using System;
 using UnityEngine.Pool;
 using BehaviorDesigner.Runtime.Tasks;
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : PoolAble
 {
-    public IObjectPool<GameObject> Pool { get; set; }
+    public int enemyNum = 0;
+    public event System.Action<int> OnReleasedToPool; // 이벤트 선언
+    public IObjectPool<GameObject> enemyPool { get; set; }
+    public EnemySpowner enemySpowner;
     public bool isBleeding = false;
     public DamageNumber damageNumber;
     public int enemyDef = 0;
@@ -32,7 +35,7 @@ public class EnemyHealth : MonoBehaviour
     EnemyFSM enemyFSM;
     BehaviorTree behaviorTree;
 
-    public GameObject deadBody;
+    public DeadBody deadBody;
     public GameObject enemySensor;
     public bool isBossMob = false;
 
@@ -44,7 +47,7 @@ public class EnemyHealth : MonoBehaviour
         maxHP = hpAmount;
         this.nowHP = hpAmount;
     }
-
+    
     public void Damage(int amount)
     {
         nowHP -= amount;
@@ -83,13 +86,24 @@ public class EnemyHealth : MonoBehaviour
         dropManager = transform.GetComponent<DropManager>();
         rb = transform.GetComponent<Rigidbody2D>();
         behaviorTree = transform.GetComponent<BehaviorTree>();
-        nowHP = maxHP;
-        if(hpBar != null)
-         hpBar.setHpBar(this); 
 
+
+    }
+    private void OnEnable()
+    {
+        SpriteRenderer img = this.GetComponent<SpriteRenderer>();
+        img.DOFade(1, 0);
+        deadOnec = false;
+        nowHP = maxHP;
+        if (hpBar != null)
+            hpBar.setHpBar(this);
     }
     private void Start()
     {
+        if(deadBody != null)
+        {
+            deadBody.parentEnemy = this.transform.gameObject;
+        }
 
         if (enemySensor != null)
         {
@@ -98,7 +112,7 @@ public class EnemyHealth : MonoBehaviour
                 enemySensor.SetActive(true);
             }
         }
-     
+        deadOnec = false;
     }
     bool notStiff;
 
@@ -224,26 +238,21 @@ public class EnemyHealth : MonoBehaviour
         if (nowHP <= 0 && deadOnec == false)
         {
             deadOnec = true;
-            if(deadBody != null)
+            OnReleasedToPool?.Invoke(enemyNum);
+            if (enemySpowner != null)
             {
-                GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
-                DeadBody dBB = dB.transform.GetComponent<DeadBody>();
-                dBB.parentEnemy = this.transform.gameObject;
-                dBB.Force2DeadBody(Mathf.Abs(nowHP));
-
+                //deadBody.transform.SetParent(null);
+                // Debug.Log(deadBody.transform.parent);
+                //deadBody.gameObject.SetActive(true);
+                // deadBody.Force2DeadBody(Mathf.Abs(nowHP));
             }
 
             dropManager.DropItems(transform.position);
-
-            Pool.Release(this.gameObject);
-          //  Destroy(this.gameObject);
+            ReleaseEnemy();
         }
 
         if(isSuperArmor == false)
         {
-
-
-
 
             if (anim != null)
             {
@@ -289,26 +298,33 @@ public class EnemyHealth : MonoBehaviour
         ToggleObject();
        // nowHP -= damage;
         Damage(damage);
-
         if (nowHP <= 0 && deadOnec == false)
         {
             deadOnec = true;
-
-            if(deadBody!= null)
+            OnReleasedToPool?.Invoke(enemyNum);
+            if (enemySpowner != null)
             {
-                GameObject dB = Instantiate(deadBody, transform.transform.position, transform.transform.rotation);
-                DeadBody dBB = dB.transform.GetComponent<DeadBody>();
-                dBB.parentEnemy = this.transform.gameObject;
-                dBB.Force2DeadBody(Mathf.Abs(nowHP));
+
+                // deadBody.gameObject.SetActive(true);
+                // deadBody.Force2DeadBody(Mathf.Abs(nowHP));
             }
 
             dropManager.DropItems(transform.position);
-            //Destroy(this.gameObject);
-            Pool.Release(this.gameObject);
+            ReleaseEnemy();
         }
 
 
 
+    }
+    public void ReleaseEnemy()
+    {    // damagedBars 리스트의 모든 damagedBar 제거
+        foreach (Transform damagedBar in hpBar.damagedBars)
+        {
+            if (damagedBar != null)
+                Destroy(damagedBar.gameObject);
+        }
+        hpBar.damagedBars.Clear(); // 리스트 초기화
+        ReleaseObject();
     }
     public bool isAttackGround;
     public CheckPlayer checkPlayer;
@@ -477,8 +493,7 @@ public class EnemyHealth : MonoBehaviour
         DG.Tweening.Sequence disSequence = DOTween.Sequence()
         .AppendCallback(() => img.DOFade(0, 1.5f))
         .AppendInterval(1.5f)
-        //.OnComplete(() => Destroy(this.gameObject));
-        .OnComplete(() => Pool.Release(this.gameObject));
+        .OnComplete(() => ReleaseEnemy());
 
     }
 

@@ -759,7 +759,7 @@ MonoBehaviour:
   isSuperArmor: 0
   hpCanvas: {fileID: 1117283438505036617}
   dropManager: {fileID: 0}
-  deadBody: {fileID: 850708198251294088, guid: 1ce80c74b29ca5a40b1b875674684b85, type: 3}
+  deadBody: {fileID: 0}
   enemySensor: {fileID: 0}
   isBossMob: 0
   ShakeCorrection: 1.2

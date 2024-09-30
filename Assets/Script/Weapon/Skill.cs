@@ -217,7 +217,7 @@ public class Skill : MonoBehaviour
                 }
             }
             MasterAudio.PlaySound(skillSound[i]);
-            if (isNullParent == true) damageObject.transform.parent = null;
+            if (isNullParent == true && damageObject!= null) damageObject.transform.parent = null;
             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.skillName = skillName;
             dmOb.SetDamge(damgeArray);
