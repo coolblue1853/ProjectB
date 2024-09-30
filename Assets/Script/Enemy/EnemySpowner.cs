@@ -43,8 +43,13 @@ public class EnemySpowner : MonoBehaviour
         }
         if (collision.tag == "Enemy")
         {
-            EnemyHealth eh = collision.transform.GetComponent<EnemyHealth>();
-            eh.DisaperByTime();
+            if(collision.gameObject.activeSelf != false)
+            {
+                EnemyHealth enemyHealth = collision.transform.GetComponent<EnemyHealth>();
+                if (enemyHealth.canDisapear)
+                    enemyHealth.DisaperByTime();
+            }
+
         }
     }
     private void Awake()

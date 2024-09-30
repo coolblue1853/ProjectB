@@ -42,6 +42,7 @@ public class EnemyHealth : PoolAble
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
 
+    float disapearInterval = 0.5f;
     public EnemyHealth(int hpAmount)
     {
         maxHP = hpAmount;
@@ -89,8 +90,14 @@ public class EnemyHealth : PoolAble
 
 
     }
+    DG.Tweening.Sequence wait;
     private void OnEnable()
     {
+        if(wait != null&& wait.IsPlaying() == true)
+            wait.Kill();
+        wait = DOTween.Sequence()
+        .AppendInterval(0.3f)
+        .AppendCallback(() => canDisapear = true);
         SpriteRenderer img = this.GetComponent<SpriteRenderer>();
         img.DOFade(1, 0);
         deadOnec = false;
@@ -238,7 +245,7 @@ public class EnemyHealth : PoolAble
         if (nowHP <= 0 && deadOnec == false)
         {
             deadOnec = true;
-            OnReleasedToPool?.Invoke(enemyNum);
+            //OnReleasedToPool?.Invoke(enemyNum);
             if (enemySpowner != null)
             {
                 //deadBody.transform.SetParent(null);
@@ -247,7 +254,7 @@ public class EnemyHealth : PoolAble
                 // deadBody.Force2DeadBody(Mathf.Abs(nowHP));
             }
 
-            dropManager.DropItems(transform.position);
+            //dropManager.DropItems(transform.position);
             ReleaseEnemy();
         }
 
@@ -301,7 +308,7 @@ public class EnemyHealth : PoolAble
         if (nowHP <= 0 && deadOnec == false)
         {
             deadOnec = true;
-            OnReleasedToPool?.Invoke(enemyNum);
+           // OnReleasedToPool?.Invoke(enemyNum);
             if (enemySpowner != null)
             {
 
@@ -309,7 +316,7 @@ public class EnemyHealth : PoolAble
                 // deadBody.Force2DeadBody(Mathf.Abs(nowHP));
             }
 
-            dropManager.DropItems(transform.position);
+
             ReleaseEnemy();
         }
 
@@ -317,7 +324,11 @@ public class EnemyHealth : PoolAble
 
     }
     public void ReleaseEnemy()
-    {    // damagedBars 리스트의 모든 damagedBar 제거
+    {
+        canDisapear = false;
+           OnReleasedToPool?.Invoke(enemyNum);
+        dropManager.DropItems(transform.position);
+        // damagedBars 리스트의 모든 damagedBar 제거
         foreach (Transform damagedBar in hpBar.damagedBars)
         {
             if (damagedBar != null)
@@ -487,13 +498,17 @@ public class EnemyHealth : PoolAble
         }
     }
 
+   public  bool canDisapear = true;
     public void DisaperByTime()
     {
-        SpriteRenderer img = this.GetComponent<SpriteRenderer>();
-        DG.Tweening.Sequence disSequence = DOTween.Sequence()
-        .AppendCallback(() => img.DOFade(0, 1.5f))
-        .AppendInterval(1.5f)
-        .OnComplete(() => ReleaseEnemy());
+        if(this.gameObject.activeSelf != false)
+        {
+            SpriteRenderer img = this.GetComponent<SpriteRenderer>();
+            DG.Tweening.Sequence disSequence = DOTween.Sequence()
+            .AppendCallback(() => img.DOFade(0, 1.5f))
+            .AppendInterval(1.5f)
+            .OnComplete(() => ReleaseEnemy());
+        }
 
     }
 
