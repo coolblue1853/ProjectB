@@ -217,10 +217,13 @@ public class Skill : MonoBehaviour
                 }
             }
             MasterAudio.PlaySound(skillSound[i]);
-            if (isNullParent == true && damageObject!= null) damageObject.transform.parent = null;
-            dmOb = damageObject.GetComponent<DamageObject>();
-            dmOb.skillName = skillName;
-            dmOb.SetDamge(damgeArray);
+            if (isNullParent == true && damageObject!= null)
+            {
+                damageObject.transform.parent = null;
+                dmOb = damageObject.GetComponent<DamageObject>();
+                dmOb.skillName = skillName;
+                dmOb.SetDamge(damgeArray);
+            }
             // 다음 스킬을 생성하기 전에 interval[i]의 시간만큼 대기
             if (i < interval.Length)
                 yield return new WaitForSeconds(interval[i] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
