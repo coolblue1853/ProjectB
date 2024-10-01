@@ -12,7 +12,7 @@ using BehaviorDesigner.Runtime.Tasks;
 public class EnemyHealth : PoolAble
 {
     public int enemyNum = 0;
-    public event System.Action<int> OnReleasedToPool; // 이벤트 선언
+    public event System.Action<int,int,Vector3, bool> OnReleasedToPool; // 이벤트 선언
     public IObjectPool<GameObject> enemyPool { get; set; }
     public EnemySpowner enemySpowner;
     public bool isBleeding = false;
@@ -52,10 +52,7 @@ public class EnemyHealth : PoolAble
     public void Damage(int amount)
     {
         nowHP -= amount;
-        if (nowHP < 0)
-        {
-            nowHP = 0;
-        }
+
         if (OnDamaged != null) OnDamaged(this, EventArgs.Empty);
     }
     public void Heal(int amount)
@@ -93,7 +90,8 @@ public class EnemyHealth : PoolAble
     DG.Tweening.Sequence wait;
     private void OnEnable()
     {
-        if(wait != null&& wait.IsPlaying() == true)
+        nowHP = maxHP;
+        if (wait != null&& wait.IsPlaying() == true)
             wait.Kill();
         wait = DOTween.Sequence()
         .AppendInterval(0.3f)
@@ -225,7 +223,6 @@ public class EnemyHealth : PoolAble
 
        // 최종데미지
         Damage((int)finDmg);
-     //   nowHP -= (int)finDmg;
         if (isCrit) damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg + "!");
         else damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
 
@@ -236,7 +233,6 @@ public class EnemyHealth : PoolAble
         }
         if ((int)addDmg != 0) // 추가 데미지 판정
         {
-       //     nowHP -= (int)addDmg;
            Damage((int)addDmg);
             damageNumber.Spawn(transform.position + Vector3.up, (int)addDmg);
         }
@@ -245,16 +241,6 @@ public class EnemyHealth : PoolAble
         if (nowHP <= 0 && deadOnec == false)
         {
             deadOnec = true;
-            //OnReleasedToPool?.Invoke(enemyNum);
-            if (enemySpowner != null)
-            {
-                //deadBody.transform.SetParent(null);
-                // Debug.Log(deadBody.transform.parent);
-                //deadBody.gameObject.SetActive(true);
-                // deadBody.Force2DeadBody(Mathf.Abs(nowHP));
-            }
-
-            //dropManager.DropItems(transform.position);
             ReleaseEnemy();
         }
 
@@ -303,31 +289,23 @@ public class EnemyHealth : PoolAble
     public void onlyDamage2Enemy(int damage)
     {
         ToggleObject();
-       // nowHP -= damage;
+
         Damage(damage);
         if (nowHP <= 0 && deadOnec == false)
         {
             deadOnec = true;
-           // OnReleasedToPool?.Invoke(enemyNum);
-            if (enemySpowner != null)
-            {
-
-                // deadBody.gameObject.SetActive(true);
-                // deadBody.Force2DeadBody(Mathf.Abs(nowHP));
-            }
-
-
             ReleaseEnemy();
         }
 
 
 
     }
-    public void ReleaseEnemy()
+    public void ReleaseEnemy(bool isDrop = true)
     {
         canDisapear = false;
-           OnReleasedToPool?.Invoke(enemyNum);
-        dropManager.DropItems(transform.position);
+        OnReleasedToPool?.Invoke(enemyNum, Mathf.Abs(nowHP),this.transform.position, isDrop); // 4번째 요소는 deadbody를 생성할것인지 말것인지
+        if(isDrop)
+             dropManager.DropItems(transform.position);
         // damagedBars 리스트의 모든 damagedBar 제거
         foreach (Transform damagedBar in hpBar.damagedBars)
         {
@@ -507,7 +485,7 @@ public class EnemyHealth : PoolAble
             DG.Tweening.Sequence disSequence = DOTween.Sequence()
             .AppendCallback(() => img.DOFade(0, 1.5f))
             .AppendInterval(1.5f)
-            .OnComplete(() => ReleaseEnemy());
+            .OnComplete(() => ReleaseEnemy(false));
         }
 
     }

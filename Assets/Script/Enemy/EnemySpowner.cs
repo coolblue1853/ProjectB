@@ -142,43 +142,68 @@ public class EnemySpowner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // 적 슬롯 및 포지션 배열 초기화
         enemySlot = new GameObject[enemyCount];
         enemyPositionArray = new GameObject[enemyCount];
+
         for (int i = 0; i < enemyCount; i++)
         {
             enemyPositionArray[i] = enemyPositon.transform.GetChild(i).gameObject;
         }
-
     }
-    private void OnEnemyReleased(int num)
+    private void OnEnemyReleased(int num, int force, Vector3 pos, bool isDeadBody = true)
     {
         enemySlot[num] = null;
-        // 적이 풀로 릴리즈되었을 때 수행할 작업
-        Debug.Log("Enemy released to pool");
+        if (isDeadBody == true)
+        {
+            var deadbody = GetGo("dead");
+            if (deadbody != null)
+            {
+                deadbody.transform.position = pos;
+                DeadBody body = deadbody.GetComponent<DeadBody>();
+                body.Force2DeadBody(force);
+            }
+
+        }
+
+
+
     }
 
     void CycleCheck()
     {
+        if (isPoolCleared)
+        {
+            Debug.LogWarning("오브젝트 풀이 비워져 적을 생성할 수 없습니다.");
+            return;
+        }
         for (int i = 0; i < enemyCount; i++)
         {
             if (enemySlot[i] == null)
             {
                 var enemyObject = GetGo("enemy");
+
+                // 오브젝트 풀이 비워진 경우 예외 처리
+                if (enemyObject == null)
+                {
+                    Debug.LogWarning("적을 생성할 수 없습니다. 오브젝트 풀이 비워졌습니다.");
+                    return;
+                }
+
                 if (isRandSpawn == true)
                 {
                     float zPosition = Random.Range(-1f, 1f);
                     float xPosition = Random.Range(-1f, 1f);
                     int x = Random.Range(0, enemyCount);
                     enemyObject.transform.position = enemyPositionArray[x].transform.position + new Vector3(xPosition, 0, zPosition);
-                    enemySlot[i] = enemyObject;
                 }
                 else
                 {
                     float zPosition = Random.Range(-1f, 1f);
                     float xPosition = Random.Range(-1f, 1f);
                     enemyObject.transform.position = enemyPositionArray[i].transform.position + new Vector3(xPosition, 0, zPosition);
-                    enemySlot[i] = enemyObject;
                 }
+
                 // 이벤트 핸들러 등록
                 EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
                 enemyHealth.enemyNum = i;
@@ -188,6 +213,7 @@ public class EnemySpowner : MonoBehaviour
             }
         }
     }
+
     void DeCycleCheck()
     {
         for (int i = 0; i < enemyCount; i++)
@@ -245,7 +271,24 @@ public class EnemySpowner : MonoBehaviour
     }
     void EndInvokeDaytime()
     {
-        activeOnce = true;
+        Debug.Log("인보크 종료");
+       // ClearAllPools ();
+       activeOnce = true;
         DeCycleCheck();
     }
+    bool isPoolCleared = false; // 초기화 시 false로 설정
+
+public void ClearAllPools()
+{
+    foreach (var pool in ojbectPoolDic.Values)
+    {
+        pool.Clear(); // 각 풀을 비움
+    }
+
+    ojbectPoolDic.Clear(); // 딕셔너리도 비워줍니다.
+    goDic.Clear();         // goDic도 비워줍니다.
+
+    isPoolCleared = true;  // 오브젝트 풀이 비워졌음을 표시
+}
+
 }

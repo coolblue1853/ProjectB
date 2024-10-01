@@ -126,9 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96eb8d1fab69f894fa27c52f885c8a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSound: 
   isDestroyByTime: 1
   holdingTime: 3
-  damage: 10
+  damage: 30
   stiffnessTime: 0.2
   knockForce: 25
   knockbackDir: {x: 1, y: 1}
@@ -136,13 +137,24 @@ MonoBehaviour:
   isPlayerAttack: 1
   player: {fileID: 0}
   isLaunch: 1
+  isNonTrakingPlayer: 0
   launchForce: 50
   launchDir: {x: 0, y: 0}
   isGroundDestroy: 0
+  isRandForce: 0
+  maxForce: 0
+  minForce: 0
+  isGravityFall: 0
   isPosionAttack: 0
   poisonDamage: 0
   damageInterval: 0
   damageCount: 0
+  isApcAttack: 0
+  maxDamagedEnemies: 1
+  damageArr: 
+  dmgRatio: 1
+  ShakeTime: 0
+  isSkill: 0
 --- !u!50 &2135722504411801268
 Rigidbody2D:
   serializedVersion: 4
