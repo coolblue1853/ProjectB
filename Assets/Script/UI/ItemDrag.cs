@@ -124,7 +124,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 {
                     EquipBoxCheck nowEquipBox = currentParent.GetComponent<EquipBoxCheck>();
                     ItemCheck item = this.GetComponent<ItemCheck>();
-                    nowEquipBox.DeletPrefab(item,item.equipArea);
+                    nowEquipBox.DeletPrefab(item,item.itemData.equipArea);
                 }
 
             }
@@ -154,12 +154,12 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 ItemCheck itemC = changeItem.GetComponent<ItemCheck>();
                 ItemCheck itemB = this.GetComponent<ItemCheck>();
 
-                if (itemB.equipArea == itemC.equipArea || equipBox == null)
+                if (itemB.itemData.equipArea == itemC.itemData.equipArea || equipBox == null)
                 {
-                    if (itemC.name == itemB.name && (itemC.nowStack != itemC.maxStack && itemB.nowStack != itemB.maxStack))
+                    if (itemC.name == itemB.name && (itemC.nowStack != itemC.itemData.maxStack && itemB.nowStack != itemB.itemData.maxStack))
                     {
 
-                        if (itemC.nowStack + itemB.nowStack <= itemC.maxStack)
+                        if (itemC.nowStack + itemB.nowStack <= itemC.itemData.maxStack)
                         {
                             itemC.nowStack += itemB.nowStack;
                             changeItem.transform.SetParent(changeParent);
@@ -168,8 +168,8 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                         }
                         else
                         {
-                            itemB.nowStack -= (itemC.maxStack - itemC.nowStack);
-                            itemC.nowStack = itemC.maxStack;
+                            itemB.nowStack -= (itemC.itemData.maxStack - itemC.nowStack);
+                            itemC.nowStack = itemC.itemData.maxStack;
                             changeItem.transform.SetParent(changeParent);
                             changeItem.transform.position = changeParent.transform.position;
                             this.transform.SetParent(currentParent);
@@ -265,7 +265,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         {
 
             equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
-            if (this.itemCheck.equipArea == equipBoxCheck.equipArea)
+            if (this.itemCheck.itemData.equipArea == equipBoxCheck.equipArea)
             {
 
                 if (equipBox.childCount == 0)
@@ -274,22 +274,22 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
                     currentParent = equipBox;
-                    equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea, itemCheck.tfName);
+                    equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.itemData.equipArea, itemCheck.itemData.tfName);
                 }
                 else
                 {
-                    ItemCheck beforeItem = InventoryManager.instance.CheckNowEquipment(itemCheck.equipArea);
+                    ItemCheck beforeItem = InventoryManager.instance.CheckNowEquipment(itemCheck.itemData.equipArea);
                     // 아이템을 해체한는 부분
-                    DetechItem(itemCheck.equipArea);
-                    equipBoxCheck.DeletPrefab(beforeItem, beforeItem.equipArea);
+                    DetechItem(itemCheck.itemData.equipArea);
+                    equipBoxCheck.DeletPrefab(beforeItem, beforeItem.itemData.equipArea);
 
                     transform.SetParent(equipBox);
                     Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
-                    equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.equipArea, itemCheck.tfName);
-                    equipBoxCheck.ActivePrefab(itemCheck.equipArea);
+                    equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.itemData.equipArea, itemCheck.itemData.tfName);
+                    equipBoxCheck.ActivePrefab(itemCheck.itemData.equipArea);
                     equipBoxCheck.SaveEquipItem(itemCheck, true);
-                    InventoryManager.instance.CheckNowEquipItem(itemCheck.equipArea);
+                    InventoryManager.instance.CheckNowEquipItem(itemCheck.itemData.equipArea);
                 }
 
             }

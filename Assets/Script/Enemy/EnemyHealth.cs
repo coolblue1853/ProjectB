@@ -305,7 +305,7 @@ public class EnemyHealth : PoolAble
         canDisapear = false;
         OnReleasedToPool?.Invoke(enemyNum, Mathf.Abs(nowHP),this.transform.position, isDrop); // 4번째 요소는 deadbody를 생성할것인지 말것인지
         if(isDrop)
-             dropManager.DropItems(transform.position);
+             //dropManager.DropItems(transform.position);
         // damagedBars 리스트의 모든 damagedBar 제거
         foreach (Transform damagedBar in hpBar.damagedBars)
         {

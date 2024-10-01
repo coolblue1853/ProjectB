@@ -6,30 +6,36 @@ using System.IO;
 using TMPro;
 public class ItemCheck : MonoBehaviour
 {
-    //코드 / 종류((장비인지 소모품인지)  / 이름 / 설명 / 보유수 / 가격 / 무게 // 획득방법
+    public Image image;
+    public ItemData itemData;
+    public int nowStack;
+    public int Buyprice;
+    public int needCount;
     public string name;
+    /*
+    //코드 / 종류((장비인지 소모품인지)  / 이름 / 설명 / 보유수 / 가격 / 무게 // 획득방법
+
     public string type;
     public string description;
     public int price;
-    public int Buyprice;
+
     public int weight;
     public string acqPath;
     public int maxStack;
-    public int nowStack;
+
     public string effectOb;
     public string effectPow;
     public string equipArea;
-    public int needCount;
-    public string setName;
-    public TextMeshProUGUI stackText;
-    public Image image;
 
+    public string setName;
     public string itemNameT;
     public string tfName;
     public int tear;
     public string rarity;
     public int upgrade;
-    ItemData item;
+
+    */
+    public TextMeshProUGUI stackText;
     public GameObject defBuffObject;
     public bool isCraftItem = false;
     public bool isShopItem = false;
@@ -43,17 +49,19 @@ public class ItemCheck : MonoBehaviour
     }
     public void SetItem(string itemName)
     {
-        item = DatabaseManager.instance.LoadItemData(DatabaseManager.instance.FindItemDataIndex(itemName));
-        name = item.name;
+        itemData = DatabaseManager.instance.LoadItemData(DatabaseManager.instance.FindItemDataIndex(itemName));
+        Buyprice = (int)(itemData.price * 1.5f);
+        nowStack = 1;
+        name = itemData.name;
+        /*
+
         type = item.type;
         description = item.description;
         price = item.price;
-        Buyprice = (int)(price * 1.5f);
         weight = item.weight;
         acqPath = item.acqPath;
         maxStack = item.maxStack;
         itemNameT = item.itemNameT;
-        nowStack = 1;
         tfName = item.tfName;
         tear = item.tear;
         rarity = item.rarity;
@@ -74,14 +82,15 @@ public class ItemCheck : MonoBehaviour
             equipArea = item.equipArea;
 
         }
+        */
         LoadImage();
     }
     public AttackManager att;
     public void ConsumItemActive()
     {
         nowStack -= 1;
-        string[] effect = effectOb.Split("/");
-        string[] effectPower = effectPow.Split("/");
+        string[] effect = itemData.effectOb.Split("/");
+        string[] effectPower = itemData.effectPow.Split("/");
 
         for (int i =0; i < effect.Length; i++)
         {
@@ -180,13 +189,13 @@ public class ItemCheck : MonoBehaviour
 
        else  if(isCraftItem == true && stackText != null)
         {
-            if (DatabaseManager.inventoryItemStack.ContainsKey(name) == false)
+            if (DatabaseManager.inventoryItemStack.ContainsKey(itemData.name) == false)
             {
                 stackText.text = "0/" + needCount;
             }
             else
             {
-                stackText.text = + DatabaseManager.inventoryItemStack[name]+"/" + needCount;
+                stackText.text = + DatabaseManager.inventoryItemStack[itemData.name] +"/" + needCount;
             }
         }
 
@@ -198,7 +207,7 @@ public class ItemCheck : MonoBehaviour
             }
 
 
-                if (DatabaseManager.inventoryItemStack.ContainsKey(name) == false)
+                if (DatabaseManager.inventoryItemStack.ContainsKey(itemData.name) == false)
             {
                 if(stackText.text != "0")
                      stackText.text = "0";
@@ -206,8 +215,8 @@ public class ItemCheck : MonoBehaviour
             }
             else
             {
-                if(stackText.text != DatabaseManager.inventoryItemStack[name].ToString())
-                     stackText.text = DatabaseManager.inventoryItemStack[name].ToString();
+                if(stackText.text != DatabaseManager.inventoryItemStack[itemData.name].ToString())
+                     stackText.text = DatabaseManager.inventoryItemStack[itemData.name].ToString();
             }
         }
     }
@@ -215,7 +224,7 @@ public class ItemCheck : MonoBehaviour
     void LoadImage()
     {
         // 리소스 폴더 내에 있는 이미지 파일의 경로
-        string resourcePath = "Item/" + name;
+        string resourcePath = "Item/" + itemData.name;
 
         // 리소스로드를 통해 이미지를 가져옵니다.
         Sprite sprite = Resources.Load<Sprite>(resourcePath);

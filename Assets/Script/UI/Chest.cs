@@ -138,10 +138,10 @@ public class Chest : MonoBehaviour
                 if (box.transform.childCount > 0 && box.transform.GetChild(0).GetComponent<ItemCheck>() != null)
                 {
                     ItemCheck item = box.transform.GetChild(0).GetComponent<ItemCheck>();
-                    saveChest[i, j, 0] = item.name;
+                    saveChest[i, j, 0] = item.itemData.name;
                     saveChest[i, j, 1] = item.nowStack.ToString();
-                    saveChest[i, j, 2] = item.tear.ToString();
-                    saveChest[i, j, 3] = item.upgrade.ToString();
+                    saveChest[i, j, 2] = item.itemData.tear.ToString();
+                    saveChest[i, j, 3] = item.itemData.upgrade.ToString();
                 }
                 else
                 {
@@ -176,8 +176,8 @@ public class Chest : MonoBehaviour
                             ItemCheck check = item.GetComponent<ItemCheck>();
                             check.SetItem(SaveManager.instance.datas.chestItem[i, j, 0]);
                             check.nowStack = int.Parse(SaveManager.instance.datas.chestItem[i, j, 1]);
-                            check.tear = int.Parse(SaveManager.instance.datas.chestItem[i, j, 2]);
-                            check.upgrade = int.Parse(SaveManager.instance.datas.chestItem[i, j, 3]);
+                            check.itemData.tear = int.Parse(SaveManager.instance.datas.chestItem[i, j, 2]);
+                            check.itemData.upgrade = int.Parse(SaveManager.instance.datas.chestItem[i, j, 3]);
                         }
                     }
                 }
@@ -364,7 +364,7 @@ public class Chest : MonoBehaviour
 
                 for (int i = 0; i < count; i++)
                 {
-                    InventoryManager.instance.CreatItem(itemCheck.name, true);
+                    InventoryManager.instance.CreatItem(itemCheck.itemData.name, true);
                 }
                 if (itemCheck.nowStack <= 0)
                     Destroy(item.gameObject);
@@ -379,14 +379,14 @@ public class Chest : MonoBehaviour
                 item = itemBox.transform.GetChild(0).gameObject;
                 itemCheck = item.transform.GetComponent<ItemCheck>();
             }
-            if (InventoryManager.instance.CheckStack(itemCheck.name) == true) // 빈공간이없다면
+            if (InventoryManager.instance.CheckStack(itemCheck.itemData.name) == true) // 빈공간이없다면
             {
                 if (itemBox.transform.childCount > 0)
                 {
-                    while (InventoryManager.instance.OnlyCheckStack(itemCheck.name) == true)
+                    while (InventoryManager.instance.OnlyCheckStack(itemCheck.itemData.name) == true)
                     {
                         itemCheck.nowStack -= 1;
-                        InventoryManager.instance.CreatItem(itemCheck.name, true);
+                        InventoryManager.instance.CreatItem(itemCheck.itemData.name, true);
                     }
                 }
             }
@@ -430,19 +430,19 @@ public class Chest : MonoBehaviour
                 afterItemCheck = changeItem.GetComponent<ItemCheck>();
                 beforitem = beforBox.transform.GetChild(0).gameObject;
                 beforeItemCheck = beforitem.GetComponent<ItemCheck>();
-                if (afterItemCheck.name == beforeItemCheck.name && (afterItemCheck.nowStack != afterItemCheck.maxStack && beforeItemCheck.nowStack != beforeItemCheck.maxStack))
+                if (afterItemCheck.itemData.name == beforeItemCheck.itemData.name && (afterItemCheck.nowStack != afterItemCheck.itemData.maxStack && beforeItemCheck.nowStack != beforeItemCheck.itemData.maxStack))
                 {
                     isSame = true; // 같다면 가능한 만큼 스택을 합친다.
 
-                    if (afterItemCheck.nowStack + beforeItemCheck.nowStack <= afterItemCheck.maxStack)
+                    if (afterItemCheck.nowStack + beforeItemCheck.nowStack <= afterItemCheck.itemData.maxStack)
                     {
                         afterItemCheck.nowStack += beforeItemCheck.nowStack;
                         Destroy(beforitem);
                     }
                     else
                     {
-                        beforeItemCheck.nowStack -= (afterItemCheck.maxStack - afterItemCheck.nowStack);
-                        afterItemCheck.nowStack = afterItemCheck.maxStack;
+                        beforeItemCheck.nowStack -= (afterItemCheck.itemData.maxStack - afterItemCheck.nowStack);
+                        afterItemCheck.nowStack = afterItemCheck.itemData.maxStack;
                     }
                 }
                 else
@@ -488,7 +488,7 @@ public class Chest : MonoBehaviour
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
         item.nowStack -= output;
-        CreatItemSelected(item.name, nowBox, output);
+        CreatItemSelected(item.itemData.name, nowBox, output);
     }
     void ChangeCusorChecker()
     {
@@ -698,9 +698,9 @@ public class Chest : MonoBehaviour
                 {
                     GameObject item = insPositon.transform.GetChild(0).gameObject;
                     ItemCheck check = item.GetComponent<ItemCheck>();
-                    if (check.name == itemName)
+                    if (check.itemData.name == itemName)
                     {
-                        if (check.maxStack > check.nowStack)
+                        if (check.itemData.maxStack > check.nowStack)
                         {
                             InventoryManager.instance.itemCheck.nowStack -= 1;
                             check.nowStack += stack;
@@ -782,16 +782,16 @@ public class Chest : MonoBehaviour
                 GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
                 detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
             }
-            if (detail.type == "Misc")
+            if (detail.itemData.type == "Misc")
             {
                 Transform misc = miscDetail.gameObject.transform;
                 misc.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-                misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-                misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-                misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+                misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+                misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type;
+                misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+                misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
                 miscDetail.transform.position = detailPos.transform.position;
 
                 miscDetail.SetActive(true);
@@ -799,16 +799,16 @@ public class Chest : MonoBehaviour
                 equipDetail.SetActive(false);
                 skillDetailUi.SetActive(false);
             }
-            if (detail.type == "Consum")
+            if (detail.itemData.type == "Consum")
             {
                 Transform consum = consumDetail.gameObject.transform;
                 consum.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-                consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-                consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-                consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+                consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+                consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type;
+                consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+                consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
                 InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, detail);
 
                 consum.transform.position = detailPos.transform.position;
@@ -817,22 +817,22 @@ public class Chest : MonoBehaviour
                 equipDetail.SetActive(false);
                 skillDetailUi.SetActive(false);
             }
-            if (detail.type == "Equip")
+            if (detail.itemData.type == "Equip")
             {
                 Transform equip = equipDetail.gameObject.transform;
-                string folderPath = detail.equipArea + "/";
+                string folderPath = detail.itemData.equipArea + "/";
                 // 리소스 폴더 내의 equipName을 로드합니다.
-                GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
+                GameObject prefab = Resources.Load<GameObject>(folderPath + detail.itemData.name);
                 equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type + " : " + detail.itemData.equipArea;
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
                 InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
-                if (detail.equipArea != "Weapon") // 방어구라면
+                if (detail.itemData.equipArea != "Weapon") // 방어구라면
                 {
                     Equipment equipment = prefab.GetComponent<Equipment>();
                     InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
@@ -854,19 +854,19 @@ public class Chest : MonoBehaviour
         else if (state == "Equipment")
         {
             Transform equip = equipDetail.gameObject.transform;
-            string folderPath = detail.equipArea + "/";
+            string folderPath = detail.itemData.equipArea + "/";
             // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
+            GameObject prefab = Resources.Load<GameObject>(folderPath + detail.itemData.name);
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type + " : " + detail.itemData.equipArea;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
-            if (detail.equipArea != "Weapon") // 방어구라면
+            if (detail.itemData.equipArea != "Weapon") // 방어구라면
             {
                 Equipment equipment = prefab.GetComponent<Equipment>();
                 InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
@@ -965,7 +965,7 @@ public class Chest : MonoBehaviour
         {
             if (CheckBoxCanCreat(siblingParentIndex))
             {
-                CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
+                CreatItemSelected(itemCheck.itemData.name, siblingParentIndex, itemCheck.nowStack);
                 Destroy(item.gameObject);
                 cusorCount[nowBox] = beforeCusorInt;
                 changeCusor.SetActive(false);

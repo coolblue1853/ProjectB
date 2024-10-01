@@ -121,11 +121,11 @@ public class ShopManager : MonoBehaviour
     void SetDetail()
     {
         name.text = nowShopItem.name;
-        type.text = nowShopItem.type;
-        description.text = nowShopItem.description;
+        type.text = nowShopItem.itemData.type;
+        description.text = nowShopItem.itemData.description;
         price.text =(nowShopItem.Buyprice).ToString();
-        weight.text = nowShopItem.weight.ToString();
-        acqPath.text = nowShopItem.acqPath;
+        weight.text = nowShopItem.itemData.weight.ToString();
+        acqPath.text = nowShopItem.itemData.acqPath;
         Image changeImage = nowShopItem.transform.GetChild(0).GetComponent<Image>();
         image.sprite = changeImage.sprite;
     }
@@ -145,16 +145,16 @@ public class ShopManager : MonoBehaviour
     void SetNeedDetail()
     {
         isBuyDetail = true;
-        if (nowShopItem.type == "Misc")
+        if (nowShopItem.itemData.type == "Misc")
         {
             Transform misc = miscDetail.gameObject.transform;
             misc.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
-            misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemNameT;
-            misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
-            misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
-            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.price).ToString();
-            misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.tear.ToString();
-            misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.rarity);
+            misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.itemNameT;
+            misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.type;
+            misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.description;
+            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.itemData.price).ToString();
+            misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.itemData.tear.ToString();
+            misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.itemData.rarity);
             miscDetail.transform.position = detailPos.transform.position;
 
             miscDetail.SetActive(true);
@@ -162,16 +162,16 @@ public class ShopManager : MonoBehaviour
             equipDetail.SetActive(false);
             skillDetailUi.SetActive(false);
         }
-        if (nowShopItem.type == "Consum")
+        if (nowShopItem.itemData.type == "Consum")
         {
             Transform consum = consumDetail.gameObject.transform;
             consum.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
-            consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemNameT;
-            consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type;
-            consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
-            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.price).ToString();
-            consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.tear.ToString();
-            consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.rarity);
+            consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.itemNameT;
+            consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.type;
+            consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.description;
+            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.itemData.price).ToString();
+            consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.itemData.tear.ToString();
+            consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.itemData.rarity);
             InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, nowShopItem);
 
             consum.transform.position = detailPos.transform.position;
@@ -180,22 +180,22 @@ public class ShopManager : MonoBehaviour
             equipDetail.SetActive(false);
             skillDetailUi.SetActive(false);
         }
-        if (nowShopItem.type == "Equip")
+        if (nowShopItem.itemData.type == "Equip")
         {
             Transform equip = equipDetail.gameObject.transform;
-            string folderPath = nowShopItem.equipArea + "/";
+            string folderPath = nowShopItem.itemData.equipArea + "/";
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + nowShopItem.name);
             equip.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
-            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.type + " : " + nowShopItem.equipArea;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.price).ToString();
-            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.tear.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.rarity);
+            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.itemNameT;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.type + " : " + nowShopItem.itemData.equipArea;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.description;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.itemData.price).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.itemData.tear.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.itemData.rarity);
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, nowShopItem);
-            if (nowShopItem.equipArea != "Weapon") // 방어구라면
+            if (nowShopItem.itemData.equipArea != "Weapon") // 방어구라면
             {
                 Equipment equipment = prefab.GetComponent<Equipment>();
                 InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
@@ -237,7 +237,7 @@ public class ShopManager : MonoBehaviour
         state = "Buy";
         sellUIGameObject.SetActive(true);
         totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
-        sellText.text = "Buy " + nowShopItem.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = "Buy " + nowShopItem.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void OnSliderValueChanged(float value)
     {
@@ -248,19 +248,19 @@ public class ShopManager : MonoBehaviour
         CusorContinuousInputCheck();
         sellSlider.value += 1;
         totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
-        sellText.text = "Buy " + nowShopItem.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = "Buy " + nowShopItem.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void LeftMove()
     {
         CusorContinuousInputCheck();
         sellSlider.value -= 1;
         totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
-        sellText.text = "Buy " + nowShopItem.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = "Buy " + nowShopItem.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void InitializeSlider()
     {
         sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
-        sellSlider.maxValue = Mathf.Min(nowShopItem.maxStack, DatabaseManager.money / nowShopItem.Buyprice);
+        sellSlider.maxValue = Mathf.Min(nowShopItem.itemData.maxStack, DatabaseManager.money / nowShopItem.Buyprice);
         // 슬라이더의 최소값과 최대값 설정
         sellSlider.minValue = 1;
         // 슬라이더의 현재 값 설정

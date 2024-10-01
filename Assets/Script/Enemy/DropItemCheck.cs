@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 
-public class DropItemCheck : MonoBehaviour
+public class DropItemCheck : PoolAble
 {
     //코드 / 종류((장비인지 소모품인지)  / 이름 / 설명 / 보유수 / 가격 / 무게 // 획득방법
     public string name;
@@ -15,6 +15,7 @@ public class DropItemCheck : MonoBehaviour
     public int weight;
     public string acqPath;
     public int maxStack;
+    public int Buyprice;
     public int nowStack;
     public string effectOb;
     public string effectPow;
@@ -27,30 +28,33 @@ public class DropItemCheck : MonoBehaviour
     public int tear;
     public string rarity;
     public int upgrade;
-    private void Start()
-    {
+    public string setName;
 
-    }
     public void SetItem(string itemName)
     {
-
         item = DatabaseManager.instance.LoadItemData(DatabaseManager.instance.FindItemDataIndex(itemName));
         name = item.name;
         type = item.type;
         description = item.description;
         price = item.price;
+        Buyprice = (int)(price * 1.5f);
         weight = item.weight;
         acqPath = item.acqPath;
         maxStack = item.maxStack;
+        itemNameT = item.itemNameT;
         nowStack = 1;
         tfName = item.tfName;
-        itemNameT = item.itemNameT;
         tear = item.tear;
         rarity = item.rarity;
         upgrade = item.upgrade;
-        stackText.text = nowStack.ToString();
+        setName = item.setName;
+
+        //Debug.Log(name);
+        if (stackText != null)
+            stackText.text = nowStack.ToString();
         if (type == "Consum")
         {
+
             effectOb = item.effectOb;
             effectPow = item.effectPow;
         }
@@ -60,32 +64,14 @@ public class DropItemCheck : MonoBehaviour
 
         }
         LoadImage();
-
+        Invoke("DestroyItembyTime", 120);
     }
 
-
-
-    // Update is called once per frame
-    void Update()
+    void DestroyItembyTime()
     {
-        if (nowStack == 1)
-        {
-            stackText.text = "1";
-            stackText.gameObject.SetActive(false);
-        }
-        else
-        {
-            stackText.text = nowStack.ToString();
-            stackText.gameObject.SetActive(true);
-        }
-
+        ReleaseObject();
     }
 
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-    }
     bool isGround = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -96,7 +82,7 @@ public class DropItemCheck : MonoBehaviour
             rigidbody.gravityScale = 0;
             BoxCollider2D boxCollider2D = this.GetComponent<BoxCollider2D>();
             boxCollider2D.isTrigger = true;
-           // Debug.Log("생성2");
+
             this.gameObject.layer = 1;
             Invoke("GroundCheckOn", 0.1f);
         }
@@ -107,23 +93,18 @@ public class DropItemCheck : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-
-
         if (collision.tag == "Player" && isGround == true)
         {
             if(InventoryManager.instance.CheckBoxCanCreatAll() == true || InventoryManager.instance.OnlyCheckStack(name) == true)
             {
                 InventoryManager.instance.CreatItem(name);
-                Destroy(this.gameObject);
+                ReleaseObject();
             }
-
         }
-
     }
 
     void LoadImage()
     {
-
         // 리소스 폴더 내에 있는 이미지 파일의 경로
         string resourcePath = "Item/" + name;
 

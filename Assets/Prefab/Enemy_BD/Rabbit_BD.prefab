@@ -646,7 +646,6 @@ GameObject:
   - component: {fileID: 8398182370917137822}
   - component: {fileID: 8174440507761479080}
   - component: {fileID: 7698113303160677834}
-  - component: {fileID: 927177922708613022}
   - component: {fileID: 927177922708613023}
   - component: {fileID: 9189773307699477478}
   m_Layer: 7
@@ -788,6 +787,7 @@ MonoBehaviour:
     type: 3}
   bleedingPrefab: {fileID: 4315359909622191748, guid: ef47a78245ca3b54fa0d2a3050c786ed,
     type: 3}
+  canDisapear: 0
 --- !u!114 &8174440507761479080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -846,71 +846,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!60 &927177922708613022
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8398182370917137815}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.04, y: 2.56}
-    newSize: {x: 3.04, y: 2.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.45, y: -1.13}
-      - {x: 0.53999996, y: -1.22}
-      - {x: 0.96, y: -1.22}
-      - {x: 0.97999996, y: -1.1999999}
-      - {x: 1.06, y: -0.88}
-      - {x: 1.14, y: -0.71999997}
-      - {x: 1.15, y: -0.22999999}
-      - {x: 1.0699999, y: -0.19999999}
-      - {x: 1.16, y: 0.07}
-      - {x: 1.3, y: 0.42999998}
-      - {x: 1.3, y: 0.98999995}
-      - {x: 1.23, y: 1.06}
-      - {x: 0.95, y: 1.06}
-      - {x: 0.85999995, y: 1}
-      - {x: 0.76, y: 0.81}
-      - {x: 0.65, y: 0.42}
-      - {x: 0.32, y: 0.58}
-      - {x: 0.26999998, y: 0.65}
-      - {x: 0.11, y: 0.81}
-      - {x: 0, y: 0.9}
-      - {x: -0.32999998, y: 0.90999997}
-      - {x: -0.42999998, y: 0.81}
-      - {x: -0.42999998, y: 0.55}
-      - {x: -0.52, y: 0.48999998}
-      - {x: -0.57, y: 0.42999998}
-      - {x: -0.72999996, y: 0.26999998}
-      - {x: -0.89, y: 0.12}
-      - {x: -1.06, y: -0.049999997}
-      - {x: -1.3, y: -0.19999999}
-      - {x: -1.38, y: -0.29}
-      - {x: -1.4599999, y: -0.48}
-      - {x: -1.4599999, y: -0.75}
-      - {x: -1.39, y: -0.82}
-      - {x: -1.14, y: -0.83}
-      - {x: -1.15, y: -1.13}
-      - {x: -1.0699999, y: -1.22}
-      - {x: -0.69, y: -1.22}
-      - {x: -0.61, y: -1.14}
-      - {x: -0.56, y: -1.06}
-      - {x: 0.45999998, y: -1.06}
 --- !u!114 &927177922708613023
 MonoBehaviour:
   m_ObjectHideFlags: 0

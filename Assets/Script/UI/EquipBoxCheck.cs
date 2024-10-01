@@ -81,8 +81,8 @@ public class EquipBoxCheck : MonoBehaviour
     }
     public void SaveEquipItem(ItemCheck itemCheck, bool isSave) // 저장할지 삭제할지.
     {
-        string[] gear = new string[] { itemCheck.name , itemCheck.tear.ToString() , itemCheck.upgrade.ToString() };
-        int nowEquipNum = CheckEquipBoxNum(itemCheck.equipArea); // 현재 저장해야할 장비 번호
+        string[] gear = new string[] { itemCheck.itemData.name , itemCheck.itemData.tear.ToString() , itemCheck.itemData.upgrade.ToString() };
+        int nowEquipNum = CheckEquipBoxNum(itemCheck.itemData.equipArea); // 현재 저장해야할 장비 번호
         if (isSave == true)
         {
             for(int i =0; i< 3; i++)
@@ -105,7 +105,7 @@ public class EquipBoxCheck : MonoBehaviour
         {
             GameObject ob = transform.GetChild(0).gameObject;
             ItemCheck obItemCheck = ob.GetComponent<ItemCheck>();
-           LoadPrefab(obItemCheck.name, obItemCheck.equipArea, obItemCheck.tfName);
+           LoadPrefab(obItemCheck.itemData.name, obItemCheck.itemData.equipArea, obItemCheck.itemData.tfName);
         }
         if (reciveEquipArea == "Weapon" && weapon == null) // 무기는 Weapon 스크립트를 사용하므로 예외
         {
@@ -192,7 +192,7 @@ public class EquipBoxCheck : MonoBehaviour
     GameObject deletChile ;
     public void DeletPrefab(ItemCheck detail, string reciveEquipArea, bool isFalse= true)
     {
-        DatabaseManager.MinusSetDict(detail.tfName, 1);
+        DatabaseManager.MinusSetDict(detail.itemData.tfName, 1);
         if (reciveEquipArea == "Weapon") // 무기는 예외
         {
             if (isFalse == false)

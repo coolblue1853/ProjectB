@@ -163,7 +163,7 @@ public class CraftingManager : MonoBehaviour
             {
                 for(int j = 0; j < needItemList[i].needCount; j++)
                 {
-                    InventoryManager.instance.DeletItemByName(needItemList[i].name, 1);
+                    InventoryManager.instance.DeletItemByName(needItemList[i].itemData.name, 1);
                 }
 
             }
@@ -202,16 +202,16 @@ public class CraftingManager : MonoBehaviour
             detail = needMaterail.transform.GetChild(detailCount).transform.GetComponent<ItemCheck>();
         }
 
-        if (detail.type == "Misc")
+        if (detail.itemData.type == "Misc")
         {
             Transform misc = miscDetail.gameObject.transform;
             misc.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-            misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-            misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-            misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-            misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+            misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+            misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type;
+            misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+            misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+            misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
             miscDetail.transform.position = detailPos.transform.position;
 
 
@@ -220,16 +220,16 @@ public class CraftingManager : MonoBehaviour
             equipDetail.SetActive(false);
             skillDetailUi.SetActive(false);
         }
-        if (detail.type == "Consum")
+        if (detail.itemData.type == "Consum")
         {
             Transform consum = consumDetail.gameObject.transform;
             consum.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-            consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-            consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-            consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-            consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+            consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+            consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type;
+            consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+            consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+            consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
             InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, detail);
 
 
@@ -239,24 +239,23 @@ public class CraftingManager : MonoBehaviour
             equipDetail.SetActive(false);
             skillDetailUi.SetActive(false);
         }
-        if (detail.type == "Equip")
+        if (detail.itemData.type == "Equip")
         {
             Transform equip = equipDetail.gameObject.transform;
 
-            string folderPath = detail.equipArea + "/";
+            string folderPath = detail.itemData.equipArea + "/";
 
             // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
+            GameObject prefab = Resources.Load<GameObject>(folderPath + detail.itemData.name);
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.rarity);
+            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type + " : " + detail.itemData.equipArea;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
-            if (detail.equipArea != "Weapon") // 방어구라면
+            if (detail.itemData.equipArea != "Weapon") // 방어구라면
             {
                 Equipment equipment = prefab.GetComponent<Equipment>();
                 InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
@@ -641,9 +640,9 @@ public class CraftingManager : MonoBehaviour
     {
         for (int i = 0; i < nowNeedItem.needItem.Count; i++)
         {
-            if(DatabaseManager.inventoryItemStack.ContainsKey(needItemList[i].name) == true)
+            if(DatabaseManager.inventoryItemStack.ContainsKey(needItemList[i].itemData.name) == true)
             {
-                if (DatabaseManager.inventoryItemStack[needItemList[i].name] < needItemList[i].needCount)
+                if (DatabaseManager.inventoryItemStack[needItemList[i].itemData.name] < needItemList[i].needCount)
                 {
                     return false;
                 }

@@ -8,7 +8,7 @@ using TMPro;
 
 public class CraftItemCheck : MonoBehaviour
 {
-    //코드 / 종류((장비인지 소모품인지)  / 이름 / 설명 / 보유수 / 가격 / 무게 // 획득방법
+
     public string name;
     public string type;
     public string description;

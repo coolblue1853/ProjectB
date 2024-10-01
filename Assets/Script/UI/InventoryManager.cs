@@ -171,10 +171,10 @@ public class InventoryManager : MonoBehaviour
                     if (box.transform.childCount > 0 && box.transform.GetChild(0).GetComponent<ItemCheck>() != null)
                     {
                         ItemCheck item = box.transform.GetChild(0).GetComponent<ItemCheck>();
-                        saveInven[i, j, 0] = item.name;
+                        saveInven[i, j, 0] = item.itemData.name;
                         saveInven[i, j, 1] = item.nowStack.ToString();
-                        saveInven[i, j, 2] = item.tear.ToString();
-                        saveInven[i, j, 3] = item.upgrade.ToString();
+                        saveInven[i, j, 2] = item.itemData.tear.ToString();
+                        saveInven[i, j, 3] = item.itemData.upgrade.ToString();
                     }
                     else
                     {
@@ -213,8 +213,8 @@ public class InventoryManager : MonoBehaviour
                             ItemCheck check = item.GetComponent<ItemCheck>();
                             check.SetItem(SaveManager.instance.datas.invenItem[i, j, 0]);
                             check.nowStack = int.Parse(SaveManager.instance.datas.invenItem[i, j, 1]);
-                            check.tear = int.Parse(SaveManager.instance.datas.invenItem[i, j, 2]);
-                            check.upgrade = int.Parse(SaveManager.instance.datas.invenItem[i, j, 3]);
+                            check.itemData.tear = int.Parse(SaveManager.instance.datas.invenItem[i, j, 2]);
+                            check.itemData.upgrade = int.Parse(SaveManager.instance.datas.invenItem[i, j, 3]);
                             DatabaseManager.PlusInventoryDict(SaveManager.instance.datas.invenItem[i, j, 0], check.nowStack);
                         }
                     }
@@ -396,19 +396,19 @@ public class InventoryManager : MonoBehaviour
                 afterItemCheck = changeItem.GetComponent<ItemCheck>();
                 beforitem = beforBox.transform.GetChild(0).gameObject;
                 beforeItemCheck = beforitem.GetComponent<ItemCheck>();
-                if (afterItemCheck.name == beforeItemCheck.name && (afterItemCheck.nowStack != afterItemCheck.maxStack && beforeItemCheck.nowStack != beforeItemCheck.maxStack))
+                if (afterItemCheck.name == beforeItemCheck.name && (afterItemCheck.nowStack != afterItemCheck.itemData.maxStack && beforeItemCheck.nowStack != beforeItemCheck.itemData.maxStack))
                 {
                     isSame = true; // 같다면 가능한 만큼 스택을 합친다.
 
-                    if (afterItemCheck.nowStack + beforeItemCheck.nowStack <= afterItemCheck.maxStack)
+                    if (afterItemCheck.nowStack + beforeItemCheck.nowStack <= afterItemCheck.itemData.maxStack)
                     {
                         afterItemCheck.nowStack += beforeItemCheck.nowStack;
                         Destroy(beforitem);
                     }
                     else
                     {
-                        beforeItemCheck.nowStack -= (afterItemCheck.maxStack - afterItemCheck.nowStack);
-                        afterItemCheck.nowStack = afterItemCheck.maxStack;
+                        beforeItemCheck.nowStack -= (afterItemCheck.itemData.maxStack - afterItemCheck.nowStack);
+                        afterItemCheck.nowStack = afterItemCheck.itemData.maxStack;
                     }
                 }
                 else
@@ -776,14 +776,14 @@ public class InventoryManager : MonoBehaviour
     {
         if (nowItem != null) detail = nowItem;
 
-        if (detail.equipArea == "Ring") return equipBox[1];
-        else if (detail.equipArea == "Head") return equipBox[2];
-        else if (detail.equipArea == "Necklace") return equipBox[3];
-        else if (detail.equipArea == "Chest") return equipBox[5];
-        else if (detail.equipArea == "Hand") return equipBox[6];
-        else if (detail.equipArea == "Weapon") return equipBox[7];
-        else if (detail.equipArea == "Leg") return equipBox[8];
-        else if (detail.equipArea == "Shoes") return equipBox[9];
+        if (detail.itemData.equipArea == "Ring") return equipBox[1];
+        else if (detail.itemData.equipArea == "Head") return equipBox[2];
+        else if (detail.itemData.equipArea == "Necklace") return equipBox[3];
+        else if (detail.itemData.equipArea == "Chest") return equipBox[5];
+        else if (detail.itemData.equipArea == "Hand") return equipBox[6];
+        else if (detail.itemData.equipArea == "Weapon") return equipBox[7];
+        else if (detail.itemData.equipArea == "Leg") return equipBox[8];
+        else if (detail.itemData.equipArea == "Shoes") return equipBox[9];
         else return null;
     }
     public SkillCooldown skillCooldown;
@@ -807,7 +807,7 @@ public class InventoryManager : MonoBehaviour
         if (CheckBoxCanCreatAll() == true)
         {
             Sequence waitSequence = DOTween.Sequence()
-            .OnComplete(() => equipBoxCheck.DeletPrefab(detail, detail.equipArea, false));
+            .OnComplete(() => equipBoxCheck.DeletPrefab(detail, detail.itemData.equipArea, false));
             equipBoxCheck.SaveEquipItem(detail, false);
             CreatItem(detail.name);
         }
@@ -821,8 +821,8 @@ public class InventoryManager : MonoBehaviour
                 GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
                 ItemCheck item = equip.GetComponent<ItemCheck>();
                 item.SetItem(SaveManager.instance.datas.equipGear[i, 0]);
-                item.tear = int.Parse(SaveManager.instance.datas.equipGear[i, 1]);
-                item.upgrade = int.Parse(SaveManager.instance.datas.equipGear[i, 2]);
+                item.itemData.tear = int.Parse(SaveManager.instance.datas.equipGear[i, 1]);
+                item.itemData.upgrade = int.Parse(SaveManager.instance.datas.equipGear[i, 2]);
                 UseEquipment(item);
             }
         }
@@ -905,34 +905,34 @@ public class InventoryManager : MonoBehaviour
         {
             equipBox = SetEquipBox();
         }
-        ItemCheck beforeItem = CheckNowEquipment(detail.equipArea);
+        ItemCheck beforeItem = CheckNowEquipment(detail.itemData.equipArea);
         AttackManager attackManager = player.GetComponent<AttackManager>();
         GameObject nowEquipItem = detail.gameObject;
 
         EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
 
-        if (detail.equipArea != "Weapon")
+        if (detail.itemData.equipArea != "Weapon")
         {
             if (equipBox.transform.childCount == 0) // 무기가 아니고 방어구라면
             {
-                CheckNowEquipItem(detail.equipArea);
+                CheckNowEquipItem(detail.itemData.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
+                equipBoxCheck.LoadPrefab(detail.itemData.name, detail.itemData.equipArea, detail.itemData.tfName);
                 equipBoxCheck.SaveEquipItem(detail, true);
             }
             else
             {
                 // 아이템을 해체한는 부분
-                DetechItem(detail.equipArea);
-                equipBoxCheck.DeletPrefab(beforeItem, beforeItem.equipArea);
+                DetechItem(detail.itemData.equipArea);
+                equipBoxCheck.DeletPrefab(beforeItem, beforeItem.itemData.equipArea);
 
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
-                equipBoxCheck.ActivePrefab(detail.equipArea);
+                equipBoxCheck.LoadPrefab(detail.name, detail.itemData.equipArea, detail.itemData.tfName);
+                equipBoxCheck.ActivePrefab(detail.itemData.equipArea);
                 equipBoxCheck.SaveEquipItem(detail, true);
-                CheckNowEquipItem(detail.equipArea);
+                CheckNowEquipItem(detail.itemData.equipArea);
             }
         }
         else
@@ -940,24 +940,24 @@ public class InventoryManager : MonoBehaviour
             skillCooldown.ResetCoolTime();
             if (attackManager.equipWeapon == null)
             {
-                CheckNowEquipItem(detail.equipArea);
+                CheckNowEquipItem(detail.itemData.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
+                equipBoxCheck.LoadPrefab(detail.itemData.name, detail.itemData.equipArea, detail.itemData.tfName);
                 equipBoxCheck.SaveEquipItem(detail, true);
 
             }
             else
             {
                 // 아이템을 해체한는 부분
-                DetechItem(detail.equipArea);
-                equipBoxCheck.DeletPrefab(beforeItem, beforeItem.equipArea);
+                DetechItem(detail.itemData.equipArea);
+                equipBoxCheck.DeletPrefab(beforeItem, beforeItem.itemData.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
                 nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.equipArea, detail.tfName);
-                equipBoxCheck.ActivePrefab(detail.equipArea);
+                equipBoxCheck.LoadPrefab(detail.itemData.name, detail.itemData.equipArea, detail.itemData.tfName);
+                equipBoxCheck.ActivePrefab(detail.itemData.equipArea);
                 equipBoxCheck.SaveEquipItem(detail, true);
-                CheckNowEquipItem(detail.equipArea);
+                CheckNowEquipItem(detail.itemData.equipArea);
             }
         }
     }
@@ -995,8 +995,8 @@ public class InventoryManager : MonoBehaviour
         InitializeSlider();
         state = "Sell";
         sellUIGameObject.SetActive(true);
-        totalSellPrice = (int)(sellSlider.value * detail.price);
-        sellText.text = "Sell " + detail.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        totalSellPrice = (int)(sellSlider.value * detail.itemData.price);
+        sellText.text = "Sell " + detail.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void OnSliderValueChanged(float value)
     {
@@ -1007,15 +1007,15 @@ public class InventoryManager : MonoBehaviour
     {
         CusorContinuousInputCheck();
         sellSlider.value += 1;
-        totalSellPrice = (int)(sellSlider.value * detail.price);
-        sellText.text = "Sell " + detail.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        totalSellPrice = (int)(sellSlider.value * detail.itemData.price);
+        sellText.text = "Sell " + detail.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void LeftMove()
     {
         CusorContinuousInputCheck();
         sellSlider.value -= 1;
-        totalSellPrice = (int)(sellSlider.value * detail.price);
-        sellText.text = "Sell " + detail.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        totalSellPrice = (int)(sellSlider.value * detail.itemData.price);
+        sellText.text = "Sell " + detail.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
 
     void InitializeSlider()
@@ -1090,7 +1090,7 @@ public class InventoryManager : MonoBehaviour
                     }
                 }
             }
-            if (selectAction.triggered && state == "detail" && detail.type == "Consum" && ShopGameObject.activeSelf == false)
+            if (selectAction.triggered && state == "detail" && detail.itemData.type == "Consum" && ShopGameObject.activeSelf == false)
             {
                 ActiveConsum();
             }
@@ -1258,7 +1258,7 @@ public class InventoryManager : MonoBehaviour
         if (gameObject.transform.childCount > 0)
         {
             ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
-            if (item.type == "Consum")
+            if (item.itemData.type == "Consum")
             {
                 item.ConsumItemActive();
                 DatabaseManager.MinusInventoryDict(item.name, 1);
@@ -1430,51 +1430,51 @@ public class InventoryManager : MonoBehaviour
                 GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
                 detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
             }
-            if (detail.type == "Misc")
+            if (detail.itemData.type == "Misc")
             {
                 Transform misc = miscDetail.gameObject.transform;
                 misc.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-                misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-                misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-                misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
+                misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+                misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type;
+                misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.  itemData.description;
+                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+                misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.itemData.rarity);
                 miscDetail.transform.position = detailPos.transform.position;
                 miscDetail.SetActive(true);
             }
-            if (detail.type == "Consum")
+            if (detail.itemData.type == "Consum")
             {
                 Transform consum = consumDetail.gameObject.transform;
                 consum.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-                consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type;
-                consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-                consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
+                consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+                consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type;
+                consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+                consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.itemData.rarity);
                 SetConsumEffect(consum.GetChild(7).gameObject, detail);
                 consum.transform.position = detailPos.transform.position;
                 consumDetail.SetActive(true);
 
             }
-            if (detail.type == "Equip")
+            if (detail.itemData.type == "Equip")
             {
                 Transform equip = equipDetail.gameObject.transform;
-                string folderPath = detail.equipArea + "/";
+                string folderPath = detail.itemData.equipArea + "/";
 
                 // 리소스 폴더 내의 equipName을 로드합니다.
                 GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
                 equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
+                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type + " : " + detail.itemData.equipArea;
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.itemData.rarity);
                 SetEffectDetail(equip.GetChild(8).gameObject, detail);
-                if (detail.equipArea != "Weapon") // 방어구라면
+                if (detail.itemData.equipArea != "Weapon") // 방어구라면
                 {
                     Equipment equipment = prefab.GetComponent<Equipment>();
                     SetArmorDetail(equip.GetChild(7).gameObject, equipment);
@@ -1501,21 +1501,21 @@ public class InventoryManager : MonoBehaviour
                 GameObject gameObject = (nowEquipBox);
                 detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
             }
-            string folderPath = detail.equipArea + "/";
+            string folderPath = detail.itemData.equipArea + "/";
 
             // 리소스 폴더 내의 equipName을 로드합니다.
             GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
             Transform equip = equipDetail.gameObject.transform;
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.type + " : " + detail.equipArea;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.price).ToString();
-            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.tear.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.rarity);
+            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type + " : " + detail.itemData.equipArea;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.itemData.rarity);
             SetEffectDetail(equip.GetChild(8).gameObject, detail);
-            if (detail.equipArea != "Weapon") // 방어구라면
+            if (detail.itemData.equipArea != "Weapon") // 방어구라면
             {
                 Equipment equipment = prefab.GetComponent<Equipment>();
                 SetArmorDetail(equip.GetChild(7).gameObject, equipment);
@@ -1561,14 +1561,14 @@ public class InventoryManager : MonoBehaviour
         // 방어구의 세트효과
         StringBuilder allSetStr = new StringBuilder();
 
-        if (!string.IsNullOrEmpty(nowItem.setName))
-            allSetStr.Append("< ").Append(nowItem.setName).Append(" >\n");
+        if (!string.IsNullOrEmpty(nowItem.itemData.setName))
+            allSetStr.Append("< ").Append(nowItem.itemData.setName).Append(" >\n");
 
         SetItem setItem = new SetItem();
 
         for (int i = 0; i < 8; i++)
         {
-            string effecStr = setItem.SetEffectStr(nowItem.tfName, i);
+            string effecStr = setItem.SetEffectStr(nowItem.itemData.tfName, i);
             if (!string.IsNullOrEmpty(effecStr))
             {
                 string noParentheses = effecStr.Replace("(", "").Replace(")", " ");
@@ -1624,8 +1624,8 @@ public class InventoryManager : MonoBehaviour
     public void SetConsumEffect(GameObject textObject, ItemCheck nowItem)
     {
         StringBuilder allSetStr = new StringBuilder();
-        string[] effect = nowItem.effectOb.Split("/");
-        string[] effectPower = nowItem.effectPow.Split("/");
+        string[] effect = nowItem.itemData.effectOb.Split("/");
+        string[] effectPower = nowItem.itemData.effectPow.Split("/");
 
         for (int i = 0; i < effect.Length; i++)
         {
@@ -1987,7 +1987,7 @@ public class InventoryManager : MonoBehaviour
                         ItemCheck check = item.GetComponent<ItemCheck>();
                         if (check.name == itemName)
                         {
-                            if (check.maxStack > check.nowStack)
+                            if (check.itemData.maxStack > check.nowStack)
                             {
                                 return true;
                             }
@@ -2015,7 +2015,7 @@ public class InventoryManager : MonoBehaviour
                         ItemCheck check = item.GetComponent<ItemCheck>();
                         if (check.name == itemName)
                         {
-                            if (check.maxStack > check.nowStack)
+                            if (check.itemData.maxStack > check.nowStack)
                             {
                                 check.nowStack += 1;
                                 DatabaseManager.PlusInventoryDict(itemName, 1);

@@ -22,7 +22,7 @@ public class EnemySpowner : MonoBehaviour
     public GameObject[] enemySlot;
     public GameObject enemyPositon;
     public GameObject[] enemyPositionArray;
-
+    public DropManager dropManager;
     public bool isDaytimeSpowner;
 
     public bool isRandSpawn = true;
@@ -55,6 +55,7 @@ public class EnemySpowner : MonoBehaviour
     private void Awake()
     {
         Init();
+        dropManager = this.GetComponent<DropManager>();
     }
     // 오브젝트풀 매니저 준비 완료표시
     public bool isReady { get; private set; }
@@ -154,6 +155,7 @@ public class EnemySpowner : MonoBehaviour
     private void OnEnemyReleased(int num, int force, Vector3 pos, bool isDeadBody = true)
     {
         enemySlot[num] = null;
+        dropManager.DropItems(pos);
         if (isDeadBody == true)
         {
             var deadbody = GetGo("dead");
@@ -163,11 +165,7 @@ public class EnemySpowner : MonoBehaviour
                 DeadBody body = deadbody.GetComponent<DeadBody>();
                 body.Force2DeadBody(force);
             }
-
         }
-
-
-
     }
 
     void CycleCheck()
@@ -287,7 +285,6 @@ public void ClearAllPools()
 
     ojbectPoolDic.Clear(); // 딕셔너리도 비워줍니다.
     goDic.Clear();         // goDic도 비워줍니다.
-
     isPoolCleared = true;  // 오브젝트 풀이 비워졌음을 표시
 }
 
