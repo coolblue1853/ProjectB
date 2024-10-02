@@ -1881,7 +1881,6 @@ public class InventoryManager : MonoBehaviour
                             GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                             ItemCheck check = item.GetComponent<ItemCheck>();
                             check.SetItem(itemName, itemData);
-
                             DatabaseManager.PlusInventoryDict(itemName, 1);
                             isCreate = true;
                             break;

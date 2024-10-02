@@ -190,6 +190,7 @@ public class CraftingManager : MonoBehaviour
 
     public void ResetDetail()
     {
+
         miscDetail.SetActive(false);
         consumDetail.SetActive(false);
         equipDetail.SetActive(false);
@@ -294,7 +295,7 @@ public class CraftingManager : MonoBehaviour
 
         if (rightInventoryAction.triggered == true)
         {
-            if (needMaterailUI.transform.GetChild(0).childCount > detailCount + 1)
+            if (needMaterailUI.transform.GetChild(0).childCount > detailCount + 1 && itemDataPrefab[detailCount + 1].gameObject.activeSelf == true)
             {
                  detailCount += 1;
                 SetNeedDetail();
@@ -310,25 +311,22 @@ public class CraftingManager : MonoBehaviour
         }
         if(downInventoryAction.triggered == true)
         {
-            if (detailCount < 4 && needMaterail.transform.childCount > detailCount+4) // 현재 0 1 2 3   4 가 있을때 
+            if (detailCount < 4 && needMaterail.transform.childCount > detailCount+ 4 && itemDataPrefab[detailCount + 4].gameObject.activeSelf == true) // 현재 0 1 2 3   4 가 있을때 
             {
+                Debug.Log("작동1");
                 detailCount += 4;
                 SetNeedDetail();
             }
             else
             {
-                if (detailCount >= 4 || needMaterail.transform.childCount <=4)
-                {
-                    miscDetail.SetActive(false);
-                    consumDetail.SetActive(false);
-                    equipDetail.SetActive(false);
-                    skillDetailUi.SetActive(false);
-                    Invoke("ChangeCheckDetail", 0.1f);
-                    craftCusor.SetActive(true);
-                    detailCusor.SetActive(false);
-                    cusor.SetActive(false);
-                }
-
+                miscDetail.SetActive(false);
+                consumDetail.SetActive(false);
+                equipDetail.SetActive(false);
+                skillDetailUi.SetActive(false);
+                Invoke("ChangeCheckDetail", 0.1f);
+                craftCusor.SetActive(true);
+                detailCusor.SetActive(false);
+                cusor.SetActive(false);
             }
 
         }
@@ -663,12 +661,15 @@ public class CraftingManager : MonoBehaviour
     }
 
     ItemCheck[] needItemList;
+   public ItemCheck[] itemDataPrefab;
     void SetNeedItem()
     {
         needItemList = new ItemCheck[nowNeedItem.needItem.Count];
         for (int i =0; i < nowNeedItem.needItem.Count; i++)
         {
-            GameObject item = Instantiate(itemPrefab, needMaterail.transform.position, Quaternion.identity, needMaterail.transform);
+            //GameObject item = Instantiate(itemPrefab, needMaterail.transform.position, Quaternion.identity, needMaterail.transform);
+            GameObject item = itemDataPrefab[i].gameObject;
+            item.SetActive(true);
             ItemCheck itemCheck = item.GetComponent<ItemCheck>();
             needItemList[i] = itemCheck;
             itemCheck.SetItem(nowNeedItem.needItem[i]);
@@ -689,7 +690,7 @@ public class CraftingManager : MonoBehaviour
         // 배열에 저장된 모든 자식 GameObject를 삭제
         foreach (GameObject child in children)
         {
-            Destroy(child);
+            child.SetActive(false);
         }
     }
 }

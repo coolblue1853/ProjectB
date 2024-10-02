@@ -414,9 +414,12 @@ public class EnemyHealth : PoolAble
         {
             StopCoroutine(toggleCoroutine);
         }
+        if(this.gameObject != null)
+        {
+            // 货肺款 内风凭 矫累
+            toggleCoroutine = StartCoroutine(ToggleObjectRoutine());
+        }
 
-        // 货肺款 内风凭 矫累
-        toggleCoroutine = StartCoroutine(ToggleObjectRoutine());
     }
 
     private IEnumerator ToggleObjectRoutine()
