@@ -12,29 +12,7 @@ public class ItemCheck : MonoBehaviour
     public int Buyprice;
     public int needCount;
     public string name;
-    /*
-    //코드 / 종류((장비인지 소모품인지)  / 이름 / 설명 / 보유수 / 가격 / 무게 // 획득방법
 
-    public string type;
-    public string description;
-    public int price;
-
-    public int weight;
-    public string acqPath;
-    public int maxStack;
-
-    public string effectOb;
-    public string effectPow;
-    public string equipArea;
-
-    public string setName;
-    public string itemNameT;
-    public string tfName;
-    public int tear;
-    public string rarity;
-    public int upgrade;
-
-    */
     public TextMeshProUGUI stackText;
     public GameObject defBuffObject;
     public bool isCraftItem = false;
@@ -53,36 +31,6 @@ public class ItemCheck : MonoBehaviour
         Buyprice = (int)(itemData.price * 1.5f);
         nowStack = 1;
         name = itemData.name;
-        /*
-
-        type = item.type;
-        description = item.description;
-        price = item.price;
-        weight = item.weight;
-        acqPath = item.acqPath;
-        maxStack = item.maxStack;
-        itemNameT = item.itemNameT;
-        tfName = item.tfName;
-        tear = item.tear;
-        rarity = item.rarity;
-        upgrade = item.upgrade;
-        setName = item.setName;
-
-        //Debug.Log(name);
-        if (stackText != null)
-        stackText.text = nowStack.ToString();
-        if(type == "Consum")
-        {
-
-            effectOb = item.effectOb;
-            effectPow = item.effectPow;
-        }
-        if (type == "Equip")
-        {
-            equipArea = item.equipArea;
-
-        }
-        */
         LoadImage();
     }
     public AttackManager att;

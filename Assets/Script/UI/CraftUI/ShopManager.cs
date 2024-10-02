@@ -341,11 +341,12 @@ public class ShopManager : MonoBehaviour
                 InventoryManager.instance.state = "BuyDetail";
                 SellItemUI();
             }
+            if (name.text == "")
+            {
+                SetDetail();
+            }
         }
-        if (name.text == "")
-        {
-            SetDetail();
-        }
+
     }
     public void OpenShop()
     {

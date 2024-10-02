@@ -133,8 +133,8 @@ public class CraftingManager : MonoBehaviour
         nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(0).GetComponent<NeedItem>();
         if (isSelfCraft)
         {
-            SetNeedItem();
-            SetDetail();
+           // SetNeedItem();
+          //  SetDetail();
         }
 
         // Invoke("SetDetail", 1f); // 일단 1초뒤에 하도록 해서 딜레이 체크를 했는데 이거는 확인해야할듯
@@ -143,12 +143,16 @@ public class CraftingManager : MonoBehaviour
 
     void SetDetail()
     {
-        name.text = nowCraftItem.itemNameT;
-        type.text = nowCraftItem.type;
-        description.text = nowCraftItem.description;
-        price.text = "Price : " + (nowCraftItem.price).ToString();
-        tear.text = "T" + nowCraftItem.tear.ToString();
-        rarity.text = InventoryManager.instance.SetRarity(nowCraftItem.rarity);
+        if(nowCraftItem.itemData == null)
+        {
+            nowCraftItem.SetItem(nowCraftItem.transform.name);
+        }
+        name.text = nowCraftItem.itemData.itemNameT;
+        type.text = nowCraftItem.itemData.type;
+        description.text = nowCraftItem.itemData.description;
+        price.text = "Price : " + (nowCraftItem.itemData.price).ToString();
+        tear.text = "T" + nowCraftItem.itemData.tear.ToString();
+        rarity.text = InventoryManager.instance.SetRarity(nowCraftItem.itemData.rarity);
 
         Image changeImage = nowCraftItem.image;
         image.sprite = changeImage.sprite;
