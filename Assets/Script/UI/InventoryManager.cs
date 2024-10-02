@@ -1863,7 +1863,7 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
-    public void CreatItem(string itemName, bool isC2I = false)
+    public void CreatItem(string itemName, bool isC2I = false, ItemData itemData = null)
     {
         if (CheckStack(itemName) == false)
         {
@@ -1880,7 +1880,8 @@ public class InventoryManager : MonoBehaviour
                             GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
                             GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                             ItemCheck check = item.GetComponent<ItemCheck>();
-                            check.SetItem(itemName);
+                            check.SetItem(itemName, itemData);
+
                             DatabaseManager.PlusInventoryDict(itemName, 1);
                             isCreate = true;
                             break;

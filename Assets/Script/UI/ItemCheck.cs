@@ -25,9 +25,17 @@ public class ItemCheck : MonoBehaviour
         }
 
     }
-    public void SetItem(string itemName)
+    public void SetItem(string itemName, ItemData item = null)
     {
-        itemData = DatabaseManager.instance.LoadItemData(DatabaseManager.instance.FindItemDataIndex(itemName));
+        if(item != null)
+        {
+            itemData = item;
+        }
+        else
+        {
+            itemData = DatabaseManager.instance.LoadItemData(DatabaseManager.instance.FindItemDataIndex(itemName));
+        }
+
         Buyprice = (int)(itemData.price * 1.5f);
         nowStack = 1;
         name = itemData.name;
