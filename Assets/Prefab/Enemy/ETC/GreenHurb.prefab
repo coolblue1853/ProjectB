@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 5874274940947961562}
   - component: {fileID: 5874274940947961563}
   - component: {fileID: 5874274940947961556}
-  - component: {fileID: 5874274940947961567}
   m_Layer: 7
   m_Name: GreenHurb
   m_TagString: Enemy
@@ -252,27 +251,6 @@ MonoBehaviour:
     type: 3}
   bleedingPrefab: {fileID: 0}
   canDisapear: 0
---- !u!114 &5874274940947961567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5874274940947961558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
-    type: 3}
-  dropItems:
-  - itemName: GreenHurb
-    dropProbability: 1
-  impulseForce: 5
 --- !u!1 &5874274941295495720
 GameObject:
   m_ObjectHideFlags: 0

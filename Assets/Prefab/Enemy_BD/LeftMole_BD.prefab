@@ -368,6 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b013de4e839cd44bac744486aaa20f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagedBars: []
   BAR_WIDTH: 0
   hpBarRect: {fileID: 2369130091345698286}
   barImage: {fileID: 2369130092070306318}
@@ -477,10 +478,8 @@ GameObject:
   - component: {fileID: 3784335404955210432}
   - component: {fileID: 3784335404955210438}
   - component: {fileID: 3784335404955210434}
-  - component: {fileID: 3565035655145939700}
   - component: {fileID: 3088851545973148310}
   - component: {fileID: 5536331550269704387}
-  - component: {fileID: 5536331550269704386}
   - component: {fileID: 6039785008757734497}
   m_Layer: 7
   m_Name: LeftMole_BD
@@ -595,6 +594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyNum: 0
+  enemySpowner: {fileID: 0}
   isBleeding: 0
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
@@ -621,43 +622,7 @@ MonoBehaviour:
     type: 3}
   bleedingPrefab: {fileID: 4315359909622191748, guid: ef47a78245ca3b54fa0d2a3050c786ed,
     type: 3}
---- !u!114 &3565035655145939700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784335404955210443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 16392
-  itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
-    type: 3}
-  dropItems:
-  - itemName: LeafStaff
-    dropProbability: 0.002
-  - itemName: LeafLegArmor
-    dropProbability: 0.002
-  - itemName: LeafHandArmor
-    dropProbability: 0.001
-  - itemName: LeafShoes
-    dropProbability: 0.001
-  - itemName: Green Wreath
-    dropProbability: 0.001
-  - itemName: GreenHurb
-    dropProbability: 0.005
-  - itemName: Small Tuber
-    dropProbability: 0.15
-  - itemName: Fresh Green Leaves
-    dropProbability: 0.1
-  - itemName: Sturdy Roots
-    dropProbability: 0.1
-  impulseForce: 10
+  canDisapear: 0
 --- !u!95 &3088851545973148310
 Animator:
   serializedVersion: 5
@@ -754,100 +719,6 @@ MonoBehaviour:
   aPC: {fileID: 0}
   enemy: {fileID: 0}
   isJumping: 0
---- !u!60 &5536331550269704386
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3784335404955210443}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.72, y: 4.72}
-    newSize: {x: 4.72, y: 4.72}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.42, y: -1.4}
-      - {x: 1.43, y: -1.23}
-      - {x: 1.39, y: -1.1899999}
-      - {x: 1.52, y: -1.17}
-      - {x: 1.5699999, y: -1.11}
-      - {x: 1.65, y: -1.03}
-      - {x: 1.74, y: -0.91999996}
-      - {x: 1.74, y: -0.74}
-      - {x: 1.5999999, y: -0.58}
-      - {x: 1.5, y: -0.44}
-      - {x: 1.51, y: -0.35}
-      - {x: 1.43, y: -0.26}
-      - {x: 1.25, y: -0.17}
-      - {x: 1.12, y: -0.02}
-      - {x: 1.01, y: 0.07}
-      - {x: 1.04, y: 0.21}
-      - {x: 0.93, y: 0.31}
-      - {x: 0.76, y: 0.38}
-      - {x: 0.7, y: 0.52}
-      - {x: 0.71, y: 0.69}
-      - {x: 0.61, y: 0.78999996}
-      - {x: 0.51, y: 0.78999996}
-      - {x: 0.48, y: 0.71}
-      - {x: 0.35, y: 0.71}
-      - {x: 0.32, y: 0.63}
-      - {x: 0.19999999, y: 0.7}
-      - {x: 0.06, y: 0.7}
-      - {x: 0.07, y: 0.84999996}
-      - {x: -0.01, y: 0.88}
-      - {x: 0.22, y: 1.16}
-      - {x: 0.22999999, y: 1.5699999}
-      - {x: 0.16, y: 1.66}
-      - {x: -0.04, y: 1.8199999}
-      - {x: -0.22, y: 1.8199999}
-      - {x: -0.38, y: 1.68}
-      - {x: -0.58, y: 1.42}
-      - {x: -0.57, y: 1.49}
-      - {x: -0.69, y: 1.53}
-      - {x: -0.78, y: 1.43}
-      - {x: -0.78, y: 1.15}
-      - {x: -0.71999997, y: 1.06}
-      - {x: -0.16, y: 0.71}
-      - {x: -0.29, y: 0.71}
-      - {x: -0.32, y: 0.63}
-      - {x: -0.52, y: 0.62}
-      - {x: -0.62, y: 0.55}
-      - {x: -0.87, y: 0.39999998}
-      - {x: -1.11, y: 0.13}
-      - {x: -1.24, y: 0.06}
-      - {x: -1.26, y: 0.04}
-      - {x: -1.3299999, y: -0.01}
-      - {x: -1.41, y: -0.089999996}
-      - {x: -1.5, y: -0.19999999}
-      - {x: -1.51, y: -0.29}
-      - {x: -1.43, y: -0.32}
-      - {x: -1.67, y: -0.89}
-      - {x: -1.74, y: -0.97999996}
-      - {x: -1.74, y: -1.11}
-      - {x: -1.67, y: -1.17}
-      - {x: -1.56, y: -1.26}
-      - {x: -1.4, y: -1.26}
-      - {x: -1.38, y: -1.24}
-      - {x: -1.11, y: -1.35}
-      - {x: -1.01, y: -1.43}
-      - {x: -0.84, y: -1.5}
-      - {x: -0.59, y: -1.5}
-      - {x: -0.56, y: -1.43}
-      - {x: -0.44, y: -1.5}
-      - {x: 1.3199999, y: -1.5}
 --- !u!61 &6039785008757734497
 BoxCollider2D:
   m_ObjectHideFlags: 0

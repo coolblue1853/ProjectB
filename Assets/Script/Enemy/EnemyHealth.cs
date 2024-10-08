@@ -12,7 +12,7 @@ using BehaviorDesigner.Runtime.Tasks;
 public class EnemyHealth : PoolAble
 {
     public int enemyNum = 0;
-    public event System.Action<int,int,Vector3, bool> OnReleasedToPool; // 이벤트 선언
+    public event System.Action<int,int,Vector3, bool, bool> OnReleasedToPool; // 이벤트 선언
     public IObjectPool<GameObject> enemyPool { get; set; }
     public EnemySpowner enemySpowner;
     public bool isBleeding = false;
@@ -300,13 +300,15 @@ public class EnemyHealth : PoolAble
 
 
     }
-    public void ReleaseEnemy(bool isDrop = true)
+    public void ReleaseEnemy(bool isDrop = true, bool isItemDrop = true)
     {
         canDisapear = false;
-        OnReleasedToPool?.Invoke(enemyNum, Mathf.Abs(nowHP),this.transform.position, isDrop); // 4번째 요소는 deadbody를 생성할것인지 말것인지
-        if(isDrop)
-             //dropManager.DropItems(transform.position);
-        // damagedBars 리스트의 모든 damagedBar 제거
+        OnReleasedToPool?.Invoke(enemyNum, Mathf.Abs(nowHP),this.transform.position, isDrop, isItemDrop); // 4번째 요소는 deadbody를 생성할것인지 말것인지
+        if (isDrop)
+        {
+
+        }
+
         foreach (Transform damagedBar in hpBar.damagedBars)
         {
             if (damagedBar != null)
@@ -488,7 +490,7 @@ public class EnemyHealth : PoolAble
             DG.Tweening.Sequence disSequence = DOTween.Sequence()
             .AppendCallback(() => img.DOFade(0, 1.5f))
             .AppendInterval(1.5f)
-            .OnComplete(() => ReleaseEnemy(false));
+           .OnComplete(() => ReleaseEnemy(false, false));
         }
 
     }

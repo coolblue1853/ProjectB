@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b013de4e839cd44bac744486aaa20f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagedBars: []
   BAR_WIDTH: 0
   hpBarRect: {fileID: 4541466175075089235}
   barImage: {fileID: 4541466175859964108}
@@ -371,7 +372,6 @@ GameObject:
   - component: {fileID: 4541466175860119339}
   - component: {fileID: 4541466175860119338}
   - component: {fileID: 4541466175860119333}
-  - component: {fileID: 4541466175860119342}
   - component: {fileID: 803604641}
   m_Layer: 6
   m_Name: Rock
@@ -507,6 +507,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyNum: 0
+  enemySpowner: {fileID: 0}
   isBleeding: 0
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
@@ -533,33 +535,7 @@ MonoBehaviour:
     type: 3}
   bleedingPrefab: {fileID: 4315359909622191748, guid: ef47a78245ca3b54fa0d2a3050c786ed,
     type: 3}
---- !u!114 &4541466175860119342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4541466175860119335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
-    type: 3}
-  dropItems:
-  - itemName: T0_Ore
-    dropProbability: 1
-  - itemName: T0_Ore
-    dropProbability: 1
-  - itemName: T0_Ore
-    dropProbability: 1
-  - itemName: T0_Ore
-    dropProbability: 1
-  impulseForce: 5
+  canDisapear: 0
 --- !u!60 &803604641
 PolygonCollider2D:
   m_ObjectHideFlags: 0

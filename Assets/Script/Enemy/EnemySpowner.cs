@@ -98,7 +98,6 @@ public class EnemySpowner : MonoBehaviour
             }
         }
 
-        Debug.Log("오브젝트풀링 준비 완료");
         isReady = true;
     }
 
@@ -152,10 +151,11 @@ public class EnemySpowner : MonoBehaviour
             enemyPositionArray[i] = enemyPositon.transform.GetChild(i).gameObject;
         }
     }
-    private void OnEnemyReleased(int num, int force, Vector3 pos, bool isDeadBody = true)
+    private void OnEnemyReleased(int num, int force, Vector3 pos, bool isDeadBody = true, bool isDrop = true)
     {
         enemySlot[num] = null;
-        dropManager.DropItems(pos);
+        if(isDrop)
+            dropManager.DropItems(pos);
         if (isDeadBody == true)
         {
             var deadbody = GetGo("dead");
@@ -269,8 +269,6 @@ public class EnemySpowner : MonoBehaviour
     }
     void EndInvokeDaytime()
     {
-        Debug.Log("인보크 종료");
-       // ClearAllPools ();
        activeOnce = true;
         DeCycleCheck();
     }

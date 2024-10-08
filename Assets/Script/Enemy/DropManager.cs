@@ -76,7 +76,6 @@ public class DropManager : MonoBehaviour
             }
         }
 
-        Debug.Log("드랍 오브젝트풀링 준비 완료");
         isReady = true;
     }
 
@@ -130,15 +129,12 @@ public class DropManager : MonoBehaviour
         {
             if (Random.value <= dropItem.dropProbability * ( 1+ (float)DatabaseManager.playerDropRate / 100 ))
             {
-                Debug.Log(dropItem.itemName);
                 // 아이템 이름을 기반으로 프리팹을 찾아서 생성
                 if (itemPrefab != null)
                 {
                    // Debug.Log(dropItem.itemName);
 
                     Vector3 newItemPosition = dropPosition + new Vector3(offsetX, dropItem.offsetY, 0f);
-                    //  GameObject newItem = Instantiate(itemPrefab, newItemPosition, Quaternion.identity);
-                    Debug.Log(dropItem.itemName);
                     var newItem =  GetGo(dropItem.itemName);
                     newItem.transform.position = newItemPosition;
 

@@ -266,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b013de4e839cd44bac744486aaa20f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagedBars: []
   BAR_WIDTH: 0
   hpBarRect: {fileID: 5086343724702052668}
   barImage: {fileID: 5086343725327871708}
@@ -598,10 +599,8 @@ GameObject:
   - component: {fileID: 5976889062470221330}
   - component: {fileID: 5976889062470221332}
   - component: {fileID: 5976889062470221328}
-  - component: {fileID: 6273242587363872294}
   - component: {fileID: 5524592874086934084}
   - component: {fileID: 3072446537878692881}
-  - component: {fileID: 3072446537878692894}
   - component: {fileID: 2152888287495371102}
   m_Layer: 7
   m_Name: PassiveTerror_BD
@@ -719,6 +718,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyNum: 0
+  enemySpowner: {fileID: 0}
   isBleeding: 0
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
@@ -746,45 +747,7 @@ MonoBehaviour:
     type: 3}
   bleedingPrefab: {fileID: 4315359909622191748, guid: ef47a78245ca3b54fa0d2a3050c786ed,
     type: 3}
---- !u!114 &6273242587363872294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5976889062470221337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 16392
-  itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
-    type: 3}
-  dropItems:
-  - itemName: Necklace of Silent Screams
-    dropProbability: 0.05
-  - itemName: ScareSide
-    dropProbability: 0.05
-  - itemName: ScareStaff
-    dropProbability: 0.1
-  - itemName: SacreGreatSword
-    dropProbability: 0.1
-  - itemName: ScareClow
-    dropProbability: 0.1
-  - itemName: ScareCap
-    dropProbability: 0.2
-  - itemName: ScareArmor
-    dropProbability: 0.2
-  - itemName: ScareLegArmor
-    dropProbability: 0.2
-  - itemName: ScareHandArmor
-    dropProbability: 0.2
-  - itemName: ScareShoes
-    dropProbability: 0.2
-  impulseForce: 10
+  canDisapear: 0
 --- !u!95 &5524592874086934084
 Animator:
   serializedVersion: 5
@@ -927,140 +890,6 @@ MonoBehaviour:
   aPC: {fileID: 0}
   enemy: {fileID: 0}
   isJumping: 0
---- !u!60 &3072446537878692894
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5976889062470221337}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.32, y: 7.84}
-    newSize: {x: 8.32, y: 7.84}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.6899999, y: -3.1499999}
-      - {x: 1.78, y: -3.07}
-      - {x: 1.78, y: -2.77}
-      - {x: 1.6899999, y: -2.69}
-      - {x: 1.52, y: -2.7}
-      - {x: 1.5, y: -2.72}
-      - {x: 1.39, y: -2.76}
-      - {x: 1.39, y: -2.31}
-      - {x: 1.31, y: -2.29}
-      - {x: 1.31, y: -2.07}
-      - {x: 1.22, y: -1.8399999}
-      - {x: 1.15, y: -1.74}
-      - {x: 1.0699999, y: -1.5899999}
-      - {x: 0.93, y: -1.31}
-      - {x: 0.83, y: -1.1899999}
-      - {x: 0.74, y: -0.91999996}
-      - {x: 0.66999996, y: -0.75}
-      - {x: 0.58, y: -0.42}
-      - {x: 0.72999996, y: -0.42999998}
-      - {x: 0.82, y: -0.32}
-      - {x: 0.82, y: 0.64}
-      - {x: 0.79999995, y: 0.65999997}
-      - {x: 0.75, y: 0.89}
-      - {x: 0.42999998, y: 1.53}
-      - {x: 0.35999998, y: 1.62}
-      - {x: 0.21, y: 1.6999999}
-      - {x: -0.04, y: 1.6999999}
-      - {x: -0.19999999, y: 1.61}
-      - {x: -0.32999998, y: 1.39}
-      - {x: -0.48999998, y: 1.31}
-      - {x: -0.52, y: 1.24}
-      - {x: -0.78999996, y: 1.39}
-      - {x: -0.87, y: 1.55}
-      - {x: -1.04, y: 1.54}
-      - {x: -1.06, y: 1.52}
-      - {x: -1.0699999, y: 1.27}
-      - {x: -0.98999995, y: 1.11}
-      - {x: -0.89, y: 1.01}
-      - {x: -0.41, y: 0.75}
-      - {x: -0.5, y: 0.64}
-      - {x: -0.58, y: 0.48}
-      - {x: -0.72999996, y: 0.35}
-      - {x: -0.89, y: 0.26999998}
-      - {x: -0.98999995, y: 0.19999999}
-      - {x: -1.16, y: -0.14999999}
-      - {x: -1.1999999, y: -1.1}
-      - {x: -1.23, y: -1.11}
-      - {x: -1.3299999, y: -1.7099999}
-      - {x: -1.4499999, y: -1.73}
-      - {x: -1.64, y: -1.7199999}
-      - {x: -1.65, y: -1.5899999}
-      - {x: -1.73, y: -1.56}
-      - {x: -1.73, y: -1.11}
-      - {x: -1.81, y: -1.0799999}
-      - {x: -1.81, y: -0.71}
-      - {x: -1.89, y: -0.47}
-      - {x: -1.9399999, y: -0.35999998}
-      - {x: -2.31, y: -0.12}
-      - {x: -2.72, y: -0.14}
-      - {x: -2.83, y: -0.19999999}
-      - {x: -2.98, y: -0.35999998}
-      - {x: -2.98, y: -0.56}
-      - {x: -2.97, y: -0.59999996}
-      - {x: -2.8799999, y: -0.58}
-      - {x: -2.86, y: -0.56}
-      - {x: -2.59, y: -0.58}
-      - {x: -2.53, y: -0.66999996}
-      - {x: -2.37, y: -0.77}
-      - {x: -2.35, y: -0.96999997}
-      - {x: -2.27, y: -1}
-      - {x: -2.27, y: -1.37}
-      - {x: -2.19, y: -1.4}
-      - {x: -2.18, y: -2.24}
-      - {x: -2.12, y: -2.5}
-      - {x: -1.9699999, y: -2.75}
-      - {x: -1.62, y: -3.01}
-      - {x: -1.1999999, y: -3.1399999}
-      - {x: -0.38609555, y: -3.1224515}
-      - {x: 0.10033281, y: -3.1085107}
-      - {x: 0.15821418, y: -3.0524511}
-      - {x: 0.65, y: -3.1499999}
-      - {x: 0.79999995, y: -3.1399999}
-    - - {x: 0.19, y: -2.99}
-      - {x: 0.29, y: -2.99}
-      - {x: 0.29, y: -3.01}
-      - {x: 0.19, y: -3.01}
-    - - {x: 0.35, y: -2.9099998}
-      - {x: 0.37, y: -2.9099998}
-      - {x: 0.37, y: -2.9299998}
-      - {x: 0.35, y: -2.9299998}
-    - - {x: 0.35, y: -2.59}
-      - {x: 0.39999998, y: -2.59}
-      - {x: 0.42999998, y: -2.56}
-      - {x: 0.42999998, y: -2.51}
-      - {x: 0.45, y: -2.51}
-      - {x: 0.45, y: -2.61}
-      - {x: 0.35, y: -2.61}
-    - - {x: 0.35, y: -2.03}
-      - {x: 0.37, y: -2.03}
-      - {x: 0.37, y: -2.21}
-      - {x: 0.35, y: -2.21}
-    - - {x: -0.29, y: 1.01}
-      - {x: -0.26999998, y: 1.01}
-      - {x: -0.26999998, y: 0.98999995}
-      - {x: -0.29, y: 0.98999995}
-    - - {x: -0.21, y: 1.09}
-      - {x: -0.19, y: 1.09}
-      - {x: -0.19, y: 1.0699999}
-      - {x: -0.21, y: 1.0699999}
 --- !u!61 &2152888287495371102
 BoxCollider2D:
   m_ObjectHideFlags: 0

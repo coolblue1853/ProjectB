@@ -195,10 +195,8 @@ GameObject:
   - component: {fileID: 1069832606078962219}
   - component: {fileID: 1069832606078962221}
   - component: {fileID: 1069832606078962217}
-  - component: {fileID: 803306615551752735}
   - component: {fileID: 1189416546038502013}
   - component: {fileID: 8541470456742449192}
-  - component: {fileID: 8541470456742449191}
   - component: {fileID: 4895373518968906725}
   m_Layer: 7
   m_Name: CreepingTerror_BD
@@ -313,6 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyNum: 0
+  enemySpowner: {fileID: 0}
   isBleeding: 0
   damageNumber: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
     type: 3}
@@ -340,39 +340,7 @@ MonoBehaviour:
     type: 3}
   bleedingPrefab: {fileID: 4315359909622191748, guid: ef47a78245ca3b54fa0d2a3050c786ed,
     type: 3}
---- !u!114 &803306615551752735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1069832606078962208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c761ed21764b74198dae587abe2cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 16392
-  itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
-    type: 3}
-  dropItems:
-  - itemName: SacreGreatSword
-    dropProbability: 0.001
-  - itemName: ScareStaff
-    dropProbability: 0.001
-  - itemName: ScareCap
-    dropProbability: 0.002
-  - itemName: ScareArmor
-    dropProbability: 0.002
-  - itemName: Ominous Black Liquid
-    dropProbability: 0.2
-  - itemName: Malice-Infused Branch
-    dropProbability: 0.1
-  - itemName: Gloomy Cloth Scrap
-    dropProbability: 0.1
-  impulseForce: 10
+  canDisapear: 0
 --- !u!95 &1189416546038502013
 Animator:
   serializedVersion: 5
@@ -470,87 +438,6 @@ MonoBehaviour:
   aPC: {fileID: 0}
   enemy: {fileID: 0}
   isJumping: 0
---- !u!60 &8541470456742449191
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1069832606078962208}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.08, y: 4.48}
-    newSize: {x: 4, y: 3.36}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.81, y: -1.4599999}
-      - {x: 0.88, y: -0.98999995}
-      - {x: 0.91999996, y: -0.97999996}
-      - {x: 0.94, y: -0.96}
-      - {x: 0.94, y: -0.79999995}
-      - {x: 0.96, y: -0.59999996}
-      - {x: 1.12, y: -0.45}
-      - {x: 1.12, y: -0.28}
-      - {x: 1.25, y: -0.26999998}
-      - {x: 1.3399999, y: -0.16}
-      - {x: 1.3399999, y: 0.65}
-      - {x: 1.27, y: 0.66999996}
-      - {x: 1.27, y: 0.96999997}
-      - {x: 1.11, y: 1.29}
-      - {x: 1.03, y: 1.53}
-      - {x: 1.02, y: 1.76}
-      - {x: 1, y: 1.78}
-      - {x: 0.71999997, y: 1.78}
-      - {x: 0.65, y: 1.6899999}
-      - {x: 0.51, y: 1.63}
-      - {x: 0.42, y: 1.55}
-      - {x: 0.35999998, y: 1.3}
-      - {x: 0.19999999, y: 1.3}
-      - {x: 0.17999999, y: 1.28}
-      - {x: 0.17, y: 1.03}
-      - {x: 0.089999996, y: 0.91999996}
-      - {x: -0.06, y: 0.65}
-      - {x: -0.22, y: 0.51}
-      - {x: -0.38, y: 0.45}
-      - {x: -0.48, y: 0.32999998}
-      - {x: -0.53, y: 0.11}
-      - {x: -0.62, y: 0}
-      - {x: -0.63, y: -0.72999996}
-      - {x: -0.57, y: -0.9}
-      - {x: -0.45, y: -0.98999995}
-      - {x: -0.32999998, y: -1.15}
-      - {x: -0.17, y: -1.25}
-      - {x: -0.14, y: -1.42}
-      - {x: -0.44, y: -1.3399999}
-      - {x: -0.68, y: -1.18}
-      - {x: -0.72999996, y: -1.17}
-      - {x: -0.63, y: -0.55}
-      - {x: -0.74, y: -0.39999998}
-      - {x: -0.95, y: -0.51}
-      - {x: -1.02, y: -0.64}
-      - {x: -1.1, y: -0.88}
-      - {x: -1.1, y: -1.2099999}
-      - {x: -1.03, y: -1.24}
-      - {x: -1.02, y: -1.52}
-      - {x: -0.96999997, y: -1.62}
-      - {x: -0.77, y: -1.79}
-      - {x: -0.59999996, y: -1.86}
-      - {x: 0.21, y: -1.86}
-      - {x: 0.22999999, y: -1.79}
-      - {x: 0.45, y: -1.79}
-      - {x: 0.63, y: -1.64}
 --- !u!61 &4895373518968906725
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -783,6 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b013de4e839cd44bac744486aaa20f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagedBars: []
   BAR_WIDTH: 0
   hpBarRect: {fileID: 1926609708305925381}
   barImage: {fileID: 1926609707858369253}
