@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using DarkTonic.MasterAudio;
-public class EnemyDamageObject : MonoBehaviour
+public class EnemyDamageObject : PoolAble
 {
     public string attackSound;
     public bool isDestroyByTime = true;
@@ -67,22 +67,33 @@ public class EnemyDamageObject : MonoBehaviour
 
 
     }
-    void Start()
+    private void Awake()
     {
+        player = GameObject.FindWithTag("Player");
+        rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+    private void OnEnable()
+    {
+        if(rigidbody2D != null)
+             rigidbody2D.velocity = Vector2.zero;
+        transform.rotation = Quaternion.identity;
+        damagedEnemies.Clear();
+        damagedPlayer.Clear();
         if (isRandForce)
         {
             launchForce = Random.Range(minForce, maxForce);
         }
         prevPosition = transform.position;
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        enemyOb = transform.parent.gameObject;
-        player = GameObject.FindWithTag("Player");
+
+        if (transform.parent != null)
+            enemyOb = transform.parent.gameObject;
+
         if (isDestroyByTime)
         {
             DestroyObject();
         }
 
-        
+
         if (isLaunch)
         {
             if (isNonTrakingPlayer)
@@ -103,10 +114,12 @@ public class EnemyDamageObject : MonoBehaviour
             }
             else
             {
-                this.transform.parent = null;
-                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
-                transform.parent = null;
+                Debug.Log("투사체 발사");
+                //this.transform.parent = null;
+                //transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
+                //transform.parent = null;
                 Vector3 direction = (player.transform.position - this.transform.position).normalized;
+                Debug.Log(player.transform.position +" " + this.transform.position);
                 Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
                 rigidbody2D.AddForce(direction * launchForce, ForceMode2D.Impulse);
 
@@ -122,6 +135,11 @@ public class EnemyDamageObject : MonoBehaviour
 
         }
     }
+    void Start()
+    {
+
+  
+    }
 
     private void OnDestroy()
     {
@@ -134,9 +152,11 @@ public class EnemyDamageObject : MonoBehaviour
 
     private void DestroyObject()
     {
+        Debug.Log("반환");
         sequence = DOTween.Sequence()
             .AppendInterval(holdingTime)
-            .AppendCallback(() => Destroy(this.gameObject));
+            .AppendCallback(() => transform.parent = null)
+            .AppendCallback(() => ReleaseObject());
     }
 
     private Dictionary<Collider2D, bool> damagedPlayer = new Dictionary<Collider2D, bool>();
@@ -244,7 +264,7 @@ public class EnemyDamageObject : MonoBehaviour
         {
             if (isGroundDestroy== true)
             {
-                Destroy(this.gameObject);
+                ReleaseObject();
             }
         }
     

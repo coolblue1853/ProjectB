@@ -4,14 +4,19 @@ using DG.Tweening;
 using UnityEngine;
 public class EnemyAttackNode : EnemyAction
 {
+    public EnemySpowner enemySpowner;
+    public string attackName;
     public bool isApc = false;
     BehaviorTree bt;
     public GameObject damageOb;
     public GameObject attackPivot;
     float direction;
     public bool isSummonPlayerPosX = false;
+    public bool isSetParent = true;
+   
     public override void OnStart()
     {
+        enemySpowner = this.transform.GetComponent<EnemyHealth>().enemySpowner  ;
         bt = this.transform.GetComponent<BehaviorTree>();
         StopAction();
         isEnd = false;
@@ -71,18 +76,35 @@ public class EnemyAttackNode : EnemyAction
 
     public void CreatDamageOb()
     {
+        GameObject damageObject;
         if (isSummonPlayerPosX == true)
         {
-            var damage = Object.Instantiate(damageOb, new Vector2(player.transform.position.x, player.transform.position.y - 1f), attackPivot.transform.rotation);
-   
+            // var damage = Object.Instantiate(damageOb, new Vector2(player.transform.position.x, player.transform.position.y - 1f), attackPivot.transform.rotation);
+            var damage = enemySpowner.GetGo(attackName);
+            damage.transform.position = new Vector2(player.transform.position.x, player.transform.position.y - 1f);
+            damage.transform.rotation = attackPivot.transform.rotation;
+            damageObject = damage;
+            if (direction > 0)
+            {
+                damageObject.transform.localScale = new Vector3(damageObject.transform.localScale.x, damageObject.transform.localScale.y, 1);
+            }
+            else if (direction < 0)
+            {
+                damageObject.transform.localScale = new Vector3(-Mathf.Abs(damageObject.transform.localScale.x), damageObject.transform.localScale.y, 1);
+            }
 
         }
         else
         {
-            var damage = Object.Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
-
+            //var damage = Object.Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
+            var damage = enemySpowner.GetGo(attackName);
+            damage.transform.position = attackPivot.transform.position;
+            damage.transform.rotation = attackPivot.transform.rotation;
+            if(isSetParent)
+                damage.transform.parent = this.transform;
+            damageObject = damage;
+            damageObject.transform.localScale = new Vector3(Mathf.Abs(damageObject.transform.localScale.x), damageObject.transform.localScale.y, 1);
         }
-
 
 
 

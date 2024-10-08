@@ -13,7 +13,6 @@ public class EnemyHealth : PoolAble
 {
     public int enemyNum = 0;
     public event System.Action<int,int,Vector3, bool, bool> OnReleasedToPool; // 이벤트 선언
-    public IObjectPool<GameObject> enemyPool { get; set; }
     public EnemySpowner enemySpowner;
     public bool isBleeding = false;
     public DamageNumber damageNumber;
@@ -416,7 +415,7 @@ public class EnemyHealth : PoolAble
         {
             StopCoroutine(toggleCoroutine);
         }
-        if(this.gameObject != null)
+        if(this.gameObject != null&& this.gameObject.activeSelf != false)
         {
             // 새로운 코루틴 시작
             toggleCoroutine = StartCoroutine(ToggleObjectRoutine());

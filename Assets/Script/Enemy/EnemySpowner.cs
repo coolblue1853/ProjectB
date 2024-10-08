@@ -204,6 +204,7 @@ public class EnemySpowner : MonoBehaviour
 
                 // 이벤트 핸들러 등록
                 EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
+                enemyHealth.enemySpowner = this;
                 enemyHealth.enemyNum = i;
                 enemyHealth.OnReleasedToPool -= OnEnemyReleased; // 중복 등록 방지
                 enemyHealth.OnReleasedToPool += OnEnemyReleased; // 이벤트 등록
