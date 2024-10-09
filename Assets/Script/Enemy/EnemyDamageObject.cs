@@ -30,32 +30,27 @@ public class EnemyDamageObject : PoolAble
     public bool isRandForce;
     public float maxForce;
     public float minForce;
+    bool isEndInit = false;
 
     private void FixedUpdate()
     {
         if (isLaunch && isGravityFall == true)
         {
             Vector3 deltaPos = transform.position - prevPosition;                     // 현재위치 - 이전위치 = 방향
-
             float angle = Mathf.Atan2(deltaPos.y, deltaPos.x) * Mathf.Rad2Deg;// 삼각함수로 각도를 구함.
-
-
-
             if (0 != angle)    // 물리연산과 렌더링연산의 차이를 위해서 체크
             {
 
                 transform.rotation = Quaternion.Euler(0, 0, angle);
-
                 prevPosition = transform.position;
             }
         }
-
     }
     public bool isGravityFall = false;
 
     private void Update()
     {
-        if (isLaunch && isGravityFall ==false)
+        if (isLaunch && isGravityFall ==false && isEndInit == true)
         {
             float currentSpeed = rigidbody2D.velocity.magnitude;
             if (currentSpeed != desiredSpeed)
@@ -74,8 +69,18 @@ public class EnemyDamageObject : PoolAble
     }
     private void OnEnable()
     {
-        if(rigidbody2D != null)
-             rigidbody2D.velocity = Vector2.zero;
+        isEndInit = false;
+
+        DOTween.Kill(this.gameObject);
+
+        // 발사 직전 충돌 가능하게 변경
+        if (rigidbody2D != null)
+        {
+            rigidbody2D.velocity = Vector2.zero;
+            rigidbody2D.angularVelocity = 0f;
+        }
+
+        DOTween.Kill(this.gameObject);  // 트윈 중지
         transform.rotation = Quaternion.identity;
         damagedEnemies.Clear();
         damagedPlayer.Clear();
@@ -83,7 +88,7 @@ public class EnemyDamageObject : PoolAble
         {
             launchForce = Random.Range(minForce, maxForce);
         }
-        prevPosition = transform.position;
+        prevPosition = transform.position;  
 
         if (transform.parent != null)
             enemyOb = transform.parent.gameObject;
@@ -94,6 +99,10 @@ public class EnemyDamageObject : PoolAble
         }
 
 
+       
+    }
+    public void LaunchObject()
+    {
         if (isLaunch)
         {
             if (isNonTrakingPlayer)
@@ -114,12 +123,9 @@ public class EnemyDamageObject : PoolAble
             }
             else
             {
-                Debug.Log("투사체 발사");
-                //this.transform.parent = null;
-                //transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
-                //transform.parent = null;
+
+                this.transform.SetParent(null);
                 Vector3 direction = (player.transform.position - this.transform.position).normalized;
-                Debug.Log(player.transform.position +" " + this.transform.position);
                 Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
                 rigidbody2D.AddForce(direction * launchForce, ForceMode2D.Impulse);
 
@@ -129,6 +135,8 @@ public class EnemyDamageObject : PoolAble
                 Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 // 회전을 적용합니다.
                 transform.rotation = rotation;
+                isEndInit = true;
+
             }
 
 
@@ -152,7 +160,6 @@ public class EnemyDamageObject : PoolAble
 
     private void DestroyObject()
     {
-        Debug.Log("반환");
         sequence = DOTween.Sequence()
             .AppendInterval(holdingTime)
             .AppendCallback(() => transform.parent = null)

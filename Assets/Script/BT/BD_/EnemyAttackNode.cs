@@ -101,9 +101,12 @@ public class EnemyAttackNode : EnemyAction
             damage.transform.position = attackPivot.transform.position;
             damage.transform.rotation = attackPivot.transform.rotation;
             if(isSetParent)
-                damage.transform.parent = this.transform;
+                damage.transform.SetParent(this.transform);
             damageObject = damage;
             damageObject.transform.localScale = new Vector3(Mathf.Abs(damageObject.transform.localScale.x), damageObject.transform.localScale.y, 1);
+
+            var enemyDamageObject = damageObject.GetComponent<EnemyDamageObject>();
+            if (enemyDamageObject.isLaunch) enemyDamageObject.LaunchObject();
         }
 
 
