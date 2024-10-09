@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FlowerMoleAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 82df0dab25daa56428bc15f0137f81a8, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 5769c5005dd5a744c93678ccaf6172ab, type: 3}
+  - {fileID: 21300000, guid: 2f21bf2072b63ba44a5a82f1b3369871, type: 3}
+  - {fileID: 21300000, guid: 588e0880a6f5f304bb26623560252f7d, type: 3}
+  - {fileID: 21300000, guid: b5ba1e8091fa2e04b8020cd5fcf2dc65, type: 3}
+  - {fileID: 21300000, guid: fdc1e8116b7c9f04896e42aee2e92605, type: 3}
+  - {fileID: 21300000, guid: f5da9b51fc124c0488cef4f95d5a6923, type: 3}
+  - {fileID: 21300000, guid: b1fa2c61d62db714f922ec0e0100b27e, type: 3}
+  - {fileID: 21300000, guid: b16060a15f9912c4086a880dced945b1, type: 3}
+  - {fileID: 21300000, guid: a8e42803ddab0ce48a5560dab694e41b, type: 3}
+  - {fileID: 21300000, guid: 7b9369831bbe065449ce313870821c49, type: 3}
+  - {fileID: 21300000, guid: fe59bfc39ee40c84fbce93102e265c7c, type: 3}
+  - {fileID: 21300000, guid: 80d29845208b9fe4d896e08a8e335967, type: 3}
+  - {fileID: 21300000, guid: c8c7cf5574ca0904eb0f6b57238aed96, type: 3}
+  - {fileID: 21300000, guid: e9061867c01ab704a9d405d7a5d72fbf, type: 3}
+  - {fileID: 21300000, guid: f6c9d097b1a839646b9313b88547a44f, type: 3}
+  - {fileID: 21300000, guid: 053b5bd76e213a042b5cd3f1b0e81cac, type: 3}
+  - {fileID: 21300000, guid: a7e5f878926baf14ab7a7678e53ab80b, type: 3}
+  - {fileID: 21300000, guid: 80284b98c439edc4994eada67c6dedf4, type: 3}
+  - {fileID: 21300000, guid: b66f3fe818ce62d4b9963c4e6f62fea8, type: 3}
+  - {fileID: 21300000, guid: 96e8c239d5cb46c4a9843089db6f59ff, type: 3}
+  - {fileID: 21300000, guid: facdf549b3e7ef249a3881290a8a906c, type: 3}
+  - {fileID: 21300000, guid: 43e5f2994a0dc5e4f9d219e89af18bcd, type: 3}
+  - {fileID: 21300000, guid: 341c527abd1678646bc970e048ab6d7d, type: 3}
+  - {fileID: 21300000, guid: 84647eeae5e7c744e8e87ad476f9a84a, type: 3}
+  - {fileID: 21300000, guid: 969a522c5a4eed340bc9feaa69f21c4e, type: 3}
+  - {fileID: 21300000, guid: 44a2d8bd176150c43b49c2b34c6f2670, type: 3}
+  - {fileID: 21300000, guid: a67b683ebda93d44385d92efa73c0f89, type: 3}
+  - {fileID: 21300000, guid: d9b1527e6cef56a45aa5361f7aa220c7, type: 3}
+  - {fileID: 21300000, guid: 62f6eb3f3142141488b367951eb641db, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - FlowerMoleWalk2
+  - FlowerMoleHit
+  - FlowerMoleD8
+  - FlowerAttck1
+  - FlowerMoleWalk5
+  - FlowerMole2
+  - FlowerMole4
+  - FlowerMoleWalk4
+  - FlowerMoleAttack2
+  - FlowerMole1
+  - FlowerMoleWalk6
+  - FlowerAttck3
+  - FlowerMoleAttack1
+  - FlowerAttck2
+  - FlowerMoleD6
+  - FlowerMoleAttack3
+  - FlowerMoleWalk1
+  - FlowerMoleAttack4
+  - FlowerMoleD2
+  - FlowerMoleD5
+  - FlowerMoleD1
+  - FlowerMoleD3
+  - FlowerMoleD9
+  - FlowerMole3
+  - FlowerMoleD4
+  - FlowerMole5
+  - FlowerMoleD7
+  - FlowerAttck4
+  - FlowerMoleWalk3
+  m_RenderDataMap: {}
+  m_Tag: FlowerMoleAtlas
+  m_IsVariant: 0

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RabbotBiteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 28bd5e7aeed0c4d41866a5127e69c7f0, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 9440e0f1e9974c0469d5c39408dd030a, type: 3}
+  - {fileID: 21300000, guid: c5c2abe2b713d4f489856a3a069cbf78, type: 3}
+  - {fileID: 21300000, guid: f27f7108be12927428e5e886409077d9, type: 3}
+  - {fileID: 21300000, guid: 6faaef1baec0959409550b113406e4bc, type: 3}
+  - {fileID: 21300000, guid: af4c465c05f5d7f49ab3e569ac642922, type: 3}
+  - {fileID: 21300000, guid: f4e7fe4dbdedfa54494cbc25bc3ded80, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Bite3
+  - Bite1
+  - Bite6
+  - Bite4
+  - Bite2
+  - Bite5
+  m_RenderDataMap: {}
+  m_Tag: RabbotBiteAtlas
+  m_IsVariant: 0

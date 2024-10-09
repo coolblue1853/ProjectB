@@ -51,7 +51,11 @@ public class DeadBody : PoolAble
                 rb.angularVelocity = 0f;    // 회전 속도 초기화
             }
         }
-        ReleaseObject();
+        if(this.gameObject.activeSelf != false)
+        {
+            ReleaseObject();
+        }
+       
     }
     public void Force2DeadBody(float knockbackForce)
     {

@@ -6,6 +6,7 @@ using UnityEngine.Pool;
 
 public class EnemySpowner : MonoBehaviour
 {
+
     [System.Serializable]
     private class ObjectInfo
     {
@@ -94,7 +95,7 @@ public class EnemySpowner : MonoBehaviour
             {
                 objectName = objectInfos[idx].objectName;
                 PoolAble poolAbleGo = CreatePooledItem().GetComponent<PoolAble>();
-                poolAbleGo.Pool.Release(poolAbleGo.gameObject);
+                poolAbleGo.pool.Release(poolAbleGo.gameObject);
             }
         }
 
@@ -105,7 +106,7 @@ public class EnemySpowner : MonoBehaviour
     private GameObject CreatePooledItem()
     {
         GameObject poolGo = Instantiate(goDic[objectName]);
-        poolGo.GetComponent<PoolAble>().Pool = ojbectPoolDic[objectName];
+        poolGo.GetComponent<PoolAble>().pool = ojbectPoolDic[objectName];
         return poolGo;
     }
 
@@ -180,7 +181,8 @@ public class EnemySpowner : MonoBehaviour
             if (enemySlot[i] == null)
             {
                 var enemyObject = GetGo("enemy");
-
+                EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
+                enemyHealth.enemySpowner = this;
                 // 오브젝트 풀이 비워진 경우 예외 처리
                 if (enemyObject == null)
                 {
@@ -202,9 +204,6 @@ public class EnemySpowner : MonoBehaviour
                     enemyObject.transform.position = enemyPositionArray[i].transform.position + new Vector3(xPosition, 0, zPosition);
                 }
 
-                // 이벤트 핸들러 등록
-                EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
-                enemyHealth.enemySpowner = this;
                 enemyHealth.enemyNum = i;
                 enemyHealth.OnReleasedToPool -= OnEnemyReleased; // 중복 등록 방지
                 enemyHealth.OnReleasedToPool += OnEnemyReleased; // 이벤트 등록

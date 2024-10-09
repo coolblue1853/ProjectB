@@ -224,5 +224,9 @@ QualitySettings:
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
     Android: 5
+    Server: 0
     Standalone: 5
+    WebGL: 0
+    Windows Store Apps: 0
     iPhone: 5
+    tvOS: 0

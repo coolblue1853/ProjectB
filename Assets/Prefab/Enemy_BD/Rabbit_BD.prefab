@@ -759,6 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  someSharedMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   enemyNum: 0
   enemySpowner: {fileID: 0}
   isBleeding: 0
@@ -808,22 +809,32 @@ MonoBehaviour:
   dropItems:
   - itemName: Rabbit Hide
     dropProbability: 0.1
+    offsetY: 0
   - itemName: Small Bone
     dropProbability: 0.1
+    offsetY: 0
   - itemName: Rabbit Meat
     dropProbability: 0.15
+    offsetY: 0
   - itemName: Four-Leaf Clover Ring
     dropProbability: 0.001
+    offsetY: 0
   - itemName: Shoes
     dropProbability: 0.002
+    offsetY: 0
   - itemName: HandArmor
     dropProbability: 0.002
+    offsetY: 0
   - itemName: LegArmor
     dropProbability: 0.002
+    offsetY: 0
   - itemName: RustedSword
     dropProbability: 0.002
+    offsetY: 0
   - itemName: Wood Spear
     dropProbability: 0.002
+    offsetY: 0
+  objectInfos: []
   impulseForce: 10
 --- !u!95 &7698113303160677834
 Animator:

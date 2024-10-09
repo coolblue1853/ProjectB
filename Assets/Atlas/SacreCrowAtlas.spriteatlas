@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SacreCrowAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 2
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 7707eceaaccca904088a2ffe558e88a8, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 4e1210207726a3d45b037c7221a23804, type: 3}
+  - {fileID: 21300000, guid: d18dbf31e8fc4a74ea8261cef41ec7cd, type: 3}
+  - {fileID: 21300000, guid: 73e3bcf1c46d7e54b9df6eb7f3c1e5b2, type: 3}
+  - {fileID: 21300000, guid: 30494902a9b52c04b9827b276bab77fb, type: 3}
+  - {fileID: 21300000, guid: d4a10613b68abbb4ab1fd9828ec0e2ae, type: 3}
+  - {fileID: 21300000, guid: 583275349965e1341ba05b4bd18c6e40, type: 3}
+  - {fileID: 21300000, guid: 7cb5a5746526ae64686c0e53a26cdb35, type: 3}
+  - {fileID: 21300000, guid: ce218d059dd28fe449d58bab178d03cf, type: 3}
+  - {fileID: 21300000, guid: 20e09556bcf35b341be4ead0943887df, type: 3}
+  - {fileID: 21300000, guid: ccd227b6c4276b14b842e7f14b7498bb, type: 3}
+  - {fileID: 21300000, guid: a82d65085efb3854baec530a19f3f741, type: 3}
+  - {fileID: 21300000, guid: 06a451b848dda3d48809e0e11e8df9de, type: 3}
+  - {fileID: 21300000, guid: 572c0a99c07ea2646839874c7d872966, type: 3}
+  - {fileID: 21300000, guid: 782de9e9ecb97d44fb481ffa8228a88b, type: 3}
+  - {fileID: 21300000, guid: 75f8781ab6480e643915aee332b82b59, type: 3}
+  - {fileID: 21300000, guid: 1e3c2a2a52bea8c4da64c4191965127f, type: 3}
+  - {fileID: 21300000, guid: 7d1749ca12edf7541b7adbf05667a9f0, type: 3}
+  - {fileID: 21300000, guid: 441fbdebb6b0ced4dbcc71b95ee19e02, type: 3}
+  - {fileID: 21300000, guid: 6f09e9fcf404d7142a9972a44e144360, type: 3}
+  - {fileID: 21300000, guid: 4717b6ae375690648bc2e5ddac92b164, type: 3}
+  - {fileID: 21300000, guid: 769facbea83241d479361c99e6c41130, type: 3}
+  - {fileID: 21300000, guid: 79e290cec2f038b4c8759dc06c095642, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ScaryCrow4
+  - SCDead4
+  - ScaryCrowAttack2
+  - SCDead_2
+  - ScaryCrow2
+  - SCDead2
+  - SCDead5
+  - ScaryCrowHit
+  - ScaryCrowMove3
+  - ScaryCrowMove5
+  - SCDead_1
+  - ScaryCrowMove1
+  - SCDead1
+  - ScaryCrowAttack3
+  - ScaryCrowMove4
+  - SCDead3
+  - ScaryCrowMove6
+  - ScaryCrowAttack1
+  - ScaryCrowMove2
+  - ScaryCrow3
+  - ScaryCrow1
+  - SCDaed3
+  m_RenderDataMap: {}
+  m_Tag: SacreCrowAtlas
+  m_IsVariant: 0

@@ -69,6 +69,7 @@ public class EnemyDamageObject : PoolAble
     }
     private void OnEnable()
     {
+
         isEndInit = false;
 
         DOTween.Kill(this.gameObject);

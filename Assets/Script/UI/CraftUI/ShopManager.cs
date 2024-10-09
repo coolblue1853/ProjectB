@@ -123,7 +123,7 @@ public class ShopManager : MonoBehaviour
         name.text = nowShopItem.name;
         type.text = nowShopItem.itemData.type;
         description.text = nowShopItem.itemData.description;
-        price.text =(nowShopItem.Buyprice).ToString();
+        price.text =(nowShopItem.buyprice).ToString();
         weight.text = nowShopItem.itemData.weight.ToString();
         acqPath.text = nowShopItem.itemData.acqPath;
         Image changeImage = nowShopItem.transform.GetChild(0).GetComponent<Image>();
@@ -236,7 +236,7 @@ public class ShopManager : MonoBehaviour
         InitializeSlider();
         state = "Buy";
         sellUIGameObject.SetActive(true);
-        totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
+        totalSellPrice = (int)(sellSlider.value * nowShopItem.buyprice);
         sellText.text = "Buy " + nowShopItem.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void OnSliderValueChanged(float value)
@@ -247,20 +247,20 @@ public class ShopManager : MonoBehaviour
     {
         CusorContinuousInputCheck();
         sellSlider.value += 1;
-        totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
+        totalSellPrice = (int)(sellSlider.value * nowShopItem.buyprice);
         sellText.text = "Buy " + nowShopItem.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void LeftMove()
     {
         CusorContinuousInputCheck();
         sellSlider.value -= 1;
-        totalSellPrice = (int)(sellSlider.value * nowShopItem.Buyprice);
+        totalSellPrice = (int)(sellSlider.value * nowShopItem.buyprice);
         sellText.text = "Buy " + nowShopItem.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
     }
     void InitializeSlider()
     {
         sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
-        sellSlider.maxValue = Mathf.Min(nowShopItem.itemData.maxStack, DatabaseManager.money / nowShopItem.Buyprice);
+        sellSlider.maxValue = Mathf.Min(nowShopItem.itemData.maxStack, DatabaseManager.money / nowShopItem.buyprice);
         // 슬라이더의 최소값과 최대값 설정
         sellSlider.minValue = 1;
         // 슬라이더의 현재 값 설정
@@ -273,7 +273,7 @@ public class ShopManager : MonoBehaviour
         {
             if (InventoryManager.instance.CheckBoxCanCreatAll() == true || InventoryManager.instance.OnlyCheckStack(nowShopItem.name) == true)
             {
-                DatabaseManager.money -= nowShopItem.Buyprice;
+                DatabaseManager.money -= nowShopItem.buyprice;
                 InventoryManager.instance.CreatItem(nowShopItem.name);
             }
         }
@@ -303,7 +303,7 @@ public class ShopManager : MonoBehaviour
             {
                 LeftMove();
             }
-            if (selectAction.triggered && DatabaseManager.money >= nowShopItem.Buyprice)
+            if (selectAction.triggered && DatabaseManager.money >= nowShopItem.buyprice)
             {
                 BuyItem();
             }
@@ -336,7 +336,7 @@ public class ShopManager : MonoBehaviour
                 isCheckDetail = true;
                 SetNeedDetail();
             }
-            else if(isBuyDetail == true && selectAction.triggered == true && DatabaseManager.money >= nowShopItem.Buyprice)
+            else if(isBuyDetail == true && selectAction.triggered == true && DatabaseManager.money >= nowShopItem.buyprice)
             {
                 InventoryManager.instance.state = "BuyDetail";
                 SellItemUI();

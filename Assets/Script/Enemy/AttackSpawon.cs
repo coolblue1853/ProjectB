@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackSpawon : MonoBehaviour
+public class AttackSpawon : PoolAble
 {
     public float summonTime;
     public GameObject attackPrefab;

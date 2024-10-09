@@ -141,6 +141,7 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 11400000, guid: c3624050408c83e4b8ee4aaeae97d0eb, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -848,7 +849,7 @@ PlayerSettings:
     WebGL: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING
     Windows Store Apps: UNITY_VISUAL_SCRIPTING
     XboxOne: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING
-    iPhone: UNITY_VISUAL_SCRIPTING
+    iPhone: UNITY_VISUAL_SCRIPTING;USING_URP
     tvOS: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING
   additionalCompilerArguments: {}
   platformArchitecture:

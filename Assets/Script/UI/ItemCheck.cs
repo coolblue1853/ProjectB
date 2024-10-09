@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using System.Text;
 using TMPro;
 public class ItemCheck : MonoBehaviour
 {
     public Image image;
     public ItemData itemData;
     public int nowStack;
-    public int Buyprice;
+    public int buyprice;
     public int needCount;
     public string name;
 
@@ -20,102 +21,93 @@ public class ItemCheck : MonoBehaviour
     private void Start()
     {
         if (isShopItem)
-        {
             SetItem(this.transform.name);
-        }
-
     }
     public void SetItem(string itemName, ItemData item = null)
     {
         if(item != null)
-        {
             itemData = item;
-        }
         else
-        {
             itemData = DatabaseManager.instance.LoadItemData(DatabaseManager.instance.FindItemDataIndex(itemName));
-        }
 
-        Buyprice = (int)(itemData.price * 1.5f);
+        buyprice = (int)(itemData.price * 1.5f);
         nowStack = 1;
         name = itemData.name;
         LoadImage();
     }
-    public AttackManager att;
+    public AttackManager attackManager;
     public void ConsumItemActive()
     {
         nowStack -= 1;
         string[] effect = itemData.effectOb.Split("/");
         string[] effectPower = itemData.effectPow.Split("/");
 
-        for (int i =0; i < effect.Length; i++)
+        StringBuilder logBuilder = new StringBuilder(); // StringBuilder 인스턴스 생성
+
+        for (int i = 0; i < effect.Length; i++)
         {
             string[] effectStr = effect[i].Split();
             string[] effectPowerDetail = effectPower[i].Split("_");
+
             if (effectStr[0] == "stemina")
             {
                 if (effectStr[1] == "+")
                 {
                     PlayerHealthManager.Instance.SteminaUp(int.Parse(effectPowerDetail[0]));
+                    logBuilder.AppendLine($"Stemina increased by {effectPowerDetail[0]}");
                 }
             }
-            if (effectStr[0] == "fullness")
+            else if (effectStr[0] == "fullness")
             {
-
                 if (effectStr[1] == "+")
                 {
                     PlayerHealthManager.Instance.FullnessUp(int.Parse(effectPowerDetail[0]));
+                    logBuilder.AppendLine($"Fullness increased by {effectPowerDetail[0]}");
                 }
             }
-            if (effectStr[0] == "hp")
+            else if (effectStr[0] == "hp")
             {
                 if (effectStr[1] == "+")
                 {
                     PlayerHealthManager.Instance.HpUp(int.Parse(effectPowerDetail[0]));
+                    logBuilder.AppendLine($"HP increased by {effectPowerDetail[0]}");
                 }
             }
-            if (effectStr[0] == "light")
+            else if (effectStr[0] == "light")
             {
                 if (effectStr[1] == "+")
                 {
                     PlayerController.instance.TouchLightOn(float.Parse(effectPowerDetail[0]), float.Parse(effectPowerDetail[1]), float.Parse(effectPowerDetail[2]));
+                    logBuilder.AppendLine($"Light activated with parameters {effectPowerDetail[0]}, {effectPowerDetail[1]}, {effectPowerDetail[2]}");
                 }
             }
-                if (effectStr[0] == "def")
+            else if (effectStr[0] == "def")
             {
+                AttackManager player = GameObject.FindWithTag("Player").GetComponent<AttackManager>();
+                if (player.foodBuff != null) // 이미 버프면
+                {
+                    player.foodBuff.DestoryBuff();
+                }
+                GameObject buff = Instantiate(defBuffObject, Vector2.zero, Quaternion.identity, player.BuffSlot.transform);
+                PlayerBuff playerBuff = buff.GetComponent<PlayerBuff>();
+                player.foodBuff = playerBuff;
+
                 if (effectStr[1] == "+")
                 {
-                    AttackManager  player = GameObject.FindWithTag("Player").GetComponent<AttackManager>();
-                    if(player.foodBuff != null) // 이미 버프면
-                    {
-                        player.foodBuff.DestoryBuff();
-                    }
-                    GameObject buff = Instantiate(defBuffObject, Vector2.zero, Quaternion.identity, player.BuffSlot.transform);
-                    PlayerBuff playerBuff = buff.GetComponent<PlayerBuff>();
-                    player.foodBuff = playerBuff;
                     playerBuff.buffPower = int.Parse(effectPowerDetail[0]);
                     playerBuff.buffTime = int.Parse(effectPowerDetail[1]);
                     playerBuff.ActiveBuff();
-                    // PlayerHealthManager.Instance.HpUp(int.Parse(effectPowerDetail[0]));
+                    logBuilder.AppendLine($"Defense buff activated with power {effectPowerDetail[0]} and duration {effectPowerDetail[1]}");
                 }
                 else
                 {
-                    AttackManager player = GameObject.FindWithTag("Player").GetComponent<AttackManager>();
-                    if (player.foodBuff != null) // 이미 버프면
-                    {
-                        player.foodBuff.DestoryBuff();
-                    }
-                    GameObject buff = Instantiate(defBuffObject, Vector2.zero, Quaternion.identity, player.BuffSlot.transform);
-                    PlayerBuff playerBuff = buff.GetComponent<PlayerBuff>();
-                    player.foodBuff = playerBuff;
                     playerBuff.buffPower = -int.Parse(effectPowerDetail[0]);
                     playerBuff.buffTime = int.Parse(effectPowerDetail[1]);
                     playerBuff.ActiveBuff();
+                    logBuilder.AppendLine($"Defense debuff activated with power {effectPowerDetail[0]} and duration {effectPowerDetail[1]}");
                 }
             }
         }
-
-
 
         if (this.nowStack == 0)
         {
@@ -159,7 +151,7 @@ public class ItemCheck : MonoBehaviour
         {
             if (Cost.text == "")
             {
-                Cost.text = Buyprice.ToString();
+                Cost.text = buyprice.ToString();
             }
 
 

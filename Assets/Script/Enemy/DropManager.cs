@@ -72,7 +72,7 @@ public class DropManager : MonoBehaviour
             {
                 objectName = objectInfos[idx].objectName;
                 PoolAble poolAbleGo = CreatePooledItem().GetComponent<PoolAble>();
-                poolAbleGo.Pool.Release(poolAbleGo.gameObject);
+                poolAbleGo.pool.Release(poolAbleGo.gameObject);
             }
         }
 
@@ -83,7 +83,7 @@ public class DropManager : MonoBehaviour
     private GameObject CreatePooledItem()
     {
         GameObject poolGo = Instantiate(goDic[objectName]);
-        poolGo.GetComponent<PoolAble>().Pool = ojbectPoolDic[objectName];
+        poolGo.GetComponent<PoolAble>().pool = ojbectPoolDic[objectName];
         return poolGo;
     }
 

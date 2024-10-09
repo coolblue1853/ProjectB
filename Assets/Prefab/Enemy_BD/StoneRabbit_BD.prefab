@@ -746,6 +746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606256dd3d4493e4c9ee4c1c497db17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  someSharedMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   enemyNum: 0
   enemySpowner: {fileID: 0}
   isBleeding: 0
