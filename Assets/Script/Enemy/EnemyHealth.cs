@@ -13,7 +13,7 @@ public class EnemyHealth : PoolAble
 {
     public int enemyNum = 0;
     public event System.Action<int,int,Vector3, bool, bool> OnReleasedToPool; // 이벤트 선언
-    public EnemySpowner enemySpowner;
+    public EnemySpawner enemySpowner;
     public bool isBleeding = false;
     public DamageNumber damageNumber;
     public int enemyDef = 0;
@@ -31,11 +31,9 @@ public class EnemyHealth : PoolAble
     // 넉백에 사용될 방향
     Vector2 knockbackDirection = new Vector2(0f, 1f);
     public DropManager dropManager;
-    EnemyFSM enemyFSM;
     BehaviorTree behaviorTree;
 
     public DeadBody deadBody;
-    public GameObject enemySensor;
     public bool isBossMob = false;
 
     public event EventHandler OnDamaged;
@@ -110,13 +108,7 @@ public class EnemyHealth : PoolAble
             deadBody.parentEnemy = this.transform.gameObject;
         }
 
-        if (enemySensor != null)
-        {
-            if (checkPlayer.isPreemptive == true && enemySensor.activeSelf == false)
-            {
-                enemySensor.SetActive(true);
-            }
-        }
+
         deadOnec = false;
     }
     bool notStiff;
@@ -315,7 +307,7 @@ public class EnemyHealth : PoolAble
         ReleaseObject();
     }
     public bool isAttackGround;
-    public CheckPlayer checkPlayer;
+
     public void ResetBoolParameters()
     {
         // 애니메이터에 등록된 모든 파라미터 가져오기
@@ -349,10 +341,7 @@ public class EnemyHealth : PoolAble
 
             isAttackGround = false;
 
-            if (enemyFSM.state.Contains("Hit"))
-            {
-                enemyFSM.StateChanger("Hit");
-            }
+
         }
 
     }

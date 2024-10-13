@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 public class EnemyAttackNode : EnemyAction
 {
-    public EnemySpowner enemySpowner;
+    public EnemySpawner enemySpowner;
     public string attackName;
     public bool isApc = false;
     BehaviorTree bt;
@@ -80,7 +80,7 @@ public class EnemyAttackNode : EnemyAction
         if (isSummonPlayerPosX == true)
         {
             // var damage = Object.Instantiate(damageOb, new Vector2(player.transform.position.x, player.transform.position.y - 1f), attackPivot.transform.rotation);
-            var damage = enemySpowner.GetGo(attackName);
+            var damage = enemySpowner.GetOb(attackName);
             damage.transform.position = new Vector2(player.transform.position.x, player.transform.position.y - 1f);
             damage.transform.rotation = attackPivot.transform.rotation;
             damageObject = damage;
@@ -97,7 +97,7 @@ public class EnemyAttackNode : EnemyAction
         else
         {
             //var damage = Object.Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
-            var damage = enemySpowner.GetGo(attackName);
+            var damage = enemySpowner.GetOb(attackName);
             damage.transform.position = attackPivot.transform.position;
             damage.transform.rotation = attackPivot.transform.rotation;
             if(isSetParent)

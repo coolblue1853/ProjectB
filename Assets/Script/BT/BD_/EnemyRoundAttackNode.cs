@@ -6,7 +6,7 @@ public class EnemyRoundAttackNode : EnemyAction
 {
     public bool isSetParent = true;
     BehaviorTree bt;
-    public EnemySpowner enemySpowner;
+    public EnemySpawner enemySpowner;
     public string attackName;
     public float radius = 5f;       // 원의 반지름
     public float startAngle = 0f;   // 시작 각도
@@ -68,7 +68,7 @@ public class EnemyRoundAttackNode : EnemyAction
         if (isSummonPlayerPosX == true)
         {
             //var damage = Object.Instantiate(damageOb, new Vector2(player.transform.position.x, attackPivot.transform.position.y), attackPivot.transform.rotation);
-            var damage = enemySpowner.GetGo(attackName);
+            var damage = enemySpowner.GetOb(attackName);
             damage.transform.position = new Vector2(player.transform.position.x, player.transform.position.y - 1f);
             damage.transform.rotation = attackPivot.transform.rotation;
             damageObject = damage;
@@ -109,7 +109,7 @@ public class EnemyRoundAttackNode : EnemyAction
 
                 // 탄막 생성
                 //GameObject bullet = GameObject.Instantiate(damageOb, attackPivot.transform.position + new Vector3(x, y, 0f), Quaternion.identity, this.transform);
-                var damage = enemySpowner.GetGo(attackName);
+                var damage = enemySpowner.GetOb(attackName);
                 damage.transform.position = attackPivot.transform.position + new Vector3(x, y, 0f);
                 damage.transform.rotation = Quaternion.identity;
                 if (isSetParent)

@@ -9,7 +9,7 @@ public class EnemyPatrol : EnemyAction
     public int originMax;
     public bool isStop = false;
     public bool isGroundCheck = false;
-    public EnemyGroundCheck groundCheck;
+    //public EnemyGroundCheck groundCheck;
     int movePoint;
     public float desiredSpeed;
     BehaviorTree bt;
@@ -56,10 +56,7 @@ public class EnemyPatrol : EnemyAction
         {
             enemyObject.transform.localScale = new Vector3(-tfLocalScale, enemyObject.transform.localScale.y, 1);
         }
-        if (isGroundCheck == true)
-        {
-            groundCheck.isGroundCheck = true;
-        }
+
         // 이동애니메이션 바꾸기
         if (anim != null)
         {
