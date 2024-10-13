@@ -13,14 +13,14 @@ public class EnemyAction : Action
     public PlayerController player;
     public Vector2 originPosition;
     public GameObject enemyObject;
-    public static DG.Tweening.Sequence sequence;
+    public DG.Tweening.Sequence sequence;
     public bool isEnd;
     public float tfLocalScale = 0;
 
     public override void OnAwake()
     {
         behaviorTree = GetComponent<BehaviorTree>();
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        player = PlayerController.instance;
         enemyObject = this.gameObject;
         tfLocalScale = enemyObject.transform.localScale.x;
         body = GetComponent<Rigidbody2D>();
@@ -31,12 +31,12 @@ public class EnemyAction : Action
     public virtual void StopAction()
     {
         if (sequence != null && sequence.IsActive())
-        {  
+        {
             isEnd = true;
             sequence.Kill();
+            sequence = null;  // GC가 수집할 수 있도록 설정     
         }
+
     }
-
-
 
 }

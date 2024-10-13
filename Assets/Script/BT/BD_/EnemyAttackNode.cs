@@ -2,6 +2,7 @@ using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
 using DG.Tweening;
 using UnityEngine;
+
 public class EnemyAttackNode : EnemyAction
 {
     public EnemySpawner enemySpowner;
@@ -13,35 +14,41 @@ public class EnemyAttackNode : EnemyAction
     float direction;
     public bool isSummonPlayerPosX = false;
     public bool isSetParent = true;
-   
+
     public override void OnStart()
     {
-        enemySpowner = this.transform.GetComponent<EnemyHealth>().enemySpowner  ;
+        enemySpowner = this.transform.GetComponent<EnemyHealth>().enemySpowner;
         bt = this.transform.GetComponent<BehaviorTree>();
         StopAction();
         isEnd = false;
         StartPatrol();
-
     }
+
     public override TaskStatus OnUpdate()
     {
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
+
     public void StartPatrol()
     {
-
         FaceChange();
-        bt.sequence = DOTween.Sequence()
-       .AppendCallback(() => CreatDamageOb())
-       //  .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
-       .OnComplete(() => OnSequenceComplete());
 
+        // 기존 Sequence가 있으면 정리
+        if (bt.sequence != null && bt.sequence.IsActive())
+        {
+            bt.sequence.Kill();
+            bt.sequence = null; // GC 수집을 위해 null 할당
+        }
+
+        // 새 Sequence 설정
+        bt.sequence = DOTween.Sequence()
+            .AppendCallback(() => CreatDamageOb())
+            .OnComplete(() => OnSequenceComplete());
     }
 
     void FaceChange()
     {
-
-        if (isApc == true)
+        if (isApc)
         {
             if (behaviorTree.enemy != null)
             {
@@ -60,64 +67,39 @@ public class EnemyAttackNode : EnemyAction
             }
         }
 
-
-
-        if (direction > 0)
-        {
-            enemyObject.transform.localScale = new Vector3(tfLocalScale, enemyObject.transform.localScale.y, 1);
-        }
-        else if (direction < 0)
-        {
-            enemyObject.transform.localScale = new Vector3(-tfLocalScale, enemyObject.transform.localScale.y, 1);
-        }
-
-
+        // 방향에 따른 스케일 변경
+        enemyObject.transform.localScale = new Vector3(
+            direction > 0 ? tfLocalScale : -tfLocalScale,
+            enemyObject.transform.localScale.y, 1);
     }
 
     public void CreatDamageOb()
     {
         GameObject damageObject;
-        if (isSummonPlayerPosX == true)
-        {
-            // var damage = Object.Instantiate(damageOb, new Vector2(player.transform.position.x, player.transform.position.y - 1f), attackPivot.transform.rotation);
-            var damage = enemySpowner.GetOb(attackName);
-            damage.transform.position = new Vector2(player.transform.position.x, player.transform.position.y - 1f);
-            damage.transform.rotation = attackPivot.transform.rotation;
-            damageObject = damage;
-            if (direction > 0)
-            {
-                damageObject.transform.localScale = new Vector3(damageObject.transform.localScale.x, damageObject.transform.localScale.y, 1);
-            }
-            else if (direction < 0)
-            {
-                damageObject.transform.localScale = new Vector3(-Mathf.Abs(damageObject.transform.localScale.x), damageObject.transform.localScale.y, 1);
-            }
+        Vector2 spawnPos = isSummonPlayerPosX
+            ? new Vector2(player.transform.position.x, player.transform.position.y - 1f)
+            : attackPivot.transform.position;
 
-        }
-        else
-        {
-            //var damage = Object.Instantiate(damageOb, attackPivot.transform.position, attackPivot.transform.rotation, this.transform);
-            var damage = enemySpowner.GetOb(attackName);
-            damage.transform.position = attackPivot.transform.position;
-            damage.transform.rotation = attackPivot.transform.rotation;
-            if(isSetParent)
-                damage.transform.SetParent(this.transform);
-            damageObject = damage;
-            damageObject.transform.localScale = new Vector3(Mathf.Abs(damageObject.transform.localScale.x), damageObject.transform.localScale.y, 1);
+        var damage = enemySpowner.GetOb(attackName);
+        damage.transform.position = spawnPos;
+        damage.transform.rotation = attackPivot.transform.rotation;
 
-            var enemyDamageObject = damageObject.GetComponent<EnemyDamageObject>();
-            if (enemyDamageObject.isLaunch) enemyDamageObject.LaunchObject();
+        if (isSetParent && damage.transform.parent != this.transform)
+        {
+            damage.transform.SetParent(this.transform);
         }
 
+        damageObject = damage;
+        damageObject.transform.localScale = new Vector3(
+            Mathf.Abs(damageObject.transform.localScale.x),
+            damageObject.transform.localScale.y, 1);
 
-
+        var enemyDamageObject = damageObject.GetComponent<EnemyDamageObject>();
+        if (enemyDamageObject.isLaunch) enemyDamageObject.LaunchObject();
     }
+
     private void OnSequenceComplete()
     {
-        if (this.transform != null)
-        {
-            isEnd = true;
-        }
+        isEnd = true;
     }
-
 }
