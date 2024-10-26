@@ -28,7 +28,8 @@ public class DropItemCheck : PoolAble
 
     void DestroyItembyTime()
     {
-        ReleaseObject();
+        if(this.gameObject != null)
+            ReleaseObject();
     }
 
     bool isGround = false;
