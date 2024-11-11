@@ -5,23 +5,29 @@ using UnityEngine;
 
 public class EnemyAttackNode : EnemyAction
 {
-    public EnemySpawner enemySpowner;
-    public string attackName;
-    public bool isApc = false;
-    BehaviorTree bt;
-    public GameObject damageOb;
-    public GameObject attackPivot;
-    float direction;
-    public bool isSummonPlayerPosX = false;
-    public bool isSetParent = true;
+    private EnemySpawner enemySpawner;
+    private BehaviorTree bt;
+    private float direction;
+
+    [SerializeField] private string attackName;
+    [SerializeField] private bool isApc = false;
+    [SerializeField] private bool isSummonPlayerPosX = false;
+    [SerializeField] private bool isSetParent = true;
+    [SerializeField] private GameObject damageOb;
+    [SerializeField] private GameObject attackPivot;
 
     public override void OnStart()
     {
-        enemySpowner = this.transform.GetComponent<EnemyHealth>().enemySpowner;
-        bt = this.transform.GetComponent<BehaviorTree>();
+        // 필요 시 필요한 컴포넌트 캐싱 (최적화)
+        enemySpawner = GetComponent<EnemyHealth>().enemySpowner;
+        bt = GetComponent<BehaviorTree>();
+
+        // 이전 액션 종료
         StopAction();
         isEnd = false;
-        StartPatrol();
+
+        // 공격 시작
+        StartAttack();
     }
 
     public override TaskStatus OnUpdate()
@@ -29,42 +35,36 @@ public class EnemyAttackNode : EnemyAction
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
 
-    public void StartPatrol()
+    private void StartAttack()
     {
         FaceChange();
 
-        // 기존 Sequence가 있으면 정리
+        // 기존 Sequence가 있으면 정리 후 새 Sequence 설정
         if (bt.sequence != null && bt.sequence.IsActive())
         {
             bt.sequence.Kill();
             bt.sequence = null; // GC 수집을 위해 null 할당
         }
 
-        // 새 Sequence 설정
+        // 새로운 Sequence 생성 및 실행
         bt.sequence = DOTween.Sequence()
-            .AppendCallback(() => CreatDamageOb())
-            .OnComplete(() => OnSequenceComplete());
+            .AppendCallback(CreatDamageOb)
+            .OnComplete(OnSequenceComplete);
+
+        bt.sequence.SetLink(enemyObject); // enemyObject가 파괴될 때 자동 해제 설정
     }
 
-    void FaceChange()
+    private void FaceChange()
     {
-        if (isApc)
+        // 방향 설정
+        if (isApc && behaviorTree.enemy != null)
         {
-            if (behaviorTree.enemy != null)
-            {
-                direction = Mathf.Sign(behaviorTree.enemy.transform.position.x - enemyObject.transform.position.x);
-            }
+            direction = Mathf.Sign(behaviorTree.enemy.transform.position.x - enemyObject.transform.position.x);
         }
         else
         {
-            if (behaviorTree.aPC == null)
-            {
-                direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
-            }
-            else
-            {
-                direction = Mathf.Sign(behaviorTree.aPC.transform.position.x - enemyObject.transform.position.x);
-            }
+            var target = behaviorTree.aPC != null ? behaviorTree.aPC.transform : player.transform;
+            direction = Mathf.Sign(target.position.x - enemyObject.transform.position.x);
         }
 
         // 방향에 따른 스케일 변경
@@ -73,14 +73,14 @@ public class EnemyAttackNode : EnemyAction
             enemyObject.transform.localScale.y, 1);
     }
 
-    public void CreatDamageOb()
+    private void CreatDamageOb()
     {
-        GameObject damageObject;
+        // 공격 오브젝트 생성 및 위치 설정
         Vector2 spawnPos = isSummonPlayerPosX
             ? new Vector2(player.transform.position.x, player.transform.position.y - 1f)
             : attackPivot.transform.position;
 
-        var damage = enemySpowner.GetOb(attackName);
+        var damage = enemySpawner.GetOb(attackName);
         damage.transform.position = spawnPos;
         damage.transform.rotation = attackPivot.transform.rotation;
 
@@ -89,13 +89,19 @@ public class EnemyAttackNode : EnemyAction
             damage.transform.SetParent(this.transform);
         }
 
-        damageObject = damage;
-        damageObject.transform.localScale = new Vector3(
-            Mathf.Abs(damageObject.transform.localScale.x),
-            damageObject.transform.localScale.y, 1);
+        damage.transform.localScale = new Vector3(
+            Mathf.Abs(damage.transform.localScale.x),
+            damage.transform.localScale.y, 1);
 
-        var enemyDamageObject = damageObject.GetComponent<EnemyDamageObject>();
-        if (enemyDamageObject.isLaunch) enemyDamageObject.LaunchObject();
+        var enemyDamageObject = damage.GetComponent<EnemyDamageObject>();
+        enemyDamageObject.enemyOb = this.gameObject;
+        if (enemyDamageObject.isLaunch)
+        {
+            enemyDamageObject.LaunchObject();
+        }
+
+        // 참조 저장
+        damageOb = damage;
     }
 
     private void OnSequenceComplete()

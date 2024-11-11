@@ -2,38 +2,43 @@ using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using Com.LuisPedroFonseca.ProCamera2D;
+
 public class EnemyCameraShake : EnemyAction
 {
     public string ShakeName;
-    public GameObject damageOb;
-    public GameObject attackPivot;
-    float direction;
-    public bool isSummonPlayerPosX = false;
+    private DG.Tweening.Sequence shakeSequence;
+
     public override void OnStart()
     {
-        ShakeCamera(); 
-
+        ShakeCamera();
     }
+
     public override TaskStatus OnUpdate()
     {
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
 
-
     void ShakeCamera()
     {
-        ProCamera2DShake.Instance.Shake(ShakeName);
+        // 시퀀스가 없다면 새로 생성, 있다면 재시작
+        if (shakeSequence == null)
+        {
+            shakeSequence = DOTween.Sequence()
+             .AppendCallback(() => ProCamera2DShake.Instance.Shake(ShakeName))
+            .OnComplete(OnSequenceComplete);
 
-        OnSequenceComplete();
+        }
+        else
+        {
+            shakeSequence.Restart(); // 이미 존재하는 시퀀스를 재시작
+        }
+
+
     }
-
 
     private void OnSequenceComplete()
     {
-        if (this.transform != null)
-        {
-            isEnd = true;
-        }
+        isEnd = true;
     }
 
 }

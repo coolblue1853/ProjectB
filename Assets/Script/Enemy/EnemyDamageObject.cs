@@ -25,7 +25,7 @@ public class EnemyDamageObject : PoolAble
 
     private Vector3 prevPosition;
     private Sequence sequence; // 시퀀스를 저장하기 위한 변수 추가
-     GameObject enemyOb;
+    public GameObject enemyOb;
     Rigidbody2D rigidbody2D;
     public bool isRandForce;
     public float maxForce;
@@ -182,21 +182,17 @@ public class EnemyDamageObject : PoolAble
 
                     if (collision.gameObject.transform.position.x < enemyOb.transform.position.x )
                     {
-                        knockbackDir.x = - Mathf.Abs( knockbackDir.x);
+                        knockbackDir.x = - Mathf.Abs(knockbackDir.x);
                     }
-
-
+                    else
+                    {
+                        knockbackDir.x = Mathf.Abs(knockbackDir.x);
+                    }
                 }
                 if (attackSound != null)
                     MasterAudio.PlaySound(attackSound);
                 playerHealth.damage2Player(damage, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
 
-                /*
-                if (isPosionAttack)
-                {
-                    enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
-                }
-                */
                 // Mark the enemy as damaged
                 damagedPlayer[collision] = true;
             }
