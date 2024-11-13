@@ -11,7 +11,6 @@ public class EnemyGoRevers : EnemyAction
 
     public bool isStop = false;
     public bool isGroundCheck = false;
-   // public EnemyGroundCheck groundCheck;
 
     int movePoint;
     public float desiredSpeed;

@@ -6,9 +6,8 @@ using BehaviorDesigner.Runtime;
 using DG.Tweening;
 public class EnemyGoOrigin : EnemyAction
 {
-    BehaviorTree bt;
-
-    bool isArriveOrigin = false;
+    private BehaviorTree bt;
+    private bool isArriveOrigin = false;
     public float desiredSpeed;
 
     public override void OnStart()
@@ -19,58 +18,46 @@ public class EnemyGoOrigin : EnemyAction
     }
     public override TaskStatus OnUpdate()
     {
-        if (Mathf.Abs(enemyObject.transform.position.y - originPosition.y) < 1)
+        if (bt.sequence == null || !bt.sequence.IsActive())
         {
-            isArriveOrigin = true;
+            StartGoOrigin(); // 움직임이 중단되었거나 완료된 경우 다시 시작
         }
-        else
-        {
-            isArriveOrigin = false;
-        }
-        return (isEnd == true && isArriveOrigin == true) ? TaskStatus.Success : TaskStatus.Running;
-        if (bt.sequence.active == false)
-        {
-            isArriveOrigin = false;
-            StartGoOrigin();
-        }
+
+        return isEnd && Mathf.Abs(enemyObject.transform.position.x - originPosition.x) < 1f
+            ? TaskStatus.Success
+            : TaskStatus.Running;
     }
     public void StartGoOrigin()
     {
 
-        if (isArriveOrigin == false)
+        if (anim != null)
         {
-            if (anim != null)
-            {
-                anim.SetBool("isWalk", true);
-            }
-            float originX = originPosition.x; // 원점의 X 좌표
-            float currentPositionX = enemyObject.transform.position.x; // 현재 위치의 X 좌표
-            float distanceToMove = Mathf.Abs(originX - currentPositionX); // 이동해야 할 거리의 절대값을 계산합니다.
-            float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 원하는 속도로 이동하는 데 걸리는 시간을 계산합니다.
-
-            if (originX - currentPositionX > 0)
-            {
-                enemyObject.transform.localScale = new Vector3(tfLocalScale, enemyObject.transform.localScale.y, 1);
-            }
-            else if (originX - currentPositionX < 0)
-            {
-                enemyObject.transform.localScale = new Vector3(-tfLocalScale, enemyObject.transform.localScale.y, 1);
-            }
-
-            bt.sequence = DOTween.Sequence()
-            .Append(enemyObject.transform.DOMoveX(originX, moveDuration).SetEase(Ease.Linear)) // 원점으로 이동합니다.
-           .OnComplete(() => OnSequenceComplete());
-
+            anim.SetBool("isWalk", true);
         }
+
+        // 이동 거리와 시간 계산
+        float distanceToMove = Mathf.Abs(originPosition.x - enemyObject.transform.position.x);
+        float moveDuration = distanceToMove / desiredSpeed;
+
+        // 방향에 따라 스케일 변경
+        enemyObject.transform.localScale = new Vector3(
+            originPosition.x > enemyObject.transform.position.x ? tfLocalScale : -tfLocalScale,
+            enemyObject.transform.localScale.y, 1
+        );
+
+        // 이동 시퀀스 설정
+        bt.sequence = DOTween.Sequence()
+            .Append(enemyObject.transform.DOMoveX(originPosition.x, moveDuration).SetEase(Ease.Linear))
+            .OnComplete(OnSequenceComplete);
 
     }
     private void OnSequenceComplete()
     {
-        if (this.transform != null)
+        if (anim != null)
         {
-
-            isEnd = true;
+            anim.SetBool("isWalk", false);
         }
+        isEnd = true;
     }
 
 }

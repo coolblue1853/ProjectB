@@ -15,7 +15,7 @@ public class EnemyConditional : Conditional
     public static bool isJumping = false;
     public override void OnAwake()
     {
-        enemyObject = this.gameObject;
+        enemyObject = gameObject;
         chInRommSize = enemyObject.transform.localScale.x;
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();

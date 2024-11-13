@@ -6,7 +6,7 @@ public class EnemyJump : EnemyAction
 {
     public float xJumpForce = 0f;
     public float jumpForce;
-    Vector2 jumpDir;
+    private Vector2 jumpDir;
     BehaviorTree bt;
     public float jumpWaitTime = 0.2f;
     public Vector2 startPos;
@@ -23,29 +23,23 @@ public class EnemyJump : EnemyAction
     }
     public void StartJump()
     {
+        // 수직 점프 힘 설정
         body.velocity = new Vector2(body.velocity.x, jumpForce);
-       float cSize = enemyObject.transform.localScale.x;
-        if (cSize > 0)
-        {
-            jumpDir = new Vector2(1, 0);
-        }
-        else
-        {
-            jumpDir = new Vector2(-1, 0);
-        }
+
+        // x 방향 점프 힘 설정
+        float cSize = enemyObject.transform.localScale.x;
+        jumpDir = cSize > 0 ? new Vector2(1, 0) : new Vector2(-1, 0);
 
         body.AddForce(jumpDir.normalized * xJumpForce, ForceMode2D.Impulse);
 
+        // 점프 후 바로 완료 상태로 변경
         OnSequenceComplete();
-
     }
+
     private void OnSequenceComplete()
     {
-
-        if (this.transform != null)
-        {
-            isEnd = true;
-        }
+        // 점프 완료 시 상태를 true로 설정
+        isEnd = true;
     }
 
 }

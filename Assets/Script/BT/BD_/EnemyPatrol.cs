@@ -16,8 +16,9 @@ public class EnemyPatrol : EnemyAction
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
-        bt.sequence.Kill();
+        bt.sequence.Kill(); // 이전 시퀀스 종료
         isEnd = false;
+        originPosition = enemyObject.transform.position; // 원래 위치 저장
         StartPatrol();
     }
     public override TaskStatus OnUpdate()
@@ -26,72 +27,78 @@ public class EnemyPatrol : EnemyAction
     }
     public void StartPatrol()
     {
+        movePoint = Random.Range(xMin, xMax);
 
-            movePoint = Random.Range(xMin, xMax);
-            if (isStop == false)
-            {
-                   int direction = Random.Range(0, 2);
-                if (direction == 0)
-                {
-                    movePoint = -movePoint;
-                }
-            }
-            else if (isStop == true)
-            {
-                if (enemyObject.transform.localScale.x > 0)
-                {
-                    movePoint = -movePoint;
-                }
-                else
-                {
-                    movePoint = Mathf.Abs(movePoint);
-                }
-            }
+        // isStop 상태에 따른 동작
+        if (isStop)
+        {
+            movePoint = enemyObject.transform.localScale.x > 0 ? -movePoint : Mathf.Abs(movePoint);
+        }
+        else
+        {
+            int direction = Random.Range(0, 2);
+            movePoint = direction == 0 ? -movePoint : movePoint;
+        }
 
+        // 방향 설정: 이동할 방향에 맞게 로컬 스케일 변경
         if (movePoint > 0)
         {
-            enemyObject.transform.localScale = new Vector3(tfLocalScale, enemyObject.transform.localScale.y, 1);
+            enemyObject.transform.localScale = new Vector3(Mathf.Abs(enemyObject.transform.localScale.x), enemyObject.transform.localScale.y, 1);
         }
-        else if (movePoint < 0)
+        else
         {
-            enemyObject.transform.localScale = new Vector3(-tfLocalScale, enemyObject.transform.localScale.y, 1);
+            enemyObject.transform.localScale = new Vector3(-Mathf.Abs(enemyObject.transform.localScale.x), enemyObject.transform.localScale.y, 1);
         }
 
-        // 이동애니메이션 바꾸기
+        // 애니메이션 설정
         if (anim != null)
         {
             anim.SetBool("isWalk", true);
         }
-        if (Mathf.Abs(enemyObject.transform.position.x + movePoint - originPosition.x) > originMax)
+
+        // 이동 범위가 originMax를 초과하면 원위치로 돌아옴
+        if (Mathf.Abs(enemyObject.transform.position.x - originPosition.x) > originMax)
         {
-            if(enemyObject.transform.position.x > originPosition.x)
-            {
-                enemyObject.transform.localScale = new Vector3(-tfLocalScale, enemyObject.transform.localScale.y, 1);
-            }
-            else
-            {
-                enemyObject.transform.localScale = new Vector3(tfLocalScale, enemyObject.transform.localScale.y, 1);
-            }
-            float distanceToMove = Mathf.Abs(enemyObject.transform.position.x - originPosition.x); // 이동해야 할 거리의 절대값을 계산합니다.
-            float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 일정한 속도로 이동하는 데 걸리는 시간을 계산합니다.
-            bt.sequence = DOTween.Sequence()
-            .Append(enemyObject.transform.DOMoveX(originPosition.x, moveDuration).SetEase(Ease.Linear))
-            .OnComplete(() => OnSequenceComplete());
+            ReverseDirection();
+            MoveToOrigin();
         }
         else
         {
-            float distanceToMove = Mathf.Abs(movePoint); // 이동해야 할 거리의 절대값을 계산합니다.
-            float moveDuration = distanceToMove / desiredSpeed; // 이동해야 할 거리를 일정한 속도로 이동하는 데 걸리는 시간을 계산합니다.
-            bt.sequence = DOTween.Sequence()
-                .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
-            .OnComplete(() => OnSequenceComplete());
+            MoveToNewPoint();
         }
     }
+
+    private void MoveToOrigin()
+    {
+        float distanceToMove = Mathf.Abs(enemyObject.transform.position.x - originPosition.x);
+        float moveDuration = distanceToMove / desiredSpeed;
+
+        bt.sequence = DOTween.Sequence()
+            .Append(enemyObject.transform.DOMoveX(originPosition.x, moveDuration).SetEase(Ease.Linear))
+            .OnComplete(() => OnSequenceComplete());
+    }
+
+    private void MoveToNewPoint()
+    {
+        float distanceToMove = Mathf.Abs(movePoint);
+        float moveDuration = distanceToMove / desiredSpeed;
+
+        bt.sequence = DOTween.Sequence()
+            .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
+            .OnComplete(() => OnSequenceComplete());
+    }
+
+    private void ReverseDirection()
+    {
+        float newScaleX = enemyObject.transform.position.x > originPosition.x ? -Mathf.Abs(enemyObject.transform.localScale.x) : Mathf.Abs(enemyObject.transform.localScale.x);
+        enemyObject.transform.localScale = new Vector3(newScaleX, enemyObject.transform.localScale.y, 1);
+    }
+
     private void OnSequenceComplete()
     {
         if (this.transform != null)
         {
-            isEnd = true;
+            isEnd = true; // 액션 완료 시 isEnd를 true로 설정
         }
     }
 

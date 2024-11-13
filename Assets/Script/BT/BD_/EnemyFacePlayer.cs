@@ -5,12 +5,12 @@ public class EnemyFacePlayer : EnemyAction
 {
     public GameObject damageOb;
     public GameObject attackPivot;
-    float direction;
+    private float direction;
     public bool isSummonPlayerPosX = false;
+
     public override void OnStart()
     {
         FaceChange();
-
     }
     public override TaskStatus OnUpdate()
     {
@@ -19,25 +19,15 @@ public class EnemyFacePlayer : EnemyAction
     void FaceChange()
     {
         direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
-        Debug.Log(direction);
-        if (direction > 0)
-        {
-            enemyObject.transform.localScale = new Vector3(tfLocalScale, enemyObject.transform.localScale.y, 1);
-        }
-        else if (direction < 0)
-        {
-            enemyObject.transform.localScale = new Vector3(-tfLocalScale, enemyObject.transform.localScale.y, 1);
-        }
+        // 방향에 따라 적의 스케일 조정
+        enemyObject.transform.localScale = new Vector3(
+            direction > 0 ? tfLocalScale : -tfLocalScale,
+            enemyObject.transform.localScale.y, 1
+        );
 
-        OnSequenceComplete();
-    }
-
-    private void OnSequenceComplete()
-    {
         if (this.transform != null)
         {
             isEnd = true;
         }
     }
-
 }

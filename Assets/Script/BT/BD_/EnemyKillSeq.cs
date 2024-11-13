@@ -2,45 +2,42 @@ using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using BehaviorDesigner.Runtime;
 using UnityEngine;
+
 public class EnemyKillSeq : EnemyAction
 {
-    BehaviorTree bt;
-    public override void OnAwake()
-    {
-        base.OnAwake();
-    }
+    private BehaviorTree bt;
+
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
-         bt.sequence.Kill();
 
-        // StartJump();
+        // BehaviorTree에서 sequence를 종료
+        bt.sequence.Kill();
+
+        // Jump 로직이 필요하다면 StartJump 호출
+        StartJump();
         isEnd = true;
     }
+
     public override TaskStatus OnUpdate()
     {
-
-
-            return isEnd ? TaskStatus.Success : TaskStatus.Running;
+        return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
+
     public void StartJump()
     {
-
+        // transform에 바인딩된 트윈을 모두 종료
         DOTween.Kill(this.transform);
-        sequence.Kill();
-        // 현재 위치에 객체를 멈춤
+
+        // 현재 위치에서 객체 멈추기
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-
-
 
         OnSequenceComplete();
     }
+
     private void OnSequenceComplete()
     {
-        if (this.transform != null)
-        {
-            isEnd = true;
-        }
+        // 액션 종료 플래그 설정
+        isEnd = true;
     }
-
 }
