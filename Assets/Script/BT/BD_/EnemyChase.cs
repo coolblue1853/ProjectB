@@ -4,64 +4,54 @@ using UnityEngine;
 using BehaviorDesigner.Runtime;
 public class EnemyChase : EnemyAction
 {
-    BehaviorTree bt;
-    GameObject player;
-    public float moveDuration;
-    public float moveDistance;
-    float direction;
-    public bool isChaseEnemy = false;
+    private BehaviorTree bt;
+    private GameObject player;
+    [SerializeField] private float moveDuration;
+    [SerializeField] private float moveDistance;
+    private float direction;
+    [SerializeField] private bool isChaseEnemy = false;
 
     public override void OnStart()
     {
-        bt = this.transform.GetComponent<BehaviorTree>();
- 
+        bt = GetComponent<BehaviorTree>();
         isEnd = false;
-        player = GameObject.FindWithTag("Player");
+
+        // Player 객체 캐싱
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+
         StartChase();
-    
     }
     public override TaskStatus OnUpdate()
     {
-        if (bt.sequence.active == false)
+        // sequence가 비활성화된 상태인지 확인하여 종료 여부를 결정
+        if (bt.sequence == null || !bt.sequence.IsActive())
         {
             isEnd = true;
         }
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
-
-
     }
+
     public void StartChase()
     {
-
+        GameObject target;
         if (isChaseEnemy == false)
         {
             if(behaviorTree.aPC == null)
-            {
-                bt.sequence = DOTween.Sequence()
-.AppendCallback(() => direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x))
-.AppendCallback(() => ChangeFace())
-.Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
-.OnComplete(() => OnSequenceComplete());
-            }
+                target = player;
             else
-            {
-                bt.sequence = DOTween.Sequence()
-.AppendCallback(() => direction = Mathf.Sign(behaviorTree.aPC.transform.position.x - enemyObject.transform.position.x))
-.AppendCallback(() => ChangeFace())
-.Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
-.OnComplete(() => OnSequenceComplete());
-            }
-
+                target = behaviorTree.aPC;
         }
         else
-        {
-            bt.sequence = DOTween.Sequence()
-            .AppendCallback(() => direction = Mathf.Sign(behaviorTree.enemy.transform.position.x - enemyObject.transform.position.x))
-            .AppendCallback(() => ChangeFace())
-            .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
-            .OnComplete(() => OnSequenceComplete());
-        }
+            target = behaviorTree.enemy;
 
+        bt.sequence = DOTween.Sequence()
+.AppendCallback(() => direction = Mathf.Sign(target.transform.position.x - enemyObject.transform.position.x))
+.AppendCallback(() => ChangeFace())
+.Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
+.OnComplete(() => OnSequenceComplete());
 
     }
     void ChangeFace()
