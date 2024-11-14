@@ -25,24 +25,34 @@ public class DropItemCheck : PoolAble
         LoadImage();
         Invoke("DestroyItembyTime", 120);
     }
-
+    Rigidbody2D rigidbody;
+    BoxCollider2D boxCollider2D;
+    private void Awake()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
+    }
+    private void OnEnable()
+    {
+        rigidbody.gravityScale = 1;
+        isGround = false;
+    }
     void DestroyItembyTime()
     {
-        if(this.gameObject != null)
+        if (this.gameObject != null && gameObject.activeSelf != false)
+        {
             ReleaseObject();
+        }
     }
 
     bool isGround = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Ground"|| collision.transform.tag == "Wall")
+        if (collision.transform.tag == "Ground"|| collision.transform.tag == "Wall" || collision.transform.tag == "InGroundPlayer")
         {
-            Rigidbody2D rigidbody = this.GetComponent<Rigidbody2D>();
             rigidbody.velocity = Vector2.zero;
             rigidbody.gravityScale = 0;
-            BoxCollider2D boxCollider2D = this.GetComponent<BoxCollider2D>();
-            boxCollider2D.isTrigger = true;
-
+            //boxCollider2D.isTrigger = true;
             this.gameObject.layer = 1;
             Invoke("GroundCheckOn", 0.1f);
         }
@@ -57,8 +67,11 @@ public class DropItemCheck : PoolAble
         {
             if(InventoryManager.instance.CheckBoxCanCreatAll() == true || InventoryManager.instance.OnlyCheckStack(name) == true)
             {
+                if (this.gameObject != null && gameObject.activeSelf != false)
+                {
+                    ReleaseObject();
+                }
                 InventoryManager.instance.CreatItem(name);
-                ReleaseObject();
             }
         }
     }
