@@ -41,7 +41,15 @@ public class DropItemCheck : PoolAble
     {
         if (this.gameObject != null && gameObject.activeSelf != false)
         {
-            ReleaseObject();
+            if (pool.CountInactive == 0)
+            {
+                Destroy(gameObject);
+
+            }
+            else
+            {
+                ReleaseObject();
+            }
         }
     }
 
@@ -69,7 +77,15 @@ public class DropItemCheck : PoolAble
             {
                 if (this.gameObject != null && gameObject.activeSelf != false)
                 {
-                    ReleaseObject();
+                    if (pool.CountInactive == 0)
+                    {
+                        Destroy(gameObject);
+
+                    }
+                    else
+                    {
+                        ReleaseObject();
+                    }
                 }
                 InventoryManager.instance.CreatItem(name);
             }

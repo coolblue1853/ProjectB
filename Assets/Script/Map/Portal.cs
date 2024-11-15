@@ -7,8 +7,10 @@ public class Portal : MonoBehaviour
     KeyAction action;
     InputAction upAction;
     public Transform destination; // 포탈의 목적지
-    public GameObject CloseMap;
-    public GameObject OpenMap;
+    public GameObject closeMap;
+    private PoolCheck closeMapCheck;
+    public GameObject openMap;
+    private PoolCheck openMapCheck;
     public ProCamera2D proCamera;
     bool isMapChange = true;
     public GameObject player;
@@ -24,6 +26,8 @@ public class Portal : MonoBehaviour
     {
         action = new KeyAction();
         upAction = action.UI.UPInventory;
+        openMapCheck = openMap.GetComponent<PoolCheck>();
+        closeMapCheck = closeMap.GetComponent<PoolCheck>();
     }
     private void Update()
     {
@@ -33,8 +37,8 @@ public class Portal : MonoBehaviour
             Debug.Log("포탈작동");
             DatabaseManager.isUsePortal = true;
             Sequence seq = DOTween.Sequence()
-           .AppendCallback(() => OpenMap.SetActive(true))
-           .AppendCallback(() => CloseMap.SetActive(false))
+           .AppendCallback(() => AbleOpenMap())
+           .AppendCallback(() => AbleCloseMap())
        //    .AppendCallback(() => player.transform.position = destination.position)
            .AppendCallback(() => proCamera.CenterOnTargets())
            .AppendInterval(1f)
@@ -54,23 +58,23 @@ public class Portal : MonoBehaviour
 
 
     }
-    private void OnTriggerStay2D(Collider2D collision)
+
+
+    void AbleOpenMap()
     {
-
-        // 충돌한 오브젝트가 Player 태그를 가지고 있다면
-        if (collision.transform.tag == "Player")
-        {
-
-
-
-
-         ;
-            
-            // 목적지로 이동
-          
-        }
+        openMap.SetActive(true);
+        if (openMapCheck != null)
+            openMapCheck.AbleSpwaner();
     }
+    void AbleCloseMap()
+    {
+        closeMap.SetActive(false);
+        if(closeMapCheck != null)
+        {
+            closeMapCheck.DisableSpwaner();
+        }
 
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

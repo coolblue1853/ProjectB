@@ -29,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
     public bool isRandSpawn = true;
 
     public bool isInPlayer = false;
+    List<GameObject> nowActiveList = new List<GameObject>();
     private void OnTriggerStay2D(Collider2D collision)
     {
      if(collision.tag == "Player"&& isInPlayer == false)
@@ -55,8 +56,11 @@ public class EnemySpawner : MonoBehaviour
     }
     private void Awake()
     {
+      dropManager = this.GetComponent<DropManager>();
+    }
+    private void OnEnable()
+    {
         Init();
-        dropManager = this.GetComponent<DropManager>();
     }
     // 오브젝트풀 매니저 준비 완료표시
     public bool isReady { get; private set; }
@@ -80,7 +84,6 @@ public class EnemySpawner : MonoBehaviour
         {
             IObjectPool<GameObject> pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
             OnDestroyPoolObject, true, objectInfos[idx].count, objectInfos[idx].count);
-
             if (newPoolDict.ContainsKey(objectInfos[idx].objectName))
                 return;
 
@@ -131,7 +134,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (newPoolDict.ContainsKey(goName) == false)
         {
-            Debug.LogFormat("{0} 오브젝트풀에 등록되지 않은 오브젝트입니다.", goName);
+            Debug.LogFormat(this.name+":"+"{0} 오브젝트풀에 등록되지 않은 오브젝트입니다.", goName);
             return null;
         }
 
@@ -168,10 +171,6 @@ public class EnemySpawner : MonoBehaviour
 
     void CycleCheck()
     {
-        if (isPoolCleared)
-        {
-            return;
-        }
         for (int i = 0; i < enemyCount; i++)
         {
             if (enemySlot[i] == null)
@@ -226,6 +225,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+
         if (isInPlayer == true)
         {
             once = false;
@@ -270,16 +270,83 @@ public class EnemySpawner : MonoBehaviour
     }
     bool isPoolCleared = false; // 초기화 시 false로 설정
 
-public void ClearAllPools()
-{
-    foreach (var pool in ojbectPoolDict.Values)
+    public void ClearAllPools()
     {
-        pool.Clear(); // 각 풀을 비움
+        CancelInvoke("CycleCheck");
+        activeOnce = true;
+        // 1단계: 모든 활성화된 오브젝트를 풀로 반환하고 비활성화
+        foreach (var poolEntry in ojbectPoolDict)
+        {
+            var pool = poolEntry.Value as ObjectPool<GameObject>; // ObjectPool로 캐스팅
+
+            if (pool != null)
+            {
+                // 활성화된 오브젝트를 풀로 반환
+                while (pool.CountActive > 0)
+                {
+                    GameObject activeObj = pool.Get(); // 활성화된 오브젝트 가져오기
+                    if (activeObj != null)
+                    {
+                        PoolAble poolAble = activeObj.GetComponent<PoolAble>();
+                        if (poolAble != null)
+                        {
+                            poolAble.pool.Release(activeObj); // 활성화된 오브젝트를 풀에 반환
+                            activeObj.SetActive(false); // 비활성화
+                        }
+                    }
+                }
+            }
+        }
+
+        // 2단계: 적 오브젝트를 모두 릴리즈
+        for (int i = 0; i < enemyCount; i++)
+        {
+            if (enemySlot[i] != null)
+            {
+                EnemyHealth enemyHealth = enemySlot[i].GetComponent<EnemyHealth>();
+                enemyHealth.ForceEnemyRelease(); // 적 오브젝트 강제 릴리즈
+            }
+        }
+
+        GameObject deadBodyObject = GetOb("dead"); // "dead" 오브젝트를 풀에서 가져옴
+        if (deadBodyObject != null)
+        {
+            PoolAble poolAble = deadBodyObject.GetComponent<PoolAble>();
+            if (poolAble != null)
+            {
+                poolAble.pool.Release(deadBodyObject); // 풀로 반환
+                deadBodyObject.SetActive(false); // 비활성화
+            }
+        }
+
+        // 3단계: 모든 풀을 클리어
+        foreach (var poolEntry in ojbectPoolDict)
+        {
+            var pool = poolEntry.Value as ObjectPool<GameObject>; // ObjectPool로 캐스팅
+
+            if (pool != null)
+            {
+                // 풀에 비활성화된 오브젝트 삭제
+                while (pool.CountInactive > 0)
+                {
+                    GameObject inactiveObj = pool.Get(); // 비활성화된 오브젝트 가져오기
+                    if (inactiveObj != null)
+                    {
+                        Destroy(inactiveObj); // 비활성화된 오브젝트 삭제
+                    }
+                }
+
+                // 풀 상태 초기화
+                pool.Clear();
+            }
+        }
+
+        // 4단계: 딕셔너리 초기화
+        ojbectPoolDict.Clear();
+        newPoolDict.Clear();
+
     }
 
-    ojbectPoolDict.Clear(); // 딕셔너리도 비워줍니다.
-    newPoolDict.Clear();         // goDic도 비워줍니다.
-    isPoolCleared = true;  // 오브젝트 풀이 비워졌음을 표시
-}
+
 
 }

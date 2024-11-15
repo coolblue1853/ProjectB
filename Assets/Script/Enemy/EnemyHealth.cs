@@ -233,7 +233,15 @@ public class EnemyHealth : PoolAble
         if (nowHP <= 0 && deadOnec == false)
         {
             deadOnec = true;
-            ReleaseEnemy();
+            if (pool.CountInactive == 0)
+            {
+                Destroy(gameObject);
+
+            }
+            else
+            {
+                ReleaseObject();
+            }
         }
 
         if(isSuperArmor == false)
@@ -286,7 +294,15 @@ public class EnemyHealth : PoolAble
         if (nowHP <= 0 && deadOnec == false)
         {
             deadOnec = true;
-            ReleaseEnemy();
+            if (pool.CountInactive == 0)
+            {
+                Destroy(gameObject);
+
+            }
+            else
+            {
+                ReleaseObject();
+            }
         }
 
 
@@ -304,7 +320,15 @@ public class EnemyHealth : PoolAble
                 Destroy(damagedBar.gameObject);
         }
         hpBar.damagedBars.Clear(); // 리스트 초기화
-        ReleaseObject();
+        if (pool.CountInactive == 0)
+        {
+            Destroy(gameObject);
+
+        }
+        else
+        {
+            ReleaseObject();
+        }
     }
     public bool isAttackGround;
 
@@ -468,6 +492,10 @@ public class EnemyHealth : PoolAble
     }
 
    public  bool canDisapear = true;
+    public void ForceEnemyRelease()
+    {
+        ReleaseObject();
+    }
     public void DisaperByTime()
     {
         if(this.gameObject.activeSelf != false)

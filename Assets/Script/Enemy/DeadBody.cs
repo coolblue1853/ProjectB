@@ -53,7 +53,15 @@ public class DeadBody : PoolAble
         }
         if(this.gameObject.activeSelf != false)
         {
-            ReleaseObject();
+            if (pool.CountInactive == 0)
+            {
+                Destroy(gameObject);
+
+            }
+            else
+            {
+                ReleaseObject();
+            }
         }
        
     }

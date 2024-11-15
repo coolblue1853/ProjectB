@@ -16,6 +16,10 @@ public class DropManager : MonoBehaviour
 
 
     }
+    private void OnEnable()
+    {
+        Init();
+    }
 
     public LayerMask collisionLayer; // 충돌 체크를 위한 레이어
     public GameObject itemPrefab;
@@ -32,10 +36,7 @@ public class DropManager : MonoBehaviour
 
     [SerializeField]
     private DropItem[] dropItems;
-    private void Awake()
-    {
-        Init();
-    }
+
 
     public bool isReady { get; private set; }
 
@@ -169,5 +170,22 @@ public class DropManager : MonoBehaviour
             }
         }
     }
+    public void ClearAll()
+    {
+        foreach (var pool in ojbectPoolDic.Values)
+        {
+            // ObjectPool의 내부 상태를 직접적으로 관리할 수 없으므로, 
+            // 직접 오브젝트를 반환하거나 삭제하는 방식으로 처리합니다.
+
+            // 풀에 있는 모든 오브젝트를 순차적으로 반환합니다.
+            pool.Clear();  // 풀을 비웁니다.
+
+            // 추가적으로 필요한 경우 모든 오브젝트를 파괴할 수도 있습니다.
+            // 이 경우 해당 오브젝트가 존재할 때, 모든 오브젝트를 파괴하는 코드도 필요합니다.
+        }
+        goDic.Clear();
+        ojbectPoolDic.Clear();
+    }
+
 
 }
