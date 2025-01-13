@@ -103,7 +103,7 @@ MonoBehaviour:
   skillName: 
   dmgRatio: 1
   ShakeTime: 0.15
-  isSkill: 0
+  isSkill: 1
   isDestroyByTime: 1
   holdingTime: 0.5
   hitCount: 1
@@ -148,9 +148,6 @@ MonoBehaviour:
   absorbPivot: {fileID: 0}
   absorbPower: 0
   absorbDir: {x: 0, y: 0}
-  isShortTime: 0
-  disEffectbyTime: 0
-  maxDamagedEnemies: 1
   isPosionAttack: 0
   poisonDamage: 0
   damageInterval: 0
@@ -163,6 +160,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   enemyTag: Enemy
+  isShortTime: 0
+  disEffectbyTime: 0
+  maxDamagedEnemies: 1
 --- !u!61 &1919266265150216554
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -135,6 +135,7 @@ public class EnemyHealth : PoolAble
 
 
         isCrit = false;
+        if (damage.Length < 2) return 0;
         float baseDmg = UnityEngine.Random.Range(damage[0]+DatabaseManager.addbasicDmg, damage[1]+DatabaseManager.addbasicDmg);
         int checkCrit = UnityEngine.Random.Range(1, 101);
 

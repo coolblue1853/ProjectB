@@ -661,6 +661,7 @@ public class Chest : MonoBehaviour
     {
         SaveChest();
         chestOb.SetActive(false);
+        InventoryManager.instance.state = "chestOpen";
     }
     public void CreatItem(string itemName)
     {
