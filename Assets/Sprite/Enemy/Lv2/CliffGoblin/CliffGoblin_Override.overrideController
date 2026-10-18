@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CliffGoblin_Override
+  m_Controller: {fileID: 9100000, guid: 9172e96d40f29c94ea657e5002af8979, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: ec808b2a213f7bd409dec6ab698d96b5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bc8bdcb4ee998b04d9d2b4a47f93e4b4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2676fbc67e7261f46a69f0cb20240b31, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d8c89ce5e1bc456478420372db727174, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 569c2cd48e4325346bac5cd9812bef50, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3ca00f0cbeb6c704e916b56c6cd6337b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b6948d12b15431c4aaedccbce78f9917, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e01a3625463eb7d47b874c6fd6c57b1a, type: 2}

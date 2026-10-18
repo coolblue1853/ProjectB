@@ -69,3 +69,20 @@
 | F2 | 텍스처 압축/아틀라스 경고 정리 (도트는 Point + 무압축) | ⏳ |
 | F3 | 오타 이름 정리(FormerlySerializedAs) | ⏳ |
 | F4 | EditMode 테스트: 데미지 공식 ✅, 세트 판정, 인벤토리 스택 (Unity Test Framework, `Assets/Editor/Tests`) | 🔶 |
+
+## G. 보유 에셋 실사용 완성 (임포트에서 끝내지 않는다 — 사용자 요청 2026-10-18)
+
+| # | 에셋 | 사용 단계 | 상태 |
+|---|---|---|---|
+| G1 | All In 1 Sprite Shader | 피격 플래시·디졸브·드롭 등급 외곽선 | ✅ |
+| G2 | 음악팩 2종 | 상황별 BGM(마을/필드/밤/보스), 보스 처치 승리 팡파레 | 🔶 (팡파레 ⏳) |
+| G3 | Monsters Creatures Fantasy / Evil Wizard 2 / Bringer | Lv2 몬스터·엘리트·보스 프리팹(`Editor/Dev/MonsterBuilder`) | 🔶 Goblin ✅ |
+| G4 | Magic Cliffs | Lv2 맵 타일·패럴랙스 | ⏳ |
+| G5 | Odin Inspector | 데이터 편집 창(ItemSheet/SetItem CSV 브라우저·검증), 신규 컴포넌트 인스펙터 정리 | ⏳ |
+| G6 | 8-Bit Sfx / Frost Mage SFX / SoundBits | 타격·치명·처치·픽업·레벨·UI 효과음 → MasterAudio 그룹 + HitFeedback 연결 | ⏳ |
+| G7 | Free Pixel Font Thaleah | 데미지 숫자·영문 UI 픽셀 폰트(TMP 아틀라스 Point) | ⏳ |
+| G8 | Magic Slashes FX / Particle Pack | 스킬·평타 적중 이펙트, 드롭 빛 기둥·먼지 | ⏳ |
+| G9 | Text Animator | 픽업 로그·대사·희귀 드롭 텍스트 연출 | ⏳ |
+| G10 | RPG Monsters Icon | 몬스터 도감·픽업 로그·보스 HP바 초상 | ⏳ |
+| G11 | Quest Machine (+Dialogue System) | 마을 NPC 퀘스트(사냥·수집·제작) | ⏳ |
+| G12 | Feel | (보류) 스킬별 연출이 필요해지면 MMF_Player | 보류 |

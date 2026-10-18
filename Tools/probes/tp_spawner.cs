@@ -3,7 +3,7 @@ var key = "__KEY__";
 var pc = UnityEngine.Object.FindFirstObjectByType<PlayerController>();
 foreach (var sp in UnityEngine.Object.FindObjectsByType<EnemySpawner>(FindObjectsInactive.Exclude))
 {
-    if (sp.name.IndexOf(key, System.StringComparison.OrdinalIgnoreCase) < 0) continue;
+    if (key.StartsWith("=") ? sp.name != key.Substring(1) : sp.name.IndexOf(key, System.StringComparison.OrdinalIgnoreCase) < 0) continue;
     var col = sp.GetComponent<Collider2D>();
     var p = col != null ? (Vector3)col.bounds.center : sp.transform.position;
     pc.transform.position = new Vector3(p.x, p.y, 0);
