@@ -11,6 +11,9 @@ public class TalkNpc : MonoBehaviour
 {
     [SerializeField] private string _conversation = StoryDialogues.Elder;
     [SerializeField] private float _promptHeight = 1.9f;
+    [Tooltip("대사창 초상 (대화 상대 Actor 이름과 함께)")]
+    [SerializeField] private Sprite _portrait;
+    [SerializeField] private string _actorName;
 
     KeyAction action;
     TextMeshPro prompt;
@@ -70,6 +73,10 @@ public class TalkNpc : MonoBehaviour
         if (canTalk && action.UI.Up.triggered)
         {
             FacePlayer();
+            if (_portrait != null && !string.IsNullOrEmpty(_actorName))
+            {
+                StoryDialogues.SetPortrait(_actorName, _portrait);
+            }
             DialogueBoot.Talk(_conversation, transform);
         }
     }
@@ -82,8 +89,8 @@ public class TalkNpc : MonoBehaviour
         }
         float dx = PlayerController.instance.transform.position.x - transform.position.x;
         Vector3 s = transform.localScale;
-        // SPUM 유닛은 기본이 왼쪽을 본다 → 플레이어가 오른쪽이면 x 를 음수로
-        s.x = Mathf.Abs(s.x) * (dx > 0f ? -1f : 1f);
+        // 마을 NPC 도트는 정면을 본다 → 왼쪽(-) / 오른쪽(+) 으로만 뒤집는다(오른쪽이 기본)
+        s.x = Mathf.Abs(s.x) * (dx >= 0f ? 1f : -1f);
         transform.localScale = s;
         // 프롬프트 글자는 뒤집히지 않게
         Vector3 ps = prompt.transform.localScale;
