@@ -5,6 +5,7 @@ var old = root.transform.Find("WispGlow"); if (old != null) UnityEngine.Object.D
 var go = new GameObject("WispGlow"); go.transform.SetParent(root.transform, false);
 var l = go.AddComponent<UnityEngine.Rendering.Universal.Light2D>();
 l.lightType = UnityEngine.Rendering.Universal.Light2D.LightType.Point;
+l.shadowsEnabled = false; { var lso = new SerializedObject(l); lso.FindProperty("m_NormalMapQuality").intValue = (int)UnityEngine.Rendering.Universal.Light2D.NormalMapQuality.Disabled; lso.ApplyModifiedPropertiesWithoutUndo(); }
 l.color = new Color(0.45f, 0.75f, 1f); l.intensity = 1.6f; l.pointLightOuterRadius = 3.5f; l.pointLightInnerRadius = 0.3f;
 PrefabUtility.SaveAsPrefabAsset(root, path); PrefabUtility.UnloadPrefabContents(root);
 return "glow added";

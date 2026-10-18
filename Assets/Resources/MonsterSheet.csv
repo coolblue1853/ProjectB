@@ -17,3 +17,8 @@ ForestWolf_BD,Forest Wolf,1,Normal Forest,140,3,0,0,-1.2,,,pack hunter (gen_fore
 WildBoar_BD,Wild Boar,1,Normal Forest,220,6,0,0,-1.2,,,charge (gen_forest_mobs)
 Wisp_BD,Wisp,1,Normal Forest (night),90,2,0,0,-1.2,,,night (gen_forest_mobs)
 ForestSnail_BD,Forest Snail,1,Normal Forest (night),180,10,0,0,-1.0,,,night tank (gen_forest_mobs)
+ForestBear_BD,Forest Bear,1,Deep Forest,400,8,0,0,-1.2,,,heavy claw (gen_deep_forest_mobs)
+Ent_BD,Ent,1,Deep Forest,500,10,0,0,-1.2,,,slow root tank (gen_deep_forest_mobs)
+Ghost_BD,Ghost,1,Deep Forest (night),160,4,0,0,-1.2,,,night translucent (gen_deep_forest_mobs)
+Fairy_BD,Fairy,1,Deep Forest (night),110,3,0,0,-1.0,,,night small glow (gen_deep_forest_mobs)
+AncientEnt_BD,Ancient Ent,1,Deep Forest (boss),6000,18,1,1,0,,,zone boss (gen_deep_forest_mobs)
