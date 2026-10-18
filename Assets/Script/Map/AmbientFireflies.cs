@@ -41,7 +41,7 @@ public class AmbientFireflies : MonoBehaviour
         emission.rateOverTime = 14f;
         var shape = ps.shape;
         shape.shapeType = ParticleSystemShapeType.Box;
-        shape.scale = new Vector3(44f, Mathf.Max(4f, area.size.y * 0.6f), 0.1f); // 화면 폭 정도, 플레이어를 따라감
+        shape.scale = new Vector3(44f, 9f, 0.1f); // 화면 폭 정도, 플레이어를 따라감 (높이 띠 9)
         areaY = area.center.y;
         var vel = ps.velocityOverLifetime;
         vel.enabled = true;
@@ -61,14 +61,15 @@ public class AmbientFireflies : MonoBehaviour
         col.color = grad;
         var r = GetComponent<ParticleSystemRenderer>();
         r.sharedMaterial = Resources.Load<Material>("FX/M_PixelFx");
-        r.sortingOrder = 60;
+        r.sortingOrder = 400; // 밤 어둠 처리 위에 보이도록
     }
 
     void Update()
     {
         if (PlayerController.instance != null)
         {
-            transform.position = new Vector3(PlayerController.instance.transform.position.x, areaY, 0f);
+            Vector3 pp = PlayerController.instance.transform.position;
+            transform.position = new Vector3(pp.x, pp.y + 3.5f, 0f); // 플레이어 머리 위 띠
         }
         if (Time.time < nextCheck)
         {
