@@ -136,6 +136,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        PlayerStatus.Tick(); // 시간 만료 토큰(대시 무적 등) 해제
        if (verticalInput == 0 && states != "move" && isUpLadder ==true && isAttackAnim == false)
         {
             mainCharacter.Play("RopeStay");
@@ -524,14 +525,13 @@ public class PlayerController : MonoBehaviour
     void Dash()
     {
         MasterAudio.PlaySound("Dash");
-        BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
         if (isAttackAnim == false)
         {
             mainCharacter.Play("Dash");
 
         }
-        DatabaseManager.isInvincibility = true;
-        Invoke("EndInvincible", dashDuration);
+        // 대시 무적은 자기 토큰으로: 끝나도 다른 출처(스킬 대시 등)의 무적을 끄지 않는다 (B-114 C1)
+        PlayerStatus.AcquireFor(StatusFlag.Invincible, dashDuration, "Dash");
         boxColliderTrue = false;
         PlayerHealthManager.Instance.SteminaDown(dashStemina);
         states = "dash";
@@ -557,13 +557,12 @@ public class PlayerController : MonoBehaviour
         DatabaseManager.weaponStopMove = false;
         states = "dash";
         Debug.Log("대쉬공격");
-        if(isDashInvins == true)
+        // 스킬 대시 무적·슈퍼아머도 시간 만료 토큰. 연속 스킬 대시로 시퀀스가 Kill돼도 반드시 풀린다 (B-114 C2, C3)
+        if (isDashInvins == true)
         {
-            DatabaseManager.isInvincibility = true;
+            PlayerStatus.AcquireFor(StatusFlag.Invincible, dashDu, "SkillDash");
         }
-
-        DatabaseManager.isSuperArmor = true;
-        Invoke("EndSuperArmor", dashDu);
+        PlayerStatus.AcquireFor(StatusFlag.SuperArmor, dashDu, "SkillDash");
         boxColliderTrue = false;
         if(isGravity == false)
         {
@@ -586,23 +585,9 @@ public class PlayerController : MonoBehaviour
         .AppendInterval(dashDu) //
         .AppendCallback(() => rb.gravityScale = 3f)
         .AppendCallback(() => rb.linearVelocity = new Vector2(0f, 0f))
-         .AppendCallback(() => EndInvincibility(isDashInvins))
         .AppendCallback(() => states = "move");
     }
 
-    void EndInvincibility(bool isDashInvins)
-    {
-        if (isDashInvins == true) DatabaseManager.isInvincibility = false;
-    }
-
-    void EndSuperArmor()
-    {
-        DatabaseManager.isSuperArmor = false;
-    }
-    void EndInvincible()
-    {
-        DatabaseManager.isInvincibility = false;
-    }
 
     public float wallJumpForce;
     void WallJump()

@@ -166,33 +166,42 @@ public class DamageObject : MonoBehaviour
         }
     }
 
+    System.IDisposable superArmorToken;
+    bool buffActive;
+
     void BuffOn()
     {
+        if (buffActive)
+        {
+            return;
+        }
+        buffActive = true;
         if (addSuperArmor == true)
         {
-            DatabaseManager.isSuperArmor = true;
+            // 자기 토큰: 끝날 때 다른 출처(스킬 대시 등)의 슈퍼아머를 끄지 않는다 (B-114 C3)
+            superArmorToken = PlayerStatus.Acquire(StatusFlag.SuperArmor, name);
         }
         if (holdingBuffEffect == "Def")
         {
             DatabaseManager.playerDef += holdingBuffPower;
-
         }
     }
     void BuffOff()
     {
+        if (!buffActive)
+        {
+            return; // 이중 해제 방지 (Def가 두 번 빠지지 않도록)
+        }
+        buffActive = false;
         if (DatabaseManager.weaponStopMove == true)
         {
             DatabaseManager.weaponStopMove = false;
         }
-        if (addSuperArmor == true)
-        {
-            DatabaseManager.isSuperArmor = false;
-        }
+        superArmorToken?.Dispose();
+        superArmorToken = null;
         if (holdingBuffEffect == "Def")
         {
-            
             DatabaseManager.playerDef -= holdingBuffPower;
-
         }
     }
 
@@ -301,6 +310,7 @@ public class DamageObject : MonoBehaviour
 
     private void OnDestroy()
     {
+        BuffOff(); // 버프 시퀀스가 Kill돼도 슈퍼아머·방어 버프가 남지 않도록
         // Stop any active DOTween sequences when the object is destroyed
         if (sequence != null)
         {

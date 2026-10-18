@@ -12,7 +12,8 @@ public class Item
 }
 public class DatabaseManager : MonoBehaviour
 {
-    public static bool isSuperArmor = false;
+    // 상태 플래그는 PlayerStatus 토큰의 facade다. 대입은 레거시 토큰 1개만 켜고 끈다 (B-114, PlayerStateDesign Phase 1)
+    public static bool isSuperArmor { get => PlayerStatus.Has(StatusFlag.SuperArmor); set => PlayerStatus.SetLegacy(StatusFlag.SuperArmor, value); }
     public static int attackSpeedBuff = 0;
     public static int addbasicDmg = 0;
     public static int SpeedBuff = 0;
@@ -25,10 +26,10 @@ public class DatabaseManager : MonoBehaviour
     public static int bleedingAddDmg = 0; // 출혈시 증뎀
     public static int playerDropRate= 0;
     public static int hitCount = 0; // 공격 오브젝트의 타수
-    public static bool isInvincibility = false;
-    public static bool weaponStopMove = false;
-    public static bool checkAttackLadder = false;
-    public static bool isOpenUI = false;
+    public static bool isInvincibility { get => PlayerStatus.Has(StatusFlag.Invincible); set => PlayerStatus.SetLegacy(StatusFlag.Invincible, value); }
+    public static bool weaponStopMove { get => PlayerStatus.Has(StatusFlag.MoveLock); set => PlayerStatus.SetLegacy(StatusFlag.MoveLock, value); }
+    public static bool checkAttackLadder { get => PlayerStatus.Has(StatusFlag.LadderLock); set => PlayerStatus.SetLegacy(StatusFlag.LadderLock, value); }
+    public static bool isOpenUI { get => PlayerStatus.Has(StatusFlag.InputLock); set => PlayerStatus.SetLegacy(StatusFlag.InputLock, value); }
     public static bool isUsePortal = false;
     public static Dictionary<string, int> inventoryItemStack = new Dictionary<string, int>();
     public static Dictionary<string, int> setsEffectStack = new Dictionary<string, int>();
