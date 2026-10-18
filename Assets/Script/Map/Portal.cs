@@ -62,9 +62,13 @@ public class Portal : MonoBehaviour
     }
 
 
+    /// <summary>맵이 바뀌었을 때(새로 연 맵) — BGM 등에서 구독</summary>
+    public static event System.Action<GameObject> MapChanged;
+
     void AbleOpenMap()
     {
         openMap.SetActive(true);
+        MapChanged?.Invoke(openMap);
         if (openMapCheck != null)
             openMapCheck.AbleSpwaner();
     }

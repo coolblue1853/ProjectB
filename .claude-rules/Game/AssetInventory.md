@@ -61,4 +61,5 @@ FPS Framework, MFPS 2.0, TPS Shooter, Invector TPC, PBR Fighters, Nodachi AnimSe
 
 | 에셋 | 상태 | 커밋 |
 |---|---|---|
+| Fantasy Music Suite 2 / Free Fantasy Adventure Music Pack | ✅ 5곡만 `Assets/ThirdParty/Music` (Vorbis·스트리밍) — 마을 Bogdart's Tavern, 필드 This is Elven Land, 밤 Place of Shadows, 보스 Fury of the Druid, 승리 Final Glorious Triumph | (이번 커밋) |
 | All In 1 Sprite Shader | ✅ 임포트 (`Assets/Plugins/AllIn1SpriteShader`, Demo 제외, 17MB) — 피격 플래시·디졸브·등급 아웃라인용 | (이번 커밋) |

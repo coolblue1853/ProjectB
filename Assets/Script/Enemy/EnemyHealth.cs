@@ -41,6 +41,10 @@ public class EnemyHealth : PoolAble
 
     public DeadBody deadBody;
     public bool isBossMob = false;
+    /// <summary>현재 활성 보스 수 (BGM 전환 등에서 사용)</summary>
+    public static int ActiveBossCount { get; private set; }
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetBossCount() => ActiveBossCount = 0;
 
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
@@ -105,6 +109,10 @@ public class EnemyHealth : PoolAble
         deadOnec = false;
         nowHP = maxHP;
         stiffShakeTime = 0;
+        if (isBossMob)
+        {
+            ActiveBossCount++;
+        }
         bleedStacks = 0;
         isBleeding = false;
         if (behaviorTree != null)
@@ -456,6 +464,10 @@ public class EnemyHealth : PoolAble
 
     private void OnDisable()
     {
+        if (isBossMob)
+        {
+            ActiveBossCount = Mathf.Max(0, ActiveBossCount - 1);
+        }
         // 반환된 뒤에 지연 콜백이 재사용된 개체를 건드리지 않도록 정리
         disappearSequence?.Kill();
         striffSequence?.Kill();
