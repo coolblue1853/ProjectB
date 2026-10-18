@@ -26,21 +26,22 @@ public class TimeChange : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        var keyboard = UnityEngine.InputSystem.Keyboard.current; // 디버그 키(0): 시간 60초 추가 — 레거시 Input 대신 New Input System
+        if (keyboard != null && keyboard.digit0Key.wasPressedThisFrame)
         {
             AddTime(60); //시간 추가
         }
-        
-        if (isTest == false)
+
+        if (isTest == false && totalTime > 0f)
         {
             float elapsedTime = Time.time - startTime;
-            SaveManager.instance.datas.time = elapsedTime;
             if (elapsedTime >= totalTime)
             {
-
-                startTime = Time.time;
-                elapsedTime = 0;
+                // 하루가 넘어가면 넘친 만큼을 남긴다. 0으로 되돌리면 AddTime 으로 하루 끝을 넘긴 시간이 버려져 밤 전환이 낮으로 튄다
+                elapsedTime = Mathf.Repeat(elapsedTime, totalTime);
+                startTime = Time.time - elapsedTime;
             }
+            SaveManager.instance.datas.time = elapsedTime;
 
             progress = elapsedTime / totalTime;
             value = Mathf.Lerp(0, 1, progress);
