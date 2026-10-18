@@ -126,6 +126,8 @@ public class EnemyDamageObject : PoolAble
             {
 
                 this.transform.SetParent(null);
+                // 회전으로 방향을 잡으므로 좌우 반전은 푼다(왼쪽을 보던 몹의 화살이 뒤집혀 날던 문제, ⑤구역 산적 궁수)
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
                 Vector3 direction = (player.transform.position - this.transform.position).normalized;
                 Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
                 rigidbody2D.AddForce(direction * launchForce, ForceMode2D.Impulse);

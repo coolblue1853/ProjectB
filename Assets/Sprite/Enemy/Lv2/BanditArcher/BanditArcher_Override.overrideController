@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BanditArcher_Override
+  m_Controller: {fileID: 9100000, guid: 66cb414af4cfc9c499e3a43bb1582225, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 00c5f23b27175e1488852ae4d153ffb2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 43ce593ae0c071044b1e077337407655, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b8cd23ab777aeab4792c6954b1486c42, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e4ef44c8f881e934d8a80b26c87867a9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c4594db12f09c674a8881d6f6bbf89d9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f658d9855e9e5d04aa37c3c8943ad0d3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 44222c7f6f718e440b9cbedce7cee880, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2839ad7713f9da64cb736b9010bcb371, type: 2}

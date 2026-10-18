@@ -178,8 +178,11 @@ public class EnemyHealth : PoolAble
         Active.Add(this);
         ///isReleased = false;
         nowHP = maxHP;
-        if (wait != null&& wait.IsPlaying() == true)
+        // 이미 끝나 Kill 된 시퀀스에 IsPlaying 을 부르면 DOTween 이 '죽은 트윈' 경고를 남긴다(풀 워밍업 때 다수) → IsActive 로 확인
+        if (wait != null && wait.IsActive())
+        {
             wait.Kill();
+        }
         wait = DOTween.Sequence()
         .AppendInterval(0.3f)
         .AppendCallback(() => canDisapear = true);

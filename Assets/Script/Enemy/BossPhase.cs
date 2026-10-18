@@ -19,6 +19,15 @@ public class BossPhase : MonoBehaviour
     SpriteHitFx fx;
     int phase; // 0 = 1페이즈
 
+    /// <summary>페이즈 상승 시 (보스, 새 페이즈 0-기준). 부하 호출 등 보스별 반응용(BossMinionCall)</summary>
+    public static event System.Action<BossPhase, int> PhaseEntered;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetStatics()
+    {
+        PhaseEntered = null; // 도메인 리로드를 끈 경우 이전 플레이 구독자 정리
+    }
+
     public int Phase => phase;
     public float DamageMultiplier => DamageMul[phase];
 
@@ -70,6 +79,7 @@ public class BossPhase : MonoBehaviour
         {
             phase = target;
             Apply(true);
+            PhaseEntered?.Invoke(this, phase);
         }
     }
 

@@ -354,6 +354,7 @@ public class EnemySpawner : MonoBehaviour
 
             enemyHealth.enemyNum = i;
             enemyHealth.OnReleasedToPool -= OnEnemyReleased; // 중복 등록 방지
+            enemyHealth.OnReleasedToPool -= OnMinionReleased; // 부하로 쓰였던 오브젝트면 부하 경로 해제
             enemyHealth.OnReleasedToPool += OnEnemyReleased;
             enemySlot[i] = enemyObject;
             if (Random.value < eliteChance)
@@ -363,6 +364,52 @@ public class EnemySpawner : MonoBehaviour
             GameLog.Info(GameLog.Cat.Spawn, name + ": 슬롯 " + i + " 스폰 " + enemyObject.name + " @" + enemyObject.transform.position.ToString("F1"), this);
         }
     }
+
+    /// <summary>
+    /// 보스 부하 소환 (BossMinionCall): 슬롯 밖에서 풀 key 몬스터를 꺼내 pos 에 둔다.
+    /// 슬롯 번호는 -1, 드롭 없음, 죽으면 "minionDead" 풀 시체. 몬스터 BT 가 이 스포너 풀에서 공격을 꺼내므로 부하의 공격 키도 이 스포너에 있어야 한다.
+    /// </summary>
+    public GameObject SpawnMinion(string key, Vector3 pos)
+    {
+        if (!pools.ContainsKey(key))
+        {
+            GameLog.Warn(GameLog.Cat.Spawn, name + ": 부하 풀 없음 " + key);
+            return null;
+        }
+        GameObject go = GetOb(key);
+        if (go == null || !go.TryGetComponent(out EnemyHealth enemyHealth))
+        {
+            return go;
+        }
+        enemyHealth.enemySpowner = this;
+        enemyHealth.enemyNum = -1;
+        go.transform.position = pos;
+        enemyHealth.spawnPosition = pos;
+        enemyHealth.hasSpawnPosition = true;
+        enemyHealth.OnReleasedToPool -= OnEnemyReleased;
+        enemyHealth.OnReleasedToPool -= OnMinionReleased;
+        enemyHealth.OnReleasedToPool += OnMinionReleased;
+        GameLog.Info(GameLog.Cat.Spawn, name + ": 부하 소환 " + go.name + " @" + pos.ToString("F1"), this);
+        return go;
+    }
+
+    private void OnMinionReleased(int num, int force, Vector3 pos, bool isDeadBody, bool isDrop)
+    {
+        if (!isDeadBody || !pools.ContainsKey(MinionDeadKey))
+        {
+            return;
+        }
+        GameObject deadbody = GetOb(MinionDeadKey);
+        if (deadbody != null && deadbody.TryGetComponent(out DeadBody body))
+        {
+            deadbody.transform.position = pos;
+            body.Force2DeadBody(force);
+        }
+    }
+
+    /// <summary>보스 부하 풀 키 (BossMinionCall 기본값, build_bandit_fortress.cs 가 같은 이름으로 등록). 부하 BT 의 공격 키(예: "stab")도 같은 스포너에 있어야 한다</summary>
+    public const string MinionKey = "minion";
+    public const string MinionDeadKey = "minionDead";
 
     /// <summary>플레이어가 떠났거나 시간대가 바뀌면 남은 몬스터를 서서히 사라지게 한다.</summary>
     private void DeCycleCheck()

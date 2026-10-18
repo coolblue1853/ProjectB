@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BanditCutthroat_Override
+  m_Controller: {fileID: 9100000, guid: 9172e96d40f29c94ea657e5002af8979, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: ec808b2a213f7bd409dec6ab698d96b5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d97a6e61930fd224cbd8ad123ca59b93, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 569c2cd48e4325346bac5cd9812bef50, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9adb10b6f6c4c694fb8f44c9401834a8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b6948d12b15431c4aaedccbce78f9917, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: dc652402f5cb6af4b91259b23e861ecf, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2676fbc67e7261f46a69f0cb20240b31, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 38368913bbc6d98418efd1fde8764614, type: 2}
