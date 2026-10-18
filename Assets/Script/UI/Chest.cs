@@ -368,7 +368,7 @@ public class Chest : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             // isC2I: 인벤토리에 실제로 넣었을 때만 chest.itemCheck(=itemCheck)를 1 줄인다
-            if (!InventoryManager.instance.CreatItem(itemCheck.itemData.name, true))
+            if (!InventoryManager.instance.CreatItem(itemCheck.itemData.name, true, itemCheck.itemData.Clone()))
             {
                 break;
             }
@@ -474,7 +474,7 @@ public class Chest : MonoBehaviour
 
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
-        if (output > 0 && output < item.nowStack && CreatItemSelected(item.itemData.name, nowBox, output))
+        if (output > 0 && output < item.nowStack && CreatItemSelected(item.itemData.name, nowBox, output, item.itemData))
         {
             item.nowStack -= output; // 새 칸을 만든 경우에만 원본 감소 (B-009)
         }
@@ -652,7 +652,7 @@ public class Chest : MonoBehaviour
         chestOb.SetActive(false);
         InventoryManager.instance.state = "chestOpen";
     }
-    public void CreatItem(string itemName)
+    public void CreatItem(string itemName, ItemData data = null)
     {
         bool isCreate = false;
         if (CheckStack(itemName) == false)
@@ -668,7 +668,7 @@ public class Chest : MonoBehaviour
                         float scaleFactor = 0.8f; // 크기를 조절할 비율
                         item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                         ItemCheck check = item.GetComponent<ItemCheck>();
-                        check.SetItem(itemName);
+                        check.SetItem(itemName, data != null ? data.Clone() : null);
                         inventoryArray[i, nowBox] = 1; // 같은 프레임에 같은 칸에 또 생성되지 않도록
                         isCreate = true;
                         InventoryManager.instance.itemCheck.nowStack -= 1;
@@ -739,7 +739,7 @@ public class Chest : MonoBehaviour
         nowBox = num;
     }
     /// <summary>지정 페이지의 첫 빈칸에 Stack개짜리 아이템을 만든다. 빈칸이 없으면 false(호출자는 원본을 줄이지 말 것).</summary>
-    public bool CreatItemSelected(string itemName, int boxNum, int Stack = 1)
+    public bool CreatItemSelected(string itemName, int boxNum, int Stack = 1, ItemData data = null)
     {
         for (int i = 0; i < (maxHor * maxVer); i++)
         {
@@ -753,7 +753,7 @@ public class Chest : MonoBehaviour
                     ItemCheck check = item.GetComponent<ItemCheck>();
                     float scaleFactor = 0.8f; // 크기를 조절할 비율
                     item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-                    check.SetItem(itemName);
+                    check.SetItem(itemName, data != null ? data.Clone() : null); // 티어·강화 보존 (B-014)
                     check.nowStack = Stack;
                     return true;
                 }
@@ -959,7 +959,7 @@ public class Chest : MonoBehaviour
         {
             if (CheckBoxCanCreat(siblingParentIndex))
             {
-                if (CreatItemSelected(itemCheck.itemData.name, siblingParentIndex, itemCheck.nowStack))
+                if (CreatItemSelected(itemCheck.itemData.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData))
                 {
                     Destroy(item.gameObject);
                 }

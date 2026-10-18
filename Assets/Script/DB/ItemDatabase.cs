@@ -89,6 +89,12 @@ public class ItemDatabase : MonoBehaviour
 
 public class ItemData
 {
+    /// <summary>인스턴스 복사 (티어·강화 등 개체 값 보존용, B-014)</summary>
+    public ItemData Clone()
+    {
+        return (ItemData)MemberwiseClone();
+    }
+
     public int index;
     public string name;
     public string type;

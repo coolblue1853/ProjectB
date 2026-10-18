@@ -47,6 +47,7 @@ ICONS.update({
     "Necklace": ("Green Wreath", 0.15, 0.8, 1.0),
     "Ring": ("Shabby Straw Ring", 0.1, 1.0, 1.0),
     "test4": ("Wood", 0.5, 1.0, 1.0),
+    "Enhance Stone": ("T0_Ore", 0.7, 1.6, 1.3),  # 강화석 (ProgressionDesign 3절)
 })
 
 # 방어구 AnyPortrait 텍스처

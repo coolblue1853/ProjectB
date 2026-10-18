@@ -48,10 +48,23 @@ public class Weapon : MonoBehaviour
 
     public GameObject leftWeqponSprite;
     public GameObject RightWeqponSprite;
+    /// <summary>장착된 아이템의 강화 단계 (EquipBoxCheck.ActivePrefab이 넣어 줌)</summary>
+    [System.NonSerialized] public int enhanceLevel;
+
+    public void SetEnhance(int level)
+    {
+        enhanceLevel = level;
+        if (phm != null)
+        {
+            SetDmgArray();
+        }
+    }
+
     void SetDmgArray()
     {
-        damgeArray[0] = minDmg;
-        damgeArray[1] = maxDmg;
+        float mul = EnhanceRules.WeaponMultiplier(enhanceLevel);
+        damgeArray[0] = Mathf.RoundToInt(minDmg * mul);
+        damgeArray[1] = Mathf.RoundToInt(maxDmg * mul);
         damgeArray[2] = critPer;
         damgeArray[3] = critDmg;
         damgeArray[4] = incDmg;

@@ -21,7 +21,7 @@
 |---|---|---|
 | B-008 | 창고→인벤(인벤 가득) 이중 차감·공짜 1개 (P0) | ✅ C2IMove 단일 경로 — 프로브 c2i_full_p1/p2 |
 | B-009 | 나누기 시 빈칸 없으면 수량 소실 (P0) | ✅ 생성 성공 시에만 원본 감소 |
-| B-010~015 | 칸 겹침 ✅, Neckles 오타 ✅, 장비 드래그 교환 ⏳, 페이지탭 드롭 ⏳, 티어·강화 소실 ⏳(모델 리팩터), 강제종료 복제 ✅(이동 시 양쪽 저장) (P1) | 🔶 |
+| B-010~015 | 칸 겹침 ✅, Neckles 오타 ✅, 장비 드래그 교환 ⏳, 페이지탭 드롭 ⏳, 티어·강화 소실 ✅(이동·나누기·해제·창고 경로에 ItemData 복사 전달, 스택 병합은 이름 비교 유지), 강제종료 복제 ✅(이동 시 양쪽 저장) (P1) | 🔶 |
 | B-016~023 | 툴팁 부호, Resources.Load null, 외상 구매, 우선순위, int.Parse, 디버그 F키, 과도한 저장, name 가림 (P2~P3) | ⏳ |
 
 ## P1
@@ -58,6 +58,7 @@
 | B-209 | CSV 파서: 빈 줄·따옴표 미처리, placeholder 행 로드 | `ItemDatabase.cs` |
 | B-210 | `new SetItem()`(MonoBehaviour new) | DatabaseManager, InventoryManager |
 | B-211 | 코드 생성 머티리얼이 `Shader.Find`(Sprites/Default, Legacy Particles/Additive)에 의존 → 빌드에서 셰이더가 빠질 수 있음. Always Included 등록 또는 Resources 머티리얼로 교체 필요 | `EmitParticles`, `DropLightPillar` |
+| B-212 | ✅ 방어구 `armor`가 `playerDef`에 더해지지 않던 문제 → `EquipBoxCheck.SetEquipment`에서 `armor × 강화배율 × 0.5(Equipment.ArmorToDef)` 적용. 비율은 몬스터 공격력 조정(Lv2 튜닝)과 함께 재검토 | `EquipBoxCheck.cs`, `Equipment.cs` |
 
 ## P3 (정리)
 

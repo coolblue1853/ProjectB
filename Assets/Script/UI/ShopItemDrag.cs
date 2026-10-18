@@ -200,7 +200,7 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 {
                     if (InventoryManager.instance.CheckBoxCanCreat(siblingParentIndex))
                     {
-                        InventoryManager.instance.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
+                        InventoryManager.instance.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData);
                         Destroy(this.gameObject);
                     }
                 }
@@ -228,7 +228,7 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 {
                     if (InventoryManager.instance.chest.CheckBoxCanCreat(siblingParentIndex))
                     {
-                        InventoryManager.instance.chest.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
+                        InventoryManager.instance.chest.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData);
                         Destroy(this.gameObject);
                     }
                 }

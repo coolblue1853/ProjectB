@@ -107,9 +107,11 @@ public class EquipBoxCheck : MonoBehaviour
             ItemCheck obItemCheck = ob.GetComponent<ItemCheck>();
            LoadPrefab(obItemCheck.itemData.name, obItemCheck.itemData.equipArea, obItemCheck.itemData.tfName);
         }
+        int enhance = transform.childCount > 0 && transform.GetChild(0).TryGetComponent(out ItemCheck slotItem) && slotItem.itemData != null ? slotItem.itemData.upgrade : 0;
         if (reciveEquipArea == "Weapon" && weapon == null) // 무기는 Weapon 스크립트를 사용하므로 예외
         {
              weapon = equipPrefab.GetComponent<Weapon>();
+            weapon.SetEnhance(enhance);
             attackManager.equipWeapon = weapon;
             attackManager.EquipMainWeaopon();
         }
@@ -118,6 +120,7 @@ public class EquipBoxCheck : MonoBehaviour
             if (equipmentList[equipNum] == null)
             {
                 equipmentList[equipNum] = equipPrefab.GetComponent<Equipment>();
+                equipmentList[equipNum].enhanceLevel = enhance;
                 SetEquipment(equipmentList[equipNum]);
             }
         }
@@ -155,8 +158,14 @@ public class EquipBoxCheck : MonoBehaviour
         DatabaseManager.SpeedBuff += equip.moveSpeed;
         DatabaseManager.attackSpeedBuff += equip.attSpeed;
         DatabaseManager.playerCritDmgRate += equip.criticalDmg;
-        DatabaseManager.addbasicDmg += equip.basicDmg;
-        PlayerHealthManager.Instance.EquipmentActiveTrue(equip.hp);
+        // 강화 배율을 적용한 값을 기록해 두고 해제 때 그대로 뺀다 (대칭 보장)
+        equip.appliedBasicDmg = equip.Enhanced(equip.basicDmg);
+        equip.appliedHp = equip.Enhanced(equip.hp);
+        equip.appliedArmor = Mathf.RoundToInt(equip.Enhanced(equip.armor) * Equipment.ArmorToDef);
+        DatabaseManager.addbasicDmg += equip.appliedBasicDmg;
+        DatabaseManager.playerDef += equip.appliedArmor; // 방어구 방어력이 툴팁에만 있고 적용되지 않던 문제 (B-212)
+        PlayerHealthManager.Instance.EquipmentActiveTrue(equip.appliedHp);
+        GameLog.Info(GameLog.Cat.Item, "장비 적용 " + equip.name + " +" + equip.enhanceLevel + " hp=" + equip.appliedHp + " def=" + equip.appliedArmor + " atk=" + equip.appliedBasicDmg);
         DatabaseManager.bleedingAddDmg += equip.bleedingDmgPer;
         DatabaseManager.incIncomingDmg += equip.addIncomingDmg;
         DatabaseManager.incDmg += equip.incDmg;
@@ -177,8 +186,10 @@ public class EquipBoxCheck : MonoBehaviour
         DatabaseManager.SpeedBuff -= equip.moveSpeed;
         DatabaseManager.attackSpeedBuff -= equip.attSpeed;
         DatabaseManager.playerCritDmgRate -= equip.criticalDmg;
-        DatabaseManager.addbasicDmg -= equip.basicDmg;
-        PlayerHealthManager.Instance.EquipmentActiveFalse(equip.hp);
+        DatabaseManager.addbasicDmg -= equip.appliedBasicDmg;
+        DatabaseManager.playerDef -= equip.appliedArmor;
+        PlayerHealthManager.Instance.EquipmentActiveFalse(equip.appliedHp);
+        equip.appliedBasicDmg = equip.appliedHp = equip.appliedArmor = 0;
         DatabaseManager.bleedingAddDmg -= equip.bleedingDmgPer;
         DatabaseManager.incIncomingDmg -= equip.addIncomingDmg;
         DatabaseManager.incDmg -= equip.incDmg;

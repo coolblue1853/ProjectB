@@ -5,23 +5,26 @@ using UnityEngine.InputSystem;
 public class WeaponSmithUI : MonoBehaviour
 {
     KeyAction action;
-    InputAction upAction;
+    InputAction upAction, downAction;
     public CraftingManager craftWeapon;
     public bool isShopClose;
     private void OnEnable()
     {
         upAction.Enable();
+        downAction.Enable();
     }
 
 
     private void OnDisable()
     {
         upAction.Disable();
+        downAction.Disable();
     }
     private void Awake()
     {
         action = new KeyAction();
         upAction = action.UI.Up;
+        downAction = action.UI.DownInventory; // ↓ = 강화 창 (ProgressionDesign 3절)
     }
     // Start is called before the first frame update
 
@@ -45,6 +48,10 @@ public class WeaponSmithUI : MonoBehaviour
         if (isShopClose == true && upAction.triggered && DatabaseManager.isOpenUI == false)
         {
             craftWeapon.WeaponOpen();
+        }
+        else if (isShopClose == true && downAction.triggered && DatabaseManager.isOpenUI == false)
+        {
+            EnhanceWindow.Open();
         }
     }
 }

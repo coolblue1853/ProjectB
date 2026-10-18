@@ -294,7 +294,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (CheckBoxCanCreat(siblingParentIndex))
             {
-                if (CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack))
+                if (CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData))
                 {
                     Destroy(item.gameObject);
                 }
@@ -319,7 +319,7 @@ public class InventoryManager : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                 int before = itemCheck.nowStack;
-                chest.CreatItem(itemCheck.name); // 성공하면 itemCheck.nowStack이 1 줄어든다
+                chest.CreatItem(itemCheck.name, itemCheck.itemData); // 성공하면 itemCheck.nowStack이 1 줄어든다
                 if (itemCheck.nowStack == before)
                 {
                     break; // 창고가 가득 참
@@ -372,7 +372,7 @@ public class InventoryManager : MonoBehaviour
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
         // 새 칸을 만든 경우에만 원본을 줄인다 (빈칸이 없으면 나눈 수량이 사라지던 문제, B-009)
-        if (output > 0 && output < item.nowStack && CreatItemSelected(item.name, nowBox, output))
+        if (output > 0 && output < item.nowStack && CreatItemSelected(item.name, nowBox, output, item.itemData))
         {
             item.nowStack -= output;
         }
@@ -820,7 +820,7 @@ public class InventoryManager : MonoBehaviour
             Sequence waitSequence = DOTween.Sequence()
             .OnComplete(() => equipBoxCheck.DeletPrefab(detail, detail.itemData.equipArea, false));
             equipBoxCheck.SaveEquipItem(detail, false);
-            CreatItem(detail.name);
+            CreatItem(detail.name, false, detail.itemData.Clone()); // 해제 시 강화 유지 (B-014)
         }
     }
     void LoadEquipItem()
@@ -1972,7 +1972,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
     /// <summary>인벤토리(창고·장비 제외)에 실제로 놓인 아이템 슬롯을 모두 순회한다.</summary>
-    IEnumerable<ItemCheck> EnumerateInventoryItems()
+    public IEnumerable<ItemCheck> EnumerateInventoryItems()
     {
         for (int j = 0; j < 5; j++)
         {
@@ -2127,7 +2127,7 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
     /// <summary>지정 페이지의 첫 빈칸에 Stack개짜리 아이템을 만든다. 빈칸이 없으면 false(호출자는 원본을 줄이지 말 것).</summary>
-    public bool CreatItemSelected(string itemName, int boxNum, int Stack = 1)
+    public bool CreatItemSelected(string itemName, int boxNum, int Stack = 1, ItemData data = null)
     {
         for (int i = 0; i < (maxHor * maxVer); i++)
         {
@@ -2141,7 +2141,7 @@ public class InventoryManager : MonoBehaviour
                     ItemCheck check = item.GetComponent<ItemCheck>();
                     float scaleFactor = 0.8f; // 크기를 조절할 비율
                     item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-                    check.SetItem(itemName);
+                    check.SetItem(itemName, data != null ? data.Clone() : null); // 티어·강화 보존 (B-014)
                     check.nowStack = Stack;
                     return true;
                 }
