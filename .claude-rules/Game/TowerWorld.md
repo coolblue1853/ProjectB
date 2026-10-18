@@ -35,7 +35,7 @@
 
 | 구역 | 설명 | 낮 | 밤 | 보스 | 현행 매핑 / 에셋 |
 |---|---|---|---|---|---|
-| ① 숲 근교(풀밭) | 마을 앞 | 토끼, 광물토끼(공격, 추격 X), 풀두더지·묘목 두더지(마을 앞) | 쥐, 거대쥐 (or 허수아비) | (PassiveTerror 야간, 임시) | ✅ **현재 Lv1 NearForest + SideRoad** (Rabbit/StoneRabbit/FlowerMole/LeftMole/RatThief/RatChief/Scarecrow) |
+| ① 숲 근교(풀밭) | 마을 앞. **파괴 가능 오브젝트 ✅**(`BreakableProp`, 나무통·상자 도트 `gen_props.py`, 2타 파괴, 나무 80%/돌 35%/약초 30% 드롭, 90초 리스폰, `setup_props.cs` 로 9유닛 간격 배치) | 토끼, 광물토끼(공격, 추격 X), 풀두더지·묘목 두더지(마을 앞) | 쥐, 거대쥐 (or 허수아비) | (PassiveTerror 야간, 임시) | ✅ **현재 Lv1 NearForest + SideRoad** (Rabbit/StoneRabbit/FlowerMole/LeftMole/RatThief/RatChief/Scarecrow) |
 | ② 일반 숲 | 탑으로 가는 숲의 초입 | 늑대, 멧돼지, 꽃 몬스터(뿌리 공격), 탄환 공격형, 버섯류 | 위습, 달팽이, 거미, 뱀, 쌍두 | — | 버섯=SporeShroom, 뿌리 공격=FlowerMole BT 재사용 가능. 늑대·멧돼지·위습 등 **스프라이트 없음** |
 | ③ 깊은 숲 | 탑 직전의 깊은 숲(유적) | 곰, 고블린, 엔트, 버섯 | 붉은 탐험가(적대 APC, 난입), 유령, 요정 | **고대숲의 엔트** | 고블린=CliffGoblin ✅, 버섯 ✅, 붉은 탐험가=SPUM/Pixel Hero Maker(보유), 엔트·곰 스프라이트 없음. 요정여왕 방(중간보스, 구글 문서) |
 | ④ 늪지 | 탑의 그늘에 가려진 축축한 늪 | 개구리, 큰 모기, 슬라임, 등에 꽃이 핀 꽃게, 버섯, 악어 | (미정) | **거대 슬라임** | 스프라이트 없음 |

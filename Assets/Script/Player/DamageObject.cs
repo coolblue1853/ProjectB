@@ -430,6 +430,16 @@ public class DamageObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // 파괴 가능 오브젝트(나무통·상자): 피해 계산 없이 타격 1회로 센다
+        if (isHealSkill == false && collision.TryGetComponent(out BreakableProp prop))
+        {
+            if (!damagedEnemy.ContainsKey(collision))
+            {
+                damagedEnemy[collision] = 1;
+                prop.Hit(transform.position);
+            }
+            return;
+        }
         if (collision.tag == "Enemy" && isHealSkill == false)
         {
             // 데미지를 입힌 적의 수가 최대치를 초과하지 않은 경우에만 실행
