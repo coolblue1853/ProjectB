@@ -2,6 +2,7 @@
 // 낮: 단검병(RatThief 템플릿=빠른 근접)·궁수(FlowerMole 템플릿=원거리, 탄을 직선 화살 BanditArrow 로)·방패병(RatThief, 방어·슈퍼아머)
 // 밤: + 횃불 순찰병(RatThief, 주황 Light2D) / 보스: 산적 대장(PassiveTerror, 판정 ChiefCleave·ChiefAxe 복제본, 2페이즈 부하 호출 BossMinionCall)
 // 보스·궁수 BT 의 damageOb GUID 는 이 프로브 뒤에 텍스트로 교체한다(반환값에 GUID 출력)
+var reimportSince = System.DateTime.Now.AddSeconds(-1); // B-139: 끝에서 이 시각 이후 저장된 프리팹·컨트롤러 재임포트
 var sb = new System.Text.StringBuilder();
 string root = "Assets/Art/Monsters/";
 AssetDatabase.Refresh();
@@ -129,5 +130,5 @@ make("PassiveTerrorAttackPrefab", "ChiefAxe", axe);
     PrefabUtility.SaveAsPrefabAsset(pr, dst); PrefabUtility.UnloadPrefabContents(pr);
     sb.Append("BanditArrow guid " + AssetDatabase.AssetPathToGUID(dst) + "; ");
 }
-AssetDatabase.SaveAssets();
+sb.Append(" reimported=" + ProjectB.EditorTools.MonsterBuilder.ReimportModifiedSince(reimportSince));
 return sb.ToString();

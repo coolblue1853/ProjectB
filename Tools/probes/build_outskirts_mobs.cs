@@ -2,6 +2,7 @@
 // 낮: 소형 골렘(RatThief 템플릿=빠른 근접, 구르기)·중형 골렘(LeftMole=느림, 지면 강타 판정 GolemQuake)·대형 골렘(FlowerMole=원거리, 슈퍼아머, 탄 → GolemBoulder)
 // 밤: + 유적 정령(FlowerMole, 탄 → RuinBolt, 청록 Light2D) / 보스: 탑의 문지기(PassiveTerror, 128px, 판정 GateCleave·GateShockwave, 2페이즈 소형 골렘 호출)
 // 보스·대형 골렘·정령·중형 골렘 BT 의 damageOb GUID 는 이 프로브 뒤에 텍스트로 교체한다(반환값에 GUID 출력)
+var reimportSince = System.DateTime.Now.AddSeconds(-1); // B-139: 끝에서 이 시각 이후 저장된 프리팹·컨트롤러 재임포트
 var sb = new System.Text.StringBuilder();
 string root = "Assets/Art/Monsters/";
 AssetDatabase.Refresh();
@@ -138,5 +139,5 @@ System.Action<string, Sprite> shot = (dstName, sp) => {
 };
 shot("GolemBoulder", boulderSp[0]);
 shot("RuinBolt", boltSp[0]);
-AssetDatabase.SaveAssets();
+sb.Append(" reimported=" + ProjectB.EditorTools.MonsterBuilder.ReimportModifiedSince(reimportSince));
 return sb.ToString();

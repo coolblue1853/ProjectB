@@ -1,5 +1,6 @@
 ﻿// 1층계 ④구역 '늪지' 몬스터 (gen_swamp_mobs.py 시트 → 프레임 크기별 슬라이스 → MonsterBuilder). 에디트 모드, 재실행 안전
 // 낮: 개구리(RatThief 템플릿)·꽃게(RatThief, 방어 높음)·악어(RatThief, 64px) / 밤: 모기(FlowerMole=비행)·슬라임(LeftMole=느림) / 보스: 거대 슬라임(PassiveTerror)
+var reimportSince = System.DateTime.Now.AddSeconds(-1); // B-139: 끝에서 이 시각 이후 저장된 프리팹·컨트롤러 재임포트
 var sb = new System.Text.StringBuilder();
 string root = "Assets/Art/Monsters/";
 AssetDatabase.Refresh();
@@ -50,5 +51,5 @@ System.Action<string, Color, float, float> glow = (mob, c, inten, rad) => {
 glow("SwampMosquito", new Color(1f, 0.45f, 0.4f), 0.35f, 1.6f); // 밤 습지에서 보이게 약한 붉은 빛
 glow("BogSlime", new Color(0.6f, 1f, 0.65f), 0.35f, 2f);       // 밤 몹: 몸 속 핵이 희미하게 빛난다
 glow("GiantSlime", new Color(0.75f, 1f, 0.5f), 0.55f, 4.5f);   // 밤 보스: 어둠 속 실루엣이 보이게
-AssetDatabase.SaveAssets();
+sb.Append(" reimported=" + ProjectB.EditorTools.MonsterBuilder.ReimportModifiedSince(reimportSince));
 return sb.ToString();

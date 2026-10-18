@@ -2,6 +2,7 @@
 // 원본 공유 프리팹은 그대로 두고 복제본(AncientEntRootSwipe / AncientEntRootThorn)을 만들어 스프라이트를 코드 도트 뿌리로 바꾼다.
 // 애니메이션은 원본 컨트롤러 + AnimatorOverrideController(클립만 뿌리 프레임으로 교체). 보스 스포너 objectInfos 키(clow/fire)는 유지하고 프리팹만 바꾼다.
 // 에디트 모드, 재실행 안전. 보스 BT 의 damageOb 참조(ClowAttack)는 이 프로브 뒤에 텍스트로 GUID 교체한다(아래 반환값에 GUID 출력).
+var reimportSince = System.DateTime.Now.AddSeconds(-1); // B-139: 끝에서 이 시각 이후 저장된 프리팹·컨트롤러 재임포트
 var sb = new System.Text.StringBuilder();
 string SRC = "Assets/Prefab/Enemy/EnemyDamge/", DST = SRC + "AncientEnt/", ART = "Assets/Art/Monsters/AncientEnt/";
 System.IO.Directory.CreateDirectory(DST);
@@ -60,7 +61,7 @@ System.Func<string, string, Sprite[], Color, GameObject> make = (srcName, dstNam
     return AssetDatabase.LoadAssetAtPath<GameObject>(dst); };
 var swipeGo = make("ClowAttack", "AncientEntRootSwipe", swipe, Color.white);
 var thornGo = make("PassiveTerrorAttackPrefab", "AncientEntRootThorn", thorn, Color.white);
-AssetDatabase.SaveAssets();
+sb.Append(" reimported=" + ProjectB.EditorTools.MonsterBuilder.ReimportModifiedSince(reimportSince) + "; ");
 
 // 보스 스포너 풀: 키는 그대로(clow/fire — 보스 BT 가 이 이름으로 꺼낸다), 프리팹만 교체
 var B = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public;

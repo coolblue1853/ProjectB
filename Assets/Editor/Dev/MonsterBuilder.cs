@@ -139,8 +139,45 @@ namespace ProjectB.EditorTools
             // 5) 사망 연출 프리팹: 템플릿과 무관한 단순 구조 (Death 클립 재생 → DeadBody 디졸브 → 반환)
             string deadPath = BuildDeadBody(s, ppu, pivotY, animDir);
             log.Append("prefab=" + prefabPath + " dead=" + deadPath);
-            AssetDatabase.SaveAssets();
+            Reimport(new[] { ovrPath, prefabPath, deadPath });
             return log.ToString();
+        }
+
+        /// <summary>
+        /// 저장 후 강제 재임포트 + Refresh. 같은 세션에서 만든 오버라이드 컨트롤러를 프리팹에 넣으면 에디터 메모리의
+        /// 프리팹 Animator 참조가 깨진 채 남아 플레이 중 "Animator is not playing an AnimatorController" 경고가 났다(B-139).
+        /// </summary>
+        public static void Reimport(IEnumerable<string> paths)
+        {
+            AssetDatabase.SaveAssets();
+            foreach (string p in paths.Where(p => !string.IsNullOrEmpty(p)).Distinct())
+            {
+                AssetDatabase.ImportAsset(p, ImportAssetOptions.ForceUpdate);
+            }
+            AssetDatabase.Refresh();
+        }
+
+        /// <summary>빌드 프로브가 만드는 몹·판정 프리팹과 애니메이션 폴더 (서드파티 전체 스캔 방지)</summary>
+        static readonly string[] DefaultReimportFolders = { "Assets/Prefab", "Assets/Sprite/Enemy", "Assets/Art/Monsters" };
+
+        /// <summary>
+        /// 빌드 프로브 끝에서 호출: <paramref name="since"/> 이후 디스크에 쓰인 프리팹·오버라이드 컨트롤러를 모두 재임포트한다(B-139).
+        /// 프로브가 Build 뒤에 프리팹을 다시 저장(발광·판정 교체 등)해도 한 줄로 처리된다. 반환: 재임포트 개수.
+        /// </summary>
+        public static int ReimportModifiedSince(System.DateTime since, params string[] folders)
+        {
+            if (folders == null || folders.Length == 0)
+            {
+                folders = DefaultReimportFolders;
+            }
+            AssetDatabase.SaveAssets();
+            var paths = AssetDatabase.FindAssets("t:Prefab", folders)
+                .Concat(AssetDatabase.FindAssets("t:AnimatorOverrideController", folders))
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .Where(p => File.Exists(p) && File.GetLastWriteTime(p) >= since)
+                .ToList();
+            Reimport(paths);
+            return paths.Count;
         }
 
         /// <summary>"Sheet" 또는 "Sheet#3-9"(시트 내 스프라이트 순번 구간, 양끝 포함)</summary>
