@@ -29,13 +29,16 @@ public class SaveManager : MonoBehaviour
     {
         instance = this;
         DataLoad();
-        if(datas.playerPos == Vector2.zero)
+        // 시작 지점이 지정되지 않았으면 씬에 배치된 플레이어 위치를 시작 지점으로 쓴다.
+        Vector2 origin = originPos != null ? (Vector2)originPos.transform.position
+                       : player != null ? (Vector2)player.transform.position : Vector2.zero;
+        if (datas.playerPos == Vector2.zero)
         {
-            datas.playerPos = originPos.transform.position;
+            datas.playerPos = origin;
         }
         if (datas.camPos == Vector2.zero)
         {
-            datas.camPos = originPos.transform.position;
+            datas.camPos = origin;
         }
 
     }

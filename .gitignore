@@ -74,3 +74,7 @@ crashlytics-build.properties
 # Claude (개인 로컬 설정 — 커밋 금지)
 .claude/settings.json
 .claude/settings.local.json
+
+# unity-mcp 스크린샷
+/[Aa]ssets/Screenshots/
+/[Aa]ssets/Screenshots.meta

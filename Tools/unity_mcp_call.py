@@ -3,6 +3,7 @@
 Claude 세션에 MCP가 로드되지 않았을 때 Bash에서 에디터를 조작하기 위한 용도.
 
     uv run --with mcp python Tools/unity_mcp_call.py list
+    uv run --with mcp python Tools/unity_mcp_call.py cs snippet.cs
     uv run --with mcp python Tools/unity_mcp_call.py call read_console '{"action":"get","types":["error"]}'
 """
 import asyncio
@@ -46,6 +47,19 @@ async def main() -> None:
                     if t.name == sys.argv[2]:
                         print(t.description)
                         print(json.dumps(getattr(t, "input_schema", None) or getattr(t, "inputSchema", None), ensure_ascii=False, indent=1))
+            elif cmd == "cs":
+                # C# 코드 파일(메서드 본문)을 에디터에서 실행: cs <file.cs>
+                code = open(sys.argv[2], encoding="utf-8").read()
+                res = await session.call_tool("execute_code", {"action": "execute", "code": code})
+                for c in res.content:
+                    if getattr(c, "type", "") == "text":
+                        try:
+                            d = json.loads(c.text)
+                            data = d.get("data")
+                            out = data.get("result") if isinstance(data, dict) and "result" in data else data
+                            print(out if d.get("success") else json.dumps(d, ensure_ascii=False, indent=1))
+                        except Exception:
+                            print(c.text)
             elif cmd == "call":
                 name = sys.argv[2]
                 args = json.loads(sys.argv[3]) if len(sys.argv) > 3 else {}
