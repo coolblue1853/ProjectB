@@ -97,8 +97,9 @@ public class EnemySpawner : MonoBehaviour
         }
         else if (collision.CompareTag("Enemy") && collision.gameObject.activeSelf)
         {
-            // 영역 밖으로 나간 몬스터는 서서히 사라진다
-            if (collision.TryGetComponent(out EnemyHealth enemyHealth) && enemyHealth.canDisapear)
+            // 이 스포너 영역 밖으로 나간 '자기' 몬스터만 서서히 사라진다.
+            // 다른 스포너 영역과 겹친 곳에서 경계를 넘을 때 남의 몬스터(보스 포함)가 사라지던 문제 (B-117)
+            if (collision.TryGetComponent(out EnemyHealth enemyHealth) && enemyHealth.canDisapear && enemyHealth.enemySpowner == this)
             {
                 enemyHealth.DisaperByTime();
             }

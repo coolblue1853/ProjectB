@@ -44,6 +44,7 @@
 | B-114 | 무적·슈퍼아머·이동정지 bool을 여러 출처가 덮어씀 (대시 종료가 다른 무적 해제) | `PlayerController.cs:602`, `DamageObject.cs:183` | 🔶 무적·슈퍼아머 토큰화 ✅(PlayerStatus, 프로브 dash_overlap). 이동정지·사다리 잠금 ✅(Weapon/Skill 토큰, 프로브 lock_overlap), UI 잠금(Phase 4) ⏳ |
 | B-115 | 타일맵 타일 사이에 틈(세로·가로 선)이 보이는 고질 버그 (사용자 보고 2026-10-18) | 타일맵·아틀라스·카메라 | 🔶 1차 조치(2026-10-18, `fix_tile_bleed.cs`): LV1 시트 7장을 셀마다 4px extrude 패딩으로 재생성(rect 이동·spriteID 유지 → 타일 참조 그대로), 원본 해상도(TileMap1이 768→512로 축소 임포트되던 것 수정)·무압축·FullRect. 스크린샷상 틈 없음 — 카메라 이동 중 재발은 관찰 필요. 남은 후보: 아틀라스 패딩/블리딩 없음, 스프라이트 Mesh Type Tight, 필터 Bilinear·압축, 픽셀 퍼펙트 미스냅. 조치 후보: SpriteAtlas 패딩 4 + Extrude, Full Rect, Point·무압축, Pixel Perfect Camera Upscale RT 또는 Grid gap −0.001 |
 | B-116 | 너클 계열 Sway Back/Hoof Step 사용 시 콘솔 에러 "No AnimCip : BackDash" — 플레이어 AnyPortrait에 BackDash 애니가 없음(스킬 skillAnim) | `Leather Knuckles`/`TuskKnuckles` 프리팹 RSkill | ✅ skillAnim 을 같은 무기 대시 애니(Dash)로 교체 (`fix_backdash_anim.cs`), 스킬 3종 발동 에러 0 |
+| B-117 | ✅ 스포너 영역이 겹친 곳에서 몬스터가 **다른 스포너**의 트리거 경계를 넘으면 `OnTriggerExit2D`가 `DisaperByTime`을 불러 사라짐(깊은 숲 보스가 등장 직후 증발) → 자기 소속(`enemySpowner == this`)일 때만 사라지게 (2026-10-19) | `EnemySpawner.cs` |
 
 ## P2
 
