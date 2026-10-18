@@ -182,8 +182,8 @@ sb.Append("runes " + rpos.GetLength(0) + "; ");
 // 왼쪽 끝 보이지 않는 벽: 근교 원본 지형은 왼쪽(-437) 너머에 벽이 없어 보스 넉백에 밀리면 맵 밖으로 떨어진다(플레이 검증에서 발견, TechDebt B-130)
 var edge = new GameObject("EdgeWall_Left"); edge.transform.SetParent(copy.transform, false);
 edge.layer = LayerMask.NameToLayer("Wall");
-edge.transform.position = new Vector3(-438f, 20f, 0f);
-var ebox = edge.AddComponent<BoxCollider2D>(); ebox.size = new Vector2(1f, 60f);
+edge.transform.position = new Vector3(-437.3f, 25f, 0f); // 지형 끝(-436.8)에 붙인다 — -438 은 1.2 유닛 틈으로 떨어졌다. 오른쪽 벽은 build_edge_walls.cs
+var ebox = edge.AddComponent<BoxCollider2D>(); ebox.size = new Vector2(1f, 130f);
 sb.Append("edge wall; ");
 
 UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(copy.scene);
