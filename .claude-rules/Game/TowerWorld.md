@@ -21,7 +21,7 @@
 | 층계 | 테마 | 몬스터 | 모험가 칭호(안) | 현행 콘텐츠 매핑 |
 |---|---|---|---|---|
 | 1 | 숲 | 산적·동물, 요정, 골렘(유적) | 서광의 모험가 | **외곽 숲 = 현재 Lv1 NearForest/SideRoad** |
-| 2 | 부유성 · 언더 클라우드 | 기사·석상(던파 4기사), 용 | 운해의 모험가 | **현재 Lv2 마법 절벽 = 2층계 입구(임시, Q-402)** |
+| 2 | 부유성 · 언더 클라우드 | 기사·석상(던파 4기사), 용 | 운해의 모험가 | **현재 Lv2 마법 절벽 = 2층계 입구(임시, Q-402)** · ② 무너진 성벽 ✅(17절) · 설계 `Floor2Plan.md` |
 | 3 | 바다 · 인클루드 클라우드 | 심해·해저, 물고기 | 심록의 모험가 | 미구현 |
 | 4 | 오버 클라우드 | 불·대장장이, 용암·마그마, 기계 | 홍염의 모험가 | 미구현 (탐험가 임시 캠프 설정 가능) |
 | 5 | 라비린스(미궁) | — | 흑석의 모험가 | 미구현 |
@@ -245,3 +245,32 @@
 - **세트 Stoneborn** (StoneArmor 돌 회색, `make_forest_sets.py Stone` + `build_outskirts_sets.cs`, 구역 1세트 = 1층계 졸업 세트): 2: 방어 20·HP 80 / 4: Rolling Charge·Aftershock·Boulder Toss 쿨 −30·피해 8 / 6: 방어 25·HP 180·피해 10. 부위 방어 30/50/30/24/24·HP 200/480/200/160/140. 원안의 "슈퍼아머 지속 +1s"·`DmgReduce` 신규 키는 만들지 않음(기존 키만).
 - 검증(플레이, `bandit_weapon_test.cs`): Rolling Charge 대시 + 구르는 돌 명중(대상 8.8 밀림), Quake Slam·Aftershock 판정·피해, Boulder Toss 바위 명중(전체 피해 33), Monolith Stance 홀드 판정, Gate Cleave 검기 + `ShockwaveTouch`(피해 57·전체 69), Stone Sentinels 소환 3·연속 타격. `equip_stone_set_test.cs` 6부위 → 스택 6, 쿨감 키 3종 30, 피해 +18. combo_all = 원본과 같은 순환(너클 1-2, 대검 1-2, 방패 1-2-3). 피해 수치는 칭호 0(부하 부족 −80%) 상태 값.
 - ⏳ 남은 것: 탑 근교 전용 지형·석상 소품 없음(근교 지형 + 곱셈 색조라 풀이 회갈색 정도) · 낮 전용 보스(밤엔 사라짐, 다른 구역 보스와 같음) · 조우 대사 중 주변 골렘은 계속 움직임(B-131) · 대형 골렘 바위는 조준 직선(포물선은 플레이어 무기만) · 레전더리 등급 표시는 U(고유)로 대신 · 세트 착용 텍스처 Leaf 색 변환 임시 · Stone Sentinels 소환 골렘은 SummonRunner 직선 돌격(Run 프레임만).
+
+## 17. 2층계 ②구역 무너진 성벽 — 1차 구현 (2026-10-19, Floor2Plan 5.1)
+
+- 2층계 설계는 `Game/Floor2Plan.md`(구역 5개·부하 25~60·계보 장비·칭호 2·수치 단계 T). 이 절은 첫 신규 구역 구현 기록.
+- 맵 `Lv2_BrokenRampart`: **외곽 샛길 레이아웃 복제**(② 일반 숲·⑤ 산적 성채와 같은 지형, Q-417) + 하늘·흰 돌 색조(타일 0.86/0.9/1.0, 원경·식생 채도 75% 빼고 푸른 안개) + 2층계 소품 54개(`Tools/pixelfx/gen_floor2_props.py`: 총안 성벽·무너진 성벽·부서진 기둥·찢긴 하늘색 깃발, 24 PPU 아래 가운데 피벗, 지면 레이캐스트 배치, 정렬 −2·콜라이더 없음) + 반투명 구름 28개(정렬 −15) + 달빛 Light2D 7개. 상승 부하 **35**, zoneTitle "Broken Rampart", **floor 2**. 프로브 `build_broken_rampart.cs`(재실행 안전).
+- 포털: 마법 절벽 오른쪽 끝 `Portal_ToRampart`(x −186, 보스 제단 너머) ↔ 성벽 오른쪽 끝 `Portal_RampartToCliffs`(−236). 마을 포털(−425) 유지, 샛길의 다른 포털(지름길 봉인 포함)은 삭제.
+- 몬스터(코드 도트 `Tools/pixelfx/gen_rampart_mobs.py` → `Tools/probes/build_rampart_mobs.cs`, MonsterSheet 행 추가, 수치 = Floor2Plan 3.2 T7):
+  - 낮: **성벽 기사** 640HP 방어 24(64px, RatThief 템플릿, 은청 판금·하늘색 겉옷·연 방패, 방패 밀치며 내려베기) · **미늘창 파수병** 880HP 방어 28(64px, LeftMole=느림, 바렐 헬름·사슬 치마, 머리 위에서 휩쓸기 → 판정 `HalberdCrescent` = 땅에서 솟는 초승달, LeafAttackPrefab 복제) · **가고일** 420HP 방어 26(48px, FlowerMole=원거리, 날개 펄럭이며 떠 있음 → 탄 `GargoyleFeather` 돌 깃털).
+  - 밤: 가고일·성벽 기사 + **구름 정령** 300HP 방어 10(48px, 뭉게구름 + 번개, 노란 Light2D, 탄 `CloudSpark`).
+  - 보스: **가고일 군주(Gargoyle Lord)** 18000HP 방어 34 슈퍼아머(128px 웅크린 거대 날개 석상, 뿔·꼬리·가슴에 옛 성 금 문장), PassiveTerror 템플릿(18px/유닛), **밤** 스포너(원본 샛길 보스 자리 위쪽 망루 −533/24), 영역 = 맵 전체. 판정 교체: 갈퀴 → `GargoyleTalon`(세 줄 발톱 할퀴기, 64px×6 @16ppu), 불꽃 → `GargoyleShard`(돌 깃털 세 개, 32px×3 @12.5ppu), BT damageOb GUID 교체. Attack2 = 날개 펴고 포효 + 돌 깃털 폭풍. 2페이즈 `BossMinionCall` 가고일 2(배너 "TAKES WING — The statues awaken!"), 초상 = 도트 Idle 첫 프레임.
+- 보스 배너 이름: `BossIntro`·`BossPhase`·`BossMinionCall` 이 프리팹 이름("GARGOYLELORD") 대신 MonsterSheet displayName 을 쓰게 `MonsterTable.DisplayName` 추가(모든 보스 공통 개선).
+- 드롭: 기사 Rampart Shard 35%·Rampart Sword 2% / 파수병 Halberd Fragment 33%·Sentry Halberd 2% / 가고일 Gargoyle Feather 33%·Gargoyle Wing 2% / 정령 Storm Wisp 30% / 기사·파수병 Rampart 부위, 가고일·정령 Sky 부위 각 0.3% / 보스 Gargoyle Feather 확정 + `Resources/Boss/GargoyleLord_BD`(확정 1개 = 계보 무기 3종 중, 고유 Skyfall Talon 8%·천장 12, 강화석 4~7 + 첫 처치 8, 칭호 없음).
+- 검증(플레이): 마법 절벽 `Portal_ToRampart` → 성벽 도착(부하 35), 낮 기사 5·파수병 3·가고일 4, 밤 구름 정령 5·기사 3·보스 등장(HP바·초상·이름), 보스 `GargoyleTalon`·`GargoyleShard` 발동(`boss_attack_watch.cs`, 스크린샷 `boss_GargoyleShard`), `gargoyle_lord_test.cs`: HP 55% → 2페이즈·가고일 2, 80% → 3페이즈, 처치 → 확정 보상(Sentry Halberd + 강화석 12 + 재료 4)·처치 4초 뒤 부하 0, 콘솔 에러 0. 테스트 뒤 세이브는 백업본으로 복원(md5 일치). 스크린샷 `Logs/playtest/rampart_*`·`glord_*`(커밋 안 함). 회귀 소크 `ZONE_MAPS="Lv2_MagicCliffs Lv2_BrokenRampart" bash Tools/zone_soak.sh 20` 2회: 성벽 낮 몹 16·밤 몹 6 + 보스 1, 마법 절벽 낮 6, 4단계 모두 에러 0·경고 0(마법 절벽 밤 mobs=0 은 테스트 무적 틈 사망 → 마을 귀환, B-144). EditMode 테스트 92/92 통과. 긴 보스 이름 배너("Gatekeeper of the Tower") 칸 안에 들어감(스크린샷 `banner_gatekeeper2`).
+
+### 17.1 ②구역 계보 장비 (Floor2Plan 5.1)
+
+| 몹 | 무기(드롭) | 무기 스킬 | 세트 |
+|---|---|---|---|
+| 성벽 기사 | **Rampart Sword** (RustedSword 기반 22~33) | A **Shield Rush** = Smash Down 판정 1.3배·넉백 1.6배·경직 0.45s·쿨 3s, S **Knight's Cleave** = 베기 판정 1.4배 크기·1.25배·쿨 3s | Rampart Guard |
+| 미늘창 파수병 | **Sentry Halberd** (Wood Spear 기반 23~34) | A **Halberd Sweep** = 2연 찌르기 1.35배 크기·최대 6명·넉백 1.5배·쿨 2.5s, S **Crescent Reap** = 돌진 찌르기 + 땅을 미는 초승달(`StraightArrow` 지면 통과, 관통 5, 110%)·쿨 3.5s | Rampart Guard |
+| 가고일 | **Gargoyle Wing** (ScareStaff 기반 21~31) | A **Stone Feather** = 돌 깃털 5발(퍼짐 8°, 관통 1, 각 60%)·쿨 1.4s, D **Gargoyle Dive** = 작은 가고일 2기 활강 돌격(`SummonRunner`, 가고일 Run 프레임, 55%·0.3s, 타격 판정은 쌍단검 판정 복제본 `Rampart/DiverStab`)·쿨 9s, S Petrify Bolt(원본 판정 석상 톤) | Skybound |
+| 가고일 군주(보스) | **Skyfall Talon** (유니크, ScareClow 기반 30~46) | A **Talon Storm** = 갈퀴 연타 1.3배 + 첫 판정에서 돌 깃털 3발·쿨 2.5s, S Skyfall Rend(1.2배), D **Gargoyle Host** = 가고일 3기 활강(65%)·쿨 10s | — |
+
+- 프로브 `build_rampart_weapons.cs`(판정은 원본 무기의 판정에서 매번 다시 복제 → 재실행해도 배율·크기 누적 없음, 투사체·소환물 `DamageObject/Rampart/`), 아이콘 `Tools/pixelfx/gen_rampart_items.py`, ItemSheet 195~212(맨 뒤 추가).
+- **세트 2종** (`make_forest_sets.py Rampart Sky` 색 변환 + `build_rampart_sets.cs`, 부위 드롭 0.3%):
+  - **Rampart Guard** (RampartArmor 옅은 금·흰 돌, 기사·파수병 + Rampart Sword·Sentry Halberd): 2: 방어 22·HP 100 / 4: Shield Rush·Halberd Sweep 쿨 −30·피해 8 / 6: 방어 28·HP 200·치명피해 12. 부위 방어 34/56/34/28/28·HP 230/540/230/180/160.
+  - **Skybound** (SkyArmor 하늘색, 가고일·구름 정령 + Gargoyle Wing): 2: 이동 8·치명 6 / 4: Stone Feather·Gargoyle Dive 쿨 −35·피해 8 / 6: 공속 12·피해 12·치명피해 15. 부위 방어 20/34/20/16/16, 치명·이동 위주.
+- 검증(플레이, `rampart_weapon_test.cs` = bandit_weapon_test 변형으로 대상 몹을 플레이어 앞 같은 층으로 옮김): Shield Rush·Knight's Cleave·Halberd Sweep(2연 판정)·Crescent Reap(돌진 + `CrescentTouch`)·Stone Feather(깃털 5발·명중)·Gargoyle Dive(소환 2·연속 타격)·Talon Storm(갈퀴 + 깃털 3)·Gargoyle Host(소환 3) 모두 판정·피해 확인(칭호 0, 부하 부족 −70% 상태 수치). 장착 직후 첫 발동은 하네스에서 한 번 무시되는 경우가 있어 재발동으로 확인. `equip_rampart_set_test.cs`: Rampart/Sky 6부위 → 스택 6, 쿨감 키·방어 50·치피 12·피해 8 / 이동 8·치명 6·치피 15·공속 12·피해 20 일치. 콘솔 에러 0.
+- ⏳ 남은 것: 지형은 샛길 복제(2층계 전용 레이아웃 없음) · 샛길 원본처럼 카메라 경계(−437)를 순간 이동으로 넘으면 카메라가 따라오지 않음(걸어서는 정상, 테스트 순간 이동 한정) · 원경 패럴랙스는 색조가 약하게만 먹음 · 구름 정령 계보 무기 없음 · 세트 착용 텍스처 Leaf 색 변환 임시 · 가고일은 FlowerMole 이동(지상 순찰)이라 실제로 날지 않고 떠 있는 그림만.
