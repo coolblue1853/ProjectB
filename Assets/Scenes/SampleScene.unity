@@ -238031,6 +238031,9 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: TuskKnuckles
+    dropProbability: 0.02
+    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -247008,6 +247011,9 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: TuskKnuckles
+    dropProbability: 0.02
     offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
@@ -707268,6 +707274,9 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: TuskKnuckles
+    dropProbability: 0.02
     offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff

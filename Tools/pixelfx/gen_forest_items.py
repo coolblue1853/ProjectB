@@ -91,5 +91,19 @@ def snail_shell():
     save("Snail Shell", im)
 
 
+def tusk_knuckles():
+    im = canvas(); d = ImageDraw.Draw(im)
+    d.rounded_rectangle((7, 12, 25, 24), radius=3, fill=(122, 78, 46))      # 가죽 너클
+    d.rounded_rectangle((8, 13, 24, 17), radius=2, fill=(164, 112, 66))
+    for x in (9, 14, 19):                                                  # 손가락 마디
+        d.rectangle((x, 18, x + 3, 22), fill=(78, 46, 26))
+    # 엄니 두 개가 앞으로 휘어 나온다
+    d.polygon([(10, 12), (7, 4), (12, 9), (13, 12)], fill=(236, 226, 196))
+    d.polygon([(19, 12), (21, 3), (23, 9), (22, 12)], fill=(236, 226, 196))
+    d.point((8, 5), fill=(255, 250, 230)); d.point((21, 4), fill=(255, 250, 230))
+    d.rectangle((6, 24, 26, 26), fill=(58, 36, 24))                          # 손목 끈
+    save("TuskKnuckles", im)
+
+
 if __name__ == "__main__":
-    fang_dagger(); wolf_fang(); boar_tusk(); wisp_ember(); snail_shell()
+    fang_dagger(); wolf_fang(); boar_tusk(); wisp_ember(); snail_shell(); tusk_knuckles()

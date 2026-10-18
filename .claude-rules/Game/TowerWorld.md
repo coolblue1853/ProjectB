@@ -118,4 +118,5 @@
 | 숲달팽이 | **Shell Shield** (검+방패) | A 껍데기 방패 막기(받는 피해↓), S 점액 장판(둔화) | SnailArmor | 2: 방어↑ / 4: 막기 중 반사 피해 |
 
 - ✅ **Fang Dagger** (2026-10-19, `build_fang_dagger.cs`): DoubleDagger 기반 9~15, F 스킬 Howl of the Pack(쿨 8s, 선딜 0.3s) → `SummonRunner` 영혼 늑대 2마리(늑대 Run 프레임·파란 발광, 무기 피해 60%로 0.35s마다 물기). 늑대 드롭 2%, 재료 Wolf Fang/Boar Tusk/Wisp Ember/Snail Shell(ItemSheet 106~110, `gen_forest_items.py` 아이콘). 일반 숲 드롭 테이블 교체. ⏳ WolfArmor 세트.
+- ✅ **Tusk Knuckles** (`build_tusk_knuckles.cs`): Leather Knuckles 기반 12~18, Boar Charge·Tusk Uppercut 판정 복제본 넉백 ×2·경직 0.4s, 상아 톤, 멧돼지 드롭 2%(ItemSheet 111).
 - 구현 순서(자율): Fang Dagger(늑대 소환은 ScareStaff 소환 경로 재사용) → Tusk Knuckles(SkillDash 재사용) → Wisp Lantern → Shell Shield. 아이콘·무기 스프라이트는 `gen_forest_mobs.py` 팔레트로 그린다.
