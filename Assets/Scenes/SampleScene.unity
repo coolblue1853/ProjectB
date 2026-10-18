@@ -82018,6 +82018,21 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: GroveCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -250575,6 +250590,24 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: FaeWand
+    dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: FaeCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -306425,6 +306458,21 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: GroveCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: Rabbit Hide
     count: 4
@@ -307527,6 +307575,24 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: PhantomScythe
+    dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: FaeCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeShoes
+    dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
@@ -373973,6 +374039,24 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: PhantomScythe
+    dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: FaeCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -421955,6 +422039,24 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: FaeWand
+    dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: FaeCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeShoes
+    dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
@@ -569272,11 +569374,11 @@ MonoBehaviour:
       type: 3}
     count: 1
   - objectName: clow
-    perfab: {fileID: 3871218360763498638, guid: 011c5c632c75b0f47b417c89dc6121cb,
+    perfab: {fileID: 3871218360763498638, guid: 4b84730bd0e6e4c48b105cc6d5a7e6d9,
       type: 3}
     count: 1
   - objectName: fire
-    perfab: {fileID: 4072923990559250960, guid: ce85c2bf4aaca404f843f2c2aaa20e64,
+    perfab: {fileID: 4072923990559250960, guid: 6ccd4c81972670745b33641c1fcc8c19,
       type: 3}
     count: 1
 --- !u!224 &1317074080 stripped
@@ -989577,6 +989679,24 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: PhantomScythe
+    dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: FaeCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: FaeShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
     count: 1
@@ -1005254,6 +1005374,21 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: GroveCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: GroveShoes
+    dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
   - objectName: Leather Knuckles
