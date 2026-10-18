@@ -128,13 +128,19 @@
 
 | 몹 | 무기(드롭) | 무기 스킬 (몹 공격의 플레이어판) | 세트 | 상태 |
 |---|---|---|---|---|
-| 숲곰 | **Bear Claw** (갈퀴, ScareClow 기반 13~20) | A Mauling Rush(돌진 할퀴기 판정 복제본 넉백 1.5배·경직 0.5s·피해 1.3배), S Rending Upswipe(같은 강화), D Bear Roar(포효=공속 버프) | ⏳ | ✅ 곰 드롭 2% |
-| 엔트 | **Root Staff** (지팡이, LeafStaff 기반 14~22) | S **Ancient Roots** = Rising Roots 강화: 뿌리 1.35배 크기 `DeepRoot`(피해 2.6·3타·넉백 14), 기본 5줄기(최대 8, 원본 2), 쿨 2s / A Root Step(순간이동), D Sap Mend(치유) | ⏳ | ✅ 엔트 드롭 2% |
+| 숲곰 | **Bear Claw** (갈퀴, ScareClow 기반 13~20) | A Mauling Rush(돌진 할퀴기 판정 복제본 넉백 1.5배·경직 0.5s·피해 1.3배), S Rending Upswipe(같은 강화), D Bear Roar(포효=공속 버프) | Ancient Grove | ✅ 곰 드롭 2% |
+| 엔트 | **Root Staff** (지팡이, LeafStaff 기반 14~22) | S **Ancient Roots** = Rising Roots 강화: 뿌리 1.35배 크기 `DeepRoot`(피해 2.6·3타·넉백 14), 기본 5줄기(최대 8, 원본 2), 쿨 2s / A Root Step(순간이동), D Sap Mend(치유) | Ancient Grove | ✅ 엔트 드롭 2% |
 | 고대숲의 엔트(보스) | **Heartwood Greatsword** (유니크 대검, SacreGreatSword 기반 22~32) | D **Ancient Wrath**: 1.9배 거대 뿌리 `GiantRoot` 8줄기가 0.08초 간격 파도로 솟는다(피해 3.2, 쿨 9s) — 보스 뿌리 폭발의 플레이어판 | — | ✅ `Resources/Boss/AncientEnt_BD` 고유템 8%·천장 12, 확정 1개는 Bear Claw/Root Staff |
-| 유령·요정 | ⏳ | ⏳ (유령 손뻗기, 요정 별빛) | ⏳ | 재료만 드롭 |
+| 유령 | **Phantom Scythe** (낫, ScareSide 기반 14~22) | A **Phantom Reap** = 관통 베기(최대 8명·다 맞혀도 안 사라짐·피해 1.15배), D **Phantom Glide** = 순간이동 베기 + `PhantomVeil`(무적 0.45s·잔상), S Spectral Eruption·Wraith Whirl(유령빛 반투명 톤) | Will-o'-Fae | ✅ 유령 드롭 2% |
+| 요정 | **Fae Wand** (지팡이, ScareStaff 기반 12~20) | A **Fairy Dust Bolt** = 분홍 요정 가루 유도탄 4발(`HomingOrb` 재사용, 무기 피해 42%), S **Fae Blessing** = 분홍 회복 장판(HealGround 복제, 원본 100틱의 60%, 쿨 12s), D Starlight Lance(분홍 톤) | Will-o'-Fae | ✅ 요정 드롭 2% |
 
 - 프로브 `build_deep_forest_weapons.cs`(판정 복제·아이콘 임포트·보스 보상), 아이콘 `Tools/pixelfx/gen_deep_forest_items.py`(몹 팔레트 재사용), ItemSheet 124~130.
 - 검증 `deep_forest_weapon_test.cs`: Ancient Roots 판정 3개 동시(원본 Rising Roots 1개), Ancient Wrath 5개, Mauling Rush 1개. combo_all 3종 정상(1-2 콤보 순환).
+- **2차 (2026-10-19)**: 유령·요정 무기는 `build_deep_forest_weapons2.cs`(판정 복제본 `DamageObject/PhantomScythe`·`FaeWand`, 원본 공유 프리팹 미수정), 아이콘·요정 가루 프레임 `Tools/pixelfx/gen_deep_forest_gear2.py`. Fae Blessing 피벗은 LeafStaff 회복 스킬과 같은 경로(ScareStaff 피벗은 앞쪽이라 플레이어와 안 겹쳐 회복이 안 됐다).
+- **세트 2종** (`make_forest_sets.py` Grove/Fae 색 변환 + `build_deep_forest_sets.cs`, ItemSheet 131~142, 부위 드롭 0.3%):
+  - **Ancient Grove** (GroveArmor 갈색·이끼, 낮 곰·엔트 + Bear Claw·Root Staff): 2: 방어 15·HP 80 / 4: 피해 10·Ancient Roots 쿨 −40·Mauling Rush −30 / 6: 공속 10·치명피해 20·HP 120. 부위 방어 18/32/18/14/14.
+  - **Will-o'-Fae** (FaeArmor 보라·분홍, 밤 유령·요정 + Phantom Scythe·Fae Wand): 2: 이동 8·치명 6 / 4: 치명피해 12·Phantom Glide 쿨 −40·Fairy Dust Bolt −40 / 6: 피해 12·공속 10·드롭률 8. 부위는 방어 낮고 치명·이동 높음.
+- 검증(플레이): `equip_deep_forest_set_test.cs`(Grove/Fae 6부위 → 스택 6, 세트 수치·쿨감 키 일치), `skill_trace.cs`(Phantom Glide 13유닛 순간이동 + 무적 0.4s, Phantom Reap 판정, Fairy Dust Bolt 유도탄 4발, Fae Blessing HP 40→55/1.6s), combo_all(Phantom Scythe 1-2 순환 = ScareSide 와 같음, Fae Wand 1단 = ScareStaff 와 같음), 콘솔 에러 0.
 
 ## 13. ③구역 깊은 숲 — 1차 구현 (2026-10-19)
 
@@ -147,4 +153,6 @@
 - 드롭: 곰 Bear Pelt 35%·Bear Claw 2% / 엔트 Heartwood Chip 35%·Root Staff 2% / 유령 Ectoplasm 30% / 요정 Fairy Dust 30% / 고블린·버섯 재료 소량 / 보스 스포너 Heartwood Chip 확정 + 보스 확정 보상.
 - 버그 수정 B-117: 스포너 트리거가 겹친 곳에서 다른 스포너 경계를 넘은 몬스터가 사라지던 문제(보스가 등장 직후 증발) — 자기 소속일 때만 사라지게.
 - 검증(플레이): 낮 곰 4마리·보스 등장(HP바·초상·이름), 보스 처치 → 배너·확정 보상 드롭(Bear Claw + 강화석, 첫 처치 보너스), 밤 유령 5·요정 5, 포털 왕복(TravelNow), 콘솔 에러 0(테스트용 무적 잠금 경고 제외). 테스트로 생긴 보스 처치 ES3 키는 지웠다.
-- ⏳ 남은 것: 돌 유적 전용 소품·배경(현재 색조만), 붉은 탐험가(적대 APC 난입), 요정여왕 방(중간보스), 유령·요정 계보 무기와 깊은 숲 세트, 보스 공격 판정은 PassiveTerror 것(갈퀴·불꽃) 그대로 — 뿌리 판정으로 교체 필요, 지형은 근교 원본 그대로.
+- ✅ **보스 공격 판정 교체 (2차)**: PassiveTerror 판정(갈퀴 ClowAttack·불꽃 PassiveTerrorAttackPrefab)을 복제한 `Prefab/Enemy/EnemyDamge/AncientEnt/AncientEntRootSwipe`(땅에서 뿌리 다섯 가닥이 솟는 근접, 64px×6 @16ppu = 원본과 같은 4유닛)·`AncientEntRootThorn`(이끼 낀 뿌리 가시 3발 투사체, 32px×3 @12.5ppu). 원본 컨트롤러 + AnimatorOverrideController 로 클립만 교체(키 시간 유지). 보스 스포너 objectInfos 키 `clow`/`fire` 유지, 보스 BT 의 damageOb 참조도 새 GUID 로. 아트 `gen_deep_forest_gear2.py`, 프로브 `build_ent_boss_roots.cs`, 감시 `boss_attack_watch.cs`(종류별 첫 등장 스크린샷). 플레이에서 두 판정 모두 발동 확인.
+- 테스트 팁: 비활성 맵 포털에 `TravelNow` 를 직접 부르면 `Portal.Awake` 가 돌지 않아 PoolCheck 가 비고 스포너가 안 켜진다 → `goto_map.cs`(MapInfo.GoToMap) 를 쓴다. 낮 전환은 `set_day.cs`.
+- ⏳ 남은 것: 돌 유적 전용 소품·배경(현재 색조만), 붉은 탐험가(적대 APC 난입), 요정여왕 방(중간보스), 지형은 근교 원본 그대로, 세트 착용 텍스처는 Leaf 색 변환 임시, Phantom Glide 반투명은 대시 잔상(하늘색 고정)으로 대신함.
