@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GargoyleLord_Override
+  m_Controller: {fileID: 9100000, guid: 3d4b6bb9f347a184a816b9303a8974f8, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 1de7bde505b54d5409175b2f9857e420, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6dc39a972d4d4da498f7c1019c20da76, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 24f065a5b94cc304ca30079c94ec2086, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 38271edad52dcb94bb5602f0e47d3ada, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 706222e5449e91e49b5a20e70c8a4a58, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: cd0a71d70c9f74140b302b3d84d6e18c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2768da2b7d14775479a591e226b6631c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c45278bc45ecce942ba229234d6bfa11, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c564b3d74cb97af4e8397547d5132326, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3745395e9756ff64ba73d0bf83f61edf, type: 2}

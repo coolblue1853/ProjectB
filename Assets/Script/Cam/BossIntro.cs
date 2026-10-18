@@ -33,7 +33,7 @@ public static class BossIntro
         cam.Zoom(ZoomOut, Ease);
         HitFeedback.Shake(HitFeedback.ShakeTier.Heavy);
         Sfx.Play(SfxId.BossSlam, 0.6f);
-        BossBanner.Show(key.Replace("_BD", ""), "A guardian of the Tower appears", true);
+        BossBanner.Show(MonsterTable.DisplayName(key), "A guardian of the Tower appears", true);
         GameLog.Info(GameLog.Cat.AI, "보스 등장 연출: " + key);
         DOVirtual.DelayedCall(Hold, () =>
         {

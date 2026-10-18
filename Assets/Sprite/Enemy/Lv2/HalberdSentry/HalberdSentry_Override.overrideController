@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HalberdSentry_Override
+  m_Controller: {fileID: 9100000, guid: fb889312828595642b1503f1b8e59f2d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 3565eed599b103345a55020bd15fcdb7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4814bb33cbea44741a257eec39da2411, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7f8a1a2ea21d2ae42baa6f412b260ddb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1a8cb3c592d618944b170d78d9f9eee6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d0b5d7f58862ccb4a824b9821c135433, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0922d71c960a51f42b27774c3cf7b019, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7d9c82979998eff409287a5243bcffad, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7876fb40cbff6544e84ed273da581962, type: 2}

@@ -38,3 +38,8 @@ GolemMedium_BD,Medium Golem,1,Tower Outskirts,620,20,0,0,-1.2,,,ground slam quak
 GolemLarge_BD,Large Golem,1,Tower Outskirts,950,28,0,1,-1.2,,,super armor boulder throw (gen_outskirts_mobs)
 RuinSpirit_BD,Ruin Spirit,1,Tower Outskirts (night),170,6,0,0,-1.2,,,night rune light bolt (gen_outskirts_mobs)
 Gatekeeper_BD,Gatekeeper of the Tower,1,Tower Outskirts (boss),15000,28,1,1,0,,,floor 1 final boss 3 phases calls golems at phase 2 (gen_outskirts_mobs)
+RampartKnight_BD,Rampart Knight,2,Broken Rampart,640,24,0,0,-1.2,,,shield bash slash (gen_rampart_mobs)
+HalberdSentry_BD,Halberd Sentry,2,Broken Rampart,880,28,0,0,-1.2,,,slow halberd crescent sweep (gen_rampart_mobs)
+Gargoyle_BD,Gargoyle,2,Broken Rampart,420,26,0,0,-1.2,,,winged statue stone feather shot (gen_rampart_mobs)
+CloudWisp_BD,Cloud Wisp,2,Broken Rampart (night),300,10,0,0,-1.2,,,night spark light (gen_rampart_mobs)
+GargoyleLord_BD,Gargoyle Lord,2,Broken Rampart (boss),18000,34,1,1,0,,,zone boss night calls gargoyles at phase 2 (gen_rampart_mobs)

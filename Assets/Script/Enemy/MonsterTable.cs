@@ -35,6 +35,17 @@ public static class MonsterTable
         return rows.TryGetValue(key, out Row r) ? r : null;
     }
 
+    /// <summary>배너·로그용 표시 이름: MonsterSheet displayName, 없으면 프리팹 이름에서 (Clone)·_BD 를 뗀 것.</summary>
+    public static string DisplayName(string prefabName)
+    {
+        Row r = Get(prefabName);
+        if (r != null && !string.IsNullOrEmpty(r.displayName))
+        {
+            return r.displayName;
+        }
+        return prefabName.Replace("(Clone)", "").Replace("_BD", "").Trim();
+    }
+
     public static IEnumerable<Row> All()
     {
         if (rows == null)

@@ -107,7 +107,7 @@ public class BossPhase : MonoBehaviour
         transform.DOPunchScale(Vector3.one * 0.12f, 0.35f, 6, 0.6f).SetLink(gameObject);
         HitFeedback.Shake(HitFeedback.ShakeTier.Heavy);
         Sfx.Play(SfxId.BossSlam, 0.7f);
-        string name = health.name.Replace("(Clone)", "").Replace("_BD", "").Trim();
+        string name = MonsterTable.DisplayName(health.name);
         BossBanner.Show(name, phase == 1 ? "ENRAGED — Phase 2" : "FRENZY — Phase 3", true);
         GameLog.Info(GameLog.Cat.AI, "보스 페이즈 " + (phase + 1) + ": " + health.name + " HP " + health.nowHP + "/" + health.maxHP);
     }

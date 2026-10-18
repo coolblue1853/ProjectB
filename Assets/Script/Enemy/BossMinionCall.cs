@@ -64,6 +64,6 @@ public class BossMinionCall : MonoBehaviour
             float dist = _spread * (1 + i / 2);
             _health.enemySpowner.SpawnMinion(_minionKey, transform.position + new Vector3(side * dist, 0.5f, 0f));
         }
-        BossBanner.Show(name.Replace("(Clone)", "").Replace("_BD", "").Trim(), _bannerText, true); // 페이즈 배너를 대신한다
+        BossBanner.Show(MonsterTable.DisplayName(name), _bannerText, true); // 페이즈 배너를 대신한다
     }
 }

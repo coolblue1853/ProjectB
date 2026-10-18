@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HalberdCrescent
+  m_Controller: {fileID: 9100000, guid: 45e69b12953af3d4089fd9af177eee01, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 37917f3ac5e12d0408bcec015589b4da, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: efa17eef38df4954f85c3fad358ea65d, type: 2}

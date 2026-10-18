@@ -103,7 +103,7 @@ public static class BossLoot
             since = 0;
         }
         ES3.Save(killKey, since);
-        BossBanner.Show(string.IsNullOrEmpty(r.displayName) ? bossName : r.displayName, unique ? r.uniqueItem : null); // G2 승리 연출
+        BossBanner.Show(string.IsNullOrEmpty(r.displayName) ? MonsterTable.DisplayName(bossName) : r.displayName, unique ? r.uniqueItem : null); // G2 승리 연출
         // 승급 배너는 처치 배너 뒤에 이어진다(BossBanner 대기열)
         if (r.grantsRank > 0 && AscentLoad.GrantRank(r.grantsRank))
         {
