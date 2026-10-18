@@ -1908,6 +1908,10 @@ public class InventoryManager : MonoBehaviour
         {
             chest.itemCheck.nowStack -= 1;
         }
+        if (!placed)
+        {
+            GameLog.Info(GameLog.Cat.Item, "인벤토리 가득: " + itemName + " 넣지 못함", this);
+        }
         if (placed)
         {
             SaveInventory();

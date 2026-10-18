@@ -134,23 +134,36 @@ public class PlayerController : MonoBehaviour
         touchLightManager.StartLighting(attP, lightMaxT, lightT);
     }
 
+    /// <summary>
+    /// 매 프레임 호출되는 대기 애니메이션용: 이미 재생 중이면 다시 Play하지 않는다
+    /// (AnyPortrait Play 재호출이 매 프레임 GC 할당·애니 리셋을 일으키던 문제, C10).
+    /// </summary>
+    void PlayLoopAnim(string clip)
+    {
+        if (mainCharacter.IsPlaying(clip))
+        {
+            return;
+        }
+        mainCharacter.Play(clip);
+    }
+
     void Update()
     {
         PlayerStatus.Tick(); // 시간 만료 토큰(대시 무적 등) 해제
        if (verticalInput == 0 && states != "move" && isUpLadder ==true && isAttackAnim == false)
         {
-            mainCharacter.Play("RopeStay");
+            PlayLoopAnim("RopeStay");
 
         }
         if (horizontalInput == 0&& isUpLadder == false)
         {
             if (isJumpAnim == false && isUpLadder == false && states != "dash" && isAttackAnim == false)
             {
-                mainCharacter.Play("Idle");
+                PlayLoopAnim("Idle");
             }
             if (isJumpAnim == false && isUpLadder == true && states != "dash" && isAttackAnim == false)
             {
-                mainCharacter.Play("RopeStay");
+                PlayLoopAnim("RopeStay");
             }
 
         }

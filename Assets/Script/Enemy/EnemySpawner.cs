@@ -132,23 +132,56 @@ public class EnemySpawner : MonoBehaviour
             prefabs.Add(key, prefab);
             pools.Add(key, pool);
 
-            // 미리 생성(워밍업)
-            var warm = new List<GameObject>(info.count);
-            for (int i = 0; i < info.count; i++)
-            {
-                warm.Add(pool.Get());
-            }
-            foreach (GameObject go in warm)
-            {
-                pool.Release(go);
-            }
+            pendingWarmup.Add(new KeyValuePair<ObjectPool<GameObject>, int>(pool, info.count));
         }
 
         isReady = true;
+        if (pendingWarmup.Count > 0 && isActiveAndEnabled)
+        {
+            StartCoroutine(WarmUp());
+        }
+    }
+
+    const int WarmupPerFrame = 3;
+    readonly List<KeyValuePair<ObjectPool<GameObject>, int>> pendingWarmup = new List<KeyValuePair<ObjectPool<GameObject>, int>>();
+
+    /// <summary>
+    /// 워밍업을 여러 프레임에 나눈다. 맵 진입 시 스포너 20여 개가 한 프레임에 수백 개를 Instantiate해서
+    /// 1초 넘게 멈추던 문제(soak 테스트 측정) 완화. 첫 스폰은 1초 뒤라 그 전에 대부분 끝난다.
+    /// </summary>
+    System.Collections.IEnumerator WarmUp()
+    {
+        var temp = new List<GameObject>(8);
+        while (pendingWarmup.Count > 0)
+        {
+            var entry = pendingWarmup[0];
+            pendingWarmup.RemoveAt(0);
+            int remaining = entry.Value - entry.Key.CountInactive - entry.Key.CountActive;
+            while (remaining > 0)
+            {
+                int n = Mathf.Min(WarmupPerFrame, remaining);
+                temp.Clear();
+                for (int i = 0; i < n; i++)
+                {
+                    temp.Add(entry.Key.Get());
+                }
+                foreach (GameObject go in temp)
+                {
+                    entry.Key.Release(go);
+                }
+                remaining -= n;
+                yield return null;
+            }
+        }
     }
 
     private GameObject CreatePooledItem(GameObject prefab, IObjectPool<GameObject> pool)
     {
+        if (isReady)
+        {
+            // 워밍업 이후의 생성 = 풀이 모자라 늘어남 (count 튜닝 신호)
+            GameLog.Info(GameLog.Cat.Pool, name + ": 풀 확장 생성 " + prefab.name, this);
+        }
         GameObject go = Instantiate(prefab);
         go.GetComponent<PoolAble>().pool = pool;
         return go;
@@ -184,11 +217,12 @@ public class EnemySpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// 맵을 떠날 때 호출. 활동 중인 몬스터·공격·시체를 모두 반환하고 풀을 파괴한다.
-    /// 다시 활성화되면 <see cref="Init"/>에서 새로 만든다.
+    /// 맵을 떠날 때 호출. 활동 중인 몬스터·공격·시체를 모두 풀로 반환한다.
+    /// 풀 자체는 파괴하지 않는다 — 다시 들어올 때 재생성(수백 개 Instantiate)으로 생기던 1초대 프리즈 제거.
     /// </summary>
     public void ClearAllPools()
     {
+        GameLog.Info(GameLog.Cat.Pool, name + ": 맵 이탈 정리 — 활성 " + activeObjects.Count + "개 반환 (풀 유지 " + pools.Count + "종)", this);
         CancelInvoke(nameof(CycleCheck));
         isSpawning = false;
 
@@ -213,14 +247,14 @@ public class EnemySpawner : MonoBehaviour
             }
         }
         activeObjects.Clear();
+    }
 
+    void OnDestroy()
+    {
         foreach (ObjectPool<GameObject> pool in pools.Values)
         {
-            pool.Clear(); // 비활성 오브젝트 파괴 (OnDestroyPoolObject)
+            pool.Clear();
         }
-        pools.Clear();
-        prefabs.Clear();
-        isReady = false;
     }
     #endregion
 
@@ -236,6 +270,11 @@ public class EnemySpawner : MonoBehaviour
         {
             enemySlot[num] = null;
         }
+        else
+        {
+            GameLog.Anomaly(GameLog.Cat.Spawn, name + ": 잘못된 슬롯 번호 반환 " + num, this);
+        }
+        GameLog.Info(GameLog.Cat.Spawn, name + ": 슬롯 " + num + " 비움 (drop=" + isDrop + ", body=" + isDeadBody + ")", this);
         if (isDrop && dropManager != null)
         {
             dropManager.DropItems(pos);
@@ -280,6 +319,7 @@ public class EnemySpawner : MonoBehaviour
             enemyHealth.OnReleasedToPool -= OnEnemyReleased; // 중복 등록 방지
             enemyHealth.OnReleasedToPool += OnEnemyReleased;
             enemySlot[i] = enemyObject;
+            GameLog.Info(GameLog.Cat.Spawn, name + ": 슬롯 " + i + " 스폰 " + enemyObject.name + " @" + enemyObject.transform.position.ToString("F1"), this);
         }
     }
 

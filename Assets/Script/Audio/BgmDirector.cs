@@ -58,6 +58,7 @@ public class BgmDirector : MonoBehaviour
             return;
         }
         current = target;
+        GameLog.Info(GameLog.Cat.Audio, "BGM → " + target);
         MasterAudio.ChangePlaylistByName(target);
     }
 

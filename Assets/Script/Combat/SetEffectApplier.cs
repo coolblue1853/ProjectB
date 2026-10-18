@@ -55,6 +55,7 @@ public static class SetEffectApplier
     /// <summary>apply=true면 적용, false면 같은 양을 되돌린다.</summary>
     public static void Apply(string effect, bool apply)
     {
+        GameLog.Info(GameLog.Cat.Item, (apply ? "세트 효과 적용: " : "세트 효과 해제: ") + effect);
         foreach (Entry e in Parse(effect))
         {
             ApplyEntry(e, apply ? e.value : -e.value);

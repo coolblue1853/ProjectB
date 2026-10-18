@@ -52,6 +52,7 @@ public class DatabaseManager : MonoBehaviour
         }
         setsEffectStack.TryGetValue(name, out int now);
         setsEffectStack[name] = now + count;
+        GameLog.Info(GameLog.Cat.Item, "세트 " + name + " 장착 수 " + now + "→" + (now + count));
         SetEffectActvie(name, setsEffectStack[name]);
     }
 
@@ -63,6 +64,7 @@ public class DatabaseManager : MonoBehaviour
             return; // 세트가 아니거나 카운트되지 않은 장비 (B-112)
         }
         SetEffectDisactvie(name, now);
+        GameLog.Info(GameLog.Cat.Item, "세트 " + name + " 장착 수 " + now + "→" + (now - count));
         now -= count;
         if (now <= 0)
         {

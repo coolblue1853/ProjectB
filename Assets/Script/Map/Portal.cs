@@ -68,6 +68,7 @@ public class Portal : MonoBehaviour
     void AbleOpenMap()
     {
         openMap.SetActive(true);
+        GameLog.Info(GameLog.Cat.Map, "포털 " + name + ": " + (closeMap ? closeMap.name : "-") + " → " + openMap.name, this);
         MapChanged?.Invoke(openMap);
         if (openMapCheck != null)
             openMapCheck.AbleSpwaner();

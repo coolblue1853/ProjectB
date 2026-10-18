@@ -16,6 +16,7 @@ public class PoolAble : MonoBehaviour
     {
         if (IsInPool)
         {
+            GameLog.Info(GameLog.Cat.Pool, "이중 반환 무시: " + name, this);
             return; // 이중 반환 방지 (지연 콜백·여러 경로에서 동시에 반환 요청)
         }
 

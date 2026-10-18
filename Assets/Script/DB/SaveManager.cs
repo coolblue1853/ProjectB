@@ -66,6 +66,7 @@ public class SaveManager : MonoBehaviour
 
     public void DataSave()
     {
+        GameLog.Info(GameLog.Cat.Save, "저장 money=" + datas.money + " pos=" + datas.playerPos);
         ES3.Save(keyName, datas);
     }
     public void DataLoad()

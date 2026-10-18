@@ -65,7 +65,7 @@
 
 | # | 항목 | 상태 |
 |---|---|---|
-| F1 | Update 내 할당·조회 제거(P3 목록), Debug.Log 정리 | ⏳ |
+| F1 | Update 내 할당·조회 제거(P3 목록), Debug.Log 정리 — 대기 애니 재호출 캐시, 바닥 레이캐스트 마스크 캐시, 드롭 공유 풀, 풀 유지(맵 재진입 재생성 제거), 워밍업 프레임 분산 | 🔶 |
 | F2 | 텍스처 압축/아틀라스 경고 정리 (도트는 Point + 무압축) | ⏳ |
 | F3 | 오타 이름 정리(FormerlySerializedAs) | ⏳ |
 | F4 | EditMode 테스트: 데미지 공식 ✅, 세트 판정, 인벤토리 스택 (Unity Test Framework, `Assets/Editor/Tests`) | 🔶 |

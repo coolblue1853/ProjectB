@@ -15,6 +15,7 @@ public class DropItemCheck : PoolAble
     public int nowStack;
     public int Buyprice;
     public int needCount;
+    [System.NonSerialized] public DropManager owner; // 이 드롭을 떨어뜨린 스포너 (공유 풀)
 
     public void SetItem(string itemName)
     {

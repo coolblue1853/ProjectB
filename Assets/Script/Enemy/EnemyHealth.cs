@@ -163,6 +163,7 @@ public class EnemyHealth : PoolAble
         isCrit = result.isCrit;
         finDmg = result.damage;
         addDmg = result.extraDamage;
+        GameLog.Info(GameLog.Cat.Combat, name + " 피격 " + result.damage + (result.isCrit ? " 치명" : "") + (result.extraDamage > 0 ? " +추가 " + result.extraDamage : "") + (isSkill ? " [스킬]" : "") + " HP " + nowHP + "→" + (nowHP - result.damage), this);
 
        if(isBossMob == false)
         {
@@ -439,6 +440,7 @@ public class EnemyHealth : PoolAble
             return false;
         }
         deadOnec = true;
+        GameLog.Info(GameLog.Cat.Combat, name + " 사망 (overkill " + (-nowHP) + ")", this);
         ReleaseEnemy(true, true);
         return true;
     }

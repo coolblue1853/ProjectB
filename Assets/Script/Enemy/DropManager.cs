@@ -41,83 +41,62 @@ public class DropManager : MonoBehaviour
     public bool isReady { get; private set; }
 
     [SerializeField]
-    private ObjectInfo[] objectInfos = null;
+    private ObjectInfo[] objectInfos = null; // (구) 아이템별 풀 설정 — 직렬화 호환용으로만 유지
 
-    // 생성할 오브젝트의 key값지정을 위한 변수
-    private string objectName;
+    // 모든 DropManager가 같은 드롭 프리팹을 쓰므로 프리팹당 공유 풀 1개만 둔다.
+    // (기존: 스포너마다 × 아이템 이름마다 풀을 만들어 맵 진입 시 수백~천 개를 미리 생성 → 프리즈)
+    const int SharedWarmCount = 12;
+    static readonly Dictionary<GameObject, ObjectPool<GameObject>> sharedPools = new Dictionary<GameObject, ObjectPool<GameObject>>();
+    readonly HashSet<GameObject> myActiveDrops = new HashSet<GameObject>();
 
-    // 오브젝트풀들을 관리할 딕셔너리
-    private Dictionary<string, IObjectPool<GameObject>> ojbectPoolDic = new Dictionary<string, IObjectPool<GameObject>>();
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetShared() => sharedPools.Clear();
 
-    // 오브젝트풀에서 오브젝트를 새로 생성할때 사용할 딕셔너리
-    private Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
     private void Init()
     {
-        isReady = false;
-
-        for (int idx = 0; idx < objectInfos.Length; idx++)
+        if (itemPrefab == null)
         {
-            IObjectPool<GameObject> pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
-            OnDestroyPoolObject, true, objectInfos[idx].count, objectInfos[idx].count);
-
-            if (goDic.ContainsKey(objectInfos[idx].objectName))
-            {
-                Debug.LogFormat("{0} 이미 등록된 오브젝트입니다.", objectInfos[idx].objectName);
-                return;
-            }
-            goDic.Add(objectInfos[idx].objectName, itemPrefab);
-            ojbectPoolDic.Add(objectInfos[idx].objectName, pool);
-
-            // 미리 오브젝트 생성 해놓기
-            for (int i = 0; i < objectInfos[idx].count; i++)
-            {
-                objectName = objectInfos[idx].objectName;
-                PoolAble poolAbleGo = CreatePooledItem().GetComponent<PoolAble>();
-                poolAbleGo.pool.Release(poolAbleGo.gameObject);
-            }
+            return;
         }
-
+        if (!sharedPools.TryGetValue(itemPrefab, out ObjectPool<GameObject> pool) || pool == null)
+        {
+            GameObject prefab = itemPrefab;
+            ObjectPool<GameObject> created = null;
+            created = new ObjectPool<GameObject>(
+                () => { var go = Instantiate(prefab); go.GetComponent<PoolAble>().pool = created; return go; },
+                go => go.SetActive(true),
+                go => go.SetActive(false),
+                go => { if (go != null) Destroy(go); },
+                collectionCheck: true, defaultCapacity: SharedWarmCount, maxSize: 200);
+            sharedPools[prefab] = created;
+            var warm = new List<GameObject>(SharedWarmCount);
+            for (int i = 0; i < SharedWarmCount; i++) warm.Add(created.Get());
+            foreach (var go in warm) created.Release(go);
+            GameLog.Info(GameLog.Cat.Pool, "드롭 공유 풀 생성: " + prefab.name);
+        }
         isReady = true;
     }
 
-    // 생성
-    private GameObject CreatePooledItem()
-    {
-        GameObject poolGo = Instantiate(goDic[objectName]);
-        poolGo.GetComponent<PoolAble>().pool = ojbectPoolDic[objectName];
-        return poolGo;
-    }
-
-    // 대여
-    private void OnTakeFromPool(GameObject poolGo)
-    {
-        poolGo.SetActive(true);
-    }
-
-    // 반환
-    private void OnReturnedToPool(GameObject poolGo)
-    {
-        poolGo.SetActive(false);
-    }
-
-    // 삭제
-    private void OnDestroyPoolObject(GameObject poolGo)
-    {
-        Destroy(poolGo);
-    }
-
+    /// <summary>드롭 오브젝트 하나를 꺼낸다(아이템 종류는 호출자가 SetItem으로 지정)</summary>
     public GameObject GetGo(string goName)
     {
-        objectName = goName;
-
-        if (goDic.ContainsKey(goName) == false)
+        if (itemPrefab == null || !sharedPools.TryGetValue(itemPrefab, out ObjectPool<GameObject> pool))
         {
-            Debug.LogFormat("{0} 오브젝트풀에 등록되지 않은 오브젝트입니다.", goName);
-            return null;
+            Init();
+            if (itemPrefab == null || !sharedPools.TryGetValue(itemPrefab, out pool))
+            {
+                return null;
+            }
         }
-
-        return ojbectPoolDic[goName].Get();
+        GameObject go = pool.Get();
+        myActiveDrops.Add(go);
+        if (go.TryGetComponent(out DropItemCheck check))
+        {
+            check.owner = this; // 공유 풀이므로 누가 떨어뜨렸는지 기록 (맵 이탈 정리용)
+        }
+        return go;
     }
+
     public float impulseForce = 5f;
     float rayLength = 0.5f;
 
@@ -137,6 +116,12 @@ public class DropManager : MonoBehaviour
 
                     Vector3 newItemPosition = dropPosition + new Vector3(offsetX, dropItem.offsetY, 0f);
                     var newItem =  GetGo(dropItem.itemName);
+                    if (newItem == null)
+                    {
+                        GameLog.Anomaly(GameLog.Cat.Item, name + ": 드롭 풀에서 꺼내지 못함 " + dropItem.itemName, this);
+                        continue;
+                    }
+                    GameLog.Info(GameLog.Cat.Item, "드롭 " + dropItem.itemName + " (확률 " + (dropItem.dropProbability * 100f).ToString("F2") + "%)", this);
                     newItem.transform.position = newItemPosition;
 
                     Rigidbody2D rb = newItem.GetComponent<Rigidbody2D>();
@@ -170,22 +155,22 @@ public class DropManager : MonoBehaviour
             }
         }
     }
+    /// <summary>맵을 떠날 때: 이 스포너가 떨어뜨려 아직 바닥에 있는 드롭을 반환한다 (풀은 유지)</summary>
     public void ClearAll()
     {
-        foreach (var pool in ojbectPoolDic.Values)
+        int n = 0;
+        foreach (GameObject go in myActiveDrops)
         {
-            // ObjectPool의 내부 상태를 직접적으로 관리할 수 없으므로, 
-            // 직접 오브젝트를 반환하거나 삭제하는 방식으로 처리합니다.
-
-            // 풀에 있는 모든 오브젝트를 순차적으로 반환합니다.
-            pool.Clear();  // 풀을 비웁니다.
-
-            // 추가적으로 필요한 경우 모든 오브젝트를 파괴할 수도 있습니다.
-            // 이 경우 해당 오브젝트가 존재할 때, 모든 오브젝트를 파괴하는 코드도 필요합니다.
+            if (go != null && go.activeSelf && go.TryGetComponent(out DropItemCheck p) && p.owner == this)
+            {
+                p.ReleaseObject();
+                n++;
+            }
         }
-        goDic.Clear();
-        ojbectPoolDic.Clear();
+        myActiveDrops.Clear();
+        if (n > 0)
+        {
+            GameLog.Info(GameLog.Cat.Pool, name + ": 바닥 드롭 " + n + "개 반환", this);
+        }
     }
-
-
 }

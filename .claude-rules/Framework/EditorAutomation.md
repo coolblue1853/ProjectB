@@ -31,3 +31,11 @@ bash Tools/playtest.sh 10 이름                                                
   - CodeDom(C# 6) 컴파일러이므로 `UnityEngine.Object`를 명시하고, 최신 문법은 쓰지 않는다.
 - 플레이 중 검증: `manage_editor play` → 프로브로 상태를 조작·관찰(예: 적에게 데미지를 주고 드롭 확인) → `stop`.
 - 스크린샷은 `Assets/Screenshots/`에 쌓인다(gitignore). 사본은 `Logs/playtest/`에 둔다.
+
+## 디버그 로그 · 자동 장시간 테스트
+
+- `GameLog.Info(Cat, msg)` — `PB_DEBUG` 심볼(Standalone 스크립팅 정의)일 때만 컴파일된다. 형식 `[PB][Cat] ...`. `Warn`은 항상 남고, `Anomaly`는 에러로 남아 자동 테스트에서 실패로 잡힌다.
+- `RuntimeMonitor`(에디터·개발 빌드 자동 생성): 5초마다 `[PB][Monitor]`로 fps·최악 프레임·프레임당 GC·트윈 수·몬스터 수를 요약한다. 즉시 이상 보고: NaN·추락, 8초 넘게 유지되는 잠금 토큰, 몬스터 120마리 초과, 트윈 증가 추세.
+  - ⚠️ 프로브 실행(`execute_code`)은 C#을 컴파일하느라 에디터를 약 1초 멈춘다. 그래서 감시기의 1초대 스파이크는 도구 착시일 수 있다. 실제 원인은 `Tools/probes/spike_top.cs`(프로파일러 최악 프레임 self time)로 확인한다.
+  - 에디터에서는 프레임당 GC가 약 10KB 잡히는데 대부분 에디터 몫이다. 게임 코드의 할당은 `Tools/probes/gc_top.cs`(에디터 샘플 제외)로 본다.
+- `bash Tools/soak.sh [사이클] [무기]`: 마을↔사냥터 왕복, 무작위 스포너 사냥, 밤 전환, 보스 지역을 반복한다. 끝나면 `Logs/soak/`에 에러, `[PB]` 경고, 모니터 요약을 집계한다. 세이브는 자동으로 백업·복원한다.
