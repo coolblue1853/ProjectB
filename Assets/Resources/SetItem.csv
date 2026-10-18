@@ -4,3 +4,7 @@ RabbitArmor_2,(+)10 Def
 RabbitArmor_5,(+)100 Hp
 LeafArmor_2,(+)1 skillHitCount Rising_Roots/(+)2 bulletCount Scattering_Leaves
 LeafArmor_5,(+)2 skillHitCount Rising_Roots/(+)50 coolDown Haste
+RatArmor_2,(+)3 Poison/(+)5 Crit
+RatArmor_5,(+)8 Poison/(+)15 CritDmg/(+)10 MoveSpeed
+ScareArmor_2,(+)10 Def/(+)5 IncDmg
+ScareArmor_5,(+)15 IncDmg/(+)15 AtkSpeed/(+)50 Hp

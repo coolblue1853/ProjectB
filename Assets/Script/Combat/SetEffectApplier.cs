@@ -1,0 +1,105 @@
+﻿using System.Collections.Generic;
+
+/// <summary>
+/// 세트 효과 문자열을 해석해 플레이어 스탯에 적용/해제한다 (스펙: .claude-rules/Game/ItemSpec.md 3절).
+/// 문법: "(+)값 스탯 [스킬_이름]"을 "/"로 연결. 예) "(+)10 Def/(+)2 bulletCount Scattering_Leaves"
+/// 적용과 해제가 같은 코드 경로(부호만 반대)라서 비대칭 버그가 생기지 않는다.
+/// </summary>
+public static class SetEffectApplier
+{
+    public struct Entry
+    {
+        public int value;      // 부호 포함
+        public string stat;
+        public string skill;   // 스킬 대상 스탯만 (공백 복원됨)
+    }
+
+    static readonly HashSet<string> SkillStats = new HashSet<string> { "skillHitCount", "bulletCount", "coolDown" };
+
+    /// <summary>파싱만 (테스트·툴팁용). 잘못된 항목은 건너뛴다.</summary>
+    public static List<Entry> Parse(string effect)
+    {
+        var list = new List<Entry>();
+        if (string.IsNullOrEmpty(effect))
+        {
+            return list;
+        }
+        foreach (string raw in effect.Split('/'))
+        {
+            string part = raw.Trim();
+            int close = part.IndexOf(')');
+            if (!part.StartsWith("(") || close < 2)
+            {
+                continue;
+            }
+            char sign = part[1];
+            string[] tokens = part.Substring(close + 1).Trim().Split(' ');
+            if (tokens.Length < 2 || !int.TryParse(tokens[0], out int v))
+            {
+                continue;
+            }
+            var e = new Entry { value = sign == '-' ? -v : v, stat = tokens[1] };
+            if (SkillStats.Contains(e.stat))
+            {
+                if (tokens.Length < 3)
+                {
+                    continue;
+                }
+                e.skill = tokens[2].Replace("_", " ");
+            }
+            list.Add(e);
+        }
+        return list;
+    }
+
+    /// <summary>apply=true면 적용, false면 같은 양을 되돌린다.</summary>
+    public static void Apply(string effect, bool apply)
+    {
+        foreach (Entry e in Parse(effect))
+        {
+            ApplyEntry(e, apply ? e.value : -e.value);
+        }
+    }
+
+    static void ApplyEntry(Entry e, int delta)
+    {
+        switch (e.stat)
+        {
+            case "Def": DatabaseManager.playerDef += delta; break;
+            case "Hp":
+                if (PlayerHealthManager.Instance != null)
+                {
+                    if (delta > 0) PlayerHealthManager.Instance.EquipmentActiveTrue(delta);
+                    else PlayerHealthManager.Instance.EquipmentActiveFalse(-delta);
+                }
+                break;
+            case "Crit": DatabaseManager.playerCritRate += delta; break;
+            case "CritDmg": DatabaseManager.playerCritDmgRate += delta; break;
+            case "IncDmg": DatabaseManager.incDmg += delta; break;
+            case "BasicDmg": DatabaseManager.addbasicDmg += delta; break;
+            case "Poison": DatabaseManager.addPoisonDmg += delta; break;
+            case "BleedDmg": DatabaseManager.bleedingAddDmg += delta; break;
+            case "AtkSpeed": DatabaseManager.attackSpeedBuff += delta; break;
+            case "MoveSpeed": DatabaseManager.SpeedBuff += delta; break;
+            case "DropRate": DatabaseManager.playerDropRate += delta; break;
+            case "skillHitCount": AddSkill(DatabaseManager.skillHitCount, e.skill, delta); break;
+            case "bulletCount": AddSkill(DatabaseManager.skillBulletCount, e.skill, delta); break;
+            case "coolDown": AddSkill(DatabaseManager.skillCoolDown, e.skill, delta); break;
+            default: UnityEngine.Debug.LogWarning("알 수 없는 세트 효과 스탯: " + e.stat); break;
+        }
+    }
+
+    static void AddSkill(Dictionary<string, int> dict, string skill, int delta)
+    {
+        dict.TryGetValue(skill, out int now);
+        now += delta;
+        if (now == 0)
+        {
+            dict.Remove(skill);
+        }
+        else
+        {
+            dict[skill] = now;
+        }
+    }
+}
