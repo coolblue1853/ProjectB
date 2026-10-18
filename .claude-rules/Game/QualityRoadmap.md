@@ -45,7 +45,7 @@
 
 | # | 항목 | 상태 |
 |---|---|---|
-| D1 | 수량 캐시 불일치·복제·소실 버그(B-003~006) | ⏳ |
+| D1 | 수량 캐시 불일치·복제·소실 버그(B-003~006) | ⏳ — ✅ 픽셀 프레임 통일: `Art/UI`(Frame/FrameLight/Slot/SlotSelected/Divider, `gen_ui.py`) → 코드 생성 UI(`UiTheme.NewPanel`) + 씬 인벤토리·창고·상점·상세 패널 34·슬롯 53 교체(`restyle_legacy_ui.cs`) |
 | D2 | InventoryManager(2000줄) 분리: 데이터 모델(InventoryModel) / 뷰 / 입력 | ⏳ |
 | D3 | 아이템 툴팁: 등급 색, 세트 효과 진행도(2/5), 비교(착용 중 vs 선택) — 디아식 | ⏳ |
 | D4 | 정렬, 자동 정리, 15칸 → 25칸 확장, 페이지 탭 | ⏳ |

@@ -1,9 +1,9 @@
 // Resources/UI/UiTheme.asset 생성/갱신 (픽셀 폰트 + Art/UI 프레임 9-slice)
-foreach (var n in new[]{ "Frame", "FrameLight", "Divider" }) {
+foreach (var n in new[]{ "Frame", "FrameLight", "Divider", "Slot", "SlotSelected" }) {
   var path = "Assets/Art/UI/" + n + ".png"; var imp = (TextureImporter)AssetImporter.GetAtPath(path);
   imp.textureType = TextureImporterType.Sprite; imp.spriteImportMode = SpriteImportMode.Single; imp.filterMode = FilterMode.Point;
   imp.textureCompression = TextureImporterCompression.Uncompressed; imp.mipmapEnabled = false; imp.spritePixelsPerUnit = 100;
-  imp.spriteBorder = n == "Divider" ? Vector4.zero : new Vector4(8, 8, 8, 8); imp.SaveAndReimport();
+  imp.spriteBorder = n == "Divider" ? Vector4.zero : n.StartsWith("Slot") ? new Vector4(6, 6, 6, 6) : new Vector4(8, 8, 8, 8); imp.SaveAndReimport();
 }
 if (!AssetDatabase.IsValidFolder("Assets/Resources/UI")) AssetDatabase.CreateFolder("Assets/Resources", "UI");
 var t = AssetDatabase.LoadAssetAtPath<UiTheme>("Assets/Resources/UI/UiTheme.asset");
