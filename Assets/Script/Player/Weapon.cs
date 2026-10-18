@@ -129,14 +129,14 @@ public class Weapon : MonoBehaviour
     public void MeleeAttackActive()
     {
         if (delayTime.Length > 0)
-            Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+            Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / StatMath.AttackSpeedMul);
         else CreatAttackPrefab();
         MasterAudio.PlaySound(weaponSound[nowConboCount - 1]);
         CheckAttackWait();
     }
     public void CreatAttackPrefab()
     {
-        pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+        pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / StatMath.AttackSpeedMul);
         GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
         DamageObject dmOb = damageObject.GetComponent<DamageObject>();
         dmOb.SetDamge(damgeArray);
@@ -148,9 +148,9 @@ public class Weapon : MonoBehaviour
         isAttackWait = false;
         float waitTime = 0;
         if (delayTime.Length > 0)
-            waitTime = (attckSpeed[nowConboCount - 1] + delayTime[nowConboCount - 1]) / (1 + (DatabaseManager.attackSpeedBuff / 100));
+            waitTime = (attckSpeed[nowConboCount - 1] + delayTime[nowConboCount - 1]) / StatMath.AttackSpeedMul;
         else
-            waitTime = (attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+            waitTime = (attckSpeed[nowConboCount - 1] / StatMath.AttackSpeedMul);
         Sequence sequence = DOTween.Sequence()
         .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
         .AppendCallback(() => DatabaseManager.weaponStopMove = false)

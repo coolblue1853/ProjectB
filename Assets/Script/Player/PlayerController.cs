@@ -313,14 +313,14 @@ public class PlayerController : MonoBehaviour
                 states = "moveDown";
                 PlayRopeSound();
                 mainCharacter.Play("RopeDown");
-                moveVelocity = Vector2.down * (isRun ? runSpeed * (1 + (DatabaseManager.SpeedBuff / 100)) : moveSpeed * (1 + (DatabaseManager.SpeedBuff / 100)));
+                moveVelocity = Vector2.down * (isRun ? runSpeed * StatMath.MoveSpeedMul : moveSpeed * StatMath.MoveSpeedMul);
             }
             else if (verticalInput > 0.2f && isAttackAnim == false)
             {
                 PlayRopeSound();
                 states = "moveUp";
                 mainCharacter.Play("RopeUp");
-                moveVelocity = Vector2.up * (isRun ? runSpeed * (1 + (DatabaseManager.SpeedBuff / 100)) : moveSpeed * (1 + (DatabaseManager.SpeedBuff / 100)));
+                moveVelocity = Vector2.up * (isRun ? runSpeed * StatMath.MoveSpeedMul : moveSpeed * StatMath.MoveSpeedMul);
             }
             else if (verticalInput == 0 && states != "move" && check == false && isAttackAnim == false)
             {
@@ -448,7 +448,7 @@ public class PlayerController : MonoBehaviour
 
 
                 states = "moveLeft";
-                moveVelocity = Vector2.left * (isRun ? runSpeed * (1 + (DatabaseManager.SpeedBuff / 100)) : moveSpeed * (1 + (DatabaseManager.SpeedBuff / 100)));
+                moveVelocity = Vector2.left * (isRun ? runSpeed * StatMath.MoveSpeedMul : moveSpeed * StatMath.MoveSpeedMul);
                 transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
             }
             else if (horizontalInput > 0)
@@ -470,7 +470,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 states = "moveRight";
-                moveVelocity = Vector2.right * (isRun ? runSpeed * (1 + (DatabaseManager.SpeedBuff / 100)) : moveSpeed * (1 + (DatabaseManager.SpeedBuff / 100)));
+                moveVelocity = Vector2.right * (isRun ? runSpeed * StatMath.MoveSpeedMul : moveSpeed * StatMath.MoveSpeedMul);
                 transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
             }
             else if (horizontalInput == 0 && states != "move" && check ==false)

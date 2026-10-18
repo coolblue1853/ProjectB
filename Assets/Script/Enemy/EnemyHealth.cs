@@ -130,52 +130,6 @@ public class EnemyHealth : PoolAble
     public int ArmAtp = 0; // 방어구 기본뎀 9  
      */
     bool isCrit = false;
-    float outDmg;
-    float SetDmg(int[] damage, bool isSkill)
-    {
-        // 특정 조건 만족시 뎀증
-        // 출혈시 뎀증
-
-
-        isCrit = false;
-        if (damage.Length < 2) return 0;
-        float baseDmg = UnityEngine.Random.Range(damage[0]+DatabaseManager.addbasicDmg, damage[1]+DatabaseManager.addbasicDmg);
-        int checkCrit = UnityEngine.Random.Range(1, 101);
-
-        if(checkCrit <= damage[2]+ DatabaseManager.playerCritRate) // 치명타 성공시
-        {// 기본 치피는 20
-            isCrit = true;
-            if (isBleeding)
-            {
-                outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3] + DatabaseManager.playerCritDmgRate) / 100)) * (1 + ((damage[4]+DatabaseManager.bleedingAddDmg + DatabaseManager.incDmg) / 100));  // 기본뎀 * 치뎀 * 뎀증
-            }
-            else
-            {
-                outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3] + DatabaseManager.playerCritDmgRate) / 100)) * (1 + ((damage[4] + DatabaseManager.incDmg) / 100));  // 기본뎀 * 치뎀 * 뎀증
-            }
-
-        }
-        else
-        {
-            if (isBleeding)
-            {
-                outDmg = (baseDmg + damage[9]) * (1 + ((damage[4]+DatabaseManager.bleedingAddDmg) / 100));  // 기본뎀 * 뎀증
-            }
-            else
-            {
-                outDmg = (baseDmg + damage[9]) * (1 + ((damage[4]) / 100));  // 기본뎀 * 뎀증
-            }
-
-        }
-
-        if (isSkill == true)
-        {
-            outDmg *= 1 + ((damage[6]) / 100);
-        }
-
-        return outDmg;
-    }
-    float dmgByDmg;
     float finDmg;
     float addDmg;
     float shakeTime;
@@ -188,28 +142,11 @@ public class EnemyHealth : PoolAble
     {    
 
         shakeTime = shaking;
-        float dmg = SetDmg(damage, isSkill); // 방어력 적용전 데미지;
-
-        if (damage[5] !=0 && enemyDef != 0)
-        {
-             dmgByDmg = dmg * (dmg / (dmg + (enemyDef * (damage[5] / 100)))); // 방무 적용후
-            finDmg = dmgByDmg * (1 + ((damage[7]) / 100)) * dmgRatio; // 최종뎀 추가 * 계수
-        }
-        else
-        {
-            dmgByDmg = dmg * (dmg / (dmg + enemyDef)); // 방무 미적용
-
-            finDmg = dmgByDmg * (1 + ((damage[7]) / 100)) * dmgRatio; // 최종뎀 추가 * 계수
-
-        }
-
-         addDmg = 0;
-        if (damage[8] != 0)
-        {
-            float addFloat = damage[8];
-            addDmg = finDmg  * ((addFloat / 100.0f)); // 추뎀 계산
-
-        }
+        var result = DamageCalculator.Calculate(damage, DamageCalculator.PlayerOffense.FromDatabase(), enemyDef,
+            isBleeding, isSkill, dmgRatio, UnityEngine.Random.value, UnityEngine.Random.Range(0f, 100f));
+        isCrit = result.isCrit;
+        finDmg = result.damage;
+        addDmg = result.extraDamage;
 
        if(isBossMob == false)
         {

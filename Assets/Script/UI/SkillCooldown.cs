@@ -70,7 +70,7 @@ public class SkillCooldown : MonoBehaviour
                 cooldownPower = DatabaseManager.skillCoolDown[skillName];
             isCooldown[skillNum] = true; // 쿨타임을 시작합니다.
             if (cooldownPower == 0) cooldownTimer[skillNum] = cooldownTime[skillNum]; // 쿨타임 타이머를 초기화합니다.
-            else cooldownTimer[skillNum] = cooldownTime[skillNum] * (1 - cooldownPower / 100); // 쿨타임 타이머를 초기화합니다.
+            else cooldownTimer[skillNum] = cooldownTime[skillNum] * (1 - cooldownPower / 100f); // 쿨타임 타이머를 초기화합니다.
             cooldownImage[skillNum].fillAmount = 0; // 이미지를 초기화합니다.
         }
     }

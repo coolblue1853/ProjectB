@@ -63,7 +63,7 @@ final  = dmg × (1 + 최종뎀/100) × dmgRatio
 추가타 = final × 추가타%/100 (별도 숫자로 표시)
 ```
 
-> 🐞 모든 `x/100`이 정수 나눗셈이라 100% 미만 보정은 0이 된다. 수정 후 위 식이 **목표 사양**이다.
+> ✅ 위 식이 현재 구현이다: `Script/Combat/DamageCalculator.cs` (순수 함수, 테스트 `Assets/Editor/Tests/DamageCalculatorTests.cs`). % 계산은 `StatMath`를 쓴다.
 
 **상태이상:**
 

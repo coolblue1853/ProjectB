@@ -183,7 +183,7 @@ public class Skill : MonoBehaviour
         if (player.transform.localScale.x < 0) isChangeDir = true;
         if (DatabaseManager.skillHitCount.ContainsKey(skillName)) allObjectMaxCount = objectMaxCount + DatabaseManager.skillHitCount[skillName];
         else allObjectMaxCount = objectMaxCount;
-        yield return new WaitForSeconds(interval[0] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+        yield return new WaitForSeconds(interval[0] / StatMath.AttackSpeedMul);
         for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && (isEffectMaxAdd == false || i < allObjectMaxCount); i++)
         {
             if (isRayCheckSkill == false) //RayCast를 확인하는 기술인가
@@ -232,7 +232,7 @@ public class Skill : MonoBehaviour
          
             // 다음 스킬을 생성하기 전에 interval[i]의 시간만큼 대기
             if (i < interval.Length)
-                yield return new WaitForSeconds(interval[i] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+                yield return new WaitForSeconds(interval[i] / StatMath.AttackSpeedMul);
         }
         originPoint = Vector2.zero;
     }
@@ -278,15 +278,15 @@ public class Skill : MonoBehaviour
             && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
         {
             isActive = true;
-            if (isRoundAttack == true) RoundAttack(skillWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
-            else if (isGorundCheckSkill == false) NomalAttack(skillWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+            if (isRoundAttack == true) RoundAttack(skillWaitTime / StatMath.AttackSpeedMul);
+            else if (isGorundCheckSkill == false) NomalAttack(skillWaitTime / StatMath.AttackSpeedMul);
             else
             {
                 if (skillWaitTime == 0) GroundAttack();
                 else
                 {
                     Sequence sequence = DOTween.Sequence()
-                    .AppendInterval(skillWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100)))
+                    .AppendInterval(skillWaitTime / StatMath.AttackSpeedMul)
                     .AppendCallback(() => GroundAttack());
                 }
             }
@@ -330,11 +330,11 @@ public class Skill : MonoBehaviour
 
     void SkillEffect() // 기술 에니메이션 및 데미지 오브젝트에 공격설정
     {
-        PlayerController.instance.ActiveAttackAnim(false,skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
+        PlayerController.instance.ActiveAttackAnim(false,skillAnim, attckSpeed / StatMath.AttackSpeedMul);
         PlayerHealthManager.Instance.SteminaDown(useStemina);
 
         float waitTime = 0;
-        waitTime = skillWaitTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+        waitTime = skillWaitTime / StatMath.AttackSpeedMul;
         if (delayEffectPrefab != null)
         {
             GameObject effect = Instantiate(delayEffectPrefab, new Vector2(skillPivot[0].transform.position.x, skillPivot[0].transform.position.y), skillPivot[0].transform.rotation);
@@ -414,7 +414,7 @@ public class Skill : MonoBehaviour
 
                 float waitTime =0;
                 if (holdDisEffectByTime) waitTime = holdingTime;
-                else waitTime = holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+                else waitTime = holdingTime / StatMath.AttackSpeedMul;
                 isActiveHold = true;
                 skillSequence = DOTween.Sequence()
                .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
@@ -438,7 +438,7 @@ public class Skill : MonoBehaviour
         if (isHoldSkill == false)
         {
             Sequence sequence = DOTween.Sequence()
-            .AppendInterval(attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100))) // 사전에 지정한 공격 주기만큼 대기.
+            .AppendInterval(attckSpeed / StatMath.AttackSpeedMul) // 사전에 지정한 공격 주기만큼 대기.
             .AppendCallback(() => DatabaseManager.weaponStopMove = false)
             .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
             .AppendCallback(() => weapon.isSkillAttackWait = true);

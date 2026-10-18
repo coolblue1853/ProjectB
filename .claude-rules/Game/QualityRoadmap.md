@@ -14,7 +14,7 @@
 
 | # | 항목 | 수단 | 상태 |
 |---|---|---|---|
-| A1 | 데미지 공식 정상화(정수 나눗셈, 방무, 최대댐) | TechDebt B-101~104 | ⏳ |
+| A1 | 데미지 공식 정상화(정수 나눗셈, 방무, 최대댐) | TechDebt B-101~104 | ✅ |
 | A2 | 피격 플래시(흰색) + 히트스톱(0.03~0.06s) | All In 1 Sprite Shader `HitEffect`, Time 스케일 대신 애니 속도 | ⏳ |
 | A3 | 타격 시 카메라 흔들림 세분화(평타 약, 스킬 중, 치명 강) | ProCamera2D Shake 프리셋 | ⏳ |
 | A4 | 사망 디졸브 + 드롭 아이템 등급별 빛 기둥(C/R/U) | All In 1 Sprite Shader, 파티클 | ⏳ |
@@ -68,4 +68,4 @@
 | F1 | Update 내 할당·조회 제거(P3 목록), Debug.Log 정리 | ⏳ |
 | F2 | 텍스처 압축/아틀라스 경고 정리 (도트는 Point + 무압축) | ⏳ |
 | F3 | 오타 이름 정리(FormerlySerializedAs) | ⏳ |
-| F4 | EditMode 테스트: 데미지 공식, 세트 판정, 인벤토리 스택 (Unity Test Framework) | ⏳ |
+| F4 | EditMode 테스트: 데미지 공식 ✅, 세트 판정, 인벤토리 스택 (Unity Test Framework, `Assets/Editor/Tests`) | 🔶 |

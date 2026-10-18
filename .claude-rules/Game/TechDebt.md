@@ -19,10 +19,10 @@
 
 | ID | 내용 | 위치 | 상태 |
 |---|---|---|---|
-| B-101 | `% / 100` 정수 나눗셈 → 공속·이속·받피증·치피·증뎀·스킬뎀·방무·최종뎀이 100% 미만이면 무효 | 다수 (CombatSpec 4절) | ⏳ |
-| B-102 | 방무 공식 반대 의미: `def × 방무/100` → `def × (1 - 방무/100)` | `EnemyHealth.cs:190-199` | ⏳ |
-| B-103 | `Random.Range(int,int)` 최대값 미포함 | `EnemyHealth.cs:139` | ⏳ |
-| B-104 | 비치명타 경로에 장비 증뎀 누락 | `EnemyHealth.cs:159,163` | ⏳ |
+| B-101 | `% / 100` 정수 나눗셈 → 공속·이속·받피증·치피·증뎀·스킬뎀·방무·최종뎀이 100% 미만이면 무효 | 다수 (CombatSpec 4절) | ✅ StatMath/DamageCalculator로 /100f 통일 — EditMode 테스트 10/10 |
+| B-102 | 방무 공식 반대 의미: `def × 방무/100` → `def × (1 - 방무/100)` | `EnemyHealth.cs:190-199` | ✅ 실효 방어 = def×(1-방무%) — EditMode 테스트 10/10 |
+| B-103 | `Random.Range(int,int)` 최대값 미포함 | `EnemyHealth.cs:139` | ✅ Lerp(min,max,roll) 양끝 포함 — EditMode 테스트 10/10 |
+| B-104 | 비치명타 경로에 장비 증뎀 누락 | `EnemyHealth.cs:159,163` | ✅ 장비 증뎀 항상 적용 — EditMode 테스트 10/10 |
 | B-105 | `nomalizedHP = 1/fullHP` 정수 → 0 | `PlayerHealthManager.cs:149+` | ⏳ |
 | B-106 | 장비 해제 시 `HpDamage(fullHP - nowHp)`로 오히려 회복·이상 동작 | `PlayerHealthManager.cs:164-166` | ⏳ |
 | B-107 | 같은 이름 출혈 장비 2개 장착 시 Dictionary.Add 예외 | `EquipBoxCheck.cs:167` | ⏳ |

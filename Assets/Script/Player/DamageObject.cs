@@ -223,11 +223,11 @@ public class DamageObject : MonoBehaviour
         {
             if (isXbaseDash)
             {
-                PlayerController.instance.SkillDash(holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100)), dashSpeed * (1 + (DatabaseManager.attackSpeedBuff / 100)), dashYSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)), isDashInvins, isBackDash, isEffectGrvity);
+                PlayerController.instance.SkillDash(holdingTime / StatMath.AttackSpeedMul, dashSpeed * StatMath.AttackSpeedMul, dashYSpeed / StatMath.AttackSpeedMul, isDashInvins, isBackDash, isEffectGrvity);
             }
             else
             {
-                PlayerController.instance.SkillDash(holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100)), dashSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)), dashYSpeed * (1 + (DatabaseManager.attackSpeedBuff / 100)), isDashInvins, isBackDash, isEffectGrvity);
+                PlayerController.instance.SkillDash(holdingTime / StatMath.AttackSpeedMul, dashSpeed / StatMath.AttackSpeedMul, dashYSpeed * StatMath.AttackSpeedMul, isDashInvins, isBackDash, isEffectGrvity);
             }
          
         }
@@ -323,7 +323,7 @@ public class DamageObject : MonoBehaviour
 
          if (isHitIntervelEven == true)
         {
-            resetTime = (holdingTime) / (1 + (DatabaseManager.attackSpeedBuff / 100));
+            resetTime = (holdingTime) / StatMath.AttackSpeedMul;
             Sequence sequence = DOTween.Sequence()
     .AppendInterval(resetTime)
     .AppendCallback(() => isEndBoxCollider = true)
@@ -332,7 +332,7 @@ public class DamageObject : MonoBehaviour
         }
         else
         {
-         //   resetTime = holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+         //   resetTime = holdingTime / StatMath.AttackSpeedMul;
         }
 
 
@@ -363,11 +363,11 @@ public class DamageObject : MonoBehaviour
             // 
             if (isHitIntervelEven == true)
             {
-                    resetTime =( holdingTime / (hitCount + DatabaseManager.hitCount) + 0.01f) / (1 + (DatabaseManager.attackSpeedBuff / 100));
+                    resetTime =( holdingTime / (hitCount + DatabaseManager.hitCount) + 0.01f) / StatMath.AttackSpeedMul;
             }
             else
             {
-                 resetTime = hitIntervalTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
+                 resetTime = hitIntervalTime / StatMath.AttackSpeedMul;
             }
 
             Sequence seq = DOTween.Sequence()

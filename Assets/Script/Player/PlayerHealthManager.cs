@@ -231,8 +231,7 @@ public class PlayerHealthManager : MonoBehaviour
             .AppendCallback(() => alphaSequence.Kill())
             .AppendCallback(() => isAlphaChange = false);
 
-            damage = damage * (1 + ((DatabaseManager.incIncomingDmg) / 100));
-            int dmgAfDef = (int)Mathf.Floor((float)damage * ((float)damage / ((float)damage + (float)Def))); // 방무 미적용   20 / 20 + 10
+            int dmgAfDef = DamageCalculator.IncomingToPlayer(damage, Def, StatMath.IncomingDamageMul);
             HpDown(dmgAfDef);
             rb.linearVelocity = Vector2.zero;
             if (DatabaseManager.isSuperArmor == false && stiffTime > 0)
