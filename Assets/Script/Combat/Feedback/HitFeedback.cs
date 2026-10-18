@@ -51,6 +51,11 @@ public static class HitFeedback
             fx.Flash(flash, target.isBossMob ? 0.6f : 1f, isCrit ? 3f : 1f);
             fx.HitStop(stop);
         }
+        // 공격자(플레이어) 히트스톱: 평타 0.03 / 스킬 0.04 / 치명 +0.02 / 처치 0.05
+        if (PlayerController.instance != null)
+        {
+            PlayerController.instance.HitStop(killed ? 0.05f : (isSkill ? 0.04f : 0.03f) + (isCrit ? 0.02f : 0f));
+        }
 
         Sfx.Play(killed ? SfxId.Kill : isCrit ? SfxId.Crit : SfxId.Hit, killed ? 0.6f : 0.45f);
         if (killed && target.isBossMob)

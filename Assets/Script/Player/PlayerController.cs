@@ -138,18 +138,63 @@ public class PlayerController : MonoBehaviour
     /// 매 프레임 호출되는 대기 애니메이션용: 이미 재생 중이면 다시 Play하지 않는다
     /// (AnyPortrait Play 재호출이 매 프레임 GC 할당·애니 리셋을 일으키던 문제, C10).
     /// </summary>
-    void PlayLoopAnim(string clip)
+    void PlayLoopAnim(string clip, float fade = 0.12f)
     {
         if (mainCharacter.IsPlaying(clip))
         {
             return;
         }
-        mainCharacter.Play(clip);
+        // 대기·걷기·달리기 사이는 짧게 크로스페이드해서 툭툭 끊기지 않게 한다
+        mainCharacter.CrossFade(clip, fade);
+    }
+
+    // ── 공격자 히트스톱: 적중 순간 플레이어 애니를 잠깐 멈춘다 (HitFeedback에서 호출) ──
+    float hitStopTimer;
+    float lastHitStopAt = -1f;
+
+    public void HitStop(float seconds)
+    {
+        if (seconds <= 0f || mainCharacter == null || Time.time - lastHitStopAt < 0.08f)
+        {
+            return; // 다단히트가 손을 계속 멈추지 않도록 0.08초에 1번
+        }
+        lastHitStopAt = Time.time;
+        if (hitStopTimer <= 0f)
+        {
+            mainCharacter.SetAnimationSpeed(0f);
+        }
+        hitStopTimer = Mathf.Max(hitStopTimer, seconds);
+    }
+
+    void TickHitStop()
+    {
+        if (hitStopTimer <= 0f)
+        {
+            return;
+        }
+        hitStopTimer -= Time.deltaTime;
+        if (hitStopTimer <= 0f && mainCharacter != null)
+        {
+            mainCharacter.SetAnimationSpeed(1f);
+        }
+    }
+
+    /// <summary>착지 스쿼시: 메시(자식)만 살짝 눌렀다 편다 — 루트 스케일은 방향·충돌에 쓰이므로 건드리지 않음</summary>
+    void LandSquash()
+    {
+        if (mainCharacter == null || mainCharacter.transform == transform)
+        {
+            return;
+        }
+        Transform mesh = mainCharacter.transform;
+        mesh.DOKill(true);
+        mesh.DOPunchScale(new Vector3(0.08f, -0.12f, 0f), 0.18f, 6, 0.6f);
     }
 
     void Update()
     {
         PlayerStatus.Tick(); // 시간 만료 토큰(대시 무적 등) 해제
+        TickHitStop();
        if (verticalInput == 0 && states != "move" && isUpLadder ==true && isAttackAnim == false)
         {
             PlayLoopAnim("RopeStay");
@@ -452,14 +497,14 @@ public class PlayerController : MonoBehaviour
                         if (isRun)
                     {
                         PlayRunSound();
-                        mainCharacter.Play("Run");
+                        PlayLoopAnim("Run");
 
                         }
                         else
                     {
 
                         PlayWalkSound();
-                        mainCharacter.Play("Walk");
+                        PlayLoopAnim("Walk");
                         }
                     }
 
@@ -474,7 +519,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (isRun)
                     {
-                        mainCharacter.Play("Run");
+                        PlayLoopAnim("Run");
                         PlayRunSound();
                     }
                     else
@@ -482,7 +527,7 @@ public class PlayerController : MonoBehaviour
                         PlayWalkSound();
   
                
-                        mainCharacter.Play("Walk");
+                        PlayLoopAnim("Walk");
                     }
                 }
 
@@ -696,7 +741,7 @@ public class PlayerController : MonoBehaviour
             {
                 isJumpAnim = false;
                 mainCharacter.Play("Idle");
-
+                LandSquash();
             }
 
 
@@ -794,6 +839,8 @@ public class PlayerController : MonoBehaviour
             isJumpAnim = false;
         }
         mainCharacter.Play(anim);
+        // 공격 애니 속도 = 공속 배율 (세트·장비 공속이 눈에 보이게)
+        mainCharacter.SetAnimationSpeed(anim, StatMath.AttackSpeedMul);
         isAttackAnim = true;
         if(isUpLadder == true)
         {
