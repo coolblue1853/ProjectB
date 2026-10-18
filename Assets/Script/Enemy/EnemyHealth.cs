@@ -178,6 +178,7 @@ public class EnemyHealth : PoolAble
         {
             ActiveBossCount++;
             BossPortrait.Ensure(this); // HP바 초상·이름 (G10)
+            BossIntro.Play(this); // 등장 연출 (W2)
         }
         bleedStacks = 0;
         isBleeding = false;

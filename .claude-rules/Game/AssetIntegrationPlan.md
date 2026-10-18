@@ -32,6 +32,7 @@
 - **W1 1차 (2026-10-18):** ✅ Dialogue System 런타임 구성(`Assets/Script/Dialogue/`: `DialogueBoot` 컨트롤러·코드 생성 DB `StoryDialogues`, 픽셀 프레임 대사창 `PixelDialogueUI` + Text Animator 타자기·선택지, `UiLock "Dialogue"`). 첫 실행 오프닝 독백(ES3 `story.opening`), 마을 NPC 3명(장로·대장장이·상인 — SPUM 기본 유닛에 머리·수염·옷 교체, `TalkNpc` 위 방향키, 프로브 `setup_npcs`). 검증: 오프닝 자동 시작 → Z로 끝까지 진행 후 잠금 해제(`dialogue_advance`), 장로 대화 시작(`npc_talk_test`) 스크린샷. ⏳ Quest Machine 연동·초상·세이브 브리지·대사 중 BGM 덕킹.
 - **W1 사운드 (2026-10-18):** ✅ 대사 중 BGM 덕킹(×0.45). ✅ `Tools/sound_catalog.py` → `Docs/SoundCatalog.md`(팩 12종, 오디오 약 2.4만 개 목록). ✅ `Tools/extract_audio.py`로 필요한 곡만 OGG 변환 추출(6곡, 각 1~2MB): Town+Marketplace, Field+Forest LOOP, Night+Moonlit Forest, Boss+Boss Battle 2, 신규 Field2(2층계↑: Fields of Mystery, Forbidden Forest). `BgmDirector`가 맵 층계로 Field/Field2 선택(프로브 `bgm_state` — 마을 Town → Lv2 Field2 → Lv1 Field). SAGA 팩은 다운로드 0바이트라 재요청.
 - **W2 Damage Numbers (2026-10-18):** ✅ `NumberKind.Heal`(초록)·`Hurt`(빨강) 추가, 플레이어 `HpHeal`/`HpDown`이 머리 위에 표시(`PlayerHealthManager._numberPrefab` = EnemyDamge, 프로브 `setup_player_numbers`). ⏳ BLOCK/IMMUNE 텍스트, 골드·경험치 숫자.
+- **W2 ProCamera (2026-10-18):** ✅ `BossIntro`: 보스 활성화 시 카메라 타깃 추가(보스·플레이어 함께 프레이밍)+줌아웃 1.5, 흔들림·배너, 1.6초 뒤 복귀, 같은 보스 60초 쿨다운. 프로브 `boss_intro_test`(`__BOSS__`=PassiveTerror: 타깃 2→1). ⏳ 맵별 경계(Rooms).
 - **SPUM:** ✅ 임포트(`Assets/SPUM`, 19MB). 마을 NPC에 사용. 산적·붉은 탐험가는 이후 같은 방식.
 
 ## 2. 필수 도입 — 게임에서 실제로 쓰는 형태
