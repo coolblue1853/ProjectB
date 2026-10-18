@@ -79,6 +79,8 @@ public class EnemyHealth : PoolAble
             hpBar.setHpBar(this);
         }
         Sfx.Play(SfxId.BossSlam, 0.35f);
+        MonsterTable.Row row = MonsterTable.Get(name);
+        PickupLog.Report("Elite: " + (row != null ? row.displayName : name.Replace("(Clone)", "").Replace("_BD", "")), 1, "U");
         GameLog.Info(GameLog.Cat.Spawn, "정예 승격: " + name + " HP " + maxHP + " DEF " + enemyDef, this);
     }
 

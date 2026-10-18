@@ -88,6 +88,15 @@ public class WaypointMap : MonoBehaviour
         if (visited.Add(mapName))
         {
             ES3.Save(VisitedKey, new List<string>(visited));
+            MapInfo info = null;
+            foreach (MapInfo m in FindObjectsByType<MapInfo>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                if (m.gameObject.name == mapName) { info = m; break; }
+            }
+            if (visited.Count > 1 && info != null && !string.IsNullOrEmpty(info.zoneTitle))
+            {
+                PickupLog.Report("Discovered: " + info.zoneTitle, 1, "R"); // 첫 시작 맵은 제외
+            }
             GameLog.Info(GameLog.Cat.Map, "구역 발견: " + mapName);
         }
     }
