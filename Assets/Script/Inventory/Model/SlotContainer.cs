@@ -238,6 +238,28 @@ public sealed class SlotContainer
         return moved;
     }
 
+    /// <summary>칸 비우기 (장착 등 모델 간 교환용). 빈칸이면 false</summary>
+    public bool TryRemoveAt(int index)
+    {
+        if (!InRange(index) || slots[index].IsEmpty)
+        {
+            return false;
+        }
+        Set(index, ItemStack.Empty);
+        return true;
+    }
+
+    /// <summary>빈칸에 그대로 놓기 (장착 교환용). 차 있으면 false</summary>
+    public bool PutAt(int index, ItemStack s)
+    {
+        if (!InRange(index) || !slots[index].IsEmpty || s.IsEmpty)
+        {
+            return false;
+        }
+        Set(index, s);
+        return true;
+    }
+
     bool InRange(int i)
     {
         return i >= 0 && i < Unlocked;
