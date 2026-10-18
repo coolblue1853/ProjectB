@@ -124,13 +124,13 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 121,WispLegArmor,Equip,equipment,800,50,-,1,-,0,Leg,WispArmor,Night Lantern Greaves,0,R,0,Night Lantern
 122,WispHandArmor,Equip,equipment,800,50,-,1,-,0,Hand,WispArmor,Night Lantern Gloves,0,R,0,Night Lantern
 123,WispShoes,Equip,equipment,600,50,-,1,-,0,Shoes,WispArmor,Night Lantern Boots,0,R,0,Night Lantern
-124,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-125,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-126,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-127,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-128,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-129,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-130,-,-,-,0,0,-,0,-,0,-,,,0,,0,
+124,BearClaw,Equip,equipment,500,2,-,1,-,0,Weapon,,Bear Claw,0,R,0,
+125,RootStaff,Equip,equipment,500,2,-,1,-,0,Weapon,,Root Staff,0,R,0,
+126,HeartwoodGreatsword,Equip,equipment,6000,3,Boss,1,-,0,Weapon,,Heartwood Greatsword,0,U,0,
+127,Bear Pelt,Misc,World,90,1,-,99,-,0,-,,Bear Pelt,0,C,0,
+128,Heartwood Chip,Misc,World,110,1,-,99,-,0,-,,Heartwood Chip,0,C,0,
+129,Ectoplasm,Misc,World,100,1,-,99,-,0,-,,Ectoplasm,0,C,0,
+130,Fairy Dust,Misc,World,120,1,-,99,-,0,-,,Fairy Dust,0,R,0,
 131,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 132,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 133,-,-,-,0,0,-,0,-,0,-,,,0,,0,
