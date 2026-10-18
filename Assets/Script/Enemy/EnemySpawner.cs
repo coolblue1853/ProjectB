@@ -25,6 +25,8 @@ public class EnemySpawner : MonoBehaviour
     public DropManager dropManager;
     public bool isDaytimeSpowner;
     public bool isRandSpawn = true;
+    [Tooltip("스폰 시 정예(중간보스)로 승격될 확률 (ProgressionDesign 1절). 보스 프리팹은 승격 안 함")]
+    [Range(0f, 1f)] public float eliteChance = 0.04f;
     public bool isInPlayer = false;
 
     [SerializeField]
@@ -264,8 +266,28 @@ public class EnemySpawner : MonoBehaviour
         return TimeChange.instance != null && TimeChange.instance.isDaytime == isDaytimeSpowner;
     }
 
+    /// <summary>정예 확정 보상: 강화석 1~2 + 이 스포너 드롭표의 장비 1개(없으면 강화석 1개 추가)</summary>
+    List<string> EliteLoot()
+    {
+        var loot = new List<string> { EnhanceRules.StoneName };
+        if (Random.value < 0.5f)
+        {
+            loot.Add(EnhanceRules.StoneName);
+        }
+        List<string> equips = dropManager.EquipmentNames();
+        loot.Add(equips.Count > 0 ? equips[Random.Range(0, equips.Count)] : EnhanceRules.StoneName);
+        return loot;
+    }
+
     private void OnEnemyReleased(int num, int force, Vector3 pos, bool isDeadBody = true, bool isDrop = true)
     {
+        // 슬롯을 비우기 전에 정예 여부 확인 (OnDisable 에서 Demote 되기 전에 이벤트가 먼저 온다)
+        bool wasElite = enemySlot != null && num >= 0 && num < enemySlot.Length && enemySlot[num] != null
+            && enemySlot[num].TryGetComponent(out EnemyHealth releasedEnemy) && releasedEnemy.IsElite;
+        if (wasElite && isDrop && dropManager != null)
+        {
+            dropManager.DropGuaranteed(EliteLoot(), pos);
+        }
         if (enemySlot != null && num >= 0 && num < enemySlot.Length)
         {
             enemySlot[num] = null;
@@ -319,6 +341,10 @@ public class EnemySpawner : MonoBehaviour
             enemyHealth.OnReleasedToPool -= OnEnemyReleased; // 중복 등록 방지
             enemyHealth.OnReleasedToPool += OnEnemyReleased;
             enemySlot[i] = enemyObject;
+            if (Random.value < eliteChance)
+            {
+                enemyHealth.PromoteElite();
+            }
             GameLog.Info(GameLog.Cat.Spawn, name + ": 슬롯 " + i + " 스폰 " + enemyObject.name + " @" + enemyObject.transform.position.ToString("F1"), this);
         }
     }

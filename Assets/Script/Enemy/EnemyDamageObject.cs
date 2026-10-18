@@ -191,7 +191,12 @@ public class EnemyDamageObject : PoolAble
                 }
                 if (attackSound != null)
                     MasterAudio.PlaySound(attackSound);
-                playerHealth.damage2Player(damage, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
+                int dealt = damage;
+                if (enemyOb != null && enemyOb.TryGetComponent(out EnemyHealth owner) && owner.IsElite)
+                {
+                    dealt = Mathf.RoundToInt(damage * EnemyHealth.EliteAtkMul); // 몬스터에 붙어 있는 공격만 (분리 생성 공격은 미적용)
+                }
+                playerHealth.damage2Player(dealt, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
 
                 // Mark the enemy as damaged
                 damagedPlayer[collision] = true;

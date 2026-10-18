@@ -41,6 +41,62 @@ public class EnemyHealth : PoolAble
 
     public DeadBody deadBody;
     public bool isBossMob = false;
+
+    // ── 정예(중간보스) — ProgressionDesign 1절 ──
+    public const float EliteHpMul = 4f, EliteDefMul = 1.5f, EliteScaleMul = 1.25f, EliteAtkMul = 1.5f;
+    public bool IsElite { get; private set; }
+    int baseMaxHP, baseDef;
+    Vector3 baseScale;
+    Color baseColor;
+    EliteAura eliteAura;
+
+    /// <summary>스폰 직후 정예로 승격. 풀 반환(OnDisable) 때 Demote로 원래 값 복구</summary>
+    public void PromoteElite()
+    {
+        if (IsElite || isBossMob)
+        {
+            return;
+        }
+        IsElite = true;
+        baseMaxHP = maxHP;
+        baseDef = enemyDef;
+        baseScale = transform.localScale;
+        var sr = GetComponent<SpriteRenderer>();
+        baseColor = sr.color;
+        maxHP = Mathf.RoundToInt(maxHP * EliteHpMul);
+        nowHP = maxHP;
+        enemyDef = Mathf.RoundToInt(enemyDef * EliteDefMul);
+        transform.localScale = baseScale * EliteScaleMul;
+        sr.color = new Color(1f, 0.92f, 0.7f, baseColor.a);
+        if (eliteAura == null)
+        {
+            eliteAura = EliteAura.Attach(this);
+        }
+        eliteAura.gameObject.SetActive(true);
+        if (hpBar != null)
+        {
+            hpBar.setHpBar(this);
+        }
+        Sfx.Play(SfxId.BossSlam, 0.35f);
+        GameLog.Info(GameLog.Cat.Spawn, "정예 승격: " + name + " HP " + maxHP + " DEF " + enemyDef, this);
+    }
+
+    void DemoteElite()
+    {
+        if (!IsElite)
+        {
+            return;
+        }
+        IsElite = false;
+        maxHP = baseMaxHP;
+        enemyDef = baseDef;
+        transform.localScale = baseScale;
+        GetComponent<SpriteRenderer>().color = baseColor;
+        if (eliteAura != null)
+        {
+            eliteAura.gameObject.SetActive(false);
+        }
+    }
     /// <summary>현재 활성 보스 수 (BGM 전환 등에서 사용)</summary>
     public static int ActiveBossCount { get; private set; }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -466,6 +522,7 @@ public class EnemyHealth : PoolAble
 
     private void OnDisable()
     {
+        DemoteElite();
         if (isBossMob)
         {
             ActiveBossCount = Mathf.Max(0, ActiveBossCount - 1);
