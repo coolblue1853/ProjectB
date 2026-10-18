@@ -25143,6 +25143,21 @@ MonoBehaviour:
   - itemName: ShellShield
     dropProbability: 0.02
     offsetY: 0.5
+  - itemName: WispCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: SacreGreatSword
     count: 1
@@ -40093,6 +40108,21 @@ MonoBehaviour:
   - itemName: ShellShield
     dropProbability: 0.02
     offsetY: 0.5
+  - itemName: WispCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -40301,6 +40331,21 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: WispLantern
     dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: WispCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispShoes
+    dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
@@ -41405,6 +41450,21 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: WispLantern
     dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: WispCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispShoes
+    dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
@@ -203338,6 +203398,21 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: WolfCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: Rabbit Hide
     count: 4
@@ -238046,6 +238121,21 @@ MonoBehaviour:
   - itemName: TuskKnuckles
     dropProbability: 0.02
     offsetY: 0.5
+  - itemName: WolfCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -247026,6 +247116,21 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: TuskKnuckles
     dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: WolfCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfShoes
+    dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
@@ -289577,6 +289682,21 @@ MonoBehaviour:
   - itemName: WispLantern
     dropProbability: 0.02
     offsetY: 0.5
+  - itemName: WispCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -305845,6 +305965,21 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: WolfCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: Rabbit Hide
     count: 4
@@ -311443,6 +311578,21 @@ MonoBehaviour:
   - itemName: ShellShield
     dropProbability: 0.02
     offsetY: 0.5
+  - itemName: WispCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: SacreGreatSword
     count: 1
@@ -313728,6 +313878,21 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: WolfCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfShoes
+    dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
   - objectName: Leather Knuckles
@@ -460523,6 +460688,21 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: WolfCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: Leather Knuckles
     count: 1
@@ -496539,6 +496719,21 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: WispLantern
     dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: WispCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispShoes
+    dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
@@ -600872,6 +601067,21 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: WispLantern
     dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: WispCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispShoes
+    dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
@@ -707302,6 +707512,21 @@ MonoBehaviour:
   - itemName: TuskKnuckles
     dropProbability: 0.02
     offsetY: 0.5
+  - itemName: WolfCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WolfShoes
+    dropProbability: 0.003
+    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -719309,6 +719534,21 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: ShellShield
     dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: WispCap
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispLegArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispHandArmor
+    dropProbability: 0.003
+    offsetY: 0.5
+  - itemName: WispShoes
+    dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
   - objectName: RatArmor

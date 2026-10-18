@@ -11,3 +11,9 @@ ScareArmor_5,(+)15 IncDmg/(+)15 AtkSpeed/(+)50 Hp
 CliffArmor_2,(+)15 Def/(+)5 Crit
 CliffArmor_4,(+)10 IncDmg/(+)20 coolDown Cyclone_Edge/(+)20 coolDown Starfall
 CliffArmor_6,(+)20 CritDmg/(+)10 AtkSpeed/(+)30 coolDown Skybreaker/(+)30 coolDown Cliff_Quake/(+)30 coolDown Talon_Dive
+WolfArmor_2,(+)8 MoveSpeed/(+)5 Crit
+WolfArmor_4,(+)15 CritDmg/(+)40 coolDown Howl_of_the_Pack/(+)30 coolDown Boar_Charge
+WolfArmor_6,(+)10 AtkSpeed/(+)10 IncDmg/(+)50 Hp
+WispArmor_2,(+)12 Def/(+)60 Hp
+WispArmor_4,(+)8 IncDmg/(+)40 coolDown Ghostlight_Ring/(+)30 coolDown Shell_Guard
+WispArmor_6,(+)20 Def/(+)15 CritDmg/(+)40 coolDown Wisp_Bolt

@@ -106,24 +106,24 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 103,Eye of the Cliffs,Equip,equipment,800,1,-,1,-,0,Necklace,,Eye of the Cliffs,0,R,0,
 104,Bringer's Sigil Ring,Equip,equipment,1500,1,-,1,-,0,Ring,,Bringer's Sigil Ring,0,U,0,
 105,Enhance Stone,Misc,A crystal born of the tower. Fed to a core at the smith to raise its enhancement.,200,1,hand,99,-,0,-,,Floor Crystal,1,R,0,
-106,FangDagger,Equip,equipment,450,2,-,1,-,0,Weapon,,Fang Dagger,0,R,0,
+106,FangDagger,Equip,equipment,450,2,-,1,-,0,Weapon,WolfArmor,Fang Dagger,0,R,0,Pack Hunter
 107,Wolf Fang,Misc,World,60,1,-,99,-,0,-,,Wolf Fang,0,C,0,
 108,Boar Tusk,Misc,World,80,1,-,99,-,0,-,,Boar Tusk,0,C,0,
 109,Wisp Ember,Misc,World,90,1,-,99,-,0,-,,Wisp Ember,0,R,0,
 110,Snail Shell,Misc,World,70,1,-,99,-,0,-,,Snail Shell,0,C,0,
-111,TuskKnuckles,Equip,equipment,450,2,-,1,-,0,Weapon,,Tusk Knuckles,0,R,0,
-112,WispLantern,Equip,equipment,450,2,-,1,-,0,Weapon,,Wisp Lantern,0,R,0,
-113,ShellShield,Equip,equipment,450,2,-,1,-,0,Weapon,,Shell Shield,0,R,0,
-114,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-115,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-116,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-117,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-118,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-119,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-120,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-121,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-122,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-123,-,-,-,0,0,-,0,-,0,-,,,0,,0,
+111,TuskKnuckles,Equip,equipment,450,2,-,1,-,0,Weapon,WolfArmor,Tusk Knuckles,0,R,0,Pack Hunter
+112,WispLantern,Equip,equipment,450,2,-,1,-,0,Weapon,WispArmor,Wisp Lantern,0,R,0,Night Lantern
+113,ShellShield,Equip,equipment,450,2,-,1,-,0,Weapon,WispArmor,Shell Shield,0,R,0,Night Lantern
+114,WolfCap,Equip,equipment,800,50,-,1,-,0,Head,WolfArmor,Pack Hunter Hood,0,R,0,Pack Hunter
+115,WolfArmor,Equip,equipment,1000,50,-,1,-,0,Chest,WolfArmor,Pack Hunter Coat,0,R,0,Pack Hunter
+116,WolfLegArmor,Equip,equipment,800,50,-,1,-,0,Leg,WolfArmor,Pack Hunter Greaves,0,R,0,Pack Hunter
+117,WolfHandArmor,Equip,equipment,800,50,-,1,-,0,Hand,WolfArmor,Pack Hunter Gloves,0,R,0,Pack Hunter
+118,WolfShoes,Equip,equipment,600,50,-,1,-,0,Shoes,WolfArmor,Pack Hunter Boots,0,R,0,Pack Hunter
+119,WispCap,Equip,equipment,800,50,-,1,-,0,Head,WispArmor,Night Lantern Hood,0,R,0,Night Lantern
+120,WispArmor,Equip,equipment,1000,50,-,1,-,0,Chest,WispArmor,Night Lantern Coat,0,R,0,Night Lantern
+121,WispLegArmor,Equip,equipment,800,50,-,1,-,0,Leg,WispArmor,Night Lantern Greaves,0,R,0,Night Lantern
+122,WispHandArmor,Equip,equipment,800,50,-,1,-,0,Hand,WispArmor,Night Lantern Gloves,0,R,0,Night Lantern
+123,WispShoes,Equip,equipment,600,50,-,1,-,0,Shoes,WispArmor,Night Lantern Boots,0,R,0,Night Lantern
 124,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 125,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 126,-,-,-,0,0,-,0,-,0,-,,,0,,0,

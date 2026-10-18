@@ -121,5 +121,5 @@
 - ✅ **Tusk Knuckles** (`build_tusk_knuckles.cs`): Leather Knuckles 기반 12~18, Boar Charge·Tusk Uppercut 판정 복제본 넉백 ×2·경직 0.4s, 상아 톤, 멧돼지 드롭 2%(ItemSheet 111).
 - ✅ **Wisp Lantern** (`build_wisp_lantern.cs`): ScareStaff 기반 11~19, A Wisp Bolt(유도 도깨비불 3발 `HomingOrb`, 판정 중심 조준, 쿨 1.2s), S Ghostlight Ring(공전 3개 `OrbitWisps` 6초, 쿨 10s), 보이지 않는 작은 판정 `WispTouch`. 몬스터 목록 `EnemyHealth.Active`·`IsMonster`(채집물 제외) 추가. 도깨비불 드롭 2%(ItemSheet 112).
 - ✅ **Shell Shield** (`build_shell_shield.cs`): RustedSwordandShield 기반 10~16, Shell Bash 넉백 ×1.5, Shell Guard 홀드 방어 버프 100→180·쿨 6s, 보라 껍데기 톤, 달팽이 드롭 2%(ItemSheet 113). ⏳ 점액 장판(둔화) — 몬스터 둔화 시스템이 없어 보류.
-- ⏳ 세트 4종(Wolf/Boar/Wisp/SnailArmor): 방어구 5부위 프리팹·착용 스프라이트·SetItem 행 필요.
+- ✅ 세트 2종(구역 낮/밤 묶음, `make_forest_sets.py` + `build_forest_sets.cs`): **Pack Hunter**(WolfArmor 회색: 늑대·멧돼지 + Fang Dagger·Tusk Knuckles) 2: 이동 8·치명 5 / 4: 치명피해 15·Howl 쿨 −40·Boar Charge −30 / 6: 공속 10·피해 10·HP 50. **Night Lantern**(WispArmor 파랑: 도깨비불·달팽이 + Wisp Lantern·Shell Shield) 2: 방어 12·HP 60 / 4: 피해 8·Ghostlight Ring −40·Shell Guard −30 / 6: 방어 20·치명피해 15·Wisp Bolt −40. ItemSheet 114~123, 부위 드롭 각 0.3%. 프로브 `equip_wolf_set_test`(6단계 수치 확인). 아이콘·착용 텍스처는 Leaf 색 변환 임시.
 - 구현 순서(자율): Fang Dagger(늑대 소환은 ScareStaff 소환 경로 재사용) → Tusk Knuckles(SkillDash 재사용) → Wisp Lantern → Shell Shield. 아이콘·무기 스프라이트는 `gen_forest_mobs.py` 팔레트로 그린다.
