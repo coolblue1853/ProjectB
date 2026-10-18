@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63ef5e7f51697940bebe8244e6b6e37, type: 3}
+  m_Name: PassiveTerror_BD
+  m_EditorClassIdentifier: Assembly-CSharp::BossReward
+  setPieces:
+  - ScareCap
+  - ScareArmor
+  - ScareLegArmor
+  - ScareHandArmor
+  - ScareShoes
+  - ScareStaff
+  uniqueItem: Necklace of Silent Screams
+  uniqueChance: 0.08
+  pity: 12
+  stoneMin: 3
+  stoneMax: 5
+  firstKillStones: 5

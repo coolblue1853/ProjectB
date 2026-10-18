@@ -288,6 +288,20 @@ public class EnemySpawner : MonoBehaviour
         {
             dropManager.DropGuaranteed(EliteLoot(), pos);
         }
+        GameObject released = enemySlot != null && num >= 0 && num < enemySlot.Length ? enemySlot[num] : null;
+        if (isDrop && dropManager != null && released != null && released.TryGetComponent(out EnemyHealth boss) && boss.isBossMob)
+        {
+            string bossName = released.name.Replace("(Clone)", "").Trim();
+            var reward = Resources.Load<BossReward>("Boss/" + bossName);
+            if (reward != null)
+            {
+                dropManager.DropGuaranteed(BossLoot.Roll(bossName, reward), pos);
+            }
+            else
+            {
+                GameLog.Warn(GameLog.Cat.Item, "보스 보상 정의 없음: Resources/Boss/" + bossName);
+            }
+        }
         if (enemySlot != null && num >= 0 && num < enemySlot.Length)
         {
             enemySlot[num] = null;
