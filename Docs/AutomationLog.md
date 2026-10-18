@@ -20,3 +20,9 @@
 ### 2026-10-18 (토) 자율 작업 세션
 - 09:00~21:00 무제한 예산 사용(사용자 허용). 커밋 90여 개: Unity 6 업그레이드, P0~P1 버그, 타격감/FX(도트 베이커), Lv2, 강화·정예·보스 보상·퀘스트·도감·아티팩트·층계 지도·상승 부하 등. 상세는 `.claude-rules/Game/QualityRoadmap.md` 현황 요약.
 - 21:00 리셋 이후 규칙: 평일 주간 사용량 10% 이내. 세션 모델은 사용자가 메뉴에서 변경(세션 자체 전환 불가).
+
+### 2026-10-18 (일) 20:00~21:00 Opus 5.5 이어서
+- 커밋: 59214408(인벤토리 Phase 2 SaveMapper·ViewScanner), 92aefed4(에셋 도입 계획 W0~W5), a6b4eb9e·80c43582·644eab18(Phase 3a: InventoryService, AddSource, 로드 경로·차감 저장), 936404a2(B-115 타일맵 틈 1차 조치).
+- 에셋 다운로드(사용자 허락, 캐시 `%APPDATA%/Unity/Asset Store-5.x`, 미임포트): I2 Localization 2MB, Smart Lighting 2D 17MB, SPUM 4MB, Corgi Engine 301MB, 8-Bit Sfx 11MB, Fantasy Music Suite 2 79MB, Free Fantasy Adventure Music 75MB, Free Frost Mage SFX 30MB, SoundBits 599MB, Pro Sound Collection 2.0GB, Horror Bundle SFX 2.4GB, Ultimate Game Music Collection 4.5GB, Game Music Treasury 4.1GB, SAGA Complete Collection(진행 중), Ultimate SFX & Music Bundle(확인 필요). "2D Pixel - RPG Monster Pack"은 구매 목록에 없음(보유: RPG Monsters Icon, Monsters_Creatures_Fantasy).
+- 무기 공격·콤보 전수 감사 백그라운드 에이전트 → `.claude-rules/Game/WeaponReview.md`.
+- 21:00 리셋 이후: 평일만, 주간 10% 이내. 일요일 밤은 추가 작업 없음.
