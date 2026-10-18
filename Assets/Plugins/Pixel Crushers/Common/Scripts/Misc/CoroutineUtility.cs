@@ -11,6 +11,9 @@ namespace PixelCrushers
     /// normal operation but is set to null if BATCH_MODE is defined, to allow for
     /// batch mode testing in which WaitForEndOfFrame isn't supported.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public static class CoroutineUtility
     {
 
@@ -20,18 +23,6 @@ namespace PixelCrushers
         public static WaitForEndOfFrame endOfFrame = new WaitForEndOfFrame();
 #endif
 
-//--- Some compilers have issue with this, and it's not really needed anyway.
-//#if UNITY_2019_3_OR_NEWER && UNITY_EDITOR
-//        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-//        static void InitStaticVariables()
-//        {
-//#if BATCH_MODE
-//            endOfFrame = null;
-//#else
-//            endOfFrame = new WaitForEndOfFrame();
-//#endif
-//        }
-//#endif
     }
 
 }

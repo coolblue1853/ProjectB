@@ -10,6 +10,9 @@ namespace PixelCrushers
     /// <summary>
     /// A TextTable is a 2D table of languages and fields.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public class TextTable : ScriptableObject, ISerializationCallbackReceiver
     {
 

@@ -11,6 +11,9 @@ namespace PixelCrushers
     /// <summary>
     /// Utility menu items for the Save System.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public static class SaveSystemEditorUtility
     {
 
@@ -71,7 +74,7 @@ namespace PixelCrushers
         private static void AssignNewKey(Saver saver, string reason)
         {
             if (saver == null) return;
-            var key = CleanName(saver.name) + "_" + Mathf.Abs(saver.GetInstanceID());
+            var key = CleanName(saver.name) + "_" + Mathf.Abs(EntityUtility.GetEntityInt(saver));
             Debug.Log(saver.name + "." + saver.GetType().Name + ".Key = " + key + reason, saver);
             Undo.RecordObject(saver, "Key");
             saver._internalKeyValue = key;

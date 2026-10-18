@@ -9,6 +9,9 @@ namespace PixelCrushers
     /// Maintains a reference to a global TextTable that other scripts can use.
     /// </summary>
     [AddComponentMenu("")] // Use wrapper instead.
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public class GlobalTextTable : MonoBehaviour
     {
 

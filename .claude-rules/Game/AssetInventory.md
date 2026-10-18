@@ -21,7 +21,7 @@ AnyPortrait, Behavior Designer, DOTween(Pro), Easy Save 3, Damage Numbers Pro, M
 | **Feel** (More Mountains) | 타격감(히트스톱, 화면 흔들림, 플래시) | DOTween과 역할 분담 필요 |
 | **All In 1 Sprite Shader** | 피격 플래시, 아웃라인, 디졸브(사망), 등급 글로우 | URP 2D 지원 |
 | **Magic Slashes FX / Particle Pack** | 스킬·평타 이펙트 | ✅ `Assets/ThirdParty/MagicSlashesFX`(EffectPrefabs·Mobile_Prefabs만, 데모·캐릭터·스크립트 제거 122MB→16MB). 셰이더는 URP 2D에서 그대로 동작. 매핑은 `Resources/FX/VfxLibrary.asset`(`Tools/probes/build_vfx_library.cs`) |
-| **Quest Machine** | 퀘스트 시스템(Dialogue System과 연동) | 신규 콘텐츠 축 |
+| **Quest Machine** | 퀘스트 시스템(Dialogue System과 연동) | ✅ `Assets/Plugins/Pixel Crushers/Quest Machine`(Demo 제거). Input System 지원 켬(레거시 축 추가는 거절). 씬에 `Quest Machine` 프리팹 + 플레이어 `QuestJournal` + 마을 `QuestBoard`(`Tools/probes/setup_quests.cs`). 퀘스트는 코드 생성(GUI 퀘스트 에디터 미사용) |
 | **Text Animator for Unity** | 대사·아이템 이름 연출 | ✅ Legacy판 `Assets/Plugins/Febucci`(런타임·에디터 asmdef만, 예제·연동 제거). 획득 로그에서 사용 |
 
 ## 3. 도입 후보 — 중간

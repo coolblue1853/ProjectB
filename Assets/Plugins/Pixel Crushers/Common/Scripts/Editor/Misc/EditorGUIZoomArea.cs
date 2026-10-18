@@ -6,6 +6,9 @@ using UnityEngine;
 namespace PixelCrushers
 {
 
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public class EditorGUIZoomArea
     {
         private const float kEditorWindowTabHeight = 21.0f;

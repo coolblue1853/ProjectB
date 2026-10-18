@@ -7,6 +7,9 @@ namespace PixelCrushers
 {
 
     [CustomPropertyDrawer(typeof(StringField), true)]
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public class StringFieldDrawer : PropertyDrawer
     {
 
@@ -87,20 +90,14 @@ namespace PixelCrushers
                     bool createNewAsset = GUI.Button(new Rect(position.x + position.width - buttonWidth, position.y + yOffset, buttonWidth, EditorGUIUtility.singleLineHeight),
                         new GUIContent("New", "Create and assign a new String Asset."), EditorStyles.miniButton);
                     EditorGUI.EndDisabledGroup();
-                    //--Pre-DLL support: if (createNewAsset) stringAssetProperty.objectReferenceValue = AssetUtility.CreateAsset<Wrappers.StringAsset>("String Asset", false);
                     if (createNewAsset)
                     {
                         var filename = EditorUtility.SaveFilePanelInProject("Create String Asset", ObjectNames.NicifyVariableName(property.name), "asset", "Save new string asset as:");
-                        var type = System.Type.GetType("PixelCrushers.Wrappers.StringAsset, Assembly-CSharp-firstpass");
-                        if (type == null) type = System.Type.GetType("PixelCrushers.Wrappers.StringAsset, Assembly-CSharp");
-                        if (type == null)
-                        {
-                            Debug.LogError("Internal error: Unable to find wrapper type PixelCrushers.Wrappers.StringAsset. Please contact the developer.");
+                        if (!string.IsNullOrEmpty(filename))
+                        { 
+                            stringAssetProperty.objectReferenceValue = AssetUtility.CreateAssetWithFilename<StringAsset>(filename, false);
                         }
-                        else
-                        {
-                            stringAssetProperty.objectReferenceValue = AssetUtility.CreateAssetWithFilename(type, filename, false);
-                        }
+                        GUIUtility.ExitGUI();
                     }
                     yOffset += EditorGUIUtility.singleLineHeight;
                 }

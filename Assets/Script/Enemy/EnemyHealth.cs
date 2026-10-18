@@ -499,6 +499,8 @@ public class EnemyHealth : PoolAble
         }
         deadOnec = true;
         GameLog.Info(GameLog.Cat.Combat, name + " 사망 (overkill " + (-nowHP) + ")", this);
+        // 퀘스트 처치 카운트 (Quest Machine 카운터가 "Kill" + 프리팹 이름을 듣는다, G11)
+        PixelCrushers.MessageSystem.SendMessage(this, "Kill", name.Replace("(Clone)", "").Trim());
         ReleaseEnemy(true, true);
         return true;
     }

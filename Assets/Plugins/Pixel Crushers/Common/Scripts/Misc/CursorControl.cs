@@ -8,8 +8,13 @@ namespace PixelCrushers
     /// <summary>
     /// Methods to hide and show the cursor.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public static class CursorControl
     {
+
+        public static CursorLockMode cursorLockMode { get; set; } = CursorLockMode.Locked;
 
         public static bool isCursorActive
         {
@@ -22,30 +27,6 @@ namespace PixelCrushers
             LockCursor(!value);
         }
 
-#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
-
-        public static bool isCursorVisible
-        {
-            get { return Screen.showCursor; }
-        }
-
-        public static bool isCursorLocked
-        {
-            get { return Screen.lockCursor; }
-        }
-
-        public static void ShowCursor(bool value)
-        {
-            Screen.showCursor = value;
-        }
-
-        public static void LockCursor(bool value)
-        {
-            Screen.lockCursor = value;
-        }
-
-#else
-		
 		public static bool isCursorVisible
 		{
 			get { return Cursor.visible; }
@@ -56,8 +37,6 @@ namespace PixelCrushers
 			get { return Cursor.lockState != CursorLockMode.None; }
 		}
 		
-		private static CursorLockMode previousLockMode = CursorLockMode.Locked;
-		
 		public static void ShowCursor(bool value) 
 		{
 			Cursor.visible = value;
@@ -67,13 +46,11 @@ namespace PixelCrushers
 		{
 			if (value == false && isCursorLocked) 
 			{
-				previousLockMode = Cursor.lockState;
+				cursorLockMode = Cursor.lockState;
 			}
-			Cursor.lockState = value ? previousLockMode : CursorLockMode.None;
+			Cursor.lockState = value ? cursorLockMode : CursorLockMode.None;
 		}
 		
-#endif
-
     }
 
 }

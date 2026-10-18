@@ -28,6 +28,9 @@ namespace PixelCrushers
     /// UnityStandard (Time.time), Realtime (Time.realtimeSinceStartup), or Manual
     /// (you set the time values each frame).
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public static class GameTime
     {
 

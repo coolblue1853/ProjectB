@@ -13,6 +13,9 @@ namespace PixelCrushers
     /// its Selectables is selected if using joystick or keyboard.
     /// </summary>
     [AddComponentMenu("")] // Use wrapper.
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public class UIPanel : MonoBehaviour, IEventSystemUser
     {
 
@@ -80,10 +83,12 @@ namespace PixelCrushers
         }
 #endif
 
-        protected static UIPanel topPanel
+        public static UIPanel topPanel
         {
             get { return (panelStack.Count > 0) ? panelStack[panelStack.Count - 1] : null; }
         }
+
+        public bool isTopPanel => this == topPanel;
 
         public enum PanelState { Uninitialized, Opening, Open, Closing, Closed }
 
@@ -120,7 +125,7 @@ namespace PixelCrushers
         private Animator myAnimator
         {
             get
-            { 
+            {
                 if (m_animator == null) m_animator = GetComponent<Animator>() ?? GetComponentInChildren<Animator>();
                 return m_animator;
             }
@@ -303,7 +308,7 @@ namespace PixelCrushers
 
         protected virtual void Update()
         {
-            if (!(isOpen && topPanel == this)) return;
+            if (!(isOpen && isTopPanel)) return;
             if (InputDeviceManager.isBackButtonDown)
             {
                 if (Time.frameCount != m_frameLastOpened)
@@ -321,12 +326,12 @@ namespace PixelCrushers
                     {
                         m_lastSelected = currentSelected;
                     }
-                    if (Time.realtimeSinceStartup >= m_timeNextCheck && focusCheckFrequency > 0 && topPanel == this && InputDeviceManager.autoFocus)
+                    if (Time.realtimeSinceStartup >= m_timeNextCheck && focusCheckFrequency > 0 && isTopPanel && InputDeviceManager.autoFocus)
                     {
                         m_timeNextCheck = Time.realtimeSinceStartup + focusCheckFrequency;
                         CheckFocus();
                     }
-                    if (Time.realtimeSinceStartup >= m_timeNextRefresh && refreshSelectablesFrequency > 0 && topPanel == this && InputDeviceManager.autoFocus)
+                    if (Time.realtimeSinceStartup >= m_timeNextRefresh && refreshSelectablesFrequency > 0 && isTopPanel && InputDeviceManager.autoFocus)
                     {
                         m_timeNextRefresh = Time.realtimeSinceStartup + refreshSelectablesFrequency;
                         RefreshSelectablesList();
@@ -346,7 +351,7 @@ namespace PixelCrushers
                     eventSystem.SetSelectedGameObject(null);
                 }
                 if (m_lastSelected != null)
-                {                    
+                {
                     UIUtility.Select(m_lastSelected.GetComponent<UnityEngine.UI.Selectable>(), true, eventSystem);
                 }
                 CheckFocus();
@@ -373,7 +378,7 @@ namespace PixelCrushers
             if (!monitorSelection) return;
             if (!InputDeviceManager.autoFocus) return;
             if (eventSystem == null) return;
-            if (topPanel != this) return;
+            if (!isTopPanel) return;
             var currentSelected = eventSystem.currentSelectedGameObject;
             if (currentSelected == null || !selectables.Contains(currentSelected))
             {

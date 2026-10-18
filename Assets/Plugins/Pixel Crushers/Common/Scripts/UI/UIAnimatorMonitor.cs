@@ -10,6 +10,9 @@ namespace PixelCrushers
     /// Invokes a callback method when an animator has entered and then exited a
     /// specified trigger state.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public class UIAnimatorMonitor
     {
 

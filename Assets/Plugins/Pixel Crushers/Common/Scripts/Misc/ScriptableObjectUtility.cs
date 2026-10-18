@@ -14,8 +14,13 @@ namespace PixelCrushers
     /// <summary>
     /// Utility functions for creating ScriptableObjects.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public static class ScriptableObjectUtility
     {
+
+        public static bool reportNullElementsInLists { get; set; } = false;
 
         /// <summary>
         /// Create a ScriptableObject of type T, calling the method Initialize() if present.
@@ -72,7 +77,7 @@ namespace PixelCrushers
                     }
                     else
                     {
-                        if (Debug.isDebugBuild)
+                        if (Debug.isDebugBuild && reportNullElementsInLists)
                         {
                             if (source != null)
                             {
@@ -83,7 +88,7 @@ namespace PixelCrushers
                                 Debug.LogWarning("CloneList<" + typeof(T).Name + ">: Element " + i + " is null.");
                             }
                         }
-                        copy.Add(null);
+                        //--- Don't add nulls: copy.Add(null);
                     }
                 }
             }
