@@ -68,20 +68,26 @@ public class MapInfo : MonoBehaviour
     /// <summary>어느 맵에 있든 마을로 즉시 이동 (사망 부활 등): 활성 사냥터를 정리·비활성화하고 마을을 켠다.</summary>
     public static bool GoToTown(GameObject traveler)
     {
+        return GoToMap("Town", traveler);
+    }
+
+    /// <summary>지정 맵으로 즉시 이동 (웨이포인트): 다른 맵을 정리·비활성화하고 대상 맵을 켠 뒤 그 맵의 첫 포털 위치에 선다.</summary>
+    public static bool GoToMap(string mapName, GameObject traveler)
+    {
         var map = GameObject.Find("Map");
         if (map == null || traveler == null)
         {
             return false;
         }
-        Transform town = map.transform.Find("Town");
-        Portal townPortal = town != null ? town.GetComponentInChildren<Portal>(true) : null;
-        if (town == null || townPortal == null)
+        Transform target = map.transform.Find(mapName);
+        Portal entry = target != null ? target.GetComponentInChildren<Portal>(true) : null;
+        if (target == null || entry == null)
         {
             return false;
         }
         foreach (Transform m in map.transform)
         {
-            if (m == town || !m.gameObject.activeSelf)
+            if (m == target || !m.gameObject.activeSelf)
             {
                 continue;
             }
@@ -92,15 +98,16 @@ public class MapInfo : MonoBehaviour
             }
             m.gameObject.SetActive(false);
         }
-        town.gameObject.SetActive(true);
-        traveler.transform.position = townPortal.transform.position;
-        Portal.RaiseMapChanged(town.gameObject); // BGM·카메라 경계 등 구독자 갱신
+        target.gameObject.SetActive(true);
+        traveler.transform.position = entry.transform.position;
+        Portal.RaiseMapChanged(target.gameObject);
         var cam = Object.FindFirstObjectByType<ProCamera2D>();
         if (cam != null)
         {
             cam.CenterOnTargets();
         }
-        GameLog.Info(GameLog.Cat.Map, "마을로 귀환");
+        GameLog.Info(GameLog.Cat.Map, "웨이포인트 이동: " + mapName);
         return true;
     }
+
 }
