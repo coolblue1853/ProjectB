@@ -245,7 +245,7 @@ public class DamageObject : MonoBehaviour
         {
            Sequence waitSeq = DOTween.Sequence()
        .AppendInterval(waitInterval)
-       .AppendCallback(() => ResetDamagedEnemies());
+       .AppendCallback(() => ResetDamagedEnemies()).SetLink(gameObject);
 
         }
 
@@ -358,7 +358,7 @@ public class DamageObject : MonoBehaviour
             Sequence sequence = DOTween.Sequence()
     .AppendInterval(resetTime)
     .AppendCallback(() => isEndBoxCollider = true)
-    .AppendCallback(() => boxCol.enabled = false);
+    .AppendCallback(() => boxCol.enabled = false).SetLink(gameObject);
 
         }
         else
@@ -379,7 +379,7 @@ public class DamageObject : MonoBehaviour
 
         sequence = DOTween.Sequence()
             .AppendInterval(destroyTime)
-            .AppendCallback(() => Destroy(this.gameObject));
+            .AppendCallback(() => Destroy(this.gameObject)).SetLink(gameObject);
     }
 
     public int maxDamagedEnemies = 1; // 최대 데미지를 입힐 적의 수
@@ -407,7 +407,7 @@ public class DamageObject : MonoBehaviour
             .AppendCallback(() => CollOnOff(false))
             .AppendInterval(0.01f)
             .AppendCallback(() => CollOnOff(true))
-           .AppendCallback(() => ResetDamagedEnemies());
+           .AppendCallback(() => ResetDamagedEnemies()).SetLink(gameObject);
         } 
     }
     bool isEndBoxCollider = false;
@@ -438,7 +438,7 @@ public class DamageObject : MonoBehaviour
             .AppendCallback(() => boxCol.enabled = false)
             .AppendInterval(0.01f)
             .AppendCallback(() => boxCol.enabled = true)
-           .AppendCallback(() => ResetHealGround());
+           .AppendCallback(() => ResetHealGround()).SetLink(gameObject);
         }
     }
 

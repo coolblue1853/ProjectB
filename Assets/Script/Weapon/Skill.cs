@@ -250,7 +250,7 @@ public class Skill : MonoBehaviour
             allBullet = bulletCount + DatabaseManager.skillBulletCount[skillName]; // 아이템 중 해당 기술의 탄환 중가가 있는경우 숫자를 증가시킵니다.
         else
             allBullet = bulletCount;
-        float angleStep = (endAngle - startAngle) / (allBullet - 1); // 탄막 간격 계산
+        float angleStep = allBullet > 1 ? (endAngle - startAngle) / (allBullet - 1) : 0f; // 탄막 간격 계산 (1발이면 0 — W-24 NaN 방지)
         for (int i = 0; i < allBullet; i++)
         {
             float angle = startAngle + i * angleStep; // 현재 탄막의 각도 계산
@@ -301,7 +301,7 @@ public class Skill : MonoBehaviour
                 {
                     Sequence sequence = DOTween.Sequence()
                     .AppendInterval(skillWaitTime / StatMath.AttackSpeedMul)
-                    .AppendCallback(() => GroundAttack());
+                    .AppendCallback(() => GroundAttack()).SetLink(gameObject);
                 }
             }
             SkillAnimCheck(num);
@@ -378,7 +378,7 @@ public class Skill : MonoBehaviour
         {
             skillSequence = DOTween.Sequence()
            .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
-           .AppendCallback(() => SetSkillDmg());
+           .AppendCallback(() => SetSkillDmg()).SetLink(gameObject);
         }
 
     }
@@ -407,7 +407,7 @@ public class Skill : MonoBehaviour
         {
             Sequence sequence = DOTween.Sequence()
             .AppendInterval(waitTime)
-            .AppendCallback(() => damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform));
+            .AppendCallback(() => damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform)).SetLink(gameObject);
             PlaySkillSound(0);
         }
     }
@@ -422,7 +422,7 @@ public class Skill : MonoBehaviour
         {
             Sequence sequence = DOTween.Sequence()
             .AppendInterval(waitTime)
-            .AppendCallback(() => RoundSpawn(skillprefab[0], skillPivot[0]));
+            .AppendCallback(() => RoundSpawn(skillprefab[0], skillPivot[0])).SetLink(gameObject);
             PlaySkillSound(0);
         }
     }
@@ -454,7 +454,7 @@ public class Skill : MonoBehaviour
                .AppendCallback(() => isActiveHold = false)      
                .AppendCallback(() => skillCooldown.UseSkill(skillNum, skillName))
                .AppendCallback(() => CheckAttackWait())
-               .AppendCallback(() => dmOb.DestroyObject());
+               .AppendCallback(() => { if (dmOb != null) dmOb.DestroyObject(); }).SetLink(gameObject); // 시간 만료 경로 null 가드 (W-18)
             }
         }
     }
@@ -497,7 +497,7 @@ public class Skill : MonoBehaviour
             weapon.isSkillAttackWait = false;
             attackWaitSequence = DOTween.Sequence()
             .AppendInterval(attckSpeed / StatMath.AttackSpeedMul) // 사전에 지정한 공격 주기만큼 대기.
-            .AppendCallback(() => { ReleaseLocks(); weapon.isSkillAttackWait = true; });
+            .AppendCallback(() => { ReleaseLocks(); weapon.isSkillAttackWait = true; }).SetLink(gameObject);
         }
         else
         {

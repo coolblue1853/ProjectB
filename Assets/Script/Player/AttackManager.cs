@@ -7,7 +7,10 @@ public class AttackManager : MonoBehaviour
 {
     public apPortrait portrait;
     public Weapon equipWeapon;
-    readonly InputBuffer attackBuffer = new InputBuffer(0.1f);
+    [Tooltip("평타 선입력 시간(초). 후딜이 끝나기 직전에 누른 평타를 이어 준다 (W-15)")]
+    [SerializeField] private float _attackBufferTime = 0.2f;
+    InputBuffer _attackBuffer;
+    InputBuffer attackBuffer => _attackBuffer ?? (_attackBuffer = new InputBuffer(_attackBufferTime));
     [Tooltip("스킬 선입력 시간(초). 후딜 중 누른 스킬을 이 시간 안에 쓸 수 있게 되면 발동 (W-09)")]
     [SerializeField] private float _skillBufferTime = 0.2f;
     InputBuffer[] skillBuffers;
