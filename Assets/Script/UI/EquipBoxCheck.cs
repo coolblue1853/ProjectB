@@ -222,7 +222,7 @@ public class EquipBoxCheck : MonoBehaviour
                 attackManager.UnEquipMainWeaopon();
                 Sequence waitSequence = DOTween.Sequence()
                 .AppendCallback(() => attackManager.equipWeapon = null)
-                .AppendCallback(() => Destroy(weapon.gameObject))
+                .AppendCallback(() => { if (weapon != null) { Destroy(weapon.gameObject); } }) // 장비창이 닫혀 활성화 전이면 weapon 이 없다
                 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
                 .OnComplete(() => Destroy(deletChile));
             }
@@ -243,8 +243,8 @@ public class EquipBoxCheck : MonoBehaviour
             if (isFalse == false)
             {
                 Sequence waitSequence = DOTween.Sequence()
-                .AppendCallback(() => DisableEquipment(equipmentList[equipNum]))
-                .AppendCallback(() => Destroy(equipmentList[equipNum].gameObject))
+                .AppendCallback(() => { if (equipmentList[equipNum] != null) { DisableEquipment(equipmentList[equipNum]); } })
+                .AppendCallback(() => { if (equipmentList[equipNum] != null) { Destroy(equipmentList[equipNum].gameObject); } })
                 .AppendCallback(() => deletChile = nowBox.transform.GetChild(0).gameObject)
                 .OnComplete(() => Destroy(deletChile));
             }
