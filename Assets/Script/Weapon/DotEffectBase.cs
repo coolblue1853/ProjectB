@@ -45,6 +45,7 @@ public abstract class DotEffectBase : MonoBehaviour
             {
                 damageNumber.Spawn(transform.position + Vector3.up, damage);
             }
+            HitFeedback.OnDotTick(enemyHealth, this is BleedingAttack);
             OnTick();
             yield return wait;
         }

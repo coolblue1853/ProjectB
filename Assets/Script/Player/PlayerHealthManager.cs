@@ -216,6 +216,7 @@ public class PlayerHealthManager : MonoBehaviour
             .AppendCallback(() => isAlphaChange = false);
 
             int dmgAfDef = DamageCalculator.IncomingToPlayer(damage, Def, StatMath.IncomingDamageMul);
+            HitFeedback.OnPlayerHit();
             HpDown(dmgAfDef);
             rb.linearVelocity = Vector2.zero;
             if (DatabaseManager.isSuperArmor == false && stiffTime > 0)

@@ -179,7 +179,9 @@ public class EnemyHealth : PoolAble
         }
 
 
-        if (TryDie())
+        bool killed = TryDie();
+        HitFeedback.OnEnemyHit(this, isCrit, isSkill, killed); // 플래시·히트스톱·흔들림
+        if (killed)
         {
             return; // 사망 후에는 피격 연출(넉백·경직)을 걸지 않는다
         }
