@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GiantSlimeGelShot
+  m_Controller: {fileID: 9100000, guid: c7806c98422edc24e9ef3f5ae5aeace6, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0e35d0191809c2f4f862a4e9f433d003, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ef0151688d067ef42b7050cd5aa9726e, type: 2}

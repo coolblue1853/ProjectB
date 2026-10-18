@@ -684,6 +684,7 @@ GameObject:
   - component: {fileID: 5524592874086934084}
   - component: {fileID: 3072446537878692881}
   - component: {fileID: 2152888287495371102}
+  - component: {fileID: 3596430424401313440}
   m_Layer: 7
   m_Name: GiantSlime_BD
   m_TagString: Enemy
@@ -961,7 +962,7 @@ MonoBehaviour:
         - {fileID: 1725539955}
         - {fileID: 5976889062470221337}
         - {fileID: 5976889062470221337}
-        - {fileID: 3871218360763498638, guid: 011c5c632c75b0f47b417c89dc6121cb, type: 3}
+        - {fileID: 3871218360763498638, guid: 8050ea12047ef4f41a142b483152563c, type: 3}
         - {fileID: 4843469005305202268}
         - {fileID: 5976889062470221337}
         - {fileID: 5976889062470221337}
@@ -1035,6 +1036,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.6349084, y: 4.6923366}
   m_EdgeRadius: 0
+--- !u!114 &3596430424401313440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976889062470221337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84f5d73fa3bf3b4c88ed19d372fe2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossMinionCall
+  _minionKey: minion
+  _atPhase: 1
+  _count: 2
+  _spread: 2.5
+  _bannerText: "SPLITS \u2014 Slimes burst out!"
 --- !u!1 &6757172473773169429
 GameObject:
   m_ObjectHideFlags: 0

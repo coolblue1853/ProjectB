@@ -185,7 +185,8 @@
   - **Bog Stalker** (BogArmor 올리브·갈색, 낮 개구리·꽃게·악어 + 무기 3종): 2: 이동 6·방어 8 / 4: Tongue Lash·Jaw Shake·Pincer Flurry 쿨 −30 / 6: 공속 10·출혈 피해 15·피해 8. 부위 방어 20/36/20/16/16.
   - **Gloom Swarm** (GloomArmor 핏빛 보라, 밤 모기·슬라임 + 무기 2종): 2: HP 80·치명 5(흡혈 키 `LifeSteal` 은 만들지 않고 무기 Bloodsting 에 맡김) / 4: Bloodsting 쿨 −40·Slime Smash −35 / 6: 독 12·피해 10·치명피해 10. 부위는 HP·치명 위주.
 - 검증(플레이, `swamp_weapon_test.cs` = 가까운 몹 앞에 서서 슬롯 발동 → 대상 x·HP·소환물 추적): Tongue Lash 대상이 플레이어 쪽으로 0.76 끌려옴, Bloodsting HP 90→96, Slime Smash 소환물 2·추가 타격, Jaw Shake 3타, Pincer Flurry 2타, Death Roll 44 피해, Gel Tsunami 소환물 3, `kill_proc_test.cs` 처치 소환 발동. `equip_swamp_set_test.cs` Bog/Gloom 6부위 → 스택 6, 세트 수치·쿨감 키 일치. combo_all 6종 = 원본 무기와 같은 순환(1-1 창 / 1-2-3 단검 / 1-2 대검·낫·너클).
-- ⏳ 남은 것: 모기는 FlowerMole 템플릿이라 공격이 유도탄(흡혈 돌진 아님) · 보스 공격 판정은 PassiveTerror 원본(갈퀴·불꽃) 그대로(③ 2차처럼 점액 판정 교체 필요) · 보스 분열 패턴 없음 · Petal Pincer 방어 자세(Shell Guard 재사용)·Bloodsting S 3연 돌진 미구현 · 늪 전용 소품·안개 효과 없음(색조만) · 세트 착용 텍스처 Leaf 색 변환 임시.
+- ✅ **보스·모기 공격 판정 교체 (B-124)**: 보스 갈퀴·불꽃 → 점액 내려찍기 `GiantSlimeSlam`·점액 탄 `GiantSlimeGelShot`(`Prefab/Enemy/EnemyDamge/Swamp/`), 2페이즈에 늪 슬라임 2 분열(`BossMinionCall`, 배너 "SPLITS — Slimes burst out!"), 모기 유도탄 → 짧은 돌진 물기 `MosquitoBite` + `EnemyLungeBite`. 프로브 `build_swamp_boss_attacks.cs`, 아트 `gen_swamp_boss_fx.py`, 검증 `slime_boss_test.cs`·`mosquito_bite_test.cs`.
+- ⏳ 남은 것: Petal Pincer 방어 자세(Shell Guard 재사용)·Bloodsting S 3연 돌진 미구현 · 늪 전용 소품·안개 효과 없음(색조만) · 세트 착용 텍스처 Leaf 색 변환 임시.
 
 ## 15. ⑤구역 산적 성채 — 1차 구현 (2026-10-19, LineageGear 2절)
 

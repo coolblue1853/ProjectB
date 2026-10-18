@@ -404448,13 +404448,25 @@ MonoBehaviour:
       type: 3}
     count: 1
   - objectName: clow
-    perfab: {fileID: 3871218360763498638, guid: 011c5c632c75b0f47b417c89dc6121cb,
+    perfab: {fileID: 3871218360763498638, guid: 8050ea12047ef4f41a142b483152563c,
       type: 3}
     count: 1
   - objectName: fire
-    perfab: {fileID: 4072923990559250960, guid: ce85c2bf4aaca404f843f2c2aaa20e64,
+    perfab: {fileID: 4072923990559250960, guid: e84eeefcad0fb5048900964fbdb09618,
       type: 3}
     count: 1
+  - objectName: minion
+    perfab: {fileID: 3784335404955210443, guid: 315d09b6a4285d04c969425d48d67ec2,
+      type: 3}
+    count: 2
+  - objectName: minionDead
+    perfab: {fileID: 2398882886197767674, guid: 1b8a0a6e74b9a00479c1e4e507439471,
+      type: 3}
+    count: 2
+  - objectName: leaf
+    perfab: {fileID: 2135722504411801264, guid: 9a5e093a574d5af44bd28d7cbbb9efa0,
+      type: 3}
+    count: 3
 --- !u!1 &696014586
 GameObject:
   m_ObjectHideFlags: 0
@@ -527574,7 +527586,7 @@ MonoBehaviour:
       type: 3}
     count: 6
   - objectName: flower
-    perfab: {fileID: 2135722504411801264, guid: a066db093f2d3c44bbd4bb5321963566,
+    perfab: {fileID: 3871218360763498638, guid: f8aab5f427c014045a7a7899d89f8997,
       type: 3}
     count: 6
 --- !u!1 &1037488746
@@ -871757,7 +871769,7 @@ MonoBehaviour:
       type: 3}
     count: 6
   - objectName: flower
-    perfab: {fileID: 2135722504411801264, guid: a066db093f2d3c44bbd4bb5321963566,
+    perfab: {fileID: 3871218360763498638, guid: f8aab5f427c014045a7a7899d89f8997,
       type: 3}
     count: 6
 --- !u!1 &1467120311
