@@ -9,7 +9,7 @@ OUT=Logs/zone_soak; mkdir -p $OUT
 SAVE="/c/Users/user/AppData/LocalLow/DefaultCompany/ProjectB/SaveFile.es3"
 cp "$SAVE" $OUT/SaveFile.backup.es3 || { echo "save backup failed"; exit 1; }
 trap 'cp $OUT/SaveFile.backup.es3 "$SAVE"; echo "save restored"' EXIT
-MAPS="Town Lv1_NearForest_SideRoad Lv1_NormalForest Lv1_DeepForest Lv1_BanditFortress Lv1_Swamp Lv1_TowerOutskirts Lv2_MagicCliffs"
+MAPS="${ZONE_MAPS:-Town Lv1_NearForest_SideRoad Lv1_NormalForest Lv1_DeepForest Lv1_BanditFortress Lv1_Swamp Lv1_TowerOutskirts Lv2_MagicCliffs}"  # 일부만: ZONE_MAPS="Lv1_Swamp Lv1_DeepForest" bash Tools/zone_soak.sh
 printf 'return "ready";\n' > $OUT/rdy.cs
 printf 'return Time.time.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);\n' > $OUT/time.cs
 $U call read_console '{"action":"clear"}' >/dev/null
