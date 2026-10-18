@@ -18,6 +18,29 @@ public class MapInfo : MonoBehaviour
     public string zoneTitle;
     [Tooltip("상승 부하 (TowerWorld.md 7절). 외곽 0, 위로 갈수록 증가. 탐험가 칭호 ×15 로 저항")]
     public int ascentLoad;
+    [Tooltip("밤 반딧불 연출 (숲 맵)")]
+    public bool fireflies;
+
+    void Start()
+    {
+        if (!fireflies)
+        {
+            return;
+        }
+        // 맵 영역 = 스포너 위치들의 경계 (+여유)
+        var b = new Bounds(transform.position, Vector3.zero);
+        bool any = false;
+        foreach (EnemySpawner sp in GetComponentsInChildren<EnemySpawner>(true))
+        {
+            if (!any) { b = new Bounds(sp.transform.position, Vector3.zero); any = true; }
+            else { b.Encapsulate(sp.transform.position); }
+        }
+        if (any)
+        {
+            b.Expand(new Vector3(8f, 10f, 0f));
+            AmbientFireflies.Attach(this, b);
+        }
+    }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Hook()

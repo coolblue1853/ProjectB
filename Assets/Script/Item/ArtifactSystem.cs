@@ -237,13 +237,12 @@ public class ArtifactSystem : MonoBehaviour
         cdFill.rectTransform.anchorMax = Vector2.one;
         cdFill.rectTransform.offsetMin = new Vector2(6f, 6f);
         cdFill.rectTransform.offsetMax = new Vector2(-6f, -6f);
-        cdFill.color = new Color(0f, 0f, 0f, 0.65f);
+        cdFill.color = new Color(0f, 0f, 0f, 0.5f);
         cdFill.type = Image.Type.Filled;
         cdFill.fillMethod = Image.FillMethod.Radial360;
         cdFill.fillOrigin = (int)Image.Origin360.Top;
         cdFill.fillClockwise = false;
         cdFill.raycastTarget = false;
-        cdFill.sprite = theme.frame; // 단색 채움용 (스프라이트 없으면 사각)
 
         label = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TextMeshProUGUI>();
         label.transform.SetParent(chip.transform, false);
