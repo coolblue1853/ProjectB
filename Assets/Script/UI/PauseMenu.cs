@@ -12,12 +12,15 @@ public class PauseMenu : MonoBehaviour
 {
     static PauseMenu instance;
 
-    readonly string[] items = { "RESUME", "TOWER MAP", "BESTIARY", "RETURN TO VILLAGE", "QUIT GAME" };
+    readonly string[] items = { "RESUME", "TOWER MAP", "BESTIARY", "SETTINGS", "RETURN TO VILLAGE", "QUIT GAME" };
+    readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "BACK" };
+    bool settingsMode;
     readonly List<(Image bg, TextMeshProUGUI text)> rows = new List<(Image, TextMeshProUGUI)>();
     KeyAction action;
-    InputAction up, down, select;
+    InputAction up, down, left, right, select;
     GameObject panel;
     CanvasGroup dim;
+    TextMeshProUGUI title, hint;
     int cursor;
     bool open;
     float openedAt, savedScale = 1f;
@@ -42,6 +45,8 @@ public class PauseMenu : MonoBehaviour
         up = action.UI.UPInventory;
         down = action.UI.DownInventory;
         select = action.UI.Select;
+        left = action.UI.LeftInventory;
+        right = action.UI.RightInventory;
     }
 
     void OnDestroy()
@@ -71,18 +76,25 @@ public class PauseMenu : MonoBehaviour
         }
         if (esc)
         {
-            Close();
+            if (settingsMode) { settingsMode = false; cursor = 3; Redraw(); }
+            else Close();
+            return;
+        }
+        int count = settingsMode ? settingItems.Length : items.Length;
+        if (settingsMode && (left.triggered || right.triggered))
+        {
+            Adjust(right.triggered ? 1 : -1);
             return;
         }
         if (up.triggered)
         {
-            cursor = (cursor - 1 + items.Length) % items.Length;
+            cursor = (cursor - 1 + count) % count;
             Sfx.Play(SfxId.UiMove, 0.6f);
             Redraw();
         }
         else if (down.triggered)
         {
-            cursor = (cursor + 1) % items.Length;
+            cursor = (cursor + 1) % count;
             Sfx.Play(SfxId.UiMove, 0.6f);
             Redraw();
         }
@@ -109,6 +121,7 @@ public class PauseMenu : MonoBehaviour
         open = true;
         openedAt = Time.unscaledTime;
         cursor = 0;
+        settingsMode = false;
         savedScale = Time.timeScale;
         Time.timeScale = 0f;
         UiLock.Set("Pause", true);
@@ -130,8 +143,26 @@ public class PauseMenu : MonoBehaviour
         dim.gameObject.SetActive(false);
     }
 
+    void Adjust(int dir)
+    {
+        switch (cursor)
+        {
+            case 0: GameSettings.SetVolume(GameSettings.Volume + 0.1f * dir); break;
+            case 1: GameSettings.SetShake(GameSettings.Shake + 0.25f * dir); break;
+            case 2: GameSettings.SetFlash(!GameSettings.Flash); break;
+        }
+        Sfx.Play(SfxId.UiMove, 0.6f);
+        Redraw();
+    }
+
     void Activate()
     {
+        if (settingsMode)
+        {
+            if (cursor == 3) { settingsMode = false; cursor = 3; Redraw(); }
+            else Adjust(1);
+            return;
+        }
         switch (cursor)
         {
             case 0:
@@ -146,6 +177,11 @@ public class PauseMenu : MonoBehaviour
                 BestiaryWindow.Toggle();
                 break;
             case 3:
+                settingsMode = true;
+                cursor = 0;
+                Redraw();
+                break;
+            case 4:
                 Close();
                 if (PlayerController.instance != null)
                 {
@@ -153,7 +189,7 @@ public class PauseMenu : MonoBehaviour
                     MapInfo.GoToTown(PlayerController.instance.gameObject);
                 }
                 break;
-            case 4:
+            case 5:
                 GameLog.Info(GameLog.Cat.Save, "게임 종료 (일시정지 메뉴)");
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
@@ -167,12 +203,23 @@ public class PauseMenu : MonoBehaviour
     void Redraw()
     {
         UiTheme theme = UiTheme.Get();
+        string[] list = settingsMode ? settingItems : items;
+        title.text = settingsMode ? "SETTINGS" : "PAUSED";
         for (int i = 0; i < rows.Count; i++)
         {
+            bool has = i < list.Length;
+            rows[i].bg.gameObject.SetActive(has);
+            if (!has) continue;
+            string value = "";
+            if (settingsMode)
+            {
+                value = i == 0 ? "  " + Mathf.RoundToInt(GameSettings.Volume * 100f) + "%" : i == 1 ? "  " + Mathf.RoundToInt(GameSettings.Shake * 100f) + "%" : i == 2 ? (GameSettings.Flash ? "  ON" : "  OFF") : "";
+            }
             rows[i].bg.color = i == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
             rows[i].text.color = i == cursor ? theme.unique : Color.white;
-            rows[i].text.text = (i == cursor ? "> " : "  ") + items[i];
+            rows[i].text.text = (i == cursor ? "> " : "  ") + list[i] + "<color=#9ED0FF>" + value + "</color>";
         }
+        hint.text = settingsMode ? "UP/DOWN  ·  LEFT/RIGHT adjust  ·  ESC back" : "UP/DOWN  ·  SELECT / ENTER  ·  ESC resume";
     }
 
     void Build()
@@ -201,9 +248,10 @@ public class PauseMenu : MonoBehaviour
         panel = theme.NewPanel("Panel", transform).gameObject;
         var pr = (RectTransform)panel.transform;
         pr.anchorMin = pr.anchorMax = new Vector2(0.5f, 0.5f);
-        pr.sizeDelta = new Vector2(520f, 440f);
+        pr.sizeDelta = new Vector2(520f, 490f);
 
-        var head = NewText("Title", pr, theme, 40f);
+        title = NewText("Title", pr, theme, 40f);
+        var head = title;
         Place(head.rectTransform, new Vector2(0f, -22f), new Vector2(520f, 50f));
         head.alignment = TextAlignmentOptions.Center;
         head.text = "PAUSED";
@@ -218,8 +266,8 @@ public class PauseMenu : MonoBehaviour
             text.alignment = TextAlignmentOptions.MidlineLeft;
             rows.Add((bg, text));
         }
-        var hint = NewText("Hint", pr, theme, 20f);
-        Place(hint.rectTransform, new Vector2(0f, -400f), new Vector2(520f, 28f));
+        hint = NewText("Hint", pr, theme, 20f);
+        Place(hint.rectTransform, new Vector2(0f, -450f), new Vector2(520f, 28f));
         hint.alignment = TextAlignmentOptions.Center;
         hint.text = "UP/DOWN  ·  SELECT / ENTER  ·  ESC resume";
         hint.color = new Color(1f, 1f, 1f, 0.55f);
