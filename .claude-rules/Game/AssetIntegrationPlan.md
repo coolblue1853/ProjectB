@@ -27,6 +27,11 @@
 | Corgi Engine | ❌ 미다운로드 | — | 참고용(임포트 안 함) |
 | 효과음·BGM 팩 | 일부 다운로드(Alison Turk, Craze Music, Daniel SoundsGood, Little Robot, SoundBits) | `ThirdParty/Sfx`, `ThirdParty/Music` 일부 | 나머지는 다운로드 후 카탈로그화 |
 
+## 진행 기록
+
+- **W1 1차 (2026-10-18):** ✅ Dialogue System 런타임 구성(`Assets/Script/Dialogue/`: `DialogueBoot` 컨트롤러·코드 생성 DB `StoryDialogues`, 픽셀 프레임 대사창 `PixelDialogueUI` + Text Animator 타자기·선택지, `UiLock "Dialogue"`). 첫 실행 오프닝 독백(ES3 `story.opening`), 마을 NPC 3명(장로·대장장이·상인 — SPUM 기본 유닛에 머리·수염·옷 교체, `TalkNpc` 위 방향키, 프로브 `setup_npcs`). 검증: 오프닝 자동 시작 → Z로 끝까지 진행 후 잠금 해제(`dialogue_advance`), 장로 대화 시작(`npc_talk_test`) 스크린샷. ⏳ Quest Machine 연동·초상·세이브 브리지·대사 중 BGM 덕킹.
+- **SPUM:** ✅ 임포트(`Assets/SPUM`, 19MB). 마을 NPC에 사용. 산적·붉은 탐험가는 이후 같은 방식.
+
 ## 2. 필수 도입 — 게임에서 실제로 쓰는 형태
 
 | 에셋 | 넣을 곳 (구체 기능) | 완료 기준 |

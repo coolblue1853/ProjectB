@@ -14,6 +14,9 @@ public class TitleScreen : MonoBehaviour
     public static bool Skip; // 자동화 테스트가 true 로 두면 표시하지 않음
     static TitleScreen instance;
 
+    /// <summary>타이틀이 아직 떠 있는지 (오프닝 대사 등은 닫힌 뒤에 시작)</summary>
+    public static bool IsShowing => instance != null && !instance.dismissed;
+
     CanvasGroup group;
     TextMeshProUGUI prompt;
     bool dismissed;

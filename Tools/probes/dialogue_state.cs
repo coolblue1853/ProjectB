@@ -1,0 +1,1 @@
+return "active=" + PixelCrushers.DialogueSystem.DialogueManager.isConversationActive + " conv=" + PixelCrushers.DialogueSystem.DialogueManager.lastConversationStarted + " openUI=" + DatabaseManager.isOpenUI + " title=" + TitleScreen.IsShowing;
