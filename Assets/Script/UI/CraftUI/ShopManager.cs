@@ -274,7 +274,7 @@ public class ShopManager : MonoBehaviour
             if (InventoryManager.instance.CheckBoxCanCreatAll() == true || InventoryManager.instance.OnlyCheckStack(nowShopItem.name) == true)
             {
                 DatabaseManager.money -= nowShopItem.buyprice;
-                InventoryManager.instance.CreatItem(nowShopItem.name);
+                InventoryManager.instance.CreatItem(nowShopItem.name, false, null, AddSource.Shop);
             }
         }
         InventoryManager.instance.state = "ShopCusorOn";

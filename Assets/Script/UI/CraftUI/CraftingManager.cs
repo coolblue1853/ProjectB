@@ -185,7 +185,7 @@ public class CraftingManager : MonoBehaviour
         {
             InventoryManager.instance.DeletItemByName(need.Key, need.Value);
         }
-        InventoryManager.instance.CreatItem(resultName);
+        InventoryManager.instance.CreatItem(resultName, false, null, AddSource.Craft);
         InventoryManager.instance.RebuildItemStackCache();
         PixelCrushers.MessageSystem.SendMessage(this, "Craft", resultName); // 제작 퀘스트 (G11)
         PixelCrushers.MessageSystem.SendMessage(this, "Craft", "Any");

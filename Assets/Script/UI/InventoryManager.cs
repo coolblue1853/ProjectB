@@ -1863,9 +1863,9 @@ public class InventoryManager : MonoBehaviour
     /// <summary>Phase 3a 쓰기 명령 (모델 → 바뀐 칸만 뷰 반영)</summary>
     public InventoryService Service => service ??= new InventoryService(this);
 
-    public bool CreatItem(string itemName, bool isC2I = false, ItemData itemData = null)
+    public bool CreatItem(string itemName, bool isC2I = false, ItemData itemData = null, AddSource source = AddSource.Other)
     {
-        bool placed = Service.Add(itemName, 1, isC2I ? AddSource.Chest : AddSource.Other, itemData);
+        bool placed = Service.Add(itemName, 1, isC2I ? AddSource.Chest : source, itemData);
         if (placed && isC2I)
         {
             chest.itemCheck.nowStack -= 1;

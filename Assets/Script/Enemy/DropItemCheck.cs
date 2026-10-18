@@ -100,7 +100,7 @@ public class DropItemCheck : PoolAble
                     ReleaseObject();
                 }
                 string rarity = itemData != null ? itemData.rarity : "C";
-                if (InventoryManager.instance.CreatItem(name))
+                if (InventoryManager.instance.CreatItem(name, false, null, AddSource.Pickup))
                 {
                     PickupLog.Report(name, 1, rarity);
                     PixelCrushers.MessageSystem.SendMessage(this, "Pickup", name); // 수집 퀘스트 (G11)
