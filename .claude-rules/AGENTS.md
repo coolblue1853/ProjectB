@@ -31,9 +31,11 @@
 | `Game/WorldSpec.md` | 낮/밤, 맵·포털, 카메라 |
 | `Game/AssetInventory.md` | 보유 에셋스토어 86종 분류와 도입 현황 |
 | `Game/TechDebt.md` | 버그·기술 부채 백로그 (P0~P3, 수정 시 갱신) |
+| `Game/QualityRoadmap.md` | **게임 방향(무기 스킬 + 세트 강화)** 과 퀄리티업 로드맵 A~F |
 
 ## 운영
 
 | 파일 | 설명 |
 |------|------|
 | `Docs/OpenQuestions.md` *(저장소 루트)* | 사용자 확인이 필요한 기획 질문과 임시 가정 |
+| `Docs/AutomationLog.md` *(저장소 루트)* | 예약 자동 실행 기록과 사용량 예산 규칙 |
