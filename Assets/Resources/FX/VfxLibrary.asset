@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ccb7caa495a6042a860ad86815e8d9, type: 3}
+  m_Name: VfxLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::VfxLibrary
+  entries:
+  - id: 1
+    prefab: {fileID: 1427184144938852, guid: dc97aa01df27d194d8e5911051209943, type: 3}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.4
+    lifetime: 0.7
+    sortingOrder: 210
+  - id: 2
+    prefab: {fileID: 1217668729914568, guid: 02f36df5dc2d4da4da06be6b63b1a7fc, type: 3}
+    euler: {x: -90, y: 0, z: 0}
+    scale: 0.22
+    lifetime: 1.5
+    sortingOrder: 210
+  - id: 3
+    prefab: {fileID: 1107296871017770, guid: 82a583916db5b7842a722df7756825eb, type: 3}
+    euler: {x: -90, y: 0, z: 0}
+    scale: 0.35
+    lifetime: 1.5
+    sortingOrder: 210
+  - id: 4
+    prefab: {fileID: 1514118954617016, guid: 8ab0c24e220c01e47aa412f3d83028c3, type: 3}
+    euler: {x: -90, y: 0, z: 0}
+    scale: 0.35
+    lifetime: 1.5
+    sortingOrder: 210
+  - id: 5
+    prefab: {fileID: 1935082409722074, guid: 73c5905a45ba2d841a54b3c5468d23a6, type: 3}
+    euler: {x: -90, y: 0, z: 0}
+    scale: 0.35
+    lifetime: 1.5
+    sortingOrder: 210
+  - id: 6
+    prefab: {fileID: 1543153927702632, guid: 638bf80b37fd48a458d61ac9d454265e, type: 3}
+    euler: {x: -90, y: 0, z: 0}
+    scale: 0.35
+    lifetime: 1.5
+    sortingOrder: 210
+  - id: 7
+    prefab: {fileID: 1648509489993130, guid: 8a0c2ade089d4c44fbdf861f7bcd7be6, type: 3}
+    euler: {x: -90, y: 0, z: 0}
+    scale: 0.2
+    lifetime: 1
+    sortingOrder: 210
+  - id: 8
+    prefab: {fileID: 1115641076847360, guid: 73ccedaa8ed8dc14594ca7cc04041f4c, type: 3}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.4
+    lifetime: 1.5
+    sortingOrder: 210

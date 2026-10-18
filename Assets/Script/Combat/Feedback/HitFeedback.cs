@@ -59,6 +59,10 @@ public static class HitFeedback
 
         Sfx.Play(killed ? SfxId.Kill : isCrit ? SfxId.Crit : SfxId.Hit, killed ? 0.6f : 0.45f);
         HitSparks.Emit(target.transform.position + Vector3.up * 0.4f, isCrit, killed);
+        if (isCrit)
+        {
+            Vfx.Play(VfxId.CritCross, target.transform.position + Vector3.up * 0.5f);
+        }
         if (killed && target.isBossMob)
         {
             Sfx.Play(SfxId.Victory);

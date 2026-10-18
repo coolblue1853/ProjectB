@@ -31,6 +31,9 @@ public class Weapon : MonoBehaviour
     Sequence comboSequence;
     public bool isOverHand =false;
 
+    [Tooltip("평타 휘두를 때 공격 지점에 띄울 베기 이펙트 (Resources/FX/VfxLibrary)")]
+    public VfxId swingVfx = VfxId.SlashWhite;
+    public float swingVfxScale = 1f;
     public GameObject[] attackPrefab;
     public GameObject[] attackPivot;
     public bool isHasDelayTime = false;
@@ -147,6 +150,7 @@ public class Weapon : MonoBehaviour
         GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
         DamageObject dmOb = damageObject.GetComponent<DamageObject>();
         dmOb.SetDamge(damgeArray);
+        Vfx.Play(swingVfx, attackPivot[nowConboCount - 1].transform.position, pC.transform.localScale.x < 0f, swingVfxScale);
     }
     System.IDisposable moveLockToken, ladderLockToken;
     Sequence attackWaitSequence;

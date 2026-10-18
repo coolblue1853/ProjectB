@@ -1,4 +1,4 @@
-# 보유 에셋 인벤토리 (Unity Asset Store, 86개)
+﻿# 보유 에셋 인벤토리 (Unity Asset Store, 86개)
 
 > 2026-10-18에 계정 `coolblue1853_unity`의 "내 에셋"에서 수집했다. ProjectB(도트 2D 횡스크롤 ARPG)에 쓸 수 있는지를 기준으로 분류한다.
 > 도입하면 "적용 현황"을 갱신한다. 대용량(GB급) 팩은 필요한 파일만 골라서 임포트한다.
@@ -20,7 +20,7 @@ AnyPortrait, Behavior Designer, DOTween(Pro), Easy Save 3, Damage Numbers Pro, M
 | **8-Bit Sfx** | 타격·UI 효과음 | |
 | **Feel** (More Mountains) | 타격감(히트스톱, 화면 흔들림, 플래시) | DOTween과 역할 분담 필요 |
 | **All In 1 Sprite Shader** | 피격 플래시, 아웃라인, 디졸브(사망), 등급 글로우 | URP 2D 지원 |
-| **Magic Slashes FX / Particle Pack** | 스킬·평타 이펙트 | 3D 파티클 → 2D에 맞게 조정 |
+| **Magic Slashes FX / Particle Pack** | 스킬·평타 이펙트 | ✅ `Assets/ThirdParty/MagicSlashesFX`(EffectPrefabs·Mobile_Prefabs만, 데모·캐릭터·스크립트 제거 122MB→16MB). 셰이더는 URP 2D에서 그대로 동작. 매핑은 `Resources/FX/VfxLibrary.asset`(`Tools/probes/build_vfx_library.cs`) |
 | **Quest Machine** | 퀘스트 시스템(Dialogue System과 연동) | 신규 콘텐츠 축 |
 | **Text Animator for Unity** | 대사·아이템 이름 연출 | |
 

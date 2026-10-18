@@ -125,7 +125,40 @@ namespace ProjectB.EditorTools
                 Save(root, "Assets/Resources/Weapon/" + d.dst + ".prefab");
                 n++;
             }
-            return "무기 " + n;
+            return "무기 " + n + " / " + ApplyVfx();
+        }
+
+        // ── 무기 이펙트 테마 (Magic Slashes FX → Resources/FX/VfxLibrary): 평타 베기 + 스킬별 시전 이펙트 ──
+        public static string ApplyVfx()
+        {
+            var themes = new (string weapon, VfxId swing, VfxId[] casts)[]
+            {
+                ("CliffBlade", VfxId.SlashWhite, new[] { VfxId.SlashGold, VfxId.SlashGoldWide, VfxId.SlashGreenBig, VfxId.CrackRed }),
+                ("CliffStaff", VfxId.None, new[] { VfxId.SlashBlue, VfxId.SlashBlue, VfxId.SlashGreenBig }),
+                ("AbyssStaff", VfxId.None, new[] { VfxId.SlashRed, VfxId.SlashRed, VfxId.CrackRed }),
+                ("ScareStaff", VfxId.None, new VfxId[0]),
+                ("LeafStaff", VfxId.None, new VfxId[0]),
+            };
+            int n = 0;
+            foreach (var t in themes)
+            {
+                string path = "Assets/Resources/Weapon/" + t.weapon + ".prefab";
+                if (!System.IO.File.Exists(path))
+                {
+                    continue;
+                }
+                GameObject root = PrefabUtility.LoadPrefabContents(path);
+                root.GetComponent<Weapon>().swingVfx = t.swing;
+                Skill[] skills = root.GetComponentsInChildren<Skill>(true);
+                for (int i = 0; i < skills.Length && i < t.casts.Length; i++)
+                {
+                    skills[i].castVfx = t.casts[i];
+                }
+                PrefabUtility.SaveAsPrefabAsset(root, path);
+                PrefabUtility.UnloadPrefabContents(root);
+                n++;
+            }
+            return "이펙트 " + n;
         }
 
         static string BuildAccessories()

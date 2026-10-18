@@ -1,4 +1,4 @@
-# 퀄리티업 로드맵
+﻿# 퀄리티업 로드맵
 
 > 목표: **이미 만들어진 기능의 완성도를 끌어올린다.** 새 콘텐츠보다 기존 시스템의 손맛·안정성·가독성을 먼저 높인다.
 > 자동 실행 루틴은 TechDebt의 P0~P2를 먼저 처리하고, 그다음 이 문서를 위에서부터 진행한다. 끝난 항목은 ✅ + 커밋 해시를 적는다.
@@ -87,7 +87,7 @@
 | G5 | Odin Inspector | `Editor/Data/ProjectBDataWindow`(메뉴 ProjectB/데이터 편집기): 아이템 트리·표 편집(드롭다운·쉼표 검증·아이콘 미리보기), 세트 효과 해석 미리보기, 몬스터 스탯, 검증 리포트, CSV 저장(형식 보존) + DataIntegrityTests | ✅ |
 | G6 | 8-Bit Sfx / Frost Mage SFX / SoundBits | `Audio/Sfx` + `Resources/Audio/SfxLibrary`(14종): 타격·치명·처치·보스 승리·픽업·희귀 드롭·제작 성공/실패·인벤 열기·포털·사망 | ✅ (SoundBits는 미사용) |
 | G7 | Free Pixel Font Thaleah | `ThirdParty/Font/ThaleahFat_TMP`(비트맵·Point) → 데미지 숫자 프리팹 3종 적용, 크기 상향(일반 1.35·치명 1.9) | ✅ (영문 UI 적용 ⏳) |
-| G8 | Magic Slashes FX / Particle Pack | 스킬·평타 적중 이펙트, 드롭 빛 기둥·먼지 | ⏳ |
+| G8 | Magic Slashes FX / Particle Pack | ✅ `Vfx` 풀(프레임당 6개) + `Resources/FX/VfxLibrary`(3D 베기를 X-90°로 눕혀 2D화) · 평타 `Weapon.swingVfx` · 스킬 `Skill.castVfx`(Cliff/Abyss 무기 테마, `Lv2ItemBuilder.ApplyVfx`) · 치명 X자(CritCross) · 적중 스파크 `HitSparks`. ⏳ 대시 잔상·먼지, 드롭 빛 기둥 | 🔶 |
 | G9 | Text Animator | 픽업 로그·대사·희귀 드롭 텍스트 연출 | ⏳ |
 | G10 | RPG Monsters Icon | 몬스터 도감·픽업 로그·보스 HP바 초상 | ⏳ |
 | G11 | Quest Machine (+Dialogue System) | 마을 NPC 퀘스트(사냥·수집·제작) | ⏳ |

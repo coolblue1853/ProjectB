@@ -95,6 +95,8 @@ MonoBehaviour:
   skillNum: 0
   skillDetail: Cleave the area in front, dealing damage.
   delayEffectPrefab: {fileID: 0}
+  castVfx: 5
+  castVfxScale: 1
   skillprefab:
   - {fileID: 9144756928249733875, guid: bb9ec60c02f926d429fbbecc646b8cd7, type: 3}
   skillCooldown: {fileID: 0}
@@ -193,6 +195,8 @@ MonoBehaviour:
   skillNum: 1
   skillDetail: Create a burst of darkness that erupts from the ground, dealing damage.
   delayEffectPrefab: {fileID: 0}
+  castVfx: 6
+  castVfxScale: 1
   skillprefab:
   - {fileID: 4785867705317102802, guid: 88adcc5001878264d8d5c63cde6b2c0b, type: 3}
   skillCooldown: {fileID: 0}
@@ -291,6 +295,8 @@ MonoBehaviour:
   skillNum: 3
   skillDetail: Dash forward, delivering a powerful slash that deals damage.
   delayEffectPrefab: {fileID: 0}
+  castVfx: 8
+  castVfxScale: 1
   skillprefab:
   - {fileID: 8267161789949130192, guid: 04b8d43397872a24e9274c40c725236b, type: 3}
   skillCooldown: {fileID: 0}
@@ -400,6 +406,8 @@ MonoBehaviour:
   isWeaponStopMove: 1
   time: 0
   isOverHand: 0
+  swingVfx: 2
+  swingVfxScale: 1
   attackPrefab:
   - {fileID: 3057308112748585356, guid: 0c98693dc27159f48972eecc8defdbaf, type: 3}
   - {fileID: 1471638115845567738, guid: 8715ad3180efaaf41a93eac7fa77a9d0, type: 3}
@@ -796,6 +804,8 @@ MonoBehaviour:
   skillNum: 2
   skillDetail: Spin a scythe, pulling in enemies and dealing damage.
   delayEffectPrefab: {fileID: 0}
+  castVfx: 7
+  castVfxScale: 1
   skillprefab:
   - {fileID: 8672800351859898982, guid: e688627d8ff707e4ca10582bddcefe28, type: 3}
   skillCooldown: {fileID: 0}

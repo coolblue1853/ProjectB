@@ -85,6 +85,9 @@ public class Skill : MonoBehaviour
     public int skillNum;
     public string skillDetail;
     public GameObject delayEffectPrefab;
+    [Tooltip("스킬 시전 순간 첫 피벗에 띄울 베기 이펙트 (세트·무기 테마색)")]
+    public VfxId castVfx = VfxId.None;
+    public float castVfxScale = 1f;
     public GameObject[] skillprefab;
     public SkillCooldown skillCooldown;
     int allObjectMaxCount;
@@ -346,6 +349,10 @@ public class Skill : MonoBehaviour
 
         float waitTime = 0;
         waitTime = skillWaitTime / StatMath.AttackSpeedMul;
+        if (skillPivot.Length > 0)
+        {
+            Vfx.Play(castVfx, skillPivot[0].transform.position, PlayerController.instance.transform.localScale.x < 0f, castVfxScale);
+        }
         if (delayEffectPrefab != null)
         {
             GameObject effect = Instantiate(delayEffectPrefab, new Vector2(skillPivot[0].transform.position.x, skillPivot[0].transform.position.y), skillPivot[0].transform.rotation);
