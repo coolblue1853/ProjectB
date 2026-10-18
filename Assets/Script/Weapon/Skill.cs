@@ -296,17 +296,25 @@ public class Skill : MonoBehaviour
    
     void OnSkillReleased(InputAction.CallbackContext context)
     {
-        if (isHoldSkill == true)
+        // 이 스킬이 배정된 키를 뗐을 때만 홀드 종료 (다른 스킬 키를 떼도 끊기던 문제, B-113)
+        if (skillNum < 0 || skillNum >= skillAction.Length || context.action != skillAction[skillNum])
         {
-            if (isActiveHold == true)
+            return;
+        }
+        if (isHoldSkill == true && isActiveHold == true)
+        {
+            isActiveHold = false;
+            skillSequence.Kill();
+            skillCooldown.UseSkill(skillNum, skillName);
+            CheckAttackWait();
+            PlayerController.instance.StopAttackAnim();
+            if (dmOb != null)
+            {
+                dmOb.DestroyObject();
+            }
+            if (damageObject != null)
             {
                 Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
-                isActiveHold = false;
-                skillSequence.Kill();
-                skillCooldown.UseSkill(skillNum, skillName);
-                CheckAttackWait();
-                PlayerController.instance.StopAttackAnim();
-                dmOb.DestroyObject();
             }
         }
     }

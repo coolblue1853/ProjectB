@@ -5,6 +5,7 @@
 - 🔴 **Unity 창을 앞으로 가져오지 않는다.** 사용자가 같은 PC로 다른 작업을 한다. 포커스 강탈, 대화상자를 띄우는 메뉴 실행, 마우스·키 입력 주입은 금지한다.
 - 대화상자가 필요한 작업은 조용한 API로 대체한다: `AssetDatabase.ImportPackage(path, false)`, `EditorWindow.Close()`.
 - Game 뷰는 "Play Unfocused"로 둔다(`Tools/probes/play_unfocused.cs`). `PlayerSettings.runInBackground = true`.
+- 🔴 **Unity 창은 최소화해 둔다:** `powershell -File Tools/minimize_unity.ps1`(포커스 없이 최소화). 컴파일·도메인 리로드 진행 팝업이 앞으로 튀어나와 키 입력을 가로채는 것을 막는다. 최소화 상태에서도 플레이·스크린샷이 된다(게임 시간은 느리게 흐름 → 대기 시간을 넉넉히).
 - 🔴 **unity-mcp 서버의 포커스 넛지를 끈다.** 서버는 Unity가 백그라운드에서 느려지면 창을 앞으로 당기는 기능이 있다(테스트·새로고침 중). 반드시 `Tools/start_mcp_server.ps1`로 띄운다. 이 스크립트는 `UNITY_MCP_DISABLE_FOCUS_NUDGE=true`를 설정하고 숨김 창으로 실행한다.
 
 ## 구성

@@ -17,6 +17,10 @@ public class EnemyHealth : PoolAble
     public event System.Action<int,int,Vector3, bool, bool> OnReleasedToPool; // 이벤트 선언
     public EnemySpawner enemySpowner;
     public bool isBleeding = false;
+    int bleedStacks;
+    /// <summary>출혈 중첩 관리: 여러 출혈 중 하나가 먼저 끝나도 나머지가 남아 있으면 출혈 상태 유지</summary>
+    public void AddBleedStack() { bleedStacks++; isBleeding = true; }
+    public void RemoveBleedStack() { bleedStacks = Mathf.Max(0, bleedStacks - 1); isBleeding = bleedStacks > 0; }
     public DamageNumber damageNumber;
     public int enemyDef = 0;
     Animator anim;
@@ -101,6 +105,8 @@ public class EnemyHealth : PoolAble
         deadOnec = false;
         nowHP = maxHP;
         stiffShakeTime = 0;
+        bleedStacks = 0;
+        isBleeding = false;
         if (behaviorTree != null)
             behaviorTree.enabled = true; // 경직 중 반환되어 꺼진 채로 재사용되는 것 방지
         if (hpBar != null)

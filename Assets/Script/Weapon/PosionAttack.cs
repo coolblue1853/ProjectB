@@ -1,62 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DamageNumbersPro;
-using DarkTonic.MasterAudio;
-public class PosionAttack : MonoBehaviour
+﻿using DarkTonic.MasterAudio;
+
+/// <summary>독: 방어 무시 고정 피해. 장비 독 피해(addPoisonDmg)가 매 틱 더해진다. 여러 개가 중첩된다.</summary>
+public class PosionAttack : DotEffectBase
 {
-    public DamageNumber damageNumber;
-    int damage = 0;
-    float Interval;
-    int count;
-    public EnemyHealth enemyHealth;
+    public bool isBleeding = false; // 직렬화 호환용 (미사용)
 
-    public bool isBleeding = false;
+    protected override int TickDamage(int baseDamage) => baseDamage + DatabaseManager.addPoisonDmg;
 
-    public void ActivePoison(int poisonDamage, float damageInterval, int damageCount)
+    protected override void OnTick()
     {
-        damage = poisonDamage + DatabaseManager.addPoisonDmg;
-        Interval = damageInterval;
-        count = damageCount;
-
-        
-        if(count == 0)
+        if (!MasterAudio.IsSoundGroupPlaying("Poison"))
         {
-            Destroy(this.gameObject);
+            MasterAudio.PlaySound("Poison");
         }
-        else
-        {
-            enemyHealth.onlyDamage2Enemy(damage);
-            if (!MasterAudio.IsSoundGroupPlaying("Poison"))
-            {
-                MasterAudio.PlaySound("Poison");
-            }
-            damageNumber.Spawn(transform.position + Vector3.up, (int)damage);
-            count -= 1;
-        }
-
-        Invoke("ActivePosionIn", Interval);
-    }
-
-    void ActivePosionIn()
-    {
-
-        if (count == 0)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            enemyHealth.onlyDamage2Enemy(damage);
-            if (!MasterAudio.IsSoundGroupPlaying("Poison"))
-            {
-                MasterAudio.PlaySound("Poison");
-            }
-            damageNumber.Spawn(transform.position + Vector3.up, (int)damage);
-            count -= 1;
-        }
-
-        Invoke("ActivePosionIn", Interval);
-
     }
 }

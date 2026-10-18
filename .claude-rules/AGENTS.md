@@ -32,6 +32,8 @@
 | `Game/AssetInventory.md` | 보유 에셋스토어 86종 분류와 도입 현황 |
 | `Game/TechDebt.md` | 버그·기술 부채 백로그 (P0~P3, 수정 시 갱신) |
 | `Game/QualityRoadmap.md` | **게임 방향(무기 스킬 + 세트 강화)** 과 퀄리티업 로드맵 A~F |
+| `Game/InventoryRefactorDesign.md` | 인벤토리 리팩터 설계(D2~D6): 현 구조·잔존 버그, InventoryModel/세트 평가기/세이브 매핑, 툴팁·정렬·픽업 로그, 단계별 이행·테스트 |
+| `Game/PlayerStateDesign.md` | 플레이어 FSM·상태 토큰(무적/슈퍼아머/이동정지)·입력 버퍼·Modifier 스탯 재설계와 단계별 마이그레이션 |
 
 ## 운영
 

@@ -15,6 +15,15 @@
 | B-006 | 창고 → 인벤토리 이동 중 인벤토리가 가득 차도 창고 수량 차감 → 소실 | `Chest.C2IMove` | ✅ CreatItem 성공 시에만 창고 차감 |
 | B-007 | 시작 지점(originPos) 미할당 → SaveManager.Awake 예외 | `SaveManager.cs` | ✅ 0c338134 (플레이 모드 에러 0) |
 
+> 인벤토리 신규 버그 B-008~B-023(창고→인벤 이중 차감, 나누기 소실, 목걸이 오타 NRE, 장비 드래그 교환, 티어·강화 소실, 강제종료 복제 등)은 `Game/InventoryRefactorDesign.md` 1절 표에 상세(파일:라인)가 있다. 처리하면 여기에도 ✅로 옮긴다.
+
+| ID | 내용 | 상태 |
+|---|---|---|
+| B-008 | 창고→인벤(인벤 가득) 이중 차감·공짜 1개 (P0) | ⏳ |
+| B-009 | 나누기 시 빈칸 없으면 수량 소실 (P0) | ⏳ |
+| B-010~015 | 칸 겹침, Neckles 오타, 장비 드래그 교환, 페이지탭 드롭, 티어·강화 소실, 강제종료 복제 (P1) | ⏳ |
+| B-016~023 | 툴팁 부호, Resources.Load null, 외상 구매, 우선순위, int.Parse, 디버그 F키, 과도한 저장, name 가림 (P2~P3) | ⏳ |
+
 ## P1
 
 | ID | 내용 | 위치 | 상태 |
@@ -31,7 +40,7 @@
 | B-110 | 순찰 리쉬 무효(originPosition을 매번 덮어씀) | `EnemyPatrol.cs:21` | ✅ 리쉬 기준 = 스폰 위치(스포너가 지정) — 거리 제한 효과는 추가 관찰 필요 |
 | B-111 | SideRoad 포털 연결 끊김 / openMap null NRE | 씬 `Portal` | ✅ Lv1을 SideRoad(확장판)로 교체, 이동 전용 포털 null-safe (Q-104) |
 | B-112 | 세트 키가 빈 문자열 `""`로 쌓임, MinusSetDict KeyNotFound | `EquipBoxCheck.cs:246`, `DatabaseManager.cs:71` | ✅ 빈 tfName 무시, MinusSetDict TryGetValue |
-| B-113 | 홀드 스킬이 다른 스킬 키를 떼도 종료됨 | `Skill.cs:96-100, 297` | ⏳ |
+| B-113 | 홀드 스킬이 다른 스킬 키를 떼도 종료됨 | `Skill.cs:96-100, 297` | 🔶 1차: 자기 키 해제만 처리·null 가드. 나머지 원인(동시 발동, 슬롯/skillNum)은 PlayerStateDesign Phase 0 |
 | B-114 | 무적·슈퍼아머·이동정지 bool을 여러 출처가 덮어씀 (대시 종료가 다른 무적 해제) | `PlayerController.cs:602`, `DamageObject.cs:183` | ⏳ |
 
 ## P2
@@ -41,9 +50,9 @@
 | B-201 | ✅ DisaperByTime 재진입 → 이중 Release 예외 (PoolAble 이중 반환 가드 + 시퀀스 OnDisable Kill) | `EnemyHealth.cs` |
 | B-202 | ✅ `CountInactive==0`이면 Destroy하는 패턴 → 풀 붕괴 (B-001의 실제 원인) | EnemyHealth, DeadBody, DropItemCheck |
 | B-203 | ✅ DropItemCheck의 120초 Invoke 미취소 → 재사용 아이템 조기 소멸 | `DropItemCheck.cs:26` |
-| B-204 | AttackSpawon이 풀 오브젝트 Destroy / Start에서만 예약 | `AttackSpawon.cs` |
+| B-204 | ✅ AttackSpawon이 풀 오브젝트 Destroy / Start에서만 예약 | `AttackSpawon.cs` |
 | B-205 | DOTween 시퀀스 미정리 → 파괴 후 콜백 MissingReference | `DamageObject.cs` 다수 |
-| B-206 | 독·출혈이 Destroy 후 Invoke 재호출 | `PosionAttack.cs`, `BleedingAttack.cs` |
+| B-206 | ✅ 독·출혈이 Destroy 후 Invoke 재호출 | `PosionAttack.cs`, `BleedingAttack.cs` |
 | B-207 | 각종 null 체크 누락(GetOb, bt.sequence, skill[0], enemyHealth) | 다수 |
 | B-208 | 리스너 중복 등록(sellSlider) / 0 나누기(buyprice) / 연산자 우선순위 | ShopManager, DivideSlider |
 | B-209 | CSV 파서: 빈 줄·따옴표 미처리, placeholder 행 로드 | `ItemDatabase.cs` |

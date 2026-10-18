@@ -1,54 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DamageNumbersPro;
-public class BleedingAttack : MonoBehaviour
+﻿/// <summary>출혈: 고정 피해 + 출혈 중인 대상에게 장비 출혈 증뎀 적용. 중첩 수를 세어 마지막 출혈이 끝날 때 해제한다.</summary>
+public class BleedingAttack : DotEffectBase
 {
-    public DamageNumber damageNumber;
-    int damage = 0;
-    float Interval;
-    int count;
-    public EnemyHealth enemyHealth;
-
-    public void ActivePoison(int poisonDamage, float damageInterval, int damageCount)
+    protected override void OnBegin()
     {
-        enemyHealth.isBleeding = true;
-        damage = poisonDamage;
-        Interval = damageInterval;
-        count = damageCount;
-
-        
-        if(count == 0)
+        if (enemyHealth != null)
         {
-            enemyHealth.isBleeding = false;
-            Destroy(this.gameObject);
+            enemyHealth.AddBleedStack();
         }
-        else
-        {
-            enemyHealth.onlyDamage2Enemy(damage);
-            damageNumber.Spawn(transform.position + Vector3.up, (int)damage);
-            count -= 1;
-        }
-
-        Invoke("ActivePosionIn", Interval);
     }
 
-    void ActivePosionIn()
+    protected override void OnEnd()
     {
-
-        if (count == 0)
+        if (enemyHealth != null)
         {
-            enemyHealth.isBleeding = false;
-            Destroy(this.gameObject);
+            enemyHealth.RemoveBleedStack();
         }
-        else
-        {
-            enemyHealth.onlyDamage2Enemy(damage);
-            damageNumber.Spawn(transform.position + Vector3.up, (int)damage);
-            count -= 1;
-        }
-
-        Invoke("ActivePosionIn", Interval);
-
     }
 }
