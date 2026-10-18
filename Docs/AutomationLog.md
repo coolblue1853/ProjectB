@@ -27,3 +27,8 @@
 - 무기 공격·콤보 전수 감사 백그라운드 에이전트 → `.claude-rules/Game/WeaponReview.md`.
 - 21:00 리셋 이후: 평일만, 주간 10% 이내. 일요일 밤은 추가 작업 없음.
 - 21:00 이후(사용자 지시로 계속): PC 재시작 후 Unity·MCP 재기동. 커밋 2715aa69(대화 시스템 W1·SPUM NPC), 4d39c706(W-07 판정 구간), 63f368a0(구역 BGM·덕킹·사운드 카탈로그), 61f66d46(플레이어 피격·회복 숫자), 02a09395(보스 등장 카메라). 주간 사용량 1%(22:05).
+
+### 2026-10-19 (월) 00:00~ 밤샘 자율 작업 (사용자: "자고 올 테니 묻지 말고 계속")
+- 커밋: ac151c5b(②구역 일반 숲·코드 도트 몹 4종), e4a1d461(SPUM 제거·장로 NPC 도트), b42dd5d8(무기 P2), 98ea5b85·76ec3ef5·8dda3545·26dc0d4d(계보 무기 Fang Dagger·Tusk Knuckles·Wisp Lantern·Shell Shield), c3b5f554(B-116), 4eb30c5d(계보 세트 Pack Hunter·Night Lantern).
+- ChatGPT 로그인 없음 → 몹·아이콘은 `Tools/pixelfx` 코드 도트로 생성(사용자 지시 '도트 필수' 준수).
+- 주간 사용량 3%(00:58).
