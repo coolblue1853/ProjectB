@@ -38,7 +38,7 @@
 | C1 | 순찰 리쉬 수정, 도주 노드 종료 조건(B-110 외) | ⏳ |
 | C2 | 공격 예고(텔레그래프): `EnemyTelegraph` — Animator isAttack 상승 엣지(BT 준비 대기 0.5s 시작)에 노란 ! + 붉은 2연 깜빡임, 타이밍 불변 | ✅(강제 트리거 검증, BT 자연 공격 미관측) |
 | C3 | 추격: 0.1s DOMoveX 반복 → `EnemyChase.OnUpdate` 매 프레임 연속 이동(같은 속도), 목표 방향 실시간 갱신·0.25 데드존 | ✅(컴파일, 플레이 체감 미검증) |
-| C4 | 보스 패턴 페이즈(HP 50%·25%) + 패턴 쿨다운 데이터화 | ⏳ |
+| C4 | 보스 페이즈: `BossPhase`(isBossMob 자동 부착) — HP 50%/25% 에서 애니 속도 ×1.25/×1.5, 공격 피해 ×1.2/×1.4, 격노 틴트·플래시·흔들림·"ENRAGED/FRENZY" 배너. BT 무변경. ⏳ 패턴 쿨다운 데이터화·페이즈별 추가 패턴 | ✅ (추가 패턴 ⏳) |
 | C5 | 몬스터 스탯 CSV: ✅ `Resources/MonsterSheet.csv`(id·표시명·층계·구역·maxHP·enemyDef·isBoss·superArmor·hpHeight + 예비 moveSpeed/dropRate/note) → `MonsterTable.Apply`가 EnemyHealth.Awake 에서 덮어씀, `export_monster_sheet.cs`로 프리팹→CSV, `MonsterTableTests` 2개. ⏳ 공격력(L2_* 프리팹 값)·드롭표 데이터화, Odin 편집 탭 | 🔶 |
 
 ## D. 인벤토리 · UI

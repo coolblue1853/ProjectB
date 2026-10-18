@@ -45,6 +45,7 @@ public class EnemyHealth : PoolAble
     // ── 정예(중간보스) — ProgressionDesign 1절 ──
     public const float EliteHpMul = 4f, EliteDefMul = 1.5f, EliteScaleMul = 1.25f, EliteAtkMul = 1.5f;
     public bool IsElite { get; private set; }
+    BossPhase bossPhase;
     int baseMaxHP, baseDef;
     Vector3 baseScale;
     Color baseColor;
@@ -115,6 +116,10 @@ public class EnemyHealth : PoolAble
     public void Damage(int amount)
     {
         nowHP -= amount;
+        if (isBossMob)
+        {
+            (bossPhase != null ? bossPhase : bossPhase = GetComponent<BossPhase>())?.OnDamaged(); // 페이즈 임계값 검사 (C4)
+        }
 
         if (OnDamaged != null) OnDamaged(this, EventArgs.Empty);
     }
@@ -144,6 +149,7 @@ public class EnemyHealth : PoolAble
     private void Awake()
     {
         MonsterTable.Apply(this); // Resources/MonsterSheet.csv 값이 있으면 프리팹 값을 덮어쓴다 (C5)
+        BossPhase.AttachIfBoss(this); // 보스 페이즈 (C4)
         anim = transform.GetComponent<Animator>();
         dropManager = transform.GetComponent<DropManager>();
         rb = transform.GetComponent<Rigidbody2D>();
@@ -222,6 +228,10 @@ public class EnemyHealth : PoolAble
         isCrit = result.isCrit;
         result.damage = Mathf.Max(1, Mathf.RoundToInt(result.damage * AscentLoad.OutgoingMul())); // 상승 부하: 부족분만큼 주는 피해 감소
         finDmg = result.damage;
+        if (isBossMob && bossPhase == null)
+        {
+            bossPhase = GetComponent<BossPhase>();
+        }
         addDmg = result.extraDamage;
         GameLog.Info(GameLog.Cat.Combat, name + " 피격 " + result.damage + (result.isCrit ? " 치명" : "") + (result.extraDamage > 0 ? " +추가 " + result.extraDamage : "") + (isSkill ? " [스킬]" : "") + " HP " + nowHP + "→" + (nowHP - result.damage), this);
 

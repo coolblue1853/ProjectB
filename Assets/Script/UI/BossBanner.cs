@@ -22,6 +22,19 @@ public class BossBanner : MonoBehaviour
         instance = null;
     }
 
+    /// <summary>페이즈 전환 등 임의 제목·부제 (처치 연출 아님)</summary>
+    public static void Show(string title, string subtitle, bool custom)
+    {
+        if (instance == null)
+        {
+            var go = new GameObject("[BossBanner]");
+            DontDestroyOnLoad(go);
+            instance = go.AddComponent<BossBanner>();
+            instance.Build();
+        }
+        instance.PlayCustom(title, subtitle);
+    }
+
     public static void Show(string bossName, string uniqueItem)
     {
         if (instance == null)
@@ -92,11 +105,38 @@ public class BossBanner : MonoBehaviour
         return t;
     }
 
+    void PlayCustom(string title, string subtitle)
+    {
+        UiTheme theme = UiTheme.Get();
+        group.gameObject.SetActive(true);
+        group.DOKill();
+        group.alpha = 0f;
+        titleAnim.SetText("<shake a=0.3>" + title.ToUpperInvariant() + "</shake>", false);
+        title_SetColor(theme.warning);
+        sub.text = subtitle;
+        Transform t = group.transform;
+        t.DOKill();
+        t.localScale = Vector3.one * 1.2f;
+        DOTween.Sequence()
+            .Append(group.DOFade(1f, 0.2f))
+            .Join(t.DOScale(1f, 0.3f).SetEase(Ease.OutBack))
+            .AppendInterval(1.6f)
+            .Append(group.DOFade(0f, 0.5f))
+            .OnComplete(() => group.gameObject.SetActive(false))
+            .SetLink(gameObject);
+    }
+
+    void title_SetColor(Color c)
+    {
+        this.title.color = c;
+    }
+
     void Play(string bossName, string uniqueItem)
     {
         group.gameObject.SetActive(true);
         group.DOKill();
         group.alpha = 0f;
+        title_SetColor(UiTheme.Get().unique);
         titleAnim.SetText("<wave a=0.5>" + bossName.ToUpperInvariant() + " DEFEATED</wave>", false);
         bool unique = !string.IsNullOrEmpty(uniqueItem);
         sub.text = unique ? "<color=#FFC640>Unique: " + uniqueItem + "</color>" : "Rewards dropped";

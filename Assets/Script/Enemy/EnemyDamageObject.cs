@@ -192,9 +192,17 @@ public class EnemyDamageObject : PoolAble
                 if (attackSound != null)
                     MasterAudio.PlaySound(attackSound);
                 int dealt = damage;
-                if (enemyOb != null && enemyOb.TryGetComponent(out EnemyHealth owner) && owner.IsElite)
+                if (enemyOb != null && enemyOb.TryGetComponent(out EnemyHealth owner))
                 {
-                    dealt = Mathf.RoundToInt(damage * EnemyHealth.EliteAtkMul); // 몬스터에 붙어 있는 공격만 (분리 생성 공격은 미적용)
+                    if (owner.IsElite)
+                    {
+                        dealt = Mathf.RoundToInt(damage * EnemyHealth.EliteAtkMul); // 몬스터에 붙어 있는 공격만 (분리 생성 공격은 미적용)
+                    }
+                    BossPhase bp = enemyOb.GetComponent<BossPhase>();
+                    if (bp != null)
+                    {
+                        dealt = Mathf.RoundToInt(dealt * bp.DamageMultiplier); // 보스 페이즈 격노
+                    }
                 }
                 playerHealth.damage2Player(dealt, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
 
