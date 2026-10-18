@@ -64,10 +64,10 @@ System.Action<GameObject, string, string, Color, string, System.Collections.Gene
 };
 System.Action<Weapon, int, int, int, int, Color> stats = (w, mn, mx, cp, cd, energy) => { w.minDmg = mn; w.maxDmg = mx; w.critPer = cp; w.critDmg = cd; w.energyColor = energy; };
 
-// ── 튀는 슬라임 소환물 (BogSlime Run 프레임 + SummonRunner 바운스, 보이지 않는 작은 판정 WispTouch 참조) ──
+// ── 튀는 슬라임 소환물 (BogSlime Run 프레임 + SummonRunner 바운스, 보이지 않는 작은 판정 Common/OrbTouch 참조) ──
 string SD = DO + "SlimeMace/";
 System.IO.Directory.CreateDirectory(SD);
-var touchGo = AssetDatabase.LoadAssetAtPath<GameObject>(DO + "WispLantern/WispTouch.prefab");
+var touchGo = AssetDatabase.LoadAssetAtPath<GameObject>(DO + "Common/OrbTouch.prefab");
 var refSr = AssetDatabase.LoadAssetAtPath<GameObject>(DO + "ScareStaff/ScareTotem.prefab").GetComponent<SpriteRenderer>();
 var slimeRun = new System.Collections.Generic.List<Sprite>();
 foreach (var o in AssetDatabase.LoadAllAssetsAtPath("Assets/Art/Monsters/BogSlime/Run.png")) if (o is Sprite) slimeRun.Add((Sprite)o);

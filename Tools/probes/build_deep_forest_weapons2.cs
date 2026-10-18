@@ -89,7 +89,7 @@ sb.Append("PhantomScythe; ");
 // ── 2) Fae Wand ──
 string F = DO + "FaeWand/";
 System.IO.Directory.CreateDirectory(F);
-var touchGo = AssetDatabase.LoadAssetAtPath<GameObject>(DO + "WispLantern/WispTouch.prefab"); // 보이지 않는 작은 판정 (수정하지 않고 참조만)
+var touchGo = AssetDatabase.LoadAssetAtPath<GameObject>(DO + "Common/OrbTouch.prefab"); // 보이지 않는 작은 판정 (수정하지 않고 참조만)
 var dust = new System.Collections.Generic.List<Sprite>();
 foreach (var o in AssetDatabase.LoadAllAssetsAtPath(dustPath)) if (o is Sprite) dust.Add((Sprite)o);
 dust.Sort((a, b) => string.CompareOrdinal(a.name, b.name));

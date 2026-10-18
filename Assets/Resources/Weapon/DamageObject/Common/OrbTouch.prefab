@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1919266265150216554}
   - component: {fileID: 7436261573645325192}
   m_Layer: 0
-  m_Name: WispTouch
+  m_Name: OrbTouch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

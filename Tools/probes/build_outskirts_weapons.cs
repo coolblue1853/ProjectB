@@ -105,10 +105,10 @@ System.Func<string, Sprite> firstSprite = p => { Sprite s0 = null; foreach (var 
 // 보이지 않는 작은 피격 판정(Bandit Shortbow ArrowTouch 와 같은 원본)
 System.Func<string, float, GameObject> touch = (name, knockMul) => {
     string p = OF + name + ".prefab";
-    if (!System.IO.File.Exists(p)) AssetDatabase.CopyAsset(DO + "WispLantern/WispTouch.prefab", p);
+    if (!System.IO.File.Exists(p)) AssetDatabase.CopyAsset(DO + "Common/OrbTouch.prefab", p);
     var t = PrefabUtility.LoadPrefabContents(p); t.name = name;
-    // 원본 WispTouch 값 기준으로 다시 계산한다(재실행해도 넉백이 누적되지 않게)
-    var src0 = AssetDatabase.LoadAssetAtPath<GameObject>(DO + "WispLantern/WispTouch.prefab").GetComponent<DamageObject>();
+    // 원본 OrbTouch(공용 판정) 값 기준으로 다시 계산한다(재실행해도 넉백이 누적되지 않게)
+    var src0 = AssetDatabase.LoadAssetAtPath<GameObject>(DO + "Common/OrbTouch.prefab").GetComponent<DamageObject>();
     var d = t.GetComponent<DamageObject>(); d.maxDamagedEnemies = 1; d.knockForce = Mathf.Abs(src0.knockForce) * knockMul; d.stiffnessTime = Mathf.Max(src0.stiffnessTime, 0.35f);
     PrefabUtility.SaveAsPrefabAsset(t, p); PrefabUtility.UnloadPrefabContents(t);
     return AssetDatabase.LoadAssetAtPath<GameObject>(p); };

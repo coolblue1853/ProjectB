@@ -11,11 +11,14 @@ var imp = (TextureImporter)AssetImporter.GetAtPath("Assets/Resources/Item/WispLa
 imp.SetTextureSettings(refSet); imp.textureCompression = refImp.textureCompression; imp.filterMode = refImp.filterMode; imp.SaveAndReimport();
 
 // 보이지 않는 작은 피격 판정 (DaggerPowerSteb 복제, 스프라이트 숨김·판정 축소)
-string touchPath = F + "WispTouch.prefab";
+string touchPath = DO + "Common/OrbTouch.prefab"; // 계보 무기 공용 판정 (B-121: Wisp 전용 폴더에서 분리)
+if (!AssetDatabase.IsValidFolder(DO + "Common")) AssetDatabase.CreateFolder("Assets/Resources/Weapon/DamageObject", "Common");
 if (!System.IO.File.Exists(touchPath)) AssetDatabase.CopyAsset(DO + "DoubleDagger/DaggerPowerSteb.prefab", touchPath);
 var touch = PrefabUtility.LoadPrefabContents(touchPath);
 foreach (var r in touch.GetComponentsInChildren<SpriteRenderer>(true)) r.color = new Color(1f, 1f, 1f, 0f);
-var tcol = touch.GetComponent<BoxCollider2D>(); tcol.size = new Vector2(tcol.size.x * 0.4f, tcol.size.y * 0.6f);
+// 원본(DaggerPowerSteb) 콜라이더 기준으로 계산 — 재실행해도 공용 판정이 계속 줄지 않게. 없으면 새 GUID 가 생겨 오브 5종 참조가 끊기므로 move_orb_touch 로 옮긴 파일을 쓸 것
+var srcCol = AssetDatabase.LoadAssetAtPath<GameObject>(DO + "DoubleDagger/DaggerPowerSteb.prefab").GetComponent<BoxCollider2D>();
+var tcol = touch.GetComponent<BoxCollider2D>(); tcol.size = new Vector2(srcCol.size.x * 0.4f, srcCol.size.y * 0.6f);
 touch.GetComponent<DamageObject>().maxDamagedEnemies = 2;
 PrefabUtility.SaveAsPrefabAsset(touch, touchPath); PrefabUtility.UnloadPrefabContents(touch);
 var touchGo = AssetDatabase.LoadAssetAtPath<GameObject>(touchPath);

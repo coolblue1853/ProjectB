@@ -48,7 +48,7 @@
 | B-118 | ✅ Lv2 카메라 경계 4개가 90° 회전된 템플릿 복제라 Top/Bottom 이 세로 막대(x −300)가 돼 카메라가 x −311 에서 멈춤(보스 구역이 화면 밖) → 회전 초기화, `Lv2MapBuilder` 도 수정 (2026-10-19) | `Lv2MapBuilder.cs`, 씬 `Lv2_MagicCliffs/Cam`, `Lv1_Swamp/Cam` |
 | B-119 | ✅ 깊은 숲 귀환 포털 `Portal_DeepToNormal` 이 원본 근교 맵의 비활성 포털을 이어받아 꺼져 있었음(TravelNow 직접 호출 테스트로는 안 보임) → 켬 (2026-10-19) | 씬 `Lv1_DeepForest/Portal`, `build_swamp.cs` |
 | B-120 | 🔶 높이 4 발판 스포너 영역 바닥이 발판(−174)과 같아 발판에 선 플레이어를 못 잡음 → 늪지는 영역을 아래로 2 늘림. **Lv2 원본(L2_B_ShroomUp·L2_B_GoblinN)은 미수정** | 씬 `Lv2_MagicCliffs`, `Lv2MapBuilder.cs` |
-| B-121 | 계보 무기 공용 판정 `WispLantern/WispTouch` 를 WispOrb·WispRing·FaeOrb 가 공유 — Wisp 밸런스 변경이 Fae Wand 에 전파 | `Resources/Weapon/DamageObject/WispLantern/` | ⏳ `DamageObject/Common/OrbTouch` 로 .meta 와 함께 이동(GUID 유지) |
+| B-121 | ✅ 계보 무기 공용 판정 `WispLantern/WispTouch` 를 WispOrb·WispRing·FaeOrb·Slime/GelHopper 가 공유하는데 Wisp 전용 폴더에 있었다 → `DamageObject/Common/OrbTouch.prefab` 로 .meta 와 함께 이동(`AssetDatabase.MoveAsset`, GUID 7e1e7d1a… 유지, `move_orb_touch.cs`). 빌더 프로브 5개 경로 갱신. 검증 `orb_touch_refs.cs`: 참조 프리팹 5개 모두 ref=1·missing=0, 플레이 늪지에서 Ghostlight Ring·Fairy Dust Bolt 타격 확인. 남은 것: `build_wisp_lantern.cs` 가 공용 판정 값을 직접 덮어쓰므로 Wisp 밸런스 변경 시 여전히 전파 — 무기별 값은 오브 쪽에 둘 것 (2026-10-19) | `Resources/Weapon/DamageObject/Common/` |
 | B-122 | 유도탄·공전 오브마다 Point Light2D 1개 → 연타 시 동시 8~12개 | HomingOrb/OrbitWisps 프리팹 | ⏳ 프레임 저하 시 시전당 1개 또는 All In 1 글로우로 대체, Instantiate/Destroy 풀링은 함께 |
 | B-123 | 보스·몹 판정 복제본(AncientEnt 뿌리 등)이 원본 개선을 따라가지 않음, 빌더 프로브가 스킬을 배열 순서로 지정 | `build_*_weapons*.cs`, `build_ent_boss_roots.cs` | ⏳ Prefab Variant 화, 스킬은 자식 이름으로 찾기 |
 | B-124 | 늪지 거대 슬라임 보스가 PassiveTerror 판정(갈퀴·불꽃) 그대로, 분열 패턴 없음 / 모기가 FlowerMole 유도탄 | `GiantSlime_BD`, `Mosquito_BD` | ⏳ 엔트처럼 판정 교체 + 분열 소환 |

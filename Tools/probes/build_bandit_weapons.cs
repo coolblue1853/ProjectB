@@ -91,7 +91,7 @@ var arrowSp = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/Monsters/BanditA
 if (arrowSp == null) foreach (var o in AssetDatabase.LoadAllAssetsAtPath("Assets/Art/Monsters/BanditArcher/Arrow.png")) if (o is Sprite) arrowSp = (Sprite)o;
 System.Func<string, System.Action<GameObject>, GameObject> touch = (name, after) => {
     string p = BF + name + ".prefab";
-    if (!System.IO.File.Exists(p)) AssetDatabase.CopyAsset(DO + "WispLantern/WispTouch.prefab", p);
+    if (!System.IO.File.Exists(p)) AssetDatabase.CopyAsset(DO + "Common/OrbTouch.prefab", p);
     var t = PrefabUtility.LoadPrefabContents(p); t.name = name;
     var d = t.GetComponent<DamageObject>(); d.maxDamagedEnemies = 1; d.knockForce = Mathf.Abs(d.knockForce) * 0.6f;
     if (after != null) after(t);
