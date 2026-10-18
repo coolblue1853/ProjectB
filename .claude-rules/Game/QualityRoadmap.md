@@ -92,3 +92,9 @@
 | G10 | RPG Monsters Icon | ✅ 보스 HP바 초상·이름(`BossPortrait`) + 몬스터 도감(`BestiaryWindow`, B키 — 처치 1/10/50에 이름·스탯·드롭 공개, `BestiaryRecord`가 Kill 메시지를 ES3 bestiary.kills로 저장, 데이터 `Resources/UI/BestiaryData` 14종) | ✅ |
 | G11 | Quest Machine (+Dialogue System) | ✅ 마을 퀘스트 게시판(`QuestBoard`, 도트 생성 `gen_questboard.py`) — `QuestCatalog` 사냥 체인 5단계(토끼→두더지→PassiveTerror→고블린→심연 마법사)를 QuestBuilder로 코드 생성, 선행 조건(QuestStateQuestCondition), 처치 `MessageSystem "Kill"`, 보상 골드·강화석, ES3 저장(qm.board/qm.journal), 대화 중 조작 잠금. 부가 퀘스트 3종(나무 10·약초 6 줍기 = `Pickup` 메시지, 제작 2회 = `Craft`) ✅, HUD 픽셀 폰트 ✅(G7). ⏳ 대사형 NPC(Dialogue System) | ✅ |
 | G12 | Feel | (보류) 스킬별 연출이 필요해지면 MMF_Player | 보류 |
+
+## 현황 요약 (2026-10-18 저녁)
+
+- 게임 정체성 확정: **TO THE BEYOND**(`TowerWorld.md`). 오늘 저녁 추가: 지역 배너·타이틀·일시정지 메뉴·층계 지도(웨이포인트)·상승 부하+탐험가 칭호·층계 결정·아티팩트(Shift)·콤보·정예/보스 보상·보스 페이즈·파괴 오브젝트·식생·반딧불·픽셀 UI 프레임(코드 UI + 기존 인벤토리)·MonsterSheet.csv + Odin 표.
+- 남은 큰 축: D 인벤토리 교체(Phase 2) → 가벼운 추출(Q-406)·랜덤 옵션(P4), 1층계 ②~⑥ 구역(몬스터 스프라이트 Q-405), PlayerStateDesign Phase 6~10, 제작 UI 데이터화(Q-110).
+
