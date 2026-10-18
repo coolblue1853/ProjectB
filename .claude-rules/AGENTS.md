@@ -31,6 +31,7 @@
 | `Game/EnemySpec.md` | 몬스터 스탯, BT 구조, 스폰, **드롭 테이블** |
 | `Game/WorldSpec.md` | 낮/밤, 맵·포털, 카메라 |
 | `Game/AssetInventory.md` | 보유 에셋스토어 86종 분류와 도입 현황 |
+| `Game/AssetIntegrationPlan.md` | 사용자 지정 필수 에셋(대화·I2·Feel·ProCamera 등) 실사용 계획, 평가 대상(Smart Lighting·SPUM·RPG Monster·Corgi), 사운드 카탈로그, 웨이브 W0~W5 |
 | `Game/TechDebt.md` | 버그·기술 부채 백로그 (P0~P3, 수정 시 갱신) |
 | `Game/QualityRoadmap.md` | **게임 방향(무기 스킬 + 세트 강화)** 과 퀄리티업 로드맵 A~F |
 | `Game/GameFeelPlan.md` | 타격감(A2~A6) 구현 계획: `HitFeedback` 파사드, All In 1 셰이더 키워드, 히트스톱·흔들림·숫자 수치, 임포트 목록, 검증 |
