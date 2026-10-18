@@ -57,15 +57,39 @@ public class DeadBody : PoolAble
         }
        
     }
+    // 사망 연출 타이밍: 1.2초부터 0.6초 동안 디졸브 → 2.0초에 반환 (디졸브가 반환보다 먼저 끝나야 깜빡임이 없다)
+    const float DissolveStart = 1.2f, DissolveDuration = 0.6f, ReleaseTime = 2f;
+
+    void StartDissolve()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform part = transform.GetChild(i);
+            if (!part.TryGetComponent(out SpriteRenderer _))
+            {
+                continue;
+            }
+            if (!part.TryGetComponent(out SpriteHitFx fx))
+            {
+                fx = part.gameObject.AddComponent<SpriteHitFx>();
+            }
+            fx.Dissolve(DissolveDuration);
+        }
+    }
+
     public void Force2DeadBody(float knockbackForce)
     {
-
-        Invoke("ResetParts", 2f);
+        CancelInvoke();
+        Invoke(nameof(StartDissolve), DissolveStart);
+        Invoke("ResetParts", ReleaseTime);
         if (knockbackForce > maxNForce) // 최대 넉백 속도
         {
             knockbackForce = maxNForce;
         }
-        player = GameObject.FindWithTag("Player");
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player"); // 첫 사용 시 한 번만 찾는다
+        }
         if (player.transform.position.x > this.transform.position.x)
         {
             knockbackDir = new Vector2(-1, 1);

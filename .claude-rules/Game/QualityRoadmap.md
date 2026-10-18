@@ -17,7 +17,7 @@
 | A1 | 데미지 공식 정상화(정수 나눗셈, 방무, 최대댐) | TechDebt B-101~104 | ✅ |
 | A2 | 피격 플래시(흰색) + 히트스톱(0.03~0.06s) | `Combat/Feedback/SpriteHitFx` + `HitFeedback` (몬스터 ✅, 공격자 히트스톱·플레이어 틴트 ⏳) | 🔶 |
 | A3 | 타격 시 카메라 흔들림 세분화(평타 약, 스킬 중, 치명 강) | `HitFeedback.Shake` 5단계 + 0.1s 창 스로틀 | ✅ |
-| A4 | 사망 디졸브 + 드롭 아이템 등급별 빛 기둥(C/R/U) | All In 1 Sprite Shader, 파티클 | ⏳ |
+| A4 | 사망 디졸브 + 드롭 아이템 등급별 빛 기둥(C/R/U) | 디졸브 ✅(1.2s~), 등급 아웃라인·글로우 ✅, 빛 기둥 파티클 ⏳ | 🔶 |
 | A5 | 치명타 데미지 숫자 스타일 분리(색·크기·흔들림) | DamageNumbersPro 프리셋 | ⏳ |
 | A6 | 스킬 이펙트 보강 | Magic Slashes FX / Particle Pack | ⏳ |
 

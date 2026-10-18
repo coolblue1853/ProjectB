@@ -23,14 +23,36 @@ public class DropItemCheck : PoolAble
         Buyprice = (int)(itemData.price * 1.5f);
         nowStack = 1;
         LoadImage();
+        ApplyRarityLook(itemData.rarity);
         Invoke("DestroyItembyTime", 120);
     }
     Rigidbody2D rigidbody;
     BoxCollider2D boxCollider2D;
+    static Material rareMaterial, uniqueMaterial;
+    Material defaultMaterial;
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
+        defaultMaterial = GetComponent<SpriteRenderer>().sharedMaterial;
+    }
+
+    /// <summary>등급 연출: C 기본 / R 파란 1px 아웃라인 / U 금색 아웃라인+글로우 (공유 머티리얼, 개체별 변경 없음)</summary>
+    void ApplyRarityLook(string rarity)
+    {
+        if (rareMaterial == null)
+        {
+            rareMaterial = Resources.Load<Material>("FX/M_Drop_R");
+            uniqueMaterial = Resources.Load<Material>("FX/M_Drop_U");
+        }
+        var sr = GetComponent<SpriteRenderer>();
+        switch (rarity)
+        {
+            case "R": sr.sharedMaterial = rareMaterial != null ? rareMaterial : defaultMaterial; break;
+            case "U": sr.sharedMaterial = uniqueMaterial != null ? uniqueMaterial : defaultMaterial; break;
+            default: sr.sharedMaterial = defaultMaterial; break;
+        }
     }
     private void OnEnable()
     {
