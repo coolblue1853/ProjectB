@@ -81,7 +81,7 @@
 | # | 에셋 | 사용 단계 | 상태 |
 |---|---|---|---|
 | G1 | All In 1 Sprite Shader | 피격 플래시·디졸브·드롭 등급 외곽선 | ✅ |
-| G2 | 음악팩 2종 | 상황별 BGM(마을/필드/밤/보스), 보스 처치 승리 팡파레 | 🔶 (팡파레 ⏳) |
+| G2 | 음악팩 2종 | 상황별 BGM(마을/필드/밤/보스), 보스 처치 승리 팡파레 · 보스 처치 배너 ✅(`BossBanner`: 이름 DEFEATED <wave> + 고유템 강조 + Victory SFX + 흔들림) | 🔶 (팡파레 ⏳) |
 | G3 | Monsters Creatures Fantasy / Evil Wizard 2 / Bringer | Lv2 몬스터·엘리트·보스 프리팹(`Editor/Dev/MonsterBuilder`, `Tools/probes/build_lv2_monsters.cs`) | ✅ 6종 생성(맵 배치는 G4) |
 | G4 | Magic Cliffs | Lv2 맵 `Editor/Dev/Lv2MapBuilder`(코드 레이아웃 재생성): 바닥·벽 타일, 원웨이 발판 10, 로프 10, 배경 4층, 스포너 10, SideRoad 왕복 포털, 카메라 경계·`MapInfo` | 🔶 (드롭 테이블 5.6, 아트 다듬기 ⏳) |
 | G5 | Odin Inspector | `Editor/Data/ProjectBDataWindow`(메뉴 ProjectB/데이터 편집기): 아이템 트리·표 편집(드롭다운·쉼표 검증·아이콘 미리보기), 세트 효과 해석 미리보기, 몬스터 스탯, 검증 리포트, CSV 저장(형식 보존) + DataIntegrityTests | ✅ |

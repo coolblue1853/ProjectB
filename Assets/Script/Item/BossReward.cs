@@ -61,6 +61,7 @@ public static class BossLoot
             since = 0;
         }
         ES3.Save(killKey, since);
+        BossBanner.Show(string.IsNullOrEmpty(r.displayName) ? bossName : r.displayName, unique ? r.uniqueItem : null); // G2 승리 연출
         GameLog.Info(GameLog.Cat.Item, "보스 보상 " + bossName + ": " + string.Join(", ", loot) + (unique ? " (고유템!)" : " (천장까지 " + (r.pity - since) + ")"));
         return loot;
     }

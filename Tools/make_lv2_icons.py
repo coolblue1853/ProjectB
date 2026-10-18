@@ -47,7 +47,7 @@ ICONS.update({
     "Necklace": ("Green Wreath", 0.15, 0.8, 1.0),
     "Ring": ("Shabby Straw Ring", 0.1, 1.0, 1.0),
     "test4": ("Wood", 0.5, 1.0, 1.0),
-    "Enhance Stone": ("T0_Ore", 0.7, 1.6, 1.3),  # 강화석 (ProgressionDesign 3절)
+    "Enhance Stone": ("T0_Ore", 0.45, 1.5, 1.35),  # 강화석 — 하늘색 크리스털 (마젠타는 셰이더 오류처럼 보여서 피함)
 })
 
 # 방어구 AnyPortrait 텍스처
