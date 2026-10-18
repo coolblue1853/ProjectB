@@ -152,6 +152,19 @@ public class EnemyDamageObject : PoolAble
   
     }
 
+    /// <summary>
+    /// 풀 반환 직전: 다른 경로(지면 충돌 등)로 먼저 반환되면 DestroyObject 시퀀스가 holdingTime 뒤
+    /// 재사용된 판정의 parent 를 끊고 다시 반환하려 했다. 반환 한 곳에서 끊는다(B-141).
+    /// </summary>
+    protected override void OnBeforeRelease()
+    {
+        if (sequence != null)
+        {
+            sequence.Kill();
+            sequence = null;
+        }
+    }
+
     private void OnDestroy()
     {
         // Stop any active DOTween sequences when the object is destroyed

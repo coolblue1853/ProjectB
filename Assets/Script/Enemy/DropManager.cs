@@ -71,7 +71,7 @@ public class DropManager : MonoBehaviour
             sharedPools[prefab] = created;
             var warm = new List<GameObject>(SharedWarmCount);
             for (int i = 0; i < SharedWarmCount; i++) warm.Add(created.Get());
-            foreach (var go in warm) created.Release(go);
+            foreach (var go in warm) go.GetComponent<PoolAble>().ReleaseObject(); // 반환은 ReleaseObject 한 곳 (B-141)
             GameLog.Info(GameLog.Cat.Pool, "드롭 공유 풀 생성: " + prefab.name);
         }
         isReady = true;

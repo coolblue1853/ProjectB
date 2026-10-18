@@ -573,4 +573,19 @@ public class EnemyHealth : PoolAble
         transform.DOKill();
     }
 
+    /// <summary>
+    /// 풀 반환 직전: BT 이동·공격 노드가 만든 시퀀스(DOMoveX 등)를 끊는다. SetLink 는 파괴만 막아,
+    /// 반환된(비활성) 몹의 transform 을 계속 움직이고 재사용 시 이전 이동이 섞였다(B-141).
+    /// OnDisable 의 transform.DOKill() 은 Sequence 안에 중첩된 트윈을 끄지 못해 따로 Kill 한다.
+    /// 참조는 null 로 비우지 않는다: BT 는 pauseWhenDisabled 라 재사용 때 실행 중이던 노드의 OnUpdate 부터 이어 돌며
+    /// 이 필드를 읽는다(Kill 된 시퀀스 = 비활성 → 노드가 정상 종료).
+    /// </summary>
+    protected override void OnBeforeRelease()
+    {
+        if (behaviorTree != null)
+        {
+            behaviorTree.sequence?.Kill();
+        }
+    }
+
 }

@@ -24,7 +24,7 @@ public class EnemyGoRevers : EnemyAction
     }
     public override TaskStatus OnUpdate()
     {
-        if (bt.sequence.active == false)
+        if (bt.sequence == null || !bt.sequence.IsActive()) // 반환 정리로 Kill 된 뒤 재사용돼도 안전 (B-141)
         {
             isEnd = true;
         }

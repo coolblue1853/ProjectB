@@ -172,7 +172,7 @@ public class EnemySpawner : MonoBehaviour
                 }
                 foreach (GameObject go in temp)
                 {
-                    entry.Key.Release(go);
+                    go.GetComponent<PoolAble>().ReleaseObject(); // 반환은 ReleaseObject 한 곳 (B-141)
                 }
                 remaining -= n;
                 yield return null;

@@ -10,33 +10,49 @@ public class PoolCheck : MonoBehaviour
 
     public void AbleSpwaner()
     {
-        for(int i = 0; i < dayTimeSpwaner.transform.childCount; i++)
-        {
-            dayTimeSpwaner.transform.GetChild(i).gameObject.SetActive(true);
-        }
-        for (int i = 0; i < nightTimeSpwaner.transform.childCount; i++)
-        {
-            nightTimeSpwaner.transform.GetChild(i).gameObject.SetActive(true);
-        }
+        SetChildrenActive(dayTimeSpwaner, true);
+        SetChildrenActive(nightTimeSpwaner, true);
     }
+
     public void DisableSpwaner()
     {
-        for (int i = 0; i < dayTimeSpwaner.transform.childCount; i++)
-        {
-            EnemySpawner spawner = dayTimeSpwaner.transform.GetChild(i).GetComponent<EnemySpawner>();
-            spawner.ClearAllPools();
-            DropManager dropManager = dayTimeSpwaner.transform.GetChild(i).GetComponent<DropManager>();
-            dropManager.ClearAll();
-            dayTimeSpwaner.transform.GetChild(i).gameObject.SetActive(false);
+        ClearAndDisable(dayTimeSpwaner);
+        ClearAndDisable(nightTimeSpwaner);
+    }
 
-        }
-        for (int i = 0; i < nightTimeSpwaner.transform.childCount; i++)
+    private static void SetChildrenActive(GameObject root, bool active)
+    {
+        if (root == null)
         {
-            EnemySpawner spawner = nightTimeSpwaner.transform.GetChild(i).GetComponent<EnemySpawner>();
-            spawner.ClearAllPools();
-            DropManager dropManager = nightTimeSpwaner.transform.GetChild(i).GetComponent<DropManager>();
-            dropManager.ClearAll();
-            nightTimeSpwaner.transform.GetChild(i).gameObject.SetActive(false);
+            return;
+        }
+        for (int i = 0; i < root.transform.childCount; i++)
+        {
+            root.transform.GetChild(i).gameObject.SetActive(active);
+        }
+    }
+
+    /// <summary>
+    /// 자식 스포너 풀·드롭 정리 후 끈다. 스포너가 아닌 자식(정리용 빈 오브젝트 등)이 섞여도 NRE 없이 건너뛴다(B-141).
+    /// </summary>
+    private static void ClearAndDisable(GameObject root)
+    {
+        if (root == null)
+        {
+            return;
+        }
+        for (int i = 0; i < root.transform.childCount; i++)
+        {
+            Transform child = root.transform.GetChild(i);
+            if (child.TryGetComponent(out EnemySpawner spawner))
+            {
+                spawner.ClearAllPools();
+            }
+            if (child.TryGetComponent(out DropManager dropManager))
+            {
+                dropManager.ClearAll();
+            }
+            child.gameObject.SetActive(false);
         }
     }
 }
