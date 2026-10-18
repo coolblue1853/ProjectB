@@ -25134,27 +25134,12 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: SacreGreatSword
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: ScareStaff
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: ScareCap
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: Ominous Black Liquid
-    dropProbability: 0.2
-    offsetY: 0
-  - itemName: Malice-Infused Branch
-    dropProbability: 0.1
-    offsetY: 0
-  - itemName: Gloomy Cloth Scrap
-    dropProbability: 0.1
-    offsetY: 0
+  - itemName: Snail Shell
+    dropProbability: 0.3
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: SacreGreatSword
     count: 1
@@ -40096,33 +40081,12 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: RatArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: RatCap
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: PoisonSword
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: Necklace of Spreading Corruption
-    dropProbability: 0.0005
-    offsetY: 0
-  - itemName: Necklace of the Sly Plunderer
-    dropProbability: 0.0007
-    offsetY: 0
-  - itemName: Ring Finger that Tears Wounds
-    dropProbability: 0.0003
-    offsetY: 0
-  - itemName: Disgusting Rat Meat
-    dropProbability: 0.15
-    offsetY: 0
-  - itemName: Rat Cheif 's Loot
-    dropProbability: 0.1
-    offsetY: 0
-  - itemName: Tough Rat Hide
-    dropProbability: 0.1
-    offsetY: 0
+  - itemName: Snail Shell
+    dropProbability: 0.3
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -40323,30 +40287,12 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: ScareClow
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: ScareLegArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareHandArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareShoes
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: Shabby Straw Ring
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: Ominous Black Liquid
-    dropProbability: 0.15
-    offsetY: 0
-  - itemName: Blackened Branch
-    dropProbability: 0.1
-    offsetY: 0
-  - itemName: Eerie Cloth Scrap
-    dropProbability: 0.1
-    offsetY: 0
+  - itemName: Wisp Ember
+    dropProbability: 0.3
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
     count: 1
@@ -41442,30 +41388,12 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: ScareClow
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: ScareLegArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareHandArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareShoes
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: Shabby Straw Ring
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: Ominous Black Liquid
-    dropProbability: 0.15
-    offsetY: 0
-  - itemName: Blackened Branch
-    dropProbability: 0.1
-    offsetY: 0
-  - itemName: Eerie Cloth Scrap
-    dropProbability: 0.1
-    offsetY: 0
+  - itemName: Wisp Ember
+    dropProbability: 0.3
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
     count: 1
@@ -88259,9 +88187,7 @@ Transform:
   - {fileID: 1699789721}
   - {fileID: 1723172}
   - {fileID: 22697712}
-  - {fileID: 1635838047}
-  - {fileID: 688610184}
-  - {fileID: 411191861}
+  - {fileID: 1499135092}
   m_Father: {fileID: 1045951328}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &333517468
@@ -201401,114 +201327,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1779783679}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &411191860
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 411191861}
-  - component: {fileID: 411191864}
-  - component: {fileID: 411191863}
-  - component: {fileID: 411191862}
-  m_Layer: 0
-  m_Name: NPC_Merchant
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &411191861
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411191860}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1527, y: -39.915985, z: -100}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1915253274}
-  m_Father: {fileID: 333517467}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &411191862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411191860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e917a798aeae3b489aefc014e2268a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TalkNpc
-  _conversation: Village/Merchant
-  _promptHeight: 1.5
---- !u!61 &411191863
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411191860}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.8}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2.2, y: 2}
-  m_EdgeRadius: 0
---- !u!210 &411191864
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411191860}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 25
-  m_SortAtRoot: 0
-  m_Sort3DAs2D: 0
 --- !u!1 &412317852
 GameObject:
   m_ObjectHideFlags: 0
@@ -203499,33 +203317,15 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: Rabbit Hide
-    dropProbability: 0.1
-    offsetY: 1
-  - itemName: Small Bone
-    dropProbability: 0.1
-    offsetY: 1
-  - itemName: Rabbit Meat
-    dropProbability: 0.15
-    offsetY: 1
-  - itemName: Four-Leaf Clover Ring
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: Shoes
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: HandArmor
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: LegArmor
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: RustedSword
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: Wood Spear
-    dropProbability: 0.002
-    offsetY: 1
+  - itemName: Wolf Fang
+    dropProbability: 0.35
+    offsetY: 0.5
+  - itemName: FangDagger
+    dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: Rabbit Hide
     count: 4
@@ -238222,33 +238022,15 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: LeafStaff
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: LeafLegArmor
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: LeafHandArmor
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: LeafShoes
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: Green Wreath
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: GreenHurb
-    dropProbability: 0.005
-    offsetY: 1
-  - itemName: Small Tuber
-    dropProbability: 0.15
-    offsetY: 1
-  - itemName: Fresh Green Leaves
+  - itemName: Boar Tusk
+    dropProbability: 0.35
+    offsetY: 0.5
+  - itemName: Food
     dropProbability: 0.1
-    offsetY: 1
-  - itemName: Sturdy Roots
-    dropProbability: 0.1
-    offsetY: 1
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -247218,33 +247000,15 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: LeafStaff
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: LeafLegArmor
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: LeafHandArmor
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: LeafShoes
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: Green Wreath
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: GreenHurb
-    dropProbability: 0.005
-    offsetY: 1
-  - itemName: Small Tuber
-    dropProbability: 0.15
-    offsetY: 1
-  - itemName: Fresh Green Leaves
+  - itemName: Boar Tusk
+    dropProbability: 0.35
+    offsetY: 0.5
+  - itemName: Food
     dropProbability: 0.1
-    offsetY: 1
-  - itemName: Sturdy Roots
-    dropProbability: 0.1
-    offsetY: 1
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -289786,30 +289550,12 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: Nasty Rat Ring
-    dropProbability: 0.0005
-    offsetY: 0.4
-  - itemName: DoubleDagger
-    dropProbability: 0.001
-    offsetY: 0.4
-  - itemName: RatLegArmor
-    dropProbability: 0.002
-    offsetY: 0.4
-  - itemName: RatHandArmor
-    dropProbability: 0.002
-    offsetY: 0.4
-  - itemName: RatShoes
-    dropProbability: 0.002
-    offsetY: 0.4
-  - itemName: Disgusting Rat Meat
-    dropProbability: 0.1
-    offsetY: 0.4
-  - itemName: Rat Thief's Stash
-    dropProbability: 0.1
-    offsetY: 0.4
-  - itemName: Filthy Rat Hide
-    dropProbability: 0.2
-    offsetY: 0.4
+  - itemName: Wisp Ember
+    dropProbability: 0.3
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -306069,33 +305815,15 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: Rabbit Hide
-    dropProbability: 0.1
-    offsetY: 1
-  - itemName: Small Bone
-    dropProbability: 0.1
-    offsetY: 1
-  - itemName: Rabbit Meat
-    dropProbability: 0.15
-    offsetY: 1
-  - itemName: Four-Leaf Clover Ring
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: Shoes
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: HandArmor
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: LegArmor
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: RustedSword
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: Wood Spear
-    dropProbability: 0.002
-    offsetY: 1
+  - itemName: Wolf Fang
+    dropProbability: 0.35
+    offsetY: 0.5
+  - itemName: FangDagger
+    dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: Rabbit Hide
     count: 4
@@ -306789,114 +306517,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688175802}
   m_CullTransparentMesh: 1
---- !u!1 &688610183
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 688610184}
-  - component: {fileID: 688610187}
-  - component: {fileID: 688610186}
-  - component: {fileID: 688610185}
-  m_Layer: 0
-  m_Name: NPC_Smith
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &688610184
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 688610183}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1519.2001, y: -39.915985, z: -100}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 883920286}
-  m_Father: {fileID: 333517467}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &688610185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 688610183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e917a798aeae3b489aefc014e2268a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TalkNpc
-  _conversation: Village/Smith
-  _promptHeight: 1.5
---- !u!61 &688610186
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 688610183}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.8}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2.2, y: 2}
-  m_EdgeRadius: 0
---- !u!210 &688610187
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 688610183}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 25
-  m_SortAtRoot: 0
-  m_Sort3DAs2D: 0
 --- !u!1 &689653637
 GameObject:
   m_ObjectHideFlags: 0
@@ -311793,27 +311413,12 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: SacreGreatSword
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: ScareStaff
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: ScareCap
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: Ominous Black Liquid
-    dropProbability: 0.2
-    offsetY: 0
-  - itemName: Malice-Infused Branch
-    dropProbability: 0.1
-    offsetY: 0
-  - itemName: Gloomy Cloth Scrap
-    dropProbability: 0.1
-    offsetY: 0
+  - itemName: Snail Shell
+    dropProbability: 0.3
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: SacreGreatSword
     count: 1
@@ -314091,33 +313696,15 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: Leather Knuckles
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: RustedSwordandShield
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: Rabbit's Foot
-    dropProbability: 0.0005
-    offsetY: 1
-  - itemName: Cap
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: Armor
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: T0_Ore
-    dropProbability: 0.15
-    offsetY: 1
-  - itemName: Round Bone
-    dropProbability: 0.1
-    offsetY: 1
-  - itemName: Fine Rabbit Hide
-    dropProbability: 0.1
-    offsetY: 1
-  - itemName: Rabbit Meat
-    dropProbability: 0.15
-    offsetY: 1
+  - itemName: Wolf Fang
+    dropProbability: 0.35
+    offsetY: 0.5
+  - itemName: FangDagger
+    dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: Leather Knuckles
     count: 1
@@ -384856,310 +384443,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1001 &883920285
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 688610184}
-    m_Modifications:
-    - target: {fileID: 176394913352914436, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -8202439237598021607, guid: a05ebb241a0b14dec9a0d4bdd31301a3,
-        type: 3}
-    - target: {fileID: 206612524989034613, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -3618802667364733500, guid: a05ebb241a0b14dec9a0d4bdd31301a3,
-        type: 3}
-    - target: {fileID: 905751352606774262, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -8675011627427599730, guid: a05ebb241a0b14dec9a0d4bdd31301a3,
-        type: 3}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9999619
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.008726557
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.9375
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.9375
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 6fc5cbe113e51416e9daa8f0ba7ee5dd,
-        type: 3}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.13333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.24313726
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.41960785
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.9375
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.9375
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 6fc5cbe113e51416e9daa8f0ba7ee5dd,
-        type: 3}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.13333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.24313726
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.41960785
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6155929698248305175, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6155929698248305175, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: c881fe1f539449842b243ff9a21298eb,
-        type: 3}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.13333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.24313726
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.41960785
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6898753040067258534, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6898753040067258534, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7815248936878024262, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -8202439237598021607, guid: a05ebb241a0b14dec9a0d4bdd31301a3,
-        type: 3}
-    - target: {fileID: 7960384290919596934, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -3618802667364733500, guid: a05ebb241a0b14dec9a0d4bdd31301a3,
-        type: 3}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: c881fe1f539449842b243ff9a21298eb,
-        type: 3}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.13333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.24313726
-      objectReference: {fileID: 0}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.41960785
-      objectReference: {fileID: 0}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8279700731210971342, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Name
-      value: SPUM_20250915183854408
-      objectReference: {fileID: 0}
-    - target: {fileID: 8859721218437452510, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -8675011627427599730, guid: a05ebb241a0b14dec9a0d4bdd31301a3,
-        type: 3}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4cabc6018f3b247d8a4f72a48635d94a, type: 3}
---- !u!224 &883920286 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-    type: 3}
-  m_PrefabInstance: {fileID: 883920285}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &885198352
 GameObject:
   m_ObjectHideFlags: 3
@@ -388676,330 +387959,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 906870148}
   m_Mesh: {fileID: 175049907}
---- !u!1001 &907771230
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1635838047}
-    m_Modifications:
-    - target: {fileID: 176394913352914436, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -7096297032323124305, guid: 06c8d7c33ccef4cf39e374e33835e970,
-        type: 3}
-    - target: {fileID: 206612524989034613, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -6899643311455125392, guid: 06c8d7c33ccef4cf39e374e33835e970,
-        type: 3}
-    - target: {fileID: 905751352606774262, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -8662432971830130642, guid: 06c8d7c33ccef4cf39e374e33835e970,
-        type: 3}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9999619
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.008726557
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4547023828028410719, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4547023828028410719, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.5625
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: f63083452d68c460db811918d4f6f323,
-        type: 3}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.8784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.84705883
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.84705883
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5850628363562264085, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5850628363562264085, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.5625
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: f63083452d68c460db811918d4f6f323,
-        type: 3}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.8784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.84705883
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.84705883
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6155929698248305175, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6155929698248305175, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 37f88f4c290f444ff8434e7b094bee9e,
-        type: 3}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.8784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.84705883
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.84705883
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6898753040067258534, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6898753040067258534, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7815248936878024262, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -7096297032323124305, guid: 06c8d7c33ccef4cf39e374e33835e970,
-        type: 3}
-    - target: {fileID: 7960384290919596934, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -6899643311455125392, guid: 06c8d7c33ccef4cf39e374e33835e970,
-        type: 3}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 37f88f4c290f444ff8434e7b094bee9e,
-        type: 3}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.8784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.84705883
-      objectReference: {fileID: 0}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.84705883
-      objectReference: {fileID: 0}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8279700731210971342, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Name
-      value: SPUM_20250915183854408
-      objectReference: {fileID: 0}
-    - target: {fileID: 8859721218437452510, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -8662432971830130642, guid: 06c8d7c33ccef4cf39e374e33835e970,
-        type: 3}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4cabc6018f3b247d8a4f72a48635d94a, type: 3}
---- !u!224 &907771231 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-    type: 3}
-  m_PrefabInstance: {fileID: 907771230}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &907858947
 GameObject:
   m_ObjectHideFlags: 0
@@ -404643,6 +403602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portrait: {fileID: 616492994}
   equipWeapon: {fileID: 0}
+  _attackBufferTime: 0.2
   _skillBufferTime: 0.2
   skillCooldown: {fileID: 0}
   sword: {fileID: 0}
@@ -461530,33 +460490,15 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: Leather Knuckles
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: RustedSwordandShield
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: Rabbit's Foot
-    dropProbability: 0.0005
-    offsetY: 1
-  - itemName: Cap
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: Armor
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: T0_Ore
-    dropProbability: 0.15
-    offsetY: 1
-  - itemName: Round Bone
-    dropProbability: 0.1
-    offsetY: 1
-  - itemName: Fine Rabbit Hide
-    dropProbability: 0.1
-    offsetY: 1
-  - itemName: Rabbit Meat
-    dropProbability: 0.15
-    offsetY: 1
+  - itemName: Wolf Fang
+    dropProbability: 0.35
+    offsetY: 0.5
+  - itemName: FangDagger
+    dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: Leather Knuckles
     count: 1
@@ -497565,30 +496507,12 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: ScareClow
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: ScareLegArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareHandArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareShoes
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: Shabby Straw Ring
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: Ominous Black Liquid
-    dropProbability: 0.15
-    offsetY: 0
-  - itemName: Blackened Branch
-    dropProbability: 0.1
-    offsetY: 0
-  - itemName: Eerie Cloth Scrap
-    dropProbability: 0.1
-    offsetY: 0
+  - itemName: Wisp Ember
+    dropProbability: 0.3
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
     count: 1
@@ -601913,30 +600837,12 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: Nasty Rat Ring
-    dropProbability: 0.0005
-    offsetY: 0.4
-  - itemName: DoubleDagger
-    dropProbability: 0.001
-    offsetY: 0.4
-  - itemName: RatLegArmor
-    dropProbability: 0.002
-    offsetY: 0.4
-  - itemName: RatHandArmor
-    dropProbability: 0.002
-    offsetY: 0.4
-  - itemName: RatShoes
-    dropProbability: 0.002
-    offsetY: 0.4
-  - itemName: Disgusting Rat Meat
-    dropProbability: 0.1
-    offsetY: 0.4
-  - itemName: Rat Thief's Stash
-    dropProbability: 0.1
-    offsetY: 0.4
-  - itemName: Filthy Rat Hide
-    dropProbability: 0.2
-    offsetY: 0.4
+  - itemName: Wisp Ember
+    dropProbability: 0.3
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -619691,6 +618597,180 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1499135091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1499135092}
+  - component: {fileID: 1499135096}
+  - component: {fileID: 1499135095}
+  - component: {fileID: 1499135094}
+  - component: {fileID: 1499135093}
+  m_Layer: 0
+  m_Name: NPC_Elder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1499135092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499135091}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1514.6, y: -39.915985, z: -100}
+  m_LocalScale: {x: 0.7097974, y: 0.7097974, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 333517467}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1499135093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499135091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e917a798aeae3b489aefc014e2268a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TalkNpc
+  _conversation: Village/Elder
+  _promptHeight: 4.226558
+  _portrait: {fileID: -7123529365577447762, guid: 3d5fecdd9b2e93c4399f47fc864a3a67,
+    type: 3}
+  _actorName: Village Elder
+--- !u!61 &1499135094
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499135091}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 1.4088528}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1.92, y: 2.56}
+    newSize: {x: 1.92, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 3.099476, y: 2.8177056}
+  m_EdgeRadius: 0
+--- !u!114 &1499135095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499135091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ea784bf2beaaf4dae931aa7c34a8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFlipbook
+  _frames:
+  - {fileID: -7123529365577447762, guid: 3d5fecdd9b2e93c4399f47fc864a3a67, type: 3}
+  - {fileID: -2260823320829027807, guid: 3d5fecdd9b2e93c4399f47fc864a3a67, type: 3}
+  _frameTime: 0.6
+--- !u!212 &1499135096
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499135091}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 25
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: -7123529365577447762, guid: 3d5fecdd9b2e93c4399f47fc864a3a67,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.92, y: 2.56}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!1 &1499354753
 GameObject:
   m_ObjectHideFlags: 0
@@ -705416,114 +704496,6 @@ MonoBehaviour:
   soundPlayedCustomEvent: 
   willCleanUpDelegatesAfterStop: 1
   frames: 2797
---- !u!1 &1635838046
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1635838047}
-  - component: {fileID: 1635838050}
-  - component: {fileID: 1635838049}
-  - component: {fileID: 1635838048}
-  m_Layer: 0
-  m_Name: NPC_Elder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1635838047
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635838046}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1514.6, y: -39.915985, z: -100}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 907771231}
-  m_Father: {fileID: 333517467}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1635838048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635838046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e917a798aeae3b489aefc014e2268a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TalkNpc
-  _conversation: Village/Elder
-  _promptHeight: 1.5
---- !u!61 &1635838049
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635838046}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.8}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2.2, y: 2}
-  m_EdgeRadius: 0
---- !u!210 &1635838050
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635838046}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 25
-  m_SortAtRoot: 0
-  m_Sort3DAs2D: 0
 --- !u!43 &1636342154
 Mesh:
   m_ObjectHideFlags: 0
@@ -708288,33 +707260,15 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: LeafStaff
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: LeafLegArmor
-    dropProbability: 0.002
-    offsetY: 1
-  - itemName: LeafHandArmor
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: LeafShoes
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: Green Wreath
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: GreenHurb
-    dropProbability: 0.005
-    offsetY: 1
-  - itemName: Small Tuber
-    dropProbability: 0.15
-    offsetY: 1
-  - itemName: Fresh Green Leaves
+  - itemName: Boar Tusk
+    dropProbability: 0.35
+    offsetY: 0.5
+  - itemName: Food
     dropProbability: 0.1
-    offsetY: 1
-  - itemName: Sturdy Roots
-    dropProbability: 0.1
-    offsetY: 1
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -720314,33 +719268,12 @@ MonoBehaviour:
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
   dropItems:
-  - itemName: RatArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: RatCap
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: PoisonSword
-    dropProbability: 0.001
-    offsetY: 0
-  - itemName: Necklace of Spreading Corruption
-    dropProbability: 0.0005
-    offsetY: 0
-  - itemName: Necklace of the Sly Plunderer
-    dropProbability: 0.0007
-    offsetY: 0
-  - itemName: Ring Finger that Tears Wounds
-    dropProbability: 0.0003
-    offsetY: 0
-  - itemName: Disgusting Rat Meat
-    dropProbability: 0.15
-    offsetY: 0
-  - itemName: Rat Cheif 's Loot
-    dropProbability: 0.1
-    offsetY: 0
-  - itemName: Tough Rat Hide
-    dropProbability: 0.1
-    offsetY: 0
+  - itemName: Snail Shell
+    dropProbability: 0.3
+    offsetY: 0.5
+  - itemName: Potion
+    dropProbability: 0.04
+    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -914873,308 +913806,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1001 &1915253273
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 411191861}
-    m_Modifications:
-    - target: {fileID: 176394913352914436, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -3137994370387717294, guid: 4f75ae73445284b5393c219fadb2dc65,
-        type: 3}
-    - target: {fileID: 206612524989034613, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 9071153741043795472, guid: 4f75ae73445284b5393c219fadb2dc65,
-        type: 3}
-    - target: {fileID: 905751352606774262, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -4607344544876785824, guid: 4f75ae73445284b5393c219fadb2dc65,
-        type: 3}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9999619
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.008726557
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4547023828028410719, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4547023828028410719, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.90625
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.6875
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e5b88e17b8b03471cac1ec6c79715e0f,
-        type: 3}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.16470589
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.23137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.6117647
-      objectReference: {fileID: 0}
-    - target: {fileID: 5464934985284030985, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5850628363562264085, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5850628363562264085, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.90625
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.6875
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e5b88e17b8b03471cac1ec6c79715e0f,
-        type: 3}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.16470589
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.23137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.6117647
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095155807736073854, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6155929698248305175, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6155929698248305175, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.16470589
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.23137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583444978727624483, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.6117647
-      objectReference: {fileID: 0}
-    - target: {fileID: 6898753040067258534, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6898753040067258534, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7815248936878024262, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -3137994370387717294, guid: 4f75ae73445284b5393c219fadb2dc65,
-        type: 3}
-    - target: {fileID: 7960384290919596934, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 9071153741043795472, guid: 4f75ae73445284b5393c219fadb2dc65,
-        type: 3}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.16470589
-      objectReference: {fileID: 0}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.23137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 8246450374899423607, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.6117647
-      objectReference: {fileID: 0}
-    - target: {fileID: 8279700731210971342, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Name
-      value: SPUM_20250915183854408
-      objectReference: {fileID: 0}
-    - target: {fileID: 8859721218437452510, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -4607344544876785824, guid: 4f75ae73445284b5393c219fadb2dc65,
-        type: 3}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4cabc6018f3b247d8a4f72a48635d94a, type: 3}
---- !u!224 &1915253274 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3967972718819424519, guid: 4cabc6018f3b247d8a4f72a48635d94a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1915253273}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1915386238
 GameObject:
   m_ObjectHideFlags: 0
