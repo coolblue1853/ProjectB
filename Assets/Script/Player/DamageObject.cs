@@ -453,28 +453,18 @@ public class DamageObject : MonoBehaviour
                     if (isAbsorberSkill == false)
                     {
 
-                        if (isPlayerAttack == true)
+                        // 넉백 방향은 매 타격 지역 변수로 계산한다. 직렬화 필드를 뒤집으면 다단·다수 타격마다 방향이 번갈아 바뀐다(W-05)
+                        Vector2 dir = knockbackDir;
+                        if (isPlayerAttack == true && player.transform.position.x > transform.position.x)
                         {
-                            if (player.transform.position.x > transform.position.x)
-                            {
-                                knockbackDir.x = -knockbackDir.x;
-                            }
+                            dir.x = -knockbackDir.x;
+                        }
+                        if (nonChangeNockDir)
+                        {
+                            dir.x = player.transform.localScale.x > 0 ? Mathf.Abs(knockbackDir.x) : -Mathf.Abs(knockbackDir.x);
                         }
 
-                        if(nonChangeNockDir)
-                    {
-                        if(player.transform.localScale.x >0)
-                        {
-                            knockbackDir.x = Mathf.Abs(knockbackDir.x);
-                        }
-                        else
-                        {
-                            knockbackDir.x = -Mathf.Abs(knockbackDir.x);
-                        }
-                    }
-  
-                    // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
-                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
+                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, dir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
 
                     }
                     else

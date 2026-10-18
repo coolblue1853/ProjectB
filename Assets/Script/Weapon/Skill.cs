@@ -222,7 +222,7 @@ public class Skill : MonoBehaviour
                         GroundCheck(true, i);
                 }
             }
-            MasterAudio.PlaySound(skillSound[i]);
+            PlaySkillSound(i);
             if (isNullParent == true )
             {
                 damageObject.transform.parent = null;
@@ -233,6 +233,7 @@ public class Skill : MonoBehaviour
                 dmOb = damageObject.GetComponent<DamageObject>();
                 dmOb.skillName = skillName;
                 dmOb.SetDamge(damgeArray);
+                dmOb.isSkill = true; // 스킬 여부는 코드가 정한다(공유 프리팹 플래그 무시, W-04)
 
             }
          
@@ -271,6 +272,7 @@ public class Skill : MonoBehaviour
                 dmOb = bullet.GetComponent<DamageObject>();
                 dmOb.skillName = skillName;
                 dmOb.SetDamge(damgeArray);
+                dmOb.isSkill = true; // 스킬 여부는 코드가 정한다(공유 프리팹 플래그 무시, W-04)
 
                 // 탄막 방향 설정
                 bullet.transform.up = new Vector2(x, y).normalized;
@@ -338,7 +340,7 @@ public class Skill : MonoBehaviour
             Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
             safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
             damageObject = Instantiate(skillprefab[0], new Vector2(skillPivot[0].transform.position.x, safePosition.y), skillPivot[0].transform.rotation, this.transform);
-            MasterAudio.PlaySound(skillSound[0]);
+            PlaySkillSound(0);
         }
     }
 
@@ -361,7 +363,7 @@ public class Skill : MonoBehaviour
         if (delayEffectPrefab != null)
         {
             GameObject effect = Instantiate(delayEffectPrefab, new Vector2(skillPivot[0].transform.position.x, skillPivot[0].transform.position.y), skillPivot[0].transform.rotation);
-            MasterAudio.PlaySound(skillSound[0]);
+            PlaySkillSound(0);
             DestoryByTime dBT = effect.GetComponent<DestoryByTime>();
             dBT.DestroyEffect(waitTime);
         }
@@ -382,6 +384,7 @@ public class Skill : MonoBehaviour
             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.skillName = skillName;
             dmOb.SetDamge(damgeArray);
+                dmOb.isSkill = true; // 스킬 여부는 코드가 정한다(공유 프리팹 플래그 무시, W-04)
             if (skillprefab.Length > 1) StartCoroutine(SpawnSkills());// 다수의 오브젝트를 생성하는 기술의 경우
         }
 
@@ -392,14 +395,14 @@ public class Skill : MonoBehaviour
         if (waitTime == 0)
         {
             damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
-            MasterAudio.PlaySound(skillSound[0]);
+            PlaySkillSound(0);
         }
         else
         {
             Sequence sequence = DOTween.Sequence()
             .AppendInterval(waitTime)
             .AppendCallback(() => damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform));
-            MasterAudio.PlaySound(skillSound[0]);
+            PlaySkillSound(0);
         }
     }
     void RoundAttack(float waitTime)
@@ -407,14 +410,14 @@ public class Skill : MonoBehaviour
         if (waitTime == 0)
         {
             RoundSpawn(skillprefab[0], skillPivot[0]);
-            MasterAudio.PlaySound(skillSound[0]);
+            PlaySkillSound(0);
         }
         else
         {
             Sequence sequence = DOTween.Sequence()
             .AppendInterval(waitTime)
             .AppendCallback(() => RoundSpawn(skillprefab[0], skillPivot[0]));
-            MasterAudio.PlaySound(skillSound[0]);
+            PlaySkillSound(0);
         }
     }
     void SkillAnimCheck(int skillNum) // 기술의 애니메이션 재생과 홀드 스킬의 구분
@@ -492,6 +495,15 @@ public class Skill : MonoBehaviour
         else
         {
             weapon.isSkillAttackWait = true;
+        }
+    }
+
+    /// <summary>스킬 사운드 재생. 구버전 프리팹은 배열이 비어 있어 예외로 쿨다운·스태미나 처리가 건너뛰어졌다(W-01)</summary>
+    void PlaySkillSound(int i)
+    {
+        if (skillSound != null && i >= 0 && i < skillSound.Length && !string.IsNullOrEmpty(skillSound[i]))
+        {
+            MasterAudio.PlaySound(skillSound[i]);
         }
     }
 }

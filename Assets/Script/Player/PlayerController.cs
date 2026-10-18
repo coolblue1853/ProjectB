@@ -249,9 +249,10 @@ public class PlayerController : MonoBehaviour
         {
             once = false;
             // 공격 이동정지 중에도 대시는 움직인다(대시가 MoveLock을 끄지 않고 무시, B-114 C5)
-            if (rb.linearVelocity != Vector2.zero && DatabaseManager.weaponStopMove == true && states != "dash")
+            // 가로 속도만 멈춘다. y 까지 0 으로 만들면 공중 평타 연타로 떨어지지 않는다(W-08)
+            if (rb.linearVelocity.x != 0f && DatabaseManager.weaponStopMove == true && states != "dash")
             {
-                rb.linearVelocity = Vector2.zero;
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             }
 
             if (runAction.triggered && isRun == false && DatabaseManager.weaponStopMove == false && Mathf.Abs(horizontalInput) > 0 )
@@ -856,7 +857,12 @@ public class PlayerController : MonoBehaviour
         }
         if (isRevers)
         {
-             revOb = RightSoket.transform.GetChild(0).gameObject;
+            // 장착 무기의 오른손 스프라이트를 직접 쓴다. 소켓 자식이 없으면(무기 교체 직후 등) 건너뛴다
+            revOb = Weapon.Equipped != null && Weapon.Equipped.RightWeqponSprite != null ? Weapon.Equipped.RightWeqponSprite
+                : RightSoket.transform.childCount > 0 ? RightSoket.transform.GetChild(0).gameObject : null;
+        }
+        if (isRevers && revOb != null)
+        {
             revOb.transform.localScale = new Vector3(-Mathf.Abs(revOb.transform.localScale.x), revOb.transform.localScale.y, revOb.transform.localScale.z);
         }
 
@@ -877,7 +883,7 @@ public class PlayerController : MonoBehaviour
 
     void ReversSprite(bool isRev)
     {
-        if (isRev)
+        if (isRev && revOb != null)
         {
             revOb.transform.localScale = new Vector3(Mathf.Abs(revOb.transform.localScale.x), revOb.transform.localScale.y, revOb.transform.localScale.z);
         }

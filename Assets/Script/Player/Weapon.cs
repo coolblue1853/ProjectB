@@ -121,8 +121,19 @@ public class Weapon : MonoBehaviour
     {
         for(int i = 0; i < 4; i++)
         {
-            if (skill[i] != null) skill[i].ActiveMainSkill(i);
-            else skill[0].DisactiveMainSkill(i);
+            if (skill[i] != null)
+            {
+                skill[i].ActiveMainSkill(i);
+            }
+            else
+            {
+                // 빈 슬롯 UI 끄기 — 스킬이 하나도 없는 무기(구버전 ToxicPickAxe)는 끌 수단이 없으므로 건너뛴다(W-01)
+                Skill any = System.Array.Find(skill, s => s != null);
+                if (any != null)
+                {
+                    any.DisactiveMainSkill(i);
+                }
+            }
         }
     }
 
@@ -136,41 +147,53 @@ public class Weapon : MonoBehaviour
     /// <summary>지금 평타를 낼 수 있는지 (후딜·스킬 대기 끝)</summary>
     public bool CanMeleeNow => isAttackWait == true && (isSkillAttackWait || isSkillCancel);
 
+    [Tooltip("후딜이 끝난 뒤 다음 콤보 입력을 기다리는 시간(초). 이 안에 누르면 다음 단계로 이어진다 (W-02/W-03)")]
+    [SerializeField] private float _comboGrace = 0.35f;
+
     public void MeleeAttack()
     {
-        comboSequence.Kill();
-        comboSequence = DOTween.Sequence()
-        .AppendInterval(maxComboTime)
-        .AppendCallback(() => nowConboCount = 0);
         if (isAttackWait == true && (isSkillAttackWait || isSkillCancel))
         {
-            if (nowConboCount < maxComboCount)
-            {
-                nowConboCount++;
-                MeleeAttackActive();
-            }
-            else
-            {
-                nowConboCount = 1;
-                MeleeAttackActive();
-            }
+            comboSequence.Kill(); // 이어지는 입력이면 리셋 타이머 취소 — 리셋 타이머는 후딜 종료 시점부터 돈다
+            nowConboCount = nowConboCount < maxComboCount ? nowConboCount + 1 : 1;
+            MeleeAttackActive();
         }
     }
     public void MeleeAttackActive()
     {
-        if (delayTime.Length > 0)
-            Invoke("CreatAttackPrefab", delayTime[nowConboCount - 1] / StatMath.AttackSpeedMul);
-        else CreatAttackPrefab();
-        MasterAudio.PlaySound(weaponSound[nowConboCount - 1]);
+        int step = nowConboCount; // 지연 생성 중에 콤보가 리셋돼도 이 단계로 만든다 (W-23)
+        float delay = isHasDelayTime && delayTime.Length >= step ? delayTime[step - 1] / StatMath.AttackSpeedMul : 0f;
+        if (delay > 0f)
+        {
+            DOVirtual.DelayedCall(delay, () => CreatAttackPrefab(step), false).SetLink(gameObject);
+        }
+        else
+        {
+            CreatAttackPrefab(step);
+        }
+        if (weaponSound != null && weaponSound.Length >= step)
+        {
+            MasterAudio.PlaySound(weaponSound[step - 1]);
+        }
         CheckAttackWait();
     }
     public void CreatAttackPrefab()
     {
-        pC.ActiveAttackAnim(spriteReverse[nowConboCount - 1], attackAnimName[nowConboCount - 1], attckSpeed[nowConboCount - 1] / StatMath.AttackSpeedMul);
-        GameObject damageObject = Instantiate(attackPrefab[nowConboCount - 1], attackPivot[nowConboCount - 1].transform.position, attackPivot[nowConboCount - 1].transform.rotation, this.transform);
+        CreatAttackPrefab(nowConboCount);
+    }
+    void CreatAttackPrefab(int step)
+    {
+        if (step < 1 || attackPrefab.Length < step || attackPivot.Length < step || attckSpeed.Length < step || attackAnimName.Length < step)
+        {
+            GameLog.Warn(GameLog.Cat.Player, "무기 데이터 부족: " + name + " 콤보 " + step + "단계 (W-01)", this);
+            return;
+        }
+        pC.ActiveAttackAnim(spriteReverse.Length >= step && spriteReverse[step - 1], attackAnimName[step - 1], attckSpeed[step - 1] / StatMath.AttackSpeedMul);
+        GameObject damageObject = Instantiate(attackPrefab[step - 1], attackPivot[step - 1].transform.position, attackPivot[step - 1].transform.rotation, this.transform);
         DamageObject dmOb = damageObject.GetComponent<DamageObject>();
         dmOb.SetDamge(damgeArray);
-        Vfx.Play(swingVfx, attackPivot[nowConboCount - 1].transform.position, pC.transform.localScale.x < 0f, swingVfxScale);
+        dmOb.isSkill = false; // 평타는 스킬뎀% 를 받지 않는다(공유 프리팹 플래그 무시, W-04)
+        Vfx.Play(swingVfx, attackPivot[step - 1].transform.position, pC.transform.localScale.x < 0f, swingVfxScale);
     }
     System.IDisposable moveLockToken, ladderLockToken;
     Sequence attackWaitSequence;
@@ -186,14 +209,23 @@ public class Weapon : MonoBehaviour
         }
         ladderLockToken = PlayerStatus.Acquire(StatusFlag.LadderLock, "Weapon:" + name);
         isAttackWait = false;
-        float waitTime = 0;
-        if (delayTime.Length > 0)
-            waitTime = (attckSpeed[nowConboCount - 1] + delayTime[nowConboCount - 1]) / StatMath.AttackSpeedMul;
-        else
-            waitTime = (attckSpeed[nowConboCount - 1] / StatMath.AttackSpeedMul);
+        int step = nowConboCount;
+        float baseTime = attckSpeed.Length >= step && step > 0 ? attckSpeed[step - 1] : 0.3f;
+        if (isHasDelayTime && delayTime.Length >= step && step > 0)
+        {
+            baseTime += delayTime[step - 1];
+        }
+        float waitTime = baseTime / StatMath.AttackSpeedMul;
         attackWaitSequence = DOTween.Sequence()
         .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
-        .AppendCallback(() => { ReleaseAttackLocks(); isAttackWait = true; });
+        .AppendCallback(() =>
+        {
+            ReleaseAttackLocks();
+            isAttackWait = true;
+            // 콤보 유예: 후딜이 끝난 뒤 _comboGrace 안에 다음 입력이 없으면 1단계로
+            comboSequence.Kill();
+            comboSequence = DOTween.Sequence().AppendInterval(_comboGrace).AppendCallback(() => nowConboCount = 0);
+        });
     }
 
     void ReleaseAttackLocks()
