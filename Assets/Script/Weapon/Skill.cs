@@ -280,10 +280,16 @@ public class Skill : MonoBehaviour
         }
     }
 
+    /// <summary>지금 이 슬롯 스킬을 쓸 수 있는지 (쿨다운·스태미나·후딜)</summary>
+    public bool CanActivate(int num)
+    {
+        return isButtonDownSkill && skillCooldown.isCooldown[num] == false && PlayerHealthManager.Instance.nowStemina > useStemina
+            && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack);
+    }
+
     public void ActiveSkill(int num)
     {
-        if (isButtonDownSkill && skillCooldown.isCooldown[num] == false && PlayerHealthManager.Instance.nowStemina > useStemina 
-            && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack))
+        if (CanActivate(num))
         {
             isActive = true;
             if (isRoundAttack == true) RoundAttack(skillWaitTime / StatMath.AttackSpeedMul);
@@ -442,6 +448,7 @@ public class Skill : MonoBehaviour
                 if (holdDisEffectByTime) waitTime = holdingTime;
                 else waitTime = holdingTime / StatMath.AttackSpeedMul;
                 isActiveHold = true;
+                weapon.isSkillAttackWait = false; // 홀드 중 평타 금지 — 종료 시 CheckAttackWait 가 되돌린다(W-06)
                 skillSequence = DOTween.Sequence()
                .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
                .AppendCallback(() => isActiveHold = false)      
