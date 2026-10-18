@@ -597,7 +597,7 @@ public class InventoryManager : MonoBehaviour
         {
             SaveInventory();
             inventory.SetActive(false);
-            DatabaseManager.isOpenUI = false;
+            UiLock.Set("InvGroup", false);
             if (ShopGameObject.activeSelf == true)
             {
                 InventoryManager.instance.state = "";
@@ -1238,7 +1238,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (inventory.activeSelf == true && ShopGameObject.activeSelf == false)
             {
-                DatabaseManager.isOpenUI = false;
+                UiLock.Set("InvGroup", false);
                 SaveInventory();
                 inventory.SetActive(false);
                 CloseCheck();
@@ -1247,7 +1247,7 @@ public class InventoryManager : MonoBehaviour
             }
             else if (inventory.activeSelf == false && DatabaseManager.isOpenUI == false)
             {
-                DatabaseManager.isOpenUI = true;
+                UiLock.Set("InvGroup", true);
                 inventory.SetActive(true);
                 Sfx.Play(SfxId.UiOpen, 0.5f);
                 cusor.SetActive(true);

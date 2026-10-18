@@ -361,7 +361,7 @@ public class ShopManager : MonoBehaviour
             Invoke("ChangeisMoveCusor", 0.2f);
             ShopUI.SetActive(true);
             Inventory.SetActive(true);
-            DatabaseManager.isOpenUI = true;
+            UiLock.Set("InvGroup", true);
         }
     }
     public string state = "";
@@ -378,7 +378,7 @@ public class ShopManager : MonoBehaviour
         isMoveCusor = false;
         ShopUI.SetActive(false);
         needMaterailUI.SetActive(false);
-        DatabaseManager.isOpenUI = false;
+        UiLock.Set("InvGroup", false);
     }
 
     bool isCraft = false;

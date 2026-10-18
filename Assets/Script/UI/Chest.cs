@@ -278,7 +278,7 @@ public class Chest : MonoBehaviour
         {
             state = ""; 
             InventoryManager.instance.RepeatCheck();
-            DatabaseManager.isOpenUI = true;
+            UiLock.Set("InvGroup", true);
             InventoryManager.instance.CheckNowChest(this);
             inventoryOb.SetActive(true);
             chestOb.SetActive(true);

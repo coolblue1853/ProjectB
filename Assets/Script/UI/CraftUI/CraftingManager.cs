@@ -447,7 +447,7 @@ public class CraftingManager : MonoBehaviour
             Invoke("ChangeisMoveCusor", 0.2f);
             CraftUI.SetActive(true);
             needMaterailUI.SetActive(true);
-            DatabaseManager.isOpenUI = true;
+            UiLock.Set("Craft", true);
         }
 
         else if (CraftUI.activeSelf == true && backAction.triggered && cusor.activeSelf == true && isCheckDetail == false && isCraft ==false)
@@ -457,7 +457,7 @@ public class CraftingManager : MonoBehaviour
             isMoveCusor = false;
             CraftUI.SetActive(false);
             needMaterailUI.SetActive(false);
-            DatabaseManager.isOpenUI = false;
+            UiLock.Set("Craft", false);
 
         }
 
@@ -485,7 +485,7 @@ public class CraftingManager : MonoBehaviour
             Invoke("ChangeisMoveCusor", 0.2f);
             CraftUI.SetActive(true);
             needMaterailUI.SetActive(true);
-            DatabaseManager.isOpenUI = true;
+            UiLock.Set("Craft", true);
         }
     }
     public void EquipOpen()
@@ -499,7 +499,7 @@ public class CraftingManager : MonoBehaviour
             Invoke("ChangeisMoveCusor", 0.2f);
             CraftUI.SetActive(true);
             needMaterailUI.SetActive(true);
-            DatabaseManager.isOpenUI = true;
+            UiLock.Set("Craft", true);
         }
     }
     void ChangeisCarft()
