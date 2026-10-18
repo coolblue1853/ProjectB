@@ -99,6 +99,11 @@ public class MapInfo : MonoBehaviour
             m.gameObject.SetActive(false);
         }
         target.gameObject.SetActive(true);
+        var targetCheck = target.GetComponent<PoolCheck>();
+        if (targetCheck != null)
+        {
+            targetCheck.AbleSpwaner(); // 웨이포인트 이동도 포털처럼 스포너를 켠다
+        }
         traveler.transform.position = entry.transform.position;
         Portal.RaiseMapChanged(target.gameObject);
         var cam = Object.FindFirstObjectByType<ProCamera2D>();

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ForestSnail_Override
+  m_Controller: {fileID: 9100000, guid: fb889312828595642b1503f1b8e59f2d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 3565eed599b103345a55020bd15fcdb7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 21aec81740005474e88e454a0d57225a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7f8a1a2ea21d2ae42baa6f412b260ddb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 438af7f197900434e93acef36a61606e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d0b5d7f58862ccb4a824b9821c135433, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: cc6a9eedad39d2043b05f1d17c7c8e1e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7d9c82979998eff409287a5243bcffad, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: da58b05d5bf9f3b4d805d01e247e9001, type: 2}
