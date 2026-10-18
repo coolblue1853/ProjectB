@@ -152,7 +152,7 @@
 
 ## 5. 권장 수정 순서 (작은 커밋 단위)
 
-> **진행(2026-10-18):** ✅ 1 W-05 넉백 지역 변수화 · ✅ 2 W-08 x만 정지(프로브 `air_attack_fall`: 공중 연타 중 낙하) · ✅ 3 W-04 평타 `isSkill=false`/스킬 `true` 코드 강제 · 🔶 4 W-01 사운드·스킬 슬롯·데이터 길이 가드(예외 0, ToxicPickAxe 는 평타 데이터가 없어 경고만 — 프리팹 보정 남음) · ✅ 5 W-02/W-03/W-23 콤보 리셋 = 후딜 종료 + `_comboGrace` 0.35s, 지연 생성 단계 캡처(SacreGreatSword 2타 출현) · ✅ 추가: CliffBlade·ScareSide 2타 `RightSoket.GetChild(0)` 예외 → 장착 무기 스프라이트 직접 참조. 검증 프로브 `combo_all.cs`(18종 장착·연타 단계 기록, 에러 0). ✅ 6 W-06 홀드 중 `isSkillAttackWait=false` · ✅ 7 W-10 경직(`isAttacked`) 중 평타·스킬 차단(입력은 버퍼 유지) · ✅ 8 W-09 스킬 선입력 버퍼 `_skillBufferTime` 0.2s(홀드 스킬 제외), `Skill.CanActivate` 분리 — 프로브 `skill_buffer_test`(후딜 중 A → 후딜 후 발동).
+> **진행(2026-10-18):** ✅ 1 W-05 넉백 지역 변수화 · ✅ 2 W-08 x만 정지(프로브 `air_attack_fall`: 공중 연타 중 낙하) · ✅ 3 W-04 평타 `isSkill=false`/스킬 `true` 코드 강제 · ✅ 4 W-01 사운드·스킬 슬롯·데이터 길이 가드 + ToxicPickAxe 를 PickAxe 기반으로 재구성(GUID 유지, 데미지 9~16·+15, 독 색조. 독 판정은 공유 공격 프리팹이라 미적용) · ✅ 5 W-02/W-03/W-23 콤보 리셋 = 후딜 종료 + `_comboGrace` 0.35s, 지연 생성 단계 캡처(SacreGreatSword 2타 출현) · ✅ 추가: CliffBlade·ScareSide 2타 `RightSoket.GetChild(0)` 예외 → 장착 무기 스프라이트 직접 참조. 검증 프로브 `combo_all.cs`(18종 장착·연타 단계 기록, 에러 0). ✅ 6 W-06 홀드 중 `isSkillAttackWait=false` · ✅ 7 W-10 경직(`isAttacked`) 중 평타·스킬 차단(입력은 버퍼 유지) · ✅ 8 W-09 스킬 선입력 버퍼 `_skillBufferTime` 0.2s(홀드 스킬 제외), `Skill.CanActivate` 분리 — 프로브 `skill_buffer_test`(후딜 중 A → 후딜 후 발동).
 
 각 커밋은 컴파일·플레이 가능 상태를 유지하고, 검증 방법(프로브/수동)을 본문에 적는다.
 
