@@ -40293,6 +40293,9 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: WispLantern
+    dropProbability: 0.02
+    offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
     count: 1
@@ -41393,6 +41396,9 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: WispLantern
+    dropProbability: 0.02
     offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
@@ -231581,7 +231587,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.869565
+  orthographic size: 5.46875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -289561,6 +289567,9 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: WispLantern
+    dropProbability: 0.02
     offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
@@ -496519,6 +496528,9 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: WispLantern
+    dropProbability: 0.02
+    offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
     count: 1
@@ -600848,6 +600860,9 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: WispLantern
+    dropProbability: 0.02
     offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring

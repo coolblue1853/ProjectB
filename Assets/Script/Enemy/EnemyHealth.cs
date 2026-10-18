@@ -103,7 +103,17 @@ public class EnemyHealth : PoolAble
     /// <summary>현재 활성 보스 수 (BGM 전환 등에서 사용)</summary>
     public static int ActiveBossCount { get; private set; }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void ResetBossCount() => ActiveBossCount = 0;
+    static void ResetBossCount()
+    {
+        ActiveBossCount = 0;
+        Active.Clear();
+    }
+
+    /// <summary>행동 트리가 있는 진짜 몬스터인지 (나무·바위 같은 채집물 제외)</summary>
+    public bool IsMonster => behaviorTree != null;
+
+    /// <summary>활성 몬스터 목록 (유도 탄 등 매 프레임 FindObjects 를 피하려고)</summary>
+    public static readonly System.Collections.Generic.HashSet<EnemyHealth> Active = new System.Collections.Generic.HashSet<EnemyHealth>();
 
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
@@ -162,6 +172,7 @@ public class EnemyHealth : PoolAble
     DG.Tweening.Sequence wait;
     private void OnEnable()
     {
+        Active.Add(this);
         ///isReleased = false;
         nowHP = maxHP;
         if (wait != null&& wait.IsPlaying() == true)
@@ -541,6 +552,7 @@ public class EnemyHealth : PoolAble
 
     private void OnDisable()
     {
+        Active.Remove(this);
         DemoteElite();
         if (isBossMob)
         {

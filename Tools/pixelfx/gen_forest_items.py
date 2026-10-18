@@ -105,5 +105,20 @@ def tusk_knuckles():
     save("TuskKnuckles", im)
 
 
+def wisp_lantern():
+    im = canvas(); d = ImageDraw.Draw(im)
+    d.line([(16, 2), (16, 6)], fill=(92, 62, 36), width=2)                 # 고리
+    d.arc((12, 1, 20, 7), 180, 360, fill=(140, 140, 150))
+    d.rectangle((10, 7, 22, 9), fill=(70, 70, 80))                          # 뚜껑
+    d.rectangle((11, 10, 21, 24), fill=(60, 90, 140))                       # 유리
+    d.ellipse((12, 12, 20, 22), fill=(120, 200, 255))                       # 도깨비불
+    d.ellipse((14, 14, 18, 20), fill=(220, 248, 255))
+    for x in (10, 21):
+        d.line([(x, 9), (x, 25)], fill=(70, 70, 80))                         # 테두리
+    d.rectangle((10, 25, 22, 27), fill=(70, 70, 80))                        # 바닥
+    d.line([(16, 27), (16, 31)], fill=(92, 62, 36), width=2)                # 손잡이 대
+    save("WispLantern", im)
+
+
 if __name__ == "__main__":
-    fang_dagger(); wolf_fang(); boar_tusk(); wisp_ember(); snail_shell(); tusk_knuckles()
+    fang_dagger(); wolf_fang(); boar_tusk(); wisp_ember(); snail_shell(); tusk_knuckles(); wisp_lantern()
