@@ -105,7 +105,7 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 102,AbyssStaff,Equip,equipment,5000,2,Boss,1,-,0,Weapon,,Abyssal Wizard Staff,0,U,0,
 103,Eye of the Cliffs,Equip,equipment,800,1,-,1,-,0,Necklace,,Eye of the Cliffs,0,R,0,
 104,Bringer's Sigil Ring,Equip,equipment,1500,1,-,1,-,0,Ring,,Bringer's Sigil Ring,0,U,0,
-105,Enhance Stone,Misc,Used at the smith to enhance equipment,200,1,hand,99,-,0,-,,Enhance Stone,1,R,0,
+105,Enhance Stone,Misc,A crystal born of the tower. Fed to a core at the smith to raise its enhancement.,200,1,hand,99,-,0,-,,Floor Crystal,1,R,0,
 106,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 107,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 108,-,-,-,0,0,-,0,-,0,-,,,0,,0,

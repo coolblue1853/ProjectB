@@ -4,7 +4,8 @@
 public static class EnhanceRules
 {
     public const int MaxLevel = 10;
-    public const string StoneName = "Enhance Stone";
+    public const string StoneName = "Enhance Stone"; // 아이템 키 (세이브 호환). 표시 이름은 "Floor Crystal"(층계 결정)
+    public const string StoneDisplay = "Floor Crystal";
     public const int PityFails = 2; // 이만큼 연속 실패하면 다음은 확정 성공
 
     // 인덱스 = 현재 단계(0→1 시도는 [0])

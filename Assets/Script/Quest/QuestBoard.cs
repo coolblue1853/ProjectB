@@ -77,7 +77,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
         qb.quest.isTrackable = true;
         qb.quest.showInTrackHUD = true;
         qb.AddOfferContents(qb.CreateTitleContent(), qb.CreateBodyContent(d.offer),
-            qb.CreateBodyContent("Reward: " + d.gold + " gold" + (d.stones > 0 ? ", " + d.stones + " Enhance Stone" + (d.stones > 1 ? "s" : "") : "")));
+            qb.CreateBodyContent("Reward: " + d.gold + " gold" + (d.stones > 0 ? ", " + d.stones + " " + EnhanceRules.StoneDisplay + (d.stones > 1 ? "s" : "") : "")));
 
         if (!string.IsNullOrEmpty(d.requires))
         {

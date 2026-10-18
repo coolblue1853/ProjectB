@@ -181,7 +181,7 @@ public class EnhanceWindow : MonoBehaviour
         switch (c)
         {
             case EnhanceService.Check.MaxLevel: return "MAX LEVEL";
-            case EnhanceService.Check.NoStones: return "NOT ENOUGH STONES";
+            case EnhanceService.Check.NoStones: return "NOT ENOUGH CRYSTALS";
             case EnhanceService.Check.NoGold: return "NOT ENOUGH GOLD";
             default: return "CANNOT ENHANCE";
         }
@@ -214,7 +214,7 @@ public class EnhanceWindow : MonoBehaviour
             row.bg.color = i == cursor ? new Color(1f, 1f, 1f, 0.18f) : new Color(0f, 0f, 0f, 0.25f);
             row.icon.sprite = Resources.Load<Sprite>("Item/" + d.name);
             row.icon.enabled = row.icon.sprite != null;
-            row.text.text = "<color=#" + ColorUtility.ToHtmlStringRGB(theme.RarityColor(d.rarity)) + ">" + EnhanceRules.DisplayName(d.name, d.upgrade) + "</color>";
+            row.text.text = "<color=#" + ColorUtility.ToHtmlStringRGB(theme.RarityColor(d.rarity)) + ">" + EnhanceRules.DisplayName(string.IsNullOrEmpty(d.itemNameT) ? d.name : d.itemNameT, d.upgrade) + "</color>";
         }
         detail.text = items.Count == 0 ? "" : DetailText(items[cursor].itemData, theme);
     }
@@ -224,7 +224,7 @@ public class EnhanceWindow : MonoBehaviour
         int lv = d.upgrade;
         string ok = "#8CFF8C", bad = "#" + ColorUtility.ToHtmlStringRGB(theme.warning);
         var sb = new System.Text.StringBuilder();
-        sb.Append("<size=120%>").Append(EnhanceRules.DisplayName(d.name, lv)).Append("</size>\n\n");
+        sb.Append("<size=120%>").Append(EnhanceRules.DisplayName(string.IsNullOrEmpty(d.itemNameT) ? d.name : d.itemNameT, lv)).Append("</size>\n\n");
         if (!EnhanceRules.CanEnhance(lv))
         {
             sb.Append("<color=#FFC640>MAX ENHANCED</color>");
@@ -241,7 +241,7 @@ public class EnhanceWindow : MonoBehaviour
         sb.Append("On fail  ").Append(EnhanceRules.FailDrops(lv) ? "<color=" + bad + ">-1 level</color>" : "keep level").Append("\n\n");
         int haveStone = InventoryManager.instance.CountItem(EnhanceRules.StoneName), needStone = EnhanceRules.Stones(lv);
         int needGold = EnhanceRules.Gold(lv);
-        sb.Append("Stones  <color=").Append(haveStone >= needStone ? ok : bad).Append(">").Append(haveStone).Append(" / ").Append(needStone).Append("</color>\n");
+        sb.Append("Crystals  <color=").Append(haveStone >= needStone ? ok : bad).Append(">").Append(haveStone).Append(" / ").Append(needStone).Append("</color>\n");
         sb.Append("Gold    <color=").Append(DatabaseManager.money >= needGold ? ok : bad).Append(">").Append(DatabaseManager.money).Append(" / ").Append(needGold).Append("</color>");
         return sb.ToString();
     }

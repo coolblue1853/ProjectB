@@ -176,6 +176,19 @@ public class PickupLog : MonoBehaviour
         }
     }
 
+    /// <summary>표시 이름(ItemSheet itemNameT). 아이템이 아닌 문구(승급 알림 등)는 그대로</summary>
+    static string DisplayName(string key)
+    {
+        DatabaseManager db = DatabaseManager.instance;
+        int idx = db != null ? db.FindItemDataIndex(key) : -1;
+        if (idx < 0)
+        {
+            return key;
+        }
+        string t = db.LoadItemData(idx).itemNameT;
+        return string.IsNullOrEmpty(t) ? key : t;
+    }
+
     /// <summary>모델 줄 순서대로 행을 배치: 최신 줄이 맨 아래, 위로 갈수록 오래된 줄</summary>
     void Refresh()
     {
@@ -209,7 +222,8 @@ public class PickupLog : MonoBehaviour
             row.glow.enabled = line.emphasis;
             row.glow.color = new Color(c.r, c.g, c.b, 0.22f);
             string hex = ColorUtility.ToHtmlStringRGB(c);
-            string name = line.emphasis ? "<wave a=0.4 f=0.8>" + line.itemName + "</wave>" : line.itemName;
+            string shown = DisplayName(line.itemName);
+            string name = line.emphasis ? "<wave a=0.4 f=0.8>" + shown + "</wave>" : shown;
             string countText = line.count > 1 ? " <color=#DDDDDD>x" + line.count + "</color>" : "";
             row.animator.SetText("<color=#" + hex + ">" + name + "</color>" + countText, false);
             row.rect.DOKill(true);
