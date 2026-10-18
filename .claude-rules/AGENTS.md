@@ -31,6 +31,7 @@
 | `Game/ItemSpec.md` | ItemSheet/SetItem CSV 스키마, 슬롯, **세트 규칙**, 인벤토리·제작·상점·세이브 |
 | `Game/EnemySpec.md` | 몬스터 스탯, BT 구조, 스폰, **드롭 테이블** |
 | `Game/WorldSpec.md` | 낮/밤, 맵·포털, 카메라 |
+| `Game/ArtStyle.md` | **도트 아트 스타일 가이드**(사용자 레퍼런스: 인디 액션풍 저해상도, 채도 낮은 바탕+포인트 색, 부분 외곽선), 핀터레스트→PixelLab/GPT→격자 복원 파이프라인 |
 | `Game/AssetInventory.md` | 보유 에셋스토어 86종 분류와 도입 현황 |
 | `Game/AssetIntegrationPlan.md` | 사용자 지정 필수 에셋(대화·I2·Feel·ProCamera 등) 실사용 계획, 평가 대상(Smart Lighting·SPUM·RPG Monster·Corgi), 사운드 카탈로그, 웨이브 W0~W5 |
 | `Game/TechDebt.md` | 버그·기술 부채 백로그 (P0~P3, 수정 시 갱신) |
