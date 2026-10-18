@@ -20,6 +20,8 @@ public class BossReward : ScriptableObject
     public int firstKillStones = 5;
     [Tooltip("층계 보스면 처치 시 이 탐험가 칭호로 승급 (0 = 없음)")]
     public int grantsRank;
+    [Tooltip("첫 처치 시 해금되는 아티팩트")]
+    public ArtifactId firstKillArtifact;
 }
 
 /// <summary>보스 고유템 천장 판정 (순수 — 테스트 대상)</summary>
@@ -50,6 +52,7 @@ public static class BossLoot
         {
             stones += r.firstKillStones;
             ES3.Save(firstKey, true);
+            ArtifactSystem.Unlock(r.firstKillArtifact);
             GameLog.Info(GameLog.Cat.Item, "보스 첫 처치 보너스: " + bossName + " 강화석 +" + r.firstKillStones);
         }
         for (int i = 0; i < stones; i++)

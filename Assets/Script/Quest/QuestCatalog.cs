@@ -16,6 +16,7 @@ public static class QuestCatalog
         public string rewardItem;
         public string requires;    // 선행 퀘스트 id (없으면 null)
         public string message = "Kill"; // 카운트할 MessageSystem 메시지 (Kill / Pickup / Craft)
+        public ArtifactId artifact;     // 완료 시 해금 아티팩트
     }
 
     public static readonly List<Def> Chain = new List<Def>
@@ -32,7 +33,7 @@ public static class QuestCatalog
             id = "q_moles", title = "Mole Menace",
             offer = "Moles are digging under the side road. Take down 8 of them.",
             journal = "Hunt moles on the forest side road.",
-            targets = new[] { "FlowerMole_BD", "LeftMole_BD" }, count = 8, gold = 300, stones = 2,
+            targets = new[] { "FlowerMole_BD", "LeftMole_BD" }, count = 8, gold = 300, stones = 2, artifact = ArtifactId.StarBurst,
             requires = "q_rabbits",
         },
         new Def

@@ -177,6 +177,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
         {
             InventoryManager.instance.CreatItem(EnhanceRules.StoneName);
         }
+        ArtifactSystem.Unlock(d.artifact);
         if (!string.IsNullOrEmpty(d.rewardItem))
         {
             InventoryManager.instance.CreatItem(d.rewardItem);
