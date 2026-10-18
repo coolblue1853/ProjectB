@@ -156,11 +156,11 @@ public static class HitFeedback
         Vector3 offset = Vector3.zero;
         switch (kind)
         {
-            case NumberKind.Crit: color = new Color(1f, 0.55f, 0.1f); scale = 1.45f; break;
-            case NumberKind.Extra: color = new Color(0.45f, 0.85f, 1f); scale = 0.8f; offset = new Vector3(0.15f, 0.25f, 0f); break;
-            case NumberKind.Poison: color = new Color(0.45f, 1f, 0.35f); scale = 0.7f; break;
-            case NumberKind.Bleed: color = new Color(0.95f, 0.15f, 0.2f); scale = 0.7f; break;
-            default: color = Color.white; scale = 1f; break;
+            case NumberKind.Crit: color = new Color(1f, 0.55f, 0.1f); scale = 1.9f; break;
+            case NumberKind.Extra: color = new Color(0.45f, 0.85f, 1f); scale = 1.1f; offset = new Vector3(0.15f, 0.25f, 0f); break;
+            case NumberKind.Poison: color = new Color(0.45f, 1f, 0.35f); scale = 1f; break;
+            case NumberKind.Bleed: color = new Color(0.95f, 0.15f, 0.2f); scale = 1f; break;
+            default: color = Color.white; scale = 1.35f; break; // 픽셀 폰트는 작아 보여서 키움
         }
         DamageNumber number = prefab.Spawn(position + offset, value);
         if (number != null)

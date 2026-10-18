@@ -9,5 +9,5 @@ HitFeedback.SpawnNumber(t.damageNumber, basePos + new Vector3(-1.2f, 0, 0), 12, 
 HitFeedback.SpawnNumber(t.damageNumber, basePos + new Vector3(0f, 0.3f, 0), 37, HitFeedback.NumberKind.Crit);
 HitFeedback.SpawnNumber(t.damageNumber, basePos + new Vector3(0f, 0.3f, 0), 9, HitFeedback.NumberKind.Extra);
 HitFeedback.SpawnNumber(t.damageNumber, basePos + new Vector3(1.2f, 0, 0), 4, HitFeedback.NumberKind.Poison);
-Time.timeScale = 0f;
+DG.Tweening.DOVirtual.DelayedCall(0.25f, () => Time.timeScale = 0f, false); // 숫자가 나타난 뒤 멈춤
 return "spawned near " + t.name;

@@ -86,7 +86,7 @@
 | G4 | Magic Cliffs | Lv2 맵 타일·패럴랙스 | ⏳ |
 | G5 | Odin Inspector | 데이터 편집 창(ItemSheet/SetItem CSV 브라우저·검증), 신규 컴포넌트 인스펙터 정리 | ⏳ |
 | G6 | 8-Bit Sfx / Frost Mage SFX / SoundBits | `Audio/Sfx` + `Resources/Audio/SfxLibrary`(14종): 타격·치명·처치·보스 승리·픽업·희귀 드롭·제작 성공/실패·인벤 열기·포털·사망 | ✅ (SoundBits는 미사용) |
-| G7 | Free Pixel Font Thaleah | 데미지 숫자·영문 UI 픽셀 폰트(TMP 아틀라스 Point) | ⏳ |
+| G7 | Free Pixel Font Thaleah | `ThirdParty/Font/ThaleahFat_TMP`(비트맵·Point) → 데미지 숫자 프리팹 3종 적용, 크기 상향(일반 1.35·치명 1.9) | ✅ (영문 UI 적용 ⏳) |
 | G8 | Magic Slashes FX / Particle Pack | 스킬·평타 적중 이펙트, 드롭 빛 기둥·먼지 | ⏳ |
 | G9 | Text Animator | 픽업 로그·대사·희귀 드롭 텍스트 연출 | ⏳ |
 | G10 | RPG Monsters Icon | 몬스터 도감·픽업 로그·보스 HP바 초상 | ⏳ |
