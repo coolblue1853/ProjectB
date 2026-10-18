@@ -373,6 +373,8 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 
 ### Phase 3 — 진실을 모델로 옮기기 (인벤토리)
 
+> **진행(2026-10-18):** 🔶 3a 1차 — `InventoryService`(Add/Remove → 모델 명령 → 바뀐 칸만 `DrawSlot`, 명령 전 `SyncModelFromViews` 브리지, `OnItemAdded(ItemStack, AddSource)` 이벤트). `CreatItem`·`DeletItemByName`이 서비스를 쓴다. 프로브 `inv_test`(기존과 동일 결과)·`inv_model_sync`(불일치 0). 남은 것: 소비·판매·`CreatItemSelected`·`LoadInventory` 이전, `SlotView` 바인딩, 픽업 로그 구독.
+
 - **3a. 기본 명령 이전:** `InventoryService`가 모델을 소유한다. `LoadInventory`는 매퍼로 모델을 채우고 뷰를 그린다.
   - `CreatItem`, `DeletItemByName`, 소비, 판매가 모델 명령을 쓴다. 뷰는 `SlotView.Bind`로 그린다.
   - 아직 GameObject를 직접 옮기는 경로(드래그, 키보드 교환, 나누기)는 끝에서 `SyncModelFromViews()`를 호출한다. 이것이 Phase 2 스캐너를 쓰는 **양방향 브리지**다.

@@ -1859,32 +1859,13 @@ public class InventoryManager : MonoBehaviour
     /// 아이템 1개를 인벤토리에 넣는다 (덜 찬 스택 우선, 없으면 첫 빈칸).
     /// 넣지 못하면 false. isC2I면 넣은 경우에만 창고 원본 수량을 줄인다(가득 찼을 때 소실 방지).
     /// </summary>
+    InventoryService service;
+    /// <summary>Phase 3a 쓰기 명령 (모델 → 바뀐 칸만 뷰 반영)</summary>
+    public InventoryService Service => service ??= new InventoryService(this);
+
     public bool CreatItem(string itemName, bool isC2I = false, ItemData itemData = null)
     {
-        bool placed = CheckStack(itemName);
-        if (!placed)
-        {
-            for (int j = 0; j < 5 && !placed; j++)
-            {
-                for (int i = 0; i < (maxHor * maxVer); i++)
-                {
-                    if (maxBoxNum <= (j * (maxHor * maxVer)) + i)
-                    {
-                        continue;
-                    }
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
-                    if (inventoryArray[i, j] == 0 && insPositon.transform.childCount == 0)
-                    {
-                        inventoryArray[i, j] = 1;
-                        GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
-                        item.GetComponent<ItemCheck>().SetItem(itemName, itemData);
-                        DatabaseManager.PlusInventoryDict(itemName, 1);
-                        placed = true;
-                        break;
-                    }
-                }
-            }
-        }
+        bool placed = Service.Add(itemName, 1, isC2I ? AddSource.Chest : AddSource.Other, itemData);
         if (placed && isC2I)
         {
             chest.itemCheck.nowStack -= 1;
@@ -2019,37 +2000,16 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    /// <summary>앞 칸부터 count 개를 지운다. 가진 것보다 많으면 가진 만큼만(기존 동작 유지)</summary>
     public void DeletItemByName(string itemName, int count = 1)
     {
-        for (int j = 0; j < 5; j++)
+        int take = Mathf.Min(count, CountItem(itemName));
+        if (take > 0)
         {
-            for (int i = 0; i < (maxHor * maxVer); i++)
-            {
-                if (maxBoxNum > (j * (maxHor * maxVer)) + i)
-                {
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
-                    if (insPositon.transform.childCount > 0)
-                    {
-                        GameObject item = insPositon.transform.GetChild(0).gameObject;
-                        ItemCheck check = item.GetComponent<ItemCheck>();
-                        if (check.name == itemName && count > 0 && check.nowStack > 0)
-                        {
-                            int take = Mathf.Min(check.nowStack, count); // 한 슬롯에서 필요한 만큼 한 번에 차감
-                            check.nowStack -= take;
-                            count -= take;
-                            DatabaseManager.MinusInventoryDict(itemName, take);
-                        }
-                        if (check.nowStack <= 0)
-                        {
-                            Destroy(item);
-                            inventoryArray[i, j] = 0;
-                        }
-                    }
-
-                }
-            }
+            Service.Remove(itemName, take);
         }
     }
+
     public bool OnlyCheckStack(string itemName)
     {
         for (int j = 0; j < 5; j++)
