@@ -186,6 +186,7 @@ public class EnemyHealth : PoolAble
 
 
         deadOnec = false;
+        EnemyTelegraph.AttachIfAttacker(this); // 공격 예고 (C2)
     }
     bool notStiff;
 

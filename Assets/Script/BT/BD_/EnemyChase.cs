@@ -26,33 +26,54 @@ public class EnemyChase : EnemyAction
     }
     public override TaskStatus OnUpdate()
     {
-        // sequence가 비활성화된 상태인지 확인하여 종료 여부를 결정
+        // sequence가 비활성화된 상태인지 확인하여 종료 여부를 결정 (다른 노드가 Kill 하면 추적 중단)
         if (bt.sequence == null || !bt.sequence.IsActive())
         {
             isEnd = true;
         }
+        else if (chaseTarget != null)
+        {
+            // 매 프레임 연속 이동 (C3): 예전엔 0.1초 DOMoveX 트윈을 반복해 걸음이 끊겨 보였다. 속도는 그대로(거리/시간)
+            float dx = chaseTarget.transform.position.x - enemyObject.transform.position.x;
+            if (Mathf.Abs(dx) > TurnDeadZone && Mathf.Sign(dx) != direction)
+            {
+                direction = Mathf.Sign(dx);
+                ChangeFace();
+            }
+            Vector3 p = enemyObject.transform.position;
+            p.x += direction * chaseSpeed * Time.deltaTime;
+            enemyObject.transform.position = p;
+        }
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
 
+    const float TurnDeadZone = 0.25f; // 목표 바로 위에서 좌우로 떨리지 않게
+    GameObject chaseTarget;
+    float chaseSpeed;
+
     public void StartChase()
     {
-        GameObject target;
         if (isChaseEnemy == false)
         {
-            if(behaviorTree.aPC == null)
-                target = player;
-            else
-                target = behaviorTree.aPC;
+            chaseTarget = behaviorTree.aPC == null ? player : behaviorTree.aPC;
         }
         else
-            target = behaviorTree.enemy;
-
+        {
+            chaseTarget = behaviorTree.enemy;
+        }
+        if (chaseTarget == null)
+        {
+            isEnd = true;
+            return;
+        }
+        direction = Mathf.Sign(chaseTarget.transform.position.x - enemyObject.transform.position.x);
+        ChangeFace();
+        chaseSpeed = moveDuration > 0f ? moveDistance / moveDuration : 0f;
+        bt.sequence?.Kill();
         bt.sequence = DOTween.Sequence()
-.AppendCallback(() => direction = Mathf.Sign(target.transform.position.x - enemyObject.transform.position.x))
-.AppendCallback(() => ChangeFace())
-.Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
-.OnComplete(() => OnSequenceComplete());
-
+            .AppendInterval(moveDuration)
+            .OnComplete(() => OnSequenceComplete());
+        bt.sequence.SetLink(enemyObject);
     }
     void ChangeFace()
     {
