@@ -35,6 +35,9 @@ AnyPortrait, Behavior Designer, DOTween(Pro), Easy Save 3, Damage Numbers Pro, M
 | Odin Inspector | 데이터 편집 툴 (CSV 에디터) |
 | UI Particle Image | UI 이펙트 |
 | Ultimate Screenshot Tool | 스토어용 스크린샷 |
+| MonstersCreaturesFantasy / Evil Wizard 2 / Bringer Of Death | ✅ `Assets/ThirdParty/*` (데모·팩 기본 anim 제외), PPU 24, Point, 무압축 — Lv2 몬스터·엘리트·보스 | (Lv2 임포트) |
+| Magic Cliffs | ✅ `Assets/ThirdParty/MagicCliffs` (데모·Girl Addon 제외), PPU 16 — Lv2 타일·패럴랙스 | (Lv2 임포트) |
+| 2D Pixel - RPG Monsters Icon | ✅ `Assets/ThirdParty/RPGMonstersIcon` (스크립트·씬 제외), PPU 32 — 도감·로그 아이콘 | (Lv2 임포트) |
 | Fantasy Music Suite 2 / Free Fantasy Adventure Music Pack / SAGA Complete Collection / Ultimate Game Music Collection / Game Music Treasury | BGM (현재 1곡) |
 | SoundBits Free Sound FX / Free Frost Mage SFX / Pro Sound Collection / Ultimate SFX & Music Bundle | 스킬·환경 효과음 |
 | Corgi Engine / Flare Engine | 2D 플랫포머 레퍼런스 (이동·사다리·원웨이 구현 참고만) |
