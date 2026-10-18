@@ -16,11 +16,15 @@
 | Town | 상점, 대장간, 창고 |
 | Lv1_NearForest_SideRoad | **현재 Lv1 사냥터.** NearForest 구역(x -408~-235) + 왼쪽 확장 구역(x ≈ -716, 두더지·꽃두더지·밤 허수아비·크리핑테러·보스). 내부 포털 -236 ↔ -728은 이동 전용 |
 | Lv1_NearForest | 구버전(비활성, 미사용). SideRoad의 부분집합 |
+| **Lv2_MagicCliffs** | 사냥터 2 "마법 절벽" (x -420~-180, 바닥 y -180). SideRoad 서쪽(`Portal_ToLv2`, x≈-722)에서 진입. 낮: 버섯·고블린 / 밤: 눈·해골·고블린, 엘리트 Bringer(y=12 발판), 보스 Abyss Wizard(오른쪽 끝). 생성: `Tools/probes/build_lv2_map.cs` |
 
 - 포털은 ↑ 키로 이동한다. `openMap`이 비어 있으면 같은 맵 안에서 위치만 옮긴다. 이동하면 대상 맵을 켜고, 이전 맵을 끄고, 스포너를 정리한 뒤 카메라를 리센터한다. 1초 뒤 위치를 저장한다.
 - 패럴랙스 배경(ParrelaxBacground)과 ProCamera2D PixelPerfect를 쓴다.
 
 ## 3. 카메라
+
+- 맵별 카메라 아래 경계: 맵 루트의 `MapInfo.cameraBottom`(없으면 -10). 포털 이동(`Portal.MapChanged`) 때 적용된다.
+- 어디서든 마을 귀환: `MapInfo.GoToTown`(사망 부활에서 사용).
 
 - ProCamera2D 확장: PixelPerfect, Geometry/Numeric Boundaries, Rooms, Shake
 - 해상도: 16:9 레터박스를 강제한다(`Cam/Fixed.cs`).

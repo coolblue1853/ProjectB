@@ -201,6 +201,10 @@ public class PlayerHealthManager : MonoBehaviour
         {
             toTown.TravelNow(PlayerController.instance.gameObject);
         }
+        else
+        {
+            MapInfo.GoToTown(PlayerController.instance.gameObject); // 마을 직행 포털이 없는 맵(Lv2 등)
+        }
         nowHp = fullHP;
         nowStemina = fullStemina;
         HpUp(0);

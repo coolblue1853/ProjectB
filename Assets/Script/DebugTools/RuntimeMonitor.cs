@@ -14,8 +14,8 @@ public class RuntimeMonitor : MonoBehaviour
     const float SummaryInterval = 5f;
     const float SpikeMs = 50f;            // 이 이상이면 스파이크
     const long GcSpikeBytes = 64 * 1024;  // 프레임당 64KB 이상 할당
-    const float FallY = -60f;
-    const float StuckTokenSeconds = 8f;
+    const float FallY = -260f; // Lv2 바닥(y≈-188) 아래
+    const float StuckTokenSeconds = 12f; // 사망(2.5s)+부활 무적(2s)이 연달아도 오탐 없게
     const int MaxEnemies = 120;
 
     ProfilerRecorder gcAllocRecorder;

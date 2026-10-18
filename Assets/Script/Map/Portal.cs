@@ -64,6 +64,7 @@ public class Portal : MonoBehaviour
 
     /// <summary>맵이 바뀌었을 때(새로 연 맵) — BGM 등에서 구독</summary>
     public static event System.Action<GameObject> MapChanged;
+    public static void RaiseMapChanged(GameObject openMap) => MapChanged?.Invoke(openMap);
 
     /// <summary>입력 없이 이 포털로 이동 (사망 후 마을 귀환 등). 맵 전환 포털이면 맵을 바꾸고 스포너를 정리한다.</summary>
     public void TravelNow(GameObject traveler)
