@@ -75,7 +75,8 @@ public class EnemyPatrol : EnemyAction
 
         bt.sequence = DOTween.Sequence()
             .Append(enemyObject.transform.DOMoveX(originPosition.x, moveDuration).SetEase(Ease.Linear))
-            .OnComplete(() => OnSequenceComplete());
+            .OnComplete(() => OnSequenceComplete())
+            .SetLink(enemyObject); // 몹이 파괴되면(풀 초과 등) 같이 끝낸다 — 파괴된 transform 접근 방지
     }
 
     private void MoveToNewPoint()
@@ -85,7 +86,8 @@ public class EnemyPatrol : EnemyAction
 
         bt.sequence = DOTween.Sequence()
             .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))
-            .OnComplete(() => OnSequenceComplete());
+            .OnComplete(() => OnSequenceComplete())
+            .SetLink(enemyObject); // 몹이 파괴되면(풀 초과 등) 같이 끝낸다 — 파괴된 transform 접근 방지
     }
 
     private void ReverseDirection()

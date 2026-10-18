@@ -163,10 +163,17 @@ public class EnemyDamageObject : PoolAble
 
     private void DestroyObject()
     {
+        // 풀 재사용으로 OnEnable 이 다시 오면 이전 시퀀스를 버리고, 오브젝트가 파괴되면(풀 초과·부모 몹 파괴) 같이 끝낸다.
+        // 예전에는 덮어쓴 이전 시퀀스가 남아 파괴된 오브젝트의 transform 에 접근했다(MissingReferenceException, 2026-10-19 회귀 소크)
+        if (sequence != null)
+        {
+            sequence.Kill();
+        }
         sequence = DOTween.Sequence()
             .AppendInterval(holdingTime)
             .AppendCallback(() => transform.parent = null)
-            .AppendCallback(() => ReleaseObject());
+            .AppendCallback(() => ReleaseObject())
+            .SetLink(gameObject);
     }
 
     private Dictionary<Collider2D, bool> damagedPlayer = new Dictionary<Collider2D, bool>();

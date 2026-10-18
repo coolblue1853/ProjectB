@@ -80,7 +80,11 @@ public class EnemyAttackNode : EnemyAction
             ? new Vector2(player.transform.position.x, player.transform.position.y - 1f)
             : attackPivot.transform.position;
 
-        var damage = enemySpawner.GetOb(attackName);
+        var damage = enemySpawner != null ? enemySpawner.GetOb(attackName) : null;
+        if (damage == null)
+        {
+            return; // 풀에 없는 공격(GetOb 가 경고를 남김)
+        }
         damage.transform.position = spawnPos;
         damage.transform.rotation = attackPivot.transform.rotation;
 
@@ -93,11 +97,14 @@ public class EnemyAttackNode : EnemyAction
             Mathf.Abs(damage.transform.localScale.x),
             damage.transform.localScale.y, 1);
 
-        var enemyDamageObject = damage.GetComponent<EnemyDamageObject>();
-        enemyDamageObject.enemyOb = this.gameObject;
-        if (enemyDamageObject.isLaunch)
+        // 판정 없이 스스로 공격을 뿌리는 소환형(CreepingTerror 의 DPAttackSpawon 등)은 EnemyDamageObject 가 없다 — 소유자 지정·발사만 건너뛴다
+        if (damage.TryGetComponent(out EnemyDamageObject enemyDamageObject))
         {
-            enemyDamageObject.LaunchObject();
+            enemyDamageObject.enemyOb = this.gameObject;
+            if (enemyDamageObject.isLaunch)
+            {
+                enemyDamageObject.LaunchObject();
+            }
         }
 
         // 참조 저장
