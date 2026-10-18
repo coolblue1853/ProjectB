@@ -373,7 +373,7 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 
 ### Phase 3 — 진실을 모델로 옮기기 (인벤토리)
 
-> **진행(2026-10-18):** 🔶 3a 1차 — `InventoryService`(Add/Remove → 모델 명령 → 바뀐 칸만 `DrawSlot`, 명령 전 `SyncModelFromViews` 브리지, `OnItemAdded(ItemStack, AddSource)` 이벤트). `CreatItem`·`DeletItemByName`이 서비스를 쓴다. 프로브 `inv_test`(기존과 동일 결과)·`inv_model_sync`(불일치 0). 2차: `LoadInventory` → `Service.LoadFrom`(매퍼 → 전 칸 그리기, 열린 칸 밖 세이브 아이템은 경고·보존), `CreatItem(source)`로 `AddSource` 전달(드롭·제작·상점·창고), `DeletItemByName` 즉시 저장. 남은 것: 소비·판매·`CreatItemSelected` 이전, `SlotView` 바인딩, 픽업 로그 구독. ⚠ 열린 칸 밖 아이템은 `SaveInventory`(스캐너)가 다시 저장하지 않으므로 3a 완료 시 모델 기준 저장으로 바꿔야 한다.
+> **진행(2026-10-18):** 🔶 3a 1차 — `InventoryService`(Add/Remove → 모델 명령 → 바뀐 칸만 `DrawSlot`, 명령 전 `SyncModelFromViews` 브리지, `OnItemAdded(ItemStack, AddSource)` 이벤트). `CreatItem`·`DeletItemByName`이 서비스를 쓴다. 프로브 `inv_test`(기존과 동일 결과)·`inv_model_sync`(불일치 0). 2차: `LoadInventory` → `Service.LoadFrom`(매퍼 → 전 칸 그리기, 열린 칸 밖 세이브 아이템은 경고·보존), `CreatItem(source)`로 `AddSource` 전달(드롭·제작·상점·창고), `DeletItemByName` 즉시 저장. 남은 것: 소비·판매·`CreatItemSelected` 이전, `SlotView` 바인딩, 픽업 로그 구독. ✅ 열린 칸 밖 세이브 아이템은 `hidden`에 보관해 `BuildSaveArray`가 다시 쓴다(프로브 `inv_hidden_keep`). 판매·소비는 `RemoveAt`(aa63a13f).
 
 - **3a. 기본 명령 이전:** `InventoryService`가 모델을 소유한다. `LoadInventory`는 매퍼로 모델을 채우고 뷰를 그린다.
   - `CreatItem`, `DeletItemByName`, 소비, 판매가 모델 명령을 쓴다. 뷰는 `SlotView.Bind`로 그린다.

@@ -13,6 +13,7 @@ public sealed class InventoryService
 {
     readonly InventoryManager inv;
     readonly HashSet<int> dirty = new HashSet<int>();
+    readonly Dictionary<int, ItemStack> hidden = new Dictionary<int, ItemStack>(); // 슬롯 박스가 없는 칸의 세이브 아이템(소실 방지용 보관)
     SlotContainer model;
 
     public static event Action<ItemStack, AddSource> OnItemAdded;
@@ -122,6 +123,7 @@ public sealed class InventoryService
     /// <summary>세이브 배열로 모델을 채우고 슬롯 박스가 있는 칸을 전부 그린다(로드)</summary>
     public void LoadFrom(string[,,] saved)
     {
+        hidden.Clear();
         SlotContainer loaded = SaveMapper.FromArray(saved, CsvItemCatalog.Shared, inv.inventoryUI.Length, PerPage);
         int drawn = 0;
         for (int index = 0; index < loaded.Capacity; index++)
@@ -131,6 +133,7 @@ public sealed class InventoryService
             {
                 if (!loaded[index].IsEmpty)
                 {
+                    hidden[index] = loaded[index];
                     GameLog.Warn(GameLog.Cat.Item, "세이브 아이템이 열린 칸 밖에 있음(보존): " + loaded[index]);
                 }
                 continue;
@@ -145,6 +148,23 @@ public sealed class InventoryService
         SyncModelFromViews();
         inv.RebuildItemStackCache();
         GameLog.Info(GameLog.Cat.Item, "인벤토리 로드: " + drawn + "칸");
+    }
+
+    /// <summary>현재 슬롯 + 열린 칸 밖에 보관 중인 아이템까지 담은 세이브 배열</summary>
+    public string[,,] BuildSaveArray()
+    {
+        int pages = inv.inventoryUI.Length;
+        SlotContainer scan = ViewScanner.BuildFrom(inv.inventoryUI, PerPage, CsvItemCatalog.Shared);
+        string[,,] arr = SaveMapper.ToArray(scan, pages, PerPage);
+        foreach (KeyValuePair<int, ItemStack> kv in hidden)
+        {
+            int page = kv.Key / PerPage, slot = kv.Key % PerPage;
+            if (page < pages && SaveMapper.ReadCell(arr, page, slot).IsEmpty)
+            {
+                SaveMapper.WriteCell(arr, page, slot, kv.Value);
+            }
+        }
+        return arr;
     }
 
     /// <summary>모델에서 바뀐 칸만 슬롯 GameObject 에 그린다 (아이템 오브젝트 생성·삭제·수량)</summary>

@@ -159,9 +159,7 @@ public class InventoryManager : MonoBehaviour
     {
         SaveManager.instance.datas.money = DatabaseManager.money;
         // Phase 2 브리지: UI 슬롯 → 모델 → 세이브 배열 (SaveMapper)
-        int perPage = maxHor * maxVer;
-        SlotContainer model = ViewScanner.BuildFrom(inventoryUI, perPage, CsvItemCatalog.Shared);
-        string[,,] saveInven = SaveMapper.ToArray(model, 5, perPage);
+        string[,,] saveInven = Service.BuildSaveArray(); // 열린 칸 밖 아이템도 보존
         SaveManager.instance.datas.invenItem = saveInven;
         SaveManager.instance.DataSave();
     }
