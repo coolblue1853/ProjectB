@@ -28,7 +28,7 @@
 | B1 | 상태 머신 정리: 문자열 state + bool 난립을 enum 기반 FSM으로 바꾼다(이동/점프/대시/사다리/공격/피격) | ⏳ |
 | B2 | 무적·슈퍼아머·이동정지를 ref-count(토큰) 방식으로 바꾼다. 다른 출처가 서로의 효과를 끄지 않게 한다(B-114) — PlayerStatus + DB facade, 무적·슈퍼아머 ✅ / MoveLock·UI ⏳ | 🔶 |
 | B3 | 입력 버퍼링(점프·공격 0.1s), 코요테 타임(0.08s) — 메이플식 반응성. 낙하 후 공중 점프 1회만(토글 `_fallConsumesGroundJump`) | ✅ (EditMode 테스트, 실제 키 입력 체감은 미검증) |
-| B4 | 애니메이션 보강 (AnyPortrait): 대기·걷기·달리기 CrossFade 0.12s ✅, 공격 애니 속도=공속 배율 ✅, 공격자 히트스톱 ✅, 착지 스쿼시(메시만) ✅, 대시·착지 먼지 ✅(DustPuffs), 대시 잔상 ⏳ | 🔶 |
+| B4 | 애니메이션 보강 (AnyPortrait): 대기·걷기·달리기 CrossFade 0.12s ✅, 공격 애니 속도=공속 배율 ✅, 공격자 히트스톱 ✅, 착지 스쿼시(메시만) ✅, 대시·착지 먼지 ✅(DustPuffs), 대시 잔상 ✅(DashAfterimage) |✅ |
 | B5 | 스탯 시스템: static 필드를 Modifier 기반 스탯(장비=Source, 세트=Group, 버프=ID)으로 옮긴다 | ⏳ |
 
 ## C. 몬스터 AI
@@ -87,7 +87,7 @@
 | G5 | Odin Inspector | `Editor/Data/ProjectBDataWindow`(메뉴 ProjectB/데이터 편집기): 아이템 트리·표 편집(드롭다운·쉼표 검증·아이콘 미리보기), 세트 효과 해석 미리보기, 몬스터 스탯, 검증 리포트, CSV 저장(형식 보존) + DataIntegrityTests | ✅ |
 | G6 | 8-Bit Sfx / Frost Mage SFX / SoundBits | `Audio/Sfx` + `Resources/Audio/SfxLibrary`(14종): 타격·치명·처치·보스 승리·픽업·희귀 드롭·제작 성공/실패·인벤 열기·포털·사망 | ✅ (SoundBits는 미사용) |
 | G7 | Free Pixel Font Thaleah | `ThirdParty/Font/ThaleahFat_TMP`(비트맵·Point) → 데미지 숫자 프리팹 3종 적용, 크기 상향(일반 1.35·치명 1.9) | ✅ (영문 UI 적용 ⏳) |
-| G8 | Magic Slashes FX / Particle Pack | ✅ `Vfx` 풀(프레임당 6개) + `Resources/FX/VfxLibrary`(3D 베기를 X-90°로 눕혀 2D화) · 평타 `Weapon.swingVfx` · 스킬 `Skill.castVfx`(Cliff/Abyss 무기 테마, `Lv2ItemBuilder.ApplyVfx`) · 치명 X자(CritCross) · 적중 스파크 `HitSparks`. `DustPuffs` 대시·착지 먼지 ✅ · `DropLightPillar` R 파랑/U 금색 빛 기둥 ✅. ⏳ 대시 잔상(AnyPortrait 메시 복제 필요) | 🔶 |
+| G8 | Magic Slashes FX / Particle Pack | ✅ `Vfx` 풀(프레임당 6개) + `Resources/FX/VfxLibrary`(3D 베기를 X-90°로 눕혀 2D화) · 평타 `Weapon.swingVfx` · 스킬 `Skill.castVfx`(Cliff/Abyss 무기 테마, `Lv2ItemBuilder.ApplyVfx`) · 치명 X자(CritCross) · 적중 스파크 `HitSparks`. `DustPuffs` 대시·착지 먼지 ✅ · `DropLightPillar` R 파랑/U 금색 빛 기둥 ✅· `DashAfterimage` 대시·스킬 대시 잔상(AnyPortrait 메시 33개 복사, 풀링) ✅ | ✅ |
 | G9 | Text Animator | 픽업 로그·대사·희귀 드롭 텍스트 연출 | ⏳ |
 | G10 | RPG Monsters Icon | 몬스터 도감·픽업 로그·보스 HP바 초상 | ⏳ |
 | G11 | Quest Machine (+Dialogue System) | 마을 NPC 퀘스트(사냥·수집·제작) | ⏳ |

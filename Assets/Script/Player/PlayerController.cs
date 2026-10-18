@@ -593,6 +593,7 @@ public class PlayerController : MonoBehaviour
         }
         // 대시 무적은 자기 토큰으로: 끝나도 다른 출처(스킬 대시 등)의 무적을 끄지 않는다 (B-114 C1)
         PlayerStatus.AcquireFor(StatusFlag.Invincible, dashDuration, "Dash");
+        DashAfterimage.Begin(mainCharacter, dashDuration);
         boxColliderTrue = false;
         PlayerHealthManager.Instance.SteminaDown(dashStemina);
         states = "dash";
@@ -620,6 +621,7 @@ public class PlayerController : MonoBehaviour
     public void SkillDash(float dashDu, float dashSpd, float dashYSpeed, bool isDashInvins, bool isBackDash, bool isGravity = false)
     {
         states = "dash";
+        DashAfterimage.Begin(mainCharacter, dashDu);
         // 스킬 대시 무적·슈퍼아머도 시간 만료 토큰. 연속 스킬 대시로 시퀀스가 Kill돼도 반드시 풀린다 (B-114 C2, C3)
         if (isDashInvins == true)
         {
