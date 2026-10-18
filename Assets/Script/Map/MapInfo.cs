@@ -12,6 +12,10 @@ public class MapInfo : MonoBehaviour
 
     public string displayName;
     public float cameraBottom = DefaultBottom;
+    [Tooltip("탑 층계 (0 = 마을). TowerWorld.md 3절")]
+    public int floor = 1;
+    [Tooltip("지역 배너에 표시할 영문 구역 이름 (픽셀 폰트에 한글 없음)")]
+    public string zoneTitle;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Hook()
