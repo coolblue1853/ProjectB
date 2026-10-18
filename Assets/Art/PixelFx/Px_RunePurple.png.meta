@@ -1,0 +1,498 @@
+fileFormatVersion: 2
+guid: af234a2a25c13f945b92fcd4c04d9a83
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5224925169615248389
+    second: Px_RunePurple_0
+  - first:
+      213: -449545481734876251
+    second: Px_RunePurple_1
+  - first:
+      213: 6014493384379094340
+    second: Px_RunePurple_2
+  - first:
+      213: -6914932723296601183
+    second: Px_RunePurple_3
+  - first:
+      213: 2812680398324345914
+    second: Px_RunePurple_4
+  - first:
+      213: -2013766673415838341
+    second: Px_RunePurple_5
+  - first:
+      213: -4091058823660239488
+    second: Px_RunePurple_6
+  - first:
+      213: 3033101459080300853
+    second: Px_RunePurple_7
+  - first:
+      213: 3201875037574813209
+    second: Px_RunePurple_8
+  - first:
+      213: -5734111409555577776
+    second: Px_RunePurple_9
+  - first:
+      213: 1260098534497874328
+    second: Px_RunePurple_10
+  - first:
+      213: 6769696156039320224
+    second: Px_RunePurple_11
+  - first:
+      213: -3833909294871302190
+    second: Px_RunePurple_12
+  - first:
+      213: -1789498293860887659
+    second: Px_RunePurple_13
+  - first:
+      213: -9029838403408140567
+    second: Px_RunePurple_14
+  - first:
+      213: 1984544824495955507
+    second: Px_RunePurple_15
+  - first:
+      213: 4889439130654571158
+    second: Px_RunePurple_16
+  - first:
+      213: -4765186903182595052
+    second: Px_RunePurple_17
+  - first:
+      213: -688999386014751343
+    second: Px_RunePurple_18
+  - first:
+      213: -6157548360808689360
+    second: Px_RunePurple_19
+  - first:
+      213: -2178790920066152914
+    second: Px_RunePurple_20
+  - first:
+      213: -475535745349342967
+    second: Px_RunePurple_21
+  - first:
+      213: 2942317489668782012
+    second: Px_RunePurple_22
+  - first:
+      213: -4536947508362156636
+    second: Px_RunePurple_23
+  - first:
+      213: -1892179093868444550
+    second: Px_RunePurple_24
+  - first:
+      213: -3688602577037145607
+    second: Px_RunePurple_25
+  - first:
+      213: 9022687085045749157
+    second: Px_RunePurple_26
+  - first:
+      213: -9011328602570720067
+    second: Px_RunePurple_27
+  - first:
+      213: -6447124974019299315
+    second: Px_RunePurple_28
+  - first:
+      213: -8368976036189753621
+    second: Px_RunePurple_29
+  - first:
+      213: -1909619947690573992
+    second: Px_RunePurple_30
+  - first:
+      213: 6897597663091202483
+    second: Px_RunePurple_31
+  - first:
+      213: -3743953846931128304
+    second: Px_RunePurple_32
+  - first:
+      213: 2014195334562692367
+    second: Px_RunePurple_33
+  - first:
+      213: 9172627009281236487
+    second: Px_RunePurple_34
+  - first:
+      213: -765659632922631743
+    second: Px_RunePurple_35
+  - first:
+      213: 2611979896304520229
+    second: Px_RunePurple_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 24
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Px_RunePurple_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf3e517bd365d77b0800000000000000
+      internalID: -5224925169615248389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RunePurple_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a39fc224c4e2c9f0800000000000000
+      internalID: -449545481734876251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RunePurple_2
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4455adfedd5c77350800000000000000
+      internalID: 6014493384379094340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RunePurple_3
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ab7e2633593900a0800000000000000
+      internalID: -6914932723296601183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RunePurple_4
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3ca3d88be5a80720800000000000000
+      internalID: 2812680398324345914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RunePurple_5
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b75678241e9ad04e0800000000000000
+      internalID: -2013766673415838341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RunePurple_6
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 085018cdca3a937c0800000000000000
+      internalID: -4091058823660239488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RunePurple_7
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 539433cf4bdb71a20800000000000000
+      internalID: 3033101459080300853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RunePurple_8
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91656d5e1685f6c20800000000000000
+      internalID: 3201875037574813209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RunePurple_9
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 054eceabd085c60b0800000000000000
+      internalID: -5734111409555577776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Px_RunePurple_0: -5224925169615248389
+      Px_RunePurple_1: -449545481734876251
+      Px_RunePurple_10: 1260098534497874328
+      Px_RunePurple_11: 6769696156039320224
+      Px_RunePurple_12: -3833909294871302190
+      Px_RunePurple_13: -1789498293860887659
+      Px_RunePurple_14: -9029838403408140567
+      Px_RunePurple_15: 1984544824495955507
+      Px_RunePurple_16: 4889439130654571158
+      Px_RunePurple_17: -4765186903182595052
+      Px_RunePurple_18: -688999386014751343
+      Px_RunePurple_19: -6157548360808689360
+      Px_RunePurple_2: 6014493384379094340
+      Px_RunePurple_20: -2178790920066152914
+      Px_RunePurple_21: -475535745349342967
+      Px_RunePurple_22: 2942317489668782012
+      Px_RunePurple_23: -4536947508362156636
+      Px_RunePurple_24: -1892179093868444550
+      Px_RunePurple_25: -3688602577037145607
+      Px_RunePurple_26: 9022687085045749157
+      Px_RunePurple_27: -9011328602570720067
+      Px_RunePurple_28: -6447124974019299315
+      Px_RunePurple_29: -8368976036189753621
+      Px_RunePurple_3: -6914932723296601183
+      Px_RunePurple_30: -1909619947690573992
+      Px_RunePurple_31: 6897597663091202483
+      Px_RunePurple_32: -3743953846931128304
+      Px_RunePurple_33: 2014195334562692367
+      Px_RunePurple_34: 9172627009281236487
+      Px_RunePurple_35: -765659632922631743
+      Px_RunePurple_36: 2611979896304520229
+      Px_RunePurple_4: 2812680398324345914
+      Px_RunePurple_5: -2013766673415838341
+      Px_RunePurple_6: -4091058823660239488
+      Px_RunePurple_7: 3033101459080300853
+      Px_RunePurple_8: 3201875037574813209
+      Px_RunePurple_9: -5734111409555577776
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

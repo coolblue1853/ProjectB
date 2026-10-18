@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_BurstGold
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: -8381516222248531917, guid: a41036eb3a51b9b4f8e02d9006c44059, type: 3}
+  - {fileID: -507200221322083283, guid: a41036eb3a51b9b4f8e02d9006c44059, type: 3}
+  - {fileID: -8030303484367021471, guid: a41036eb3a51b9b4f8e02d9006c44059, type: 3}
+  - {fileID: -5811939201705120036, guid: a41036eb3a51b9b4f8e02d9006c44059, type: 3}
+  - {fileID: -2153417607284057454, guid: a41036eb3a51b9b4f8e02d9006c44059, type: 3}
+  - {fileID: 8043513961431767589, guid: a41036eb3a51b9b4f8e02d9006c44059, type: 3}
+  - {fileID: 2292766449005028904, guid: a41036eb3a51b9b4f8e02d9006c44059, type: 3}
+  - {fileID: -7116282657682995991, guid: a41036eb3a51b9b4f8e02d9006c44059, type: 3}
+  - {fileID: 3698190969628604360, guid: a41036eb3a51b9b4f8e02d9006c44059, type: 3}
+  - {fileID: -5026140110779001650, guid: a41036eb3a51b9b4f8e02d9006c44059, type: 3}
+  fps: 20
+  source: Tools/pixelfx/gen_magic.py

@@ -1,0 +1,498 @@
+fileFormatVersion: 2
+guid: a4a47e265054f15488cf12b3184a5e6e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1859345294924351040
+    second: Px_RuneBlue_0
+  - first:
+      213: -87581739635699181
+    second: Px_RuneBlue_1
+  - first:
+      213: -6772494013344909361
+    second: Px_RuneBlue_2
+  - first:
+      213: 2098980114572597168
+    second: Px_RuneBlue_3
+  - first:
+      213: -4381660385912120592
+    second: Px_RuneBlue_4
+  - first:
+      213: -8528887742302642651
+    second: Px_RuneBlue_5
+  - first:
+      213: -1844873610827361416
+    second: Px_RuneBlue_6
+  - first:
+      213: 6819300333734899452
+    second: Px_RuneBlue_7
+  - first:
+      213: 5387090275493506287
+    second: Px_RuneBlue_8
+  - first:
+      213: 6987013774555142187
+    second: Px_RuneBlue_9
+  - first:
+      213: 6796398967784096631
+    second: Px_RuneBlue_10
+  - first:
+      213: 1081590335291795238
+    second: Px_RuneBlue_11
+  - first:
+      213: 6432542180127120709
+    second: Px_RuneBlue_12
+  - first:
+      213: 5337711502947943512
+    second: Px_RuneBlue_13
+  - first:
+      213: -4977737141427412385
+    second: Px_RuneBlue_14
+  - first:
+      213: 5066662008592504599
+    second: Px_RuneBlue_15
+  - first:
+      213: 2442432957825158114
+    second: Px_RuneBlue_16
+  - first:
+      213: -4758349883489227999
+    second: Px_RuneBlue_17
+  - first:
+      213: -8770075844821981591
+    second: Px_RuneBlue_18
+  - first:
+      213: 5087532522167305315
+    second: Px_RuneBlue_19
+  - first:
+      213: 9130274589203260146
+    second: Px_RuneBlue_20
+  - first:
+      213: 2202042133051725807
+    second: Px_RuneBlue_21
+  - first:
+      213: -7788132834344470426
+    second: Px_RuneBlue_22
+  - first:
+      213: 2573349690157889913
+    second: Px_RuneBlue_23
+  - first:
+      213: -2660217357111742673
+    second: Px_RuneBlue_24
+  - first:
+      213: 3271307717293660528
+    second: Px_RuneBlue_25
+  - first:
+      213: 6546013769574436044
+    second: Px_RuneBlue_26
+  - first:
+      213: -7626192610605145028
+    second: Px_RuneBlue_27
+  - first:
+      213: 5065509053543839408
+    second: Px_RuneBlue_28
+  - first:
+      213: -8025580720441622822
+    second: Px_RuneBlue_29
+  - first:
+      213: 8853507297703844765
+    second: Px_RuneBlue_30
+  - first:
+      213: -3166247229520656429
+    second: Px_RuneBlue_31
+  - first:
+      213: -4801517118881631195
+    second: Px_RuneBlue_32
+  - first:
+      213: 1712964622561073740
+    second: Px_RuneBlue_33
+  - first:
+      213: -979547342500623614
+    second: Px_RuneBlue_34
+  - first:
+      213: -3499988473880030535
+    second: Px_RuneBlue_35
+  - first:
+      213: -2945710355325027390
+    second: Px_RuneBlue_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 24
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Px_RuneBlue_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c97d353e474236e0800000000000000
+      internalID: -1859345294924351040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneBlue_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31214303fd8d8cef0800000000000000
+      internalID: -87581739635699181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneBlue_2
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc7fd1bb3944302a0800000000000000
+      internalID: -6772494013344909361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneBlue_3
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b755b71b43112d10800000000000000
+      internalID: 2098980114572597168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneBlue_4
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fa9e4318173133c0800000000000000
+      internalID: -4381660385912120592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneBlue_5
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52e1ede49cd43a980800000000000000
+      internalID: -8528887742302642651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneBlue_6
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 873942bb931b566e0800000000000000
+      internalID: -1844873610827361416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneBlue_7
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfea8f8f58503ae50800000000000000
+      internalID: 6819300333734899452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneBlue_8
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fec60c3401ac2ca40800000000000000
+      internalID: 5387090275493506287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneBlue_9
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b28de19520cd6f060800000000000000
+      internalID: 6987013774555142187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Px_RuneBlue_0: -1859345294924351040
+      Px_RuneBlue_1: -87581739635699181
+      Px_RuneBlue_10: 6796398967784096631
+      Px_RuneBlue_11: 1081590335291795238
+      Px_RuneBlue_12: 6432542180127120709
+      Px_RuneBlue_13: 5337711502947943512
+      Px_RuneBlue_14: -4977737141427412385
+      Px_RuneBlue_15: 5066662008592504599
+      Px_RuneBlue_16: 2442432957825158114
+      Px_RuneBlue_17: -4758349883489227999
+      Px_RuneBlue_18: -8770075844821981591
+      Px_RuneBlue_19: 5087532522167305315
+      Px_RuneBlue_2: -6772494013344909361
+      Px_RuneBlue_20: 9130274589203260146
+      Px_RuneBlue_21: 2202042133051725807
+      Px_RuneBlue_22: -7788132834344470426
+      Px_RuneBlue_23: 2573349690157889913
+      Px_RuneBlue_24: -2660217357111742673
+      Px_RuneBlue_25: 3271307717293660528
+      Px_RuneBlue_26: 6546013769574436044
+      Px_RuneBlue_27: -7626192610605145028
+      Px_RuneBlue_28: 5065509053543839408
+      Px_RuneBlue_29: -8025580720441622822
+      Px_RuneBlue_3: 2098980114572597168
+      Px_RuneBlue_30: 8853507297703844765
+      Px_RuneBlue_31: -3166247229520656429
+      Px_RuneBlue_32: -4801517118881631195
+      Px_RuneBlue_33: 1712964622561073740
+      Px_RuneBlue_34: -979547342500623614
+      Px_RuneBlue_35: -3499988473880030535
+      Px_RuneBlue_36: -2945710355325027390
+      Px_RuneBlue_4: -4381660385912120592
+      Px_RuneBlue_5: -8528887742302642651
+      Px_RuneBlue_6: -1844873610827361416
+      Px_RuneBlue_7: 6819300333734899452
+      Px_RuneBlue_8: 5387090275493506287
+      Px_RuneBlue_9: 6987013774555142187
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

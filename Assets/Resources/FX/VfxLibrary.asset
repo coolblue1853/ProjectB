@@ -77,3 +77,99 @@ MonoBehaviour:
     sortingOrder: 210
     pixel: {fileID: 11400000, guid: ceb5d39ecfefe954da40187ff7e0236d, type: 2}
     usePixel: 1
+  - id: 9
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 452b4f6b000856047a3d1379653af55b, type: 2}
+    usePixel: 1
+  - id: 10
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 38d4204c91795604caef083e7049884f, type: 2}
+    usePixel: 1
+  - id: 11
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 12750083e9812a1468afa4e34e397044, type: 2}
+    usePixel: 1
+  - id: 12
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 511693a455b21dc49b59d10264d91872, type: 2}
+    usePixel: 1
+  - id: 13
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 4418d88c63159724ea0ef0c2f453c1fc, type: 2}
+    usePixel: 1
+  - id: 14
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 7f1d724189819314abeac1a2de084f30, type: 2}
+    usePixel: 1
+  - id: 15
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 9bae72262dee5694abb88ecdc162f925, type: 2}
+    usePixel: 1
+  - id: 16
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 5cedf15e85ca438449fdffebbaca0ff5, type: 2}
+    usePixel: 1
+  - id: 17
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 14f8d0222ac27a04291ba006253d86af, type: 2}
+    usePixel: 1
+  - id: 18
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 1d6478fbd901f544091d6e02d642326b, type: 2}
+    usePixel: 1
+  - id: 19
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 74f3a95e92a0af14a943de2320d2a72c, type: 2}
+    usePixel: 1
+  - id: 20
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 7488373bd91f53c4f884fe9624f69d90, type: 2}
+    usePixel: 1

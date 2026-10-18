@@ -1,0 +1,498 @@
+fileFormatVersion: 2
+guid: 6a9314c9965a91e449782f08a3da96dd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4116314255568525805
+    second: Px_RuneGold_0
+  - first:
+      213: 633208035141164456
+    second: Px_RuneGold_1
+  - first:
+      213: 7071788175855704394
+    second: Px_RuneGold_2
+  - first:
+      213: 3298466277119407674
+    second: Px_RuneGold_3
+  - first:
+      213: -2284383418073251741
+    second: Px_RuneGold_4
+  - first:
+      213: -8440293428663206151
+    second: Px_RuneGold_5
+  - first:
+      213: 4917272482243626263
+    second: Px_RuneGold_6
+  - first:
+      213: -8092718021377129419
+    second: Px_RuneGold_7
+  - first:
+      213: 1558293659682358569
+    second: Px_RuneGold_8
+  - first:
+      213: -8022986749375921592
+    second: Px_RuneGold_9
+  - first:
+      213: 2302939353440731510
+    second: Px_RuneGold_10
+  - first:
+      213: 4028420755750080625
+    second: Px_RuneGold_11
+  - first:
+      213: 1287085265633755652
+    second: Px_RuneGold_12
+  - first:
+      213: -4522954236945960271
+    second: Px_RuneGold_13
+  - first:
+      213: 7973287687485742032
+    second: Px_RuneGold_14
+  - first:
+      213: -3093302605118604575
+    second: Px_RuneGold_15
+  - first:
+      213: 3760677603981542753
+    second: Px_RuneGold_16
+  - first:
+      213: 3711202120759698895
+    second: Px_RuneGold_17
+  - first:
+      213: 1597246209307822345
+    second: Px_RuneGold_18
+  - first:
+      213: 3687434483939847591
+    second: Px_RuneGold_19
+  - first:
+      213: -776193393209555102
+    second: Px_RuneGold_20
+  - first:
+      213: -359346564399125477
+    second: Px_RuneGold_21
+  - first:
+      213: 3498557625052995498
+    second: Px_RuneGold_22
+  - first:
+      213: -8462006216544874552
+    second: Px_RuneGold_23
+  - first:
+      213: 6589092873974799775
+    second: Px_RuneGold_24
+  - first:
+      213: 8057842493371293865
+    second: Px_RuneGold_25
+  - first:
+      213: 3309394791784456988
+    second: Px_RuneGold_26
+  - first:
+      213: -8526337619916453313
+    second: Px_RuneGold_27
+  - first:
+      213: -2754671077137157526
+    second: Px_RuneGold_28
+  - first:
+      213: 7926410206590294821
+    second: Px_RuneGold_29
+  - first:
+      213: -8330776143780147241
+    second: Px_RuneGold_30
+  - first:
+      213: -8504638158758168721
+    second: Px_RuneGold_31
+  - first:
+      213: 510539330834405359
+    second: Px_RuneGold_32
+  - first:
+      213: 5671652964357219742
+    second: Px_RuneGold_33
+  - first:
+      213: 3167364200940356057
+    second: Px_RuneGold_34
+  - first:
+      213: -6236223283999846506
+    second: Px_RuneGold_35
+  - first:
+      213: -5137247534750864843
+    second: Px_RuneGold_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 24
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Px_RuneGold_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31626f46ef9efd6c0800000000000000
+      internalID: -4116314255568525805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneGold_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ad13836a5b99c800800000000000000
+      internalID: 633208035141164456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneGold_2
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a49dfa4c0e9042260800000000000000
+      internalID: 7071788175855704394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneGold_3
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a36be4f5a9186cd20800000000000000
+      internalID: 3298466277119407674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneGold_4
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36083fa626d3c40e0800000000000000
+      internalID: -2284383418073251741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneGold_5
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fe377068dd0eda80800000000000000
+      internalID: -8440293428663206151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneGold_6
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7154fef0549ad3440800000000000000
+      internalID: 4917272482243626263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneGold_7
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5340a6c26d3e0bf80800000000000000
+      internalID: -8092718021377129419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneGold_8
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9254c19c3db20a510800000000000000
+      internalID: 1558293659682358569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_RuneGold_9
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 0
+        width: 96
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84248cd1f00a8a090800000000000000
+      internalID: -8022986749375921592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Px_RuneGold_0: -4116314255568525805
+      Px_RuneGold_1: 633208035141164456
+      Px_RuneGold_10: 2302939353440731510
+      Px_RuneGold_11: 4028420755750080625
+      Px_RuneGold_12: 1287085265633755652
+      Px_RuneGold_13: -4522954236945960271
+      Px_RuneGold_14: 7973287687485742032
+      Px_RuneGold_15: -3093302605118604575
+      Px_RuneGold_16: 3760677603981542753
+      Px_RuneGold_17: 3711202120759698895
+      Px_RuneGold_18: 1597246209307822345
+      Px_RuneGold_19: 3687434483939847591
+      Px_RuneGold_2: 7071788175855704394
+      Px_RuneGold_20: -776193393209555102
+      Px_RuneGold_21: -359346564399125477
+      Px_RuneGold_22: 3498557625052995498
+      Px_RuneGold_23: -8462006216544874552
+      Px_RuneGold_24: 6589092873974799775
+      Px_RuneGold_25: 8057842493371293865
+      Px_RuneGold_26: 3309394791784456988
+      Px_RuneGold_27: -8526337619916453313
+      Px_RuneGold_28: -2754671077137157526
+      Px_RuneGold_29: 7926410206590294821
+      Px_RuneGold_3: 3298466277119407674
+      Px_RuneGold_30: -8330776143780147241
+      Px_RuneGold_31: -8504638158758168721
+      Px_RuneGold_32: 510539330834405359
+      Px_RuneGold_33: 5671652964357219742
+      Px_RuneGold_34: 3167364200940356057
+      Px_RuneGold_35: -6236223283999846506
+      Px_RuneGold_36: -5137247534750864843
+      Px_RuneGold_4: -2284383418073251741
+      Px_RuneGold_5: -8440293428663206151
+      Px_RuneGold_6: 4917272482243626263
+      Px_RuneGold_7: -8092718021377129419
+      Px_RuneGold_8: 1558293659682358569
+      Px_RuneGold_9: -8022986749375921592
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -351,7 +351,12 @@ public class Skill : MonoBehaviour
         waitTime = skillWaitTime / StatMath.AttackSpeedMul;
         if (skillPivot.Length > 0)
         {
-            Vfx.Play(castVfx, skillPivot[0].transform.position, PlayerController.instance.transform.localScale.x < 0f, castVfxScale);
+            Vector3 fxPos = skillPivot[0].transform.position;
+            if (VfxLibrary.IsGroundFx(castVfx) && PlayerController.instance.groundCheck != null)
+            {
+                fxPos.y = PlayerController.instance.groundCheck.transform.position.y + 0.15f; // 마법진·빛기둥은 발밑 높이
+            }
+            Vfx.Play(castVfx, fxPos, PlayerController.instance.transform.localScale.x < 0f, castVfxScale);
         }
         if (delayEffectPrefab != null)
         {

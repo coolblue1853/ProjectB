@@ -134,11 +134,11 @@ namespace ProjectB.EditorTools
             var themes = new (string weapon, VfxId swing, VfxId[] casts, Color energy)[]
             {
                 ("CliffBlade", VfxId.SlashWhite, new[] { VfxId.SlashGold, VfxId.SlashGoldWide, VfxId.SlashGreenBig, VfxId.CrackRed }, new Color(1f, 0.8f, 0.3f)),
-                ("CliffStaff", VfxId.None, new[] { VfxId.SlashBlue, VfxId.SlashBlue, VfxId.SlashGreenBig }, new Color(0.4f, 0.75f, 1f)),
-                ("AbyssStaff", VfxId.None, new[] { VfxId.SlashRed, VfxId.SlashRed, VfxId.CrackRed }, new Color(1f, 0.3f, 0.55f)),
-                ("ScareStaff", VfxId.None, new VfxId[0], new Color(0.75f, 0.45f, 1f)),
+                ("CliffStaff", VfxId.None, new[] { VfxId.BurstBlue, VfxId.PillarBlue, VfxId.RuneBlue }, new Color(0.4f, 0.75f, 1f)),
+                ("AbyssStaff", VfxId.None, new[] { VfxId.BurstPurple, VfxId.PillarPurple, VfxId.RunePurple }, new Color(1f, 0.3f, 0.55f)),
+                ("ScareStaff", VfxId.None, new[] { VfxId.BurstPurple, VfxId.PillarPurple, VfxId.RunePurple }, new Color(0.75f, 0.45f, 1f)),
                 ("ScareSide", VfxId.SlashWhite, new VfxId[0], new Color(0.75f, 0.45f, 1f)),
-                ("LeafStaff", VfxId.None, new VfxId[0], new Color(0.5f, 1f, 0.45f)),
+                ("LeafStaff", VfxId.None, new[] { VfxId.BurstGreen, VfxId.PillarGreen, VfxId.RuneGreen }, new Color(0.5f, 1f, 0.45f)),
                 ("LeafAdae", VfxId.SlashWhite, new VfxId[0], new Color(0.5f, 1f, 0.45f)),
             };
             int n = 0;

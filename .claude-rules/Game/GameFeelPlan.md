@@ -279,7 +279,8 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 
 - 램프(어두움→밝음, 히어로 팔레트 구조): gold `5A1E0A C8501A F5A032 FADF9F FFFAEB` 외 blue/red/green/white/purple — `PixelVfxBaker.Ramps`.
 - 새 이펙트 추가: `bake_pixel_fx.cs` 행 추가(VfxId, 프리팹, 회전, 스케일, 반폭, 램프[, 팽창, 수명, 시작시각]) → 프로브 실행.
-- 남은 일: 스킬 원본 스프라이트 자체를 베이크 도트로 대체(히트박스 유지·애니 클립 교체), 지팡이 계열 레퍼런스(비숍 영상) 측정.
+- ④ 절차 생성 마법 도트(비숍 레퍼런스): `Tools/pixelfx/gen_magic.py` — 방사형 폭발·빛기둥·룬 마법진 × 청/보라/금/녹 12종 → `PixelVfxBaker.ImportSheet`(JSON 메타) → `VfxId.Burst*/Pillar*/Rune*`. 지팡이 4종 스킬에 연결, 빛기둥·마법진은 발밑 높이로(`VfxLibrary.IsGroundFx`).
+- 남은 일: 스킬 원본 스프라이트 자체를 베이크 도트로 대체(히트박스 유지·애니 클립 교체).
 
 ## 11. 작업 순서 (커밋 단위)
 

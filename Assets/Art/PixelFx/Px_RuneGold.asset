@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_RuneGold
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: -4116314255568525805, guid: 6a9314c9965a91e449782f08a3da96dd, type: 3}
+  - {fileID: 633208035141164456, guid: 6a9314c9965a91e449782f08a3da96dd, type: 3}
+  - {fileID: 7071788175855704394, guid: 6a9314c9965a91e449782f08a3da96dd, type: 3}
+  - {fileID: 3298466277119407674, guid: 6a9314c9965a91e449782f08a3da96dd, type: 3}
+  - {fileID: -2284383418073251741, guid: 6a9314c9965a91e449782f08a3da96dd, type: 3}
+  - {fileID: -8440293428663206151, guid: 6a9314c9965a91e449782f08a3da96dd, type: 3}
+  - {fileID: 4917272482243626263, guid: 6a9314c9965a91e449782f08a3da96dd, type: 3}
+  - {fileID: -8092718021377129419, guid: 6a9314c9965a91e449782f08a3da96dd, type: 3}
+  - {fileID: 1558293659682358569, guid: 6a9314c9965a91e449782f08a3da96dd, type: 3}
+  - {fileID: -8022986749375921592, guid: 6a9314c9965a91e449782f08a3da96dd, type: 3}
+  fps: 20
+  source: Tools/pixelfx/gen_magic.py

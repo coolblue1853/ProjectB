@@ -59,7 +59,8 @@ public static class Vfx
             return false;
         }
         VfxLibrary.Entry entry = library.Get(id);
-        if (entry == null || entry.prefab == null)
+        bool hasPixel = entry != null && entry.pixel != null && entry.usePixel;
+        if (entry == null || (entry.prefab == null && !hasPixel))
         {
             GameLog.Warn(GameLog.Cat.Combat, "VFX 미등록: " + id);
             return false;

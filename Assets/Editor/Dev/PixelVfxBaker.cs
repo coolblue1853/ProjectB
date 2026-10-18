@@ -300,6 +300,41 @@ namespace ProjectB.EditorTools
             }
         }
 
+        [System.Serializable]
+        class SheetMeta
+        {
+            public int frames, w, h;
+            public float fps;
+            public float[] pivot;
+            public string source;
+        }
+
+        /// <summary>외부 생성 시트(Tools/pixelfx/*.py → Px_X.png + Px_X.json)를 슬라이스해 PixelFxClip 으로 만든다</summary>
+        public static string ImportSheet(string name, float ppu = 24f)
+        {
+            string png = OutDir + "/" + name + ".png", json = OutDir + "/" + name + ".json";
+            if (!File.Exists(png) || !File.Exists(json))
+            {
+                return name + ": 시트/메타 없음";
+            }
+            var meta = JsonUtility.FromJson<SheetMeta>(File.ReadAllText(json));
+            AssetDatabase.ImportAsset(png, ImportAssetOptions.ForceSynchronousImport);
+            Sprite[] sprites = SliceSheet(png, meta.frames, meta.w, meta.h, new Vector2(meta.pivot[0], meta.pivot[1]), ppu);
+            string clipPath = OutDir + "/" + name + ".asset";
+            var clip = AssetDatabase.LoadAssetAtPath<PixelFxClip>(clipPath);
+            if (clip == null)
+            {
+                clip = ScriptableObject.CreateInstance<PixelFxClip>();
+                AssetDatabase.CreateAsset(clip, clipPath);
+            }
+            clip.frames = sprites;
+            clip.fps = meta.fps;
+            clip.source = meta.source;
+            EditorUtility.SetDirty(clip);
+            AssetDatabase.SaveAssets();
+            return name + ": " + sprites.Length + "f " + meta.w + "x" + meta.h;
+        }
+
         static void RenderOnce(Camera cam, RenderTexture rt)
         {
             var req = new RenderPipeline.StandardRequest { destination = rt };

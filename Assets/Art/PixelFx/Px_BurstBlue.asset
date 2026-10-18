@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_BurstBlue
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: -2097128824009044709, guid: 840b9e8b3b215bd4d88346b39f783545, type: 3}
+  - {fileID: -2629775628436115082, guid: 840b9e8b3b215bd4d88346b39f783545, type: 3}
+  - {fileID: 4512606095215130859, guid: 840b9e8b3b215bd4d88346b39f783545, type: 3}
+  - {fileID: 334567437773878395, guid: 840b9e8b3b215bd4d88346b39f783545, type: 3}
+  - {fileID: -7011330336590882953, guid: 840b9e8b3b215bd4d88346b39f783545, type: 3}
+  - {fileID: 3530745320647892114, guid: 840b9e8b3b215bd4d88346b39f783545, type: 3}
+  - {fileID: 4539485009095101825, guid: 840b9e8b3b215bd4d88346b39f783545, type: 3}
+  - {fileID: -3042689919621638884, guid: 840b9e8b3b215bd4d88346b39f783545, type: 3}
+  - {fileID: -6088382439881742132, guid: 840b9e8b3b215bd4d88346b39f783545, type: 3}
+  - {fileID: -5315160619554362313, guid: 840b9e8b3b215bd4d88346b39f783545, type: 3}
+  fps: 20
+  source: Tools/pixelfx/gen_magic.py

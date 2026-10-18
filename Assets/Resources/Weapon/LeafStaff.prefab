@@ -95,7 +95,7 @@ MonoBehaviour:
   skillNum: 0
   skillDetail: Instantly teleport forward.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
+  castVfx: 12
   castVfxScale: 1
   skillprefab:
   - {fileID: 8267161789949130192, guid: 75a1cc5b4a05b6c49a38fd7f2db49584, type: 3}
@@ -221,7 +221,7 @@ MonoBehaviour:
   skillNum: 1
   skillDetail: Summon roots that burst from the ground in front, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
+  castVfx: 16
   castVfxScale: 1
   skillprefab:
   - {fileID: 8267161789949130192, guid: b26d571b465f8f749a31dcdbeb16d3da, type: 3}
@@ -491,7 +491,7 @@ MonoBehaviour:
   skillNum: 2
   skillDetail: Create a healing zone that restores health to those inside.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
+  castVfx: 20
   castVfxScale: 1
   skillprefab:
   - {fileID: 8267161789949130192, guid: f06512837d1917c4e99175cf63a330f1, type: 3}

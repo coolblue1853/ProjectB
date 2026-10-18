@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_PillarPurple
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: 7174455421447567829, guid: 7be5e176947041943baaac4b1c9c0668, type: 3}
+  - {fileID: -4257482934496589842, guid: 7be5e176947041943baaac4b1c9c0668, type: 3}
+  - {fileID: -837690879235410860, guid: 7be5e176947041943baaac4b1c9c0668, type: 3}
+  - {fileID: 6512231123106538789, guid: 7be5e176947041943baaac4b1c9c0668, type: 3}
+  - {fileID: -616830015533878675, guid: 7be5e176947041943baaac4b1c9c0668, type: 3}
+  - {fileID: -1436217774711538034, guid: 7be5e176947041943baaac4b1c9c0668, type: 3}
+  - {fileID: 4336649180713977734, guid: 7be5e176947041943baaac4b1c9c0668, type: 3}
+  - {fileID: -7367247426177997401, guid: 7be5e176947041943baaac4b1c9c0668, type: 3}
+  - {fileID: 2850049371733247278, guid: 7be5e176947041943baaac4b1c9c0668, type: 3}
+  - {fileID: 5323171225143440456, guid: 7be5e176947041943baaac4b1c9c0668, type: 3}
+  fps: 20
+  source: Tools/pixelfx/gen_magic.py
