@@ -30,6 +30,9 @@
 - 유효 행 81개: 장비 48(무기 15, 방어구 5부위 × 4~5, 반지 6, 목걸이 7), Misc 23, Consum 9, 테스트 행 일부
 - placeholder 101행(`name='-'`)도 로드된다.
 
+> 편집: Unity 메뉴 **ProjectB/데이터 편집기**(Odin). 검증 리포트에서 아이콘·프리팹 누락, 등급 누락, 이름 중복, 세트 키 불일치를 확인한다. EditMode `DataIntegrityTests`가 같은 검증을 자동으로 돈다.
+> 2026-10-18: 등급이 비어 있던 14개 행을 채웠다(목걸이 2·반지 1은 R, Necklace of Silent Screams는 U, 나머지 C). 아이콘 누락 9개(Rock, PickAxe, test4, Potion, Food, HighArmor, Necklace, Ring, ToxicPickAxe)는 대부분 테스트·미사용 아이템이다.
+
 ## 2. 장비 슬롯
 
 | 슬롯 번호 | 1 | 2 | 3 | 5 | 6 | 7 | 8 | 9 |

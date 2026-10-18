@@ -84,7 +84,7 @@
 | G2 | 음악팩 2종 | 상황별 BGM(마을/필드/밤/보스), 보스 처치 승리 팡파레 | 🔶 (팡파레 ⏳) |
 | G3 | Monsters Creatures Fantasy / Evil Wizard 2 / Bringer | Lv2 몬스터·엘리트·보스 프리팹(`Editor/Dev/MonsterBuilder`, `Tools/probes/build_lv2_monsters.cs`) | ✅ 6종 생성(맵 배치는 G4) |
 | G4 | Magic Cliffs | Lv2 맵 타일·패럴랙스 | ⏳ |
-| G5 | Odin Inspector | 데이터 편집 창(ItemSheet/SetItem CSV 브라우저·검증), 신규 컴포넌트 인스펙터 정리 | ⏳ |
+| G5 | Odin Inspector | `Editor/Data/ProjectBDataWindow`(메뉴 ProjectB/데이터 편집기): 아이템 트리·표 편집(드롭다운·쉼표 검증·아이콘 미리보기), 세트 효과 해석 미리보기, 몬스터 스탯, 검증 리포트, CSV 저장(형식 보존) + DataIntegrityTests | ✅ |
 | G6 | 8-Bit Sfx / Frost Mage SFX / SoundBits | `Audio/Sfx` + `Resources/Audio/SfxLibrary`(14종): 타격·치명·처치·보스 승리·픽업·희귀 드롭·제작 성공/실패·인벤 열기·포털·사망 | ✅ (SoundBits는 미사용) |
 | G7 | Free Pixel Font Thaleah | `ThirdParty/Font/ThaleahFat_TMP`(비트맵·Point) → 데미지 숫자 프리팹 3종 적용, 크기 상향(일반 1.35·치명 1.9) | ✅ (영문 UI 적용 ⏳) |
 | G8 | Magic Slashes FX / Particle Pack | 스킬·평타 적중 이펙트, 드롭 빛 기둥·먼지 | ⏳ |
