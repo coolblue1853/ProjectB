@@ -67,7 +67,7 @@ public class EnhanceWindow : MonoBehaviour
     {
         open = true;
         openedAt = Time.unscaledTime;
-        DatabaseManager.isOpenUI = true;
+        UiLock.Set("Enhance", true);
         action.UI.Enable();
         panel.SetActive(true);
         resultText.text = "";
@@ -82,7 +82,7 @@ public class EnhanceWindow : MonoBehaviour
     void Close()
     {
         open = false;
-        DatabaseManager.isOpenUI = false;
+        UiLock.Set("Enhance", false);
         action.UI.Disable();
         panel.SetActive(false);
     }

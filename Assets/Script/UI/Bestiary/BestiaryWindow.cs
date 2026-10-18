@@ -115,7 +115,7 @@ public class BestiaryWindow : MonoBehaviour
         }
         ScanSpawners();
         open = true;
-        DatabaseManager.isOpenUI = true;
+        UiLock.Set("Bestiary", true);
         action.UI.Enable();
         panel.SetActive(true);
         Redraw();
@@ -125,7 +125,7 @@ public class BestiaryWindow : MonoBehaviour
     void Close()
     {
         open = false;
-        DatabaseManager.isOpenUI = false;
+        UiLock.Set("Bestiary", false);
         action.UI.Disable();
         panel.SetActive(false);
     }

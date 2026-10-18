@@ -1,4 +1,4 @@
-# 플레이어 상태 · 상태 토큰 · 스탯 재설계
+﻿# 플레이어 상태 · 상태 토큰 · 스탯 재설계
 
 > 상태: 설계안(2026-10-18, 미구현). QualityRoadmap B1(FSM)·B2(토큰)·B3(입력 버퍼)·B5(스탯), TechDebt B-113·B-114를 다룬다.
 > 원칙: **단계마다 컴파일·플레이가 가능해야 한다.** 씬·프리팹 직렬화 필드는 지우거나 이름을 바꾸지 않는다. 정적(static) 값은 직렬화되지 않으므로 프로퍼티(facade)로 바꿔도 안전하다.
@@ -238,6 +238,8 @@ public sealed class StatModifier {
   - [ ] 플레이: 정지형 스킬 중 대시 → 대시 끝나면 스킬 종료까지 정지 유지
 
 ### Phase 4 — InputLock·DashLock (UI)
+
+> **진행(2026-10-18):** 🔶 `UiLock.Set(owner, bool)` — 창마다 이름 붙은 InputLock 토큰. 새 창(강화·도감·퀘스트 대화)은 이전 완료(`UiLockTests` 3개). 레거시 UI(인벤토리·창고·제작·상점 15곳)는 아직 공용 레거시 토큰 — 서로 닫는 경로(InventoryManager:589/1230) 정리와 함께 이행 예정.
 
 - 수정: `InventoryManager`, `Chest`, `CraftingManager`, `ShopManager` — 열 때 `_uiLock = Acquire(InputLock, "Inventory")`, 닫을 때 Dispose. 각 UI의 "열기 조건 `isOpenUI == false`"는 `!Has(InputLock)`로(현행: 다른 UI가 열려 있으면 안 열림). Chest의 닫기 경로가 InventoryManager:589/1230에 있으므로 **핸들 소유자를 닫는 쪽에서 찾을 수 있게** `InventoryManager.CloseAll()`이 열린 UI 핸들을 모두 Dispose.
 - 수정: `CraftingManager:476/490` + `PlayerController.DashWait2F` → `AcquireFor(DashLock, 0.1f, "CraftClose")`. `uiDashWait` 필드는 직렬화되어 있으므로 남기고 `[HideInInspector]` + 미사용.

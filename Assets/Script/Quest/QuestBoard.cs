@@ -217,7 +217,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
         if (dialogueOpen != lockedUi)
         {
             lockedUi = dialogueOpen;
-            DatabaseManager.isOpenUI = dialogueOpen;
+            UiLock.Set("QuestDialog", dialogueOpen);
         }
         if (playerNear && upAction.triggered && DatabaseManager.isOpenUI == false)
         {
