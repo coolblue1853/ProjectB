@@ -26,3 +26,4 @@
 - 에셋 다운로드(사용자 허락, 캐시 `%APPDATA%/Unity/Asset Store-5.x`, 미임포트): I2 Localization 2MB, Smart Lighting 2D 17MB, SPUM 4MB, Corgi Engine 301MB, 8-Bit Sfx 11MB, Fantasy Music Suite 2 79MB, Free Fantasy Adventure Music 75MB, Free Frost Mage SFX 30MB, SoundBits 599MB, Pro Sound Collection 2.0GB, Horror Bundle SFX 2.4GB, Ultimate Game Music Collection 4.5GB, Game Music Treasury 4.1GB, SAGA Complete Collection(진행 중), Ultimate SFX & Music Bundle(확인 필요). "2D Pixel - RPG Monster Pack"은 구매 목록에 없음(보유: RPG Monsters Icon, Monsters_Creatures_Fantasy).
 - 무기 공격·콤보 전수 감사 백그라운드 에이전트 → `.claude-rules/Game/WeaponReview.md`.
 - 21:00 리셋 이후: 평일만, 주간 10% 이내. 일요일 밤은 추가 작업 없음.
+- 21:00 이후(사용자 지시로 계속): PC 재시작 후 Unity·MCP 재기동. 커밋 2715aa69(대화 시스템 W1·SPUM NPC), 4d39c706(W-07 판정 구간), 63f368a0(구역 BGM·덕킹·사운드 카탈로그), 61f66d46(플레이어 피격·회복 숫자), 02a09395(보스 등장 카메라). 주간 사용량 1%(22:05).
