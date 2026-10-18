@@ -207,6 +207,14 @@ public class EquipBoxCheck : MonoBehaviour
     public void DeletPrefab(ItemCheck detail, string reciveEquipArea, bool isFalse= true)
     {
         DatabaseManager.MinusSetDict(detail.itemData.tfName, 1);
+        // 활성화 전(장비창 닫힘)에 해제되면 아래 경로가 프리팹을 못 찾으므로 여기서 파괴한다. 세트 수는 위에서 이미 뺐다.
+        // 파괴는 프레임 끝이라 참조를 먼저 끊어 LoadPrefab 이 '대기 중 로드분'으로 다시 세지 않게 한다 (B-128)
+        if (equipPrefab != null && !IsActivated(equipPrefab))
+        {
+            Destroy(equipPrefab);
+        }
+        equipPrefab = null;
+        loadedTfName = null;
         if (reciveEquipArea == "Weapon") // 무기는 예외
         {
             if (isFalse == false)
@@ -257,6 +265,8 @@ public class EquipBoxCheck : MonoBehaviour
     }
     public void LoadPrefab(string equipName, string equipArea, string tfName)
     {
+        ReleasePendingPrefab();
+        loadedTfName = tfName;
         if (!string.IsNullOrEmpty(tfName)) // 세트가 아닌 장비는 세트 카운트에 넣지 않는다 (B-112)
             DatabaseManager.PlusSetDict(tfName, 1);
         reciveEquipArea = equipArea;
@@ -279,6 +289,41 @@ public class EquipBoxCheck : MonoBehaviour
         {
             Debug.LogError("Failed to load prefab: " + equipName);
         }
+    }
+
+    // LoadPrefab 이 세트 수에 더한 키. 활성화 전에 다시 로드되면 되돌린다 (B-128)
+    string loadedTfName;
+
+    /// <summary>
+    /// 이전 LoadPrefab 결과가 아직 ActivePrefab 으로 활성화되지 않았으면(장비창이 닫혀 Update 가 안 돈 채 다시 장착) 파괴하고 세트 수를 되돌린다.
+    /// 없으면 같은 세트 무기를 바꿔 낄 때마다 세트 스택·무기 프리팹이 쌓였다 (B-128).
+    /// </summary>
+    void ReleasePendingPrefab()
+    {
+        if (equipPrefab == null || IsActivated(equipPrefab))
+        {
+            return;
+        }
+        DatabaseManager.MinusSetDict(loadedTfName, 1);
+        Destroy(equipPrefab);
+        equipPrefab = null;
+        loadedTfName = null;
+    }
+
+    bool IsActivated(GameObject go)
+    {
+        if (weapon != null && weapon.gameObject == go)
+        {
+            return true;
+        }
+        foreach (Equipment e in equipmentList)
+        {
+            if (e != null && e.gameObject == go)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool isSetArray =  false;
