@@ -149,6 +149,8 @@ public class Weapon : MonoBehaviour
 
     [Tooltip("후딜이 끝난 뒤 다음 콤보 입력을 기다리는 시간(초). 이 안에 누르면 다음 단계로 이어진다 (W-02/W-03)")]
     [SerializeField] private float _comboGrace = 0.35f;
+    [Tooltip("평타 판정이 열려 있는 시간 = 공격 주기 × 이 비율 (단타 판정만). 0이면 프리팹 holdingTime 그대로 (W-07)")]
+    [SerializeField] private float _meleeActiveRatio = 0.6f;
 
     public void MeleeAttack()
     {
@@ -192,6 +194,10 @@ public class Weapon : MonoBehaviour
         GameObject damageObject = Instantiate(attackPrefab[step - 1], attackPivot[step - 1].transform.position, attackPivot[step - 1].transform.rotation, this.transform);
         DamageObject dmOb = damageObject.GetComponent<DamageObject>();
         dmOb.SetDamge(damgeArray);
+        if (_meleeActiveRatio > 0f && dmOb.hitCount <= 1)
+        {
+            dmOb.activeEnd = attckSpeed[step - 1] * _meleeActiveRatio;
+        }
         dmOb.isSkill = false; // 평타는 스킬뎀% 를 받지 않는다(공유 프리팹 플래그 무시, W-04)
         Vfx.Play(swingVfx, attackPivot[step - 1].transform.position, pC.transform.localScale.x < 0f, swingVfxScale);
     }

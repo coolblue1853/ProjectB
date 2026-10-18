@@ -72,6 +72,8 @@ public class DamageObject : MonoBehaviour
     [ConditionalHide("isDashAttack")]
     public bool isXbaseDash = true; //  이것에 따라서 보정될것이 y축인지 x축인지 결정됨
     BoxCollider2D boxCol;
+    /// <summary>판정 활성 구간 끝(초, 공속 배율 전). 0이면 기존대로 holdingTime 까지 (W-07)</summary>
+    [HideInInspector] public float activeEnd = 0f;
     public GameObject buffObject;
 
     public bool isHealSkill = false;
@@ -227,6 +229,18 @@ public class DamageObject : MonoBehaviour
             GameObject buff = Instantiate(buffObject, Vector2.zero, Quaternion.identity, att.BuffSlot.transform);
         }
         boxCol = this.GetComponent<BoxCollider2D>();
+        if (activeEnd > 0f && boxCol != null)
+        {
+            // 휘두르기가 끝난 뒤 걸어 들어온 적까지 맞지 않게 판정을 일찍 닫는다
+            DOVirtual.DelayedCall(activeEnd / StatMath.AttackSpeedMul, () =>
+            {
+                isEndBoxCollider = true;
+                if (boxCol != null)
+                {
+                    boxCol.enabled = false;
+                }
+            }, false).SetLink(gameObject);
+        }
         if ((hitCount+DatabaseManager.hitCount) != 1)
         {
            Sequence waitSeq = DOTween.Sequence()
