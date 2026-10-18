@@ -1249,6 +1249,7 @@ public class InventoryManager : MonoBehaviour
             {
                 DatabaseManager.isOpenUI = true;
                 inventory.SetActive(true);
+                Sfx.Play(SfxId.UiOpen, 0.5f);
                 cusor.SetActive(true);
                 instance.nowBox = 0;
                 instance.boxCusor = 0;

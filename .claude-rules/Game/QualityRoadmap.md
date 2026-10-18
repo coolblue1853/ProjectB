@@ -70,6 +70,12 @@
 | F3 | 오타 이름 정리(FormerlySerializedAs) | ⏳ |
 | F4 | EditMode 테스트: 데미지 공식 ✅, 세트 판정, 인벤토리 스택 (Unity Test Framework, `Assets/Editor/Tests`) | 🔶 |
 
+## H. 빠져 있던 기본 기능
+
+| # | 항목 | 상태 |
+|---|---|---|
+| H1 | 플레이어 사망·부활: HP 0 → 입력 잠금·무적 → 2.5초 뒤 마을 부활(HP·스태미나 가득, 2초 무적). 기존엔 매 프레임 로그만 찍고 아무 처리 없음 | ✅ |
+
 ## G. 보유 에셋 실사용 완성 (임포트에서 끝내지 않는다 — 사용자 요청 2026-10-18)
 
 | # | 에셋 | 사용 단계 | 상태 |
@@ -79,7 +85,7 @@
 | G3 | Monsters Creatures Fantasy / Evil Wizard 2 / Bringer | Lv2 몬스터·엘리트·보스 프리팹(`Editor/Dev/MonsterBuilder`, `Tools/probes/build_lv2_monsters.cs`) | ✅ 6종 생성(맵 배치는 G4) |
 | G4 | Magic Cliffs | Lv2 맵 타일·패럴랙스 | ⏳ |
 | G5 | Odin Inspector | 데이터 편집 창(ItemSheet/SetItem CSV 브라우저·검증), 신규 컴포넌트 인스펙터 정리 | ⏳ |
-| G6 | 8-Bit Sfx / Frost Mage SFX / SoundBits | 타격·치명·처치·픽업·레벨·UI 효과음 → MasterAudio 그룹 + HitFeedback 연결 | ⏳ |
+| G6 | 8-Bit Sfx / Frost Mage SFX / SoundBits | `Audio/Sfx` + `Resources/Audio/SfxLibrary`(14종): 타격·치명·처치·보스 승리·픽업·희귀 드롭·제작 성공/실패·인벤 열기·포털·사망 | ✅ (SoundBits는 미사용) |
 | G7 | Free Pixel Font Thaleah | 데미지 숫자·영문 UI 픽셀 폰트(TMP 아틀라스 Point) | ⏳ |
 | G8 | Magic Slashes FX / Particle Pack | 스킬·평타 적중 이펙트, 드롭 빛 기둥·먼지 | ⏳ |
 | G9 | Text Animator | 픽업 로그·대사·희귀 드롭 텍스트 연출 | ⏳ |

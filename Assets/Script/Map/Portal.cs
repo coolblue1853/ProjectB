@@ -65,9 +65,30 @@ public class Portal : MonoBehaviour
     /// <summary>맵이 바뀌었을 때(새로 연 맵) — BGM 등에서 구독</summary>
     public static event System.Action<GameObject> MapChanged;
 
+    /// <summary>입력 없이 이 포털로 이동 (사망 후 마을 귀환 등). 맵 전환 포털이면 맵을 바꾸고 스포너를 정리한다.</summary>
+    public void TravelNow(GameObject traveler)
+    {
+        if (destination == null || traveler == null)
+        {
+            return;
+        }
+        traveler.transform.position = destination.position;
+        if (isMapChange)
+        {
+            AbleOpenMap();
+            AbleCloseMap();
+        }
+        if (proCamera != null)
+        {
+            proCamera.CenterOnTargets();
+        }
+        DatabaseManager.isUsePortal = false;
+    }
+
     void AbleOpenMap()
     {
         openMap.SetActive(true);
+        Sfx.Play(SfxId.Portal, 0.6f);
         GameLog.Info(GameLog.Cat.Map, "포털 " + name + ": " + (closeMap ? closeMap.name : "-") + " → " + openMap.name, this);
         MapChanged?.Invoke(openMap);
         if (openMapCheck != null)

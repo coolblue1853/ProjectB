@@ -158,6 +158,70 @@ public class PlayerHealthManager : MonoBehaviour
         }
     }
     //체력바 관련
+    // ── 사망 · 부활 (메이플식: 마을에서 HP·스태미나 가득 찬 채로 부활) ──
+    public static event System.Action PlayerDied;
+    public static event System.Action PlayerRespawned;
+    public bool IsDead => isDead;
+    bool isDead;
+    System.IDisposable deathInputLock, deathInvincible;
+    const float RespawnDelay = 2.5f;
+
+    void Die()
+    {
+        isDead = true;
+        GameLog.Info(GameLog.Cat.Player, "플레이어 사망 → " + RespawnDelay + "초 뒤 마을 부활");
+        Sfx.Play(SfxId.PlayerDeath);
+        deathInputLock = PlayerStatus.Acquire(StatusFlag.InputLock, "Death");
+        deathInvincible = PlayerStatus.Acquire(StatusFlag.Invincible, "Death");
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+        if (mainCharacter != null)
+        {
+            mainCharacter.SetMeshAlphaAll(0.4f);
+        }
+        PlayerDied?.Invoke();
+        DOVirtual.DelayedCall(RespawnDelay, Respawn, false);
+    }
+
+    void Respawn()
+    {
+        // 사냥터에서 죽었으면 마을로 가는 포털을 이용해 맵을 전환한다
+        Portal toTown = null;
+        foreach (Portal p in FindObjectsByType<Portal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+        {
+            if (p.openMap != null && p.openMap.name == "Town" && p.isActiveAndEnabled)
+            {
+                toTown = p;
+                break;
+            }
+        }
+        if (toTown != null)
+        {
+            toTown.TravelNow(PlayerController.instance.gameObject);
+        }
+        nowHp = fullHP;
+        nowStemina = fullStemina;
+        HpUp(0);
+        if (mainCharacter != null)
+        {
+            mainCharacter.SetMeshAlphaAll(1f);
+        }
+        deathInputLock?.Dispose();
+        deathInputLock = null;
+        // 부활 직후 2초 무적
+        deathInvincible?.Dispose();
+        deathInvincible = PlayerStatus.AcquireFor(StatusFlag.Invincible, 2f, "Respawn");
+        isDead = false;
+        if (healthBar != null)
+        {
+            healthBar.ResetHealthStat(this);
+        }
+        PlayerRespawned?.Invoke();
+        GameLog.Info(GameLog.Cat.Player, "부활 완료 (마을 이동=" + (toTown != null) + ")");
+    }
+
     private void ResetMHp()
     {
         nowHp = fullHP;
@@ -173,9 +237,9 @@ public class PlayerHealthManager : MonoBehaviour
         Def = DatabaseManager.playerDef;
         Critical = DatabaseManager.playerCritRate;
         Drop = DatabaseManager.playerDropRate;
-        if (nowHp == 0)
+        if (nowHp <= 0 && !isDead)
         {
-            Debug.Log("죽었습니다");
+            Die();
         }
 
         if(isAlphaChange == false && alphaSequence.IsActive() == true)

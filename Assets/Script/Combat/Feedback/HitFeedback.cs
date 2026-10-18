@@ -52,6 +52,12 @@ public static class HitFeedback
             fx.HitStop(stop);
         }
 
+        Sfx.Play(killed ? SfxId.Kill : isCrit ? SfxId.Crit : SfxId.Hit, killed ? 0.6f : 0.45f);
+        if (killed && target.isBossMob)
+        {
+            Sfx.Play(SfxId.Victory);
+        }
+
         ShakeTier tier = killed || isCrit ? ShakeTier.Heavy : isSkill ? ShakeTier.Medium : ShakeTier.Light;
         if (killed && target.isBossMob)
         {

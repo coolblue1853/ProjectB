@@ -167,6 +167,7 @@ public class CraftingManager : MonoBehaviour
             if (InventoryManager.instance.CountItem(need.Key) < need.Value)
             {
                 Debug.Log($"제작 실패: 재료 부족 ({need.Key} {InventoryManager.instance.CountItem(need.Key)}/{need.Value})");
+                Sfx.Play(SfxId.CraftFail);
                 return;
             }
         }
@@ -176,6 +177,7 @@ public class CraftingManager : MonoBehaviour
         if (!InventoryManager.instance.HasRoomFor(resultName))
         {
             Debug.Log("제작 실패: 인벤토리 공간 부족");
+            Sfx.Play(SfxId.CraftFail);
             return;
         }
 
@@ -186,6 +188,7 @@ public class CraftingManager : MonoBehaviour
         InventoryManager.instance.CreatItem(resultName);
         InventoryManager.instance.RebuildItemStackCache();
         Debug.Log("제작 성공: " + resultName);
+        Sfx.Play(SfxId.Craft);
     }
 
     Dictionary<string, int> AggregateNeeds()

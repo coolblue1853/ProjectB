@@ -99,6 +99,7 @@ public class DropItemCheck : PoolAble
                     ReleaseObject();
                 }
                 InventoryManager.instance.CreatItem(name);
+                Sfx.Play(itemData != null && itemData.rarity == "U" ? SfxId.RareDrop : SfxId.Pickup);
             }
         }
     }
