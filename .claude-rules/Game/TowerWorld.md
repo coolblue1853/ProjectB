@@ -40,7 +40,7 @@
 | ③ 깊은 숲 | 탑 직전의 깊은 숲(유적) | 곰, 고블린, 엔트, 버섯 | 붉은 탐험가(적대 APC, 난입), 유령, 요정 | **고대숲의 엔트** | 고블린=CliffGoblin ✅, 버섯 ✅, 붉은 탐험가=SPUM/Pixel Hero Maker(보유), ✅ **`Lv1_DeepForest` 1차 구현(13절)**: 곰·엔트·유령·요정·고대숲의 엔트 코드 도트. 요정여왕 방(중간보스, 구글 문서) |
 | ④ 늪지 | 탑의 그늘에 가려진 축축한 늪 | 개구리, 큰 모기, 슬라임, 등에 꽃이 핀 꽃게, 버섯, 악어 | (미정) | **거대 슬라임** | 스프라이트 없음 |
 | ⑤ 산적 성채 | 깊은 숲 뒤 늪을 지나 | 산적(단검·활·방패) | 동일 | **산적 대장** | SPUM(보유)으로 제작 가능, 대장=Medieval King Pack 2/Martial Hero(보유) |
-| ⑥ 탑 근교 | 골렘들이 있는 곳 | 골렘(소·중·대) | (미정) | **탑의 문지기** | 골렘 스프라이트 없음(구글 문서 보스방 레퍼런스: 이끼 낀 거대 석상 유적) |
+| ⑥ 탑 근교 | 골렘들이 있는 곳 | 골렘(소·중·대) | 골렘 + 유적 정령 | **탑의 문지기** | ✅ **`Lv1_TowerOutskirts` 1차 구현(16절)**: 골렘 3종·유적 정령·문지기 코드 도트 (보스방 레퍼런스: 이끼 낀 거대 석상 유적 — 전용 배경 ⏳) |
 
 - 구글 문서 "1층계 맵 레퍼런스": 얕은 숲 식생(풀·버섯·잡풀·예쁜 풀·이상한 나무) + **파괴 가능 오브젝트(나무통·상자)**, 요정여왕의 방(반딧불 숲, 맵 재사용 + 배경 레이어·식생 추가), 깊은 숲(숲 + 돌 유적), 1층계 보스방(웅장한 골렘 유적, 배경 신규).
 - 진행: ① → ② → ③(→ ⑤ 산적 성채 분기) → ④ → ⑥ 탑 근교 → 탑 입구(2층계).
@@ -71,8 +71,8 @@
 - **층계 부하 L**: `MapInfo.ascentLoad`. 1층계 외곽 0 → (1층계 깊은 구역 5~20) → 2층계 입구 15(현 마법 절벽, 임시) → 층계마다 상승.
 - **부하 저항 R** = 탐험가 칭호 × 15 (+ 장비 옵션 '상승 저항' · 브로치 해방, 이후).
 - **부족분 D = max(0, L − R)** → 주는 피해 ×(1 − 0.02·D, 최소 0.1), 받는 피해 ×(1 + 0.02·D). 메이플 아케인 포스와 같은 성장 목표. 아래층으로 내려가면 즉시 해제(현재 맵의 L만 적용).
-- **탐험가 칭호**(어비스의 피리 등급처럼): 0 견습 Novice → 1 서광 Dawn → 2 운해 Cloudsea → 3 심록 Deepgreen → 4 홍염 Crimson → 5 흑석 Blackstone → 6 심연 Abyss → 7 백광 Whitelight. 층계 보스 처치로 승급(`BossReward.grantsRank`, 임시: PassiveTerror=1, AbyssWizard=2). ES3 `explorer.rank`.
-- HUD: 좌상단 "RANK · LOAD/RES" (부족하면 붉게). ✅ 구현: `AscentLoad`(순수 계산+ES3 `explorer.rank`), `AscentHud`, `MapInfo.ascentLoad`(외곽 0 / 샛길 5 / 마법 절벽 25), `BossReward.grantsRank`(PassiveTerror=1, AbyssWizard=2). 피해 훅: `EnemyHealth`(주는 피해), `PlayerHealthManager`(받는 피해).
+- **탐험가 칭호**(어비스의 피리 등급처럼): 0 견습 Novice → 1 서광 Dawn → 2 운해 Cloudsea → 3 심록 Deepgreen → 4 홍염 Crimson → 5 흑석 Blackstone → 6 심연 Abyss → 7 백광 Whitelight. 층계 보스 처치로 승급(`BossReward.grantsRank`: **탑의 문지기=1**(1층계 졸업, 2026-10-19 PassiveTerror 에서 옮김, Q-413), AbyssWizard=2(임시)). ES3 `explorer.rank`.
+- HUD: 좌상단 "RANK · LOAD/RES" (부족하면 붉게). ✅ 구현: `AscentLoad`(순수 계산+ES3 `explorer.rank`), `AscentHud`, `MapInfo.ascentLoad`(외곽 0 / 샛길 5 / 마법 절벽 25), `BossReward.grantsRank`(Gatekeeper=1, AbyssWizard=2). 피해 훅: `EnemyHealth`(주는 피해), `PlayerHealthManager`(받는 피해).
 
 ## 8. 가벼운 추출(타르코프) 요소 — 제안(임시 가정 Q-406)
 
@@ -216,3 +216,31 @@
   - LineageGear 원안의 `BackstabDmg`(백어택 치피)·"반격 피해"·"HP 15%" 는 신규 키 없이 기존 키(CritDmg·쿨감·Hp 정수)로 대체 — 백어택 보너스 자체는 Backstab 판정이 갖는다.
 - 검증(플레이, `bandit_weapon_test.cs` = 같은 층 가까운 몹 앞에서 슬롯/평타 발동 → 판정·화살·소환물·플레이어 x·HP 추적): Backstab 플레이어 −308.3→−305.3 순간 이동·방향 반전·피해, 평타 화살 명중(ArrowTouch), Triple Shot 화살 3발·전체 피해 50, Poison Volley 6발·독 피해, Pitch Shot, Shield Shove 돌진, Counter Stance 방어 판정, Rally the Gang 그림자 3·전체 피해 67. `equip_bandit_set_test.cs` Outlaw/Raider 6부위 → 스택 6, 수치·쿨감 키 일치(새 플레이에서). combo_all = 원본과 같은 순환(단검 1-2-3, 방패 1-2-3, 활·깃발 1).
 - ⏳ 남은 것: 성채 전용 지형·소품(목책·망루·천막) 없음(샛길 지형 + 색조·횃불 빛) · 하늘(카메라 배경)은 색조가 안 먹음 · 궁수 화살은 조준 직선(플레이어 쪽)이라 위아래로 비스듬히 날 수 있음 · 횃불 순찰병 계보 무기 없음 · 부하는 보스가 죽어도 남음(맵 이탈 시 정리) · 세트 착용 텍스처 Leaf 색 변환 임시 · 손 무기 그림은 아이콘 재사용(활 당기기 애니 없음, 지팡이 모션).
+
+## 16. ⑥구역 탑 근교 — 1차 구현 (2026-10-19, LineageGear 3절) — 1층계 졸업 지역
+
+- 맵 `Lv1_TowerOutskirts`: ③ 깊은 숲과 같은 **근교 원본 지형(Lv1_NearForest) 복제**, 돌·유적 톤(타일 0.74/0.6/0.66 = 풀 초록을 눌러 회갈색, 원경·식생은 채도를 70% 빼고 ×0.66~0.72) + 청록 룬 빛 Light2D 8개, 상승 부하 **40**, zoneTitle "Tower Outskirts", floor 1, 반딧불 없음. 왼쪽 끝(−438)에 보이지 않는 벽 `EdgeWall_Left`(원본 지형에 왼쪽 벽이 없어 보스 넉백에 밀리면 맵 밖으로 떨어짐, B-130). 프로브 `build_tower_outskirts.cs`(재실행하면 복제본·포털을 지우고 다시 만든다).
+- 포털(진행): ④ 늪지 오른쪽 끝 `Portal_ToOutskirts`(x −186, 보스 자리 너머) ↔ 탑 근교 오른쪽 `Portal_OutskirtsToSwamp`(−236). 왼쪽 마을 포털(−425) 유지. **탑 입구** `Portal_ToTower`(−432.5) → 2층계 `Lv2_MagicCliffs` 입구(`Portal_ToLv1` 자리 도착) — `TowerGatePortal`(맵 Portal 묶음)이 문지기 첫 처치 기록(ES3 `bossFirstKill.Gatekeeper_BD`, 새 키 없음)이 없으면 끄고, 처치 순간 켜며 "TOWER GATE — The way to the 2nd floor is open" 배너. 2층계 쪽 귀환 포털은 그대로 샛길행(내려가기는 자유, 샛길→2층계 지름길 유지 Q-414). B-119 재발 방지로 모든 포털을 켠 채로 만든다.
+- 몬스터(코드 도트 `Tools/pixelfx/gen_outskirts_mobs.py` → `Tools/probes/build_outskirts_mobs.cs`, MonsterSheet 행 추가, 공통 팔레트: 돌 회색·이끼·청록 룬 눈):
+  - 낮: **소형 골렘** 360HP 방어 14(48px, RatThief 템플릿, Run·Attack = 몸을 말아 구르는 돌진) · **중형 골렘** 620HP 방어 20(64px, LeftMole 템플릿=느림, 두 주먹 내려치기 → 판정 `GolemQuake` = 땅에서 솟는 돌 가시, LeafAttackPrefab 복제) · **대형 골렘** 950HP 방어 28 **슈퍼아머**(80px, FlowerMole 템플릿=원거리, 등 뒤 바위를 들어 던짐 → 탄 `GolemBoulder`, FlowerAttackPrefab 복제·애니메이터 제거, 조준 직선).
+  - 밤: 골렘 + **유적 정령** 170HP(48px, FlowerMole, 룬 돌 조각 핵 + 청록 빛 무리, Light2D 0.9/3, 탄 `RuinBolt`).
+  - 보스: **탑의 문지기(Gatekeeper of the Tower)** 15000HP 방어 28 슈퍼아머 — 128px 거대 갑옷 수호자(이끼 낀 판금, 바이저 룬 빛, 너덜너덜한 망토, 앞에 꽂아 세운 대검, **가슴에 브로치와 같은 문장**: 금 고리 + 네 갈래 별), PassiveTerror 템플릿(18px/유닛 → 약 5.5유닛 키). **낮** 스포너, 스폰 x −412(왼쪽 끝 = 탑 입구 앞), 영역 = 맵 전체. 초상 = 문지기 도트 Idle 첫 프레임. 공격 판정 교체(`build_ent_boss_roots.cs` 방식, 원본 공유 프리팹 미수정): 갈퀴 → `GateCleave`(대검 내려찍기 궤적 + 룬 섬광 + 땅 파편, 64px×6 @16ppu), 불꽃 → `GateShockwave`(룬 충격파 초승달, 32px×3 @12.5ppu), BT damageOb GUID 교체. Attack2 = 대검을 땅에 꽂아 룬 고리.
+  - 3페이즈 = `BossPhase` 자동(50%·25%), **2페이즈 부하 호출** `BossMinionCall`(소형 골렘 2, 배너 "AWAKENED — The stones rise!" = 새 직렬화 필드 `_bannerText`). 보스가 죽거나 사라지면 부하도 정리(B-127).
+- **스토리 연출**: 첫 조우 대사 `BossEncounterTalk`(보스 9유닛 안, ES3 `story.gatekeeper.met` 1회, 대화 중 보스 BT 정지) → `StoryDialogues.Gatekeeper`: 문지기 "...None... shall pass... the gate." / 독백 "A giant in armor, older than the ruins around it." · "That crest on its chest... it's the same pattern as my brooch." · "...Father?" / 문지기 "...Turn... back..." / 독백 "No. Whatever you are, I'm going up." — **아버지임은 암시만**(2절 결말과 충돌하지 않게 확정하지 않음). 처치 시 배너 대기열(`BossBanner` 큐): "GATEKEEPER OF THE TOWER DEFEATED" → "RANK UP / DAWN EXPLORER"(`BossReward.grantsRank`=1) → "TOWER GATE"(포털 개방).
+- 드롭: 소형 Golem Pebble 35%·Pebble Gauntlet 2% / 중형 Quake Core 33%·Quakestone Maul 2% / 대형 Monolith Shard 33%·Monolith Shield 2% / 정령 Ruin Mote 30% / 모두 Stoneborn 부위 각 0.3% / 보스 Golem Pebble 확정 + `Resources/Boss/Gatekeeper_BD`(확정 1개 = 계보 무기 3종 중, 레전더리 Gatekeeper's Oath 6%·천장 15, 강화석 4~7 + 첫 처치 8, 칭호 1).
+- 버그 수정: **B-127**(f626e6f5) 보스 사망·사라짐·시간대 전환 시 부하 정리 · **B-128**(cf1c4377) 장비창이 닫힌 채 같은 세트 무기 교체 시 세트 스택·무기 프리팹 누적.
+- 검증(플레이): 낮 소형·중형 골렘·보스 스폰, 대형 골렘 바위 투척(`GolemBoulder`)·정령 탄(`RuinBolt`) 발사, 보스 조우 대사 6줄(스크린샷 `gate_talk1`·`gate_talk_father`) → 대화 뒤 BT 재개·`GateCleave`·`GateShockwave` 발동, `gatekeeper_boss_test.cs`: HP 55% → 2페이즈 + 소형 골렘 2, 80% → 3페이즈, 처치 → 확정 보상(Monolith Shield + 강화석 12 + 재료)·칭호 0→1·포털 개방·처치 4초 뒤 부하 0, 배너 순서 스크린샷 3장, `Portal_ToTower` → Lv2 도착(부하 25), 늪지 ↔ 탑 근교 왕복. 콘솔 에러 0(테스트 생존용 무적 토큰의 RuntimeMonitor 12초 경고 제외, B-132). 테스트 뒤 세이브는 백업본으로 복원. 스크린샷 `Logs/playtest/outskirts_*`·`gate_*`·`boss_Gate*`(커밋 안 함).
+
+### 16.1 ⑥구역 계보 장비 (LineageGear 3절)
+
+| 몹 | 무기(드롭) | 무기 스킬 | 세트 |
+|---|---|---|---|
+| 소형 골렘 | **Pebble Gauntlet** (Leather Knuckles 기반 14~21) | A **Rolling Charge** = 대시 + 앞으로 구르는 돌(`StraightArrow` 관통 4, 무기 피해 130%, 쿨 2.5s — Dash 판정은 콜라이더 없는 이동 표식이라 돌이 피해를 맡음), C Rubble Uppercut(1.2배·넉백 1.3배), R Pebble Hop(이름만) | Stoneborn |
+| 중형 골렘 | **Quakestone Maul** (SacreGreatSword 기반 18~28) | S **Quake Slam** = 검기 1.35배·넉백 1.4배·경직 0.45s·쿨 3s, D **Aftershock** = CliffStaff 의 Cliff Quake 를 복사·강화(1.6배, 1.25배 크기, 쿨 6s), A Tremor Pull(원본 흡입, 이름만) | Stoneborn |
+| 대형 골렘 | **Monolith Shield** (Shell Shield 기반 15~22) | A **Boulder Toss** = 포물선 바위(`StraightArrow._gravity` 24, 38°, 관통 2, 160%, 쿨 2.5s), C **Monolith Stance** = Shell Guard 홀드 방어 +250 + **슈퍼아머**(`addSuperArmor`), B Granite Bash(넉백 1.4배) | Stoneborn |
+| 탑의 문지기(보스) | **Gatekeeper's Oath** (레전더리 특색, SacreGreatSword 기반 26~38, 치명 10·치피 35) | S **Gate Cleave** = 검기 1.5배 + 땅을 미는 룬 충격파(`StraightArrow._ignoreTerrain`, 관통 6), D **Stone Sentinels** = 소형 골렘 3기가 굴러 돌격(`SummonRunner`, 무기 피해 60%·0.3s 간격, 쿨 10s), A Oath Bind(원본 흡입) — 문지기 패턴의 플레이어판 | — |
+
+- 프로브 `build_outskirts_weapons.cs`(판정 복제 `DamageObject/<무기>/…`·`DamageObject/Outskirts/`, 다른 무기 스킬 복사 도우미 `addSkill`), 아이콘 `Tools/pixelfx/gen_outskirts_items.py`(골렘·문지기 팔레트), ItemSheet 182~194(**맨 뒤에 행 추가**). AbsorbDark 원본에 누락 스크립트가 있어 복제 저장이 안 되므로 A(흡입)는 원본 판정을 그대로 쓴다.
+- **세트 Stoneborn** (StoneArmor 돌 회색, `make_forest_sets.py Stone` + `build_outskirts_sets.cs`, 구역 1세트 = 1층계 졸업 세트): 2: 방어 20·HP 80 / 4: Rolling Charge·Aftershock·Boulder Toss 쿨 −30·피해 8 / 6: 방어 25·HP 180·피해 10. 부위 방어 30/50/30/24/24·HP 200/480/200/160/140. 원안의 "슈퍼아머 지속 +1s"·`DmgReduce` 신규 키는 만들지 않음(기존 키만).
+- 검증(플레이, `bandit_weapon_test.cs`): Rolling Charge 대시 + 구르는 돌 명중(대상 8.8 밀림), Quake Slam·Aftershock 판정·피해, Boulder Toss 바위 명중(전체 피해 33), Monolith Stance 홀드 판정, Gate Cleave 검기 + `ShockwaveTouch`(피해 57·전체 69), Stone Sentinels 소환 3·연속 타격. `equip_stone_set_test.cs` 6부위 → 스택 6, 쿨감 키 3종 30, 피해 +18. combo_all = 원본과 같은 순환(너클 1-2, 대검 1-2, 방패 1-2-3). 피해 수치는 칭호 0(부하 부족 −80%) 상태 값.
+- ⏳ 남은 것: 탑 근교 전용 지형·석상 소품 없음(근교 지형 + 곱셈 색조라 풀이 회갈색 정도) · 낮 전용 보스(밤엔 사라짐, 다른 구역 보스와 같음) · 조우 대사 중 주변 골렘은 계속 움직임(B-131) · 대형 골렘 바위는 조준 직선(포물선은 플레이어 무기만) · 레전더리 등급 표시는 U(고유)로 대신 · 세트 착용 텍스처 Leaf 색 변환 임시 · Stone Sentinels 소환 골렘은 SummonRunner 직선 돌격(Run 프레임만).

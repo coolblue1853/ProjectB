@@ -40,7 +40,7 @@
 - 구현 체크: [x] 몹 5종(단검병·궁수·방패병·횃불 순찰병(밤)·산적 대장) — 코드 도트(SPUM 미사용) [x] 궁수 탄 직선 화살 `BanditArrow` [x] 보스 판정 교체(ChiefCleave·ChiefAxe) [x] 보스 2페이즈 부하 호출(`BossMinionCall`) [x] Cutthroat Dagger(Backstab) [x] Bandit Shortbow(원거리 `StraightArrow` 평타·Triple Shot·Poison Volley) [x] Raider Buckler(Shield Shove·Counter Stance = Shell Guard 재사용) [x] Chief's War Banner(Rally the Gang = `SummonRunner`) [x] 세트 Outlaw·Iron Raider [x] 맵 `Lv1_BanditFortress`·포털(깊은 숲 분기)·드롭·보스 보상. 커밋은 TowerWorld 15절 참조.
 - 변경: 신규 효과 키 `BackstabDmg` 대신 Backstab 판정 자체가 백어택 보너스(치명 +40%·치피 +30%)를 갖고, Outlaw 4세트는 CritDmg 25 + 쿨감. Iron Raider "반격 피해"는 Shield Shove·Counter Stance 쿨감 + 피해 8, "HP 15%" 는 Hp 150(정수 키). Iron Raider 무기는 Raider Buckler 1종(대장 고유템은 세트 밖).
 
-## 3. ⑥ 탑 근교 (부하 40, 1층계 마지막)
+## 3. ⑥ 탑 근교 (부하 40, 1층계 마지막) — ✅ 1차 구현 (2026-10-19, TowerWorld 16절)
 
 | 몹 | 공격 | 계보 무기 | 무기 스킬 |
 |---|---|---|---|
@@ -50,6 +50,8 @@
 | 보스 **탑의 문지기** | (스토리: 아버지일 가능성, TowerWorld 2절) | 레전더리 **Gatekeeper's Oath** | 특색 무기 — 문지기 패턴을 플레이어용으로 |
 
 - 세트: **Stoneborn** 2: 방어 20 / 4: 슈퍼아머 지속 +1s / 6: 받는 피해 −10%(신규 키 `DmgReduce`). 1층계 졸업 세트.
+- 구현 체크: [x] 몹 5종(소형·중형·대형 골렘·유적 정령·탑의 문지기) — 코드 도트 [x] 대형 골렘 바위 `GolemBoulder`·정령 `RuinBolt`·중형 지면 강타 `GolemQuake` [x] 보스 판정 교체(GateCleave·GateShockwave) [x] 보스 3페이즈 + 2페이즈 소형 골렘 호출 [x] 보스 조우 대사(`BossEncounterTalk`)·칭호 1·탑 입구 개방(`TowerGatePortal`) [x] Pebble Gauntlet(Rolling Charge) [x] Quakestone Maul(Quake Slam·Aftershock = Cliff Quake 강화) [x] Monolith Shield(Boulder Toss 포물선·Monolith Stance 슈퍼아머) [x] Gatekeeper's Oath(Gate Cleave 충격파·Stone Sentinels) [x] 세트 Stoneborn [x] 맵 `Lv1_TowerOutskirts`·포털·드롭·보스 보상. 커밋은 TowerWorld 16절 참조.
+- 변경: Stoneborn 4세트 "슈퍼아머 지속 +1s" 대신 계보 무기 3종 쿨 −30·피해 8, 6세트 `DmgReduce` 대신 방어 25·HP 180·피해 10(기존 키만). 슈퍼아머는 Monolith Stance(홀드)가 직접 준다. Gatekeeper's Oath 는 등급 표시를 U(고유)로(레전더리 등급 미구현).
 
 ## 4. 신규 시스템 필요 목록 (구현 순서)
 

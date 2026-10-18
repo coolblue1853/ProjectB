@@ -57,6 +57,11 @@
 | B-127 | ✅ 보스 부하(SpawnMinion)가 보스가 죽어도 남고 드롭이 없었다(슬롯 밖이라 시간대 전환 DeCycleCheck 대상도 아님) → 스포너가 부하 목록을 들고 `DismissMinions()`(DisaperByTime). `BossMinionCall` 이 보스 `OnReleasedToPool`(처치·도트 사망·사라짐 공통)에서, `DeCycleCheck` 가 시간대 전환 때 부른다. 검증 `boss_minion_cleanup_test.cs`: 처치 2.5초 뒤 부하 2→0 (2026-10-19) | `EnemySpawner.SpawnMinion`, `BossMinionCall` |
 | B-128 | ✅ 실제 장착 경로(`InventoryManager.UseEquipment` = 우클릭·Enter 장착)로 재현: **장비창을 연 상태에서는 누적 없음**(같은 세트 무기 4회 교체 → 스택 1·무기 1). **장비창이 닫힌 상태**(EquipBoxCheck.Update 가 안 돌아 ActivePrefab 미실행)에서 다시 장착하면 `equipWeapon==null` 분기로 LoadPrefab 이 반복돼 스택·무기 프리팹이 1→4 로 쌓였다(테스트 하네스가 이 경우). → `LoadPrefab` 이 활성화 전 대기 로드분을 파괴하고 세트 수를 되돌림(`ReleasePendingPrefab`), `DeletPrefab` 은 대기분 파괴 + 참조 끊기. 검증 `set_swap_ui_test.cs`(닫힘·열림 모두 스택 1·무기 1, 방어구 1) (2026-10-19). 남은 것: 닫힌 상태 무기 재장착 시 이전 아이템 UI 가 장비칸에 같이 남는 경로(InventoryManager 분기 조건) | `EquipBoxCheck`, `InventoryManager.UseEquipment` |
 | B-129 | BackstabStep 이 플레이어 `localScale.x` 를 직접 뒤집어 방향을 바꿈 — 이동 입력이 있으면 다음 프레임 PlayerController 가 덮어씀 | `BackstabStep.cs`, `PlayerController.cs` 433/546 | ⏳ PlayerStateDesign FSM 의 방향 설정 API 로 교체 |
+| B-130 | 🔶 근교 원본 지형(Lv1_NearForest) 복제 맵은 왼쪽 끝(−437) 너머에 벽이 없어 보스 넉백에 밀리면 맵 밖으로 떨어짐(문지기 테스트에서 발견) → 탑 근교만 `EdgeWall_Left` 추가. **깊은 숲(같은 지형, 고대숲의 엔트 −412)은 미수정** | 씬 `Lv1_DeepForest`, `build_tower_outskirts.cs` |
+| B-131 | 보스 조우 대사(`BossEncounterTalk`) 중에는 보스만 멈추고 주변 일반 몹은 계속 공격한다(대사창 UiLock 으로 플레이어는 묶임). 대화 중 보스가 도트로 경직되면 `EnemyHealth.EndStiffness` 가 BT 를 다시 켠다 | `BossEncounterTalk.cs`, `EnemyHealth.cs` 382 | ⏳ BT 정지를 토큰화(대화·경직 공용) 또는 대화 중 시간 정지 |
+| B-132 | 테스트 생존 유지(`keep_hp.cs` 짧은 무적 토큰 연속)도 RuntimeMonitor 의 "Invincible 12초 초과" 이상 보고를 낸다(플래그 기준 감시) | `Tools/probes/keep_hp.cs`, `RuntimeMonitor` | ⏳ 테스트 출처(probe.*) 토큰은 감시 제외 |
+| B-133 | B-128 의 근본 원인: `InventoryManager.UseEquipment` 의 "첫 장착" 분기가 `ActivePrefab` 을 부르지 않고 `EquipBoxCheck.Update`(장비창이 열려야 돎)에 맡겨, 장비창이 닫힌 채 장착하면 열 때까지 무기·장비 스탯이 적용되지 않는다(B-128 은 대기 로드분 파괴로 우회) | `InventoryManager.cs` 881·907, `EquipBoxCheck.cs` | ⏳ 두 분기에서 LoadPrefab 직후 ActivePrefab 호출 → ReleasePendingPrefab 제거 |
+| B-134 | `BossLoot.Defeated`(탑 입구 개방)가 보상 파이프라인 안에서만 불린다 — 보상 에셋이 없거나 드롭 없는 반환이면 첫 처치 키·포털 개방도 없다. `TowerGatePortal._bossName` 은 프리팹 이름 문자열 | `BossReward.cs`, `EnemySpawner.cs` 301, `TowerGatePortal.cs` | ⏳ 보스 처치 이벤트를 보상과 분리, 이름은 BossReward 참조로 |
 
 ## P2
 
