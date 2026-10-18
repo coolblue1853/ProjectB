@@ -1,0 +1,59 @@
+# 버그 · 기술 부채 백로그
+
+> 우선순위: P0 = 게임 진행 불가·데이터 손실, P1 = 핵심 수치/기능 오류, P2 = 잠재 크래시·누수, P3 = 정리.
+> 수정하면 상태를 ✅로 바꾸고 커밋 해시와 **검증 방법**(에디터 플레이·프로브)을 적는다.
+
+## P0
+
+| ID | 내용 | 위치 | 상태 |
+|---|---|---|---|
+| B-001 | 적 사망 시 `ReleaseObject()`만 호출 → OnReleased 미발생 → **드롭·시체·리스폰 전부 안 됨** (b05df50a 회귀) | `EnemyHealth.cs:237-245, 298-306`, `EnemySpawner.OnEnemyReleased` | ⏳ |
+| B-002 | `ClearAllPools`의 `while(CountActive>0){Get();Release();}` 무한 루프 의심 → 포털 이동 시 멈춤 | `EnemySpawner.cs:285-297` | ⏳ |
+| B-003 | 제작 시 표시명(itemNameT)으로 생성 → 키 불일치 NRE, 재료는 이미 차감 | `CraftingManager.cs:184` | ⏳ |
+| B-004 | 인벤토리 수량 캐시 불일치 → 창고에 둔 재료로 공짜 제작 | `ItemDrag.cs:131-149`, `InventoryManager.UseEquipment/I2CMove` | ⏳ |
+| B-005 | 장비를 드래그로 해제하면 세이브 미갱신 → 재접속 시 아이템 복제 | `ItemDrag.cs:123-128` | ⏳ |
+| B-006 | 창고 → 인벤토리 이동 중 인벤토리가 가득 차도 창고 수량 차감 → 소실 | `Chest.C2IMove` | ⏳ |
+| B-007 | 시작 지점(originPos) 미할당 → SaveManager.Awake 예외 | `SaveManager.cs` | ✅ 0c338134 (플레이 모드 에러 0) |
+
+## P1
+
+| ID | 내용 | 위치 | 상태 |
+|---|---|---|---|
+| B-101 | `% / 100` 정수 나눗셈 → 공속·이속·받피증·치피·증뎀·스킬뎀·방무·최종뎀이 100% 미만이면 무효 | 다수 (CombatSpec 4절) | ⏳ |
+| B-102 | 방무 공식 반대 의미: `def × 방무/100` → `def × (1 - 방무/100)` | `EnemyHealth.cs:190-199` | ⏳ |
+| B-103 | `Random.Range(int,int)` 최대값 미포함 | `EnemyHealth.cs:139` | ⏳ |
+| B-104 | 비치명타 경로에 장비 증뎀 누락 | `EnemyHealth.cs:159,163` | ⏳ |
+| B-105 | `nomalizedHP = 1/fullHP` 정수 → 0 | `PlayerHealthManager.cs:149+` | ⏳ |
+| B-106 | 장비 해제 시 `HpDamage(fullHP - nowHp)`로 오히려 회복·이상 동작 | `PlayerHealthManager.cs:164-166` | ⏳ |
+| B-107 | 같은 이름 출혈 장비 2개 장착 시 Dictionary.Add 예외 | `EquipBoxCheck.cs:167` | ⏳ |
+| B-108 | 중복 재료 레시피 판정 오류(Ring×6) / 제작 시 공간 미확인 | `CraftingManager.cs:641-661` | ⏳ |
+| B-109 | 풀 재사용 시 HP바 이벤트 중복 구독 → 데미지바 여러 개 | `EnemyHealthBar.cs:24-25` | ⏳ |
+| B-110 | 순찰 리쉬 무효(originPosition을 매번 덮어씀) | `EnemyPatrol.cs:21` | ⏳ |
+| B-111 | SideRoad 포털 연결 끊김 / openMap null NRE | 씬 `Portal` | ⏳ |
+| B-112 | 세트 키가 빈 문자열 `""`로 쌓임, MinusSetDict KeyNotFound | `EquipBoxCheck.cs:246`, `DatabaseManager.cs:71` | ⏳ |
+| B-113 | 홀드 스킬이 다른 스킬 키를 떼도 종료됨 | `Skill.cs:96-100, 297` | ⏳ |
+| B-114 | 무적·슈퍼아머·이동정지 bool을 여러 출처가 덮어씀 (대시 종료가 다른 무적 해제) | `PlayerController.cs:602`, `DamageObject.cs:183` | ⏳ |
+
+## P2
+
+| ID | 내용 | 위치 |
+|---|---|---|
+| B-201 | DisaperByTime 재진입 → 이중 Release 예외 | `EnemyHealth.cs:500-511` |
+| B-202 | `CountInactive==0`이면 Destroy하는 패턴 → 풀 붕괴 | EnemyHealth, DeadBody, DropItemCheck |
+| B-203 | DropItemCheck의 120초 Invoke 미취소 → 재사용 아이템 조기 소멸 | `DropItemCheck.cs:26` |
+| B-204 | AttackSpawon이 풀 오브젝트 Destroy / Start에서만 예약 | `AttackSpawon.cs` |
+| B-205 | DOTween 시퀀스 미정리 → 파괴 후 콜백 MissingReference | `DamageObject.cs` 다수 |
+| B-206 | 독·출혈이 Destroy 후 Invoke 재호출 | `PosionAttack.cs`, `BleedingAttack.cs` |
+| B-207 | 각종 null 체크 누락(GetOb, bt.sequence, skill[0], enemyHealth) | 다수 |
+| B-208 | 리스너 중복 등록(sellSlider) / 0 나누기(buyprice) / 연산자 우선순위 | ShopManager, DivideSlider |
+| B-209 | CSV 파서: 빈 줄·따옴표 미처리, placeholder 행 로드 | `ItemDatabase.cs` |
+| B-210 | `new SetItem()`(MonoBehaviour new) | DatabaseManager, InventoryManager |
+
+## P3 (정리)
+
+- 디버그 키 제거: SaveManager의 Space 키, TimeChange의 0 키, testFunc의 F1 키.
+- 매 프레임 할당·조회 줄이기: Play 애니 재호출, LayerMask.GetMask, GetComponent, FindWithTag, Debug.Log.
+- 오타 정리: Stemina, Posion, Destory, Weqpon, Spowner 등. 직렬화 필드는 `FormerlySerializedAs`로 이름을 바꾼다.
+- 빈 클래스와 중복 코드 정리: ShopItemDrag, ShopCostUI, Equip/WeaponSmithUI, CameraResolution, HealthSystem 데모.
+- 벤더 코드 수정분 분리: Behavior Designer BehaviorTree.cs.
+- AnyPortrait Unity 6 경고: 새 버전으로 업데이트한다(캐시에 패키지 있음).
