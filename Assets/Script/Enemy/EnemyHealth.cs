@@ -219,6 +219,7 @@ public class EnemyHealth : PoolAble
         var result = DamageCalculator.Calculate(damage, DamageCalculator.PlayerOffense.FromDatabase(), enemyDef,
             isBleeding, isSkill, dmgRatio, UnityEngine.Random.value, UnityEngine.Random.Range(0f, 100f));
         isCrit = result.isCrit;
+        result.damage = Mathf.Max(1, Mathf.RoundToInt(result.damage * AscentLoad.OutgoingMul())); // 상승 부하: 부족분만큼 주는 피해 감소
         finDmg = result.damage;
         addDmg = result.extraDamage;
         GameLog.Info(GameLog.Cat.Combat, name + " 피격 " + result.damage + (result.isCrit ? " 치명" : "") + (result.extraDamage > 0 ? " +추가 " + result.extraDamage : "") + (isSkill ? " [스킬]" : "") + " HP " + nowHP + "→" + (nowHP - result.damage), this);

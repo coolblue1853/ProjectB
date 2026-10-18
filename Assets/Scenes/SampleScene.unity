@@ -67581,6 +67581,7 @@ MonoBehaviour:
   cameraBottom: -10
   floor: 0
   zoneTitle: Village at the Tower's Foot
+  ascentLoad: 0
 --- !u!1 &333948900
 GameObject:
   m_ObjectHideFlags: 0
@@ -214263,6 +214264,7 @@ MonoBehaviour:
   cameraBottom: -10
   floor: 1
   zoneTitle: Outskirts - Side Road
+  ascentLoad: 5
 --- !u!1001 &583335425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -400354,6 +400356,7 @@ MonoBehaviour:
   cameraBottom: -10
   floor: 1
   zoneTitle: Forest Outskirts
+  ascentLoad: 0
 --- !u!1 &1163439251
 GameObject:
   m_ObjectHideFlags: 0
@@ -552719,6 +552722,7 @@ MonoBehaviour:
   cameraBottom: -188
   floor: 2
   zoneTitle: Undercloud Cliffs
+  ascentLoad: 25
 --- !u!1 &1555372199
 GameObject:
   m_ObjectHideFlags: 0

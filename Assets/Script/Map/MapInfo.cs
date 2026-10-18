@@ -16,6 +16,8 @@ public class MapInfo : MonoBehaviour
     public int floor = 1;
     [Tooltip("지역 배너에 표시할 영문 구역 이름 (픽셀 폰트에 한글 없음)")]
     public string zoneTitle;
+    [Tooltip("상승 부하 (TowerWorld.md 7절). 외곽 0, 위로 갈수록 증가. 탐험가 칭호 ×15 로 저항")]
+    public int ascentLoad;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Hook()

@@ -10,6 +10,7 @@ foreach (var d in defs) {
   if (r == null) { r = ScriptableObject.CreateInstance<BossReward>(); AssetDatabase.CreateAsset(r, path); }
   r.setPieces = (string[])d[1]; r.uniqueItem = (string)d[2]; r.stoneMin = (int)d[3]; r.stoneMax = (int)d[4];
   r.displayName = (string)d[5];
+  r.grantsRank = (string)d[0] == "PassiveTerror_BD" ? 1 : (string)d[0] == "AbyssWizard_BD" ? 2 : 0; // 임시 층계 보스 승급
   r.portrait = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/ThirdParty/RPGMonstersIcon/default size/no shadow/" + d[6] + ".png");
   if (r.portrait == null) sb.Append("[초상 없음 " + d[6] + "] ");
   EditorUtility.SetDirty(r); sb.Append(d[0] + " ");

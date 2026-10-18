@@ -283,7 +283,7 @@ public class PlayerHealthManager : MonoBehaviour
             .AppendCallback(() => alphaSequence.Kill())
             .AppendCallback(() => isAlphaChange = false);
 
-            int dmgAfDef = DamageCalculator.IncomingToPlayer(damage, Def, StatMath.IncomingDamageMul);
+            int dmgAfDef = DamageCalculator.IncomingToPlayer(damage, Def, StatMath.IncomingDamageMul * AscentLoad.IncomingMul()); // 상승 부하: 받는 피해 증가
             HitFeedback.OnPlayerHit();
             HpDown(dmgAfDef);
             rb.linearVelocity = Vector2.zero;
