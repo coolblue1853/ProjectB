@@ -77,6 +77,34 @@ public sealed class InventoryService
         return true;
     }
 
+    /// <summary>세이브 배열로 모델을 채우고 슬롯 박스가 있는 칸을 전부 그린다(로드)</summary>
+    public void LoadFrom(string[,,] saved)
+    {
+        SlotContainer loaded = SaveMapper.FromArray(saved, CsvItemCatalog.Shared, inv.inventoryUI.Length, PerPage);
+        int drawn = 0;
+        for (int index = 0; index < loaded.Capacity; index++)
+        {
+            int page = index / PerPage, slot = index % PerPage;
+            if (slot >= inv.inventoryUI[page].transform.childCount)
+            {
+                if (!loaded[index].IsEmpty)
+                {
+                    GameLog.Warn(GameLog.Cat.Item, "세이브 아이템이 열린 칸 밖에 있음(보존): " + loaded[index]);
+                }
+                continue;
+            }
+            DrawSlot(index, loaded[index], null);
+            if (!loaded[index].IsEmpty)
+            {
+                drawn++;
+                OnItemAdded?.Invoke(loaded[index], AddSource.Load);
+            }
+        }
+        SyncModelFromViews();
+        inv.RebuildItemStackCache();
+        GameLog.Info(GameLog.Cat.Item, "인벤토리 로드: " + drawn + "칸");
+    }
+
     /// <summary>모델에서 바뀐 칸만 슬롯 GameObject 에 그린다 (아이템 오브젝트 생성·삭제·수량)</summary>
     void ApplyDirty(ItemData newData)
     {

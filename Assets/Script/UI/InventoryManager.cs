@@ -176,30 +176,7 @@ public class InventoryManager : MonoBehaviour
         {
             DatabaseManager.money = SaveManager.instance.datas.money;
             LoadEquipItem();
-            for (int i = 0; i < 5; i++)
-            {
-                int childCount = inventoryUI[i].transform.childCount;
-                if (childCount != 0)
-                {
-                    for (int j = 0; j < childCount; j++)
-                    {
-                        // 현재에는 단순히 아이템만  이름만 확인해서 가져오지만, 여기에 수정해서 현재 스택 수치, 강화수치 이런것도 가져와야함
-                        ItemStack saved = SaveMapper.ReadCell(SaveManager.instance.datas.invenItem, i, j);
-                        if (!saved.IsEmpty)
-                        {
-                            inventoryArray[j, i] = 1;
-                            GameObject insPositon = GetNthChildGameObject(inventoryUI[i], j);
-                            GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
-                            ItemCheck check = item.GetComponent<ItemCheck>();
-                            check.SetItem(saved.Id);
-                            check.nowStack = saved.Count;
-                            check.itemData.tear = saved.Tier;
-                            check.itemData.upgrade = saved.Upgrade;
-                            DatabaseManager.PlusInventoryDict(saved.Id, check.nowStack);
-                        }
-                    }
-                }
-            }
+            Service.LoadFrom(SaveManager.instance.datas.invenItem);
         }
     }
 
@@ -2004,9 +1981,9 @@ public class InventoryManager : MonoBehaviour
     public void DeletItemByName(string itemName, int count = 1)
     {
         int take = Mathf.Min(count, CountItem(itemName));
-        if (take > 0)
+        if (take > 0 && Service.Remove(itemName, take))
         {
-            Service.Remove(itemName, take);
+            SaveInventory(); // 차감도 즉시 저장 (이전엔 다음 획득 때까지 세이브에 남아 있었다)
         }
     }
 
