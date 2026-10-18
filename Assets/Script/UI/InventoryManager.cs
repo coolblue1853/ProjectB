@@ -998,11 +998,15 @@ public class InventoryManager : MonoBehaviour
     }
     void SellItem()
     {
-        detail.nowStack -= (int)sellSlider.value;
-        DatabaseManager.MinusInventoryDict(detail.name, (int)sellSlider.value);
-        if (detail.nowStack == 0)
+        int sellCount = (int)sellSlider.value;
+        if (!Service.RemoveAt(detail, sellCount))
         {
-            Destroy(detail.gameObject);
+            // 인벤토리 칸 밖(예외 경로)은 기존 방식
+            detail.nowStack -= sellCount;
+            if (detail.nowStack <= 0)
+            {
+                Destroy(detail.gameObject);
+            }
         }
         DatabaseManager.money += totalSellPrice;
         sellUIGameObject.SetActive(false);
@@ -1229,8 +1233,20 @@ public class InventoryManager : MonoBehaviour
             ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
             if (item.itemData.type == "Consum")
             {
-                item.ConsumItemActive();
-                DatabaseManager.MinusInventoryDict(item.name, 1);
+                item.ApplyConsumeEffect();
+                if (!Service.RemoveAt(item, 1))
+                {
+                    // 인벤토리 칸 밖(예외 경로): 수량만 직접 차감 (효과는 위에서 이미 적용)
+                    item.nowStack -= 1;
+                    if (item.nowStack <= 0)
+                    {
+                        Destroy(item.gameObject);
+                    }
+                }
+                else
+                {
+                    SaveInventory();
+                }
             }
         }
     }

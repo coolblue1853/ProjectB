@@ -77,6 +77,48 @@ public sealed class InventoryService
         return true;
     }
 
+    /// <summary>슬롯 GameObject 에 놓인 아이템의 모델 칸 번호. 인벤토리 칸이 아니면 -1</summary>
+    public int IndexOf(ItemCheck item)
+    {
+        if (item == null || item.transform.parent == null)
+        {
+            return -1;
+        }
+        Transform box = item.transform.parent;
+        for (int p = 0; p < inv.inventoryUI.Length; p++)
+        {
+            if (box.parent == inv.inventoryUI[p].transform)
+            {
+                int slot = box.GetSiblingIndex();
+                return slot < PerPage ? p * PerPage + slot : -1;
+            }
+        }
+        return -1;
+    }
+
+    /// <summary>특정 아이템(칸)에서 n 개를 뺀다(판매·소비). 인벤토리 칸이 아니거나 수량이 모자라면 false</summary>
+    public bool RemoveAt(ItemCheck item, int n)
+    {
+        int index = IndexOf(item);
+        if (index < 0 || n <= 0)
+        {
+            return false;
+        }
+        SyncModelFromViews();
+        ItemStack cur = model[index];
+        if (cur.IsEmpty || cur.Count < n)
+        {
+            return false;
+        }
+        model.TryRemoveAt(index);
+        if (cur.Count > n)
+        {
+            model.PutAt(index, cur.WithCount(cur.Count - n));
+        }
+        ApplyDirty(null);
+        return true;
+    }
+
     /// <summary>세이브 배열로 모델을 채우고 슬롯 박스가 있는 칸을 전부 그린다(로드)</summary>
     public void LoadFrom(string[,,] saved)
     {

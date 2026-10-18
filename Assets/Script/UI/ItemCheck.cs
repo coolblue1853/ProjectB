@@ -36,9 +36,20 @@ public class ItemCheck : MonoBehaviour
         LoadImage();
     }
     public AttackManager attackManager;
+    /// <summary>수량 1 감소 + 효과 적용 + 0이면 삭제 (예외 경로용. 인벤토리는 ApplyConsumeEffect + InventoryService.RemoveAt)</summary>
     public void ConsumItemActive()
     {
         nowStack -= 1;
+        ApplyConsumeEffect();
+        if (nowStack <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    /// <summary>소비 아이템 효과만 적용한다(수량은 건드리지 않음)</summary>
+    public void ApplyConsumeEffect()
+    {
         string[] effect = itemData.effectOb.Split("/");
         string[] effectPower = itemData.effectPow.Split("/");
 
@@ -109,10 +120,6 @@ public class ItemCheck : MonoBehaviour
             }
         }
 
-        if (this.nowStack == 0)
-        {
-            Destroy(this.gameObject);
-        }
     }
 
 
