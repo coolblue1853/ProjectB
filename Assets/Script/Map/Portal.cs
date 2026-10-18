@@ -26,12 +26,14 @@ public class Portal : MonoBehaviour
     {
         action = new KeyAction();
         upAction = action.UI.UPInventory;
-        openMapCheck = openMap.GetComponent<PoolCheck>();
-        closeMapCheck = closeMap.GetComponent<PoolCheck>();
+        // 열/닫을 맵이 없으면 같은 맵 안에서 위치만 옮기는 포털 (B-111)
+        isMapChange = openMap != null;
+        openMapCheck = openMap != null ? openMap.GetComponent<PoolCheck>() : null;
+        closeMapCheck = closeMap != null ? closeMap.GetComponent<PoolCheck>() : null;
     }
     private void Update()
     {
-        if (upAction.triggered == true && DatabaseManager.isUsePortal == false && isMapChange == true && player != null)
+        if (upAction.triggered == true && DatabaseManager.isUsePortal == false && isMapChange == true && player != null && destination != null)
         {
             player.transform.position = destination.position;
             Debug.Log("포탈작동");
@@ -44,7 +46,7 @@ public class Portal : MonoBehaviour
            .AppendInterval(1f)
            .OnComplete(() => OpenParrelx());
         }
-        else if (upAction.triggered == true && DatabaseManager.isUsePortal == false && isMapChange == false && player != null)
+        else if (upAction.triggered == true && DatabaseManager.isUsePortal == false && isMapChange == false && player != null && destination != null)
         {
             player.transform.position = destination.position;
             DatabaseManager.isUsePortal = true;
@@ -68,6 +70,10 @@ public class Portal : MonoBehaviour
     }
     void AbleCloseMap()
     {
+        if (closeMap == null)
+        {
+            return;
+        }
         closeMap.SetActive(false);
         if(closeMapCheck != null)
         {
