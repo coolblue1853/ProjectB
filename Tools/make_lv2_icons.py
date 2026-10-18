@@ -36,6 +36,19 @@ ICONS = {
     "Bringer's Sigil Ring": ("Nasty Rat Ring", 0.78, 1.4, 1.0),
 }
 
+# 기존에 아이콘이 없던 아이템(검증 리포트) 임시 아이콘
+ICONS.update({
+    "Rock": ("T0_Ore", 0.0, 0.3, 0.9),
+    "PickAxe": ("RustedSword", 0.08, 0.8, 1.0),
+    "ToxicPickAxe": ("PoisonSword", 0.0, 1.0, 1.0),
+    "Potion": ("Herbal Salad", 0.9, 1.3, 1.1),
+    "Food": ("Rabbit Meat Stew", 0.1, 1.0, 1.0),
+    "HighArmor": ("Armor", 0.6, 1.0, 1.0),
+    "Necklace": ("Green Wreath", 0.15, 0.8, 1.0),
+    "Ring": ("Shabby Straw Ring", 0.1, 1.0, 1.0),
+    "test4": ("Wood", 0.5, 1.0, 1.0),
+})
+
 # 방어구 AnyPortrait 텍스처
 TEXTURES = {"CliffArmor": ("LeafArmor", 0.45, 1.0, 1.0)}
 

@@ -33,6 +33,8 @@ namespace ProjectB.EditorTools
             "Membrane Wing", "Bloodshot Lens", "Ancient Bone", "Cracked Shield Shard", "Death Sigil", "Abyssal Core", "Roasted Fox Skewer",
             "CliffCap", "CliffArmor", "CliffLegArmor", "CliffHandArmor", "CliffShoes", "CliffStaff", "CliffBlade", "AbyssStaff",
             "Eye of the Cliffs", "Bringer's Sigil Ring",
+            // 기존에 아이콘이 없던 아이템 (임시)
+            "Rock", "PickAxe", "ToxicPickAxe", "Potion", "Food", "HighArmor", "Necklace", "Ring", "test4",
         };
 
         static string ImportIcons()
