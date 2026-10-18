@@ -59,6 +59,17 @@
 ### Q-201 ⏳ 주말 자동 실행
 - 평일 10% 예산만 지정됨. **[임시 가정]** 주말에는 자동 실행하지 않음.
 
+### Q-010 ⏳ 에셋스토어 패키지 다운로드 (사용자 작업 필요)
+- Unity 에디터가 로그인되어 있지 않아 Asset Store 패키지를 받을 수 없음. 현재 로컬 캐시에 있는 건 6개뿐(그중 All In 1 Sprite Shader만 새로 도입).
+- 요청: Unity 에디터 우상단 **Sign in** → Window > Package Manager > My Assets에서 아래를 **Download만**(Import는 Claude가 대화상자 없이 처리):
+  - 몬스터/보스(도트): Monsters_Creatures_Fantasy, Evil Wizard 2, Bringer Of Death (free), Medieval King Pack 2, Martial Hero, 2D Pixel - RPG Monster Pack
+  - 맵(도트): Magic Cliffs Pixel Art Environment, Underwater Fantasy
+  - 이펙트: Magic Slashes FX, Particle Pack
+  - UI/폰트: Free Pixel Font - Thaleah, Text Animator for Unity
+  - 사운드: 8-Bit Sfx, Free Frost Mage SFX, SoundBits Free Sound FX, Fantasy Music Suite 2, Free Fantasy Adventure Music Pack
+  - 기타: Quest Machine
+- **[임시 가정]** 받기 전까지는 기존 에셋 + 코드 개선 위주로 진행.
+
 ## 기획 (밸런스 / 시스템)
 
 ### Q-104 ⏳ Lv1 사냥터 = SideRoad로 교체
