@@ -2,7 +2,8 @@
 Pack Hunter(WolfArmor) = 늑대 회색 / Night Lantern(WispArmor) = 도깨비불 파랑.
 ③구역: Ancient Grove(GroveArmor) = 갈색·이끼 / Will-o'-Fae(FaeArmor) = 보라·분홍.
 ④구역: Bog Stalker(BogArmor) = 올리브·갈색 / Gloom Swarm(GloomArmor) = 핏빛 보라.
-⑤구역: Outlaw(OutlawArmor) = 검붉은 가죽 / Iron Raider(RaiderArmor) = 쇠빛 회색.  사용: python Tools/make_forest_sets.py"""
+⑤구역: Outlaw(OutlawArmor) = 검붉은 가죽 / Iron Raider(RaiderArmor) = 쇠빛 회색.
+⑥구역: Stoneborn(StoneArmor) = 돌 회색.  사용: python Tools/make_forest_sets.py"""
 import colorsys
 import os
 from PIL import Image
@@ -16,7 +17,9 @@ SETS = {"Wolf": (0.0, 0.15, 0.95), "Wisp": (0.28, 1.15, 1.1),
         # ④구역 늪지 (TowerWorld 14절): Bog Stalker = 탁한 올리브·갈색, Gloom Swarm = 어두운 핏빛 보라
         "Bog": (-0.1, 0.6, 0.68), "Gloom": (0.62, 0.7, 0.62),
         # ⑤구역 산적 성채 (TowerWorld 15절): Outlaw = 검붉은 가죽, Iron Raider = 쇠빛 회색(채도 낮게)
-        "Outlaw": (-0.3, 0.75, 0.72), "Raider": (0.25, 0.18, 0.9)}
+        "Outlaw": (-0.3, 0.75, 0.72), "Raider": (0.25, 0.18, 0.9),
+        # ⑥구역 탑 근교 (TowerWorld 16절): Stoneborn = 이끼 낀 돌 회색(채도 거의 없음, 약간 푸른빛)
+        "Stone": (0.2, 0.12, 0.82)}
 
 
 def shift(src, dst, h, s, v):

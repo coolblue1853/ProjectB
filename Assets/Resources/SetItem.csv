@@ -35,3 +35,6 @@ OutlawArmor_6,(+)12 AtkSpeed/(+)8 IncDmg
 RaiderArmor_2,(+)15 Def/(+)60 Hp
 RaiderArmor_4,(+)30 coolDown Shield_Shove/(+)35 coolDown Counter_Stance/(+)8 IncDmg
 RaiderArmor_6,(+)150 Hp/(+)20 Def/(+)10 CritDmg
+StoneArmor_2,(+)20 Def/(+)80 Hp
+StoneArmor_4,(+)30 coolDown Rolling_Charge/(+)30 coolDown Aftershock/(+)30 coolDown Boulder_Toss/(+)8 IncDmg
+StoneArmor_6,(+)25 Def/(+)180 Hp/(+)10 IncDmg

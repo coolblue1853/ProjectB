@@ -19,12 +19,16 @@ public class StraightArrow : MonoBehaviour
     [SerializeField] private float _angleJitter = 0f;   // 여러 발 쏠 때 퍼짐(도)
     [SerializeField] private Vector2 _spawnJitter = Vector2.zero; // 시작 위치 무작위 흩뿌림(화살 비)
     [SerializeField] private bool _isSkill = true;      // 평타 화살은 false
+    [SerializeField] private float _gravity = 0f;       // 0 이 아니면 포물선(유닛/초², 바위 투척 Monolith Shield)
+    [SerializeField] private bool _ignoreTerrain = false; // 땅을 타고 미는 충격파(Gatekeeper's Oath)는 지면에 닿아도 사라지지 않는다
 
     private Vector2 _dir;
     private int[] _damage;
     private int _hits;
     private readonly HashSet<EnemyHealth> _struck = new HashSet<EnemyHealth>();
     private static int s_terrainMask = -1;
+    private static int s_wallMask = -1;
+    private Rigidbody2D _rb;
 
     private void Start()
     {
@@ -38,12 +42,26 @@ public class StraightArrow : MonoBehaviour
         }
         transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(_dir.y, _dir.x) * Mathf.Rad2Deg);
         _damage = HomingOrb.WeaponDamage(_damageScale);
-        GetComponent<Rigidbody2D>().linearVelocity = _dir * _speed;
+        _rb = GetComponent<Rigidbody2D>();
+        _rb.linearVelocity = _dir * _speed;
         if (s_terrainMask < 0)
         {
             s_terrainMask = LayerMask.GetMask("Ground", "Wall");
+            s_wallMask = LayerMask.GetMask("Wall");
         }
         Destroy(gameObject, _life);
+    }
+
+    private void FixedUpdate()
+    {
+        if (_gravity == 0f || _rb == null)
+        {
+            return;
+        }
+        // Kinematic 이라 중력이 안 걸리므로 직접 낙하 속도를 더하고 진행 방향으로 돌린다
+        Vector2 v = _rb.linearVelocity + Vector2.down * (_gravity * Time.fixedDeltaTime);
+        _rb.linearVelocity = v;
+        transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -52,7 +70,8 @@ public class StraightArrow : MonoBehaviour
         {
             return; // Destroy 는 프레임 끝까지 미뤄진다 — 같은 물리 단계의 추가 타격 방지
         }
-        if (!other.isTrigger && ((1 << other.gameObject.layer) & s_terrainMask) != 0)
+        // 땅을 타는 충격파(_ignoreTerrain)도 벽에서는 사라진다
+        if (!other.isTrigger && ((1 << other.gameObject.layer) & (_ignoreTerrain ? s_wallMask : s_terrainMask)) != 0)
         {
             _hits = _pierce + 1;
             Destroy(gameObject);

@@ -182,3 +182,16 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 179,RaiderLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,RaiderArmor,Iron Raider Greaves,0,R,0,Iron Raider
 180,RaiderHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,RaiderArmor,Iron Raider Gauntlets,0,R,0,Iron Raider
 181,RaiderShoes,Equip,equipment,700,50,-,1,-,0,Shoes,RaiderArmor,Iron Raider Boots,0,R,0,Iron Raider
+182,PebbleGauntlet,Equip,equipment,500,2,-,1,-,0,Weapon,StoneArmor,Pebble Gauntlet,0,R,0,Stoneborn
+183,QuakestoneMaul,Equip,equipment,500,3,-,1,-,0,Weapon,StoneArmor,Quakestone Maul,0,R,0,Stoneborn
+184,MonolithShield,Equip,equipment,500,3,-,1,-,0,Weapon,StoneArmor,Monolith Shield,0,R,0,Stoneborn
+185,GatekeepersOath,Equip,equipment,9000,3,Boss,1,-,0,Weapon,,Gatekeeper's Oath,0,U,0,
+186,Golem Pebble,Misc,World,130,1,-,99,-,0,-,,Golem Pebble,0,C,0,
+187,Quake Core,Misc,World,150,1,-,99,-,0,-,,Quake Core,0,C,0,
+188,Monolith Shard,Misc,World,150,1,-,99,-,0,-,,Monolith Shard,0,C,0,
+189,Ruin Mote,Misc,World,140,1,-,99,-,0,-,,Ruin Mote,0,C,0,
+190,StoneCap,Equip,equipment,1000,50,-,1,-,0,Head,StoneArmor,Stoneborn Helm,0,R,0,Stoneborn
+191,StoneArmor,Equip,equipment,1200,50,-,1,-,0,Chest,StoneArmor,Stoneborn Plate,0,R,0,Stoneborn
+192,StoneLegArmor,Equip,equipment,1000,50,-,1,-,0,Leg,StoneArmor,Stoneborn Greaves,0,R,0,Stoneborn
+193,StoneHandArmor,Equip,equipment,1000,50,-,1,-,0,Hand,StoneArmor,Stoneborn Gauntlets,0,R,0,Stoneborn
+194,StoneShoes,Equip,equipment,800,50,-,1,-,0,Shoes,StoneArmor,Stoneborn Boots,0,R,0,Stoneborn
