@@ -59,7 +59,7 @@
 |---|---|---|
 | P1 ✅ | `EnhanceRules`(순수, 표·확률·보너스) + 테스트, `upgrade` 보존(B-014), 무기·방어구 보너스 적용, 강화석 아이템, 대장장이 강화 UI | EditMode 테스트, 프로브로 +N 장착 데미지/HP 변화·이동 후 유지 |
 | P2 ✅ | 정예 승격(`EnemyHealth.Promote`) + 외곽선·★ + 확정 드롭(`LootTable`) | 프로브 강제 승격 → 처치 → 드롭 목록 |
-| P3 🔶 | 보스 확정 드롭·고유템 천장·첫 처치 보너스, 보스 HP 초상(G10) | 프로브 반복 처치로 천장 확인 |
+| P3 ✅ | 보스 확정 드롭·고유템 천장·첫 처치 보너스, 보스 HP 초상(G10) | 프로브 반복 처치로 천장 확인 |
 | P4 | (선택) 디아식 랜덤 옵션(어픽스) — 아이템 인스턴스 데이터 확장 필요, InventoryRefactorDesign D2 이후 | — |
 
 ## 4.1 P1 구현 메모 (2026-10-18)
@@ -84,7 +84,7 @@
   - AbyssWizard_BD: Cliff 방어구 5 + CliffBlade·CliffStaff / 고유 AbyssStaff / 강화석 4~6
 - `EnemySpawner.OnEnemyReleased`에서 `isBossMob`이면 `BossLoot.Roll` → `DropGuaranteed`. ES3 `bossSinceUnique.<보스>`·`bossFirstKill.<보스>`.
 - 천장 판정 `BossLootRules.ShouldDropUnique`(테스트 3개).
-- 남은 것: 보스 HP바 초상(G10).
+- 보스 HP바 초상·이름 ✅ (`BossPortrait` — 바 오른쪽 초상, 바 아래 이름).
 
 ## 5. 열린 질문
 

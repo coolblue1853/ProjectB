@@ -89,6 +89,6 @@
 | G7 | Free Pixel Font Thaleah | `ThirdParty/Font/ThaleahFat_TMP`(비트맵·Point) → 데미지 숫자 프리팹 3종 적용, 크기 상향(일반 1.35·치명 1.9) | ✅ (영문 UI 적용 ⏳) |
 | G8 | Magic Slashes FX / Particle Pack | ✅ **도트화(GameFeelPlan 10.5): PixelVfxBaker로 8종 도트 베이크, Vfx가 도트로 재생** · `Vfx` 풀(프레임당 6개) + `Resources/FX/VfxLibrary`(3D 베기를 X-90°로 눕혀 2D화) · 평타 `Weapon.swingVfx` · 스킬 `Skill.castVfx`(Cliff/Abyss 무기 테마, `Lv2ItemBuilder.ApplyVfx`) · 치명 X자(CritCross) · 적중 스파크 `HitSparks`. `DustPuffs` 대시·착지 먼지 ✅ · `DropLightPillar` R 파랑/U 금색 빛 기둥 ✅· `DashAfterimage` 대시·스킬 대시 잔상(AnyPortrait 메시 33개 복사, 풀링) ✅ | ✅ |
 | G9 | Text Animator | ✅ 획득 로그 `PickupLog`(+순수 `PickupLogModel`, 테스트 4개): 좌하단 5줄·1.5초 병합·R/U `<wave>`+글로우·인벤 가득 경고. ⏳ 대사(Quest Machine G11과 함께)·세트 아이템 강조 | 🔶 |
-| G10 | RPG Monsters Icon | 몬스터 도감·픽업 로그·보스 HP바 초상 | ⏳ |
+| G10 | RPG Monsters Icon | ✅ 보스 HP바 초상·이름(`BossPortrait`, `BossReward.portrait/displayName`: PassiveTerror=undead_112, AbyssWizard=undead_110). ⏳ 도감 | 🔶 |
 | G11 | Quest Machine (+Dialogue System) | 마을 NPC 퀘스트(사냥·수집·제작) | ⏳ |
 | G12 | Feel | (보류) 스킬별 연출이 필요해지면 MMF_Player | 보류 |

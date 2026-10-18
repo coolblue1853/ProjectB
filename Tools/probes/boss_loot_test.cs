@@ -1,3 +1,4 @@
+// __BOSS__ = 보스 프리팹 이름 접두(PassiveTerror / AbyssWizard).
 // 보스 보상 테스트 (세이브 백업 필수): ① BossLoot.Roll 13회 — 12회 안에 고유템 보장 확인 ② PassiveTerror 스포너 경로로 보스 1마리 꺼내 처치 → 확정 드롭
 var sb = new System.Text.StringBuilder();
 var r = Resources.Load<BossReward>("Boss/PassiveTerror_BD");
@@ -11,7 +12,8 @@ var infosF = typeof(EnemySpawner).GetField("objectInfos", BF);
 foreach (var s2 in UnityEngine.Object.FindObjectsByType<EnemySpawner>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
   foreach (var info in (System.Collections.IEnumerable)infosF.GetValue(s2)) {
     var pf = (GameObject)info.GetType().GetField("perfab").GetValue(info);
-    if (pf != null && pf.name.Contains("PassiveTerror")) sp = s2;
+    var key0 = (string)info.GetType().GetField("objectName").GetValue(info);
+    if (pf != null && key0 == "enemy" && pf.name.StartsWith("__BOSS__")) sp = s2; // 보스 프리팹을 "enemy" 키로 스폰하는 스포너
   }
 }
 if (sp == null) return sb + "no boss spawner";

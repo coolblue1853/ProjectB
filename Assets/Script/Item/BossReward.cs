@@ -5,6 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ProjectB/Boss Reward")]
 public class BossReward : ScriptableObject
 {
+    [Header("Presentation (G10)")]
+    public string displayName;
+    [Tooltip("보스 HP바 초상 (RPG Monsters Icon)")]
+    public Sprite portrait;
+
     [Tooltip("확정 1개를 고르는 세트 부위·무기 후보")]
     public string[] setPieces;
     public string uniqueItem;

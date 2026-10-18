@@ -168,6 +168,7 @@ public class EnemyHealth : PoolAble
         if (isBossMob)
         {
             ActiveBossCount++;
+            BossPortrait.Ensure(this); // HP바 초상·이름 (G10)
         }
         bleedStacks = 0;
         isBleeding = false;
