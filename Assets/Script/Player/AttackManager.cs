@@ -7,6 +7,7 @@ public class AttackManager : MonoBehaviour
 {
     public apPortrait portrait;
     public Weapon equipWeapon;
+    readonly InputBuffer attackBuffer = new InputBuffer(0.1f);
     KeyAction action;
     InputAction attackAction;
     InputAction[] skillAction = new InputAction[4];
@@ -59,8 +60,20 @@ public class AttackManager : MonoBehaviour
     {
         if (DatabaseManager.isOpenUI == false && equipWeapon != null)
         {
-            if (attackAction.triggered ) equipWeapon.MeleeAttack();
+            // 평타 입력 0.1초 버퍼: 후딜이 끝나기 직전에 눌러도 콤보가 끊기지 않는다
+            if (attackAction.triggered)
+            {
+                attackBuffer.Press(Time.time);
+            }
+            if (equipWeapon.CanMeleeNow && attackBuffer.Consume(Time.time))
+            {
+                equipWeapon.MeleeAttack();
+            }
             SkillTriggeredCheck();
+        }
+        else
+        {
+            attackBuffer.Clear();
         }
     }
 

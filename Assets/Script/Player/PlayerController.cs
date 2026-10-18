@@ -226,28 +226,31 @@ public class PlayerController : MonoBehaviour
 
 
             // 점프
-            if (jumpAction.triggered && DatabaseManager.weaponStopMove == false)
+            // 점프 입력은 0.1초 버퍼링: 착지 직전·후딜 끝나기 직전에 눌러도 가능해지는 순간 점프한다
+            if (jumpAction.triggered)
             {
-                if (verticalInput < -0.5f && currentOneWayPlatform != null)
+                jumpBuffer.Press(Time.time);
+            }
+            if (jumpAction.triggered && DatabaseManager.weaponStopMove == false && verticalInput < -0.5f && currentOneWayPlatform != null)
+            {
+                jumpBuffer.Clear();
+                DisableCollision(); // 하향 점프는 누른 순간에만
+            }
+            else if (jumpBuffer.Peek(Time.time) && DatabaseManager.weaponStopMove == false && isWall == false && states != "dash")
+            {
+                // 코요테: 발판에서 걸어 내려간 직후에는 지상 점프로 인정
+                if (jumpsRemaining > 0 || coyote.InCoyote(Time.time))
                 {
-                  DisableCollision();
-                }
-                else if (isWall == true)
-                {
-                 //   WallJump();
-                }
-                else if ((isGround || jumpsRemaining > 0) && states != "dash")
-                {
-                    if(jumpsRemaining > 0)
+                    jumpBuffer.Consume(Time.time);
+                    if (jumpsRemaining <= 0)
                     {
-                        rb.gravityScale = 3;
-                        isUpLadder = false;
-                        ChangeLadderLayerOrder();
-                        Jump();
+                        jumpsRemaining = 1;
                     }
-
+                    rb.gravityScale = 3;
+                    isUpLadder = false;
+                    ChangeLadderLayerOrder();
+                    Jump();
                 }
-
             }
 
             // 대쉬 타이머 업데이트
@@ -636,6 +639,7 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         jumpsRemaining--;
         isGround = false;
+        coyote.NotifyJumped();
         // 점프 후에도 isGrounded를 false로 유지하여 FixedUpdate에서 다시 체크할 수 있도록 합니다.
         Invoke("ReturnIsGround", 0.2f);
     }
@@ -648,12 +652,24 @@ public class PlayerController : MonoBehaviour
     public GameObject groundCheck2;
     public bool isPlafromCheck = true;
     public bool isOnGround = true;
+    [SerializeField] private float _jumpBufferTime = 0.1f;
+    [SerializeField] private float _coyoteTime = 0.08f;
+    [SerializeField] private bool _fallConsumesGroundJump = true;
+    InputBuffer _jumpBuffer;
+    CoyoteTimer _coyote;
+    InputBuffer jumpBuffer => _jumpBuffer ?? (_jumpBuffer = new InputBuffer(_jumpBufferTime));
+    CoyoteTimer coyote => _coyote ?? (_coyote = new CoyoteTimer(_coyoteTime));
+    int groundMask;
     RaycastHit2D hit1;
     RaycastHit2D hit2;
     void FixedUpdate()
     {
-        hit1 = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, 0.3f, LayerMask.GetMask("Ground"));
-        hit2 = Physics2D.Raycast(groundCheck2.transform.position, Vector2.down, 0.3f, LayerMask.GetMask("Ground"));
+        if (groundMask == 0)
+        {
+            groundMask = LayerMask.GetMask("Ground"); // 매 프레임 문자열 조회 대신 1회 캐시
+        }
+        hit1 = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, 0.3f, groundMask);
+        hit2 = Physics2D.Raycast(groundCheck2.transform.position, Vector2.down, 0.3f, groundMask);
         Debug.DrawRay(groundCheck.transform.position, Vector2.down * 0.3f, Color.red);
 
         // 바닥 감지 레이캐스트
@@ -687,6 +703,13 @@ public class PlayerController : MonoBehaviour
         else
         {
             isGround = false;
+        }
+
+        // 메이플식: 점프 없이 발판에서 떨어지면 코요테 시간 뒤 공중 점프 1회만 남긴다 (Q-105 Q-B)
+        coyote.SetGrounded(isGround || isUpLadder, Time.time);
+        if (_fallConsumesGroundJump && coyote.FellPastCoyote(Time.time) && jumpsRemaining >= maxJumps)
+        {
+            jumpsRemaining = maxJumps - 1;
         }
 
         /*

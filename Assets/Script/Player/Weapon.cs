@@ -110,6 +110,9 @@ public class Weapon : MonoBehaviour
 
     public bool isSkillCancel = false;
 
+    /// <summary>지금 평타를 낼 수 있는지 (후딜·스킬 대기 끝)</summary>
+    public bool CanMeleeNow => isAttackWait == true && (isSkillAttackWait || isSkillCancel);
+
     public void MeleeAttack()
     {
         comboSequence.Kill();
