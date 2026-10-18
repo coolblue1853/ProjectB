@@ -47,7 +47,7 @@ public class DeadBody : PoolAble
             Rigidbody2D rb = partsObject[i].GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.velocity = Vector2.zero; // 속도 초기화
+                rb.linearVelocity = Vector2.zero; // 속도 초기화
                 rb.angularVelocity = 0f;    // 회전 속도 초기화
             }
         }

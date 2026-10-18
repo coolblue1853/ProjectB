@@ -234,7 +234,7 @@ public class PlayerHealthManager : MonoBehaviour
             damage = damage * (1 + ((DatabaseManager.incIncomingDmg) / 100));
             int dmgAfDef = (int)Mathf.Floor((float)damage * ((float)damage / ((float)damage + (float)Def))); // 방무 미적용   20 / 20 + 10
             HpDown(dmgAfDef);
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             if (DatabaseManager.isSuperArmor == false && stiffTime > 0)
             {
        

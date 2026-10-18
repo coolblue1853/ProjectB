@@ -121,11 +121,11 @@ public class DamageObject : MonoBehaviour
         }
         if (isLaunch && isTrackingEnemy)
         {
-            float currentSpeed = rigidbody2D.velocity.magnitude;
+            float currentSpeed = rigidbody2D.linearVelocity.magnitude;
             if (currentSpeed != desiredSpeed)
             {
-                Vector2 newVelocity = rigidbody2D.velocity.normalized * desiredSpeed;
-                rigidbody2D.velocity = newVelocity;
+                Vector2 newVelocity = rigidbody2D.linearVelocity.normalized * desiredSpeed;
+                rigidbody2D.linearVelocity = newVelocity;
             }
         }
 

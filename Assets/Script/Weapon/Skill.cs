@@ -409,7 +409,7 @@ public class Skill : MonoBehaviour
                 if (isWeaponStopMove == true)
                 {
                     DatabaseManager.weaponStopMove = true;
-                    rb.velocity = Vector2.zero;
+                    rb.linearVelocity = Vector2.zero;
                 }
 
                 float waitTime =0;
@@ -431,7 +431,7 @@ public class Skill : MonoBehaviour
         if (isWeaponStopMove == true)
         {
             DatabaseManager.weaponStopMove = true;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
         DatabaseManager.checkAttackLadder = true;
         weapon.isSkillAttackWait = false;

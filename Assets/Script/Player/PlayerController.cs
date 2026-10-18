@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 3f;
 
         }
-        if (rb.velocity.y ==0 && isJumpAnim == true && states != "dash")
+        if (rb.linearVelocity.y ==0 && isJumpAnim == true && states != "dash")
         {
             isJumpAnim = false;
         }
@@ -166,9 +166,9 @@ public class PlayerController : MonoBehaviour
             if (DatabaseManager.isOpenUI == false && isAttacked == false && isAttackedUp == true)
         {
             isAttackedUp = false;
-            if (rb.velocity != Vector2.zero )
+            if (rb.linearVelocity != Vector2.zero )
             {
-                rb.velocity = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
             }
         }
 
@@ -181,17 +181,17 @@ public class PlayerController : MonoBehaviour
             bc.isTrigger = true;
         }
 
-        if (DatabaseManager.isOpenUI == true && rb.velocity != Vector2.zero && once == false)
+        if (DatabaseManager.isOpenUI == true && rb.linearVelocity != Vector2.zero && once == false)
         {
             once = true;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
         if(DatabaseManager.isOpenUI == false && isAttacked == false)
         {
             once = false;
-            if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true)// isGround가 있으면 
+            if (rb.linearVelocity != Vector2.zero && DatabaseManager.weaponStopMove == true)// isGround가 있으면 
             {
-                rb.velocity = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
             }
 
             if (runAction.triggered && isRun == false && DatabaseManager.weaponStopMove == false && Mathf.Abs(horizontalInput) > 0 )
@@ -262,7 +262,7 @@ public class PlayerController : MonoBehaviour
             {
 
                 jumpsRemaining = maxJumps;
-                rb.velocity = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
                 rb.gravityScale = 0;
                 isUpLadder = true;
 
@@ -332,7 +332,7 @@ public class PlayerController : MonoBehaviour
 
             }
             // Applying velocity to the Rigidbody2D
-            rb.velocity = new Vector2(rb.velocity.x, moveVelocity.y);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, moveVelocity.y);
 
 
             if (horizontalInput < 0)
@@ -483,7 +483,7 @@ public class PlayerController : MonoBehaviour
                     .AppendCallback(() => RunChecker());
             }
             // Applying velocity to the Rigidbody2D
-            rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
+            rb.linearVelocity = new Vector2(moveVelocity.x, rb.linearVelocity.y);
         }
 
     }
@@ -539,7 +539,7 @@ public class PlayerController : MonoBehaviour
 
         rb.gravityScale = 0f;
         // 대쉬 속도로만 이동하도록 설정
-        rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
+        rb.linearVelocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
         // 대쉬 타이머 설정
         dashTimer = dashWait;
 
@@ -548,7 +548,7 @@ public class PlayerController : MonoBehaviour
         dashSequence = DOTween.Sequence()
         .AppendInterval(dashDuration) // 2초 대기
         .AppendCallback(() => rb.gravityScale = 3f)
-        .AppendCallback(() => rb.velocity = new Vector2(0f, 0f))
+        .AppendCallback(() => rb.linearVelocity = new Vector2(0f, 0f))
         .AppendCallback(() => states = "move");
     }
 
@@ -573,11 +573,11 @@ public class PlayerController : MonoBehaviour
         // 대쉬 속도로만 이동하도록 설정
         if(isBackDash == true)
         {
-            rb.velocity = new Vector2(transform.localScale.x * -dashSpd, transform.localScale.y * dashYSpeed);
+            rb.linearVelocity = new Vector2(transform.localScale.x * -dashSpd, transform.localScale.y * dashYSpeed);
         }
         else
         {
-            rb.velocity = new Vector2(transform.localScale.x * dashSpd, transform.localScale.y * dashYSpeed);
+            rb.linearVelocity = new Vector2(transform.localScale.x * dashSpd, transform.localScale.y * dashYSpeed);
         }
 
         moveSequence.Kill();
@@ -585,7 +585,7 @@ public class PlayerController : MonoBehaviour
         dashSequence = DOTween.Sequence()
         .AppendInterval(dashDu) //
         .AppendCallback(() => rb.gravityScale = 3f)
-        .AppendCallback(() => rb.velocity = new Vector2(0f, 0f))
+        .AppendCallback(() => rb.linearVelocity = new Vector2(0f, 0f))
          .AppendCallback(() => EndInvincibility(isDashInvins))
         .AppendCallback(() => states = "move");
     }
@@ -611,12 +611,12 @@ public class PlayerController : MonoBehaviour
         if (transform.localScale == new Vector3(-chInRommSize, chInRommSize, 1))
         {
             jumpsRemaining--;
-            rb.velocity = new Vector2(1, 1.5f) * wallJumpForce;
+            rb.linearVelocity = new Vector2(1, 1.5f) * wallJumpForce;
         }
         else
         {
             jumpsRemaining--;
-            rb.velocity = new Vector2(-1, 1.5f) * wallJumpForce;
+            rb.linearVelocity = new Vector2(-1, 1.5f) * wallJumpForce;
         }
         Invoke("ReturnIsGround", 0.2f);
         Sequence sequence = DOTween.Sequence()
@@ -650,7 +650,7 @@ public class PlayerController : MonoBehaviour
         boxColliderTrue = false;
         isWallReset = false;
         states = "jump";
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         jumpsRemaining--;
         isGround = false;
         // 점프 후에도 isGrounded를 false로 유지하여 FixedUpdate에서 다시 체크할 수 있도록 합니다.
@@ -847,7 +847,7 @@ public class PlayerController : MonoBehaviour
             if (collision.tag == "InGroundPlayer")
             {
                 //  Debug.Log(collision.name);
-                if (isJumpAnim == true && isUpLadder == false && rb.velocity.y == 0 && states != "dash" && isAttackAnim == false)
+                if (isJumpAnim == true && isUpLadder == false && rb.linearVelocity.y == 0 && states != "dash" && isAttackAnim == false)
                 {
                     isJumpAnim = false;
                     mainCharacter.Play("Idle");

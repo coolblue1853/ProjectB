@@ -52,11 +52,11 @@ public class EnemyDamageObject : PoolAble
     {
         if (isLaunch && isGravityFall ==false && isEndInit == true)
         {
-            float currentSpeed = rigidbody2D.velocity.magnitude;
+            float currentSpeed = rigidbody2D.linearVelocity.magnitude;
             if (currentSpeed != desiredSpeed)
             {
-                Vector2 newVelocity = rigidbody2D.velocity.normalized * desiredSpeed;
-                rigidbody2D.velocity = newVelocity;
+                Vector2 newVelocity = rigidbody2D.linearVelocity.normalized * desiredSpeed;
+                rigidbody2D.linearVelocity = newVelocity;
             }
         }
 
@@ -77,7 +77,7 @@ public class EnemyDamageObject : PoolAble
         // 발사 직전 충돌 가능하게 변경
         if (rigidbody2D != null)
         {
-            rigidbody2D.velocity = Vector2.zero;
+            rigidbody2D.linearVelocity = Vector2.zero;
             rigidbody2D.angularVelocity = 0f;
         }
 

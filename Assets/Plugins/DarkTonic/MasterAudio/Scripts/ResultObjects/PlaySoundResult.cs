@@ -5,7 +5,7 @@ namespace DarkTonic.MasterAudio {
     /// <summary>
     /// This class is returned from MasterAudio.PlaySound methods unless you choose one of the 'AndForget' methods. It tells you whether the sound was played, scheduled or neither. It also contains a reference to the Variation used to play the sound.
     /// </summary>
-    [SerializeField]
+    [System.Serializable]
     // ReSharper disable once CheckNamespace
     public class PlaySoundResult {
         public PlaySoundResult() {

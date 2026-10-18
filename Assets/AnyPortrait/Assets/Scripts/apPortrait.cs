@@ -1694,7 +1694,7 @@ namespace AnyPortrait
 								expectedVel.x = Mathf.Clamp(expectedVel.x, -100.0f, 100.0f);
 								expectedVel.y = Mathf.Clamp(expectedVel.y, -100.0f, 100.0f);
 
-								Vector2 curVelocity = _rootMotionValidated_BaseCom_Rigidbody2D.velocity;//현재 속도
+								Vector2 curVelocity = _rootMotionValidated_BaseCom_Rigidbody2D.linearVelocity;//현재 속도
 
 								//[X 축 - 옵션에 따라 조정]
 								if(isVelocityCorrection_X)
@@ -1729,7 +1729,7 @@ namespace AnyPortrait
 								}
 
 								//속도 보정
-								_rootMotionValidated_BaseCom_Rigidbody2D.velocity = curVelocity;
+								_rootMotionValidated_BaseCom_Rigidbody2D.linearVelocity = curVelocity;
 							}
 
 							//위치 이동
@@ -1752,7 +1752,7 @@ namespace AnyPortrait
 								expectedVel.y = Mathf.Clamp(expectedVel.y, -100.0f, 100.0f);
 								expectedVel.z = Mathf.Clamp(expectedVel.z, -100.0f, 100.0f);
 
-								Vector3 curVelocity = _rootMotionValidated_BaseCom_Rigidbody3D.velocity;//현재 속도
+								Vector3 curVelocity = _rootMotionValidated_BaseCom_Rigidbody3D.linearVelocity;//현재 속도
 
 								//[X/Z 축 - 옵션에 따라 조정] > 3D에서는 Z 축도 X옵션에 포함시킨다.
 								if(isVelocityCorrection_X)
@@ -1789,7 +1789,7 @@ namespace AnyPortrait
 								}
 
 								//속도 보정
-								_rootMotionValidated_BaseCom_Rigidbody3D.velocity = curVelocity;
+								_rootMotionValidated_BaseCom_Rigidbody3D.linearVelocity = curVelocity;
 							}
 
 							//위치 이동

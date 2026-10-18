@@ -7573,9 +7573,9 @@ namespace AnyPortrait
 			//유니티 2020부터 체크
 			//RenderPipelineAsset의 이름을 체크하자. 패키지가 설치되지 않을 수 있기 때문에
 #if UNITY_2020_1_OR_NEWER
-			if(UnityEngine.Rendering.GraphicsSettings.renderPipelineAsset != null)
+			if(UnityEngine.Rendering.GraphicsSettings.defaultRenderPipeline != null)
 			{
-				string renderPipelineAssetName = UnityEngine.Rendering.GraphicsSettings.renderPipelineAsset.GetType().FullName;
+				string renderPipelineAssetName = UnityEngine.Rendering.GraphicsSettings.defaultRenderPipeline.GetType().FullName;
 				if(renderPipelineAssetName.Contains("Universal"))
 				{
 					return RENDER_PIPELINE_ENV_RESULT.URP;
@@ -7605,9 +7605,9 @@ namespace AnyPortrait
 			//유니티 2022부터 체크
 			//RenderPipelineAsset의 이름을 체크하자. 패키지가 설치되지 않을 수 있기 때문에
 #if UNITY_2022_1_OR_NEWER
-			if(UnityEngine.Rendering.GraphicsSettings.renderPipelineAsset != null)
+			if(UnityEngine.Rendering.GraphicsSettings.defaultRenderPipeline != null)
 			{
-				string renderPipelineAssetName = UnityEngine.Rendering.GraphicsSettings.renderPipelineAsset.GetType().FullName;
+				string renderPipelineAssetName = UnityEngine.Rendering.GraphicsSettings.defaultRenderPipeline.GetType().FullName;
 				return renderPipelineAssetName.Contains("Universal");
 			}
 #endif

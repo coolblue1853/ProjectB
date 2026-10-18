@@ -392,7 +392,7 @@ public class EnemyHealth : PoolAble
 
         if (rb != null)
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             if (x> transform.position.x && isDirChange == true)
             {
                 knockbackDir.x = -knockbackDir.x;
@@ -400,7 +400,7 @@ public class EnemyHealth : PoolAble
             // 힘을 가해 넉백을 적용
             rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
             //    transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
-            Vector2 currentVelocity = rb.velocity;
+            Vector2 currentVelocity = rb.linearVelocity;
 
 
             // x 속도가 최대값을 초과하는지 확인하고, 초과하면 최대값으로 설정
@@ -416,7 +416,7 @@ public class EnemyHealth : PoolAble
             }
 
             // 최종 속도 적용
-            rb.velocity = currentVelocity;
+            rb.linearVelocity = currentVelocity;
         }
 
     }

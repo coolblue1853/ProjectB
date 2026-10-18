@@ -58,7 +58,7 @@ public class DropItemCheck : PoolAble
     {
         if (collision.transform.tag == "Ground"|| collision.transform.tag == "Wall" || collision.transform.tag == "InGroundPlayer")
         {
-            rigidbody.velocity = Vector2.zero;
+            rigidbody.linearVelocity = Vector2.zero;
             rigidbody.gravityScale = 0;
             //boxCollider2D.isTrigger = true;
             this.gameObject.layer = 1;
