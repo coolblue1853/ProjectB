@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CliffSkeleton_Override
+  m_Controller: {fileID: 9100000, guid: 4004c05325183544eac0e500b178d2a7, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 3d8bfc867aab8ed4db378cdeb16df799, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8f5e0a37f02ac034991846ab771f0a55, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c50a53eb95394ca449dc5380ef33fd19, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bbf76761935dbac4d85ea956037aae14, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e2b3660184e28e24ab8c489c404d6282, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 88313d0d993e55144a2ac5f1fae6800d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b2cc75cb4dfe3dc4aaadaa9a40a50977, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 99773cab920a47644ac7c36ed3d43e38, type: 2}

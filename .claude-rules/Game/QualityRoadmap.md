@@ -76,7 +76,7 @@
 |---|---|---|---|
 | G1 | All In 1 Sprite Shader | 피격 플래시·디졸브·드롭 등급 외곽선 | ✅ |
 | G2 | 음악팩 2종 | 상황별 BGM(마을/필드/밤/보스), 보스 처치 승리 팡파레 | 🔶 (팡파레 ⏳) |
-| G3 | Monsters Creatures Fantasy / Evil Wizard 2 / Bringer | Lv2 몬스터·엘리트·보스 프리팹(`Editor/Dev/MonsterBuilder`) | 🔶 Goblin ✅ |
+| G3 | Monsters Creatures Fantasy / Evil Wizard 2 / Bringer | Lv2 몬스터·엘리트·보스 프리팹(`Editor/Dev/MonsterBuilder`, `Tools/probes/build_lv2_monsters.cs`) | ✅ 6종 생성(맵 배치는 G4) |
 | G4 | Magic Cliffs | Lv2 맵 타일·패럴랙스 | ⏳ |
 | G5 | Odin Inspector | 데이터 편집 창(ItemSheet/SetItem CSV 브라우저·검증), 신규 컴포넌트 인스펙터 정리 | ⏳ |
 | G6 | 8-Bit Sfx / Frost Mage SFX / SoundBits | 타격·치명·처치·픽업·레벨·UI 효과음 → MasterAudio 그룹 + HitFeedback 연결 | ⏳ |

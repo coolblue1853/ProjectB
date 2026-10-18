@@ -25,8 +25,8 @@ namespace ProjectB.EditorTools
             public string SheetFolder;       // 스프라이트시트 폴더
             public float WorldPxPerUnit = 24f; // 목표 텍셀 밀도 (Lv2ContentPlan 1.3)
             public int FrameHeight = 150;
-            public int FeetRowFromTop = 101; // 1프레임 알파 bbox 하단(위에서부터)
-            public Vector2 BodyPx = new Vector2(33, 36);
+            public int FeetRowFromTop = -1; // 1프레임 알파 bbox 하단(위에서부터). -1이면 첫 Idle 프레임에서 자동 계산
+            public Vector2 BodyPx = Vector2.zero; // 0이면 자동 계산
             public bool FlipX;
             public float Fps = 12f;
             public int MaxHp = 100;
@@ -50,6 +50,7 @@ namespace ProjectB.EditorTools
                 return "템플릿 없음: " + s.Template;
             }
             float templateScale = Mathf.Abs(template.transform.localScale.x);
+            AutoMeasure(s, log);
             float ppu = s.WorldPxPerUnit * templateScale;
             var tbox = template.GetComponent<BoxCollider2D>();
             float feetLocal = tbox != null ? tbox.offset.y - tbox.size.y / 2f : -1f;
@@ -58,9 +59,9 @@ namespace ProjectB.EditorTools
             log.Append(s.Name + ": ppu=" + ppu.ToString("F2") + " pivotY=" + pivotY.ToString("F3") + " ");
 
             // 1) 시트 임포트 설정: PPU + 커스텀 피벗(발이 템플릿 발 위치에 오도록)
-            foreach (string sheet in s.ClipMap.Values.Concat(new[] { s.DeathSheet }).Distinct())
+            foreach (string file in s.ClipMap.Values.Concat(new[] { s.DeathSheet }).Select(v => SheetPath(s, v)).Distinct())
             {
-                ConfigureSheet(SheetPath(s, sheet), ppu, pivotY);
+                ConfigureSheet(file, ppu, pivotY);
             }
 
             // 2) 클립 생성
@@ -70,7 +71,7 @@ namespace ProjectB.EditorTools
             foreach (var kv in s.ClipMap)
             {
                 bool loop = !kv.Key.ToLower().Contains("attack");
-                clips[kv.Key] = MakeClip(SheetPath(s, kv.Value), animDir + s.Name.Replace("_BD", "") + "_" + kv.Value.Replace(" ", "") + ".anim", s.Fps, loop);
+                clips[kv.Key] = MakeClip(SpritesFor(s, kv.Value), animDir + s.Name.Replace("_BD", "") + "_" + kv.Key + ".anim", s.Fps, loop);
             }
 
             // 3) Override Controller
@@ -107,7 +108,7 @@ namespace ProjectB.EditorTools
                 root.name = s.Name;
                 root.GetComponent<Animator>().runtimeAnimatorController = ovr;
                 var sr = root.GetComponent<SpriteRenderer>();
-                Sprite first = FirstSprite(SheetPath(s, s.ClipMap.Values.First()));
+                Sprite first = SpritesFor(s, s.ClipMap.Values.First()).FirstOrDefault();
                 if (sr != null)
                 {
                     sr.sprite = first;
@@ -142,7 +143,66 @@ namespace ProjectB.EditorTools
             return log.ToString();
         }
 
-        static string SheetPath(Spec s, string sheet) => s.SheetFolder.TrimEnd('/') + "/" + sheet + ".png";
+        /// <summary>"Sheet" 또는 "Sheet#3-9"(시트 내 스프라이트 순번 구간, 양끝 포함)</summary>
+        static string SheetPath(Spec s, string sheet) => s.SheetFolder.TrimEnd('/') + "/" + sheet.Split('#')[0] + ".png";
+
+        static List<Sprite> SpritesFor(Spec s, string sheet)
+        {
+            List<Sprite> all = Sprites(SheetPath(s, sheet));
+            int hash = sheet.IndexOf('#');
+            if (hash < 0)
+            {
+                return all;
+            }
+            string[] r = sheet.Substring(hash + 1).Split('-');
+            int a = int.Parse(r[0]), b = int.Parse(r[1]);
+            return all.Where(sp => { var m = Regex.Match(sp.name, @"(\d+)$"); int i = m.Success ? int.Parse(m.Value) : -1; return i >= a && i <= b; }).ToList();
+        }
+
+        /// <summary>첫 클립 첫 프레임의 알파 bbox로 발 위치(위에서부터 행)와 몸통 크기(px)를 구한다</summary>
+        static void AutoMeasure(Spec s, StringBuilder log)
+        {
+            if (s.FeetRowFromTop >= 0 && s.BodyPx != Vector2.zero)
+            {
+                return;
+            }
+            Sprite sp = SpritesFor(s, s.ClipMap.Values.First()).FirstOrDefault();
+            if (sp == null)
+            {
+                return;
+            }
+            var tex = new Texture2D(2, 2);
+            tex.LoadImage(File.ReadAllBytes(AssetDatabase.GetAssetPath(sp.texture)));
+            Rect r = sp.rect;
+            int minX = int.MaxValue, maxX = -1, minY = int.MaxValue, maxY = -1;
+            for (int y = (int)r.y; y < (int)(r.y + r.height); y++)
+            {
+                for (int x = (int)r.x; x < (int)(r.x + r.width); x++)
+                {
+                    if (tex.GetPixel(x, y).a > 0.1f)
+                    {
+                        minX = Mathf.Min(minX, x); maxX = Mathf.Max(maxX, x);
+                        minY = Mathf.Min(minY, y); maxY = Mathf.Max(maxY, y);
+                    }
+                }
+            }
+            Object.DestroyImmediate(tex);
+            if (maxX < 0)
+            {
+                return;
+            }
+            s.FrameHeight = (int)r.height;
+            // 텍스처 좌표는 아래가 0 → 위에서부터 행 = 높이 - (minY - r.y)
+            if (s.FeetRowFromTop < 0)
+            {
+                s.FeetRowFromTop = (int)r.height - (minY - (int)r.y);
+            }
+            if (s.BodyPx == Vector2.zero)
+            {
+                s.BodyPx = new Vector2(maxX - minX + 1, maxY - minY + 1);
+            }
+            log.Append("bbox " + s.BodyPx + " feetRow=" + s.FeetRowFromTop + " frameH=" + s.FrameHeight + " ");
+        }
 
         static void ConfigureSheet(string path, float ppu, float pivotY)
         {
@@ -177,12 +237,11 @@ namespace ProjectB.EditorTools
 
         static Sprite FirstSprite(string path) => Sprites(path).FirstOrDefault();
 
-        static AnimationClip MakeClip(string sheetPath, string clipPath, float fps, bool loop)
+        static AnimationClip MakeClip(List<Sprite> sprites, string clipPath, float fps, bool loop)
         {
-            List<Sprite> sprites = Sprites(sheetPath);
             if (sprites.Count == 0)
             {
-                Debug.LogWarning("[PB][Build] 스프라이트 없음: " + sheetPath);
+                Debug.LogWarning("[PB][Build] 스프라이트 없음: " + clipPath);
                 return null;
             }
             var clip = new AnimationClip { frameRate = fps };
@@ -206,7 +265,7 @@ namespace ProjectB.EditorTools
         {
             string path = "Assets/Prefab/Enemy/Lv2/" + s.Name.Replace("_BD", "") + "DeadBody.prefab";
             Directory.CreateDirectory("Assets/Prefab/Enemy/Lv2");
-            AnimationClip death = MakeClip(SheetPath(s, s.DeathSheet), animDir + s.Name.Replace("_BD", "") + "_DeathOnce.anim", s.Fps, false);
+            AnimationClip death = MakeClip(SpritesFor(s, s.DeathSheet), animDir + s.Name.Replace("_BD", "") + "_DeathOnce.anim", s.Fps, false);
             var ctrl = AnimatorController.CreateAnimatorControllerAtPath(animDir + s.Name.Replace("_BD", "") + "_Death.controller");
             ctrl.layers[0].stateMachine.AddState("Death").motion = death;
 
@@ -217,7 +276,7 @@ namespace ProjectB.EditorTools
             float templateScale = Mathf.Abs(AssetDatabase.LoadAssetAtPath<GameObject>(PrefabDir + s.Template + ".prefab").transform.localScale.x);
             body.transform.localScale = Vector3.one * templateScale;
             var sr = body.AddComponent<SpriteRenderer>();
-            sr.sprite = death != null ? FirstSprite(SheetPath(s, s.DeathSheet)) : null;
+            sr.sprite = SpritesFor(s, s.DeathSheet).FirstOrDefault();
             sr.flipX = s.FlipX;
             var tsr = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabDir + s.Template + ".prefab").GetComponent<SpriteRenderer>();
             if (tsr != null)
