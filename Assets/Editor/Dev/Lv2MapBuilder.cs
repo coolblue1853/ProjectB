@@ -206,6 +206,7 @@ namespace ProjectB.EditorTools
             root.SetActive(false);
             EditorSceneManager.MarkSceneDirty(root.scene);
             EditorSceneManager.SaveScene(root.scene);
+            log.Append(Lv2ItemBuilder.ApplyDrops()); // 맵을 다시 만들어도 드롭 테이블 유지
             return "Lv2 생성: 발판 " + Platforms.GetLength(0) + ", 로프 " + Ropes.GetLength(0) + ", 스포너 " + Spawns.Length + " | " + log;
         }
 

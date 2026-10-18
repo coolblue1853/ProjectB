@@ -50595,7 +50595,19 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Goblin Fang
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: Tarnished Goblin Coin
+    dropProbability: 0.06
+    offsetY: 0.5
+  - itemName: Fox Meat
+    dropProbability: 0.1
+    offsetY: 0.5
+  - itemName: CliffLegArmor
+    dropProbability: 0.002
+    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -349063,7 +349075,19 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Ancient Bone
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: Cracked Shield Shard
+    dropProbability: 0.08
+    offsetY: 0.5
+  - itemName: T1_Ore
+    dropProbability: 0.1
+    offsetY: 0.5
+  - itemName: CliffArmor
+    dropProbability: 0.0015
+    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -412529,7 +412553,25 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Death Sigil
+    dropProbability: 0.6
+    offsetY: 0.5
+  - itemName: Ancient Bone
+    dropProbability: 1
+    offsetY: 0.5
+  - itemName: CliffArmor
+    dropProbability: 0.05
+    offsetY: 0.5
+  - itemName: CliffBlade
+    dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: CliffStaff
+    dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: Bringer's Sigil Ring
+    dropProbability: 0.03
+    offsetY: 0.5
   objectInfos:
   - objectName: Necklace of Silent Screams
     count: 1
@@ -468570,7 +468612,22 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Goblin Fang
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: Tarnished Goblin Coin
+    dropProbability: 0.05
+    offsetY: 0.5
+  - itemName: T1_Ore
+    dropProbability: 0.1
+    offsetY: 0.5
+  - itemName: CliffShoes
+    dropProbability: 0.002
+    offsetY: 0.5
+  - itemName: CliffBlade
+    dropProbability: 0.0008
+    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -522544,7 +522601,22 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Goblin Fang
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: Tarnished Goblin Coin
+    dropProbability: 0.05
+    offsetY: 0.5
+  - itemName: Cliff Fox Pelt
+    dropProbability: 0.08
+    offsetY: 0.5
+  - itemName: CliffLegArmor
+    dropProbability: 0.002
+    offsetY: 0.5
+  - itemName: CliffBlade
+    dropProbability: 0.0008
+    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -524438,7 +524510,40 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Abyssal Core
+    dropProbability: 1
+    offsetY: 0.5
+  - itemName: Death Sigil
+    dropProbability: 0.5
+    offsetY: 0.5
+  - itemName: CliffCap
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: CliffArmor
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: CliffLegArmor
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: CliffHandArmor
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: CliffShoes
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: CliffStaff
+    dropProbability: 0.1
+    offsetY: 0.5
+  - itemName: CliffBlade
+    dropProbability: 0.1
+    offsetY: 0.5
+  - itemName: Eye of the Cliffs
+    dropProbability: 0.05
+    offsetY: 0.5
+  - itemName: AbyssStaff
+    dropProbability: 0.03
+    offsetY: 0.5
   objectInfos:
   - objectName: Necklace of Silent Screams
     count: 1
@@ -524597,7 +524702,16 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Glowing Spore
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: Spongy Mushroom Cap
+    dropProbability: 0.1
+    offsetY: 0.5
+  - itemName: CliffCap
+    dropProbability: 0.002
+    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -543079,7 +543193,19 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Membrane Wing
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: Bloodshot Lens
+    dropProbability: 0.05
+    offsetY: 0.5
+  - itemName: CliffStaff
+    dropProbability: 0.0008
+    offsetY: 0.5
+  - itemName: Eye of the Cliffs
+    dropProbability: 0.0005
+    offsetY: 0.5
   objectInfos:
   - objectName: LeafAdae
     count: 1
@@ -561840,7 +561966,22 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Ancient Bone
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: Cracked Shield Shard
+    dropProbability: 0.08
+    offsetY: 0.5
+  - itemName: T1_Ore
+    dropProbability: 0.1
+    offsetY: 0.5
+  - itemName: CliffArmor
+    dropProbability: 0.0015
+    offsetY: 0.5
+  - itemName: CliffHandArmor
+    dropProbability: 0.002
+    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -567547,7 +567688,19 @@ MonoBehaviour:
     m_Bits: 16392
   itemPrefab: {fileID: 179528684802123196, guid: ae55a2d35c8aa1a478625b67a9d6691a,
     type: 3}
-  dropItems: []
+  dropItems:
+  - itemName: Glowing Spore
+    dropProbability: 0.15
+    offsetY: 0.5
+  - itemName: Spongy Mushroom Cap
+    dropProbability: 0.1
+    offsetY: 0.5
+  - itemName: GreenHurb
+    dropProbability: 0.02
+    offsetY: 0.5
+  - itemName: CliffCap
+    dropProbability: 0.002
+    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1

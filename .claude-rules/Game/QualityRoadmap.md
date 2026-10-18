@@ -59,7 +59,7 @@
 | E1 | Rat / Scare 세트 효과 정의(ItemSpec 제안안) | ⏳ |
 | E2 | SideRoad 포털 연결(B-111) | ⏳ |
 | E3 | BGM 추가: 마을 / 사냥터 / 밤 / 보스 (보유 음악팩) — `Audio/BgmDirector` + MasterAudio 재생목록 Town/Field/Night/Boss/Victory | ✅ (승리 팡파레 연결 ⏳) |
-| E4 | Lv2 사냥터 + 신규 몬스터 3종 + 세트 1종 (Luiz Melo 도트 팩, Magic Cliffs) | ⏳ |
+| E4 | Lv2 사냥터 + 신규 몬스터 + 세트 — 맵 ✅, 몬스터 6종 ✅, 아이템 24·Cliff 세트 2/4/6·드롭 10 ✅, 제작 레시피 ⏳, 스킬 이펙트 교체 ⏳ | 🔶 |
 
 ## F. 성능 · 코드 품질
 

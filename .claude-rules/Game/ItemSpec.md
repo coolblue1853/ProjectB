@@ -68,7 +68,19 @@
 - LeafArmor는 5부위다.
 - RatArmor와 ScareArmor는 효과 정의가 없다.
 
-**제안 (미반영, Q-102):**
+**Lv2 세트 Cliffwalker's Vow (`CliffArmor`, 6부위 = 방어구 5 + Cliff 무기):**
+
+| 키 | 효과 |
+|---|---|
+| CliffArmor_2 | Def +15, Crit +5 |
+| CliffArmor_4 | IncDmg +10, Cyclone Edge 쿨감 20, Starfall 쿨감 20 |
+| CliffArmor_6 | CritDmg +20, AtkSpeed +10, Skybreaker·Cliff Quake·Talon Dive 쿨감 30 |
+
+- 무기 CliffBlade(16~24, 치명 10, 치피 20 / 스킬: Gale Slash, Cyclone Edge, Skybreaker, Talon Dive), CliffStaff(14~24, 스킬뎀 20 / Arcane Bolt, Starfall, Cliff Quake), 유니크 AbyssStaff(22~34, 스킬뎀 30, 최종뎀 10)
+- 스킬 연출은 Scare 무기 복제 상태(임시) → G8(Magic Slashes FX)에서 교체. skillHitCount·bulletCount 강화는 스킬 방식(다단·원형) 확정 후 추가
+- 생성·재생성: `Tools/probes/build_lv2_items.cs` (Editor/Dev/Lv2ItemBuilder). 아이콘·텍스처는 기존 에셋 색조 변환 임시본(`Tools/make_lv2_icons.py`)
+
+**(구) 제안 (미반영, Q-102):**
 
 | 키 | 효과 |
 |---|---|

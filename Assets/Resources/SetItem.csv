@@ -8,3 +8,6 @@ RatArmor_2,(+)3 Poison/(+)5 Crit
 RatArmor_5,(+)8 Poison/(+)15 CritDmg/(+)10 MoveSpeed
 ScareArmor_2,(+)10 Def/(+)5 IncDmg
 ScareArmor_5,(+)15 IncDmg/(+)15 AtkSpeed/(+)50 Hp
+CliffArmor_2,(+)15 Def/(+)5 Crit
+CliffArmor_4,(+)10 IncDmg/(+)20 coolDown Cyclone_Edge/(+)20 coolDown Starfall
+CliffArmor_6,(+)20 CritDmg/(+)10 AtkSpeed/(+)30 coolDown Skybreaker/(+)30 coolDown Cliff_Quake/(+)30 coolDown Talon_Dive
