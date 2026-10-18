@@ -59,7 +59,7 @@
 ### Q-201 ⏳ 주말 자동 실행
 - 평일 10% 예산만 지정됨. **[임시 가정]** 주말에는 자동 실행하지 않음.
 
-### Q-010 ⏳ 에셋스토어 패키지 다운로드 (사용자 작업 필요)
+### Q-010 ✅ 에셋스토어 패키지 다운로드 → 사용자 에디터 로그인 후 내부 API로 18종 자동 다운로드
 - Unity 에디터가 로그인되어 있지 않아 Asset Store 패키지를 받을 수 없음. 현재 로컬 캐시에 있는 건 6개뿐(그중 All In 1 Sprite Shader만 새로 도입).
 - 요청: Unity 에디터 우상단 **Sign in** → Window > Package Manager > My Assets에서 아래를 **Download만**(Import는 Claude가 대화상자 없이 처리):
   - 몬스터/보스(도트): Monsters_Creatures_Fantasy, Evil Wizard 2, Bringer Of Death (free), Medieval King Pack 2, Martial Hero, 2D Pixel - RPG Monster Pack

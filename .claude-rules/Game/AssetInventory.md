@@ -43,7 +43,14 @@ AnyPortrait, Behavior Designer, DOTween(Pro), Easy Save 3, Damage Numbers Pro, M
 
 FPS Framework, MFPS 2.0, TPS Shooter, Invector TPC, PBR Fighters, Nodachi AnimSet, Toon Dinosaurs 2, 3D Scifi Base, Medical Equipments, Tropical Forest, Advanced Foliage, Conifers, POLYGON Nature, Toony Tiny RTS, Low Poly 계열, Stylized Karts, The Lost Temple, Atlas terrain, Grid Builder 2, Mirrors VR, Super Realistic Diamond, Wireframe Shader, Geometry Algorithms, Ballistics, Smooth Sync, PUN 2, EndlessBook, Procedural Walk, Unlit Stylized Water, Medieval Town Exteriors, Lost Crypt 2D(샘플), RPG Farming Kit, Bad Word Filter, Color Studio, Scenes Switcher, Cartoon GUI Pack(카툰풍), UI Examples, Fighter Pack Bundle, Horror SFX
 
-## 5. 임포트 방법 (자동화)
+## 5. 다운로드 · 임포트 방법 (자동화, 창 없이)
+
+- **다운로드(에디터 로그인 필요):**
+  1. `Tools/probes/as_purchases.cs` 실행 → 1~2초 뒤 `as_purchases_read.cs`로 구매 목록(productId, 이름)을 읽는다.
+  2. `as_download.cs`에서 `__IDS__`를 ID 목록으로 치환해 실행한다. 내부 API `AssetStoreDownloadManager.Download(IEnumerable<long>)`를 쓴다.
+  3. 진행 상황은 `%APPDATA%/Unity/Asset Store-5.x/<퍼블리셔>/...`에 `.unitypackage`가 생기는지로 확인한다(`.tmp`가 있으면 받는 중).
+  - 로그아웃 상태면 `UnityConnect.ShowLogin()`으로 로그인 창을 띄우고 사용자가 로그인한다(비밀번호 입력은 사용자만).
+
 
 - 에디터 창을 띄우지 않고 가져온다(포커스 강탈 금지). 캐시된 `.unitypackage`는 `%APPDATA%/Unity/Asset Store-5.x/<퍼블리셔>/...`에 있다.
   - 캐시에 없으면 Package Manager(My Assets)에서 다운로드가 필요하다. → 사용자 요청 또는 `manage_packages` 도구로 처리.
