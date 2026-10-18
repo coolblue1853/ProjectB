@@ -143,27 +143,27 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 140,FaeLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,FaeArmor,Will-o'-Fae Greaves,0,R,0,Will-o'-Fae
 141,FaeHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,FaeArmor,Will-o'-Fae Gloves,0,R,0,Will-o'-Fae
 142,FaeShoes,Equip,equipment,700,50,-,1,-,0,Shoes,FaeArmor,Will-o'-Fae Boots,0,R,0,Will-o'-Fae
-143,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-144,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-145,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-146,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-147,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-148,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-149,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-150,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-151,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-152,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-153,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-154,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-155,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-156,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-157,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-158,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-159,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-160,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-161,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-162,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-163,-,-,-,0,0,-,0,-,0,-,,,0,,0,
+143,FrogTongueWhip,Equip,equipment,500,2,-,1,-,0,Weapon,BogArmor,Frog Tongue Whip,0,R,0,Bog Stalker
+144,CrocJawAxe,Equip,equipment,500,2,-,1,-,0,Weapon,BogArmor,Croc Jaw Axe,0,R,0,Bog Stalker
+145,PetalPincer,Equip,equipment,500,2,-,1,-,0,Weapon,BogArmor,Petal Pincer,0,R,0,Bog Stalker
+146,BloodstingRapier,Equip,equipment,500,2,-,1,-,0,Weapon,GloomArmor,Bloodsting Rapier,0,R,0,Gloom Swarm
+147,SlimeMace,Equip,equipment,500,2,-,1,-,0,Weapon,GloomArmor,Slime Mace,0,R,0,Gloom Swarm
+148,PrimordialGel,Equip,equipment,7000,3,Boss,1,-,0,Weapon,,Primordial Gel,0,U,0,
+149,Frog Skin,Misc,World,110,1,-,99,-,0,-,,Frog Skin,0,C,0,
+150,Crab Pincer,Misc,World,120,1,-,99,-,0,-,,Crab Pincer,0,C,0,
+151,Croc Tooth,Misc,World,130,1,-,99,-,0,-,,Croc Tooth,0,C,0,
+152,Blood Sting,Misc,World,120,1,-,99,-,0,-,,Blood Sting,0,C,0,
+153,Slime Gel,Misc,World,110,1,-,99,-,0,-,,Slime Gel,0,C,0,
+154,BogCap,Equip,equipment,900,50,-,1,-,0,Head,BogArmor,Bog Stalker Hood,0,R,0,Bog Stalker
+155,BogArmor,Equip,equipment,1100,50,-,1,-,0,Chest,BogArmor,Bog Stalker Coat,0,R,0,Bog Stalker
+156,BogLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,BogArmor,Bog Stalker Greaves,0,R,0,Bog Stalker
+157,BogHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,BogArmor,Bog Stalker Gloves,0,R,0,Bog Stalker
+158,BogShoes,Equip,equipment,700,50,-,1,-,0,Shoes,BogArmor,Bog Stalker Boots,0,R,0,Bog Stalker
+159,GloomCap,Equip,equipment,900,50,-,1,-,0,Head,GloomArmor,Gloom Swarm Hood,0,R,0,Gloom Swarm
+160,GloomArmor,Equip,equipment,1100,50,-,1,-,0,Chest,GloomArmor,Gloom Swarm Coat,0,R,0,Gloom Swarm
+161,GloomLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,GloomArmor,Gloom Swarm Greaves,0,R,0,Gloom Swarm
+162,GloomHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,GloomArmor,Gloom Swarm Gloves,0,R,0,Gloom Swarm
+163,GloomShoes,Equip,equipment,700,50,-,1,-,0,Shoes,GloomArmor,Gloom Swarm Boots,0,R,0,Gloom Swarm
 164,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 165,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 166,-,-,-,0,0,-,0,-,0,-,,,0,,0,

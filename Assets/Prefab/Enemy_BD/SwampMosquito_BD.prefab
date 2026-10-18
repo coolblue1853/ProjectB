@@ -657,7 +657,7 @@ Transform:
   - {fileID: 1500118023806094150}
   - {fileID: 1500118024654299488}
   - {fileID: 2055651978}
-  - {fileID: 6772556235215468615}
+  - {fileID: 7209105087485265710}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2010044806525764708
@@ -930,7 +930,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.5935977, y: 1.6782103}
   m_EdgeRadius: 0
---- !u!1 &8410375785249992100
+--- !u!1 &2424894354211737601
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -938,8 +938,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6772556235215468615}
-  - component: {fileID: 2657145545639487678}
+  - component: {fileID: 7209105087485265710}
+  - component: {fileID: 2743026166072674072}
   m_Layer: 0
   m_Name: SwampMosquitoGlow
   m_TagString: Untagged
@@ -947,13 +947,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6772556235215468615
+--- !u!4 &7209105087485265710
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8410375785249992100}
+  m_GameObject: {fileID: 2424894354211737601}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -962,13 +962,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2010044806525764709}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2657145545639487678
+--- !u!114 &2743026166072674072
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8410375785249992100}
+  m_GameObject: {fileID: 2424894354211737601}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}

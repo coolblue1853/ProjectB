@@ -23,3 +23,9 @@ GroveArmor_6,(+)10 AtkSpeed/(+)20 CritDmg/(+)120 Hp
 FaeArmor_2,(+)8 MoveSpeed/(+)6 Crit
 FaeArmor_4,(+)12 CritDmg/(+)40 coolDown Phantom_Glide/(+)40 coolDown Fairy_Dust_Bolt
 FaeArmor_6,(+)12 IncDmg/(+)10 AtkSpeed/(+)8 DropRate
+BogArmor_2,(+)6 MoveSpeed/(+)8 Def
+BogArmor_4,(+)30 coolDown Tongue_Lash/(+)30 coolDown Jaw_Shake/(+)30 coolDown Pincer_Flurry
+BogArmor_6,(+)10 AtkSpeed/(+)15 BleedDmg/(+)8 IncDmg
+GloomArmor_2,(+)80 Hp/(+)5 Crit
+GloomArmor_4,(+)40 coolDown Bloodsting/(+)35 coolDown Slime_Smash
+GloomArmor_6,(+)12 Poison/(+)10 IncDmg/(+)10 CritDmg

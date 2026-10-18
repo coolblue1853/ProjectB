@@ -115,6 +115,9 @@ public class EnemyHealth : PoolAble
     /// <summary>활성 몬스터 목록 (유도 탄 등 매 프레임 FindObjects 를 피하려고)</summary>
     public static readonly System.Collections.Generic.HashSet<EnemyHealth> Active = new System.Collections.Generic.HashSet<EnemyHealth>();
 
+    /// <summary>플레이어 직격(damage2Enemy) 처치 시 발생 — 도트(onlyDamage2Enemy) 처치는 제외. 처치 시 효과(Primordial Gel 소환 등)용.
+    /// 풀 반환 직후(비활성) 호출되므로 구독자는 위치만 읽고 참조를 보관하지 않는다.</summary>
+    public static event System.Action<EnemyHealth> Killed;
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
 
@@ -276,6 +279,7 @@ public class EnemyHealth : PoolAble
         HitFeedback.OnEnemyHit(this, isCrit, isSkill, killed); // 플래시·히트스톱·흔들림
         if (killed)
         {
+            Killed?.Invoke(this);
             return; // 사망 후에는 피격 연출(넉백·경직)을 걸지 않는다
         }
 

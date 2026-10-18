@@ -156,3 +156,33 @@
 - ✅ **보스 공격 판정 교체 (2차)**: PassiveTerror 판정(갈퀴 ClowAttack·불꽃 PassiveTerrorAttackPrefab)을 복제한 `Prefab/Enemy/EnemyDamge/AncientEnt/AncientEntRootSwipe`(땅에서 뿌리 다섯 가닥이 솟는 근접, 64px×6 @16ppu = 원본과 같은 4유닛)·`AncientEntRootThorn`(이끼 낀 뿌리 가시 3발 투사체, 32px×3 @12.5ppu). 원본 컨트롤러 + AnimatorOverrideController 로 클립만 교체(키 시간 유지). 보스 스포너 objectInfos 키 `clow`/`fire` 유지, 보스 BT 의 damageOb 참조도 새 GUID 로. 아트 `gen_deep_forest_gear2.py`, 프로브 `build_ent_boss_roots.cs`, 감시 `boss_attack_watch.cs`(종류별 첫 등장 스크린샷). 플레이에서 두 판정 모두 발동 확인.
 - 테스트 팁: 비활성 맵 포털에 `TravelNow` 를 직접 부르면 `Portal.Awake` 가 돌지 않아 PoolCheck 가 비고 스포너가 안 켜진다 → `goto_map.cs`(MapInfo.GoToMap) 를 쓴다. 낮 전환은 `set_day.cs`.
 - ⏳ 남은 것: 돌 유적 전용 소품·배경(현재 색조만), 붉은 탐험가(적대 APC 난입), 요정여왕 방(중간보스), 지형은 근교 원본 그대로, 세트 착용 텍스처는 Leaf 색 변환 임시, Phantom Glide 반투명은 대시 잔상(하늘색 고정)으로 대신함.
+
+## 14. ④구역 늪지 — 1차 구현 (2026-10-19)
+
+- 맵 `Lv1_Swamp`: ②(샛길 복제)·③(근교 복제)과 다른 지형인 **Lv2_MagicCliffs 레이아웃**(x −420~−180, 위층 발판·사다리)을 복제, 늪 색조(타일 0.46/0.52/0.36, 배경 ×0.42/0.5/0.32 = 탁한 녹갈색·어둡게), 상승 부하 30, zoneTitle "Swamp", floor 1, 반딧불. 프로브 `build_swamp.cs`(재실행하면 복제본·포털을 지우고 다시 만든다).
+- 포털: 깊은 숲 왼쪽 끝(마을 포털 −425 바깥) `Portal_ToSwamp`(x −432.5) ↔ 늪지 왼쪽 `Portal_SwampToDeep`(원래 Lv2→Lv1 포털 자리, x −417).
+- 몬스터(코드 도트 `Tools/pixelfx/gen_swamp_mobs.py` → `Tools/probes/build_swamp_mobs.cs`, MonsterSheet 행 추가):
+  - 낮: **개구리** 260HP 방어 6(48px, RatThief 템플릿, 깡충 뛰기 Run·혀 뻗기 Attack) · **꽃게** 300HP 방어 14(48px, 집게 연타, 위층 발판 스포너) · **악어** 520HP 방어 10(64px, 입 벌려 물어 흔들기, 밀도 3) · 포자버섯(SporeShroom) 재사용.
+  - 밤(습지 안개): **모기** 150HP(48px, FlowerMole 템플릿=비행·유도탄, 붉은 Light2D) · **슬라임** 260HP(48px, LeftMole 템플릿=느림, 초록 Light2D).
+  - 보스: **거대 슬라임** 8000HP 방어 20 슈퍼아머(슬라임을 2배 좌표로 96px 재작화, 점액 뿔·삼킨 뼈, Attack2 = 높이 뛰어 내려찍기 + 점액 튐), PassiveTerror 템플릿(18px/유닛), **밤** 스포너, 스폰 x −200(오른쪽 끝), 영역 = 맵 전체(x −422~−178). 초상 RPGMonstersIcon `5 Field/field_501`. BossPhase·HP바·이름 자동.
+- 드롭: 개구리 Frog Skin 35%·Frog Tongue Whip 2% / 꽃게 Crab Pincer 35%·Petal Pincer 2% / 악어 Croc Tooth 35%·Croc Jaw Axe 2% / 모기 Blood Sting 30%·Bloodsting Rapier 2% / 슬라임 Slime Gel 33%·Slime Mace 2% / 낮 몹 Bog 부위·밤 몹 Gloom 부위 각 0.3% / 보스 Slime Gel 확정 + `Resources/Boss/GiantSlime_BD`(확정 1개 = Slime Mace·Bloodsting Rapier·Frog Tongue Whip 중, 고유 Primordial Gel 8%·천장 12).
+- 버그 수정: **B-118** Lv2 카메라 경계 회전(카메라가 x −300 에서 멈춤, 원본 Lv2 도 수정) · **B-119** 깊은 숲 귀환 포털 비활성 · **B-120** 발판 스포너 영역이 발판보다 높아 플레이어를 못 잡음(늪지만 수정).
+- 검증(플레이): 낮 개구리·꽃게(발판)·악어·버섯 스폰, 밤 모기·슬라임, 보스 등장(HP바·초상·이름) → 처치 → 확정 보상 드롭(계보 무기 + 강화석 + 재료), 포털 왕복(Portal.TravelNow), 콘솔 에러 0(테스트 무적 잠금 경고 제외). 테스트로 생긴 보스 처치 ES3 키는 지웠다. 스크린샷 `Logs/playtest/swamp_*.png`(커밋 안 함).
+
+### 14.1 ④구역 늪지 계보 장비 (LineageGear 1절)
+
+| 몹 | 무기(드롭) | 무기 스킬 | 세트 |
+|---|---|---|---|
+| 개구리 | **Frog Tongue Whip** (Wood Spear 기반 13~20) | A **Tongue Lash** = 찌르기 판정 복제본 넉백 **음수 ×1.8**(적을 앞으로 당김)·3명·경직 0.4s·쿨 2s, S Leap Slam(돌진 찌르기 피해 1.25·넉백 1.4) | Bog Stalker |
+| 꽃게 | **Petal Pincer** (Leather Knuckles 기반 13~19) | D **Pincer Flurry** = 올려치기 복제본 다단(3타 설정, 실측 2~3타)·피해 0.6/타·쿨 2s, A Crab Scuttle·S Shell Back(이름만) | Bog Stalker |
+| 악어 | **Croc Jaw Axe** (ScareSide 기반 15~23) | A **Jaw Shake** = 내려베기 3타(원본 2)·경직 0.5s·쿨 3s, R2 **Death Roll** = 미끄러지며 베기 피해 1.2·쿨 5s | Bog Stalker |
+| 모기 | **Bloodsting Rapier** (RatCheifDagger 기반 12~18, 치명 12) | A **Bloodsting** = 교차 찌르기 복제본 + `LifeStealHit`(적 1명당 무기 평균 피해×배율×20% 회복)·쿨 1.5s, S Swarm Dart, D Swarm Call | Gloom Swarm |
+| 슬라임 | **Slime Mace** (SacreGreatSword 기반 15~24) | S **Slime Smash** = 검기 복제본 + `SpawnOnStart` 튀는 슬라임 2(`SummonRunner` 바운스, 무기 피해 45%)·쿨 6s, A Gel Gather(흡입) | Gloom Swarm |
+| 거대 슬라임(보스) | **Primordial Gel** (유니크, SacreGreatSword 기반 22~34) | S **Gel Tsunami** = 검기 피해 1.4 + 큰 슬라임 3, A Primordial Pull, **처치 시 35% 슬라임 소환**(`KillSummonProc` + `EnemyHealth.Killed`) | — |
+
+- 프로브 `build_swamp_weapons.cs`(판정 복제 `DamageObject/<무기>/…`, 원본 공유 프리팹 미수정, 소환물 `DamageObject/SlimeMace/SlimeHopper·GelHopper`), 아이콘 `Tools/pixelfx/gen_swamp_items.py`(몹 팔레트), ItemSheet 143~163.
+- **세트 2종** (`make_forest_sets.py Bog Gloom` 색 변환 + `build_swamp_sets.cs`, 부위 드롭 0.3%):
+  - **Bog Stalker** (BogArmor 올리브·갈색, 낮 개구리·꽃게·악어 + 무기 3종): 2: 이동 6·방어 8 / 4: Tongue Lash·Jaw Shake·Pincer Flurry 쿨 −30 / 6: 공속 10·출혈 피해 15·피해 8. 부위 방어 20/36/20/16/16.
+  - **Gloom Swarm** (GloomArmor 핏빛 보라, 밤 모기·슬라임 + 무기 2종): 2: HP 80·치명 5(흡혈 키 `LifeSteal` 은 만들지 않고 무기 Bloodsting 에 맡김) / 4: Bloodsting 쿨 −40·Slime Smash −35 / 6: 독 12·피해 10·치명피해 10. 부위는 HP·치명 위주.
+- 검증(플레이, `swamp_weapon_test.cs` = 가까운 몹 앞에 서서 슬롯 발동 → 대상 x·HP·소환물 추적): Tongue Lash 대상이 플레이어 쪽으로 0.76 끌려옴, Bloodsting HP 90→96, Slime Smash 소환물 2·추가 타격, Jaw Shake 3타, Pincer Flurry 2타, Death Roll 44 피해, Gel Tsunami 소환물 3, `kill_proc_test.cs` 처치 소환 발동. `equip_swamp_set_test.cs` Bog/Gloom 6부위 → 스택 6, 세트 수치·쿨감 키 일치. combo_all 6종 = 원본 무기와 같은 순환(1-1 창 / 1-2-3 단검 / 1-2 대검·낫·너클).
+- ⏳ 남은 것: 모기는 FlowerMole 템플릿이라 공격이 유도탄(흡혈 돌진 아님) · 보스 공격 판정은 PassiveTerror 원본(갈퀴·불꽃) 그대로(③ 2차처럼 점액 판정 교체 필요) · 보스 분열 패턴 없음 · Petal Pincer 방어 자세(Shell Guard 재사용)·Bloodsting S 3연 돌진 미구현 · 늪 전용 소품·안개 효과 없음(색조만) · 세트 착용 텍스처 Leaf 색 변환 임시.

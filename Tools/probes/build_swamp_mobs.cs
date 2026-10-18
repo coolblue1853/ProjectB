@@ -48,5 +48,7 @@ System.Action<string, Color, float, float> glow = (mob, c, inten, rad) => {
     PrefabUtility.SaveAsPrefabAsset(pr, path); PrefabUtility.UnloadPrefabContents(pr);
 };
 glow("SwampMosquito", new Color(1f, 0.45f, 0.4f), 0.35f, 1.6f); // 밤 습지에서 보이게 약한 붉은 빛
+glow("BogSlime", new Color(0.6f, 1f, 0.65f), 0.35f, 2f);       // 밤 몹: 몸 속 핵이 희미하게 빛난다
+glow("GiantSlime", new Color(0.75f, 1f, 0.5f), 0.55f, 4.5f);   // 밤 보스: 어둠 속 실루엣이 보이게
 AssetDatabase.SaveAssets();
 return sb.ToString();

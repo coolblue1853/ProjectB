@@ -11,7 +11,7 @@
 - **아트**: 몹·아이콘은 코드 도트(`Tools/pixelfx`), 방어구 착용 텍스처는 Leaf 아틀라스 색 변환(임시) → 정식 도트는 후속.
 - **구현 경로 재사용**: 소환 `SummonRunner`/`SummonSkill`, 유도 `HomingOrb`, 공전 `OrbitWisps`, 판정 개조는 원본 판정 프리팹을 복제해서 바꾼다(공유 프리팹 직접 수정 금지).
 
-## 1. ④ 늪지 (부하 30)
+## 1. ④ 늪지 (부하 30) — ✅ 1차 구현 (2026-10-19, TowerWorld 14절)
 
 | 몹 | 공격(몹) | 계보 무기 | 무기 스킬 | 비고 |
 |---|---|---|---|---|
@@ -22,6 +22,8 @@
 | 악어 | 물어 흔들기 | **Croc Jaw Axe**(Side 기반) | A 물어 흔들기(다단 3), S 돌진 회전 | |
 | 보스 **거대 슬라임** | 분열·점프 | 유니크 **Primordial Gel** | 처치 시 아군 슬라임 소환(확률) | `BossReward` |
 
+- 구현 체크: [x] 몹 6종(개구리·꽃게·악어·모기·슬라임·거대 슬라임) [x] Frog Tongue Whip [x] Bloodsting Rapier [x] Slime Mace [x] Petal Pincer(A 연타만, Shell Guard ⏳) [x] Croc Jaw Axe [x] Primordial Gel(`KillSummonProc`) [x] 세트 Bog Stalker·Gloom Swarm [x] 맵 `Lv1_Swamp`·드롭·보스 보상. 커밋: 99d660a2(맵·몹), 이후 장비 커밋은 TowerWorld 14절 참조.
+- 변경: Gloom Swarm 2세트는 `LifeSteal` 신규 키 대신 HP 80·치명 5(흡혈은 Bloodsting 무기 `LifeStealHit` 이 맡음), 4세트 "소환 슬라임 +1" 대신 Bloodsting·Slime Smash 쿨감(소환 수 세트 효과는 4절 4번 시스템 대기). Bog 6세트 "출혈"은 `BleedDmg` 15.
 - 세트: **Bog Stalker**(낮: 개구리·악어·꽃게) 2: 이동 6·방어 8 / 4: 혀·턱 쿨 −30 / 6: 공속 10·출혈. **Gloom Swarm**(밤·습지: 모기·슬라임) 2: 흡혈 소량(공격 시 HP 1%) — 신규 효과 키 `LifeSteal` 필요 / 4: 소환 슬라임 +1 / 6: 독 피해.
 
 ## 2. ⑤ 산적 성채 (부하 30, 분기)

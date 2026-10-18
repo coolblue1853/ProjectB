@@ -285,6 +285,7 @@ namespace ProjectB.EditorTools
             go.name = "CamBoundary_" + name;
             go.transform.position = pos;
             go.transform.localScale = scale;
+            go.transform.rotation = Quaternion.identity; // 템플릿 경계가 90° 회전돼 있어 scale 축이 뒤바뀌던 문제(B-118)
         }
 
         static string BuildSpawner(Transform side, SpawnDef d, Transform group)

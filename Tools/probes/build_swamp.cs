@@ -1,4 +1,4 @@
-// 1층계 ④구역 "늪지"(Lv1_Swamp, TowerWorld 14절): ②(샛길 복제)·③(근교 복제)과 다른 지형인 Lv2_MagicCliffs 레이아웃(x -420~-180, 발판·사다리)을 복제 →
+﻿// 1층계 ④구역 "늪지"(Lv1_Swamp, TowerWorld 14절): ②(샛길 복제)·③(근교 복제)과 다른 지형인 Lv2_MagicCliffs 레이아웃(x -420~-180, 발판·사다리)을 복제 →
 // 늪 색조(탁한 녹갈색, 어둡게), 스포너 교체(낮: 개구리·꽃게·악어·포자버섯 / 밤: 모기·슬라임), 보스 스포너(거대 슬라임, 밤, 오른쪽 끝, 영역 = 맵 전체),
 // 드롭 테이블(재료 + 계보 무기 2% + 방어구 부위 0.3%), MapInfo, 포털 한 쌍(깊은 숲 왼쪽 끝 Portal_ToSwamp ↔ 늪지 왼쪽 Portal_SwampToDeep).
 // 에디트 모드, 재실행하면 복제본·포털을 지우고 다시 만든다
@@ -35,6 +35,8 @@ back.name = "Portal_SwampToDeep";
 there.destination = back.transform; there.closeMap = deep.gameObject; there.openMap = copy;
 back.destination = there.transform; back.closeMap = copy; back.openMap = deep.gameObject;
 back.proCamera = tpl.proCamera; back.player = tpl.player;
+// B-119: 깊은 숲 포털은 원본 근교 맵의 비활성 포털(PotalLv1_NearForest2)을 이어받아 꺼져 있었다 → 왕복 포털을 모두 켠다
+foreach (var p in new[]{ go, back.gameObject, tpl.gameObject }) p.SetActive(true);
 sb.Append("portals " + go.transform.position.ToString("F1") + " <-> " + back.transform.position.ToString("F1") + "; ");
 
 // 스포너 교체 (풀 구성은 몬스터 BT 템플릿과 같은 샛길 원본 스포너에서 가져온다 — build_deep_forest 와 같은 방식)
@@ -105,6 +107,14 @@ foreach (var s in copy.GetComponentsInChildren<EnemySpawner>(true))
     s.name = n;
 }
 
+// 발판(높이 4) 스포너는 영역 바닥이 발판 높이(-174)와 같아 서 있는 플레이어를 못 잡는다(Lv2 원본도 같음) → 아래로 2 늘린다
+foreach (var s in copy.GetComponentsInChildren<EnemySpawner>(true))
+{
+    var bx = s.GetComponent<BoxCollider2D>();
+    if (bx == null || s.transform.position.y + bx.offset.y - bx.size.y / 2f < -175f) continue;
+    bx.offset = new Vector2(bx.offset.x, bx.offset.y - 1f); bx.size = new Vector2(bx.size.x, bx.size.y + 2f);
+    sb.Append(s.name + " box+2; ");
+}
 // 보스: 오른쪽 끝(원본 Lv2 보스 자리), 밤. 영역을 맵 전체(x -422~-178)로 — 영역 밖으로 끌어내 체력 리셋하는 공략 방지(B-117 이후 ③과 같은 규칙)
 var boss = copy.transform.Find("NightTimeSpawn/BossSpawoner").GetComponent<EnemySpawner>();
 var bbox = boss.GetComponent<BoxCollider2D>();
@@ -118,6 +128,10 @@ foreach (var tm in copy.GetComponentsInChildren<UnityEngine.Tilemaps.Tilemap>(tr
 var bg = copy.transform.Find("Background");
 if (bg != null) foreach (var sr in bg.GetComponentsInChildren<SpriteRenderer>(true)) sr.color = new Color(sr.color.r * 0.42f, sr.color.g * 0.5f, sr.color.b * 0.32f, sr.color.a);
 
+// 카메라 경계(B-118): Lv2 빌더가 90° 회전된 템플릿을 복제해 Top/Bottom 이 세로, Left/Right 가 가로 막대가 돼 카메라가 x -300 에서 멈췄다.
+// 회전을 되돌린다 — 원본 Lv2 맵도 같은 버그라 함께 고친다(Lv2MapBuilder 도 수정)
+foreach (var m in new[]{ copy.transform, src })
+    foreach (Transform c in m.Find("Cam")) if (c.name.StartsWith("CamBoundary_")) c.rotation = Quaternion.identity;
 UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(copy.scene);
 UnityEditor.SceneManagement.EditorSceneManager.SaveScene(copy.scene);
 return sb.ToString();

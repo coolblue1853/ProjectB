@@ -14,6 +14,8 @@ public class SummonRunner : MonoBehaviour
     [SerializeField] private float _firstAttack = 0.15f;
     [SerializeField] private float _attackInterval = 0.35f;
     [SerializeField] private float _damageScale = 0.6f;
+    [SerializeField] private float _bounceHeight = 0f;   // >0 이면 통통 튀며 달린다 (Slime Mace 슬라임)
+    [SerializeField] private float _bouncePeriod = 0.4f;
 
     SpriteRenderer sr;
     float dir = 1f, age, nextAttack;
@@ -49,7 +51,13 @@ public class SummonRunner : MonoBehaviour
     void Update()
     {
         age += Time.deltaTime;
-        transform.position += new Vector3(dir * _speed * Time.deltaTime, 0f, 0f);
+        float dy = 0f;
+        if (_bounceHeight > 0f && _bouncePeriod > 0f)
+        {
+            float prev = Mathf.Abs(Mathf.Sin((age - Time.deltaTime) / _bouncePeriod * Mathf.PI));
+            dy = (Mathf.Abs(Mathf.Sin(age / _bouncePeriod * Mathf.PI)) - prev) * _bounceHeight;
+        }
+        transform.position += new Vector3(dir * _speed * Time.deltaTime, dy, 0f);
         if (_attackPrefab != null && age >= nextAttack && age < _life - 0.25f)
         {
             nextAttack += _attackInterval;
