@@ -601,6 +601,10 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = 0f;
         // 대쉬 속도로만 이동하도록 설정
         rb.linearVelocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
+        if (hit1.collider != null || hit2.collider != null)
+        {
+            DustPuffs.Dash(groundCheck.transform.position, transform.localScale.x); // 땅 위 대시만 먼지
+        }
         // 대쉬 타이머 설정
         dashTimer = dashWait;
 
@@ -742,6 +746,7 @@ public class PlayerController : MonoBehaviour
                 isJumpAnim = false;
                 mainCharacter.Play("Idle");
                 LandSquash();
+                DustPuffs.Land(groundCheck.transform.position, 0.6f);
             }
 
 

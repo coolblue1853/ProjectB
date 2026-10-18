@@ -54,6 +54,7 @@ public class DropItemCheck : PoolAble
             case "U": sr.sharedMaterial = uniqueMaterial != null ? uniqueMaterial : defaultMaterial; break;
             default: sr.sharedMaterial = defaultMaterial; break;
         }
+        DropLightPillar.Apply(gameObject, rarity);
     }
     private void OnEnable()
     {

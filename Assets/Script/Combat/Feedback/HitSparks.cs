@@ -51,38 +51,10 @@ public static class HitSparks
 
     static bool Ensure()
     {
-        if (ps != null)
+        if (ps == null)
         {
-            return true;
+            ps = EmitParticles.Create("[HitSparks]", 1.5f, 300, 200, 0.3f);
         }
-        var go = new GameObject("[HitSparks]");
-        Object.DontDestroyOnLoad(go);
-        ps = go.AddComponent<ParticleSystem>();
-        ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        var main = ps.main;
-        main.loop = false;
-        main.playOnAwake = false;
-        main.simulationSpace = ParticleSystemSimulationSpace.World;
-        main.gravityModifier = 1.5f;
-        main.maxParticles = 300;
-        var emission = ps.emission;
-        emission.enabled = false;
-        var shape = ps.shape;
-        shape.enabled = false;
-        var col = ps.colorOverLifetime;
-        col.enabled = true;
-        var grad = new Gradient();
-        grad.SetKeys(new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
-                     new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(1f, 0.6f), new GradientAlphaKey(0f, 1f) });
-        col.color = grad;
-        var sizeOver = ps.sizeOverLifetime;
-        sizeOver.enabled = true;
-        sizeOver.size = new ParticleSystem.MinMaxCurve(1f, AnimationCurve.Linear(0f, 1f, 1f, 0.3f));
-        var renderer = go.GetComponent<ParticleSystemRenderer>();
-        renderer.material = new Material(Shader.Find("Sprites/Default"));
-        renderer.sortingOrder = 200;
-        renderer.renderMode = ParticleSystemRenderMode.Billboard;
-        ps.Play();
-        return true;
+        return ps != null;
     }
 }

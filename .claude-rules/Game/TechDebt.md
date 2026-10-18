@@ -57,6 +57,7 @@
 | B-208 | 리스너 중복 등록(sellSlider) / 0 나누기(buyprice) / 연산자 우선순위 | ShopManager, DivideSlider |
 | B-209 | CSV 파서: 빈 줄·따옴표 미처리, placeholder 행 로드 | `ItemDatabase.cs` |
 | B-210 | `new SetItem()`(MonoBehaviour new) | DatabaseManager, InventoryManager |
+| B-211 | 코드 생성 머티리얼이 `Shader.Find`(Sprites/Default, Legacy Particles/Additive)에 의존 → 빌드에서 셰이더가 빠질 수 있음. Always Included 등록 또는 Resources 머티리얼로 교체 필요 | `EmitParticles`, `DropLightPillar` |
 
 ## P3 (정리)
 
