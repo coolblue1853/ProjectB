@@ -143,6 +143,7 @@ public class EnemyHealth : PoolAble
 
     private void Awake()
     {
+        MonsterTable.Apply(this); // Resources/MonsterSheet.csv 값이 있으면 프리팹 값을 덮어쓴다 (C5)
         anim = transform.GetComponent<Animator>();
         dropManager = transform.GetComponent<DropManager>();
         rb = transform.GetComponent<Rigidbody2D>();
