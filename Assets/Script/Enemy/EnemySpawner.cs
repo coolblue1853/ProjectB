@@ -41,6 +41,8 @@ public class EnemySpawner : MonoBehaviour
     private readonly Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
     // ObjectPool은 대여 중인 오브젝트 목록을 제공하지 않으므로 정리용으로 직접 추적한다.
     private readonly HashSet<GameObject> activeObjects = new HashSet<GameObject>();
+    // 슬롯 밖 보스 부하(SpawnMinion). 보스 처치·시간대 전환 시 DismissMinions 로 정리 (B-127)
+    private readonly List<EnemyHealth> minions = new List<EnemyHealth>();
 
     private bool isSpawning;
 
@@ -389,12 +391,17 @@ public class EnemySpawner : MonoBehaviour
         enemyHealth.OnReleasedToPool -= OnEnemyReleased;
         enemyHealth.OnReleasedToPool -= OnMinionReleased;
         enemyHealth.OnReleasedToPool += OnMinionReleased;
+        if (!minions.Contains(enemyHealth))
+        {
+            minions.Add(enemyHealth);
+        }
         GameLog.Info(GameLog.Cat.Spawn, name + ": 부하 소환 " + go.name + " @" + pos.ToString("F1"), this);
         return go;
     }
 
     private void OnMinionReleased(int num, int force, Vector3 pos, bool isDeadBody, bool isDrop)
     {
+        minions.RemoveAll(m => m == null || m.IsInPool);
         if (!isDeadBody || !pools.ContainsKey(MinionDeadKey))
         {
             return;
@@ -407,6 +414,23 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 살아 있는 보스 부하를 모두 서서히 사라지게 한다(드롭 없음). 보스 처치(BossMinionCall)·시간대 전환(DeCycleCheck)에서 부른다 (B-127).
+    /// </summary>
+    public void DismissMinions()
+    {
+        for (int i = minions.Count - 1; i >= 0; i--)
+        {
+            EnemyHealth m = minions[i];
+            if (m == null || m.IsInPool)
+            {
+                minions.RemoveAt(i);
+                continue;
+            }
+            m.DisaperByTime();
+        }
+    }
+
     /// <summary>보스 부하 풀 키 (BossMinionCall 기본값, build_bandit_fortress.cs 가 같은 이름으로 등록). 부하 BT 의 공격 키(예: "stab")도 같은 스포너에 있어야 한다</summary>
     public const string MinionKey = "minion";
     public const string MinionDeadKey = "minionDead";
@@ -414,6 +438,7 @@ public class EnemySpawner : MonoBehaviour
     /// <summary>플레이어가 떠났거나 시간대가 바뀌면 남은 몬스터를 서서히 사라지게 한다.</summary>
     private void DeCycleCheck()
     {
+        DismissMinions();
         if (enemySlot == null)
         {
             return;

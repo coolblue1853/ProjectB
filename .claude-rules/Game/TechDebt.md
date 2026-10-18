@@ -54,7 +54,7 @@
 | B-124 | 늪지 거대 슬라임 보스가 PassiveTerror 판정(갈퀴·불꽃) 그대로, 분열 패턴 없음 / 모기가 FlowerMole 유도탄 | `GiantSlime_BD`, `Mosquito_BD` | ⏳ 엔트처럼 판정 교체 + 분열 소환 |
 | B-125 | ✅ 몹 직선 탄(EnemyDamageObject 비추적 발사)이 왼쪽을 보던 몹에서 localScale −x 그대로 회전돼 좌우 반전된 채 날아감(산적 궁수 화살이 거꾸로) → 발사 시 x 스케일 절댓값 (2026-10-19) | `EnemyDamageObject.cs` LaunchObject |
 | B-126 | ✅ EnemyHealth.OnEnable 이 Kill 된 시퀀스에 `IsPlaying()` 을 불러 DOTween "This Tween has been killed" 경고가 풀 워밍업마다 수십 개 → `IsActive()` (2026-10-19) | `EnemyHealth.cs` OnEnable |
-| B-127 | 보스 부하(SpawnMinion)는 보스가 죽어도 남고 드롭이 없다. 슬롯 밖이라 시간대 전환 DeCycleCheck 대상도 아님(맵 이탈 ClearAllPools 로만 정리) | `EnemySpawner.SpawnMinion`, `BossMinionCall` | ⏳ 보스 처치 시 부하 DisaperByTime |
+| B-127 | ✅ 보스 부하(SpawnMinion)가 보스가 죽어도 남고 드롭이 없었다(슬롯 밖이라 시간대 전환 DeCycleCheck 대상도 아님) → 스포너가 부하 목록을 들고 `DismissMinions()`(DisaperByTime). `BossMinionCall` 이 보스 `OnReleasedToPool`(처치·도트 사망·사라짐 공통)에서, `DeCycleCheck` 가 시간대 전환 때 부른다. 검증 `boss_minion_cleanup_test.cs`: 처치 2.5초 뒤 부하 2→0 (2026-10-19) | `EnemySpawner.SpawnMinion`, `BossMinionCall` |
 | B-128 | 테스트 하네스(`EquipBoxCheck.LoadPrefab` 직접 호출)로 같은 세트 키 무기를 여러 번 바꿔 끼우면 세트 스택이 누적(10~15)됨 — 실제 UI 장착 경로에서도 생기는지 미확인 | `EquipBoxCheck`, `bandit_weapon_test.cs` | ⏳ 관찰(세트 테스트는 새 플레이에서) |
 | B-129 | BackstabStep 이 플레이어 `localScale.x` 를 직접 뒤집어 방향을 바꿈 — 이동 입력이 있으면 다음 프레임 PlayerController 가 덮어씀 | `BackstabStep.cs`, `PlayerController.cs` 433/546 | ⏳ PlayerStateDesign FSM 의 방향 설정 API 로 교체 |
 
