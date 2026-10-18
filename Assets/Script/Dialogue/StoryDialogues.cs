@@ -12,8 +12,9 @@ public static class StoryDialogues
     public const string Elder = "Village/Elder";
     public const string Smith = "Village/Smith";
     public const string Merchant = "Village/Merchant";
+    public const string Gatekeeper = "Story/Gatekeeper";
 
-    const int PlayerId = 1, InnerId = 2, ElderId = 3, SmithId = 4, MerchantId = 5;
+    const int PlayerId = 1, InnerId = 2, ElderId = 3, SmithId = 4, MerchantId = 5, GatekeeperId = 6;
 
     static Template template;
     static DialogueDatabase db;
@@ -28,11 +29,13 @@ public static class StoryDialogues
         db.actors.Add(template.CreateActor(ElderId, "Village Elder", false));
         db.actors.Add(template.CreateActor(SmithId, "Smith Brann", false));
         db.actors.Add(template.CreateActor(MerchantId, "Merchant Ilsa", false));
+        db.actors.Add(template.CreateActor(GatekeeperId, "Gatekeeper of the Tower", false));
 
         BuildOpening(1);
         BuildElder(2);
         BuildSmith(3);
         BuildMerchant(4);
+        BuildGatekeeper(5);
         return db;
     }
 
@@ -186,5 +189,21 @@ public static class StoryDialogues
                 "Relics from higher floors fetch a fortune. Monster parts, not so much.",
             }),
         }, "See you later.", "Come back with coin!");
+    }
+
+    /// <summary>1층계 보스 첫 조우(BossEncounterTalk). 아버지 = 문지기 설정(TowerWorld 2절)은 암시만 한다 — 확정하지 않는다</summary>
+    static void BuildGatekeeper(int id)
+    {
+        Conv v = NewConv(id, Gatekeeper, PlayerId, GatekeeperId);
+        DialogueEntry e = Chain(v, Start(v), GatekeeperId,
+            "...None... shall pass... the gate.");
+        e = Chain(v, e, InnerId,
+            "A giant in armor, older than the ruins around it.",
+            "That crest on its chest... it's the same pattern as my brooch.",
+            "...Father?");
+        e = Chain(v, e, GatekeeperId,
+            "...Turn... back...");
+        Chain(v, e, InnerId,
+            "No. Whatever you are, I'm going up.");
     }
 }

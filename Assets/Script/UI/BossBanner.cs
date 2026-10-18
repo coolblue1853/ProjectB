@@ -12,6 +12,10 @@ public class BossBanner : MonoBehaviour
 {
     static BossBanner instance;
 
+    // 보여 주는 중에 새 배너가 오면 덮어쓰지 않고 이어서 보여 준다(처치 → 승급 → 탑 입구 개방 순서)
+    readonly System.Collections.Generic.Queue<System.Action> pending = new System.Collections.Generic.Queue<System.Action>();
+    bool showing;
+
     CanvasGroup group;
     TextMeshProUGUI title, sub;
     TextAnimator titleAnim;
@@ -32,7 +36,7 @@ public class BossBanner : MonoBehaviour
             instance = go.AddComponent<BossBanner>();
             instance.Build();
         }
-        instance.PlayCustom(title, subtitle);
+        instance.Enqueue(() => instance.PlayCustom(title, subtitle));
     }
 
     public static void Show(string bossName, string uniqueItem)
@@ -44,7 +48,35 @@ public class BossBanner : MonoBehaviour
             instance = go.AddComponent<BossBanner>();
             instance.Build();
         }
-        instance.Play(bossName, uniqueItem);
+        instance.pending.Clear(); // 처치 배너가 오면 밀려 있던 페이즈·등장 배너는 버린다(보스가 죽은 뒤 "Phase 3" 이 뜨지 않게)
+        instance.Enqueue(() => instance.Play(bossName, uniqueItem));
+    }
+
+    void Enqueue(System.Action play)
+    {
+        if (showing)
+        {
+            pending.Enqueue(play);
+            return;
+        }
+        showing = true;
+        play();
+    }
+
+    /// <summary>배너가 사라졌을 때: 대기 중인 다음 배너를 보여 준다</summary>
+    void Finished()
+    {
+        if (group == null)
+        {
+            return; // 링크된 오브젝트 파괴로 Kill 된 경우
+        }
+        group.gameObject.SetActive(false);
+        if (pending.Count > 0)
+        {
+            pending.Dequeue()();
+            return;
+        }
+        showing = false;
     }
 
     void Build()
@@ -122,7 +154,7 @@ public class BossBanner : MonoBehaviour
             .Join(t.DOScale(1f, 0.3f).SetEase(Ease.OutBack))
             .AppendInterval(1.6f)
             .Append(group.DOFade(0f, 0.5f))
-            .OnComplete(() => group.gameObject.SetActive(false))
+            .OnKill(Finished) // 완료·외부 Kill·링크 파괴 모두에서 대기열이 막히지 않게
             .SetLink(gameObject);
     }
 
@@ -148,7 +180,7 @@ public class BossBanner : MonoBehaviour
             .Join(t.DOScale(1f, 0.35f).SetEase(Ease.OutBack))
             .AppendInterval(2.4f)
             .Append(group.DOFade(0f, 0.6f))
-            .OnComplete(() => group.gameObject.SetActive(false))
+            .OnKill(Finished) // 완료·외부 Kill·링크 파괴 모두에서 대기열이 막히지 않게
             .SetLink(gameObject);
         Sfx.Play(SfxId.Victory);
         if (unique)

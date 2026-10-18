@@ -37,6 +37,35 @@ public static class BossLootRules
 /// <summary>보스 처치 보상 굴림 + ES3 기록(처치 수·천장·첫 처치)</summary>
 public static class BossLoot
 {
+    /// <summary>보스 처치 보상이 굴려진 직후(보스 프리팹 이름). 탑 입구 개방(TowerGatePortal) 등 처치 후 연출이 듣는다</summary>
+    public static event System.Action<string> Defeated;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetStatics()
+    {
+        Defeated = null;
+    }
+
+    // 반환 흐름(EnemySpawner.OnEnemyReleased → ReleaseEnemy) 한가운데서 불리므로 구독자 예외가 보스 반환을 막지 않게 하나씩 감싼다
+    static void RaiseDefeated(string bossName)
+    {
+        if (Defeated == null)
+        {
+            return;
+        }
+        foreach (System.Delegate d in Defeated.GetInvocationList())
+        {
+            try
+            {
+                ((System.Action<string>)d)(bossName);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+            }
+        }
+    }
+
     public static List<string> Roll(string bossName, BossReward r)
     {
         var loot = new List<string>();
@@ -66,13 +95,15 @@ public static class BossLoot
             since = 0;
         }
         ES3.Save(killKey, since);
+        BossBanner.Show(string.IsNullOrEmpty(r.displayName) ? bossName : r.displayName, unique ? r.uniqueItem : null); // G2 승리 연출
+        // 승급 배너는 처치 배너 뒤에 이어진다(BossBanner 대기열)
         if (r.grantsRank > 0 && AscentLoad.GrantRank(r.grantsRank))
         {
             PickupLog.Report("Rank up: " + AscentLoad.RankName(r.grantsRank) + " Explorer", 1, "U");
         }
-        BossBanner.Show(string.IsNullOrEmpty(r.displayName) ? bossName : r.displayName, unique ? r.uniqueItem : null); // G2 승리 연출
         FeelFx.PlayerPop(0.2f);
         GameLog.Info(GameLog.Cat.Item, "보스 보상 " + bossName + ": " + string.Join(", ", loot) + (unique ? " (고유템!)" : " (천장까지 " + (r.pity - since) + ")"));
+        RaiseDefeated(bossName);
         return loot;
     }
 }

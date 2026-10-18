@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Gatekeeper_Override
+  m_Controller: {fileID: 9100000, guid: 3d4b6bb9f347a184a816b9303a8974f8, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 1de7bde505b54d5409175b2f9857e420, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ac56f43a42d3d24489726f9c8575a02e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 24f065a5b94cc304ca30079c94ec2086, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e257921ad99865f43b0de172b9daa9b7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 706222e5449e91e49b5a20e70c8a4a58, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fecb3e40090a6df4482a648c30ebb4cb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2768da2b7d14775479a591e226b6631c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3867af6a7a2913f47a59bb087d3be79f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c564b3d74cb97af4e8397547d5132326, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6528f344127379a43aff039496e232ed, type: 2}

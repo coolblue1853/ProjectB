@@ -33,3 +33,8 @@ BanditArcher_BD,Bandit Archer,1,Bandit Fortress,220,5,0,0,-1.2,,,straight arrow 
 BanditShieldman_BD,Bandit Shieldman,1,Bandit Fortress,480,22,0,1,-1.2,,,shield super armor (gen_bandit_mobs)
 BanditTorchbearer_BD,Bandit Torchbearer,1,Bandit Fortress (night),340,8,0,0,-1.2,,,night torch light (gen_bandit_mobs)
 BanditChief_BD,Bandit Chief,1,Bandit Fortress (boss),9000,22,1,1,0,,,zone boss calls minions at phase 2 (gen_bandit_mobs)
+GolemSmall_BD,Small Golem,1,Tower Outskirts,360,14,0,0,-1.2,,,rolling charge (gen_outskirts_mobs)
+GolemMedium_BD,Medium Golem,1,Tower Outskirts,620,20,0,0,-1.2,,,ground slam quake (gen_outskirts_mobs)
+GolemLarge_BD,Large Golem,1,Tower Outskirts,950,28,0,1,-1.2,,,super armor boulder throw (gen_outskirts_mobs)
+RuinSpirit_BD,Ruin Spirit,1,Tower Outskirts (night),170,6,0,0,-1.2,,,night rune light bolt (gen_outskirts_mobs)
+Gatekeeper_BD,Gatekeeper of the Tower,1,Tower Outskirts (boss),15000,28,1,1,0,,,floor 1 final boss 3 phases calls golems at phase 2 (gen_outskirts_mobs)
