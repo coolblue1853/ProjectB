@@ -136,6 +136,11 @@ public class PickupLog : MonoBehaviour
         tr.offsetMin = new Vector2(40f, 0f);
         tr.offsetMax = Vector2.zero;
         text.alignment = TextAlignmentOptions.MidlineLeft;
+        // 긴 문구(포털 봉인 토스트·긴 아이템 이름)가 칸 밖으로 넘치지 않게 줄 폭에 맞춰 줄이고, 그래도 넘치면 자름(픽셀 폰트에 말줄임 글자가 없어 Ellipsis 는 경고를 낸다)
+        text.enableAutoSizing = true;
+        text.fontSizeMin = 16f;
+        text.fontSizeMax = 26f;
+        text.overflowMode = TextOverflowModes.Truncate;
         var animator = text.gameObject.AddComponent<TextAnimator>();
 
         go.SetActive(false);

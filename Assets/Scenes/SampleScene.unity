@@ -386642,7 +386642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortalSeal
   _bossName: Gatekeeper_BD
-  _sealedMessage: The path upward is sealed by the Tower.
+  _sealedMessage: Path sealed by the Tower.
 --- !u!1 &646829807
 GameObject:
   m_ObjectHideFlags: 0

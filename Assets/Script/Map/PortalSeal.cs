@@ -10,7 +10,7 @@ public class PortalSeal : MonoBehaviour
     private const float MessageCooldown = 2f;
 
     [SerializeField] private string _bossName = "Gatekeeper_BD";
-    [SerializeField] private string _sealedMessage = "The path upward is sealed by the Tower.";
+    [SerializeField] private string _sealedMessage = "Path sealed by the Tower.";
 
     private float _lastMessageTime = -99f;
 
