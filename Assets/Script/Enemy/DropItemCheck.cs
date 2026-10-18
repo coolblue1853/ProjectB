@@ -37,19 +37,15 @@ public class DropItemCheck : PoolAble
         rigidbody.gravityScale = 1;
         isGround = false;
     }
+    private void OnDisable()
+    {
+        CancelInvoke(); // 반환된 뒤 120초 소멸 타이머가 재사용된 아이템을 지우지 않도록
+    }
     void DestroyItembyTime()
     {
         if (this.gameObject != null && gameObject.activeSelf != false)
         {
-            if (pool.CountInactive == 0)
-            {
-                Destroy(gameObject);
-
-            }
-            else
-            {
-                ReleaseObject();
-            }
+            ReleaseObject();
         }
     }
 
@@ -77,15 +73,7 @@ public class DropItemCheck : PoolAble
             {
                 if (this.gameObject != null && gameObject.activeSelf != false)
                 {
-                    if (pool.CountInactive == 0)
-                    {
-                        Destroy(gameObject);
-
-                    }
-                    else
-                    {
-                        ReleaseObject();
-                    }
+                    ReleaseObject();
                 }
                 InventoryManager.instance.CreatItem(name);
             }

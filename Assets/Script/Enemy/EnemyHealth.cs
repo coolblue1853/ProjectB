@@ -98,6 +98,9 @@ public class EnemyHealth : PoolAble
         img.DOFade(1, 0);
         deadOnec = false;
         nowHP = maxHP;
+        stiffShakeTime = 0;
+        if (behaviorTree != null)
+            behaviorTree.enabled = true; // 경직 중 반환되어 꺼진 채로 재사용되는 것 방지
         if (hpBar != null)
             hpBar.setHpBar(this);
     }
@@ -231,18 +234,9 @@ public class EnemyHealth : PoolAble
         }
 
 
-        if (nowHP <= 0 && deadOnec == false)
+        if (TryDie())
         {
-            deadOnec = true;
-            if (pool.CountInactive == 0)
-            {
-                Destroy(gameObject);
-
-            }
-            else
-            {
-                ReleaseObject();
-            }
+            return; // 사망 후에는 피격 연출(넉백·경직)을 걸지 않는다
         }
 
         if(isSuperArmor == false)
@@ -292,44 +286,31 @@ public class EnemyHealth : PoolAble
         ToggleObject();
 
         Damage(damage);
-        if (nowHP <= 0 && deadOnec == false)
-        {
-            deadOnec = true;
-            if (pool.CountInactive == 0)
-            {
-                Destroy(gameObject);
-
-            }
-            else
-            {
-                ReleaseObject();
-            }
-        }
+        TryDie();
 
 
 
     }
     public void ReleaseEnemy(bool isDrop = true, bool isItemDrop = true)
     {
+        if (IsInPool)
+        {
+            return;
+        }
         canDisapear = false;
         OnReleasedToPool?.Invoke(enemyNum, Mathf.Abs(nowHP),this.transform.position, isDrop, isItemDrop); // 4번째 요소는 deadbody를 생성할것인지 말것인지
 
 
-        foreach (Transform damagedBar in hpBar.damagedBars)
+        if (hpBar != null)
         {
-            if (damagedBar != null)
-                Destroy(damagedBar.gameObject);
+            foreach (Transform damagedBar in hpBar.damagedBars)
+            {
+                if (damagedBar != null)
+                    Destroy(damagedBar.gameObject);
+            }
+            hpBar.damagedBars.Clear(); // 리스트 초기화
         }
-        hpBar.damagedBars.Clear(); // 리스트 초기화
-        if (pool.CountInactive == 0)
-        {
-            Destroy(gameObject);
-
-        }
-        else
-        {
-            ReleaseObject();
-        }
+        ReleaseObject();
     }
     public bool isAttackGround;
 
@@ -493,21 +474,47 @@ public class EnemyHealth : PoolAble
     }
 
    public  bool canDisapear = true;
+    DG.Tweening.Sequence disappearSequence;
+
+    /// <summary>HP가 0 이하가 되면 한 번만 사망 처리(드롭·시체·슬롯 비우기 포함)한다.</summary>
+    bool TryDie()
+    {
+        if (nowHP > 0 || deadOnec)
+        {
+            return false;
+        }
+        deadOnec = true;
+        ReleaseEnemy(true, true);
+        return true;
+    }
+
+    /// <summary>드롭·시체 없이 즉시 반환 (맵 이동 등 강제 정리). 스포너 슬롯은 비운다.</summary>
     public void ForceEnemyRelease()
     {
-        ReleaseObject();
+        ReleaseEnemy(false, false);
     }
+
+    /// <summary>1.5초 페이드아웃 후 드롭 없이 반환 (영역 이탈·시간대 변경).</summary>
     public void DisaperByTime()
     {
-        if(this.gameObject.activeSelf != false)
+        if (IsInPool || deadOnec || (disappearSequence != null && disappearSequence.IsActive()))
         {
-            SpriteRenderer img = this.GetComponent<SpriteRenderer>();
-            DG.Tweening.Sequence disSequence = DOTween.Sequence()
-            .AppendCallback(() => img.DOFade(0, 1.5f))
-            .AppendInterval(1.5f)
-           .OnComplete(() => ReleaseEnemy(false, false));
+            return; // 이미 사라지는 중이거나 반환됨
         }
+        SpriteRenderer img = this.GetComponent<SpriteRenderer>();
+        disappearSequence = DOTween.Sequence()
+            .Append(img.DOFade(0, 1.5f))
+            .OnComplete(() => ReleaseEnemy(false, false));
+    }
 
+    private void OnDisable()
+    {
+        // 반환된 뒤에 지연 콜백이 재사용된 개체를 건드리지 않도록 정리
+        disappearSequence?.Kill();
+        striffSequence?.Kill();
+        onlyShakeSeq?.Kill();
+        wait?.Kill();
+        transform.DOKill();
     }
 
 }

@@ -7,8 +7,8 @@
 
 | ID | 내용 | 위치 | 상태 |
 |---|---|---|---|
-| B-001 | 적 사망 시 `ReleaseObject()`만 호출 → OnReleased 미발생 → **드롭·시체·리스폰 전부 안 됨** (b05df50a 회귀) | `EnemyHealth.cs:237-245, 298-306`, `EnemySpawner.OnEnemyReleased` | ⏳ |
-| B-002 | `ClearAllPools`의 `while(CountActive>0){Get();Release();}` 무한 루프 의심 → 포털 이동 시 멈춤 | `EnemySpawner.cs:285-297` | ⏳ |
+| B-001 | 적 사망 시 `ReleaseObject()`만 호출 → OnReleased 미발생 → **드롭·시체·리스폰 전부 안 됨** (b05df50a 회귀) | `EnemyHealth.cs:237-245, 298-306`, `EnemySpawner.OnEnemyReleased` | ✅ EnemyHealth.TryDie 단일 경로 (프로브: 처치→드롭·슬롯 비움·10초 후 리스폰) |
+| B-002 | `ClearAllPools`의 `while(CountActive>0){Get();Release();}` 무한 루프 의심 → 포털 이동 시 멈춤 | `EnemySpawner.cs:285-297` | ✅ ClearAllPools 재작성: 대여 목록 추적 후 반환 (프로브: 포털 복귀 정상) |
 | B-003 | 제작 시 표시명(itemNameT)으로 생성 → 키 불일치 NRE, 재료는 이미 차감 | `CraftingManager.cs:184` | ⏳ |
 | B-004 | 인벤토리 수량 캐시 불일치 → 창고에 둔 재료로 공짜 제작 | `ItemDrag.cs:131-149`, `InventoryManager.UseEquipment/I2CMove` | ⏳ |
 | B-005 | 장비를 드래그로 해제하면 세이브 미갱신 → 재접속 시 아이템 복제 | `ItemDrag.cs:123-128` | ⏳ |
@@ -38,9 +38,9 @@
 
 | ID | 내용 | 위치 |
 |---|---|---|
-| B-201 | DisaperByTime 재진입 → 이중 Release 예외 | `EnemyHealth.cs:500-511` |
-| B-202 | `CountInactive==0`이면 Destroy하는 패턴 → 풀 붕괴 | EnemyHealth, DeadBody, DropItemCheck |
-| B-203 | DropItemCheck의 120초 Invoke 미취소 → 재사용 아이템 조기 소멸 | `DropItemCheck.cs:26` |
+| B-201 | ✅ DisaperByTime 재진입 → 이중 Release 예외 (PoolAble 이중 반환 가드 + 시퀀스 OnDisable Kill) | `EnemyHealth.cs` |
+| B-202 | ✅ `CountInactive==0`이면 Destroy하는 패턴 → 풀 붕괴 (B-001의 실제 원인) | EnemyHealth, DeadBody, DropItemCheck |
+| B-203 | ✅ DropItemCheck의 120초 Invoke 미취소 → 재사용 아이템 조기 소멸 | `DropItemCheck.cs:26` |
 | B-204 | AttackSpawon이 풀 오브젝트 Destroy / Start에서만 예약 | `AttackSpawon.cs` |
 | B-205 | DOTween 시퀀스 미정리 → 파괴 후 콜백 MissingReference | `DamageObject.cs` 다수 |
 | B-206 | 독·출혈이 Destroy 후 Invoke 재호출 | `PosionAttack.cs`, `BleedingAttack.cs` |
