@@ -113,7 +113,7 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 110,Snail Shell,Misc,World,70,1,-,99,-,0,-,,Snail Shell,0,C,0,
 111,TuskKnuckles,Equip,equipment,450,2,-,1,-,0,Weapon,,Tusk Knuckles,0,R,0,
 112,WispLantern,Equip,equipment,450,2,-,1,-,0,Weapon,,Wisp Lantern,0,R,0,
-113,-,-,-,0,0,-,0,-,0,-,,,0,,0,
+113,ShellShield,Equip,equipment,450,2,-,1,-,0,Weapon,,Shell Shield,0,R,0,
 114,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 115,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 116,-,-,-,0,0,-,0,-,0,-,,,0,,0,

@@ -120,5 +120,19 @@ def wisp_lantern():
     save("WispLantern", im)
 
 
+def shell_shield():
+    im = canvas(); d = ImageDraw.Draw(im)
+    d.line([(4, 28), (14, 8)], fill=(200, 200, 210), width=2)               # 검
+    d.line([(3, 29), (7, 25)], fill=(92, 62, 36), width=2)
+    d.ellipse((11, 9, 29, 29), fill=(150, 96, 160))                          # 달팽이 껍데기 방패
+    d.ellipse((12, 10, 27, 21), fill=(196, 140, 206))
+    d.ellipse((14, 20, 28, 29), fill=(96, 56, 110))
+    cx, cy = 20, 19
+    pts = [(cx + round(math.cos(k * 0.45) * (8 - k * 0.18)), cy + round(math.sin(k * 0.45) * (8 - k * 0.18))) for k in range(40)]
+    d.line(pts, fill=(80, 44, 96))
+    d.rectangle((18, 27, 23, 29), fill=(126, 170, 96))                       # 점액 띠
+    save("ShellShield", im)
+
+
 if __name__ == "__main__":
-    fang_dagger(); wolf_fang(); boar_tusk(); wisp_ember(); snail_shell(); tusk_knuckles(); wisp_lantern()
+    fang_dagger(); wolf_fang(); boar_tusk(); wisp_ember(); snail_shell(); tusk_knuckles(); wisp_lantern(); shell_shield()

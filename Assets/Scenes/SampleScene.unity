@@ -25140,6 +25140,9 @@ MonoBehaviour:
   - itemName: Potion
     dropProbability: 0.04
     offsetY: 0.5
+  - itemName: ShellShield
+    dropProbability: 0.02
+    offsetY: 0.5
   objectInfos:
   - objectName: SacreGreatSword
     count: 1
@@ -40086,6 +40089,9 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: ShellShield
+    dropProbability: 0.02
     offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
@@ -231587,7 +231593,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.46875
+  orthographic size: 5.869565
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -311433,6 +311439,9 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: ShellShield
+    dropProbability: 0.02
     offsetY: 0.5
   objectInfos:
   - objectName: SacreGreatSword
@@ -719297,6 +719306,9 @@ MonoBehaviour:
     offsetY: 0.5
   - itemName: Potion
     dropProbability: 0.04
+    offsetY: 0.5
+  - itemName: ShellShield
+    dropProbability: 0.02
     offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
