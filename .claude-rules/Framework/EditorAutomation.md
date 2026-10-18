@@ -46,3 +46,8 @@ bash Tools/playtest.sh 10 이름                                                
 - 에디터가 최소화·비포커스면 Input System이 키보드를 비활성화한다. `Tools/probes/input_bg_on.cs`(백그라운드 입력 허용 + 키보드 재활성) → `press_key.cs`(`__KEY__`=Key 이름, 0.1초 뒤 뗌) → 끝나면 `input_bg_off.cs`로 복구.
 - 스크린샷에 오버레이 UI가 빠질 때가 있다(타이밍). 창을 연 뒤 2~3초 기다려 다시 찍는다.
 
+## 셸 heredoc 백슬래시 함정 (2026-10-18)
+
+- 이 환경의 Bash 도구는 heredoc 본문의 `\`를 한 번 풀어 `\`로 넘긴다. 파이썬으로 C# 문자열 이스케이프(`""`, `'
+'`)를 쓸 때는 백슬래시를 `chr(92)`로 만들어 조합한다. 깨지면 "Newline in constant" 컴파일 오류가 난다.
+

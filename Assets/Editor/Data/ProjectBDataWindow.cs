@@ -29,12 +29,14 @@ namespace ProjectB.EditorTools
         }
 
         ItemTable items;
+        MonsterSheetTable monsters;
         SetTable sets;
 
         protected override OdinMenuTree BuildMenuTree()
         {
             items = ItemTable.Load();
             sets = SetTable.Load();
+            monsters = MonsterSheetTable.Load();
             var tree = new OdinMenuTree(true);
             tree.Config.DrawSearchToolbar = true;
             tree.Add("검증 리포트", new ValidationReport(items, sets));
@@ -45,6 +47,7 @@ namespace ProjectB.EditorTools
                 tree.Add("아이템/" + cat + "/" + r.Name, r);
             }
             tree.Add("세트 효과", sets);
+            tree.Add("몬스터 스탯 (CSV)", monsters);
             foreach (string guid in AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Prefab/Enemy_BD" }))
             {
                 var go = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid));
@@ -65,6 +68,7 @@ namespace ProjectB.EditorTools
             {
                 items.Save();
                 sets.Save();
+                monsters.Save();
                 AssetDatabase.Refresh();
             }
             if (SirenixEditorGUI.ToolbarButton("다시 읽기"))
@@ -220,6 +224,79 @@ namespace ProjectB.EditorTools
                 sb.Append("\r\n").Append(r.Key).Append(',').Append(r.Effect);
             }
             File.WriteAllText(ProjectBDataWindow.SetCsv, sb.ToString(), new UTF8Encoding(false));
+        }
+    }
+
+    // ───────────── MonsterSheet.csv (C5) ─────────────
+
+    [System.Serializable]
+    public class MonsterRow
+    {
+        [TableColumnWidth(150, Resizable = false)] public string Id;
+        public string DisplayName;
+        [TableColumnWidth(50, Resizable = false)] public int Floor;
+        public string Zone;
+        [TableColumnWidth(70, Resizable = false)] public int MaxHP;
+        [TableColumnWidth(60, Resizable = false)] public int Def;
+        [TableColumnWidth(50, Resizable = false)] public bool Boss;
+        [TableColumnWidth(70, Resizable = false)] public bool SuperArmor;
+        [TableColumnWidth(70, Resizable = false)] public float HpHeight;
+        public string MoveSpeed, DropRate, Note;
+    }
+
+    public class MonsterSheetTable
+    {
+        public const string Csv = "Assets/Resources/MonsterSheet.csv";
+        [HideInInspector] public string HeaderLine;
+
+        [TableList(AlwaysExpanded = true, ShowPaging = true, NumberOfItemsPerPage = 30)]
+        public List<MonsterRow> Rows = new List<MonsterRow>();
+
+        public static MonsterSheetTable Load()
+        {
+            var t = new MonsterSheetTable();
+            if (!File.Exists(Csv))
+            {
+                t.HeaderLine = "id,displayName,floor,zone,maxHP,enemyDef,isBoss,superArmor,hpHeight,moveSpeed,dropRate,note";
+                return t;
+            }
+            string[] lines = File.ReadAllText(Csv).Replace("\r", "").Split('\n');
+            t.HeaderLine = lines[0];
+            for (int i = 1; i < lines.Length; i++)
+            {
+                string[] c = lines[i].Split(',');
+                if (c.Length < 9 || string.IsNullOrWhiteSpace(c[0]))
+                {
+                    continue;
+                }
+                var r = new MonsterRow { Id = c[0], DisplayName = c[1], Zone = c[3] };
+                int.TryParse(c[2], out r.Floor);
+                int.TryParse(c[4], out r.MaxHP);
+                int.TryParse(c[5], out r.Def);
+                r.Boss = c[6] == "1";
+                r.SuperArmor = c[7] == "1";
+                float.TryParse(c[8], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out r.HpHeight);
+                r.MoveSpeed = c.Length > 9 ? c[9] : "";
+                r.DropRate = c.Length > 10 ? c[10] : "";
+                r.Note = c.Length > 11 ? c[11] : "";
+                t.Rows.Add(r);
+            }
+            return t;
+        }
+
+        public void Save()
+        {
+            var sb = new StringBuilder(HeaderLine);
+            foreach (MonsterRow r in Rows)
+            {
+                sb.Append("\r\n").Append(string.Join(",", new[]
+                {
+                    r.Id, r.DisplayName, r.Floor.ToString(), (r.Zone ?? "").Replace(",", " "), r.MaxHP.ToString(), r.Def.ToString(),
+                    r.Boss ? "1" : "0", r.SuperArmor ? "1" : "0", r.HpHeight.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture),
+                    r.MoveSpeed ?? "", r.DropRate ?? "", (r.Note ?? "").Replace(",", " "),
+                }));
+            }
+            File.WriteAllText(Csv, sb.ToString(), new UTF8Encoding(false));
         }
     }
 
