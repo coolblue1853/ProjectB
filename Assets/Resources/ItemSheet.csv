@@ -195,3 +195,21 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 192,StoneLegArmor,Equip,equipment,1000,50,-,1,-,0,Leg,StoneArmor,Stoneborn Greaves,0,R,0,Stoneborn
 193,StoneHandArmor,Equip,equipment,1000,50,-,1,-,0,Hand,StoneArmor,Stoneborn Gauntlets,0,R,0,Stoneborn
 194,StoneShoes,Equip,equipment,800,50,-,1,-,0,Shoes,StoneArmor,Stoneborn Boots,0,R,0,Stoneborn
+195,RampartSword,Equip,equipment,600,3,-,1,-,0,Weapon,RampartArmor,Rampart Sword,0,R,0,Rampart Guard
+196,SentryHalberd,Equip,equipment,600,3,-,1,-,0,Weapon,RampartArmor,Sentry Halberd,0,R,0,Rampart Guard
+197,GargoyleWing,Equip,equipment,600,3,-,1,-,0,Weapon,SkyArmor,Gargoyle Wing,0,R,0,Skybound
+198,SkyfallTalon,Equip,equipment,10000,3,Boss,1,-,0,Weapon,,Skyfall Talon,0,U,0,
+199,Rampart Shard,Misc,World,160,1,-,99,-,0,-,,Rampart Shard,0,C,0,
+200,Halberd Fragment,Misc,World,170,1,-,99,-,0,-,,Halberd Fragment,0,C,0,
+201,Gargoyle Feather,Misc,World,170,1,-,99,-,0,-,,Gargoyle Feather,0,C,0,
+202,Storm Wisp,Misc,World,160,1,-,99,-,0,-,,Storm Wisp,0,C,0,
+203,RampartCap,Equip,equipment,1100,50,-,1,-,0,Head,RampartArmor,Rampart Guard Helm,0,R,0,Rampart Guard
+204,RampartArmor,Equip,equipment,1300,50,-,1,-,0,Chest,RampartArmor,Rampart Guard Plate,0,R,0,Rampart Guard
+205,RampartLegArmor,Equip,equipment,1100,50,-,1,-,0,Leg,RampartArmor,Rampart Guard Greaves,0,R,0,Rampart Guard
+206,RampartHandArmor,Equip,equipment,1100,50,-,1,-,0,Hand,RampartArmor,Rampart Guard Gauntlets,0,R,0,Rampart Guard
+207,RampartShoes,Equip,equipment,900,50,-,1,-,0,Shoes,RampartArmor,Rampart Guard Sabatons,0,R,0,Rampart Guard
+208,SkyCap,Equip,equipment,1100,50,-,1,-,0,Head,SkyArmor,Skybound Cowl,0,R,0,Skybound
+209,SkyArmor,Equip,equipment,1300,50,-,1,-,0,Chest,SkyArmor,Skybound Vest,0,R,0,Skybound
+210,SkyLegArmor,Equip,equipment,1100,50,-,1,-,0,Leg,SkyArmor,Skybound Leggings,0,R,0,Skybound
+211,SkyHandArmor,Equip,equipment,1100,50,-,1,-,0,Hand,SkyArmor,Skybound Gloves,0,R,0,Skybound
+212,SkyShoes,Equip,equipment,900,50,-,1,-,0,Shoes,SkyArmor,Skybound Boots,0,R,0,Skybound

@@ -3,7 +3,8 @@ Pack Hunter(WolfArmor) = 늑대 회색 / Night Lantern(WispArmor) = 도깨비불
 ③구역: Ancient Grove(GroveArmor) = 갈색·이끼 / Will-o'-Fae(FaeArmor) = 보라·분홍.
 ④구역: Bog Stalker(BogArmor) = 올리브·갈색 / Gloom Swarm(GloomArmor) = 핏빛 보라.
 ⑤구역: Outlaw(OutlawArmor) = 검붉은 가죽 / Iron Raider(RaiderArmor) = 쇠빛 회색.
-⑥구역: Stoneborn(StoneArmor) = 돌 회색.  사용: python Tools/make_forest_sets.py"""
+⑥구역: Stoneborn(StoneArmor) = 돌 회색.
+2층계 ②구역: Rampart Guard(RampartArmor) = 옅은 금·흰 돌 / Skybound(SkyArmor) = 하늘색.  사용: python Tools/make_forest_sets.py"""
 import colorsys
 import os
 from PIL import Image
@@ -19,7 +20,9 @@ SETS = {"Wolf": (0.0, 0.15, 0.95), "Wisp": (0.28, 1.15, 1.1),
         # ⑤구역 산적 성채 (TowerWorld 15절): Outlaw = 검붉은 가죽, Iron Raider = 쇠빛 회색(채도 낮게)
         "Outlaw": (-0.3, 0.75, 0.72), "Raider": (0.25, 0.18, 0.9),
         # ⑥구역 탑 근교 (TowerWorld 16절): Stoneborn = 이끼 낀 돌 회색(채도 거의 없음, 약간 푸른빛)
-        "Stone": (0.2, 0.12, 0.82)}
+        "Stone": (0.2, 0.12, 0.82),
+        # 2층계 ②구역 무너진 성벽 (Floor2Plan 5.1): Rampart Guard = 옅은 금빛 흰 돌, Skybound = 하늘색 깃
+        "Rampart": (-0.19, 0.22, 1.35), "Sky": (0.2, 0.6, 1.25)}
 
 
 def shift(src, dst, h, s, v):

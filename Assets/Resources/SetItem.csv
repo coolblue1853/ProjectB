@@ -38,3 +38,9 @@ RaiderArmor_6,(+)150 Hp/(+)20 Def/(+)10 CritDmg
 StoneArmor_2,(+)20 Def/(+)80 Hp
 StoneArmor_4,(+)30 coolDown Rolling_Charge/(+)30 coolDown Aftershock/(+)30 coolDown Boulder_Toss/(+)8 IncDmg
 StoneArmor_6,(+)25 Def/(+)180 Hp/(+)10 IncDmg
+RampartArmor_2,(+)22 Def/(+)100 Hp
+RampartArmor_4,(+)30 coolDown Shield_Rush/(+)30 coolDown Halberd_Sweep/(+)8 IncDmg
+RampartArmor_6,(+)28 Def/(+)200 Hp/(+)12 CritDmg
+SkyArmor_2,(+)8 MoveSpeed/(+)6 Crit
+SkyArmor_4,(+)35 coolDown Stone_Feather/(+)35 coolDown Gargoyle_Dive/(+)8 IncDmg
+SkyArmor_6,(+)12 AtkSpeed/(+)12 IncDmg/(+)15 CritDmg
