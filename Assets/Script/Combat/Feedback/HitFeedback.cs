@@ -1,4 +1,5 @@
 ﻿using Com.LuisPedroFonseca.ProCamera2D;
+using DamageNumbersPro;
 using UnityEngine;
 
 /// <summary>
@@ -113,6 +114,54 @@ public static class HitFeedback
         }
         cachedShake.Shake(duration, strength * ShakeScale, vibrato, 0.3f, -1f, Vector3.zero, 0.05f);
         ShakeCount++;
+    }
+
+    public enum NumberKind { Normal, Crit, Extra, Poison, Bleed }
+
+    const int MaxCritNumbersPerFrame = 4;
+    static int critFrame = -1, critCountThisFrame;
+
+    /// <summary>
+    /// 데미지 숫자 스폰을 한 곳으로 모은다. 종류별로 색·크기를 매번 명시한다(풀링 재사용 시 이전 색이 남지 않도록).
+    /// 치명타는 프레임당 4개까지만 강조하고 나머지는 일반 숫자로 낸다(가독성).
+    /// </summary>
+    public static void SpawnNumber(DamageNumber prefab, Vector3 position, int value, NumberKind kind)
+    {
+        if (prefab == null || value <= 0)
+        {
+            return;
+        }
+        if (kind == NumberKind.Crit)
+        {
+            if (critFrame != Time.frameCount)
+            {
+                critFrame = Time.frameCount;
+                critCountThisFrame = 0;
+            }
+            if (++critCountThisFrame > MaxCritNumbersPerFrame)
+            {
+                kind = NumberKind.Normal;
+            }
+        }
+
+        float baseScale = prefab.transform.localScale.x;
+        Color color;
+        float scale;
+        Vector3 offset = Vector3.zero;
+        switch (kind)
+        {
+            case NumberKind.Crit: color = new Color(1f, 0.55f, 0.1f); scale = 1.45f; break;
+            case NumberKind.Extra: color = new Color(0.45f, 0.85f, 1f); scale = 0.8f; offset = new Vector3(0.15f, 0.25f, 0f); break;
+            case NumberKind.Poison: color = new Color(0.45f, 1f, 0.35f); scale = 0.7f; break;
+            case NumberKind.Bleed: color = new Color(0.95f, 0.15f, 0.2f); scale = 0.7f; break;
+            default: color = Color.white; scale = 1f; break;
+        }
+        DamageNumber number = prefab.Spawn(position + offset, value);
+        if (number != null)
+        {
+            number.SetColor(color);
+            number.SetScale(baseScale * scale);
+        }
     }
 
     static SpriteHitFx GetFx(EnemyHealth target)

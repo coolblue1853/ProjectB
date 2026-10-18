@@ -164,8 +164,8 @@ public class EnemyHealth : PoolAble
 
        // 최종데미지
         Damage((int)finDmg);
-        if (isCrit) damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg + "!");
-        else damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
+        HitFeedback.SpawnNumber(damageNumber, transform.position + Vector3.up, (int)finDmg,
+            isCrit ? HitFeedback.NumberKind.Crit : HitFeedback.NumberKind.Normal);
 
 
         if (isSuperArmor == true)
@@ -175,7 +175,7 @@ public class EnemyHealth : PoolAble
         if ((int)addDmg != 0) // 추가 데미지 판정
         {
            Damage((int)addDmg);
-            damageNumber.Spawn(transform.position + Vector3.up, (int)addDmg);
+            HitFeedback.SpawnNumber(damageNumber, transform.position + Vector3.up, (int)addDmg, HitFeedback.NumberKind.Extra);
         }
 
 

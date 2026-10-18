@@ -64,7 +64,7 @@
 ### Q-104 ⏳ Lv1 사냥터 = SideRoad로 교체
 - SideRoad 맵은 NearForest 전체 + 왼쪽 확장 구역(보스 포함)이라 확장판으로 판단. 마을 포털을 SideRoad로 연결하고 NearForest는 비활성.
 - **[임시 가정]** 의도된 최신 맵은 SideRoad. 아니라면 NearForest로 되돌리기 쉬움(마을 포털 openMap만 교체).
-- 참고: 프로브로 맵을 강제 활성화할 때 'PlayerLoop called recursively' 에러가 1회 관찰됨(도구 컨텍스트에서 수십 개 스포너 동시 Init). 실제 포털 이동에서 재발하면 PoolCheck 활성화를 프레임 분산할 것.
+- 참고: 프로브에서 timeScale 조작·맵 강제 활성화 등을 할 때 'PlayerLoop called recursively' 에러가 1회 관찰됨(도구 컨텍스트에서 수십 개 스포너 동시 Init). 실제 포털 이동에서 재발하면 PoolCheck 활성화를 프레임 분산할 것.
 
 ### Q-105 ⏳ 플레이어 조작 세부 (PlayerStateDesign 5절)
 - Q-A 피격이 공격·스킬을 끊는가? → **[임시 가정]** 끊는다(슈퍼아머면 안 끊음).

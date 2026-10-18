@@ -41,10 +41,8 @@ public abstract class DotEffectBase : MonoBehaviour
             }
             int damage = TickDamage(baseDamage);
             enemyHealth.onlyDamage2Enemy(damage);
-            if (damageNumber != null)
-            {
-                damageNumber.Spawn(transform.position + Vector3.up, damage);
-            }
+            HitFeedback.SpawnNumber(damageNumber, transform.position + Vector3.up, damage,
+                this is BleedingAttack ? HitFeedback.NumberKind.Bleed : HitFeedback.NumberKind.Poison);
             HitFeedback.OnDotTick(enemyHealth, this is BleedingAttack);
             OnTick();
             yield return wait;
