@@ -73,7 +73,7 @@ foreach (var s in copy.GetComponentsInChildren<EnemySpawner>(true))
     else if (n.StartsWith("Flowermole")) sb.Append(swap(s, "Mole", "SporeShroom_BD", "SporeShroomDeadBody"));
     else if (n.StartsWith("RatThief") || n.StartsWith("ScareCrow")) sb.Append(swap(s, "Flowermole1", "Wisp_BD", "WispDeadBody"));
     else if (n.StartsWith("RatCheif") || n.StartsWith("CreepingTerror")) sb.Append(swap(s, "Mole", "ForestSnail_BD", "ForestSnailDeadBody"));
-    else if (n.StartsWith("Boss")) { s.gameObject.SetActive(false); sb.Append("boss off; "); }
+    else if (n.StartsWith("Boss")) { UnityEngine.Object.DestroyImmediate(s.gameObject); sb.Append("boss removed; "); continue; } // SetActive(false) 는 PoolCheck.AbleSpwaner 가 다시 켠다
 }
 
 // 짙은 숲 색조 (같은 지형이라도 구역이 바뀐 느낌)
