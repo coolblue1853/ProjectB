@@ -285725,6 +285725,33 @@ MonoBehaviour:
       songStartedCustomEvent: 
       songChangedEventExpanded: 0
       songChangedCustomEvent: 
+    - alias: LOOP_Marketplace
+      audLocation: 0
+      clip: {fileID: 8300000, guid: 388bdd2abaaeba34eaa7c02b9da95263, type: 3}
+      songName: LOOP_Marketplace
+      resourceFileName: 
+      volume: 0.8
+      pitch: 1
+      isExpanded: 1
+      isLoop: 0
+      isChecked: 1
+      metadataStringValues: []
+      metadataBoolValues: []
+      metadataIntValues: []
+      metadataFloatValues: []
+      metadataExpanded: 1
+      songStartTimeMode: 0
+      customStartTime: 0
+      customStartTimeMax: 0
+      lastKnownTimePoint: 0
+      wasLastKnownTimePointSet: 0
+      songIndex: 0
+      sectionStartTime: 0
+      sectionEndTime: 0
+      songStartedEventExpanded: 0
+      songStartedCustomEvent: 
+      songChangedEventExpanded: 0
+      songChangedCustomEvent: 
     bulkLocationMode: 0
     crossfadeMode: 0
     crossFadeTime: 1
@@ -285748,6 +285775,33 @@ MonoBehaviour:
       songName: This is Elven Land
       resourceFileName: 
       volume: 1
+      pitch: 1
+      isExpanded: 1
+      isLoop: 0
+      isChecked: 1
+      metadataStringValues: []
+      metadataBoolValues: []
+      metadataIntValues: []
+      metadataFloatValues: []
+      metadataExpanded: 1
+      songStartTimeMode: 0
+      customStartTime: 0
+      customStartTimeMax: 0
+      lastKnownTimePoint: 0
+      wasLastKnownTimePointSet: 0
+      songIndex: 0
+      sectionStartTime: 0
+      sectionEndTime: 0
+      songStartedEventExpanded: 0
+      songStartedCustomEvent: 
+      songChangedEventExpanded: 0
+      songChangedCustomEvent: 
+    - alias: Forest LOOP
+      audLocation: 0
+      clip: {fileID: 8300000, guid: a3782392adfb93948a287781f9c81b7c, type: 3}
+      songName: Forest LOOP
+      resourceFileName: 
+      volume: 0.8
       pitch: 1
       isExpanded: 1
       isLoop: 0
@@ -285813,6 +285867,33 @@ MonoBehaviour:
       songStartedCustomEvent: 
       songChangedEventExpanded: 0
       songChangedCustomEvent: 
+    - alias: Moonlit Forest - Main Loop
+      audLocation: 0
+      clip: {fileID: 8300000, guid: 3e893b0cda706384e8db0babdb4ad3db, type: 3}
+      songName: Moonlit Forest - Main Loop
+      resourceFileName: 
+      volume: 0.8
+      pitch: 1
+      isExpanded: 1
+      isLoop: 0
+      isChecked: 1
+      metadataStringValues: []
+      metadataBoolValues: []
+      metadataIntValues: []
+      metadataFloatValues: []
+      metadataExpanded: 1
+      songStartTimeMode: 0
+      customStartTime: 0
+      customStartTimeMax: 0
+      lastKnownTimePoint: 0
+      wasLastKnownTimePointSet: 0
+      songIndex: 0
+      sectionStartTime: 0
+      sectionEndTime: 0
+      songStartedEventExpanded: 0
+      songStartedCustomEvent: 
+      songChangedEventExpanded: 0
+      songChangedCustomEvent: 
     bulkLocationMode: 0
     crossfadeMode: 1
     crossFadeTime: 1.5
@@ -285836,6 +285917,33 @@ MonoBehaviour:
       songName: Fury of the Druid Second and Subsequent
       resourceFileName: 
       volume: 1
+      pitch: 1
+      isExpanded: 1
+      isLoop: 0
+      isChecked: 1
+      metadataStringValues: []
+      metadataBoolValues: []
+      metadataIntValues: []
+      metadataFloatValues: []
+      metadataExpanded: 1
+      songStartTimeMode: 0
+      customStartTime: 0
+      customStartTimeMax: 0
+      lastKnownTimePoint: 0
+      wasLastKnownTimePointSet: 0
+      songIndex: 0
+      sectionStartTime: 0
+      sectionEndTime: 0
+      songStartedEventExpanded: 0
+      songStartedCustomEvent: 
+      songChangedEventExpanded: 0
+      songChangedCustomEvent: 
+    - alias: Boss Battle 2 Loop
+      audLocation: 0
+      clip: {fileID: 8300000, guid: bf355ce02e2d89a4aa556ed86ec0e644, type: 3}
+      songName: Boss Battle 2 Loop
+      resourceFileName: 
+      volume: 0.8
       pitch: 1
       isExpanded: 1
       isLoop: 0
@@ -285903,6 +286011,77 @@ MonoBehaviour:
       songChangedCustomEvent: 
     bulkLocationMode: 0
     crossfadeMode: 1
+    crossFadeTime: 1.5
+    fadeInFirstSong: 0
+    fadeOutLastSong: 0
+    bulkEditMode: 0
+    isTemporary: 0
+    showMetadata: 0
+    songMetadataProps: []
+    newMetadataPropName: PropertyName
+    newMetadataPropType: 1
+    newMetadataPropRequired: 1
+    newMetadataPropCanHaveMult: 0
+  - isExpanded: 1
+    playlistName: Field2
+    songTransitionType: 1
+    MusicSettings:
+    - alias: LOOP_Fields of Mystery
+      audLocation: 0
+      clip: {fileID: 8300000, guid: 75a39e542df7685408c1bd95dde60210, type: 3}
+      songName: LOOP_Fields of Mystery
+      resourceFileName: 
+      volume: 0.8
+      pitch: 1
+      isExpanded: 1
+      isLoop: 0
+      isChecked: 1
+      metadataStringValues: []
+      metadataBoolValues: []
+      metadataIntValues: []
+      metadataFloatValues: []
+      metadataExpanded: 1
+      songStartTimeMode: 0
+      customStartTime: 0
+      customStartTimeMax: 0
+      lastKnownTimePoint: 0
+      wasLastKnownTimePointSet: 0
+      songIndex: 0
+      sectionStartTime: 0
+      sectionEndTime: 0
+      songStartedEventExpanded: 0
+      songStartedCustomEvent: 
+      songChangedEventExpanded: 0
+      songChangedCustomEvent: 
+    - alias: LOOP_Forbidden Forest
+      audLocation: 0
+      clip: {fileID: 8300000, guid: 36f4569012b1ed54ca91f6d9b08c14a7, type: 3}
+      songName: LOOP_Forbidden Forest
+      resourceFileName: 
+      volume: 0.8
+      pitch: 1
+      isExpanded: 1
+      isLoop: 0
+      isChecked: 1
+      metadataStringValues: []
+      metadataBoolValues: []
+      metadataIntValues: []
+      metadataFloatValues: []
+      metadataExpanded: 1
+      songStartTimeMode: 0
+      customStartTime: 0
+      customStartTimeMax: 0
+      lastKnownTimePoint: 0
+      wasLastKnownTimePointSet: 0
+      songIndex: 0
+      sectionStartTime: 0
+      sectionEndTime: 0
+      songStartedEventExpanded: 0
+      songStartedCustomEvent: 
+      songChangedEventExpanded: 0
+      songChangedCustomEvent: 
+    bulkLocationMode: 0
+    crossfadeMode: 0
     crossFadeTime: 1.5
     fadeInFirstSong: 0
     fadeOutLastSong: 0

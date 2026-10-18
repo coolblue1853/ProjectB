@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// 상황별 BGM 전환: 마을 → Town, 사냥터 낮 → Field, 밤 → Night, 보스 등장 → Boss.
+/// 상황별 BGM 전환: 마을 → Town, 사냥터 낮 → Field(2층계 이상 Field2), 밤 → Night, 보스 등장 → Boss.
 /// 씬 수정 없이 런타임에 생성된다. 재생목록은 MasterAudio의 musicPlaylists (Town/Field/Night/Boss/Victory).
 /// </summary>
 public class BgmDirector : MonoBehaviour
@@ -12,6 +12,7 @@ public class BgmDirector : MonoBehaviour
 
     string current;
     bool inTown = true;
+    int floor = 1;
     float timer;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -31,12 +32,21 @@ public class BgmDirector : MonoBehaviour
 
     void Start()
     {
-        inTown = IsPlayerInTown();
+        Transform map = FindPlayerMap();
+        inTown = map == null || map.name == TownMapName;
+        floor = FloorOf(map);
+    }
+
+    static int FloorOf(Transform map)
+    {
+        MapInfo info = map != null ? map.GetComponent<MapInfo>() : null;
+        return info != null ? info.floor : 1;
     }
 
     void OnMapChanged(GameObject openMap)
     {
         inTown = openMap != null && openMap.name == TownMapName;
+        floor = FloorOf(openMap != null ? openMap.transform : null);
         timer = 0f; // 즉시 반영
     }
 
@@ -52,7 +62,7 @@ public class BgmDirector : MonoBehaviour
         string target = inTown ? "Town"
             : EnemyHealth.ActiveBossCount > 0 ? "Boss"
             : TimeChange.instance != null && !TimeChange.instance.isDaytime ? "Night"
-            : "Field";
+            : floor >= 2 ? "Field2" : "Field";
         if (target == current)
         {
             return;
@@ -63,13 +73,13 @@ public class BgmDirector : MonoBehaviour
     }
 
     /// <summary>시작 시 플레이어가 어느 맵에 있는지: 세로로 쌓인 맵 루트 중 플레이어와 높이가 가장 가까운 활성 맵</summary>
-    static bool IsPlayerInTown()
+    static Transform FindPlayerMap()
     {
         var map = GameObject.Find("Map");
         var player = PlayerController.instance;
         if (map == null || player == null)
         {
-            return true;
+            return null;
         }
         Transform best = null;
         float bestDy = float.MaxValue;
@@ -86,7 +96,7 @@ public class BgmDirector : MonoBehaviour
                 best = m;
             }
         }
-        return best == null || best.name == TownMapName;
+        return best;
     }
 
     /// <summary>프로브용</summary>

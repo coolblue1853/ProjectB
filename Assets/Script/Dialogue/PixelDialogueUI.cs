@@ -28,7 +28,8 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
     Response[] responses;
     int cursor;
     bool open, typing, waitingContinue;
-    float shownAt, alertUntil;
+    float shownAt, alertUntil, savedMusicVolume = -1f;
+    const float DuckRatio = 0.45f; // 대사 중 BGM 덕킹 비율
 
     public bool IsOpen => open;
 
@@ -54,6 +55,11 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
         action.UI.Enable();
         UiLock.Set("Dialogue", true);
         Sfx.Play(SfxId.UiOpen, 0.6f);
+        if (DarkTonic.MasterAudio.MasterAudio.SafeInstance != null && savedMusicVolume < 0f)
+        {
+            savedMusicVolume = DarkTonic.MasterAudio.MasterAudio.PlaylistMasterVolume;
+            DarkTonic.MasterAudio.MasterAudio.PlaylistMasterVolume = savedMusicVolume * DuckRatio;
+        }
     }
 
     public void Close()
@@ -62,6 +68,11 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
         root.SetActive(false);
         action.UI.Disable();
         UiLock.Set("Dialogue", false);
+        if (savedMusicVolume >= 0f && DarkTonic.MasterAudio.MasterAudio.SafeInstance != null)
+        {
+            DarkTonic.MasterAudio.MasterAudio.PlaylistMasterVolume = savedMusicVolume;
+        }
+        savedMusicVolume = -1f;
     }
 
     public void ShowSubtitle(Subtitle subtitle)
