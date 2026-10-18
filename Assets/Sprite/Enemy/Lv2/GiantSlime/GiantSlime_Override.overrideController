@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GiantSlime_Override
+  m_Controller: {fileID: 9100000, guid: 3d4b6bb9f347a184a816b9303a8974f8, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 1de7bde505b54d5409175b2f9857e420, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c278a9245139d15448a834d69422eb39, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 24f065a5b94cc304ca30079c94ec2086, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a79c6b9a31abc584298817cf81504a10, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 706222e5449e91e49b5a20e70c8a4a58, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2aa7ca3ac49dd6d4e9f5c84f5bf23d2d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2768da2b7d14775479a591e226b6631c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 83993ef18ab339a42882f87f7d3925b3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c564b3d74cb97af4e8397547d5132326, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4a6b34eb1622cbd48a924d39253a14ae, type: 2}

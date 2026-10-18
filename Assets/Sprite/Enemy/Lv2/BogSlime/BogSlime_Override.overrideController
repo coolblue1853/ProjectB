@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BogSlime_Override
+  m_Controller: {fileID: 9100000, guid: fb889312828595642b1503f1b8e59f2d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 3565eed599b103345a55020bd15fcdb7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0c436562edcf08446a7e1612e9abf652, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7f8a1a2ea21d2ae42baa6f412b260ddb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0322bcc74c9b757439e2361443393352, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d0b5d7f58862ccb4a824b9821c135433, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 295e61d6f055b27479934a681c088a30, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7d9c82979998eff409287a5243bcffad, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 61bfedc79b0af6a4a9d717e4d980a21d, type: 2}
