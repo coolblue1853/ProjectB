@@ -175,7 +175,36 @@ public class PlayerController : MonoBehaviour
         hitStopTimer -= Time.deltaTime;
         if (hitStopTimer <= 0f && mainCharacter != null)
         {
-            mainCharacter.SetAnimationSpeed(1f);
+            RestoreAnimSpeed();
+        }
+    }
+
+    [Tooltip("공격 시작 후 방향 전환을 막는 시간(초). 이동 가능 무기로 휘두르는 중 뒤돌면 판정까지 뒤집히던 문제 (W-13)")]
+    [SerializeField] private float _turnLockTime = 0.2f;
+    float attackStartedAt = -10f;
+    bool TurnLocked => isAttackAnim && Time.time - attackStartedAt < _turnLockTime;
+
+    string attackAnimPlaying; // 공속 배율이 걸린 공격 애니 (히트스톱 해제 후 배율 복원용, W-11)
+
+    /// <summary>히트스톱 해제: 전체 1배속으로 돌린 뒤 진행 중인 공격 애니에는 공속 배율을 다시 건다</summary>
+    void RestoreAnimSpeed()
+    {
+        mainCharacter.SetAnimationSpeed(1f);
+        if (isAttackAnim && !string.IsNullOrEmpty(attackAnimPlaying))
+        {
+            mainCharacter.SetAnimationSpeed(attackAnimPlaying, StatMath.AttackSpeedMul);
+        }
+    }
+
+    /// <summary>공격이 공중에서 끝나면 Jump 애니로 돌아가 착지 판정이 Idle 로 이어지게 한다 (W-12)</summary>
+    void ReturnToAirAnim()
+    {
+        attackAnimPlaying = null;
+        // isGround 는 벽 판정용이라 지면에서도 false 일 수 있다 → 착지 판정(세로 속도 0)과 같은 기준을 쓴다
+        if (Mathf.Abs(rb.linearVelocity.y) > 0.01f && !isUpLadder && states != "dash")
+        {
+            isJumpAnim = true;
+            mainCharacter.Play("Jump");
         }
     }
 
@@ -512,7 +541,10 @@ public class PlayerController : MonoBehaviour
 
                 states = "moveLeft";
                 moveVelocity = Vector2.left * (isRun ? runSpeed * StatMath.MoveSpeedMul : moveSpeed * StatMath.MoveSpeedMul);
-                transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
+                if (!TurnLocked) // 공격 초반엔 방향 고정 (W-13)
+                {
+                    transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
+                }
             }
             else if (horizontalInput > 0)
             {
@@ -534,7 +566,10 @@ public class PlayerController : MonoBehaviour
 
                 states = "moveRight";
                 moveVelocity = Vector2.right * (isRun ? runSpeed * StatMath.MoveSpeedMul : moveSpeed * StatMath.MoveSpeedMul);
-                transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
+                if (!TurnLocked) // 공격 초반엔 방향 고정 (W-13)
+                {
+                    transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
+                }
             }
             else if (horizontalInput == 0 && states != "move" && check ==false)
             {
@@ -848,7 +883,12 @@ public class PlayerController : MonoBehaviour
         }
         mainCharacter.Play(anim);
         // 공격 애니 속도 = 공속 배율 (세트·장비 공속이 눈에 보이게)
-        mainCharacter.SetAnimationSpeed(anim, StatMath.AttackSpeedMul);
+        attackAnimPlaying = anim;
+        attackStartedAt = Time.time;
+        if (hitStopTimer <= 0f)
+        {
+            mainCharacter.SetAnimationSpeed(anim, StatMath.AttackSpeedMul);
+        }
         isAttackAnim = true;
         if(isUpLadder == true)
         {
@@ -873,7 +913,8 @@ public class PlayerController : MonoBehaviour
            .AppendInterval(time)
            .AppendCallback(() => isAttackAnim = false)
            .AppendCallback(() => ReversSprite(isRevers))
-           .AppendCallback(() => EndRopeAttackAnim());
+           .AppendCallback(() => EndRopeAttackAnim())
+           .AppendCallback(() => ReturnToAirAnim());
 
         }
 
