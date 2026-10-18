@@ -99,8 +99,16 @@ public class DropItemCheck : PoolAble
                 {
                     ReleaseObject();
                 }
-                InventoryManager.instance.CreatItem(name);
-                Sfx.Play(itemData != null && itemData.rarity == "U" ? SfxId.RareDrop : SfxId.Pickup);
+                string rarity = itemData != null ? itemData.rarity : "C";
+                if (InventoryManager.instance.CreatItem(name))
+                {
+                    PickupLog.Report(name, 1, rarity);
+                }
+                Sfx.Play(rarity == "U" ? SfxId.RareDrop : SfxId.Pickup);
+            }
+            else
+            {
+                PickupLog.ReportFull(); // 2초 스로틀 (이전엔 조용히 무시)
             }
         }
     }

@@ -1,4 +1,4 @@
-# 인벤토리 리팩터 설계 (D2~D6)
+﻿# 인벤토리 리팩터 설계 (D2~D6)
 
 > 상태: 설계안(2026-10-18, 코드 역산). 구현 전이다. 줄 번호는 커밋 928178f1 기준이다.
 > 관련: `Game/ItemSpec.md`(데이터·세이브), `Game/QualityRoadmap.md` D절, `Game/TechDebt.md`.
@@ -255,6 +255,8 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 - **페이지 탭:** 잠긴 탭은 자물쇠 아이콘을 표시하고 선택할 수 없다.
 
 ### 3.3 픽업 로그 (D6)
+
+> **구현 상태(2026-10-18):** `Assets/Script/UI/PickupLog/` — `PickupLogModel`(순수)·`PickupLog`(뷰, 코드 생성 캔버스)·`UiTheme`(Resources/UI). `DropItemCheck`의 `CreatItem` 결과에 직접 연결. 세트 아이템 강조는 아직 없음(R/U만), 경고 문구는 한글 TMP 폰트가 없어 영어 "Inventory Full"(G7과 함께 정리).
 
 - 좌측 하단에 최대 5줄을 표시한다. 줄 형식은 `[아이콘] 이름 ×N`이고, 이름은 등급색이다.
 - 같은 아이템을 1.5초 안에 다시 얻으면 줄을 새로 만들지 않고 기존 줄의 N을 올린다. 그 줄의 수명도 다시 시작한다.

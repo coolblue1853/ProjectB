@@ -22,7 +22,7 @@ AnyPortrait, Behavior Designer, DOTween(Pro), Easy Save 3, Damage Numbers Pro, M
 | **All In 1 Sprite Shader** | 피격 플래시, 아웃라인, 디졸브(사망), 등급 글로우 | URP 2D 지원 |
 | **Magic Slashes FX / Particle Pack** | 스킬·평타 이펙트 | ✅ `Assets/ThirdParty/MagicSlashesFX`(EffectPrefabs·Mobile_Prefabs만, 데모·캐릭터·스크립트 제거 122MB→16MB). 셰이더는 URP 2D에서 그대로 동작. 매핑은 `Resources/FX/VfxLibrary.asset`(`Tools/probes/build_vfx_library.cs`) |
 | **Quest Machine** | 퀘스트 시스템(Dialogue System과 연동) | 신규 콘텐츠 축 |
-| **Text Animator for Unity** | 대사·아이템 이름 연출 | |
+| **Text Animator for Unity** | 대사·아이템 이름 연출 | ✅ Legacy판 `Assets/Plugins/Febucci`(런타임·에디터 asmdef만, 예제·연동 제거). 획득 로그에서 사용 |
 
 ## 3. 도입 후보 — 중간
 
