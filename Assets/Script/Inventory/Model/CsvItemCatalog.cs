@@ -3,6 +3,9 @@
 /// <summary>기존 DatabaseManager(ItemSheet.csv)를 감싸는 카탈로그. 정의는 처음 조회할 때 한 번만 만든다</summary>
 public sealed class CsvItemCatalog : IItemCatalog
 {
+    /// <summary>게임 전역 공용 인스턴스 (ItemSheet 는 실행 중 바뀌지 않는다)</summary>
+    public static readonly CsvItemCatalog Shared = new CsvItemCatalog();
+
     readonly Dictionary<string, ItemDef> cache = new Dictionary<string, ItemDef>();
 
     public bool Exists(string id)

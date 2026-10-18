@@ -129,26 +129,9 @@ public class Chest : MonoBehaviour
     }
     public void SaveChest()
     {
-        string[,,] saveChest = new string[5, 30, 4]; // 몇번째인벤, 칸, 이름
-        for (int i = 0; i < 5; i++)
-        {
-            for (int j = 0; j < 30; j++)
-            {
-                GameObject box = inventoryUI[i].transform.GetChild(j).gameObject;
-                if (box.transform.childCount > 0 && box.transform.GetChild(0).GetComponent<ItemCheck>() != null)
-                {
-                    ItemCheck item = box.transform.GetChild(0).GetComponent<ItemCheck>();
-                    saveChest[i, j, 0] = item.itemData.name;
-                    saveChest[i, j, 1] = item.nowStack.ToString();
-                    saveChest[i, j, 2] = item.itemData.tear.ToString();
-                    saveChest[i, j, 3] = item.itemData.upgrade.ToString();
-                }
-                else
-                {
-                    saveChest[i, j, 0] = "non";
-                }
-            }
-        }
+        // Phase 2 브리지: UI 슬롯 → 모델 → 세이브 배열 (SaveMapper)
+        SlotContainer model = ViewScanner.BuildFrom(inventoryUI, 30, CsvItemCatalog.Shared);
+        string[,,] saveChest = SaveMapper.ToArray(model, 5, 30);
         SaveManager.instance.datas.chestItem = saveChest;
         SaveManager.instance.DataSave();
     }
@@ -167,17 +150,18 @@ public class Chest : MonoBehaviour
                 {
                     for (int j = 0; j < childCount; j++)
                     {
-                        if (SaveManager.instance.datas.chestItem[i, j, 0] != "non" && SaveManager.instance.datas.chestItem[i, j, 0] != null)
+                        ItemStack saved = SaveMapper.ReadCell(SaveManager.instance.datas.chestItem, i, j);
+                        if (!saved.IsEmpty)
                         {
                             GameObject insPositon = GetNthChildGameObject(inventoryUI[i], j);
                             GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                             float scaleFactor = 0.8f; // 크기를 조절할 비율
                             item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                             ItemCheck check = item.GetComponent<ItemCheck>();
-                            check.SetItem(SaveManager.instance.datas.chestItem[i, j, 0]);
-                            check.nowStack = int.Parse(SaveManager.instance.datas.chestItem[i, j, 1]);
-                            check.itemData.tear = int.Parse(SaveManager.instance.datas.chestItem[i, j, 2]);
-                            check.itemData.upgrade = int.Parse(SaveManager.instance.datas.chestItem[i, j, 3]);
+                            check.SetItem(saved.Id);
+                            check.nowStack = saved.Count;
+                            check.itemData.tear = saved.Tier;
+                            check.itemData.upgrade = saved.Upgrade;
                         }
                     }
                 }

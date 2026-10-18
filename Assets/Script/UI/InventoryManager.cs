@@ -158,31 +158,10 @@ public class InventoryManager : MonoBehaviour
     public void SaveInventory()
     {
         SaveManager.instance.datas.money = DatabaseManager.money;
-        string[,,] saveInven = new string[5, maxHor * maxVer, 4]; // 몇번째인벤, 칸, 이름
-        for (int i = 0; i < 5; i++)
-        {
-            int childCount = inventoryUI[i].transform.childCount;
-            if (childCount != 0)
-            {
-                for (int j = 0; j < childCount; j++)
-                {
-                    GameObject box = inventoryUI[i].transform.GetChild(j).gameObject;
-                  //  Debug.Log(box.transform.childCount);
-                    if (box.transform.childCount > 0 && box.transform.GetChild(0).GetComponent<ItemCheck>() != null)
-                    {
-                        ItemCheck item = box.transform.GetChild(0).GetComponent<ItemCheck>();
-                        saveInven[i, j, 0] = item.itemData.name;
-                        saveInven[i, j, 1] = item.nowStack.ToString();
-                        saveInven[i, j, 2] = item.itemData.tear.ToString();
-                        saveInven[i, j, 3] = item.itemData.upgrade.ToString();
-                    }
-                    else
-                    {
-                        saveInven[i, j, 0] = "non";
-                    }
-                }
-            }
-        }
+        // Phase 2 브리지: UI 슬롯 → 모델 → 세이브 배열 (SaveMapper)
+        int perPage = maxHor * maxVer;
+        SlotContainer model = ViewScanner.BuildFrom(inventoryUI, perPage, CsvItemCatalog.Shared);
+        string[,,] saveInven = SaveMapper.ToArray(model, 5, perPage);
         SaveManager.instance.datas.invenItem = saveInven;
         SaveManager.instance.DataSave();
     }
@@ -205,17 +184,18 @@ public class InventoryManager : MonoBehaviour
                     for (int j = 0; j < childCount; j++)
                     {
                         // 현재에는 단순히 아이템만  이름만 확인해서 가져오지만, 여기에 수정해서 현재 스택 수치, 강화수치 이런것도 가져와야함
-                        if (SaveManager.instance.datas.invenItem[i, j, 0] != "non" && SaveManager.instance.datas.invenItem[i, j, 0] != null)
+                        ItemStack saved = SaveMapper.ReadCell(SaveManager.instance.datas.invenItem, i, j);
+                        if (!saved.IsEmpty)
                         {
                             inventoryArray[j, i] = 1;
                             GameObject insPositon = GetNthChildGameObject(inventoryUI[i], j);
                             GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                             ItemCheck check = item.GetComponent<ItemCheck>();
-                            check.SetItem(SaveManager.instance.datas.invenItem[i, j, 0]);
-                            check.nowStack = int.Parse(SaveManager.instance.datas.invenItem[i, j, 1]);
-                            check.itemData.tear = int.Parse(SaveManager.instance.datas.invenItem[i, j, 2]);
-                            check.itemData.upgrade = int.Parse(SaveManager.instance.datas.invenItem[i, j, 3]);
-                            DatabaseManager.PlusInventoryDict(SaveManager.instance.datas.invenItem[i, j, 0], check.nowStack);
+                            check.SetItem(saved.Id);
+                            check.nowStack = saved.Count;
+                            check.itemData.tear = saved.Tier;
+                            check.itemData.upgrade = saved.Upgrade;
+                            DatabaseManager.PlusInventoryDict(saved.Id, check.nowStack);
                         }
                     }
                 }

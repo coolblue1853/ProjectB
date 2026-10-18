@@ -362,6 +362,8 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 
 ### Phase 2 — 브리지: UI에서 모델 읽기
 
+> **진행(2026-10-18):** ✅ `SaveMapper`(TryParse·원문 보존, `SaveMapperTests` 4개) + `ViewScanner.BuildFrom` + `CsvItemCatalog.Shared`. `SaveInventory`·`Chest.SaveChest`가 스캐너→매퍼로 저장하고, `LoadInventory`·`LoadChest`는 `ReadCell`로 읽는다(int.Parse 크래시 제거, B-020). 프로브 `inv_model_sync.cs`(불일치 0, 저장 왕복 0)·`chest_save_test.cs`(왕복 0, 창고가 비어 있어 아이템 있는 경우는 미검증). `CountItem`·`HasRoomFor`는 이미 슬롯 직접 집계라 유지.
+
 - `ViewScanner.BuildFrom(inventoryUI)`가 현재 슬롯 GameObject로 `SlotContainer`를 만든다.
 - 다음 기능을 스캐너 + 모델로 바꾼다.
   - `SaveInventory`, `Chest.SaveChest`: 둘 다 `SaveMapper`를 쓴다.
