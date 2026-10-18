@@ -1,3 +1,4 @@
+// ⚠ Q-415(2026-10-19) 이후 몹 HP/방어·무기 피해·칭호(grantsRank)는 MonsterSheet.csv · apply_zone_tier_weapons.cs · Resources/Boss 가 기준이다. 이 프로브를 다시 돌리면 옛 값으로 되돌아가므로, 재실행 뒤 apply_zone_tier_weapons.cs 를 다시 돌리고 grantsRank(엔트 1·문지기 2·AbyssWizard 3)를 확인할 것.
 // ④구역 늪지 계보 무기 (LineageGear 1절, TowerWorld 14절). 에디트 모드, 재실행 안전 (원본 판정 기준으로 다시 계산, 원본 공유 프리팹 미수정)
 //  - Frog Tongue Whip (개구리, Wood Spear 기반): A Tongue Lash = 찌르기 판정 복제본 넉백 음수(적을 앞으로 당김)·3명 / S Leap Slam = 돌진 찌르기 강화
 //  - Bloodsting Rapier (모기, RatCheifDagger 기반): A Bloodsting = 교차 찌르기 복제본 + LifeStealHit(피해 20% 회복) / S Swarm Dart

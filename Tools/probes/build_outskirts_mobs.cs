@@ -1,4 +1,5 @@
-﻿// 1층계 ⑥구역 '탑 근교' 몬스터 (gen_outskirts_mobs.py 시트 → 슬라이스 → MonsterBuilder). 에디트 모드, 재실행 안전
+﻿// ⚠ Q-415(2026-10-19) 이후 몹 HP/방어·무기 피해·칭호(grantsRank)는 MonsterSheet.csv · apply_zone_tier_weapons.cs · Resources/Boss 가 기준이다. 이 프로브를 다시 돌리면 옛 값으로 되돌아가므로, 재실행 뒤 apply_zone_tier_weapons.cs 를 다시 돌리고 grantsRank(엔트 1·문지기 2·AbyssWizard 3)를 확인할 것.
+// 1층계 ⑥구역 '탑 근교' 몬스터 (gen_outskirts_mobs.py 시트 → 슬라이스 → MonsterBuilder). 에디트 모드, 재실행 안전
 // 낮: 소형 골렘(RatThief 템플릿=빠른 근접, 구르기)·중형 골렘(LeftMole=느림, 지면 강타 판정 GolemQuake)·대형 골렘(FlowerMole=원거리, 슈퍼아머, 탄 → GolemBoulder)
 // 밤: + 유적 정령(FlowerMole, 탄 → RuinBolt, 청록 Light2D) / 보스: 탑의 문지기(PassiveTerror, 128px, 판정 GateCleave·GateShockwave, 2페이즈 소형 골렘 호출)
 // 보스·대형 골렘·정령·중형 골렘 BT 의 damageOb GUID 는 이 프로브 뒤에 텍스트로 교체한다(반환값에 GUID 출력)

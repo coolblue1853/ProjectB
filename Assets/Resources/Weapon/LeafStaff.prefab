@@ -315,8 +315,8 @@ MonoBehaviour:
   maxComboCount: 2
   nowConboCount: 0
   maxComboTime: 1
-  minDmg: 150
-  maxDmg: 200
+  minDmg: 8
+  maxDmg: 12
   critPer: 0
   critDmg: 0
   incDmg: 0
@@ -365,6 +365,8 @@ MonoBehaviour:
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
   isSkillCancel: 0
+  _comboGrace: 0.35
+  _meleeActiveRatio: 0.6
 --- !u!1 &1291193055778619313
 GameObject:
   m_ObjectHideFlags: 0

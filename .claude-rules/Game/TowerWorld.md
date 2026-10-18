@@ -71,8 +71,8 @@
 - **층계 부하 L**: `MapInfo.ascentLoad`. 1층계 외곽 0 → (1층계 깊은 구역 5~20) → 2층계 입구 15(현 마법 절벽, 임시) → 층계마다 상승.
 - **부하 저항 R** = 탐험가 칭호 × 15 (+ 장비 옵션 '상승 저항' · 브로치 해방, 이후).
 - **부족분 D = max(0, L − R)** → 주는 피해 ×(1 − 0.02·D, 최소 0.1), 받는 피해 ×(1 + 0.02·D). 메이플 아케인 포스와 같은 성장 목표. 아래층으로 내려가면 즉시 해제(현재 맵의 L만 적용).
-- **탐험가 칭호**(어비스의 피리 등급처럼): 0 견습 Novice → 1 서광 Dawn → 2 운해 Cloudsea → 3 심록 Deepgreen → 4 홍염 Crimson → 5 흑석 Blackstone → 6 심연 Abyss → 7 백광 Whitelight. 층계 보스 처치로 승급(`BossReward.grantsRank`: **탑의 문지기=1**(1층계 졸업, 2026-10-19 PassiveTerror 에서 옮김, Q-413), AbyssWizard=2(임시)). ES3 `explorer.rank`.
-- HUD: 좌상단 "RANK · LOAD/RES" (부족하면 붉게). ✅ 구현: `AscentLoad`(순수 계산+ES3 `explorer.rank`), `AscentHud`, `MapInfo.ascentLoad`(외곽 0 / 샛길 5 / 마법 절벽 25), `BossReward.grantsRank`(Gatekeeper=1, AbyssWizard=2). 피해 훅: `EnemyHealth`(주는 피해), `PlayerHealthManager`(받는 피해).
+- **탐험가 칭호**(어비스의 피리 등급처럼): 0 견습 Novice → 1 서광 Dawn → 2 운해 Cloudsea → 3 심록 Deepgreen → 4 홍염 Crimson → 5 흑석 Blackstone → 6 심연 Abyss → 7 백광 Whitelight. 구역 진행 보스 처치로 승급(칭호는 내려가지 않으므로 기존 세이브도 재처치로 따라잡는다, `BossReward.grantsRank`: **③ 고대숲의 엔트=1**, **⑥ 탑의 문지기=2**(1층계 졸업), 2층계 AbyssWizard=3 — Q-413 결정 2026-10-19). ES3 `explorer.rank`.
+- HUD: 좌상단 "RANK · LOAD/RES" (부족하면 붉게). ✅ 구현: `AscentLoad`(순수 계산+ES3 `explorer.rank`), `AscentHud`, `MapInfo.ascentLoad`(외곽 0 / 샛길 5 / 마법 절벽 25), `BossReward.grantsRank`(AncientEnt=1, Gatekeeper=2, AbyssWizard=3). 피해 훅: `EnemyHealth`(주는 피해), `PlayerHealthManager`(받는 피해).
 
 ## 8. 가벼운 추출(타르코프) 요소 — 제안(임시 가정 Q-406)
 
@@ -274,3 +274,23 @@
   - **Skybound** (SkyArmor 하늘색, 가고일·구름 정령 + Gargoyle Wing): 2: 이동 8·치명 6 / 4: Stone Feather·Gargoyle Dive 쿨 −35·피해 8 / 6: 공속 12·피해 12·치명피해 15. 부위 방어 20/34/20/16/16, 치명·이동 위주.
 - 검증(플레이, `rampart_weapon_test.cs` = bandit_weapon_test 변형으로 대상 몹을 플레이어 앞 같은 층으로 옮김): Shield Rush·Knight's Cleave·Halberd Sweep(2연 판정)·Crescent Reap(돌진 + `CrescentTouch`)·Stone Feather(깃털 5발·명중)·Gargoyle Dive(소환 2·연속 타격)·Talon Storm(갈퀴 + 깃털 3)·Gargoyle Host(소환 3) 모두 판정·피해 확인(칭호 0, 부하 부족 −70% 상태 수치). 장착 직후 첫 발동은 하네스에서 한 번 무시되는 경우가 있어 재발동으로 확인. `equip_rampart_set_test.cs`: Rampart/Sky 6부위 → 스택 6, 쿨감 키·방어 50·치피 12·피해 8 / 이동 8·치명 6·치피 15·공속 12·피해 20 일치. 콘솔 에러 0.
 - ⏳ 남은 것: 지형은 샛길 복제(2층계 전용 레이아웃 없음) · 샛길 원본처럼 카메라 경계(−437)를 순간 이동으로 넘으면 카메라가 따라오지 않음(걸어서는 정상, 테스트 순간 이동 한정) · 원경 패럴랙스는 색조가 약하게만 먹음 · 구름 정령 계보 무기 없음 · 세트 착용 텍스처 Leaf 색 변환 임시 · 가고일은 FlowerMole 이동(지상 순찰)이라 실제로 날지 않고 떠 있는 그림만.
+
+## 18. 1층계 수치 정리 — 구역 단계 T (Q-415 결정, 2026-10-19)
+
+- 번호: 1층계 ① 샛길 T0 · ② 일반 숲 T1 · ③ 깊은 숲 T2 · ④ 늪지 T3 · ⑤ 산적 성채 T4(분기) · ⑥ 탑 근교 T5 → 2층계 ① 마법 절벽 T6 · ② 무너진 성벽 T7 (Floor2Plan 3.2 와 같은 번호. 사용자 제시 "①=1…⑥=6 정도"는 2층계 T6·T7 과 겹치지 않게 한 칸 당겨 적용).
+- 공식: 일반 몹 기준 HP 160×1.25^(T−1), 방어 3T+2. 역할 배율 — 빠른 근접 ×1.0 / 대형 근접(64px)·우두머리 ×1.2~1.25 / 탱커(느림·슈퍼아머) HP ×1.45·방어 ×1.3 / 중장갑(껍데기·방패) HP ×1.45·방어 ×1.6 / 거대 탱커(대형 골렘) HP ×1.9·방어 ×1.6 / 원거리·비행·작은 동물 HP ×0.7·방어 ×0.8 / 밤 정령류 HP ×0.5·방어 ×0.4. 구역 보스 HP = 기준×30(층계 보스 ×40), 보스 방어 3T+12.
+- 무기: 계보(R) 평균 10+2.5T, 범위 평균×0.8~1.2. 유니크(U) ×1.4, 레전더리 ×1.6, 치명 특화 무기 ×0.9. 상점·채집 C 무기(Rusted·Leather Knuckles·Wood Spear·PickAxe 5~10, ToxicPickAxe 9~16)는 그대로.
+- 적용: `Assets/Resources/MonsterSheet.csv`, 무기 프리팹 `Tools/probes/apply_zone_tier_weapons.cs`(재실행 안전). 세이브는 아이템 이름만 저장하므로 호환.
+
+| T | 몹 HP/방어 (이전 → 이후) | 무기 피해 (이전 → 이후) |
+|---|---|---|
+| T0 ① 샛길 (기준 128/2) | 쥐 도둑·허수아비 50/1 → 128/2, 쥐 대장 → 154/2, 잎두더지(탱커) → 186/3, 꽃두더지(원거리)·토끼 → 90/2, 돌토끼 50/10 → 186/6(돌 껍질 예외), 밤 보스 PassiveTerror 1000/1 → 3800/12 | ScareStaff·SacreGreatSword·DoubleDagger·PoisonSword·LeafAdae 5~10 → 8~12, **LeafStaff 150~200 → 8~12**, U(RatCheifDagger·ScareSide·ScareClow) 5~10 → 11~17 |
+| T1 ② 일반 숲 (160/5) | 늑대 140/3 → 160/5, 멧돼지 220/6 → 200/5, 도깨비불 90/2 → 80/2, 달팽이 180/10 → 232/8 | Fang Dagger 9~15·Tusk Knuckles 12~18·Wisp Lantern 11~19·Shell Shield 10~16 → 10~15 |
+| T2 ③ 깊은 숲 (200/8) | 곰 400/8 → 250/8, 엔트 500/10 → 290/10, 유령 160/4·요정 110/3 → 100/3, 보스 6000/18 유지 | Bear Claw·Root Staff·Phantom Scythe·Fae Wand 12~22대 → 12~18, Heartwood 22~32 → 17~25 |
+| T3 ④ 늪지 (250/11) | 개구리 260/6 → 250/11, 꽃게 300/14 → 362/18, 악어 520/10 → 312/11, 모기 150/4 → 175/9, 슬라임 260/8 → 362/14, 보스 8000/20 → 7500/21 | Tongue Whip·Croc Axe·Petal Pincer·Slime Mace → 14~21, Bloodsting 12~18 → 13~19, Primordial Gel 22~34 → 20~29 |
+| T4 ⑤ 산적 성채 (312/14) | 단검병 280/6 → 312/14, 궁수 220/5 → 219/11, 방패병 480/22 → 453/22, 횃불 340/8 → 312/14, 보스 9000/22 → 9400/24 | Shortbow 12~19·Raider Buckler 12~18 → 16~24, Cutthroat 13~19 → 14~22, War Banner 22~32 → 22~34 |
+| T5 ⑥ 탑 근교 (390/17) | 소형 골렘 360/14 → 390/17, 중형 620/20 → 566/22, 대형 950/28 → 742/27, 정령 170/6 → 195/7, 문지기 15000/28 → 15600/27 | Pebble 14~21·Quakestone 18~28·Monolith 15~22 → 18~27, Gatekeeper's Oath 26~38 → 29~43 |
+
+- 공유 몹(포자버섯 160/4 = ②~④·2층계, 절벽 고블린 150/4 = ③·2층계)은 시트 행이 하나라 그대로 둔다(구역별 배율 없음).
+- 남은 역전: ⑥ 계보 무기 18~27 > 2층계 Cliff 제작 무기 14~24, ⑥ 몹 > 마법 절벽 몹 — Floor2Plan 3.2 적용 순서 ①·③(2층계 상향)은 이번 범위 밖.
+- 검증(플레이): 깊은 숲 곰 250/8·보스 6000/18, 탑 근교 문지기 15600/27·소형 골렘 390/17 로드 확인, 엔트 처치 칭호 0→1(Dawn), 문지기 처치 1→2(Cloudsea, HUD "LOAD 40 / RES 30 −20%"). 세이브 백업 복원(md5 일치). **미검증:** ① 샛길 밤 보스 PassiveTerror 3800/12(이전 1000/1, T0 무기로 약 7.7배 길어짐)의 실제 체감 — 너무 길면 ① 만 보스 배율 ×15 로 낮추는 안을 검토.

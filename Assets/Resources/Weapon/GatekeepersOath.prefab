@@ -253,8 +253,8 @@ MonoBehaviour:
   maxComboCount: 2
   nowConboCount: 0
   maxComboTime: 1
-  minDmg: 26
-  maxDmg: 38
+  minDmg: 29
+  maxDmg: 43
   critPer: 10
   critDmg: 35
   incDmg: 0

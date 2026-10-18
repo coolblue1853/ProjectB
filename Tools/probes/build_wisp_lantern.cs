@@ -1,3 +1,4 @@
+// ⚠ Q-415(2026-10-19) 이후 몹 HP/방어·무기 피해·칭호(grantsRank)는 MonsterSheet.csv · apply_zone_tier_weapons.cs · Resources/Boss 가 기준이다. 이 프로브를 다시 돌리면 옛 값으로 되돌아가므로, 재실행 뒤 apply_zone_tier_weapons.cs 를 다시 돌리고 grantsRank(엔트 1·문지기 2·AbyssWizard 3)를 확인할 것.
 // 계보 무기 3호 Wisp Lantern (TowerWorld 12.1): 도깨비불 → 지팡이. ScareStaff 복제.
 // L Wisp Bolt = 유도 도깨비불 3발(HomingOrb), S Ghostlight Ring = 공전 도깨비불 3개(OrbitWisps, 6초), D 유지(이름만).
 // 에디트 모드, 재실행 안전

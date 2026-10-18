@@ -1,3 +1,4 @@
+// ⚠ Q-415(2026-10-19) 이후 몹 HP/방어·무기 피해·칭호(grantsRank)는 MonsterSheet.csv · apply_zone_tier_weapons.cs · Resources/Boss 가 기준이다. 이 프로브를 다시 돌리면 옛 값으로 되돌아가므로, 재실행 뒤 apply_zone_tier_weapons.cs 를 다시 돌리고 grantsRank(엔트 1·문지기 2·AbyssWizard 3)를 확인할 것.
 // ③구역 깊은 숲 계보 무기 (TowerWorld 12·13절). 에디트 모드, 재실행 안전
 //  - Bear Claw (곰): ScareClow 복제, 돌진 할퀴기·올려베기 판정 복제본을 넉백 1.5배·경직 0.5s·피해 1.3배로
 //  - Root Staff (엔트): LeafStaff 복제, Rising Roots → Ancient Roots (큰 뿌리 DeepRoot, 기본 5줄기·최대 8줄기, 쿨 2s)

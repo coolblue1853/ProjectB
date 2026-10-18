@@ -28,5 +28,5 @@ MonoBehaviour:
   stoneMin: 4
   stoneMax: 6
   firstKillStones: 5
-  grantsRank: 2
+  grantsRank: 3
   firstKillArtifact: 3

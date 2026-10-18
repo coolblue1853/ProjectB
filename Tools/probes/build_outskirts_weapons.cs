@@ -1,4 +1,5 @@
-﻿// ⑥구역 탑 근교 계보 무기 (LineageGear 3절, TowerWorld 16절). 에디트 모드, 재실행 안전 (원본 공유 프리팹 미수정, 판정은 DamageObject/<무기>/ 복제본)
+﻿// ⚠ Q-415(2026-10-19) 이후 몹 HP/방어·무기 피해·칭호(grantsRank)는 MonsterSheet.csv · apply_zone_tier_weapons.cs · Resources/Boss 가 기준이다. 이 프로브를 다시 돌리면 옛 값으로 되돌아가므로, 재실행 뒤 apply_zone_tier_weapons.cs 를 다시 돌리고 grantsRank(엔트 1·문지기 2·AbyssWizard 3)를 확인할 것.
+// ⑥구역 탑 근교 계보 무기 (LineageGear 3절, TowerWorld 16절). 에디트 모드, 재실행 안전 (원본 공유 프리팹 미수정, 판정은 DamageObject/<무기>/ 복제본)
 //  - Pebble Gauntlet (소형 골렘, Leather Knuckles 기반): A Rolling Charge = 대시 판정에 굴러 들이받는 피해·넉백
 //  - Quakestone Maul (중형 골렘, SacreGreatSword 기반): S Quake Slam = 검기 강화, D Aftershock = CliffStaff 의 Cliff Quake 를 복사·강화(피해 1.6배, 1.25배 크기)
 //  - Monolith Shield (대형 골렘, Shell Shield 기반): A Boulder Toss = 포물선 바위(StraightArrow _gravity), C Monolith Stance = 홀드 방어 +250 + 슈퍼아머

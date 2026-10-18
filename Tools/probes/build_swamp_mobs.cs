@@ -1,4 +1,5 @@
-﻿// 1층계 ④구역 '늪지' 몬스터 (gen_swamp_mobs.py 시트 → 프레임 크기별 슬라이스 → MonsterBuilder). 에디트 모드, 재실행 안전
+﻿// ⚠ Q-415(2026-10-19) 이후 몹 HP/방어·무기 피해·칭호(grantsRank)는 MonsterSheet.csv · apply_zone_tier_weapons.cs · Resources/Boss 가 기준이다. 이 프로브를 다시 돌리면 옛 값으로 되돌아가므로, 재실행 뒤 apply_zone_tier_weapons.cs 를 다시 돌리고 grantsRank(엔트 1·문지기 2·AbyssWizard 3)를 확인할 것.
+// 1층계 ④구역 '늪지' 몬스터 (gen_swamp_mobs.py 시트 → 프레임 크기별 슬라이스 → MonsterBuilder). 에디트 모드, 재실행 안전
 // 낮: 개구리(RatThief 템플릿)·꽃게(RatThief, 방어 높음)·악어(RatThief, 64px) / 밤: 모기(FlowerMole=비행)·슬라임(LeftMole=느림) / 보스: 거대 슬라임(PassiveTerror)
 var reimportSince = System.DateTime.Now.AddSeconds(-1); // B-139: 끝에서 이 시각 이후 저장된 프리팹·컨트롤러 재임포트
 var sb = new System.Text.StringBuilder();

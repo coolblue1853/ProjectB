@@ -1,4 +1,5 @@
-﻿// ③구역 깊은 숲 계보 무기 2차 (TowerWorld 12.2). 에디트 모드, 재실행 안전 (원본 판정 기준으로 다시 계산)
+﻿// ⚠ Q-415(2026-10-19) 이후 몹 HP/방어·무기 피해·칭호(grantsRank)는 MonsterSheet.csv · apply_zone_tier_weapons.cs · Resources/Boss 가 기준이다. 이 프로브를 다시 돌리면 옛 값으로 되돌아가므로, 재실행 뒤 apply_zone_tier_weapons.cs 를 다시 돌리고 grantsRank(엔트 1·문지기 2·AbyssWizard 3)를 확인할 것.
+// ③구역 깊은 숲 계보 무기 2차 (TowerWorld 12.2). 에디트 모드, 재실행 안전 (원본 판정 기준으로 다시 계산)
 //  - Phantom Scythe (유령): ScareSide 복제. Phantom Reap = 관통 베기(최대 8명, 다 맞혀도 안 사라짐), Phantom Glide = 순간이동 베기 + PhantomVeil(무적 0.45s·잔상)
 //  - Fae Wand (요정): ScareStaff 복제. Fairy Dust Bolt = 분홍 요정 가루 유도탄 4발(HomingOrb), Fae Blessing = 회복 장판(HealGround 복제, 분홍), Starlight Lance = 분홍 톤
 //  - 아이콘·요정 가루 프레임 임포트(gen_deep_forest_gear2.py), 밤 유령·요정 스포너 드롭 2%
