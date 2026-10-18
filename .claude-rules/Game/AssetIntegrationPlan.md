@@ -34,7 +34,7 @@
 - **W2 Damage Numbers (2026-10-18):** ✅ `NumberKind.Heal`(초록)·`Hurt`(빨강) 추가, 플레이어 `HpHeal`/`HpDown`이 머리 위에 표시(`PlayerHealthManager._numberPrefab` = EnemyDamge, 프로브 `setup_player_numbers`). ⏳ BLOCK/IMMUNE 텍스트, 골드·경험치 숫자.
 - **W2 ProCamera (2026-10-18):** ✅ `BossIntro`: 보스 활성화 시 카메라 타깃 추가(보스·플레이어 함께 프레이밍)+줌아웃 1.5, 흔들림·배너, 1.6초 뒤 복귀, 같은 보스 60초 쿨다운. 프로브 `boss_intro_test`(`__BOSS__`=PassiveTerror: 타깃 2→1). ⏳ 맵별 경계(Rooms).
 - **W2 Feel (2026-10-18):** ✅ 핵심만 `Assets/Feel`(64MB: MMFeedbacks·MMTools·NiceVibrations, 데모 제외). `AssetDatabase.ImportPackage`가 필터 패키지를 "completed"로 끝내고 아무것도 넣지 않아서, .unitypackage의 asset/asset.meta를 pathname 위치에 직접 풀었다(GUID 유지). 코드는 `MoreMountains.Tools` 어셈블리. `FeelFx.Pop/PlayerPop`(MMF_Scale Additive, 화면 흔들림 설정 0이면 끔) → 강화 성공(+5↑ 크게)·승급·보스 보상. 프로브 `feel_pop_test`(3.0→3.51→3.0). 시간 조절 피드백은 일시정지·모래시계와 충돌해 쓰지 않는다.
-- **SPUM:** ✅ 임포트(`Assets/SPUM`, 19MB). 마을 NPC에 사용. 산적·붉은 탐험가는 이후 같은 방식.
+- **SPUM:** ❌ 사용 안 함(사용자 2026-10-19: "너무 안 어울린다, 그 에셋은 안 쓰는 걸로"). 프로젝트에서 삭제. 마을 NPC는 기존 NPC 도트 양식(24×32 논리 픽셀·8배·PPU 100)으로 코드 생성(`Tools/pixelfx/gen_elder.py`) — 장로 1명 + 대사창 초상. 인간형 적(산적 등)도 같은 방식으로 그린다.
 
 ## 2. 필수 도입 — 게임에서 실제로 쓰는 형태
 
