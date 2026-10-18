@@ -297,6 +297,8 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 
 ### Phase 1 — 순수 모델 + 테스트 (씬 연결 없음)
 
+> **진행(2026-10-18):** ✅ `ItemStack`·`ItemDef`·`IItemCatalog`·`CsvItemCatalog`·`SlotContainer`(TryAdd/TryAddAll/TryRemove/Move/Split/Sort/Transfer, 이벤트) + `SlotContainerTests` 21개(SlotContainer·Transfer 목록 전부). ⏳ `EquipSlot`·`EquipmentModel`·`SetEffectParser`·`SetTable`·`SetBonusEvaluator`·`SaveMapper`·`ItemSortComparer`.
+
 - **추가할 것:** `ItemStack`, `ItemDef`, `IItemCatalog`(+ CSV 구현 `CsvItemCatalog`), `SlotContainer`, `EquipSlot`, `EquipmentModel`, `SetEffectParser`, `SetTable`, `SetBonusEvaluator`, `SaveMapper`, `ItemSortComparer`
 - **위치:** `Assets/Script/Inventory/Model/`. asmdef 없이 Assembly-CSharp에 둔다. 그래야 기존 `Assets/Editor/Tests`에서 바로 참조된다.
 - **EditMode 테스트** (`Assets/Editor/Tests/`, `FakeCatalog`를 쓴다):
