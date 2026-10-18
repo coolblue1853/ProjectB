@@ -32,3 +32,21 @@
 - 커밋: ac151c5b(②구역 일반 숲·코드 도트 몹 4종), e4a1d461(SPUM 제거·장로 NPC 도트), b42dd5d8(무기 P2), 98ea5b85·76ec3ef5·8dda3545·26dc0d4d(계보 무기 Fang Dagger·Tusk Knuckles·Wisp Lantern·Shell Shield), c3b5f554(B-116), 4eb30c5d(계보 세트 Pack Hunter·Night Lantern).
 - ChatGPT 로그인 없음 → 몹·아이콘은 `Tools/pixelfx` 코드 도트로 생성(사용자 지시 '도트 필수' 준수).
 - 주간 사용량 3%(00:58).
+
+### 2026-10-19 (월) 1층계 정리·회귀 검증 — 전 구역 낮·밤 소크
+- 도구: `bash Tools/zone_soak.sh 15` — 맵마다 시간대를 맞추고 `MapInfo.GoToMap` → 그 시간대 일반 스포너 중 슬롯이 가장 많은 곳의 스폰 지점으로 이동(스포너는 플레이어가 영역 안에 있어야 스폰) → 게임 시간 15초 → 활성 몹 수·콘솔 에러/경고(아틀라스 경고 제외)·스크린샷(`Logs/zone_soak/`, 커밋 안 함). 생존은 `keep_hp`, 세이브 백업·복원(종료 시 trap, md5 일치 확인).
+- 1·2차 실행에서 나온 문제와 수정: 밤 전환이 낮으로 튐(B-135) · 샛길 밤 몹 공격 트윈 오류 86건(B-136) · 일반 숲 밤에 PassiveTerror 등장(B-137) · 토끼 누락 스크립트 경고 18건(B-138) · 늪지 낮 Animator 경고 197건(에디터 메모리 참조 깨짐, 재임포트, B-139) · DOTween 용량 경고(B-140) · 깊은 숲 밤 파괴된 transform 트윈(B-136).
+- 최종(3차, 수정 반영 후) 결과 — **에러 0, 경고 0, 감시기 이상 0**:
+
+| 맵 | 낮: 위치 / 몹(보스) | 밤: 위치 / 몹(보스) | 에러 | 경고 |
+|---|---|---|---|---|
+| Town | 입구 / 0 | 입구 / 0 | 0·0 | 0·0 |
+| Lv1_NearForest_SideRoad | Rabbit / 19 | CreepingTerror2 / 15 (1, PassiveTerror) | 0·0 | 0·0 |
+| Lv1_NormalForest | Flowermole2 / 7 | CreepingTerror2 / 14 (0) | 0·0 | 0·0 |
+| Lv1_DeepForest | Goblin1 / 11 (1, 고대숲의 엔트) | Fairy2 / 12 | 0·0 | 0·0 |
+| Lv1_BanditFortress | Cutthroat1 / 17 (1, 산적 대장) | Torch4 / 5 | 0·0 | 0·0 |
+| Lv1_Swamp | Frog1 / 6 | Slime1 / 5 (1, 거대 슬라임) | 0·0 | 0·0 |
+| Lv1_TowerOutskirts | GolemSmall1 / 17 (1, 탑의 문지기) | RuinSpirit2 / 9 | 0·0 | 0·0 |
+| Lv2_MagicCliffs | L2_B_Goblin / 6 | L2_B_SkelN / 4 | 0·0 | 0·0 |
+
+- 같은 날: Q-414 지름길 봉인, B-130 맵 끝 벽(플레이 측정 7맵 양끝), B-132 테스트 무적 감시 정리, EditMode 테스트 92/92 통과.

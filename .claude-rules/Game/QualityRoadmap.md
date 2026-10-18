@@ -98,3 +98,18 @@
 - 게임 정체성 확정: **TO THE BEYOND**(`TowerWorld.md`). 오늘 저녁 추가: 지역 배너·타이틀·일시정지 메뉴·층계 지도(웨이포인트)·상승 부하+탐험가 칭호·층계 결정·아티팩트(Shift)·콤보·정예/보스 보상·보스 페이즈·파괴 오브젝트·식생·반딧불·픽셀 UI 프레임(코드 UI + 기존 인벤토리)·MonsterSheet.csv + Odin 표.
 - 남은 큰 축: D 인벤토리 교체(Phase 2) → 가벼운 추출(Q-406)·랜덤 옵션(P4), 1층계 ②~⑥ 구역(몬스터 스프라이트 Q-405), PlayerStateDesign Phase 6~10, 제작 UI 데이터화(Q-110).
 
+
+## 현황 요약 (2026-10-19) — 1층계 6구역 완성
+
+- **1층계 6구역 완성(2026-10-19).** 진행 ① 외곽 샛길 → ② 일반 숲 → ③ 깊은 숲(→ ⑤ 산적 성채 분기) → ④ 늪지 → ⑥ 탑 근교 → 탑 입구(문지기 첫 처치로 개방) → 2층계 `Lv2_MagicCliffs`. 샛길의 2층계 지름길도 문지기 처치 전엔 봉인(Q-414). 상세는 `TowerWorld.md` 11~16절, `LineageGear.md`.
+  | 구역 | 신규 몹(낮/밤) | 보스 | 계보 무기 | 세트 |
+  |---|---|---|---|---|
+  | ① 외곽 샛길 | 기존 원본(토끼·두더지·허수아비 계열) | 기존 야간 PassiveTerror | 기존 | 기존 |
+  | ② 일반 숲 | 늑대·멧돼지 / 도깨비불·달팽이 (+포자버섯 재사용) | — | 4 (Fang Dagger·Tusk Knuckles·Wisp Lantern·Shell Shield) | 2 (Pack Hunter·Night Lantern) |
+  | ③ 깊은 숲 | 곰·엔트 / 유령·요정 (+고블린·버섯 재사용) | 고대숲의 엔트 | 5 (Bear Claw·Root Staff·Phantom Scythe·Fae Wand + 유니크 Heartwood Greatsword) | 2 (Ancient Grove·Will-o'-Fae) |
+  | ④ 늪지 | 개구리·꽃게·악어 / 모기·슬라임 (+버섯) | 거대 슬라임 | 6 (Frog Tongue Whip·Petal Pincer·Croc Jaw Axe·Bloodsting Rapier·Slime Mace + 유니크 Primordial Gel) | 2 (Bog Stalker·Gloom Swarm) |
+  | ⑤ 산적 성채 | 단검병·궁수·방패병 / +횃불 순찰병 | 산적 대장 | 4 (Cutthroat Dagger·Bandit Shortbow·Raider Buckler + 유니크 Chief's War Banner) | 2 (Outlaw·Iron Raider) |
+  | ⑥ 탑 근교 | 소·중·대 골렘 / +유적 정령 | 탑의 문지기(칭호 1 서광) | 4 (Pebble Gauntlet·Quakestone Maul·Monolith Shield + 레전더리 Gatekeeper's Oath) | 1 (Stoneborn, 1층계 졸업 세트) |
+  - 합계(②~⑥): 신규 몹 21종 + 보스 4, 계보 무기 23(유니크·레전더리 4 포함), 세트 9.
+- **남은 임시 아트:** 신규 몹·보스 전부 코드 도트(GPT 생성 파이프라인 Q-405 대기) · 전용 지형 없음(②⑤ 샛길 복제, ③⑥ 근교 복제, ④ Lv2 복제 + 색조·조명만) · 탑 근교 보스방 석상 유적 배경 · 성채 소품(목책·망루·천막)·늪 안개 · 세트 착용 텍스처(Leaf 색 변환) · 산적 대장·문지기 초상(Idle 첫 프레임) · 레전더리 등급 표시(U 로 대신) · 소환물(Stone Sentinels·Rally the Gang)은 Run 프레임 재사용.
+- 정리·회귀(2026-10-19): 지름길 봉인(Q-414), 맵 끝 낙사 벽(B-130), 테스트 무적 감시 정리(B-132), 전 구역 낮·밤 회귀 소크(`Tools/zone_soak.sh`, 결과 `Docs/AutomationLog.md`).
