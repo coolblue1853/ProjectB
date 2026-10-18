@@ -294,8 +294,10 @@ public class InventoryManager : MonoBehaviour
         {
             if (CheckBoxCanCreat(siblingParentIndex))
             {
-                CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack);
-                Destroy(item.gameObject);
+                if (CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack))
+                {
+                    Destroy(item.gameObject);
+                }
                 cusorCount[nowBox] = beforeCusorInt;
                 changeCusor.SetActive(false);
                 state = "";
@@ -316,13 +318,20 @@ public class InventoryManager : MonoBehaviour
             int count = itemCheck.nowStack;
             for (int i = 0; i < count; i++)
             {
-                chest.CreatItem(itemCheck.name);
-                DatabaseManager.MinusInventoryDict(itemCheck.name, 1);
+                int before = itemCheck.nowStack;
+                chest.CreatItem(itemCheck.name); // 성공하면 itemCheck.nowStack이 1 줄어든다
+                if (itemCheck.nowStack == before)
+                {
+                    break; // 창고가 가득 참
+                }
             }
             if (itemCheck.nowStack <= 0)
             {
                 Destroy(item.gameObject);
             }
+            // 양쪽을 함께 저장 (한쪽만 저장된 상태로 종료되면 복제·소실, B-015)
+            SaveInventory();
+            chest.SaveChest();
         }
     }
 
@@ -362,9 +371,11 @@ public class InventoryManager : MonoBehaviour
     {
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
-        item.nowStack -= output;
-
-        CreatItemSelected(item.name, nowBox, output);
+        // 새 칸을 만든 경우에만 원본을 줄인다 (빈칸이 없으면 나눈 수량이 사라지던 문제, B-009)
+        if (output > 0 && output < item.nowStack && CreatItemSelected(item.name, nowBox, output))
+        {
+            item.nowStack -= output;
+        }
     }
 
     void ActiveChangeCursor()
@@ -972,7 +983,7 @@ public class InventoryManager : MonoBehaviour
         GameObject moveItem = null;
         if (equipArea == "Ring") moveItem = equipBox[1].transform.GetChild(0).gameObject;
         else if (equipArea == "Head") moveItem = equipBox[2].transform.GetChild(0).gameObject;
-        else if (equipArea == "Neckles") moveItem = equipBox[3].transform.GetChild(0).gameObject;
+        else if (equipArea == "Necklace") moveItem = equipBox[3].transform.GetChild(0).gameObject;
         else if (equipArea == "Chest") moveItem = equipBox[5].transform.GetChild(0).gameObject;
         else if (equipArea == "Hand") moveItem = equipBox[6].transform.GetChild(0).gameObject;
         else if (equipArea == "Weapon") moveItem = equipBox[7].transform.GetChild(0).gameObject;
@@ -2110,25 +2121,28 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
-    public void CreatItemSelected(string itemName, int boxNum, int Stack = 1)
+    /// <summary>지정 페이지의 첫 빈칸에 Stack개짜리 아이템을 만든다. 빈칸이 없으면 false(호출자는 원본을 줄이지 말 것).</summary>
+    public bool CreatItemSelected(string itemName, int boxNum, int Stack = 1)
     {
         for (int i = 0; i < (maxHor * maxVer); i++)
         {
             if (maxBoxNum > (boxNum * (maxHor * maxVer)) + i)
             {
-                if (inventoryArray[i, boxNum] == 0)
+                GameObject insPositon = GetNthChildGameObject(inventoryUI[boxNum], i);
+                if (inventoryArray[i, boxNum] == 0 && insPositon.transform.childCount == 0)
                 {
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[boxNum], i);
+                    inventoryArray[i, boxNum] = 1; // 같은 프레임 중복 배치 방지 (B-010)
                     GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                     ItemCheck check = item.GetComponent<ItemCheck>();
                     float scaleFactor = 0.8f; // 크기를 조절할 비율
                     item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                     check.SetItem(itemName);
                     check.nowStack = Stack;
-                    break;
+                    return true;
                 }
             }
         }
+        return false;
     }
     public void TestDelet(int uiNum, int boxNum)
     {

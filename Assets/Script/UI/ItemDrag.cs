@@ -395,7 +395,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             moveItem.transform.SetParent(currentParent);
             moveItem.transform.position = currentParent.transform.position;
         }
-        else if (equipArea == "Neckles")
+        else if (equipArea == "Necklace")
         {
             GameObject moveItem = necklesBox.transform.GetChild(0).gameObject;
             moveItem.transform.SetParent(currentParent);
