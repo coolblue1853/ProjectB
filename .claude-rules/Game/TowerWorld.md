@@ -37,7 +37,7 @@
 |---|---|---|---|---|---|
 | ① 숲 근교(풀밭) | 마을 앞. **파괴 가능 오브젝트 ✅**(`BreakableProp`, 나무통·상자 도트 `gen_props.py`, 2타 파괴, 나무 80%/돌 35%/약초 30% 드롭, 90초 리스폰, `setup_props.cs` 로 9유닛 간격 배치) | 토끼, 광물토끼(공격, 추격 X), 풀두더지·묘목 두더지(마을 앞) | 쥐, 거대쥐 (or 허수아비) | (PassiveTerror 야간, 임시) | ✅ **현재 Lv1 NearForest + SideRoad** (Rabbit/StoneRabbit/FlowerMole/LeftMole/RatThief/RatChief/Scarecrow) |
 | ② 일반 숲 | 탑으로 가는 숲의 초입 | 늑대, 멧돼지, 꽃 몬스터(뿌리 공격), 탄환 공격형, 버섯류 | 위습, 달팽이, 거미, 뱀, 쌍두 | — | 버섯=SporeShroom, 뿌리 공격=FlowerMole BT 재사용 가능. 늑대·멧돼지·위습 등 **스프라이트 없음** |
-| ③ 깊은 숲 | 탑 직전의 깊은 숲(유적) | 곰, 고블린, 엔트, 버섯 | 붉은 탐험가(적대 APC, 난입), 유령, 요정 | **고대숲의 엔트** | 고블린=CliffGoblin ✅, 버섯 ✅, 붉은 탐험가=SPUM/Pixel Hero Maker(보유), 엔트·곰 스프라이트 없음. 요정여왕 방(중간보스, 구글 문서) |
+| ③ 깊은 숲 | 탑 직전의 깊은 숲(유적) | 곰, 고블린, 엔트, 버섯 | 붉은 탐험가(적대 APC, 난입), 유령, 요정 | **고대숲의 엔트** | 고블린=CliffGoblin ✅, 버섯 ✅, 붉은 탐험가=SPUM/Pixel Hero Maker(보유), ✅ **`Lv1_DeepForest` 1차 구현(13절)**: 곰·엔트·유령·요정·고대숲의 엔트 코드 도트. 요정여왕 방(중간보스, 구글 문서) |
 | ④ 늪지 | 탑의 그늘에 가려진 축축한 늪 | 개구리, 큰 모기, 슬라임, 등에 꽃이 핀 꽃게, 버섯, 악어 | (미정) | **거대 슬라임** | 스프라이트 없음 |
 | ⑤ 산적 성채 | 깊은 숲 뒤 늪을 지나 | 산적(단검·활·방패) | 동일 | **산적 대장** | SPUM(보유)으로 제작 가능, 대장=Medieval King Pack 2/Martial Hero(보유) |
 | ⑥ 탑 근교 | 골렘들이 있는 곳 | 골렘(소·중·대) | (미정) | **탑의 문지기** | 골렘 스프라이트 없음(구글 문서 보스방 레퍼런스: 이끼 낀 거대 석상 유적) |
@@ -123,3 +123,28 @@
 - ✅ **Shell Shield** (`build_shell_shield.cs`): RustedSwordandShield 기반 10~16, Shell Bash 넉백 ×1.5, Shell Guard 홀드 방어 버프 100→180·쿨 6s, 보라 껍데기 톤, 달팽이 드롭 2%(ItemSheet 113). ⏳ 점액 장판(둔화) — 몬스터 둔화 시스템이 없어 보류.
 - ✅ 세트 2종(구역 낮/밤 묶음, `make_forest_sets.py` + `build_forest_sets.cs`): **Pack Hunter**(WolfArmor 회색: 늑대·멧돼지 + Fang Dagger·Tusk Knuckles) 2: 이동 8·치명 5 / 4: 치명피해 15·Howl 쿨 −40·Boar Charge −30 / 6: 공속 10·피해 10·HP 50. **Night Lantern**(WispArmor 파랑: 도깨비불·달팽이 + Wisp Lantern·Shell Shield) 2: 방어 12·HP 60 / 4: 피해 8·Ghostlight Ring −40·Shell Guard −30 / 6: 방어 20·치명피해 15·Wisp Bolt −40. ItemSheet 114~123, 부위 드롭 각 0.3%. 프로브 `equip_wolf_set_test`(6단계 수치 확인). 아이콘·착용 텍스처는 Leaf 색 변환 임시.
 - 구현 순서(자율): Fang Dagger(늑대 소환은 ScareStaff 소환 경로 재사용) → Tusk Knuckles(SkillDash 재사용) → Wisp Lantern → Shell Shield. 아이콘·무기 스프라이트는 `gen_forest_mobs.py` 팔레트로 그린다.
+
+### 12.2 ③구역 깊은 숲 계보 (2026-10-19)
+
+| 몹 | 무기(드롭) | 무기 스킬 (몹 공격의 플레이어판) | 세트 | 상태 |
+|---|---|---|---|---|
+| 숲곰 | **Bear Claw** (갈퀴, ScareClow 기반 13~20) | A Mauling Rush(돌진 할퀴기 판정 복제본 넉백 1.5배·경직 0.5s·피해 1.3배), S Rending Upswipe(같은 강화), D Bear Roar(포효=공속 버프) | ⏳ | ✅ 곰 드롭 2% |
+| 엔트 | **Root Staff** (지팡이, LeafStaff 기반 14~22) | S **Ancient Roots** = Rising Roots 강화: 뿌리 1.35배 크기 `DeepRoot`(피해 2.6·3타·넉백 14), 기본 5줄기(최대 8, 원본 2), 쿨 2s / A Root Step(순간이동), D Sap Mend(치유) | ⏳ | ✅ 엔트 드롭 2% |
+| 고대숲의 엔트(보스) | **Heartwood Greatsword** (유니크 대검, SacreGreatSword 기반 22~32) | D **Ancient Wrath**: 1.9배 거대 뿌리 `GiantRoot` 8줄기가 0.08초 간격 파도로 솟는다(피해 3.2, 쿨 9s) — 보스 뿌리 폭발의 플레이어판 | — | ✅ `Resources/Boss/AncientEnt_BD` 고유템 8%·천장 12, 확정 1개는 Bear Claw/Root Staff |
+| 유령·요정 | ⏳ | ⏳ (유령 손뻗기, 요정 별빛) | ⏳ | 재료만 드롭 |
+
+- 프로브 `build_deep_forest_weapons.cs`(판정 복제·아이콘 임포트·보스 보상), 아이콘 `Tools/pixelfx/gen_deep_forest_items.py`(몹 팔레트 재사용), ItemSheet 124~130.
+- 검증 `deep_forest_weapon_test.cs`: Ancient Roots 판정 3개 동시(원본 Rising Roots 1개), Ancient Wrath 5개, Mauling Rush 1개. combo_all 3종 정상(1-2 콤보 순환).
+
+## 13. ③구역 깊은 숲 — 1차 구현 (2026-10-19)
+
+- 맵 `Lv1_DeepForest`: 쓰지 않던 원본 근교 지형 `Lv1_NearForest`(x −437~−137) 복제, 돌 유적 색조(타일 0.5/0.62/0.64, 원경·식생 청록 회색), 상승 부하 20, zoneTitle "Deep Forest", 반딧불. 프로브 `build_deep_forest.cs`(재실행하면 복제본을 지우고 다시 만든다).
+- 포털: 일반 숲 왼쪽 끝 `Portal_ToDeepForest`(x −722, 원래 Lv2 포털 자리) ↔ 깊은 숲 오른쪽 `Portal_DeepToNormal`(x −236). 깊은 숲 왼쪽 끝은 마을 포털 유지(보스 처치 후 귀환).
+- 몬스터(코드 도트 `Tools/pixelfx/gen_deep_forest_mobs.py` → `Tools/probes/build_deep_forest_mobs.cs`, MonsterSheet 행 추가):
+  - 낮: **숲곰** 400HP 방어 8(64px, RatThief 템플릿, 일어섰다 앞발 내려찍기) · **엔트** 500HP 방어 10(64px, LeftMole 템플릿=느림, 가지 팔 내려찍기 + 앞 땅에서 뿌리) · 고블린(CliffGoblin) · 포자버섯(SporeShroom) 재사용.
+  - 밤: **유령** 160HP(48px, FlowerMole 템플릿, 반투명 72%, 약한 Light2D) · **요정** 110HP(작은 몸, 날개 펄럭, 따뜻한 Light2D).
+  - 보스: **고대숲의 엔트** 6000HP 방어 18 슈퍼아머(엔트를 1.5배 좌표로 96px 재작화, 이끼·돌빛 수피·주황 눈·분홍 꽃, Attack2 = 두 팔 들어 넓은 뿌리 폭발), PassiveTerror 템플릿, 18px/유닛(일반 몹보다 1.33배). 낮 스포너, 스폰 지점 x −412, **스포너 영역은 맵 전체(x −470~−130, 양끝 벽)** — 영역 밖으로 끌어내 사라지게(체력 리셋) 하는 공략 방지. 스포너 이름은 몹 이름(Bear1·Ent1·Ghost1·Fairy1…)으로 바꿨다. BossIntro 연출·HP바·초상(RPG Monsters Icon forest_409) 자동.
+- 드롭: 곰 Bear Pelt 35%·Bear Claw 2% / 엔트 Heartwood Chip 35%·Root Staff 2% / 유령 Ectoplasm 30% / 요정 Fairy Dust 30% / 고블린·버섯 재료 소량 / 보스 스포너 Heartwood Chip 확정 + 보스 확정 보상.
+- 버그 수정 B-117: 스포너 트리거가 겹친 곳에서 다른 스포너 경계를 넘은 몬스터가 사라지던 문제(보스가 등장 직후 증발) — 자기 소속일 때만 사라지게.
+- 검증(플레이): 낮 곰 4마리·보스 등장(HP바·초상·이름), 보스 처치 → 배너·확정 보상 드롭(Bear Claw + 강화석, 첫 처치 보너스), 밤 유령 5·요정 5, 포털 왕복(TravelNow), 콘솔 에러 0(테스트용 무적 잠금 경고 제외). 테스트로 생긴 보스 처치 ES3 키는 지웠다.
+- ⏳ 남은 것: 돌 유적 전용 소품·배경(현재 색조만), 붉은 탐험가(적대 APC 난입), 요정여왕 방(중간보스), 유령·요정 계보 무기와 깊은 숲 세트, 보스 공격 판정은 PassiveTerror 것(갈퀴·불꽃) 그대로 — 뿌리 판정으로 교체 필요, 지형은 근교 원본 그대로.

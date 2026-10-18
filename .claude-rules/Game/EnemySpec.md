@@ -47,11 +47,17 @@ Repeater → Selector
 - 기본 주기: 일반 10초, 채집물 3~30초, 보스 120초.
 - 위치는 `enemyPositon` 자식 중 하나(랜덤 옵션)이고 x에 ±1 지터를 준다.
 - 영역 이탈이나 시간대 불일치가 생기면 적이 1.5초 페이드아웃 후 풀에 반환된다. 이때 드롭은 없다.
+  - 영역 이탈 판정은 **자기 스포너** 경계만 본다(B-117, 2026-10-19). 다른 스포너 영역을 지나가는 몹은 사라지지 않는다.
+  - 보스 스포너 영역을 아레나보다 좁게 잡으면 보스를 끌어내 체력을 리셋할 수 있다 → 보스 영역은 벽으로 막힌 구간 전체로 잡는다(깊은 숲 x −470~−130).
 
 | 맵 | 낮 | 밤 |
 |---|---|---|
 | Lv1_NearForest | Rabbit, StoneRabbit, LeafMole, 채집물 | RatThief, RatChief, Scarecrow |
 | Lv1_NearForest_SideRoad | + FlowerMole, LeafMole | + CreepingTerror, **보스** |
+| Lv1_NormalForest (②) | ForestWolf, WildBoar, SporeShroom | Wisp, ForestSnail |
+| Lv1_DeepForest (③) | ForestBear(400/8), Ent(500/10), CliffGoblin, SporeShroom, **보스 AncientEnt(6000/18, 낮)** | Ghost(160/4), Fairy(110/3) |
+
+- 깊은 숲 드롭(`build_deep_forest.cs`): 곰 Bear Pelt 35%·BearClaw 2% / 엔트 Heartwood Chip 35%·RootStaff 2% / 유령 Ectoplasm 30% / 요정 Fairy Dust 30% / 보스 스포너 Heartwood Chip 100% + `Resources/Boss/AncientEnt_BD`(확정 BearClaw|RootStaff, 고유 HeartwoodGreatsword 8%·천장 12). 아이템·보스 프리팹 이름은 세이브 키(인벤토리 문자열, `bossSinceUnique.<프리팹>`)이므로 바꾸지 않는다.
 
 ## 4. 드롭 테이블 — `DropManager.cs`
 
