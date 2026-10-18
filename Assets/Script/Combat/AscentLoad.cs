@@ -60,6 +60,7 @@ public static class AscentLoad
         Rank = rank;
         ES3.Save(RankKey, Rank);
         BossBanner.Show("Rank Up", RankName(Rank).ToUpperInvariant() + " EXPLORER", true); // 승급 연출
+        FeelFx.PlayerPop(0.25f);
         GameLog.Info(GameLog.Cat.Player, "탐험가 승급: " + RankName(Rank) + " (" + Rank + ")");
         Changed?.Invoke();
         return true;

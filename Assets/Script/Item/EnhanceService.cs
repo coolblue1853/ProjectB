@@ -62,6 +62,10 @@ public static class EnhanceService
         InventoryManager.instance.RebuildItemStackCache();
         InventoryManager.instance.SaveInventory();
         Sfx.Play(result == EnhanceRules.Result.Success ? (newLevel >= 5 ? SfxId.RareDrop : SfxId.Craft) : SfxId.CraftFail);
+        if (result == EnhanceRules.Result.Success)
+        {
+            FeelFx.PlayerPop(newLevel >= 5 ? 0.2f : 0.1f);
+        }
         GameLog.Info(GameLog.Cat.Item, "강화 " + item.itemData.name + " +" + lv + " → +" + newLevel + " (" + result + ", 연속실패 " + FailStreak + ")");
         return true;
     }

@@ -71,6 +71,7 @@ public static class BossLoot
             PickupLog.Report("Rank up: " + AscentLoad.RankName(r.grantsRank) + " Explorer", 1, "U");
         }
         BossBanner.Show(string.IsNullOrEmpty(r.displayName) ? bossName : r.displayName, unique ? r.uniqueItem : null); // G2 승리 연출
+        FeelFx.PlayerPop(0.2f);
         GameLog.Info(GameLog.Cat.Item, "보스 보상 " + bossName + ": " + string.Join(", ", loot) + (unique ? " (고유템!)" : " (천장까지 " + (r.pity - since) + ")"));
         return loot;
     }
