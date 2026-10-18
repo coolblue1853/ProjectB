@@ -93,7 +93,7 @@ Shader "ProjectB/SkillEnergy2D"
                 // 리컬러(gradient-map): 휘도 → 테마색 램프(어두움=테마색 짙게, 밝음=흰빛). 검은 톤 스프라이트도 무기 색으로 빛나게
                 // 애니메이터가 SpriteRenderer.color 를 검정으로 칠하는 스킬(어둠 계열)도 있어 tex*정점색의 휘도를 쓰고, 램프에는 정점색을 다시 곱하지 않는다
                 half lum = dot(tex.rgb * vc.rgb, half3(0.299, 0.587, 0.114));
-                half3 ramp = lerp(_GlowColor.rgb * 0.55, lerp(_GlowColor.rgb * 1.3, half3(1.2, 1.2, 1.15), saturate(lum * 1.4 - 0.4)), saturate(lum * 2.0));
+                half3 ramp = lerp(_GlowColor.rgb * 0.85, lerp(_GlowColor.rgb * 1.3, half3(1.2, 1.2, 1.15), saturate(lum * 1.4 - 0.4)), saturate(lum * 2.0));
                 body = lerp(body, ramp, _Recolor);
 
                 // 흐르는 에너지: 두 옥타브 노이즈를 대각선으로 흘려 밝기를 일렁이고, 밝은 띠는 글로우색으로

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_SlashGreenBig
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: -3463650143800172547, guid: aa3e5f033ae97f34482f848590b25a9f, type: 3}
+  - {fileID: -6754823193540188390, guid: aa3e5f033ae97f34482f848590b25a9f, type: 3}
+  - {fileID: -1040590853198801290, guid: aa3e5f033ae97f34482f848590b25a9f, type: 3}
+  - {fileID: -360467408149232288, guid: aa3e5f033ae97f34482f848590b25a9f, type: 3}
+  - {fileID: -5483863827687768840, guid: aa3e5f033ae97f34482f848590b25a9f, type: 3}
+  - {fileID: -2841608136573650342, guid: aa3e5f033ae97f34482f848590b25a9f, type: 3}
+  - {fileID: 8318579542169033011, guid: aa3e5f033ae97f34482f848590b25a9f, type: 3}
+  - {fileID: 3935406314599430867, guid: aa3e5f033ae97f34482f848590b25a9f, type: 3}
+  fps: 20
+  source: Assets/ThirdParty/MagicSlashesFX/Prefabs/EffectPrefabs/Eff7_Slash.prefab
+    euler=(-90.00, 0.00, 0.00) scale=0.2

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_SlashRed
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: -2973995418920826672, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: 1175815155210158438, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: -4023466924629103151, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: 4948470053007801636, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: -8427526008345995188, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: -5733639816268231708, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: -4042617469596001465, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: 4175422949163282275, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: 8729698568033806345, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: -7343344757720256395, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: -7446476811912605008, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  - {fileID: -5653274489366819524, guid: 9cf4e63e661c56649892a322c92f88c2, type: 3}
+  fps: 20
+  source: Assets/ThirdParty/MagicSlashesFX/Prefabs/EffectPrefabs/Eff1_Right.prefab
+    euler=(-90.00, 0.00, 0.00) scale=0.35

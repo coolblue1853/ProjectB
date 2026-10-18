@@ -207,6 +207,10 @@ public class DamageObject : MonoBehaviour
     {
         // 플레이어 무기에서 나온 공격·스킬 스프라이트면 에너지 셰이더(무기 테마색) 적용
         Weapon ownerWeapon = GetComponentInParent<Weapon>();
+        if (ownerWeapon == null)
+        {
+            ownerWeapon = Weapon.Equipped; // 월드에 분리 생성되는 스킬(SSideDown 등)
+        }
         if (ownerWeapon != null && ownerWeapon.useEnergyShader)
         {
             SkillEnergyFx.Apply(gameObject, ownerWeapon.energyColor);

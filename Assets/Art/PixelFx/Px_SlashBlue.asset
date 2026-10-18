@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_SlashBlue
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: 31837996285081172, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: 6947539718147230924, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: 1771885137607066515, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: -1931456309427468224, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: -5853941405864496849, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: 9133084749178086641, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: -8615473849877396800, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: 8188989522001057561, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: -4526824436733280215, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: 2663197995326312842, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: 492324095050066772, guid: 526209188221a6040b742c292d49f570, type: 3}
+  - {fileID: 2026067977869809933, guid: 526209188221a6040b742c292d49f570, type: 3}
+  fps: 20
+  source: Assets/ThirdParty/MagicSlashesFX/Prefabs/EffectPrefabs/Eff3_Right.prefab
+    euler=(-90.00, 0.00, 0.00) scale=0.35

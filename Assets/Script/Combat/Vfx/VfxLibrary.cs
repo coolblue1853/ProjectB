@@ -21,6 +21,9 @@ public class VfxLibrary : ScriptableObject
         [Tooltip("풀 반환까지 시간(초)")]
         public float lifetime = 1f;
         public int sortingOrder = 210;
+        [Tooltip("도트 버전(PixelVfxBaker 산출물). 있으면 3D 파티클 대신 스프라이트로 재생")]
+        public PixelFxClip pixel;
+        public bool usePixel = true;
     }
 
     public List<Entry> entries = new List<Entry>();

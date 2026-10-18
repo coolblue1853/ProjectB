@@ -77,8 +77,12 @@ public class Weapon : MonoBehaviour
         damgeArray[8] = addDmg;
         damgeArray[9] = phm.armorAtp;
     }
+    /// <summary>현재 장착 무기 (무기 밑에서 분리돼 생성되는 스킬 오브젝트가 테마색을 찾을 때 사용)</summary>
+    public static Weapon Equipped { get; private set; }
+
     private void Start()
     {
+        Equipped = this;
         phm = transform.parent.transform.GetChild(0).GetComponent<PlayerHealthManager>();
         if (pC == null)
         {
@@ -202,6 +206,10 @@ public class Weapon : MonoBehaviour
 
     private void OnDisable()
     {
+        if (Equipped == this)
+        {
+            Equipped = null;
+        }
         // 무기 해제·파괴 시 잠금이 남지 않도록 (C9)
         attackWaitSequence.Kill();
         ReleaseAttackLocks();

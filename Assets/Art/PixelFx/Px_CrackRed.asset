@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_CrackRed
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: -3518340697751510831, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: -557658685162697102, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: -2915812502813002349, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: -4759551933027031896, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: -8293417862178750443, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: -5906445119935202107, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: -5795614916028676053, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: -7806945069488331511, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: -7381816931657210826, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: -3319778153628917652, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: -7409974484732219886, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  - {fileID: 6107420552088527820, guid: c8a495559227a434c984dfcb3bd4f8f9, type: 3}
+  fps: 20
+  source: Assets/ThirdParty/MagicSlashesFX/Prefabs/EffectPrefabs/Eff1_Crack.prefab
+    euler=(0.00, 0.00, 0.00) scale=1

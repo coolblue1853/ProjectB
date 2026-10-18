@@ -19,45 +19,61 @@ MonoBehaviour:
     scale: 0.4
     lifetime: 0.7
     sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 684f6ec955b90fb49a9c86c30e9dddc4, type: 2}
+    usePixel: 1
   - id: 2
     prefab: {fileID: 1217668729914568, guid: 02f36df5dc2d4da4da06be6b63b1a7fc, type: 3}
     euler: {x: -90, y: 0, z: 0}
     scale: 0.22
     lifetime: 1.5
     sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 1922051d2b90dd6448e04467feb125c9, type: 2}
+    usePixel: 1
   - id: 3
     prefab: {fileID: 1107296871017770, guid: 82a583916db5b7842a722df7756825eb, type: 3}
     euler: {x: -90, y: 0, z: 0}
     scale: 0.35
     lifetime: 1.5
     sortingOrder: 210
+    pixel: {fileID: 11400000, guid: f5591883e54a45145a53665534d0bef6, type: 2}
+    usePixel: 1
   - id: 4
     prefab: {fileID: 1514118954617016, guid: 8ab0c24e220c01e47aa412f3d83028c3, type: 3}
     euler: {x: -90, y: 0, z: 0}
     scale: 0.35
     lifetime: 1.5
     sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 4c661a8d852c8bd4caa7c98dcfb385ed, type: 2}
+    usePixel: 1
   - id: 5
     prefab: {fileID: 1935082409722074, guid: 73c5905a45ba2d841a54b3c5468d23a6, type: 3}
     euler: {x: -90, y: 0, z: 0}
     scale: 0.35
     lifetime: 1.5
     sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 56063e3fa6e71fd45bfe01239efdf3de, type: 2}
+    usePixel: 1
   - id: 6
     prefab: {fileID: 1543153927702632, guid: 638bf80b37fd48a458d61ac9d454265e, type: 3}
     euler: {x: -90, y: 0, z: 0}
     scale: 0.35
     lifetime: 1.5
     sortingOrder: 210
+    pixel: {fileID: 11400000, guid: f8008aa35d41dd449b4fea725353ca1b, type: 2}
+    usePixel: 1
   - id: 7
     prefab: {fileID: 1648509489993130, guid: 8a0c2ade089d4c44fbdf861f7bcd7be6, type: 3}
     euler: {x: -90, y: 0, z: 0}
     scale: 0.2
     lifetime: 1
     sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 3545df5609c69b148bc739c1d109d750, type: 2}
+    usePixel: 1
   - id: 8
     prefab: {fileID: 1115641076847360, guid: 73ccedaa8ed8dc14594ca7cc04041f4c, type: 3}
     euler: {x: 0, y: 0, z: 0}
     scale: 0.4
     lifetime: 1.5
     sortingOrder: 210
+    pixel: {fileID: 11400000, guid: ceb5d39ecfefe954da40187ff7e0236d, type: 2}
+    usePixel: 1

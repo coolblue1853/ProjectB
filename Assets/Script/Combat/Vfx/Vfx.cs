@@ -16,7 +16,13 @@ public static class Vfx
         public ParticleSystem[] systems;
         public float releaseAt;
         public VfxId id;
+        // 도트 모드
+        public SpriteRenderer sprite;
+        public PixelFxClip clip;
+        public float started;
     }
+
+    static Material pixelMaterial;
 
     static VfxLibrary library;
     static Transform root;
@@ -60,6 +66,12 @@ public static class Vfx
         }
         spawnedThisFrame++;
 
+        if (entry.pixel != null && entry.usePixel && entry.pixel.frames != null && entry.pixel.frames.Length > 0)
+        {
+            PlayPixel(id, entry, position, facingLeft, scaleMul);
+            return true;
+        }
+
         Live live = Rent(id, entry);
         Transform t = live.go.transform;
         t.position = new Vector3(position.x, position.y, 0f);
@@ -74,6 +86,44 @@ public static class Vfx
         live.releaseAt = Time.time + entry.lifetime;
         active.Add(live);
         return true;
+    }
+
+    /// <summary>도트 이펙트: SpriteRenderer 1개로 프레임을 넘긴다. 좌우는 flipX, 크기는 베이크 PPU 그대로(scaleMul만)</summary>
+    static void PlayPixel(VfxId id, VfxLibrary.Entry entry, Vector3 position, bool facingLeft, float scaleMul)
+    {
+        Live live;
+        if (pools.TryGetValue(id, out Stack<Live> stack) && stack.Count > 0)
+        {
+            live = stack.Pop();
+        }
+        else
+        {
+            var go = new GameObject("PXFX_" + id);
+            go.transform.SetParent(root, false);
+            var sr = go.AddComponent<SpriteRenderer>();
+            if (pixelMaterial == null)
+            {
+                pixelMaterial = Resources.Load<Material>("FX/M_PixelFx");
+            }
+            if (pixelMaterial != null)
+            {
+                sr.sharedMaterial = pixelMaterial; // Unlit — 밤에도 원색
+            }
+            sr.sortingOrder = entry.sortingOrder;
+            live = new Live { go = go, systems = new ParticleSystem[0], id = id, sprite = sr };
+            GameLog.Info(GameLog.Cat.Combat, "도트 VFX 풀 생성: " + id);
+        }
+        live.clip = entry.pixel;
+        live.started = Time.time;
+        live.sprite.flipX = facingLeft;
+        live.sprite.sprite = entry.pixel.frames[0];
+        Transform t = live.go.transform;
+        t.position = new Vector3(position.x, position.y, 0f);
+        t.rotation = Quaternion.identity;
+        t.localScale = Vector3.one * scaleMul;
+        live.go.SetActive(true);
+        live.releaseAt = Time.time + entry.pixel.Duration;
+        active.Add(live);
     }
 
     static Live Rent(VfxId id, VfxLibrary.Entry entry)
@@ -112,6 +162,11 @@ public static class Vfx
             }
             if (now < live.releaseAt)
             {
+                if (live.clip != null)
+                {
+                    int f = Mathf.Min(live.clip.frames.Length - 1, (int)((now - live.started) * live.clip.fps));
+                    live.sprite.sprite = live.clip.frames[f];
+                }
                 continue;
             }
             live.go.SetActive(false);

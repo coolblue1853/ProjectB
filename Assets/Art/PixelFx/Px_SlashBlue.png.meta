@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 526209188221a6040b742c292d49f570
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 31837996285081172
+    second: Px_SlashBlue_0
+  - first:
+      213: 6947539718147230924
+    second: Px_SlashBlue_1
+  - first:
+      213: 1771885137607066515
+    second: Px_SlashBlue_2
+  - first:
+      213: -1931456309427468224
+    second: Px_SlashBlue_3
+  - first:
+      213: -5853941405864496849
+    second: Px_SlashBlue_4
+  - first:
+      213: 9133084749178086641
+    second: Px_SlashBlue_5
+  - first:
+      213: -8615473849877396800
+    second: Px_SlashBlue_6
+  - first:
+      213: 8188989522001057561
+    second: Px_SlashBlue_7
+  - first:
+      213: -4526824436733280215
+    second: Px_SlashBlue_8
+  - first:
+      213: 2663197995326312842
+    second: Px_SlashBlue_9
+  - first:
+      213: 492324095050066772
+    second: Px_SlashBlue_10
+  - first:
+      213: 2026067977869809933
+    second: Px_SlashBlue_11
+  - first:
+      213: 7042567861298439178
+    second: Px_SlashBlue_12
+  - first:
+      213: -4234282949520380392
+    second: Px_SlashBlue_13
+  - first:
+      213: 6975498448197952090
+    second: Px_SlashBlue_14
+  - first:
+      213: 3488111841282153504
+    second: Px_SlashBlue_15
+  - first:
+      213: -2432685437880689861
+    second: Px_SlashBlue_16
+  - first:
+      213: 6461299841327056784
+    second: Px_SlashBlue_17
+  - first:
+      213: 4902088502266012945
+    second: Px_SlashBlue_18
+  - first:
+      213: -2199092841816931996
+    second: Px_SlashBlue_19
+  - first:
+      213: 2420862587820161710
+    second: Px_SlashBlue_20
+  - first:
+      213: -7948016954502507453
+    second: Px_SlashBlue_21
+  - first:
+      213: 3544028354224690380
+    second: Px_SlashBlue_22
+  - first:
+      213: 7298990000561958720
+    second: Px_SlashBlue_23
+  - first:
+      213: 856013964680704725
+    second: Px_SlashBlue_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 24
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Px_SlashBlue_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 456beea2d7c117000800000000000000
+      internalID: 31837996285081172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_1
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccc4513609e9a6060800000000000000
+      internalID: 6947539718147230924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_2
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3930dd11520079810800000000000000
+      internalID: 1771885137607066515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_3
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 048836948b61235e0800000000000000
+      internalID: -1931456309427468224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_4
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f21fe7f8e4f92cea0800000000000000
+      internalID: -5853941405864496849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_5
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f42c42b03c3fbe70800000000000000
+      internalID: 9133084749178086641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_6
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c204662e20bf6880800000000000000
+      internalID: -8615473849877396800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_7
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 917d448459225a170800000000000000
+      internalID: 8188989522001057561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_8
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92084ffa82d7d21c0800000000000000
+      internalID: -4526824436733280215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_9
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8115fd677495f420800000000000000
+      internalID: 2663197995326312842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_10
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45b23dfe72615d600800000000000000
+      internalID: 492324095050066772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashBlue_11
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0959bf571a0e1c10800000000000000
+      internalID: 2026067977869809933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Px_SlashBlue_0: 31837996285081172
+      Px_SlashBlue_1: 6947539718147230924
+      Px_SlashBlue_10: 492324095050066772
+      Px_SlashBlue_11: 2026067977869809933
+      Px_SlashBlue_12: 7042567861298439178
+      Px_SlashBlue_13: -4234282949520380392
+      Px_SlashBlue_14: 6975498448197952090
+      Px_SlashBlue_15: 3488111841282153504
+      Px_SlashBlue_16: -2432685437880689861
+      Px_SlashBlue_17: 6461299841327056784
+      Px_SlashBlue_18: 4902088502266012945
+      Px_SlashBlue_19: -2199092841816931996
+      Px_SlashBlue_2: 1771885137607066515
+      Px_SlashBlue_20: 2420862587820161710
+      Px_SlashBlue_21: -7948016954502507453
+      Px_SlashBlue_22: 3544028354224690380
+      Px_SlashBlue_23: 7298990000561958720
+      Px_SlashBlue_24: 856013964680704725
+      Px_SlashBlue_3: -1931456309427468224
+      Px_SlashBlue_4: -5853941405864496849
+      Px_SlashBlue_5: 9133084749178086641
+      Px_SlashBlue_6: -8615473849877396800
+      Px_SlashBlue_7: 8188989522001057561
+      Px_SlashBlue_8: -4526824436733280215
+      Px_SlashBlue_9: 2663197995326312842
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

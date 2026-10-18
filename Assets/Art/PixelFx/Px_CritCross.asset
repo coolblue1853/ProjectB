@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_CritCross
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: 1663531362861223199, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: -7328167711968272460, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: 7279185206969196655, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: 3532500404111995455, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: -5961884218031061311, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: -4114452282366017168, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: -1390475378844708353, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: -3438985861735436669, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: 1310382766369455443, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: 7612082395386884300, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: -7242217981228764460, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  - {fileID: 1477501594492825983, guid: a6baa37f0f9b43742817d0ced9ed80f2, type: 3}
+  fps: 20
+  source: Assets/ThirdParty/MagicSlashesFX/Prefabs/EffectPrefabs/Eff10_Slash.prefab
+    euler=(0.00, 0.00, 0.00) scale=0.4

@@ -1,4 +1,4 @@
-# 타격감(Game Feel) 구현 계획 — 로드맵 A2~A6
+﻿# 타격감(Game Feel) 구현 계획 — 로드맵 A2~A6
 
 > 상태: 설계안(2026-10-18). 코드 미작성·미검증이다. 구현하면 항목마다 ✅와 커밋 해시를 `Game/QualityRoadmap.md`에 적는다.
 > 수치는 웹 자료와 현재 카메라 설정(직교 5.47, PPU 100 → 1080p에서 1유닛 ≈ 99px)을 근거로 잡은 **초기값**이다. 플레이테스트로 조정한다.
@@ -266,6 +266,20 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 
 - 스크린샷만으로 0.06s 플래시는 잡기 어렵다 → 프로브에서 `_HitEffectBlend`를 1로 고정한 상태로 1장 찍고 되돌린다.
 - 확인 못 한 항목은 커밋 메시지와 이 문서에 "미검증"으로 적는다.
+
+## 10.5 도트 스킬 이펙트 파이프라인 (2026-10-18)
+
+사용자 요청: "스킬 이펙트 도트를 다시 찍어야 할 수도 — 3D/2D로 만든 뒤 픽셀화". 레퍼런스: 메이플 히어로 스킬 영상(`Tools/shader_jobs/skill_energy/REFERENCE.md`).
+
+| 층 | 무엇 | 파일 |
+|---|---|---|
+| ① 도트 VFX 베이커 | 3D 파티클(Magic Slashes FX)을 화면 밖 카메라로 프레임 렌더 → 4x4 평균 축소 → 밝기=알파, 상위 2% 정규화 → 후반 40% 소멸 → 외톨이 픽셀 제거 → (가는 선) 1px 팽창·한 단계 어두운 외곽 → 테마 램프 5색 양자화 → 공통 영역 크롭 시트 + `PixelFxClip`. 24 PPU(캐릭터와 같은 도트 밀도) | `Editor/Dev/PixelVfxBaker.cs`, `Tools/probes/bake_pixel_fx.cs`, 산출 `Assets/Art/PixelFx/` |
+| ② 도트 재생 | `VfxLibrary.Entry.pixel`이 있으면 `Vfx`가 SpriteRenderer(Unlit `M_PixelFx`)로 프레임 재생, 좌우는 flipX. 평타·스킬 시전·치명 이펙트 8종이 전부 도트로 교체 | `Vfx.cs`, `VfxLibrary.cs`, `PixelFxClip.cs` |
+| ③ 원본 스킬 스프라이트 셰이더 | `SkillEnergy2D` — 테마색 리컬러·외곽 글로우·노이즈 흐름·끝 디졸브 (Shader Creator 스킬 절차) | `Assets/Shaders/SkillEnergy2D.shader`, `SkillEnergyFx.cs` |
+
+- 램프(어두움→밝음, 히어로 팔레트 구조): gold `5A1E0A C8501A F5A032 FADF9F FFFAEB` 외 blue/red/green/white/purple — `PixelVfxBaker.Ramps`.
+- 새 이펙트 추가: `bake_pixel_fx.cs` 행 추가(VfxId, 프리팹, 회전, 스케일, 반폭, 램프[, 팽창, 수명, 시작시각]) → 프로브 실행.
+- 남은 일: 스킬 원본 스프라이트 자체를 베이크 도트로 대체(히트박스 유지·애니 클립 교체), 지팡이 계열 레퍼런스(비숍 영상) 측정.
 
 ## 11. 작업 순서 (커밋 단위)
 

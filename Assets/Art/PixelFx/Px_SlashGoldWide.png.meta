@@ -1,0 +1,586 @@
+fileFormatVersion: 2
+guid: 29f7243746c8e454b9e872bc8d382993
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7491216545868487578
+    second: Px_SlashGoldWide_0
+  - first:
+      213: 2989705496360409299
+    second: Px_SlashGoldWide_1
+  - first:
+      213: -99099371618208403
+    second: Px_SlashGoldWide_2
+  - first:
+      213: 2448308315247476471
+    second: Px_SlashGoldWide_3
+  - first:
+      213: -2345728590488453871
+    second: Px_SlashGoldWide_4
+  - first:
+      213: 2735827848778195699
+    second: Px_SlashGoldWide_5
+  - first:
+      213: 1087064672688689678
+    second: Px_SlashGoldWide_6
+  - first:
+      213: -4744082890943388888
+    second: Px_SlashGoldWide_7
+  - first:
+      213: -1685811567096818299
+    second: Px_SlashGoldWide_8
+  - first:
+      213: 8933418322134692275
+    second: Px_SlashGoldWide_9
+  - first:
+      213: -1768405797297669959
+    second: Px_SlashGoldWide_10
+  - first:
+      213: 6971927711317481917
+    second: Px_SlashGoldWide_11
+  - first:
+      213: 3482645063034428760
+    second: Px_SlashGoldWide_12
+  - first:
+      213: -757855109431041262
+    second: Px_SlashGoldWide_13
+  - first:
+      213: 6233330642921993282
+    second: Px_SlashGoldWide_14
+  - first:
+      213: -664421635650072446
+    second: Px_SlashGoldWide_15
+  - first:
+      213: 2904381705454494920
+    second: Px_SlashGoldWide_16
+  - first:
+      213: -6874555336945840291
+    second: Px_SlashGoldWide_17
+  - first:
+      213: -3958966793389335912
+    second: Px_SlashGoldWide_18
+  - first:
+      213: -9055066097687219
+    second: Px_SlashGoldWide_19
+  - first:
+      213: 3314747425521194197
+    second: Px_SlashGoldWide_20
+  - first:
+      213: -3685740275734537841
+    second: Px_SlashGoldWide_21
+  - first:
+      213: -385674577260660966
+    second: Px_SlashGoldWide_22
+  - first:
+      213: 3173242821801974439
+    second: Px_SlashGoldWide_23
+  - first:
+      213: -8500025028349661123
+    second: Px_SlashGoldWide_24
+  - first:
+      213: 5539453174542489645
+    second: Px_SlashGoldWide_25
+  - first:
+      213: -3706821306154821477
+    second: Px_SlashGoldWide_26
+  - first:
+      213: -3675731964071407570
+    second: Px_SlashGoldWide_27
+  - first:
+      213: -8519566114024931880
+    second: Px_SlashGoldWide_28
+  - first:
+      213: 7960892114785456530
+    second: Px_SlashGoldWide_29
+  - first:
+      213: 3498449024756686069
+    second: Px_SlashGoldWide_30
+  - first:
+      213: -4202357890352963947
+    second: Px_SlashGoldWide_31
+  - first:
+      213: 4183121773004051719
+    second: Px_SlashGoldWide_32
+  - first:
+      213: 461870161641869589
+    second: Px_SlashGoldWide_33
+  - first:
+      213: -7568335336191073622
+    second: Px_SlashGoldWide_34
+  - first:
+      213: 4499205425066256117
+    second: Px_SlashGoldWide_35
+  - first:
+      213: 1079837030914434926
+    second: Px_SlashGoldWide_36
+  - first:
+      213: -3783895242087634751
+    second: Px_SlashGoldWide_37
+  - first:
+      213: 6490731207182940348
+    second: Px_SlashGoldWide_38
+  - first:
+      213: -2942985028003905024
+    second: Px_SlashGoldWide_39
+  - first:
+      213: 1484545014314194136
+    second: Px_SlashGoldWide_40
+  - first:
+      213: 6352429282456208088
+    second: Px_SlashGoldWide_41
+  - first:
+      213: 3409549504220003277
+    second: Px_SlashGoldWide_42
+  - first:
+      213: -2827955003348445019
+    second: Px_SlashGoldWide_43
+  - first:
+      213: 2681801417557268063
+    second: Px_SlashGoldWide_44
+  - first:
+      213: 2578059485902611953
+    second: Px_SlashGoldWide_45
+  - first:
+      213: -5513934146331300707
+    second: Px_SlashGoldWide_46
+  - first:
+      213: -6821196654052900624
+    second: Px_SlashGoldWide_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 24
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9b150022c526f760800000000000000
+      internalID: 7491216545868487578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_1
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d8589d0f419d7920800000000000000
+      internalID: 2989705496360409299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_2
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d657b3585adef9ef0800000000000000
+      internalID: -99099371618208403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_3
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fef5f6e0732af120800000000000000
+      internalID: 2448308315247476471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_4
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11d3570764c427fd0800000000000000
+      internalID: -2345728590488453871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_5
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f2ab05feec97f520800000000000000
+      internalID: 2735827848778195699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_6
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e025c7f6f87061f00800000000000000
+      internalID: 1087064672688689678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_7
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 823af44feb1a92eb0800000000000000
+      internalID: -4744082890943388888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_8
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58513f0cf4bca98e0800000000000000
+      internalID: -1685811567096818299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_9
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b1fdc8f1a0e9fb70800000000000000
+      internalID: 8933418322134692275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_10
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b8b459fb4c5577e0800000000000000
+      internalID: -1768405797297669959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_SlashGoldWide_11
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 0
+        width: 71
+        height: 86
+      alignment: 9
+      pivot: {x: 0.49295774, y: 0.1627907}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db9d7c8805341c060800000000000000
+      internalID: 6971927711317481917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Px_SlashGoldWide_0: 7491216545868487578
+      Px_SlashGoldWide_1: 2989705496360409299
+      Px_SlashGoldWide_10: -1768405797297669959
+      Px_SlashGoldWide_11: 6971927711317481917
+      Px_SlashGoldWide_12: 3482645063034428760
+      Px_SlashGoldWide_13: -757855109431041262
+      Px_SlashGoldWide_14: 6233330642921993282
+      Px_SlashGoldWide_15: -664421635650072446
+      Px_SlashGoldWide_16: 2904381705454494920
+      Px_SlashGoldWide_17: -6874555336945840291
+      Px_SlashGoldWide_18: -3958966793389335912
+      Px_SlashGoldWide_19: -9055066097687219
+      Px_SlashGoldWide_2: -99099371618208403
+      Px_SlashGoldWide_20: 3314747425521194197
+      Px_SlashGoldWide_21: -3685740275734537841
+      Px_SlashGoldWide_22: -385674577260660966
+      Px_SlashGoldWide_23: 3173242821801974439
+      Px_SlashGoldWide_24: -8500025028349661123
+      Px_SlashGoldWide_25: 5539453174542489645
+      Px_SlashGoldWide_26: -3706821306154821477
+      Px_SlashGoldWide_27: -3675731964071407570
+      Px_SlashGoldWide_28: -8519566114024931880
+      Px_SlashGoldWide_29: 7960892114785456530
+      Px_SlashGoldWide_3: 2448308315247476471
+      Px_SlashGoldWide_30: 3498449024756686069
+      Px_SlashGoldWide_31: -4202357890352963947
+      Px_SlashGoldWide_32: 4183121773004051719
+      Px_SlashGoldWide_33: 461870161641869589
+      Px_SlashGoldWide_34: -7568335336191073622
+      Px_SlashGoldWide_35: 4499205425066256117
+      Px_SlashGoldWide_36: 1079837030914434926
+      Px_SlashGoldWide_37: -3783895242087634751
+      Px_SlashGoldWide_38: 6490731207182940348
+      Px_SlashGoldWide_39: -2942985028003905024
+      Px_SlashGoldWide_4: -2345728590488453871
+      Px_SlashGoldWide_40: 1484545014314194136
+      Px_SlashGoldWide_41: 6352429282456208088
+      Px_SlashGoldWide_42: 3409549504220003277
+      Px_SlashGoldWide_43: -2827955003348445019
+      Px_SlashGoldWide_44: 2681801417557268063
+      Px_SlashGoldWide_45: 2578059485902611953
+      Px_SlashGoldWide_46: -5513934146331300707
+      Px_SlashGoldWide_47: -6821196654052900624
+      Px_SlashGoldWide_5: 2735827848778195699
+      Px_SlashGoldWide_6: 1087064672688689678
+      Px_SlashGoldWide_7: -4744082890943388888
+      Px_SlashGoldWide_8: -1685811567096818299
+      Px_SlashGoldWide_9: 8933418322134692275
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
