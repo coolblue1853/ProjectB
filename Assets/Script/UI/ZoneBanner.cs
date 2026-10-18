@@ -47,8 +47,18 @@ public class ZoneBanner : MonoBehaviour
         }
         if (best != null)
         {
-            Show(best);
+            StartCoroutine(ShowAfterTitle(best));
         }
+    }
+
+    System.Collections.IEnumerator ShowAfterTitle(MapInfo info)
+    {
+        while (UiLock.IsHeld("Title"))
+        {
+            yield return null; // 타이틀이 걷힌 뒤에 첫 지역 배너
+        }
+        yield return new WaitForSecondsRealtime(0.4f);
+        Show(info);
     }
 
     void OnDestroy()
