@@ -1,4 +1,4 @@
-# 아이템 · 장비 · 세트 스펙
+﻿# 아이템 · 장비 · 세트 스펙
 
 > 상태: 코드·데이터 역산(2026-10-18). 데이터는 로컬 CSV(`Assets/Resources/*.csv`)이며 서버는 쓰지 않는다.
 
@@ -23,7 +23,7 @@
 | 12 | itemNameT | string | 표시 이름 |
 | 13 | tear | int | 티어(전부 0) |
 | 14 | rarity | string | C=Common, R=Rare, U=Unique |
-| 15 | upgrade | int | 강화(전부 0, 세이브만 함) |
+| 15 | upgrade | int | 강화 단계 +0~+10 (CSV 기본 0, 아이템 인스턴스마다 ES3 저장 — `EnhanceRules`, ProgressionDesign 3절) |
 | 16 | setName | string | 세트 표시 이름 |
 
 **현황:**
@@ -108,6 +108,12 @@
 **상점:**
 - 구매가 = `int(price × 1.5)`, 판매가 = price이다.
 - 품목은 씬에서 `ItemCheck.isShopItem`으로 표시된 오브젝트다.
+
+## 5.1 강화 (대장장이 ↓) — 상세는 `ProgressionDesign.md` 3절
+
+- 재료: `Enhance Stone`(ItemSheet 105, R등급) + 골드. 성공률 100→30%, +6부터 실패 시 −1, 2연속 실패 뒤 확정 성공, 파괴 없음(Q-302).
+- 효과: 무기 데미지 단계당 +4%(+5·+10에 +10%씩), 방어구·장신구 HP·기본공격·방어 단계당 +5%(+5·+10에 +10%씩). 방어구 방어력은 ×0.5만 `playerDef`에 반영(B-212).
+- 강화석 획득: 정예 확정 1~2개, 보스 확정 3~6개(+첫 처치 5).
 
 ## 6. 세이브 — Easy Save 3 (`SaveFile.es3`, 키 `Datas`)
 
