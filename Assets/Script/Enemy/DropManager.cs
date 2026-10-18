@@ -128,6 +128,20 @@ public class DropManager : MonoBehaviour
         }
     }
 
+    /// <summary>드롭 테이블 전체 (도감 표시용): 아이템 이름과 확률</summary>
+    public List<(string name, float chance)> AllDrops()
+    {
+        var result = new List<(string, float)>();
+        if (dropItems != null)
+        {
+            foreach (DropItem d in dropItems)
+            {
+                result.Add((d.itemName, d.dropProbability));
+            }
+        }
+        return result;
+    }
+
     /// <summary>이 드롭 테이블의 장비 아이템 이름들 (정예 확정 장비 후보)</summary>
     public List<string> EquipmentNames()
     {
