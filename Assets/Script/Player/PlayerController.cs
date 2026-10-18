@@ -190,7 +190,8 @@ public class PlayerController : MonoBehaviour
         if(DatabaseManager.isOpenUI == false && isAttacked == false)
         {
             once = false;
-            if (rb.linearVelocity != Vector2.zero && DatabaseManager.weaponStopMove == true)// isGround가 있으면 
+            // 공격 이동정지 중에도 대시는 움직인다(대시가 MoveLock을 끄지 않고 무시, B-114 C5)
+            if (rb.linearVelocity != Vector2.zero && DatabaseManager.weaponStopMove == true && states != "dash")
             {
                 rb.linearVelocity = Vector2.zero;
             }
@@ -216,7 +217,6 @@ public class PlayerController : MonoBehaviour
             // 대쉬
             if (DatabaseManager.isOpenUI == false && uiDashWait == false &&dashAction.triggered && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false 
             {
-                DatabaseManager.weaponStopMove = false;
                 rb.gravityScale =3;
                 isUpLadder = false;
                 ChangeLadderLayerOrder();
@@ -554,9 +554,7 @@ public class PlayerController : MonoBehaviour
 
     public void SkillDash(float dashDu, float dashSpd, float dashYSpeed, bool isDashInvins, bool isBackDash, bool isGravity = false)
     {
-        DatabaseManager.weaponStopMove = false;
         states = "dash";
-        Debug.Log("대쉬공격");
         // 스킬 대시 무적·슈퍼아머도 시간 만료 토큰. 연속 스킬 대시로 시퀀스가 Kill돼도 반드시 풀린다 (B-114 C2, C3)
         if (isDashInvins == true)
         {

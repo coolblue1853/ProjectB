@@ -193,10 +193,7 @@ public class DamageObject : MonoBehaviour
             return; // 이중 해제 방지 (Def가 두 번 빠지지 않도록)
         }
         buffActive = false;
-        if (DatabaseManager.weaponStopMove == true)
-        {
-            DatabaseManager.weaponStopMove = false;
-        }
+        // (삭제) 출처와 무관하게 이동정지를 끄던 코드 — 이동정지는 그 스킬의 토큰이 소유한다 (B-114 C6)
         superArmorToken?.Dispose();
         superArmorToken = null;
         if (holdingBuffEffect == "Def")

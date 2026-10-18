@@ -41,7 +41,7 @@
 | B-111 | SideRoad 포털 연결 끊김 / openMap null NRE | 씬 `Portal` | ✅ Lv1을 SideRoad(확장판)로 교체, 이동 전용 포털 null-safe (Q-104) |
 | B-112 | 세트 키가 빈 문자열 `""`로 쌓임, MinusSetDict KeyNotFound | `EquipBoxCheck.cs:246`, `DatabaseManager.cs:71` | ✅ 빈 tfName 무시, MinusSetDict TryGetValue |
 | B-113 | 홀드 스킬이 다른 스킬 키를 떼도 종료됨 | `Skill.cs:96-100, 297` | 🔶 1차: 자기 키 해제만 처리·null 가드. 나머지 원인(동시 발동, 슬롯/skillNum)은 PlayerStateDesign Phase 0 |
-| B-114 | 무적·슈퍼아머·이동정지 bool을 여러 출처가 덮어씀 (대시 종료가 다른 무적 해제) | `PlayerController.cs:602`, `DamageObject.cs:183` | 🔶 무적·슈퍼아머 토큰화 ✅(PlayerStatus, 프로브 dash_overlap). 이동정지·사다리 잠금(Phase 3), UI 잠금(Phase 4) ⏳ |
+| B-114 | 무적·슈퍼아머·이동정지 bool을 여러 출처가 덮어씀 (대시 종료가 다른 무적 해제) | `PlayerController.cs:602`, `DamageObject.cs:183` | 🔶 무적·슈퍼아머 토큰화 ✅(PlayerStatus, 프로브 dash_overlap). 이동정지·사다리 잠금 ✅(Weapon/Skill 토큰, 프로브 lock_overlap), UI 잠금(Phase 4) ⏳ |
 
 ## P2
 

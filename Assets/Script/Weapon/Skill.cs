@@ -106,6 +106,9 @@ public class Skill : MonoBehaviour
             skillAction[i].Disable();
             skillAction[i].canceled -= OnSkillReleased;
         }
+        // 무기 해제·파괴 시 잠금 토큰이 남지 않도록 (C9)
+        attackWaitSequence.Kill();
+        ReleaseLocks();
     }
     private void Awake()
     {
@@ -416,7 +419,7 @@ public class Skill : MonoBehaviour
             {
                 if (isWeaponStopMove == true)
                 {
-                    DatabaseManager.weaponStopMove = true;
+                    AcquireLocks(false); // 홀드 동안 이동정지 (홀드 종료 CheckAttackWait에서 해제)
                     rb.linearVelocity = Vector2.zero;
                 }
 
@@ -434,27 +437,48 @@ public class Skill : MonoBehaviour
         }
     }
 
+    System.IDisposable moveLockToken, ladderLockToken;
+    Sequence attackWaitSequence;
+
+    void AcquireLocks(bool ladder)
+    {
+        if (isWeaponStopMove && moveLockToken == null)
+        {
+            moveLockToken = PlayerStatus.Acquire(StatusFlag.MoveLock, "Skill:" + skillName);
+        }
+        if (ladder && ladderLockToken == null)
+        {
+            ladderLockToken = PlayerStatus.Acquire(StatusFlag.LadderLock, "Skill:" + skillName);
+        }
+    }
+
+    void ReleaseLocks()
+    {
+        moveLockToken?.Dispose();
+        moveLockToken = null;
+        ladderLockToken?.Dispose();
+        ladderLockToken = null;
+    }
+
+    /// <summary>스킬 후딜: 자기 토큰으로 이동정지·사다리 잠금. 홀드 스킬은 종료 시점에 호출되어 잠금을 푼다 (B-114 C4~C7)</summary>
     private void CheckAttackWait()
     {
-        if (isWeaponStopMove == true)
-        {
-            DatabaseManager.weaponStopMove = true;
-            rb.linearVelocity = Vector2.zero;
-        }
-        DatabaseManager.checkAttackLadder = true;
-        weapon.isSkillAttackWait = false;
+        attackWaitSequence.Kill();
+        ReleaseLocks();
         if (isHoldSkill == false)
         {
-            Sequence sequence = DOTween.Sequence()
+            AcquireLocks(true);
+            if (isWeaponStopMove == true)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
+            weapon.isSkillAttackWait = false;
+            attackWaitSequence = DOTween.Sequence()
             .AppendInterval(attckSpeed / StatMath.AttackSpeedMul) // 사전에 지정한 공격 주기만큼 대기.
-            .AppendCallback(() => DatabaseManager.weaponStopMove = false)
-            .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
-            .AppendCallback(() => weapon.isSkillAttackWait = true);
+            .AppendCallback(() => { ReleaseLocks(); weapon.isSkillAttackWait = true; });
         }
         else
         {
-            DatabaseManager.weaponStopMove = false;
-            DatabaseManager.checkAttackLadder = false;
             weapon.isSkillAttackWait = true;
         }
     }

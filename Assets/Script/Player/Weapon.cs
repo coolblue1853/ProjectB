@@ -61,6 +61,10 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         phm = transform.parent.transform.GetChild(0).GetComponent<PlayerHealthManager>();
+        if (pC == null)
+        {
+            pC = PlayerController.instance; // 장착 경로에 따라 주입되지 않는 경우 대비
+        }
         isAttackWait = true;
         isSkillAttackWait = true;
         SetDmgArray();
@@ -141,20 +145,43 @@ public class Weapon : MonoBehaviour
         DamageObject dmOb = damageObject.GetComponent<DamageObject>();
         dmOb.SetDamge(damgeArray);
     }
+    System.IDisposable moveLockToken, ladderLockToken;
+    Sequence attackWaitSequence;
+
+    /// <summary>평타 후딜: 이동정지(옵션)·사다리 잠금을 자기 토큰으로 잡고, 대기 시간이 끝나면 자기 것만 푼다 (B-114 C4, C7)</summary>
     private void CheckAttackWait()
     {
-        if (isWeaponStopMove == true) DatabaseManager.weaponStopMove = true;
-        DatabaseManager.checkAttackLadder = true;
+        ReleaseAttackLocks();
+        attackWaitSequence.Kill();
+        if (isWeaponStopMove == true)
+        {
+            moveLockToken = PlayerStatus.Acquire(StatusFlag.MoveLock, "Weapon:" + name);
+        }
+        ladderLockToken = PlayerStatus.Acquire(StatusFlag.LadderLock, "Weapon:" + name);
         isAttackWait = false;
         float waitTime = 0;
         if (delayTime.Length > 0)
             waitTime = (attckSpeed[nowConboCount - 1] + delayTime[nowConboCount - 1]) / StatMath.AttackSpeedMul;
         else
             waitTime = (attckSpeed[nowConboCount - 1] / StatMath.AttackSpeedMul);
-        Sequence sequence = DOTween.Sequence()
+        attackWaitSequence = DOTween.Sequence()
         .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
-        .AppendCallback(() => DatabaseManager.weaponStopMove = false)
-        .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
-        .AppendCallback(() => isAttackWait = true);
+        .AppendCallback(() => { ReleaseAttackLocks(); isAttackWait = true; });
+    }
+
+    void ReleaseAttackLocks()
+    {
+        moveLockToken?.Dispose();
+        moveLockToken = null;
+        ladderLockToken?.Dispose();
+        ladderLockToken = null;
+    }
+
+    private void OnDisable()
+    {
+        // 무기 해제·파괴 시 잠금이 남지 않도록 (C9)
+        attackWaitSequence.Kill();
+        ReleaseAttackLocks();
+        isAttackWait = true;
     }
 }
