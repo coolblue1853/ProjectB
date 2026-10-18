@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 315cf8a30607ff848bd62b14729dd2a5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6111748187008578708
+    second: GroveArmor_0
+  - first:
+      213: -1137034278401633598
+    second: GroveArmor_1
+  - first:
+      213: 7953593193968378609
+    second: GroveArmor_2
+  - first:
+      213: -4932569905815691895
+    second: GroveArmor_3
+  - first:
+      213: -1495716517460231036
+    second: GroveArmor_4
+  - first:
+      213: -8168321124690580792
+    second: GroveArmor_5
+  - first:
+      213: -1055289409084753458
+    second: GroveArmor_6
+  - first:
+      213: -5062834252511355704
+    second: GroveArmor_7
+  - first:
+      213: 4376503105273212433
+    second: GroveArmor_8
+  - first:
+      213: 3086008939650154221
+    second: GroveArmor_9
+  - first:
+      213: 5531935345531137129
+    second: GroveArmor_10
+  - first:
+      213: 6110896816740890758
+    second: GroveArmor_11
+  - first:
+      213: 7017850548300001534
+    second: GroveArmor_12
+  - first:
+      213: 2782352286047083088
+    second: GroveArmor_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GroveArmor_0
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 728
+        width: 95
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6b47b4c765be2ba0800000000000000
+      internalID: -6111748187008578708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_1
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 828
+        width: 29
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c29d6a19517830f0800000000000000
+      internalID: -1137034278401633598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_2
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 549
+        width: 93
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f22376bed6d06e60800000000000000
+      internalID: 7953593193968378609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_3
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 475
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98dd216fdcdfb8bb0800000000000000
+      internalID: -4932569905815691895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_4
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 377
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48c391480c52e3be0800000000000000
+      internalID: -1495716517460231036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_5
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 285
+        width: 30
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8caaf77f63b44ae80800000000000000
+      internalID: -8168321124690580792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_6
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 23
+        width: 93
+        height: 451
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec97544afdbda51f0800000000000000
+      internalID: -1055289409084753458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_7
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 201
+        width: 6
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cc516642133db9b0800000000000000
+      internalID: -5062834252511355704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_8
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 113
+        width: 92
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11e2434f2667cbc30800000000000000
+      internalID: 4376503105273212433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_9
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 113
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deef68db7c4b3da20800000000000000
+      internalID: 3086008939650154221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_10
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 25
+        width: 278
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96cafc623e165cc40800000000000000
+      internalID: 5531935345531137129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_11
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 25
+        width: 99
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 688f7e427444ec450800000000000000
+      internalID: 6110896816740890758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_12
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 23
+        width: 90
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef0b33a34e9646160800000000000000
+      internalID: 7017850548300001534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroveArmor_13
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 26
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05a15d1a9a6ec9620800000000000000
+      internalID: 2782352286047083088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GroveArmor_0: -6111748187008578708
+      GroveArmor_1: -1137034278401633598
+      GroveArmor_10: 5531935345531137129
+      GroveArmor_11: 6110896816740890758
+      GroveArmor_12: 7017850548300001534
+      GroveArmor_13: 2782352286047083088
+      GroveArmor_2: 7953593193968378609
+      GroveArmor_3: -4932569905815691895
+      GroveArmor_4: -1495716517460231036
+      GroveArmor_5: -8168321124690580792
+      GroveArmor_6: -1055289409084753458
+      GroveArmor_7: -5062834252511355704
+      GroveArmor_8: 4376503105273212433
+      GroveArmor_9: 3086008939650154221
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

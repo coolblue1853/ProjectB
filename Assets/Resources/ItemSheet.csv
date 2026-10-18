@@ -124,25 +124,25 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 121,WispLegArmor,Equip,equipment,800,50,-,1,-,0,Leg,WispArmor,Night Lantern Greaves,0,R,0,Night Lantern
 122,WispHandArmor,Equip,equipment,800,50,-,1,-,0,Hand,WispArmor,Night Lantern Gloves,0,R,0,Night Lantern
 123,WispShoes,Equip,equipment,600,50,-,1,-,0,Shoes,WispArmor,Night Lantern Boots,0,R,0,Night Lantern
-124,BearClaw,Equip,equipment,500,2,-,1,-,0,Weapon,,Bear Claw,0,R,0,
-125,RootStaff,Equip,equipment,500,2,-,1,-,0,Weapon,,Root Staff,0,R,0,
+124,BearClaw,Equip,equipment,500,2,-,1,-,0,Weapon,GroveArmor,Bear Claw,0,R,0,Ancient Grove
+125,RootStaff,Equip,equipment,500,2,-,1,-,0,Weapon,GroveArmor,Root Staff,0,R,0,Ancient Grove
 126,HeartwoodGreatsword,Equip,equipment,6000,3,Boss,1,-,0,Weapon,,Heartwood Greatsword,0,U,0,
 127,Bear Pelt,Misc,World,90,1,-,99,-,0,-,,Bear Pelt,0,C,0,
 128,Heartwood Chip,Misc,World,110,1,-,99,-,0,-,,Heartwood Chip,0,C,0,
 129,Ectoplasm,Misc,World,100,1,-,99,-,0,-,,Ectoplasm,0,C,0,
 130,Fairy Dust,Misc,World,120,1,-,99,-,0,-,,Fairy Dust,0,R,0,
-131,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-132,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-133,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-134,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-135,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-136,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-137,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-138,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-139,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-140,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-141,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-142,-,-,-,0,0,-,0,-,0,-,,,0,,0,
+131,PhantomScythe,Equip,equipment,500,2,-,1,-,0,Weapon,FaeArmor,Phantom Scythe,0,R,0,Will-o'-Fae
+132,FaeWand,Equip,equipment,500,2,-,1,-,0,Weapon,FaeArmor,Fae Wand,0,R,0,Will-o'-Fae
+133,GroveCap,Equip,equipment,900,50,-,1,-,0,Head,GroveArmor,Ancient Grove Hood,0,R,0,Ancient Grove
+134,GroveArmor,Equip,equipment,1100,50,-,1,-,0,Chest,GroveArmor,Ancient Grove Coat,0,R,0,Ancient Grove
+135,GroveLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,GroveArmor,Ancient Grove Greaves,0,R,0,Ancient Grove
+136,GroveHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,GroveArmor,Ancient Grove Gloves,0,R,0,Ancient Grove
+137,GroveShoes,Equip,equipment,700,50,-,1,-,0,Shoes,GroveArmor,Ancient Grove Boots,0,R,0,Ancient Grove
+138,FaeCap,Equip,equipment,900,50,-,1,-,0,Head,FaeArmor,Will-o'-Fae Hood,0,R,0,Will-o'-Fae
+139,FaeArmor,Equip,equipment,1100,50,-,1,-,0,Chest,FaeArmor,Will-o'-Fae Coat,0,R,0,Will-o'-Fae
+140,FaeLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,FaeArmor,Will-o'-Fae Greaves,0,R,0,Will-o'-Fae
+141,FaeHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,FaeArmor,Will-o'-Fae Gloves,0,R,0,Will-o'-Fae
+142,FaeShoes,Equip,equipment,700,50,-,1,-,0,Shoes,FaeArmor,Will-o'-Fae Boots,0,R,0,Will-o'-Fae
 143,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 144,-,-,-,0,0,-,0,-,0,-,,,0,,0,
 145,-,-,-,0,0,-,0,-,0,-,,,0,,0,
