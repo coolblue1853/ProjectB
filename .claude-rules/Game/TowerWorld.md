@@ -186,3 +186,33 @@
   - **Gloom Swarm** (GloomArmor 핏빛 보라, 밤 모기·슬라임 + 무기 2종): 2: HP 80·치명 5(흡혈 키 `LifeSteal` 은 만들지 않고 무기 Bloodsting 에 맡김) / 4: Bloodsting 쿨 −40·Slime Smash −35 / 6: 독 12·피해 10·치명피해 10. 부위는 HP·치명 위주.
 - 검증(플레이, `swamp_weapon_test.cs` = 가까운 몹 앞에 서서 슬롯 발동 → 대상 x·HP·소환물 추적): Tongue Lash 대상이 플레이어 쪽으로 0.76 끌려옴, Bloodsting HP 90→96, Slime Smash 소환물 2·추가 타격, Jaw Shake 3타, Pincer Flurry 2타, Death Roll 44 피해, Gel Tsunami 소환물 3, `kill_proc_test.cs` 처치 소환 발동. `equip_swamp_set_test.cs` Bog/Gloom 6부위 → 스택 6, 세트 수치·쿨감 키 일치. combo_all 6종 = 원본 무기와 같은 순환(1-1 창 / 1-2-3 단검 / 1-2 대검·낫·너클).
 - ⏳ 남은 것: 모기는 FlowerMole 템플릿이라 공격이 유도탄(흡혈 돌진 아님) · 보스 공격 판정은 PassiveTerror 원본(갈퀴·불꽃) 그대로(③ 2차처럼 점액 판정 교체 필요) · 보스 분열 패턴 없음 · Petal Pincer 방어 자세(Shell Guard 재사용)·Bloodsting S 3연 돌진 미구현 · 늪 전용 소품·안개 효과 없음(색조만) · 세트 착용 텍스처 Leaf 색 변환 임시.
+
+## 15. ⑤구역 산적 성채 — 1차 구현 (2026-10-19, LineageGear 2절)
+
+- 맵 `Lv1_BanditFortress`: ②③④가 샛길·근교·Lv2 지형을 모두 써서 **외곽 샛길(SideRoad, x −753~−137) 레이아웃 복제**(② 일반 숲과 같은 지형 — 성채 전용 지형은 ⏳). 성채 색조(타일 0.66/0.5/0.4, 원경·식생 ×0.62/0.44~0.48/0.34~0.38 = 갈색·어둡게) + 고정 횃불 Light2D 12개(주황, 밤에 윤곽), 상승 부하 30, zoneTitle "Bandit Fortress", floor 1, 반딧불 없음. 프로브 `build_bandit_fortress.cs`(재실행하면 복제본·포털을 지우고 다시 만든다).
+- 포털(분기): 깊은 숲 가운데 아래층 `Portal_ToFortress`(x −305, 버섯 스폰 지면) ↔ 성채 오른쪽 끝 `Portal_FortressToDeep`(원본 PotalLv1_NearForest2 자리 −236). 왼쪽 마을 포털(−425) 유지. B-119 재발 방지로 두 포털 모두 `SetActive(true)`. 플레이에서 왕복 확인.
+- 몬스터(코드 도트 `Tools/pixelfx/gen_bandit_mobs.py` → `Tools/probes/build_bandit_mobs.cs`, MonsterSheet 행 추가). **SPUM 금지** → 마을 NPC(`gen_elder.py`) 양식(큰 머리 2등신·짙은 외곽선)을 48px 몬스터 프레임에 맞춰 그림(키 약 34px ≈ 플레이어와 비슷):
+  - 낮: **산적 단검병** 280HP 방어 6(RatThief 템플릿=빠른 근접, 붉은 두건·복면, 쌍단검 2연 찌르기) · **산적 궁수** 220HP(FlowerMole 템플릿=원거리, 녹색 두건·화살통, 시위 당겨 쏘기) — 탄을 `EnemyDamge/Bandit/BanditArrow`(FlowerAttackPrefab 복제, 애니메이터 제거·화살 스프라이트, 발사 순간 플레이어 쪽 직선) 로 교체 · **산적 방패병** 480HP 방어 22 슈퍼아머(RatThief, 철모·둥근 방패 밀치기).
+  - 밤: 같은 종 + **횃불 순찰병** 340HP(RatThief, 횃불 휘두르기, 주황 Light2D 0.9/3.2).
+  - 보스: **산적 대장** 9000HP 방어 22 슈퍼아머(96px, 뿔 투구·안대·수염·모피 망토·곡도, Attack2 = 칼 치켜들고 외침), PassiveTerror 템플릿(18px/유닛), **낮** 스포너 = 원본 샛길 보스 자리(위쪽 망루 −533/24), 영역 = 맵 전체(x −755~−135). 초상 = 대장 도트 Idle_0(사람형 초상 에셋 없음). 공격 판정은 `build_ent_boss_roots.cs` 방식으로 교체: 갈퀴 → `ChiefCleave`(곡도 큰 베기 초승달, 64px×6 @16ppu), 불꽃 → `ChiefAxe`(회전 손도끼 투척, 32px×3 @12.5ppu), 스포너 키 clow/fire 유지, BT damageOb GUID 교체.
+  - **2페이즈 부하 호출**: `BossMinionCall`(신규) 이 `BossPhase.PhaseEntered`(신규 정적 이벤트)를 듣고 HP 50% 진입 시 `EnemySpawner.SpawnMinion`(신규, 슬롯 밖 소환·enemyNum −1·드롭 없음·"minionDead" 풀 시체) 으로 단검병 2명을 양옆에 세운다. 보스 스포너 풀에 minion/minionDead/stab 추가. 배너 "ENRAGED — Calls the gang!".
+- 드롭: 단검병 Bandit Bandana 35%·Cutthroat Dagger 2% / 궁수 Broken Arrow 35%·Bandit Shortbow 2% / 방패병 Iron Rivet 35%·Raider Buckler 2% / 횃불 Pitch Torch 30% / 단검·궁수 Outlaw 부위, 방패·횃불 Raider 부위 각 0.3% / 보스 Bandit Bandana 확정 + `Resources/Boss/BanditChief_BD`(확정 1개 = 계보 무기 3종 중, 고유 Chief's War Banner 8%·천장 12).
+- 버그 수정: **B-125** 몹 직선 탄(EnemyDamageObject 비추적 발사)이 왼쪽을 보던 몹에서 좌우 반전된 채 날던 문제(화살이 거꾸로) · **B-126** EnemyHealth.OnEnable 이 Kill 된 시퀀스에 IsPlaying 을 불러 DOTween "죽은 트윈" 경고가 풀 워밍업마다 수십 개.
+- 검증(플레이): 낮 단검병·궁수(화살 발사)·방패병 스폰, 밤 횃불 순찰병(주황 빛)·단검병, 보스 등장(HP바·초상·이름) + ChiefCleave·ChiefAxe 발동, HP 55% 피해 → 2페이즈·부하 2명 소환, 처치 → 배너·확정 보상(Raider Buckler + 재료), 포털 왕복, 콘솔 에러 0. 스크린샷 `Logs/playtest/fort_*.png`·`bandit_boss_*.png`·`boss_Chief*.png`(커밋 안 함). 테스트 뒤 세이브는 백업본으로 복원.
+
+### 15.1 ⑤구역 계보 장비 (LineageGear 2절)
+
+| 몹 | 무기(드롭) | 무기 스킬 | 세트 |
+|---|---|---|---|
+| 단검병 | **Cutthroat Dagger** (DoubleDagger 기반 13~19, 치명 15·치피 30) | A **Backstab** = 앞쪽 6유닛 안 가장 가까운 몹 뒤로 순간 이동해 돌아서 찌르기(`BackstabStep`: 무적 0.3s·잔상, 이 판정만 치명 +40%·치피 +30% = 백어택), 쿨 3s. 벽 너머로는 안 넘어감. S Shadow Step·Cutpurse Stride(원본 버프, 이름만) | Outlaw |
+| 궁수 | **Bandit Shortbow** (ScareStaff 기반 12~19, 신규 원거리) | 평타 = 직선 화살(`StraightArrow` 신규: 바라보는 방향 직진·트리거 충돌·관통 수·각도/퍼짐/시작 흩뿌림, 근접 판정 끈 DarkAttack 복제 `BowShot` 이 `SpawnOnStart` 로 쏨), A **Triple Shot** = 화살 3발(퍼짐 6°, 1관통, 쿨 1.5s), S **Poison Volley** = 위에서 −65° 로 쏟아지는 독화살 6발(독 4×6), D Pitch Shot(원본 직선 판정 주황 톤). 손에 든 그림은 활 아이콘 | Outlaw |
+| 방패병 | **Raider Buckler** (Shell Shield 기반 12~18) | A Raider Thrust, S **Shield Shove** = 방패 돌진 밀치기(넉백 1.6배·경직 0.5s, 쿨 4s), D **Counter Stance** = Shell Guard 재사용(홀드 방어 +200, 쿨 6s) | Iron Raider |
+| 산적 대장(보스) | **Chief's War Banner** (유니크, Wood Spear 기반 22~32) | A Banner Thrust·S Raid Charge(피해 1.3배), F **Rally the Gang** = 산적 그림자 3명 돌격(`SummonRunner`, 단검병 Run 프레임 보라 그림자, 무기 피해 50%·0.3s 간격, 쿨 9s). 손에 든 그림은 깃발 아이콘 | — |
+
+- 프로브 `build_bandit_weapons.cs`(판정 복제 `DamageObject/<무기>/…`, 원본 공유 프리팹 미수정), 아이콘 `Tools/pixelfx/gen_bandit_items.py`(산적 옷 팔레트), ItemSheet 164~181(빈 행 채움 — 다음 구역은 행 추가 필요).
+- **세트 2종** (`make_forest_sets.py Outlaw Raider` 색 변환 + `build_bandit_sets.cs`, 부위 드롭 0.3%):
+  - **Outlaw** (OutlawArmor 검붉은 가죽, 단검병·궁수 + Cutthroat Dagger·Bandit Shortbow): 2: 치명 6·이동 5 / 4: 치명피해 25·Backstab 쿨 −35·Triple Shot −30 / 6: 공속 12·피해 8. 부위는 치명·이동 위주.
+  - **Iron Raider** (RaiderArmor 쇠빛 회색, 방패병·횃불 + Raider Buckler): 2: 방어 15·HP 60 / 4: Shield Shove 쿨 −30·Counter Stance −35·피해 8 / 6: HP 150·방어 20·치명피해 10. 부위 방어 26/44/26/20/20.
+  - LineageGear 원안의 `BackstabDmg`(백어택 치피)·"반격 피해"·"HP 15%" 는 신규 키 없이 기존 키(CritDmg·쿨감·Hp 정수)로 대체 — 백어택 보너스 자체는 Backstab 판정이 갖는다.
+- 검증(플레이, `bandit_weapon_test.cs` = 같은 층 가까운 몹 앞에서 슬롯/평타 발동 → 판정·화살·소환물·플레이어 x·HP 추적): Backstab 플레이어 −308.3→−305.3 순간 이동·방향 반전·피해, 평타 화살 명중(ArrowTouch), Triple Shot 화살 3발·전체 피해 50, Poison Volley 6발·독 피해, Pitch Shot, Shield Shove 돌진, Counter Stance 방어 판정, Rally the Gang 그림자 3·전체 피해 67. `equip_bandit_set_test.cs` Outlaw/Raider 6부위 → 스택 6, 수치·쿨감 키 일치(새 플레이에서). combo_all = 원본과 같은 순환(단검 1-2-3, 방패 1-2-3, 활·깃발 1).
+- ⏳ 남은 것: 성채 전용 지형·소품(목책·망루·천막) 없음(샛길 지형 + 색조·횃불 빛) · 하늘(카메라 배경)은 색조가 안 먹음 · 궁수 화살은 조준 직선(플레이어 쪽)이라 위아래로 비스듬히 날 수 있음 · 횃불 순찰병 계보 무기 없음 · 부하는 보스가 죽어도 남음(맵 이탈 시 정리) · 세트 착용 텍스처 Leaf 색 변환 임시 · 손 무기 그림은 아이콘 재사용(활 당기기 애니 없음, 지팡이 모션).

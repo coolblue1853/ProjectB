@@ -164,21 +164,21 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 161,GloomLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,GloomArmor,Gloom Swarm Greaves,0,R,0,Gloom Swarm
 162,GloomHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,GloomArmor,Gloom Swarm Gloves,0,R,0,Gloom Swarm
 163,GloomShoes,Equip,equipment,700,50,-,1,-,0,Shoes,GloomArmor,Gloom Swarm Boots,0,R,0,Gloom Swarm
-164,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-165,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-166,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-167,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-168,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-169,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-170,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-171,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-172,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-173,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-174,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-175,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-176,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-177,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-178,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-179,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-180,-,-,-,0,0,-,0,-,0,-,,,0,,0,
-181,-,-,-,0,0,-,0,-,0,-,,,0,,0,
+164,CutthroatDagger,Equip,equipment,500,2,-,1,-,0,Weapon,OutlawArmor,Cutthroat Dagger,0,R,0,Outlaw
+165,BanditShortbow,Equip,equipment,500,2,-,1,-,0,Weapon,OutlawArmor,Bandit Shortbow,0,R,0,Outlaw
+166,RaiderBuckler,Equip,equipment,500,2,-,1,-,0,Weapon,RaiderArmor,Raider Buckler,0,R,0,Iron Raider
+167,ChiefsWarBanner,Equip,equipment,7000,3,Boss,1,-,0,Weapon,,Chief's War Banner,0,U,0,
+168,Bandit Bandana,Misc,World,110,1,-,99,-,0,-,,Bandit Bandana,0,C,0,
+169,Broken Arrow,Misc,World,110,1,-,99,-,0,-,,Broken Arrow,0,C,0,
+170,Iron Rivet,Misc,World,130,1,-,99,-,0,-,,Iron Rivet,0,C,0,
+171,Pitch Torch,Misc,World,120,1,-,99,-,0,-,,Pitch Torch,0,C,0,
+172,OutlawCap,Equip,equipment,900,50,-,1,-,0,Head,OutlawArmor,Outlaw Hood,0,R,0,Outlaw
+173,OutlawArmor,Equip,equipment,1100,50,-,1,-,0,Chest,OutlawArmor,Outlaw Vest,0,R,0,Outlaw
+174,OutlawLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,OutlawArmor,Outlaw Breeches,0,R,0,Outlaw
+175,OutlawHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,OutlawArmor,Outlaw Gloves,0,R,0,Outlaw
+176,OutlawShoes,Equip,equipment,700,50,-,1,-,0,Shoes,OutlawArmor,Outlaw Boots,0,R,0,Outlaw
+177,RaiderCap,Equip,equipment,900,50,-,1,-,0,Head,RaiderArmor,Iron Raider Helm,0,R,0,Iron Raider
+178,RaiderArmor,Equip,equipment,1100,50,-,1,-,0,Chest,RaiderArmor,Iron Raider Mail,0,R,0,Iron Raider
+179,RaiderLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,RaiderArmor,Iron Raider Greaves,0,R,0,Iron Raider
+180,RaiderHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,RaiderArmor,Iron Raider Gauntlets,0,R,0,Iron Raider
+181,RaiderShoes,Equip,equipment,700,50,-,1,-,0,Shoes,RaiderArmor,Iron Raider Boots,0,R,0,Iron Raider

@@ -26,7 +26,7 @@
 - 변경: Gloom Swarm 2세트는 `LifeSteal` 신규 키 대신 HP 80·치명 5(흡혈은 Bloodsting 무기 `LifeStealHit` 이 맡음), 4세트 "소환 슬라임 +1" 대신 Bloodsting·Slime Smash 쿨감(소환 수 세트 효과는 4절 4번 시스템 대기). Bog 6세트 "출혈"은 `BleedDmg` 15.
 - 세트: **Bog Stalker**(낮: 개구리·악어·꽃게) 2: 이동 6·방어 8 / 4: 혀·턱 쿨 −30 / 6: 공속 10·출혈. **Gloom Swarm**(밤·습지: 모기·슬라임) 2: 흡혈 소량(공격 시 HP 1%) — 신규 효과 키 `LifeSteal` 필요 / 4: 소환 슬라임 +1 / 6: 독 피해.
 
-## 2. ⑤ 산적 성채 (부하 30, 분기)
+## 2. ⑤ 산적 성채 (부하 30, 분기) — ✅ 1차 구현 (2026-10-19, TowerWorld 15절)
 
 | 몹 | 공격 | 계보 무기 | 무기 스킬 |
 |---|---|---|---|
@@ -37,6 +37,8 @@
 
 - 인간형 아트는 SPUM 금지 → 마을 NPC와 같은 도트 양식(24×32·8배)으로 코드 생성하거나 보유 Martial Hero / Medieval King Pack 2(다운로드 캐시 확인 필요) 사용.
 - 세트: **Outlaw**(단검·궁수) 2: 치명 6 / 4: 백어택 치명피해 +25(신규 효과 키 `BackstabDmg`) / 6: 공속 12. **Iron Raider**(방패·대장) 2: 방어 15 / 4: 반격 피해 / 6: HP 15%.
+- 구현 체크: [x] 몹 5종(단검병·궁수·방패병·횃불 순찰병(밤)·산적 대장) — 코드 도트(SPUM 미사용) [x] 궁수 탄 직선 화살 `BanditArrow` [x] 보스 판정 교체(ChiefCleave·ChiefAxe) [x] 보스 2페이즈 부하 호출(`BossMinionCall`) [x] Cutthroat Dagger(Backstab) [x] Bandit Shortbow(원거리 `StraightArrow` 평타·Triple Shot·Poison Volley) [x] Raider Buckler(Shield Shove·Counter Stance = Shell Guard 재사용) [x] Chief's War Banner(Rally the Gang = `SummonRunner`) [x] 세트 Outlaw·Iron Raider [x] 맵 `Lv1_BanditFortress`·포털(깊은 숲 분기)·드롭·보스 보상. 커밋은 TowerWorld 15절 참조.
+- 변경: 신규 효과 키 `BackstabDmg` 대신 Backstab 판정 자체가 백어택 보너스(치명 +40%·치피 +30%)를 갖고, Outlaw 4세트는 CritDmg 25 + 쿨감. Iron Raider "반격 피해"는 Shield Shove·Counter Stance 쿨감 + 피해 8, "HP 15%" 는 Hp 150(정수 키). Iron Raider 무기는 Raider Buckler 1종(대장 고유템은 세트 밖).
 
 ## 3. ⑥ 탑 근교 (부하 40, 1층계 마지막)
 
@@ -52,6 +54,6 @@
 ## 4. 신규 시스템 필요 목록 (구현 순서)
 
 1. 세트 효과 키 `LifeSteal`, `BackstabDmg`, `DmgReduce` — `SetEffectApplier` + `DatabaseManager` 필드 + 데미지 공식(`Game/CombatSpec.md`) 반영.
-2. 원거리 무기 타입(활): 평타가 탄을 쏘는 `Weapon` 옵션.
+2. ✅ 원거리 무기 타입(활): `Weapon` 옵션 대신 평타 판정 복제본(`BowShot`, 근접 판정 끔)이 `SpawnOnStart` 로 `StraightArrow` 를 쏘는 방식 (2026-10-19, Bandit Shortbow).
 3. 몬스터 둔화(점액 장판 등) — 몹 이동 속도 배율 토큰.
 4. 소환수 수 증가 세트 효과(`SummonCount <스킬>`) — `SummonSkill` 이 스킬 이름을 알아야 한다.
