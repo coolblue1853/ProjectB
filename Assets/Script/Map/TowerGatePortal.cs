@@ -12,7 +12,7 @@ public class TowerGatePortal : MonoBehaviour
     [SerializeField] private string _bannerTitle = "Tower Gate";
     [SerializeField] private string _bannerSubtitle = "The way to the 2nd floor is open";
 
-    public bool IsOpen => ES3.KeyExists("bossFirstKill." + _bossName);
+    public bool IsOpen => BossLoot.HasFirstKill(_bossName);
 
     private void OnEnable()
     {

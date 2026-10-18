@@ -66,10 +66,18 @@ public static class BossLoot
         }
     }
 
+    static string FirstKillKey(string bossName) => "bossFirstKill." + bossName; // 세이브 키 — 이름 바꾸지 말 것
+
+    /// <summary>보스 첫 처치 기록(ES3 "bossFirstKill.보스")이 있는가 — 탑 입구·지름길 봉인이 본다</summary>
+    public static bool HasFirstKill(string bossName)
+    {
+        return ES3.KeyExists(FirstKillKey(bossName));
+    }
+
     public static List<string> Roll(string bossName, BossReward r)
     {
         var loot = new List<string>();
-        string killKey = "bossSinceUnique." + bossName, firstKey = "bossFirstKill." + bossName;
+        string killKey = "bossSinceUnique." + bossName, firstKey = FirstKillKey(bossName);
         int since = (ES3.KeyExists(killKey) ? ES3.Load<int>(killKey) : 0) + 1;
 
         if (r.setPieces != null && r.setPieces.Length > 0)

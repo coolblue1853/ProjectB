@@ -311427,7 +311427,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.869565
+  orthographic size: 5.46875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -386408,6 +386408,7 @@ GameObject:
   - component: {fileID: 646767066}
   - component: {fileID: 646767065}
   - component: {fileID: 646767064}
+  - component: {fileID: 646767068}
   m_Layer: 0
   m_Name: Portal_ToLv2
   m_TagString: Untagged
@@ -386579,6 +386580,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 2.2503393}
   m_EdgeRadius: 0
+--- !u!114 &646767068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646767062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb17ef008862594db67589058af4d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortalSeal
+  _bossName: Gatekeeper_BD
+  _sealedMessage: The path upward is sealed by the Tower.
 --- !u!1 &646829807
 GameObject:
   m_ObjectHideFlags: 0

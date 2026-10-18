@@ -11,6 +11,7 @@ public class Portal : MonoBehaviour
     private PoolCheck closeMapCheck;
     public GameObject openMap;
     private PoolCheck openMapCheck;
+    private PortalSeal seal; // 있으면 보스 첫 처치 전엔 이동을 막는다(Q-414)
     public ProCamera2D proCamera;
     bool isMapChange = true;
     public GameObject player;
@@ -30,9 +31,15 @@ public class Portal : MonoBehaviour
         isMapChange = openMap != null;
         openMapCheck = openMap != null ? openMap.GetComponent<PoolCheck>() : null;
         closeMapCheck = closeMap != null ? closeMap.GetComponent<PoolCheck>() : null;
+        seal = GetComponent<PortalSeal>();
     }
     private void Update()
     {
+        if (seal != null && upAction.triggered && player != null && DatabaseManager.isUsePortal == false && !seal.IsOpen)
+        {
+            seal.NotifySealed();
+            return;
+        }
         if (upAction.triggered == true && DatabaseManager.isUsePortal == false && isMapChange == true && player != null && destination != null)
         {
             player.transform.position = destination.position;
@@ -66,7 +73,7 @@ public class Portal : MonoBehaviour
     public static event System.Action<GameObject> MapChanged;
     public static void RaiseMapChanged(GameObject openMap) => MapChanged?.Invoke(openMap);
 
-    /// <summary>입력 없이 이 포털로 이동 (사망 후 마을 귀환 등). 맵 전환 포털이면 맵을 바꾸고 스포너를 정리한다.</summary>
+    /// <summary>입력 없이 이 포털로 이동 (사망 후 마을 귀환 등). 맵 전환 포털이면 맵을 바꾸고 스포너를 정리한다. PortalSeal 봉인은 확인하지 않는다(강제 이동용).</summary>
     public void TravelNow(GameObject traveler)
     {
         if (destination == null || traveler == null)
