@@ -185,7 +185,7 @@ public class BestiaryWindow : MonoBehaviour
             bool seen = BestiaryRecord.Kills(e.id) > 0;
             cells[i].icon.sprite = e.icon;
             cells[i].icon.color = seen ? Color.white : new Color(0f, 0f, 0f, 0.85f); // 미발견 = 실루엣
-            cells[i].bg.color = i == cursor ? new Color(1f, 0.85f, 0.4f, 0.55f) : new Color(0f, 0f, 0f, 0.35f);
+            cells[i].bg.color = i == cursor ? Color.white : new Color(0.55f, 0.55f, 0.6f, 1f);
         }
         if (data.entries.Count == 0)
         {
@@ -239,7 +239,7 @@ public class BestiaryWindow : MonoBehaviour
         scaler.referenceResolution = new Vector2(1920f, 1080f);
         scaler.matchWidthOrHeight = 0.5f;
 
-        panel = NewImage("Panel", transform, new Color(0.06f, 0.06f, 0.1f, 0.94f)).gameObject;
+        panel = theme.NewPanel("Panel", transform).gameObject;
         var pr = (RectTransform)panel.transform;
         pr.anchorMin = pr.anchorMax = new Vector2(0.5f, 0.5f);
         pr.sizeDelta = new Vector2(1180f, 640f);
@@ -255,7 +255,7 @@ public class BestiaryWindow : MonoBehaviour
 
         for (int i = 0; i < 16; i++)
         {
-            Image bg = NewImage("Cell" + i, pr, Color.clear);
+            Image bg = theme.NewPanel("Cell" + i, pr, true);
             Place(bg.rectTransform, new Vector2(30f + (i % Cols) * (CellSize + 8), -86f - (i / Cols) * (CellSize + 8)), new Vector2(CellSize, CellSize));
             Image icon = NewImage("Icon", bg.transform, Color.white);
             icon.rectTransform.anchorMin = Vector2.zero;

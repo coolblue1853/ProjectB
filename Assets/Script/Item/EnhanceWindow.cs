@@ -211,7 +211,7 @@ public class EnhanceWindow : MonoBehaviour
                 continue;
             }
             ItemData d = items[i].itemData;
-            row.bg.color = i == cursor ? new Color(1f, 1f, 1f, 0.18f) : new Color(0f, 0f, 0f, 0.25f);
+            row.bg.color = i == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
             row.icon.sprite = Resources.Load<Sprite>("Item/" + d.name);
             row.icon.enabled = row.icon.sprite != null;
             row.text.text = "<color=#" + ColorUtility.ToHtmlStringRGB(theme.RarityColor(d.rarity)) + ">" + EnhanceRules.DisplayName(string.IsNullOrEmpty(d.itemNameT) ? d.name : d.itemNameT, d.upgrade) + "</color>";
@@ -263,7 +263,7 @@ public class EnhanceWindow : MonoBehaviour
         scaler.referenceResolution = new Vector2(1920f, 1080f);
         scaler.matchWidthOrHeight = 0.5f;
 
-        panel = NewImage("Panel", transform, new Color(0.06f, 0.06f, 0.1f, 0.92f)).gameObject;
+        panel = theme.NewPanel("Panel", transform).gameObject;
         var pr = (RectTransform)panel.transform;
         pr.anchorMin = pr.anchorMax = new Vector2(0.5f, 0.5f);
         pr.sizeDelta = new Vector2(1000f, 560f);
@@ -280,7 +280,7 @@ public class EnhanceWindow : MonoBehaviour
 
         for (int r = 0; r < VisibleRows; r++)
         {
-            Image bg = NewImage("Row" + r, pr, Color.clear);
+            Image bg = theme.NewPanel("Row" + r, pr, true, 0f);
             Place((RectTransform)bg.transform, new Vector2(0f, 1f), new Vector2(30f, -86f - r * RowH), new Vector2(440f, RowH - 4f));
             Image icon = NewImage("Icon", bg.transform, Color.white);
             Place((RectTransform)icon.transform, new Vector2(0f, 0.5f), new Vector2(6f, 0f), new Vector2(34f, 34f), new Vector2(0f, 0.5f));

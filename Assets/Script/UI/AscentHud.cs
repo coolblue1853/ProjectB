@@ -39,8 +39,14 @@ public class AscentHud : MonoBehaviour
         scaler.referenceResolution = new Vector2(1920f, 1080f);
         scaler.matchWidthOrHeight = 0.5f;
 
+        var chip = theme.NewPanel("Chip", transform, false, 0.85f);
+        var cr = chip.rectTransform;
+        cr.anchorMin = cr.anchorMax = cr.pivot = new Vector2(0f, 1f);
+        cr.anchoredPosition = new Vector2(16f, -214f);
+        cr.sizeDelta = new Vector2(360f, 76f);
+
         var go = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
-        go.transform.SetParent(transform, false);
+        go.transform.SetParent(chip.transform, false);
         text = go.GetComponent<TextMeshProUGUI>();
         if (theme.pixelFont != null)
         {
@@ -54,8 +60,8 @@ public class AscentHud : MonoBehaviour
         text.outlineColor = new Color32(0, 0, 0, 220);
         var rt = text.rectTransform;
         rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0f, 1f);
-        rt.anchoredPosition = new Vector2(24f, -196f); // HP·스태미나 바·횃불 아이콘 아래
-        rt.sizeDelta = new Vector2(600f, 60f);
+        rt.anchoredPosition = new Vector2(14f, -10f);
+        rt.sizeDelta = new Vector2(340f, 60f);
     }
 
     void Refresh()

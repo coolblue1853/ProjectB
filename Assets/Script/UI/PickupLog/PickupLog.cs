@@ -112,15 +112,12 @@ public class PickupLog : MonoBehaviour
         rect.anchorMin = rect.anchorMax = rect.pivot = Vector2.zero;
         rect.sizeDelta = new Vector2(460f, RowHeight);
 
-        var glowGo = new GameObject("Glow", typeof(RectTransform), typeof(Image));
-        var glowRect = (RectTransform)glowGo.transform;
-        glowRect.SetParent(rect, false);
+        Image glow = theme.NewPanel("Glow", rect, true);
+        var glowRect = glow.rectTransform;
         glowRect.anchorMin = Vector2.zero;
         glowRect.anchorMax = Vector2.one;
         glowRect.offsetMin = new Vector2(-4f, -2f);
         glowRect.offsetMax = new Vector2(4f, 2f);
-        var glow = glowGo.GetComponent<Image>();
-        glow.raycastTarget = false;
 
         var iconGo = new GameObject("Icon", typeof(RectTransform), typeof(Image));
         var iconRect = (RectTransform)iconGo.transform;
@@ -220,7 +217,7 @@ public class PickupLog : MonoBehaviour
             row.icon.enabled = row.icon.sprite != null;
             Color c = theme.RarityColor(line.rarity);
             row.glow.enabled = line.emphasis;
-            row.glow.color = new Color(c.r, c.g, c.b, 0.22f);
+            row.glow.color = new Color(c.r * 0.6f + 0.4f, c.g * 0.6f + 0.4f, c.b * 0.6f + 0.4f, 0.95f);
             string hex = ColorUtility.ToHtmlStringRGB(c);
             string shown = DisplayName(line.itemName);
             string name = line.emphasis ? "<wave a=0.4 f=0.8>" + shown + "</wave>" : shown;

@@ -11,6 +11,11 @@ public class UiTheme : ScriptableObject
     public Color unique = new Color(1f, 0.78f, 0.25f);
     public Color warning = new Color(1f, 0.35f, 0.3f);
 
+    [Header("Pixel UI frames (Art/UI, 9-slice)")]
+    public Sprite frame;       // 어두운 패널 + 금테
+    public Sprite frameLight;  // 밝은 목재 (선택 행·강조)
+    public Sprite divider;
+
     static UiTheme cached;
 
     public static UiTheme Get()
@@ -24,6 +29,28 @@ public class UiTheme : ScriptableObject
             }
         }
         return cached;
+    }
+
+    /// <summary>9-슬라이스 프레임 패널 (코드 생성 UI 공용). 프레임이 없으면 단색</summary>
+    public UnityEngine.UI.Image NewPanel(string name, Transform parent, bool light = false, float alpha = 1f)
+    {
+        var go = new GameObject(name, typeof(RectTransform), typeof(UnityEngine.UI.Image));
+        go.transform.SetParent(parent, false);
+        var img = go.GetComponent<UnityEngine.UI.Image>();
+        Sprite sp = light ? frameLight : frame;
+        if (sp != null)
+        {
+            img.sprite = sp;
+            img.type = UnityEngine.UI.Image.Type.Sliced;
+            img.pixelsPerUnitMultiplier = 0.5f; // 24px 프레임을 48px 두께로 (1080p 기준)
+            img.color = new Color(1f, 1f, 1f, alpha);
+        }
+        else
+        {
+            img.color = light ? new Color(0.3f, 0.24f, 0.16f, alpha) : new Color(0.08f, 0.07f, 0.11f, alpha);
+        }
+        img.raycastTarget = false;
+        return img;
     }
 
     public Color RarityColor(string rarity)

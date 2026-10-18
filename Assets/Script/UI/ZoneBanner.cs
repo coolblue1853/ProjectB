@@ -118,16 +118,11 @@ public class ZoneBanner : MonoBehaviour
         group.alpha = 0f;
 
         // 반투명 어두운 띠 (밝은 하늘 배경에서도 읽히게)
-        var band = new GameObject("Band", typeof(RectTransform), typeof(Image));
-        band.transform.SetParent(root.transform, false);
+        var band = theme.NewPanel("Band", root.transform, false, 0.9f).gameObject;
         var bdr = (RectTransform)band.transform;
         bdr.anchorMin = bdr.anchorMax = new Vector2(0.5f, 0.5f);
         bdr.sizeDelta = new Vector2(760f, 122f);
         bdr.anchoredPosition = new Vector2(0f, -9f);
-        var bandImg = band.GetComponent<Image>();
-        bandImg.color = new Color(0f, 0f, 0f, 0.4f);
-        bandImg.raycastTarget = false;
-
         // 위아래 얇은 금선
         foreach (float y in new[] { 52f, -70f })
         {

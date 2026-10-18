@@ -17,3 +17,6 @@ MonoBehaviour:
   rare: {r: 0.35, g: 0.66, b: 1, a: 1}
   unique: {r: 1, g: 0.78, b: 0.25, a: 1}
   warning: {r: 1, g: 0.35, b: 0.3, a: 1}
+  frame: {fileID: 21300000, guid: 6b4e15ef44a3119479161ba25ea83155, type: 3}
+  frameLight: {fileID: 21300000, guid: 2e44d9782446c77468accca29d7f090a, type: 3}
+  divider: {fileID: 21300000, guid: 320f5c8371ca64f4abc2b0499c61a8b7, type: 3}
