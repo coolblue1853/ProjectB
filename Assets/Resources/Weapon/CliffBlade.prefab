@@ -408,6 +408,8 @@ MonoBehaviour:
   isOverHand: 0
   swingVfx: 2
   swingVfxScale: 1
+  energyColor: {r: 1, g: 0.8, b: 0.3, a: 1}
+  useEnergyShader: 1
   attackPrefab:
   - {fileID: 3057308112748585356, guid: 0c98693dc27159f48972eecc8defdbaf, type: 3}
   - {fileID: 1471638115845567738, guid: 8715ad3180efaaf41a93eac7fa77a9d0, type: 3}

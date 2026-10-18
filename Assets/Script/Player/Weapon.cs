@@ -34,6 +34,9 @@ public class Weapon : MonoBehaviour
     [Tooltip("평타 휘두를 때 공격 지점에 띄울 베기 이펙트 (Resources/FX/VfxLibrary)")]
     public VfxId swingVfx = VfxId.SlashWhite;
     public float swingVfxScale = 1f;
+    [Tooltip("공격·스킬 스프라이트 에너지 셰이더(ProjectB/SkillEnergy2D) 글로우 색")]
+    [ColorUsage(true, true)] public Color energyColor = new Color(1f, 0.85f, 0.45f, 1f);
+    public bool useEnergyShader = true;
     public GameObject[] attackPrefab;
     public GameObject[] attackPivot;
     public bool isHasDelayTime = false;

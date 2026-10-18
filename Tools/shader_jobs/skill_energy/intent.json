@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "revision": "r1",
+  "approved": false,
+  "brief": "지금 있는 스킬들 이펙트 강화 (사용자, 2026-10-18) — 2D 도트 횡스크롤, 스킬 이펙트는 SpriteRenderer+Animator 1장(Sprite-Lit-Default)",
+  "goal": "플레이어 공격·스킬 스프라이트에 입히는 에너지 셰이더: 본체 발광 + 흐르는 노이즈 에너지 + 외곽 글로우/후광 + 수명 끝 디졸브. 무기 테마색으로 틴트, 2D 조명(밤)에 어두워지지 않음",
+  "target": {
+    "dim": "2D",
+    "renderer": "Universal2D",
+    "budget": "desktop",
+    "source": "detected",
+    "why": "프로젝트 URP 2D Renderer, PC 대상(AGENTS.md). 자체발광이라 LightMode 생략(SRPDefaultUnlit)으로 2D·Forward 양쪽 호환"
+  },
+  "claims": [
+    {"id": "c1", "kind": "structure", "text": "스프라이트 알파 실루엣 바깥 1~2텍셀에 _GlowColor 후광이 생긴다(패딩 있는 스프라이트 한정)", "test": {"how": "render", "expect": "프리뷰에서 실루엣 밖 색 테두리 보임"}, "confidence": "확정", "why": "브리프 '이펙트 강화' = 윤곽 발광이 가장 큰 체감", "verdict": null},
+    {"id": "c2", "kind": "motion", "text": "에너지 노이즈가 _FlowSpeed 로 흐르며 밝기가 일렁인다", "test": {"how": "scrub", "expect": "시간 샘플마다 밝은 줄무늬 위치가 이동"}, "confidence": "추정", "why": "속도 미지정 — 0.6초 주기 정도의 빠른 기운(스킬 수명 0.3~1초)", "verdict": null},
+    {"id": "c3", "kind": "driving", "text": "_Dissolve 0..1 에서 구멍이 늘고 경계가 _GlowColor 로 빛난다, 0이면 원본 형태 유지", "test": {"how": "param_sweep", "expect": "_Dissolve 0→1 스윕에서 남은 면적 단조 감소"}, "confidence": "확정", "why": "수명 끝 소멸 연출 — SkillEnergyFx 가 애니 normalizedTime 0.7→1 을 0→1 로 구동", "verdict": null},
+    {"id": "c4", "kind": "color", "text": "_GlowColor 로 무기 테마색(금·청·적·녹) 틴트, 본체 색은 원본 유지 + _Emission 배 밝기", "test": {"how": "render", "expect": "후광·경계·줄무늬만 테마색, 본체 색상 유지"}, "confidence": "확정", "why": "Magic Slashes 무기 테마(ProgressionDesign·G8)와 일치", "verdict": null},
+    {"id": "c5", "kind": "perf", "text": "프래그 텍스처 샘플 9회 이하, 분기 없음", "test": {"how": "gate", "expect": "check_perf ok/warn"}, "confidence": "확정", "why": "화면에 스킬 이펙트 동시 수십 개", "verdict": null}
+  ],
+  "driving": [
+    {"knob": "_Dissolve", "range": [0, 1], "maps_to": "Animator 현재 상태 normalizedTime 0.7→1", "auto": true}
+  ],
+  "non_goals": ["파티클 스폰(Magic Slashes Vfx 담당)", "화면 왜곡·블룸", "2D 라이트 반응"],
+  "open_questions": [],
+  "reference": null
+}

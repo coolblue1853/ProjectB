@@ -131,13 +131,15 @@ namespace ProjectB.EditorTools
         // ── 무기 이펙트 테마 (Magic Slashes FX → Resources/FX/VfxLibrary): 평타 베기 + 스킬별 시전 이펙트 ──
         public static string ApplyVfx()
         {
-            var themes = new (string weapon, VfxId swing, VfxId[] casts)[]
+            var themes = new (string weapon, VfxId swing, VfxId[] casts, Color energy)[]
             {
-                ("CliffBlade", VfxId.SlashWhite, new[] { VfxId.SlashGold, VfxId.SlashGoldWide, VfxId.SlashGreenBig, VfxId.CrackRed }),
-                ("CliffStaff", VfxId.None, new[] { VfxId.SlashBlue, VfxId.SlashBlue, VfxId.SlashGreenBig }),
-                ("AbyssStaff", VfxId.None, new[] { VfxId.SlashRed, VfxId.SlashRed, VfxId.CrackRed }),
-                ("ScareStaff", VfxId.None, new VfxId[0]),
-                ("LeafStaff", VfxId.None, new VfxId[0]),
+                ("CliffBlade", VfxId.SlashWhite, new[] { VfxId.SlashGold, VfxId.SlashGoldWide, VfxId.SlashGreenBig, VfxId.CrackRed }, new Color(1f, 0.8f, 0.3f)),
+                ("CliffStaff", VfxId.None, new[] { VfxId.SlashBlue, VfxId.SlashBlue, VfxId.SlashGreenBig }, new Color(0.4f, 0.75f, 1f)),
+                ("AbyssStaff", VfxId.None, new[] { VfxId.SlashRed, VfxId.SlashRed, VfxId.CrackRed }, new Color(1f, 0.3f, 0.55f)),
+                ("ScareStaff", VfxId.None, new VfxId[0], new Color(0.75f, 0.45f, 1f)),
+                ("ScareSide", VfxId.SlashWhite, new VfxId[0], new Color(0.75f, 0.45f, 1f)),
+                ("LeafStaff", VfxId.None, new VfxId[0], new Color(0.5f, 1f, 0.45f)),
+                ("LeafAdae", VfxId.SlashWhite, new VfxId[0], new Color(0.5f, 1f, 0.45f)),
             };
             int n = 0;
             foreach (var t in themes)
@@ -148,7 +150,9 @@ namespace ProjectB.EditorTools
                     continue;
                 }
                 GameObject root = PrefabUtility.LoadPrefabContents(path);
-                root.GetComponent<Weapon>().swingVfx = t.swing;
+                var weapon = root.GetComponent<Weapon>();
+                weapon.swingVfx = t.swing;
+                weapon.energyColor = t.energy;
                 Skill[] skills = root.GetComponentsInChildren<Skill>(true);
                 for (int i = 0; i < skills.Length && i < t.casts.Length; i++)
                 {
