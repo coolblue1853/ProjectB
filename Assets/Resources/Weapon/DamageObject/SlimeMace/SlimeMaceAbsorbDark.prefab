@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 6508316747446571998}
   - component: {fileID: 5249116483685776698}
   - component: {fileID: 8328126802903591803}
-  - component: {fileID: 3706907327752474412}
   m_Layer: 0
   m_Name: AbsorbDark
   m_TagString: Untagged
@@ -138,18 +137,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3706907327752474412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830461653316323649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d7db801c00192f4bac917308915e6ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8672800351859898982
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +359,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8672800351859898982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d7db801c00192f4bac917308915e6ca, type: 3}
+  m_Script: {fileID: 11500000, guid: d11fa373ec294968a32bb059d4785b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
