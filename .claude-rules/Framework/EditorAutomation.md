@@ -4,7 +4,8 @@
 
 - 🔴 **Unity 창을 앞으로 가져오지 않는다.** 사용자가 같은 PC로 다른 작업을 한다. 포커스 강탈, 대화상자를 띄우는 메뉴 실행, 마우스·키 입력 주입은 금지한다.
 - 대화상자가 필요한 작업은 조용한 API로 대체한다: `AssetDatabase.ImportPackage(path, false)`, `EditorWindow.Close()`.
-- Game 뷰는 "Play Unfocused"로 둔다(`Tools/probes/play_unfocused.cs`).
+- Game 뷰는 "Play Unfocused"로 둔다(`Tools/probes/play_unfocused.cs`). `PlayerSettings.runInBackground = true`.
+- 🔴 **unity-mcp 서버의 포커스 넛지를 끈다.** 서버는 Unity가 백그라운드에서 느려지면 창을 앞으로 당기는 기능이 있다(테스트·새로고침 중). 반드시 `Tools/start_mcp_server.ps1`로 띄운다. 이 스크립트는 `UNITY_MCP_DISABLE_FOCUS_NUDGE=true`를 설정하고 숨김 창으로 실행한다.
 
 ## 구성
 
@@ -12,7 +13,7 @@
 |---|---|
 | 패키지 | `com.coplaydev.unity-mcp` |
 | 자동 시작 | `Assets/Editor/Dev/McpAutoStart.cs` — 브리지 자동 시작, 텔레메트리 끔 |
-| 서버 | HTTP `http://127.0.0.1:8080/mcp`. 에디터가 자동 실행하거나 터미널에서 `uvx --from mcpforunityserver mcp-for-unity --transport http --http-url http://127.0.0.1:8080`로 띄운다 |
+| 서버 | HTTP `http://127.0.0.1:8080/mcp`. `powershell -File Tools/start_mcp_server.ps1`(숨김, 넛지·텔레메트리 끔) |
 | Claude 등록 | `claude mcp add --scope local`(저장소에 흔적 없음). 새 세션부터 `mcp__UnityMCP__*` 도구가 바로 보인다 |
 | Bash 클라이언트 | `bash Tools/u.sh ...` (세션에 MCP가 없을 때) |
 
