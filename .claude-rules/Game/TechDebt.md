@@ -9,10 +9,10 @@
 |---|---|---|---|
 | B-001 | 적 사망 시 `ReleaseObject()`만 호출 → OnReleased 미발생 → **드롭·시체·리스폰 전부 안 됨** (b05df50a 회귀) | `EnemyHealth.cs:237-245, 298-306`, `EnemySpawner.OnEnemyReleased` | ✅ EnemyHealth.TryDie 단일 경로 (프로브: 처치→드롭·슬롯 비움·10초 후 리스폰) |
 | B-002 | `ClearAllPools`의 `while(CountActive>0){Get();Release();}` 무한 루프 의심 → 포털 이동 시 멈춤 | `EnemySpawner.cs:285-297` | ✅ ClearAllPools 재작성: 대여 목록 추적 후 반환 (프로브: 포털 복귀 정상) |
-| B-003 | 제작 시 표시명(itemNameT)으로 생성 → 키 불일치 NRE, 재료는 이미 차감 | `CraftingManager.cs:184` | ⏳ |
-| B-004 | 인벤토리 수량 캐시 불일치 → 창고에 둔 재료로 공짜 제작 | `ItemDrag.cs:131-149`, `InventoryManager.UseEquipment/I2CMove` | ⏳ |
-| B-005 | 장비를 드래그로 해제하면 세이브 미갱신 → 재접속 시 아이템 복제 | `ItemDrag.cs:123-128` | ⏳ |
-| B-006 | 창고 → 인벤토리 이동 중 인벤토리가 가득 차도 창고 수량 차감 → 소실 | `Chest.C2IMove` | ⏳ |
+| B-003 | 제작 시 표시명(itemNameT)으로 생성 → 키 불일치 NRE, 재료는 이미 차감 | `CraftingManager.cs:184` | ✅ 아이템 키로 생성 + 공간 확인 후 재료 차감 |
+| B-004 | 인벤토리 수량 캐시 불일치 → 창고에 둔 재료로 공짜 제작 | `ItemDrag.cs:131-149`, `InventoryManager.UseEquipment/I2CMove` | ✅ 수량은 슬롯 직접 집계(CountItem), 캐시는 0.25s 재계산 |
+| B-005 | 장비를 드래그로 해제하면 세이브 미갱신 → 재접속 시 아이템 복제 | `ItemDrag.cs:123-128` | ✅ 드래그 해제 시 SaveEquipItem(false)·장착 목록 해제 |
+| B-006 | 창고 → 인벤토리 이동 중 인벤토리가 가득 차도 창고 수량 차감 → 소실 | `Chest.C2IMove` | ✅ CreatItem 성공 시에만 창고 차감 |
 | B-007 | 시작 지점(originPos) 미할당 → SaveManager.Awake 예외 | `SaveManager.cs` | ✅ 0c338134 (플레이 모드 에러 0) |
 
 ## P1
@@ -26,7 +26,7 @@
 | B-105 | `nomalizedHP = 1/fullHP` 정수 → 0 | `PlayerHealthManager.cs:149+` | ⏳ |
 | B-106 | 장비 해제 시 `HpDamage(fullHP - nowHp)`로 오히려 회복·이상 동작 | `PlayerHealthManager.cs:164-166` | ⏳ |
 | B-107 | 같은 이름 출혈 장비 2개 장착 시 Dictionary.Add 예외 | `EquipBoxCheck.cs:167` | ⏳ |
-| B-108 | 중복 재료 레시피 판정 오류(Ring×6) / 제작 시 공간 미확인 | `CraftingManager.cs:641-661` | ⏳ |
+| B-108 | 중복 재료 레시피 판정 오류(Ring×6) / 제작 시 공간 미확인 | `CraftingManager.cs:641-661` | ✅ 재료 합산 판정 + 공간 확인, DeletItemByName 일괄 차감 |
 | B-109 | 풀 재사용 시 HP바 이벤트 중복 구독 → 데미지바 여러 개 | `EnemyHealthBar.cs:24-25` | ⏳ |
 | B-110 | 순찰 리쉬 무효(originPosition을 매번 덮어씀) | `EnemyPatrol.cs:21` | ⏳ |
 | B-111 | SideRoad 포털 연결 끊김 / openMap null NRE | 씬 `Portal` | ⏳ |

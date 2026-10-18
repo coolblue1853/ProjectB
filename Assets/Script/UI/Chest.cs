@@ -364,7 +364,10 @@ public class Chest : MonoBehaviour
 
                 for (int i = 0; i < count; i++)
                 {
-                    InventoryManager.instance.CreatItem(itemCheck.itemData.name, true);
+                    if (!InventoryManager.instance.CreatItem(itemCheck.itemData.name, true))
+                    {
+                        break; // 인벤토리가 가득 차면 남은 수량은 창고에 그대로 둔다
+                    }
                 }
                 if (itemCheck.nowStack <= 0)
                     Destroy(item.gameObject);
@@ -672,7 +675,7 @@ public class Chest : MonoBehaviour
             {
                 if (maxBoxNum > (nowBox * (maxHor * maxVer)) + i)
                 {
-                    if (inventoryArray[i, nowBox] == 0)
+                    if (inventoryArray[i, nowBox] == 0 && GetNthChildGameObject(inventoryUI[nowBox], i).transform.childCount == 0)
                     {
                         GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], i);
                         GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
@@ -680,6 +683,7 @@ public class Chest : MonoBehaviour
                         item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                         ItemCheck check = item.GetComponent<ItemCheck>();
                         check.SetItem(itemName);
+                        inventoryArray[i, nowBox] = 1; // 같은 프레임에 같은 칸에 또 생성되지 않도록
                         isCreate = true;
                         InventoryManager.instance.itemCheck.nowStack -= 1;
                         break;

@@ -160,29 +160,46 @@ public class CraftingManager : MonoBehaviour
 
     public void Craft()
     {
-        if(NeedCountCheck() == true)
+        // 같은 재료가 여러 줄로 나뉜 레시피도 합산해서 판정한다 (예: Ring ×6)
+        var needs = AggregateNeeds();
+        foreach (var need in needs)
         {
-            Debug.Log("제작 성공");
-            for (int i = 0; i < nowNeedItem.needItem.Count; i++)
+            if (InventoryManager.instance.CountItem(need.Key) < need.Value)
             {
-                for(int j = 0; j < needItemList[i].needCount; j++)
-                {
-                    InventoryManager.instance.DeletItemByName(needItemList[i].itemData.name, 1);
-                }
-
+                Debug.Log($"제작 실패: 재료 부족 ({need.Key} {InventoryManager.instance.CountItem(need.Key)}/{need.Value})");
+                return;
             }
-            Invoke("CreatItem", 0.2f);
         }
-        else
+
+        // 표시 이름(itemNameT)이 아니라 아이템 키(name)로 생성해야 한다
+        string resultName = nowCraftItem.itemData.name;
+        if (!InventoryManager.instance.HasRoomFor(resultName))
         {
-            Debug.Log("제작 실패");
+            Debug.Log("제작 실패: 인벤토리 공간 부족");
+            return;
         }
+
+        foreach (var need in needs)
+        {
+            InventoryManager.instance.DeletItemByName(need.Key, need.Value);
+        }
+        InventoryManager.instance.CreatItem(resultName);
+        InventoryManager.instance.RebuildItemStackCache();
+        Debug.Log("제작 성공: " + resultName);
     }
 
-    void CreatItem()
+    Dictionary<string, int> AggregateNeeds()
     {
-        InventoryManager.instance.CreatItem(name.text);
+        var needs = new Dictionary<string, int>();
+        for (int i = 0; i < nowNeedItem.needItem.Count; i++)
+        {
+            string key = needItemList[i].itemData.name;
+            needs.TryGetValue(key, out int n);
+            needs[key] = n + needItemList[i].needCount;
+        }
+        return needs;
     }
+
     public GameObject miscDetail;
     public GameObject consumDetail;
     public GameObject equipDetail;
@@ -642,14 +659,7 @@ public class CraftingManager : MonoBehaviour
     {
         for (int i = 0; i < nowNeedItem.needItem.Count; i++)
         {
-            if(DatabaseManager.inventoryItemStack.ContainsKey(needItemList[i].itemData.name) == true)
-            {
-                if (DatabaseManager.inventoryItemStack[needItemList[i].itemData.name] < needItemList[i].needCount)
-                {
-                    return false;
-                }
-            }
-            else
+            if (InventoryManager.instance.CountItem(needItemList[i].itemData.name) < needItemList[i].needCount)
             {
                 return false;
             }

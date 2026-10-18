@@ -125,6 +125,10 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     EquipBoxCheck nowEquipBox = currentParent.GetComponent<EquipBoxCheck>();
                     ItemCheck item = this.GetComponent<ItemCheck>();
                     nowEquipBox.DeletPrefab(item,item.itemData.equipArea);
+                    // 드래그 해제도 세이브·장착 목록에 반영 (안 하면 재접속 시 장착+인벤토리 양쪽에 생겨 복제됨)
+                    nowEquipBox.SaveEquipItem(item, false);
+                    InventoryManager.instance.ForgetEquippedItem(item);
+                    InventoryManager.instance.SaveInventory();
                 }
 
             }

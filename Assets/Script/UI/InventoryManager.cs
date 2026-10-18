@@ -1863,41 +1863,57 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
-    public void CreatItem(string itemName, bool isC2I = false, ItemData itemData = null)
+    /// <summary>
+    /// 아이템 1개를 인벤토리에 넣는다 (덜 찬 스택 우선, 없으면 첫 빈칸).
+    /// 넣지 못하면 false. isC2I면 넣은 경우에만 창고 원본 수량을 줄인다(가득 찼을 때 소실 방지).
+    /// </summary>
+    public bool CreatItem(string itemName, bool isC2I = false, ItemData itemData = null)
     {
-        if (CheckStack(itemName) == false)
+        bool placed = CheckStack(itemName);
+        if (!placed)
         {
-            bool isCreate = false;
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 5 && !placed; j++)
             {
                 for (int i = 0; i < (maxHor * maxVer); i++)
                 {
-                    if (maxBoxNum > (j * (maxHor * maxVer)) + i)
+                    if (maxBoxNum <= (j * (maxHor * maxVer)) + i)
                     {
-                        if (inventoryArray[i, j] == 0)
-                        {
-                            inventoryArray[i, j] = 1;
-                            GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
-                            GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
-                            ItemCheck check = item.GetComponent<ItemCheck>();
-                            check.SetItem(itemName, itemData);
-                            DatabaseManager.PlusInventoryDict(itemName, 1);
-                            isCreate = true;
-                            break;
-                        }
+                        continue;
                     }
-                }
-                if (isCreate == true)
-                {
-                    break;
+                    GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
+                    if (inventoryArray[i, j] == 0 && insPositon.transform.childCount == 0)
+                    {
+                        inventoryArray[i, j] = 1;
+                        GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
+                        item.GetComponent<ItemCheck>().SetItem(itemName, itemData);
+                        DatabaseManager.PlusInventoryDict(itemName, 1);
+                        placed = true;
+                        break;
+                    }
                 }
             }
         }
-        if (isC2I == true)
+        if (placed && isC2I)
         {
             chest.itemCheck.nowStack -= 1;
         }
-        SaveInventory();
+        if (placed)
+        {
+            SaveInventory();
+        }
+        return placed;
+    }
+
+    /// <summary>장착 목록에서 해당 아이템 참조를 지운다 (드래그로 해제했을 때)</summary>
+    public void ForgetEquippedItem(ItemCheck item)
+    {
+        for (int i = 0; i < equipItemCheck.Length; i++)
+        {
+            if (equipItemCheck[i] == item)
+            {
+                equipItemCheck[i] = null;
+            }
+        }
     }
     public void ExchangeItem(GameObject nowBoxOb, GameObject afterBoxOb)
     {
@@ -1939,6 +1955,74 @@ public class InventoryManager : MonoBehaviour
             state = "";
         }
     }
+    /// <summary>인벤토리(창고·장비 제외)에 실제로 놓인 아이템 슬롯을 모두 순회한다.</summary>
+    IEnumerable<ItemCheck> EnumerateInventoryItems()
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            for (int i = 0; i < (maxHor * maxVer); i++)
+            {
+                if (maxBoxNum <= (j * (maxHor * maxVer)) + i)
+                {
+                    continue;
+                }
+                GameObject slot = GetNthChildGameObject(inventoryUI[j], i);
+                if (slot == null || slot.transform.childCount == 0)
+                {
+                    continue;
+                }
+                ItemCheck check = slot.transform.GetChild(0).GetComponent<ItemCheck>();
+                if (check != null && check.nowStack > 0)
+                {
+                    yield return check;
+                }
+            }
+        }
+    }
+
+    /// <summary>인벤토리에 실제로 있는 아이템 수량 (슬롯을 직접 센다 — 캐시를 믿지 않는다)</summary>
+    public int CountItem(string itemName)
+    {
+        int total = 0;
+        foreach (ItemCheck check in EnumerateInventoryItems())
+        {
+            if (check.name == itemName)
+            {
+                total += check.nowStack;
+            }
+        }
+        return total;
+    }
+
+    /// <summary>
+    /// UI 표시용 수량 캐시(DatabaseManager.inventoryItemStack)를 실제 슬롯 기준으로 다시 만든다.
+    /// 드래그·창고 이동·장착 등 캐시를 갱신하지 않는 경로가 많아서, 슬롯을 단일 진실 원천으로 삼는다.
+    /// </summary>
+    public void RebuildItemStackCache()
+    {
+        DatabaseManager.inventoryItemStack.Clear();
+        foreach (ItemCheck check in EnumerateInventoryItems())
+        {
+            DatabaseManager.inventoryItemStack.TryGetValue(check.name, out int n);
+            DatabaseManager.inventoryItemStack[check.name] = n + check.nowStack;
+        }
+    }
+
+    /// <summary>itemName 1개를 새로 넣을 공간이 있는지 (빈 칸 또는 덜 찬 스택)</summary>
+    public bool HasRoomFor(string itemName) => CheckBoxCanCreatAll() || OnlyCheckStack(itemName);
+
+    float stackCacheTimer;
+    private void LateUpdate()
+    {
+        // 표시용 캐시를 0.25초마다 슬롯 기준으로 재계산 (매 프레임 비용 회피)
+        stackCacheTimer -= Time.unscaledDeltaTime;
+        if (stackCacheTimer <= 0f)
+        {
+            stackCacheTimer = 0.25f;
+            RebuildItemStackCache();
+        }
+    }
+
     public void DeletItemByName(string itemName, int count = 1)
     {
         for (int j = 0; j < 5; j++)
@@ -1952,14 +2036,12 @@ public class InventoryManager : MonoBehaviour
                     {
                         GameObject item = insPositon.transform.GetChild(0).gameObject;
                         ItemCheck check = item.GetComponent<ItemCheck>();
-                        if (check.name == itemName && count > 0)
+                        if (check.name == itemName && count > 0 && check.nowStack > 0)
                         {
-                            if (check.nowStack > 0)
-                            {
-                                check.nowStack -= 1;
-                                count -= 1;
-                                DatabaseManager.MinusInventoryDict(itemName, 1);
-                            }
+                            int take = Mathf.Min(check.nowStack, count); // 한 슬롯에서 필요한 만큼 한 번에 차감
+                            check.nowStack -= take;
+                            count -= take;
+                            DatabaseManager.MinusInventoryDict(itemName, take);
                         }
                         if (check.nowStack <= 0)
                         {
