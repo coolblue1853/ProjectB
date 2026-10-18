@@ -1,4 +1,4 @@
-using BehaviorDesigner.Runtime.Tasks;
+ï»¿using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using BehaviorDesigner.Runtime;
@@ -56,14 +56,14 @@ public class EnemyGoRevers : EnemyAction
         }
 
 
-        // ÀÌµ¿¾Ö´Ï¸ŞÀÌ¼Ç ¹Ù²Ù±â
+        // ì´ë™ì• ë‹ˆë©”ì´ì…˜ ë°”ê¾¸ê¸°
         if (anim != null)
         {
             anim.SetBool("isWalk", true);
         }
 
-        float distanceToMove = Mathf.Abs(movePoint); // ÀÌµ¿ÇØ¾ß ÇÒ °Å¸®ÀÇ Àı´ë°ªÀ» °è»êÇÕ´Ï´Ù.
-        float moveDuration = distanceToMove / desiredSpeed; // ÀÌµ¿ÇØ¾ß ÇÒ °Å¸®¸¦ ÀÏÁ¤ÇÑ ¼Óµµ·Î ÀÌµ¿ÇÏ´Â µ¥ °É¸®´Â ½Ã°£À» °è»êÇÕ´Ï´Ù.
+        float distanceToMove = Mathf.Abs(movePoint); // ì´ë™í•´ì•¼ í•  ê±°ë¦¬ì˜ ì ˆëŒ€ê°’ì„ ê³„ì‚°í•©ë‹ˆë‹¤.
+        float moveDuration = distanceToMove / desiredSpeed; // ì´ë™í•´ì•¼ í•  ê±°ë¦¬ë¥¼ ì¼ì •í•œ ì†ë„ë¡œ ì´ë™í•˜ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì„ ê³„ì‚°í•©ë‹ˆë‹¤.
                                                             //  Debug.Log("move");
         bt.sequence = DOTween.Sequence()
        .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))

@@ -1,4 +1,4 @@
-
+ï»¿
 
 using System.Collections;
 using System.Collections.Generic;
@@ -20,11 +20,11 @@ public class DatabaseManager : MonoBehaviour
     public static int playerCritRate = 0;
     public static int playerCritDmgRate = 0;
     public static int addPoisonDmg = 0;
-    public static int incDmg = 0; // Áõµ©
-    public static int incIncomingDmg; // ¹Ş´Â ÇÇÇØ Áõ°¡
-    public static int bleedingAddDmg = 0; // ÃâÇ÷½Ã Áõµ©
+    public static int incDmg = 0; // ì¦ë€
+    public static int incIncomingDmg; // ë°›ëŠ” í”¼í•´ ì¦ê°€
+    public static int bleedingAddDmg = 0; // ì¶œí˜ˆì‹œ ì¦ë€
     public static int playerDropRate= 0;
-    public static int hitCount = 0; // °ø°İ ¿ÀºêÁ§Æ®ÀÇ Å¸¼ö
+    public static int hitCount = 0; // ê³µê²© ì˜¤ë¸Œì íŠ¸ì˜ íƒ€ìˆ˜
     public static bool isInvincibility = false;
     public static bool weaponStopMove = false;
     public static bool checkAttackLadder = false;
@@ -70,7 +70,7 @@ public class DatabaseManager : MonoBehaviour
     {
         SetEffectDisactvie(name, setsEffectStack[name]);
         setsEffectStack[name] -= count;
-        // ¸¸¾à °ªÀÌ 0ÀÌ µÇ¸é ÇØ´ç Å°¸¦ Á¦°ÅÇÒ ¼ö ÀÖÀ½
+        // ë§Œì•½ ê°’ì´ 0ì´ ë˜ë©´ í•´ë‹¹ í‚¤ë¥¼ ì œê±°í•  ìˆ˜ ìˆìŒ
         if (setsEffectStack[name] == 0)
         {
             setsEffectStack.Remove(name);
@@ -118,7 +118,7 @@ public class DatabaseManager : MonoBehaviour
         if (inventoryItemStack.ContainsKey(name))
         {
             inventoryItemStack[name] -= count;
-            // ¸¸¾à °ªÀÌ 0ÀÌ µÇ¸é ÇØ´ç Å°¸¦ Á¦°ÅÇÒ ¼ö ÀÖÀ½
+            // ë§Œì•½ ê°’ì´ 0ì´ ë˜ë©´ í•´ë‹¹ í‚¤ë¥¼ ì œê±°í•  ìˆ˜ ìˆìŒ
             if (inventoryItemStack[name] == 0)
             {
                 inventoryItemStack.Remove(name);
@@ -152,24 +152,24 @@ public class DatabaseManager : MonoBehaviour
         LoadAllItemData();
     }
 
-    public void LoadAllItemData() // ±âÅ¸ ¾ÆÀÌÅÛ
+    public void LoadAllItemData() // ê¸°íƒ€ ì•„ì´í…œ
     {
         ItemDataList = itemDatabase.items;
         setsDataList = setDatabase.items;
         //    ItemDataList = ItemSheet.Data.DataList;
 
-        /*  ÀÎÅÍ³İ¿¡¼­ Á¤º¸¸¦ ¹Ş¾Æ¿À´Â ¹æ¹ı.
+        /*  ì¸í„°ë„·ì—ì„œ ì •ë³´ë¥¼ ë°›ì•„ì˜¤ëŠ” ë°©ë²•.
         UnityGoogleSheet.LoadFromGoogle<int, ItemSheet.Data>((list, map) => {
-            // list¿¡´Â ·ÎµåÇÑ µ¥ÀÌÅÍ°¡ µé¾î ÀÖÀ½
+            // listì—ëŠ” ë¡œë“œí•œ ë°ì´í„°ê°€ ë“¤ì–´ ìˆìŒ
             ItemDataList = list;
 
             if (ItemDataList.Count > 0)
             {
-                Debug.Log("µ¥ÀÌÅÍ¸¦ ¼º°øÀûÀ¸·Î ºÒ·¯¿Ô½À´Ï´Ù.");
+                Debug.Log("ë°ì´í„°ë¥¼ ì„±ê³µì ìœ¼ë¡œ ë¶ˆëŸ¬ì™”ìŠµë‹ˆë‹¤.");
             }
             else
             {
-                Debug.Log("µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.");
+                Debug.Log("ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.");
             }
         }, true);
         */
@@ -204,7 +204,7 @@ public class DatabaseManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("µ¥ÀÌÅÍ¸¦ ºÒ·¯¿ÀÁö ¸øÇß°Å³ª À¯È¿ÇÏÁö ¾ÊÀº ÀÎµ¦½ºÀÔ´Ï´Ù.");
+            Debug.Log("ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¤ì§€ ëª»í–ˆê±°ë‚˜ ìœ íš¨í•˜ì§€ ì•Šì€ ì¸ë±ìŠ¤ì…ë‹ˆë‹¤.");
             return null;
         }
     }
@@ -225,7 +225,7 @@ public class DatabaseManager : MonoBehaviour
         }
         else
         {
-      //      Debug.Log("µ¥ÀÌÅÍ¸¦ ºÒ·¯¿ÀÁö ¸øÇß°Å³ª À¯È¿ÇÏÁö ¾ÊÀº ÀÎµ¦½ºÀÔ´Ï´Ù.");
+      //      Debug.Log("ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¤ì§€ ëª»í–ˆê±°ë‚˜ ìœ íš¨í•˜ì§€ ì•Šì€ ì¸ë±ìŠ¤ì…ë‹ˆë‹¤.");
             return null;
         }
     }
@@ -237,18 +237,18 @@ public class DatabaseManager : MonoBehaviour
             {
                 if (ItemDataList[i].name == targetValue)
                 {
-                    // ÀÔ·ÂÇÑ °ª°ú ÀÏÄ¡ÇÏ´Â µ¥ÀÌÅÍ¸¦ Ã£À¸¸é ÇØ´ç ÀÎµ¦½º ¹İÈ¯
+                    // ì…ë ¥í•œ ê°’ê³¼ ì¼ì¹˜í•˜ëŠ” ë°ì´í„°ë¥¼ ì°¾ìœ¼ë©´ í•´ë‹¹ ì¸ë±ìŠ¤ ë°˜í™˜
                     return i;
                 }
             }
 
-            Debug.Log("Ã£Áö ¸øÇß½À´Ï´Ù");
-            // ÀÏÄ¡ÇÏ´Â µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é -1 ¹İÈ¯
+            Debug.Log("ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤");
+            // ì¼ì¹˜í•˜ëŠ” ë°ì´í„°ê°€ ì—†ìœ¼ë©´ -1 ë°˜í™˜
             return -1;
         }
         else
         {
-            // µ¥ÀÌÅÍ ¸®½ºÆ®°¡ ºñ¾îÀÖÀ¸¸é -1 ¹İÈ¯
+            // ë°ì´í„° ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ìˆìœ¼ë©´ -1 ë°˜í™˜
             return -1;
         }
     }
@@ -261,18 +261,18 @@ public class DatabaseManager : MonoBehaviour
             {
                 if (setsDataList[i].setName == targetValue)
                 {
-                    // ÀÔ·ÂÇÑ °ª°ú ÀÏÄ¡ÇÏ´Â µ¥ÀÌÅÍ¸¦ Ã£À¸¸é ÇØ´ç ÀÎµ¦½º ¹İÈ¯
+                    // ì…ë ¥í•œ ê°’ê³¼ ì¼ì¹˜í•˜ëŠ” ë°ì´í„°ë¥¼ ì°¾ìœ¼ë©´ í•´ë‹¹ ì¸ë±ìŠ¤ ë°˜í™˜
                     return i;
                 }
             }
 
-//            Debug.Log("Ã£Áö ¸øÇß½À´Ï´Ù");
-            // ÀÏÄ¡ÇÏ´Â µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é -1 ¹İÈ¯
+//            Debug.Log("ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤");
+            // ì¼ì¹˜í•˜ëŠ” ë°ì´í„°ê°€ ì—†ìœ¼ë©´ -1 ë°˜í™˜
             return -1;
         }
         else
         {
-            // µ¥ÀÌÅÍ ¸®½ºÆ®°¡ ºñ¾îÀÖÀ¸¸é -1 ¹İÈ¯
+            // ë°ì´í„° ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ìˆìœ¼ë©´ -1 ë°˜í™˜
             return -1;
         }
     }

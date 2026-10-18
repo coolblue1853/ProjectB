@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,7 +42,7 @@ public class ItemCheck : MonoBehaviour
         string[] effect = itemData.effectOb.Split("/");
         string[] effectPower = itemData.effectPow.Split("/");
 
-        StringBuilder logBuilder = new StringBuilder(); // StringBuilder ÀÎ½ºÅÏ½º »ı¼º
+        StringBuilder logBuilder = new StringBuilder(); // StringBuilder ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
 
         for (int i = 0; i < effect.Length; i++)
         {
@@ -84,7 +84,7 @@ public class ItemCheck : MonoBehaviour
             else if (effectStr[0] == "def")
             {
                 AttackManager player = GameObject.FindWithTag("Player").GetComponent<AttackManager>();
-                if (player.foodBuff != null) // ÀÌ¹Ì ¹öÇÁ¸é
+                if (player.foodBuff != null) // ì´ë¯¸ ë²„í”„ë©´
                 {
                     player.foodBuff.DestoryBuff();
                 }
@@ -171,23 +171,23 @@ public class ItemCheck : MonoBehaviour
 
     void LoadImage()
     {
-        // ¸®¼Ò½º Æú´õ ³»¿¡ ÀÖ´Â ÀÌ¹ÌÁö ÆÄÀÏÀÇ °æ·Î
+        // ë¦¬ì†ŒìŠ¤ í´ë” ë‚´ì— ìˆëŠ” ì´ë¯¸ì§€ íŒŒì¼ì˜ ê²½ë¡œ
         string resourcePath = "Item/" + itemData.name;
 
-        // ¸®¼Ò½º·Îµå¸¦ ÅëÇØ ÀÌ¹ÌÁö¸¦ °¡Á®¿É´Ï´Ù.
+        // ë¦¬ì†ŒìŠ¤ë¡œë“œë¥¼ í†µí•´ ì´ë¯¸ì§€ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
         Sprite sprite = Resources.Load<Sprite>(resourcePath);
 
         if (sprite != null)
         {
            
-            // ÀÌ¹ÌÁö¸¦ ¼º°øÀûÀ¸·Î ºÒ·¯¿ÔÀ» ¶§ÀÇ Ã³¸®
+            // ì´ë¯¸ì§€ë¥¼ ì„±ê³µì ìœ¼ë¡œ ë¶ˆëŸ¬ì™”ì„ ë•Œì˜ ì²˜ë¦¬
             Image imageComponent = GetComponent<Image>();
             imageComponent.sprite = sprite;
             image = imageComponent;
         }
         else
         {
-            Debug.LogError("ÀÌ¹ÌÁö ÆÄÀÏÀ» ·ÎµåÇÏÁö ¸øÇß½À´Ï´Ù: " + resourcePath);
+            Debug.LogError("ì´ë¯¸ì§€ íŒŒì¼ì„ ë¡œë“œí•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤: " + resourcePath);
         }
     }
 

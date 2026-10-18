@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -42,7 +42,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Debug.Log(this.name); // ³ª´©±âÃ¢ ¶ç¿ì±â.
+            Debug.Log(this.name); // ë‚˜ëˆ„ê¸°ì°½ ë„ìš°ê¸°.
         }
         else if (eventData.button == PointerEventData.InputButton.Left)
         {
@@ -74,25 +74,25 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
         if (currentParent != null)
         {
-            // ºÎ¸ğÀÇ ºÎ¸ğ(Transform) Ã£±â
+            // ë¶€ëª¨ì˜ ë¶€ëª¨(Transform) ì°¾ê¸°
             Transform grandParent = currentParent.parent.parent;
              siblingParentIndex = transform.parent.parent.GetSiblingIndex();
              siblingIndex = transform.parent.GetSiblingIndex();
 
             if (grandParent != null)
             {
-                // ºÎ¸ğÀÇ ºÎ¸ğÀÇ ÀÚ½ÄÀ¸·Î ÇöÀç °´Ã¼ Ãß°¡
+                // ë¶€ëª¨ì˜ ë¶€ëª¨ì˜ ìì‹ìœ¼ë¡œ í˜„ì¬ ê°ì²´ ì¶”ê°€
                 transform.SetParent(dragCanvus.transform);
               //  InventoryManager.instance.TestDelet(siblingParentIndex, siblingIndex);
             }
             else
             {
-                Debug.LogWarning("ºÎ¸ğÀÇ ºÎ¸ğ°¡ ¾ø½À´Ï´Ù.");
+                Debug.LogWarning("ë¶€ëª¨ì˜ ë¶€ëª¨ê°€ ì—†ìŠµë‹ˆë‹¤.");
             }
         }
         else
         {
-            Debug.LogWarning("ºÎ¸ğ°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("ë¶€ëª¨ê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
         DefaultPos = this.transform.position;
     }
@@ -279,7 +279,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 else
                 {
                     ItemCheck beforeItem = InventoryManager.instance.CheckNowEquipment(itemCheck.itemData.equipArea);
-                    // ¾ÆÀÌÅÛÀ» ÇØÃ¼ÇÑ´Â ºÎºĞ
+                    // ì•„ì´í…œì„ í•´ì²´í•œëŠ” ë¶€ë¶„
                     DetechItem(itemCheck.itemData.equipArea);
                     equipBoxCheck.DeletPrefab(beforeItem, beforeItem.itemData.equipArea);
 

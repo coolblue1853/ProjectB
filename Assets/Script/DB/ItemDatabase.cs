@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
@@ -13,18 +13,18 @@ public class ItemDatabase : MonoBehaviour
 
     void LoadItemsFromCSV(string filePath)
     {
-        TextAsset csvData = Resources.Load<TextAsset>(filePath); // Resources Æú´õ¿¡ ÀÖ´Â CSV ÆÄÀÏÀ» ºÒ·¯¿É´Ï´Ù.
-        string[] lines = csvData.text.Split(new char[] { '\n' }); // CSV ÆÄÀÏ ³»¿ëÀ» ÁÙ ´ÜÀ§·Î ºĞÇÒÇÕ´Ï´Ù.
+        TextAsset csvData = Resources.Load<TextAsset>(filePath); // Resources í´ë”ì— ìˆëŠ” CSV íŒŒì¼ì„ ë¶ˆëŸ¬ì˜µë‹ˆë‹¤.
+        string[] lines = csvData.text.Split(new char[] { '\n' }); // CSV íŒŒì¼ ë‚´ìš©ì„ ì¤„ ë‹¨ìœ„ë¡œ ë¶„í• í•©ë‹ˆë‹¤.
 
-        // °¢ ¶óÀÎÀÇ µ¥ÀÌÅÍ¸¦ Ã³¸®ÇÕ´Ï´Ù.
-        for (int i = 2; i < lines.Length; i++) // Ã¹ ¹øÂ° ÁÙÀº Å¸ÀÔ Á¤ÀÇ, µÎ ¹øÂ° ÁÙÀº ¿­ ÀÌ¸§ÀÌ¹Ç·Î 2ºÎÅÍ ½ÃÀÛÇÕ´Ï´Ù.
+        // ê° ë¼ì¸ì˜ ë°ì´í„°ë¥¼ ì²˜ë¦¬í•©ë‹ˆë‹¤.
+        for (int i = 2; i < lines.Length; i++) // ì²« ë²ˆì§¸ ì¤„ì€ íƒ€ì… ì •ì˜, ë‘ ë²ˆì§¸ ì¤„ì€ ì—´ ì´ë¦„ì´ë¯€ë¡œ 2ë¶€í„° ì‹œì‘í•©ë‹ˆë‹¤.
         {
-            string[] values = lines[i].Split(','); // °¢ ¶óÀÎÀÇ µ¥ÀÌÅÍ¸¦ ½°Ç¥·Î ºĞÇÒÇÕ´Ï´Ù.
+            string[] values = lines[i].Split(','); // ê° ë¼ì¸ì˜ ë°ì´í„°ë¥¼ ì‰¼í‘œë¡œ ë¶„í• í•©ë‹ˆë‹¤.
 
             ItemData item = new ItemData();
             for (int j = 0; j < values.Length; j++)
             {
-                // °¢ ¿­ÀÇ Å¸ÀÔ¿¡ µû¶ó ÀûÀıÇÑ ÇüÅÂ·Î °ªÀ» º¯È¯ÇÏ¿© ItemData °´Ã¼¿¡ ÀúÀåÇÕ´Ï´Ù.
+                // ê° ì—´ì˜ íƒ€ì…ì— ë”°ë¼ ì ì ˆí•œ í˜•íƒœë¡œ ê°’ì„ ë³€í™˜í•˜ì—¬ ItemData ê°ì²´ì— ì €ì¥í•©ë‹ˆë‹¤.
                 switch (j)
                 {
                     case 0: // index
@@ -78,7 +78,7 @@ public class ItemDatabase : MonoBehaviour
                     case 16: // upgrade
                         item.setName =(values[j].Trim());
                         break;
-                        // ÇÊ¿äÇÑ ´Ù¸¥ ¿­¿¡ ´ëÇÑ Ã³¸®¸¦ Ãß°¡ÇÕ´Ï´Ù.
+                        // í•„ìš”í•œ ë‹¤ë¥¸ ì—´ì— ëŒ€í•œ ì²˜ë¦¬ë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
                 }
             }
 

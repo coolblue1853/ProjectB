@@ -1,0 +1,10 @@
+root = true
+
+[*.cs]
+charset = utf-8-bom
+end_of_line = crlf
+indent_style = space
+indent_size = 4
+
+[*.{md,csv}]
+charset = utf-8

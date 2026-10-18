@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
@@ -20,7 +20,7 @@ public class EnemyGoOrigin : EnemyAction
     {
         if (bt.sequence == null || !bt.sequence.IsActive())
         {
-            StartGoOrigin(); // ¿òÁ÷ÀÓÀÌ Áß´ÜµÇ¾ú°Å³ª ¿Ï·áµÈ °æ¿ì ´Ù½Ã ½ÃÀÛ
+            StartGoOrigin(); // ì›€ì§ì„ì´ ì¤‘ë‹¨ë˜ì—ˆê±°ë‚˜ ì™„ë£Œëœ ê²½ìš° ë‹¤ì‹œ ì‹œì‘
         }
 
         return isEnd && Mathf.Abs(enemyObject.transform.position.x - originPosition.x) < 1f
@@ -35,17 +35,17 @@ public class EnemyGoOrigin : EnemyAction
             anim.SetBool("isWalk", true);
         }
 
-        // ÀÌµ¿ °Å¸®¿Í ½Ã°£ °è»ê
+        // ì´ë™ ê±°ë¦¬ì™€ ì‹œê°„ ê³„ì‚°
         float distanceToMove = Mathf.Abs(originPosition.x - enemyObject.transform.position.x);
         float moveDuration = distanceToMove / desiredSpeed;
 
-        // ¹æÇâ¿¡ µû¶ó ½ºÄÉÀÏ º¯°æ
+        // ë°©í–¥ì— ë”°ë¼ ìŠ¤ì¼€ì¼ ë³€ê²½
         enemyObject.transform.localScale = new Vector3(
             originPosition.x > enemyObject.transform.position.x ? tfLocalScale : -tfLocalScale,
             enemyObject.transform.localScale.y, 1
         );
 
-        // ÀÌµ¿ ½ÃÄö½º ¼³Á¤
+        // ì´ë™ ì‹œí€€ìŠ¤ ì„¤ì •
         bt.sequence = DOTween.Sequence()
             .Append(enemyObject.transform.DOMoveX(originPosition.x, moveDuration).SetEase(Ease.Linear))
             .OnComplete(OnSequenceComplete);

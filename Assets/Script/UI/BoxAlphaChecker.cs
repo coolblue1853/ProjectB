@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,21 +17,21 @@ public class BoxAlphaChecker : MonoBehaviour
     }
     void ActivateChildrenBasedOnImageAlpha()
     {
-        // ÀÚ½ÅÀÇ Image ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+        // ìì‹ ì˜ Image ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
         Image selfImage = GetComponent<Image>();
 
         if (selfImage != null)
         {
-            // ÀÚ½ÅÀÇ ÀÌ¹ÌÁö ¾ËÆÄ°ª °¡Á®¿À±â
+            // ìì‹ ì˜ ì´ë¯¸ì§€ ì•ŒíŒŒê°’ ê°€ì ¸ì˜¤ê¸°
             float selfAlpha = selfImage.color.a;
 
-            // ¸ğµç ÀÚ½Ä ¿ÀºêÁ§Æ® °¡Á®¿À±â
+            // ëª¨ë“  ìì‹ ì˜¤ë¸Œì íŠ¸ ê°€ì ¸ì˜¤ê¸°
             Transform[] childTransforms = GetComponentsInChildren<Transform>(true);
 
-            // ÀÚ½Ä ¿ÀºêÁ§Æ®ÀÇ È°¼ºÈ­ ¿©ºÎ ¼³Á¤
+            // ìì‹ ì˜¤ë¸Œì íŠ¸ì˜ í™œì„±í™” ì—¬ë¶€ ì„¤ì •
             foreach (Transform childTransform in childTransforms)
             {
-                if (childTransform != transform) // ºÎ¸ğ ÀÚ½ÅÀº Á¦¿Ü
+                if (childTransform != transform) // ë¶€ëª¨ ìì‹ ì€ ì œì™¸
                 {
                     GameObject childObject = childTransform.gameObject;
                     childObject.SetActive(selfAlpha > 0f);

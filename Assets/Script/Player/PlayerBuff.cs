@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ public class PlayerBuff : MonoBehaviour
     public string buffType;
     public int buffTime;
     public int buffPower;
-    public bool isStartIm = true; // Áï½Ã ¹öÇÁ¸¦ ½ÃÀÛÇÏ´Â°¡
+    public bool isStartIm = true; // ì¦‰ì‹œ ë²„í”„ë¥¼ ì‹œìž‘í•˜ëŠ”ê°€
     // Start is called before the first frame update
     void Start()
     {

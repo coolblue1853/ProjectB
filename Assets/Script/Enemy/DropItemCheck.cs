@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +7,7 @@ using TMPro;
 
 public class DropItemCheck : PoolAble
 {
-    //ÄÚµå / Á¾·ù((ÀåºñÀÎÁö ¼Ò¸ğÇ°ÀÎÁö)  / ÀÌ¸§ / ¼³¸í / º¸À¯¼ö / °¡°İ / ¹«°Ô // È¹µæ¹æ¹ı
+    //ì½”ë“œ / ì¢…ë¥˜((ì¥ë¹„ì¸ì§€ ì†Œëª¨í’ˆì¸ì§€)  / ì´ë¦„ / ì„¤ëª… / ë³´ìœ ìˆ˜ / ê°€ê²© / ë¬´ê²Œ // íšë“ë°©ë²•
     public string name;
     public Image image;
     public ItemData itemData;
@@ -94,22 +94,22 @@ public class DropItemCheck : PoolAble
 
     void LoadImage()
     {
-        // ¸®¼Ò½º Æú´õ ³»¿¡ ÀÖ´Â ÀÌ¹ÌÁö ÆÄÀÏÀÇ °æ·Î
+        // ë¦¬ì†ŒìŠ¤ í´ë” ë‚´ì— ìˆëŠ” ì´ë¯¸ì§€ íŒŒì¼ì˜ ê²½ë¡œ
         string resourcePath = "Item/" + name;
 
-        // ¸®¼Ò½º·Îµå¸¦ ÅëÇØ ÀÌ¹ÌÁö¸¦ °¡Á®¿É´Ï´Ù.
+        // ë¦¬ì†ŒìŠ¤ë¡œë“œë¥¼ í†µí•´ ì´ë¯¸ì§€ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
         Sprite sprite = Resources.Load<Sprite>(resourcePath);
 
         if (sprite != null)
         {
-            // ÀÌ¹ÌÁö¸¦ ¼º°øÀûÀ¸·Î ºÒ·¯¿ÔÀ» ¶§ÀÇ Ã³¸®
+            // ì´ë¯¸ì§€ë¥¼ ì„±ê³µì ìœ¼ë¡œ ë¶ˆëŸ¬ì™”ì„ ë•Œì˜ ì²˜ë¦¬
             SpriteRenderer imageComponent = GetComponent<SpriteRenderer>();
             imageComponent.sprite = sprite;
             spriteRenderer = imageComponent;
         }
         else
         {
-            Debug.LogError("ÀÌ¹ÌÁö ÆÄÀÏÀ» ·ÎµåÇÏÁö ¸øÇß½À´Ï´Ù: " + resourcePath);
+            Debug.LogError("ì´ë¯¸ì§€ íŒŒì¼ì„ ë¡œë“œí•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤: " + resourcePath);
         }
     }
 

@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class TimeChange : MonoBehaviour
 {
-    public float totalTime; // 5ºĞÀ» ÃÊ ´ÜÀ§·Î º¯È¯
-    public float period; // ÁÖ±â¸¦ ÀüÃ¼ ½Ã°£À¸·Î ¼³Á¤
+    public float totalTime; // 5ë¶„ì„ ì´ˆ ë‹¨ìœ„ë¡œ ë³€í™˜
+    public float period; // ì£¼ê¸°ë¥¼ ì „ì²´ ì‹œê°„ìœ¼ë¡œ ì„¤ì •
 
     private float startTime;
     public LightColorController LightColorController;
@@ -28,7 +28,7 @@ public class TimeChange : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            AddTime(60); //½Ã°£ Ãß°¡
+            AddTime(60); //ì‹œê°„ ì¶”ê°€
         }
         
         if (isTest == false)
@@ -69,10 +69,10 @@ public class TimeChange : MonoBehaviour
         }
     }
 
-    // ¿øÇÏ´Â ¸¸Å­ ½Ã°£À» Áï½Ã Ãß°¡ÇÏ´Â ÇÔ¼ö
+    // ì›í•˜ëŠ” ë§Œí¼ ì‹œê°„ì„ ì¦‰ì‹œ ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜
     public void AddTime(float additionalTime)
     {
-        // ½ÃÀÛ ½Ã°£À» º¯°æÇÏ°í Ãß°¡ÀûÀÎ ½Ã°£À» ´õÇÕ´Ï´Ù.
+        // ì‹œì‘ ì‹œê°„ì„ ë³€ê²½í•˜ê³  ì¶”ê°€ì ì¸ ì‹œê°„ì„ ë”í•©ë‹ˆë‹¤.
         startTime -= additionalTime;
     }
 

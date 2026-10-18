@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ public class Datas
     public float time;
     public string[,,] invenItem;
     public string[,,] chestItem;
-    public string[,] equipGear = new string[10, 3]; // Àåºñ¾ÆÀÌÅÛ, [ÀÌ¸§,Æ¼¾î,°­È­]
+    public string[,] equipGear = new string[10, 3]; // ì¥ë¹„ì•„ì´í…œ, [ì´ë¦„,í‹°ì–´,ê°•í™”]
 }
 
 public class SaveManager : MonoBehaviour

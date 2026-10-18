@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,7 +67,7 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
 
     Chest FindParentWithChestScript(Transform currentTransform)
     {
-        // ÇöÀç TransformÀÌ nullÀÌ°Å³ª Chest ½ºÅ©¸³Æ®°¡ ÀÖ´Ù¸é ¹İÈ¯
+        // í˜„ì¬ Transformì´ nullì´ê±°ë‚˜ Chest ìŠ¤í¬ë¦½íŠ¸ê°€ ìˆë‹¤ë©´ ë°˜í™˜
         if (currentTransform == null)
         {
             return null;
@@ -76,12 +76,12 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
         Chest chestComponent = currentTransform.GetComponent<Chest>();
         if (chestComponent != null)
         {
-            // Chest ½ºÅ©¸³Æ®°¡ ÀÖ´Â °æ¿ì ÇØ´ç ¿ÀºêÁ§Æ® ¹İÈ¯
+            // Chest ìŠ¤í¬ë¦½íŠ¸ê°€ ìˆëŠ” ê²½ìš° í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ ë°˜í™˜
             return chestComponent;
         }
         else
         {
-            // Chest ½ºÅ©¸³Æ®°¡ ¾øÀ¸¸é ºÎ¸ğ·Î ¿Ã¶ó°¡´Â Àç±Í È£Ãâ
+            // Chest ìŠ¤í¬ë¦½íŠ¸ê°€ ì—†ìœ¼ë©´ ë¶€ëª¨ë¡œ ì˜¬ë¼ê°€ëŠ” ì¬ê·€ í˜¸ì¶œ
             return FindParentWithChestScript(currentTransform.parent);
         }
     }
@@ -94,19 +94,19 @@ public class BoxCheck : MonoBehaviour, IPointerClickHandler
 
             if (parentTransform != null)
             {
-                // ÀÚ½ÅÀÌ ºÎ¸ğÀÇ ¸î ¹øÂ° ÀÚ½ÄÀÎÁö È®ÀÎ
+                // ìì‹ ì´ ë¶€ëª¨ì˜ ëª‡ ë²ˆì§¸ ìì‹ì¸ì§€ í™•ì¸
                 siblingIndex = transform.GetSiblingIndex();
             }
             if (parentTransform != null)
             {
-                // ºÎ¸ğÀÇ ºÎ¸ğ °¡Á®¿À±â
+                // ë¶€ëª¨ì˜ ë¶€ëª¨ ê°€ì ¸ì˜¤ê¸°
                 Transform grandparentTransform = parentTransform.parent;
 
                 if (grandparentTransform != null)
                 {
                     boxCheck = this.transform.parent.GetComponent<InventoryAlpha>();
                     grandSiblingIndex = int.Parse(parentTransform.name);
-                    // ÀÚ½ÅÀÌ ºÎ¸ğÀÇ ºÎ¸ğÀÇ ¸î ¹øÂ° ÀÚ½ÄÀÎÁö È®ÀÎ
+                    // ìì‹ ì´ ë¶€ëª¨ì˜ ë¶€ëª¨ì˜ ëª‡ ë²ˆì§¸ ìì‹ì¸ì§€ í™•ì¸
                     // grandSiblingIndex = parentTransform.GetSiblingIndex();
                 }
             }

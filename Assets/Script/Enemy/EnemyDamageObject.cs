@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -9,7 +9,7 @@ public class EnemyDamageObject : PoolAble
     public bool isDestroyByTime = true;
     public float holdingTime = 0;
     public int damage = 0;
-    public float stiffnessTime = 0;   // °æÁ÷ ½Ã°£.
+    public float stiffnessTime = 0;   // ê²½ì§ ì‹œê°„.
     public float knockForce = 0;
     public Vector2 knockbackDir;
     public bool isNockBackChangeDir;
@@ -21,10 +21,10 @@ public class EnemyDamageObject : PoolAble
     public float launchForce = 0;
     public Vector2 launchDir;
     public bool isGroundDestroy = false;
-    float desiredSpeed = 5f; // ¿øÇÏ´Â ¼Óµµ ¼³Á¤
+    float desiredSpeed = 5f; // ì›í•˜ëŠ” ì†ë„ ì„¤ì •
 
     private Vector3 prevPosition;
-    private Sequence sequence; // ½ÃÄö½º¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö Ãß°¡
+    private Sequence sequence; // ì‹œí€€ìŠ¤ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜ ì¶”ê°€
     public GameObject enemyOb;
     Rigidbody2D rigidbody2D;
     public bool isRandForce;
@@ -36,9 +36,9 @@ public class EnemyDamageObject : PoolAble
     {
         if (isLaunch && isGravityFall == true)
         {
-            Vector3 deltaPos = transform.position - prevPosition;                     // ÇöÀçÀ§Ä¡ - ÀÌÀüÀ§Ä¡ = ¹æÇâ
-            float angle = Mathf.Atan2(deltaPos.y, deltaPos.x) * Mathf.Rad2Deg;// »ï°¢ÇÔ¼ö·Î °¢µµ¸¦ ±¸ÇÔ.
-            if (0 != angle)    // ¹°¸®¿¬»ê°ú ·»´õ¸µ¿¬»êÀÇ Â÷ÀÌ¸¦ À§ÇØ¼­ Ã¼Å©
+            Vector3 deltaPos = transform.position - prevPosition;                     // í˜„ì¬ìœ„ì¹˜ - ì´ì „ìœ„ì¹˜ = ë°©í–¥
+            float angle = Mathf.Atan2(deltaPos.y, deltaPos.x) * Mathf.Rad2Deg;// ì‚¼ê°í•¨ìˆ˜ë¡œ ê°ë„ë¥¼ êµ¬í•¨.
+            if (0 != angle)    // ë¬¼ë¦¬ì—°ì‚°ê³¼ ë Œë”ë§ì—°ì‚°ì˜ ì°¨ì´ë¥¼ ìœ„í•´ì„œ ì²´í¬
             {
 
                 transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -74,14 +74,14 @@ public class EnemyDamageObject : PoolAble
 
         DOTween.Kill(this.gameObject);
 
-        // ¹ß»ç Á÷Àü Ãæµ¹ °¡´ÉÇÏ°Ô º¯°æ
+        // ë°œì‚¬ ì§ì „ ì¶©ëŒ ê°€ëŠ¥í•˜ê²Œ ë³€ê²½
         if (rigidbody2D != null)
         {
             rigidbody2D.velocity = Vector2.zero;
             rigidbody2D.angularVelocity = 0f;
         }
 
-        DOTween.Kill(this.gameObject);  // Æ®À© ÁßÁö
+        DOTween.Kill(this.gameObject);  // íŠ¸ìœˆ ì¤‘ì§€
         transform.rotation = Quaternion.identity;
         damagedEnemies.Clear();
         damagedPlayer.Clear();
@@ -115,11 +115,11 @@ public class EnemyDamageObject : PoolAble
                 Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
                 rigidbody2D.AddForce(direction * launchForce, ForceMode2D.Impulse);
 
-                // ¿ÀºêÁ§Æ®°¡ ³¯¾Æ°¡´Â ¹æÇâÀ» ±âÁØÀ¸·Î È¸ÀüÇÏ±â À§ÇØ °¢µµ¸¦ °è»êÇÕ´Ï´Ù.
+                // ì˜¤ë¸Œì íŠ¸ê°€ ë‚ ì•„ê°€ëŠ” ë°©í–¥ì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „í•˜ê¸° ìœ„í•´ ê°ë„ë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤.
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                // ZÃàÀ» ±âÁØÀ¸·Î È¸ÀüÇÏ±â ¶§¹®¿¡, ZÃàÀ» ±âÁØÀ¸·Î È¸ÀüµÇµµ·Ï ÄõÅÍ´Ï¾ğ(quaternion)À» »ı¼ºÇÕ´Ï´Ù.
+                // Zì¶•ì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „í•˜ê¸° ë•Œë¬¸ì—, Zì¶•ì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „ë˜ë„ë¡ ì¿¼í„°ë‹ˆì–¸(quaternion)ì„ ìƒì„±í•©ë‹ˆë‹¤.
                 Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                // È¸ÀüÀ» Àû¿ëÇÕ´Ï´Ù.
+                // íšŒì „ì„ ì ìš©í•©ë‹ˆë‹¤.
                 transform.rotation = rotation;
             }
             else
@@ -130,11 +130,11 @@ public class EnemyDamageObject : PoolAble
                 Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
                 rigidbody2D.AddForce(direction * launchForce, ForceMode2D.Impulse);
 
-                // ¿ÀºêÁ§Æ®°¡ ³¯¾Æ°¡´Â ¹æÇâÀ» ±âÁØÀ¸·Î È¸ÀüÇÏ±â À§ÇØ °¢µµ¸¦ °è»êÇÕ´Ï´Ù.
+                // ì˜¤ë¸Œì íŠ¸ê°€ ë‚ ì•„ê°€ëŠ” ë°©í–¥ì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „í•˜ê¸° ìœ„í•´ ê°ë„ë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤.
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                // ZÃàÀ» ±âÁØÀ¸·Î È¸ÀüÇÏ±â ¶§¹®¿¡, ZÃàÀ» ±âÁØÀ¸·Î È¸ÀüµÇµµ·Ï ÄõÅÍ´Ï¾ğ(quaternion)À» »ı¼ºÇÕ´Ï´Ù.
+                // Zì¶•ì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „í•˜ê¸° ë•Œë¬¸ì—, Zì¶•ì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „ë˜ë„ë¡ ì¿¼í„°ë‹ˆì–¸(quaternion)ì„ ìƒì„±í•©ë‹ˆë‹¤.
                 Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                // È¸ÀüÀ» Àû¿ëÇÕ´Ï´Ù.
+                // íšŒì „ì„ ì ìš©í•©ë‹ˆë‹¤.
                 transform.rotation = rotation;
                 isEndInit = true;
 
@@ -155,7 +155,7 @@ public class EnemyDamageObject : PoolAble
         // Stop any active DOTween sequences when the object is destroyed
         if (sequence != null)
         {
-            sequence.Kill(); // ½ÃÄö½º¸¦ ÁßÁö
+            sequence.Kill(); // ì‹œí€€ìŠ¤ë¥¼ ì¤‘ì§€
         }
     }
 
@@ -203,10 +203,10 @@ public class EnemyDamageObject : PoolAble
 
         if (collision.tag == "Enemy" && isApcAttack == true)
         {
-            // µ¥¹ÌÁö¸¦ ÀÔÈù ÀûÀÇ ¼ö°¡ ÃÖ´ëÄ¡¸¦ ÃÊ°úÇÏÁö ¾ÊÀº °æ¿ì¿¡¸¸ ½ÇÇà
+            // ë°ë¯¸ì§€ë¥¼ ì…íŒ ì ì˜ ìˆ˜ê°€ ìµœëŒ€ì¹˜ë¥¼ ì´ˆê³¼í•˜ì§€ ì•Šì€ ê²½ìš°ì—ë§Œ ì‹¤í–‰
             if (damagedEnemies.Count < maxDamagedEnemies)
             {
-                // ÀÌ¹Ì µ¥¹ÌÁö¸¦ ÀÔÈù ÀûÀÎÁö È®ÀÎÇÏ°í, µ¥¹ÌÁö¸¦ ÀÔÈ÷Áö ¾ÊÀº °æ¿ì¿¡¸¸ ½ÇÇà
+                // ì´ë¯¸ ë°ë¯¸ì§€ë¥¼ ì…íŒ ì ì¸ì§€ í™•ì¸í•˜ê³ , ë°ë¯¸ì§€ë¥¼ ì…íˆì§€ ì•Šì€ ê²½ìš°ì—ë§Œ ì‹¤í–‰
                 if (!damagedEnemies.Contains(collision))
                 {
                     EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
@@ -221,24 +221,24 @@ public class EnemyDamageObject : PoolAble
                     if (attackSound != null)
                         MasterAudio.PlaySound(attackSound);
 
-                    // Àû¿¡°Ô µ¥¹ÌÁö¸¦ ÀÔÈ÷°í µ¥¹ÌÁö¸¦ ÀÔÈù Àû ¸®½ºÆ®¿¡ Ãß°¡
+                    // ì ì—ê²Œ ë°ë¯¸ì§€ë¥¼ ì…íˆê³  ë°ë¯¸ì§€ë¥¼ ì…íŒ ì  ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
                     enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
                     if (isPosionAttack)
                     {
                         enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
                     }
 
-                    // µ¥¹ÌÁö¸¦ ÀÔÈù Àû ¸®½ºÆ®¿¡ Ãß°¡
+                    // ë°ë¯¸ì§€ë¥¼ ì…íŒ ì  ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
                     damagedEnemies.Add(collision);
                 }
             }
         }
         if (collision.tag == "APC" && isApcAttack == false)
         {
-            // µ¥¹ÌÁö¸¦ ÀÔÈù ÀûÀÇ ¼ö°¡ ÃÖ´ëÄ¡¸¦ ÃÊ°úÇÏÁö ¾ÊÀº °æ¿ì¿¡¸¸ ½ÇÇà
+            // ë°ë¯¸ì§€ë¥¼ ì…íŒ ì ì˜ ìˆ˜ê°€ ìµœëŒ€ì¹˜ë¥¼ ì´ˆê³¼í•˜ì§€ ì•Šì€ ê²½ìš°ì—ë§Œ ì‹¤í–‰
             if (damagedEnemies.Count < maxDamagedEnemies)
             {
-                // ÀÌ¹Ì µ¥¹ÌÁö¸¦ ÀÔÈù ÀûÀÎÁö È®ÀÎÇÏ°í, µ¥¹ÌÁö¸¦ ÀÔÈ÷Áö ¾ÊÀº °æ¿ì¿¡¸¸ ½ÇÇà
+                // ì´ë¯¸ ë°ë¯¸ì§€ë¥¼ ì…íŒ ì ì¸ì§€ í™•ì¸í•˜ê³ , ë°ë¯¸ì§€ë¥¼ ì…íˆì§€ ì•Šì€ ê²½ìš°ì—ë§Œ ì‹¤í–‰
                 if (!damagedEnemies.Contains(collision))
                 {
                     EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
@@ -252,14 +252,14 @@ public class EnemyDamageObject : PoolAble
                     }
 
                     int[] damageArr = { damage, damage,0,0,0,0,0,0,0,0 };
-                    // Àû¿¡°Ô µ¥¹ÌÁö¸¦ ÀÔÈ÷°í µ¥¹ÌÁö¸¦ ÀÔÈù Àû ¸®½ºÆ®¿¡ Ãß°¡
+                    // ì ì—ê²Œ ë°ë¯¸ì§€ë¥¼ ì…íˆê³  ë°ë¯¸ì§€ë¥¼ ì…íŒ ì  ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
                     enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime+0.2f, dmgRatio);
                     if (isPosionAttack)
                     {
                         enemyHealth.CreatPoisonPrefab(poisonDamage, damageInterval, damageCount);
                     }
 
-                    // µ¥¹ÌÁö¸¦ ÀÔÈù Àû ¸®½ºÆ®¿¡ Ãß°¡
+                    // ë°ë¯¸ì§€ë¥¼ ì…íŒ ì  ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
                     damagedEnemies.Add(collision);
                 }
             }
@@ -280,8 +280,8 @@ public class EnemyDamageObject : PoolAble
     public int damageCount;
 
     public bool isApcAttack = false;
-    public int maxDamagedEnemies = 1; // ÃÖ´ë µ¥¹ÌÁö¸¦ ÀÔÈú ÀûÀÇ ¼ö
-    private List<Collider2D> damagedEnemies = new List<Collider2D>(); // µ¥¹ÌÁö¸¦ ÀÔÈù ÀûµéÀÇ ¸®½ºÆ®
+    public int maxDamagedEnemies = 1; // ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì…í ì ì˜ ìˆ˜
+    private List<Collider2D> damagedEnemies = new List<Collider2D>(); // ë°ë¯¸ì§€ë¥¼ ì…íŒ ì ë“¤ì˜ ë¦¬ìŠ¤íŠ¸
     public int[] damageArr;
     public float dmgRatio = 1.0f;
     public float ShakeTime;

@@ -1,4 +1,4 @@
-using BehaviorDesigner.Runtime.Tasks;
+ï»¿using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using BehaviorDesigner.Runtime;
@@ -16,7 +16,7 @@ public class EnemyChase : EnemyAction
         bt = GetComponent<BehaviorTree>();
         isEnd = false;
 
-        // Player °´Ã¼ Ä³½Ì
+        // Player ê°ì²´ ìºì‹±
         if (player == null)
         {
             player = GameObject.FindWithTag("Player");
@@ -26,7 +26,7 @@ public class EnemyChase : EnemyAction
     }
     public override TaskStatus OnUpdate()
     {
-        // sequence°¡ ºñÈ°¼ºÈ­µÈ »óÅÂÀÎÁö È®ÀÎÇÏ¿© Á¾·á ¿©ºÎ¸¦ °áÁ¤
+        // sequenceê°€ ë¹„í™œì„±í™”ëœ ìƒíƒœì¸ì§€ í™•ì¸í•˜ì—¬ ì¢…ë£Œ ì—¬ë¶€ë¥¼ ê²°ì •
         if (bt.sequence == null || !bt.sequence.IsActive())
         {
             isEnd = true;

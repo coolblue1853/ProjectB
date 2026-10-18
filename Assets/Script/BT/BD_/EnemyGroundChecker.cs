@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
@@ -13,18 +13,18 @@ public class EnemyGroundChecker : EnemyConditional
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
-        // ·¹ÀÌ¾î ¸¶½ºÅ©´Â ÇÑ ¹ø¸¸ °è»êÇÏ¿© ÀúÀå
+        // ë ˆì´ì–´ ë§ˆìŠ¤í¬ëŠ” í•œ ë²ˆë§Œ ê³„ì‚°í•˜ì—¬ ì €ì¥
         groundLayerMask = LayerMask.GetMask("Ground");
     }
     public override TaskStatus OnUpdate()
     {
-        // groundCheck2 À§Ä¡¿¡¼­ ¾Æ·¡·Î ·¹ÀÌÄ³½ºÆ®¸¦ ½ô
+        // groundCheck2 ìœ„ì¹˜ì—ì„œ ì•„ë˜ë¡œ ë ˆì´ìºìŠ¤íŠ¸ë¥¼ ì¨
         RaycastHit2D hitRay = Physics2D.Raycast(groundCheck2.transform.position, Vector2.down, groundRayLength, groundLayerMask);
 
-        // µğ¹ö±×¿ë Ray Ãâ·Â (ÇÊ¿äÇÒ ¶§¸¸ È°¼ºÈ­)
+        // ë””ë²„ê·¸ìš© Ray ì¶œë ¥ (í•„ìš”í•  ë•Œë§Œ í™œì„±í™”)
        // Debug.DrawRay(groundCheck2.transform.position, Vector2.down * groundRayLength, Color.red);
 
-        // ¹Ù´ÚÀÌ ¾ø°í Á¡ÇÁ ÁßÀÌÁö ¾ÊÀ¸¸é ¼º°ø ¹İÈ¯
+        // ë°”ë‹¥ì´ ì—†ê³  ì í”„ ì¤‘ì´ì§€ ì•Šìœ¼ë©´ ì„±ê³µ ë°˜í™˜
         if (hitRay.collider == null && !bt.isJumping)
         {
             return TaskStatus.Success;

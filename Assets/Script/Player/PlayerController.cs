@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -11,19 +11,19 @@ public class PlayerController : MonoBehaviour
     public ProCamera2D proCamera;
     int LadderLayer = 31;
     float chInRommSize = 1.5f;
-    public float runSpeed = 10f;  // ÀÌµ¿ ¼Óµµ
-    public int runStemina; // ´Ş¸®±â½Ã »ç¿ëÇÏ´Â ½ºÅ×¹Ì³ª
-    public float intervalRunStemina; // ´Ş¸®±â½Ã »ç¿ëÇÏ´Â ½ºÅ×¹Ì³ª
-    public float moveSpeed = 10f;  // ÀÌµ¿ ¼Óµµ
-    public float jumpForce = 13f; // Á¡ÇÁ Èû
-    public float dashSpeed = 20f; // ´ë½¬ ¼Óµµ
-    public float dashDuration = 0.2f; // ´ë½¬ Áö¼Ó ½Ã°£
-    public float dashWait = 2f; // ´ë½¬ Å¸ÀÌ¸Ó
-    private float dashTimer; // ´ë½¬ Å¸ÀÌ¸Ó
-    public int dashStemina; // ´ë½¬½Ã »ç¿ëÇÏ´Â ½ºÅ×¹Ì³ª
-    public int maxJumps = 2;      // ÃÖ´ë Á¡ÇÁ È½¼ö
-    public int jumpsRemaining;    // ³²Àº Á¡ÇÁ È½¼ö
-    private bool isChangeDirection = false;    // ³²Àº Á¡ÇÁ È½¼ö
+    public float runSpeed = 10f;  // ì´ë™ ì†ë„
+    public int runStemina; // ë‹¬ë¦¬ê¸°ì‹œ ì‚¬ìš©í•˜ëŠ” ìŠ¤í…Œë¯¸ë‚˜
+    public float intervalRunStemina; // ë‹¬ë¦¬ê¸°ì‹œ ì‚¬ìš©í•˜ëŠ” ìŠ¤í…Œë¯¸ë‚˜
+    public float moveSpeed = 10f;  // ì´ë™ ì†ë„
+    public float jumpForce = 13f; // ì í”„ í˜
+    public float dashSpeed = 20f; // ëŒ€ì‰¬ ì†ë„
+    public float dashDuration = 0.2f; // ëŒ€ì‰¬ ì§€ì† ì‹œê°„
+    public float dashWait = 2f; // ëŒ€ì‰¬ íƒ€ì´ë¨¸
+    private float dashTimer; // ëŒ€ì‰¬ íƒ€ì´ë¨¸
+    public int dashStemina; // ëŒ€ì‰¬ì‹œ ì‚¬ìš©í•˜ëŠ” ìŠ¤í…Œë¯¸ë‚˜
+    public int maxJumps = 2;      // ìµœëŒ€ ì í”„ íšŸìˆ˜
+    public int jumpsRemaining;    // ë‚¨ì€ ì í”„ íšŸìˆ˜
+    private bool isChangeDirection = false;    // ë‚¨ì€ ì í”„ íšŸìˆ˜
     private Rigidbody2D rb;
     public bool isGround;
     private bool isRun = false;
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     InputAction downAction;
     public string states = "";
 
-    // ¾Ö´Ï¸ŞÀÌ¼Ç
+    // ì• ë‹ˆë©”ì´ì…˜
     public Transform characterGroup;
     public apPortrait mainCharacter;
     public Texture2D CharBaseSuit2;
@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour
         if(DatabaseManager.isOpenUI == false && isAttacked == false)
         {
             once = false;
-            if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true)// isGround°¡ ÀÖÀ¸¸é 
+            if (rb.velocity != Vector2.zero && DatabaseManager.weaponStopMove == true)// isGroundê°€ ìˆìœ¼ë©´ 
             {
                 rb.velocity = Vector2.zero;
             }
@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
 
                 isRun = false;
             }
-            // ÀÌµ¿
+            // ì´ë™
             if (DatabaseManager.weaponStopMove == false && isUpLadder == false&& states != "dash")
             {
 
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour
             }
 
 
-            // ´ë½¬
+            // ëŒ€ì‰¬
             if (DatabaseManager.isOpenUI == false && uiDashWait == false &&dashAction.triggered && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false 
             {
                 DatabaseManager.weaponStopMove = false;
@@ -224,7 +224,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-            // Á¡ÇÁ
+            // ì í”„
             if (jumpAction.triggered && DatabaseManager.weaponStopMove == false)
             {
                 if (verticalInput < -0.5f && currentOneWayPlatform != null)
@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            // ´ë½¬ Å¸ÀÌ¸Ó ¾÷µ¥ÀÌÆ®
+            // ëŒ€ì‰¬ íƒ€ì´ë¨¸ ì—…ë°ì´íŠ¸
             if (dashTimer > 0f)
             {
                 dashTimer -= Time.deltaTime;
@@ -266,19 +266,19 @@ public class PlayerController : MonoBehaviour
                 rb.gravityScale = 0;
                 isUpLadder = true;
 
-                // ·ÎÇÁ À§¿¡ °íÁ¤½ÃÅ°±â
+                // ë¡œí”„ ìœ„ì— ê³ ì •ì‹œí‚¤ê¸°
                 Vector2 newPosition = new Vector2(nowLadder.transform.position.x, transform.position.y);
                 
-                //·ÎÇÁ ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı, ·¹ÀÌ¾î ¼ø¼­ º¯°æ
+                //ë¡œí”„ ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ, ë ˆì´ì–´ ìˆœì„œ ë³€ê²½
                 SpriteRenderer sR = nowLadder.GetComponent<SpriteRenderer>();
                 SpriteRenderer playerSR = GetComponent<SpriteRenderer>();
                 sR.sortingOrder = playerSR.sortingOrder + 1;
 
-                // ÇöÀç À§Ä¡¿Í ·ÎÇÁ À§Ä¡ »çÀÌÀÇ °Å¸® °è»ê
+                // í˜„ì¬ ìœ„ì¹˜ì™€ ë¡œí”„ ìœ„ì¹˜ ì‚¬ì´ì˜ ê±°ë¦¬ ê³„ì‚°
                 Vector2 distance = newPosition - (Vector2)transform.position;
                 BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
                 boxColliderTrue = true;
-                // Rigidbody ÀÌµ¿À¸·Î ¼ø°£ ÀÌµ¿ ¹æÁö
+                // Rigidbody ì´ë™ìœ¼ë¡œ ìˆœê°„ ì´ë™ ë°©ì§€
                 rb.MovePosition(rb.position + distance);
             }
 
@@ -538,15 +538,15 @@ public class PlayerController : MonoBehaviour
 
 
         rb.gravityScale = 0f;
-        // ´ë½¬ ¼Óµµ·Î¸¸ ÀÌµ¿ÇÏµµ·Ï ¼³Á¤
+        // ëŒ€ì‰¬ ì†ë„ë¡œë§Œ ì´ë™í•˜ë„ë¡ ì„¤ì •
         rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
-        // ´ë½¬ Å¸ÀÌ¸Ó ¼³Á¤
+        // ëŒ€ì‰¬ íƒ€ì´ë¨¸ ì„¤ì •
         dashTimer = dashWait;
 
         moveSequence.Kill();
         dashSequence.Kill();
         dashSequence = DOTween.Sequence()
-        .AppendInterval(dashDuration) // 2ÃÊ ´ë±â
+        .AppendInterval(dashDuration) // 2ì´ˆ ëŒ€ê¸°
         .AppendCallback(() => rb.gravityScale = 3f)
         .AppendCallback(() => rb.velocity = new Vector2(0f, 0f))
         .AppendCallback(() => states = "move");
@@ -556,7 +556,7 @@ public class PlayerController : MonoBehaviour
     {
         DatabaseManager.weaponStopMove = false;
         states = "dash";
-        Debug.Log("´ë½¬°ø°İ");
+        Debug.Log("ëŒ€ì‰¬ê³µê²©");
         if(isDashInvins == true)
         {
             DatabaseManager.isInvincibility = true;
@@ -570,7 +570,7 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 0f;
         }
 
-        // ´ë½¬ ¼Óµµ·Î¸¸ ÀÌµ¿ÇÏµµ·Ï ¼³Á¤
+        // ëŒ€ì‰¬ ì†ë„ë¡œë§Œ ì´ë™í•˜ë„ë¡ ì„¤ì •
         if(isBackDash == true)
         {
             rb.velocity = new Vector2(transform.localScale.x * -dashSpd, transform.localScale.y * dashYSpeed);
@@ -620,7 +620,7 @@ public class PlayerController : MonoBehaviour
         }
         Invoke("ReturnIsGround", 0.2f);
         Sequence sequence = DOTween.Sequence()
-        .AppendInterval(0.4f) // 2ÃÊ ´ë±â
+        .AppendInterval(0.4f) // 2ì´ˆ ëŒ€ê¸°
         .AppendCallback(() => isWallReset =false)
         .AppendCallback(() => states = "s");
 
@@ -653,7 +653,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         jumpsRemaining--;
         isGround = false;
-        // Á¡ÇÁ ÈÄ¿¡µµ isGrounded¸¦ false·Î À¯ÁöÇÏ¿© FixedUpdate¿¡¼­ ´Ù½Ã Ã¼Å©ÇÒ ¼ö ÀÖµµ·Ï ÇÕ´Ï´Ù.
+        // ì í”„ í›„ì—ë„ isGroundedë¥¼ falseë¡œ ìœ ì§€í•˜ì—¬ FixedUpdateì—ì„œ ë‹¤ì‹œ ì²´í¬í•  ìˆ˜ ìˆë„ë¡ í•©ë‹ˆë‹¤.
         Invoke("ReturnIsGround", 0.2f);
     }
 
@@ -673,7 +673,7 @@ public class PlayerController : MonoBehaviour
         hit2 = Physics2D.Raycast(groundCheck2.transform.position, Vector2.down, 0.3f, LayerMask.GetMask("Ground"));
         Debug.DrawRay(groundCheck.transform.position, Vector2.down * 0.3f, Color.red);
 
-        // ¹Ù´Ú °¨Áö ·¹ÀÌÄ³½ºÆ®
+        // ë°”ë‹¥ ê°ì§€ ë ˆì´ìºìŠ¤íŠ¸
 
         if (((hit1.collider != null && hit1.collider.CompareTag("Ground") && IsGrounded(hit1.normal)) ||( hit2.collider != null && hit2.collider.CompareTag("Ground") && IsGrounded(hit2.normal))) && isOnGround == true && isPlafromCheck == true)
         {
@@ -690,7 +690,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        // Ground ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿¡ ´ê¾Ò°í, °¢µµ°¡ ÀÏÁ¤ ¹üÀ§ ³»¿¡ ÀÖÀ¸¸é Á¡ÇÁ È½¼ö ÃÊ±âÈ­
+        // Ground íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì— ë‹¿ì•˜ê³ , ê°ë„ê°€ ì¼ì • ë²”ìœ„ ë‚´ì— ìˆìœ¼ë©´ ì í”„ íšŸìˆ˜ ì´ˆê¸°í™”
         if (hit1.collider != null && hit1.collider.CompareTag("Ground") && IsGrounded(hit1.normal) && isOnGround == true)//&& isPlafromCheck == true
         {
 
@@ -752,9 +752,9 @@ public class PlayerController : MonoBehaviour
     }
     bool IsGrounded(Vector2 normal)
     {
-        // ³»ÀûÀ» »ç¿ëÇÏ¿© °¢µµ°¡ ÀÏÁ¤ ¹üÀ§ ³»¿¡ ÀÖ´ÂÁö È®ÀÎ
+        // ë‚´ì ì„ ì‚¬ìš©í•˜ì—¬ ê°ë„ê°€ ì¼ì • ë²”ìœ„ ë‚´ì— ìˆëŠ”ì§€ í™•ì¸
         float dot = Vector2.Dot(normal, Vector2.up);
-        return dot >= 0.9f; // ³»Àû °ªÀÌ 0.9 ÀÌ»óÀÌ¸é ÀÏÁ¤ ¹üÀ§ ³»¿¡ ÀÖ´Ù°í ÆÇ´Ü
+        return dot >= 0.9f; // ë‚´ì  ê°’ì´ 0.9 ì´ìƒì´ë©´ ì¼ì • ë²”ìœ„ ë‚´ì— ìˆë‹¤ê³  íŒë‹¨
     }
     public bool isLadder;
     public bool isUpLadder;
@@ -778,7 +778,7 @@ public class PlayerController : MonoBehaviour
         isAttackAnim = true;
         if(isUpLadder == true)
         {
-            Debug.Log("°ø°İ½ÃÀÛ");
+            Debug.Log("ê³µê²©ì‹œì‘");
             isRopeAttack = true;
         }
         if (isRevers)
@@ -898,14 +898,14 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (isRopeAttack == true)
                 {
-                    Debug.Log("°ø°İ³¡");
+                    Debug.Log("ê³µê²©ë");
                     isRopeAttack = false;
                     mainCharacter.Play("RopeStay");
                 }
             }
             if (collision.tag == "InGroundPlayer")
             {
-                Debug.Log("³ª°¨");
+                Debug.Log("ë‚˜ê°");
                 platformTrue = false;
             }
         

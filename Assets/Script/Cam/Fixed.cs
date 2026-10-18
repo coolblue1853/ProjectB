@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Fixed : MonoBehaviour
 {
@@ -7,47 +7,47 @@ public class Fixed : MonoBehaviour
 
     private void Start()
     {
-        SetResolution(); // ÃÊ±â¿¡ °ÔÀÓ ÇØ»óµµ °íÁ¤
+        SetResolution(); // ì´ˆê¸°ì— ê²Œì„ í•´ìƒë„ ê³ ì •
         lastScreenWidth = Screen.width;
         lastScreenHeight = Screen.height;
     }
 
     private void Update()
     {
-        // ÇöÀç ÇØ»óµµ¿Í ÀÌÀü ÇØ»óµµ¸¦ ºñ±³
+        // í˜„ì¬ í•´ìƒë„ì™€ ì´ì „ í•´ìƒë„ë¥¼ ë¹„êµ
         if (Screen.width != lastScreenWidth || Screen.height != lastScreenHeight)
         {
-            SetResolution(); // ÇØ»óµµ°¡ º¯°æµÈ °æ¿ì ÇØ»óµµ ¼³Á¤
-            lastScreenWidth = Screen.width; // ÀÌÀü ÇØ»óµµ °ªÀ» °»½Å
+            SetResolution(); // í•´ìƒë„ê°€ ë³€ê²½ëœ ê²½ìš° í•´ìƒë„ ì„¤ì •
+            lastScreenWidth = Screen.width; // ì´ì „ í•´ìƒë„ ê°’ì„ ê°±ì‹ 
             lastScreenHeight = Screen.height;
         }
     }
 
-    /* ÇØ»óµµ ¼³Á¤ÇÏ´Â ÇÔ¼ö */
+    /* í•´ìƒë„ ì„¤ì •í•˜ëŠ” í•¨ìˆ˜ */
     public void SetResolution()
     {
-        int setWidth = 1920; // »ç¿ëÀÚ ¼³Á¤ ³Êºñ
-        int setHeight = 1080; // »ç¿ëÀÚ ¼³Á¤ ³ôÀÌ
+        int setWidth = 1920; // ì‚¬ìš©ì ì„¤ì • ë„ˆë¹„
+        int setHeight = 1080; // ì‚¬ìš©ì ì„¤ì • ë†’ì´
 
-        int deviceWidth = Screen.width; // ±â±â ³Êºñ ÀúÀå
-        int deviceHeight = Screen.height; // ±â±â ³ôÀÌ ÀúÀå
+        int deviceWidth = Screen.width; // ê¸°ê¸° ë„ˆë¹„ ì €ì¥
+        int deviceHeight = Screen.height; // ê¸°ê¸° ë†’ì´ ì €ì¥
 
-        // ÀüÃ¼ È­¸é »óÅÂ°¡ ¾Æ´Ò ¶§¸¸ SetResolutionÀ» È£ÃâÇÏ¿© Ã¢ ¸ğµå¸¦ À¯Áö
+        // ì „ì²´ í™”ë©´ ìƒíƒœê°€ ì•„ë‹ ë•Œë§Œ SetResolutionì„ í˜¸ì¶œí•˜ì—¬ ì°½ ëª¨ë“œë¥¼ ìœ ì§€
         if (!Screen.fullScreen)
         {
-            // ÇöÀç Ã¢ ¸ğµå¸¦ À¯ÁöÇÏ¸é¼­ ÇØ»óµµ ¼³Á¤
+            // í˜„ì¬ ì°½ ëª¨ë“œë¥¼ ìœ ì§€í•˜ë©´ì„œ í•´ìƒë„ ì„¤ì •
             Screen.SetResolution(setWidth, (int)(((float)deviceHeight / deviceWidth) * setWidth), false);
         }
 
-        if ((float)setWidth / setHeight < (float)deviceWidth / deviceHeight) // ±â±âÀÇ ÇØ»óµµ ºñÀ²ÀÌ ´õ Å« °æ¿ì
+        if ((float)setWidth / setHeight < (float)deviceWidth / deviceHeight) // ê¸°ê¸°ì˜ í•´ìƒë„ ë¹„ìœ¨ì´ ë” í° ê²½ìš°
         {
-            float newWidth = ((float)setWidth / setHeight) / ((float)deviceWidth / deviceHeight); // »õ·Î¿î ³Êºñ °è»ê
-            Camera.main.rect = new Rect((1f - newWidth) / 2f, 0f, newWidth, 1f); // »õ·Î¿î Rect Àû¿ë
+            float newWidth = ((float)setWidth / setHeight) / ((float)deviceWidth / deviceHeight); // ìƒˆë¡œìš´ ë„ˆë¹„ ê³„ì‚°
+            Camera.main.rect = new Rect((1f - newWidth) / 2f, 0f, newWidth, 1f); // ìƒˆë¡œìš´ Rect ì ìš©
         }
-        else // °ÔÀÓÀÇ ÇØ»óµµ ºñÀ²ÀÌ ´õ Å« °æ¿ì
+        else // ê²Œì„ì˜ í•´ìƒë„ ë¹„ìœ¨ì´ ë” í° ê²½ìš°
         {
-            float newHeight = ((float)deviceWidth / deviceHeight) / ((float)setWidth / setHeight); // »õ·Î¿î ³ôÀÌ °è»ê
-            Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight); // »õ·Î¿î Rect Àû¿ë
+            float newHeight = ((float)deviceWidth / deviceHeight) / ((float)setWidth / setHeight); // ìƒˆë¡œìš´ ë†’ì´ ê³„ì‚°
+            Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight); // ìƒˆë¡œìš´ Rect ì ìš©
         }
     }
 }

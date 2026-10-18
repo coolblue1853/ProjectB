@@ -1,4 +1,4 @@
-using BehaviorDesigner.Runtime.Tasks;
+ï»¿using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
 using DG.Tweening;
 using UnityEngine;
@@ -18,15 +18,15 @@ public class EnemyAttackNode : EnemyAction
 
     public override void OnStart()
     {
-        // ÇÊ¿ä ½Ã ÇÊ¿äÇÑ ÄÄÆ÷³ÍÆ® Ä³½Ì (ÃÖÀûÈ­)
+        // í•„ìš” ì‹œ í•„ìš”í•œ ì»´í¬ë„ŒíŠ¸ ìºì‹± (ìµœì í™”)
         enemySpawner = GetComponent<EnemyHealth>().enemySpowner;
         bt = GetComponent<BehaviorTree>();
 
-        // ÀÌÀü ¾×¼Ç Á¾·á
+        // ì´ì „ ì•¡ì…˜ ì¢…ë£Œ
         StopAction();
         isEnd = false;
 
-        // °ø°İ ½ÃÀÛ
+        // ê³µê²© ì‹œì‘
         StartAttack();
     }
 
@@ -39,24 +39,24 @@ public class EnemyAttackNode : EnemyAction
     {
         FaceChange();
 
-        // ±âÁ¸ Sequence°¡ ÀÖÀ¸¸é Á¤¸® ÈÄ »õ Sequence ¼³Á¤
+        // ê¸°ì¡´ Sequenceê°€ ìˆìœ¼ë©´ ì •ë¦¬ í›„ ìƒˆ Sequence ì„¤ì •
         if (bt.sequence != null && bt.sequence.IsActive())
         {
             bt.sequence.Kill();
-            bt.sequence = null; // GC ¼öÁıÀ» À§ÇØ null ÇÒ´ç
+            bt.sequence = null; // GC ìˆ˜ì§‘ì„ ìœ„í•´ null í• ë‹¹
         }
 
-        // »õ·Î¿î Sequence »ı¼º ¹× ½ÇÇà
+        // ìƒˆë¡œìš´ Sequence ìƒì„± ë° ì‹¤í–‰
         bt.sequence = DOTween.Sequence()
             .AppendCallback(CreatDamageOb)
             .OnComplete(OnSequenceComplete);
 
-        bt.sequence.SetLink(enemyObject); // enemyObject°¡ ÆÄ±«µÉ ¶§ ÀÚµ¿ ÇØÁ¦ ¼³Á¤
+        bt.sequence.SetLink(enemyObject); // enemyObjectê°€ íŒŒê´´ë  ë•Œ ìë™ í•´ì œ ì„¤ì •
     }
 
     private void FaceChange()
     {
-        // ¹æÇâ ¼³Á¤
+        // ë°©í–¥ ì„¤ì •
         if (isApc && behaviorTree.enemy != null)
         {
             direction = Mathf.Sign(behaviorTree.enemy.transform.position.x - enemyObject.transform.position.x);
@@ -67,7 +67,7 @@ public class EnemyAttackNode : EnemyAction
             direction = Mathf.Sign(target.position.x - enemyObject.transform.position.x);
         }
 
-        // ¹æÇâ¿¡ µû¸¥ ½ºÄÉÀÏ º¯°æ
+        // ë°©í–¥ì— ë”°ë¥¸ ìŠ¤ì¼€ì¼ ë³€ê²½
         enemyObject.transform.localScale = new Vector3(
             direction > 0 ? tfLocalScale : -tfLocalScale,
             enemyObject.transform.localScale.y, 1);
@@ -75,7 +75,7 @@ public class EnemyAttackNode : EnemyAction
 
     private void CreatDamageOb()
     {
-        // °ø°İ ¿ÀºêÁ§Æ® »ı¼º ¹× À§Ä¡ ¼³Á¤
+        // ê³µê²© ì˜¤ë¸Œì íŠ¸ ìƒì„± ë° ìœ„ì¹˜ ì„¤ì •
         Vector2 spawnPos = isSummonPlayerPosX
             ? new Vector2(player.transform.position.x, player.transform.position.y - 1f)
             : attackPivot.transform.position;
@@ -100,7 +100,7 @@ public class EnemyAttackNode : EnemyAction
             enemyDamageObject.LaunchObject();
         }
 
-        // ÂüÁ¶ ÀúÀå
+        // ì°¸ì¡° ì €ì¥
         damageOb = damage;
     }
 

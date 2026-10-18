@@ -1,4 +1,4 @@
-using BehaviorDesigner.Runtime.Tasks;
+ï»¿using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
 using DG.Tweening;
 using UnityEngine;
@@ -23,22 +23,22 @@ public class EnemyJump : EnemyAction
     }
     public void StartJump()
     {
-        // ¼öÁ÷ Á¡ÇÁ Èû ¼³Á¤
+        // ìˆ˜ì§ ì í”„ í˜ ì„¤ì •
         body.velocity = new Vector2(body.velocity.x, jumpForce);
 
-        // x ¹æÇâ Á¡ÇÁ Èû ¼³Á¤
+        // x ë°©í–¥ ì í”„ í˜ ì„¤ì •
         float cSize = enemyObject.transform.localScale.x;
         jumpDir = cSize > 0 ? new Vector2(1, 0) : new Vector2(-1, 0);
 
         body.AddForce(jumpDir.normalized * xJumpForce, ForceMode2D.Impulse);
 
-        // Á¡ÇÁ ÈÄ ¹Ù·Î ¿Ï·á »óÅÂ·Î º¯°æ
+        // ì í”„ í›„ ë°”ë¡œ ì™„ë£Œ ìƒíƒœë¡œ ë³€ê²½
         OnSequenceComplete();
     }
 
     private void OnSequenceComplete()
     {
-        // Á¡ÇÁ ¿Ï·á ½Ã »óÅÂ¸¦ true·Î ¼³Á¤
+        // ì í”„ ì™„ë£Œ ì‹œ ìƒíƒœë¥¼ trueë¡œ ì„¤ì •
         isEnd = true;
     }
 

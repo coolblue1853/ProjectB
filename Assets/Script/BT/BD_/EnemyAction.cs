@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -19,19 +19,19 @@ public class EnemyAction : Action
 
     public override void OnAwake()
     {
-        // GetComponent È£ÃâÀ» ÃÖ¼ÒÈ­ÇÏ¿© ÂüÁ¶ Ä³½Ì
+        // GetComponent í˜¸ì¶œì„ ìµœì†Œí™”í•˜ì—¬ ì°¸ì¡° ìºì‹±
         behaviorTree = GetComponent<BehaviorTree>();
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        // Singleton ÆĞÅÏ »ç¿ë ½Ã PlayerController ÀÎ½ºÅÏ½º Ä³½Ì
+        // Singleton íŒ¨í„´ ì‚¬ìš© ì‹œ PlayerController ì¸ìŠ¤í„´ìŠ¤ ìºì‹±
         player = PlayerController.instance;
         enemyObject = gameObject;
 
-        // transform.localScale °ªÀÌ º¯ÇÏÁö ¾Ê´Â´Ù¸é Ä³½Ì
+        // transform.localScale ê°’ì´ ë³€í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ìºì‹±
         tfLocalScale = enemyObject.transform.localScale.x;
 
-        // ÃÊ±â À§Ä¡ Ä³½Ì
+        // ì´ˆê¸° ìœ„ì¹˜ ìºì‹±
         originPosition = transform.position;
     }
 
@@ -41,18 +41,18 @@ public class EnemyAction : Action
         {
             isEnd = true;
             sequence.Kill();
-            sequence = null; // GC°¡ ¼öÁıÇÒ ¼ö ÀÖµµ·Ï ¼³Á¤
+            sequence = null; // GCê°€ ìˆ˜ì§‘í•  ìˆ˜ ìˆë„ë¡ ì„¤ì •
         }
     }
 
     public void StartAction()
     {
-        // ÇÊ¿ä½Ã Sequence ÃÊ±âÈ­ ¹× Àç»ç¿ë Ã³¸®
+        // í•„ìš”ì‹œ Sequence ì´ˆê¸°í™” ë° ì¬ì‚¬ìš© ì²˜ë¦¬
         if (sequence == null || !sequence.IsActive())
         {
             sequence = DOTween.Sequence();
 
-            // ¾Ö´Ï¸ŞÀÌ¼Ç ¼³Á¤ Ãß°¡ ¹× ¸µÅ© ¿¬°á·Î ÀÚµ¿ ÇØÁ¦ °ü¸®
+            // ì• ë‹ˆë©”ì´ì…˜ ì„¤ì • ì¶”ê°€ ë° ë§í¬ ì—°ê²°ë¡œ ìë™ í•´ì œ ê´€ë¦¬
             sequence.SetLink(enemyObject);
         }
     }

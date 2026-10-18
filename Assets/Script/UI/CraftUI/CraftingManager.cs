@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -28,7 +28,7 @@ public class CraftingManager : MonoBehaviour
     public Image image;
 
     public GameObject needMaterail;
-    public GameObject itemPrefab; // »ı¼ºµÇ´Â Box ÀÎ½ºÅÏ½º
+    public GameObject itemPrefab; // ìƒì„±ë˜ëŠ” Box ì¸ìŠ¤í„´ìŠ¤
                                   // Start is called before the first frame update
 
     int nowLv = 0;
@@ -137,7 +137,7 @@ public class CraftingManager : MonoBehaviour
           //  SetDetail();
         }
 
-        // Invoke("SetDetail", 1f); // ÀÏ´Ü 1ÃÊµÚ¿¡ ÇÏµµ·Ï ÇØ¼­ µô·¹ÀÌ Ã¼Å©¸¦ Çß´Âµ¥ ÀÌ°Å´Â È®ÀÎÇØ¾ßÇÒµí
+        // Invoke("SetDetail", 1f); // ì¼ë‹¨ 1ì´ˆë’¤ì— í•˜ë„ë¡ í•´ì„œ ë”œë ˆì´ ì²´í¬ë¥¼ í–ˆëŠ”ë° ì´ê±°ëŠ” í™•ì¸í•´ì•¼í• ë“¯
 
     }
 
@@ -162,7 +162,7 @@ public class CraftingManager : MonoBehaviour
     {
         if(NeedCountCheck() == true)
         {
-            Debug.Log("Á¦ÀÛ ¼º°ø");
+            Debug.Log("ì œì‘ ì„±ê³µ");
             for (int i = 0; i < nowNeedItem.needItem.Count; i++)
             {
                 for(int j = 0; j < needItemList[i].needCount; j++)
@@ -175,7 +175,7 @@ public class CraftingManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Á¦ÀÛ ½ÇÆĞ");
+            Debug.Log("ì œì‘ ì‹¤íŒ¨");
         }
     }
 
@@ -250,7 +250,7 @@ public class CraftingManager : MonoBehaviour
 
             string folderPath = detail.itemData.equipArea + "/";
 
-            // ¸®¼Ò½º Æú´õ ³»ÀÇ equipNameÀ» ·ÎµåÇÕ´Ï´Ù.
+            // ë¦¬ì†ŒìŠ¤ í´ë” ë‚´ì˜ equipNameì„ ë¡œë“œí•©ë‹ˆë‹¤.
             GameObject prefab = Resources.Load<GameObject>(folderPath + detail.itemData.name);
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
@@ -260,12 +260,12 @@ public class CraftingManager : MonoBehaviour
             equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
             equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
-            if (detail.itemData.equipArea != "Weapon") // ¹æ¾î±¸¶ó¸é
+            if (detail.itemData.equipArea != "Weapon") // ë°©ì–´êµ¬ë¼ë©´
             {
                 Equipment equipment = prefab.GetComponent<Equipment>();
                 InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
             }
-            else // ¹«±âÀÎ °æ¿ì
+            else // ë¬´ê¸°ì¸ ê²½ìš°
             {
                 Weapon weapon = prefab.GetComponent<Weapon>();
                 InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
@@ -311,9 +311,9 @@ public class CraftingManager : MonoBehaviour
         }
         if(downInventoryAction.triggered == true)
         {
-            if (detailCount < 4 && needMaterail.transform.childCount > detailCount+ 4 && itemDataPrefab[detailCount + 4].gameObject.activeSelf == true) // ÇöÀç 0 1 2 3   4 °¡ ÀÖÀ»¶§ 
+            if (detailCount < 4 && needMaterail.transform.childCount > detailCount+ 4 && itemDataPrefab[detailCount + 4].gameObject.activeSelf == true) // í˜„ì¬ 0 1 2 3   4 ê°€ ìˆì„ë•Œ 
             {
-                Debug.Log("ÀÛµ¿1");
+                Debug.Log("ì‘ë™1");
                 detailCount += 4;
                 SetNeedDetail();
             }
@@ -332,7 +332,7 @@ public class CraftingManager : MonoBehaviour
         }
         if (upInventoryAction.triggered == true)
         {
-            if (detailCount >= 4 ) // ÇöÀç 0 1 2 3   4 °¡ ÀÖÀ»¶§ 
+            if (detailCount >= 4 ) // í˜„ì¬ 0 1 2 3   4 ê°€ ìˆì„ë•Œ 
             {
                 detailCount -= 4;
                 SetNeedDetail();
@@ -439,7 +439,7 @@ public class CraftingManager : MonoBehaviour
 
         }
 
-         if (CraftUI.activeSelf == true && changeAction.triggered && cusor.activeSelf == true ) // ¸¸µé·Á´Â ¾ÆÀÌÅÛÀÇµğÅ×ÀÏÃ¢À» Å°´Â °Í
+         if (CraftUI.activeSelf == true && changeAction.triggered && cusor.activeSelf == true ) // ë§Œë“¤ë ¤ëŠ” ì•„ì´í…œì˜ë””í…Œì¼ì°½ì„ í‚¤ëŠ” ê²ƒ
         {
             SetNeedDetail(true);
         }
@@ -454,7 +454,7 @@ public class CraftingManager : MonoBehaviour
 
     public void WeaponOpen()
     {
-          if (isSelfCraft == false && isCraftWeapon == true && CraftUI.activeSelf == false && DatabaseManager.isOpenUI == false) // ¹«±â Á¦ÀÛÀÎ
+          if (isSelfCraft == false && isCraftWeapon == true && CraftUI.activeSelf == false && DatabaseManager.isOpenUI == false) // ë¬´ê¸° ì œì‘ì¸
         {
             PlayerController.instance.uiDashWait = true;
             DeleteAllChildren(needMaterail);
@@ -468,7 +468,7 @@ public class CraftingManager : MonoBehaviour
     }
     public void EquipOpen()
     {
-         if (isSelfCraft == false && isCraftWeapon == false && CraftUI.activeSelf == false && DatabaseManager.isOpenUI == false) // Àåºñ Á¦ÀÛÀÎ
+         if (isSelfCraft == false && isCraftWeapon == false && CraftUI.activeSelf == false && DatabaseManager.isOpenUI == false) // ì¥ë¹„ ì œì‘ì¸
         {
             PlayerController.instance.uiDashWait = true;
             DeleteAllChildren(needMaterail);
@@ -510,7 +510,7 @@ public class CraftingManager : MonoBehaviour
     {
         line = inline;
         childCount = inchild;
-        cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv »óÀÚÀÇ line ÁÙÀÇ count À§Ä¡.
+        cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv ìƒìì˜ line ì¤„ì˜ count ìœ„ì¹˜.
         DeleteAllChildren(needMaterail);
         nowCraftItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<CraftItemCheck>();
         nowNeedItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<NeedItem>();
@@ -519,7 +519,7 @@ public class CraftingManager : MonoBehaviour
     }
     void MoveCusor()
     {
-        cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv »óÀÚÀÇ line ÁÙÀÇ count À§Ä¡.
+        cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv ìƒìì˜ line ì¤„ì˜ count ìœ„ì¹˜.
         if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1))
         {
       
@@ -570,7 +570,7 @@ public class CraftingManager : MonoBehaviour
             sequence = DOTween.Sequence()
             .AppendInterval(waitTime)
             .OnComplete(() => ResetCheckRepeat());
-            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line+1).transform.childCount < childCount+1)  //. 1, 2¹øÂ°ÁÙÀÇ ÀÚ½ÄÄ«¿îÆ® = 2 > ³»Ä«¿îÆ® 2+1
+            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line+1).transform.childCount < childCount+1)  //. 1, 2ë²ˆì§¸ì¤„ì˜ ìì‹ì¹´ìš´íŠ¸ = 2 > ë‚´ì¹´ìš´íŠ¸ 2+1
             {
                 childCount = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line+1).transform.childCount - 1;
             }
@@ -590,7 +590,7 @@ public class CraftingManager : MonoBehaviour
             sequence = DOTween.Sequence()
             .AppendInterval(waitTime)
             .OnComplete(() => ResetCheckRepeat());
-            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line-1).transform.childCount < childCount +1) //  Àú°Ô 2     Áö±İÀÌ 3
+            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line-1).transform.childCount < childCount +1) //  ì €ê²Œ 2     ì§€ê¸ˆì´ 3
             {
                 childCount = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line-1).transform.childCount - 1;
             }
@@ -680,14 +680,14 @@ public class CraftingManager : MonoBehaviour
 
     void DeleteAllChildren(GameObject parent)
     {
-        // ºÎ¸ğ GameObjectÀÇ ÀÚ½Ä GameObject¸¦ ¸ğµÎ °¡Á®¿Í¼­ ¹è¿­¿¡ ÀúÀå
+        // ë¶€ëª¨ GameObjectì˜ ìì‹ GameObjectë¥¼ ëª¨ë‘ ê°€ì ¸ì™€ì„œ ë°°ì—´ì— ì €ì¥
         GameObject[] children = new GameObject[parent.transform.childCount];
         for (int i = 0; i < parent.transform.childCount; i++)
         {
             children[i] = parent.transform.GetChild(i).gameObject;
         }
 
-        // ¹è¿­¿¡ ÀúÀåµÈ ¸ğµç ÀÚ½Ä GameObject¸¦ »èÁ¦
+        // ë°°ì—´ì— ì €ì¥ëœ ëª¨ë“  ìì‹ GameObjectë¥¼ ì‚­ì œ
         foreach (GameObject child in children)
         {
             child.SetActive(false);

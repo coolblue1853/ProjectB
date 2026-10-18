@@ -1,20 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
 public class PlayerChecker : EnemyConditional
 {
-    public Vector2 boxSize ; // È®ÀÎÇÒ Á÷»ç°¢Çü ¿µ¿ªÀÇ Å©±â
-    public LayerMask layerMask; // °ËÃâÇÒ ·¹ÀÌ¾î
-    public string playerTag = "Player"; // ÇÃ·¹ÀÌ¾î ÅÂ±×
+    public Vector2 boxSize ; // í™•ì¸í•  ì§ì‚¬ê°í˜• ì˜ì—­ì˜ í¬ê¸°
+    public LayerMask layerMask; // ê²€ì¶œí•  ë ˆì´ì–´
+    public string playerTag = "Player"; // í”Œë ˆì´ì–´ íƒœê·¸
     public bool isEnemyCheck = false;
     public override TaskStatus OnUpdate()
     {
-        // ÁÖº¯¿¡ ÀÖ´Â ¸ğµç Collider¸¦ °¡Á®¿È
+        // ì£¼ë³€ì— ìˆëŠ” ëª¨ë“  Colliderë¥¼ ê°€ì ¸ì˜´
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxSize, 0f, layerMask);
 
-        // °¡Á®¿Â Collider¸¦ ¼øÈ¸ÇÏ¸é¼­ Player ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ÀÖ´ÂÁö È®ÀÎ
+        // ê°€ì ¸ì˜¨ Colliderë¥¼ ìˆœíšŒí•˜ë©´ì„œ Player íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ìˆëŠ”ì§€ í™•ì¸
         foreach (Collider2D col in colliders)
         {
 
@@ -22,13 +22,13 @@ public class PlayerChecker : EnemyConditional
             {
                 if (col.CompareTag(playerTag))
                 {
-                    // Player ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ÀÖÀ¸¸é Success ¹İÈ¯
+                    // Player íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ìˆìœ¼ë©´ Success ë°˜í™˜
                     return TaskStatus.Success;
                 }
                 else if (col.CompareTag("APC"))
                 {
                     behaviorTree.aPC = col.gameObject;
-                    // Player ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ÀÖÀ¸¸é Success ¹İÈ¯
+                    // Player íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ìˆìœ¼ë©´ Success ë°˜í™˜
                     return TaskStatus.Success;
                 }
 
@@ -38,14 +38,14 @@ public class PlayerChecker : EnemyConditional
                 if (col.CompareTag("Enemy"))
                 {
                     behaviorTree.enemy = col.gameObject;
-                    // Player ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ÀÖÀ¸¸é Success ¹İÈ¯
+                    // Player íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ìˆìœ¼ë©´ Success ë°˜í™˜
                     return TaskStatus.Success;
                 }
             }
 
         }
 
-        // ÁÖº¯¿¡ Player ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ¾øÀ¸¸é Failure ¹İÈ¯
+        // ì£¼ë³€ì— Player íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ìœ¼ë©´ Failure ë°˜í™˜
         return TaskStatus.Failure;
     }
 

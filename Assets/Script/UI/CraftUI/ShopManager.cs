@@ -1,4 +1,4 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,7 +21,7 @@ public class ShopManager : MonoBehaviour
     public TextMeshProUGUI effectPow;
     public TextMeshProUGUI equipArea;
     public Image image;
-    public GameObject itemPrefab; // »ı¼ºµÇ´Â Box ÀÎ½ºÅÏ½º
+    public GameObject itemPrefab; // ìƒì„±ë˜ëŠ” Box ì¸ìŠ¤í„´ìŠ¤
 
     int nowLv = 0;
     int line = 0;
@@ -184,7 +184,7 @@ public class ShopManager : MonoBehaviour
         {
             Transform equip = equipDetail.gameObject.transform;
             string folderPath = nowShopItem.itemData.equipArea + "/";
-            // ¸®¼Ò½º Æú´õ ³»ÀÇ equipNameÀ» ·ÎµåÇÕ´Ï´Ù.
+            // ë¦¬ì†ŒìŠ¤ í´ë” ë‚´ì˜ equipNameì„ ë¡œë“œí•©ë‹ˆë‹¤.
             GameObject prefab = Resources.Load<GameObject>(folderPath + nowShopItem.name);
             equip.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.itemNameT;
@@ -195,12 +195,12 @@ public class ShopManager : MonoBehaviour
             equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.itemData.tear.ToString();
             equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.itemData.rarity);
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, nowShopItem);
-            if (nowShopItem.itemData.equipArea != "Weapon") // ¹æ¾î±¸¶ó¸é
+            if (nowShopItem.itemData.equipArea != "Weapon") // ë°©ì–´êµ¬ë¼ë©´
             {
                 Equipment equipment = prefab.GetComponent<Equipment>();
                 InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
             }
-            else // ¹«±âÀÎ °æ¿ì
+            else // ë¬´ê¸°ì¸ ê²½ìš°
             {
                 Weapon weapon = prefab.GetComponent<Weapon>();
                 InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
@@ -225,11 +225,11 @@ public class ShopManager : MonoBehaviour
        .AppendInterval(waitTime)
        .OnComplete(() => ResetCheckRepeat());
     }
-    public int currentSellValue = 0; // ÇöÀç °¡Áö°í ÀÖ´Â int ¼ö
+    public int currentSellValue = 0; // í˜„ì¬ ê°€ì§€ê³  ìˆëŠ” int ìˆ˜
     public GameObject sellUIGameObject;
     int totalSellPrice;
     public TextMeshProUGUI sellText;
-    public Slider sellSlider; // Unity Inspector¿¡¼­ Slider¸¦ ÇÒ´ç
+    public Slider sellSlider; // Unity Inspectorì—ì„œ Sliderë¥¼ í• ë‹¹
     int output;
     public void SellItemUI()
     {
@@ -261,9 +261,9 @@ public class ShopManager : MonoBehaviour
     {
         sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
         sellSlider.maxValue = Mathf.Min(nowShopItem.itemData.maxStack, DatabaseManager.money / nowShopItem.buyprice);
-        // ½½¶óÀÌ´õÀÇ ÃÖ¼Ò°ª°ú ÃÖ´ë°ª ¼³Á¤
+        // ìŠ¬ë¼ì´ë”ì˜ ìµœì†Œê°’ê³¼ ìµœëŒ€ê°’ ì„¤ì •
         sellSlider.minValue = 1;
-        // ½½¶óÀÌ´õÀÇ ÇöÀç °ª ¼³Á¤
+        // ìŠ¬ë¼ì´ë”ì˜ í˜„ì¬ ê°’ ì„¤ì •
         sellSlider.value = 1;
         output = 1;
     }
@@ -412,13 +412,13 @@ public class ShopManager : MonoBehaviour
     {
         line = inline;
         childCount = inchild;
-        cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv »óÀÚÀÇ line ÁÙÀÇ count À§Ä¡.
+        cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv ìƒìì˜ line ì¤„ì˜ count ìœ„ì¹˜.
         nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
         SetDetail();
     }
     void MoveCusor()
     {
-        cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv »óÀÚÀÇ line ÁÙÀÇ count À§Ä¡.
+        cusor.transform.position = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).position; // lv ìƒìì˜ line ì¤„ì˜ count ìœ„ì¹˜.
         if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1))
         {
             if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.childCount > childCount + 1)
@@ -451,7 +451,7 @@ public class ShopManager : MonoBehaviour
         if (((downInventoryAction.triggered) || (checkRepeat == false && verticalInput == -1)) && LV1craftBox[nowLv].transform.GetChild(nowPage).transform.childCount > line+1)
         {
             CusorContinuousInputCheck();
-            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line+1).transform.childCount < childCount+1)  //. 1, 2¹øÂ°ÁÙÀÇ ÀÚ½ÄÄ«¿îÆ® = 2 > ³»Ä«¿îÆ® 2+1
+            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line+1).transform.childCount < childCount+1)  //. 1, 2ë²ˆì§¸ì¤„ì˜ ìì‹ì¹´ìš´íŠ¸ = 2 > ë‚´ì¹´ìš´íŠ¸ 2+1
             {
                 childCount = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line+1).transform.childCount - 1;
             }
@@ -463,7 +463,7 @@ public class ShopManager : MonoBehaviour
         if (((upInventoryAction.triggered) || (checkRepeat == false && verticalInput == 1)) && 0 < line)
         {
             CusorContinuousInputCheck();
-            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line-1).transform.childCount < childCount +1) //  Àú°Ô 2     Áö±İÀÌ 3
+            if (LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line-1).transform.childCount < childCount +1) //  ì €ê²Œ 2     ì§€ê¸ˆì´ 3
             {
                 childCount = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line-1).transform.childCount - 1;
             }

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,26 +12,26 @@ public class ResizeBackground : MonoBehaviour
 
     private void Start()
     {
-        // ÃÊ±â ½ºÄÉÀÏ ¼³Á¤
+        // ì´ˆê¸° ìŠ¤ì¼€ì¼ ì„¤ì •
         initialScale = defaultSkyScale;
         transform.localScale = initialScale;
     }
 
     private void Update()
     {
-        // Ä«¸Ş¶óÀÇ Åõ»ç Å©±â¿¡ µû¶ó ½ºÄÉÀÏ Á¶Á¤
+        // ì¹´ë©”ë¼ì˜ íˆ¬ì‚¬ í¬ê¸°ì— ë”°ë¼ ìŠ¤ì¼€ì¼ ì¡°ì •
         float orthographicSize = mainCamera.orthographicSize;
         float aspectRatio = mainCamera.aspect;
 
-        // »õ·Î¿î ½ºÄÉÀÏ °è»ê
+        // ìƒˆë¡œìš´ ìŠ¤ì¼€ì¼ ê³„ì‚°
         float newScaleX = orthographicSize * 2 * aspectRatio * scaleMultiplier;
         float newScaleY = orthographicSize * 2 * scaleMultiplier;
 
-        // ÇöÀç ½ºÄÉÀÏ°ú ºñ±³ÇÏ¿© º¯°æ ¿©ºÎ °áÁ¤
+        // í˜„ì¬ ìŠ¤ì¼€ì¼ê³¼ ë¹„êµí•˜ì—¬ ë³€ê²½ ì—¬ë¶€ ê²°ì •
         Vector3 newScale = new Vector3(newScaleX, newScaleY, transform.localScale.z);
         if (newScale != transform.localScale)
         {
-            // º¯°æÀÌ ÇÊ¿äÇÑ °æ¿ì¿¡¸¸ »õ·Î¿î ½ºÄÉÀÏ Àû¿ë
+            // ë³€ê²½ì´ í•„ìš”í•œ ê²½ìš°ì—ë§Œ ìƒˆë¡œìš´ ìŠ¤ì¼€ì¼ ì ìš©
             transform.localScale = newScale;
         }
     }

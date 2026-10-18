@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using DG.Tweening;
 using UnityEngine.InputSystem;
 using Com.LuisPedroFonseca.ProCamera2D;
@@ -6,7 +6,7 @@ public class Portal : MonoBehaviour
 {
     KeyAction action;
     InputAction upAction;
-    public Transform destination; // Æ÷Å»ÀÇ ¸ñÀûÁö
+    public Transform destination; // í¬íƒˆì˜ ëª©ì ì§€
     public GameObject closeMap;
     private PoolCheck closeMapCheck;
     public GameObject openMap;
@@ -34,7 +34,7 @@ public class Portal : MonoBehaviour
         if (upAction.triggered == true && DatabaseManager.isUsePortal == false && isMapChange == true && player != null)
         {
             player.transform.position = destination.position;
-            Debug.Log("Æ÷Å»ÀÛµ¿");
+            Debug.Log("í¬íƒˆì‘ë™");
             DatabaseManager.isUsePortal = true;
             Sequence seq = DOTween.Sequence()
            .AppendCallback(() => AbleOpenMap())
@@ -78,7 +78,7 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®°¡ Player ÅÂ±×¸¦ °¡Áö°í ÀÖ´Ù¸é
+        // ì¶©ëŒí•œ ì˜¤ë¸Œì íŠ¸ê°€ Player íƒœê·¸ë¥¼ ê°€ì§€ê³  ìˆë‹¤ë©´
         if (collision.transform.tag == "Player")
         {
             player = collision.gameObject;
@@ -87,7 +87,7 @@ public class Portal : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        // Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®°¡ Player ÅÂ±×¸¦ °¡Áö°í ÀÖ´Ù¸é
+        // ì¶©ëŒí•œ ì˜¤ë¸Œì íŠ¸ê°€ Player íƒœê·¸ë¥¼ ê°€ì§€ê³  ìˆë‹¤ë©´
         if (collision.transform.tag == "Player")
         {
             player = null;

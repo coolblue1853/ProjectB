@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +37,7 @@ public class SetItem : MonoBehaviour
         }
     }
 
-    public string SetEffectStr(string name, int level) //¿ÜºÎ¿¡¼­ ¼¼Æ® ¾ÆÀÌÅÛÀÇ È¿°ú¸¦ È®ÀÎÇÒ ¼ö ÀÖ´Â Ç×¸ñ.
+    public string SetEffectStr(string name, int level) //ì™¸ë¶€ì—ì„œ ì„¸íŠ¸ ì•„ì´í…œì˜ íš¨ê³¼ë¥¼ í™•ì¸í•  ìˆ˜ ìˆëŠ” í•­ëª©.
     {
         SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name + "_" + level));
         if (item != null)
@@ -57,7 +57,7 @@ public class SetItem : MonoBehaviour
             string[] sprateStr = value.Split(")");
             string sign = sprateStr[0].Substring(1,1);
             string[] effectSub = sprateStr[1].Split(" ");
-            if(effectSub[1] == "skillHitCount" || effectSub[1] == "bulletCount" || effectSub[1] == "coolDown") // ½ºÅ³ ÀÌ¸§ÀÌ ÇÊ¿äÇÑ °æ¿ì ¿©±â¿¡ Ãß¤¡ÇØ Áà¾ßÇÔ
+            if(effectSub[1] == "skillHitCount" || effectSub[1] == "bulletCount" || effectSub[1] == "coolDown") // ìŠ¤í‚¬ ì´ë¦„ì´ í•„ìš”í•œ ê²½ìš° ì—¬ê¸°ì— ì¶”ã„±í•´ ì¤˜ì•¼í•¨
             {
                  skillName = effectSub[2].Replace("_", " ");
             }
@@ -71,7 +71,7 @@ public class SetItem : MonoBehaviour
                     case ("Hp"):
                         if (sign == "+") PlayerHealthManager.Instance.EquipmentActiveTrue(int.Parse(effectSub[0]));
                         break;
-                    case ("skillHitCount"): // Æ¯Á¤ ½ºÅ³ÀÇ »ı¼º ¼ıÀÚ Áõ°¡
+                    case ("skillHitCount"): // íŠ¹ì • ìŠ¤í‚¬ì˜ ìƒì„± ìˆ«ì ì¦ê°€
                         if (sign == "+")
                         {
 
@@ -85,7 +85,7 @@ public class SetItem : MonoBehaviour
                             }
                         }
                         break;
-                    case ("coolDown"): // Æ¯Á¤ ½ºÅ³ÀÇ »ı¼º ¼ıÀÚ Áõ°¡
+                    case ("coolDown"): // íŠ¹ì • ìŠ¤í‚¬ì˜ ìƒì„± ìˆ«ì ì¦ê°€
                         if (sign == "+")
                         {
                             if (DatabaseManager.skillCoolDown.ContainsKey(skillName))
@@ -98,7 +98,7 @@ public class SetItem : MonoBehaviour
                             }
                         }
                         break;
-                    case ("bulletCount"): // Æ¯Á¤ ½ºÅ³ÀÇ »ı¼º ¼ıÀÚ Áõ°¡, ½ºÅ³ ÀÌ¸§ÀÌ ÇÊ¿äÇÑ °æ¿ì´Â À§¿¡ ||¿¡ ÇØ´ç ÆÄÆ®¸¦ Ãß°¡ÇØ Áà¾ßÇÔ
+                    case ("bulletCount"): // íŠ¹ì • ìŠ¤í‚¬ì˜ ìƒì„± ìˆ«ì ì¦ê°€, ìŠ¤í‚¬ ì´ë¦„ì´ í•„ìš”í•œ ê²½ìš°ëŠ” ìœ„ì— ||ì— í•´ë‹¹ íŒŒíŠ¸ë¥¼ ì¶”ê°€í•´ ì¤˜ì•¼í•¨
                         if (sign == "+")
                         {
                             
@@ -124,7 +124,7 @@ public class SetItem : MonoBehaviour
                     case ("Hp"):
                         if (sign == "+") PlayerHealthManager.Instance.EquipmentActiveFalse(int.Parse(effectSub[0]));
                         break;
-                    case ("skillHitCount"): // Æ¯Á¤ ½ºÅ³ÀÇ »ı¼º ¼ıÀÚ Áõ°¡
+                    case ("skillHitCount"): // íŠ¹ì • ìŠ¤í‚¬ì˜ ìƒì„± ìˆ«ì ì¦ê°€
                         if (sign == "+")
                         {
                             DatabaseManager.skillHitCount[skillName] -= int.Parse(effectSub[0]);
@@ -134,7 +134,7 @@ public class SetItem : MonoBehaviour
                             }
                         }
                         break;
-                    case ("bulletCount"): // Æ¯Á¤ ½ºÅ³ÀÇ »ı¼º ¼ıÀÚ Áõ°¡
+                    case ("bulletCount"): // íŠ¹ì • ìŠ¤í‚¬ì˜ ìƒì„± ìˆ«ì ì¦ê°€
                         if (sign == "+")
                         {
                             DatabaseManager.skillBulletCount[skillName] -= int.Parse(effectSub[0]);
@@ -144,7 +144,7 @@ public class SetItem : MonoBehaviour
                             }
                         }
                         break;
-                    case ("coolDown"): // Æ¯Á¤ ½ºÅ³ÀÇ »ı¼º ¼ıÀÚ Áõ°¡
+                    case ("coolDown"): // íŠ¹ì • ìŠ¤í‚¬ì˜ ìƒì„± ìˆ«ì ì¦ê°€
                         if (sign == "+")
                         {
                             DatabaseManager.skillCoolDown[skillName] -= int.Parse(effectSub[0]);
@@ -167,18 +167,18 @@ public class SetItem : MonoBehaviour
 
     void LoadSetFromCSV(string filePath)
     {
-        TextAsset csvData = Resources.Load<TextAsset>(filePath); // Resources Æú´õ¿¡ ÀÖ´Â CSV ÆÄÀÏÀ» ºÒ·¯¿É´Ï´Ù.
-        string[] lines = csvData.text.Split(new char[] { '\n' }); // CSV ÆÄÀÏ ³»¿ëÀ» ÁÙ ´ÜÀ§·Î ºĞÇÒÇÕ´Ï´Ù.
+        TextAsset csvData = Resources.Load<TextAsset>(filePath); // Resources í´ë”ì— ìˆëŠ” CSV íŒŒì¼ì„ ë¶ˆëŸ¬ì˜µë‹ˆë‹¤.
+        string[] lines = csvData.text.Split(new char[] { '\n' }); // CSV íŒŒì¼ ë‚´ìš©ì„ ì¤„ ë‹¨ìœ„ë¡œ ë¶„í• í•©ë‹ˆë‹¤.
 
-        // °¢ ¶óÀÎÀÇ µ¥ÀÌÅÍ¸¦ Ã³¸®ÇÕ´Ï´Ù.
-        for (int i = 2; i < lines.Length; i++) // Ã¹ ¹øÂ° ÁÙÀº Å¸ÀÔ Á¤ÀÇ, µÎ ¹øÂ° ÁÙÀº ¿­ ÀÌ¸§ÀÌ¹Ç·Î 2ºÎÅÍ ½ÃÀÛÇÕ´Ï´Ù.
+        // ê° ë¼ì¸ì˜ ë°ì´í„°ë¥¼ ì²˜ë¦¬í•©ë‹ˆë‹¤.
+        for (int i = 2; i < lines.Length; i++) // ì²« ë²ˆì§¸ ì¤„ì€ íƒ€ì… ì •ì˜, ë‘ ë²ˆì§¸ ì¤„ì€ ì—´ ì´ë¦„ì´ë¯€ë¡œ 2ë¶€í„° ì‹œì‘í•©ë‹ˆë‹¤.
         {
-            string[] values = lines[i].Split(','); // °¢ ¶óÀÎÀÇ µ¥ÀÌÅÍ¸¦ ½°Ç¥·Î ºĞÇÒÇÕ´Ï´Ù.
+            string[] values = lines[i].Split(','); // ê° ë¼ì¸ì˜ ë°ì´í„°ë¥¼ ì‰¼í‘œë¡œ ë¶„í• í•©ë‹ˆë‹¤.
 
             SetData setitem = new SetData();
             for (int j = 0; j < values.Length; j++)
             {
-                // °¢ ¿­ÀÇ Å¸ÀÔ¿¡ µû¶ó ÀûÀıÇÑ ÇüÅÂ·Î °ªÀ» º¯È¯ÇÏ¿© ItemData °´Ã¼¿¡ ÀúÀåÇÕ´Ï´Ù.
+                // ê° ì—´ì˜ íƒ€ì…ì— ë”°ë¼ ì ì ˆí•œ í˜•íƒœë¡œ ê°’ì„ ë³€í™˜í•˜ì—¬ ItemData ê°ì²´ì— ì €ì¥í•©ë‹ˆë‹¤.
                 switch (j)
                 {
                     case 0: // index

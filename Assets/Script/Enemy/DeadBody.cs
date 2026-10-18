@@ -1,30 +1,30 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 public class DeadBody : PoolAble
 {
 
-    public float maxNForce = 10; // ÃÖ´ë ³Ë¹é Èû
+    public float maxNForce = 10; // ìµœëŒ€ ë„‰ë°± í˜
     GameObject player;
     public GameObject parentEnemy;
     Vector2 knockbackDir;
     private Vector3[] partsPosition;
     private GameObject[] partsObject;
-    private Quaternion[] partsRotation; // ÆÄÃ÷µéÀÇ ·ÎÄÃ È¸Àü »óÅÂ¸¦ ÀúÀåÇÒ ¹è¿­
+    private Quaternion[] partsRotation; // íŒŒì¸ ë“¤ì˜ ë¡œì»¬ íšŒì „ ìƒíƒœë¥¼ ì €ì¥í•  ë°°ì—´
     private void Awake()
     {
         partsPosition = new Vector3[transform.childCount];
         partsObject = new GameObject[transform.childCount];
-        partsRotation = new Quaternion[transform.childCount]; // ·ÎÄÃ È¸Àü ¹è¿­ »ı¼º
+        partsRotation = new Quaternion[transform.childCount]; // ë¡œì»¬ íšŒì „ ë°°ì—´ ìƒì„±
 
-        // ÆÄÃ÷µéÀÇ ·ÎÄÃ ÁÂÇ¥¸¦ ÀúÀå
+        // íŒŒì¸ ë“¤ì˜ ë¡œì»¬ ì¢Œí‘œë¥¼ ì €ì¥
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform T = transform.GetChild(i);
             partsObject[i] = T.gameObject;
-            partsPosition[i] = T.localPosition; // Àü¿ª ÁÂÇ¥°¡ ¾Æ´Ñ ·ÎÄÃ ÁÂÇ¥·Î ÀúÀå
-            partsRotation[i] = T.localRotation;    // ·ÎÄÃ È¸Àü ÀúÀå
+            partsPosition[i] = T.localPosition; // ì „ì—­ ì¢Œí‘œê°€ ì•„ë‹Œ ë¡œì»¬ ì¢Œí‘œë¡œ ì €ì¥
+            partsRotation[i] = T.localRotation;    // ë¡œì»¬ íšŒì „ ì €ì¥
         }
     }
     private void OnEnable()
@@ -38,17 +38,17 @@ public class DeadBody : PoolAble
     {
 
 
-        // °¢ ÆÄÃ÷ÀÇ ·ÎÄÃ ÁÂÇ¥¸¦ ¿ø·¡´ë·Î µÇµ¹¸²
+        // ê° íŒŒì¸ ì˜ ë¡œì»¬ ì¢Œí‘œë¥¼ ì›ë˜ëŒ€ë¡œ ë˜ëŒë¦¼
         for (int i = 0; i < transform.childCount; i++)
         {
-            partsObject[i].transform.localPosition = partsPosition[i]; // ·ÎÄÃ ÁÂÇ¥ º¹±¸
-            partsObject[i].transform.localRotation = partsRotation[i];  // ·ÎÄÃ È¸Àü º¹±¸
-            // ÆÄÃ÷°¡ ¹°¸®ÀûÀ¸·Î ¿òÁ÷¿´À» °æ¿ì¸¦ ´ëºñÇØ Rigidbody2D ÃÊ±âÈ­
+            partsObject[i].transform.localPosition = partsPosition[i]; // ë¡œì»¬ ì¢Œí‘œ ë³µêµ¬
+            partsObject[i].transform.localRotation = partsRotation[i];  // ë¡œì»¬ íšŒì „ ë³µêµ¬
+            // íŒŒì¸ ê°€ ë¬¼ë¦¬ì ìœ¼ë¡œ ì›€ì§ì˜€ì„ ê²½ìš°ë¥¼ ëŒ€ë¹„í•´ Rigidbody2D ì´ˆê¸°í™”
             Rigidbody2D rb = partsObject[i].GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.velocity = Vector2.zero; // ¼Óµµ ÃÊ±âÈ­
-                rb.angularVelocity = 0f;    // È¸Àü ¼Óµµ ÃÊ±âÈ­
+                rb.velocity = Vector2.zero; // ì†ë„ ì´ˆê¸°í™”
+                rb.angularVelocity = 0f;    // íšŒì „ ì†ë„ ì´ˆê¸°í™”
             }
         }
         if(this.gameObject.activeSelf != false)
@@ -69,7 +69,7 @@ public class DeadBody : PoolAble
     {
 
         Invoke("ResetParts", 2f);
-        if (knockbackForce > maxNForce) // ÃÖ´ë ³Ë¹é ¼Óµµ
+        if (knockbackForce > maxNForce) // ìµœëŒ€ ë„‰ë°± ì†ë„
         {
             knockbackForce = maxNForce;
         }

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
@@ -24,11 +24,11 @@ public class EnemyConditional : Conditional
     }
     public void StopAllActions()
     {
-        // GetActiveTasks ¸Ş¼­µå°¡ nullÀ» ¹İÈ¯ÇÒ ¼ö ÀÖÀ¸¹Ç·Î ¿¹¿Ü Ã³¸®
+        // GetActiveTasks ë©”ì„œë“œê°€ nullì„ ë°˜í™˜í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ì˜ˆì™¸ ì²˜ë¦¬
         List<BehaviorDesigner.Runtime.Tasks.Task> activeTasks = behaviorTree.GetActiveTasks();
         if (activeTasks != null)
         {
-            // Behavior Tree¿¡¼­ ½ÇÇà ÁßÀÎ ¸ğµç Task¸¦ Ã£¾Æ¼­ ÁßÁö
+            // Behavior Treeì—ì„œ ì‹¤í–‰ ì¤‘ì¸ ëª¨ë“  Taskë¥¼ ì°¾ì•„ì„œ ì¤‘ì§€
             foreach (BehaviorDesigner.Runtime.Tasks.Task task in activeTasks)
             {
                 if (task is EnemyAction)

@@ -1,14 +1,14 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillCooldown : MonoBehaviour
 {
 
     public Image[] backImage = new Image[4];
-    public Image[] cooldownImage = new Image[4]; // ÄğÅ¸ÀÓ ÀÌ¹ÌÁö
-    public float[] cooldownTime = new float[4]; // ÄğÅ¸ÀÓ ½Ã°£ (ÃÊ)
-    public bool[] isCooldown = new bool[4]; // ÄğÅ¸ÀÓ ÁßÀÎÁö ¿©ºÎ È®ÀÎÀ» À§ÇÑ º¯¼ö
-    private float[] cooldownTimer = new float[4]; // ÄğÅ¸ÀÓ Å¸ÀÌ¸Ó
+    public Image[] cooldownImage = new Image[4]; // ì¿¨íƒ€ì„ ì´ë¯¸ì§€
+    public float[] cooldownTime = new float[4]; // ì¿¨íƒ€ì„ ì‹œê°„ (ì´ˆ)
+    public bool[] isCooldown = new bool[4]; // ì¿¨íƒ€ì„ ì¤‘ì¸ì§€ ì—¬ë¶€ í™•ì¸ì„ ìœ„í•œ ë³€ìˆ˜
+    private float[] cooldownTimer = new float[4]; // ì¿¨íƒ€ì„ íƒ€ì´ë¨¸
     static public SkillCooldown instance;
     public void ResetCoolTime()
     {
@@ -42,12 +42,12 @@ public class SkillCooldown : MonoBehaviour
         {
             if (isCooldown[i] && cooldownImage[i] != null)
             {
-                cooldownTimer[i] -= Time.deltaTime; // ÄğÅ¸ÀÓ Å¸ÀÌ¸Ó¸¦ °¨¼Ò½ÃÅµ´Ï´Ù.
-                cooldownImage[i].fillAmount = 1 - (cooldownTimer[i] / cooldownTime[i]); // ÀÌ¹ÌÁö¸¦ ¾÷µ¥ÀÌÆ®ÇÏ¿© ÄğÅ¸ÀÓÀ» Ç¥½ÃÇÕ´Ï´Ù.
-                if (cooldownTimer[i] <= 0)                // ÄğÅ¸ÀÓÀÌ ¿Ï·áµÇ¾úÀ» ¶§
+                cooldownTimer[i] -= Time.deltaTime; // ì¿¨íƒ€ì„ íƒ€ì´ë¨¸ë¥¼ ê°ì†Œì‹œí‚µë‹ˆë‹¤.
+                cooldownImage[i].fillAmount = 1 - (cooldownTimer[i] / cooldownTime[i]); // ì´ë¯¸ì§€ë¥¼ ì—…ë°ì´íŠ¸í•˜ì—¬ ì¿¨íƒ€ì„ì„ í‘œì‹œí•©ë‹ˆë‹¤.
+                if (cooldownTimer[i] <= 0)                // ì¿¨íƒ€ì„ì´ ì™„ë£Œë˜ì—ˆì„ ë•Œ
                 {
-                    isCooldown[i] = false; // ÄğÅ¸ÀÓ »óÅÂ¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
-                    cooldownImage[i].fillAmount = 1; // ÀÌ¹ÌÁö¸¦ °¡µæ Ã¤¿ó´Ï´Ù.
+                    isCooldown[i] = false; // ì¿¨íƒ€ì„ ìƒíƒœë¥¼ í•´ì œí•©ë‹ˆë‹¤.
+                    cooldownImage[i].fillAmount = 1; // ì´ë¯¸ì§€ë¥¼ ê°€ë“ ì±„ì›ë‹ˆë‹¤.
                 }
             }
         }
@@ -60,18 +60,18 @@ public class SkillCooldown : MonoBehaviour
             cooldownImage[i].sprite = null;
         }
     }
-    // ½ºÅ³À» »ç¿ëÇÒ ¶§ È£ÃâµÇ´Â ÇÔ¼ö
+    // ìŠ¤í‚¬ì„ ì‚¬ìš©í•  ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
     public void UseSkill(int skillNum,string skillName) 
     {
-        if (!isCooldown[skillNum]) // ÄğÅ¸ÀÓ ÁßÀÌ ¾Æ´Ï¶ó¸é
+        if (!isCooldown[skillNum]) // ì¿¨íƒ€ì„ ì¤‘ì´ ì•„ë‹ˆë¼ë©´
         {
             float cooldownPower = 0;
             if (DatabaseManager.skillCoolDown.ContainsKey(skillName))
                 cooldownPower = DatabaseManager.skillCoolDown[skillName];
-            isCooldown[skillNum] = true; // ÄğÅ¸ÀÓÀ» ½ÃÀÛÇÕ´Ï´Ù.
-            if (cooldownPower == 0) cooldownTimer[skillNum] = cooldownTime[skillNum]; // ÄğÅ¸ÀÓ Å¸ÀÌ¸Ó¸¦ ÃÊ±âÈ­ÇÕ´Ï´Ù.
-            else cooldownTimer[skillNum] = cooldownTime[skillNum] * (1 - cooldownPower / 100); // ÄğÅ¸ÀÓ Å¸ÀÌ¸Ó¸¦ ÃÊ±âÈ­ÇÕ´Ï´Ù.
-            cooldownImage[skillNum].fillAmount = 0; // ÀÌ¹ÌÁö¸¦ ÃÊ±âÈ­ÇÕ´Ï´Ù.
+            isCooldown[skillNum] = true; // ì¿¨íƒ€ì„ì„ ì‹œì‘í•©ë‹ˆë‹¤.
+            if (cooldownPower == 0) cooldownTimer[skillNum] = cooldownTime[skillNum]; // ì¿¨íƒ€ì„ íƒ€ì´ë¨¸ë¥¼ ì´ˆê¸°í™”í•©ë‹ˆë‹¤.
+            else cooldownTimer[skillNum] = cooldownTime[skillNum] * (1 - cooldownPower / 100); // ì¿¨íƒ€ì„ íƒ€ì´ë¨¸ë¥¼ ì´ˆê¸°í™”í•©ë‹ˆë‹¤.
+            cooldownImage[skillNum].fillAmount = 0; // ì´ë¯¸ì§€ë¥¼ ì´ˆê¸°í™”í•©ë‹ˆë‹¤.
         }
     }
 }

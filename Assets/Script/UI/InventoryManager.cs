@@ -1,4 +1,4 @@
-using System.Text;
+ï»¿using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,21 +10,21 @@ public class InventoryManager : MonoBehaviour
 {
     public bool deletInventory;
     public GameObject player;
-    public GameObject inventoryBoxPrefab; // »ı¼ºµÇ´Â Box ÀÎ½ºÅÏ½º
-    public GameObject itemPrefab; // »ı¼ºµÇ´Â Box ÀÎ½ºÅÏ½º
+    public GameObject inventoryBoxPrefab; // ìƒì„±ë˜ëŠ” Box ì¸ìŠ¤í„´ìŠ¤
+    public GameObject itemPrefab; // ìƒì„±ë˜ëŠ” Box ì¸ìŠ¤í„´ìŠ¤
     public GameObject[] inventoryUI;
     public GameObject[] inventoryUIBack;
     public GameObject[] inventoryBox;
     Image cusorImage;
-    public GameObject cusor; // ÀÎº¥Åä¸® Ä¿¼­
-    public GameObject changeCusor; // ÀÎº¥Åä¸® Ä¿¼­
-    public int[] cusorCount = new int[5]; // ÀÎº¥Åä¸® Ä¿¼­
-    public int boxCusor = 0; // ¹Ú½º ÀÌµ¿½Ã Ä¿¼­ int
-    int maxBoxCusor = 0; // ÃÖ´ë ÀÌµ¿ °¡´É ¹Ú½º Ä¿¼­
+    public GameObject cusor; // ì¸ë²¤í† ë¦¬ ì»¤ì„œ
+    public GameObject changeCusor; // ì¸ë²¤í† ë¦¬ ì»¤ì„œ
+    public int[] cusorCount = new int[5]; // ì¸ë²¤í† ë¦¬ ì»¤ì„œ
+    public int boxCusor = 0; // ë°•ìŠ¤ ì´ë™ì‹œ ì»¤ì„œ int
+    int maxBoxCusor = 0; // ìµœëŒ€ ì´ë™ ê°€ëŠ¥ ë°•ìŠ¤ ì»¤ì„œ
     public int maxBoxNum;
     public int[,] inventoryArray;
 
-    public int nowBox;  // ÀÌ°ÍÀ¸·Î ¹è¿­ÀÇ °ªÀ» ÀĞ¾î¿À¸é µÊ. Áï, nowBox°¡ 2ÀÏ¶§ÀÇ 15¹øÀç´Â 30 +15 -> 45¹øÂ° Ä­¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÌ¶ó´Â ¸»ÀÌ µÊ.
+    public int nowBox;  // ì´ê²ƒìœ¼ë¡œ ë°°ì—´ì˜ ê°’ì„ ì½ì–´ì˜¤ë©´ ë¨. ì¦‰, nowBoxê°€ 2ì¼ë•Œì˜ 15ë²ˆì¬ëŠ” 30 +15 -> 45ë²ˆì§¸ ì¹¸ì— ìˆëŠ” ì•„ì´í…œì´ë¼ëŠ” ë§ì´ ë¨.
     public GameObject inventory;
     public GameObject miscDetail;
     public GameObject consumDetail;
@@ -56,15 +56,15 @@ public class InventoryManager : MonoBehaviour
     public int maxHor = 5;
     public int maxVer = 5;
 
-    public GameObject[] equipBox; // 1: ¹İÁö, 2: ¸ğÀÚ, 3: ¸ñ°ÉÀÌ, 5: °©¿Ê, 6: Àå°©, 7: ¹«±â, 8:¹ÙÁö, 9:½Å¹ß
+    public GameObject[] equipBox; // 1: ë°˜ì§€, 2: ëª¨ì, 3: ëª©ê±¸ì´, 5: ê°‘ì˜·, 6: ì¥ê°‘, 7: ë¬´ê¸°, 8:ë°”ì§€, 9:ì‹ ë°œ
     public ItemCheck[] equipItemCheck = new ItemCheck[10];
 
-    // ³ªÁß¿¡ ÆÛºí¸¯ ÇØÃ¼;
+    // ë‚˜ì¤‘ì— í¼ë¸”ë¦­ í•´ì²´;
     public GameObject beforBox;
     public GameObject afterBox;
     int beforeCusorInt;
 
-    int equipCusor; // ÀåºñÃ¢ Ä¿¼­ ¹øÈ£
+    int equipCusor; // ì¥ë¹„ì°½ ì»¤ì„œ ë²ˆí˜¸
 
     private void OnEnable()
     {
@@ -158,7 +158,7 @@ public class InventoryManager : MonoBehaviour
     public void SaveInventory()
     {
         SaveManager.instance.datas.money = DatabaseManager.money;
-        string[,,] saveInven = new string[5, maxHor * maxVer, 4]; // ¸î¹øÂ°ÀÎº¥, Ä­, ÀÌ¸§
+        string[,,] saveInven = new string[5, maxHor * maxVer, 4]; // ëª‡ë²ˆì§¸ì¸ë²¤, ì¹¸, ì´ë¦„
         for (int i = 0; i < 5; i++)
         {
             int childCount = inventoryUI[i].transform.childCount;
@@ -204,7 +204,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     for (int j = 0; j < childCount; j++)
                     {
-                        // ÇöÀç¿¡´Â ´Ü¼øÈ÷ ¾ÆÀÌÅÛ¸¸  ÀÌ¸§¸¸ È®ÀÎÇØ¼­ °¡Á®¿ÀÁö¸¸, ¿©±â¿¡ ¼öÁ¤ÇØ¼­ ÇöÀç ½ºÅÃ ¼öÄ¡, °­È­¼öÄ¡ ÀÌ·±°Íµµ °¡Á®¿Í¾ßÇÔ
+                        // í˜„ì¬ì—ëŠ” ë‹¨ìˆœíˆ ì•„ì´í…œë§Œ  ì´ë¦„ë§Œ í™•ì¸í•´ì„œ ê°€ì ¸ì˜¤ì§€ë§Œ, ì—¬ê¸°ì— ìˆ˜ì •í•´ì„œ í˜„ì¬ ìŠ¤íƒ ìˆ˜ì¹˜, ê°•í™”ìˆ˜ì¹˜ ì´ëŸ°ê²ƒë„ ê°€ì ¸ì™€ì•¼í•¨
                         if (SaveManager.instance.datas.invenItem[i, j, 0] != "non" && SaveManager.instance.datas.invenItem[i, j, 0] != null)
                         {
                             inventoryArray[j, i] = 1;
@@ -278,7 +278,7 @@ public class InventoryManager : MonoBehaviour
         inventory.SetActive(true);
         MakeInventoryBox();
         inventoryArray = new int[maxBoxNum, 5];
-        Invoke("ActiveFalse", 0.000000001f); // ÀÎº¥Åä¸® ¸®·Îµå, ÀÌ °úÁ¤ÀÌ ¾øÀ¸¸é GridLayoutGroupÀÌ Á¤»óÀÛµ¿ÇÏÁö ¾ÊÀ½.
+        Invoke("ActiveFalse", 0.000000001f); // ì¸ë²¤í† ë¦¬ ë¦¬ë¡œë“œ, ì´ ê³¼ì •ì´ ì—†ìœ¼ë©´ GridLayoutGroupì´ ì •ìƒì‘ë™í•˜ì§€ ì•ŠìŒ.
     }
 
     void BoxChange(int num)
@@ -398,7 +398,7 @@ public class InventoryManager : MonoBehaviour
                 beforeItemCheck = beforitem.GetComponent<ItemCheck>();
                 if (afterItemCheck.name == beforeItemCheck.name && (afterItemCheck.nowStack != afterItemCheck.itemData.maxStack && beforeItemCheck.nowStack != beforeItemCheck.itemData.maxStack))
                 {
-                    isSame = true; // °°´Ù¸é °¡´ÉÇÑ ¸¸Å­ ½ºÅÃÀ» ÇÕÄ£´Ù.
+                    isSame = true; // ê°™ë‹¤ë©´ ê°€ëŠ¥í•œ ë§Œí¼ ìŠ¤íƒì„ í•©ì¹œë‹¤.
 
                     if (afterItemCheck.nowStack + beforeItemCheck.nowStack <= afterItemCheck.itemData.maxStack)
                     {
@@ -623,7 +623,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void MoveCusor2Inventory() // ÀåºñÃ¢ => ÀÎº¥Åä¸®·Î Ä¿¼­¸¦ ¿Å±â´Â ÇÔ¼ö
+    void MoveCusor2Inventory() // ì¥ë¹„ì°½ => ì¸ë²¤í† ë¦¬ë¡œ ì»¤ì„œë¥¼ ì˜®ê¸°ëŠ” í•¨ìˆ˜
     {
         OnlyDetailObOff();
         nowEquipBox = null;
@@ -716,21 +716,21 @@ public class InventoryManager : MonoBehaviour
         }
         if (leftInventoryAction.triggered && checkRepeat == false)
         {
-            if (chest != null && state != "itemBoxChange") //Ã¢°í Á¢ÃË
+            if (chest != null && state != "itemBoxChange") //ì°½ê³  ì ‘ì´‰
             {
                 cusor.SetActive(false);
                 state = "InChestMove";
                 chest.isCusorChest = true;
                 chest.CusorMove2Chest();
             }
-            else if (ShopGameObject.activeSelf == true) // »óÁ¡ Á¢ÃË
+            else if (ShopGameObject.activeSelf == true) // ìƒì  ì ‘ì´‰
             {
                 ShopUI.leftKeyCheck = true;
                 cusor.SetActive(false);
                 state = "ShopCusorOn";
                 ShopUI.ChangeCusor();
             }
-            else // ±×¿Ü ÀåºñÃ¢ Á¢ÃË
+            else // ê·¸ì™¸ ì¥ë¹„ì°½ ì ‘ì´‰
             {
                 changeCusor.SetActive(false);
                 equipCusor = 6;
@@ -836,7 +836,7 @@ public class InventoryManager : MonoBehaviour
          .AppendInterval(waitTime)
          .AppendCallback(() => inventory.SetActive(false));
 
-        // ¿©±â°¡ ·Îµù ³¡³ª°í Ä«¸Ş¶ó°¡ ¹à¾ÆÁö´Â½ÃÁ¡.
+        // ì—¬ê¸°ê°€ ë¡œë”© ëë‚˜ê³  ì¹´ë©”ë¼ê°€ ë°ì•„ì§€ëŠ”ì‹œì .
 
     }
     public ItemCheck CheckNowEquipment(string equipArea)
@@ -913,7 +913,7 @@ public class InventoryManager : MonoBehaviour
 
         if (detail.itemData.equipArea != "Weapon")
         {
-            if (equipBox.transform.childCount == 0) // ¹«±â°¡ ¾Æ´Ï°í ¹æ¾î±¸¶ó¸é
+            if (equipBox.transform.childCount == 0) // ë¬´ê¸°ê°€ ì•„ë‹ˆê³  ë°©ì–´êµ¬ë¼ë©´
             {
                 CheckNowEquipItem(detail.itemData.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
@@ -923,7 +923,7 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                // ¾ÆÀÌÅÛÀ» ÇØÃ¼ÇÑ´Â ºÎºĞ
+                // ì•„ì´í…œì„ í•´ì²´í•œëŠ” ë¶€ë¶„
                 DetechItem(detail.itemData.equipArea);
                 equipBoxCheck.DeletPrefab(beforeItem, beforeItem.itemData.equipArea);
 
@@ -949,7 +949,7 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                // ¾ÆÀÌÅÛÀ» ÇØÃ¼ÇÑ´Â ºÎºĞ
+                // ì•„ì´í…œì„ í•´ì²´í•œëŠ” ë¶€ë¶„
                 DetechItem(detail.itemData.equipArea);
                 equipBoxCheck.DeletPrefab(beforeItem, beforeItem.itemData.equipArea);
                 nowEquipItem.transform.SetParent(equipBox.transform);
@@ -982,12 +982,12 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    // »óÁ¡ ÆÇ¸Å º¯¼ö
-    public int currentSellValue = 0; // ÇöÀç °¡Áö°í ÀÖ´Â int ¼ö
+    // ìƒì  íŒë§¤ ë³€ìˆ˜
+    public int currentSellValue = 0; // í˜„ì¬ ê°€ì§€ê³  ìˆëŠ” int ìˆ˜
     public GameObject sellUIGameObject;
     int totalSellPrice;
     public TextMeshProUGUI sellText;
-    public Slider sellSlider; // Unity Inspector¿¡¼­ Slider¸¦ ÇÒ´ç
+    public Slider sellSlider; // Unity Inspectorì—ì„œ Sliderë¥¼ í• ë‹¹
     int output;
 
     public void SellItemUI()
@@ -1022,9 +1022,9 @@ public class InventoryManager : MonoBehaviour
     {
         sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
         sellSlider.maxValue = detail.nowStack;
-        // ½½¶óÀÌ´õÀÇ ÃÖ¼Ò°ª°ú ÃÖ´ë°ª ¼³Á¤
+        // ìŠ¬ë¼ì´ë”ì˜ ìµœì†Œê°’ê³¼ ìµœëŒ€ê°’ ì„¤ì •
         sellSlider.minValue = 1;
-        // ½½¶óÀÌ´õÀÇ ÇöÀç °ª ¼³Á¤
+        // ìŠ¬ë¼ì´ë”ì˜ í˜„ì¬ ê°’ ì„¤ì •
         sellSlider.value = detail.nowStack;
         output = 1;
     }
@@ -1113,7 +1113,7 @@ public class InventoryManager : MonoBehaviour
                     }
                     else if (ShopGameObject.activeSelf == true)
                     {
-                        // ÆÇ¸Å ÇÔ¼ö
+                        // íŒë§¤ í•¨ìˆ˜
                         SellItemUI();
                     }
                     else
@@ -1130,7 +1130,7 @@ public class InventoryManager : MonoBehaviour
             {
                 if (state == "chestOpen")
                 {
-                    state = "I2CMove"; // ÀÎº¥Åä¸®¿¡¼­ Ã¢°í·Î ¹°°Ç ÀÌµ¿
+                    state = "I2CMove"; // ì¸ë²¤í† ë¦¬ì—ì„œ ì°½ê³ ë¡œ ë¬¼ê±´ ì´ë™
                     cusorImage.color = new Color(23f / 255f, 123f / 255f, 161f / 255f);
                 }
                 else if (state == "I2CMove")
@@ -1416,7 +1416,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
     public ItemCheck detail;
-    public void BoxContentChecker(GameObject ob = null) // ZÅ° Å¬¸¯½Ã ÀÎº¥Åä¸®Ã¢
+    public void BoxContentChecker(GameObject ob = null) // Zí‚¤ í´ë¦­ì‹œ ì¸ë²¤í† ë¦¬ì°½
     {
         if (inventoryArray[cusorCount[nowBox], nowBox] == 1 && (state == "" || state == "chestOpen"))
         {
@@ -1463,7 +1463,7 @@ public class InventoryManager : MonoBehaviour
                 Transform equip = equipDetail.gameObject.transform;
                 string folderPath = detail.itemData.equipArea + "/";
 
-                // ¸®¼Ò½º Æú´õ ³»ÀÇ equipNameÀ» ·ÎµåÇÕ´Ï´Ù.
+                // ë¦¬ì†ŒìŠ¤ í´ë” ë‚´ì˜ equipNameì„ ë¡œë“œí•©ë‹ˆë‹¤.
                 GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
                 equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
                 equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
@@ -1474,12 +1474,12 @@ public class InventoryManager : MonoBehaviour
                 equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
                 equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.itemData.rarity);
                 SetEffectDetail(equip.GetChild(8).gameObject, detail);
-                if (detail.itemData.equipArea != "Weapon") // ¹æ¾î±¸¶ó¸é
+                if (detail.itemData.equipArea != "Weapon") // ë°©ì–´êµ¬ë¼ë©´
                 {
                     Equipment equipment = prefab.GetComponent<Equipment>();
                     SetArmorDetail(equip.GetChild(7).gameObject, equipment);
                 }
-                else // ¹«±âÀÎ °æ¿ì
+                else // ë¬´ê¸°ì¸ ê²½ìš°
                 {
                     Weapon weapon = prefab.GetComponent<Weapon>();
                     SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
@@ -1503,7 +1503,7 @@ public class InventoryManager : MonoBehaviour
             }
             string folderPath = detail.itemData.equipArea + "/";
 
-            // ¸®¼Ò½º Æú´õ ³»ÀÇ equipNameÀ» ·ÎµåÇÕ´Ï´Ù.
+            // ë¦¬ì†ŒìŠ¤ í´ë” ë‚´ì˜ equipNameì„ ë¡œë“œí•©ë‹ˆë‹¤.
             GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
             Transform equip = equipDetail.gameObject.transform;
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
@@ -1515,12 +1515,12 @@ public class InventoryManager : MonoBehaviour
             equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
             equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.itemData.rarity);
             SetEffectDetail(equip.GetChild(8).gameObject, detail);
-            if (detail.itemData.equipArea != "Weapon") // ¹æ¾î±¸¶ó¸é
+            if (detail.itemData.equipArea != "Weapon") // ë°©ì–´êµ¬ë¼ë©´
             {
                 Equipment equipment = prefab.GetComponent<Equipment>();
                 SetArmorDetail(equip.GetChild(7).gameObject, equipment);
             }
-            else // ¹«±âÀÎ °æ¿ì
+            else // ë¬´ê¸°ì¸ ê²½ìš°
             {
                 Weapon weapon = prefab.GetComponent<Weapon>();
                 SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
@@ -1534,10 +1534,10 @@ public class InventoryManager : MonoBehaviour
         }
     }
     public GameObject skillDetailUi;
-    public void CheckSkillDetail(Weapon weapon) // ±â¼ú Ã¼Å©.
+    public void CheckSkillDetail(Weapon weapon) // ê¸°ìˆ  ì²´í¬.
     {
         skillDetailUi.SetActive(true);
-        for (int i = 0; i < 4; i++) // ±â¼ú °¹¼ö°¡ ´Ã¾î³ª¸é ¿©±â º¯°æÇØ ÁÖ¾î¾ßÇÔ.
+        for (int i = 0; i < 4; i++) // ê¸°ìˆ  ê°¯ìˆ˜ê°€ ëŠ˜ì–´ë‚˜ë©´ ì—¬ê¸° ë³€ê²½í•´ ì£¼ì–´ì•¼í•¨.
         {
             GameObject skillSlot = skillDetailUi.transform.GetChild(i).gameObject;
             if (weapon.skill[i] != null)
@@ -1558,7 +1558,7 @@ public class InventoryManager : MonoBehaviour
     }
     public void SetEffectDetail(GameObject textObject, ItemCheck nowItem)
     {
-        // ¹æ¾î±¸ÀÇ ¼¼Æ®È¿°ú
+        // ë°©ì–´êµ¬ì˜ ì„¸íŠ¸íš¨ê³¼
         StringBuilder allSetStr = new StringBuilder();
 
         if (!string.IsNullOrEmpty(nowItem.itemData.setName))
@@ -1640,7 +1640,7 @@ public class InventoryManager : MonoBehaviour
                          .Append(effectPowerDetail[0])
                          .Append("\n");
             }
-            else // 2¹øÂ° °ªÀÌ ÀÖ´Ù¸é ½Ã°£ Á¤º¸
+            else // 2ë²ˆì§¸ ê°’ì´ ìˆë‹¤ë©´ ì‹œê°„ ì •ë³´
             {
                 allSetStr.Append(effectStr[1])
                          .Append(CapitalizeFirstLetter(effectStr[0]))
@@ -1660,7 +1660,7 @@ public class InventoryManager : MonoBehaviour
     {
         StringBuilder basicStr = new StringBuilder();
 
-        // ¹æ¾î±¸ÀÇ ±âº»ÀûÀÎ ½ºÅÈ¼öÄ¡
+        // ë°©ì–´êµ¬ì˜ ê¸°ë³¸ì ì¸ ìŠ¤íƒ¯ìˆ˜ì¹˜
         basicStr.Append(weapon.minDmg)
                 .Append("~")
                 .Append(weapon.maxDmg)
@@ -1717,14 +1717,14 @@ public class InventoryManager : MonoBehaviour
         {
             return input;
         }
-        // Ã¹ ¹øÂ° ¹®ÀÚ¸¦ ´ë¹®ÀÚ·Î ¹Ù²Ù°í ³ª¸ÓÁö ºÎºĞÀº ±×´ë·Î µÓ´Ï´Ù.
+        // ì²« ë²ˆì§¸ ë¬¸ìë¥¼ ëŒ€ë¬¸ìë¡œ ë°”ê¾¸ê³  ë‚˜ë¨¸ì§€ ë¶€ë¶„ì€ ê·¸ëŒ€ë¡œ ë‘¡ë‹ˆë‹¤.
         return char.ToUpper(input[0]) + input.Substring(1);
     }
     public void SetArmorDetail(GameObject textObject, Equipment equipment)
     {
         StringBuilder basicStr = new StringBuilder();
 
-        // ¹æ¾î±¸ÀÇ ±âº»ÀûÀÎ ½ºÅÈ¼öÄ¡
+        // ë°©ì–´êµ¬ì˜ ê¸°ë³¸ì ì¸ ìŠ¤íƒ¯ìˆ˜ì¹˜
         if (equipment.basicDmg != 0)
         {
             basicStr.Append(equipment.basicDmg > 0 ? "+" : "-")
@@ -2039,7 +2039,7 @@ public class InventoryManager : MonoBehaviour
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[boxNum], i);
                     GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                     ItemCheck check = item.GetComponent<ItemCheck>();
-                    float scaleFactor = 0.8f; // Å©±â¸¦ Á¶ÀıÇÒ ºñÀ²
+                    float scaleFactor = 0.8f; // í¬ê¸°ë¥¼ ì¡°ì ˆí•  ë¹„ìœ¨
                     item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                     check.SetItem(itemName);
                     check.nowStack = Stack;
@@ -2063,17 +2063,17 @@ public class InventoryManager : MonoBehaviour
                 return childGameObject;
             }
         }
-        // Æ¯Á¤ ¿ÀºêÁ§Æ®ÀÇ n¹øÂ° ÀÚ½ÄÀÌ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì ¶Ç´Â parent°¡ nullÀÎ °æ¿ì
+        // íŠ¹ì • ì˜¤ë¸Œì íŠ¸ì˜ në²ˆì§¸ ìì‹ì´ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²½ìš° ë˜ëŠ” parentê°€ nullì¸ ê²½ìš°
         return null;
     }
-    // Ã¹ ¹øÂ° ÀÚ½ÄÀÇ Ã¹ ¹øÂ° ÀÚ½ÄÀ» »èÁ¦ÇÏ´Â ÇÔ¼ö
+    // ì²« ë²ˆì§¸ ìì‹ì˜ ì²« ë²ˆì§¸ ìì‹ì„ ì‚­ì œí•˜ëŠ” í•¨ìˆ˜
     void RemoveFirstChild(GameObject parent)
     {
-        // parent°¡ nullÀÌ ¾Æ´Ï°í ÀÚ½ÄÀÌ Àû¾îµµ ÇÏ³ª ÀÌ»ó ÀÖ´Ù¸é
+        // parentê°€ nullì´ ì•„ë‹ˆê³  ìì‹ì´ ì ì–´ë„ í•˜ë‚˜ ì´ìƒ ìˆë‹¤ë©´
         if (parent != null && parent.transform.childCount > 0)
         {
             Transform firstChild = parent.transform.GetChild(0);
-            // Ã¹ ¹øÂ° ÀÚ½ÄÀ» »èÁ¦
+            // ì²« ë²ˆì§¸ ìì‹ì„ ì‚­ì œ
             Destroy(firstChild.gameObject);
         }
     }

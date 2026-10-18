@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -21,11 +21,11 @@ public class SummonCheck : MonoBehaviour
 
 
             Sequence dashSequence = DOTween.Sequence()
-            .AppendInterval(time[i]) // 2ÃÊ ´ë±â
+            .AppendInterval(time[i]) // 2ì´ˆ ëŒ€ê¸°
             .OnComplete(() => rb.gravityScale = 3f)
             .OnComplete(() => rb.velocity = new Vector2(0f, 0f));
         //    Sequence sequence = DOTween.Sequence()
-         //   .Append(r.transform.DOMoveX(newPos, 1f).SetEase(Ease.Linear));// ¿øÁ¡À¸·Î ÀÌµ¿ÇÕ´Ï´Ù.
+         //   .Append(r.transform.DOMoveX(newPos, 1f).SetEase(Ease.Linear));// ì›ì ìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤.
 
         }
 

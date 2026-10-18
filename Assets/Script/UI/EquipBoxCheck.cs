@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +12,7 @@ public class EquipBoxCheck : MonoBehaviour
     public string equipArea = "";
     string reciveEquipArea;
     public GameObject equipPrefab;
-    public AttackManager attackManager; // ¹«±â ÀåÂøÀ» À§ÇÑ  AttackManager
+    public AttackManager attackManager; // ë¬´ê¸° ì¥ì°©ì„ ìœ„í•œ  AttackManager
     GameObject instantiatedPrefab;
     Weapon weapon;
     Equipment[] equipmentList = new Equipment[10];
@@ -79,10 +79,10 @@ public class EquipBoxCheck : MonoBehaviour
                 return 0;
         }
     }
-    public void SaveEquipItem(ItemCheck itemCheck, bool isSave) // ÀúÀåÇÒÁö »èÁ¦ÇÒÁö.
+    public void SaveEquipItem(ItemCheck itemCheck, bool isSave) // ì €ì¥í• ì§€ ì‚­ì œí• ì§€.
     {
         string[] gear = new string[] { itemCheck.itemData.name , itemCheck.itemData.tear.ToString() , itemCheck.itemData.upgrade.ToString() };
-        int nowEquipNum = CheckEquipBoxNum(itemCheck.itemData.equipArea); // ÇöÀç ÀúÀåÇØ¾ßÇÒ Àåºñ ¹øÈ£
+        int nowEquipNum = CheckEquipBoxNum(itemCheck.itemData.equipArea); // í˜„ì¬ ì €ì¥í•´ì•¼í•  ì¥ë¹„ ë²ˆí˜¸
         if (isSave == true)
         {
             for(int i =0; i< 3; i++)
@@ -107,7 +107,7 @@ public class EquipBoxCheck : MonoBehaviour
             ItemCheck obItemCheck = ob.GetComponent<ItemCheck>();
            LoadPrefab(obItemCheck.itemData.name, obItemCheck.itemData.equipArea, obItemCheck.itemData.tfName);
         }
-        if (reciveEquipArea == "Weapon" && weapon == null) // ¹«±â´Â Weapon ½ºÅ©¸³Æ®¸¦ »ç¿ëÇÏ¹Ç·Î ¿¹¿Ü
+        if (reciveEquipArea == "Weapon" && weapon == null) // ë¬´ê¸°ëŠ” Weapon ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì‚¬ìš©í•˜ë¯€ë¡œ ì˜ˆì™¸
         {
              weapon = equipPrefab.GetComponent<Weapon>();
             attackManager.equipWeapon = weapon;
@@ -126,7 +126,7 @@ public class EquipBoxCheck : MonoBehaviour
     {
         for(int i =0; i < equip.coolDownSkill.Length; i++)
         {
-            if (DatabaseManager.skillCoolDown.ContainsKey(equip.coolDownSkill[i].skillName)) // ±â¼úÀÌ Á¸ÀçÇÏ´ÂÁö È®ÀÎ. Á¸ÀçÇÑ´Ù¸é ±×³É ¼öÄ¡ Ãß°¡
+            if (DatabaseManager.skillCoolDown.ContainsKey(equip.coolDownSkill[i].skillName)) // ê¸°ìˆ ì´ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸. ì¡´ì¬í•œë‹¤ë©´ ê·¸ëƒ¥ ìˆ˜ì¹˜ ì¶”ê°€
             {
                 DatabaseManager.skillCoolDown[equip.coolDownSkill[i].skillName] += equip.coolDownSkill[i].coolDownCount;
             }
@@ -161,7 +161,7 @@ public class EquipBoxCheck : MonoBehaviour
         DatabaseManager.incIncomingDmg += equip.addIncomingDmg;
         DatabaseManager.incDmg += equip.incDmg;
         DatabaseManager.addPoisonDmg += equip.poisonDmg;
-        // ÃâÇ÷°ü·Ã
+        // ì¶œí˜ˆê´€ë ¨
         if (equip.isBleeding)
         {
             DatabaseManager.bleedingEquipment.Add(equip.name, new int[] { equip.bleedingPerCent, equip.bleedingDamage, equip.bleedingDamageCount });
@@ -193,7 +193,7 @@ public class EquipBoxCheck : MonoBehaviour
     public void DeletPrefab(ItemCheck detail, string reciveEquipArea, bool isFalse= true)
     {
         DatabaseManager.MinusSetDict(detail.itemData.tfName, 1);
-        if (reciveEquipArea == "Weapon") // ¹«±â´Â ¿¹¿Ü
+        if (reciveEquipArea == "Weapon") // ë¬´ê¸°ëŠ” ì˜ˆì™¸
         {
             if (isFalse == false)
             {
@@ -248,7 +248,7 @@ public class EquipBoxCheck : MonoBehaviour
         reciveEquipArea = equipArea;
 
         string folderPath = equipArea+"/";
-        GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);        // ¸®¼Ò½º Æú´õ ³»ÀÇ equipNameÀ» ·ÎµåÇÕ´Ï´Ù.
+        GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);        // ë¦¬ì†ŒìŠ¤ í´ë” ë‚´ì˜ equipNameì„ ë¡œë“œí•©ë‹ˆë‹¤.
         if(equipArea != "Weapon")
         {
             string texturePath = "Sprite/";

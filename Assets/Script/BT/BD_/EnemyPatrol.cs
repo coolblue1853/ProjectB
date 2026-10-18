@@ -1,4 +1,4 @@
-using BehaviorDesigner.Runtime.Tasks;
+ï»¿using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using BehaviorDesigner.Runtime;
 using UnityEngine;
@@ -16,9 +16,9 @@ public class EnemyPatrol : EnemyAction
     public override void OnStart()
     {
         bt = this.transform.GetComponent<BehaviorTree>();
-        bt.sequence.Kill(); // ÀÌÀü ½ÃÄö½º Á¾·á
+        bt.sequence.Kill(); // ì´ì „ ì‹œí€€ìŠ¤ ì¢…ë£Œ
         isEnd = false;
-        originPosition = enemyObject.transform.position; // ¿ø·¡ À§Ä¡ ÀúÀå
+        originPosition = enemyObject.transform.position; // ì›ëž˜ ìœ„ì¹˜ ì €ìž¥
         StartPatrol();
     }
     public override TaskStatus OnUpdate()
@@ -29,7 +29,7 @@ public class EnemyPatrol : EnemyAction
     {
         movePoint = Random.Range(xMin, xMax);
 
-        // isStop »óÅÂ¿¡ µû¸¥ µ¿ÀÛ
+        // isStop ìƒíƒœì— ë”°ë¥¸ ë™ìž‘
         if (isStop)
         {
             movePoint = enemyObject.transform.localScale.x > 0 ? -movePoint : Mathf.Abs(movePoint);
@@ -40,7 +40,7 @@ public class EnemyPatrol : EnemyAction
             movePoint = direction == 0 ? -movePoint : movePoint;
         }
 
-        // ¹æÇâ ¼³Á¤: ÀÌµ¿ÇÒ ¹æÇâ¿¡ ¸Â°Ô ·ÎÄÃ ½ºÄÉÀÏ º¯°æ
+        // ë°©í–¥ ì„¤ì •: ì´ë™í•  ë°©í–¥ì— ë§žê²Œ ë¡œì»¬ ìŠ¤ì¼€ì¼ ë³€ê²½
         if (movePoint > 0)
         {
             enemyObject.transform.localScale = new Vector3(Mathf.Abs(enemyObject.transform.localScale.x), enemyObject.transform.localScale.y, 1);
@@ -50,13 +50,13 @@ public class EnemyPatrol : EnemyAction
             enemyObject.transform.localScale = new Vector3(-Mathf.Abs(enemyObject.transform.localScale.x), enemyObject.transform.localScale.y, 1);
         }
 
-        // ¾Ö´Ï¸ÞÀÌ¼Ç ¼³Á¤
+        // ì• ë‹ˆë©”ì´ì…˜ ì„¤ì •
         if (anim != null)
         {
             anim.SetBool("isWalk", true);
         }
 
-        // ÀÌµ¿ ¹üÀ§°¡ originMax¸¦ ÃÊ°úÇÏ¸é ¿øÀ§Ä¡·Î µ¹¾Æ¿È
+        // ì´ë™ ë²”ìœ„ê°€ originMaxë¥¼ ì´ˆê³¼í•˜ë©´ ì›ìœ„ì¹˜ë¡œ ëŒì•„ì˜´
         if (Mathf.Abs(enemyObject.transform.position.x - originPosition.x) > originMax)
         {
             ReverseDirection();
@@ -98,7 +98,7 @@ public class EnemyPatrol : EnemyAction
     {
         if (this.transform != null)
         {
-            isEnd = true; // ¾×¼Ç ¿Ï·á ½Ã isEnd¸¦ true·Î ¼³Á¤
+            isEnd = true; // ì•¡ì…˜ ì™„ë£Œ ì‹œ isEndë¥¼ trueë¡œ ì„¤ì •
         }
     }
 

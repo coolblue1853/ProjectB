@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -7,11 +7,11 @@ public class DropManager : MonoBehaviour
     [System.Serializable]
     private class ObjectInfo
     {
-        // ¿ÀºêÁ§Æ® ÀÌ¸§
+        // ì˜¤ë¸Œì íŠ¸ ì´ë¦„
         public string objectName;
-        // ¿ÀºêÁ§Æ® Ç®¿¡¼­ °ü¸®ÇÒ ¿ÀºêÁ§Æ®
+        // ì˜¤ë¸Œì íŠ¸ í’€ì—ì„œ ê´€ë¦¬í•  ì˜¤ë¸Œì íŠ¸
         //public GameObject perfab;
-        // ¸î°³¸¦ ¹Ì¸® »ı¼º ÇØ³õÀ»°ÇÁö
+        // ëª‡ê°œë¥¼ ë¯¸ë¦¬ ìƒì„± í•´ë†“ì„ê±´ì§€
         public int count;
 
 
@@ -21,9 +21,9 @@ public class DropManager : MonoBehaviour
         Init();
     }
 
-    public LayerMask collisionLayer; // Ãæµ¹ Ã¼Å©¸¦ À§ÇÑ ·¹ÀÌ¾î
+    public LayerMask collisionLayer; // ì¶©ëŒ ì²´í¬ë¥¼ ìœ„í•œ ë ˆì´ì–´
     public GameObject itemPrefab;
-    // ¾ÆÀÌÅÛ°ú È®·üÀ» ´ãÀ» ±¸Á¶Ã¼
+    // ì•„ì´í…œê³¼ í™•ë¥ ì„ ë‹´ì„ êµ¬ì¡°ì²´
 
     [System.Serializable]
     public struct DropItem
@@ -43,13 +43,13 @@ public class DropManager : MonoBehaviour
     [SerializeField]
     private ObjectInfo[] objectInfos = null;
 
-    // »ı¼ºÇÒ ¿ÀºêÁ§Æ®ÀÇ key°ªÁöÁ¤À» À§ÇÑ º¯¼ö
+    // ìƒì„±í•  ì˜¤ë¸Œì íŠ¸ì˜ keyê°’ì§€ì •ì„ ìœ„í•œ ë³€ìˆ˜
     private string objectName;
 
-    // ¿ÀºêÁ§Æ®Ç®µéÀ» °ü¸®ÇÒ µñ¼Å³Ê¸®
+    // ì˜¤ë¸Œì íŠ¸í’€ë“¤ì„ ê´€ë¦¬í•  ë”•ì…”ë„ˆë¦¬
     private Dictionary<string, IObjectPool<GameObject>> ojbectPoolDic = new Dictionary<string, IObjectPool<GameObject>>();
 
-    // ¿ÀºêÁ§Æ®Ç®¿¡¼­ ¿ÀºêÁ§Æ®¸¦ »õ·Î »ı¼ºÇÒ¶§ »ç¿ëÇÒ µñ¼Å³Ê¸®
+    // ì˜¤ë¸Œì íŠ¸í’€ì—ì„œ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒˆë¡œ ìƒì„±í• ë•Œ ì‚¬ìš©í•  ë”•ì…”ë„ˆë¦¬
     private Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
     private void Init()
     {
@@ -62,13 +62,13 @@ public class DropManager : MonoBehaviour
 
             if (goDic.ContainsKey(objectInfos[idx].objectName))
             {
-                Debug.LogFormat("{0} ÀÌ¹Ì µî·ÏµÈ ¿ÀºêÁ§Æ®ÀÔ´Ï´Ù.", objectInfos[idx].objectName);
+                Debug.LogFormat("{0} ì´ë¯¸ ë“±ë¡ëœ ì˜¤ë¸Œì íŠ¸ì…ë‹ˆë‹¤.", objectInfos[idx].objectName);
                 return;
             }
             goDic.Add(objectInfos[idx].objectName, itemPrefab);
             ojbectPoolDic.Add(objectInfos[idx].objectName, pool);
 
-            // ¹Ì¸® ¿ÀºêÁ§Æ® »ı¼º ÇØ³õ±â
+            // ë¯¸ë¦¬ ì˜¤ë¸Œì íŠ¸ ìƒì„± í•´ë†“ê¸°
             for (int i = 0; i < objectInfos[idx].count; i++)
             {
                 objectName = objectInfos[idx].objectName;
@@ -80,7 +80,7 @@ public class DropManager : MonoBehaviour
         isReady = true;
     }
 
-    // »ı¼º
+    // ìƒì„±
     private GameObject CreatePooledItem()
     {
         GameObject poolGo = Instantiate(goDic[objectName]);
@@ -88,19 +88,19 @@ public class DropManager : MonoBehaviour
         return poolGo;
     }
 
-    // ´ë¿©
+    // ëŒ€ì—¬
     private void OnTakeFromPool(GameObject poolGo)
     {
         poolGo.SetActive(true);
     }
 
-    // ¹İÈ¯
+    // ë°˜í™˜
     private void OnReturnedToPool(GameObject poolGo)
     {
         poolGo.SetActive(false);
     }
 
-    // »èÁ¦
+    // ì‚­ì œ
     private void OnDestroyPoolObject(GameObject poolGo)
     {
         Destroy(poolGo);
@@ -112,7 +112,7 @@ public class DropManager : MonoBehaviour
 
         if (goDic.ContainsKey(goName) == false)
         {
-            Debug.LogFormat("{0} ¿ÀºêÁ§Æ®Ç®¿¡ µî·ÏµÇÁö ¾ÊÀº ¿ÀºêÁ§Æ®ÀÔ´Ï´Ù.", goName);
+            Debug.LogFormat("{0} ì˜¤ë¸Œì íŠ¸í’€ì— ë“±ë¡ë˜ì§€ ì•Šì€ ì˜¤ë¸Œì íŠ¸ì…ë‹ˆë‹¤.", goName);
             return null;
         }
 
@@ -123,14 +123,14 @@ public class DropManager : MonoBehaviour
 
     public void DropItems(Vector3 dropPosition)
     {
-      float offsetX = 0f;  // ¾ÆÀÌÅÛ °£°İ Á¶ÀıÀ» À§ÇÑ ¿ÀÇÁ¼Â
+      float offsetX = 0f;  // ì•„ì´í…œ ê°„ê²© ì¡°ì ˆì„ ìœ„í•œ ì˜¤í”„ì…‹
 
-        // ·£´ıÇÑ °ªÀ» »ı¼ºÇÏ¿© È®·ü¿¡ µû¶ó ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸²
+        // ëœë¤í•œ ê°’ì„ ìƒì„±í•˜ì—¬ í™•ë¥ ì— ë”°ë¼ ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦¼
         foreach (DropItem dropItem in dropItems)
         {
             if (Random.value <= dropItem.dropProbability * ( 1+ (float)DatabaseManager.playerDropRate / 100 ))
             {
-                // ¾ÆÀÌÅÛ ÀÌ¸§À» ±â¹İÀ¸·Î ÇÁ¸®ÆÕÀ» Ã£¾Æ¼­ »ı¼º
+                // ì•„ì´í…œ ì´ë¦„ì„ ê¸°ë°˜ìœ¼ë¡œ í”„ë¦¬íŒ¹ì„ ì°¾ì•„ì„œ ìƒì„±
                 if (itemPrefab != null)
                 {
                    // Debug.Log(dropItem.itemName);
@@ -141,31 +141,31 @@ public class DropManager : MonoBehaviour
 
                     Rigidbody2D rb = newItem.GetComponent<Rigidbody2D>();
 
-                    // Rigidbody°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎÇÕ´Ï´Ù.
+                    // Rigidbodyê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸í•©ë‹ˆë‹¤.
                     if (rb != null)
                     {
-                        rb.gravityScale = 1f; // Áß·Â ½ºÄÉÀÏÀ» 1·Î °­Á¦·Î ¼³Á¤
+                        rb.gravityScale = 1f; // ì¤‘ë ¥ ìŠ¤ì¼€ì¼ì„ 1ë¡œ ê°•ì œë¡œ ì„¤ì •
                         Vector3 impulseDirection = new Vector2(0, 1);
                         rb.AddForce(impulseDirection * impulseForce, ForceMode2D.Impulse);
                     }
                     DropItemCheck itemCheck = newItem.GetComponent<DropItemCheck>();
                     itemCheck.SetItem(dropItem.itemName);
-                    // Ãß°¡ÀûÀÎ ¾ÆÀÌÅÛ ¼³Á¤ÀÌ ÇÊ¿äÇÏ´Ù¸é ¿©±â¼­ Ã³¸®
+                    // ì¶”ê°€ì ì¸ ì•„ì´í…œ ì„¤ì •ì´ í•„ìš”í•˜ë‹¤ë©´ ì—¬ê¸°ì„œ ì²˜ë¦¬
         
                     Vector2 direction = new Vector2(1, 0);
                     Vector2 currentPosition = dropPosition;
-                    // ¸ñÇ¥ À§Ä¡±îÁöÀÇ °æ·Î¸¦ °Ë»ç
+                    // ëª©í‘œ ìœ„ì¹˜ê¹Œì§€ì˜ ê²½ë¡œë¥¼ ê²€ì‚¬
                     RaycastHit2D hit = Physics2D.Raycast(currentPosition, direction, offsetX+0.7f, collisionLayer);
 
                     if (hit.collider == null)
                     {
-                        offsetX += rayLength;  // ´ÙÀ½ ¾ÆÀÌÅÛÀÇ À§Ä¡¸¦ ¿À¸¥ÂÊÀ¸·Î ¿Å±è
+                        offsetX += rayLength;  // ë‹¤ìŒ ì•„ì´í…œì˜ ìœ„ì¹˜ë¥¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì˜®ê¹€
                     }
          
                 }
                 else
                 {
-                    Debug.LogError("ÇÁ¸®ÆÕÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù: " + dropItem.itemName);
+                    Debug.LogError("í”„ë¦¬íŒ¹ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: " + dropItem.itemName);
                 }
             }
         }
@@ -174,14 +174,14 @@ public class DropManager : MonoBehaviour
     {
         foreach (var pool in ojbectPoolDic.Values)
         {
-            // ObjectPoolÀÇ ³»ºÎ »óÅÂ¸¦ Á÷Á¢ÀûÀ¸·Î °ü¸®ÇÒ ¼ö ¾øÀ¸¹Ç·Î, 
-            // Á÷Á¢ ¿ÀºêÁ§Æ®¸¦ ¹İÈ¯ÇÏ°Å³ª »èÁ¦ÇÏ´Â ¹æ½ÄÀ¸·Î Ã³¸®ÇÕ´Ï´Ù.
+            // ObjectPoolì˜ ë‚´ë¶€ ìƒíƒœë¥¼ ì§ì ‘ì ìœ¼ë¡œ ê´€ë¦¬í•  ìˆ˜ ì—†ìœ¼ë¯€ë¡œ, 
+            // ì§ì ‘ ì˜¤ë¸Œì íŠ¸ë¥¼ ë°˜í™˜í•˜ê±°ë‚˜ ì‚­ì œí•˜ëŠ” ë°©ì‹ìœ¼ë¡œ ì²˜ë¦¬í•©ë‹ˆë‹¤.
 
-            // Ç®¿¡ ÀÖ´Â ¸ğµç ¿ÀºêÁ§Æ®¸¦ ¼øÂ÷ÀûÀ¸·Î ¹İÈ¯ÇÕ´Ï´Ù.
-            pool.Clear();  // Ç®À» ºñ¿ó´Ï´Ù.
+            // í’€ì— ìˆëŠ” ëª¨ë“  ì˜¤ë¸Œì íŠ¸ë¥¼ ìˆœì°¨ì ìœ¼ë¡œ ë°˜í™˜í•©ë‹ˆë‹¤.
+            pool.Clear();  // í’€ì„ ë¹„ì›ë‹ˆë‹¤.
 
-            // Ãß°¡ÀûÀ¸·Î ÇÊ¿äÇÑ °æ¿ì ¸ğµç ¿ÀºêÁ§Æ®¸¦ ÆÄ±«ÇÒ ¼öµµ ÀÖ½À´Ï´Ù.
-            // ÀÌ °æ¿ì ÇØ´ç ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÒ ¶§, ¸ğµç ¿ÀºêÁ§Æ®¸¦ ÆÄ±«ÇÏ´Â ÄÚµåµµ ÇÊ¿äÇÕ´Ï´Ù.
+            // ì¶”ê°€ì ìœ¼ë¡œ í•„ìš”í•œ ê²½ìš° ëª¨ë“  ì˜¤ë¸Œì íŠ¸ë¥¼ íŒŒê´´í•  ìˆ˜ë„ ìˆìŠµë‹ˆë‹¤.
+            // ì´ ê²½ìš° í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•  ë•Œ, ëª¨ë“  ì˜¤ë¸Œì íŠ¸ë¥¼ íŒŒê´´í•˜ëŠ” ì½”ë“œë„ í•„ìš”í•©ë‹ˆë‹¤.
         }
         goDic.Clear();
         ojbectPoolDic.Clear();

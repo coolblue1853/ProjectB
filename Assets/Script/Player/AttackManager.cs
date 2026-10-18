@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +13,7 @@ public class AttackManager : MonoBehaviour
     public SkillCooldown skillCooldown;
     public Transform sword;
     public string states = "";
-    public GameObject rightHand; // ¹«±â¸¦ ÀåÂøÇÏ´Â ¼ÒÄÏ ¿ÀºêÁ§Æ®
+    public GameObject rightHand; // ë¬´ê¸°ë¥¼ ì¥ì°©í•˜ëŠ” ì†Œì¼“ ì˜¤ë¸Œì íŠ¸
     public GameObject leftHand;
 
     public PlayerBuff foodBuff;

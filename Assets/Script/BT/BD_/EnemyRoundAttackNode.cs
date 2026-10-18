@@ -1,4 +1,4 @@
-using BehaviorDesigner.Runtime.Tasks;
+ï»¿using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
 using DG.Tweening;
 using UnityEngine;
@@ -8,10 +8,10 @@ public class EnemyRoundAttackNode : EnemyAction
     BehaviorTree bt;
     public EnemySpawner enemySpowner;
     public string attackName;
-    public float radius = 5f;       // ¿øÀÇ ¹İÁö¸§
-    public float startAngle = 0f;   // ½ÃÀÛ °¢µµ
-    public float endAngle = 360f;   // ³¡ °¢µµ
-    public int bulletCount = 30;    // »ı¼ºÇÒ Åº¸· °³¼ö
+    public float radius = 5f;       // ì›ì˜ ë°˜ì§€ë¦„
+    public float startAngle = 0f;   // ì‹œì‘ ê°ë„
+    public float endAngle = 360f;   // ë ê°ë„
+    public int bulletCount = 30;    // ìƒì„±í•  íƒ„ë§‰ ê°œìˆ˜
     //public GameObject damageOb;
     public GameObject attackPivot;
     float direction;
@@ -83,38 +83,38 @@ public class EnemyRoundAttackNode : EnemyAction
         }
         else
         {
-            float angleStep = (endAngle - startAngle) / bulletCount; // Åº¸· °£°İ °è»ê
+            float angleStep = (endAngle - startAngle) / bulletCount; // íƒ„ë§‰ ê°„ê²© ê³„ì‚°
 
             for (int i = 0; i < bulletCount; i++)
             {
-                float angle = startAngle + i * angleStep; // ÇöÀç Åº¸·ÀÇ °¢µµ °è»ê
+                float angle = startAngle + i * angleStep; // í˜„ì¬ íƒ„ë§‰ì˜ ê°ë„ ê³„ì‚°
 
-                // ¿ÀºêÁ§Æ®°¡ ³¯¾Æ°¡´Â ¹æÇâÀ» ±âÁØÀ¸·Î È¸ÀüÇÏ±â À§ÇØ °¢µµ¸¦ °è»êÇÕ´Ï´Ù.
+                // ì˜¤ë¸Œì íŠ¸ê°€ ë‚ ì•„ê°€ëŠ” ë°©í–¥ì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „í•˜ê¸° ìœ„í•´ ê°ë„ë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤.
                 float adjustedAngle = angle;
 
-                // Àû ¿ÀºêÁ§Æ®ÀÇ ¹æÇâ¿¡ µû¶ó Åº¸·ÀÇ °¢µµ¸¦ Á¶Á¤ÇÕ´Ï´Ù.
+                // ì  ì˜¤ë¸Œì íŠ¸ì˜ ë°©í–¥ì— ë”°ë¼ íƒ„ë§‰ì˜ ê°ë„ë¥¼ ì¡°ì •í•©ë‹ˆë‹¤.
                 float enemyDirection = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
                 if (enemyDirection < 0)
                 {
-                    // Àû ¿ÀºêÁ§Æ®°¡ ¹İÀüµÈ °æ¿ì °¢µµµµ ¹İÀü½ÃÅµ´Ï´Ù.
+                    // ì  ì˜¤ë¸Œì íŠ¸ê°€ ë°˜ì „ëœ ê²½ìš° ê°ë„ë„ ë°˜ì „ì‹œí‚µë‹ˆë‹¤.
                     adjustedAngle = 180f - angle;
                 }
 
-                // °¢µµ¸¦ ¶óµğ¾ÈÀ¸·Î º¯È¯ÇÕ´Ï´Ù.
+                // ê°ë„ë¥¼ ë¼ë””ì•ˆìœ¼ë¡œ ë³€í™˜í•©ë‹ˆë‹¤.
                 float angleInRadians = adjustedAngle * Mathf.Deg2Rad;
 
-                // Åº¸·ÀÇ À§Ä¡ °è»ê
+                // íƒ„ë§‰ì˜ ìœ„ì¹˜ ê³„ì‚°
                 float x = radius * Mathf.Cos(angleInRadians);
                 float y = radius * Mathf.Sin(angleInRadians);
 
-                // Åº¸· »ı¼º
+                // íƒ„ë§‰ ìƒì„±
                 //GameObject bullet = GameObject.Instantiate(damageOb, attackPivot.transform.position + new Vector3(x, y, 0f), Quaternion.identity, this.transform);
                 var damage = enemySpowner.GetOb(attackName);
                 damage.transform.position = attackPivot.transform.position + new Vector3(x, y, 0f);
                 damage.transform.rotation = Quaternion.identity;
                 if (isSetParent)
                     damage.transform.SetParent(this.transform);
-                // Åº¸· ¹æÇâ ¼³Á¤
+                // íƒ„ë§‰ ë°©í–¥ ì„¤ì •
                 damage.transform.up = new Vector2(x, y).normalized;
 
                 damageObject = damage;

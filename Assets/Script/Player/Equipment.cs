@@ -1,19 +1,19 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Equipment : MonoBehaviour
 {
-    // ¹æ¾îµµ
-    // Ã¼·ÂÁõ°¡
+    // ë°©ì–´ë„
+    // ì²´ë ¥ì¦ê°€
     public int armor;
     public int hp;
-    public int basicDmg; // ÃÖ¼Ò °ø°İ·Â Áõ°¡
+    public int basicDmg; // ìµœì†Œ ê³µê²©ë ¥ ì¦ê°€
     public int critical;
     public int criticalDmg;
-    public int incDmg; // µ¥¹ÌÁö Áõ°¡
+    public int incDmg; // ë°ë¯¸ì§€ ì¦ê°€
     public int dropRate;
-    public int attSpeed; // ±âº» °ø°İ ¼Óµµ
+    public int attSpeed; // ê¸°ë³¸ ê³µê²© ì†ë„
     public int moveSpeed;
 
     public bool isBleeding;
@@ -25,9 +25,9 @@ public class Equipment : MonoBehaviour
     public float bleedingDamageInterval;
     [ConditionalHide("isBleeding")]
     public int bleedingDamageCount;
-    public int bleedingDmgPer; // ÃâÇ÷½Ã µ¥¹ÌÁö Áõ°¡.
+    public int bleedingDmgPer; // ì¶œí˜ˆì‹œ ë°ë¯¸ì§€ ì¦ê°€.
 
-    public int poisonDmg;// Áßµ¶ µ¥¹ÌÁö ¼öÄ¡ Áõ°¡
+    public int poisonDmg;// ì¤‘ë… ë°ë¯¸ì§€ ìˆ˜ì¹˜ ì¦ê°€
 
     public int addIncomingDmg;
 

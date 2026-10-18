@@ -1,4 +1,4 @@
-using BehaviorDesigner.Runtime.Tasks;
+ï»¿using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,31 +8,31 @@ public class EnemyHPBarOFF : EnemyAction
 
     public override void OnStart()
     {
-        // HPBar ºñÈ°¼ºÈ­
+        // HPBar ë¹„í™œì„±í™”
         HideHpBar();
     }
 
     public override TaskStatus OnUpdate()
     {
-        // ¿Ï·áµÈ »óÅÂ¸é ¼º°ø ¹İÈ¯
+        // ì™„ë£Œëœ ìƒíƒœë©´ ì„±ê³µ ë°˜í™˜
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
 
     private void HideHpBar()
     {
-        // HPObject°¡ ÀÌ¹Ì ºñÈ°¼ºÈ­ µÇ¾î ÀÖÁö ¾ÊÀ¸¸é ºñÈ°¼ºÈ­
+        // HPObjectê°€ ì´ë¯¸ ë¹„í™œì„±í™” ë˜ì–´ ìˆì§€ ì•Šìœ¼ë©´ ë¹„í™œì„±í™”
         if (HPObject.activeSelf)
         {
             HPObject.SetActive(false);
         }
 
-        // »óÅÂ ¿Ï·á
+        // ìƒíƒœ ì™„ë£Œ
         OnSequenceComplete();
     }
 
     private void OnSequenceComplete()
     {
-        // »óÅÂ ¿Ï·á Ã³¸®
+        // ìƒíƒœ ì™„ë£Œ ì²˜ë¦¬
         isEnd = true;
     }
 }

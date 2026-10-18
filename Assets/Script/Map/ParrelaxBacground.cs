@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,11 +19,11 @@ public class ParrelaxBacground : MonoBehaviour
         Sprite sprite = GetComponent<SpriteRenderer>().sprite;
         Texture2D texture = sprite.texture;
 
-        // ¿ø·¡ÀÇ ÅØ½ºÃ³ ´ÜÀ§ Å©±â °è»ê
+        // ì›ë˜ì˜ í…ìŠ¤ì²˜ ë‹¨ìœ„ í¬ê¸° ê³„ì‚°
         float originalTextureUnitSizeX = texture.width / sprite.pixelsPerUnit;
         float originalTextureUnitSizeY = texture.height / sprite.pixelsPerUnit;
 
-        // ÇöÀç ½ºÄÉÀÏ·Î ÅØ½ºÃ³ ´ÜÀ§ Å©±â Á¶Á¤
+        // í˜„ì¬ ìŠ¤ì¼€ì¼ë¡œ í…ìŠ¤ì²˜ ë‹¨ìœ„ í¬ê¸° ì¡°ì •
         textureUnitSizeX = originalTextureUnitSizeX * transform.localScale.x;
         textureUnitSizeY = originalTextureUnitSizeY * transform.localScale.y;
     }

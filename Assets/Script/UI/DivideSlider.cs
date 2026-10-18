@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 public class DivideSlider : MonoBehaviour
 {
-    public int currentValue = 10; // ÇöÀç °¡Áö°í ÀÖ´Â int ¼ö
-    public Slider divideSlider; // Unity Inspector¿¡¼­ Slider¸¦ ÇÒ´ç
+    public int currentValue = 10; // í˜„ì¬ ê°€ì§€ê³  ìˆëŠ” int ìˆ˜
+    public Slider divideSlider; // Unity Inspectorì—ì„œ Sliderë¥¼ í• ë‹¹
     public TextMeshProUGUI uiTxt;
     int output;
     public ItemCheck itemCheck;
@@ -51,21 +51,21 @@ public class DivideSlider : MonoBehaviour
 
         void Start()
     {
-        // ½½¶óÀÌ´õ ÃÊ±âÈ­
+        // ìŠ¬ë¼ì´ë” ì´ˆê¸°í™”
         InitializeSlider();
 
-        // ½½¶óÀÌ´õ °ªÀÌ º¯°æµÉ ¶§¸¶´Ù È£ÃâµÇ´Â ÀÌº¥Æ® µî·Ï
+        // ìŠ¬ë¼ì´ë” ê°’ì´ ë³€ê²½ë  ë•Œë§ˆë‹¤ í˜¸ì¶œë˜ëŠ” ì´ë²¤íŠ¸ ë“±ë¡
         divideSlider.onValueChanged.AddListener(OnSliderValueChanged);
         uiTxt.text = "1" + "/" +currentValue.ToString();
     }
 
     void InitializeSlider()
     {
-        // ½½¶óÀÌ´õÀÇ ÃÖ¼Ò°ª°ú ÃÖ´ë°ª ¼³Á¤
+        // ìŠ¬ë¼ì´ë”ì˜ ìµœì†Œê°’ê³¼ ìµœëŒ€ê°’ ì„¤ì •
         divideSlider.minValue = 1;
         divideSlider.maxValue = currentValue-1;
 
-        // ½½¶óÀÌ´õÀÇ ÇöÀç °ª ¼³Á¤
+        // ìŠ¬ë¼ì´ë”ì˜ í˜„ì¬ ê°’ ì„¤ì •
         divideSlider.value = 1;
         output = 1;
         uiTxt.text = output.ToString() + "/" + currentValue.ToString();
@@ -82,7 +82,7 @@ public class DivideSlider : MonoBehaviour
         divideSlider.minValue = 1;
         divideSlider.maxValue = currentValue-1;
 
-        // ½½¶óÀÌ´õÀÇ ÇöÀç °ª ¼³Á¤
+        // ìŠ¬ë¼ì´ë”ì˜ í˜„ì¬ ê°’ ì„¤ì •
         divideSlider.value = 1;
         output = 1;
         uiTxt.text = output.ToString() + "/" + currentValue.ToString();

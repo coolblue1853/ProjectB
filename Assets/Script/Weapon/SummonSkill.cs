@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,11 +11,11 @@ public class SummonSkill : MonoBehaviour
     public float yPos;
 
     //  public GameObject summonPivot;
-    public float summonDistance = 0; // Ã¼Å©
-    public float rayDistance = 0; // Ã¼Å©
+    public float summonDistance = 0; // ì²´í¬
+    public float rayDistance = 0; // ì²´í¬
      Vector2 direction = new Vector2(1, 0);
     public float ackFloat;
-    public LayerMask collisionLayer; // Ãæµ¹ Ã¼Å©¸¦ À§ÇÑ ·¹ÀÌ¾î
+    public LayerMask collisionLayer; // ì¶©ëŒ ì²´í¬ë¥¼ ìœ„í•œ ë ˆì´ì–´
     // Start is called before the first frame update
     void Start()
     {
@@ -34,12 +34,12 @@ public class SummonSkill : MonoBehaviour
             Vector2 currentPosition = new Vector2(player.transform.position.x, player.transform.position.y - 0.55f);
             Vector3 destination = currentPosition + newDir.normalized * summonDistance;
             destination = new Vector3(destination.x, destination.y + 0.55f);
-            // ¸ñÇ¥ À§Ä¡±îÁöÀÇ °æ·Î¸¦ °Ë»ç
+            // ëª©í‘œ ìœ„ì¹˜ê¹Œì§€ì˜ ê²½ë¡œë¥¼ ê²€ì‚¬
             RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, rayDistance, collisionLayer);
 
             if (hit.collider == null)
 
-            {  // Ãæµ¹ÀÌ ¾ø´Â °æ¿ì, ¿ÀºêÁ§Æ®¸¦ ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿
+            {  // ì¶©ëŒì´ ì—†ëŠ” ê²½ìš°, ì˜¤ë¸Œì íŠ¸ë¥¼ ëª©í‘œ ìœ„ì¹˜ë¡œ ì´ë™
       
                 GameObject r = Instantiate(summonObject, destination + new Vector3(0, yPos, zPosition), this.transform.rotation);
               
@@ -48,14 +48,14 @@ public class SummonSkill : MonoBehaviour
             else
             {
                 Vector3 safePosition;
-                // Ãæµ¹ÀÌ ÀÖ´Â °æ¿ì, Ãæµ¹ ÁöÁ¡ ¾Õ¿¡ ¿ÀºêÁ§Æ®¸¦ ÀÌµ¿
+                // ì¶©ëŒì´ ìˆëŠ” ê²½ìš°, ì¶©ëŒ ì§€ì  ì•ì— ì˜¤ë¸Œì íŠ¸ë¥¼ ì´ë™
                 if (newDir.x < 0)
                 {
-                     safePosition = hit.point + new Vector2(ackFloat, 0); // Ãæµ¹ ÁöÁ¡¿¡¼­ ¾à°£ ¶³¾îÁø À§Ä¡
+                     safePosition = hit.point + new Vector2(ackFloat, 0); // ì¶©ëŒ ì§€ì ì—ì„œ ì•½ê°„ ë–¨ì–´ì§„ ìœ„ì¹˜
                 }
                 else
                 {
-                     safePosition = hit.point - new Vector2(ackFloat, 0); // Ãæµ¹ ÁöÁ¡¿¡¼­ ¾à°£ ¶³¾îÁø À§Ä¡
+                     safePosition = hit.point - new Vector2(ackFloat, 0); // ì¶©ëŒ ì§€ì ì—ì„œ ì•½ê°„ ë–¨ì–´ì§„ ìœ„ì¹˜
                 }
                 safePosition = new Vector3(safePosition.x, safePosition.y + 0.55f);
                 GameObject r = Instantiate(summonObject, safePosition + new Vector3(0, yPos, zPosition), this.transform.rotation);

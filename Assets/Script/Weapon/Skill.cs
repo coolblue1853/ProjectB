@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +8,7 @@ using DarkTonic.MasterAudio;
 public class Skill : MonoBehaviour
 {
     KeyAction action;
-    InputAction[] skillAction = new InputAction[4]; // Å°º¸µå·Î  A S D F ¼ø
+    InputAction[] skillAction = new InputAction[4]; // í‚¤ë³´ë“œë¡œ  A S D F ìˆœ
     public string[] skillSound;
     public GameObject[] skillBackGround = new GameObject[4];
     public GameObject[] skillPivot;
@@ -30,56 +30,56 @@ public class Skill : MonoBehaviour
 
     public bool isHoldSkill = false;
     public float holdingTime = 0;
-    public bool holdDisEffectByTime = false; // ÀÌ°Ô ÄÑÁ® ÀÖÀ¸¸é °ø¼Ó ¹öÇÁ¿¡ ¿µÇâÀ» ¾È¹Ş°Ô µÊ
+    public bool holdDisEffectByTime = false; // ì´ê²Œ ì¼œì ¸ ìˆìœ¼ë©´ ê³µì† ë²„í”„ì— ì˜í–¥ì„ ì•ˆë°›ê²Œ ë¨
     public bool isCancleAttack = false;
-    public bool isEffectMaxAdd; // ÃÖ´ë ¹ß»ı·® Áõ°¡°¡ ¿µÇâÀ» ³¢Ä¡´Â ¾ÆÀÌÅÛÀÎÁö È®ÀÎ
+    public bool isEffectMaxAdd; // ìµœëŒ€ ë°œìƒëŸ‰ ì¦ê°€ê°€ ì˜í–¥ì„ ë¼ì¹˜ëŠ” ì•„ì´í…œì¸ì§€ í™•ì¸
     [ConditionalHide("isEffectMaxAdd")]
-    public int objectMaxCount; // ÃÖ´ë ¹ß»ı·®ÀÌ Áõ°¡ÇÏ´Â ¾ÆÀÌÅÛ È¿°ú¸¦ À§ÇÔ. ¾Æ¹«¸® ¸¹¾Æµµ ¿©±â¿¡ ÁöÁ¤µÈ È½¼ö¸¸Å­ ³ª°¨.
+    public int objectMaxCount; // ìµœëŒ€ ë°œìƒëŸ‰ì´ ì¦ê°€í•˜ëŠ” ì•„ì´í…œ íš¨ê³¼ë¥¼ ìœ„í•¨. ì•„ë¬´ë¦¬ ë§ì•„ë„ ì—¬ê¸°ì— ì§€ì •ëœ íšŸìˆ˜ë§Œí¼ ë‚˜ê°.
      bool isActiveHold = false;
 
-    public float skillWaitTime = 0; // µô·¹ÀÌ½Ã°£, ÀÌ ½Ã°£ÀÌ Áö³ª°í ÇÁ¸®ÆÕ »ı¼º
+    public float skillWaitTime = 0; // ë”œë ˆì´ì‹œê°„, ì´ ì‹œê°„ì´ ì§€ë‚˜ê³  í”„ë¦¬íŒ¹ ìƒì„±
 
     GameObject damageObject;
     DamageObject dmOb;
     public GameObject player;
     Sequence skillSequence;
     public bool isNullParent = false;
-    public bool isRayCheckSkill = false; // Àü¹æÀ¸·Î ³ª°¡´Â ±â¼ú. º® ¾Õ¿¡¼­ ¸ØÃá´Ù.
+    public bool isRayCheckSkill = false; // ì „ë°©ìœ¼ë¡œ ë‚˜ê°€ëŠ” ê¸°ìˆ . ë²½ ì•ì—ì„œ ë©ˆì¶˜ë‹¤.
 
     [ConditionalHide("isRayCheckSkill")]
-    public Vector2[] direction; // ÀÌµ¿ ¹æÇâ, ¸®½ºÆ®ÇüÅÂÀÓ. ÀÎÅÍ¹ú°ú ¸¶Âù°¡Áö·Î ÀüÃ¼ ½ºÅ³-1°³¸¸Å­ Á¸Àç
+    public Vector2[] direction; // ì´ë™ ë°©í–¥, ë¦¬ìŠ¤íŠ¸í˜•íƒœì„. ì¸í„°ë²Œê³¼ ë§ˆì°¬ê°€ì§€ë¡œ ì „ì²´ ìŠ¤í‚¬-1ê°œë§Œí¼ ì¡´ì¬
     [ConditionalHide("isRayCheckSkill")]
-    public float[] distance;    // ÀÌµ¿ °Å¸®
+    public float[] distance;    // ì´ë™ ê±°ë¦¬
     [ConditionalHide("isRayCheckSkill")]
-    public GameObject rayPositon;    // ray°¡ ½ÃÀÛÇÏ´Â À§Ä¡.
+    public GameObject rayPositon;    // rayê°€ ì‹œì‘í•˜ëŠ” ìœ„ì¹˜.
     [ConditionalHide("isRayCheckSkill")]
-    public LayerMask collisionLayer; // Ãæµ¹ Ã¼Å©¸¦ À§ÇÑ ·¹ÀÌ¾î
+    public LayerMask collisionLayer; // ì¶©ëŒ ì²´í¬ë¥¼ ìœ„í•œ ë ˆì´ì–´
     Vector2 originPoint;
-    Vector2 newDir; // rayCheck¿¡ ÇÊ¿äÇÑ º¯¼öµé
+    Vector2 newDir; // rayCheckì— í•„ìš”í•œ ë³€ìˆ˜ë“¤
     Vector2 destination;
     RaycastHit2D hit;
     Vector2 safePosition;
 
-    public bool isGorundCheckSkill = false; // ¶¥¿¡¼­ »ı¼ºµÇ´Â ±â¼ú.
+    public bool isGorundCheckSkill = false; // ë•…ì—ì„œ ìƒì„±ë˜ëŠ” ê¸°ìˆ .
     [ConditionalHide("isGorundCheckSkill")]
     public float groundCheckLength;
     [ConditionalHide("isGorundCheckSkill")]
-    public LayerMask groundCollisionLayer; // Ãæµ¹ Ã¼Å©¸¦ À§ÇÑ ·¹ÀÌ¾î
+    public LayerMask groundCollisionLayer; // ì¶©ëŒ ì²´í¬ë¥¼ ìœ„í•œ ë ˆì´ì–´
     [ConditionalHide("isGorundCheckSkill")]
-    public float yPivot; // Ãæµ¹ Ã¼Å©¸¦ À§ÇÑ ·¹ÀÌ¾î
+    public float yPivot; // ì¶©ëŒ ì²´í¬ë¥¼ ìœ„í•œ ë ˆì´ì–´
     Vector2 groundCheckDir;
     Vector2 groundCheckPosition;
     RaycastHit2D groundCheckHit;
 
-    public bool isRoundAttack; // ¿øÇüÀÇ°ø°İ, Æ¯Á¤ °¢µµ³»¿¡ ÀüÃ¤·Î »Ñ¸®´Â °ø°İÇü½Ä
+    public bool isRoundAttack; // ì›í˜•ì˜ê³µê²©, íŠ¹ì • ê°ë„ë‚´ì— ì „ì±„ë¡œ ë¿Œë¦¬ëŠ” ê³µê²©í˜•ì‹
     [ConditionalHide("isRoundAttack")]
-    public float radius = 5f;       // ¿øÀÇ ¹İÁö¸§
+    public float radius = 5f;       // ì›ì˜ ë°˜ì§€ë¦„
     [ConditionalHide("isRoundAttack")]
-    public float startAngle = 0f;   // ½ÃÀÛ °¢µµ
+    public float startAngle = 0f;   // ì‹œì‘ ê°ë„
     [ConditionalHide("isRoundAttack")]
-    public float endAngle = 360f;   // ³¡ °¢µµ
+    public float endAngle = 360f;   // ë ê°ë„
     [ConditionalHide("isRoundAttack")]
-    public int bulletCount = 30;    // »ı¼ºÇÒ Åº¸· °³¼ö
+    public int bulletCount = 30;    // ìƒì„±í•  íƒ„ë§‰ ê°œìˆ˜
 
     public string skillName;
     public int skillNum;
@@ -160,16 +160,16 @@ public class Skill : MonoBehaviour
              destination = currentPosition + newDir.normalized * distance[num - 1];
              hit = Physics2D.Raycast(currentPosition, newDir, distance[num - 1], collisionLayer);
         }
-        safePosition = hit.point - newDir.normalized * 0.2f; // Ãæµ¹ ÁöÁ¡¿¡¼­ ¾à°£ ¶³¾îÁø À§Ä¡
+        safePosition = hit.point - newDir.normalized * 0.2f; // ì¶©ëŒ ì§€ì ì—ì„œ ì•½ê°„ ë–¨ì–´ì§„ ìœ„ì¹˜
     }
     void GroundCheck(bool isHit, int num)
     {
          groundCheckDir = new Vector2(0, -1);
          groundCheckPosition = new Vector2(destination.x, originPoint.y);
          groundCheckHit = Physics2D.Raycast(groundCheckPosition, groundCheckDir, groundCheckLength, collisionLayer);
-        if (groundCheckHit.collider != null) // Ãæµ¹ÀÌ ¾øÀ¸¸é ¼ÒÈ¯ x ¾Æ¿¹ »ç¿ëÀÌ ¾ÈµÊ
+        if (groundCheckHit.collider != null) // ì¶©ëŒì´ ì—†ìœ¼ë©´ ì†Œí™˜ x ì•„ì˜ˆ ì‚¬ìš©ì´ ì•ˆë¨
         {
-            Vector2 groundSafePositon = groundCheckHit.point - groundCheckDir.normalized; // Ãæµ¹ ÁöÁ¡¿¡¼­ ¾à°£ ¶³¾îÁø À§Ä¡
+            Vector2 groundSafePositon = groundCheckHit.point - groundCheckDir.normalized; // ì¶©ëŒ ì§€ì ì—ì„œ ì•½ê°„ ë–¨ì–´ì§„ ìœ„ì¹˜
             groundSafePositon = new Vector2(groundSafePositon.x, groundSafePositon.y + yPivot);
             if(isHit == false)
                 damageObject = Instantiate(skillprefab[num], new Vector2(destination.x, groundSafePositon.y), skillPivot[num].transform.rotation, this.transform);
@@ -186,9 +186,9 @@ public class Skill : MonoBehaviour
         yield return new WaitForSeconds(interval[0] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && (isEffectMaxAdd == false || i < allObjectMaxCount); i++)
         {
-            if (isRayCheckSkill == false) //RayCast¸¦ È®ÀÎÇÏ´Â ±â¼úÀÎ°¡
+            if (isRayCheckSkill == false) //RayCastë¥¼ í™•ì¸í•˜ëŠ” ê¸°ìˆ ì¸ê°€
             {
-                if (isGorundCheckSkill == false) //ÀÏÁ¤ °Å¸®ÀÌ»ó Á¡ÇÁ½Ã¿¡ »ç¿ëÀ» ¸øÇÏ´Â ±â¼úÀÎ°¡
+                if (isGorundCheckSkill == false) //ì¼ì • ê±°ë¦¬ì´ìƒ ì í”„ì‹œì— ì‚¬ìš©ì„ ëª»í•˜ëŠ” ê¸°ìˆ ì¸ê°€
                     damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
                 else
                 {
@@ -198,14 +198,14 @@ public class Skill : MonoBehaviour
                     damageObject = Instantiate(skillprefab[i], new Vector2(skillPivot[i].transform.position.x, safePosition.y), skillPivot[i].transform.rotation, this.transform);
                 }
             }
-            else // ray¸¦ »ç¿ëÇÏ´Â ±â¼ú. Àü¹æÀ¸·Î ÇâÇÏ´Â ±â¼ú·Î¼­ pivotÀÌ ÇÏ³ª¸¸ ÀÖ¾îµµ µÈ´Ù.
+            else // rayë¥¼ ì‚¬ìš©í•˜ëŠ” ê¸°ìˆ . ì „ë°©ìœ¼ë¡œ í–¥í•˜ëŠ” ê¸°ìˆ ë¡œì„œ pivotì´ í•˜ë‚˜ë§Œ ìˆì–´ë„ ëœë‹¤.
             {
                 WallCheck(true, isChangeDir, i);
                 if (hit.collider == null)
                 {
                     if (isGorundCheckSkill == false)
                         damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
-                    else //groundCheck¸¦ ÇØÁà¾ßÇÏ´Â°æ¿ì
+                    else //groundCheckë¥¼ í•´ì¤˜ì•¼í•˜ëŠ”ê²½ìš°
                         GroundCheck(false, i);
                 }
                 else
@@ -230,7 +230,7 @@ public class Skill : MonoBehaviour
 
             }
          
-            // ´ÙÀ½ ½ºÅ³À» »ı¼ºÇÏ±â Àü¿¡ interval[i]ÀÇ ½Ã°£¸¸Å­ ´ë±â
+            // ë‹¤ìŒ ìŠ¤í‚¬ì„ ìƒì„±í•˜ê¸° ì „ì— interval[i]ì˜ ì‹œê°„ë§Œí¼ ëŒ€ê¸°
             if (i < interval.Length)
                 yield return new WaitForSeconds(interval[i] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         }
@@ -240,24 +240,24 @@ public class Skill : MonoBehaviour
     public void RoundSpawn(GameObject damageOb, GameObject attackPivot)
     {
         if (DatabaseManager.skillBulletCount.ContainsKey(skillName))
-            allBullet = bulletCount + DatabaseManager.skillBulletCount[skillName]; // ¾ÆÀÌÅÛ Áß ÇØ´ç ±â¼úÀÇ ÅºÈ¯ Áß°¡°¡ ÀÖ´Â°æ¿ì ¼ıÀÚ¸¦ Áõ°¡½ÃÅµ´Ï´Ù.
+            allBullet = bulletCount + DatabaseManager.skillBulletCount[skillName]; // ì•„ì´í…œ ì¤‘ í•´ë‹¹ ê¸°ìˆ ì˜ íƒ„í™˜ ì¤‘ê°€ê°€ ìˆëŠ”ê²½ìš° ìˆ«ìë¥¼ ì¦ê°€ì‹œí‚µë‹ˆë‹¤.
         else
             allBullet = bulletCount;
-        float angleStep = (endAngle - startAngle) / (allBullet - 1); // Åº¸· °£°İ °è»ê
+        float angleStep = (endAngle - startAngle) / (allBullet - 1); // íƒ„ë§‰ ê°„ê²© ê³„ì‚°
         for (int i = 0; i < allBullet; i++)
         {
-            float angle = startAngle + i * angleStep; // ÇöÀç Åº¸·ÀÇ °¢µµ °è»ê
-            // Àû ¿ÀºêÁ§Æ®ÀÇ ¹æÇâ¿¡ µû¶ó Åº¸·ÀÇ °¢µµ¸¦ Á¶Á¤ÇÕ´Ï´Ù.
+            float angle = startAngle + i * angleStep; // í˜„ì¬ íƒ„ë§‰ì˜ ê°ë„ ê³„ì‚°
+            // ì  ì˜¤ë¸Œì íŠ¸ì˜ ë°©í–¥ì— ë”°ë¼ íƒ„ë§‰ì˜ ê°ë„ë¥¼ ì¡°ì •í•©ë‹ˆë‹¤.
             if (player.transform.localScale.x < 0) angle = 180f - angle;
 
-            // °¢µµ¸¦ ¶óµğ¾ÈÀ¸·Î º¯È¯ÇÕ´Ï´Ù.
+            // ê°ë„ë¥¼ ë¼ë””ì•ˆìœ¼ë¡œ ë³€í™˜í•©ë‹ˆë‹¤.
             float angleInRadians = angle * Mathf.Deg2Rad;
 
-            // Åº¸·ÀÇ À§Ä¡ °è»ê
+            // íƒ„ë§‰ì˜ ìœ„ì¹˜ ê³„ì‚°
             float x = radius * Mathf.Cos(angleInRadians);
             float y = radius * Mathf.Sin(angleInRadians);
 
-            // Åº¸· »ı¼º
+            // íƒ„ë§‰ ìƒì„±
             GameObject bullet = GameObject.Instantiate(damageOb, attackPivot.transform.position + new Vector3(x, y, 0f), Quaternion.identity, this.transform);
             if (bullet != null)
             {
@@ -266,7 +266,7 @@ public class Skill : MonoBehaviour
                 dmOb.skillName = skillName;
                 dmOb.SetDamge(damgeArray);
 
-                // Åº¸· ¹æÇâ ¼³Á¤
+                // íƒ„ë§‰ ë°©í–¥ ì„¤ì •
                 bullet.transform.up = new Vector2(x, y).normalized;
             }
         }
@@ -300,7 +300,7 @@ public class Skill : MonoBehaviour
         {
             if (isActiveHold == true)
             {
-                Destroy(damageObject.gameObject); // »ı¼ºµÈ ¿ÀºêÁ§Æ® »èÁ¦.
+                Destroy(damageObject.gameObject); // ìƒì„±ëœ ì˜¤ë¸Œì íŠ¸ ì‚­ì œ.
                 isActiveHold = false;
                 skillSequence.Kill();
                 skillCooldown.UseSkill(skillNum, skillName);
@@ -311,24 +311,24 @@ public class Skill : MonoBehaviour
         }
     }
   
-    void GroundAttack() // ¶¥¿¡¼­ »ı¼ºµÇ´Â ±â¼ú, ´ÜÀÏ °³Ã¼
+    void GroundAttack() // ë•…ì—ì„œ ìƒì„±ë˜ëŠ” ê¸°ìˆ , ë‹¨ì¼ ê°œì²´
     {
         Vector2 newDir = new Vector2(0, -1);
         Vector2 currentPosition = new Vector2(rayPositon.transform.position.x, rayPositon.transform.position.y);
         Vector2 destination = currentPosition + newDir.normalized * groundCheckLength;
         RaycastHit2D hit = Physics2D.Raycast(currentPosition, newDir, groundCheckLength, collisionLayer);
-        if (hit.collider == null) // Ãæµ¹ÀÌ ¾øÀ¸¸é ¼ÒÈ¯ x ¾Æ¿¹ »ç¿ëÀÌ ¾ÈµÊ
+        if (hit.collider == null) // ì¶©ëŒì´ ì—†ìœ¼ë©´ ì†Œí™˜ x ì•„ì˜ˆ ì‚¬ìš©ì´ ì•ˆë¨
             isActive = false;
         else
         {
-            Vector2 safePosition = hit.point - newDir.normalized; // Ãæµ¹ ÁöÁ¡¿¡¼­ ¾à°£ ¶³¾îÁø À§Ä¡
+            Vector2 safePosition = hit.point - newDir.normalized; // ì¶©ëŒ ì§€ì ì—ì„œ ì•½ê°„ ë–¨ì–´ì§„ ìœ„ì¹˜
             safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
             damageObject = Instantiate(skillprefab[0], new Vector2(skillPivot[0].transform.position.x, safePosition.y), skillPivot[0].transform.rotation, this.transform);
             MasterAudio.PlaySound(skillSound[0]);
         }
     }
 
-    void SkillEffect() // ±â¼ú ¿¡´Ï¸ŞÀÌ¼Ç ¹× µ¥¹ÌÁö ¿ÀºêÁ§Æ®¿¡ °ø°İ¼³Á¤
+    void SkillEffect() // ê¸°ìˆ  ì—ë‹ˆë©”ì´ì…˜ ë° ë°ë¯¸ì§€ ì˜¤ë¸Œì íŠ¸ì— ê³µê²©ì„¤ì •
     {
         PlayerController.instance.ActiveAttackAnim(false,skillAnim, attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         PlayerHealthManager.Instance.SteminaDown(useStemina);
@@ -346,7 +346,7 @@ public class Skill : MonoBehaviour
         else
         {
             skillSequence = DOTween.Sequence()
-           .AppendInterval(waitTime) // »çÀü¿¡ ÁöÁ¤ÇÑ °ø°İ ÁÖ±â¸¸Å­ ´ë±â.
+           .AppendInterval(waitTime) // ì‚¬ì „ì— ì§€ì •í•œ ê³µê²© ì£¼ê¸°ë§Œí¼ ëŒ€ê¸°.
            .AppendCallback(() => SetSkillDmg());
         }
 
@@ -359,12 +359,12 @@ public class Skill : MonoBehaviour
             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.skillName = skillName;
             dmOb.SetDamge(damgeArray);
-            if (skillprefab.Length > 1) StartCoroutine(SpawnSkills());// ´Ù¼öÀÇ ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÏ´Â ±â¼úÀÇ °æ¿ì
+            if (skillprefab.Length > 1) StartCoroutine(SpawnSkills());// ë‹¤ìˆ˜ì˜ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•˜ëŠ” ê¸°ìˆ ì˜ ê²½ìš°
         }
 
     }
 
-    void NomalAttack(float waitTime) // ÀÏ¹İÀûÀÎ °ø°İÀÇ »ı¼º
+    void NomalAttack(float waitTime) // ì¼ë°˜ì ì¸ ê³µê²©ì˜ ìƒì„±
     {
         if (waitTime == 0)
         {
@@ -394,7 +394,7 @@ public class Skill : MonoBehaviour
             MasterAudio.PlaySound(skillSound[0]);
         }
     }
-    void SkillAnimCheck(int skillNum) // ±â¼úÀÇ ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı°ú È¦µå ½ºÅ³ÀÇ ±¸ºĞ
+    void SkillAnimCheck(int skillNum) // ê¸°ìˆ ì˜ ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒê³¼ í™€ë“œ ìŠ¤í‚¬ì˜ êµ¬ë¶„
     {
         if (isActive == true)
         {
@@ -417,7 +417,7 @@ public class Skill : MonoBehaviour
                 else waitTime = holdingTime / (1 + (DatabaseManager.attackSpeedBuff / 100));
                 isActiveHold = true;
                 skillSequence = DOTween.Sequence()
-               .AppendInterval(waitTime) // »çÀü¿¡ ÁöÁ¤ÇÑ °ø°İ ÁÖ±â¸¸Å­ ´ë±â.
+               .AppendInterval(waitTime) // ì‚¬ì „ì— ì§€ì •í•œ ê³µê²© ì£¼ê¸°ë§Œí¼ ëŒ€ê¸°.
                .AppendCallback(() => isActiveHold = false)      
                .AppendCallback(() => skillCooldown.UseSkill(skillNum, skillName))
                .AppendCallback(() => CheckAttackWait())
@@ -438,7 +438,7 @@ public class Skill : MonoBehaviour
         if (isHoldSkill == false)
         {
             Sequence sequence = DOTween.Sequence()
-            .AppendInterval(attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100))) // »çÀü¿¡ ÁöÁ¤ÇÑ °ø°İ ÁÖ±â¸¸Å­ ´ë±â.
+            .AppendInterval(attckSpeed / (1 + (DatabaseManager.attackSpeedBuff / 100))) // ì‚¬ì „ì— ì§€ì •í•œ ê³µê²© ì£¼ê¸°ë§Œí¼ ëŒ€ê¸°.
             .AppendCallback(() => DatabaseManager.weaponStopMove = false)
             .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
             .AppendCallback(() => weapon.isSkillAttackWait = true);

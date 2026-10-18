@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseGround : MonoBehaviour
 {
-    // ÇØ´ç ½ºÅ©¸³Æ®¸¦ °¡Áö°í ÀÖ´Ù¸é ¾Æ·§Á¡ÇÁ ºÒ°¡.
+    // í•´ë‹¹ ìŠ¤í¬ë¦½íŠ¸ë¥¼ ê°€ì§€ê³  ìˆë‹¤ë©´ ì•„ë«ì í”„ ë¶ˆê°€.
     // Start is called before the first frame update
     void Start()
     {

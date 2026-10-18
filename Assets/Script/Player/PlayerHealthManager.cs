@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -142,7 +142,7 @@ public class PlayerHealthManager : MonoBehaviour
     public void EquipmentActiveTrue(int hp)
     {
         int checkHP =  nowHp;
-        // ¹æ¾îµµ Àû¿ëÀº ³ªÁß¿¡ ½ÃÄÑÁÖ¾î¾ß ÇÔ.
+        // ë°©ì–´ë„ ì ìš©ì€ ë‚˜ì¤‘ì— ì‹œì¼œì£¼ì–´ì•¼ í•¨.
         fullHP += hp;
 
         setHP = 1;
@@ -156,7 +156,7 @@ public class PlayerHealthManager : MonoBehaviour
     public void EquipmentActiveFalse(int hp)
     {
 
-        // ¹æ¾îµµ Àû¿ëÀº ³ªÁß¿¡ ½ÃÄÑÁÖ¾î¾ß ÇÔ.
+        // ë°©ì–´ë„ ì ìš©ì€ ë‚˜ì¤‘ì— ì‹œì¼œì£¼ì–´ì•¼ í•¨.
         fullHP -= hp;
 
         setHP = 1;
@@ -169,7 +169,7 @@ public class PlayerHealthManager : MonoBehaviour
             nowHp = fullHP;
         }
     }
-    //Ã¼·Â¹Ù °ü·Ã
+    //ì²´ë ¥ë°” ê´€ë ¨
     private void ResetMHp()
     {
         nowHp = fullHP;
@@ -191,7 +191,7 @@ public class PlayerHealthManager : MonoBehaviour
         Drop = DatabaseManager.playerDropRate;
         if (nowHp == 0)
         {
-            Debug.Log("Á×¾ú½À´Ï´Ù");
+            Debug.Log("ì£½ì—ˆìŠµë‹ˆë‹¤");
         }
 
         if(isAlphaChange == false && alphaSequence.IsActive() == true)
@@ -207,7 +207,7 @@ public class PlayerHealthManager : MonoBehaviour
     private void RepeatAnimation()
     {
         alphaSequence = DOTween.Sequence()
-        // ¾Ö´Ï¸ÞÀÌ¼Ç ÇÔ¼ö È£Ãâ ¹× ¹Ýº¹ ¼³Á¤
+        // ì• ë‹ˆë©”ì´ì…˜ í•¨ìˆ˜ í˜¸ì¶œ ë° ë°˜ë³µ ì„¤ì •
         .AppendCallback(() => mainCharacter.SetMeshAlphaAll(0.85f))
         .AppendInterval(0.1f)
         .AppendCallback(() => mainCharacter.SetMeshAlphaAll(1f))
@@ -232,13 +232,13 @@ public class PlayerHealthManager : MonoBehaviour
             .AppendCallback(() => isAlphaChange = false);
 
             damage = damage * (1 + ((DatabaseManager.incIncomingDmg) / 100));
-            int dmgAfDef = (int)Mathf.Floor((float)damage * ((float)damage / ((float)damage + (float)Def))); // ¹æ¹« ¹ÌÀû¿ë   20 / 20 + 10
+            int dmgAfDef = (int)Mathf.Floor((float)damage * ((float)damage / ((float)damage + (float)Def))); // ë°©ë¬´ ë¯¸ì ìš©   20 / 20 + 10
             HpDown(dmgAfDef);
             rb.velocity = Vector2.zero;
             if (DatabaseManager.isSuperArmor == false && stiffTime > 0)
             {
        
-                mysequence.Kill(); // Àç°ø°Ý½Ã °æÁ÷ ½Ã°£ ÃÊ±âÈ­.
+                mysequence.Kill(); // ìž¬ê³µê²©ì‹œ ê²½ì§ ì‹œê°„ ì´ˆê¸°í™”.
                 playerController.isAttacked = true;
                 playerController.isAttackedUp = true;
 
@@ -265,7 +265,7 @@ public class PlayerHealthManager : MonoBehaviour
             {
                 knockbackDir.x = -knockbackDir.x;
             }
-            // ÈûÀ» °¡ÇØ ³Ë¹éÀ» Àû¿ë
+            // íž˜ì„ ê°€í•´ ë„‰ë°±ì„ ì ìš©
             rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
         }
 
@@ -312,7 +312,7 @@ public class PlayerHealthManager : MonoBehaviour
         hpSequence.Kill();
         waitHpSequence.Kill();
         hpSequence = DOTween.Sequence()
-        .AppendInterval(waitTimeHpHeal) // ´ë±â ½Ã°£ »ç¿ë
+        .AppendInterval(waitTimeHpHeal) // ëŒ€ê¸° ì‹œê°„ ì‚¬ìš©
         .OnComplete(() => OnHpSequenceComplete());
     }
 
@@ -325,7 +325,7 @@ public class PlayerHealthManager : MonoBehaviour
         setStemina = setStemina - nomalizedStemina * damage;
         SteminaDamage(damage);
         sequence = DOTween.Sequence()
-        .AppendInterval(waitTimeSteminaHeal) // ´ë±â ½Ã°£ »ç¿ë
+        .AppendInterval(waitTimeSteminaHeal) // ëŒ€ê¸° ì‹œê°„ ì‚¬ìš©
         .OnComplete(() => OnSequenceComplete());
     }
 

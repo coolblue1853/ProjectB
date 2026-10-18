@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,17 +20,17 @@ public class InventoryAlpha : MonoBehaviour
     public void ChangeAlpha()
     {
   
-        // A°¡ ºÎ¸ğÀÇ ¸¶Áö¸· ÀÚ½ÄÀÎÁö È®ÀÎ
+        // Aê°€ ë¶€ëª¨ì˜ ë§ˆì§€ë§‰ ìì‹ì¸ì§€ í™•ì¸
          isLastChild = transform.GetSiblingIndex() == parent.childCount - 1;
-        // AÀÇ ÀÚ½ÄµéÀ» ¹İº¹
+        // Aì˜ ìì‹ë“¤ì„ ë°˜ë³µ
         foreach (Transform child in transform)
         {
             Image image = child.GetComponent<Image>();
             Collider2D collider = child.GetComponent<Collider2D>();
             if (image != null)
             {
-                // A°¡ ºÎ¸ğÀÇ ¸¶Áö¸· ÀÚ½ÄÀÌ ¾Æ´Ï¸é ¾ËÆÄ°ªÀ» 0À¸·Î ¼³Á¤
-                // ±×·¸Áö ¾ÊÀ¸¸é ¾ËÆÄ°ªÀ» 1·Î ¼³Á¤
+                // Aê°€ ë¶€ëª¨ì˜ ë§ˆì§€ë§‰ ìì‹ì´ ì•„ë‹ˆë©´ ì•ŒíŒŒê°’ì„ 0ìœ¼ë¡œ ì„¤ì •
+                // ê·¸ë ‡ì§€ ì•Šìœ¼ë©´ ì•ŒíŒŒê°’ì„ 1ë¡œ ì„¤ì •
                 image.color = new Color(image.color.r, image.color.g, image.color.b, isLastChild ? 1f : 0f);
                 collider.enabled  =isLastChild ? true : false;
             }
@@ -44,8 +44,8 @@ public class InventoryAlpha : MonoBehaviour
             Collider2D collider = child.GetComponent<Collider2D>();
             if (image != null)
             {
-                // A°¡ ºÎ¸ğÀÇ ¸¶Áö¸· ÀÚ½ÄÀÌ ¾Æ´Ï¸é ¾ËÆÄ°ªÀ» 0À¸·Î ¼³Á¤
-                // ±×·¸Áö ¾ÊÀ¸¸é ¾ËÆÄ°ªÀ» 1·Î ¼³Á¤
+                // Aê°€ ë¶€ëª¨ì˜ ë§ˆì§€ë§‰ ìì‹ì´ ì•„ë‹ˆë©´ ì•ŒíŒŒê°’ì„ 0ìœ¼ë¡œ ì„¤ì •
+                // ê·¸ë ‡ì§€ ì•Šìœ¼ë©´ ì•ŒíŒŒê°’ì„ 1ë¡œ ì„¤ì •
                 image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);
                 collider.enabled = false;
             }
@@ -59,8 +59,8 @@ public class InventoryAlpha : MonoBehaviour
             Collider2D collider = child.GetComponent<Collider2D>();
             if (image != null)
             {
-                // A°¡ ºÎ¸ğÀÇ ¸¶Áö¸· ÀÚ½ÄÀÌ ¾Æ´Ï¸é ¾ËÆÄ°ªÀ» 0À¸·Î ¼³Á¤
-                // ±×·¸Áö ¾ÊÀ¸¸é ¾ËÆÄ°ªÀ» 1·Î ¼³Á¤
+                // Aê°€ ë¶€ëª¨ì˜ ë§ˆì§€ë§‰ ìì‹ì´ ì•„ë‹ˆë©´ ì•ŒíŒŒê°’ì„ 0ìœ¼ë¡œ ì„¤ì •
+                // ê·¸ë ‡ì§€ ì•Šìœ¼ë©´ ì•ŒíŒŒê°’ì„ 1ë¡œ ì„¤ì •
                 image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
                 collider.enabled = true;
             }

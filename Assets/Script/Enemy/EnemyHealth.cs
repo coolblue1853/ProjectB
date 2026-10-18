@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -12,7 +12,7 @@ using BehaviorDesigner.Runtime.Tasks;
 public class EnemyHealth : PoolAble
 {
     public int enemyNum = 0;
-    public event System.Action<int,int,Vector3, bool, bool> OnReleasedToPool; // ÀÌº¥Æ® ¼±¾ğ
+    public event System.Action<int,int,Vector3, bool, bool> OnReleasedToPool; // ì´ë²¤íŠ¸ ì„ ì–¸
     public EnemySpawner enemySpowner;
     public bool isBleeding = false;
     public DamageNumber damageNumber;
@@ -28,7 +28,7 @@ public class EnemyHealth : PoolAble
     public GameObject hpCanvas;
     private Coroutine toggleCoroutine;
      Rigidbody2D rb;
-    // ³Ë¹é¿¡ »ç¿ëµÉ ¹æÇâ
+    // ë„‰ë°±ì— ì‚¬ìš©ë  ë°©í–¥
     Vector2 knockbackDirection = new Vector2(0f, 1f);
     public DropManager dropManager;
     BehaviorTree behaviorTree;
@@ -114,24 +114,24 @@ public class EnemyHealth : PoolAble
     bool notStiff;
 
 
-    /*  0~ 9¹ø±îÁö ¼ø¼­´ë·Î
-   public int minDmg=0;        // ÃÖ¼Ò´ï 0
-    public int maxDmg=0;       // ÃÖ´ë´ï  1
-    public int critPer = 0;   //  Ä¡¸í È®·ü% 2 
-    public int critDmg = 0;   //  Ä¡¸íÇÇÇØ% 3
-    public int incDmg = 0;   // µ¥¹ÌÁöÁõ°¡% 4
-    public int ignDef = 0; // ¹æ¾î·Â ¹«½Ã% 5
-    public int skillDmg = 0; // ½ºÅ³ °ø°İ·Â% 6
-    public int finDmg = 0; // ÃÖÁ¾µ©%   7
-    public int addDmg = 0; // Ãß°¡µ©%   8
-    public int ArmAtp = 0; // ¹æ¾î±¸ ±âº»µ© 9  
+    /*  0~ 9ë²ˆê¹Œì§€ ìˆœì„œëŒ€ë¡œ
+   public int minDmg=0;        // ìµœì†ŒëŒ 0
+    public int maxDmg=0;       // ìµœëŒ€ëŒ  1
+    public int critPer = 0;   //  ì¹˜ëª… í™•ë¥ % 2 
+    public int critDmg = 0;   //  ì¹˜ëª…í”¼í•´% 3
+    public int incDmg = 0;   // ë°ë¯¸ì§€ì¦ê°€% 4
+    public int ignDef = 0; // ë°©ì–´ë ¥ ë¬´ì‹œ% 5
+    public int skillDmg = 0; // ìŠ¤í‚¬ ê³µê²©ë ¥% 6
+    public int finDmg = 0; // ìµœì¢…ë€%   7
+    public int addDmg = 0; // ì¶”ê°€ë€%   8
+    public int ArmAtp = 0; // ë°©ì–´êµ¬ ê¸°ë³¸ë€ 9  
      */
     bool isCrit = false;
     float outDmg;
     float SetDmg(int[] damage, bool isSkill)
     {
-        // Æ¯Á¤ Á¶°Ç ¸¸Á·½Ã µ©Áõ
-        // ÃâÇ÷½Ã µ©Áõ
+        // íŠ¹ì • ì¡°ê±´ ë§Œì¡±ì‹œ ë€ì¦
+        // ì¶œí˜ˆì‹œ ë€ì¦
 
 
         isCrit = false;
@@ -139,16 +139,16 @@ public class EnemyHealth : PoolAble
         float baseDmg = UnityEngine.Random.Range(damage[0]+DatabaseManager.addbasicDmg, damage[1]+DatabaseManager.addbasicDmg);
         int checkCrit = UnityEngine.Random.Range(1, 101);
 
-        if(checkCrit <= damage[2]+ DatabaseManager.playerCritRate) // Ä¡¸íÅ¸ ¼º°ø½Ã
-        {// ±âº» Ä¡ÇÇ´Â 20
+        if(checkCrit <= damage[2]+ DatabaseManager.playerCritRate) // ì¹˜ëª…íƒ€ ì„±ê³µì‹œ
+        {// ê¸°ë³¸ ì¹˜í”¼ëŠ” 20
             isCrit = true;
             if (isBleeding)
             {
-                outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3] + DatabaseManager.playerCritDmgRate) / 100)) * (1 + ((damage[4]+DatabaseManager.bleedingAddDmg + DatabaseManager.incDmg) / 100));  // ±âº»µ© * Ä¡µ© * µ©Áõ
+                outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3] + DatabaseManager.playerCritDmgRate) / 100)) * (1 + ((damage[4]+DatabaseManager.bleedingAddDmg + DatabaseManager.incDmg) / 100));  // ê¸°ë³¸ë€ * ì¹˜ë€ * ë€ì¦
             }
             else
             {
-                outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3] + DatabaseManager.playerCritDmgRate) / 100)) * (1 + ((damage[4] + DatabaseManager.incDmg) / 100));  // ±âº»µ© * Ä¡µ© * µ©Áõ
+                outDmg = (baseDmg + damage[9]) * (1 + ((20 + damage[3] + DatabaseManager.playerCritDmgRate) / 100)) * (1 + ((damage[4] + DatabaseManager.incDmg) / 100));  // ê¸°ë³¸ë€ * ì¹˜ë€ * ë€ì¦
             }
 
         }
@@ -156,11 +156,11 @@ public class EnemyHealth : PoolAble
         {
             if (isBleeding)
             {
-                outDmg = (baseDmg + damage[9]) * (1 + ((damage[4]+DatabaseManager.bleedingAddDmg) / 100));  // ±âº»µ© * µ©Áõ
+                outDmg = (baseDmg + damage[9]) * (1 + ((damage[4]+DatabaseManager.bleedingAddDmg) / 100));  // ê¸°ë³¸ë€ * ë€ì¦
             }
             else
             {
-                outDmg = (baseDmg + damage[9]) * (1 + ((damage[4]) / 100));  // ±âº»µ© * µ©Áõ
+                outDmg = (baseDmg + damage[9]) * (1 + ((damage[4]) / 100));  // ê¸°ë³¸ë€ * ë€ì¦
             }
 
         }
@@ -185,18 +185,18 @@ public class EnemyHealth : PoolAble
     {    
 
         shakeTime = shaking;
-        float dmg = SetDmg(damage, isSkill); // ¹æ¾î·Â Àû¿ëÀü µ¥¹ÌÁö;
+        float dmg = SetDmg(damage, isSkill); // ë°©ì–´ë ¥ ì ìš©ì „ ë°ë¯¸ì§€;
 
         if (damage[5] !=0 && enemyDef != 0)
         {
-             dmgByDmg = dmg * (dmg / (dmg + (enemyDef * (damage[5] / 100)))); // ¹æ¹« Àû¿ëÈÄ
-            finDmg = dmgByDmg * (1 + ((damage[7]) / 100)) * dmgRatio; // ÃÖÁ¾µ© Ãß°¡ * °è¼ö
+             dmgByDmg = dmg * (dmg / (dmg + (enemyDef * (damage[5] / 100)))); // ë°©ë¬´ ì ìš©í›„
+            finDmg = dmgByDmg * (1 + ((damage[7]) / 100)) * dmgRatio; // ìµœì¢…ë€ ì¶”ê°€ * ê³„ìˆ˜
         }
         else
         {
-            dmgByDmg = dmg * (dmg / (dmg + enemyDef)); // ¹æ¹« ¹ÌÀû¿ë
+            dmgByDmg = dmg * (dmg / (dmg + enemyDef)); // ë°©ë¬´ ë¯¸ì ìš©
 
-            finDmg = dmgByDmg * (1 + ((damage[7]) / 100)) * dmgRatio; // ÃÖÁ¾µ© Ãß°¡ * °è¼ö
+            finDmg = dmgByDmg * (1 + ((damage[7]) / 100)) * dmgRatio; // ìµœì¢…ë€ ì¶”ê°€ * ê³„ìˆ˜
 
         }
 
@@ -204,7 +204,7 @@ public class EnemyHealth : PoolAble
         if (damage[8] != 0)
         {
             float addFloat = damage[8];
-            addDmg = finDmg  * ((addFloat / 100.0f)); // Ãßµ© °è»ê
+            addDmg = finDmg  * ((addFloat / 100.0f)); // ì¶”ë€ ê³„ì‚°
 
         }
 
@@ -214,7 +214,7 @@ public class EnemyHealth : PoolAble
 
         }
 
-       // ÃÖÁ¾µ¥¹ÌÁö
+       // ìµœì¢…ë°ë¯¸ì§€
         Damage((int)finDmg);
         if (isCrit) damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg + "!");
         else damageNumber.Spawn(transform.position + Vector3.up, (int)finDmg);
@@ -224,7 +224,7 @@ public class EnemyHealth : PoolAble
         {
             transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
         }
-        if ((int)addDmg != 0) // Ãß°¡ µ¥¹ÌÁö ÆÇÁ¤
+        if ((int)addDmg != 0) // ì¶”ê°€ ë°ë¯¸ì§€ íŒì •
         {
            Damage((int)addDmg);
             damageNumber.Spawn(transform.position + Vector3.up, (int)addDmg);
@@ -252,7 +252,7 @@ public class EnemyHealth : PoolAble
             {
                 anim.SetBool("isHit", true);
             }
-            if (behaviorTree != null) // ¿ø·¡enemyFSM ¿´À½
+            if (behaviorTree != null) // ì›ë˜enemyFSM ì˜€ìŒ
             {
 
                 if(stiffTime == 0)
@@ -266,7 +266,7 @@ public class EnemyHealth : PoolAble
 
             if (stiffShakeTime < shakeTime + stiffTime)
             {
-                striffSequence.Kill(); // Àç°ø°İ½Ã °æÁ÷ ½Ã°£ ÃÊ±âÈ­.
+                striffSequence.Kill(); // ì¬ê³µê²©ì‹œ ê²½ì§ ì‹œê°„ ì´ˆê¸°í™”.
                 stiffShakeTime = shakeTime + stiffTime;
                 isAttackGround = true;
                 striffSequence = DOTween.Sequence()
@@ -278,7 +278,7 @@ public class EnemyHealth : PoolAble
             }
             else
             {
-                onlyShakeSeq.Kill(); // Àç°ø°İ½Ã °æÁ÷ ½Ã°£ ÃÊ±âÈ­.
+                onlyShakeSeq.Kill(); // ì¬ê³µê²©ì‹œ ê²½ì§ ì‹œê°„ ì´ˆê¸°í™”.
                 onlyShakeSeq = DOTween.Sequence()
                .AppendCallback(() => transform.DOShakePosition(shakeTime, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false));
             }
@@ -312,7 +312,7 @@ public class EnemyHealth : PoolAble
     public void ReleaseEnemy(bool isDrop = true, bool isItemDrop = true)
     {
         canDisapear = false;
-        OnReleasedToPool?.Invoke(enemyNum, Mathf.Abs(nowHP),this.transform.position, isDrop, isItemDrop); // 4¹øÂ° ¿ä¼Ò´Â deadbody¸¦ »ı¼ºÇÒ°ÍÀÎÁö ¸»°ÍÀÎÁö
+        OnReleasedToPool?.Invoke(enemyNum, Mathf.Abs(nowHP),this.transform.position, isDrop, isItemDrop); // 4ë²ˆì§¸ ìš”ì†ŒëŠ” deadbodyë¥¼ ìƒì„±í• ê²ƒì¸ì§€ ë§ê²ƒì¸ì§€
 
 
         foreach (Transform damagedBar in hpBar.damagedBars)
@@ -320,7 +320,7 @@ public class EnemyHealth : PoolAble
             if (damagedBar != null)
                 Destroy(damagedBar.gameObject);
         }
-        hpBar.damagedBars.Clear(); // ¸®½ºÆ® ÃÊ±âÈ­
+        hpBar.damagedBars.Clear(); // ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™”
         if (pool.CountInactive == 0)
         {
             Destroy(gameObject);
@@ -335,10 +335,10 @@ public class EnemyHealth : PoolAble
 
     public void ResetBoolParameters()
     {
-        // ¾Ö´Ï¸ŞÀÌÅÍ¿¡ µî·ÏµÈ ¸ğµç ÆÄ¶ó¹ÌÅÍ °¡Á®¿À±â
+        // ì• ë‹ˆë©”ì´í„°ì— ë“±ë¡ëœ ëª¨ë“  íŒŒë¼ë¯¸í„° ê°€ì ¸ì˜¤ê¸°
         AnimatorControllerParameter[] parameters = anim.parameters;
 
-        // ¸ğµç ºÒ¸®¾ğ ÆÄ¶ó¹ÌÅÍÀÇ °ªÀ» false·Î ¼³Á¤
+        // ëª¨ë“  ë¶ˆë¦¬ì–¸ íŒŒë¼ë¯¸í„°ì˜ ê°’ì„ falseë¡œ ì„¤ì •
         foreach (AnimatorControllerParameter parameter in parameters)
         {
             if (parameter.type == AnimatorControllerParameterType.Bool)
@@ -382,8 +382,8 @@ public class EnemyHealth : PoolAble
         }
     }
 
-    public float maxXSpeed =10f; // xÃà ³Ë¹é ¼Óµµ »óÇÑ
-    public float maxYSpeed =10f; //y Ãà ³Ë¹é ¼Óµµ »óÇÑ
+    public float maxXSpeed =10f; // xì¶• ë„‰ë°± ì†ë„ ìƒí•œ
+    public float maxYSpeed =10f; //y ì¶• ë„‰ë°± ì†ë„ ìƒí•œ
     public bool isStun;
     private void KnockbackActive(float knockbackForce, Vector2 knockbackDir, float x, bool isDirChange)
     {
@@ -397,39 +397,39 @@ public class EnemyHealth : PoolAble
             {
                 knockbackDir.x = -knockbackDir.x;
             }
-            // ÈûÀ» °¡ÇØ ³Ë¹éÀ» Àû¿ë
+            // í˜ì„ ê°€í•´ ë„‰ë°±ì„ ì ìš©
             rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
             //    transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
             Vector2 currentVelocity = rb.velocity;
 
 
-            // x ¼Óµµ°¡ ÃÖ´ë°ªÀ» ÃÊ°úÇÏ´ÂÁö È®ÀÎÇÏ°í, ÃÊ°úÇÏ¸é ÃÖ´ë°ªÀ¸·Î ¼³Á¤
+            // x ì†ë„ê°€ ìµœëŒ€ê°’ì„ ì´ˆê³¼í•˜ëŠ”ì§€ í™•ì¸í•˜ê³ , ì´ˆê³¼í•˜ë©´ ìµœëŒ€ê°’ìœ¼ë¡œ ì„¤ì •
             if (Mathf.Abs(currentVelocity.x) > maxXSpeed)
             {
                 currentVelocity.x = Mathf.Sign(currentVelocity.x) * maxXSpeed;
             }
 
-            // y ¼Óµµ°¡ ÃÖ´ë°ªÀ» ÃÊ°úÇÏ´ÂÁö È®ÀÎÇÏ°í, ÃÊ°úÇÏ¸é ÃÖ´ë°ªÀ¸·Î ¼³Á¤
+            // y ì†ë„ê°€ ìµœëŒ€ê°’ì„ ì´ˆê³¼í•˜ëŠ”ì§€ í™•ì¸í•˜ê³ , ì´ˆê³¼í•˜ë©´ ìµœëŒ€ê°’ìœ¼ë¡œ ì„¤ì •
             if (Mathf.Abs(currentVelocity.y) > maxYSpeed)
             {
                 currentVelocity.y = Mathf.Sign(currentVelocity.y) * maxYSpeed;
             }
 
-            // ÃÖÁ¾ ¼Óµµ Àû¿ë
+            // ìµœì¢… ì†ë„ ì ìš©
             rb.velocity = currentVelocity;
         }
 
     }
     private void ToggleObject()
     {
-        // ÀÌÀü¿¡ ½ÇÇà ÁßÀÎ ÄÚ·çÆ¾ÀÌ ÀÖ´Ù¸é ÁßÁö
+        // ì´ì „ì— ì‹¤í–‰ ì¤‘ì¸ ì½”ë£¨í‹´ì´ ìˆë‹¤ë©´ ì¤‘ì§€
         if (toggleCoroutine != null)
         {
             StopCoroutine(toggleCoroutine);
         }
         if(this.gameObject != null&& this.gameObject.activeSelf != false)
         {
-            // »õ·Î¿î ÄÚ·çÆ¾ ½ÃÀÛ
+            // ìƒˆë¡œìš´ ì½”ë£¨í‹´ ì‹œì‘
             toggleCoroutine = StartCoroutine(ToggleObjectRoutine());
         }
 
@@ -437,13 +437,13 @@ public class EnemyHealth : PoolAble
 
     private IEnumerator ToggleObjectRoutine()
     {
-        // ¿ÀºêÁ§Æ®¸¦ 2ÃÊ µ¿¾È ÄÑ±â
+        // ì˜¤ë¸Œì íŠ¸ë¥¼ 2ì´ˆ ë™ì•ˆ ì¼œê¸°
         hpCanvas.SetActive(true);
 
-        // 2ÃÊ ´ë±â
+        // 2ì´ˆ ëŒ€ê¸°
         yield return new WaitForSeconds(2f);
 
-        // ¿ÀºêÁ§Æ®¸¦ ²¨ÁÖ±â
+        // ì˜¤ë¸Œì íŠ¸ë¥¼ êº¼ì£¼ê¸°
         hpCanvas.SetActive(false);
     }
 
@@ -473,11 +473,11 @@ public class EnemyHealth : PoolAble
     
     public void StopAllActions()
     {
-        // GetActiveTasks ¸Ş¼­µå°¡ nullÀ» ¹İÈ¯ÇÒ ¼ö ÀÖÀ¸¹Ç·Î ¿¹¿Ü Ã³¸®
+        // GetActiveTasks ë©”ì„œë“œê°€ nullì„ ë°˜í™˜í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ì˜ˆì™¸ ì²˜ë¦¬
         List<BehaviorDesigner.Runtime.Tasks.Task> activeTasks = behaviorTree.GetActiveTasks();
         if (activeTasks != null)
         {
-            // Behavior Tree¿¡¼­ ½ÇÇà ÁßÀÎ ¸ğµç Task¸¦ Ã£¾Æ¼­ ÁßÁö
+            // Behavior Treeì—ì„œ ì‹¤í–‰ ì¤‘ì¸ ëª¨ë“  Taskë¥¼ ì°¾ì•„ì„œ ì¤‘ì§€
             foreach (BehaviorDesigner.Runtime.Tasks.Task task in activeTasks)
             {
                 if (task is EnemyAction)

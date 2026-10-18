@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,15 +17,15 @@ public class Chest : MonoBehaviour
     public GameObject[] inventoryUI;
     public GameObject[] inventoryBox;
 
-    public GameObject cusor; // ÀÎº¥Åä¸® Ä¿¼­
-    public GameObject changeCusor; // ÀÎº¥Åä¸® Ä¿¼­
-    int[] cusorCount = new int[5]; // ÀÎº¥Åä¸® Ä¿¼­
-    int boxCusor = 0; // ¹Ú½º ÀÌµ¿½Ã Ä¿¼­ int
-    int maxBoxCusor = 5; // ÃÖ´ë ÀÌµ¿ °¡´É ¹Ú½º Ä¿¼­
+    public GameObject cusor; // ì¸ë²¤í† ë¦¬ ì»¤ì„œ
+    public GameObject changeCusor; // ì¸ë²¤í† ë¦¬ ì»¤ì„œ
+    int[] cusorCount = new int[5]; // ì¸ë²¤í† ë¦¬ ì»¤ì„œ
+    int boxCusor = 0; // ë°•ìŠ¤ ì´ë™ì‹œ ì»¤ì„œ int
+    int maxBoxCusor = 5; // ìµœëŒ€ ì´ë™ ê°€ëŠ¥ ë°•ìŠ¤ ì»¤ì„œ
     public int maxBoxNum;
     public int[,] inventoryArray;
 
-    public int nowBox;  // ÀÌ°ÍÀ¸·Î ¹è¿­ÀÇ °ªÀ» ÀĞ¾î¿À¸é µÊ. Áï, nowBox°¡ 2ÀÏ¶§ÀÇ 15¹øÀç´Â 30 +15 -> 45¹øÂ° Ä­¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÌ¶ó´Â ¸»ÀÌ µÊ.
+    public int nowBox;  // ì´ê²ƒìœ¼ë¡œ ë°°ì—´ì˜ ê°’ì„ ì½ì–´ì˜¤ë©´ ë¨. ì¦‰, nowBoxê°€ 2ì¼ë•Œì˜ 15ë²ˆì¬ëŠ” 30 +15 -> 45ë²ˆì§¸ ì¹¸ì— ìˆëŠ” ì•„ì´í…œì´ë¼ëŠ” ë§ì´ ë¨.
     public GameObject inventory;
     public GameObject miscDetail;
     public GameObject skillDetailUi;
@@ -129,7 +129,7 @@ public class Chest : MonoBehaviour
     }
     public void SaveChest()
     {
-        string[,,] saveChest = new string[5, 30, 4]; // ¸î¹øÂ°ÀÎº¥, Ä­, ÀÌ¸§
+        string[,,] saveChest = new string[5, 30, 4]; // ëª‡ë²ˆì§¸ì¸ë²¤, ì¹¸, ì´ë¦„
         for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < 30; j++)
@@ -171,7 +171,7 @@ public class Chest : MonoBehaviour
                         {
                             GameObject insPositon = GetNthChildGameObject(inventoryUI[i], j);
                             GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
-                            float scaleFactor = 0.8f; // Å©±â¸¦ Á¶ÀıÇÒ ºñÀ²
+                            float scaleFactor = 0.8f; // í¬ê¸°ë¥¼ ì¡°ì ˆí•  ë¹„ìœ¨
                             item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                             ItemCheck check = item.GetComponent<ItemCheck>();
                             check.SetItem(SaveManager.instance.datas.chestItem[i, j, 0]);
@@ -292,7 +292,7 @@ public class Chest : MonoBehaviour
                 {
                     if (state == "")
                     {
-                        state = "C2IMove"; // ÀÎº¥Åä¸®¿¡¼­ Ã¢°í·Î ¹°°Ç ÀÌµ¿
+                        state = "C2IMove"; // ì¸ë²¤í† ë¦¬ì—ì„œ ì°½ê³ ë¡œ ë¬¼ê±´ ì´ë™
                         cusorImage.color = new Color(23f / 255f, 123f / 255f, 161f / 255f);
                     }
                     else if (state == "C2IMove")
@@ -353,7 +353,7 @@ public class Chest : MonoBehaviour
    public  ItemCheck itemCheck ;
    void C2IMove()
     {
-        if( InventoryManager.instance.BoxFullCheck() == true) // ºó°ø°£ÀÌ ÀÖ´Ù¸é
+        if( InventoryManager.instance.BoxFullCheck() == true) // ë¹ˆê³µê°„ì´ ìˆë‹¤ë©´
         {
             GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
             if (itemBox.transform.childCount > 0)
@@ -379,7 +379,7 @@ public class Chest : MonoBehaviour
                 item = itemBox.transform.GetChild(0).gameObject;
                 itemCheck = item.transform.GetComponent<ItemCheck>();
             }
-            if (InventoryManager.instance.CheckStack(itemCheck.itemData.name) == true) // ºó°ø°£ÀÌ¾ø´Ù¸é
+            if (InventoryManager.instance.CheckStack(itemCheck.itemData.name) == true) // ë¹ˆê³µê°„ì´ì—†ë‹¤ë©´
             {
                 if (itemBox.transform.childCount > 0)
                 {
@@ -432,7 +432,7 @@ public class Chest : MonoBehaviour
                 beforeItemCheck = beforitem.GetComponent<ItemCheck>();
                 if (afterItemCheck.itemData.name == beforeItemCheck.itemData.name && (afterItemCheck.nowStack != afterItemCheck.itemData.maxStack && beforeItemCheck.nowStack != beforeItemCheck.itemData.maxStack))
                 {
-                    isSame = true; // °°´Ù¸é °¡´ÉÇÑ ¸¸Å­ ½ºÅÃÀ» ÇÕÄ£´Ù.
+                    isSame = true; // ê°™ë‹¤ë©´ ê°€ëŠ¥í•œ ë§Œí¼ ìŠ¤íƒì„ í•©ì¹œë‹¤.
 
                     if (afterItemCheck.nowStack + beforeItemCheck.nowStack <= afterItemCheck.itemData.maxStack)
                     {
@@ -676,7 +676,7 @@ public class Chest : MonoBehaviour
                     {
                         GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], i);
                         GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
-                        float scaleFactor = 0.8f; // Å©±â¸¦ Á¶ÀıÇÒ ºñÀ²
+                        float scaleFactor = 0.8f; // í¬ê¸°ë¥¼ ì¡°ì ˆí•  ë¹„ìœ¨
                         item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                         ItemCheck check = item.GetComponent<ItemCheck>();
                         check.SetItem(itemName);
@@ -759,7 +759,7 @@ public class Chest : MonoBehaviour
                     GameObject insPositon = GetNthChildGameObject(inventoryUI[boxNum], i);
                     GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
                     ItemCheck check = item.GetComponent<ItemCheck>();
-                    float scaleFactor = 0.8f; // Å©±â¸¦ Á¶ÀıÇÒ ºñÀ²
+                    float scaleFactor = 0.8f; // í¬ê¸°ë¥¼ ì¡°ì ˆí•  ë¹„ìœ¨
                     item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                     check.SetItem(itemName);
                     check.nowStack = Stack;
@@ -769,7 +769,7 @@ public class Chest : MonoBehaviour
         }
     }
     ItemCheck detail;
-    public void BoxContentChecker(GameObject ob = null) // ZÅ° Å¬¸¯½Ã ÀÎº¥Åä¸®Ã¢
+    public void BoxContentChecker(GameObject ob = null) // Zí‚¤ í´ë¦­ì‹œ ì¸ë²¤í† ë¦¬ì°½
     {
         if (inventoryArray[cusorCount[nowBox], nowBox] == 1 && (state == "" || state == "chestOpen"))
         {
@@ -822,7 +822,7 @@ public class Chest : MonoBehaviour
             {
                 Transform equip = equipDetail.gameObject.transform;
                 string folderPath = detail.itemData.equipArea + "/";
-                // ¸®¼Ò½º Æú´õ ³»ÀÇ equipNameÀ» ·ÎµåÇÕ´Ï´Ù.
+                // ë¦¬ì†ŒìŠ¤ í´ë” ë‚´ì˜ equipNameì„ ë¡œë“œí•©ë‹ˆë‹¤.
                 GameObject prefab = Resources.Load<GameObject>(folderPath + detail.itemData.name);
                 equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
                 equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
@@ -833,12 +833,12 @@ public class Chest : MonoBehaviour
                 equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
                 equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
                 InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
-                if (detail.itemData.equipArea != "Weapon") // ¹æ¾î±¸¶ó¸é
+                if (detail.itemData.equipArea != "Weapon") // ë°©ì–´êµ¬ë¼ë©´
                 {
                     Equipment equipment = prefab.GetComponent<Equipment>();
                     InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
                 }
-                else // ¹«±âÀÎ °æ¿ì
+                else // ë¬´ê¸°ì¸ ê²½ìš°
                 {
                     Weapon weapon = prefab.GetComponent<Weapon>();
                     InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
@@ -856,7 +856,7 @@ public class Chest : MonoBehaviour
         {
             Transform equip = equipDetail.gameObject.transform;
             string folderPath = detail.itemData.equipArea + "/";
-            // ¸®¼Ò½º Æú´õ ³»ÀÇ equipNameÀ» ·ÎµåÇÕ´Ï´Ù.
+            // ë¦¬ì†ŒìŠ¤ í´ë” ë‚´ì˜ equipNameì„ ë¡œë“œí•©ë‹ˆë‹¤.
             GameObject prefab = Resources.Load<GameObject>(folderPath + detail.itemData.name);
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
@@ -867,12 +867,12 @@ public class Chest : MonoBehaviour
             equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
             equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
-            if (detail.itemData.equipArea != "Weapon") // ¹æ¾î±¸¶ó¸é
+            if (detail.itemData.equipArea != "Weapon") // ë°©ì–´êµ¬ë¼ë©´
             {
                 Equipment equipment = prefab.GetComponent<Equipment>();
                 InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
             }
-            else // ¹«±âÀÎ °æ¿ì
+            else // ë¬´ê¸°ì¸ ê²½ìš°
             {
                 Weapon weapon = prefab.GetComponent<Weapon>();
                 InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);

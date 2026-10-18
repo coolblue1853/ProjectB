@@ -1,4 +1,4 @@
-using BehaviorDesigner.Runtime.Tasks;
+ï»¿using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using BehaviorDesigner.Runtime;
 using UnityEngine;
@@ -11,10 +11,10 @@ public class EnemyKillSeq : EnemyAction
     {
         bt = this.transform.GetComponent<BehaviorTree>();
 
-        // BehaviorTree¿¡¼­ sequence¸¦ Á¾·á
+        // BehaviorTreeì—ì„œ sequenceë¥¼ ì¢…ë£Œ
         bt.sequence.Kill();
 
-        // Jump ·ÎÁ÷ÀÌ ÇÊ¿äÇÏ´Ù¸é StartJump È£Ãâ
+        // Jump ë¡œì§ì´ í•„ìš”í•˜ë‹¤ë©´ StartJump í˜¸ì¶œ
         StartJump();
         isEnd = true;
     }
@@ -26,10 +26,10 @@ public class EnemyKillSeq : EnemyAction
 
     public void StartJump()
     {
-        // transform¿¡ ¹ÙÀÎµùµÈ Æ®À©À» ¸ğµÎ Á¾·á
+        // transformì— ë°”ì¸ë”©ëœ íŠ¸ìœˆì„ ëª¨ë‘ ì¢…ë£Œ
         DOTween.Kill(this.transform);
 
-        // ÇöÀç À§Ä¡¿¡¼­ °´Ã¼ ¸ØÃß±â
+        // í˜„ì¬ ìœ„ì¹˜ì—ì„œ ê°ì²´ ë©ˆì¶”ê¸°
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         OnSequenceComplete();
@@ -37,7 +37,7 @@ public class EnemyKillSeq : EnemyAction
 
     private void OnSequenceComplete()
     {
-        // ¾×¼Ç Á¾·á ÇÃ·¡±× ¼³Á¤
+        // ì•¡ì…˜ ì¢…ë£Œ í”Œë˜ê·¸ ì„¤ì •
         isEnd = true;
     }
 }

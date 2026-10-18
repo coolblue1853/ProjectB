@@ -1,4 +1,4 @@
-using BehaviorDesigner.Runtime.Tasks;
+ï»¿using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using Com.LuisPedroFonseca.ProCamera2D;
@@ -20,7 +20,7 @@ public class EnemyCameraShake : EnemyAction
 
     void ShakeCamera()
     {
-        // ½ÃÄö½º°¡ ¾ø´Ù¸é »õ·Î »ı¼º, ÀÖ´Ù¸é Àç½ÃÀÛ
+        // ì‹œí€€ìŠ¤ê°€ ì—†ë‹¤ë©´ ìƒˆë¡œ ìƒì„±, ìˆë‹¤ë©´ ì¬ì‹œì‘
         if (shakeSequence == null)
         {
             shakeSequence = DOTween.Sequence()
@@ -30,7 +30,7 @@ public class EnemyCameraShake : EnemyAction
         }
         else
         {
-            shakeSequence.Restart(); // ÀÌ¹Ì Á¸ÀçÇÏ´Â ½ÃÄö½º¸¦ Àç½ÃÀÛ
+            shakeSequence.Restart(); // ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì‹œí€€ìŠ¤ë¥¼ ì¬ì‹œì‘
         }
 
 

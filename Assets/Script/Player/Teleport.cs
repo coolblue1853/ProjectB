@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    public Vector2 direction; // ÀÌµ¿ ¹æÇâ (¿¹: (1, 0) - ¿À¸¥ÂÊ, (0, 1) - À§ÂÊ)
-    public float distance;    // ÀÌµ¿ °Å¸®
-    public LayerMask collisionLayer; // Ãæµ¹ Ã¼Å©¸¦ À§ÇÑ ·¹ÀÌ¾î
+    public Vector2 direction; // ì´ë™ ë°©í–¥ (ì˜ˆ: (1, 0) - ì˜¤ë¥¸ìª½, (0, 1) - ìœ„ìª½)
+    public float distance;    // ì´ë™ ê±°ë¦¬
+    public LayerMask collisionLayer; // ì¶©ëŒ ì²´í¬ë¥¼ ìœ„í•œ ë ˆì´ì–´
     public GameObject player;
 
     private void Start()
@@ -22,19 +22,19 @@ public class Teleport : MonoBehaviour
         Vector2 currentPosition = new Vector2(player.transform.position.x, player.transform.position.y -0.55f);
         Vector2 destination = currentPosition + direction.normalized * distance;
         destination = new Vector2(destination.x, destination.y + 0.55f);
-        // ¸ñÇ¥ À§Ä¡±îÁöÀÇ °æ·Î¸¦ °Ë»ç
+        // ëª©í‘œ ìœ„ì¹˜ê¹Œì§€ì˜ ê²½ë¡œë¥¼ ê²€ì‚¬
         RaycastHit2D hit = Physics2D.Raycast(currentPosition, direction, distance, collisionLayer);
 
         if (hit.collider == null)
         {
-            // Ãæµ¹ÀÌ ¾ø´Â °æ¿ì, ¿ÀºêÁ§Æ®¸¦ ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿
+            // ì¶©ëŒì´ ì—†ëŠ” ê²½ìš°, ì˜¤ë¸Œì íŠ¸ë¥¼ ëª©í‘œ ìœ„ì¹˜ë¡œ ì´ë™
             player.transform.position = destination;
 
         }
         else
         {
-            // Ãæµ¹ÀÌ ÀÖ´Â °æ¿ì, Ãæµ¹ ÁöÁ¡ ¾Õ¿¡ ¿ÀºêÁ§Æ®¸¦ ÀÌµ¿
-            Vector2 safePosition = hit.point - direction.normalized * 0.2f; // Ãæµ¹ ÁöÁ¡¿¡¼­ ¾à°£ ¶³¾îÁø À§Ä¡
+            // ì¶©ëŒì´ ìˆëŠ” ê²½ìš°, ì¶©ëŒ ì§€ì  ì•ì— ì˜¤ë¸Œì íŠ¸ë¥¼ ì´ë™
+            Vector2 safePosition = hit.point - direction.normalized * 0.2f; // ì¶©ëŒ ì§€ì ì—ì„œ ì•½ê°„ ë–¨ì–´ì§„ ìœ„ì¹˜
              safePosition = new Vector2(safePosition.x, safePosition.y + 0.55f);
             player.transform.position = safePosition;
 

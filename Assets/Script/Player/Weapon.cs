@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -9,21 +9,21 @@ public class Weapon : MonoBehaviour
     public PlayerController pC;
     public int maxComboCount = 0 ;
     public int nowConboCount = 0;
-    public float maxComboTime = 0; // ÄÞº¸ ÃÖ´ë À¯Áö½Ã°£
+    public float maxComboTime = 0; // ì½¤ë³´ ìµœëŒ€ ìœ ì§€ì‹œê°„
 
-    public int minDmg=0;        // ÃÖ¼Ò´ï
-    public int maxDmg=0;       // ÃÖ´ë´ï
-    public int critPer = 0;   //  Ä¡¸í È®·ü%
-    public int critDmg = 0;   //  Ä¡¸íÇÇÇØ%
-    public int incDmg = 0;   // µ¥¹ÌÁöÁõ°¡%
-    public int ignDef = 0; // ¹æ¾î·Â ¹«½Ã%
-    public int skillDmg = 0; // ½ºÅ³ °ø°Ý·Â%
-    public int finDmg = 0; // ÃÖÁ¾µ©%  
-    public int addDmg = 0; // Ãßµ©%  
+    public int minDmg=0;        // ìµœì†ŒëŒ
+    public int maxDmg=0;       // ìµœëŒ€ëŒ
+    public int critPer = 0;   //  ì¹˜ëª… í™•ë¥ %
+    public int critDmg = 0;   //  ì¹˜ëª…í”¼í•´%
+    public int incDmg = 0;   // ë°ë¯¸ì§€ì¦ê°€%
+    public int ignDef = 0; // ë°©ì–´ë ¥ ë¬´ì‹œ%
+    public int skillDmg = 0; // ìŠ¤í‚¬ ê³µê²©ë ¥%
+    public int finDmg = 0; // ìµœì¢…ëŽ€%  
+    public int addDmg = 0; // ì¶”ëŽ€%  
     PlayerHealthManager phm;
     public string[] weaponSound;
     public int[] damgeArray = new int[10];
-    public float[] attckSpeed;   // °ø°Ý ÁÖ±â, ÂªÀ»¼ö·Ï ´õ ºü¸£°Ô °ø°Ý °¡´É.
+    public float[] attckSpeed;   // ê³µê²© ì£¼ê¸°, ì§§ì„ìˆ˜ë¡ ë” ë¹ ë¥´ê²Œ ê³µê²© ê°€ëŠ¥.
     public bool isAttackWait = true;
     public bool isSkillAttackWait = true;
     public bool isWeaponStopMove = false;
@@ -65,7 +65,7 @@ public class Weapon : MonoBehaviour
         isSkillAttackWait = true;
         SetDmgArray();
     }
-   public void EquipWeqpon(apPortrait portrait) // ¹«±â ½ºÇÁ¶óÀÌÆ®¸¦ ¼ÒÄÏ¿¡ ÀåÂøÇÕ´Ï´Ù.
+   public void EquipWeqpon(apPortrait portrait) // ë¬´ê¸° ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ ì†Œì¼“ì— ìž¥ì°©í•©ë‹ˆë‹¤.
     {
         if(RightWeqponSprite!= null)
         {
@@ -152,7 +152,7 @@ public class Weapon : MonoBehaviour
         else
             waitTime = (attckSpeed[nowConboCount - 1] / (1 + (DatabaseManager.attackSpeedBuff / 100)));
         Sequence sequence = DOTween.Sequence()
-        .AppendInterval(waitTime) // »çÀü¿¡ ÁöÁ¤ÇÑ °ø°Ý ÁÖ±â¸¸Å­ ´ë±â.
+        .AppendInterval(waitTime) // ì‚¬ì „ì— ì§€ì •í•œ ê³µê²© ì£¼ê¸°ë§Œí¼ ëŒ€ê¸°.
         .AppendCallback(() => DatabaseManager.weaponStopMove = false)
         .AppendCallback(() => DatabaseManager.checkAttackLadder = false)
         .AppendCallback(() => isAttackWait = true);

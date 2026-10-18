@@ -1,4 +1,4 @@
-using BehaviorDesigner.Runtime.Tasks;
+ï»¿using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
 using UnityEngine;
 public class EnemyFacePlayer : EnemyAction
@@ -19,7 +19,7 @@ public class EnemyFacePlayer : EnemyAction
     void FaceChange()
     {
         direction = Mathf.Sign(player.transform.position.x - enemyObject.transform.position.x);
-        // ¹æÇâ¿¡ µû¶ó ÀûÀÇ ½ºÄÉÀÏ Á¶Á¤
+        // ë°©í–¥ì— ë”°ë¼ ì ì˜ ìŠ¤ì¼€ì¼ ì¡°ì •
         enemyObject.transform.localScale = new Vector3(
             direction > 0 ? tfLocalScale : -tfLocalScale,
             enemyObject.transform.localScale.y, 1

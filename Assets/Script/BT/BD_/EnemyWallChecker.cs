@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
@@ -17,16 +17,16 @@ public class EnemyWallChecker : EnemyConditional
 
     public override TaskStatus OnUpdate()
     {
-        // ÇöÀç ÀûÀÇ ¹æÇâ¿¡ µû¶ó ·¹ÀÌ ¹æÇâÀ» ¼³Á¤ÇÕ´Ï´Ù.
+        // í˜„ì¬ ì ì˜ ë°©í–¥ì— ë”°ë¼ ë ˆì´ ë°©í–¥ì„ ì„¤ì •í•©ë‹ˆë‹¤.
         Vector2 rayDirection = enemyObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
 
-        // º® °ËÃâ ·¹ÀÌÄ³½ºÆ® ½ÇÇà
+        // ë²½ ê²€ì¶œ ë ˆì´ìºìŠ¤íŠ¸ ì‹¤í–‰
         RaycastHit2D hit2 = Physics2D.Raycast(wallCheck.transform.position, rayDirection, wallRay, LayerMask.GetMask("Wall"));
 
-        // µğ¹ö±× ·¹ÀÌ ±×¸®±â
+        // ë””ë²„ê·¸ ë ˆì´ ê·¸ë¦¬ê¸°
      //   Debug.DrawRay(wallCheck.transform.position, rayDirection * wallRay, Color.blue);
 
-        // ·¹ÀÌÄ³½ºÆ® °á°ú¿¡ µû¶ó TaskStatus ¹İÈ¯
+        // ë ˆì´ìºìŠ¤íŠ¸ ê²°ê³¼ì— ë”°ë¼ TaskStatus ë°˜í™˜
         return hit2.collider != null ? TaskStatus.Success : TaskStatus.Failure;
     }
 }

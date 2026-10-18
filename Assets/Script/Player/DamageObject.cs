@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -15,13 +15,13 @@ public class DamageObject : MonoBehaviour
     public bool isDestroyByTime = true;
     [ConditionalHide("isDestroyByTime")]
     public float holdingTime = 0;
-    public int hitCount = 1 ; //´Ù´ÜÈ÷Æ®¼ö.
-    public float waitInterval = 0; // ÃÖÃÊ °ø°İÀÌÈÄ µÚÀÇ ´Ù´ÜÈ÷Æ®±îÁöÀÇ ´ë±â½Ã°£
-    public bool isDeletByMaxHit = true;//ÃÖ´ë È÷Æ®ÀÎ¿øÀ» Ã¼¿ì¸é ÀÚµ¿ÆÄ±«
+    public int hitCount = 1 ; //ë‹¤ë‹¨íˆíŠ¸ìˆ˜.
+    public float waitInterval = 0; // ìµœì´ˆ ê³µê²©ì´í›„ ë’¤ì˜ ë‹¤ë‹¨íˆíŠ¸ê¹Œì§€ì˜ ëŒ€ê¸°ì‹œê°„
+    public bool isDeletByMaxHit = true;//ìµœëŒ€ íˆíŠ¸ì¸ì›ì„ ì²´ìš°ë©´ ìë™íŒŒê´´
     public bool isHitIntervelEven = true;
-    public float hitIntervalTime = 0; //´Ù´ÜÈ÷Æ®¼ö.
+    public float hitIntervalTime = 0; //ë‹¤ë‹¨íˆíŠ¸ìˆ˜.
     public int[] damageArr;
-    public float stiffnessTime = 0;   // °æÁ÷ ½Ã°£.
+    public float stiffnessTime = 0;   // ê²½ì§ ì‹œê°„.
     public float knockForce = 0;
     public Vector2 knockbackDir;
     public bool isNockBackChangeDir;
@@ -42,14 +42,14 @@ public class DamageObject : MonoBehaviour
     public bool isTrackingEnemy = false;
     [ConditionalHide("isTrackingEnemy")]
     public float desiredSpeed;
-    private Sequence sequence; // ½ÃÄö½º¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö Ãß°¡
+    private Sequence sequence; // ì‹œí€€ìŠ¤ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜ ì¶”ê°€
     Rigidbody2D rigidbody2D;
     [ConditionalHide("isTrackingEnemy")]
-    public Vector2 boxSize; // È®ÀÎÇÒ Á÷»ç°¢Çü ¿µ¿ªÀÇ Å©±â
+    public Vector2 boxSize; // í™•ì¸í•  ì§ì‚¬ê°í˜• ì˜ì—­ì˜ í¬ê¸°
     [ConditionalHide("isTrackingEnemy")]
     public float trackingPivot = 0f;
 
-    // ¿©±âºÎÅÍ´Â ½ºÅ³ »ç¿ë½Ã ¹öÇÁ/µğ¹öÇÁ °ü·Ã ½ºÅ©¸³Æ®.
+    // ì—¬ê¸°ë¶€í„°ëŠ” ìŠ¤í‚¬ ì‚¬ìš©ì‹œ ë²„í”„/ë””ë²„í”„ ê´€ë ¨ ìŠ¤í¬ë¦½íŠ¸.
     public bool isHoldingBuffObject = false;
     [ConditionalHide("isHoldingBuffObject")]
     public string holdingBuffEffect;
@@ -70,7 +70,7 @@ public class DamageObject : MonoBehaviour
     [ConditionalHide("isDashAttack")]
     public bool isEffectGrvity = false;
     [ConditionalHide("isDashAttack")]
-    public bool isXbaseDash = true; //  ÀÌ°Í¿¡ µû¶ó¼­ º¸Á¤µÉ°ÍÀÌ yÃàÀÎÁö xÃàÀÎÁö °áÁ¤µÊ
+    public bool isXbaseDash = true; //  ì´ê²ƒì— ë”°ë¼ì„œ ë³´ì •ë ê²ƒì´ yì¶•ì¸ì§€ xì¶•ì¸ì§€ ê²°ì •ë¨
     BoxCollider2D boxCol;
     public GameObject buffObject;
 
@@ -82,9 +82,9 @@ public class DamageObject : MonoBehaviour
     [ConditionalHide("isHealSkill")]
     public int healCount = 0;
 
-    public bool isAbsorberSkill = false; // Æ¯Á¤ À§Ä¡·Î ÀûÀ» ¸ğÀ¸´Â ±â¼ú
+    public bool isAbsorberSkill = false; // íŠ¹ì • ìœ„ì¹˜ë¡œ ì ì„ ëª¨ìœ¼ëŠ” ê¸°ìˆ 
     [ConditionalHide("isAbsorberSkill")]
-    public GameObject absorbPivot;// »¡¾Æµé¿©Áö´Â À§Ä¡
+    public GameObject absorbPivot;// ë¹¨ì•„ë“¤ì—¬ì§€ëŠ” ìœ„ì¹˜
     [ConditionalHide("isAbsorberSkill")]
     public float absorbPower = 0;
     [ConditionalHide("isAbsorberSkill")]
@@ -104,11 +104,11 @@ public class DamageObject : MonoBehaviour
     public float bleedingDamageInterval;
     [ConditionalHide("isBleedingAttack")]
     public int bleedingDamageCount;
-    public LayerMask layerMask; // °ËÃâÇÒ ·¹ÀÌ¾î
-    public string enemyTag = "Enemy"; // ÇÃ·¹ÀÌ¾î ÅÂ±×
+    public LayerMask layerMask; // ê²€ì¶œí•  ë ˆì´ì–´
+    public string enemyTag = "Enemy"; // í”Œë ˆì´ì–´ íƒœê·¸
 
-    public bool isShortTime = false; // ´ÜÃàµÈ ½Ã°£À¸·Î ¿ÀºêÁ§Æ® ÀÌÆåÆ®°¡ »ç¶óÁú °ÍÀÎÁö ¾Æ´ÑÁö./
-    public bool disEffectbyTime = false; // ¾Æ¿¹ ¿µÇâÀ» ¹ŞÁö ¾ÊÀ»°ÍÀÎÁö
+    public bool isShortTime = false; // ë‹¨ì¶•ëœ ì‹œê°„ìœ¼ë¡œ ì˜¤ë¸Œì íŠ¸ ì´í™íŠ¸ê°€ ì‚¬ë¼ì§ˆ ê²ƒì¸ì§€ ì•„ë‹Œì§€./
+    public bool disEffectbyTime = false; // ì•„ì˜ˆ ì˜í–¥ì„ ë°›ì§€ ì•Šì„ê²ƒì¸ì§€
     
 
 
@@ -135,7 +135,7 @@ public class DamageObject : MonoBehaviour
         Gizmos.color = Color.yellow;
         if (player != null)
         {
-            // ÇöÀç ¿ÀºêÁ§Æ®ÀÇ À§Ä¡¿¡¼­ boxSize¸¦ ±âÁØÀ¸·Î Á÷»ç°¢Çü ±×¸®±â
+            // í˜„ì¬ ì˜¤ë¸Œì íŠ¸ì˜ ìœ„ì¹˜ì—ì„œ boxSizeë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì§ì‚¬ê°í˜• ê·¸ë¦¬ê¸°
             if (player.transform.localScale.x > 0)
             {
                 Gizmos.DrawWireCube(new Vector2(transform.position.x + (trackingPivot), transform.position.y), new Vector3(boxSize.x, boxSize.y, 1));
@@ -266,11 +266,11 @@ public class DamageObject : MonoBehaviour
             Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
             rigidbody2D.AddForce(direction * launchForce, ForceMode2D.Impulse);
 
-            // ¿ÀºêÁ§Æ®°¡ ³¯¾Æ°¡´Â ¹æÇâÀ» ±âÁØÀ¸·Î È¸ÀüÇÏ±â À§ÇØ °¢µµ¸¦ °è»êÇÕ´Ï´Ù.
+            // ì˜¤ë¸Œì íŠ¸ê°€ ë‚ ì•„ê°€ëŠ” ë°©í–¥ì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „í•˜ê¸° ìœ„í•´ ê°ë„ë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤.
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            // ZÃàÀ» ±âÁØÀ¸·Î È¸ÀüÇÏ±â ¶§¹®¿¡, ZÃàÀ» ±âÁØÀ¸·Î È¸ÀüµÇµµ·Ï ÄõÅÍ´Ï¾ğ(quaternion)À» »ı¼ºÇÕ´Ï´Ù.
+            // Zì¶•ì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „í•˜ê¸° ë•Œë¬¸ì—, Zì¶•ì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „ë˜ë„ë¡ ì¿¼í„°ë‹ˆì–¸(quaternion)ì„ ìƒì„±í•©ë‹ˆë‹¤.
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            // È¸ÀüÀ» Àû¿ëÇÕ´Ï´Ù.
+            // íšŒì „ì„ ì ìš©í•©ë‹ˆë‹¤.
             transform.rotation = rotation;
 
 
@@ -304,7 +304,7 @@ public class DamageObject : MonoBehaviour
         // Stop any active DOTween sequences when the object is destroyed
         if (sequence != null)
         {
-            sequence.Kill(); // ½ÃÄö½º¸¦ ÁßÁö
+            sequence.Kill(); // ì‹œí€€ìŠ¤ë¥¼ ì¤‘ì§€
         }
     }
 
@@ -351,8 +351,8 @@ public class DamageObject : MonoBehaviour
             .AppendCallback(() => Destroy(this.gameObject));
     }
 
-    public int maxDamagedEnemies = 1; // ÃÖ´ë µ¥¹ÌÁö¸¦ ÀÔÈú ÀûÀÇ ¼ö
-   // private List<Collider2D> damagedEnemies = new List<Collider2D>(); // µ¥¹ÌÁö¸¦ ÀÔÈù ÀûµéÀÇ ¸®½ºÆ®
+    public int maxDamagedEnemies = 1; // ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì…í ì ì˜ ìˆ˜
+   // private List<Collider2D> damagedEnemies = new List<Collider2D>(); // ë°ë¯¸ì§€ë¥¼ ì…íŒ ì ë“¤ì˜ ë¦¬ìŠ¤íŠ¸
     private Dictionary<Collider2D, int> damagedEnemy = new Dictionary<Collider2D, int>();
     void ResetDamagedEnemies()
     {
@@ -415,9 +415,9 @@ public class DamageObject : MonoBehaviour
     {
         if (collision.tag == "Enemy" && isHealSkill == false)
         {
-            // µ¥¹ÌÁö¸¦ ÀÔÈù ÀûÀÇ ¼ö°¡ ÃÖ´ëÄ¡¸¦ ÃÊ°úÇÏÁö ¾ÊÀº °æ¿ì¿¡¸¸ ½ÇÇà
+            // ë°ë¯¸ì§€ë¥¼ ì…íŒ ì ì˜ ìˆ˜ê°€ ìµœëŒ€ì¹˜ë¥¼ ì´ˆê³¼í•˜ì§€ ì•Šì€ ê²½ìš°ì—ë§Œ ì‹¤í–‰
      
-                // ÀÌ¹Ì µ¥¹ÌÁö¸¦ ÀÔÈù ÀûÀÎÁö È®ÀÎÇÏ°í, µ¥¹ÌÁö¸¦ ÀÔÈ÷Áö ¾ÊÀº °æ¿ì¿¡¸¸ ½ÇÇà
+                // ì´ë¯¸ ë°ë¯¸ì§€ë¥¼ ì…íŒ ì ì¸ì§€ í™•ì¸í•˜ê³ , ë°ë¯¸ì§€ë¥¼ ì…íˆì§€ ì•Šì€ ê²½ìš°ì—ë§Œ ì‹¤í–‰
                 if ((!damagedEnemy.ContainsKey(collision)&& damagedEnemy.Count < maxDamagedEnemies) ||(isHitIntervelEven == false &&damagedEnemy.ContainsKey(collision) && damagedEnemy[collision] < hitCount))
                 {
 
@@ -446,7 +446,7 @@ public class DamageObject : MonoBehaviour
                         }
                     }
   
-                    // Àû¿¡°Ô µ¥¹ÌÁö¸¦ ÀÔÈ÷°í µ¥¹ÌÁö¸¦ ÀÔÈù Àû ¸®½ºÆ®¿¡ Ãß°¡
+                    // ì ì—ê²Œ ë°ë¯¸ì§€ë¥¼ ì…íˆê³  ë°ë¯¸ì§€ë¥¼ ì…íŒ ì  ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
                     enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
 
                     }
@@ -463,7 +463,7 @@ public class DamageObject : MonoBehaviour
                                 absorbDir.x = Mathf.Abs(absorbDir.x);
                             }
                         }
-                        // Àû¿¡°Ô µ¥¹ÌÁö¸¦ ÀÔÈ÷°í µ¥¹ÌÁö¸¦ ÀÔÈù Àû ¸®½ºÆ®¿¡ Ãß°¡
+                        // ì ì—ê²Œ ë°ë¯¸ì§€ë¥¼ ì…íˆê³  ë°ë¯¸ì§€ë¥¼ ì…íŒ ì  ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
                         enemyHealth.damage2Enemy(damageArr, stiffnessTime, absorbPower, absorbDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
                     }
 
@@ -488,7 +488,7 @@ public class DamageObject : MonoBehaviour
                     {
                         damagedEnemy[collision] += 1;
                     }
-                    // µ¥¹ÌÁö¸¦ ÀÔÈù Àû ¸®½ºÆ®¿¡ Ãß°¡
+                    // ë°ë¯¸ì§€ë¥¼ ì…íŒ ì  ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
                 
                 
             }
@@ -520,7 +520,7 @@ public class DamageObject : MonoBehaviour
     public GameObject CheckEnemy()
     {
 
-        // ÁÖº¯¿¡ ÀÖ´Â ¸ğµç Collider¸¦ °¡Á®¿È
+        // ì£¼ë³€ì— ìˆëŠ” ëª¨ë“  Colliderë¥¼ ê°€ì ¸ì˜´
         Collider2D[] colliders;
 
         if (player.transform.localScale.x > 0)
@@ -531,17 +531,17 @@ public class DamageObject : MonoBehaviour
         {
               colliders = Physics2D.OverlapBoxAll(new Vector2(transform.position.x - (trackingPivot), transform.position.y), boxSize, 0f, layerMask);
         }
-        // °¡Á®¿Â Collider¸¦ ¼øÈ¸ÇÏ¸é¼­ Player ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ÀÖ´ÂÁö È®ÀÎ
+        // ê°€ì ¸ì˜¨ Colliderë¥¼ ìˆœíšŒí•˜ë©´ì„œ Player íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ìˆëŠ”ì§€ í™•ì¸
         foreach (Collider2D col in colliders)
         {
             if (col.CompareTag(enemyTag))
             {
-                // Player ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ÀÖÀ¸¸é Success ¹İÈ¯
+                // Player íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ìˆìœ¼ë©´ Success ë°˜í™˜
                 return  col.gameObject;
             }
         }
 
-        // ÁÖº¯¿¡ Player ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ¾øÀ¸¸é Failure ¹İÈ¯
+        // ì£¼ë³€ì— Player íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ìœ¼ë©´ Failure ë°˜í™˜
         return null;
     }
 
