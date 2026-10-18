@@ -187,6 +187,8 @@ public class CraftingManager : MonoBehaviour
         }
         InventoryManager.instance.CreatItem(resultName);
         InventoryManager.instance.RebuildItemStackCache();
+        PixelCrushers.MessageSystem.SendMessage(this, "Craft", resultName); // 제작 퀘스트 (G11)
+        PixelCrushers.MessageSystem.SendMessage(this, "Craft", "Any");
         Debug.Log("제작 성공: " + resultName);
         Sfx.Play(SfxId.Craft);
     }

@@ -103,6 +103,7 @@ public class DropItemCheck : PoolAble
                 if (InventoryManager.instance.CreatItem(name))
                 {
                     PickupLog.Report(name, 1, rarity);
+                    PixelCrushers.MessageSystem.SendMessage(this, "Pickup", name); // 수집 퀘스트 (G11)
                 }
                 Sfx.Play(rarity == "U" ? SfxId.RareDrop : SfxId.Pickup);
             }

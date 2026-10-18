@@ -15,6 +15,7 @@ public static class QuestCatalog
         public int gold, stones;
         public string rewardItem;
         public string requires;    // 선행 퀘스트 id (없으면 null)
+        public string message = "Kill"; // 카운트할 MessageSystem 메시지 (Kill / Pickup / Craft)
     }
 
     public static readonly List<Def> Chain = new List<Def>
@@ -60,8 +61,41 @@ public static class QuestCatalog
         },
     };
 
+    /// <summary>체인과 별개로 처음부터 받을 수 있는 부가 퀘스트 (수집·제작)</summary>
+    public static readonly List<Def> Side = new List<Def>
+    {
+        new Def
+        {
+            id = "s_wood", title = "Firewood", message = "Pickup",
+            offer = "Winter is coming. Bring me 10 pieces of wood from the forest.",
+            journal = "Pick up wood in the forest.",
+            targets = new[] { "Wood" }, count = 10, gold = 120, stones = 0,
+        },
+        new Def
+        {
+            id = "s_herb", title = "Healer's Request", message = "Pickup",
+            offer = "Gather 6 green herbs for the village healer.",
+            journal = "Pick up green herbs.",
+            targets = new[] { "GreenHurb" }, count = 6, gold = 150, stones = 1,
+        },
+        new Def
+        {
+            id = "s_craft", title = "Smith's Apprentice", message = "Craft",
+            offer = "Show me you can work a forge — craft any 2 pieces of gear at the smiths.",
+            journal = "Craft 2 items at the smiths.",
+            targets = new[] { "Any" }, count = 2, gold = 200, stones = 2,
+        },
+    };
+
+    public static IEnumerable<Def> All()
+    {
+        foreach (Def d in Chain) yield return d;
+        foreach (Def d in Side) yield return d;
+    }
+
     public static Def Find(string id)
     {
-        return Chain.Find(d => d.id == id);
+        Def d = Chain.Find(x => x.id == id);
+        return d ?? Side.Find(x => x.id == id);
     }
 }

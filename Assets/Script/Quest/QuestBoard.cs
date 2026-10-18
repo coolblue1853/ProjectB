@@ -57,7 +57,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
             journal.includeInSavedGameData = true;
         }
         Load();
-        foreach (QuestCatalog.Def d in QuestCatalog.Chain)
+        foreach (QuestCatalog.Def d in QuestCatalog.All())
         {
             // 저장본에 없는 퀘스트(새로 추가된 것 포함)만 생성 — 플레이어가 이미 받은 퀘스트는 게시판 목록에서 빠져 있다
             bool inJournal = journal != null && journal.ContainsQuest(d.id);
@@ -68,7 +68,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
             giver.AddQuest(Build(d));
         }
         RefreshMark();
-        GameLog.Info(GameLog.Cat.Item, "퀘스트 게시판: " + QuestCatalog.Chain.Count + "개 등록");
+        GameLog.Info(GameLog.Cat.Item, "퀘스트 게시판: 체인 " + QuestCatalog.Chain.Count + " + 부가 " + QuestCatalog.Side.Count);
     }
 
     Quest Build(QuestCatalog.Def d)
@@ -77,7 +77,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
         qb.quest.isTrackable = true;
         qb.quest.showInTrackHUD = true;
         qb.AddOfferContents(qb.CreateTitleContent(), qb.CreateBodyContent(d.offer),
-            qb.CreateBodyContent("Reward: " + d.gold + " gold, " + d.stones + " Enhance Stone" + (d.stones > 1 ? "s" : "")));
+            qb.CreateBodyContent("Reward: " + d.gold + " gold" + (d.stones > 0 ? ", " + d.stones + " Enhance Stone" + (d.stones > 1 ? "s" : "") : "")));
 
         if (!string.IsNullOrEmpty(d.requires))
         {
@@ -97,7 +97,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
         var counter = qb.AddCounter("kills", 0, 0, d.count, false, QuestCounterUpdateMode.Messages);
         foreach (string target in d.targets)
         {
-            counter.messageEventList.Add(new QuestCounterMessageEvent(null, new StringField("Kill"), new StringField(target),
+            counter.messageEventList.Add(new QuestCounterMessageEvent(null, new StringField(d.message), new StringField(target),
                 QuestCounterMessageEvent.Operation.ModifyByLiteralValue, 1));
         }
 
@@ -183,7 +183,10 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
         }
         InventoryManager.instance.RebuildItemStackCache();
         InventoryManager.instance.SaveInventory();
-        PickupLog.Report(EnhanceRules.StoneName, d.stones, "R");
+        if (d.stones > 0)
+        {
+            PickupLog.Report(EnhanceRules.StoneName, d.stones, "R");
+        }
         Sfx.Play(SfxId.Victory, 0.6f);
         GameLog.Info(GameLog.Cat.Item, "퀘스트 보상 " + d.id + ": 골드 " + d.gold + ", 강화석 " + d.stones);
     }
