@@ -54,4 +54,4 @@ FPS Framework, MFPS 2.0, TPS Shooter, Invector TPC, PBR Fighters, Nodachi AnimSe
 
 | 에셋 | 상태 | 커밋 |
 |---|---|---|
-| (아직 없음) | | |
+| All In 1 Sprite Shader | ✅ 임포트 (`Assets/Plugins/AllIn1SpriteShader`, Demo 제외, 17MB) — 피격 플래시·디졸브·등급 아웃라인용 | (이번 커밋) |
