@@ -132,7 +132,10 @@ public static class HitFeedback
         ShakeCount++;
     }
 
-    public enum NumberKind { Normal, Crit, Extra, Poison, Bleed }
+    public enum NumberKind { Normal, Crit, Extra, Poison, Bleed, Heal, Hurt }
+
+    /// <summary>마지막으로 쓴 숫자 프리팹 — 플레이어 회복·피격 숫자에 재사용(플레이어 쪽에 프리팹 참조가 없다)</summary>
+    public static DamageNumber LastPrefab { get; private set; }
 
     const int MaxCritNumbersPerFrame = 4;
     static int critFrame = -1, critCountThisFrame;
@@ -143,6 +146,14 @@ public static class HitFeedback
     /// </summary>
     public static void SpawnNumber(DamageNumber prefab, Vector3 position, int value, NumberKind kind)
     {
+        if (prefab == null)
+        {
+            prefab = LastPrefab;
+            if (prefab == null)
+            {
+                return;
+            }
+        }
         if (prefab == null || value <= 0)
         {
             return;
@@ -160,6 +171,7 @@ public static class HitFeedback
             }
         }
 
+        LastPrefab = prefab;
         float baseScale = prefab.transform.localScale.x;
         Color color;
         float scale;
@@ -170,6 +182,8 @@ public static class HitFeedback
             case NumberKind.Extra: color = new Color(0.45f, 0.85f, 1f); scale = 1.1f; offset = new Vector3(0.15f, 0.25f, 0f); break;
             case NumberKind.Poison: color = new Color(0.45f, 1f, 0.35f); scale = 1f; break;
             case NumberKind.Bleed: color = new Color(0.95f, 0.15f, 0.2f); scale = 1f; break;
+            case NumberKind.Heal: color = new Color(0.4f, 1f, 0.5f); scale = 1.2f; offset = new Vector3(0f, 0.6f, 0f); break;
+            case NumberKind.Hurt: color = new Color(1f, 0.3f, 0.3f); scale = 1.1f; offset = new Vector3(0f, 0.6f, 0f); break;
             default: color = Color.white; scale = 1.35f; break; // 픽셀 폰트는 작아 보여서 키움
         }
         DamageNumber number = prefab.Spawn(position + offset, value);

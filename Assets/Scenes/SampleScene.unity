@@ -212213,7 +212213,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.869565
+  orthographic size: 5.46875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -687880,6 +687880,8 @@ MonoBehaviour:
   Def: 0
   Critical: 0
   Drop: 0
+  _numberPrefab: {fileID: 9163873969146938251, guid: 24d32804427562f45817e6a13160677c,
+    type: 3}
 --- !u!1 &1821498693
 GameObject:
   m_ObjectHideFlags: 0

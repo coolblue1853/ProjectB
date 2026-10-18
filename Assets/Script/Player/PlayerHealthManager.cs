@@ -63,12 +63,26 @@ public class PlayerHealthManager : MonoBehaviour
         }
         if (OnHpDamaged != null) OnHpDamaged(this, EventArgs.Empty);
     }
+    [Tooltip("플레이어 회복·피격 숫자 프리팹 (적과 같은 EnemyDamge)")]
+    [SerializeField] private DamageNumbersPro.DamageNumber _numberPrefab;
+
+    Vector3 NumberAnchor()
+    {
+        Transform t = PlayerController.instance != null ? PlayerController.instance.transform : transform;
+        return t.position + Vector3.up * 1.2f;
+    }
+
     public void HpHeal(int amount)
     {
+        int before = nowHp;
         nowHp += amount;
         if (nowHp > fullHP)
         {
             nowHp = fullHP;
+        }
+        if (nowHp > before)
+        {
+            HitFeedback.SpawnNumber(_numberPrefab, NumberAnchor(), nowHp - before, HitFeedback.NumberKind.Heal);
         }
         if (OnHpHealed != null) OnHpHealed(this, EventArgs.Empty);
     }
@@ -356,7 +370,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void HpDown(int damage)
     {
-        //DamageNumber damageNumber = numberPrefab.Spawn(player.transform.position, damage);
+        HitFeedback.SpawnNumber(_numberPrefab, NumberAnchor(), damage, HitFeedback.NumberKind.Hurt);
         HpDamage(damage);
 
         isHpDown = true;
