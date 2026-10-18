@@ -42,43 +42,36 @@ public class DatabaseManager : MonoBehaviour
     public static int money;
 
 
+    /// <summary>세트 부위 장착 수 증가 → 정확히 단계 수에 도달하면 해당 세트 효과 발동</summary>
     public static void PlusSetDict(string name, int count)
     {
-
-        bool isContain = false;
-        foreach (var value in setsEffectStack)
+        if (string.IsNullOrEmpty(name))
         {
-            if (value.Key == name)
-            {
-                isContain = true;
-                break;
-            }
+            return;
         }
-        if (isContain == false)
-        {
-            setsEffectStack[name] = count;
-        }
-        else
-        {
-            setsEffectStack[name] += count;
-        }
-
+        setsEffectStack.TryGetValue(name, out int now);
+        setsEffectStack[name] = now + count;
         SetEffectActvie(name, setsEffectStack[name]);
-
     }
+
+    /// <summary>세트 부위 장착 수 감소 → 줄기 전 단계의 효과 해제</summary>
     public static void MinusSetDict(string name, int count)
     {
-        SetEffectDisactvie(name, setsEffectStack[name]);
-        setsEffectStack[name] -= count;
-        // 만약 값이 0이 되면 해당 키를 제거할 수 있음
-        if (setsEffectStack[name] == 0)
+        if (string.IsNullOrEmpty(name) || !setsEffectStack.TryGetValue(name, out int now))
+        {
+            return; // 세트가 아니거나 카운트되지 않은 장비 (B-112)
+        }
+        SetEffectDisactvie(name, now);
+        now -= count;
+        if (now <= 0)
         {
             setsEffectStack.Remove(name);
         }
-
-
+        else
+        {
+            setsEffectStack[name] = now;
+        }
     }
-
 
     public static void SetEffectActvie(string name, int level)
     {

@@ -11,20 +11,16 @@ public class PlayerHealthManager : MonoBehaviour
    // bool isSuperArmor = false;
     Sequence sequence; Sequence hpSequence;
     Sequence waitSequence; Sequence waitHpSequence;
-    public int setHP;
     public int fullHP;
     public int nowHp;
-    public int nomalizedHP;
     public int armorAtp = 0;
     public HealthBarShrink healthBar;
     public HealthBarShrink steminaBar;
     public HealthBarShrink fullnesBar;
 
     Sequence noDamgeSycle;
-    public int setStemina;
     public int fullStemina;
     public int nowStemina;
-    public int nomalizedStemina;
     public float waitTimeSteminaHeal;
     public float waitTimeHpHeal;
     public int steminaHealPoint;
@@ -141,13 +137,9 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void EquipmentActiveTrue(int hp)
     {
-        int checkHP =  nowHp;
         // 방어도 적용은 나중에 시켜주어야 함.
         fullHP += hp;
 
-        setHP = 1;
-        nomalizedHP = 1 / fullHP;
-        int minus = fullHP - checkHP;
         healthBar.ResetHealthStat(this);
         //HpDamage(minus); 
         waitHpSequence.Kill();
@@ -158,27 +150,19 @@ public class PlayerHealthManager : MonoBehaviour
 
         // 방어도 적용은 나중에 시켜주어야 함.
         fullHP -= hp;
-
-        setHP = 1;
-        nomalizedHP = 1 / fullHP;
-        int minus = fullHP - nowHp;
         healthBar.ResetHealthStat(this);
-        HpDamage(minus);
+        // 최대 HP가 줄어 현재 HP가 넘치면 최대치로 깎는다 (HP가 차 있지 않으면 그대로)
         if (nowHp > fullHP)
         {
-            nowHp = fullHP;
+            HpDamage(nowHp - fullHP);
         }
     }
     //체력바 관련
     private void ResetMHp()
     {
         nowHp = fullHP;
-        setHP = 1;
-        nomalizedHP = 1 / fullHP;
 
         nowStemina = fullStemina;
-        setStemina = 1;
-        nomalizedStemina = 1 / fullStemina;
 
         nowFullness = fullFullness;
     }
@@ -304,7 +288,6 @@ public class PlayerHealthManager : MonoBehaviour
     public void HpDown(int damage)
     {
         //DamageNumber damageNumber = numberPrefab.Spawn(player.transform.position, damage);
-        setHP = (setHP - nomalizedHP * damage);
         HpDamage(damage);
 
         isHpDown = true;
@@ -321,7 +304,6 @@ public class PlayerHealthManager : MonoBehaviour
         isSteminaDown = true;
         sequence.Kill();
         waitSequence.Kill();
-        setStemina = setStemina - nomalizedStemina * damage;
         SteminaDamage(damage);
         sequence = DOTween.Sequence()
         .AppendInterval(waitTimeSteminaHeal) // 대기 시간 사용
@@ -391,12 +373,10 @@ public class PlayerHealthManager : MonoBehaviour
         if (healed > fullHP - nowHp)
         {
             healed = fullHP - nowHp;
-            setHP = (setHP - nomalizedHP * healed);
             HpHeal(healed);
         }
         else
         {
-            setHP = (setHP - nomalizedHP * healed);
             HpHeal(healed);
         }
     }
@@ -405,12 +385,10 @@ public class PlayerHealthManager : MonoBehaviour
         if (damage > fullStemina - nowStemina)
         {
             damage = fullStemina - nowStemina;
-            setStemina = setStemina - nomalizedStemina * damage;
             SteminaHeal(damage);
         }
         else
         {
-            setStemina = setStemina - nomalizedStemina * damage;
             SteminaHeal(damage);
         }
     }

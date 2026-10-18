@@ -164,8 +164,9 @@ public class EquipBoxCheck : MonoBehaviour
         // 출혈관련
         if (equip.isBleeding)
         {
-            DatabaseManager.bleedingEquipment.Add(equip.name, new int[] { equip.bleedingPerCent, equip.bleedingDamage, equip.bleedingDamageCount });
-            DatabaseManager.bleedingEquipmentInterval.Add(equip.name, equip.bleedingDamageInterval);
+            // 같은 이름 장비 2개를 껴도 충돌하지 않도록 인스턴스별 키 사용 (B-107)
+            DatabaseManager.bleedingEquipment[BleedKey(equip)] = new int[] { equip.bleedingPerCent, equip.bleedingDamage, equip.bleedingDamageCount };
+            DatabaseManager.bleedingEquipmentInterval[BleedKey(equip)] = equip.bleedingDamageInterval;
         }
     }
     public void DisableEquipment(Equipment equip)
@@ -184,10 +185,12 @@ public class EquipBoxCheck : MonoBehaviour
         DatabaseManager.addPoisonDmg -= equip.poisonDmg;
         if (equip.isBleeding)
         {
-            DatabaseManager.bleedingEquipment.Remove(equip.name);
-            DatabaseManager.bleedingEquipmentInterval.Remove(equip.name);
+            DatabaseManager.bleedingEquipment.Remove(BleedKey(equip));
+            DatabaseManager.bleedingEquipmentInterval.Remove(BleedKey(equip));
         }
     }
+
+    static string BleedKey(Equipment equip) => equip.name + "#" + equip.GetHashCode();
 
     GameObject deletChile ;
     public void DeletPrefab(ItemCheck detail, string reciveEquipArea, bool isFalse= true)
@@ -243,8 +246,8 @@ public class EquipBoxCheck : MonoBehaviour
     }
     public void LoadPrefab(string equipName, string equipArea, string tfName)
     {
-        if(tfName != null)
-         DatabaseManager.PlusSetDict(tfName,1);
+        if (!string.IsNullOrEmpty(tfName)) // 세트가 아닌 장비는 세트 카운트에 넣지 않는다 (B-112)
+            DatabaseManager.PlusSetDict(tfName, 1);
         reciveEquipArea = equipArea;
 
         string folderPath = equipArea+"/";

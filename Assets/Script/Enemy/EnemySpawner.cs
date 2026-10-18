@@ -273,6 +273,8 @@ public class EnemySpawner : MonoBehaviour
             int posIndex = isRandSpawn ? Random.Range(0, enemyCount) : i;
             var jitter = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
             enemyObject.transform.position = enemyPositionArray[posIndex].transform.position + jitter;
+            enemyHealth.spawnPosition = enemyObject.transform.position;
+            enemyHealth.hasSpawnPosition = true;
 
             enemyHealth.enemyNum = i;
             enemyHealth.OnReleasedToPool -= OnEnemyReleased; // 중복 등록 방지

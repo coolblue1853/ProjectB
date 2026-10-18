@@ -14,6 +14,7 @@ public class EnemyGoOrigin : EnemyAction
     {
         bt = this.transform.GetComponent<BehaviorTree>();
         isEnd = false;
+        originPosition = HomePosition; // 풀 재사용 시에도 이번 스폰 위치로 복귀
         StartGoOrigin();
     }
     public override TaskStatus OnUpdate()

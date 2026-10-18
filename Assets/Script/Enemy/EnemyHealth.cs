@@ -12,6 +12,8 @@ using BehaviorDesigner.Runtime.Tasks;
 public class EnemyHealth : PoolAble
 {
     public int enemyNum = 0;
+    [HideInInspector] public Vector3 spawnPosition;   // 스포너가 배치한 위치 (순찰 리쉬 기준)
+    [HideInInspector] public bool hasSpawnPosition;
     public event System.Action<int,int,Vector3, bool, bool> OnReleasedToPool; // 이벤트 선언
     public EnemySpawner enemySpowner;
     public bool isBleeding = false;

@@ -16,6 +16,11 @@ public class EnemyAction : Action
     public DG.Tweening.Sequence sequence;
     public bool isEnd;
     public float tfLocalScale = 0;
+    protected EnemyHealth enemyHealth;
+
+    /// <summary>순찰·복귀 기준점: 스포너가 지정한 스폰 위치 (풀 재사용마다 갱신됨). 없으면 최초 위치.</summary>
+    protected Vector2 HomePosition => enemyHealth != null && enemyHealth.hasSpawnPosition
+        ? (Vector2)enemyHealth.spawnPosition : originPosition;
 
     public override void OnAwake()
     {
@@ -27,6 +32,7 @@ public class EnemyAction : Action
         // Singleton 패턴 사용 시 PlayerController 인스턴스 캐싱
         player = PlayerController.instance;
         enemyObject = gameObject;
+        enemyHealth = GetComponent<EnemyHealth>();
 
         // transform.localScale 값이 변하지 않는다면 캐싱
         tfLocalScale = enemyObject.transform.localScale.x;

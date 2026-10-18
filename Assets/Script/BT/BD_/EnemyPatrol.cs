@@ -18,7 +18,7 @@ public class EnemyPatrol : EnemyAction
         bt = this.transform.GetComponent<BehaviorTree>();
         bt.sequence.Kill(); // 이전 시퀀스 종료
         isEnd = false;
-        originPosition = enemyObject.transform.position; // 원래 위치 저장
+        originPosition = HomePosition; // 리쉬 기준 = 스폰 위치 (매번 현재 위치로 덮어쓰면 리쉬가 동작하지 않음, B-110)
         StartPatrol();
     }
     public override TaskStatus OnUpdate()

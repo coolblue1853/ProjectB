@@ -18,6 +18,12 @@ public class EnemyHealthBar : MonoBehaviour
     }
     public void setHpBar(EnemyHealth health)
     {
+        // 풀 재사용 시 OnEnable마다 호출되므로 이전 구독을 먼저 해제 (중복 구독 → 데미지바 여러 개, B-109)
+        if (healthSystem != null)
+        {
+            healthSystem.OnDamaged -= OnDamaged;
+            healthSystem.OnHealed -= OnHealed;
+        }
         healthSystem = health;
         SetHealth(healthSystem.GetHealthNormalized());
 
