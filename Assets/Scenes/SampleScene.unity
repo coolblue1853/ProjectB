@@ -2345,6 +2345,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 0
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -15623,6 +15624,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -20715,6 +20717,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 0
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -26310,6 +26313,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -50875,6 +50879,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -50885,7 +50890,7 @@ MonoBehaviour:
       type: 3}
     count: 3
   - objectName: stab
-    perfab: {fileID: 2725113478970875897, guid: 43d4709060329b74d8a771b39d1daa00,
+    perfab: {fileID: 2725113478970875897, guid: 57caf0be55e6bd345a019ab20b801c3a,
       type: 3}
     count: 3
 --- !u!1 &231038658
@@ -58805,6 +58810,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -59488,6 +59494,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -64029,6 +64036,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 0
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -173353,6 +173361,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -203858,6 +203867,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -204327,7 +204337,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.46875
+  orthographic size: 5.869565
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -273933,6 +273943,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -312684,6 +312695,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -345305,6 +345317,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -347057,6 +347070,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -351045,6 +351059,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -351056,7 +351071,7 @@ MonoBehaviour:
       type: 3}
     count: 4
   - objectName: stab
-    perfab: {fileID: 2725113478970875897, guid: 43d4709060329b74d8a771b39d1daa00,
+    perfab: {fileID: 2725113478970875897, guid: 387c6489960d1df479ed23f7482faecc,
       type: 3}
     count: 3
 --- !u!1 &974004285
@@ -368646,6 +368661,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 0
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -371114,6 +371130,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -373432,6 +373449,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -409568,6 +409586,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 0
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -415050,6 +415069,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 0
+  eliteChance: 0
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -415060,11 +415080,11 @@ MonoBehaviour:
     perfab: {fileID: 851648791739639452, guid: 0f3c8be88f6f7e9449388cec6ece3f23, type: 3}
     count: 2
   - objectName: clow
-    perfab: {fileID: 3871218360763498638, guid: 011c5c632c75b0f47b417c89dc6121cb,
+    perfab: {fileID: 3871218360763498638, guid: 5bfe72dbe1c63ed49ae113e284ddf87c,
       type: 3}
     count: 1
   - objectName: fire
-    perfab: {fileID: 4072923990559250960, guid: ce85c2bf4aaca404f843f2c2aaa20e64,
+    perfab: {fileID: 4072923990559250960, guid: 4e5873afac28ed148b4e09349da0ca25,
       type: 3}
     count: 1
 --- !u!1 &1289878799
@@ -420646,6 +420666,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 0
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -471621,6 +471642,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -471631,7 +471653,7 @@ MonoBehaviour:
       type: 3}
     count: 4
   - objectName: stab
-    perfab: {fileID: 2725113478970875897, guid: 43d4709060329b74d8a771b39d1daa00,
+    perfab: {fileID: 2725113478970875897, guid: 57caf0be55e6bd345a019ab20b801c3a,
       type: 3}
     count: 3
 --- !u!1 &1425577882
@@ -525854,6 +525876,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -525864,7 +525887,7 @@ MonoBehaviour:
       type: 3}
     count: 6
   - objectName: stab
-    perfab: {fileID: 2725113478970875897, guid: 43d4709060329b74d8a771b39d1daa00,
+    perfab: {fileID: 2725113478970875897, guid: 57caf0be55e6bd345a019ab20b801c3a,
       type: 3}
     count: 3
 --- !u!1 &1449434003
@@ -527785,6 +527808,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 0
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -527796,11 +527820,11 @@ MonoBehaviour:
       type: 3}
     count: 2
   - objectName: clow
-    perfab: {fileID: 3871218360763498638, guid: 011c5c632c75b0f47b417c89dc6121cb,
+    perfab: {fileID: 3871218360763498638, guid: 06e9f2044c8b6a44f98569fa1b88135b,
       type: 3}
     count: 1
   - objectName: fire
-    perfab: {fileID: 4072923990559250960, guid: ce85c2bf4aaca404f843f2c2aaa20e64,
+    perfab: {fileID: 4072923990559250960, guid: 7e062ba6d9bebb046ad73f9cc497811a,
       type: 3}
     count: 1
 --- !u!1 &1458761470
@@ -527951,6 +527975,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -527962,7 +527987,7 @@ MonoBehaviour:
       type: 3}
     count: 3
   - objectName: leaf
-    perfab: {fileID: 2135722504411801264, guid: 9a5e093a574d5af44bd28d7cbbb9efa0,
+    perfab: {fileID: 2135722504411801264, guid: 5843f37c8cdcb8e478684c3dc2402328,
       type: 3}
     count: 5
 --- !u!1 &1459411268
@@ -542532,6 +542557,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -544675,6 +544701,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -546829,6 +546856,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -546840,7 +546868,7 @@ MonoBehaviour:
       type: 3}
     count: 3
   - objectName: flower
-    perfab: {fileID: 2135722504411801264, guid: a066db093f2d3c44bbd4bb5321963566,
+    perfab: {fileID: 2135722504411801264, guid: 36f31087f3d557d4db1ab0c53a0df0cf,
       type: 3}
     count: 6
 --- !u!1001 &1538428773
@@ -566143,6 +566171,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -566154,7 +566183,7 @@ MonoBehaviour:
       type: 3}
     count: 4
   - objectName: stab
-    perfab: {fileID: 2725113478970875897, guid: 43d4709060329b74d8a771b39d1daa00,
+    perfab: {fileID: 2725113478970875897, guid: 387c6489960d1df479ed23f7482faecc,
       type: 3}
     count: 3
 --- !u!43 &1669409153
@@ -570059,6 +570088,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -571862,6 +571892,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -571873,7 +571904,7 @@ MonoBehaviour:
       type: 3}
     count: 4
   - objectName: leaf
-    perfab: {fileID: 2135722504411801264, guid: 9a5e093a574d5af44bd28d7cbbb9efa0,
+    perfab: {fileID: 2135722504411801264, guid: 5843f37c8cdcb8e478684c3dc2402328,
       type: 3}
     count: 5
 --- !u!1 &1699789720
@@ -647441,6 +647472,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -660930,6 +660962,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -669030,6 +669063,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -675817,6 +675851,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -676963,6 +676998,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -689093,6 +689129,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -689636,6 +689673,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 0
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -690823,6 +690861,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 0
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -695159,6 +695198,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -697031,6 +697071,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 0
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -705255,6 +705296,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 0
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -708200,6 +708242,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -713302,6 +713345,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy
@@ -718059,6 +718103,7 @@ MonoBehaviour:
   dropManager: {fileID: 0}
   isDaytimeSpowner: 1
   isRandSpawn: 1
+  eliteChance: 0.04
   isInPlayer: 0
   objectInfos:
   - objectName: enemy

@@ -1,4 +1,4 @@
-# Lv2 콘텐츠 기획 — 마법 절벽 (Magic Cliffs)
+﻿# Lv2 콘텐츠 기획 — 마법 절벽 (Magic Cliffs)
 
 > 상태: **기획안(미구현)**, 2026-10-18 작성. QualityRoadmap E4의 상세 기획이다.
 > 근거: 캐시된 `.unitypackage`의 내용(pathname·meta·PNG 헤더), 기존 프리팹·씬 YAML, `SetEffectApplier.cs`·`Skill.cs`·`PlayerController.cs`.
@@ -182,6 +182,8 @@
   - 느낌표 아이콘은 C2에서 따로 구현한다.
 
 ### 3.3 공격 프리팹 (`Assets/Prefab/Enemy/EnemyDamge/Lv2/`)
+
+> **구현(2026-10-18):** `Tools/probes/build_lv2_attacks.cs` — 템플릿 공격을 `L2_*`로 복제해 피해만 바꾸고, Lv2 스포너 objectInfos의 **같은 키**(leaf/stab/flower/clow/fire)에 끼운다(BT attackName 무변경). 실제 키가 하나뿐이라 근접·원거리 2종 구분은 아직 없음: Shroom 40(45/35 절충)·Goblin 55·Eye 45(50/40 절충)·Skel 70·Bringer 110/60·Wizard 130/60. 정예 스포너(L2_C_EliteN)는 `eliteChance=0`. 맵 재빌드 시 프로브 재실행.
 
 | 키(attackName) | 복제 원본 | damage | 비고 |
 |---|---|---|---|
