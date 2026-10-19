@@ -100,7 +100,7 @@ public class PickupLog : MonoBehaviour
         fr.sizeDelta = new Vector2(600f, 50f);
         fullText.alignment = TextAlignmentOptions.Center;
         fullText.color = theme.warning;
-        fullText.text = "Inventory Full";
+        fullText.text = Loc.T("Inventory Full");
         fullText.gameObject.SetActive(false);
     }
 

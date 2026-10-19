@@ -64,7 +64,7 @@ public class ItemDatabase : MonoBehaviour
                         item.tfName = values[j].Trim();
                         break;
                     case 12: // itemName
-                        item.itemNameT = values[j].Trim();
+                        item.itemNameT = Loc.T(values[j].Trim()); // 표시 이름 현지화(LocItems) — 언어 변경은 다음 실행부터
                         break;
                     case 13: // tear
                         item.tear = int.Parse(values[j].Trim());

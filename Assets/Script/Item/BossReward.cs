@@ -107,7 +107,7 @@ public static class BossLoot
         // 승급 배너는 처치 배너 뒤에 이어진다(BossBanner 대기열)
         if (r.grantsRank > 0 && AscentLoad.GrantRank(r.grantsRank))
         {
-            PickupLog.Report("Rank up: " + AscentLoad.RankName(r.grantsRank) + " Explorer", 1, "U");
+            PickupLog.Report(Loc.F("Rank up: {0} Explorer", Loc.T(AscentLoad.RankName(r.grantsRank))), 1, "U");
         }
         FeelFx.BossKill();
         GameLog.Info(GameLog.Cat.Item, "보스 보상 " + bossName + ": " + string.Join(", ", loot) + (unique ? " (고유템!)" : " (천장까지 " + (r.pity - since) + ")"));

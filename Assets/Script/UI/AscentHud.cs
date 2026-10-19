@@ -73,7 +73,7 @@ public class AscentHud : MonoBehaviour
         UiTheme theme = UiTheme.Get();
         int d = AscentLoad.Deficit;
         string loadColor = d > 0 ? "#" + ColorUtility.ToHtmlStringRGB(theme.warning) : "#9ED0FF";
-        text.text = "<color=#" + ColorUtility.ToHtmlStringRGB(theme.unique) + ">" + AscentLoad.RankName(AscentLoad.Rank).ToUpperInvariant() + " EXPLORER</color>\n"
-            + "<color=" + loadColor + ">LOAD " + AscentLoad.CurrentLoad + " / RES " + AscentLoad.Resistance + (d > 0 ? "  -" + Mathf.RoundToInt(d * AscentLoad.PenaltyPerPoint * 100f) + "% DMG" : "") + "</color>";
+        text.text = "<color=#" + ColorUtility.ToHtmlStringRGB(theme.unique) + ">" + Loc.T(AscentLoad.RankName(AscentLoad.Rank)).ToUpperInvariant() + " " + Loc.T("EXPLORER") + "</color>\n"
+            + "<color=" + loadColor + ">" + Loc.T("LOAD") + " " + AscentLoad.CurrentLoad + " / " + Loc.T("RES") + " " + AscentLoad.Resistance + (d > 0 ? "  -" + Mathf.RoundToInt(d * AscentLoad.PenaltyPerPoint * 100f) + "% " + Loc.T("DMG") : "") + "</color>";
     }
 }

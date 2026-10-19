@@ -1134,6 +1134,3083 @@ MonoBehaviour:
         \uAC83\uC744 \uD655\uC778\uD558\uB834."
       Flags: 0000
       Languages_Touch: []
+    - Term: Basic Gear
+      TermType: 0
+      Description: 
+      Languages:
+      - Basic Gear
+      - "\uAE30\uBCF8 \uC7A5\uBE44"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Nature's Reward
+      TermType: 0
+      Description: 
+      Languages:
+      - Nature's Reward
+      - "\uC790\uC5F0\uC758 \uBCF4\uB2F5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwalker's Vow
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwalker's Vow
+      - "\uC808\uBCBD \uC21C\uB840\uC790\uC758 \uB9F9\uC138"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pack Hunter
+      TermType: 0
+      Description: 
+      Languages:
+      - Pack Hunter
+      - "\uBB34\uB9AC \uC0AC\uB0E5\uAFBC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Night Lantern
+      TermType: 0
+      Description: 
+      Languages:
+      - Night Lantern
+      - "\uBC24\uC758 \uB4F1\uBD88"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Grove
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Grove
+      - "\uACE0\uB300 \uC232"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Will-o'-Fae
+      TermType: 0
+      Description: 
+      Languages:
+      - Will-o'-Fae
+      - "\uC694\uC815 \uB3C4\uAE68\uBE44\uBD88"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Stalker
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Stalker
+      - "\uB2AA \uCD94\uC801\uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gloom Swarm
+      TermType: 0
+      Description: 
+      Languages:
+      - Gloom Swarm
+      - "\uC74C\uC6B8\uD55C \uB5BC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outlaw
+      TermType: 0
+      Description: 
+      Languages:
+      - Outlaw
+      - "\uBB34\uBC95\uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Iron Raider
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron Raider
+      - "\uAC15\uCCA0 \uC57D\uD0C8\uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stoneborn
+      TermType: 0
+      Description: 
+      Languages:
+      - Stoneborn
+      - "\uB3CC\uC5D0\uC11C \uAE68\uC5B4\uB09C \uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Guard
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Guard
+      - "\uC131\uBCBD \uC218\uBE44\uB300"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skybound
+      TermType: 0
+      Description: 
+      Languages:
+      - Skybound
+      - "\uD558\uB298\uC744 \uD5A5\uD55C \uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rock
+      TermType: 0
+      Description: 
+      Languages:
+      - Rock
+      - "\uB3CC\uBA69\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wood
+      TermType: 0
+      Description: 
+      Languages:
+      - Wood
+      - "\uB098\uBB34"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PickAxe
+      TermType: 0
+      Description: 
+      Languages:
+      - PickAxe
+      - "\uACE1\uAD2D\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Potion
+      TermType: 0
+      Description: 
+      Languages:
+      - Potion
+      - "\uBB3C\uC57D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Food
+      TermType: 0
+      Description: 
+      Languages:
+      - Food
+      - "\uC74C\uC2DD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cap
+      TermType: 0
+      Description: 
+      Languages:
+      - Cap
+      - "\uBAA8\uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Armor
+      TermType: 0
+      Description: 
+      Languages:
+      - Armor
+      - "\uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: HighArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - HighArmor
+      - "\uC0C1\uAE09 \uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LegArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - LegArmor
+      - "\uB2E4\uB9AC \uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: HandArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - HandArmor
+      - "\uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Necklace
+      - "\uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Ring
+      - "\uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ToxicPickAxe
+      TermType: 0
+      Description: 
+      Languages:
+      - ToxicPickAxe
+      - "\uB3C5 \uACE1\uAD2D\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shoes
+      TermType: 0
+      Description: 
+      Languages:
+      - Shoes
+      - "\uC2E0\uBC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Leather Knuckles
+      TermType: 0
+      Description: 
+      Languages:
+      - Leather Knuckles
+      - "\uAC00\uC8FD \uB108\uD074"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wood Spear
+      TermType: 0
+      Description: 
+      Languages:
+      - Wood Spear
+      - "\uB098\uBB34 \uCC3D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LeafCap
+      TermType: 0
+      Description: 
+      Languages:
+      - LeafCap
+      - "\uC78E\uC0AC\uADC0 \uBAA8\uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LeafArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - LeafArmor
+      - "\uC78E\uC0AC\uADC0 \uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LeafLegArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - LeafLegArmor
+      - "\uC78E\uC0AC\uADC0 \uB2E4\uB9AC \uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LeafHandArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - LeafHandArmor
+      - "\uC78E\uC0AC\uADC0 \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LeafShoes
+      TermType: 0
+      Description: 
+      Languages:
+      - LeafShoes
+      - "\uC78E\uC0AC\uADC0 \uC2E0\uBC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LeafStaff
+      TermType: 0
+      Description: 
+      Languages:
+      - LeafStaff
+      - "\uC78E\uC0AC\uADC0 \uC9C0\uD321\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LeafAdae
+      TermType: 0
+      Description: 
+      Languages:
+      - LeafAdae
+      - "\uC78E\uC0AC\uADC0 \uB2E8\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RatCap
+      TermType: 0
+      Description: 
+      Languages:
+      - RatCap
+      - "\uC950 \uB450\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RatArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - RatArmor
+      - "\uC950 \uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RatLegArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - RatLegArmor
+      - "\uC950 \uB2E4\uB9AC \uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RatHandArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - RatHandArmor
+      - "\uC950 \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RatShoes
+      TermType: 0
+      Description: 
+      Languages:
+      - RatShoes
+      - "\uC950 \uC2E0\uBC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: DoubleDagger
+      TermType: 0
+      Description: 
+      Languages:
+      - DoubleDagger
+      - "\uC30D\uB2E8\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PoisonSword
+      TermType: 0
+      Description: 
+      Languages:
+      - PoisonSword
+      - "\uB3C5\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RatCheifDagger
+      TermType: 0
+      Description: 
+      Languages:
+      - RatCheifDagger
+      - "\uC950 \uB450\uBAA9\uC758 \uB2E8\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ScareCap
+      TermType: 0
+      Description: 
+      Languages:
+      - ScareCap
+      - "\uD5C8\uC218\uC544\uBE44 \uBAA8\uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ScareArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - ScareArmor
+      - "\uD5C8\uC218\uC544\uBE44 \uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ScareLegArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - ScareLegArmor
+      - "\uD5C8\uC218\uC544\uBE44 \uB2E4\uB9AC \uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ScareHandArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - ScareHandArmor
+      - "\uD5C8\uC218\uC544\uBE44 \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ScareShoes
+      TermType: 0
+      Description: 
+      Languages:
+      - ScareShoes
+      - "\uD5C8\uC218\uC544\uBE44 \uC2E0\uBC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SacreGreatSword
+      TermType: 0
+      Description: 
+      Languages:
+      - SacreGreatSword
+      - "\uD5C8\uC218\uC544\uBE44 \uB300\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ScareStaff
+      TermType: 0
+      Description: 
+      Languages:
+      - ScareStaff
+      - "\uD5C8\uC218\uC544\uBE44 \uC9C0\uD321\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ScareSide
+      TermType: 0
+      Description: 
+      Languages:
+      - ScareSide
+      - "\uD5C8\uC218\uC544\uBE44 \uB0AB"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ScareClow
+      TermType: 0
+      Description: 
+      Languages:
+      - ScareClow
+      - "\uD5C8\uC218\uC544\uBE44 \uBC1C\uD1B1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RustedSword
+      TermType: 0
+      Description: 
+      Languages:
+      - RustedSword
+      - "\uB179\uC2A8 \uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rusted Sword and Shield
+      TermType: 0
+      Description: 
+      Languages:
+      - Rusted Sword and Shield
+      - "\uB179\uC2A8 \uAC80\uACFC \uBC29\uD328"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Four-Leaf Clover Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Four-Leaf Clover Ring
+      - "\uB124\uC78E\uD074\uB85C\uBC84 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rabbit's Foot
+      TermType: 0
+      Description: 
+      Languages:
+      - Rabbit's Foot
+      - "\uD1A0\uB07C \uBC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rabbit Meat Stew
+      TermType: 0
+      Description: 
+      Languages:
+      - Rabbit Meat Stew
+      - "\uD1A0\uB07C\uACE0\uAE30 \uC2A4\uD29C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rabbit Meat
+      TermType: 0
+      Description: 
+      Languages:
+      - Rabbit Meat
+      - "\uD1A0\uB07C\uACE0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Small Bone
+      TermType: 0
+      Description: 
+      Languages:
+      - Small Bone
+      - "\uC791\uC740 \uBF08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rabbit Hide
+      TermType: 0
+      Description: 
+      Languages:
+      - Rabbit Hide
+      - "\uD1A0\uB07C \uAC00\uC8FD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fine Rabbit Hide
+      TermType: 0
+      Description: 
+      Languages:
+      - Fine Rabbit Hide
+      - "\uACE0\uC6B4 \uD1A0\uB07C \uAC00\uC8FD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Round Bone
+      TermType: 0
+      Description: 
+      Languages:
+      - Round Bone
+      - "\uB465\uADFC \uBF08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Green Hurb
+      TermType: 0
+      Description: 
+      Languages:
+      - Green Hurb
+      - "\uCD08\uB85D \uC57D\uCD08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pristine Low-Grade Ore
+      TermType: 0
+      Description: 
+      Languages:
+      - Pristine Low-Grade Ore
+      - "\uAE68\uB057\uD55C \uD558\uAE09 \uAD11\uC11D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Green Wreath
+      TermType: 0
+      Description: 
+      Languages:
+      - Green Wreath
+      - "\uCD08\uB85D \uD654\uAD00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Small Tube
+      TermType: 0
+      Description: 
+      Languages:
+      - Small Tube
+      - "\uC791\uC740 \uAD00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fresh Green Leaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Fresh Green Leaves
+      - "\uC2F1\uC2F1\uD55C \uCD08\uB85D \uC78E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sturdy Roots
+      TermType: 0
+      Description: 
+      Languages:
+      - Sturdy Roots
+      - "\uD2BC\uD2BC\uD55C \uBFCC\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Herbal Salad
+      TermType: 0
+      Description: 
+      Languages:
+      - Herbal Salad
+      - "\uC57D\uCD08 \uC0D0\uB7EC\uB4DC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gentle Spring Guidance
+      TermType: 0
+      Description: 
+      Languages:
+      - Gentle Spring Guidance
+      - "\uBD04\uBC14\uB78C\uC758 \uC778\uB3C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sharp Petal Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Sharp Petal Ring
+      - "\uB0A0\uCE74\uB85C\uC6B4 \uAF43\uC78E \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sturdy Leaf
+      TermType: 0
+      Description: 
+      Languages:
+      - Sturdy Leaf
+      - "\uD2BC\uD2BC\uD55C \uC78E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sharp Petal
+      TermType: 0
+      Description: 
+      Languages:
+      - Sharp Petal
+      - "\uB0A0\uCE74\uB85C\uC6B4 \uAF43\uC78E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Nasty Rat Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Nasty Rat Ring
+      - "\uACE0\uC57D\uD55C \uC950 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Disgusting Rat Meat
+      TermType: 0
+      Description: 
+      Languages:
+      - Disgusting Rat Meat
+      - "\uC5ED\uACA8\uC6B4 \uC950\uACE0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rat Thief's Stash
+      TermType: 0
+      Description: 
+      Languages:
+      - Rat Thief's Stash
+      - "\uC950 \uB3C4\uC801\uC758 \uC7A5\uBB3C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Filthy Rat Hide
+      TermType: 0
+      Description: 
+      Languages:
+      - Filthy Rat Hide
+      - "\uB354\uB7EC\uC6B4 \uC950 \uAC00\uC8FD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stinky Rat Meat Stew
+      TermType: 0
+      Description: 
+      Languages:
+      - Stinky Rat Meat Stew
+      - "\uB0C4\uC0C8\uB098\uB294 \uC950\uACE0\uAE30 \uC2A4\uD29C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Necklace of Spreading Corruption
+      TermType: 0
+      Description: 
+      Languages:
+      - Necklace of Spreading Corruption
+      - "\uBC88\uC9C0\uB294 \uBD80\uD328\uC758 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Necklace of the Sly Plunderer
+      TermType: 0
+      Description: 
+      Languages:
+      - Necklace of the Sly Plunderer
+      - "\uAD50\uD65C\uD55C \uC57D\uD0C8\uC790\uC758 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ring Finger that Tears Wounds
+      TermType: 0
+      Description: 
+      Languages:
+      - Ring Finger that Tears Wounds
+      - "\uC0C1\uCC98\uB97C \uCC22\uB294 \uC57D\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rat Cheif 's Loot
+      TermType: 0
+      Description: 
+      Languages:
+      - Rat Cheif 's Loot
+      - "\uC950 \uB450\uBAA9\uC758 \uC804\uB9AC\uD488"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tough Rat Hide
+      TermType: 0
+      Description: 
+      Languages:
+      - Tough Rat Hide
+      - "\uC9C8\uAE34 \uC950 \uAC00\uC8FD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shabby Straw Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Shabby Straw Ring
+      - "\uD5C8\uB984\uD55C \uC9DA \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ominous Black Liquid
+      TermType: 0
+      Description: 
+      Languages:
+      - Ominous Black Liquid
+      - "\uBD88\uAE38\uD55C \uAC80\uC740 \uC561\uCCB4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blackened Branch
+      TermType: 0
+      Description: 
+      Languages:
+      - Blackened Branch
+      - "\uAC80\uAC8C \uD0C4 \uAC00\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Eerie Cloth Scrap
+      TermType: 0
+      Description: 
+      Languages:
+      - Eerie Cloth Scrap
+      - "\uC73C\uC2A4\uC2A4\uD55C \uCC9C \uC870\uAC01"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Malice-Infused Branch
+      TermType: 0
+      Description: 
+      Languages:
+      - Malice-Infused Branch
+      - "\uC545\uC758 \uC11C\uB9B0 \uAC00\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gloomy Cloth Scrap
+      TermType: 0
+      Description: 
+      Languages:
+      - Gloomy Cloth Scrap
+      - "\uC74C\uC6B8\uD55C \uCC9C \uC870\uAC01"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Necklace of Silent Screams
+      TermType: 0
+      Description: 
+      Languages:
+      - Necklace of Silent Screams
+      - "\uC18C\uB9AC \uC5C6\uB294 \uBE44\uBA85\uC758 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Torch
+      TermType: 0
+      Description: 
+      Languages:
+      - Torch
+      - "\uD683\uBD88"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Emergency Rations
+      TermType: 0
+      Description: 
+      Languages:
+      - Emergency Rations
+      - "\uBE44\uC0C1 \uC2DD\uB7C9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliff Crystal Ore
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliff Crystal Ore
+      - "\uC808\uBCBD \uC218\uC815 \uAD11\uC11D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliff Fox Pelt
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliff Fox Pelt
+      - "\uC808\uBCBD \uC5EC\uC6B0 \uAC00\uC8FD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fox Meat
+      TermType: 0
+      Description: 
+      Languages:
+      - Fox Meat
+      - "\uC5EC\uC6B0\uACE0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Glowing Spore
+      TermType: 0
+      Description: 
+      Languages:
+      - Glowing Spore
+      - "\uBE5B\uB098\uB294 \uD3EC\uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spongy Mushroom Cap
+      TermType: 0
+      Description: 
+      Languages:
+      - Spongy Mushroom Cap
+      - "\uB9D0\uB791\uD55C \uBC84\uC12F\uAC13"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Goblin Fang
+      TermType: 0
+      Description: 
+      Languages:
+      - Goblin Fang
+      - "\uACE0\uBE14\uB9B0 \uC1A1\uACF3\uB2C8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tarnished Goblin Coin
+      TermType: 0
+      Description: 
+      Languages:
+      - Tarnished Goblin Coin
+      - "\uB179\uC2A8 \uACE0\uBE14\uB9B0 \uB3D9\uC804"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Membrane Wing
+      TermType: 0
+      Description: 
+      Languages:
+      - Membrane Wing
+      - "\uB9C9 \uB0A0\uAC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bloodshot Lens
+      TermType: 0
+      Description: 
+      Languages:
+      - Bloodshot Lens
+      - "\uCDA9\uD608\uB41C \uC218\uC815\uCCB4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Bone
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Bone
+      - "\uACE0\uB300\uC758 \uBF08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cracked Shield Shard
+      TermType: 0
+      Description: 
+      Languages:
+      - Cracked Shield Shard
+      - "\uAE08 \uAC04 \uBC29\uD328 \uC870\uAC01"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Death Sigil
+      TermType: 0
+      Description: 
+      Languages:
+      - Death Sigil
+      - "\uC8FD\uC74C\uC758 \uC778\uC7A5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Abyssal Core
+      TermType: 0
+      Description: 
+      Languages:
+      - Abyssal Core
+      - "\uC2EC\uC5F0\uC758 \uD575"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Roasted Fox Skewer
+      TermType: 0
+      Description: 
+      Languages:
+      - Roasted Fox Skewer
+      - "\uC5EC\uC6B0 \uAF2C\uCE58\uAD6C\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwalker Hood
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwalker Hood
+      - "\uC808\uBCBD \uC21C\uB840\uC790 \uB450\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwalker Mail
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwalker Mail
+      - "\uC808\uBCBD \uC21C\uB840\uC790 \uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwalker Greaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwalker Greaves
+      - "\uC808\uBCBD \uC21C\uB840\uC790 \uAC01\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwalker Gloves
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwalker Gloves
+      - "\uC808\uBCBD \uC21C\uB840\uC790 \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwalker Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwalker Boots
+      - "\uC808\uBCBD \uC21C\uB840\uC790 \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwind Staff
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwind Staff
+      - "\uC808\uBCBD\uBC14\uB78C \uC9C0\uD321\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwind Blade
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwind Blade
+      - "\uC808\uBCBD\uBC14\uB78C \uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Abyssal Wizard Staff
+      TermType: 0
+      Description: 
+      Languages:
+      - Abyssal Wizard Staff
+      - "\uC2EC\uC5F0 \uB9C8\uBC95\uC0AC\uC758 \uC9C0\uD321\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Eye of the Cliffs
+      TermType: 0
+      Description: 
+      Languages:
+      - Eye of the Cliffs
+      - "\uC808\uBCBD\uC758 \uB208"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bringer's Sigil Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Bringer's Sigil Ring
+      - "\uC778\uB3C4\uC790\uC758 \uC778\uC7A5 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Floor Crystal
+      TermType: 0
+      Description: 
+      Languages:
+      - Floor Crystal
+      - "\uCE35\uACC4 \uACB0\uC815"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fang Dagger
+      TermType: 0
+      Description: 
+      Languages:
+      - Fang Dagger
+      - "\uC1A1\uACF3\uB2C8 \uB2E8\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wolf Fang
+      TermType: 0
+      Description: 
+      Languages:
+      - Wolf Fang
+      - "\uB291\uB300 \uC1A1\uACF3\uB2C8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Boar Tusk
+      TermType: 0
+      Description: 
+      Languages:
+      - Boar Tusk
+      - "\uBA67\uB3FC\uC9C0 \uC5C4\uB2C8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wisp Ember
+      TermType: 0
+      Description: 
+      Languages:
+      - Wisp Ember
+      - "\uB3C4\uAE68\uBE44\uBD88 \uBD88\uC528"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Snail Shell
+      TermType: 0
+      Description: 
+      Languages:
+      - Snail Shell
+      - "\uB2EC\uD33D\uC774 \uAECD\uB370\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tusk Knuckles
+      TermType: 0
+      Description: 
+      Languages:
+      - Tusk Knuckles
+      - "\uC5C4\uB2C8 \uB108\uD074"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wisp Lantern
+      TermType: 0
+      Description: 
+      Languages:
+      - Wisp Lantern
+      - "\uB3C4\uAE68\uBE44\uBD88 \uB4F1\uBD88"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shell Shield
+      TermType: 0
+      Description: 
+      Languages:
+      - Shell Shield
+      - "\uAECD\uB370\uAE30 \uBC29\uD328"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pack Hunter Hood
+      TermType: 0
+      Description: 
+      Languages:
+      - Pack Hunter Hood
+      - "\uBB34\uB9AC \uC0AC\uB0E5\uAFBC \uB450\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pack Hunter Coat
+      TermType: 0
+      Description: 
+      Languages:
+      - Pack Hunter Coat
+      - "\uBB34\uB9AC \uC0AC\uB0E5\uAFBC \uC678\uD22C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pack Hunter Greaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Pack Hunter Greaves
+      - "\uBB34\uB9AC \uC0AC\uB0E5\uAFBC \uAC01\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pack Hunter Gloves
+      TermType: 0
+      Description: 
+      Languages:
+      - Pack Hunter Gloves
+      - "\uBB34\uB9AC \uC0AC\uB0E5\uAFBC \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pack Hunter Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Pack Hunter Boots
+      - "\uBB34\uB9AC \uC0AC\uB0E5\uAFBC \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Night Lantern Hood
+      TermType: 0
+      Description: 
+      Languages:
+      - Night Lantern Hood
+      - "\uBC24\uC758 \uB4F1\uBD88 \uB450\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Night Lantern Coat
+      TermType: 0
+      Description: 
+      Languages:
+      - Night Lantern Coat
+      - "\uBC24\uC758 \uB4F1\uBD88 \uC678\uD22C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Night Lantern Greaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Night Lantern Greaves
+      - "\uBC24\uC758 \uB4F1\uBD88 \uAC01\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Night Lantern Gloves
+      TermType: 0
+      Description: 
+      Languages:
+      - Night Lantern Gloves
+      - "\uBC24\uC758 \uB4F1\uBD88 \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Night Lantern Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Night Lantern Boots
+      - "\uBC24\uC758 \uB4F1\uBD88 \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bear Claw
+      TermType: 0
+      Description: 
+      Languages:
+      - Bear Claw
+      - "\uACF0 \uBC1C\uD1B1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Root Staff
+      TermType: 0
+      Description: 
+      Languages:
+      - Root Staff
+      - "\uBFCC\uB9AC \uC9C0\uD321\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Heartwood Greatsword
+      TermType: 0
+      Description: 
+      Languages:
+      - Heartwood Greatsword
+      - "\uC2EC\uC7AC \uB300\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bear Pelt
+      TermType: 0
+      Description: 
+      Languages:
+      - Bear Pelt
+      - "\uACF0 \uAC00\uC8FD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Heartwood Chip
+      TermType: 0
+      Description: 
+      Languages:
+      - Heartwood Chip
+      - "\uC2EC\uC7AC \uC870\uAC01"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ectoplasm
+      TermType: 0
+      Description: 
+      Languages:
+      - Ectoplasm
+      - "\uC5D1\uD1A0\uD50C\uB77C\uC998"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fairy Dust
+      TermType: 0
+      Description: 
+      Languages:
+      - Fairy Dust
+      - "\uC694\uC815 \uAC00\uB8E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Phantom Scythe
+      TermType: 0
+      Description: 
+      Languages:
+      - Phantom Scythe
+      - "\uB9DD\uB839\uC758 \uB0AB"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fae Wand
+      TermType: 0
+      Description: 
+      Languages:
+      - Fae Wand
+      - "\uC694\uC815 \uC9C0\uD321\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Grove Hood
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Grove Hood
+      - "\uACE0\uB300 \uC232 \uB450\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Grove Coat
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Grove Coat
+      - "\uACE0\uB300 \uC232 \uC678\uD22C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Grove Greaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Grove Greaves
+      - "\uACE0\uB300 \uC232 \uAC01\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Grove Gloves
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Grove Gloves
+      - "\uACE0\uB300 \uC232 \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Grove Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Grove Boots
+      - "\uACE0\uB300 \uC232 \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Will-o'-Fae Hood
+      TermType: 0
+      Description: 
+      Languages:
+      - Will-o'-Fae Hood
+      - "\uC694\uC815 \uB3C4\uAE68\uBE44\uBD88 \uB450\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Will-o'-Fae Coat
+      TermType: 0
+      Description: 
+      Languages:
+      - Will-o'-Fae Coat
+      - "\uC694\uC815 \uB3C4\uAE68\uBE44\uBD88 \uC678\uD22C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Will-o'-Fae Greaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Will-o'-Fae Greaves
+      - "\uC694\uC815 \uB3C4\uAE68\uBE44\uBD88 \uAC01\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Will-o'-Fae Gloves
+      TermType: 0
+      Description: 
+      Languages:
+      - Will-o'-Fae Gloves
+      - "\uC694\uC815 \uB3C4\uAE68\uBE44\uBD88 \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Will-o'-Fae Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Will-o'-Fae Boots
+      - "\uC694\uC815 \uB3C4\uAE68\uBE44\uBD88 \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Frog Tongue Whip
+      TermType: 0
+      Description: 
+      Languages:
+      - Frog Tongue Whip
+      - "\uAC1C\uAD6C\uB9AC \uD600 \uCC44\uCC0D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Croc Jaw Axe
+      TermType: 0
+      Description: 
+      Languages:
+      - Croc Jaw Axe
+      - "\uC545\uC5B4 \uD131 \uB3C4\uB07C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Petal Pincer
+      TermType: 0
+      Description: 
+      Languages:
+      - Petal Pincer
+      - "\uAF43\uC78E \uC9D1\uAC8C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bloodsting Rapier
+      TermType: 0
+      Description: 
+      Languages:
+      - Bloodsting Rapier
+      - "\uD53C\uCE68 \uB808\uC774\uD53C\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Slime Mace
+      TermType: 0
+      Description: 
+      Languages:
+      - Slime Mace
+      - "\uC2AC\uB77C\uC784 \uCCA0\uD1F4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Primordial Gel
+      TermType: 0
+      Description: 
+      Languages:
+      - Primordial Gel
+      - "\uD0DC\uCD08\uC758 \uC824"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Frog Skin
+      TermType: 0
+      Description: 
+      Languages:
+      - Frog Skin
+      - "\uAC1C\uAD6C\uB9AC \uAC00\uC8FD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Crab Pincer
+      TermType: 0
+      Description: 
+      Languages:
+      - Crab Pincer
+      - "\uAC8C \uC9D1\uAC8C\uBC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Croc Tooth
+      TermType: 0
+      Description: 
+      Languages:
+      - Croc Tooth
+      - "\uC545\uC5B4 \uC774\uBE68"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blood Sting
+      TermType: 0
+      Description: 
+      Languages:
+      - Blood Sting
+      - "\uD53C\uC758 \uCE68"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Slime Gel
+      TermType: 0
+      Description: 
+      Languages:
+      - Slime Gel
+      - "\uC2AC\uB77C\uC784 \uC824"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Stalker Hood
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Stalker Hood
+      - "\uB2AA \uCD94\uC801\uC790 \uB450\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Stalker Coat
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Stalker Coat
+      - "\uB2AA \uCD94\uC801\uC790 \uC678\uD22C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Stalker Greaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Stalker Greaves
+      - "\uB2AA \uCD94\uC801\uC790 \uAC01\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Stalker Gloves
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Stalker Gloves
+      - "\uB2AA \uCD94\uC801\uC790 \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Stalker Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Stalker Boots
+      - "\uB2AA \uCD94\uC801\uC790 \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gloom Swarm Hood
+      TermType: 0
+      Description: 
+      Languages:
+      - Gloom Swarm Hood
+      - "\uC74C\uC6B8\uD55C \uB5BC \uB450\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gloom Swarm Coat
+      TermType: 0
+      Description: 
+      Languages:
+      - Gloom Swarm Coat
+      - "\uC74C\uC6B8\uD55C \uB5BC \uC678\uD22C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gloom Swarm Greaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Gloom Swarm Greaves
+      - "\uC74C\uC6B8\uD55C \uB5BC \uAC01\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gloom Swarm Gloves
+      TermType: 0
+      Description: 
+      Languages:
+      - Gloom Swarm Gloves
+      - "\uC74C\uC6B8\uD55C \uB5BC \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gloom Swarm Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Gloom Swarm Boots
+      - "\uC74C\uC6B8\uD55C \uB5BC \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cutthroat Dagger
+      TermType: 0
+      Description: 
+      Languages:
+      - Cutthroat Dagger
+      - "\uBA71\uB530\uAE30 \uB2E8\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bandit Shortbow
+      TermType: 0
+      Description: 
+      Languages:
+      - Bandit Shortbow
+      - "\uC0B0\uC801 \uB2E8\uAD81"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Raider Buckler
+      TermType: 0
+      Description: 
+      Languages:
+      - Raider Buckler
+      - "\uC57D\uD0C8\uC790 \uBC84\uD074\uB7EC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Chief's War Banner
+      TermType: 0
+      Description: 
+      Languages:
+      - Chief's War Banner
+      - "\uB450\uBAA9\uC758 \uAD70\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bandit Bandana
+      TermType: 0
+      Description: 
+      Languages:
+      - Bandit Bandana
+      - "\uC0B0\uC801 \uB450\uAC74 \uCC9C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Broken Arrow
+      TermType: 0
+      Description: 
+      Languages:
+      - Broken Arrow
+      - "\uBD80\uB7EC\uC9C4 \uD654\uC0B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Iron Rivet
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron Rivet
+      - "\uC1E0 \uB9AC\uBCB3"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pitch Torch
+      TermType: 0
+      Description: 
+      Languages:
+      - Pitch Torch
+      - "\uC1A1\uC9C4 \uD683\uBD88"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outlaw Hood
+      TermType: 0
+      Description: 
+      Languages:
+      - Outlaw Hood
+      - "\uBB34\uBC95\uC790 \uB450\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outlaw Vest
+      TermType: 0
+      Description: 
+      Languages:
+      - Outlaw Vest
+      - "\uBB34\uBC95\uC790 \uC870\uB07C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outlaw Breeches
+      TermType: 0
+      Description: 
+      Languages:
+      - Outlaw Breeches
+      - "\uBB34\uBC95\uC790 \uBC14\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outlaw Gloves
+      TermType: 0
+      Description: 
+      Languages:
+      - Outlaw Gloves
+      - "\uBB34\uBC95\uC790 \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outlaw Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Outlaw Boots
+      - "\uBB34\uBC95\uC790 \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Iron Raider Helm
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron Raider Helm
+      - "\uAC15\uCCA0 \uC57D\uD0C8\uC790 \uD22C\uAD6C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Iron Raider Mail
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron Raider Mail
+      - "\uAC15\uCCA0 \uC57D\uD0C8\uC790 \uAC11\uC637"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Iron Raider Greaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron Raider Greaves
+      - "\uAC15\uCCA0 \uC57D\uD0C8\uC790 \uAC01\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Iron Raider Gauntlets
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron Raider Gauntlets
+      - "\uAC15\uCCA0 \uC57D\uD0C8\uC790 \uAC74\uD2C0\uB9BF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Iron Raider Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron Raider Boots
+      - "\uAC15\uCCA0 \uC57D\uD0C8\uC790 \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pebble Gauntlet
+      TermType: 0
+      Description: 
+      Languages:
+      - Pebble Gauntlet
+      - "\uC870\uC57D\uB3CC \uAC74\uD2C0\uB9BF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Quakestone Maul
+      TermType: 0
+      Description: 
+      Languages:
+      - Quakestone Maul
+      - "\uC9C4\uB3D9\uC11D \uB9DD\uCE58"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Monolith Shield
+      TermType: 0
+      Description: 
+      Languages:
+      - Monolith Shield
+      - "\uC11D\uC8FC \uBC29\uD328"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gatekeeper's Oath
+      TermType: 0
+      Description: 
+      Languages:
+      - Gatekeeper's Oath
+      - "\uBB38\uC9C0\uAE30\uC758 \uC11C\uC57D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Golem Pebble
+      TermType: 0
+      Description: 
+      Languages:
+      - Golem Pebble
+      - "\uACE8\uB818 \uC870\uC57D\uB3CC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Quake Core
+      TermType: 0
+      Description: 
+      Languages:
+      - Quake Core
+      - "\uC9C4\uB3D9 \uD575"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Monolith Shard
+      TermType: 0
+      Description: 
+      Languages:
+      - Monolith Shard
+      - "\uC11D\uC8FC \uD30C\uD3B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ruin Mote
+      TermType: 0
+      Description: 
+      Languages:
+      - Ruin Mote
+      - "\uD3D0\uD5C8\uC758 \uD2F0\uB04C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stoneborn Helm
+      TermType: 0
+      Description: 
+      Languages:
+      - Stoneborn Helm
+      - "\uB3CC\uC5D0\uC11C \uAE68\uC5B4\uB09C \uC790\uC758 \uD22C\uAD6C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stoneborn Plate
+      TermType: 0
+      Description: 
+      Languages:
+      - Stoneborn Plate
+      - "\uB3CC\uC5D0\uC11C \uAE68\uC5B4\uB09C \uC790\uC758 \uD310\uAE08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stoneborn Greaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Stoneborn Greaves
+      - "\uB3CC\uC5D0\uC11C \uAE68\uC5B4\uB09C \uC790\uC758 \uAC01\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stoneborn Gauntlets
+      TermType: 0
+      Description: 
+      Languages:
+      - Stoneborn Gauntlets
+      - "\uB3CC\uC5D0\uC11C \uAE68\uC5B4\uB09C \uC790\uC758 \uAC74\uD2C0\uB9BF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stoneborn Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Stoneborn Boots
+      - "\uB3CC\uC5D0\uC11C \uAE68\uC5B4\uB09C \uC790\uC758 \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Sword
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Sword
+      - "\uC131\uBCBD \uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sentry Halberd
+      TermType: 0
+      Description: 
+      Languages:
+      - Sentry Halberd
+      - "\uBCF4\uCD08 \uBBF8\uB298\uCC3D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gargoyle Wing
+      TermType: 0
+      Description: 
+      Languages:
+      - Gargoyle Wing
+      - "\uAC00\uACE0\uC77C \uB0A0\uAC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skyfall Talon
+      TermType: 0
+      Description: 
+      Languages:
+      - Skyfall Talon
+      - "\uD558\uB298\uB099\uD558 \uBC1C\uD1B1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Shard
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Shard
+      - "\uC131\uBCBD \uD30C\uD3B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Halberd Fragment
+      TermType: 0
+      Description: 
+      Languages:
+      - Halberd Fragment
+      - "\uBBF8\uB298\uCC3D \uC870\uAC01"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gargoyle Feather
+      TermType: 0
+      Description: 
+      Languages:
+      - Gargoyle Feather
+      - "\uAC00\uACE0\uC77C \uAE43\uD138"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Storm Wisp
+      TermType: 0
+      Description: 
+      Languages:
+      - Storm Wisp
+      - "\uD3ED\uD48D \uB3C4\uAE68\uBE44\uBD88"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Guard Helm
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Guard Helm
+      - "\uC131\uBCBD \uC218\uBE44\uB300 \uD22C\uAD6C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Guard Plate
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Guard Plate
+      - "\uC131\uBCBD \uC218\uBE44\uB300 \uD310\uAE08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Guard Greaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Guard Greaves
+      - "\uC131\uBCBD \uC218\uBE44\uB300 \uAC01\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Guard Gauntlets
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Guard Gauntlets
+      - "\uC131\uBCBD \uC218\uBE44\uB300 \uAC74\uD2C0\uB9BF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Guard Sabatons
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Guard Sabatons
+      - "\uC131\uBCBD \uC218\uBE44\uB300 \uCCA0\uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skybound Cowl
+      TermType: 0
+      Description: 
+      Languages:
+      - Skybound Cowl
+      - "\uD558\uB298\uC744 \uD5A5\uD55C \uC790\uC758 \uB450\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skybound Vest
+      TermType: 0
+      Description: 
+      Languages:
+      - Skybound Vest
+      - "\uD558\uB298\uC744 \uD5A5\uD55C \uC790\uC758 \uC870\uB07C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skybound Leggings
+      TermType: 0
+      Description: 
+      Languages:
+      - Skybound Leggings
+      - "\uD558\uB298\uC744 \uD5A5\uD55C \uC790\uC758 \uBC14\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skybound Gloves
+      TermType: 0
+      Description: 
+      Languages:
+      - Skybound Gloves
+      - "\uD558\uB298\uC744 \uD5A5\uD55C \uC790\uC758 \uC7A5\uAC11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skybound Boots
+      TermType: 0
+      Description: 
+      Languages:
+      - Skybound Boots
+      - "\uD558\uB298\uC744 \uD5A5\uD55C \uC790\uC758 \uC7A5\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP TALK
+      TermType: 0
+      Description: 
+      Languages:
+      - UP  TALK
+      - "\uC704  \uB300\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Elite:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Elite: '
+      - "\uC815\uC608: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: POISON
+      TermType: 0
+      Description: 
+      Languages:
+      - POISON
+      - "\uB3C5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BLEED
+      TermType: 0
+      Description: 
+      Languages:
+      - BLEED
+      - "\uCD9C\uD608"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: IMMUNE
+      TermType: 0
+      Description: 
+      Languages:
+      - IMMUNE
+      - "\uBB34\uD6A8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BLOCK
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOCK
+      - "\uB9C9\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Artifact:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Artifact: '
+      - "\uC544\uD2F0\uD329\uD2B8: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Healing Dew
+      TermType: 0
+      Description: 
+      Languages:
+      - Healing Dew
+      - "\uCE58\uC720\uC758 \uC774\uC2AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Guardian Shell
+      TermType: 0
+      Description: 
+      Languages:
+      - Guardian Shell
+      - "\uC218\uD638 \uAECD\uC9C8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hourglass
+      TermType: 0
+      Description: 
+      Languages:
+      - Hourglass
+      - "\uBAA8\uB798\uC2DC\uACC4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Star Burst
+      TermType: 0
+      Description: 
+      Languages:
+      - Star Burst
+      - "\uBCC4\uC758 \uD3ED\uBC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Rank up: {0} Explorer'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Rank up: {0} Explorer'
+      - "\uC2B9\uAE09: {0} \uD0D0\uD5D8\uAC00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LOAD
+      TermType: 0
+      Description: 
+      Languages:
+      - LOAD
+      - "\uBD80\uD558"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RES
+      TermType: 0
+      Description: 
+      Languages:
+      - RES
+      - "\uC800\uD56D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: DMG
+      TermType: 0
+      Description: 
+      Languages:
+      - DMG
+      - "\uD53C\uD574"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: COMBO
+      TermType: 0
+      Description: 
+      Languages:
+      - COMBO
+      - "\uCF64\uBCF4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Inventory Full
+      TermType: 0
+      Description: 
+      Languages:
+      - Inventory Full
+      - "\uC778\uBCA4\uD1A0\uB9AC \uAC00\uB4DD \uCC38"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Path sealed by the Tower.
+      TermType: 0
+      Description: 
+      Languages:
+      - Path sealed by the Tower.
+      - "\uD0D1\uC774 \uAE38\uC744 \uBD09\uC778\uD588\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tower Gate
+      TermType: 0
+      Description: 
+      Languages:
+      - Tower Gate
+      - "\uD0D1\uC758 \uBB38"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The way to the 2nd floor is open
+      TermType: 0
+      Description: 
+      Languages:
+      - The way to the 2nd floor is open
+      - "2\uCE35\uACC4\uB85C \uAC00\uB294 \uAE38\uC774 \uC5F4\uB838\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ENRAGED Calls the gang!
+      TermType: 0
+      Description: 
+      Languages:
+      - "ENRAGED \u2014 Calls the gang!"
+      - "\uACA9\uB178 \u2014 \uD328\uAC70\uB9AC\uB97C \uBD80\uB978\uB2E4!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Discovered:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Discovered: '
+      - "\uBC1C\uACAC: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: EMPTY
+      TermType: 0
+      Description: 
+      Languages:
+      - EMPTY
+      - "\uBE44\uC5B4 \uC788\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: DAMAGED
+      TermType: 0
+      Description: 
+      Languages:
+      - DAMAGED
+      - "\uC190\uC0C1\uB428"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ENHANCE
+      TermType: 0
+      Description: 
+      Languages:
+      - ENHANCE
+      - "\uAC15\uD654"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SUCCESS +{0}
+      TermType: 0
+      Description: 
+      Languages:
+      - SUCCESS  +{0}
+      - "\uC131\uACF5  +{0}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FAILED +{0} +{1}
+      TermType: 0
+      Description: 
+      Languages:
+      - "FAILED  +{0} \u2192 +{1}"
+      - "\uC2E4\uD328  +{0} \u2192 +{1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FAILED
+      TermType: 0
+      Description: 
+      Languages:
+      - FAILED
+      - "\uC2E4\uD328"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MAX LEVEL
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX LEVEL
+      - "\uCD5C\uB300 \uB2E8\uACC4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: NOT ENOUGH CRYSTALS
+      TermType: 0
+      Description: 
+      Languages:
+      - NOT ENOUGH CRYSTALS
+      - "\uACB0\uC815 \uBD80\uC871"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: NOT ENOUGH GOLD
+      TermType: 0
+      Description: 
+      Languages:
+      - NOT ENOUGH GOLD
+      - "\uACE8\uB4DC \uBD80\uC871"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: CANNOT ENHANCE
+      TermType: 0
+      Description: 
+      Languages:
+      - CANNOT ENHANCE
+      - "\uAC15\uD654 \uBD88\uAC00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MAX ENHANCED
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX ENHANCED
+      - "\uCD5C\uB300 \uAC15\uD654 \uC644\uB8CC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Damage
+      TermType: 0
+      Description: 
+      Languages:
+      - Damage
+      - "\uACF5\uACA9\uB825"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stats
+      TermType: 0
+      Description: 
+      Languages:
+      - Stats
+      - "\uB2A5\uB825\uCE58"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Success
+      TermType: 0
+      Description: 
+      Languages:
+      - Success
+      - "\uC131\uACF5\uB960"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 100 (CHANCE!)
+      TermType: 0
+      Description: 
+      Languages:
+      - 100% (CHANCE!)
+      - "100% (\uCC2C\uC2A4!)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: On fail
+      TermType: 0
+      Description: 
+      Languages:
+      - On fail
+      - "\uC2E4\uD328 \uC2DC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: -1 level
+      TermType: 0
+      Description: 
+      Languages:
+      - -1 level
+      - "-1 \uB2E8\uACC4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: keep level
+      TermType: 0
+      Description: 
+      Languages:
+      - keep level
+      - "\uB2E8\uACC4 \uC720\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Crystals
+      TermType: 0
+      Description: 
+      Languages:
+      - Crystals
+      - "\uCE35\uACC4 \uACB0\uC815"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gold
+      TermType: 0
+      Description: 
+      Languages:
+      - Gold
+      - "\uACE8\uB4DC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP DOWN select SELECT enhance BACK close
+      TermType: 0
+      Description: 
+      Languages:
+      - UP/DOWN select    SELECT enhance    BACK close
+      - "\uC704/\uC544\uB798 \uC120\uD0DD    \uC120\uD0DD \uAC15\uD654    \uB4A4\uB85C
+        \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: No equipment in inventory
+      TermType: 0
+      Description: 
+      Languages:
+      - No equipment in inventory
+      - "\uC778\uBCA4\uD1A0\uB9AC\uC5D0 \uC7A5\uBE44\uAC00 \uC5C6\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BOSS
+      TermType: 0
+      Description: 
+      Languages:
+      - BOSS
+      - "\uBCF4\uC2A4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ELITE
+      TermType: 0
+      Description: 
+      Languages:
+      - ELITE
+      - "\uC815\uC608"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Region
+      TermType: 0
+      Description: 
+      Languages:
+      - Region
+      - "\uC9C0\uC5ED"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Defeated
+      TermType: 0
+      Description: 
+      Languages:
+      - Defeated
+      - "\uCC98\uCE58"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: HP
+      TermType: 0
+      Description: 
+      Languages:
+      - HP
+      - "\uCCB4\uB825"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: DEF
+      TermType: 0
+      Description: 
+      Languages:
+      - DEF
+      - "\uBC29\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Stats: defeat {0} more'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Stats: defeat {0} more'
+      - "\uB2A5\uB825\uCE58: {0}\uB9C8\uB9AC \uB354 \uCC98\uCE58"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Drops
+      TermType: 0
+      Description: 
+      Languages:
+      - Drops
+      - "\uB4DC\uB86D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Drops: defeat {0} more'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Drops: defeat {0} more'
+      - "\uB4DC\uB86D: {0}\uB9C8\uB9AC \uB354 \uCC98\uCE58"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ARROWS select B BACK close
+      TermType: 0
+      Description: 
+      Languages:
+      - ARROWS select    B / BACK close
+      - "\uBC29\uD5A5\uD0A4 \uC120\uD0DD    B / \uB4A4\uB85C \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forest Road
+      TermType: 0
+      Description: 
+      Languages:
+      - Forest Road
+      - "\uC232\uAE38"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forest Side Road
+      TermType: 0
+      Description: 
+      Languages:
+      - Forest Side Road
+      - "\uC232 \uC0DB\uAE38"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Magic Cliffs
+      TermType: 0
+      Description: 
+      Languages:
+      - Magic Cliffs
+      - "\uB9C8\uBC95 \uC808\uBCBD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliff Altar
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliff Altar
+      - "\uC808\uBCBD \uC81C\uB2E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: night
+      TermType: 0
+      Description: 
+      Languages:
+      - night
+      - "\uBC24"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: boss
+      TermType: 0
+      Description: 
+      Languages:
+      - boss
+      - "\uBCF4\uC2A4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: VILLAGE
+      TermType: 0
+      Description: 
+      Languages:
+      - VILLAGE
+      - "\uB9C8\uC744"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (HERE)
+      TermType: 0
+      Description: 
+      Languages:
+      - (HERE)
+      - "(\uD604\uC7AC \uC704\uCE58)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ascent load
+      TermType: 0
+      Description: 
+      Languages:
+      - Ascent load
+      - "\uC0C1\uC2B9 \uBD80\uD558"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Your resistance
+      TermType: 0
+      Description: 
+      Languages:
+      - Your resistance
+      - "\uB0B4 \uC800\uD56D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Deficit {0} (-{1} damage)
+      TermType: 0
+      Description: 
+      Languages:
+      - Deficit {0}  (-{1}% damage)
+      - "\uBD80\uC871 {0}  (-{1}% \uD53C\uD574)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: No ascent penalty
+      TermType: 0
+      Description: 
+      Languages:
+      - No ascent penalty
+      - "\uC0C1\uC2B9 \uD398\uB110\uD2F0 \uC5C6\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SELECT travel here
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT  travel here
+      - "\uC120\uD0DD  \uC774\uACF3\uC73C\uB85C \uC774\uB3D9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Undiscovered.
+      TermType: 0
+      Description: 
+      Languages:
+      - Undiscovered.
+      - "\uBBF8\uBC1C\uACAC."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Reach it on foot to unlock the waypoint.
+      TermType: 0
+      Description: 
+      Languages:
+      - Reach it on foot to unlock the waypoint.
+      - "\uC9C1\uC811 \uAC78\uC5B4\uC11C \uB3C4\uCC29\uD558\uBA74 \uC6E8\uC774\uD3EC\uC778\uD2B8\uAC00
+        \uC5F4\uB9B0\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP DOWN select SELECT travel M BACK close
+      TermType: 0
+      Description: 
+      Languages:
+      - UP/DOWN select    SELECT travel    M / BACK close
+      - "\uC704/\uC544\uB798 \uC120\uD0DD    \uC120\uD0DD \uC774\uB3D9    M / \uB4A4\uB85C
+        \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Sell {0} {1}EA, Price : {2}'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Sell {0} {1}EA,  Price : {2}'
+      - "{0} {1}\uAC1C \uD310\uB9E4,  \uAC00\uACA9 : {2}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Buy {0} {1}EA, Price : {2}'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Buy {0} {1}EA,  Price : {2}'
+      - "{0} {1}\uAC1C \uAD6C\uB9E4,  \uAC00\uACA9 : {2}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Price :'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Price : '
+      - "\uAC00\uACA9 : "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Misc
+      TermType: 0
+      Description: 
+      Languages:
+      - Misc
+      - "\uC7AC\uB8CC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Consum
+      TermType: 0
+      Description: 
+      Languages:
+      - Consum
+      - "\uC18C\uBAA8\uD488"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Equip
+      TermType: 0
+      Description: 
+      Languages:
+      - Equip
+      - "\uC7A5\uBE44"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - Weapon
+      - "\uBB34\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Head
+      TermType: 0
+      Description: 
+      Languages:
+      - Head
+      - "\uBA38\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Chest
+      TermType: 0
+      Description: 
+      Languages:
+      - Chest
+      - "\uBAB8\uD1B5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Leg
+      TermType: 0
+      Description: 
+      Languages:
+      - Leg
+      - "\uB2E4\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hand
+      TermType: 0
+      Description: 
+      Languages:
+      - Hand
+      - "\uC190"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Common
+      TermType: 0
+      Description: 
+      Languages:
+      - Common
+      - "\uC77C\uBC18"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rare
+      TermType: 0
+      Description: 
+      Languages:
+      - Rare
+      - "\uD76C\uADC0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Unique
+      TermType: 0
+      Description: 
+      Languages:
+      - Unique
+      - "\uACE0\uC720"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Crafting material
+      TermType: 0
+      Description: 
+      Languages:
+      - Crafting material
+      - "\uC81C\uC791 \uC7AC\uB8CC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Consumable
+      TermType: 0
+      Description: 
+      Languages:
+      - Consumable
+      - "\uC18C\uBAA8\uD488"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - Equipment
+      - "\uC7A5\uBE44"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: set
+      TermType: 0
+      Description: 
+      Languages:
+      - set
+      - "\uC138\uD2B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: A crystal born of the tower. Fed to a core at the smith to raise its
+        enhancement.
+      TermType: 0
+      Description: 
+      Languages:
+      - A crystal born of the tower. Fed to a core at the smith to raise its enhancement.
+      - "\uD0D1\uC5D0\uC11C \uD0DC\uC5B4\uB09C \uACB0\uC815. \uB300\uC7A5\uAC04\uC5D0\uC11C
+        \uC7A5\uBE44\uC5D0 \uBA39\uC5EC \uAC15\uD654 \uB2E8\uACC4\uB97C \uC62C\uB9B0\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: on the light
+      TermType: 0
+      Description: 
+      Languages:
+      - on the light
+      - "\uC5B4\uB460\uC744 \uBC1D\uD78C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Buy
+      TermType: 0
+      Description: 
+      Languages:
+      - Buy
+      - "\uC0C1\uC810 \uAD6C\uB9E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Craft
+      TermType: 0
+      Description: 
+      Languages:
+      - Craft
+      - "\uC81C\uC791"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: cook
+      TermType: 0
+      Description: 
+      Languages:
+      - cook
+      - "\uC694\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dmg
+      TermType: 0
+      Description: 
+      Languages:
+      - Dmg
+      - "\uD53C\uD574"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Critical Chance
+      TermType: 0
+      Description: 
+      Languages:
+      - Critical Chance
+      - "\uCE58\uBA85\uD0C0 \uD655\uB960"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Critical Dmg
+      TermType: 0
+      Description: 
+      Languages:
+      - Critical Dmg
+      - "\uCE58\uBA85\uD0C0 \uD53C\uD574"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dmg Increase
+      TermType: 0
+      Description: 
+      Languages:
+      - Dmg Increase
+      - "\uD53C\uD574 \uC99D\uAC00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dmg Decrease
+      TermType: 0
+      Description: 
+      Languages:
+      - Dmg Decrease
+      - "\uD53C\uD574 \uAC10\uC18C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Armor Penetration
+      TermType: 0
+      Description: 
+      Languages:
+      - Armor Penetration
+      - "\uBC29\uC5B4 \uAD00\uD1B5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skill Dmg
+      TermType: 0
+      Description: 
+      Languages:
+      - Skill Dmg
+      - "\uC2A4\uD0AC \uD53C\uD574"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Additional Dmg
+      TermType: 0
+      Description: 
+      Languages:
+      - Additional Dmg
+      - "\uCD94\uAC00 \uD53C\uD574"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Basic Dmg
+      TermType: 0
+      Description: 
+      Languages:
+      - Basic Dmg
+      - "\uAE30\uBCF8 \uD53C\uD574"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Def
+      TermType: 0
+      Description: 
+      Languages:
+      - Def
+      - "\uBC29\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hp
+      TermType: 0
+      Description: 
+      Languages:
+      - Hp
+      - "\uCCB4\uB825"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Critical Rate
+      TermType: 0
+      Description: 
+      Languages:
+      - Critical Rate
+      - "\uCE58\uBA85\uD0C0\uC728"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Drop Rate
+      TermType: 0
+      Description: 
+      Languages:
+      - Drop Rate
+      - "\uB4DC\uB86D\uB960"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Movement Speed
+      TermType: 0
+      Description: 
+      Languages:
+      - Movement Speed
+      - "\uC774\uB3D9 \uC18D\uB3C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Attack Speed
+      TermType: 0
+      Description: 
+      Languages:
+      - Attack Speed
+      - "\uACF5\uACA9 \uC18D\uB3C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cooldown
+      TermType: 0
+      Description: 
+      Languages:
+      - Cooldown
+      - "\uC7AC\uC0AC\uC6A9 \uB300\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: CoolDown
+      TermType: 0
+      Description: 
+      Languages:
+      - CoolDown
+      - "\uC7AC\uC0AC\uC6A9 \uB300\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Incoming Dmg
+      TermType: 0
+      Description: 
+      Languages:
+      - Incoming Dmg
+      - "\uBC1B\uB294 \uD53C\uD574"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Chance to Cause Bleeding
+      TermType: 0
+      Description: 
+      Languages:
+      - Chance to Cause Bleeding
+      - "\uCD9C\uD608 \uD655\uB960"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dmg to Bleeding Enemies
+      TermType: 0
+      Description: 
+      Languages:
+      - Dmg to Bleeding Enemies
+      - "\uCD9C\uD608 \uC801 \uD53C\uD574"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Poison Dmg
+      TermType: 0
+      Description: 
+      Languages:
+      - Poison Dmg
+      - "\uB3C5 \uD53C\uD574"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sec
+      TermType: 0
+      Description: 
+      Languages:
+      - Sec
+      - "\uCD08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Abyss Wizard
+      TermType: 0
+      Description: 
+      Languages:
+      - Abyss Wizard
+      - "\uC2EC\uC5F0\uC758 \uB9C8\uBC95\uC0AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliff Goblin
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliff Goblin
+      - "\uC808\uBCBD \uACE0\uBE14\uB9B0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliff Skeleton
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliff Skeleton
+      - "\uC808\uBCBD \uD574\uACE8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Death Bringer
+      TermType: 0
+      Description: 
+      Languages:
+      - Death Bringer
+      - "\uC8FD\uC74C\uC744 \uBD80\uB974\uB294 \uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Flower Mole
+      TermType: 0
+      Description: 
+      Languages:
+      - Flower Mole
+      - "\uAF43 \uB450\uB354\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gaze Eye
+      TermType: 0
+      Description: 
+      Languages:
+      - Gaze Eye
+      - "\uC751\uC2DC\uD558\uB294 \uB208"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Leaf Mole
+      TermType: 0
+      Description: 
+      Languages:
+      - Leaf Mole
+      - "\uC78E \uB450\uB354\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Passive Terror
+      TermType: 0
+      Description: 
+      Languages:
+      - Passive Terror
+      - "\uC7A0\uC7A0\uD55C \uACF5\uD3EC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forest Rabbit
+      TermType: 0
+      Description: 
+      Languages:
+      - Forest Rabbit
+      - "\uC232 \uD1A0\uB07C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rat Chief
+      TermType: 0
+      Description: 
+      Languages:
+      - Rat Chief
+      - "\uC950 \uB450\uBAA9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rat Thief
+      TermType: 0
+      Description: 
+      Languages:
+      - Rat Thief
+      - "\uC950 \uB3C4\uC801"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Scarecrow
+      TermType: 0
+      Description: 
+      Languages:
+      - Scarecrow
+      - "\uD5C8\uC218\uC544\uBE44"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spore Shroom
+      TermType: 0
+      Description: 
+      Languages:
+      - Spore Shroom
+      - "\uD3EC\uC790 \uBC84\uC12F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stone Rabbit
+      TermType: 0
+      Description: 
+      Languages:
+      - Stone Rabbit
+      - "\uB3CC \uD1A0\uB07C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forest Wolf
+      TermType: 0
+      Description: 
+      Languages:
+      - Forest Wolf
+      - "\uC232 \uB291\uB300"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wild Boar
+      TermType: 0
+      Description: 
+      Languages:
+      - Wild Boar
+      - "\uBA67\uB3FC\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wisp
+      TermType: 0
+      Description: 
+      Languages:
+      - Wisp
+      - "\uB3C4\uAE68\uBE44\uBD88"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forest Snail
+      TermType: 0
+      Description: 
+      Languages:
+      - Forest Snail
+      - "\uC232 \uB2EC\uD33D\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forest Bear
+      TermType: 0
+      Description: 
+      Languages:
+      - Forest Bear
+      - "\uC232 \uACF0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ent
+      TermType: 0
+      Description: 
+      Languages:
+      - Ent
+      - "\uC5D4\uD2B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ghost
+      TermType: 0
+      Description: 
+      Languages:
+      - Ghost
+      - "\uC720\uB839"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fairy
+      TermType: 0
+      Description: 
+      Languages:
+      - Fairy
+      - "\uC694\uC815"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Ent
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Ent
+      - "\uACE0\uB300 \uC5D4\uD2B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Swamp Frog
+      TermType: 0
+      Description: 
+      Languages:
+      - Swamp Frog
+      - "\uB2AA \uAC1C\uAD6C\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marsh Crab
+      TermType: 0
+      Description: 
+      Languages:
+      - Marsh Crab
+      - "\uB2AA\uC9C0 \uAC8C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Croc
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Croc
+      - "\uB2AA \uC545\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Swamp Mosquito
+      TermType: 0
+      Description: 
+      Languages:
+      - Swamp Mosquito
+      - "\uB2AA \uBAA8\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Slime
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Slime
+      - "\uB2AA \uC2AC\uB77C\uC784"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Giant Slime
+      TermType: 0
+      Description: 
+      Languages:
+      - Giant Slime
+      - "\uAC70\uB300 \uC2AC\uB77C\uC784"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bandit Cutthroat
+      TermType: 0
+      Description: 
+      Languages:
+      - Bandit Cutthroat
+      - "\uC0B0\uC801 \uB2E8\uAC80\uBCD1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bandit Archer
+      TermType: 0
+      Description: 
+      Languages:
+      - Bandit Archer
+      - "\uC0B0\uC801 \uAD81\uC218"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bandit Shieldman
+      TermType: 0
+      Description: 
+      Languages:
+      - Bandit Shieldman
+      - "\uC0B0\uC801 \uBC29\uD328\uBCD1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bandit Torchbearer
+      TermType: 0
+      Description: 
+      Languages:
+      - Bandit Torchbearer
+      - "\uC0B0\uC801 \uD683\uBD88 \uC21C\uCC30\uBCD1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bandit Chief
+      TermType: 0
+      Description: 
+      Languages:
+      - Bandit Chief
+      - "\uC0B0\uC801 \uB450\uBAA9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Small Golem
+      TermType: 0
+      Description: 
+      Languages:
+      - Small Golem
+      - "\uC791\uC740 \uACE8\uB818"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Medium Golem
+      TermType: 0
+      Description: 
+      Languages:
+      - Medium Golem
+      - "\uC911\uD615 \uACE8\uB818"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Large Golem
+      TermType: 0
+      Description: 
+      Languages:
+      - Large Golem
+      - "\uAC70\uB300 \uACE8\uB818"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ruin Spirit
+      TermType: 0
+      Description: 
+      Languages:
+      - Ruin Spirit
+      - "\uD3D0\uD5C8\uC758 \uC815\uB839"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Knight
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Knight
+      - "\uC131\uBCBD \uAE30\uC0AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Halberd Sentry
+      TermType: 0
+      Description: 
+      Languages:
+      - Halberd Sentry
+      - "\uBBF8\uB298\uCC3D \uBCF4\uCD08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gargoyle
+      TermType: 0
+      Description: 
+      Languages:
+      - Gargoyle
+      - "\uAC00\uACE0\uC77C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cloud Wisp
+      TermType: 0
+      Description: 
+      Languages:
+      - Cloud Wisp
+      - "\uAD6C\uB984 \uB3C4\uAE68\uBE44\uBD88"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gargoyle Lord
+      TermType: 0
+      Description: 
+      Languages:
+      - Gargoyle Lord
+      - "\uAC00\uACE0\uC77C \uAD70\uC8FC"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

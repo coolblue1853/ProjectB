@@ -90,7 +90,7 @@ public class ArtifactSystem : MonoBehaviour
         instance.unlocked.Add(id);
         instance.SaveUnlocked();
         Def d = Get(id);
-        PickupLog.Report("Artifact: " + d.name, 1, "U");
+        PickupLog.Report(Loc.T("Artifact: ") + Loc.T(d.name), 1, "U");
         Sfx.Play(SfxId.RareDrop);
         GameLog.Info(GameLog.Cat.Item, "아티팩트 해금: " + d.name);
         instance.Refresh();

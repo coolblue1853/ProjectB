@@ -95,7 +95,7 @@ public class WaypointMap : MonoBehaviour
             }
             if (visited.Count > 1 && info != null && !string.IsNullOrEmpty(info.zoneTitle))
             {
-                PickupLog.Report("Discovered: " + info.zoneTitle, 1, "R"); // 첫 시작 맵은 제외
+                PickupLog.Report(Loc.T("Discovered: ") + Loc.T(info.zoneTitle), 1, "R"); // 첫 시작 맵은 제외
             }
             GameLog.Info(GameLog.Cat.Map, "구역 발견: " + mapName);
         }
@@ -229,10 +229,10 @@ public class WaypointMap : MonoBehaviour
             }
             Entry e = entries[i];
             bool here = e.map.gameObject.activeInHierarchy;
-            string name = e.visited ? e.map.zoneTitle.ToUpperInvariant() : "???";
-            string floor = e.map.floor <= 0 ? "VILLAGE" : "FLOOR " + e.map.floor;
+            string name = e.visited ? Loc.T(e.map.zoneTitle).ToUpperInvariant() : "???";
+            string floor = e.map.floor <= 0 ? Loc.T("VILLAGE") : Loc.IsKorean ? e.map.floor + Loc.T("FLOOR") : "FLOOR " + e.map.floor;
             string col = !e.visited ? "#777777" : here ? "#" + ColorUtility.ToHtmlStringRGB(theme.unique) : "#FFFFFF";
-            rows[i].text.text = "<color=#9ED0FF>" + floor + "</color>  <color=" + col + ">" + name + "</color>" + (here ? "  <size=70%>(HERE)</size>" : "");
+            rows[i].text.text = "<color=#9ED0FF>" + floor + "</color>  <color=" + col + ">" + name + "</color>" + (here ? "  <size=70%>" + Loc.T("(HERE)") + "</size>" : "");
             rows[i].bg.color = i == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
         }
         if (entries.Count == 0)
@@ -243,8 +243,11 @@ public class WaypointMap : MonoBehaviour
         Entry cur = entries[cursor];
         int d = AscentLoad.DeficitOf(cur.map.ascentLoad, AscentLoad.Rank);
         detail.text = cur.visited
-            ? cur.map.zoneTitle + "\n\nAscent load  " + cur.map.ascentLoad + "\nYour resistance  " + AscentLoad.Resistance + "\n" + (d > 0 ? "<color=#" + ColorUtility.ToHtmlStringRGB(theme.warning) + ">Deficit " + d + "  (-" + Mathf.RoundToInt(d * AscentLoad.PenaltyPerPoint * 100f) + "% damage)</color>" : "<color=#8CFF8C>No ascent penalty</color>") + "\n\n<size=80%>SELECT  travel here</size>"
-            : "Undiscovered.\nReach it on foot to unlock the waypoint.";
+            ? Loc.T(cur.map.zoneTitle) + "\n\n" + Loc.T("Ascent load") + "  " + cur.map.ascentLoad + "\n" + Loc.T("Your resistance") + "  " + AscentLoad.Resistance + "\n"
+              + (d > 0 ? "<color=#" + ColorUtility.ToHtmlStringRGB(theme.warning) + ">" + Loc.F("Deficit {0}  (-{1}% damage)", d, Mathf.RoundToInt(d * AscentLoad.PenaltyPerPoint * 100f)) + "</color>"
+                       : "<color=#8CFF8C>" + Loc.T("No ascent penalty") + "</color>")
+              + "\n\n<size=80%>" + Loc.T("SELECT  travel here") + "</size>"
+            : Loc.T("Undiscovered.") + "\n" + Loc.T("Reach it on foot to unlock the waypoint.");
     }
 
     void Build()
@@ -265,11 +268,11 @@ public class WaypointMap : MonoBehaviour
 
         var head = NewText("Title", pr, theme, 40f);
         Place(head.rectTransform, new Vector2(30f, -18f), new Vector2(600f, 54f));
-        head.text = "TOWER MAP";
+        head.text = Loc.T("TOWER MAP");
         head.color = theme.unique;
         var hint = NewText("Hint", pr, theme, 22f);
         Place(hint.rectTransform, new Vector2(30f, -520f), new Vector2(940f, 30f));
-        hint.text = "UP/DOWN select    SELECT travel    M / BACK close";
+        hint.text = Loc.T("UP/DOWN select    SELECT travel    M / BACK close");
         hint.color = new Color(1f, 1f, 1f, 0.55f);
 
         for (int r = 0; r < 9; r++)

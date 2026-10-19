@@ -41,7 +41,7 @@ public static class MonsterTable
         Row r = Get(prefabName);
         if (r != null && !string.IsNullOrEmpty(r.displayName))
         {
-            return r.displayName;
+            return Loc.T(r.displayName); // 몬스터 이름 현지화(LocUi)
         }
         return prefabName.Replace("(Clone)", "").Replace("_BD", "").Trim();
     }

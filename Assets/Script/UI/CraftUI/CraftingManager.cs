@@ -148,9 +148,9 @@ public class CraftingManager : MonoBehaviour
             nowCraftItem.SetItem(nowCraftItem.transform.name);
         }
         name.text = nowCraftItem.itemData.itemNameT;
-        type.text = nowCraftItem.itemData.type;
-        description.text = nowCraftItem.itemData.description;
-        price.text = "Price : " + (nowCraftItem.itemData.price).ToString();
+        type.text = ItemText.TypeLine(nowCraftItem.itemData, false);
+        description.text = ItemText.Description(nowCraftItem.itemData);
+        price.text = Loc.T("Price : ") + (nowCraftItem.itemData.price).ToString();
         tear.text = "T" + nowCraftItem.itemData.tear.ToString();
         rarity.text = InventoryManager.instance.SetRarity(nowCraftItem.itemData.rarity);
 
@@ -234,9 +234,9 @@ public class CraftingManager : MonoBehaviour
             Transform misc = miscDetail.gameObject.transform;
             misc.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
             misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
-            misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type;
-            misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
-            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+            misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, false);
+            misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
+            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
             misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
             misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
             miscDetail.transform.position = detailPos.transform.position;
@@ -252,9 +252,9 @@ public class CraftingManager : MonoBehaviour
             Transform consum = consumDetail.gameObject.transform;
             consum.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
             consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
-            consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type;
-            consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
-            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+            consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, false);
+            consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
+            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
             consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
             consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
             InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, detail);
@@ -276,9 +276,9 @@ public class CraftingManager : MonoBehaviour
             GameObject prefab = Resources.Load<GameObject>(folderPath + detail.itemData.name);
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type + " : " + detail.itemData.equipArea;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, true);
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
             equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
             equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);

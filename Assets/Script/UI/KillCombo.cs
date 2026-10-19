@@ -92,7 +92,7 @@ public class KillCombo : MonoBehaviour, PixelCrushers.IMessageHandler
         group.alpha = 1f;
         bool milestone = System.Array.IndexOf(Milestones, combo) >= 0;
         string color = combo >= 20 ? "#FF6A4A" : combo >= 10 ? "#FFC640" : combo >= 5 ? "#9ED0FF" : "#FFFFFF";
-        anim.SetText("<color=" + color + ">" + (milestone ? "<bounce>" : "") + "x" + combo + (milestone ? "</bounce>" : "") + "</color> <size=60%>COMBO</size>", false);
+        anim.SetText("<color=" + color + ">" + (milestone ? "<bounce>" : "") + "x" + combo + (milestone ? "</bounce>" : "") + "</color> <size=60%>" + Loc.T("COMBO") + "</size>", false);
         text.transform.DOKill(true);
         text.transform.localScale = Vector3.one * (milestone ? 1.5f : 1.2f);
         text.transform.DOScale(1f, 0.18f).SetEase(Ease.OutBack).SetLink(text.gameObject);

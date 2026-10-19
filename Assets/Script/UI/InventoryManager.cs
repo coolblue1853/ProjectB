@@ -962,7 +962,7 @@ public class InventoryManager : MonoBehaviour
         state = "Sell";
         sellUIGameObject.SetActive(true);
         totalSellPrice = (int)(sellSlider.value * detail.itemData.price);
-        sellText.text = "Sell " + detail.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = Loc.F("Sell {0} {1}EA,  Price : {2}", detail.itemData.itemNameT, sellSlider.value, totalSellPrice);
     }
     void OnSliderValueChanged(float value)
     {
@@ -974,14 +974,14 @@ public class InventoryManager : MonoBehaviour
         CusorContinuousInputCheck();
         sellSlider.value += 1;
         totalSellPrice = (int)(sellSlider.value * detail.itemData.price);
-        sellText.text = "Sell " + detail.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = Loc.F("Sell {0} {1}EA,  Price : {2}", detail.itemData.itemNameT, sellSlider.value, totalSellPrice);
     }
     void LeftMove()
     {
         CusorContinuousInputCheck();
         sellSlider.value -= 1;
         totalSellPrice = (int)(sellSlider.value * detail.itemData.price);
-        sellText.text = "Sell " + detail.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = Loc.F("Sell {0} {1}EA,  Price : {2}", detail.itemData.itemNameT, sellSlider.value, totalSellPrice);
     }
 
     void InitializeSlider()
@@ -1418,11 +1418,11 @@ public class InventoryManager : MonoBehaviour
                 Transform misc = miscDetail.gameObject.transform;
                 misc.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
                 misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
-                misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type;
-                misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.  itemData.description;
-                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+                misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, false);
+                misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
+                misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
                 misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
-                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.itemData.rarity);
+                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = Loc.T(SetRarity(detail.itemData.rarity));
                 miscDetail.transform.position = detailPos.transform.position;
                 miscDetail.SetActive(true);
             }
@@ -1431,11 +1431,11 @@ public class InventoryManager : MonoBehaviour
                 Transform consum = consumDetail.gameObject.transform;
                 consum.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
                 consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
-                consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type;
-                consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
-                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+                consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, false);
+                consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
+                consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
                 consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
-                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.itemData.rarity);
+                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = Loc.T(SetRarity(detail.itemData.rarity));
                 SetConsumEffect(consum.GetChild(7).gameObject, detail);
                 consum.transform.position = detailPos.transform.position;
                 consumDetail.SetActive(true);
@@ -1450,12 +1450,12 @@ public class InventoryManager : MonoBehaviour
                 GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
                 equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
                 equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
-                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type + " : " + detail.itemData.equipArea;
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
-                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, true);
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
+                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
+                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
                 equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
-                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.itemData.rarity);
+                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = Loc.T(SetRarity(detail.itemData.rarity));
                 SetEffectDetail(equip.GetChild(8).gameObject, detail);
                 if (detail.itemData.equipArea != "Weapon") // 방어구라면
                 {
@@ -1491,12 +1491,12 @@ public class InventoryManager : MonoBehaviour
             Transform equip = equipDetail.gameObject.transform;
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = detail.itemData.type + " : " + detail.itemData.equipArea;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = detail.itemData.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (detail.itemData.price).ToString();
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, true);
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
             equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = SetRarity(detail.itemData.rarity);
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = Loc.T(SetRarity(detail.itemData.rarity));
             SetEffectDetail(equip.GetChild(8).gameObject, detail);
             if (detail.itemData.equipArea != "Weapon") // 방어구라면
             {
@@ -1545,7 +1545,7 @@ public class InventoryManager : MonoBehaviour
         StringBuilder allSetStr = new StringBuilder();
 
         if (!string.IsNullOrEmpty(nowItem.itemData.setName))
-            allSetStr.Append("< ").Append(nowItem.itemData.setName).Append(" >\n");
+            allSetStr.Append("< ").Append(Loc.T(nowItem.itemData.setName)).Append(" >\n");
 
         SetItem setItem = new SetItem();
 
@@ -1580,7 +1580,7 @@ public class InventoryManager : MonoBehaviour
                     else if (checkEffect[2] == "coolDown")
                     {
                         allSetStr.Append("-").Append(checkEffect[1])
-                                 .Append("% CoolDown [").Append(checkEffect[3].Replace("_", " "))
+                                 .Append("% ").Append(Loc.T("CoolDown")).Append(" [").Append(checkEffect[3].Replace("_", " "))
                                  .Append("]");
                     }
                     else
@@ -1631,7 +1631,7 @@ public class InventoryManager : MonoBehaviour
                          .Append(effectPowerDetail[0])
                          .Append(" : ")
                          .Append(effectPowerDetail[1])
-                         .Append(" Sec")
+                         .Append(" ").Append(Loc.T("Sec"))
                          .Append("\n");
             }
         }
@@ -1647,48 +1647,48 @@ public class InventoryManager : MonoBehaviour
         basicStr.Append(weapon.minDmg)
                 .Append("~")
                 .Append(weapon.maxDmg)
-                .Append(" Dmg\n");
+                .Append(" ").Append(Loc.T("Dmg")).Append("\n");
 
         if (weapon.critPer != 0)
         {
             basicStr.Append(weapon.critPer > 0 ? "+" : "-")
                     .Append(weapon.critPer)
-                    .Append(" Critical Chance\n");
+                    .Append(" ").Append(Loc.T("Critical Chance")).Append("\n");
         }
 
         if (weapon.critDmg != 0)
         {
             basicStr.Append(weapon.critDmg > 0 ? "+" : "-")
                     .Append(weapon.critDmg)
-                    .Append(" Critical Dmg\n");
+                    .Append(" ").Append(Loc.T("Critical Dmg")).Append("\n");
         }
 
         if (weapon.incDmg != 0)
         {
             basicStr.Append(weapon.incDmg > 0 ? "+" : "-")
                     .Append(weapon.incDmg)
-                    .Append(weapon.incDmg > 0 ? " Dmg Increase\n" : " Dmg Decrease\n");
+                    .Append(" ").Append(Loc.T(weapon.incDmg > 0 ? "Dmg Increase" : "Dmg Decrease")).Append("\n");
         }
 
         if (weapon.ignDef != 0)
         {
             basicStr.Append(weapon.ignDef > 0 ? "+" : "-")
                     .Append(weapon.ignDef)
-                    .Append(" Armor Penetration\n");
+                    .Append(" ").Append(Loc.T("Armor Penetration")).Append("\n");
         }
 
         if (weapon.skillDmg != 0)
         {
             basicStr.Append(weapon.skillDmg > 0 ? "+" : "-")
                     .Append(weapon.skillDmg)
-                    .Append(" Skill Dmg\n");
+                    .Append(" ").Append(Loc.T("Skill Dmg")).Append("\n");
         }
 
         if (weapon.addDmg != 0)
         {
             basicStr.Append(weapon.addDmg > 0 ? "+" : "-")
                     .Append(weapon.addDmg)
-                    .Append(" Additional Dmg\n");
+                    .Append(" ").Append(Loc.T("Additional Dmg")).Append("\n");
         }
 
         textObject.GetComponent<TextMeshProUGUI>().text = basicStr.ToString();
@@ -1712,56 +1712,56 @@ public class InventoryManager : MonoBehaviour
         {
             basicStr.Append(equipment.basicDmg > 0 ? "+" : "-")
                     .Append(equipment.basicDmg)
-                    .Append(" Basic Dmg\n");
+                    .Append(" ").Append(Loc.T("Basic Dmg")).Append("\n");
         }
 
         if (equipment.armor != 0)
         {
             basicStr.Append(equipment.armor > 0 ? "+" : "-")
                     .Append(equipment.armor)
-                    .Append(" Def\n");
+                    .Append(" ").Append(Loc.T("Def")).Append("\n");
         }
 
         if (equipment.hp != 0)
         {
             basicStr.Append(equipment.hp > 0 ? "+" : "-")
                     .Append(equipment.hp)
-                    .Append(" Hp\n");
+                    .Append(" ").Append(Loc.T("Hp")).Append("\n");
         }
 
         if (equipment.critical != 0)
         {
             basicStr.Append(equipment.critical > 0 ? "+" : "-")
                     .Append(equipment.critical)
-                    .Append(" Critical Rate\n");
+                    .Append(" ").Append(Loc.T("Critical Rate")).Append("\n");
         }
 
         if (equipment.dropRate != 0)
         {
             basicStr.Append(equipment.dropRate > 0 ? "+" : "-")
                     .Append(equipment.dropRate)
-                    .Append(" Drop Rate\n");
+                    .Append(" ").Append(Loc.T("Drop Rate")).Append("\n");
         }
 
         if (equipment.moveSpeed != 0)
         {
             basicStr.Append(equipment.moveSpeed > 0 ? "+" : "-")
                     .Append(equipment.moveSpeed)
-                    .Append(" Movement Speed\n");
+                    .Append(" ").Append(Loc.T("Movement Speed")).Append("\n");
         }
 
         if (equipment.attSpeed != 0)
         {
             basicStr.Append(equipment.attSpeed > 0 ? "+" : "-")
                     .Append(equipment.attSpeed)
-                    .Append(" Attack Speed\n");
+                    .Append(" ").Append(Loc.T("Attack Speed")).Append("\n");
         }
 
         if (equipment.criticalDmg != 0)
         {
             basicStr.Append(equipment.criticalDmg > 0 ? "+" : "-")
                     .Append(equipment.criticalDmg)
-                    .Append(" Critical Dmg\n");
+                    .Append(" ").Append(Loc.T("Critical Dmg")).Append("\n");
         }
 
         if (equipment.coolDownSkill.Length != 0)
@@ -1770,7 +1770,7 @@ public class InventoryManager : MonoBehaviour
             {
                 basicStr.Append("-")
                         .Append(equipment.coolDownSkill[i].coolDownCount)
-                        .Append("% Cooldown ")
+                        .Append("% ").Append(Loc.T("Cooldown")).Append(" ")
                         .Append(equipment.coolDownSkill[i].skillName)
                         .Append("\n");
             }
@@ -1780,35 +1780,35 @@ public class InventoryManager : MonoBehaviour
         {
             basicStr.Append(equipment.incDmg > 0 ? "+" : "-")
                     .Append(equipment.incDmg)
-                    .Append("% Dmg\n");
+                    .Append("% ").Append(Loc.T("Dmg")).Append("\n");
         }
 
         if (equipment.addIncomingDmg != 0)
         {
             basicStr.Append(equipment.addIncomingDmg > 0 ? "+" : "-")
                     .Append(equipment.addIncomingDmg)
-                    .Append("% Incoming Dmg\n");
+                    .Append("% ").Append(Loc.T("Incoming Dmg")).Append("\n");
         }
 
         if (equipment.isBleeding)
         {
             basicStr.Append("+")
                     .Append(equipment.bleedingPerCent)
-                    .Append("% Chance to Cause Bleeding\n");
+                    .Append("% ").Append(Loc.T("Chance to Cause Bleeding")).Append("\n");
         }
 
         if (equipment.bleedingDmgPer != 0)
         {
             basicStr.Append("+")
                     .Append(equipment.bleedingDmgPer)
-                    .Append("% Dmg to Bleeding Enemies\n");
+                    .Append("% ").Append(Loc.T("Dmg to Bleeding Enemies")).Append("\n");
         }
 
         if (equipment.poisonDmg != 0)
         {
             basicStr.Append("+")
                     .Append(equipment.poisonDmg)
-                    .Append(" Poison Dmg\n");
+                    .Append(" ").Append(Loc.T("Poison Dmg")).Append("\n");
         }
 
         textObject.GetComponent<TextMeshProUGUI>().text = basicStr.ToString();

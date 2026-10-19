@@ -24,7 +24,7 @@ public class PortalSeal : MonoBehaviour
             return;
         }
         _lastMessageTime = Time.time;
-        PickupLog.Report(_sealedMessage, 1, "R");
+        PickupLog.Report(Loc.T(_sealedMessage), 1, "R");
         Sfx.Play(SfxId.CraftFail, 0.5f);
         GameLog.Info(GameLog.Cat.Map, "봉인된 포털: " + name + " (" + _bossName + " 첫 처치 필요)");
     }

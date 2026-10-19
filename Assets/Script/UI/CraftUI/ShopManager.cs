@@ -120,12 +120,12 @@ public class ShopManager : MonoBehaviour
     }
     void SetDetail()
     {
-        name.text = nowShopItem.name;
-        type.text = nowShopItem.itemData.type;
-        description.text = nowShopItem.itemData.description;
+        name.text = nowShopItem.itemData.itemNameT; // 내부 이름이 아니라 표시 이름(현지화)
+        type.text = ItemText.TypeLine(nowShopItem.itemData, false);
+        description.text = ItemText.Description(nowShopItem.itemData);
         price.text =(nowShopItem.buyprice).ToString();
         weight.text = nowShopItem.itemData.weight.ToString();
-        acqPath.text = nowShopItem.itemData.acqPath;
+        acqPath.text = ItemText.AcqPath(nowShopItem.itemData);
         Image changeImage = nowShopItem.transform.GetChild(0).GetComponent<Image>();
         image.sprite = changeImage.sprite;
     }
@@ -150,9 +150,9 @@ public class ShopManager : MonoBehaviour
             Transform misc = miscDetail.gameObject.transform;
             misc.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
             misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.itemNameT;
-            misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.type;
-            misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.description;
-            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.itemData.price).ToString();
+            misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(nowShopItem.itemData, false);
+            misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(nowShopItem.itemData);
+            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (nowShopItem.itemData.price).ToString();
             misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.itemData.tear.ToString();
             misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.itemData.rarity);
             miscDetail.transform.position = detailPos.transform.position;
@@ -167,9 +167,9 @@ public class ShopManager : MonoBehaviour
             Transform consum = consumDetail.gameObject.transform;
             consum.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
             consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.itemNameT;
-            consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.type;
-            consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.description;
-            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.itemData.price).ToString();
+            consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(nowShopItem.itemData, false);
+            consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(nowShopItem.itemData);
+            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (nowShopItem.itemData.price).ToString();
             consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.itemData.tear.ToString();
             consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.itemData.rarity);
             InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, nowShopItem);
@@ -188,10 +188,10 @@ public class ShopManager : MonoBehaviour
             GameObject prefab = Resources.Load<GameObject>(folderPath + nowShopItem.name);
             equip.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.type + " : " + nowShopItem.itemData.equipArea;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.description;
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.description;
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Price : " + (nowShopItem.itemData.price).ToString();
+            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(nowShopItem.itemData, true);
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(nowShopItem.itemData);
+            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(nowShopItem.itemData);
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (nowShopItem.itemData.price).ToString();
             equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.itemData.tear.ToString();
             equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.itemData.rarity);
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, nowShopItem);
@@ -237,7 +237,7 @@ public class ShopManager : MonoBehaviour
         state = "Buy";
         sellUIGameObject.SetActive(true);
         totalSellPrice = (int)(sellSlider.value * nowShopItem.buyprice);
-        sellText.text = "Buy " + nowShopItem.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = Loc.F("Buy {0} {1}EA,  Price : {2}", nowShopItem.itemData.itemNameT, sellSlider.value, totalSellPrice);
     }
     void OnSliderValueChanged(float value)
     {
@@ -248,14 +248,14 @@ public class ShopManager : MonoBehaviour
         CusorContinuousInputCheck();
         sellSlider.value += 1;
         totalSellPrice = (int)(sellSlider.value * nowShopItem.buyprice);
-        sellText.text = "Buy " + nowShopItem.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = Loc.F("Buy {0} {1}EA,  Price : {2}", nowShopItem.itemData.itemNameT, sellSlider.value, totalSellPrice);
     }
     void LeftMove()
     {
         CusorContinuousInputCheck();
         sellSlider.value -= 1;
         totalSellPrice = (int)(sellSlider.value * nowShopItem.buyprice);
-        sellText.text = "Buy " + nowShopItem.itemData.itemNameT + " " + sellSlider.value + "EA,  Price : " + totalSellPrice;
+        sellText.text = Loc.F("Buy {0} {1}EA,  Price : {2}", nowShopItem.itemData.itemNameT, sellSlider.value, totalSellPrice);
     }
     void InitializeSlider()
     {

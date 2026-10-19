@@ -163,14 +163,14 @@ public class EnhanceWindow : MonoBehaviour
         switch (result)
         {
             case EnhanceRules.Result.Success:
-                ShowResult("<bounce>SUCCESS  +" + after + "</bounce>", after >= 5 ? theme.unique : theme.rare);
+                ShowResult("<bounce>" + Loc.F("SUCCESS  +{0}", after) + "</bounce>", after >= 5 ? theme.unique : theme.rare);
                 HitFeedback.Shake(after >= 5 ? HitFeedback.ShakeTier.Medium : HitFeedback.ShakeTier.Light);
                 break;
             case EnhanceRules.Result.FailDown:
-                ShowResult("<shake>FAILED  +" + before + " → +" + after + "</shake>", theme.warning);
+                ShowResult("<shake>" + Loc.F("FAILED  +{0} → +{1}", before, after) + "</shake>", theme.warning);
                 break;
             default:
-                ShowResult("<shake>FAILED</shake>", theme.warning);
+                ShowResult("<shake>" + Loc.T("FAILED") + "</shake>", theme.warning);
                 break;
         }
         Redraw();
@@ -180,10 +180,10 @@ public class EnhanceWindow : MonoBehaviour
     {
         switch (c)
         {
-            case EnhanceService.Check.MaxLevel: return "MAX LEVEL";
-            case EnhanceService.Check.NoStones: return "NOT ENOUGH CRYSTALS";
-            case EnhanceService.Check.NoGold: return "NOT ENOUGH GOLD";
-            default: return "CANNOT ENHANCE";
+            case EnhanceService.Check.MaxLevel: return Loc.T("MAX LEVEL");
+            case EnhanceService.Check.NoStones: return Loc.T("NOT ENOUGH CRYSTALS");
+            case EnhanceService.Check.NoGold: return Loc.T("NOT ENOUGH GOLD");
+            default: return Loc.T("CANNOT ENHANCE");
         }
     }
 
@@ -227,22 +227,22 @@ public class EnhanceWindow : MonoBehaviour
         sb.Append("<size=120%>").Append(EnhanceRules.DisplayName(string.IsNullOrEmpty(d.itemNameT) ? d.name : d.itemNameT, lv)).Append("</size>\n\n");
         if (!EnhanceRules.CanEnhance(lv))
         {
-            sb.Append("<color=#FFC640>MAX ENHANCED</color>");
+            sb.Append("<color=#FFC640>").Append(Loc.T("MAX ENHANCED")).Append("</color>");
             return sb.ToString();
         }
         bool weapon = d.equipArea == "Weapon";
         float now = weapon ? EnhanceRules.WeaponMultiplier(lv) : EnhanceRules.GearMultiplier(lv);
         float next = weapon ? EnhanceRules.WeaponMultiplier(lv + 1) : EnhanceRules.GearMultiplier(lv + 1);
         sb.Append("+").Append(lv).Append("  →  <color=#FFC640>+").Append(lv + 1).Append("</color>\n");
-        sb.Append(weapon ? "Damage " : "Stats ").Append(Pct(now)).Append(" → ").Append(Pct(next)).Append("\n\n");
+        sb.Append(Loc.T(weapon ? "Damage" : "Stats")).Append(" ").Append(Pct(now)).Append(" → ").Append(Pct(next)).Append("\n\n");
         int streak = EnhanceService.FailStreak;
         bool chance = streak >= EnhanceRules.PityFails;
-        sb.Append("Success  ").Append(chance ? "<color=#FFC640>100% (CHANCE!)</color>" : Mathf.RoundToInt(EnhanceRules.Rate(lv) * 100f) + "%").Append("\n");
-        sb.Append("On fail  ").Append(EnhanceRules.FailDrops(lv) ? "<color=" + bad + ">-1 level</color>" : "keep level").Append("\n\n");
+        sb.Append(Loc.T("Success")).Append("  ").Append(chance ? "<color=#FFC640>" + Loc.T("100% (CHANCE!)") + "</color>" : Mathf.RoundToInt(EnhanceRules.Rate(lv) * 100f) + "%").Append("\n");
+        sb.Append(Loc.T("On fail")).Append("  ").Append(EnhanceRules.FailDrops(lv) ? "<color=" + bad + ">" + Loc.T("-1 level") + "</color>" : Loc.T("keep level")).Append("\n\n");
         int haveStone = InventoryManager.instance.CountItem(EnhanceRules.StoneName), needStone = EnhanceRules.Stones(lv);
         int needGold = EnhanceRules.Gold(lv);
-        sb.Append("Crystals  <color=").Append(haveStone >= needStone ? ok : bad).Append(">").Append(haveStone).Append(" / ").Append(needStone).Append("</color>\n");
-        sb.Append("Gold    <color=").Append(DatabaseManager.money >= needGold ? ok : bad).Append(">").Append(DatabaseManager.money).Append(" / ").Append(needGold).Append("</color>");
+        sb.Append(Loc.T("Crystals")).Append("  <color=").Append(haveStone >= needStone ? ok : bad).Append(">").Append(haveStone).Append(" / ").Append(needStone).Append("</color>\n");
+        sb.Append(Loc.T("Gold")).Append("    <color=").Append(DatabaseManager.money >= needGold ? ok : bad).Append(">").Append(DatabaseManager.money).Append(" / ").Append(needGold).Append("</color>");
         return sb.ToString();
     }
 
@@ -270,12 +270,12 @@ public class EnhanceWindow : MonoBehaviour
 
         var title = NewText("Title", pr, theme, 40f);
         Place(title.rectTransform, new Vector2(0f, 1f), new Vector2(30f, -20f), new Vector2(940f, 50f));
-        title.text = "ENHANCE";
+        title.text = Loc.T("ENHANCE");
         title.color = theme.unique;
 
         var hint = NewText("Hint", pr, theme, 22f);
         Place(hint.rectTransform, new Vector2(0f, 0f), new Vector2(30f, 18f), new Vector2(940f, 30f));
-        hint.text = "UP/DOWN select    SELECT enhance    BACK close";
+        hint.text = Loc.T("UP/DOWN select    SELECT enhance    BACK close");
         hint.color = new Color(1f, 1f, 1f, 0.6f);
 
         for (int r = 0; r < VisibleRows; r++)
@@ -293,7 +293,7 @@ public class EnhanceWindow : MonoBehaviour
 
         emptyText = NewText("Empty", pr, theme, 26f);
         Place(emptyText.rectTransform, new Vector2(0f, 1f), new Vector2(30f, -90f), new Vector2(440f, 80f));
-        emptyText.text = "No equipment in inventory";
+        emptyText.text = Loc.T("No equipment in inventory");
         emptyText.color = new Color(1f, 1f, 1f, 0.6f);
 
         detail = NewText("Detail", pr, theme, 26f);

@@ -238,7 +238,7 @@ public static class HitFeedback
         {
             scale = Mathf.Max(scale * 2f, 3f); // 문자는 숫자보다 획이 많아 24px 격자에서 3배 미만이면 뭉개진다
         }
-        DamageNumber number = prefab.Spawn(position + offset, text);
+        DamageNumber number = prefab.Spawn(position + offset, Loc.T(text)); // IMMUNE·BLOCK·POISON·BLEED 현지화
         if (number != null)
         {
             number.SetColor(color);

@@ -195,35 +195,35 @@ public class BestiaryWindow : MonoBehaviour
         int kills = BestiaryRecord.Kills(cur.id);
         bigIcon.sprite = cur.icon;
         bigIcon.color = kills > 0 ? Color.white : new Color(0f, 0f, 0f, 0.85f);
-        string tag = cur.isBoss ? " <color=#FF6060>BOSS</color>" : cur.isElite ? " <color=#FFC640>ELITE</color>" : "";
-        title.text = (kills > 0 ? cur.displayName : "???") + tag;
+        string tag = cur.isBoss ? " <color=#FF6060>" + Loc.T("BOSS") + "</color>" : cur.isElite ? " <color=#FFC640>" + Loc.T("ELITE") + "</color>" : "";
+        title.text = (kills > 0 ? Loc.T(cur.displayName) : "???") + tag;
 
         var sb = new System.Text.StringBuilder();
-        sb.Append("Region  ").Append(kills > 0 ? cur.region : "???").Append('\n');
-        sb.Append("Defeated  ").Append(kills).Append("\n\n");
+        sb.Append(Loc.T("Region")).Append("  ").Append(kills > 0 ? Loc.Region(cur.region) : "???").Append('\n');
+        sb.Append(Loc.T("Defeated")).Append("  ").Append(kills).Append("\n\n");
         infos.TryGetValue(cur.id, out Info info);
         if (kills >= BestiaryRecord.RevealStats && info != null)
         {
-            sb.Append("HP ").Append(info.hp).Append("   DEF ").Append(info.def).Append("\n\n");
+            sb.Append(Loc.T("HP")).Append(" ").Append(info.hp).Append("   ").Append(Loc.T("DEF")).Append(" ").Append(info.def).Append("\n\n");
         }
         else
         {
-            sb.Append("<color=#999999>Stats: defeat ").Append(BestiaryRecord.RevealStats - kills).Append(" more</color>\n\n");
+            sb.Append("<color=#999999>").Append(Loc.F("Stats: defeat {0} more", BestiaryRecord.RevealStats - kills)).Append("</color>\n\n");
         }
         if (kills >= BestiaryRecord.RevealDrops && info != null)
         {
-            sb.Append("Drops\n");
+            sb.Append(Loc.T("Drops")).Append("\n");
             foreach (var d in info.drops)
             {
                 int idx = DatabaseManager.instance.FindItemDataIndex(d.name);
                 string rarity = idx >= 0 ? DatabaseManager.instance.LoadItemData(idx).rarity : "C";
                 sb.Append("<color=#").Append(ColorUtility.ToHtmlStringRGB(theme.RarityColor(rarity))).Append('>')
-                  .Append(d.name).Append("</color>  ").Append((d.chance * 100f).ToString("0.#")).Append("%\n");
+                  .Append(idx >= 0 ? DatabaseManager.instance.LoadItemData(idx).itemNameT : d.name).Append("</color>  ").Append((d.chance * 100f).ToString("0.#")).Append("%\n");
             }
         }
         else
         {
-            sb.Append("<color=#999999>Drops: defeat ").Append(Mathf.Max(0, BestiaryRecord.RevealDrops - kills)).Append(" more</color>");
+            sb.Append("<color=#999999>").Append(Loc.F("Drops: defeat {0} more", Mathf.Max(0, BestiaryRecord.RevealDrops - kills))).Append("</color>");
         }
         body.text = sb.ToString();
     }
@@ -246,11 +246,11 @@ public class BestiaryWindow : MonoBehaviour
 
         var head = NewText("Title", pr, theme, 42f);
         Place(head.rectTransform, new Vector2(30f, -18f), new Vector2(600f, 54f));
-        head.text = "BESTIARY";
+        head.text = Loc.T("BESTIARY");
         head.color = theme.unique;
         var hint = NewText("Hint", pr, theme, 22f);
         Place(hint.rectTransform, new Vector2(30f, -600f), new Vector2(1100f, 30f));
-        hint.text = "ARROWS select    B / BACK close";
+        hint.text = Loc.T("ARROWS select    B / BACK close");
         hint.color = new Color(1f, 1f, 1f, 0.55f);
 
         for (int i = 0; i < 16; i++)

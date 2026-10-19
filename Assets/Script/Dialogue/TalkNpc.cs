@@ -37,7 +37,7 @@ public class TalkNpc : MonoBehaviour
         {
             prompt.font = theme.pixelFont;
         }
-        prompt.text = "UP  TALK";
+        prompt.text = Loc.T("UP  TALK");
         prompt.fontSize = 3f;
         prompt.alignment = TextAlignmentOptions.Center;
         prompt.color = theme.unique;

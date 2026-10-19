@@ -6,7 +6,8 @@ if (src.GetLanguageIndex("English") < 0) src.AddLanguage("English", "en");
 if (src.GetLanguageIndex("Korean") < 0) src.AddLanguage("Korean", "ko");
 int en = src.GetLanguageIndex("English"), ko = src.GetLanguageIndex("Korean");
 int added = 0, updated = 0;
-foreach (var e in LocTerms.Entries)
+var all = Loc.AllEntries();
+foreach (var e in all)
 {
     string term = Loc.Term(e.en);
     var td = src.GetTermData(term);
@@ -14,7 +15,7 @@ foreach (var e in LocTerms.Entries)
     td.Languages[en] = e.en;
     td.Languages[ko] = e.ko;
 }
-var want = new System.Collections.Generic.HashSet<string>(); foreach (var e in LocTerms.Entries) want.Add(Loc.Term(e.en));
+var want = new System.Collections.Generic.HashSet<string>(); foreach (var e in all) want.Add(Loc.Term(e.en));
 int removed = src.mTerms.RemoveAll(t => !want.Contains(t.Term)); // 표에서 빠진 옛 키 정리
 src.UpdateDictionary(true);
 EditorUtility.SetDirty(asset); AssetDatabase.SaveAssets();
