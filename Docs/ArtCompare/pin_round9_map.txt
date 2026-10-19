@@ -1,0 +1,25 @@
+# 주인공 후보 - 8라운드 캐릭터 중 주인공형 11개의 연관 핀(웨일 로그인)
+hero 1 https://kr.pinterest.com/pin/941956078291641827/
+hero 2 https://kr.pinterest.com/pin/836402962063116043/
+hero 3 https://kr.pinterest.com/pin/789607747182258293/
+hero 4 https://kr.pinterest.com/pin/437834395030645862/
+hero 5 https://kr.pinterest.com/pin/635007616201764931/
+hero 6 https://kr.pinterest.com/pin/298222806584468266/
+hero 7 https://kr.pinterest.com/pin/1079175129439364269/
+hero 8 https://kr.pinterest.com/pin/733946070550443298/
+hero 9 https://kr.pinterest.com/pin/873276184008424747/
+hero 10 https://kr.pinterest.com/pin/992199361685817596/
+hero 11 https://kr.pinterest.com/pin/899805200573267004/
+hero 12 https://kr.pinterest.com/pin/824440275576016419/
+hero 13 https://kr.pinterest.com/pin/1012465559996615129/
+hero 14 https://kr.pinterest.com/pin/890868370039862866/
+hero 15 https://kr.pinterest.com/pin/599401031633223425/
+hero 16 https://kr.pinterest.com/pin/8233211826085636/
+hero 17 https://kr.pinterest.com/pin/53058101841126745/
+hero 18 https://kr.pinterest.com/pin/643944446746793710/
+hero 19 https://kr.pinterest.com/pin/321655598387046364/
+hero 20 https://kr.pinterest.com/pin/713468765996758065/
+hero 21 https://kr.pinterest.com/pin/849843392220056939/
+hero 22 https://kr.pinterest.com/pin/797700152767753035/
+hero 23 https://kr.pinterest.com/pin/333970128639535309/
+hero 24 https://kr.pinterest.com/pin/588282770094207234/
