@@ -36,6 +36,7 @@ public class DropLightPillar : MonoBehaviour
         }
         pillar.SetColor(rarity == "U" ? new Color(1f, 0.78f, 0.25f) : new Color(0.35f, 0.65f, 1f), rarity == "U" ? 0.75f : 0.6f);
         pillar.gameObject.SetActive(true);
+        FeelFx.RareDrop(drop.transform, rarity);
     }
 
     void Build()

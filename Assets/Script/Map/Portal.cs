@@ -81,6 +81,7 @@ public class Portal : MonoBehaviour
             return;
         }
         traveler.transform.position = destination.position;
+        FeelFx.PortalEnter();
         if (isMapChange)
         {
             AbleOpenMap();

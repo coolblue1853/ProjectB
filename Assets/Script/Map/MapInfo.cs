@@ -108,6 +108,7 @@ public class MapInfo : MonoBehaviour
             targetCheck.AbleSpwaner(); // 웨이포인트 이동도 포털처럼 스포너를 켠다
         }
         traveler.transform.position = entry.transform.position;
+        FeelFx.PortalEnter(); // 웨이포인트 이동도 포털과 같은 페이드
         Portal.RaiseMapChanged(target.gameObject);
         var cam = Object.FindFirstObjectByType<ProCamera2D>();
         if (cam != null)

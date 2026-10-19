@@ -109,7 +109,7 @@ public static class BossLoot
         {
             PickupLog.Report("Rank up: " + AscentLoad.RankName(r.grantsRank) + " Explorer", 1, "U");
         }
-        FeelFx.PlayerPop(0.2f);
+        FeelFx.BossKill();
         GameLog.Info(GameLog.Cat.Item, "보스 보상 " + bossName + ": " + string.Join(", ", loot) + (unique ? " (고유템!)" : " (천장까지 " + (r.pity - since) + ")"));
         RaiseDefeated(bossName);
         return loot;
