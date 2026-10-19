@@ -1,4 +1,4 @@
-// 구역 BGM (AssetIntegrationPlan W1): 보유 음악 팩에서 꺼낸 OGG 를 MasterAudio 재생목록에 추가. 에디트 모드, 재실행 안전
+﻿// 구역 BGM (AssetIntegrationPlan W1): 보유 음악 팩에서 꺼낸 OGG 를 MasterAudio 재생목록에 추가. 에디트 모드, 재실행 안전
 var ma = UnityEngine.Object.FindFirstObjectByType<DarkTonic.MasterAudio.MasterAudio>(FindObjectsInactive.Include);
 string dir = "Assets/ThirdParty/Music/";
 var add = new string[][] {
@@ -8,6 +8,9 @@ var add = new string[][] {
     new[]{ "Boss", "Boss Battle 2 Loop" },
     new[]{ "Field2", "LOOP_Fields of Mystery" },
     new[]{ "Field2", "LOOP_Forbidden Forest" },
+    new[]{ "DeepForest", "Mystery Ambience LOOP" },   // 2026-10-19 구역 전용(BgmDirector.ZonePlaylist)
+    new[]{ "Swamp", "Ominous Ambience LOOP" },
+    new[]{ "Ruins", "Nordic Landscape AMBIENT EDIT" },
 };
 var sb = new System.Text.StringBuilder();
 var template = ma.musicPlaylists.Find(p => p.playlistName == "Field");

@@ -32,7 +32,7 @@ def main():
                 with open(src, "wb") as fp:
                     fp.write(t.extractfile(m).read())
                 dst = os.path.join(out_dir, os.path.splitext(names[guid])[0] + ".ogg")
-                subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-c:a", "libvorbis", "-q:a", "5", dst], check=True)
+                subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-vn", "-c:a", "libvorbis", "-q:a", "5", dst], check=True)
                 print("ok", dst, os.path.getsize(dst) // 1024, "KB")
                 wanted.discard(names[guid])
     for w in wanted:
