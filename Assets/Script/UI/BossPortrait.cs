@@ -53,7 +53,7 @@ public static class BossPortrait
         {
             text.font = theme.pixelFont;
         }
-        text.text = string.IsNullOrEmpty(reward.displayName) ? bossName : reward.displayName;
+        text.text = Loc.T(string.IsNullOrEmpty(reward.displayName) ? bossName : reward.displayName);
         text.fontSize = h * 1.3f;
         text.color = new Color(1f, 0.85f, 0.5f);
         text.outlineWidth = 0.25f;

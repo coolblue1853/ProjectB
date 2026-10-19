@@ -103,7 +103,7 @@ public static class BossLoot
             since = 0;
         }
         ES3.Save(killKey, since);
-        BossBanner.Show(string.IsNullOrEmpty(r.displayName) ? MonsterTable.DisplayName(bossName) : r.displayName, unique ? r.uniqueItem : null); // G2 승리 연출
+        BossBanner.Show(string.IsNullOrEmpty(r.displayName) ? MonsterTable.DisplayName(bossName) : Loc.T(r.displayName), unique ? ItemDisplayName(r.uniqueItem) : null); // G2 승리 연출
         // 승급 배너는 처치 배너 뒤에 이어진다(BossBanner 대기열)
         if (r.grantsRank > 0 && AscentLoad.GrantRank(r.grantsRank))
         {
@@ -113,5 +113,13 @@ public static class BossLoot
         GameLog.Info(GameLog.Cat.Item, "보스 보상 " + bossName + ": " + string.Join(", ", loot) + (unique ? " (고유템!)" : " (천장까지 " + (r.pity - since) + ")"));
         RaiseDefeated(bossName);
         return loot;
+    }
+
+    /// <summary>아이템 id → 현재 언어 표시 이름 (배너용)</summary>
+    static string ItemDisplayName(string id)
+    {
+        DatabaseManager db = DatabaseManager.instance;
+        ItemData d = db != null ? db.LoadItemData(db.FindItemDataIndex(id)) : null;
+        return d != null && !string.IsNullOrEmpty(d.itemNameT) ? d.itemNameT : id;
     }
 }
