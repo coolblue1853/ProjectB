@@ -11,9 +11,11 @@ using UrpPixelPerfect = UnityEngine.Rendering.Universal.PixelPerfectCamera;
 public static class PixelLook
 {
     public const bool Enabled = true;
-    const int AssetsPpu = 24;
-    static readonly Vector2Int NormalRes = new Vector2Int(480, 270);
-    static readonly Vector2Int ZoomOutRes = new Vector2Int(640, 360);
+    // 격자 = 아트 24 PPU 의 2배(48). 480×270(화면 4px 단위)으로 그리면 카메라 추적이 4px 계단으로 움직여 화면이 덜덜 떨렸다(사용자 멀미 피드백, 2026-10-19).
+    // 960×540 이면 스텝이 2px 로 줄고, 아트 도트 1칸 = 격자 2칸(정수)이라 밀도 통일은 유지된다. 직교 크기(5.625)는 그대로.
+    const int AssetsPpu = 48;
+    static readonly Vector2Int NormalRes = new Vector2Int(960, 540);
+    static readonly Vector2Int ZoomOutRes = new Vector2Int(1280, 720);
 
     static UrpPixelPerfect _ppc;
 

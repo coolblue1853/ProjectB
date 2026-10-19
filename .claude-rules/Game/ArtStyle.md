@@ -90,6 +90,8 @@
 - 월드 공간 데미지 숫자는 24px 격자에서 뭉개지므로 PixelLook 활성 시 최소 2.2배(치명타 2.8배)로 키운다(`HitFeedback.SpawnNumber`).
 - 끄려면 `PixelLook.Enabled = false`.
 
+- **떨림 수정(2026-10-19 밤)**: 480×270(화면 4px 단위)이면 카메라 추적이 4px 계단으로 움직여 화면이 덜덜 떨리고 멀미가 난다는 사용자 피드백 → 격자를 **960×540 · 48 PPU**(아트 도트 1칸 = 격자 2칸, 정수)로 올렸다. 직교 크기 5.625 유지, 보스 줌아웃 1280×720. 도트 통일감은 스크린샷으로 유지 확인, 체감 떨림은 사용자 확인 필요.
+
 ### 어비스 컬러 그레이딩 `AbyssGrade` (2026-10-19)
 
 - `Assets/Script/Cam/AbyssGrade.cs`가 런타임에 전역 Volume(우선순위 10)으로 `Resources/PostFx/AbyssGrade.asset`을 건다. 씬의 기존 Volume(블룸)은 그대로 둔다.

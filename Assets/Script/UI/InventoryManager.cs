@@ -176,6 +176,34 @@ public class InventoryManager : MonoBehaviour
             LoadEquipItem();
             Service.LoadFrom(SaveManager.instance.datas.invenItem);
         }
+        GiveStarterWeapon();
+    }
+
+    const string StarterWeapon = "RustedSword";
+    const string StarterKey = "starter.weapon.given";
+
+    /// <summary>
+    /// 무기 칸이 비어 있으면 기본 무기(녹슨 검)를 한 번 장착해 준다 — 새 게임에서 바로 공격을 시험할 수 있게(사용자 요청, 2026-10-19).
+    /// 슬롯별 ES3 플래그로 1회만 지급해, 벗고 다시 불러와도 무기가 늘지 않는다.
+    /// </summary>
+    void GiveStarterWeapon()
+    {
+        if (ES3.KeyExists(StarterKey) || equipBox[7].transform.childCount > 0)
+        {
+            return;
+        }
+        GameObject go = Instantiate(itemPrefab, transform.position, Quaternion.identity, transform);
+        ItemCheck item = go.GetComponent<ItemCheck>();
+        item.SetItem(StarterWeapon);
+        if (item.itemData == null)
+        {
+            Destroy(go);
+            return;
+        }
+        UseEquipment(item);
+        equipBox[7].GetComponent<EquipBoxCheck>().ActivePrefab("Weapon"); // 장비창을 열지 않아도 바로 공격할 수 있게 연결
+        ES3.Save(StarterKey, true);
+        GameLog.Info(GameLog.Cat.Item, "기본 무기 지급: " + StarterWeapon);
     }
 
     public bool CheckBoxCanCreat(int num)

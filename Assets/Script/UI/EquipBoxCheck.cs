@@ -108,12 +108,15 @@ public class EquipBoxCheck : MonoBehaviour
            LoadPrefab(obItemCheck.itemData.name, obItemCheck.itemData.equipArea, obItemCheck.itemData.tfName);
         }
         int enhance = transform.childCount > 0 && transform.GetChild(0).TryGetComponent(out ItemCheck slotItem) && slotItem.itemData != null ? slotItem.itemData.upgrade : 0;
-        if (reciveEquipArea == "Weapon" && weapon == null) // 무기는 Weapon 스크립트를 사용하므로 예외
+        if (reciveEquipArea == "Weapon") // 무기는 Weapon 스크립트를 사용하므로 예외
         {
-             weapon = equipPrefab.GetComponent<Weapon>();
-            weapon.SetEnhance(enhance);
-            attackManager.equipWeapon = weapon;
-            attackManager.EquipMainWeaopon();
+            if (weapon == null) // 이미 연결됐으면 다시 하지 않는다(두 번째 호출이 방어구 분기로 빠져 NRE 나던 문제)
+            {
+                weapon = equipPrefab.GetComponent<Weapon>();
+                weapon.SetEnhance(enhance);
+                attackManager.equipWeapon = weapon;
+                attackManager.EquipMainWeaopon();
+            }
         }
         else
         {
