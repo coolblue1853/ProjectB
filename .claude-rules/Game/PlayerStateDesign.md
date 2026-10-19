@@ -287,7 +287,7 @@ public sealed class StatModifier {
 
 ### Phase 10 — 스탯 출처 이관
 
-> **진행(2026-10-19):** ✅ 10a 장비 — `EquipBoxCheck.SetEquipment` 가 정수 스탯 11종을 `Source = Equipment 인스턴스` 모디파이어로 넣고(재적용 시 먼저 RemoveBySource → 중복 없음), `DisableEquipment` 는 `RemoveBySource` 한 줄. HP·쿨감 Dictionary·출혈 발동 데이터는 기존 경로. 프로브 `equip_cycle.cs`: Cliff 3부위 +3 착용(같은 장비 재적용 포함) → Def 33·모디파이어 3 → 해제 후 전부 0. ✅ 10b 세트 — `SetEffectApplier.Apply(effect, apply, group)`, `SetItem` 이 `"Set:{세트}_{단계}"` 그룹을 넘긴다. 정수 스탯은 그룹 모디파이어(적용 전 RemoveByGroup → 중복 없음), HP·스킬 키는 기존 경로. 테스트 `GroupApply_NoDuplicate_RemoveByGroupReturnsToBaseline` + 플레이 `equip_set_test` → `stats_dump` 전 스탯 legacy 0·mods 1. ⏳ 10c 버프(Id)·10d 스킬 키·10e MaxHp.
+> **진행(2026-10-19):** ✅ 10a 장비 — `EquipBoxCheck.SetEquipment` 가 정수 스탯 11종을 `Source = Equipment 인스턴스` 모디파이어로 넣고(재적용 시 먼저 RemoveBySource → 중복 없음), `DisableEquipment` 는 `RemoveBySource` 한 줄. HP·쿨감 Dictionary·출혈 발동 데이터는 기존 경로. 프로브 `equip_cycle.cs`: Cliff 3부위 +3 착용(같은 장비 재적용 포함) → Def 33·모디파이어 3 → 해제 후 전부 0. ✅ 10b 세트 — `SetEffectApplier.Apply(effect, apply, group)`, `SetItem` 이 `"Set:{세트}_{단계}"` 그룹을 넘긴다. 정수 스탯은 그룹 모디파이어(적용 전 RemoveByGroup → 중복 없음), HP·스킬 키는 기존 경로. 테스트 `GroupApply_NoDuplicate_RemoveByGroupReturnsToBaseline` + 플레이 `equip_set_test` → `stats_dump` 전 스탯 legacy 0·mods 1. ✅ 10c 버프 — `PlayerBuff` 를 인스턴스 Id 모디파이어로(`OnDestroy` 에서도 RemoveById → 만료 전 파괴·중복 활성 시 수치 잔류 버그 해결), `DamageObject` 홀드 방어 버프도 Id. 프로브 `buff_cycle.cs`: 속도 버프 2개 중첩 120 → 하나 조기 파괴 60 → 만료 0, 음식 방어 +5 → 해제 0. ⏳ 10d 스킬 키·10e MaxHp.
 
 - 10a 장비: `EquipBoxCheck.SetEquipment/DisableEquipment`, 쿨감 125-147 → `Source = equip`. 체크: **착용과 해제에 같은 Equipment 인스턴스가 전달되는지** 먼저 프로브로 확인(로드 시 재생성되면 Source를 `"Equip:{equipArea}"` 문자열로 대체).
 - 10b 세트: `SetItem.ActiveSetEffect` → `Group`. `CheckSetDisEffect`는 `RemoveByGroup` 한 줄로.

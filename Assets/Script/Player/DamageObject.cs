@@ -185,9 +185,11 @@ public class DamageObject : MonoBehaviour
         }
         if (holdingBuffEffect == "Def")
         {
-            DatabaseManager.playerDef += holdingBuffPower;
+            PlayerStats.Add(new StatModifier(StatId.Def, ModType.Add, holdingBuffPower) { Id = HoldBuffId, Owner = name }); // Phase 10c
         }
     }
+    string HoldBuffId => "Buff:Hold:" + GetInstanceID();
+
     void BuffOff()
     {
         if (!buffActive)
@@ -198,10 +200,7 @@ public class DamageObject : MonoBehaviour
         // (삭제) 출처와 무관하게 이동정지를 끄던 코드 — 이동정지는 그 스킬의 토큰이 소유한다 (B-114 C6)
         superArmorToken?.Dispose();
         superArmorToken = null;
-        if (holdingBuffEffect == "Def")
-        {
-            DatabaseManager.playerDef -= holdingBuffPower;
-        }
+        PlayerStats.RemoveById(HoldBuffId);
     }
 
 
