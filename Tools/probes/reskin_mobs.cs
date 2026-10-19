@@ -4,7 +4,7 @@
 var sb = new System.Text.StringBuilder();
 string root = "Assets/Art/Monsters/";
 var mobs = new[]{ "ForestWolf:rat", "WildBoar:rat", "ForestBear:rat", "Ent:leaf" };
-int fs = 64;
+// 프레임 크기 = 시트 높이(몹마다 64·84·128 등)
 AssetDatabase.Refresh();
 var maps = new System.Collections.Generic.Dictionary<string, string[]>();
 maps["rat"] = new[]{ "RatThief_BD", "RatThiefStay","Idle","RatThiefWalk","Run","RatThiefHit","Take Hit","RatThiefAttack","Attack1","death","Death" };
@@ -21,6 +21,7 @@ foreach (var entry in mobs)
         var imp = AssetImporter.GetAtPath(path) as TextureImporter;
         if (imp == null) { continue; }
         var tex = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+        int fs = tex.height;
         int n = tex.width / fs;
         imp.textureType = TextureImporterType.Sprite;
         imp.spriteImportMode = SpriteImportMode.Multiple;
