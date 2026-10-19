@@ -50,6 +50,29 @@ public class MapInfo : MonoBehaviour
     {
         Portal.MapChanged -= OnMapChanged;
         Portal.MapChanged += OnMapChanged;
+        // 시작 맵에도 경계를 적용한다(맵 전환 이벤트가 없으므로): 플레이어와 높이가 가장 가까운 활성 맵
+        var root = GameObject.Find("Map");
+        var player = PlayerController.instance;
+        if (root == null || player == null)
+        {
+            return;
+        }
+        MapInfo best = null;
+        float bestDy = float.MaxValue;
+        foreach (Transform m in root.transform)
+        {
+            var info = m.GetComponent<MapInfo>();
+            float dy = Mathf.Abs(m.position.y - player.transform.position.y);
+            if (info != null && m.gameObject.activeInHierarchy && dy < bestDy)
+            {
+                bestDy = dy;
+                best = info;
+            }
+        }
+        if (best != null)
+        {
+            Apply(best);
+        }
     }
 
     static void OnMapChanged(GameObject openMap)
@@ -65,7 +88,38 @@ public class MapInfo : MonoBehaviour
             return;
         }
         bounds.BottomBoundary = info != null ? info.cameraBottom : DefaultBottom;
-        GameLog.Info(GameLog.Cat.Map, "카메라 아래 경계 = " + bounds.BottomBoundary + (info != null ? " (" + info.displayName + ")" : ""));
+        // 좌우 경계: 맵 타일맵의 실제 가로 범위(AssetIntegrationPlan 6절 5 — 맵 끝에서 타일 밖 빈 공간이 보이던 문제)
+        float left = 0f, right = 0f;
+        bool hasX = info != null && info.TryGetTileXRange(out left, out right);
+        bounds.UseLeftBoundary = hasX;
+        bounds.UseRightBoundary = hasX;
+        if (hasX)
+        {
+            bounds.LeftBoundary = left;
+            bounds.RightBoundary = right;
+        }
+        GameLog.Info(GameLog.Cat.Map, "카메라 경계 아래 " + bounds.BottomBoundary + (hasX ? " 좌 " + bounds.LeftBoundary + " 우 " + bounds.RightBoundary : " 좌우 없음") + (info != null ? " (" + info.displayName + ")" : ""));
+    }
+
+    /// <summary>맵 아래 모든 타일맵(비활성 포함)의 칠해진 칸을 합친 월드 가로 범위. 타일이 없으면 false</summary>
+    public bool TryGetTileXRange(out float left, out float right)
+    {
+        left = float.MaxValue;
+        right = float.MinValue;
+        foreach (UnityEngine.Tilemaps.Tilemap tm in GetComponentsInChildren<UnityEngine.Tilemaps.Tilemap>(true))
+        {
+            tm.CompressBounds();
+            BoundsInt cb = tm.cellBounds;
+            if (cb.size.x <= 0 || cb.size.y <= 0)
+            {
+                continue;
+            }
+            Vector3 a = tm.CellToWorld(cb.min);
+            Vector3 b = tm.CellToWorld(cb.max);
+            left = Mathf.Min(left, Mathf.Min(a.x, b.x));
+            right = Mathf.Max(right, Mathf.Max(a.x, b.x));
+        }
+        return right - left > 1f;
     }
 
     /// <summary>어느 맵에 있든 마을로 즉시 이동 (사망 부활 등): 활성 사냥터를 정리·비활성화하고 마을을 켠다.</summary>
