@@ -11,7 +11,7 @@ public static class AscentLoad
     public const float PenaltyPerPoint = 0.02f, MinOutgoing = 0.1f;
     public const int MaxRank = 7;
     public static readonly string[] RankNames = { "Novice", "Dawn", "Cloudsea", "Deepgreen", "Crimson", "Blackstone", "Abyss", "Whitelight" };
-    const string RankKey = "explorer.rank";
+    public const string RankKey = "explorer.rank";
 
     public static int CurrentLoad { get; private set; }
     public static int Rank { get; private set; }

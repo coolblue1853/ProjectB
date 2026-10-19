@@ -11,15 +11,15 @@ public static class GameSettings
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Boot()
     {
-        Volume = ES3.KeyExists("settings.volume") ? ES3.Load<float>("settings.volume") : 1f;
-        Shake = ES3.KeyExists("settings.shake") ? ES3.Load<float>("settings.shake") : 1f;
-        Flash = ES3.KeyExists("settings.flash") ? ES3.Load<bool>("settings.flash") : true;
+        Volume = ES3.KeyExists("settings.volume", SaveSlots.SharedFile) ? ES3.Load<float>("settings.volume", SaveSlots.SharedFile) : 1f;
+        Shake = ES3.KeyExists("settings.shake", SaveSlots.SharedFile) ? ES3.Load<float>("settings.shake", SaveSlots.SharedFile) : 1f;
+        Flash = ES3.KeyExists("settings.flash", SaveSlots.SharedFile) ? ES3.Load<bool>("settings.flash", SaveSlots.SharedFile) : true;
         Apply();
     }
 
-    public static void SetVolume(float v) { Volume = Mathf.Clamp01(v); ES3.Save("settings.volume", Volume); Apply(); }
-    public static void SetShake(float v) { Shake = Mathf.Clamp01(v); ES3.Save("settings.shake", Shake); Apply(); }
-    public static void SetFlash(bool v) { Flash = v; ES3.Save("settings.flash", Flash); Apply(); }
+    public static void SetVolume(float v) { Volume = Mathf.Clamp01(v); ES3.Save("settings.volume", Volume, SaveSlots.SharedFile); Apply(); }
+    public static void SetShake(float v) { Shake = Mathf.Clamp01(v); ES3.Save("settings.shake", Shake, SaveSlots.SharedFile); Apply(); }
+    public static void SetFlash(bool v) { Flash = v; ES3.Save("settings.flash", Flash, SaveSlots.SharedFile); Apply(); }
 
     static void Apply()
     {

@@ -19,7 +19,6 @@ public class Datas
 public class SaveManager : MonoBehaviour
 {
     private string keyName = "Datas";
-    private string fileName = "SaveFile.es3";
     public static SaveManager instance;
     public GameObject player;
     public GameObject originPos;
@@ -71,7 +70,7 @@ public class SaveManager : MonoBehaviour
     }
     public void DataLoad()
     {
-        if (ES3.FileExists(fileName))
+        if (ES3.FileExists()) // 슬롯 파일(SaveSlots 가 기본 경로를 정한다)
         {
             ES3.LoadInto(keyName, datas);
         }
