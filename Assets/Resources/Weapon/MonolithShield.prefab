@@ -95,8 +95,8 @@ MonoBehaviour:
   skillNum: 0
   skillDetail: Thrusts powerfully forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
-  castVfxScale: 1
+  castVfx: 24
+  castVfxScale: 0.8
   skillprefab:
   - {fileID: 4960005499486500231, guid: 529e29d1135f5a34b96376c4adfc0511, type: 3}
   skillCooldown: {fileID: 0}
@@ -195,8 +195,8 @@ MonoBehaviour:
   skillNum: 1
   skillDetail: Charges forward with a shield, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
-  castVfxScale: 1
+  castVfx: 24
+  castVfxScale: 0.9
   skillprefab:
   - {fileID: 8267161789949130192, guid: 73a41ad32b9a4c94a810b6498a000b6b, type: 3}
   skillCooldown: {fileID: 0}
@@ -589,8 +589,8 @@ MonoBehaviour:
   skillDetail: Enters a super armor state for up to 1 second, increasing defense
     by 100.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
-  castVfxScale: 1
+  castVfx: 19
+  castVfxScale: 0.9
   skillprefab:
   - {fileID: 8267161789949130192, guid: 773a9b478c92d67409862cb885b454d5, type: 3}
   skillCooldown: {fileID: 0}

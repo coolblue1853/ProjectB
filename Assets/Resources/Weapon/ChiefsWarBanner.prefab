@@ -199,7 +199,7 @@ MonoBehaviour:
   skillNum: 1
   skillDetail: Dash forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
+  castVfx: 23
   castVfxScale: 1
   skillprefab:
   - {fileID: 8267161789949130192, guid: a06fbd80aa355d141b8755fc5b2d6d55, type: 3}
@@ -300,8 +300,8 @@ MonoBehaviour:
   skillDetail: Summon a scarecrow that periodically screams, attacking enemies.
   delayEffectPrefab: {fileID: 4098006253883215037, guid: 08b38366644656c43848cda8e46e0d0c,
     type: 3}
-  castVfx: 10
-  castVfxScale: 1
+  castVfx: 26
+  castVfxScale: 1.2
   skillprefab:
   - {fileID: 4960005499486500231, guid: 6f3b8a90d996215498503f9226fbc71f, type: 3}
   skillCooldown: {fileID: 0}

@@ -43,7 +43,8 @@ public static class Vfx
     public static int ActiveCount => active.Count;
 
     /// <param name="facingLeft">true면 좌우 반전 (Y축 180도)</param>
-    public static bool Play(VfxId id, Vector3 position, bool facingLeft = false, float scaleMul = 1f)
+    /// <param name="ignoreFrameCap">보스 처치처럼 빠지면 안 되는 연출만 true (프레임당 상한 무시)</param>
+    public static bool Play(VfxId id, Vector3 position, bool facingLeft = false, float scaleMul = 1f, bool ignoreFrameCap = false)
     {
         if (id == VfxId.None || !EnsureInit())
         {
@@ -54,7 +55,7 @@ public static class Vfx
             frame = Time.frameCount;
             spawnedThisFrame = 0;
         }
-        if (spawnedThisFrame >= MaxPerFrame)
+        if (spawnedThisFrame >= MaxPerFrame && !ignoreFrameCap)
         {
             return false;
         }

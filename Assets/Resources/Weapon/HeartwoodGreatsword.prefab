@@ -95,7 +95,7 @@ MonoBehaviour:
   skillNum: 0
   skillDetail: Create a zone that pulls enemies to the center and deals damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
+  castVfx: 20
   castVfxScale: 1
   skillprefab:
   - {fileID: 8672800351859898982, guid: f02015635d052034db0bf6d67e5e3eff, type: 3}
@@ -195,7 +195,7 @@ MonoBehaviour:
   skillNum: 1
   skillDetail: Send a sword slash forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
+  castVfx: 7
   castVfxScale: 1
   skillprefab:
   - {fileID: 2727774066832764257, guid: 56fc490d9db018a4fac1bc86f27d504d, type: 3}

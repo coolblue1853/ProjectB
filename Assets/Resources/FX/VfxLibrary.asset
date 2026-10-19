@@ -173,3 +173,51 @@ MonoBehaviour:
     sortingOrder: 210
     pixel: {fileID: 11400000, guid: 7488373bd91f53c4f884fe9624f69d90, type: 2}
     usePixel: 1
+  - id: 21
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5555556
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: cd2158940b5c93e48a53b281f7bf91a0, type: 2}
+    usePixel: 1
+  - id: 22
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5555556
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 3e55598cb0b2c0b418044c4f023db377, type: 2}
+    usePixel: 1
+  - id: 23
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.45
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: be6704f609b2a9a4c85e218c1f801b47, type: 2}
+    usePixel: 1
+  - id: 24
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.45
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: aae741a2a24760c41bbdd0626cdf4a91, type: 2}
+    usePixel: 1
+  - id: 25
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.4
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: b330803ac383d414d8098a265648119a, type: 2}
+    usePixel: 1
+  - id: 26
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.5
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: e4e7ed0ba83718840afe5420e412df91, type: 2}
+    usePixel: 1

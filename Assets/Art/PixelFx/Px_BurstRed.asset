@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_BurstRed
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: 8759871532739768509, guid: 59d3abb129c3c8e4db947e37112ed3cb, type: 3}
+  - {fileID: -2116530744487938123, guid: 59d3abb129c3c8e4db947e37112ed3cb, type: 3}
+  - {fileID: -7289495948322628912, guid: 59d3abb129c3c8e4db947e37112ed3cb, type: 3}
+  - {fileID: -2110772764695431398, guid: 59d3abb129c3c8e4db947e37112ed3cb, type: 3}
+  - {fileID: -4122106124657590873, guid: 59d3abb129c3c8e4db947e37112ed3cb, type: 3}
+  - {fileID: -8883978674378189905, guid: 59d3abb129c3c8e4db947e37112ed3cb, type: 3}
+  - {fileID: 1768546979512455725, guid: 59d3abb129c3c8e4db947e37112ed3cb, type: 3}
+  - {fileID: 6532369500905894907, guid: 59d3abb129c3c8e4db947e37112ed3cb, type: 3}
+  - {fileID: -6880172300305589252, guid: 59d3abb129c3c8e4db947e37112ed3cb, type: 3}
+  - {fileID: -719072829370619272, guid: 59d3abb129c3c8e4db947e37112ed3cb, type: 3}
+  fps: 20
+  source: Tools/pixelfx/gen_magic.py

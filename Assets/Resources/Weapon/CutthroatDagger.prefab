@@ -122,8 +122,8 @@ MonoBehaviour:
   skillNum: 0
   skillDetail: Savagely stab the enemy in front, dealing significant damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
-  castVfxScale: 1
+  castVfx: 22
+  castVfxScale: 0.9
   skillprefab:
   - {fileID: 7429380887833962885, guid: 97b94bc9680c5e74ca3840c4487938d3, type: 3}
   skillCooldown: {fileID: 0}
@@ -222,8 +222,8 @@ MonoBehaviour:
   skillNum: 1
   skillDetail: Increases the hit count of all attacks by 1.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
-  castVfxScale: 1
+  castVfx: 22
+  castVfxScale: 0.8
   skillprefab:
   - {fileID: 8267161789949130192, guid: 5d21830fcce75e0448999332a3dd0335, type: 3}
   skillCooldown: {fileID: 0}

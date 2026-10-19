@@ -96,8 +96,8 @@ MonoBehaviour:
   skillDetail: Summon a scarecrow that periodically screams, attacking enemies.
   delayEffectPrefab: {fileID: 4098006253883215037, guid: 08b38366644656c43848cda8e46e0d0c,
     type: 3}
-  castVfx: 10
-  castVfxScale: 1
+  castVfx: 11
+  castVfxScale: 0.6
   skillprefab:
   - {fileID: 4960005499486500231, guid: 36e9481f42570644f98838d1a9e60808, type: 3}
   skillCooldown: {fileID: 0}
@@ -196,8 +196,8 @@ MonoBehaviour:
   skillNum: 1
   skillDetail: Create a shadow that slashes at enemies in front, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 14
-  castVfxScale: 1
+  castVfx: 12
+  castVfxScale: 0.8
   skillprefab:
   - {fileID: 4960005499486500231, guid: 896f0b200f2212d4bac1c8cdffda2139, type: 3}
   skillCooldown: {fileID: 0}
@@ -677,8 +677,8 @@ MonoBehaviour:
   skillNum: 2
   skillDetail: Generate a substance that advances forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 18
-  castVfxScale: 1
+  castVfx: 11
+  castVfxScale: 0.8
   skillprefab:
   - {fileID: 8326595189231288729, guid: 601a31bc879db684d896184e120a1bab, type: 3}
   skillCooldown: {fileID: 0}

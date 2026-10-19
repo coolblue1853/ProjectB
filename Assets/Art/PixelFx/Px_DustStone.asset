@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_DustStone
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: -4036170415380369123, guid: 1514c449cad60f14b8655b1084b50ae7, type: 3}
+  - {fileID: 491752285026253624, guid: 1514c449cad60f14b8655b1084b50ae7, type: 3}
+  - {fileID: -8450431582562408737, guid: 1514c449cad60f14b8655b1084b50ae7, type: 3}
+  - {fileID: -2915091014361687633, guid: 1514c449cad60f14b8655b1084b50ae7, type: 3}
+  - {fileID: -3744266160601044433, guid: 1514c449cad60f14b8655b1084b50ae7, type: 3}
+  - {fileID: 5360222534953468877, guid: 1514c449cad60f14b8655b1084b50ae7, type: 3}
+  - {fileID: -9093897203383280185, guid: 1514c449cad60f14b8655b1084b50ae7, type: 3}
+  - {fileID: -289542918807440485, guid: 1514c449cad60f14b8655b1084b50ae7, type: 3}
+  - {fileID: 4376943146372348998, guid: 1514c449cad60f14b8655b1084b50ae7, type: 3}
+  fps: 20
+  source: Tools/pixelfx/gen_magic.py

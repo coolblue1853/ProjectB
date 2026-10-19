@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8499881872893365800}
   - component: {fileID: 6089077577183953220}
   - component: {fileID: 6150180846658070120}
+  - component: {fileID: 7138682041360640360}
   m_Layer: 0
   m_Name: CrescentReapWave
   m_TagString: Untagged
@@ -192,3 +193,23 @@ MonoBehaviour:
   _isSkill: 1
   _gravity: 0
   _ignoreTerrain: 1
+--- !u!114 &7138682041360640360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5159986758195464791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa4192050858f84bb41224981f6b3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileFx
+  _spawnFx: 0
+  _endFx: 0
+  _fxScale: 1
+  _snapToGround: 0
+  _trailTime: 0.2
+  _trailWidth: 0.3
+  _trailColor: {r: 0.9, g: 0.95, b: 1, a: 0.6}
+  _trailSortingOrder: 205

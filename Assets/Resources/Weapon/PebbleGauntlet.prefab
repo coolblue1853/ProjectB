@@ -95,7 +95,7 @@ MonoBehaviour:
   skillNum: 0
   skillDetail: Dash forward while evading.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
+  castVfx: 24
   castVfxScale: 1
   skillprefab:
   - {fileID: 8267161789949130192, guid: af7f43a9af6c3e8469b968bff611268b, type: 3}
@@ -614,8 +614,8 @@ MonoBehaviour:
   skillNum: 2
   skillDetail: Strike the enemy with an uppercut, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
-  castVfxScale: 1
+  castVfx: 24
+  castVfxScale: 0.8
   skillprefab:
   - {fileID: 4147001287451143251, guid: b6301028b471c674e9ea17509f28f781, type: 3}
   skillCooldown: {fileID: 0}

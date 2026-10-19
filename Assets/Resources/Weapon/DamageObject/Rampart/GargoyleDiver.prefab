@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3742669072599135917}
   - component: {fileID: 14452425588419603}
   - component: {fileID: 4259535679663937841}
+  - component: {fileID: 3537821813030347705}
   m_Layer: 0
   m_Name: GargoyleDiver
   m_TagString: Untagged
@@ -135,3 +136,23 @@ MonoBehaviour:
   _damageScale: 0.55
   _bounceHeight: 0
   _bouncePeriod: 0.4
+--- !u!114 &3537821813030347705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5501354658138146436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa4192050858f84bb41224981f6b3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileFx
+  _spawnFx: 21
+  _endFx: 21
+  _fxScale: 0.7
+  _snapToGround: 0
+  _trailTime: 0
+  _trailWidth: 0
+  _trailColor: {r: 1, g: 1, b: 1, a: 0}
+  _trailSortingOrder: 205

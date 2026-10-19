@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5188143695280053146}
   - component: {fileID: 6923429078490928227}
   - component: {fileID: 1955040889417559777}
+  - component: {fileID: 3789061274647543718}
   m_Layer: 0
   m_Name: DeepRoot
   m_TagString: Untagged
@@ -239,3 +240,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3789061274647543718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267161789949130192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa4192050858f84bb41224981f6b3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileFx
+  _spawnFx: 23
+  _endFx: 0
+  _fxScale: 0.8
+  _snapToGround: 0
+  _trailTime: 0
+  _trailWidth: 0
+  _trailColor: {r: 1, g: 1, b: 1, a: 0}
+  _trailSortingOrder: 205

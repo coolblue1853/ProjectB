@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6860104437404817026}
   - component: {fileID: 4752583674993453058}
   - component: {fileID: 5897490564756502675}
+  - component: {fileID: 8330143972091727566}
   m_Layer: 0
   m_Name: StoneFeatherShot
   m_TagString: Untagged
@@ -192,3 +193,23 @@ MonoBehaviour:
   _isSkill: 1
   _gravity: 0
   _ignoreTerrain: 0
+--- !u!114 &8330143972091727566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3203437721538644663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa4192050858f84bb41224981f6b3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileFx
+  _spawnFx: 0
+  _endFx: 0
+  _fxScale: 1
+  _snapToGround: 0
+  _trailTime: 0.12
+  _trailWidth: 0.1
+  _trailColor: {r: 0.75, g: 0.78, b: 0.82, a: 0.6}
+  _trailSortingOrder: 205

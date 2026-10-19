@@ -110,7 +110,7 @@ MonoBehaviour:
   skillNum: 0
   skillDetail: Dash forward while clawing, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
+  castVfx: 23
   castVfxScale: 1
   skillprefab:
   - {fileID: 8267161789949130192, guid: 106ade26244533a458d5e0959ab241bd, type: 3}
@@ -215,7 +215,7 @@ MonoBehaviour:
   skillNum: 1
   skillDetail: Leap upward dramatically, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
+  castVfx: 3
   castVfxScale: 1
   skillprefab:
   - {fileID: 8267161789949130192, guid: 3eedacdd9ecae694f97e46a73816e328, type: 3}
@@ -856,8 +856,8 @@ MonoBehaviour:
   skillNum: 2
   skillDetail: Increase attack speed by 30%.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
-  castVfxScale: 1
+  castVfx: 26
+  castVfxScale: 1.2
   skillprefab:
   - {fileID: 8267161789949130192, guid: 284781346bc2e3543810fc1434071cbe, type: 3}
   skillCooldown: {fileID: 0}

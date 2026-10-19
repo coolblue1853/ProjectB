@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_DustBrown
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: 8906072520688228284, guid: 4a827749793ffe54b8ac9ef382b728d0, type: 3}
+  - {fileID: 6244224350811723370, guid: 4a827749793ffe54b8ac9ef382b728d0, type: 3}
+  - {fileID: 3689488668544726790, guid: 4a827749793ffe54b8ac9ef382b728d0, type: 3}
+  - {fileID: 762395967585187980, guid: 4a827749793ffe54b8ac9ef382b728d0, type: 3}
+  - {fileID: 7836610118649476147, guid: 4a827749793ffe54b8ac9ef382b728d0, type: 3}
+  - {fileID: -7328127469319190978, guid: 4a827749793ffe54b8ac9ef382b728d0, type: 3}
+  - {fileID: -2881308846019300423, guid: 4a827749793ffe54b8ac9ef382b728d0, type: 3}
+  - {fileID: 3141177039617073520, guid: 4a827749793ffe54b8ac9ef382b728d0, type: 3}
+  - {fileID: -604422702444379349, guid: 4a827749793ffe54b8ac9ef382b728d0, type: 3}
+  fps: 20
+  source: Tools/pixelfx/gen_magic.py

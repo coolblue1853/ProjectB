@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_GroundShock
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: 7193294095941639342, guid: f2d179747c8e4224cbc009c37145989d, type: 3}
+  - {fileID: 6685748590032323713, guid: f2d179747c8e4224cbc009c37145989d, type: 3}
+  - {fileID: 5504348946133192532, guid: f2d179747c8e4224cbc009c37145989d, type: 3}
+  - {fileID: -239114769431331563, guid: f2d179747c8e4224cbc009c37145989d, type: 3}
+  - {fileID: -8395376294163755486, guid: f2d179747c8e4224cbc009c37145989d, type: 3}
+  - {fileID: -4668952766426457957, guid: f2d179747c8e4224cbc009c37145989d, type: 3}
+  - {fileID: 3514851619463025973, guid: f2d179747c8e4224cbc009c37145989d, type: 3}
+  - {fileID: -640107017243947615, guid: f2d179747c8e4224cbc009c37145989d, type: 3}
+  fps: 20
+  source: Tools/pixelfx/gen_magic.py

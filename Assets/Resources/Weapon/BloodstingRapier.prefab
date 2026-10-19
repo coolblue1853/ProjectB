@@ -98,8 +98,8 @@ MonoBehaviour:
   skillNum: 0
   skillDetail: Slash the enemy twice, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
-  castVfxScale: 1
+  castVfx: 26
+  castVfxScale: 0.8
   skillprefab:
   - {fileID: 6313349558522444943, guid: 74cf55ac4259067438e2e337d5b1bece, type: 3}
   - {fileID: 919432640579615980, guid: 52ac612f37b575b48b51c75187175519, type: 3}
@@ -205,8 +205,8 @@ MonoBehaviour:
   skillNum: 1
   skillDetail: Generate a sweeping sword slash forward, dealing damage.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
-  castVfxScale: 1
+  castVfx: 3
+  castVfxScale: 0.9
   skillprefab:
   - {fileID: 2171719538482655060, guid: 0282bfe5a77840342b47885c287cb53d, type: 3}
   - {fileID: 2171719538482655060, guid: ef3c729a848dfa34bbda8ace71593f38, type: 3}
@@ -693,7 +693,7 @@ MonoBehaviour:
   skillNum: 2
   skillDetail: Summon a Rat Thief to fight alongside you.
   delayEffectPrefab: {fileID: 0}
-  castVfx: 0
+  castVfx: 26
   castVfxScale: 1
   skillprefab:
   - {fileID: 4960005499486500231, guid: d739b4ba296ccb648a4999eb7c3f1692, type: 3}

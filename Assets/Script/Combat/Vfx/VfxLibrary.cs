@@ -8,6 +8,8 @@ public enum VfxId
     BurstBlue, BurstPurple, BurstGold, BurstGreen,
     PillarBlue, PillarPurple, PillarGold, PillarGreen,
     RuneBlue, RunePurple, RuneGold, RuneGreen,
+    // 1층계 폴리싱 (Tools/pixelfx/gen_polish_fx.py): 연기·흙먼지·지면 충격파·붉은 폭발
+    SmokeGray, SmokePurple, DustBrown, DustStone, GroundShock, BurstRed,
 }
 
 /// <summary>이펙트 ID → 프리팹·회전·크기 매핑 (Resources/FX/VfxLibrary.asset). Magic Slashes FX의 3D 베기를 2D 화면용으로 눕혀 쓴다.</summary>
@@ -32,10 +34,10 @@ public class VfxLibrary : ScriptableObject
 
     public List<Entry> entries = new List<Entry>();
 
-    /// <summary>바닥에 붙여야 하는 이펙트(룬 마법진·빛기둥 착탄) — 시전 위치의 y를 발밑으로 내린다</summary>
+    /// <summary>바닥에 붙여야 하는 이펙트(룬 마법진·빛기둥 착탄·흙먼지·지면 충격파) — 시전 위치의 y를 발밑으로 내린다</summary>
     public static bool IsGroundFx(VfxId id)
     {
-        return id >= VfxId.PillarBlue && id <= VfxId.RuneGreen;
+        return (id >= VfxId.PillarBlue && id <= VfxId.RuneGreen) || id == VfxId.DustBrown || id == VfxId.DustStone || id == VfxId.GroundShock;
     }
 
     Dictionary<VfxId, Entry> map;
