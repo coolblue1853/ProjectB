@@ -7,7 +7,7 @@ using UnityEngine;
 ///   슬롯 1 = 기존 SaveFile.es3(호환), 2·3 = SaveSlot2/3.es3. 슬롯 번호는 PlayerPrefs "pb.saveSlot".
 /// - 시작할 때 파일을 끝까지 읽어 본다. 정상이면 .bak 을 만들고, 읽기 예외(손상)면 .bak 에서 복구한다.
 /// - saveVersion 키가 없으면 CurrentVersion 을 기록한다(이후 데이터 마이그레이션 기준점).
-/// ⚠️ 실행 중 슬롯 전환 UI 는 아직 없다: 여러 싱글턴이 AfterSceneLoad 에서 한 번만 로드해 씬 재로드로는 데이터가 섞인다(TechDebt A-202).
+/// - 슬롯 선택은 타이틀 화면(좌우). 실행 중 전환은 씬 재로드 대신 재시작(SwitchAndRestart) — 싱글턴·정적 상태가 섞이지 않게(A-202).
 /// </summary>
 public static class SaveSlots
 {
@@ -34,11 +34,35 @@ public static class SaveSlots
         VerifyAndBackup(PathOf(Current));
     }
 
-    /// <summary>다음 실행부터 쓸 슬롯을 정한다(실행 중 전환은 A-202 해결 후).</summary>
+    /// <summary>다음 실행부터 쓸 슬롯을 정한다(실행 중 전환은 SwitchAndRestart).</summary>
     public static void SetNextSlot(int slot)
     {
         PlayerPrefs.SetInt(PrefKey, Mathf.Clamp(slot, 1, Count));
         PlayerPrefs.Save();
+    }
+
+    /// <summary>
+    /// 실행 중 슬롯 전환 (A-202): 정적 상태(DatabaseManager 등)와 DontDestroyOnLoad 싱글턴이 많아 씬 재로드로는 슬롯이 섞이므로,
+    /// 다음 슬롯을 기록하고 게임을 다시 연다. 빌드는 실행 파일을 새로 띄우고 종료, 에디터는 플레이 모드를 끈다(다시 재생하면 새 슬롯).
+    /// </summary>
+    public static void SwitchAndRestart(int slot)
+    {
+        SetNextSlot(slot);
+        GameLog.Info(GameLog.Cat.Player, "세이브 슬롯 전환 → " + slot + " (재시작)");
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        try
+        {
+            string exe = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+            System.Diagnostics.Process.Start(exe);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("재시작 실패, 다음 실행부터 슬롯 " + slot + ": " + e.Message);
+        }
+        Application.Quit();
+#endif
     }
 
     static void VerifyAndBackup(string path)
@@ -78,7 +102,7 @@ public static class SaveSlots
         {
             int rank = ES3.KeyExists(AscentLoad.RankKey, path) ? ES3.Load<int>(AscentLoad.RankKey, path) : 0;
             DateTime t = ES3.GetTimestamp(path).ToLocalTime();
-            return AscentLoad.RankName(rank).ToUpperInvariant() + " EXPLORER  " + t.ToString("MM-dd HH:mm");
+            return Loc.T(AscentLoad.RankName(rank)).ToUpperInvariant() + " " + Loc.T("EXPLORER") + "  " + t.ToString("MM-dd HH:mm");
         }
         catch (Exception)
         {

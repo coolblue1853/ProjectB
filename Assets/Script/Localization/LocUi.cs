@@ -20,6 +20,7 @@ public static class LocUi
         ("Tower Gate", "탑의 문"), ("The way to the 2nd floor is open", "2층계로 가는 길이 열렸다"),
         ("ENRAGED — Calls the gang!", "격노 — 패거리를 부른다!"),
         ("Discovered: ", "발견: "),
+        ("SLOT {0}", "슬롯 {0}"), ("(restart)", "(재시작)"), ("Restarting...", "재시작 중..."),
         ("EMPTY", "비어 있음"), ("DAMAGED", "손상됨"),
 
         // ── 강화 ──

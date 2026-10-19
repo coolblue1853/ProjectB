@@ -19,6 +19,8 @@ public class TitleScreen : MonoBehaviour
 
     CanvasGroup group;
     TextMeshProUGUI prompt;
+    TextMeshProUGUI slotLine;
+    int selectedSlot;
     bool dismissed;
     float shownAt;
 
@@ -77,6 +79,11 @@ public class TitleScreen : MonoBehaviour
         prompt.text = Loc.T("PRESS ANY KEY");
         prompt.DOFade(0.25f, 0.7f).SetLoops(-1, LoopType.Yoyo).SetLink(prompt.gameObject);
 
+        // 세이브 슬롯 선택 (A-202): 좌우로 고르고 아무 키나 누르면 시작. 다른 슬롯이면 재시작해 그 슬롯으로 연다
+        selectedSlot = SaveSlots.Current;
+        slotLine = NewText("Slot", transform, theme, 28f, new Vector2(0f, -220f), new Color(0.62f, 0.82f, 1f));
+        DrawSlot();
+
         UiLock.Set("Title", true);
         shownAt = Time.unscaledTime;
         GameLog.Info(GameLog.Cat.Player, "타이틀 표시");
@@ -88,13 +95,50 @@ public class TitleScreen : MonoBehaviour
         {
             return;
         }
+        Keyboard kb = Keyboard.current;
+        Gamepad gp = Gamepad.current;
+        int step = 0;
+        if ((kb != null && (kb.leftArrowKey.wasPressedThisFrame || kb.aKey.wasPressedThisFrame)) || (gp != null && gp.dpad.left.wasPressedThisFrame))
+        {
+            step = -1;
+        }
+        else if ((kb != null && (kb.rightArrowKey.wasPressedThisFrame || kb.dKey.wasPressedThisFrame)) || (gp != null && gp.dpad.right.wasPressedThisFrame))
+        {
+            step = 1;
+        }
+        if (step != 0)
+        {
+            selectedSlot = (selectedSlot - 1 + step + SaveSlots.Count) % SaveSlots.Count + 1;
+            Sfx.Play(SfxId.UiMove, 0.6f);
+            DrawSlot();
+            return;
+        }
         bool any = (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
             || (Gamepad.current != null && (Gamepad.current.buttonSouth.wasPressedThisFrame || Gamepad.current.startButton.wasPressedThisFrame))
             || (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame);
         if (any)
         {
+            if (selectedSlot != SaveSlots.Current)
+            {
+                dismissed = true;
+                slotLine.text = Loc.T("Restarting...");
+                SaveSlots.SwitchAndRestart(selectedSlot);
+                return;
+            }
             Dismiss();
         }
+    }
+
+    void DrawSlot()
+    {
+        string mark = selectedSlot == SaveSlots.Current ? "" : "  <color=#FFD27A>" + Loc.T("(restart)") + "</color>";
+        slotLine.text = "◀  " + Loc.F("SLOT {0}", selectedSlot) + "  ·  " + SlotSummary(selectedSlot) + "  ▶" + mark;
+    }
+
+    static string SlotSummary(int slot)
+    {
+        string s = SaveSlots.Summary(slot);
+        return s == "EMPTY" || s == "DAMAGED" ? Loc.T(s) : s;
     }
 
     public static void DismissNow()

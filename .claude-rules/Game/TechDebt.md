@@ -92,7 +92,7 @@
 | B-211 | 코드 생성 머티리얼이 `Shader.Find`(Sprites/Default, Legacy Particles/Additive)에 의존 → 빌드에서 셰이더가 빠질 수 있음. Always Included 등록 또는 Resources 머티리얼로 교체 필요 | `EmitParticles`, `DropLightPillar` |
 | B-212 | ✅ 방어구 `armor`가 `playerDef`에 더해지지 않던 문제 → `EquipBoxCheck.SetEquipment`에서 `armor × 강화배율 × 0.5(Equipment.ArmorToDef)` 적용. 비율은 몬스터 공격력 조정(Lv2 튜닝)과 함께 재검토 | `EquipBoxCheck.cs`, `Equipment.cs` |
 | A-201 | 보스 5종(AncientEnt·BanditChief·GargoyleLord·Gatekeeper·GiantSlime)의 도트 밀도가 유닛당 18이라 PixelLook 24 격자에서 도트 크기가 1·1·2칸으로 고르지 않다. 24로 맞추면 크기 25% 축소 + 공격 판정 범위 재조정 필요(ArtStyle 해상도 규정은 24) | `reskin_mobs.cs`(보스 WorldPxPerUnit 18), 보스 공격 콜라이더 |
-| A-202 | 실행 중 세이브 슬롯 전환 불가: 랭크·아티팩트·도감·웨이포인트·오프닝 등 여러 싱글턴이 `RuntimeInitializeOnLoadMethod(AfterSceneLoad)`에서 한 번만 ES3 를 읽어, 슬롯을 바꾸고 씬을 재로드해도 이전 슬롯 값이 남는다. 공용 `SaveSlots.Reloaded` 이벤트로 각 싱글턴이 재로드하게 바꾼 뒤 타이틀 슬롯 UI(요약은 `SaveSlots.Summary` 준비됨)를 붙인다 | AscentLoad, ArtifactSystem, BestiaryData, WaypointMap, DialogueBoot |
+| A-202 | ✅ (2026-10-19) 타이틀 화면에서 좌우로 슬롯 선택(요약: 랭크·시각, 비어 있음/손상됨). 다른 슬롯을 고르면 `SaveSlots.SwitchAndRestart` — 씬 재로드 대신 **재시작**(빌드: 실행 파일 재실행 후 종료, 에디터: 플레이 종료). DatabaseManager 정적 상태 32개와 DDOL 싱글턴이 섞이지 않게 하려는 선택. 실행 중(게임 도중) 전환 메뉴는 없음 | TitleScreen, SaveSlots |
 
 ## P3 (정리)
 

@@ -4320,6 +4320,30 @@ MonoBehaviour:
       - "\uD68C"
       Flags: 0000
       Languages_Touch: []
+    - Term: SLOT {0}
+      TermType: 0
+      Description: 
+      Languages:
+      - SLOT {0}
+      - "\uC2AC\uB86F {0}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (restart)
+      TermType: 0
+      Description: 
+      Languages:
+      - (restart)
+      - "(\uC7AC\uC2DC\uC791)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Restarting...
+      TermType: 0
+      Description: 
+      Languages:
+      - Restarting...
+      - "\uC7AC\uC2DC\uC791 \uC911..."
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
