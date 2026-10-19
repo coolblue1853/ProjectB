@@ -1,0 +1,1163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0b0c553be8edd4682e9180fdd13e37, type: 3}
+  m_Name: I2Languages
+  m_EditorClassIdentifier: Assembly-CSharp::I2.Loc.LanguageSourceAsset
+  mSource:
+    UserAgreesToHaveItOnTheScene: 0
+    UserAgreesToHaveItInsideThePluginsFolder: 0
+    GoogleLiveSyncIsUptoDate: 1
+    mTerms:
+    - Term: A TOWER ROSE FROM THE EARTH. AN EXPLORER CLIMBS.
+      TermType: 0
+      Description: 
+      Languages:
+      - A TOWER ROSE FROM THE EARTH.  AN EXPLORER CLIMBS.
+      - "\uB545\uC5D0\uC11C \uD0D1\uC774 \uC19F\uC558\uB2E4.  \uD55C \uD0D0\uD5D8\uAC00\uAC00
+        \uC624\uB978\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PRESS ANY KEY
+      TermType: 0
+      Description: 
+      Languages:
+      - PRESS ANY KEY
+      - "\uC544\uBB34 \uD0A4\uB098 \uB204\uB974\uC138\uC694"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PAUSED
+      TermType: 0
+      Description: 
+      Languages:
+      - PAUSED
+      - "\uC77C\uC2DC\uC815\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SETTINGS
+      TermType: 0
+      Description: 
+      Languages:
+      - SETTINGS
+      - "\uC124\uC815"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RESUME
+      TermType: 0
+      Description: 
+      Languages:
+      - RESUME
+      - "\uACC4\uC18D\uD558\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: TOWER MAP
+      TermType: 0
+      Description: 
+      Languages:
+      - TOWER MAP
+      - "\uD0D1 \uC9C0\uB3C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BESTIARY
+      TermType: 0
+      Description: 
+      Languages:
+      - BESTIARY
+      - "\uB3C4\uAC10"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RETURN TO VILLAGE
+      TermType: 0
+      Description: 
+      Languages:
+      - RETURN TO VILLAGE
+      - "\uB9C8\uC744\uB85C \uADC0\uD658"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: QUIT GAME
+      TermType: 0
+      Description: 
+      Languages:
+      - QUIT GAME
+      - "\uAC8C\uC784 \uC885\uB8CC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MASTER VOLUME
+      TermType: 0
+      Description: 
+      Languages:
+      - MASTER VOLUME
+      - "\uC804\uCCB4 \uC74C\uB7C9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SCREEN SHAKE
+      TermType: 0
+      Description: 
+      Languages:
+      - SCREEN SHAKE
+      - "\uD654\uBA74 \uD754\uB4E4\uB9BC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: HIT FLASH
+      TermType: 0
+      Description: 
+      Languages:
+      - HIT FLASH
+      - "\uD53C\uACA9 \uBC88\uCA4D\uC784"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LANGUAGE
+      TermType: 0
+      Description: 
+      Languages:
+      - LANGUAGE
+      - "\uC5B8\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BACK
+      TermType: 0
+      Description: 
+      Languages:
+      - BACK
+      - "\uB4A4\uB85C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ON
+      TermType: 0
+      Description: 
+      Languages:
+      - ON
+      - "\uCF1C\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: OFF
+      TermType: 0
+      Description: 
+      Languages:
+      - OFF
+      - "\uB044\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FLOOR
+      TermType: 0
+      Description: 
+      Languages:
+      - FLOOR
+      - "\uCE35\uACC4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forest Outskirts
+      TermType: 0
+      Description: 
+      Languages:
+      - Forest Outskirts
+      - "\uC232 \uC678\uACFD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outskirts - Side Road
+      TermType: 0
+      Description: 
+      Languages:
+      - Outskirts - Side Road
+      - "\uC678\uACFD \uC0DB\uAE38"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Village at the Tower's Foot
+      TermType: 0
+      Description: 
+      Languages:
+      - Village at the Tower's Foot
+      - "\uD0D1 \uC544\uB798 \uB9C8\uC744"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Undercloud Cliffs
+      TermType: 0
+      Description: 
+      Languages:
+      - Undercloud Cliffs
+      - "\uAD6C\uB984 \uC544\uB798 \uC808\uBCBD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Normal Forest
+      TermType: 0
+      Description: 
+      Languages:
+      - Normal Forest
+      - "\uC232"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Deep Forest
+      TermType: 0
+      Description: 
+      Languages:
+      - Deep Forest
+      - "\uAE4A\uC740 \uC232"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Swamp
+      TermType: 0
+      Description: 
+      Languages:
+      - Swamp
+      - "\uB2AA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bandit Fortress
+      TermType: 0
+      Description: 
+      Languages:
+      - Bandit Fortress
+      - "\uC0B0\uC801 \uC131\uCC44"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tower Outskirts
+      TermType: 0
+      Description: 
+      Languages:
+      - Tower Outskirts
+      - "\uD0D1 \uADFC\uAD50"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Broken Rampart
+      TermType: 0
+      Description: 
+      Languages:
+      - Broken Rampart
+      - "\uBB34\uB108\uC9C4 \uC131\uBCBD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: A guardian of the Tower appears
+      TermType: 0
+      Description: 
+      Languages:
+      - A guardian of the Tower appears
+      - "\uD0D1\uC758 \uC218\uD638\uC790\uAC00 \uB098\uD0C0\uB0AC\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: DEFEATED
+      TermType: 0
+      Description: 
+      Languages:
+      - DEFEATED
+      - "\uCC98\uCE58"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rewards dropped
+      TermType: 0
+      Description: 
+      Languages:
+      - Rewards dropped
+      - "\uBCF4\uC0C1\uC774 \uB5A8\uC5B4\uC84C\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rank Up
+      TermType: 0
+      Description: 
+      Languages:
+      - Rank Up
+      - "\uC2B9\uAE09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: EXPLORER
+      TermType: 0
+      Description: 
+      Languages:
+      - EXPLORER
+      - "\uD0D0\uD5D8\uAC00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Novice
+      TermType: 0
+      Description: 
+      Languages:
+      - Novice
+      - "\uC0C8\uB0B4\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dawn
+      TermType: 0
+      Description: 
+      Languages:
+      - Dawn
+      - "\uC0C8\uBCBD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cloudsea
+      TermType: 0
+      Description: 
+      Languages:
+      - Cloudsea
+      - "\uC6B4\uD574"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Deepgreen
+      TermType: 0
+      Description: 
+      Languages:
+      - Deepgreen
+      - "\uC2EC\uB85D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Crimson
+      TermType: 0
+      Description: 
+      Languages:
+      - Crimson
+      - "\uC9C4\uD64D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blackstone
+      TermType: 0
+      Description: 
+      Languages:
+      - Blackstone
+      - "\uD751\uC11D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Abyss
+      TermType: 0
+      Description: 
+      Languages:
+      - Abyss
+      - "\uC2EC\uC5F0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Whitelight
+      TermType: 0
+      Description: 
+      Languages:
+      - Whitelight
+      - "\uBC31\uAD11"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: gold
+      TermType: 0
+      Description: 
+      Languages:
+      - gold
+      - "\uACE8\uB4DC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Well done! Here is your reward.
+      TermType: 0
+      Description: 
+      Languages:
+      - Well done! Here is your reward.
+      - "\uC798\uD588\uC5B4\uC694! \uBCF4\uC0C1\uC744 \uBC1B\uC73C\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Report back to the quest board.
+      TermType: 0
+      Description: 
+      Languages:
+      - Report back to the quest board.
+      - "\uD018\uC2A4\uD2B8 \uAC8C\uC2DC\uD310\uC5D0 \uBCF4\uACE0\uD558\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Report back to the Village Elder.
+      TermType: 0
+      Description: 
+      Languages:
+      - Report back to the Village Elder.
+      - "\uCD0C\uC7A5\uC5D0\uAC8C \uBCF4\uACE0\uD558\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Report to the quest board
+      TermType: 0
+      Description: 
+      Languages:
+      - Report to the quest board
+      - "\uD018\uC2A4\uD2B8 \uAC8C\uC2DC\uD310\uC5D0 \uBCF4\uACE0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Report to the Village Elder
+      TermType: 0
+      Description: 
+      Languages:
+      - Report to the Village Elder
+      - "\uCD0C\uC7A5\uC5D0\uAC8C \uBCF4\uACE0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: complete! Report to the quest board.
+      TermType: 0
+      Description: 
+      Languages:
+      - ' complete! Report to the quest board.'
+      - " \uC644\uB8CC! \uD018\uC2A4\uD2B8 \uAC8C\uC2DC\uD310\uC5D0 \uBCF4\uACE0\uD558\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: complete! Report to the Village Elder.
+      TermType: 0
+      Description: 
+      Languages:
+      - ' complete! Report to the Village Elder.'
+      - " \uC644\uB8CC! \uCD0C\uC7A5\uC5D0\uAC8C \uBCF4\uACE0\uD558\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rabbit Trouble
+      TermType: 0
+      Description: 
+      Languages:
+      - Rabbit Trouble
+      - "\uD1A0\uB07C \uC18C\uB3D9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The rabbits by the forest road are eating our crops. Drive off 10 of
+        them!
+      TermType: 0
+      Description: 
+      Languages:
+      - The rabbits by the forest road are eating our crops. Drive off 10 of them!
+      - "\uC232\uAE38 \uD1A0\uB07C\uB4E4\uC774 \uBC2D\uC744 \uAC09\uC544\uBA39\uACE0
+        \uC788\uC5B4\uC694. 10\uB9C8\uB9AC\uB9CC \uCAD3\uC544\uB0B4 \uC8FC\uC138\uC694!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hunt rabbits on the forest road.
+      TermType: 0
+      Description: 
+      Languages:
+      - Hunt rabbits on the forest road.
+      - "\uC232\uAE38\uC5D0\uC11C \uD1A0\uB07C\uB97C \uC0AC\uB0E5\uD558\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Mole Menace
+      TermType: 0
+      Description: 
+      Languages:
+      - Mole Menace
+      - "\uB450\uB354\uC9C0 \uACE8\uCE6B\uAC70\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Moles are digging under the side road. Take down 8 of them.
+      TermType: 0
+      Description: 
+      Languages:
+      - Moles are digging under the side road. Take down 8 of them.
+      - "\uC0DB\uAE38 \uC544\uB798\uB97C \uB450\uB354\uC9C0\uB4E4\uC774 \uD30C\uD5E4\uCE58\uACE0
+        \uC788\uC5B4\uC694. 8\uB9C8\uB9AC\uB97C \uCC98\uCE58\uD558\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hunt moles on the forest side road.
+      TermType: 0
+      Description: 
+      Languages:
+      - Hunt moles on the forest side road.
+      - "\uC232 \uC0DB\uAE38\uC5D0\uC11C \uB450\uB354\uC9C0\uB97C \uC0AC\uB0E5\uD558\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The Passive Terror
+      TermType: 0
+      Description: 
+      Languages:
+      - The Passive Terror
+      - "\uC7A0\uC7A0\uD55C \uACF5\uD3EC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Something lurks on the side road at night. Defeat the Passive Terror.
+      TermType: 0
+      Description: 
+      Languages:
+      - Something lurks on the side road at night. Defeat the Passive Terror.
+      - "\uBC24\uC758 \uC0DB\uAE38\uC5D0 \uBB34\uC5B8\uAC00 \uB3C4\uC0AC\uB9AC\uACE0
+        \uC788\uC5B4\uC694. \uC7A0\uC7A0\uD55C \uACF5\uD3EC\uB97C \uC4F0\uB7EC\uB728\uB9AC\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Defeat the Passive Terror at night.
+      TermType: 0
+      Description: 
+      Languages:
+      - Defeat the Passive Terror at night.
+      - "\uBC24\uC5D0 \uC7A0\uC7A0\uD55C \uACF5\uD3EC\uB97C \uC4F0\uB7EC\uB728\uB9AC\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Into the Cliffs
+      TermType: 0
+      Description: 
+      Languages:
+      - Into the Cliffs
+      - "\uC808\uBCBD \uC18D\uC73C\uB85C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Goblins have taken the Magic Cliffs. Clear out 10 of them.
+      TermType: 0
+      Description: 
+      Languages:
+      - Goblins have taken the Magic Cliffs. Clear out 10 of them.
+      - "\uACE0\uBE14\uB9B0\uB4E4\uC774 \uB9C8\uBC95 \uC808\uBCBD\uC744 \uCC28\uC9C0\uD588\uC5B4\uC694.
+        10\uB9C8\uB9AC\uB97C \uC18C\uD0D5\uD558\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hunt Cliff Goblins at the Magic Cliffs.
+      TermType: 0
+      Description: 
+      Languages:
+      - Hunt Cliff Goblins at the Magic Cliffs.
+      - "\uB9C8\uBC95 \uC808\uBCBD\uC5D0\uC11C \uC808\uBCBD \uACE0\uBE14\uB9B0\uC744
+        \uC0AC\uB0E5\uD558\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The Abyss Wizard
+      TermType: 0
+      Description: 
+      Languages:
+      - The Abyss Wizard
+      - "\uC2EC\uC5F0\uC758 \uB9C8\uBC95\uC0AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: An Abyss Wizard commands the cliffs at night. End his reign.
+      TermType: 0
+      Description: 
+      Languages:
+      - An Abyss Wizard commands the cliffs at night. End his reign.
+      - "\uBC24\uB9C8\uB2E4 \uC2EC\uC5F0\uC758 \uB9C8\uBC95\uC0AC\uAC00 \uC808\uBCBD\uC744
+        \uB2E4\uC2A4\uB824\uC694. \uADF8 \uC9C0\uBC30\uB97C \uB05D\uB0B4\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Defeat the Abyss Wizard at the cliff altar.
+      TermType: 0
+      Description: 
+      Languages:
+      - Defeat the Abyss Wizard at the cliff altar.
+      - "\uC808\uBCBD \uC81C\uB2E8\uC5D0\uC11C \uC2EC\uC5F0\uC758 \uB9C8\uBC95\uC0AC\uB97C
+        \uC4F0\uB7EC\uB728\uB9AC\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Firewood
+      TermType: 0
+      Description: 
+      Languages:
+      - Firewood
+      - "\uB554\uAC10"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Winter is coming. Bring me 10 pieces of wood from the forest.
+      TermType: 0
+      Description: 
+      Languages:
+      - Winter is coming. Bring me 10 pieces of wood from the forest.
+      - "\uACA8\uC6B8\uC774 \uB2E4\uAC00\uC640\uC694. \uC232\uC5D0\uC11C \uB098\uBB34
+        10\uAC1C\uB97C \uAC00\uC838\uB2E4\uC8FC\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pick up wood in the forest.
+      TermType: 0
+      Description: 
+      Languages:
+      - Pick up wood in the forest.
+      - "\uC232\uC5D0\uC11C \uB098\uBB34\uB97C \uC8FC\uC6B0\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Healer's Request
+      TermType: 0
+      Description: 
+      Languages:
+      - Healer's Request
+      - "\uCE58\uC720\uC0AC\uC758 \uBD80\uD0C1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gather 6 green herbs for the village healer.
+      TermType: 0
+      Description: 
+      Languages:
+      - Gather 6 green herbs for the village healer.
+      - "\uB9C8\uC744 \uCE58\uC720\uC0AC\uC5D0\uAC8C \uC904 \uCD08\uB85D \uC57D\uCD08
+        6\uAC1C\uB97C \uBAA8\uC544 \uC8FC\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pick up green herbs.
+      TermType: 0
+      Description: 
+      Languages:
+      - Pick up green herbs.
+      - "\uCD08\uB85D \uC57D\uCD08\uB97C \uC8FC\uC6B0\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Smith's Apprentice
+      TermType: 0
+      Description: 
+      Languages:
+      - Smith's Apprentice
+      - "\uB300\uC7A5\uC7A5\uC774 \uACAC\uC2B5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Craft 2 items at the smiths.
+      TermType: 0
+      Description: 
+      Languages:
+      - Craft 2 items at the smiths.
+      - "\uB300\uC7A5\uAC04\uC5D0\uC11C \uC7A5\uBE44 2\uAC1C\uB97C \uC81C\uC791\uD558\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Father's Traces I
+      TermType: 0
+      Description: 
+      Languages:
+      - Father's Traces I
+      - "\uC544\uBC84\uC9C0\uC758 \uD754\uC801 I"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Defeat the Ancient Ent in the Deep Forest.
+      TermType: 0
+      Description: 
+      Languages:
+      - Defeat the Ancient Ent in the Deep Forest.
+      - "\uAE4A\uC740 \uC232\uC758 \uACE0\uB300 \uC5D4\uD2B8\uB97C \uC4F0\uB7EC\uB728\uB9AC\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The crest was carved deep into its heartwood... He passed that grove
+        alive, and kept climbing. His trail leads to the Tower Outskirts. Rest first,
+        child.
+      TermType: 0
+      Description: 
+      Languages:
+      - The crest was carved deep into its heartwood... He passed that grove alive,
+        and kept climbing. His trail leads to the Tower Outskirts. Rest first, child.
+      - "\uBB38\uC7A5\uC774 \uADF8 \uC2EC\uC7AC \uAE4A\uC219\uC774 \uC0C8\uACA8\uC838
+        \uC788\uC5C8\uAD6C\uB098... \uADF8\uB294 \uADF8 \uC232\uC744 \uC0B4\uC544\uC11C
+        \uC9C0\uB098 \uACC4\uC18D \uC62C\uB77C\uAC14\uB2E4. \uBC1C\uC790\uCDE8\uB294
+        \uD0D1 \uADFC\uAD50\uB85C \uC774\uC5B4\uC9C4\uB2E4. \uC6B0\uC120 \uC26C\uC5B4\uB77C,
+        \uC544\uC774\uC57C."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Explorer
+      TermType: 0
+      Description: 
+      Languages:
+      - Explorer
+      - "\uD0D0\uD5D8\uAC00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: You
+      TermType: 0
+      Description: 
+      Languages:
+      - You
+      - "\uB098"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Village Elder
+      TermType: 0
+      Description: 
+      Languages:
+      - Village Elder
+      - "\uCD0C\uC7A5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Smith Brann
+      TermType: 0
+      Description: 
+      Languages:
+      - Smith Brann
+      - "\uB300\uC7A5\uC7A5\uC774 \uBE0C\uB780"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Merchant Ilsa
+      TermType: 0
+      Description: 
+      Languages:
+      - Merchant Ilsa
+      - "\uC0C1\uC778 \uC77C\uC0AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gatekeeper of the Tower
+      TermType: 0
+      Description: 
+      Languages:
+      - Gatekeeper of the Tower
+      - "\uD0D1\uC758 \uBB38\uC9C0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The Tower. It swallows the sky above the village.
+      TermType: 0
+      Description: 
+      Languages:
+      - The Tower. It swallows the sky above the village.
+      - "\uD0D1. \uB9C8\uC744 \uC704 \uD558\uB298\uC744 \uC0BC\uD0A4\uACE0 \uC11C
+        \uC788\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Father climbed it to find a cure for me... and never came back down.
+      TermType: 0
+      Description: 
+      Languages:
+      - Father climbed it to find a cure for me... and never came back down.
+      - "\uC544\uBC84\uC9C0\uB294 \uB098\uB97C \uACE0\uCE60 \uBC29\uBC95\uC744 \uCC3E\uC73C\uB7EC
+        \uC800\uAE30\uC5D0 \uC62C\uB790\uB2E4... \uADF8\uB9AC\uACE0 \uB3CC\uC544\uC624\uC9C0
+        \uC54A\uC558\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: This brooch was his. If I fall up there, it will carry me home.
+      TermType: 0
+      Description: 
+      Languages:
+      - This brooch was his. If I fall up there, it will carry me home.
+      - "\uC774 \uBE0C\uB85C\uCE58\uB294 \uC544\uBC84\uC9C0\uC758 \uAC83. \uC800
+        \uC704\uC5D0\uC11C \uC4F0\uB7EC\uC838\uB3C4, \uC774\uAC83\uC774 \uB098\uB97C
+        \uC9D1\uC73C\uB85C \uB370\uB824\uB2E4\uC904 \uAC70\uC57C."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Whatever waits on the higher floors - I'm going to find him.
+      TermType: 0
+      Description: 
+      Languages:
+      - Whatever waits on the higher floors - I'm going to find him.
+      - "\uC704\uCE35\uC5D0 \uBB34\uC5C7\uC774 \uAE30\uB2E4\uB9AC\uB4E0 - \uB098\uB294
+        \uC544\uBC84\uC9C0\uB97C \uCC3E\uC744 \uAC70\uC57C."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ah... you wear his brooch. So you are the child he spoke of.
+      TermType: 0
+      Description: 
+      Languages:
+      - Ah... you wear his brooch. So you are the child he spoke of.
+      - "\uC544... \uADF8 \uC0AC\uB78C\uC758 \uBE0C\uB85C\uCE58\uB97C \uB2EC\uACE0
+        \uC788\uAD6C\uB098. \uB124\uAC00 \uADF8\uAC00 \uB9D0\uD558\uB358 \uC544\uC774\uB85C\uAD6C\uB098."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ask what you must, explorer.
+      TermType: 0
+      Description: 
+      Languages:
+      - Ask what you must, explorer.
+      - "\uBB3C\uC744 \uAC83\uC774 \uC788\uC73C\uBA74 \uBB3B\uAC70\uB77C, \uD0D0\uD5D8\uAC00."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Is there anything I can do?
+      TermType: 0
+      Description: 
+      Languages:
+      - Is there anything I can do?
+      - "\uC81C\uAC00 \uB3C4\uC6B8 \uC77C\uC774 \uC788\uC744\uAE4C\uC694?"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: There is. Let me tell you what the hunters found.
+      TermType: 0
+      Description: 
+      Languages:
+      - There is. Let me tell you what the hunters found.
+      - "\uC788\uC9C0. \uC0AC\uB0E5\uAFBC\uB4E4\uC774 \uCC3E\uC544\uB0B8 \uAC83\uC744
+        \uB4E4\uB824\uC8FC\uB9C8."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: About my father...
+      TermType: 0
+      Description: 
+      Languages:
+      - About my father...
+      - "\uC544\uBC84\uC9C0\uC5D0 \uB300\uD574\uC11C..."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: He passed through here many winters ago, set on reaching the top.
+      TermType: 0
+      Description: 
+      Languages:
+      - He passed through here many winters ago, set on reaching the top.
+      - "\uC5EC\uB7EC \uD574 \uC804 \uACA8\uC6B8, \uAF2D\uB300\uAE30\uC5D0 \uB2FF\uACA0\uB2E4\uBA70
+        \uC774\uACF3\uC744 \uC9C0\uB098\uAC14\uC9C0."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rumor says the Tower changed him. That he now guards one of its gates.
+      TermType: 0
+      Description: 
+      Languages:
+      - Rumor says the Tower changed him. That he now guards one of its gates.
+      - "\uD0D1\uC774 \uADF8\uB97C \uBC14\uAFD4 \uB193\uC558\uB2E4\uB294 \uC18C\uBB38\uC774
+        \uC788\uB2E8\uB2E4. \uC9C0\uAE08\uC740 \uD0D1\uC758 \uBB38 \uD558\uB098\uB97C
+        \uC9C0\uD0A4\uACE0 \uC788\uB2E4\uB354\uAD6C\uB098."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Why is climbing so hard?
+      TermType: 0
+      Description: 
+      Languages:
+      - Why is climbing so hard?
+      - "\uC65C \uC624\uB974\uAE30\uAC00 \uC774\uB807\uAC8C \uD798\uB4E0\uAC00\uC694?"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The Tower presses on those who climb. We call it the ascent load.
+      TermType: 0
+      Description: 
+      Languages:
+      - The Tower presses on those who climb. We call it the ascent load.
+      - "\uD0D1\uC740 \uC624\uB974\uB294 \uC774\uB97C \uC9D3\uB204\uB978\uB2E8\uB2E4.
+        \uC6B0\uB9AC\uB294 \uADF8\uAC83\uC744 \uC0C1\uC2B9 \uBD80\uD558\uB77C \uBD80\uB974\uC9C0."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Each floor weighs more. Earn higher ranks as an explorer and you will
+        bear it.
+      TermType: 0
+      Description: 
+      Languages:
+      - Each floor weighs more. Earn higher ranks as an explorer and you will bear
+        it.
+      - "\uCE35\uACC4\uB9C8\uB2E4 \uB354 \uBB34\uAC70\uC6CC\uC9C4\uB2E4. \uD0D0\uD5D8\uAC00\uB85C\uC11C
+        \uB4F1\uAE09\uC744 \uC62C\uB9AC\uBA74 \uACAC\uB51C \uC218 \uC788\uC744 \uAC8C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Going down is always free. Coming back up is the test.
+      TermType: 0
+      Description: 
+      Languages:
+      - Going down is always free. Coming back up is the test.
+      - "\uB0B4\uB824\uAC00\uB294 \uAE38\uC740 \uC5B8\uC81C\uB098 \uAC70\uC800\uB2E4.
+        \uB2E4\uC2DC \uC624\uB974\uB294 \uAC83\uC774 \uC2DC\uD5D8\uC774\uC9C0."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: What does the brooch do?
+      TermType: 0
+      Description: 
+      Languages:
+      - What does the brooch do?
+      - "\uBE0C\uB85C\uCE58\uB294 \uBB34\uC2A8 \uD798\uC774 \uC788\uB098\uC694?"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: If you fall, it pulls you back to this village.
+      TermType: 0
+      Description: 
+      Languages:
+      - If you fall, it pulls you back to this village.
+      - "\uC4F0\uB7EC\uC9C0\uBA74 \uB108\uB97C \uC774 \uB9C8\uC744\uB85C \uB04C\uC5B4\uB2F9\uACA8
+        \uC900\uB2E8\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: What you wear stays with you. Loose spoils... the Tower may keep.
+      TermType: 0
+      Description: 
+      Languages:
+      - What you wear stays with you. Loose spoils... the Tower may keep.
+      - "\uBAB8\uC5D0 \uAC78\uCE5C \uAC83\uC740 \uB0A8\uC9C0\uB9CC, \uD769\uC5B4\uC9C4
+        \uC804\uB9AC\uD488\uC740... \uD0D1\uC774 \uAC00\uC838\uAC08\uC9C0\uB3C4 \uBAA8\uB974\uC9C0."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: I should go.
+      TermType: 0
+      Description: 
+      Languages:
+      - I should go.
+      - "\uC774\uB9CC \uAC00 \uBCFC\uAC8C\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Return alive. That is all an old man asks.
+      TermType: 0
+      Description: 
+      Languages:
+      - Return alive. That is all an old man asks.
+      - "\uC0B4\uC544\uC11C \uB3CC\uC544\uC624\uB108\uB77C. \uB299\uC740\uC774\uC758
+        \uBC14\uB78C\uC740 \uADF8\uAC83\uBFD0\uC774\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Steel's hot. What do you need?
+      TermType: 0
+      Description: 
+      Languages:
+      - Steel's hot. What do you need?
+      - "\uC1E0\uAC00 \uB2EC\uAD88\uC84C\uC5B4. \uBB50\uAC00 \uD544\uC694\uD574?"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: How do I get stronger gear?
+      TermType: 0
+      Description: 
+      Languages:
+      - How do I get stronger gear?
+      - "\uB354 \uAC15\uD55C \uC7A5\uBE44\uB294 \uC5B4\uB5BB\uAC8C \uC5BB\uC8E0?"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bring me Floor Crystals. I can temper your gear up to +10.
+      TermType: 0
+      Description: 
+      Languages:
+      - Bring me Floor Crystals. I can temper your gear up to +10.
+      - "\uCE35\uACC4 \uACB0\uC815\uC744 \uAC00\uC838\uC640. \uC7A5\uBE44\uB97C +10\uAE4C\uC9C0
+        \uB2F4\uAE08\uC9C8\uD574 \uC8FC\uC9C0."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Past +5 the metal fights back. Failures happen - don't cry about it.
+      TermType: 0
+      Description: 
+      Languages:
+      - Past +5 the metal fights back. Failures happen - don't cry about it.
+      - "+5\uB97C \uB118\uC73C\uBA74 \uC1E0\uAC00 \uBC84\uD168. \uC2E4\uD328\uB3C4
+        \uD558\uC9C0 - \uC6B8\uC9C0\uB294 \uB9D0\uACE0."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tell me about gear sets.
+      TermType: 0
+      Description: 
+      Languages:
+      - Tell me about gear sets.
+      - "\uC138\uD2B8 \uC7A5\uBE44\uC5D0 \uB300\uD574 \uC54C\uB824 \uC8FC\uC138\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pieces cut from the same monster resonate when worn together.
+      TermType: 0
+      Description: 
+      Languages:
+      - Pieces cut from the same monster resonate when worn together.
+      - "\uAC19\uC740 \uBAAC\uC2A4\uD130\uC5D0\uAC8C\uC11C \uC5BB\uC740 \uC870\uAC01\uC740
+        \uD568\uAED8 \uC785\uC73C\uBA74 \uACF5\uBA85\uD558\uC9C0."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Two, three, four pieces - each wakes a stronger bonus. Hunt for the full
+        set.
+      TermType: 0
+      Description: 
+      Languages:
+      - Two, three, four pieces - each wakes a stronger bonus. Hunt for the full
+        set.
+      - "\uB458, \uC14B, \uB137 - \uBAA8\uC77C\uC218\uB85D \uB354 \uAC15\uD55C \uD6A8\uACFC\uAC00
+        \uAE68\uC5B4\uB098. \uC138\uD2B8\uB97C \uB2E4 \uBAA8\uC544 \uBD10."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Thanks, Brann.
+      TermType: 0
+      Description: 
+      Languages:
+      - Thanks, Brann.
+      - "\uACE0\uB9C8\uC6CC\uC694, \uBE0C\uB780."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Don't break it on the first floor.
+      TermType: 0
+      Description: 
+      Languages:
+      - Don't break it on the first floor.
+      - "1\uCE35\uACC4\uC5D0\uC11C \uBD80\uB7EC\uB728\uB9AC\uC9C4 \uB9C8\uB77C."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Welcome! Potions, food, odds and ends - fresh from the lower floors.
+      TermType: 0
+      Description: 
+      Languages:
+      - Welcome! Potions, food, odds and ends - fresh from the lower floors.
+      - "\uC5B4\uC11C \uC640\uC694! \uBB3C\uC57D, \uC74C\uC2DD, \uC7A1\uB3D9\uC0AC\uB2C8
+        - \uC544\uB798\uCE35\uC5D0\uC11C \uAC13 \uAC00\uC838\uC628 \uBB3C\uAC74\uC774\uC5D0\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Any advice for the forest?
+      TermType: 0
+      Description: 
+      Languages:
+      - Any advice for the forest?
+      - "\uC232\uC5D0 \uB300\uD574 \uC870\uC5B8\uD574 \uC904 \uAC8C \uC788\uB098\uC694?"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The outskirts are calm by day. At night the rats come out, big ones.
+      TermType: 0
+      Description: 
+      Languages:
+      - The outskirts are calm by day. At night the rats come out, big ones.
+      - "\uC678\uACFD\uC740 \uB0AE\uC5D4 \uC870\uC6A9\uD574\uC694. \uBC24\uC774 \uB418\uBA74
+        \uC950\uB4E4\uC774 \uB098\uC640\uC694, \uC544\uC8FC \uD070 \uB188\uB4E4\uC774\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Carry stew. A full belly has saved more explorers than any sword.
+      TermType: 0
+      Description: 
+      Languages:
+      - Carry stew. A full belly has saved more explorers than any sword.
+      - "\uC2A4\uD29C\uB97C \uCC59\uAE30\uC138\uC694. \uB4E0\uB4E0\uD55C \uBC30\uAC00
+        \uC5B4\uB5A4 \uAC80\uBCF4\uB2E4 \uB9CE\uC740 \uD0D0\uD5D8\uAC00\uB97C \uC0B4\uB838\uAC70\uB4E0\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: What sells well?
+      TermType: 0
+      Description: 
+      Languages:
+      - What sells well?
+      - "\uBB50\uAC00 \uC798 \uD314\uB824\uC694?"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Relics from higher floors fetch a fortune. Monster parts, not so much.
+      TermType: 0
+      Description: 
+      Languages:
+      - Relics from higher floors fetch a fortune. Monster parts, not so much.
+      - "\uC704\uCE35 \uC720\uBB3C\uC740 \uD070\uB3C8\uC774 \uB3FC\uC694. \uBAAC\uC2A4\uD130
+        \uBD80\uC0B0\uBB3C\uC740 \uADF8\uB2E4\uC9C0\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: See you later.
+      TermType: 0
+      Description: 
+      Languages:
+      - See you later.
+      - "\uB2E4\uC74C\uC5D0 \uBD10\uC694."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Come back with coin!
+      TermType: 0
+      Description: 
+      Languages:
+      - Come back with coin!
+      - "\uB3C8 \uBC8C\uC5B4\uC11C \uB610 \uC640\uC694!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ...None... shall pass... the gate.
+      TermType: 0
+      Description: 
+      Languages:
+      - ...None... shall pass... the gate.
+      - "...\uC544\uBB34\uB3C4... \uC774 \uBB38\uC744... \uC9C0\uB098\uC9C0 \uBABB\uD55C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: A giant in armor, older than the ruins around it.
+      TermType: 0
+      Description: 
+      Languages:
+      - A giant in armor, older than the ruins around it.
+      - "\uAC11\uC637\uC744 \uB450\uB978 \uAC70\uC778. \uC8FC\uC704\uC758 \uD3D0\uD5C8\uBCF4\uB2E4\uB3C4
+        \uC624\uB798\uB418\uC5B4 \uBCF4\uC778\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: That crest on its chest... it's the same pattern as my brooch.
+      TermType: 0
+      Description: 
+      Languages:
+      - That crest on its chest... it's the same pattern as my brooch.
+      - "\uAC00\uC2B4\uC758 \uC800 \uBB38\uC7A5... \uB0B4 \uBE0C\uB85C\uCE58\uC640
+        \uAC19\uC740 \uBB34\uB2AC\uC57C."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ...Father?
+      TermType: 0
+      Description: 
+      Languages:
+      - ...Father?
+      - "...\uC544\uBC84\uC9C0?"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ...Turn... back...
+      TermType: 0
+      Description: 
+      Languages:
+      - ...Turn... back...
+      - "...\uB3CC\uC544... \uAC00\uB77C..."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: No. Whatever you are, I'm going up.
+      TermType: 0
+      Description: 
+      Languages:
+      - No. Whatever you are, I'm going up.
+      - "\uC544\uB2C8. \uB2F9\uC2E0\uC774 \uBB34\uC5C7\uC774\uB4E0, \uB098\uB294
+        \uC62C\uB77C\uAC08 \uAC70\uC57C."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FLOOR 1 THE FOREST
+      TermType: 0
+      Description: 
+      Languages:
+      - "FLOOR 1  \xB7  THE FOREST"
+      - "1\uCE35\uACC4  \xB7  \uC232"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP DOWN LEFT RIGHT adjust ESC back
+      TermType: 0
+      Description: 
+      Languages:
+      - "UP/DOWN  \xB7  LEFT/RIGHT adjust  \xB7  ESC back"
+      - "\uC704/\uC544\uB798  \xB7  \uC88C/\uC6B0 \uC870\uC808  \xB7  ESC \uB4A4\uB85C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP DOWN SELECT ENTER ESC resume
+      TermType: 0
+      Description: 
+      Languages:
+      - "UP/DOWN  \xB7  SELECT / ENTER  \xB7  ESC resume"
+      - "\uC704/\uC544\uB798  \xB7  \uC120\uD0DD / ENTER  \xB7  ESC \uACC4\uC18D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ENRAGED Phase 2
+      TermType: 0
+      Description: 
+      Languages:
+      - "ENRAGED \u2014 Phase 2"
+      - "\uACA9\uB178 \u2014 2\uD398\uC774\uC988"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FRENZY Phase 3
+      TermType: 0
+      Description: 
+      Languages:
+      - "FRENZY \u2014 Phase 3"
+      - "\uAD11\uD3ED \u2014 3\uD398\uC774\uC988"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Unique:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Unique: '
+      - "\uACE0\uC720: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Reward:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Reward: '
+      - "\uBCF4\uC0C1: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Show me you can work a forge craft any 2 pieces of gear at the smiths.
+      TermType: 0
+      Description: 
+      Languages:
+      - "Show me you can work a forge \u2014 craft any 2 pieces of gear at the smiths."
+      - "\uD654\uB85C\uB97C \uB2E4\uB8F0 \uC904 \uC544\uB294\uC9C0 \uBCF4\uC5EC \uC918
+        \u2014 \uB300\uC7A5\uAC04\uC5D0\uC11C \uC7A5\uBE44 2\uAC1C\uB97C \uB9CC\uB4E4\uC5B4
+        \uBD10."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hunters found strange marks carved on the trees of the Deep Forest the
+        same crest as your brooch. An Ancient Ent has taken root over that grove.
+        Defeat it, and see what your father left behind.
+      TermType: 0
+      Description: 
+      Languages:
+      - "Hunters found strange marks carved on the trees of the Deep Forest \u2014
+        the same crest as your brooch. An Ancient Ent has taken root over that grove.
+        Defeat it, and see what your father left behind."
+      - "\uC0AC\uB0E5\uAFBC\uB4E4\uC774 \uAE4A\uC740 \uC232 \uB098\uBB34\uC5D0 \uC0C8\uACA8\uC9C4
+        \uC774\uC0C1\uD55C \uBB38\uC591\uC744 \uCC3E\uC558\uB2E8\uB2E4. \uB124 \uBE0C\uB85C\uCE58\uC640
+        \uAC19\uC740 \uBB38\uC7A5\uC774\uC57C. \uADF8 \uC232\uC5D0\uB294 \uACE0\uB300
+        \uC5D4\uD2B8\uAC00 \uBFCC\uB9AC\uB97C \uB0B4\uB838\uC9C0. \uADF8\uAC83\uC744
+        \uC4F0\uB7EC\uB728\uB9AC\uACE0, \uB124 \uC544\uBC84\uC9C0\uAC00 \uB0A8\uAE34
+        \uAC83\uC744 \uD655\uC778\uD558\uB834."
+      Flags: 0000
+      Languages_Touch: []
+    CaseInsensitiveTerms: 0
+    OnMissingTranslation: 1
+    mTerm_AppName: 
+    mLanguages:
+    - Name: English
+      Code: en
+      Flags: 0
+    - Name: Korean
+      Code: ko
+      Flags: 0
+    IgnoreDeviceLanguage: 0
+    _AllowUnloadingLanguages: 0
+    Google_WebServiceURL: 
+    Google_SpreadsheetKey: 
+    Google_SpreadsheetName: 
+    Google_LastUpdatedVersion: 
+    Google_Password: change_this
+    GoogleUpdateFrequency: 3
+    GoogleInEditorCheckFrequency: 2
+    GoogleUpdateSynchronization: 1
+    GoogleUpdateDelay: 0
+    Assets: []
+    Spreadsheet_LocalFileName: 
+    Spreadsheet_LocalCSVSeparator: ','
+    Spreadsheet_LocalCSVEncoding: utf-8
+    Spreadsheet_SpecializationAsRows: 1
+    Spreadsheet_SortRows: 1

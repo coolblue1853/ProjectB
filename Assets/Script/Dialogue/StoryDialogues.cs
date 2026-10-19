@@ -75,7 +75,7 @@ public static class StoryDialogues
         DialogueEntry e = template.CreateDialogueEntry(v.next++, v.c.id, "");
         e.ActorID = speaker;
         e.ConversantID = speaker == PlayerId ? v.c.ConversantID : PlayerId;
-        e.DialogueText = text;
+        e.DialogueText = text; // 영어 원문 — 대사창(PixelDialogueUI)이 표시할 때 Loc.T 로 번역
         v.c.dialogueEntries.Add(e);
         return e;
     }

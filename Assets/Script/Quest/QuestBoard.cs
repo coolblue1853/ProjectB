@@ -86,11 +86,12 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
 
     Quest Build(QuestCatalog.Def d)
     {
-        var qb = new QuestBuilder(d.title, d.id, d.title);
+        string title = Loc.T(d.title);
+        var qb = new QuestBuilder(title, d.id, title);
         qb.quest.isTrackable = true;
         qb.quest.showInTrackHUD = true;
-        qb.AddOfferContents(qb.CreateTitleContent(), qb.CreateBodyContent(d.offer),
-            qb.CreateBodyContent("Reward: " + d.gold + " gold" + (d.stones > 0 ? ", " + d.stones + " " + EnhanceRules.StoneDisplay + (d.stones > 1 ? "s" : "") : "")));
+        qb.AddOfferContents(qb.CreateTitleContent(), qb.CreateBodyContent(Loc.T(d.offer)),
+            qb.CreateBodyContent(Loc.T("Reward: ") + d.gold + " " + Loc.T("gold") + (d.stones > 0 ? ", " + d.stones + " " + EnhanceRules.StoneDisplay + (d.stones > 1 && !Loc.IsKorean ? "s" : "") : "")));
 
         if (!string.IsNullOrEmpty(d.requires))
         {
@@ -114,18 +115,18 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
                 QuestCounterMessageEvent.Operation.ModifyByLiteralValue, 1));
         }
 
-        var hunt = qb.AddConditionNode(qb.GetStartNode(), "hunt", d.title, ConditionCountMode.All);
+        var hunt = qb.AddConditionNode(qb.GetStartNode(), "hunt", title, ConditionCountMode.All);
         qb.AddCounterCondition(hunt, "kills", CounterValueConditionMode.AtLeast, d.count);
-        qb.AddContents(hunt.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Dialogue), qb.CreateBodyContent(d.journal));
-        qb.AddContents(hunt.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Journal), qb.CreateBodyContent(d.journal));
+        qb.AddContents(hunt.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Dialogue), qb.CreateBodyContent(Loc.T(d.journal)));
+        qb.AddContents(hunt.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Journal), qb.CreateBodyContent(Loc.T(d.journal)));
         qb.AddContents(hunt.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.HUD), qb.CreateBodyContent("{#kills}/" + d.count));
 
         // 게시판에 돌아와 보고
         var report = qb.AddDiscussQuestNode(hunt, QuestMessageParticipant.QuestGiver, giver.id);
-        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Dialogue), qb.CreateBodyContent(d.report ?? "Well done! Here is your reward."));
-        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Journal), qb.CreateBodyContent("Report back to " + ReportTo + "."));
-        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.HUD), qb.CreateBodyContent("Report to " + ReportTo));
-        report.GetStateInfo(QuestNodeState.Active).actionList.Add(qb.CreateAlertAction(d.title + " complete! Report to " + ReportTo + "."));
+        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Dialogue), qb.CreateBodyContent(Loc.T(d.report ?? "Well done! Here is your reward.")));
+        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Journal), qb.CreateBodyContent(Loc.T("Report back to " + ReportTo + ".")));
+        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.HUD), qb.CreateBodyContent(Loc.T("Report to " + ReportTo)));
+        report.GetStateInfo(QuestNodeState.Active).actionList.Add(qb.CreateAlertAction(title + Loc.T(" complete! Report to " + ReportTo + ".")));
         qb.AddSuccessNode(report);
         return qb.ToQuest();
     }

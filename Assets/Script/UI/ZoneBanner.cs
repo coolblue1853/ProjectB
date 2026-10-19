@@ -80,7 +80,8 @@ public class ZoneBanner : MonoBehaviour
         {
             return;
         }
-        instance.Play(info.floor <= 0 ? "TO THE BEYOND" : "FLOOR " + info.floor, info.zoneTitle);
+        string floor = info.floor <= 0 ? "TO THE BEYOND" : Loc.IsKorean ? info.floor + Loc.T("FLOOR") : "FLOOR " + info.floor;
+        instance.Play(floor, Loc.T(info.zoneTitle));
     }
 
     void Play(string top, string zone)

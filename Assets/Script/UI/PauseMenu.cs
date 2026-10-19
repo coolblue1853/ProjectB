@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     static PauseMenu instance;
 
     readonly string[] items = { "RESUME", "TOWER MAP", "BESTIARY", "SETTINGS", "RETURN TO VILLAGE", "QUIT GAME" };
-    readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "BACK" };
+    readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "LANGUAGE", "BACK" };
     bool settingsMode;
     readonly List<(Image bg, TextMeshProUGUI text)> rows = new List<(Image, TextMeshProUGUI)>();
     KeyAction action;
@@ -150,6 +150,7 @@ public class PauseMenu : MonoBehaviour
             case 0: GameSettings.SetVolume(GameSettings.Volume + 0.1f * dir); break;
             case 1: GameSettings.SetShake(GameSettings.Shake + 0.25f * dir); break;
             case 2: GameSettings.SetFlash(!GameSettings.Flash); break;
+            case 3: Loc.Toggle(); break; // 한국어 ↔ English (I2, Q-407)
         }
         Sfx.Play(SfxId.UiMove, 0.6f);
         Redraw();
@@ -159,7 +160,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (settingsMode)
         {
-            if (cursor == 3) { settingsMode = false; cursor = 3; Redraw(); }
+            if (cursor == settingItems.Length - 1) { settingsMode = false; cursor = 3; Redraw(); }
             else Adjust(1);
             return;
         }
@@ -204,7 +205,7 @@ public class PauseMenu : MonoBehaviour
     {
         UiTheme theme = UiTheme.Get();
         string[] list = settingsMode ? settingItems : items;
-        title.text = settingsMode ? "SETTINGS" : "PAUSED";
+        title.text = Loc.T(settingsMode ? "SETTINGS" : "PAUSED");
         for (int i = 0; i < rows.Count; i++)
         {
             bool has = i < list.Length;
@@ -213,13 +214,14 @@ public class PauseMenu : MonoBehaviour
             string value = "";
             if (settingsMode)
             {
-                value = i == 0 ? "  " + Mathf.RoundToInt(GameSettings.Volume * 100f) + "%" : i == 1 ? "  " + Mathf.RoundToInt(GameSettings.Shake * 100f) + "%" : i == 2 ? (GameSettings.Flash ? "  ON" : "  OFF") : "";
+                value = i == 0 ? "  " + Mathf.RoundToInt(GameSettings.Volume * 100f) + "%" : i == 1 ? "  " + Mathf.RoundToInt(GameSettings.Shake * 100f) + "%"
+                    : i == 2 ? "  " + Loc.T(GameSettings.Flash ? "ON" : "OFF") : i == 3 ? (Loc.IsKorean ? "  한국어" : "  ENGLISH") : "";
             }
             rows[i].bg.color = i == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
             rows[i].text.color = i == cursor ? theme.unique : Color.white;
-            rows[i].text.text = (i == cursor ? "> " : "  ") + list[i] + "<color=#9ED0FF>" + value + "</color>";
+            rows[i].text.text = (i == cursor ? "> " : "  ") + Loc.T(list[i]) + "<color=#9ED0FF>" + value + "</color>";
         }
-        hint.text = settingsMode ? "UP/DOWN  ·  LEFT/RIGHT adjust  ·  ESC back" : "UP/DOWN  ·  SELECT / ENTER  ·  ESC resume";
+        hint.text = Loc.T(settingsMode ? "UP/DOWN  ·  LEFT/RIGHT adjust  ·  ESC back" : "UP/DOWN  ·  SELECT / ENTER  ·  ESC resume");
     }
 
     void Build()

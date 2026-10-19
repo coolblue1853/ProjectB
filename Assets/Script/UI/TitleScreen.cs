@@ -65,16 +65,16 @@ public class TitleScreen : MonoBehaviour
         pr.sizeDelta = new Vector2(980f, 300f);
 
         var small = NewText("Small", pr, theme, 30f, new Vector2(0f, 95f), new Color(0.75f, 0.72f, 0.8f));
-        small.text = "A TOWER ROSE FROM THE EARTH.  AN EXPLORER CLIMBS.";
+        small.text = Loc.T("A TOWER ROSE FROM THE EARTH.  AN EXPLORER CLIMBS.");
         var title = NewText("Title", pr, theme, 104f, new Vector2(0f, 10f), theme.unique);
         title.characterSpacing = 14f;
         title.outlineWidth = 0.15f;
         title.gameObject.AddComponent<TextAnimator>().SetText("<wave a=0.15 f=0.6>TO THE BEYOND</wave>", false);
         var sub = NewText("Sub", pr, theme, 34f, new Vector2(0f, -80f), Color.white);
-        sub.text = "FLOOR 1  ·  THE FOREST";
+        sub.text = Loc.T("FLOOR 1  ·  THE FOREST");
 
         prompt = NewText("Prompt", transform, theme, 34f, new Vector2(0f, -300f), new Color(1f, 0.92f, 0.7f));
-        prompt.text = "PRESS ANY KEY";
+        prompt.text = Loc.T("PRESS ANY KEY");
         prompt.DOFade(0.25f, 0.7f).SetLoops(-1, LoopType.Yoyo).SetLink(prompt.gameObject);
 
         UiLock.Set("Title", true);

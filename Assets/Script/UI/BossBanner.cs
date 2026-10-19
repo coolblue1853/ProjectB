@@ -36,7 +36,8 @@ public class BossBanner : MonoBehaviour
             instance = go.AddComponent<BossBanner>();
             instance.Build();
         }
-        instance.Enqueue(() => instance.PlayCustom(title, subtitle));
+        string t = Loc.T(title), s = Loc.T(subtitle); // 고정 문구(등장·페이즈·승급)는 번역, 보스 이름은 표에 없으면 그대로
+        instance.Enqueue(() => instance.PlayCustom(t, s));
     }
 
     public static void Show(string bossName, string uniqueItem)
@@ -169,9 +170,9 @@ public class BossBanner : MonoBehaviour
         group.DOKill();
         group.alpha = 0f;
         title_SetColor(UiTheme.Get().unique);
-        titleAnim.SetText("<wave a=0.5>" + bossName.ToUpperInvariant() + " DEFEATED</wave>", false);
+        titleAnim.SetText("<wave a=0.5>" + bossName.ToUpperInvariant() + " " + Loc.T("DEFEATED") + "</wave>", false);
         bool unique = !string.IsNullOrEmpty(uniqueItem);
-        sub.text = unique ? "<color=#FFC640>Unique: " + uniqueItem + "</color>" : "Rewards dropped";
+        sub.text = unique ? "<color=#FFC640>" + Loc.T("Unique: ") + uniqueItem + "</color>" : Loc.T("Rewards dropped");
         Transform t = group.transform;
         t.DOKill();
         t.localScale = Vector3.one * 1.25f;

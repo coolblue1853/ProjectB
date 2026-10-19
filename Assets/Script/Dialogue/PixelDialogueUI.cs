@@ -77,13 +77,13 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
 
     public void ShowSubtitle(Subtitle subtitle)
     {
-        string text = subtitle.formattedText != null ? subtitle.formattedText.text : "";
+        string text = subtitle.formattedText != null ? Loc.T(subtitle.formattedText.text) : ""; // DB 는 영어 원문, 표시할 때 번역(언어 전환 즉시 반영)
         if (string.IsNullOrEmpty(text))
         {
             return;
         }
         PixelCrushers.DialogueSystem.CharacterInfo who = subtitle.speakerInfo;
-        nameText.text = who != null ? who.Name : "";
+        nameText.text = who != null ? Loc.T(who.Name) : "";
         nameText.transform.parent.gameObject.SetActive(!string.IsNullOrEmpty(nameText.text));
         Sprite face = who != null ? who.portrait : null;
         portrait.sprite = face;
@@ -111,7 +111,7 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
         if (subtitle != null && subtitle.formattedText != null && !string.IsNullOrEmpty(subtitle.formattedText.text))
         {
             // 선택지 직전 대사를 화면에 남겨 둔다(타자기 없이)
-            typewriter.ShowText(subtitle.formattedText.text);
+            typewriter.ShowText(Loc.T(subtitle.formattedText.text));
             typewriter.SkipTypewriter();
         }
         var rp = (RectTransform)responsePanel.transform;
@@ -203,7 +203,7 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
             bool on = i == cursor;
             responseRows[i].bg.color = on ? Color.white : new Color(1f, 1f, 1f, 0f);
             responseRows[i].text.color = on ? theme.unique : Color.white;
-            responseRows[i].text.text = (on ? "> " : "  ") + responses[i].formattedText.text;
+            responseRows[i].text.text = (on ? "> " : "  ") + Loc.T(responses[i].formattedText.text);
         }
     }
 
