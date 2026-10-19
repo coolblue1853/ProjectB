@@ -25,7 +25,7 @@ public class SetItem : MonoBehaviour
         SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name+"_"+level));
         if(item != null)
         {
-            ActiveSetEffect(item.effect, true);
+            SetEffectApplier.Apply(item.effect, true, "Set:" + name + "_" + level);
         }
     }
     public void CheckSetDisEffect(string name, int level)
@@ -33,7 +33,7 @@ public class SetItem : MonoBehaviour
         SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name + "_" + level));
         if (item != null)
         {
-            ActiveSetEffect(item.effect,false);
+            SetEffectApplier.Apply(item.effect, false, "Set:" + name + "_" + level);
         }
     }
 

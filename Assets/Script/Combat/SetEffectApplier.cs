@@ -52,13 +52,48 @@ public static class SetEffectApplier
         return list;
     }
 
-    /// <summary>apply=true면 적용, false면 같은 양을 되돌린다.</summary>
-    public static void Apply(string effect, bool apply)
+    /// <summary>
+    /// apply=true면 적용, false면 같은 양을 되돌린다.
+    /// group(예: "Set:RabbitArmor_2")이 있으면 정수 스탯은 그 그룹의 모디파이어로 넣고 해제는 RemoveByGroup 한 번(PlayerStateDesign Phase 10b).
+    /// HP·스킬별 수치는 아직 기존 경로(10d·10e).
+    /// </summary>
+    public static void Apply(string effect, bool apply, string group = null)
     {
         GameLog.Info(GameLog.Cat.Item, (apply ? "세트 효과 적용: " : "세트 효과 해제: ") + effect);
+        if (group != null)
+        {
+            PlayerStats.RemoveByGroup(group); // 적용이면 중복 방지, 해제면 정수 스탯 전부 해제
+        }
         foreach (Entry e in Parse(effect))
         {
+            if (group != null && StatOf(e.stat, out StatId id))
+            {
+                if (apply)
+                {
+                    PlayerStats.Add(new StatModifier(id, ModType.Add, e.value) { Group = group, Owner = group });
+                }
+                continue;
+            }
             ApplyEntry(e, apply ? e.value : -e.value);
+        }
+    }
+
+    /// <summary>세트 CSV 스탯 키 → StatId (HP·스킬 키는 false)</summary>
+    static bool StatOf(string stat, out StatId id)
+    {
+        switch (stat)
+        {
+            case "Def": id = StatId.Def; return true;
+            case "Crit": id = StatId.CritRate; return true;
+            case "CritDmg": id = StatId.CritDmg; return true;
+            case "IncDmg": id = StatId.IncDmg; return true;
+            case "BasicDmg": id = StatId.BasicDmg; return true;
+            case "Poison": id = StatId.PoisonDmg; return true;
+            case "BleedDmg": id = StatId.BleedIncDmg; return true;
+            case "AtkSpeed": id = StatId.AttackSpeed; return true;
+            case "MoveSpeed": id = StatId.MoveSpeed; return true;
+            case "DropRate": id = StatId.DropRate; return true;
+            default: id = StatId.Def; return false;
         }
     }
 
