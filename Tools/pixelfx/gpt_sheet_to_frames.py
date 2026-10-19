@@ -198,8 +198,10 @@ def main():
     death = []
     for i in range(5):
         k = i / 4
-        f = F(hurt).rotate(-k * 80, resample=Image.NEAREST, center=(size // 2, size - 2))
-        death.append(fade(f, 1 - k * 0.85))
+        # 포즈 자체를 눕힌 뒤 바닥 중앙에 다시 놓는다(프레임 기준으로 돌리면 몸이 밖으로 잘린다)
+        r = hurt.rotate(-k * 75, resample=Image.NEAREST, expand=True)
+        f = F(r.crop(r.getbbox()))
+        death.append(fade(f, 1 - k * 0.15))  # 사라지는 건 DeadBody 조각·디졸브가 맡는다
     sheet(death, size).save(os.path.join(out, "Death.png"))
     print("ok", name, [p.size for p in poses[:6]])
     return 0

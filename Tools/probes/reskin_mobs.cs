@@ -1,9 +1,10 @@
-// 몹 외형 교체(ArtStyle.md): 64px GPT 시트로 다시 슬라이스 → MonsterBuilder 재빌드. 에디트 모드, 재실행 안전
+﻿// 몹 외형 교체(ArtStyle.md): 64px GPT 시트로 다시 슬라이스 → MonsterBuilder 재빌드. 에디트 모드, 재실행 안전
 // 기존 프리팹의 HP·방어·슈퍼아머·보스 값을 읽어 그대로 넘기므로 Q-415 수치가 되돌아가지 않는다.
 // 사용: 아래 mobs 배열에 "이름:템플릿" 을 적고 실행. 템플릿 rat|flower|leaf|boss
 var sb = new System.Text.StringBuilder();
 string root = "Assets/Art/Monsters/";
-var mobs = new[]{ "ForestWolf:rat", "WildBoar:rat", "ForestBear:rat", "Ent:leaf" };
+var mobs = new[]{ "ForestWolf:rat", "WildBoar:rat", "ForestBear:rat", "SwampFrog:rat", "MarshCrab:rat", "BogCroc:rat", "BanditCutthroat:rat", "BanditShieldman:rat", "BanditTorchbearer:rat", "GolemSmall:rat",
+    "Wisp:flower", "Ghost:flower", "Fairy:flower", "SwampMosquito:flower", "BanditArcher:flower", "Ent:leaf", "ForestSnail:leaf", "BogSlime:leaf", "GolemMedium:leaf" };
 // 프레임 크기 = 시트 높이(몹마다 64·84·128 등)
 AssetDatabase.Refresh();
 var maps = new System.Collections.Generic.Dictionary<string, string[]>();
