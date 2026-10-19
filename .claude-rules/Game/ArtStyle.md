@@ -71,6 +71,16 @@
 - 주인공 브리프(TowerWorld 2·10절 + 0절 기준): **아버지를 찾아 탑에 오르는 소녀**(병을 앓다 아버지의 소원으로 나음). 지금까지 통과한 캐릭터 기준 = 어두운 코트·갑옷 + 무기 + 전투 자세 + 포인트 색 하나. 상징 소품 = **아버지의 브로치(금 고리 + 네 갈래 별)** — 포인트 색·문장으로 디자인에 넣는다(문지기 가슴 문장과 같은 무늬, 16절).
 - 수집: 8라운드 캐릭터 중 주인공형(소녀·도트·무기) 11개를 시작점으로 연관 핀 116개 → 소녀·도트·무기·어두운 코트로 24개 추림.
 - 다음: 사용자가 **가장 마음에 드는 3~5개(굿)** 를 고르면, 그 공통점(등신·실루엣·무기 종류·색)을 주인공 디자인 스펙으로 확정하고 PixelLab 시안(통일 규격) 2~3장으로 넘어간다.
+- 결과: 사용자 **"이번 건 다 긍정 판정 줄 수 있을 것 같아"** → 24개 전부 굿. 공통점으로 아래 스펙 초안을 고정한다.
+
+**주인공 디자인 스펙 초안 (2026-10-19 밤, 9라운드 24개 공통점)**
+- 실루엣: 소녀, **긴 머리가 동작에 따라 흩날림** + **긴 코트·망토 자락**(세 갈래 이상으로 갈라져 동세를 만든다). 무기는 몸에 비해 크게(대검·창·낫 계열이 다수).
+- 색: 몸은 **검정·남색·짙은 진홍 중 2색 + 피부·머리 1색**, 포인트는 **브로치 금빛 하나**(가슴의 금 고리 + 네 갈래 별). 무기 발광·눈 같은 2차 포인트는 계보 무기 색을 따른다(12절).
+- 자세: 정면 서 있기 금지 — 기본 대기부터 반쯤 튼 전투 자세, 무게중심 낮게.
+- 도트: 통일 규격(selective outline·위왼쪽 광원·hue shift·마스터 팔레트). 크기는 등신에 따라 64~96px.
+- 미결정(Q-419, 임시 가정): **등신 4등신**(레퍼런스가 3등신 SD와 5~6등신이 섞여 중간값. 메이플식 진행과 디테일을 둘 다 살림) · **머리색 옅은 잿빛 금발**(어두운 옷과 대비, 브로치 금과 겹치지 않게 잿빛) · **기본 무기 실루엣은 장검**(시작 무기 녹슨 검, 무기는 교체되므로 손 그립 위치만 맞춘다).
+- PixelLab 시안(충전 후, 1장씩, 통일 규격): `create_image_pixflux` width 96·height 96, `view=side`, `direction=east`, `outline=selective outline`, `shading=medium shading`, `detail=highly detailed`, `no_background=True`, description = `"young girl adventurer, 4 heads tall, pale ash-blonde long hair flowing, long dark navy coat with split tails and black underlayer, small gold ring brooch with four-pointed star on chest, holding a longsword in low combat stance, dark fantasy pixel art, muted desaturated palette, single gold accent, selective outline, top-left light, no anti-aliasing"`. 시안 A(위 그대로)·B(5.5등신, 96×128) 2장을 뽑아 현재 주인공·숲 늑대 앵커와 나란히 `Docs/ArtCompare/hero_proto_*.png` 비교 시트로 사용자 판정.
+
 
 **몹 고르는 기준 (체크리스트)**
 1. ✅ 자연이 잠식한 몸: 이끼·덩굴·뿌리·나뭇가지 뿔·돌이 몸의 일부 / ✅ 뼈·해골 머리·긴 사지 같은 기묘함
