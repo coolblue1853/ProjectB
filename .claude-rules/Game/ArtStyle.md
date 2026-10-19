@@ -57,3 +57,10 @@
 - 보스 연출 줌아웃(`BossIntro`)은 기준 해상도를 640×360(6배)으로 바꿔 처리한다. ProCamera2D.Zoom은 Pixel Perfect가 직교 크기를 잠가 먹히지 않는다.
 - 월드 공간 데미지 숫자는 24px 격자에서 뭉개지므로 PixelLook 활성 시 최소 2.2배(치명타 2.8배)로 키운다(`HitFeedback.SpawnNumber`).
 - 끄려면 `PixelLook.Enabled = false`.
+
+### 어비스 컬러 그레이딩 `AbyssGrade` (2026-10-19)
+
+- `Assets/Script/Cam/AbyssGrade.cs`가 런타임에 전역 Volume(우선순위 10)으로 `Resources/PostFx/AbyssGrade.asset`을 건다. 씬의 기존 Volume(블룸)은 그대로 둔다.
+- 값(시안 v2): 채도 −12, 노출 +0.1, 컬러 필터 (0.96, 0.99, 1), 스플릿 토닝 그림자 청록 (0.20, 0.42, 0.47)·하이라이트 호박 (0.93, 0.80, 0.62)·밸런스 +10, 그림자를 청록으로 들어 올림(SMH shadows w +0.1), 비네트 0.2.
+- v1(대비 +8, 그림자 누름, 비네트 0.3)은 밤에 화면이 거의 검게 묻혀 반려했다. 그림자는 누르지 말고 **청록으로 들어 올린다**.
+- 값을 바꾸려면 `Tools/probes/make_abyss_grade.cs`를 고쳐 실행한다. 끄려면 `AbyssGrade.Enabled = false`.
