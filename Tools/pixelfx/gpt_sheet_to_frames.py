@@ -8,6 +8,7 @@ import sys
 from PIL import Image
 
 BODY_W = 0  # 대기 자세 폭(긴 공격 포즈 정렬용)
+WING_FIX = False  # 반투명 날개 몹: 인자에 wingfix
 KEEP_PINK = False  # 분홍 몸 색(혀·꽃)을 쓰는 몹은 인자 4번째에 keeppink
 ROOT = os.path.join(os.path.dirname(__file__), "..", "..", "Assets", "Art", "Monsters")
 
@@ -22,7 +23,8 @@ def is_bg(r, g, b, a):
     if KEEP_PINK is False and r > 190 and b > 80 and b > g:
         return True
     # 어두운 보라 테두리(배경과 섞인 외곽 픽셀): R·B 가 G 보다 확실히 높다
-    return r > 70 and b > 60 and g < r * 0.55 and g < b * 0.65
+    # (붉은 몸통 몹은 wingfix 로 이 규칙을 끈다 — 배경은 브라우저 단계에서 이미 지워졌다)
+    return not WING_FIX and r > 70 and b > 60 and g < r * 0.55 and g < b * 0.65
 
 
 def clean(im):
@@ -31,7 +33,11 @@ def clean(im):
     for y in range(im.height):
         for x in range(im.width):
             r, g, b, a = px[x, y]
-            if is_bg(r, g, b, a):
+            if WING_FIX and r > 140 and b > 110 and g < r * 0.8 and (r + g + b) > 390:
+                # 반투명 날개가 마젠타와 섞인 분홍 → 회보라 연기빛 반투명
+                v = (r + g + b) // 3
+                px[x, y] = (int(v * 0.85), int(v * 0.85), v, 170)
+            elif is_bg(r, g, b, a):
                 px[x, y] = (0, 0, 0, 0)
             else:
                 px[x, y] = (r, g, b, 255)
@@ -167,6 +173,8 @@ def main():
     size = int(sys.argv[3]) if len(sys.argv) > 3 else 64
     global KEEP_PINK
     KEEP_PINK = "keeppink" in sys.argv[4:]
+    global WING_FIX
+    WING_FIX = "wingfix" in sys.argv[4:]
     cuts = next(([int(v) for v in a[4:].split(",")] for a in sys.argv[4:] if a.startswith("cut=")), None)
     poses = split_poses(clean(Image.open(src)), 6, cuts)
     poses = [p.crop(p.getbbox()) for p in poses]
