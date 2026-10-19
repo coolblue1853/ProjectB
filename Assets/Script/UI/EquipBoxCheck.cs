@@ -153,23 +153,25 @@ public class EquipBoxCheck : MonoBehaviour
     public void SetEquipment(Equipment equip)
     {
         SetEquipmentSkillCool(equip);
-        DatabaseManager.playerDropRate += equip.dropRate;
-        DatabaseManager.playerCritRate += equip.critical;
-        DatabaseManager.SpeedBuff += equip.moveSpeed;
-        DatabaseManager.attackSpeedBuff += equip.attSpeed;
-        DatabaseManager.playerCritDmgRate += equip.criticalDmg;
-        // 강화 배율을 적용한 값을 기록해 두고 해제 때 그대로 뺀다 (대칭 보장)
+        // 강화 배율을 적용한 값을 기록해 둔다 (HP 는 아직 레거시 경로라 해제 때 그대로 뺀다)
         equip.appliedBasicDmg = equip.Enhanced(equip.basicDmg);
         equip.appliedHp = equip.Enhanced(equip.hp);
-        equip.appliedArmor = Mathf.RoundToInt(equip.Enhanced(equip.armor) * Equipment.ArmorToDef);
-        DatabaseManager.addbasicDmg += equip.appliedBasicDmg;
-        DatabaseManager.playerDef += equip.appliedArmor; // 방어구 방어력이 툴팁에만 있고 적용되지 않던 문제 (B-212)
+        equip.appliedArmor = Mathf.RoundToInt(equip.Enhanced(equip.armor) * Equipment.ArmorToDef); // 방어구 방어력 반영 (B-212)
+        // 정수 스탯은 이 장비 인스턴스를 출처로 하는 모디파이어 — 해제는 RemoveBySource 한 줄 (PlayerStateDesign Phase 10a)
+        PlayerStats.RemoveBySource(equip); // 같은 장비가 두 번 적용돼도 중복되지 않게
+        AddEquipStat(equip, StatId.DropRate, equip.dropRate);
+        AddEquipStat(equip, StatId.CritRate, equip.critical);
+        AddEquipStat(equip, StatId.MoveSpeed, equip.moveSpeed);
+        AddEquipStat(equip, StatId.AttackSpeed, equip.attSpeed);
+        AddEquipStat(equip, StatId.CritDmg, equip.criticalDmg);
+        AddEquipStat(equip, StatId.BasicDmg, equip.appliedBasicDmg);
+        AddEquipStat(equip, StatId.Def, equip.appliedArmor);
+        AddEquipStat(equip, StatId.BleedIncDmg, equip.bleedingDmgPer);
+        AddEquipStat(equip, StatId.IncomingDmg, equip.addIncomingDmg);
+        AddEquipStat(equip, StatId.IncDmg, equip.incDmg);
+        AddEquipStat(equip, StatId.PoisonDmg, equip.poisonDmg);
         PlayerHealthManager.Instance.EquipmentActiveTrue(equip.appliedHp);
         GameLog.Info(GameLog.Cat.Item, "장비 적용 " + equip.name + " +" + equip.enhanceLevel + " hp=" + equip.appliedHp + " def=" + equip.appliedArmor + " atk=" + equip.appliedBasicDmg);
-        DatabaseManager.bleedingAddDmg += equip.bleedingDmgPer;
-        DatabaseManager.incIncomingDmg += equip.addIncomingDmg;
-        DatabaseManager.incDmg += equip.incDmg;
-        DatabaseManager.addPoisonDmg += equip.poisonDmg;
         // 출혈관련
         if (equip.isBleeding)
         {
@@ -181,23 +183,21 @@ public class EquipBoxCheck : MonoBehaviour
     public void DisableEquipment(Equipment equip)
     {
         DownquipmentSkillCool(equip);
-        DatabaseManager.playerDropRate -= equip.dropRate;
-        DatabaseManager.playerCritRate -= equip.critical;
-        DatabaseManager.SpeedBuff -= equip.moveSpeed;
-        DatabaseManager.attackSpeedBuff -= equip.attSpeed;
-        DatabaseManager.playerCritDmgRate -= equip.criticalDmg;
-        DatabaseManager.addbasicDmg -= equip.appliedBasicDmg;
-        DatabaseManager.playerDef -= equip.appliedArmor;
+        PlayerStats.RemoveBySource(equip);
         PlayerHealthManager.Instance.EquipmentActiveFalse(equip.appliedHp);
         equip.appliedBasicDmg = equip.appliedHp = equip.appliedArmor = 0;
-        DatabaseManager.bleedingAddDmg -= equip.bleedingDmgPer;
-        DatabaseManager.incIncomingDmg -= equip.addIncomingDmg;
-        DatabaseManager.incDmg -= equip.incDmg;
-        DatabaseManager.addPoisonDmg -= equip.poisonDmg;
         if (equip.isBleeding)
         {
             DatabaseManager.bleedingEquipment.Remove(BleedKey(equip));
             DatabaseManager.bleedingEquipmentInterval.Remove(BleedKey(equip));
+        }
+    }
+
+    static void AddEquipStat(Equipment equip, StatId id, int value)
+    {
+        if (value != 0)
+        {
+            PlayerStats.Add(new StatModifier(id, ModType.Add, value) { Source = equip, Owner = equip.name });
         }
     }
 
