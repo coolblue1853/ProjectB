@@ -50751,6 +50751,7 @@ MonoBehaviour:
   zoneTitle: Bandit Fortress
   ascentLoad: 30
   fireflies: 0
+  ambience: 3
 --- !u!114 &155926385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145896,6 +145897,7 @@ MonoBehaviour:
   zoneTitle: Village at the Tower's Foot
   ascentLoad: 0
   fireflies: 0
+  ambience: 0
 --- !u!1 &333948900
 GameObject:
   m_ObjectHideFlags: 0
@@ -416846,6 +416848,7 @@ MonoBehaviour:
   zoneTitle: Outskirts - Side Road
   ascentLoad: 5
   fireflies: 1
+  ambience: 0
 --- !u!1001 &583335425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -614641,6 +614644,7 @@ MonoBehaviour:
   zoneTitle: Broken Rampart
   ascentLoad: 35
   fireflies: 0
+  ambience: 0
 --- !u!114 &970180053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798111,6 +798115,7 @@ MonoBehaviour:
   zoneTitle: Forest Outskirts
   ascentLoad: 0
   fireflies: 1
+  ambience: 0
 --- !u!1 &1163439251
 GameObject:
   m_ObjectHideFlags: 0
@@ -847305,6 +847310,7 @@ MonoBehaviour:
   zoneTitle: Normal Forest
   ascentLoad: 10
   fireflies: 1
+  ambience: 0
 --- !u!114 &1340281521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081037,6 +1081043,7 @@ MonoBehaviour:
   zoneTitle: Undercloud Cliffs
   ascentLoad: 25
   fireflies: 0
+  ambience: 0
 --- !u!1 &1555195509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231033,6 +1231040,7 @@ MonoBehaviour:
   zoneTitle: Deep Forest
   ascentLoad: 20
   fireflies: 1
+  ambience: 1
 --- !u!114 &1624175828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1335783,6 +1335791,7 @@ MonoBehaviour:
   zoneTitle: Swamp
   ascentLoad: 30
   fireflies: 1
+  ambience: 2
 --- !u!1 &1716470350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605253,6 +1605262,7 @@ MonoBehaviour:
   zoneTitle: Tower Outskirts
   ascentLoad: 40
   fireflies: 0
+  ambience: 4
 --- !u!114 &2134361711
 MonoBehaviour:
   m_ObjectHideFlags: 0

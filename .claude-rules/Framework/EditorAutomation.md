@@ -51,3 +51,7 @@ bash Tools/playtest.sh 10 이름                                                
 - 이 환경의 Bash 도구는 heredoc 본문의 `\`를 한 번 풀어 `\`로 넘긴다. 파이썬으로 C# 문자열 이스케이프(`""`, `'
 '`)를 쓸 때는 백슬래시를 `chr(92)`로 만들어 조합한다. 깨지면 "Newline in constant" 컴파일 오류가 난다.
 
+## 열린 씬 파일을 밖에서 바꾸면 모달 (2026-10-19)
+
+- 에디터가 연 `SampleScene.unity` 를 git 으로 되돌리거나 패치하면 다음 새로고침 때 "Reload / Ignore" 모달이 떠 refresh 가 멈추고 포커스 가드가 계속 창을 되돌린다. `powershell -File Tools/win_ui.ps1 dialogs` 로 확인 → `win_ui.ps1 click "ProjectB - SampleScene" "Reload"`(UIA 호출, 마우스 주입 아님).
+- 씬 저장(`EditorSceneManager.SaveScene`)은 Quest Machine UI 프리팹의 RectTransform 오버라이드(레이아웃 재계산 값)를 같이 바꾼다. 의도한 변경만 커밋하려면 `git diff -U0` 에서 해당 hunk 만 골라 `git apply --unidiff-zero` 후 위 Reload.

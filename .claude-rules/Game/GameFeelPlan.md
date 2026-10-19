@@ -282,6 +282,23 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 - ④ 절차 생성 마법 도트(비숍 레퍼런스): `Tools/pixelfx/gen_magic.py` — 방사형 폭발·빛기둥·룬 마법진 × 청/보라/금/녹 12종 → `PixelVfxBaker.ImportSheet`(JSON 메타) → `VfxId.Burst*/Pillar*/Rune*`. 지팡이 4종 스킬에 연결, 빛기둥·마법진은 발밑 높이로(`VfxLibrary.IsGroundFx`).
 - 남은 일: 스킬 원본 스프라이트 자체를 베이크 도트로 대체(히트박스 유지·애니 클립 교체).
 
+## 10.6 1층계 이펙트 폴리싱 (2026-10-19)
+
+| 항목 | 구현 | 파일 |
+|---|---|---|
+| 신규 도트 이펙트 6종 | 연기(회색·보라), 흙먼지(갈색·돌, 바닥 피벗), 지면 충격파, 붉은 폭발. `gen_magic.py` 규칙(밝기장 → 5색 램프)을 재사용한 절차 생성 → `VfxId` 끝에 추가(직렬화 번호 유지), 흙먼지·충격파는 `IsGroundFx` | `Tools/pixelfx/gen_polish_fx.py`, `VfxLibrary.cs` |
+| 계보 무기 스킬 시전 이펙트 | `Skill.castVfx` 가 비어 있거나 테마가 맞지 않던 49개 스킬에 몹 팔레트 이펙트(돌진=흙먼지, 유령·산적 그림자=보라 연기, 흡혈·포효=붉은 폭발, 내려찍기=지면 충격파, 방어 자세=룬) | `Tools/probes/build_polish_fx.cs` ⑤ |
+| 투사체·소환수 연출 | `ProjectileFx`(판정 코드 무수정 부착형): 꼬리 `TrailRenderer`(공유 `M_Trail`), 켜질 때·꺼질 때 도트 이펙트. 늑대·산적 그림자·돌 골렘·가고일 소환/퇴장 연기, 슬라임 튐, 요정·도깨비불 유도탄 꼬리 + 소멸 폭발, 화살·바위·충격파·깃털 꼬리, 뿌리 솟음 흙먼지, Aftershock·문지기 충격파 지면 충격파 (20 프리팹) | `ProjectileFx.cs`, 프로브 ④ |
+| 몹 사망 연출 통일 | 모든 몹 사망 순간 연기 퍼프(크기 = 스프라이트 높이), 정예 = 금빛 폭발 + Heavy 흔들림, 보스 = 금빛 폭발 → 몸 곳곳 연기 4 → 0.6초 뒤 큰 폭발 + Impact. 코드 도트 몹(단일 몸체 시체)은 Death 애니 0.75초 뒤 3x3(72px 초과 4x4) 조각으로 부서져 튕기며 디졸브 — 원본 파츠 시체와 같은 "파편 + 디졸브" | `DeathFx.cs`, `DeathShards.cs`, `DeadBody.cs`, `EnemyHealth.TryDie` |
+| 구역 분위기 입자 | `MapInfo.ambience`: 깊은 숲 잎·포자, 늪 바닥 안개·포자, 산적 성채 불씨, 탑 근교 청록 룬. 플레이어를 따라가는 화면 폭 띠, 시스템당 ≤ 50 입자, 시트 `Resources/FX/Px_Ambient`(6x1 격자) + `M_AmbientUnlit/Lit` | `ZoneAmbience.cs` |
+
+- 예산: 조각 풀 상한 96(머티리얼 인스턴스도 최대 96, SRP Batcher 유지) — 조각을 다 낼 여유가 없으면 그 시체는 부서지지 않고 기존 디졸브(동시 10마리 처치 시 96에서 멈춤 확인). 조각 스프라이트는 원본 스프라이트별 1회 생성 캐시, 조각 물리는 Rigidbody 없이 한 Update, 지면은 `GroundProbe.Y` 1회. 이펙트는 기존 `Vfx` 풀·프레임당 6개 상한을 쓰되 보스 처치 폭발 2회만 `ignoreFrameCap`.
+- `ProjectileFx` 등장 연출은 첫 LateUpdate(같은 오브젝트 StraightArrow 의 시작 위치 흩뿌림 뒤), 소멸 연출은 부모(무기·플레이어)가 함께 꺼질 때는 생략. 판정 오브젝트가 Instantiate 라 생성마다 TrailRenderer·Gradient 할당이 있다(동시 수 발, 허용).
+- 피격 플래시·히트스톱: 1층계 6구역 낮·밤에서 활성 몹 19종 전부 `SpriteHitFx` 플래시(블렌드 > 0.5)·애니 정지 확인(`Tools/probes/hitfx_all.cs`). 코드 도트 몹은 루트 SpriteRenderer 를 쓰므로 런타임 부착이 그대로 동작.
+- 성능(에디터 RuntimeMonitor, 5초 요약): 분위기 입자 켬/끔 비교 — 깊은 숲 546/562fps, 늪 574/597~528, 성채 538/543, 탑 근교 555/564. 체감 차이 없음(최악 프레임 스파이크는 프로브 컴파일·맵 이동).
+- 검증(플레이): 신규 6종 나란히 재생(`fx_lineup`), 소환수 4종 등장 연기·유도탄 2종 트레일(`projectile_fx_test`), 계보 스킬 시전(뿌리 흙먼지, Wisp Bolt 꼬리, Boulder Toss 꼬리, Quake Slam·Gate Cleave 지면 충격파, Triple Shot 금빛, Rolling Charge 돌먼지 — `skillshot` 스크린샷), 1층계 6구역 낮·밤 사망 연출 12회(코드 도트 몹 조각 9/16, 원본 파츠 몹 0 = 기존 파츠), 정예 사망 금빛 폭발, 산적 대장 처치 3단 연출 스크린샷, `zone_soak` 1층계 6구역 낮·밤 에러 0·경고 0, EditMode 92/92. 스크린샷 `Logs/playtest/death_*`·`skill_*`·`amb_*`·`bossfx_*`(커밋 안 함).
+- 남은 것: 몹 공격 판정(보스 패턴) 자체의 예고 이펙트, 계보 스킬 하네스로 Howl of the Pack 발동이 재현되지 않아 늑대 등장 연기는 프리팹 직접 생성으로만 확인, 정예 등장 순간 연출(현재 오라·SFX만), 조각은 투명 칸도 만든다(텍스처 비읽기라 판별 불가) — 조각 수 상한으로만 제한.
+
 ## 11. 작업 순서 (커밋 단위)
 
 1. `(추가) All In 1 Sprite Shader 임포트` — Demo 제외, FX 머티리얼 5종, AssetInventory 적용 현황 갱신.

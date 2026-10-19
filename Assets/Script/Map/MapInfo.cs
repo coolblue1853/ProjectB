@@ -20,9 +20,12 @@ public class MapInfo : MonoBehaviour
     public int ascentLoad;
     [Tooltip("밤 반딧불 연출 (숲 맵)")]
     public bool fireflies;
+    [Tooltip("구역 분위기 입자 (깊은 숲 잎·포자, 늪 안개, 성채 불씨, 탑 근교 룬)")]
+    public AmbienceKind ambience;
 
     void Start()
     {
+        ZoneAmbience.Attach(this, ambience);
         if (!fireflies)
         {
             return;
