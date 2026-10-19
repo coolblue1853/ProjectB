@@ -17,55 +17,131 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6196bc284b80c4c54a21b261031f4830, type: 3}
     volume: 0.5
     pitchJitter: 0.05
+    variants: []
   - id: 1
     clip: {fileID: 8300000, guid: 46f921c425e8043f797ad496e6670211, type: 3}
     volume: 0.7
     pitchJitter: 0.05
+    variants: []
   - id: 2
     clip: {fileID: 8300000, guid: d4ac7e224c30c4c0793c7a9560009136, type: 3}
     volume: 0.45
     pitchJitter: 0.05
+    variants: []
   - id: 3
     clip: {fileID: 8300000, guid: 1f51836e881a046d39829f52cc1fcdae, type: 3}
     volume: 0.6
     pitchJitter: 0.05
+    variants: []
   - id: 4
     clip: {fileID: 8300000, guid: b14c4880ac119453497d1e90423d13e4, type: 3}
     volume: 0.6
     pitchJitter: 0.05
+    variants: []
   - id: 5
     clip: {fileID: 8300000, guid: 780229b7350b84e65a71bd0b1df17e4f, type: 3}
     volume: 0.7
     pitchJitter: 0.05
+    variants: []
   - id: 6
     clip: {fileID: 8300000, guid: 2d8ec81bd03c74801b1505e1eb7215ee, type: 3}
     volume: 0.5
     pitchJitter: 0.05
+    variants: []
   - id: 7
     clip: {fileID: 8300000, guid: 2d8ec81bd03c74801b1505e1eb7215ee, type: 3}
     volume: 0.4
     pitchJitter: 0.05
+    variants: []
   - id: 8
     clip: {fileID: 8300000, guid: 9db96a6fc214b4c668e55b68bd1f749a, type: 3}
     volume: 0.5
     pitchJitter: 0.05
+    variants: []
   - id: 9
     clip: {fileID: 8300000, guid: 824181355b0644ada8f340dc2f147176, type: 3}
     volume: 0.8
     pitchJitter: 0.05
+    variants: []
   - id: 10
     clip: {fileID: 8300000, guid: b49baca2ffa6f49b7a10dec55dccc5c9, type: 3}
     volume: 0.8
     pitchJitter: 0.05
+    variants: []
   - id: 11
     clip: {fileID: 8300000, guid: 3df59136337f44def8d005e65dd667be, type: 3}
     volume: 0.8
     pitchJitter: 0.05
+    variants: []
   - id: 12
     clip: {fileID: 8300000, guid: 12ecd433c4f801b41a1564a6ab089d5f, type: 3}
     volume: 0.6
     pitchJitter: 0.05
+    variants: []
   - id: 13
     clip: {fileID: 8300000, guid: 11b863097ffe397488a720d45e30e83c, type: 3}
     volume: 0.7
     pitchJitter: 0.05
+    variants: []
+  - id: 14
+    clip: {fileID: 8300000, guid: af341652497bcd84791798683f916a67, type: 3}
+    volume: 0.7
+    pitchJitter: 0.03
+    variants: []
+  - id: 15
+    clip: {fileID: 8300000, guid: 8dad1baa70166d74b898f90c893cf7ea, type: 3}
+    volume: 0.75
+    pitchJitter: 0.02
+    variants: []
+  - id: 16
+    clip: {fileID: 8300000, guid: b0c5286dd65f74e40813e070ee6226eb, type: 3}
+    volume: 0.6
+    pitchJitter: 0.02
+    variants: []
+  - id: 17
+    clip: {fileID: 8300000, guid: 6faa44683ee550546938e24e6ffbd934, type: 3}
+    volume: 0.7
+    pitchJitter: 0.04
+    variants: []
+  - id: 18
+    clip: {fileID: 8300000, guid: 7adb25b75d1d0394c96b9e72278d5c3b, type: 3}
+    volume: 0.7
+    pitchJitter: 0.04
+    variants: []
+  - id: 19
+    clip: {fileID: 8300000, guid: 5775b0c18546d904aa9967dfd584c907, type: 3}
+    volume: 0.75
+    pitchJitter: 0
+    variants: []
+  - id: 20
+    clip: {fileID: 8300000, guid: c7a2b8766b01ec544a7a1fdf4b7a1902, type: 3}
+    volume: 0.8
+    pitchJitter: 0.04
+    variants: []
+  - id: 21
+    clip: {fileID: 8300000, guid: 21ca09395d061d241bcc1c05e5a3bc94, type: 3}
+    volume: 0.35
+    pitchJitter: 0.08
+    variants:
+    - {fileID: 8300000, guid: 21ca09395d061d241bcc1c05e5a3bc94, type: 3}
+    - {fileID: 8300000, guid: 1714078af7add6b4e94dbab11d7307f3, type: 3}
+    - {fileID: 8300000, guid: d4190277c50d57749aa18423d67dfa61, type: 3}
+    - {fileID: 8300000, guid: 65627b5c66693b248aa2092bba5529ed, type: 3}
+  - id: 22
+    clip: {fileID: 8300000, guid: 021ec024937b1974ca867248ddb484ed, type: 3}
+    volume: 0.35
+    pitchJitter: 0.08
+    variants:
+    - {fileID: 8300000, guid: 021ec024937b1974ca867248ddb484ed, type: 3}
+    - {fileID: 8300000, guid: 7d8949f90654b4e46a059079676d064b, type: 3}
+    - {fileID: 8300000, guid: 2d8e1d8ae5105634c997962a6e92bd4f, type: 3}
+    - {fileID: 8300000, guid: 737678f615fd64143a2dcff8a89fec15, type: 3}
+  - id: 23
+    clip: {fileID: 8300000, guid: 0832d8c7a35e69f4689072395220e3d3, type: 3}
+    volume: 0.35
+    pitchJitter: 0.08
+    variants:
+    - {fileID: 8300000, guid: 0832d8c7a35e69f4689072395220e3d3, type: 3}
+    - {fileID: 8300000, guid: d98b60d1eba0d864399ba540f9f2e41d, type: 3}
+    - {fileID: 8300000, guid: 03951e798c32d2849a9c6eac9205c19c, type: 3}
+    - {fileID: 8300000, guid: e71f85c46acd2f041a240e668cea0eca, type: 3}

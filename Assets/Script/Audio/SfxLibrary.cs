@@ -12,6 +12,21 @@ public class SfxLibrary : ScriptableObject
         public AudioClip clip;
         [Range(0f, 1f)] public float volume = 0.7f;
         [Range(0f, 0.3f)] public float pitchJitter = 0.05f;
+        [Tooltip("있으면 재생마다 무작위로 고른다(발소리 등). clip 은 대표/미리보기")]
+        public AudioClip[] variants;
+
+        public AudioClip Pick()
+        {
+            if (variants != null && variants.Length > 0)
+            {
+                AudioClip v = variants[Random.Range(0, variants.Length)];
+                if (v != null)
+                {
+                    return v;
+                }
+            }
+            return clip;
+        }
     }
 
     public List<Entry> entries = new List<Entry>();

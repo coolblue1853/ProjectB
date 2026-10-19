@@ -5,6 +5,8 @@ using UnityEngine;
 public enum SfxId
 {
     Hit, Crit, Kill, Pickup, Money, Craft, CraftFail, UiMove, UiOpen, Victory, RareDrop, PlayerDeath, Portal, BossSlam,
+    // 2026-10-19 추가(직렬화가 정수라 반드시 끝에 덧붙인다): 강화·아티팩트·지면별 발소리
+    EnhanceSuccess, EnhanceGreat, EnhanceFail, ArtifactHeal, ArtifactShell, ArtifactTime, ArtifactStar, FootGrass, FootDirt, FootStone,
 }
 
 /// <summary>
@@ -37,7 +39,8 @@ public static class Sfx
             return;
         }
         SfxLibrary.Entry entry = library.Get(id);
-        if (entry == null || entry.clip == null)
+        AudioClip clip = entry != null ? entry.Pick() : null;
+        if (clip == null)
         {
             return;
         }
@@ -52,7 +55,7 @@ public static class Sfx
         next = (next + 1) % sources.Length;
         src.pitch = 1f + Random.Range(-entry.pitchJitter, entry.pitchJitter);
         float master = MasterAudio.SafeInstance != null ? MasterAudio.MasterVolumeLevel : 1f;
-        src.PlayOneShot(entry.clip, entry.volume * volume * master);
+        src.PlayOneShot(clip, entry.volume * volume * master);
         GameLog.Info(GameLog.Cat.Audio, "SFX " + id);
     }
 

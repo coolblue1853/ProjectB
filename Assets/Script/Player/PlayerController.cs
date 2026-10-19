@@ -1034,18 +1034,11 @@ public class PlayerController : MonoBehaviour
 
     void PlayRunSound()
     {
-
-            if (!MasterAudio.IsSoundGroupPlaying("SoilRun"))
-        {
-            MasterAudio.PlaySound3DAtTransform("SoilRun", this.transform,1f,1.6f);
-        }
+        Footsteps.Step(true); // 지면별 발소리(풀·흙·돌) — 예전 MasterAudio SoilRun 대체
     }
     void PlayWalkSound()
     {
-        if (!MasterAudio.IsSoundGroupPlaying("SoilWalk"))
-        {
-            MasterAudio.PlaySound3DAtTransform("SoilWalk", this.transform);
-        }
+        Footsteps.Step(false);
     }
     void PlayRopeSound()
     {

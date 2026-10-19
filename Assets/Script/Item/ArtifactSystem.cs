@@ -171,22 +171,26 @@ public class ArtifactSystem : MonoBehaviour
                     phm.HpUp(heal);
                     Vfx.Play(VfxId.BurstGreen, pos + Vector3.up);
                     PickupLog.Report("+" + heal + " HP", 1, "C");
+                    Sfx.Play(SfxId.ArtifactHeal);
                     break;
                 }
             case ArtifactId.GuardianShell:
                 PlayerStatus.AcquireFor(StatusFlag.Invincible, 3f, "Artifact:GuardianShell");
                 Vfx.Play(VfxId.RuneBlue, pos + Vector3.up * 0.1f);
+                Sfx.Play(SfxId.ArtifactShell);
                 break;
             case ArtifactId.Hourglass:
                 slowTween?.Kill();
                 Time.timeScale = 0.2f;
                 slowTween = DOVirtual.DelayedCall(4f, () => Time.timeScale = 1f, true).SetLink(gameObject);
                 Vfx.Play(VfxId.RuneGold, pos + Vector3.up * 0.1f);
+                Sfx.Play(SfxId.ArtifactTime);
                 break;
             case ArtifactId.StarBurst:
                 {
                     Vfx.Play(VfxId.BurstGold, pos + Vector3.up, false, 1.6f);
                     HitFeedback.Shake(HitFeedback.ShakeTier.Heavy);
+                    Sfx.Play(SfxId.ArtifactStar);
                     int[] dmg = { 60, 90, 20, 50, 0, 50, 0, 0, 0, 0 };
                     foreach (EnemyHealth e in FindObjectsByType<EnemyHealth>(FindObjectsSortMode.None))
                     {
@@ -198,7 +202,6 @@ public class ArtifactSystem : MonoBehaviour
                     break;
                 }
         }
-        Sfx.Play(SfxId.Victory, 0.35f);
         GameLog.Info(GameLog.Cat.Player, "아티팩트 사용: " + d.name);
         Refresh();
         return true;

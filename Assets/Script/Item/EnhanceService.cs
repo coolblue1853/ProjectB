@@ -61,7 +61,7 @@ public static class EnhanceService
 
         InventoryManager.instance.RebuildItemStackCache();
         InventoryManager.instance.SaveInventory();
-        Sfx.Play(result == EnhanceRules.Result.Success ? (newLevel >= 5 ? SfxId.RareDrop : SfxId.Craft) : SfxId.CraftFail);
+        Sfx.Play(result == EnhanceRules.Result.Success ? (newLevel >= 5 ? SfxId.EnhanceGreat : SfxId.EnhanceSuccess) : SfxId.EnhanceFail);
         if (result == EnhanceRules.Result.Success)
         {
             FeelFx.EnhanceSuccess(newLevel);
