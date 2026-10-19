@@ -482,6 +482,10 @@ public class EnemyHealth : PoolAble
     {
         if (this.gameObject != null)
         {
+            if (GetComponentInChildren<PosionAttack>() == null)
+            {
+                HitFeedback.SpawnText(damageNumber, transform.position + Vector3.up, "POISON", HitFeedback.TextKind.Status); // 새로 걸릴 때만
+            }
             GameObject poisonObject = Instantiate(poisonPrefab, transform.position, transform.rotation, this.transform);
             PosionAttack posionAttack = poisonObject.GetComponent<PosionAttack>();
             posionAttack.enemyHealth = this.GetComponent<EnemyHealth>();
@@ -492,6 +496,10 @@ public class EnemyHealth : PoolAble
     {
         if(this.gameObject != null)
         {
+            if (GetComponentInChildren<BleedingAttack>() == null)
+            {
+                HitFeedback.SpawnText(damageNumber, transform.position + Vector3.up, "BLEED", HitFeedback.TextKind.Status); // 새로 걸릴 때만
+            }
             GameObject poisonObject = Instantiate(bleedingPrefab, transform.position, transform.rotation, this.transform);
             BleedingAttack posionAttack = poisonObject.GetComponent<BleedingAttack>();
             posionAttack.enemyHealth = this.GetComponent<EnemyHealth>();

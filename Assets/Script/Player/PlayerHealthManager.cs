@@ -284,6 +284,10 @@ public class PlayerHealthManager : MonoBehaviour
     public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
     {
 
+        if (isNoDamge == false && DatabaseManager.isInvincibility == true)
+        {
+            HitFeedback.SpawnText(_numberPrefab, NumberAnchor(), "IMMUNE", HitFeedback.TextKind.Immune); // 대시·스킬 무적으로 흘린 공격
+        }
         if(isNoDamge == false && DatabaseManager.isInvincibility == false)
         {
             isAlphaChange = true;
@@ -299,6 +303,10 @@ public class PlayerHealthManager : MonoBehaviour
 
             int dmgAfDef = DamageCalculator.IncomingToPlayer(damage, Def, StatMath.IncomingDamageMul * AscentLoad.IncomingMul()); // 상승 부하: 받는 피해 증가
             HitFeedback.OnPlayerHit();
+            if (dmgAfDef <= 0)
+            {
+                HitFeedback.SpawnText(_numberPrefab, NumberAnchor(), "BLOCK", HitFeedback.TextKind.Block); // 방어력이 전부 흡수
+            }
             HpDown(dmgAfDef);
             rb.linearVelocity = Vector2.zero;
             if (DatabaseManager.isSuperArmor == false && stiffTime > 0)

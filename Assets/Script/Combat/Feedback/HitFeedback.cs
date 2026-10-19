@@ -199,6 +199,53 @@ public static class HitFeedback
         }
     }
 
+    public enum TextKind { Immune, Block, Status, Gold }
+
+    const float TextThrottle = 0.5f;
+    static float lastImmuneTime = -10f, lastBlockTime = -10f;
+
+    /// <summary>
+    /// 문자 팝업(Damage Numbers Pro 왼쪽 텍스트): IMMUNE(무적 중 피격)·BLOCK(방어로 0 피해)·상태이상 이름·골드 획득.
+    /// IMMUNE/BLOCK 은 다단 히트가 겹쳐도 0.5초에 한 번만 띄운다.
+    /// </summary>
+    public static void SpawnText(DamageNumber prefab, Vector3 position, string text, TextKind kind)
+    {
+        prefab = prefab != null ? prefab : LastPrefab;
+        if (prefab == null || string.IsNullOrEmpty(text))
+        {
+            return;
+        }
+        if (kind == TextKind.Immune || kind == TextKind.Block)
+        {
+            ref float last = ref (kind == TextKind.Immune ? ref lastImmuneTime : ref lastBlockTime);
+            if (Time.time - last < TextThrottle)
+            {
+                return;
+            }
+            last = Time.time;
+        }
+        Color color;
+        float scale;
+        Vector3 offset = new Vector3(0f, 0.7f, 0f);
+        switch (kind)
+        {
+            case TextKind.Immune: color = new Color(0.62f, 0.9f, 1f); scale = 1.1f; break;
+            case TextKind.Block: color = new Color(0.85f, 0.85f, 0.9f); scale = 1.1f; break;
+            case TextKind.Gold: color = new Color(1f, 0.82f, 0.3f); scale = 1.2f; offset = new Vector3(0f, 1f, 0f); break;
+            default: color = new Color(0.8f, 0.6f, 1f); scale = 0.95f; offset = new Vector3(0f, 0.4f, 0f); break;
+        }
+        if (PixelLook.Active)
+        {
+            scale = Mathf.Max(scale * 2f, 3f); // 문자는 숫자보다 획이 많아 24px 격자에서 3배 미만이면 뭉개진다
+        }
+        DamageNumber number = prefab.Spawn(position + offset, text);
+        if (number != null)
+        {
+            number.SetColor(color);
+            number.SetScale(prefab.transform.localScale.x * scale);
+        }
+    }
+
     static SpriteHitFx GetFx(EnemyHealth target)
     {
         if (!target.TryGetComponent(out SpriteHitFx fx))

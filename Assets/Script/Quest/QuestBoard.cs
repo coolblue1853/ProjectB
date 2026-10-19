@@ -173,6 +173,10 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
             return;
         }
         DatabaseManager.money += d.gold;
+        if (d.gold > 0 && PlayerController.instance != null)
+        {
+            HitFeedback.SpawnText(null, PlayerController.instance.transform.position + Vector3.up, "+" + d.gold + " G", HitFeedback.TextKind.Gold);
+        }
         for (int i = 0; i < d.stones; i++)
         {
             InventoryManager.instance.CreatItem(EnhanceRules.StoneName);
