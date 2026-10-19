@@ -126,9 +126,13 @@ def split_poses(im, want, cuts=None):
 def frame(pose, size, dx=0, dy=0):
     f = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     if pose.width > size - 2 and pose.height <= size - 2 and BODY_W:
-        # 앞으로 길게 뻗은 공격(혀·팔): 축소하면 크기가 튀므로 몸을 대기 자세 위치에 두고 넘친 끝만 자른다
-        x = max(0, (size - BODY_W) // 2 + dx)
-        pose = pose.crop((0, 0, min(pose.width, size - x), pose.height))
+        # 길게 뻗은 공격(혀·팔·칼): 축소하면 크기가 튀므로 무게중심을 프레임 중앙에 두고 넘친 끝만 자른다
+        a = pose.getchannel("A").load()
+        xs = [px_ for px_ in range(pose.width) for py_ in range(pose.height) if a[px_, py_]]
+        cx = sum(xs) // max(1, len(xs))
+        left = max(0, cx - size // 2 - dx)
+        pose = pose.crop((left, 0, min(pose.width, left + size), pose.height))
+        x = 0
     else:
         scale = min(1.0, (size - 2) / max(pose.width, pose.height))
         if scale < 1.0:
