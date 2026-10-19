@@ -102,6 +102,28 @@ public static class QuestCatalog
             report = "The crest was carved deep into its heartwood... He passed that grove alive, and kept climbing. " +
                      "His trail leads to the Tower Outskirts. Rest first, child.",
         },
+        new Def
+        {
+            id = "st_father2", title = "Father's Traces II",
+            offer = "Beyond the swamp lie the Tower Outskirts. The stones there walk, they say — golems that guard the old ruins. " +
+                    "If your father carved his crest on the trees, he surely marked the stones too. Break 12 golems and read what they carry.",
+            journal = "Defeat 12 golems in the Tower Outskirts.",
+            targets = new[] { "GolemSmall_BD", "GolemMedium_BD", "GolemLarge_BD" }, count = 12, gold = 1500, stones = 5,
+            requires = "st_father1",
+            report = "The same crest, worn into the golems' cores... as if they were made to guard something he swore to protect. " +
+                     "Every mark points to the Tower gate. Something waits there, child. Something old.",
+        },
+        new Def
+        {
+            id = "st_father3", title = "Father's Traces III",
+            offer = "An armored giant stands before the Tower gate. No one who faced it has returned to tell us its face. " +
+                    "If you mean to follow him upward, you must pass it.",
+            journal = "Defeat the Gatekeeper of the Tower.",
+            targets = new[] { "Gatekeeper_BD" }, count = 1, gold = 3000, stones = 8,
+            requires = "st_father2",
+            report = "It wore his crest on its chest...? No — I will not guess at what I cannot know. " +
+                     "The gate is open now. Whatever is up there, your brooch will bring you home. Go, and come back.",
+        },
     };
 
     public static IEnumerable<Def> All()

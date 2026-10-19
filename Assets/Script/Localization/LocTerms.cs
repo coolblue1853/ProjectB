@@ -100,6 +100,18 @@ public static class LocTerms
         ("Defeat the Ancient Ent in the Deep Forest.", "깊은 숲의 고대 엔트를 쓰러뜨리세요."),
         ("The crest was carved deep into its heartwood... He passed that grove alive, and kept climbing. His trail leads to the Tower Outskirts. Rest first, child.",
          "문장이 그 심재 깊숙이 새겨져 있었구나... 그는 그 숲을 살아서 지나 계속 올라갔다. 발자취는 탑 근교로 이어진다. 우선 쉬어라, 아이야."),
+        ("Father's Traces II", "아버지의 흔적 II"),
+        ("Beyond the swamp lie the Tower Outskirts. The stones there walk, they say — golems that guard the old ruins. If your father carved his crest on the trees, he surely marked the stones too. Break 12 golems and read what they carry.",
+         "늪 너머에는 탑 근교가 있단다. 그곳에선 돌이 걷는다더구나 — 옛 폐허를 지키는 골렘들이지. 네 아버지가 나무에 문장을 새겼다면 돌에도 분명 흔적을 남겼을 게다. 골렘 12기를 부수고 그들이 품은 것을 읽어 보렴."),
+        ("Defeat 12 golems in the Tower Outskirts.", "탑 근교의 골렘 12기를 쓰러뜨리세요."),
+        ("The same crest, worn into the golems' cores... as if they were made to guard something he swore to protect. Every mark points to the Tower gate. Something waits there, child. Something old.",
+         "골렘의 핵에 닳아 있는 같은 문장이라... 마치 그가 지키겠다고 맹세한 무언가를 지키려고 만들어진 것 같구나. 모든 흔적이 탑의 문을 가리킨다. 그곳에 무언가가 기다리고 있다, 아이야. 아주 오래된 무언가가."),
+        ("Father's Traces III", "아버지의 흔적 III"),
+        ("An armored giant stands before the Tower gate. No one who faced it has returned to tell us its face. If you mean to follow him upward, you must pass it.",
+         "탑의 문 앞에 갑옷 입은 거인이 서 있다. 그것과 맞선 자 중 그 얼굴을 전하러 돌아온 이는 없었지. 그를 따라 위로 오르려거든 그것을 지나야 한다."),
+        ("Defeat the Gatekeeper of the Tower.", "탑의 문지기를 쓰러뜨리세요."),
+        ("It wore his crest on its chest...? No — I will not guess at what I cannot know. The gate is open now. Whatever is up there, your brooch will bring you home. Go, and come back.",
+         "가슴에 그의 문장을 달고 있었다고...? 아니다 — 알 수 없는 것을 짐작하지는 않으마. 이제 문이 열렸다. 저 위에 무엇이 있든, 브로치가 너를 집으로 데려다줄 게다. 가거라, 그리고 돌아오너라."),
 
         // ── 대화 배우 ──
         ("Explorer", "탐험가"),
