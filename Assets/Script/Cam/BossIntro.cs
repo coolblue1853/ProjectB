@@ -30,7 +30,14 @@ public static class BossIntro
         lastShown[key] = Time.time;
         Transform target = boss.transform;
         cam.AddCameraTarget(target, 1f, 1f, Ease);
-        cam.Zoom(ZoomOut, Ease);
+        if (PixelLook.Active)
+        {
+            PixelLook.SetZoomOut(true);
+        }
+        else
+        {
+            cam.Zoom(ZoomOut, Ease);
+        }
         HitFeedback.Shake(HitFeedback.ShakeTier.Heavy);
         Sfx.Play(SfxId.BossSlam, 0.6f);
         BossBanner.Show(MonsterTable.DisplayName(key), "A guardian of the Tower appears", true);
@@ -40,7 +47,14 @@ public static class BossIntro
             if (ProCamera2D.Instance != null)
             {
                 ProCamera2D.Instance.RemoveCameraTarget(target, Ease);
-                ProCamera2D.Instance.Zoom(-ZoomOut, Ease);
+                if (PixelLook.Active)
+                {
+                    PixelLook.SetZoomOut(false);
+                }
+                else
+                {
+                    ProCamera2D.Instance.Zoom(-ZoomOut, Ease);
+                }
             }
         }, false);
     }

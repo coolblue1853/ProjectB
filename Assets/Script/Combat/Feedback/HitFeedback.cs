@@ -186,6 +186,11 @@ public static class HitFeedback
             case NumberKind.Hurt: color = new Color(1f, 0.3f, 0.3f); scale = 1.1f; offset = new Vector3(0f, 0.6f, 0f); break;
             default: color = Color.white; scale = 1.35f; break; // 픽셀 폰트는 작아 보여서 키움
         }
+        if (PixelLook.Active)
+        {
+            // 24 PPU 렌더 텍스처에서는 2.2배 미만 숫자의 획이 뭉개진다(2026-10-19 화면 확인)
+            scale = kind == NumberKind.Crit ? 2.8f : Mathf.Max(scale * 1.5f, 2.2f);
+        }
         DamageNumber number = prefab.Spawn(position + offset, value);
         if (number != null)
         {
