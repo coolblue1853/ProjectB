@@ -57,6 +57,7 @@ public class BossPhase : MonoBehaviour
     {
         phase = 0;
         Apply(false);
+        PublishToTree(); // 풀 재사용 시 이전 페이즈 값이 트리에 남지 않게
     }
 
     /// <summary>피격 후 EnemyHealth 가 호출. 임계값을 넘으면 페이즈 상승(되돌리지 않음)</summary>
@@ -79,7 +80,21 @@ public class BossPhase : MonoBehaviour
         {
             phase = target;
             Apply(true);
+            PublishToTree();
             PhaseEntered?.Invoke(this, phase);
+        }
+    }
+
+    /// <summary>
+    /// BT 공유 변수 "Phase"(SharedInt)에 현재 페이즈를 쓴다(없으면 런타임에 생긴다). 보스 트리는 이 값이나
+    /// BossPhaseAtLeast 조건 태스크로 페이즈별 패턴을 고른다(AssetIntegrationPlan 6절 8).
+    /// </summary>
+    void PublishToTree()
+    {
+        var bt = GetComponent<BehaviorDesigner.Runtime.BehaviorTree>();
+        if (bt != null)
+        {
+            bt.SetVariable("Phase", (BehaviorDesigner.Runtime.SharedInt)phase);
         }
     }
 
