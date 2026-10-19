@@ -11,5 +11,7 @@ var smh = (UnityEngine.Rendering.Universal.ShadowsMidtonesHighlights)get(typeof(
 smh.shadows.Override(new Vector4(0.94f, 1.02f, 1.08f, 0.1f)); smh.highlights.Override(new Vector4(1.03f, 1.0f, 0.95f, 0f));
 var vg = (UnityEngine.Rendering.Universal.Vignette)get(typeof(UnityEngine.Rendering.Universal.Vignette));
 vg.intensity.Override(0.2f); vg.smoothness.Override(0.65f); vg.color.Override(new Color(0.04f, 0.08f, 0.10f));
+var bl = (UnityEngine.Rendering.Universal.Bloom)get(typeof(UnityEngine.Rendering.Universal.Bloom));
+bl.threshold.Override(0.8f); bl.intensity.Override(0.9f); bl.scatter.Override(0.65f); bl.tint.Override(new Color(0.78f, 1f, 0.96f)); // 생물발광 포인트(눈·반딧불·도깨비불)
 EditorUtility.SetDirty(prof); AssetDatabase.SaveAssets();
 return "profile ok comps=" + prof.components.Count;
