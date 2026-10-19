@@ -112,13 +112,11 @@ public class PlayerController : MonoBehaviour
     bool once = false;
     public GameObject touchLight;
     public GameObject nowTouch;
-    public bool uiDashWait = false;
+    [HideInInspector] public bool uiDashWait = false; // 미사용(직렬화 호환용) — 제작창 닫기 직후 대시 방지는 DashLock 토큰(PlayerStateDesign Phase 4)
+    /// <summary>UI 를 닫은 직후 같은 키 입력으로 대시가 나가지 않게 0.1초 DashLock (Tick 에서 만료)</summary>
     public void DashWait2F()
     {
-        Sequence waitDash = DOTween.Sequence()
-       .AppendInterval(0.1f)
-       .AppendCallback(() => uiDashWait = false);
-     
+        PlayerStatus.AcquireFor(StatusFlag.DashLock, 0.1f, "UiClose");
     }
 
     public void TouchLightOn(float attP, float lightMaxT, float lightT)
@@ -303,7 +301,7 @@ public class PlayerController : MonoBehaviour
 
 
             // 대쉬
-            if (DatabaseManager.isOpenUI == false && uiDashWait == false &&dashAction.triggered && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false 
+            if (DatabaseManager.isOpenUI == false && !PlayerStatus.Has(StatusFlag.DashLock) && dashAction.triggered && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false 
             {
                 rb.gravityScale =3;
                 isUpLadder = false;

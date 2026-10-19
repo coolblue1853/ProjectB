@@ -478,7 +478,7 @@ public class CraftingManager : MonoBehaviour
     {
           if (isSelfCraft == false && isCraftWeapon == true && CraftUI.activeSelf == false && DatabaseManager.isOpenUI == false) // 무기 제작인
         {
-            PlayerController.instance.uiDashWait = true;
+            // 열려 있는 동안은 InputLock(UiLock "Craft") 이 대시를 막는다
             DeleteAllChildren(needMaterail);
             SetNeedItem();
             SetDetail();
@@ -492,7 +492,7 @@ public class CraftingManager : MonoBehaviour
     {
          if (isSelfCraft == false && isCraftWeapon == false && CraftUI.activeSelf == false && DatabaseManager.isOpenUI == false) // 장비 제작인
         {
-            PlayerController.instance.uiDashWait = true;
+            // 열려 있는 동안은 InputLock(UiLock "Craft") 이 대시를 막는다
             DeleteAllChildren(needMaterail);
             SetNeedItem();
             SetDetail();

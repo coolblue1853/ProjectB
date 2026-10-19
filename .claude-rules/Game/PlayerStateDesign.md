@@ -239,7 +239,7 @@ public sealed class StatModifier {
 
 ### Phase 4 — InputLock·DashLock (UI)
 
-> **진행(2026-10-18):** 🔶 `UiLock.Set(owner, bool)` — 창마다 이름 붙은 InputLock 토큰. 새 창(강화·도감·퀘스트 대화)은 이전 완료(`UiLockTests` 3개). 레거시 UI도 이행 완료 ✅ — 인벤토리·창고·상점은 함께 열리고 닫히는 묶음이라 `InvGroup` 하나, 제작은 `Craft`. 가상 키 검증: I(열기)→K(차단)→I(닫기)→K(제작 열기)→Esc(닫기) 전부 기대대로 (`Tools/probes/press_key.cs` + `input_bg_on/off`). ⏳ DashLock(제작 닫기 후 대시 방지 `uiDashWait`) 토큰화.
+> **진행(2026-10-18):** 🔶 `UiLock.Set(owner, bool)` — 창마다 이름 붙은 InputLock 토큰. 새 창(강화·도감·퀘스트 대화)은 이전 완료(`UiLockTests` 3개). 레거시 UI도 이행 완료 ✅ — 인벤토리·창고·상점은 함께 열리고 닫히는 묶음이라 `InvGroup` 하나, 제작은 `Craft`. 가상 키 검증: I(열기)→K(차단)→I(닫기)→K(제작 열기)→Esc(닫기) 전부 기대대로 (`Tools/probes/press_key.cs` + `input_bg_on/off`). ✅ DashLock(2026-10-19): `DashWait2F` = `AcquireFor(DashLock, 0.1f, "UiClose")`, 대시 조건 `!Has(DashLock)`, `uiDashWait` 는 직렬화 호환용으로 남기고 미사용. 프로브: 획득 직후 True·1초 뒤 False.
 
 - 수정: `InventoryManager`, `Chest`, `CraftingManager`, `ShopManager` — 열 때 `_uiLock = Acquire(InputLock, "Inventory")`, 닫을 때 Dispose. 각 UI의 "열기 조건 `isOpenUI == false`"는 `!Has(InputLock)`로(현행: 다른 UI가 열려 있으면 안 열림). Chest의 닫기 경로가 InventoryManager:589/1230에 있으므로 **핸들 소유자를 닫는 쪽에서 찾을 수 있게** `InventoryManager.CloseAll()`이 열린 UI 핸들을 모두 Dispose.
 - 수정: `CraftingManager:476/490` + `PlayerController.DashWait2F` → `AcquireFor(DashLock, 0.1f, "CraftClose")`. `uiDashWait` 필드는 직렬화되어 있으므로 남기고 `[HideInInspector]` + 미사용.
