@@ -15,6 +15,9 @@ public class SpriteHitFx : MonoBehaviour
     const string FxShaderName = "AllIn1SpriteShader/AllIn1Urp2dRenderer";
 
     static Material enemyTemplate;
+    static Material eliteTemplate;
+    static readonly int OutlineColorId = Shader.PropertyToID("_OutlineColor");
+    static readonly Color EliteOutline = new Color(1f, 0.78f, 0.3f, 1f);
 
     SpriteRenderer spriteRenderer;
     Material material;
@@ -75,6 +78,37 @@ public class SpriteHitFx : MonoBehaviour
         {
             Destroy(material);
         }
+    }
+
+    /// <summary>
+    /// 정예 금빛 외곽선 (All In 1 OUTBASE·픽셀 퍼펙트 1px). 키워드가 빌드에 남도록 키워드를 켠 재질 에셋
+    /// Resources/FX/M_EnemySpriteElite 로 갈아 끼운다(Tools/probes/make_elite_material.cs). 해제하면 기본 재질로 돌아간다.
+    /// </summary>
+    public void SetElite(bool on)
+    {
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+        if (on && eliteTemplate == null)
+        {
+            eliteTemplate = Resources.Load<Material>("FX/M_EnemySpriteElite");
+        }
+        Material template = on ? eliteTemplate : enemyTemplate;
+        if (template == null)
+        {
+            return;
+        }
+        if (material != null)
+        {
+            Destroy(material);
+        }
+        material = new Material(template);
+        if (on)
+        {
+            material.SetColor(OutlineColorId, EliteOutline);
+        }
+        spriteRenderer.material = material;
     }
 
     /// <summary>흰색(또는 color) 플래시. 도트는 하드 컷이 선명하므로 duration 동안 유지 후 즉시 끈다.</summary>

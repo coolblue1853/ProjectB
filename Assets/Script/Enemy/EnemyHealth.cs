@@ -74,6 +74,11 @@ public class EnemyHealth : PoolAble
             eliteAura = EliteAura.Attach(this);
         }
         eliteAura.gameObject.SetActive(true);
+        if (!TryGetComponent(out SpriteHitFx eliteFx))
+        {
+            eliteFx = gameObject.AddComponent<SpriteHitFx>(); // 보통 첫 피격 때 붙는다 — 승격 외곽선을 위해 미리
+        }
+        eliteFx.SetElite(true);
         if (hpBar != null)
         {
             hpBar.setHpBar(this);
@@ -95,6 +100,10 @@ public class EnemyHealth : PoolAble
         enemyDef = baseDef;
         transform.localScale = baseScale;
         GetComponent<SpriteRenderer>().color = baseColor;
+        if (TryGetComponent(out SpriteHitFx eliteFx))
+        {
+            eliteFx.SetElite(false);
+        }
         if (eliteAura != null)
         {
             eliteAura.gameObject.SetActive(false);
@@ -482,6 +491,7 @@ public class EnemyHealth : PoolAble
     {
         if (this.gameObject != null)
         {
+            StatusTint.Ensure(gameObject);
             if (GetComponentInChildren<PosionAttack>() == null)
             {
                 HitFeedback.SpawnText(damageNumber, transform.position + Vector3.up, "POISON", HitFeedback.TextKind.Status); // 새로 걸릴 때만
@@ -496,6 +506,7 @@ public class EnemyHealth : PoolAble
     {
         if(this.gameObject != null)
         {
+            StatusTint.Ensure(gameObject);
             if (GetComponentInChildren<BleedingAttack>() == null)
             {
                 HitFeedback.SpawnText(damageNumber, transform.position + Vector3.up, "BLEED", HitFeedback.TextKind.Status); // 새로 걸릴 때만
