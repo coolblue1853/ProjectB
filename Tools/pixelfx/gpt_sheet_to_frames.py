@@ -7,6 +7,8 @@ import os
 import sys
 from PIL import Image
 
+BODY_W = 0  # 대기 자세 폭(긴 공격 포즈 정렬용)
+KEEP_PINK = False  # 분홍 몸 색(혀·꽃)을 쓰는 몹은 인자 4번째에 keeppink
 ROOT = os.path.join(os.path.dirname(__file__), "..", "..", "Assets", "Art", "Monsters")
 
 
@@ -17,7 +19,7 @@ def is_bg(r, g, b, a):
     if r > 150 and b > 120 and g < 110 and abs(r - b) < 120:
         return True
     # 분홍 테두리(마젠타가 몸 색과 섞임): R 높고 B 가 G 보다 높다 — 눈 같은 주황 포인트(B 낮음)는 남긴다
-    if r > 190 and b > 80 and b > g:
+    if KEEP_PINK is False and r > 190 and b > 80 and b > g:
         return True
     # 어두운 보라 테두리(배경과 섞인 외곽 픽셀): R·B 가 G 보다 확실히 높다
     return r > 70 and b > 60 and g < r * 0.55 and g < b * 0.65
@@ -72,13 +74,17 @@ def drop_edge_bits(crop):
     big = max(len(c) for c in comps)
     for c in comps:
         edge = any(x == 0 or x == w - 1 for x, _ in c)
-        if edge and len(c) < big * 0.3:
+        span = max(x for x, _ in c) - min(x for x, _ in c) + 1
+        if edge and len(c) < big * 0.3 and span < w * 0.25:  # 길게 뻗은 혀·무기 끝은 남긴다
             for x, y in c:
                 px[x, y] = (0, 0, 0, 0)
     return crop
 
 
-def split_poses(im, want):
+def split_poses(im, want, cuts=None):
+    if cuts:  # 수동 경계(포즈끼리 열이 겹칠 때): cut=a,b,c,d,e
+        xs = [0] + cuts + [im.width]
+        return [drop_edge_bits(im.crop((xs[i], 0, xs[i + 1], im.height))).crop() for i in range(want)]
     cols = [any(im.getpixel((x, y))[3] for y in range(im.height)) for x in range(im.width)]
     runs, start = [], None
     for x, on in enumerate(cols + [False]):
@@ -113,10 +119,15 @@ def split_poses(im, want):
 
 def frame(pose, size, dx=0, dy=0):
     f = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    scale = min(1.0, (size - 2) / max(pose.width, pose.height))
-    if scale < 1.0:
-        pose = pose.resize((max(1, int(pose.width * scale)), max(1, int(pose.height * scale))), Image.NEAREST)
-    x = (size - pose.width) // 2 + dx
+    if pose.width > size - 2 and pose.height <= size - 2 and BODY_W:
+        # 앞으로 길게 뻗은 공격(혀·팔): 축소하면 크기가 튀므로 몸을 대기 자세 위치에 두고 넘친 끝만 자른다
+        x = max(0, (size - BODY_W) // 2 + dx)
+        pose = pose.crop((0, 0, min(pose.width, size - x), pose.height))
+    else:
+        scale = min(1.0, (size - 2) / max(pose.width, pose.height))
+        if scale < 1.0:
+            pose = pose.resize((max(1, int(pose.width * scale)), max(1, int(pose.height * scale))), Image.NEAREST)
+        x = (size - pose.width) // 2 + dx
     y = size - 2 - pose.height + dy  # 발은 아래에서 2px 위
     f.alpha_composite(pose, (x, y))
     return f
@@ -154,11 +165,17 @@ def sheet(frames, size):
 def main():
     src, name = sys.argv[1], sys.argv[2]
     size = int(sys.argv[3]) if len(sys.argv) > 3 else 64
-    poses = split_poses(clean(Image.open(src)), 6)
+    global KEEP_PINK
+    KEEP_PINK = "keeppink" in sys.argv[4:]
+    cuts = next(([int(v) for v in a[4:].split(",")] for a in sys.argv[4:] if a.startswith("cut=")), None)
+    poses = split_poses(clean(Image.open(src)), 6, cuts)
+    poses = [p.crop(p.getbbox()) for p in poses]
     if len(poses) < 6:
         print("poses found:", len(poses))
         return 1
     idle0, idle1, run0, run1, atk, hurt = poses[:6]
+    global BODY_W
+    BODY_W = idle0.width
     out = os.path.join(ROOT, name)
     os.makedirs(out, exist_ok=True)
     F = lambda p, dx=0, dy=0: frame(p, size, dx, dy)
