@@ -195,8 +195,20 @@ public sealed class SlotContainer
     /// <summary>같은 스택을 합친 뒤 비교자 순으로 앞에서부터 채운다</summary>
     public void Sort(IComparer<ItemStack> cmp)
     {
-        var temp = new SlotContainer(catalog, Unlocked, Unlocked);
-        for (int i = 0; i < Unlocked; i++)
+        SortRange(0, Unlocked, cmp);
+    }
+
+    /// <summary>[start, start+length) 칸만 정렬한다(인벤토리 현재 페이지 정렬, D4). 잠긴 칸은 건드리지 않는다</summary>
+    public void SortRange(int start, int length, IComparer<ItemStack> cmp)
+    {
+        int end = Math.Min(start + length, Unlocked);
+        if (start < 0 || end <= start)
+        {
+            return;
+        }
+        int n = end - start;
+        var temp = new SlotContainer(catalog, n, n);
+        for (int i = start; i < end; i++)
         {
             if (!slots[i].IsEmpty)
             {
@@ -204,7 +216,7 @@ public sealed class SlotContainer
             }
         }
         var list = new List<ItemStack>();
-        for (int i = 0; i < Unlocked; i++)
+        for (int i = 0; i < n; i++)
         {
             if (!temp.slots[i].IsEmpty)
             {
@@ -212,12 +224,12 @@ public sealed class SlotContainer
             }
         }
         list.Sort(cmp);
-        for (int i = 0; i < Unlocked; i++)
+        for (int i = 0; i < n; i++)
         {
             ItemStack next = i < list.Count ? list[i] : ItemStack.Empty;
-            if (!Same(slots[i], next))
+            if (!Same(slots[start + i], next))
             {
-                Set(i, next);
+                Set(start + i, next);
             }
         }
     }

@@ -421,6 +421,8 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 
 ### Phase 7 — 툴팁(D3) · 정렬/25칸(D4)
 
+> **진행(2026-10-19):** ✅ 정렬 — `ItemSortComparer`(순수) + `SlotContainer.SortRange`(페이지 범위, 잠긴 칸 제외) + `InventoryService.SortPage` + 인벤토리 R 키(게임패드 **R3** — Y 는 이미 나누기라 3.2 의 Y 대신), 정렬 뒤 즉시 저장. `ItemSortComparerTests` 4개 통과, 프로브 `inv_sort.cs`(총량 보존·스택 병합 확인). 정렬 버튼 UI·25칸 확장은 미구현.
+
 - `StatBlock` 캐시, `TooltipBuilder`(+ `TooltipBuilderTests`)를 만든다.
 - **`TooltipBuilderTests`:**
   - 등급색이 맞다.

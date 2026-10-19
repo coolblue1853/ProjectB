@@ -66,6 +66,14 @@ public sealed class InventoryService
         return true;
     }
 
+    /// <summary>page 페이지만 정렬한다(같은 스택 병합 → ItemSortComparer 순). 바뀐 칸만 다시 그린다</summary>
+    public void SortPage(int page)
+    {
+        SyncModelFromViews();
+        model.SortRange(page * PerPage, PerPage, new ItemSortComparer(CsvItemCatalog.Shared));
+        ApplyDirty(null);
+    }
+
     /// <summary>앞 칸부터 count 만큼 지운다. 모자라면 아무것도 지우지 않고 false</summary>
     public bool Remove(string id, int count)
     {

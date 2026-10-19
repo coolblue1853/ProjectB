@@ -1019,6 +1019,22 @@ public class InventoryManager : MonoBehaviour
         SaveInventory();
     }
     public TextMeshProUGUI myMoney;
+    /// <summary>정렬 키(D4): 키보드 R, 게임패드 R3 (Y 는 나누기에 이미 쓰고 있다)</summary>
+    static bool SortPressed()
+    {
+        Keyboard kb = Keyboard.current;
+        Gamepad gp = Gamepad.current;
+        return (kb != null && kb.rKey.wasPressedThisFrame) || (gp != null && gp.rightStickButton.wasPressedThisFrame);
+    }
+
+    /// <summary>현재 페이지만 정렬하고 저장한다</summary>
+    public void SortCurrentPage()
+    {
+        Service.SortPage(nowBox);
+        SaveInventory();
+        Sfx.Play(SfxId.UiMove);
+    }
+
     private void Update()
     {
         verticalInput = (verticalCheck.ReadValue<float>());
@@ -1067,6 +1083,10 @@ public class InventoryManager : MonoBehaviour
             if (state == "")
             {
                 BoxOpen();
+            }
+            if ((state == "" || state == "chestOpen") && SortPressed())
+            {
+                SortCurrentPage();
             }
             if (selectAction.triggered)
             {
