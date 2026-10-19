@@ -4,11 +4,11 @@ var prof = AssetDatabase.LoadAssetAtPath<UnityEngine.Rendering.VolumeProfile>(pa
 if (prof == null) { prof = ScriptableObject.CreateInstance<UnityEngine.Rendering.VolumeProfile>(); AssetDatabase.CreateAsset(prof, path); }
 System.Func<System.Type, UnityEngine.Rendering.VolumeComponent> get = t => { UnityEngine.Rendering.VolumeComponent c; if (!prof.TryGet(t, out c)) { c = prof.Add(t, true); AssetDatabase.AddObjectToAsset(c, prof); } c.active = true; return c; };
 var ca = (UnityEngine.Rendering.Universal.ColorAdjustments)get(typeof(UnityEngine.Rendering.Universal.ColorAdjustments));
-ca.saturation.Override(-12f); ca.contrast.Override(0f); ca.postExposure.Override(0.1f); ca.colorFilter.Override(new Color(0.96f, 0.99f, 1f));
+ca.saturation.Override(-18f); ca.contrast.Override(0f); ca.postExposure.Override(0.1f); ca.colorFilter.Override(new Color(0.97f, 0.97f, 1f)); // B 몽환 라벤더 (2026-10-19 사용자 확정)
 var st = (UnityEngine.Rendering.Universal.SplitToning)get(typeof(UnityEngine.Rendering.Universal.SplitToning));
-st.shadows.Override(new Color(0.20f, 0.42f, 0.47f)); st.highlights.Override(new Color(0.93f, 0.80f, 0.62f)); st.balance.Override(10f);
+st.shadows.Override(new Color(0.32f, 0.36f, 0.55f)); st.highlights.Override(new Color(0.98f, 0.84f, 0.76f)); st.balance.Override(0f);
 var smh = (UnityEngine.Rendering.Universal.ShadowsMidtonesHighlights)get(typeof(UnityEngine.Rendering.Universal.ShadowsMidtonesHighlights));
-smh.shadows.Override(new Vector4(0.94f, 1.02f, 1.08f, 0.1f)); smh.highlights.Override(new Vector4(1.03f, 1.0f, 0.95f, 0f));
+smh.shadows.Override(new Vector4(1.0f, 0.98f, 1.1f, 0.1f)); smh.highlights.Override(new Vector4(1.03f, 1.0f, 0.95f, 0f));
 var vg = (UnityEngine.Rendering.Universal.Vignette)get(typeof(UnityEngine.Rendering.Universal.Vignette));
 vg.intensity.Override(0.2f); vg.smoothness.Override(0.65f); vg.color.Override(new Color(0.04f, 0.08f, 0.10f));
 var bl = (UnityEngine.Rendering.Universal.Bloom)get(typeof(UnityEngine.Rendering.Universal.Bloom));
