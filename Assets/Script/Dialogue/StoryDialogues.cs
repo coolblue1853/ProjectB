@@ -131,6 +131,11 @@ public static class StoryDialogues
         DialogueEntry hub = Chain(v, Start(v), ElderId,
             "Ah... you wear his brooch. So you are the child he spoke of.");
         hub = Chain(v, hub, ElderId, "Ask what you must, explorer.");
+        // 퀘스트 연동: 이 줄이 끝나면(대화 종료) 촌장 퀘스트 창(Quest Machine)이 열린다 — DialogueBoot.OpenElderQuests
+        DialogueEntry askWork = Line(v, PlayerId, "Is there anything I can do?");
+        Link(v, hub, askWork);
+        DialogueEntry work = Chain(v, askWork, ElderId, "There is. Let me tell you what the hunters found.");
+        work.userScript = "OpenElderQuests()";
         Menu(v, hub, ElderId, new List<(string, string[])>
         {
             ("About my father...", new[]

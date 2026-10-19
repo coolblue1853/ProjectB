@@ -11,9 +11,22 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(QuestGiver))]
 public class QuestBoard : MonoBehaviour, IMessageHandler
 {
-    [SerializeField] private SpriteRenderer _questMark;
+    /// <summary>퀘스트 출처: 게시판(체인·부가) / 촌장(스토리, 대화로 열림)</summary>
+    public enum Source { Board, Elder }
 
-    const string SaveBoardKey = "qm.board", SaveJournalKey = "qm.journal";
+    [SerializeField] private SpriteRenderer _questMark;
+    [SerializeField] private Source _source = Source.Board;
+    [Tooltip("범위 안에서 ↑ 로 연다(게시판). 촌장은 Dialogue System 대화 선택지로 연다")]
+    [SerializeField] private bool _useUpKey = true;
+
+    const string SaveBoardKey = "qm.board", SaveElderKey = "qm.elder", SaveJournalKey = "qm.journal";
+
+    /// <summary>촌장 퀘스트 제공자 (대화 선택지 → DialogueBoot.OpenElderQuests)</summary>
+    public static QuestBoard ElderBoard { get; private set; }
+
+    string GiverKey => _source == Source.Board ? SaveBoardKey : SaveElderKey;
+    System.Collections.Generic.IEnumerable<QuestCatalog.Def> Catalog => _source == Source.Board ? QuestCatalog.All() : QuestCatalog.Story;
+    string ReportTo => _source == Source.Board ? "the quest board" : "the Village Elder";
 
     KeyAction action;
     InputAction upAction;
@@ -57,7 +70,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
             journal.includeInSavedGameData = true;
         }
         Load();
-        foreach (QuestCatalog.Def d in QuestCatalog.All())
+        foreach (QuestCatalog.Def d in Catalog)
         {
             // 저장본에 없는 퀘스트(새로 추가된 것 포함)만 생성 — 플레이어가 이미 받은 퀘스트는 게시판 목록에서 빠져 있다
             bool inJournal = journal != null && journal.ContainsQuest(d.id);
@@ -68,7 +81,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
             giver.AddQuest(Build(d));
         }
         RefreshMark();
-        GameLog.Info(GameLog.Cat.Item, "퀘스트 게시판: 체인 " + QuestCatalog.Chain.Count + " + 부가 " + QuestCatalog.Side.Count);
+        GameLog.Info(GameLog.Cat.Item, "퀘스트 " + _source + ": " + giver.questList.Count + "개 제공 대기");
     }
 
     Quest Build(QuestCatalog.Def d)
@@ -109,10 +122,10 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
 
         // 게시판에 돌아와 보고
         var report = qb.AddDiscussQuestNode(hunt, QuestMessageParticipant.QuestGiver, giver.id);
-        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Dialogue), qb.CreateBodyContent("Well done! Here is your reward."));
-        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Journal), qb.CreateBodyContent("Report back to the quest board."));
-        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.HUD), qb.CreateBodyContent("Report to the quest board"));
-        report.GetStateInfo(QuestNodeState.Active).actionList.Add(qb.CreateAlertAction(d.title + " complete! Report to the quest board."));
+        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Dialogue), qb.CreateBodyContent(d.report ?? "Well done! Here is your reward."));
+        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.Journal), qb.CreateBodyContent("Report back to " + ReportTo + "."));
+        qb.AddContents(report.GetStateInfo(QuestNodeState.Active).GetContentList(QuestContentCategory.HUD), qb.CreateBodyContent("Report to " + ReportTo));
+        report.GetStateInfo(QuestNodeState.Active).actionList.Add(qb.CreateAlertAction(d.title + " complete! Report to " + ReportTo + "."));
         qb.AddSuccessNode(report);
         return qb.ToQuest();
     }
@@ -134,9 +147,9 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
             return;
         }
         string questId = messageArgs.parameter;
-        if (messageArgs.message == QuestMachineMessages.QuestStateChangedMessage && state == QuestState.Successful && !QuestMachine.isLoadingGame)
+        if (messageArgs.message == QuestMachineMessages.QuestStateChangedMessage && state == QuestState.Successful && !QuestMachine.isLoadingGame && Owns(questId))
         {
-            GrantReward(QuestCatalog.Find(questId));
+            GrantReward(QuestCatalog.Find(questId)); // 게시판·촌장이 같은 메시지를 받으므로 자기 출처 퀘스트만 보상(중복 지급 방지)
         }
         RefreshMark();
         Save();
@@ -149,15 +162,15 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
         {
             return;
         }
-        ES3.Save(SaveBoardKey, giver.RecordData());
+        ES3.Save(GiverKey, giver.RecordData());
         ES3.Save(SaveJournalKey, journal.RecordData());
     }
 
     void Load()
     {
-        if (ES3.KeyExists(SaveBoardKey))
+        if (ES3.KeyExists(GiverKey))
         {
-            giver.ApplyData(ES3.Load<string>(SaveBoardKey));
+            giver.ApplyData(ES3.Load<string>(GiverKey));
         }
         if (journal != null && ES3.KeyExists(SaveJournalKey))
         {
@@ -196,6 +209,72 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
         GameLog.Info(GameLog.Cat.Item, "퀘스트 보상 " + d.id + ": 골드 " + d.gold + ", 강화석 " + d.stones);
     }
 
+    bool Owns(string questId)
+    {
+        foreach (QuestCatalog.Def d in Catalog)
+        {
+            if (d.id == questId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 이 제공자가 준 진행 중 퀘스트의 '보고' 노드를 완료시킨다: 수행자(플레이어 저널) → 제공자 "Discussed Quest" 메시지.
+    /// 촌장은 Dialogue System 대화를 마치면 보고로 친다(퀘스트 창을 거치지 않아도 되게 — 창은 활성 퀘스트가 하나일 때만 이 메시지를 보낸다).
+    /// </summary>
+    public int ReportActiveQuests()
+    {
+        if (giver == null || journal == null)
+        {
+            return 0;
+        }
+        int n = 0;
+        foreach (Quest q in journal.questList.ToArray())
+        {
+            if (q != null && q.GetState() == QuestState.Active && StringField.Equals(q.questGiverID, giver.id))
+            {
+                QuestMachineMessages.DiscussedQuest(journal.gameObject, giver, giver.id, q.id);
+                n++;
+            }
+        }
+        return n;
+    }
+
+    /// <summary>Quest Machine 퀘스트 대화창을 연다(촌장: 대화 선택지 뒤)</summary>
+    public void OpenDialogue()
+    {
+        if (giver != null)
+        {
+            giver.StartDialogueWithPlayer();
+        }
+    }
+
+    /// <summary>촌장(TalkNpc 대화 = Village/Elder)에 퀘스트 제공자를 런타임으로 붙인다. 씬 저장 없음</summary>
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    static void AttachElder()
+    {
+        ElderBoard = null;
+        foreach (TalkNpc npc in FindObjectsByType<TalkNpc>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (npc.Conversation != StoryDialogues.Elder || npc.GetComponent<QuestGiver>() != null)
+            {
+                continue;
+            }
+            var g = npc.gameObject.AddComponent<QuestGiver>();
+            g.id = new StringField(npc.gameObject.name); // 메시지 발신자 식별이 오브젝트 이름 기준이라 ID 를 같게(게시판도 QuestBoard=QuestBoard)
+            g.displayName = new StringField("Village Elder");
+            var board = npc.gameObject.AddComponent<QuestBoard>();
+            board._source = Source.Elder;
+            board._useUpKey = false;
+            ElderBoard = board;
+            GameLog.Info(GameLog.Cat.Item, "촌장 퀘스트 제공자 부착: " + npc.name);
+            return;
+        }
+    }
+
     /// <summary>받을 수 있는 퀘스트가 있으면 게시판 위에 ! 표시</summary>
     void RefreshMark()
     {
@@ -224,7 +303,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
             lockedUi = dialogueOpen;
             UiLock.Set("QuestDialog", dialogueOpen);
         }
-        if (playerNear && upAction.triggered && DatabaseManager.isOpenUI == false)
+        if (_useUpKey && playerNear && upAction.triggered && DatabaseManager.isOpenUI == false)
         {
             giver.StartDialogueWithPlayer();
         }

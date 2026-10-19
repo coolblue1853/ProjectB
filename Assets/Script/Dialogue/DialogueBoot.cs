@@ -10,6 +10,7 @@ public class DialogueBoot : MonoBehaviour
     const string OpeningKey = "story.opening";
     static DialogueBoot instance;
     bool openingDone;
+    static bool pendingElderQuests;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Boot()
@@ -39,6 +40,8 @@ public class DialogueBoot : MonoBehaviour
         instance = go.AddComponent<DialogueBoot>();
         instance.openingDone = ES3.KeyExists(OpeningKey) && ES3.Load<bool>(OpeningKey);
         go.SetActive(true);
+        Lua.RegisterFunction("OpenElderQuests", null, SymbolExtensions.GetMethodInfo(() => OpenElderQuests()));
+        ctrl.conversationEnded += OnConversationEnded;
         GameLog.Info(GameLog.Cat.Player, "대화 시스템 준비: 대화 " + ctrl.initialDatabase.conversations.Count + "개");
     }
 
@@ -51,6 +54,30 @@ public class DialogueBoot : MonoBehaviour
         openingDone = true;
         ES3.Save(OpeningKey, true);
         Talk(StoryDialogues.Opening, null);
+    }
+
+    /// <summary>Lua: 촌장 대화의 "일 묻기" 줄에서 호출 — 대화가 끝난 뒤 퀘스트 창을 연다(두 UI 동시 표시 방지)</summary>
+    public static void OpenElderQuests()
+    {
+        pendingElderQuests = true;
+    }
+
+    static void OnConversationEnded(Transform actor)
+    {
+        // 촌장과 대화를 마치면 촌장 퀘스트 보고 처리(사냥을 끝낸 퀘스트는 여기서 성공 → 보상)
+        if (QuestBoard.ElderBoard != null && DialogueManager.lastConversationStarted == StoryDialogues.Elder)
+        {
+            QuestBoard.ElderBoard.ReportActiveQuests();
+        }
+        if (!pendingElderQuests)
+        {
+            return;
+        }
+        pendingElderQuests = false;
+        if (QuestBoard.ElderBoard != null)
+        {
+            QuestBoard.ElderBoard.OpenDialogue();
+        }
     }
 
     /// <summary>대화 시작 (플레이어 ↔ 상대). 이미 대화 중이거나 다른 창이 열려 있으면 false</summary>

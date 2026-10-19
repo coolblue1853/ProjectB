@@ -17,6 +17,7 @@ public static class QuestCatalog
         public string requires;    // 선행 퀘스트 id (없으면 null)
         public string message = "Kill"; // 카운트할 MessageSystem 메시지 (Kill / Pickup / Craft)
         public ArtifactId artifact;     // 완료 시 해금 아티팩트
+        public string report;           // 보고 대사(없으면 기본 문구)
     }
 
     public static readonly List<Def> Chain = new List<Def>
@@ -88,6 +89,21 @@ public static class QuestCatalog
         },
     };
 
+    /// <summary>촌장이 대화로 주는 스토리 퀘스트 (TowerWorld 2절 — 아버지의 흔적). 게시판에는 뜨지 않는다</summary>
+    public static readonly List<Def> Story = new List<Def>
+    {
+        new Def
+        {
+            id = "st_father1", title = "Father's Traces I",
+            offer = "Hunters found strange marks carved on the trees of the Deep Forest — the same crest as your brooch. " +
+                    "An Ancient Ent has taken root over that grove. Defeat it, and see what your father left behind.",
+            journal = "Defeat the Ancient Ent in the Deep Forest.",
+            targets = new[] { "AncientEnt_BD" }, count = 1, gold = 800, stones = 3,
+            report = "The crest was carved deep into its heartwood... He passed that grove alive, and kept climbing. " +
+                     "His trail leads to the Tower Outskirts. Rest first, child.",
+        },
+    };
+
     public static IEnumerable<Def> All()
     {
         foreach (Def d in Chain) yield return d;
@@ -96,7 +112,7 @@ public static class QuestCatalog
 
     public static Def Find(string id)
     {
-        Def d = Chain.Find(x => x.id == id);
-        return d ?? Side.Find(x => x.id == id);
+        Def d = Chain.Find(x => x.id == id) ?? Side.Find(x => x.id == id);
+        return d ?? Story.Find(x => x.id == id);
     }
 }
