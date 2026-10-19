@@ -23,6 +23,17 @@ public class AscentHud : MonoBehaviour
         instance.Refresh();
     }
 
+    GameObject chipGo;
+
+    /// <summary>인벤토리·상점 등 UI 가 열리면 숨긴다(툴팁 위에 겹쳐 그려지던 문제)</summary>
+    void LateUpdate()
+    {
+        if (chipGo != null && chipGo.activeSelf == DatabaseManager.isOpenUI)
+        {
+            chipGo.SetActive(!DatabaseManager.isOpenUI);
+        }
+    }
+
     void OnDestroy()
     {
         AscentLoad.Changed -= Refresh;
@@ -40,6 +51,7 @@ public class AscentHud : MonoBehaviour
         scaler.matchWidthOrHeight = 0.5f;
 
         var chip = theme.NewPanel("Chip", transform, false, 0.85f);
+        chipGo = chip.gameObject;
         var cr = chip.rectTransform;
         cr.anchorMin = cr.anchorMax = cr.pivot = new Vector2(0f, 1f);
         cr.anchoredPosition = new Vector2(16f, -214f);

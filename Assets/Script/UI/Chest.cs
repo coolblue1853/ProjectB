@@ -769,7 +769,7 @@ public class Chest : MonoBehaviour
                 misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
                 misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
                 misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
-                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
+                misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = TooltipBuilder.RarityName(detail.itemData.rarity);
                 miscDetail.transform.position = detailPos.transform.position;
 
                 miscDetail.SetActive(true);
@@ -786,7 +786,7 @@ public class Chest : MonoBehaviour
                 consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
                 consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
                 consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
-                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
+                consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = TooltipBuilder.RarityName(detail.itemData.rarity);
                 InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, detail);
 
                 consum.transform.position = detailPos.transform.position;
@@ -808,17 +808,17 @@ public class Chest : MonoBehaviour
                 equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
                 equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
                 equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
-                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
+                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = TooltipBuilder.RarityName(detail.itemData.rarity);
                 InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
                 if (detail.itemData.equipArea != "Weapon") // 방어구라면
                 {
                     Equipment equipment = prefab.GetComponent<Equipment>();
-                    InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
+                    InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment, detail.itemData.upgrade);
                 }
                 else // 무기인 경우
                 {
                     Weapon weapon = prefab.GetComponent<Weapon>();
-                    InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
+                    InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon, detail.itemData.upgrade);
                     InventoryManager.instance.CheckSkillDetail(weapon);
                 }
 
@@ -842,17 +842,17 @@ public class Chest : MonoBehaviour
             equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
             equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
             equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(detail.itemData.rarity);
+            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = TooltipBuilder.RarityName(detail.itemData.rarity);
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
             if (detail.itemData.equipArea != "Weapon") // 방어구라면
             {
                 Equipment equipment = prefab.GetComponent<Equipment>();
-                InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
+                InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment, detail.itemData.upgrade);
             }
             else // 무기인 경우
             {
                 Weapon weapon = prefab.GetComponent<Weapon>();
-                InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
+                InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon, detail.itemData.upgrade);
                 InventoryManager.instance.CheckSkillDetail(weapon);
             }
             equip.transform.position = detailPos.transform.position;

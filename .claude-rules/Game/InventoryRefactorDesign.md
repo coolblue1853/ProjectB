@@ -422,6 +422,7 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 ### Phase 7 — 툴팁(D3) · 정렬/25칸(D4)
 
 > **진행(2026-10-19):** ✅ 정렬 — `ItemSortComparer`(순수) + `SlotContainer.SortRange`(페이지 범위, 잠긴 칸 제외) + `InventoryService.SortPage` + 인벤토리 R 키(게임패드 **R3** — Y 는 이미 나누기라 3.2 의 Y 대신), 정렬 뒤 즉시 저장. `ItemSortComparerTests` 4개 통과, 프로브 `inv_sort.cs`(총량 보존·스택 병합 확인). 정렬 버튼 UI·25칸 확장은 미구현.
+> ✅ 툴팁 1차(D3) — `TooltipBuilder`(순수 문구 생성) + `InventoryManager.DrawEquipDetail`(인벤토리·장비창 중복 블록 통합): 등급색 이름·강화 접두 "+N"·강화 배율 반영 스탯·부호 한 번(B-016)·**착용품 비교 ▲/▼**(같은 부위 착용 시, 무기는 평균 피해)·착용품에만 있는 스탯 빨간 줄·**세트 진행도 `(착용/전체)`** + 도달 단계 세트색/미도달 회색, 세트 효과 키(IncDmg 등) 번역. 창고 툴팁도 강화 반영. 레이아웃은 기존 고정 자식 TMP 유지(단일 TMP 재배치·Shift 비교 패널·무기 스킬 세트 강화 표시는 미구현). `TooltipBuilderTests` 7개 통과, 프로브 `tooltip_dump.cs` + 스크린샷. 랭크 HUD 칩이 툴팁 위에 겹치던 문제는 UI 열림 시 숨김으로 해결.
 
 - `StatBlock` 캐시, `TooltipBuilder`(+ `TooltipBuilderTests`)를 만든다.
 - **`TooltipBuilderTests`:**

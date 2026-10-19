@@ -69,6 +69,7 @@ public static class LocUi
         ("Armor Penetration", "방어 관통"), ("Skill Dmg", "스킬 피해"), ("Additional Dmg", "추가 피해"), ("Basic Dmg", "기본 피해"),
         ("Def", "방어"), ("Hp", "체력"), ("Critical Rate", "치명타율"), ("Drop Rate", "드롭률"), ("Movement Speed", "이동 속도"),
         ("Attack Speed", "공격 속도"), ("Cooldown", "재사용 대기"), ("CoolDown", "재사용 대기"), ("Incoming Dmg", "받는 피해"),
+        ("count", "회"),
         ("Chance to Cause Bleeding", "출혈 확률"), ("Dmg to Bleeding Enemies", "출혈 적 피해"), ("Poison Dmg", "독 피해"), ("Sec", "초"),
 
         // ── 몬스터 (MonsterSheet displayName) ──

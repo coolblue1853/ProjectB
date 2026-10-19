@@ -1463,78 +1463,55 @@ public class InventoryManager : MonoBehaviour
             }
             if (detail.itemData.type == "Equip")
             {
-                Transform equip = equipDetail.gameObject.transform;
-                string folderPath = detail.itemData.equipArea + "/";
-
-                // 리소스 폴더 내의 equipName을 로드합니다.
-                GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
-                equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-                equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
-                equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, true);
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
-                equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
-                equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
-                equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
-                equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = Loc.T(SetRarity(detail.itemData.rarity));
-                SetEffectDetail(equip.GetChild(8).gameObject, detail);
-                if (detail.itemData.equipArea != "Weapon") // 방어구라면
-                {
-                    Equipment equipment = prefab.GetComponent<Equipment>();
-                    SetArmorDetail(equip.GetChild(7).gameObject, equipment);
-                }
-                else // 무기인 경우
-                {
-                    Weapon weapon = prefab.GetComponent<Weapon>();
-                    SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
-                    CheckSkillDetail(weapon);
-                }
-                equip.transform.position = detailPos.transform.position;
-                equipDetail.SetActive(true);
-
+                DrawEquipDetail(true);
             }
         }
         else if (state == "Equipment")
         {
-            if (ob != null)
-            {
-                detail = ob.transform.GetComponent<ItemCheck>();
-            }
-            else
-            {
-                GameObject gameObject = (nowEquipBox);
-                detail = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
-            }
-            string folderPath = detail.itemData.equipArea + "/";
-
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + detail.name);
-            Transform equip = equipDetail.gameObject.transform;
-            equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
-            equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
-            equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, true);
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
-            equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(detail.itemData);
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (detail.itemData.price).ToString();
-            equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + detail.itemData.tear.ToString();
-            equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = Loc.T(SetRarity(detail.itemData.rarity));
-            SetEffectDetail(equip.GetChild(8).gameObject, detail);
-            if (detail.itemData.equipArea != "Weapon") // 방어구라면
-            {
-                Equipment equipment = prefab.GetComponent<Equipment>();
-                SetArmorDetail(equip.GetChild(7).gameObject, equipment);
-            }
-            else // 무기인 경우
-            {
-                Weapon weapon = prefab.GetComponent<Weapon>();
-                SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
-                CheckSkillDetail(weapon);
-            }
-            equip.transform.position = detailPos.transform.position;
-            equipDetail.SetActive(true);
-
-            equip.transform.position = detailPos.transform.position;
-            equipDetail.SetActive(true);
+            detail = ob != null ? ob.transform.GetComponent<ItemCheck>() : nowEquipBox.transform.GetChild(0).GetComponent<ItemCheck>();
+            DrawEquipDetail(false);
         }
+    }
+
+    /// <summary>장비 상세(D3): 등급색 이름·강화 반영 스탯·착용품 비교(compare 이고 같은 부위 착용품이 있을 때)·세트 진행도</summary>
+    void DrawEquipDetail(bool compare)
+    {
+        Transform equip = equipDetail.gameObject.transform;
+        ItemData d = detail.itemData;
+        GameObject prefab = Resources.Load<GameObject>(d.equipArea + "/" + detail.name);
+        ItemCheck worn = compare ? EquippedFor(d.equipArea) : null;
+        GameObject wornPrefab = worn != null ? Resources.Load<GameObject>(worn.itemData.equipArea + "/" + worn.name) : null;
+        int wornUp = worn != null ? worn.itemData.upgrade : 0;
+        equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
+        equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = TooltipBuilder.Name(d.itemNameT, d.rarity, d.upgrade);
+        equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(d, true);
+        equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(d);
+        equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + d.price;
+        equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + d.tear;
+        equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = "<color=" + TooltipBuilder.RarityColor(d.rarity) + ">" + TooltipBuilder.RarityName(d.rarity) + "</color>";
+        SetEffectDetail(equip.GetChild(8).gameObject, detail);
+        var stats = equip.GetChild(7).GetComponent<TextMeshProUGUI>();
+        if (d.equipArea != "Weapon")
+        {
+            stats.text = TooltipBuilder.ArmorBlock(prefab.GetComponent<Equipment>(), d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Equipment>() : null, wornUp);
+        }
+        else
+        {
+            Weapon weapon = prefab.GetComponent<Weapon>();
+            stats.text = TooltipBuilder.WeaponBlock(weapon, d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Weapon>() : null, wornUp);
+            CheckSkillDetail(weapon);
+        }
+        equip.transform.position = detailPos.transform.position;
+        equipDetail.SetActive(true);
+    }
+
+    /// <summary>같은 부위에 착용 중인 아이템 (없으면 null)</summary>
+    ItemCheck EquippedFor(string equipArea)
+    {
+        ItemCheck saved = detail;
+        GameObject box = SetEquipBox();
+        detail = saved;
+        return box != null && box.transform.childCount > 0 ? box.transform.GetChild(0).GetComponent<ItemCheck>() : null;
     }
     public GameObject skillDetailUi;
     public void CheckSkillDetail(Weapon weapon) // 기술 체크.
@@ -1559,71 +1536,54 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
+    /// <summary>세트 효과(D3): "< 세트 > (착용/전체)" + 도달 단계 세트색, 미도달 회색</summary>
     public void SetEffectDetail(GameObject textObject, ItemCheck nowItem)
     {
-        // 방어구의 세트효과
-        StringBuilder allSetStr = new StringBuilder();
-
-        if (!string.IsNullOrEmpty(nowItem.itemData.setName))
-            allSetStr.Append("< ").Append(Loc.T(nowItem.itemData.setName)).Append(" >\n");
-
-        SetItem setItem = new SetItem();
-
+        ItemData d = nowItem.itemData;
+        var tiers = new List<KeyValuePair<int, string>>();
+        var setItem = new SetItem();
         for (int i = 0; i < 8; i++)
         {
-            string effecStr = setItem.SetEffectStr(nowItem.itemData.tfName, i);
-            if (!string.IsNullOrEmpty(effecStr))
+            string effect = setItem.SetEffectStr(d.tfName, i);
+            if (!string.IsNullOrEmpty(effect))
             {
-                string noParentheses = effecStr.Replace("(", "").Replace(")", " ");
-                string[] box = noParentheses.Split("/");
-
-                allSetStr.Append("(").Append(i).Append(") ");
-
-                for (int k = 0; k < box.Length; k++)
-                {
-                    string[] checkEffect = box[k].Split();
-
-                    if (checkEffect[2] == "skillHitCount")
-                    {
-                        allSetStr.Append(checkEffect[0])
-                                 .Append(checkEffect[1])
-                                 .Append(" [").Append(checkEffect[3].Replace("_", " "))
-                                 .Append("] count");
-                    }
-                    else if (checkEffect[2] == "bulletCount")
-                    {
-                        allSetStr.Append(checkEffect[0])
-                                 .Append(checkEffect[1])
-                                 .Append(" [").Append(checkEffect[3].Replace("_", " "))
-                                 .Append("] count");
-                    }
-                    else if (checkEffect[2] == "coolDown")
-                    {
-                        allSetStr.Append("-").Append(checkEffect[1])
-                                 .Append("% ").Append(Loc.T("CoolDown")).Append(" [").Append(checkEffect[3].Replace("_", " "))
-                                 .Append("]");
-                    }
-                    else
-                    {
-                        allSetStr.Append(checkEffect[0])
-                                 .Append(" ").Append(checkEffect[1])
-                                 .Append(" ").Append(checkEffect[2]);
-                    }
-
-                    if (k != box.Length - 1)
-                    {
-                        allSetStr.Append(",\n");
-                    }
-                    else
-                    {
-                        allSetStr.Append("\n");
-                    }
-                }
+                tiers.Add(new KeyValuePair<int, string>(i, TooltipBuilder.FormatSetEffect(effect)));
             }
         }
-
-        textObject.GetComponent<TextMeshProUGUI>().text = allSetStr.ToString();
+        int worn = 0;
+        if (!string.IsNullOrEmpty(d.tfName))
+        {
+            DatabaseManager.setsEffectStack.TryGetValue(d.tfName, out worn);
+        }
+        string setName = string.IsNullOrEmpty(d.setName) ? null : Loc.T(d.setName);
+        textObject.GetComponent<TextMeshProUGUI>().text = TooltipBuilder.SetBlock(setName, worn, SetPartCount(d.tfName), tiers);
     }
+
+    static readonly Dictionary<string, int> setPartCache = new Dictionary<string, int>();
+
+    /// <summary>세트 전체 부위 수 = 같은 세트 키(tfName)를 가진 장비의 서로 다른 부위 수 (무기 여러 종은 1부위)</summary>
+    static int SetPartCount(string tfName)
+    {
+        if (string.IsNullOrEmpty(tfName) || DatabaseManager.instance == null || DatabaseManager.instance.Items == null)
+        {
+            return 0;
+        }
+        if (setPartCache.TryGetValue(tfName, out int n))
+        {
+            return n;
+        }
+        var areas = new HashSet<string>();
+        foreach (ItemData item in DatabaseManager.instance.Items)
+        {
+            if (item.type == "Equip" && item.tfName == tfName)
+            {
+                areas.Add(item.equipArea);
+            }
+        }
+        setPartCache[tfName] = areas.Count;
+        return areas.Count;
+    }
+
     public void SetConsumEffect(GameObject textObject, ItemCheck nowItem)
     {
         StringBuilder allSetStr = new StringBuilder();
@@ -1659,59 +1619,9 @@ public class InventoryManager : MonoBehaviour
         textObject.GetComponent<TextMeshProUGUI>().text = allSetStr.ToString();
     }
 
-    public void SetWeaponDetail(GameObject textObject, Weapon weapon)
+    public void SetWeaponDetail(GameObject textObject, Weapon weapon, int upgrade = 0)
     {
-        StringBuilder basicStr = new StringBuilder();
-
-        // 방어구의 기본적인 스탯수치
-        basicStr.Append(weapon.minDmg)
-                .Append("~")
-                .Append(weapon.maxDmg)
-                .Append(" ").Append(Loc.T("Dmg")).Append("\n");
-
-        if (weapon.critPer != 0)
-        {
-            basicStr.Append(weapon.critPer > 0 ? "+" : "-")
-                    .Append(weapon.critPer)
-                    .Append(" ").Append(Loc.T("Critical Chance")).Append("\n");
-        }
-
-        if (weapon.critDmg != 0)
-        {
-            basicStr.Append(weapon.critDmg > 0 ? "+" : "-")
-                    .Append(weapon.critDmg)
-                    .Append(" ").Append(Loc.T("Critical Dmg")).Append("\n");
-        }
-
-        if (weapon.incDmg != 0)
-        {
-            basicStr.Append(weapon.incDmg > 0 ? "+" : "-")
-                    .Append(weapon.incDmg)
-                    .Append(" ").Append(Loc.T(weapon.incDmg > 0 ? "Dmg Increase" : "Dmg Decrease")).Append("\n");
-        }
-
-        if (weapon.ignDef != 0)
-        {
-            basicStr.Append(weapon.ignDef > 0 ? "+" : "-")
-                    .Append(weapon.ignDef)
-                    .Append(" ").Append(Loc.T("Armor Penetration")).Append("\n");
-        }
-
-        if (weapon.skillDmg != 0)
-        {
-            basicStr.Append(weapon.skillDmg > 0 ? "+" : "-")
-                    .Append(weapon.skillDmg)
-                    .Append(" ").Append(Loc.T("Skill Dmg")).Append("\n");
-        }
-
-        if (weapon.addDmg != 0)
-        {
-            basicStr.Append(weapon.addDmg > 0 ? "+" : "-")
-                    .Append(weapon.addDmg)
-                    .Append(" ").Append(Loc.T("Additional Dmg")).Append("\n");
-        }
-
-        textObject.GetComponent<TextMeshProUGUI>().text = basicStr.ToString();
+        textObject.GetComponent<TextMeshProUGUI>().text = TooltipBuilder.WeaponBlock(weapon, upgrade, null, 0);
     }
 
     public static string CapitalizeFirstLetter(string input)
@@ -1723,115 +1633,9 @@ public class InventoryManager : MonoBehaviour
         // 첫 번째 문자를 대문자로 바꾸고 나머지 부분은 그대로 둡니다.
         return char.ToUpper(input[0]) + input.Substring(1);
     }
-    public void SetArmorDetail(GameObject textObject, Equipment equipment)
+    public void SetArmorDetail(GameObject textObject, Equipment equipment, int upgrade = 0)
     {
-        StringBuilder basicStr = new StringBuilder();
-
-        // 방어구의 기본적인 스탯수치
-        if (equipment.basicDmg != 0)
-        {
-            basicStr.Append(equipment.basicDmg > 0 ? "+" : "-")
-                    .Append(equipment.basicDmg)
-                    .Append(" ").Append(Loc.T("Basic Dmg")).Append("\n");
-        }
-
-        if (equipment.armor != 0)
-        {
-            basicStr.Append(equipment.armor > 0 ? "+" : "-")
-                    .Append(equipment.armor)
-                    .Append(" ").Append(Loc.T("Def")).Append("\n");
-        }
-
-        if (equipment.hp != 0)
-        {
-            basicStr.Append(equipment.hp > 0 ? "+" : "-")
-                    .Append(equipment.hp)
-                    .Append(" ").Append(Loc.T("Hp")).Append("\n");
-        }
-
-        if (equipment.critical != 0)
-        {
-            basicStr.Append(equipment.critical > 0 ? "+" : "-")
-                    .Append(equipment.critical)
-                    .Append(" ").Append(Loc.T("Critical Rate")).Append("\n");
-        }
-
-        if (equipment.dropRate != 0)
-        {
-            basicStr.Append(equipment.dropRate > 0 ? "+" : "-")
-                    .Append(equipment.dropRate)
-                    .Append(" ").Append(Loc.T("Drop Rate")).Append("\n");
-        }
-
-        if (equipment.moveSpeed != 0)
-        {
-            basicStr.Append(equipment.moveSpeed > 0 ? "+" : "-")
-                    .Append(equipment.moveSpeed)
-                    .Append(" ").Append(Loc.T("Movement Speed")).Append("\n");
-        }
-
-        if (equipment.attSpeed != 0)
-        {
-            basicStr.Append(equipment.attSpeed > 0 ? "+" : "-")
-                    .Append(equipment.attSpeed)
-                    .Append(" ").Append(Loc.T("Attack Speed")).Append("\n");
-        }
-
-        if (equipment.criticalDmg != 0)
-        {
-            basicStr.Append(equipment.criticalDmg > 0 ? "+" : "-")
-                    .Append(equipment.criticalDmg)
-                    .Append(" ").Append(Loc.T("Critical Dmg")).Append("\n");
-        }
-
-        if (equipment.coolDownSkill.Length != 0)
-        {
-            for (int i = 0; i < equipment.coolDownSkill.Length; i++)
-            {
-                basicStr.Append("-")
-                        .Append(equipment.coolDownSkill[i].coolDownCount)
-                        .Append("% ").Append(Loc.T("Cooldown")).Append(" ")
-                        .Append(equipment.coolDownSkill[i].skillName)
-                        .Append("\n");
-            }
-        }
-
-        if (equipment.incDmg != 0)
-        {
-            basicStr.Append(equipment.incDmg > 0 ? "+" : "-")
-                    .Append(equipment.incDmg)
-                    .Append("% ").Append(Loc.T("Dmg")).Append("\n");
-        }
-
-        if (equipment.addIncomingDmg != 0)
-        {
-            basicStr.Append(equipment.addIncomingDmg > 0 ? "+" : "-")
-                    .Append(equipment.addIncomingDmg)
-                    .Append("% ").Append(Loc.T("Incoming Dmg")).Append("\n");
-        }
-
-        if (equipment.isBleeding)
-        {
-            basicStr.Append("+")
-                    .Append(equipment.bleedingPerCent)
-                    .Append("% ").Append(Loc.T("Chance to Cause Bleeding")).Append("\n");
-        }
-
-        if (equipment.bleedingDmgPer != 0)
-        {
-            basicStr.Append("+")
-                    .Append(equipment.bleedingDmgPer)
-                    .Append("% ").Append(Loc.T("Dmg to Bleeding Enemies")).Append("\n");
-        }
-
-        if (equipment.poisonDmg != 0)
-        {
-            basicStr.Append("+")
-                    .Append(equipment.poisonDmg)
-                    .Append(" ").Append(Loc.T("Poison Dmg")).Append("\n");
-        }
-
-        textObject.GetComponent<TextMeshProUGUI>().text = basicStr.ToString();
+        textObject.GetComponent<TextMeshProUGUI>().text = TooltipBuilder.ArmorBlock(equipment, upgrade, null, 0);
     }
 
     public string SetRarity(string rarity)

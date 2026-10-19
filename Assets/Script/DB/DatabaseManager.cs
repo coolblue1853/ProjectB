@@ -171,6 +171,7 @@ public class DatabaseManager : MonoBehaviour
         */
     }
     private List<ItemData> ItemDataList;
+    public IReadOnlyList<ItemData> Items => ItemDataList;
     public ItemData LoadItemData(int itemNum)
     {
         if (ItemDataList != null && itemNum >= 0 && itemNum < ItemDataList.Count)

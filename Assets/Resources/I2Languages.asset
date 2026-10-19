@@ -4312,6 +4312,14 @@ MonoBehaviour:
         \uADF8\uB9AC\uACE0 \uB3CC\uC544\uC624\uB108\uB77C."
       Flags: 0000
       Languages_Touch: []
+    - Term: count
+      TermType: 0
+      Description: 
+      Languages:
+      - count
+      - "\uD68C"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
