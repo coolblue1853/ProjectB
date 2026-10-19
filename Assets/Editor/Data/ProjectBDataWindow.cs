@@ -40,6 +40,7 @@ namespace ProjectB.EditorTools
             var tree = new OdinMenuTree(true);
             tree.Config.DrawSearchToolbar = true;
             tree.Add("검증 리포트", new ValidationReport(items, sets));
+            tree.Add("콘텐츠 검증", new ContentValidation());
             tree.Add("아이템 (전체 표)", items);
             foreach (ItemRow r in items.Rows.Where(r => r.Name != "-"))
             {
