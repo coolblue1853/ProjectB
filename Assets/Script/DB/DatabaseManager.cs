@@ -12,20 +12,21 @@ public class Item
 }
 public class DatabaseManager : MonoBehaviour
 {
+    // 정수 스탯은 PlayerStats(Modifier 코어)의 facade다 — += / -= 는 레거시 덧셈 항으로 들어간다 (PlayerStateDesign Phase 9)
     // 상태 플래그는 PlayerStatus 토큰의 facade다. 대입은 레거시 토큰 1개만 켜고 끈다 (B-114, PlayerStateDesign Phase 1)
     public static bool isSuperArmor { get => PlayerStatus.Has(StatusFlag.SuperArmor); set => PlayerStatus.SetLegacy(StatusFlag.SuperArmor, value); }
-    public static int attackSpeedBuff = 0;
-    public static int addbasicDmg = 0;
-    public static int SpeedBuff = 0;
-    public static int playerDef = 0;
-    public static int playerCritRate = 0;
-    public static int playerCritDmgRate = 0;
-    public static int addPoisonDmg = 0;
-    public static int incDmg = 0; // 증뎀
-    public static int incIncomingDmg; // 받는 피해 증가
-    public static int bleedingAddDmg = 0; // 출혈시 증뎀
-    public static int playerDropRate= 0;
-    public static int hitCount = 0; // 공격 오브젝트의 타수
+    public static int attackSpeedBuff { get => PlayerStats.GetInt(StatId.AttackSpeed); set => PlayerStats.SetLegacy(StatId.AttackSpeed, value); }
+    public static int addbasicDmg { get => PlayerStats.GetInt(StatId.BasicDmg); set => PlayerStats.SetLegacy(StatId.BasicDmg, value); }
+    public static int SpeedBuff { get => PlayerStats.GetInt(StatId.MoveSpeed); set => PlayerStats.SetLegacy(StatId.MoveSpeed, value); }
+    public static int playerDef { get => PlayerStats.GetInt(StatId.Def); set => PlayerStats.SetLegacy(StatId.Def, value); }
+    public static int playerCritRate { get => PlayerStats.GetInt(StatId.CritRate); set => PlayerStats.SetLegacy(StatId.CritRate, value); }
+    public static int playerCritDmgRate { get => PlayerStats.GetInt(StatId.CritDmg); set => PlayerStats.SetLegacy(StatId.CritDmg, value); }
+    public static int addPoisonDmg { get => PlayerStats.GetInt(StatId.PoisonDmg); set => PlayerStats.SetLegacy(StatId.PoisonDmg, value); }
+    public static int incDmg { get => PlayerStats.GetInt(StatId.IncDmg); set => PlayerStats.SetLegacy(StatId.IncDmg, value); } // 증뎀
+    public static int incIncomingDmg { get => PlayerStats.GetInt(StatId.IncomingDmg); set => PlayerStats.SetLegacy(StatId.IncomingDmg, value); } // 받는 피해 증가
+    public static int bleedingAddDmg { get => PlayerStats.GetInt(StatId.BleedIncDmg); set => PlayerStats.SetLegacy(StatId.BleedIncDmg, value); } // 출혈시 증뎀
+    public static int playerDropRate { get => PlayerStats.GetInt(StatId.DropRate); set => PlayerStats.SetLegacy(StatId.DropRate, value); }
+    public static int hitCount { get => PlayerStats.GetInt(StatId.HitCount); set => PlayerStats.SetLegacy(StatId.HitCount, value); } // 공격 오브젝트의 타수
     public static bool isInvincibility { get => PlayerStatus.Has(StatusFlag.Invincible); set => PlayerStatus.SetLegacy(StatusFlag.Invincible, value); }
     public static bool weaponStopMove { get => PlayerStatus.Has(StatusFlag.MoveLock); set => PlayerStatus.SetLegacy(StatusFlag.MoveLock, value); }
     public static bool checkAttackLadder { get => PlayerStatus.Has(StatusFlag.LadderLock); set => PlayerStatus.SetLegacy(StatusFlag.LadderLock, value); }

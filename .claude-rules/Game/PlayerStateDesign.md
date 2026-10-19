@@ -276,6 +276,8 @@ public sealed class StatModifier {
 
 ### Phase 9 — 스탯 코어 + int facade
 
+> **진행(2026-10-19):** ✅ `Combat/Stats/PlayerStats.cs`(StatId 13종·ModType·StatModifier·Source/Group/Id 해제·Legacy 덧셈 항·Changed·Dump·SubsystemRegistration 리셋) + `DatabaseManager` int 12개 → 프로퍼티 facade. 스킬별 Dictionary 3종과 MaxHp 출처 이관은 Phase 10. `PlayerStatsTests` 6개 포함 EditMode 109/109 통과, 플레이: `equip_set_test`(Cliff 6부위) → `stats_dump.cs` Def 15·Crit 5·CritDmg 20·AtkSpd 10·IncDmg 10(전부 legacy 경로), 콘솔 에러 0.
+
 - 추가: `Script/Combat/Stats/StatId.cs`, `StatModifier.cs`, `Stat.cs`, `PlayerStats.cs`, `Assets/Editor/Tests/PlayerStatsTests.cs`, `Tools/probes/stats_dump.cs`
 - 수정: `DatabaseManager.cs` — 12개 int 필드(16-27) → 프로퍼티(`SetLegacy`). `StatMath`는 그대로(facade 경유).
 - 검증
