@@ -66,7 +66,7 @@
 **세트 구성:**
 - RabbitArmor는 방어구 5부위 + 무기(RustedSwordandShield)로 6부위다(Q-102).
 - LeafArmor는 5부위다.
-- RatArmor와 ScareArmor는 효과 정의가 없다.
+- RatArmor·ScareArmor 효과는 `SetItem.csv`에 정의되어 있다(아래 제안안과 수치가 다름 — CSV가 기준).
 
 **Lv2 세트 Cliffwalker's Vow (`CliffArmor`, 6부위 = 방어구 5 + Cliff 무기):**
 
