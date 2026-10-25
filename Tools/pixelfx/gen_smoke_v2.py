@@ -20,6 +20,7 @@ RAMPS = {  # 어둠(외곽선) → 밝음
     "smoke": ["2A2633", "4A4652", "6E6A78", "9A96A3", "C4C0CC"],
     "shadow": ["1A0F2A", "3F2560", "7650A0", "B28ED6", "EADCFA"],
     "earth": ["2E1C10", "5E3C20", "91663A", "C49C68", "EED8B0"],
+    "stone": ["24262B", "4C5058", "7E838C", "B4B8BE", "E6E8EB"],
 }
 LIGHT = np.array([-0.6, -0.8])  # 왼쪽 위에서 오는 빛(화면 좌표, y 아래 +)
 rng = np.random.default_rng(23)
@@ -93,6 +94,29 @@ def smoke(ramp, n=48, frames=10, puffs=7):
     return out, (0.5, 0.5)
 
 
+def dust(ramp, w=64, h=30, frames=9, puffs=10):
+    """바닥 흙먼지: 작은 명암 덩어리들이 양옆으로 굴러 퍼지며 살짝 떠오르고 줄어든다(바닥 피벗)"""
+    pal = cols(ramp)
+    cx = (w - 1) / 2
+    base = h - 4
+    side = np.where(np.arange(puffs) % 2 == 0, -1, 1)
+    spd = rng.uniform(0.3, 1.0, puffs)
+    up = rng.uniform(0.0, 0.6, puffs)
+    rmax = rng.uniform(2.5, 4.5, puffs)
+    out = []
+    for f in range(frames):
+        t = f / (frames - 1)
+        e = ease_out(t)
+        img = np.zeros((h, w, 4), np.uint8)
+        for i in np.argsort(up)[::-1]:  # 높이 뜬 것부터(뒤) 칠한다
+            px = cx + side[i] * e * spd[i] * cx * 0.85
+            py = base - 1 - e * up[i] * h * 0.4 - rmax[i] * 0.5
+            r = rmax[i] * math.sin(math.pi * min(1, 0.15 + t * 0.9))
+            draw_puff(img, px, py, r, pal)
+        out.append(img)
+    return out, (0.5, 4 / h)
+
+
 def ground_shock(ramp="earth", w=96, h=32, frames=9):
     pal = cols(ramp)
     cx = (w - 1) / 2
@@ -160,3 +184,5 @@ if __name__ == "__main__":
     f, p = smoke("smoke"); write("Px_SmokeGray", f, p, "smoke", 16)
     f, p = smoke("shadow"); write("Px_SmokePurple", f, p, "shadow", 16)
     f, p = ground_shock(); write("Px_GroundShock", f, p, "earth", 18)
+    f, p = dust("earth"); write("Px_DustBrown", f, p, "earth", 18)
+    f, p = dust("stone"); write("Px_DustStone", f, p, "stone", 18)
