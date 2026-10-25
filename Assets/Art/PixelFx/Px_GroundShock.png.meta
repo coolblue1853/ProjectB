@@ -170,9 +170,9 @@ TextureImporter:
         x: 0
         y: 0
         width: 96
-        height: 26
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.15384616}
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -192,9 +192,9 @@ TextureImporter:
         x: 96
         y: 0
         width: 96
-        height: 26
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.15384616}
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -214,9 +214,9 @@ TextureImporter:
         x: 192
         y: 0
         width: 96
-        height: 26
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.15384616}
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -236,9 +236,9 @@ TextureImporter:
         x: 288
         y: 0
         width: 96
-        height: 26
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.15384616}
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -258,9 +258,9 @@ TextureImporter:
         x: 384
         y: 0
         width: 96
-        height: 26
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.15384616}
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -280,9 +280,9 @@ TextureImporter:
         x: 480
         y: 0
         width: 96
-        height: 26
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.15384616}
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -302,9 +302,9 @@ TextureImporter:
         x: 576
         y: 0
         width: 96
-        height: 26
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.15384616}
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -324,9 +324,9 @@ TextureImporter:
         x: 672
         y: 0
         width: 96
-        height: 26
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.15384616}
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -335,6 +335,28 @@ TextureImporter:
       bones: []
       spriteID: 1ad80fa2f02ed17f0800000000000000
       internalID: -640107017243947615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_GroundShock_8
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 96
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10a2ae189e95c8380800000000000000
+      internalID: -8967693898559641087
       vertices: []
       indices: 
       edges: []

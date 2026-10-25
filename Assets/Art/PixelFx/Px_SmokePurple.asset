@@ -23,5 +23,5 @@ MonoBehaviour:
   - {fileID: -3283627772704230859, guid: 8fbdf765694c4bb43aaff010dc88af40, type: 3}
   - {fileID: -7893427789157473342, guid: 8fbdf765694c4bb43aaff010dc88af40, type: 3}
   - {fileID: 85341749922832254, guid: 8fbdf765694c4bb43aaff010dc88af40, type: 3}
-  fps: 18
-  source: Tools/pixelfx/gen_magic.py
+  fps: 16
+  source: Tools/pixelfx/gen_smoke_v2.py

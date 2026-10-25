@@ -1,1 +1,1 @@
-{"frames": 10, "w": 40, "h": 40, "fps": 18, "pivot": [0.5, 0.5], "ramp": "shadow", "source": "Tools/pixelfx/gen_magic.py"}
+{"frames": 10, "w": 48, "h": 48, "fps": 16, "pivot": [0.5, 0.5], "ramp": "shadow", "source": "Tools/pixelfx/gen_smoke_v2.py"}

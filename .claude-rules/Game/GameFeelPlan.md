@@ -340,4 +340,8 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 - r2(10-25): 바깥 1텍셀 테두리 = 램프 _C1 색(`_Rim`). 흰 테마 초승달이 밝은 배경에서 윤곽이 묻혔다. 측정: 칸당 색 ≤ 5, 흰 테마 가장자리 텍셀 100%가 램프1 색. 텍스처 샘플 5회(모바일 예산 4 경고, PC 대상이라 감수).
 - 치명타(10-25): 근접 무기 치명타는 예전 3D 구움 CritCross 대신 같은 도트 타격 별을 2배(정수 배율)·금색 램프로, 프레임당 상한 무시. 지팡이 등은 그대로. 검증: 낮 사냥터 토끼에 `HitFeedback.OnEnemyHit(isCrit)` 연속 촬영(`rig_action_strip.cs crit`).
 - 예전 이펙트 대체(10-25): 도트 이펙트 30종 라인업(`Tools/probes/fx_lineup.cs`)에서 3D 구움 베기 7종(SlashWhite·Red·Blue·Gold·GoldWide·GreenBig·CrackRed)과 치명 X자(CritCross)가 픽셀이 끊기고 노이즈가 많아 상업 기준 미달 → `Vfx.Play` 가 이 id 를 부르면 같은 색 테마의 새 궤적·별로 대체(`Vfx.TryUpgradeLegacy`: 가로/세로·배율 1.5(정수 격자 3칸)·상하반전). 시전 이펙트로 쓰던 스킬 프리팹 44개가 데이터 수정 없이 함께 바뀐다. 폭발·빛기둥·룬·연기·흙먼지는 형태가 또렷해 유지. 검증: 8종 호출 한 장(`Docs/ArtCompare/WeaponFx/legacy_upgrade.png`).
+- 연기·충격파 v2(10-25, PixelLab 없이): `Tools/pixelfx/gen_smoke_v2.py` 가 v1(밝기장 컷, 흐릿한 덩어리)을 대체.
+  - 연기(회색·보라): 둥근 덩어리마다 1px 외곽선 + 3단 명암(왼쪽 위 빛, 4단은 줄무늬처럼 보여 3단). 작게 시작해 펑 부풀고 고리 뭉게구름 → 알갱이로 흩어짐. 초반엔 가운데 덩어리를 맨 위에(안쪽 외곽선 비침 방지).
+  - 지면 충격파: 2px 지면 고리 + 외곽선·빛 면·그늘 면이 있는 흙 가시가 바깥으로 차례로 솟았다 가라앉음 + 돌 조각 포물선.
+  - 같은 이름·형식이라 소환수·몹 사망·내려찍기 등 기존 사용처가 그대로 바뀐다. 검증: 낮 인게임 재생 연속 촬영.
 
