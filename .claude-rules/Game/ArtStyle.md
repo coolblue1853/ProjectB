@@ -107,6 +107,10 @@
   - B. 시안 A를 로컬에서 16색 감축 + 외톨이 점 정리 → 15색·53%·25%, 하지만 색이 탁해짐(후처리로는 한계).
   - **C. 재생성 `max_colors=16` + 설명에 "large flat areas of solid color, minimal texture, no noise, no dithering, few details, thick black outline" + 스타일 usage에 "large flat color areas with almost no texture, about 18 colors"** → 16색·54%·22%, 머리·코트가 큰 평면 덩어리로 바뀌어 가장 근접(`hero_proto/styled2_flat.png`, 비교 `hero_proto_flat_compare.png`).
   - **규칙**: 캐릭터 생성 시 `max_colors` 16~18 고정, 위 평면 문구 필수. 판정 지표 = 색 ≤18 · 이웃 색 바뀜 ≤50% · 외톨이 점 ≤15%(기준 그림 수치).
+- 3차 피드백: 사용자 **"B가 좀 더 맞는 것 같긴 한데, 단순히 뭉개서 디테일이 오히려 사라지고 색만 뭉개진 것 같다"** → 전체 16색 감축이 눈가·버클·옷깃 같은 고대비 디테일까지 지웠다.
+  - 도구 `Tools/pixelfx/flatten_keep_detail.py`: ① 지각 거리가 가까운 색끼리만 병합(`--merge`) ② 주변 다수색과 **비슷한** 외톨이 점만 다수색으로(`--speck`, 대비 큰 점은 의도된 디테일로 보존) ③ 검정 외곽선 불변.
+  - 강도별(`hero_proto_keepdetail_compare.png`): B2 merge 14 → 19색·46%·22% / B3 18 → 15색·43%·20% / B4 22 → 13색·39%·17%. **B2가 가장 균형**(코트 선·브로치·배낭 버클·검 유지, 머리는 평면 덩어리). B3·B4는 배낭 초록이 갈색에 먹혀 재질 구분이 사라짐.
+  - **파이프라인**: Pro Flash(style_image + max_colors 16~18 + 평면 문구) → `flatten_keep_detail.py --merge 14 --speck 28` → 지표 확인.
 
 **🔴 캐릭터 제작 필수 조건 — 방어구 교체 시 외형 변화 (사용자 2026-10-25)**
 > "방어구를 교체하면 교체한 방어구에 따라 외형이 바뀌어야 하니 그거에 대비되어야 한다."
@@ -219,6 +223,9 @@
 - 이펙트 통일 규격(가정, 이펙트 레퍼런스 라운드 뒤 확정): 게임 격자 1px 도트, 마스터 팔레트의 발광 포인트 색(청록·호박·연보라) + 어두운 바탕색 2~3단, 6~8프레임 12fps, 부드러운 그라데이션·가산 블룸으로 형태를 만들지 않는다(블룸은 후처리 포인트만).
 
 ### PixelLab 경로 (2026-10-19, 숲 늑대에 첫 적용)
+
+- **요금제(2026-10-25 확인, `search_help`)**: Pixel Apprentice $12/월 2,000 generations · Pixel Artisan $24/월 5,000 · Pixel Architect $50/월 10,000. 체험판은 40회 + 매일 5회(최대 20 누적). 유료 필수 도구: `inpaint_image`, `transfer_outfit`(방어구 교체에 유용), `create_tiles_pro`, `create_path_tiles`, `create_building_kit`.
+- 비용 감각: Pro Flash 이미지 1장 5 · `create_image_pro` 1호출 10~25(후보 16~25장) · 캐릭터 상태(옷 갈아입히기) 10~25 · pixflux 1.
 
 - 기본 포즈: `create_image_pixflux` 64×64, `view=side`, `direction=east`, `outline=selective outline`, 투명 배경. 후보 2~3장을 뽑아 `Docs/ArtCompare/`에 비교 시트로 남기고 고른다.
 - 애니메이션: 고른 이미지 URL로 `animate_image`(짝수 프레임, 64px 8프레임까지 1생성). 결과 0번은 입력 프레임 그대로다. 디자인이 유지되는 프레임만 골라 쓴다(고개가 카메라로 도는 프레임은 버림).
