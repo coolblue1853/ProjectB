@@ -98,6 +98,7 @@
 | B-214 | 픽셀 리그 주인공: 무기 45종은 10-25 도트 복원·각도 자동으로 해결(weapon_lineup). 남은 것: 스킬 고유 동작은 기본 클립 매핑(`PixelRig.MapName`). 활 쏘기는 10-25 Shoot 로 해결 | `PixelRigBuilder.cs`, `PixelRig.cs` |
 | B-215 | ✅ 픽셀 리그 주인공 피격(Hurt)·사망(무릎 꿇음 → 눕기) 연출 (10-25) | `PixelRig.cs` |
 | B-216 | ⏳ Shift 키 겹침: 달리기 토글을 누를 때마다 아티팩트 발동(`ArtifactSystem` Shift 하드코딩). 키 배치 결정 대기 Q-422 (10-25) | `ArtifactSystem.cs`, `KeyAction.inputactions` |
+| B-217 | ✅ 대시 잔상이 픽셀 리그에서 큰 파란 사각형으로 찍힘(FullRect 부위를 메시로 복사) → SpriteRenderer 복사 (10-26) | `DashAfterimage.cs` |
 
 ## P3 (정리)
 

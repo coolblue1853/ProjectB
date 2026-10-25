@@ -24,10 +24,12 @@ public class DashAfterimage : MonoBehaviour
     {
         public GameObject root;
         public readonly List<Part> parts = new List<Part>();
+        public readonly List<SpriteRenderer> sprites = new List<SpriteRenderer>(); // 픽셀 리그 부위는 SpriteRenderer 로 그대로 복사
         public float born;
     }
 
     static Material ghostMaterial;
+    static Material ghostSpriteMaterial;
     static readonly List<Vector3> verts = new List<Vector3>();
     static readonly List<Vector2> uvs = new List<Vector2>();
     static readonly List<int> tris = new List<int>();
@@ -40,6 +42,7 @@ public class DashAfterimage : MonoBehaviour
     MaterialPropertyBlock block; // 필드 초기화에서 생성 불가(Unity 제약) → Awake
     float emitUntil, nextEmit;
     int orderShift;
+    PixelRig pixelRig;
 
     public static void Begin(Component portrait, float duration)
     {
@@ -81,10 +84,15 @@ public class DashAfterimage : MonoBehaviour
                 pool.Push(g);
                 continue;
             }
-            block.SetColor(ColorId, new Color(Tint.r, Tint.g, Tint.b, Tint.a * (1f - k)));
+            var c = new Color(Tint.r, Tint.g, Tint.b, Tint.a * (1f - k));
+            block.SetColor(ColorId, c);
             foreach (Part p in g.parts)
             {
                 p.renderer.SetPropertyBlock(block);
+            }
+            foreach (SpriteRenderer sr in g.sprites)
+            {
+                sr.color = c;
             }
         }
     }
@@ -94,6 +102,15 @@ public class DashAfterimage : MonoBehaviour
         EnsureMaterial();
         source.GetComponentsInChildren(false, sourceRenderers);
         source.GetComponentsInChildren(false, sourceSprites);
+        // 픽셀 리그를 쓰면 숨겨 둔 예전 AnyPortrait 메쉬는 빼야 한다(안 보이게 둔 메쉬까지 복사해 큰 파란 사각형 잔상이 찍혔다, 10-26)
+        if (pixelRig == null)
+        {
+            pixelRig = source.GetComponentInChildren<PixelRig>();
+        }
+        if (pixelRig != null && pixelRig.isActiveAndEnabled)
+        {
+            sourceRenderers.Clear();
+        }
         int minOrder = int.MaxValue, maxOrder = int.MinValue;
         foreach (MeshRenderer r in sourceRenderers)
         {
@@ -131,27 +148,33 @@ public class DashAfterimage : MonoBehaviour
             p.renderer.SetPropertyBlock(block);
             p.t.gameObject.SetActive(true);
         }
+        // 픽셀 리그 부위: 메시로 옮기면 64×64 부위 사각형이 투명도 없이 칠해져 큰 파란 사각형이 찍혔다(10-26) → SpriteRenderer 로 그림 그대로
+        int usedSprites = 0;
         foreach (SpriteRenderer src in sourceSprites)
         {
             if (!src.enabled || src.sprite == null)
             {
                 continue;
             }
-            Part p = used < g.parts.Count ? g.parts[used] : AddPart(g);
-            used++;
-            CopySprite(src.sprite, p.mesh);
-            p.t.SetPositionAndRotation(src.transform.position, src.transform.rotation);
-            p.t.localScale = src.transform.lossyScale;
-            p.renderer.sortingLayerID = src.sortingLayerID;
-            p.renderer.sortingOrder = src.sortingOrder - orderShift;
-            block.SetTexture("_MainTex", src.sprite.texture);
-            block.SetColor(ColorId, Tint);
-            p.renderer.SetPropertyBlock(block);
-            p.t.gameObject.SetActive(true);
+            SpriteRenderer sr = usedSprites < g.sprites.Count ? g.sprites[usedSprites] : AddSpritePart(g);
+            usedSprites++;
+            sr.sprite = src.sprite;
+            sr.flipX = src.flipX;
+            sr.flipY = src.flipY;
+            sr.color = Tint;
+            sr.sortingLayerID = src.sortingLayerID;
+            sr.sortingOrder = src.sortingOrder - orderShift;
+            sr.transform.SetPositionAndRotation(src.transform.position, src.transform.rotation);
+            sr.transform.localScale = src.transform.lossyScale;
+            sr.gameObject.SetActive(true);
         }
         for (int i = used; i < g.parts.Count; i++)
         {
             g.parts[i].t.gameObject.SetActive(false);
+        }
+        for (int i = usedSprites; i < g.sprites.Count; i++)
+        {
+            g.sprites[i].gameObject.SetActive(false);
         }
         g.born = Time.time;
         g.root.SetActive(true);
@@ -176,6 +199,19 @@ public class DashAfterimage : MonoBehaviour
         return p;
     }
 
+    static SpriteRenderer AddSpritePart(Ghost g)
+    {
+        var go = new GameObject("SpritePart");
+        go.transform.SetParent(g.root.transform, false);
+        var sr = go.AddComponent<SpriteRenderer>();
+        if (ghostSpriteMaterial != null)
+        {
+            sr.sharedMaterial = ghostSpriteMaterial;
+        }
+        g.sprites.Add(sr);
+        return sr;
+    }
+
     static void CopyMesh(Mesh src, Mesh dst)
     {
         dst.Clear();
@@ -187,32 +223,20 @@ public class DashAfterimage : MonoBehaviour
         dst.SetTriangles(tris, 0);
     }
 
-    /// <summary>스프라이트 사각형(정점·UV·삼각형)을 잔상 메시로 옮긴다</summary>
-    static void CopySprite(Sprite sprite, Mesh dst)
-    {
-        dst.Clear();
-        verts.Clear();
-        uvs.Clear();
-        tris.Clear();
-        foreach (Vector2 v in sprite.vertices)
-        {
-            verts.Add(v);
-        }
-        uvs.AddRange(sprite.uv);
-        foreach (ushort t in sprite.triangles)
-        {
-            tris.Add(t);
-        }
-        dst.SetVertices(verts);
-        dst.SetUVs(0, uvs);
-        dst.SetTriangles(tris, 0);
-    }
-
     static void EnsureMaterial()
     {
         if (ghostMaterial == null)
         {
             ghostMaterial = new Material(Shader.Find("Sprites/Default")) { name = "DashGhost" };
+        }
+        if (ghostSpriteMaterial == null)
+        {
+            // 잔상은 조명을 받지 않는다(밤에도 같은 청색). 셰이더가 없으면 SpriteRenderer 기본 머티리얼
+            Shader unlit = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
+            if (unlit != null)
+            {
+                ghostSpriteMaterial = new Material(unlit) { name = "DashGhostSprite" };
+            }
         }
     }
 

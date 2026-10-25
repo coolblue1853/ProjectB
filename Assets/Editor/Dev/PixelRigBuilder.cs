@@ -195,8 +195,11 @@ public static class PixelRigBuilder
             def.S("Hips/Head", len, new[] { HairPose(hair) });
         }
         def.K("Hips", 'x', 0f, hips.x, len, hips.x).K("Hips", 'y', 0f, hips.y, len, hips.y)
-            .K("LegF", 'x', 0f, legF.x, len, legF.x).K("LegF", 'y', 0f, legF.y, len, legF.y)
-            .K("LegB", 'x', 0f, legB.x, len, legB.x).K("LegB", 'y', 0f, legB.y, len, legB.y)
+            .K("LegF", 'y', 0f, legF.y, len, legF.y)
+            .K("LegB", 'y', 0f, legB.y, len, legB.y)
+            // 다리 앞뒤(x)는 뼈를 옮기지 않고 포즈 그림으로(통째로 옮기면 바지 밑단이 몸통에서 어긋났다)
+            .S("LegF", len, new[] { LegPose("leg_l", Mathf.RoundToInt(legF.x), 0) })
+            .S("LegB", len, new[] { LegPose("leg_r", Mathf.RoundToInt(legB.x), 0) })
             .K("Hips/ShoulderF", 'x', 0f, arms.x, len, arms.x).K("Hips/ShoulderF", 'y', 0f, arms.y, len, arms.y)
             .K("Hips/ShoulderB", 'x', 0f, arms.x, len, arms.x).K("Hips/ShoulderB", 'y', 0f, arms.y, len, arms.y)
             .K("Hips/Pack", 'y', 0f, pack, len, pack)
@@ -279,19 +282,18 @@ public static class PixelRigBuilder
                 .S("LegF", 0.1f, new[] { LegPose("leg_l", 1, 1) }).S("LegB", 0.1f, new[] { LegPose("leg_r", 0, 1) }),
             Pose("JumpFall", 0.1f, 90f, legB: (0, 1), arms: (0, 2), hair: 1) // 낙하: 앞다리 펴서 착지 준비, 뒷다리 접음
                 .S("LegF", 0.1f, new[] { LegPose("leg_l", 1, 0) }).S("LegB", 0.1f, new[] { LegPose("leg_r", -1, 1) }),
-            // 피격: 몸이 뒤로 1px 젖혀지고 팔이 들리며 칼은 뒤로(리그가 피격 신호 뒤 0.22초 보여 준다)
-            Pose("Hurt", 0.1f, 135f, hips: (-1, 0), legF: (-1, 0), legB: (-2, 0), arms: (-1, 1), pack: -1),
+            // 피격: 몸이 뒤로 1px 젖혀지고 팔이 들린다, 칼은 앞 위 그대로(뒤로 눕히면 칼날이 얼굴을 가로질렀다). 리그가 피격 신호 뒤 0.22초 보여 준다
+            Pose("Hurt", 0.1f, 45f, hips: (-1, 0), legF: (-1, 0), legB: (-2, 0), arms: (-1, 1), pack: -1),
             // 사망 1단계: 무릎 꿇음(몸 2px 내려앉고 칼끝 아래로). 2단계(뒤로 쓰러짐)는 리그가 몸 전체를 90° 눕힌다
             Pose("DeathKneel", 0.1f, -90f, hips: (0, -2), legF: (1, 0), legB: (-1, 0)),
             Pose("Land", 0.1f, 45f, hips: (0, -1), legF: (1, 0), legB: (-1, 0), hair: -1), // 팔·배낭은 몸통과 같이(더 내리면 뒷어깨·배낭 사이가 비었다, find_rig_holes)
-            // 대시 1포즈: 몸 2px 앞으로, 다리 뒤로 끌림, 팔 1px 뒤로, 칼 뒤로 눕힘
+            // 대시 1포즈: 몸 2px 앞으로, 앞다리 접어 끌고 뒷다리는 뒤로 쭉, 손은 뒤로(소매 고정 그림), 칼 뒤로 눕힘, 머리카락 눌림(앞에서 바람)
             new AnimDef("Dash", 0.1f, false).Step()
                 .K("Hips", 'x', 0f, 2f, 0.1f, 2f)
-                .K("LegF", 'x', 0f, -1f, 0.1f, -1f)
-                .K("LegB", 'x', 0f, -2f, 0.1f, -2f)
-                .K("LegB", 'y', 0f, 1f, 0.1f, 1f)
-                .K("Hips/ShoulderF", 'x', 0f, -1f, 0.1f, -1f)
-                .K("Hips/ShoulderB", 'x', 0f, -1f, 0.1f, -1f)
+                .K("Hips/ShoulderF/HandF", 'x', 0f, -1f, 0.1f, -1f)
+                .S("LegF", 0.1f, new[] { LegPose("leg_l", -1, 1) }).S("LegB", 0.1f, new[] { LegPose("leg_r", -2, 0) })
+                .S("Hips/ShoulderF", 0.1f, new[] { ArmPose("arm_l", -1) }).S("Hips/ShoulderB", 0.1f, new[] { ArmPose("arm_r", -1) })
+                .S("Hips/Head", 0.1f, new[] { HairPose(-1) })
                 .Arm(0f, 0f, 180f, 0.1f, 0f, 180f),
             // 로프: 팔은 정확히 180°(머리 위로 곧게 — 어중간한 각도는 도트가 지글거렸다), 오를 때는 팔·다리 1~2px 번갈아
             new AnimDef("RopeStay", 0.6f, true).Step()
