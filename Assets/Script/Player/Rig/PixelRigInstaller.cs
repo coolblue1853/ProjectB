@@ -36,6 +36,32 @@ public static class PixelRigInstaller
 
         pc.mainCharacter.gameObject.SetActive(false);
         pc.UseRig(go.GetComponent<PixelRig>());
+        AddHeroLight(go.transform);
+    }
+
+    /// <summary>
+    /// 주인공 가독성(PixelRigDesign 3.5절): 몸 주변만 은은하게 밝히는 작은 점 조명. 어두운 숲·밤에도 주인공이 먼저 눈에 띄고
+    /// 맵 분위기(전역 조명)는 그대로다. 끄려면 HeroLightIntensity = 0.
+    /// </summary>
+    public const float HeroLightIntensity = 0.45f;
+
+    private static void AddHeroLight(Transform rig)
+    {
+        if (HeroLightIntensity <= 0f)
+        {
+            return;
+        }
+        var go = new GameObject("HeroLight");
+        go.transform.SetParent(rig, false);
+        go.transform.localPosition = new Vector3(0f, 1.0f, 0f); // 몸 가운데(발에서 1유닛 위)
+        var light = go.AddComponent<UnityEngine.Rendering.Universal.Light2D>();
+        light.lightType = UnityEngine.Rendering.Universal.Light2D.LightType.Point;
+        light.pointLightInnerRadius = 0.3f;
+        light.pointLightOuterRadius = 1.8f;
+        light.intensity = HeroLightIntensity;
+        light.color = new Color(1f, 0.93f, 0.82f, 1f); // 따뜻한 흰빛(모닥불·랜턴 느낌, 어비스풍 어둠과 대비)
+        light.falloffIntensity = 0.7f;
+        light.shadowsEnabled = false;
     }
 
     /// <summary>충돌 박스 바닥(발)을 그룹 로컬 y로 — 리그 원점이 발바닥이다</summary>
