@@ -255,6 +255,12 @@ public static class PixelRigBuilder
                 .K("Hips", 'x', 0f, -1f, 0.07f, 2f, 0.13f, 2f, 0.28f, 1f, 0.38f, 0f)
                 .K("LegF", 'x', 0f, 0f, 0.07f, 2f, 0.28f, 1f, 0.38f, 1f)
                 .K("LegB", 'x', 0f, 0f, 0.07f, -1f, 0.28f, 0f, 0.38f, 0f),
+            // 활 쏘기(활을 쥐면 리그가 Cast 대신 이것): 앞팔로 활을 앞에 세워 들고(활은 똑바로 선다), 뒷팔이 시위를 2px 당겼다 놓으며 몸 1px 반동
+            new AnimDef("Shoot", 0.42f, false).Step()
+                .Arm(0f, 90f, 90f, 0.42f, 90f, 90f)
+                .K("Hips/ShoulderB", 'r', 0f, 90f, 0.1f, 90f, 0.24f, 90f, 0.42f, 45f)
+                .K("Hips/ShoulderB", 'x', 0f, 0f, 0.1f, -2f, 0.24f, 0f, 0.42f, 0f)
+                .K("Hips", 'x', 0f, 0f, 0.24f, -1f, 0.32f, 0f, 0.42f, 0f),
             new AnimDef("Cast", 0.45f, false).Step()
                 .Arm(0f, 90f, 90f, 0.1f, 180f, 90f, 0.45f, 180f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.1f, -45f, 0.45f, -45f)

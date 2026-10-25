@@ -95,7 +95,7 @@
 | A-202 | ✅ (2026-10-19) 타이틀 화면에서 좌우로 슬롯 선택(요약: 랭크·시각, 비어 있음/손상됨). 다른 슬롯을 고르면 `SaveSlots.SwitchAndRestart` — 씬 재로드 대신 **재시작**(빌드: 실행 파일 재실행 후 종료, 에디터: 플레이 종료). DatabaseManager 정적 상태 32개와 DDOL 싱글턴이 섞이지 않게 하려는 선택. 실행 중(게임 도중) 전환 메뉴는 없음 | TitleScreen, SaveSlots |
 
 | B-213 | 픽셀 리그 주인공: 방어구 외형 교체 없음(`PixelRig.SetMeshImage` 무시) — CharacterPixelRules 6절·Q-420 레이어 설계 후 부위 스프라이트 교체로 구현 | `PixelRig.cs` |
-| B-214 | 픽셀 리그 주인공: 무기 45종은 10-25 도트 복원·각도 자동으로 해결(weapon_lineup). 남은 것: 스킬 고유 동작은 기본 클립 매핑(`PixelRig.MapName`), 활은 쏘는 동작 없음 | `PixelRigBuilder.cs`, `PixelRig.cs` |
+| B-214 | 픽셀 리그 주인공: 무기 45종은 10-25 도트 복원·각도 자동으로 해결(weapon_lineup). 남은 것: 스킬 고유 동작은 기본 클립 매핑(`PixelRig.MapName`). 활 쏘기는 10-25 Shoot 로 해결 | `PixelRigBuilder.cs`, `PixelRig.cs` |
 | B-215 | ✅ 픽셀 리그 주인공 피격(Hurt)·사망(무릎 꿇음 → 눕기) 연출 (10-25) | `PixelRig.cs` |
 
 ## P3 (정리)

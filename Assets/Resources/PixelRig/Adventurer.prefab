@@ -440,6 +440,9 @@ MonoBehaviour:
   - name: SwingSide
     clip: {fileID: 7400000, guid: 24a406c43006a2944a1c92777e345bae, type: 2}
     loop: 0
+  - name: Shoot
+    clip: {fileID: 7400000, guid: e3823723dead3a8438144582389a7996, type: 2}
+    loop: 0
   - name: Cast
     clip: {fileID: 7400000, guid: b668897a4bf601a47867291d04941f22, type: 2}
     loop: 0

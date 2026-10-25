@@ -31,6 +31,7 @@ public class PixelRig : CharacterRig
     private const float WeaponWorldScale = 1f; // 도트 무기 24 PPU × 1 = 아트 1px 1/24유닛(몹·캐릭터와 같은 밀도)
     private static readonly Dictionary<string, PixelWeapon> PixelWeapons = new Dictionary<string, PixelWeapon>();
     private readonly List<Transform> _upright = new List<Transform>();
+    private bool _ranged;
     private readonly Dictionary<string, Clip> _byName = new Dictionary<string, Clip>();
     private readonly Dictionary<string, Clip> _resolved = new Dictionary<string, Clip>();
     private Clip _current;
@@ -154,6 +155,11 @@ public class PixelRig : CharacterRig
 
     public override void AdoptWeapon(Transform weapon, bool isLeft)
     {
+        if (!isLeft)
+        {
+            _ranged = false; // 오른손(주무기)이 활이면 아래에서 다시 켠다
+            _resolved.Clear();
+        }
         int order = isLeft ? _weaponOrderBack : _weaponOrderFront;
         foreach (SpriteRenderer r in weapon.GetComponentsInChildren<SpriteRenderer>(true))
         {
@@ -180,6 +186,10 @@ public class PixelRig : CharacterRig
             return;
         }
         r.sprite = pw.sprite;
+        if (pw.sprite.name.IndexOf("bow", StringComparison.OrdinalIgnoreCase) >= 0)
+        {
+            _ranged = true; // 활: 시전(Cast) 동작 대신 쏘기(Shoot)
+        }
         Transform t = r.transform;
         t.localPosition = new Vector3(0f, 0f, t.localPosition.z);
         // 그림 속 칼날 방향(angle)을 위(90°)로 맞춘다 — 손목 회전이 칼날 각도를 정한다
@@ -393,7 +403,12 @@ public class PixelRig : CharacterRig
         {
             return c;
         }
-        if (!_byName.TryGetValue(anim, out c) && !_byName.TryGetValue(MapName(anim), out c))
+        string mapped = MapName(anim);
+        if (_ranged && mapped == "Cast")
+        {
+            mapped = "Shoot";
+        }
+        if (!_byName.TryGetValue(anim, out c) && !_byName.TryGetValue(mapped, out c))
         {
             _byName.TryGetValue("Idle", out c);
         }
