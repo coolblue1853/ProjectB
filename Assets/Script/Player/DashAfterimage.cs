@@ -30,6 +30,8 @@ public class DashAfterimage : MonoBehaviour
 
     static Material ghostMaterial;
     static Material ghostSpriteMaterial;
+    static bool ghostSpriteFill; // 단색 실루엣 머티리얼(All In 1 HITEFFECT 100%)이면 색은 흰색 + 알파만
+    static readonly Color FillColor = new Color(0.55f, 0.9f, 1f, 1f);
     static readonly List<Vector3> verts = new List<Vector3>();
     static readonly List<Vector2> uvs = new List<Vector2>();
     static readonly List<int> tris = new List<int>();
@@ -90,9 +92,10 @@ public class DashAfterimage : MonoBehaviour
             {
                 p.renderer.SetPropertyBlock(block);
             }
+            Color sc = ghostSpriteFill ? new Color(1f, 1f, 1f, c.a) : c;
             foreach (SpriteRenderer sr in g.sprites)
             {
-                sr.color = c;
+                sr.color = sc;
             }
         }
     }
@@ -161,7 +164,7 @@ public class DashAfterimage : MonoBehaviour
             sr.sprite = src.sprite;
             sr.flipX = src.flipX;
             sr.flipY = src.flipY;
-            sr.color = Tint;
+            sr.color = ghostSpriteFill ? new Color(1f, 1f, 1f, Tint.a) : Tint;
             sr.sortingLayerID = src.sortingLayerID;
             sr.sortingOrder = src.sortingOrder - orderShift;
             sr.transform.SetPositionAndRotation(src.transform.position, src.transform.rotation);
@@ -231,11 +234,24 @@ public class DashAfterimage : MonoBehaviour
         }
         if (ghostSpriteMaterial == null)
         {
-            // 잔상은 조명을 받지 않는다(밤에도 같은 청색). 셰이더가 없으면 SpriteRenderer 기본 머티리얼
-            Shader unlit = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
-            if (unlit != null)
+            // 단색 청록 실루엣(상업 액션 게임식): 몹 피격 플래시와 같은 All In 1 머티리얼을 복제해 피격 색 100%.
+            // 원래 색에 청색을 곱하면 어둡고 탁했다(10-26). 없으면 조명 없는 기본 스프라이트 셰이더 + 색 곱
+            var template = Resources.Load<Material>("FX/M_EnemySprite");
+            if (template != null && template.HasProperty("_HitEffectBlend"))
             {
-                ghostSpriteMaterial = new Material(unlit) { name = "DashGhostSprite" };
+                ghostSpriteMaterial = new Material(template) { name = "DashGhostSprite" };
+                ghostSpriteMaterial.SetFloat("_HitEffectBlend", 1f);
+                ghostSpriteMaterial.SetColor("_HitEffectColor", FillColor);
+                ghostSpriteMaterial.SetFloat("_HitEffectGlow", 1f);
+                ghostSpriteFill = true;
+            }
+            else
+            {
+                Shader unlit = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
+                if (unlit != null)
+                {
+                    ghostSpriteMaterial = new Material(unlit) { name = "DashGhostSprite" };
+                }
             }
         }
     }
