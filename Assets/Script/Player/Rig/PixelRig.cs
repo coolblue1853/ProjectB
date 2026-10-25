@@ -148,6 +148,7 @@ public class PixelRig : CharacterRig
         {
             LastLandStrength = Mathf.Clamp01(-_minVy / HardLandVy);
             _landUntil = Time.time + LandTime * (1f + HardLandExtra * LastLandStrength);
+            Footsteps.Land(LastLandStrength);
         }
         if (_requested == "Run" && anim == "Idle" && _brake != null)
         {
@@ -398,6 +399,7 @@ public class PixelRig : CharacterRig
             LastLandStrength = Mathf.Clamp01(-_minVy / HardLandVy);
             _landUntil = now + LandTime * (1f + HardLandExtra * LastLandStrength);
             DustPuffs.Land(transform.position, LastLandStrength);
+            Footsteps.Land(LastLandStrength);
             return _land;
         }
         return _ledgeFall ? _fall : null;

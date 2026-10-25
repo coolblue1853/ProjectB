@@ -25,6 +25,13 @@ public static class Footsteps
         Sfx.Play(SurfaceFor(BgmDirector.CurrentMap), running ? 0.8f : 0.6f);
     }
 
+    /// <summary>착지: 지면 발소리를 세기(0~1)만큼 크게</summary>
+    public static void Land(float strength)
+    {
+        last = UnityEngine.Time.time;
+        Sfx.Play(SurfaceFor(BgmDirector.CurrentMap), 0.6f + 0.4f * UnityEngine.Mathf.Clamp01(strength));
+    }
+
     public static SfxId SurfaceFor(string map)
     {
         switch (map)
