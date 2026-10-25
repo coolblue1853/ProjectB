@@ -73,6 +73,13 @@
 - **캐릭터 입히기(4세대 확립)**: `inpaint_image_pro_flash`(5 gen) + 같은 크기 마스크(흰색=생성, 검정=유지: 얼굴 안쪽 28~34행 x15~28·발 51~55행 잠금). 마스크 밖은 바이트 그대로라 얼굴·체형이 흔들리지 않는다. 생성 뒤 `flatten_keep_detail --merge 14 --speck 28 --head-auto` → 얼굴 영역을 base_body 픽셀로 다시 덮는다. 고글·잔장식이 많은 컨셉은 잔무늬가 늘어나니 문구에 "few large shapes"를 넣는다.
 - 사람 손이 필요한 형태(가려졌던 머리·몸)는 **사용자가 Aseprite로 거친 실루엣 스케치 → Claude가 원본 팔레트·외곽선으로 정리**하는 분업이 가장 빨랐다. 작업 파일은 레이어(원본 참조 숨김 / 원본 고정 잠금 / 다듬을 곳)로 만들어 준다(`gen03/build_aseprite.lua`, 배치 실행).
 
+## 5.6 원본 자세·비율 맞추기 — 원본 편집 시작 (9세대, 사용자 10-25)
+
+- 사용자: "원본 빨간 머리 친구랑 같은 방향, 같은 형태로 서 있게 해 줘. 그래야 비교하기 편하다. 체형이랑 비율도 원본이랑 비슷해야 한다." + "컨셉은 매번 다른 걸로(버서커·역병 의사·권총 사수 같은 RPG 세트풍)."
+- 방법: `edit_image_pro_flash`(5 gen)에 **원본 앵커를 image_base64**로 넣고 `"Redraw this same character as <컨셉>: <머리·모자·옷·소품>. No fox ears, no fox tail. Keep EXACTLY the same pose, facing direction, body proportions, head size, size and position on the canvas, arms hanging down at the sides, same face style, same thick black outline and flat pixel art style."` 무기는 손에 들리면 팔 자세가 바뀌므로 **등·허리**에 둔다.
+- 결과(9세대): 키 45~51px, 자세·머리 크기·얼굴 위치가 원본과 일치. 새로 생성(create)하는 방식보다 비율 편차가 훨씬 작다.
+- 후처리는 5절과 같다. 색이 28~37색으로 남으니 감축을 더 건다(다음 세대 손잡이).
+
 ## 6. 방어구 교체 대비 (사용자 필수 조건, Q-420)
 
 - "방어구를 교체하면 교체한 방어구에 따라 외형이 바뀌어야 하니 그거에 대비되어야 한다."
