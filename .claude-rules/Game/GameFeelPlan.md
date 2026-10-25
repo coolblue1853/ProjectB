@@ -322,6 +322,7 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 - Slicker.me, Game Feel in Pygame — 흔들림 50~300ms, 감쇠: https://slicker.me/python/game_feel_pygame.htm
 - Eastondev, Where Does Game Feel Come From — 플래시·흔들림·숫자·파티클 레이어링: https://eastondev.com/blog/en/posts/dev/20260521-game-feedback-feel/
 - 10-25: PixelSlash2D 디졸브 순서 수정 — 식이 주석과 반대로 어두운 텍셀을 오래 남겨 고른 점으로 흩어졌다. 이제 밝기 65% + 해시 35%: 테두리·가장자리부터 얇아져 밝은 심만 남았다 꺼진다. 검증: `weapon_fx_sheet.cs` 디졸브 0/0.35/0.7 열 비교.
+- 10-26: 기본 공격 타격 이펙트 v2 — `Tools/pixelfx/gen_hit_impact.py` 가 PixelLab 없이 6프레임 회색조로 그린다(작은 섬광 원 → 8방향 마름모 가시 + 충격 고리 → 가시 늘어나며 고리 끊김 → 끝 조각·파편 → 점). 가로 가시가 길어 휘두른 방향감. 색은 PixelSlash2D 테마 램프. v1(십자 별 + 점)은 손맛이 약했다. 등록: `Tools/probes/build_hit_impact.cs`. 검증: weapon_fx_sheet 4테마, 낮 인게임 토끼 타격·치명타.
 
 ## 10.7 기본 무기 평타 이펙트 — PixelLab vfx_workbench + Shader Creator (2026-10-25)
 
