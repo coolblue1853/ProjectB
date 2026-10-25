@@ -269,10 +269,14 @@ public static class PixelRigBuilder
                 .Arm(0f, 0f, 45f, 0.14f, 0f, 45f),
             // 점프: 리그(PixelRig)가 세로 속도로 고른다 — 도약(첫 0.06초 늘임) → 상승 → 꼭대기 → 낙하, 착지하면 0.1초 눌림(Land).
             // 변형은 한두 프레임만(셀레스트식), 1px 단위
-            Pose("Jump", 0.1f, 90f, legF: (1, 1), legB: (-1, 2), arms: (0, 1)),
+            // 다리는 통째로 올리면 몸통 뒤로 숨어 사라져 보였다 → 접은 다리 그림(포즈 변형)으로: 상승 = 앞다리 접어 올림·뒷다리 늘어뜨림
+            Pose("Jump", 0.1f, 90f, legF: (0, 1), arms: (0, 1))
+                .S("LegF", 0.1f, new[] { LegPose("leg_l", 1, 2) }).S("LegB", 0.1f, new[] { LegPose("leg_r", -1, 0) }),
             Pose("JumpLaunch", 0.06f, 90f, hips: (0, 1), arms: (0, 1), hair: -1), // 머리카락: 도약에 눌리고 낙하에 떠오르고 착지에 눌린다(한 박자 늦는 2차 움직임)
-            Pose("JumpApex", 0.1f, 45f, legF: (1, 2), legB: (0, 2), arms: (0, 1)),
-            Pose("JumpFall", 0.1f, 90f, legF: (1, 0), legB: (-1, 1), arms: (0, 2), hair: 1),
+            Pose("JumpApex", 0.1f, 45f, legF: (0, 1), legB: (0, 1), arms: (0, 1)) // 꼭대기: 두 다리 살짝 접음
+                .S("LegF", 0.1f, new[] { LegPose("leg_l", 1, 1) }).S("LegB", 0.1f, new[] { LegPose("leg_r", 0, 1) }),
+            Pose("JumpFall", 0.1f, 90f, legB: (0, 1), arms: (0, 2), hair: 1) // 낙하: 앞다리 펴서 착지 준비, 뒷다리 접음
+                .S("LegF", 0.1f, new[] { LegPose("leg_l", 1, 0) }).S("LegB", 0.1f, new[] { LegPose("leg_r", -1, 1) }),
             // 피격: 몸이 뒤로 1px 젖혀지고 팔이 들리며 칼은 뒤로(리그가 피격 신호 뒤 0.22초 보여 준다)
             Pose("Hurt", 0.1f, 135f, hips: (-1, 0), legF: (-1, 0), legB: (-2, 0), arms: (-1, 1), pack: -1),
             // 사망 1단계: 무릎 꿇음(몸 2px 내려앉고 칼끝 아래로). 2단계(뒤로 쓰러짐)는 리그가 몸 전체를 90° 눕힌다
