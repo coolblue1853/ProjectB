@@ -46,6 +46,8 @@ public class Weapon : MonoBehaviour
     public string[] delayAnimName;
 
     public string[] attackAnimName;
+    const int ComboFinisherMinSteps = 3;
+    const float ComboFinisherScale = 1.25f;
     public bool[] spriteReverse;
     public Skill[] skill = new Skill[4];
 
@@ -219,7 +221,8 @@ public class Weapon : MonoBehaviour
             // 궤적은 타격 포즈 순간에(예비 포즈 동안은 칼만 보인다) — 리그 공격 클립의 타격 프레임 0.07초, 공속 배율 적용
             PixelRampId ramp = PixelRamp.FromSwing(swingVfx);
             Transform pivot = attackPivot[step - 1].transform;
-            float scale = swingVfxScale;
+            // 콤보 마지막 타(3타 이상 무기의 끝)는 궤적을 크게 — 마무리감(10-26)
+            float scale = swingVfxScale * (step >= ComboFinisherMinSteps && step == attackAnimName.Length ? ComboFinisherScale : 1f);
             DOVirtual.DelayedCall(WeaponFx.StrikeDelay / StatMath.AttackSpeedMul, () =>
             {
                 Vector3 at = pivot != null ? pivot.position : fxPos;
