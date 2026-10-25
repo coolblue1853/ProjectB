@@ -254,7 +254,9 @@ public class PixelRig : CharacterRig
         {
             return;
         }
-        _time += Time.deltaTime * _globalSpeed * _clipSpeed;
+        // 걷기·달리기는 이동 속도 배율만큼 빨리(버프로 빨라져도 발이 미끄러지지 않게)
+        float loco = _requested == "Walk" || _requested == "Run" ? Mathf.Clamp(StatMath.MoveSpeedMul, 0.5f, 2f) : 1f;
+        _time += Time.deltaTime * _globalSpeed * _clipSpeed * loco;
         Clip c = PickVariant();
         float len = Mathf.Max(c.clip.length, 0.0001f);
         float t = c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);

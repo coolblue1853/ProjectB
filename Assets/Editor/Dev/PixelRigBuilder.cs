@@ -193,8 +193,8 @@ public static class PixelRigBuilder
                 new float[] { 2, 1, 0, -2, -1, 0 }, new float[] { 0, 0, 0, 0, 0, 1 },
                 new float[] { -2, -1, 0, 2, 1, 0 }, new float[] { 0, 0, 1, 0, 0, 0 },
                 new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { -1, -1, 0, 1, 1, 0 }, 0f),
-            // 달리기 6포즈(0.07초씩): 교차 때 발을 2px 들고 몸은 1px 앞으로, 칼은 뒤로 눕혀 든다
-            Cycle("Run", 0.07f, 135f,
+            // 달리기 6포즈(0.07초씩): 교차 때 발을 2px 들고 몸은 1px 앞으로. 칼은 앞 위 45°(뒤로 눕히면 손이 몸 앞이라 칼날이 얼굴·가슴을 가로질렀다)
+            Cycle("Run", 0.07f, 45f,
                 new float[] { 2, 1, -1, -2, -1, 1 }, new float[] { 0, 0, 0, 0, 1, 2 },
                 new float[] { -2, -1, 1, 2, 1, -1 }, new float[] { 0, 1, 2, 0, 0, 0 },
                 new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { -1, -1, 0, 1, 1, 0 }, 1f),
