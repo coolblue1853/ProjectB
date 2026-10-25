@@ -142,7 +142,7 @@ public static class Vfx
     }
 
     /// <summary>예전 베기 7종·치명 X자 → 새 도트 이펙트(id·색·크기·상하반전)</summary>
-    static bool TryUpgradeLegacy(VfxId id, out VfxId to, out PixelRampId ramp, out float mul, out bool flipY)
+    public static bool TryUpgradeLegacy(VfxId id, out VfxId to, out PixelRampId ramp, out float mul, out bool flipY)
     {
         to = VfxId.WSlashSide;
         ramp = PixelRamp.FromSwing(id);
