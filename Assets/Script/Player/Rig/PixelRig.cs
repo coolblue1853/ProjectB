@@ -49,7 +49,8 @@ public class PixelRig : CharacterRig
     private const float ApexBand = 1.5f;   // |세로 속도| 이하면 꼭대기 포즈
     private const float LaunchTime = 0.06f;
     private const float LandTime = 0.1f;
-    private const float AirAttackVy = 0.6f; // 세로 속도가 이보다 크면 공중으로 본다
+    private const float AirAttackVy = 0.6f;
+    private const float UprightForwardPx = 2f; // 세워 드는 무기를 손 앞으로 내미는 아트 픽셀 // 세로 속도가 이보다 크면 공중으로 본다
     private Transform _legF, _legB;
 
     private void Awake()
@@ -181,8 +182,10 @@ public class PixelRig : CharacterRig
         t.localScale = new Vector3(s, s, 1f);
         if (pw.upright && !_upright.Contains(t))
         {
-            _upright.Add(t); // 방패·너클·활: 손목 각도와 상관없이 똑바로
+            _upright.Add(t); // 방패·너클·활·지팡이: 손목 각도와 상관없이 똑바로
         }
+        // 세워 드는 무기는 그림의 큰 덩어리가 손잡이보다 뒤(얼굴 쪽)에 있으면 좌우를 뒤집어 앞으로 — 해골 지팡이 머리가 얼굴을 가렸다
+        r.flipX = pw.upright && pw.sprite.pivot.x > pw.sprite.rect.width * 0.5f;
     }
 
     private class PixelWeapon
@@ -310,6 +313,10 @@ public class PixelRig : CharacterRig
                 continue;
             }
             t.rotation = Quaternion.identity;
+            // 손 앞으로 2px 내밀어 쥔다(넓은 지팡이·깃발이 얼굴에 걸치지 않게). 좌우 반전은 루트 배율 부호로
+            float forward = Mathf.Sign(transform.lossyScale.x) * UprightForwardPx / 24f;
+            Vector3 hold = t.parent != null ? t.parent.position : t.position;
+            t.position = new Vector3(hold.x + forward, hold.y, t.position.z);
         }
     }
 

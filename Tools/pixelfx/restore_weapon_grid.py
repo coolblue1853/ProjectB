@@ -23,8 +23,8 @@ OUT = "Assets/Resources/PixelRig/Weapons"
 # 무기 종류별 쥐는 법: "blade" = 손잡이 끝에서 칼날 쪽으로 grip_frac 지점(긴 축의 아래·왼쪽 끝 기준),
 # "center" = 그림 가운데(방패·너클·책), "left" = 왼쪽 끝 가운데(손등에 끼우는 발톱)
 KIND = {
-    "ScareStaff": ("blade", 0.22), "SacreGreatSword": ("blade", 0.12), "ScareSide": ("blade", 0.25),
-    "Wood Spear": ("blade", 0.30), "RatCheifDagger": ("blade", 0.12), "LeafStaff": ("blade", 0.25),
+    "ScareStaff": ("staff", 0.22), "SacreGreatSword": ("blade", 0.12), "ScareSide": ("blade", 0.25),
+    "Wood Spear": ("blade", 0.30), "RatCheifDagger": ("blade", 0.12), "LeafStaff": ("staff", 0.25),
     "PoisonSword": ("blade", 0.12), "ChiefsWarBanner": ("pole", 0),
     "WoodShield": ("center", 0), "Lleatherknuckles": ("center", 0), "Rleatherknuckles": ("center", 0),
     "LeafAdae": ("center", 0), "BanditShortbow": ("center", 0), "RatWhistle": ("center", 0),
@@ -90,7 +90,7 @@ def restore(name):
         col = oy[ox <= lx + 1]
         gx, gy, ang = int(lx + 1), int(round(col.mean())), 0.0
     else:
-        # 주축(PCA) — 끝점 두 개 중 아래쪽(왼쪽 아래) 끝이 손잡이
+        # 주축(PCA) — 끝점 두 개 중 아래쪽(왼쪽 아래) 끝이 손잡이 (blade·staff 공통)
         u, sv, vt = np.linalg.svd(pts - c, full_matrices=False)
         d = vt[0]
         proj = (pts - c) @ d
@@ -111,7 +111,7 @@ def restore(name):
     if abs(snapped - ang) <= 15:
         ang = snapped
     ang = ANGLE_OVERRIDE.get(name, ang)
-    upright = kind in ("center", "pole")  # 방패·너클·활·책·깃발: 손목 각도와 상관없이 똑바로 선다
+    upright = kind in ("center", "pole", "staff")  # 방패·너클·활·책·깃발·지팡이: 손목 각도와 상관없이 똑바로 선다(지팡이는 옆에 세워 짚는다)
     os.makedirs(OUT, exist_ok=True)
     Image.fromarray(out).save(os.path.join(OUT, name + ".png"))
     with open(os.path.join(OUT, name + ".json"), "w", encoding="utf-8") as f:
