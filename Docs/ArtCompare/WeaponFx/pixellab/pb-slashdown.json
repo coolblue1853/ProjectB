@@ -1,0 +1,235 @@
+{
+ "frames": [
+  {
+   "filename": "pb-slashdown 0.png",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 57
+   },
+   "pivot": {
+    "x": 0.3541666666666667,
+    "y": 0.47368421052631576
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-slashdown 1.png",
+   "frame": {
+    "x": 48,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 57
+   },
+   "pivot": {
+    "x": 0.3541666666666667,
+    "y": 0.47368421052631576
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-slashdown 2.png",
+   "frame": {
+    "x": 96,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 57
+   },
+   "pivot": {
+    "x": 0.3541666666666667,
+    "y": 0.47368421052631576
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-slashdown 3.png",
+   "frame": {
+    "x": 0,
+    "y": 57,
+    "w": 48,
+    "h": 57
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 57
+   },
+   "pivot": {
+    "x": 0.3541666666666667,
+    "y": 0.47368421052631576
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-slashdown 4.png",
+   "frame": {
+    "x": 48,
+    "y": 57,
+    "w": 48,
+    "h": 57
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 57
+   },
+   "pivot": {
+    "x": 0.3541666666666667,
+    "y": 0.47368421052631576
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-slashdown 5.png",
+   "frame": {
+    "x": 96,
+    "y": 57,
+    "w": 48,
+    "h": 57
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 57
+   },
+   "pivot": {
+    "x": 0.3541666666666667,
+    "y": 0.47368421052631576
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-slashdown 6.png",
+   "frame": {
+    "x": 0,
+    "y": 114,
+    "w": 48,
+    "h": 57
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 57
+   },
+   "pivot": {
+    "x": 0.3541666666666667,
+    "y": 0.47368421052631576
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-slashdown 7.png",
+   "frame": {
+    "x": 48,
+    "y": 114,
+    "w": 48,
+    "h": 57
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 57
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 57
+   },
+   "pivot": {
+    "x": 0.3541666666666667,
+    "y": 0.47368421052631576
+   },
+   "duration": 63
+  }
+ ],
+ "meta": {
+  "app": "PixelLab VFX Creator",
+  "image": "pb-slashdown.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 144,
+   "h": 171
+  },
+  "scale": "1",
+  "anchor": {
+   "kind": "origin",
+   "x": 17,
+   "y": 27
+  },
+  "frameTags": [
+   {
+    "name": "pb-slashdown",
+    "from": 0,
+    "to": 7,
+    "direction": "forward"
+   }
+  ]
+ }
+}

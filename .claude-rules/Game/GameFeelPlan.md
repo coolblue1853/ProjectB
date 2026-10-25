@@ -321,3 +321,20 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 - Wayline, Game Feel & Juice — 강타 50~100ms 프리즈: https://www.wayline.io/learn/game-feel/1
 - Slicker.me, Game Feel in Pygame — 흔들림 50~300ms, 감쇠: https://slicker.me/python/game_feel_pygame.htm
 - Eastondev, Where Does Game Feel Come From — 플래시·흔들림·숫자·파티클 레이어링: https://eastondev.com/blog/en/posts/dev/20260521-game-feedback-feel/
+
+## 10.7 기본 무기 평타 이펙트 — PixelLab vfx_workbench + Shader Creator (2026-10-25)
+
+사용자 요청: "기본 무기 이펙트를 새로 만들고 Shader Creator나 픽셀랩 이펙트 생성기를 실제로 연결해 줘" (새 주인공 픽셀 리그와 함께).
+
+| 층 | 무엇 | 파일 |
+|---|---|---|
+| ① 그림 | PixelLab `vfx_workbench`(구독 무료)로 회색조 4종: 세로 초승달(`slash_trail`), 가로 초승달(같은 부품 facing −90·flatten 0.55·sweep 1.4), 찌르기(`thrust_streak` size·reach 1.3), 타격 별(`hit_star`). 색 `#2e2e2e #7a7a7a #c8c8c8 #ffffff`. 사용자 My effects 에 PB_SlashDown·PB_SlashSide·PB_Thrust·PB_HitStar 로 저장(사이트에서 슬라이더로 다시 고칠 수 있음) | 원본 `Docs/ArtCompare/WeaponFx/pixellab/` |
+| ② 변환 | 여러 줄 격자 → 한 줄 시트, 끝 빈 프레임 제거, RGB = 밝기, 피벗 위↔아래 뒤집기 → `PixelVfxBaker.ImportSheet`(24 PPU) | `Tools/pixelfx/import_pixellab_vfx.py`, `Tools/probes/build_weapon_fx.cs`, 산출 `Assets/Art/PixelFx/Px_W*` |
+| ③ 셰이더 | `PixelSlash2D`(Shader Creator 절차: 의도 계약 → 정적 게이트 → Unity 컴파일 → 엔진 렌더 측정). 밝기 → 테마 램프 5색 평면 단계색, `_Dissolve` 텍셀 단위 소멸 + 밝은 경계, 자체발광(밤에도 원색) | `Assets/Shaders/PixelSlash2D.shader`, `Resources/FX/M_PixelSlash.mat`, 계약 `Tools/shader_jobs/pixel_slash/intent.json` |
+| ④ 재생 | `Vfx.PlayThemed(id, 위치, 좌우, 크기, 램프, 상하반전)` — 램프 색은 MaterialPropertyBlock, 수명 60%부터 디졸브 0→1 | `Vfx.cs`, `PixelRamp.cs` |
+| ⑤ 연결 | 근접 평타(기존 `swingVfx` 가 Slash 계열)만: 평타 애니 이름을 `PixelRig.MapName` 으로 묶어 Stab → 찌르기, SwingDown → 세로 초승달, SwingUp → 세로 초승달 상하 반전, SwingSide → 가로 초승달. 테마 색 = 기존 swingVfx 색(흰·적·청·금·녹 → `PixelRamp.FromSwing`) — 계보 무기 데이터 무수정. 판정 프리팹에 붙은 예전 베기 그림은 끈다(판정은 유지). 평타 적중 시 타격 별(무기 테마 색). 지팡이 마법 등은 기존 이펙트. 끄기: `WeaponFx.Enabled` | `WeaponFx.cs`, `Weapon.CreatAttackPrefab`, `HitFeedback.OnEnemyHit` |
+
+- 검증: 셰이더 의도 계약 c1~c5 전부 pass(엔진 렌더 측정 — 4색, 디졸브 면적 단조 감소, 텍셀 단위, 테마 교체, 샘플 1회·분기 0). 플레이(낮)에서 녹슨 검 3단 콤보(찌르기·내려베기·올려베기) 연속 촬영(`Tools/probes/rig_action_strip.cs combo3`), 타격 별 재생. 콘솔 에러 0.
+- 미검증: 실제 적을 때려 타격 별이 나오는 경로(재생 함수 직접 호출로만 확인), 지팡이 외 다른 근접 무기 종류별 위치·크기(swingVfxScale 그대로).
+- 다음: 스킬 이펙트도 같은 방식(회색조 vfx_workbench + PixelSlash2D)으로 바꿀 수 있다 — 스킬마다 부품 조합을 고르고 `VfxId` 끝에 추가.
+

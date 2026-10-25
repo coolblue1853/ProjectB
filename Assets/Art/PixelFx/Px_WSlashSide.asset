@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_WSlashSide
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: 8857396682562460666, guid: a9dca55096d4dc84682bcc7993f157fb, type: 3}
+  - {fileID: -5067797164426306376, guid: a9dca55096d4dc84682bcc7993f157fb, type: 3}
+  - {fileID: -6695182006943677227, guid: a9dca55096d4dc84682bcc7993f157fb, type: 3}
+  - {fileID: 919123991098790718, guid: a9dca55096d4dc84682bcc7993f157fb, type: 3}
+  - {fileID: 7087474727472284830, guid: a9dca55096d4dc84682bcc7993f157fb, type: 3}
+  - {fileID: -530356237317395638, guid: a9dca55096d4dc84682bcc7993f157fb, type: 3}
+  fps: 16
+  source: 'pixellab vfx_workbench: pb-slashside.json'

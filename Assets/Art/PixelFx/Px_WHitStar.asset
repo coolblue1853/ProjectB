@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_WHitStar
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: 5034895662181609921, guid: 6aa4a7fd1ae87fd44b5297b155ac8c76, type: 3}
+  - {fileID: -565698563913322975, guid: 6aa4a7fd1ae87fd44b5297b155ac8c76, type: 3}
+  - {fileID: -673979407922917417, guid: 6aa4a7fd1ae87fd44b5297b155ac8c76, type: 3}
+  - {fileID: 3484944701457909959, guid: 6aa4a7fd1ae87fd44b5297b155ac8c76, type: 3}
+  - {fileID: 3384251953131824044, guid: 6aa4a7fd1ae87fd44b5297b155ac8c76, type: 3}
+  fps: 16
+  source: 'pixellab vfx_workbench: pb-hitstar.json'

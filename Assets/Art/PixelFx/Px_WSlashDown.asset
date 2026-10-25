@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_WSlashDown
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: -6751562594944078904, guid: 2d96b9b9a3ca49249a722be530a224c3, type: 3}
+  - {fileID: 2780063783702950246, guid: 2d96b9b9a3ca49249a722be530a224c3, type: 3}
+  - {fileID: -4282128664827889377, guid: 2d96b9b9a3ca49249a722be530a224c3, type: 3}
+  - {fileID: -4327879800038587753, guid: 2d96b9b9a3ca49249a722be530a224c3, type: 3}
+  - {fileID: -8908136769475906618, guid: 2d96b9b9a3ca49249a722be530a224c3, type: 3}
+  - {fileID: 9024953522030717153, guid: 2d96b9b9a3ca49249a722be530a224c3, type: 3}
+  fps: 16
+  source: 'pixellab vfx_workbench: pb-slashdown.json'

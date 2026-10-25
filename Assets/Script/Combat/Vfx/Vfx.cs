@@ -20,9 +20,16 @@ public static class Vfx
         public SpriteRenderer sprite;
         public PixelFxClip clip;
         public float started;
+        // 테마 모드(PixelSlash2D): 램프 색 + 수명 끝 디졸브
+        public bool themed;
+        public MaterialPropertyBlock block;
     }
 
     static Material pixelMaterial;
+    static Material slashMaterial;
+    static readonly int[] RampIds = { Shader.PropertyToID("_C0"), Shader.PropertyToID("_C1"), Shader.PropertyToID("_C2"), Shader.PropertyToID("_C3"), Shader.PropertyToID("_C4") };
+    static readonly int DissolveId = Shader.PropertyToID("_Dissolve");
+    const float DissolveFrom = 0.6f; // 수명의 이 비율부터 끝까지 0→1 로 흩어진다
 
     static VfxLibrary library;
     static Transform root;
@@ -90,6 +97,45 @@ public static class Vfx
         return true;
     }
 
+    /// <summary>
+    /// 회색조 도트 이펙트를 무기 테마 색으로 재생한다(PixelSlash2D 셰이더). flipY = 올려베기처럼 위아래 반전.
+    /// </summary>
+    public static bool PlayThemed(VfxId id, Vector3 position, bool facingLeft, float scaleMul, PixelRampId ramp, bool flipY = false)
+    {
+        int before = active.Count;
+        if (!Play(id, position, facingLeft, scaleMul) || active.Count == before)
+        {
+            return false;
+        }
+        Live live = active[active.Count - 1];
+        if (live.sprite == null)
+        {
+            return true;
+        }
+        if (slashMaterial == null)
+        {
+            slashMaterial = Resources.Load<Material>("FX/M_PixelSlash");
+        }
+        if (slashMaterial != null)
+        {
+            live.sprite.sharedMaterial = slashMaterial;
+        }
+        live.sprite.flipY = flipY;
+        live.themed = true;
+        if (live.block == null)
+        {
+            live.block = new MaterialPropertyBlock();
+        }
+        Color[] c = PixelRamp.Get(ramp);
+        for (int i = 0; i < RampIds.Length; i++)
+        {
+            live.block.SetColor(RampIds[i], c[i]);
+        }
+        live.block.SetFloat(DissolveId, 0f);
+        live.sprite.SetPropertyBlock(live.block);
+        return true;
+    }
+
     /// <summary>도트 이펙트: SpriteRenderer 1개로 프레임을 넘긴다. 좌우는 flipX, 크기는 베이크 PPU 그대로(scaleMul만)</summary>
     static void PlayPixel(VfxId id, VfxLibrary.Entry entry, Vector3 position, bool facingLeft, float scaleMul)
     {
@@ -118,6 +164,16 @@ public static class Vfx
         live.clip = entry.pixel;
         live.started = Time.time;
         live.sprite.flipX = facingLeft;
+        if (live.themed)
+        {
+            live.themed = false;
+            live.sprite.flipY = false;
+            live.sprite.SetPropertyBlock(null);
+            if (pixelMaterial != null)
+            {
+                live.sprite.sharedMaterial = pixelMaterial;
+            }
+        }
         live.sprite.sprite = entry.pixel.frames[0];
         Transform t = live.go.transform;
         t.position = new Vector3(position.x, position.y, 0f);
@@ -168,6 +224,12 @@ public static class Vfx
                 {
                     int f = Mathf.Min(live.clip.frames.Length - 1, (int)((now - live.started) * live.clip.fps));
                     live.sprite.sprite = live.clip.frames[f];
+                    if (live.themed)
+                    {
+                        float life = (now - live.started) / Mathf.Max(live.releaseAt - live.started, 0.0001f);
+                        live.block.SetFloat(DissolveId, Mathf.Clamp01((life - DissolveFrom) / (1f - DissolveFrom)));
+                        live.sprite.SetPropertyBlock(live.block);
+                    }
                 }
                 continue;
             }

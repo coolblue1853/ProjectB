@@ -10,6 +10,8 @@ public enum VfxId
     RuneBlue, RunePurple, RuneGold, RuneGreen,
     // 1층계 폴리싱 (Tools/pixelfx/gen_polish_fx.py): 연기·흙먼지·지면 충격파·붉은 폭발
     SmokeGray, SmokePurple, DustBrown, DustStone, GroundShock, BurstRed,
+    // 기본 무기 평타 (PixelLab vfx_workbench 회색조 → PixelSlash2D 테마 색, GameFeelPlan 10.7)
+    WSlashDown, WSlashSide, WThrust, WHitStar,
 }
 
 /// <summary>이펙트 ID → 프리팹·회전·크기 매핑 (Resources/FX/VfxLibrary.asset). Magic Slashes FX의 3D 베기를 2D 화면용으로 눕혀 쓴다.</summary>

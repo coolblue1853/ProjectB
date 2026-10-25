@@ -1,0 +1,98 @@
+{
+ "version": 1,
+ "revision": "r1",
+ "approved": false,
+ "brief": "기본 무기 이펙트를 새로 만들고 Shader Creator나 픽셀랩 이펙트 생성기를 실제로 연결 (사용자, 2026-10-25) — PixelLab vfx_workbench 로 그린 회색조 베기·찌르기·타격 도트 프레임을 무기 테마색으로 칠하는 셰이더",
+ "goal": "회색조 도트 이펙트 프레임(밝기 = 강도)을 무기 테마 5색 램프의 평면 단계색으로 칠하고, 수명 끝에 텍셀 단위로 흩어지며 사라지게 하는 2D 스프라이트 셰이더. 조명 무시(자체발광), 도트 격자 유지",
+ "target": {
+  "dim": "2D",
+  "renderer": "Universal2D",
+  "budget": "desktop",
+  "source": "detected",
+  "why": "프로젝트 URP 2D Renderer + PC. Vfx.PlayPixel 이 SpriteRenderer 1개로 프레임을 넘긴다. 자체발광이라 LightMode 생략(SRPDefaultUnlit) — SkillEnergy2D 와 같은 선택"
+ },
+ "claims": [
+  {
+   "id": "c1",
+   "kind": "color",
+   "text": "출력 색은 램프 5색(_C0 어둠 ~ _C4 흰 심) 중 하나뿐이다 — 밝기를 단계로 양자화(그라데이션 없음)",
+   "test": {
+    "how": "palette",
+    "expect": "렌더 결과 불투명 색 수 ≤ 5(디졸브 경계색 포함 시 ≤ 5)"
+   },
+   "confidence": "확정",
+   "why": "도트 아트 규칙(ArtStyle·CharacterPixelRules: 평면 색, 그라데이션 금지)",
+   "verdict": "pass — 엔진 렌더 4테마×7칸 모두 불투명 4색(≤5)"
+  },
+  {
+   "id": "c2",
+   "kind": "driving",
+   "text": "_Dissolve 0..1 에서 텍셀 단위 해시로 남은 면적이 단조 감소하고, 사라지기 직전 경계 텍셀은 _C3(밝은 색)로 빛난다. 0이면 원본 형태 그대로",
+   "test": {
+    "how": "param_sweep",
+    "expect": "_Dissolve 0→1 스윕에서 불투명 텍셀 수 단조 감소, 0에서 원본과 같은 알파"
+   },
+   "confidence": "확정",
+   "why": "수명 끝 소멸 — Vfx 가 마지막 40% 구간을 0→1 로 구동",
+   "verdict": "pass — 면적 27648→18036→5544px(디졸브 0/0.35/0.7) 단조 감소, 0에서 원본과 같음"
+  },
+  {
+   "id": "c3",
+   "kind": "structure",
+   "text": "디졸브 판정은 텍셀 중심(_MainTex_TexelSize)으로 스냅된 UV를 쓴다 — 한 텍셀이 통째로 켜지고 꺼진다",
+   "test": {
+    "how": "render",
+    "expect": "확대 프리뷰에서 디졸브 구멍이 정사각 텍셀 단위"
+   },
+   "confidence": "확정",
+   "why": "도트 격자 유지(반 픽셀 구멍 금지)",
+   "verdict": "pass — 남은 픽셀 수가 모두 36(6×6 = 1텍셀)의 배수"
+  },
+  {
+   "id": "c4",
+   "kind": "color",
+   "text": "램프는 무기 테마(gold·blue·red·green·white·purple — PixelVfxBaker.Ramps 와 같은 값)를 MaterialPropertyBlock 으로 갈아 끼운다",
+   "test": {
+    "how": "render",
+    "expect": "같은 프레임이 램프만 바꿔 다른 색으로 보임"
+   },
+   "confidence": "확정",
+   "why": "이펙트 한 벌로 계보 무기 색을 전부 덮는다",
+   "verdict": "pass — 같은 프레임이 white·gold·red·blue 램프로 색만 바뀜(weapon_fx_sheet)"
+  },
+  {
+   "id": "c5",
+   "kind": "perf",
+   "text": "프래그 텍스처 샘플 1회, 분기 없음",
+   "test": {
+    "how": "gate",
+    "expect": "check_perf ok"
+   },
+   "confidence": "확정",
+   "why": "평타마다 생성, 동시 수 개",
+   "verdict": "pass — check_perf ok tex=1 branches=0"
+  }
+ ],
+ "driving": [
+  {
+   "knob": "_Dissolve",
+   "range": [
+    0,
+    1
+   ],
+   "maps_to": "Vfx 수명 비율 0.6→1 을 0→1 로",
+   "auto": true
+  }
+ ],
+ "non_goals": [
+  "프레임 애니메이션(Vfx.Tick 이 스프라이트를 넘김)",
+  "글로우·블룸·후광(도트 외곽 밖으로 번지지 않게)",
+  "2D 라이트 반응"
+ ],
+ "open_questions": [],
+ "reference": null,
+ "verification": {
+  "tier1": "check_urp ok, intent lint ok, check_perf ok, check_compat warn(렌더러 자동 감지 불가 — Tier 2로 확정)",
+  "tier2": "Unity 6000.4.0f1 실제 임포트: ShaderUtil.ShaderHasError=false, isSupported=true; Tools/probes/weapon_fx_sheet.cs 엔진 렌더로 c1~c4 측정; 플레이(낮)에서 녹슨 검 3단 콤보·타격 별 확인"
+ }
+}

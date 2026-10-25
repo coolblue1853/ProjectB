@@ -201,8 +201,25 @@ public class Weapon : MonoBehaviour
             dmOb.activeEnd = attckSpeed[step - 1] * _meleeActiveRatio;
         }
         dmOb.isSkill = false; // 평타는 스킬뎀% 를 받지 않는다(공유 프리팹 플래그 무시, W-04)
-        Vfx.Play(swingVfx, attackPivot[step - 1].transform.position, pC.transform.localScale.x < 0f, swingVfxScale);
+        Vector3 fxPos = attackPivot[step - 1].transform.position;
+        bool fxLeft = pC.transform.localScale.x < 0f;
+        // 근접 평타는 동작별 새 도트 궤적 + 무기 테마 색(GameFeelPlan 10.7), 그 외(지팡이 등)는 기존 이펙트
+        if (WeaponFx.TryMelee(attackAnimName[step - 1], swingVfx, out VfxId meleeFx, out bool fxFlipY))
+        {
+            Vfx.PlayThemed(meleeFx, fxPos, fxLeft, swingVfxScale, PixelRamp.FromSwing(swingVfx), fxFlipY);
+            // 판정 프리팹에 붙은 예전 베기 그림은 끈다(새 궤적과 두 겹으로 보였다). 판정·충돌은 그대로
+            damageObject.GetComponentsInChildren(true, hideRenderers);
+            foreach (SpriteRenderer r in hideRenderers)
+            {
+                r.enabled = false;
+            }
+        }
+        else
+        {
+            Vfx.Play(swingVfx, fxPos, fxLeft, swingVfxScale);
+        }
     }
+    static readonly List<SpriteRenderer> hideRenderers = new List<SpriteRenderer>();
     System.IDisposable moveLockToken, ladderLockToken;
     Sequence attackWaitSequence;
 

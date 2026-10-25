@@ -59,6 +59,11 @@ public static class HitFeedback
 
         Sfx.Play(killed ? SfxId.Kill : isCrit ? SfxId.Crit : SfxId.Hit, killed ? 0.6f : 0.45f);
         HitSparks.Emit(target.transform.position + Vector3.up * 0.4f, isCrit, killed);
+        // 평타 타격 지점 별(무기 테마 색) — 근접 무기만
+        if (!isSkill && Weapon.Equipped != null && WeaponFx.Enabled && WeaponFx.IsMeleeSwing(Weapon.Equipped.swingVfx))
+        {
+            Vfx.PlayThemed(VfxId.WHitStar, target.transform.position + Vector3.up * 0.4f, false, 1f, PixelRamp.FromSwing(Weapon.Equipped.swingVfx));
+        }
         if (isCrit)
         {
             Vfx.Play(VfxId.CritCross, target.transform.position + Vector3.up * 0.5f);
