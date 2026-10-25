@@ -24,6 +24,8 @@ public class EnemyHealth : PoolAble
     public DamageNumber damageNumber;
     public int enemyDef = 0;
     Animator anim;
+    static readonly int IsAttackId = Animator.StringToHash("isAttack");
+    bool animHasAttack; // 토끼 등 isAttack 이 없는 애니메이터에 GetBool 하면 맞을 때마다 경고가 쌓였다(10-26)
     public DG.Tweening.Sequence sequence;
     public int maxHP = 100;
     public int nowHP = 100;
@@ -175,6 +177,18 @@ public class EnemyHealth : PoolAble
         MonsterTable.Apply(this); // Resources/MonsterSheet.csv 값이 있으면 프리팹 값을 덮어쓴다 (C5)
         BossPhase.AttachIfBoss(this); // 보스 페이즈 (C4)
         anim = transform.GetComponent<Animator>();
+        animHasAttack = false;
+        if (anim != null && anim.runtimeAnimatorController != null)
+        {
+            foreach (AnimatorControllerParameter p in anim.parameters)
+            {
+                if (p.nameHash == IsAttackId)
+                {
+                    animHasAttack = true;
+                    break;
+                }
+            }
+        }
         dropManager = transform.GetComponent<DropManager>();
         rb = transform.GetComponent<Rigidbody2D>();
         behaviorTree = transform.GetComponent<BehaviorTree>();
@@ -395,9 +409,9 @@ public class EnemyHealth : PoolAble
             if (anim != null)
             {
                 anim.SetBool("isHit", false);
-                if ( anim.GetBool("isAttack"))
+                if (animHasAttack && anim.GetBool(IsAttackId))
                 {
-                    anim.SetBool("isAttack", false);
+                    anim.SetBool(IsAttackId, false);
                 }
             }
 
