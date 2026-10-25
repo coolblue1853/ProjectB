@@ -60,9 +60,13 @@ public static class HitFeedback
         }
 
         Sfx.Play(killed ? SfxId.Kill : isCrit ? SfxId.Crit : SfxId.Hit, killed ? 0.6f : 0.45f);
-        HitSparks.Emit(target.transform.position + Vector3.up * 0.4f, isCrit, killed);
         // 평타 타격 지점 별(무기 테마 색) — 근접 무기만. 치명타는 같은 별을 크게·금색으로(새 도트 이펙트와 한 벌, 10-25)
         bool meleeFx = Weapon.Equipped != null && WeaponFx.Enabled && WeaponFx.IsMeleeSwing(Weapon.Equipped.swingVfx);
+        // 사각 입자 불꽃은 근접 평타에서 뺀다 — 새 타격 이펙트(Px_WHitStar v2)에 파편이 있고, 격자 밖 사각형이 도트와 어긋났다(10-26). 처치·스킬·그 외 무기는 그대로
+        if (killed || isSkill || !meleeFx)
+        {
+            HitSparks.Emit(target.transform.position + Vector3.up * 0.4f, isCrit, killed);
+        }
         if (!isSkill && meleeFx)
         {
             Vfx.PlayThemed(VfxId.WHitStar, target.transform.position + Vector3.up * 0.4f, false, 1f, PixelRamp.FromSwing(Weapon.Equipped.swingVfx));
