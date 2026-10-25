@@ -26,6 +26,9 @@ public class PixelRig : CharacterRig
     [Tooltip("무기 스프라이트 정렬 순서(앞손 / 뒷손)")]
     [SerializeField] private int _weaponOrderFront = 48;
     [SerializeField] private int _weaponOrderBack = 37;
+    // 공중 공격 다리: 꼭대기 포즈와 같은 접은 다리 그림(빌더가 넣는다). 없으면 다리를 2px 통째로 올린다
+    [SerializeField] private Sprite _airLegF;
+    [SerializeField] private Sprite _airLegB;
 
     private const string WeaponDir = "PixelRig/Weapons/";
     private const float WeaponWorldScale = 1f; // 도트 무기 24 PPU × 1 = 아트 1px 1/24유닛(몹·캐릭터와 같은 밀도)
@@ -79,6 +82,7 @@ public class PixelRig : CharacterRig
     private const float AirAttackVy = 0.6f;
     private const float UprightForwardPx = 2f; // 세워 드는 무기를 손 앞으로 내미는 아트 픽셀 // 세로 속도가 이보다 크면 공중으로 본다
     private Transform _legF, _legB;
+    private SpriteRenderer _legFRenderer, _legBRenderer;
 
     private void Awake()
     {
@@ -92,6 +96,8 @@ public class PixelRig : CharacterRig
         _body = GetComponentInParent<Rigidbody2D>();
         _legF = transform.Find("LegF");
         _legB = transform.Find("LegB");
+        _legFRenderer = _legF != null ? _legF.GetComponent<SpriteRenderer>() : null;
+        _legBRenderer = _legB != null ? _legB.GetComponent<SpriteRenderer>() : null;
         _byName.TryGetValue("JumpLaunch", out _launch);
         _byName.TryGetValue("Jump", out _up);
         _byName.TryGetValue("JumpApex", out _apex);
@@ -450,6 +456,15 @@ public class PixelRig : CharacterRig
             return;
         }
         float px = 1f / _ppu;
+        if (_airLegF != null && _airLegB != null && _legFRenderer != null && _legBRenderer != null)
+        {
+            // 통째로 올리면 다리가 몸통 뒤로 숨어 사라져 보였다 → 접은 다리 그림 + 1px(꼭대기 포즈와 같게)
+            _legFRenderer.sprite = _airLegF;
+            _legBRenderer.sprite = _airLegB;
+            _legF.localPosition += new Vector3(0f, px, 0f);
+            _legB.localPosition += new Vector3(0f, px, 0f);
+            return;
+        }
         _legF.localPosition += new Vector3(px, 2f * px, 0f);
         _legB.localPosition += new Vector3(0f, 2f * px, 0f);
     }

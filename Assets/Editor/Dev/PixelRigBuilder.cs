@@ -85,6 +85,8 @@ public static class PixelRigBuilder
         so.FindProperty("_ppu").floatValue = Ppu;
         so.FindProperty("_weaponOrderFront").intValue = 45;
         so.FindProperty("_weaponOrderBack").intValue = 37;
+        so.FindProperty("_airLegF").objectReferenceValue = PartSprite(LegPose("leg_l", 1, 1));
+        so.FindProperty("_airLegB").objectReferenceValue = PartSprite(LegPose("leg_r", 0, 1));
 
         // 클립 굽기 — 정지 자세 값을 먼저 읽어 두고, 표의 값은 그 위에 더한다
         var rest = new Dictionary<string, Vector3>();
