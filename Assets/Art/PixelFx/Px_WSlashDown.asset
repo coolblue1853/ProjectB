@@ -19,5 +19,5 @@ MonoBehaviour:
   - {fileID: -4327879800038587753, guid: 2d96b9b9a3ca49249a722be530a224c3, type: 3}
   - {fileID: -8908136769475906618, guid: 2d96b9b9a3ca49249a722be530a224c3, type: 3}
   - {fileID: 9024953522030717153, guid: 2d96b9b9a3ca49249a722be530a224c3, type: 3}
-  fps: 16
-  source: 'pixellab vfx_workbench: pb-slashdown.json'
+  fps: 20
+  source: Tools/pixelfx/gen_slash.py

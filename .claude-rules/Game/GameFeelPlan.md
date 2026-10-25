@@ -324,6 +324,7 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 - 10-25: PixelSlash2D 디졸브 순서 수정 — 식이 주석과 반대로 어두운 텍셀을 오래 남겨 고른 점으로 흩어졌다. 이제 밝기 65% + 해시 35%: 테두리·가장자리부터 얇아져 밝은 심만 남았다 꺼진다. 검증: `weapon_fx_sheet.cs` 디졸브 0/0.35/0.7 열 비교.
 - 10-26: 기본 공격 타격 이펙트 v2 — `Tools/pixelfx/gen_hit_impact.py` 가 PixelLab 없이 6프레임 회색조로 그린다(작은 섬광 원 → 8방향 마름모 가시 + 충격 고리 → 가시 늘어나며 고리 끊김 → 끝 조각·파편 → 점). 가로 가시가 길어 휘두른 방향감. 색은 PixelSlash2D 테마 램프. v1(십자 별 + 점)은 손맛이 약했다. 등록: `Tools/probes/build_hit_impact.cs`. 검증: weapon_fx_sheet 4테마, 낮 인게임 토끼 타격·치명타.
 - 10-26: 찌르기 궤적 v2 — `Tools/pixelfx/gen_thrust.py`(6프레임: 손 앞 원뿔 → 긴 원뿔 + 심선 + 속도선 → 끝 섬광 → 가늘어지며 앞으로 → 조각 → 점). 높이는 손 소켓(칼날)에 맞춤 — 판정 기준점은 예전 캐릭터 기준이라 칼날 아래로 지나갔다(`Weapon.CreatAttackPrefab`). 등록 `Tools/probes/build_thrust.cs`. 검증: 4테마 시트, 낮 인게임 combo3.
+- 10-26: 베기 궤적 v2(내려베기·옆베기) — `Tools/pixelfx/gen_slash.py`: 머리가 호를 그리며 35→75→100% 나아가고 꼬리가 0→15→50→80→95% 뒤쫓는다, 두께는 머리 쪽으로 치우친 초승달(양 끝 뾰족), 밝기 꼬리 0.45 → 머리 1.0 + 바깥 가장자리 밝게, 1~2프레임 안쪽 속도선. v1 은 6프레임 중 3프레임이 같은 평평한 2색 초승달이라 정지 그림 같았다. 시트 크기·피벗은 v1 과 같게(무기별 위치·배율 그대로). 내려베기 끝 -65°(-95° 는 땅을 파고들었다). 등록 `Tools/probes/build_slash.cs`. 검증: 4테마 시트, 낮 인게임 combo3 0.05초 간격.
 
 ## 10.7 기본 무기 평타 이펙트 — PixelLab vfx_workbench + Shader Creator (2026-10-25)
 

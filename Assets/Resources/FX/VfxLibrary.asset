@@ -225,7 +225,7 @@ MonoBehaviour:
     prefab: {fileID: 0}
     euler: {x: 0, y: 0, z: 0}
     scale: 0.5
-    lifetime: 0.375
+    lifetime: 0.3
     sortingOrder: 210
     pixel: {fileID: 11400000, guid: 4309c0204f536f8498ceeb558aca563a, type: 2}
     usePixel: 1
@@ -233,7 +233,7 @@ MonoBehaviour:
     prefab: {fileID: 0}
     euler: {x: 0, y: 0, z: 0}
     scale: 0.5
-    lifetime: 0.375
+    lifetime: 0.3
     sortingOrder: 210
     pixel: {fileID: 11400000, guid: 4ce11d0226ee97d46bb4b55cfe38f98d, type: 2}
     usePixel: 1
