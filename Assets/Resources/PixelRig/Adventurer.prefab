@@ -401,6 +401,9 @@ MonoBehaviour:
   - name: Run
     clip: {fileID: 7400000, guid: aaa5503fba408754c93a32e5d133b5e9, type: 2}
     loop: 1
+  - name: Brake
+    clip: {fileID: 7400000, guid: 11e2a0f56107bf040b9a5a0d31bdc49b, type: 2}
+    loop: 0
   - name: Jump
     clip: {fileID: 7400000, guid: 332cfe2f84a71a441b2b5c9e9b24dce7, type: 2}
     loop: 0

@@ -252,6 +252,17 @@ public static class PixelRigBuilder
                 new[] { -1, 0, 1, 1, 0, -1 }, new[] { 1, 2, 1, 0, 0, 0 },
                 new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { 0, -1, 0, 0, -1, 0 },
                 new[] { -1, 0, 1, 1, 0, -1 }, 1f),
+            // 제동: 달리다 멈추면 리그가 0.13초 보여 준다 — 앞발 2px 내딛어 버티고 몸은 뒤로 1px 젖혀 내려앉음, 손은 관성으로 앞, 머리카락 늘임 → 반쯤 회복
+            new AnimDef("Brake", 0.14f, false).Step()
+                .K("Hips", 'x', 0f, -1f, 0.07f, 0f, 0.14f, 0f)
+                .K("Hips", 'y', 0f, -1f, 0.07f, 0f, 0.14f, 0f)
+                .K("Hips/ShoulderF/HandF", 'x', 0f, 1f, 0.07f, 1f, 0.14f, 1f)
+                .S("LegF", 0.07f, new[] { LegPose("leg_l", 2, 0), LegPose("leg_l", 1, 0) })
+                .S("LegB", 0.07f, new[] { LegPose("leg_r", -1, 0), LegPose("leg_r", 0, 0) })
+                .S("Hips/ShoulderF", 0.07f, new[] { ArmPose("arm_l", 1), ArmPose("arm_l", 1) })
+                .S("Hips/ShoulderB", 0.07f, new[] { ArmPose("arm_r", 1), ArmPose("arm_r", 0) })
+                .S("Hips/Head", 0.07f, new[] { HairPose(1), HairPose(-1) })
+                .Arm(0f, 0f, 45f, 0.14f, 0f, 45f),
             // 점프: 리그(PixelRig)가 세로 속도로 고른다 — 도약(첫 0.06초 늘임) → 상승 → 꼭대기 → 낙하, 착지하면 0.1초 눌림(Land).
             // 변형은 한두 프레임만(셀레스트식), 1px 단위
             Pose("Jump", 0.1f, 90f, legF: (1, 1), legB: (-1, 2), arms: (0, 1)),

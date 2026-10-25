@@ -1,12 +1,12 @@
-// 한 프로브 안에서 동작 실행 → 게임 시간 기준 일정 간격 연속 촬영(프로브 컴파일 멈춤 1초가 사이에 끼지 않게).
+﻿// 한 프로브 안에서 동작 실행 → 게임 시간 기준 일정 간격 연속 촬영(프로브 컴파일 멈춤 1초가 사이에 끼지 않게).
 // __ACTION__: jump | attack | dash | combo | combo3(콤보 1·2·3단 생성 함수를 0.42초 간격 직접 호출)  /  결과: Logs/playtest/rig_act___ACTION__.png + 클립 기록(AppDomain pb_rigact)
 var pc = PlayerController.instance;
 var rig = pc.Rig;
 var fReq = typeof(PixelRig).GetField("_requested", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 string action = "__ACTION__";
-bool loco = action == "walk" || action == "run";
-int n = action == "combo3" ? 12 : action == "jump" ? 10 : 8, w = 256; float step = action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : action == "death" ? 0.25f : 0.08f;
-float lead = loco ? 0.3f : action == "fidget" ? 6.0f : 0.02f; // 걷기·달리기는 가속이 끝난 뒤부터 찍는다
+bool loco = action == "walk" || action == "run" || action == "brake"; // brake: 달리다 0.45초에 키를 떼고 그 순간부터 제동 포즈·먼지
+int n = action == "combo3" ? 12 : action == "jump" ? 10 : 8, w = 256; float step = action == "brake" ? 0.035f : action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : action == "death" ? 0.25f : 0.08f;
+float lead = action == "brake" ? 0.43f : loco ? 0.3f : action == "fidget" ? 6.0f : 0.02f; // 걷기·달리기는 가속이 끝난 뒤부터 찍는다
 float camSize = loco || action == "jump" ? 1.15f : 1.6f; // 이동 동작은 크게(빈칸 확인용)
 var strip = new Texture2D(w * n, w, TextureFormat.RGB24, false);
 var log = new System.Text.StringBuilder();
@@ -36,13 +36,13 @@ if (action == "jump") typeof(PlayerController).GetMethod("Jump", flags).Invoke(p
 var kbd = UnityEngine.InputSystem.Keyboard.current;
 if (action == "walk") UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow));
 // 달리기는 이동 중 Shift 를 누르는 순간 켜지는 토글 → 오른쪽 먼저, 0.12초 뒤 Shift 탭
-if (action == "run")
+if (action == "run" || action == "brake")
 {
     UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow));
     DG.Tweening.DOVirtual.DelayedCall(0.12f, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow, UnityEngine.InputSystem.Key.LeftShift)), false);
     DG.Tweening.DOVirtual.DelayedCall(0.2f, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow)), false);
 }
-if (loco) DG.Tweening.DOVirtual.DelayedCall(lead + n * step, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState()), false);
+if (loco) DG.Tweening.DOVirtual.DelayedCall(action == "brake" ? 0.45f : lead + n * step, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState()), false);
 if (action == "dash") typeof(PlayerController).GetMethod("Dash", flags).Invoke(pc, null);
 if (action == "attack") Weapon.Equipped.MeleeAttack();
 // fidget: 대기를 새로 시작하고 6초 뒤(습관 동작)부터 찍는다

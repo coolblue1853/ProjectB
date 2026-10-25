@@ -60,6 +60,11 @@ public class PixelRig : CharacterRig
     private const float StepDustBehind = 0.12f;
     private Clip _run;
     private int _runPose = -1;
+    // 제동: 달리기 → 대기로 바뀌면 잠깐 버티는 포즈와 발 앞 먼지(클립 길이 0.14보다 짧게 — 끝 시점은 첫 포즈로 돌아간다)
+    private const float BrakeTime = 0.13f;
+    private const float BrakeDustAhead = 0.2f;
+    private Clip _brake;
+    private float _brakeUntil;
     // 사망: 무릎 꿇음 → 0.3초 뒤 몸 전체를 90° 눕힘(도트 90° 회전은 지글거림 없음). 부활하면 원래대로
     private float _diedAt = -1f;
     private const float KneelTime = 0.3f;
@@ -96,6 +101,7 @@ public class PixelRig : CharacterRig
         _byName.TryGetValue("DeathKneel", out _kneel);
         _byName.TryGetValue("IdleFidget", out _fidget);
         _byName.TryGetValue("Run", out _run);
+        _byName.TryGetValue("Brake", out _brake);
         _restLocalPos = transform.localPosition;
         Play("Idle");
     }
@@ -106,6 +112,17 @@ public class PixelRig : CharacterRig
         if (_requested == "Jump" && _land != null && (anim == "Idle" || anim == "Walk" || anim == "Run"))
         {
             _landUntil = Time.time + LandTime;
+        }
+        if (_requested == "Run" && anim == "Idle" && _brake != null)
+        {
+            _brakeUntil = Time.time + BrakeTime;
+            bool left = transform.lossyScale.x < 0f;
+            // 먼지는 앞쪽으로 흩어진다(발걸음 먼지 그림을 반대로 뒤집어 앞으로 굴린다)
+            Vfx.Play(VfxId.StepDust, transform.position + Vector3.right * (left ? -BrakeDustAhead : BrakeDustAhead), !left);
+        }
+        else if (anim != "Idle")
+        {
+            _brakeUntil = 0f;
         }
         _playedAt = Time.time;
         _current = Resolve(anim);
@@ -378,6 +395,10 @@ public class PixelRig : CharacterRig
         if (now < _landUntil && (_requested == "Idle" || _requested == "Walk" || _requested == "Run"))
         {
             return _land;
+        }
+        if (now < _brakeUntil && _requested == "Idle" && _brake != null)
+        {
+            return _brake;
         }
         if (_requested == "Idle" && _fidget != null)
         {
