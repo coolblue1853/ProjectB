@@ -45,6 +45,22 @@ if (action == "run")
 if (loco) DG.Tweening.DOVirtual.DelayedCall(lead + n * step, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState()), false);
 if (action == "dash") typeof(PlayerController).GetMethod("Dash", flags).Invoke(pc, null);
 if (action == "attack") Weapon.Equipped.MeleeAttack();
+// hitmob: 가장 가까운 몹 1.1유닛 왼쪽에 오른쪽을 보고 서서 실제 평타(타격 별·히트스톱·피격 플래시 확인)
+if (action == "hitmob")
+{
+    EnemyHealth tgt = null; float bd = 1e9f;
+    foreach (var e in UnityEngine.Object.FindObjectsByType<EnemyHealth>(FindObjectsInactive.Exclude))
+    { float d = Vector2.Distance(e.transform.position, pc.transform.position); if (e.nowHP > 0 && e.IsMonster && !e.isBossMob && d < bd) { bd = d; tgt = e; } }
+    if (tgt != null)
+    {
+        pc.transform.position = new Vector3(tgt.transform.position.x - 1.1f, tgt.transform.position.y + 0.2f, pc.transform.position.z);
+        pc.transform.localScale = new Vector3(Mathf.Abs(pc.transform.localScale.x), pc.transform.localScale.y, 1f);
+        log.Append("target=" + tgt.name + " hp=" + tgt.nowHP + " ");
+        DG.Tweening.DOVirtual.DelayedCall(0.15f, () => Weapon.Equipped.MeleeAttack(), false);
+        DG.Tweening.DOVirtual.DelayedCall(0.75f, () => log.Append(" hpAfter=" + tgt.nowHP + " "), false);
+    }
+    else log.Append("no mob ");
+}
 if (action == "combo3")
 {
     var cap = typeof(Weapon).GetMethod("CreatAttackPrefab", flags, null, new System.Type[] { typeof(int) }, null);

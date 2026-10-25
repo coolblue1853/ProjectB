@@ -47,6 +47,25 @@ SHORT_SWORD = [
 ]
 GRIP = (3, 18)  # 손잡이 가운데(가로 3, 세로 18행) = 피벗
 
+# 단검(DoubleDagger) — 원본은 X자 교차 아이콘이라 한 자루를 직접 그린다. 5x14, 짧고 넓은 날
+DAGGER = [
+    "..O..",
+    ".OWO.",
+    ".OLMO",
+    "OWMDO",
+    "OWLDO",
+    "OLMDO",
+    "OWMDO",
+    "OLDDO",
+    "OOOOO",
+    "OGgGO",
+    ".OHO.",
+    ".OhO.",
+    ".OgO.",
+    "..O..",
+]
+DAGGER_GRIP = (2, 11)
+
 
 def draw(name, rows, grip):
     h, w = len(rows), len(rows[0])
@@ -60,9 +79,10 @@ def draw(name, rows, grip):
     os.makedirs(OUT, exist_ok=True)
     img.save(os.path.join(OUT, name + ".png"))
     with open(os.path.join(OUT, name + ".json"), "w", encoding="utf-8") as f:
-        json.dump({"grip": list(grip), "size": [w, h]}, f)
+        json.dump({"grip": list(grip), "size": [w, h], "angle": 90.0, "kind": "blade", "upright": False}, f)
     print(name, w, "x", h, "grip", grip)
 
 
 if __name__ == "__main__":
     draw("ShortSword", SHORT_SWORD, GRIP)
+    draw("DoubleDagger", DAGGER, DAGGER_GRIP)

@@ -29,7 +29,8 @@ public class PixelRig : CharacterRig
 
     private const string WeaponDir = "PixelRig/Weapons/";
     private const float WeaponWorldScale = 1f; // 도트 무기 24 PPU × 1 = 아트 1px 1/24유닛(몹·캐릭터와 같은 밀도)
-    private static readonly Dictionary<string, Sprite> PixelWeapons = new Dictionary<string, Sprite>();
+    private static readonly Dictionary<string, PixelWeapon> PixelWeapons = new Dictionary<string, PixelWeapon>();
+    private readonly List<Transform> _upright = new List<Transform>();
     private readonly Dictionary<string, Clip> _byName = new Dictionary<string, Clip>();
     private readonly Dictionary<string, Clip> _resolved = new Dictionary<string, Clip>();
     private Clip _current;
@@ -146,29 +147,72 @@ public class PixelRig : CharacterRig
     /// 기존 무기 그림은 AnyPortrait 용 고해상도라 도트 격자에서 가는 막대로 뭉개졌다(PixelRigDesign 3.5절 무기 쥐기).
     /// 크기는 캐릭터 도트와 같게(아트 1px = 1/24유닛) — 부모 배율을 상쇄한다.
     /// </summary>
-    private static void UsePixelWeapon(SpriteRenderer r)
+    private void UsePixelWeapon(SpriteRenderer r)
     {
         if (r.sprite == null)
         {
             return;
         }
-        Sprite px;
-        if (!PixelWeapons.TryGetValue(r.sprite.name, out px))
-        {
-            px = Resources.Load<Sprite>(WeaponDir + r.sprite.name);
-            PixelWeapons[r.sprite.name] = px;
-        }
-        if (px == null)
+        PixelWeapon pw = LoadPixelWeapon(r.sprite.name);
+        if (pw == null)
         {
             return;
         }
-        r.sprite = px;
+        r.sprite = pw.sprite;
         Transform t = r.transform;
         t.localPosition = new Vector3(0f, 0f, t.localPosition.z);
-        t.localRotation = Quaternion.identity;
+        // 그림 속 칼날 방향(angle)을 위(90°)로 맞춘다 — 손목 회전이 칼날 각도를 정한다
+        t.localRotation = Quaternion.Euler(0f, 0f, 90f - pw.angle);
         float parent = t.parent != null ? Mathf.Abs(t.parent.lossyScale.y) : 1f;
         float s = parent > 0.0001f ? WeaponWorldScale / parent : 1f;
         t.localScale = new Vector3(s, s, 1f);
+        if (pw.upright && !_upright.Contains(t))
+        {
+            _upright.Add(t); // 방패·너클·활: 손목 각도와 상관없이 똑바로
+        }
+    }
+
+    private class PixelWeapon
+    {
+        public Sprite sprite;
+        public float angle = 90f;
+        public bool upright;
+    }
+
+    [Serializable]
+    private class PixelWeaponMeta
+    {
+        public float angle = 90f;
+        public bool upright;
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics()
+    {
+        PixelWeapons.Clear(); // 도메인 리로드 없이 플레이할 때 지난 무기 정보가 남지 않게
+    }
+
+    private static PixelWeapon LoadPixelWeapon(string name)
+    {
+        PixelWeapon pw;
+        if (PixelWeapons.TryGetValue(name, out pw))
+        {
+            return pw;
+        }
+        Sprite sp = Resources.Load<Sprite>(WeaponDir + name);
+        if (sp != null)
+        {
+            pw = new PixelWeapon { sprite = sp };
+            TextAsset meta = Resources.Load<TextAsset>(WeaponDir + name);
+            if (meta != null)
+            {
+                PixelWeaponMeta m = JsonUtility.FromJson<PixelWeaponMeta>(meta.text);
+                pw.angle = m.angle;
+                pw.upright = m.upright;
+            }
+        }
+        PixelWeapons[name] = pw;
+        return pw;
     }
 
     private void LateUpdate()
@@ -183,6 +227,7 @@ public class PixelRig : CharacterRig
         float t = c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
         c.clip.SampleAnimation(gameObject, t);
         SnapBones();
+        KeepUpright();
     }
 
     /// <summary>점프는 세로 속도로 상승·꼭대기·낙하를 고르고, 막 착지했으면 눌림 포즈</summary>
@@ -211,6 +256,21 @@ public class PixelRig : CharacterRig
             return _fall;
         }
         return _apex != null ? _apex : _up;
+    }
+
+    /// <summary>손에 끼우는 무기(방패·너클·활)는 손목이 돌아도 화면에서 똑바로 — 좌우 반전은 부모 배율이 처리한다</summary>
+    private void KeepUpright()
+    {
+        for (int i = _upright.Count - 1; i >= 0; i--)
+        {
+            Transform t = _upright[i];
+            if (t == null)
+            {
+                _upright.RemoveAt(i);
+                continue;
+            }
+            t.rotation = Quaternion.identity;
+        }
     }
 
     /// <summary>뼈 위치를 아트 픽셀 격자에 맞춘다 — 부위가 반 픽셀에 걸려 번지지 않게</summary>
