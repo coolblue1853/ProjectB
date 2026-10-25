@@ -17,7 +17,7 @@ var mpb = new MaterialPropertyBlock();
 for (int r = 0; r < list.Count; r++)
 {
     var e = list[r];
-    bool themed = e.id >= VfxId.WSlashDown;
+    bool themed = e.id >= VfxId.WSlashDown && e.id <= VfxId.WHitStar;
     sr.sharedMaterial = themed ? slashMat : pxMat;
     mpb.Clear();
     if (themed) { var c = PixelRamp.Get(PixelRampId.Gold); string[] ids = { "_C0", "_C1", "_C2", "_C3", "_C4" }; for (int k = 0; k < 5; k++) mpb.SetColor(ids[k], c[k]); }

@@ -804,7 +804,8 @@ public class PlayerController : MonoBehaviour
                 isJumpAnim = false;
                 Rig.Play("Idle");
                 LandSquash();
-                DustPuffs.Land(groundCheck.transform.position, 0.6f);
+                // 픽셀 리그는 원점이 발바닥 — 땅 감지점은 발보다 위라 먼지가 무릎 높이에서 피었다
+                DustPuffs.Land(Rig is PixelRig ? Rig.transform.position : groundCheck.transform.position, 0.6f);
             }
 
 

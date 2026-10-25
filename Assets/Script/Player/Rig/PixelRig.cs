@@ -54,6 +54,12 @@ public class PixelRig : CharacterRig
     // 대기 습관: 대기로 6초 넘게 서 있으면 배낭 추켜올리기를 한 번, 이후 다시 6초
     private const float FidgetAfter = 6f;
     private float _fidgetAt = -1f;
+    // 달리기 발걸음 먼지: 발이 땅에 닿는 포즈(빌더 Run 6포즈 중 앞발 0·뒷발 3)에 들어설 때 발 뒤에 한 번
+    private const int RunPoses = 6;
+    private static readonly int[] RunContactPoses = { 0, 3 };
+    private const float StepDustBehind = 0.12f;
+    private Clip _run;
+    private int _runPose = -1;
     // 사망: 무릎 꿇음 → 0.3초 뒤 몸 전체를 90° 눕힘(도트 90° 회전은 지글거림 없음). 부활하면 원래대로
     private float _diedAt = -1f;
     private const float KneelTime = 0.3f;
@@ -89,6 +95,7 @@ public class PixelRig : CharacterRig
         _byName.TryGetValue("Hurt", out _hurt);
         _byName.TryGetValue("DeathKneel", out _kneel);
         _byName.TryGetValue("IdleFidget", out _fidget);
+        _byName.TryGetValue("Run", out _run);
         _restLocalPos = transform.localPosition;
         Play("Idle");
     }
@@ -287,12 +294,36 @@ public class PixelRig : CharacterRig
         float len = Mathf.Max(c.clip.length, 0.0001f);
         float t = c == _fidget && _fidgetAt >= 0f ? Mathf.Min(_fidgetAt, len) : c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
         c.clip.SampleAnimation(gameObject, t);
+        StepDust(c, t, len);
         TuckLegsInAir(c);
         ApplyDeathLie();
         SortBackWeapon(c);
         HideWeaponsOnRope();
         SnapBones();
         KeepUpright();
+    }
+
+    /// <summary>달리기에서 발 닿는 포즈로 넘어가는 순간 발 뒤에 도트 먼지(Px_StepDust). 다른 클립이면 포즈 기록을 지운다</summary>
+    private void StepDust(Clip c, float t, float len)
+    {
+        if (c != _run)
+        {
+            _runPose = -1;
+            return;
+        }
+        int pose = Mathf.Min(RunPoses - 1, (int)(t / len * RunPoses));
+        if (pose == _runPose)
+        {
+            return;
+        }
+        _runPose = pose;
+        if (System.Array.IndexOf(RunContactPoses, pose) < 0)
+        {
+            return;
+        }
+        bool left = transform.lossyScale.x < 0f;
+        Vector3 feet = transform.position + Vector3.right * (left ? StepDustBehind : -StepDustBehind);
+        Vfx.Play(VfxId.StepDust, feet, left);
     }
 
     /// <summary>점프는 세로 속도로 상승·꼭대기·낙하를 고르고, 막 착지했으면 눌림 포즈</summary>

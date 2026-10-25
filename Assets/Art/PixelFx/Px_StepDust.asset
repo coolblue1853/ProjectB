@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_StepDust
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: -1888786239873196872, guid: fc5b86130e4c492438d4b19f18e49013, type: 3}
+  - {fileID: 4121448242005160655, guid: fc5b86130e4c492438d4b19f18e49013, type: 3}
+  - {fileID: -4124752968896115011, guid: fc5b86130e4c492438d4b19f18e49013, type: 3}
+  - {fileID: 6112390717566504862, guid: fc5b86130e4c492438d4b19f18e49013, type: 3}
+  - {fileID: -5668140139086460713, guid: fc5b86130e4c492438d4b19f18e49013, type: 3}
+  - {fileID: 4964641671243937310, guid: fc5b86130e4c492438d4b19f18e49013, type: 3}
+  fps: 20
+  source: Tools/pixelfx/gen_smoke_v2.py

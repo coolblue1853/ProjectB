@@ -253,3 +253,11 @@ MonoBehaviour:
     sortingOrder: 215
     pixel: {fileID: 11400000, guid: e64e61ca5e53f3342846ed5e766fadd7, type: 2}
     usePixel: 1
+  - id: 31
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 0.5
+    lifetime: 0.3
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 08b2791e2e43198449308f563d8df300, type: 2}
+    usePixel: 1

@@ -21,6 +21,7 @@ RAMPS = {  # 어둠(외곽선) → 밝음
     "shadow": ["1A0F2A", "3F2560", "7650A0", "B28ED6", "EADCFA"],
     "earth": ["2E1C10", "5E3C20", "91663A", "C49C68", "EED8B0"],
     "stone": ["24262B", "4C5058", "7E838C", "B4B8BE", "E6E8EB"],
+    "dust": ["6E5A48", "9C8670", "C2AE94", "E0D2BC", "F4ECDD"],  # 발걸음 먼지: 외곽선도 흙색(검정 외곽은 무거워 보였다)
 }
 LIGHT = np.array([-0.6, -0.8])  # 왼쪽 위에서 오는 빛(화면 좌표, y 아래 +)
 rng = np.random.default_rng(23)
@@ -117,6 +118,27 @@ def dust(ramp, w=64, h=30, frames=9, puffs=10):
     return out, (0.5, 4 / h)
 
 
+def step_dust(ramp="dust", w=24, h=14, frames=6):
+    """달리기 발걸음 먼지(PixelRig 가 발 닿는 포즈마다): 작은 덩어리 3개가 발 뒤(왼쪽)로 굴러 떠오르며 줄어든다. 피벗 = 발 자리(오른쪽 아래)"""
+    pal = cols(ramp)
+    fx, base = w - 6, h - 2
+    puffs = [(-0.9, 0.35, 2.6, 0.0), (-0.55, 0.7, 2.0, 0.1), (-0.25, 0.2, 1.7, 0.2)]  # (x 속도, 떠오름, 최대 반지름, 늦음)
+    out = []
+    for f in range(frames):
+        t = (f + 1) / frames  # 첫 칸부터 보이게(0이면 한 박자 늦었다)
+        img = np.zeros((h, w, 4), np.uint8)
+        for vx, up, rmax, delay in puffs:
+            tt = min(1, max(0, (t - delay) / (1 - delay)))
+            e = ease_out(tt)
+            px = fx + vx * e * (w - 8)
+            py = base - rmax * 0.6 - up * e * 6
+            r = rmax * (1.0 if tt < 0.35 else max(0.0, 1 - (tt - 0.35) / 0.65))
+            if tt > 0:
+                draw_puff(img, px, py, max(r, 0.9 if tt < 1 else 0), pal)
+        out.append(img)
+    return out, ((fx + 0.5) / w, 2 / h)
+
+
 def ground_shock(ramp="earth", w=96, h=32, frames=9):
     pal = cols(ramp)
     cx = (w - 1) / 2
@@ -186,3 +208,4 @@ if __name__ == "__main__":
     f, p = ground_shock(); write("Px_GroundShock", f, p, "earth", 18)
     f, p = dust("earth"); write("Px_DustBrown", f, p, "earth", 18)
     f, p = dust("stone"); write("Px_DustStone", f, p, "stone", 18)
+    f, p = step_dust(); write("Px_StepDust", f, p, "dust", 20)
