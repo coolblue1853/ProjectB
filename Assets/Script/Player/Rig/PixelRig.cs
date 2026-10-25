@@ -50,7 +50,10 @@ public class PixelRig : CharacterRig
     private Rigidbody2D _body;
     private float _playedAt;
     private float _landUntil;
-    private Clip _launch, _up, _apex, _fall, _land, _hurt, _kneel;
+    private Clip _launch, _up, _apex, _fall, _land, _hurt, _kneel, _fidget;
+    // 대기 습관: 대기로 6초 넘게 서 있으면 배낭 추켜올리기를 한 번, 이후 다시 6초
+    private const float FidgetAfter = 6f;
+    private float _fidgetAt = -1f;
     // 사망: 무릎 꿇음 → 0.3초 뒤 몸 전체를 90° 눕힘(도트 90° 회전은 지글거림 없음). 부활하면 원래대로
     private float _diedAt = -1f;
     private const float KneelTime = 0.3f;
@@ -85,6 +88,7 @@ public class PixelRig : CharacterRig
         _byName.TryGetValue("Land", out _land);
         _byName.TryGetValue("Hurt", out _hurt);
         _byName.TryGetValue("DeathKneel", out _kneel);
+        _byName.TryGetValue("IdleFidget", out _fidget);
         _restLocalPos = transform.localPosition;
         Play("Idle");
     }
@@ -281,7 +285,7 @@ public class PixelRig : CharacterRig
         _time += Time.deltaTime * _globalSpeed * _clipSpeed * loco;
         Clip c = PickVariant();
         float len = Mathf.Max(c.clip.length, 0.0001f);
-        float t = c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
+        float t = c == _fidget && _fidgetAt >= 0f ? Mathf.Min(_fidgetAt, len) : c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
         c.clip.SampleAnimation(gameObject, t);
         TuckLegsInAir(c);
         ApplyDeathLie();
@@ -343,6 +347,18 @@ public class PixelRig : CharacterRig
         if (now < _landUntil && (_requested == "Idle" || _requested == "Walk" || _requested == "Run"))
         {
             return _land;
+        }
+        if (_requested == "Idle" && _fidget != null)
+        {
+            float idleFor = now - _playedAt;
+            float cycle = FidgetAfter + _fidget.clip.length;
+            float inCycle = idleFor % cycle;
+            if (idleFor >= FidgetAfter && inCycle >= FidgetAfter)
+            {
+                _fidgetAt = inCycle - FidgetAfter; // 습관 클립 안의 시각
+                return _fidget;
+            }
+            _fidgetAt = -1f;
         }
         if (_requested != "Jump" || _body == null || _up == null)
         {

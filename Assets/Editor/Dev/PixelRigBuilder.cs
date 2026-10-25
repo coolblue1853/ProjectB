@@ -187,6 +187,13 @@ public static class PixelRigBuilder
                 .K("Hips", 'y', 0f, 0f, 0.6f, -1f, 1.1f, 0f, 1.3f, 0f)
                 .K("Hips/Pack", 'y', 0f, 0f, 1.1f, -1f, 1.22f, 0f, 1.3f, 0f)
                 .Arm(0f, 0f, 45f, 1.3f, 0f, 45f),
+            // 대기 습관(6초 넘게 서 있으면 한 번): 배낭 추켜올리기 — 뒷어깨 으쓱 1px·배낭을 몸 쪽으로 붙이며 1px 들었다 내려놓고 몸 1px 내려앉음
+            new AnimDef("IdleFidget", 0.7f, false).Step()
+                .K("Hips/ShoulderB", 'y', 0f, 0f, 0.1f, 1f, 0.3f, 1f, 0.4f, 0f, 0.7f, 0f)
+                .K("Hips/Pack", 'y', 0f, 0f, 0.1f, 1f, 0.3f, 1f, 0.4f, -1f, 0.5f, 0f, 0.7f, 0f)
+                .K("Hips/Pack", 'x', 0f, 0f, 0.1f, 1f, 0.4f, 0f, 0.7f, 0f)
+                .K("Hips", 'y', 0f, 0f, 0.4f, -1f, 0.5f, 0f, 0.7f, 0f)
+                .Arm(0f, 0f, 45f, 0.7f, 0f, 45f),
             // 걷기 6포즈(0.09초씩): 접지 A → 내려앉음 → 교차(뒷발 듦) → 접지 B → 내려앉음 → 교차(앞발 듦).
             // 보폭 ±2px, 팔은 반대 다리와 엇갈려 1px, 배낭은 몸보다 한 박자 늦게(2차 움직임)
             Cycle("Walk", 0.09f, 45f,

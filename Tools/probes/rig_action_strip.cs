@@ -6,7 +6,7 @@ var fReq = typeof(PixelRig).GetField("_requested", System.Reflection.BindingFlag
 string action = "__ACTION__";
 bool loco = action == "walk" || action == "run";
 int n = action == "combo3" ? 12 : action == "jump" ? 10 : 8, w = 256; float step = action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : action == "death" ? 0.25f : 0.08f;
-float lead = loco ? 0.3f : 0.02f; // 걷기·달리기는 가속이 끝난 뒤부터 찍는다
+float lead = loco ? 0.3f : action == "fidget" ? 6.0f : 0.02f; // 걷기·달리기는 가속이 끝난 뒤부터 찍는다
 float camSize = loco || action == "jump" ? 1.15f : 1.6f; // 이동 동작은 크게(빈칸 확인용)
 var strip = new Texture2D(w * n, w, TextureFormat.RGB24, false);
 var log = new System.Text.StringBuilder();
@@ -45,6 +45,8 @@ if (action == "run")
 if (loco) DG.Tweening.DOVirtual.DelayedCall(lead + n * step, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState()), false);
 if (action == "dash") typeof(PlayerController).GetMethod("Dash", flags).Invoke(pc, null);
 if (action == "attack") Weapon.Equipped.MeleeAttack();
+// fidget: 대기를 새로 시작하고 6초 뒤(습관 동작)부터 찍는다
+if (action == "fidget") pc.Rig.Play("Idle");
 // guard / spin: 스킬 애니 이름을 실제 공격 애니 경로(ActiveAttackAnim)로 — 막기(방패 앞)·회전베기 확인
 if (action == "guard") pc.ActiveAttackAnim(false, "ShieldUp", 0.7f);
 if (action == "spin") pc.ActiveAttackAnim(false, "Spining", 0.7f);

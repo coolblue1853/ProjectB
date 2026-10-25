@@ -392,6 +392,9 @@ MonoBehaviour:
   - name: Idle
     clip: {fileID: 7400000, guid: 1750d2e27099db6469bd4f76b2382b49, type: 2}
     loop: 1
+  - name: IdleFidget
+    clip: {fileID: 7400000, guid: 4b419a31773b73744908477f388b56b1, type: 2}
+    loop: 0
   - name: Walk
     clip: {fileID: 7400000, guid: 91ee69caa83e48646b850739be4ea755, type: 2}
     loop: 1
