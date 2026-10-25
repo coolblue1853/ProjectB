@@ -326,6 +326,7 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 - 10-26: 찌르기 궤적 v2 — `Tools/pixelfx/gen_thrust.py`(6프레임: 손 앞 원뿔 → 긴 원뿔 + 심선 + 속도선 → 끝 섬광 → 가늘어지며 앞으로 → 조각 → 점). 높이는 손 소켓(칼날)에 맞춤 — 판정 기준점은 예전 캐릭터 기준이라 칼날 아래로 지나갔다(`Weapon.CreatAttackPrefab`). 등록 `Tools/probes/build_thrust.cs`. 검증: 4테마 시트, 낮 인게임 combo3.
 - 10-26: 베기 궤적 v2(내려베기·옆베기) — `Tools/pixelfx/gen_slash.py`: 머리가 호를 그리며 35→75→100% 나아가고 꼬리가 0→15→50→80→95% 뒤쫓는다, 두께는 머리 쪽으로 치우친 초승달(양 끝 뾰족), 밝기 꼬리 0.45 → 머리 1.0 + 바깥 가장자리 밝게, 1~2프레임 안쪽 속도선. v1 은 6프레임 중 3프레임이 같은 평평한 2색 초승달이라 정지 그림 같았다. 시트 크기·피벗은 v1 과 같게(무기별 위치·배율 그대로). 내려베기 끝 -65°(-95° 는 땅을 파고들었다). 등록 `Tools/probes/build_slash.cs`. 검증: 4테마 시트, 낮 인게임 combo3 0.05초 간격.
 - 10-26: 근접 평타 타격에서 사각 입자 불꽃(`HitSparks`) 제외 — 타격 이펙트 v2 의 파편과 겹치고 격자 밖 사각형이 도트와 어긋났다. 처치·스킬·근접 외 무기는 유지(`HitFeedback.OnEnemyHit`). 검증: 낮 인게임 토끼 타격 스트립.
+- 10-26: 근접 평타 휘두르는 소리를 타격 포즈 순간(지연 + StrikeDelay/공속)으로 — 입력 순간이면 예비 동작 동안 먼저 울렸다(`Weapon.MeleeAttack`). 그 외 무기는 그대로. 검증: 스트레스 프로브 오류 0, EditMode 130/130. 청감 확인은 미검증.
 
 ## 10.7 기본 무기 평타 이펙트 — PixelLab vfx_workbench + Shader Creator (2026-10-25)
 

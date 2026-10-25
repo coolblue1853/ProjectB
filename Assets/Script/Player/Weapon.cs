@@ -177,7 +177,17 @@ public class Weapon : MonoBehaviour
         }
         if (weaponSound != null && weaponSound.Length >= step)
         {
-            MasterAudio.PlaySound(weaponSound[step - 1]);
+            string sound = weaponSound[step - 1];
+            // 근접 평타는 휘두르는 소리를 칼 궤적이 나오는 타격 포즈 순간에(입력 순간이면 예비 동작 동안 먼저 울렸다, 10-26)
+            float soundDelay = WeaponFx.Enabled && WeaponFx.IsMeleeSwing(swingVfx) ? delay + WeaponFx.StrikeDelay / StatMath.AttackSpeedMul : 0f;
+            if (soundDelay > 0f)
+            {
+                DOVirtual.DelayedCall(soundDelay, () => MasterAudio.PlaySound(sound), false).SetLink(gameObject);
+            }
+            else
+            {
+                MasterAudio.PlaySound(sound);
+            }
         }
         CheckAttackWait();
     }
