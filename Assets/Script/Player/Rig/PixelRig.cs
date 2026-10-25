@@ -49,6 +49,8 @@ public class PixelRig : CharacterRig
     private const float ApexBand = 1.5f;   // |세로 속도| 이하면 꼭대기 포즈
     private const float LaunchTime = 0.06f;
     private const float LandTime = 0.1f;
+    private const float AirAttackVy = 0.6f; // 세로 속도가 이보다 크면 공중으로 본다
+    private Transform _legF, _legB;
 
     private void Awake()
     {
@@ -60,6 +62,8 @@ public class PixelRig : CharacterRig
             }
         }
         _body = GetComponentInParent<Rigidbody2D>();
+        _legF = transform.Find("LegF");
+        _legB = transform.Find("LegB");
         _byName.TryGetValue("JumpLaunch", out _launch);
         _byName.TryGetValue("Jump", out _up);
         _byName.TryGetValue("JumpApex", out _apex);
@@ -235,6 +239,7 @@ public class PixelRig : CharacterRig
         float len = Mathf.Max(c.clip.length, 0.0001f);
         float t = c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
         c.clip.SampleAnimation(gameObject, t);
+        TuckLegsInAir(c);
         SnapBones();
         KeepUpright();
     }
@@ -269,6 +274,28 @@ public class PixelRig : CharacterRig
             return _fall;
         }
         return _apex != null ? _apex : _up;
+    }
+
+    /// <summary>
+    /// 공중 공격: 공격 클립은 다리를 선 자세로 덮어써서 공중에서 똑바로 서 휘둘렀다 → 떠 있으면 다리를 접는다(꼭대기 포즈와 같은 2px)
+    /// </summary>
+    private void TuckLegsInAir(Clip c)
+    {
+        if (_body == null || _legF == null || c == _up || c == _apex || c == _fall || c == _launch || c == _land || c == _hurt)
+        {
+            return;
+        }
+        if (_requested == "Jump" || _requested == "Idle" || _requested == "Walk" || _requested == "Run" || _requested == "Dash" || (_requested != null && _requested.StartsWith("Rope")))
+        {
+            return;
+        }
+        if (Mathf.Abs(_body.linearVelocity.y) < AirAttackVy)
+        {
+            return;
+        }
+        float px = 1f / _ppu;
+        _legF.localPosition += new Vector3(px, 2f * px, 0f);
+        _legB.localPosition += new Vector3(0f, 2f * px, 0f);
     }
 
     /// <summary>손에 끼우는 무기(방패·너클·활)는 손목이 돌아도 화면에서 똑바로 — 좌우 반전은 부모 배율이 처리한다</summary>
