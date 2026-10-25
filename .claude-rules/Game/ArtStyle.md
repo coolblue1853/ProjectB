@@ -103,6 +103,10 @@
 - 사용자: **"저 그림체를 따라 해 달라는 거잖아 — 이거랑 비슷한 느낌인 건 하나도 없다"** → 텍스트 프롬프트(pixflux)로는 그림체가 따라오지 않는다. 6타입 시안은 전부 불합격(디테일 많은 애니 일러스트풍).
 - 교정: **`create_image_pro_flash` + `style_image`(기준 그림을 실제 도트 크기로 줄여 64×64 투명 PNG로 만든 `Docs/ArtCompare/hero_style_anchor_64.png`)**, `style_options` = outline·detail·shading 켜고 color_palette 끔, usage = "이 그림체(2등신·굵은 도트·검정 외곽선·단순한 큰 눈·평면 2~3단)만 따르고 동물 귀·꼬리·붉은 머리는 무시". 1장 시험(seed 2201, 5 generations) → 2등신·굵은 도트·눈가림 앞머리·침낭 배낭이 나와 **훨씬 근접**(`hero_proto_styled_compare.png`). 남은 차이: 외곽선이 덜 검고 38색 → 다음엔 `max_colors` 16 + 검정 외곽선 문구.
 - **앞으로 캐릭터 생성은 무조건 style_image 앵커 방식**(텍스트만으로 생성 금지).
+- 2차 피드백: 사용자 **"확실히 원하는 방향에 가까운데, 원본은 디테일이 빠지고 더 담백하다"** → 측정(64×64 실물 기준): 기준 18색·이웃 픽셀 색 바뀜 44%·외톨이 점 10% / 시안 A 37색·72%·41% — "디테일"의 정체는 **면 안의 잔무늬(질감·노이즈)**.
+  - B. 시안 A를 로컬에서 16색 감축 + 외톨이 점 정리 → 15색·53%·25%, 하지만 색이 탁해짐(후처리로는 한계).
+  - **C. 재생성 `max_colors=16` + 설명에 "large flat areas of solid color, minimal texture, no noise, no dithering, few details, thick black outline" + 스타일 usage에 "large flat color areas with almost no texture, about 18 colors"** → 16색·54%·22%, 머리·코트가 큰 평면 덩어리로 바뀌어 가장 근접(`hero_proto/styled2_flat.png`, 비교 `hero_proto_flat_compare.png`).
+  - **규칙**: 캐릭터 생성 시 `max_colors` 16~18 고정, 위 평면 문구 필수. 판정 지표 = 색 ≤18 · 이웃 색 바뀜 ≤50% · 외톨이 점 ≤15%(기준 그림 수치).
 
 **🔴 캐릭터 제작 필수 조건 — 방어구 교체 시 외형 변화 (사용자 2026-10-25)**
 > "방어구를 교체하면 교체한 방어구에 따라 외형이 바뀌어야 하니 그거에 대비되어야 한다."
