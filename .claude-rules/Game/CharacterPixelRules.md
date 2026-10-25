@@ -86,8 +86,48 @@
 | 10-25 | 주인공 | 위 + max_colors 16 재생성 | 16색·53%·22%·19% | OK | `hero_proto/styled2_flat.png` |
 | 10-25 | 주인공 | styled1 + 정리(--head-auto) | 28색·52%·25%·21% | OK — 사용자 "적당" | `hero_proto/styled1_auto.png` (= 수작업 합성 `hero_mix_Bhair_B2body.png`) |
 | 10-25 | 주인공 | styled2_flat + 기본 강도 정리 | 13색·37%·12%·19% | 수치 IDEAL이나 **머리 단색 → 불합격**(과정리) | `hero_proto/styled2_auto.png`, 시트 `hero_proto/compare.png` |
+| 10-25 | 주인공 | **Retro Diffusion RD Pro** 2장(앵커 참조, seed 2201, $0.36) | 배경 미제거라 수치 무효(29~32색·33~38%·7~9%) | 담백하지만 **갈색 외곽선·2.5~3등신 → 기준에서 멂** | `hero_proto/rd_1.png`·`rd_2.png`, 시트 `hero_proto/rd_vs_pixellab.png` |
+| 10-25 | 주인공 | **사용자 판정: "픽셀랩 좌측(정리본)이 제일 가깝다"** | — | **현재 기준 시안 = `styled1_auto.png`** | 같은 시트 |
 
 ## 9. 예산
 
 - PixelLab 요금(10-25): $12/월 2,000 · $24/월 5,000 · $50/월 10,000 generations. 체험판은 매일 5회(최대 20 누적).
 - 캐릭터 1장 = Pro Flash 5. 시안 탐색은 하루 무료분으로 1~3장, 본격 제작(애니·방어구 레이어)은 유료 플랜 전제.
+
+## 11. 세대별 보정 학습 — 원본 재현으로 레시피 다듬기 (사용자 제안 2026-10-25)
+
+> 사용자: "그냥 픽셀랩을 쓰자. 완벽하게 하기 위해 **원본을 말로 설명해서 뽑아내서 원본이랑 비슷하게 나오면 완료**되고, 아니면 다른 부분을 조정해서 강화하는 방식으로 **세대별 학습처럼** 돌려 보고 싶다."
+
+- **목표**: 앵커 원본(빨간 머리 여우 소녀, `hero_style_anchor_64.png`)을 **말(설명문)+파라미터만으로** 재현하는 레시피를 찾는다. 재현되는 레시피 = 그림체를 정확히 붙잡은 레시피 → 새 캐릭터(주인공 등)에 내용만 바꿔 적용한다.
+- **점수**: `python Tools/pixelfx/sprite_similarity.py <원본> <후보...>` — silhouette(형태)30·head(머리 비율)20·palette(색감)20·detail(담백함·외곽선 지표)20·size 10, 종합 0~100. 가장 낮은 항목(`weakest`)이 다음 세대에서 고칠 곳.
+- **루프**(한 세대 = 후보 2~3장, 같은 레시피에 seed만 다르게):
+  1. 현재 레시피로 생성 → `Docs/ArtCompare/calib/gNN_sK.png` 저장.
+  2. 점수 → 최고 후보 선택, `weakest` 확인.
+  3. 한 세대에 **한두 손잡이만** 바꾼다(무엇이 효과였는지 알 수 있게):
+     | 약한 항목 | 바꿀 손잡이 |
+     |---|---|
+     | head | 설명문 비율 표현("head is about 60% of total height", "very short body"), 캔버스 크기 |
+     | silhouette | 자세·소품 묘사(정면, 팔 내림, 꼬리 위치), `view`·방향 |
+     | palette | 색 단어(crimson/amber/off-white/dark maroon), `max_colors`, 팔레트 강제(`palette`) |
+     | detail | 평면 문구, `max_colors`, style_options(detail·shading), 외곽선 문구 |
+     | size | 캔버스·"fills the canvas" 문구 |
+  4. `Docs/ArtCompare/calib/gen_log.md`에 세대·레시피 변경점·점수 기록. 시트 `compare_sheet.py`로 원본과 나란히.
+  5. **종료**: 종합 ≥ 85이고 비교 시트로 봐도 같은 그림체(사용자 확인 1회) → 레시피를 5절 파이프라인에 반영.
+- **두 가지 모드**를 나눠 잰다: (A) style_image 없이 말만 — 설명문의 힘 측정, (B) style_image(앵커) 포함 — 실제 생산 조건. B는 원본을 직접 보므로 점수가 높게 나오는 게 당연하고, A의 점수가 레시피 품질이다.
+- 비용: Pro Flash 5/장. 세대당 2~3장 × 6~10세대 ≈ 60~150 generations → 유료 플랜 필요(무료는 하루 1장 수준).
+
+### 0세대 레시피 (원본 설명)
+
+- 설명문(A·B 공통 내용부): `"super deformed chibi girl, about 2 heads tall, head is about 60% of her total height, very short body and stubby limbs, standing facing the viewer with arms down. Very long crimson red hair falling past her knees with darker red strands, messy bangs, big fluffy fox ears with light gray inner fur on top of her head, a big fluffy fox tail that is crimson with a white tip curling to her right. Large amber eyes with white highlights, a small open smile with one tiny fang, pink blush. White blouse with puffy sleeves and a red ribbon, a dark maroon pinafore apron dress with a small gold buckle, short pink legs. Simple clean pixel art: large flat areas of solid color, thick black 1px outline, flat 2-3 tone shading, about 18 colors"`
+- 파라미터: `create_image_pro_flash` 64×64, `no_background` true, `max_colors` 18, seed 3001~3003. (A) style_image 없음 / (B) style_image = 앵커, style_options outline·detail·shading 켬, color_palette 켬(원본 재현이므로).
+
+## 10. Retro Diffusion (비교 도입, 2026-10-25)
+
+- 연결: MCP `https://mcp.retrodiffusion.ai/mcp`, 헤더 `Authorization: Bearer rdpk-…`. 처음 등록 때 안내 예시 `rdpk-YOUR-KEY`가 그대로 들어가 인증이 안 됐다(도구가 로그인·스타일 4개만 보임) → 실제 키로 재등록. **세션 시작 뒤 등록한 MCP는 그 세션에 도구로 안 잡히므로**, 설정(`~/.claude.json`)을 읽어 직접 호출하는 스크립트(스크래치패드 `rd_call.py`, 출력은 `PYTHONIOENCODING=utf-8`)로 썼다.
+- 가입 무료 잔액: 크레딧 50 = $0.50. RD Pro 장당 약 $0.18 → 무료로는 2장.
+- 캐릭터에 쓸 설정: `create_inference` · `prompt_style` `rd_pro__default` · 64×64 · `reference_images` = [앵커 base64] · `remove_bg` true + 프롬프트에 "On a plain white background" · `upload_outputs` true · `seed` 고정. 프롬프트는 **대상만 묘사**하고 "pixel art"라는 말을 쓰지 않는다(스타일이 렌더링 담당, 공식 지침). 생성 전 `estimate_inference_cost`로 무료 견적.
+- 커스텀 스타일(`create_user_style`)은 공개 API에서 참조 이미지 **1장**까지 — 앵커 1장으로 만들 수 있다.
+- 애니메이션: `rd_animation__any_animation`(64×64 입력), `rd_advanced_animation__custom_action`(시작 프레임 + 동작 묘사, 32~256), 8방향 회전(80×80), `rd_animation__large_walking_idle`(64×64 4방향 걷기·대기).
+- **비교 결론(10-25)**: RD Pro는 잔무늬 없이 담백하고 디자인 반영(눈가림 앞머리·배낭·브로치)도 좋았지만, **외곽선이 갈색이고 몸이 길어(2.5~3등신)** 앵커 그림체에서 멀었다. 사용자도 "PixelLab 좌측(정리본)이 제일 가깝다". → **캐릭터 생성은 PixelLab 파이프라인 유지.** RD는 담백한 소품·아이콘·타일셋 쪽 후보로 남긴다.
+- 주의: `estimate_inference_cost`는 `remove_bg`·`seed` 인자를 받지 않아 실패했고, `create_inference`에서도 배경 제거가 반영되지 않아 숲 배경이 남았다 → 쓸 거면 생성 뒤 `run_edit_tool`의 배경 제거나 `Tools/pixelfx/remove_flat_bg.py`로 지운다.
+- 남은 무료 잔액 $0.14.
