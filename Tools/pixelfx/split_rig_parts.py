@@ -76,6 +76,13 @@ def main():
         # 뒷팔이 움직이면 팔 자리가 비어 몸과 배낭 사이로 배경이 보였다 → 배낭 그림자색으로 메운다(정지 땐 팔에 가려 안 보임)
         if p == "pack":
             img[lab == "arm_r"] = PACK_SHADOW
+            # 겹침: 배낭 맨 윗줄을 한 줄 위에도 그린다(정지 땐 머리카락 뒤에 가려짐) — 배낭이 2차 움직임으로 1px 내려가면
+            # 머리카락과 배낭 사이로 배경이 비쳤다
+            packm = lab == "pack"
+            for xx in range(packm.shape[1]):
+                ys_ = np.where(packm[:, xx])[0]
+                if len(ys_) and ys_[0] > 0 and img[ys_[0] - 1, xx, 3] == 0 and lab[ys_[0] - 1, xx] == "head":
+                    img[ys_[0] - 1, xx] = a[ys_[0], xx]
         if p == "torso":
             img[HEAD_BOTTOM] = np.where((lab[HEAD_BOTTOM + 1] == "torso")[:, None], a[HEAD_BOTTOM + 1], img[HEAD_BOTTOM])
             # 겹침(원본 AnyPortrait 리깅 방식: 맞닿는 줄을 양쪽 부위에 다 그린다): 다리 윗부분 2줄을 몸통에도 그려 둔다.
