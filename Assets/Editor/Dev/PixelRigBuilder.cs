@@ -150,7 +150,13 @@ public static class PixelRigBuilder
             armFs[i] = ArmPose("arm_l", armF[i]);
             armBs[i] = ArmPose("arm_r", -armF[i]);
         }
+        var handB = new float[n];
+        for (int i = 0; i < n; i++)
+        {
+            handB[i] = -armF[i]; // 뒷손 무기(쌍단검 왼손 등)도 손 그림 이동을 따라간다
+        }
         def.K("LegF", 'y', Keys(legsY, frame)).K("LegB", 'y', Keys(legsY, frame))
+            .K("Hips/ShoulderB/HandB", 'x', Keys(handB, frame))
             .K("Hips/Pack", 'y', Keys(pack, frame)).K("Hips/ShoulderF/HandF", 'x', Keys(hand, frame))
             .S("LegF", frame, legF).S("LegB", frame, legB).S("Hips/ShoulderF", frame, armFs).S("Hips/ShoulderB", frame, armBs)
             .S("Hips/Head", frame, hair)
@@ -267,6 +273,7 @@ public static class PixelRigBuilder
                 .K("Hips", 'x', 0f, -1f, 0.07f, 0f, 0.14f, 0f)
                 .K("Hips", 'y', 0f, -1f, 0.07f, 0f, 0.14f, 0f)
                 .K("Hips/ShoulderF/HandF", 'x', 0f, 1f, 0.07f, 1f, 0.14f, 1f)
+                .K("Hips/ShoulderB/HandB", 'x', 0f, 1f, 0.07f, 0f, 0.14f, 1f)
                 .S("LegF", 0.07f, new[] { LegPose("leg_l", 2, 0), LegPose("leg_l", 1, 0) })
                 .S("LegB", 0.07f, new[] { LegPose("leg_r", -1, 0), LegPose("leg_r", 0, 0) })
                 .S("Hips/ShoulderF", 0.07f, new[] { ArmPose("arm_l", 1), ArmPose("arm_l", 1) })
@@ -292,6 +299,7 @@ public static class PixelRigBuilder
             new AnimDef("Dash", 0.1f, false).Step()
                 .K("Hips", 'x', 0f, 2f, 0.1f, 2f)
                 .K("Hips/ShoulderF/HandF", 'x', 0f, -1f, 0.1f, -1f)
+                .K("Hips/ShoulderB/HandB", 'x', 0f, -1f, 0.1f, -1f)
                 .S("LegF", 0.1f, new[] { LegPose("leg_l", -1, 1) }).S("LegB", 0.1f, new[] { LegPose("leg_r", -2, 0) })
                 .S("Hips/ShoulderF", 0.1f, new[] { ArmPose("arm_l", -1) }).S("Hips/ShoulderB", 0.1f, new[] { ArmPose("arm_r", -1) })
                 .S("Hips/Head", 0.1f, new[] { HairPose(-1) })
@@ -361,7 +369,7 @@ public static class PixelRigBuilder
     }
 
     // ── 굽기 ─────────────────────────────────────────────────────────────────
-    private static readonly string[] AnimBones = { "Hips", "Hips/Head", "Hips/Pack", "Hips/ShoulderF", "Hips/ShoulderB", "Hips/ShoulderF/HandF", "LegF", "LegB" };
+    private static readonly string[] AnimBones = { "Hips", "Hips/Head", "Hips/Pack", "Hips/ShoulderF", "Hips/ShoulderB", "Hips/ShoulderF/HandF", "Hips/ShoulderB/HandB", "LegF", "LegB" };
 
     /// <summary>포즈 변형 그림을 바꿔 끼우는 뼈와 원본 그림</summary>
     private static readonly (string bone, string part)[] SwapParts =
