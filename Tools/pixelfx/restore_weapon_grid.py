@@ -33,7 +33,10 @@ KIND = {
 
 
 # 자동 각도가 맞지 않는 그림(낫: 휜 자루라 주축이 기운다) — 자루가 세로라 90
-ANGLE_OVERRIDE = {"ScareSide": 90.0}
+# 낫(ScareSide): 큰 날이 자루 위에서 아래로 늘어진 그림이라 비스듬히 들면 날 끝이 땅을 뚫었다
+# → 대기 칼날 각도(45°)에서 그림이 똑바로 서도록 45, 손잡이는 자루 맨 아래 끝에서 4줄 위
+ANGLE_OVERRIDE = {"ScareSide": 45.0}
+GRIP_FROM_BOTTOM = {"ScareSide": 4}
 
 
 def block_size(a):
@@ -99,6 +102,8 @@ def restore(name):
         if end_lo[1] > end_hi[1]:
             d, lo, hi = -d, -hi, -lo
             end_lo, end_hi = c + d * lo, c + d * hi
+        # 손잡이 아래로 남는 자루가 10px 이하가 되게(손이 발에서 8px 위라 길면 비스듬히 들 때 자루 끝이 땅을 뚫었다)
+        frac = min(frac, 10.0 / max(hi - lo, 1.0))
         g = end_lo + d * (hi - lo) * frac
         gx, gy = int(round(g[0])), int(round(-g[1]))
         ang = math.degrees(math.atan2(d[1], d[0]))
@@ -111,6 +116,10 @@ def restore(name):
     if abs(snapped - ang) <= 15:
         ang = snapped
     ang = ANGLE_OVERRIDE.get(name, ang)
+    if name in GRIP_FROM_BOTTOM:
+        by = int(oy.max()) - GRIP_FROM_BOTTOM[name]
+        row = ox[oy == by]
+        gx, gy = int(row.min()) + 1, by  # 그 줄의 왼쪽(자루) 픽셀
     upright = kind in ("center", "pole", "staff")  # 방패·너클·활·책·깃발·지팡이: 손목 각도와 상관없이 똑바로 선다(지팡이는 옆에 세워 짚는다)
     os.makedirs(OUT, exist_ok=True)
     Image.fromarray(out).save(os.path.join(OUT, name + ".png"))

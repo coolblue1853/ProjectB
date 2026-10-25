@@ -31,6 +31,7 @@ public class PixelRig : CharacterRig
     private const float WeaponWorldScale = 1f; // 도트 무기 24 PPU × 1 = 아트 1px 1/24유닛(몹·캐릭터와 같은 밀도)
     private static readonly Dictionary<string, PixelWeapon> PixelWeapons = new Dictionary<string, PixelWeapon>();
     private readonly List<Transform> _upright = new List<Transform>();
+    private readonly Dictionary<Transform, SpriteRenderer> _uprightRenderers = new Dictionary<Transform, SpriteRenderer>();
     private bool _ranged;
     // 뒷손 무기(방패 등): 막기 동작 중에는 몸통 앞에 그린다(평소엔 몸 뒤 — 앞으로 내민 방패가 몸통에 가려졌다)
     private readonly List<SpriteRenderer> _backWeapon = new List<SpriteRenderer>();
@@ -211,6 +212,7 @@ public class PixelRig : CharacterRig
         if (pw.upright && !_upright.Contains(t))
         {
             _upright.Add(t); // 방패·너클·활·지팡이: 손목 각도와 상관없이 똑바로
+            _uprightRenderers[t] = r;
         }
         // 세워 드는 무기는 그림의 큰 덩어리가 손잡이보다 뒤(얼굴 쪽)에 있으면 좌우를 뒤집어 앞으로 — 해골 지팡이 머리가 얼굴을 가렸다
         r.flipX = pw.upright && pw.sprite.pivot.x > pw.sprite.rect.width * 0.5f;
@@ -404,6 +406,16 @@ public class PixelRig : CharacterRig
             float forward = Mathf.Sign(transform.lossyScale.x) * UprightForwardPx / 24f;
             Vector3 hold = t.parent != null ? t.parent.position : t.position;
             t.position = new Vector3(hold.x + forward, hold.y, t.position.z);
+            // 바닥(리그 원점 = 발바닥)보다 내려가면 그만큼 1px 단위로 들어 올린다 — 방패·지팡이·활 아래쪽이 땅에 묻혔다
+            if (_diedAt < 0f && _uprightRenderers.TryGetValue(t, out SpriteRenderer sr) && sr != null)
+            {
+                float below = transform.position.y - sr.bounds.min.y;
+                if (below > 0f)
+                {
+                    float px = 1f / 24f;
+                    t.position += new Vector3(0f, Mathf.Ceil(below / px) * px, 0f);
+                }
+            }
         }
     }
 
