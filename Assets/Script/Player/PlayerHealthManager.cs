@@ -272,13 +272,15 @@ public class PlayerHealthManager : MonoBehaviour
     PlayerController playerController;
     Sequence mysequence;
     Sequence alphaSequence;
+    const float InvincibleBlinkAlpha = 0.45f;
     private void RepeatAnimation()
     {
         alphaSequence = DOTween.Sequence()
         // 애니메이션 함수 호출 및 반복 설정
-        .AppendCallback(() => Rig.SetMeshAlphaAll(0.85f))
-        .AppendInterval(0.1f)
+        // 불투명 먼저: 맞는 순간의 흰 번쩍임(PixelRig 0.07초)이 반투명으로 묻히지 않게. 0.85 는 거의 안 보였다 → 0.45(10-26)
         .AppendCallback(() => Rig.SetMeshAlphaAll(1f))
+        .AppendInterval(0.1f)
+        .AppendCallback(() => Rig.SetMeshAlphaAll(InvincibleBlinkAlpha))
         .AppendInterval(0.1f)
         .OnComplete(() => RepeatAnimation());
     }

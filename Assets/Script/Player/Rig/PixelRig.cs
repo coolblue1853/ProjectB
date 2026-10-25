@@ -68,6 +68,12 @@ public class PixelRig : CharacterRig
     private const float BrakeDustAhead = 0.2f;
     private Clip _brake;
     private float _brakeUntil;
+    // 피격 흰 번쩍임: 맞는 순간 2프레임 남짓 모든 부위를 흰 단색으로(몹 피격 플래시와 같은 All In 1 HITEFFECT)
+    private const float FlashTime = 0.07f;
+    private static Material _flashMaterial;
+    private Material[] _baseMaterials;
+    private float _flashUntil;
+    private bool _flashing;
     // 사망: 무릎 꿇음 → 0.3초 뒤 몸 전체를 90° 눕힘(도트 90° 회전은 지글거림 없음). 부활하면 원래대로
     private float _diedAt = -1f;
     private const float KneelTime = 0.3f;
@@ -181,6 +187,7 @@ public class PixelRig : CharacterRig
         if (param == "Eye Param" && value == HurtEyeParam)
         {
             _hurtUntil = Time.time + HurtTime;
+            _flashUntil = Time.time + FlashTime;
         }
     }
 
@@ -279,6 +286,7 @@ public class PixelRig : CharacterRig
     private static void ResetStatics()
     {
         PixelWeapons.Clear(); // 도메인 리로드 없이 플레이할 때 지난 무기 정보가 남지 않게
+        _flashMaterial = null;
     }
 
     private static PixelWeapon LoadPixelWeapon(string name)
@@ -318,12 +326,61 @@ public class PixelRig : CharacterRig
         float t = c == _fidget && _fidgetAt >= 0f ? Mathf.Min(_fidgetAt, len) : c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
         c.clip.SampleAnimation(gameObject, t);
         StepDust(c, t, len);
+        UpdateFlash();
         TuckLegsInAir(c);
         ApplyDeathLie();
         SortBackWeapon(c);
         HideWeaponsOnRope();
         SnapBones();
         KeepUpright();
+    }
+
+    /// <summary>피격 직후 FlashTime 동안 부위 머티리얼을 흰 단색으로, 끝나면 원래 머티리얼로</summary>
+    private void UpdateFlash()
+    {
+        bool want = Time.time < _flashUntil;
+        if (want == _flashing)
+        {
+            return;
+        }
+        if (want && !EnsureFlashMaterial())
+        {
+            return;
+        }
+        _flashing = want;
+        if (_baseMaterials == null || _baseMaterials.Length != _renderers.Length)
+        {
+            _baseMaterials = new Material[_renderers.Length];
+            for (int i = 0; i < _renderers.Length; i++)
+            {
+                _baseMaterials[i] = _renderers[i] != null ? _renderers[i].sharedMaterial : null;
+            }
+        }
+        for (int i = 0; i < _renderers.Length; i++)
+        {
+            if (_renderers[i] != null)
+            {
+                _renderers[i].sharedMaterial = want ? _flashMaterial : _baseMaterials[i];
+            }
+        }
+    }
+
+    private static bool EnsureFlashMaterial()
+    {
+        if (_flashMaterial != null)
+        {
+            return true;
+        }
+        var template = Resources.Load<Material>("FX/M_EnemySprite");
+        if (template == null || !template.HasProperty("_HitEffectBlend"))
+        {
+            return false;
+        }
+        _flashMaterial = new Material(template) { name = "HeroFlash" };
+        _flashMaterial.SetFloat("_HitEffectBlend", 1f);
+        _flashMaterial.SetColor("_HitEffectColor", Color.white);
+        _flashMaterial.SetFloat("_HitEffectGlow", 1f);
+        return true;
     }
 
     /// <summary>달리기에서 발 닿는 포즈로 넘어가는 순간 발 뒤에 도트 먼지(Px_StepDust). 다른 클립이면 포즈 기록을 지운다</summary>
