@@ -8,6 +8,8 @@ public class PlayerHealthManager : MonoBehaviour
 {
 
     public apPortrait mainCharacter;
+    /// <summary>활성 캐릭터 리그(픽셀 리그 또는 AnyPortrait 래퍼)</summary>
+    CharacterRig Rig => playerController != null ? playerController.Rig : null;
    // bool isSuperArmor = false;
     Sequence sequence; Sequence hpSequence;
     Sequence waitSequence; Sequence waitHpSequence;
@@ -191,9 +193,9 @@ public class PlayerHealthManager : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
         }
-        if (mainCharacter != null)
+        if (Rig != null)
         {
-            mainCharacter.SetMeshAlphaAll(0.4f);
+            Rig.SetMeshAlphaAll(0.4f);
         }
         PlayerDied?.Invoke();
         DOVirtual.DelayedCall(RespawnDelay, Respawn, false);
@@ -222,9 +224,9 @@ public class PlayerHealthManager : MonoBehaviour
         nowHp = fullHP;
         nowStemina = fullStemina;
         HpUp(0);
-        if (mainCharacter != null)
+        if (Rig != null)
         {
-            mainCharacter.SetMeshAlphaAll(1f);
+            Rig.SetMeshAlphaAll(1f);
         }
         deathInputLock?.Dispose();
         deathInputLock = null;
@@ -264,7 +266,7 @@ public class PlayerHealthManager : MonoBehaviour
         {
 
             alphaSequence.Kill();
-            mainCharacter.SetMeshAlphaAll(1f);
+            Rig.SetMeshAlphaAll(1f);
         }
     }
     PlayerController playerController;
@@ -274,9 +276,9 @@ public class PlayerHealthManager : MonoBehaviour
     {
         alphaSequence = DOTween.Sequence()
         // 애니메이션 함수 호출 및 반복 설정
-        .AppendCallback(() => mainCharacter.SetMeshAlphaAll(0.85f))
+        .AppendCallback(() => Rig.SetMeshAlphaAll(0.85f))
         .AppendInterval(0.1f)
-        .AppendCallback(() => mainCharacter.SetMeshAlphaAll(1f))
+        .AppendCallback(() => Rig.SetMeshAlphaAll(1f))
         .AppendInterval(0.1f)
         .OnComplete(() => RepeatAnimation());
     }
@@ -294,9 +296,9 @@ public class PlayerHealthManager : MonoBehaviour
             RepeatAnimation();
             noDamgeSycle = DOTween.Sequence()      
             .AppendCallback(() => isNoDamge = true)
-            .AppendCallback(() => mainCharacter.SetControlParamInt("Eye Param", 4))
+            .AppendCallback(() => Rig.SetControlParamInt("Eye Param", 4))
             .AppendInterval(noDamgeTime)
-            .AppendCallback(() => mainCharacter.SetControlParamInt("Eye Param", 0))
+            .AppendCallback(() => Rig.SetControlParamInt("Eye Param", 0))
             .AppendCallback(() => isNoDamge = false)
             .AppendCallback(() => alphaSequence.Kill())
             .AppendCallback(() => isAlphaChange = false);

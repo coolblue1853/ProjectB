@@ -57,9 +57,9 @@ public class BackstabStep : MonoBehaviour
         {
             return;
         }
-        if (pc.mainCharacter != null)
+        if (pc.Rig != null)
         {
-            DashAfterimage.Begin(pc.mainCharacter, _invincible);
+            DashAfterimage.Begin(pc.Rig, _invincible);
         }
         p.position = new Vector3(to.x, p.position.y, p.position.z);
         Vector3 s = p.localScale;

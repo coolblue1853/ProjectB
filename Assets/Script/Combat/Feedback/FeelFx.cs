@@ -173,9 +173,9 @@ public static class FeelFx
     public static void PlayerPop(float amount = 0.15f)
     {
         PlayerController pc = PlayerController.instance;
-        if (pc != null && pc.mainCharacter != null && pc.mainCharacter.transform != pc.transform)
+        if (pc != null && pc.Rig != null && pc.Rig.transform != pc.transform)
         {
-            Pop(pc.mainCharacter.transform, amount);
+            Pop(pc.Rig.transform, amount);
         }
     }
 

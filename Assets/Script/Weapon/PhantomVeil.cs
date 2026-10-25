@@ -16,9 +16,9 @@ public class PhantomVeil : MonoBehaviour
             return;
         }
         PlayerStatus.AcquireFor(StatusFlag.Invincible, _duration, "PhantomVeil");
-        if (pc.mainCharacter != null)
+        if (pc.Rig != null)
         {
-            DashAfterimage.Begin(pc.mainCharacter, _duration);
+            DashAfterimage.Begin(pc.Rig, _duration);
         }
     }
 }

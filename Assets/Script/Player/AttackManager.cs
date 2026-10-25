@@ -6,6 +6,19 @@ using AnyPortrait;
 public class AttackManager : MonoBehaviour
 {
     public apPortrait portrait;
+    PlayerController _pc;
+    /// <summary>활성 캐릭터 리그 — 무기 소켓을 여기서 얻는다</summary>
+    CharacterRig Rig
+    {
+        get
+        {
+            if (_pc == null)
+            {
+                _pc = FindFirstObjectByType<PlayerController>();
+            }
+            return _pc != null ? _pc.Rig : PortraitRig.For(portrait);
+        }
+    }
     public Weapon equipWeapon;
     [Tooltip("평타 선입력 시간(초). 후딜이 끝나기 직전에 누른 평타를 이어 준다 (W-15)")]
     [SerializeField] private float _attackBufferTime = 0.2f;
@@ -50,7 +63,7 @@ public class AttackManager : MonoBehaviour
     {
         equipWeapon.pC = this.GetComponent<PlayerController>();
         equipWeapon.CheckSkill();
-        equipWeapon.EquipWeqpon(portrait);
+        equipWeapon.EquipWeqpon(Rig);
     }
 
     public void UnEquipMainWeaopon()
@@ -59,6 +72,21 @@ public class AttackManager : MonoBehaviour
         SkillCooldown.instance.DeletSkillSprite();
         if (rightHand.transform.childCount != 0) Destroy(rightHand.transform.GetChild(0).gameObject);
         if (leftHand.transform.childCount != 0) Destroy(leftHand.transform.GetChild(0).gameObject);
+        // 픽셀 리그는 소켓이 따로 있다 — 거기 붙은 무기 그림도 지운다(PixelRigDesign.md 3절)
+        ClearSocket(Rig != null ? Rig.GetBoneSocket("RightWeapon") : null, rightHand);
+        ClearSocket(Rig != null ? Rig.GetBoneSocket("LeftWeapon") : null, leftHand);
+    }
+
+    void ClearSocket(Transform socket, GameObject legacy)
+    {
+        if (socket == null || (legacy != null && socket == legacy.transform))
+        {
+            return;
+        }
+        for (int i = socket.childCount - 1; i >= 0; i--)
+        {
+            Destroy(socket.GetChild(i).gameObject);
+        }
     }
 
     // Update is called once per frame

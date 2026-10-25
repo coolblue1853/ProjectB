@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// 대시 잔상: AnyPortrait 캐릭터(MeshRenderer 여러 개, 정점 수 ~130)의 현재 메시를 복사해 반투명 청색 실루엣으로 남기고 흐리게 지운다.
+/// 대시 잔상: AnyPortrait 캐릭터(MeshRenderer 여러 개, 정점 수 ~130) 또는 픽셀 리그(SpriteRenderer 부위)의 현재 모습을 복사해 반투명 청색 실루엣으로 남기고 흐리게 지운다.
 /// 잔상 객체·Mesh·리스트를 모두 풀링해서 대시 중에도 할당이 거의 없다.
 /// 사용: DashAfterimage.Begin(portraitRoot, duration)
 /// </summary>
@@ -34,6 +34,7 @@ public class DashAfterimage : MonoBehaviour
 
     Transform source;
     readonly List<MeshRenderer> sourceRenderers = new List<MeshRenderer>();
+    readonly List<SpriteRenderer> sourceSprites = new List<SpriteRenderer>(); // 픽셀 리그(PixelRig) 부위
     readonly Stack<Ghost> pool = new Stack<Ghost>();
     readonly List<Ghost> live = new List<Ghost>();
     MaterialPropertyBlock block; // 필드 초기화에서 생성 불가(Unity 제약) → Awake
@@ -92,8 +93,14 @@ public class DashAfterimage : MonoBehaviour
     {
         EnsureMaterial();
         source.GetComponentsInChildren(false, sourceRenderers);
+        source.GetComponentsInChildren(false, sourceSprites);
         int minOrder = int.MaxValue, maxOrder = int.MinValue;
         foreach (MeshRenderer r in sourceRenderers)
+        {
+            minOrder = Mathf.Min(minOrder, r.sortingOrder);
+            maxOrder = Mathf.Max(maxOrder, r.sortingOrder);
+        }
+        foreach (SpriteRenderer r in sourceSprites)
         {
             minOrder = Mathf.Min(minOrder, r.sortingOrder);
             maxOrder = Mathf.Max(maxOrder, r.sortingOrder);
@@ -120,6 +127,24 @@ public class DashAfterimage : MonoBehaviour
             {
                 block.SetTexture("_MainTex", tex);
             }
+            block.SetColor(ColorId, Tint);
+            p.renderer.SetPropertyBlock(block);
+            p.t.gameObject.SetActive(true);
+        }
+        foreach (SpriteRenderer src in sourceSprites)
+        {
+            if (!src.enabled || src.sprite == null)
+            {
+                continue;
+            }
+            Part p = used < g.parts.Count ? g.parts[used] : AddPart(g);
+            used++;
+            CopySprite(src.sprite, p.mesh);
+            p.t.SetPositionAndRotation(src.transform.position, src.transform.rotation);
+            p.t.localScale = src.transform.lossyScale;
+            p.renderer.sortingLayerID = src.sortingLayerID;
+            p.renderer.sortingOrder = src.sortingOrder - orderShift;
+            block.SetTexture("_MainTex", src.sprite.texture);
             block.SetColor(ColorId, Tint);
             p.renderer.SetPropertyBlock(block);
             p.t.gameObject.SetActive(true);
@@ -157,6 +182,27 @@ public class DashAfterimage : MonoBehaviour
         src.GetVertices(verts);
         src.GetUVs(0, uvs);
         src.GetTriangles(tris, 0);
+        dst.SetVertices(verts);
+        dst.SetUVs(0, uvs);
+        dst.SetTriangles(tris, 0);
+    }
+
+    /// <summary>스프라이트 사각형(정점·UV·삼각형)을 잔상 메시로 옮긴다</summary>
+    static void CopySprite(Sprite sprite, Mesh dst)
+    {
+        dst.Clear();
+        verts.Clear();
+        uvs.Clear();
+        tris.Clear();
+        foreach (Vector2 v in sprite.vertices)
+        {
+            verts.Add(v);
+        }
+        uvs.AddRange(sprite.uv);
+        foreach (ushort t in sprite.triangles)
+        {
+            tris.Add(t);
+        }
         dst.SetVertices(verts);
         dst.SetUVs(0, uvs);
         dst.SetTriangles(tris, 0);

@@ -19,6 +19,19 @@ public class EquipBoxCheck : MonoBehaviour
     public GameObject nowBox;
     public Texture2D defaultOffset;
     public apPortrait mainCharacter;
+    PlayerController _pc;
+    /// <summary>활성 캐릭터 리그 — 방어구 외형은 리그가 처리한다(픽셀 리그는 아직 무시)</summary>
+    CharacterRig Rig
+    {
+        get
+        {
+            if (_pc == null)
+            {
+                _pc = FindFirstObjectByType<PlayerController>();
+            }
+            return _pc != null ? _pc.Rig : null;
+        }
+    }
 
     public void EquipMainWeapon()
     {
@@ -34,7 +47,7 @@ public class EquipBoxCheck : MonoBehaviour
             case "Head":
                 if (isChangeTexture)
                 {
-                    mainCharacter.SetMeshImage("Hat", texture);
+                    Rig.SetMeshImage("Hat", texture);
                 }
                 return  2;
             case "Necklace":
@@ -42,19 +55,19 @@ public class EquipBoxCheck : MonoBehaviour
             case "Chest":
                 if (isChangeTexture)
                 {
-                    mainCharacter.SetMeshImage("RArm", texture);
-                    mainCharacter.SetMeshImage("Rsholder", texture);
-                    mainCharacter.SetMeshImage("LArm", texture);
-                    mainCharacter.SetMeshImage("LSholder", texture);
-                    mainCharacter.SetMeshImage("UppderBody", texture);
-                    mainCharacter.SetMeshImage("DwonBody", texture);
+                    Rig.SetMeshImage("RArm", texture);
+                    Rig.SetMeshImage("Rsholder", texture);
+                    Rig.SetMeshImage("LArm", texture);
+                    Rig.SetMeshImage("LSholder", texture);
+                    Rig.SetMeshImage("UppderBody", texture);
+                    Rig.SetMeshImage("DwonBody", texture);
                 }
                 return  5;
             case "Hand":
                 if (isChangeTexture)
                 {
-                    mainCharacter.SetMeshImage("RHand", texture);
-                    mainCharacter.SetMeshImage("LHand", texture);
+                    Rig.SetMeshImage("RHand", texture);
+                    Rig.SetMeshImage("LHand", texture);
                 }
                 return  6;
             case "Weapon":
@@ -62,17 +75,17 @@ public class EquipBoxCheck : MonoBehaviour
             case "Leg":
                 if (isChangeTexture)
                 {
-                    mainCharacter.SetMeshImage("RDownLeg", texture);
-                    mainCharacter.SetMeshImage("RUpperLeg", texture);
-                    mainCharacter.SetMeshImage("LDownLeg", texture);
-                    mainCharacter.SetMeshImage("LUpperLeg", texture);
+                    Rig.SetMeshImage("RDownLeg", texture);
+                    Rig.SetMeshImage("RUpperLeg", texture);
+                    Rig.SetMeshImage("LDownLeg", texture);
+                    Rig.SetMeshImage("LUpperLeg", texture);
                 }
                 return  8;
             case "Shoes":
                 if (isChangeTexture)
                 {
-                    mainCharacter.SetMeshImage("RFoot", texture);
-                    mainCharacter.SetMeshImage("LFoot", texture);
+                    Rig.SetMeshImage("RFoot", texture);
+                    Rig.SetMeshImage("LFoot", texture);
                 }
                 return  9;
             default:

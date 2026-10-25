@@ -94,6 +94,10 @@
 | A-201 | 보스 5종(AncientEnt·BanditChief·GargoyleLord·Gatekeeper·GiantSlime)의 도트 밀도가 유닛당 18이라 PixelLook 24 격자에서 도트 크기가 1·1·2칸으로 고르지 않다. 24로 맞추면 크기 25% 축소 + 공격 판정 범위 재조정 필요(ArtStyle 해상도 규정은 24) | `reskin_mobs.cs`(보스 WorldPxPerUnit 18), 보스 공격 콜라이더 — **시도·되돌림(2026-10-19)**: `Tools/probes/boss_density24.cs`(시트 PPU×4/3·발 기준 피벗·몸 콜라이더×0.75)로 적용해 보니 문지기가 플레이어보다 조금 큰 정도(약 2.3유닛)로 줄어 보스 존재감이 무너져 되돌렸다. 해결은 **보스 시트를 더 큰 프레임(약 170px)으로 다시 그려** 24 밀도에서 지금 크기를 유지하는 것 — 이미지 작업(PixelLab 충전 후)으로 미룸 |
 | A-202 | ✅ (2026-10-19) 타이틀 화면에서 좌우로 슬롯 선택(요약: 랭크·시각, 비어 있음/손상됨). 다른 슬롯을 고르면 `SaveSlots.SwitchAndRestart` — 씬 재로드 대신 **재시작**(빌드: 실행 파일 재실행 후 종료, 에디터: 플레이 종료). DatabaseManager 정적 상태 32개와 DDOL 싱글턴이 섞이지 않게 하려는 선택. 실행 중(게임 도중) 전환 메뉴는 없음 | TitleScreen, SaveSlots |
 
+| B-213 | 픽셀 리그 주인공: 방어구 외형 교체 없음(`PixelRig.SetMeshImage` 무시) — CharacterPixelRules 6절·Q-420 레이어 설계 후 부위 스프라이트 교체로 구현 | `PixelRig.cs` |
+| B-214 | 픽셀 리그 주인공: 무기 손목 각도는 칼·지팡이로만 맞춤(소켓 배율 2.4). 활·방패·너클·창 등 무기별 잡는 각도·위치 확인 필요, 스킬 고유 동작은 기본 클립 매핑(`PixelRig.MapName`) | `PixelRigBuilder.cs`, `PixelRig.cs` |
+| B-215 | 픽셀 리그 주인공: 피격·사망 전용 애니 없음(예전과 같음), 눈 표정 파라미터 무시 | `PixelRig.cs` |
+
 ## P3 (정리)
 
 - 디버그 키 제거: SaveManager의 Space 키, TimeChange의 0 키, testFunc의 F1 키.

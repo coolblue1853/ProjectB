@@ -92,7 +92,7 @@ public class Weapon : MonoBehaviour
         isSkillAttackWait = true;
         SetDmgArray();
     }
-   public void EquipWeqpon(apPortrait portrait) // 무기 스프라이트를 소켓에 장착합니다.
+   public void EquipWeqpon(CharacterRig portrait) // 무기 스프라이트를 소켓에 장착합니다.
     {
         if(RightWeqponSprite!= null)
         {
@@ -104,6 +104,7 @@ public class Weapon : MonoBehaviour
                 RightWeqponSprite.transform.localPosition = new Vector3(0, 0, 0f);
 
             RightWeqponSprite.transform.localRotation = Quaternion.identity;
+            portrait.AdoptWeapon(RightWeqponSprite.transform, false);
         }
         if (leftWeqponSprite != null)
         {
@@ -114,6 +115,7 @@ public class Weapon : MonoBehaviour
             else
                 leftWeqponSprite.transform.localPosition = new Vector3(0, 0, 5f);
             leftWeqponSprite.transform.localRotation = Quaternion.identity;
+            portrait.AdoptWeapon(leftWeqponSprite.transform, true);
         }
     }
 

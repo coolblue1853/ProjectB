@@ -50,6 +50,28 @@ public class PlayerController : MonoBehaviour
     // 애니메이션
     public Transform characterGroup;
     public apPortrait mainCharacter;
+
+    CharacterRig _rig;
+    /// <summary>활성 캐릭터 리그 — 픽셀 리그가 붙으면 그것, 아니면 AnyPortrait 래퍼 (PixelRigDesign.md 3절)</summary>
+    public CharacterRig Rig
+    {
+        get
+        {
+            if (_rig == null)
+            {
+                _rig = PortraitRig.For(mainCharacter);
+            }
+            return _rig;
+        }
+    }
+
+    public void UseRig(CharacterRig rig)
+    {
+        if (rig != null)
+        {
+            _rig = rig;
+        }
+    }
     public Texture2D CharBaseSuit2;
 
 
@@ -138,12 +160,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void PlayLoopAnim(string clip, float fade = 0.12f)
     {
-        if (mainCharacter.IsPlaying(clip))
+        if (Rig.IsPlaying(clip))
         {
             return;
         }
         // 대기·걷기·달리기 사이는 짧게 크로스페이드해서 툭툭 끊기지 않게 한다
-        mainCharacter.CrossFade(clip, fade);
+        Rig.CrossFade(clip, fade);
     }
 
     // ── 공격자 히트스톱: 적중 순간 플레이어 애니를 잠깐 멈춘다 (HitFeedback에서 호출) ──
@@ -152,14 +174,14 @@ public class PlayerController : MonoBehaviour
 
     public void HitStop(float seconds)
     {
-        if (seconds <= 0f || mainCharacter == null || Time.time - lastHitStopAt < 0.08f)
+        if (seconds <= 0f || Rig == null || Time.time - lastHitStopAt < 0.08f)
         {
             return; // 다단히트가 손을 계속 멈추지 않도록 0.08초에 1번
         }
         lastHitStopAt = Time.time;
         if (hitStopTimer <= 0f)
         {
-            mainCharacter.SetAnimationSpeed(0f);
+            Rig.SetAnimationSpeed(0f);
         }
         hitStopTimer = Mathf.Max(hitStopTimer, seconds);
     }
@@ -171,7 +193,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         hitStopTimer -= Time.deltaTime;
-        if (hitStopTimer <= 0f && mainCharacter != null)
+        if (hitStopTimer <= 0f && Rig != null)
         {
             RestoreAnimSpeed();
         }
@@ -187,10 +209,10 @@ public class PlayerController : MonoBehaviour
     /// <summary>히트스톱 해제: 전체 1배속으로 돌린 뒤 진행 중인 공격 애니에는 공속 배율을 다시 건다</summary>
     void RestoreAnimSpeed()
     {
-        mainCharacter.SetAnimationSpeed(1f);
+        Rig.SetAnimationSpeed(1f);
         if (isAttackAnim && !string.IsNullOrEmpty(attackAnimPlaying))
         {
-            mainCharacter.SetAnimationSpeed(attackAnimPlaying, StatMath.AttackSpeedMul);
+            Rig.SetAnimationSpeed(attackAnimPlaying, StatMath.AttackSpeedMul);
         }
     }
 
@@ -202,18 +224,18 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(rb.linearVelocity.y) > 0.01f && !isUpLadder && states != "dash")
         {
             isJumpAnim = true;
-            mainCharacter.Play("Jump");
+            Rig.Play("Jump");
         }
     }
 
     /// <summary>착지 스쿼시: 메시(자식)만 살짝 눌렀다 편다 — 루트 스케일은 방향·충돌에 쓰이므로 건드리지 않음</summary>
     void LandSquash()
     {
-        if (mainCharacter == null || mainCharacter.transform == transform)
+        if (Rig == null || Rig.transform == transform)
         {
             return;
         }
-        Transform mesh = mainCharacter.transform;
+        Transform mesh = Rig.transform;
         mesh.DOKill(true);
         mesh.DOPunchScale(new Vector3(0.08f, -0.12f, 0f), 0.18f, 6, 0.6f);
     }
@@ -402,19 +424,19 @@ public class PlayerController : MonoBehaviour
             {
                 states = "moveDown";
                 PlayRopeSound();
-                mainCharacter.Play("RopeDown");
+                Rig.Play("RopeDown");
                 moveVelocity = Vector2.down * (isRun ? runSpeed * StatMath.MoveSpeedMul : moveSpeed * StatMath.MoveSpeedMul);
             }
             else if (verticalInput > 0.2f && isAttackAnim == false)
             {
                 PlayRopeSound();
                 states = "moveUp";
-                mainCharacter.Play("RopeUp");
+                Rig.Play("RopeUp");
                 moveVelocity = Vector2.up * (isRun ? runSpeed * StatMath.MoveSpeedMul : moveSpeed * StatMath.MoveSpeedMul);
             }
             else if (verticalInput == 0 && states != "move" && check == false && isAttackAnim == false)
             {
-                mainCharacter.Play("RopeStay");
+                Rig.Play("RopeStay");
                 check = true;
                 Sequence sequence = DOTween.Sequence()
                     .AppendInterval(0.3f)
@@ -471,7 +493,7 @@ public class PlayerController : MonoBehaviour
         isJumpAnim = true;
         if ( isAttackAnim == false)
         {
-        //    mainCharacter.Play("Jump");
+        //    Rig.Play("Jump");
         }
 
 
@@ -572,7 +594,7 @@ public class PlayerController : MonoBehaviour
             else if (horizontalInput == 0 && states != "move" && check ==false)
             {
                 if (isJumpAnim == false && isUpLadder == false&& states != "dash" && isAttackAnim == false)
-                    mainCharacter.Play("Idle");
+                    Rig.Play("Idle");
                 check = true;
                 moveSequence = DOTween.Sequence()
                     .AppendInterval(0.3f)
@@ -611,7 +633,7 @@ public class PlayerController : MonoBehaviour
 
             if(isUpLadder == true && isAttackAnim == false)
             {
-                mainCharacter.Play("RopeStay");
+                Rig.Play("RopeStay");
             }
         }
     }
@@ -622,12 +644,12 @@ public class PlayerController : MonoBehaviour
         MasterAudio.PlaySound("Dash");
         if (isAttackAnim == false)
         {
-            mainCharacter.Play("Dash");
+            Rig.Play("Dash");
 
         }
         // 대시 무적은 자기 토큰으로: 끝나도 다른 출처(스킬 대시 등)의 무적을 끄지 않는다 (B-114 C1)
         PlayerStatus.AcquireFor(StatusFlag.Invincible, dashDuration, "Dash");
-        DashAfterimage.Begin(mainCharacter, dashDuration);
+        DashAfterimage.Begin(Rig, dashDuration);
         boxColliderTrue = false;
         PlayerHealthManager.Instance.SteminaDown(dashStemina);
         states = "dash";
@@ -655,7 +677,7 @@ public class PlayerController : MonoBehaviour
     public void SkillDash(float dashDu, float dashSpd, float dashYSpeed, bool isDashInvins, bool isBackDash, bool isGravity = false)
     {
         states = "dash";
-        DashAfterimage.Begin(mainCharacter, dashDu);
+        DashAfterimage.Begin(Rig, dashDu);
         // 스킬 대시 무적·슈퍼아머도 시간 만료 토큰. 연속 스킬 대시로 시퀀스가 Kill돼도 반드시 풀린다 (B-114 C2, C3)
         if (isDashInvins == true)
         {
@@ -727,7 +749,7 @@ public class PlayerController : MonoBehaviour
         if(isAttackAnim == false)
         {
             isJumpAnim = true;
-            mainCharacter.Play("Jump");
+            Rig.Play("Jump");
         }
 
 
@@ -780,7 +802,7 @@ public class PlayerController : MonoBehaviour
             if (isJumpAnim == true && isUpLadder == false && states != "dash" && isAttackAnim ==false)
             {
                 isJumpAnim = false;
-                mainCharacter.Play("Idle");
+                Rig.Play("Idle");
                 LandSquash();
                 DustPuffs.Land(groundCheck.transform.position, 0.6f);
             }
@@ -879,13 +901,13 @@ public class PlayerController : MonoBehaviour
         {
             isJumpAnim = false;
         }
-        mainCharacter.Play(anim);
+        Rig.Play(anim);
         // 공격 애니 속도 = 공속 배율 (세트·장비 공속이 눈에 보이게)
         attackAnimPlaying = anim;
         attackStartedAt = Time.time;
         if (hitStopTimer <= 0f)
         {
-            mainCharacter.SetAnimationSpeed(anim, StatMath.AttackSpeedMul);
+            Rig.SetAnimationSpeed(anim, StatMath.AttackSpeedMul);
         }
         isAttackAnim = true;
         if(isUpLadder == true)
@@ -938,7 +960,7 @@ public class PlayerController : MonoBehaviour
         if(isUpLadder == true)
         {
             isRopeAttack = false;
-            mainCharacter.Play("RopeStay");
+            Rig.Play("RopeStay");
         }
 
     }
@@ -968,7 +990,7 @@ public class PlayerController : MonoBehaviour
                 if (isJumpAnim == true && isUpLadder == false && rb.linearVelocity.y == 0 && states != "dash" && isAttackAnim == false)
                 {
                     isJumpAnim = false;
-                    mainCharacter.Play("Idle");
+                    Rig.Play("Idle");
 
                 }
                 if (jumpsRemaining != maxJumps)
@@ -1018,7 +1040,7 @@ public class PlayerController : MonoBehaviour
                 {
                     Debug.Log("공격끝");
                     isRopeAttack = false;
-                    mainCharacter.Play("RopeStay");
+                    Rig.Play("RopeStay");
                 }
             }
             if (collision.tag == "InGroundPlayer")

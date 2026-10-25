@@ -1,0 +1,30 @@
+// 플레이 중 주인공 확대 캡처: __ANIM__ 을 재생시키고(빈 문자열이면 그대로) 플레이어 중심 4유닛 영역을 512px로 찍는다.
+// 결과: Logs/playtest/rig___NAME__.png
+var pc = UnityEngine.Object.FindFirstObjectByType<PlayerController>();
+if (pc == null) return "no player";
+string anim = "__ANIM__";
+if (anim.Length > 0) pc.Rig.Play(anim);
+var go = new GameObject("CloseupCam");
+var cam = go.AddComponent<Camera>();
+cam.orthographic = true;
+cam.orthographicSize = 1.6f;
+cam.clearFlags = CameraClearFlags.SolidColor;
+cam.backgroundColor = new Color(0.55f, 0.6f, 0.65f, 1f);
+Vector3 p = pc.transform.position;
+go.transform.position = new Vector3(p.x, p.y + 0.3f, p.z - 50f);
+var rt = new RenderTexture(512, 512, 24);
+rt.filterMode = FilterMode.Point;
+cam.targetTexture = rt;
+cam.Render();
+RenderTexture.active = rt;
+var tex = new Texture2D(512, 512, TextureFormat.RGB24, false);
+tex.ReadPixels(new Rect(0, 0, 512, 512), 0, 0);
+tex.Apply();
+RenderTexture.active = null;
+cam.targetTexture = null;
+System.IO.Directory.CreateDirectory("Logs/playtest");
+System.IO.File.WriteAllBytes("Logs/playtest/rig___NAME__.png", tex.EncodeToPNG());
+UnityEngine.Object.DestroyImmediate(go);
+UnityEngine.Object.DestroyImmediate(rt);
+var rig = pc.Rig;
+return "rig=" + rig.GetType().Name + " at " + rig.transform.localPosition + " playing " + anim;

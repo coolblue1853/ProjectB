@@ -1,4 +1,4 @@
-﻿# Project B 규칙 인덱스
+# Project B 규칙 인덱스
 
 - 모든 대화·문서는 **한글**로 쓴다.
 - 이 파일은 **인덱스 전용**이다. 항목마다 "어느 문서를 읽을지" 판단할 한 줄만 적고, 항목은 **백틱**으로 적는다(링크 금지).
@@ -40,6 +40,7 @@
 | `Game/GameFeelPlan.md` | 타격감(A2~A6) 구현 계획: `HitFeedback` 파사드, All In 1 셰이더 키워드, 히트스톱·흔들림·숫자 수치, 임포트 목록, 검증 |
 | `Game/InventoryRefactorDesign.md` | 인벤토리 리팩터 설계(D2~D6): 현 구조·잔존 버그, InventoryModel/세트 평가기/세이브 매핑, 툴팁·정렬·픽업 로그, 단계별 이행·테스트 |
 | `Game/WeaponReview.md` | 무기 평타·콤보·스킬 감사: 무기 18종 흐름표, 문제 W-01~36(파일:줄), 핵앤슬 제안, 수정 순서 |
+| `Game/PixelRigDesign.md` | **새 주인공 픽셀 리그**(셀 대신 Unity 리깅 + 픽셀 격자): 부위 분할·뼈 계층·PPU 36 크기, 클립 키프레임 표(팔·칼날 각도), 기존 애니 이름 매핑, `CharacterRig` 창구(AnyPortrait 래퍼/픽셀 리그), 검증 프로브 |
 | `Game/PlayerStateDesign.md` | 플레이어 FSM·상태 토큰(무적/슈퍼아머/이동정지)·입력 버퍼·Modifier 스탯 재설계와 단계별 마이그레이션 |
 | `Game/ProgressionDesign.md` | 성장 루프(메이플식 진행·디아식 콘텐츠): 정예(중간보스) 승격·보스 확정 드롭·고유템 천장·강화 +0~+10 표와 보너스, 단계 P1~P4 |
 | `Game/Lv2ContentPlan.md` | Lv2 "마법 절벽" 기획(E4): 신규 에셋 프레임·PPU 분석, 맵 레이아웃·스포너·포털, 몬스터 5+엘리트+보스 스탯·BT·드롭, Cliff 세트(ItemSheet/SetItem 행·스킬·레시피), 빌더 단계별 구현·프로브 |
