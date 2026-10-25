@@ -42,7 +42,12 @@ public class PixelRig : CharacterRig
     private Rigidbody2D _body;
     private float _playedAt;
     private float _landUntil;
-    private Clip _launch, _up, _apex, _fall, _land, _hurt;
+    private Clip _launch, _up, _apex, _fall, _land, _hurt, _kneel;
+    // 사망: 무릎 꿇음 → 0.3초 뒤 몸 전체를 90° 눕힘(도트 90° 회전은 지글거림 없음). 부활하면 원래대로
+    private float _diedAt = -1f;
+    private const float KneelTime = 0.3f;
+    private const float LieLiftPx = 11f; // 눕힌 몸이 땅에 묻히지 않게 들어 올리는 아트 픽셀(몸 반폭)
+    private Vector3 _restLocalPos;
     private float _hurtUntil;
     private const int HurtEyeParam = 4;
     private const float HurtTime = 0.22f;
@@ -71,6 +76,8 @@ public class PixelRig : CharacterRig
         _byName.TryGetValue("JumpFall", out _fall);
         _byName.TryGetValue("Land", out _land);
         _byName.TryGetValue("Hurt", out _hurt);
+        _byName.TryGetValue("DeathKneel", out _kneel);
+        _restLocalPos = transform.localPosition;
         Play("Idle");
     }
 
@@ -243,14 +250,56 @@ public class PixelRig : CharacterRig
         float t = c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
         c.clip.SampleAnimation(gameObject, t);
         TuckLegsInAir(c);
+        ApplyDeathLie();
         SnapBones();
         KeepUpright();
     }
 
     /// <summary>점프는 세로 속도로 상승·꼭대기·낙하를 고르고, 막 착지했으면 눌림 포즈</summary>
+    private void OnEnable()
+    {
+        PlayerHealthManager.PlayerDied += OnDied;
+        PlayerHealthManager.PlayerRespawned += OnRespawned;
+    }
+
+    private void OnDisable()
+    {
+        PlayerHealthManager.PlayerDied -= OnDied;
+        PlayerHealthManager.PlayerRespawned -= OnRespawned;
+    }
+
+    private void OnDied()
+    {
+        _diedAt = Time.time;
+        _restLocalPos = transform.localPosition;
+    }
+
+    private void OnRespawned()
+    {
+        _diedAt = -1f;
+        transform.localRotation = Quaternion.identity;
+        transform.localPosition = _restLocalPos;
+    }
+
+    /// <summary>사망 중이면 무릎 꿇음 클립, 0.3초 뒤부터는 몸 전체를 뒤로 90° 눕힌다(발 원점 기준 → 몸 반폭만큼 들어 올림)</summary>
+    private void ApplyDeathLie()
+    {
+        if (_diedAt < 0f)
+        {
+            return;
+        }
+        bool lie = Time.time - _diedAt >= KneelTime;
+        transform.localRotation = lie ? Quaternion.Euler(0f, 0f, 90f) : Quaternion.identity;
+        transform.localPosition = _restLocalPos + (lie ? new Vector3(0f, LieLiftPx / _ppu, 0f) : Vector3.zero);
+    }
+
     private Clip PickVariant()
     {
         float now = Time.time;
+        if (_diedAt >= 0f && _kneel != null)
+        {
+            return _kneel;
+        }
         if (now < _hurtUntil && _hurt != null)
         {
             return _hurt;

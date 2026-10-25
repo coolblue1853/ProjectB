@@ -413,6 +413,9 @@ MonoBehaviour:
   - name: Hurt
     clip: {fileID: 7400000, guid: 81069060ab484564c9631b786e16bd3a, type: 2}
     loop: 0
+  - name: DeathKneel
+    clip: {fileID: 7400000, guid: f17a9f6c81523be488f0695ba04411e1, type: 2}
+    loop: 0
   - name: Land
     clip: {fileID: 7400000, guid: 00888c13ec487d94d8c5985241b49d39, type: 2}
     loop: 0

@@ -98,4 +98,5 @@
 - 10-25 (8): 주인공 가독성 — 몸 주변 작은 점 조명(`PixelRigInstaller.AddHeroLight`: 반경 0.3~1.8, 세기 0.45, 따뜻한 흰빛, 그림자 없음). 깊은 숲 밤에 주인공이 배경에 묻혔다 → 조명 켬에서 또렷, 맵 분위기(전역 조명)는 그대로. 비교: `Tools/probes/hero_light_ab.cs`(같은 장면 끔/켬).
 - 10-25 (9): 공중 공격 — 공격 클립이 다리를 선 자세로 덮어써 공중에서 똑바로 선 채 휘둘렀다 → 세로 속도가 0.6 넘으면 공격 중 다리를 2px 접는다(`PixelRig.TuckLegsInAir`). 검증: 점프 0.15초 뒤 평타 연속 촬영(`rig_action_strip.cs airattack`).
 - 10-25 (10): 지팡이류(지팡이 8종이 쓰는 ScareStaff·LeafStaff)도 세워 든다(종류 staff → upright, 시전 때도 세운 채 들어 올림). 세워 드는 무기는 그림의 큰 덩어리가 손잡이 뒤(얼굴 쪽)에 있으면 좌우를 뒤집어 앞으로, 손 앞으로 2px 내밀어 쥔다(해골 지팡이 머리가 얼굴을 가렸다).
+- 10-25 (11): 사망 연출 — `PlayerHealthManager.PlayerDied/PlayerRespawned` 이벤트를 리그가 구독. 무릎 꿇음(DeathKneel: 몸 2px 내려앉고 칼을 땅에 수직으로 꽂음) → 0.3초 뒤 몸 전체를 뒤로 90° 눕힘(도트 90° 회전은 지글거림 없음, 몸 반폭 11px 들어 올림, 칼은 바닥에 수평) → 부활 시 원래대로. 검증: 실제 사망 경로 연속 촬영(`rig_action_strip.cs death`)·부활 후 회전 0 확인.
 

@@ -96,7 +96,7 @@
 
 | B-213 | 픽셀 리그 주인공: 방어구 외형 교체 없음(`PixelRig.SetMeshImage` 무시) — CharacterPixelRules 6절·Q-420 레이어 설계 후 부위 스프라이트 교체로 구현 | `PixelRig.cs` |
 | B-214 | 픽셀 리그 주인공: 무기 45종은 10-25 도트 복원·각도 자동으로 해결(weapon_lineup). 남은 것: 스킬 고유 동작은 기본 클립 매핑(`PixelRig.MapName`), 활은 쏘는 동작 없음 | `PixelRigBuilder.cs`, `PixelRig.cs` |
-| B-215 | 픽셀 리그 주인공: 사망 전용 애니 없음(예전과 같음). 피격은 10-25 Hurt 포즈로 해결 | `PixelRig.cs` |
+| B-215 | ✅ 픽셀 리그 주인공 피격(Hurt)·사망(무릎 꿇음 → 눕기) 연출 (10-25) | `PixelRig.cs` |
 
 ## P3 (정리)
 

@@ -5,7 +5,7 @@ var rig = pc.Rig;
 var fReq = typeof(PixelRig).GetField("_requested", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 string action = "__ACTION__";
 bool loco = action == "walk" || action == "run";
-int n = action == "combo3" ? 12 : action == "jump" ? 10 : 8, w = 256; float step = action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : 0.08f;
+int n = action == "combo3" ? 12 : action == "jump" ? 10 : 8, w = 256; float step = action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : action == "death" ? 0.25f : 0.08f;
 float lead = loco ? 0.3f : 0.02f; // 걷기·달리기는 가속이 끝난 뒤부터 찍는다
 float camSize = loco || action == "jump" ? 1.15f : 1.6f; // 이동 동작은 크게(빈칸 확인용)
 var strip = new Texture2D(w * n, w, TextureFormat.RGB24, false);
@@ -62,6 +62,12 @@ if (action == "crit")
         pc.transform.position = new Vector3(ct.transform.position.x - 1.1f, ct.transform.position.y + 0.2f, pc.transform.position.z);
         DG.Tweening.DOVirtual.DelayedCall(0.05f, () => HitFeedback.OnEnemyHit(ct, true, false, false), false);
     }
+}
+// death: 큰 데미지로 실제 사망 경로(무릎 꿇음 → 눕기), 부활 전(2.5초)까지 찍는다
+if (action == "death")
+{
+    var phm2 = UnityEngine.Object.FindFirstObjectByType<PlayerHealthManager>();
+    DG.Tweening.DOVirtual.DelayedCall(0.05f, () => phm2.damage2Player(99999, 0.2f, 0f, Vector2.left, 0f, false), false);
 }
 // hurt: 실제 피격 경로(damage2Player)로 1 데미지 — 피격 포즈·깜빡임 확인
 if (action == "hurt")
