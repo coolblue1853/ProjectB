@@ -4,7 +4,10 @@ ArtStyle 0절 "시안 2차 피드백": 전체 색 감축(B안)은 디테일까�
 1) 색 병합: 색 공간(Lab 근사)에서 가까운 색끼리만 합친다(거리 < MERGE). 대비 큰 색은 수가 적어도 남긴다.
 2) 잔무늬 제거: 주변 8칸 다수색과 '비슷한' 외톨이 픽셀만 다수색으로 바꾼다(거리 < SPECK). 다수색과 많이 다르면 의도된 디테일로 보고 둔다.
 3) 검정 외곽선은 건드리지 않는다.
-사용: python Tools/pixelfx/flatten_keep_detail.py <in.png> <out.png> [--merge 18] [--speck 30] [--iters 3]
+4) --head-auto: 머리(불투명 영역 위쪽 --head-frac, 기본 0.55)는 따로 약하게(--head-merge·--head-speck) 정리 —
+   담백화는 몸·옷·소품에만 강하게, 머리카락은 2~3단 가닥 음영을 남긴다(CharacterPixelRules 4절).
+사용: python Tools/pixelfx/flatten_keep_detail.py <in.png> <out.png> [--merge 14] [--speck 28] [--iters 3]
+      [--head-auto --head-frac 0.55 --head-merge 6 --head-speck 20]
 """
 import argparse
 from collections import Counter
@@ -91,12 +94,23 @@ def main():
     ap.add_argument("--merge", type=float, default=18)
     ap.add_argument("--speck", type=float, default=30)
     ap.add_argument("--iters", type=int, default=3)
+    ap.add_argument("--head-auto", action="store_true")
+    ap.add_argument("--head-frac", type=float, default=0.55)
+    ap.add_argument("--head-merge", type=float, default=6)
+    ap.add_argument("--head-speck", type=float, default=20)
     a = ap.parse_args()
     im = np.array(Image.open(a.src).convert("RGBA"))
     alpha = im[..., 3] > 128
     px = im[..., :3].astype(int)
-    px, n = merge_colors(px, alpha, a.merge)
-    px = despeckle(px, alpha, a.speck, a.iters)
+    body, n = merge_colors(px, alpha, a.merge)
+    body = despeckle(body, alpha, a.speck, a.iters)
+    if a.head_auto:
+        ys = np.where(alpha.any(1))[0]
+        cut = int(ys.min() + (ys.max() - ys.min() + 1) * a.head_frac)
+        head, _ = merge_colors(px, alpha, a.head_merge)
+        head = despeckle(head, alpha, a.head_speck, a.iters)
+        body[:cut] = head[:cut]
+    px = body
     out = np.dstack([px, np.where(alpha, 255, 0)]).astype(np.uint8)
     Image.fromarray(out, "RGBA").save(a.dst)
     print("colors kept", n + 1)

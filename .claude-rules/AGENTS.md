@@ -32,6 +32,7 @@
 | `Game/EnemySpec.md` | 몬스터 스탯, BT 구조, 스폰, **드롭 테이블** |
 | `Game/WorldSpec.md` | 낮/밤, 맵·포털, 카메라 |
 | `Game/ArtStyle.md` | **도트 아트 스타일 가이드**(사용자 레퍼런스: 인디 액션풍 저해상도, 채도 낮은 바탕+포인트 색, 부분 외곽선), 핀터레스트→PixelLab/GPT→격자 복원 파이프라인 |
+| `Game/CharacterPixelRules.md` | **캐릭터 도트 생성 규칙**(주인공·NPC): 2등신 데포르메 앵커·색감, 판정 지표(IDEAL/OK), PixelLab Pro Flash+style_image 파이프라인, 방어구 레이어 대비, 실패 사례·이력. 스킬 `.claude/skills/pixel-character/` 가 실행 |
 | `Game/AssetInventory.md` | 보유 에셋스토어 86종 분류와 도입 현황 |
 | `Game/AssetIntegrationPlan.md` | 사용자 지정 필수 에셋(대화·I2·Feel·ProCamera 등) 실사용 계획, 평가 대상(Smart Lighting·SPUM·RPG Monster·Corgi), 사운드 카탈로그, 웨이브 W0~W5 |
 | `Game/TechDebt.md` | 버그·기술 부채 백로그 (P0~P3, 수정 시 갱신) |
