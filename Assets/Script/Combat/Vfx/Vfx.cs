@@ -57,6 +57,11 @@ public static class Vfx
         {
             return false;
         }
+        // 예전 3D 구움 베기·치명 X자는 노이즈가 많아 상업 기준 미달 → 같은 색 테마의 새 도트 궤적·별로 대체(GameFeelPlan 10.7)
+        if (WeaponFx.Enabled && TryUpgradeLegacy(id, out VfxId nid, out PixelRampId ramp, out float mul, out bool flipY))
+        {
+            return PlayThemed(nid, position, facingLeft, scaleMul * mul, ramp, flipY, ignoreFrameCap);
+        }
         if (frame != Time.frameCount)
         {
             frame = Time.frameCount;
@@ -134,6 +139,43 @@ public static class Vfx
         live.block.SetFloat(DissolveId, 0f);
         live.sprite.SetPropertyBlock(live.block);
         return true;
+    }
+
+    /// <summary>예전 베기 7종·치명 X자 → 새 도트 이펙트(id·색·크기·상하반전)</summary>
+    static bool TryUpgradeLegacy(VfxId id, out VfxId to, out PixelRampId ramp, out float mul, out bool flipY)
+    {
+        to = VfxId.WSlashSide;
+        ramp = PixelRamp.FromSwing(id);
+        mul = 1f;
+        flipY = false;
+        switch (id)
+        {
+            case VfxId.SlashWhite:
+            case VfxId.SlashRed:
+            case VfxId.SlashBlue:
+                return true;
+            case VfxId.SlashGold:
+                to = VfxId.WSlashDown;
+                return true;
+            case VfxId.SlashGoldWide:
+                mul = 1.5f;
+                return true;
+            case VfxId.SlashGreenBig:
+                to = VfxId.WSlashDown;
+                mul = 1.5f;
+                return true;
+            case VfxId.CrackRed:
+                to = VfxId.WSlashDown;
+                flipY = true;
+                return true;
+            case VfxId.CritCross:
+                to = VfxId.WHitStar;
+                ramp = PixelRampId.Gold;
+                mul = 2f;
+                return true;
+            default:
+                return false;
+        }
     }
 
     /// <summary>도트 이펙트: SpriteRenderer 1개로 프레임을 넘긴다. 좌우는 flipX, 크기는 베이크 PPU 그대로(scaleMul만)</summary>

@@ -339,4 +339,5 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 - 다음: 스킬 이펙트도 같은 방식(회색조 vfx_workbench + PixelSlash2D)으로 바꿀 수 있다 — 스킬마다 부품 조합을 고르고 `VfxId` 끝에 추가.
 - r2(10-25): 바깥 1텍셀 테두리 = 램프 _C1 색(`_Rim`). 흰 테마 초승달이 밝은 배경에서 윤곽이 묻혔다. 측정: 칸당 색 ≤ 5, 흰 테마 가장자리 텍셀 100%가 램프1 색. 텍스처 샘플 5회(모바일 예산 4 경고, PC 대상이라 감수).
 - 치명타(10-25): 근접 무기 치명타는 예전 3D 구움 CritCross 대신 같은 도트 타격 별을 2배(정수 배율)·금색 램프로, 프레임당 상한 무시. 지팡이 등은 그대로. 검증: 낮 사냥터 토끼에 `HitFeedback.OnEnemyHit(isCrit)` 연속 촬영(`rig_action_strip.cs crit`).
+- 예전 이펙트 대체(10-25): 도트 이펙트 30종 라인업(`Tools/probes/fx_lineup.cs`)에서 3D 구움 베기 7종(SlashWhite·Red·Blue·Gold·GoldWide·GreenBig·CrackRed)과 치명 X자(CritCross)가 픽셀이 끊기고 노이즈가 많아 상업 기준 미달 → `Vfx.Play` 가 이 id 를 부르면 같은 색 테마의 새 궤적·별로 대체(`Vfx.TryUpgradeLegacy`: 가로/세로·배율 1.5(정수 격자 3칸)·상하반전). 시전 이펙트로 쓰던 스킬 프리팹 44개가 데이터 수정 없이 함께 바뀐다. 폭발·빛기둥·룬·연기·흙먼지는 형태가 또렷해 유지. 검증: 8종 호출 한 장(`Docs/ArtCompare/WeaponFx/legacy_upgrade.png`).
 
