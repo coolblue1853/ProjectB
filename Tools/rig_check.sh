@@ -20,6 +20,7 @@ return "equip scheduled";
 EOF
 $U cs Logs/equip.cs >/dev/null 2>&1
 sleep 3
+$U cs Tools/probes/set_day.cs >/dev/null 2>&1  # 첫 호출이 장면 준비 전이면 낮으로 안 바뀐다(10-25) → 한 번 더
 echo 'var l = System.AppDomain.CurrentDomain.GetData("pb_rigact"); return l == null ? "-" : l.ToString();' > Logs/rl.cs
 for a in walk run jump; do
   sed "s/__ACTION__/$a/g" Tools/probes/rig_action_strip.cs > Logs/ra.cs

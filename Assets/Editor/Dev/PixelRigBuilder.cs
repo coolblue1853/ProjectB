@@ -47,6 +47,7 @@ public static class PixelRigBuilder
         ImportPart("arm_r", pv.shoulder_r);
         ImportPart("leg_l", pv.leg_l);
         ImportPart("leg_r", pv.leg_r);
+        ImportPoseParts(pv);
 
         ImportWeapons();
         GameObject root = new GameObject("Adventurer");
@@ -116,27 +117,51 @@ public static class PixelRigBuilder
     // 뼈: Hips, Hips/Head, Hips/Pack, Hips/ShoulderF, Hips/ShoulderB, LegF, LegB
     // 채널: x·y = 아트 픽셀(오른쪽·위가 +), r = 도(반시계 +). 몸통(Hips)·머리는 돌리지 않는다 — 도트 통째 회전은 외곽이 지글거린다(위치 이동으로 표현). 캐릭터는 오른쪽을 본다 → 어깨 r + = 팔을 앞으로 든다.
     /// <summary>
-    /// 6포즈 이동 주기(끊기는 포즈). 배열은 포즈별 픽셀값. 배낭은 엉덩이가 올라올 때 한 포즈 늦게 따라온다(상대값 = min(0, 이전 - 현재)).
+    /// 이동 주기(끊기는 포즈). 다리·팔은 뼈를 옮기지 않고 포즈 변형 그림으로 바꿔 끼운다(Tools/pixelfx/make_pose_parts.py: 마디별 정수 이동 + 외곽 닫기).
+    /// legFdx·legBdx = 발 앞뒤 px(-2~2), legFlift·legBlift = 무릎 접어 들기(0~2), armF = 앞손 앞뒤 px(뒷손은 반대, -1~1).
+    /// 배낭은 엉덩이가 올라올 때 한 포즈 늦게 따라온다(상대값 = min(0, 이전 - 현재)). 무기 소켓(앞손)은 손 이동을 따라간다.
     /// </summary>
-    private static AnimDef Cycle(string name, float frame, float blade, float[] legFx, float[] legFy, float[] legBx, float[] legBy, float[] hipsY, float[] armFx, float hipsX)
+    private static AnimDef Cycle(string name, float frame, float blade, int[] legFdx, int[] legFlift, int[] legBdx, int[] legBlift, float[] hipsY, float[] headY, int[] armF, float hipsX)
     {
-        int n = legFx.Length;
+        int n = legFdx.Length;
         var def = new AnimDef(name, frame * n, true).Step();
-        def.K("LegF", 'x', Keys(legFx, frame)).K("LegF", 'y', Keys(legFy, frame))
-            .K("LegB", 'x', Keys(legBx, frame)).K("LegB", 'y', Keys(legBy, frame))
-            .K("Hips", 'y', Keys(hipsY, frame)).K("Hips", 'x', Keys(Fill(n, hipsX), frame));
-        var armB = new float[n];
+        def.K("Hips", 'y', Keys(hipsY, frame)).K("Hips", 'x', Keys(Fill(n, hipsX), frame))
+            .K("Hips/Head", 'y', Keys(headY, frame));
         var pack = new float[n];
+        var hand = new float[n];
+        var legF = new string[n];
+        var legB = new string[n];
+        var armFs = new string[n];
+        var armBs = new string[n];
         for (int i = 0; i < n; i++)
         {
-            armB[i] = -armFx[i];
-            // 아래로만 처진다(위로 밀리면 배낭 윗선이 머리카락 위로 삐져나왔다): 몸이 올라오는 포즈에서 한 박자 늦게 1px 처짐
+            // 아래로만 처진다(위로 밀리면 배낭 윗선이 머리카락 위로 삐져나왔다)
             pack[i] = Mathf.Min(0f, hipsY[(i + n - 1) % n] - hipsY[i]);
+            hand[i] = armF[i];
+            legF[i] = LegPose("leg_l", legFdx[i], legFlift[i]);
+            legB[i] = LegPose("leg_r", legBdx[i], legBlift[i]);
+            armFs[i] = ArmPose("arm_l", armF[i]);
+            armBs[i] = ArmPose("arm_r", -armF[i]);
         }
-        def.K("Hips/ShoulderF", 'x', Keys(armFx, frame)).K("Hips/ShoulderB", 'x', Keys(armB, frame))
-            .K("Hips/Pack", 'y', Keys(pack, frame))
+        def.K("Hips/Pack", 'y', Keys(pack, frame)).K("Hips/ShoulderF/HandF", 'x', Keys(hand, frame))
+            .S("LegF", frame, legF).S("LegB", frame, legB).S("Hips/ShoulderF", frame, armFs).S("Hips/ShoulderB", frame, armBs)
             .Arm(0f, 0f, blade, frame * n, 0f, blade);
         return def;
+    }
+
+    private static string Tag(int dx)
+    {
+        return (dx > 0 ? "p" : dx < 0 ? "m" : "z") + Mathf.Abs(dx);
+    }
+
+    private static string LegPose(string part, int dx, int lift)
+    {
+        return part + "_" + Tag(dx) + "_u" + lift;
+    }
+
+    private static string ArmPose(string part, int dx)
+    {
+        return part + "_" + Tag(dx);
     }
 
     /// <summary>한 포즈짜리 클립(끊김). 값은 (x, y) 픽셀, arms 는 양 어깨 같은 이동, blade 는 앞팔 칼날 각도</summary>
@@ -194,17 +219,20 @@ public static class PixelRigBuilder
                 .K("Hips/Pack", 'x', 0f, 0f, 0.1f, 1f, 0.4f, 0f, 0.7f, 0f)
                 .K("Hips", 'y', 0f, 0f, 0.4f, -1f, 0.5f, 0f, 0.7f, 0f)
                 .Arm(0f, 0f, 45f, 0.7f, 0f, 45f),
-            // 걷기 6포즈(0.09초씩): 접지 A → 내려앉음 → 교차(뒷발 듦) → 접지 B → 내려앉음 → 교차(앞발 듦).
-            // 보폭 ±2px, 팔은 반대 다리와 엇갈려 1px, 배낭은 몸보다 한 박자 늦게(2차 움직임)
-            Cycle("Walk", 0.09f, 45f,
-                new float[] { 2, 1, 0, -2, -1, 0 }, new float[] { 0, 0, 0, 0, 0, 1 },
-                new float[] { -2, -1, 0, 2, 1, 0 }, new float[] { 0, 0, 1, 0, 0, 0 },
-                new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { -1, -1, 0, 1, 1, 0 }, 0f),
-            // 달리기 6포즈(0.07초씩): 교차 때 발을 2px 들고 몸은 1px 앞으로. 칼은 앞 위 45°(뒤로 눕히면 손이 몸 앞이라 칼날이 얼굴·가슴을 가로질렀다)
+            // 걷기 8포즈(0.08초씩): 접지 → 내려앉음 → 교차(뒷발 듦) → 올라섬 → 접지(반대) → … (PixelRigDesign 4절)
+            // 3/4 정면 구도라 두 다리가 나란히 보인다 → 앞뒤 ±1(±2 엇갈리면 두 발이 한 덩어리로 겹쳤다), 무릎을 접어 번갈아 드는 그림(포즈 변형)으로 걸음을 읽힌다.
+            // 팔은 손만 ±1(소매 고정 — 통째로 옮기면 어깨에서 떨어져 보였다), 머리는 교차 때 1px 늦게 내려온다
+            Cycle("Walk", 0.08f, 45f,
+                new[] { 1, 1, 0, -1, -1, -1, 0, 1 }, new[] { 0, 0, 0, 0, 0, 0, 1, 1 },
+                new[] { -1, -1, 0, 1, 1, 1, 0, -1 }, new[] { 0, 0, 1, 1, 0, 0, 0, 0 },
+                new float[] { 0, -1, 0, 0, 0, -1, 0, 0 }, new float[] { 0, 0, -1, 0, 0, 0, -1, 0 },
+                new[] { -1, -1, 0, 1, 1, 1, 0, -1 }, 0f),
+            // 달리기 6포즈(0.07초씩): 보폭 ±2·발을 2px 접어 들고 몸은 1px 앞으로 숙임. 칼은 앞 위 45°(뒤로 눕히면 칼날이 얼굴·가슴을 가로질렀다)
             Cycle("Run", 0.07f, 45f,
-                new float[] { 2, 1, -1, -2, -1, 1 }, new float[] { 0, 0, 0, 0, 1, 2 },
-                new float[] { -2, -1, 1, 2, 1, -1 }, new float[] { 0, 1, 2, 0, 0, 0 },
-                new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { -1, -1, 0, 1, 1, 0 }, 1f),
+                new[] { 2, 1, 0, -1, 0, 1 }, new[] { 0, 0, 0, 1, 2, 1 },
+                new[] { -1, 0, 1, 1, 0, -1 }, new[] { 1, 2, 1, 0, 0, 0 },
+                new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { 0, -1, 0, 0, -1, 0 },
+                new[] { -1, 0, 1, 1, 0, -1 }, 1f),
             // 점프: 리그(PixelRig)가 세로 속도로 고른다 — 도약(첫 0.06초 늘임) → 상승 → 꼭대기 → 낙하, 착지하면 0.1초 눌림(Land).
             // 변형은 한두 프레임만(셀레스트식), 1px 단위
             Pose("Jump", 0.1f, 90f, legF: (1, 1), legB: (-1, 2), arms: (0, 1)),
@@ -291,6 +319,22 @@ public static class PixelRigBuilder
     // ── 굽기 ─────────────────────────────────────────────────────────────────
     private static readonly string[] AnimBones = { "Hips", "Hips/Head", "Hips/Pack", "Hips/ShoulderF", "Hips/ShoulderB", "Hips/ShoulderF/HandF", "LegF", "LegB" };
 
+    /// <summary>포즈 변형 그림을 바꿔 끼우는 뼈와 원본 그림</summary>
+    private static readonly (string bone, string part)[] SwapParts =
+    {
+        ("LegF", "leg_l"), ("LegB", "leg_r"), ("Hips/ShoulderF", "arm_l"), ("Hips/ShoulderB", "arm_r"),
+    };
+
+    private static Sprite PartSprite(string part)
+    {
+        var sp = AssetDatabase.LoadAssetAtPath<Sprite>(ArtDir + "/" + part + ".png");
+        if (sp == null)
+        {
+            throw new System.Exception("포즈 그림 없음: " + part + " — python Tools/pixelfx/make_pose_parts.py 먼저");
+        }
+        return sp;
+    }
+
     private static AnimationClip Bake(AnimDef def, Dictionary<string, Vector3> rest)
     {
         string path = AnimDir + "/" + def.Name + ".anim";
@@ -308,6 +352,24 @@ public static class PixelRigBuilder
             SetCurve(clip, bone, "m_LocalPosition.x", def.Get(bone, 'x'), r.x, 1f / Ppu, def.Length, def.Stepped);
             SetCurve(clip, bone, "m_LocalPosition.y", def.Get(bone, 'y'), r.y, 1f / Ppu, def.Length, def.Stepped);
             SetCurve(clip, bone, "localEulerAnglesRaw.z", def.Get(bone, 'r'), 0f, 1f, def.Length, def.Stepped);
+        }
+        foreach (var swap in SwapParts)
+        {
+            ObjectReferenceKeyframe[] keys;
+            if (def.GetSprites(swap.bone, out float frame, out string[] parts))
+            {
+                keys = new ObjectReferenceKeyframe[parts.Length + 1];
+                for (int i = 0; i <= parts.Length; i++)
+                {
+                    keys[i] = new ObjectReferenceKeyframe { time = i * frame, value = PartSprite(parts[i % parts.Length]) };
+                }
+            }
+            else
+            {
+                // 모든 클립이 원본 그림 키를 가진다 — 걷기 뒤 공격·점프에서 변형 그림이 남지 않게
+                keys = new[] { new ObjectReferenceKeyframe { time = 0f, value = PartSprite(swap.part) } };
+            }
+            AnimationUtility.SetObjectReferenceCurve(clip, EditorCurveBinding.PPtrCurve(swap.bone, typeof(SpriteRenderer), "m_Sprite"), keys);
         }
         var settings = AnimationUtility.GetAnimationClipSettings(clip);
         settings.loopTime = def.Loop;
@@ -386,6 +448,23 @@ public static class PixelRigBuilder
             return this;
         }
 
+        private readonly Dictionary<string, (float frame, string[] parts)> _sprites = new Dictionary<string, (float, string[])>();
+
+        /// <summary>뼈의 그림을 포즈마다 바꿔 끼운다(frame 간격, 마지막에 첫 그림으로 고리를 닫는다). 없으면 원본 그림 고정</summary>
+        public AnimDef S(string bone, float frame, string[] parts)
+        {
+            _sprites[bone] = (frame, parts);
+            return this;
+        }
+
+        public bool GetSprites(string bone, out float frame, out string[] parts)
+        {
+            bool ok = _sprites.TryGetValue(bone, out var v);
+            frame = v.frame;
+            parts = v.parts;
+            return ok;
+        }
+
         public float[] Get(string bone, char channel)
         {
             float[] v;
@@ -424,6 +503,21 @@ public static class PixelRigBuilder
         t.SetParent(hand, false);
         t.localScale = new Vector3(WeaponScale, WeaponScale, 1f);
         return t;
+    }
+
+    /// <summary>포즈 변형 그림(leg_l_p1_u0 …)은 원본 부위와 같은 피벗</summary>
+    private static void ImportPoseParts(PivotMap pv)
+    {
+        for (int dx = -2; dx <= 2; dx++)
+        {
+            for (int lift = 0; lift <= 2; lift++)
+            {
+                ImportPart(LegPose("leg_l", dx, lift), pv.leg_l);
+                ImportPart(LegPose("leg_r", dx, lift), pv.leg_r);
+            }
+            ImportPart(ArmPose("arm_l", dx), pv.shoulder_l);
+            ImportPart(ArmPose("arm_r", dx), pv.shoulder_r);
+        }
     }
 
     private static void ImportPart(string part, int[] pivot)
