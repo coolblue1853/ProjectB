@@ -43,8 +43,8 @@ public static class PixelRigBuilder
         ImportPart("pack", pv.pack);
         ImportPart("torso", pv.hips);
         ImportPart("head", pv.head);
-        ImportPart("hand_l", pv.hand_l);
-        ImportPart("hand_r", pv.hand_r);
+        ImportPart("arm_l", pv.shoulder_l);
+        ImportPart("arm_r", pv.shoulder_r);
         ImportPart("leg_l", pv.leg_l);
         ImportPart("leg_r", pv.leg_r);
 
@@ -63,12 +63,12 @@ public static class PixelRigBuilder
         Transform handF = Bone("HandF", shF, pv.hand_l, pv.shoulder_l, ox, bones);
 
         renderers.Add(Part(pack, "pack", 36));
-        renderers.Add(Part(handB, "hand_r", 38));
+        renderers.Add(Part(shB, "arm_r", 38)); // 팔 = 소매+손, 어깨 위쪽을 축으로 돈다(손만 떼면 공중에 떠 보였다)
         renderers.Add(Part(legB, "leg_r", 39));
         renderers.Add(Part(legF, "leg_l", 40));
         renderers.Add(Part(hips, "torso", 42));
         renderers.Add(Part(head, "head", 44));
-        renderers.Add(Part(handF, "hand_l", 46));
+        renderers.Add(Part(shF, "arm_l", 46));
 
         // 무기 소켓: 기존 무기 스프라이트는 "주먹에 수직으로 세운" 기준(소켓 회전 0 = 칼날 위)
         Transform socketR = Socket("RightWeapon", handF);
@@ -113,48 +113,47 @@ public static class PixelRigBuilder
 
     // ── 키프레임 표 ───────────────────────────────────────────────────────────
     // 뼈: Hips, Hips/Head, Hips/Pack, Hips/ShoulderF, Hips/ShoulderB, LegF, LegB
-    // 채널: x·y = 아트 픽셀(오른쪽·위가 +), r = 도(반시계 +). 캐릭터는 오른쪽을 본다 → 어깨 r + = 팔을 앞으로 든다.
+    // 채널: x·y = 아트 픽셀(오른쪽·위가 +), r = 도(반시계 +). 몸통(Hips)·머리는 돌리지 않는다 — 도트 통째 회전은 외곽이 지글거린다(위치 이동으로 표현). 캐릭터는 오른쪽을 본다 → 어깨 r + = 팔을 앞으로 든다.
     private static List<AnimDef> Clips()
     {
         return new List<AnimDef>
         {
             new AnimDef("Idle", 1.2f, true)
                 .K("Hips", 'y', 0f, 0f, 0.6f, -1f, 1.2f, 0f)
-                .Arm(0f, 15f, 60f, 0.6f, 19f, 60f, 1.2f, 15f, 60f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.6f, -4f, 1.2f, 0f),
+                .Arm(0f, 0f, 60f, 0.6f, 3f, 60f, 1.2f, 0f, 60f)
+                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.6f, -3f, 1.2f, 0f),
             new AnimDef("Walk", 0.5f, true)
                 .K("LegF", 'x', 0f, 1f, 0.25f, -1f, 0.5f, 1f)
                 .K("LegF", 'y', 0f, 0f, 0.125f, 1f, 0.25f, 0f, 0.5f, 0f)
                 .K("LegB", 'x', 0f, -1f, 0.25f, 1f, 0.5f, -1f)
                 .K("LegB", 'y', 0f, 0f, 0.25f, 0f, 0.375f, 1f, 0.5f, 0f)
                 .K("Hips", 'y', 0f, 0f, 0.125f, -1f, 0.25f, 0f, 0.375f, -1f, 0.5f, 0f)
-                .Arm(0f, 8f, 60f, 0.25f, 22f, 60f, 0.5f, 8f, 60f)
-                .K("Hips/ShoulderB", 'r', 0f, 12f, 0.25f, -12f, 0.5f, 12f),
+                .Arm(0f, -10f, 60f, 0.25f, 10f, 60f, 0.5f, -10f, 60f)
+                .K("Hips/ShoulderB", 'r', 0f, 10f, 0.25f, -10f, 0.5f, 10f),
             new AnimDef("Run", 0.36f, true)
                 .K("LegF", 'x', 0f, 2f, 0.18f, -2f, 0.36f, 2f)
                 .K("LegF", 'y', 0f, 0f, 0.09f, 2f, 0.18f, 0f, 0.36f, 0f)
                 .K("LegB", 'x', 0f, -2f, 0.18f, 2f, 0.36f, -2f)
                 .K("LegB", 'y', 0f, 0f, 0.18f, 0f, 0.27f, 2f, 0.36f, 0f)
                 .K("Hips", 'y', 0f, 0f, 0.09f, -1f, 0.18f, 0f, 0.27f, -1f, 0.36f, 0f)
-                .K("Hips", 'r', 0f, -6f, 0.36f, -6f)
+                .K("Hips", 'x', 0f, 1f, 0.36f, 1f)
                 .Arm(0f, -20f, 150f, 0.18f, -5f, 150f, 0.36f, -20f, 150f)
-                .K("Hips/ShoulderB", 'r', 0f, 35f, 0.18f, -35f, 0.36f, 35f),
+                .K("Hips/ShoulderB", 'r', 0f, 20f, 0.18f, -20f, 0.36f, 20f),
             new AnimDef("Jump", 0.2f, false)
                 .K("LegF", 'x', 0f, 0f, 0.1f, 1f)
                 .K("LegF", 'y', 0f, 0f, 0.1f, 2f)
                 .K("LegB", 'x', 0f, 0f, 0.1f, -1f)
                 .K("LegB", 'y', 0f, 0f, 0.1f, 3f)
-                .Arm(0f, 15f, 60f, 0.1f, 60f, 100f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.1f, -50f),
+                .Arm(0f, 0f, 60f, 0.1f, 35f, 80f)
+                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.1f, -30f),
             new AnimDef("Dash", 0.15f, false)
-                .K("Hips", 'r', 0f, 0f, 0.06f, -12f)
-                .K("Hips", 'x', 0f, 0f, 0.06f, 1f)
+                .K("Hips", 'x', 0f, 0f, 0.06f, 2f)
                 .K("LegF", 'x', 0f, 0f, 0.06f, -1f)
                 .K("LegF", 'y', 0f, 0f, 0.06f, 1f)
                 .K("LegB", 'x', 0f, 0f, 0.06f, -3f)
                 .K("LegB", 'y', 0f, 0f, 0.06f, 1f)
-                .Arm(0f, 15f, 60f, 0.06f, -60f, 180f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.06f, -70f),
+                .Arm(0f, 0f, 60f, 0.06f, -35f, 170f)
+                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.06f, -35f),
             new AnimDef("RopeStay", 0.6f, true)
                 .Arm(0f, 160f, 90f, 0.6f, 160f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, -160f, 0.6f, -160f)
@@ -166,33 +165,30 @@ public static class PixelRigBuilder
                 .K("LegB", 'y', 0f, 0f, 0.2f, 2f, 0.4f, 0f),
             // 공격: Arm(시간, 팔 각도, 칼날 각도) — 칼날 0 = 앞 수평, 90 = 위, 180 = 뒤, -90 = 아래
             new AnimDef("Stab", 0.36f, false)
-                .Arm(0f, 15f, 60f, 0.06f, -40f, 160f, 0.12f, 90f, 0f, 0.3f, 85f, 0f, 0.36f, 60f, 20f)
+                .Arm(0f, 0f, 60f, 0.06f, -40f, 160f, 0.12f, 90f, 0f, 0.3f, 85f, 0f, 0.36f, 60f, 20f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.12f, -30f, 0.36f, -20f)
                 .K("Hips", 'x', 0f, 0f, 0.06f, -1f, 0.12f, 2f, 0.36f, 1f)
-                .K("Hips", 'r', 0f, 0f, 0.12f, -6f, 0.36f, -3f)
                 .K("LegF", 'x', 0f, 0f, 0.12f, 2f, 0.36f, 1f)
                 .K("LegB", 'x', 0f, 0f, 0.12f, -1f, 0.36f, 0f),
             new AnimDef("SwingDown", 0.38f, false)
-                .Arm(0f, 15f, 60f, 0.08f, 170f, 120f, 0.16f, 30f, -60f, 0.3f, 20f, -60f, 0.38f, 10f, -40f)
+                .Arm(0f, 0f, 60f, 0.08f, 170f, 120f, 0.16f, 30f, -60f, 0.3f, 20f, -60f, 0.38f, 10f, -40f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.08f, -40f, 0.16f, 20f, 0.38f, 0f)
-                .K("Hips", 'r', 0f, 0f, 0.08f, 6f, 0.16f, -10f, 0.38f, -6f)
+                .K("Hips", 'x', 0f, 0f, 0.08f, -1f, 0.16f, 1f, 0.38f, 0f)
                 .K("Hips", 'y', 0f, 0f, 0.16f, -1f, 0.38f, 0f)
                 .K("LegF", 'x', 0f, 0f, 0.16f, 2f, 0.38f, 1f),
             new AnimDef("SwingUp", 0.38f, false)
-                .Arm(0f, 15f, 60f, 0.06f, -30f, -100f, 0.16f, 165f, 100f, 0.38f, 150f, 90f)
+                .Arm(0f, 0f, 60f, 0.06f, -30f, -100f, 0.16f, 165f, 100f, 0.38f, 150f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.16f, -30f, 0.38f, -20f)
-                .K("Hips", 'r', 0f, 0f, 0.06f, -4f, 0.16f, 8f, 0.38f, 4f)
                 .K("Hips", 'y', 0f, 0f, 0.16f, 1f, 0.38f, 0f)
                 .K("LegF", 'x', 0f, 0f, 0.16f, 1f, 0.38f, 0f),
             new AnimDef("SwingSide", 0.38f, false)
-                .Arm(0f, 15f, 60f, 0.08f, -60f, 180f, 0.18f, 100f, 0f, 0.38f, 95f, 0f)
+                .Arm(0f, 0f, 60f, 0.08f, -60f, 180f, 0.18f, 100f, 0f, 0.38f, 95f, 0f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.18f, -40f, 0.38f, -30f)
-                .K("Hips", 'r', 0f, 0f, 0.08f, 6f, 0.18f, -10f, 0.38f, -5f)
                 .K("Hips", 'x', 0f, 0f, 0.18f, 2f, 0.38f, 1f)
                 .K("LegF", 'x', 0f, 0f, 0.18f, 2f, 0.38f, 1f)
                 .K("LegB", 'x', 0f, 0f, 0.18f, -1f, 0.38f, 0f),
             new AnimDef("Cast", 0.45f, false)
-                .Arm(0f, 15f, 60f, 0.15f, 120f, 90f, 0.45f, 115f, 90f)
+                .Arm(0f, 0f, 60f, 0.15f, 120f, 90f, 0.45f, 115f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.15f, -100f, 0.45f, -95f)
                 .K("Hips", 'y', 0f, 0f, 0.15f, 1f, 0.45f, 1f),
         };

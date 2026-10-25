@@ -13,20 +13,24 @@ import numpy as np
 from PIL import Image
 
 # 기본 모험가(clean_5102) 기준 경계 — 원본 좌표(x 오른쪽, y 아래)
-HAND_L = (12, 16, 43, 49)      # x0, x1(미포함), y0, y1 — 화면 왼쪽 손(캐릭터의 앞손)
-HAND_R = (28, 33, 42, 49)      # 화면 오른쪽 손(배낭 쪽, 캐릭터의 뒷손)
+# 팔 = 소매 + 손 (10-25 수정: 손만 떼면 팔을 돌릴 때 손이 공중에 떠서 "팔이 뜯어져" 보였다)
+# 몸통은 x16·x26 의 진한 선이 자체 외곽선이라 팔을 떼도 구멍이 생기지 않는다
+ARM_L = (12, 16, 38, 49)       # x0, x1(미포함), y0, y1 — 화면 왼쪽 팔(반전 후 캐릭터의 앞팔)
+ARM_R = (27, 32, 39, 49)       # 화면 오른쪽 팔(배낭 쪽, 뒷팔)
 LEG_TOP = 50                   # 이 행부터 다리
 LEG_SPLIT_X = 22               # 이보다 왼쪽 = 왼다리
 LEG_MAX_X = 29
+LEG_OVERLAP = 2                # 몸통에 겹쳐 그릴 다리 윗줄 수
 HEAD_BOTTOM = 35               # 이 행까지 머리
 PACK_X = 31                    # 이 열부터(31~50행) 배낭
 PACK_ROWS = (31, 51)
+PACK_SHADOW = (55, 26, 32, 255)  # 배낭 가장 어두운 갈색 — 뒷팔 뒤 메움색
 
 # 피벗(관절점, 원본 좌표 픽셀 중심)
 PIVOTS = {
     "hips": (22, 49), "pack": (33, 37), "head": (22, 35),
-    "shoulder_l": (15, 39), "hand_l": (14, 46),
-    "shoulder_r": (28, 39), "hand_r": (29, 46),
+    "shoulder_l": (14, 38), "hand_l": (13, 46),
+    "shoulder_r": (29, 38), "hand_r": (29, 46),
     "leg_l": (18, 50), "leg_r": (25, 50),
 }
 
@@ -39,10 +43,10 @@ def label(a):
         for x in range(w):
             if not op[y, x]:
                 continue
-            if HAND_L[0] <= x < HAND_L[1] and HAND_L[2] <= y < HAND_L[3]:
-                lab[y, x] = "hand_l"
-            elif HAND_R[0] <= x < HAND_R[1] and HAND_R[2] <= y < HAND_R[3]:
-                lab[y, x] = "hand_r"
+            if ARM_L[0] <= x < ARM_L[1] and ARM_L[2] <= y < ARM_L[3]:
+                lab[y, x] = "arm_l"
+            elif ARM_R[0] <= x < ARM_R[1] and ARM_R[2] <= y < ARM_R[3] and not (x == 31 and y == 39):
+                lab[y, x] = "arm_r"
             elif x >= PACK_X and PACK_ROWS[0] <= y < PACK_ROWS[1] or (x >= LEG_MAX_X + 1 and y >= LEG_TOP - 1):
                 lab[y, x] = "pack"
             elif y >= LEG_TOP and x <= LEG_MAX_X:
@@ -60,15 +64,23 @@ def main():
     a = np.array(Image.open(src).convert("RGBA"))
     lab = label(a)
     os.makedirs(out, exist_ok=True)
-    parts = ["pack", "torso", "head", "hand_l", "hand_r", "leg_l", "leg_r"]
+    parts = ["pack", "torso", "head", "arm_l", "arm_r", "leg_l", "leg_r"]
     w = a.shape[1]
     for p in parts:
         img = np.zeros_like(a)
         m = lab == p
         img[m] = a[m]
         # 머리 아래 1행은 몸통 위로 겹쳐 그려 둔다(머리가 1px 들썩여도 목에 틈이 안 보이게)
+        # 뒷팔이 움직이면 팔 자리가 비어 몸과 배낭 사이로 배경이 보였다 → 배낭 그림자색으로 메운다(정지 땐 팔에 가려 안 보임)
+        if p == "pack":
+            img[lab == "arm_r"] = PACK_SHADOW
         if p == "torso":
             img[HEAD_BOTTOM] = np.where((lab[HEAD_BOTTOM + 1] == "torso")[:, None], a[HEAD_BOTTOM + 1], img[HEAD_BOTTOM])
+            # 겹침(원본 AnyPortrait 리깅 방식: 맞닿는 줄을 양쪽 부위에 다 그린다): 다리 윗부분 2줄을 몸통에도 그려 둔다.
+            # 몸통이 다리 위에 그려지므로 정지 자세는 같고, 다리가 1~2px 움직여도 반바지 아래로 배경이 비치지 않는다
+            for yy in range(LEG_TOP, LEG_TOP + LEG_OVERLAP):
+                legs = (lab[yy] == "leg_l") | (lab[yy] == "leg_r")
+                img[yy][legs] = a[yy][legs]
         if mirror:
             img = img[:, ::-1]
         Image.fromarray(img).save(os.path.join(out, f"{p}.png"))
@@ -78,7 +90,7 @@ def main():
         json.dump({"size": [w, a.shape[0]], "mirror": mirror, "pivots": piv}, f, indent=1)
     # 검증: 부위 합성 = 원본
     comp = np.zeros_like(a)
-    for p in parts:
+    for p in ["pack", "arm_r", "leg_r", "leg_l", "torso", "head", "arm_l"]:
         part = np.array(Image.open(os.path.join(out, f"{p}.png")))
         comp = np.where(part[..., 3:4] > 0, part, comp)
     ref = a[:, ::-1] if mirror else a
