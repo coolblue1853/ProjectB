@@ -66,6 +66,9 @@ public class PixelRig : CharacterRig
     // 제동: 달리기 → 대기로 바뀌면 잠깐 버티는 포즈와 발 앞 먼지(클립 길이 0.14보다 짧게 — 끝 시점은 첫 포즈로 돌아간다)
     private const float BrakeTime = 0.13f;
     private const float BrakeDustAhead = 0.2f;
+    // 도약 먼지: 땅 동작에서 점프로 바뀌는 순간 양발 바깥으로 작게(착지 먼지보다 작게 — 차고 오르는 힘)
+    private const float JumpDustSpread = 0.16f;
+    private const float JumpDustScale = 0.75f;
     private Clip _brake;
     private float _brakeUntil;
     // 피격 흰 번쩍임: 맞는 순간 2프레임 남짓 모든 부위를 흰 단색으로(몹 피격 플래시와 같은 All In 1 HITEFFECT)
@@ -135,6 +138,12 @@ public class PixelRig : CharacterRig
         else if (anim != "Idle")
         {
             _brakeUntil = 0f;
+        }
+        if (anim == "Jump" && (_requested == "Idle" || _requested == "Walk" || _requested == "Run"))
+        {
+            Vector3 feet = transform.position;
+            Vfx.Play(VfxId.StepDust, feet + Vector3.left * JumpDustSpread, false, JumpDustScale, true);
+            Vfx.Play(VfxId.StepDust, feet + Vector3.right * JumpDustSpread, true, JumpDustScale, true);
         }
         _playedAt = Time.time;
         _current = Resolve(anim);
