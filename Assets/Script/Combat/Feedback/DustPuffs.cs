@@ -8,7 +8,7 @@ public static class DustPuffs
 {
     static ParticleSystem ps;
     static readonly Color DustColor = new Color(0.82f, 0.76f, 0.66f, 0.85f);
-    const float LandScaleMin = 0.8f, LandScaleMax = 1.1f, LandSpread = 0.24f;
+    const float LandScaleMin = 0.6f, LandScaleMax = 1.4f, LandSpread = 0.24f; // 보통 점프(세기 ≈ 0.6) ≈ 1배, 높은 낙하는 크게
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void ResetStatics()

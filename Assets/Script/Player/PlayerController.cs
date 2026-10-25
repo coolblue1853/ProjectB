@@ -805,7 +805,7 @@ public class PlayerController : MonoBehaviour
                 Rig.Play("Idle");
                 LandSquash();
                 // 픽셀 리그는 원점이 발바닥 — 땅 감지점은 발보다 위라 먼지가 무릎 높이에서 피었다
-                DustPuffs.Land(Rig is PixelRig ? Rig.transform.position : groundCheck.transform.position, 0.6f);
+                DustPuffs.Land(Rig is PixelRig ? Rig.transform.position : groundCheck.transform.position, Rig is PixelRig pr ? pr.LastLandStrength : 0.6f); // 높이 떨어질수록 큰 먼지
             }
 
 

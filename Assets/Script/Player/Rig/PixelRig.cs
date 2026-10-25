@@ -88,6 +88,13 @@ public class PixelRig : CharacterRig
     private const float ApexBand = 1.5f;   // |세로 속도| 이하면 꼭대기 포즈
     private const float LaunchTime = 0.06f;
     private const float LandTime = 0.1f;
+    // 착지 무게감: 공중 최대 낙하 속도로 세기(0~1) — 높이 떨어질수록 눌림이 길고 먼지가 크다(보통 점프 ≈ 0.6)
+    private const float HardLandVy = 14f;
+    private const float HardLandExtra = 0.6f; // 세기 1이면 눌림 시간 +60%
+    private float _minVy;
+
+    /// <summary>마지막 착지 세기 0~1 (PlayerController 가 착지 먼지 크기에 쓴다)</summary>
+    public float LastLandStrength { get; private set; } = 0.6f;
     private const float AirAttackVy = 0.6f;
     private const float UprightForwardPx = 2f; // 세워 드는 무기를 손 앞으로 내미는 아트 픽셀 // 세로 속도가 이보다 크면 공중으로 본다
     private Transform _legF, _legB;
@@ -126,7 +133,8 @@ public class PixelRig : CharacterRig
         // 점프 중에 땅 동작으로 바뀌면 착지 눌림을 잠깐 보여 준다
         if (_requested == "Jump" && _land != null && (anim == "Idle" || anim == "Walk" || anim == "Run"))
         {
-            _landUntil = Time.time + LandTime;
+            LastLandStrength = Mathf.Clamp01(-_minVy / HardLandVy);
+            _landUntil = Time.time + LandTime * (1f + HardLandExtra * LastLandStrength);
         }
         if (_requested == "Run" && anim == "Idle" && _brake != null)
         {
@@ -144,6 +152,10 @@ public class PixelRig : CharacterRig
             Vector3 feet = transform.position;
             Vfx.Play(VfxId.StepDust, feet + Vector3.left * JumpDustSpread, false, JumpDustScale, true);
             Vfx.Play(VfxId.StepDust, feet + Vector3.right * JumpDustSpread, true, JumpDustScale, true);
+        }
+        if (anim == "Jump" && _requested != "Jump")
+        {
+            _minVy = 0f;
         }
         _playedAt = Time.time;
         _current = Resolve(anim);
@@ -334,6 +346,10 @@ public class PixelRig : CharacterRig
         float len = Mathf.Max(c.clip.length, 0.0001f);
         float t = c == _fidget && _fidgetAt >= 0f ? Mathf.Min(_fidgetAt, len) : c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
         c.clip.SampleAnimation(gameObject, t);
+        if (_requested == "Jump" && _body != null)
+        {
+            _minVy = Mathf.Min(_minVy, _body.linearVelocity.y);
+        }
         StepDust(c, t, len);
         UpdateFlash();
         TuckLegsInAir(c);
