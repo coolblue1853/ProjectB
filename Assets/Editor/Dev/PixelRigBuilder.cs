@@ -311,25 +311,27 @@ public static class PixelRigBuilder
                 .Arm(0f, -45f, 180f, 0.07f, 90f, 0f, 0.2f, 90f, 0f, 0.3f, 45f, 45f, 0.36f, 45f, 45f)
                 .K("Hips/ShoulderB", 'r', 0f, 45f, 0.07f, -45f, 0.3f, 0f, 0.36f, 0f)
                 .K("Hips", 'x', 0f, -1f, 0.07f, 2f, 0.2f, 1f, 0.3f, 0f, 0.36f, 0f)
-                .K("LegF", 'x', 0f, 0f, 0.07f, 2f, 0.3f, 1f, 0.36f, 1f)
-                .K("LegB", 'x', 0f, 0f, 0.07f, -1f, 0.3f, 0f, 0.36f, 0f),
+                .SK("LegF", 0f, LegPose("leg_l", 0, 0), 0.07f, LegPose("leg_l", 2, 0), 0.3f, LegPose("leg_l", 1, 0))
+                .SK("LegB", 0f, LegPose("leg_r", 0, 0), 0.07f, LegPose("leg_r", -1, 0), 0.3f, LegPose("leg_r", 0, 0)),
             new AnimDef("SwingDown", 0.38f, false).Step()
                 .Arm(0f, 180f, 135f, 0.07f, 90f, 0f, 0.13f, 45f, -45f, 0.28f, 45f, 0f, 0.38f, 45f, 45f)
                 .K("Hips/ShoulderB", 'r', 0f, -45f, 0.07f, 0f, 0.38f, 0f)
                 .K("Hips", 'x', 0f, -1f, 0.07f, 1f, 0.13f, 1f, 0.28f, 0f, 0.38f, 0f)
                 .K("Hips", 'y', 0f, 0f, 0.07f, 0f, 0.13f, -1f, 0.28f, 0f, 0.38f, 0f)
-                .K("LegF", 'x', 0f, 0f, 0.07f, 2f, 0.28f, 1f, 0.38f, 1f),
+                .SK("LegF", 0f, LegPose("leg_l", 0, 0), 0.07f, LegPose("leg_l", 2, 0), 0.28f, LegPose("leg_l", 1, 0))
+                .SK("Hips/Head", 0f, "head", 0.13f, HairPose(1), 0.28f, HairPose(-1), 0.33f, "head"), // 내려찍는 순간 머리카락이 늦게 남았다 튄다
             new AnimDef("SwingUp", 0.38f, false).Step()
                 .Arm(0f, 0f, -45f, 0.07f, 90f, 45f, 0.13f, 180f, 90f, 0.28f, 135f, 90f, 0.38f, 45f, 45f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.07f, -45f, 0.28f, 0f, 0.38f, 0f)
                 .K("Hips", 'y', 0f, -1f, 0.07f, 0f, 0.13f, 1f, 0.28f, 0f, 0.38f, 0f)
-                .K("LegF", 'x', 0f, 0f, 0.07f, 1f, 0.28f, 0f, 0.38f, 0f),
+                .SK("LegF", 0f, LegPose("leg_l", 0, 0), 0.07f, LegPose("leg_l", 1, 0), 0.28f, LegPose("leg_l", 0, 0))
+                .SK("Hips/Head", 0f, HairPose(1), 0.07f, "head", 0.13f, HairPose(-1), 0.28f, HairPose(1), 0.33f, "head"),
             new AnimDef("SwingSide", 0.38f, false).Step()
                 .Arm(0f, -45f, 180f, 0.07f, 90f, 0f, 0.13f, 90f, -45f, 0.28f, 45f, 0f, 0.38f, 45f, 45f)
                 .K("Hips/ShoulderB", 'r', 0f, 45f, 0.07f, -45f, 0.28f, 0f, 0.38f, 0f)
                 .K("Hips", 'x', 0f, -1f, 0.07f, 2f, 0.13f, 2f, 0.28f, 1f, 0.38f, 0f)
-                .K("LegF", 'x', 0f, 0f, 0.07f, 2f, 0.28f, 1f, 0.38f, 1f)
-                .K("LegB", 'x', 0f, 0f, 0.07f, -1f, 0.28f, 0f, 0.38f, 0f),
+                .SK("LegF", 0f, LegPose("leg_l", 0, 0), 0.07f, LegPose("leg_l", 2, 0), 0.28f, LegPose("leg_l", 1, 0))
+                .SK("LegB", 0f, LegPose("leg_r", 0, 0), 0.07f, LegPose("leg_r", -1, 0), 0.28f, LegPose("leg_r", 0, 0)),
             // 활 쏘기(활을 쥐면 리그가 Cast 대신 이것): 앞팔로 활을 앞에 세워 들고(활은 똑바로 선다), 뒷팔이 시위를 2px 당겼다 놓으며 몸 1px 반동
             new AnimDef("Shoot", 0.42f, false).Step()
                 .Arm(0f, 90f, 90f, 0.42f, 90f, 90f)
@@ -342,8 +344,7 @@ public static class PixelRigBuilder
                 .K("Hips/ShoulderB", 'r', 0f, 90f, 0.45f, 90f)
                 .K("Hips", 'y', 0f, -1f, 0.45f, -1f)
                 .K("Hips", 'x', 0f, 1f, 0.45f, 1f)
-                .K("LegF", 'x', 0f, 1f, 0.45f, 1f)
-                .K("LegB", 'x', 0f, -1f, 0.45f, -1f),
+                .SK("LegF", 0f, LegPose("leg_l", 1, 0)).SK("LegB", 0f, LegPose("leg_r", -1, 0)),
             // 회전베기(Spining 스킬): 팔이 앞 → 위 → 뒤를 90°씩 두 번(칼날은 팔 방향), 아래 방향은 건너뛴다(칼끝이 땅을 뚫었다), 끝에 대기 자세로
             new AnimDef("Spin", 0.45f, false).Step()
                 .Arm(0f, 90f, 0f, 0.06f, 180f, 90f, 0.12f, 270f, 180f, 0.18f, 450f, 360f, 0.24f, 540f, 450f, 0.3f, 630f, 540f,
@@ -396,12 +397,12 @@ public static class PixelRigBuilder
         foreach (var swap in SwapParts)
         {
             ObjectReferenceKeyframe[] keys;
-            if (def.GetSprites(swap.bone, out float frame, out string[] parts))
+            if (def.GetSprites(swap.bone, out float[] times, out string[] parts))
             {
-                keys = new ObjectReferenceKeyframe[parts.Length + 1];
-                for (int i = 0; i <= parts.Length; i++)
+                keys = new ObjectReferenceKeyframe[parts.Length];
+                for (int i = 0; i < parts.Length; i++)
                 {
-                    keys[i] = new ObjectReferenceKeyframe { time = i * frame, value = PartSprite(parts[i % parts.Length]) };
+                    keys[i] = new ObjectReferenceKeyframe { time = times[i], value = PartSprite(parts[i]) };
                 }
             }
             else
@@ -488,19 +489,40 @@ public static class PixelRigBuilder
             return this;
         }
 
-        private readonly Dictionary<string, (float frame, string[] parts)> _sprites = new Dictionary<string, (float, string[])>();
+        private readonly Dictionary<string, (float[] times, string[] parts)> _sprites = new Dictionary<string, (float[], string[])>();
 
         /// <summary>뼈의 그림을 포즈마다 바꿔 끼운다(frame 간격, 마지막에 첫 그림으로 고리를 닫는다). 없으면 원본 그림 고정</summary>
         public AnimDef S(string bone, float frame, string[] parts)
         {
-            _sprites[bone] = (frame, parts);
+            var times = new float[parts.Length + 1];
+            var closed = new string[parts.Length + 1];
+            for (int i = 0; i <= parts.Length; i++)
+            {
+                times[i] = i * frame;
+                closed[i] = parts[i % parts.Length];
+            }
+            _sprites[bone] = (times, closed);
             return this;
         }
 
-        public bool GetSprites(string bone, out float frame, out string[] parts)
+        /// <summary>(시간, 그림) 쌍으로 바꿔 끼운다 — 공격처럼 키 간격이 고르지 않은 클립용</summary>
+        public AnimDef SK(string bone, params object[] timePart)
+        {
+            var times = new float[timePart.Length / 2];
+            var parts = new string[timePart.Length / 2];
+            for (int i = 0; i < times.Length; i++)
+            {
+                times[i] = System.Convert.ToSingle(timePart[i * 2]);
+                parts[i] = (string)timePart[i * 2 + 1];
+            }
+            _sprites[bone] = (times, parts);
+            return this;
+        }
+
+        public bool GetSprites(string bone, out float[] times, out string[] parts)
         {
             bool ok = _sprites.TryGetValue(bone, out var v);
-            frame = v.frame;
+            times = v.times;
             parts = v.parts;
             return ok;
         }
