@@ -133,8 +133,10 @@ public static class PixelRigBuilder
         var legB = new string[n];
         var armFs = new string[n];
         var armBs = new string[n];
+        var hair = new string[n];
         for (int i = 0; i < n; i++)
         {
+            hair[i] = HairPose(HairLag(hipsY[(i + n - 1) % n], hipsY[i]));
             // 아래로만 처진다(위로 밀리면 배낭 윗선이 머리카락 위로 삐져나왔다)
             pack[i] = Mathf.Min(0f, hipsY[(i + n - 1) % n] - hipsY[i]);
             hand[i] = armF[i];
@@ -145,6 +147,7 @@ public static class PixelRigBuilder
         }
         def.K("Hips/Pack", 'y', Keys(pack, frame)).K("Hips/ShoulderF/HandF", 'x', Keys(hand, frame))
             .S("LegF", frame, legF).S("LegB", frame, legB).S("Hips/ShoulderF", frame, armFs).S("Hips/ShoulderB", frame, armBs)
+            .S("Hips/Head", frame, hair)
             .Arm(0f, 0f, blade, frame * n, 0f, blade);
         return def;
     }
@@ -164,11 +167,27 @@ public static class PixelRigBuilder
         return part + "_" + Tag(dx);
     }
 
+    /// <summary>머리카락 2차 움직임: +1 정수리 늘임, -1 눌림, 0 원본</summary>
+    private static string HairPose(int dy)
+    {
+        return dy == 0 ? "head" : "head_" + Tag(dy);
+    }
+
+    /// <summary>몸이 이번 포즈에 내려갔으면 머리카락이 한 박자 늦게 남아 늘어나고(+1), 올라갔으면 눌린다(-1)</summary>
+    private static int HairLag(float prevHips, float hips)
+    {
+        return hips < prevHips ? 1 : hips > prevHips ? -1 : 0;
+    }
+
     /// <summary>한 포즈짜리 클립(끊김). 값은 (x, y) 픽셀, arms 는 양 어깨 같은 이동, blade 는 앞팔 칼날 각도</summary>
     private static AnimDef Pose(string name, float len, float blade, (float x, float y) hips = default, (float x, float y) legF = default,
-        (float x, float y) legB = default, (float x, float y) arms = default, float pack = 0f)
+        (float x, float y) legB = default, (float x, float y) arms = default, float pack = 0f, int hair = 0)
     {
         var def = new AnimDef(name, len, false).Step();
+        if (hair != 0)
+        {
+            def.S("Hips/Head", len, new[] { HairPose(hair) });
+        }
         def.K("Hips", 'x', 0f, hips.x, len, hips.x).K("Hips", 'y', 0f, hips.y, len, hips.y)
             .K("LegF", 'x', 0f, legF.x, len, legF.x).K("LegF", 'y', 0f, legF.y, len, legF.y)
             .K("LegB", 'x', 0f, legB.x, len, legB.x).K("LegB", 'y', 0f, legB.y, len, legB.y)
@@ -236,14 +255,14 @@ public static class PixelRigBuilder
             // 점프: 리그(PixelRig)가 세로 속도로 고른다 — 도약(첫 0.06초 늘임) → 상승 → 꼭대기 → 낙하, 착지하면 0.1초 눌림(Land).
             // 변형은 한두 프레임만(셀레스트식), 1px 단위
             Pose("Jump", 0.1f, 90f, legF: (1, 1), legB: (-1, 2), arms: (0, 1)),
-            Pose("JumpLaunch", 0.06f, 90f, hips: (0, 1), arms: (0, 1)),
+            Pose("JumpLaunch", 0.06f, 90f, hips: (0, 1), arms: (0, 1), hair: -1), // 머리카락: 도약에 눌리고 낙하에 떠오르고 착지에 눌린다(한 박자 늦는 2차 움직임)
             Pose("JumpApex", 0.1f, 45f, legF: (1, 2), legB: (0, 2), arms: (0, 1)),
-            Pose("JumpFall", 0.1f, 90f, legF: (1, 0), legB: (-1, 1), arms: (0, 2)),
+            Pose("JumpFall", 0.1f, 90f, legF: (1, 0), legB: (-1, 1), arms: (0, 2), hair: 1),
             // 피격: 몸이 뒤로 1px 젖혀지고 팔이 들리며 칼은 뒤로(리그가 피격 신호 뒤 0.22초 보여 준다)
             Pose("Hurt", 0.1f, 135f, hips: (-1, 0), legF: (-1, 0), legB: (-2, 0), arms: (-1, 1), pack: -1),
             // 사망 1단계: 무릎 꿇음(몸 2px 내려앉고 칼끝 아래로). 2단계(뒤로 쓰러짐)는 리그가 몸 전체를 90° 눕힌다
             Pose("DeathKneel", 0.1f, -90f, hips: (0, -2), legF: (1, 0), legB: (-1, 0)),
-            Pose("Land", 0.1f, 45f, hips: (0, -1), legF: (1, 0), legB: (-1, 0)), // 팔·배낭은 몸통과 같이(더 내리면 뒷어깨·배낭 사이가 비었다, find_rig_holes)
+            Pose("Land", 0.1f, 45f, hips: (0, -1), legF: (1, 0), legB: (-1, 0), hair: -1), // 팔·배낭은 몸통과 같이(더 내리면 뒷어깨·배낭 사이가 비었다, find_rig_holes)
             // 대시 1포즈: 몸 2px 앞으로, 다리 뒤로 끌림, 팔 1px 뒤로, 칼 뒤로 눕힘
             new AnimDef("Dash", 0.1f, false).Step()
                 .K("Hips", 'x', 0f, 2f, 0.1f, 2f)
@@ -322,7 +341,7 @@ public static class PixelRigBuilder
     /// <summary>포즈 변형 그림을 바꿔 끼우는 뼈와 원본 그림</summary>
     private static readonly (string bone, string part)[] SwapParts =
     {
-        ("LegF", "leg_l"), ("LegB", "leg_r"), ("Hips/ShoulderF", "arm_l"), ("Hips/ShoulderB", "arm_r"),
+        ("LegF", "leg_l"), ("LegB", "leg_r"), ("Hips/ShoulderF", "arm_l"), ("Hips/ShoulderB", "arm_r"), ("Hips/Head", "head"),
     };
 
     private static Sprite PartSprite(string part)
@@ -518,6 +537,8 @@ public static class PixelRigBuilder
             ImportPart(ArmPose("arm_l", dx), pv.shoulder_l);
             ImportPart(ArmPose("arm_r", dx), pv.shoulder_r);
         }
+        ImportPart(HairPose(-1), pv.head);
+        ImportPart(HairPose(1), pv.head);
     }
 
     private static void ImportPart(string part, int[] pivot)
