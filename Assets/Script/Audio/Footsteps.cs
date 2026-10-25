@@ -18,6 +18,13 @@ public static class Footsteps
         Sfx.Play(SurfaceFor(BgmDirector.CurrentMap), running ? 0.8f : 0.6f);
     }
 
+    /// <summary>발이 땅에 닿는 포즈에서 바로 한 번(픽셀 리그가 부른다 — 타이머 간격은 다리 동작과 어긋났다, 10-26)</summary>
+    public static void Contact(bool running)
+    {
+        last = UnityEngine.Time.time;
+        Sfx.Play(SurfaceFor(BgmDirector.CurrentMap), running ? 0.8f : 0.6f);
+    }
+
     public static SfxId SurfaceFor(string map)
     {
         switch (map)

@@ -63,6 +63,11 @@ public class PixelRig : CharacterRig
     private const float StepDustBehind = 0.12f;
     private Clip _run;
     private int _runPose = -1;
+    // 걷기 발소리: 8포즈 중 발이 닿는 0·4(먼지 없이 소리만)
+    private const int WalkPoses = 8;
+    private static readonly int[] WalkContactPoses = { 0, 4 };
+    private Clip _walk;
+    private int _walkPose = -1;
     // 달리다 방향 전환: 좌우가 바뀌는 순간 새 방향 발 뒤로 차고 나가는 먼지(1.2배)
     private const float TurnDustScale = 1.2f;
     private float _lastFacing;
@@ -130,6 +135,7 @@ public class PixelRig : CharacterRig
         _byName.TryGetValue("DeathKneel", out _kneel);
         _byName.TryGetValue("IdleFidget", out _fidget);
         _byName.TryGetValue("Run", out _run);
+        _byName.TryGetValue("Walk", out _walk);
         _byName.TryGetValue("Brake", out _brake);
         _restLocalPos = transform.localPosition;
         Play("Idle");
@@ -455,6 +461,7 @@ public class PixelRig : CharacterRig
             Vfx.Play(VfxId.StepDust, transform.position + Vector3.right * (turnLeft ? StepDustBehind : -StepDustBehind), turnLeft, TurnDustScale, true);
         }
         _lastFacing = facing;
+        WalkStep(c, t, len);
         if (c != _run)
         {
             _runPose = -1;
@@ -473,6 +480,27 @@ public class PixelRig : CharacterRig
         bool left = transform.lossyScale.x < 0f;
         Vector3 feet = transform.position + Vector3.right * (left ? StepDustBehind : -StepDustBehind);
         Vfx.Play(VfxId.StepDust, feet, left);
+        Footsteps.Contact(true);
+    }
+
+    /// <summary>걷기 발 닿는 포즈로 넘어가는 순간 발소리</summary>
+    private void WalkStep(Clip c, float t, float len)
+    {
+        if (c != _walk)
+        {
+            _walkPose = -1;
+            return;
+        }
+        int pose = Mathf.Min(WalkPoses - 1, (int)(t / len * WalkPoses));
+        if (pose == _walkPose)
+        {
+            return;
+        }
+        _walkPose = pose;
+        if (System.Array.IndexOf(WalkContactPoses, pose) >= 0)
+        {
+            Footsteps.Contact(false);
+        }
     }
 
     /// <summary>점프는 세로 속도로 상승·꼭대기·낙하를 고르고, 막 착지했으면 눌림 포즈</summary>

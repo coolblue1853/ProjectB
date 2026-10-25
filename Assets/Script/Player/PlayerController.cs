@@ -1055,10 +1055,18 @@ public class PlayerController : MonoBehaviour
 
     void PlayRunSound()
     {
+        if (Rig is PixelRig)
+        {
+            return; // 픽셀 리그는 발 닿는 포즈에서 직접 낸다(Footsteps.Contact)
+        }
         Footsteps.Step(true); // 지면별 발소리(풀·흙·돌) — 예전 MasterAudio SoilRun 대체
     }
     void PlayWalkSound()
     {
+        if (Rig is PixelRig)
+        {
+            return;
+        }
         Footsteps.Step(false);
     }
     void PlayRopeSound()
