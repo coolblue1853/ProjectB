@@ -82,9 +82,9 @@ Shader "ProjectB/PixelSlash2D"
                 half rim = step(nb, 0.01h) * _Rim;
                 col = lerp(col, _C1, rim);
 
-                // 텍셀 단위 디졸브: 텍셀 정수 좌표 해시, 밝은 텍셀이 조금 더 오래 남는다
+                // 텍셀 단위 디졸브: 어두운 가장자리부터 얇아져 밝은 심만 남았다 꺼진다(밝기 65% + 해시 35% — 해시만 쓰면 고른 점으로 흩어져 싸 보였다)
                 float2 texel = floor(i.uv * _MainTex_TexelSize.zw);
-                half h = (half)hash21(texel) * 0.85h + (1.0h - lum) * 0.15h;
+                half h = lum * 0.65h + (half)hash21(texel) * 0.35h;
                 half keep = step(_Dissolve, h);
                 half edge = keep * step(h, _Dissolve + _EdgeBand) * step(0.001h, _Dissolve);
                 col = lerp(col, _C3, edge);

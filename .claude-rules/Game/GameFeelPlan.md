@@ -321,6 +321,7 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 - Wayline, Game Feel & Juice — 강타 50~100ms 프리즈: https://www.wayline.io/learn/game-feel/1
 - Slicker.me, Game Feel in Pygame — 흔들림 50~300ms, 감쇠: https://slicker.me/python/game_feel_pygame.htm
 - Eastondev, Where Does Game Feel Come From — 플래시·흔들림·숫자·파티클 레이어링: https://eastondev.com/blog/en/posts/dev/20260521-game-feedback-feel/
+- 10-25: PixelSlash2D 디졸브 순서 수정 — 식이 주석과 반대로 어두운 텍셀을 오래 남겨 고른 점으로 흩어졌다. 이제 밝기 65% + 해시 35%: 테두리·가장자리부터 얇아져 밝은 심만 남았다 꺼진다. 검증: `weapon_fx_sheet.cs` 디졸브 0/0.35/0.7 열 비교.
 
 ## 10.7 기본 무기 평타 이펙트 — PixelLab vfx_workbench + Shader Creator (2026-10-25)
 
