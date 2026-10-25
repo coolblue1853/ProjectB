@@ -92,6 +92,10 @@ public class PixelRig : CharacterRig
     private const float HardLandVy = 14f;
     private const float HardLandExtra = 0.6f; // 세기 1이면 눌림 시간 +60%
     private float _minVy;
+    // 걸어서 떨어짐: 컨트롤러는 점프 없이 발판에서 떨어지면 걷기·대기를 그대로 둬서 허공에서 걸었다 → 리그가 낙하 포즈·착지 연출
+    private const float LedgeFallVy = 3f;
+    private const float LedgeLandVy = 0.5f;
+    private bool _ledgeFall;
 
     /// <summary>마지막 착지 세기 0~1 (PlayerController 가 착지 먼지 크기에 쓴다)</summary>
     public float LastLandStrength { get; private set; } = 0.6f;
@@ -360,6 +364,36 @@ public class PixelRig : CharacterRig
         KeepUpright();
     }
 
+    /// <summary>땅 동작 중 하강하면 낙하 포즈, 멈추면 착지 눌림·먼지(점프로 떨어질 때와 같게)</summary>
+    private Clip LedgeFall(float now)
+    {
+        if (_body == null || _fall == null || !(_requested == "Idle" || _requested == "Walk" || _requested == "Run"))
+        {
+            _ledgeFall = false;
+            return null;
+        }
+        float vy = _body.linearVelocity.y;
+        if (vy < -LedgeFallVy)
+        {
+            if (!_ledgeFall)
+            {
+                _ledgeFall = true;
+                _minVy = 0f;
+            }
+            _minVy = Mathf.Min(_minVy, vy);
+            return _fall;
+        }
+        if (_ledgeFall && vy > -LedgeLandVy)
+        {
+            _ledgeFall = false;
+            LastLandStrength = Mathf.Clamp01(-_minVy / HardLandVy);
+            _landUntil = now + LandTime * (1f + HardLandExtra * LastLandStrength);
+            DustPuffs.Land(transform.position, LastLandStrength);
+            return _land;
+        }
+        return _ledgeFall ? _fall : null;
+    }
+
     /// <summary>피격 직후 FlashTime 동안 부위 머티리얼을 흰 단색으로, 끝나면 원래 머티리얼로</summary>
     private void UpdateFlash()
     {
@@ -487,6 +521,11 @@ public class PixelRig : CharacterRig
         if (now < _brakeUntil && _requested == "Idle" && _brake != null)
         {
             return _brake;
+        }
+        Clip ledge = LedgeFall(now);
+        if (ledge != null)
+        {
+            return ledge;
         }
         if (_requested == "Idle" && _fidget != null)
         {

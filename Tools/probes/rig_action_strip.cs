@@ -5,7 +5,7 @@ var rig = pc.Rig;
 var fReq = typeof(PixelRig).GetField("_requested", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 string action = "__ACTION__";
 bool loco = action == "walk" || action == "run" || action == "brake"; // brake: 달리다 0.45초에 키를 떼고 그 순간부터 제동 포즈·먼지
-int n = action == "combo3" ? 12 : action == "jump" ? 10 : 8, w = 256; float step = action == "brake" ? 0.035f : action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : action == "death" ? 0.25f : 0.08f;
+int n = action == "combo3" ? 12 : action == "jump" || action == "fall" ? 10 : 8, w = 256; float step = action == "brake" ? 0.035f : action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : action == "death" ? 0.25f : 0.08f;
 float lead = action == "brake" ? 0.43f : loco ? 0.3f : action == "fidget" ? 6.0f : 0.02f; // 걷기·달리기는 가속이 끝난 뒤부터 찍는다
 float camSize = loco || action == "jump" ? 1.15f : 1.6f; // 이동 동작은 크게(빈칸 확인용)
 var strip = new Texture2D(w * n, w, TextureFormat.RGB24, false);
@@ -45,6 +45,8 @@ if (action == "run" || action == "brake")
 if (loco) DG.Tweening.DOVirtual.DelayedCall(action == "brake" ? 0.45f : lead + n * step, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState()), false);
 if (action == "dash") typeof(PlayerController).GetMethod("Dash", flags).Invoke(pc, null);
 if (action == "attack") Weapon.Equipped.MeleeAttack();
+// fall: 점프 없이 3유닛 위에서 떨어뜨림 — 걸어 떨어질 때 낙하 포즈·착지 눌림·먼지(리그 LedgeFall)
+if (action == "fall") pc.transform.position += Vector3.up * 3f;
 // fidget: 대기를 새로 시작하고 6초 뒤(습관 동작)부터 찍는다
 if (action == "fidget") pc.Rig.Play("Idle");
 // guard / spin: 스킬 애니 이름을 실제 공격 애니 경로(ActiveAttackAnim)로 — 막기(방패 앞)·회전베기 확인
