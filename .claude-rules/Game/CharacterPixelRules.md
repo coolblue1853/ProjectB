@@ -3,6 +3,59 @@
 > 주인공·NPC 같은 **캐릭터** 도트를 PixelLab으로 만들 때의 규칙이다. 몹·배경·소품은 `ArtStyle.md`를 따른다.
 > 스킬 `.claude/skills/pixel-character/`가 이 문서를 그대로 실행한다. **시안을 뽑을 때마다 8절 이력에 한 줄을 추가하고, 사용자 피드백은 해당 절에 규칙으로 바꿔 넣는다**(사용자: "이런 식으로 발전해 나가면서 쌓는 게 좋을 거야").
 
+## 0. 확정 레시피 — 처음부터 다시 할 때 이 절만 따라 하면 된다 (10-25, 9·10세대 사용자 합격)
+
+> 사용자: 9세대 "4장 거의 완벽, 딱 이런 형태로 다양하게 찍으면 된다" → 10세대 "4장 다 합격점, 이제 내가 원하는 형태로 잘 따라온다".
+> 실행 절차 요약은 스킬 `pixel-character`. 아래가 원본 규칙이다.
+
+### 0.1 핵심 아이디어
+- **새로 그리지 않고, 원본 앵커를 편집해 다른 캐릭터로 바꾼다.** 원본(빨간 머리 여우 소녀, `Docs/ArtCompare/hero_style_anchor_64.png`)을 `edit_image_pro_flash`의 시작 이미지로 넣으면 **자세(정면·팔 내림)·키(약 48px)·머리 크기·얼굴 위치·외곽선·도트 굵기**가 원본과 같게 나온다. 사용자가 원하는 "원본과 같은 방향·같은 형태로 서 있어 비교하기 편하고, 체형·비율도 원본과 비슷한" 결과다.
+- 바꾸는 것: 머리 모양·색, 모자/투구(여우 귀 자리), 옷, 소품, 표정. 꼬리는 없애고, 그 자리(오른쪽 아래)는 동료 짐승·망토 자락 등으로 채워도 된다.
+
+### 0.2 한 세대 진행 순서
+1. **컨셉 4개 고르기 — 매 세대 새로운 것.** RPG 세트 효과로 묶을 만한 멋있는 직업·아키타입(예: 버서커, 역병 의사, 권총 사수, 성기사, 사령술사, 쌍검 암살자, 기계공학자, 블러드 헌터, 야수 조련사, 룬 기사, 그림자 기사). 웹 검색(D&D·다크 판타지 클래스 목록 등)으로 새 아키타입을 찾아 써도 된다. 게임 축(2D 횡스크롤·메이플/던파 전투·디아 파밍·몬헌식 몬스터 계보 장비)과 어비스풍 분위기에 맞춘다. 유아틱 금지.
+2. 계획과 비용(4장 × 5 = 20 generations)을 사용자에게 보여 주고 진행한다(세대마다 허가).
+3. **생성** — `mcp__pixellab__edit_image_pro_flash`, 4장 동시:
+   - `image_base64` = 앵커 base64(`python -c "import base64;print(base64.b64encode(open('Docs/ArtCompare/hero_style_anchor_64.png','rb').read()).decode())"`)
+   - `no_background` true, `seed` = 세대·번호로 고정(10세대 5001~5004, 다음은 5101~ 식)
+   - `description`(영어) 틀:
+     `"Redraw this same character as <컨셉>: <머리> instead of red hair, <모자·투구·후드> instead of fox ears, <옷>, <무기> on her back / hanging at her hip. Expression: <표정>. No fox ears, no fox tail. Keep EXACTLY the same pose, facing direction, body proportions, head size, size and position on the canvas, arms hanging down at the sides, same thick black outline and flat pixel art style."`
+   - **무기는 등·허리에.** 손에 들리면 팔 자세가 바뀐다.
+   - **표정은 캐릭터에 맞게**(사용자 허용): 서늘한 비웃음 / 해맑게 크게 웃음 / 결연하게 입 다묾 / 무표정 등. 표정을 안 쓰면 원본 얼굴(반쯤 감긴 눈·이빨 웃음)이 그대로 이어진다.
+4. `mcp__pixellab__wait_for_jobs` → `curl -sL -o Docs/ArtCompare/CharacterGen/genNN/raw<n>_<컨셉>.png https://api.pixellab.ai/mcp/images/<job_id>/download`
+5. **정리 2단계**:
+   - `python Tools/pixelfx/flatten_keep_detail.py raw.png <n>_<컨셉>.png --merge 14 --speck 28 --head-auto`
+   - `python Tools/pixelfx/cap_colors.py <n>_<컨셉>.png <n>_<컨셉>.png --colors 20` (검정 외곽선 보호, 디더링 없음 — 육안 차이 없이 27~39색 → 20색)
+6. **판정(Claude)**: `python Tools/pixelfx/compare_sheet.py genNN/sheet.png "원본=Docs/ArtCompare/hero_style_anchor_64.png" "1 <컨셉>=..." ... --cols 5 --scale 6` → Read로 보고 판단.
+   - 확인할 것: 정면·팔 내림 자세가 원본과 같은가, 키 45~52px(원본 48), 머리 크기, 컨셉이 한눈에 읽히는가(실루엣·주무기), 표정이 캐릭터에 맞는가, 잔무늬.
+   - 지표(3절)는 참고. 이 방식은 edge가 45~61%로 원본(43%)보다 높게 나오는 편이다.
+7. 시트를 사용자에게 보내고 **사용자 굿/배드**를 받는다. 판정과 사용자 말은 `Docs/ArtCompare/CharacterGen/gen_log.md` 표에 그대로 적는다. 피드백은 이 절(규칙)로 바꿔 넣는다.
+8. 커밋·푸시: `(추가) 세대별 학습 N세대 — …` + 검증 줄.
+
+### 0.3 합격작 문구 모음(재사용)
+| 세대·seed | 컨셉 | 머리·모자 | 옷·소품 | 표정 |
+|---|---|---|---|---|
+| 9·4911 | 성기사 | short silver-blonde hair, winged steel circlet helm | white and gold plate armor, blue tabard, round shield and mace on back | (원본 그대로) |
+| 9·4912 | 사령술사 | long straight black hair with pale violet streaks, tattered dark purple hood with small bone crown | ragged black robe with bone ornaments, skull lantern at hip, faint green glow | (원본) |
+| 9·4913 | 쌍검 암살자 | messy short dark gray hair, black cloth mask over lower face, dark hood | charcoal leather outfit, crimson sash, two daggers crossed on back | (원본 눈) |
+| 9·4914 | 기계공학자 | short messy copper-brown hair, brass welding goggles on top | oil-stained teal jumpsuit, tool belt with wrenches, brass mechanical gauntlet | (원본) |
+| 10·5001 | 블러드 헌터 | shaggy dark crimson-black hair with scarred bang, wide brim tricorn hat | blood-red stained leather coat, bandaged forearms, curved saw blade at hip, glowing red rune marks | cold confident smirk, narrowed eyes |
+| 10·5002 | 야수 조련사 | tawny brown hair in two short tails, gray wolf head pelt hood | fur-trimmed green tunic, whip at hip, gray wolf pup at her feet on the right | bright wide cheerful grin |
+| 10·5003 | 룬 기사 | short neat steel-blue hair, slim steel helm with glowing cyan rune | dark steel plate engraved with glowing cyan runes, short cape, runic greatsword on back | calm and determined, mouth closed |
+| 10·5004 | 그림자 기사 | long pale white hair, black spiked crown-like helm with broken horns | cracked black plate leaking purple smoke, torn cape, broken greatsword on back | cold, expressionless, half-lidded |
+
+### 0.4 남은 다듬기(다음 세대 손잡이)
+- 잔선이 원본보다 많다(edge 57~61%) → 문구에 `few large simple shapes, less small detail` 추가를 시험.
+- 모자·왕관·후드가 높으면 키가 52~56px로 커진다 → 모자 높이를 "low"로 지정하거나 머리 장식을 작게.
+- 어두운 컨셉(역병 의사·그림자 기사)은 검정이 많아 배경에 묻힐 수 있다 → 포인트 색 한 곳.
+
+### 0.5 하지 말 것(이번 학습에서 실패한 길, 자세한 건 7절)
+- 말(설명문)만으로 원본 재현 — "여우라는 점만 닮았다"(0·5·6세대).
+- 고정 맨몸 체형에 머리·옷 입히기(인페인트) — "머리카락 형태 때문에 더 이상해진다"(4세대).
+- 원본을 AI로 편집해 맨몸 만들기 — 원본을 새로 그려 얼굴이 바뀜(2세대).
+- 캔버스를 48로 줄이기 — 캐릭터가 33px로 작아지고 잔디테일(5세대).
+- `create_image_pro_flash` + style_image로 새로 생성 — 그림체는 따라오지만 자세·비율이 매번 달라 비교가 어렵다(1·8세대, 보조로만).
+
 ## 1. 원칙
 
 - 사용자: "그림을 똑같이 만들어 달라는 게 아니라, **캐릭터 신체 외형적 데포르메나 형태**에 **내가 말한 캐릭터의 외형**, 그리고 **저런 류의 색감 및 정도**." "나한테 물어볼 것도 없이 원본 스타일에 가깝게 하면 되는 것."
@@ -46,7 +99,7 @@
 7. **단, 머리카락은 2~3단 가닥 음영을 남긴다**: 단색 면으로 밀면 "머리 디테일이 너무 빠졌다"(사용자). 담백화는 몸·옷·소품에 강하게, 머리에 약하게.
 8. **고대비 디테일은 지킨다**: 브로치·버클·옷깃·무기 날·눈가 — 전체 색 감축으로 뭉개면 "그냥 색만 뭉개진 것 같다"(사용자).
 
-## 5. 생성 파이프라인
+## 5. 생성 파이프라인 — (구 방식, 1·8세대) 새로 생성. 지금은 0절이 기본, 이 절은 원본과 다른 자세가 필요할 때만
 
 1. **설명문** = `[사용자가 말한 외형]` + 고정 꼬리말:
    `"super deformed chibi, 2 heads tall, full body, standing. Simple clean pixel art: large flat areas of solid color, minimal texture, no noise, no dithering, few details, thick black outline, hair with 2-3 tone strand shading"`
@@ -121,7 +174,7 @@
 - PixelLab 요금(10-25): $12/월 2,000 · $24/월 5,000 · $50/월 10,000 generations. 체험판은 매일 5회(최대 20 누적).
 - 캐릭터 1장 = Pro Flash 5. 시안 탐색은 하루 무료분으로 1~3장, 본격 제작(애니·방어구 레이어)은 유료 플랜 전제.
 
-## 11. 세대별 보정 학습 — 원본 재현으로 레시피 다듬기 (사용자 제안 2026-10-25)
+## 11. 세대별 보정 학습 — 원본 재현으로 레시피 다듬기 (사용자 제안 2026-10-25) — ⚠ 말만 재현은 5·6세대 후 중단, 세대별 루프는 0절 방식으로 계속
 
 > 사용자: "그냥 픽셀랩을 쓰자. 완벽하게 하기 위해 **원본을 말로 설명해서 뽑아내서 원본이랑 비슷하게 나오면 완료**되고, 아니면 다른 부분을 조정해서 강화하는 방식으로 **세대별 학습처럼** 돌려 보고 싶다."
 
