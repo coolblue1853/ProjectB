@@ -239,6 +239,7 @@ public static class PixelRigBuilder
             new AnimDef("Idle", 1.3f, true).Step()
                 .K("Hips", 'y', 0f, 0f, 0.6f, -1f, 1.1f, 0f, 1.3f, 0f)
                 .K("Hips/Pack", 'y', 0f, 0f, 1.1f, -1f, 1.22f, 0f, 1.3f, 0f)
+                .SK("Hips/Head", 0f, "head", 0.6f, HairPose(1), 0.72f, "head", 1.1f, HairPose(-1), 1.22f, "head") // 머리카락도 숨에 한 박자 늦게
                 .Arm(0f, 0f, 45f, 1.3f, 0f, 45f),
             // 대기 습관(6초 넘게 서 있으면 한 번): 배낭 추켜올리기 — 뒷어깨 으쓱 1px·배낭을 몸 쪽으로 붙이며 1px 들었다 내려놓고 몸 1px 내려앉음
             new AnimDef("IdleFidget", 0.7f, false).Step()
