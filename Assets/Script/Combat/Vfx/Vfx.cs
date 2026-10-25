@@ -100,10 +100,10 @@ public static class Vfx
     /// <summary>
     /// 회색조 도트 이펙트를 무기 테마 색으로 재생한다(PixelSlash2D 셰이더). flipY = 올려베기처럼 위아래 반전.
     /// </summary>
-    public static bool PlayThemed(VfxId id, Vector3 position, bool facingLeft, float scaleMul, PixelRampId ramp, bool flipY = false)
+    public static bool PlayThemed(VfxId id, Vector3 position, bool facingLeft, float scaleMul, PixelRampId ramp, bool flipY = false, bool ignoreFrameCap = false)
     {
         int before = active.Count;
-        if (!Play(id, position, facingLeft, scaleMul) || active.Count == before)
+        if (!Play(id, position, facingLeft, scaleMul, ignoreFrameCap) || active.Count == before)
         {
             return false;
         }

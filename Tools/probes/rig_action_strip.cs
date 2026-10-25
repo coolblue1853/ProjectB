@@ -45,6 +45,18 @@ if (action == "run")
 if (loco) DG.Tweening.DOVirtual.DelayedCall(lead + n * step, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState()), false);
 if (action == "dash") typeof(PlayerController).GetMethod("Dash", flags).Invoke(pc, null);
 if (action == "attack") Weapon.Equipped.MeleeAttack();
+// crit: 가장 가까운 몹 옆에서 치명타 타격 피드백(HitFeedback.OnEnemyHit isCrit) — 치명타 별 확인
+if (action == "crit")
+{
+    EnemyHealth ct = null; float cd = 1e9f;
+    foreach (var e in UnityEngine.Object.FindObjectsByType<EnemyHealth>(FindObjectsInactive.Exclude))
+    { float d = Vector2.Distance(e.transform.position, pc.transform.position); if (e.nowHP > 0 && e.IsMonster && !e.isBossMob && d < cd) { cd = d; ct = e; } }
+    if (ct != null)
+    {
+        pc.transform.position = new Vector3(ct.transform.position.x - 1.1f, ct.transform.position.y + 0.2f, pc.transform.position.z);
+        DG.Tweening.DOVirtual.DelayedCall(0.05f, () => HitFeedback.OnEnemyHit(ct, true, false, false), false);
+    }
+}
 // hurt: 실제 피격 경로(damage2Player)로 1 데미지 — 피격 포즈·깜빡임 확인
 if (action == "hurt")
 {

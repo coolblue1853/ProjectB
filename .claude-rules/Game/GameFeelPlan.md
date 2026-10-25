@@ -338,4 +338,5 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 - 미검증: 실제 적을 때려 타격 별이 나오는 경로(재생 함수 직접 호출로만 확인), 지팡이 외 다른 근접 무기 종류별 위치·크기(swingVfxScale 그대로).
 - 다음: 스킬 이펙트도 같은 방식(회색조 vfx_workbench + PixelSlash2D)으로 바꿀 수 있다 — 스킬마다 부품 조합을 고르고 `VfxId` 끝에 추가.
 - r2(10-25): 바깥 1텍셀 테두리 = 램프 _C1 색(`_Rim`). 흰 테마 초승달이 밝은 배경에서 윤곽이 묻혔다. 측정: 칸당 색 ≤ 5, 흰 테마 가장자리 텍셀 100%가 램프1 색. 텍스처 샘플 5회(모바일 예산 4 경고, PC 대상이라 감수).
+- 치명타(10-25): 근접 무기 치명타는 예전 3D 구움 CritCross 대신 같은 도트 타격 별을 2배(정수 배율)·금색 램프로, 프레임당 상한 무시. 지팡이 등은 그대로. 검증: 낮 사냥터 토끼에 `HitFeedback.OnEnemyHit(isCrit)` 연속 촬영(`rig_action_strip.cs crit`).
 

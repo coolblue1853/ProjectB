@@ -37,6 +37,8 @@ public static class HitFeedback
     }
 
     /// <summary>플레이어 공격이 몬스터에 맞았을 때</summary>
+    const float CritStarScale = 2f; // 치명타 별 = 평타 별의 2배(도트 2배 = 정수 배율이라 격자 유지)
+
     public static void OnEnemyHit(EnemyHealth target, bool isCrit, bool isSkill, bool killed)
     {
         if (target == null)
@@ -59,14 +61,22 @@ public static class HitFeedback
 
         Sfx.Play(killed ? SfxId.Kill : isCrit ? SfxId.Crit : SfxId.Hit, killed ? 0.6f : 0.45f);
         HitSparks.Emit(target.transform.position + Vector3.up * 0.4f, isCrit, killed);
-        // 평타 타격 지점 별(무기 테마 색) — 근접 무기만
-        if (!isSkill && Weapon.Equipped != null && WeaponFx.Enabled && WeaponFx.IsMeleeSwing(Weapon.Equipped.swingVfx))
+        // 평타 타격 지점 별(무기 테마 색) — 근접 무기만. 치명타는 같은 별을 크게·금색으로(새 도트 이펙트와 한 벌, 10-25)
+        bool meleeFx = Weapon.Equipped != null && WeaponFx.Enabled && WeaponFx.IsMeleeSwing(Weapon.Equipped.swingVfx);
+        if (!isSkill && meleeFx)
         {
             Vfx.PlayThemed(VfxId.WHitStar, target.transform.position + Vector3.up * 0.4f, false, 1f, PixelRamp.FromSwing(Weapon.Equipped.swingVfx));
         }
         if (isCrit)
         {
-            Vfx.Play(VfxId.CritCross, target.transform.position + Vector3.up * 0.5f);
+            if (meleeFx)
+            {
+                Vfx.PlayThemed(VfxId.WHitStar, target.transform.position + Vector3.up * 0.5f, false, CritStarScale, PixelRampId.Gold, ignoreFrameCap: true);
+            }
+            else
+            {
+                Vfx.Play(VfxId.CritCross, target.transform.position + Vector3.up * 0.5f);
+            }
         }
         if (killed && target.isBossMob)
         {
