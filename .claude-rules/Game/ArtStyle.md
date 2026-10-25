@@ -94,6 +94,11 @@
 - 아래 1안·2안 앵커와 9라운드 스펙의 "3.5~4등신·56~64px"은 이 기준으로 **대체**한다(1안·2안은 색·채색·동세 참고로만 남김).
 - PixelLab 시안: `create_image_pixflux` **48×48**, `view=side`, `direction=east`, **`outline=single color black outline`**, `shading=basic shading`, `no_background=True`, 꼬리말 `"super deformed chibi, 2 heads tall, big head, stubby limbs, thick black 1px outline, big eyes with 1px highlight, flat 2-3 tone cel shading, game sprite about 32px tall"`. 디자인 부분(어두운 코트·잿빛 금발·가슴 금 브로치·장검)은 9라운드 스펙 그대로.
 
+**주인공 타입 시안 1차 (2026-10-25, PixelLab pixflux 64×64, seed 1101~1106)** — 시트 `Docs/ArtCompare/hero_proto_types_sheet.png`, 원본 `hero_proto/type1~6.png`
+- 사용자 요청: "모험가 더벅머리(앞머리가 눈 가림)·큰 가방, 그림체는 베스트 핀처럼(동물 귀·꼬리 말고 도트 형태)", 보조 참고 `https://kr.pinterest.com/pin/950681802562666411/`(마일드 티니 — 같은 SD 그림체에 타입만 다른 6인) → "타입을 다르게 몇 개".
+- 타입: 1 더벅머리+침낭 배낭+단검 · 2 고글 탐험가+랜턴 배낭+곡괭이 · 3 후드 여행자+로프 배낭+지팡이 · 4 학자(목도리·두루마리 배낭·책) · 5 챙 넓은 탐험 모자+검 묶은 배낭 · 6 경장 검사+어깨 대검.
+- 관찰: 비율 2.5~3등신·키 54~60px(64 캔버스)로 기준(2등신·인게임 32~36px)보다 길고 큼 / **눈가림 앞머리는 6장 모두 거의 반영 안 됨** / 색 수 12~58(1번 19·3번 12만 기준 근접). → 다음 단계에서 고른 타입을 48×48 캔버스로 다시 뽑고, 눈 가림은 `inpaint_image`로 앞머리를 덧칠, 색은 `reduce_colors`(15색 안팎)로 맞춘다.
+
 **🔴 캐릭터 도트 그래픽 앵커 (사용자 2026-10-25: "이런 느낌의 도트 그래픽으로 갔으면 좋겠어, 캐릭터가")**
 - 핀 `https://kr.pinterest.com/pin/584834701625061220/`(PixelTheWise, 소녀 전사 9인 라인업) · `https://kr.pinterest.com/pin/887068457842485519/`(소녀 전사 4인 + 작은 스프라이트). 파일 `Docs/ArtCompare/hero_style_anchor_a.png`·`_b.jpg`.
 - 이것이 **캐릭터(주인공·NPC) 그리는 방식의 기준**이다. 9라운드 스펙은 디자인(옷·색·소품)으로 남기고, 렌더링은 이 앵커를 따른다.
