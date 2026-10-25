@@ -5,6 +5,8 @@
 public static class WeaponFx
 {
     public const bool Enabled = true;
+    /// <summary>픽셀 리그 공격 클립의 타격 포즈 시각(초) — 궤적 이펙트를 이때 띄운다(PixelRigBuilder 공격 표 0.07)</summary>
+    public const float StrikeDelay = 0.07f;
 
     /// <summary>근접 평타면 새 궤적 id·상하 반전 여부를 돌려준다</summary>
     public static bool TryMelee(string anim, VfxId swing, out VfxId id, out bool flipY)

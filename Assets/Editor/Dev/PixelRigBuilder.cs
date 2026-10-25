@@ -214,43 +214,47 @@ public static class PixelRigBuilder
                 .K("Hips/ShoulderF", 'x', 0f, -1f, 0.1f, -1f)
                 .K("Hips/ShoulderB", 'x', 0f, -1f, 0.1f, -1f)
                 .Arm(0f, 0f, 180f, 0.1f, 0f, 180f),
-            new AnimDef("RopeStay", 0.6f, true)
-                .Arm(0f, 160f, 90f, 0.6f, 160f, 90f)
-                .K("Hips/ShoulderB", 'r', 0f, -160f, 0.6f, -160f)
+            // 로프: 팔은 정확히 180°(머리 위로 곧게 — 어중간한 각도는 도트가 지글거렸다), 오를 때는 팔·다리 1~2px 번갈아
+            new AnimDef("RopeStay", 0.6f, true).Step()
+                .Arm(0f, 180f, 90f, 0.6f, 180f, 90f)
+                .K("Hips/ShoulderB", 'r', 0f, 180f, 0.6f, 180f)
                 .K("LegF", 'y', 0f, 1f, 0.6f, 1f),
-            new AnimDef("RopeUp", 0.4f, true)
-                .Arm(0f, 150f, 90f, 0.2f, 175f, 90f, 0.4f, 150f, 90f)
-                .K("Hips/ShoulderB", 'r', 0f, -175f, 0.2f, -150f, 0.4f, -175f)
+            new AnimDef("RopeUp", 0.4f, true).Step()
+                .Arm(0f, 180f, 90f, 0.4f, 180f, 90f)
+                .K("Hips/ShoulderB", 'r', 0f, 180f, 0.4f, 180f)
+                .K("Hips/ShoulderF", 'y', 0f, 1f, 0.2f, 0f, 0.4f, 1f)
+                .K("Hips/ShoulderB", 'y', 0f, 0f, 0.2f, 1f, 0.4f, 0f)
                 .K("LegF", 'y', 0f, 2f, 0.2f, 0f, 0.4f, 2f)
                 .K("LegB", 'y', 0f, 0f, 0.2f, 2f, 0.4f, 0f),
-            // 공격: Arm(시간, 팔 각도, 칼날 각도) — 칼날 0 = 앞 수평, 90 = 위, 180 = 뒤, -90 = 아래. 도트 칼(22px)이 땅을 뚫지 않게 회복 자세의 칼끝은 -45° 이상
-            new AnimDef("Stab", 0.36f, false)
-                .Arm(0f, 0f, 45f, 0.06f, -40f, 160f, 0.12f, 90f, 0f, 0.3f, 85f, 0f, 0.36f, 60f, 20f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.12f, -30f, 0.36f, -20f)
-                .K("Hips", 'x', 0f, 0f, 0.06f, -1f, 0.12f, 2f, 0.36f, 1f)
-                .K("LegF", 'x', 0f, 0f, 0.12f, 2f, 0.36f, 1f)
-                .K("LegB", 'x', 0f, 0f, 0.12f, -1f, 0.36f, 0f),
-            new AnimDef("SwingDown", 0.38f, false)
-                .Arm(0f, 0f, 45f, 0.08f, 170f, 120f, 0.16f, 45f, -45f, 0.3f, 45f, -30f, 0.38f, 30f, -20f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.08f, -40f, 0.16f, 20f, 0.38f, 0f)
-                .K("Hips", 'x', 0f, 0f, 0.08f, -1f, 0.16f, 1f, 0.38f, 0f)
-                .K("Hips", 'y', 0f, 0f, 0.16f, -1f, 0.38f, 0f)
-                .K("LegF", 'x', 0f, 0f, 0.16f, 2f, 0.38f, 1f),
-            new AnimDef("SwingUp", 0.38f, false)
-                .Arm(0f, 0f, 45f, 0.06f, 0f, -50f, 0.16f, 165f, 100f, 0.38f, 150f, 90f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.16f, -30f, 0.38f, -20f)
-                .K("Hips", 'y', 0f, 0f, 0.16f, 1f, 0.38f, 0f)
-                .K("LegF", 'x', 0f, 0f, 0.16f, 1f, 0.38f, 0f),
-            new AnimDef("SwingSide", 0.38f, false)
-                .Arm(0f, 0f, 45f, 0.08f, -60f, 180f, 0.18f, 100f, 0f, 0.38f, 95f, 0f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.18f, -40f, 0.38f, -30f)
-                .K("Hips", 'x', 0f, 0f, 0.18f, 2f, 0.38f, 1f)
-                .K("LegF", 'x', 0f, 0f, 0.18f, 2f, 0.38f, 1f)
-                .K("LegB", 'x', 0f, 0f, 0.18f, -1f, 0.38f, 0f),
-            new AnimDef("Cast", 0.45f, false)
-                .Arm(0f, 0f, 45f, 0.15f, 120f, 90f, 0.45f, 115f, 90f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.15f, -100f, 0.45f, -95f)
-                .K("Hips", 'y', 0f, 0f, 0.15f, 1f, 0.45f, 1f),
+            // 공격 = 끊기는 핵심 포즈(예비 → 타격 → 이어짐 → 회복), 각도는 45° 배수만(도트 칼·팔이 깔끔하게).
+            // 속도감은 베기 궤적 이펙트가 채운다. Arm(시간, 팔 각도, 칼날 각도) — 칼날 0 = 앞, 90 = 위, 180 = 뒤, -45 = 앞 아래
+            new AnimDef("Stab", 0.36f, false).Step()
+                .Arm(0f, -45f, 180f, 0.07f, 90f, 0f, 0.2f, 90f, 0f, 0.3f, 45f, 45f, 0.36f, 45f, 45f)
+                .K("Hips/ShoulderB", 'r', 0f, 45f, 0.07f, -45f, 0.3f, 0f, 0.36f, 0f)
+                .K("Hips", 'x', 0f, -1f, 0.07f, 2f, 0.2f, 1f, 0.3f, 0f, 0.36f, 0f)
+                .K("LegF", 'x', 0f, 0f, 0.07f, 2f, 0.3f, 1f, 0.36f, 1f)
+                .K("LegB", 'x', 0f, 0f, 0.07f, -1f, 0.3f, 0f, 0.36f, 0f),
+            new AnimDef("SwingDown", 0.38f, false).Step()
+                .Arm(0f, 180f, 135f, 0.07f, 90f, 0f, 0.13f, 45f, -45f, 0.28f, 45f, 0f, 0.38f, 45f, 45f)
+                .K("Hips/ShoulderB", 'r', 0f, -45f, 0.07f, 0f, 0.38f, 0f)
+                .K("Hips", 'x', 0f, -1f, 0.07f, 1f, 0.13f, 1f, 0.28f, 0f, 0.38f, 0f)
+                .K("Hips", 'y', 0f, 0f, 0.07f, 0f, 0.13f, -1f, 0.28f, 0f, 0.38f, 0f)
+                .K("LegF", 'x', 0f, 0f, 0.07f, 2f, 0.28f, 1f, 0.38f, 1f),
+            new AnimDef("SwingUp", 0.38f, false).Step()
+                .Arm(0f, 0f, -45f, 0.07f, 90f, 45f, 0.13f, 180f, 90f, 0.28f, 135f, 90f, 0.38f, 45f, 45f)
+                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.07f, -45f, 0.28f, 0f, 0.38f, 0f)
+                .K("Hips", 'y', 0f, -1f, 0.07f, 0f, 0.13f, 1f, 0.28f, 0f, 0.38f, 0f)
+                .K("LegF", 'x', 0f, 0f, 0.07f, 1f, 0.28f, 0f, 0.38f, 0f),
+            new AnimDef("SwingSide", 0.38f, false).Step()
+                .Arm(0f, -45f, 180f, 0.07f, 90f, 0f, 0.13f, 90f, -45f, 0.28f, 45f, 0f, 0.38f, 45f, 45f)
+                .K("Hips/ShoulderB", 'r', 0f, 45f, 0.07f, -45f, 0.28f, 0f, 0.38f, 0f)
+                .K("Hips", 'x', 0f, -1f, 0.07f, 2f, 0.13f, 2f, 0.28f, 1f, 0.38f, 0f)
+                .K("LegF", 'x', 0f, 0f, 0.07f, 2f, 0.28f, 1f, 0.38f, 1f)
+                .K("LegB", 'x', 0f, 0f, 0.07f, -1f, 0.28f, 0f, 0.38f, 0f),
+            new AnimDef("Cast", 0.45f, false).Step()
+                .Arm(0f, 90f, 90f, 0.1f, 180f, 90f, 0.45f, 180f, 90f)
+                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.1f, -45f, 0.45f, -45f)
+                .K("Hips", 'y', 0f, 0f, 0.1f, 1f, 0.45f, 1f),
         };
     }
 

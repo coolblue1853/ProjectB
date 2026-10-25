@@ -206,7 +206,12 @@ public class Weapon : MonoBehaviour
         // 근접 평타는 동작별 새 도트 궤적 + 무기 테마 색(GameFeelPlan 10.7), 그 외(지팡이 등)는 기존 이펙트
         if (WeaponFx.TryMelee(attackAnimName[step - 1], swingVfx, out VfxId meleeFx, out bool fxFlipY))
         {
-            Vfx.PlayThemed(meleeFx, fxPos, fxLeft, swingVfxScale, PixelRamp.FromSwing(swingVfx), fxFlipY);
+            // 궤적은 타격 포즈 순간에(예비 포즈 동안은 칼만 보인다) — 리그 공격 클립의 타격 프레임 0.07초, 공속 배율 적용
+            PixelRampId ramp = PixelRamp.FromSwing(swingVfx);
+            Transform pivot = attackPivot[step - 1].transform;
+            float scale = swingVfxScale;
+            DOVirtual.DelayedCall(WeaponFx.StrikeDelay / StatMath.AttackSpeedMul,
+                () => Vfx.PlayThemed(meleeFx, pivot != null ? pivot.position : fxPos, fxLeft, scale, ramp, fxFlipY)).SetLink(gameObject);
             // 판정 프리팹에 붙은 예전 베기 그림은 끈다(새 궤적과 두 겹으로 보였다). 판정·충돌은 그대로
             damageObject.GetComponentsInChildren(true, hideRenderers);
             foreach (SpriteRenderer r in hideRenderers)
