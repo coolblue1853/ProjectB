@@ -45,6 +45,12 @@ if (action == "run")
 if (loco) DG.Tweening.DOVirtual.DelayedCall(lead + n * step, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState()), false);
 if (action == "dash") typeof(PlayerController).GetMethod("Dash", flags).Invoke(pc, null);
 if (action == "attack") Weapon.Equipped.MeleeAttack();
+// hurt: 실제 피격 경로(damage2Player)로 1 데미지 — 피격 포즈·깜빡임 확인
+if (action == "hurt")
+{
+    var phm = UnityEngine.Object.FindFirstObjectByType<PlayerHealthManager>();
+    DG.Tweening.DOVirtual.DelayedCall(0.05f, () => phm.damage2Player(1, 0.2f, 0f, Vector2.left, 0f, false), false);
+}
 // hitmob: 가장 가까운 몹 1.1유닛 왼쪽에 오른쪽을 보고 서서 실제 평타(타격 별·히트스톱·피격 플래시 확인)
 if (action == "hitmob")
 {

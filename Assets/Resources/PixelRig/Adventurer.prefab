@@ -410,6 +410,9 @@ MonoBehaviour:
   - name: JumpFall
     clip: {fileID: 7400000, guid: 140d296080f56e745a2cea77a3d54d46, type: 2}
     loop: 0
+  - name: Hurt
+    clip: {fileID: 7400000, guid: 81069060ab484564c9631b786e16bd3a, type: 2}
+    loop: 0
   - name: Land
     clip: {fileID: 7400000, guid: 00888c13ec487d94d8c5985241b49d39, type: 2}
     loop: 0

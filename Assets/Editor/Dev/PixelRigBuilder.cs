@@ -204,6 +204,8 @@ public static class PixelRigBuilder
             Pose("JumpLaunch", 0.06f, 90f, hips: (0, 1), arms: (0, 1)),
             Pose("JumpApex", 0.1f, 45f, legF: (1, 2), legB: (0, 2), arms: (0, 1)),
             Pose("JumpFall", 0.1f, 90f, legF: (1, 0), legB: (-1, 1), arms: (0, 2)),
+            // 피격: 몸이 뒤로 1px 젖혀지고 팔이 들리며 칼은 뒤로(리그가 피격 신호 뒤 0.22초 보여 준다)
+            Pose("Hurt", 0.1f, 135f, hips: (-1, 0), legF: (-1, 0), legB: (-2, 0), arms: (-1, 1), pack: -1),
             Pose("Land", 0.1f, 45f, hips: (0, -1), legF: (1, 0), legB: (-1, 0), arms: (0, -1), pack: -1),
             // 대시 1포즈: 몸 2px 앞으로, 다리 뒤로 끌림, 팔 1px 뒤로, 칼 뒤로 눕힘
             new AnimDef("Dash", 0.1f, false).Step()

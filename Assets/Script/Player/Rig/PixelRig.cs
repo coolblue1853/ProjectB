@@ -42,7 +42,10 @@ public class PixelRig : CharacterRig
     private Rigidbody2D _body;
     private float _playedAt;
     private float _landUntil;
-    private Clip _launch, _up, _apex, _fall, _land;
+    private Clip _launch, _up, _apex, _fall, _land, _hurt;
+    private float _hurtUntil;
+    private const int HurtEyeParam = 4;
+    private const float HurtTime = 0.22f;
     private const float ApexBand = 1.5f;   // |세로 속도| 이하면 꼭대기 포즈
     private const float LaunchTime = 0.06f;
     private const float LandTime = 0.1f;
@@ -62,6 +65,7 @@ public class PixelRig : CharacterRig
         _byName.TryGetValue("JumpApex", out _apex);
         _byName.TryGetValue("JumpFall", out _fall);
         _byName.TryGetValue("Land", out _land);
+        _byName.TryGetValue("Hurt", out _hurt);
         Play("Idle");
     }
 
@@ -118,7 +122,12 @@ public class PixelRig : CharacterRig
 
     public override void SetControlParamInt(string param, int value)
     {
-        // 눈 표정 파라미터 — 새 주인공은 앞머리로 눈을 가려 아직 쓰지 않는다
+        // 예전 AnyPortrait 의 "Eye Param" 4 = 피격 표정 신호(PlayerHealthManager). 새 주인공은 눈을 앞머리로 가리므로
+        // 대신 몸 전체 피격 포즈를 잠깐 보여 준다
+        if (param == "Eye Param" && value == HurtEyeParam)
+        {
+            _hurtUntil = Time.time + HurtTime;
+        }
     }
 
     public override Transform GetBoneSocket(string socket)
@@ -234,6 +243,10 @@ public class PixelRig : CharacterRig
     private Clip PickVariant()
     {
         float now = Time.time;
+        if (now < _hurtUntil && _hurt != null)
+        {
+            return _hurt;
+        }
         if (now < _landUntil && (_requested == "Idle" || _requested == "Walk" || _requested == "Run"))
         {
             return _land;
