@@ -308,14 +308,14 @@ public static class PixelRigBuilder
             new AnimDef("RopeStay", 0.6f, true).Step()
                 .Arm(0f, 180f, 90f, 0.6f, 180f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, 180f, 0.6f, 180f)
-                .K("LegF", 'y', 0f, 1f, 0.6f, 1f),
+                .S("LegF", 0.6f, new[] { LegPose("leg_l", 0, 1) }), // 앞다리 살짝 접어 로프에 건다(뼈로 올리면 몸통 뒤로 숨었다)
             new AnimDef("RopeUp", 0.4f, true).Step()
                 .Arm(0f, 180f, 90f, 0.4f, 180f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, 180f, 0.4f, 180f)
                 .K("Hips/ShoulderF", 'y', 0f, 1f, 0.2f, 0f, 0.4f, 1f)
                 .K("Hips/ShoulderB", 'y', 0f, 0f, 0.2f, 1f, 0.4f, 0f)
-                .K("LegF", 'y', 0f, 2f, 0.2f, 0f, 0.4f, 2f)
-                .K("LegB", 'y', 0f, 0f, 0.2f, 2f, 0.4f, 0f),
+                .S("LegF", 0.2f, new[] { LegPose("leg_l", 0, 2), LegPose("leg_l", 0, 0) }) // 두 다리 번갈아 크게 접기
+                .S("LegB", 0.2f, new[] { LegPose("leg_r", 0, 0), LegPose("leg_r", 0, 2) }),
             // 공격 = 끊기는 핵심 포즈(예비 → 타격 → 이어짐 → 회복), 각도는 45° 배수만(도트 칼·팔이 깔끔하게).
             // 속도감은 베기 궤적 이펙트가 채운다. Arm(시간, 팔 각도, 칼날 각도) — 칼날 0 = 앞, 90 = 위, 180 = 뒤, -45 = 앞 아래
             new AnimDef("Stab", 0.36f, false).Step()
