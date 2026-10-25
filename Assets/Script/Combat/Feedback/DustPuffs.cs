@@ -8,6 +8,7 @@ public static class DustPuffs
 {
     static ParticleSystem ps;
     static readonly Color DustColor = new Color(0.82f, 0.76f, 0.66f, 0.85f);
+    const float DashScale = 1.3f, DashBehind = 0.1f;
     const float LandScaleMin = 0.6f, LandScaleMax = 1.4f, LandSpread = 0.24f; // 보통 점프(세기 ≈ 0.6) ≈ 1배, 높은 낙하는 크게
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -17,8 +18,14 @@ public static class DustPuffs
     }
 
     /// <param name="facing">대시 방향(+1 오른쪽, -1 왼쪽). 먼지는 반대쪽으로 퍼진다</param>
+    /// <remarks>발걸음 도트 먼지를 발 뒤로 크게 하나(사각 파티클은 주인공 도트와 그림체가 어긋났다, 10-26). 등록이 없으면 예전 파티클</remarks>
     public static void Dash(Vector3 feet, float facing)
     {
+        bool left = facing < 0f;
+        if (Vfx.Play(VfxId.StepDust, feet + Vector3.right * (left ? DashBehind : -DashBehind), left, DashScale, true))
+        {
+            return;
+        }
         Emit(feet, -Mathf.Sign(facing), 0f, 8, 3.5f);
     }
 

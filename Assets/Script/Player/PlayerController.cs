@@ -660,7 +660,7 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
         if (hit1.collider != null || hit2.collider != null)
         {
-            DustPuffs.Dash(groundCheck.transform.position, transform.localScale.x); // 땅 위 대시만 먼지
+            DustPuffs.Dash(Rig is PixelRig ? Rig.transform.position : groundCheck.transform.position, transform.localScale.x); // 땅 위 대시만 먼지(픽셀 리그는 발바닥 원점)
         }
         // 대쉬 타이머 설정
         dashTimer = dashWait;
