@@ -1,6 +1,6 @@
 {
  "version": 1,
- "revision": "r1",
+ "revision": "r2",
  "approved": false,
  "brief": "기본 무기 이펙트를 새로 만들고 Shader Creator나 픽셀랩 이펙트 생성기를 실제로 연결 (사용자, 2026-10-25) — PixelLab vfx_workbench 로 그린 회색조 베기·찌르기·타격 도트 프레임을 무기 테마색으로 칠하는 셰이더",
  "goal": "회색조 도트 이펙트 프레임(밝기 = 강도)을 무기 테마 5색 램프의 평면 단계색으로 칠하고, 수명 끝에 텍셀 단위로 흩어지며 사라지게 하는 2D 스프라이트 셰이더. 조명 무시(자체발광), 도트 격자 유지",
@@ -22,7 +22,8 @@
    },
    "confidence": "확정",
    "why": "도트 아트 규칙(ArtStyle·CharacterPixelRules: 평면 색, 그라데이션 금지)",
-   "verdict": "pass — 엔진 렌더 4테마×7칸 모두 불투명 4색(≤5)"
+   "verdict": "pass",
+   "evidence": "엔진 렌더 4테마×7칸 모두 불투명 4색(≤5)"
   },
   {
    "id": "c2",
@@ -34,7 +35,8 @@
    },
    "confidence": "확정",
    "why": "수명 끝 소멸 — Vfx 가 마지막 40% 구간을 0→1 로 구동",
-   "verdict": "pass — 면적 27648→18036→5544px(디졸브 0/0.35/0.7) 단조 감소, 0에서 원본과 같음"
+   "verdict": "pass",
+   "evidence": "면적 27648→18036→5544px(디졸브 0/0.35/0.7) 단조 감소, 0에서 원본과 같음"
   },
   {
    "id": "c3",
@@ -46,7 +48,8 @@
    },
    "confidence": "확정",
    "why": "도트 격자 유지(반 픽셀 구멍 금지)",
-   "verdict": "pass — 남은 픽셀 수가 모두 36(6×6 = 1텍셀)의 배수"
+   "verdict": "pass",
+   "evidence": "남은 픽셀 수가 모두 36(6×6 = 1텍셀)의 배수"
   },
   {
    "id": "c4",
@@ -58,19 +61,32 @@
    },
    "confidence": "확정",
    "why": "이펙트 한 벌로 계보 무기 색을 전부 덮는다",
-   "verdict": "pass — 같은 프레임이 white·gold·red·blue 램프로 색만 바뀜(weapon_fx_sheet)"
+   "verdict": "pass",
+   "evidence": "같은 프레임이 white·gold·red·blue 램프로 색만 바뀜(weapon_fx_sheet)"
   },
   {
    "id": "c5",
    "kind": "perf",
-   "text": "프래그 텍스처 샘플 1회, 분기 없음",
+   "text": "프래그 텍스처 샘플 5회(본체 1 + 테두리 이웃 4), 분기 없음",
    "test": {
     "how": "gate",
-    "expect": "check_perf ok"
+    "expect": "check_perf ok/warn"
    },
    "confidence": "확정",
-   "why": "평타마다 생성, 동시 수 개",
-   "verdict": "pass — check_perf ok tex=1 branches=0"
+   "why": "평타마다 생성, 동시 수 개 — r2 테두리로 샘플 5회: PC 대상이라 모바일 예산(4) 경고는 감수",
+   "verdict": null
+  },
+  {
+   "id": "c6",
+   "kind": "structure",
+   "text": "알파 경계 바깥 1텍셀(이웃 4방향 중 투명이 있는 텍셀)은 램프 _C1 색 테두리가 된다(_Rim 0이면 없음)",
+   "test": {
+    "how": "render",
+    "expect": "흰 테마에서도 가장자리 1텍셀이 진한 색"
+   },
+   "confidence": "확정",
+   "why": "r2: 흰 테마 초승달이 밝은 배경에서 윤곽이 묻힘 — 상업 도트 이펙트는 테두리 색으로 형태를 잡는다",
+   "verdict": null
   }
  ],
  "driving": [

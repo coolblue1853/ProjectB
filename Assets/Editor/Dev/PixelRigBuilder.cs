@@ -48,6 +48,7 @@ public static class PixelRigBuilder
         ImportPart("leg_l", pv.leg_l);
         ImportPart("leg_r", pv.leg_r);
 
+        ImportWeapons();
         GameObject root = new GameObject("Adventurer");
         var bones = new List<Transform>();
         var renderers = new List<SpriteRenderer>();
@@ -185,25 +186,25 @@ public static class PixelRigBuilder
             new AnimDef("Idle", 1.3f, true).Step()
                 .K("Hips", 'y', 0f, 0f, 0.6f, -1f, 1.1f, 0f, 1.3f, 0f)
                 .K("Hips/Pack", 'y', 0f, 0f, 1.1f, -1f, 1.22f, 0f, 1.3f, 0f)
-                .Arm(0f, 0f, 60f, 1.3f, 0f, 60f),
+                .Arm(0f, 0f, 45f, 1.3f, 0f, 45f),
             // 걷기 6포즈(0.09초씩): 접지 A → 내려앉음 → 교차(뒷발 듦) → 접지 B → 내려앉음 → 교차(앞발 듦).
             // 보폭 ±2px, 팔은 반대 다리와 엇갈려 1px, 배낭은 몸보다 한 박자 늦게(2차 움직임)
-            Cycle("Walk", 0.09f, 60f,
+            Cycle("Walk", 0.09f, 45f,
                 new float[] { 2, 1, 0, -2, -1, 0 }, new float[] { 0, 0, 0, 0, 0, 1 },
                 new float[] { -2, -1, 0, 2, 1, 0 }, new float[] { 0, 0, 1, 0, 0, 0 },
                 new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { -1, -1, 0, 1, 1, 0 }, 0f),
             // 달리기 6포즈(0.07초씩): 교차 때 발을 2px 들고 몸은 1px 앞으로, 칼은 뒤로 눕혀 든다
-            Cycle("Run", 0.07f, 150f,
+            Cycle("Run", 0.07f, 135f,
                 new float[] { 2, 1, -1, -2, -1, 1 }, new float[] { 0, 0, 0, 0, 1, 2 },
                 new float[] { -2, -1, 1, 2, 1, -1 }, new float[] { 0, 1, 2, 0, 0, 0 },
                 new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { -1, -1, 0, 1, 1, 0 }, 1f),
             // 점프: 리그(PixelRig)가 세로 속도로 고른다 — 도약(첫 0.06초 늘임) → 상승 → 꼭대기 → 낙하, 착지하면 0.1초 눌림(Land).
             // 변형은 한두 프레임만(셀레스트식), 1px 단위
-            Pose("Jump", 0.1f, 80f, legF: (1, 1), legB: (-1, 2), arms: (0, 1)),
-            Pose("JumpLaunch", 0.06f, 80f, hips: (0, 1), arms: (0, 1)),
-            Pose("JumpApex", 0.1f, 70f, legF: (1, 2), legB: (0, 2), arms: (0, 1)),
-            Pose("JumpFall", 0.1f, 95f, legF: (1, 0), legB: (-1, 1), arms: (0, 2)),
-            Pose("Land", 0.1f, 50f, hips: (0, -1), legF: (1, 0), legB: (-1, 0), arms: (0, -1), pack: -1),
+            Pose("Jump", 0.1f, 90f, legF: (1, 1), legB: (-1, 2), arms: (0, 1)),
+            Pose("JumpLaunch", 0.06f, 90f, hips: (0, 1), arms: (0, 1)),
+            Pose("JumpApex", 0.1f, 45f, legF: (1, 2), legB: (0, 2), arms: (0, 1)),
+            Pose("JumpFall", 0.1f, 90f, legF: (1, 0), legB: (-1, 1), arms: (0, 2)),
+            Pose("Land", 0.1f, 45f, hips: (0, -1), legF: (1, 0), legB: (-1, 0), arms: (0, -1), pack: -1),
             // 대시 1포즈: 몸 2px 앞으로, 다리 뒤로 끌림, 팔 1px 뒤로, 칼 뒤로 눕힘
             new AnimDef("Dash", 0.1f, false).Step()
                 .K("Hips", 'x', 0f, 2f, 0.1f, 2f)
@@ -212,7 +213,7 @@ public static class PixelRigBuilder
                 .K("LegB", 'y', 0f, 1f, 0.1f, 1f)
                 .K("Hips/ShoulderF", 'x', 0f, -1f, 0.1f, -1f)
                 .K("Hips/ShoulderB", 'x', 0f, -1f, 0.1f, -1f)
-                .Arm(0f, 0f, 170f, 0.1f, 0f, 170f),
+                .Arm(0f, 0f, 180f, 0.1f, 0f, 180f),
             new AnimDef("RopeStay", 0.6f, true)
                 .Arm(0f, 160f, 90f, 0.6f, 160f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, -160f, 0.6f, -160f)
@@ -222,32 +223,32 @@ public static class PixelRigBuilder
                 .K("Hips/ShoulderB", 'r', 0f, -175f, 0.2f, -150f, 0.4f, -175f)
                 .K("LegF", 'y', 0f, 2f, 0.2f, 0f, 0.4f, 2f)
                 .K("LegB", 'y', 0f, 0f, 0.2f, 2f, 0.4f, 0f),
-            // 공격: Arm(시간, 팔 각도, 칼날 각도) — 칼날 0 = 앞 수평, 90 = 위, 180 = 뒤, -90 = 아래
+            // 공격: Arm(시간, 팔 각도, 칼날 각도) — 칼날 0 = 앞 수평, 90 = 위, 180 = 뒤, -90 = 아래. 도트 칼(22px)이 땅을 뚫지 않게 회복 자세의 칼끝은 -45° 이상
             new AnimDef("Stab", 0.36f, false)
-                .Arm(0f, 0f, 60f, 0.06f, -40f, 160f, 0.12f, 90f, 0f, 0.3f, 85f, 0f, 0.36f, 60f, 20f)
+                .Arm(0f, 0f, 45f, 0.06f, -40f, 160f, 0.12f, 90f, 0f, 0.3f, 85f, 0f, 0.36f, 60f, 20f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.12f, -30f, 0.36f, -20f)
                 .K("Hips", 'x', 0f, 0f, 0.06f, -1f, 0.12f, 2f, 0.36f, 1f)
                 .K("LegF", 'x', 0f, 0f, 0.12f, 2f, 0.36f, 1f)
                 .K("LegB", 'x', 0f, 0f, 0.12f, -1f, 0.36f, 0f),
             new AnimDef("SwingDown", 0.38f, false)
-                .Arm(0f, 0f, 60f, 0.08f, 170f, 120f, 0.16f, 30f, -60f, 0.3f, 20f, -60f, 0.38f, 10f, -40f)
+                .Arm(0f, 0f, 45f, 0.08f, 170f, 120f, 0.16f, 45f, -45f, 0.3f, 45f, -30f, 0.38f, 30f, -20f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.08f, -40f, 0.16f, 20f, 0.38f, 0f)
                 .K("Hips", 'x', 0f, 0f, 0.08f, -1f, 0.16f, 1f, 0.38f, 0f)
                 .K("Hips", 'y', 0f, 0f, 0.16f, -1f, 0.38f, 0f)
                 .K("LegF", 'x', 0f, 0f, 0.16f, 2f, 0.38f, 1f),
             new AnimDef("SwingUp", 0.38f, false)
-                .Arm(0f, 0f, 60f, 0.06f, -30f, -100f, 0.16f, 165f, 100f, 0.38f, 150f, 90f)
+                .Arm(0f, 0f, 45f, 0.06f, 0f, -50f, 0.16f, 165f, 100f, 0.38f, 150f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.16f, -30f, 0.38f, -20f)
                 .K("Hips", 'y', 0f, 0f, 0.16f, 1f, 0.38f, 0f)
                 .K("LegF", 'x', 0f, 0f, 0.16f, 1f, 0.38f, 0f),
             new AnimDef("SwingSide", 0.38f, false)
-                .Arm(0f, 0f, 60f, 0.08f, -60f, 180f, 0.18f, 100f, 0f, 0.38f, 95f, 0f)
+                .Arm(0f, 0f, 45f, 0.08f, -60f, 180f, 0.18f, 100f, 0f, 0.38f, 95f, 0f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.18f, -40f, 0.38f, -30f)
                 .K("Hips", 'x', 0f, 0f, 0.18f, 2f, 0.38f, 1f)
                 .K("LegF", 'x', 0f, 0f, 0.18f, 2f, 0.38f, 1f)
                 .K("LegB", 'x', 0f, 0f, 0.18f, -1f, 0.38f, 0f),
             new AnimDef("Cast", 0.45f, false)
-                .Arm(0f, 0f, 60f, 0.15f, 120f, 90f, 0.45f, 115f, 90f)
+                .Arm(0f, 0f, 45f, 0.15f, 120f, 90f, 0.45f, 115f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.15f, -100f, 0.45f, -95f)
                 .K("Hips", 'y', 0f, 0f, 0.15f, 1f, 0.45f, 1f),
         };
@@ -409,6 +410,47 @@ public static class PixelRigBuilder
         ti.SetTextureSettings(settings);
         ti.spritePivot = new Vector2(pivot[0] / (float)Size, (Size - (pivot[1] + 1)) / (float)Size);
         ti.SaveAndReimport();
+    }
+
+    /// <summary>도트 무기 그림(Tools/pixelfx/draw_weapon_pixel.py 산출) 임포트: 24 PPU, 점 필터, 피벗 = json 의 손잡이 픽셀 중심</summary>
+    private static void ImportWeapons()
+    {
+        const string dir = "Assets/Resources/PixelRig/Weapons";
+        if (!Directory.Exists(dir))
+        {
+            return;
+        }
+        foreach (string json in Directory.GetFiles(dir, "*.json"))
+        {
+            string png = Path.ChangeExtension(json, ".png").Replace('\\', '/');
+            var meta = JsonUtility.FromJson<WeaponMeta>(File.ReadAllText(json));
+            var ti = AssetImporter.GetAtPath(png) as TextureImporter;
+            if (ti == null)
+            {
+                continue;
+            }
+            ti.textureType = TextureImporterType.Sprite;
+            ti.spriteImportMode = SpriteImportMode.Single;
+            ti.spritePixelsPerUnit = 24f;
+            ti.filterMode = FilterMode.Point;
+            ti.textureCompression = TextureImporterCompression.Uncompressed;
+            ti.mipmapEnabled = false;
+            ti.alphaIsTransparency = true;
+            var settings = new TextureImporterSettings();
+            ti.ReadTextureSettings(settings);
+            settings.spriteAlignment = (int)SpriteAlignment.Custom;
+            settings.spriteMeshType = SpriteMeshType.FullRect;
+            ti.SetTextureSettings(settings);
+            ti.spritePivot = new Vector2((meta.grip[0] + 0.5f) / meta.size[0], 1f - (meta.grip[1] + 0.5f) / meta.size[1]);
+            ti.SaveAndReimport();
+        }
+    }
+
+    [System.Serializable]
+    private class WeaponMeta
+    {
+        public int[] grip;
+        public int[] size;
     }
 
     private static void SetArray<T>(SerializedProperty prop, T[] items) where T : Object

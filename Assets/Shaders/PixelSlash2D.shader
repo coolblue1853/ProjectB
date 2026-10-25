@@ -1,6 +1,6 @@
-// 무기 평타 도트 이펙트 셰이더 (shader-creator-personal 절차로 제작, 의도 계약: Tools/shader_jobs/pixel_slash/intent.json)
+﻿// 무기 평타 도트 이펙트 셰이더 (shader-creator-personal 절차로 제작, 의도 계약: Tools/shader_jobs/pixel_slash/intent.json)
 // 입력: PixelLab vfx_workbench 로 그린 회색조 프레임(밝기 = 강도) → 테마 램프 5색의 평면 단계색으로 칠한다(그라데이션 없음).
-// _Dissolve 0..1: 텍셀 단위로 흩어지며 사라지고, 사라지기 직전 텍셀은 밝은 색(_C3)으로 빛난다. Vfx 가 수명 끝 40% 를 구동.
+// 바깥 테두리 1텍셀은 램프 진한 색(_Rim). _Dissolve 0..1: 텍셀 단위로 흩어지며 사라지고, 사라지기 직전 텍셀은 밝은 색(_C3)으로 빛난다. Vfx 가 수명 끝 40% 를 구동.
 // LightMode 생략(SRPDefaultUnlit) = 자체발광: 밤·숲 2D 조명에도 원색.
 Shader "ProjectB/PixelSlash2D"
 {
@@ -15,6 +15,8 @@ Shader "ProjectB/PixelSlash2D"
         _C4 ("Ramp 4 (core)", Color) = (1, 1, 1, 1)
         [Header(Levels)]
         _Lift ("Brightness Lift", Range(-0.3, 0.3)) = 0.05
+        [Header(Rim)]
+        _Rim ("Outer Rim (1 texel, ramp 1)", Range(0, 1)) = 1
         [Header(Dissolve)]
         _Dissolve ("Dissolve", Range(0, 1)) = 0
         _EdgeBand ("Dissolve Edge Band", Range(0, 0.3)) = 0.12
@@ -40,6 +42,7 @@ Shader "ProjectB/PixelSlash2D"
                 float4 _MainTex_TexelSize;
                 half4 _C0, _C1, _C2, _C3, _C4;
                 half _Lift;
+                half _Rim;
                 half _Dissolve, _EdgeBand;
             CBUFFER_END
             TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
@@ -69,6 +72,15 @@ Shader "ProjectB/PixelSlash2D"
                 col = lerp(col, _C2, step(0.50h, lum));
                 col = lerp(col, _C3, step(0.72h, lum));
                 col = lerp(col, _C4, step(0.90h, lum));
+
+                // 바깥 테두리 1텍셀 = 램프 진한 색(_C1): 흰 테마도 밝은 배경에서 윤곽이 산다(상업 도트 이펙트 관례)
+                float2 ts = _MainTex_TexelSize.xy;
+                half nb = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + float2(ts.x, 0)).a;
+                nb = min(nb, SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv - float2(ts.x, 0)).a);
+                nb = min(nb, SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + float2(0, ts.y)).a);
+                nb = min(nb, SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv - float2(0, ts.y)).a);
+                half rim = step(nb, 0.01h) * _Rim;
+                col = lerp(col, _C1, rim);
 
                 // 텍셀 단위 디졸브: 텍셀 정수 좌표 해시, 밝은 텍셀이 조금 더 오래 남는다
                 float2 texel = floor(i.uv * _MainTex_TexelSize.zw);

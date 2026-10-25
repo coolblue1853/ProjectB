@@ -27,6 +27,9 @@ public class PixelRig : CharacterRig
     [SerializeField] private int _weaponOrderFront = 48;
     [SerializeField] private int _weaponOrderBack = 37;
 
+    private const string WeaponDir = "PixelRig/Weapons/";
+    private const float WeaponWorldScale = 1f; // 도트 무기 24 PPU × 1 = 아트 1px 1/24유닛(몹·캐릭터와 같은 밀도)
+    private static readonly Dictionary<string, Sprite> PixelWeapons = new Dictionary<string, Sprite>();
     private readonly Dictionary<string, Clip> _byName = new Dictionary<string, Clip>();
     private readonly Dictionary<string, Clip> _resolved = new Dictionary<string, Clip>();
     private Clip _current;
@@ -134,7 +137,38 @@ public class PixelRig : CharacterRig
         {
             r.sortingLayerID = _renderers.Length > 0 ? _renderers[0].sortingLayerID : r.sortingLayerID;
             r.sortingOrder = order;
+            UsePixelWeapon(r);
         }
+    }
+
+    /// <summary>
+    /// 같은 이름의 도트 무기 그림(Resources/PixelRig/Weapons, 칼날 위·손잡이 피벗·24 PPU)이 있으면 바꿔 끼운다.
+    /// 기존 무기 그림은 AnyPortrait 용 고해상도라 도트 격자에서 가는 막대로 뭉개졌다(PixelRigDesign 3.5절 무기 쥐기).
+    /// 크기는 캐릭터 도트와 같게(아트 1px = 1/24유닛) — 부모 배율을 상쇄한다.
+    /// </summary>
+    private static void UsePixelWeapon(SpriteRenderer r)
+    {
+        if (r.sprite == null)
+        {
+            return;
+        }
+        Sprite px;
+        if (!PixelWeapons.TryGetValue(r.sprite.name, out px))
+        {
+            px = Resources.Load<Sprite>(WeaponDir + r.sprite.name);
+            PixelWeapons[r.sprite.name] = px;
+        }
+        if (px == null)
+        {
+            return;
+        }
+        r.sprite = px;
+        Transform t = r.transform;
+        t.localPosition = new Vector3(0f, 0f, t.localPosition.z);
+        t.localRotation = Quaternion.identity;
+        float parent = t.parent != null ? Mathf.Abs(t.parent.lossyScale.y) : 1f;
+        float s = parent > 0.0001f ? WeaponWorldScale / parent : 1f;
+        t.localScale = new Vector3(s, s, 1f);
     }
 
     private void LateUpdate()
