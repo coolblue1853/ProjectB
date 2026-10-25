@@ -2,11 +2,11 @@
 
 두 투명 PNG를 받아 항목별 점수(0~100)와 종합 점수를 낸다. 낮은 항목이 다음 세대에서 고칠 곳이다.
 - silhouette : 불투명 영역을 같은 크기 상자로 맞춘 뒤 겹침(IoU) — 전체 형태·자세
-- head       : 위쪽 덩어리(가장 넓은 행까지) 높이 비율의 차 — 데포르메(머리 크기)
+- head       : 참고값만 출력(종합에서 제외) — 긴 머리카락·꼬리가 목을 가려 자동 추정이 틀린다(원본 0.96). 머리 크기는 비교 시트로 눈으로 본다.
 - palette    : 주요 색 8개끼리 가장 가까운 색 거리 평균 — 색감
 - detail     : sprite_metrics 지표(colors·edge·isolated·black) 차이 — 담백함·외곽선
 - size       : 키·폭 비율 차
-종합 = silhouette 30 + head 20 + palette 20 + detail 20 + size 10.
+종합 = silhouette 40 + palette 20 + detail 25 + size 15.
 
 사용: python Tools/pixelfx/sprite_similarity.py <target.png> <candidate.png> [<candidate2.png> ...] [--json]
 """
@@ -20,7 +20,7 @@ from PIL import Image
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sprite_metrics import measure  # noqa: E402
 
-WEIGHTS = {"silhouette": 30, "head": 20, "palette": 20, "detail": 20, "size": 10}
+WEIGHTS = {"silhouette": 40, "palette": 20, "detail": 25, "size": 15}
 
 
 def load(path):
