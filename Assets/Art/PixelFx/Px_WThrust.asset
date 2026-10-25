@@ -19,6 +19,5 @@ MonoBehaviour:
   - {fileID: -1145221368777000949, guid: 389492d2fb87e004fa075dd85faac342, type: 3}
   - {fileID: -4533765030770252710, guid: 389492d2fb87e004fa075dd85faac342, type: 3}
   - {fileID: 1136067385027952316, guid: 389492d2fb87e004fa075dd85faac342, type: 3}
-  - {fileID: 5616710635614563652, guid: 389492d2fb87e004fa075dd85faac342, type: 3}
-  fps: 16
-  source: 'pixellab vfx_workbench: pb-thrust.json'
+  fps: 20
+  source: Tools/pixelfx/gen_thrust.py

@@ -210,8 +210,17 @@ public class Weapon : MonoBehaviour
             PixelRampId ramp = PixelRamp.FromSwing(swingVfx);
             Transform pivot = attackPivot[step - 1].transform;
             float scale = swingVfxScale;
-            DOVirtual.DelayedCall(WeaponFx.StrikeDelay / StatMath.AttackSpeedMul,
-                () => Vfx.PlayThemed(meleeFx, pivot != null ? pivot.position : fxPos, fxLeft, scale, ramp, fxFlipY)).SetLink(gameObject);
+            DOVirtual.DelayedCall(WeaponFx.StrikeDelay / StatMath.AttackSpeedMul, () =>
+            {
+                Vector3 at = pivot != null ? pivot.position : fxPos;
+                // 찌르기 궤적은 칼날 높이(손 소켓)에 — 판정 위치는 예전 캐릭터 기준이라 칼날보다 아래로 지나갔다(10-26)
+                Transform hand = meleeFx == VfxId.WThrust && pC.Rig != null ? pC.Rig.GetBoneSocket("RightWeapon") : null;
+                if (hand != null)
+                {
+                    at.y = hand.position.y;
+                }
+                Vfx.PlayThemed(meleeFx, at, fxLeft, scale, ramp, fxFlipY);
+            }).SetLink(gameObject);
             // 판정 프리팹에 붙은 예전 베기 그림은 끈다(새 궤적과 두 겹으로 보였다). 판정·충돌은 그대로
             damageObject.GetComponentsInChildren(true, hideRenderers);
             foreach (SpriteRenderer r in hideRenderers)

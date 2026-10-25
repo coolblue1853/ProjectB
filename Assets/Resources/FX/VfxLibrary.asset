@@ -241,7 +241,7 @@ MonoBehaviour:
     prefab: {fileID: 0}
     euler: {x: 0, y: 0, z: 0}
     scale: 0.5
-    lifetime: 0.4375
+    lifetime: 0.3
     sortingOrder: 210
     pixel: {fileID: 11400000, guid: 3557e02eb580adb4f84749ebb217d0e7, type: 2}
     usePixel: 1

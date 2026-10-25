@@ -1,1 +1,1 @@
-{"frames": 7, "w": 64, "h": 16, "fps": 16, "pivot": [0.0781, 0.5], "ramp": "gray", "source": "pixellab vfx_workbench: pb-thrust.json"}
+{"frames": 6, "w": 72, "h": 20, "fps": 20, "pivot": [0.05555555555555555, 0.5], "ramp": "gray", "source": "Tools/pixelfx/gen_thrust.py"}
