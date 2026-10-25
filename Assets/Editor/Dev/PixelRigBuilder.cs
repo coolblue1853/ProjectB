@@ -134,8 +134,11 @@ public static class PixelRigBuilder
         var armFs = new string[n];
         var armBs = new string[n];
         var hair = new string[n];
+        var legsY = new float[n];
         for (int i = 0; i < n; i++)
         {
+            // 몸이 위로 뜨는 포즈(달리기 체공)는 다리도 같이 띄운다 — 몸만 올리면 가랑이 사이가 갇힌 구멍이 됐다
+            legsY[i] = Mathf.Max(0f, hipsY[i]);
             hair[i] = HairPose(HairLag(hipsY[(i + n - 1) % n], hipsY[i]));
             // 아래로만 처진다(위로 밀리면 배낭 윗선이 머리카락 위로 삐져나왔다)
             pack[i] = Mathf.Min(0f, hipsY[(i + n - 1) % n] - hipsY[i]);
@@ -145,7 +148,8 @@ public static class PixelRigBuilder
             armFs[i] = ArmPose("arm_l", armF[i]);
             armBs[i] = ArmPose("arm_r", -armF[i]);
         }
-        def.K("Hips/Pack", 'y', Keys(pack, frame)).K("Hips/ShoulderF/HandF", 'x', Keys(hand, frame))
+        def.K("LegF", 'y', Keys(legsY, frame)).K("LegB", 'y', Keys(legsY, frame))
+            .K("Hips/Pack", 'y', Keys(pack, frame)).K("Hips/ShoulderF/HandF", 'x', Keys(hand, frame))
             .S("LegF", frame, legF).S("LegB", frame, legB).S("Hips/ShoulderF", frame, armFs).S("Hips/ShoulderB", frame, armBs)
             .S("Hips/Head", frame, hair)
             .Arm(0f, 0f, blade, frame * n, 0f, blade);
@@ -250,7 +254,7 @@ public static class PixelRigBuilder
             Cycle("Run", 0.07f, 45f,
                 new[] { 2, 1, 0, -1, 0, 1 }, new[] { 0, 0, 0, 1, 2, 1 },
                 new[] { -1, 0, 1, 1, 0, -1 }, new[] { 1, 2, 1, 0, 0, 0 },
-                new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { 0, -1, 0, 0, -1, 0 },
+                new float[] { 0, -1, 1, 0, -1, 1 }, new float[] { 0, 0, 0, 0, 0, 0 }, // 몸: 접지 0 → 내려앉음 -1 → 교차(체공) +1, 머리카락이 한 박자 늦게(HairLag)
                 new[] { -1, 0, 1, 1, 0, -1 }, 1f),
             // 제동: 달리다 멈추면 리그가 0.13초 보여 준다 — 앞발 2px 내딛어 버티고 몸은 뒤로 1px 젖혀 내려앉음, 손은 관성으로 앞, 머리카락 늘임 → 반쯤 회복
             new AnimDef("Brake", 0.14f, false).Step()
