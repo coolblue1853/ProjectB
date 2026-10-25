@@ -261,6 +261,19 @@ public static class PixelRigBuilder
                 .K("Hips/ShoulderB", 'r', 0f, 90f, 0.1f, 90f, 0.24f, 90f, 0.42f, 45f)
                 .K("Hips/ShoulderB", 'x', 0f, 0f, 0.1f, -2f, 0.24f, 0f, 0.42f, 0f)
                 .K("Hips", 'x', 0f, 0f, 0.24f, -1f, 0.32f, 0f, 0.42f, 0f),
+            // 막기(ShieldUp 스킬): 몸 1px 낮추고 뒷팔(방패)을 앞으로 90°, 앞팔은 칼을 위로 세워 대기
+            new AnimDef("Guard", 0.45f, false).Step()
+                .Arm(0f, 45f, 90f, 0.45f, 45f, 90f)
+                .K("Hips/ShoulderB", 'r', 0f, 90f, 0.45f, 90f)
+                .K("Hips", 'y', 0f, -1f, 0.45f, -1f)
+                .K("Hips", 'x', 0f, 1f, 0.45f, 1f)
+                .K("LegF", 'x', 0f, 1f, 0.45f, 1f)
+                .K("LegB", 'x', 0f, -1f, 0.45f, -1f),
+            // 회전베기(Spining 스킬): 팔이 몸 둘레를 90°씩 두 바퀴(칼날은 팔 방향 그대로), 끝에 대기 자세로
+            new AnimDef("Spin", 0.45f, false).Step()
+                .Arm(0f, 0f, -90f, 0.05f, 90f, 0f, 0.1f, 180f, 90f, 0.15f, 270f, 180f, 0.2f, 360f, 270f,
+                     0.25f, 450f, 360f, 0.3f, 540f, 450f, 0.35f, 630f, 540f, 0.4f, 720f, 630f, 0.45f, 720f, 765f)
+                .K("Hips", 'y', 0f, -1f, 0.4f, -1f, 0.45f, 0f),
             new AnimDef("Cast", 0.45f, false).Step()
                 .Arm(0f, 90f, 90f, 0.1f, 180f, 90f, 0.45f, 180f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, 0f, 0.1f, -45f, 0.45f, -45f)

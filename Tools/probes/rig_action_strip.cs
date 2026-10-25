@@ -45,6 +45,9 @@ if (action == "run")
 if (loco) DG.Tweening.DOVirtual.DelayedCall(lead + n * step, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState()), false);
 if (action == "dash") typeof(PlayerController).GetMethod("Dash", flags).Invoke(pc, null);
 if (action == "attack") Weapon.Equipped.MeleeAttack();
+// guard / spin: 스킬 애니 이름을 실제 공격 애니 경로(ActiveAttackAnim)로 — 막기(방패 앞)·회전베기 확인
+if (action == "guard") pc.ActiveAttackAnim(false, "ShieldUp", 0.7f);
+if (action == "spin") pc.ActiveAttackAnim(false, "Spining", 0.7f);
 // airattack: 점프 0.15초 뒤 평타 — 공중 공격 다리 접기 확인
 if (action == "airattack")
 {

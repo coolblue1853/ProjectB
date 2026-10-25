@@ -24,7 +24,7 @@
 - 클립 = Unity `AnimationClip`(.anim) 에셋, 뼈 Transform의 위치·회전 커브. 에디터 스크립트 `Assets/Editor/Dev/PixelRigBuilder.cs`가 키프레임 표에서 생성한다(값을 바꾸면 다시 굽는다). Animation 창에서 손으로 고쳐도 된다.
 - 재생: `PixelRig`(런타임)가 `clip.SampleAnimation`으로 직접 샘플 — Play / CrossFade(짧은 블렌드 생략) / IsPlaying / 속도.
 - 기본 클립: Idle, Walk, Run, Jump, Dash, Rope(Up/Down/Stay), 공격 5종(Stab·SwingDown·SwingUp·SwingSide·Cast).
-- 기존 애니 이름(평타 13·스킬 약 23)은 이름 규칙으로 기본 클립에 매핑한다(`PixelRig.MapName`): Stab/Straight/Punch→Stab, Up/upper→SwingUp, Side/Wide/Vesh/Spin→SwingSide, Staff/Buff/Shield/Blow/Spead→Cast, 그 외→SwingDown. 고유 동작이 필요한 스킬은 나중에 클립을 추가하고 매핑 표에 넣는다.
+- 기존 애니 이름(평타 13·스킬 약 23)은 이름 규칙으로 기본 클립에 매핑한다(`PixelRig.MapName`): Rope→RopeUp/Stay, Shield→Guard, Spin→Spin, Staff/Buff/Blow/Spead→Cast(활을 쥐면 Shoot), Stab/Straight/Punch→Stab, Up/upper→SwingUp, Side/Wide/Vesh/Cross→SwingSide, 그 외→SwingDown. Dash 는 같은 이름 클립. 고유 동작이 필요한 스킬은 클립을 추가하고 매핑에 넣는다.
 
 ## 3. 코드 연결
 
@@ -102,4 +102,5 @@
 - 10-25 (12): 활 — 활 무기도 지팡이와 같은 애니 이름(StaffAttack → Cast)이라 활을 머리 위로 치켜들었다 → 리그가 주무기 그림 이름에 "bow" 가 있으면 Cast 대신 Shoot(앞팔로 활을 앞에 세워 겨눔, 뒷팔이 시위를 2px 당겼다 놓고 몸 1px 반동). 무기를 바꾸면 매핑 캐시를 비운다.
 - 10-25 (13): 걷기·달리기 재생 속도 × 이동 속도 배율(`StatMath.MoveSpeedMul`, 0.5~2) — 이속 버프에서 발 미끄러짐 방지. 달리기 칼을 135°(뒤)에서 45°(앞 위)로 — 손이 몸 앞이라 뒤로 눕힌 칼날이 얼굴·가슴을 가로질렀다. ⚠ 빌더(에디터 C#)를 고치면 굽기 전에 반드시 컴파일(refresh compile).
 - 10-25 (14): 빈칸 자동 검출기(`find_rig_holes.py`) 도입 — 19클립 × 10시점. 착지(10px)·무릎 꿇기(12px)에서 팔·배낭을 몸통보다 더 내려 뒷어깨·배낭 사이가 비었다 → 두 포즈는 팔·배낭을 몸통과 같이. 이후 전 클립이 기준선(2~4px, 원본 흔적) 수준.
+- 10-25 (15): 스킬 전용 동작 2종(스킬 애니 이름 빈도 집계 후). 막기 Guard(ShieldUp 8곳: 몸 낮추고 방패 앞으로, 막기 중엔 뒷손 무기를 몸통 앞에 그림 — 평소엔 몸 뒤라 가려졌다), 회전베기 Spin(Spining 4곳: 팔이 90°씩 두 바퀴). 검증: 칼+방패 장착 후 실제 공격 애니 경로(ActiveAttackAnim)로 연속 촬영.
 

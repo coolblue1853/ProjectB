@@ -32,6 +32,9 @@ public class PixelRig : CharacterRig
     private static readonly Dictionary<string, PixelWeapon> PixelWeapons = new Dictionary<string, PixelWeapon>();
     private readonly List<Transform> _upright = new List<Transform>();
     private bool _ranged;
+    // 뒷손 무기(방패 등): 막기 동작 중에는 몸통 앞에 그린다(평소엔 몸 뒤 — 앞으로 내민 방패가 몸통에 가려졌다)
+    private readonly List<SpriteRenderer> _backWeapon = new List<SpriteRenderer>();
+    private const int GuardBackWeaponOrder = 47;
     private readonly Dictionary<string, Clip> _byName = new Dictionary<string, Clip>();
     private readonly Dictionary<string, Clip> _resolved = new Dictionary<string, Clip>();
     private Clip _current;
@@ -161,11 +164,19 @@ public class PixelRig : CharacterRig
             _resolved.Clear();
         }
         int order = isLeft ? _weaponOrderBack : _weaponOrderFront;
+        if (isLeft)
+        {
+            _backWeapon.Clear();
+        }
         foreach (SpriteRenderer r in weapon.GetComponentsInChildren<SpriteRenderer>(true))
         {
             r.sortingLayerID = _renderers.Length > 0 ? _renderers[0].sortingLayerID : r.sortingLayerID;
             r.sortingOrder = order;
             UsePixelWeapon(r);
+            if (isLeft)
+            {
+                _backWeapon.Add(r);
+            }
         }
     }
 
@@ -263,6 +274,7 @@ public class PixelRig : CharacterRig
         c.clip.SampleAnimation(gameObject, t);
         TuckLegsInAir(c);
         ApplyDeathLie();
+        SortBackWeapon(c);
         SnapBones();
         KeepUpright();
     }
@@ -362,6 +374,20 @@ public class PixelRig : CharacterRig
         _legB.localPosition += new Vector3(0f, 2f * px, 0f);
     }
 
+    private void SortBackWeapon(Clip c)
+    {
+        int order = c != null && c.name == "Guard" ? GuardBackWeaponOrder : _weaponOrderBack;
+        for (int i = _backWeapon.Count - 1; i >= 0; i--)
+        {
+            if (_backWeapon[i] == null)
+            {
+                _backWeapon.RemoveAt(i);
+                continue;
+            }
+            _backWeapon[i].sortingOrder = order;
+        }
+    }
+
     /// <summary>손에 끼우는 무기(방패·너클·활)는 손목이 돌아도 화면에서 똑바로 — 좌우 반전은 부모 배율이 처리한다</summary>
     private void KeepUpright()
     {
@@ -426,7 +452,15 @@ public class PixelRig : CharacterRig
         {
             return a.Contains("stay") ? "RopeStay" : "RopeUp";
         }
-        if (a.Contains("staff") || a.Contains("buff") || a.Contains("shield") || a.Contains("blow") || a.Contains("spead") || a.Contains("cast"))
+        if (a.Contains("shield"))
+        {
+            return "Guard";
+        }
+        if (a.Contains("spin"))
+        {
+            return "Spin";
+        }
+        if (a.Contains("staff") || a.Contains("buff") || a.Contains("blow") || a.Contains("spead") || a.Contains("cast"))
         {
             return "Cast";
         }
