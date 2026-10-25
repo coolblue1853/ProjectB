@@ -73,13 +73,26 @@
 - 다음: 사용자가 **가장 마음에 드는 3~5개(굿)** 를 고르면, 그 공통점(등신·실루엣·무기 종류·색)을 주인공 디자인 스펙으로 확정하고 PixelLab 시안(통일 규격) 2~3장으로 넘어간다.
 - 결과: 사용자 **"이번 건 다 긍정 판정 줄 수 있을 것 같아"** → 24개 전부 굿. 공통점으로 아래 스펙 초안을 고정한다.
 
+**🔴 캐릭터 도트 그래픽 앵커 (사용자 2026-10-25: "이런 느낌의 도트 그래픽으로 갔으면 좋겠어, 캐릭터가")**
+- 핀 `https://kr.pinterest.com/pin/584834701625061220/`(PixelTheWise, 소녀 전사 9인 라인업) · `https://kr.pinterest.com/pin/887068457842485519/`(소녀 전사 4인 + 작은 스프라이트). 파일 `Docs/ArtCompare/hero_style_anchor_a.png`·`_b.jpg`.
+- 이것이 **캐릭터(주인공·NPC) 그리는 방식의 기준**이다. 9라운드 스펙은 디자인(옷·색·소품)으로 남기고, 렌더링은 이 앵커를 따른다.
+- 측정·관찰:
+  1. **크기·비율**: 원본은 2배 확대본. 실제 도트 기준 키 **56~64px**(무기 제외), **3.5~4등신** SD — Q-419 "4등신" 가정과 일치. 머리가 크고 얼굴은 단순(눈 1~2px 세로, 입 생략에 가까움).
+  2. **외곽선**: 실루엣 전체를 **1px 짙은 색 외곽선**으로 두른다(검정 아님 — 재질마다 짙은 갈색·남색·자주). 안쪽 선은 최소, 면 경계는 명암으로.
+  3. **음영**: 재질당 3~4단, 머리카락에 굵은 하이라이트 띠, 그림자는 차갑게(hue shift). 디더링·그라데이션 없음.
+  4. **색**: 배경·몹보다 **채도가 높고 또렷한 색 블록**(주황·청록·분홍·진홍 등) — 어두운 세계에서 캐릭터가 읽히게. 캐릭터당 12~20색. → "몸은 어둡게 + 포인트 하나" 기준은 디자인 방향으로 두되, 렌더링은 명도 대비가 큰 또렷한 색면으로.
+  5. **실루엣·동세**: 큰 머리 덩어리(포니테일·트윈테일·큰 리본), 펄럭이는 천 자락, 다리를 벌린 전투 자세. **무기는 몸만큼 크고 밝게**(흰 대검, 녹색 발광 칼날, 금빛 지팡이) — 무기가 두 번째 시선 집중점.
+  6. **표시**: 회색 바닥에 발밑 반사·그림자.
+- 통일 규격 보정(캐릭터): 크기 64×64 캔버스(키 56~60px) · `outline`은 `selective outline`과 `single color outline` 둘 다 시안으로 비교 · `shading=medium shading` · 프롬프트 꼬리말 `"chibi 3.5 heads tall pixel art game sprite, bold dark colored outline, 3-4 tone cel shading with hue shifted shadows, big readable hair shapes, oversized bright weapon, no anti-aliasing"`. 몹·배경의 저채도 팔레트 규격은 그대로.
+- 게임 크기: 24 PPU에서 키 56~60px ≈ 2.3~2.5유닛(현재 주인공 약 1.6유닛보다 크다). 몹 캔버스 64px·보스 128px와의 비율은 시안 단계에서 스크린샷으로 확인한다.
+
 **주인공 디자인 스펙 초안 (2026-10-19 밤, 9라운드 24개 공통점)**
 - 실루엣: 소녀, **긴 머리가 동작에 따라 흩날림** + **긴 코트·망토 자락**(세 갈래 이상으로 갈라져 동세를 만든다). 무기는 몸에 비해 크게(대검·창·낫 계열이 다수).
 - 색: 몸은 **검정·남색·짙은 진홍 중 2색 + 피부·머리 1색**, 포인트는 **브로치 금빛 하나**(가슴의 금 고리 + 네 갈래 별). 무기 발광·눈 같은 2차 포인트는 계보 무기 색을 따른다(12절).
 - 자세: 정면 서 있기 금지 — 기본 대기부터 반쯤 튼 전투 자세, 무게중심 낮게.
-- 도트: 통일 규격(selective outline·위왼쪽 광원·hue shift·마스터 팔레트). 크기는 등신에 따라 64~96px.
+- 도트: 통일 규격(selective outline·위왼쪽 광원·hue shift·마스터 팔레트). 크기는 **32×32**(2026-10-25 개정, 이전 64~96px 폐기). 32px에서는 3등신 안팎이 읽힌다.
 - 미결정(Q-419, 임시 가정): **등신 4등신**(레퍼런스가 3등신 SD와 5~6등신이 섞여 중간값. 메이플식 진행과 디테일을 둘 다 살림) · **머리색 옅은 잿빛 금발**(어두운 옷과 대비, 브로치 금과 겹치지 않게 잿빛) · **기본 무기 실루엣은 장검**(시작 무기 녹슨 검, 무기는 교체되므로 손 그립 위치만 맞춘다).
-- PixelLab 시안(충전 후, 1장씩, 통일 규격): `create_image_pixflux` width 96·height 96, `view=side`, `direction=east`, `outline=selective outline`, `shading=medium shading`, `detail=highly detailed`, `no_background=True`, description = `"young girl adventurer, 4 heads tall, pale ash-blonde long hair flowing, long dark navy coat with split tails and black underlayer, small gold ring brooch with four-pointed star on chest, holding a longsword in low combat stance, dark fantasy pixel art, muted desaturated palette, single gold accent, selective outline, top-left light, no anti-aliasing"`. 시안 A(위 그대로)·B(5.5등신, 96×128) 2장을 뽑아 현재 주인공·숲 늑대 앵커와 나란히 `Docs/ArtCompare/hero_proto_*.png` 비교 시트로 사용자 판정.
+- PixelLab 시안(충전 후, 1장씩, 위 **캐릭터 도트 그래픽 앵커** 보정 우선): `create_image_pixflux` width 64·height 64(앵커 크기), `view=side`, `direction=east`, `outline=selective outline`, `shading=medium shading`, `detail=highly detailed`, `no_background=True`, description = `"young girl adventurer, pale ash-blonde long hair flowing, long dark navy coat with split tails and black underlayer, small gold ring brooch with four-pointed star on chest, holding an oversized longsword in low combat stance, chibi 3.5 heads tall pixel art game sprite, bold dark colored outline, 3-4 tone cel shading with hue shifted shadows, big readable hair shapes, oversized bright weapon, no anti-aliasing"`. 시안 A(selective outline)·B(single color outline) 2장을 앵커 꼬리말로 뽑아 앵커 이미지와 나란히 놓고, 현재 주인공·숲 늑대 앵커와 나란히 `Docs/ArtCompare/hero_proto_*.png` 비교 시트로 사용자 판정.
 
 
 **몹 고르는 기준 (체크리스트)**
@@ -110,7 +123,8 @@
 ## 1. 방향
 
 - **인디 액션풍 저해상도 도트**: 굵고 또렷한 픽셀, 엄격한 격자, 안티앨리어싱·블러 없음.
-- **해상도**: 인간형 캐릭터 키 약 48~64px(논리 px). 일반 몹 40~64px, 보스 96~128px. 게임 내 24 PPU 기준과 맞춘다.
+- **해상도 (2026-10-25 사용자 결정: "32x32 횡스크롤 스타일")**: 캐릭터는 **32×32 캔버스**(실제 키 26~30px), 아트 밀도 **16도트/유닛**(32px = 2유닛, 지금 플레이어·몹 충돌 크기 그대로). 화면은 640×360 도트(1080p 3배, 4K 6배). 일반 몹 32~48px, 정예 48~64px, 보스 64~96px(초대형 128). Magic Cliffs 타일(16 PPU)과 같은 밀도. 이전 규격(24 PPU, 캐릭터 48~64px)은 폐기 — 기존 몹·NPC 시트는 16 밀도로 다시 만든다.
+  - 카메라: PixelLook 기준 해상도 640×360·16 PPU. 떨림(B-191 계열) 방지를 위해 픽셀 스냅 없이 3배 정수 확대로 부드럽게 따라가는 방식을 먼저 시험한다(미검증).
 - **팔레트**: 바탕은 채도를 낮춘 차분한 색 3단 명암, 포인트 색 1~2개만 선명하게(마력 청록, 호박빛 눈, 주황 금속 등). 몹마다 대표 포인트 색을 정해 계보 무기 이펙트 색과 맞춘다(TowerWorld 12절).
 - **외곽선**: 검은 테두리를 두르지 않는다. 어두운 색 면이나 부분 외곽선으로 실루엣을 분리한다.
 - **실루엣·동세**: 비율은 날렵하게, 망토·꼬리·물결처럼 흐르는 형태로 동세를 크게 잡는다. 정지 포즈도 무게중심이 살아 있게 그린다.
@@ -129,7 +143,7 @@
 
 - 0절 레퍼런스는 **소재·분위기·실루엣**을 고르는 용도다. 레퍼런스마다 다른 그림체(도트 크기·외곽선·음영 방식·팔레트)를 그대로 따라 하지 않는다.
 - 생성물은 모두 아래 **고정 규격**으로 만든다. 몹마다 바꾸는 것은 형태·포인트 색 하나뿐.
-  1. **밀도·크기**: 24 PPU 게임 격자 기준 도트 1칸 = 1px. 일반 몹 캔버스 64px(실체 40~56px), 정예 80px, 보스 128px. 생성 해상도를 섞지 않는다(작게 만든 걸 키우거나 큰 걸 줄여 섞지 않음).
+  1. **밀도·크기**(2026-10-25 개정): 16도트/유닛. 캐릭터 32×32, 일반 몹 32~48px, 정예 48~64px, 보스 64~96px(초대형 128). 생성 해상도를 섞지 않는다(작게 만든 걸 키우거나 큰 걸 줄여 섞지 않음).
   2. **외곽선**: PixelLab `selective outline` 고정 — 검정이 아니라 몸 색보다 한두 단계 어두운 색, 빛 받는 쪽은 생략.
   3. **음영**: 위·왼쪽 광원 고정, 3단 명암 + 어두운 쪽은 청록·보라로 색상 이동(hue shift). 안티앨리어싱·디더링·그라데이션 금지.
   4. **팔레트**: 공용 마스터 팔레트(저채도 이끼 초록·돌 회색·청회색·탁한 갈색 + 발광 포인트 청록·호박·연보라)에서 몹당 16색 이하. 포인트 색은 1~2개, 눈·핵·룬 같은 **점**에만.
