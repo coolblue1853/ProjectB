@@ -60,4 +60,59 @@ public class PixelRigRulesTests
         Assert.AreEqual(2f, mul);
         Assert.IsFalse(Vfx.TryUpgradeLegacy(VfxId.BurstBlue, out _, out _, out _, out _), "폭발·빛기둥 등은 대체하지 않는다");
     }
+
+    // ── 포즈 그림 교체(PixelRigDesign 10-26 (19)~) ────────────────────────────
+    private static readonly string[] SwapBones = { "LegF", "LegB", "Hips/ShoulderF", "Hips/ShoulderB", "Hips/Head" };
+
+    private static System.Collections.Generic.IEnumerable<UnityEngine.AnimationClip> RigClips()
+    {
+        var prefab = UnityEngine.Resources.Load<UnityEngine.GameObject>("PixelRig/Adventurer");
+        Assert.IsNotNull(prefab, "Resources/PixelRig/Adventurer 프리팹");
+        var clips = new UnityEditor.SerializedObject(prefab.GetComponent<PixelRig>()).FindProperty("_clips");
+        for (int i = 0; i < clips.arraySize; i++)
+        {
+            yield return (UnityEngine.AnimationClip)clips.GetArrayElementAtIndex(i).FindPropertyRelative("clip").objectReferenceValue;
+        }
+    }
+
+    [Test]
+    public void RigClips_EverySwapBoneHasSpriteCurve()
+    {
+        // 모든 클립이 다리·팔·머리 그림 키를 가져야 걷기 뒤 공격·점프에서 변형 그림이 남지 않는다
+        foreach (var clip in RigClips())
+        {
+            foreach (string bone in SwapBones)
+            {
+                var binding = UnityEditor.EditorCurveBinding.PPtrCurve(bone, typeof(UnityEngine.SpriteRenderer), "m_Sprite");
+                var keys = UnityEditor.AnimationUtility.GetObjectReferenceCurve(clip, binding);
+                Assert.IsNotNull(keys, clip.name + " / " + bone + " 그림 커브 없음");
+                Assert.Greater(keys.Length, 0, clip.name + " / " + bone);
+                foreach (var k in keys)
+                {
+                    Assert.IsNotNull(k.value, clip.name + " / " + bone + " 빈 그림 키 @" + k.time);
+                }
+            }
+        }
+    }
+
+    [Test]
+    public void RigClips_WalkAndRunSwapLegs()
+    {
+        // 걷기·달리기는 다리 그림을 포즈마다 바꾼다(통째 이동으로 돌아가면 다리가 몸에서 떨어져 보였다)
+        foreach (var clip in RigClips())
+        {
+            if (clip.name != "Walk" && clip.name != "Run")
+            {
+                continue;
+            }
+            var keys = UnityEditor.AnimationUtility.GetObjectReferenceCurve(clip,
+                UnityEditor.EditorCurveBinding.PPtrCurve("LegF", typeof(UnityEngine.SpriteRenderer), "m_Sprite"));
+            var distinct = new System.Collections.Generic.HashSet<UnityEngine.Object>();
+            foreach (var k in keys)
+            {
+                distinct.Add(k.value);
+            }
+            Assert.GreaterOrEqual(distinct.Count, 3, clip.name + " 앞다리 그림 종류");
+        }
+    }
 }
