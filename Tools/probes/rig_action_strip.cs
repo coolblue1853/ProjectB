@@ -4,9 +4,9 @@ var pc = PlayerController.instance;
 var rig = pc.Rig;
 var fReq = typeof(PixelRig).GetField("_requested", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 string action = "__ACTION__";
-bool loco = action == "walk" || action == "run" || action == "brake"; // brake: 달리다 0.45초에 키를 떼고 그 순간부터 제동 포즈·먼지
-int n = action == "combo3" ? 12 : action == "jump" || action == "fall" ? 10 : 8, w = 256; float step = action == "brake" ? 0.035f : action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : action == "death" ? 0.25f : 0.08f;
-float lead = action == "brake" ? 0.43f : loco ? 0.3f : action == "fidget" ? 6.0f : 0.02f; // 걷기·달리기는 가속이 끝난 뒤부터 찍는다
+bool loco = action == "walk" || action == "run" || action == "brake" || action == "turn"; // turn: 오른쪽으로 달리다 0.45초에 왼쪽 — 방향 전환 먼지 // brake: 달리다 0.45초에 키를 떼고 그 순간부터 제동 포즈·먼지
+int n = action == "combo3" ? 12 : action == "jump" || action == "fall" ? 10 : 8, w = 256; float step = action == "brake" || action == "turn" ? 0.04f : action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : action == "death" ? 0.25f : 0.08f;
+float lead = action == "brake" || action == "turn" ? 0.4f : loco ? 0.3f : action == "fidget" ? 6.0f : 0.02f; // 걷기·달리기는 가속이 끝난 뒤부터 찍는다
 float camSize = loco || action == "jump" ? 1.15f : 1.6f; // 이동 동작은 크게(빈칸 확인용)
 var strip = new Texture2D(w * n, w, TextureFormat.RGB24, false);
 var log = new System.Text.StringBuilder();
@@ -36,12 +36,13 @@ if (action == "jump") typeof(PlayerController).GetMethod("Jump", flags).Invoke(p
 var kbd = UnityEngine.InputSystem.Keyboard.current;
 if (action == "walk") UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow));
 // 달리기는 이동 중 Shift 를 누르는 순간 켜지는 토글 → 오른쪽 먼저, 0.12초 뒤 Shift 탭
-if (action == "run" || action == "brake")
+if (action == "run" || action == "brake" || action == "turn")
 {
     UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow));
     DG.Tweening.DOVirtual.DelayedCall(0.12f, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow, UnityEngine.InputSystem.Key.LeftShift)), false);
     DG.Tweening.DOVirtual.DelayedCall(0.2f, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow)), false);
 }
+if (action == "turn") DG.Tweening.DOVirtual.DelayedCall(0.45f, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.LeftArrow)), false);
 if (loco) DG.Tweening.DOVirtual.DelayedCall(action == "brake" ? 0.45f : lead + n * step, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState()), false);
 if (action == "dash") typeof(PlayerController).GetMethod("Dash", flags).Invoke(pc, null);
 if (action == "attack") Weapon.Equipped.MeleeAttack();

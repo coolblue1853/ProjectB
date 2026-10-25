@@ -63,6 +63,9 @@ public class PixelRig : CharacterRig
     private const float StepDustBehind = 0.12f;
     private Clip _run;
     private int _runPose = -1;
+    // 달리다 방향 전환: 좌우가 바뀌는 순간 새 방향 발 뒤로 차고 나가는 먼지(1.2배)
+    private const float TurnDustScale = 1.2f;
+    private float _lastFacing;
     // 제동: 달리기 → 대기로 바뀌면 잠깐 버티는 포즈와 발 앞 먼지(클립 길이 0.14보다 짧게 — 끝 시점은 첫 포즈로 돌아간다)
     private const float BrakeTime = 0.13f;
     private const float BrakeDustAhead = 0.2f;
@@ -445,6 +448,13 @@ public class PixelRig : CharacterRig
     /// <summary>달리기에서 발 닿는 포즈로 넘어가는 순간 발 뒤에 도트 먼지(Px_StepDust). 다른 클립이면 포즈 기록을 지운다</summary>
     private void StepDust(Clip c, float t, float len)
     {
+        float facing = Mathf.Sign(transform.lossyScale.x);
+        if (_lastFacing != 0f && facing != _lastFacing && c == _run)
+        {
+            bool turnLeft = facing < 0f;
+            Vfx.Play(VfxId.StepDust, transform.position + Vector3.right * (turnLeft ? StepDustBehind : -StepDustBehind), turnLeft, TurnDustScale, true);
+        }
+        _lastFacing = facing;
         if (c != _run)
         {
             _runPose = -1;
