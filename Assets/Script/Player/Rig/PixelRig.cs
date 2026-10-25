@@ -36,6 +36,9 @@ public class PixelRig : CharacterRig
     // 뒷손 무기(방패 등): 막기 동작 중에는 몸통 앞에 그린다(평소엔 몸 뒤 — 앞으로 내민 방패가 몸통에 가려졌다)
     private readonly List<SpriteRenderer> _backWeapon = new List<SpriteRenderer>();
     private const int GuardBackWeaponOrder = 47;
+    // 로프·사다리에 매달리는 동안 무기는 숨긴다(칼날이 머리 위로 솟았다 — 상업 플랫포머 관례)
+    private readonly List<SpriteRenderer> _weaponRenderers = new List<SpriteRenderer>();
+    private bool _weaponsHidden;
     private readonly Dictionary<string, Clip> _byName = new Dictionary<string, Clip>();
     private readonly Dictionary<string, Clip> _resolved = new Dictionary<string, Clip>();
     private Clip _current;
@@ -169,11 +172,17 @@ public class PixelRig : CharacterRig
         {
             _backWeapon.Clear();
         }
+        _weaponRenderers.RemoveAll(x => x == null);
         foreach (SpriteRenderer r in weapon.GetComponentsInChildren<SpriteRenderer>(true))
         {
             r.sortingLayerID = _renderers.Length > 0 ? _renderers[0].sortingLayerID : r.sortingLayerID;
             r.sortingOrder = order;
             UsePixelWeapon(r);
+            if (!_weaponRenderers.Contains(r))
+            {
+                _weaponRenderers.Add(r);
+            }
+            r.enabled = !_weaponsHidden; // 매달린 채 무기를 바꿔도 숨김 유지
             if (isLeft)
             {
                 _backWeapon.Add(r);
@@ -277,6 +286,7 @@ public class PixelRig : CharacterRig
         TuckLegsInAir(c);
         ApplyDeathLie();
         SortBackWeapon(c);
+        HideWeaponsOnRope();
         SnapBones();
         KeepUpright();
     }
@@ -374,6 +384,25 @@ public class PixelRig : CharacterRig
         float px = 1f / _ppu;
         _legF.localPosition += new Vector3(px, 2f * px, 0f);
         _legB.localPosition += new Vector3(0f, 2f * px, 0f);
+    }
+
+    private void HideWeaponsOnRope()
+    {
+        bool hide = _requested != null && _requested.StartsWith("Rope");
+        if (hide == _weaponsHidden)
+        {
+            return;
+        }
+        _weaponsHidden = hide;
+        for (int i = _weaponRenderers.Count - 1; i >= 0; i--)
+        {
+            if (_weaponRenderers[i] == null)
+            {
+                _weaponRenderers.RemoveAt(i);
+                continue;
+            }
+            _weaponRenderers[i].enabled = !hide;
+        }
     }
 
     private void SortBackWeapon(Clip c)
