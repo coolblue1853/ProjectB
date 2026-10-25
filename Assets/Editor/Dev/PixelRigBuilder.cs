@@ -114,46 +114,105 @@ public static class PixelRigBuilder
     // ── 키프레임 표 ───────────────────────────────────────────────────────────
     // 뼈: Hips, Hips/Head, Hips/Pack, Hips/ShoulderF, Hips/ShoulderB, LegF, LegB
     // 채널: x·y = 아트 픽셀(오른쪽·위가 +), r = 도(반시계 +). 몸통(Hips)·머리는 돌리지 않는다 — 도트 통째 회전은 외곽이 지글거린다(위치 이동으로 표현). 캐릭터는 오른쪽을 본다 → 어깨 r + = 팔을 앞으로 든다.
+    /// <summary>
+    /// 6포즈 이동 주기(끊기는 포즈). 배열은 포즈별 픽셀값. 배낭은 엉덩이가 올라올 때 한 포즈 늦게 따라온다(상대값 = min(0, 이전 - 현재)).
+    /// </summary>
+    private static AnimDef Cycle(string name, float frame, float blade, float[] legFx, float[] legFy, float[] legBx, float[] legBy, float[] hipsY, float[] armFx, float hipsX)
+    {
+        int n = legFx.Length;
+        var def = new AnimDef(name, frame * n, true).Step();
+        def.K("LegF", 'x', Keys(legFx, frame)).K("LegF", 'y', Keys(legFy, frame))
+            .K("LegB", 'x', Keys(legBx, frame)).K("LegB", 'y', Keys(legBy, frame))
+            .K("Hips", 'y', Keys(hipsY, frame)).K("Hips", 'x', Keys(Fill(n, hipsX), frame));
+        var armB = new float[n];
+        var pack = new float[n];
+        for (int i = 0; i < n; i++)
+        {
+            armB[i] = -armFx[i];
+            // 아래로만 처진다(위로 밀리면 배낭 윗선이 머리카락 위로 삐져나왔다): 몸이 올라오는 포즈에서 한 박자 늦게 1px 처짐
+            pack[i] = Mathf.Min(0f, hipsY[(i + n - 1) % n] - hipsY[i]);
+        }
+        def.K("Hips/ShoulderF", 'x', Keys(armFx, frame)).K("Hips/ShoulderB", 'x', Keys(armB, frame))
+            .K("Hips/Pack", 'y', Keys(pack, frame))
+            .Arm(0f, 0f, blade, frame * n, 0f, blade);
+        return def;
+    }
+
+    /// <summary>한 포즈짜리 클립(끊김). 값은 (x, y) 픽셀, arms 는 양 어깨 같은 이동, blade 는 앞팔 칼날 각도</summary>
+    private static AnimDef Pose(string name, float len, float blade, (float x, float y) hips = default, (float x, float y) legF = default,
+        (float x, float y) legB = default, (float x, float y) arms = default, float pack = 0f)
+    {
+        var def = new AnimDef(name, len, false).Step();
+        def.K("Hips", 'x', 0f, hips.x, len, hips.x).K("Hips", 'y', 0f, hips.y, len, hips.y)
+            .K("LegF", 'x', 0f, legF.x, len, legF.x).K("LegF", 'y', 0f, legF.y, len, legF.y)
+            .K("LegB", 'x', 0f, legB.x, len, legB.x).K("LegB", 'y', 0f, legB.y, len, legB.y)
+            .K("Hips/ShoulderF", 'x', 0f, arms.x, len, arms.x).K("Hips/ShoulderF", 'y', 0f, arms.y, len, arms.y)
+            .K("Hips/ShoulderB", 'x', 0f, arms.x, len, arms.x).K("Hips/ShoulderB", 'y', 0f, arms.y, len, arms.y)
+            .K("Hips/Pack", 'y', 0f, pack, len, pack)
+            .Arm(0f, 0f, blade, len, 0f, blade);
+        return def;
+    }
+
+    /// <summary>포즈 배열 → (시간, 값) 쌍. 마지막에 첫 포즈를 한 번 더 붙여 고리를 닫는다</summary>
+    private static float[] Keys(float[] poses, float frame)
+    {
+        var k = new float[(poses.Length + 1) * 2];
+        for (int i = 0; i <= poses.Length; i++)
+        {
+            k[i * 2] = i * frame;
+            k[i * 2 + 1] = poses[i % poses.Length];
+        }
+        return k;
+    }
+
+    private static float[] Fill(int n, float v)
+    {
+        var a = new float[n];
+        for (int i = 0; i < n; i++)
+        {
+            a[i] = v;
+        }
+        return a;
+    }
+
     private static List<AnimDef> Clips()
     {
         return new List<AnimDef>
         {
-            new AnimDef("Idle", 1.2f, true)
-                .K("Hips", 'y', 0f, 0f, 0.6f, -1f, 1.2f, 0f)
-                .Arm(0f, 0f, 60f, 0.6f, 3f, 60f, 1.2f, 0f, 60f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.6f, -3f, 1.2f, 0f),
-            new AnimDef("Walk", 0.5f, true)
-                .K("LegF", 'x', 0f, 1f, 0.25f, -1f, 0.5f, 1f)
-                .K("LegF", 'y', 0f, 0f, 0.125f, 1f, 0.25f, 0f, 0.5f, 0f)
-                .K("LegB", 'x', 0f, -1f, 0.25f, 1f, 0.5f, -1f)
-                .K("LegB", 'y', 0f, 0f, 0.25f, 0f, 0.375f, 1f, 0.5f, 0f)
-                .K("Hips", 'y', 0f, 0f, 0.125f, -1f, 0.25f, 0f, 0.375f, -1f, 0.5f, 0f)
-                .Arm(0f, -10f, 60f, 0.25f, 10f, 60f, 0.5f, -10f, 60f)
-                .K("Hips/ShoulderB", 'r', 0f, 10f, 0.25f, -10f, 0.5f, 10f),
-            new AnimDef("Run", 0.36f, true)
-                .K("LegF", 'x', 0f, 2f, 0.18f, -2f, 0.36f, 2f)
-                .K("LegF", 'y', 0f, 0f, 0.09f, 2f, 0.18f, 0f, 0.36f, 0f)
-                .K("LegB", 'x', 0f, -2f, 0.18f, 2f, 0.36f, -2f)
-                .K("LegB", 'y', 0f, 0f, 0.18f, 0f, 0.27f, 2f, 0.36f, 0f)
-                .K("Hips", 'y', 0f, 0f, 0.09f, -1f, 0.18f, 0f, 0.27f, -1f, 0.36f, 0f)
-                .K("Hips", 'x', 0f, 1f, 0.36f, 1f)
-                .Arm(0f, -20f, 150f, 0.18f, -5f, 150f, 0.36f, -20f, 150f)
-                .K("Hips/ShoulderB", 'r', 0f, 20f, 0.18f, -20f, 0.36f, 20f),
-            new AnimDef("Jump", 0.2f, false)
-                .K("LegF", 'x', 0f, 0f, 0.1f, 1f)
-                .K("LegF", 'y', 0f, 0f, 0.1f, 2f)
-                .K("LegB", 'x', 0f, 0f, 0.1f, -1f)
-                .K("LegB", 'y', 0f, 0f, 0.1f, 3f)
-                .Arm(0f, 0f, 60f, 0.1f, 35f, 80f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.1f, -30f),
-            new AnimDef("Dash", 0.15f, false)
-                .K("Hips", 'x', 0f, 0f, 0.06f, 2f)
-                .K("LegF", 'x', 0f, 0f, 0.06f, -1f)
-                .K("LegF", 'y', 0f, 0f, 0.06f, 1f)
-                .K("LegB", 'x', 0f, 0f, 0.06f, -3f)
-                .K("LegB", 'y', 0f, 0f, 0.06f, 1f)
-                .Arm(0f, 0f, 60f, 0.06f, -35f, 170f)
-                .K("Hips/ShoulderB", 'r', 0f, 0f, 0.06f, -35f),
+            // 이동 동작 = 끊기는 포즈(Step: 보간 없음) + 팔은 회전 없이 1px 이동. 10-25 사용자 "걷기·점프가 너무 이상하다":
+            // 팔을 돌리면 가는 팔이 대(大)자로 뻗고 회전 도트가 지글거렸다, 부드러운 보간은 다리가 1px 사이를 미끄러졌다.
+            // 대기: 숨쉬기 1px, 길게 쉬고 짧게 넘어간다(첫 포즈를 길게 — 레퍼런스 250/150ms 리듬), 배낭은 한 박자 늦게 따라온다
+            new AnimDef("Idle", 1.3f, true).Step()
+                .K("Hips", 'y', 0f, 0f, 0.6f, -1f, 1.1f, 0f, 1.3f, 0f)
+                .K("Hips/Pack", 'y', 0f, 0f, 1.1f, -1f, 1.22f, 0f, 1.3f, 0f)
+                .Arm(0f, 0f, 60f, 1.3f, 0f, 60f),
+            // 걷기 6포즈(0.09초씩): 접지 A → 내려앉음 → 교차(뒷발 듦) → 접지 B → 내려앉음 → 교차(앞발 듦).
+            // 보폭 ±2px, 팔은 반대 다리와 엇갈려 1px, 배낭은 몸보다 한 박자 늦게(2차 움직임)
+            Cycle("Walk", 0.09f, 60f,
+                new float[] { 2, 1, 0, -2, -1, 0 }, new float[] { 0, 0, 0, 0, 0, 1 },
+                new float[] { -2, -1, 0, 2, 1, 0 }, new float[] { 0, 0, 1, 0, 0, 0 },
+                new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { -1, -1, 0, 1, 1, 0 }, 0f),
+            // 달리기 6포즈(0.07초씩): 교차 때 발을 2px 들고 몸은 1px 앞으로, 칼은 뒤로 눕혀 든다
+            Cycle("Run", 0.07f, 150f,
+                new float[] { 2, 1, -1, -2, -1, 1 }, new float[] { 0, 0, 0, 0, 1, 2 },
+                new float[] { -2, -1, 1, 2, 1, -1 }, new float[] { 0, 1, 2, 0, 0, 0 },
+                new float[] { 0, -1, 0, 0, -1, 0 }, new float[] { -1, -1, 0, 1, 1, 0 }, 1f),
+            // 점프: 리그(PixelRig)가 세로 속도로 고른다 — 도약(첫 0.06초 늘임) → 상승 → 꼭대기 → 낙하, 착지하면 0.1초 눌림(Land).
+            // 변형은 한두 프레임만(셀레스트식), 1px 단위
+            Pose("Jump", 0.1f, 80f, legF: (1, 1), legB: (-1, 2), arms: (0, 1)),
+            Pose("JumpLaunch", 0.06f, 80f, hips: (0, 1), arms: (0, 1)),
+            Pose("JumpApex", 0.1f, 70f, legF: (1, 2), legB: (0, 2), arms: (0, 1)),
+            Pose("JumpFall", 0.1f, 95f, legF: (1, 0), legB: (-1, 1), arms: (0, 2)),
+            Pose("Land", 0.1f, 50f, hips: (0, -1), legF: (1, 0), legB: (-1, 0), arms: (0, -1), pack: -1),
+            // 대시 1포즈: 몸 2px 앞으로, 다리 뒤로 끌림, 팔 1px 뒤로, 칼 뒤로 눕힘
+            new AnimDef("Dash", 0.1f, false).Step()
+                .K("Hips", 'x', 0f, 2f, 0.1f, 2f)
+                .K("LegF", 'x', 0f, -1f, 0.1f, -1f)
+                .K("LegB", 'x', 0f, -2f, 0.1f, -2f)
+                .K("LegB", 'y', 0f, 1f, 0.1f, 1f)
+                .K("Hips/ShoulderF", 'x', 0f, -1f, 0.1f, -1f)
+                .K("Hips/ShoulderB", 'x', 0f, -1f, 0.1f, -1f)
+                .Arm(0f, 0f, 170f, 0.1f, 0f, 170f),
             new AnimDef("RopeStay", 0.6f, true)
                 .Arm(0f, 160f, 90f, 0.6f, 160f, 90f)
                 .K("Hips/ShoulderB", 'r', 0f, -160f, 0.6f, -160f)
@@ -211,9 +270,9 @@ public static class PixelRigBuilder
         foreach (string bone in AnimBones)
         {
             Vector3 r = rest[bone];
-            SetCurve(clip, bone, "m_LocalPosition.x", def.Get(bone, 'x'), r.x, 1f / Ppu, def.Length);
-            SetCurve(clip, bone, "m_LocalPosition.y", def.Get(bone, 'y'), r.y, 1f / Ppu, def.Length);
-            SetCurve(clip, bone, "localEulerAnglesRaw.z", def.Get(bone, 'r'), 0f, 1f, def.Length);
+            SetCurve(clip, bone, "m_LocalPosition.x", def.Get(bone, 'x'), r.x, 1f / Ppu, def.Length, def.Stepped);
+            SetCurve(clip, bone, "m_LocalPosition.y", def.Get(bone, 'y'), r.y, 1f / Ppu, def.Length, def.Stepped);
+            SetCurve(clip, bone, "localEulerAnglesRaw.z", def.Get(bone, 'r'), 0f, 1f, def.Length, def.Stepped);
         }
         var settings = AnimationUtility.GetAnimationClipSettings(clip);
         settings.loopTime = def.Loop;
@@ -222,7 +281,7 @@ public static class PixelRigBuilder
         return clip;
     }
 
-    private static void SetCurve(AnimationClip clip, string bone, string prop, float[] keys, float baseValue, float scale, float length)
+    private static void SetCurve(AnimationClip clip, string bone, string prop, float[] keys, float baseValue, float scale, float length, bool stepped)
     {
         var curve = new AnimationCurve();
         if (keys == null)
@@ -239,8 +298,9 @@ public static class PixelRigBuilder
         }
         for (int i = 0; i < curve.length; i++)
         {
-            AnimationUtility.SetKeyLeftTangentMode(curve, i, AnimationUtility.TangentMode.Linear);
-            AnimationUtility.SetKeyRightTangentMode(curve, i, AnimationUtility.TangentMode.Linear);
+            var mode = stepped ? AnimationUtility.TangentMode.Constant : AnimationUtility.TangentMode.Linear;
+            AnimationUtility.SetKeyLeftTangentMode(curve, i, mode);
+            AnimationUtility.SetKeyRightTangentMode(curve, i, mode);
         }
         clip.SetCurve(bone, typeof(Transform), prop, curve);
     }
@@ -251,6 +311,14 @@ public static class PixelRigBuilder
         public readonly float Length;
         public readonly bool Loop;
         private readonly Dictionary<string, float[]> _keys = new Dictionary<string, float[]>();
+        public bool Stepped { get; private set; }
+
+        /// <summary>보간 없이 키 포즈를 그대로 유지(도트 이동 동작은 끊기는 포즈가 자연스럽다)</summary>
+        public AnimDef Step()
+        {
+            Stepped = true;
+            return this;
+        }
 
         public AnimDef(string name, float length, bool loop)
         {

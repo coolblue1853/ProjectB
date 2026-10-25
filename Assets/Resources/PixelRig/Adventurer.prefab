@@ -401,6 +401,18 @@ MonoBehaviour:
   - name: Jump
     clip: {fileID: 7400000, guid: 332cfe2f84a71a441b2b5c9e9b24dce7, type: 2}
     loop: 0
+  - name: JumpLaunch
+    clip: {fileID: 7400000, guid: 618a8612063b19c4faf0d266435b8d60, type: 2}
+    loop: 0
+  - name: JumpApex
+    clip: {fileID: 7400000, guid: 67d0a1ec6d963c946be3eabf1cf44b59, type: 2}
+    loop: 0
+  - name: JumpFall
+    clip: {fileID: 7400000, guid: 140d296080f56e745a2cea77a3d54d46, type: 2}
+    loop: 0
+  - name: Land
+    clip: {fileID: 7400000, guid: 00888c13ec487d94d8c5985241b49d39, type: 2}
+    loop: 0
   - name: Dash
     clip: {fileID: 7400000, guid: a47300d15a77010418c89bca02389ef0, type: 2}
     loop: 0

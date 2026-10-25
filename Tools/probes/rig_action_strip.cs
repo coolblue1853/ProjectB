@@ -4,7 +4,10 @@ var pc = PlayerController.instance;
 var rig = pc.Rig;
 var fReq = typeof(PixelRig).GetField("_requested", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 string action = "__ACTION__";
-int n = action == "combo3" ? 12 : 8, w = 256; float step = action == "combo3" ? 0.1f : 0.08f;
+bool loco = action == "walk" || action == "run";
+int n = action == "combo3" ? 12 : action == "jump" ? 10 : 8, w = 256; float step = action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : 0.08f;
+float lead = loco ? 0.3f : 0.02f; // 걷기·달리기는 가속이 끝난 뒤부터 찍는다
+float camSize = loco || action == "jump" ? 1.15f : 1.6f; // 이동 동작은 크게(빈칸 확인용)
 var strip = new Texture2D(w * n, w, TextureFormat.RGB24, false);
 var log = new System.Text.StringBuilder();
 System.AppDomain.CurrentDomain.SetData("pb_rigact", log);
@@ -12,10 +15,10 @@ System.Action<int> shot = (int i) =>
 {
     var go = new GameObject("CloseupCam");
     var cam = go.AddComponent<Camera>();
-    cam.orthographic = true; cam.orthographicSize = 1.6f;
+    cam.orthographic = true; cam.orthographicSize = camSize;
     cam.clearFlags = CameraClearFlags.SolidColor; cam.backgroundColor = new Color(0.55f, 0.6f, 0.65f, 1f);
     Vector3 p = pc.transform.position;
-    go.transform.position = new Vector3(p.x + 0.3f, p.y + 0.5f, p.z - 50f);
+    go.transform.position = new Vector3(p.x + 0.2f, p.y + (camSize < 1.5f ? 0.15f : 0.5f), p.z - 50f);
     var rt = new RenderTexture(w, w, 24); rt.filterMode = FilterMode.Point;
     cam.targetTexture = rt; cam.Render();
     RenderTexture.active = rt; strip.ReadPixels(new Rect(0, 0, w, w), i * w, 0); RenderTexture.active = null;
@@ -29,6 +32,17 @@ System.Action<int> shot = (int i) =>
 };
 var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public;
 if (action == "jump") typeof(PlayerController).GetMethod("Jump", flags).Invoke(pc, null);
+// walk/run: 오른쪽(+Shift) 키를 누른 채 찍고 마지막 컷 뒤에 뗀다. 먼저 input_bg_on
+var kbd = UnityEngine.InputSystem.Keyboard.current;
+if (action == "walk") UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow));
+// 달리기는 이동 중 Shift 를 누르는 순간 켜지는 토글 → 오른쪽 먼저, 0.12초 뒤 Shift 탭
+if (action == "run")
+{
+    UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow));
+    DG.Tweening.DOVirtual.DelayedCall(0.12f, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow, UnityEngine.InputSystem.Key.LeftShift)), false);
+    DG.Tweening.DOVirtual.DelayedCall(0.2f, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState(UnityEngine.InputSystem.Key.RightArrow)), false);
+}
+if (loco) DG.Tweening.DOVirtual.DelayedCall(lead + n * step, () => UnityEngine.InputSystem.InputSystem.QueueStateEvent(kbd, new UnityEngine.InputSystem.LowLevel.KeyboardState()), false);
 if (action == "dash") typeof(PlayerController).GetMethod("Dash", flags).Invoke(pc, null);
 if (action == "attack") Weapon.Equipped.MeleeAttack();
 if (action == "combo3")
@@ -48,6 +62,6 @@ if (action == "combo")
 for (int k = 0; k < n; k++)
 {
     int kk = k;
-    DG.Tweening.DOVirtual.DelayedCall(0.02f + kk * step, () => shot(kk), false);
+    DG.Tweening.DOVirtual.DelayedCall(lead + kk * step, () => shot(kk), false);
 }
 return "scheduled " + action;

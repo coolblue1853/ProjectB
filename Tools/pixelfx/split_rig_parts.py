@@ -17,6 +17,8 @@ from PIL import Image
 # 몸통은 x16·x26 의 진한 선이 자체 외곽선이라 팔을 떼도 구멍이 생기지 않는다
 ARM_L = (12, 16, 38, 49)       # x0, x1(미포함), y0, y1 — 화면 왼쪽 팔(반전 후 캐릭터의 앞팔)
 ARM_R = (27, 32, 39, 49)       # 화면 오른쪽 팔(배낭 쪽, 뒷팔)
+ARM_L_INNER = (14, 15)          # 팔에서 몸통 쪽 2열 — 몸통에도 겹쳐 그린다
+ARM_R_INNER = (27, 28)
 LEG_TOP = 50                   # 이 행부터 다리
 LEG_SPLIT_X = 22               # 이보다 왼쪽 = 왼다리
 LEG_MAX_X = 29
@@ -78,6 +80,11 @@ def main():
             img[HEAD_BOTTOM] = np.where((lab[HEAD_BOTTOM + 1] == "torso")[:, None], a[HEAD_BOTTOM + 1], img[HEAD_BOTTOM])
             # 겹침(원본 AnyPortrait 리깅 방식: 맞닿는 줄을 양쪽 부위에 다 그린다): 다리 윗부분 2줄을 몸통에도 그려 둔다.
             # 몸통이 다리 위에 그려지므로 정지 자세는 같고, 다리가 1~2px 움직여도 반바지 아래로 배경이 비치지 않는다
+            # 팔 안쪽 2줄도 몸통에 그려 둔다 — 팔이 1px 옆으로 움직여도 팔과 몸 사이로 배경이 비치지 않게(10-25 "몸에 빈칸")
+            for arm, cols in (("arm_l", ARM_L_INNER), ("arm_r", ARM_R_INNER)):
+                for xx in cols:
+                    col = lab[:, xx] == arm
+                    img[col, xx] = a[col, xx]
             for yy in range(LEG_TOP, LEG_TOP + LEG_OVERLAP):
                 legs = (lab[yy] == "leg_l") | (lab[yy] == "leg_r")
                 img[yy][legs] = a[yy][legs]

@@ -34,6 +34,14 @@ public class PixelRig : CharacterRig
     private float _time;
     private float _globalSpeed = 1f;
     private float _clipSpeed = 1f;
+    // 점프 세분(상승·꼭대기·낙하)과 착지 눌림 — 플레이어 코드는 Play("Jump") 하나만 부른다
+    private Rigidbody2D _body;
+    private float _playedAt;
+    private float _landUntil;
+    private Clip _launch, _up, _apex, _fall, _land;
+    private const float ApexBand = 1.5f;   // |세로 속도| 이하면 꼭대기 포즈
+    private const float LaunchTime = 0.06f;
+    private const float LandTime = 0.1f;
 
     private void Awake()
     {
@@ -44,11 +52,23 @@ public class PixelRig : CharacterRig
                 _byName[c.name] = c;
             }
         }
+        _body = GetComponentInParent<Rigidbody2D>();
+        _byName.TryGetValue("JumpLaunch", out _launch);
+        _byName.TryGetValue("Jump", out _up);
+        _byName.TryGetValue("JumpApex", out _apex);
+        _byName.TryGetValue("JumpFall", out _fall);
+        _byName.TryGetValue("Land", out _land);
         Play("Idle");
     }
 
     public override void Play(string anim)
     {
+        // 점프 중에 땅 동작으로 바뀌면 착지 눌림을 잠깐 보여 준다
+        if (_requested == "Jump" && _land != null && (anim == "Idle" || anim == "Walk" || anim == "Run"))
+        {
+            _landUntil = Time.time + LandTime;
+        }
+        _playedAt = Time.time;
         _current = Resolve(anim);
         _requested = anim;
         _time = 0f;
@@ -124,10 +144,39 @@ public class PixelRig : CharacterRig
             return;
         }
         _time += Time.deltaTime * _globalSpeed * _clipSpeed;
-        float len = Mathf.Max(_current.clip.length, 0.0001f);
-        float t = _current.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
-        _current.clip.SampleAnimation(gameObject, t);
+        Clip c = PickVariant();
+        float len = Mathf.Max(c.clip.length, 0.0001f);
+        float t = c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
+        c.clip.SampleAnimation(gameObject, t);
         SnapBones();
+    }
+
+    /// <summary>점프는 세로 속도로 상승·꼭대기·낙하를 고르고, 막 착지했으면 눌림 포즈</summary>
+    private Clip PickVariant()
+    {
+        float now = Time.time;
+        if (now < _landUntil && (_requested == "Idle" || _requested == "Walk" || _requested == "Run"))
+        {
+            return _land;
+        }
+        if (_requested != "Jump" || _body == null || _up == null)
+        {
+            return _current;
+        }
+        if (_launch != null && now - _playedAt < LaunchTime)
+        {
+            return _launch;
+        }
+        float vy = _body.linearVelocity.y;
+        if (vy > ApexBand)
+        {
+            return _up;
+        }
+        if (vy < -ApexBand && _fall != null)
+        {
+            return _fall;
+        }
+        return _apex != null ? _apex : _up;
     }
 
     /// <summary>뼈 위치를 아트 픽셀 격자에 맞춘다 — 부위가 반 픽셀에 걸려 번지지 않게</summary>
