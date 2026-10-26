@@ -23,7 +23,9 @@ TOL = 24
 # 전이 묶음(최대 15프레임 — 같은 값): 폴더 이름 → (클립, 프레임) 순서. 셀 클립을 바꾸면 여기도 맞춘다
 BATCHES = {
     "walk": [("Walk", k) for k in range(8)],
-    "batch_a": [("Run", k) for k in range(7)] + [("JumpCrouch", k) for k in range(3)] + [("JumpArc", k) for k in range(4)],
+    # 달리기를 7 → 6프레임(run_loop 2~7)으로 바꾼 뒤: 새 Run_k = 전이 묶음 k+1번, 예전 발 맞춤(4px)과 지금 고정 높이(3px) 차이로 앞 두 장은 1px 위로.
+    # 항목: (클립, 프레임) 또는 (클립, 프레임, 묶음 안 번호, 세로 이동). None = 이 자리 전이 결과는 안 쓴다
+    "batch_a": [None] + [("Run", k, k + 1, -1 if k < 2 else 0) for k in range(6)] + [("JumpCrouch", k) for k in range(3)] + [("JumpArc", k) for k in range(4)],
     "batch_b": [("Land", k) for k in range(3)] + [("Idle", k) for k in range(4)] + [("Dash", k) for k in range(3)] + [("Hurt", k) for k in range(3)],
     "batch_c": [("Death", k) for k in range(8)],
     "batch_d": [("Stab", k) for k in range(7)] + [("SwingDown", k) for k in range(7)],
@@ -41,9 +43,16 @@ def main():
         if not os.path.isdir(src):
             print("없음:", src)
             continue
-        for i, (clip, k) in enumerate(items):
+        for i, item in enumerate(items):
+            if item is None:
+                continue
+            clip, k = item[0], item[1]
+            src_i = item[2] if len(item) > 2 else i
+            shift = item[3] if len(item) > 3 else 0
             b = np.array(Image.open(os.path.join(CEL, f"{clip}_{k}.png")).convert("RGBA")).astype(int)
-            e = np.array(Image.open(os.path.join(src, f"{i}.png")).convert("RGBA")).astype(int)
+            e = np.array(Image.open(os.path.join(src, f"{src_i}.png")).convert("RGBA")).astype(int)
+            if shift:
+                e = np.roll(e, shift, axis=0)
             bo, eo = b[..., 3] > 0, e[..., 3] > 0
             differ = np.abs(b[..., :3] - e[..., :3]).sum(axis=2) > TOL
             lm = clean(eo & (~bo | differ), MIN_PART)

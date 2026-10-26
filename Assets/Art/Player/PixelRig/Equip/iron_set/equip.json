@@ -53,42 +53,36 @@
   {
    "clip": "Run",
    "k": 0,
-   "layer": 534,
-   "erase": 20
-  },
-  {
-   "clip": "Run",
-   "k": 1,
    "layer": 546,
    "erase": 19
   },
   {
    "clip": "Run",
-   "k": 2,
+   "k": 1,
    "layer": 570,
    "erase": 19
   },
   {
    "clip": "Run",
-   "k": 3,
+   "k": 2,
    "layer": 576,
    "erase": 26
   },
   {
    "clip": "Run",
-   "k": 4,
+   "k": 3,
    "layer": 585,
    "erase": 23
   },
   {
    "clip": "Run",
-   "k": 5,
+   "k": 4,
    "layer": 543,
    "erase": 19
   },
   {
    "clip": "Run",
-   "k": 6,
+   "k": 5,
    "layer": 547,
    "erase": 37
   },

@@ -44,7 +44,7 @@ def main():
             specks = sum(1 for n in parts[1:] if n < 30)
             hl = holes(al)
             bottom = int(np.nonzero(al.any(axis=1))[0].max())
-            flag = specks or hl > 1 or (clip not in AIR and bottom != 54)
+            flag = specks or hl > 1 or (clip not in AIR and bottom != 54 and not (clip == "Run" and bottom == 53))  # 달리기 체공은 1px 뜸 허용
             bad += bool(flag)
             line.append(f"{f['png'].split('_')[-1]}:{'!' if flag else ''}s{specks}h{hl}b{bottom}")
         print(f"{clip:11s}", " ".join(line))

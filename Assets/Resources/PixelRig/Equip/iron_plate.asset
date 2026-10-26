@@ -71,10 +71,6 @@ MonoBehaviour:
     index: 5
     layer: {fileID: 2800000, guid: 91f06cfa1b463d044ad85501a17705d7, type: 3}
     erase: {fileID: 2800000, guid: e696fa5cff9298847a748094577bc687, type: 3}
-  - clip: Run
-    index: 6
-    layer: {fileID: 2800000, guid: 8d92aa49acfb2a14f85636a4bfdf1273, type: 3}
-    erase: {fileID: 2800000, guid: 348d0c9fe332c7747a1156336c11be49, type: 3}
   - clip: JumpCrouch
     index: 0
     layer: {fileID: 2800000, guid: 7adf4498f16e58d419eaabef05ff2d2d, type: 3}

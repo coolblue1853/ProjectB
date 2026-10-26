@@ -20,8 +20,8 @@ FEET_ROW = 55
 HIP_X = 41  # 리그 원점 x(엉덩이)
 # 클립: (초안 폴더, 프레임 번호들, 프레임 시간(초), 반복, 정렬 'feet' | 'scarf')
 CLIPS = {
-    "Walk": ("walk_loop", list(range(0, 8)), 0.08, True, "feet"),  # 0.1 은 디딘 발이 땅보다 느려(3 대 7.2px/프레임) 미끄러졌다
-    "Run": ("run_loop", list(range(1, 8)), 0.06, True, "feet"),
+    "Walk": ("walk_loop", list(range(0, 8)), 0.08, True, "feet"),  # 걷기는 늘 한 발이 땅에 — 프레임마다 발 맞춤  # 0.1 은 디딘 발이 땅보다 느려(3 대 7.2px/프레임) 미끄러졌다
+    "Run": ("run_loop", list(range(2, 8)), 0.06, True, "const"),  # 2~7: 프레임 간 변화가 가장 고른 6장(이음새 531 ≈ 평균), 리그 달리기 6포즈와 같은 수
     "JumpCrouch": ("jump_side", [2, 3, 4], 0.04, False, "feet"),  # 측면 기준 재생성(첫 점프 초안은 3/4 정면이라 측면 걷기와 시점이 달랐다)
     "JumpArc": ("jump_side", [5, 6, 7, 8], 0.25, False, "scarf"),  # 리그가 세로 속도로 시점을 고른다(0 상승 → 1 낙하)
     "Land": ("jump_side", [9, 10, 11], 0.05, False, "feet"),
@@ -355,9 +355,17 @@ def main():
                 # 칼은 팔레트 고정 전에 지운다 — 고정이 먼저면 강철 색이 주인공 색으로 바뀌어 칼을 못 찾았다
                 raw, grip, angle = strip_weapon(raw)
             a = lock(Image.fromarray(raw, "RGBA"), pal)
-            if align == "feet":
+            if align == "const" and k == 0:
+                # 루프 전체에서 가장 낮은 발을 땅(54행)에 — 첫 프레임 기준이면 다른 프레임 발이 땅을 1px 파고들었다
+                lows = [int(np.nonzero(np.array(Image.open(os.path.join(SRC, folder, f"{j}.png")).convert("RGBA"))[..., 3].any(axis=1))[0].max()) for j in idx]
+                const_dy = (FEET_ROW - 1) - max(lows)
+                dy = const_dy
+            elif align == "feet":
                 ys = np.nonzero(a[..., 3].any(axis=1))[0]
                 dy = (FEET_ROW - 1) - int(ys.max())
+            elif align == "const":
+                # 반복 동작은 첫 프레임 높이로 고정 — 프레임마다 발을 맞추면 원래 그림의 체공 출렁임이 사라지고 엉뚱한 데서 1px 튀었다
+                dy = const_dy
             else:
                 s = np.nonzero(near(a, SCARF).any(axis=1))[0]
                 dy = scarf_top_ref - int(s.min())
