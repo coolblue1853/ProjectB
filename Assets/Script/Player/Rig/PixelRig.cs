@@ -484,6 +484,11 @@ public class PixelRig : CharacterRig
             float blade = i < cel.angles.Length && cel.angles[i] > CelClip.NoAngle + 1f
                 ? cel.angles[i] // 공격 셀: 그림 속 칼에서 읽은 각도
                 : Mathf.Lerp(CelBladeAngle, CelBladeBack, back);
+            if (groundLoop && blade == CelBladeAngle)
+            {
+                // 팔 흔들기를 칼끝이 따라간다: 손이 앞이면 칼끝이 들리고 뒤면 처진다(고정 15°는 막대처럼 굳어 보였다)
+                blade += Mathf.Clamp((cel.hand[i].x * _ppu - CelHandSwingRef) * CelBladeSwing, -CelBladeSwingMax, CelBladeSwingMax);
+            }
             _socketRight.parent.localRotation = Quaternion.Euler(0f, 0f, blade - 90f);
         }
         if (_socketLeft != null && i < cel.handB.Length)
@@ -551,6 +556,9 @@ public class PixelRig : CharacterRig
     // 이동 중 칼은 앞으로 낮게(가슴 높이) — 무기를 맨 위에 그리면서 세운 칼(70~100°)이 얼굴을 덮었다(10-26). 손이 등 뒤로 크게 갈 때(점프 등)만 세운다
     private const float CelBladeAngle = 15f;
     private const float CelBladeBack = 170f;
+    private const float CelHandSwingRef = -5f;  // 걷기·달리기 손 x 가운데(엉덩이 기준 아트 px)
+    private const float CelBladeSwing = 2.5f;   // 손 1px 당 칼 각도
+    private const float CelBladeSwingMax = 10f;
     private const int WalkStartFrame = 3;
     private const float CelHandFrontPx = -6f; // 손 x(엉덩이 기준 아트 px)가 이보다 앞이면 15°
     private const float CelHandBackPx = -7f;  // 이보다 뒤면 뒤로 끌기(170°)
