@@ -28,7 +28,7 @@ BATCHES = {
     "batch_a": [None] + [("Run", k, k + 1, -1 if k < 2 else 0) for k in range(6)] + [("JumpCrouch", k) for k in range(3)] + [("JumpArc", k) for k in range(4)],
     "batch_b": [("Land", k) for k in range(3)] + [("Idle", k) for k in range(4)] + [("Dash", k) for k in range(3)] + [("Hurt", k) for k in range(3)],
     "batch_c": [("Death", k) for k in range(8)],
-    "batch_d": [("Stab", k) for k in range(7)] + [("SwingDown", k) for k in range(7)],
+    "batch_d": [("Stab", k) for k in range(7)] + [("SwingDown", k, 7 + (3 if k == 2 else k)) for k in range(7)],
     "batch_e": [("SwingUp", k) for k in range(7)],
     "batch_f": [("RopeUp", k) for k in range(8)],
     "batch_f_stay": [("RopeStay", 0, 0, 0)],  # 매달리기 = 오르기 0번과 같은 그림

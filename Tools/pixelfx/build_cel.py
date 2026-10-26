@@ -32,7 +32,7 @@ CLIPS = {
     "RopeStay": ("rope_loop", [0], 0.3, True, "const"),
     # 공격(칼을 쥔 채 생성 → 칼·잔상을 지우고 손잡이·칼날 각도를 읽어 실제 장착 무기를 붙인다). 0·8번은 기준 그림이라 뺀다
     "Stab": ("attack/stab", list(range(1, 8)), 0.04, False, "feet", True),
-    "SwingDown": ("attack/down", list(range(1, 8)), 0.04, False, "feet", True),
+    "SwingDown": ("attack/down", [1, 2, 4, 4, 5, 6, 7], 0.04, False, "feet", True),  # 3번은 몸이 쪼그라든 뒷모습이라(투구 레이어도 빈 칸) 4번을 두 번 쓴다
     "SwingUp": ("attack/up", list(range(1, 8)), 0.04, False, "feet", True),
     # 대검·둔기 양손(늘린 강철 대검을 합성한 기준 그림에서 생성, 칼 길이 36). 묵직하게 0.05초
     "GreatDown": ("attack/great_down", list(range(1, 8)), 0.05, False, "feet", 36),
