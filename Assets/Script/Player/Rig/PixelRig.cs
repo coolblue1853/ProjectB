@@ -585,11 +585,11 @@ public class PixelRig : CharacterRig
 
     // 이동 중 칼은 앞으로 낮게(가슴 높이) — 무기를 맨 위에 그리면서 세운 칼(70~100°)이 얼굴을 덮었다(10-26). 손이 등 뒤로 크게 갈 때(점프 등)만 세운다
     private const float CelBladeAngle = -20f; // 칼을 앞·아래로 늘어뜨려 든다(10-26 저녁 사용자: 15° 로 앞을 겨눈 채 걸으면 부자연스럽다)
-    private const float CelBladeBack = 170f;
+    private const float CelBladeBack = 210f; // 손이 등 뒤면 칼을 뒤·아래로 늘어뜨려 끈다 — 170°(수평 뒤)는 꼬리처럼 튀어나오고 앞(-20°)과의 전환이 뒤집혀 보였다(10-26 밤)
     private const float CelBladeLagRange = 40f; // 이보다 작은 각도 변화는 늦게 따라오기
     private const float CelBladeLag = 14f;      // 따라오기 빠르기(1/초)
-    private const float CelBladeRise = 200f;
-    private const float CelBladeFall = 150f;
+    private const float CelBladeRise = 220f;
+    private const float CelBladeFall = 185f;
     private const float CelHandSwingRef = -5f;  // 걷기·달리기 손 x 가운데(엉덩이 기준 아트 px)
     private const float CelBladeSwing = 2.5f;   // 손 1px 당 칼 각도
     private const float CelBladeSwingMax = 10f;
