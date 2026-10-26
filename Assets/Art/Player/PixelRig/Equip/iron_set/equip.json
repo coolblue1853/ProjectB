@@ -54,37 +54,37 @@
    "clip": "Run",
    "k": 0,
    "layer": 546,
-   "erase": 19
+   "erase": 20
   },
   {
    "clip": "Run",
    "k": 1,
    "layer": 573,
-   "erase": 19
+   "erase": 20
   },
   {
    "clip": "Run",
    "k": 2,
    "layer": 576,
-   "erase": 26
+   "erase": 28
   },
   {
    "clip": "Run",
    "k": 3,
    "layer": 585,
-   "erase": 23
+   "erase": 24
   },
   {
    "clip": "Run",
    "k": 4,
    "layer": 543,
-   "erase": 19
+   "erase": 20
   },
   {
    "clip": "Run",
    "k": 5,
    "layer": 548,
-   "erase": 37
+   "erase": 38
   },
   {
    "clip": "JumpCrouch",
@@ -144,13 +144,13 @@
    "clip": "Land",
    "k": 2,
    "layer": 557,
-   "erase": 10
+   "erase": 11
   },
   {
    "clip": "Idle",
    "k": 0,
    "layer": 565,
-   "erase": 27
+   "erase": 28
   },
   {
    "clip": "Idle",
@@ -180,7 +180,7 @@
    "clip": "Dash",
    "k": 1,
    "layer": 599,
-   "erase": 5
+   "erase": 6
   },
   {
    "clip": "Dash",
@@ -198,7 +198,7 @@
    "clip": "Hurt",
    "k": 1,
    "layer": 617,
-   "erase": 32
+   "erase": 33
   },
   {
    "clip": "Hurt",
@@ -210,13 +210,13 @@
    "clip": "Death",
    "k": 0,
    "layer": 579,
-   "erase": 27
+   "erase": 28
   },
   {
    "clip": "Death",
    "k": 1,
    "layer": 571,
-   "erase": 30
+   "erase": 31
   },
   {
    "clip": "Death",
@@ -258,19 +258,19 @@
    "clip": "Stab",
    "k": 0,
    "layer": 632,
-   "erase": 26
+   "erase": 27
   },
   {
    "clip": "Stab",
    "k": 1,
    "layer": 630,
-   "erase": 26
+   "erase": 27
   },
   {
    "clip": "Stab",
    "k": 2,
    "layer": 617,
-   "erase": 26
+   "erase": 27
   },
   {
    "clip": "Stab",
@@ -282,7 +282,7 @@
    "clip": "Stab",
    "k": 4,
    "layer": 546,
-   "erase": 20
+   "erase": 21
   },
   {
    "clip": "Stab",
@@ -324,37 +324,37 @@
    "clip": "SwingDown",
    "k": 4,
    "layer": 583,
-   "erase": 27
+   "erase": 29
   },
   {
    "clip": "SwingDown",
    "k": 5,
    "layer": 558,
-   "erase": 29
+   "erase": 30
   },
   {
    "clip": "SwingDown",
    "k": 6,
    "layer": 520,
-   "erase": 50
+   "erase": 51
   },
   {
    "clip": "SwingUp",
    "k": 0,
    "layer": 601,
-   "erase": 15
+   "erase": 16
   },
   {
    "clip": "SwingUp",
    "k": 1,
    "layer": 561,
-   "erase": 34
+   "erase": 35
   },
   {
    "clip": "SwingUp",
    "k": 2,
    "layer": 581,
-   "erase": 18
+   "erase": 19
   },
   {
    "clip": "SwingUp",
@@ -390,13 +390,13 @@
    "clip": "RopeUp",
    "k": 1,
    "layer": 425,
-   "erase": 0
+   "erase": 2
   },
   {
    "clip": "RopeUp",
    "k": 2,
    "layer": 406,
-   "erase": 0
+   "erase": 2
   },
   {
    "clip": "RopeUp",
@@ -414,13 +414,13 @@
    "clip": "RopeUp",
    "k": 5,
    "layer": 394,
-   "erase": 0
+   "erase": 1
   },
   {
    "clip": "RopeUp",
    "k": 6,
    "layer": 419,
-   "erase": 0
+   "erase": 2
   },
   {
    "clip": "RopeUp",
@@ -492,25 +492,25 @@
    "clip": "DaggerFlurry",
    "k": 2,
    "layer": 618,
-   "erase": 26
+   "erase": 27
   },
   {
    "clip": "DaggerFlurry",
    "k": 3,
    "layer": 669,
-   "erase": 9
+   "erase": 10
   },
   {
    "clip": "DaggerFlurry",
    "k": 4,
    "layer": 657,
-   "erase": 9
+   "erase": 10
   },
   {
    "clip": "DaggerFlurry",
    "k": 5,
    "layer": 606,
-   "erase": 9
+   "erase": 10
   },
   {
    "clip": "DaggerFlurry",
@@ -528,13 +528,13 @@
    "clip": "DaggerCross",
    "k": 1,
    "layer": 642,
-   "erase": 9
+   "erase": 10
   },
   {
    "clip": "DaggerCross",
    "k": 2,
    "layer": 661,
-   "erase": 9
+   "erase": 10
   }
  ]
 }

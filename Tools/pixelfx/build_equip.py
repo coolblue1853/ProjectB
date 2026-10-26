@@ -77,6 +77,19 @@ def seal_outline(b, layer, lm, erase):
     lm |= add
 
 
+def trim_spikes(b, lm, erase):
+    """장비 테두리 밖으로 1px 삐죽 나온 맨몸 외곽선(투구 아래 머리카락 끝)을 지운다 — 합성 후 이웃 불투명이 하나뿐인 어두운 픽셀."""
+    near_layer = np.zeros_like(lm)
+    near_layer[1:] |= lm[:-1]; near_layer[:-1] |= lm[1:]; near_layer[:, 1:] |= lm[:, :-1]; near_layer[:, :-1] |= lm[:, 1:]
+    for _ in range(2):
+        solid = (b[..., 3] > 0) & ~erase | lm
+        n = np.zeros(solid.shape, int)
+        n[1:] += solid[:-1]; n[:-1] += solid[1:]; n[:, 1:] += solid[:, :-1]; n[:, :-1] += solid[:, 1:]
+        dark = b[..., :3].sum(axis=2) < 120
+        spike = solid & ~lm & dark & (n <= 1) & near_layer
+        erase |= spike
+
+
 def main():
     eid, slot = sys.argv[1], sys.argv[2]
     out = os.path.join(OUT, eid)
@@ -129,6 +142,7 @@ def main():
     cover_shirt(done)
     for _, _, b, layer, lm, erase in done:
         seal_outline(b, layer, lm, erase)
+        trim_spikes(b, lm, erase)
     for clip, k, b, layer, lm, erase in done:
         name = f"{clip}_{k}"
         Image.fromarray(layer.astype(np.uint8), "RGBA").save(os.path.join(out, name + ".png"))
