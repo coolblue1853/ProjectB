@@ -524,10 +524,11 @@ public class PixelRig : CharacterRig
         }
     }
 
-    private const float CelBladeAngle = 45f;
+    // 이동 중 칼은 앞으로 낮게(가슴 높이) — 무기를 맨 위에 그리면서 세운 칼(70~100°)이 얼굴을 덮었다(10-26). 손이 등 뒤로 크게 갈 때(점프 등)만 세운다
+    private const float CelBladeAngle = 15f;
     private const float CelBladeBack = 100f;
-    private const float CelHandFrontPx = 6f;  // 손 x(엉덩이 기준 아트 px)가 이만큼 앞이면 45°
-    private const float CelHandBackPx = -6f;  // 이만큼 뒤면 100°
+    private const float CelHandFrontPx = -6f; // 손 x(엉덩이 기준 아트 px)가 이보다 앞이면 15°
+    private const float CelHandBackPx = -12f; // 이보다 뒤면 100°
     private const float CelCrouchMin = 0.06f; // 물리 점프가 입력 즉시 떠서, 뜬 뒤에도 처음 이만큼은 웅크림을 보여 준다
 
     private void ShowCel(bool on)
