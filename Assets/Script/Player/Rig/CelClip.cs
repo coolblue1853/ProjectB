@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 /// <summary>
@@ -12,6 +12,7 @@ public class CelClip
     public float frame = 0.1f;
     public bool loop = true;
     public Sprite[] sprites = new Sprite[0];
+    public Sprite[] fists = new Sprite[0]; // 무기 위에 다시 그릴 주먹(무기는 몸·옷·투구 위, 주먹 아래)
     public Vector2[] hand = new Vector2[0];
     public Vector2[] handB = new Vector2[0];
 

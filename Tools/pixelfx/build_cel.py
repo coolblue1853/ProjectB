@@ -4,7 +4,7 @@ PixelLab PixMiniMax 초안(Docs/ArtCompare/Motion/cel/<폴더>/<i>.png, 64x64)�
 1) 팔레트 고정: 모든 색을 원본 주인공 그림(hero_base.png)의 색 중 가장 가까운 색으로 — 프레임마다 색이 미세하게 흔들리지 않게
 2) 정렬: 땅 동작은 발바닥(가장 아래 불투명 줄)을 FeetRow-1 에, 공중 동작은 스카프(주황) 윗줄을 서 있을 때 높이에 — 초안에 박힌 점프 높이를 빼고 무릎 접기만 남긴다
 3) 손 위치: 스카프 윗줄+2 ~ 엉덩이 사이 피부색 덩어리 중 가장 앞(오른쪽) = 앞손(무기), 가장 뒤 = 뒷손. 없으면 이전 프레임 값
-결과: Assets/Art/Player/PixelRig/Cel/<클립>_<k>.png + cel.json {클립: {frame: 초, loop, frames: [{png, hand:[x,y], handB:[x,y]}]}}
+결과: Assets/Art/Player/PixelRig/Cel/<클립>_<k>.png(+ _fist.png: 무기 위에 다시 그릴 주먹) + cel.json {클립: {frame: 초, loop, frames: [{png, hand:[x,y], handB:[x,y]}]}}
 좌표는 64 캔버스 픽셀(왼쪽 위 0). 리그 원점(엉덩이 x 41, 발바닥 55행)은 PixelRigBuilder 와 같다.
 사용: python Tools/pixelfx/build_cel.py
 """
@@ -89,7 +89,11 @@ def hands(a):
         groups = [(xs, ys)]
     pts = [(int(round(gx.mean())), int(gy.max())) for gx, gy in groups]
     if len(pts) > 1:
-        return max(pts), min(pts)
+        # 무기 손 = 온전히 보이는 손(피부 픽셀이 가장 많은 덩어리) = 카메라 쪽 손. 예전엔 x 가 가장 앞인 손을 골라
+        # 프레임마다 손이 바뀌어 무기가 몸 앞뒤로 들락날락했다(10-26 사용자 지적)
+        sizes = [len(gx) for gx, gy in groups]
+        near_i = int(np.argmax(sizes))
+        return pts[near_i], pts[1 - near_i]
     # 하나만 보이면 그게 가까운 팔(무기 손) — 측면 그림에서 먼 팔은 몸에 가려진다. 몸 뒤쪽이면 리그가 칼을 위·뒤로 세운다(최대 100°).
     # (3/4 정면 초안에선 뒷손을 앞손으로 잡아 칼이 얼굴을 가로질렀지만, 측면으로 통일한 뒤엔 보이는 손이 곧 가까운 손)
     return pts[0], pts[0]
@@ -119,6 +123,34 @@ def synth_idle(meta):
     return {"frame": 0.3, "loop": True, "frames": frames}
 
 
+FIST_R = 2  # 주먹 레이어: 손 좌표 둘레 이 반경 안의 피부색 + 그 테두리 외곽선
+
+
+def fist(a, hand):
+    """무기 위에 다시 그릴 주먹만 뽑는다 — 무기는 몸·옷·투구 위, 주먹 아래(10-26 사용자: 무기가 가장 잘 보여야)"""
+    out = np.zeros_like(a)
+    if hand is None:
+        return out
+    hx, hy = hand
+    sk = near(a, SKIN)
+    h, w = sk.shape
+    keep = np.zeros_like(sk)
+    for y in range(max(0, hy - FIST_R - 1), min(h, hy + 2)):
+        for x in range(max(0, hx - FIST_R), min(w, hx + FIST_R + 1)):
+            if sk[y, x]:
+                keep[y, x] = True
+    # 주먹 둘레의 검은 외곽선도 같이(무기 위에 주먹 테두리가 보이게)
+    edge = np.zeros_like(keep)
+    ys, xs = np.nonzero(keep)
+    for y, x in zip(ys, xs):
+        for ny, nx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
+            if 0 <= ny < h and 0 <= nx < w and not keep[ny, nx] and a[ny, nx, 3] > 0 and a[ny, nx, :3].sum() < 120:
+                edge[ny, nx] = True
+    m = keep | edge
+    out[m] = a[m]
+    return out
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     pal = palette()
@@ -144,6 +176,7 @@ def main():
             last_h, last_b = h, b
             name = f"{clip}_{k}"
             Image.fromarray(a, "RGBA").save(os.path.join(OUT, name + ".png"))
+            Image.fromarray(fist(a, h), "RGBA").save(os.path.join(OUT, name + "_fist.png"))
             frames.append({"png": name, "hand": h, "handB": b, "dy": dy})
         meta[clip] = {"frame": frame, "loop": loop, "frames": frames}
         print(clip, len(frames), [f["dy"] for f in frames], [f["hand"] for f in frames])

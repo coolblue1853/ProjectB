@@ -341,6 +341,97 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &2425959070499389525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2423503187946843074}
+  - component: {fileID: 5845820192239138407}
+  m_Layer: 0
+  m_Name: CelFist
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2423503187946843074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2425959070499389525}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6235923668328179910}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &5845820192239138407
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2425959070499389525}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 46
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &3164352495846147579
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +466,7 @@ Transform:
   - {fileID: 2736311417976076569}
   - {fileID: 580622044059677621}
   - {fileID: 4566127946711613687}
+  - {fileID: 2423503187946843074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &178431632757542710
@@ -474,6 +566,7 @@ MonoBehaviour:
   - {fileID: 2331417381811425596}
   - {fileID: 4083677676703785643}
   - {fileID: 4284238040236175573}
+  - {fileID: 5845820192239138407}
   _bones:
   - {fileID: 7019264865565236816}
   - {fileID: 2736311417976076569}
@@ -492,6 +585,7 @@ MonoBehaviour:
   _airLegF: {fileID: 21300000, guid: 213636aace618444b916275cd5909f14, type: 3}
   _airLegB: {fileID: 21300000, guid: e23e898f033e7594eb51757b2aa24a26, type: 3}
   _cel: {fileID: 4284238040236175573}
+  _celFist: {fileID: 5845820192239138407}
   _celClips:
   - name: Idle
     frame: 0.3
@@ -501,16 +595,21 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 7e087a7ade16f0e4995c70c745a66498, type: 3}
     - {fileID: 21300000, guid: 268ad072e15dd2f418a40fcffe087667, type: 3}
     - {fileID: 21300000, guid: bd0ec818d62a8424d99185cd41f0d1f9, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     hand:
-    - {x: 0.2361111, y: 0.2638889}
-    - {x: 0.2361111, y: 0.2638889}
-    - {x: 0.2361111, y: 0.2638889}
-    - {x: 0.2361111, y: 0.2638889}
+    - {x: -0.15277778, y: 0.2361111}
+    - {x: -0.15277778, y: 0.2361111}
+    - {x: -0.15277778, y: 0.2361111}
+    - {x: -0.15277778, y: 0.2361111}
     handB:
-    - {x: -0.15277778, y: 0.2361111}
-    - {x: -0.15277778, y: 0.2361111}
-    - {x: -0.15277778, y: 0.2361111}
-    - {x: -0.15277778, y: 0.2361111}
+    - {x: 0.2361111, y: 0.2638889}
+    - {x: 0.2361111, y: 0.2638889}
+    - {x: 0.2361111, y: 0.2638889}
+    - {x: 0.2361111, y: 0.2638889}
   - name: Walk
     frame: 0.1
     loop: 1
@@ -523,21 +622,30 @@ MonoBehaviour:
     - {fileID: 21300000, guid: e60bba2891232bb42aba5f2c3a052474, type: 3}
     - {fileID: 21300000, guid: d0c5b6834df3f2148b5fce795ccfc362, type: 3}
     - {fileID: 21300000, guid: 2b7f1c4305c025742808eeeebbbef3bf, type: 3}
+    fists:
+    - {fileID: 21300000, guid: e8107eddcf50a6a4c9a1e308840c5f5d, type: 3}
+    - {fileID: 21300000, guid: 61db6f33343401546bb0bb5e9ed6a443, type: 3}
+    - {fileID: 21300000, guid: 5a5db4bd6daeb374baf12ad70d94ff78, type: 3}
+    - {fileID: 21300000, guid: eb3346c0a708e834cafe61443cd453e8, type: 3}
+    - {fileID: 21300000, guid: 3483d8047e5741c41889d3a14490e9d1, type: 3}
+    - {fileID: 21300000, guid: c613e00df0f54bf42913787cba0455b8, type: 3}
+    - {fileID: 21300000, guid: 5155c76716fa4eb44b163baa047f90e3, type: 3}
+    - {fileID: 21300000, guid: ff9fda9b778fb3443a9f8198672defcc, type: 3}
     hand:
-    - {x: 0.20833333, y: 0.20833333}
-    - {x: 0.2638889, y: 0.2361111}
-    - {x: 0.2638889, y: 0.29166666}
-    - {x: 0.2361111, y: 0.2638889}
-    - {x: 0.18055555, y: 0.18055555}
-    - {x: -0.013888889, y: 0.20833333}
-    - {x: -0.041666668, y: 0.2361111}
-    - {x: -0.097222224, y: 0.20833333}
-    handB:
     - {x: -0.15277778, y: 0.18055555}
     - {x: -0.20833333, y: 0.18055555}
     - {x: -0.20833333, y: 0.2361111}
     - {x: -0.15277778, y: 0.2361111}
     - {x: -0.06944445, y: 0.20833333}
+    - {x: -0.013888889, y: 0.20833333}
+    - {x: -0.041666668, y: 0.2361111}
+    - {x: -0.097222224, y: 0.20833333}
+    handB:
+    - {x: 0.20833333, y: 0.20833333}
+    - {x: 0.2638889, y: 0.2361111}
+    - {x: 0.2638889, y: 0.29166666}
+    - {x: 0.2361111, y: 0.2638889}
+    - {x: 0.18055555, y: 0.18055555}
     - {x: -0.013888889, y: 0.20833333}
     - {x: -0.041666668, y: 0.2361111}
     - {x: -0.097222224, y: 0.20833333}
@@ -552,15 +660,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 3b0161776ba594d47b5e148423842dc6, type: 3}
     - {fileID: 21300000, guid: 1c393092e8ccc8f419f99405f54df3a6, type: 3}
     - {fileID: 21300000, guid: a7fc0ba840ac6b3459720019ff412d1e, type: 3}
+    fists:
+    - {fileID: 21300000, guid: 0466bc937db7a074193a66c087b8b524, type: 3}
+    - {fileID: 21300000, guid: ca0e3fe668e19d8488449d731146f972, type: 3}
+    - {fileID: 21300000, guid: 903908271da14764ea5858f334903cbb, type: 3}
+    - {fileID: 21300000, guid: 376ec35d80a0978418b5c48c92b99b1d, type: 3}
+    - {fileID: 21300000, guid: f8732f7115dd4d94bb89223652fe73b6, type: 3}
+    - {fileID: 21300000, guid: 2efdfc0e4aa13aa4c91f7f745a0693b6, type: 3}
+    - {fileID: 21300000, guid: 9216b2c5f4fe1924ba5f12b2b9750dc1, type: 3}
     hand:
-    - {x: 0.20833333, y: 0.2361111}
-    - {x: 0.20833333, y: 0.2638889}
-    - {x: 0.2361111, y: 0.3472222}
-    - {x: 0.2638889, y: 0.375}
-    - {x: 0.2638889, y: 0.31944445}
-    - {x: 0.20833333, y: 0.29166666}
-    - {x: 0.20833333, y: 0.31944445}
-    handB:
     - {x: -0.097222224, y: 0.2361111}
     - {x: -0.15277778, y: 0.2361111}
     - {x: -0.2361111, y: 0.29166666}
@@ -568,6 +676,14 @@ MonoBehaviour:
     - {x: -0.2638889, y: 0.2638889}
     - {x: -0.15277778, y: 0.2638889}
     - {x: -0.097222224, y: 0.31944445}
+    handB:
+    - {x: 0.20833333, y: 0.2361111}
+    - {x: 0.20833333, y: 0.2638889}
+    - {x: 0.2361111, y: 0.3472222}
+    - {x: 0.2638889, y: 0.375}
+    - {x: 0.2638889, y: 0.31944445}
+    - {x: 0.20833333, y: 0.29166666}
+    - {x: 0.20833333, y: 0.31944445}
   - name: JumpCrouch
     frame: 0.04
     loop: 0
@@ -575,6 +691,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 225a274bfe98ff04a8b46e875a350021, type: 3}
     - {fileID: 21300000, guid: b3d9c48f306fc9648bb8a413dad123b3, type: 3}
     - {fileID: 21300000, guid: b5e5e18969cb0064fa6e14640af9bd25, type: 3}
+    fists:
+    - {fileID: 21300000, guid: 40807283c4d164b43bef478938851084, type: 3}
+    - {fileID: 21300000, guid: 038be256e4651f64387b727b223383d5, type: 3}
+    - {fileID: 21300000, guid: 8e927232724f1904ab71f0e6f35514f4, type: 3}
     hand:
     - {x: -0.375, y: 0.2638889}
     - {x: -0.4027778, y: 0.2638889}
@@ -591,6 +711,11 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 67228c8ec4055984ca972a85823a250b, type: 3}
     - {fileID: 21300000, guid: 45acb1c468d18a64daf4daade98b49c1, type: 3}
     - {fileID: 21300000, guid: 33e1ee9d09195544eaa1eba2ef143fea, type: 3}
+    fists:
+    - {fileID: 21300000, guid: 4155840f16acd094fb1f46a11c0d038d, type: 3}
+    - {fileID: 21300000, guid: 01c73d06f52e55f4eaf43623b1c9824e, type: 3}
+    - {fileID: 21300000, guid: 5d73bd3885653544c84325c89b2b1e5b, type: 3}
+    - {fileID: 21300000, guid: 94c3006cb07af644783d36e3414137d6, type: 3}
     hand:
     - {x: -0.3472222, y: 0.43055555}
     - {x: -0.3472222, y: 0.43055555}
@@ -608,14 +733,18 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 3b486e4026212de41af5394860a24aa1, type: 3}
     - {fileID: 21300000, guid: 900ad0df6c736cc44936449d791206d0, type: 3}
     - {fileID: 21300000, guid: aa31154376fec3e41afbe7f14640c386, type: 3}
+    fists:
+    - {fileID: 21300000, guid: ef5054a86c3dd7347995086b293a3c47, type: 3}
+    - {fileID: 21300000, guid: def2a09278ff79e469ea684267df8009, type: 3}
+    - {fileID: 21300000, guid: 909784978a693eb44b10b7bbd1437e97, type: 3}
     hand:
-    - {x: 0.125, y: 0.29166666}
-    - {x: 0.2361111, y: 0.2638889}
-    - {x: 0.2361111, y: 0.2361111}
-    handB:
     - {x: -0.2638889, y: 0.29166666}
     - {x: -0.125, y: 0.20833333}
     - {x: -0.15277778, y: 0.18055555}
+    handB:
+    - {x: 0.125, y: 0.29166666}
+    - {x: 0.2361111, y: 0.2638889}
+    - {x: 0.2361111, y: 0.2361111}
   - name: Dash
     frame: 0.05
     loop: 0
@@ -623,6 +752,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 67fe744f8a11e6d448768fd5a53b9801, type: 3}
     - {fileID: 21300000, guid: a74a5c09677faed4fbb09d0254d6b6ca, type: 3}
     - {fileID: 21300000, guid: ac96b5665bd36ce439c328ae9ed18ea6, type: 3}
+    fists:
+    - {fileID: 21300000, guid: 2c15b7e452e771e4f8e4acaeb599d884, type: 3}
+    - {fileID: 21300000, guid: 38ee9dda849b06a4a86c333f5ff11f57, type: 3}
+    - {fileID: 21300000, guid: da77386e88de5394088382f8f0837c15, type: 3}
     hand:
     - {x: -0.45833334, y: 0.31944445}
     - {x: -0.4861111, y: 0.31944445}
@@ -638,14 +771,18 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b8e55bf67aa9d3d438ff4a6924c3e530, type: 3}
     - {fileID: 21300000, guid: 9824b3ca532759644aa07f91953ce09c, type: 3}
     - {fileID: 21300000, guid: a320b568a7e481e4e9776f1006f96b47, type: 3}
+    fists:
+    - {fileID: 21300000, guid: 23fe31d01af279e45a4d0117aa098406, type: 3}
+    - {fileID: 21300000, guid: a8316f67e993a2c47aac4690ade5706e, type: 3}
+    - {fileID: 21300000, guid: dc0bd2745407c7b4a91fd1fdcfdabe67, type: 3}
     hand:
-    - {x: -0.18055555, y: 0.4027778}
-    - {x: -0.097222224, y: 0.375}
-    - {x: 0.06944445, y: 0.3472222}
-    handB:
     - {x: -0.5972222, y: 0.3472222}
     - {x: -0.5138889, y: 0.31944445}
     - {x: -0.3472222, y: 0.29166666}
+    handB:
+    - {x: -0.18055555, y: 0.4027778}
+    - {x: -0.097222224, y: 0.375}
+    - {x: 0.06944445, y: 0.3472222}
   - name: Death
     frame: 0.1
     loop: 0
@@ -658,20 +795,29 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 1584899343fbbfd4fa2e22e3f3eda4f7, type: 3}
     - {fileID: 21300000, guid: d3ae44c767db5294bbf86bd5fc28d3e1, type: 3}
     - {fileID: 21300000, guid: 627b842fa015f3347aadcf50c72d43d8, type: 3}
+    fists:
+    - {fileID: 21300000, guid: 1c6700b1b56597640858adf4ac1c032b, type: 3}
+    - {fileID: 21300000, guid: ad1a40f8febf73a4cadd6cbcb1e5f41f, type: 3}
+    - {fileID: 21300000, guid: b4f5770e3c3e26b488233421ad7d003e, type: 3}
+    - {fileID: 21300000, guid: 51590053bd88e1547b898bf552807318, type: 3}
+    - {fileID: 21300000, guid: 5890c1dae10d69e4c9519ec1646d6afa, type: 3}
+    - {fileID: 21300000, guid: 0c74ef7452d559e4aad2c5751091a271, type: 3}
+    - {fileID: 21300000, guid: 72c00ea2addb21a4187e1a2828fd8547, type: 3}
+    - {fileID: 21300000, guid: 1c76eb7255cf7764697fb3b36aa1e460, type: 3}
     hand:
-    - {x: 0.18055555, y: 0.29166666}
-    - {x: 0.013888889, y: 0.29166666}
-    - {x: 0.041666668, y: 0.20833333}
-    - {x: 0.041666668, y: 0.18055555}
+    - {x: -0.20833333, y: 0.2638889}
+    - {x: -0.4027778, y: 0.29166666}
+    - {x: -0.375, y: 0.20833333}
+    - {x: -0.31944445, y: 0.18055555}
     - {x: -0.097222224, y: 0.18055555}
     - {x: -0.2361111, y: 0.18055555}
     - {x: -0.31944445, y: 0.18055555}
     - {x: -0.3472222, y: 0.18055555}
     handB:
-    - {x: -0.20833333, y: 0.2638889}
-    - {x: -0.4027778, y: 0.29166666}
-    - {x: -0.375, y: 0.20833333}
-    - {x: -0.31944445, y: 0.18055555}
+    - {x: 0.18055555, y: 0.29166666}
+    - {x: 0.013888889, y: 0.29166666}
+    - {x: 0.041666668, y: 0.20833333}
+    - {x: 0.041666668, y: 0.18055555}
     - {x: -0.7083333, y: 0.4027778}
     - {x: -0.8194444, y: 0.18055555}
     - {x: -0.8472222, y: 0.18055555}

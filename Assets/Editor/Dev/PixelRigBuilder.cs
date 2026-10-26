@@ -78,6 +78,13 @@ public static class PixelRigBuilder
         celSr.sortingOrder = 42;
         celSr.enabled = false;
         renderers.Add(celSr);
+        // 주먹: 무기(앞 45) 위에 다시 그린다 — 무기는 몸·옷·투구보다 위, 주먹보다 아래(10-26 사용자: 무기가 가장 잘 보여야)
+        var fistGo = new GameObject("CelFist");
+        fistGo.transform.SetParent(root.transform, false);
+        var fistSr = fistGo.AddComponent<SpriteRenderer>();
+        fistSr.sortingOrder = 46;
+        fistSr.enabled = false;
+        renderers.Add(fistSr);
 
         // 무기 소켓: 기존 무기 스프라이트는 "주먹에 수직으로 세운" 기준(소켓 회전 0 = 칼날 위)
         Transform socketR = Socket("RightWeapon", handF);
@@ -93,6 +100,7 @@ public static class PixelRigBuilder
         so.FindProperty("_weaponOrderFront").intValue = 45;
         so.FindProperty("_weaponOrderBack").intValue = 37;
         so.FindProperty("_cel").objectReferenceValue = celSr;
+        so.FindProperty("_celFist").objectReferenceValue = fistSr;
         BuildCel(so.FindProperty("_celClips"), ox);
         BuildEquipLayers();
         so.FindProperty("_airLegF").objectReferenceValue = PartSprite(LegPose("leg_l", 1, 1));
@@ -715,6 +723,8 @@ public static class PixelRigBuilder
             e.FindPropertyRelative("frame").floatValue = clip.frame;
             e.FindPropertyRelative("loop").boolValue = clip.loop;
             SerializedProperty sp = e.FindPropertyRelative("sprites");
+            SerializedProperty fp = e.FindPropertyRelative("fists");
+            fp.arraySize = clip.frames.Length;
             SerializedProperty hp = e.FindPropertyRelative("hand");
             SerializedProperty bp = e.FindPropertyRelative("handB");
             sp.arraySize = hp.arraySize = bp.arraySize = clip.frames.Length;
@@ -723,6 +733,12 @@ public static class PixelRigBuilder
                 CelFrameJson f = clip.frames[i];
                 ImportPart(f.png, new[] { ox, FeetRow - 1 }, CelDir);
                 sp.GetArrayElementAtIndex(i).objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(CelDir + "/" + f.png + ".png");
+                string fistPng = CelDir + "/" + f.png + "_fist.png";
+                if (File.Exists(fistPng))
+                {
+                    ImportPart(f.png + "_fist", new[] { ox, FeetRow - 1 }, CelDir);
+                }
+                fp.GetArrayElementAtIndex(i).objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(fistPng);
                 hp.GetArrayElementAtIndex(i).vector2Value = CelLocal(f.hand, ox);
                 bp.GetArrayElementAtIndex(i).vector2Value = CelLocal(f.handB, ox);
             }

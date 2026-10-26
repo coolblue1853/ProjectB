@@ -31,6 +31,7 @@ public class PixelRig : CharacterRig
     [SerializeField] private Sprite _airLegB;
     // 셀 이동·점프(Q-423, PixelRigDesign 3.7): 이 이름의 클립이 재생되면 부위 그림 대신 셀 프레임을 보여 주고 무기는 프레임별 손에 붙인다
     [SerializeField] private SpriteRenderer _cel;
+    [SerializeField] private SpriteRenderer _celFist; // 무기 위 주먹(정렬 = 앞 무기 + 1)
     [SerializeField] private CelClip[] _celClips = new CelClip[0];
 
     private const string WeaponDir = "PixelRig/Weapons/";
@@ -444,6 +445,10 @@ public class PixelRig : CharacterRig
         }
         ShowCel(true);
         _cel.sprite = _celComposite.TryGetValue(cel.name, out Sprite[] comp) && i < comp.Length && comp[i] != null ? comp[i] : cel.sprites[i];
+        if (_celFist != null)
+        {
+            _celFist.sprite = i < cel.fists.Length ? cel.fists[i] : null;
+        }
         Transform shF = _socketRight != null ? _socketRight.parent.parent : null;
         if (shF != null && i < cel.hand.Length)
         {
@@ -511,9 +516,13 @@ public class PixelRig : CharacterRig
         }
         _celShown = on;
         _cel.enabled = on;
+        if (_celFist != null)
+        {
+            _celFist.enabled = on;
+        }
         foreach (SpriteRenderer r in _renderers)
         {
-            if (r != null && r != _cel)
+            if (r != null && r != _cel && r != _celFist)
             {
                 r.enabled = !on;
             }
