@@ -87,9 +87,9 @@ def hands(a):
     pts = [(int(round(gx.mean())), int(gy.max())) for gx, gy in groups]
     if len(pts) > 1:
         return max(pts), min(pts)
-    # 하나만 보이면 몸 중심(엉덩이 x) 앞쪽일 때만 앞손 — 뒷손을 앞손으로 잡아 칼이 얼굴을 가로질렀다
-    p = pts[0]
-    return (p, None) if p[0] >= HIP_X - 1 else (None, p)
+    # 하나만 보이면 그게 가까운 팔(무기 손) — 측면 그림에서 먼 팔은 몸에 가려진다. 몸 뒤쪽이면 리그가 칼을 위·뒤로 세운다(최대 100°).
+    # (3/4 정면 초안에선 뒷손을 앞손으로 잡아 칼이 얼굴을 가로질렀지만, 측면으로 통일한 뒤엔 보이는 손이 곧 가까운 손)
+    return pts[0], pts[0]
 
 
 IDLE_BASE = ("Walk", 3)  # 걷기 루프에서 두 발이 모인 프레임 — 걷기와 같은 시점(착지 회복 프레임은 정면 쪽이라 어긋났다)
