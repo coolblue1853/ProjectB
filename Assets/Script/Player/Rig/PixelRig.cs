@@ -122,6 +122,7 @@ public class PixelRig : CharacterRig
     private Clip _crouch, _arc;
     private bool _tookOff;
     private float _arcAt = -1f;
+    private float _bladeAt = 375f; // 표시 중인 칼 각도(앞 15° = 375° 로 펴서 앞↔뒤 전환이 늘 아래쪽으로 돈다)
 
     /// <summary>마지막 착지 세기 0~1 (PlayerController 가 착지 먼지 크기에 쓴다)</summary>
     public float LastLandStrength { get; private set; } = 0.6f;
@@ -494,7 +495,8 @@ public class PixelRig : CharacterRig
                 // 팔 흔들기를 칼끝이 따라간다: 손이 앞이면 칼끝이 들리고 뒤면 처진다(고정 15°는 막대처럼 굳어 보였다)
                 blade += Mathf.Clamp((cel.hand[i].x * _ppu - CelHandSwingRef) * CelBladeSwing, -CelBladeSwingMax, CelBladeSwingMax);
             }
-            _socketRight.parent.localRotation = Quaternion.Euler(0f, 0f, blade - 90f);
+            bool drawn = i < cel.angles.Length && cel.angles[i] > CelClip.NoAngle + 1f;
+            _socketRight.parent.localRotation = Quaternion.Euler(0f, 0f, SmoothBlade(blade, drawn) - 90f);
         }
         if (_socketLeft != null && i < cel.handB.Length)
         {
@@ -540,6 +542,16 @@ public class PixelRig : CharacterRig
         }
     }
 
+    /// <summary>
+    /// 이동 자세 사이 칼 각도는 한 프레임에 뒤집지 않고 아래로 휘둘러 돈다(착지 때 170° → 15° 가 한 번에 바뀌어 튀었다). 공격 셀 각도는 그대로.
+    /// </summary>
+    private float SmoothBlade(float target, bool exact)
+    {
+        target = Mathf.Repeat(target - 90f, 360f) + 90f; // 90~450: 위(90)를 끝으로 두어 아래(270)를 지나게
+        _bladeAt = exact ? target : Mathf.MoveTowards(_bladeAt, target, CelBladeTurnSpeed * Time.deltaTime);
+        return _bladeAt;
+    }
+
     private static string CelAlias(string clip)
     {
         switch (clip)
@@ -561,6 +573,7 @@ public class PixelRig : CharacterRig
     // 이동 중 칼은 앞으로 낮게(가슴 높이) — 무기를 맨 위에 그리면서 세운 칼(70~100°)이 얼굴을 덮었다(10-26). 손이 등 뒤로 크게 갈 때(점프 등)만 세운다
     private const float CelBladeAngle = 15f;
     private const float CelBladeBack = 170f;
+    private const float CelBladeTurnSpeed = 1800f; // 이동 자세 사이 칼 회전(°/초) — 앞↔뒤 약 0.1초
     private const float CelBladeRise = 200f;
     private const float CelBladeFall = 150f;
     private const float CelHandSwingRef = -5f;  // 걷기·달리기 손 x 가운데(엉덩이 기준 아트 px)
