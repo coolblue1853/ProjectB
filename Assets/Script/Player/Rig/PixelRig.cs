@@ -70,6 +70,7 @@ public class PixelRig : CharacterRig
     // 걷기 발소리: 8포즈 중 발이 닿는 0·4(먼지 없이 소리만)
     private const int WalkPoses = 8;
     private static readonly int[] WalkContactPoses = { 0, 4 };
+    private static readonly int[] CelWalkContacts = { 1, 5 }; // 셀 걷기에서 보폭이 가장 큰(발이 닿는) 프레임 — 발 벌림 13·20px
     private Clip _walk;
     private int _walkPose = -1;
     // 달리다 방향 전환: 좌우가 바뀌는 순간 새 방향 발 뒤로 차고 나가는 먼지(1.2배)
@@ -442,7 +443,8 @@ public class PixelRig : CharacterRig
         }
         else
         {
-            i = cel.IndexAt(_time);
+            // 걷기는 대기 그림과 같은 3번(두 발 모임)부터 — 0번부터면 출발 순간 한 번 튀었다(대기·걷기0 차이 634px, 걷기3 = 0px)
+            i = cel.IndexAt(_time + (c.name == "Walk" ? WalkStartFrame * cel.frame : 0f));
         }
         ShowCel(true);
         _cel.sprite = _celComposite.TryGetValue(cel.name, out Sprite[] comp) && i < comp.Length && comp[i] != null ? comp[i] : cel.sprites[i];
@@ -527,6 +529,7 @@ public class PixelRig : CharacterRig
     // 이동 중 칼은 앞으로 낮게(가슴 높이) — 무기를 맨 위에 그리면서 세운 칼(70~100°)이 얼굴을 덮었다(10-26). 손이 등 뒤로 크게 갈 때(점프 등)만 세운다
     private const float CelBladeAngle = 15f;
     private const float CelBladeBack = 100f;
+    private const int WalkStartFrame = 3;
     private const float CelHandFrontPx = -6f; // 손 x(엉덩이 기준 아트 px)가 이보다 앞이면 15°
     private const float CelHandBackPx = -12f; // 이보다 뒤면 100°
     private const float CelCrouchMin = 0.06f; // 물리 점프가 입력 즉시 떠서, 뜬 뒤에도 처음 이만큼은 웅크림을 보여 준다
@@ -682,13 +685,15 @@ public class PixelRig : CharacterRig
             _walkPose = -1;
             return;
         }
-        int pose = Mathf.Min(WalkPoses - 1, (int)(t / len * WalkPoses));
+        // 셀 걷기면 셀 프레임 번호로(발이 닿는 = 보폭 최대 프레임 1·5), 아니면 리그 8포즈
+        bool cel = _celByName.TryGetValue("Walk", out CelClip wc) && wc.sprites.Length > 0;
+        int pose = cel ? wc.IndexAt(_time + WalkStartFrame * wc.frame) : Mathf.Min(WalkPoses - 1, (int)(t / len * WalkPoses));
         if (pose == _walkPose)
         {
             return;
         }
         _walkPose = pose;
-        if (System.Array.IndexOf(WalkContactPoses, pose) >= 0)
+        if (System.Array.IndexOf(cel ? CelWalkContacts : WalkContactPoses, pose) >= 0)
         {
             Footsteps.Contact(false);
         }
