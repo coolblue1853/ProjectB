@@ -28,11 +28,14 @@ CLIPS = {
     "Dash": ("dash_side", [2, 3, 4], 0.05, False, "feet"),     # 1번은 거의 서 있는 자세라 뺐다
     "Hurt": ("hurt_side", [2, 3, 4], 0.07, False, "feet"),     # 1번엔 흰 베기 효과가 그림에 섞여 뺐다
     "Death": ("death_side", list(range(1, 9)), 0.1, False, "feet"),
+    "RopeUp": ("rope_loop", list(range(0, 8)), 0.08, True, "const"),   # 뒷모습 오르기(로프에선 무기 숨김)
+    "RopeStay": ("rope_loop", [0], 0.3, True, "const"),
     # 공격(칼을 쥔 채 생성 → 칼·잔상을 지우고 손잡이·칼날 각도를 읽어 실제 장착 무기를 붙인다). 0·8번은 기준 그림이라 뺀다
     "Stab": ("attack/stab", list(range(1, 8)), 0.04, False, "feet", True),
     "SwingDown": ("attack/down", list(range(1, 8)), 0.04, False, "feet", True),
     "SwingUp": ("attack/up", list(range(1, 8)), 0.04, False, "feet", True),
 }
+CONST_REF = {"rope_loop": list(range(0, 8))}
 SKIN = [(0xFD, 0xE0, 0xC6), (0xF3, 0xB4, 0x9A), (0xD7, 0x8E, 0x7A)]
 SCARF = [(0xF1, 0xAB, 0x36), (0xB8, 0x70, 0x2C)]
 
@@ -357,7 +360,8 @@ def main():
             a = lock(Image.fromarray(raw, "RGBA"), pal)
             if align == "const" and k == 0:
                 # 루프 전체에서 가장 낮은 발을 땅(54행)에 — 첫 프레임 기준이면 다른 프레임 발이 땅을 1px 파고들었다
-                lows = [int(np.nonzero(np.array(Image.open(os.path.join(SRC, folder, f"{j}.png")).convert("RGBA"))[..., 3].any(axis=1))[0].max()) for j in idx]
+                ref_idx = CONST_REF.get(folder, idx)  # 같은 초안 폴더를 쓰는 클립끼리는 같은 높이(매달리기 ↔ 오르기 전환 때 5px 튀었다)
+                lows = [int(np.nonzero(np.array(Image.open(os.path.join(SRC, folder, f"{j}.png")).convert("RGBA"))[..., 3].any(axis=1))[0].max()) for j in ref_idx]
                 const_dy = (FEET_ROW - 1) - max(lows)
                 dy = const_dy
             elif align == "feet":

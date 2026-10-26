@@ -267,3 +267,39 @@ MonoBehaviour:
     index: 6
     layer: {fileID: 2800000, guid: 57ec5a56fc7cf9c4297c980cd247fc45, type: 3}
     erase: {fileID: 2800000, guid: 39bf952552eeeda478d5b683e53da221, type: 3}
+  - clip: RopeUp
+    index: 0
+    layer: {fileID: 2800000, guid: c9d14ddede8830a4bbde5241c1ec4733, type: 3}
+    erase: {fileID: 2800000, guid: d703e942a6b43d145a92ec7e74e7859a, type: 3}
+  - clip: RopeUp
+    index: 1
+    layer: {fileID: 2800000, guid: ba91534e89a41c743b6ccdaefc3f3a2c, type: 3}
+    erase: {fileID: 2800000, guid: eff3aeb05222854449d641eb5b9f60f7, type: 3}
+  - clip: RopeUp
+    index: 2
+    layer: {fileID: 2800000, guid: 13bd3d809931b584cba16cfcbca995c4, type: 3}
+    erase: {fileID: 2800000, guid: 1376d979b3a490b498c7abe9a638724c, type: 3}
+  - clip: RopeUp
+    index: 3
+    layer: {fileID: 2800000, guid: caa91ed11cae8334d91d04d2416513a6, type: 3}
+    erase: {fileID: 2800000, guid: d95fb63cad635fe458d93cb9cffa910c, type: 3}
+  - clip: RopeUp
+    index: 4
+    layer: {fileID: 2800000, guid: 397d1b57df759d945960d47202881e37, type: 3}
+    erase: {fileID: 2800000, guid: 812e1068ea9784d4fb0b87dbc8a71aa1, type: 3}
+  - clip: RopeUp
+    index: 5
+    layer: {fileID: 2800000, guid: 4d781f0f521bd1c4a8d868416f74e8d4, type: 3}
+    erase: {fileID: 2800000, guid: d64e8f2d5f97bf542a65e47081d7dcfa, type: 3}
+  - clip: RopeUp
+    index: 6
+    layer: {fileID: 2800000, guid: 350cb07e3eda4d44a80980c81fbd6ee7, type: 3}
+    erase: {fileID: 2800000, guid: d448ff039678f9043848fdaf8cc7f6f4, type: 3}
+  - clip: RopeUp
+    index: 7
+    layer: {fileID: 2800000, guid: 5d8aa841a489f0b488fb128f15988280, type: 3}
+    erase: {fileID: 2800000, guid: 5abbb466209c63d4181bddcb39768f0b, type: 3}
+  - clip: RopeStay
+    index: 0
+    layer: {fileID: 2800000, guid: 9185e7f398515d04f944b366e282a12d, type: 3}
+    erase: {fileID: 2800000, guid: b295ee58ef6c78d4c9f1020687ac495c, type: 3}

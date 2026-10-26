@@ -253,6 +253,42 @@
   {
    "clip": "SwingUp",
    "k": 6
+  },
+  {
+   "clip": "RopeUp",
+   "k": 0
+  },
+  {
+   "clip": "RopeUp",
+   "k": 1
+  },
+  {
+   "clip": "RopeUp",
+   "k": 2
+  },
+  {
+   "clip": "RopeUp",
+   "k": 3
+  },
+  {
+   "clip": "RopeUp",
+   "k": 4
+  },
+  {
+   "clip": "RopeUp",
+   "k": 5
+  },
+  {
+   "clip": "RopeUp",
+   "k": 6
+  },
+  {
+   "clip": "RopeUp",
+   "k": 7
+  },
+  {
+   "clip": "RopeStay",
+   "k": 0
   }
  ]
 }

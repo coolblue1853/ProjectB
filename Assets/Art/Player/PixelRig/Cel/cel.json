@@ -541,6 +541,135 @@
    }
   ]
  },
+ "RopeUp": {
+  "frame": 0.08,
+  "loop": true,
+  "frames": [
+   {
+    "png": "RopeUp_0",
+    "hand": [
+     27,
+     31
+    ],
+    "handB": [
+     34,
+     40
+    ],
+    "dy": -5,
+    "angle": -999.0
+   },
+   {
+    "png": "RopeUp_1",
+    "hand": [
+     28,
+     46
+    ],
+    "handB": [
+     28,
+     46
+    ],
+    "dy": -5,
+    "angle": -999.0
+   },
+   {
+    "png": "RopeUp_2",
+    "hand": [
+     28,
+     48
+    ],
+    "handB": [
+     28,
+     48
+    ],
+    "dy": -5,
+    "angle": -999.0
+   },
+   {
+    "png": "RopeUp_3",
+    "hand": [
+     28,
+     46
+    ],
+    "handB": [
+     28,
+     46
+    ],
+    "dy": -5,
+    "angle": -999.0
+   },
+   {
+    "png": "RopeUp_4",
+    "hand": [
+     31,
+     40
+    ],
+    "handB": [
+     31,
+     40
+    ],
+    "dy": -5,
+    "angle": -999.0
+   },
+   {
+    "png": "RopeUp_5",
+    "hand": [
+     32,
+     46
+    ],
+    "handB": [
+     32,
+     46
+    ],
+    "dy": -5,
+    "angle": -999.0
+   },
+   {
+    "png": "RopeUp_6",
+    "hand": [
+     30,
+     48
+    ],
+    "handB": [
+     30,
+     48
+    ],
+    "dy": -5,
+    "angle": -999.0
+   },
+   {
+    "png": "RopeUp_7",
+    "hand": [
+     29,
+     46
+    ],
+    "handB": [
+     29,
+     46
+    ],
+    "dy": -5,
+    "angle": -999.0
+   }
+  ]
+ },
+ "RopeStay": {
+  "frame": 0.3,
+  "loop": true,
+  "frames": [
+   {
+    "png": "RopeStay_0",
+    "hand": [
+     27,
+     31
+    ],
+    "handB": [
+     34,
+     40
+    ],
+    "dy": -5,
+    "angle": -999.0
+   }
+  ]
+ },
  "Stab": {
   "frame": 0.04,
   "loop": false,

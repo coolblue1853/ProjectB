@@ -379,6 +379,60 @@
    "k": 6,
    "layer": 588,
    "erase": 26
+  },
+  {
+   "clip": "RopeUp",
+   "k": 0,
+   "layer": 449,
+   "erase": 0
+  },
+  {
+   "clip": "RopeUp",
+   "k": 1,
+   "layer": 421,
+   "erase": 0
+  },
+  {
+   "clip": "RopeUp",
+   "k": 2,
+   "layer": 406,
+   "erase": 0
+  },
+  {
+   "clip": "RopeUp",
+   "k": 3,
+   "layer": 389,
+   "erase": 0
+  },
+  {
+   "clip": "RopeUp",
+   "k": 4,
+   "layer": 415,
+   "erase": 0
+  },
+  {
+   "clip": "RopeUp",
+   "k": 5,
+   "layer": 392,
+   "erase": 0
+  },
+  {
+   "clip": "RopeUp",
+   "k": 6,
+   "layer": 419,
+   "erase": 0
+  },
+  {
+   "clip": "RopeUp",
+   "k": 7,
+   "layer": 392,
+   "erase": 4
+  },
+  {
+   "clip": "RopeStay",
+   "k": 0,
+   "layer": 449,
+   "erase": 0
   }
  ]
 }
