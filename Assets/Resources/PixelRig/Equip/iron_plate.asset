@@ -331,3 +331,43 @@ MonoBehaviour:
     index: 6
     layer: {fileID: 2800000, guid: 1c738af0614a6144c868fd8ac98ef1bc, type: 3}
     erase: {fileID: 2800000, guid: 964c11fb53a190b4db93d8fd39a5df4c, type: 3}
+  - clip: DaggerFlurry
+    index: 0
+    layer: {fileID: 2800000, guid: 24d9ed29b0de3374db108f510eff0e41, type: 3}
+    erase: {fileID: 2800000, guid: f88d050d4d004744a9346cd837a27881, type: 3}
+  - clip: DaggerFlurry
+    index: 1
+    layer: {fileID: 2800000, guid: 1d26faf0877dd63419a8f320e24cab44, type: 3}
+    erase: {fileID: 2800000, guid: 5b049e8034f42fa4c800966897dcbea8, type: 3}
+  - clip: DaggerFlurry
+    index: 2
+    layer: {fileID: 2800000, guid: c0af9b003b6ec4b408d1d94d051e5ff8, type: 3}
+    erase: {fileID: 2800000, guid: baea14945d95d454b996d9276462f66b, type: 3}
+  - clip: DaggerFlurry
+    index: 3
+    layer: {fileID: 2800000, guid: 61649525728fd2945a96b4c95df1370a, type: 3}
+    erase: {fileID: 2800000, guid: 11ebda868622e6444afe43f364420909, type: 3}
+  - clip: DaggerFlurry
+    index: 4
+    layer: {fileID: 2800000, guid: f6c5cddaf627f5c46adf6c79ee4f24bb, type: 3}
+    erase: {fileID: 2800000, guid: 17baec15158722848943b2430085271c, type: 3}
+  - clip: DaggerFlurry
+    index: 5
+    layer: {fileID: 2800000, guid: 2ce97d3041289cd43820f3c22f4f8411, type: 3}
+    erase: {fileID: 2800000, guid: a72fbc87eeaf0b94ba271b0ab67ff9c8, type: 3}
+  - clip: DaggerFlurry
+    index: 6
+    layer: {fileID: 2800000, guid: 203736e93b0167744b423f0fbce3890e, type: 3}
+    erase: {fileID: 2800000, guid: 862cecb87b51a15438d0cf4034e5475e, type: 3}
+  - clip: DaggerCross
+    index: 0
+    layer: {fileID: 2800000, guid: e5143a31b6837034a8bbaa6e48d28d64, type: 3}
+    erase: {fileID: 2800000, guid: e3ba8a5449696854fb46189d659ce3c6, type: 3}
+  - clip: DaggerCross
+    index: 1
+    layer: {fileID: 2800000, guid: bd410a9f225690d4faaceda8f6c0415d, type: 3}
+    erase: {fileID: 2800000, guid: 7d28f8e2cdf7c8746aca486b52187fd3, type: 3}
+  - clip: DaggerCross
+    index: 2
+    layer: {fileID: 2800000, guid: 65a130b15ae881646bb7c37a4474c2e4, type: 3}
+    erase: {fileID: 2800000, guid: fc2b697df5eb1cf49a5301c3a080e1ed, type: 3}

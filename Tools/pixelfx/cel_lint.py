@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from build_cel import components  # noqa: E402
 
 DIR = sys.argv[1] if len(sys.argv) > 1 else "Assets/Art/Player/PixelRig/Cel"
-AIR = {"JumpArc", "Death"}
+AIR = {"JumpArc", "Death", "RopeUp", "RopeStay"}  # 공중·쓰러짐·매달림은 발바닥 검사 제외
 
 
 def holes(alpha):

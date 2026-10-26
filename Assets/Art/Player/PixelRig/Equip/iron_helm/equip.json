@@ -317,6 +317,46 @@
   {
    "clip": "GreatDown",
    "k": 6
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 0
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 1
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 2
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 3
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 4
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 5
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 6
+  },
+  {
+   "clip": "DaggerCross",
+   "k": 0
+  },
+  {
+   "clip": "DaggerCross",
+   "k": 1
+  },
+  {
+   "clip": "DaggerCross",
+   "k": 2
   }
  ]
 }

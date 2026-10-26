@@ -1058,6 +1058,148 @@
    }
   ]
  },
+ "DaggerFlurry": {
+  "frame": 0.035,
+  "loop": false,
+  "frames": [
+   {
+    "png": "DaggerFlurry_0",
+    "hand": [
+     36,
+     40
+    ],
+    "handB": [
+     49,
+     44
+    ],
+    "dy": 0,
+    "angle": 156.80140948635182
+   },
+   {
+    "png": "DaggerFlurry_1",
+    "hand": [
+     50,
+     42
+    ],
+    "handB": [
+     48,
+     45
+    ],
+    "dy": 0,
+    "angle": 20.556045219583467
+   },
+   {
+    "png": "DaggerFlurry_2",
+    "hand": [
+     47,
+     42
+    ],
+    "handB": [
+     45,
+     45
+    ],
+    "dy": 0,
+    "angle": 14.036243467926479
+   },
+   {
+    "png": "DaggerFlurry_3",
+    "hand": [
+     27,
+     39
+    ],
+    "handB": [
+     46,
+     42
+    ],
+    "dy": 0,
+    "angle": 150.25511870305778
+   },
+   {
+    "png": "DaggerFlurry_4",
+    "hand": [
+     28,
+     40
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "angle": 144.46232220802563
+   },
+   {
+    "png": "DaggerFlurry_5",
+    "hand": [
+     50,
+     42
+    ],
+    "handB": [
+     48,
+     45
+    ],
+    "dy": 0,
+    "angle": 20.556045219583467
+   },
+   {
+    "png": "DaggerFlurry_6",
+    "hand": [
+     47,
+     42
+    ],
+    "handB": [
+     45,
+     45
+    ],
+    "dy": 0,
+    "angle": 23.19859051364819
+   }
+  ]
+ },
+ "DaggerCross": {
+  "frame": 0.07,
+  "loop": false,
+  "frames": [
+   {
+    "png": "DaggerCross_0",
+    "hand": [
+     49,
+     32
+    ],
+    "handB": [
+     49,
+     39
+    ],
+    "dy": 0,
+    "angle": 63.43494882292201
+   },
+   {
+    "png": "DaggerCross_1",
+    "hand": [
+     21,
+     34
+    ],
+    "handB": [
+     25,
+     44
+    ],
+    "dy": 0,
+    "angle": -90.0
+   },
+   {
+    "png": "DaggerCross_2",
+    "hand": [
+     27,
+     45
+    ],
+    "handB": [
+     45,
+     42
+    ],
+    "dy": 0,
+    "angle": 167.47119229084848
+   }
+  ]
+ },
  "Idle": {
   "frame": 0.3,
   "loop": true,

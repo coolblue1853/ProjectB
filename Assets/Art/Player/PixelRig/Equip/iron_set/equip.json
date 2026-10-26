@@ -475,6 +475,66 @@
    "k": 6,
    "layer": 650,
    "erase": 15
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 0,
+   "layer": 724,
+   "erase": 23
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 1,
+   "layer": 619,
+   "erase": 23
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 2,
+   "layer": 617,
+   "erase": 26
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 3,
+   "layer": 669,
+   "erase": 9
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 4,
+   "layer": 657,
+   "erase": 9
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 5,
+   "layer": 604,
+   "erase": 9
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 6,
+   "layer": 627,
+   "erase": 23
+  },
+  {
+   "clip": "DaggerCross",
+   "k": 0,
+   "layer": 674,
+   "erase": 22
+  },
+  {
+   "clip": "DaggerCross",
+   "k": 1,
+   "layer": 640,
+   "erase": 9
+  },
+  {
+   "clip": "DaggerCross",
+   "k": 2,
+   "layer": 659,
+   "erase": 9
   }
  ]
 }

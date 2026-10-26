@@ -1102,6 +1102,72 @@ MonoBehaviour:
     - -36.253838
     - -33.690067
     - -28.072487
+  - name: DaggerFlurry
+    frame: 0.035
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 15f914184eb993b4eb2b48257e2f0100, type: 3}
+    - {fileID: 21300000, guid: 9b2d1c13d5d9f1c4fb89b7dbd6ac3c38, type: 3}
+    - {fileID: 21300000, guid: 6d8502cd002acaf46909c0c7ed46edbb, type: 3}
+    - {fileID: 21300000, guid: 66a5e31966b37ad46a508c1d466f6443, type: 3}
+    - {fileID: 21300000, guid: 0b3f7112bbe620c47b5775cc6d21b323, type: 3}
+    - {fileID: 21300000, guid: 1730042d3d5f241419c08106459a8fbc, type: 3}
+    - {fileID: 21300000, guid: bdd2e8d7fdbce264eb7b1e9be0cda40b, type: 3}
+    fists:
+    - {fileID: 21300000, guid: dee9e1f09d779e94dadf54674e7708a7, type: 3}
+    - {fileID: 21300000, guid: 2b62d183aec0e964c8099eb697546077, type: 3}
+    - {fileID: 21300000, guid: 499d78bbf75005c40bea18734e0637af, type: 3}
+    - {fileID: 21300000, guid: 73434312cbd23274ea56de3999d89635, type: 3}
+    - {fileID: 21300000, guid: 181259fbaa521424783e6b6b83cff8b8, type: 3}
+    - {fileID: 21300000, guid: e1eba751826b3494489ceca12682701c, type: 3}
+    - {fileID: 21300000, guid: e2c18184988546f4eac59b21ec803af4, type: 3}
+    hand:
+    - {x: -0.125, y: 0.4027778}
+    - {x: 0.2638889, y: 0.3472222}
+    - {x: 0.18055555, y: 0.3472222}
+    - {x: -0.375, y: 0.43055555}
+    - {x: -0.3472222, y: 0.4027778}
+    - {x: 0.2638889, y: 0.3472222}
+    - {x: 0.18055555, y: 0.3472222}
+    handB:
+    - {x: 0.2361111, y: 0.29166666}
+    - {x: 0.20833333, y: 0.2638889}
+    - {x: 0.125, y: 0.2638889}
+    - {x: 0.15277778, y: 0.3472222}
+    - {x: 0.18055555, y: 0.31944445}
+    - {x: 0.20833333, y: 0.2638889}
+    - {x: 0.125, y: 0.2638889}
+    angles:
+    - 156.8014
+    - 20.556046
+    - 14.036243
+    - 150.25511
+    - 144.46233
+    - 20.556046
+    - 23.198591
+  - name: DaggerCross
+    frame: 0.07
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 837548413a502f6408294038350fff76, type: 3}
+    - {fileID: 21300000, guid: df0c719d041614d4bac433e650ebf178, type: 3}
+    - {fileID: 21300000, guid: db1d7bb8ad5c9d74580f13574e5206bf, type: 3}
+    fists:
+    - {fileID: 21300000, guid: 53cf60ee800c25a47ad7662058af5de7, type: 3}
+    - {fileID: 21300000, guid: c72fe847e7220ab4698a37500c0f3b5e, type: 3}
+    - {fileID: 21300000, guid: 3dfaeecdf290c594982d801790d566ac, type: 3}
+    hand:
+    - {x: 0.2361111, y: 0.625}
+    - {x: -0.5416667, y: 0.5694444}
+    - {x: -0.375, y: 0.2638889}
+    handB:
+    - {x: 0.2361111, y: 0.43055555}
+    - {x: -0.43055555, y: 0.29166666}
+    - {x: 0.125, y: 0.3472222}
+    angles:
+    - 63.434948
+    - -90
+    - 167.47119
 --- !u!1 &3535350247772215805
 GameObject:
   m_ObjectHideFlags: 0

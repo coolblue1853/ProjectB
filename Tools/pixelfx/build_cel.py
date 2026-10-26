@@ -36,6 +36,9 @@ CLIPS = {
     "SwingUp": ("attack/up", list(range(1, 8)), 0.04, False, "feet", True),
     # 대검·둔기 양손(늘린 강철 대검을 합성한 기준 그림에서 생성, 칼 길이 36). 묵직하게 0.05초
     "GreatDown": ("attack/great_down", list(range(1, 8)), 0.05, False, "feet", 36),
+    # 단검(쌍단검 계열): 연속 찌르기·X 베기, 칼 길이 14
+    "DaggerFlurry": ("attack/dagger_flurry", list(range(1, 8)), 0.035, False, "feet", 14),
+    "DaggerCross": ("attack/dagger_cross", [1, 4, 5], 0.07, False, "feet", 14),  # 2·3·6·7번은 생성 그림의 큰 베기 잔상이 몸을 덮어 지우면 몸이 날아가 뺐다
     # GreatSide: 첫 생성은 2~6번에서 왼쪽으로 돌아서 기각(great_side), 재생성 결과를 확인 후 넣는다
 }
 CONST_REF = {"rope_loop": list(range(0, 8))}
