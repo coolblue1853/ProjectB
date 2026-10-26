@@ -14,6 +14,7 @@ from PIL import Image
 
 sys.path.insert(0, os.path.dirname(__file__))
 from extract_layer import MIN_PART, clean  # noqa: E402
+from build_cel import components  # noqa: E402
 
 CEL = "Assets/Art/Player/PixelRig/Cel"
 SRC = "Docs/ArtCompare/Motion/equip"
@@ -50,6 +51,25 @@ def main():
             layer[lm] = e[lm]
             layer[..., 3] = np.where(lm, 255, 0)
             erase = clean(bo & ~eo, 2)
+            # 장비는 몸에 붙어 있어야 한다: 맨몸 그림에서 4px 밖의 레이어 픽셀은 버린다(공격 프레임 전이가 잔상 자리에 투구를 그렸다)
+            near_body = bo.copy()
+            for _ in range(4):
+                g = near_body.copy()
+                g[1:] |= near_body[:-1]; g[:-1] |= near_body[1:]; g[:, 1:] |= near_body[:, :-1]; g[:, :-1] |= near_body[:, 1:]
+                near_body = g
+            lm &= near_body
+            # 합성했을 때 몸 본체와 떨어진 레이어 조각은 버린다(공격 타격 프레임에서 투구가 허공에 따로 떴다)
+            comp = bo & ~erase | lm
+            parts = components(comp)
+            if parts:
+                big = max(len(p) for p in parts)
+                for part in parts:
+                    if len(part) < big * 0.25:
+                        for y, x in part:
+                            lm[y, x] = False
+                layer = np.zeros_like(e)
+                layer[lm] = e[lm]
+                layer[..., 3] = np.where(lm, 255, 0)
             name = f"{clip}_{k}"
             Image.fromarray(layer.astype(np.uint8), "RGBA").save(os.path.join(out, name + ".png"))
             Image.fromarray(np.where(erase, 255, 0).astype(np.uint8), "L").save(os.path.join(out, name + "_erase.png"))
