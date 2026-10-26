@@ -32,7 +32,7 @@ JUMP_SET = "leap"  # 착지 끝에 12번(걷기 3번과 23px 차이 — 걷기·
 # 달리기 세트: "loop" = 예전 6장(사용자 "거의 완벽한데 팔 움직임이 적다"), "pump" = 같은 시작 그림에서 팔을 크게 흔들도록 재생성 8장(10-26 저녁)
 RUNS = {
     "loop": ("run_loop", list(range(2, 8)), 0.06, True, "const"),  # 2~7: 프레임 간 변화가 가장 고른 6장(이음새 531 ≈ 평균), 리그 달리기 6포즈와 같은 수,
-    "pump": ("run_pump2", list(range(0, 8)), 0.045, True, "const"),  # 8 × 0.045 = 0.36초 — 리그 달리기 주기와 같게
+    "pump": ("run_pump2", list(range(0, 8)), 0.055, True, "const"),  # 8 × 0.055 = 0.44초 — 0.045(0.36초)는 사용자 "재생이 빨라 부자연스럽다"
 }
 RUN_SET = "pump"
 
@@ -98,6 +98,23 @@ def shift(a, dy):
 GRIP_UP = 2
 
 
+def hand_near(a, last, r=9):
+    """직전 무기 손(last) 근처 r px 안의 피부 덩어리 → 주먹 점(가운데 x, 맨 아래 - GRIP_UP). 없으면 None."""
+    sc = near(a, SCARF)
+    sy = np.nonzero(sc.any(axis=1))[0]
+    sk = near(a, SKIN)
+    sk[:(sy.min() + 2 if len(sy) else 40)] = False
+    ys, xs = np.nonzero(sk)
+    if len(xs) == 0:
+        return None
+    dd = (xs - last[0]) ** 2 + (ys - last[1]) ** 2
+    i = int(dd.argmin())
+    if dd[i] > r * r:
+        return None
+    blob = (np.abs(xs - xs[i]) <= 2) & (np.abs(ys - ys[i]) <= 3)
+    return [int(round(xs[blob].mean())), int(ys[blob].max()) - GRIP_UP]
+
+
 def hands(a):
     """스카프 아래 피부색 픽셀을 x 로 둘로 나눠 (앞손, 뒷손) — 각 덩어리의 가장 아래·바깥 픽셀(주먹 끝)"""
     sc = near(a, SCARF)
@@ -135,7 +152,32 @@ def hands(a):
 
 IDLE_BASE = ("Walk", 3)  # 걷기 루프에서 두 발이 모인 프레임 — 걷기와 같은 시점(착지 회복 프레임은 정면 쪽이라 어긋났다)
 IDLE_STAND = "idle_stand/arm_clean.png"  # 임시(10-26 밤): 사용자가 왼다리·왼팔을 직접 고친 그림(arm_user.png)에서 소매 끝·손끝·배낭 밑단 픽셀만 정리  # 빈 문자열이면 걷기 3번
+# 손 검출이 무릎 맨살을 잡거나 못 찾는 프레임(다리 벌린 도약 점프) — 눈으로 잡은 뒷손(무기 손) 주먹 가운데, 64 캔버스 좌표(정렬 후)
+HAND_FIX = {("JumpCrouch", 2): (24, 33), ("JumpArc", 0): (24, 33), ("JumpArc", 1): (25, 33), ("JumpArc", 2): (27, 33), ("JumpArc", 3): (28, 34),
+            ("Land", 0): (27, 31), ("Land", 1): (28, 36)}
+IDLE_HAND, IDLE_HAND_B = (34, 44), (49, 43)  # 대기 셀의 무기 손·반대 손(cel.json Idle) — 동작 손 추적 시작점
 IDLE_STRETCH_ROW = 44   # 튜닉 가운데 줄 — 복제하면 허리 위(상체·머리)가 1px 오른다
+
+
+# 숨쉬기 3단(10-26 밤 사용자: 2단은 딱딱 끊긴다): 0 = 기본, 1 = 튜닉 줄 위(상체·머리) 1px 올림, 2 = 거기서 머리(스카프 윗줄 위)만 1px 더
+IDLE_SEQ = [0, 1, 2, 2, 1, 0]
+IDLE_FRAME = 0.2  # 6 × 0.2 = 1.2초(예전 4 × 0.3 과 같은 호흡 길이)
+
+
+def idle_head_row(a):
+    rows = np.nonzero(near(a, SCARF).any(axis=1))[0]
+    return int(rows.min()) if len(rows) else 36
+
+
+def breath(a, stage, head):
+    """숨쉬기 단계 그림: 줄 복제로 위쪽을 올린다(장비 레이어에도 같은 변환을 쓴다)."""
+    out = a.copy()
+    if stage >= 1:
+        out[:IDLE_STRETCH_ROW] = a[1:IDLE_STRETCH_ROW + 1]
+    if stage >= 2:
+        prev = out.copy()
+        out[:head] = prev[1:head + 1]
+    return out
 
 
 def synth_idle(meta):
@@ -151,19 +193,18 @@ def synth_idle(meta):
         a = shift(a, (FEET_ROW - 1) - int(ys.max()))
         h, b = hands(a)
         src = {"hand": list(h) if h else src["hand"], "handB": list(b) if b else src["handB"]}
-    up = np.zeros_like(a)
-    up[:IDLE_STRETCH_ROW] = a[1:IDLE_STRETCH_ROW + 1]
-    up[IDLE_STRETCH_ROW:] = a[IDLE_STRETCH_ROW:]
+    head = idle_head_row(a)
     frames = []
-    for i, img in enumerate([a, up, up, a]):
+    for i, st in enumerate(IDLE_SEQ):
+        img = breath(a, st, head)
         name = f"Idle_{i}"
         Image.fromarray(img, "RGBA").save(os.path.join(OUT, name + ".png"))
-        dy = -1 if img is up else 0
-        h = [src["hand"][0], src["hand"][1] + (dy if src["hand"][1] < IDLE_STRETCH_ROW else 0)]
+        dy = -st
+        h = list(src["hand"])  # 손은 튜닉 줄(44) 아래라 숨쉬기에 안 움직인다
         Image.fromarray(fist(img, h), "RGBA").save(os.path.join(OUT, name + "_fist.png"))
         frames.append({"png": name, "hand": h, "handB": src["handB"], "dy": dy})
     print("Idle (synth)", len(frames))
-    return {"frame": 0.3, "loop": True, "frames": frames}
+    return {"frame": IDLE_FRAME, "loop": True, "frames": frames}
 
 
 BLADE_LEN = 24  # 칼 길이(px) — 손잡이에서 이 안의 가장 먼 강철 픽셀이 칼끝
@@ -350,27 +391,42 @@ FIST_R = 2  # 주먹 레이어: 손 좌표 둘레 이 반경 안의 피부색 + 
 
 
 def fist(a, hand):
-    """무기 위에 다시 그릴 주먹만 뽑는다 — 무기는 몸·옷·투구 위, 주먹 아래(10-26 사용자: 무기가 가장 잘 보여야)"""
+    """무기 위에 다시 그릴 주먹 — 손 점에 닿은 피부 덩어리(주먹 상자 안) + 둘레 한 겹(8방향).
+    둘레 칸은 원래 그림이 비었거나 어두우면 검은 외곽선, 아니면 원래 색 — 예전엔 상자 안 피부·기존 외곽선 조각만 떠서
+    칼 위에 손이 부서진 조각처럼 보였다(10-26 밤 사용자: 손이 다 깨졌다)."""
     out = np.zeros_like(a)
     if hand is None:
         return out
     hx, hy = hand
-    sk = near(a, SKIN)
+    sk = near(a, SKIN) & (a[..., 3] > 0)
     h, w = sk.shape
+    box = np.zeros_like(sk)
+    box[max(0, hy - FIST_R - 1):min(h, hy + 2 + GRIP_UP), max(0, hx - FIST_R):min(w, hx + FIST_R + 1)] = True
+    cand = sk & box
+    ys, xs = np.nonzero(cand)
+    if len(xs) == 0:
+        return out
+    i0 = int(((xs - hx) ** 2 + (ys - hy) ** 2).argmin())
     keep = np.zeros_like(sk)
-    for y in range(max(0, hy - FIST_R - 1), min(h, hy + 2 + GRIP_UP)):
-        for x in range(max(0, hx - FIST_R), min(w, hx + FIST_R + 1)):
-            if sk[y, x]:
-                keep[y, x] = True
-    # 주먹 둘레의 검은 외곽선도 같이(무기 위에 주먹 테두리가 보이게)
-    edge = np.zeros_like(keep)
-    ys, xs = np.nonzero(keep)
-    for y, x in zip(ys, xs):
-        for ny, nx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
-            if 0 <= ny < h and 0 <= nx < w and not keep[ny, nx] and a[ny, nx, 3] > 0 and a[ny, nx, :3].sum() < 120:
-                edge[ny, nx] = True
-    m = keep | edge
-    out[m] = a[m]
+    stack = [(int(ys[i0]), int(xs[i0]))]
+    while stack:
+        y, x = stack.pop()
+        if keep[y, x] or not cand[y, x]:
+            continue
+        keep[y, x] = True
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ny, nx = y + dy, x + dx
+            if 0 <= ny < h and 0 <= nx < w:
+                stack.append((ny, nx))
+    ring = np.zeros_like(keep)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            ring |= np.roll(np.roll(keep, dy, axis=0), dx, axis=1)
+    ring &= ~keep
+    out[keep] = a[keep]
+    dark = (a[..., 3] == 0) | (a[..., :3].astype(int).sum(axis=2) < 120)
+    out[ring & dark] = (0, 0, 0, 255)
+    out[ring & ~dark] = a[ring & ~dark]
     return out
 
 
@@ -386,7 +442,7 @@ def main():
         weapon = len(spec) > 5 and spec[5]
         blade_len = spec[5] if len(spec) > 5 and not isinstance(spec[5], bool) else BLADE_LEN
         frames = []
-        last_h, last_b = [44, 46], [36, 46]
+        last_h, last_b = list(IDLE_HAND), list(IDLE_HAND_B)  # 대기 손에서 시작 — 동작 첫 프레임부터 같은 팔
         for k, i in enumerate(idx):
             raw = np.array(Image.open(os.path.join(SRC, folder, f"{i}.png")).convert("RGBA"))
             angle, grip = None, None
@@ -394,6 +450,10 @@ def main():
                 # 칼은 팔레트 고정 전에 지운다 — 고정이 먼저면 강철 색이 주인공 색으로 바뀌어 칼을 못 찾았다
                 raw, grip, angle = strip_weapon(raw, blade_len)
             a = lock(Image.fromarray(raw, "RGBA"), pal)
+            if not weapon:
+                f = fill_holes(a)
+                if ((f[..., 3] > 0) & (a[..., 3] == 0)).sum() <= 4:
+                    a = f  # 몸 안 1~4px 투명 구멍(생성 그림의 잡티 — 배경이 비쳐 픽셀이 깨져 보였다)만 메운다. 큰 틈은 의도된 모양일 수 있어 둔다
             if align == "const" and k == 0:
                 # 루프 전체에서 가장 낮은 발을 땅(54행)에 — 첫 프레임 기준이면 다른 프레임 발이 땅을 1px 파고들었다
                 ref_idx = CONST_REF.get(folder, idx)  # 같은 초안 폴더를 쓰는 클립끼리는 같은 높이(매달리기 ↔ 오르기 전환 때 5px 튀었다)
@@ -412,8 +472,18 @@ def main():
             a = shift(a, dy)
             a = np.roll(a, XSHIFT.get(clip, [0] * len(idx))[k], axis=1)
             h, b = hands(a)
+            if h and b and h != b and not weapon:
+                # 무기 손 = 직전 프레임 무기 손에 더 가까운 손(10-26 밤 사용자: 점프 중 무기 위치가 이상) — 프레임마다 '피부가 가장 많은 손'을
+                # 고르면 팔을 벌린 점프·착지에서 앞팔·뒤팔이 번갈아 뽑혀 칼이 몸 앞뒤로 순간 이동하며 덜그럭거렸다
+                d = lambda p: (p[0] - last_h[0]) ** 2 + (p[1] - last_h[1]) ** 2
+                if d(b) < d(h):
+                    h, b = b, h
+            if not h and not weapon:
+                h = hand_near(a, last_h)  # 다리를 접은 공중·착지 프레임은 손이 엉덩이 줄 아래로 내려가 못 찾았다 — 직전 손 근처 피부
             if weapon and grip is not None:
                 h = [grip[0], grip[1] + dy]
+            if (clip, k) in HAND_FIX:
+                h = list(HAND_FIX[(clip, k)])
             h = list(h) if h else last_h
             b = list(b) if b else last_b
             last_h, last_b = h, b

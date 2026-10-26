@@ -89,13 +89,13 @@
   {
    "clip": "Death",
    "k": 0,
-   "layer": 550,
+   "layer": 549,
    "erase": 28
   },
   {
    "clip": "Death",
    "k": 1,
-   "layer": 544,
+   "layer": 543,
    "erase": 31
   },
   {
@@ -432,7 +432,7 @@
    "clip": "JumpCrouch",
    "k": 1,
    "layer": 555,
-   "erase": 25
+   "erase": 27
   },
   {
    "clip": "JumpCrouch",
@@ -444,31 +444,31 @@
    "clip": "JumpArc",
    "k": 0,
    "layer": 581,
-   "erase": 15
+   "erase": 17
   },
   {
    "clip": "JumpArc",
    "k": 1,
    "layer": 580,
-   "erase": 17
+   "erase": 19
   },
   {
    "clip": "JumpArc",
    "k": 2,
    "layer": 579,
-   "erase": 19
+   "erase": 21
   },
   {
    "clip": "JumpArc",
    "k": 3,
    "layer": 589,
-   "erase": 10
+   "erase": 12
   },
   {
    "clip": "Land",
    "k": 0,
    "layer": 588,
-   "erase": 18
+   "erase": 20
   },
   {
    "clip": "Land",
@@ -539,12 +539,24 @@
   {
    "clip": "Idle",
    "k": 2,
-   "layer": 597,
+   "layer": 605,
    "erase": 31
   },
   {
    "clip": "Idle",
    "k": 3,
+   "layer": 605,
+   "erase": 31
+  },
+  {
+   "clip": "Idle",
+   "k": 4,
+   "layer": 597,
+   "erase": 31
+  },
+  {
+   "clip": "Idle",
+   "k": 5,
    "layer": 593,
    "erase": 31
   },

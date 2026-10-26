@@ -559,7 +559,8 @@ public class PixelRig : CharacterRig
         }
         else
         {
-            _bladeAt = Mathf.MoveTowards(_bladeAt, target, CelBladeTurnSpeed * Time.deltaTime);
+            // 앞↔뒤처럼 크게 바뀌면 한 번에 — 돌려서 바꾸면 중간(아래 270°)에서 칼이 땅을 찌르고 서 있었다(10-26 밤 사용자 점프 착지 스크린샷)
+            _bladeAt = target;
         }
         return _bladeAt;
     }
@@ -587,7 +588,6 @@ public class PixelRig : CharacterRig
     private const float CelBladeBack = 170f;
     private const float CelBladeLagRange = 40f; // 이보다 작은 각도 변화는 늦게 따라오기
     private const float CelBladeLag = 14f;      // 따라오기 빠르기(1/초)
-    private const float CelBladeTurnSpeed = 1800f; // 이동 자세 사이 칼 회전(°/초) — 앞↔뒤 약 0.1초
     private const float CelBladeRise = 200f;
     private const float CelBladeFall = 150f;
     private const float CelHandSwingRef = -5f;  // 걷기·달리기 손 x 가운데(엉덩이 기준 아트 px)

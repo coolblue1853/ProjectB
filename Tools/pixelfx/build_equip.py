@@ -15,7 +15,7 @@ from PIL import Image
 
 sys.path.insert(0, os.path.dirname(__file__))
 from extract_layer import MIN_PART, clean  # noqa: E402
-from build_cel import IDLE_STAND, IDLE_STRETCH_ROW, JUMP_SET, RUN_SET, SCARF, XSHIFT, components, near  # noqa: E402
+from build_cel import IDLE_SEQ, IDLE_STAND, IDLE_STRETCH_ROW, breath, idle_head_row, JUMP_SET, RUN_SET, SCARF, XSHIFT, components, near  # noqa: E402
 
 CEL = "Assets/Art/Player/PixelRig/Cel"
 SRC = "Docs/ArtCompare/Motion/equip"
@@ -158,7 +158,7 @@ IDLE_LEG_ROW = 46
 
 
 def idle_breath(done):
-    """대기 1~3번 레이어는 0번 레이어로 만든다: 몸과 같이 튜닉 줄 위를 1px 올림(대기 몸 = 0·올림·올림·0) — 프레임마다 전이하면 투구가 들썩였다."""
+    """대기 1번~ 레이어는 0번 레이어에 몸과 같은 숨쉬기 변환(IDLE_SEQ, build_cel.breath)을 건다 — 프레임마다 전이하면 투구가 들썩였다."""
     src = next((d for d in done if d[0] == "Idle" and d[1] == 0), None)
     if src is None or not IDLE_STAND:
         return
@@ -168,12 +168,11 @@ def idle_breath(done):
     layer[IDLE_LEG_ROW:] = 0
     lm[IDLE_LEG_ROW:] = False
     erase[IDLE_LEG_ROW:] = False
-    for k, up in ((1, True), (2, True), (3, False)):
-        L, M, E = layer.copy(), lm.copy(), erase.copy()
-        if up:
-            r = IDLE_STRETCH_ROW
-            for a in (L, M, E):
-                a[:r] = a[1:r + 1].copy()
+    head = idle_head_row(np.array(Image.open(os.path.join(CEL, "Idle_0.png")).convert("RGBA")))
+    for k, st in enumerate(IDLE_SEQ):
+        if k == 0:
+            continue
+        L, M, E = breath(layer, st, head), breath(lm, st, head), breath(erase, st, head)
         b = np.array(Image.open(os.path.join(CEL, f"Idle_{k}.png")).convert("RGBA")).astype(int)
         done.append(("Idle", k, b, L, M, E))
 

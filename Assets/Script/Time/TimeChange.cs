@@ -53,7 +53,10 @@ public class TimeChange : MonoBehaviour
             // 낮 고정: 경과 시간도 고정값에 맞춰 둔다 — 플래그를 끄면 이 시각부터 이어서 흐른다(고정 중 AddTime·isTest 는 무시됨)
             float lockedElapsed = _lockedTimeValue * totalTime;
             startTime = Time.time - lockedElapsed;
-            SaveManager.instance.datas.time = lockedElapsed;
+            if (SaveManager.instance != null)
+            {
+                SaveManager.instance.datas.time = lockedElapsed;
+            }
             value = _lockedTimeValue;
             ApplyTime(value);
             return;
