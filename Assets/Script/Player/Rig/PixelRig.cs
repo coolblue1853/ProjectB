@@ -406,10 +406,11 @@ public class PixelRig : CharacterRig
     private void ApplyCel(Clip c)
     {
         CelClip cel = null;
-        if (_cel != null && c != null && _diedAt < 0f)
+        if (_cel != null && c != null)
         {
-            // 제동은 셀 대기 그림으로(리그 제동 포즈는 3/4 정면이라 달리기 셀에서 멈출 때 몸이 돌아 보였다)
-            _celByName.TryGetValue(c == _brake ? "Idle" : c.name, out cel);
+            // 제동은 셀 대기 그림으로(리그 제동 포즈는 3/4 정면이라 달리기 셀에서 멈출 때 몸이 돌아 보였다), 사망은 셀 사망(무릎 → 눕기)
+            string key = _diedAt >= 0f ? "Death" : c == _brake ? "Idle" : c.name;
+            _celByName.TryGetValue(key, out cel);
         }
         if (cel == null)
         {
@@ -417,7 +418,15 @@ public class PixelRig : CharacterRig
             return;
         }
         int i;
-        if (c == _arc)
+        if (_diedAt >= 0f)
+        {
+            i = cel.IndexAt(Time.time - _diedAt);
+        }
+        else if (c == _hurt)
+        {
+            i = cel.IndexAt(HurtTime - (_hurtUntil - Time.time));
+        }
+        else if (c == _arc)
         {
             i = cel.IndexAtNormalized(_arcAt);
         }
@@ -641,9 +650,9 @@ public class PixelRig : CharacterRig
     /// <summary>사망 중이면 무릎 꿇음 클립, 0.3초 뒤부터는 몸 전체를 뒤로 90° 눕힌다(발 원점 기준 → 몸 반폭만큼 들어 올림)</summary>
     private void ApplyDeathLie()
     {
-        if (_diedAt < 0f)
+        if (_diedAt < 0f || _celByName.ContainsKey("Death"))
         {
-            return;
+            return; // 셀 사망(무릎 꿇고 눕는 그림)이 있으면 몸 전체를 90° 눕히지 않는다
         }
         bool lie = Time.time - _diedAt >= KneelTime;
         transform.localRotation = lie ? Quaternion.Euler(0f, 0f, 90f) : Quaternion.identity;
@@ -753,7 +762,8 @@ public class PixelRig : CharacterRig
 
     private void HideWeaponsOnRope()
     {
-        bool hide = _requested != null && _requested.StartsWith("Rope");
+        // 로프에 매달렸거나 셀로 쓰러져 누웠으면 무기를 숨긴다(누운 몸 위에 칼이 서 있었다)
+        bool hide = (_requested != null && _requested.StartsWith("Rope")) || (_diedAt >= 0f && _celByName.ContainsKey("Death"));
         if (hide == _weaponsHidden)
         {
             return;

@@ -25,6 +25,9 @@ CLIPS = {
     "JumpCrouch": ("jump_side", [2, 3, 4], 0.04, False, "feet"),  # 측면 기준 재생성(첫 점프 초안은 3/4 정면이라 측면 걷기와 시점이 달랐다)
     "JumpArc": ("jump_side", [5, 6, 7, 8], 0.25, False, "scarf"),  # 리그가 세로 속도로 시점을 고른다(0 상승 → 1 낙하)
     "Land": ("jump_side", [9, 10, 11], 0.05, False, "feet"),
+    "Dash": ("dash_side", [2, 3, 4], 0.05, False, "feet"),     # 1번은 거의 서 있는 자세라 뺐다
+    "Hurt": ("hurt_side", [2, 3, 4], 0.07, False, "feet"),     # 1번엔 흰 베기 효과가 그림에 섞여 뺐다
+    "Death": ("death_side", list(range(1, 9)), 0.1, False, "feet"),
 }
 SKIN = [(0xFD, 0xE0, 0xC6), (0xF3, 0xB4, 0x9A), (0xD7, 0x8E, 0x7A)]
 SCARF = [(0xF1, 0xAB, 0x36), (0xB8, 0x70, 0x2C)]
