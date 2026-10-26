@@ -336,8 +336,8 @@ public static class PixelRigBuilder
             // 걷기·달리기 = 연속 동작(PixelRigDesign 3.6, 10-26 사용자 "원본 수준, 프레임 단위로"): 원본 AnyPortrait 는 두 발 간격이 매 프레임
             // 사인파로 2↔9 아트px 변했다. 정지 포즈 교체(±1px, 0.08초 유지)는 뻣뻣했다 → 다리 앞뒤·들기·기울기, 몸 들썩임, 팔 흔들기를 곡선으로.
             // 발이 닿는 순간(최대 보폭)이 주기 0·½ → 발소리·먼지 포즈(걷기 0·4 / 달리기 0·3)와 맞는다
-            SmoothCycle("Walk", 0.8f, 45f, stride: 3f, lift: 1.5f, tilt: 10f, bob: 1f, arm: 15f, lean: 0f),
-            SmoothCycle("Run", 0.49f, 45f, stride: 4f, lift: 3f, tilt: 18f, bob: 1.5f, arm: 35f, lean: 1f),
+            SmoothCycle("Walk", 0.64f, 45f, stride: 3f, lift: 1.5f, tilt: 10f, bob: 1f, arm: 15f, lean: 0f),
+            SmoothCycle("Run", 0.42f, 45f, stride: 4f, lift: 3f, tilt: 18f, bob: 1.5f, arm: 35f, lean: 1f),
             // 제동: 달리다 멈추면 리그가 0.13초 보여 준다 — 앞발 2px 내딛어 버티고 몸은 뒤로 1px 젖혀 내려앉음, 손은 관성으로 앞, 머리카락 늘임 → 반쯤 회복
             new AnimDef("Brake", 0.14f, false).Step()
                 .K("Hips", 'x', 0f, -1f, 0.07f, 0f, 0.14f, 0f)

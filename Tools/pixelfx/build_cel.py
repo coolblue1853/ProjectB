@@ -20,8 +20,8 @@ FEET_ROW = 55
 HIP_X = 41  # 리그 원점 x(엉덩이)
 # 클립: (초안 폴더, 프레임 번호들, 프레임 시간(초), 반복, 정렬 'feet' | 'scarf')
 CLIPS = {
-    "Walk": ("walk_loop", list(range(0, 8)), 0.1, True, "feet"),
-    "Run": ("run_loop", list(range(1, 8)), 0.07, True, "feet"),
+    "Walk": ("walk_loop", list(range(0, 8)), 0.08, True, "feet"),  # 0.1 은 디딘 발이 땅보다 느려(3 대 7.2px/프레임) 미끄러졌다
+    "Run": ("run_loop", list(range(1, 8)), 0.06, True, "feet"),
     "JumpCrouch": ("jump_side", [2, 3, 4], 0.04, False, "feet"),  # 측면 기준 재생성(첫 점프 초안은 3/4 정면이라 측면 걷기와 시점이 달랐다)
     "JumpArc": ("jump_side", [5, 6, 7, 8], 0.25, False, "scarf"),  # 리그가 세로 속도로 시점을 고른다(0 상승 → 1 낙하)
     "Land": ("jump_side", [9, 10, 11], 0.05, False, "feet"),
@@ -207,6 +207,51 @@ def fill_holes(a):
     return out
 
 
+def _shift_or(m, r):
+    o = m.copy()
+    for dy in range(-r, r + 1):
+        for dx in range(-r, r + 1):
+            o |= np.roll(np.roll(m, dy, axis=0), dx, axis=1)
+    return o
+
+
+def detach_thin(a, steel):
+    """칼·잔상 자리 둘레(2px)에서 본체에 가늘게(≤2px) 붙은 부분을 떼어 낸다 — 잔상 테두리를 머리카락 어두운 색으로 그려
+    색으로 안 걸리고 머리카락과 한 점으로 이어져 남았다(내려베기 타격). 1px 깎기 → 가장 큰 덩어리 → 다시 1px 늘리기, 칼 자리 밖은 건드리지 않는다"""
+    m = a[..., 3] > 0
+    env = _shift_or(steel, 2)
+    er = m & ~_shift_or(~m, 1)
+    parts = components(er)
+    if not parts:
+        return a
+    big = max(parts, key=len)
+    core = np.zeros_like(m)
+    for y, x in big:
+        core[y, x] = True
+    keep = _shift_or(core, 1) & m
+    out = a.copy()
+    out[env & m & ~keep] = 0
+    return out
+
+
+def recolor_inner_outline(a, steel):
+    """칼 자리 바로 옆(1px)의 어두운 픽셀 중 몸 안쪽(이웃 3면 이상 불투명)에 있는 것 = 머리카락·몸 위에 그려졌던 칼 외곽선 → 밝은 이웃 색으로
+    (올려베기에서 머리카락 속에 검은 줄로 남았다). 실루엣 가장자리의 몸 외곽선은 이웃이 2면 이하라 그대로"""
+    out = a.copy()
+    env = _shift_or(steel, 1)
+    h, w = out.shape[:2]
+    for _ in range(2):
+        alpha = out[..., 3] > 0
+        dark = alpha & (out[..., :3].astype(int).sum(axis=2) < 150)
+        ys, xs = np.nonzero(dark & env)
+        for y, x in zip(ys, xs):
+            nbs = [(ny, nx) for ny, nx in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)) if 0 <= ny < h and 0 <= nx < w and alpha[ny, nx]]
+            bright = [n for n in nbs if int(out[n][:3].astype(int).sum()) >= 150]
+            if len(nbs) >= 3 and bright:
+                out[y, x] = out[bright[0]]
+    return out
+
+
 def strip_weapon(a):
     """칼·잔상 픽셀을 지우고(몸에 난 구멍은 주변 색으로 메움) 손잡이(칼에 가장 가까운 주먹)와 칼날 각도(도, 0 = 앞, 90 = 위)를 돌려준다"""
     st = steel_mask(a)
@@ -246,8 +291,10 @@ def strip_weapon(a):
         if not lone.any():
             break
         out[lone] = 0
+    out = detach_thin(out, st)
     out = keep_main(out)
     out = fill_holes(out)
+    out = recolor_inner_outline(out, st)
     # 구멍 메우기: 지운 픽셀 중 상하좌우 이웃 3개 이상이 불투명이면 몸 안쪽 → 이웃 색으로
     for _ in range(3):
         alpha = out[..., 3] > 0
