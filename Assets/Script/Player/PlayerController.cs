@@ -202,6 +202,8 @@ public class PlayerController : MonoBehaviour
     [Tooltip("공격 시작 후 방향 전환을 막는 시간(초). 이동 가능 무기로 휘두르는 중 뒤돌면 판정까지 뒤집히던 문제 (W-13)")]
     [SerializeField] private float _turnLockTime = 0.2f;
     float attackStartedAt = -10f;
+    // 평타 중 이동 가능한 무기(녹슨 검 등)는 후딜 동안 무기별 배율로 느리게 걷는다
+    private float AttackMoveMul => Weapon.Equipped != null ? Weapon.Equipped.AttackMoveSpeedMul : 1f;
     bool TurnLocked => isAttackAnim && Time.time - attackStartedAt < _turnLockTime;
 
     string attackAnimPlaying; // 공속 배율이 걸린 공격 애니 (히트스톱 해제 후 배율 복원용, W-11)
@@ -560,7 +562,7 @@ public class PlayerController : MonoBehaviour
 
 
                 states = "moveLeft";
-                moveVelocity = Vector2.left * (isRun ? runSpeed * StatMath.MoveSpeedMul : moveSpeed * StatMath.MoveSpeedMul);
+                moveVelocity = Vector2.left * (isRun ? runSpeed : moveSpeed) * StatMath.MoveSpeedMul * AttackMoveMul;
                 if (!TurnLocked) // 공격 초반엔 방향 고정 (W-13)
                 {
                     transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
@@ -585,7 +587,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 states = "moveRight";
-                moveVelocity = Vector2.right * (isRun ? runSpeed * StatMath.MoveSpeedMul : moveSpeed * StatMath.MoveSpeedMul);
+                moveVelocity = Vector2.right * (isRun ? runSpeed : moveSpeed) * StatMath.MoveSpeedMul * AttackMoveMul;
                 if (!TurnLocked) // 공격 초반엔 방향 고정 (W-13)
                 {
                     transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);

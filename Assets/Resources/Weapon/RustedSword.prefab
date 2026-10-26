@@ -268,7 +268,8 @@ MonoBehaviour:
   - 0.7
   isAttackWait: 0
   isSkillAttackWait: 1
-  isWeaponStopMove: 1
+  isWeaponStopMove: 0
+  _attackMoveSpeedMul: 0.6
   time: 0
   isOverHand: 0
   attackPrefab:

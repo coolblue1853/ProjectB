@@ -27,6 +27,8 @@ public class Weapon : MonoBehaviour
     public bool isAttackWait = true;
     public bool isSkillAttackWait = true;
     public bool isWeaponStopMove = false;
+    [Tooltip("평타 후딜 중 좌우 이동 속도 배율(1=평소). isWeaponStopMove가 꺼진 무기에만 의미가 있다")]
+    [SerializeField, Range(0f, 1f)] private float _attackMoveSpeedMul = 1f;
     public float time;
     Sequence comboSequence;
     public bool isOverHand =false;
@@ -81,6 +83,8 @@ public class Weapon : MonoBehaviour
     }
     /// <summary>현재 장착 무기 (무기 밑에서 분리돼 생성되는 스킬 오브젝트가 테마색을 찾을 때 사용)</summary>
     public static Weapon Equipped { get; private set; }
+    /// <summary>지금 이동 속도에 곱할 배율. 평타 후딜 중이면 무기별 배율, 아니면 1</summary>
+    public float AttackMoveSpeedMul => isAttackWait ? 1f : _attackMoveSpeedMul;
 
     private void Start()
     {
