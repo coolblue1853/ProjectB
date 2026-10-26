@@ -35,86 +35,6 @@
    "k": 7
   },
   {
-   "clip": "Run",
-   "k": 0
-  },
-  {
-   "clip": "Run",
-   "k": 1
-  },
-  {
-   "clip": "Run",
-   "k": 2
-  },
-  {
-   "clip": "Run",
-   "k": 3
-  },
-  {
-   "clip": "Run",
-   "k": 4
-  },
-  {
-   "clip": "Run",
-   "k": 5
-  },
-  {
-   "clip": "JumpCrouch",
-   "k": 0
-  },
-  {
-   "clip": "JumpCrouch",
-   "k": 1
-  },
-  {
-   "clip": "JumpCrouch",
-   "k": 2
-  },
-  {
-   "clip": "JumpArc",
-   "k": 0
-  },
-  {
-   "clip": "JumpArc",
-   "k": 1
-  },
-  {
-   "clip": "JumpArc",
-   "k": 2
-  },
-  {
-   "clip": "JumpArc",
-   "k": 3
-  },
-  {
-   "clip": "Land",
-   "k": 0
-  },
-  {
-   "clip": "Land",
-   "k": 1
-  },
-  {
-   "clip": "Land",
-   "k": 2
-  },
-  {
-   "clip": "Idle",
-   "k": 0
-  },
-  {
-   "clip": "Idle",
-   "k": 1
-  },
-  {
-   "clip": "Idle",
-   "k": 2
-  },
-  {
-   "clip": "Idle",
-   "k": 3
-  },
-  {
    "clip": "Dash",
    "k": 0
   },
@@ -357,6 +277,98 @@
   {
    "clip": "DaggerCross",
    "k": 2
+  },
+  {
+   "clip": "Idle",
+   "k": 0
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 0
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 1
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 2
+  },
+  {
+   "clip": "JumpArc",
+   "k": 0
+  },
+  {
+   "clip": "JumpArc",
+   "k": 1
+  },
+  {
+   "clip": "JumpArc",
+   "k": 2
+  },
+  {
+   "clip": "JumpArc",
+   "k": 3
+  },
+  {
+   "clip": "Land",
+   "k": 0
+  },
+  {
+   "clip": "Land",
+   "k": 1
+  },
+  {
+   "clip": "Land",
+   "k": 2
+  },
+  {
+   "clip": "Run",
+   "k": 0
+  },
+  {
+   "clip": "Run",
+   "k": 1
+  },
+  {
+   "clip": "Run",
+   "k": 2
+  },
+  {
+   "clip": "Run",
+   "k": 3
+  },
+  {
+   "clip": "Run",
+   "k": 4
+  },
+  {
+   "clip": "Run",
+   "k": 5
+  },
+  {
+   "clip": "Run",
+   "k": 6
+  },
+  {
+   "clip": "Run",
+   "k": 7
+  },
+  {
+   "clip": "Idle",
+   "k": 1
+  },
+  {
+   "clip": "Idle",
+   "k": 2
+  },
+  {
+   "clip": "Idle",
+   "k": 3
+  },
+  {
+   "clip": "Land",
+   "k": 3
   }
  ]
 }

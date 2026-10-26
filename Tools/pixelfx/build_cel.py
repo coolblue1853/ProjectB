@@ -22,12 +22,26 @@ HIP_X = 41  # 리그 원점 x(엉덩이)
 # 가로 맞춤(아트 px, +앞): 피격 초안은 몸이 15px 뒤로 밀린 채 그려져 맞는 순간 뒤로 튀고 대기로 돌아올 때 앞으로 튀었다 — 넉백은 물리가 한다. 2px 젖혔다 돌아오는 정도만 남김
 XSHIFT = {"Hurt": [13, 11, 5]}
 
+# 점프 세트: "side" = 다리 모은 점프(10-26, 사용자 "동작은 완벽한데 다소곳하다" — 지우지 말고 보관), "leap" = 다리 앞뒤로 벌린 도약(10-26 저녁)
+JUMPS = {
+    "side": (("jump_side", [2, 3, 4], 0.04, False, "feet"), ("jump_side", [5, 6, 7, 8], 0.25, False, "scarf"), ("jump_side", [9, 10, 11], 0.05, False, "feet")),
+    "leap": (("jump_leap2", [1, 2, 3], 0.04, False, "feet"), ("jump_leap2", [4, 5, 7, 8], 0.25, False, "scarf"), ("jump_leap2", [9, 10, 11, 12], 0.05, False, "feet")),
+}
+JUMP_SET = "leap"  # 착지 끝에 12번(걷기 3번과 23px 차이 — 걷기·대기로 이어지는 선 자세)을 붙여 착지 → 대기가 덜 튄다
+
+# 달리기 세트: "loop" = 예전 6장(사용자 "거의 완벽한데 팔 움직임이 적다"), "pump" = 같은 시작 그림에서 팔을 크게 흔들도록 재생성 8장(10-26 저녁)
+RUNS = {
+    "loop": ("run_loop", list(range(2, 8)), 0.06, True, "const"),  # 2~7: 프레임 간 변화가 가장 고른 6장(이음새 531 ≈ 평균), 리그 달리기 6포즈와 같은 수,
+    "pump": ("run_pump2", list(range(0, 8)), 0.045, True, "const"),  # 8 × 0.045 = 0.36초 — 리그 달리기 주기와 같게
+}
+RUN_SET = "pump"
+
 CLIPS = {
     "Walk": ("walk_loop", list(range(0, 8)), 0.08, True, "feet"),  # 걷기는 늘 한 발이 땅에 — 프레임마다 발 맞춤  # 0.1 은 디딘 발이 땅보다 느려(3 대 7.2px/프레임) 미끄러졌다
-    "Run": ("run_loop", list(range(2, 8)), 0.06, True, "const"),  # 2~7: 프레임 간 변화가 가장 고른 6장(이음새 531 ≈ 평균), 리그 달리기 6포즈와 같은 수
-    "JumpCrouch": ("jump_side", [2, 3, 4], 0.04, False, "feet"),  # 측면 기준 재생성(첫 점프 초안은 3/4 정면이라 측면 걷기와 시점이 달랐다)
-    "JumpArc": ("jump_side", [5, 6, 7, 8], 0.25, False, "scarf"),  # 리그가 세로 속도로 시점을 고른다(0 상승 → 1 낙하)
-    "Land": ("jump_side", [9, 10, 11], 0.05, False, "feet"),
+    "Run": RUNS[RUN_SET],
+    "JumpCrouch": JUMPS[JUMP_SET][0],
+    "JumpArc": JUMPS[JUMP_SET][1],  # 리그가 세로 속도로 시점을 고른다(0 상승 → 1 낙하)
+    "Land": JUMPS[JUMP_SET][2],
     "Dash": ("dash_side", [2, 3, 4], 0.05, False, "feet"),     # 1번은 거의 서 있는 자세라 뺐다
     "Hurt": ("hurt_side", [2, 3, 4], 0.07, False, "feet"),     # 1번엔 흰 베기 효과가 그림에 섞여 뺐다
     "Death": ("death_side", list(range(1, 9)), 0.1, False, "feet"),
@@ -120,6 +134,7 @@ def hands(a):
 
 
 IDLE_BASE = ("Walk", 3)  # 걷기 루프에서 두 발이 모인 프레임 — 걷기와 같은 시점(착지 회복 프레임은 정면 쪽이라 어긋났다)
+IDLE_STAND = "idle_stand/arm_clean.png"  # 임시(10-26 밤): 사용자가 왼다리·왼팔을 직접 고친 그림(arm_user.png)에서 소매 끝·손끝·배낭 밑단 픽셀만 정리  # 빈 문자열이면 걷기 3번
 IDLE_STRETCH_ROW = 44   # 튜닉 가운데 줄 — 복제하면 허리 위(상체·머리)가 1px 오른다
 
 
@@ -129,6 +144,13 @@ def synth_idle(meta):
     clip, k = IDLE_BASE
     src = meta[clip]["frames"][k]
     a = np.array(Image.open(os.path.join(OUT, src["png"] + ".png")).convert("RGBA"))
+    if IDLE_STAND:
+        # 똑바로 선 대기(10-26 저녁 사용자: 걷기 3번은 한 다리를 꼰 채 서 있어 부자연스럽다) — 걷기 3번을 다리만 편집(5 gen)
+        a = lock(Image.open(os.path.join(SRC, IDLE_STAND)).convert("RGBA"), palette())
+        ys = np.nonzero(a[..., 3].any(axis=1))[0]
+        a = shift(a, (FEET_ROW - 1) - int(ys.max()))
+        h, b = hands(a)
+        src = {"hand": list(h) if h else src["hand"], "handB": list(b) if b else src["handB"]}
     up = np.zeros_like(a)
     up[:IDLE_STRETCH_ROW] = a[1:IDLE_STRETCH_ROW + 1]
     up[IDLE_STRETCH_ROW:] = a[IDLE_STRETCH_ROW:]

@@ -548,7 +548,19 @@ public class PixelRig : CharacterRig
     private float SmoothBlade(float target, bool exact)
     {
         target = Mathf.Repeat(target - 90f, 360f) + 90f; // 90~450: 위(90)를 끝으로 두어 아래(270)를 지나게
-        _bladeAt = exact ? target : Mathf.MoveTowards(_bladeAt, target, CelBladeTurnSpeed * Time.deltaTime);
+        if (exact)
+        {
+            _bladeAt = target;
+        }
+        else if (Mathf.Abs(target - _bladeAt) < CelBladeLagRange)
+        {
+            // 작은 흔들림은 손보다 살짝 늦게 따라온다(칼 무게) — 손과 똑같이 움직이면 손에 붙은 막대처럼 보였다
+            _bladeAt = Mathf.Lerp(_bladeAt, target, 1f - Mathf.Exp(-CelBladeLag * Time.deltaTime));
+        }
+        else
+        {
+            _bladeAt = Mathf.MoveTowards(_bladeAt, target, CelBladeTurnSpeed * Time.deltaTime);
+        }
         return _bladeAt;
     }
 
@@ -571,8 +583,10 @@ public class PixelRig : CharacterRig
     }
 
     // 이동 중 칼은 앞으로 낮게(가슴 높이) — 무기를 맨 위에 그리면서 세운 칼(70~100°)이 얼굴을 덮었다(10-26). 손이 등 뒤로 크게 갈 때(점프 등)만 세운다
-    private const float CelBladeAngle = 15f;
+    private const float CelBladeAngle = -20f; // 칼을 앞·아래로 늘어뜨려 든다(10-26 저녁 사용자: 15° 로 앞을 겨눈 채 걸으면 부자연스럽다)
     private const float CelBladeBack = 170f;
+    private const float CelBladeLagRange = 40f; // 이보다 작은 각도 변화는 늦게 따라오기
+    private const float CelBladeLag = 14f;      // 따라오기 빠르기(1/초)
     private const float CelBladeTurnSpeed = 1800f; // 이동 자세 사이 칼 회전(°/초) — 앞↔뒤 약 0.1초
     private const float CelBladeRise = 200f;
     private const float CelBladeFall = 150f;

@@ -13,6 +13,10 @@ SCALE = 2
 LABELS = {"original": "원본(AnyPortrait)", "rig": "현재 리그", "cel": "① 셀", "rig2": "② 리그+손그림"}
 
 
+import os as _os
+ACTIONS = _os.environ.get("ACTIONS", "walk run jump").split()  # 예) ACTIONS="walk jump dash brake run"
+
+
 def frames(tag, action):
     s = Image.open(f"Logs/playtest/cmp_{tag}_{action}.png").convert("RGB")
     return [s.crop((i * 256, 0, (i + 1) * 256, 256)) for i in range(s.size[0] // 256)]
@@ -21,7 +25,7 @@ def frames(tag, action):
 def main():
     name, tags = sys.argv[1], sys.argv[2:]
     out = []
-    for action in ("walk", "run", "jump"):
+    for action in ACTIONS:
         cols = [frames(t, action) for t in tags]
         n = min(len(c) for c in cols)
         for rep in range(2):  # 동작마다 두 번

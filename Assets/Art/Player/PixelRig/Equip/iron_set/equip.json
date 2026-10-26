@@ -5,397 +5,277 @@
   {
    "clip": "Walk",
    "k": 0,
-   "layer": 585,
+   "layer": 575,
    "erase": 60
   },
   {
    "clip": "Walk",
    "k": 1,
-   "layer": 613,
+   "layer": 599,
    "erase": 60
   },
   {
    "clip": "Walk",
    "k": 2,
-   "layer": 625,
+   "layer": 592,
    "erase": 54
   },
   {
    "clip": "Walk",
    "k": 3,
-   "layer": 611,
+   "layer": 580,
    "erase": 54
   },
   {
    "clip": "Walk",
    "k": 4,
-   "layer": 607,
+   "layer": 575,
    "erase": 60
   },
   {
    "clip": "Walk",
    "k": 5,
-   "layer": 572,
+   "layer": 559,
    "erase": 60
   },
   {
    "clip": "Walk",
    "k": 6,
-   "layer": 565,
+   "layer": 550,
    "erase": 54
   },
   {
    "clip": "Walk",
    "k": 7,
-   "layer": 588,
-   "erase": 54
-  },
-  {
-   "clip": "Run",
-   "k": 0,
-   "layer": 546,
-   "erase": 20
-  },
-  {
-   "clip": "Run",
-   "k": 1,
-   "layer": 573,
-   "erase": 20
-  },
-  {
-   "clip": "Run",
-   "k": 2,
-   "layer": 576,
-   "erase": 28
-  },
-  {
-   "clip": "Run",
-   "k": 3,
-   "layer": 585,
-   "erase": 24
-  },
-  {
-   "clip": "Run",
-   "k": 4,
-   "layer": 543,
-   "erase": 20
-  },
-  {
-   "clip": "Run",
-   "k": 5,
-   "layer": 548,
-   "erase": 38
-  },
-  {
-   "clip": "JumpCrouch",
-   "k": 0,
-   "layer": 540,
-   "erase": 29
-  },
-  {
-   "clip": "JumpCrouch",
-   "k": 1,
-   "layer": 534,
-   "erase": 24
-  },
-  {
-   "clip": "JumpCrouch",
-   "k": 2,
-   "layer": 564,
-   "erase": 32
-  },
-  {
-   "clip": "JumpArc",
-   "k": 0,
    "layer": 559,
-   "erase": 31
-  },
-  {
-   "clip": "JumpArc",
-   "k": 1,
-   "layer": 522,
-   "erase": 31
-  },
-  {
-   "clip": "JumpArc",
-   "k": 2,
-   "layer": 543,
-   "erase": 33
-  },
-  {
-   "clip": "JumpArc",
-   "k": 3,
-   "layer": 589,
-   "erase": 30
-  },
-  {
-   "clip": "Land",
-   "k": 0,
-   "layer": 565,
-   "erase": 9
-  },
-  {
-   "clip": "Land",
-   "k": 1,
-   "layer": 535,
-   "erase": 13
-  },
-  {
-   "clip": "Land",
-   "k": 2,
-   "layer": 557,
-   "erase": 11
-  },
-  {
-   "clip": "Idle",
-   "k": 0,
-   "layer": 565,
-   "erase": 28
-  },
-  {
-   "clip": "Idle",
-   "k": 1,
-   "layer": 590,
-   "erase": 31
-  },
-  {
-   "clip": "Idle",
-   "k": 2,
-   "layer": 589,
-   "erase": 31
-  },
-  {
-   "clip": "Idle",
-   "k": 3,
-   "layer": 596,
-   "erase": 32
+   "erase": 54
   },
   {
    "clip": "Dash",
    "k": 0,
-   "layer": 622,
+   "layer": 564,
    "erase": 14
   },
   {
    "clip": "Dash",
    "k": 1,
-   "layer": 599,
-   "erase": 6
+   "layer": 578,
+   "erase": 5
   },
   {
    "clip": "Dash",
    "k": 2,
-   "layer": 593,
+   "layer": 558,
    "erase": 24
   },
   {
    "clip": "Hurt",
    "k": 0,
-   "layer": 614,
+   "layer": 597,
    "erase": 40
   },
   {
    "clip": "Hurt",
    "k": 1,
-   "layer": 617,
-   "erase": 33
+   "layer": 589,
+   "erase": 32
   },
   {
    "clip": "Hurt",
    "k": 2,
-   "layer": 585,
+   "layer": 568,
    "erase": 32
   },
   {
    "clip": "Death",
    "k": 0,
-   "layer": 579,
+   "layer": 550,
    "erase": 28
   },
   {
    "clip": "Death",
    "k": 1,
-   "layer": 571,
+   "layer": 544,
    "erase": 31
   },
   {
    "clip": "Death",
    "k": 2,
-   "layer": 639,
+   "layer": 619,
    "erase": 19
   },
   {
    "clip": "Death",
    "k": 3,
-   "layer": 603,
+   "layer": 591,
    "erase": 19
   },
   {
    "clip": "Death",
    "k": 4,
-   "layer": 570,
+   "layer": 548,
    "erase": 18
   },
   {
    "clip": "Death",
    "k": 5,
-   "layer": 523,
+   "layer": 504,
    "erase": 12
   },
   {
    "clip": "Death",
    "k": 6,
-   "layer": 463,
+   "layer": 434,
    "erase": 6
   },
   {
    "clip": "Death",
    "k": 7,
-   "layer": 501,
+   "layer": 470,
    "erase": 8
   },
   {
    "clip": "Stab",
    "k": 0,
-   "layer": 632,
+   "layer": 619,
    "erase": 27
   },
   {
    "clip": "Stab",
    "k": 1,
-   "layer": 630,
-   "erase": 27
+   "layer": 634,
+   "erase": 26
   },
   {
    "clip": "Stab",
    "k": 2,
-   "layer": 617,
-   "erase": 27
+   "layer": 624,
+   "erase": 26
   },
   {
    "clip": "Stab",
    "k": 3,
-   "layer": 541,
-   "erase": 31
+   "layer": 574,
+   "erase": 32
   },
   {
    "clip": "Stab",
    "k": 4,
-   "layer": 546,
-   "erase": 21
+   "layer": 576,
+   "erase": 12
   },
   {
    "clip": "Stab",
    "k": 5,
-   "layer": 547,
-   "erase": 35
+   "layer": 573,
+   "erase": 30
   },
   {
    "clip": "Stab",
    "k": 6,
-   "layer": 547,
+   "layer": 544,
    "erase": 28
   },
   {
    "clip": "SwingDown",
    "k": 0,
-   "layer": 618,
+   "layer": 622,
    "erase": 32
   },
   {
    "clip": "SwingDown",
    "k": 1,
-   "layer": 618,
+   "layer": 611,
    "erase": 34
   },
   {
    "clip": "SwingDown",
    "k": 2,
-   "layer": 576,
+   "layer": 569,
    "erase": 34
   },
   {
    "clip": "SwingDown",
    "k": 3,
-   "layer": 576,
+   "layer": 569,
    "erase": 34
   },
   {
    "clip": "SwingDown",
    "k": 4,
-   "layer": 583,
-   "erase": 29
+   "layer": 572,
+   "erase": 28
   },
   {
    "clip": "SwingDown",
    "k": 5,
-   "layer": 558,
-   "erase": 30
+   "layer": 573,
+   "erase": 29
   },
   {
    "clip": "SwingDown",
    "k": 6,
-   "layer": 520,
+   "layer": 548,
    "erase": 51
   },
   {
    "clip": "SwingUp",
    "k": 0,
    "layer": 601,
-   "erase": 16
+   "erase": 15
   },
   {
    "clip": "SwingUp",
    "k": 1,
-   "layer": 561,
-   "erase": 35
+   "layer": 581,
+   "erase": 34
   },
   {
    "clip": "SwingUp",
    "k": 2,
-   "layer": 581,
-   "erase": 19
+   "layer": 589,
+   "erase": 18
   },
   {
    "clip": "SwingUp",
    "k": 3,
-   "layer": 700,
+   "layer": 645,
    "erase": 29
   },
   {
    "clip": "SwingUp",
    "k": 4,
-   "layer": 577,
+   "layer": 547,
    "erase": 26
   },
   {
    "clip": "SwingUp",
    "k": 5,
-   "layer": 577,
+   "layer": 547,
    "erase": 26
   },
   {
    "clip": "SwingUp",
    "k": 6,
-   "layer": 589,
+   "layer": 540,
    "erase": 26
   },
   {
    "clip": "RopeUp",
    "k": 0,
-   "layer": 450,
+   "layer": 436,
    "erase": 0
   },
   {
    "clip": "RopeUp",
    "k": 1,
-   "layer": 425,
+   "layer": 412,
    "erase": 2
   },
   {
    "clip": "RopeUp",
    "k": 2,
-   "layer": 406,
+   "layer": 403,
    "erase": 2
   },
   {
@@ -407,7 +287,7 @@
   {
    "clip": "RopeUp",
    "k": 4,
-   "layer": 416,
+   "layer": 414,
    "erase": 0
   },
   {
@@ -419,122 +299,260 @@
   {
    "clip": "RopeUp",
    "k": 6,
-   "layer": 419,
+   "layer": 407,
    "erase": 2
   },
   {
    "clip": "RopeUp",
    "k": 7,
-   "layer": 395,
+   "layer": 384,
    "erase": 4
   },
   {
    "clip": "RopeStay",
    "k": 0,
-   "layer": 450,
+   "layer": 436,
    "erase": 0
   },
   {
    "clip": "GreatDown",
    "k": 0,
-   "layer": 620,
+   "layer": 609,
    "erase": 26
   },
   {
    "clip": "GreatDown",
    "k": 1,
-   "layer": 646,
+   "layer": 623,
    "erase": 27
   },
   {
    "clip": "GreatDown",
    "k": 2,
-   "layer": 614,
+   "layer": 524,
    "erase": 6
   },
   {
    "clip": "GreatDown",
    "k": 3,
-   "layer": 553,
+   "layer": 528,
    "erase": 19
   },
   {
    "clip": "GreatDown",
    "k": 4,
-   "layer": 561,
+   "layer": 537,
    "erase": 16
   },
   {
    "clip": "GreatDown",
    "k": 5,
-   "layer": 609,
+   "layer": 550,
    "erase": 15
   },
   {
    "clip": "GreatDown",
    "k": 6,
-   "layer": 660,
+   "layer": 582,
    "erase": 15
   },
   {
    "clip": "DaggerFlurry",
    "k": 0,
-   "layer": 724,
-   "erase": 23
+   "layer": 637,
+   "erase": 24
   },
   {
    "clip": "DaggerFlurry",
    "k": 1,
-   "layer": 620,
-   "erase": 23
+   "layer": 568,
+   "erase": 24
   },
   {
    "clip": "DaggerFlurry",
    "k": 2,
-   "layer": 618,
+   "layer": 570,
    "erase": 27
   },
   {
    "clip": "DaggerFlurry",
    "k": 3,
-   "layer": 669,
-   "erase": 10
+   "layer": 602,
+   "erase": 9
   },
   {
    "clip": "DaggerFlurry",
    "k": 4,
-   "layer": 657,
-   "erase": 10
+   "layer": 596,
+   "erase": 9
   },
   {
    "clip": "DaggerFlurry",
    "k": 5,
-   "layer": 606,
-   "erase": 10
+   "layer": 563,
+   "erase": 9
   },
   {
    "clip": "DaggerFlurry",
    "k": 6,
-   "layer": 627,
-   "erase": 23
+   "layer": 575,
+   "erase": 24
   },
   {
    "clip": "DaggerCross",
    "k": 0,
-   "layer": 677,
+   "layer": 630,
    "erase": 22
   },
   {
    "clip": "DaggerCross",
    "k": 1,
-   "layer": 642,
-   "erase": 10
+   "layer": 603,
+   "erase": 9
   },
   {
    "clip": "DaggerCross",
    "k": 2,
-   "layer": 661,
+   "layer": 608,
+   "erase": 9
+  },
+  {
+   "clip": "Idle",
+   "k": 0,
+   "layer": 593,
+   "erase": 31
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 0,
+   "layer": 576,
+   "erase": 28
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 1,
+   "layer": 555,
+   "erase": 25
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 2,
+   "layer": 591,
+   "erase": 48
+  },
+  {
+   "clip": "JumpArc",
+   "k": 0,
+   "layer": 581,
+   "erase": 15
+  },
+  {
+   "clip": "JumpArc",
+   "k": 1,
+   "layer": 580,
+   "erase": 17
+  },
+  {
+   "clip": "JumpArc",
+   "k": 2,
+   "layer": 579,
+   "erase": 19
+  },
+  {
+   "clip": "JumpArc",
+   "k": 3,
+   "layer": 589,
    "erase": 10
+  },
+  {
+   "clip": "Land",
+   "k": 0,
+   "layer": 588,
+   "erase": 18
+  },
+  {
+   "clip": "Land",
+   "k": 1,
+   "layer": 582,
+   "erase": 19
+  },
+  {
+   "clip": "Land",
+   "k": 2,
+   "layer": 572,
+   "erase": 21
+  },
+  {
+   "clip": "Run",
+   "k": 0,
+   "layer": 573,
+   "erase": 7
+  },
+  {
+   "clip": "Run",
+   "k": 1,
+   "layer": 582,
+   "erase": 7
+  },
+  {
+   "clip": "Run",
+   "k": 2,
+   "layer": 586,
+   "erase": 31
+  },
+  {
+   "clip": "Run",
+   "k": 3,
+   "layer": 605,
+   "erase": 7
+  },
+  {
+   "clip": "Run",
+   "k": 4,
+   "layer": 580,
+   "erase": 7
+  },
+  {
+   "clip": "Run",
+   "k": 5,
+   "layer": 536,
+   "erase": 7
+  },
+  {
+   "clip": "Run",
+   "k": 6,
+   "layer": 529,
+   "erase": 12
+  },
+  {
+   "clip": "Run",
+   "k": 7,
+   "layer": 530,
+   "erase": 12
+  },
+  {
+   "clip": "Idle",
+   "k": 1,
+   "layer": 597,
+   "erase": 31
+  },
+  {
+   "clip": "Idle",
+   "k": 2,
+   "layer": 597,
+   "erase": 31
+  },
+  {
+   "clip": "Idle",
+   "k": 3,
+   "layer": 593,
+   "erase": 31
+  },
+  {
+   "clip": "Land",
+   "k": 3,
+   "layer": 581,
+   "erase": 54
   }
  ]
 }
