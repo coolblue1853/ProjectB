@@ -44,6 +44,7 @@
 | `Game/PlayerStateDesign.md` | 플레이어 FSM·상태 토큰(무적/슈퍼아머/이동정지)·입력 버퍼·Modifier 스탯 재설계와 단계별 마이그레이션 |
 | `Game/ProgressionDesign.md` | 성장 루프(메이플식 진행·디아식 콘텐츠): 정예(중간보스) 승격·보스 확정 드롭·고유템 천장·강화 +0~+10 표와 보너스, 단계 P1~P4 |
 | `Game/Lv2ContentPlan.md` | Lv2 "마법 절벽" 기획(E4): 신규 에셋 프레임·PPU 분석, 맵 레이아웃·스포너·포털, 몬스터 5+엘리트+보스 스탯·BT·드롭, Cliff 세트(ItemSheet/SetItem 행·스킬·레시피), 빌더 단계별 구현·프로브 |
+| `Game/CelEquipmentPlan.md` | **셀 애니 × 장비 외형** 계획: 던파식 부위 레이어 방향, 페이퍼돌·앵커·팔레트 스왑·PixelLab transfer_outfit 조사, A/B/C안과 생성량 추정 |
 | `Game/Floor2Plan.md` | **2층계 Undercloud** 설계: 구역 5개(절벽·무너진 성벽·석상 정원·기사단 성채·용의 둥지) 낮/밤 몹·보스, 상승 부하 25~60, 계보 무기·세트 표, 탐험가 칭호 2, **수치 연속성 구역 단계 T 공식**(Q-409 정리안) |
 
 ## 운영
