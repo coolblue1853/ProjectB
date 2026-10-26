@@ -460,7 +460,9 @@ public class PixelRig : CharacterRig
             // 손이 몸 뒤로 갈수록 칼을 세운다(45° → 100°) — 팔을 뒤로 흔들 때 앞으로 눕힌 칼날이 몸·얼굴을 가로질렀다
             // 두 자세로 끊는다: 손이 엉덩이보다 많이 뒤면 칼을 뒤로 눕혀 끌고(170°), 아니면 앞으로 낮게(15°).
             // 중간 각도로 보간하면 손이 뒤로 갈 때 칼이 서서(≈60°) 얼굴을 가로질렀다(달리기 2~4번, 10-26)
-            float back = cel.hand[i].x * _ppu < CelHandBackPx ? 1f : 0f;
+            // 땅 위 반복 동작(대기·걷기·달리기·제동)은 칼을 늘 앞에 — 달리다 손이 뒤로 갈 때마다 칼이 뒤로 뒤집혀 이상했다(10-26 사용자)
+            bool groundLoop = cel.name == "Idle" || cel.name == "Walk" || cel.name == "Run";
+            float back = !groundLoop && cel.hand[i].x * _ppu < CelHandBackPx ? 1f : 0f;
             float blade = i < cel.angles.Length && cel.angles[i] > CelClip.NoAngle + 1f
                 ? cel.angles[i] // 공격 셀: 그림 속 칼에서 읽은 각도
                 : Mathf.Lerp(CelBladeAngle, CelBladeBack, back);
