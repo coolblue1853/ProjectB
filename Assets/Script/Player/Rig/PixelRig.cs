@@ -408,7 +408,8 @@ public class PixelRig : CharacterRig
         CelClip cel = null;
         if (_cel != null && c != null && _diedAt < 0f)
         {
-            _celByName.TryGetValue(c.name, out cel);
+            // 제동은 셀 대기 그림으로(리그 제동 포즈는 3/4 정면이라 달리기 셀에서 멈출 때 몸이 돌아 보였다)
+            _celByName.TryGetValue(c == _brake ? "Idle" : c.name, out cel);
         }
         if (cel == null)
         {
@@ -673,7 +674,8 @@ public class PixelRig : CharacterRig
         {
             return ledge;
         }
-        if (_requested == "Idle" && _fidget != null)
+        // 셀 대기(측면)가 있으면 리그 습관 동작(3/4 정면)은 건너뛴다 — 시점이 확 돌아 보였다(Q-424)
+        if (_requested == "Idle" && _fidget != null && !_celByName.ContainsKey("Idle"))
         {
             float idleFor = now - _playedAt;
             float cycle = FidgetAfter + _fidget.clip.length;

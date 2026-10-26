@@ -78,7 +78,8 @@
 3. 빌더 `BuildCel`: 피벗 = 리그 원점, `PixelRig._celClips` + 셀 렌더러(부위와 같은 목록 → 투명도·번쩍임·잔상 공통).
 4. 런타임 `PixelRig.ApplyCel`: 셀 클립이 있는 동작(Walk·Run·JumpCrouch·JumpArc·Land)이면 부위를 숨기고 셀 프레임, 무기 소켓 = 프레임별 손, 칼날 45°(손이 몸 뒤로 갈수록 100° 까지 세움 — 칼이 몸·얼굴을 가로질렀다). 웅크림은 물리가 즉시 떠서 뜬 뒤에도 0.06초 보여 준다. 리그 걷기 0.8초·달리기 0.49초로 셀과 박자를 맞춰 발소리·먼지 포즈 유지.
 5. 검증: `bash Tools/compare_moves.sh cel_game` → `make_compare_video.py cmp_v4_original_rig2_celgame original rig2 cel_game`.
-남은 일: 대기(3/4 리그) ↔ 이동(측면 셀) 방향 차이, 제동·습관·공격은 아직 리그.
+시점 통일(Q-424): 대기 = 걷기 루프 3번(두 발 모임)에서 튜닉 한 줄 복제로 상체 1px 숨쉬기 4프레임 합성(생성 0, PixMiniMax 대기는 3/4 정면으로 되돌아가 이음새가 끊겼다), 점프는 측면 기준으로 재생성(jump_side: 웅크림 2~4·공중 5~8·착지 9~11), 제동은 셀 대기 그림, 셀 대기가 있으면 리그 습관 동작 생략. 영상 `cmp_v5_original_cel.mp4`.
+남은 일: 점프 프레임 앞손이 몸 뒤라 손 검출 실패 → 기본값(몸 앞) 사용, 피격·사망·공격은 아직 3/4 리그.
 
 참고: SLYNYRD 픽셀 블로그(상승·낙하 포즈 분리), sprite-ai.art 애니 가이드(프레임 수·타이밍), the-pixel.art 캐릭터 디자인(대기 타이밍·좌우 반전 시 무기 손), itch.io 칼 베기 튜토리얼(예비·베기·회복), sandromaglione.com 6프레임 걷기.
 

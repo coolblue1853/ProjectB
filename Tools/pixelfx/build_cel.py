@@ -22,9 +22,9 @@ HIP_X = 41  # 리그 원점 x(엉덩이)
 CLIPS = {
     "Walk": ("walk_loop", list(range(0, 8)), 0.1, True, "feet"),
     "Run": ("run_loop", list(range(1, 8)), 0.07, True, "feet"),
-    "JumpCrouch": ("jump_mm", [1, 2, 3], 0.04, False, "feet"),
-    "JumpArc": ("jump_mm", [4, 5, 6, 7], 0.25, False, "scarf"),  # 리그가 세로 속도로 시점을 고른다(0 상승 → 1 낙하)
-    "Land": ("jump_mm", [8, 9, 10, 11], 0.05, False, "feet"),
+    "JumpCrouch": ("jump_side", [2, 3, 4], 0.04, False, "feet"),  # 측면 기준 재생성(첫 점프 초안은 3/4 정면이라 측면 걷기와 시점이 달랐다)
+    "JumpArc": ("jump_side", [5, 6, 7, 8], 0.25, False, "scarf"),  # 리그가 세로 속도로 시점을 고른다(0 상승 → 1 낙하)
+    "Land": ("jump_side", [9, 10, 11], 0.05, False, "feet"),
 }
 SKIN = [(0xFD, 0xE0, 0xC6), (0xF3, 0xB4, 0x9A), (0xD7, 0x8E, 0x7A)]
 SCARF = [(0xF1, 0xAB, 0x36), (0xB8, 0x70, 0x2C)]
@@ -92,6 +92,30 @@ def hands(a):
     return (p, None) if p[0] >= HIP_X - 1 else (None, p)
 
 
+IDLE_BASE = ("Walk", 3)  # 걷기 루프에서 두 발이 모인 프레임 — 걷기와 같은 시점(착지 회복 프레임은 정면 쪽이라 어긋났다)
+IDLE_STRETCH_ROW = 44   # 튜닉 가운데 줄 — 복제하면 허리 위(상체·머리)가 1px 오른다
+
+
+def synth_idle(meta):
+    """측면 대기 숨쉬기(생성 없이): 착지 회복 프레임에서 튜닉 한 줄을 복제해 상체를 1px 올렸다 내림.
+    PixMiniMax 로 만든 대기는 1~3프레임에서 3/4 정면 그림으로 되돌아가 이음새가 끊겼다(10-26)."""
+    clip, k = IDLE_BASE
+    src = meta[clip]["frames"][k]
+    a = np.array(Image.open(os.path.join(OUT, src["png"] + ".png")).convert("RGBA"))
+    up = np.zeros_like(a)
+    up[:IDLE_STRETCH_ROW] = a[1:IDLE_STRETCH_ROW + 1]
+    up[IDLE_STRETCH_ROW:] = a[IDLE_STRETCH_ROW:]
+    frames = []
+    for i, img in enumerate([a, up, up, a]):
+        name = f"Idle_{i}"
+        Image.fromarray(img, "RGBA").save(os.path.join(OUT, name + ".png"))
+        dy = -1 if img is up else 0
+        h = [src["hand"][0], src["hand"][1] + (dy if src["hand"][1] < IDLE_STRETCH_ROW else 0)]
+        frames.append({"png": name, "hand": h, "handB": src["handB"], "dy": dy})
+    print("Idle (synth)", len(frames))
+    return {"frame": 0.3, "loop": True, "frames": frames}
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     pal = palette()
@@ -120,6 +144,7 @@ def main():
             frames.append({"png": name, "hand": h, "handB": b, "dy": dy})
         meta[clip] = {"frame": frame, "loop": loop, "frames": frames}
         print(clip, len(frames), [f["dy"] for f in frames], [f["hand"] for f in frames])
+    meta["Idle"] = synth_idle(meta)
     with open(os.path.join(OUT, "cel.json"), "w") as fp:
         json.dump(meta, fp, indent=1)
 

@@ -687,7 +687,7 @@ public static class PixelRigBuilder
         }
         // JsonUtility 는 최상위 사전을 못 읽어 클립 이름 순서대로 꺼낸다
         string text = File.ReadAllText(json);
-        string[] names = { "Walk", "Run", "JumpCrouch", "JumpArc", "Land" };
+        string[] names = { "Idle", "Walk", "Run", "JumpCrouch", "JumpArc", "Land" };
         var list = new List<(string, CelClipJson)>();
         foreach (string n in names)
         {
