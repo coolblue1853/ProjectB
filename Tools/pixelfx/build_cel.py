@@ -19,6 +19,9 @@ OUT = "Assets/Art/Player/PixelRig/Cel"
 FEET_ROW = 55
 HIP_X = 41  # 리그 원점 x(엉덩이)
 # 클립: (초안 폴더, 프레임 번호들, 프레임 시간(초), 반복, 정렬 'feet' | 'scarf')
+# 가로 맞춤(아트 px, +앞): 피격 초안은 몸이 15px 뒤로 밀린 채 그려져 맞는 순간 뒤로 튀고 대기로 돌아올 때 앞으로 튀었다 — 넉백은 물리가 한다. 2px 젖혔다 돌아오는 정도만 남김
+XSHIFT = {"Hurt": [13, 11, 5]}
+
 CLIPS = {
     "Walk": ("walk_loop", list(range(0, 8)), 0.08, True, "feet"),  # 걷기는 늘 한 발이 땅에 — 프레임마다 발 맞춤  # 0.1 은 디딘 발이 땅보다 느려(3 대 7.2px/프레임) 미끄러졌다
     "Run": ("run_loop", list(range(2, 8)), 0.06, True, "const"),  # 2~7: 프레임 간 변화가 가장 고른 6장(이음새 531 ≈ 평균), 리그 달리기 6포즈와 같은 수
@@ -381,6 +384,7 @@ def main():
                 s = np.nonzero(near(a, SCARF).any(axis=1))[0]
                 dy = scarf_top_ref - int(s.min())
             a = shift(a, dy)
+            a = np.roll(a, XSHIFT.get(clip, [0] * len(idx))[k], axis=1)
             h, b = hands(a)
             if weapon and grip is not None:
                 h = [grip[0], grip[1] + dy]

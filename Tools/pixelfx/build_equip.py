@@ -14,7 +14,7 @@ from PIL import Image
 
 sys.path.insert(0, os.path.dirname(__file__))
 from extract_layer import MIN_PART, clean  # noqa: E402
-from build_cel import components  # noqa: E402
+from build_cel import XSHIFT, components  # noqa: E402
 
 CEL = "Assets/Art/Player/PixelRig/Cel"
 SRC = "Docs/ArtCompare/Motion/equip"
@@ -57,6 +57,8 @@ def main():
             e = np.array(Image.open(os.path.join(src, f"{src_i}.png")).convert("RGBA")).astype(int)
             if shift:
                 e = np.roll(e, shift, axis=0)
+            if clip in XSHIFT:
+                e = np.roll(e, XSHIFT[clip][k], axis=1)  # 셀과 같은 가로 맞춤
             bo, eo = b[..., 3] > 0, e[..., 3] > 0
             differ = np.abs(b[..., :3] - e[..., :3]).sum(axis=2) > TOL
             lm = clean(eo & (~bo | differ), MIN_PART)
