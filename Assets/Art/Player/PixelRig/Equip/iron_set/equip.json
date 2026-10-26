@@ -35,7 +35,7 @@
   {
    "clip": "Walk",
    "k": 5,
-   "layer": 570,
+   "layer": 572,
    "erase": 60
   },
   {
@@ -83,7 +83,7 @@
   {
    "clip": "Run",
    "k": 5,
-   "layer": 547,
+   "layer": 548,
    "erase": 37
   },
   {
@@ -245,7 +245,7 @@
   {
    "clip": "Death",
    "k": 6,
-   "layer": 459,
+   "layer": 460,
    "erase": 6
   },
   {
@@ -299,7 +299,7 @@
   {
    "clip": "SwingDown",
    "k": 0,
-   "layer": 616,
+   "layer": 618,
    "erase": 32
   },
   {
@@ -347,19 +347,19 @@
   {
    "clip": "SwingUp",
    "k": 1,
-   "layer": 560,
+   "layer": 561,
    "erase": 34
   },
   {
    "clip": "SwingUp",
    "k": 2,
-   "layer": 578,
+   "layer": 579,
    "erase": 18
   },
   {
    "clip": "SwingUp",
    "k": 3,
-   "layer": 698,
+   "layer": 699,
    "erase": 29
   },
   {
@@ -425,7 +425,7 @@
   {
    "clip": "RopeUp",
    "k": 7,
-   "layer": 392,
+   "layer": 393,
    "erase": 4
   },
   {
@@ -437,43 +437,43 @@
   {
    "clip": "GreatDown",
    "k": 0,
-   "layer": 573,
+   "layer": 620,
    "erase": 26
   },
   {
    "clip": "GreatDown",
    "k": 1,
-   "layer": 612,
+   "layer": 644,
    "erase": 27
   },
   {
    "clip": "GreatDown",
    "k": 2,
-   "layer": 592,
+   "layer": 610,
    "erase": 6
   },
   {
    "clip": "GreatDown",
    "k": 3,
-   "layer": 541,
+   "layer": 552,
    "erase": 19
   },
   {
    "clip": "GreatDown",
    "k": 4,
-   "layer": 550,
+   "layer": 560,
    "erase": 16
   },
   {
    "clip": "GreatDown",
    "k": 5,
-   "layer": 593,
+   "layer": 609,
    "erase": 15
   },
   {
    "clip": "GreatDown",
    "k": 6,
-   "layer": 650,
+   "layer": 660,
    "erase": 15
   },
   {

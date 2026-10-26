@@ -6,6 +6,7 @@
 사용: python Tools/pixelfx/build_equip.py <장비 id> <슬롯>   예) python Tools/pixelfx/build_equip.py iron_set body
 """
 import json
+from collections import Counter
 import os
 import sys
 
@@ -37,11 +38,35 @@ BATCHES = {
 }
 
 
+# 맨몸 셔츠(초록) 색 — 갑옷 전이가 일부 프레임(대검 내려찍기)에서 셔츠를 덜 덮어 초록이 드러났다
+SHIRT = [(106, 110, 63), (66, 62, 38)]
+
+
+def cover_shirt(done):
+    """다른 프레임에서 셔츠 색이 어떤 장비 색으로 덮였는지 투표해, 덮이지 않고 남은 셔츠 픽셀을 그 색으로 채운다."""
+    votes = {c: Counter() for c in SHIRT}
+    masks = []
+    for _, _, b, layer, lm, erase in done:
+        ms = {c: np.all(b[..., :3] == c, axis=2) & (b[..., 3] > 0) for c in SHIRT}
+        masks.append(ms)
+        for c, m in ms.items():
+            votes[c].update(tuple(int(v) for v in px) for px in layer[m & lm][:, :3])
+    to = {c: v.most_common(1)[0][0] for c, v in votes.items() if v}
+    if len(to) < len(SHIRT):
+        return  # 셔츠를 덮지 않는 장비(투구만 등)
+    for (_, _, b, layer, lm, erase), ms in zip(done, masks):
+        for c, m in ms.items():
+            fill = m & ~lm & ~erase
+            layer[fill, :3] = to[c]
+            layer[fill, 3] = 255
+            lm |= fill
+
+
 def main():
     eid, slot = sys.argv[1], sys.argv[2]
     out = os.path.join(OUT, eid)
     os.makedirs(out, exist_ok=True)
-    frames = []
+    frames, done = [], []
     for folder, items in BATCHES.items():
         src = os.path.join(SRC, eid, folder)
         if not os.path.isdir(src):
@@ -85,10 +110,13 @@ def main():
                 layer = np.zeros_like(e)
                 layer[lm] = e[lm]
                 layer[..., 3] = np.where(lm, 255, 0)
-            name = f"{clip}_{k}"
-            Image.fromarray(layer.astype(np.uint8), "RGBA").save(os.path.join(out, name + ".png"))
-            Image.fromarray(np.where(erase, 255, 0).astype(np.uint8), "L").save(os.path.join(out, name + "_erase.png"))
-            frames.append({"clip": clip, "k": k, "layer": int(lm.sum()), "erase": int(erase.sum())})
+            done.append((clip, k, b, layer, lm, erase))
+    cover_shirt(done)
+    for clip, k, b, layer, lm, erase in done:
+        name = f"{clip}_{k}"
+        Image.fromarray(layer.astype(np.uint8), "RGBA").save(os.path.join(out, name + ".png"))
+        Image.fromarray(np.where(erase, 255, 0).astype(np.uint8), "L").save(os.path.join(out, name + "_erase.png"))
+        frames.append({"clip": clip, "k": k, "layer": int(lm.sum()), "erase": int(erase.sum())})
     with open(os.path.join(out, "equip.json"), "w") as fp:
         json.dump({"id": eid, "slot": slot, "frames": frames}, fp, indent=1)
     print(eid, slot, len(frames), "프레임")
