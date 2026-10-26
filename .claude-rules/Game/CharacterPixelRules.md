@@ -168,6 +168,7 @@
 | 10-25 | 주인공 | styled2_flat + 기본 강도 정리 | 13색·37%·12%·19% | 수치 IDEAL이나 **머리 단색 → 불합격**(과정리) | `hero_proto/styled2_auto.png`, 시트 `hero_proto/compare.png` |
 | 10-25 | 주인공 | **Retro Diffusion RD Pro** 2장(앵커 참조, seed 2201, $0.36) | 배경 미제거라 수치 무효(29~32색·33~38%·7~9%) | 담백하지만 **갈색 외곽선·2.5~3등신 → 기준에서 멂** | `hero_proto/rd_1.png`·`rd_2.png`, 시트 `hero_proto/rd_vs_pixellab.png` |
 | 10-25 | 주인공 | **사용자 판정: "픽셀랩 좌측(정리본)이 제일 가깝다"** | — | **현재 기준 시안 = `styled1_auto.png`** | 같은 시트 |
+| 10-26 | 마을 NPC 4명(상인·무기 대장장이·방어구 대장장이·장로) | **주인공 측면 Idle 셀(64px)을 시작 이미지로** edit_image_pro_flash, seed 6101~6104, 무기·소품은 허리/등 | 정리 후 18~20색·43~55%·15~23%·24~31% | 상인 IDEAL, 무기·장로 OK, 방어구 edge 55%(사슬 갑옷 무늬, 채택) | `Docs/ArtCompare/Town/npc_sheet.png` |
 
 ## 9. 예산
 

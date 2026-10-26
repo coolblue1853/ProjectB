@@ -13,7 +13,7 @@
 
 | 맵 | 상태 |
 |---|---|
-| Town | 상점, 대장간, 창고 |
+| Town | 상점, 대장간, 창고. **10-26 퀄리티업**: 왼쪽부터 상점 노점(`Bld_Stall` x -427.5, 등불 광원)·상인 → 대장간(`Bld_Forge` x -418.3, 화로 광원 `LightFlicker`)·무기/방어구 대장장이 → 창고 → 장로 집(House)·장로. NPC 4명은 주인공 셀과 같은 그림체(PPU 36 × 1.5배 = 24도트/유닛, 2프레임 숨쉬기). 재구성 프로브 `Tools/probes/setup_town_v2.cs`, 촬영 `Tools/probes/town_shot.cs` |
 | Lv1_NearForest_SideRoad | **현재 Lv1 사냥터.** NearForest 구역(x -408~-235) + 왼쪽 확장 구역(x ≈ -716, 두더지·꽃두더지·밤 허수아비·크리핑테러·보스). 내부 포털 -236 ↔ -728은 이동 전용 |
 | Lv1_NearForest | 구버전(비활성, 미사용). SideRoad의 부분집합 |
 | **Lv2_MagicCliffs** | 사냥터 2 "마법 절벽" (x -420~-180, 바닥 y -180). SideRoad 서쪽(`Portal_ToLv2`, x≈-722)에서 진입. 낮: 버섯·고블린 / 밤: 눈·해골·고블린, 엘리트 Bringer(y=12 발판), 보스 Abyss Wizard(오른쪽 끝). 생성: `Tools/probes/build_lv2_map.cs` |
