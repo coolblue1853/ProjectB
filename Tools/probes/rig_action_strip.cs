@@ -23,7 +23,7 @@ System.Action<int> shot = (int i) =>
     cam.targetTexture = rt; cam.Render();
     RenderTexture.active = rt; strip.ReadPixels(new Rect(0, 0, w, w), i * w, 0); RenderTexture.active = null;
     cam.targetTexture = null; UnityEngine.Object.DestroyImmediate(go); UnityEngine.Object.DestroyImmediate(rt);
-    log.Append(i + ":" + (fReq != null ? fReq.GetValue(rig) : "?") + "@y" + pc.transform.position.y.ToString("F2") + " ");
+    log.Append(i + ":" + (fReq != null && rig is PixelRig ? fReq.GetValue(rig) : "?") + "@y" + pc.transform.position.y.ToString("F2") + " ");
     if (i == n - 1)
     {
         strip.Apply();
