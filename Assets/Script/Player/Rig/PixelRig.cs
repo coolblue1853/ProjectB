@@ -413,8 +413,8 @@ public class PixelRig : CharacterRig
         if (_cel != null && c != null)
         {
             // 제동은 셀 대기 그림으로(리그 제동 포즈는 3/4 정면이라 달리기 셀에서 멈출 때 몸이 돌아 보였다), 사망은 셀 사망(무릎 → 눕기)
-            // 옆베기는 내려베기 셀로(셀 공격은 찌르기·내려베기·올려베기 3종)
-            string key = _diedAt >= 0f ? "Death" : c == _brake ? "Idle" : c.name == "SwingSide" ? "SwingDown" : c.name;
+            // 셀이 없는 공격·스킬은 비슷한 측면 셀로(3/4 리그로 돌아가면 몸이 확 돌아 보였다): 옆베기·회전 → 내려베기, 시전 → 올려베기, 활 → 찌르기, 막기 → 대기
+            string key = _diedAt >= 0f ? "Death" : c == _brake ? "Idle" : CelAlias(c.name);
             _celByName.TryGetValue(key, out cel);
         }
         if (cel == null)
@@ -503,6 +503,24 @@ public class PixelRig : CharacterRig
                     _composedSprites.Add(comp[i]);
                 }
             }
+        }
+    }
+
+    private static string CelAlias(string clip)
+    {
+        switch (clip)
+        {
+            case "SwingSide":
+            case "Spin":
+                return "SwingDown";
+            case "Cast":
+                return "SwingUp";
+            case "Shoot":
+                return "Stab";
+            case "Guard":
+                return "Idle";
+            default:
+                return clip;
         }
     }
 
