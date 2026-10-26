@@ -59,7 +59,7 @@
   {
    "clip": "Run",
    "k": 1,
-   "layer": 570,
+   "layer": 573,
    "erase": 19
   },
   {
@@ -113,7 +113,7 @@
   {
    "clip": "JumpArc",
    "k": 1,
-   "layer": 519,
+   "layer": 522,
    "erase": 31
   },
   {
@@ -173,7 +173,7 @@
   {
    "clip": "Dash",
    "k": 0,
-   "layer": 621,
+   "layer": 622,
    "erase": 14
   },
   {
@@ -221,13 +221,13 @@
   {
    "clip": "Death",
    "k": 2,
-   "layer": 638,
+   "layer": 639,
    "erase": 19
   },
   {
    "clip": "Death",
    "k": 3,
-   "layer": 602,
+   "layer": 603,
    "erase": 19
   },
   {
@@ -245,19 +245,19 @@
   {
    "clip": "Death",
    "k": 6,
-   "layer": 460,
+   "layer": 463,
    "erase": 6
   },
   {
    "clip": "Death",
    "k": 7,
-   "layer": 499,
+   "layer": 501,
    "erase": 8
   },
   {
    "clip": "Stab",
    "k": 0,
-   "layer": 629,
+   "layer": 632,
    "erase": 26
   },
   {
@@ -287,7 +287,7 @@
   {
    "clip": "Stab",
    "k": 5,
-   "layer": 546,
+   "layer": 547,
    "erase": 35
   },
   {
@@ -353,43 +353,43 @@
   {
    "clip": "SwingUp",
    "k": 2,
-   "layer": 579,
+   "layer": 581,
    "erase": 18
   },
   {
    "clip": "SwingUp",
    "k": 3,
-   "layer": 699,
+   "layer": 700,
    "erase": 29
   },
   {
    "clip": "SwingUp",
    "k": 4,
-   "layer": 571,
+   "layer": 577,
    "erase": 26
   },
   {
    "clip": "SwingUp",
    "k": 5,
-   "layer": 571,
+   "layer": 577,
    "erase": 26
   },
   {
    "clip": "SwingUp",
    "k": 6,
-   "layer": 588,
+   "layer": 589,
    "erase": 26
   },
   {
    "clip": "RopeUp",
    "k": 0,
-   "layer": 449,
+   "layer": 450,
    "erase": 0
   },
   {
    "clip": "RopeUp",
    "k": 1,
-   "layer": 421,
+   "layer": 425,
    "erase": 0
   },
   {
@@ -407,13 +407,13 @@
   {
    "clip": "RopeUp",
    "k": 4,
-   "layer": 415,
+   "layer": 416,
    "erase": 0
   },
   {
    "clip": "RopeUp",
    "k": 5,
-   "layer": 392,
+   "layer": 394,
    "erase": 0
   },
   {
@@ -425,13 +425,13 @@
   {
    "clip": "RopeUp",
    "k": 7,
-   "layer": 393,
+   "layer": 395,
    "erase": 4
   },
   {
    "clip": "RopeStay",
    "k": 0,
-   "layer": 449,
+   "layer": 450,
    "erase": 0
   },
   {
@@ -443,25 +443,25 @@
   {
    "clip": "GreatDown",
    "k": 1,
-   "layer": 644,
+   "layer": 646,
    "erase": 27
   },
   {
    "clip": "GreatDown",
    "k": 2,
-   "layer": 610,
+   "layer": 614,
    "erase": 6
   },
   {
    "clip": "GreatDown",
    "k": 3,
-   "layer": 552,
+   "layer": 553,
    "erase": 19
   },
   {
    "clip": "GreatDown",
    "k": 4,
-   "layer": 560,
+   "layer": 561,
    "erase": 16
   },
   {
@@ -485,13 +485,13 @@
   {
    "clip": "DaggerFlurry",
    "k": 1,
-   "layer": 619,
+   "layer": 620,
    "erase": 23
   },
   {
    "clip": "DaggerFlurry",
    "k": 2,
-   "layer": 617,
+   "layer": 618,
    "erase": 26
   },
   {
@@ -509,7 +509,7 @@
   {
    "clip": "DaggerFlurry",
    "k": 5,
-   "layer": 604,
+   "layer": 606,
    "erase": 9
   },
   {
@@ -521,19 +521,19 @@
   {
    "clip": "DaggerCross",
    "k": 0,
-   "layer": 674,
+   "layer": 677,
    "erase": 22
   },
   {
    "clip": "DaggerCross",
    "k": 1,
-   "layer": 640,
+   "layer": 642,
    "erase": 9
   },
   {
    "clip": "DaggerCross",
    "k": 2,
-   "layer": 659,
+   "layer": 661,
    "erase": 9
   }
  ]

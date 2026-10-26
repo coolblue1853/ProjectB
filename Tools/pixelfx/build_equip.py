@@ -62,6 +62,21 @@ def cover_shirt(done):
             lm |= fill
 
 
+OUTLINE = (6, 2, 2)  # 장비 레이어 외곽선 색
+
+
+def seal_outline(b, layer, lm, erase):
+    """장비의 밝은 픽셀이 바로 바깥(합성 후 빈칸)과 맞닿으면 그 빈칸에 외곽선을 한 겹 — 전이가 투구 테두리 외곽선을 군데군데 빼먹었다."""
+    solid = (b[..., 3] > 0) & ~erase | lm
+    light = lm & (layer[..., :3].sum(axis=2) > 180)
+    edge = np.zeros_like(solid)
+    edge[1:] |= light[:-1]; edge[:-1] |= light[1:]; edge[:, 1:] |= light[:, :-1]; edge[:, :-1] |= light[:, 1:]
+    add = edge & ~solid
+    layer[add, :3] = OUTLINE
+    layer[add, 3] = 255
+    lm |= add
+
+
 def main():
     eid, slot = sys.argv[1], sys.argv[2]
     out = os.path.join(OUT, eid)
@@ -112,6 +127,8 @@ def main():
                 layer[..., 3] = np.where(lm, 255, 0)
             done.append((clip, k, b, layer, lm, erase))
     cover_shirt(done)
+    for _, _, b, layer, lm, erase in done:
+        seal_outline(b, layer, lm, erase)
     for clip, k, b, layer, lm, erase in done:
         name = f"{clip}_{k}"
         Image.fromarray(layer.astype(np.uint8), "RGBA").save(os.path.join(out, name + ".png"))
