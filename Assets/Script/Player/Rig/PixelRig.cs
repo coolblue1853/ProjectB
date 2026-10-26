@@ -413,7 +413,8 @@ public class PixelRig : CharacterRig
         if (_cel != null && c != null)
         {
             // 제동은 셀 대기 그림으로(리그 제동 포즈는 3/4 정면이라 달리기 셀에서 멈출 때 몸이 돌아 보였다), 사망은 셀 사망(무릎 → 눕기)
-            string key = _diedAt >= 0f ? "Death" : c == _brake ? "Idle" : c.name;
+            // 옆베기는 내려베기 셀로(셀 공격은 찌르기·내려베기·올려베기 3종)
+            string key = _diedAt >= 0f ? "Death" : c == _brake ? "Idle" : c.name == "SwingSide" ? "SwingDown" : c.name;
             _celByName.TryGetValue(key, out cel);
         }
         if (cel == null)
@@ -456,7 +457,10 @@ public class PixelRig : CharacterRig
             _socketRight.parent.position = transform.TransformPoint(cel.hand[i]);
             // 손이 몸 뒤로 갈수록 칼을 세운다(45° → 100°) — 팔을 뒤로 흔들 때 앞으로 눕힌 칼날이 몸·얼굴을 가로질렀다
             float back = Mathf.InverseLerp(CelHandFrontPx, CelHandBackPx, cel.hand[i].x * _ppu);
-            _socketRight.parent.localRotation = Quaternion.Euler(0f, 0f, Mathf.Lerp(CelBladeAngle, CelBladeBack, back) - 90f);
+            float blade = i < cel.angles.Length && cel.angles[i] > CelClip.NoAngle + 1f
+                ? cel.angles[i] // 공격 셀: 그림 속 칼에서 읽은 각도
+                : Mathf.Lerp(CelBladeAngle, CelBladeBack, back);
+            _socketRight.parent.localRotation = Quaternion.Euler(0f, 0f, blade - 90f);
         }
         if (_socketLeft != null && i < cel.handB.Length)
         {

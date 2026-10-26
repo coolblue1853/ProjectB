@@ -15,6 +15,8 @@ public class CelClip
     public Sprite[] fists = new Sprite[0]; // 무기 위에 다시 그릴 주먹(무기는 몸·옷·투구 위, 주먹 아래)
     public Vector2[] hand = new Vector2[0];
     public Vector2[] handB = new Vector2[0];
+    public float[] angles = new float[0]; // 칼날 각도(도, 0 = 앞, 90 = 위). NoAngle 이면 리그가 손 위치로 정한다(공격 셀은 그림 속 칼에서 읽은 값)
+    public const float NoAngle = -999f;
 
     /// <summary>경과 시간으로 프레임 번호(반복이면 돌고, 아니면 마지막에서 멈춤)</summary>
     public int IndexAt(float time)

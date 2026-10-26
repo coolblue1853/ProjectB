@@ -28,6 +28,10 @@ CLIPS = {
     "Dash": ("dash_side", [2, 3, 4], 0.05, False, "feet"),     # 1번은 거의 서 있는 자세라 뺐다
     "Hurt": ("hurt_side", [2, 3, 4], 0.07, False, "feet"),     # 1번엔 흰 베기 효과가 그림에 섞여 뺐다
     "Death": ("death_side", list(range(1, 9)), 0.1, False, "feet"),
+    # 공격(칼을 쥔 채 생성 → 칼·잔상을 지우고 손잡이·칼날 각도를 읽어 실제 장착 무기를 붙인다). 0·8번은 기준 그림이라 뺀다
+    "Stab": ("attack/stab", list(range(1, 8)), 0.04, False, "feet", True),
+    "SwingDown": ("attack/down", list(range(1, 8)), 0.04, False, "feet", True),
+    "SwingUp": ("attack/up", list(range(1, 8)), 0.04, False, "feet", True),
 }
 SKIN = [(0xFD, 0xE0, 0xC6), (0xF3, 0xB4, 0x9A), (0xD7, 0x8E, 0x7A)]
 SCARF = [(0xF1, 0xAB, 0x36), (0xB8, 0x70, 0x2C)]
@@ -118,9 +122,143 @@ def synth_idle(meta):
         Image.fromarray(img, "RGBA").save(os.path.join(OUT, name + ".png"))
         dy = -1 if img is up else 0
         h = [src["hand"][0], src["hand"][1] + (dy if src["hand"][1] < IDLE_STRETCH_ROW else 0)]
+        Image.fromarray(fist(img, h), "RGBA").save(os.path.join(OUT, name + "_fist.png"))
         frames.append({"png": name, "hand": h, "handB": src["handB"], "dy": dy})
     print("Idle (synth)", len(frames))
     return {"frame": 0.3, "loop": True, "frames": frames}
+
+
+BLADE_LEN = 24  # 칼 길이(px) — 손잡이에서 이 안의 가장 먼 강철 픽셀이 칼끝
+
+
+def steel_mask(a):
+    """칼·베기 잔상: 채도 낮은 회색·강철 계열(주인공 팔레트엔 없다). 검정 외곽선(어두움)은 빼고, 칼 외곽선(78,80,98)은 포함"""
+    rgb = a[..., :3].astype(int)
+    mx, mn = rgb.max(axis=2), rgb.min(axis=2)
+    gray = (mx - mn < 34) & (mx > 70) & (a[..., 3] > 0)
+    bluish = (rgb[..., 2] >= rgb[..., 0]) & (rgb[..., 2] >= rgb[..., 1] - 4)
+    pale = (mx - mn < 48) & (mx > 185) & (a[..., 3] > 0)  # 밝은 베이지·흰 베기 잔상(올려베기에서 남았다)
+    return (gray & bluish) | pale
+
+
+MAIN_MIN = 40  # 몸 본체와 떨어진 이보다 작은 조각은 칼 손잡이·잔상 찌꺼기
+
+
+def components(mask):
+    h, w = mask.shape
+    seen = np.zeros_like(mask)
+    parts = []
+    for y in range(h):
+        for x in range(w):
+            if mask[y, x] and not seen[y, x]:
+                stack, part = [(y, x)], []
+                seen[y, x] = True
+                while stack:
+                    cy, cx = stack.pop()
+                    part.append((cy, cx))
+                    for ny, nx in ((cy + 1, cx), (cy - 1, cx), (cy, cx + 1), (cy, cx - 1), (cy + 1, cx + 1), (cy - 1, cx - 1), (cy + 1, cx - 1), (cy - 1, cx + 1)):
+                        if 0 <= ny < h and 0 <= nx < w and mask[ny, nx] and not seen[ny, nx]:
+                            seen[ny, nx] = True
+                            stack.append((ny, nx))
+                parts.append(part)
+    return parts
+
+
+def keep_main(a):
+    out = a.copy()
+    parts = components(a[..., 3] > 0)
+    biggest = max((len(p) for p in parts), default=0)
+    for part in parts:
+        # 몸 본체(가장 큰 덩어리)의 25% 미만은 버린다 — 잔상 안쪽이 팔레트 고정으로 갈색 호 조각(60px)이 되어 남았다
+        if len(part) < max(MAIN_MIN, biggest * 0.25):
+            for y, x in part:
+                out[y, x] = 0
+    return out
+
+
+def fill_holes(a):
+    """바깥(테두리)과 이어지지 않은 투명 픽셀 = 칼이 몸 위를 지나던 자리의 구멍 → 위·왼쪽 이웃 색으로 채운다"""
+    out = a.copy()
+    h, w = a.shape[:2]
+    empty = out[..., 3] == 0
+    outside = np.zeros_like(empty)
+    stack = [(y, x) for y in range(h) for x in (0, w - 1) if empty[y, x]] + [(y, x) for x in range(w) for y in (0, h - 1) if empty[y, x]]
+    for y, x in stack:
+        outside[y, x] = True
+    while stack:
+        y, x = stack.pop()
+        for ny, nx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
+            if 0 <= ny < h and 0 <= nx < w and empty[ny, nx] and not outside[ny, nx]:
+                outside[ny, nx] = True
+                stack.append((ny, nx))
+    holes = empty & ~outside
+    for _ in range(6):
+        ys, xs = np.nonzero(holes)
+        if not len(ys):
+            break
+        for y, x in zip(ys, xs):
+            nbs = [(ny, nx) for ny, nx in ((y - 1, x), (y, x - 1), (y + 1, x), (y, x + 1)) if 0 <= ny < h and 0 <= nx < w and out[ny, nx, 3] > 0]
+            if not nbs:
+                continue
+            # 어둡지 않은 이웃 색 우선 — 외곽선 색으로 메우면 머리카락 속에 검은 줄이 생겼다
+            bright = [n for n in nbs if int(out[n][:3].astype(int).sum()) >= 150]
+            out[y, x] = out[(bright or nbs)[0]]
+            holes[y, x] = False
+    return out
+
+
+def strip_weapon(a):
+    """칼·잔상 픽셀을 지우고(몸에 난 구멍은 주변 색으로 메움) 손잡이(칼에 가장 가까운 주먹)와 칼날 각도(도, 0 = 앞, 90 = 위)를 돌려준다"""
+    st = steel_mask(a)
+    ys, xs = np.nonzero(st)
+    grip, angle = None, None
+    sk = near(a, SKIN)
+    if len(xs):
+        cy, cx = ys.mean(), xs.mean()
+        sy, sx = np.nonzero(sk)
+        if len(sx):
+            d = (sy - cy) ** 2 + (sx - cx) ** 2
+            # 칼 픽셀과 맞닿은 피부 = 주먹
+            best, gi = 1e9, 0
+            for k in range(len(sx)):
+                dd = ((ys - sy[k]) ** 2 + (xs - sx[k]) ** 2).min()
+                if dd < best:
+                    best, gi = dd, k
+            grip = [int(sx[gi]), int(sy[gi])]
+            dist = np.sqrt((ys - grip[1]) ** 2 + (xs - grip[0]) ** 2)
+            inside = dist <= BLADE_LEN
+            if inside.any():
+                k = int(np.argmax(np.where(inside, dist, -1)))
+                angle = float(np.degrees(np.arctan2(grip[1] - ys[k], xs[k] - grip[0])))
+    out = a.copy()
+    out[st] = 0
+    # 칼 외곽선 잔여물: 8방향 이웃에 색 있는(어둡지 않은) 몸 픽셀이 하나도 없는 어두운 픽셀을 반복해서 지운다 — 몸 외곽선은 늘 몸 색에 닿아 있다
+    for _ in range(8):
+        alpha = out[..., 3] > 0
+        dark = alpha & (out[..., :3].astype(int).sum(axis=2) < 150)
+        colored = alpha & ~dark
+        cnt = np.zeros(alpha.shape, int)
+        for dy2 in (-1, 0, 1):
+            for dx2 in (-1, 0, 1):
+                if dy2 or dx2:
+                    cnt += np.roll(np.roll(colored, dy2, axis=0), dx2, axis=1)
+        lone = dark & (cnt == 0)
+        if not lone.any():
+            break
+        out[lone] = 0
+    out = keep_main(out)
+    out = fill_holes(out)
+    # 구멍 메우기: 지운 픽셀 중 상하좌우 이웃 3개 이상이 불투명이면 몸 안쪽 → 이웃 색으로
+    for _ in range(3):
+        alpha = out[..., 3] > 0
+        fill = []
+        for y, x in zip(*np.nonzero(st & ~alpha)):
+            nb = [(y + dy2, x + dx2) for dy2, dx2 in ((1, 0), (-1, 0), (0, 1), (0, -1)) if 0 <= y + dy2 < 64 and 0 <= x + dx2 < 64 and alpha[y + dy2, x + dx2]]
+            if len(nb) >= 3:
+                fill.append((y, x, out[nb[0]]))
+        for y, x, c in fill:
+            out[y, x] = c
+    return out, grip, angle
 
 
 FIST_R = 2  # 주먹 레이어: 손 좌표 둘레 이 반경 안의 피부색 + 그 테두리 외곽선
@@ -158,11 +296,18 @@ def main():
     sy = np.nonzero(near(ref, SCARF).any(axis=1))[0]
     scarf_top_ref = int(sy.min())
     meta = {}
-    for clip, (folder, idx, frame, loop, align) in CLIPS.items():
+    for clip, spec in CLIPS.items():
+        folder, idx, frame, loop, align = spec[:5]
+        weapon = len(spec) > 5 and spec[5]
         frames = []
         last_h, last_b = [44, 46], [36, 46]
         for k, i in enumerate(idx):
-            a = lock(Image.open(os.path.join(SRC, folder, f"{i}.png")), pal)
+            raw = np.array(Image.open(os.path.join(SRC, folder, f"{i}.png")).convert("RGBA"))
+            angle, grip = None, None
+            if weapon:
+                # 칼은 팔레트 고정 전에 지운다 — 고정이 먼저면 강철 색이 주인공 색으로 바뀌어 칼을 못 찾았다
+                raw, grip, angle = strip_weapon(raw)
+            a = lock(Image.fromarray(raw, "RGBA"), pal)
             if align == "feet":
                 ys = np.nonzero(a[..., 3].any(axis=1))[0]
                 dy = (FEET_ROW - 1) - int(ys.max())
@@ -171,13 +316,16 @@ def main():
                 dy = scarf_top_ref - int(s.min())
             a = shift(a, dy)
             h, b = hands(a)
+            if weapon and grip is not None:
+                h = [grip[0], grip[1] + dy]
             h = list(h) if h else last_h
             b = list(b) if b else last_b
             last_h, last_b = h, b
             name = f"{clip}_{k}"
             Image.fromarray(a, "RGBA").save(os.path.join(OUT, name + ".png"))
             Image.fromarray(fist(a, h), "RGBA").save(os.path.join(OUT, name + "_fist.png"))
-            frames.append({"png": name, "hand": h, "handB": b, "dy": dy})
+            fr = {"png": name, "hand": h, "handB": b, "dy": dy, "angle": angle if angle is not None else -999.0}  # -999 = 리그 규칙(손 위치로)
+            frames.append(fr)
         meta[clip] = {"frame": frame, "loop": loop, "frames": frames}
         print(clip, len(frames), [f["dy"] for f in frames], [f["hand"] for f in frames])
     meta["Idle"] = synth_idle(meta)

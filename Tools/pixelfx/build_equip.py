@@ -25,6 +25,8 @@ BATCHES = {
     "batch_a": [("Run", k) for k in range(7)] + [("JumpCrouch", k) for k in range(3)] + [("JumpArc", k) for k in range(4)],
     "batch_b": [("Land", k) for k in range(3)] + [("Idle", k) for k in range(4)] + [("Dash", k) for k in range(3)] + [("Hurt", k) for k in range(3)],
     "batch_c": [("Death", k) for k in range(8)],
+    "batch_d": [("Stab", k) for k in range(7)] + [("SwingDown", k) for k in range(7)],
+    "batch_e": [("SwingUp", k) for k in range(7)],
 }
 
 

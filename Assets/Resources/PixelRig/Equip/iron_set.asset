@@ -187,3 +187,87 @@ MonoBehaviour:
     index: 7
     layer: {fileID: 2800000, guid: ac55c537cd287a0429fe3548ebccce69, type: 3}
     erase: {fileID: 2800000, guid: d2be27f2e0c7b9b4da334d77de80a657, type: 3}
+  - clip: Stab
+    index: 0
+    layer: {fileID: 2800000, guid: 8197589b5884f7a468706902197261fd, type: 3}
+    erase: {fileID: 2800000, guid: 492299daa5b32e64ebce7db35e552567, type: 3}
+  - clip: Stab
+    index: 1
+    layer: {fileID: 2800000, guid: 612b7dcaeac311040939eb6e681ed71c, type: 3}
+    erase: {fileID: 2800000, guid: 594e311e9e8d8824db8a48dffa7f8e46, type: 3}
+  - clip: Stab
+    index: 2
+    layer: {fileID: 2800000, guid: 91ce9080b1bbf234c8754a7954308eef, type: 3}
+    erase: {fileID: 2800000, guid: 207e1a7aac56b9449970e175d4e1141f, type: 3}
+  - clip: Stab
+    index: 3
+    layer: {fileID: 2800000, guid: 037dee1c40f5ec54ab177cf2238193c0, type: 3}
+    erase: {fileID: 2800000, guid: b82b72598623b56449e21f3e3d9e2988, type: 3}
+  - clip: Stab
+    index: 4
+    layer: {fileID: 2800000, guid: 9fbdedff0abd21648a60817fc97accb5, type: 3}
+    erase: {fileID: 2800000, guid: c85b778bbcc0a6349bf3f6eb6f448091, type: 3}
+  - clip: Stab
+    index: 5
+    layer: {fileID: 2800000, guid: 3ae8420b93eb73f42b20af8205c2d3e6, type: 3}
+    erase: {fileID: 2800000, guid: 83d55a1a9388d2e4fbddba03b37d4d32, type: 3}
+  - clip: Stab
+    index: 6
+    layer: {fileID: 2800000, guid: e9e2308f29eafbe4da7db40babb4081f, type: 3}
+    erase: {fileID: 2800000, guid: d1e2ece4a6fc4ac4fa7db3210b426878, type: 3}
+  - clip: SwingDown
+    index: 0
+    layer: {fileID: 2800000, guid: d656d856a03b2764b98848cd1bd4e2dc, type: 3}
+    erase: {fileID: 2800000, guid: 73389f5da1e41574faace8f644f4497d, type: 3}
+  - clip: SwingDown
+    index: 1
+    layer: {fileID: 2800000, guid: ac6a1efea357c5b45982611279357a8b, type: 3}
+    erase: {fileID: 2800000, guid: 7a10b7cec7db33c4c87985ea33158a22, type: 3}
+  - clip: SwingDown
+    index: 2
+    layer: {fileID: 2800000, guid: 17ec8c2f562bc4b4da43dd74da32dd53, type: 3}
+    erase: {fileID: 2800000, guid: c1378df431430f54eb6f83e79641a58b, type: 3}
+  - clip: SwingDown
+    index: 3
+    layer: {fileID: 2800000, guid: 028dee199cb5042449c917b4c1e82263, type: 3}
+    erase: {fileID: 2800000, guid: 9756e663232dca7499b030f08fb4104e, type: 3}
+  - clip: SwingDown
+    index: 4
+    layer: {fileID: 2800000, guid: 03899625799ff324487d8cf90585d45b, type: 3}
+    erase: {fileID: 2800000, guid: 5733c8ba085e7924391d56e4ea146f76, type: 3}
+  - clip: SwingDown
+    index: 5
+    layer: {fileID: 2800000, guid: 797433910ceda62458daa8a31f936491, type: 3}
+    erase: {fileID: 2800000, guid: 35adcbaa3dad4b24fba7bed706dd7ae1, type: 3}
+  - clip: SwingDown
+    index: 6
+    layer: {fileID: 2800000, guid: 24f9c008998dfc446a6f8f3802bfdd6f, type: 3}
+    erase: {fileID: 2800000, guid: de7a91cfc96ff7b468b753a22f0f8437, type: 3}
+  - clip: SwingUp
+    index: 0
+    layer: {fileID: 2800000, guid: 33169279980a67240b4f13b87b900001, type: 3}
+    erase: {fileID: 2800000, guid: 6961abce34a84fb43b15ac8284e7779b, type: 3}
+  - clip: SwingUp
+    index: 1
+    layer: {fileID: 2800000, guid: c07f821e7a64ae546bf7541b4fd9b00f, type: 3}
+    erase: {fileID: 2800000, guid: cd102dc5862e62e43898fe8e408c208f, type: 3}
+  - clip: SwingUp
+    index: 2
+    layer: {fileID: 2800000, guid: 12959ac765af5b34e850261d81eabc81, type: 3}
+    erase: {fileID: 2800000, guid: 470dbcba0d724d54790d29bf1f2196b9, type: 3}
+  - clip: SwingUp
+    index: 3
+    layer: {fileID: 2800000, guid: 8d8b3c4da8b2b79459f92f686551efa5, type: 3}
+    erase: {fileID: 2800000, guid: 6890a5c11ebfd4f41a954842619280f3, type: 3}
+  - clip: SwingUp
+    index: 4
+    layer: {fileID: 2800000, guid: c1d10dbed806a0f478af604ead52f43b, type: 3}
+    erase: {fileID: 2800000, guid: e12fd25964d843c43af2010719d24ef6, type: 3}
+  - clip: SwingUp
+    index: 5
+    layer: {fileID: 2800000, guid: 0a363b9a9dc12094e9a0a327ec2b35da, type: 3}
+    erase: {fileID: 2800000, guid: 94e7e750d72ad994583a68837c5e76c6, type: 3}
+  - clip: SwingUp
+    index: 6
+    layer: {fileID: 2800000, guid: 57ec5a56fc7cf9c4297c980cd247fc45, type: 3}
+    erase: {fileID: 2800000, guid: 39bf952552eeeda478d5b683e53da221, type: 3}

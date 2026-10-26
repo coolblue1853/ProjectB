@@ -173,6 +173,90 @@
   {
    "clip": "Death",
    "k": 7
+  },
+  {
+   "clip": "Stab",
+   "k": 0
+  },
+  {
+   "clip": "Stab",
+   "k": 1
+  },
+  {
+   "clip": "Stab",
+   "k": 2
+  },
+  {
+   "clip": "Stab",
+   "k": 3
+  },
+  {
+   "clip": "Stab",
+   "k": 4
+  },
+  {
+   "clip": "Stab",
+   "k": 5
+  },
+  {
+   "clip": "Stab",
+   "k": 6
+  },
+  {
+   "clip": "SwingDown",
+   "k": 0
+  },
+  {
+   "clip": "SwingDown",
+   "k": 1
+  },
+  {
+   "clip": "SwingDown",
+   "k": 2
+  },
+  {
+   "clip": "SwingDown",
+   "k": 3
+  },
+  {
+   "clip": "SwingDown",
+   "k": 4
+  },
+  {
+   "clip": "SwingDown",
+   "k": 5
+  },
+  {
+   "clip": "SwingDown",
+   "k": 6
+  },
+  {
+   "clip": "SwingUp",
+   "k": 0
+  },
+  {
+   "clip": "SwingUp",
+   "k": 1
+  },
+  {
+   "clip": "SwingUp",
+   "k": 2
+  },
+  {
+   "clip": "SwingUp",
+   "k": 3
+  },
+  {
+   "clip": "SwingUp",
+   "k": 4
+  },
+  {
+   "clip": "SwingUp",
+   "k": 5
+  },
+  {
+   "clip": "SwingUp",
+   "k": 6
   }
  ]
 }

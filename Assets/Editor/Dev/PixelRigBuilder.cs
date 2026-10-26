@@ -675,6 +675,7 @@ public static class PixelRigBuilder
         public string png;
         public int[] hand;
         public int[] handB;
+        public float angle = CelClip.NoAngle;
     }
 
     [System.Serializable]
@@ -696,7 +697,7 @@ public static class PixelRigBuilder
         }
         // JsonUtility 는 최상위 사전을 못 읽어 클립 이름 순서대로 꺼낸다
         string text = File.ReadAllText(json);
-        string[] names = { "Idle", "Walk", "Run", "JumpCrouch", "JumpArc", "Land", "Dash", "Hurt", "Death" };
+        string[] names = { "Idle", "Walk", "Run", "JumpCrouch", "JumpArc", "Land", "Dash", "Hurt", "Death", "Stab", "SwingDown", "SwingUp" };
         var list = new List<(string, CelClipJson)>();
         foreach (string n in names)
         {
@@ -725,6 +726,8 @@ public static class PixelRigBuilder
             SerializedProperty sp = e.FindPropertyRelative("sprites");
             SerializedProperty fp = e.FindPropertyRelative("fists");
             fp.arraySize = clip.frames.Length;
+            SerializedProperty ap = e.FindPropertyRelative("angles");
+            ap.arraySize = clip.frames.Length;
             SerializedProperty hp = e.FindPropertyRelative("hand");
             SerializedProperty bp = e.FindPropertyRelative("handB");
             sp.arraySize = hp.arraySize = bp.arraySize = clip.frames.Length;
@@ -741,6 +744,7 @@ public static class PixelRigBuilder
                 fp.GetArrayElementAtIndex(i).objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(fistPng);
                 hp.GetArrayElementAtIndex(i).vector2Value = CelLocal(f.hand, ox);
                 bp.GetArrayElementAtIndex(i).vector2Value = CelLocal(f.handB, ox);
+                ap.GetArrayElementAtIndex(i).floatValue = f.angle;
             }
         }
     }
