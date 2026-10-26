@@ -5,86 +5,86 @@
   {
    "clip": "Walk",
    "k": 0,
-   "layer": 575,
-   "erase": 60
+   "layer": 588,
+   "erase": 76
   },
   {
    "clip": "Walk",
    "k": 1,
-   "layer": 599,
-   "erase": 60
+   "layer": 612,
+   "erase": 76
   },
   {
    "clip": "Walk",
    "k": 2,
-   "layer": 592,
-   "erase": 54
+   "layer": 605,
+   "erase": 71
   },
   {
    "clip": "Walk",
    "k": 3,
-   "layer": 580,
-   "erase": 54
+   "layer": 593,
+   "erase": 71
   },
   {
    "clip": "Walk",
    "k": 4,
-   "layer": 575,
-   "erase": 60
+   "layer": 588,
+   "erase": 76
   },
   {
    "clip": "Walk",
    "k": 5,
-   "layer": 559,
-   "erase": 60
+   "layer": 572,
+   "erase": 76
   },
   {
    "clip": "Walk",
    "k": 6,
-   "layer": 550,
-   "erase": 54
+   "layer": 563,
+   "erase": 71
   },
   {
    "clip": "Walk",
    "k": 7,
-   "layer": 559,
-   "erase": 54
+   "layer": 572,
+   "erase": 71
   },
   {
    "clip": "Dash",
    "k": 0,
-   "layer": 564,
-   "erase": 14
+   "layer": 552,
+   "erase": 95
   },
   {
    "clip": "Dash",
    "k": 1,
-   "layer": 578,
-   "erase": 5
+   "layer": 569,
+   "erase": 84
   },
   {
    "clip": "Dash",
    "k": 2,
-   "layer": 558,
-   "erase": 24
+   "layer": 572,
+   "erase": 86
   },
   {
    "clip": "Hurt",
    "k": 0,
    "layer": 597,
-   "erase": 40
+   "erase": 82
   },
   {
    "clip": "Hurt",
    "k": 1,
-   "layer": 589,
-   "erase": 32
+   "layer": 587,
+   "erase": 80
   },
   {
    "clip": "Hurt",
    "k": 2,
-   "layer": 568,
-   "erase": 32
+   "layer": 580,
+   "erase": 68
   },
   {
    "clip": "Death",
@@ -107,13 +107,13 @@
   {
    "clip": "Death",
    "k": 3,
-   "layer": 591,
+   "layer": 590,
    "erase": 19
   },
   {
    "clip": "Death",
    "k": 4,
-   "layer": 548,
+   "layer": 547,
    "erase": 18
   },
   {
@@ -137,128 +137,128 @@
   {
    "clip": "Stab",
    "k": 0,
-   "layer": 619,
-   "erase": 27
+   "layer": 638,
+   "erase": 75
   },
   {
    "clip": "Stab",
    "k": 1,
-   "layer": 634,
-   "erase": 26
+   "layer": 640,
+   "erase": 75
   },
   {
    "clip": "Stab",
    "k": 2,
-   "layer": 624,
-   "erase": 26
+   "layer": 630,
+   "erase": 75
   },
   {
    "clip": "Stab",
    "k": 3,
-   "layer": 574,
-   "erase": 32
+   "layer": 580,
+   "erase": 73
   },
   {
    "clip": "Stab",
    "k": 4,
-   "layer": 576,
-   "erase": 12
+   "layer": 582,
+   "erase": 79
   },
   {
    "clip": "Stab",
    "k": 5,
-   "layer": 573,
-   "erase": 30
+   "layer": 580,
+   "erase": 79
   },
   {
    "clip": "Stab",
    "k": 6,
-   "layer": 544,
-   "erase": 28
+   "layer": 557,
+   "erase": 75
   },
   {
    "clip": "SwingDown",
    "k": 0,
-   "layer": 622,
-   "erase": 32
+   "layer": 637,
+   "erase": 72
   },
   {
    "clip": "SwingDown",
    "k": 1,
-   "layer": 611,
-   "erase": 34
+   "layer": 625,
+   "erase": 75
   },
   {
    "clip": "SwingDown",
    "k": 2,
-   "layer": 569,
-   "erase": 34
+   "layer": 567,
+   "erase": 79
   },
   {
    "clip": "SwingDown",
    "k": 3,
-   "layer": 569,
-   "erase": 34
+   "layer": 567,
+   "erase": 79
   },
   {
    "clip": "SwingDown",
    "k": 4,
-   "layer": 572,
-   "erase": 28
+   "layer": 568,
+   "erase": 79
   },
   {
    "clip": "SwingDown",
    "k": 5,
-   "layer": 573,
-   "erase": 29
+   "layer": 568,
+   "erase": 81
   },
   {
    "clip": "SwingDown",
    "k": 6,
-   "layer": 548,
-   "erase": 51
+   "layer": 562,
+   "erase": 76
   },
   {
    "clip": "SwingUp",
    "k": 0,
-   "layer": 601,
-   "erase": 15
+   "layer": 607,
+   "erase": 75
   },
   {
    "clip": "SwingUp",
    "k": 1,
-   "layer": 581,
-   "erase": 34
+   "layer": 591,
+   "erase": 75
   },
   {
    "clip": "SwingUp",
    "k": 2,
-   "layer": 589,
-   "erase": 18
+   "layer": 595,
+   "erase": 75
   },
   {
    "clip": "SwingUp",
    "k": 3,
-   "layer": 645,
-   "erase": 29
+   "layer": 633,
+   "erase": 82
   },
   {
    "clip": "SwingUp",
    "k": 4,
-   "layer": 547,
-   "erase": 26
+   "layer": 565,
+   "erase": 75
   },
   {
    "clip": "SwingUp",
    "k": 5,
-   "layer": 547,
-   "erase": 26
+   "layer": 565,
+   "erase": 75
   },
   {
    "clip": "SwingUp",
    "k": 6,
-   "layer": 540,
-   "erase": 26
+   "layer": 559,
+   "erase": 75
   },
   {
    "clip": "RopeUp",
@@ -269,7 +269,7 @@
   {
    "clip": "RopeUp",
    "k": 1,
-   "layer": 412,
+   "layer": 410,
    "erase": 2
   },
   {
@@ -287,13 +287,13 @@
   {
    "clip": "RopeUp",
    "k": 4,
-   "layer": 414,
+   "layer": 413,
    "erase": 0
   },
   {
    "clip": "RopeUp",
    "k": 5,
-   "layer": 394,
+   "layer": 393,
    "erase": 1
   },
   {
@@ -317,254 +317,254 @@
   {
    "clip": "GreatDown",
    "k": 0,
-   "layer": 609,
-   "erase": 26
+   "layer": 602,
+   "erase": 30
   },
   {
    "clip": "GreatDown",
    "k": 1,
-   "layer": 623,
-   "erase": 27
+   "layer": 627,
+   "erase": 39
   },
   {
    "clip": "GreatDown",
    "k": 2,
    "layer": 524,
-   "erase": 6
+   "erase": 105
   },
   {
    "clip": "GreatDown",
    "k": 3,
-   "layer": 528,
-   "erase": 19
+   "layer": 518,
+   "erase": 97
   },
   {
    "clip": "GreatDown",
    "k": 4,
-   "layer": 537,
-   "erase": 16
+   "layer": 526,
+   "erase": 92
   },
   {
    "clip": "GreatDown",
    "k": 5,
-   "layer": 550,
-   "erase": 15
+   "layer": 531,
+   "erase": 91
   },
   {
    "clip": "GreatDown",
    "k": 6,
+   "layer": 585,
+   "erase": 87
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 0,
+   "layer": 656,
+   "erase": 75
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 1,
+   "layer": 586,
+   "erase": 75
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 2,
+   "layer": 588,
+   "erase": 75
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 3,
+   "layer": 621,
+   "erase": 75
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 4,
+   "layer": 616,
+   "erase": 75
+  },
+  {
+   "clip": "DaggerFlurry",
+   "k": 5,
    "layer": 582,
-   "erase": 15
-  },
-  {
-   "clip": "DaggerFlurry",
-   "k": 0,
-   "layer": 637,
-   "erase": 24
-  },
-  {
-   "clip": "DaggerFlurry",
-   "k": 1,
-   "layer": 568,
-   "erase": 24
-  },
-  {
-   "clip": "DaggerFlurry",
-   "k": 2,
-   "layer": 570,
-   "erase": 27
-  },
-  {
-   "clip": "DaggerFlurry",
-   "k": 3,
-   "layer": 602,
-   "erase": 9
-  },
-  {
-   "clip": "DaggerFlurry",
-   "k": 4,
-   "layer": 596,
-   "erase": 9
-  },
-  {
-   "clip": "DaggerFlurry",
-   "k": 5,
-   "layer": 563,
-   "erase": 9
+   "erase": 75
   },
   {
    "clip": "DaggerFlurry",
    "k": 6,
-   "layer": 575,
-   "erase": 24
+   "layer": 594,
+   "erase": 75
   },
   {
    "clip": "DaggerCross",
    "k": 0,
-   "layer": 630,
-   "erase": 22
+   "layer": 627,
+   "erase": 69
   },
   {
    "clip": "DaggerCross",
    "k": 1,
-   "layer": 603,
-   "erase": 9
+   "layer": 605,
+   "erase": 76
   },
   {
    "clip": "DaggerCross",
    "k": 2,
-   "layer": 608,
-   "erase": 9
+   "layer": 624,
+   "erase": 76
   },
   {
    "clip": "Idle",
    "k": 0,
-   "layer": 593,
-   "erase": 31
+   "layer": 606,
+   "erase": 72
   },
   {
    "clip": "JumpCrouch",
    "k": 0,
-   "layer": 576,
-   "erase": 28
+   "layer": 590,
+   "erase": 74
   },
   {
    "clip": "JumpCrouch",
    "k": 1,
-   "layer": 555,
-   "erase": 27
+   "layer": 569,
+   "erase": 71
   },
   {
    "clip": "JumpCrouch",
    "k": 2,
-   "layer": 591,
-   "erase": 48
-  },
-  {
-   "clip": "JumpArc",
-   "k": 0,
-   "layer": 581,
-   "erase": 17
-  },
-  {
-   "clip": "JumpArc",
-   "k": 1,
-   "layer": 580,
-   "erase": 19
-  },
-  {
-   "clip": "JumpArc",
-   "k": 2,
-   "layer": 579,
-   "erase": 21
-  },
-  {
-   "clip": "JumpArc",
-   "k": 3,
    "layer": 589,
-   "erase": 12
+   "erase": 78
   },
   {
-   "clip": "Land",
-   "k": 0,
-   "layer": 588,
-   "erase": 20
-  },
-  {
-   "clip": "Land",
-   "k": 1,
-   "layer": 582,
-   "erase": 19
-  },
-  {
-   "clip": "Land",
-   "k": 2,
-   "layer": 572,
-   "erase": 21
-  },
-  {
-   "clip": "Run",
+   "clip": "JumpArc",
    "k": 0,
    "layer": 573,
-   "erase": 7
+   "erase": 95
+  },
+  {
+   "clip": "JumpArc",
+   "k": 1,
+   "layer": 575,
+   "erase": 86
+  },
+  {
+   "clip": "JumpArc",
+   "k": 2,
+   "layer": 562,
+   "erase": 104
+  },
+  {
+   "clip": "JumpArc",
+   "k": 3,
+   "layer": 572,
+   "erase": 92
+  },
+  {
+   "clip": "Land",
+   "k": 0,
+   "layer": 574,
+   "erase": 89
+  },
+  {
+   "clip": "Land",
+   "k": 1,
+   "layer": 582,
+   "erase": 80
+  },
+  {
+   "clip": "Land",
+   "k": 2,
+   "layer": 586,
+   "erase": 78
+  },
+  {
+   "clip": "Run",
+   "k": 0,
+   "layer": 577,
+   "erase": 63
   },
   {
    "clip": "Run",
    "k": 1,
-   "layer": 582,
-   "erase": 7
+   "layer": 586,
+   "erase": 63
   },
   {
    "clip": "Run",
    "k": 2,
-   "layer": 586,
-   "erase": 31
+   "layer": 599,
+   "erase": 63
   },
   {
    "clip": "Run",
    "k": 3,
-   "layer": 605,
-   "erase": 7
+   "layer": 609,
+   "erase": 62
   },
   {
    "clip": "Run",
    "k": 4,
-   "layer": 580,
-   "erase": 7
+   "layer": 584,
+   "erase": 63
   },
   {
    "clip": "Run",
    "k": 5,
-   "layer": 536,
-   "erase": 7
+   "layer": 540,
+   "erase": 63
   },
   {
    "clip": "Run",
    "k": 6,
-   "layer": 529,
-   "erase": 12
+   "layer": 541,
+   "erase": 60
   },
   {
    "clip": "Run",
    "k": 7,
-   "layer": 530,
-   "erase": 12
+   "layer": 543,
+   "erase": 60
   },
   {
    "clip": "Idle",
    "k": 1,
-   "layer": 597,
-   "erase": 31
+   "layer": 610,
+   "erase": 72
   },
   {
    "clip": "Idle",
    "k": 2,
-   "layer": 605,
-   "erase": 31
+   "layer": 618,
+   "erase": 72
   },
   {
    "clip": "Idle",
    "k": 3,
-   "layer": 605,
-   "erase": 31
+   "layer": 618,
+   "erase": 72
   },
   {
    "clip": "Idle",
    "k": 4,
-   "layer": 597,
-   "erase": 31
+   "layer": 610,
+   "erase": 72
   },
   {
    "clip": "Idle",
    "k": 5,
-   "layer": 593,
-   "erase": 31
+   "layer": 606,
+   "erase": 72
   },
   {
    "clip": "Land",
    "k": 3,
-   "layer": 581,
-   "erase": 54
+   "layer": 594,
+   "erase": 72
   }
  ]
 }

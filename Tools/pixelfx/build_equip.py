@@ -15,7 +15,7 @@ from PIL import Image
 
 sys.path.insert(0, os.path.dirname(__file__))
 from extract_layer import MIN_PART, clean  # noqa: E402
-from build_cel import IDLE_SEQ, IDLE_STAND, IDLE_STRETCH_ROW, breath, idle_head_row, JUMP_SET, RUN_SET, SCARF, XSHIFT, components, near  # noqa: E402
+from build_cel import SKIN, IDLE_SEQ, IDLE_STAND, IDLE_STRETCH_ROW, breath, idle_head_row, JUMP_SET, RUN_SET, SCARF, XSHIFT, components, near  # noqa: E402
 
 CEL = "Assets/Art/Player/PixelRig/Cel"
 SRC = "Docs/ArtCompare/Motion/equip"
@@ -88,7 +88,7 @@ def seal_outline(b, layer, lm, erase):
     lm |= add
 
 
-def trim_spikes(b, lm, erase):
+def trim_spikes(b, layer, lm, erase):
     """장비 테두리 밖으로 1px 삐죽 나온 맨몸 외곽선(투구 아래 머리카락 끝)을 지운다 — 합성 후 이웃 불투명이 하나뿐인 어두운 픽셀."""
     near_layer = np.zeros_like(lm)
     near_layer[1:] |= lm[:-1]; near_layer[:-1] |= lm[1:]; near_layer[:, 1:] |= lm[:, :-1]; near_layer[:, :-1] |= lm[:, 1:]
@@ -99,6 +99,24 @@ def trim_spikes(b, lm, erase):
         dark = b[..., :3].sum(axis=2) < 120
         spike = solid & ~lm & dark & (n <= 1) & near_layer
         erase |= spike
+    # 장비 레이어의 가는 실선 꼬리(전이가 투구 꼭대기에 그린 머리카락 한 가닥 — 피격·도약 프레임에서 투구 밖으로 뻗었다):
+    # 합성 후 4방향 이웃이 하나뿐인 어두운 장비 픽셀을 끝에서부터 6번 깎는다
+    for _ in range(6):
+        solid = (b[..., 3] > 0) & ~erase | lm
+        n = np.zeros(solid.shape, int)
+        n[1:] += solid[:-1]; n[:-1] += solid[1:]; n[:, 1:] += solid[:, :-1]; n[:, :-1] += solid[:, 1:]
+        tip = lm & (n <= 1) & (layer[..., :3].sum(axis=2) < 150)
+        if not tip.any():
+            break
+        lm &= ~tip
+        layer[tip] = 0
+    # 합성 후 몸에서 떨어져 떠 있는 맨몸 조각(3px 이하, 8방향) — 머리카락 끝을 지우고 남은 점이 투구 둘레에 떠 보였다
+    solid = (b[..., 3] > 0) & ~erase | lm
+    for part in components(solid):
+        if len(part) <= 3:
+            for y, x in part:
+                if not lm[y, x]:
+                    erase[y, x] = True
 
 
 HELM_CANON = ("Walk", 3)  # 모든 프레임 투구를 이 프레임 투구로 통일(전이가 프레임마다 흠집·땜빵을 달리 그렸다 — 사용자 "가만히 있으면 땜빵이 생기고 걸으면 사라진다")
@@ -115,8 +133,58 @@ def _roll2(a, dy, dx):
     return np.roll(np.roll(a, dy, axis=0), dx, axis=1)
 
 
+def _grow(m, r):
+    o = m.copy()
+    for _ in range(r):
+        g = o.copy()
+        g[1:] |= o[:-1]; g[:-1] |= o[1:]; g[:, 1:] |= o[:, :-1]; g[:, :-1] |= o[:, 1:]
+        o = g
+    return o
+
+
+def _box(m):
+    """투구가 있는 열마다 그 열의 투구 윗줄 ~ 투구 전체 맨 아랫줄을 채운 마스크."""
+    out = np.zeros_like(m)
+    rows = np.nonzero(m.any(axis=1))[0]
+    if not len(rows):
+        return out
+    bottom = int(rows.max())
+    for x in np.nonzero(m.any(axis=0))[0]:
+        top = int(np.nonzero(m[:, x])[0].min())
+        out[top:bottom + 1, x] = True
+    return out
+
+
+def _fill(m):
+    """마스크 안쪽 구멍(얼굴 창)까지 채운 실루엣: 바깥과 이어지지 않은 빈칸을 채운다."""
+    h, w = m.shape
+    out = np.zeros_like(m)
+    stack = [(y, x) for y in range(h) for x in (0, w - 1) if not m[y, x]] + [(y, x) for x in range(w) for y in (0, h - 1) if not m[y, x]]
+    for y, x in stack:
+        out[y, x] = True
+    while stack:
+        y, x = stack.pop()
+        for ny, nx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
+            if 0 <= ny < h and 0 <= nx < w and not m[ny, nx] and not out[ny, nx]:
+                out[ny, nx] = True
+                stack.append((ny, nx))
+    return ~out
+
+
+def head_anchor(b):
+    """머리 기준점: (머리 윗줄 — 아호게처럼 가는 줄은 빼고 6px 이상 찬 첫 줄, 그 아래 4~12줄 머리 앞(오른쪽) 끝 x)."""
+    op = b[..., 3] > 0
+    rows = np.nonzero(op[:, 24:60].sum(axis=1) >= 6)[0]
+    top = int(rows.min())
+    band = op[top + 4:top + 13, :]
+    xs = np.nonzero(band.any(axis=0))[0]
+    return top, int(xs.max())
+
+
 def canon_helm(done):
-    """프레임마다 투구(스카프 윗줄 위 레이어)를 기준 투구와 가장 잘 겹치는 위치를 찾아 기준 투구로 바꾼다."""
+    """모든 프레임 투구를 기준 투구(걷기 3번)로 바꾼다. 위치 = 몸 그림의 머리 기준점 차이(머리 윗줄·머리 앞 끝).
+    예전엔 프레임마다 전이된 투구와 가장 잘 겹치는 위치를 찾았는데, 전이 투구가 머리와 1~2px 어긋난 프레임에서
+    투구가 머리와 따로 놀았다(10-26 밤 사용자: 달릴 때 투구가 머리랑 따로 논다). 머리 쪽 지울 마스크도 기준 것을 같은 만큼 옮겨 쓴다."""
     ref = next((d for d in done if (d[0], d[1]) == HELM_CANON), None)
     if ref is None:
         return
@@ -126,6 +194,9 @@ def canon_helm(done):
     if cm.sum() < 30:
         return  # 투구 없는 장비
     cl = ref[3].copy()
+    ce = ref[5].copy()
+    ce[rc:] = False
+    rt, rx = head_anchor(ref[2])
     n = 0
     for clip, k, b, layer, lm, erase in done:
         if clip in HELM_SKIP:
@@ -135,22 +206,48 @@ def canon_helm(done):
         hm[c:] = False
         if hm.sum() < 30:
             continue
-        best, bd = 0.0, (0, 0)
-        for dy in range(-8, 9):
-            for dx in range(-8, 9):
-                m = _roll2(cm, dy, dx)
-                iou = (m & hm).sum() / max(1, (m | hm).sum())
-                if iou > best:
-                    best, bd = iou, (dy, dx)
-        if best < HELM_IOU:
-            continue
+        t, x = head_anchor(b)
+        bd = (t - rt, x - rx)
         m = _roll2(cm, *bd)
-        m[c + 2:] = False
-        lm[:c] = False
-        layer[:c] = 0
-        layer[m] = _roll2(cl, *bd)[m]
-        lm |= m
-        n += 1
+        iou = (m & hm).sum() / max(1, (m | hm).sum())
+        canon = iou >= HELM_IOU  # 아니면 머리 모양이 크게 다른 프레임(기울인 공격 등) — 전이 투구 유지, 머리카락 정리만
+        if canon:
+            m[c + 2:] = False
+            lm[:c] = False
+            layer[:c] = 0
+            layer[m] = _roll2(cl, *bd)[m]
+            lm |= m
+        else:
+            m = hm
+        # 투구 상자 = 투구가 있는 열마다 투구 맨 윗줄부터 투구 맨 아랫줄까지 — 얼굴 창(앞머리·눈)이 상자 안에 들어간다.
+        # 얼굴 창은 절대 지우지 않는다: 바깥과 이어진 창을 '투구 밖'으로 보고 앞머리를 지워 투구 안에 구멍이 났다(10-26 밤 사용자 스크린샷)
+        box = _box(m)
+        window = box & ~m
+        if canon:
+            e = _roll2(ce, *bd)
+            e[c:] = False
+            erase[:c] = e[:c] & (b[:c, :, 3] > 0) & ~window[:c]
+        else:
+            erase &= ~window
+        # 투구 밖으로 삐져나온 머리카락(공중 프레임은 머리가 부풀어 기준 마스크로 다 안 가려졌다): 상자 둘레 3px 안, 투구 아랫단 3줄 위의
+        # 몸 픽셀을 지운다. 손(피부)과 그 둘레는 남긴다
+        ring = _grow(box, 3) & ~box
+        up = _grow(box, 7) & ~box  # 투구 위쪽은 더 멀리(아호게 같은 긴 머리카락 한 가닥이 투구 위로 뻗었다)
+        top = np.nonzero(box.any(axis=1))[0]
+        if len(top):
+            up[top.min() + 4:] = False
+        ring |= up
+        cols = np.nonzero(box.any(axis=0))[0]
+        if len(cols):
+            front = _grow(box, 5) & ~box  # 앞(얼굴 쪽)은 5px — 피격 프레임에서 앞머리 가닥이 투구 옆으로 4px 뻗었다. 뒤쪽은 배낭이 있어 3px 유지
+            front[:, :(cols.min() + cols.max()) // 2] = False
+            ring |= front
+        rows = np.nonzero(box.any(axis=1))[0]
+        if len(rows):
+            ring[rows.max() - 2:] = False
+        skin = near(b.astype(np.uint8), SKIN) & (b[..., 3] > 0)
+        erase |= ring & (b[..., 3] > 0) & ~_grow(skin, 1)
+        n += canon
     print("투구 통일", n, "프레임")
 
 
@@ -258,7 +355,7 @@ def main():
         keep_scarf(b, layer, lm, erase)
     for _, _, b, layer, lm, erase in done:
         seal_outline(b, layer, lm, erase)
-        trim_spikes(b, lm, erase)
+        trim_spikes(b, layer, lm, erase)
     for clip, k, b, layer, lm, erase in done:
         name = f"{clip}_{k}"
         Image.fromarray(layer.astype(np.uint8), "RGBA").save(os.path.join(out, name + ".png"))

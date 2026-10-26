@@ -487,8 +487,12 @@ public class PixelRig : CharacterRig
                 : Mathf.Lerp(CelBladeAngle, CelBladeBack, back);
             if (c == _arc && back > 0f)
             {
-                // 공중에서 뒤로 끄는 칼은 관성으로 몸보다 늦게 따라온다: 오를 땐 칼끝이 아래로 처지고(200°) 떨어질 땐 들린다(150°)
+                // 공중에서 뒤로 끄는 칼은 관성으로 몸보다 늦게 따라온다: 오를 땐 칼끝이 처지고 떨어질 땐 들린다
                 blade = Mathf.Lerp(CelBladeRise, CelBladeFall, _arcAt);
+            }
+            else if (c == _crouch && back > 0f)
+            {
+                blade = CelBladeRise; // 도약 웅크림도 공중과 같은 높이(땅 위 210° 보다 위)
             }
             if (groundLoop && blade == CelBladeAngle)
             {
@@ -588,8 +592,8 @@ public class PixelRig : CharacterRig
     private const float CelBladeBack = 210f; // 손이 등 뒤면 칼을 뒤·아래로 늘어뜨려 끈다 — 170°(수평 뒤)는 꼬리처럼 튀어나오고 앞(-20°)과의 전환이 뒤집혀 보였다(10-26 밤)
     private const float CelBladeLagRange = 40f; // 이보다 작은 각도 변화는 늦게 따라오기
     private const float CelBladeLag = 14f;      // 따라오기 빠르기(1/초)
-    private const float CelBladeRise = 220f;
-    private const float CelBladeFall = 185f;
+    private const float CelBladeRise = 200f; // 10-26 밤 사용자: 점프 칼을 하늘 쪽으로 20° 올려 달라(220→200, 185→165)
+    private const float CelBladeFall = 165f;
     private const float CelHandSwingRef = -5f;  // 걷기·달리기 손 x 가운데(엉덩이 기준 아트 px)
     private const float CelBladeSwing = 2.5f;   // 손 1px 당 칼 각도
     private const float CelBladeSwingMax = 10f;
