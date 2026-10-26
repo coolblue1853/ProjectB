@@ -81,6 +81,9 @@ def shift(a, dy):
     return out
 
 
+GRIP_UP = 2
+
+
 def hands(a):
     """스카프 아래 피부색 픽셀을 x 로 둘로 나눠 (앞손, 뒷손) — 각 덩어리의 가장 아래·바깥 픽셀(주먹 끝)"""
     sc = near(a, SCARF)
@@ -103,7 +106,8 @@ def hands(a):
         groups = [(xs[:cut], ys[:cut]), (xs[cut:], ys[cut:])]
     else:
         groups = [(xs, ys)]
-    pts = [(int(round(gx.mean())), int(gy.max())) for gx, gy in groups]
+    # 주먹 가운데(맨 아래 픽셀 - GRIP_UP) — 맨 아래에 손잡이 가운데를 두면 칼이 주먹 아래에 매달려 보였다(10-26 저녁)
+    pts = [(int(round(gx.mean())), int(gy.max()) - GRIP_UP) for gx, gy in groups]
     if len(pts) > 1:
         # 무기 손 = 온전히 보이는 손(피부 픽셀이 가장 많은 덩어리) = 카메라 쪽 손. 예전엔 x 가 가장 앞인 손을 골라
         # 프레임마다 손이 바뀌어 무기가 몸 앞뒤로 들락날락했다(10-26 사용자 지적)
@@ -332,7 +336,7 @@ def fist(a, hand):
     sk = near(a, SKIN)
     h, w = sk.shape
     keep = np.zeros_like(sk)
-    for y in range(max(0, hy - FIST_R - 1), min(h, hy + 2)):
+    for y in range(max(0, hy - FIST_R - 1), min(h, hy + 2 + GRIP_UP)):
         for x in range(max(0, hx - FIST_R), min(w, hx + FIST_R + 1)):
             if sk[y, x]:
                 keep[y, x] = True
