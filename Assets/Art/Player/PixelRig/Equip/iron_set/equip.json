@@ -1,0 +1,264 @@
+{
+ "id": "iron_set",
+ "slot": "body",
+ "frames": [
+  {
+   "clip": "Walk",
+   "k": 0,
+   "layer": 585,
+   "erase": 60
+  },
+  {
+   "clip": "Walk",
+   "k": 1,
+   "layer": 613,
+   "erase": 60
+  },
+  {
+   "clip": "Walk",
+   "k": 2,
+   "layer": 625,
+   "erase": 54
+  },
+  {
+   "clip": "Walk",
+   "k": 3,
+   "layer": 611,
+   "erase": 54
+  },
+  {
+   "clip": "Walk",
+   "k": 4,
+   "layer": 607,
+   "erase": 60
+  },
+  {
+   "clip": "Walk",
+   "k": 5,
+   "layer": 570,
+   "erase": 60
+  },
+  {
+   "clip": "Walk",
+   "k": 6,
+   "layer": 565,
+   "erase": 54
+  },
+  {
+   "clip": "Walk",
+   "k": 7,
+   "layer": 588,
+   "erase": 54
+  },
+  {
+   "clip": "Run",
+   "k": 0,
+   "layer": 534,
+   "erase": 20
+  },
+  {
+   "clip": "Run",
+   "k": 1,
+   "layer": 546,
+   "erase": 19
+  },
+  {
+   "clip": "Run",
+   "k": 2,
+   "layer": 570,
+   "erase": 19
+  },
+  {
+   "clip": "Run",
+   "k": 3,
+   "layer": 576,
+   "erase": 26
+  },
+  {
+   "clip": "Run",
+   "k": 4,
+   "layer": 585,
+   "erase": 23
+  },
+  {
+   "clip": "Run",
+   "k": 5,
+   "layer": 543,
+   "erase": 19
+  },
+  {
+   "clip": "Run",
+   "k": 6,
+   "layer": 547,
+   "erase": 37
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 0,
+   "layer": 540,
+   "erase": 29
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 1,
+   "layer": 534,
+   "erase": 24
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 2,
+   "layer": 564,
+   "erase": 32
+  },
+  {
+   "clip": "JumpArc",
+   "k": 0,
+   "layer": 559,
+   "erase": 31
+  },
+  {
+   "clip": "JumpArc",
+   "k": 1,
+   "layer": 519,
+   "erase": 31
+  },
+  {
+   "clip": "JumpArc",
+   "k": 2,
+   "layer": 543,
+   "erase": 33
+  },
+  {
+   "clip": "JumpArc",
+   "k": 3,
+   "layer": 589,
+   "erase": 30
+  },
+  {
+   "clip": "Land",
+   "k": 0,
+   "layer": 565,
+   "erase": 9
+  },
+  {
+   "clip": "Land",
+   "k": 1,
+   "layer": 535,
+   "erase": 13
+  },
+  {
+   "clip": "Land",
+   "k": 2,
+   "layer": 557,
+   "erase": 10
+  },
+  {
+   "clip": "Idle",
+   "k": 0,
+   "layer": 565,
+   "erase": 27
+  },
+  {
+   "clip": "Idle",
+   "k": 1,
+   "layer": 590,
+   "erase": 31
+  },
+  {
+   "clip": "Idle",
+   "k": 2,
+   "layer": 589,
+   "erase": 31
+  },
+  {
+   "clip": "Idle",
+   "k": 3,
+   "layer": 596,
+   "erase": 32
+  },
+  {
+   "clip": "Dash",
+   "k": 0,
+   "layer": 621,
+   "erase": 14
+  },
+  {
+   "clip": "Dash",
+   "k": 1,
+   "layer": 599,
+   "erase": 5
+  },
+  {
+   "clip": "Dash",
+   "k": 2,
+   "layer": 593,
+   "erase": 24
+  },
+  {
+   "clip": "Hurt",
+   "k": 0,
+   "layer": 614,
+   "erase": 40
+  },
+  {
+   "clip": "Hurt",
+   "k": 1,
+   "layer": 617,
+   "erase": 32
+  },
+  {
+   "clip": "Hurt",
+   "k": 2,
+   "layer": 585,
+   "erase": 32
+  },
+  {
+   "clip": "Death",
+   "k": 0,
+   "layer": 579,
+   "erase": 27
+  },
+  {
+   "clip": "Death",
+   "k": 1,
+   "layer": 571,
+   "erase": 30
+  },
+  {
+   "clip": "Death",
+   "k": 2,
+   "layer": 638,
+   "erase": 19
+  },
+  {
+   "clip": "Death",
+   "k": 3,
+   "layer": 603,
+   "erase": 19
+  },
+  {
+   "clip": "Death",
+   "k": 4,
+   "layer": 570,
+   "erase": 18
+  },
+  {
+   "clip": "Death",
+   "k": 5,
+   "layer": 523,
+   "erase": 12
+  },
+  {
+   "clip": "Death",
+   "k": 6,
+   "layer": 459,
+   "erase": 6
+  },
+  {
+   "clip": "Death",
+   "k": 7,
+   "layer": 499,
+   "erase": 8
+  }
+ ]
+}

@@ -33,3 +33,20 @@ PixelLab 기능(문서·MCP 답변, 일부 불일치): transfer_outfit(참조 1�
 - **지울 마스크 필요**: 프레임당 54~60px 은 맨몸엔 있고 장비 프레임엔 없는 픽셀(투구 밖으로 삐져나오는 더벅머리) — 겹치기만으로는 못 지운다(던파의 "머리 숨김"과 같은 문제). `<i>_erase.png` 로 함께 저장하고 합성 때 맨몸에서 지우면 장비 프레임과 거의 같다(남은 차이 28~44px 은 전이가 몸을 다시 그린 부분, 몸은 맨몸 그대로가 의도).
 - 런타임 합성 방안: 장비가 바뀔 때만 CPU 로 (맨몸 − 지울 마스크 + 레이어들) 프레임을 한 번 합성해 캐시(던파식), 매 프레임 비용 0.
 - 비용: 장비 1개를 셀 동작 전체(현재 43프레임)에 입히면 전이 3회 × 10 + 기준 5 ≈ **35 gen**. 슬롯 5 × 종류 5 = 25개면 ≈ 875 gen(월 2000 안). 머리·몸이 같이 바뀌는 세트를 한 번에 입히면 줄어든다.
+
+## 확정: 던파식 부위 레이어 (10-26 사용자 결정, Q-425)
+
+**규격**
+- 맨몸 = 셀 클립 프레임(`Assets/Art/Player/PixelRig/Cel/<클립>_<k>.png`, 64×64, 피벗 = 리그 원점). 모든 레이어는 같은 캔버스·같은 프레임 번호.
+- 장비 1개 = `Assets/Art/Player/PixelRig/Equip/<장비 id>/<클립>_<k>.png`(덮어쓰기, RGBA) + `<클립>_<k>_erase.png`(맨몸에서 지울 마스크, L). 없는 프레임은 레이어 없음으로 본다.
+- 슬롯 그리는 순서(아래 → 위): 맨몸 → 하의·신발 → 갑옷(상의) → 장갑 → 투구. 마스크는 레이어보다 먼저 맨몸(과 아래 레이어)에서 지운다.
+- 무기는 레이어가 아니라 프레임별 손 앵커(`cel.json` hand/handB)로 붙인다(무기군별 쥠은 무기 애니 단계에서).
+- 제작: 측면 대기 셀에 장비를 입힌 기준 그림(edit_image_pro_flash) → transfer_outfit 을 클립 묶음(최대 15프레임)으로 → `extract_layer.py` 로 레이어·마스크. 장비 1개 ≈ 35 gen.
+- 런타임: 장비가 바뀔 때만 프레임마다 (맨몸 − 마스크들 + 레이어들)을 CPU 로 한 번 합성해 스프라이트 캐시 — 그리는 비용은 맨몸 셀과 같다.
+
+## 구현 1 (10-26)
+
+- 셀 동작 전체 43프레임에 철 투구·흉갑(`iron_set`, 슬롯 body) — 전이 4회(걷기 8 + 14 + 13 + 8프레임) 40 gen + 기준 그림 5 gen. `python Tools/pixelfx/build_equip.py iron_set body` → `Assets/Art/Player/PixelRig/Equip/iron_set/`.
+- 빌더 `BuildEquipLayers` → `Resources/PixelRig/Equip/<id>.asset`(`CelEquipLayer`: 프레임별 레이어·마스크, 읽기 가능 텍스처). 막 쓴 PNG 는 먼저 `ImportAsset` 해야 한다(안 하면 텍스처가 전부 비었다). 맨몸 셀 텍스처도 읽기 가능.
+- 런타임 `PixelRig.SetEquipmentLayers(layers)` → `CelComposer`(슬롯 순서로 마스크 지우고 덮어쓰기) → 클립별 합성 스프라이트 캐시, 43프레임 합성 5ms. 시험 프로브 `Tools/probes/apply_cel_equip.cs`, 촬영 `EQUIP=iron_set bash Tools/compare_moves.sh <태그>`. 영상 `Docs/ArtCompare/Motion/cmp_v6_cel_plain_vs_iron.mp4`.
+- 남은 일: 인벤토리 장착과 연결(아이템 → 레이어 id 표, ItemSheet 컬럼 추가 시 ItemSpec 갱신), 슬롯별 분리(투구만·갑옷만), 공격 동작 셀화 뒤 같은 레이어 확장.

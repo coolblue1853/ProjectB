@@ -108,6 +108,9 @@ public class PixelRig : CharacterRig
     private const float LedgeLandVy = 0.5f;
     private bool _ledgeFall;
     private readonly Dictionary<string, CelClip> _celByName = new Dictionary<string, CelClip>();
+    // 던파식 장비 레이어 합성 결과(클립 이름 → 프레임 스프라이트). 장비가 바뀔 때만 SetEquipmentLayers 가 다시 만든다
+    private readonly Dictionary<string, Sprite[]> _celComposite = new Dictionary<string, Sprite[]>();
+    private readonly List<Sprite> _composedSprites = new List<Sprite>();
     private bool _celShown;
     private float _landStart;
     // 점프 v2(PixelRigDesign 3.6): 입력 뒤 뜨기 전엔 웅크림, 뜬 뒤엔 세로 속도로 연속 자세(JumpArc) 시점을 고른다
@@ -440,7 +443,7 @@ public class PixelRig : CharacterRig
             i = cel.IndexAt(_time);
         }
         ShowCel(true);
-        _cel.sprite = cel.sprites[i];
+        _cel.sprite = _celComposite.TryGetValue(cel.name, out Sprite[] comp) && i < comp.Length && comp[i] != null ? comp[i] : cel.sprites[i];
         Transform shF = _socketRight != null ? _socketRight.parent.parent : null;
         if (shF != null && i < cel.hand.Length)
         {
@@ -453,6 +456,44 @@ public class PixelRig : CharacterRig
         if (_socketLeft != null && i < cel.handB.Length)
         {
             _socketLeft.parent.position = transform.TransformPoint(cel.handB[i]);
+        }
+    }
+
+    /// <summary>
+    /// 장비 외형 레이어 적용(던파식, CelEquipmentPlan): 슬롯 순서로 맨몸 셀에 지울 마스크·덮어쓰기를 합성해 캐시한다. 빈 목록이면 맨몸.
+    /// </summary>
+    public void SetEquipmentLayers(IEnumerable<CelEquipLayer> layers)
+    {
+        foreach (Sprite sp in _composedSprites)
+        {
+            if (sp != null)
+            {
+                Destroy(sp.texture);
+                Destroy(sp);
+            }
+        }
+        _composedSprites.Clear();
+        _celComposite.Clear();
+        List<CelEquipLayer> ordered = CelComposer.Ordered(layers ?? new CelEquipLayer[0]);
+        if (ordered.Count == 0)
+        {
+            return;
+        }
+        foreach (CelClip clip in _celClips)
+        {
+            if (clip == null || clip.sprites.Length == 0)
+            {
+                continue;
+            }
+            Sprite[] comp = CelComposer.Compose(clip, ordered);
+            _celComposite[clip.name] = comp;
+            for (int i = 0; i < comp.Length; i++)
+            {
+                if (comp[i] != null && comp[i] != clip.sprites[i])
+                {
+                    _composedSprites.Add(comp[i]);
+                }
+            }
         }
     }
 

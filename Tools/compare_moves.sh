@@ -9,6 +9,8 @@ sleep 15
 $U cs Tools/probes/set_day.cs >/dev/null 2>&1
 $U cs Tools/probes/input_bg_on.cs >/dev/null 2>&1
 [ "$MODE" = "original" ] && $U cs Tools/probes/use_original_rig.cs 2>&1 | head -c 80 && echo
+# 장비 레이어: EQUIP=iron_set bash Tools/compare_moves.sh <태그>  (CelEquipmentPlan 던파식)
+[ -n "${EQUIP:-}" ] && sed "s/__IDS__/$EQUIP/" Tools/probes/apply_cel_equip.cs > Logs/eq.cs && $U cs Logs/eq.cs 2>&1 | head -c 120 && echo
 $U cs Logs/equip.cs >/dev/null 2>&1
 sleep 3
 $U cs Tools/probes/set_day.cs >/dev/null 2>&1

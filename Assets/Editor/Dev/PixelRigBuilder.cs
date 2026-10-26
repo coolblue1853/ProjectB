@@ -94,6 +94,7 @@ public static class PixelRigBuilder
         so.FindProperty("_weaponOrderBack").intValue = 37;
         so.FindProperty("_cel").objectReferenceValue = celSr;
         BuildCel(so.FindProperty("_celClips"), ox);
+        BuildEquipLayers();
         so.FindProperty("_airLegF").objectReferenceValue = PartSprite(LegPose("leg_l", 1, 1));
         so.FindProperty("_airLegB").objectReferenceValue = PartSprite(LegPose("leg_r", 0, 1));
 
@@ -728,6 +729,93 @@ public static class PixelRigBuilder
         }
     }
 
+    // ── 장비 레이어(던파식, CelEquipmentPlan) ─────────────────────────────────
+    private const string EquipDir = "Assets/Art/Player/PixelRig/Equip";
+    private const string EquipOut = "Assets/Resources/PixelRig/Equip";
+
+    [System.Serializable]
+    private class EquipFrameJson
+    {
+        public string clip;
+        public int k;
+    }
+
+    [System.Serializable]
+    private class EquipJson
+    {
+        public string id;
+        public string slot;
+        public EquipFrameJson[] frames;
+    }
+
+    /// <summary>Tools/pixelfx/build_equip.py 산출물(장비 폴더마다 equip.json + 레이어·마스크 PNG) → Resources/PixelRig/Equip/&lt;id&gt;.asset</summary>
+    private static void BuildEquipLayers()
+    {
+        if (!Directory.Exists(EquipDir))
+        {
+            return;
+        }
+        Directory.CreateDirectory(EquipOut);
+        foreach (string dir in Directory.GetDirectories(EquipDir))
+        {
+            string json = dir + "/equip.json";
+            if (!File.Exists(json))
+            {
+                continue;
+            }
+            var meta = JsonUtility.FromJson<EquipJson>(File.ReadAllText(json));
+            string folder = dir.Replace('\\', '/');
+            string path = EquipOut + "/" + meta.id + ".asset";
+            var asset = AssetDatabase.LoadAssetAtPath<CelEquipLayer>(path);
+            if (asset == null)
+            {
+                asset = ScriptableObject.CreateInstance<CelEquipLayer>();
+                AssetDatabase.CreateAsset(asset, path);
+            }
+            asset.id = meta.id;
+            asset.slot = System.Enum.TryParse(meta.slot, true, out CelEquipLayer.Slot sl) ? sl : CelEquipLayer.Slot.Body;
+            var frames = new List<CelEquipLayer.Frame>();
+            foreach (EquipFrameJson f in meta.frames)
+            {
+                string name = f.clip + "_" + f.k;
+                frames.Add(new CelEquipLayer.Frame
+                {
+                    clip = f.clip,
+                    index = f.k,
+                    layer = ImportRaw(folder + "/" + name + ".png"),
+                    erase = ImportRaw(folder + "/" + name + "_erase.png"),
+                });
+            }
+            asset.frames = frames.ToArray();
+            EditorUtility.SetDirty(asset);
+        }
+        AssetDatabase.SaveAssets();
+    }
+
+    /// <summary>합성용 원본 텍스처: 읽기 가능·무압축·점 필터</summary>
+    private static Texture2D ImportRaw(string path)
+    {
+        // build_equip.py 가 막 쓴 파일은 아직 에셋 DB 에 없다 — 먼저 임포트(안 하면 레이어가 전부 비었다)
+        if (File.Exists(path))
+        {
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport);
+        }
+        var ti = (TextureImporter)AssetImporter.GetAtPath(path);
+        if (ti == null)
+        {
+            return null;
+        }
+        ti.textureType = TextureImporterType.Default;
+        ti.isReadable = true;
+        ti.filterMode = FilterMode.Point;
+        ti.textureCompression = TextureImporterCompression.Uncompressed;
+        ti.mipmapEnabled = false;
+        ti.npotScale = TextureImporterNPOTScale.None;
+        ti.alphaIsTransparency = true;
+        ti.SaveAndReimport();
+        return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+    }
+
     /// <summary>64 캔버스 픽셀(왼쪽 위 0) → 리그 로컬 유닛(원점 = 엉덩이 x·발바닥, 위 +). 픽셀 가운데</summary>
     private static Vector2 CelLocal(int[] p, int ox)
     {
@@ -768,6 +856,7 @@ public static class PixelRigBuilder
         settings.spriteMeshType = SpriteMeshType.FullRect;
         ti.SetTextureSettings(settings);
         ti.spritePivot = new Vector2(pivot[0] / (float)Size, (Size - (pivot[1] + 1)) / (float)Size);
+        ti.isReadable = dir == CelDir; // 셀은 장비 레이어 합성(CelComposer)에서 픽셀을 읽는다
         ti.SaveAndReimport();
     }
 
