@@ -37,6 +37,7 @@ public static class PixelRigInstaller
         pc.mainCharacter.gameObject.SetActive(false);
         pc.UseRig(go.GetComponent<PixelRig>());
         AddHeroLight(go.transform);
+        go.AddComponent<CelEquipSync>(); // 장착 방어구 → 던파식 장비 레이어(CelEquipmentPlan)
     }
 
     /// <summary>

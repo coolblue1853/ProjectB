@@ -50,3 +50,9 @@ PixelLab 기능(문서·MCP 답변, 일부 불일치): transfer_outfit(참조 1�
 - 빌더 `BuildEquipLayers` → `Resources/PixelRig/Equip/<id>.asset`(`CelEquipLayer`: 프레임별 레이어·마스크, 읽기 가능 텍스처). 막 쓴 PNG 는 먼저 `ImportAsset` 해야 한다(안 하면 텍스처가 전부 비었다). 맨몸 셀 텍스처도 읽기 가능.
 - 런타임 `PixelRig.SetEquipmentLayers(layers)` → `CelComposer`(슬롯 순서로 마스크 지우고 덮어쓰기) → 클립별 합성 스프라이트 캐시, 43프레임 합성 5ms. 시험 프로브 `Tools/probes/apply_cel_equip.cs`, 촬영 `EQUIP=iron_set bash Tools/compare_moves.sh <태그>`. 영상 `Docs/ArtCompare/Motion/cmp_v6_cel_plain_vs_iron.mp4`.
 - 남은 일: 인벤토리 장착과 연결(아이템 → 레이어 id 표, ItemSheet 컬럼 추가 시 ItemSpec 갱신), 슬롯별 분리(투구만·갑옷만), 공격 동작 셀화 뒤 같은 레이어 확장.
+
+## 구현 2 (10-26) — 부위 분리·인벤토리 연결
+
+- 부위 분리(생성 0): `python Tools/pixelfx/split_equip.py iron_set iron_helm iron_plate` — 프레임마다 맨몸 스카프 윗줄 위 = 투구(+지울 마스크 전부), 아래 = 갑옷. 맨몸·투구만·흉갑만·둘 다 4조합 모두 깨끗(조합 시트 확인). 세트를 한 번에 전이한 뒤 나누면 장비 2개 값으로 1번 비용.
+- 연결: `CelEquipSync`(PixelRigInstaller 가 리그에 붙임) — 장비 칸(모자 2·갑옷 5·장갑 6·바지 8·신발 9)을 0.5초마다 보고 아이템 이름이 바뀔 때만 `Resources/CelEquipMap.csv`(아이템 이름,레이어 id) 로 레이어 합성. 인벤토리 코드는 손대지 않음. 임시 대응 Q-426: Cap → iron_helm, Armor·HighArmor → iron_plate.
+- 검증: 낮 인게임에서 장비 칸에 Cap 장착 → 걷기에 철 투구. 갑옷 칸은 프로브 장착이 칸에 들어가지 않아 미검증(합성은 조합 시트로 확인).

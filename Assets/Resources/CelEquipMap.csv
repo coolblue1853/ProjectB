@@ -1,0 +1,5 @@
+itemName,layerId
+# 장착 아이템 이름 → 던파식 장비 레이어(Resources/PixelRig/Equip/<id>), CelEquipmentPlan. 임시 대응(Q-426): 기본 장비 모자·갑옷에 철 투구·흉갑
+Cap,iron_helm
+Armor,iron_plate
+HighArmor,iron_plate

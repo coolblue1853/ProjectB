@@ -1,0 +1,178 @@
+{
+ "id": "iron_helm",
+ "slot": "head",
+ "frames": [
+  {
+   "clip": "Walk",
+   "k": 0
+  },
+  {
+   "clip": "Walk",
+   "k": 1
+  },
+  {
+   "clip": "Walk",
+   "k": 2
+  },
+  {
+   "clip": "Walk",
+   "k": 3
+  },
+  {
+   "clip": "Walk",
+   "k": 4
+  },
+  {
+   "clip": "Walk",
+   "k": 5
+  },
+  {
+   "clip": "Walk",
+   "k": 6
+  },
+  {
+   "clip": "Walk",
+   "k": 7
+  },
+  {
+   "clip": "Run",
+   "k": 0
+  },
+  {
+   "clip": "Run",
+   "k": 1
+  },
+  {
+   "clip": "Run",
+   "k": 2
+  },
+  {
+   "clip": "Run",
+   "k": 3
+  },
+  {
+   "clip": "Run",
+   "k": 4
+  },
+  {
+   "clip": "Run",
+   "k": 5
+  },
+  {
+   "clip": "Run",
+   "k": 6
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 0
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 1
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 2
+  },
+  {
+   "clip": "JumpArc",
+   "k": 0
+  },
+  {
+   "clip": "JumpArc",
+   "k": 1
+  },
+  {
+   "clip": "JumpArc",
+   "k": 2
+  },
+  {
+   "clip": "JumpArc",
+   "k": 3
+  },
+  {
+   "clip": "Land",
+   "k": 0
+  },
+  {
+   "clip": "Land",
+   "k": 1
+  },
+  {
+   "clip": "Land",
+   "k": 2
+  },
+  {
+   "clip": "Idle",
+   "k": 0
+  },
+  {
+   "clip": "Idle",
+   "k": 1
+  },
+  {
+   "clip": "Idle",
+   "k": 2
+  },
+  {
+   "clip": "Idle",
+   "k": 3
+  },
+  {
+   "clip": "Dash",
+   "k": 0
+  },
+  {
+   "clip": "Dash",
+   "k": 1
+  },
+  {
+   "clip": "Dash",
+   "k": 2
+  },
+  {
+   "clip": "Hurt",
+   "k": 0
+  },
+  {
+   "clip": "Hurt",
+   "k": 1
+  },
+  {
+   "clip": "Hurt",
+   "k": 2
+  },
+  {
+   "clip": "Death",
+   "k": 0
+  },
+  {
+   "clip": "Death",
+   "k": 1
+  },
+  {
+   "clip": "Death",
+   "k": 2
+  },
+  {
+   "clip": "Death",
+   "k": 3
+  },
+  {
+   "clip": "Death",
+   "k": 4
+  },
+  {
+   "clip": "Death",
+   "k": 5
+  },
+  {
+   "clip": "Death",
+   "k": 6
+  },
+  {
+   "clip": "Death",
+   "k": 7
+  }
+ ]
+}
