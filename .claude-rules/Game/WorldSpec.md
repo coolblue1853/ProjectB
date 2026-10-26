@@ -20,6 +20,7 @@
 
 - 포털은 ↑ 키로 이동한다. `openMap`이 비어 있으면 같은 맵 안에서 위치만 옮긴다. 이동하면 대상 맵을 켜고, 이전 맵을 끄고, 스포너를 정리한 뒤 카메라를 리센터한다. 1초 뒤 위치를 저장한다.
 - 패럴랙스 배경(ParrelaxBacground)과 ProCamera2D PixelPerfect를 쓴다.
+- **공용 원경(2026-10-26)**: `Assets/Sprite/LV1_Field`의 far-clouds·near-clouds·far-mountains·mountains·trees 는 Town·Lv1 전 맵·Lv2_BrokenRampart 가 같이 쓴다(맵별 차이는 SpriteRenderer 틴트뿐). 어비스풍 정리 = 색만 1:1 교체(먼 층일수록 밝고 흐리게, 구름은 안개 회색·라벤더) + 점 필터, 형태는 원본 그대로(`Tools/pixelfx/bg_abyss.py`, 원본 `Docs/ArtCompare/Background/orig`). 먼 탑 `far-tower`(PixelLab, 구름 위로 솟은 탑·떠 있는 고리·청록 창)를 원경 있는 8개 맵에 추가: 가로는 카메라 고정, 세로는 far-clouds 와 같은 0.9, order -20·z -0.1(near-clouds 뒤). 프로브 `Tools/probes/setup_bg_tower.cs`. ⏳ 낮 하늘색(밝은 청록)은 레이어가 아니라 조명/카메라 쪽이라 손대지 않음
 
 ## 3. 카메라
 
