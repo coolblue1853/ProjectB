@@ -55,4 +55,4 @@ PixelLab 기능(문서·MCP 답변, 일부 불일치): transfer_outfit(참조 1�
 
 - 부위 분리(생성 0): `python Tools/pixelfx/split_equip.py iron_set iron_helm iron_plate` — 프레임마다 맨몸 스카프 윗줄 위 = 투구(+지울 마스크 전부), 아래 = 갑옷. 맨몸·투구만·흉갑만·둘 다 4조합 모두 깨끗(조합 시트 확인). 세트를 한 번에 전이한 뒤 나누면 장비 2개 값으로 1번 비용.
 - 연결: `CelEquipSync`(PixelRigInstaller 가 리그에 붙임) — 장비 칸(모자 2·갑옷 5·장갑 6·바지 8·신발 9)을 0.5초마다 보고 아이템 이름이 바뀔 때만 `Resources/CelEquipMap.csv`(아이템 이름,레이어 id) 로 레이어 합성. 인벤토리 코드는 손대지 않음. 임시 대응 Q-426: Cap → iron_helm, Armor·HighArmor → iron_plate.
-- 검증: 낮 인게임 — 시작 장비로 이미 장착된 Cap 을 동기화가 장비 칸에서 읽어 걷기에 철 투구(실제 장착 흐름). 프로브의 `EquipBoxCheck.LoadPrefab` 은 장비 프리팹만 만들고 칸에 아이콘(ItemCheck)을 넣지 않아 갑옷 칸 경로는 미검증 — 인벤토리 UI 로 갑옷을 끼우는 시험 필요(합성은 조합 시트로 확인).
+- 검증: 낮 인게임 — 시작 장비로 이미 장착된 Cap 을 동기화가 장비 칸에서 읽어 걷기에 철 투구(실제 장착 흐름). 갑옷 칸도 실제 장착 경로(`Tools/probes/equip_item_real.cs` — 시작 무기 지급과 같은 아이템 생성 → `UseEquipment`)로 Armor 를 끼워 걷기에 철 투구 + 흉갑 확인. (`EquipBoxCheck.LoadPrefab` 만 부르면 칸에 아이콘이 안 들어가 동기화가 못 본다.)
