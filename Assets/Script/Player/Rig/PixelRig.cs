@@ -458,7 +458,9 @@ public class PixelRig : CharacterRig
             shF.localRotation = Quaternion.identity;
             _socketRight.parent.position = transform.TransformPoint(cel.hand[i]);
             // 손이 몸 뒤로 갈수록 칼을 세운다(45° → 100°) — 팔을 뒤로 흔들 때 앞으로 눕힌 칼날이 몸·얼굴을 가로질렀다
-            float back = Mathf.InverseLerp(CelHandFrontPx, CelHandBackPx, cel.hand[i].x * _ppu);
+            // 두 자세로 끊는다: 손이 엉덩이보다 많이 뒤면 칼을 뒤로 눕혀 끌고(170°), 아니면 앞으로 낮게(15°).
+            // 중간 각도로 보간하면 손이 뒤로 갈 때 칼이 서서(≈60°) 얼굴을 가로질렀다(달리기 2~4번, 10-26)
+            float back = cel.hand[i].x * _ppu < CelHandBackPx ? 1f : 0f;
             float blade = i < cel.angles.Length && cel.angles[i] > CelClip.NoAngle + 1f
                 ? cel.angles[i] // 공격 셀: 그림 속 칼에서 읽은 각도
                 : Mathf.Lerp(CelBladeAngle, CelBladeBack, back);
@@ -528,10 +530,10 @@ public class PixelRig : CharacterRig
 
     // 이동 중 칼은 앞으로 낮게(가슴 높이) — 무기를 맨 위에 그리면서 세운 칼(70~100°)이 얼굴을 덮었다(10-26). 손이 등 뒤로 크게 갈 때(점프 등)만 세운다
     private const float CelBladeAngle = 15f;
-    private const float CelBladeBack = 100f;
+    private const float CelBladeBack = 170f;
     private const int WalkStartFrame = 3;
     private const float CelHandFrontPx = -6f; // 손 x(엉덩이 기준 아트 px)가 이보다 앞이면 15°
-    private const float CelHandBackPx = -12f; // 이보다 뒤면 100°
+    private const float CelHandBackPx = -7f;  // 이보다 뒤면 뒤로 끌기(170°)
     private const float CelCrouchMin = 0.06f; // 물리 점프가 입력 즉시 떠서, 뜬 뒤에도 처음 이만큼은 웅크림을 보여 준다
 
     private void ShowCel(bool on)
