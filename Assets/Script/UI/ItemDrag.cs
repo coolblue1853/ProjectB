@@ -64,6 +64,12 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     }
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
+        if (transform.parent != null && transform.parent.GetComponent<EquipBoxCheck>() != null
+            && !InventoryManager.CanUnequip(GetComponent<ItemCheck>()))
+        {
+            eventData.pointerDrag = null; // 장착한 무기는 끌어서 뺄 수 없다(빈손 방지). 교체는 인벤토리 무기를 끌어다 놓으면 된다
+            return;
+        }
         if(InventoryManager.instance.chest != null && this.gameObject.transform.parent.parent.gameObject.transform.tag == "Chest")
         {
             InventoryManager.instance.chest.DragReset();

@@ -40,6 +40,7 @@
 | 부위 | Ring | Head | Necklace | Chest | Hand | Weapon | Leg | Shoes |
 
 - 0번과 4번은 쓰지 않는다.
+- **무기 칸은 항상 찬다(2026-10-26):** 맨손 공격이 없으므로 무기 칸이 비면(새 게임·세이브 로드) 기본 무기 `RustedSword`(ItemSheet id 41)를 자동 장착한다(`InventoryManager.EnsureDefaultWeapon`). 인벤토리에 녹슨 검이 있으면 새로 만들지 않고 그것을 꺼내 장착한다(강화 유지, 복제 방지). 무기는 **해제할 수 없고 교체만** 된다(`InventoryManager.CanUnequip` — 장비창 Z 해제·끌어서 빼기 모두 막음). 예전 1회 지급 플래그 ES3 `starter.weapon.given` 은 더 이상 읽지 않는다.
 - 장착하면 프리팹을 플레이어 아래에 만들고, AnyPortrait 메시 텍스처를 `tfName`으로 바꾼다.
 - **방어구 스탯(Equipment):** armor, hp, basicDmg, critical, criticalDmg, incDmg, dropRate, attSpeed, moveSpeed, 출혈(확률/피해/간격/횟수/증뎀), poisonDmg, addIncomingDmg, coolDownSkill[]
 - **무기 스탯(Weapon):** min/maxDmg, 치명, 치피, 증뎀, 방무, 스킬뎀, 최종뎀, 추가타, skill[4]

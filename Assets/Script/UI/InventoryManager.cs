@@ -176,34 +176,60 @@ public class InventoryManager : MonoBehaviour
             LoadEquipItem();
             Service.LoadFrom(SaveManager.instance.datas.invenItem);
         }
-        GiveStarterWeapon();
+        EnsureDefaultWeapon();
     }
 
-    const string StarterWeapon = "RustedSword";
-    const string StarterKey = "starter.weapon.given";
+    /// <summary>무기 칸이 비면 자동 장착하는 기본 무기(ItemSheet id 41 "RustedSword"). 맨손 공격이 없어 무기가 없으면 진행이 막힌다.</summary>
+    public const string DefaultWeapon = "RustedSword";
 
     /// <summary>
-    /// 무기 칸이 비어 있으면 기본 무기(녹슨 검)를 한 번 장착해 준다 — 새 게임에서 바로 공격을 시험할 수 있게(사용자 요청, 2026-10-19).
-    /// 슬롯별 ES3 플래그로 1회만 지급해, 벗고 다시 불러와도 무기가 늘지 않는다.
+    /// 무기 칸이 비어 있으면 기본 무기를 장착한다(새 게임·세이브 로드 때 호출, 2026-10-26 사용자 요청 — 예전 1회 지급 플래그 대체).
+    /// 무기 해제 자체를 막으므로(CanUnequip) 빈 칸은 새 게임이나 예전 세이브에서만 생긴다.
+    /// 인벤토리에 기본 무기가 있으면 그것을 꺼내 장착해(강화 유지) 무한 복제를 막는다.
     /// </summary>
-    void GiveStarterWeapon()
+    private void EnsureDefaultWeapon()
     {
-        if (ES3.KeyExists(StarterKey) || equipBox[7].transform.childCount > 0)
+        if (equipBox[7].transform.childCount > 0)
         {
             return;
         }
         GameObject go = Instantiate(itemPrefab, transform.position, Quaternion.identity, transform);
         ItemCheck item = go.GetComponent<ItemCheck>();
-        item.SetItem(StarterWeapon);
+        item.SetItem(DefaultWeapon);
         if (item.itemData == null)
         {
             Destroy(go);
             return;
         }
+        ItemData reuse = TakeOneFromInventory(DefaultWeapon); // 데이터가 확인된 뒤에 빼야 실패해도 인벤토리 검이 사라지지 않는다
+        if (reuse != null)
+        {
+            item.SetItem(DefaultWeapon, reuse);
+        }
         UseEquipment(item);
         equipBox[7].GetComponent<EquipBoxCheck>().ActivePrefab("Weapon"); // 장비창을 열지 않아도 바로 공격할 수 있게 연결
-        ES3.Save(StarterKey, true);
-        GameLog.Info(GameLog.Cat.Item, "기본 무기 지급: " + StarterWeapon);
+        SaveInventory();
+        GameLog.Info(GameLog.Cat.Item, "기본 무기 장착: " + DefaultWeapon + (reuse != null ? " (인벤토리에서 꺼냄)" : " (새로 지급)"));
+    }
+
+    /// <summary>인벤토리에서 itemName 1개를 빼고 그 데이터 사본(티어·강화)을 돌려준다. 없으면 null.</summary>
+    private ItemData TakeOneFromInventory(string itemName)
+    {
+        foreach (ItemCheck check in EnumerateInventoryItems())
+        {
+            if (check.name == itemName && check.itemData != null)
+            {
+                ItemData data = check.itemData.Clone();
+                return Service.RemoveAt(check, 1) ? data : null;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>장비 칸에서 빼도 되는지. 무기는 빈손이 되지 않게 해제를 막는다(다른 무기로 교체만 가능).</summary>
+    public static bool CanUnequip(ItemCheck item)
+    {
+        return item == null || item.itemData == null || item.itemData.equipArea != "Weapon";
     }
 
     public bool CheckBoxCanCreat(int num)
@@ -796,6 +822,10 @@ public class InventoryManager : MonoBehaviour
             equipBox = SetEquipBox();
         }
         equipBox = SetEquipBox();
+        if (!CanUnequip(detail))
+        {
+            return; // 무기는 해제하지 않는다 — 맨손 공격이 없어 빈손이 되면 진행이 막힌다
+        }
         GameObject nowEquipItem = detail.gameObject;
         EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
         if (CheckBoxCanCreatAll() == true)
