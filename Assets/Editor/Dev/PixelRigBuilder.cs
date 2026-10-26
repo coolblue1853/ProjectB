@@ -119,6 +119,67 @@ public static class PixelRigBuilder
     // 뼈: Hips, Hips/Head, Hips/Pack, Hips/ShoulderF, Hips/ShoulderB, LegF, LegB
     // 채널: x·y = 아트 픽셀(오른쪽·위가 +), r = 도(반시계 +). 몸통(Hips)·머리는 돌리지 않는다 — 도트 통째 회전은 외곽이 지글거린다(위치 이동으로 표현). 캐릭터는 오른쪽을 본다 → 어깨 r + = 팔을 앞으로 든다.
     /// <summary>
+    /// 연속 이동 주기(보간, 한 주기 Samples 키): 앞다리 x = stride·cos, 뒷다리 반대. 앞으로 나가는 발이 lift 만큼 들리고 tilt° 기운다.
+    /// 몸은 교차 때 bob 만큼 오르고(|sin|), 팔은 다리와 엇갈려 arm° 흔든다(칼날 각도 blade 유지). 머리카락은 들썩임에 한 박자 늦게(그림 교체),
+    /// 배낭은 1/8 주기 늦게 아래로만 처진다. 뼈 위치는 리그가 1px 격자에 맞추고 회전은 연속.
+    /// </summary>
+    private static AnimDef SmoothCycle(string name, float period, float blade, float stride, float lift, float tilt, float bob, float arm, float lean)
+    {
+        const int Samples = 24;
+        var def = new AnimDef(name, period, true);
+        var lfx = new float[(Samples + 1) * 2];
+        var lfy = new float[(Samples + 1) * 2];
+        var lfr = new float[(Samples + 1) * 2];
+        var lbx = new float[(Samples + 1) * 2];
+        var lby = new float[(Samples + 1) * 2];
+        var lbr = new float[(Samples + 1) * 2];
+        var hy = new float[(Samples + 1) * 2];
+        var hx = new float[(Samples + 1) * 2];
+        var pk = new float[(Samples + 1) * 2];
+        var shB = new float[(Samples + 1) * 2];
+        var armTab = new float[(Samples + 1) * 3];
+        var hairT = new List<object>();
+        int lastHair = int.MinValue;
+        for (int i = 0; i <= Samples; i++)
+        {
+            float t = period * i / Samples;
+            float ph = 2f * Mathf.PI * i / Samples;
+            float c = Mathf.Cos(ph), sn = Mathf.Sin(ph);
+            float body = bob * Mathf.Abs(sn);
+            float bodyLate = bob * Mathf.Abs(Mathf.Sin(ph - Mathf.PI / 4f));
+            int k = i * 2;
+            lfx[k] = lbx[k] = lfy[k] = lby[k] = lfr[k] = lbr[k] = hy[k] = hx[k] = pk[k] = shB[k] = t;
+            lfx[k + 1] = stride * c;
+            lbx[k + 1] = -stride * c;
+            lfy[k + 1] = lift * Mathf.Max(0f, -sn); // 앞다리는 뒤 → 앞으로 나갈 때(주기 후반) 든다
+            lby[k + 1] = lift * Mathf.Max(0f, sn);
+            lfr[k + 1] = tilt * c;
+            lbr[k + 1] = -tilt * c;
+            hy[k + 1] = body;
+            hx[k + 1] = lean;
+            pk[k + 1] = Mathf.Min(0f, bodyLate - body);
+            shB[k + 1] = arm * c; // 뒷팔은 앞다리와 같은 쪽(= 뒷다리 반대)
+            armTab[i * 3] = t;
+            armTab[i * 3 + 1] = -arm * c; // 앞팔은 앞다리와 엇갈린다
+            armTab[i * 3 + 2] = blade;
+            int hair = HairLag(bob * Mathf.Abs(Mathf.Sin(ph - 2f * Mathf.PI / Samples)), body);
+            if (hair != lastHair)
+            {
+                hairT.Add(t);
+                hairT.Add(HairPose(hair));
+                lastHair = hair;
+            }
+        }
+        def.K("LegF", 'x', lfx).K("LegF", 'y', lfy).K("LegF", 'r', lfr)
+            .K("LegB", 'x', lbx).K("LegB", 'y', lby).K("LegB", 'r', lbr)
+            .K("Hips", 'y', hy).K("Hips", 'x', hx).K("Hips/Pack", 'y', pk)
+            .K("Hips/ShoulderB", 'r', shB)
+            .SK("Hips/Head", hairT.ToArray())
+            .Arm(armTab);
+        return def;
+    }
+
+    /// <summary>
     /// 이동 주기(끊기는 포즈). 다리·팔은 뼈를 옮기지 않고 포즈 변형 그림으로 바꿔 끼운다(Tools/pixelfx/make_pose_parts.py: 마디별 정수 이동 + 외곽 닫기).
     /// legFdx·legBdx = 발 앞뒤 px(-2~2), legFlift·legBlift = 무릎 접어 들기(0~2), armF = 앞손 앞뒤 px(뒷손은 반대, -1~1).
     /// 배낭은 엉덩이가 올라올 때 한 포즈 늦게 따라온다(상대값 = min(0, 이전 - 현재)). 무기 소켓(앞손)은 손 이동을 따라간다.
@@ -254,20 +315,11 @@ public static class PixelRigBuilder
                 .K("Hips/Pack", 'x', 0f, 0f, 0.1f, 1f, 0.4f, 0f, 0.7f, 0f)
                 .K("Hips", 'y', 0f, 0f, 0.4f, -1f, 0.5f, 0f, 0.7f, 0f)
                 .Arm(0f, 0f, 45f, 0.7f, 0f, 45f),
-            // 걷기 8포즈(0.08초씩): 접지 → 내려앉음 → 교차(뒷발 듦) → 올라섬 → 접지(반대) → … (PixelRigDesign 4절)
-            // 3/4 정면 구도라 두 다리가 나란히 보인다 → 앞뒤 ±1(±2 엇갈리면 두 발이 한 덩어리로 겹쳤다), 무릎을 접어 번갈아 드는 그림(포즈 변형)으로 걸음을 읽힌다.
-            // 팔은 손만 ±1(소매 고정 — 통째로 옮기면 어깨에서 떨어져 보였다), 머리는 교차 때 1px 늦게 내려온다
-            Cycle("Walk", 0.08f, 45f,
-                new[] { 1, 1, 0, -1, -1, -1, 0, 1 }, new[] { 0, 0, 0, 0, 0, 0, 1, 1 },
-                new[] { -1, -1, 0, 1, 1, 1, 0, -1 }, new[] { 0, 0, 1, 1, 0, 0, 0, 0 },
-                new float[] { 0, -1, 0, 0, 0, -1, 0, 0 }, new float[] { 0, 0, -1, 0, 0, 0, -1, 0 },
-                new[] { -1, -1, 0, 1, 1, 1, 0, -1 }, 0f),
-            // 달리기 6포즈(0.07초씩): 보폭 ±2·발을 2px 접어 들고 몸은 1px 앞으로 숙임. 칼은 앞 위 45°(뒤로 눕히면 칼날이 얼굴·가슴을 가로질렀다)
-            Cycle("Run", 0.07f, 45f,
-                new[] { 2, 1, 0, -1, 0, 1 }, new[] { 0, 0, 0, 1, 2, 1 },
-                new[] { -1, 0, 1, 1, 0, -1 }, new[] { 1, 2, 1, 0, 0, 0 },
-                new float[] { 0, -1, 1, 0, -1, 1 }, new float[] { 0, 0, 0, 0, 0, 0 }, // 몸: 접지 0 → 내려앉음 -1 → 교차(체공) +1, 머리카락이 한 박자 늦게(HairLag)
-                new[] { -1, 0, 1, 1, 0, -1 }, 1f),
+            // 걷기·달리기 = 연속 동작(PixelRigDesign 3.6, 10-26 사용자 "원본 수준, 프레임 단위로"): 원본 AnyPortrait 는 두 발 간격이 매 프레임
+            // 사인파로 2↔9 아트px 변했다. 정지 포즈 교체(±1px, 0.08초 유지)는 뻣뻣했다 → 다리 앞뒤·들기·기울기, 몸 들썩임, 팔 흔들기를 곡선으로.
+            // 발이 닿는 순간(최대 보폭)이 주기 0·½ → 발소리·먼지 포즈(걷기 0·4 / 달리기 0·3)와 맞는다
+            SmoothCycle("Walk", 0.9f, 45f, stride: 3f, lift: 1.5f, tilt: 10f, bob: 1f, arm: 15f, lean: 0f),
+            SmoothCycle("Run", 0.5f, 45f, stride: 4f, lift: 3f, tilt: 18f, bob: 1.5f, arm: 35f, lean: 1f),
             // 제동: 달리다 멈추면 리그가 0.13초 보여 준다 — 앞발 2px 내딛어 버티고 몸은 뒤로 1px 젖혀 내려앉음, 손은 관성으로 앞, 머리카락 늘임 → 반쯤 회복
             new AnimDef("Brake", 0.14f, false).Step()
                 .K("Hips", 'x', 0f, -1f, 0.07f, 0f, 0.14f, 0f)
@@ -280,6 +332,24 @@ public static class PixelRigBuilder
                 .S("Hips/ShoulderB", 0.07f, new[] { ArmPose("arm_r", 1), ArmPose("arm_r", 0) })
                 .S("Hips/Head", 0.07f, new[] { HairPose(1), HairPose(-1) })
                 .Arm(0f, 0f, 45f, 0.14f, 0f, 45f),
+            // 점프 v2(PixelRigDesign 3.6): 원본은 0.12초 웅크림 예비 → 도약 → 공중 내내 조금씩 변하는 자세 → 다리 뻗어 착지 준비.
+            // JumpCrouch = 입력 뒤 실제로 뜨기 전(리그가 세로 속도로 판단), JumpArc = 세로 속도 +8(0) → 0(0.5) → -8(1) 로 리그가 시점을 고르는 연속 자세
+            new AnimDef("JumpCrouch", 0.1f, false).Step()
+                .K("Hips", 'y', 0f, -2f, 0.1f, -2f)
+                .K("Hips/ShoulderB", 'r', 0f, 20f, 0.1f, 20f)
+                .S("LegF", 0.1f, new[] { LegPose("leg_l", 1, 1) }).S("LegB", 0.1f, new[] { LegPose("leg_r", -1, 1) })
+                .S("Hips/Head", 0.1f, new[] { HairPose(1) })
+                .Arm(0f, -20f, 45f, 0.1f, -20f, 45f),
+            new AnimDef("JumpArc", 1f, false)
+                .K("LegF", 'y', 0f, 1f, 0.5f, 1f, 1f, 0f)
+                .K("LegF", 'r', 0f, 20f, 0.5f, 10f, 1f, -5f)
+                .K("LegB", 'y', 0f, 0f, 0.5f, 1f, 1f, 1f)
+                .K("LegB", 'r', 0f, -15f, 0.5f, -5f, 1f, -10f)
+                .K("Hips/ShoulderB", 'r', 0f, -20f, 0.5f, 30f, 1f, 60f)
+                .SK("LegF", 0f, LegPose("leg_l", 1, 2), 0.35f, LegPose("leg_l", 1, 1), 0.75f, LegPose("leg_l", 1, 0))
+                .SK("LegB", 0f, LegPose("leg_r", -1, 0), 0.35f, LegPose("leg_r", 0, 1), 0.75f, LegPose("leg_r", -1, 1))
+                .SK("Hips/Head", 0f, HairPose(-1), 0.3f, "head", 0.7f, HairPose(1))
+                .Arm(0f, 20f, 90f, 0.5f, 30f, 80f, 1f, 45f, 70f), // 팔은 45° 까지(70° 면 손이 어깨에서 떨어져 떠 보였다)
             // 점프: 리그(PixelRig)가 세로 속도로 고른다 — 도약(첫 0.06초 늘임) → 상승 → 꼭대기 → 낙하, 착지하면 0.1초 눌림(Land).
             // 변형은 한두 프레임만(셀레스트식), 1px 단위
             // 다리는 통째로 올리면 몸통 뒤로 숨어 사라져 보였다 → 접은 다리 그림(포즈 변형)으로: 상승 = 앞다리 접어 올림·뒷다리 늘어뜨림

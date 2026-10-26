@@ -404,6 +404,12 @@ MonoBehaviour:
   - name: Brake
     clip: {fileID: 7400000, guid: 11e2a0f56107bf040b9a5a0d31bdc49b, type: 2}
     loop: 0
+  - name: JumpCrouch
+    clip: {fileID: 7400000, guid: 3cec59eb414e81a4da0a07052aae82fd, type: 2}
+    loop: 0
+  - name: JumpArc
+    clip: {fileID: 7400000, guid: c82f9afd371a2404b86e42229acfb7b4, type: 2}
+    loop: 0
   - name: Jump
     clip: {fileID: 7400000, guid: 332cfe2f84a71a441b2b5c9e9b24dce7, type: 2}
     loop: 0

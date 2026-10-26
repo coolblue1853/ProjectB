@@ -96,23 +96,25 @@ public class PixelRigRulesTests
     }
 
     [Test]
-    public void RigClips_WalkAndRunSwapLegs()
+    public void RigClips_WalkAndRunMoveLegsContinuously()
     {
-        // 걷기·달리기는 다리 그림을 포즈마다 바꾼다(통째 이동으로 돌아가면 다리가 몸에서 떨어져 보였다)
+        // 걷기·달리기는 다리가 앞뒤로 연속 이동·회전한다(PixelRigDesign 3.6: 원본은 발 간격 2↔9 아트px 연속 변화, 정지 포즈 교체는 뻣뻣했다)
         foreach (var clip in RigClips())
         {
             if (clip.name != "Walk" && clip.name != "Run")
             {
                 continue;
             }
-            var keys = UnityEditor.AnimationUtility.GetObjectReferenceCurve(clip,
-                UnityEditor.EditorCurveBinding.PPtrCurve("LegF", typeof(UnityEngine.SpriteRenderer), "m_Sprite"));
-            var distinct = new System.Collections.Generic.HashSet<UnityEngine.Object>();
-            foreach (var k in keys)
-            {
-                distinct.Add(k.value);
-            }
-            Assert.GreaterOrEqual(distinct.Count, 3, clip.name + " 앞다리 그림 종류");
+            var x = UnityEditor.AnimationUtility.GetEditorCurve(clip, UnityEditor.EditorCurveBinding.FloatCurve("LegF", typeof(UnityEngine.Transform), "m_LocalPosition.x"));
+            var r = UnityEditor.AnimationUtility.GetEditorCurve(clip, UnityEditor.EditorCurveBinding.FloatCurve("LegF", typeof(UnityEngine.Transform), "localEulerAnglesRaw.z"));
+            Assert.IsNotNull(x, clip.name + " 앞다리 x 커브");
+            Assert.IsNotNull(r, clip.name + " 앞다리 회전 커브");
+            Assert.GreaterOrEqual(x.length, 12, clip.name + " 연속 동작 키 수");
+            float minX = float.MaxValue, maxX = float.MinValue, minR = float.MaxValue, maxR = float.MinValue;
+            foreach (var k in x.keys) { minX = UnityEngine.Mathf.Min(minX, k.value); maxX = UnityEngine.Mathf.Max(maxX, k.value); }
+            foreach (var k in r.keys) { minR = UnityEngine.Mathf.Min(minR, k.value); maxR = UnityEngine.Mathf.Max(maxR, k.value); }
+            Assert.GreaterOrEqual((maxX - minX) * 36f, 5.9f, clip.name + " 앞다리 앞뒤 폭(아트 px)");
+            Assert.GreaterOrEqual(maxR - minR, 19f, clip.name + " 앞다리 기울기 폭(도)");
         }
     }
 }

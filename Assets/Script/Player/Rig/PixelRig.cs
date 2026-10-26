@@ -104,6 +104,13 @@ public class PixelRig : CharacterRig
     private const float LedgeFallVy = 3f;
     private const float LedgeLandVy = 0.5f;
     private bool _ledgeFall;
+    // 점프 v2(PixelRigDesign 3.6): 입력 뒤 뜨기 전엔 웅크림, 뜬 뒤엔 세로 속도로 연속 자세(JumpArc) 시점을 고른다
+    private const float TakeoffVy = 0.5f;
+    private const float CrouchMax = 0.2f;
+    private const float ArcSpan = 16f; // 세로 속도 +8 → 0, 0 → 0.5, -8 → 1
+    private Clip _crouch, _arc;
+    private bool _tookOff;
+    private float _arcAt = -1f;
 
     /// <summary>마지막 착지 세기 0~1 (PlayerController 가 착지 먼지 크기에 쓴다)</summary>
     public float LastLandStrength { get; private set; } = 0.6f;
@@ -134,6 +141,8 @@ public class PixelRig : CharacterRig
         _byName.TryGetValue("Hurt", out _hurt);
         _byName.TryGetValue("DeathKneel", out _kneel);
         _byName.TryGetValue("IdleFidget", out _fidget);
+        _byName.TryGetValue("JumpCrouch", out _crouch);
+        _byName.TryGetValue("JumpArc", out _arc);
         _byName.TryGetValue("Run", out _run);
         _byName.TryGetValue("Walk", out _walk);
         _byName.TryGetValue("Brake", out _brake);
@@ -170,6 +179,7 @@ public class PixelRig : CharacterRig
         if (anim == "Jump" && _requested != "Jump")
         {
             _minVy = 0f;
+            _tookOff = false;
         }
         _playedAt = Time.time;
         _current = Resolve(anim);
@@ -358,7 +368,7 @@ public class PixelRig : CharacterRig
         _time += Time.deltaTime * _globalSpeed * _clipSpeed * loco;
         Clip c = PickVariant();
         float len = Mathf.Max(c.clip.length, 0.0001f);
-        float t = c == _fidget && _fidgetAt >= 0f ? Mathf.Min(_fidgetAt, len) : c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
+        float t = c == _arc && _arcAt >= 0f ? _arcAt * len : c == _fidget && _fidgetAt >= 0f ? Mathf.Min(_fidgetAt, len) : c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
         c.clip.SampleAnimation(gameObject, t);
         if (_requested == "Jump" && _body != null)
         {
@@ -391,7 +401,7 @@ public class PixelRig : CharacterRig
                 _minVy = 0f;
             }
             _minVy = Mathf.Min(_minVy, vy);
-            return _fall;
+            return LedgeFallPose(vy);
         }
         if (_ledgeFall && vy > -LedgeLandVy)
         {
@@ -402,7 +412,17 @@ public class PixelRig : CharacterRig
             Footsteps.Land(LastLandStrength);
             return _land;
         }
-        return _ledgeFall ? _fall : null;
+        return _ledgeFall ? LedgeFallPose(vy) : null;
+    }
+
+    private Clip LedgeFallPose(float vy)
+    {
+        if (_arc == null)
+        {
+            return _fall;
+        }
+        _arcAt = Mathf.Clamp01(0.5f - vy / ArcSpan);
+        return _arc;
     }
 
     /// <summary>피격 직후 FlashTime 동안 부위 머티리얼을 흰 단색으로, 끝나면 원래 머티리얼로</summary>
@@ -583,11 +603,24 @@ public class PixelRig : CharacterRig
         {
             return _current;
         }
+        float vy = _body.linearVelocity.y;
+        if (_arc != null)
+        {
+            if (!_tookOff && vy > TakeoffVy)
+            {
+                _tookOff = true;
+            }
+            if (!_tookOff && _crouch != null && now - _playedAt < CrouchMax)
+            {
+                return _crouch;
+            }
+            _arcAt = Mathf.Clamp01(0.5f - vy / ArcSpan);
+            return _arc;
+        }
         if (_launch != null && now - _playedAt < LaunchTime)
         {
             return _launch;
         }
-        float vy = _body.linearVelocity.y;
         if (vy > ApexBand)
         {
             return _up;
@@ -604,7 +637,7 @@ public class PixelRig : CharacterRig
     /// </summary>
     private void TuckLegsInAir(Clip c)
     {
-        if (_body == null || _legF == null || c == _up || c == _apex || c == _fall || c == _launch || c == _land || c == _hurt)
+        if (_body == null || _legF == null || c == _up || c == _apex || c == _fall || c == _launch || c == _land || c == _hurt || c == _arc || c == _crouch)
         {
             return;
         }
