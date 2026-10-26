@@ -34,6 +34,9 @@ CLIPS = {
     "Stab": ("attack/stab", list(range(1, 8)), 0.04, False, "feet", True),
     "SwingDown": ("attack/down", list(range(1, 8)), 0.04, False, "feet", True),
     "SwingUp": ("attack/up", list(range(1, 8)), 0.04, False, "feet", True),
+    # 대검·둔기 양손(늘린 강철 대검을 합성한 기준 그림에서 생성, 칼 길이 36). 묵직하게 0.05초
+    "GreatDown": ("attack/great_down", list(range(1, 8)), 0.05, False, "feet", 36),
+    # GreatSide: 첫 생성은 2~6번에서 왼쪽으로 돌아서 기각(great_side), 재생성 결과를 확인 후 넣는다
 }
 CONST_REF = {"rope_loop": list(range(0, 8))}
 SKIN = [(0xFD, 0xE0, 0xC6), (0xF3, 0xB4, 0x9A), (0xD7, 0x8E, 0x7A)]
@@ -255,7 +258,7 @@ def recolor_inner_outline(a, steel):
     return out
 
 
-def strip_weapon(a):
+def strip_weapon(a, blade_len=None):
     """칼·잔상 픽셀을 지우고(몸에 난 구멍은 주변 색으로 메움) 손잡이(칼에 가장 가까운 주먹)와 칼날 각도(도, 0 = 앞, 90 = 위)를 돌려준다"""
     st = steel_mask(a)
     ys, xs = np.nonzero(st)
@@ -274,7 +277,7 @@ def strip_weapon(a):
                     best, gi = dd, k
             grip = [int(sx[gi]), int(sy[gi])]
             dist = np.sqrt((ys - grip[1]) ** 2 + (xs - grip[0]) ** 2)
-            inside = dist <= BLADE_LEN
+            inside = dist <= (blade_len or BLADE_LEN)
             if inside.any():
                 k = int(np.argmax(np.where(inside, dist, -1)))
                 angle = float(np.degrees(np.arctan2(grip[1] - ys[k], xs[k] - grip[0])))
@@ -349,6 +352,7 @@ def main():
     for clip, spec in CLIPS.items():
         folder, idx, frame, loop, align = spec[:5]
         weapon = len(spec) > 5 and spec[5]
+        blade_len = spec[5] if len(spec) > 5 and not isinstance(spec[5], bool) else BLADE_LEN
         frames = []
         last_h, last_b = [44, 46], [36, 46]
         for k, i in enumerate(idx):
@@ -356,7 +360,7 @@ def main():
             angle, grip = None, None
             if weapon:
                 # 칼은 팔레트 고정 전에 지운다 — 고정이 먼저면 강철 색이 주인공 색으로 바뀌어 칼을 못 찾았다
-                raw, grip, angle = strip_weapon(raw)
+                raw, grip, angle = strip_weapon(raw, blade_len)
             a = lock(Image.fromarray(raw, "RGBA"), pal)
             if align == "const" and k == 0:
                 # 루프 전체에서 가장 낮은 발을 땅(54행)에 — 첫 프레임 기준이면 다른 프레임 발이 땅을 1px 파고들었다

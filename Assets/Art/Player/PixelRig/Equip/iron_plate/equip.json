@@ -289,6 +289,34 @@
   {
    "clip": "RopeStay",
    "k": 0
+  },
+  {
+   "clip": "GreatDown",
+   "k": 0
+  },
+  {
+   "clip": "GreatDown",
+   "k": 1
+  },
+  {
+   "clip": "GreatDown",
+   "k": 2
+  },
+  {
+   "clip": "GreatDown",
+   "k": 3
+  },
+  {
+   "clip": "GreatDown",
+   "k": 4
+  },
+  {
+   "clip": "GreatDown",
+   "k": 5
+  },
+  {
+   "clip": "GreatDown",
+   "k": 6
   }
  ]
 }

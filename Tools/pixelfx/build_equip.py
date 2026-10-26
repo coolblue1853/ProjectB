@@ -32,6 +32,7 @@ BATCHES = {
     "batch_e": [("SwingUp", k) for k in range(7)],
     "batch_f": [("RopeUp", k) for k in range(8)],
     "batch_f_stay": [("RopeStay", 0, 0, 0)],  # 매달리기 = 오르기 0번과 같은 그림
+    "batch_g": [("GreatDown", k) for k in range(7)],
 }
 
 

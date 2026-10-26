@@ -1059,6 +1059,49 @@ MonoBehaviour:
     - {x: -0.18055555, y: 0.4027778}
     angles:
     - -999
+  - name: GreatDown
+    frame: 0.05
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: e71592e681399f94aaa4b6be0c3e3f5e, type: 3}
+    - {fileID: 21300000, guid: fc0279ffc428ddf4f829367acdbdb2f2, type: 3}
+    - {fileID: 21300000, guid: b7fa33901301b5340b31ab5891af73f2, type: 3}
+    - {fileID: 21300000, guid: 4680c771142f33246ba28e750662a201, type: 3}
+    - {fileID: 21300000, guid: 915ed84454c4f764082af3f192dab9d3, type: 3}
+    - {fileID: 21300000, guid: d66fee80c22083843aff80c731b2e849, type: 3}
+    - {fileID: 21300000, guid: 41ec82a1d3e9412478866c94c3d82c6e, type: 3}
+    fists:
+    - {fileID: 21300000, guid: e51bb1be0a882b543b3cd13a0ff90fa2, type: 3}
+    - {fileID: 21300000, guid: bb6db94da87230d4db625d6a13abdd8a, type: 3}
+    - {fileID: 21300000, guid: 749c5a10a33523442939c58b7d793d22, type: 3}
+    - {fileID: 21300000, guid: eda0698be2592054393361dc84130f1d, type: 3}
+    - {fileID: 21300000, guid: 5cba8472749b7904aad025b1634e59f5, type: 3}
+    - {fileID: 21300000, guid: 242009aa969ce9d45ad4d25e565102d6, type: 3}
+    - {fileID: 21300000, guid: ef4e99b1652689f4e826cade795a2232, type: 3}
+    hand:
+    - {x: -0.4027778, y: 0.9027778}
+    - {x: -0.2361111, y: 0.8194444}
+    - {x: 0.041666668, y: 0.2361111}
+    - {x: 0.041666668, y: 0.2361111}
+    - {x: 0.041666668, y: 0.2361111}
+    - {x: 0.013888889, y: 0.20833333}
+    - {x: -0.041666668, y: 0.29166666}
+    handB:
+    - {x: 0.06944445, y: 0.625}
+    - {x: -0.31944445, y: 0.18055555}
+    - {x: 0.041666668, y: 0.2361111}
+    - {x: 0.041666668, y: 0.2361111}
+    - {x: 0.041666668, y: 0.2361111}
+    - {x: -0.013888889, y: 0.18055555}
+    - {x: -0.013888889, y: 0.2638889}
+    angles:
+    - 139.8991
+    - 135
+    - -36.253838
+    - -36.253838
+    - -36.253838
+    - -33.690067
+    - -28.072487
 --- !u!1 &3535350247772215805
 GameObject:
   m_ObjectHideFlags: 0

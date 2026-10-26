@@ -303,3 +303,31 @@ MonoBehaviour:
     index: 0
     layer: {fileID: 2800000, guid: 9493febafaf86b84bb6363deb4e44682, type: 3}
     erase: {fileID: 2800000, guid: 4ea5be6eb9b8e8a4fae9ff12df53d344, type: 3}
+  - clip: GreatDown
+    index: 0
+    layer: {fileID: 2800000, guid: 0fbff761e40f7e44e97909f1f0692003, type: 3}
+    erase: {fileID: 2800000, guid: eb900b12aecc38a49bba1fe119c429de, type: 3}
+  - clip: GreatDown
+    index: 1
+    layer: {fileID: 2800000, guid: 7e128214681bf5d43b380bf5fa22cc52, type: 3}
+    erase: {fileID: 2800000, guid: c4b83715b28c9454d8855d22ca79f6f0, type: 3}
+  - clip: GreatDown
+    index: 2
+    layer: {fileID: 2800000, guid: eeace591a9baa204883622c20824d377, type: 3}
+    erase: {fileID: 2800000, guid: b8a321bf0019abc46bead9576be104e6, type: 3}
+  - clip: GreatDown
+    index: 3
+    layer: {fileID: 2800000, guid: 15cc89cc393affd448da86be96ffac7d, type: 3}
+    erase: {fileID: 2800000, guid: 3d06c15801111eb42ad0c776eb9dd768, type: 3}
+  - clip: GreatDown
+    index: 4
+    layer: {fileID: 2800000, guid: 5656e3edb8c3bba448753d2d640c7e95, type: 3}
+    erase: {fileID: 2800000, guid: d0fc91b30b0d2a34b93a658060fb52c7, type: 3}
+  - clip: GreatDown
+    index: 5
+    layer: {fileID: 2800000, guid: 914817c6883a036408d396befd25e0c6, type: 3}
+    erase: {fileID: 2800000, guid: 7f1fca60073ce9842b68507f24ea1b72, type: 3}
+  - clip: GreatDown
+    index: 6
+    layer: {fileID: 2800000, guid: 1c738af0614a6144c868fd8ac98ef1bc, type: 3}
+    erase: {fileID: 2800000, guid: 964c11fb53a190b4db93d8fd39a5df4c, type: 3}

@@ -433,6 +433,48 @@
    "k": 0,
    "layer": 449,
    "erase": 0
+  },
+  {
+   "clip": "GreatDown",
+   "k": 0,
+   "layer": 573,
+   "erase": 26
+  },
+  {
+   "clip": "GreatDown",
+   "k": 1,
+   "layer": 612,
+   "erase": 27
+  },
+  {
+   "clip": "GreatDown",
+   "k": 2,
+   "layer": 592,
+   "erase": 6
+  },
+  {
+   "clip": "GreatDown",
+   "k": 3,
+   "layer": 541,
+   "erase": 19
+  },
+  {
+   "clip": "GreatDown",
+   "k": 4,
+   "layer": 550,
+   "erase": 16
+  },
+  {
+   "clip": "GreatDown",
+   "k": 5,
+   "layer": 593,
+   "erase": 15
+  },
+  {
+   "clip": "GreatDown",
+   "k": 6,
+   "layer": 650,
+   "erase": 15
   }
  ]
 }

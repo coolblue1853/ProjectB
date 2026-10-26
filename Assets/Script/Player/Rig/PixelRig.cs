@@ -416,6 +416,15 @@ public class PixelRig : CharacterRig
             // 제동은 셀 대기 그림으로(리그 제동 포즈는 3/4 정면이라 달리기 셀에서 멈출 때 몸이 돌아 보였다), 사망은 셀 사망(무릎 → 눕기)
             // 셀이 없는 공격·스킬은 비슷한 측면 셀로(3/4 리그로 돌아가면 몸이 확 돌아 보였다): 옆베기·회전 → 내려베기, 시전 → 올려베기, 활 → 찌르기, 막기 → 대기
             string key = _diedAt >= 0f ? "Death" : c == _brake ? "Idle" : CelAlias(c.name);
+            // 대검·둔기(공격 이름 Great…)는 양손 셀 — 한손 베기 셀로 대체하면 묵직한 무기가 가볍게 보였다(10-26)
+            if (_diedAt < 0f && _requested != null && _requested.StartsWith("Great", StringComparison.Ordinal))
+            {
+                string great = _requested.IndexOf("Side", StringComparison.Ordinal) >= 0 && _celByName.ContainsKey("GreatSide") ? "GreatSide" : "GreatDown"; // 옆 휘두르기 셀은 생성기가 몸을 돌려 그려 기각 → 내려찍기로
+                if (_celByName.ContainsKey(great))
+                {
+                    key = great;
+                }
+            }
             _celByName.TryGetValue(key, out cel);
         }
         if (cel == null)

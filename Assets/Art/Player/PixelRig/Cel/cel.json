@@ -961,6 +961,103 @@
    }
   ]
  },
+ "GreatDown": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "GreatDown_0",
+    "hand": [
+     26,
+     22
+    ],
+    "handB": [
+     43,
+     32
+    ],
+    "dy": 0,
+    "angle": 139.89909245378777
+   },
+   {
+    "png": "GreatDown_1",
+    "hand": [
+     32,
+     25
+    ],
+    "handB": [
+     29,
+     48
+    ],
+    "dy": 0,
+    "angle": 135.0
+   },
+   {
+    "png": "GreatDown_2",
+    "hand": [
+     42,
+     46
+    ],
+    "handB": [
+     42,
+     46
+    ],
+    "dy": 0,
+    "angle": -36.25383773744479
+   },
+   {
+    "png": "GreatDown_3",
+    "hand": [
+     42,
+     46
+    ],
+    "handB": [
+     42,
+     46
+    ],
+    "dy": 0,
+    "angle": -36.25383773744479
+   },
+   {
+    "png": "GreatDown_4",
+    "hand": [
+     42,
+     46
+    ],
+    "handB": [
+     42,
+     46
+    ],
+    "dy": 0,
+    "angle": -36.25383773744479
+   },
+   {
+    "png": "GreatDown_5",
+    "hand": [
+     41,
+     47
+    ],
+    "handB": [
+     40,
+     48
+    ],
+    "dy": 0,
+    "angle": -33.690067525979785
+   },
+   {
+    "png": "GreatDown_6",
+    "hand": [
+     39,
+     44
+    ],
+    "handB": [
+     40,
+     45
+    ],
+    "dy": 0,
+    "angle": -28.072486935852957
+   }
+  ]
+ },
  "Idle": {
   "frame": 0.3,
   "loop": true,
