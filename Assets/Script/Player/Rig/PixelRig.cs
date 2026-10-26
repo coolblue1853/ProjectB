@@ -29,6 +29,9 @@ public class PixelRig : CharacterRig
     // 공중 공격 다리: 꼭대기 포즈와 같은 접은 다리 그림(빌더가 넣는다). 없으면 다리를 2px 통째로 올린다
     [SerializeField] private Sprite _airLegF;
     [SerializeField] private Sprite _airLegB;
+    // 셀 이동·점프(Q-423, PixelRigDesign 3.7): 이 이름의 클립이 재생되면 부위 그림 대신 셀 프레임을 보여 주고 무기는 프레임별 손에 붙인다
+    [SerializeField] private SpriteRenderer _cel;
+    [SerializeField] private CelClip[] _celClips = new CelClip[0];
 
     private const string WeaponDir = "PixelRig/Weapons/";
     private const float WeaponWorldScale = 1f; // 도트 무기 24 PPU × 1 = 아트 1px 1/24유닛(몹·캐릭터와 같은 밀도)
@@ -104,6 +107,9 @@ public class PixelRig : CharacterRig
     private const float LedgeFallVy = 3f;
     private const float LedgeLandVy = 0.5f;
     private bool _ledgeFall;
+    private readonly Dictionary<string, CelClip> _celByName = new Dictionary<string, CelClip>();
+    private bool _celShown;
+    private float _landStart;
     // 점프 v2(PixelRigDesign 3.6): 입력 뒤 뜨기 전엔 웅크림, 뜬 뒤엔 세로 속도로 연속 자세(JumpArc) 시점을 고른다
     private const float TakeoffVy = 0.5f;
     private const float CrouchMax = 0.2f;
@@ -142,6 +148,13 @@ public class PixelRig : CharacterRig
         _byName.TryGetValue("DeathKneel", out _kneel);
         _byName.TryGetValue("IdleFidget", out _fidget);
         _byName.TryGetValue("JumpCrouch", out _crouch);
+        foreach (CelClip cc in _celClips)
+        {
+            if (cc != null && cc.sprites.Length > 0)
+            {
+                _celByName[cc.name] = cc;
+            }
+        }
         _byName.TryGetValue("JumpArc", out _arc);
         _byName.TryGetValue("Run", out _run);
         _byName.TryGetValue("Walk", out _walk);
@@ -156,6 +169,7 @@ public class PixelRig : CharacterRig
         if (_requested == "Jump" && _land != null && (anim == "Idle" || anim == "Walk" || anim == "Run"))
         {
             LastLandStrength = Mathf.Clamp01(-_minVy / HardLandVy);
+            _landStart = Time.time;
             _landUntil = Time.time + LandTime * (1f + HardLandExtra * LastLandStrength);
             Footsteps.Land(LastLandStrength);
         }
@@ -375,6 +389,7 @@ public class PixelRig : CharacterRig
             _minVy = Mathf.Min(_minVy, _body.linearVelocity.y);
         }
         StepDust(c, t, len);
+        ApplyCel(c);
         UpdateFlash();
         TuckLegsInAir(c);
         ApplyDeathLie();
@@ -382,6 +397,76 @@ public class PixelRig : CharacterRig
         HideWeaponsOnRope();
         SnapBones();
         KeepUpright();
+    }
+
+    /// <summary>
+    /// 셀 클립이 있는 동작이면 부위 그림을 숨기고 셀 프레임을 보여 준다. 무기 소켓(앞손·뒷손 뼈)은 그 프레임의 손 좌표로 옮기고 칼날은 앞 위 45°.
+    /// 프레임 시점: 걷기·달리기 = 클립 경과(_time, 이동 속도 배율 반영), 공중 = 세로 속도(_arcAt), 착지 = 착지 시작부터 눌림 구간 비율.
+    /// </summary>
+    private void ApplyCel(Clip c)
+    {
+        CelClip cel = null;
+        if (_cel != null && c != null && _diedAt < 0f)
+        {
+            _celByName.TryGetValue(c.name, out cel);
+        }
+        if (cel == null)
+        {
+            ShowCel(false);
+            return;
+        }
+        int i;
+        if (c == _arc)
+        {
+            i = cel.IndexAtNormalized(_arcAt);
+        }
+        else if (c == _land)
+        {
+            float span = Mathf.Max(0.0001f, _landUntil - _landStart);
+            i = cel.IndexAtNormalized((Time.time - _landStart) / span);
+        }
+        else
+        {
+            i = cel.IndexAt(_time);
+        }
+        ShowCel(true);
+        _cel.sprite = cel.sprites[i];
+        Transform shF = _socketRight != null ? _socketRight.parent.parent : null;
+        if (shF != null && i < cel.hand.Length)
+        {
+            shF.localRotation = Quaternion.identity;
+            _socketRight.parent.position = transform.TransformPoint(cel.hand[i]);
+            // 손이 몸 뒤로 갈수록 칼을 세운다(45° → 100°) — 팔을 뒤로 흔들 때 앞으로 눕힌 칼날이 몸·얼굴을 가로질렀다
+            float back = Mathf.InverseLerp(CelHandFrontPx, CelHandBackPx, cel.hand[i].x * _ppu);
+            _socketRight.parent.localRotation = Quaternion.Euler(0f, 0f, Mathf.Lerp(CelBladeAngle, CelBladeBack, back) - 90f);
+        }
+        if (_socketLeft != null && i < cel.handB.Length)
+        {
+            _socketLeft.parent.position = transform.TransformPoint(cel.handB[i]);
+        }
+    }
+
+    private const float CelBladeAngle = 45f;
+    private const float CelBladeBack = 100f;
+    private const float CelHandFrontPx = 6f;  // 손 x(엉덩이 기준 아트 px)가 이만큼 앞이면 45°
+    private const float CelHandBackPx = -6f;  // 이만큼 뒤면 100°
+    private const float CelCrouchMin = 0.06f; // 물리 점프가 입력 즉시 떠서, 뜬 뒤에도 처음 이만큼은 웅크림을 보여 준다
+
+    private void ShowCel(bool on)
+    {
+        if (on == _celShown || _cel == null)
+        {
+            return;
+        }
+        _celShown = on;
+        _cel.enabled = on;
+        foreach (SpriteRenderer r in _renderers)
+        {
+            if (r != null && r != _cel)
+            {
+                r.enabled = !on;
+            }
+        }
     }
 
     /// <summary>땅 동작 중 하강하면 낙하 포즈, 멈추면 착지 눌림·먼지(점프로 떨어질 때와 같게)</summary>
@@ -407,6 +492,7 @@ public class PixelRig : CharacterRig
         {
             _ledgeFall = false;
             LastLandStrength = Mathf.Clamp01(-_minVy / HardLandVy);
+            _landStart = now;
             _landUntil = now + LandTime * (1f + HardLandExtra * LastLandStrength);
             DustPuffs.Land(transform.position, LastLandStrength);
             Footsteps.Land(LastLandStrength);
@@ -610,7 +696,7 @@ public class PixelRig : CharacterRig
             {
                 _tookOff = true;
             }
-            if (!_tookOff && _crouch != null && now - _playedAt < CrouchMax)
+            if (_crouch != null && ((!_tookOff && now - _playedAt < CrouchMax) || now - _playedAt < CelCrouchMin))
             {
                 return _crouch;
             }

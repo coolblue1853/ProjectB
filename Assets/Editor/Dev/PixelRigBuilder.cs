@@ -71,6 +71,13 @@ public static class PixelRigBuilder
         renderers.Add(Part(hips, "torso", 42));
         renderers.Add(Part(head, "head", 44));
         renderers.Add(Part(shF, "arm_l", 46));
+        // 셀 이동·점프 그림(Q-423): 평소엔 꺼져 있고, 셀 클립이 재생될 때 리그가 부위 대신 켠다. 부위와 같은 목록이라 투명도·피격 번쩍임이 같이 적용된다
+        var celGo = new GameObject("Cel");
+        celGo.transform.SetParent(root.transform, false);
+        var celSr = celGo.AddComponent<SpriteRenderer>();
+        celSr.sortingOrder = 42;
+        celSr.enabled = false;
+        renderers.Add(celSr);
 
         // 무기 소켓: 기존 무기 스프라이트는 "주먹에 수직으로 세운" 기준(소켓 회전 0 = 칼날 위)
         Transform socketR = Socket("RightWeapon", handF);
@@ -85,6 +92,8 @@ public static class PixelRigBuilder
         so.FindProperty("_ppu").floatValue = Ppu;
         so.FindProperty("_weaponOrderFront").intValue = 45;
         so.FindProperty("_weaponOrderBack").intValue = 37;
+        so.FindProperty("_cel").objectReferenceValue = celSr;
+        BuildCel(so.FindProperty("_celClips"), ox);
         so.FindProperty("_airLegF").objectReferenceValue = PartSprite(LegPose("leg_l", 1, 1));
         so.FindProperty("_airLegB").objectReferenceValue = PartSprite(LegPose("leg_r", 0, 1));
 
@@ -318,8 +327,8 @@ public static class PixelRigBuilder
             // 걷기·달리기 = 연속 동작(PixelRigDesign 3.6, 10-26 사용자 "원본 수준, 프레임 단위로"): 원본 AnyPortrait 는 두 발 간격이 매 프레임
             // 사인파로 2↔9 아트px 변했다. 정지 포즈 교체(±1px, 0.08초 유지)는 뻣뻣했다 → 다리 앞뒤·들기·기울기, 몸 들썩임, 팔 흔들기를 곡선으로.
             // 발이 닿는 순간(최대 보폭)이 주기 0·½ → 발소리·먼지 포즈(걷기 0·4 / 달리기 0·3)와 맞는다
-            SmoothCycle("Walk", 0.9f, 45f, stride: 3f, lift: 1.5f, tilt: 10f, bob: 1f, arm: 15f, lean: 0f),
-            SmoothCycle("Run", 0.5f, 45f, stride: 4f, lift: 3f, tilt: 18f, bob: 1.5f, arm: 35f, lean: 1f),
+            SmoothCycle("Walk", 0.8f, 45f, stride: 3f, lift: 1.5f, tilt: 10f, bob: 1f, arm: 15f, lean: 0f),
+            SmoothCycle("Run", 0.49f, 45f, stride: 4f, lift: 3f, tilt: 18f, bob: 1.5f, arm: 35f, lean: 1f),
             // 제동: 달리다 멈추면 리그가 0.13초 보여 준다 — 앞발 2px 내딛어 버티고 몸은 뒤로 1px 젖혀 내려앉음, 손은 관성으로 앞, 머리카락 늘임 → 반쯤 회복
             new AnimDef("Brake", 0.14f, false).Step()
                 .K("Hips", 'x', 0f, -1f, 0.07f, 0f, 0.14f, 0f)
@@ -648,6 +657,83 @@ public static class PixelRigBuilder
         return t;
     }
 
+    // ── 셀(Q-423) ────────────────────────────────────────────────────────────
+    private const string CelDir = "Assets/Art/Player/PixelRig/Cel";
+
+    [System.Serializable]
+    private class CelFrameJson
+    {
+        public string png;
+        public int[] hand;
+        public int[] handB;
+    }
+
+    [System.Serializable]
+    private class CelClipJson
+    {
+        public float frame;
+        public bool loop;
+        public CelFrameJson[] frames;
+    }
+
+    /// <summary>Tools/pixelfx/build_cel.py 산출물(cel.json + PNG)을 임포트해 리그의 셀 클립으로. 피벗 = 리그 원점(엉덩이 x, 발바닥 행)</summary>
+    private static void BuildCel(SerializedProperty arr, int ox)
+    {
+        string json = CelDir + "/cel.json";
+        if (!File.Exists(json))
+        {
+            arr.arraySize = 0;
+            return;
+        }
+        // JsonUtility 는 최상위 사전을 못 읽어 클립 이름 순서대로 꺼낸다
+        string text = File.ReadAllText(json);
+        string[] names = { "Walk", "Run", "JumpCrouch", "JumpArc", "Land" };
+        var list = new List<(string, CelClipJson)>();
+        foreach (string n in names)
+        {
+            int k = text.IndexOf("\"" + n + "\"");
+            if (k < 0)
+            {
+                continue;
+            }
+            int start = text.IndexOf('{', k);
+            int depth = 0, end = start;
+            for (; end < text.Length; end++)
+            {
+                if (text[end] == '{') depth++;
+                if (text[end] == '}' && --depth == 0) break;
+            }
+            list.Add((n, JsonUtility.FromJson<CelClipJson>(text.Substring(start, end - start + 1))));
+        }
+        arr.arraySize = list.Count;
+        for (int c = 0; c < list.Count; c++)
+        {
+            var (name, clip) = list[c];
+            SerializedProperty e = arr.GetArrayElementAtIndex(c);
+            e.FindPropertyRelative("name").stringValue = name;
+            e.FindPropertyRelative("frame").floatValue = clip.frame;
+            e.FindPropertyRelative("loop").boolValue = clip.loop;
+            SerializedProperty sp = e.FindPropertyRelative("sprites");
+            SerializedProperty hp = e.FindPropertyRelative("hand");
+            SerializedProperty bp = e.FindPropertyRelative("handB");
+            sp.arraySize = hp.arraySize = bp.arraySize = clip.frames.Length;
+            for (int i = 0; i < clip.frames.Length; i++)
+            {
+                CelFrameJson f = clip.frames[i];
+                ImportPart(f.png, new[] { ox, FeetRow - 1 }, CelDir);
+                sp.GetArrayElementAtIndex(i).objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(CelDir + "/" + f.png + ".png");
+                hp.GetArrayElementAtIndex(i).vector2Value = CelLocal(f.hand, ox);
+                bp.GetArrayElementAtIndex(i).vector2Value = CelLocal(f.handB, ox);
+            }
+        }
+    }
+
+    /// <summary>64 캔버스 픽셀(왼쪽 위 0) → 리그 로컬 유닛(원점 = 엉덩이 x·발바닥, 위 +). 픽셀 가운데</summary>
+    private static Vector2 CelLocal(int[] p, int ox)
+    {
+        return new Vector2((p[0] + 0.5f - ox) / Ppu, (FeetRow - (p[1] + 0.5f)) / Ppu);
+    }
+
     /// <summary>포즈 변형 그림(leg_l_p1_u0 …)은 원본 부위와 같은 피벗</summary>
     private static void ImportPoseParts(PivotMap pv)
     {
@@ -665,9 +751,9 @@ public static class PixelRigBuilder
         ImportPart(HairPose(1), pv.head);
     }
 
-    private static void ImportPart(string part, int[] pivot)
+    private static void ImportPart(string part, int[] pivot, string dir = ArtDir)
     {
-        string path = ArtDir + "/" + part + ".png";
+        string path = dir + "/" + part + ".png";
         var ti = (TextureImporter)AssetImporter.GetAtPath(path);
         ti.textureType = TextureImporterType.Sprite;
         ti.spriteImportMode = SpriteImportMode.Single;

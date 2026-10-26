@@ -1,0 +1,344 @@
+{
+ "Walk": {
+  "frame": 0.1,
+  "loop": true,
+  "frames": [
+   {
+    "png": "Walk_0",
+    "hand": [
+     48,
+     47
+    ],
+    "handB": [
+     35,
+     48
+    ],
+    "dy": 0
+   },
+   {
+    "png": "Walk_1",
+    "hand": [
+     50,
+     46
+    ],
+    "handB": [
+     33,
+     48
+    ],
+    "dy": -1
+   },
+   {
+    "png": "Walk_2",
+    "hand": [
+     50,
+     44
+    ],
+    "handB": [
+     33,
+     46
+    ],
+    "dy": -1
+   },
+   {
+    "png": "Walk_3",
+    "hand": [
+     49,
+     45
+    ],
+    "handB": [
+     35,
+     46
+    ],
+    "dy": -1
+   },
+   {
+    "png": "Walk_4",
+    "hand": [
+     47,
+     48
+    ],
+    "handB": [
+     38,
+     47
+    ],
+    "dy": -1
+   },
+   {
+    "png": "Walk_5",
+    "hand": [
+     40,
+     47
+    ],
+    "handB": [
+     38,
+     47
+    ],
+    "dy": 0
+   },
+   {
+    "png": "Walk_6",
+    "hand": [
+     40,
+     47
+    ],
+    "handB": [
+     39,
+     46
+    ],
+    "dy": 0
+   },
+   {
+    "png": "Walk_7",
+    "hand": [
+     40,
+     47
+    ],
+    "handB": [
+     37,
+     47
+    ],
+    "dy": 0
+   }
+  ]
+ },
+ "Run": {
+  "frame": 0.07,
+  "loop": true,
+  "frames": [
+   {
+    "png": "Run_0",
+    "hand": [
+     48,
+     46
+    ],
+    "handB": [
+     37,
+     46
+    ],
+    "dy": 4
+   },
+   {
+    "png": "Run_1",
+    "hand": [
+     48,
+     45
+    ],
+    "handB": [
+     35,
+     46
+    ],
+    "dy": 4
+   },
+   {
+    "png": "Run_2",
+    "hand": [
+     49,
+     42
+    ],
+    "handB": [
+     32,
+     44
+    ],
+    "dy": 4
+   },
+   {
+    "png": "Run_3",
+    "hand": [
+     50,
+     41
+    ],
+    "handB": [
+     32,
+     48
+    ],
+    "dy": 3
+   },
+   {
+    "png": "Run_4",
+    "hand": [
+     50,
+     43
+    ],
+    "handB": [
+     31,
+     45
+    ],
+    "dy": 3
+   },
+   {
+    "png": "Run_5",
+    "hand": [
+     48,
+     44
+    ],
+    "handB": [
+     35,
+     45
+    ],
+    "dy": 3
+   },
+   {
+    "png": "Run_6",
+    "hand": [
+     48,
+     43
+    ],
+    "handB": [
+     37,
+     43
+    ],
+    "dy": 3
+   }
+  ]
+ },
+ "JumpCrouch": {
+  "frame": 0.04,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JumpCrouch_0",
+    "hand": [
+     50,
+     47
+    ],
+    "handB": [
+     32,
+     48
+    ],
+    "dy": 0
+   },
+   {
+    "png": "JumpCrouch_1",
+    "hand": [
+     50,
+     46
+    ],
+    "handB": [
+     33,
+     47
+    ],
+    "dy": 0
+   },
+   {
+    "png": "JumpCrouch_2",
+    "hand": [
+     49,
+     45
+    ],
+    "handB": [
+     34,
+     46
+    ],
+    "dy": 1
+   }
+  ]
+ },
+ "JumpArc": {
+  "frame": 0.25,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JumpArc_0",
+    "hand": [
+     48,
+     41
+    ],
+    "handB": [
+     33,
+     42
+    ],
+    "dy": 1
+   },
+   {
+    "png": "JumpArc_1",
+    "hand": [
+     48,
+     40
+    ],
+    "handB": [
+     33,
+     41
+    ],
+    "dy": 1
+   },
+   {
+    "png": "JumpArc_2",
+    "hand": [
+     48,
+     41
+    ],
+    "handB": [
+     33,
+     42
+    ],
+    "dy": 2
+   },
+   {
+    "png": "JumpArc_3",
+    "hand": [
+     48,
+     46
+    ],
+    "handB": [
+     32,
+     42
+    ],
+    "dy": 1
+   }
+  ]
+ },
+ "Land": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Land_0",
+    "hand": [
+     49,
+     43
+    ],
+    "handB": [
+     32,
+     44
+    ],
+    "dy": 0
+   },
+   {
+    "png": "Land_1",
+    "hand": [
+     51,
+     46
+    ],
+    "handB": [
+     31,
+     47
+    ],
+    "dy": 0
+   },
+   {
+    "png": "Land_2",
+    "hand": [
+     50,
+     47
+    ],
+    "handB": [
+     32,
+     48
+    ],
+    "dy": 0
+   },
+   {
+    "png": "Land_3",
+    "hand": [
+     50,
+     48
+    ],
+    "handB": [
+     32,
+     48
+    ],
+    "dy": 0
+   }
+  ]
+ }
+}
