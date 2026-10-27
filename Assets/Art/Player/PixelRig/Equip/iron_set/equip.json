@@ -117,6 +117,132 @@
    "erase": 8
   },
   {
+   "clip": "Stab",
+   "k": 0,
+   "layer": 789,
+   "erase": 84
+  },
+  {
+   "clip": "Stab",
+   "k": 1,
+   "layer": 867,
+   "erase": 138
+  },
+  {
+   "clip": "Stab",
+   "k": 2,
+   "layer": 861,
+   "erase": 172
+  },
+  {
+   "clip": "Stab",
+   "k": 3,
+   "layer": 843,
+   "erase": 211
+  },
+  {
+   "clip": "Stab",
+   "k": 4,
+   "layer": 817,
+   "erase": 222
+  },
+  {
+   "clip": "Stab",
+   "k": 5,
+   "layer": 812,
+   "erase": 146
+  },
+  {
+   "clip": "Stab",
+   "k": 6,
+   "layer": 766,
+   "erase": 166
+  },
+  {
+   "clip": "SwingDown",
+   "k": 0,
+   "layer": 875,
+   "erase": 112
+  },
+  {
+   "clip": "SwingDown",
+   "k": 1,
+   "layer": 868,
+   "erase": 129
+  },
+  {
+   "clip": "SwingDown",
+   "k": 2,
+   "layer": 839,
+   "erase": 112
+  },
+  {
+   "clip": "SwingDown",
+   "k": 3,
+   "layer": 991,
+   "erase": 133
+  },
+  {
+   "clip": "SwingDown",
+   "k": 4,
+   "layer": 867,
+   "erase": 178
+  },
+  {
+   "clip": "SwingDown",
+   "k": 5,
+   "layer": 728,
+   "erase": 149
+  },
+  {
+   "clip": "SwingDown",
+   "k": 6,
+   "layer": 750,
+   "erase": 208
+  },
+  {
+   "clip": "SwingUp",
+   "k": 0,
+   "layer": 790,
+   "erase": 148
+  },
+  {
+   "clip": "SwingUp",
+   "k": 1,
+   "layer": 882,
+   "erase": 96
+  },
+  {
+   "clip": "SwingUp",
+   "k": 2,
+   "layer": 855,
+   "erase": 87
+  },
+  {
+   "clip": "SwingUp",
+   "k": 3,
+   "layer": 907,
+   "erase": 140
+  },
+  {
+   "clip": "SwingUp",
+   "k": 4,
+   "layer": 791,
+   "erase": 119
+  },
+  {
+   "clip": "SwingUp",
+   "k": 5,
+   "layer": 789,
+   "erase": 104
+  },
+  {
+   "clip": "SwingUp",
+   "k": 6,
+   "layer": 791,
+   "erase": 89
+  },
+  {
    "clip": "RopeUp",
    "k": 0,
    "layer": 436,
@@ -173,8 +299,8 @@
   {
    "clip": "GreatDown",
    "k": 0,
-   "layer": 549,
-   "erase": 53
+   "layer": 590,
+   "erase": 61
   },
   {
    "clip": "GreatDown",
@@ -185,91 +311,91 @@
   {
    "clip": "GreatDown",
    "k": 2,
-   "layer": 522,
+   "layer": 545,
    "erase": 83
   },
   {
    "clip": "GreatDown",
    "k": 3,
-   "layer": 521,
-   "erase": 86
+   "layer": 547,
+   "erase": 90
   },
   {
    "clip": "GreatDown",
    "k": 4,
-   "layer": 529,
-   "erase": 81
+   "layer": 548,
+   "erase": 85
   },
   {
    "clip": "GreatDown",
    "k": 5,
-   "layer": 534,
+   "layer": 549,
    "erase": 83
   },
   {
    "clip": "GreatDown",
    "k": 6,
-   "layer": 583,
+   "layer": 599,
    "erase": 75
   },
   {
    "clip": "DaggerFlurry",
    "k": 0,
-   "layer": 653,
+   "layer": 659,
    "erase": 68
   },
   {
    "clip": "DaggerFlurry",
    "k": 1,
-   "layer": 584,
-   "erase": 68
+   "layer": 596,
+   "erase": 75
   },
   {
    "clip": "DaggerFlurry",
    "k": 2,
-   "layer": 586,
-   "erase": 68
+   "layer": 598,
+   "erase": 76
   },
   {
    "clip": "DaggerFlurry",
    "k": 3,
-   "layer": 618,
-   "erase": 68
+   "layer": 645,
+   "erase": 69
   },
   {
    "clip": "DaggerFlurry",
    "k": 4,
-   "layer": 613,
-   "erase": 68
+   "layer": 640,
+   "erase": 69
   },
   {
    "clip": "DaggerFlurry",
    "k": 5,
-   "layer": 579,
-   "erase": 68
+   "layer": 597,
+   "erase": 75
   },
   {
    "clip": "DaggerFlurry",
    "k": 6,
-   "layer": 591,
+   "layer": 599,
    "erase": 68
   },
   {
    "clip": "DaggerCross",
    "k": 0,
-   "layer": 625,
-   "erase": 63
+   "layer": 633,
+   "erase": 62
   },
   {
    "clip": "DaggerCross",
    "k": 1,
-   "layer": 601,
+   "layer": 614,
    "erase": 69
   },
   {
    "clip": "DaggerCross",
    "k": 2,
-   "layer": 620,
+   "layer": 634,
    "erase": 69
   },
   {
@@ -389,169 +515,169 @@
   {
    "clip": "GreatSide",
    "k": 0,
-   "layer": 557,
-   "erase": 68
+   "layer": 582,
+   "erase": 74
   },
   {
    "clip": "GreatSide",
    "k": 1,
-   "layer": 552,
-   "erase": 58
+   "layer": 576,
+   "erase": 65
   },
   {
    "clip": "GreatSide",
    "k": 2,
-   "layer": 534,
+   "layer": 546,
    "erase": 58
   },
   {
    "clip": "GreatSide",
    "k": 3,
-   "layer": 536,
+   "layer": 549,
    "erase": 58
   },
   {
    "clip": "GreatSide",
    "k": 4,
-   "layer": 540,
-   "erase": 49
+   "layer": 570,
+   "erase": 53
   },
   {
    "clip": "GreatSide",
    "k": 5,
-   "layer": 546,
+   "layer": 551,
    "erase": 56
   },
   {
    "clip": "GreatSide",
    "k": 6,
    "layer": 592,
-   "erase": 60
+   "erase": 62
   },
   {
    "clip": "AirSlash",
    "k": 0,
-   "layer": 858,
-   "erase": 170
+   "layer": 862,
+   "erase": 167
   },
   {
    "clip": "AirSlash",
    "k": 1,
-   "layer": 794,
-   "erase": 292
+   "layer": 793,
+   "erase": 291
   },
   {
    "clip": "AirSlash",
    "k": 2,
    "layer": 670,
-   "erase": 351
+   "erase": 356
   },
   {
    "clip": "AirSlash",
    "k": 3,
-   "layer": 808,
-   "erase": 166
+   "layer": 807,
+   "erase": 165
   },
   {
    "clip": "AirSlash",
    "k": 4,
-   "layer": 804,
-   "erase": 167
+   "layer": 805,
+   "erase": 166
   },
   {
    "clip": "AirSlash",
    "k": 5,
-   "layer": 767,
-   "erase": 151
+   "layer": 771,
+   "erase": 150
   },
   {
    "clip": "AirSlash",
    "k": 6,
-   "layer": 729,
-   "erase": 82
+   "layer": 731,
+   "erase": 91
   },
   {
    "clip": "Lunge",
    "k": 0,
-   "layer": 611,
+   "layer": 616,
    "erase": 68
   },
   {
    "clip": "Lunge",
    "k": 1,
-   "layer": 588,
-   "erase": 69
+   "layer": 605,
+   "erase": 71
   },
   {
    "clip": "Lunge",
    "k": 2,
-   "layer": 572,
+   "layer": 583,
    "erase": 69
   },
   {
    "clip": "Lunge",
    "k": 3,
-   "layer": 575,
+   "layer": 603,
    "erase": 69
   },
   {
    "clip": "Lunge",
    "k": 4,
-   "layer": 563,
+   "layer": 595,
    "erase": 68
   },
   {
    "clip": "Lunge",
    "k": 5,
-   "layer": 582,
+   "layer": 594,
    "erase": 68
   },
   {
    "clip": "Lunge",
    "k": 6,
-   "layer": 597,
+   "layer": 613,
    "erase": 68
   },
   {
    "clip": "Spin",
    "k": 0,
-   "layer": 657,
+   "layer": 663,
    "erase": 70
   },
   {
    "clip": "Spin",
    "k": 1,
-   "layer": 611,
-   "erase": 53
+   "layer": 640,
+   "erase": 61
   },
   {
    "clip": "Spin",
    "k": 2,
-   "layer": 578,
-   "erase": 60
+   "layer": 601,
+   "erase": 68
   },
   {
    "clip": "Spin",
    "k": 3,
-   "layer": 544,
+   "layer": 556,
    "erase": 74
   },
   {
    "clip": "Spin",
    "k": 4,
-   "layer": 514,
-   "erase": 68
+   "layer": 532,
+   "erase": 69
   },
   {
    "clip": "Spin",
    "k": 5,
-   "layer": 525,
-   "erase": 72
+   "layer": 543,
+   "erase": 88
   },
   {
    "clip": "Spin",
    "k": 6,
-   "layer": 529,
+   "layer": 564,
    "erase": 63
   },
   {
@@ -641,253 +767,253 @@
   {
    "clip": "Guard",
    "k": 0,
-   "layer": 732,
+   "layer": 740,
    "erase": 97
   },
   {
    "clip": "Guard",
    "k": 1,
-   "layer": 885,
+   "layer": 892,
    "erase": 147
   },
   {
    "clip": "Guard",
    "k": 2,
-   "layer": 840,
+   "layer": 853,
    "erase": 202
   },
   {
    "clip": "Guard",
    "k": 3,
-   "layer": 851,
+   "layer": 862,
    "erase": 207
   },
   {
    "clip": "Guard",
    "k": 4,
    "layer": 713,
-   "erase": 475
+   "erase": 466
   },
   {
    "clip": "Guard",
    "k": 5,
-   "layer": 674,
-   "erase": 507
+   "layer": 672,
+   "erase": 497
   },
   {
    "clip": "Guard",
    "k": 6,
-   "layer": 829,
+   "layer": 834,
    "erase": 157
   },
   {
    "clip": "Charge",
    "k": 0,
-   "layer": 877,
-   "erase": 105
+   "layer": 876,
+   "erase": 118
   },
   {
    "clip": "Charge",
    "k": 1,
-   "layer": 714,
-   "erase": 180
+   "layer": 725,
+   "erase": 181
   },
   {
    "clip": "Charge",
    "k": 2,
-   "layer": 785,
-   "erase": 276
+   "layer": 787,
+   "erase": 280
   },
   {
    "clip": "Charge",
    "k": 3,
    "layer": 705,
-   "erase": 264
+   "erase": 261
   },
   {
    "clip": "Charge",
    "k": 4,
    "layer": 700,
-   "erase": 253
+   "erase": 250
   },
   {
    "clip": "Charge",
    "k": 5,
    "layer": 708,
-   "erase": 239
+   "erase": 238
   },
   {
    "clip": "Charge",
    "k": 6,
    "layer": 707,
-   "erase": 256
+   "erase": 253
   },
   {
    "clip": "LeapSlam",
    "k": 0,
-   "layer": 644,
-   "erase": 197
+   "layer": 650,
+   "erase": 195
   },
   {
    "clip": "LeapSlam",
    "k": 1,
    "layer": 774,
-   "erase": 335
+   "erase": 333
   },
   {
    "clip": "LeapSlam",
    "k": 2,
-   "layer": 742,
-   "erase": 341
+   "layer": 740,
+   "erase": 337
   },
   {
    "clip": "LeapSlam",
    "k": 3,
-   "layer": 803,
+   "layer": 804,
    "erase": 232
   },
   {
    "clip": "LeapSlam",
    "k": 4,
-   "layer": 827,
+   "layer": 832,
    "erase": 245
   },
   {
    "clip": "LeapSlam",
    "k": 5,
-   "layer": 915,
-   "erase": 152
+   "layer": 918,
+   "erase": 149
   },
   {
    "clip": "LeapSlam",
    "k": 6,
-   "layer": 887,
+   "layer": 888,
    "erase": 129
   },
   {
    "clip": "Backstep",
    "k": 0,
-   "layer": 613,
+   "layer": 633,
    "erase": 68
   },
   {
    "clip": "Backstep",
    "k": 1,
-   "layer": 622,
+   "layer": 637,
    "erase": 67
   },
   {
    "clip": "Backstep",
    "k": 2,
-   "layer": 539,
+   "layer": 575,
    "erase": 62
   },
   {
    "clip": "Backstep",
    "k": 3,
-   "layer": 540,
+   "layer": 579,
    "erase": 98
   },
   {
    "clip": "Backstep",
    "k": 4,
-   "layer": 573,
+   "layer": 595,
    "erase": 88
   },
   {
    "clip": "Backstep",
    "k": 5,
-   "layer": 571,
+   "layer": 596,
    "erase": 66
   },
   {
    "clip": "Backstep",
    "k": 6,
-   "layer": 648,
+   "layer": 669,
    "erase": 66
   },
   {
    "clip": "Punch",
    "k": 0,
    "layer": 736,
-   "erase": 114
+   "erase": 113
   },
   {
    "clip": "Punch",
    "k": 1,
-   "layer": 787,
+   "layer": 793,
    "erase": 88
   },
   {
    "clip": "Punch",
    "k": 2,
-   "layer": 796,
+   "layer": 798,
    "erase": 170
   },
   {
    "clip": "Punch",
    "k": 3,
-   "layer": 801,
-   "erase": 165
+   "layer": 798,
+   "erase": 163
   },
   {
    "clip": "Punch",
    "k": 4,
-   "layer": 756,
+   "layer": 759,
    "erase": 201
   },
   {
    "clip": "Punch",
    "k": 5,
-   "layer": 772,
+   "layer": 775,
    "erase": 84
   },
   {
    "clip": "Punch",
    "k": 6,
-   "layer": 775,
+   "layer": 772,
    "erase": 98
   },
   {
    "clip": "Iaido",
    "k": 0,
-   "layer": 784,
+   "layer": 787,
    "erase": 109
   },
   {
    "clip": "Iaido",
    "k": 1,
-   "layer": 813,
-   "erase": 143
+   "layer": 804,
+   "erase": 145
   },
   {
    "clip": "Iaido",
    "k": 2,
-   "layer": 760,
-   "erase": 158
+   "layer": 756,
+   "erase": 157
   },
   {
    "clip": "Iaido",
    "k": 3,
-   "layer": 686,
-   "erase": 189
+   "layer": 691,
+   "erase": 207
   },
   {
    "clip": "Iaido",
    "k": 4,
-   "layer": 685,
-   "erase": 195
+   "layer": 686,
+   "erase": 210
   },
   {
    "clip": "Iaido",
    "k": 5,
-   "layer": 591,
+   "layer": 618,
    "erase": 349
   },
   {
    "clip": "Iaido",
    "k": 6,
-   "layer": 713,
+   "layer": 717,
    "erase": 317
   },
   {
@@ -1215,466 +1341,346 @@
    "erase": 96
   },
   {
+   "clip": "SwingUp",
+   "k": 0,
+   "layer": 818,
+   "erase": 122
+  },
+  {
+   "clip": "SwingUp",
+   "k": 1,
+   "layer": 881,
+   "erase": 161
+  },
+  {
+   "clip": "SwingUp",
+   "k": 2,
+   "layer": 944,
+   "erase": 137
+  },
+  {
+   "clip": "SwingUp",
+   "k": 3,
+   "layer": 991,
+   "erase": 127
+  },
+  {
+   "clip": "SwingUp",
+   "k": 4,
+   "layer": 975,
+   "erase": 129
+  },
+  {
+   "clip": "SwingUp",
+   "k": 5,
+   "layer": 907,
+   "erase": 133
+  },
+  {
+   "clip": "SwingUp",
+   "k": 6,
+   "layer": 889,
+   "erase": 132
+  },
+  {
+   "clip": "SwingUp",
+   "k": 7,
+   "layer": 717,
+   "erase": 133
+  },
+  {
+   "clip": "SwingUp",
+   "k": 8,
+   "layer": 835,
+   "erase": 108
+  },
+  {
+   "clip": "SwingUp",
+   "k": 9,
+   "layer": 818,
+   "erase": 117
+  },
+  {
    "clip": "AirSlash",
    "k": 0,
-   "layer": 492,
+   "layer": 516,
    "erase": 49
   },
   {
    "clip": "AirSlash",
    "k": 1,
-   "layer": 448,
-   "erase": 31
+   "layer": 477,
+   "erase": 36
   },
   {
    "clip": "AirSlash",
    "k": 2,
-   "layer": 489,
-   "erase": 37
+   "layer": 515,
+   "erase": 44
   },
   {
    "clip": "AirSlash",
    "k": 3,
-   "layer": 536,
-   "erase": 42
+   "layer": 566,
+   "erase": 44
   },
   {
    "clip": "AirSlash",
    "k": 4,
-   "layer": 539,
-   "erase": 42
+   "layer": 564,
+   "erase": 44
   },
   {
    "clip": "AirSlash",
    "k": 5,
-   "layer": 523,
+   "layer": 550,
    "erase": 76
   },
   {
    "clip": "AirSlash",
    "k": 6,
-   "layer": 551,
-   "erase": 66
+   "layer": 561,
+   "erase": 82
   },
   {
    "clip": "LeapSlam",
    "k": 0,
-   "layer": 536,
+   "layer": 556,
    "erase": 74
   },
   {
    "clip": "LeapSlam",
    "k": 1,
-   "layer": 534,
+   "layer": 557,
    "erase": 34
   },
   {
    "clip": "LeapSlam",
    "k": 2,
-   "layer": 542,
+   "layer": 574,
    "erase": 25
   },
   {
    "clip": "LeapSlam",
    "k": 3,
-   "layer": 559,
+   "layer": 599,
    "erase": 104
   },
   {
    "clip": "LeapSlam",
    "k": 4,
-   "layer": 546,
+   "layer": 570,
    "erase": 77
   },
   {
    "clip": "LeapSlam",
    "k": 5,
-   "layer": 589,
-   "erase": 73
+   "layer": 637,
+   "erase": 76
   },
   {
    "clip": "LeapSlam",
    "k": 6,
-   "layer": 563,
+   "layer": 592,
    "erase": 70
   },
   {
    "clip": "Iaido",
    "k": 0,
-   "layer": 618,
+   "layer": 627,
    "erase": 68
   },
   {
    "clip": "Iaido",
    "k": 1,
-   "layer": 559,
+   "layer": 575,
    "erase": 59
   },
   {
    "clip": "Iaido",
    "k": 2,
-   "layer": 541,
+   "layer": 560,
    "erase": 68
   },
   {
    "clip": "Iaido",
    "k": 3,
-   "layer": 533,
-   "erase": 51
+   "layer": 539,
+   "erase": 61
   },
   {
    "clip": "Iaido",
    "k": 4,
-   "layer": 533,
-   "erase": 57
+   "layer": 536,
+   "erase": 64
   },
   {
    "clip": "Iaido",
    "k": 5,
-   "layer": 525,
-   "erase": 57
+   "layer": 527,
+   "erase": 64
   },
   {
    "clip": "Iaido",
    "k": 6,
-   "layer": 554,
-   "erase": 54
+   "layer": 583,
+   "erase": 55
   },
   {
    "clip": "Guard",
    "k": 0,
-   "layer": 607,
+   "layer": 616,
    "erase": 68
   },
   {
    "clip": "Guard",
    "k": 1,
-   "layer": 656,
+   "layer": 674,
    "erase": 56
   },
   {
    "clip": "Guard",
    "k": 2,
-   "layer": 603,
-   "erase": 79
+   "layer": 620,
+   "erase": 81
   },
   {
    "clip": "Guard",
    "k": 3,
-   "layer": 597,
+   "layer": 615,
    "erase": 78
   },
   {
    "clip": "Guard",
    "k": 4,
-   "layer": 587,
+   "layer": 600,
    "erase": 69
   },
   {
    "clip": "Guard",
    "k": 5,
-   "layer": 583,
+   "layer": 595,
    "erase": 72
   },
   {
    "clip": "Guard",
    "k": 6,
-   "layer": 594,
+   "layer": 617,
    "erase": 65
   },
   {
    "clip": "Charge",
    "k": 0,
-   "layer": 573,
-   "erase": 64
+   "layer": 584,
+   "erase": 76
   },
   {
    "clip": "Charge",
    "k": 1,
-   "layer": 579,
+   "layer": 609,
    "erase": 60
   },
   {
    "clip": "Charge",
    "k": 2,
-   "layer": 556,
-   "erase": 50
+   "layer": 581,
+   "erase": 54
   },
   {
    "clip": "Charge",
    "k": 3,
-   "layer": 547,
+   "layer": 584,
    "erase": 62
   },
   {
    "clip": "Charge",
    "k": 4,
-   "layer": 542,
+   "layer": 580,
    "erase": 67
   },
   {
    "clip": "Charge",
    "k": 5,
-   "layer": 542,
-   "erase": 66
+   "layer": 577,
+   "erase": 68
   },
   {
    "clip": "Charge",
    "k": 6,
-   "layer": 549,
+   "layer": 587,
    "erase": 69
   },
   {
    "clip": "Punch",
    "k": 0,
-   "layer": 623,
+   "layer": 631,
    "erase": 68
   },
   {
    "clip": "Punch",
    "k": 1,
-   "layer": 592,
+   "layer": 608,
    "erase": 70
   },
   {
    "clip": "Punch",
    "k": 2,
-   "layer": 613,
+   "layer": 636,
    "erase": 72
   },
   {
    "clip": "Punch",
    "k": 3,
-   "layer": 604,
+   "layer": 636,
    "erase": 70
   },
   {
    "clip": "Punch",
    "k": 4,
-   "layer": 599,
+   "layer": 632,
    "erase": 70
   },
   {
    "clip": "Punch",
    "k": 5,
-   "layer": 576,
-   "erase": 63
-  },
-  {
-   "clip": "Punch",
-   "k": 6,
-   "layer": 631,
+   "layer": 611,
    "erase": 68
   },
   {
-   "clip": "SwingUp",
-   "k": 0,
-   "layer": 564,
-   "erase": 77
-  },
-  {
-   "clip": "SwingUp",
-   "k": 1,
-   "layer": 572,
-   "erase": 70
-  },
-  {
-   "clip": "SwingUp",
-   "k": 2,
-   "layer": 607,
-   "erase": 101
-  },
-  {
-   "clip": "SwingUp",
-   "k": 3,
-   "layer": 610,
-   "erase": 101
-  },
-  {
-   "clip": "SwingUp",
-   "k": 4,
-   "layer": 602,
-   "erase": 104
-  },
-  {
-   "clip": "SwingUp",
-   "k": 5,
-   "layer": 618,
-   "erase": 102
-  },
-  {
-   "clip": "SwingUp",
+   "clip": "Punch",
    "k": 6,
-   "layer": 602,
+   "layer": 656,
+   "erase": 68
+  },
+  {
+   "clip": "Hurt",
+   "k": 0,
+   "layer": 704,
+   "erase": 59
+  },
+  {
+   "clip": "Hurt",
+   "k": 1,
+   "layer": 700,
    "erase": 58
   },
   {
-   "clip": "SwingUp",
-   "k": 7,
-   "layer": 584,
-   "erase": 42
-  },
-  {
-   "clip": "SwingUp",
-   "k": 8,
-   "layer": 518,
-   "erase": 66
-  },
-  {
-   "clip": "SwingUp",
-   "k": 9,
-   "layer": 582,
-   "erase": 69
-  },
-  {
-   "clip": "Hurt",
-   "k": 0,
-   "layer": 628,
-   "erase": 70
-  },
-  {
-   "clip": "Hurt",
-   "k": 1,
-   "layer": 624,
-   "erase": 70
-  },
-  {
    "clip": "Hurt",
    "k": 2,
-   "layer": 627,
-   "erase": 70
+   "layer": 703,
+   "erase": 59
   },
   {
    "clip": "Hurt",
    "k": 3,
+   "layer": 669,
+   "erase": 59
+  },
+  {
+   "clip": "Hurt",
+   "k": 4,
    "layer": 617,
-   "erase": 77
-  },
-  {
-   "clip": "Hurt",
-   "k": 4,
-   "layer": 613,
-   "erase": 76
-  },
-  {
-   "clip": "Stab",
-   "k": 0,
-   "layer": 677,
-   "erase": 68
-  },
-  {
-   "clip": "Stab",
-   "k": 1,
-   "layer": 569,
-   "erase": 69
-  },
-  {
-   "clip": "Stab",
-   "k": 2,
-   "layer": 583,
-   "erase": 69
-  },
-  {
-   "clip": "Stab",
-   "k": 3,
-   "layer": 589,
-   "erase": 69
-  },
-  {
-   "clip": "Stab",
-   "k": 4,
-   "layer": 577,
-   "erase": 70
-  },
-  {
-   "clip": "Stab",
-   "k": 5,
-   "layer": 562,
-   "erase": 68
-  },
-  {
-   "clip": "Stab",
-   "k": 6,
-   "layer": 578,
-   "erase": 68
-  },
-  {
-   "clip": "StabEnd",
-   "k": 0,
-   "layer": 606,
-   "erase": 64
-  },
-  {
-   "clip": "StabEnd",
-   "k": 1,
-   "layer": 602,
-   "erase": 68
-  },
-  {
-   "clip": "StabEnd",
-   "k": 2,
-   "layer": 606,
-   "erase": 68
-  },
-  {
-   "clip": "SwingDown",
-   "k": 0,
-   "layer": 606,
-   "erase": 64
-  },
-  {
-   "clip": "SwingDown",
-   "k": 1,
-   "layer": 600,
-   "erase": 88
-  },
-  {
-   "clip": "SwingDown",
-   "k": 2,
-   "layer": 638,
-   "erase": 101
-  },
-  {
-   "clip": "SwingDown",
-   "k": 3,
-   "layer": 603,
-   "erase": 67
-  },
-  {
-   "clip": "SwingDown",
-   "k": 4,
-   "layer": 623,
-   "erase": 75
-  },
-  {
-   "clip": "SwingDown",
-   "k": 5,
-   "layer": 602,
-   "erase": 65
-  },
-  {
-   "clip": "SwingDown",
-   "k": 6,
-   "layer": 617,
-   "erase": 76
-  },
-  {
-   "clip": "SwingDownEnd",
-   "k": 0,
-   "layer": 566,
-   "erase": 73
-  },
-  {
-   "clip": "SwingDownEnd",
-   "k": 1,
-   "layer": 634,
-   "erase": 62
-  },
-  {
-   "clip": "SwingDownEnd",
-   "k": 2,
-   "layer": 600,
-   "erase": 69
+   "erase": 58
   },
   {
    "clip": "Idle",

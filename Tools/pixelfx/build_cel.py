@@ -48,12 +48,12 @@ CLIPS = {
     "RopeUp": ("rope_loop", list(range(0, 8)), 0.08, True, "const"),   # 뒷모습 오르기(로프에선 무기 숨김)
     "RopeStay": ("rope_loop", [0], 0.3, True, "const"),
     # 공격(칼을 쥔 채 생성 → 칼·잔상을 지우고 손잡이·칼날 각도를 읽어 실제 장착 무기를 붙인다). 0·8번은 기준 그림이라 뺀다
-    "Stab": ("basic_sword", ['basic_sword/stab/R/P1_2', 'basic_sword/stab/R/P1_3', 'basic_sword/stab/R/P1_4', 'basic_sword/stab/R/P2_1', 'basic_sword/stab/R/P2_3', 'basic_sword/stab/P2/4', 'basic_sword/stab/P2/4'], 0.045, False, "feet", True),  # 기본 칼 1타(찌른 자세 S2/4 를 두 번 — 영상에서 1프레임만 보여 안 읽혔다)(10-27 스컬 흐름 참고 키 2장 + 사이 프레임, MotionSet §7) — 예전: ("attack/stab", list(range(1, 8)), 0.04, ...)
-    "SwingDown": ("basic_sword", ['basic_sword/stab/S3/1', 'basic_sword/down/T1/2', 'basic_sword/down/R/T1_3', 'basic_sword/down/T1/4', 'basic_sword/down/R/T2_2', 'basic_sword/down/R/T2_3', 'basic_sword/down/R/T2_4'], 0.045, False, "feet", True),  # 기본 칼 2타(스미어 프레임 S2/1 제외 — 이펙트는 별도) — 예전: ("attack/down", [1, 2, 4, 4, 5, 6, 7], 0.04, ...)
+    "Stab": ("basic_sword", ['basic_sword/skel/stab/0', 'basic_sword/skel/stab/1', 'basic_sword/skel/stab/2', 'basic_sword/skel/stab/3', 'basic_sword/skel/stab/4'], 0.05, False, "feet"),  # 10-27 스켈레톤 v3(관절 길이 대기와 고정, skel_pose.py) — 맨손 생성, 손 = 손목 관절
+    "SwingDown": ("basic_sword", ['basic_sword/skel/down2/0', 'basic_sword/skel/down2/1', 'basic_sword/skel/down2/2', 'basic_sword/skel/down2/3', 'basic_sword/skel/down2/4'], 0.05, False, "feet"),  # 스켈레톤 v3(칼 없이 다시 생성한 down2)
     # 공격 끝 회복(10-27 GPT 토론 합의): 콤보가 이어지면 안 보이고, 대기로 돌아갈 때만 리그가 잠깐 보여 준다(PixelRig "<셀>End")
-    "StabEnd": ("basic_sword", ['basic_sword/stab/S3/1', 'basic_sword/stab/S3/2', 'basic_sword/stab/S3/3'], 0.055, False, "feet", True),
-    "SwingDownEnd": ("basic_sword", ['basic_sword/down/S3/1', 'basic_sword/down/S3/2', 'basic_sword/down/R/S3_3'], 0.055, False, "feet", True),
-    "SwingUp": ("basic_sword", ['basic_sword/up/U1/3', 'basic_sword/up/U1/4', 'basic_sword/up/U2/3', 'basic_sword/up/U2/4', 'basic_sword/up/U3/1', 'basic_sword/up/U3/2', 'basic_sword/up/U3/3', 'basic_sword/up/U3/4', 'basic_sword/up/U4/2', 'basic_sword/up/U4/3'], 0.045, False, "feet", True),  # 기본 칼 3타(키 3장: 웅크림→런지 수직→같은 다리 어깨 넘김)
+    "StabEnd": ("basic_sword", ['basic_sword/skel/stab/5'], 0.05, False, "feet"),
+    "SwingDownEnd": ("basic_sword", ['basic_sword/skel/down2/5'], 0.05, False, "feet"),
+    "SwingUp": ("basic_sword", ['basic_sword/skel/up/0', 'basic_sword/skel/up/1', 'basic_sword/skel/up/2', 'basic_sword/skel/up/3', 'basic_sword/skel/up/4', 'basic_sword/skel/up/5', 'basic_sword/skel/up/6'], 0.05, False, "feet"),  # 스켈레톤 v3
     # 대검·둔기 양손(늘린 강철 대검을 합성한 기준 그림에서 생성, 칼 길이 36). 묵직하게 0.05초
     "GreatDown": ("attack/great_down", list(range(1, 8)), 0.05, False, "feet", 36),
     # 단검(쌍단검 계열): 연속 찌르기·X 베기, 칼 길이 14
@@ -180,12 +180,15 @@ IDLE_STAND = "idle_stand/arm_clean.png"  # 임시(10-26 밤): 사용자가 왼�
 # 칼 각도 고치기: 초안 칼의 손잡이 쪽을 잘못 읽은 프레임(10-27 기본 칼) — 그림에 그려진 칼 방향으로 맞춘다
 # 프레임별 시간(초, 10-27 GPT 토론: 준비는 길게·타격은 짧게·끝은 잠깐 멈춤). 없으면 클립 frame
 TIMES = {
-    "Stab": [0.07, 0.06, 0.05, 0.05, 0.04, 0.03, 0.20],             # 준비 5 → 찌름 → 찌른 채 다음 타까지(0.5초 간격)
-    "SwingDown": [0.04, 0.05, 0.05, 0.08, 0.03, 0.04, 0.23],  # 0번 = 찌른 팔을 거두며 칼을 세우는 연결 프레임(찌르기 회복 그림 + 칼 각도 60°, 생성 0)  # 찌른 자세에서 바로 칼을 세워 들어 올림(대기 자세 프레임 T1/1 뺌 — 콤보 중 몸이 일어섰다)        # 들어 올림 3 → 머리 위 멈춤 → 내리침 → 낮은 자세로 다음 타까지
-    "SwingUp": [0.07, 0.06, 0.03, 0.03, 0.04, 0.04, 0.05, 0.07, 0.07, 0.08],  # 내려벤 낮은 자세에서 바로 압축(선 자세 U1/1 뺌)  # 낮은 압축 → 솟구침 → 어깨 넘김 → 대기
+    "Stab": [0.07, 0.06, 0.05, 0.03, 0.29],
+    "SwingDown": [0.06, 0.06, 0.08, 0.03, 0.27],
+    "SwingUp": [0.07, 0.05, 0.03, 0.04, 0.06, 0.07, 0.08],
     "Hurt": [0.03, 0.05, 0.05, 0.045, 0.045],
 }
-ANGLE_FIX = {("SwingUp", 8): -60.0, ("SwingUp", 9): -35.0, ("SwingDown", 0): 60.0}  # 올려베기 끝: 초안에 칼이 안 보여 보간하면 위로 들린 채 내려왔다. 예전(blade_fit 전): blade_fit(10-27) 뒤로는 오독이 없어 비움 — 예전: SwingDown3 140, SwingUp3 65
+# 스켈레톤 셀(10-27): 손 = 자세표 손목 관절(가로·세로 맞춤만 더함), 칼 각도 = 자세표 설계값
+SKEL_HAND = {'Stab': [[39, 41], [36, 38], [41, 39], [53, 37], [53, 36]], 'StabEnd': [[49, 39]], 'SwingDown': [[47, 27], [36, 24], [29, 27], [51, 37], [51, 44]], 'SwingDownEnd': [[50, 45]], 'SwingUp': [[35, 43], [43, 45], [45, 28], [37, 23], [31, 24], [35, 25], [37, 43]]}
+SKEL_ANGLE = {'Stab': [-15, 5, 0, 0, 0], 'StabEnd': [-30], 'SwingDown': [80, 115, 150, 20, -35], 'SwingDownEnd': [-40], 'SwingUp': [-160, -110, 60, 95, 130, 150, -40]}
+ANGLE_FIX = {}
 HAND_FIX = {("JumpCrouch", 2): (24, 33), ("JumpArc", 0): (24, 33), ("JumpArc", 1): (25, 33), ("JumpArc", 2): (27, 33), ("JumpArc", 3): (28, 34),
             ("Land", 0): (27, 31), ("Land", 1): (28, 36)}
 IDLE_HAND, IDLE_HAND_B = (34, 44), (49, 43)  # 대기 셀의 무기 손·반대 손(cel.json Idle) — 동작 손 추적 시작점
@@ -486,7 +489,7 @@ def smooth_hands(frames):
 # "front" = 앞발(바닥 3줄의 가장 오른쪽 픽셀)을 대기 앞발 x 에 둔다 → 찌르면 머리가 앞으로 나간다.
 # ("head", d) = 머리(위 18줄 가운데) x 를 대기 머리 + d 에 둔다 → 피격은 3px 만 젖힌다(넉백은 물리가 한다).
 IDLE_FRONT_X, IDLE_HEAD_X = 47, 39.5
-ALIGN_X = {"Stab": "front", "SwingDown": "front", "SwingUp": "front", "StabEnd": "front", "SwingDownEnd": "front", "Hurt": ("head", -3)}
+ALIGN_X = {"Hurt": ("head", -3)}  # 공격은 스켈레톤 자세에 위치가 들어 있다(10-27)
 
 # 콤보 1·2타는 다음 타로 이어지게 끝을 대기에 묶지 않고, 회복(End) 클립은 시작을 묶지 않는다
 ALIGN_ANCHOR = {"Stab": "start", "SwingDown": "start", "StabEnd": "end", "SwingDownEnd": "end"}
@@ -761,6 +764,9 @@ def main():
             else:
                 fl = fist(a, h)
             Image.fromarray(fl, "RGBA").save(os.path.join(OUT, name + "_fist.png"))
+            if clip in SKEL_HAND:
+                h = [SKEL_HAND[clip][k][0] + sx, SKEL_HAND[clip][k][1] + dy]
+                angle = float(SKEL_ANGLE[clip][k])
             angle = ANGLE_FIX.get((clip, k), angle)
             fr = {"png": name, "hand": h, "handB": b, "dy": dy, "sx": sx, "time": TIMES.get(clip, [0.0] * len(idx))[k], "angle": angle if angle is not None else -999.0}  # -999 = 리그 규칙(손 위치로)
             frames.append(fr)
