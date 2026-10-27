@@ -746,7 +746,20 @@ def main():
             last_h, last_b = h, b
             name = f"{clip}_{k}"
             Image.fromarray(a, "RGBA").save(os.path.join(OUT, name + ".png"))
-            fl = common_fist(h) if weapon else fist(a, h)
+            if weapon:
+                # 초안의 주먹(뭉개진 피부·외곽선)을 공용 주먹 자리에서 지운다 — 남겨 두면 공용 주먹·칼과 겹쳐 손이 뭉개져 보였다(10-27 사용자 캡처)
+                fl = common_fist(h)
+                fm = fl[..., 3] > 0
+                grow = fm.copy()
+                for oy in (-1, 0, 1):
+                    for ox in (-1, 0, 1):
+                        grow |= np.roll(np.roll(fm, oy, axis=0), ox, axis=1)
+                drop = grow & (near(a, SKIN) | (a[..., :3].astype(int).sum(axis=2) < 60)) & (a[..., 3] > 0)
+                a[drop & ~fm] = 0
+                a[fm] = fl[fm]
+                Image.fromarray(a, "RGBA").save(os.path.join(OUT, name + ".png"))
+            else:
+                fl = fist(a, h)
             Image.fromarray(fl, "RGBA").save(os.path.join(OUT, name + "_fist.png"))
             angle = ANGLE_FIX.get((clip, k), angle)
             fr = {"png": name, "hand": h, "handB": b, "dy": dy, "sx": sx, "time": TIMES.get(clip, [0.0] * len(idx))[k], "angle": angle if angle is not None else -999.0}  # -999 = 리그 규칙(손 위치로)
