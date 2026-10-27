@@ -97,3 +97,7 @@ GPT 2차 토론(`Docs/ArtCompare/Motion/cel/basic_sword/gpt_round2.md`) 요지: 
 - 사용자: "전보단 나아졌지만 동작이 딱딱하고 답답하다. 스컬에서 본 것도 반영된 거 맞지?"
 - 솔직한 점검: 반영된 것 = 흐름(준비→타격→마무리), 콤보 연결, 완급. **안 된 것 = 스컬의 크게 쓰는 몸**(깊은 웅크림·강한 기울기·넓지만 길이는 그대로인 보폭·팔 끝까지 뻗기·몸통 비틀기). v5 자세표가 기울기 15~22°·좁은 보폭으로 소심했고, 타마다 5~7프레임이라 뚝뚝 끊겼다.
 - v6: skel_pose.py 를 '키 자세 + 사이 보간(완급)' 으로 바꿔 타마다 9~10프레임(같은 3생성), 키는 스컬처럼 과장(찌르기: 뒤로 감았다 25° 기울여 끝까지 뻗기 / 내려베기: 머리 뒤까지 젖혔다 30° 숙이며 내리침 / 올려베기: 낮게 숙였다 뒤로 젖히며 머리 위·뒤로). 길이 고정은 그대로.
+- 진행 메모(10-27, 컨텍스트 한도 직전): `Tools/pixelfx/skel_keys.py` → `Docs/ArtCompare/Motion/cel/basic_sword/skel/keys_v6.json`(동작별 kp·hand·angle·main 프레임 수).
+  - 찌르기 v6 스켈레톤 작업 job `47cff37f-2c36-4f9a-87c0-a179d03616ca`(9프레임: 앞 6 = Stab 본편, 뒤 3 = StabEnd) — 받아서 `skel/v6/stab/0~8.png`.
+  - 남은 것: 내려베기(9프레임, 앞 6 본편·뒤 3 End)·올려베기(10프레임 전부 본편)를 같은 방식으로 animate_with_skeleton_v3(맨손 지시 "empty fist", 첫 프레임 = 대기 upload 8ceaeb65…, first_frame_keypoints = skel_pose.IDLE) → build_cel CLIPS·SKEL_HAND·SKEL_ANGLE 을 keys_v6.json 값으로 교체(TIMES 도 프레임 수에 맞게) → Unity 빌드 → `Logs/_combo_bare.cs` 촬영.
+  - 웹 조사(같은 문제를 겪은 사례·해결책) 서브에이전트 실행 중.
