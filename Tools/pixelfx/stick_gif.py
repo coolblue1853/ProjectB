@@ -103,6 +103,18 @@ PROPOSAL = {
         (IDLE_HERE, 2),
      ], []],
 }
+
+
+def body_tuck(key):
+    """반대손을 몸통에 붙여 고정: 각도는 월드 기준이라 몸을 숙이면(lean) 팔이 그대로 수직으로 남아 흔들려 보인다.
+    레퍼런스(핀 방패팔·던파M)처럼 몸통과 함께 돌도록 TUCK 에서 lean 만큼 뺀다(10-27 사용자: 손 흔들림)."""
+    (hip, lean, ra, rf, la, lf, rt, rs, lt, ls, sw) = key
+    return (hip, lean, ra, rf, TUCK[0] - lean, TUCK[1] - lean, rt, rs, lt, ls, sw)
+
+
+_d = PROPOSAL["SwingDown"]
+PROPOSAL["SwingDown"] = [_d[0], [(body_tuck(k), n) for k, n in _d[1]], [(body_tuck(k) if k is not IDLE_HERE else k, n) for k, n in _d[2]]]
+
 ANGLES = {
     "SwingDown": [100, 172, 174, 60, -30, -35, -35, -40, -35, -28, -20],
     "SwingUp": [-30, -30, -30, 50, 110, 160, 175, 176, 200, 235, 300, 340],
@@ -180,7 +192,7 @@ def main():
             g = ImageDraw.Draw(c)
             g.text((6, 2), f"레퍼런스 {REF_MAP[m][i]}", fill=(0, 90, 160), font=FONT)
             g.text((a.width + 14, 2), f"지금 v9  {m} {i}", fill=(0, 0, 0), font=FONT)
-            g.text((a.width * 2 + 22, 2), f"수정안 v13d  {i}", fill=(180, 30, 30), font=FONT)
+            g.text((a.width * 2 + 22, 2), f"수정안 v13e  {i}", fill=(180, 30, 30), font=FONT)
             gif.append(c)
         gif[0].save(f"{out}/{m}_stick.gif", save_all=True, append_images=gif[1:], duration=TIMES[m], loop=0)
         print(m, len(gif))
