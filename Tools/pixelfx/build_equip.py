@@ -52,7 +52,9 @@ NEW = {"batch_i": ({"Idle"} if IDLE_STAND and _IDLE_BATCH == "batch_i" else set(
        "batch_k": {"Idle"} if IDLE_STAND and _IDLE_BATCH == "batch_k" else set(),
        "batch_j": {"Run"} if RUN_SET == "pump" else set(),
        # 10-27 기본 칼 평타 3타 새 셀(MotionSet §7): 예전 batch_d/e·v2_1 의 Stab·SwingDown·SwingUp 전이는 쓰지 않는다
-       "batch_bs1": {"Stab", "SwingDown"}, "batch_bs2": {"SwingDown", "SwingUp"}, "batch_bs3": {"Hurt"}}
+       "batch_bs1": set(), "batch_bs2": {"SwingUp"}, "batch_bs3": {"Hurt"},
+       # 10-27 2차: 오른손(앞팔) 고정으로 다시 만든 찌르기·내려베기
+       "batch_bs4": {"Stab"}, "batch_bs5": {"SwingDown"}}
 REPLACED = set().union(*NEW.values())
 
 

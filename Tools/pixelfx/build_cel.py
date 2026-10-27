@@ -48,8 +48,8 @@ CLIPS = {
     "RopeUp": ("rope_loop", list(range(0, 8)), 0.08, True, "const"),   # 뒷모습 오르기(로프에선 무기 숨김)
     "RopeStay": ("rope_loop", [0], 0.3, True, "const"),
     # 공격(칼을 쥔 채 생성 → 칼·잔상을 지우고 손잡이·칼날 각도를 읽어 실제 장착 무기를 붙인다). 0·8번은 기준 그림이라 뺀다
-    "Stab": ("basic_sword", ['basic_sword/stab/S1/1', 'basic_sword/stab/S1/3', 'basic_sword/stab/S1/4', 'basic_sword/stab/S2/1', 'basic_sword/stab/S2/3', 'basic_sword/stab/S2/4', 'basic_sword/stab/S2/4', 'basic_sword/stab/S3/1', 'basic_sword/stab/S3/2', 'basic_sword/stab/S3/3'], 0.045, False, "feet", True),  # 기본 칼 1타(찌른 자세 S2/4 를 두 번 — 영상에서 1프레임만 보여 안 읽혔다)(10-27 스컬 흐름 참고 키 2장 + 사이 프레임, MotionSet §7) — 예전: ("attack/stab", list(range(1, 8)), 0.04, ...)
-    "SwingDown": ("basic_sword", ['basic_sword/down/S1/1', 'basic_sword/down/S1/2', 'basic_sword/down/S1/3', 'basic_sword/down/S1/4', 'basic_sword/down/S2/2', 'basic_sword/down/S2/3', 'basic_sword/down/S2/4', 'basic_sword/down/S3/1', 'basic_sword/down/S3/2', 'basic_sword/down/S3/3'], 0.045, False, "feet", True),  # 기본 칼 2타(스미어 프레임 S2/1 제외 — 이펙트는 별도) — 예전: ("attack/down", [1, 2, 4, 4, 5, 6, 7], 0.04, ...)
+    "Stab": ("basic_sword", ['basic_sword/stab/R/P1_2', 'basic_sword/stab/R/P1_3', 'basic_sword/stab/R/P1_4', 'basic_sword/stab/R/P2_1', 'basic_sword/stab/R/P2_3', 'basic_sword/stab/P2/4', 'basic_sword/stab/P2/4', 'basic_sword/stab/S3/1', 'basic_sword/stab/S3/2', 'basic_sword/stab/S3/3'], 0.045, False, "feet", True),  # 기본 칼 1타(찌른 자세 S2/4 를 두 번 — 영상에서 1프레임만 보여 안 읽혔다)(10-27 스컬 흐름 참고 키 2장 + 사이 프레임, MotionSet §7) — 예전: ("attack/stab", list(range(1, 8)), 0.04, ...)
+    "SwingDown": ("basic_sword", ['basic_sword/down/T1/1', 'basic_sword/down/T1/2', 'basic_sword/down/R/T1_3', 'basic_sword/down/T1/4', 'basic_sword/down/R/T2_2', 'basic_sword/down/R/T2_3', 'basic_sword/down/R/T2_4', 'basic_sword/down/S3/1', 'basic_sword/down/S3/2', 'basic_sword/down/R/S3_3'], 0.045, False, "feet", True),  # 기본 칼 2타(스미어 프레임 S2/1 제외 — 이펙트는 별도) — 예전: ("attack/down", [1, 2, 4, 4, 5, 6, 7], 0.04, ...)
     "SwingUp": ("basic_sword", ['basic_sword/up/U1/1', 'basic_sword/up/U1/3', 'basic_sword/up/U1/4', 'basic_sword/up/U2/3', 'basic_sword/up/U2/4', 'basic_sword/up/U3/1', 'basic_sword/up/U3/2', 'basic_sword/up/U3/3', 'basic_sword/up/U3/4', 'basic_sword/up/U4/2', 'basic_sword/up/U4/3'], 0.045, False, "feet", True),  # 기본 칼 3타(키 3장: 웅크림→런지 수직→같은 다리 어깨 넘김)
     # 대검·둔기 양손(늘린 강철 대검을 합성한 기준 그림에서 생성, 칼 길이 36). 묵직하게 0.05초
     "GreatDown": ("attack/great_down", list(range(1, 8)), 0.05, False, "feet", 36),
@@ -175,7 +175,7 @@ IDLE_BASE = ("Walk", 3)  # 걷기 루프에서 두 발이 모인 프레임 — �
 IDLE_STAND = "idle_stand/arm_clean.png"  # 임시(10-26 밤): 사용자가 왼다리·왼팔을 직접 고친 그림(arm_user.png)에서 소매 끝·손끝·배낭 밑단 픽셀만 정리  # 빈 문자열이면 걷기 3번
 # 손 검출이 무릎 맨살을 잡거나 못 찾는 프레임(다리 벌린 도약 점프) — 눈으로 잡은 뒷손(무기 손) 주먹 가운데, 64 캔버스 좌표(정렬 후)
 # 칼 각도 고치기: 초안 칼의 손잡이 쪽을 잘못 읽은 프레임(10-27 기본 칼) — 그림에 그려진 칼 방향으로 맞춘다
-ANGLE_FIX = {("SwingDown", 3): 140.0, ("SwingUp", 3): 65.0}
+ANGLE_FIX = {("SwingUp", 9): -60.0, ("SwingUp", 10): -35.0}  # 올려베기 끝: 초안에 칼이 안 보여 보간하면 위로 들린 채 내려왔다. 예전(blade_fit 전): blade_fit(10-27) 뒤로는 오독이 없어 비움 — 예전: SwingDown3 140, SwingUp3 65
 HAND_FIX = {("JumpCrouch", 2): (24, 33), ("JumpArc", 0): (24, 33), ("JumpArc", 1): (25, 33), ("JumpArc", 2): (27, 33), ("JumpArc", 3): (28, 34),
             ("Land", 0): (27, 31), ("Land", 1): (28, 36)}
 IDLE_HAND, IDLE_HAND_B = (34, 44), (49, 43)  # 대기 셀의 무기 손·반대 손(cel.json Idle) — 동작 손 추적 시작점
@@ -240,7 +240,36 @@ def steel_mask(a):
     gray = (mx - mn < 34) & (mx > 70) & (a[..., 3] > 0)
     bluish = (rgb[..., 2] >= rgb[..., 0]) & (rgb[..., 2] >= rgb[..., 1] - 4)
     pale = (mx - mn < 48) & (mx > 185) & (a[..., 3] > 0)  # 밝은 베이지·흰 베기 잔상(올려베기에서 남았다)
-    return (gray & bluish) | pale
+    # 어두운 청회색 칼 외곽선(47,59,71 등): 칼날이 1~2px 로 가늘게 그려지면 몸통 없이 외곽선만 남아 칼을 못 읽었다(10-27 찌르기)
+    dark_steel = (rgb[..., 2] >= rgb[..., 0] + 12) & (rgb[..., 2] >= rgb[..., 1]) & (mx > 40) & (mx < 120) & (a[..., 3] > 0)
+    return (gray & bluish) | pale | dark_steel
+
+
+def blade_fit(a, st, blade_len):
+    """그려진 칼에서 손잡이 끝과 칼날 각도를 읽는다(10-27): 가장 큰 강철 덩어리(칼)에 주성분 직선을 맞추고, 양 끝 중 피부(주먹)에
+    가까운 끝 = 손잡이. 예전엔 '칼 무게중심에 가장 가까운 피부'를 손으로 잡아 손이 팔꿈치·가슴으로 튀고 각도가 프레임마다 흔들렸다."""
+    parts = [q for q in components(st) if len(q) >= 10]  # 10px 미만 = 칼끝 조각·잡티(손 위치를 엉뚱한 데로 끌었다)
+    if not parts:
+        return None, None
+    pts = np.array(max(parts, key=len), dtype=float)  # (y, x)
+    if len(pts) > blade_len * 4:
+        return None, None  # 칼보다 훨씬 큰 덩어리 = 베기 잔상(스미어) — 칼 방향을 읽을 수 없다
+    c = pts.mean(axis=0)
+    u, sv, vt = np.linalg.svd(pts - c, full_matrices=False)
+    axis = vt[0]
+    proj = (pts - c) @ axis
+    e1, e2 = c + axis * proj.min(), c + axis * proj.max()
+    sk = np.argwhere(near(a, SKIN))
+    if len(sk):
+        d1 = ((sk - e1) ** 2).sum(axis=1).min()
+        d2 = ((sk - e2) ** 2).sum(axis=1).min()
+        g, t = (e1, e2) if d1 <= d2 else (e2, e1)
+        if min(d1, d2) > 9 ** 2:  # 손잡이(어두운 색)는 칼로 안 잡혀 칼날 끝이 주먹에서 6~8px 떨어진다
+            return None, None  # 손에서 떨어진 칼 그림(생성 잡티) — 손잡이로 쓰면 칼이 몸 밖에 떠 있었다
+    else:
+        g, t = e1, e2
+    angle = float(np.degrees(np.arctan2(g[0] - t[0], t[1] - g[1])))
+    return [int(round(g[1])), int(round(g[0]))], angle
 
 
 MAIN_MIN = 40  # 몸 본체와 떨어진 이보다 작은 조각은 칼 손잡이·잔상 찌꺼기
@@ -357,26 +386,7 @@ def recolor_inner_outline(a, steel):
 def strip_weapon(a, blade_len=None):
     """칼·잔상 픽셀을 지우고(몸에 난 구멍은 주변 색으로 메움) 손잡이(칼에 가장 가까운 주먹)와 칼날 각도(도, 0 = 앞, 90 = 위)를 돌려준다"""
     st = steel_mask(a)
-    ys, xs = np.nonzero(st)
-    grip, angle = None, None
-    sk = near(a, SKIN)
-    if len(xs):
-        cy, cx = ys.mean(), xs.mean()
-        sy, sx = np.nonzero(sk)
-        if len(sx):
-            d = (sy - cy) ** 2 + (sx - cx) ** 2
-            # 칼 픽셀과 맞닿은 피부 = 주먹
-            best, gi = 1e9, 0
-            for k in range(len(sx)):
-                dd = ((ys - sy[k]) ** 2 + (xs - sx[k]) ** 2).min()
-                if dd < best:
-                    best, gi = dd, k
-            grip = [int(sx[gi]), int(sy[gi])]
-            dist = np.sqrt((ys - grip[1]) ** 2 + (xs - grip[0]) ** 2)
-            inside = dist <= (blade_len or BLADE_LEN)
-            if inside.any():
-                k = int(np.argmax(np.where(inside, dist, -1)))
-                angle = float(np.degrees(np.arctan2(grip[1] - ys[k], xs[k] - grip[0])))
+    grip, angle = blade_fit(a, st, blade_len or BLADE_LEN)
     out = a.copy()
     out[st] = 0
     # 칼 외곽선 잔여물: 8방향 이웃에 색 있는(어둡지 않은) 몸 픽셀이 하나도 없는 어두운 픽셀을 반복해서 지운다 — 몸 외곽선은 늘 몸 색에 닿아 있다
@@ -453,6 +463,35 @@ def fist(a, hand):
     return out
 
 
+def smooth_hands(frames):
+    """앞뒤 프레임은 가까운데 혼자 5px 넘게 튄 손 좌표는 이웃 평균으로 — 칼이 한 프레임만 다른 팔로 옮겨 붙어 보였다(10-27 사용자)."""
+    for k in range(1, len(frames) - 1):
+        p, h, n = frames[k - 1]["hand"], frames[k]["hand"], frames[k + 1]["hand"]
+        d = lambda u, v: abs(u[0] - v[0]) + abs(u[1] - v[1])
+        if d(h, p) > 5 and d(h, n) > 5 and d(p, n) <= 4:
+            frames[k]["hand"] = [(p[0] + n[0]) // 2, (p[1] + n[1]) // 2]
+
+
+REST_ANGLE = -20.0  # 리그 대기 칼 각도(PixelRig.CelBladeAngle)
+
+
+def fill_angles(frames):
+    """칼을 못 읽은 프레임(첫·끝 프레임, 스미어)은 이웃 프레임 각도를 이어 받는다 — 리그 기본 규칙 각도(-20°/210°)로 떨어지면 칼이 순간이동했다(10-27)."""
+    known = [k for k, f in enumerate(frames) if f["angle"] > -998]
+    if not known:
+        return
+    for k, f in enumerate(frames):
+        if f["angle"] > -998:
+            continue
+        lo = max([j for j in known if j < k], default=None)
+        hi = min([j for j in known if j > k], default=None)
+        # 앞·뒤 끝은 대기 칼 각도(REST_ANGLE)로 이어진다 — 마지막 각도를 그대로 들고 있으면 손이 내려와도 칼이 위를 향했다
+        a0, i0 = (frames[lo]["angle"], lo) if lo is not None else (REST_ANGLE, -1)
+        a1, i1 = (frames[hi]["angle"], hi) if hi is not None else (REST_ANGLE, len(frames))
+        d = (a1 - a0 + 180) % 360 - 180
+        f["angle"] = a0 + d * (k - i0) / (i1 - i0)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     pal = palette()
@@ -524,6 +563,9 @@ def main():
             angle = ANGLE_FIX.get((clip, k), angle)
             fr = {"png": name, "hand": h, "handB": b, "dy": dy, "angle": angle if angle is not None else -999.0}  # -999 = 리그 규칙(손 위치로)
             frames.append(fr)
+        if weapon:
+            fill_angles(frames)
+            smooth_hands(frames)
         meta[clip] = {"frame": frame, "loop": loop, "frames": frames}
         print(clip, len(frames), [f["dy"] for f in frames], [f["hand"] for f in frames])
     meta["Idle"] = synth_idle(meta)
