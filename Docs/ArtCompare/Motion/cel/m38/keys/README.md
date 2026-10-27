@@ -24,3 +24,5 @@ v2_punch_a 76ad45df-81f0-44e0-93e7-5144a3693d77 (기준→주먹)
 v2_punch_b 3d0cb0f0-c822-425f-8dae-7ebe827cfe97 (주먹→기준)
 다음: 받아서 클립 조립 — SwingUp = up_a 2~4 + up_b 1~4 + up_c 1~3(약 10장, 앞 1~2장은 기준과 같아 뺌), 나머지 = a 1~4 + b 1~3. build_cel CLIPS 에서 폴더 여러 개를 이어 쓰도록(예: 리스트 항목 "폴더/번호") 확장 → 장비 전이 → 게임 촬영 → 검토 영상 갱신.
 장비 전이 v2: batch_v2_1~4 (m38_batches.json 에 job 번호) — 받은 뒤 build_equip → split → comp_lint → Unity build → 촬영 → 검토 영상(motion38_review) → 커밋
+1차 적용 완료(24dee48f): SwingUp·AirSlash·LeapSlam·Iaido·Guard·Charge·Punch v2, 셀 36·빌드 오류 0.
+2차 대상(같은 방식): 시전(Cast)·던지기(Throw)·백스텝(Backstep)·어깨 겨눔(ShoulderAim)·잡기(Grab)·앉기(Ride) 키 자세 → 이어서 기존 내려베기·찌르기·양손 내려찍기·대검 휘두르기·단검 2종·돌진 찌르기·회전·발차기도 스컬 기준으로 재점검.
