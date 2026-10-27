@@ -50,7 +50,9 @@ if os.path.exists(_M38):
 _IDLE_BATCH = "batch_k" if "maple" in IDLE_STAND else "batch_i"
 NEW = {"batch_i": ({"Idle"} if IDLE_STAND and _IDLE_BATCH == "batch_i" else set()) | ({"JumpCrouch", "JumpArc", "Land"} if JUMP_SET == "leap" else set()),
        "batch_k": {"Idle"} if IDLE_STAND and _IDLE_BATCH == "batch_k" else set(),
-       "batch_j": {"Run"} if RUN_SET == "pump" else set()}
+       "batch_j": {"Run"} if RUN_SET == "pump" else set(),
+       # 10-27 기본 칼 평타 3타 새 셀(MotionSet §7): 예전 batch_d/e·v2_1 의 Stab·SwingDown·SwingUp 전이는 쓰지 않는다
+       "batch_bs1": {"Stab", "SwingDown"}, "batch_bs2": {"SwingDown", "SwingUp"}}
 REPLACED = set().union(*NEW.values())
 
 

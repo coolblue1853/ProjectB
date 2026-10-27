@@ -48,9 +48,9 @@ CLIPS = {
     "RopeUp": ("rope_loop", list(range(0, 8)), 0.08, True, "const"),   # 뒷모습 오르기(로프에선 무기 숨김)
     "RopeStay": ("rope_loop", [0], 0.3, True, "const"),
     # 공격(칼을 쥔 채 생성 → 칼·잔상을 지우고 손잡이·칼날 각도를 읽어 실제 장착 무기를 붙인다). 0·8번은 기준 그림이라 뺀다
-    "Stab": ("attack/stab", list(range(1, 8)), 0.04, False, "feet", True),
-    "SwingDown": ("attack/down", [1, 2, 4, 4, 5, 6, 7], 0.04, False, "feet", True),  # 3번은 몸이 쪼그라든 뒷모습이라(투구 레이어도 빈 칸) 4번을 두 번 쓴다
-    "SwingUp": ("m38", ['m38/v2_up_a/2', 'm38/v2_up_a/3', 'm38/v2_up_a/4', 'm38/v2_up_b/1', 'm38/v2_up_b/2', 'm38/v2_up_b/4', 'm38/v2_up_b/4', 'm38/v2_up_c/1', 'm38/v2_up_c/2', 'm38/v2_up_c/3'], 0.045, False, "feet", True),  # A2 올려베기 v2(키 자세: 웅크림→솟구치며 넓은 보폭) — 스컬 기준 재작업(10-27), 예전: "SwingUp": ("attack/up", [1, 2, 3, 4, 6, 6, 7], 0.04, False,
+    "Stab": ("basic_sword", ['basic_sword/stab/S1/1', 'basic_sword/stab/S1/3', 'basic_sword/stab/S1/4', 'basic_sword/stab/S2/1', 'basic_sword/stab/S2/3', 'basic_sword/stab/S2/4', 'basic_sword/stab/S3/1', 'basic_sword/stab/S3/2', 'basic_sword/stab/S3/3'], 0.045, False, "feet", True),  # 기본 칼 1타(10-27 스컬 흐름 참고 키 2장 + 사이 프레임, MotionSet §7) — 예전: ("attack/stab", list(range(1, 8)), 0.04, ...)
+    "SwingDown": ("basic_sword", ['basic_sword/down/S1/1', 'basic_sword/down/S1/2', 'basic_sword/down/S1/3', 'basic_sword/down/S1/4', 'basic_sword/down/S2/2', 'basic_sword/down/S2/3', 'basic_sword/down/S2/4', 'basic_sword/down/S3/1', 'basic_sword/down/S3/2', 'basic_sword/down/S3/3'], 0.045, False, "feet", True),  # 기본 칼 2타(스미어 프레임 S2/1 제외 — 이펙트는 별도) — 예전: ("attack/down", [1, 2, 4, 4, 5, 6, 7], 0.04, ...)
+    "SwingUp": ("basic_sword", ['basic_sword/up/U1/1', 'basic_sword/up/U1/3', 'basic_sword/up/U1/4', 'basic_sword/up/U2/3', 'basic_sword/up/U2/4', 'basic_sword/up/U3/1', 'basic_sword/up/U3/2', 'basic_sword/up/U3/3', 'basic_sword/up/U3/4', 'basic_sword/up/U4/2', 'basic_sword/up/U4/3'], 0.045, False, "feet", True),  # 기본 칼 3타(키 3장: 웅크림→런지 수직→같은 다리 어깨 넘김)
     # 대검·둔기 양손(늘린 강철 대검을 합성한 기준 그림에서 생성, 칼 길이 36). 묵직하게 0.05초
     "GreatDown": ("attack/great_down", list(range(1, 8)), 0.05, False, "feet", 36),
     # 단검(쌍단검 계열): 연속 찌르기·X 베기, 칼 길이 14
@@ -174,6 +174,8 @@ def hands(a):
 IDLE_BASE = ("Walk", 3)  # 걷기 루프에서 두 발이 모인 프레임 — 걷기와 같은 시점(착지 회복 프레임은 정면 쪽이라 어긋났다)
 IDLE_STAND = "idle_stand/arm_clean.png"  # 임시(10-26 밤): 사용자가 왼다리·왼팔을 직접 고친 그림(arm_user.png)에서 소매 끝·손끝·배낭 밑단 픽셀만 정리  # 빈 문자열이면 걷기 3번
 # 손 검출이 무릎 맨살을 잡거나 못 찾는 프레임(다리 벌린 도약 점프) — 눈으로 잡은 뒷손(무기 손) 주먹 가운데, 64 캔버스 좌표(정렬 후)
+# 칼 각도 고치기: 초안 칼의 손잡이 쪽을 잘못 읽은 프레임(10-27 기본 칼) — 그림에 그려진 칼 방향으로 맞춘다
+ANGLE_FIX = {("SwingDown", 3): 140.0, ("SwingUp", 3): 65.0}
 HAND_FIX = {("JumpCrouch", 2): (24, 33), ("JumpArc", 0): (24, 33), ("JumpArc", 1): (25, 33), ("JumpArc", 2): (27, 33), ("JumpArc", 3): (28, 34),
             ("Land", 0): (27, 31), ("Land", 1): (28, 36)}
 IDLE_HAND, IDLE_HAND_B = (34, 44), (49, 43)  # 대기 셀의 무기 손·반대 손(cel.json Idle) — 동작 손 추적 시작점
@@ -519,6 +521,7 @@ def main():
             name = f"{clip}_{k}"
             Image.fromarray(a, "RGBA").save(os.path.join(OUT, name + ".png"))
             Image.fromarray(fist(a, h), "RGBA").save(os.path.join(OUT, name + "_fist.png"))
+            angle = ANGLE_FIX.get((clip, k), angle)
             fr = {"png": name, "hand": h, "handB": b, "dy": dy, "angle": angle if angle is not None else -999.0}  # -999 = 리그 규칙(손 위치로)
             frames.append(fr)
         meta[clip] = {"frame": frame, "loop": loop, "frames": frames}

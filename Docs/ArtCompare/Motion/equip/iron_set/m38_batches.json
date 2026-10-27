@@ -1,1064 +1,1230 @@
 [
-{
-"name": "batch_m1",
-"items": [
-[
-"GreatSide",
-0
-],
-[
-"GreatSide",
-1
-],
-[
-"GreatSide",
-2
-],
-[
-"GreatSide",
-3
-],
-[
-"GreatSide",
-4
-],
-[
-"GreatSide",
-5
-],
-[
-"GreatSide",
-6
-],
-[
-"AirSlash",
-0
-],
-[
-"AirSlash",
-1
-],
-[
-"AirSlash",
-2
-],
-[
-"AirSlash",
-3
-],
-[
-"AirSlash",
-4
-],
-[
-"AirSlash",
-5
-],
-[
-"AirSlash",
-6
-],
-[
-"Lunge",
-0
-]
-],
-"refs": [
-"bc4d9ee1-601f-4dcd-bb46-6a8418ae62ae",
-"ac9dc3a5-47bc-4265-9c62-3080b4c8f989",
-"57da1623-98ee-4925-9c12-e53f68b9db3b",
-"3ad62686-9e02-473e-8fba-39221a43d431",
-"47cea34a-76c5-427c-8d5c-1e3153b0767d",
-"ab641bbf-88a0-4c1a-bc0e-17eb06d0956d",
-"725f71c4-c1f1-44c0-9996-aa85d57a9484",
-"6eec57b4-f2e6-4b54-852b-add57a699744",
-"98544d71-ea40-4869-8775-21612c883f7e",
-"65ab02ff-f8e2-45d5-8b32-654caa2a1c43",
-"fe025d26-41a6-44fa-88a5-f66cef6ad6f6",
-"430e2050-ef17-48af-b16a-d7ee85ad9aeb",
-"ada89907-47ef-4e8e-8a0b-43e009fb545d",
-"65ac1c8e-2dc9-419c-8189-b70bf9505a1f",
-"1e42a44f-4572-4bc9-96aa-12d8afa9fe8f"
-],
-"job": "42ab8ef9-599a-448d-846f-ed8e9a66d8bf"
-},
-{
-"name": "batch_m2",
-"items": [
-[
-"Lunge",
-1
-],
-[
-"Lunge",
-2
-],
-[
-"Lunge",
-3
-],
-[
-"Lunge",
-4
-],
-[
-"Lunge",
-5
-],
-[
-"Lunge",
-6
-],
-[
-"Spin",
-0
-],
-[
-"Spin",
-1
-],
-[
-"Spin",
-2
-],
-[
-"Spin",
-3
-],
-[
-"Spin",
-4
-],
-[
-"Spin",
-5
-],
-[
-"Spin",
-6
-],
-[
-"Cast",
-0
-],
-[
-"Cast",
-1
-]
-],
-"refs": [
-"2fb2487b-c12a-462b-8084-854b9fdf4263",
-"76c27538-7e62-48b7-9277-2ca217537b70",
-"1d0f17cf-8269-4567-971f-2bcfda4a452a",
-"a895ba01-affc-413b-bec0-5563eebb5486",
-"39a14cfd-3fe1-45cf-8351-f54577734afe",
-"009a8ba8-9e71-4fce-9e37-c6a941b8f095",
-"cc5a9342-23f7-40c3-ae95-9fe8b74388fa",
-"923b8fd8-ebd1-4aa1-a0c0-f46285c66f34",
-"5dca4e77-ffba-43a6-b897-42e8607e2316",
-"6282de23-eb96-4d27-9f94-8fe9bac3a2f3",
-"9d075c61-1d12-41b7-9d61-b978e3ac9bfd",
-"da3fd6ac-c301-45c1-b761-dc4777c5be82",
-"a7d2d644-51ce-42df-9feb-3423d50fa482",
-"f20bb7e0-bbe6-4f46-88b9-778cfd44e662",
-"3cffd902-40b6-421a-99c1-8efdf6ca2ba1"
-],
-"job": "5b8f1c74-5d1c-4517-986c-70fe29515b9a"
-},
-{
-"name": "batch_m3",
-"items": [
-[
-"Cast",
-2
-],
-[
-"Cast",
-3
-],
-[
-"Cast",
-4
-],
-[
-"Cast",
-5
-],
-[
-"Cast",
-6
-],
-[
-"Throw",
-0
-],
-[
-"Throw",
-1
-],
-[
-"Throw",
-2
-],
-[
-"Throw",
-3
-],
-[
-"Throw",
-4
-],
-[
-"Throw",
-5
-],
-[
-"Throw",
-6
-],
-[
-"Guard",
-0
-],
-[
-"Guard",
-1
-],
-[
-"Guard",
-2
-]
-],
-"refs": [
-"5e3d46d4-c209-4ea8-9395-93bd350d5abf",
-"80e75371-d420-41e7-9971-95e5584b4600",
-"98cd692f-07d6-483f-bf37-26ef4697ea55",
-"6c600c2a-8e02-4385-8849-ccf536a29752",
-"3b66b911-efe9-4d6a-9aa7-a24db9bfb4c6",
-"3fda62f5-3332-4a2c-8793-2833c74fd356",
-"052b71e2-a89a-48bc-8a81-72b01c979665",
-"b2cff61f-eb82-414a-9e4e-b1a7fc44e59e",
-"cbae9454-72a1-42c5-a64f-6b96d301b35d",
-"3a465885-2ed4-4245-b402-fc33c92a30ed",
-"82fe72fa-1f72-4c1f-a694-bd48b8b9f44d",
-"68174e1b-6606-4e65-80f9-ab78862935b0",
-"7dd45801-1a52-45bc-b6a3-c24cb44dcda3",
-"1361ad61-7a97-4ec0-b9c7-bdfc5bf5a1b6",
-"cd60f737-d9bc-4192-85f2-5d3456ef30d4"
-],
-"job": "37b54615-0954-40a4-8d2a-714ce5450804"
-},
-{
-"name": "batch_m4",
-"items": [
-[
-"Guard",
-3
-],
-[
-"Guard",
-4
-],
-[
-"Guard",
-5
-],
-[
-"Guard",
-6
-],
-[
-"Charge",
-0
-],
-[
-"Charge",
-1
-],
-[
-"Charge",
-2
-],
-[
-"Charge",
-3
-],
-[
-"Charge",
-4
-],
-[
-"Charge",
-5
-],
-[
-"Charge",
-6
-],
-[
-"LeapSlam",
-0
-],
-[
-"LeapSlam",
-1
-],
-[
-"LeapSlam",
-2
-],
-[
-"LeapSlam",
-3
-]
-],
-"refs": [
-"c754cdd0-dfaf-43de-a044-ee176aacf97d",
-"6cdaafd6-0458-4681-99ac-b5f2b8b0ad0a",
-"1f3402d3-374f-4a9b-b062-c106af126e3f",
-"4af400f7-4c3c-4355-afb5-6e1dd1fe62ef",
-"34a3dea3-53b1-476d-ab40-3a1c0158b475",
-"28617975-1cb6-455a-885e-f2a90ed0fdbf",
-"6d1f53c9-8c24-46cd-be6b-f8a66026406b",
-"e04591a4-66bf-4c05-a0d6-a6437ce43455",
-"ce5d10d5-62bd-42ff-a611-1cb4467d21e0",
-"aa47824e-8dc3-41c6-b8ba-cdffb3d104d8",
-"4957374f-ef7c-4d46-8ece-3859c9bfe763",
-"986a7e18-0605-41d4-85aa-39087c50ef6e",
-"6dd3eff4-f78f-4b7b-9cc1-8b9cdf04bf28",
-"e5bea861-650b-4962-b031-1d18294d7211",
-"8f4fb0bf-4036-46a2-9f3d-5985a8863c24"
-],
-"job": "3b8aae56-5810-4088-8772-3b532cae011e"
-},
-{
-"name": "batch_m5",
-"items": [
-[
-"LeapSlam",
-4
-],
-[
-"LeapSlam",
-5
-],
-[
-"LeapSlam",
-6
-],
-[
-"Backstep",
-0
-],
-[
-"Backstep",
-1
-],
-[
-"Backstep",
-2
-],
-[
-"Backstep",
-3
-],
-[
-"Backstep",
-4
-],
-[
-"Backstep",
-5
-],
-[
-"Backstep",
-6
-],
-[
-"Punch",
-0
-],
-[
-"Punch",
-1
-],
-[
-"Punch",
-2
-],
-[
-"Punch",
-3
-],
-[
-"Punch",
-4
-]
-],
-"refs": [
-"247f1014-ff8e-4413-8c19-3d32b0651bfc",
-"2f683a2b-a5b9-45d9-b2ef-dd457eb127d4",
-"f7a4725b-c7f5-481c-b642-e3fb2652322b",
-"7d5aa933-8ce9-4bff-9453-276aced425bc",
-"d0ececd0-b959-45b6-9096-d2de92a93f5d",
-"81f49d28-e7ca-49a3-b7a1-9a9ceef95cb8",
-"c303dcc4-132f-4b1a-8396-8a2133379844",
-"4e4aabdb-eada-4cba-b016-3e4a0f319eb8",
-"145d6b38-bd92-40b9-96ef-26df2097f492",
-"facd30e7-153f-40aa-92e1-097001bd01a9",
-"8e0ffa94-ea4d-4cc1-8be4-a1c1a41e3303",
-"f47e6411-b1b2-463b-90f8-8e761433ed43",
-"016f077f-2600-4acf-bb7a-72f32f5c9dcb",
-"29966a94-6480-4711-b53e-293378219189",
-"3fd9928d-73a5-4fb9-8558-662f2cfc14a0"
-],
-"job": "aae09b09-b2c1-4f3c-ba4a-1f67c3b9f551"
-},
-{
-"name": "batch_m6",
-"items": [
-[
-"Punch",
-5
-],
-[
-"Punch",
-6
-],
-[
-"Iaido",
-0
-],
-[
-"Iaido",
-1
-],
-[
-"Iaido",
-2
-],
-[
-"Iaido",
-3
-],
-[
-"Iaido",
-4
-],
-[
-"Iaido",
-5
-],
-[
-"Iaido",
-6
-],
-[
-"ShoulderAim",
-0
-],
-[
-"ShoulderAim",
-1
-],
-[
-"ShoulderAim",
-2
-],
-[
-"ShoulderAim",
-3
-],
-[
-"ShoulderAim",
-4
-],
-[
-"ShoulderAim",
-5
-]
-],
-"refs": [
-"a4607caa-267e-49f2-8f25-41ad1b3b3a9c",
-"ac5e349a-d695-46fa-9b09-936096b9c43a",
-"1297df4e-ff3c-40f8-b53d-91581005fdc5",
-"0f7e52b2-8a45-48fa-a0e5-1b9ce0c531e1",
-"08a6714b-7c68-45a7-9726-cc33eade8664",
-"d4185ce2-6a7e-482e-833f-8f58311fd630",
-"85d57941-0ab1-44a7-817d-80312c8c3cf9",
-"86b8c390-5a21-4fb4-86bf-14be56d52281",
-"60c055a1-233e-40c8-a79a-ffc319588c04",
-"005fd423-cacf-42f5-9f7f-889f2ce39a69",
-"2222413c-4195-4e27-81c0-29920a6e5eec",
-"e111fb32-2817-4883-bd20-daaa423f2616",
-"7b69a031-65e6-4451-9269-15ce1a42a072",
-"ffc346b5-7560-47a4-a175-2e6dcb9b451a",
-"7b2d5d6d-b0b7-4060-9d8f-64b6dd72fdee"
-],
-"job": "7498303f-7454-4733-951f-e916c328422f"
-},
-{
-"name": "batch_m7",
-"items": [
-[
-"ShoulderAim",
-6
-],
-[
-"Raise",
-0
-],
-[
-"Raise",
-1
-],
-[
-"Raise",
-2
-],
-[
-"Raise",
-3
-],
-[
-"Raise",
-4
-],
-[
-"Raise",
-5
-],
-[
-"Raise",
-6
-],
-[
-"Knockdown",
-0
-],
-[
-"Knockdown",
-1
-],
-[
-"Knockdown",
-2
-],
-[
-"Knockdown",
-3
-],
-[
-"Knockdown",
-4
-],
-[
-"Knockdown",
-5
-],
-[
-"Knockdown",
-6
-]
-],
-"refs": [
-"092106b6-6c61-4567-8d08-7a3e3fab4777",
-"e9e96db0-6f88-4dcf-89af-d4534f77f7de",
-"83ad5b3e-6501-4846-b7c4-c5f977c498eb",
-"41916606-c1df-4ec3-a014-22417dfa105a",
-"e24fec80-f15c-4e9c-984c-1f59fc359261",
-"a6c2b089-fcc8-4c6d-a1a9-f41adead6c25",
-"4fdb9a0c-0277-4b0d-b2b8-201a44db0029",
-"bad2f375-5b4e-4db8-9266-1feb0b8c2c53",
-"6d6c3abe-3f79-4399-8795-33207e4be14b",
-"35175f71-f079-41da-bf69-b13dd97e6b8a",
-"d45f3594-0507-4123-838b-477dbca17ed1",
-"af3a96b0-9ae0-42b5-bdae-fb819e0a6199",
-"96475ca5-fda6-4ca2-aea1-df0e58785e07",
-"a576f38b-84d6-4581-86de-6eaf65d17f14",
-"32caf802-9830-4cf8-aa42-a472b54200e5"
-],
-"job": "0dd8454f-d59b-4b36-b4ac-07c99be5c36b"
-},
-{
-"name": "batch_m8",
-"items": [
-[
-"Knockdown",
-7
-],
-[
-"Knockdown",
-8
-],
-[
-"Knockdown",
-9
-],
-[
-"Knockdown",
-10
-],
-[
-"Place",
-0
-],
-[
-"Place",
-1
-],
-[
-"Place",
-2
-],
-[
-"Place",
-3
-],
-[
-"Place",
-4
-],
-[
-"Place",
-5
-],
-[
-"Place",
-6
-],
-[
-"Kick",
-0
-],
-[
-"Kick",
-1
-],
-[
-"Kick",
-2
-],
-[
-"Kick",
-3
-]
-],
-"refs": [
-"dc150395-ccc6-4bf4-b41d-6715b60305a8",
-"007e6996-340a-4de0-8605-e16d472c8d6d",
-"0e14b8ad-6204-4e07-a10a-87837ffee4ee",
-"7df96e14-336b-4031-bd2b-3d5bb58b357c",
-"851474b5-d658-46d8-a164-1301f324b397",
-"b4a6f26f-49af-4950-b333-955313c35500",
-"a0d0b1a4-3066-423c-86dd-63a173642786",
-"595c3567-7cea-42b0-80e6-86a1632d331d",
-"0d5ab56b-aa06-4c98-9075-830105c60ce8",
-"effb43ba-7a0a-4ac7-94ca-641cb301bbe4",
-"313bd8b2-3ce6-470e-9785-995d5e122b9a",
-"9a819876-c6ac-434b-9ca0-d94f520d64b4",
-"bb95b639-20bc-4927-b45c-e9a8d22ab59e",
-"d2540e74-9afe-40a4-b790-aecf61d73ecc",
-"76388255-8d8e-4b2c-b14d-eb415dbb58d6"
-],
-"job": "d788d5de-0a43-488d-aa8e-cef9fa5a62a7"
-},
-{
-"name": "batch_m9",
-"items": [
-[
-"Kick",
-4
-],
-[
-"Kick",
-5
-],
-[
-"Kick",
-6
-]
-],
-"refs": [
-"1af9fa12-7ee8-469e-b91f-a17c1c3738de",
-"85e1d382-f6cd-4a00-bdc7-9a0aa189d530",
-"1909cae8-3bf6-4ca0-b79e-fec522bb925c"
-],
-"job": "7d6d709e-d3b4-4b5b-bffb-101fa5d30807"
-},
-{
-"name": "batch_m10",
-"items": [
-[
-"Grab",
-0
-],
-[
-"Grab",
-1
-],
-[
-"Grab",
-2
-],
-[
-"Grab",
-3
-],
-[
-"Grab",
-4
-],
-[
-"Grab",
-5
-],
-[
-"Grab",
-6
-],
-[
-"Ride",
-0
-],
-[
-"Ride",
-1
-],
-[
-"Ride",
-2
-],
-[
-"Ride",
-3
-],
-[
-"Ride",
-4
-],
-[
-"Ride",
-5
-],
-[
-"Ride",
-6
-],
-[
-"Ride",
-7
-]
-],
-"refs": [
-"0cf94ea8-e064-47b1-b94c-f0cf8a087ff9",
-"b3f0fa39-e298-443b-a0ff-dc4264a2f2ba",
-"91140be5-3b89-459c-8fc7-9fb8b3032825",
-"c974edb1-7004-4352-98d8-6073e64294e8",
-"27b0f932-6b8f-4cf3-8738-be734dcfe4fc",
-"ab2e2c97-5b95-4739-bb41-bf111cd8a73b",
-"41c92724-98f0-4179-ac97-8f885287f1ce",
-"91400b22-2cd1-4592-a670-5860e5bf8c02",
-"5e6165d7-1e74-4fd9-b96e-a664e13c80fd",
-"80e60132-4c1b-4ab8-aa0e-7c6d6129f691",
-"c2744622-de26-4ce7-b913-39afd897001e",
-"33edf10f-ea9e-4f1e-b744-247524d4452b",
-"7e51bd1b-a438-4ec2-aeda-be9da803b3ff",
-"60c4d9de-1673-4407-85dd-7fdeab3f344b",
-"aff112b4-0f52-4ac7-b083-97f58ba84432"
-],
-"job": "f8d0842f-d8b4-40a6-9058-008d72250c90"
-},
-{
-"name": "batch_v2_1",
-"items": [
-[
-"SwingUp",
-0
-],
-[
-"SwingUp",
-1
-],
-[
-"SwingUp",
-2
-],
-[
-"SwingUp",
-3
-],
-[
-"SwingUp",
-4
-],
-[
-"SwingUp",
-5
-],
-[
-"SwingUp",
-6
-],
-[
-"SwingUp",
-7
-],
-[
-"SwingUp",
-8
-],
-[
-"SwingUp",
-9
-],
-[
-"AirSlash",
-0
-],
-[
-"AirSlash",
-1
-],
-[
-"AirSlash",
-2
-],
-[
-"AirSlash",
-3
-],
-[
-"AirSlash",
-4
-]
-],
-"refs": [
-"046565d0-0433-4f75-b655-3c34f70f9fb8",
-"a7a695a9-110f-4687-ab94-77ec63f1724b",
-"bfa26a1e-266e-41b7-8c48-d63f2a04f890",
-"d32ef258-6396-440d-a7b8-694a7e88efbd",
-"9843ee2f-4168-480c-be1a-927d826dade1",
-"f35bb329-6b87-485a-b0de-8fb3d046dec6",
-"d9923fed-21e3-4e9c-b6af-608e04930788",
-"d614f4fe-7e18-4b51-9270-f5a5a2d1b081",
-"b368ac8e-f8e7-4706-abcc-b16d1e6d4fda",
-"444a043a-8815-4736-a199-8357fcd721b5",
-"e9807679-4f35-43d9-a4b6-7e3be224be6d",
-"0b73e20c-67c7-4683-9e68-ded283a62d7e",
-"c1b288bc-a2c0-477b-a298-185ce406a2af",
-"21302428-a00e-402c-bc6b-6d0945d9f2e5",
-"dfab1f96-6326-4cf0-ac79-de3860f7def2"
-],
-"job": "0d72a6dd-1c82-445b-a484-5d4b4aa47eb5"
-},
-{
-"name": "batch_v2_2",
-"items": [
-[
-"AirSlash",
-5
-],
-[
-"AirSlash",
-6
-],
-[
-"LeapSlam",
-0
-],
-[
-"LeapSlam",
-1
-],
-[
-"LeapSlam",
-2
-],
-[
-"LeapSlam",
-3
-],
-[
-"LeapSlam",
-4
-],
-[
-"LeapSlam",
-5
-],
-[
-"LeapSlam",
-6
-],
-[
-"Iaido",
-0
-],
-[
-"Iaido",
-1
-],
-[
-"Iaido",
-2
-],
-[
-"Iaido",
-3
-],
-[
-"Iaido",
-4
-],
-[
-"Iaido",
-5
-]
-],
-"refs": [
-"0c76bc61-2fb6-4e36-9033-a7c6283ea3ae",
-"66dc98c9-0d73-455a-bd0e-5c36044e87ae",
-"df23436a-87bd-4d9e-93ce-973fcda4ae9b",
-"30998de3-2da3-41e5-ab56-402616500202",
-"3a741991-d537-4f3e-b5ca-b1057e359f99",
-"21142be4-70c4-4fdf-980f-0a9b468f96cc",
-"044e696d-ade3-4f7c-aadc-782663431945",
-"b5efeda5-eb8b-4594-84a7-b20aa10b0902",
-"404858f9-d1df-453d-aeb3-f2bd12861e59",
-"f39b88aa-bb8c-4b4b-9be0-0af85ebb2184",
-"8e33c331-ad12-4c16-9a55-0e01af2053e6",
-"4f88d356-4f62-4709-beb7-38c4824c1af7",
-"66d42d8e-c315-4648-a750-6658fa245206",
-"7799c4b3-84ae-4eb5-a013-cd931717a78b",
-"883480d6-b082-433c-89ad-6970395789e6"
-],
-"job": "cb9dab8d-3f9c-4dff-96d3-39ddf4294390"
-},
-{
-"name": "batch_v2_3",
-"items": [
-[
-"Iaido",
-6
-],
-[
-"Guard",
-0
-],
-[
-"Guard",
-1
-],
-[
-"Guard",
-2
-],
-[
-"Guard",
-3
-],
-[
-"Guard",
-4
-],
-[
-"Guard",
-5
-],
-[
-"Guard",
-6
-],
-[
-"Charge",
-0
-],
-[
-"Charge",
-1
-],
-[
-"Charge",
-2
-],
-[
-"Charge",
-3
-],
-[
-"Charge",
-4
-],
-[
-"Charge",
-5
-],
-[
-"Charge",
-6
-]
-],
-"refs": [
-"9539a62c-78f2-4ce9-956d-a3148171963a",
-"3ea33acf-92d1-4ba9-b712-b629143871bf",
-"7fe5e638-d885-4b00-a797-349e64095f4e",
-"c1bd11fc-b9fb-425d-82b6-aca5e6c2b5ac",
-"f2cc265a-986b-4789-a1c3-d9de9ccc6494",
-"a15a7733-4367-4d88-8fec-d46258c8dd08",
-"b86acd56-28c9-4af8-b323-39a199688fdf",
-"f35ddde9-5b42-4674-804f-b7920073101a",
-"507f3f7e-26f1-4696-807a-177d3e999e5b",
-"38462aa3-3fa3-44fb-b8bf-6c4348056d64",
-"0f181a60-ba5b-495c-a395-367a6dfc9e04",
-"b6a37914-c3d9-40a2-8aeb-752d73fdfc2c",
-"9110a2c0-8858-4d36-bd39-7efde722d1bc",
-"6913ae40-bf5a-45f4-bbc8-32abe7ce74ed",
-"200cadc1-58db-4111-87ca-2b794a32767f"
-],
-"job": "529534a3-1c39-4120-be5e-06e6b75447b0"
-},
-{
-"name": "batch_v2_4",
-"items": [
-[
-"Punch",
-0
-],
-[
-"Punch",
-1
-],
-[
-"Punch",
-2
-],
-[
-"Punch",
-3
-],
-[
-"Punch",
-4
-],
-[
-"Punch",
-5
-],
-[
-"Punch",
-6
-]
-],
-"refs": [
-"2e9c5ffb-dd4f-4421-98fa-0a25dc085364",
-"e72fa260-5aa9-4dc6-8d53-41851b429e1b",
-"e22e0a1c-600b-4009-9c4f-2a2efb78e384",
-"7deee203-aac1-44f6-90e6-8d385b9f0af9",
-"35fe383b-a4ea-4fd9-a0c7-1964a5fb44ec",
-"f4957659-fbbe-4b18-aad5-dfb626d550f2",
-"412b92dd-8164-4d5a-aea3-493d49126b73"
-],
-"job": "8322df7f-3f03-4a7f-9142-0b81ba5cb516"
-}
+ {
+  "name": "batch_m1",
+  "items": [
+   [
+    "GreatSide",
+    0
+   ],
+   [
+    "GreatSide",
+    1
+   ],
+   [
+    "GreatSide",
+    2
+   ],
+   [
+    "GreatSide",
+    3
+   ],
+   [
+    "GreatSide",
+    4
+   ],
+   [
+    "GreatSide",
+    5
+   ],
+   [
+    "GreatSide",
+    6
+   ],
+   [
+    "AirSlash",
+    0
+   ],
+   [
+    "AirSlash",
+    1
+   ],
+   [
+    "AirSlash",
+    2
+   ],
+   [
+    "AirSlash",
+    3
+   ],
+   [
+    "AirSlash",
+    4
+   ],
+   [
+    "AirSlash",
+    5
+   ],
+   [
+    "AirSlash",
+    6
+   ],
+   [
+    "Lunge",
+    0
+   ]
+  ],
+  "refs": [
+   "bc4d9ee1-601f-4dcd-bb46-6a8418ae62ae",
+   "ac9dc3a5-47bc-4265-9c62-3080b4c8f989",
+   "57da1623-98ee-4925-9c12-e53f68b9db3b",
+   "3ad62686-9e02-473e-8fba-39221a43d431",
+   "47cea34a-76c5-427c-8d5c-1e3153b0767d",
+   "ab641bbf-88a0-4c1a-bc0e-17eb06d0956d",
+   "725f71c4-c1f1-44c0-9996-aa85d57a9484",
+   "6eec57b4-f2e6-4b54-852b-add57a699744",
+   "98544d71-ea40-4869-8775-21612c883f7e",
+   "65ab02ff-f8e2-45d5-8b32-654caa2a1c43",
+   "fe025d26-41a6-44fa-88a5-f66cef6ad6f6",
+   "430e2050-ef17-48af-b16a-d7ee85ad9aeb",
+   "ada89907-47ef-4e8e-8a0b-43e009fb545d",
+   "65ac1c8e-2dc9-419c-8189-b70bf9505a1f",
+   "1e42a44f-4572-4bc9-96aa-12d8afa9fe8f"
+  ],
+  "job": "42ab8ef9-599a-448d-846f-ed8e9a66d8bf"
+ },
+ {
+  "name": "batch_m2",
+  "items": [
+   [
+    "Lunge",
+    1
+   ],
+   [
+    "Lunge",
+    2
+   ],
+   [
+    "Lunge",
+    3
+   ],
+   [
+    "Lunge",
+    4
+   ],
+   [
+    "Lunge",
+    5
+   ],
+   [
+    "Lunge",
+    6
+   ],
+   [
+    "Spin",
+    0
+   ],
+   [
+    "Spin",
+    1
+   ],
+   [
+    "Spin",
+    2
+   ],
+   [
+    "Spin",
+    3
+   ],
+   [
+    "Spin",
+    4
+   ],
+   [
+    "Spin",
+    5
+   ],
+   [
+    "Spin",
+    6
+   ],
+   [
+    "Cast",
+    0
+   ],
+   [
+    "Cast",
+    1
+   ]
+  ],
+  "refs": [
+   "2fb2487b-c12a-462b-8084-854b9fdf4263",
+   "76c27538-7e62-48b7-9277-2ca217537b70",
+   "1d0f17cf-8269-4567-971f-2bcfda4a452a",
+   "a895ba01-affc-413b-bec0-5563eebb5486",
+   "39a14cfd-3fe1-45cf-8351-f54577734afe",
+   "009a8ba8-9e71-4fce-9e37-c6a941b8f095",
+   "cc5a9342-23f7-40c3-ae95-9fe8b74388fa",
+   "923b8fd8-ebd1-4aa1-a0c0-f46285c66f34",
+   "5dca4e77-ffba-43a6-b897-42e8607e2316",
+   "6282de23-eb96-4d27-9f94-8fe9bac3a2f3",
+   "9d075c61-1d12-41b7-9d61-b978e3ac9bfd",
+   "da3fd6ac-c301-45c1-b761-dc4777c5be82",
+   "a7d2d644-51ce-42df-9feb-3423d50fa482",
+   "f20bb7e0-bbe6-4f46-88b9-778cfd44e662",
+   "3cffd902-40b6-421a-99c1-8efdf6ca2ba1"
+  ],
+  "job": "5b8f1c74-5d1c-4517-986c-70fe29515b9a"
+ },
+ {
+  "name": "batch_m3",
+  "items": [
+   [
+    "Cast",
+    2
+   ],
+   [
+    "Cast",
+    3
+   ],
+   [
+    "Cast",
+    4
+   ],
+   [
+    "Cast",
+    5
+   ],
+   [
+    "Cast",
+    6
+   ],
+   [
+    "Throw",
+    0
+   ],
+   [
+    "Throw",
+    1
+   ],
+   [
+    "Throw",
+    2
+   ],
+   [
+    "Throw",
+    3
+   ],
+   [
+    "Throw",
+    4
+   ],
+   [
+    "Throw",
+    5
+   ],
+   [
+    "Throw",
+    6
+   ],
+   [
+    "Guard",
+    0
+   ],
+   [
+    "Guard",
+    1
+   ],
+   [
+    "Guard",
+    2
+   ]
+  ],
+  "refs": [
+   "5e3d46d4-c209-4ea8-9395-93bd350d5abf",
+   "80e75371-d420-41e7-9971-95e5584b4600",
+   "98cd692f-07d6-483f-bf37-26ef4697ea55",
+   "6c600c2a-8e02-4385-8849-ccf536a29752",
+   "3b66b911-efe9-4d6a-9aa7-a24db9bfb4c6",
+   "3fda62f5-3332-4a2c-8793-2833c74fd356",
+   "052b71e2-a89a-48bc-8a81-72b01c979665",
+   "b2cff61f-eb82-414a-9e4e-b1a7fc44e59e",
+   "cbae9454-72a1-42c5-a64f-6b96d301b35d",
+   "3a465885-2ed4-4245-b402-fc33c92a30ed",
+   "82fe72fa-1f72-4c1f-a694-bd48b8b9f44d",
+   "68174e1b-6606-4e65-80f9-ab78862935b0",
+   "7dd45801-1a52-45bc-b6a3-c24cb44dcda3",
+   "1361ad61-7a97-4ec0-b9c7-bdfc5bf5a1b6",
+   "cd60f737-d9bc-4192-85f2-5d3456ef30d4"
+  ],
+  "job": "37b54615-0954-40a4-8d2a-714ce5450804"
+ },
+ {
+  "name": "batch_m4",
+  "items": [
+   [
+    "Guard",
+    3
+   ],
+   [
+    "Guard",
+    4
+   ],
+   [
+    "Guard",
+    5
+   ],
+   [
+    "Guard",
+    6
+   ],
+   [
+    "Charge",
+    0
+   ],
+   [
+    "Charge",
+    1
+   ],
+   [
+    "Charge",
+    2
+   ],
+   [
+    "Charge",
+    3
+   ],
+   [
+    "Charge",
+    4
+   ],
+   [
+    "Charge",
+    5
+   ],
+   [
+    "Charge",
+    6
+   ],
+   [
+    "LeapSlam",
+    0
+   ],
+   [
+    "LeapSlam",
+    1
+   ],
+   [
+    "LeapSlam",
+    2
+   ],
+   [
+    "LeapSlam",
+    3
+   ]
+  ],
+  "refs": [
+   "c754cdd0-dfaf-43de-a044-ee176aacf97d",
+   "6cdaafd6-0458-4681-99ac-b5f2b8b0ad0a",
+   "1f3402d3-374f-4a9b-b062-c106af126e3f",
+   "4af400f7-4c3c-4355-afb5-6e1dd1fe62ef",
+   "34a3dea3-53b1-476d-ab40-3a1c0158b475",
+   "28617975-1cb6-455a-885e-f2a90ed0fdbf",
+   "6d1f53c9-8c24-46cd-be6b-f8a66026406b",
+   "e04591a4-66bf-4c05-a0d6-a6437ce43455",
+   "ce5d10d5-62bd-42ff-a611-1cb4467d21e0",
+   "aa47824e-8dc3-41c6-b8ba-cdffb3d104d8",
+   "4957374f-ef7c-4d46-8ece-3859c9bfe763",
+   "986a7e18-0605-41d4-85aa-39087c50ef6e",
+   "6dd3eff4-f78f-4b7b-9cc1-8b9cdf04bf28",
+   "e5bea861-650b-4962-b031-1d18294d7211",
+   "8f4fb0bf-4036-46a2-9f3d-5985a8863c24"
+  ],
+  "job": "3b8aae56-5810-4088-8772-3b532cae011e"
+ },
+ {
+  "name": "batch_m5",
+  "items": [
+   [
+    "LeapSlam",
+    4
+   ],
+   [
+    "LeapSlam",
+    5
+   ],
+   [
+    "LeapSlam",
+    6
+   ],
+   [
+    "Backstep",
+    0
+   ],
+   [
+    "Backstep",
+    1
+   ],
+   [
+    "Backstep",
+    2
+   ],
+   [
+    "Backstep",
+    3
+   ],
+   [
+    "Backstep",
+    4
+   ],
+   [
+    "Backstep",
+    5
+   ],
+   [
+    "Backstep",
+    6
+   ],
+   [
+    "Punch",
+    0
+   ],
+   [
+    "Punch",
+    1
+   ],
+   [
+    "Punch",
+    2
+   ],
+   [
+    "Punch",
+    3
+   ],
+   [
+    "Punch",
+    4
+   ]
+  ],
+  "refs": [
+   "247f1014-ff8e-4413-8c19-3d32b0651bfc",
+   "2f683a2b-a5b9-45d9-b2ef-dd457eb127d4",
+   "f7a4725b-c7f5-481c-b642-e3fb2652322b",
+   "7d5aa933-8ce9-4bff-9453-276aced425bc",
+   "d0ececd0-b959-45b6-9096-d2de92a93f5d",
+   "81f49d28-e7ca-49a3-b7a1-9a9ceef95cb8",
+   "c303dcc4-132f-4b1a-8396-8a2133379844",
+   "4e4aabdb-eada-4cba-b016-3e4a0f319eb8",
+   "145d6b38-bd92-40b9-96ef-26df2097f492",
+   "facd30e7-153f-40aa-92e1-097001bd01a9",
+   "8e0ffa94-ea4d-4cc1-8be4-a1c1a41e3303",
+   "f47e6411-b1b2-463b-90f8-8e761433ed43",
+   "016f077f-2600-4acf-bb7a-72f32f5c9dcb",
+   "29966a94-6480-4711-b53e-293378219189",
+   "3fd9928d-73a5-4fb9-8558-662f2cfc14a0"
+  ],
+  "job": "aae09b09-b2c1-4f3c-ba4a-1f67c3b9f551"
+ },
+ {
+  "name": "batch_m6",
+  "items": [
+   [
+    "Punch",
+    5
+   ],
+   [
+    "Punch",
+    6
+   ],
+   [
+    "Iaido",
+    0
+   ],
+   [
+    "Iaido",
+    1
+   ],
+   [
+    "Iaido",
+    2
+   ],
+   [
+    "Iaido",
+    3
+   ],
+   [
+    "Iaido",
+    4
+   ],
+   [
+    "Iaido",
+    5
+   ],
+   [
+    "Iaido",
+    6
+   ],
+   [
+    "ShoulderAim",
+    0
+   ],
+   [
+    "ShoulderAim",
+    1
+   ],
+   [
+    "ShoulderAim",
+    2
+   ],
+   [
+    "ShoulderAim",
+    3
+   ],
+   [
+    "ShoulderAim",
+    4
+   ],
+   [
+    "ShoulderAim",
+    5
+   ]
+  ],
+  "refs": [
+   "a4607caa-267e-49f2-8f25-41ad1b3b3a9c",
+   "ac5e349a-d695-46fa-9b09-936096b9c43a",
+   "1297df4e-ff3c-40f8-b53d-91581005fdc5",
+   "0f7e52b2-8a45-48fa-a0e5-1b9ce0c531e1",
+   "08a6714b-7c68-45a7-9726-cc33eade8664",
+   "d4185ce2-6a7e-482e-833f-8f58311fd630",
+   "85d57941-0ab1-44a7-817d-80312c8c3cf9",
+   "86b8c390-5a21-4fb4-86bf-14be56d52281",
+   "60c055a1-233e-40c8-a79a-ffc319588c04",
+   "005fd423-cacf-42f5-9f7f-889f2ce39a69",
+   "2222413c-4195-4e27-81c0-29920a6e5eec",
+   "e111fb32-2817-4883-bd20-daaa423f2616",
+   "7b69a031-65e6-4451-9269-15ce1a42a072",
+   "ffc346b5-7560-47a4-a175-2e6dcb9b451a",
+   "7b2d5d6d-b0b7-4060-9d8f-64b6dd72fdee"
+  ],
+  "job": "7498303f-7454-4733-951f-e916c328422f"
+ },
+ {
+  "name": "batch_m7",
+  "items": [
+   [
+    "ShoulderAim",
+    6
+   ],
+   [
+    "Raise",
+    0
+   ],
+   [
+    "Raise",
+    1
+   ],
+   [
+    "Raise",
+    2
+   ],
+   [
+    "Raise",
+    3
+   ],
+   [
+    "Raise",
+    4
+   ],
+   [
+    "Raise",
+    5
+   ],
+   [
+    "Raise",
+    6
+   ],
+   [
+    "Knockdown",
+    0
+   ],
+   [
+    "Knockdown",
+    1
+   ],
+   [
+    "Knockdown",
+    2
+   ],
+   [
+    "Knockdown",
+    3
+   ],
+   [
+    "Knockdown",
+    4
+   ],
+   [
+    "Knockdown",
+    5
+   ],
+   [
+    "Knockdown",
+    6
+   ]
+  ],
+  "refs": [
+   "092106b6-6c61-4567-8d08-7a3e3fab4777",
+   "e9e96db0-6f88-4dcf-89af-d4534f77f7de",
+   "83ad5b3e-6501-4846-b7c4-c5f977c498eb",
+   "41916606-c1df-4ec3-a014-22417dfa105a",
+   "e24fec80-f15c-4e9c-984c-1f59fc359261",
+   "a6c2b089-fcc8-4c6d-a1a9-f41adead6c25",
+   "4fdb9a0c-0277-4b0d-b2b8-201a44db0029",
+   "bad2f375-5b4e-4db8-9266-1feb0b8c2c53",
+   "6d6c3abe-3f79-4399-8795-33207e4be14b",
+   "35175f71-f079-41da-bf69-b13dd97e6b8a",
+   "d45f3594-0507-4123-838b-477dbca17ed1",
+   "af3a96b0-9ae0-42b5-bdae-fb819e0a6199",
+   "96475ca5-fda6-4ca2-aea1-df0e58785e07",
+   "a576f38b-84d6-4581-86de-6eaf65d17f14",
+   "32caf802-9830-4cf8-aa42-a472b54200e5"
+  ],
+  "job": "0dd8454f-d59b-4b36-b4ac-07c99be5c36b"
+ },
+ {
+  "name": "batch_m8",
+  "items": [
+   [
+    "Knockdown",
+    7
+   ],
+   [
+    "Knockdown",
+    8
+   ],
+   [
+    "Knockdown",
+    9
+   ],
+   [
+    "Knockdown",
+    10
+   ],
+   [
+    "Place",
+    0
+   ],
+   [
+    "Place",
+    1
+   ],
+   [
+    "Place",
+    2
+   ],
+   [
+    "Place",
+    3
+   ],
+   [
+    "Place",
+    4
+   ],
+   [
+    "Place",
+    5
+   ],
+   [
+    "Place",
+    6
+   ],
+   [
+    "Kick",
+    0
+   ],
+   [
+    "Kick",
+    1
+   ],
+   [
+    "Kick",
+    2
+   ],
+   [
+    "Kick",
+    3
+   ]
+  ],
+  "refs": [
+   "dc150395-ccc6-4bf4-b41d-6715b60305a8",
+   "007e6996-340a-4de0-8605-e16d472c8d6d",
+   "0e14b8ad-6204-4e07-a10a-87837ffee4ee",
+   "7df96e14-336b-4031-bd2b-3d5bb58b357c",
+   "851474b5-d658-46d8-a164-1301f324b397",
+   "b4a6f26f-49af-4950-b333-955313c35500",
+   "a0d0b1a4-3066-423c-86dd-63a173642786",
+   "595c3567-7cea-42b0-80e6-86a1632d331d",
+   "0d5ab56b-aa06-4c98-9075-830105c60ce8",
+   "effb43ba-7a0a-4ac7-94ca-641cb301bbe4",
+   "313bd8b2-3ce6-470e-9785-995d5e122b9a",
+   "9a819876-c6ac-434b-9ca0-d94f520d64b4",
+   "bb95b639-20bc-4927-b45c-e9a8d22ab59e",
+   "d2540e74-9afe-40a4-b790-aecf61d73ecc",
+   "76388255-8d8e-4b2c-b14d-eb415dbb58d6"
+  ],
+  "job": "d788d5de-0a43-488d-aa8e-cef9fa5a62a7"
+ },
+ {
+  "name": "batch_m9",
+  "items": [
+   [
+    "Kick",
+    4
+   ],
+   [
+    "Kick",
+    5
+   ],
+   [
+    "Kick",
+    6
+   ]
+  ],
+  "refs": [
+   "1af9fa12-7ee8-469e-b91f-a17c1c3738de",
+   "85e1d382-f6cd-4a00-bdc7-9a0aa189d530",
+   "1909cae8-3bf6-4ca0-b79e-fec522bb925c"
+  ],
+  "job": "7d6d709e-d3b4-4b5b-bffb-101fa5d30807"
+ },
+ {
+  "name": "batch_m10",
+  "items": [
+   [
+    "Grab",
+    0
+   ],
+   [
+    "Grab",
+    1
+   ],
+   [
+    "Grab",
+    2
+   ],
+   [
+    "Grab",
+    3
+   ],
+   [
+    "Grab",
+    4
+   ],
+   [
+    "Grab",
+    5
+   ],
+   [
+    "Grab",
+    6
+   ],
+   [
+    "Ride",
+    0
+   ],
+   [
+    "Ride",
+    1
+   ],
+   [
+    "Ride",
+    2
+   ],
+   [
+    "Ride",
+    3
+   ],
+   [
+    "Ride",
+    4
+   ],
+   [
+    "Ride",
+    5
+   ],
+   [
+    "Ride",
+    6
+   ],
+   [
+    "Ride",
+    7
+   ]
+  ],
+  "refs": [
+   "0cf94ea8-e064-47b1-b94c-f0cf8a087ff9",
+   "b3f0fa39-e298-443b-a0ff-dc4264a2f2ba",
+   "91140be5-3b89-459c-8fc7-9fb8b3032825",
+   "c974edb1-7004-4352-98d8-6073e64294e8",
+   "27b0f932-6b8f-4cf3-8738-be734dcfe4fc",
+   "ab2e2c97-5b95-4739-bb41-bf111cd8a73b",
+   "41c92724-98f0-4179-ac97-8f885287f1ce",
+   "91400b22-2cd1-4592-a670-5860e5bf8c02",
+   "5e6165d7-1e74-4fd9-b96e-a664e13c80fd",
+   "80e60132-4c1b-4ab8-aa0e-7c6d6129f691",
+   "c2744622-de26-4ce7-b913-39afd897001e",
+   "33edf10f-ea9e-4f1e-b744-247524d4452b",
+   "7e51bd1b-a438-4ec2-aeda-be9da803b3ff",
+   "60c4d9de-1673-4407-85dd-7fdeab3f344b",
+   "aff112b4-0f52-4ac7-b083-97f58ba84432"
+  ],
+  "job": "f8d0842f-d8b4-40a6-9058-008d72250c90"
+ },
+ {
+  "name": "batch_v2_1",
+  "items": [
+   [
+    "SwingUp",
+    0
+   ],
+   [
+    "SwingUp",
+    1
+   ],
+   [
+    "SwingUp",
+    2
+   ],
+   [
+    "SwingUp",
+    3
+   ],
+   [
+    "SwingUp",
+    4
+   ],
+   [
+    "SwingUp",
+    5
+   ],
+   [
+    "SwingUp",
+    6
+   ],
+   [
+    "SwingUp",
+    7
+   ],
+   [
+    "SwingUp",
+    8
+   ],
+   [
+    "SwingUp",
+    9
+   ],
+   [
+    "AirSlash",
+    0
+   ],
+   [
+    "AirSlash",
+    1
+   ],
+   [
+    "AirSlash",
+    2
+   ],
+   [
+    "AirSlash",
+    3
+   ],
+   [
+    "AirSlash",
+    4
+   ]
+  ],
+  "refs": [
+   "046565d0-0433-4f75-b655-3c34f70f9fb8",
+   "a7a695a9-110f-4687-ab94-77ec63f1724b",
+   "bfa26a1e-266e-41b7-8c48-d63f2a04f890",
+   "d32ef258-6396-440d-a7b8-694a7e88efbd",
+   "9843ee2f-4168-480c-be1a-927d826dade1",
+   "f35bb329-6b87-485a-b0de-8fb3d046dec6",
+   "d9923fed-21e3-4e9c-b6af-608e04930788",
+   "d614f4fe-7e18-4b51-9270-f5a5a2d1b081",
+   "b368ac8e-f8e7-4706-abcc-b16d1e6d4fda",
+   "444a043a-8815-4736-a199-8357fcd721b5",
+   "e9807679-4f35-43d9-a4b6-7e3be224be6d",
+   "0b73e20c-67c7-4683-9e68-ded283a62d7e",
+   "c1b288bc-a2c0-477b-a298-185ce406a2af",
+   "21302428-a00e-402c-bc6b-6d0945d9f2e5",
+   "dfab1f96-6326-4cf0-ac79-de3860f7def2"
+  ],
+  "job": "0d72a6dd-1c82-445b-a484-5d4b4aa47eb5"
+ },
+ {
+  "name": "batch_v2_2",
+  "items": [
+   [
+    "AirSlash",
+    5
+   ],
+   [
+    "AirSlash",
+    6
+   ],
+   [
+    "LeapSlam",
+    0
+   ],
+   [
+    "LeapSlam",
+    1
+   ],
+   [
+    "LeapSlam",
+    2
+   ],
+   [
+    "LeapSlam",
+    3
+   ],
+   [
+    "LeapSlam",
+    4
+   ],
+   [
+    "LeapSlam",
+    5
+   ],
+   [
+    "LeapSlam",
+    6
+   ],
+   [
+    "Iaido",
+    0
+   ],
+   [
+    "Iaido",
+    1
+   ],
+   [
+    "Iaido",
+    2
+   ],
+   [
+    "Iaido",
+    3
+   ],
+   [
+    "Iaido",
+    4
+   ],
+   [
+    "Iaido",
+    5
+   ]
+  ],
+  "refs": [
+   "0c76bc61-2fb6-4e36-9033-a7c6283ea3ae",
+   "66dc98c9-0d73-455a-bd0e-5c36044e87ae",
+   "df23436a-87bd-4d9e-93ce-973fcda4ae9b",
+   "30998de3-2da3-41e5-ab56-402616500202",
+   "3a741991-d537-4f3e-b5ca-b1057e359f99",
+   "21142be4-70c4-4fdf-980f-0a9b468f96cc",
+   "044e696d-ade3-4f7c-aadc-782663431945",
+   "b5efeda5-eb8b-4594-84a7-b20aa10b0902",
+   "404858f9-d1df-453d-aeb3-f2bd12861e59",
+   "f39b88aa-bb8c-4b4b-9be0-0af85ebb2184",
+   "8e33c331-ad12-4c16-9a55-0e01af2053e6",
+   "4f88d356-4f62-4709-beb7-38c4824c1af7",
+   "66d42d8e-c315-4648-a750-6658fa245206",
+   "7799c4b3-84ae-4eb5-a013-cd931717a78b",
+   "883480d6-b082-433c-89ad-6970395789e6"
+  ],
+  "job": "cb9dab8d-3f9c-4dff-96d3-39ddf4294390"
+ },
+ {
+  "name": "batch_v2_3",
+  "items": [
+   [
+    "Iaido",
+    6
+   ],
+   [
+    "Guard",
+    0
+   ],
+   [
+    "Guard",
+    1
+   ],
+   [
+    "Guard",
+    2
+   ],
+   [
+    "Guard",
+    3
+   ],
+   [
+    "Guard",
+    4
+   ],
+   [
+    "Guard",
+    5
+   ],
+   [
+    "Guard",
+    6
+   ],
+   [
+    "Charge",
+    0
+   ],
+   [
+    "Charge",
+    1
+   ],
+   [
+    "Charge",
+    2
+   ],
+   [
+    "Charge",
+    3
+   ],
+   [
+    "Charge",
+    4
+   ],
+   [
+    "Charge",
+    5
+   ],
+   [
+    "Charge",
+    6
+   ]
+  ],
+  "refs": [
+   "9539a62c-78f2-4ce9-956d-a3148171963a",
+   "3ea33acf-92d1-4ba9-b712-b629143871bf",
+   "7fe5e638-d885-4b00-a797-349e64095f4e",
+   "c1bd11fc-b9fb-425d-82b6-aca5e6c2b5ac",
+   "f2cc265a-986b-4789-a1c3-d9de9ccc6494",
+   "a15a7733-4367-4d88-8fec-d46258c8dd08",
+   "b86acd56-28c9-4af8-b323-39a199688fdf",
+   "f35ddde9-5b42-4674-804f-b7920073101a",
+   "507f3f7e-26f1-4696-807a-177d3e999e5b",
+   "38462aa3-3fa3-44fb-b8bf-6c4348056d64",
+   "0f181a60-ba5b-495c-a395-367a6dfc9e04",
+   "b6a37914-c3d9-40a2-8aeb-752d73fdfc2c",
+   "9110a2c0-8858-4d36-bd39-7efde722d1bc",
+   "6913ae40-bf5a-45f4-bbc8-32abe7ce74ed",
+   "200cadc1-58db-4111-87ca-2b794a32767f"
+  ],
+  "job": "529534a3-1c39-4120-be5e-06e6b75447b0"
+ },
+ {
+  "name": "batch_v2_4",
+  "items": [
+   [
+    "Punch",
+    0
+   ],
+   [
+    "Punch",
+    1
+   ],
+   [
+    "Punch",
+    2
+   ],
+   [
+    "Punch",
+    3
+   ],
+   [
+    "Punch",
+    4
+   ],
+   [
+    "Punch",
+    5
+   ],
+   [
+    "Punch",
+    6
+   ]
+  ],
+  "refs": [
+   "2e9c5ffb-dd4f-4421-98fa-0a25dc085364",
+   "e72fa260-5aa9-4dc6-8d53-41851b429e1b",
+   "e22e0a1c-600b-4009-9c4f-2a2efb78e384",
+   "7deee203-aac1-44f6-90e6-8d385b9f0af9",
+   "35fe383b-a4ea-4fd9-a0c7-1964a5fb44ec",
+   "f4957659-fbbe-4b18-aad5-dfb626d550f2",
+   "412b92dd-8164-4d5a-aea3-493d49126b73"
+  ],
+  "job": "8322df7f-3f03-4a7f-9142-0b81ba5cb516"
+ },
+ {
+  "name": "batch_bs1",
+  "items": [
+   [
+    "Stab",
+    0
+   ],
+   [
+    "Stab",
+    1
+   ],
+   [
+    "Stab",
+    2
+   ],
+   [
+    "Stab",
+    3
+   ],
+   [
+    "Stab",
+    4
+   ],
+   [
+    "Stab",
+    5
+   ],
+   [
+    "Stab",
+    6
+   ],
+   [
+    "Stab",
+    7
+   ],
+   [
+    "Stab",
+    8
+   ],
+   [
+    "SwingDown",
+    0
+   ],
+   [
+    "SwingDown",
+    1
+   ],
+   [
+    "SwingDown",
+    2
+   ],
+   [
+    "SwingDown",
+    3
+   ],
+   [
+    "SwingDown",
+    4
+   ],
+   [
+    "SwingDown",
+    5
+   ]
+  ],
+  "refs": [
+   "360bb4bb-9270-435e-b5b4-68062517b6e0",
+   "7d914aaf-d37d-4b6a-b8ba-ce9634b77e6c",
+   "3ff7c41c-f14d-45b4-8fb5-2dfcfb81bd76",
+   "ec181a74-b988-4227-b021-e7573b84d112",
+   "4130c49c-189e-490b-b0b6-56e1cce89584",
+   "ee574e1d-6545-49c7-9b14-ff24909701f3",
+   "06264ad1-9c42-4fc1-80b0-4eade61cc7af",
+   "067c9975-7b10-46c3-ab03-7994a84e3c13",
+   "4338fab3-10f2-40cb-a2ce-048ab091fb1e",
+   "50677a0f-d506-4cd6-bbe8-bca201f3386d",
+   "c3e62180-dd64-44ae-a3b1-eb6813a7d3ea",
+   "abc055e0-7aea-4ee9-a117-1bd9386157ac",
+   "c82141ad-d287-4dea-8b85-b77bacf24782",
+   "1275859d-474b-48a4-92f0-f70e90012500",
+   "ef2148a2-73a7-46ba-9e35-06934e799e34"
+  ],
+  "job": "62e5dbe4-d91d-4bf0-bd7e-bff5a26cdc22"
+ },
+ {
+  "name": "batch_bs2",
+  "items": [
+   [
+    "SwingDown",
+    6
+   ],
+   [
+    "SwingDown",
+    7
+   ],
+   [
+    "SwingDown",
+    8
+   ],
+   [
+    "SwingDown",
+    9
+   ],
+   [
+    "SwingUp",
+    0
+   ],
+   [
+    "SwingUp",
+    1
+   ],
+   [
+    "SwingUp",
+    2
+   ],
+   [
+    "SwingUp",
+    3
+   ],
+   [
+    "SwingUp",
+    4
+   ],
+   [
+    "SwingUp",
+    5
+   ],
+   [
+    "SwingUp",
+    6
+   ],
+   [
+    "SwingUp",
+    7
+   ],
+   [
+    "SwingUp",
+    8
+   ],
+   [
+    "SwingUp",
+    9
+   ],
+   [
+    "SwingUp",
+    10
+   ]
+  ],
+  "refs": [
+   "27db30d6-757e-4008-a05d-50ebde1684ed",
+   "f7e29288-44e4-4ac1-9fb9-f20db8c2b153",
+   "bf844e7d-81e1-4ff3-81e3-7d88b3e9b893",
+   "eb022c81-37e2-4f40-ab09-345ad59b9a9e",
+   "b2af6648-6f4d-4a18-b7bf-4e0072377782",
+   "ee51a1af-c34b-4b57-83ba-6cafeee8804f",
+   "27121670-bad3-4c46-a7ad-f3ced06d11d6",
+   "e1ace38e-3edf-4534-8438-63a28752408c",
+   "3e0279bd-b207-42b3-9708-e095be4e90df",
+   "157ad731-ed15-4621-b467-2c050e84d706",
+   "e1a28e1d-c01c-408f-95f9-d19bb1bb7f81",
+   "a26a194c-c2c4-44f3-9118-7867dbc89cbe",
+   "ab33f39f-8cc7-40dd-b7f9-30413fb986ac",
+   "6465c225-e4ff-4b2c-99dc-e35dd23c9edc",
+   "fc8de698-ce80-4347-90ed-eca8684a1e55"
+  ],
+  "job": "95741d0f-68e9-485a-b836-a60e8cbc599f"
+ }
 ]
