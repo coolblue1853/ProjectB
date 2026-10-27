@@ -114,3 +114,4 @@ GPT 2차 토론(`Docs/ArtCompare/Motion/cel/basic_sword/gpt_round2.md`) 요지: 
 - 찌르기 v6 스켈레톤 9프레임(`skel/v6/stab`, job 47cff37f…)을 같은 재료로 `Tools/pixelfx/style_test.py` 가 4가지로 재생:
   A 보간형(9프레임 50ms) / B 데드셀식 포즈 대 포즈(키 4장, 타격 200ms 유지) / C SLYNYRD 정석(준비 짧게·타격 180ms·복귀 2) / D = B + 손목 궤적 스미어.
 - 결과 GIF: `Docs/ArtCompare/Motion/cel/basic_sword/style_test/Stab_*.gif`. 사용자 선택 후 내려베기·올려베기 v6 생성(각 3생성) → 선택한 방식으로 게임 적용.
+- 사용자(10-27): "1번(보간형) 괜찮아 보인다, 아니면 3번. 지금 타이밍이 선형이라 감·가속을 주면 느낌이 살 것" → E(준비 slow-in 70/60 → 멈칫 90 → 가속 35/25 → 타격 유지 160 → 회복 ease-out 50/60/90)·F(같은 곡선, 준비 50/40 로 짧게) GIF 추가. 내 추천은 F(1번 흐름 + 3번의 짧은 준비 + 감가속). 선택되면 내려베기·올려베기도 같은 곡선으로 TIMES 를 짜고 v6 생성.
