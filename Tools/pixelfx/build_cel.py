@@ -547,7 +547,17 @@ def fist_center(a, g, r=9):
     """칼날 끝(손잡이 쪽)에서 가장 가까운 피부 덩어리 = 주먹의 가운데. 손잡이(어두운 색)는 칼로 안 읽혀 칼날 끝이 주먹에서
     6~8px 떨어져 있었고, 그 점을 손으로 쓰면 주먹 레이어가 비어(0~9px, 대기는 42px) 손이 작아지거나 사라져 보였다(10-27 사용자)."""
     sk = near(a, SKIN) & (a[..., 3] > 0)
-    parts = [q for q in components(sk) if len(q) >= 4]
+    sc = np.nonzero(near(a, SCARF).any(axis=1))[0]
+    top = sc.min() if len(sc) else 40
+    # 얼굴 피부(스카프 위에 가운데가 있는 가장 큰 덩어리)는 제외 — 칼이 가슴 높이일 때 턱을 주먹으로 잡았다.
+    # 줄로 자르면 머리 위로 든 주먹(올려베기)까지 지워져서 덩어리 단위로 뺀다
+    if g[1] >= top:
+        sk[:top + 2] = False  # 칼 손이 스카프 아래면 얼굴·턱 줄을 통째로 뺀다
+    parts = [q for q in components(sk) if len(q) >= 2]
+    face = [q for q in parts if np.mean([y for y, _ in q]) < top and len(q) >= 12]
+    if face:  # 머리 위로 든 주먹(올려베기)은 줄로 자르면 지워져서 얼굴 덩어리만 뺀다
+        f0 = max(face, key=len)
+        parts = [q for q in parts if q is not f0]
     best, bd = None, r * r
     for q in parts:
         arr = np.array(q)
@@ -560,6 +570,86 @@ def fist_center(a, g, r=9):
     dd = ((best - [g[1], g[0]]) ** 2).sum(axis=1)
     near_pts = best[dd <= (np.sqrt(bd) + 3) ** 2]
     return [int(round(near_pts[:, 1].mean())), int(round(near_pts[:, 0].mean()))]
+
+
+def grip_to_fist(a, g, angle, reach=11):
+    """칼날 시작점에서 칼 반대 방향(손잡이 쪽)으로 따라가 처음 만나는 피부 = 주먹. 그 둘레 3px 피부의 가운데를 손으로 쓴다.
+    칼날 시작점을 손으로 쓰면 칼이 주먹보다 6~8px 앞에 붙어 손이 프레임마다 움직여 보였다(10-27 사용자 2번 규칙)."""
+    if angle is None:
+        return g
+    sk = near(a, SKIN) & (a[..., 3] > 0)
+    ux, uy = -np.cos(np.radians(angle)), np.sin(np.radians(angle))  # 손잡이 방향(그림 좌표, y 아래)
+    h, w = sk.shape
+    for t in range(0, reach + 1):
+        x, y = int(round(g[0] + ux * t)), int(round(g[1] + uy * t))
+        if 0 <= x < w and 0 <= y < h and sk[y, x]:
+            ys, xs = np.nonzero(sk[max(0, y - 3):y + 4, max(0, x - 3):x + 4])
+            return [int(round(xs.mean())) + max(0, x - 3), int(round(ys.mean())) + max(0, y - 3)]
+    return g
+
+
+_COMMON_FIST = None
+
+
+def common_fist(hand):
+    """공격 셀 주먹 = 대기 주먹 한 장을 손 좌표로 옮겨 찍는다(10-27 사용자 1번 규칙: 비슷한 자세면 손 크기가 같아야 한다).
+    초안마다 주먹을 다르게 그려 칼 위에 다시 그리는 주먹이 0~37px 로 들쭉날쭉했다(대기 42px)."""
+    global _COMMON_FIST
+    if _COMMON_FIST is None:
+        _COMMON_FIST = np.array(Image.open(os.path.join(OUT, "Idle_0_fist.png")).convert("RGBA"))
+    out = np.zeros_like(_COMMON_FIST)
+    if hand is None:
+        return out
+    dx, dy = hand[0] - IDLE_HAND[0], hand[1] - IDLE_HAND[1]
+    ys, xs = np.nonzero(_COMMON_FIST[..., 3] > 0)
+    ok = (ys + dy >= 0) & (ys + dy < 64) & (xs + dx >= 0) & (xs + dx < 64)
+    out[ys[ok] + dy, xs[ok] + dx] = _COMMON_FIST[ys[ok], xs[ok]]
+    return out
+
+
+# 머리 고정(10-27 사용자 1·4번 규칙): 초안마다 머리카락 덩어리 크기가 달라(대기 681px → 공격 347~689px) 머리가 출렁였다.
+# 공격·피격 셀은 대기 머리(스카프 윗줄 위)를 머리 위치(위 18줄 가운데·스카프 높이)에 맞춰 찍는다. 머리 앞의 팔·주먹·칼은 위에 다시 그린다.
+HEAD_LOCK = {"Stab", "StabEnd", "SwingDown", "SwingDownEnd", "SwingUp", "Hurt"}
+HAIR = [(104, 65, 57), (83, 44, 45), (55, 26, 32), (23, 11, 13), (40, 20, 24), (0, 0, 0)]
+_IDLE_HEAD = None
+
+
+def lock_head(a):
+    global _IDLE_HEAD
+    if _IDLE_HEAD is None:
+        idle = np.array(Image.open(os.path.join(OUT, "Idle_0.png")).convert("RGBA"))
+        it = int(np.nonzero(near(idle, SCARF).any(axis=1))[0].min())
+        hd = idle[:it].copy()
+        hm = hd[..., 3] > 0
+        ys, xs = np.nonzero(hm)
+        _IDLE_HEAD = (hd, hm, it, xs[ys < ys.min() + 18].mean())
+    hd, hm, it, hcx = _IDLE_HEAD
+    sc = np.nonzero(near(a, SCARF).any(axis=1))[0]
+    if not len(sc):
+        return a
+    t = int(sc.min())
+    ys, xs = np.nonzero(a[:t, ..., 3] > 0)
+    if not len(ys):
+        return a
+    dx, dy = int(round(xs[ys < ys.min() + 18].mean() - hcx)), t - it
+    region = np.zeros(a.shape[:2], bool)
+    region[max(0, t - it - 2):t, :] = True
+    op = a[..., 3] > 0
+    hair = region & op & near(a, HAIR, 8)
+    sk = near(a, SKIN) & op & region
+    parts = components(sk)
+    face = np.zeros_like(sk)
+    for y, x in (max(parts, key=len) if parts else []):
+        face[y, x] = True
+    keep = region & op & ~hair & ~face
+    out = a.copy()
+    out[hair | face] = 0
+    yy, xx = np.nonzero(hm)
+    ny, nx = yy + dy, xx + dx
+    ok = (ny >= 0) & (ny < 64) & (nx >= 0) & (nx < 64)
+    out[ny[ok], nx[ok]] = hd[yy[ok], xx[ok]]
+    out[keep] = a[keep]
+    return out
 
 
 def fill_angles(frames):
@@ -636,6 +726,8 @@ def main():
             a = shift(a, dy)
             sx = XSHIFT.get(clip, [0] * len(idx))[k] + (xplan[k] if xplan else 0)
             a = np.roll(a, sx, axis=1)
+            if clip in HEAD_LOCK:
+                a = lock_head(a)
             h, b = hands(a)
             if h and b and h != b and not weapon:
                 # 무기 손 = 직전 프레임 무기 손에 더 가까운 손(10-26 밤 사용자: 점프 중 무기 위치가 이상) — 프레임마다 '피부가 가장 많은 손'을
@@ -646,7 +738,7 @@ def main():
             if not h and not weapon:
                 h = hand_near(a, last_h)  # 다리를 접은 공중·착지 프레임은 손이 엉덩이 줄 아래로 내려가 못 찾았다 — 직전 손 근처 피부
             if weapon and grip is not None:
-                h = [grip[0] + sx, grip[1] + dy]
+                h = fist_center(a, [grip[0] + sx, grip[1] + dy], r=14)
             if (clip, k) in HAND_FIX:
                 h = list(HAND_FIX[(clip, k)])
             h = list(h) if h else last_h
@@ -654,7 +746,8 @@ def main():
             last_h, last_b = h, b
             name = f"{clip}_{k}"
             Image.fromarray(a, "RGBA").save(os.path.join(OUT, name + ".png"))
-            Image.fromarray(fist(a, h), "RGBA").save(os.path.join(OUT, name + "_fist.png"))
+            fl = common_fist(h) if weapon else fist(a, h)
+            Image.fromarray(fl, "RGBA").save(os.path.join(OUT, name + "_fist.png"))
             angle = ANGLE_FIX.get((clip, k), angle)
             fr = {"png": name, "hand": h, "handB": b, "dy": dy, "sx": sx, "time": TIMES.get(clip, [0.0] * len(idx))[k], "angle": angle if angle is not None else -999.0}  # -999 = 리그 규칙(손 위치로)
             frames.append(fr)
