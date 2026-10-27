@@ -37,6 +37,7 @@
 | `Game/AssetIntegrationPlan.md` | 사용자 지정 필수 에셋(대화·I2·Feel·ProCamera 등) 실사용 계획, 평가 대상(Smart Lighting·SPUM·RPG Monster·Corgi), 사운드 카탈로그, 웨이브 W0~W5 |
 | `Game/TechDebt.md` | 버그·기술 부채 백로그 (P0~P3, 수정 시 갱신) |
 | `Game/QualityRoadmap.md` | **게임 방향(무기 스킬 + 세트 강화)** 과 퀄리티업 로드맵 A~F |
+| `Game/MotionSet.md` | **주인공 마스터 모션 목록(던파식 고정 31개)**: 스컬 머리별 공격 형태 → 모션 계열, 이동 12 + 공격 19 표(있음/없음), 방어구 비용, 스컬 문법 이펙트 목록(PixelLab용) |
 | `Game/SkulReference.md` | **전투 모션·이펙트 레퍼런스 = 게임 스컬**: 스컬 전투 표현 문법(평타 리듬·전진·초승달 베기·히트스톱·스파크·파편), 우리 평타와 차이, 적용 순서 |
 | `Game/GameFeelPlan.md` | 타격감(A2~A6) 구현 계획: `HitFeedback` 파사드, All In 1 셰이더 키워드, 히트스톱·흔들림·숫자 수치, 임포트 목록, 검증 |
 | `Game/InventoryRefactorDesign.md` | 인벤토리 리팩터 설계(D2~D6): 현 구조·잔존 버그, InventoryModel/세트 평가기/세이브 매핑, 툴팁·정렬·픽업 로그, 단계별 이행·테스트 |
