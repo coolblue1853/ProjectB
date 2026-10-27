@@ -27,6 +27,11 @@ MOTIONS = [
     ("R1 어깨 겨눔", "ShoulderAim"), ("R2 양손 들기", "Raise"), ("R3 잡기", "Grab"), ("R4 앉기(탈것)", "Ride"),
     ("R5 넘어짐·일어남", "Knockdown"), ("R6 웅크려 놓기", "Place"), ("R7 발차기", "Kick"),
 ]
+# 모션마다 실제로 쥘 무기(검토용): 대검·단검·지팡이·활·너클은 해당 무기, 나머지는 기본 검
+WEAPON = {"GreatDown": "SacreGreatSword", "GreatSide": "SacreGreatSword", "DaggerFlurry": "RatCheifDagger",
+          "DaggerCross": "RatCheifDagger", "Throw": "RatCheifDagger", "Cast": "LeafStaff", "Raise": "LeafStaff",
+          "Punch": "Rleatherknuckles", "Kick": "Rleatherknuckles", "Grab": "Rleatherknuckles"}
+BOW_LABEL = "A13 활(찌르기 대체)"
 S = 4
 FPS = 50
 
@@ -37,23 +42,26 @@ def main():
     os.makedirs(out, exist_ok=True)
     d = json.load(open(ws.P + "Cel/cel.json", encoding="utf-8"))
     sw = Image.open(ws.SWORD).convert("RGBA")
-    font = ImageFont.truetype("C:/Windows/Fonts/malgunbd.ttf", 22)
+    font = ImageFont.truetype("C:/Windows/Fonts/malgunbd.ttf", 18)
     tmp = tempfile.mkdtemp()
     n = 0
     for no, (label, cel) in enumerate(MOTIONS, 1):
         title = f"{no:02d}_{label}"
         frames = []
         fr = d[cel]["frames"]
+        wname = "BanditShortbow" if label == BOW_LABEL else WEAPON.get(cel, "ShortSword")
+        weapon = ws.load_weapon(wname)
+        title = f"{no:02d}_{label} [{wname}]"
         dt = d[cel]["frame"]
         for i in range(len(fr)):
-            img = ws.frame(cel, i, d, eq, sw).resize((96 * S, 80 * S), Image.NEAREST)
+            img = ws.frame(cel, i, d, eq, sw, weapon).resize((96 * S, 80 * S), Image.NEAREST)
             canvas = Image.new("RGB", (96 * S, 80 * S + 36), (30, 30, 30))
             canvas.paste(img.convert("RGB"), (0, 36))
             ImageDraw.Draw(canvas).text((8, 5), title, font=font, fill=(255, 230, 120))
             frames.append(canvas)
         hold = max(1, round(dt * FPS))
         loops = max(2, int(1.2 / (dt * len(frames))) + 1)
-        frames[0].save(f"{out}/{title.replace(' ', '_')}.gif", save_all=True, append_images=frames[1:], duration=int(dt * 1000), loop=0)
+        frames[0].save(f"{out}/{no:02d}_{label.replace(' ', '_')}.gif", save_all=True, append_images=frames[1:], duration=int(dt * 1000), loop=0)
         for _ in range(loops):
             for f in frames:
                 for _ in range(hold):

@@ -27,7 +27,18 @@ def blade_angle(clip, i, n, fr):
     return -20
 
 
-def frame(clip, i, d, eq, sw):
+def load_weapon(name):
+    """무기 스프라이트 + 피벗(px, 위가 0) + upright(방패·활·지팡이·너클은 손목 각도와 상관없이 똑바로)."""
+    import re
+    base = "Assets/Resources/PixelRig/Weapons/" + name
+    im = Image.open(base + ".png").convert("RGBA")
+    meta = json.load(open(base + ".json"))
+    m = re.search(r"spritePivot: \{x: ([0-9.]+), y: ([0-9.]+)\}", open(base + ".png.meta", encoding="utf-8").read())
+    px, py = (float(m.group(1)), float(m.group(2))) if m else (0.5, 0.16)
+    return im, (px * im.size[0], (1 - py) * im.size[1]), bool(meta.get("upright"))
+
+
+def frame(clip, i, d, eq, sw, weapon=None):
     fr = d[clip]["frames"][i]
     img = Image.new("RGBA", (96, 80), (60, 70, 60, 255))
     b = Image.open(f"{P}Cel/{clip}_{i}.png").convert("RGBA")
@@ -42,11 +53,14 @@ def frame(clip, i, d, eq, sw):
         img.alpha_composite(b, (16, 8))
     if not clip.startswith("Rope") and clip != "Death":
         ang = blade_angle(clip, i, len(d[clip]["frames"]), fr)
-        big = Image.new("RGBA", (64, 64))
-        big.alpha_composite(sw, (29, int(round(32 - (sw.size[1] - PIVOT_Y)))))
-        rot = big.rotate(ang - 90, resample=Image.NEAREST, center=(32.5, 32))
+        if weapon is None:
+            weapon = (sw, (sw.size[0] / 2, sw.size[1] - PIVOT_Y), False)
+        wim, (pvx, pvy), upright = weapon
+        big = Image.new("RGBA", (128, 128))
+        big.alpha_composite(wim, (int(round(64 - pvx)), int(round(64 - pvy))))
+        rot = big if upright else big.rotate(ang - 90, resample=Image.NEAREST, center=(64, 64))
         hx, hy = fr["hand"]
-        img.alpha_composite(rot, (16 + hx - 32, 8 + hy - 32))
+        img.alpha_composite(rot, (16 + hx - 64, 8 + hy - 64)) if 16 + hx - 64 >= 0 and 8 + hy - 64 >= 0 else img.paste(rot, (16 + hx - 64, 8 + hy - 64), rot)
         img.alpha_composite(Image.open(f"{P}Cel/{clip}_{i}_fist.png").convert("RGBA"), (16, 8))
     return img
 
