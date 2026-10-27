@@ -1,4 +1,4 @@
-// 기본 칼 영상(MotionSet §7): 녹슨 검 장착 → 대기 0.4초 → 평타 3타(후딜이 풀릴 때마다 입력) → 피격 → 대기.
+// 기본 칼 영상(MotionSet §7): 녹슨 검 장착 → 대기 0.4초 → 평타 3타(후딜이 풀릴 때마다 입력) → 피격(2.8초) → 단타 찌르기 후 멈춤(4.0초, 회복 셀) → 대기.
 // 플레이어 근접 카메라로 1/30초마다 찍어 Logs/playtest/vid/f_000.png … 로 저장. ffmpeg 로 묶는다.
 var inv = InventoryManager.instance;
 var box = inv.equipBox[7].GetComponent<EquipBoxCheck>();
@@ -10,7 +10,7 @@ var rig = pc.GetComponentInChildren<PixelRig>();
 pc.transform.localScale = new Vector3(Mathf.Abs(pc.transform.localScale.x), pc.transform.localScale.y, 1f);
 pc.transform.position += new Vector3(4f, 0f, 0f); // 시작 지점 포털에서 비켜 선다
 System.IO.Directory.CreateDirectory("Logs/playtest/vid");
-int w = 320, h = 240, total = 105;
+int w = 320, h = 240, total = 165;
 int hits = 0;
 System.Action<int> shot = (int i) =>
 {
@@ -33,7 +33,9 @@ for (int k = 0; k < 40; k++)
 {
     DG.Tweening.DOVirtual.DelayedCall(0.4f + k * 0.05f, () => { if (hits < 3 && Weapon.Equipped != null && Weapon.Equipped.CanMeleeNow) { Weapon.Equipped.MeleeAttack(); hits++; } }, true);
 }
-DG.Tweening.DOVirtual.DelayedCall(2.6f, () => rig.SetControlParamInt("Eye Param", 4), true);
+DG.Tweening.DOVirtual.DelayedCall(2.8f, () => rig.SetControlParamInt("Eye Param", 4), true);
+// 콤보 없이 한 번만 찌르고 멈춤 → 회복 셀(StabEnd) 확인
+DG.Tweening.DOVirtual.DelayedCall(4.0f, () => { if (Weapon.Equipped != null && Weapon.Equipped.CanMeleeNow) Weapon.Equipped.MeleeAttack(); }, true);
 for (int k = 0; k < total; k++)
 {
     int kk = k;

@@ -676,6 +676,7 @@ public static class PixelRigBuilder
         public int[] hand;
         public int[] handB;
         public float angle = CelClip.NoAngle;
+        public float time; // 0 = 클립 frame 사용
     }
 
     [System.Serializable]
@@ -699,7 +700,7 @@ public static class PixelRigBuilder
         string text = File.ReadAllText(json);
         string[] names = { "Idle", "Walk", "Run", "JumpCrouch", "JumpArc", "Land", "Dash", "Hurt", "Death", "Stab", "SwingDown", "SwingUp", "RopeUp", "RopeStay", "GreatDown", "GreatSide", "DaggerFlurry", "DaggerCross",
             // 마스터 모션 38개(MotionSet.md) 10-27 추가분
-            "AirSlash", "Lunge", "Spin", "Cast", "Throw", "Guard", "Charge", "LeapSlam", "Backstep", "Punch", "Iaido", "ShoulderAim", "Raise", "Knockdown", "Place", "Kick", "Grab", "Ride" };
+            "AirSlash", "Lunge", "Spin", "Cast", "Throw", "Guard", "Charge", "LeapSlam", "Backstep", "Punch", "Iaido", "ShoulderAim", "Raise", "Knockdown", "Place", "Kick", "Grab", "Ride", "StabEnd", "SwingDownEnd" };
         var list = new List<(string, CelClipJson)>();
         foreach (string n in names)
         {
@@ -730,6 +731,12 @@ public static class PixelRigBuilder
             fp.arraySize = clip.frames.Length;
             SerializedProperty ap = e.FindPropertyRelative("angles");
             ap.arraySize = clip.frames.Length;
+            SerializedProperty tp = e.FindPropertyRelative("times");
+            tp.arraySize = clip.frames.Length;
+            for (int i = 0; i < clip.frames.Length; i++)
+            {
+                tp.GetArrayElementAtIndex(i).floatValue = clip.frames[i].time;
+            }
             SerializedProperty hp = e.FindPropertyRelative("hand");
             SerializedProperty bp = e.FindPropertyRelative("handB");
             sp.arraySize = hp.arraySize = bp.arraySize = clip.frames.Length;

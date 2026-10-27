@@ -45,6 +45,7 @@ _M38 = os.path.join(SRC, "iron_set", "m38_batches.json")
 if os.path.exists(_M38):
     for _b in json.load(open(_M38)):
         BATCHES[_b["name"]] = [tuple(it) for it in _b["items"]]
+_CEL = json.load(open(os.path.join("Assets/Art/Player/PixelRig/Cel", "cel.json"), encoding="utf-8"))
 # 새 셀로 바뀐 클립은 예전 묶음의 전이 결과를 쓰지 않는다(몸 그림이 달라 레이어가 어긋난다)
 # 대기 전이: stand_edit2 는 cand2(batch_i 0번 전이)와 상체가 같아 batch_i, maple2 는 batch_k
 _IDLE_BATCH = "batch_k" if "maple" in IDLE_STAND else "batch_i"
@@ -54,7 +55,7 @@ NEW = {"batch_i": ({"Idle"} if IDLE_STAND and _IDLE_BATCH == "batch_i" else set(
        # 10-27 기본 칼 평타 3타 새 셀(MotionSet §7): 예전 batch_d/e·v2_1 의 Stab·SwingDown·SwingUp 전이는 쓰지 않는다
        "batch_bs1": set(), "batch_bs2": {"SwingUp"}, "batch_bs3": {"Hurt"},
        # 10-27 2차: 오른손(앞팔) 고정으로 다시 만든 찌르기·내려베기
-       "batch_bs4": {"Stab"}, "batch_bs5": {"SwingDown"}}
+       "batch_bs4": {"Stab", "StabEnd", "SwingDown"}, "batch_bs5": {"SwingDown", "SwingDownEnd"}}
 REPLACED = set().union(*NEW.values())
 
 
@@ -197,7 +198,7 @@ def trim_spikes(b, layer, lm, erase):
 
 HELM_CANON = ("Walk", 3)  # 모든 프레임 투구를 이 프레임 투구로 통일(전이가 프레임마다 흠집·땜빵을 달리 그렸다 — 사용자 "가만히 있으면 땜빵이 생기고 걸으면 사라진다")
 HELM_SKIP = {"RopeUp", "RopeStay", "Death"}  # 뒷모습·눕기는 모양이 달라 그대로
-HELM_IOU = 0.55
+HELM_IOU = 0.35  # 10-27: 공격·피격 프레임(0.40~0.69)도 기준 투구로 — 프레임마다 전이 투구가 ±15% 출렁였다. 예전 0.55
 
 
 def _cut(b):
@@ -396,6 +397,9 @@ def main():
                 e = np.roll(e, shift, axis=0)
             if clip in XSHIFT:
                 e = np.roll(e, XSHIFT[clip][k], axis=1)  # 셀과 같은 가로 맞춤
+            sx = _CEL.get(clip, {}).get("frames", [{}] * (k + 1))[k].get("sx", 0) if k < len(_CEL.get(clip, {}).get("frames", [])) else 0
+            if sx:
+                e = np.roll(e, sx, axis=1)  # 10-27 공격 가로 맞춤(앞발 고정): 전이는 맞춤 전 셀로 만들었다
             bo, eo = b[..., 3] > 0, e[..., 3] > 0
             differ = np.abs(b[..., :3] - e[..., :3]).sum(axis=2) > TOL
             lm = clean(eo & (~bo | differ), MIN_PART)

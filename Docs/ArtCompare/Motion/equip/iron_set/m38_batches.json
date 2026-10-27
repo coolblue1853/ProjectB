@@ -1185,63 +1185,87 @@
   "items": [
    [
     "SwingDown",
-    6
+    6,
+    0,
+    0
    ],
    [
     "SwingDown",
-    7
+    7,
+    1,
+    0
    ],
    [
     "SwingDown",
-    8
+    8,
+    2,
+    0
    ],
    [
     "SwingDown",
-    9
-   ],
-   [
-    "SwingUp",
+    9,
+    3,
     0
    ],
    [
     "SwingUp",
-    1
+    0,
+    5,
+    0
    ],
    [
     "SwingUp",
-    2
+    1,
+    6,
+    0
    ],
    [
     "SwingUp",
-    3
+    2,
+    7,
+    0
    ],
    [
     "SwingUp",
-    4
+    3,
+    8,
+    0
    ],
    [
     "SwingUp",
-    5
+    4,
+    9,
+    0
    ],
    [
     "SwingUp",
-    6
+    5,
+    10,
+    0
    ],
    [
     "SwingUp",
-    7
+    6,
+    11,
+    0
    ],
    [
     "SwingUp",
-    8
+    7,
+    12,
+    0
    ],
    [
     "SwingUp",
-    9
+    8,
+    13,
+    0
    ],
    [
     "SwingUp",
-    10
+    9,
+    14,
+    0
    ]
   ],
   "refs": [
@@ -1322,16 +1346,28 @@
     6
    ],
    [
-    "Stab",
-    7
+    "StabEnd",
+    0,
+    7,
+    0
    ],
    [
-    "Stab",
-    8
+    "StabEnd",
+    1,
+    8,
+    0
    ],
    [
-    "Stab",
-    9
+    "StabEnd",
+    2,
+    9,
+    0
+   ],
+   [
+    "SwingDown",
+    0,
+    7,
+    0
    ]
   ],
   "refs": [],
@@ -1342,43 +1378,57 @@
   "items": [
    [
     "SwingDown",
+    1,
+    1,
     0
    ],
    [
     "SwingDown",
-    1
+    2,
+    2,
+    0
    ],
    [
     "SwingDown",
-    2
+    3,
+    3,
+    0
    ],
    [
     "SwingDown",
-    3
+    4,
+    4,
+    0
    ],
    [
     "SwingDown",
-    4
+    5,
+    5,
+    0
    ],
    [
     "SwingDown",
-    5
+    6,
+    6,
+    0
    ],
    [
-    "SwingDown",
-    6
+    "SwingDownEnd",
+    0,
+    7,
+    0
    ],
    [
-    "SwingDown",
-    7
+    "SwingDownEnd",
+    1,
+    8,
+    0
    ],
    [
-    "SwingDown",
-    8
-   ],
-   [
-    "SwingDown",
-    9
+    "SwingDownEnd",
+    2,
+    9,
+    0
    ]
   ],
   "refs": [],

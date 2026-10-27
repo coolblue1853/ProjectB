@@ -96,6 +96,8 @@ public class PixelRig : CharacterRig
     private const float LieLiftPx = 11f; // 눕힌 몸이 땅에 묻히지 않게 들어 올리는 아트 픽셀(몸 반폭)
     private Vector3 _restLocalPos;
     private float _hurtUntil;
+    private CelClip _endCel;   // 공격이 끝나 대기·걷기로 돌아갈 때 잠깐 보여 줄 회복 셀("<셀>End") — 콤보가 이어지면 안 쓰인다
+    private float _endStart;
     private const int HurtEyeParam = 4;
     private const float HurtTime = 0.22f;
     private const float ApexBand = 1.5f;   // |세로 속도| 이하면 꼭대기 포즈
@@ -200,6 +202,14 @@ public class PixelRig : CharacterRig
         {
             _minVy = 0f;
             _tookOff = false;
+        }
+        bool toGround = anim == "Idle" || anim == "Walk" || anim == "Run";
+        _endCel = null;
+        if (toGround && _current != null && _diedAt < 0f && _celByName != null
+            && _celByName.TryGetValue(CelKey(_current.name, true) + "End", out CelClip end))
+        {
+            _endCel = end;
+            _endStart = Time.time;
         }
         _playedAt = Time.time;
         _current = Resolve(anim);
@@ -437,13 +447,22 @@ public class PixelRig : CharacterRig
             }
             _celByName.TryGetValue(key, out cel);
         }
+        bool ending = _endCel != null && _diedAt < 0f && c != _hurt && Time.time - _endStart < _endCel.Length;
+        if (ending)
+        {
+            cel = _endCel;
+        }
         if (cel == null)
         {
             ShowCel(false);
             return;
         }
         int i;
-        if (_diedAt >= 0f)
+        if (ending)
+        {
+            i = cel.IndexAt(Time.time - _endStart);
+        }
+        else if (_diedAt >= 0f)
         {
             i = cel.IndexAt(Time.time - _diedAt);
         }

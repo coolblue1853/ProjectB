@@ -1019,10 +1019,6 @@
    "k": 9
   },
   {
-   "clip": "SwingUp",
-   "k": 10
-  },
-  {
    "clip": "Hurt",
    "k": 0
   },
@@ -1071,16 +1067,16 @@
    "k": 6
   },
   {
-   "clip": "Stab",
-   "k": 7
+   "clip": "StabEnd",
+   "k": 0
   },
   {
-   "clip": "Stab",
-   "k": 8
+   "clip": "StabEnd",
+   "k": 1
   },
   {
-   "clip": "Stab",
-   "k": 9
+   "clip": "StabEnd",
+   "k": 2
   },
   {
    "clip": "SwingDown",
@@ -1111,16 +1107,16 @@
    "k": 6
   },
   {
-   "clip": "SwingDown",
-   "k": 7
+   "clip": "SwingDownEnd",
+   "k": 0
   },
   {
-   "clip": "SwingDown",
-   "k": 8
+   "clip": "SwingDownEnd",
+   "k": 1
   },
   {
-   "clip": "SwingDown",
-   "k": 9
+   "clip": "SwingDownEnd",
+   "k": 2
   },
   {
    "clip": "Idle",
