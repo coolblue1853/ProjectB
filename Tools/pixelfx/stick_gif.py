@@ -42,38 +42,65 @@ REF.update({
     "U_dnf_end": dict(head=(47, 13), neck=(45, 20), hip=(44, 37), sh=(44, 22), el=(40, 14), hand=(36, 9), osh=(46, 22), oel=(49, 28), ohand=(51, 24),
                       bk=(39, 48), bf=(35, 59), fk=(49, 48), ff=(53, 59), sword=160),
 })
+
+# Pinterest 픽셀 한손검+방패 3연타(9b10b0cd…gif, 20프레임 60ms, 오른쪽 보기). 9b_grid.png(0.75배 칸 좌표)에서 읽어 땅 59·키 ~47 로 환산
+def _pin(d, sword):
+    k = 0.207 / 0.75
+    f = lambda q: (40 + (q[0] - 118 * 0.75 / 0.75) * k, 59 - (185 - q[1]) * k)
+    out = {n: f(v) for n, v in d.items()}
+    out["sword"] = sword
+    return out
+
+
+REF.update({
+    "P1_prep": _pin(dict(head=(130, 30), neck=(128, 48), hip=(118, 112), sh=(130, 55), el=(150, 35), hand=(165, 12), osh=(122, 55), oel=(118, 80), ohand=(130, 88),
+                         bk=(85, 150), bf=(55, 182), fk=(140, 145), ff=(148, 185)), 180),
+    "P2_strike": _pin(dict(head=(148, 40), neck=(140, 55), hip=(118, 120), sh=(140, 60), el=(100, 85), hand=(72, 105), osh=(145, 60), oel=(155, 85), ohand=(150, 95),
+                           bk=(70, 160), bf=(45, 185), fk=(150, 150), ff=(150, 185)), 200),
+    "P3_end": _pin(dict(head=(155, 40), neck=(145, 60), hip=(120, 125), sh=(140, 65), el=(110, 95), hand=(80, 110), osh=(146, 65), oel=(150, 90), ohand=(145, 95),
+                        bk=(75, 165), bf=(50, 185), fk=(150, 155), ff=(155, 185)), 195),
+    "P14_lunge": _pin(dict(head=(153, 58), neck=(140, 75), hip=(110, 135), sh=(150, 80), el=(180, 120), hand=(205, 145), osh=(130, 75), oel=(110, 58), ohand=(100, 50),
+                           bk=(70, 170), bf=(40, 185), fk=(150, 160), ff=(155, 188)), -30),
+    "P0_ready": _pin(dict(head=(124, 38), neck=(122, 55), hip=(115, 120), sh=(110, 60), el=(90, 50), hand=(60, 40), osh=(130, 62), oel=(145, 85), ohand=(150, 80),
+                          bk=(75, 170), bf=(55, 185), fk=(140, 160), ff=(148, 185)), 165),
+    "P7_upend": _pin(dict(head=(120, 72), neck=(118, 88), hip=(110, 140), sh=(105, 85), el=(70, 55), hand=(40, 35), osh=(125, 90), oel=(140, 115), ohand=(145, 105),
+                          bk=(70, 170), bf=(45, 185), fk=(140, 160), ff=(150, 185)), 175),
+})
+
 REF_MAP = {
-    "SwingDown": ["D_dnf_prep", "D_dnf_prep", "D_dnf_prep", "D_sly_hit", "D_sly_hit", "D_dnf_end", "D_dnf_end", "D_dnf_end", "D_dnf_end", "D_dnf_end"],
-    "SwingUp": ["D_dnf_end", "D_dnf_end", "D_dnf_end", "U_dnf_rise", "U_dnf_rise", "U_dnf_end", "U_dnf_end", "U_dnf_end", "U_dnf_end", "U_dnf_end", "U_dnf_end"],
+    "SwingDown": ["P1_prep", "P1_prep", "P1_prep", "P2_strike", "P14_lunge", "P14_lunge", "P14_lunge", "P14_lunge", "P14_lunge", "P14_lunge"],
+    "SwingUp": ["D_dnf_end", "D_dnf_end", "D_dnf_end", "U_dnf_rise", "U_dnf_rise", "P7_upend", "P7_upend", "P7_upend", "P7_upend", "P7_upend", "P7_upend"],
 }
 
-# v12 수정안(10-27): 횡스크롤 레퍼런스(던파M 평타·SLYNYRD·rvros)를 졸라맨으로 따라 그려 맞춤
-# 내려베기: 칼을 머리 위로 들어 뒤로 수평(다리 A자) → 상체를 숙이며 팔을 앞 아래로 쭉 → 낮게 웅크려 칼을 앞 아래로 빼냄(= 올려베기 시작 자세)
-# 올려베기: 웅크린 자세에서 칼손이 앞으로 나가며(가슴 앞) → 일어서며 머리 위 → 머리 뒤로, 다리는 A자로 펴짐
+# v13 수정안(10-27 사용자: v12 초록손(반대손) 팔이 이상함 → 여러 횡스크롤 레퍼런스를 졸라맨으로 비교)
+# 반대손: 주먹을 앞으로 내뻗지 않는다. 준비·올려베기 땐 팔꿈치 굽혀 가슴 앞에 붙이고(핀 0·7, 던파M),
+#         앞으로 깊게 내딛어 벨 땐 뒤 위로 젖혀 균형(핀 14). 다리: 벨 때 뒷다리 뒤로 길게 곧게, 앞 무릎 앞.
+TUCK = (-75, 15)          # 반대손 가슴 앞
+BALANCE = (-168, 150)     # 반대손 뒤 위(균형)
 A_STANCE = (-112, -112, -68, -68)
-LUNGE = (-128, -128, -45, -95)
+LUNGE = (-140, -140, -40, -95)
 PROPOSAL = {
     "SwingDown": [IDLEK, [
-        (((40.5, 44), -5, 80, 110, -40, 15) + A_STANCE + (0,), 2),                   # 준비: 칼손 머리 위, 칼 뒤로 수평, 반대손 가슴 앞
-        (((40.5, 44), -6, 82, 112, -40, 17) + A_STANCE + (0,), 1),
-        (((42, 44), 18, 10, -15, -50, 0, -122, -122, -55, -92, 0), 1),               # 베기: 숙이기 시작, 칼손 가슴 앞
-        (((43, 44), 30, -45, -50, -60, -25) + LUNGE + (0,), 1),                      # 팔을 앞 아래로 쭉(SLYNYRD HIT 보다 낮게)
-        (((43, 44), 34, -55, -58, -62, -30) + LUNGE + (0,), 1),                      # 끝: 낮게 웅크려 칼 앞 아래(던파 5.90)
-        (((43, 44), 35, -56, -59, -62, -31) + LUNGE + (0,), 1),
+        (((40.5, 44), -5, 80, 110) + TUCK + A_STANCE + (0,), 2),                     # 준비: 칼손 머리 위, 칼 뒤로 수평(핀 1·던파M)
+        (((40.5, 44), -6, 82, 112) + TUCK + A_STANCE + (0,), 1),
+        (((42, 44), 15, 20, -10, -110, -40, -125, -125, -55, -90, 0), 1),            # 베기 시작: 칼손 머리 앞으로, 반대손 내려가며 뒤로
+        (((43, 44), 30, -30, -35) + BALANCE + LUNGE + (0,), 1),                      # 내딛어 벰: 팔을 앞 아래로 쭉, 반대손 뒤 위(핀 14)
+        (((43, 44), 32, -40, -45) + BALANCE + LUNGE + (0,), 1),                      # 끝: 칼 앞 아래로 빠짐
+        (((43, 44), 33, -41, -46) + BALANCE + LUNGE + (0,), 1),
      ], [(IDLEK, 3)]],
     "SwingUp": [IDLEK, [
-        (((43, 44), 32, -55, -58, -62, -30) + LUNGE + (0,), 2),                      # 시작 = 내려베기 끝(웅크림, 칼 앞 아래)
-        (((43, 44), 33, -56, -59, -62, -31) + LUNGE + (0,), 1),
-        (((43, 44), 12, 0, 25, -55, 40, -120, -120, -60, -80, 0), 1),                # 칼손이 앞으로 나감(가슴 앞), 몸 일어나기 시작
-        (((43, 44), 0, 70, 100, -50, 75) + A_STANCE + (0,), 1),                      # 일어서며 머리 위 앞, 반대손 아래팔 세움
-        (((43, 44), -6, 100, 140, -50, 80) + A_STANCE + (0,), 2),                    # 끝: 칼손 머리 위 뒤, 칼 뒤 위(던파 6.23)
-        (((43, 44), -7, 101, 141, -50, 81) + A_STANCE + (0,), 1),
+        (((43, 44), 28, -45, -50, -110, -20) + LUNGE + (0,), 2),                     # 시작 = 내려베기 끝 근처(웅크림), 반대손 몸 쪽으로
+        (((43, 44), 29, -46, -51, -110, -20) + LUNGE + (0,), 1),
+        (((43, 44), 12, -5, 30) + TUCK + (-125, -125, -55, -85, 0), 1),             # 칼손이 앞으로 나감(가슴 앞), 반대손 가슴 앞
+        (((43, 44), 0, 75, 100) + TUCK + (-120, -120, -60, -85, 0), 1),             # 일어서며 머리 위 앞
+        (((43, 44), -5, 150, 170, -70, 20, -125, -125, -60, -85, 0), 2),            # 끝: 칼팔 뒤 위로 쭉, 칼 뒤 수평(핀 7·던파M), 반대손 가슴 앞
+        (((43, 44), -6, 151, 171, -70, 21, -125, -125, -60, -85, 0), 1),
         ((IDLEK), 3),
      ], []],
 }
 ANGLES = {
-    "SwingDown": [100, 172, 174, 60, -25, -35, -35, -30, -25, -20],
-    "SwingUp": [-30, -30, -30, 50, 110, 140, 160, 162, 200, 245, 340],
+    "SwingDown": [100, 172, 174, 60, -30, -35, -35, -30, -25, -20],
+    "SwingUp": [-30, -30, -30, 50, 110, 160, 175, 176, 210, 245, 340],
 }
 TIMES = {
     "SwingDown": [50, 40, 100, 30, 30, 60, 150, 50, 60, 90],
@@ -148,7 +175,7 @@ def main():
             g = ImageDraw.Draw(c)
             g.text((6, 2), f"레퍼런스 {REF_MAP[m][i]}", fill=(0, 90, 160), font=FONT)
             g.text((a.width + 14, 2), f"지금 v9  {m} {i}", fill=(0, 0, 0), font=FONT)
-            g.text((a.width * 2 + 22, 2), f"수정안 v12  {i}", fill=(180, 30, 30), font=FONT)
+            g.text((a.width * 2 + 22, 2), f"수정안 v13  {i}", fill=(180, 30, 30), font=FONT)
             gif.append(c)
         gif[0].save(f"{out}/{m}_stick.gif", save_all=True, append_images=gif[1:], duration=TIMES[m], loop=0)
         print(m, len(gif))
@@ -156,3 +183,35 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+GALLERY = {
+    "내려베기 레퍼런스": [("rvros 준비", "D_prep"), ("rvros 끝", "D_end"), ("SLYNYRD 타격", "D_sly_hit"), ("던파M 준비", "D_dnf_prep"), ("던파M 끝", "D_dnf_end"),
+                     ("핀 1타 준비", "P1_prep"), ("핀 1타 벰", "P2_strike"), ("핀 1타 끝", "P3_end"), ("핀 3타 내딛어 벰", "P14_lunge")],
+    "올려베기 레퍼런스": [("rvros 웅크림", "U_crouch"), ("rvros 솟음", "U_rise"), ("rvros 끝", "U_end"), ("던파M 솟음", "U_dnf_rise"), ("던파M 끝", "U_dnf_end"),
+                     ("핀 준비", "P0_ready"), ("핀 2타 끝", "P7_upend")],
+}
+
+
+def gallery(out):
+    """레퍼런스 졸라맨 모음(동작별 한 줄)."""
+    rows = []
+    for title, items in GALLERY.items():
+        ims = []
+        for label, key in items:
+            im = draw_ref(REF[key], scale=3)
+            ImageDraw.Draw(im).text((4, 2), label, fill=(0, 60, 140), font=FONT)
+            ims.append(im)
+        row = Image.new("RGB", (sum(i.width + 4 for i in ims), ims[0].height + 30), (255, 255, 255))
+        ImageDraw.Draw(row).text((4, 2), title, fill=(0, 0, 0), font=FONT)
+        x = 0
+        for i in ims:
+            row.paste(i, (x, 30))
+            x += i.width + 4
+        rows.append(row)
+    sheet = Image.new("RGB", (max(r.width for r in rows), sum(r.height for r in rows)), (255, 255, 255))
+    y = 0
+    for r in rows:
+        sheet.paste(r, (0, y))
+        y += r.height
+    sheet.save(out)
