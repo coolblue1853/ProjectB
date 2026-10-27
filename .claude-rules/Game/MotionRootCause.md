@@ -109,3 +109,8 @@ GPT 2차 토론(`Docs/ArtCompare/Motion/cel/basic_sword/gpt_round2.md`) 요지: 
 - Dead Cells(https://www.gamedeveloper.com/production/art-design-deep-dive-using-a-3d-pipeline-for-2d-animation-in-i-dead-cells-i-): 포즈 대 포즈, 보간은 키 앞뒤에만, 움직임·타격감은 VFX 로.
 - 칼: 무기를 캐릭터와 같은 캔버스 시트로 겹치거나, 손잡이를 손 아래 레이어로(우리는 손 좌표 메타데이터 + 주먹 덧그리기 — 자세표 손목을 그대로 쓰는 v5/v6 방식이 맞다).
 - 장비: AI 로 레이어 일관성을 푼 사례 없음. 페이퍼돌(같은 프레임에 장비 레이어)이 정석 → 투구는 머리 앵커에 한 장.
+
+## 13. 연출 방식 비교 테스트(10-27, 생성 0) — 사용자: "데드셀 방식이든 뭐든 여러 방식으로 테스트"
+- 찌르기 v6 스켈레톤 9프레임(`skel/v6/stab`, job 47cff37f…)을 같은 재료로 `Tools/pixelfx/style_test.py` 가 4가지로 재생:
+  A 보간형(9프레임 50ms) / B 데드셀식 포즈 대 포즈(키 4장, 타격 200ms 유지) / C SLYNYRD 정석(준비 짧게·타격 180ms·복귀 2) / D = B + 손목 궤적 스미어.
+- 결과 GIF: `Docs/ArtCompare/Motion/cel/basic_sword/style_test/Stab_*.gif`. 사용자 선택 후 내려베기·올려베기 v6 생성(각 3생성) → 선택한 방식으로 게임 적용.
