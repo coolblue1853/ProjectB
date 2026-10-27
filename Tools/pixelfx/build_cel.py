@@ -20,7 +20,7 @@ FEET_ROW = 55
 HIP_X = 41  # 리그 원점 x(엉덩이)
 # 클립: (초안 폴더, 프레임 번호들, 프레임 시간(초), 반복, 정렬 'feet' | 'scarf')
 # 가로 맞춤(아트 px, +앞): 피격 초안은 몸이 15px 뒤로 밀린 채 그려져 맞는 순간 뒤로 튀고 대기로 돌아올 때 앞으로 튀었다 — 넉백은 물리가 한다. 2px 젖혔다 돌아오는 정도만 남김
-XSHIFT = {"Hurt": [13, 11, 5]}
+XSHIFT = {}  # 10-27 새 피격 셀은 이동 보정 없음(예전: {"Hurt": [13, 11, 5]})
 
 # 점프 세트: "side" = 다리 모은 점프(10-26, 사용자 "동작은 완벽한데 다소곳하다" — 지우지 말고 보관), "leap" = 다리 앞뒤로 벌린 도약(10-26 저녁)
 JUMPS = {
@@ -43,12 +43,12 @@ CLIPS = {
     "JumpArc": JUMPS[JUMP_SET][1],  # 리그가 세로 속도로 시점을 고른다(0 상승 → 1 낙하)
     "Land": JUMPS[JUMP_SET][2],
     "Dash": ("dash_side", [2, 3, 4], 0.05, False, "feet"),     # 1번은 거의 서 있는 자세라 뺐다
-    "Hurt": ("hurt_side", [2, 3, 4], 0.07, False, "feet"),     # 1번엔 흰 베기 효과가 그림에 섞여 뺐다
+    "Hurt": ("basic_sword", ['basic_sword/hurt/H1/4', 'basic_sword/hurt/G1/4', 'basic_sword/hurt/G2/1', 'basic_sword/hurt/G2/2', 'basic_sword/hurt/G2/3'], 0.044, False, "feet"),  # 10-27: 맞는 순간 바로 젖히는 키(대기에서 생성) + 회복 3장 — 생성기가 넣은 베기·피 이펙트 프레임은 뺐다(이펙트는 별도). 예전: ("hurt_side", [2, 3, 4], 0.07, ...)
     "Death": ("death_side", list(range(1, 9)), 0.1, False, "feet"),
     "RopeUp": ("rope_loop", list(range(0, 8)), 0.08, True, "const"),   # 뒷모습 오르기(로프에선 무기 숨김)
     "RopeStay": ("rope_loop", [0], 0.3, True, "const"),
     # 공격(칼을 쥔 채 생성 → 칼·잔상을 지우고 손잡이·칼날 각도를 읽어 실제 장착 무기를 붙인다). 0·8번은 기준 그림이라 뺀다
-    "Stab": ("basic_sword", ['basic_sword/stab/S1/1', 'basic_sword/stab/S1/3', 'basic_sword/stab/S1/4', 'basic_sword/stab/S2/1', 'basic_sword/stab/S2/3', 'basic_sword/stab/S2/4', 'basic_sword/stab/S3/1', 'basic_sword/stab/S3/2', 'basic_sword/stab/S3/3'], 0.045, False, "feet", True),  # 기본 칼 1타(10-27 스컬 흐름 참고 키 2장 + 사이 프레임, MotionSet §7) — 예전: ("attack/stab", list(range(1, 8)), 0.04, ...)
+    "Stab": ("basic_sword", ['basic_sword/stab/S1/1', 'basic_sword/stab/S1/3', 'basic_sword/stab/S1/4', 'basic_sword/stab/S2/1', 'basic_sword/stab/S2/3', 'basic_sword/stab/S2/4', 'basic_sword/stab/S2/4', 'basic_sword/stab/S3/1', 'basic_sword/stab/S3/2', 'basic_sword/stab/S3/3'], 0.045, False, "feet", True),  # 기본 칼 1타(찌른 자세 S2/4 를 두 번 — 영상에서 1프레임만 보여 안 읽혔다)(10-27 스컬 흐름 참고 키 2장 + 사이 프레임, MotionSet §7) — 예전: ("attack/stab", list(range(1, 8)), 0.04, ...)
     "SwingDown": ("basic_sword", ['basic_sword/down/S1/1', 'basic_sword/down/S1/2', 'basic_sword/down/S1/3', 'basic_sword/down/S1/4', 'basic_sword/down/S2/2', 'basic_sword/down/S2/3', 'basic_sword/down/S2/4', 'basic_sword/down/S3/1', 'basic_sword/down/S3/2', 'basic_sword/down/S3/3'], 0.045, False, "feet", True),  # 기본 칼 2타(스미어 프레임 S2/1 제외 — 이펙트는 별도) — 예전: ("attack/down", [1, 2, 4, 4, 5, 6, 7], 0.04, ...)
     "SwingUp": ("basic_sword", ['basic_sword/up/U1/1', 'basic_sword/up/U1/3', 'basic_sword/up/U1/4', 'basic_sword/up/U2/3', 'basic_sword/up/U2/4', 'basic_sword/up/U3/1', 'basic_sword/up/U3/2', 'basic_sword/up/U3/3', 'basic_sword/up/U3/4', 'basic_sword/up/U4/2', 'basic_sword/up/U4/3'], 0.045, False, "feet", True),  # 기본 칼 3타(키 3장: 웅크림→런지 수직→같은 다리 어깨 넘김)
     # 대검·둔기 양손(늘린 강철 대검을 합성한 기준 그림에서 생성, 칼 길이 36). 묵직하게 0.05초

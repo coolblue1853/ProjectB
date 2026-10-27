@@ -47,18 +47,6 @@
    "k": 2
   },
   {
-   "clip": "Hurt",
-   "k": 0
-  },
-  {
-   "clip": "Hurt",
-   "k": 1
-  },
-  {
-   "clip": "Hurt",
-   "k": 2
-  },
-  {
    "clip": "Death",
    "k": 0
   },
@@ -1027,6 +1015,10 @@
    "k": 8
   },
   {
+   "clip": "Stab",
+   "k": 9
+  },
+  {
    "clip": "SwingDown",
    "k": 0
   },
@@ -1109,6 +1101,26 @@
   {
    "clip": "SwingUp",
    "k": 10
+  },
+  {
+   "clip": "Hurt",
+   "k": 0
+  },
+  {
+   "clip": "Hurt",
+   "k": 1
+  },
+  {
+   "clip": "Hurt",
+   "k": 2
+  },
+  {
+   "clip": "Hurt",
+   "k": 3
+  },
+  {
+   "clip": "Hurt",
+   "k": 4
   },
   {
    "clip": "Idle",

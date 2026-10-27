@@ -69,24 +69,6 @@
    "erase": 48
   },
   {
-   "clip": "Hurt",
-   "k": 0,
-   "layer": 595,
-   "erase": 78
-  },
-  {
-   "clip": "Hurt",
-   "k": 1,
-   "layer": 585,
-   "erase": 77
-  },
-  {
-   "clip": "Hurt",
-   "k": 2,
-   "layer": 568,
-   "erase": 55
-  },
-  {
    "clip": "Death",
    "k": 0,
    "layer": 549,
@@ -1523,18 +1505,24 @@
   {
    "clip": "Stab",
    "k": 6,
+   "layer": 568,
+   "erase": 73
+  },
+  {
+   "clip": "Stab",
+   "k": 7,
    "layer": 604,
    "erase": 69
   },
   {
    "clip": "Stab",
-   "k": 7,
+   "k": 8,
    "layer": 590,
    "erase": 68
   },
   {
    "clip": "Stab",
-   "k": 8,
+   "k": 9,
    "layer": 602,
    "erase": 68
   },
@@ -1663,6 +1651,36 @@
    "k": 10,
    "layer": 582,
    "erase": 69
+  },
+  {
+   "clip": "Hurt",
+   "k": 0,
+   "layer": 662,
+   "erase": 6
+  },
+  {
+   "clip": "Hurt",
+   "k": 1,
+   "layer": 647,
+   "erase": 6
+  },
+  {
+   "clip": "Hurt",
+   "k": 2,
+   "layer": 649,
+   "erase": 6
+  },
+  {
+   "clip": "Hurt",
+   "k": 3,
+   "layer": 617,
+   "erase": 77
+  },
+  {
+   "clip": "Hurt",
+   "k": 4,
+   "layer": 613,
+   "erase": 76
   },
   {
    "clip": "Idle",
