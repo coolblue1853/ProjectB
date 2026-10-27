@@ -1,0 +1,9 @@
+ref_sword upload:ec7f8273-9f2f-4f44-b7f4-276ceb91806c
+up_ready upload:e0ff9422-d469-4e64-9c7c-9a20224d8069
+up_hit upload:34ceb446-b0f7-4aa9-a2b9-3b9cd985ee16
+air_hit upload:66af901d-a084-4159-9dae-7698622ed978
+slam_hit upload:170472ef-cb59-4373-ba84-be1613173543
+iaido_hit upload:18e9402d-7a14-4302-b36e-69d9ed0e10c3
+guard_hold upload:5e1ec1d5-6b7e-49d7-a4bf-68c66276a0d6
+charge_hold upload:694fd457-09db-4031-b494-7844d0211058
+punch_hit upload:9c99e1e3-b682-48b9-a441-1242dcf1665d

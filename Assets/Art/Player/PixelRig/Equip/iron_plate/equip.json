@@ -907,6 +907,214 @@
    "k": 7
   },
   {
+   "clip": "SwingUp",
+   "k": 0
+  },
+  {
+   "clip": "SwingUp",
+   "k": 1
+  },
+  {
+   "clip": "SwingUp",
+   "k": 2
+  },
+  {
+   "clip": "SwingUp",
+   "k": 3
+  },
+  {
+   "clip": "SwingUp",
+   "k": 4
+  },
+  {
+   "clip": "SwingUp",
+   "k": 5
+  },
+  {
+   "clip": "SwingUp",
+   "k": 6
+  },
+  {
+   "clip": "SwingUp",
+   "k": 7
+  },
+  {
+   "clip": "SwingUp",
+   "k": 8
+  },
+  {
+   "clip": "SwingUp",
+   "k": 9
+  },
+  {
+   "clip": "AirSlash",
+   "k": 0
+  },
+  {
+   "clip": "AirSlash",
+   "k": 1
+  },
+  {
+   "clip": "AirSlash",
+   "k": 2
+  },
+  {
+   "clip": "AirSlash",
+   "k": 3
+  },
+  {
+   "clip": "AirSlash",
+   "k": 4
+  },
+  {
+   "clip": "AirSlash",
+   "k": 5
+  },
+  {
+   "clip": "AirSlash",
+   "k": 6
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 0
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 1
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 2
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 3
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 4
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 5
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 6
+  },
+  {
+   "clip": "Iaido",
+   "k": 0
+  },
+  {
+   "clip": "Iaido",
+   "k": 1
+  },
+  {
+   "clip": "Iaido",
+   "k": 2
+  },
+  {
+   "clip": "Iaido",
+   "k": 3
+  },
+  {
+   "clip": "Iaido",
+   "k": 4
+  },
+  {
+   "clip": "Iaido",
+   "k": 5
+  },
+  {
+   "clip": "Iaido",
+   "k": 6
+  },
+  {
+   "clip": "Guard",
+   "k": 0
+  },
+  {
+   "clip": "Guard",
+   "k": 1
+  },
+  {
+   "clip": "Guard",
+   "k": 2
+  },
+  {
+   "clip": "Guard",
+   "k": 3
+  },
+  {
+   "clip": "Guard",
+   "k": 4
+  },
+  {
+   "clip": "Guard",
+   "k": 5
+  },
+  {
+   "clip": "Guard",
+   "k": 6
+  },
+  {
+   "clip": "Charge",
+   "k": 0
+  },
+  {
+   "clip": "Charge",
+   "k": 1
+  },
+  {
+   "clip": "Charge",
+   "k": 2
+  },
+  {
+   "clip": "Charge",
+   "k": 3
+  },
+  {
+   "clip": "Charge",
+   "k": 4
+  },
+  {
+   "clip": "Charge",
+   "k": 5
+  },
+  {
+   "clip": "Charge",
+   "k": 6
+  },
+  {
+   "clip": "Punch",
+   "k": 0
+  },
+  {
+   "clip": "Punch",
+   "k": 1
+  },
+  {
+   "clip": "Punch",
+   "k": 2
+  },
+  {
+   "clip": "Punch",
+   "k": 3
+  },
+  {
+   "clip": "Punch",
+   "k": 4
+  },
+  {
+   "clip": "Punch",
+   "k": 5
+  },
+  {
+   "clip": "Punch",
+   "k": 6
+  },
+  {
    "clip": "Idle",
    "k": 1
   },

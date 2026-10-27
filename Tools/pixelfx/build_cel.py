@@ -50,23 +50,23 @@ CLIPS = {
     # 공격(칼을 쥔 채 생성 → 칼·잔상을 지우고 손잡이·칼날 각도를 읽어 실제 장착 무기를 붙인다). 0·8번은 기준 그림이라 뺀다
     "Stab": ("attack/stab", list(range(1, 8)), 0.04, False, "feet", True),
     "SwingDown": ("attack/down", [1, 2, 4, 4, 5, 6, 7], 0.04, False, "feet", True),  # 3번은 몸이 쪼그라든 뒷모습이라(투구 레이어도 빈 칸) 4번을 두 번 쓴다
-    "SwingUp": ("attack/up", [1, 2, 3, 4, 6, 6, 7], 0.04, False, "feet", True),  # 5번은 칼 지우기가 얼굴 오른쪽까지 깎아 6번을 두 번 쓴다
+    "SwingUp": ("m38", ['m38/v2_up_a/2', 'm38/v2_up_a/3', 'm38/v2_up_a/4', 'm38/v2_up_b/1', 'm38/v2_up_b/2', 'm38/v2_up_b/4', 'm38/v2_up_b/4', 'm38/v2_up_c/1', 'm38/v2_up_c/2', 'm38/v2_up_c/3'], 0.045, False, "feet", True),  # A2 올려베기 v2(키 자세: 웅크림→솟구치며 넓은 보폭) — 스컬 기준 재작업(10-27), 예전: "SwingUp": ("attack/up", [1, 2, 3, 4, 6, 6, 7], 0.04, False,
     # 대검·둔기 양손(늘린 강철 대검을 합성한 기준 그림에서 생성, 칼 길이 36). 묵직하게 0.05초
     "GreatDown": ("attack/great_down", list(range(1, 8)), 0.05, False, "feet", 36),
     # 단검(쌍단검 계열): 연속 찌르기·X 베기, 칼 길이 14
     # 마스터 모션 38개(MotionSet.md) 중 10-27 추가분 — PixMiniMax 초안 Docs/ArtCompare/Motion/cel/m38, 0·8번은 기준 그림이라 뺀다
     "GreatSide": ("m38/A5_sweep", [1, 2, 4, 4, 5, 6, 7], 0.05, False, "feet", 36),   # A5 양손 수평 휘두르기(세 번째 생성에서 몸이 안 돌았다), 3번은 칼 지우기로 몸이 잘려 4번 두 번
-    "AirSlash": ("m38/A8_air", list(range(1, 8)), 0.045, False, "feet", True),   # A8 공중 내려치기
+    "AirSlash": ("m38", ['m38/v2_air_a/1', 'm38/v2_air_a/2', 'm38/v2_air_a/3', 'm38/v2_air_b/1', 'm38/v2_air_b/1', 'm38/v2_air_b/2', 'm38/v2_air_b/3'], 0.045, False, "feet", True),  # A8 v2 — 스컬 기준 재작업(10-27), 예전: "AirSlash": ("m38/A8_air", list(range(1, 8)), 0.045, False, 
     "Lunge": ("m38/A9_lunge", list(range(1, 8)), 0.045, False, "feet", True),    # A9 돌진 찌르기
     "Spin": ("m38/A10_spin", list(range(1, 8)), 0.045, False, "feet", True),     # A10 회전 베기(뒷모습 포함)
     "Cast": ("m38/A11_cast", list(range(1, 8)), 0.06, False, "feet"),            # A11 시전(맨손 기준, 무기는 손에)
     "Throw": ("m38/A12_throw", list(range(1, 8)), 0.05, False, "feet"),          # A12 던지기
-    "Guard": ("m38/A14_guard", list(range(1, 8)), 0.05, False, "feet", True),    # A14 막기
-    "Charge": ("m38/A15_charge", list(range(1, 8)), 0.07, False, "feet", True),  # A15 모으기
-    "LeapSlam": ("m38/A16_leapslam", list(range(1, 8)), 0.05, False, "feet", True),  # A16 도약 내려찍기(높이는 물리)
+    "Guard": ("m38", ['m38/v2_guard_a/1', 'm38/v2_guard_a/2', 'm38/v2_guard_a/3', 'm38/v2_guard_a/4', 'm38/v2_guard_b/1', 'm38/v2_guard_b/2', 'm38/v2_guard_b/3'], 0.05, False, "feet", True),  # A14 v2 — 스컬 기준 재작업(10-27), 예전: "Guard": ("m38/A14_guard", list(range(1, 8)), 0.05, False, "
+    "Charge": ("m38", ['m38/v2_charge_a/1', 'm38/v2_charge_a/2', 'm38/v2_charge_a/3', 'm38/v2_charge_a/4', 'm38/v2_charge_b/1', 'm38/v2_charge_b/2', 'm38/v2_charge_b/3'], 0.07, False, "feet", True),  # A15 v2 — 스컬 기준 재작업(10-27), 예전: "Charge": ("m38/A15_charge", list(range(1, 8)), 0.07, False,
+    "LeapSlam": ("m38", ['m38/v2_slam_a/1', 'm38/v2_slam_a/2', 'm38/v2_slam_a/3', 'm38/v2_slam_a/4', 'm38/v2_slam_b/1', 'm38/v2_slam_b/2', 'm38/v2_slam_b/3'], 0.055, False, "feet", True),  # A16 v2 — 스컬 기준 재작업(10-27), 예전: "LeapSlam": ("m38/A16_leapslam", list(range(1, 8)), 0.05, Fa
     "Backstep": ("m38/A17_backstep", list(range(1, 8)), 0.05, False, "feet", True),  # A17 백스텝(이동은 물리)
-    "Punch": ("m38/A18_punch", list(range(1, 8)), 0.05, False, "feet"),          # A18 주먹 3타
-    "Iaido": ("m38/A19_iaido", [1, 2, 3, 4, 4, 6, 7], 0.045, False, "feet", True),   # A19 발도 일섬, 5번(초승달 잔상이 몸을 덮어 지우면 머리만 남음)은 4번으로 — 일섬은 이펙트로
+    "Punch": ("m38", ['m38/v2_punch_a/1', 'm38/v2_punch_a/2', 'm38/v2_punch_a/3', 'm38/v2_punch_a/4', 'm38/v2_punch_b/1', 'm38/v2_punch_b/2', 'm38/v2_punch_b/3'], 0.05, False, "feet", True),  # A18 v2(칼을 든 채 빈손 주먹) — 스컬 기준 재작업(10-27), 예전: "Punch": ("m38/A18_punch", list(range(1, 8)), 0.05, False, "
+    "Iaido": ("m38", ['m38/v2_iaido_a/1', 'm38/v2_iaido_a/2', 'm38/v2_iaido_a/3', 'm38/v2_iaido_a/4', 'm38/v2_iaido_b/1', 'm38/v2_iaido_b/2', 'm38/v2_iaido_b/3'], 0.045, False, "feet", True),  # A19 v2 — 스컬 기준 재작업(10-27), 예전: "Iaido": ("m38/A19_iaido", [1, 2, 3, 4, 4, 6, 7], 0.045, Fal
     "ShoulderAim": ("m38/R1_shoulder", list(range(1, 8)), 0.06, False, "feet"),  # R1 어깨 겨눔
     "Raise": ("m38/R2_raise", list(range(1, 8)), 0.07, False, "feet"),           # R2 양손 들기
     "Knockdown": ("m38/R5_knockdown", list(range(1, 12)), 0.08, False, "feet"),  # R5 넘어짐·일어남
@@ -465,7 +465,7 @@ def main():
         frames = []
         last_h, last_b = list(IDLE_HAND), list(IDLE_HAND_B)  # 대기 손에서 시작 — 동작 첫 프레임부터 같은 팔
         for k, i in enumerate(idx):
-            raw = np.array(Image.open(os.path.join(SRC, folder, f"{i}.png")).convert("RGBA"))
+            raw = np.array(Image.open(os.path.join(SRC, i + ".png") if isinstance(i, str) else os.path.join(SRC, folder, f"{i}.png")).convert("RGBA"))  # "폴더/번호" = 여러 생성 구간 이어 붙이기(키 자세 방식)
             angle, grip = None, None
             if weapon:
                 # 칼은 팔레트 고정 전에 지운다 — 고정이 먼저면 강철 색이 주인공 색으로 바뀌어 칼을 못 찾았다
