@@ -101,3 +101,11 @@ GPT 2차 토론(`Docs/ArtCompare/Motion/cel/basic_sword/gpt_round2.md`) 요지: 
   - 찌르기 v6 스켈레톤 작업 job `47cff37f-2c36-4f9a-87c0-a179d03616ca`(9프레임: 앞 6 = Stab 본편, 뒤 3 = StabEnd) — 받아서 `skel/v6/stab/0~8.png`.
   - 남은 것: 내려베기(9프레임, 앞 6 본편·뒤 3 End)·올려베기(10프레임 전부 본편)를 같은 방식으로 animate_with_skeleton_v3(맨손 지시 "empty fist", 첫 프레임 = 대기 upload 8ceaeb65…, first_frame_keypoints = skel_pose.IDLE) → build_cel CLIPS·SKEL_HAND·SKEL_ANGLE 을 keys_v6.json 값으로 교체(TIMES 도 프레임 수에 맞게) → Unity 빌드 → `Logs/_combo_bare.cs` 촬영.
   - 웹 조사(같은 문제를 겪은 사례·해결책) 서브에이전트 실행 중.
+
+## 12. 웹 조사(10-27, 같은 문제를 겪은 사례)
+- 공통 결론: "AI 는 초안(키 포즈 3~4장), 나머지는 고정 파츠 합성·이펙트·수작업 정리". PixelLab 공식 문서도 프레임 정리가 필요하다고 함(https://www.pixellab.ai/docs/tools/animation-to-animation).
+- 스켈레톤 v3 함정: 첫 프레임 관절이 그림과 안 맞으면 투명도·색이 떨어짐(https://github.com/gfargo/pixelkiln/issues/189) → IDLE 관절을 정확히.
+- 공격 타이밍 정석(SLYNYRD https://www.slynyrd.com/blog/2018/9/8/pixelblog-9-melee-attacks): **예비동작 1프레임(짧게) → 스미어 1프레임 → 최대 동작 150~200ms 유지 → 복귀 2~3프레임**. 예비동작이 길면 입력이 늦게 느껴짐("답답함"의 원인 후보 — v6 준비 3프레임은 줄일 것).
+- Dead Cells(https://www.gamedeveloper.com/production/art-design-deep-dive-using-a-3d-pipeline-for-2d-animation-in-i-dead-cells-i-): 포즈 대 포즈, 보간은 키 앞뒤에만, 움직임·타격감은 VFX 로.
+- 칼: 무기를 캐릭터와 같은 캔버스 시트로 겹치거나, 손잡이를 손 아래 레이어로(우리는 손 좌표 메타데이터 + 주먹 덧그리기 — 자세표 손목을 그대로 쓰는 v5/v6 방식이 맞다).
+- 장비: AI 로 레이어 일관성을 푼 사례 없음. 페이퍼돌(같은 프레임에 장비 레이어)이 정석 → 투구는 머리 앵커에 한 장.
