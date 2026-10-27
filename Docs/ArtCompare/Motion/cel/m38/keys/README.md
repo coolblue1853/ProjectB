@@ -26,3 +26,6 @@ v2_punch_b 3d0cb0f0-c822-425f-8dae-7ebe827cfe97 (주먹→기준)
 장비 전이 v2: batch_v2_1~4 (m38_batches.json 에 job 번호) — 받은 뒤 build_equip → split → comp_lint → Unity build → 촬영 → 검토 영상(motion38_review) → 커밋
 1차 적용 완료(24dee48f): SwingUp·AirSlash·LeapSlam·Iaido·Guard·Charge·Punch v2, 셀 36·빌드 오류 0.
 2차 대상(같은 방식): 시전(Cast)·던지기(Throw)·백스텝(Backstep)·어깨 겨눔(ShoulderAim)·잡기(Grab)·앉기(Ride) 키 자세 → 이어서 기존 내려베기·찌르기·양손 내려찍기·대검 휘두르기·단검 2종·돌진 찌르기·회전·발차기도 스컬 기준으로 재점검.
+2차 키 자세 작업: cast_hit ca582823-65b8-4e4f-af67-5e2e1e3fd5d6 / throw_hit 3a5ba253-130e-4605-bb73-b1203a0c1b66 / back_mid e44021ad-e17a-49db-b732-58efbbf3901b / shoulder_aim 4c7606f2-02ec-4a4f-aedd-90aa065ce074 / grab_hit f23fa5fe-b879-4bdf-8150-f0ffd5182dc0 / ride_sit 077b2abb-c8b5-44f8-b2d8-c6f33badcf94
+!! 사용자(10-27): "올려베기 v2 개구림, 찌르기 같다, 레퍼런스에서 따라할 게 없었나?" → 원인: 키 자세를 스컬 실제 프레임이 아니라 내 글 묘사로 만들었고, 칼이 아래→위로 크게 도는 궤적(호)이 아니라 수평으로 뻗은 프레임이 많았다.
+다음 방식: 웨일(YouTube 프리미엄 1080p)에서 스컬 리틀 본·검병·사무라이의 실제 올려베기/역방향 휘두르기를 1/60초 격자로 뽑아 저장(computer zoom save_to_disk) → 프레임별 칼 각도·손 위치·다리 자세를 수치로 적고 → 그 각도 궤적대로 키 자세 3장(아래 뒤 -135° → 앞 0° → 위 앞 +70° 등) 생성 → 사이 프레임. 스컬 프레임은 자세 참고용으로만, 그림은 우리 것.
