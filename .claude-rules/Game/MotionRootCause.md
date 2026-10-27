@@ -124,3 +124,4 @@ GPT 2차 토론(`Docs/ArtCompare/Motion/cel/basic_sword/gpt_round2.md`) 요지: 
 - 스컬 확인(`SkulRef/compare/down_up_refs.png`): 기사 머리 수직베기 = **방패 든 반대손을 앞에 고정(가드)** 한 채 베기 / 사신 낫 수직 올려·내려 = 양손으로 쥐고 몸을 웅크린 채 휘두름 / 리틀 본 = 몸 변화는 작고 큰 스미어가 동작을 보여 줌. 스컬 베기의 '힘'은 대부분 스미어+히트스톱에서 나온다.
 - v7 방향: ① 반대손 가드 — 준비 때 반대손을 앞으로 내밀어 자세를 잡고, 칠 때 반대 방향으로 당김(몸 비틀기 반작용) ② 내려베기: 준비를 더 높게, 내려칠 때 앞발 디딤 + 상체 숙임 ③ 올려베기: 몸을 크게 세우지 않고 낮은 자세에서 칼 궤적만 앞 아래 → 앞 위로 짧게, 끝은 머리 위 앞(뒤로 넘기지 않음) ④ 나중에 스미어·히트스톱(이펙트 단계).
 - v7(10-27 사용자 "리틀 본 2개로, 찌르기는 문제없음"): skel_keys.py 의 SwingDown·SwingUp 키를 리틀 본 AttackA·B 자세로 교체 → `skel/keys_v7.json`. 다음: 두 동작 animate_with_skeleton_v3(각 3생성, "empty fist") → `skel/v7/down|up` → style_test 방식 GIF(F 곡선) → 합격 시 build_cel 적용.
+- v7 내려베기 job 2df6fb07-7cfb-4858-a72b-64502a3cca3c(9프레임) → skel/v7/down. 올려베기 v7 생성 남음(keys_v7.json SwingUp).
