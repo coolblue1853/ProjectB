@@ -87,10 +87,10 @@ PROPOSAL = {
     "SwingDown": [IDLEK, [
         (((40.5, 44), -5, 80, 110) + TUCK + A_STANCE + (0,), 2),                     # 준비: 칼손 머리 위, 칼 뒤로 수평(핀 1·던파M)
         (((40.5, 44), -6, 82, 112) + TUCK + A_STANCE + (0,), 1),
-        (((42, 44), 15, 20, -10, -105, -90, -125, -125, -55, -90, 0), 1),            # 베기 시작: 칼손 머리 앞으로, 반대손 내려가며 뒤로
-        (((43, 44), 30, -30, -35) + BALANCE + LUNGE + (0,), 1),                      # 내딛어 벰: 팔을 앞 아래로 쭉, 반대손 뒤 위(핀 14)
-        (((43, 44), 32, -40, -45) + BALANCE + LUNGE + (0,), 1),                      # 끝: 칼 앞 아래로 빠짐
-        (((43, 44), 33, -41, -46) + BALANCE + LUNGE + (0,), 1),
+        (((42, 44), 15, 20, -10) + TUCK + (-125, -125, -55, -90, 0), 1),            # 베기 시작: 칼손 머리 앞으로, 반대손은 배 앞에 그대로
+        (((43, 44), 30, -30, -35) + TUCK + LUNGE + (0,), 1),                      # 내딛어 벰: 팔을 앞 아래로 쭉, 반대손은 배 앞에 고정(사용자: 흔들지 말 것)
+        (((43, 44), 32, -40, -45) + TUCK + LUNGE + (0,), 1),                      # 끝: 칼 앞 아래로 빠짐
+        (((43, 44), 33, -41, -46) + TUCK + LUNGE + (0,), 1),
      ], [(DOWN_MID, 2), (IDLE_HERE, 2)]],
     "SwingUp": [IDLEK, [
         (((43, 44), 28, -45, -50, -115, -110) + LUNGE + (0,), 2),                     # 시작 = 내려베기 끝 근처(웅크림), 반대손 몸 쪽으로
@@ -180,7 +180,7 @@ def main():
             g = ImageDraw.Draw(c)
             g.text((6, 2), f"레퍼런스 {REF_MAP[m][i]}", fill=(0, 90, 160), font=FONT)
             g.text((a.width + 14, 2), f"지금 v9  {m} {i}", fill=(0, 0, 0), font=FONT)
-            g.text((a.width * 2 + 22, 2), f"수정안 v13c  {i}", fill=(180, 30, 30), font=FONT)
+            g.text((a.width * 2 + 22, 2), f"수정안 v13d  {i}", fill=(180, 30, 30), font=FONT)
             gif.append(c)
         gif[0].save(f"{out}/{m}_stick.gif", save_all=True, append_images=gif[1:], duration=TIMES[m], loop=0)
         print(m, len(gif))
