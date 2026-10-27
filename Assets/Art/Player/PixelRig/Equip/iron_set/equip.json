@@ -1269,6 +1269,96 @@
    "erase": 57
   },
   {
+   "clip": "Grab",
+   "k": 0,
+   "layer": 552,
+   "erase": 61
+  },
+  {
+   "clip": "Grab",
+   "k": 1,
+   "layer": 536,
+   "erase": 59
+  },
+  {
+   "clip": "Grab",
+   "k": 2,
+   "layer": 541,
+   "erase": 51
+  },
+  {
+   "clip": "Grab",
+   "k": 3,
+   "layer": 547,
+   "erase": 120
+  },
+  {
+   "clip": "Grab",
+   "k": 4,
+   "layer": 552,
+   "erase": 123
+  },
+  {
+   "clip": "Grab",
+   "k": 5,
+   "layer": 561,
+   "erase": 88
+  },
+  {
+   "clip": "Grab",
+   "k": 6,
+   "layer": 557,
+   "erase": 55
+  },
+  {
+   "clip": "Ride",
+   "k": 0,
+   "layer": 591,
+   "erase": 66
+  },
+  {
+   "clip": "Ride",
+   "k": 1,
+   "layer": 521,
+   "erase": 69
+  },
+  {
+   "clip": "Ride",
+   "k": 2,
+   "layer": 506,
+   "erase": 106
+  },
+  {
+   "clip": "Ride",
+   "k": 3,
+   "layer": 508,
+   "erase": 63
+  },
+  {
+   "clip": "Ride",
+   "k": 4,
+   "layer": 506,
+   "erase": 63
+  },
+  {
+   "clip": "Ride",
+   "k": 5,
+   "layer": 537,
+   "erase": 99
+  },
+  {
+   "clip": "Ride",
+   "k": 6,
+   "layer": 528,
+   "erase": 96
+  },
+  {
+   "clip": "Ride",
+   "k": 7,
+   "layer": 522,
+   "erase": 96
+  },
+  {
    "clip": "Idle",
    "k": 1,
    "layer": 597,

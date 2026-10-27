@@ -699,7 +699,7 @@ public static class PixelRigBuilder
         string text = File.ReadAllText(json);
         string[] names = { "Idle", "Walk", "Run", "JumpCrouch", "JumpArc", "Land", "Dash", "Hurt", "Death", "Stab", "SwingDown", "SwingUp", "RopeUp", "RopeStay", "GreatDown", "GreatSide", "DaggerFlurry", "DaggerCross",
             // 마스터 모션 38개(MotionSet.md) 10-27 추가분
-            "AirSlash", "Lunge", "Spin", "Cast", "Throw", "Guard", "Charge", "LeapSlam", "Backstep", "Punch", "Iaido", "ShoulderAim", "Raise", "Knockdown", "Place", "Kick" };
+            "AirSlash", "Lunge", "Spin", "Cast", "Throw", "Guard", "Charge", "LeapSlam", "Backstep", "Punch", "Iaido", "ShoulderAim", "Raise", "Knockdown", "Place", "Kick", "Grab", "Ride" };
         var list = new List<(string, CelClipJson)>();
         foreach (string n in names)
         {

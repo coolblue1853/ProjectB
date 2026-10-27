@@ -847,6 +847,66 @@
    "k": 6
   },
   {
+   "clip": "Grab",
+   "k": 0
+  },
+  {
+   "clip": "Grab",
+   "k": 1
+  },
+  {
+   "clip": "Grab",
+   "k": 2
+  },
+  {
+   "clip": "Grab",
+   "k": 3
+  },
+  {
+   "clip": "Grab",
+   "k": 4
+  },
+  {
+   "clip": "Grab",
+   "k": 5
+  },
+  {
+   "clip": "Grab",
+   "k": 6
+  },
+  {
+   "clip": "Ride",
+   "k": 0
+  },
+  {
+   "clip": "Ride",
+   "k": 1
+  },
+  {
+   "clip": "Ride",
+   "k": 2
+  },
+  {
+   "clip": "Ride",
+   "k": 3
+  },
+  {
+   "clip": "Ride",
+   "k": 4
+  },
+  {
+   "clip": "Ride",
+   "k": 5
+  },
+  {
+   "clip": "Ride",
+   "k": 6
+  },
+  {
+   "clip": "Ride",
+   "k": 7
+  },
+  {
    "clip": "Idle",
    "k": 1
   },

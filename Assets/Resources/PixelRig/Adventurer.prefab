@@ -1944,6 +1944,97 @@ MonoBehaviour:
     - -999
     - -999
     - -999
+  - name: Grab
+    frame: 0.06
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 8e0ec54e6d728e347af32cb3b06b9644, type: 3}
+    - {fileID: 21300000, guid: bb537b9e771c359499369bdb8b584942, type: 3}
+    - {fileID: 21300000, guid: 97f845ecda7b4ed498b427a1a159f5ab, type: 3}
+    - {fileID: 21300000, guid: 25e7a83d70950c845bd18d8681b05a9a, type: 3}
+    - {fileID: 21300000, guid: c3e49cd5ecc350d44a0e749bdea16f3e, type: 3}
+    - {fileID: 21300000, guid: 786feda8bfdceaf4c9d2b9b71a2695d0, type: 3}
+    - {fileID: 21300000, guid: e46ab2539a7bba649b04e6602394cb74, type: 3}
+    fists:
+    - {fileID: 21300000, guid: 06bb60c4380b2d746beef3e67a6cfbcb, type: 3}
+    - {fileID: 21300000, guid: c1408d1f121647a47b1ea9fd5c084a48, type: 3}
+    - {fileID: 21300000, guid: 45e85c64a8b991147892052882a96a44, type: 3}
+    - {fileID: 21300000, guid: 9efcbc9bea54a624592afcde8b197ab0, type: 3}
+    - {fileID: 21300000, guid: e116616b18982ff48912271e9bc5fb41, type: 3}
+    - {fileID: 21300000, guid: bbee612596e7bf24190c35d32047b242, type: 3}
+    - {fileID: 21300000, guid: 577920e6cd5ace14489573a6c5178aa0, type: 3}
+    hand:
+    - {x: -0.31944445, y: 0.2361111}
+    - {x: -0.4027778, y: 0.18055555}
+    - {x: -0.4861111, y: 0.4027778}
+    - {x: -0.6527778, y: 0.4861111}
+    - {x: -0.7361111, y: 0.45833334}
+    - {x: -0.4861111, y: 0.4027778}
+    - {x: -0.3472222, y: 0.3472222}
+    handB:
+    - {x: 0.18055555, y: 0.375}
+    - {x: 0.18055555, y: 0.375}
+    - {x: -0.097222224, y: 0.45833334}
+    - {x: -0.20833333, y: 0.5416667}
+    - {x: -0.2638889, y: 0.5416667}
+    - {x: -0.06944445, y: 0.45833334}
+    - {x: 0.06944445, y: 0.4027778}
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+  - name: Ride
+    frame: 0.12
+    loop: 1
+    sprites:
+    - {fileID: 21300000, guid: 82259d562a684b1428eeb8aa4015eb9b, type: 3}
+    - {fileID: 21300000, guid: ed89d86236c83b841a80e39875a5cefc, type: 3}
+    - {fileID: 21300000, guid: 95d8d2ecd49068341b563e28d3e71b1d, type: 3}
+    - {fileID: 21300000, guid: f32cdff8b065ef44b9306cf99c13da35, type: 3}
+    - {fileID: 21300000, guid: fcdd352613b5f44418458d76cdf73b29, type: 3}
+    - {fileID: 21300000, guid: a97eabdafb56bd64797f12fa8a1de839, type: 3}
+    - {fileID: 21300000, guid: b9de0fb8eab83de4193a37a53cb9f116, type: 3}
+    - {fileID: 21300000, guid: 108551e25eed9ae4e854193b67be5831, type: 3}
+    fists:
+    - {fileID: 21300000, guid: 9a9450196e62bd44a981670ee87bf4b5, type: 3}
+    - {fileID: 21300000, guid: 15c688f53ced3b949b1a9cf617c68868, type: 3}
+    - {fileID: 21300000, guid: 90d3dc986232ca742bb16ca58f968460, type: 3}
+    - {fileID: 21300000, guid: 4ae1f58481483f04181b4031ee20051e, type: 3}
+    - {fileID: 21300000, guid: 41b08f30fd99c8142bb5ac4bef4552a2, type: 3}
+    - {fileID: 21300000, guid: 58f02f0d232cf394ab7ea1f6533fa29a, type: 3}
+    - {fileID: 21300000, guid: 276b1e3054b119a4bbeb4f56bc3410f9, type: 3}
+    - {fileID: 21300000, guid: ecb91deb6db2b484993ca1145242524b, type: 3}
+    hand:
+    - {x: -0.2361111, y: 0.31944445}
+    - {x: -0.097222224, y: 0.375}
+    - {x: -0.18055555, y: 0.31944445}
+    - {x: -0.18055555, y: 0.2638889}
+    - {x: -0.18055555, y: 0.29166666}
+    - {x: -0.20833333, y: 0.31944445}
+    - {x: -0.20833333, y: 0.3472222}
+    - {x: -0.20833333, y: 0.3472222}
+    handB:
+    - {x: 0.097222224, y: 0.3472222}
+    - {x: -0.45833334, y: 0.3472222}
+    - {x: -0.4861111, y: 0.29166666}
+    - {x: -0.4861111, y: 0.2361111}
+    - {x: -0.45833334, y: 0.2638889}
+    - {x: -0.5138889, y: 0.29166666}
+    - {x: -0.5138889, y: 0.31944445}
+    - {x: -0.5138889, y: 0.31944445}
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
 --- !u!1 &3535350247772215805
 GameObject:
   m_ObjectHideFlags: 0

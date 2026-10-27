@@ -138,3 +138,5 @@
 - 셀 34개 등록(이동 12 + 공격 22 중 활·잡기·앉기 3개 보류). 추가 17개: GreatSide·AirSlash·Lunge·Spin·Cast·Throw·Guard·Charge·LeapSlam·Backstep·Punch·Iaido·ShoulderAim(R1)·Raise(R2)·Knockdown(R5)·Place(R6)·Kick(R7). 철 세트 전이 9회(90 gen).
 - 리그: 요청한 애니 이름과 같은 셀이 있으면 그 셀을 쓴다(`PixelRig.CelKey`) — 새 스킬은 셀 이름(예 "Kick")을 애니 이름으로 요청. 회전·시전·막기는 리그 클립 이름으로 자동 연결, 활(Shoot)은 Bow 셀이 생기면 연결.
 - 보류 3개: A13 활(생성 그림에 활), R3 잡기(공), R4 앉기(고삐 선) — 소품 지우기 또는 재생성 뒤 등록.
+
+- 10-27 마무리: R3 잡기·R4 앉기 재생성(소품 없이) 등록 → 셀 36개(제동은 대기 공용, A13 활은 두 번 모두 활을 그리거나 뒤를 겨눠 기각 → 찌르기 셀 + 활 각도 대체). 38개 모두 게임에서 재생된다. 검토 영상 `Docs/ArtCompare/Motion/m38_review/`(NN_이름.gif 38개 + all_38.mp4, 도구 `Tools/pixelfx/motion38_review.py`).

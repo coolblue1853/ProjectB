@@ -72,7 +72,9 @@ CLIPS = {
     "Knockdown": ("m38/R5_knockdown", list(range(1, 12)), 0.08, False, "feet"),  # R5 넘어짐·일어남
     "Place": ("m38/R6_place", list(range(1, 8)), 0.07, False, "feet"),           # R6 웅크려 놓기
     "Kick": ("m38/R7_kick", list(range(1, 8)), 0.05, False, "feet"),             # R7 발차기
-    # 보류: A13 활(주황 활을 그려 넣음), R3 잡기(공), R4 앉기(고삐 선) — 소품 지우기 뒤 추가
+    "Grab": ("m38/R3_grab2", list(range(1, 8)), 0.06, False, "feet"),          # R3 잡기(재생성: 소품 없이)
+    "Ride": ("m38/R4_sit2", list(range(1, 9)), 0.12, True, "const"),           # R4 앉기(탈것) 반복
+    # A13 활: 두 번 생성 모두 활을 그리거나 뒤를 겨눠 기각 → 찌르기 셀 + 활 무기 각도로 대체(PixelRig Shoot→Bow 셀 없으면 Stab)
     "DaggerFlurry": ("attack/dagger_flurry", list(range(1, 8)), 0.035, False, "feet", 14),
     "DaggerCross": ("attack/dagger_cross", [1, 4, 5], 0.07, False, "feet", 14),  # 2·3·6·7번은 생성 그림의 큰 베기 잔상이 몸을 덮어 지우면 몸이 날아가 뺐다
     # GreatSide: 첫 생성은 2~6번에서 왼쪽으로 돌아서 기각(great_side), 재생성 결과를 확인 후 넣는다
