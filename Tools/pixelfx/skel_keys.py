@@ -30,6 +30,9 @@ KEYS = {
      ], []],
 }
 
+# 보간 각도가 칼끝을 바닥 아래로 보내는 프레임만 손으로 고친다(칼은 코드로 붙이므로 재생성 불필요)
+ANGLE_FIX = {"SwingUp": {0: -160}}
+
 
 def ss(t):
     return t * t * (3 - 2 * t)
@@ -58,7 +61,7 @@ def main():
         frames = a + b
         kps = [pose(*f[:10]) for f in frames]
         res[m] = {"kp": [norm(k) for k in kps], "hand": [[int(round(k["RIGHT ARM"][0])), int(round(k["RIGHT ARM"][1]))] for k in kps],
-                  "angle": [round(f[10], 1) for f in frames], "main": len(a)}
+                  "angle": [round(ANGLE_FIX.get(m, {}).get(i, f[10]), 1) for i, f in enumerate(frames)], "main": len(a)}
         print(m, len(frames), "main", len(a), res[m]["hand"])
     json.dump(res, open(sys.argv[1], "w"))
 

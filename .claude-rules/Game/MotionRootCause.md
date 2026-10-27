@@ -126,3 +126,4 @@ GPT 2차 토론(`Docs/ArtCompare/Motion/cel/basic_sword/gpt_round2.md`) 요지: 
 - v7(10-27 사용자 "리틀 본 2개로, 찌르기는 문제없음"): skel_keys.py 의 SwingDown·SwingUp 키를 리틀 본 AttackA·B 자세로 교체 → `skel/keys_v7.json`. 다음: 두 동작 animate_with_skeleton_v3(각 3생성, "empty fist") → `skel/v7/down|up` → style_test 방식 GIF(F 곡선) → 합격 시 build_cel 적용.
 - v7 내려베기 job 2df6fb07-7cfb-4858-a72b-64502a3cca3c(9프레임) → skel/v7/down. 올려베기 v7 생성 남음(keys_v7.json SwingUp).
 - v7 점검: 내려베기 합격(준비 높게→앞 아래 내리침). 올려베기 v7 불합격 — 끝 자세가 얼굴 앞 수직 칼(한 팔 들기처럼 보임), 준비 칼끝이 바닥 아래. → v8 SwingUp(keys_v8.json): 끝 = 앞 위 70°(손은 턱 앞), 준비 칼 -170°, 반대손 가드(준비 때 앞으로 뻗고 칠 때 뒤로 당김). job b2c778ba-a23d-43b7-b7ab-11b1b8675a88 → skel/v8/up.
+- v8 올려베기 결과: 반대손 가드 들어감, 끝 자세 앞 위 칼. 보간 프레임 0 칼 각도(-105)가 칼끝을 바닥으로 보내서 ANGLE_FIX{SwingUp:{0:-160}}(skel_keys.py)로 고침. GIF: style_test/v7_SwingDown_F.gif, v8_SwingUp_F.gif, v8_3타_F.gif → 사용자 판정 대기.
