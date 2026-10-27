@@ -697,7 +697,9 @@ public static class PixelRigBuilder
         }
         // JsonUtility 는 최상위 사전을 못 읽어 클립 이름 순서대로 꺼낸다
         string text = File.ReadAllText(json);
-        string[] names = { "Idle", "Walk", "Run", "JumpCrouch", "JumpArc", "Land", "Dash", "Hurt", "Death", "Stab", "SwingDown", "SwingUp", "RopeUp", "RopeStay", "GreatDown", "GreatSide", "DaggerFlurry", "DaggerCross" };
+        string[] names = { "Idle", "Walk", "Run", "JumpCrouch", "JumpArc", "Land", "Dash", "Hurt", "Death", "Stab", "SwingDown", "SwingUp", "RopeUp", "RopeStay", "GreatDown", "GreatSide", "DaggerFlurry", "DaggerCross",
+            // 마스터 모션 38개(MotionSet.md) 10-27 추가분
+            "AirSlash", "Lunge", "Spin", "Cast", "Throw", "Guard", "Charge", "LeapSlam", "Backstep", "Punch", "Iaido", "ShoulderAim", "Raise", "Knockdown", "Place", "Kick" };
         var list = new List<(string, CelClipJson)>();
         foreach (string n in names)
         {

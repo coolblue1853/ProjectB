@@ -54,6 +54,25 @@ CLIPS = {
     # 대검·둔기 양손(늘린 강철 대검을 합성한 기준 그림에서 생성, 칼 길이 36). 묵직하게 0.05초
     "GreatDown": ("attack/great_down", list(range(1, 8)), 0.05, False, "feet", 36),
     # 단검(쌍단검 계열): 연속 찌르기·X 베기, 칼 길이 14
+    # 마스터 모션 38개(MotionSet.md) 중 10-27 추가분 — PixMiniMax 초안 Docs/ArtCompare/Motion/cel/m38, 0·8번은 기준 그림이라 뺀다
+    "GreatSide": ("m38/A5_sweep", [1, 2, 4, 4, 5, 6, 7], 0.05, False, "feet", 36),   # A5 양손 수평 휘두르기(세 번째 생성에서 몸이 안 돌았다), 3번은 칼 지우기로 몸이 잘려 4번 두 번
+    "AirSlash": ("m38/A8_air", list(range(1, 8)), 0.045, False, "feet", True),   # A8 공중 내려치기
+    "Lunge": ("m38/A9_lunge", list(range(1, 8)), 0.045, False, "feet", True),    # A9 돌진 찌르기
+    "Spin": ("m38/A10_spin", list(range(1, 8)), 0.045, False, "feet", True),     # A10 회전 베기(뒷모습 포함)
+    "Cast": ("m38/A11_cast", list(range(1, 8)), 0.06, False, "feet"),            # A11 시전(맨손 기준, 무기는 손에)
+    "Throw": ("m38/A12_throw", list(range(1, 8)), 0.05, False, "feet"),          # A12 던지기
+    "Guard": ("m38/A14_guard", list(range(1, 8)), 0.05, False, "feet", True),    # A14 막기
+    "Charge": ("m38/A15_charge", list(range(1, 8)), 0.07, False, "feet", True),  # A15 모으기
+    "LeapSlam": ("m38/A16_leapslam", list(range(1, 8)), 0.05, False, "feet", True),  # A16 도약 내려찍기(높이는 물리)
+    "Backstep": ("m38/A17_backstep", list(range(1, 8)), 0.05, False, "feet", True),  # A17 백스텝(이동은 물리)
+    "Punch": ("m38/A18_punch", list(range(1, 8)), 0.05, False, "feet"),          # A18 주먹 3타
+    "Iaido": ("m38/A19_iaido", [1, 2, 3, 4, 4, 6, 7], 0.045, False, "feet", True),   # A19 발도 일섬, 5번(초승달 잔상이 몸을 덮어 지우면 머리만 남음)은 4번으로 — 일섬은 이펙트로
+    "ShoulderAim": ("m38/R1_shoulder", list(range(1, 8)), 0.06, False, "feet"),  # R1 어깨 겨눔
+    "Raise": ("m38/R2_raise", list(range(1, 8)), 0.07, False, "feet"),           # R2 양손 들기
+    "Knockdown": ("m38/R5_knockdown", list(range(1, 12)), 0.08, False, "feet"),  # R5 넘어짐·일어남
+    "Place": ("m38/R6_place", list(range(1, 8)), 0.07, False, "feet"),           # R6 웅크려 놓기
+    "Kick": ("m38/R7_kick", list(range(1, 8)), 0.05, False, "feet"),             # R7 발차기
+    # 보류: A13 활(주황 활을 그려 넣음), R3 잡기(공), R4 앉기(고삐 선) — 소품 지우기 뒤 추가
     "DaggerFlurry": ("attack/dagger_flurry", list(range(1, 8)), 0.035, False, "feet", 14),
     "DaggerCross": ("attack/dagger_cross", [1, 4, 5], 0.07, False, "feet", 14),  # 2·3·6·7번은 생성 그림의 큰 베기 잔상이 몸을 덮어 지우면 몸이 날아가 뺐다
     # GreatSide: 첫 생성은 2~6번에서 왼쪽으로 돌아서 기각(great_side), 재생성 결과를 확인 후 넣는다
@@ -451,6 +470,14 @@ def main():
                 raw, grip, angle = strip_weapon(raw, blade_len)
             a = lock(Image.fromarray(raw, "RGBA"), pal)
             if not weapon:
+                # 몸에서 떨어진 작은 조각(시전 반짝이·총구 불꽃·속도선 — 생성 그림의 이펙트)은 지운다. 이펙트는 따로 붙인다
+                parts = components(a[..., 3] > 0)
+                if parts:
+                    big = max(len(q) for q in parts)
+                    for q in parts:
+                        if len(q) < max(9, big * 0.04):
+                            for y, x in q:
+                                a[y, x] = 0
                 f = fill_holes(a)
                 if ((f[..., 3] > 0) & (a[..., 3] == 0)).sum() <= 4:
                     a = f  # 몸 안 1~4px 투명 구멍(생성 그림의 잡티 — 배경이 비쳐 픽셀이 깨져 보였다)만 메운다. 큰 틈은 의도된 모양일 수 있어 둔다

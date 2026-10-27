@@ -355,6 +355,498 @@
    "k": 7
   },
   {
+   "clip": "GreatSide",
+   "k": 0
+  },
+  {
+   "clip": "GreatSide",
+   "k": 1
+  },
+  {
+   "clip": "GreatSide",
+   "k": 2
+  },
+  {
+   "clip": "GreatSide",
+   "k": 3
+  },
+  {
+   "clip": "GreatSide",
+   "k": 4
+  },
+  {
+   "clip": "GreatSide",
+   "k": 5
+  },
+  {
+   "clip": "GreatSide",
+   "k": 6
+  },
+  {
+   "clip": "AirSlash",
+   "k": 0
+  },
+  {
+   "clip": "AirSlash",
+   "k": 1
+  },
+  {
+   "clip": "AirSlash",
+   "k": 2
+  },
+  {
+   "clip": "AirSlash",
+   "k": 3
+  },
+  {
+   "clip": "AirSlash",
+   "k": 4
+  },
+  {
+   "clip": "AirSlash",
+   "k": 5
+  },
+  {
+   "clip": "AirSlash",
+   "k": 6
+  },
+  {
+   "clip": "Lunge",
+   "k": 0
+  },
+  {
+   "clip": "Lunge",
+   "k": 1
+  },
+  {
+   "clip": "Lunge",
+   "k": 2
+  },
+  {
+   "clip": "Lunge",
+   "k": 3
+  },
+  {
+   "clip": "Lunge",
+   "k": 4
+  },
+  {
+   "clip": "Lunge",
+   "k": 5
+  },
+  {
+   "clip": "Lunge",
+   "k": 6
+  },
+  {
+   "clip": "Spin",
+   "k": 0
+  },
+  {
+   "clip": "Spin",
+   "k": 1
+  },
+  {
+   "clip": "Spin",
+   "k": 2
+  },
+  {
+   "clip": "Spin",
+   "k": 3
+  },
+  {
+   "clip": "Spin",
+   "k": 4
+  },
+  {
+   "clip": "Spin",
+   "k": 5
+  },
+  {
+   "clip": "Spin",
+   "k": 6
+  },
+  {
+   "clip": "Cast",
+   "k": 0
+  },
+  {
+   "clip": "Cast",
+   "k": 1
+  },
+  {
+   "clip": "Cast",
+   "k": 2
+  },
+  {
+   "clip": "Cast",
+   "k": 3
+  },
+  {
+   "clip": "Cast",
+   "k": 4
+  },
+  {
+   "clip": "Cast",
+   "k": 5
+  },
+  {
+   "clip": "Cast",
+   "k": 6
+  },
+  {
+   "clip": "Throw",
+   "k": 0
+  },
+  {
+   "clip": "Throw",
+   "k": 1
+  },
+  {
+   "clip": "Throw",
+   "k": 2
+  },
+  {
+   "clip": "Throw",
+   "k": 3
+  },
+  {
+   "clip": "Throw",
+   "k": 4
+  },
+  {
+   "clip": "Throw",
+   "k": 5
+  },
+  {
+   "clip": "Throw",
+   "k": 6
+  },
+  {
+   "clip": "Guard",
+   "k": 0
+  },
+  {
+   "clip": "Guard",
+   "k": 1
+  },
+  {
+   "clip": "Guard",
+   "k": 2
+  },
+  {
+   "clip": "Guard",
+   "k": 3
+  },
+  {
+   "clip": "Guard",
+   "k": 4
+  },
+  {
+   "clip": "Guard",
+   "k": 5
+  },
+  {
+   "clip": "Guard",
+   "k": 6
+  },
+  {
+   "clip": "Charge",
+   "k": 0
+  },
+  {
+   "clip": "Charge",
+   "k": 1
+  },
+  {
+   "clip": "Charge",
+   "k": 2
+  },
+  {
+   "clip": "Charge",
+   "k": 3
+  },
+  {
+   "clip": "Charge",
+   "k": 4
+  },
+  {
+   "clip": "Charge",
+   "k": 5
+  },
+  {
+   "clip": "Charge",
+   "k": 6
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 0
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 1
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 2
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 3
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 4
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 5
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 6
+  },
+  {
+   "clip": "Backstep",
+   "k": 0
+  },
+  {
+   "clip": "Backstep",
+   "k": 1
+  },
+  {
+   "clip": "Backstep",
+   "k": 2
+  },
+  {
+   "clip": "Backstep",
+   "k": 3
+  },
+  {
+   "clip": "Backstep",
+   "k": 4
+  },
+  {
+   "clip": "Backstep",
+   "k": 5
+  },
+  {
+   "clip": "Backstep",
+   "k": 6
+  },
+  {
+   "clip": "Punch",
+   "k": 0
+  },
+  {
+   "clip": "Punch",
+   "k": 1
+  },
+  {
+   "clip": "Punch",
+   "k": 2
+  },
+  {
+   "clip": "Punch",
+   "k": 3
+  },
+  {
+   "clip": "Punch",
+   "k": 4
+  },
+  {
+   "clip": "Punch",
+   "k": 5
+  },
+  {
+   "clip": "Punch",
+   "k": 6
+  },
+  {
+   "clip": "Iaido",
+   "k": 0
+  },
+  {
+   "clip": "Iaido",
+   "k": 1
+  },
+  {
+   "clip": "Iaido",
+   "k": 2
+  },
+  {
+   "clip": "Iaido",
+   "k": 3
+  },
+  {
+   "clip": "Iaido",
+   "k": 4
+  },
+  {
+   "clip": "Iaido",
+   "k": 5
+  },
+  {
+   "clip": "Iaido",
+   "k": 6
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 0
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 1
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 2
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 3
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 4
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 5
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 6
+  },
+  {
+   "clip": "Raise",
+   "k": 0
+  },
+  {
+   "clip": "Raise",
+   "k": 1
+  },
+  {
+   "clip": "Raise",
+   "k": 2
+  },
+  {
+   "clip": "Raise",
+   "k": 3
+  },
+  {
+   "clip": "Raise",
+   "k": 4
+  },
+  {
+   "clip": "Raise",
+   "k": 5
+  },
+  {
+   "clip": "Raise",
+   "k": 6
+  },
+  {
+   "clip": "Knockdown",
+   "k": 0
+  },
+  {
+   "clip": "Knockdown",
+   "k": 1
+  },
+  {
+   "clip": "Knockdown",
+   "k": 2
+  },
+  {
+   "clip": "Knockdown",
+   "k": 3
+  },
+  {
+   "clip": "Knockdown",
+   "k": 4
+  },
+  {
+   "clip": "Knockdown",
+   "k": 5
+  },
+  {
+   "clip": "Knockdown",
+   "k": 6
+  },
+  {
+   "clip": "Knockdown",
+   "k": 7
+  },
+  {
+   "clip": "Knockdown",
+   "k": 8
+  },
+  {
+   "clip": "Knockdown",
+   "k": 9
+  },
+  {
+   "clip": "Knockdown",
+   "k": 10
+  },
+  {
+   "clip": "Place",
+   "k": 0
+  },
+  {
+   "clip": "Place",
+   "k": 1
+  },
+  {
+   "clip": "Place",
+   "k": 2
+  },
+  {
+   "clip": "Place",
+   "k": 3
+  },
+  {
+   "clip": "Place",
+   "k": 4
+  },
+  {
+   "clip": "Place",
+   "k": 5
+  },
+  {
+   "clip": "Place",
+   "k": 6
+  },
+  {
+   "clip": "Kick",
+   "k": 0
+  },
+  {
+   "clip": "Kick",
+   "k": 1
+  },
+  {
+   "clip": "Kick",
+   "k": 2
+  },
+  {
+   "clip": "Kick",
+   "k": 3
+  },
+  {
+   "clip": "Kick",
+   "k": 4
+  },
+  {
+   "clip": "Kick",
+   "k": 5
+  },
+  {
+   "clip": "Kick",
+   "k": 6
+  },
+  {
    "clip": "Idle",
    "k": 1
   },

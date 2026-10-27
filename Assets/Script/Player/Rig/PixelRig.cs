@@ -416,7 +416,7 @@ public class PixelRig : CharacterRig
         {
             // 제동은 셀 대기 그림으로(리그 제동 포즈는 3/4 정면이라 달리기 셀에서 멈출 때 몸이 돌아 보였다), 사망은 셀 사망(무릎 → 눕기)
             // 셀이 없는 공격·스킬은 비슷한 측면 셀로(3/4 리그로 돌아가면 몸이 확 돌아 보였다): 옆베기·회전 → 내려베기, 시전 → 올려베기, 활 → 찌르기, 막기 → 대기
-            string key = _diedAt >= 0f ? "Death" : c == _brake ? "Idle" : CelAlias(c.name);
+            string key = _diedAt >= 0f ? "Death" : c == _brake ? "Idle" : CelKey(c.name);
             // 대검·둔기(공격 이름 Great…)는 양손 셀 — 한손 베기 셀로 대체하면 묵직한 무기가 가볍게 보였다(10-26)
             // 단검: 왼손 찌르기 → 연속 찌르기 셀, 교차 베기 → X 베기 셀(10-26)
             if (_diedAt < 0f && _requested == "LeftHandStab" && _celByName.ContainsKey("DaggerFlurry"))
@@ -567,6 +567,20 @@ public class PixelRig : CharacterRig
             _bladeAt = target;
         }
         return _bladeAt;
+    }
+
+    /// <summary>
+    /// 셀 고르기(마스터 모션 38개, MotionSet.md): 요청한 애니 이름과 같은 셀(예 "Kick", "Knockdown") → 리그 클립과 같은 이름의 셀(회전·시전·막기)
+    /// → 예전 대체 셀(CelAlias). 새 스킬은 셀 이름을 애니 이름으로 바로 요청하면 된다.
+    /// </summary>
+    private string CelKey(string clip)
+    {
+        if (!string.IsNullOrEmpty(_requested) && _celByName.ContainsKey(_requested))
+        {
+            return _requested;
+        }
+        string own = clip == "Shoot" ? "Bow" : clip;
+        return _celByName.ContainsKey(own) ? own : CelAlias(clip);
     }
 
     private static string CelAlias(string clip)

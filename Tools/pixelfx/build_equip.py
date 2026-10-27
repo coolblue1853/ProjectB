@@ -40,6 +40,11 @@ BATCHES = {
     "batch_j": [("Run", k) for k in range(8)],
     "batch_k": [("Idle", 0), None],  # 메이플식 대기(허리에 손) — 두 번째는 전이 최소 2장 채우기용 걷기 3번
 }
+# 마스터 모션 38개 10-27 추가분: 묶음 정의는 iron_set/m38_batches.json(업로드 순서 = 전이 결과 순서, 묶음당 15장)
+_M38 = os.path.join(SRC, "iron_set", "m38_batches.json")
+if os.path.exists(_M38):
+    for _b in json.load(open(_M38)):
+        BATCHES[_b["name"]] = [tuple(it) for it in _b["items"]]
 # 새 셀로 바뀐 클립은 예전 묶음의 전이 결과를 쓰지 않는다(몸 그림이 달라 레이어가 어긋난다)
 # 대기 전이: stand_edit2 는 cand2(batch_i 0번 전이)와 상체가 같아 batch_i, maple2 는 batch_k
 _IDLE_BATCH = "batch_k" if "maple" in IDLE_STAND else "batch_i"
@@ -119,6 +124,24 @@ def no_new_breaks(b, layer, lm, erase):
         if not back.any():
             break
         erase &= ~back
+    # 그래도 남은 구멍(장비 레이어가 몸과 함께 빈칸을 둘러싼 곳, 맨몸엔 없던 구멍)은 이웃 장비·몸 색으로 채운다
+    solid = body & ~erase | lm
+    holes = ~solid & ~_outside(solid) & ~body
+    if holes.any() and holes.sum() <= 40:
+        comp = np.where(lm[..., None], layer, np.where((body & ~erase)[..., None], b, 0))
+        for _ in range(6):
+            ys, xs = np.nonzero(holes)
+            if not len(ys):
+                break
+            for y, x in zip(ys, xs):
+                for ny, nx in ((y - 1, x), (y, x - 1), (y + 1, x), (y, x + 1)):
+                    if 0 <= ny < holes.shape[0] and 0 <= nx < holes.shape[1] and not holes[ny, nx] and comp[ny, nx, 3] > 0:
+                        layer[y, x] = comp[ny, nx]
+                        layer[y, x, 3] = 255
+                        comp[y, x] = layer[y, x]
+                        lm[y, x] = True
+                        holes[y, x] = False
+                        break
     solid = body & ~erase | lm
     out = _outside(solid)
     light = solid & ~lm & (b[..., :3].sum(axis=2) > 200)
