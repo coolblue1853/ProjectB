@@ -83,9 +83,54 @@ def seal_outline(b, layer, lm, erase):
     edge = np.zeros_like(solid)
     edge[1:] |= light[:-1]; edge[:-1] |= light[1:]; edge[:, 1:] |= light[:, :-1]; edge[:, :-1] |= light[:, 1:]
     add = edge & ~solid
+    # 지운 맨몸 칸이면 원래 몸 픽셀(머리카락 외곽)을 되살린다 — 외곽선 점 하나를 새로 찍으면 1px 삐침이 됐다
+    restore = add & erase & (b[..., 3] > 0) & (b[..., :3].sum(axis=2) < 200)
+    erase &= ~restore
+    add &= ~restore
     layer[add, :3] = OUTLINE
     layer[add, 3] = 255
     lm |= add
+
+
+def _outside(solid):
+    h, w = solid.shape
+    out = np.zeros_like(solid)
+    stack = [(y, x) for y in range(h) for x in (0, w - 1) if not solid[y, x]] + [(y, x) for x in range(w) for y in (0, h - 1) if not solid[y, x]]
+    for y, x in stack:
+        out[y, x] = True
+    while stack:
+        y, x = stack.pop()
+        for ny, nx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
+            if 0 <= ny < h and 0 <= nx < w and not solid[ny, nx] and not out[ny, nx]:
+                out[ny, nx] = True
+                stack.append((ny, nx))
+    return out
+
+
+def no_new_breaks(b, layer, lm, erase):
+    """장비 합성이 새로 만든 깨짐을 되돌린다(comp_lint 기준, 10-27 사용자: 깨짐이 사라질 때까지 반복):
+    1) 지운 칸 때문에 생긴 실루엣 안 투명 구멍 → 그 칸은 지우지 않는다(배낭·투구 사이에 배경이 비쳤다)
+    2) 지운 칸 때문에 밝은 맨몸 픽셀이 외곽선 없이 바깥에 닿으면 → 그 지운 칸에 외곽선 한 겹"""
+    body = b[..., 3] > 0
+    for _ in range(2):
+        solid = body & ~erase | lm
+        holes = ~solid & ~_outside(solid)
+        back = holes & body & erase
+        if not back.any():
+            break
+        erase &= ~back
+    solid = body & ~erase | lm
+    out = _outside(solid)
+    light = solid & ~lm & (b[..., :3].sum(axis=2) > 200)
+    near_light = np.zeros_like(light)
+    near_light[1:] |= light[:-1]; near_light[:-1] |= light[1:]; near_light[:, 1:] |= light[:, :-1]; near_light[:, :-1] |= light[:, 1:]
+    seal = near_light & out & erase & body
+    restore = seal & (b[..., :3].sum(axis=2) < 200)
+    erase &= ~restore  # 어두운 원래 몸 픽셀이면 되살리기(새 외곽선 점은 삐침이 된다)
+    seal &= ~restore
+    layer[seal, :3] = OUTLINE
+    layer[seal, 3] = 255
+    lm |= seal
 
 
 def trim_spikes(b, layer, lm, erase):
@@ -106,6 +151,10 @@ def trim_spikes(b, layer, lm, erase):
         n = np.zeros(solid.shape, int)
         n[1:] += solid[:-1]; n[:-1] += solid[1:]; n[:, 1:] += solid[:, :-1]; n[:, :-1] += solid[:, 1:]
         tip = lm & (n <= 1) & (layer[..., :3].sum(axis=2) < 150)
+        lit = lm & (layer[..., :3].sum(axis=2) > 180)
+        guard = np.zeros_like(lit)
+        guard[1:] |= lit[:-1]; guard[:-1] |= lit[1:]; guard[:, 1:] |= lit[:, :-1]; guard[:, :-1] |= lit[:, 1:]
+        tip &= ~guard  # 밝은 장비 픽셀을 감싸는 외곽선(seal_outline)은 꼬리가 아니다
         if not tip.any():
             break
         lm &= ~tip
@@ -356,6 +405,7 @@ def main():
     for _, _, b, layer, lm, erase in done:
         seal_outline(b, layer, lm, erase)
         trim_spikes(b, layer, lm, erase)
+        no_new_breaks(b, layer, lm, erase)
     for clip, k, b, layer, lm, erase in done:
         name = f"{clip}_{k}"
         Image.fromarray(layer.astype(np.uint8), "RGBA").save(os.path.join(out, name + ".png"))
