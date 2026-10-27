@@ -28,6 +28,8 @@ System.Action<int> shot = (int i) =>
     cam.targetTexture = null; UnityEngine.Object.DestroyImmediate(go); UnityEngine.Object.DestroyImmediate(rt); UnityEngine.Object.DestroyImmediate(tex);
 };
 DG.Tweening.DOVirtual.DelayedCall(0.15f, () => { if (amg.equipWeapon == null && Weapon.Equipped != null) { amg.equipWeapon = Weapon.Equipped; amg.EquipMainWeaopon(); } }, true);
+// 맨몸 확인(10-27 사용자: 투구 없이 먼저 다듬자) — __BARE__ 가 1 이면 장비 레이어를 끈다
+if ("__BARE__" == "1") DG.Tweening.DOVirtual.DelayedCall(0.3f, () => rig.SetEquipmentLayers(null), true);
 // 0.4초부터 0.05초마다 평타 가능 여부를 보고 3번까지 누른다
 for (int k = 0; k < 40; k++)
 {

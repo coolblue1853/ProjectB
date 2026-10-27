@@ -543,6 +543,25 @@ def align_x(a, clip):
 REST_ANGLE = -20.0  # 리그 대기 칼 각도(PixelRig.CelBladeAngle)
 
 
+def fist_center(a, g, r=9):
+    """칼날 끝(손잡이 쪽)에서 가장 가까운 피부 덩어리 = 주먹의 가운데. 손잡이(어두운 색)는 칼로 안 읽혀 칼날 끝이 주먹에서
+    6~8px 떨어져 있었고, 그 점을 손으로 쓰면 주먹 레이어가 비어(0~9px, 대기는 42px) 손이 작아지거나 사라져 보였다(10-27 사용자)."""
+    sk = near(a, SKIN) & (a[..., 3] > 0)
+    parts = [q for q in components(sk) if len(q) >= 4]
+    best, bd = None, r * r
+    for q in parts:
+        arr = np.array(q)
+        d = (((arr - [g[1], g[0]]) ** 2).sum(axis=1)).min()
+        if d <= bd:
+            best, bd = arr, d
+    if best is None:
+        return g
+    # 덩어리 전체(팔뚝까지)의 가운데는 팔꿈치 쪽으로 끌려간다 — 칼날 끝에 가장 가까운 점에서 3px 안만 주먹으로 본다
+    dd = ((best - [g[1], g[0]]) ** 2).sum(axis=1)
+    near_pts = best[dd <= (np.sqrt(bd) + 3) ** 2]
+    return [int(round(near_pts[:, 1].mean())), int(round(near_pts[:, 0].mean()))]
+
+
 def fill_angles(frames):
     """칼을 못 읽은 프레임(첫·끝 프레임, 스미어)은 이웃 프레임 각도를 이어 받는다 — 리그 기본 규칙 각도(-20°/210°)로 떨어지면 칼이 순간이동했다(10-27)."""
     known = [k for k, f in enumerate(frames) if f["angle"] > -998]
