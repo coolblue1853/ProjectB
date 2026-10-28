@@ -13,6 +13,9 @@ import cel_weapon_sheet as ws  # noqa: E402
 from smear import thin_arc  # noqa: E402
 
 
+FEET_Y = 54  # 게임 셀(build_cel) 발 높이
+
+
 def frame(img, hand, ang, sword, smear=None):
     c = Image.new("RGBA", (96, 80), (60, 70, 60, 255))
     if smear is not None:
@@ -21,8 +24,10 @@ def frame(img, hand, ang, sword, smear=None):
     wim, (pvx, pvy), _ = sword
     big.alpha_composite(wim, (int(round(64 - pvx)), int(round(64 - pvy))))
     rot = big.rotate(ang - 90, resample=Image.NEAREST, center=(64, 64))
-    c.alpha_composite(img, (16, 8))
-    c.paste(rot, (16 + hand[0] - 64, 8 + hand[1] - 64), rot)
+    # 발 맞춤(10-28 사용자: 발 높이가 프레임마다 달라 보임) — 생성 그림은 1~3px 들쭉날쭉하므로 게임 셀처럼 맨 아래 픽셀을 FEET_Y 에 맞춘다
+    dy = FEET_Y - (img.getbbox()[3] - 1)
+    c.alpha_composite(img, (16, 8 + dy))
+    c.paste(rot, (16 + hand[0] - 64, 8 + dy + hand[1] - 64), rot)
     return c.resize((96 * 4, 80 * 4), Image.NEAREST)
 
 
