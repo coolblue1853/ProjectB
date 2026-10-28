@@ -69,7 +69,7 @@ REF.update({
 
 REF_MAP = {
     "SwingDown": ["P1_prep", "P1_prep", "P1_prep", "P2_strike", "P14_lunge", "P14_lunge", "P14_lunge", "P14_lunge", "P14_lunge", "P14_lunge", "P14_lunge"],
-    "SwingUp": ["D_dnf_end", "D_dnf_end", "D_dnf_end", "U_dnf_rise", "U_dnf_rise", "P7_upend", "P7_upend", "P7_upend", "P7_upend", "P7_upend", "P7_upend", "P7_upend"],
+    "SwingUp": ["D_dnf_end", "D_dnf_end", "D_dnf_end", "U_dnf_rise", "U_dnf_rise", "U_dnf_rise", "U_dnf_rise", "U_dnf_rise", "U_dnf_rise", "U_dnf_rise", "U_dnf_rise", "U_dnf_rise"],
 }
 
 # v13 수정안(10-27 사용자: v12 초록손(반대손) 팔이 이상함 → 여러 횡스크롤 레퍼런스를 졸라맨으로 비교)
@@ -83,6 +83,7 @@ LUNGE = (-140, -140, -40, -95)
 IDLE_HERE = ((43, 44),) + IDLEK[1:]
 DOWN_MID = ((43, 44), 12, -80, -60) + TUCK + (-115, -115, -65, -88, 0)
 UP_MID = ((43, 44), -2, 130, 175) + TUCK + (-118, -118, -65, -88, 0)
+UP_MID2 = ((43, 44), 0, 10, 35) + TUCK + (-115, -115, -65, -88, 0)   # 올려베기 회복 중간: 칼손 가슴 앞
 PROPOSAL = {
     "SwingDown": [IDLEK, [
         (((40.5, 44), -5, 80, 110) + TUCK + A_STANCE + (0,), 2),                     # 준비: 칼손 머리 위, 칼 뒤로 수평(핀 1·던파M)
@@ -96,10 +97,10 @@ PROPOSAL = {
         (((43, 44), 28, -45, -50, -115, -110) + LUNGE + (0,), 2),                     # 시작 = 내려베기 끝 근처(웅크림), 반대손 몸 쪽으로
         (((43, 44), 29, -46, -51, -115, -110) + LUNGE + (0,), 1),
         (((43, 44), 12, -5, 30) + TUCK + (-125, -125, -55, -85, 0), 1),             # 칼손이 앞으로 나감(가슴 앞), 반대손 가슴 앞
-        (((43, 44), 0, 75, 100) + TUCK + (-120, -120, -60, -85, 0), 1),             # 일어서며 머리 위 앞
-        (((43, 44), -5, 150, 170) + TUCK + (-125, -125, -60, -85, 0), 2),            # 끝: 칼팔 뒤 위로 쭉, 칼 뒤 수평(핀 7·던파M), 반대손 가슴 앞
-        (((43, 44), -6, 151, 171) + TUCK + (-125, -125, -60, -85, 0), 1),
-        (UP_MID, 2),
+        (((43, 44), 0, 75, 100) + TUCK + (-120, -120, -60, -85, 0), 1),             # 일어서며 머리 위 앞(중간까지 사용자 OK)
+        (((43, 44), 0, 80, 105) + TUCK + (-120, -120, -60, -85, 0), 2),             # 끝(10-28): 머리 위 앞에서 짧게 멈춤 — 머리 뒤로 넘기지 않음, 몸 젖히지 않음(얼굴 정면)
+        (((43, 44), 0, 81, 106) + TUCK + (-120, -120, -60, -85, 0), 1),
+        (UP_MID2, 2),                                                                # 회복: 칼을 앞으로 내림
         (IDLE_HERE, 2),
      ], []],
 }
@@ -117,7 +118,7 @@ PROPOSAL["SwingDown"] = [_d[0], [(body_tuck(k), n) for k, n in _d[1]], [(body_tu
 
 ANGLES = {
     "SwingDown": [100, 172, 174, 60, -30, -35, -35, -40, -35, -28, -20],
-    "SwingUp": [-30, -30, -30, 50, 110, 160, 175, 176, 200, 235, 300, 340],
+    "SwingUp": [-30, -30, -30, 50, 90, 100, 102, 103, 70, 30, 0, -20],
 }
 TIMES = {
     "SwingDown": [50, 40, 100, 30, 30, 60, 150, 50, 60, 80, 100],
@@ -192,7 +193,7 @@ def main():
             g = ImageDraw.Draw(c)
             g.text((6, 2), f"레퍼런스 {REF_MAP[m][i]}", fill=(0, 90, 160), font=FONT)
             g.text((a.width + 14, 2), f"지금 v9  {m} {i}", fill=(0, 0, 0), font=FONT)
-            g.text((a.width * 2 + 22, 2), f"수정안 v13e  {i}", fill=(180, 30, 30), font=FONT)
+            g.text((a.width * 2 + 22, 2), f"수정안 v14  {i}", fill=(180, 30, 30), font=FONT)
             gif.append(c)
         gif[0].save(f"{out}/{m}_stick.gif", save_all=True, append_images=gif[1:], duration=TIMES[m], loop=0)
         print(m, len(gif))
