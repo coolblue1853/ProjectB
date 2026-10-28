@@ -23,6 +23,8 @@ public static class Vfx
         // 테마 모드(PixelSlash2D): 램프 색 + 수명 끝 디졸브
         public bool themed;
         public MaterialPropertyBlock block;
+        // 재생 속도(1 = 원래). 칼이 지나간 뒤 궤적이 오래 남으면 높인다(올려베기, 10-28)
+        public float speed = 1f;
     }
 
     static Material pixelMaterial;
@@ -105,7 +107,7 @@ public static class Vfx
     /// <summary>
     /// 회색조 도트 이펙트를 무기 테마 색으로 재생한다(PixelSlash2D 셰이더). flipY = 올려베기처럼 위아래 반전.
     /// </summary>
-    public static bool PlayThemed(VfxId id, Vector3 position, bool facingLeft, float scaleMul, PixelRampId ramp, bool flipY = false, bool ignoreFrameCap = false)
+    public static bool PlayThemed(VfxId id, Vector3 position, bool facingLeft, float scaleMul, PixelRampId ramp, bool flipY = false, bool ignoreFrameCap = false, float speed = 1f)
     {
         int before = active.Count;
         if (!Play(id, position, facingLeft, scaleMul, ignoreFrameCap) || active.Count == before)
@@ -127,6 +129,11 @@ public static class Vfx
         }
         live.sprite.flipY = flipY;
         live.themed = true;
+        if (speed > 0f && speed != 1f)
+        {
+            live.speed = speed;
+            live.releaseAt = live.started + (live.releaseAt - live.started) / speed;
+        }
         if (live.block == null)
         {
             live.block = new MaterialPropertyBlock();
@@ -216,6 +223,7 @@ public static class Vfx
                 live.sprite.sharedMaterial = pixelMaterial;
             }
         }
+        live.speed = 1f;
         live.sprite.sprite = entry.pixel.frames[0];
         Transform t = live.go.transform;
         t.position = new Vector3(position.x, position.y, 0f);
@@ -264,7 +272,7 @@ public static class Vfx
             {
                 if (live.clip != null)
                 {
-                    int f = Mathf.Min(live.clip.frames.Length - 1, (int)((now - live.started) * live.clip.fps));
+                    int f = Mathf.Min(live.clip.frames.Length - 1, (int)((now - live.started) * live.clip.fps * live.speed));
                     live.sprite.sprite = live.clip.frames[f];
                     if (live.themed)
                     {

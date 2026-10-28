@@ -22,6 +22,12 @@ public static class WeaponFx
         return !string.IsNullOrEmpty(anim) && PixelRig.MapName(anim) == "SwingUp" ? new UnityEngine.Vector2(-0.4f, 0.2f) : UnityEngine.Vector2.zero;
     }
 
+    /// <summary>궤적 재생 속도. 올려베기는 칼이 0.06초 만에 머리 뒤로 넘어가는데 궤적이 2~3프레임 앞에 더 남아 1.6배로(10-28 인게임 캡처)</summary>
+    public static float FxSpeed(string anim)
+    {
+        return !string.IsNullOrEmpty(anim) && PixelRig.MapName(anim) == "SwingUp" ? 1.6f : 1f;
+    }
+
     /// <summary>궤적·휘두르는 소리 지연(초, 속도 1) — 리그가 셀 시간을 알면 베는 프레임 시작, 아니면 StrikeDelay</summary>
     public static float StrikeDelayFor(string anim, CharacterRig rig)
     {
@@ -30,7 +36,8 @@ public static class WeaponFx
             float t = rig.FrameStartTime(anim, f);
             if (t >= 0f)
             {
-                return t;
+                // 올려베기는 칼이 3번(몸 아래) → 5번(머리 뒤)으로 0.06초 만에 지나가 궤적이 한 박자 늦게 보였다 — 0.04초 당긴다(10-28 캡처)
+                return PixelRig.MapName(anim) == "SwingUp" ? UnityEngine.Mathf.Max(0f, t - 0.04f) : t;
             }
         }
         return StrikeDelay;
