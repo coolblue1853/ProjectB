@@ -25,7 +25,7 @@ BLADE = 18.5  # 칼끝까지(ShortSword 손잡이 피벗 → 끝, 24 PPU = 셀 1
 # 이름: (동작, 시작 프레임, 끝 프레임(=띄우는 프레임), 종류, 최대 두께)
 SPECS = {
     "Px_WSmearDown": ("SwingDown", 2, 4, "sweep", 13),
-    "Px_WSmearUp": ("SwingUp", 3, 5, "sweep", 13),
+    "Px_WSmearUp": ("SwingUp", 3, 5, "lens", 14),  # 스컬 리틀 본 AttackB·Pierce RisingSlash: 양 끝 뾰족·가운데(앞 위) 두꺼운 렌즈, 칼끝보다 조금 크게
     "Px_WSmearStab": ("Stab", 3, 4, "streak", 5),
 }
 
@@ -47,7 +47,7 @@ def at(h, ang, dist):
     return (h[0] + dist * math.cos(math.radians(ang)) + OX, h[1] - dist * math.sin(math.radians(ang)) + OY)
 
 
-def sweep_frames(pts, maxw):
+def sweep_frames(pts, maxw, lens=False):
     from PIL import ImageDraw
     frames = []
     for mode in range(3):
@@ -57,15 +57,21 @@ def sweep_frames(pts, maxw):
             # 꽉 찬 면: 칼끝 경로 ~ 안쪽 경로(진행 끝쪽이 두껍다), 진행도에 따라 밝기 0.6 → 1.0
             for k in range(len(pts) - 1):
                 (h, a, s0), (h2, a2, s1) = pts[k], pts[k + 1]
-                w0 = maxw * min(1.0, s0 * 1.25) * (1 - max(0.0, s0 - 0.95) * 10)
-                w1 = maxw * min(1.0, s1 * 1.25) * (1 - max(0.0, s1 - 0.95) * 10)
-                poly = [at(h, a, BLADE + 0.5), at(h2, a2, BLADE + 0.5), at(h2, a2, BLADE - w1), at(h, a, BLADE - w0)]
+                if lens:
+                    w0 = maxw * math.sin(math.pi * min(1.0, s0)) ** 0.8
+                    w1 = maxw * math.sin(math.pi * min(1.0, s1)) ** 0.8
+                    out = 3.0  # 바깥으로 3px 더(스컬 초승달은 칼끝 바깥까지 덮는다)
+                else:
+                    w0 = maxw * min(1.0, s0 * 1.25) * (1 - max(0.0, s0 - 0.95) * 10)
+                    w1 = maxw * min(1.0, s1 * 1.25) * (1 - max(0.0, s1 - 0.95) * 10)
+                    out = 0.5
+                poly = [at(h, a, BLADE + out), at(h2, a2, BLADE + out), at(h2, a2, BLADE + out - w1), at(h, a, BLADE + out - w0)]
                 g.polygon(poly, fill=int(255 * (0.6 + 0.4 * s1)))
-            tip = [at(h, a, BLADE + 0.5) for h, a, _ in pts]
+            tip = [at(h, a, BLADE + (3.0 if lens else 0.5)) for h, a, _ in pts]
             g.line(tip, fill=255, width=1)  # 바깥 가장자리(칼날 끝) 가장 밝게
         else:
             start = 0.4 if mode == 1 else 0.7
-            tip = [at(h, a, BLADE) for h, a, s in pts if s >= start]
+            tip = [at(h, a, BLADE + (3.0 if lens else 0.0)) for h, a, s in pts if s >= start]
             if len(tip) > 1:
                 g.line(tip, fill=230 if mode == 1 else 200, width=2 if mode == 1 else 1)
         frames.append(im)
@@ -73,21 +79,29 @@ def sweep_frames(pts, maxw):
 
 
 def streak_frames(h, ang, prev_h, maxw):
+    """스컬 Guard·Cyclone 찌르기: ① 팔 위 뒤에서 칼끝 앞으로 모이는 넓은 쐐기 ② 칼끝 앞 속도선 3줄 ③ 1줄."""
     from PIL import ImageDraw
     frames = []
-    tip = at(h, ang, BLADE + 6)
-    back = at(prev_h, ang, BLADE * 0.4)
+    ca, sa = math.cos(math.radians(ang)), math.sin(math.radians(ang))
+    nx, ny = -sa, -ca  # 칼 방향의 '위'(화면 좌표, y 아래로 +)
+    tip = at(h, ang, BLADE + 10)
     for mode in range(3):
         im = Image.new("L", (W, H), 0)
         g = ImageDraw.Draw(im)
         if mode == 0:
-            nx, ny = -math.sin(math.radians(-ang)), math.cos(math.radians(-ang))
-            mid = at(h, ang, BLADE * 0.7)
-            g.polygon([back, (mid[0] + nx * maxw / 2, mid[1] + ny * maxw / 2), tip, (mid[0] - nx * maxw / 2, mid[1] - ny * maxw / 2)], fill=200)
-            g.line([back, tip], fill=255, width=1)
+            back = at(prev_h, ang, -2)
+            top = (back[0] + nx * maxw * 2.2, back[1] + ny * maxw * 2.2)
+            low = (back[0] - nx * 1.5, back[1] - ny * 1.5)
+            g.polygon([top, tip, low], fill=190)
+            g.polygon([(back[0] + nx * maxw, back[1] + ny * maxw), tip, low], fill=235)
+            g.line([low, tip], fill=255, width=1)
         else:
-            s0 = at(h, ang, BLADE * (0.6 if mode == 1 else 1.0))
-            g.line([s0, at(h, ang, BLADE + (8 if mode == 1 else 10))], fill=230, width=1)
+            lines = [(-3, 0.5, 14), (0, 0.2, 20), (3, 0.6, 12)] if mode == 1 else [(0, 0.8, 14)]
+            for off, start, ln in lines:
+                p0 = at(h, ang, BLADE * start + BLADE * 0.4)
+                p0 = (p0[0] + nx * off, p0[1] + ny * off)
+                p1 = (p0[0] + ca * ln, p0[1] - sa * ln)
+                g.line([p0, p1], fill=230 if mode == 1 else 200, width=1)
         frames.append(im)
     return frames
 
@@ -95,8 +109,8 @@ def streak_frames(h, ang, prev_h, maxw):
 def render(spec):
     clip, f0, f1, kind, maxw = spec
     fr = json.load(open(CEL))[clip]["frames"]
-    if kind == "sweep":
-        frames = sweep_frames(blade_path(fr, f0, f1), maxw)
+    if kind in ("sweep", "lens"):
+        frames = sweep_frames(blade_path(fr, f0, f1), maxw, lens=kind == "lens")
     else:
         frames = streak_frames(fr[f1]["hand"], fr[f1]["angle"], fr[f0]["hand"], maxw)
     out = []

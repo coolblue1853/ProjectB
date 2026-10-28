@@ -163,7 +163,9 @@ def main():
     for r in rows:
         board.paste(r, (0, y))
         y += r.height + 8
-    board.save(f"{out}/fx_plan_board.png")
+    # 스컬 그림이 들어간 비교판은 저장소 밖에만 둔다(SkulAssetLibrary 규칙: 참고만, 커밋 금지)
+    os.makedirs("C:/Users/user/MotionRef/fx_compare", exist_ok=True)
+    board.save("C:/Users/user/MotionRef/fx_compare/fx_plan_board.png")
     print(board.size)
 
 
