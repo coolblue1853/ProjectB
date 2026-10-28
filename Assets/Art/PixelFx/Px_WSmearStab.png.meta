@@ -23,6 +23,12 @@ TextureImporter:
   - first:
       213: 5348972230250905838
     second: Px_WSmearStab_6
+  - first:
+      213: -8364609546044336386
+    second: Px_WSmearStab_7
+  - first:
+      213: 3960612760283938780
+    second: Px_WSmearStab_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -284,6 +290,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Px_WSmearStab_7
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef69f2b7fefeaeb80800000000000000
+      internalID: -8364609546044336386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearStab_8
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdf7a9d325ce6f630800000000000000
+      internalID: 3960612760283938780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -305,6 +355,8 @@ TextureImporter:
       Px_WSmearStab_4: -3677379943307267457
       Px_WSmearStab_5: 6681574736826683177
       Px_WSmearStab_6: 5348972230250905838
+      Px_WSmearStab_7: -8364609546044336386
+      Px_WSmearStab_8: 3960612760283938780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

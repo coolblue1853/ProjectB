@@ -393,3 +393,8 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
   - ② 찌르기는 스컬 Guard(넓은 쐐기 1프레임 → 칼 따라 가는 선)·Cyclone(손에서 칼끝 너머로 굵은 줄기, 끝이 뭉툭)처럼 **발사체가 아니라 칼에 붙은 잔상**으로 바꾼다.
   - ③ 베기 품질: 스컬 초승달은 3단 명암(바깥 흰 테두리·가운데 밝은 면·안쪽 회색 띠)이 크고 두껍다. 우리 것은 2단이고 얇다. swing_slash width·명암을 올리거나 램프를 4~5단으로 늘린다.
   - 주간 사용량 상한(50%)에 가까워 여기서 멈췄다.
+- 10-28 스미어 v5: 세 개 모두 PixelLab `vfx_workbench` 로 바꿨다(구독 무료). My effects 이름: PB_DownSlash_v3·PB_UpSlash_v3·PB_Thrust_v3. 원본은 `Docs/ArtCompare/WeaponFx/pixellab_v2/*-v3`.
+  - 베기: `swing_slash` 두께 15, 5단 회색이다. 스컬처럼 두꺼운 흰 면에 안쪽 회색 띠가 있다.
+  - 내려베기: start -150·sweep 210(뒤 위 → 앞 아래). 올려베기: 60·-210. 둘 다 50fps, 어깨 기준, 칼 출발 프레임 3에 띄운다.
+  - 찌르기: `zigzag_slash` 를 칼 방향 직선 경로(부드러운 모서리)로 바꿨다. 칼 위에 붙은 넓은 잔상 띠가 앞으로 베고 지나간다. 40fps, 뻗은 손 기준. thrust_streak 의 '미사일' 모양을 대체했다.
+  - 검증: 낮 인게임 1/30초 캡처. 콘솔 오류 0.

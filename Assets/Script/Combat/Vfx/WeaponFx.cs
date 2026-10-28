@@ -12,7 +12,7 @@ public static class WeaponFx
     /// 고정 0.04초면 준비 동작(0.16~0.19초) 중에 궤적이 먼저 나왔다</summary>
     static readonly System.Collections.Generic.Dictionary<string, int> StrikeFrame = new System.Collections.Generic.Dictionary<string, int>
     {
-        { "Stab", 3 }, { "SwingDown", 4 }, { "SwingUp", 3 },
+        { "Stab", 3 }, { "SwingDown", 3 }, { "SwingUp", 3 },
     };
 
     /// <summary>궤적·휘두르는 소리 지연(초, 속도 1) — 리그가 셀 시간을 알면 베는 프레임 시작, 아니면 StrikeDelay</summary>

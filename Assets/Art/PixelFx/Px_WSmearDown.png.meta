@@ -11,6 +11,24 @@ TextureImporter:
   - first:
       213: 121680713948064741
     second: Px_WSmearDown_2
+  - first:
+      213: 7527048203778824294
+    second: Px_WSmearDown_3
+  - first:
+      213: 1542882798647489429
+    second: Px_WSmearDown_4
+  - first:
+      213: -8428926351790585839
+    second: Px_WSmearDown_5
+  - first:
+      213: -235513553089036987
+    second: Px_WSmearDown_6
+  - first:
+      213: 4210726675826316857
+    second: Px_WSmearDown_7
+  - first:
+      213: 603122586386259833
+    second: Px_WSmearDown_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -184,6 +202,138 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Px_WSmearDown_3
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6689a791672757860800000000000000
+      internalID: 7527048203778824294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearDown_4
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 593b1771bbb696510800000000000000
+      internalID: 1542882798647489429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearDown_5
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 118c7933420760b80800000000000000
+      internalID: -8428926351790585839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearDown_6
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54d7658dba94bbcf0800000000000000
+      internalID: -235513553089036987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearDown_7
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93693ee2a918f6a30800000000000000
+      internalID: 4210726675826316857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearDown_8
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97f519dfbc8be5800800000000000000
+      internalID: 603122586386259833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -201,6 +351,12 @@ TextureImporter:
       Px_WSmearDown_0: 4029971537835791437
       Px_WSmearDown_1: -9181528468719777524
       Px_WSmearDown_2: 121680713948064741
+      Px_WSmearDown_3: 7527048203778824294
+      Px_WSmearDown_4: 1542882798647489429
+      Px_WSmearDown_5: -8428926351790585839
+      Px_WSmearDown_6: -235513553089036987
+      Px_WSmearDown_7: 4210726675826316857
+      Px_WSmearDown_8: 603122586386259833
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

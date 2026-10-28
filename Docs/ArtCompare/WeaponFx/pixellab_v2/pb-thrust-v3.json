@@ -1,0 +1,261 @@
+{
+ "frames": [
+  {
+   "filename": "pb-thrust-v3 0.png",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "sourceSize": {
+    "w": 53,
+    "h": 25
+   },
+   "pivot": {
+    "x": 0.4528301886792453,
+    "y": 0.6
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-thrust-v3 1.png",
+   "frame": {
+    "x": 53,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "sourceSize": {
+    "w": 53,
+    "h": 25
+   },
+   "pivot": {
+    "x": 0.4528301886792453,
+    "y": 0.6
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-thrust-v3 2.png",
+   "frame": {
+    "x": 106,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "sourceSize": {
+    "w": 53,
+    "h": 25
+   },
+   "pivot": {
+    "x": 0.4528301886792453,
+    "y": 0.6
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-thrust-v3 3.png",
+   "frame": {
+    "x": 0,
+    "y": 25,
+    "w": 53,
+    "h": 25
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "sourceSize": {
+    "w": 53,
+    "h": 25
+   },
+   "pivot": {
+    "x": 0.4528301886792453,
+    "y": 0.6
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-thrust-v3 4.png",
+   "frame": {
+    "x": 53,
+    "y": 25,
+    "w": 53,
+    "h": 25
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "sourceSize": {
+    "w": 53,
+    "h": 25
+   },
+   "pivot": {
+    "x": 0.4528301886792453,
+    "y": 0.6
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-thrust-v3 5.png",
+   "frame": {
+    "x": 106,
+    "y": 25,
+    "w": 53,
+    "h": 25
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "sourceSize": {
+    "w": 53,
+    "h": 25
+   },
+   "pivot": {
+    "x": 0.4528301886792453,
+    "y": 0.6
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-thrust-v3 6.png",
+   "frame": {
+    "x": 0,
+    "y": 50,
+    "w": 53,
+    "h": 25
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "sourceSize": {
+    "w": 53,
+    "h": 25
+   },
+   "pivot": {
+    "x": 0.4528301886792453,
+    "y": 0.6
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-thrust-v3 7.png",
+   "frame": {
+    "x": 53,
+    "y": 50,
+    "w": 53,
+    "h": 25
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "sourceSize": {
+    "w": 53,
+    "h": 25
+   },
+   "pivot": {
+    "x": 0.4528301886792453,
+    "y": 0.6
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-thrust-v3 8.png",
+   "frame": {
+    "x": 106,
+    "y": 50,
+    "w": 53,
+    "h": 25
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 53,
+    "h": 25
+   },
+   "sourceSize": {
+    "w": 53,
+    "h": 25
+   },
+   "pivot": {
+    "x": 0.4528301886792453,
+    "y": 0.6
+   },
+   "duration": 63
+  }
+ ],
+ "meta": {
+  "app": "PixelLab VFX Creator",
+  "image": "pb-thrust-v3.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 159,
+   "h": 75
+  },
+  "scale": "1",
+  "anchor": {
+   "kind": "origin",
+   "x": 24,
+   "y": 15
+  },
+  "frameTags": [
+   {
+    "name": "pb-thrust-v3",
+    "from": 0,
+    "to": 8,
+    "direction": "forward"
+   }
+  ]
+ }
+}
