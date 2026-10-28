@@ -26,10 +26,10 @@ BLADE = 18.5  # 칼끝까지(ShortSword 손잡이 피벗 → 끝, 24 PPU = 셀 1
 SPECS = {
     # v5(10-28 사용자: 품질 낮음·찌르기 미사일): 세 개 모두 vfx_workbench — 베기는 swing_slash 두께 15·5단 회색(안쪽 회색 띠, 스컬처럼 두껍게),
     # 내려베기 start -150·sweep 210(뒤 위 → 머리 위 → 앞 아래). 찌르기는 zigzag_slash 를 칼 방향 직선 경로(부드러운 모서리)로 — 칼에 붙은 넓은 잔상 띠(Guard 머리처럼), 발사체 X
-    "Px_WSmearDown": ("SwingDown", 2, 4, "pixellab:pb-downslash-v3:shoulder:30", 0),
+    "Px_WSmearDown": ("SwingDown", 2, 4, "pixellab:pb-downslash-v3:shoulder:36", 0),
     # v4(10-28 사용자: 올려베기 꺾임·찌르기 최악): PixelLab vfx_workbench(무료) 부품으로 교체 — swing_slash(start 60·sweep -210: 앞 아래 → 머리 위 → 뒤 위, 50fps — 칼이 0.06초 만에 지나가 30fps 면 궤적이 늦었다),
     # thrust_streak(×1.6). 원본 Docs/ArtCompare/WeaponFx/pixellab_v2, My effects PB_UpSlash_v2·PB_Thrust_v2. 기준점: 올려베기 = 칼 도는 중심(어깨), 찌르기 = 손
-    "Px_WSmearUp": ("SwingUp", 3, 5, "pixellab:pb-upslash-v3:shoulder:30", 0),  # 스컬 리틀 본 AttackB·Pierce RisingSlash: 양 끝 뾰족·가운데(앞 위) 두꺼운 렌즈, 칼끝보다 조금 크게
+    "Px_WSmearUp": ("SwingUp", 3, 5, "pixellab:pb-upslash-v3:shoulder:36", 0),  # 스컬 리틀 본 AttackB·Pierce RisingSlash: 양 끝 뾰족·가운데(앞 위) 두꺼운 렌즈, 칼끝보다 조금 크게
     "Px_WSmearStab": ("Stab", 3, 4, "pixellab:pb-thrust-v3:hand:30", 0),
 }
 
@@ -121,7 +121,8 @@ def cel_shift(clip, i, keys_hand):
 
 # 붓 → 칼(10-28 사용자: "칼로 벤다기보다 붓으로 그리는 느낌"): 머리가 호를 따라 그려 나가는 성장 프레임을 빼고,
 # 꽉 찬 프레임부터 바로 보여 준 뒤 가늘어지며 사라지게(스컬: 한 프레임에 호 전체 → 얇은 호 → 없음). 0부터 센 원본 프레임 번호
-PICK = {"pb-upslash-v3": [2, 4, 5, 6], "pb-downslash-v3": [2, 4, 5, 6], "pb-thrust-v3": [3, 4, 5, 6]}
+# 10-28 사용자: 동작이 큰 내려·올려베기는 중간 프레임이 한두 개 더 있으면 좋겠다 → 원본 3번(꽉 찬 호 다음)을 넣어 5프레임, 36fps(길이 비슷)
+PICK = {"pb-upslash-v3": [2, 3, 4, 5, 6], "pb-downslash-v3": [2, 3, 4, 5, 6], "pb-thrust-v3": [3, 4, 5, 6]}
 
 
 def pixellab_frames(name, anchor):

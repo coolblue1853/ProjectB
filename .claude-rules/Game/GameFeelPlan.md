@@ -410,3 +410,4 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
   - **히트스톱(스컬 평타 50~60ms 기준):** 공격자 평타 0.03 → 0.05초, 마무리 타(3타 이상 무기의 마지막 타 = 올려베기) 0.08초, 처치 0.05 → 0.06초. 맞은 적 멈춤은 평타 0.04 → 0.06초.
   - **흔들림:** 마무리 타는 Light → Medium(`HitFeedback.IsFinisher`).
   - 검증: 컴파일·콘솔 오류 0. **인게임 타격 미검증** — 시작 맵에 몹이 없어 `Logs/_hit_timing.cs` 측정이 'no enemy' 였다. 사냥터에서 측정할 것.
+- 10-28 v6c(사용자: 큰 동작인 내려·올려베기는 중간 프레임 한두 개 더): 원본 3번을 넣어 5프레임 36fps(PICK), 찌르기는 4프레임 그대로. 검증: 셀 위 합성 미리보기 `Logs/playtest/베기_스미어_5프레임.png/.gif`.
