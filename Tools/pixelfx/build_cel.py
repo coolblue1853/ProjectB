@@ -49,11 +49,11 @@ CLIPS = {
     "RopeStay": ("rope_loop", [0], 0.3, True, "const"),
     # 공격(칼을 쥔 채 생성 → 칼·잔상을 지우고 손잡이·칼날 각도를 읽어 실제 장착 무기를 붙인다). 0·8번은 기준 그림이라 뺀다
     "Stab": ("basic_sword", ['basic_sword/skel/v6/stab/0', 'basic_sword/skel/v6/stab/1', 'basic_sword/skel/v6/stab/2', 'basic_sword/skel/v6/stab/3', 'basic_sword/skel/v6/stab/4', 'basic_sword/skel/v6/stab/5'], 0.05, False, "feet"),  # v6 스켈레톤(스컬식 과장 키 + 보간, F 곡선)
-    "SwingDown": ("basic_sword", ['basic_sword/skel/v6/down/0', 'basic_sword/skel/v6/down/1', 'basic_sword/skel/v6/down/2', 'basic_sword/skel/v6/down/3', 'basic_sword/skel/v6/down/4', 'basic_sword/skel/v6/down/5'], 0.05, False, "feet"),  # v6 스켈레톤(스컬식 과장 키 + 보간, F 곡선)
+    "SwingDown": ("basic_sword", ['basic_sword/skel/v13/down/0', 'basic_sword/skel/v13/down/1', 'basic_sword/skel/v13/down/2', 'basic_sword/skel/v13/down/3', 'basic_sword/skel/v13/down/4', 'basic_sword/skel/v13/down/5', 'basic_sword/skel/v13/down/6'], 0.05, False, "feet"),  # v13e(10-27 사용자 성공 판정): 졸라맨 승인 → 스켈레톤 보간
     # 공격 끝 회복(10-27 GPT 토론 합의): 콤보가 이어지면 안 보이고, 대기로 돌아갈 때만 리그가 잠깐 보여 준다(PixelRig "<셀>End")
     "StabEnd": ("basic_sword", ['basic_sword/skel/v6/stab/6', 'basic_sword/skel/v6/stab/7', 'basic_sword/skel/v6/stab/8'], 0.05, False, "feet"),  # v6 스켈레톤(스컬식 과장 키 + 보간, F 곡선)
-    "SwingDownEnd": ("basic_sword", ['basic_sword/skel/v6/down/6', 'basic_sword/skel/v6/down/7', 'basic_sword/skel/v6/down/8'], 0.05, False, "feet"),  # v6 스켈레톤(스컬식 과장 키 + 보간, F 곡선)
-    "SwingUp": ("basic_sword", ['basic_sword/skel/v6/up/0', 'basic_sword/skel/v6/up/1', 'basic_sword/skel/v6/up/2', 'basic_sword/skel/v6/up/3', 'basic_sword/skel/v6/up/4', 'basic_sword/skel/v6/up/5', 'basic_sword/skel/v6/up/6', 'basic_sword/skel/v6/up/7', 'basic_sword/skel/v6/up/8', 'basic_sword/skel/v6/up/9'], 0.05, False, "feet"),  # v6 스켈레톤(스컬식 과장 키 + 보간, F 곡선)
+    "SwingDownEnd": ("basic_sword", ['basic_sword/skel/v13/down/7', 'basic_sword/skel/v13/down/8', 'basic_sword/skel/v13/down/9', 'basic_sword/skel/v13/down/10'], 0.05, False, "feet"),  # v13e 회복(제자리 4프레임)
+    "SwingUp": ("basic_sword", ['basic_sword/skel/v18/up/0', 'basic_sword/skel/v18/up/1', 'basic_sword/skel/v18/up/2', 'basic_sword/skel/v18/up/3', 'basic_sword/skel/v18/up/4', 'basic_sword/skel/v18/up/5', 'basic_sword/skel/v18/up/6', 'basic_sword/skel/v18/up/7', 'basic_sword/skel/v18/up/8', 'basic_sword/skel/v18/up/9', 'basic_sword/skel/v18/up/10', 'basic_sword/skel/v18/up/11'], 0.05, False, "feet"),  # v18(10-28 사용자 적용 승인): 뒤 아래로 감아 크게 베어 올림, 끝 칼팔 뒤로
     # 대검·둔기 양손(늘린 강철 대검을 합성한 기준 그림에서 생성, 칼 길이 36). 묵직하게 0.05초
     "GreatDown": ("attack/great_down", list(range(1, 8)), 0.05, False, "feet", 36),
     # 단검(쌍단검 계열): 연속 찌르기·X 베기, 칼 길이 14
@@ -180,16 +180,16 @@ IDLE_STAND = "idle_stand/arm_clean.png"  # 임시(10-26 밤): 사용자가 왼�
 # 칼 각도 고치기: 초안 칼의 손잡이 쪽을 잘못 읽은 프레임(10-27 기본 칼) — 그림에 그려진 칼 방향으로 맞춘다
 # 프레임별 시간(초, 10-27 GPT 토론: 준비는 길게·타격은 짧게·끝은 잠깐 멈춤). 없으면 클립 frame
 TIMES = {
-    "SwingDownEnd": [0.045, 0.06, 0.09],  # F 곡선
+    "SwingDownEnd": [0.05, 0.06, 0.08, 0.1],  # F 곡선(v13e 회복)
     "StabEnd": [0.045, 0.06, 0.09],  # F 곡선
     "Stab": [0.05, 0.04, 0.07, 0.03, 0.02, 0.18],  # F 곡선(10-27 사용자 선택)
-    "SwingDown": [0.05, 0.04, 0.07, 0.03, 0.02, 0.18],  # F 곡선(10-27 사용자 선택)
-    "SwingUp": [0.05, 0.04, 0.06, 0.03, 0.02, 0.04, 0.16, 0.05, 0.06, 0.09],  # F 곡선(10-27 사용자 선택)
+    "SwingDown": [0.05, 0.04, 0.1, 0.03, 0.03, 0.06, 0.15],  # F 곡선(v13e)
+    "SwingUp": [0.05, 0.04, 0.09, 0.03, 0.03, 0.05, 0.06, 0.15, 0.05, 0.06, 0.08, 0.1],  # F 곡선(v18)
     "Hurt": [0.03, 0.05, 0.05, 0.045, 0.045],
 }
 # 스켈레톤 셀(10-27): 손 = 자세표 손목 관절(가로·세로 맞춤만 더함), 칼 각도 = 자세표 설계값
-SKEL_HAND = {'Stab': [[35, 42], [33, 40], [32, 37], [44, 42], [57, 38], [56, 38]], 'StabEnd': [[53, 41], [42, 43], [36, 43]], 'SwingDown': [[41, 25], [31, 26], [26, 29], [47, 28], [56, 45], [55, 45]], 'SwingDownEnd': [[50, 45], [41, 44], [36, 43]], 'SwingUp': [[43, 47], [49, 42], [48, 30], [36, 23], [30, 24], [26, 27], [31, 24], [44, 29], [42, 41], [36, 43]]}
-SKEL_ANGLE = {'Stab': [-14.8, -5.2, 0.0, 0.0, 0.0, -5.0], 'StabEnd': [-8.9, -16.1, -20.0], 'SwingDown': [85.9, 134.1, 160.0, 60.0, -40.0, -45.0], 'SwingDownEnd': [-38.5, -26.5, -20.0], 'SwingUp': [-120.0, -80.0, 7.5, 95.0, 122.5, 150.0, 123.4, 65.0, 6.6, -20.0]}
+SKEL_HAND = {"Stab": [[35, 42], [33, 40], [32, 37], [44, 42], [57, 38], [56, 38]], "StabEnd": [[53, 41], [42, 43], [36, 43]], "SwingDown": [[46, 33], [35, 23], [34, 23], [52, 33], [55, 42], [54, 43], [54, 43]], "SwingDownEnd": [[50, 43], [46, 43], [42, 43], [39, 42]], "SwingUp": [[35, 42], [35, 40], [35, 40], [44, 45], [50, 27], [40, 24], [32, 29], [32, 29], [30, 34], [33, 40], [35, 42], [39, 42]]}
+SKEL_ANGLE = {"Stab": [-14.8, -5.2, 0.0, 0.0, 0.0, -5.0], "StabEnd": [-8.9, -16.1, -20.0], "SwingDown": [100, 172, 174, 60, -30, -35, -34], "SwingDownEnd": [-36, -35, -28, -20], "SwingUp": [-160, -165, -165, -25, 60, 165, 168, 169, 190, -150, -43, -20]}
 ANGLE_FIX = {}
 HAND_FIX = {("JumpCrouch", 2): (24, 33), ("JumpArc", 0): (24, 33), ("JumpArc", 1): (25, 33), ("JumpArc", 2): (27, 33), ("JumpArc", 3): (28, 34),
             ("Land", 0): (27, 31), ("Land", 1): (28, 36)}

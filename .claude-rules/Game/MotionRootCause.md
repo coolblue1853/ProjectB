@@ -171,3 +171,4 @@ GPT 2차 토론(`Docs/ArtCompare/Motion/cel/basic_sword/gpt_round2.md`) 요지: 
 - 10-28 v17(②안 팔꿈치 굽힘) 생성: b7b8c7d7(12프레임, 3생성) → skel/v17/up, keys_v17.json. 끝 = 손 머리 옆, 칼 아래팔 따라 위 뒤(145°). GIF v17_SwingUp_F.gif·v17_3타_F.gif → 사용자 판정 대기.
 - 10-28 v17 사용자: 마지막 칼팔이 꺾여 골절처럼 보임, 팔을 더 뒤로 빼야. 원인: 끝에서 위팔이 수직(95°)이라 팔꿈치가 머리 위에 서고 아래팔만 뒤로 접혀, 큰 머리 위로 팔이 꺾여 보였다. v18 졸라맨: 끝 위팔 140°·아래팔 165°(거의 곧게 뒤 위로 빼기), 칼 165°. 비교 GIF stick/SwingUp_v18.gif(②안 | v18).
 - 10-28 v18 생성: 047dc751(12프레임, 3생성) → skel/v18/up, keys_v18.json. 끝 = 칼팔을 거의 곧게 뒤로 빼고 칼 뒤 위. GIF v18_SwingUp_F.gif·v18_3타_F.gif → 사용자 판정 대기.
+- 10-28 적용(사용자 승인): build_cel CLIPS·TIMES·SKEL_HAND·SKEL_ANGLE → SwingDown/SwingDownEnd = v13e(7+4), SwingUp = v18(12). build_cel 실행 완료(Cel PNG·cel.json 갱신). **Unity 빌드·인게임 영상은 미검증** — unity-mcp 연결 안 됨(u.sh exit 1). 다음: Unity 켜고 Logs/build.cs(PixelRigBuilder.BuildAdventurer) → celcheck → _combo_bare.cs 영상.
