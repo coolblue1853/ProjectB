@@ -139,7 +139,7 @@ def pixellab_frames(name, anchor):
         a = np.array(can)
         v = a[..., :3].max(axis=2)
         # 날카롭게(10-28 사용자: 너무 부드럽다): 회색 단계를 흰 몸통·밝은 회색 가장자리 2단으로 눌러 대비를 세운다
-        v = np.where(v >= 150, 255, 205).astype(np.uint8)
+        v = np.where(v >= 235, 255, np.where(v >= 150, 210, 160)).astype(np.uint8)  # 3단: 흰 날 · 밝은 회색 몸 · 안쪽 회색 띠(2단은 통째로 하얘 둥글게 보였다)
         img = np.zeros((H, W, 4), np.uint8)
         img[..., 0] = img[..., 1] = img[..., 2] = v
         img[..., 3] = np.where(a[..., 3] > 0, 255, 0)
