@@ -210,18 +210,21 @@ public class Weapon : MonoBehaviour
             return;
         }
         pC.ActiveAttackAnim(spriteReverse.Length >= step && spriteReverse[step - 1], attackAnimName[step - 1], attckSpeed[step - 1] / StatMath.AttackSpeedMul);
-        GameObject damageObject = Instantiate(attackPrefab[step - 1], attackPivot[step - 1].transform.position, attackPivot[step - 1].transform.rotation, this.transform);
-        DamageObject dmOb = damageObject.GetComponent<DamageObject>();
-        dmOb.SetDamge(damgeArray);
-        if (_meleeActiveRatio > 0f && dmOb.hitCount <= 1)
+        bool celMelee = WeaponFx.TryMelee(attackAnimName[step - 1], swingVfx, out VfxId meleeFx, out bool fxFlipY) && WeaponFx.IsCelSmear(meleeFx);
+        // 셀 스미어 무기는 판정도 칼이 실제로 지나가는 순간에(10-28): 입력 순간에 만들면 준비 동작(0.16~0.19초) 중에 먼저 맞고 히트스톱이 걸렸다
+        float hitDelay = celMelee ? WeaponFx.StrikeDelayFor(attackAnimName[step - 1], pC.Rig) / StatMath.AttackSpeedMul : 0f;
+        if (hitDelay > 0f)
         {
-            dmOb.activeEnd = attckSpeed[step - 1] * _meleeActiveRatio;
+            DOVirtual.DelayedCall(hitDelay, () => SpawnHitbox(step, true), false).SetLink(gameObject);
         }
-        dmOb.isSkill = false; // 평타는 스킬뎀% 를 받지 않는다(공유 프리팹 플래그 무시, W-04)
+        else
+        {
+            SpawnHitbox(step, celMelee);
+        }
         Vector3 fxPos = attackPivot[step - 1].transform.position;
         bool fxLeft = pC.transform.localScale.x < 0f;
         // 근접 평타는 동작별 새 도트 궤적 + 무기 테마 색(GameFeelPlan 10.7), 그 외(지팡이 등)는 기존 이펙트
-        if (WeaponFx.TryMelee(attackAnimName[step - 1], swingVfx, out VfxId meleeFx, out bool fxFlipY))
+        if (WeaponFx.TryMelee(attackAnimName[step - 1], swingVfx, out meleeFx, out fxFlipY))
         {
             // 궤적은 타격 포즈 순간에(예비 포즈 동안은 칼만 보인다) — 리그 공격 클립의 타격 프레임 0.07초, 공속 배율 적용
             PixelRampId ramp = PixelRamp.FromSwing(swingVfx);
@@ -246,16 +249,35 @@ public class Weapon : MonoBehaviour
                 }
                 Vfx.PlayThemed(meleeFx, at, fxLeft, scale, ramp, fxFlipY);
             }).SetLink(gameObject);
-            // 판정 프리팹에 붙은 예전 베기 그림은 끈다(새 궤적과 두 겹으로 보였다). 판정·충돌은 그대로
+        }
+        else
+        {
+            Vfx.Play(swingVfx, fxPos, fxLeft, swingVfxScale);
+        }
+    }
+
+    /// <summary>평타 판정 프리팹 생성. hideArt = 새 도트 궤적을 쓰는 근접 평타라 판정 프리팹의 예전 베기 그림을 끈다(두 겹으로 보였다)</summary>
+    void SpawnHitbox(int step, bool hideArt)
+    {
+        if (attackPrefab.Length < step || attackPivot.Length < step || attackPivot[step - 1] == null)
+        {
+            return;
+        }
+        GameObject damageObject = Instantiate(attackPrefab[step - 1], attackPivot[step - 1].transform.position, attackPivot[step - 1].transform.rotation, this.transform);
+        DamageObject dmOb = damageObject.GetComponent<DamageObject>();
+        dmOb.SetDamge(damgeArray);
+        if (_meleeActiveRatio > 0f && dmOb.hitCount <= 1)
+        {
+            dmOb.activeEnd = attckSpeed[step - 1] * _meleeActiveRatio;
+        }
+        dmOb.isSkill = false; // 평타는 스킬뎀% 를 받지 않는다(공유 프리팹 플래그 무시, W-04)
+        if (hideArt || WeaponFx.TryMelee(attackAnimName[step - 1], swingVfx, out _, out _))
+        {
             damageObject.GetComponentsInChildren(true, hideRenderers);
             foreach (SpriteRenderer r in hideRenderers)
             {
                 r.enabled = false;
             }
-        }
-        else
-        {
-            Vfx.Play(swingVfx, fxPos, fxLeft, swingVfxScale);
         }
     }
     static readonly List<SpriteRenderer> hideRenderers = new List<SpriteRenderer>();

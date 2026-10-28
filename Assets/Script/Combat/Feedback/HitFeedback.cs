@@ -17,7 +17,7 @@ public static class HitFeedback
 
     // 튜닝 값 (GameFeelPlan 4~5절)
     const float FlashBasic = 0.06f, FlashSkill = 0.08f, FlashCritBonus = 0.02f;
-    const float StopBasic = 0.04f, StopSkill = 0.06f, StopCritBonus = 0.03f;
+    const float StopBasic = 0.06f, StopSkill = 0.06f, StopCritBonus = 0.03f; // 맞은 적 멈춤 평타 0.04 → 0.06(공격자와 맞춤, 10-28)
     const float ShakeWindow = 0.10f;
 
     static float shakeWindowEnd;
@@ -56,7 +56,7 @@ public static class HitFeedback
         // 공격자(플레이어) 히트스톱: 평타 0.03 / 스킬 0.04 / 치명 +0.02 / 처치 0.05
         if (PlayerController.instance != null)
         {
-            PlayerController.instance.HitStop(killed ? 0.05f : (isSkill ? 0.04f : 0.03f) + (isCrit ? 0.02f : 0f));
+            PlayerController.instance.HitStop(killed ? 0.06f : (isSkill ? 0.04f : BasicStop()) + (isCrit ? 0.02f : 0f));
         }
 
         Sfx.Play(killed ? SfxId.Kill : isCrit ? SfxId.Crit : SfxId.Hit, killed ? 0.6f : 0.45f);
@@ -87,12 +87,25 @@ public static class HitFeedback
             Sfx.Play(SfxId.Victory);
         }
 
-        ShakeTier tier = killed || isCrit ? ShakeTier.Heavy : isSkill ? ShakeTier.Medium : ShakeTier.Light;
+        ShakeTier tier = killed || isCrit ? ShakeTier.Heavy : isSkill || IsFinisher() ? ShakeTier.Medium : ShakeTier.Light;
         if (killed && target.isBossMob)
         {
             tier = ShakeTier.Impact;
         }
         Shake(tier);
+    }
+
+    /// <summary>근접 평타 마지막 타(3타 이상 무기의 끝, 기본 칼 = 올려베기) — 스컬처럼 마무리 타에 멈춤·흔들림을 더 준다(10-28)</summary>
+    static bool IsFinisher()
+    {
+        Weapon w = Weapon.Equipped;
+        return w != null && w.attackAnimName != null && w.attackAnimName.Length >= 3 && w.nowConboCount == w.attackAnimName.Length;
+    }
+
+    /// <summary>평타 공격자 히트스톱: 0.03 → 0.05초(스컬 평타 기준 50~60ms), 마무리 타 0.08초(10-28)</summary>
+    static float BasicStop()
+    {
+        return IsFinisher() ? 0.08f : 0.05f;
     }
 
     /// <summary>독·출혈 틱: 약한 색 펄스만</summary>
