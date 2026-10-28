@@ -11,6 +11,18 @@ TextureImporter:
   - first:
       213: 1792589625061337668
     second: Px_WSmearStab_2
+  - first:
+      213: -7653309048857419124
+    second: Px_WSmearStab_3
+  - first:
+      213: -3677379943307267457
+    second: Px_WSmearStab_4
+  - first:
+      213: 6681574736826683177
+    second: Px_WSmearStab_5
+  - first:
+      213: 5348972230250905838
+    second: Px_WSmearStab_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -184,6 +196,94 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Px_WSmearStab_3
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c82229218fbf9c590800000000000000
+      internalID: -7653309048857419124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearStab_4
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f723607dc6257fcc0800000000000000
+      internalID: -3677379943307267457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearStab_5
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92f47c892d8b9bc50800000000000000
+      internalID: 6681574736826683177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearStab_6
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee0c88147ed5b3a40800000000000000
+      internalID: 5348972230250905838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -201,6 +301,10 @@ TextureImporter:
       Px_WSmearStab_0: 5369328542766697259
       Px_WSmearStab_1: 8585200766596961763
       Px_WSmearStab_2: 1792589625061337668
+      Px_WSmearStab_3: -7653309048857419124
+      Px_WSmearStab_4: -3677379943307267457
+      Px_WSmearStab_5: 6681574736826683177
+      Px_WSmearStab_6: 5348972230250905838
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

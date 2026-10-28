@@ -16,5 +16,9 @@ MonoBehaviour:
   - {fileID: 5369328542766697259, guid: f8cce54e60ed93748abf0d2e5f0d6cfc, type: 3}
   - {fileID: 8585200766596961763, guid: f8cce54e60ed93748abf0d2e5f0d6cfc, type: 3}
   - {fileID: 1792589625061337668, guid: f8cce54e60ed93748abf0d2e5f0d6cfc, type: 3}
-  fps: 20
+  - {fileID: -7653309048857419124, guid: f8cce54e60ed93748abf0d2e5f0d6cfc, type: 3}
+  - {fileID: -3677379943307267457, guid: f8cce54e60ed93748abf0d2e5f0d6cfc, type: 3}
+  - {fileID: 6681574736826683177, guid: f8cce54e60ed93748abf0d2e5f0d6cfc, type: 3}
+  - {fileID: 5348972230250905838, guid: f8cce54e60ed93748abf0d2e5f0d6cfc, type: 3}
+  fps: 24
   source: Tools/pixelfx/gen_smear.py

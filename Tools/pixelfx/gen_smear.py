@@ -25,8 +25,10 @@ BLADE = 18.5  # 칼끝까지(ShortSword 손잡이 피벗 → 끝, 24 PPU = 셀 1
 # 이름: (동작, 시작 프레임, 끝 프레임(=띄우는 프레임), 종류, 최대 두께)
 SPECS = {
     "Px_WSmearDown": ("SwingDown", 2, 4, "sweep", 13),
-    "Px_WSmearUp": ("SwingUp", 3, 5, "lens", 14),  # 스컬 리틀 본 AttackB·Pierce RisingSlash: 양 끝 뾰족·가운데(앞 위) 두꺼운 렌즈, 칼끝보다 조금 크게
-    "Px_WSmearStab": ("Stab", 3, 4, "streak", 5),
+    # v4(10-28 사용자: 올려베기 꺾임·찌르기 최악): PixelLab vfx_workbench(무료) 부품으로 교체 — swing_slash(start 60·sweep -210: 앞 아래 → 머리 위 → 뒤 위, 50fps — 칼이 0.06초 만에 지나가 30fps 면 궤적이 늦었다),
+    # thrust_streak(×1.6). 원본 Docs/ArtCompare/WeaponFx/pixellab_v2, My effects PB_UpSlash_v2·PB_Thrust_v2. 기준점: 올려베기 = 칼 도는 중심(어깨), 찌르기 = 손
+    "Px_WSmearUp": ("SwingUp", 3, 5, "pixellab:pb-upslash-v2:shoulder:50", 0),  # 스컬 리틀 본 AttackB·Pierce RisingSlash: 양 끝 뾰족·가운데(앞 위) 두꺼운 렌즈, 칼끝보다 조금 크게
+    "Px_WSmearStab": ("Stab", 3, 4, "pixellab:pb-thrust-v2:hand:24", 0),
 }
 
 
@@ -106,9 +108,48 @@ def streak_frames(h, ang, prev_h, maxw):
     return frames
 
 
+PL = os.path.join(ROOT, "Docs", "ArtCompare", "WeaponFx", "pixellab_v2")
+
+
+def cel_shift(clip, i, keys_hand):
+    """셀은 프레임마다 sx·dy 로 정렬돼 있다 — 손 좌표 차이로 같은 이동을 준다."""
+    cj = json.load(open(CEL))[clip]["frames"][i]
+    return cj["hand"][0] - keys_hand[0], cj["hand"][1] - keys_hand[1]
+
+
+def pixellab_frames(name, anchor):
+    """PixelLab 시트를 셀 좌표 캔버스로: 효과 원점(anchor, 셀 좌표)에 시트의 피벗을 맞춘다. 회색 4단 → 밝기."""
+    meta = json.load(open(os.path.join(PL, name + ".json")))
+    sheet = Image.open(os.path.join(PL, name + ".png")).convert("RGBA")
+    out = []
+    for f in meta["frames"]:
+        r = f["frame"]
+        im = sheet.crop((r["x"], r["y"], r["x"] + r["w"], r["y"] + r["h"]))
+        px, py = round(f["pivot"]["x"] * r["w"]), round(f["pivot"]["y"] * r["h"])
+        can = Image.new("RGBA", (W, H))
+        can.alpha_composite(im, (int(round(anchor[0] + OX - px)), int(round(anchor[1] + OY - py))))
+        a = np.array(can)
+        v = a[..., :3].max(axis=2)
+        img = np.zeros((H, W, 4), np.uint8)
+        img[..., 0] = img[..., 1] = img[..., 2] = v
+        img[..., 3] = np.where(a[..., 3] > 0, 255, 0)
+        out.append(img)
+    return out
+
+
 def render(spec):
     clip, f0, f1, kind, maxw = spec
     fr = json.load(open(CEL))[clip]["frames"]
+    if kind.startswith("pixellab:"):
+        _, name, where, _fps = kind.split(":")
+        if where == "hand":
+            anchor = fr[f0]["hand"]
+        else:
+            k = json.load(open(os.path.join(KEYS, "keys_v18.json")))[clip]
+            sx, dy = cel_shift(clip, f1, k["hand"][f1])
+            kp = {j["label"]: (j["x"] * 64 + sx, j["y"] * 64 + dy) for j in k["kp"][f1]}
+            anchor = kp["RIGHT SHOULDER"]
+        return pixellab_frames(name, anchor)
     if kind in ("sweep", "lens"):
         frames = sweep_frames(blade_path(fr, f0, f1), maxw, lens=kind == "lens")
     else:
@@ -127,10 +168,11 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     for name, spec in SPECS.items():
         frames = render(spec)
+        fps = int(spec[3].split(":")[3]) if spec[3].startswith("pixellab:") else 20
         Image.fromarray(np.concatenate(frames, axis=1), "RGBA").save(os.path.join(OUT, name + ".png"))
         pivot = [PIV[0] / W, (H - (PIV[1] + 1)) / H]  # 셀 임포트와 같은 식(PixelRigBuilder.ImportPart)
         with open(os.path.join(OUT, name + ".json"), "w") as fp:
-            json.dump({"frames": len(frames), "w": W, "h": H, "fps": 20, "pivot": pivot, "ramp": "gray",
+            json.dump({"frames": len(frames), "w": W, "h": H, "fps": fps, "pivot": pivot, "ramp": "gray",
                        "source": "Tools/pixelfx/gen_smear.py"}, fp)
         print(name, pivot)
 

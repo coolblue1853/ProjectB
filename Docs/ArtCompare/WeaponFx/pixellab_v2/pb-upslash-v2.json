@@ -1,0 +1,261 @@
+{
+ "frames": [
+  {
+   "filename": "pb-upslash-v2 0.png",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 61,
+    "h": 61
+   },
+   "pivot": {
+    "x": 0.4426229508196721,
+    "y": 0.5737704918032787
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-upslash-v2 1.png",
+   "frame": {
+    "x": 61,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 61,
+    "h": 61
+   },
+   "pivot": {
+    "x": 0.4426229508196721,
+    "y": 0.5737704918032787
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-upslash-v2 2.png",
+   "frame": {
+    "x": 122,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 61,
+    "h": 61
+   },
+   "pivot": {
+    "x": 0.4426229508196721,
+    "y": 0.5737704918032787
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-upslash-v2 3.png",
+   "frame": {
+    "x": 0,
+    "y": 61,
+    "w": 61,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 61,
+    "h": 61
+   },
+   "pivot": {
+    "x": 0.4426229508196721,
+    "y": 0.5737704918032787
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-upslash-v2 4.png",
+   "frame": {
+    "x": 61,
+    "y": 61,
+    "w": 61,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 61,
+    "h": 61
+   },
+   "pivot": {
+    "x": 0.4426229508196721,
+    "y": 0.5737704918032787
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-upslash-v2 5.png",
+   "frame": {
+    "x": 122,
+    "y": 61,
+    "w": 61,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 61,
+    "h": 61
+   },
+   "pivot": {
+    "x": 0.4426229508196721,
+    "y": 0.5737704918032787
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-upslash-v2 6.png",
+   "frame": {
+    "x": 0,
+    "y": 122,
+    "w": 61,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 61,
+    "h": 61
+   },
+   "pivot": {
+    "x": 0.4426229508196721,
+    "y": 0.5737704918032787
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-upslash-v2 7.png",
+   "frame": {
+    "x": 61,
+    "y": 122,
+    "w": 61,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 61,
+    "h": 61
+   },
+   "pivot": {
+    "x": 0.4426229508196721,
+    "y": 0.5737704918032787
+   },
+   "duration": 63
+  },
+  {
+   "filename": "pb-upslash-v2 8.png",
+   "frame": {
+    "x": 122,
+    "y": 122,
+    "w": 61,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 61,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 61,
+    "h": 61
+   },
+   "pivot": {
+    "x": 0.4426229508196721,
+    "y": 0.5737704918032787
+   },
+   "duration": 63
+  }
+ ],
+ "meta": {
+  "app": "PixelLab VFX Creator",
+  "image": "pb-upslash-v2.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 183,
+   "h": 183
+  },
+  "scale": "1",
+  "anchor": {
+   "kind": "origin",
+   "x": 27,
+   "y": 35
+  },
+  "frameTags": [
+   {
+    "name": "pb-upslash-v2",
+    "from": 0,
+    "to": 8,
+    "direction": "forward"
+   }
+  ]
+ }
+}

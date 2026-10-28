@@ -11,6 +11,24 @@ TextureImporter:
   - first:
       213: -2511790012548889981
     second: Px_WSmearUp_2
+  - first:
+      213: -3149499438719901027
+    second: Px_WSmearUp_3
+  - first:
+      213: -320124197497760659
+    second: Px_WSmearUp_4
+  - first:
+      213: -8649853271975515495
+    second: Px_WSmearUp_5
+  - first:
+      213: -3460055947948480758
+    second: Px_WSmearUp_6
+  - first:
+      213: -1843417425910351630
+    second: Px_WSmearUp_7
+  - first:
+      213: -3510750218313065106
+    second: Px_WSmearUp_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -184,6 +202,138 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Px_WSmearUp_3
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d92eece72faba44d0800000000000000
+      internalID: -3149499438719901027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearUp_4
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d64932c0db0be8bf0800000000000000
+      internalID: -320124197497760659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearUp_5
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99a26ac274c85f780800000000000000
+      internalID: -8649853271975515495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearUp_6
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a07ad8f82796bffc0800000000000000
+      internalID: -3460055947948480758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearUp_7
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f839d33e9dda66e0800000000000000
+      internalID: -1843417425910351630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WSmearUp_8
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.58035713, y: 0.1125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6d1356f64f474fc0800000000000000
+      internalID: -3510750218313065106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -201,6 +351,12 @@ TextureImporter:
       Px_WSmearUp_0: 4035352808281045708
       Px_WSmearUp_1: -3416209098899653509
       Px_WSmearUp_2: -2511790012548889981
+      Px_WSmearUp_3: -3149499438719901027
+      Px_WSmearUp_4: -320124197497760659
+      Px_WSmearUp_5: -8649853271975515495
+      Px_WSmearUp_6: -3460055947948480758
+      Px_WSmearUp_7: -1843417425910351630
+      Px_WSmearUp_8: -3510750218313065106
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

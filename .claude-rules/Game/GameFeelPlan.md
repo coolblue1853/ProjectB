@@ -380,3 +380,11 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
   - 수정: `gen_smear.py` 가 cel.json 의 실제 손·칼 각도로 칼끝이 지나온 길을 따라 면을 그린다(바깥 = 칼끝, 안쪽 = 진행 끝쪽이 두꺼운 13px).
   - 칼이 끝에 도착한 프레임에 띄운다(찌르기 4, 내려베기 4, 올려베기 5). 그래서 면의 끝이 칼끝에 붙는다.
   - 검증: 낮 인게임 1/30초 캡처 `Logs/playtest/3타_스미어_인게임.png/.gif`. 콘솔 오류 0.
+- 10-28 스미어 v4(사용자: 올려베기가 꺾여 보임, 찌르기 최악, 레퍼런스를 보고 하라, PixelLab 이펙트를 알아봐라).
+  - 사용한 도구: PixelLab `vfx_workbench`(구독 무료, 생성 비용 0)의 부품.
+  - 올려베기: `swing_slash` 의 arc 레이어를 start 60·sweep -210 로 바꿨다. 앞 아래에서 머리 위를 지나 뒤 위로 매끄러운 초승달이 돌고, 끝에서 감아 들여 부서진다. 9프레임 50fps이고, 칼 도는 중심(어깨)에 맞췄다.
+  - 찌르기: `thrust_streak` ×1.6 이다. 빛 창 + 속도선 7프레임 24fps이고, 손에 맞췄다.
+  - My effects: PB_UpSlash_v2(0f667a8c…)·PB_Thrust_v2(fd3eb7fe…). 사이트에서 슬라이더로 고칠 수 있다. 원본 시트는 `Docs/ArtCompare/WeaponFx/pixellab_v2/`.
+  - `gen_smear.py` 가 셀 좌표 캔버스로 옮긴다. 띄우는 프레임: 올려베기·찌르기 3(칼 출발), 내려베기 4(사용자 OK, 자체 면 유지).
+  - 규칙 위반을 바로잡았다: 앞서 커밋한 `fx_plan_board.png` 에 스컬 프레임이 들어 있어 저장소에서 빼고 `C:\Users\user\MotionRef\fx_compare\` 로 옮겼다. 다만 히스토리(06c4cfbd)에는 남아 있다.
+  - 검증: 낮 인게임 1/30초 캡처. 콘솔 오류 0.
