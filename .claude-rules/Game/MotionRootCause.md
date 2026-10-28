@@ -170,3 +170,4 @@ GPT 2차 토론(`Docs/ArtCompare/Motion/cel/basic_sword/gpt_round2.md`) 요지: 
 - 10-28 v16 사용자: '칼 든 팔만 좀 다듬으면 될 것 같다, 안 3개'. stick_variants.py → stick/SwingUp_variants.gif(v16 | ①고른 호 | ②팔꿈치 굽힘·던파식 | ③수직 끊기·기사), 몸·다리·반대손은 v16 고정.
 - 10-28 v17(②안 팔꿈치 굽힘) 생성: b7b8c7d7(12프레임, 3생성) → skel/v17/up, keys_v17.json. 끝 = 손 머리 옆, 칼 아래팔 따라 위 뒤(145°). GIF v17_SwingUp_F.gif·v17_3타_F.gif → 사용자 판정 대기.
 - 10-28 v17 사용자: 마지막 칼팔이 꺾여 골절처럼 보임, 팔을 더 뒤로 빼야. 원인: 끝에서 위팔이 수직(95°)이라 팔꿈치가 머리 위에 서고 아래팔만 뒤로 접혀, 큰 머리 위로 팔이 꺾여 보였다. v18 졸라맨: 끝 위팔 140°·아래팔 165°(거의 곧게 뒤 위로 빼기), 칼 165°. 비교 GIF stick/SwingUp_v18.gif(②안 | v18).
+- 10-28 v18 생성: 047dc751(12프레임, 3생성) → skel/v18/up, keys_v18.json. 끝 = 칼팔을 거의 곧게 뒤로 빼고 칼 뒤 위. GIF v18_SwingUp_F.gif·v18_3타_F.gif → 사용자 판정 대기.
