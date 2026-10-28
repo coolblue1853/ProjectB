@@ -25,7 +25,7 @@ SMEAR = {"Stab": "Px_WSmearStab", "SwingDown": "Px_WSmearDown", "SwingUp": "Px_W
 ARC = {
     "SwingDown": ("arc", (-1.0, 11.4), 32.7, 137.0, -15.5),
     "SwingUp": ("arc", (1.9, 22.3), 24.2, -49.7, 148.9),
-    "Stab": ("line", (4.0, 18.0), (46.0, 19.0)),
+    "Stab": ("line", (14.0, 18.0), (46.0, 19.0)),
 }
 GLOW = dict(radius=5.5, intensity=2.2, steps=4, alpha=0.75, tail=0.0, env=[1.0, 0.8, 0.6, 0.45], inner=8.0)
 # 바람 호: 스미어 바깥을 감싸는 1px 선 2줄(반지름 +off), 진행 끝쪽 구간이 진행 방향으로 미끄러지며 꼬리부터 줄어든다

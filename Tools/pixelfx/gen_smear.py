@@ -183,6 +183,21 @@ def render(spec):
         _, name, where, _fps = kind.split(":")
         if where == "hand":
             anchor = fr[f1]["hand"]  # 찌르기 띠 가운데 = 뻗은 손(띠가 손 뒤 22px ~ 칼끝 너머까지)
+            # 10-28 인게임: 손 뒤 띠가 얼굴을 덮었다 → 손 4px 뒤부터만(레퍼런스 찌르기 줄기는 손에서 시작)
+            out = pixellab_frames(name, anchor)
+            cut = int(anchor[0] + OX - 4)
+            cy = anchor[1] + OY
+            for im in out:
+                im[:, :cut] = 0
+                # 잘린 끝을 뾰족하게: 8px 에 걸쳐 띠 두께가 0 → 전부로 벌어진다(뭉툭한 사각 끝 X)
+                rows = np.nonzero(im[..., 3].any(1))[0]
+                half = (rows.max() - rows.min() + 1) / 2 if len(rows) else 0
+                for x in range(cut, min(W, cut + 8)):
+                    keep = half * (x - cut + 1) / 8
+                    for y in range(H):
+                        if abs(y + 0.5 - cy) > keep:
+                            im[y, x] = 0
+            return out
         else:
             # 호 중심 = 칼끝 경로에 맞춘 원의 중심, 크기 = 바깥 반지름이 칼끝보다 2px 바깥(10-28: 어깨 기준은 올려베기 호가 칼보다 8px 컸다)
             cx, cy, rad = fit_tip_circle(fr, f0, f1)

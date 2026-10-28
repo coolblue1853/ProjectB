@@ -53,7 +53,7 @@ public class SmearAura : MonoBehaviour
             case VfxId.WSmearUp:
                 return new Shape { arc = true, c = new Vector2(1.9f, 22.3f), r = 24.2f, a0 = -49.7f, a1 = 148.9f };
             default:
-                return new Shape { arc = false, p0 = new Vector2(4f, 18f), p1 = new Vector2(46f, 19f) };
+                return new Shape { arc = false, p0 = new Vector2(14f, 18f), p1 = new Vector2(46f, 19f) };
         }
     }
 
