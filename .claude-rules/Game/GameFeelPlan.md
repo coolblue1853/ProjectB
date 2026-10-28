@@ -411,3 +411,4 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
   - **흔들림:** 마무리 타는 Light → Medium(`HitFeedback.IsFinisher`).
   - 검증: 컴파일·콘솔 오류 0. **인게임 타격 미검증** — 시작 맵에 몹이 없어 `Logs/_hit_timing.cs` 측정이 'no enemy' 였다. 사냥터에서 측정할 것.
 - 10-28 v6c(사용자: 큰 동작인 내려·올려베기는 중간 프레임 한두 개 더): 원본 3번을 넣어 5프레임 36fps(PICK), 찌르기는 4프레임 그대로. 검증: 셀 위 합성 미리보기 `Logs/playtest/베기_스미어_5프레임.png/.gif`.
+- 10-28 v6d: 끝의 둥근 뭉치(원본 6번) 제거 → 내려·올려베기 4프레임(2,3,4,5) 36fps. 검토용 GIF 는 0.25초 간격으로 느리게(베기_스미어_천천히).

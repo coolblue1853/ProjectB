@@ -17,6 +17,5 @@ MonoBehaviour:
   - {fileID: -3416209098899653509, guid: 1c0e371b373ba8d4c9fb0b7eee2f7d04, type: 3}
   - {fileID: -2511790012548889981, guid: 1c0e371b373ba8d4c9fb0b7eee2f7d04, type: 3}
   - {fileID: -3149499438719901027, guid: 1c0e371b373ba8d4c9fb0b7eee2f7d04, type: 3}
-  - {fileID: -320124197497760659, guid: 1c0e371b373ba8d4c9fb0b7eee2f7d04, type: 3}
   fps: 36
   source: Tools/pixelfx/gen_smear.py
