@@ -15,6 +15,13 @@ public static class WeaponFx
         { "Stab", 3 }, { "SwingDown", 3 }, { "SwingUp", 3 },
     };
 
+    /// <summary>궤적 위치 보정(유닛, 앞 +x·위 +y). 올려베기는 3타 판정 기준점이 몸에서 멀어(약 1유닛 앞) 궤적이 칼과 떨어져 보였다 —
+    /// 칼이 몸 앞에서 머리 위로 지나가므로 내려베기 궤적과 같은 거리(약 0.6유닛)로 당기고 조금 올린다(10-28 인게임 캡처)</summary>
+    public static UnityEngine.Vector2 FxOffset(string anim)
+    {
+        return !string.IsNullOrEmpty(anim) && PixelRig.MapName(anim) == "SwingUp" ? new UnityEngine.Vector2(-0.4f, 0.2f) : UnityEngine.Vector2.zero;
+    }
+
     /// <summary>궤적·휘두르는 소리 지연(초, 속도 1) — 리그가 셀 시간을 알면 베는 프레임 시작, 아니면 StrikeDelay</summary>
     public static float StrikeDelayFor(string anim, CharacterRig rig)
     {

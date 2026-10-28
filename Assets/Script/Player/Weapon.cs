@@ -237,6 +237,8 @@ public class Weapon : MonoBehaviour
                 {
                     at.y = hand.position.y;
                 }
+                Vector2 off = WeaponFx.FxOffset(attackAnimName[step - 1]);
+                at += new Vector3(fxLeft ? -off.x : off.x, off.y, 0f);
                 Vfx.PlayThemed(meleeFx, at, fxLeft, scale, ramp, fxFlipY);
             }).SetLink(gameObject);
             // 판정 프리팹에 붙은 예전 베기 그림은 끈다(새 궤적과 두 겹으로 보였다). 판정·충돌은 그대로
