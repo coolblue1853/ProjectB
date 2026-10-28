@@ -244,7 +244,7 @@ public class Weapon : MonoBehaviour
                 Transform celRoot = WeaponFx.IsCelSmear(meleeFx) && pC.Rig != null ? pC.Rig.CelRoot : null;
                 if (celRoot != null)
                 {
-                    Vfx.PlayThemed(meleeFx, celRoot.position, fxLeft, Mathf.Abs(celRoot.lossyScale.y), ramp, false);
+                    Vfx.PlayThemed(meleeFx, celRoot.position, fxLeft, Mathf.Abs(celRoot.lossyScale.y), ramp, false, false, 1f, true);
                     return;
                 }
                 Vfx.PlayThemed(meleeFx, at, fxLeft, scale, ramp, fxFlipY);

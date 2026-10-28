@@ -25,6 +25,9 @@ public static class Vfx
         public MaterialPropertyBlock block;
         // 재생 속도(1 = 원래). 칼이 지나간 뒤 궤적이 오래 남으면 높인다(올려베기, 10-28)
         public float speed = 1f;
+        // 칼 스미어(스컬식): 디졸브 없이 또렷하게 사라지고, 첫 프레임은 램프 전체를 흰색으로 과노출(날 끝 섬광, 10-28)
+        public bool crisp;
+        public PixelRampId ramp;
     }
 
     static Material pixelMaterial;
@@ -107,7 +110,7 @@ public static class Vfx
     /// <summary>
     /// 회색조 도트 이펙트를 무기 테마 색으로 재생한다(PixelSlash2D 셰이더). flipY = 올려베기처럼 위아래 반전.
     /// </summary>
-    public static bool PlayThemed(VfxId id, Vector3 position, bool facingLeft, float scaleMul, PixelRampId ramp, bool flipY = false, bool ignoreFrameCap = false, float speed = 1f)
+    public static bool PlayThemed(VfxId id, Vector3 position, bool facingLeft, float scaleMul, PixelRampId ramp, bool flipY = false, bool ignoreFrameCap = false, float speed = 1f, bool crisp = false)
     {
         int before = active.Count;
         if (!Play(id, position, facingLeft, scaleMul, ignoreFrameCap) || active.Count == before)
@@ -144,8 +147,24 @@ public static class Vfx
             live.block.SetColor(RampIds[i], c[i]);
         }
         live.block.SetFloat(DissolveId, 0f);
+        live.crisp = crisp;
+        live.ramp = ramp;
+        if (crisp)
+        {
+            SetRamp(live.block, White);
+        }
         live.sprite.SetPropertyBlock(live.block);
         return true;
+    }
+
+    static readonly Color[] White = { Color.white, Color.white, Color.white, Color.white, Color.white };
+
+    static void SetRamp(MaterialPropertyBlock block, Color[] c)
+    {
+        for (int i = 0; i < RampIds.Length; i++)
+        {
+            block.SetColor(RampIds[i], c[i]);
+        }
     }
 
     /// <summary>예전 베기 7종·치명 X자 → 새 도트 이펙트(id·색·크기·상하반전)</summary>
@@ -224,6 +243,7 @@ public static class Vfx
             }
         }
         live.speed = 1f;
+        live.crisp = false;
         live.sprite.sprite = entry.pixel.frames[0];
         Transform t = live.go.transform;
         t.position = new Vector3(position.x, position.y, 0f);
@@ -274,7 +294,13 @@ public static class Vfx
                 {
                     int f = Mathf.Min(live.clip.frames.Length - 1, (int)((now - live.started) * live.clip.fps * live.speed));
                     live.sprite.sprite = live.clip.frames[f];
-                    if (live.themed)
+                    if (live.themed && live.crisp)
+                    {
+                        // 첫 프레임만 흰 섬광, 그다음 무기 테마 색. 디졸브 없음(가늘어지는 프레임이 사라짐을 맡는다)
+                        SetRamp(live.block, f == 0 ? White : PixelRamp.Get(live.ramp));
+                        live.sprite.SetPropertyBlock(live.block);
+                    }
+                    else if (live.themed)
                     {
                         float life = (now - live.started) / Mathf.Max(live.releaseAt - live.started, 0.0001f);
                         live.block.SetFloat(DissolveId, Mathf.Clamp01((life - DissolveFrom) / (1f - DissolveFrom)));
