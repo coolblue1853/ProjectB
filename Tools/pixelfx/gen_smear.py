@@ -125,7 +125,34 @@ def cel_shift(clip, i, keys_hand):
 PICK = {"pb-upslash-v3": [2, 3, 4, 5], "pb-downslash-v3": [2, 3, 4, 5], "pb-thrust-v3": [3, 4, 5, 6]}
 
 
-def pixellab_frames(name, anchor):
+def fit_tip_circle(fr, f0, f1, n=12):
+    """칼끝이 f0 → f1 동안 지나간 길에 원을 맞춘다(중심 x, y, 반지름) — 이펙트 호를 칼 범위에 맞추는 기준(10-28 사용자: 칼 범위와 이펙트 범위가 안 맞음)."""
+    pts = []
+    for k in range(f0, f1):
+        h0, a0 = fr[k]["hand"], fr[k]["angle"]
+        h1, a1 = fr[k + 1]["hand"], fr[k + 1]["angle"]
+        for j in range(n + 1):
+            t = j / n
+            h = (h0[0] + (h1[0] - h0[0]) * t, h0[1] + (h1[1] - h0[1]) * t)
+            a = math.radians(a0 + (a1 - a0) * t)
+            pts.append((h[0] + BLADE * math.cos(a), h[1] - BLADE * math.sin(a)))
+    p = np.array(pts)
+    A = np.c_[2 * p[:, 0], 2 * p[:, 1], np.ones(len(p))]
+    c = np.linalg.lstsq(A, (p ** 2).sum(1), rcond=None)[0]
+    return c[0], c[1], math.sqrt(c[2] + c[0] ** 2 + c[1] ** 2)
+
+
+def outer_radius(name):
+    """PixelLab 호의 바깥 반지름(피벗 기준, 꽉 찬 프레임)."""
+    meta = json.load(open(os.path.join(PL, name + ".json")))
+    f = meta["frames"][2]
+    r = f["frame"]
+    a = np.array(Image.open(os.path.join(PL, name + ".png")).convert("RGBA").crop((r["x"], r["y"], r["x"] + r["w"], r["y"] + r["h"])))[..., 3] > 0
+    ys, xs = np.nonzero(a)
+    return float(np.hypot(xs + 0.5 - f["pivot"]["x"] * r["w"], ys + 0.5 - f["pivot"]["y"] * r["h"]).max())
+
+
+def pixellab_frames(name, anchor, scale=1.0):
     """PixelLab 시트를 셀 좌표 캔버스로: 효과 원점(anchor, 셀 좌표)에 시트의 피벗을 맞춘다. 회색 4단 → 밝기."""
     meta = json.load(open(os.path.join(PL, name + ".json")))
     sheet = Image.open(os.path.join(PL, name + ".png")).convert("RGBA")
@@ -133,7 +160,9 @@ def pixellab_frames(name, anchor):
     for f in [meta["frames"][k] for k in PICK.get(name, range(len(meta["frames"])))]:
         r = f["frame"]
         im = sheet.crop((r["x"], r["y"], r["x"] + r["w"], r["y"] + r["h"]))
-        px, py = round(f["pivot"]["x"] * r["w"]), round(f["pivot"]["y"] * r["h"])
+        if abs(scale - 1.0) > 0.02:
+            im = im.resize((max(1, round(r["w"] * scale)), max(1, round(r["h"] * scale))), Image.NEAREST)
+        px, py = round(f["pivot"]["x"] * im.width), round(f["pivot"]["y"] * im.height)
         can = Image.new("RGBA", (W, H))
         can.alpha_composite(im, (int(round(anchor[0] + OX - px)), int(round(anchor[1] + OY - py))))
         a = np.array(can)
@@ -155,10 +184,10 @@ def render(spec):
         if where == "hand":
             anchor = fr[f1]["hand"]  # 찌르기 띠 가운데 = 뻗은 손(띠가 손 뒤 22px ~ 칼끝 너머까지)
         else:
-            k = json.load(open(os.path.join(KEYS, {"SwingUp": "keys_v18.json", "SwingDown": "keys_v13.json"}[clip])))[clip]
-            sx, dy = cel_shift(clip, f1, k["hand"][f1])
-            kp = {j["label"]: (j["x"] * 64 + sx, j["y"] * 64 + dy) for j in k["kp"][f1]}
-            anchor = kp["RIGHT SHOULDER"]
+            # 호 중심 = 칼끝 경로에 맞춘 원의 중심, 크기 = 바깥 반지름이 칼끝보다 2px 바깥(10-28: 어깨 기준은 올려베기 호가 칼보다 8px 컸다)
+            cx, cy, rad = fit_tip_circle(fr, f0, f1)
+            anchor = (cx, cy)
+            return pixellab_frames(name, anchor, (rad + 2) / outer_radius(name))
         return pixellab_frames(name, anchor)
     if kind in ("sweep", "lens"):
         frames = sweep_frames(blade_path(fr, f0, f1), maxw, lens=kind == "lens")

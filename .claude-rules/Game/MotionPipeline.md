@@ -67,3 +67,26 @@
    - "마지막에 자세가 갑자기 바뀜" → 회복 때 몸이 뒤로 미끄러졌다. 제자리에서 중간 자세를 거쳐 4프레임으로 풀리게 했다(`IDLE_HERE`, `DOWN_MID`).
 5. **승인 후 한 번만 생성한다.** `stick_export.py` → `keys_v13.json` → `animate_with_skeleton_v3`(동작당 3생성) → 칼 붙인 시트·GIF 자체 점검 → 사용자.
 6. **결과:** 내려베기 v13은 "얼추 됨". 올려베기는 "칼이 너무 위로 올라감"(다음 할 일).
+
+## 7. 공격 이펙트(스미어) 제작 절차 — 10-28 기본 칼 3타에서 확정, 다음 무기부터 이 순서로
+
+v1~v6 시행착오를 줄이는 순서다(상세 이력: `GameFeelPlan.md` 10-28 항목).
+
+1. **레퍼런스 먼저.**
+   - 스컬 `SkulRef/lib` 에서 같은 동작 2~3개를 본다. 예: 올려베기는 리틀 본 AttackB·Pierce RisingSlash, 찌르기는 Guard Thrust·Cyclone Thrust_Attack.
+   - 스컬 그림이 든 비교판은 **저장소 밖**(`C:\Users\user\MotionRef\fx_compare`)에만 둔다. 한 번 커밋했다가 빼야 했다.
+2. **면 계획을 졸라맨 위에 그린다.** `Tools/pixelfx/fx_plan.py` 로 그려 사용자 승인을 받은 뒤 도트를 만든다.
+3. **그림은 PixelLab `vfx_workbench` 부품을 쓴다.** 구독 무료이고 생성 비용이 0이다. 직접 그린 v1~v3 는 품질 불합격이었다.
+   - 베기: `swing_slash` 의 arc 레이어 start·sweep 을 바꾼다. 각도는 화면 기준(y 아래가 +), +sweep = 시계 방향. 내려베기 -150/210, 올려베기 60/-210. 두께 8~11, 5단 회색.
+   - 찌르기: `zigzag_slash` 의 points 를 칼 방향 직선으로 바꾸고, 부드러운 모서리·두께 6. `thrust_streak` 은 '미사일'처럼 보여 불합격.
+   - 내보내기: `export --name PB_* (--replace id)` → 원본 `Docs/ArtCompare/WeaponFx/pixellab_v2/`.
+4. **`Tools/pixelfx/gen_smear.py` 로 셀 좌표에 맞춘다.**
+   - 셀과 같은 픽셀 크기(PPU 36 × 플레이어 1.5 = 무기 24 PPU)와 셀 원점 피벗을 쓴다. 띄우는 곳은 `CharacterRig.CelRoot` 이다.
+   - **호 중심·크기 = 칼끝 경로에 맞춘 원**(`fit_tip_circle`, 바깥 반지름 = 칼끝 + 2px). 어깨 기준으로 놓으면 칼 범위와 어긋났다.
+   - **붓질 금지**: 머리가 그려 나가는 성장 프레임을 빼고, 꽉 찬 호부터 바로 보인 뒤 가늘어지게 한다(`PICK`). 끝의 둥근 뭉치도 뺀다. 명암은 3단(흰 날·밝은 몸·안쪽 회색 띠). 2단은 둥근 덩어리로 보였다.
+   - 베기 4프레임 36fps, 찌르기 4프레임 30fps.
+5. **등록·시점.**
+   - 등록: `Tools/probes/build_smear.cs`.
+   - 띄우는 프레임은 칼이 휘두름 끝에 도착한 프레임이다(`WeaponFx.StrikeFrame`). 판정도 같은 시각에 만든다(`Weapon.SpawnHitbox`).
+   - 히트스톱: 평타 0.05초, 마무리 타 0.08초.
+6. **검토 자료.** 셀 위 합성 미리보기는 **느리게(0.25초/프레임)** 보여 준다. 빠르면 판정할 수 없다. 이어서 낮 인게임 1/30초 캡처(`Logs/_combo_bare.cs`)로 확인한다.
