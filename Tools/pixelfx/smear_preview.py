@@ -15,7 +15,7 @@ from PIL import Image
 ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
 CELDIR = os.path.join(ROOT, "Assets", "Art", "Player", "PixelRig", "Cel")
 FX = os.path.join(ROOT, "Assets", "Art", "PixelFx")
-W, H, OX, OY = 112, 80, 24, 16
+W, H, OX, OY = 136, 80, 24, 16
 PX, PY = 41 + OX, 54 + OY  # 피벗(셀 원점) 시트 좌표
 WHITE = [0x1E2846, 0x3C64AA, 0x8CB4F0, 0xD2E6FF, 0xFFFFFF]  # PixelRampId.Steel(기본 칼 스미어, 10-28)
 BG = (38, 44, 54)
@@ -23,13 +23,14 @@ STRIKE = {"Stab": 4, "SwingDown": 4, "SwingUp": 5}
 SMEAR = {"Stab": "Px_WSmearStab", "SwingDown": "Px_WSmearDown", "SwingUp": "Px_WSmearUp"}
 # SmearAura.cs 와 같은 값(셀 px, 피벗 기준, y 위 +). 호: 중심·반지름·시작각→끝각 / 선: 시작점→끝점
 ARC = {
-    "SwingDown": ("arc", (-1.0, 11.4), 32.7, 137.0, -15.5),
-    "SwingUp": ("arc", (1.9, 22.3), 24.2, -49.7, 148.9),
-    "Stab": ("line", (14.0, 18.0), (46.0, 19.0)),
+    # v7 타원(gen_smear.ELLIPSE 와 같은 값): ("arc", 중심, 대표 반지름, 꼬리 각, 머리 각, 가로 반지름, 세로 반지름, 기울기)
+    "SwingDown": ("arc", (-1.0, 14.0), 27.0, 212.0, -18.0, 38.0, 27.0, -12.0),
+    "SwingUp": ("arc", (2.0, 20.0), 24.0, -70.0, 150.0, 31.0, 24.0, 10.0),
+    "Stab": ("line", (14.0, 18.0), (58.0, 19.0)),
 }
 GLOW = dict(radius=5.5, intensity=2.2, steps=4, alpha=0.45, tail=0.0, env=[1.0, 0.8, 0.6, 0.45], inner=8.0)
 # 바람 호: 스미어 바깥을 감싸는 1px 선 2줄(반지름 +off), 진행 끝쪽 구간이 진행 방향으로 미끄러지며 꼬리부터 줄어든다
-WIND = dict(offs=(4.0, 7.0, -4.0, -8.0), los=(0.45, 0.6, 0.3, 0.55), span=(0.45, 1.0), slide=18.0, life=0.10)
+WIND = dict(offs=(5.0,), los=(0.6,), span=(0.45, 1.0), slide=18.0, life=0.10)
 SPARK = dict(count=12, speed=(70, 160), out=(10, 45), life=(0.12, 0.28), drag=6.0, grav=-40.0)
 
 
@@ -93,19 +94,45 @@ def glow_map(fr, mask=None):
     return np.floor(g * s + 0.35) / s
 
 
+def arc_geo(k):
+    return (k[5], k[6], k[7]) if len(k) > 5 else (k[2], k[2], 0.0)
+
+
+def arc_pt(k, a_deg, off=0.0):
+    """호(타원) 위 점(셀 px, y 위 +) + 바깥 법선 방향 off."""
+    ea, eb, tilt = arc_geo(k)
+    c = k[1]
+    phi = math.radians(a_deg)
+    ct, st = math.cos(math.radians(tilt)), math.sin(math.radians(tilt))
+    x, y = ea * math.cos(phi), eb * math.sin(phi)
+    nx, ny = math.cos(phi) / ea, math.sin(phi) / eb
+    n = math.hypot(nx, ny)
+    nx, ny = nx / n, ny / n
+    px, py = x + nx * off, y + ny * off
+    return (c[0] + px * ct - py * st, c[1] + px * st + py * ct)
+
+
+def arc_frame(k, a_deg):
+    """(바깥 법선, 진행 방향 접선) — 진행 방향 = 꼬리 각 → 머리 각."""
+    p0, p1 = arc_pt(k, a_deg), arc_pt(k, a_deg, 1.0)
+    nrm = (p1[0] - p0[0], p1[1] - p0[1])
+    sgn = 1 if k[4] > k[3] else -1
+    q = arc_pt(k, a_deg + sgn * 0.5)
+    t = (q[0] - p0[0], q[1] - p0[1])
+    tl = math.hypot(*t) or 1
+    return nrm, (t[0] / tl, t[1] / tl)
+
+
 def sparks(clip, rng):
     kind = ARC[clip]
     out = []
     for _ in range(SPARK["count"]):
         if kind[0] == "arc":
-            _, c, r, a0, a1 = kind
+            a0, a1 = kind[3], kind[4]
             t = rng.random() ** 0.6  # 진행 끝쪽에 많이
-            a = math.radians(a0 + (a1 - a0) * t)
-            rad = r + rng.uniform(-2, 3)
-            p = (c[0] + rad * math.cos(a), c[1] + rad * math.sin(a))
-            sgn = -1 if a1 < a0 else 1  # 시계 방향이면 접선 (sin, -cos)
-            tang = (-math.sin(a) * sgn, math.cos(a) * sgn)
-            radial = (math.cos(a), math.sin(a))
+            a = a0 + (a1 - a0) * t
+            p = arc_pt(kind, a, rng.uniform(-2, 3))
+            radial, tang = arc_frame(kind, a)
         else:
             _, p0, p1 = kind
             t = rng.random() ** 0.5
@@ -129,9 +156,13 @@ def arc_mask(clip):
     k = ARC[clip]
     if k[0] != "arc":
         return None
+    ea, eb, tilt = arc_geo(k)
     yy, xx = np.mgrid[0:H, 0:W]
-    d = np.hypot(xx + 0.5 - (PX + k[1][0]), (PY - k[1][1]) - (yy + 0.5))
-    return np.clip((d - (k[2] - GLOW["inner"])) / 4.0, 0, 1)
+    dx, dy = xx + 0.5 - (PX + k[1][0]), (PY - k[1][1]) - (yy + 0.5)
+    ct, st = math.cos(math.radians(tilt)), math.sin(math.radians(tilt))
+    lx, ly = dx * ct + dy * st, -dx * st + dy * ct
+    d = np.hypot(lx / ea, ly / eb) * eb  # 타원 정규 거리(세로 반지름 단위)
+    return np.clip((d - (eb - GLOW["inner"])) / 4.0, 0, 1)
 
 
 def wind_lines(clip, ts):
@@ -146,13 +177,12 @@ def wind_lines(clip, ts):
         lo, hi = WIND.get("los", [WIND["span"][0]] * len(WIND["offs"]))[n], WIND["span"][1]
         lo = lo + (hi - lo) * u  # 꼬리부터 줄어든다
         if k[0] == "arc":
-            _, c, r, a0, a1 = k
+            a0, a1 = k[3], k[4]
             sgn = 1 if a1 > a0 else -1
             for j in range(60):
                 t = lo + (hi - lo) * j / 59
-                a = math.radians(a0 + (a1 - a0) * t + sgn * WIND["slide"] * u)
-                rr = r + off
-                pts.append((PX + c[0] + rr * math.cos(a), PY - (c[1] + rr * math.sin(a)), 1 - u))
+                q = arc_pt(k, a0 + (a1 - a0) * t + sgn * WIND["slide"] * u, off)
+                pts.append((PX + q[0], PY - q[1], 1 - u))
         else:
             _, p0, p1 = k
             for j in range(60):
@@ -161,7 +191,7 @@ def wind_lines(clip, ts):
     return pts
 
 
-CUT = dict(life=0.24, lo=0.05, delay=0.0)  # SmearCut
+CUT = dict(life=0.24, lo=0.55, delay=0.0)  # SmearCut
 
 
 def cut_line(clip, ts):
@@ -179,9 +209,8 @@ def cut_line(clip, ts):
         q = lo + (1 - lo) * j / (n - 1)
         b = (0.35 + 0.65 * (j / (n - 1))) * (1 - u * 0.5)
         if k[0] == "arc":
-            _, c, r, a0, a1 = k
-            a = math.radians(a0 + (a1 - a0) * q)
-            pts.append((PX + c[0] + r * math.cos(a), PY - (c[1] + r * math.sin(a)), b))
+            p = arc_pt(k, k[3] + (k[4] - k[3]) * q)
+            pts.append((PX + p[0], PY - p[1], b))
         else:
             _, p0, p1 = k
             pts.append((PX + p0[0] + (p1[0] + 6 - p0[0]) * q, PY - (p0[1] + 1), b))

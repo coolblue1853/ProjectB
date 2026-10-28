@@ -3,29 +3,39 @@
 /// <summary>
 /// 칼 스미어(도트) 받침 레이어 — 10-28 사용자 "도트로 큰 형태를 잡고 세세한 건 셰이더·파티클로 감싸서 강화".
 /// ① 글로우: 스미어와 같은 프레임을 SmearGlow2D(텍셀 고정 블러·4단 계단·가산)로 한 칸 뒤에 깐다. 호 안쪽(머리·몸)은 끈다.
-/// ② 바람 호: 스미어 바깥 +4·+7px, 안쪽 -4·-8px 에 1px 선 4줄, 진행 끝쪽 구간이 진행 방향으로 미끄러지며 꼬리부터 줄어든다(0.10초).
-/// ④ 칼선: SmearCut — 칼끝 경로에 1px 선이 0.24초 남는다.
+/// ② 바람 호: 스미어 바깥 +5px 에 1px 선 1줄(10-28 v7: 림버스는 깔끔해서 4줄 → 1줄), 진행 끝쪽 구간이 진행 방향으로 미끄러지며 꼬리부터 줄어든다(0.10초).
+/// ④ 칼선: SmearCut — 칼끝 경로(머리 쪽 45%)에 1px 선이 0.24초 남는다.
 /// ③ 칼끝 불꽃: 칼끝이 지나간 호 위에서 접선 방향으로 튀는 1~2px 가산 점(월드 공간, 스미어가 꺼져도 남는다).
 /// 수치·모양은 Tools/pixelfx/smear_preview.py 와 같다(미리보기 → 인게임). Vfx.PlayThemed 가 셀 스미어를 crisp 로 띄울 때 붙인다.
 /// </summary>
 public class SmearAura : MonoBehaviour
 {
-    // 호·선 모양(셀 px, 스미어 피벗 = 셀 원점 기준, y 위 +). gen_smear.fit_tip_circle 결과 — 스미어를 다시 뽑으면 같이 고친다
+    // 호·선 모양(셀 px, 스미어 피벗 = 셀 원점 기준, y 위 +). 호 = 기울어진 타원(gen_smear.ELLIPSE 와 같은 값, 10-28 v7 림버스식) — 스미어를 다시 뽑으면 같이 고친다.
+    // a0 = 꼬리 각, a1 = 머리 각(타원 매개변수 각), ea·eb = 가로·세로 반지름, tilt = 기울기°
     struct Shape
     {
         public bool arc;
         public Vector2 c;
-        public float r, a0, a1;
+        public float ea, eb, tilt, a0, a1;
         public Vector2 p0, p1;
+
+        /// <summary>타원 위 점 + 바깥 법선 방향 off(셀 px)</summary>
+        public Vector2 Point(float aDeg, float off = 0f)
+        {
+            float phi = aDeg * Mathf.Deg2Rad;
+            var n = new Vector2(Mathf.Cos(phi) / ea, Mathf.Sin(phi) / eb).normalized;
+            var l = new Vector2(ea * Mathf.Cos(phi), eb * Mathf.Sin(phi)) + n * off;
+            float ct = Mathf.Cos(tilt * Mathf.Deg2Rad), st = Mathf.Sin(tilt * Mathf.Deg2Rad);
+            return c + new Vector2(l.x * ct - l.y * st, l.x * st + l.y * ct);
+        }
     }
 
     const float Ppu = 36f; // 셀·스미어 PPU(1 텍셀 = 셀 1px)
     static readonly float[] GlowEnv = { 1f, 0.8f, 0.6f, 0.45f };
     const float GlowAlpha = 0.45f; // 10-28 사용자 "너무 밝기만 하다" → 0.75 에서 낮춤
     const float GlowInner = 8f;
-    // 바깥 2줄 + 안쪽 2줄(할로우 나이트식 결 — 호 안에 평행한 줄무늬). 시작 구간(lo)이 줄마다 달라 길이가 엇갈린다
-    static readonly float[] WindOffs = { 4f, 7f, -4f, -8f };
-    static readonly float[] WindLos = { 0.45f, 0.6f, 0.3f, 0.55f };
+    static readonly float[] WindOffs = { 5f };
+    static readonly float[] WindLos = { 0.6f };
     const float WindHi = 1f, WindSlide = 18f, WindLife = 0.10f;
     const int WindPoints = 14;
     const int SparkCount = 14;
@@ -35,6 +45,7 @@ public class SmearAura : MonoBehaviour
     static readonly int GlowColorId = Shader.PropertyToID("_GlowColor");
     static readonly int UVRectId = Shader.PropertyToID("_UVRect");
     static readonly int ArcId = Shader.PropertyToID("_Arc");
+    static readonly int ArcAxesId = Shader.PropertyToID("_ArcAxes");
 
     SpriteRenderer _src, _glow;
     MaterialPropertyBlock _block;
@@ -51,11 +62,11 @@ public class SmearAura : MonoBehaviour
         switch (id)
         {
             case VfxId.WSmearDown:
-                return new Shape { arc = true, c = new Vector2(-1f, 11.4f), r = 32.7f, a0 = 137f, a1 = -15.5f };
+                return new Shape { arc = true, c = new Vector2(-1f, 14f), ea = 38f, eb = 27f, tilt = -12f, a0 = 212f, a1 = -18f };
             case VfxId.WSmearUp:
-                return new Shape { arc = true, c = new Vector2(1.9f, 22.3f), r = 24.2f, a0 = -49.7f, a1 = 148.9f };
+                return new Shape { arc = true, c = new Vector2(2f, 20f), ea = 31f, eb = 24f, tilt = 10f, a0 = -70f, a1 = 150f };
             default:
-                return new Shape { arc = false, p0 = new Vector2(14f, 18f), p1 = new Vector2(46f, 19f) };
+                return new Shape { arc = false, p0 = new Vector2(14f, 18f), p1 = new Vector2(58f, 19f) };
         }
     }
 
@@ -188,8 +199,7 @@ public class SmearAura : MonoBehaviour
             Vector2 p;
             if (sh.arc)
             {
-                float a = (sh.a0 + (sh.a1 - sh.a0) * q) * Mathf.Deg2Rad;
-                p = sh.c + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * sh.r;
+                p = sh.Point(sh.a0 + (sh.a1 - sh.a0) * q);
             }
             else
             {
@@ -240,7 +250,8 @@ public class SmearAura : MonoBehaviour
         var uv = new Vector4(r.xMin / tex.width, r.yMin / tex.height, r.xMax / tex.width, r.yMax / tex.height);
         Vector2 hs = new Vector2(0.5f / tex.width, 0.5f / tex.height); // 반 텍셀 안쪽(옆 프레임 경계 번짐 방지)
         uv += new Vector4(hs.x, hs.y, -hs.x, -hs.y);
-        Vector4 arc = _shape.arc ? new Vector4(sp.pivot.x + _shape.c.x, sp.pivot.y + _shape.c.y, _shape.r - GlowInner, 1f) : Vector4.zero;
+        Vector4 arc = _shape.arc ? new Vector4(sp.pivot.x + _shape.c.x, sp.pivot.y + _shape.c.y, _shape.eb - GlowInner, 1f) : Vector4.zero;
+        _block.SetVector(ArcAxesId, new Vector4(_shape.ea, _shape.eb, _shape.tilt * Mathf.Deg2Rad, 0f));
         _block.SetColor(GlowColorId, c);
         _block.SetVector(UVRectId, uv);
         _block.SetVector(ArcId, arc);
@@ -273,9 +284,7 @@ public class SmearAura : MonoBehaviour
                 if (_shape.arc)
                 {
                     float sgn = _shape.a1 > _shape.a0 ? 1f : -1f;
-                    float a = (_shape.a0 + (_shape.a1 - _shape.a0) * k + sgn * WindSlide * u) * Mathf.Deg2Rad;
-                    float rr = _shape.r + WindOffs[n];
-                    p = _shape.c + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * rr;
+                    p = _shape.Point(_shape.a0 + (_shape.a1 - _shape.a0) * k + sgn * WindSlide * u, WindOffs[n]);
                 }
                 else
                 {
@@ -305,12 +314,12 @@ public class SmearAura : MonoBehaviour
             if (_shape.arc)
             {
                 float k = Mathf.Pow(Random.value, 0.6f); // 진행 끝쪽에 많이
-                float a = (_shape.a0 + (_shape.a1 - _shape.a0) * k) * Mathf.Deg2Rad;
-                float rad = _shape.r + Random.Range(-2f, 3f);
-                radial = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
-                p = _shape.c + radial * rad;
+                float a = _shape.a0 + (_shape.a1 - _shape.a0) * k;
+                Vector2 on = _shape.Point(a);
+                radial = (_shape.Point(a, 1f) - on).normalized;
+                p = _shape.Point(a, Random.Range(-2f, 3f));
                 float sgn = _shape.a1 < _shape.a0 ? -1f : 1f;
-                tang = new Vector2(-radial.y, radial.x) * sgn;
+                tang = (_shape.Point(a + sgn * 0.5f) - on).normalized;
             }
             else
             {

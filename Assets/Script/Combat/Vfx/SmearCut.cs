@@ -8,7 +8,7 @@
 public class SmearCut : MonoBehaviour
 {
     const float Life = 0.24f;
-    const float Lo = 0.05f;
+    const float Lo = 0.55f; // 10-28 v7: 꼬리가 긴 타원이라 머리 쪽 45% 만(전체면 고리 윤곽처럼 보였다)
     const int Points = 24;
 
     LineRenderer _line;

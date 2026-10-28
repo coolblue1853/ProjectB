@@ -16,7 +16,7 @@ ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
 OUT = os.path.join(ROOT, "Assets", "Art", "PixelFx")
 KEYS = os.path.join(ROOT, "Docs", "ArtCompare", "Motion", "cel", "basic_sword", "skel")
 CEL = os.path.join(ROOT, "Assets", "Art", "Player", "PixelRig", "Cel", "cel.json")
-W, H = 112, 80          # 셀(64)보다 넓게 — 큰 초승달이 잘리지 않게
+W, H = 136, 80          # 셀(64)보다 넓게 — 큰 초승달·찌르기 바늘이 잘리지 않게(10-28 v7: 112 → 136, 오른쪽으로만)
 OX, OY = 24, 16          # 셀 좌표 → 시트 좌표
 PIV = (41 + OX, 54 + OY)  # 셀 원점(발 가운데)
 BLADE = 18.5  # 칼끝까지(ShortSword 손잡이 피벗 → 끝, 24 PPU = 셀 1px 과 같은 크기: 셀 PPU 36 × 플레이어 1.5배)
@@ -26,11 +26,11 @@ BLADE = 18.5  # 칼끝까지(ShortSword 손잡이 피벗 → 끝, 24 PPU = 셀 1
 SPECS = {
     # v5(10-28 사용자: 품질 낮음·찌르기 미사일): 세 개 모두 vfx_workbench — 베기는 swing_slash 두께 15·5단 회색(안쪽 회색 띠, 스컬처럼 두껍게),
     # 내려베기 start -150·sweep 210(뒤 위 → 머리 위 → 앞 아래). 찌르기는 zigzag_slash 를 칼 방향 직선 경로(부드러운 모서리)로 — 칼에 붙은 넓은 잔상 띠(Guard 머리처럼), 발사체 X
-    "Px_WSmearDown": ("SwingDown", 2, 4, "pixellab:pb-downslash-v3:shoulder:36", 0),
+    "Px_WSmearDown": ("SwingDown", 2, 4, "ellipse", 0),  # v7 림버스식 타원(10-28). 이전: pixellab:pb-downslash-v3:shoulder:36
     # v4(10-28 사용자: 올려베기 꺾임·찌르기 최악): PixelLab vfx_workbench(무료) 부품으로 교체 — swing_slash(start 60·sweep -210: 앞 아래 → 머리 위 → 뒤 위, 50fps — 칼이 0.06초 만에 지나가 30fps 면 궤적이 늦었다),
     # thrust_streak(×1.6). 원본 Docs/ArtCompare/WeaponFx/pixellab_v2, My effects PB_UpSlash_v2·PB_Thrust_v2. 기준점: 올려베기 = 칼 도는 중심(어깨), 찌르기 = 손
-    "Px_WSmearUp": ("SwingUp", 3, 5, "pixellab:pb-upslash-v3:shoulder:36", 0),  # 스컬 리틀 본 AttackB·Pierce RisingSlash: 양 끝 뾰족·가운데(앞 위) 두꺼운 렌즈, 칼끝보다 조금 크게
-    "Px_WSmearStab": ("Stab", 3, 4, "pixellab:pb-thrust-v3:hand:30", 0),
+    "Px_WSmearUp": ("SwingUp", 3, 5, "ellipse", 0),  # v7 림버스식 타원(10-28). 이전: pixellab:pb-upslash-v3:shoulder:36. 스컬 리틀 본 AttackB·Pierce RisingSlash: 양 끝 뾰족·가운데(앞 위) 두꺼운 렌즈, 칼끝보다 조금 크게
+    "Px_WSmearStab": ("Stab", 3, 4, "needle", 0),  # v7 림버스식 바늘(10-28). 이전: pixellab:pb-thrust-v3:hand:30
 }
 
 
@@ -176,9 +176,126 @@ def pixellab_frames(name, anchor, scale=1.0):
     return out
 
 
+# v7(10-28 림버스 기준): 원이 아니라 몸을 감싸는 기울어진 타원 고리. 머리(칼이 지금 있는 곳)가 두껍고 지나온 길로 긴 꼬리가 바늘처럼 가늘어진다.
+# 프레임마다 꼬리가 머리 쪽으로 줄어들며 가늘어진다(림버스: 2~3프레임 보이고 사라짐). 회색 3단: 바깥 1px 255(날) · 몸 150 · 안쪽 95.
+# ELLIPSE[동작] = (중심 x, y(셀 px, 피벗 기준 y 위 +), 가로 반지름, 세로 반지름, 기울기°, 머리 각°, 진행 방향 +1 반시계/-1 시계, 꼬리 길이°, 머리 두께)
+ELLIPSE = {
+    "SwingDown": (-1.0, 14.0, 38.0, 27.0, -12.0, -18.0, -1, 230.0, 8.0),
+    "SwingUp": (2.0, 20.0, 31.0, 24.0, 10.0, 150.0, +1, 220.0, 7.0),
+}
+ELL_FRAMES = [(1.0, 1.0), (0.62, 0.85), (0.34, 0.6), (0.14, 0.35)]  # (꼬리 길이 비율, 두께 비율)
+
+
+TEETH = (4, 0.6)  # 안쪽 가장자리 톱니(개수, 깊이) — 림버스 Fx_T_Shape_Slash_05·09·14: 바깥(날)은 곧고 안쪽은 꼬리 쪽을 향한 찢긴 톱니
+
+
+def teeth(u):
+    """머리 쪽 65% 구간에 꼬리 방향 톱니: 톱니 안에서 두께가 1 → 1-깊이 로 줄었다가 다음 톱니에서 다시 1."""
+    n, depth = TEETH
+    if u < 0.35 or u > 0.97:
+        return 1.0
+    f = ((u - 0.35) / 0.62 * n) % 1.0
+    return 1.0 - depth * (1.0 - f) ** 2
+
+
+def ellipse_frames(clip):
+    from PIL import ImageDraw
+    cx, cy, ea, eb, tilt, head, sgn, tail, wmax = ELLIPSE[clip]
+    ct, st = math.cos(math.radians(tilt)), math.sin(math.radians(tilt))
+
+    def pt(phi):
+        x, y = ea * math.cos(phi), eb * math.sin(phi)
+        return cx + x * ct - y * st, cy + x * st + y * ct
+
+    def normal(phi):
+        nx, ny = math.cos(phi) / ea, math.sin(phi) / eb  # 타원 바깥 법선(회전 전)
+        n = math.hypot(nx, ny)
+        nx, ny = nx / n, ny / n
+        return nx * ct - ny * st, nx * st + ny * ct
+
+    def sheet(p):
+        return (PIV[0] + p[0], PIV[1] - p[1])
+
+    out = []
+    for k, (tl, wk) in enumerate(ELL_FRAMES):
+        im = Image.new("L", (W, H), 0)
+        g = ImageDraw.Draw(im)
+        h0 = math.radians(head + sgn * 6 * k)  # 머리가 조금씩 더 나아간다
+        n = 90
+        outer, inner, mid = [], [], []
+        for j in range(n + 1):
+            u = j / n  # 0 꼬리 → 1 머리
+            phi = h0 - sgn * math.radians(tail * tl) * (1 - u)
+            w = wmax * wk * (u ** 1.5) * (1 - max(0.0, u - 0.94) / 0.06 * 0.8)
+            w *= teeth(u)
+            p, nn = pt(phi), normal(phi)
+            outer.append(sheet(p))
+            inner.append(sheet((p[0] - nn[0] * w, p[1] - nn[1] * w)))
+            mid.append(sheet((p[0] - nn[0] * w * 0.72, p[1] - nn[1] * w * 0.72)))
+        g.polygon(outer + inner[::-1], fill=95)
+        g.polygon(outer + mid[::-1], fill=150)
+        edge = outer[int(n * 0.25):]
+        g.line(edge, fill=255, width=1)
+        out.append(im)
+    res = []
+    for im in out:
+        v = np.array(im)
+        img = np.zeros((H, W, 4), np.uint8)
+        img[..., 0] = img[..., 1] = img[..., 2] = v
+        img[..., 3] = np.where(v > 0, 255, 0)
+        res.append(img)
+    return res
+
+
+# v7 찌르기(10-28 림버스식): 칼 방향으로 길게 뻗은 바늘 쐐기. 앞(칼끝 너머)이 바늘처럼 뾰족하고 몸통 70% 지점이 가장 두껍고 뒤로 가늘어진다.
+# 프레임마다 뒤에서부터 줄어들며 앞으로 조금 더 나아간다. NEEDLE = (시작 x, 끝 x, y(셀 px, 피벗 기준 y 위 +), 최대 두께)
+NEEDLE = (12.0, 58.0, 19.0, 5.0)
+NEEDLE_FRAMES = [(0.0, 1.0, 0.0), (0.35, 0.85, 3.0), (0.62, 0.6, 5.0), (0.82, 0.35, 6.0)]  # (뒤에서 잘라낸 비율, 두께 비율, 앞으로 이동 px)
+
+
+def needle_frames():
+    from PIL import ImageDraw
+    x0, x1, y, wmax = NEEDLE
+    res = []
+    for cut, wk, adv in NEEDLE_FRAMES:
+        im = Image.new("L", (W, H), 0)
+        g = ImageDraw.Draw(im)
+        top, bot, mid = [], [], []
+        n = 60
+        for j in range(n + 1):
+            u = j / n  # 0 뒤 → 1 앞
+            if u < cut:
+                continue
+            x = x0 + (x1 - x0) * u + adv
+            prof = (u / 0.7) ** 1.3 if u < 0.7 else ((1 - u) / 0.3) ** 0.8  # 70% 지점이 가장 두껍다
+            w = wmax * wk * prof
+            top.append((PIV[0] + x, PIV[1] - (y + w * 0.55)))
+            bot.append((PIV[0] + x, PIV[1] - (y - w * 0.45)))
+            mid.append((PIV[0] + x, PIV[1] - (y + w * 0.15)))
+        if len(top) < 2:
+            res.append(im)
+            continue
+        g.polygon(top + bot[::-1], fill=95)
+        g.polygon(top + mid[::-1], fill=150)
+        g.line(top[len(top) // 4:], fill=255, width=1)  # 위 가장자리 = 날
+        res.append(im)
+    out = []
+    for im in res:
+        v = np.array(im)
+        img = np.zeros((H, W, 4), np.uint8)
+        img[..., 0] = img[..., 1] = img[..., 2] = v
+        img[..., 3] = np.where(v > 0, 255, 0)
+        out.append(img)
+    return out
+
+
 def render(spec):
     clip, f0, f1, kind, maxw = spec
     fr = json.load(open(CEL))[clip]["frames"]
+    if kind == "ellipse":
+        return ellipse_frames(clip)
+    if kind == "needle":
+        return needle_frames()
     if kind.startswith("pixellab:"):
         _, name, where, _fps = kind.split(":")
         if where == "hand":
@@ -222,7 +339,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     for name, spec in SPECS.items():
         frames = render(spec)
-        fps = int(spec[3].split(":")[3]) if spec[3].startswith("pixellab:") else 20
+        fps = int(spec[3].split(":")[3]) if spec[3].startswith("pixellab:") else 36 if spec[3] in ("ellipse", "needle") else 20
         Image.fromarray(np.concatenate(frames, axis=1), "RGBA").save(os.path.join(OUT, name + ".png"))
         pivot = [PIV[0] / W, (H - (PIV[1] + 1)) / H]  # 셀 임포트와 같은 식(PixelRigBuilder.ImportPart)
         with open(os.path.join(OUT, name + ".json"), "w") as fp:
