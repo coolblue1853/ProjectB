@@ -1,1 +1,1 @@
-{"frames": 9, "w": 112, "h": 80, "fps": 40, "pivot": [0.5803571428571429, 0.1125], "ramp": "gray", "source": "Tools/pixelfx/gen_smear.py"}
+{"frames": 4, "w": 112, "h": 80, "fps": 30, "pivot": [0.5803571428571429, 0.1125], "ramp": "gray", "source": "Tools/pixelfx/gen_smear.py"}

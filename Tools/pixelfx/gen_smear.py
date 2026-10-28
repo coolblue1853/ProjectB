@@ -26,11 +26,11 @@ BLADE = 18.5  # 칼끝까지(ShortSword 손잡이 피벗 → 끝, 24 PPU = 셀 1
 SPECS = {
     # v5(10-28 사용자: 품질 낮음·찌르기 미사일): 세 개 모두 vfx_workbench — 베기는 swing_slash 두께 15·5단 회색(안쪽 회색 띠, 스컬처럼 두껍게),
     # 내려베기 start -150·sweep 210(뒤 위 → 머리 위 → 앞 아래). 찌르기는 zigzag_slash 를 칼 방향 직선 경로(부드러운 모서리)로 — 칼에 붙은 넓은 잔상 띠(Guard 머리처럼), 발사체 X
-    "Px_WSmearDown": ("SwingDown", 2, 4, "pixellab:pb-downslash-v3:shoulder:50", 0),
+    "Px_WSmearDown": ("SwingDown", 2, 4, "pixellab:pb-downslash-v3:shoulder:30", 0),
     # v4(10-28 사용자: 올려베기 꺾임·찌르기 최악): PixelLab vfx_workbench(무료) 부품으로 교체 — swing_slash(start 60·sweep -210: 앞 아래 → 머리 위 → 뒤 위, 50fps — 칼이 0.06초 만에 지나가 30fps 면 궤적이 늦었다),
     # thrust_streak(×1.6). 원본 Docs/ArtCompare/WeaponFx/pixellab_v2, My effects PB_UpSlash_v2·PB_Thrust_v2. 기준점: 올려베기 = 칼 도는 중심(어깨), 찌르기 = 손
-    "Px_WSmearUp": ("SwingUp", 3, 5, "pixellab:pb-upslash-v3:shoulder:50", 0),  # 스컬 리틀 본 AttackB·Pierce RisingSlash: 양 끝 뾰족·가운데(앞 위) 두꺼운 렌즈, 칼끝보다 조금 크게
-    "Px_WSmearStab": ("Stab", 3, 4, "pixellab:pb-thrust-v3:hand:40", 0),
+    "Px_WSmearUp": ("SwingUp", 3, 5, "pixellab:pb-upslash-v3:shoulder:30", 0),  # 스컬 리틀 본 AttackB·Pierce RisingSlash: 양 끝 뾰족·가운데(앞 위) 두꺼운 렌즈, 칼끝보다 조금 크게
+    "Px_WSmearStab": ("Stab", 3, 4, "pixellab:pb-thrust-v3:hand:30", 0),
 }
 
 
@@ -119,12 +119,17 @@ def cel_shift(clip, i, keys_hand):
     return cj["hand"][0] - keys_hand[0], cj["hand"][1] - keys_hand[1]
 
 
+# 붓 → 칼(10-28 사용자: "칼로 벤다기보다 붓으로 그리는 느낌"): 머리가 호를 따라 그려 나가는 성장 프레임을 빼고,
+# 꽉 찬 프레임부터 바로 보여 준 뒤 가늘어지며 사라지게(스컬: 한 프레임에 호 전체 → 얇은 호 → 없음). 0부터 센 원본 프레임 번호
+PICK = {"pb-upslash-v3": [2, 4, 5, 6], "pb-downslash-v3": [2, 4, 5, 6], "pb-thrust-v3": [3, 4, 5, 6]}
+
+
 def pixellab_frames(name, anchor):
     """PixelLab 시트를 셀 좌표 캔버스로: 효과 원점(anchor, 셀 좌표)에 시트의 피벗을 맞춘다. 회색 4단 → 밝기."""
     meta = json.load(open(os.path.join(PL, name + ".json")))
     sheet = Image.open(os.path.join(PL, name + ".png")).convert("RGBA")
     out = []
-    for f in meta["frames"]:
+    for f in [meta["frames"][k] for k in PICK.get(name, range(len(meta["frames"])))]:
         r = f["frame"]
         im = sheet.crop((r["x"], r["y"], r["x"] + r["w"], r["y"] + r["h"]))
         px, py = round(f["pivot"]["x"] * r["w"]), round(f["pivot"]["y"] * r["h"])
@@ -132,6 +137,8 @@ def pixellab_frames(name, anchor):
         can.alpha_composite(im, (int(round(anchor[0] + OX - px)), int(round(anchor[1] + OY - py))))
         a = np.array(can)
         v = a[..., :3].max(axis=2)
+        # 날카롭게(10-28 사용자: 너무 부드럽다): 회색 단계를 흰 몸통·밝은 회색 가장자리 2단으로 눌러 대비를 세운다
+        v = np.where(v >= 150, 255, 205).astype(np.uint8)
         img = np.zeros((H, W, 4), np.uint8)
         img[..., 0] = img[..., 1] = img[..., 2] = v
         img[..., 3] = np.where(a[..., 3] > 0, 255, 0)
