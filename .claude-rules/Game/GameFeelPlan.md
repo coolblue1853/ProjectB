@@ -398,3 +398,4 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
   - 내려베기: start -150·sweep 210(뒤 위 → 앞 아래). 올려베기: 60·-210. 둘 다 50fps, 어깨 기준, 칼 출발 프레임 3에 띄운다.
   - 찌르기: `zigzag_slash` 를 칼 방향 직선 경로(부드러운 모서리)로 바꿨다. 칼 위에 붙은 넓은 잔상 띠가 앞으로 베고 지나간다. 40fps, 뻗은 손 기준. thrust_streak 의 '미사일' 모양을 대체했다.
   - 검증: 낮 인게임 1/30초 캡처. 콘솔 오류 0.
+- 10-28 v5b(사용자: 베기가 너무 둥글고 두꺼움 → 날카롭게, 찌르기 너무 두꺼움): swing_slash 두께 15 → 8, zigzag_slash 12 → 6. My effects 같은 이름으로 교체(--replace). 검증: 셀 위 합성 미리보기 `Logs/playtest/3타_스미어_날카롭게.png/.gif`.
