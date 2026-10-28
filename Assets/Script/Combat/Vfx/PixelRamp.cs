@@ -4,6 +4,8 @@
 public enum PixelRampId
 {
     White, Gold, Blue, Red, Green, Purple,
+    // 기본 칼 스미어 전용(10-28): 흰 날 끝 → 옅은 하늘 → 푸른 몸 → 진한 남색 안쪽(레퍼런스 픽셀 베기 팩·할로우 나이트처럼 두께 방향 색 변화). 끝에만 추가
+    Steel,
 }
 
 public static class PixelRamp
@@ -17,6 +19,7 @@ public static class PixelRamp
         Hex(0x460A14, 0xAA1E28, 0xF0503C, 0xFFAA8C, 0xFFF0E6),
         Hex(0x0A3214, 0x1E8228, 0x5AD250, 0xBEFFA0, 0xF5FFEB),
         Hex(0x28104A, 0x6A28B4, 0xB45AF0, 0xE1AAFF, 0xFAF0FF),
+        Hex(0x1E2846, 0x3C64AA, 0x8CB4F0, 0xD2E6FF, 0xFFFFFF),
     };
 
     public static Color[] Get(PixelRampId id)

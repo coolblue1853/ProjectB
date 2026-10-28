@@ -154,6 +154,11 @@ public static class Vfx
             SetRamp(live.block, White);
         }
         live.sprite.SetPropertyBlock(live.block);
+        if (crisp && WeaponFx.IsCelSmear(id) && live.clip != null)
+        {
+            // 도트 스미어를 글로우·바람 호·칼끝 불꽃으로 받친다(10-28)
+            SmearAura.Begin(live.go, live.sprite, id, ramp, live.clip.fps, live.speed);
+        }
         return true;
     }
 

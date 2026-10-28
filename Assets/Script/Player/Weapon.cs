@@ -244,7 +244,9 @@ public class Weapon : MonoBehaviour
                 Transform celRoot = WeaponFx.IsCelSmear(meleeFx) && pC.Rig != null ? pC.Rig.CelRoot : null;
                 if (celRoot != null)
                 {
-                    Vfx.PlayThemed(meleeFx, celRoot.position, fxLeft, Mathf.Abs(celRoot.lossyScale.y), ramp, false, false, 1f, true);
+                    // 흰 램프는 거의 단색이라 납작해 보여 기본 칼 스미어는 푸른 강철 램프로(10-28 레퍼런스 비교)
+                    PixelRampId smearRamp = ramp == PixelRampId.White ? PixelRampId.Steel : ramp;
+                    Vfx.PlayThemed(meleeFx, celRoot.position, fxLeft, Mathf.Abs(celRoot.lossyScale.y), smearRamp, false, false, 1f, true);
                     return;
                 }
                 Vfx.PlayThemed(meleeFx, at, fxLeft, scale, ramp, fxFlipY);
