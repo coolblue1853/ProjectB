@@ -19,6 +19,9 @@ public abstract class CharacterRig : MonoBehaviour
     /// <summary>방어구 외형 교체(부위 이름 = AnyPortrait 메시 이름)</summary>
     public abstract void SetMeshImage(string part, Texture2D texture);
 
+    /// <summary>셀 그림의 원점(발 가운데). 셀과 같은 좌표로 그린 스미어를 여기에 띄운다. 없으면 null</summary>
+    public virtual Transform CelRoot => null;
+
     /// <summary>공격 클립의 frame 번째 프레임 시작 시각(초, 속도 1). 모르면 음수</summary>
     public virtual float FrameStartTime(string anim, int frame)
     {

@@ -266,6 +266,8 @@ public class PixelRig : CharacterRig
         }
     }
 
+    public override Transform CelRoot => _cel != null ? _cel.transform : transform;
+
     public override float FrameStartTime(string anim, int frame)
     {
         return _celByName.TryGetValue(MapName(anim), out CelClip c) ? c.StartTimeOf(frame) : -1f;

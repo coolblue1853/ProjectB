@@ -366,3 +366,11 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
   - ① 스컬 리틀 본 AttackA(내려)·AttackB(올려)와 비교한다. 휘두르는 호 전체를 **한 프레임에 덮는 큰 초승달**이다. 몸 크기만 하고, 안쪽이 비고, 앞쪽이 두껍다. 다음 프레임은 바깥 가장자리 얇은 호, 그다음은 없음.
   - ② `Tools/pixelfx/fx_plan.py` 로 졸라맨 위에 면을 선·반투명으로 그린다(어깨 중심, 바깥 반지름 = 팔+칼 23px, 두께 14). 내려베기는 3번 면 → 4번 얇은 호, 올려베기는 4번 면 → 5번 얇은 호, 찌르기는 4번 찌르기 줄기 → 5번 얇은 선.
   - ③ 사용자 승인 후 도트로 찍는다. 결과물: `basic_sword/fx_plan/`.
+- 10-28: **기본 칼 3타 스미어 교체**(사용자 승인 면 계획 → 도트). `Tools/pixelfx/gen_smear.py` → `Px_WSmearDown/Up/Stab` 이다.
+  - 셀과 같은 좌표·PPU 36으로 그리고, 피벗 = 셀 원점(41, 54)이다. 그래서 `CharacterRig.CelRoot` 에 크기 1로 띄우면 몸·칼과 정확히 겹친다.
+  - 예전 궤적은 24 PPU라 도트가 1.5배 굵었고, 판정 기준점에 붙어 칼과 따로 놀았다.
+  - 3프레임 20fps: 꽉 찬 초승달(내려베기는 시계 방향이라 두꺼운 끝이 앞 아래) → 바깥 얇은 호 → 짧은 호. 찌르기는 칼 방향 줄기다.
+  - 면 프레임: 찌르기 4, 내려베기 3, 올려베기 4(`WeaponFx.StrikeFrame`).
+  - VfxId 끝에 WSmearDown·WSmearUp·WSmearStab 을 추가했다. 등록은 `Tools/probes/build_smear.cs`.
+  - 앞서 넣은 올려베기 위치·속도·시점 보정(FxOffset·FxSpeed·-0.04초)은 필요 없어져 지웠다(Vfx.PlayThemed speed 인자는 남김).
+  - 검증: 낮 인게임 1/30초 캡처 `Logs/playtest/3타_스미어_인게임.png/.gif`, 콘솔 오류 0.

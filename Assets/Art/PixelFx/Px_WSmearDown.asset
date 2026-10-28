@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_WSmearDown
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: 4029971537835791437, guid: 2bcfd6fb4da16864eaec390f085c7752, type: 3}
+  - {fileID: -9181528468719777524, guid: 2bcfd6fb4da16864eaec390f085c7752, type: 3}
+  - {fileID: 121680713948064741, guid: 2bcfd6fb4da16864eaec390f085c7752, type: 3}
+  fps: 20
+  source: Tools/pixelfx/gen_smear.py

@@ -261,3 +261,27 @@ MonoBehaviour:
     sortingOrder: 210
     pixel: {fileID: 11400000, guid: 08b2791e2e43198449308f563d8df300, type: 2}
     usePixel: 1
+  - id: 32
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 1
+    lifetime: 0.15
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 8b0d4c6731f34774e961d3be31f93875, type: 2}
+    usePixel: 1
+  - id: 33
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 1
+    lifetime: 0.15
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 5b208000a6c4ea3499b3970fca659d8e, type: 2}
+    usePixel: 1
+  - id: 34
+    prefab: {fileID: 0}
+    euler: {x: 0, y: 0, z: 0}
+    scale: 1
+    lifetime: 0.15
+    sortingOrder: 210
+    pixel: {fileID: 11400000, guid: 29184f7a6ba66d646bccc0c834902894, type: 2}
+    usePixel: 1

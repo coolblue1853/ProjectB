@@ -8,25 +8,12 @@ public static class WeaponFx
     /// <summary>공격 타격 포즈 시각(초) — 궤적 이펙트·휘두르는 소리를 이때 띄운다. 셀 공격(0.04초 × 7프레임)은 3번째 프레임에 뻗는데 궤적이 0.1초 늦게 보여(인게임 0.04초 간격 촬영) 0.04초로(10-26, 예전 리그 0.07)</summary>
     public const float StrikeDelay = 0.04f;
 
-    /// <summary>기본 칼 3타 셀(10-28 확정)에서 칼이 지나가는 프레임 — 궤적을 이 프레임 시작에 띄운다.
-    /// 고정 0.04초면 준비 동작(0.16~0.19초) 중에 궤적이 먼저 나왔다. 찌르기 v6 3번(뻗기 시작), 내려베기 v13e 3번(머리 위 → 앞), 올려베기 v18 3번(몸 아래 → 앞)</summary>
+    /// <summary>기본 칼 3타 셀(10-28 확정)에서 스미어 면이 나오는 프레임 — fx_plan.py 로 승인받은 면 프레임(찌르기 4, 내려베기 3, 올려베기 4).
+    /// 고정 0.04초면 준비 동작(0.16~0.19초) 중에 궤적이 먼저 나왔다</summary>
     static readonly System.Collections.Generic.Dictionary<string, int> StrikeFrame = new System.Collections.Generic.Dictionary<string, int>
     {
-        { "Stab", 3 }, { "SwingDown", 3 }, { "SwingUp", 3 },
+        { "Stab", 4 }, { "SwingDown", 3 }, { "SwingUp", 4 },
     };
-
-    /// <summary>궤적 위치 보정(유닛, 앞 +x·위 +y). 올려베기는 3타 판정 기준점이 몸에서 멀어(약 1유닛 앞) 궤적이 칼과 떨어져 보였다 —
-    /// 칼이 몸 앞에서 머리 위로 지나가므로 내려베기 궤적과 같은 거리(약 0.6유닛)로 당기고 조금 올린다(10-28 인게임 캡처)</summary>
-    public static UnityEngine.Vector2 FxOffset(string anim)
-    {
-        return !string.IsNullOrEmpty(anim) && PixelRig.MapName(anim) == "SwingUp" ? new UnityEngine.Vector2(-0.4f, 0.2f) : UnityEngine.Vector2.zero;
-    }
-
-    /// <summary>궤적 재생 속도. 올려베기는 칼이 0.06초 만에 머리 뒤로 넘어가는데 궤적이 2~3프레임 앞에 더 남아 1.6배로(10-28 인게임 캡처)</summary>
-    public static float FxSpeed(string anim)
-    {
-        return !string.IsNullOrEmpty(anim) && PixelRig.MapName(anim) == "SwingUp" ? 1.6f : 1f;
-    }
 
     /// <summary>궤적·휘두르는 소리 지연(초, 속도 1) — 리그가 셀 시간을 알면 베는 프레임 시작, 아니면 StrikeDelay</summary>
     public static float StrikeDelayFor(string anim, CharacterRig rig)
@@ -36,8 +23,7 @@ public static class WeaponFx
             float t = rig.FrameStartTime(anim, f);
             if (t >= 0f)
             {
-                // 올려베기는 칼이 3번(몸 아래) → 5번(머리 뒤)으로 0.06초 만에 지나가 궤적이 한 박자 늦게 보였다 — 0.04초 당긴다(10-28 캡처)
-                return PixelRig.MapName(anim) == "SwingUp" ? UnityEngine.Mathf.Max(0f, t - 0.04f) : t;
+                return t;
             }
         }
         return StrikeDelay;
@@ -55,21 +41,26 @@ public static class WeaponFx
         switch (PixelRig.MapName(anim))
         {
             case "Stab":
-                id = VfxId.WThrust;
+                id = VfxId.WSmearStab;
                 return true;
             case "SwingSide":
                 id = VfxId.WSlashSide;
                 return true;
             case "SwingUp":
-                id = VfxId.WSlashDown;
-                flipY = true;
+                id = VfxId.WSmearUp;
                 return true;
             case "SwingDown":
-                id = VfxId.WSlashDown;
+                id = VfxId.WSmearDown;
                 return true;
             default:
                 return false;
         }
+    }
+
+    /// <summary>셀 좌표로 그린 스미어(리그 셀 원점에 크기 1로 띄운다)</summary>
+    public static bool IsCelSmear(VfxId id)
+    {
+        return id == VfxId.WSmearDown || id == VfxId.WSmearUp || id == VfxId.WSmearStab;
     }
 
     public static bool IsMeleeSwing(VfxId swing)

@@ -14,6 +14,8 @@ public enum VfxId
     WSlashDown, WSlashSide, WThrust, WHitStar,
     // 주인공 이동 (Tools/pixelfx/gen_smoke_v2.py step_dust): 달리기 발걸음 먼지
     StepDust,
+    // 기본 칼 3타 스미어(Tools/pixelfx/gen_smear.py, 스컬 리틀 본식, 셀과 같은 좌표·PPU 36, 10-28) — 끝에만 추가(직렬화 번호 유지)
+    WSmearDown, WSmearUp, WSmearStab,
 }
 
 /// <summary>이펙트 ID → 프리팹·회전·크기 매핑 (Resources/FX/VfxLibrary.asset). Magic Slashes FX의 3D 베기를 2D 화면용으로 눕혀 쓴다.</summary>

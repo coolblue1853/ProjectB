@@ -237,9 +237,14 @@ public class Weapon : MonoBehaviour
                 {
                     at.y = hand.position.y;
                 }
-                Vector2 off = WeaponFx.FxOffset(attackAnimName[step - 1]);
-                at += new Vector3(fxLeft ? -off.x : off.x, off.y, 0f);
-                Vfx.PlayThemed(meleeFx, at, fxLeft, scale, ramp, fxFlipY, false, WeaponFx.FxSpeed(attackAnimName[step - 1]));
+                // 스미어는 셀과 같은 좌표로 그려 셀 원점(발 가운데)에 크기 1로 — 몸·칼과 정확히 겹친다(10-28)
+                Transform celRoot = WeaponFx.IsCelSmear(meleeFx) && pC.Rig != null ? pC.Rig.CelRoot : null;
+                if (celRoot != null)
+                {
+                    Vfx.PlayThemed(meleeFx, celRoot.position, fxLeft, Mathf.Abs(celRoot.lossyScale.y), ramp, false);
+                    return;
+                }
+                Vfx.PlayThemed(meleeFx, at, fxLeft, scale, ramp, fxFlipY);
             }).SetLink(gameObject);
             // 판정 프리팹에 붙은 예전 베기 그림은 끈다(새 궤적과 두 겹으로 보였다). 판정·충돌은 그대로
             damageObject.GetComponentsInChildren(true, hideRenderers);
