@@ -69,7 +69,10 @@ public static class HitFeedback
         }
         if (!isSkill && meleeFx)
         {
-            Vfx.PlayThemed(VfxId.WHitStar, target.transform.position + Vector3.up * 0.4f, false, 1f, PixelRamp.FromSwing(Weapon.Equipped.swingVfx));
+            // v7(10-29 림버스 타격 문법): 쐐기가 맞은 방향(공격자 → 대상)으로 뻗게 좌우를 뒤집는다. 기본 칼은 스미어와 같은 강철 램프
+            bool hitLeft = PlayerController.instance != null && target.transform.position.x < PlayerController.instance.transform.position.x;
+            PixelRampId hitRamp = PixelRamp.FromSwing(Weapon.Equipped.swingVfx);
+            Vfx.PlayThemed(VfxId.WHit7, target.transform.position + Vector3.up * 0.4f, hitLeft, 1f, hitRamp == PixelRampId.White ? PixelRampId.Steel : hitRamp);
         }
         if (isCrit)
         {
@@ -162,6 +165,8 @@ public static class HitFeedback
         }
         cachedShake.Shake(duration, strength * ShakeScale, vibrato, 0.3f, -1f, Vector3.zero, 0.05f);
         ShakeCount++;
+        // 10-29 사용자 "가만히 있어도 화면이 떨린다" — 어떤 흔들림이 언제 나는지 남긴다(흔들림마다 한 번, 매 프레임 아님)
+        GameLog.Info(GameLog.Cat.Combat, "화면 흔들림 " + tier + " t=" + now.ToString("0.00"));
     }
 
     public enum NumberKind { Normal, Crit, Extra, Poison, Bleed, Heal, Hurt }

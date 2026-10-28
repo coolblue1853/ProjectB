@@ -16,6 +16,8 @@ public enum VfxId
     StepDust,
     // 기본 칼 3타 스미어(Tools/pixelfx/gen_smear.py, 스컬 리틀 본식, 셀과 같은 좌표·PPU 36, 10-28) — 끝에만 추가(직렬화 번호 유지)
     WSmearDown, WSmearUp, WSmearStab,
+    // 타격 이펙트 v7(Tools/pixelfx/gen_hit.py, 림버스 타격 문법: 불규칙 바늘 별 + 맞은 방향 찢긴 쐐기, 10-29). WHitStar 는 보존 — 끝에만 추가
+    WHit7,
 }
 
 /// <summary>이펙트 ID → 프리팹·회전·크기 매핑 (Resources/FX/VfxLibrary.asset). Magic Slashes FX의 3D 베기를 2D 화면용으로 눕혀 쓴다.</summary>

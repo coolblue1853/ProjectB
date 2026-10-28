@@ -91,6 +91,7 @@ public class MapInfo : MonoBehaviour
         // 좌우 경계: 맵 타일맵의 실제 가로 범위(AssetIntegrationPlan 6절 5 — 맵 끝에서 타일 밖 빈 공간이 보이던 문제)
         float left = 0f, right = 0f;
         bool hasX = info != null && info.TryGetTileXRange(out left, out right);
+        hasX = ClampToWalls(bounds, hasX, ref left, ref right);
         bounds.UseLeftBoundary = hasX;
         bounds.UseRightBoundary = hasX;
         if (hasX)
@@ -99,6 +100,48 @@ public class MapInfo : MonoBehaviour
             bounds.RightBoundary = right;
         }
         GameLog.Info(GameLog.Cat.Map, "카메라 경계 아래 " + bounds.BottomBoundary + (hasX ? " 좌 " + bounds.LeftBoundary + " 우 " + bounds.RightBoundary : " 좌우 없음") + (info != null ? " (" + info.displayName + ")" : ""));
+    }
+
+    /// <summary>
+    /// 카메라 벽(CamBoundary, ProCamera2DGeometryBoundaries 의 3D 콜라이더)을 숫자 경계에 합치고 벽 경계 기능은 끈다.
+    /// 10-29 사용자 "가만히 있어도 화면이 떨린다": 벽이 카메라를 밀고 따라가기가 다시 당겨 매 프레임 0.1씩 왕복했다(마을 오른쪽 벽 -380, 숫자 경계 -88).
+    /// 플레이어 높이(±10)에 걸친 벽 중 플레이어 왼쪽에서 가장 가까운 벽의 오른쪽 면 = 왼쪽 경계, 오른쪽 벽의 왼쪽 면 = 오른쪽 경계.
+    /// </summary>
+    static bool ClampToWalls(ProCamera2DNumericBoundaries bounds, bool hasX, ref float left, ref float right)
+    {
+        var geo = bounds.GetComponent<ProCamera2DGeometryBoundaries>();
+        PlayerController player = PlayerController.instance;
+        if (geo == null || player == null)
+        {
+            return hasX;
+        }
+        geo.enabled = false;
+        Vector3 p = player.transform.position;
+        float wallLeft = float.MinValue, wallRight = float.MaxValue;
+        foreach (Collider c in Physics.OverlapBox(new Vector3(p.x, p.y, 0f), new Vector3(2000f, 10f, 100f), Quaternion.identity, geo.BoundariesLayerMask))
+        {
+            Bounds b = c.bounds;
+            if (b.max.x <= p.x)
+            {
+                wallLeft = Mathf.Max(wallLeft, b.max.x);
+            }
+            else if (b.min.x >= p.x)
+            {
+                wallRight = Mathf.Min(wallRight, b.min.x);
+            }
+        }
+        if (wallLeft == float.MinValue && wallRight == float.MaxValue)
+        {
+            return hasX;
+        }
+        if (!hasX)
+        {
+            left = float.MinValue / 4f;
+            right = float.MaxValue / 4f;
+        }
+        left = Mathf.Max(left, wallLeft == float.MinValue ? left : wallLeft);
+        right = Mathf.Min(right, wallRight == float.MaxValue ? right : wallRight);
+        return true;
     }
 
     /// <summary>맵 아래 모든 타일맵(비활성 포함)의 칠해진 칸을 합친 월드 가로 범위. 타일이 없으면 false</summary>
