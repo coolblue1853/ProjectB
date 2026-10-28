@@ -185,7 +185,8 @@ public class Weapon : MonoBehaviour
         {
             string sound = weaponSound[step - 1];
             // 근접 평타는 휘두르는 소리를 칼 궤적이 나오는 타격 포즈 순간에(입력 순간이면 예비 동작 동안 먼저 울렸다, 10-26)
-            float soundDelay = WeaponFx.Enabled && WeaponFx.IsMeleeSwing(swingVfx) ? delay + WeaponFx.StrikeDelay / StatMath.AttackSpeedMul : 0f;
+            string animName = attackAnimName.Length >= step ? attackAnimName[step - 1] : null;
+            float soundDelay = WeaponFx.Enabled && WeaponFx.IsMeleeSwing(swingVfx) ? delay + WeaponFx.StrikeDelayFor(animName, pC.Rig) / StatMath.AttackSpeedMul : 0f;
             if (soundDelay > 0f)
             {
                 DOVirtual.DelayedCall(soundDelay, () => MasterAudio.PlaySound(sound), false).SetLink(gameObject);
@@ -227,7 +228,7 @@ public class Weapon : MonoBehaviour
             Transform pivot = attackPivot[step - 1].transform;
             // 콤보 마지막 타(3타 이상 무기의 끝)는 궤적을 크게 — 마무리감(10-26)
             float scale = swingVfxScale * (step >= ComboFinisherMinSteps && step == attackAnimName.Length ? ComboFinisherScale : 1f);
-            DOVirtual.DelayedCall(WeaponFx.StrikeDelay / StatMath.AttackSpeedMul, () =>
+            DOVirtual.DelayedCall(WeaponFx.StrikeDelayFor(attackAnimName[step - 1], pC.Rig) / StatMath.AttackSpeedMul, () =>
             {
                 Vector3 at = pivot != null ? pivot.position : fxPos;
                 // 찌르기 궤적은 칼날 높이(손 소켓)에 — 판정 위치는 예전 캐릭터 기준이라 칼날보다 아래로 지나갔다(10-26)

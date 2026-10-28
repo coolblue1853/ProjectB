@@ -266,6 +266,11 @@ public class PixelRig : CharacterRig
         }
     }
 
+    public override float FrameStartTime(string anim, int frame)
+    {
+        return _celByName.TryGetValue(MapName(anim), out CelClip c) ? c.StartTimeOf(frame) : -1f;
+    }
+
     public override Transform GetBoneSocket(string socket)
     {
         return socket == "LeftWeapon" ? _socketLeft : _socketRight;

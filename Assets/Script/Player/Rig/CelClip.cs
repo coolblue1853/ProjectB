@@ -38,6 +38,18 @@ public class CelClip
         }
     }
 
+    /// <summary>프레임 시작 시각(초, 속도 1 기준) — 칼 궤적 이펙트를 베는 프레임에 맞출 때 쓴다(10-28)</summary>
+    public float StartTimeOf(int index)
+    {
+        float total = 0f;
+        int n = Mathf.Min(index, sprites.Length);
+        for (int k = 0; k < n; k++)
+        {
+            total += times.Length == sprites.Length && times[k] > 0f ? times[k] : frame;
+        }
+        return total;
+    }
+
     /// <summary>경과 시간으로 프레임 번호(반복이면 돌고, 아니면 마지막에서 멈춤)</summary>
     public int IndexAt(float time)
     {

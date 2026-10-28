@@ -352,3 +352,8 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
   - 지면 충격파: 2px 지면 고리 + 외곽선·빛 면·그늘 면이 있는 흙 가시가 바깥으로 차례로 솟았다 가라앉음 + 돌 조각 포물선.
   - 같은 이름·형식이라 소환수·몹 사망·내려찍기 등 기존 사용처가 그대로 바뀐다. 검증: 낮 인게임 재생 연속 촬영.
 
+- 10-28: 칼 궤적·휘두르는 소리 시점을 동작별 **베는 프레임**에 맞춤. 기존에는 고정 `StrikeDelay` 0.04초였는데, 새 3타 셀은 준비 동작이 0.16~0.19초라 궤적이 칼보다 먼저 나왔다.
+  - 변경: `WeaponFx.StrikeDelayFor(anim, rig)` 가 셀 시간에서 베는 프레임 시작 시각을 계산한다(`CharacterRig.FrameStartTime` → `CelClip.StartTimeOf`). 베는 프레임은 찌르기·내려베기·올려베기 모두 3번이다.
+  - 셀 시간을 모르는 리그나 다른 동작은 0.04초 그대로 쓴다. 공속 배율도 그대로 곱한다.
+  - 검증: 플레이 모드에서 녹슨 검 실제 애니 이름(RightHandstabbing/VashDown/VashUp_OneHand)으로 Stab 0.160·SwingDown 0.190·SwingUp 0.180초 계산을 확인했다. 컴파일 오류 0.
+  - 미검증: 화면 캡처로 궤적 위치·모양이 새 칼 궤적과 맞는지 보는 것(사용자 판단으로 생략).

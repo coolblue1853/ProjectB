@@ -19,6 +19,12 @@ public abstract class CharacterRig : MonoBehaviour
     /// <summary>방어구 외형 교체(부위 이름 = AnyPortrait 메시 이름)</summary>
     public abstract void SetMeshImage(string part, Texture2D texture);
 
+    /// <summary>공격 클립의 frame 번째 프레임 시작 시각(초, 속도 1). 모르면 음수</summary>
+    public virtual float FrameStartTime(string anim, int frame)
+    {
+        return -1f;
+    }
+
     /// <summary>소켓에 붙인 무기 스프라이트를 리그에 맞게 정리한다(정렬 순서·크기). 기본은 아무것도 안 함.</summary>
     public virtual void AdoptWeapon(Transform weapon, bool isLeft)
     {
