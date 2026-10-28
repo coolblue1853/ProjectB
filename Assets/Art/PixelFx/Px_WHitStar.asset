@@ -19,5 +19,7 @@ MonoBehaviour:
   - {fileID: 3484944701457909959, guid: 6aa4a7fd1ae87fd44b5297b155ac8c76, type: 3}
   - {fileID: 3384251953131824044, guid: 6aa4a7fd1ae87fd44b5297b155ac8c76, type: 3}
   - {fileID: 8748593756852297838, guid: 6aa4a7fd1ae87fd44b5297b155ac8c76, type: 3}
-  fps: 20
-  source: Tools/pixelfx/gen_hit_impact.py
+  - {fileID: 7667469874961485360, guid: 6aa4a7fd1ae87fd44b5297b155ac8c76, type: 3}
+  - {fileID: -8935782861623317675, guid: 6aa4a7fd1ae87fd44b5297b155ac8c76, type: 3}
+  fps: 24
+  source: PixelLab vfx_workbench PB_HitImpact_v3 (flash_burst+spark_burst), Docs/ArtCompare/WeaponFx/pixellab_v2

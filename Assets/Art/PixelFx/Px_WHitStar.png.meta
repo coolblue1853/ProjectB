@@ -20,6 +20,12 @@ TextureImporter:
   - first:
       213: 8748593756852297838
     second: Px_WHitStar_5
+  - first:
+      213: 7667469874961485360
+    second: Px_WHitStar_6
+  - first:
+      213: -8935782861623317675
+    second: Px_WHitStar_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -133,8 +139,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 48
+        width: 54
+        height: 42
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +159,10 @@ TextureImporter:
       name: Px_WHitStar_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 54
         y: 0
-        width: 48
-        height: 48
+        width: 54
+        height: 42
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +181,10 @@ TextureImporter:
       name: Px_WHitStar_2
       rect:
         serializedVersion: 2
-        x: 96
+        x: 108
         y: 0
-        width: 48
-        height: 48
+        width: 54
+        height: 42
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +203,10 @@ TextureImporter:
       name: Px_WHitStar_3
       rect:
         serializedVersion: 2
-        x: 144
+        x: 162
         y: 0
-        width: 48
-        height: 48
+        width: 54
+        height: 42
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,10 +225,10 @@ TextureImporter:
       name: Px_WHitStar_4
       rect:
         serializedVersion: 2
-        x: 192
+        x: 216
         y: 0
-        width: 48
-        height: 48
+        width: 54
+        height: 42
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -241,10 +247,10 @@ TextureImporter:
       name: Px_WHitStar_5
       rect:
         serializedVersion: 2
-        x: 240
+        x: 270
         y: 0
-        width: 48
-        height: 48
+        width: 54
+        height: 42
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,6 +261,50 @@ TextureImporter:
       bones: []
       spriteID: e60a1697baf396970800000000000000
       internalID: 8748593756852297838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WHitStar_6
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 0
+        width: 54
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03e861f2a33586a60800000000000000
+      internalID: 7667469874961485360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Px_WHitStar_7
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 0
+        width: 54
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55b2be6c4d8bdf380800000000000000
+      internalID: -8935782861623317675
       vertices: []
       indices: 
       edges: []
@@ -279,6 +329,8 @@ TextureImporter:
       Px_WHitStar_3: 3484944701457909959
       Px_WHitStar_4: 3384251953131824044
       Px_WHitStar_5: 8748593756852297838
+      Px_WHitStar_6: 7667469874961485360
+      Px_WHitStar_7: -8935782861623317675
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

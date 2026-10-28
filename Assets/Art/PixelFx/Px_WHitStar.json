@@ -1,1 +1,1 @@
-{"frames": 6, "w": 48, "h": 48, "fps": 20, "pivot": [0.5, 0.5], "ramp": "gray", "source": "Tools/pixelfx/gen_hit_impact.py"}
+{"frames": 8, "w": 54, "h": 42, "fps": 24, "pivot": [0.5, 0.5], "ramp": "gray", "source": "PixelLab vfx_workbench PB_HitImpact_v3 (flash_burst+spark_burst), Docs/ArtCompare/WeaponFx/pixellab_v2"}
