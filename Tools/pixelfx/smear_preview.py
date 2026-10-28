@@ -27,7 +27,7 @@ ARC = {
     "SwingUp": ("arc", (1.9, 22.3), 24.2, -49.7, 148.9),
     "Stab": ("line", (14.0, 18.0), (46.0, 19.0)),
 }
-GLOW = dict(radius=5.5, intensity=2.2, steps=4, alpha=0.75, tail=0.0, env=[1.0, 0.8, 0.6, 0.45], inner=8.0)
+GLOW = dict(radius=5.5, intensity=2.2, steps=4, alpha=0.45, tail=0.0, env=[1.0, 0.8, 0.6, 0.45], inner=8.0)
 # 바람 호: 스미어 바깥을 감싸는 1px 선 2줄(반지름 +off), 진행 끝쪽 구간이 진행 방향으로 미끄러지며 꼬리부터 줄어든다
 WIND = dict(offs=(4.0, 7.0, -4.0, -8.0), los=(0.45, 0.6, 0.3, 0.55), span=(0.45, 1.0), slide=18.0, life=0.10)
 SPARK = dict(count=12, speed=(70, 160), out=(10, 45), life=(0.12, 0.28), drag=6.0, grav=-40.0)
@@ -46,18 +46,27 @@ def load_sheet(name):
     return [sh[:, i * W:(i + 1) * W] for i in range(meta["frames"])], meta["fps"]
 
 
+TONE = dict(levels={}, flash="up")  # 시트가 이미 255/150/95(gen_smear 10-28), 섬광 = 램프 2칸 위(Vfx.FlashRamp)
+
+
 def themed(fr, white_flash):
-    """PixelSlash2D: 밝기 → 5단 평면색, 바깥 1텍셀 = C1."""
+    """PixelSlash2D: 밝기 → 5단 평면색, 바깥 1텍셀 = C1. TONE.levels = gen_smear 회색 3단 다시 매핑, flash = white(전부 흰색) / up(램프 2칸 위)."""
     a = fr[..., 3] > 0
-    lum = np.clip((fr[..., 0] * 0.299 + fr[..., 1] * 0.587 + fr[..., 2] * 0.114) / 255 + 0.05, 0, 1)
+    g = fr[..., 0].copy()
+    for k, v in TONE["levels"].items():
+        g[fr[..., 0] == k] = v
+    lum = np.clip(g / 255 + 0.05, 0, 1)
     idx = (lum >= 0.25).astype(int) + (lum >= 0.5) + (lum >= 0.72) + (lum >= 0.9)
     col = np.stack([RAMP[i] for i in range(5)])[idx]
     nb = a.copy()
     for dy, dx in ((0, 1), (0, -1), (1, 0), (-1, 0)):
         nb &= np.roll(a, (dy, dx), (0, 1))
     col[a & ~nb] = RAMP[1]
-    if white_flash:
+    if white_flash and TONE["flash"] == "white":
         col[:] = 255
+    elif white_flash and TONE["flash"] == "up":
+        col = np.stack([RAMP[min(4, i + 2)] for i in range(5)])[idx]
+        col[a & ~nb] = RAMP[2]
     return col, a
 
 
@@ -152,6 +161,33 @@ def wind_lines(clip, ts):
     return pts
 
 
+CUT = dict(life=0.24, lo=0.05, delay=0.0)  # SmearCut
+
+
+def cut_line(clip, ts):
+    """칼선 점 목록(시트 좌표, 밝기 0~1). 앞쪽(진행 끝) 밝고 꼬리 흐림."""
+    life = CUT["life"]
+    t = ts - CUT["delay"]
+    if life <= 0 or t < 0 or t >= life:
+        return []
+    u = t / life
+    lo = CUT["lo"] + (1 - CUT["lo"]) * u ** 1.4
+    k = ARC[clip]
+    pts = []
+    n = 120
+    for j in range(n):
+        q = lo + (1 - lo) * j / (n - 1)
+        b = (0.35 + 0.65 * (j / (n - 1))) * (1 - u * 0.5)
+        if k[0] == "arc":
+            _, c, r, a0, a1 = k
+            a = math.radians(a0 + (a1 - a0) * q)
+            pts.append((PX + c[0] + r * math.cos(a), PY - (c[1] + r * math.sin(a)), b))
+        else:
+            _, p0, p1 = k
+            pts.append((PX + p0[0] + (p1[0] + 6 - p0[0]) * q, PY - (p0[1] + 1), b))
+    return pts
+
+
 def render(clip, variant, step=0.02):
     cel = json.load(open(os.path.join(CELDIR, "cel.json")))[clip]["frames"]
     times = [f["time"] for f in cel]
@@ -189,6 +225,14 @@ def render(clip, variant, step=0.02):
                 xi, yi = int(x), int(y)
                 if 0 <= xi < W and 0 <= yi < H:
                     can[yi, xi] = np.maximum(can[yi, xi], can[yi, xi] + RAMP[3] * 0.7 * b)
+        seen = set()
+        for x, y, b in cut_line(clip, ts):
+            xi, yi = int(x), int(y)
+            if (xi, yi) in seen or not (0 <= xi < W and 0 <= yi < H):
+                continue
+            seen.add((xi, yi))
+            c = RAMP[4] if b > 0.6 else RAMP[3]
+            can[yi, xi] = can[yi, xi] * (1 - b) + c * b
         for s in sp:
             if 0 <= ts < s["life"]:
                 x, y = spark_pos(s, ts)
@@ -213,16 +257,22 @@ def main():
     od = sys.argv[1]
     variants = sys.argv[2].split(";") if len(sys.argv) > 2 else ["base", "full"]
     os.makedirs(od, exist_ok=True)
-    g0, s0, w0 = dict(GLOW), dict(SPARK), dict(WIND)
+    g0, s0, w0, t0, c0 = dict(GLOW), dict(SPARK), dict(WIND), dict(TONE), dict(CUT)
     rows = []
     for clip in ("Stab", "SwingDown", "SwingUp"):
         for vi, v in enumerate(variants):
             name, _, over = v.partition("+")
             GLOW.clear(); GLOW.update(g0); SPARK.clear(); SPARK.update(s0); WIND.clear(); WIND.update(w0)
+            TONE.clear(); TONE.update(t0); CUT.clear(); CUT.update(c0)
             RAMP[:] = [hexc(c) for c in WHITE]
             if over:
                 o = json.loads(over)
                 GLOW.update(o.get("glow", {})); SPARK.update(o.get("spark", {})); WIND.update(o.get("wind", {}))
+                CUT.update(o.get("cut", {}))
+                if "levels" in o:
+                    TONE["levels"] = {int(k): v for k, v in o["levels"].items()}
+                if "flash" in o:
+                    TONE["flash"] = o["flash"]
                 if "ramp" in o:
                     RAMP[:] = [hexc(int(c, 16)) for c in o["ramp"]]
             fr = render(clip, name)

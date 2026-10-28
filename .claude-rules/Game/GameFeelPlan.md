@@ -426,4 +426,5 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
   - ② 날 끝 파티클: 칼끝 경로를 따라 작은 불꽃·빛 줄기 ParticleSystem.
   - ③ 셰이더 잔광·왜곡: 에셋스토어 보유분(All In 1 셰이더 등, AssetInventory.md) 활용 검토.
   - 도트 격자 원칙은 큰 형태에만 적용한다.
+  - **10-28 기준 변경(사용자): 이펙트 품질 목표는 스컬이 아니라 림버스 컴퍼니.** 형태(실루엣)는 도트, 디테일은 셰이더·파티클 VFX. 림버스는 도트가 아니지만 형태·색감이 우수하다. 추출물은 저장소 밖 `C:\Users\user\LimbusRef`(참고 전용·커밋 금지, Unity 6000.3.12f1 어드레서블 캐시).
   - 10-28 구현(검증: 인게임 60fps 캡처 Logs/_aura_cap.cs): ①·② 완료 — `SmearAura`(글로우 SmearGlow2D + 바람 호 4줄 + 칼끝 불꽃) + 기본 칼 Steel 램프. 레퍼런스 비교(데드 셀·할로우 나이트·itch 픽셀 베기 팩) 근거는 MotionPipeline §7-7. ③ 왜곡은 아직.

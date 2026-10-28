@@ -151,7 +151,7 @@ public static class Vfx
         live.ramp = ramp;
         if (crisp)
         {
-            SetRamp(live.block, White);
+            SetRamp(live.block, FlashRamp(ramp));
         }
         live.sprite.SetPropertyBlock(live.block);
         if (crisp && WeaponFx.IsCelSmear(id) && live.clip != null)
@@ -162,7 +162,12 @@ public static class Vfx
         return true;
     }
 
-    static readonly Color[] White = { Color.white, Color.white, Color.white, Color.white, Color.white };
+    /// <summary>스미어 첫 프레임 섬광: 램프를 두 칸 올린다(전부 흰색이면 납작한 흰 덩어리라 10-28 "너무 밝기만" → 날 끝 흰색·몸 밝은 테마색)</summary>
+    static Color[] FlashRamp(PixelRampId id)
+    {
+        Color[] c = PixelRamp.Get(id);
+        return new[] { c[2], c[3], c[4], c[4], c[4] };
+    }
 
     static void SetRamp(MaterialPropertyBlock block, Color[] c)
     {
@@ -302,7 +307,7 @@ public static class Vfx
                     if (live.themed && live.crisp)
                     {
                         // 첫 프레임만 흰 섬광, 그다음 무기 테마 색. 디졸브 없음(가늘어지는 프레임이 사라짐을 맡는다)
-                        SetRamp(live.block, f == 0 ? White : PixelRamp.Get(live.ramp));
+                        SetRamp(live.block, f == 0 ? FlashRamp(live.ramp) : PixelRamp.Get(live.ramp));
                         live.sprite.SetPropertyBlock(live.block);
                     }
                     else if (live.themed)

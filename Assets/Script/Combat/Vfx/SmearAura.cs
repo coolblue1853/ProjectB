@@ -4,6 +4,7 @@
 /// 칼 스미어(도트) 받침 레이어 — 10-28 사용자 "도트로 큰 형태를 잡고 세세한 건 셰이더·파티클로 감싸서 강화".
 /// ① 글로우: 스미어와 같은 프레임을 SmearGlow2D(텍셀 고정 블러·4단 계단·가산)로 한 칸 뒤에 깐다. 호 안쪽(머리·몸)은 끈다.
 /// ② 바람 호: 스미어 바깥 +4·+7px, 안쪽 -4·-8px 에 1px 선 4줄, 진행 끝쪽 구간이 진행 방향으로 미끄러지며 꼬리부터 줄어든다(0.10초).
+/// ④ 칼선: SmearCut — 칼끝 경로에 1px 선이 0.24초 남는다.
 /// ③ 칼끝 불꽃: 칼끝이 지나간 호 위에서 접선 방향으로 튀는 1~2px 가산 점(월드 공간, 스미어가 꺼져도 남는다).
 /// 수치·모양은 Tools/pixelfx/smear_preview.py 와 같다(미리보기 → 인게임). Vfx.PlayThemed 가 셀 스미어를 crisp 로 띄울 때 붙인다.
 /// </summary>
@@ -20,7 +21,7 @@ public class SmearAura : MonoBehaviour
 
     const float Ppu = 36f; // 셀·스미어 PPU(1 텍셀 = 셀 1px)
     static readonly float[] GlowEnv = { 1f, 0.8f, 0.6f, 0.45f };
-    const float GlowAlpha = 0.75f;
+    const float GlowAlpha = 0.45f; // 10-28 사용자 "너무 밝기만 하다" → 0.75 에서 낮춤
     const float GlowInner = 8f;
     // 바깥 2줄 + 안쪽 2줄(할로우 나이트식 결 — 호 안에 평행한 줄무늬). 시작 구간(lo)이 줄마다 달라 길이가 엇갈린다
     static readonly float[] WindOffs = { 4f, 7f, -4f, -8f };
@@ -39,6 +40,7 @@ public class SmearAura : MonoBehaviour
     MaterialPropertyBlock _block;
     LineRenderer[] _wind;
     ParticleSystem _sparks;
+    SmearCut _cut;
     Shape _shape;
     Color[] _ramp;
     float _started, _fps, _speed, _scale;
@@ -130,6 +132,8 @@ public class SmearAura : MonoBehaviour
         pr.renderMode = ParticleSystemRenderMode.Billboard;
         pr.sortingLayerID = src.sortingLayerID;
         pr.sortingOrder = src.sortingOrder + 1;
+        _cut = s.AddComponent<SmearCut>();
+        _cut.Build(addMaterial, src.sortingLayerID, src.sortingOrder + 2);
     }
 
     void Play(VfxId id, PixelRampId ramp, float fps, float speed)
@@ -149,6 +153,9 @@ public class SmearAura : MonoBehaviour
             lr.widthMultiplier = _scale / Ppu; // 1px
         }
         EmitSparks();
+        Color tail = _ramp[3];
+        tail.a = 0.35f;
+        _cut.Play(TipPath(), _scale / Ppu, _ramp[4], tail, _speed);
         LateUpdate();
     }
 
@@ -167,6 +174,29 @@ public class SmearAura : MonoBehaviour
         {
             Destroy(_sparks.gameObject);
         }
+    }
+
+    /// <summary>칼선 경로(진행도 0~1 → 월드). 시작 시 위치·방향을 고정한다(스미어처럼 제자리에 남는다)</summary>
+    System.Func<float, Vector3> TipPath()
+    {
+        Shape sh = _shape;
+        Vector3 o = transform.position;
+        float k = _scale / Ppu;
+        float sx = _left ? -1f : 1f;
+        return q =>
+        {
+            Vector2 p;
+            if (sh.arc)
+            {
+                float a = (sh.a0 + (sh.a1 - sh.a0) * q) * Mathf.Deg2Rad;
+                p = sh.c + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * sh.r;
+            }
+            else
+            {
+                p = Vector2.Lerp(sh.p0, sh.p1 + new Vector2(6f, 0f), q) + new Vector2(0f, 1f);
+            }
+            return new Vector3(o.x + p.x * sx * k, o.y + p.y * k, 0f);
+        };
     }
 
     /// <summary>셀 px(피벗 기준) → 월드</summary>
