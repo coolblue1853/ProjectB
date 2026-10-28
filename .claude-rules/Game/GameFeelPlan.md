@@ -374,3 +374,9 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
   - VfxId 끝에 WSmearDown·WSmearUp·WSmearStab 을 추가했다. 등록은 `Tools/probes/build_smear.cs`.
   - 앞서 넣은 올려베기 위치·속도·시점 보정(FxOffset·FxSpeed·-0.04초)은 필요 없어져 지웠다(Vfx.PlayThemed speed 인자는 남김).
   - 검증: 낮 인게임 1/30초 캡처 `Logs/playtest/3타_스미어_인게임.png/.gif`, 콘솔 오류 0.
+- 10-28 스미어 v2(사용자: "궤적이랑 칼이 안 맞는다, 위치 이상"). 원인은 두 가지였다.
+  - 원인 ①: 면을 칼이 아직 중간인 프레임에 띄우면서 휘두름 끝까지 미리 그렸다(칼보다 앞섬).
+  - 원인 ②: 어깨 중심 원호로 그려 실제 칼끝 길과 달랐다(칼 길이도 15 → 실제 18.5px).
+  - 수정: `gen_smear.py` 가 cel.json 의 실제 손·칼 각도로 칼끝이 지나온 길을 따라 면을 그린다(바깥 = 칼끝, 안쪽 = 진행 끝쪽이 두꺼운 13px).
+  - 칼이 끝에 도착한 프레임에 띄운다(찌르기 4, 내려베기 4, 올려베기 5). 그래서 면의 끝이 칼끝에 붙는다.
+  - 검증: 낮 인게임 1/30초 캡처 `Logs/playtest/3타_스미어_인게임.png/.gif`. 콘솔 오류 0.

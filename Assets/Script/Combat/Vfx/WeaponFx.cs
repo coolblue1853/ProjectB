@@ -8,11 +8,11 @@ public static class WeaponFx
     /// <summary>공격 타격 포즈 시각(초) — 궤적 이펙트·휘두르는 소리를 이때 띄운다. 셀 공격(0.04초 × 7프레임)은 3번째 프레임에 뻗는데 궤적이 0.1초 늦게 보여(인게임 0.04초 간격 촬영) 0.04초로(10-26, 예전 리그 0.07)</summary>
     public const float StrikeDelay = 0.04f;
 
-    /// <summary>기본 칼 3타 셀(10-28 확정)에서 스미어 면이 나오는 프레임 — fx_plan.py 로 승인받은 면 프레임(찌르기 4, 내려베기 3, 올려베기 4).
+    /// <summary>기본 칼 3타 셀(10-28 확정)에서 스미어가 나오는 프레임 = 칼이 휘두름 끝에 도착한 프레임(찌르기 4, 내려베기 4, 올려베기 5). 면은 지나온 길만 덮는다(10-28 v2: 칼보다 먼저 나오면 안 맞아 보였다).
     /// 고정 0.04초면 준비 동작(0.16~0.19초) 중에 궤적이 먼저 나왔다</summary>
     static readonly System.Collections.Generic.Dictionary<string, int> StrikeFrame = new System.Collections.Generic.Dictionary<string, int>
     {
-        { "Stab", 4 }, { "SwingDown", 3 }, { "SwingUp", 4 },
+        { "Stab", 4 }, { "SwingDown", 4 }, { "SwingUp", 5 },
     };
 
     /// <summary>궤적·휘두르는 소리 지연(초, 속도 1) — 리그가 셀 시간을 알면 베는 프레임 시작, 아니면 StrikeDelay</summary>

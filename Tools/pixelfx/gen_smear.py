@@ -19,81 +19,94 @@ CEL = os.path.join(ROOT, "Assets", "Art", "Player", "PixelRig", "Cel", "cel.json
 W, H = 112, 80          # 셀(64)보다 넓게 — 큰 초승달이 잘리지 않게
 OX, OY = 24, 16          # 셀 좌표 → 시트 좌표
 PIV = (41 + OX, 54 + OY)  # 셀 원점(발 가운데)
-# 이름: (keys, 동작, 면 프레임, 종류, 시작각, 끝각, 반지름, 두께) — fx_plan.py CRESCENT 와 같다
+BLADE = 18.5  # 칼끝까지(ShortSword 손잡이 피벗 → 끝, 24 PPU = 셀 1px 과 같은 크기: 셀 PPU 36 × 플레이어 1.5배)
+# v2(10-28 사용자 "궤적이랑 칼이 안 맞는다"): 어깨 중심 원이 아니라 셀에 기록된 실제 손·칼 각도로 칼끝이 지나간 길을 따라 그리고,
+# 칼이 끝에 도착한 프레임에 띄운다(스컬: 칼이 이미 끝에 있고 지나온 길이 면으로 남는다). v1 은 칼보다 먼저 앞 아래까지 그려졌다.
+# 이름: (동작, 시작 프레임, 끝 프레임(=띄우는 프레임), 종류, 최대 두께)
 SPECS = {
-    "Px_WSmearDown": ("keys_v13.json", "SwingDown", 3, "arc_cw", -40, 175, 23, 14),  # 시계 방향(뒤 위 → 앞 아래): 두꺼운 끝이 앞 아래
-    "Px_WSmearUp": ("keys_v18.json", "SwingUp", 4, "arc", -100, 165, 23, 14),
-    "Px_WSmearStab": ("keys_v6.json", "Stab", 4, "streak", 0, 0, 26, 5),
+    "Px_WSmearDown": ("SwingDown", 2, 4, "sweep", 13),
+    "Px_WSmearUp": ("SwingUp", 3, 5, "sweep", 13),
+    "Px_WSmearStab": ("Stab", 3, 4, "streak", 5),
 }
 
 
-def cel_shift(clip, i, keys_hand):
-    """셀은 프레임마다 sx·dy 로 정렬돼 있다 — 손 좌표 차이로 같은 이동을 스미어에도 준다."""
-    cj = json.load(open(CEL))[clip]["frames"][i]
-    return cj["hand"][0] - keys_hand[0], cj["hand"][1] - keys_hand[1]
+def blade_path(fr, f0, f1, n=18):
+    """f0 → f1 프레임 사이 손·칼 각도를 이어 붙인 경로(셀 좌표). 각 점 = (손, 각도, 진행도 0~1)."""
+    pts = []
+    segs = f1 - f0
+    for k in range(segs):
+        h0, a0 = fr[f0 + k]["hand"], fr[f0 + k]["angle"]
+        h1, a1 = fr[f0 + k + 1]["hand"], fr[f0 + k + 1]["angle"]
+        for j in range(n + (1 if k == segs - 1 else 0)):
+            t = j / n
+            pts.append(((h0[0] + (h1[0] - h0[0]) * t, h0[1] + (h1[1] - h0[1]) * t), a0 + (a1 - a0) * t, (k + t) / segs))
+    return pts
 
 
-def arc_frame(c, a0, a1, r, thick, mode, cw=False):
-    yy, xx = np.mgrid[0:H, 0:W]
-    x = xx + 0.5 - c[0]
-    y = c[1] - (yy + 0.5)
-    d = np.hypot(x, y)
-    span = (a1 - a0) % 360 or 360
-    t = ((np.degrees(np.arctan2(y, x)) - a0) % 360) / span
-    on = t <= 1.0
-    if cw:
-        t = 1.0 - t  # 진행 방향 기준(0 = 시작, 1 = 칼이 있는 끝)
-    if mode == 0:      # 꽉 찬 초승달: 끝쪽 두껍고 시작 쪽 0, 맨 끝은 둥글게 닫힘
-        w = thick * np.clip(t * 1.3, 0, 1) * (1 - np.clip((t - 0.93) * 12, 0, 1))
-        rr = r
-    elif mode == 1:    # 얇은 호(뒤쪽 40%는 지워짐)
-        w = 2.4 * np.clip((t - 0.4) * 3, 0, 1)
-        rr = r + 0.5
-    else:              # 더 짧고 얇은 호
-        w = 1.4 * np.clip((t - 0.7) * 5, 0, 1)
-        rr = r + 1
-    m = on & (d <= rr) & (d >= rr - w) & (w > 0.3)
-    b = np.where(d >= rr - 1.2, 1.0, np.where(d <= rr - w + 1.2, 0.7, 0.88))
-    b = b * (0.6 + 0.4 * np.clip(t, 0, 1)) if mode == 0 else b * (0.75 + 0.25 * t)
-    return m, b
+def at(h, ang, dist):
+    return (h[0] + dist * math.cos(math.radians(ang)) + OX, h[1] - dist * math.sin(math.radians(ang)) + OY)
 
 
-def streak_frame(h, ang, r, thick, mode):
-    yy, xx = np.mgrid[0:H, 0:W]
-    ca, sa = math.cos(math.radians(ang)), math.sin(math.radians(ang))
-    x = xx + 0.5 - h[0]
-    y = h[1] - (yy + 0.5)
-    along = (x * ca + y * sa) / r
-    side = -x * sa + y * ca
-    if mode == 0:
-        half = 0.6 + thick * 0.5 * np.clip(1 - along, 0, 1) * np.clip(along * 4, 0, 1)
-        m = (along >= 0) & (along <= 1.15) & (np.abs(side) <= half)
-    elif mode == 1:
-        m = (along >= 0.35) & (along <= 1.25) & (np.abs(side) <= 0.6)
-    else:
-        m = (along >= 0.8) & (along <= 1.3) & (np.abs(side) <= 0.5)
-    b = 0.7 + 0.3 * np.clip(along, 0, 1)
-    return m, b
+def sweep_frames(pts, maxw):
+    from PIL import ImageDraw
+    frames = []
+    for mode in range(3):
+        im = Image.new("L", (W, H), 0)
+        g = ImageDraw.Draw(im)
+        if mode == 0:
+            # 꽉 찬 면: 칼끝 경로 ~ 안쪽 경로(진행 끝쪽이 두껍다), 진행도에 따라 밝기 0.6 → 1.0
+            for k in range(len(pts) - 1):
+                (h, a, s0), (h2, a2, s1) = pts[k], pts[k + 1]
+                w0 = maxw * min(1.0, s0 * 1.25) * (1 - max(0.0, s0 - 0.95) * 10)
+                w1 = maxw * min(1.0, s1 * 1.25) * (1 - max(0.0, s1 - 0.95) * 10)
+                poly = [at(h, a, BLADE + 0.5), at(h2, a2, BLADE + 0.5), at(h2, a2, BLADE - w1), at(h, a, BLADE - w0)]
+                g.polygon(poly, fill=int(255 * (0.6 + 0.4 * s1)))
+            tip = [at(h, a, BLADE + 0.5) for h, a, _ in pts]
+            g.line(tip, fill=255, width=1)  # 바깥 가장자리(칼날 끝) 가장 밝게
+        else:
+            start = 0.4 if mode == 1 else 0.7
+            tip = [at(h, a, BLADE) for h, a, s in pts if s >= start]
+            if len(tip) > 1:
+                g.line(tip, fill=230 if mode == 1 else 200, width=2 if mode == 1 else 1)
+        frames.append(im)
+    return frames
+
+
+def streak_frames(h, ang, prev_h, maxw):
+    from PIL import ImageDraw
+    frames = []
+    tip = at(h, ang, BLADE + 6)
+    back = at(prev_h, ang, BLADE * 0.4)
+    for mode in range(3):
+        im = Image.new("L", (W, H), 0)
+        g = ImageDraw.Draw(im)
+        if mode == 0:
+            nx, ny = -math.sin(math.radians(-ang)), math.cos(math.radians(-ang))
+            mid = at(h, ang, BLADE * 0.7)
+            g.polygon([back, (mid[0] + nx * maxw / 2, mid[1] + ny * maxw / 2), tip, (mid[0] - nx * maxw / 2, mid[1] - ny * maxw / 2)], fill=200)
+            g.line([back, tip], fill=255, width=1)
+        else:
+            s0 = at(h, ang, BLADE * (0.6 if mode == 1 else 1.0))
+            g.line([s0, at(h, ang, BLADE + (8 if mode == 1 else 10))], fill=230, width=1)
+        frames.append(im)
+    return frames
 
 
 def render(spec):
-    kf, clip, i, kind, a0, a1, r, thick = spec
-    k = json.load(open(os.path.join(KEYS, kf)))[clip]
-    sx, dy = cel_shift(clip, i, k["hand"][i])
-    kp = {j["label"]: (j["x"] * 64 + sx + OX, j["y"] * 64 + dy + OY) for j in k["kp"][i]}
-    frames = []
-    for mode in range(3):
-        if kind.startswith("arc"):
-            m, b = arc_frame(kp["RIGHT SHOULDER"], a0, a1, r, thick, mode, cw=kind == "arc_cw")
-        else:
-            h = (k["hand"][i][0] + sx + OX, k["hand"][i][1] + dy + OY)
-            m, b = streak_frame(h, k["angle"][i], r, thick, mode)
+    clip, f0, f1, kind, maxw = spec
+    fr = json.load(open(CEL))[clip]["frames"]
+    if kind == "sweep":
+        frames = sweep_frames(blade_path(fr, f0, f1), maxw)
+    else:
+        frames = streak_frames(fr[f1]["hand"], fr[f1]["angle"], fr[f0]["hand"], maxw)
+    out = []
+    for im in frames:
+        v = np.array(im)
         img = np.zeros((H, W, 4), np.uint8)
-        v = (np.clip(b, 0, 1) * 255).astype(np.uint8)
         img[..., 0] = img[..., 1] = img[..., 2] = v
-        img[..., 3] = np.where(m, 255, 0)
-        frames.append(img)
-    return frames
+        img[..., 3] = np.where(v > 0, 255, 0)
+        out.append(img)
+    return out
 
 
 def main():
