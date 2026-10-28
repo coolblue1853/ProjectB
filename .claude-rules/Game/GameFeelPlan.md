@@ -416,3 +416,4 @@ DropManager.DropItems (≈151행) → DropItemCheck.SetItem 뒤 SpriteHitFx.SetR
 - 10-28 v6f(사용자: 내려베기 칼끝과 이펙트가 더 멀어짐, 칼끝에서 떨어지거나 너무 내려가면 안 됨): 호의 시작·끝 각도도 칼끝 경로에 맞춘다. 맞춘 원 중심에서 본 칼끝 각도: 내려베기 -137° → 15.5°, 올려베기 49.7° → -148.9°. 내려베기를 start -137·sweep 158 로 다시 내보냈다(전엔 -150·210 이라 칼끝보다 45° 더 아래까지 갔다). 리틀 본 AttackA 와 나란히 비교함(`MotionRef/fx_compare`). §7 4번에 '각도도 칼끝 시작·끝에 맞출 것' 추가.
 - 10-28 사용자 확정: 3타 스미어 칼끝 맞춤 OK. 남은 확인: 사냥터 실타격(판정 시점·히트스톱).
 - 10-28 실타격 확인 시도: 플레이 모드에서 MapInfo.GoToMap 으로 Lv1_NearForest·NormalForest·Swamp 로 갔지만, 15초 기다려도 살아 있는 몬스터가 0이었다(EnemyHealth 8개는 나무 등, IsMonster 0). 스포너가 켜지는 조건을 알아야 측정할 수 있다 — 다음에 스포너 조건 확인 후 `Logs/_hit_timing.cs`(공격 시작 → HP 감소 시각) 실행. 판정·히트스톱은 여전히 미검증.
+- 10-28 **실타격 검증 완료**: 몹 스포너는 플레이어가 트리거 안에 들어와야 몹을 낸다(`Tools/probes/to_spawner.cs` 로 이동). Lv1_NearForest 토끼에게 녹슨 검 찌르기 3회 — 공격 시작 → HP 감소 0.21·0.22·0.22초(셀 스미어 시각 0.19초 + 측정 간격 0.02초). 전에는 입력 직후 바로 맞았다. 콘솔 오류 0. 측정 프로브 `Tools/probes/hit_timing.cs`(결과는 AppDomain pb_hit).
