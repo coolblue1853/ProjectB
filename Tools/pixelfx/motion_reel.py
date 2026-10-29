@@ -11,8 +11,8 @@ from PIL import Image, ImageDraw, ImageFont
 SRC = "Logs/playtest/all"
 FONT = ImageFont.truetype("C:/Windows/Fonts/malgun.ttf", 18)
 NAMES = {
-    "Idle": "대기", "Walk": "걷기", "Run": "달리기", "Dash": "대시", "JumpCrouch": "점프 준비", "Land": "착지", "RopeUp": "로프 오르기",
-    "Hurt": "피격", "Death": "사망", "Stab": "A3 찌르기(기본)", "SwingDown": "A1 내려베기(기본)", "SwingUp": "A2 올려베기(기본)",
+    "Idle": "대기(기본 유지)", "Walk": "걷기", "Run": "달리기", "Dash": "대시", "JumpCrouch": "점프 준비", "Land": "착지", "RopeUp": "로프 오르기",
+    "Hurt": "피격", "Death": "사망", "Stab": "A3 찌르기(기본 통과본)", "SwingDown": "A1 내려베기(기본)", "SwingUp": "A2 올려베기(기본)",
     "GreatDown": "A4 양손 내려찍기 · 대검", "GreatSide": "A5 양손 수평 · 대검", "GreatSideOne": "A5′ 한손 수평 · 장검",
     "DaggerFlurry": "A6 연속 찌르기 · 쌍단검", "DaggerCross": "A7 교차 베기 · 쌍단검", "AirSlash": "A8 공중 베기", "Lunge": "A9 돌진 · 창",
     "Spin": "A10 회전 베기 · 대검", "Cast": "A11 시전 · 지팡이", "Throw": "A12 던지기 · 투척 단검", "Bow": "A13 사격 · 활",
