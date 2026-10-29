@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.InputSystem;
 using DarkTonic.MasterAudio;
 public class Skill : MonoBehaviour
 {
-    KeyAction action;
-    InputAction[] skillAction = new InputAction[4]; // 키보드로  A S D F 순
     public string[] skillSound;
     public GameObject[] skillBackGround = new GameObject[4];
     public GameObject[] skillPivot;
@@ -100,51 +97,35 @@ public class Skill : MonoBehaviour
     int allBullet = 0;
     bool isActive = true;
 
-    private void OnEnable()
-    {
-        for(int i =0; i < skillAction.Length; i++)
-        {
-            skillAction[i].Enable();
-            skillAction[i].canceled += OnSkillReleased;
-        }
-    }
+    // 키 해제는 AttackManager 가 슬롯별로 보낸다(OnHoldRelease). 무기마다 KeyAction 을 따로 만들지 않는다 (B-113, 설계 2.4-1~2)
     private void OnDisable()
     {
-        for (int i = 0; i < skillAction.Length; i++)
+        // 홀드·선딜 정리: SetLink 기본값은 파괴 때만 Kill 하므로 비활성화로는 안 멈춘다. 다시 장착했을 때 IsHolding 이 남지 않게 (B-113)
+        if (isActiveHold)
         {
-            skillAction[i].Disable();
-            skillAction[i].canceled -= OnSkillReleased;
+            EndHold(false);
+        }
+        else
+        {
+            KillPendingSpawns();
         }
         // 무기 해제·파괴 시 잠금 토큰이 남지 않도록 (C9)
         attackWaitSequence.Kill();
         ReleaseLocks();
-        // 홀드·선딜 정리: SetLink 기본값은 파괴 때만 Kill 하므로 비활성화로는 안 멈춘다. 다시 장착했을 때 IsHolding 이 남지 않게 (B-113)
-        skillSequence.Kill();
-        _spawnDelaySequence.Kill();
-        _dmgDelaySequence.Kill();
-        StopSpawnRoutine(); // 컴포넌트만 꺼지는 경우에도 순차 생성을 멈춘다
-        if (isActiveHold && weapon != null)
-        {
-            weapon.isSkillAttackWait = true; // 홀드가 내린 스킬 대기를 되돌린다(만료 콜백이 Kill 되었으므로)
-        }
-        isActiveHold = false;
         _activeSlot = -1;
     }
     private void Awake()
     {
         originPoint = Vector2.zero;
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
-        for(int i =0; i < skillAction.Length; i++)
+        for (int i = 0; i < Mathf.Min(skillBackGround.Length, 4); i++) // 슬롯 A S D F 4개
+        {
             skillBackGround[i] = skillCooldown.transform.GetChild(i + 1).gameObject;
+        }
 
         weapon = transform.parent.gameObject.GetComponent<Weapon>();
         damgeArray = weapon.damgeArray;
 
-        action = new KeyAction();
-        skillAction[0] = action.Player.SkillA;
-        skillAction[1] = action.Player.SkillS;
-        skillAction[2] = action.Player.SkillD;
-        skillAction[3] = action.Player.SkillF;
     }
 
     void Start()
@@ -329,37 +310,54 @@ public class Skill : MonoBehaviour
         }
     }
    
-    void OnSkillReleased(InputAction.CallbackContext context)
+    /// <summary>AttackManager → Weapon.ReleaseWeaponSkill 에서 슬롯 키 해제가 온다. 실제로 발동된 슬롯일 때만 홀드 종료 (B-113, 설계 2.4-1~3)</summary>
+    public void OnHoldRelease(int slot)
     {
-        // 이 스킬이 실제로 발동된 슬롯의 키를 뗐을 때만 홀드 종료 (다른 스킬 키·Inspector skillNum 불일치, B-113)
-        if (_activeSlot < 0 || _activeSlot >= skillAction.Length || context.action != skillAction[_activeSlot])
+        if (isHoldSkill == true && isActiveHold == true && slot == _activeSlot)
         {
-            return;
-        }
-        if (isHoldSkill == true && isActiveHold == true)
-        {
-            EndHold();
+            EndHold(true);
         }
     }
 
-    /// <summary>홀드 종료 단일 경로(키 해제·시간 만료). 선딜 중이면 아직 안 나온 생성·데미지 설정, 순차 생성 코루틴도 멈춘다 (B-113, 설계 2.4-6).
-    /// 만료도 키 해제처럼 데미지 오브젝트를 즉시 파괴한다(예전 만료는 DestroyObject 의 지연 파괴). DestroyObject 는 홀드 버프 해제(BuffOff)를 위해 부른다.</summary>
-    void EndHold()
+    /// <summary>피격 경직·대시 시작으로 홀드를 끊는다. 키 해제와 같은 정리(쿨 적용)</summary>
+    public void CancelHold()
+    {
+        if (isActiveHold == true)
+        {
+            EndHold(true);
+        }
+    }
+
+    /// <summary>홀드 종료 단일 경로(키 해제·시간 만료·피격·대시·무기 비활성화). 선딜 중이면 아직 안 나온 생성·데미지 설정, 순차 생성 코루틴도 멈춘다 (B-113, 설계 2.4-6).
+    /// 데미지 오브젝트는 즉시 파괴한다(예전 만료는 DestroyObject 의 지연 파괴). DestroyObject 는 홀드 버프 해제(BuffOff)를 위해 부른다.
+    /// normalEnd=false(무기 비활성화)면 쿨·애니 정지 없이 잠금·스킬 대기만 되돌린다.</summary>
+    void EndHold(bool normalEnd)
     {
         isActiveHold = false;
-        skillSequence.Kill();
-        _spawnDelaySequence.Kill();
-        _dmgDelaySequence.Kill();
-        StopSpawnRoutine();
-        skillCooldown.UseSkill(_activeSlot, skillName);
-        CheckAttackWait();
-        if (PlayerController.instance != null)
+        KillPendingSpawns();
+        if (normalEnd)
         {
-            PlayerController.instance.StopAttackAnim();
+            if (_activeSlot >= 0)
+            {
+                skillCooldown.UseSkill(_activeSlot, skillName);
+            }
+            CheckAttackWait(); // 홀드 스킬: 잠금 해제 + 스킬 대기 복구
+            if (PlayerController.instance != null)
+            {
+                PlayerController.instance.StopAttackAnim();
+            }
         }
-        if (dmOb != null)
+        else
         {
-            dmOb.DestroyObject();
+            ReleaseLocks();
+            if (weapon != null)
+            {
+                weapon.isSkillAttackWait = true; // 홀드가 내린 스킬 대기를 되돌린다
+            }
+        }
+        if (normalEnd && dmOb != null)
+        {
+            dmOb.DestroyObject(); // 홀드 버프 해제. 비활성화 경로는 DamageObject.OnDestroy 가 토큰을 푼다
         }
         if (damageObject != null)
         {
@@ -367,6 +365,15 @@ public class Skill : MonoBehaviour
         }
         dmOb = null;
         damageObject = null;
+    }
+
+    /// <summary>홀드 타이머·선딜 생성·데미지 설정 시퀀스와 순차 생성 코루틴을 멈춘다</summary>
+    void KillPendingSpawns()
+    {
+        skillSequence.Kill();
+        _spawnDelaySequence.Kill();
+        _dmgDelaySequence.Kill();
+        StopSpawnRoutine();
     }
 
     void StopSpawnRoutine()
@@ -503,7 +510,7 @@ public class Skill : MonoBehaviour
                 weapon.isSkillAttackWait = false; // 홀드 중 평타 금지 — 종료 시 CheckAttackWait 가 되돌린다(W-06)
                 skillSequence = DOTween.Sequence()
                .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
-               .AppendCallback(() => { if (isActiveHold) { EndHold(); } }).SetLink(gameObject); // 시간 만료도 키 해제와 같은 정리 (B-113, W-18)
+               .AppendCallback(() => { if (isActiveHold) { EndHold(true); } }).SetLink(gameObject); // 시간 만료도 키 해제와 같은 정리 (B-113, W-18)
             }
         }
     }

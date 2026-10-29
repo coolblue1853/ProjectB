@@ -40,15 +40,44 @@ public class AttackManager : MonoBehaviour
     public GameObject BuffSlot;
 
     public GameObject[] skillBackGround = new GameObject[4];
+    // 슬롯별 키 해제 핸들러. 같은 델리게이트로 구독·해제해야 하므로 Awake 에서 한 번 만들어 둔다 (B-113, 설계 2.4-1)
+    private System.Action<InputAction.CallbackContext>[] _releaseHandlers;
+
     private void OnEnable()
     {
         attackAction.Enable();
-        for (int i = 0; i < skillBackGround.Length; i++) skillAction[i].Enable();
+        for (int i = 0; i < skillAction.Length; i++)
+        {
+            skillAction[i].Enable();
+            skillAction[i].canceled += _releaseHandlers[i];
+        }
     }
     private void OnDisable()
     {
         attackAction.Disable();
-        for (int i = 0; i < skillBackGround.Length; i++) skillAction[i].Disable();
+        for (int i = 0; i < skillAction.Length; i++)
+        {
+            skillAction[i].canceled -= _releaseHandlers[i];
+            skillAction[i].Disable();
+        }
+    }
+
+    /// <summary>스킬 키를 떼면 그 슬롯에만 해제를 보낸다 — 다른 키를 떼도 홀드가 끝나던 문제의 근본 수정 (B-113)</summary>
+    private void OnSkillKeyReleased(int slot)
+    {
+        if (equipWeapon != null)
+        {
+            equipWeapon.ReleaseWeaponSkill(slot);
+        }
+    }
+
+    /// <summary>피격 경직·대시 시작 등 외부에서 홀드 스킬을 끊을 때</summary>
+    public void CancelHold()
+    {
+        if (equipWeapon != null)
+        {
+            equipWeapon.CancelHold();
+        }
     }
     private void Awake()
     {
@@ -58,6 +87,12 @@ public class AttackManager : MonoBehaviour
         skillAction[1] = action.Player.SkillS;
         skillAction[2] = action.Player.SkillD;
         skillAction[3] = action.Player.SkillF;
+        _releaseHandlers = new System.Action<InputAction.CallbackContext>[skillAction.Length];
+        for (int i = 0; i < _releaseHandlers.Length; i++)
+        {
+            int slot = i;
+            _releaseHandlers[i] = ctx => OnSkillKeyReleased(slot);
+        }
     }
     public void EquipMainWeaopon()
     {

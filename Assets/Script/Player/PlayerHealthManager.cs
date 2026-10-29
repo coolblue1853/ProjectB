@@ -319,6 +319,7 @@ public class PlayerHealthManager : MonoBehaviour
                 mysequence.Kill(); // 재공격시 경직 시간 초기화.
                 playerController.isAttacked = true;
                 playerController.isAttackedUp = true;
+                playerController.CancelSkillHold(); // 경직되면 홀드 스킬도 끊긴다 (B-113)
 
             mysequence = DOTween.Sequence()
             .AppendCallback(() => KnockbackActive(force, knockbackDir, x, isDirChange))

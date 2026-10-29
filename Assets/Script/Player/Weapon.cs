@@ -183,6 +183,27 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    /// <summary>AttackManager 가 슬롯 키 해제를 보낸다. 그 슬롯에서 홀드 중인 스킬만 끝난다 (B-113, 설계 2.4-1)</summary>
+    public void ReleaseWeaponSkill(int num)
+    {
+        if (num >= 0 && num < skill.Length && skill[num] != null)
+        {
+            skill[num].OnHoldRelease(num);
+        }
+    }
+
+    /// <summary>피격 경직·대시 시작 때 홀드 중인 스킬을 끝낸다(쿨 적용)</summary>
+    public void CancelHold()
+    {
+        for (int i = 0; i < skill.Length; i++)
+        {
+            if (skill[i] != null && skill[i].IsHolding)
+            {
+                skill[i].CancelHold();
+            }
+        }
+    }
+
     private bool IsAnySkillHolding()
     {
         for (int i = 0; i < skill.Length; i++)

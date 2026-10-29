@@ -129,6 +129,7 @@ public class PlayerController : MonoBehaviour
         proCamera.CenterOnTargets();
         bc = this.GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        _attackManager = GetComponent<AttackManager>();
         jumpsRemaining = maxJumps;
     }
     bool once = false;
@@ -639,8 +640,20 @@ public class PlayerController : MonoBehaviour
     }
     Sequence dashSequence;
     public float dashMovePoint;
+    private AttackManager _attackManager;
+
+    /// <summary>홀드 스킬을 끊는다 — 대시 시작·피격 경직 진입 (B-113, 설계 2.4-6)</summary>
+    public void CancelSkillHold()
+    {
+        if (_attackManager != null)
+        {
+            _attackManager.CancelHold();
+        }
+    }
+
     void Dash()
     {
+        CancelSkillHold(); // 홀드 중 대시하면 홀드를 끝낸다(쿨 적용)
         MasterAudio.PlaySound("Dash");
         if (isAttackAnim == false)
         {

@@ -45,6 +45,7 @@ bash Tools/playtest.sh 10 이름                                                
 
 - 에디터가 최소화·비포커스면 Input System이 키보드를 비활성화한다. `Tools/probes/input_bg_on.cs`(백그라운드 입력 허용 + 키보드 재활성) → `press_key.cs`(`__KEY__`=Key 이름, 0.1초 뒤 뗌) → 끝나면 `input_bg_off.cs`로 복구.
 - 스크린샷에 오버레이 UI가 빠질 때가 있다(타이밍). 창을 연 뒤 2~3초 기다려 다시 찍는다.
+- (2026-10-30) 이미 누른 키가 있는 상태에서 DOTween 콜백 안에서 `KeyboardState(D, A)` 를 큐잉하면 두 번째 키가 반영되지 않는 경우가 있었다(프로브 최상단에서는 정상). 키 두 개 동시 검증은 해당 게임 API(`Weapon.ActiveWeaponSkill` 등)를 직접 부르고, 큐잉한 키는 `kb.xKey.isPressed` 로 반영됐는지 로그로 확인한다. 최소화된 에디터는 게임 시간이 실제보다 느리니 대기는 넉넉히(1초+).
 
 ## 셸 heredoc 백슬래시 함정 (2026-10-18)
 
