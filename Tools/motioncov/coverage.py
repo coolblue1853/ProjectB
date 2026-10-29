@@ -14,6 +14,8 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".cla
 def jobs():
     out = []
     for line in J.splitlines():
+        if not line.strip():
+            continue
         cat, name, ws, extra = line.split("|")
         ws = [w for w in ws.split(",") if w]
         need, tech = set(), set()
