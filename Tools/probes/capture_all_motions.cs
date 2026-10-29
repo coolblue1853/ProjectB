@@ -18,9 +18,10 @@ var list = new (string anim, string r, string l)[] {
     ("Lunge","TmpSpear",""), ("Spin","TmpGreatSword",""), ("Cast","TmpStaff",""), ("Throw","TmpKnife",""),
     ("Bow","TmpBow",""), ("Guard","TmpSword","TmpShield"), ("Charge","TmpStaff",""), ("LeapSlam","TmpHammer",""),
     ("Backstep","TmpDagger","TmpDagger"), ("Punch","TmpKnuckle","TmpKnuckle"), ("Iaido","TmpKatana",""),
-    ("ShoulderAim","TmpCannon",""), ("Raise","TmpStaff",""), ("Place","",""), ("Kick","TmpKnuckle","TmpKnuckle"),
+    ("ShoulderAim","TmpCannon",""), ("Raise","TmpEyeStaff","TmpTome"), ("Place","",""), ("Kick","TmpKnuckle","TmpKnuckle"),
     ("Grab","",""), ("Ride","TmpSpear",""), ("Knockdown","TmpSword",""), ("ShieldBash","TmpSword","TmpShield"),
-    ("Slam","",""), ("Pull","TmpHook",""), ("LowSweep","TmpSpear",""), ("GreatUpper","TmpGreatSword",""), ("DashSlash","TmpSword",""), ("WhipSnap","TmpWhip",""), ("Roundhouse","TmpKnuckle","TmpKnuckle"), ("Sheathe","TmpKatana",""), ("Whirl","TmpGreatSword",""), ("DownThrust","TmpSword",""), ("DualPistol","TmpPistol","TmpPistol"), ("Rifle","TmpRifle",""), ("SwordPistol","TmpSword","TmpPistol"),
+    ("Slam","",""), ("Pull","TmpHook",""), ("LowSweep","TmpSpear",""), ("GreatUpper","TmpGreatSword",""), ("DashSlash","TmpSword",""), ("WhipSnap","TmpWhip",""), ("Roundhouse","TmpKnuckle","TmpKnuckle"), ("Sheathe","TmpKatana",""), ("Whirl","TmpAnchor",""), ("DownThrust","TmpSword",""), ("DualPistol","TmpPistol","TmpPistol"), ("Rifle","TmpRifle",""), ("SwordPistol","TmpCutlass","TmpPistol"),
+    ("PalmBlast","",""), ("UnderThrow","",""), ("Dance","",""), ("Lute","",""), ("Victory","TmpCutlass",""),
 };
 // 일부만 다시 찍기(10-29 밤): Logs/capture_list.txt 가 있으면 그 줄(동작,오른손,왼손)만 Logs/playtest/sub/ 에
 string root = "Logs/playtest/all";
