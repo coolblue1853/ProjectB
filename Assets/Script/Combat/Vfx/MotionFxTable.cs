@@ -54,9 +54,9 @@ public static class MotionFxTable
         new Strike("Spin", 8, VfxId.MSmear6, new SmearAura.Shape { arc = true, c = new Vector2(-0.7f, 19.4f), ea = 32.4f, eb = 25.9f, tilt = 0f, a0 = -300.8f, a1 = -0.8f }),
         new Strike("LeapSlam", 5, VfxId.MSmear7, new SmearAura.Shape { arc = true, c = new Vector2(-0.5f, 19f), ea = 30f, eb = 24f, tilt = 0f, a0 = 190f, a1 = -41.1f }),
         new Strike("Iaido", 4, VfxId.MSmear8, new SmearAura.Shape { arc = true, c = new Vector2(4.5f, 17f), ea = 27.8f, eb = 22.3f, tilt = 0f, a0 = -194.7f, a1 = 1.9f }),
-        new Strike("AirSlash", 2, VfxId.MSmear9, new SmearAura.Shape { arc = true, c = new Vector2(-0.5f, 20f), ea = 29.2f, eb = 23.4f, tilt = 0f, a0 = 186.5f, a1 = -43.5f }),
+        new Strike("AirSlash", 3, VfxId.MSmear9, new SmearAura.Shape { arc = true, c = new Vector2(-3.2f, 15f), ea = 35.1f, eb = 28.1f, tilt = 0f, a0 = 195.1f, a1 = -34.9f }),
         new Strike("Slam", 5, VfxId.MSmear10, new SmearAura.Shape { arc = true, c = new Vector2(0f, 19f), ea = 29.4f, eb = 23.5f, tilt = 0f, a0 = 148.4f, a1 = -58.6f }),
-        new Strike("Lunge", 3, VfxId.MSmear11, new SmearAura.Shape { arc = false, p0 = new Vector2(4f, 14.9f), p1 = new Vector2(58.3f, 10.1f) }),
+        new Strike("Lunge", 2, VfxId.MSmear11, new SmearAura.Shape { arc = false, p0 = new Vector2(6f, 14f), p1 = new Vector2(60.5f, 14f) }),
         new Strike("DaggerFlurry", 2, VfxId.MSmear12, new SmearAura.Shape { arc = false, p0 = new Vector2(1f, 21f), p1 = new Vector2(55.5f, 21f) }),
         new Strike("DaggerFlurry", 4, VfxId.MSmear13, new SmearAura.Shape { arc = false, p0 = new Vector2(2f, 21.1f), p1 = new Vector2(56.3f, 25.9f) }),
         new Strike("DaggerFlurry", 7, VfxId.MSmear14, new SmearAura.Shape { arc = false, p0 = new Vector2(5f, 18.5f), p1 = new Vector2(59.4f, 15.7f) }),
@@ -71,7 +71,7 @@ public static class MotionFxTable
         new Impact("Slam", 5, VfxId.GroundShock, 18f, 0.9f),
         new Impact("ShieldBash", 3, VfxId.DustBrown, -4f, 0.7f),
         new Impact("Iaido", 4, VfxId.StepDust, -6f, 1f),
-        new Impact("Lunge", 3, VfxId.StepDust, -6f, 0.9f),
+        new Impact("Lunge", 2, VfxId.StepDust, -6f, 0.9f),
         new Impact("Backstep", 4, VfxId.StepDust, 0f, 0.9f),
     };
 
