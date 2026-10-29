@@ -188,6 +188,7 @@ TIMES = {
     "Hurt": [0.03, 0.05, 0.05, 0.045, 0.045],
 }
 # 스켈레톤 셀(10-27): 손 = 자세표 손목 관절(가로·세로 맞춤만 더함), 칼 각도 = 자세표 설계값
+SKEL_HAND_B = {}
 SKEL_HAND = {"Stab": [[35, 42], [33, 40], [32, 37], [44, 42], [57, 38], [56, 38]], "StabEnd": [[53, 41], [42, 43], [36, 43]], "SwingDown": [[46, 33], [35, 23], [34, 23], [52, 33], [55, 42], [54, 43], [54, 43]], "SwingDownEnd": [[50, 43], [46, 43], [42, 43], [39, 42]], "SwingUp": [[35, 42], [35, 40], [35, 40], [44, 45], [50, 27], [40, 24], [32, 29], [32, 29], [30, 34], [33, 40], [35, 42], [39, 42]]}
 SKEL_ANGLE = {"Stab": [-14.8, -5.2, 0.0, 0.0, 0.0, -5.0], "StabEnd": [-8.9, -16.1, -20.0], "SwingDown": [100, 172, 174, 60, -30, -35, -34], "SwingDownEnd": [-36, -35, -28, -20], "SwingUp": [-160, -165, -165, -25, 60, 165, 168, 169, 190, -150, -43, -20]}
 # 10-29 마스터 모션 강화(MotionSet §8): 졸라맨 승인 → 스켈레톤 보간 생성분은 m41/register.json 에서 읽어 덧붙인다
@@ -197,6 +198,8 @@ if os.path.exists(_REG):
     for _name, _r in json.load(open(_REG, encoding="utf-8")).items():
         CLIPS[_name] = ("m41", _r["frames"], 0.05, False, "feet")
         SKEL_HAND[_name] = _r["hand"]
+        if "handB" in _r:
+            SKEL_HAND_B[_name] = _r["handB"]  # 앞손(반대 손) — 방패·보조손 무기가 따라간다(10-29)
         SKEL_ANGLE[_name] = _r["angle"]
         TIMES[_name] = _r["times"]
 ANGLE_FIX = {}
@@ -778,6 +781,8 @@ def main():
             if clip in SKEL_HAND:
                 h = [SKEL_HAND[clip][k][0] + sx, SKEL_HAND[clip][k][1] + dy]
                 angle = float(SKEL_ANGLE[clip][k])
+                if clip in SKEL_HAND_B:
+                    b = [SKEL_HAND_B[clip][k][0] + sx, SKEL_HAND_B[clip][k][1] + dy]
             angle = ANGLE_FIX.get((clip, k), angle)
             fr = {"png": name, "hand": h, "handB": b, "dy": dy, "sx": sx, "time": TIMES.get(clip, [0.0] * len(idx))[k], "angle": angle if angle is not None else -999.0}  # -999 = 리그 규칙(손 위치로)
             frames.append(fr)

@@ -435,8 +435,15 @@ public class PixelRig : CharacterRig
     /// 마스터 모션 이펙트(10-29): 셀 이름으로 직접 재생한 동작(스킬)만 타격 프레임에 스미어·지면 충격을 띄운다.
     /// 무기 평타(Weapon)가 다른 이름으로 같은 셀을 빌려 쓸 때는 Weapon 이 이미 궤적을 띄우므로 건너뛴다(기본 3타 보존).
     /// </summary>
+    /// <summary>모션 이펙트 켜기(무기만 보는 확인 캡처에서 끈다)</summary>
+    public static bool MotionFxEnabled = true;
+
     private void MotionFx(CelClip cel, int i)
     {
+        if (!MotionFxEnabled)
+        {
+            return;
+        }
         if (cel != _fxCel || i < _fxFrame)
         {
             _fxCel = cel;
@@ -1072,7 +1079,8 @@ public class PixelRig : CharacterRig
                 _backWeapon.RemoveAt(i);
                 continue;
             }
-            _backWeapon[i].sortingOrder = order;
+            // 앞손(반대 손)에 세워 드는 방패·너클·활은 몸 앞에 — 몸 뒤로 그려져 방패가 어디 있는지 안 보였다(10-29 사용자 A14·R8)
+            _backWeapon[i].sortingOrder = _upright.Contains(_backWeapon[i].transform) ? GuardBackWeaponOrder : order;
         }
     }
 

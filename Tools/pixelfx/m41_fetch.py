@@ -20,7 +20,8 @@ def main():
     k = json.load(open(keys, encoding="utf-8"))[motion]
     reg_p = os.path.join(SRC, "m41", "register.json")
     reg = json.load(open(reg_p, encoding="utf-8")) if os.path.exists(reg_p) else {}
-    reg[clip] = {"frames": [f"{folder}/{i}" for i in range(n)], "hand": k["hand"], "angle": k["angle"],
+    hand_b = [[int(round(q["x"] * 64)), int(round(q["y"] * 64))] for f in k["kp"] for q in f if q["label"] == "LEFT ARM"]  # 앞손(방패·보조손)
+    reg[clip] = {"frames": [f"{folder}/{i}" for i in range(n)], "hand": k["hand"], "handB": hand_b, "angle": k["angle"],
                  "times": [round(t / 1000, 3) for t in k["times"]], "job": job, "motion": motion}
     json.dump(reg, open(reg_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(clip, n, "frames →", d)
