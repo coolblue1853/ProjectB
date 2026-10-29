@@ -36,6 +36,11 @@ public class Skill : MonoBehaviour
     [ConditionalHide("isEffectMaxAdd")]
     public int objectMaxCount; // 최대 발생량이 증가하는 아이템 효과를 위함. 아무리 많아도 여기에 지정된 횟수만큼 나감.
      bool isActiveHold = false;
+    private int _activeSlot = -1; // 실제로 발동된 슬롯(ActiveSkill 인자). Inspector skillNum 과 다를 수 있다 (B-113)
+    private Sequence _spawnDelaySequence;  // 선딜 뒤 데미지 오브젝트 생성
+    private Sequence _dmgDelaySequence;    // 선딜 뒤 데미지 설정
+    /// <summary>홀드 스킬이 유지 중인지 — 유지 중에는 다른 스킬을 발동하지 않는다 (B-113)</summary>
+    public bool IsHolding => isActiveHold;
 
     public float skillWaitTime = 0; // 딜레이시간, 이 시간이 지나고 프리팹 생성
 
@@ -112,6 +117,16 @@ public class Skill : MonoBehaviour
         // 무기 해제·파괴 시 잠금 토큰이 남지 않도록 (C9)
         attackWaitSequence.Kill();
         ReleaseLocks();
+        // 홀드·선딜 정리: SetLink 기본값은 파괴 때만 Kill 하므로 비활성화로는 안 멈춘다. 다시 장착했을 때 IsHolding 이 남지 않게 (B-113)
+        skillSequence.Kill();
+        _spawnDelaySequence.Kill();
+        _dmgDelaySequence.Kill();
+        if (isActiveHold && weapon != null)
+        {
+            weapon.isSkillAttackWait = true; // 홀드가 내린 스킬 대기를 되돌린다(만료 콜백이 Kill 되었으므로)
+        }
+        isActiveHold = false;
+        _activeSlot = -1;
     }
     private void Awake()
     {
@@ -292,6 +307,7 @@ public class Skill : MonoBehaviour
         if (CanActivate(num))
         {
             isActive = true;
+            _activeSlot = num;
             if (isRoundAttack == true) RoundAttack(skillWaitTime / StatMath.AttackSpeedMul);
             else if (isGorundCheckSkill == false) NomalAttack(skillWaitTime / StatMath.AttackSpeedMul);
             else
@@ -299,7 +315,7 @@ public class Skill : MonoBehaviour
                 if (skillWaitTime == 0) GroundAttack();
                 else
                 {
-                    Sequence sequence = DOTween.Sequence()
+                    _spawnDelaySequence = DOTween.Sequence()
                     .AppendInterval(skillWaitTime / StatMath.AttackSpeedMul)
                     .AppendCallback(() => GroundAttack()).SetLink(gameObject);
                 }
@@ -310,27 +326,40 @@ public class Skill : MonoBehaviour
    
     void OnSkillReleased(InputAction.CallbackContext context)
     {
-        // 이 스킬이 배정된 키를 뗐을 때만 홀드 종료 (다른 스킬 키를 떼도 끊기던 문제, B-113)
-        if (skillNum < 0 || skillNum >= skillAction.Length || context.action != skillAction[skillNum])
+        // 이 스킬이 실제로 발동된 슬롯의 키를 뗐을 때만 홀드 종료 (다른 스킬 키·Inspector skillNum 불일치, B-113)
+        if (_activeSlot < 0 || _activeSlot >= skillAction.Length || context.action != skillAction[_activeSlot])
         {
             return;
         }
         if (isHoldSkill == true && isActiveHold == true)
         {
-            isActiveHold = false;
-            skillSequence.Kill();
-            skillCooldown.UseSkill(skillNum, skillName);
-            CheckAttackWait();
-            PlayerController.instance.StopAttackAnim();
-            if (dmOb != null)
-            {
-                dmOb.DestroyObject();
-            }
-            if (damageObject != null)
-            {
-                Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
-            }
+            ReleaseHold();
         }
+    }
+
+    /// <summary>키 해제로 홀드 종료. 선딜 중에 떼면 아직 안 나온 생성·데미지 설정도 취소한다 (B-113)</summary>
+    void ReleaseHold()
+    {
+        isActiveHold = false;
+        skillSequence.Kill();
+        _spawnDelaySequence.Kill();
+        _dmgDelaySequence.Kill();
+        skillCooldown.UseSkill(_activeSlot, skillName);
+        CheckAttackWait();
+        if (PlayerController.instance != null)
+        {
+            PlayerController.instance.StopAttackAnim();
+        }
+        if (dmOb != null)
+        {
+            dmOb.DestroyObject();
+        }
+        if (damageObject != null)
+        {
+            Destroy(damageObject.gameObject); // 생성된 오브젝트 삭제.
+        }
+        dmOb = null;
+        damageObject = null;
     }
   
     void GroundAttack() // 땅에서 생성되는 기술, 단일 개체
@@ -376,7 +405,7 @@ public class Skill : MonoBehaviour
         if (waitTime == 0) SetSkillDmg();
         else
         {
-            skillSequence = DOTween.Sequence()
+            _dmgDelaySequence = DOTween.Sequence()
            .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
            .AppendCallback(() => SetSkillDmg()).SetLink(gameObject);
         }
@@ -405,7 +434,7 @@ public class Skill : MonoBehaviour
         }
         else
         {
-            Sequence sequence = DOTween.Sequence()
+            _spawnDelaySequence = DOTween.Sequence()
             .AppendInterval(waitTime)
             .AppendCallback(() => damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform)).SetLink(gameObject);
             PlaySkillSound(0);
@@ -420,7 +449,7 @@ public class Skill : MonoBehaviour
         }
         else
         {
-            Sequence sequence = DOTween.Sequence()
+            _spawnDelaySequence = DOTween.Sequence()
             .AppendInterval(waitTime)
             .AppendCallback(() => RoundSpawn(skillprefab[0], skillPivot[0])).SetLink(gameObject);
             PlaySkillSound(0);

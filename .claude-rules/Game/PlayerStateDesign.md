@@ -202,6 +202,8 @@ public sealed class StatModifier {
 
 ### Phase 0 — B-113 핫픽스 (Skill.cs만)
 
+> **진행(2026-10-30):** ✅ `_activeSlot`(해제 판정·쿨다운), `Skill.IsHolding` + `Weapon.ActiveWeaponSkill` 홀드 중 다른 슬롯·같은 슬롯 발동 차단(설계 2.4-4 선반영), 선딜 시퀀스를 `_spawnDelaySequence`/`_dmgDelaySequence` 필드로 저장해 해제 시 Kill(2.4-5). 리뷰 반영: `OnDisable` 에서 홀드·선딜 시퀀스 Kill + `isActiveHold`/`_activeSlot` 초기화 + 스킬 대기 복구(프로브: 홀드 중 무기 끄고 켜면 IsHolding=False·isSkillAttackWait=True·MoveLock 없음). 해제 라우팅의 AttackManager 이전(2.4-1~2)과 시간 만료 경로를 포함한 `EndHold` 통합(2.4-6)·`SpawnSkills` 코루틴 중단은 아직 — Skill 자체 `canceled` 구독은 슬롯 비교로 안전. 검증: `Tools/probes/hold_skill.cs`(CliffBlade Skybreaker, 가상 키 D 유지 + A 눌렀다 뗌 → 유지·Gale Slash 미발동(isCancleAttack 강제), D 뗌 → 종료·슬롯 2 쿨), 선딜 1초로 바꿔 0.3초에 떼면 데미지 오브젝트 0, 콘솔 에러 0. ⚠️ `equip_weapon.cs` 는 이전 무기를 지우지 않아 `FindFirstObjectByType<Weapon>` 이 입력을 받지 않는 무기를 잡는다 → 프로브는 `AttackManager.equipWeapon` 기준.
+
 - 수정: `Skill.cs` — `_activeSlot` 저장, `OnSkillReleased`에서 `context.action != skillAction[_activeSlot]`이면 return, 쿨다운을 `_activeSlot`으로, `damageObject`/`dmOb` null 가드.
 - 검증
   - [ ] 컴파일 0 에러
@@ -244,6 +246,7 @@ public sealed class StatModifier {
 - 수정: `InventoryManager`, `Chest`, `CraftingManager`, `ShopManager` — 열 때 `_uiLock = Acquire(InputLock, "Inventory")`, 닫을 때 Dispose. 각 UI의 "열기 조건 `isOpenUI == false`"는 `!Has(InputLock)`로(현행: 다른 UI가 열려 있으면 안 열림). Chest의 닫기 경로가 InventoryManager:589/1230에 있으므로 **핸들 소유자를 닫는 쪽에서 찾을 수 있게** `InventoryManager.CloseAll()`이 열린 UI 핸들을 모두 Dispose.
 - 수정: `CraftingManager:476/490` + `PlayerController.DashWait2F` → `AcquireFor(DashLock, 0.1f, "CraftClose")`. `uiDashWait` 필드는 직렬화되어 있으므로 남기고 `[HideInInspector]` + 미사용.
 - 검증: [ ] 인벤토리+창고 동시 → 하나 닫아도 `Has(InputLock)` 유지 [ ] 둘 다 닫으면 이동 가능
+- **완료(2026-10-30):** 레거시 쓰기 0 → `isSuperArmor`·`isInvincibility`·`weaponStopMove`·`checkAttackLadder`·`isOpenUI` 를 **읽기 전용 프로퍼티**로(setter 제거, `SetLegacy` 는 테스트·하위 호환용으로만 남음). `UiLockTests.InvGroupAndCraft_Independent`, 플레이 프로브: InvGroup+Craft → InvGroup 닫아도 isOpenUI=True, 둘 다 닫으면 False. EditMode 135/135.
 
 ### Phase 5 — 입력 버퍼 · 코요테
 

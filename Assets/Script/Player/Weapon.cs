@@ -173,7 +173,26 @@ public class Weapon : MonoBehaviour
 
     public void ActiveWeaponSkill(int num)
     {
-        if(skill[num] != null) skill[num].ActiveSkill(num);
+        if (IsAnySkillHolding())
+        {
+            return; // 홀드 유지 중에는 다른 스킬(취소 가능 스킬 포함)을 발동하지 않는다 (B-113)
+        }
+        if (skill[num] != null)
+        {
+            skill[num].ActiveSkill(num);
+        }
+    }
+
+    private bool IsAnySkillHolding()
+    {
+        for (int i = 0; i < skill.Length; i++)
+        {
+            if (skill[i] != null && skill[i].IsHolding)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool isSkillCancel = false;
