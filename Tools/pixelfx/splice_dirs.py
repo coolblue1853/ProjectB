@@ -16,25 +16,25 @@ SPLICE = {
               ("IaidoNE", "D_IaidoNE", 2, -60, .03, True), "4", "5", "6", "7", "8", "9", "10", "11", ("13", .08)],
     "Throw": ["0", ("ThrowNE", "D_ThrowNE", 0, 110, .05, False), ("ThrowNE", "D_ThrowNE", 1, 120, .18, False),
               ("ThrowNE", "D_ThrowNE", 2, 90, .03, False), "3", "4", "5", "6", "7", "8", "9", "10", "11", "13"],
-    "GreatUpper": ["0", "1", ("UpperNE", "D_UpperNE", 0, 182, .1, True), ("UpperNE", "D_UpperNE", 1, 186, .18, True),
-                   ("UpperNE", "D_UpperNE", 2, 200, .05, True), "4", "5", "6", "7", "8", "9", "10", "11", "13"],
+    "GreatUpper": ["0", "1", ("UpperNE", "D_UpperNE", 0, -178, .1, True), ("UpperNE", "D_UpperNE", 1, -174, .18, True),
+                   ("UpperNE", "D_UpperNE", 2, -160, .05, True), "4", "5", "6", "7", "8", "9", "10", "11", "13"],
     "Pull": ["0", "1", "2", "3", "4", "5", ("PullS", "D_PullS", 0, 5, .06, False), ("PullS", "D_PullS", 1, 10, .15, False),
              ("PullS", "D_PullS", 2, 15, .1, False), "8", "9", "10", "11", "13"],
     "Raise": ["0", "1", "2", "3", "4", ("RaiseS", "D_RaiseS", 0, 60, .05, False), ("RaiseS", "D_RaiseS", 1, 85, .05, False),
               ("RaiseS", "D_RaiseS", 2, 90, .35, False), "12", "13"],
     "ShieldBash": ["0", "1", ("BashNE", "D_BashNE", 0, -100, .05, False), ("BashNE", "D_BashNE", 1, -100, .12, False),
                    ("BashNE", "D_BashNE", 2, -95, .04, False), "4", "5", "6", "7", "8", "9", "10", "11", "13"],
-    "LowSweep": ["0", "1", ("SweepNE", "D_SweepNE", 0, 165, .05, True), ("SweepNE", "D_SweepNE", 1, 170, .15, True),
-                 ("SweepNE", "D_SweepNE", 2, 200, .04, True), "3", "4", "5", "6", "7", "8", "9", "10", "12"],
+    "LowSweep": ["0", "1", ("SweepNE", "D_SweepNE", 0, -195, .05, True), ("SweepNE", "D_SweepNE", 1, -190, .15, True),
+                 ("SweepNE", "D_SweepNE", 2, -160, .04, True), "3", "4", "5", "6", "7", "8", "9", "10", "12"],
     "Punch": ["0", "1", "2", "3", "4", "5", "6", "7", ("PunchNE", "D_PunchNE", 1, 0, .07, False), ("PunchSE", "D_PunchSE", 1, 0, .035, False),
               "10", "11", "12", "13"],  # 원투의 투: 3/4 뒤 장전 → 3/4 앞 통과 → 측면 스트레이트(GPT D4)
     # 검 든 채 사격: 3/4 앞으로 몸을 열고 권총(앞손)을 어깨 높이로, 검은 반대 허리 뒤(GPT 리뷰 "두 무기가 겹친다") — 사격 4·6번
     "SwordPistol": ["0", "1", "2", ("GunSE", "D_GunSE", 0, 200, .08, True), ("GunSE", "D_GunSE", 1, 200, .05, True),
                     ("GunSE", "D_GunSE", 0, 200, .1, True), ("GunSE", "D_GunSE", 1, 200, .05, True), ("GunSE", "D_GunSE", 2, 205, .14, True), "12", "13"],
     # 한손 베기 회전(GPT 2차 "골반·어깨 회전 부족"): 3/4 뒤 감기 → 측면 타격 → 3/4 앞 팔로스루 — 공용 프레임
-    "DashSlash": ["0", "1", ("CoilNE", "D_CoilNE", 0, 190, .06, True), ("CoilNE", "D_CoilNE", 1, 195, .12, True), "3", "4", "5", "6",
+    "DashSlash": ["0", "1", ("CoilNE", "D_CoilNE", 0, -170, .06, True), ("CoilNE", "D_CoilNE", 1, -165, .12, True), "3", "4", "5", "6",
                   ("FollowSE", "D_FollowSE", 0, -10, .06, True), ("FollowSE", "D_FollowSE", 1, -20, .1, True), "9", "10", "11", "13"],
-    "GreatSideOne": ["0", "1", ("CoilNE", "D_CoilNE", 0, 190, .06, True), ("CoilNE", "D_CoilNE", 1, 195, .12, True), "3", "4", "5", "6",
+    "GreatSideOne": ["0", "1", ("CoilNE", "D_CoilNE", 0, -170, .06, True), ("CoilNE", "D_CoilNE", 1, -165, .12, True), "3", "4", "5", "6",
                      ("FollowSE", "D_FollowSE", 0, -10, .08, True), ("FollowSE", "D_FollowSE", 1, -20, .1, True), "9", "10", "11", "13"],
     # 쌍검 X 교차 정면(GPT D3) — 7번째 값 = 앞손 무기 각도(angleB, 10-30 채널)
     "DaggerCross": ["0", "1", ("CrossS", "D_CrossS", 0, 135, .14, False, 45), ("3", .03), ("CrossS", "D_CrossS", 1, -135, .04, False, -45),
@@ -50,7 +50,7 @@ SPLICE = {
     "Lute": [("LuteSE", "D_LuteSE", i, 30, .12, False) for i in range(3)],
     # 새 셀: 납도(발도 끝 자세 → 3/4 앞으로 돌아서며 칼집에) · 승리 포즈(정면)
     "Sheathe": [("7@Iaido", .12), ("9@Iaido", .045), ("SheatheSE", "D_SheatheSE", 0, 90, .08, False),
-                ("SheatheSE", "D_SheatheSE", 1, 160, .06, False), ("SheatheSE", "D_SheatheSE", 2, 175, .35, False)],
+                ("SheatheSE", "D_SheatheSE", 1, 160, .06, True), ("SheatheSE", "D_SheatheSE", 2, 175, .35, True)],
     "Victory": [("VictoryS", "D_VictoryS", 0, 45, .06, False), ("VictoryS", "D_VictoryS", 1, 80, .06, False),
                 ("VictoryS", "D_VictoryS", 2, 90, .6, False)],
 }

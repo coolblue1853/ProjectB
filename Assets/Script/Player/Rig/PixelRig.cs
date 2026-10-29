@@ -675,6 +675,11 @@ public class PixelRig : CharacterRig
             }
             float z = Mathf.Repeat(hand.localEulerAngles.z + 90f, 360f); // 칼 방향(0 = 앞, 270 = 아래)
             float dir = z > 270f || z < 90f ? 6f : -6f;                  // 앞 아래 → 위로, 뒤 아래 → 아래쪽 반대로(뒤 수평 쪽)
+            // 수평 근처까지만 든다 — 넓은 무기(닻 갈고리)는 수평이어도 아래 끝이 발바닥 아래라 계속 들려 위로 섰다(10-30 GPT 리뷰 "올려치기 장전에서 무기가 위로 선다")
+            if ((dir > 0f && z < 90f && z + dir > 15f) || (dir < 0f && z + dir < 165f))
+            {
+                return;
+            }
             hand.localRotation = Quaternion.Euler(0f, 0f, z + dir - 90f);
             _bladeAt = Mathf.Repeat(z + dir - 90f, 360f) + 90f;
         }

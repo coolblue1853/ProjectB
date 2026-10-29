@@ -5861,7 +5861,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": 190.0,
+    "angle": -170.0,
     "angleB": -999.0,
     "behind": true
    },
@@ -5878,7 +5878,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.12,
-    "angle": 195.0,
+    "angle": -165.0,
     "angleB": -999.0,
     "behind": true
    },
@@ -6741,7 +6741,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.05,
-    "angle": 165.0,
+    "angle": -195.0,
     "angleB": -999.0,
     "behind": true
    },
@@ -6758,7 +6758,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.15,
-    "angle": 170.0,
+    "angle": -190.0,
     "angleB": -999.0,
     "behind": true
    },
@@ -6775,7 +6775,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.04,
-    "angle": 200.0,
+    "angle": -160.0,
     "angleB": -999.0,
     "behind": true
    },
@@ -6974,7 +6974,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.1,
-    "angle": 182.0,
+    "angle": -178.0,
     "angleB": -999.0,
     "behind": true
    },
@@ -6991,7 +6991,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.18,
-    "angle": 186.0,
+    "angle": -174.0,
     "angleB": -999.0,
     "behind": true
    },
@@ -7008,7 +7008,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.05,
-    "angle": 200.0,
+    "angle": -160.0,
     "angleB": -999.0,
     "behind": true
    },
@@ -7207,7 +7207,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": 190.0,
+    "angle": -170.0,
     "angleB": -999.0,
     "behind": true
    },
@@ -7224,7 +7224,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.12,
-    "angle": 195.0,
+    "angle": -165.0,
     "angleB": -999.0,
     "behind": true
    },
@@ -10163,7 +10163,8 @@
     "sx": 0,
     "time": 0.06,
     "angle": 160.0,
-    "angleB": -999.0
+    "angleB": -999.0,
+    "behind": true
    },
    {
     "png": "Sheathe_4",
@@ -10179,7 +10180,8 @@
     "sx": 0,
     "time": 0.35,
     "angle": 175.0,
-    "angleB": -999.0
+    "angleB": -999.0,
+    "behind": true
    }
   ]
  },
