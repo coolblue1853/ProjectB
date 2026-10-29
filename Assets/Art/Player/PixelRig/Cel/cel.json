@@ -2554,35 +2554,50 @@
    {
     "png": "Throw_1",
     "hand": [
-     36,
-     22
+     42,
+     30
     ],
     "handB": [
-     52,
-     33
+     28,
+     41
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.045,
-    "angle": 83.7
+    "time": 0.05,
+    "angle": 110.0
    },
    {
     "png": "Throw_2",
     "hand": [
-     26,
-     26
+     41,
+     29
     ],
     "handB": [
-     50,
-     28
+     27,
+     40
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.2,
+    "time": 0.18,
     "angle": 120.0
    },
    {
     "png": "Throw_3",
+    "hand": [
+     43,
+     32
+    ],
+    "handB": [
+     28,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 90.0
+   },
+   {
+    "png": "Throw_4",
     "hand": [
      33,
      23
@@ -2597,7 +2612,7 @@
     "angle": 96.7
    },
    {
-    "png": "Throw_4",
+    "png": "Throw_5",
     "hand": [
      47,
      24
@@ -2612,7 +2627,7 @@
     "angle": 53.3
    },
    {
-    "png": "Throw_5",
+    "png": "Throw_6",
     "hand": [
      53,
      29
@@ -2627,7 +2642,7 @@
     "angle": 30.0
    },
    {
-    "png": "Throw_6",
+    "png": "Throw_7",
     "hand": [
      56,
      35
@@ -2642,7 +2657,7 @@
     "angle": 6.7
    },
    {
-    "png": "Throw_7",
+    "png": "Throw_8",
     "hand": [
      56,
      44
@@ -2657,7 +2672,7 @@
     "angle": -36.7
    },
    {
-    "png": "Throw_8",
+    "png": "Throw_9",
     "hand": [
      53,
      47
@@ -2672,7 +2687,7 @@
     "angle": -60.0
    },
    {
-    "png": "Throw_9",
+    "png": "Throw_10",
     "hand": [
      52,
      44
@@ -2687,7 +2702,7 @@
     "angle": -52.2
    },
    {
-    "png": "Throw_10",
+    "png": "Throw_11",
     "hand": [
      49,
      42
@@ -2702,7 +2717,7 @@
     "angle": -37.8
    },
    {
-    "png": "Throw_11",
+    "png": "Throw_12",
     "hand": [
      47,
      41
@@ -2715,21 +2730,6 @@
     "sx": 0,
     "time": 0.11,
     "angle": -30.0
-   },
-   {
-    "png": "Throw_12",
-    "hand": [
-     43,
-     41
-    ],
-    "handB": [
-     50,
-     42
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.045,
-    "angle": -25.0
    },
    {
     "png": "Throw_13",
@@ -3835,35 +3835,53 @@
    {
     "png": "Iaido_2",
     "hand": [
-     38,
-     39
+     32,
+     44
     ],
     "handB": [
-     52,
-     40
+     30,
+     45
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.22,
-    "angle": -90.0
+    "time": 0.08,
+    "angle": -120.0,
+    "behind": true
    },
    {
     "png": "Iaido_3",
     "hand": [
-     37,
-     39
+     31,
+     46
     ],
     "handB": [
-     52,
-     41
+     29,
+     47
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.15,
-    "angle": -91.0
+    "time": 0.16,
+    "angle": -125.0,
+    "behind": true
    },
    {
     "png": "Iaido_4",
+    "hand": [
+     36,
+     44
+    ],
+    "handB": [
+     29,
+     46
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -60.0,
+    "behind": true
+   },
+   {
+    "png": "Iaido_5",
     "hand": [
      42,
      40
@@ -3878,7 +3896,7 @@
     "angle": -82.9
    },
    {
-    "png": "Iaido_5",
+    "png": "Iaido_6",
     "hand": [
      53,
      38
@@ -3893,7 +3911,7 @@
     "angle": -44.3
    },
    {
-    "png": "Iaido_6",
+    "png": "Iaido_7",
     "hand": [
      56,
      34
@@ -3908,7 +3926,7 @@
     "angle": 0.0
    },
    {
-    "png": "Iaido_7",
+    "png": "Iaido_8",
     "hand": [
      56,
      35
@@ -3923,7 +3941,7 @@
     "angle": -3.0
    },
    {
-    "png": "Iaido_8",
+    "png": "Iaido_9",
     "hand": [
      55,
      35
@@ -3938,7 +3956,7 @@
     "angle": -10.0
    },
    {
-    "png": "Iaido_9",
+    "png": "Iaido_10",
     "hand": [
      52,
      37
@@ -3953,7 +3971,7 @@
     "angle": -23.0
    },
    {
-    "png": "Iaido_10",
+    "png": "Iaido_11",
     "hand": [
      50,
      38
@@ -3968,7 +3986,7 @@
     "angle": -30.0
    },
    {
-    "png": "Iaido_11",
+    "png": "Iaido_12",
     "hand": [
      48,
      40
@@ -3981,21 +3999,6 @@
     "sx": 0,
     "time": 0.045,
     "angle": -27.4
-   },
-   {
-    "png": "Iaido_12",
-    "hand": [
-     43,
-     41
-    ],
-    "handB": [
-     49,
-     42
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.045,
-    "angle": -22.6
    },
    {
     "png": "Iaido_13",
@@ -4312,110 +4315,50 @@
    {
     "png": "Raise_5",
     "hand": [
-     28,
-     24
+     41,
+     33
     ],
     "handB": [
-     49,
-     24
+     23,
+     33
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.12,
-    "angle": 135.0
+    "time": 0.05,
+    "angle": 60.0
    },
    {
     "png": "Raise_6",
     "hand": [
-     27,
-     25
+     42,
+     30
     ],
     "handB": [
-     49,
-     25
+     22,
+     30
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.045,
-    "angle": 137.6
+    "time": 0.05,
+    "angle": 85.0
    },
    {
     "png": "Raise_7",
     "hand": [
-     25,
-     26
+     43,
+     30
     ],
     "handB": [
-     48,
-     26
+     21,
+     30
     ],
-    "dy": -1,
+    "dy": 1,
     "sx": 0,
-    "time": 0.045,
-    "angle": 142.4
+    "time": 0.35,
+    "angle": 90.0
    },
    {
     "png": "Raise_8",
-    "hand": [
-     24,
-     27
-    ],
-    "handB": [
-     47,
-     27
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.3,
-    "angle": 145.0
-   },
-   {
-    "png": "Raise_9",
-    "hand": [
-     24,
-     27
-    ],
-    "handB": [
-     48,
-     27
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 147.6
-   },
-   {
-    "png": "Raise_10",
-    "hand": [
-     25,
-     28
-    ],
-    "handB": [
-     49,
-     26
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 152.4
-   },
-   {
-    "png": "Raise_11",
-    "hand": [
-     25,
-     28
-    ],
-    "handB": [
-     50,
-     26
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.14,
-    "angle": 155.0
-   },
-   {
-    "png": "Raise_12",
     "hand": [
      44,
      26
@@ -4430,7 +4373,7 @@
     "angle": 67.5
    },
    {
-    "png": "Raise_13",
+    "png": "Raise_9",
     "hand": [
      36,
      41
@@ -6142,35 +6085,50 @@
    {
     "png": "ShieldBash_2",
     "hand": [
-     33,
-     42
+     40,
+     44
     ],
     "handB": [
-     43,
-     33
+     30,
+     40
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.11,
-    "angle": 40.0
+    "time": 0.05,
+    "angle": -100.0
    },
    {
     "png": "ShieldBash_3",
     "hand": [
-     37,
-     42
+     40,
+     45
     ],
     "handB": [
-     48,
-     32
+     30,
+     41
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.045,
-    "angle": 36.1
+    "time": 0.12,
+    "angle": -100.0
    },
    {
     "png": "ShieldBash_4",
+    "hand": [
+     41,
+     44
+    ],
+    "handB": [
+     33,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.04,
+    "angle": -95.0
+   },
+   {
+    "png": "ShieldBash_5",
     "hand": [
      43,
      43
@@ -6185,7 +6143,7 @@
     "angle": 28.9
    },
    {
-    "png": "ShieldBash_5",
+    "png": "ShieldBash_6",
     "hand": [
      46,
      44
@@ -6200,7 +6158,7 @@
     "angle": 25.0
    },
    {
-    "png": "ShieldBash_6",
+    "png": "ShieldBash_7",
     "hand": [
      47,
      45
@@ -6215,7 +6173,7 @@
     "angle": 23.7
    },
    {
-    "png": "ShieldBash_7",
+    "png": "ShieldBash_8",
     "hand": [
      49,
      45
@@ -6230,7 +6188,7 @@
     "angle": 21.3
    },
    {
-    "png": "ShieldBash_8",
+    "png": "ShieldBash_9",
     "hand": [
      50,
      46
@@ -6245,7 +6203,7 @@
     "angle": 20.0
    },
    {
-    "png": "ShieldBash_9",
+    "png": "ShieldBash_10",
     "hand": [
      48,
      44
@@ -6260,7 +6218,7 @@
     "angle": 23.9
    },
    {
-    "png": "ShieldBash_10",
+    "png": "ShieldBash_11",
     "hand": [
      44,
      42
@@ -6275,7 +6233,7 @@
     "angle": 31.1
    },
    {
-    "png": "ShieldBash_11",
+    "png": "ShieldBash_12",
     "hand": [
      42,
      42
@@ -6288,21 +6246,6 @@
     "sx": 0,
     "time": 0.18,
     "angle": 35.0
-   },
-   {
-    "png": "ShieldBash_12",
-    "hand": [
-     39,
-     42
-    ],
-    "handB": [
-     55,
-     36
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 7.5
    },
    {
     "png": "ShieldBash_13",
@@ -6604,35 +6547,50 @@
    {
     "png": "Pull_6",
     "hand": [
-     28,
-     36
+     36,
+     40
     ],
     "handB": [
-     36,
-     46
+     32,
+     39
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.15,
-    "angle": 30.0
+    "time": 0.06,
+    "angle": 5.0
    },
    {
     "png": "Pull_7",
     "hand": [
-     28,
-     36
+     34,
+     41
     ],
     "handB": [
-     36,
-     46
+     31,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.15,
+    "angle": 10.0
+   },
+   {
+    "png": "Pull_8",
+    "hand": [
+     35,
+     42
+    ],
+    "handB": [
+     31,
+     41
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.1,
-    "angle": 30.0
+    "angle": 15.0
    },
    {
-    "png": "Pull_8",
+    "png": "Pull_9",
     "hand": [
      31,
      38
@@ -6647,7 +6605,7 @@
     "angle": 14.4
    },
    {
-    "png": "Pull_9",
+    "png": "Pull_10",
     "hand": [
      37,
      41
@@ -6662,7 +6620,7 @@
     "angle": -14.4
    },
    {
-    "png": "Pull_10",
+    "png": "Pull_11",
     "hand": [
      40,
      42
@@ -6677,7 +6635,7 @@
     "angle": -30.0
    },
    {
-    "png": "Pull_11",
+    "png": "Pull_12",
     "hand": [
      39,
      42
@@ -6690,21 +6648,6 @@
     "sx": 0,
     "time": 0.045,
     "angle": -27.4
-   },
-   {
-    "png": "Pull_12",
-    "hand": [
-     37,
-     42
-    ],
-    "handB": [
-     45,
-     43
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.045,
-    "angle": -22.6
    },
    {
     "png": "Pull_13",
@@ -6760,20 +6703,53 @@
    {
     "png": "LowSweep_2",
     "hand": [
-     27,
-     34
+     31,
+     44
     ],
     "handB": [
-     34,
-     34
+     29,
+     45
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.18,
-    "angle": 175.0
+    "time": 0.05,
+    "angle": 165.0,
+    "behind": true
    },
    {
     "png": "LowSweep_3",
+    "hand": [
+     31,
+     45
+    ],
+    "handB": [
+     28,
+     46
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.15,
+    "angle": 170.0,
+    "behind": true
+   },
+   {
+    "png": "LowSweep_4",
+    "hand": [
+     34,
+     46
+    ],
+    "handB": [
+     31,
+     47
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.04,
+    "angle": 200.0,
+    "behind": true
+   },
+   {
+    "png": "LowSweep_5",
     "hand": [
      39,
      46
@@ -6788,7 +6764,7 @@
     "angle": -100.0
    },
    {
-    "png": "LowSweep_4",
+    "png": "LowSweep_6",
     "hand": [
      43,
      46
@@ -6803,7 +6779,7 @@
     "angle": -75.4
    },
    {
-    "png": "LowSweep_5",
+    "png": "LowSweep_7",
     "hand": [
      51,
      43
@@ -6818,7 +6794,7 @@
     "angle": -29.6
    },
    {
-    "png": "LowSweep_6",
+    "png": "LowSweep_8",
     "hand": [
      54,
      40
@@ -6833,7 +6809,7 @@
     "angle": -5.0
    },
    {
-    "png": "LowSweep_7",
+    "png": "LowSweep_9",
     "hand": [
      52,
      40
@@ -6848,7 +6824,7 @@
     "angle": -11.5
    },
    {
-    "png": "LowSweep_8",
+    "png": "LowSweep_10",
     "hand": [
      49,
      40
@@ -6863,7 +6839,7 @@
     "angle": -23.5
    },
    {
-    "png": "LowSweep_9",
+    "png": "LowSweep_11",
     "hand": [
      47,
      41
@@ -6878,7 +6854,7 @@
     "angle": -30.0
    },
    {
-    "png": "LowSweep_10",
+    "png": "LowSweep_12",
     "hand": [
      45,
      41
@@ -6893,22 +6869,7 @@
     "angle": -27.4
    },
    {
-    "png": "LowSweep_11",
-    "hand": [
-     41,
-     41
-    ],
-    "handB": [
-     47,
-     42
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.045,
-    "angle": -22.6
-   },
-   {
-    "png": "LowSweep_12",
+    "png": "LowSweep_13",
     "hand": [
      39,
      41
@@ -6961,35 +6922,53 @@
    {
     "png": "GreatUpper_2",
     "hand": [
-     45,
+     32,
      45
     ],
     "handB": [
-     54,
-     44
+     30,
+     46
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.28,
-    "angle": -65.0
+    "time": 0.1,
+    "angle": 182.0,
+    "behind": true
    },
    {
     "png": "GreatUpper_3",
     "hand": [
-     46,
-     44
+     32,
+     46
     ],
     "handB": [
-     55,
-     43
+     29,
+     47
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.18,
+    "angle": 186.0,
+    "behind": true
+   },
+   {
+    "png": "GreatUpper_4",
+    "hand": [
+     34,
+     46
+    ],
+    "handB": [
+     33,
+     45
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.05,
-    "angle": -59.8
+    "angle": 200.0,
+    "behind": true
    },
    {
-    "png": "GreatUpper_4",
+    "png": "GreatUpper_5",
     "hand": [
      49,
      43
@@ -7004,7 +6983,7 @@
     "angle": -50.2
    },
    {
-    "png": "GreatUpper_5",
+    "png": "GreatUpper_6",
     "hand": [
      50,
      42
@@ -7019,7 +6998,7 @@
     "angle": -45.0
    },
    {
-    "png": "GreatUpper_6",
+    "png": "GreatUpper_7",
     "hand": [
      51,
      37
@@ -7034,7 +7013,7 @@
     "angle": -16.5
    },
    {
-    "png": "GreatUpper_7",
+    "png": "GreatUpper_8",
     "hand": [
      48,
      27
@@ -7049,7 +7028,7 @@
     "angle": 36.5
    },
    {
-    "png": "GreatUpper_8",
+    "png": "GreatUpper_9",
     "hand": [
      44,
      24
@@ -7064,7 +7043,7 @@
     "angle": 65.0
    },
    {
-    "png": "GreatUpper_9",
+    "png": "GreatUpper_10",
     "hand": [
      42,
      23
@@ -7079,7 +7058,7 @@
     "angle": 70.2
    },
    {
-    "png": "GreatUpper_10",
+    "png": "GreatUpper_11",
     "hand": [
      38,
      23
@@ -7094,7 +7073,7 @@
     "angle": 79.8
    },
    {
-    "png": "GreatUpper_11",
+    "png": "GreatUpper_12",
     "hand": [
      36,
      23
@@ -7107,21 +7086,6 @@
     "sx": 0,
     "time": 0.25,
     "angle": 85.0
-   },
-   {
-    "png": "GreatUpper_12",
-    "hand": [
-     46,
-     33
-    ],
-    "handB": [
-     53,
-     33
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.05,
-    "angle": 32.5
    },
    {
     "png": "GreatUpper_13",
@@ -8606,6 +8570,1635 @@
     "sx": 0,
     "time": 0.12,
     "angle": -20.0
+   }
+  ]
+ },
+ "Iaido_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Iaido_side_0",
+    "hand": [
+     36,
+     41
+    ],
+    "handB": [
+     47,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -58.9
+   },
+   {
+    "png": "Iaido_side_1",
+    "hand": [
+     37,
+     40
+    ],
+    "handB": [
+     51,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -103.0
+   },
+   {
+    "png": "Iaido_side_2",
+    "hand": [
+     38,
+     39
+    ],
+    "handB": [
+     52,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.22,
+    "angle": -90.0
+   },
+   {
+    "png": "Iaido_side_3",
+    "hand": [
+     37,
+     39
+    ],
+    "handB": [
+     52,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.15,
+    "angle": -91.0
+   },
+   {
+    "png": "Iaido_side_4",
+    "hand": [
+     42,
+     40
+    ],
+    "handB": [
+     49,
+     43
+    ],
+    "dy": -2,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -82.9
+   },
+   {
+    "png": "Iaido_side_5",
+    "hand": [
+     53,
+     38
+    ],
+    "handB": [
+     42,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -44.3
+   },
+   {
+    "png": "Iaido_side_6",
+    "hand": [
+     56,
+     34
+    ],
+    "handB": [
+     43,
+     34
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 0.0
+   },
+   {
+    "png": "Iaido_side_7",
+    "hand": [
+     56,
+     35
+    ],
+    "handB": [
+     43,
+     33
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.18,
+    "angle": -3.0
+   },
+   {
+    "png": "Iaido_side_8",
+    "hand": [
+     55,
+     35
+    ],
+    "handB": [
+     43,
+     38
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -10.0
+   },
+   {
+    "png": "Iaido_side_9",
+    "hand": [
+     52,
+     37
+    ],
+    "handB": [
+     49,
+     43
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -23.0
+   },
+   {
+    "png": "Iaido_side_10",
+    "hand": [
+     50,
+     38
+    ],
+    "handB": [
+     53,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -30.0
+   },
+   {
+    "png": "Iaido_side_11",
+    "hand": [
+     48,
+     40
+    ],
+    "handB": [
+     52,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "Iaido_side_12",
+    "hand": [
+     43,
+     41
+    ],
+    "handB": [
+     49,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "Iaido_side_13",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     48,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "Throw_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Throw_side_0",
+    "hand": [
+     45,
+     37
+    ],
+    "handB": [
+     48,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 16.3
+   },
+   {
+    "png": "Throw_side_1",
+    "hand": [
+     36,
+     22
+    ],
+    "handB": [
+     52,
+     33
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 83.7
+   },
+   {
+    "png": "Throw_side_2",
+    "hand": [
+     26,
+     26
+    ],
+    "handB": [
+     50,
+     28
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.2,
+    "angle": 120.0
+   },
+   {
+    "png": "Throw_side_3",
+    "hand": [
+     33,
+     23
+    ],
+    "handB": [
+     54,
+     33
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 96.7
+   },
+   {
+    "png": "Throw_side_4",
+    "hand": [
+     47,
+     24
+    ],
+    "handB": [
+     52,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 53.3
+   },
+   {
+    "png": "Throw_side_5",
+    "hand": [
+     53,
+     29
+    ],
+    "handB": [
+     50,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 30.0
+   },
+   {
+    "png": "Throw_side_6",
+    "hand": [
+     56,
+     35
+    ],
+    "handB": [
+     50,
+     44
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 6.7
+   },
+   {
+    "png": "Throw_side_7",
+    "hand": [
+     56,
+     44
+    ],
+    "handB": [
+     50,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -36.7
+   },
+   {
+    "png": "Throw_side_8",
+    "hand": [
+     53,
+     47
+    ],
+    "handB": [
+     50,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.17,
+    "angle": -60.0
+   },
+   {
+    "png": "Throw_side_9",
+    "hand": [
+     52,
+     44
+    ],
+    "handB": [
+     51,
+     44
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -52.2
+   },
+   {
+    "png": "Throw_side_10",
+    "hand": [
+     49,
+     42
+    ],
+    "handB": [
+     52,
+     43
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -37.8
+   },
+   {
+    "png": "Throw_side_11",
+    "hand": [
+     47,
+     41
+    ],
+    "handB": [
+     52,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -30.0
+   },
+   {
+    "png": "Throw_side_12",
+    "hand": [
+     43,
+     41
+    ],
+    "handB": [
+     50,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -25.0
+   },
+   {
+    "png": "Throw_side_13",
+    "hand": [
+     39,
+     41
+    ],
+    "handB": [
+     47,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "GreatUpper_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "GreatUpper_side_0",
+    "hand": [
+     38,
+     43
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": -31.7
+   },
+   {
+    "png": "GreatUpper_side_1",
+    "hand": [
+     43,
+     44
+    ],
+    "handB": [
+     51,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": -53.3
+   },
+   {
+    "png": "GreatUpper_side_2",
+    "hand": [
+     45,
+     45
+    ],
+    "handB": [
+     54,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.28,
+    "angle": -65.0
+   },
+   {
+    "png": "GreatUpper_side_3",
+    "hand": [
+     46,
+     44
+    ],
+    "handB": [
+     55,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": -59.8
+   },
+   {
+    "png": "GreatUpper_side_4",
+    "hand": [
+     49,
+     43
+    ],
+    "handB": [
+     57,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": -50.2
+   },
+   {
+    "png": "GreatUpper_side_5",
+    "hand": [
+     50,
+     42
+    ],
+    "handB": [
+     58,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -45.0
+   },
+   {
+    "png": "GreatUpper_side_6",
+    "hand": [
+     51,
+     37
+    ],
+    "handB": [
+     59,
+     36
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": -16.5
+   },
+   {
+    "png": "GreatUpper_side_7",
+    "hand": [
+     48,
+     27
+    ],
+    "handB": [
+     56,
+     28
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.05,
+    "angle": 36.5
+   },
+   {
+    "png": "GreatUpper_side_8",
+    "hand": [
+     44,
+     24
+    ],
+    "handB": [
+     52,
+     25
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
+    "angle": 65.0
+   },
+   {
+    "png": "GreatUpper_side_9",
+    "hand": [
+     42,
+     23
+    ],
+    "handB": [
+     50,
+     24
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.05,
+    "angle": 70.2
+   },
+   {
+    "png": "GreatUpper_side_10",
+    "hand": [
+     38,
+     23
+    ],
+    "handB": [
+     47,
+     23
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.05,
+    "angle": 79.8
+   },
+   {
+    "png": "GreatUpper_side_11",
+    "hand": [
+     36,
+     23
+    ],
+    "handB": [
+     45,
+     23
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.25,
+    "angle": 85.0
+   },
+   {
+    "png": "GreatUpper_side_12",
+    "hand": [
+     46,
+     33
+    ],
+    "handB": [
+     53,
+     33
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.05,
+    "angle": 32.5
+   },
+   {
+    "png": "GreatUpper_side_13",
+    "hand": [
+     36,
+     41
+    ],
+    "handB": [
+     44,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0
+   }
+  ]
+ },
+ "Pull_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Pull_side_0",
+    "hand": [
+     42,
+     42
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -13.5
+   },
+   {
+    "png": "Pull_side_1",
+    "hand": [
+     51,
+     37
+    ],
+    "handB": [
+     52,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -1.5
+   },
+   {
+    "png": "Pull_side_2",
+    "hand": [
+     53,
+     34
+    ],
+    "handB": [
+     54,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": 5.0
+   },
+   {
+    "png": "Pull_side_3",
+    "hand": [
+     53,
+     34
+    ],
+    "handB": [
+     54,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": 4.0
+   },
+   {
+    "png": "Pull_side_4",
+    "hand": [
+     48,
+     36
+    ],
+    "handB": [
+     50,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 10.7
+   },
+   {
+    "png": "Pull_side_5",
+    "hand": [
+     35,
+     38
+    ],
+    "handB": [
+     41,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 23.3
+   },
+   {
+    "png": "Pull_side_6",
+    "hand": [
+     28,
+     36
+    ],
+    "handB": [
+     36,
+     46
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.15,
+    "angle": 30.0
+   },
+   {
+    "png": "Pull_side_7",
+    "hand": [
+     28,
+     36
+    ],
+    "handB": [
+     36,
+     46
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": 30.0
+   },
+   {
+    "png": "Pull_side_8",
+    "hand": [
+     31,
+     38
+    ],
+    "handB": [
+     38,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 14.4
+   },
+   {
+    "png": "Pull_side_9",
+    "hand": [
+     37,
+     41
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -14.4
+   },
+   {
+    "png": "Pull_side_10",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -30.0
+   },
+   {
+    "png": "Pull_side_11",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "Pull_side_12",
+    "hand": [
+     37,
+     42
+    ],
+    "handB": [
+     45,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "Pull_side_13",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "Raise_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Raise_side_0",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     43,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "Raise_side_1",
+    "hand": [
+     45,
+     42
+    ],
+    "handB": [
+     42,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "Raise_side_2",
+    "hand": [
+     48,
+     41
+    ],
+    "handB": [
+     42,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.16,
+    "angle": -20.0
+   },
+   {
+    "png": "Raise_side_3",
+    "hand": [
+     50,
+     33
+    ],
+    "handB": [
+     48,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 20.2
+   },
+   {
+    "png": "Raise_side_4",
+    "hand": [
+     37,
+     22
+    ],
+    "handB": [
+     54,
+     32
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 94.8
+   },
+   {
+    "png": "Raise_side_5",
+    "hand": [
+     28,
+     24
+    ],
+    "handB": [
+     49,
+     24
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.12,
+    "angle": 135.0
+   },
+   {
+    "png": "Raise_side_6",
+    "hand": [
+     27,
+     25
+    ],
+    "handB": [
+     49,
+     25
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 137.6
+   },
+   {
+    "png": "Raise_side_7",
+    "hand": [
+     25,
+     26
+    ],
+    "handB": [
+     48,
+     26
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 142.4
+   },
+   {
+    "png": "Raise_side_8",
+    "hand": [
+     24,
+     27
+    ],
+    "handB": [
+     47,
+     27
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.3,
+    "angle": 145.0
+   },
+   {
+    "png": "Raise_side_9",
+    "hand": [
+     24,
+     27
+    ],
+    "handB": [
+     48,
+     27
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 147.6
+   },
+   {
+    "png": "Raise_side_10",
+    "hand": [
+     25,
+     28
+    ],
+    "handB": [
+     49,
+     26
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 152.4
+   },
+   {
+    "png": "Raise_side_11",
+    "hand": [
+     25,
+     28
+    ],
+    "handB": [
+     50,
+     26
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.14,
+    "angle": 155.0
+   },
+   {
+    "png": "Raise_side_12",
+    "hand": [
+     44,
+     26
+    ],
+    "handB": [
+     52,
+     36
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 67.5
+   },
+   {
+    "png": "Raise_side_13",
+    "hand": [
+     36,
+     41
+    ],
+    "handB": [
+     44,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0
+   }
+  ]
+ },
+ "ShieldBash_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "ShieldBash_side_0",
+    "hand": [
+     35,
+     42
+    ],
+    "handB": [
+     47,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -4.4
+   },
+   {
+    "png": "ShieldBash_side_1",
+    "hand": [
+     34,
+     42
+    ],
+    "handB": [
+     47,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 24.4
+   },
+   {
+    "png": "ShieldBash_side_2",
+    "hand": [
+     33,
+     42
+    ],
+    "handB": [
+     43,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.11,
+    "angle": 40.0
+   },
+   {
+    "png": "ShieldBash_side_3",
+    "hand": [
+     37,
+     42
+    ],
+    "handB": [
+     48,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 36.1
+   },
+   {
+    "png": "ShieldBash_side_4",
+    "hand": [
+     43,
+     43
+    ],
+    "handB": [
+     57,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 28.9
+   },
+   {
+    "png": "ShieldBash_side_5",
+    "hand": [
+     46,
+     44
+    ],
+    "handB": [
+     60,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.07,
+    "angle": 25.0
+   },
+   {
+    "png": "ShieldBash_side_6",
+    "hand": [
+     47,
+     45
+    ],
+    "handB": [
+     61,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 23.7
+   },
+   {
+    "png": "ShieldBash_side_7",
+    "hand": [
+     49,
+     45
+    ],
+    "handB": [
+     62,
+     36
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 21.3
+   },
+   {
+    "png": "ShieldBash_side_8",
+    "hand": [
+     50,
+     46
+    ],
+    "handB": [
+     63,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.11,
+    "angle": 20.0
+   },
+   {
+    "png": "ShieldBash_side_9",
+    "hand": [
+     48,
+     44
+    ],
+    "handB": [
+     61,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 23.9
+   },
+   {
+    "png": "ShieldBash_side_10",
+    "hand": [
+     44,
+     42
+    ],
+    "handB": [
+     55,
+     27
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 31.1
+   },
+   {
+    "png": "ShieldBash_side_11",
+    "hand": [
+     42,
+     42
+    ],
+    "handB": [
+     52,
+     25
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.18,
+    "angle": 35.0
+   },
+   {
+    "png": "ShieldBash_side_12",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     55,
+     36
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 7.5
+   },
+   {
+    "png": "ShieldBash_side_13",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0
+   }
+  ]
+ },
+ "LowSweep_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "LowSweep_side_0",
+    "hand": [
+     32,
+     42
+    ],
+    "handB": [
+     40,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -62.8
+   },
+   {
+    "png": "LowSweep_side_1",
+    "hand": [
+     27,
+     37
+    ],
+    "handB": [
+     34,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -142.2
+   },
+   {
+    "png": "LowSweep_side_2",
+    "hand": [
+     27,
+     34
+    ],
+    "handB": [
+     34,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.18,
+    "angle": 175.0
+   },
+   {
+    "png": "LowSweep_side_3",
+    "hand": [
+     39,
+     46
+    ],
+    "handB": [
+     42,
+     44
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.04,
+    "angle": -100.0
+   },
+   {
+    "png": "LowSweep_side_4",
+    "hand": [
+     43,
+     46
+    ],
+    "handB": [
+     46,
+     45
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -75.4
+   },
+   {
+    "png": "LowSweep_side_5",
+    "hand": [
+     51,
+     43
+    ],
+    "handB": [
+     54,
+     43
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -29.6
+   },
+   {
+    "png": "LowSweep_side_6",
+    "hand": [
+     54,
+     40
+    ],
+    "handB": [
+     57,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.16,
+    "angle": -5.0
+   },
+   {
+    "png": "LowSweep_side_7",
+    "hand": [
+     52,
+     40
+    ],
+    "handB": [
+     56,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -11.5
+   },
+   {
+    "png": "LowSweep_side_8",
+    "hand": [
+     49,
+     40
+    ],
+    "handB": [
+     52,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -23.5
+   },
+   {
+    "png": "LowSweep_side_9",
+    "hand": [
+     47,
+     41
+    ],
+    "handB": [
+     50,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -30.0
+   },
+   {
+    "png": "LowSweep_side_10",
+    "hand": [
+     45,
+     41
+    ],
+    "handB": [
+     49,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "LowSweep_side_11",
+    "hand": [
+     41,
+     41
+    ],
+    "handB": [
+     47,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "LowSweep_side_12",
+    "hand": [
+     39,
+     41
+    ],
+    "handB": [
+     47,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "Sheathe": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Sheathe_0",
+    "hand": [
+     56,
+     35
+    ],
+    "handB": [
+     43,
+     33
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -3.0
+   },
+   {
+    "png": "Sheathe_1",
+    "hand": [
+     52,
+     37
+    ],
+    "handB": [
+     49,
+     43
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -23.0
+   },
+   {
+    "png": "Sheathe_2",
+    "hand": [
+     37,
+     31
+    ],
+    "handB": [
+     42,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
+    "angle": 90.0
+   },
+   {
+    "png": "Sheathe_3",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     43,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 160.0
+   },
+   {
+    "png": "Sheathe_4",
+    "hand": [
+     41,
+     44
+    ],
+    "handB": [
+     43,
+     44
+    ],
+    "dy": 1,
+    "sx": 0,
+    "time": 0.35,
+    "angle": 175.0
+   }
+  ]
+ },
+ "Victory": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Victory_0",
+    "hand": [
+     40,
+     40
+    ],
+    "handB": [
+     25,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 45.0
+   },
+   {
+    "png": "Victory_1",
+    "hand": [
+     42,
+     33
+    ],
+    "handB": [
+     25,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 80.0
+   },
+   {
+    "png": "Victory_2",
+    "hand": [
+     42,
+     32
+    ],
+    "handB": [
+     25,
+     44
+    ],
+    "dy": 1,
+    "sx": 0,
+    "time": 0.6,
+    "angle": 90.0
    }
   ]
  },

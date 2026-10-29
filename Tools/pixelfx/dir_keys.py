@@ -53,6 +53,52 @@ MOTIONS = {
         ("north", {"RIGHT ARM": (37, 35), "LEFT ARM": (33, 29), "RIGHT LEG": (38, 53), "LEFT LEG": (32, 49)}, 0),
         ("north", {"RIGHT ARM": (37, 32), "LEFT ARM": (33, 31), "RIGHT LEG": (38, 51), "LEFT LEG": (32, 51), "shift": (0, -1)}, 0),
     ],
+    # 10-29 밤 2차(GPT 방향 혼합 판정 §19): 측면 셀의 장전·유지 키를 방향 프레임으로 바꿔 끼운다(각 3장 = 2생성)
+    "D_IaidoNE": [   # 발도 장전: 등을 보이며 낮게 웅크려 왼 허리 칼자루를 쥠
+        ("ne", {"RIGHT SHOULDER": (37, 40), "RIGHT ARM": (32, 44), "LEFT ARM": (30, 45), "LEFT LEG": (28, 52), "RIGHT LEG": (43, 52), "shift": (1, 2)}, -120),
+        ("ne", {"RIGHT SHOULDER": (37, 42), "RIGHT ARM": (31, 46), "LEFT ARM": (29, 47), "LEFT LEG": (27, 52), "RIGHT LEG": (44, 52), "shift": (1, 4)}, -125),
+        ("ne", {"RIGHT SHOULDER": (39, 41), "RIGHT ARM": (36, 44), "LEFT ARM": (29, 46), "LEFT LEG": (27, 52), "RIGHT LEG": (44, 52), "shift": (2, 3)}, -60),
+    ],
+    "D_SheatheSE": [  # 납도: 3/4 앞으로 돌아서며 칼을 턱 옆에 세움 → 왼 허리 칼집으로
+        ("se", {"RIGHT ARM": (37, 31), "LEFT ARM": (42, 45)}, 90),
+        ("se", {"RIGHT SHOULDER": (37, 36), "RIGHT ARM": (40, 41), "LEFT ARM": (43, 45)}, 160),
+        ("se", {"RIGHT SHOULDER": (37, 36), "RIGHT ARM": (41, 43), "LEFT ARM": (43, 44), "shift": (0, -1)}, 175),
+    ],
+    "D_ThrowNE": [   # 던지기 장전: 등 돌려 던지는 손을 귀 뒤로
+        ("ne", {"RIGHT ARM": (42, 30), "LEFT ARM": (28, 41), "LEFT LEG": (28, 52), "RIGHT LEG": (43, 52)}, 110),
+        ("ne", {"RIGHT ARM": (41, 29), "LEFT ARM": (27, 40), "LEFT LEG": (28, 52), "RIGHT LEG": (43, 52), "shift": (-1, 0)}, 120),
+        ("ne", {"RIGHT ARM": (43, 32), "LEFT ARM": (28, 41), "LEFT LEG": (28, 52), "RIGHT LEG": (43, 52)}, 90),
+    ],
+    "D_UpperNE": [   # 양손 올려치기 장전: 등 돌려 무기를 뒤 아래로 낮게 끌기
+        ("ne", {"RIGHT SHOULDER": (37, 39), "RIGHT ARM": (31, 47), "LEFT ARM": (30, 47), "LEFT LEG": (27, 52), "RIGHT LEG": (43, 52), "shift": (-1, 2)}, -140),
+        ("ne", {"RIGHT SHOULDER": (37, 40), "RIGHT ARM": (30, 48), "LEFT ARM": (29, 48), "LEFT LEG": (27, 52), "RIGHT LEG": (43, 52), "shift": (-1, 3)}, -145),
+        ("ne", {"RIGHT SHOULDER": (38, 39), "RIGHT ARM": (34, 46), "LEFT ARM": (33, 46), "LEFT LEG": (27, 52), "RIGHT LEG": (43, 52), "shift": (0, 2)}, -110),
+    ],
+    "D_PullS": [     # 당기기: 정면으로 버티며 두 손을 가슴으로
+        ("south", {"RIGHT ARM": (36, 40), "LEFT ARM": (34, 40), "LEFT LEG": (23, 52), "RIGHT LEG": (41, 52), "shift": (-1, 0)}, 5),
+        ("south", {"RIGHT ARM": (34, 41), "LEFT ARM": (32, 41), "LEFT LEG": (23, 52), "RIGHT LEG": (41, 52), "shift": (-2, 1)}, 10),
+        ("south", {"RIGHT ARM": (35, 42), "LEFT ARM": (33, 42), "LEFT LEG": (23, 52), "RIGHT LEG": (41, 52), "shift": (-2, 1)}, 15),
+    ],
+    "D_RaiseS": [    # 양손 들기: 정면, 손은 머리 양옆(머리 위로 겹치면 팔이 사라진다 — GPT)
+        ("south", {"RIGHT ARM": (41, 33), "LEFT ARM": (23, 33)}, 60),
+        ("south", {"RIGHT ARM": (42, 30), "LEFT ARM": (22, 30), "shift": (0, -1)}, 85),
+        ("south", {"RIGHT ARM": (43, 29), "LEFT ARM": (21, 29), "LEFT LEG": (26, 52), "RIGHT LEG": (38, 52), "shift": (0, -1)}, 90),
+    ],
+    "D_BashNE": [    # 방패 밀치기 장전: 등 돌려 방패를 가슴에 웅크림
+        ("ne", {"RIGHT ARM": (40, 44), "LEFT ARM": (30, 40), "LEFT LEG": (28, 52), "RIGHT LEG": (43, 52), "shift": (-1, 1)}, -100),
+        ("ne", {"RIGHT ARM": (40, 45), "LEFT ARM": (30, 41), "LEFT LEG": (28, 52), "RIGHT LEG": (43, 52), "shift": (-2, 2)}, -100),
+        ("ne", {"RIGHT ARM": (41, 44), "LEFT ARM": (33, 39), "LEFT LEG": (28, 52), "RIGHT LEG": (43, 52), "shift": (0, 1)}, -95),
+    ],
+    "D_SweepNE": [   # 하단 쓸기 장전: 등 돌려 창을 뒤로 낮게
+        ("ne", {"RIGHT SHOULDER": (37, 38), "RIGHT ARM": (31, 44), "LEFT ARM": (29, 45), "LEFT LEG": (27, 52), "RIGHT LEG": (43, 52), "shift": (-1, 2)}, 165),
+        ("ne", {"RIGHT SHOULDER": (37, 39), "RIGHT ARM": (30, 46), "LEFT ARM": (28, 46), "LEFT LEG": (27, 52), "RIGHT LEG": (43, 52), "shift": (-1, 3)}, 170),
+        ("ne", {"RIGHT SHOULDER": (38, 39), "RIGHT ARM": (33, 47), "LEFT ARM": (31, 47), "LEFT LEG": (27, 52), "RIGHT LEG": (43, 52), "shift": (0, 3)}, 200),
+    ],
+    "D_VictoryS": [  # 승리 포즈(직업 소개): 정면, 무기를 귀 옆에 세우고 반대손 허리
+        ("south", {"RIGHT ARM": (40, 40), "LEFT ARM": (25, 44)}, 45),
+        ("south", {"RIGHT ARM": (42, 33), "LEFT ARM": (25, 44), "LEFT LEG": (25, 52), "RIGHT LEG": (39, 52)}, 80),
+        ("south", {"RIGHT ARM": (42, 31), "LEFT ARM": (25, 44), "LEFT LEG": (25, 52), "RIGHT LEG": (39, 52), "shift": (0, -1)}, 90),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 

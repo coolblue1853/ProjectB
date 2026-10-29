@@ -438,6 +438,8 @@ public class PixelRig : CharacterRig
     /// </summary>
     /// <summary>모션 이펙트 켜기(무기만 보는 확인 캡처에서 끈다)</summary>
     public static bool MotionFxEnabled = true;
+    /// <summary>동작 스미어 색(직업 테마 — 10-29 밤 직업 최종본: 사무라이 흰색·해적 금색·심해 파랑·마도학자 보라). 무기 데이터 연결 전 임시 창구</summary>
+    public static PixelRampId MotionFxRamp = PixelRampId.Steel;
 
     private void MotionFx(CelClip cel, int i)
     {
@@ -463,12 +465,12 @@ public class PixelRig : CharacterRig
         {
             if (s.anim == cel.name && s.frame > _fxFrame && s.frame <= i)
             {
-                Vfx.PlayThemed(s.id, root.position, left, scale, PixelRampId.Steel, false, false, 1f, true);
+                Vfx.PlayThemed(s.id, root.position, left, scale, MotionFxRamp, false, false, 1f, true);
             }
         }
         if (_variant != null && WeaponFx.TryBasicCelStrike(cel.name, out VfxId basic, out int bf) && bf > _fxFrame && bf <= i)
         {
-            Vfx.PlayThemed(basic, root.position, left, scale, PixelRampId.Steel, false, false, 1f, true);
+            Vfx.PlayThemed(basic, root.position, left, scale, MotionFxRamp, false, false, 1f, true);
         }
         foreach (MotionFxTable.Impact m in MotionFxTable.Impacts)
         {

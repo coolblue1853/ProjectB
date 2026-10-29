@@ -83,9 +83,8 @@ public static class MotionVariants
         new Variant("Slam", "GreatDown", 0.85f),                         // 메치기 = 양손 내려찍기를 조금 느리게
         new Variant("LeapSlam", "AirSlash", 0.9f),                       // 도약 내려찍기 = 점프 + 공중 베기
         new Variant("Grab", "Pull", 1f),                                 // 잡기 = 당기기
-        new Variant("Sheathe", "Iaido", 0.5f, 0, 7, reverse: true),      // 납도 = 발도(뽑아 벤 자세 7 → 칼집 0) 천천히 역재생(10-29 사용자 예시)
         new Variant("DownThrust", "AirSlash", 0.8f, 5, 8, hold: 8),       // 10-29 사용자 "멈춤이라 모르겠다" → 벤 뒤(5) 칼을 아래로 돌려(8) 유지
-        new Variant("GreatUpper", "GreatUpper", 1f, 0, 11, hold: 11),     // 올려친 끝(8)에서 멈춤 — 회복에서 칼을 내리는 게 내려치기로 보였다(10-29 사용자)
+        new Variant("GreatUpper", "GreatUpper", 1f, 0, 12, hold: 12),     // 올려친 끝(8)에서 멈춤 — 회복에서 칼을 내리는 게 내려치기로 보였다(10-29 사용자)
         new Variant("Whirl", "Spin", 0.9f),                              // A23 전신 회전베기 = 회전 베기 셀(10-29 밤 방향 그림 프레임으로 다시 — 좌우 반전 방식 폐기, 사용자 "이 방향 아니다")
     };
 
