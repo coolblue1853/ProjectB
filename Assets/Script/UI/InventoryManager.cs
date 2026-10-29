@@ -155,8 +155,36 @@ public class InventoryManager : MonoBehaviour
         cusor.transform.position = insPositon.transform.position;
         nowBox = num;
     }
+    int _saveBatchDepth;
+    bool _saveBatchPending;
+
+    /// <summary>여러 개를 연달아 넣을 때(상점 N개 구매·디버그 생성) 저장을 미룬다. 반드시 EndSaveBatch 와 짝으로 부른다(B-022)</summary>
+    public void BeginSaveBatch()
+    {
+        _saveBatchDepth++;
+    }
+
+    /// <summary>BeginSaveBatch 이후 저장 요청이 있었으면 한 번만 저장한다</summary>
+    public void EndSaveBatch()
+    {
+        if (_saveBatchDepth > 0)
+        {
+            _saveBatchDepth--;
+        }
+        if (_saveBatchDepth == 0 && _saveBatchPending)
+        {
+            _saveBatchPending = false;
+            SaveInventory();
+        }
+    }
+
     public void SaveInventory()
     {
+        if (_saveBatchDepth > 0)
+        {
+            _saveBatchPending = true;
+            return;
+        }
         SaveManager.instance.datas.money = DatabaseManager.money;
         // Phase 2 브리지: UI 슬롯 → 모델 → 세이브 배열 (SaveMapper)
         string[,,] saveInven = Service.BuildSaveArray(); // 열린 칸 밖 아이템도 보존
@@ -619,25 +647,31 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
+    /// <summary>페이지 숫자키 1~5 (New Input System, B-021)</summary>
+    static bool DigitPressed(Key key)
+    {
+        Keyboard kb = Keyboard.current;
+        return kb != null && kb[key].wasPressedThisFrame;
+    }
     void BoxOpen()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && inventoryUI[0].activeSelf == false && inventoryBox[0].activeSelf == true)
+        if (DigitPressed(Key.Digit1) && nowBox != 0 && inventoryBox[0].activeSelf == true)
         {
             OpenBox(0);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && inventoryUI[1].activeSelf == false && inventoryBox[1].activeSelf == true)
+        else if (DigitPressed(Key.Digit2) && nowBox != 1 && inventoryBox[1].activeSelf == true)
         {
             OpenBox(1);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && inventoryUI[2].activeSelf == false && inventoryBox[2].activeSelf == true)
+        else if (DigitPressed(Key.Digit3) && nowBox != 2 && inventoryBox[2].activeSelf == true)
         {
             OpenBox(2);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4) && inventoryUI[3].activeSelf == false && inventoryBox[3].activeSelf == true)
+        else if (DigitPressed(Key.Digit4) && nowBox != 3 && inventoryBox[3].activeSelf == true)
         {
             OpenBox(3);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha5) && inventoryUI[4].activeSelf == false && inventoryBox[4].activeSelf == true)
+        else if (DigitPressed(Key.Digit5) && nowBox != 4 && inventoryBox[4].activeSelf == true)
         {
             OpenBox(4);
         }
@@ -845,8 +879,21 @@ public class InventoryManager : MonoBehaviour
                 GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
                 ItemCheck item = equip.GetComponent<ItemCheck>();
                 item.SetItem(SaveManager.instance.datas.equipGear[i, 0]);
-                item.itemData.tear = int.Parse(SaveManager.instance.datas.equipGear[i, 1]);
-                item.itemData.upgrade = int.Parse(SaveManager.instance.datas.equipGear[i, 2]);
+                if (item.itemData == null) // 아이템 시트에서 사라진 이름(손상·구버전 세이브)
+                {
+                    Debug.LogWarning("[PB][Save] 알 수 없는 장비 무시: " + SaveManager.instance.datas.equipGear[i, 0]);
+                    Destroy(equip);
+                    continue;
+                }
+                // 손상 세이브에서 크래시하지 않게 TryParse, 실패하면 시트 기본값 유지(B-020)
+                if (int.TryParse(SaveManager.instance.datas.equipGear[i, 1], out int tier))
+                {
+                    item.itemData.tear = tier;
+                }
+                if (int.TryParse(SaveManager.instance.datas.equipGear[i, 2], out int upgrade))
+                {
+                    item.itemData.upgrade = upgrade;
+                }
                 UseEquipment(item);
             }
         }
@@ -1044,6 +1091,7 @@ public class InventoryManager : MonoBehaviour
 
     void InitializeSlider()
     {
+        sellSlider.onValueChanged.RemoveListener(OnSliderValueChanged); // 열 때마다 누적되지 않게(B-018)
         sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
         sellSlider.maxValue = detail.nowStack;
         // 슬라이더의 최소값과 최대값 설정
@@ -1105,11 +1153,11 @@ public class InventoryManager : MonoBehaviour
             }
             if (state == "Sell")
             {
-                if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1) && sellSlider.value < sellSlider.maxValue)
+                if ((rightInventoryAction.triggered || (checkRepeat == false && horizontalInput == 1)) && sellSlider.value < sellSlider.maxValue)
                 {
                     RightMove();
                 }
-                else if ((leftInventoryAction.triggered) || (checkRepeat == false && horizontalInput == -1) && sellSlider.value > 1)
+                else if ((leftInventoryAction.triggered || (checkRepeat == false && horizontalInput == -1)) && sellSlider.value > 1)
                 {
                     LeftMove();
                 };
@@ -1214,62 +1262,9 @@ public class InventoryManager : MonoBehaviour
         {
             BoxChangeByKey();
         }
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            CreatItem("LeafStaff"); CreatItem("LeafAdae");
-            CreatItem("ScareSide"); CreatItem("ScareStaff"); CreatItem("ScareClow");
-            CreatItem("PoisonSword"); CreatItem("DoubleDagger"); CreatItem("RatCheifDagger");
-            CreatItem("RustedSwordandShield");
-            CreatItem("RustedSword"); CreatItem("SacreGreatSword");
-            CreatItem("Leather Knuckles"); CreatItem("Wood Spear");
-        }
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            CreatItem("LeafCap"); CreatItem("LeafArmor"); CreatItem("LeafLegArmor");
-            CreatItem("LeafHandArmor"); CreatItem("LeafShoes");
-            CreatItem("LeafStaff");
-            CreatItem("LeafAdae");
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-
-    
-            CreatItem("ScareCap"); CreatItem("ScareLegArmor"); CreatItem("ScareArmor");
-            CreatItem("ScareHandArmor"); CreatItem("ScareShoes");
-        }
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            CreatItem("RatCap");
-            CreatItem("RatArmor");
-            CreatItem("RatLegArmor");
-            CreatItem("RatHandArmor");
-            CreatItem("RatShoes");
-
-        }
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            CreatItem("Cap");
-            CreatItem("Armor");
-            CreatItem("LegArmor");
-            CreatItem("HandArmor");
-            CreatItem("Shoes");
-            CreatItem("RustedSwordandShield");
-            CreatItem("RustedSword");
-            CreatItem("Leather Knuckles"); CreatItem("Wood Spear");
-        }
-
-        if (Input.GetKeyDown(KeyCode.F6))
-        {
-            CreatItem("Rabbit Meat");
-            CreatItem("Wood");
-            CreatItem("T0_Ore");
-            CreatItem("GreenHurb");
-            CreatItem("Small Tuber");
-            CreatItem("Fresh Green Leaves");
-            CreatItem("Sturdy Roots");
-            CreatItem("Sturdy Leaf");
-            CreatItem("Sharp Petal");
-        }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        DebugSpawnKeys(); // F1~F6 테스트 아이템 생성은 에디터·개발 빌드에만(B-021)
+#endif
 
         if (openInventoryAction.triggered)
         {
@@ -1294,6 +1289,83 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    /// <summary>디버그: F1~F6 로 테스트 아이템 묶음 생성(New Input System, 저장 1회)</summary>
+    void DebugSpawnKeys()
+    {
+        Keyboard kb = Keyboard.current;
+        if (kb == null || !(kb.f1Key.wasPressedThisFrame || kb.f2Key.wasPressedThisFrame || kb.f3Key.wasPressedThisFrame
+            || kb.f4Key.wasPressedThisFrame || kb.f5Key.wasPressedThisFrame || kb.f6Key.wasPressedThisFrame))
+        {
+            return;
+        }
+        BeginSaveBatch();
+        try
+        {
+            if (kb[Key.F1].wasPressedThisFrame)
+            {
+                CreatItem("LeafStaff"); CreatItem("LeafAdae");
+                CreatItem("ScareSide"); CreatItem("ScareStaff"); CreatItem("ScareClow");
+                CreatItem("PoisonSword"); CreatItem("DoubleDagger"); CreatItem("RatCheifDagger");
+                CreatItem("RustedSwordandShield");
+                CreatItem("RustedSword"); CreatItem("SacreGreatSword");
+                CreatItem("Leather Knuckles"); CreatItem("Wood Spear");
+            }
+            if (kb[Key.F3].wasPressedThisFrame)
+            {
+                CreatItem("LeafCap"); CreatItem("LeafArmor"); CreatItem("LeafLegArmor");
+                CreatItem("LeafHandArmor"); CreatItem("LeafShoes");
+                CreatItem("LeafStaff");
+                CreatItem("LeafAdae");
+            }
+            if (kb[Key.F2].wasPressedThisFrame)
+            {
+
+
+                CreatItem("ScareCap"); CreatItem("ScareLegArmor"); CreatItem("ScareArmor");
+                CreatItem("ScareHandArmor"); CreatItem("ScareShoes");
+            }
+            if (kb[Key.F4].wasPressedThisFrame)
+            {
+                CreatItem("RatCap");
+                CreatItem("RatArmor");
+                CreatItem("RatLegArmor");
+                CreatItem("RatHandArmor");
+                CreatItem("RatShoes");
+
+            }
+            if (kb[Key.F5].wasPressedThisFrame)
+            {
+                CreatItem("Cap");
+                CreatItem("Armor");
+                CreatItem("LegArmor");
+                CreatItem("HandArmor");
+                CreatItem("Shoes");
+                CreatItem("RustedSwordandShield");
+                CreatItem("RustedSword");
+                CreatItem("Leather Knuckles"); CreatItem("Wood Spear");
+            }
+
+            if (kb[Key.F6].wasPressedThisFrame)
+            {
+                CreatItem("Rabbit Meat");
+                CreatItem("Wood");
+                CreatItem("T0_Ore");
+                CreatItem("GreenHurb");
+                CreatItem("Small Tuber");
+                CreatItem("Fresh Green Leaves");
+                CreatItem("Sturdy Roots");
+                CreatItem("Sturdy Leaf");
+                CreatItem("Sharp Petal");
+            }
+        }
+        finally
+        {
+            EndSaveBatch();
+        }
+    }
+#endif
+
     public bool checkRepeat = false;
     float waitTime = 0.18f;
     public Sequence sequence;
@@ -1536,9 +1608,9 @@ public class InventoryManager : MonoBehaviour
     {
         Transform equip = equipDetail.gameObject.transform;
         ItemData d = detail.itemData;
-        GameObject prefab = Resources.Load<GameObject>(d.equipArea + "/" + detail.name);
+        GameObject prefab = GearPrefabCache.Get(d.equipArea, detail.name);
         ItemCheck worn = compare ? EquippedFor(d.equipArea) : null;
-        GameObject wornPrefab = worn != null ? Resources.Load<GameObject>(worn.itemData.equipArea + "/" + worn.name) : null;
+        GameObject wornPrefab = worn != null ? GearPrefabCache.Get(worn.itemData.equipArea, worn.name) : null;
         int wornUp = worn != null ? worn.itemData.upgrade : 0;
         equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
         equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = TooltipBuilder.Name(d.itemNameT, d.rarity, d.upgrade);
@@ -1551,11 +1623,11 @@ public class InventoryManager : MonoBehaviour
         var stats = equip.GetChild(7).GetComponent<TextMeshProUGUI>();
         if (d.equipArea != "Weapon")
         {
-            stats.text = TooltipBuilder.ArmorBlock(prefab.GetComponent<Equipment>(), d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Equipment>() : null, wornUp);
+            stats.text = TooltipBuilder.ArmorBlock(GearPrefabCache.Comp<Equipment>(prefab), d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Equipment>() : null, wornUp);
         }
         else
         {
-            Weapon weapon = prefab.GetComponent<Weapon>();
+            Weapon weapon = GearPrefabCache.Comp<Weapon>(prefab);
             stats.text = TooltipBuilder.WeaponBlock(weapon, d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Weapon>() : null, wornUp);
             CheckSkillDetail(weapon);
         }
@@ -1574,6 +1646,11 @@ public class InventoryManager : MonoBehaviour
     public GameObject skillDetailUi;
     public void CheckSkillDetail(Weapon weapon) // 기술 체크.
     {
+        if (weapon == null || weapon.skill == null)
+        {
+            skillDetailUi.SetActive(false); // 프리팹 없는 무기(B-017)
+            return;
+        }
         skillDetailUi.SetActive(true);
         for (int i = 0; i < 4; i++) // 기술 갯수가 늘어나면 여기 변경해 주어야함.
         {

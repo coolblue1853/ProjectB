@@ -55,14 +55,6 @@ public class SaveManager : MonoBehaviour
         datas.time = time;
         DataSave();
     }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            DataSave();
-        }
-    }
-
     public void DataSave()
     {
         GameLog.Info(GameLog.Cat.Save, "저장 money=" + datas.money + " pos=" + datas.playerPos);

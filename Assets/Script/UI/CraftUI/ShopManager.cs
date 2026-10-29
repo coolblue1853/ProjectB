@@ -183,9 +183,7 @@ public class ShopManager : MonoBehaviour
         if (nowShopItem.itemData.type == "Equip")
         {
             Transform equip = equipDetail.gameObject.transform;
-            string folderPath = nowShopItem.itemData.equipArea + "/";
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + nowShopItem.name);
+            GameObject prefab = GearPrefabCache.Get(nowShopItem.itemData.equipArea, nowShopItem.name);
             equip.GetChild(0).GetComponent<Image>().sprite = nowShopItem.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.itemNameT;
             equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(nowShopItem.itemData, true);
@@ -197,12 +195,12 @@ public class ShopManager : MonoBehaviour
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, nowShopItem);
             if (nowShopItem.itemData.equipArea != "Weapon") // 방어구라면
             {
-                Equipment equipment = prefab.GetComponent<Equipment>();
+                Equipment equipment = GearPrefabCache.Comp<Equipment>(prefab);
                 InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
             }
             else // 무기인 경우
             {
-                Weapon weapon = prefab.GetComponent<Weapon>();
+                Weapon weapon = GearPrefabCache.Comp<Weapon>(prefab);
                 InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
                 InventoryManager.instance.CheckSkillDetail(weapon);
             }
@@ -259,23 +257,50 @@ public class ShopManager : MonoBehaviour
     }
     void InitializeSlider()
     {
+        sellSlider.onValueChanged.RemoveListener(OnSliderValueChanged); // 열 때마다 누적되지 않게(B-018)
         sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
-        sellSlider.maxValue = Mathf.Min(nowShopItem.itemData.maxStack, DatabaseManager.money / nowShopItem.buyprice);
-        // 슬라이더의 최소값과 최대값 설정
+        // 슬라이더의 최소값과 최대값 설정. 살 수 없어도 max 가 min 보다 작아지지 않게 1 로 막고, 실제 구매 수는 BuyItem 이 다시 자른다(B-018)
         sellSlider.minValue = 1;
+        sellSlider.maxValue = Mathf.Max(1, MaxAffordable(nowShopItem.itemData.maxStack, nowShopItem.buyprice, DatabaseManager.money));
         // 슬라이더의 현재 값 설정
         sellSlider.value = 1;
         output = 1;
     }
+    /// <summary>가진 돈으로 살 수 있는 최대 개수(최대 maxStack). 가격 0 이하면 maxStack (0 나누기 방지, B-018)</summary>
+    public static int MaxAffordable(int maxStack, int price, int money)
+    {
+        if (price <= 0)
+        {
+            return Mathf.Max(0, maxStack);
+        }
+        return Mathf.Clamp(money / price, 0, Mathf.Max(0, maxStack));
+    }
+
     void BuyItem()
     {
-        for(int i =0; i < sellSlider.value; i++)
+        int count = Mathf.Min(Mathf.RoundToInt(sellSlider.value), MaxAffordable(nowShopItem.itemData.maxStack, nowShopItem.buyprice, DatabaseManager.money));
+        InventoryManager.instance.BeginSaveBatch(); // N개 구매 = 저장 1회(B-022)
+        try
         {
-            if (InventoryManager.instance.CheckBoxCanCreatAll() == true || InventoryManager.instance.OnlyCheckStack(nowShopItem.name) == true)
+            for (int i = 0; i < count; i++)
             {
-                DatabaseManager.money -= nowShopItem.buyprice;
-                InventoryManager.instance.CreatItem(nowShopItem.name, false, null, AddSource.Shop);
+                if (DatabaseManager.money < nowShopItem.buyprice) // 외상 구매 방지(B-018)
+                {
+                    break;
+                }
+                if (InventoryManager.instance.CheckBoxCanCreatAll() == true || InventoryManager.instance.OnlyCheckStack(nowShopItem.name) == true)
+                {
+                    if (InventoryManager.instance.CreatItem(nowShopItem.name, false, null, AddSource.Shop))
+                    {
+                        DatabaseManager.money -= nowShopItem.buyprice; // 실제로 들어간 것만 돈을 뺀다
+                    }
+                }
             }
+            InventoryManager.instance.SaveInventory(); // 하나도 못 샀어도 돈·인벤을 한 번 저장(배치 안이라 표시만)
+        }
+        finally
+        {
+            InventoryManager.instance.EndSaveBatch(); // 예외가 나도 배치가 잠긴 채 남지 않게
         }
         InventoryManager.instance.state = "ShopCusorOn";
         sellUIGameObject.SetActive(false);
@@ -283,7 +308,6 @@ public class ShopManager : MonoBehaviour
         cusor.SetActive(true);
         isMoveCusor = true;
         DetailOff();
-        InventoryManager.instance.SaveInventory();
     }
     public void CloseBuyUI()
     {
@@ -295,11 +319,11 @@ public class ShopManager : MonoBehaviour
     {
         if (InventoryManager.instance.state == "BuyDetail")
         {
-            if ((rightInventoryAction.triggered) || (checkRepeat == false && horizontalInput == 1) && sellSlider.value < sellSlider.maxValue)
+            if ((rightInventoryAction.triggered || (checkRepeat == false && horizontalInput == 1)) && sellSlider.value < sellSlider.maxValue)
             {
                 RightMove();
             }
-            else if ((leftInventoryAction.triggered) || (checkRepeat == false && horizontalInput == -1) && sellSlider.value > 1)
+            else if ((leftInventoryAction.triggered || (checkRepeat == false && horizontalInput == -1)) && sellSlider.value > 1)
             {
                 LeftMove();
             }

@@ -12,7 +12,8 @@ public class ItemCheck : MonoBehaviour
     public int nowStack;
     public int buyprice;
     public int needCount;
-    public string name;
+    /// <summary>아이템 시트 이름. Object.name(게임오브젝트 이름)을 의도적으로 가린다 — 직렬화 필드라 이름 변경은 인벤 리팩터에서(B-023)</summary>
+    public new string name;
 
     public TextMeshProUGUI stackText;
     public GameObject defBuffObject;
@@ -29,7 +30,13 @@ public class ItemCheck : MonoBehaviour
             itemData = item;
         else
             itemData = DatabaseManager.instance.LoadItemData(DatabaseManager.instance.FindItemDataIndex(itemName));
+        if (itemData == null) // 시트에 없는 이름(손상·구버전 세이브). 호출 측이 itemData null 을 보고 정리한다(B-020)
+        {
+            Debug.LogWarning("[PB][Item] 아이템 시트에 없는 이름: " + itemName);
+            return;
+        }
 
+        _shownStack = _shownHave = _shownNeed = int.MinValue; // 재사용 시 표시 캐시 무효화
         buyprice = (int)(itemData.price * 1.5f);
         nowStack = 1;
         name = itemData.name;
@@ -124,56 +131,58 @@ public class ItemCheck : MonoBehaviour
 
 
     public TextMeshProUGUI Cost;
-    // Update is called once per frame
+    int _shownStack = int.MinValue; // 마지막으로 그린 수량(바뀔 때만 텍스트·SetActive 갱신, B-023)
+    int _shownHave = int.MinValue;
+    int _shownNeed = int.MinValue;
+
     void Update()
     {
-        if(isCraftItem == false && isShopItem == false && stackText != null)
+        if (stackText == null || itemData == null)
         {
-            if (nowStack == 1)
+            return;
+        }
+        if (isCraftItem == false && isShopItem == false)
+        {
+            if (nowStack != _shownStack)
             {
-                stackText.text = "1";
-                stackText.gameObject.SetActive(false);
-            }
-            else
-            {
+                _shownStack = nowStack;
                 stackText.text = nowStack.ToString();
-                stackText.gameObject.SetActive(true);
+            }
+            bool showCount = nowStack != 1;
+            if (stackText.gameObject.activeSelf != showCount) // 다른 코드가 켜 두는 경우가 있어 표시 여부는 매번 비교(할당 없음)
+            {
+                stackText.gameObject.SetActive(showCount);
             }
         }
-
-
-       else  if(isCraftItem == true && stackText != null)
+        else if (isCraftItem == true)
         {
-            if (DatabaseManager.inventoryItemStack.ContainsKey(itemData.name) == false)
+            int have = HaveCount();
+            if (have != _shownHave || needCount != _shownNeed)
             {
-                stackText.text = "0/" + needCount;
-            }
-            else
-            {
-                stackText.text = + DatabaseManager.inventoryItemStack[itemData.name] +"/" + needCount;
+                _shownHave = have;
+                _shownNeed = needCount;
+                stackText.text = have + "/" + needCount;
             }
         }
-
-        else  if(isShopItem == true && stackText != null)
+        else if (isShopItem == true)
         {
-            if (Cost.text == "")
+            if (Cost != null && Cost.text == "")
             {
                 Cost.text = buyprice.ToString();
             }
-
-
-                if (DatabaseManager.inventoryItemStack.ContainsKey(itemData.name) == false)
+            int have = HaveCount();
+            if (have != _shownHave)
             {
-                if(stackText.text != "0")
-                     stackText.text = "0";
-        
-            }
-            else
-            {
-                if(stackText.text != DatabaseManager.inventoryItemStack[itemData.name].ToString())
-                     stackText.text = DatabaseManager.inventoryItemStack[itemData.name].ToString();
+                _shownHave = have;
+                stackText.text = have.ToString();
             }
         }
+    }
+
+    /// <summary>인벤토리에 가진 개수(표시용 캐시)</summary>
+    int HaveCount()
+    {
+        return DatabaseManager.inventoryItemStack.TryGetValue(itemData.name, out int n) ? n : 0;
     }
 
     void LoadImage()

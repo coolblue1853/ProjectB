@@ -55,6 +55,7 @@ public class DivideSlider : MonoBehaviour
         InitializeSlider();
 
         // 슬라이더 값이 변경될 때마다 호출되는 이벤트 등록
+        divideSlider.onValueChanged.RemoveListener(OnSliderValueChanged); // 열 때마다 누적되지 않게(B-018)
         divideSlider.onValueChanged.AddListener(OnSliderValueChanged);
         uiTxt.text = "1" + "/" +currentValue.ToString();
     }
@@ -103,11 +104,11 @@ public class DivideSlider : MonoBehaviour
             {
                 Divide();
             }
-            else if ((rightAction.triggered) || (checkRepeat == false && horizontalInput == 1) && divideSlider.value < divideSlider.maxValue)
+            else if ((rightAction.triggered || (checkRepeat == false && horizontalInput == 1)) && divideSlider.value < divideSlider.maxValue)
             {
                 RightMove();
             }
-            else if ((leftAction.triggered) || (checkRepeat == false && horizontalInput == -1) && divideSlider.value>1 )
+            else if ((leftAction.triggered || (checkRepeat == false && horizontalInput == -1)) && divideSlider.value>1)
             {
                 LeftMove();
             }

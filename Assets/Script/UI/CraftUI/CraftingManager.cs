@@ -270,10 +270,8 @@ public class CraftingManager : MonoBehaviour
         {
             Transform equip = equipDetail.gameObject.transform;
 
-            string folderPath = detail.itemData.equipArea + "/";
 
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + detail.itemData.name);
+            GameObject prefab = GearPrefabCache.Get(detail.itemData.equipArea, detail.itemData.name);
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
             equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, true);
@@ -284,12 +282,12 @@ public class CraftingManager : MonoBehaviour
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
             if (detail.itemData.equipArea != "Weapon") // 방어구라면
             {
-                Equipment equipment = prefab.GetComponent<Equipment>();
+                Equipment equipment = GearPrefabCache.Comp<Equipment>(prefab);
                 InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment);
             }
             else // 무기인 경우
             {
-                Weapon weapon = prefab.GetComponent<Weapon>();
+                Weapon weapon = GearPrefabCache.Comp<Weapon>(prefab);
                 InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon);
                 InventoryManager.instance.CheckSkillDetail(weapon);
             }

@@ -168,6 +168,10 @@ public static class TooltipBuilder
 
     public static string WeaponBlock(Weapon w, int upgrade, Weapon other, int otherUpgrade)
     {
+        if (w == null)
+        {
+            return string.Empty; // 프리팹 없는 장비(B-017)
+        }
         WeaponDamage(w, upgrade, out int min, out int max);
         int omin = 0, omax = 0;
         if (other != null)
@@ -214,6 +218,10 @@ public static class TooltipBuilder
 
     public static string ArmorBlock(Equipment e, int upgrade, Equipment other, int otherUpgrade)
     {
+        if (e == null)
+        {
+            return string.Empty; // 프리팹 없는 장비(B-017)
+        }
         return StatLines(ArmorStats(e, upgrade), other != null ? ArmorStats(other, otherUpgrade) : null);
     }
 

@@ -219,6 +219,12 @@ public sealed class InventoryService
             ItemData data = newData != null && newData.name == s.Id ? newData : null;
             used = data != null;
             cur.SetItem(s.Id, data);
+            if (cur.itemData == null) // 시트에 없는 이름(손상·구버전 세이브)은 칸을 비운다(B-020)
+            {
+                DetachAndDestroy(go);
+                inv.inventoryArray[slot, page] = 0;
+                return false;
+            }
             cur.itemData.tear = s.Tier;
             cur.itemData.upgrade = s.Upgrade;
         }

@@ -43,15 +43,13 @@ public class testFunc : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.F1))
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        // 디버그: F1 넉백 테스트(에디터·개발 빌드 전용, New Input System — B-021)
+        Keyboard kb = Keyboard.current;
+        if (kb != null && kb.f1Key.wasPressedThisFrame)
         {
             rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
-
         }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-           // PlayerHealthManager.Instance.FullnessUp(10);
-
-        }
+#endif
     }
 }

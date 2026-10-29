@@ -21,8 +21,15 @@
 |---|---|---|
 | B-008 | 창고→인벤(인벤 가득) 이중 차감·공짜 1개 (P0) | ✅ C2IMove 단일 경로 — 프로브 c2i_full_p1/p2 |
 | B-009 | 나누기 시 빈칸 없으면 수량 소실 (P0) | ✅ 생성 성공 시에만 원본 감소 |
-| B-010~015 | 칸 겹침 ✅, Neckles 오타 ✅, 장비 드래그 교환 ⏳, 페이지탭 드롭 ⏳, 티어·강화 소실 ✅(이동·나누기·해제·창고 경로에 ItemData 복사 전달, 스택 병합은 이름 비교 유지), 강제종료 복제 ✅(이동 시 양쪽 저장) (P1) | 🔶 |
-| B-016~023 | 툴팁 부호, Resources.Load null, 외상 구매, 우선순위, int.Parse, 디버그 F키, 과도한 저장, name 가림 (P2~P3) | ⏳ |
+| B-010~015 | 칸 겹침 ✅, Neckles 오타 ✅, 장비 드래그 교환 ✅·페이지탭 드롭 ✅(장비칸에서 시작한 드래그는 빈 인벤 칸만 허용, 차 있는 칸·창고 칸(옮기면 해제 없이 복제되던 경로)·페이지 탭·아무 칸도 아닌 곳(드래그 캔버스에 떠 있던 문제)이면 장비칸으로 되돌림 — `ItemDrag.DropFromEquipNotAllowed`, 프로브 `equip_drag_guard.cs`), 티어·강화 소실 ✅(이동·나누기·해제·창고 경로에 ItemData 복사 전달, 스택 병합은 이름 비교 유지), 강제종료 복제 ✅(이동 시 양쪽 저장) (P1) | ✅ |
+| B-016 | 툴팁 음수 부호 중복 (P2) | ✅ D3 `TooltipBuilder`(부호 한 번) |
+| B-017 | 툴팁 `Resources.Load` 매번·null NRE (P2) | ✅ `GearPrefabCache`(이름별 1회 로드, 없음도 기억) + `WeaponBlock/ArmorBlock/CheckSkillDetail` null 안전 — 인벤·창고·제작·상점 툴팁 |
+| B-018 | 상점 외상 구매·가격 0 나누기·슬라이더 리스너 누적 (P2) | ✅ `ShopManager.MaxAffordable`, 구매 루프에서 돈 재확인·넣은 것만 차감, 슬라이더 4곳 Remove 후 Add |
+| B-019 | `triggered \|\| (…) && 범위` 우선순위 (P2) | ✅ 인벤·나누기·창고 나누기·상점 슬라이더 8곳 괄호 |
+| B-020 | 세이브 로드 `int.Parse` 크래시 (P2) | ✅ 인벤·창고는 SaveMapper(이전), 장비 `LoadEquipItem` TryParse. 시트에 없는 이름은 `ItemCheck.SetItem` 이 null 로 돌려주고 장비·인벤(`InventoryService.DrawSlot`)·창고 로드가 경고 후 버림(정책은 Q-427 임시 가정) |
+| B-021 | 레거시 Input·디버그 F키 (P3) | ✅ 페이지 숫자키·F1~F6 → New Input System, F키·BuffTest·testFunc 디버그는 `UNITY_EDITOR \|\| DEVELOPMENT_BUILD` 전용, SaveManager Space 저장 제거, ItemDrag·ShopItemDrag 미사용 `Input.mousePosition` 제거. 숫자키 조건은 `nowBox != n`(기존 `inventoryUI[n].activeSelf == false`는 항상 거짓). 2~5페이지는 잠겨 있어(슬롯 없음) 실제 전환은 미검증 |
+| B-022 | 획득·구매 1개마다 전체 저장 (P3) | ✅ `BeginSaveBatch/EndSaveBatch`(try/finally 로 짝 보장) — 상점 N개 구매·디버그 생성은 저장 1회. 일반 획득 1개 = 1회 저장은 유지(디바운스는 리팩터 Phase에서) |
+| B-023 | `ItemCheck.name`이 `Object.name` 가림, 매 프레임 텍스트 갱신 (P3) | 🔶 Update는 값이 바뀔 때만 텍스트 갱신(표시 여부는 bool 비교). `name`은 `new`로 명시만 — 직렬화 필드라 이름 변경은 인벤 리팩터에서 |
 
 ## P1
 

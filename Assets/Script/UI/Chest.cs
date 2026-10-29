@@ -159,6 +159,11 @@ public class Chest : MonoBehaviour
                             item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                             ItemCheck check = item.GetComponent<ItemCheck>();
                             check.SetItem(saved.Id);
+                            if (check.itemData == null) // 시트에 없는 이름(손상·구버전 세이브)은 버린다(B-020)
+                            {
+                                Destroy(item);
+                                continue;
+                            }
                             check.nowStack = saved.Count;
                             check.itemData.tear = saved.Tier;
                             check.itemData.upgrade = saved.Upgrade;
@@ -798,9 +803,7 @@ public class Chest : MonoBehaviour
             if (detail.itemData.type == "Equip")
             {
                 Transform equip = equipDetail.gameObject.transform;
-                string folderPath = detail.itemData.equipArea + "/";
-                // 리소스 폴더 내의 equipName을 로드합니다.
-                GameObject prefab = Resources.Load<GameObject>(folderPath + detail.itemData.name);
+                GameObject prefab = GearPrefabCache.Get(detail.itemData.equipArea, detail.itemData.name);
                 equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
                 equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
                 equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, true);
@@ -812,12 +815,12 @@ public class Chest : MonoBehaviour
                 InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
                 if (detail.itemData.equipArea != "Weapon") // 방어구라면
                 {
-                    Equipment equipment = prefab.GetComponent<Equipment>();
+                    Equipment equipment = GearPrefabCache.Comp<Equipment>(prefab);
                     InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment, detail.itemData.upgrade);
                 }
                 else // 무기인 경우
                 {
-                    Weapon weapon = prefab.GetComponent<Weapon>();
+                    Weapon weapon = GearPrefabCache.Comp<Weapon>(prefab);
                     InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon, detail.itemData.upgrade);
                     InventoryManager.instance.CheckSkillDetail(weapon);
                 }
@@ -832,9 +835,7 @@ public class Chest : MonoBehaviour
         else if (state == "Equipment")
         {
             Transform equip = equipDetail.gameObject.transform;
-            string folderPath = detail.itemData.equipArea + "/";
-            // 리소스 폴더 내의 equipName을 로드합니다.
-            GameObject prefab = Resources.Load<GameObject>(folderPath + detail.itemData.name);
+            GameObject prefab = GearPrefabCache.Get(detail.itemData.equipArea, detail.itemData.name);
             equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
             equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = detail.itemData.itemNameT;
             equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(detail.itemData, true);
@@ -846,12 +847,12 @@ public class Chest : MonoBehaviour
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, detail);
             if (detail.itemData.equipArea != "Weapon") // 방어구라면
             {
-                Equipment equipment = prefab.GetComponent<Equipment>();
+                Equipment equipment = GearPrefabCache.Comp<Equipment>(prefab);
                 InventoryManager.instance.SetArmorDetail(equip.GetChild(7).gameObject, equipment, detail.itemData.upgrade);
             }
             else // 무기인 경우
             {
-                Weapon weapon = prefab.GetComponent<Weapon>();
+                Weapon weapon = GearPrefabCache.Comp<Weapon>(prefab);
                 InventoryManager.instance.SetWeaponDetail(equip.GetChild(7).gameObject, weapon, detail.itemData.upgrade);
                 InventoryManager.instance.CheckSkillDetail(weapon);
             }

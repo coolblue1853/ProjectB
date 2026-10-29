@@ -135,7 +135,6 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
             {
 
                 transform.SetParent(changeParent);
-                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 this.transform.position = changeParent.transform.position;
 
                 int siblingParentIndex = changeParent.transform.parent.GetSiblingIndex();
@@ -185,7 +184,6 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 else
                 {
                     transform.SetParent(equipBox);
-                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
                 }
 
@@ -213,7 +211,6 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 else
                 {
                     transform.SetParent(currentParent);
-                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = currentParent.transform.position;
                     InventoryManager.instance.ChangeCusor(currentParent.gameObject);
                 }
@@ -241,7 +238,6 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 else
                 {
                     transform.SetParent(currentParent);
-                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = currentParent.transform.position;
                     InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
                 }
@@ -266,7 +262,6 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 if (equipBox.childCount == 0)
                 {
                     transform.SetParent(equipBox);
-                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
                     currentParent = equipBox;
                     equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.itemData.equipArea, itemCheck.itemData.tfName);
@@ -278,7 +273,6 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                     equipBoxCheck.DeletPrefab(itemCheck,itemCheck.itemData.equipArea);
 
                     transform.SetParent(equipBox);
-                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
                     equipBoxCheck.LoadPrefab(itemCheck.name, itemCheck.itemData.equipArea, itemCheck.itemData.tfName);
                     equipBoxCheck.ActivePrefab(itemCheck.itemData.equipArea);
@@ -291,7 +285,6 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 if (currentParent.parent.tag == "Inventory")
                 {
                     transform.SetParent(currentParent);
-                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = currentParent.transform.position;
                     InventoryManager.instance.ChangeCusor(currentParent.gameObject);
                     equipBox = null;
@@ -299,7 +292,6 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 else if (currentParent.parent.tag == "Chest")
                 {
                     transform.SetParent(currentParent);
-                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = currentParent.transform.position;
                     InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
                     equipBox = null;
@@ -307,7 +299,6 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 else
                 {
                     transform.SetParent(equipBox);
-                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     this.transform.position = equipBox.transform.position;
 
                 }
@@ -319,14 +310,12 @@ public class ShopItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
             if (currentParent.parent.tag == "Inventory")
             {
                 transform.SetParent(currentParent);
-                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 this.transform.position = currentParent.transform.position;
                 InventoryManager.instance.ChangeCusor(currentParent.gameObject);
             }
             else if (currentParent.parent.tag == "Chest")
             {
                 transform.SetParent(currentParent);
-                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 this.transform.position = currentParent.transform.position;
                 InventoryManager.instance.chest.ChangeCusor(currentParent.gameObject);
             }
