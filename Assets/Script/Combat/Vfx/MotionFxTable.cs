@@ -41,7 +41,7 @@ public static class MotionFxTable
         }
     }
 
-    public const int SlotCount = 15;
+    public const int SlotCount = 16;
 
     public static readonly Strike[] Strikes =
     {
@@ -50,16 +50,17 @@ public static class MotionFxTable
         new Strike("GreatSideOne", 3, VfxId.MSmear2, new SmearAura.Shape { arc = true, c = new Vector2(-2.6f, 26.4f), ea = 36.1f, eb = 28.9f, tilt = 0f, a0 = -217.5f, a1 = -8.2f }),
         new Strike("DaggerCross", 2, VfxId.MSmear3, new SmearAura.Shape { arc = true, c = new Vector2(-2f, 21.5f), ea = 28.9f, eb = 23.1f, tilt = 0f, a0 = 183.7f, a1 = -40.5f }),
         new Strike("DaggerCross", 6, VfxId.MSmear4, new SmearAura.Shape { arc = true, c = new Vector2(2f, 18.5f), ea = 29.7f, eb = 23.8f, tilt = 0f, a0 = -150.1f, a1 = 45.4f }),
-        new Strike("Spin", 4, VfxId.MSmear5, new SmearAura.Shape { arc = true, c = new Vector2(-2.4f, 24.7f), ea = 35.4f, eb = 28.3f, tilt = 0f, a0 = -215.4f, a1 = -7.3f }),
-        new Strike("Spin", 6, VfxId.MSmear6, new SmearAura.Shape { arc = true, c = new Vector2(-0.2f, 18.5f), ea = 32.2f, eb = 25.7f, tilt = 0f, a0 = -27.7f, a1 = 177f }),
+        new Strike("Spin", 3, VfxId.MSmear5, new SmearAura.Shape { arc = true, c = new Vector2(-2.6f, 24.9f), ea = 35.6f, eb = 28.5f, tilt = 0f, a0 = -217.4f, a1 = -10.4f }),
+        new Strike("Spin", 8, VfxId.MSmear6, new SmearAura.Shape { arc = true, c = new Vector2(-0.7f, 19.4f), ea = 32.4f, eb = 25.9f, tilt = 0f, a0 = -300.8f, a1 = -0.8f }),
         new Strike("LeapSlam", 5, VfxId.MSmear7, new SmearAura.Shape { arc = true, c = new Vector2(-0.5f, 19f), ea = 30f, eb = 24f, tilt = 0f, a0 = 190f, a1 = -41.1f }),
         new Strike("Iaido", 4, VfxId.MSmear8, new SmearAura.Shape { arc = true, c = new Vector2(4.5f, 17f), ea = 27.8f, eb = 22.3f, tilt = 0f, a0 = -194.7f, a1 = 1.9f }),
         new Strike("AirSlash", 2, VfxId.MSmear9, new SmearAura.Shape { arc = true, c = new Vector2(-0.5f, 20f), ea = 29.2f, eb = 23.4f, tilt = 0f, a0 = 186.5f, a1 = -43.5f }),
         new Strike("Slam", 5, VfxId.MSmear10, new SmearAura.Shape { arc = true, c = new Vector2(0f, 19f), ea = 29.4f, eb = 23.5f, tilt = 0f, a0 = 148.4f, a1 = -58.6f }),
         new Strike("Lunge", 3, VfxId.MSmear11, new SmearAura.Shape { arc = false, p0 = new Vector2(4f, 14.9f), p1 = new Vector2(58.3f, 10.1f) }),
-        new Strike("DaggerFlurry", 2, VfxId.MSmear12, new SmearAura.Shape { arc = false, p0 = new Vector2(0f, 21f), p1 = new Vector2(54.5f, 21f) }),
-        new Strike("DaggerFlurry", 5, VfxId.MSmear13, new SmearAura.Shape { arc = false, p0 = new Vector2(6f, 18.7f), p1 = new Vector2(60.5f, 20.6f) }),
-        new Strike("Punch", 2, VfxId.MSmear14, new SmearAura.Shape { arc = false, p0 = new Vector2(3f, 21f), p1 = new Vector2(57.5f, 21f) }),
+        new Strike("DaggerFlurry", 2, VfxId.MSmear12, new SmearAura.Shape { arc = false, p0 = new Vector2(1f, 21f), p1 = new Vector2(55.5f, 21f) }),
+        new Strike("DaggerFlurry", 4, VfxId.MSmear13, new SmearAura.Shape { arc = false, p0 = new Vector2(2f, 21.1f), p1 = new Vector2(56.3f, 25.9f) }),
+        new Strike("DaggerFlurry", 7, VfxId.MSmear14, new SmearAura.Shape { arc = false, p0 = new Vector2(5f, 18.5f), p1 = new Vector2(59.4f, 15.7f) }),
+        new Strike("Punch", 2, VfxId.MSmear15, new SmearAura.Shape { arc = false, p0 = new Vector2(3f, 21f), p1 = new Vector2(57.5f, 21f) }),
     };
 
     public static readonly Impact[] Impacts =

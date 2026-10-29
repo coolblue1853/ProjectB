@@ -26,15 +26,16 @@ STRIKES = [
     ("GreatSideOne", 1, 3, "arc", +1, 7.0),
     ("DaggerCross", 1, 2, "arc", -1, 6.0),
     ("DaggerCross", 4, 6, "arc", +1, 6.0),
-    ("Spin", 2, 4, "arc", +1, 7.0),
-    ("Spin", 4, 6, "arc", +1, 7.0),
+    ("Spin", 1, 3, "arc", +1, 7.0),  # 규격 4묶음: 1타 뒤 → 아래 → 앞
+    ("Spin", 3, 8, "arc", +1, 7.0),  # 2타 앞 → 위 → 뒤 → 아래 → 앞(한 바퀴)
     ("LeapSlam", 4, 5, "arc", -1, 9.0),
     ("Iaido", 3, 4, "arc", +1, 7.0),
     ("AirSlash", 1, 2, "arc", -1, 7.0),
     ("Slam", 4, 5, "arc", -1, 8.0),
     ("Lunge", 2, 3, "needle", 0, 6.0),
-    ("DaggerFlurry", 1, 2, "needle", 0, 4.0),
-    ("DaggerFlurry", 4, 5, "needle", 0, 5.0),
+    ("DaggerFlurry", 1, 2, "needle", 0, 4.0),  # 규격 4묶음: 찌르기 3번(2·4·7)
+    ("DaggerFlurry", 3, 4, "needle", 0, 4.0),
+    ("DaggerFlurry", 6, 7, "needle", 0, 5.5),
     ("Punch", 1, 2, "needle", 0, 4.0),
 ]
 # 지면 충격(기존 도트 VfxId, 발 앞 거리 px): (동작, 프레임, VfxId, 앞 거리, 크기)
