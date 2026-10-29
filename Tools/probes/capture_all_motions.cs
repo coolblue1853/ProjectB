@@ -47,6 +47,13 @@ foreach (var m in list)
         if (mm.l != "") temps.Add(hold(mm.l, sockL, true));
         rig.Play(mm.anim);
         camX[0] = pc.transform.position.x;
+        if (mm.anim == "DownThrust")
+        {
+            // 공중 아래 찌르기는 떨어지는 동안 보여야 읽힌다(10-29 사용자 "멈춰 있다"): 1유닛 위에서 0.45초에 바닥까지
+            float y0 = pc.transform.position.y;
+            pc.transform.position += Vector3.up * 1f;
+            DG.Tweening.TweenSettingsExtensions.SetUpdate(DG.Tweening.TweenSettingsExtensions.SetEase(DG.Tweening.ShortcutExtensions.DOMoveY(pc.transform, y0, 0.45f), DG.Tweening.Ease.InQuad), true);
+        }
         if (move.TryGetValue(mm.anim, out float dx)) DG.Tweening.TweenSettingsExtensions.SetUpdate(DG.Tweening.TweenSettingsExtensions.SetEase(DG.Tweening.ShortcutExtensions.DOMoveX(pc.transform, pc.transform.position.x + dx, 0.35f), DG.Tweening.Ease.OutQuad), true);
         if (basic.TryGetValue(mm.anim, out VfxId sm))
         {
