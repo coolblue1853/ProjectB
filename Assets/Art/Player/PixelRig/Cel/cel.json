@@ -5869,20 +5869,37 @@
    {
     "png": "GreatSideOne_2",
     "hand": [
-     26,
-     31
+     31,
+     44
     ],
     "handB": [
-     50,
-     26
+     36,
+     40
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.15,
-    "angle": 180.0
+    "time": 0.06,
+    "angle": 190.0,
+    "behind": true
    },
    {
     "png": "GreatSideOne_3",
+    "hand": [
+     31,
+     45
+    ],
+    "handB": [
+     36,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": 195.0,
+    "behind": true
+   },
+   {
+    "png": "GreatSideOne_4",
     "hand": [
      38,
      42
@@ -5897,7 +5914,7 @@
     "angle": -95.0
    },
    {
-    "png": "GreatSideOne_4",
+    "png": "GreatSideOne_5",
     "hand": [
      50,
      28
@@ -5912,7 +5929,7 @@
     "angle": 35.0
    },
    {
-    "png": "GreatSideOne_5",
+    "png": "GreatSideOne_6",
     "hand": [
      50,
      28
@@ -5927,7 +5944,7 @@
     "angle": 36.3
    },
    {
-    "png": "GreatSideOne_6",
+    "png": "GreatSideOne_7",
     "hand": [
      49,
      27
@@ -5942,37 +5959,39 @@
     "angle": 38.7
    },
    {
-    "png": "GreatSideOne_7",
-    "hand": [
-     49,
-     27
-    ],
-    "handB": [
-     37,
-     33
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.16,
-    "angle": 40.0
-   },
-   {
     "png": "GreatSideOne_8",
     "hand": [
-     50,
-     31
+     46,
+     41
     ],
     "handB": [
-     39,
-     38
+     43,
+     45
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.045,
-    "angle": 21.9
+    "time": 0.08,
+    "angle": -10.0,
+    "behind": true
    },
    {
     "png": "GreatSideOne_9",
+    "hand": [
+     46,
+     42
+    ],
+    "handB": [
+     43,
+     46
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -20.0,
+    "behind": true
+   },
+   {
+    "png": "GreatSideOne_10",
     "hand": [
      48,
      37
@@ -5987,7 +6006,7 @@
     "angle": -11.9
    },
    {
-    "png": "GreatSideOne_10",
+    "png": "GreatSideOne_11",
     "hand": [
      45,
      40
@@ -6002,7 +6021,7 @@
     "angle": -30.0
    },
    {
-    "png": "GreatSideOne_11",
+    "png": "GreatSideOne_12",
     "hand": [
      43,
      41
@@ -6015,21 +6034,6 @@
     "sx": 0,
     "time": 0.045,
     "angle": -27.4
-   },
-   {
-    "png": "GreatSideOne_12",
-    "hand": [
-     40,
-     41
-    ],
-    "handB": [
-     47,
-     42
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.045,
-    "angle": -22.6
    },
    {
     "png": "GreatSideOne_13",
@@ -7142,19 +7146,36 @@
     "png": "DashSlash_2",
     "hand": [
      31,
-     34
+     44
     ],
     "handB": [
-     53,
-     43
+     36,
+     40
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.16,
-    "angle": 180.0
+    "time": 0.06,
+    "angle": 190.0,
+    "behind": true
    },
    {
     "png": "DashSlash_3",
+    "hand": [
+     31,
+     45
+    ],
+    "handB": [
+     36,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": 195.0,
+    "behind": true
+   },
+   {
+    "png": "DashSlash_4",
     "hand": [
      45,
      48
@@ -7169,7 +7190,7 @@
     "angle": -95.0
    },
    {
-    "png": "DashSlash_4",
+    "png": "DashSlash_5",
     "hand": [
      50,
      47
@@ -7184,7 +7205,7 @@
     "angle": -69.1
    },
    {
-    "png": "DashSlash_5",
+    "png": "DashSlash_6",
     "hand": [
      56,
      41
@@ -7199,7 +7220,7 @@
     "angle": -20.9
    },
    {
-    "png": "DashSlash_6",
+    "png": "DashSlash_7",
     "hand": [
      57,
      36
@@ -7214,37 +7235,39 @@
     "angle": 5.0
    },
    {
-    "png": "DashSlash_7",
+    "png": "DashSlash_8",
     "hand": [
-     51,
-     28
+     46,
+     41
     ],
     "handB": [
-     56,
-     44
+     43,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -10.0,
+    "behind": true
+   },
+   {
+    "png": "DashSlash_9",
+    "hand": [
+     46,
+     42
+    ],
+    "handB": [
+     43,
+     46
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.1,
-    "angle": 70.0
+    "angle": -20.0,
+    "behind": true
    },
    {
-    "png": "DashSlash_8",
-    "hand": [
-     53,
-     31
-    ],
-    "handB": [
-     55,
-     43
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 44.1
-   },
-   {
-    "png": "DashSlash_9",
+    "png": "DashSlash_10",
     "hand": [
      51,
      38
@@ -7259,7 +7282,7 @@
     "angle": -4.1
    },
    {
-    "png": "DashSlash_10",
+    "png": "DashSlash_11",
     "hand": [
      47,
      41
@@ -7274,7 +7297,7 @@
     "angle": -30.0
    },
    {
-    "png": "DashSlash_11",
+    "png": "DashSlash_12",
     "hand": [
      45,
      41
@@ -7287,21 +7310,6 @@
     "sx": 0,
     "time": 0.045,
     "angle": -27.4
-   },
-   {
-    "png": "DashSlash_12",
-    "hand": [
-     42,
-     41
-    ],
-    "handB": [
-     49,
-     42
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.045,
-    "angle": -22.6
    },
    {
     "png": "DashSlash_13",
@@ -11098,6 +11106,438 @@
    },
    {
     "png": "Cast_s11_12",
+    "hand": [
+     38,
+     41
+    ],
+    "handB": [
+     46,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "DashSlash_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "DashSlash_side_0",
+    "hand": [
+     33,
+     41
+    ],
+    "handB": [
+     46,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -61.5
+   },
+   {
+    "png": "DashSlash_side_1",
+    "hand": [
+     31,
+     37
+    ],
+    "handB": [
+     51,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -138.5
+   },
+   {
+    "png": "DashSlash_side_2",
+    "hand": [
+     31,
+     34
+    ],
+    "handB": [
+     53,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.16,
+    "angle": 180.0
+   },
+   {
+    "png": "DashSlash_side_3",
+    "hand": [
+     45,
+     48
+    ],
+    "handB": [
+     58,
+     46
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.04,
+    "angle": -95.0
+   },
+   {
+    "png": "DashSlash_side_4",
+    "hand": [
+     50,
+     47
+    ],
+    "handB": [
+     58,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -69.1
+   },
+   {
+    "png": "DashSlash_side_5",
+    "hand": [
+     56,
+     41
+    ],
+    "handB": [
+     58,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -20.9
+   },
+   {
+    "png": "DashSlash_side_6",
+    "hand": [
+     57,
+     36
+    ],
+    "handB": [
+     58,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": 5.0
+   },
+   {
+    "png": "DashSlash_side_7",
+    "hand": [
+     51,
+     28
+    ],
+    "handB": [
+     56,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": 70.0
+   },
+   {
+    "png": "DashSlash_side_8",
+    "hand": [
+     53,
+     31
+    ],
+    "handB": [
+     55,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 44.1
+   },
+   {
+    "png": "DashSlash_side_9",
+    "hand": [
+     51,
+     38
+    ],
+    "handB": [
+     54,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -4.1
+   },
+   {
+    "png": "DashSlash_side_10",
+    "hand": [
+     47,
+     41
+    ],
+    "handB": [
+     53,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -30.0
+   },
+   {
+    "png": "DashSlash_side_11",
+    "hand": [
+     45,
+     41
+    ],
+    "handB": [
+     52,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "DashSlash_side_12",
+    "hand": [
+     42,
+     41
+    ],
+    "handB": [
+     49,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "DashSlash_side_13",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     48,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "GreatSideOne_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "GreatSideOne_side_0",
+    "hand": [
+     32,
+     41
+    ],
+    "handB": [
+     49,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -61.5
+   },
+   {
+    "png": "GreatSideOne_side_1",
+    "hand": [
+     27,
+     35
+    ],
+    "handB": [
+     53,
+     31
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -138.5
+   },
+   {
+    "png": "GreatSideOne_side_2",
+    "hand": [
+     26,
+     31
+    ],
+    "handB": [
+     50,
+     26
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.15,
+    "angle": 180.0
+   },
+   {
+    "png": "GreatSideOne_side_3",
+    "hand": [
+     38,
+     42
+    ],
+    "handB": [
+     54,
+     37
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -95.0
+   },
+   {
+    "png": "GreatSideOne_side_4",
+    "hand": [
+     50,
+     28
+    ],
+    "handB": [
+     38,
+     34
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.04,
+    "angle": 35.0
+   },
+   {
+    "png": "GreatSideOne_side_5",
+    "hand": [
+     50,
+     28
+    ],
+    "handB": [
+     38,
+     34
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 36.3
+   },
+   {
+    "png": "GreatSideOne_side_6",
+    "hand": [
+     49,
+     27
+    ],
+    "handB": [
+     37,
+     33
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 38.7
+   },
+   {
+    "png": "GreatSideOne_side_7",
+    "hand": [
+     49,
+     27
+    ],
+    "handB": [
+     37,
+     33
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.16,
+    "angle": 40.0
+   },
+   {
+    "png": "GreatSideOne_side_8",
+    "hand": [
+     50,
+     31
+    ],
+    "handB": [
+     39,
+     38
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 21.9
+   },
+   {
+    "png": "GreatSideOne_side_9",
+    "hand": [
+     48,
+     37
+    ],
+    "handB": [
+     45,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -11.9
+   },
+   {
+    "png": "GreatSideOne_side_10",
+    "hand": [
+     45,
+     40
+    ],
+    "handB": [
+     50,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -30.0
+   },
+   {
+    "png": "GreatSideOne_side_11",
+    "hand": [
+     43,
+     41
+    ],
+    "handB": [
+     49,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "GreatSideOne_side_12",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     47,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "GreatSideOne_side_13",
     "hand": [
      38,
      41

@@ -126,6 +126,17 @@ MOTIONS = {
         ("se", {"LEFT ARM": (49, 38), "RIGHT ARM": (40, 41), "shift": (0, 1)}, 30),
         ("se", {"LEFT ARM": (49, 39), "RIGHT ARM": (38, 45)}, 30),
     ],
+    # 한손 베기 공용(돌진 횡베기·커틀러스 수평, GPT 2차 리뷰 "골반·어깨 회전 부족"): 3/4 뒤 감기 → (측면 타격) → 3/4 앞 팔로스루
+    "D_CoilNE": [
+        ("ne", {"RIGHT SHOULDER": (37, 39), "RIGHT ARM": (31, 44), "LEFT ARM": (37, 40), "LEFT LEG": (27, 52), "RIGHT LEG": (43, 52), "shift": (-1, 2)}, 190),
+        ("ne", {"RIGHT SHOULDER": (37, 40), "RIGHT ARM": (30, 45), "LEFT ARM": (37, 41), "LEFT LEG": (27, 52), "RIGHT LEG": (44, 52), "shift": (-1, 3)}, 195),
+        ("ne", {"RIGHT SHOULDER": (38, 39), "RIGHT ARM": (33, 43), "LEFT ARM": (38, 40), "LEFT LEG": (27, 52), "RIGHT LEG": (44, 52), "shift": (0, 2)}, 175),
+    ],
+    "D_FollowSE": [
+        ("se", {"RIGHT SHOULDER": (39, 37), "RIGHT ARM": (47, 41), "LEFT ARM": (43, 45), "RIGHT LEG": (30, 52), "LEFT LEG": (49, 52), "shift": (2, 2)}, -10),
+        ("se", {"RIGHT SHOULDER": (39, 38), "RIGHT ARM": (47, 43), "LEFT ARM": (43, 46), "RIGHT LEG": (30, 52), "LEFT LEG": (49, 52), "shift": (2, 3)}, -20),
+        ("se", {"RIGHT SHOULDER": (38, 37), "RIGHT ARM": (45, 43), "LEFT ARM": (42, 45), "RIGHT LEG": (31, 52), "LEFT LEG": (48, 52), "shift": (1, 2)}, -25),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 

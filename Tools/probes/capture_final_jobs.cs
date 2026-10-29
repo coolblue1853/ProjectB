@@ -26,6 +26,14 @@ var jobs = new (string name, string r, string l, PixelRampId ramp, (string, floa
         // GPT 리뷰: 몸·얼굴을 가리지 말 것 — 시전은 지팡이 끝 앞, 모으기 마법진은 발밑, 소환은 앞쪽 지면에 마법진 → 작은 기둥
         new (int, float, VfxId, float, float, float)[] { (0, 0.35f, VfxId.BurstPurple, 34f, 20f, 0.45f), (1, 0.1f, VfxId.RunePurple, 0f, -2f, 0.6f), (2, 0.3f, VfxId.RunePurple, 34f, -2f, 0.6f), (2, 0.5f, VfxId.PillarPurple, 34f, 0f, 0.5f), (2, 0.55f, VfxId.SmokePurple, 34f, 4f, 0.4f) }),
 };
+// 히트스톱·흔들림(GPT 2차 리뷰 "무기군별 히트스톱·무게감으로 전투 맛을 달리") — (직업 번호, 동작 번호, 동작 시작 후 초, 멈춤 초, 흔들림 px)
+var stops = new (int job, int m, float at, float dur, float shake)[] {
+    (0, 0, 0.42f, 0.06f, 1f), (0, 1, 0.35f, 0.05f, 1f), (0, 2, 0.2f, 0.04f, 0f),
+    (1, 0, 0.3f, 0.04f, 0f), (1, 1, 0.29f, 0.03f, 1f), (1, 1, 0.44f, 0.03f, 1f), (1, 2, 0.17f, 0.04f, 0f),
+    (2, 0, 0.5f, 0.12f, 3f), (2, 1, 0.45f, 0.06f, 1.5f), (2, 2, 0.6f, 0.1f, 2.5f),
+    (3, 2, 0.44f, 0.05f, 1.5f),
+};
+var shakeUntil = new float[1]; var shakeAmp = new float[1];
 var temps = new System.Collections.Generic.List<GameObject>();
 var dummy = new Texture2D(1, 1);
 System.Func<string, Transform, bool, GameObject> hold = (nm, sock, left) =>
@@ -79,6 +87,19 @@ foreach (var j in jobs)
             }
         }, true);
         tt += mm.Item2;
+        foreach (var st in stops) if (st.job == gi - 1 && st.m == k) tt += st.dur; // 멈춘 만큼 다음 동작을 늦춘다
+    }
+    int ji = gi - 1;
+    foreach (var st in stops)
+    {
+        if (st.job != ji) continue;
+        var ss = st;
+        DG.Tweening.DOVirtual.DelayedCall(starts[ss.m] + ss.at, () =>
+        {
+            // 캐릭터만 멈춘다(Time.timeScale 은 DOTween 예약까지 늦춰 캡처가 꼬였다)
+            rig.SetAnimationSpeed(0f); shakeAmp[0] = ss.shake; shakeUntil[0] = Time.realtimeSinceStartup + ss.dur + 0.08f;
+            DG.Tweening.DOVirtual.DelayedCall(ss.dur, () => rig.SetAnimationSpeed(1f), true);
+        }, true);
     }
     foreach (var f in jj.fx)
     {
@@ -95,7 +116,8 @@ foreach (var j in jobs)
         {
             var go = new GameObject("VidCam"); var cam = go.AddComponent<Camera>(); cam.orthographic = true; cam.orthographicSize = 1.6f;
             cam.clearFlags = CameraClearFlags.SolidColor; cam.backgroundColor = new Color(0.13f, 0.15f, 0.19f, 1f);
-            Vector3 p = pc.transform.position; go.transform.position = new Vector3((camX[0] + p.x) * 0.5f + 0.35f, p.y + 0.8f, p.z - 50f); // 반쯤 따라감 — 백스텝·돌진 이동은 보이되 화면 밖으로 안 나가게
+            Vector3 p = pc.transform.position; go.transform.position = new Vector3((camX[0] + p.x) * 0.5f + 0.35f, p.y + 0.8f, p.z - 50f);
+            if (Time.realtimeSinceStartup < shakeUntil[0]) go.transform.position += new Vector3(((kk % 2) * 2 - 1) * shakeAmp[0] / Ppu, ((kk / 2 % 2) * 2 - 1) * shakeAmp[0] * 0.5f / Ppu, 0f); // 반쯤 따라감 — 백스텝·돌진 이동은 보이되 화면 밖으로 안 나가게
             var rt = new RenderTexture(400, 260, 24); cam.targetTexture = rt; cam.Render();
             var tex = new Texture2D(400, 260, TextureFormat.RGB24, false); RenderTexture.active = rt; tex.ReadPixels(new Rect(0, 0, 400, 260), 0, 0); RenderTexture.active = null;
             System.IO.File.WriteAllBytes($"{dir}/f_{kk:000}.png", tex.EncodeToPNG());

@@ -31,6 +31,11 @@ SPLICE = {
     # 검 든 채 사격: 3/4 앞으로 몸을 열고 권총(앞손)을 어깨 높이로, 검은 반대 허리 뒤(GPT 리뷰 "두 무기가 겹친다") — 사격 4·6번
     "SwordPistol": ["0", "1", "2", ("GunSE", "D_GunSE", 0, 200, .08, True), ("GunSE", "D_GunSE", 1, 200, .05, True),
                     ("GunSE", "D_GunSE", 0, 200, .1, True), ("GunSE", "D_GunSE", 1, 200, .05, True), ("GunSE", "D_GunSE", 2, 205, .14, True), "12", "13"],
+    # 한손 베기 회전(GPT 2차 "골반·어깨 회전 부족"): 3/4 뒤 감기 → 측면 타격 → 3/4 앞 팔로스루 — 공용 프레임
+    "DashSlash": ["0", "1", ("CoilNE", "D_CoilNE", 0, 190, .06, True), ("CoilNE", "D_CoilNE", 1, 195, .12, True), "3", "4", "5", "6",
+                  ("FollowSE", "D_FollowSE", 0, -10, .06, True), ("FollowSE", "D_FollowSE", 1, -20, .1, True), "9", "10", "11", "13"],
+    "GreatSideOne": ["0", "1", ("CoilNE", "D_CoilNE", 0, 190, .06, True), ("CoilNE", "D_CoilNE", 1, 195, .12, True), "3", "4", "5", "6",
+                     ("FollowSE", "D_FollowSE", 0, -10, .08, True), ("FollowSE", "D_FollowSE", 1, -20, .1, True), "9", "10", "11", "13"],
     # 새 셀: 춤(N3)·악기(N2, 생성기가 류트를 그림 — 현악기 전용)
     "Dance": [("DanceS", "D_DanceS", i, 0, .15, False) for i in range(4)],
     "Lute": [("LuteSE", "D_LuteSE", i, 30, .12, False) for i in range(3)],
