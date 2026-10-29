@@ -55,6 +55,15 @@ public class Weapon : MonoBehaviour
 
     public GameObject leftWeqponSprite;
     public GameObject RightWeqponSprite;
+    [Header("셀 동작 무기 프로파일(MotionSpec39 §3·§21, 10-30)")]
+    [Tooltip("준비 구간(타격 프레임 앞) 길이 배율 — 무거운 무기 1.2~1.4, 단검 0.7~0.8")]
+    [SerializeField, Range(0.3f, 3f)] private float _windupMul = 1f;
+    [Tooltip("회복 구간(타격 프레임 뒤) 길이 배율")]
+    [SerializeField, Range(0.3f, 3f)] private float _recoverMul = 1f;
+    [Tooltip("손잡이 끝에 줄·사슬(WeaponChain)을 단다 — 채찍·사슬낫·유성추·올가미")]
+    [SerializeField] private bool _chain;
+    [SerializeField] private int _chainLinks = 12;
+    [SerializeField] private Color _chainColor = new Color(0.45f, 0.48f, 0.52f, 1f);
     /// <summary>장착된 아이템의 강화 단계 (EquipBoxCheck.ActivePrefab이 넣어 줌)</summary>
     [System.NonSerialized] public int enhanceLevel;
 
@@ -111,6 +120,11 @@ public class Weapon : MonoBehaviour
 
             RightWeqponSprite.transform.localRotation = Quaternion.identity;
             portrait.AdoptWeapon(RightWeqponSprite.transform, false);
+            AttachChain(RightWeqponSprite.transform);
+        }
+        if (portrait is PixelRig pixel)
+        {
+            pixel.SetTimingProfile(_windupMul, _recoverMul);
         }
         if (leftWeqponSprite != null)
         {
@@ -123,6 +137,18 @@ public class Weapon : MonoBehaviour
             leftWeqponSprite.transform.localRotation = Quaternion.identity;
             portrait.AdoptWeapon(leftWeqponSprite.transform, true);
         }
+    }
+
+    private void AttachChain(Transform grip)
+    {
+        if (!_chain || grip.GetComponentInChildren<WeaponChain>() != null)
+        {
+            return;
+        }
+        var go = new GameObject("PXFX_Chain");
+        go.transform.SetParent(grip, false);
+        go.AddComponent<LineRenderer>();
+        go.AddComponent<WeaponChain>().Setup(_chainLinks, 0.1f, _chainColor, 49);
     }
 
     public void CheckSkill()
