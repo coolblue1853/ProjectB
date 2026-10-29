@@ -152,6 +152,11 @@ MOTIONS = {
         ("south", {"LEFT ARM": (25, 49), "RIGHT ARM": (39, 44), "LEFT LEG": (26, 52), "RIGHT LEG": (40, 52), "shift": (0, 4)}, -20),
         ("south", {"LEFT ARM": (26, 45), "RIGHT ARM": (40, 43), "LEFT LEG": (27, 52), "RIGHT LEG": (38, 52), "shift": (0, 2)}, -20),
     ],
+    "D_PalmSE": [    # 장풍(N6): 3/4 앞, 두 손을 허리에 모아 웅크림 → 두 손바닥을 가슴 높이로 함께 앞으로
+        ("se", {"RIGHT SHOULDER": (37, 37), "RIGHT ARM": (41, 45), "LEFT ARM": (44, 45), "RIGHT LEG": (30, 52), "LEFT LEG": (47, 52), "shift": (-1, 3)}, -20),
+        ("se", {"RIGHT SHOULDER": (39, 36), "RIGHT ARM": (48, 40), "LEFT ARM": (51, 39), "RIGHT LEG": (30, 52), "LEFT LEG": (49, 52), "shift": (2, 1)}, -20),
+        ("se", {"RIGHT SHOULDER": (40, 36), "RIGHT ARM": (49, 39), "LEFT ARM": (52, 38), "RIGHT LEG": (30, 52), "LEFT LEG": (50, 52), "shift": (3, 1)}, -20),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 

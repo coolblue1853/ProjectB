@@ -6283,23 +6283,104 @@
    {
     "png": "Slam_0",
     "hand": [
-     46,
-     41
+     53,
+     34
     ],
     "handB": [
      54,
-     41
+     43
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": -17.5
+    "angle": 5.0,
+    "angleB": -999.0
    },
    {
     "png": "Slam_1",
     "hand": [
-     54,
-     37
+     48,
+     36
+    ],
+    "handB": [
+     50,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": 10.7,
+    "angleB": -999.0
+   },
+   {
+    "png": "Slam_2",
+    "hand": [
+     42,
+     30
+    ],
+    "handB": [
+     22,
+     30
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 90.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "Slam_3",
+    "hand": [
+     43,
+     30
+    ],
+    "handB": [
+     21,
+     30
+    ],
+    "dy": 1,
+    "sx": 0,
+    "time": 0.18,
+    "angle": 90.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "Slam_4",
+    "hand": [
+     30,
+     24
+    ],
+    "handB": [
+     32,
+     26
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 100.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "Slam_5",
+    "hand": [
+     41,
+     25
+    ],
+    "handB": [
+     46,
+     24
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 67.6,
+    "angleB": -999.0
+   },
+   {
+    "png": "Slam_6",
+    "hand": [
+     56,
+     36
     ],
     "handB": [
      61,
@@ -6307,146 +6388,60 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.11,
-    "angle": -15.0
-   },
-   {
-    "png": "Slam_2",
-    "hand": [
-     46,
-     26
-    ],
-    "handB": [
-     53,
-     26
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.06,
-    "angle": 47.5
-   },
-   {
-    "png": "Slam_3",
-    "hand": [
-     30,
-     25
-    ],
-    "handB": [
-     36,
-     25
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.11,
-    "angle": 110.0
-   },
-   {
-    "png": "Slam_4",
-    "hand": [
-     30,
-     25
-    ],
-    "handB": [
-     36,
-     25
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.14,
-    "angle": 110.0
-   },
-   {
-    "png": "Slam_5",
-    "hand": [
-     50,
-     30
-    ],
-    "handB": [
-     56,
-     29
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.03,
-    "angle": 20.0
-   },
-   {
-    "png": "Slam_6",
-    "hand": [
-     52,
-     46
-    ],
-    "handB": [
-     60,
-     45
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.06,
-    "angle": -70.0
+    "time": 0.05,
+    "angle": 7.4,
+    "angleB": -999.0
    },
    {
     "png": "Slam_7",
     "hand": [
-     52,
-     46
+     59,
+     45
     ],
     "handB": [
-     60,
+     61,
      46
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.14,
-    "angle": -72.0
+    "time": 0.25,
+    "angle": -25.0,
+    "angleB": -999.0
    },
    {
     "png": "Slam_8",
     "hand": [
-     48,
-     45
+     51,
+     43
     ],
     "handB": [
-     56,
-     45
+     53,
+     44
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": -66.0
+    "angle": -32.4,
+    "angleB": -999.0
    },
    {
     "png": "Slam_9",
     "hand": [
      43,
-     44
+     42
     ],
     "handB": [
-     52,
-     44
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.1,
-    "angle": -60.0
-   },
-   {
-    "png": "Slam_10",
-    "hand": [
-     41,
-     43
-    ],
-    "handB": [
-     50,
+     48,
      43
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": -40.0
+    "angle": -27.5,
+    "angleB": -999.0
    },
    {
-    "png": "Slam_11",
+    "png": "Slam_10",
     "hand": [
      39,
      42
@@ -6457,8 +6452,9 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.09,
-    "angle": -20.0
+    "time": 0.1,
+    "angle": -20.0,
+    "angleB": -999.0
    }
   ]
  },
@@ -12274,6 +12270,262 @@
     "dy": -1,
     "sx": 0,
     "time": 0.1,
+    "angle": -20.0
+   }
+  ]
+ },
+ "PalmBlast": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "PalmBlast_0",
+    "hand": [
+     41,
+     44
+    ],
+    "handB": [
+     44,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.14,
+    "angle": -20.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "PalmBlast_1",
+    "hand": [
+     46,
+     39
+    ],
+    "handB": [
+     51,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.04,
+    "angle": -20.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "PalmBlast_2",
+    "hand": [
+     48,
+     40
+    ],
+    "handB": [
+     52,
+     39
+    ],
+    "dy": 1,
+    "sx": 0,
+    "time": 0.28,
+    "angle": -20.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "PalmBlast_3",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -20.0,
+    "angleB": -999.0
+   }
+  ]
+ },
+ "Slam_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Slam_side_0",
+    "hand": [
+     46,
+     41
+    ],
+    "handB": [
+     54,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -17.5
+   },
+   {
+    "png": "Slam_side_1",
+    "hand": [
+     54,
+     37
+    ],
+    "handB": [
+     61,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -15.0
+   },
+   {
+    "png": "Slam_side_2",
+    "hand": [
+     46,
+     26
+    ],
+    "handB": [
+     53,
+     26
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 47.5
+   },
+   {
+    "png": "Slam_side_3",
+    "hand": [
+     30,
+     25
+    ],
+    "handB": [
+     36,
+     25
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.11,
+    "angle": 110.0
+   },
+   {
+    "png": "Slam_side_4",
+    "hand": [
+     30,
+     25
+    ],
+    "handB": [
+     36,
+     25
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.14,
+    "angle": 110.0
+   },
+   {
+    "png": "Slam_side_5",
+    "hand": [
+     50,
+     30
+    ],
+    "handB": [
+     56,
+     29
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 20.0
+   },
+   {
+    "png": "Slam_side_6",
+    "hand": [
+     52,
+     46
+    ],
+    "handB": [
+     60,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -70.0
+   },
+   {
+    "png": "Slam_side_7",
+    "hand": [
+     52,
+     46
+    ],
+    "handB": [
+     60,
+     46
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.14,
+    "angle": -72.0
+   },
+   {
+    "png": "Slam_side_8",
+    "hand": [
+     48,
+     45
+    ],
+    "handB": [
+     56,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -66.0
+   },
+   {
+    "png": "Slam_side_9",
+    "hand": [
+     43,
+     44
+    ],
+    "handB": [
+     52,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -60.0
+   },
+   {
+    "png": "Slam_side_10",
+    "hand": [
+     41,
+     43
+    ],
+    "handB": [
+     50,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -40.0
+   },
+   {
+    "png": "Slam_side_11",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.09,
     "angle": -20.0
    }
   ]

@@ -41,7 +41,8 @@ IMPACTS = [
     ("GreatDown", 8, "GroundShock", 22, 0.8),
     ("LeapSlam", 6, "GroundShock", 20, 1.0),
     ("LeapSlam", 6, "DustBrown", 6, 0.9),
-    ("Slam", 6, "GroundShock", 18, 0.9),
+    ("Slam", 7, "GroundShock", 18, 0.9),  # 10-30 메치기 셀(잡기 → 들기 → 내려꽂기)
+    ("Slam", 7, "DustStone", 18, 0.8),
     ("ShieldBash", 6, "DustBrown", -4, 0.7),
     ("Iaido", 7, "StepDust", -6, 1.0),
     ("Lunge", 3, "StepDust", -6, 0.9),
