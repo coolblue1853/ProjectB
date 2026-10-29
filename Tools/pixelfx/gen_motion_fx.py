@@ -31,7 +31,7 @@ STRIKES = [
     ("LeapSlam", 4, 6, "arc", -1, 9.0),  # 규격 7묶음: 공중 유지(4) → 사이(5) → 내려찍기(6)
     ("Iaido", 2, 4, "arc", +1, 7.0),  # 규격 7묶음: 칼집(2) → 사이(3) → 뽑아 벰(4)
     ("AirSlash", 1, 3, "arc", -1, 7.0),  # 규격 5묶음: 머리 위(1) → 사이(2) → 벰(3)
-    ("Slam", 4, 5, "arc", -1, 8.0),
+    ("Slam", 4, 6, "arc", -1, 8.0),  # 규격 8묶음: 머리 위 유지(4) → 사이(5) → 내리꽂음(6)
     ("Lunge", 1, 2, "needle", 0, 6.0),  # 규격 5묶음: 몸째 뻗는 순간(2)
     ("DaggerFlurry", 1, 2, "needle", 0, 4.0),  # 규격 4묶음: 찌르기 3번(2·4·7)
     ("DaggerFlurry", 3, 4, "needle", 0, 4.0),
@@ -43,7 +43,7 @@ IMPACTS = [
     ("GreatDown", 5, "GroundShock", 22, 0.8),
     ("LeapSlam", 6, "GroundShock", 20, 1.0),
     ("LeapSlam", 6, "DustBrown", 6, 0.9),
-    ("Slam", 5, "GroundShock", 18, 0.9),
+    ("Slam", 6, "GroundShock", 18, 0.9),
     ("ShieldBash", 3, "DustBrown", -4, 0.7),
     ("Iaido", 4, "StepDust", -6, 1.0),
     ("Lunge", 2, "StepDust", -6, 0.9),

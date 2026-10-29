@@ -1,17 +1,17 @@
 {
  "Bow": {
   "frames": [
-   "m41/b2/bow/0",
-   "m41/b2/bow/1",
-   "m41/b2/bow/2",
-   "m41/b2/bow/3",
-   "m41/b2/bow/4",
-   "m41/b2/bow/5",
-   "m41/b2/bow/6",
-   "m41/b2/bow/7",
-   "m41/b2/bow/8",
-   "m41/b2/bow/9",
-   "m41/b2/bow/10"
+   "m41/s8/bow/0",
+   "m41/s8/bow/1",
+   "m41/s8/bow/2",
+   "m41/s8/bow/3",
+   "m41/s8/bow/4",
+   "m41/s8/bow/5",
+   "m41/s8/bow/6",
+   "m41/s8/bow/7",
+   "m41/s8/bow/8",
+   "m41/s8/bow/9",
+   "m41/s8/bow/10"
   ],
   "hand": [
    [
@@ -74,19 +74,19 @@
   ],
   "times": [
    0.06,
-   0.09,
+   0.1,
+   0.06,
+   0.2,
+   0.05,
+   0.05,
    0.12,
-   0.12,
-   0.07,
+   0.06,
    0.1,
-   0.1,
-   0.09,
-   0.1,
-   0.1,
-   0.11
+   0.06,
+   0.08
   ],
-  "job": "c1113aaf-aa49-464c-9925-ee43bc554bc4",
-  "motion": "B2_A13_Shoot"
+  "job": "56e829f9-d750-459c-a998-e5339a49bf9e",
+  "motion": "S8_A13_Bow"
  },
  "Cast": {
   "frames": [
@@ -971,18 +971,18 @@
  },
  "Slam": {
   "frames": [
-   "m41/b3/slam/0",
-   "m41/b3/slam/1",
-   "m41/b3/slam/2",
-   "m41/b3/slam/3",
-   "m41/b3/slam/4",
-   "m41/b3/slam/5",
-   "m41/b3/slam/6",
-   "m41/b3/slam/7",
-   "m41/b3/slam/8",
-   "m41/b3/slam/9",
-   "m41/b3/slam/10",
-   "m41/b3/slam/11"
+   "m41/s8/slam/0",
+   "m41/s8/slam/1",
+   "m41/s8/slam/2",
+   "m41/s8/slam/3",
+   "m41/s8/slam/4",
+   "m41/s8/slam/5",
+   "m41/s8/slam/6",
+   "m41/s8/slam/7",
+   "m41/s8/slam/8",
+   "m41/s8/slam/9",
+   "m41/s8/slam/10",
+   "m41/s8/slam/11"
   ],
   "hand": [
    [
@@ -1006,8 +1006,8 @@
     25
    ],
    [
-    52,
-    46
+    50,
+    30
    ],
    [
     52,
@@ -1040,8 +1040,8 @@
    47.5,
    110.0,
    110.0,
+   20.0,
    -70.0,
-   -71.0,
    -72.0,
    -66.0,
    -60.0,
@@ -1049,21 +1049,21 @@
    -20.0
   ],
   "times": [
-   0.05,
-   0.09,
+   0.06,
    0.11,
-   0.12,
+   0.06,
+   0.11,
    0.14,
-   0.07,
+   0.03,
+   0.06,
+   0.14,
+   0.06,
    0.1,
-   0.11,
-   0.09,
-   0.09,
-   0.1,
-   0.11
+   0.06,
+   0.09
   ],
-  "job": "2976810d-f195-499b-98b0-8e3621a89f26",
-  "motion": "R9_Slam"
+  "job": "7def6a1e-a5b4-4f33-84d3-982cd30f152f",
+  "motion": "S8_R9_Slam"
  },
  "Pull": {
   "frames": [
@@ -1484,17 +1484,18 @@
  },
  "ShoulderAim": {
   "frames": [
-   "m41/b4/shoulderaim/0",
-   "m41/b4/shoulderaim/1",
-   "m41/b4/shoulderaim/2",
-   "m41/b4/shoulderaim/3",
-   "m41/b4/shoulderaim/4",
-   "m41/b4/shoulderaim/5",
-   "m41/b4/shoulderaim/6",
-   "m41/b4/shoulderaim/7",
-   "m41/b4/shoulderaim/8",
-   "m41/b4/shoulderaim/9",
-   "m41/b4/shoulderaim/10"
+   "m41/s8/shoulderaim/0",
+   "m41/s8/shoulderaim/1",
+   "m41/s8/shoulderaim/2",
+   "m41/s8/shoulderaim/3",
+   "m41/s8/shoulderaim/4",
+   "m41/s8/shoulderaim/5",
+   "m41/s8/shoulderaim/6",
+   "m41/s8/shoulderaim/7",
+   "m41/s8/shoulderaim/8",
+   "m41/s8/shoulderaim/9",
+   "m41/s8/shoulderaim/10",
+   "m41/s8/shoulderaim/11"
   ],
   "hand": [
    [
@@ -1507,6 +1508,10 @@
    ],
    [
     35,
+    33
+   ],
+   [
+    33,
     33
    ],
    [
@@ -1547,6 +1552,7 @@
    10.0,
    5.0,
    0.0,
+   0.0,
    8.0,
    4.0,
    0.0,
@@ -1556,20 +1562,21 @@
    -20.0
   ],
   "times": [
-   0.07,
+   0.06,
    0.1,
-   0.1,
-   0.16,
-   0.07,
+   0.05,
    0.12,
-   0.14,
+   0.12,
+   0.05,
+   0.04,
+   0.12,
+   0.06,
    0.1,
-   0.1,
-   0.11,
-   0.11
+   0.06,
+   0.08
   ],
-  "job": "9c5439b1-c4cb-4083-b03b-ac43346b9b31",
-  "motion": "B4_R1_ShoulderAim"
+  "job": "b2c23203-c664-4df8-8e0f-91827c65f754",
+  "motion": "S8_R1_ShoulderAim"
  },
  "LeapSlam": {
   "frames": [
@@ -2105,16 +2112,16 @@
  },
  "Knockdown": {
   "frames": [
-   "m41/b4/knockdown/0",
-   "m41/b4/knockdown/1",
-   "m41/b4/knockdown/2",
-   "m41/b4/knockdown/3",
-   "m41/b4/knockdown/4",
-   "m41/b4/knockdown/5",
-   "m41/b4/knockdown/6",
-   "m41/b4/knockdown/7",
-   "m41/b4/knockdown/8",
-   "m41/b4/knockdown/9"
+   "m41/s8/knockdown/0",
+   "m41/s8/knockdown/1",
+   "m41/s8/knockdown/2",
+   "m41/s8/knockdown/3",
+   "m41/s8/knockdown/4",
+   "m41/s8/knockdown/5",
+   "m41/s8/knockdown/6",
+   "m41/s8/knockdown/7",
+   "m41/s8/knockdown/8",
+   "m41/s8/knockdown/9"
   ],
   "hand": [
    [
@@ -2130,12 +2137,12 @@
     35
    ],
    [
-    17,
-    35
+    15,
+    38
    ],
    [
-    15,
-    44
+    14,
+    53
    ],
    [
     14,
@@ -2162,27 +2169,27 @@
    60.0,
    95.0,
    130.0,
-   141.7,
-   163.3,
+   152.5,
    175.0,
-   57.5,
+   176.0,
+   58.0,
    -60.0,
    -40.0,
    -20.0
   ],
   "times": [
    0.06,
-   0.09,
+   0.06,
    0.1,
+   0.06,
    0.15,
-   0.2,
-   0.2,
+   0.25,
+   0.08,
    0.12,
-   0.12,
-   0.11,
-   0.11
+   0.08,
+   0.1
   ],
-  "job": "f6942bf5-830e-44bc-98dc-71a85a48368a",
-  "motion": "B4_R5_Knockdown"
+  "job": "06fae8cf-c31c-4223-a7ab-8a752fe38c09",
+  "motion": "S8_R5_Knockdown"
  }
 }
