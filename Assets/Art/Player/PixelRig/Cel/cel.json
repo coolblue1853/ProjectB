@@ -4408,7 +4408,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.06,
-    "angle": 60.0
+    "angle": 60.0,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_1",
@@ -4423,7 +4424,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": 78.1
+    "angle": 78.1,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_2",
@@ -4438,7 +4440,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": 111.9
+    "angle": 111.9,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_3",
@@ -4453,7 +4456,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.1,
-    "angle": 130.0
+    "angle": 130.0,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_4",
@@ -4468,7 +4472,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": 141.7
+    "angle": 141.7,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_5",
@@ -4483,7 +4488,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": 163.3
+    "angle": 163.3,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_6",
@@ -4498,7 +4504,8 @@
     "dy": -2,
     "sx": 0,
     "time": 0.15,
-    "angle": 175.0
+    "angle": 175.0,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_7",
@@ -4513,7 +4520,8 @@
     "dy": -2,
     "sx": 0,
     "time": 0.25,
-    "angle": 176.0
+    "angle": 176.0,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_8",
@@ -4528,52 +4536,56 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": 114.8
+    "angle": 114.8,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_9",
     "hand": [
-     48,
-     36
+     38,
+     46
     ],
     "handB": [
-     55,
-     35
+     24,
+     50
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.045,
-    "angle": 1.2
+    "time": 0.12,
+    "angle": -20.0,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_10",
     "hand": [
-     48,
-     46
+     39,
+     44
     ],
     "handB": [
-     56,
-     46
+     25,
+     48
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.12,
-    "angle": -60.0
+    "time": 0.06,
+    "angle": -20.0,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_11",
     "hand": [
-     45,
-     44
+     40,
+     43
     ],
     "handB": [
-     53,
-     44
+     26,
+     45
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.045,
-    "angle": -49.6
+    "time": 0.05,
+    "angle": -20.0,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_12",
@@ -4588,7 +4600,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": -30.4
+    "angle": -30.4,
+    "angleB": -999.0
    },
    {
     "png": "Knockdown_13",
@@ -4603,7 +4616,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.1,
-    "angle": -20.0
+    "angle": -20.0,
+    "angleB": -999.0
    }
   ]
  },
@@ -12026,6 +12040,222 @@
     "dy": -1,
     "sx": 0,
     "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "Knockdown_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Knockdown_side_0",
+    "hand": [
+     36,
+     24
+    ],
+    "handB": [
+     39,
+     24
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 60.0
+   },
+   {
+    "png": "Knockdown_side_1",
+    "hand": [
+     31,
+     25
+    ],
+    "handB": [
+     36,
+     25
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 78.1
+   },
+   {
+    "png": "Knockdown_side_2",
+    "hand": [
+     22,
+     30
+    ],
+    "handB": [
+     31,
+     29
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 111.9
+   },
+   {
+    "png": "Knockdown_side_3",
+    "hand": [
+     18,
+     34
+    ],
+    "handB": [
+     28,
+     32
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.1,
+    "angle": 130.0
+   },
+   {
+    "png": "Knockdown_side_4",
+    "hand": [
+     17,
+     34
+    ],
+    "handB": [
+     25,
+     32
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 141.7
+   },
+   {
+    "png": "Knockdown_side_5",
+    "hand": [
+     15,
+     43
+    ],
+    "handB": [
+     22,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 163.3
+   },
+   {
+    "png": "Knockdown_side_6",
+    "hand": [
+     14,
+     51
+    ],
+    "handB": [
+     22,
+     50
+    ],
+    "dy": -2,
+    "sx": 0,
+    "time": 0.15,
+    "angle": 175.0
+   },
+   {
+    "png": "Knockdown_side_7",
+    "hand": [
+     14,
+     51
+    ],
+    "handB": [
+     21,
+     50
+    ],
+    "dy": -2,
+    "sx": 0,
+    "time": 0.25,
+    "angle": 176.0
+   },
+   {
+    "png": "Knockdown_side_8",
+    "hand": [
+     23,
+     34
+    ],
+    "handB": [
+     30,
+     34
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 114.8
+   },
+   {
+    "png": "Knockdown_side_9",
+    "hand": [
+     48,
+     36
+    ],
+    "handB": [
+     55,
+     35
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 1.2
+   },
+   {
+    "png": "Knockdown_side_10",
+    "hand": [
+     48,
+     46
+    ],
+    "handB": [
+     56,
+     46
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -60.0
+   },
+   {
+    "png": "Knockdown_side_11",
+    "hand": [
+     45,
+     44
+    ],
+    "handB": [
+     53,
+     44
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -49.6
+   },
+   {
+    "png": "Knockdown_side_12",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     48,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -30.4
+   },
+   {
+    "png": "Knockdown_side_13",
+    "hand": [
+     37,
+     41
+    ],
+    "handB": [
+     45,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.1,
     "angle": -20.0
    }
   ]

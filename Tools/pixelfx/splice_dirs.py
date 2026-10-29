@@ -42,6 +42,9 @@ SPLICE = {
     # 모으기(마도학자): 정면으로 두 팔 엇갈려 웅크림 → 활짝 펼침 — 시전(측면)·소환(정면 V)과 몸 자세 구별(GPT 2차)
     "Charge": ["0", "1", ("ChargeS", "D_ChargeS", 0, 120, .12, False), ("ChargeS", "D_ChargeS", 1, 120, .25, False),
                ("ChargeS", "D_ChargeS", 2, 60, .33, False), "9", "10", "11", "12", "13"],
+    # 넘어짐 → 일어남(GPT D1): 누운 뒤 정면으로 몸을 틀어 한쪽 무릎·한 손 짚고 일어섬
+    "Knockdown": ["0", "1", "2", "3", "4", "5", "6", "7", "8", ("GetupS", "D_GetupS", 0, -20, .12, False), ("GetupS", "D_GetupS", 1, -20, .06, False),
+                  ("GetupS", "D_GetupS", 2, -20, .05, False), "12", "13"],
     # 새 셀: 춤(N3)·악기(N2, 생성기가 류트를 그림 — 현악기 전용)
     "Dance": [("DanceS", "D_DanceS", i, 0, .15, False) for i in range(4)],
     "Lute": [("LuteSE", "D_LuteSE", i, 30, .12, False) for i in range(3)],

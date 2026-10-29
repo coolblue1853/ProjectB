@@ -147,6 +147,11 @@ MOTIONS = {
         ("south", {"RIGHT ARM": (30, 37), "LEFT ARM": (34, 37), "LEFT LEG": (26, 52), "RIGHT LEG": (38, 52), "shift": (0, 3)}, 120),
         ("south", {"RIGHT ARM": (44, 43), "LEFT ARM": (20, 43), "LEFT LEG": (24, 52), "RIGHT LEG": (40, 52), "shift": (0, -1)}, 60),
     ],
+    "D_GetupS": [    # 넘어짐 → 일어남(GPT D1): 정면으로 몸을 틀어 한쪽 무릎 꿇고 한 손 땅 짚기 → 밀며 일어섬
+        ("south", {"LEFT ARM": (24, 50), "RIGHT ARM": (38, 46), "LEFT LEG": (26, 52), "RIGHT LEG": (40, 52), "shift": (-1, 6)}, -20),
+        ("south", {"LEFT ARM": (25, 49), "RIGHT ARM": (39, 44), "LEFT LEG": (26, 52), "RIGHT LEG": (40, 52), "shift": (0, 4)}, -20),
+        ("south", {"LEFT ARM": (26, 45), "RIGHT ARM": (40, 43), "LEFT LEG": (27, 52), "RIGHT LEG": (38, 52), "shift": (0, 2)}, -20),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 
