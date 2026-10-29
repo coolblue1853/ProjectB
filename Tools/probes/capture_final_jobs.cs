@@ -33,6 +33,8 @@ var stops = new (int job, int m, float at, float dur, float shake)[] {
     (2, 0, 0.5f, 0.12f, 3f), (2, 1, 0.45f, 0.06f, 1.5f), (2, 2, 0.6f, 0.1f, 2.5f),
     (3, 2, 0.44f, 0.05f, 1.5f),
 };
+// 무기군 타이밍 프로파일(준비 배율, 회복 배율) — 닻은 무겁게 길게, 사무라이는 장전 길고 회복 짧게(발도 문법)
+var timing = new (float w, float r)[] { (1.25f, 0.8f), (1.0f, 0.9f), (1.35f, 1.2f), (1.1f, 1.0f) };
 var shakeUntil = new float[1]; var shakeAmp = new float[1];
 var temps = new System.Collections.Generic.List<GameObject>();
 var dummy = new Texture2D(1, 1);
@@ -47,7 +49,7 @@ var move = new System.Collections.Generic.Dictionary<string, float> { { "Backste
 float t = 1.0f; int gi = 0; var camX = new float[1];
 foreach (var j in jobs)
 {
-    var jj = j; string dir = $"Logs/playtest/final/{gi++:00}"; System.IO.Directory.CreateDirectory(dir);
+    int gi2 = gi; var jj = j; string dir = $"Logs/playtest/final/{gi++:00}"; System.IO.Directory.CreateDirectory(dir);
     DG.Tweening.DOVirtual.DelayedCall(t, () =>
     {
         foreach (var o in temps) if (o != null) UnityEngine.Object.Destroy(o);
@@ -55,6 +57,7 @@ foreach (var j in jobs)
         if (jj.r != "") temps.Add(hold(jj.r, sockR, false));
         if (jj.l != "") temps.Add(hold(jj.l, sockL, true));
         PixelRig.MotionFxRamp = jj.ramp;
+        rig.SetTimingProfile(timing[gi2].w, timing[gi2].r);
         camX[0] = pc.transform.position.x;
     }, true);
     float tt = t + 0.25f; var starts = new float[jj.seq.Length];
@@ -86,7 +89,7 @@ foreach (var j in jobs)
                 DG.Tweening.DOVirtual.DelayedCall(WeaponFx.StrikeDelayFor("Stab", rig), () => Vfx.PlayThemed(VfxId.WSmearStab, rig.CelRoot.position, false, Mathf.Abs(rig.CelRoot.lossyScale.y), jj.ramp, false, false, 1f, true), true);
             }
         }, true);
-        tt += mm.Item2;
+        tt += mm.Item2 * (timing[gi2].w + timing[gi2].r) * 0.5f;
         foreach (var st in stops) if (st.job == gi - 1 && st.m == k) tt += st.dur; // 멈춘 만큼 다음 동작을 늦춘다
     }
     int ji = gi - 1;
@@ -94,7 +97,7 @@ foreach (var j in jobs)
     {
         if (st.job != ji) continue;
         var ss = st;
-        DG.Tweening.DOVirtual.DelayedCall(starts[ss.m] + ss.at, () =>
+        DG.Tweening.DOVirtual.DelayedCall(starts[ss.m] + ss.at * timing[gi2].w, () =>
         {
             // 캐릭터만 멈춘다(Time.timeScale 은 DOTween 예약까지 늦춰 캡처가 꼬였다)
             rig.SetAnimationSpeed(0f); shakeAmp[0] = ss.shake; shakeUntil[0] = Time.realtimeSinceStartup + ss.dur + 0.08f;
@@ -104,7 +107,7 @@ foreach (var j in jobs)
     foreach (var f in jj.fx)
     {
         var ff = f;
-        DG.Tweening.DOVirtual.DelayedCall(starts[ff.Item1] + ff.Item2, () =>
+        DG.Tweening.DOVirtual.DelayedCall(starts[ff.Item1] + ff.Item2 * timing[gi2].w, () =>
             Vfx.Play(ff.Item3, (ff.Item4 >= 900f ? sockL.position + new Vector3((ff.Item4 - 1000f) / Ppu, ff.Item5 / Ppu, 0f) : pc.transform.position + new Vector3(ff.Item4 / Ppu, ff.Item5 / Ppu, 0f)), false, ff.Item6), true);
     }
     DG.Tweening.DOVirtual.DelayedCall(tt, () => rig.Play("Idle"), true); tt += 0.4f;
@@ -129,5 +132,5 @@ foreach (var j in jobs)
     DG.Tweening.DOVirtual.DelayedCall(back, () => { pc.transform.position = new Vector3(camX[0], pc.transform.position.y, pc.transform.position.z); }, true);
     t = tt + 0.3f;
 }
-DG.Tweening.DOVirtual.DelayedCall(t, () => { PixelRig.MotionFxRamp = PixelRampId.Steel; }, true);
+DG.Tweening.DOVirtual.DelayedCall(t, () => { PixelRig.MotionFxRamp = PixelRampId.Steel; rig.SetTimingProfile(1f, 1f); }, true);
 return "scheduled " + t + " s, " + jobs.Length + " jobs";

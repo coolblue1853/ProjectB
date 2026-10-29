@@ -56,6 +56,11 @@ public class PixelRig : CharacterRig
     private float _clipSpeed = 1f;
     private CelClip _fxCel; // 마스터 모션 이펙트(MotionFxTable): 지금 셀과 이미 지난 프레임
     private int _fxFrame = -1;
+    // 무기군 타이밍 프로파일(MotionSpec39 §3, 10-30 GPT "같은 몸이라도 무기군별 준비·회복 비율로 전투 맛을 달리"): 타격 프레임 앞 = 준비, 뒤 = 회복
+    private float _windupMul = 1f;
+    private float _recoverMul = 1f;
+    private int _celPhase;
+    private readonly Dictionary<string, int> _strikeFrame = new Dictionary<string, int>();
     private MotionVariants.Variant _variant; // 재생 프로파일(구간·속도·정지·반복, MotionVariants)
     // 점프 세분(상승·꼭대기·낙하)과 착지 눌림 — 플레이어 코드는 Play("Jump") 하나만 부른다
     private Rigidbody2D _body;
@@ -408,7 +413,8 @@ public class PixelRig : CharacterRig
         }
         // 걷기·달리기는 이동 속도 배율만큼 빨리(버프로 빨라져도 발이 미끄러지지 않게)
         float loco = _requested == "Walk" || _requested == "Run" ? Mathf.Clamp(StatMath.MoveSpeedMul, 0.5f, 2f) : 1f;
-        _time += Time.deltaTime * _globalSpeed * _clipSpeed * loco;
+        float phase = _celPhase < 0 ? 1f / _windupMul : _celPhase > 0 ? 1f / _recoverMul : 1f;
+        _time += Time.deltaTime * _globalSpeed * _clipSpeed * loco * phase;
         Clip c = PickVariant();
         float len = Mathf.Max(c.clip.length, 0.0001f);
         float t = c == _arc && _arcAt >= 0f ? _arcAt * len : c == _fidget && _fidgetAt >= 0f ? Mathf.Min(_fidgetAt, len) : c.loop ? Mathf.Repeat(_time, len) : Mathf.Min(_time, len);
@@ -548,6 +554,8 @@ public class PixelRig : CharacterRig
             i = _variant != null && cel.name == _variant.baseCel
                 ? _variant.IndexIn(cel, _time)
                 : cel.IndexAt(_time + (c.name == "Walk" ? WalkStartFrame * cel.frame : 0f));
+            int strike = StrikeFrameOf(cel.name);
+            _celPhase = strike < 0 || cel.loop ? 0 : i < strike ? -1 : i > strike ? 1 : 0;
         }
         ShowCel(true);
         // 전신 회전 구간: 리그를 좌우 반전(몸·무기·주먹이 함께 뒤집혀 뒤돈 것처럼), 끝나면 원래대로
@@ -1097,6 +1105,39 @@ public class PixelRig : CharacterRig
                 r.sortingOrder = behind ? _weaponOrderBack : _weaponOrderFront;
             }
         }
+    }
+
+    /// <summary>
+    /// 무기군 타이밍 프로파일: 준비(타격 프레임 앞)·회복(뒤) 구간 길이 배율. 1 = 셀 그대로, 1.3 = 30% 길게(무거운 무기), 0.8 = 빠르게(단검).
+    /// 셀을 다시 그리지 않고 같은 몸으로 무기군마다 다른 완급을 낸다. 타격 프레임은 MotionFxTable·기본 3타 표에서 찾는다.
+    /// </summary>
+    public void SetTimingProfile(float windup, float recover)
+    {
+        _windupMul = Mathf.Clamp(windup, 0.3f, 3f);
+        _recoverMul = Mathf.Clamp(recover, 0.3f, 3f);
+    }
+
+    private int StrikeFrameOf(string cel)
+    {
+        if (_strikeFrame.TryGetValue(cel, out int f))
+        {
+            return f;
+        }
+        f = -1;
+        foreach (MotionFxTable.Strike s in MotionFxTable.Strikes)
+        {
+            if (s.anim == cel)
+            {
+                f = s.frame;
+                break;
+            }
+        }
+        if (f < 0 && WeaponFx.TryBasicCelStrike(cel, out VfxId _, out int bf))
+        {
+            f = bf;
+        }
+        _strikeFrame[cel] = f;
+        return f;
     }
 
     private void SortBackWeapon(Clip c)
