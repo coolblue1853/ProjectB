@@ -52,8 +52,8 @@ public static class MotionFxTable
         new Strike("DaggerCross", 5, VfxId.MSmear4, new SmearAura.Shape { arc = true, c = new Vector2(10.8f, 6.6f), ea = 20f, eb = 16f, tilt = 0f, a0 = 74.3f, a1 = -75.7f }),
         new Strike("Spin", 3, VfxId.MSmear5, new SmearAura.Shape { arc = true, c = new Vector2(-2.6f, 24.9f), ea = 35.6f, eb = 28.5f, tilt = 0f, a0 = -217.4f, a1 = -10.4f }),
         new Strike("Spin", 8, VfxId.MSmear6, new SmearAura.Shape { arc = true, c = new Vector2(-0.7f, 19.4f), ea = 32.4f, eb = 25.9f, tilt = 0f, a0 = -300.8f, a1 = -0.8f }),
-        new Strike("LeapSlam", 5, VfxId.MSmear7, new SmearAura.Shape { arc = true, c = new Vector2(-0.5f, 19f), ea = 30f, eb = 24f, tilt = 0f, a0 = 190f, a1 = -41.1f }),
-        new Strike("Iaido", 4, VfxId.MSmear8, new SmearAura.Shape { arc = true, c = new Vector2(4.5f, 17f), ea = 27.8f, eb = 22.3f, tilt = 0f, a0 = -194.7f, a1 = 1.9f }),
+        new Strike("LeapSlam", 6, VfxId.MSmear7, new SmearAura.Shape { arc = true, c = new Vector2(-3.4f, 12.9f), ea = 37.5f, eb = 30f, tilt = 0f, a0 = 200.9f, a1 = -30.2f }),
+        new Strike("Iaido", 4, VfxId.MSmear8, new SmearAura.Shape { arc = true, c = new Vector2(4f, 26.7f), ea = 35.6f, eb = 28.5f, tilt = 0f, a0 = -212.5f, a1 = -15.9f }),
         new Strike("AirSlash", 3, VfxId.MSmear9, new SmearAura.Shape { arc = true, c = new Vector2(-3.2f, 15f), ea = 35.1f, eb = 28.1f, tilt = 0f, a0 = 195.1f, a1 = -34.9f }),
         new Strike("Slam", 5, VfxId.MSmear10, new SmearAura.Shape { arc = true, c = new Vector2(0f, 19f), ea = 29.4f, eb = 23.5f, tilt = 0f, a0 = 148.4f, a1 = -58.6f }),
         new Strike("Lunge", 2, VfxId.MSmear11, new SmearAura.Shape { arc = false, p0 = new Vector2(6f, 14f), p1 = new Vector2(60.5f, 14f) }),
@@ -66,8 +66,8 @@ public static class MotionFxTable
     public static readonly Impact[] Impacts =
     {
         new Impact("GreatDown", 5, VfxId.GroundShock, 22f, 0.8f),
-        new Impact("LeapSlam", 5, VfxId.GroundShock, 20f, 1f),
-        new Impact("LeapSlam", 5, VfxId.DustBrown, 6f, 0.9f),
+        new Impact("LeapSlam", 6, VfxId.GroundShock, 20f, 1f),
+        new Impact("LeapSlam", 6, VfxId.DustBrown, 6f, 0.9f),
         new Impact("Slam", 5, VfxId.GroundShock, 18f, 0.9f),
         new Impact("ShieldBash", 3, VfxId.DustBrown, -4f, 0.7f),
         new Impact("Iaido", 4, VfxId.StepDust, -6f, 1f),

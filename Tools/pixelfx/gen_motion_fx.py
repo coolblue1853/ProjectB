@@ -28,8 +28,8 @@ STRIKES = [
     ("DaggerCross", 3, 5, "arc", -1, 5.0),  # 끝까지 흘림(5)
     ("Spin", 1, 3, "arc", +1, 7.0),  # 규격 4묶음: 1타 뒤 → 아래 → 앞
     ("Spin", 3, 8, "arc", +1, 7.0),  # 2타 앞 → 위 → 뒤 → 아래 → 앞(한 바퀴)
-    ("LeapSlam", 4, 5, "arc", -1, 9.0),
-    ("Iaido", 3, 4, "arc", +1, 7.0),
+    ("LeapSlam", 4, 6, "arc", -1, 9.0),  # 규격 7묶음: 공중 유지(4) → 사이(5) → 내려찍기(6)
+    ("Iaido", 2, 4, "arc", +1, 7.0),  # 규격 7묶음: 칼집(2) → 사이(3) → 뽑아 벰(4)
     ("AirSlash", 1, 3, "arc", -1, 7.0),  # 규격 5묶음: 머리 위(1) → 사이(2) → 벰(3)
     ("Slam", 4, 5, "arc", -1, 8.0),
     ("Lunge", 1, 2, "needle", 0, 6.0),  # 규격 5묶음: 몸째 뻗는 순간(2)
@@ -41,8 +41,8 @@ STRIKES = [
 # 지면 충격(기존 도트 VfxId, 발 앞 거리 px): (동작, 프레임, VfxId, 앞 거리, 크기)
 IMPACTS = [
     ("GreatDown", 5, "GroundShock", 22, 0.8),
-    ("LeapSlam", 5, "GroundShock", 20, 1.0),
-    ("LeapSlam", 5, "DustBrown", 6, 0.9),
+    ("LeapSlam", 6, "GroundShock", 20, 1.0),
+    ("LeapSlam", 6, "DustBrown", 6, 0.9),
     ("Slam", 5, "GroundShock", 18, 0.9),
     ("ShieldBash", 3, "DustBrown", -4, 0.7),
     ("Iaido", 4, "StepDust", -6, 1.0),
