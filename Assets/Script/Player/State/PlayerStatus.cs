@@ -9,7 +9,7 @@ public enum StatusFlag { Invincible, SuperArmor, MoveLock, LadderLock, InputLock
 /// <summary>
 /// 플레이어 상태 플래그를 ref-count 토큰으로 관리한다 (설계: .claude-rules/Game/PlayerStateDesign.md 2.2).
 /// 여러 출처가 같은 플래그를 켜도 각자 자기 토큰만 해제하므로, 한 출처가 다른 출처의 무적·슈퍼아머·이동정지를 꺼버리는 버그(B-114)가 구조적으로 사라진다.
-/// 기존 코드의 static bool 읽기/쓰기는 DatabaseManager의 프로퍼티(facade) → SetLegacy로 연결되어 그대로 동작한다.
+/// DatabaseManager의 static bool 프로퍼티는 읽기 전용 facade다(Has). SetLegacy는 런타임 호출자가 없고 테스트·하위 호환용으로만 남아 있다.
 /// </summary>
 public static class PlayerStatus
 {

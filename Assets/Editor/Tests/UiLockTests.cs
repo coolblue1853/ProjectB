@@ -8,6 +8,8 @@ public class UiLockTests
         PlayerStatus.ResetStatics();
         UiLock.Set("A", false);
         UiLock.Set("B", false);
+        UiLock.Set("InvGroup", false);
+        UiLock.Set("Craft", false);
     }
 
     [Test]
@@ -33,13 +35,13 @@ public class UiLockTests
     }
 
     [Test]
-    public void LegacyAndNamed_Independent()
+    public void InvGroupAndCraft_Independent()
     {
-        DatabaseManager.isOpenUI = true;   // 레거시 UI
-        UiLock.Set("A", true);
-        DatabaseManager.isOpenUI = false;  // 레거시가 닫혀도 A 잠금 유지
+        UiLock.Set("InvGroup", true);  // 인벤토리·창고·상점 묶음
+        UiLock.Set("Craft", true);
+        UiLock.Set("InvGroup", false); // 한 창을 닫아도 제작 잠금 유지 (C8)
         Assert.IsTrue(DatabaseManager.isOpenUI);
-        UiLock.Set("A", false);
+        UiLock.Set("Craft", false);
         Assert.IsFalse(DatabaseManager.isOpenUI);
     }
 }
