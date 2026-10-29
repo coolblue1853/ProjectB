@@ -16,6 +16,8 @@ public class CelClip
     public Vector2[] hand = new Vector2[0];
     public Vector2[] handB = new Vector2[0];
     public float[] times = new float[0];  // 프레임별 시간(초). 비어 있거나 0 이면 frame 을 쓴다 — 공격 완급(준비 길게·타격 짧게, 10-27 MotionRootCause 6번)
+    /// <summary>프레임별: 주무기를 몸 뒤에 그린다(뒷모습 프레임 — 회전 베기·돌려차기, 10-29 밤). 비어 있으면 앞</summary>
+    public bool[] behind = new bool[0];
     public float[] angles = new float[0]; // 칼날 각도(도, 0 = 앞, 90 = 위). NoAngle 이면 리그가 손 위치로 정한다(공격 셀은 그림 속 칼에서 읽은 값)
     public const float NoAngle = -999f;
 

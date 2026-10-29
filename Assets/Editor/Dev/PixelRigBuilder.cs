@@ -676,6 +676,7 @@ public static class PixelRigBuilder
         public int[] hand;
         public int[] handB;
         public float angle = CelClip.NoAngle;
+        public bool behind; // 주무기를 몸 뒤에(뒷모습 프레임)
         public float time; // 0 = 클립 frame 사용
     }
 
@@ -731,6 +732,8 @@ public static class PixelRigBuilder
             fp.arraySize = clip.frames.Length;
             SerializedProperty ap = e.FindPropertyRelative("angles");
             ap.arraySize = clip.frames.Length;
+            SerializedProperty wp = e.FindPropertyRelative("behind");
+            wp.arraySize = clip.frames.Length;
             SerializedProperty tp = e.FindPropertyRelative("times");
             tp.arraySize = clip.frames.Length;
             for (int i = 0; i < clip.frames.Length; i++)
@@ -754,6 +757,7 @@ public static class PixelRigBuilder
                 hp.GetArrayElementAtIndex(i).vector2Value = CelLocal(f.hand, ox);
                 bp.GetArrayElementAtIndex(i).vector2Value = CelLocal(f.handB, ox);
                 ap.GetArrayElementAtIndex(i).floatValue = f.angle;
+                wp.GetArrayElementAtIndex(i).boolValue = f.behind;
             }
         }
     }

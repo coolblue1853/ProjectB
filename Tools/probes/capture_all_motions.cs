@@ -22,6 +22,16 @@ var list = new (string anim, string r, string l)[] {
     ("Grab","",""), ("Ride","TmpSpear",""), ("Knockdown","TmpSword",""), ("ShieldBash","TmpSword","TmpShield"),
     ("Slam","",""), ("Pull","TmpHook",""), ("LowSweep","TmpSpear",""), ("GreatUpper","TmpGreatSword",""), ("DashSlash","TmpSword",""), ("WhipSnap","TmpWhip",""), ("Roundhouse","TmpKnuckle","TmpKnuckle"), ("Sheathe","TmpKatana",""), ("Whirl","TmpGreatSword",""), ("DownThrust","TmpSword",""), ("DualPistol","TmpPistol","TmpPistol"), ("Rifle","TmpRifle",""), ("SwordPistol","TmpSword","TmpPistol"),
 };
+// 일부만 다시 찍기(10-29 밤): Logs/capture_list.txt 가 있으면 그 줄(동작,오른손,왼손)만 Logs/playtest/sub/ 에
+string root = "Logs/playtest/all";
+var items = new System.Collections.Generic.List<string[]>();
+foreach (var x in list) items.Add(new[] { x.anim, x.r, x.l });
+if (System.IO.File.Exists("Logs/capture_list.txt"))
+{
+    items.Clear();
+    foreach (var ln in System.IO.File.ReadAllLines("Logs/capture_list.txt")) { var c = ln.Split(','); if (c.Length == 3) items.Add(new[] { c[0].Trim(), c[1].Trim(), c[2].Trim() }); }
+    root = "Logs/playtest/sub/" + System.DateTime.Now.ToString("HHmmss");
+}
 var basic = new System.Collections.Generic.Dictionary<string, VfxId> { { "Stab", VfxId.WSmearStab }, { "SwingDown", VfxId.WSmearDown }, { "SwingUp", VfxId.WSmearUp } };
 var temps = new System.Collections.Generic.List<GameObject>();
 var dummy = new Texture2D(1, 1);
@@ -31,13 +41,13 @@ System.Func<string, Transform, bool, GameObject> hold = (nm, sock, left) =>
     var sr = go.AddComponent<SpriteRenderer>(); var sp = Sprite.Create(dummy, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f)); sp.name = nm; sr.sprite = sp;
     rig.AdoptWeapon(go.transform, left); return go;
 };
-System.IO.Directory.CreateDirectory("Logs/playtest/all");
+System.IO.Directory.CreateDirectory(root);
 float t = 0.3f; int idx = 0;
 var move = new System.Collections.Generic.Dictionary<string, float> { { "Backstep", -0.9f }, { "Lunge", 0.9f }, { "DashSlash", 0.9f }, { "ShieldBash", 0.4f } }; // 실제 이동(유닛) — 백스텝 등은 움직여야 읽힌다(10-29 사용자)
 var camX = new float[1];
-foreach (var m in list)
+foreach (var m in items)
 {
-    var mm = m; int id = idx++; string dir = $"Logs/playtest/all/{id:00}_{mm.anim}";
+    var mm = (anim: m[0], r: m[1], l: m[2]); int id = idx++; string dir = $"{root}/{id:00}_{mm.anim}";
     System.IO.Directory.CreateDirectory(dir);
     DG.Tweening.DOVirtual.DelayedCall(t, () =>
     {
@@ -77,4 +87,4 @@ foreach (var m in list)
     }
     t += 1.6f;
 }
-return "scheduled " + t + " s, " + list.Length + " motions";
+return "scheduled " + t + " s, " + items.Count + " motions";

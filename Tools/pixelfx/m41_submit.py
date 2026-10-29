@@ -1,6 +1,7 @@
 """keys json 의 동작을 PixelLab animate_with_skeleton_v3 로 바로 보낸다(MCP 엔드포인트를 JSON-RPC 로 직접 호출 — 긴 키포인트를 대화로 옮기지 않아 Claude 사용량 절약).
 인증 헤더는 ~/.claude.json 의 이 프로젝트 pixellab MCP 설정에서 읽고 출력하지 않는다.
-사용: python Tools/pixelfx/m41_submit.py <keys json> <동작 이름> <action 문구(100자 이내)> <seed>  → job_id 출력
+사용: python Tools/pixelfx/m41_submit.py <keys json> <동작 이름> <action 문구(100자 이내)> <seed> [방향 그림 이름(south·north·se·ne)]  → job_id 출력
+방향 그림을 주면 Docs/ArtCompare/CharacterGen/dirs/ 의 그림·골격(skel.json)·업로드(uploads.json)로 그 방향 생성(회전·돌려차기용).
 """
 import json
 import os
@@ -46,6 +47,12 @@ def main():
     rpc(url, headers, {"jsonrpc": "2.0", "method": "notifications/initialized"}, sid)
     args = {"description": ff["description"], "action": action[:100], "direction": "east", "view": "side", "seed": seed,
             "first_frame_url": ff["first_frame_url"], "first_frame_keypoints": ff["first_frame_keypoints"], "keypoints": kp}
+    if len(sys.argv) > 5:
+        dirs = os.path.join(ROOT, "Docs", "ArtCompare", "CharacterGen", "dirs")
+        view = sys.argv[5]
+        args["direction"] = {"south": "south", "north": "north", "se": "south-east", "ne": "north-east"}[view]
+        args["first_frame_url"] = json.load(open(os.path.join(dirs, "uploads.json")))[view]
+        args["first_frame_keypoints"] = json.load(open(os.path.join(dirs, "skel.json")))[view]
     res, _ = rpc(url, headers, {"jsonrpc": "2.0", "id": 2, "method": "tools/call",
                                 "params": {"name": "animate_with_skeleton_v3", "arguments": args}}, sid)
     text = "".join(c.get("text", "") for c in (res or {}).get("result", {}).get("content", []))

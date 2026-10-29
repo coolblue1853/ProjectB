@@ -227,8 +227,67 @@ def whip_handle():
     return outline(im), (2, 11), False
 
 
+def cutlass():
+    """해적 커틀러스(10-29 밤 직업 최종본): 넓고 휜 칼날 + 금색 손 보호 테."""
+    im = canvas(11, 28)
+    for y in range(2, 19):  # 위로 갈수록 앞(오른쪽)으로 휘고 넓어지는 칼날
+        x = 3 + (19 - y) // 6
+        w = 3 if y > 6 else 2
+        for k in range(w):
+            im.putpixel((x + k, y), S1 if k < w - 1 else S2)
+    rect(im, 1, 19, 8, 19, G)
+    for y in range(20, 25):          # 손 보호 테(앞쪽 고리)
+        im.putpixel((8, y), G)
+    rect(im, 4, 20, 4, 24, W2)
+    rect(im, 4, 25, 8, 25, G)
+    return outline(im), (4, 22), False
+
+
+def anchor():
+    """심해 닻(양손 둔기): 긴 쇠 자루 + 위쪽 고리, 아래(타격쪽)가 아니라 위가 머리 — 칼날 쪽 = 갈고리 두 개."""
+    im = canvas(19, 46)
+    A1, A2 = (88, 110, 112, 255), (52, 70, 74, 255)   # 녹슨 청동
+    R = (150, 90, 60, 255)                             # 녹
+    rect(im, 8, 6, 10, 44, A1)
+    rect(im, 10, 6, 10, 44, A2)
+    for x in range(1, 18):           # 갈고리 가로대(위쪽 = 타격 머리)
+        dy = abs(x - 9) // 3
+        rect(im, x, 6 - dy, x, 7 - dy, A1 if x < 9 else A2)
+    for x, y in ((1, 2), (1, 3), (2, 1), (17, 2), (17, 3), (16, 1)):   # 갈고리 끝
+        im.putpixel((x, y), A1)
+    rect(im, 6, 14, 12, 15, A2)      # 가로 막대(스톡)
+    for y in (20, 27, 33):
+        im.putpixel((9, y), R)
+    rect(im, 7, 40, 11, 44, A2)      # 아래 고리
+    rect(im, 8, 41, 10, 43, (0, 0, 0, 0))
+    return outline(im), (9, 34), False
+
+
+def eye_staff():
+    """마도학자 지팡이: 비틀린 나무 + 위에 눈알 보석(크툴루풍)."""
+    im = canvas(11, 46)
+    for y in range(10, 45):
+        im.putpixel((5 + (1 if (y // 4) % 2 else 0), y), W2)
+    rect(im, 3, 2, 7, 7, (60, 140, 120, 255))      # 녹색 눈알
+    rect(im, 4, 3, 6, 6, (210, 230, 190, 255))
+    rect(im, 5, 4, 5, 5, (30, 20, 40, 255))        # 눈동자
+    for x, y in ((2, 8), (8, 8), (3, 9), (7, 9), (1, 6), (9, 6)):   # 촉수 받침
+        im.putpixel((x, y), (110, 70, 130, 255))
+    return outline(im), (5, 34), False
+
+
+def tome():
+    """마도서(앞손, 세움): 보라 표지 + 금 장식."""
+    im = canvas(10, 12)
+    rect(im, 1, 1, 8, 10, (88, 52, 110, 255))
+    rect(im, 8, 1, 8, 10, (60, 34, 78, 255))
+    rect(im, 1, 10, 7, 10, (230, 220, 200, 255))  # 종이 모서리
+    rect(im, 4, 4, 5, 6, G)
+    return outline(im), (5, 6), True
+
+
 def main():
-    for name, fn in (("TmpKatana", katana), ("TmpHammer", hammer), ("TmpCannon", cannon), ("TmpKnife", knife), ("TmpHook", hook), ("TmpPistol", pistol), ("TmpRifle", rifle), ("TmpSword", sword), ("TmpGreatSword", greatsword), ("TmpDagger", dagger), ("TmpSpear", spear), ("TmpStaff", staff), ("TmpBow", bow), ("TmpShield", shield), ("TmpKnuckle", knuckle), ("TmpWhip", whip_handle)):
+    for name, fn in (("TmpKatana", katana), ("TmpHammer", hammer), ("TmpCannon", cannon), ("TmpKnife", knife), ("TmpHook", hook), ("TmpPistol", pistol), ("TmpRifle", rifle), ("TmpSword", sword), ("TmpGreatSword", greatsword), ("TmpDagger", dagger), ("TmpSpear", spear), ("TmpStaff", staff), ("TmpBow", bow), ("TmpShield", shield), ("TmpKnuckle", knuckle), ("TmpWhip", whip_handle), ("TmpCutlass", cutlass), ("TmpAnchor", anchor), ("TmpEyeStaff", eye_staff), ("TmpTome", tome)):
         im, grip, upright = fn()
         im.save(os.path.join(OUT, name + ".png"))
         with open(os.path.join(OUT, name + ".json"), "w") as fp:

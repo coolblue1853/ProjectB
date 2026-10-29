@@ -25,6 +25,7 @@ public class PixelRig : CharacterRig
     [SerializeField] private float _ppu = 36f;
     [Tooltip("무기 스프라이트 정렬 순서(앞손 / 뒷손)")]
     [SerializeField] private int _weaponOrderFront = 48;
+    private bool _mainBehind;
     [SerializeField] private int _weaponOrderBack = 37;
     // 공중 공격 다리: 꼭대기 포즈와 같은 접은 다리 그림(빌더가 넣는다). 없으면 다리를 2px 통째로 올린다
     [SerializeField] private Sprite _airLegF;
@@ -592,6 +593,7 @@ public class PixelRig : CharacterRig
             bool drawn = i < cel.angles.Length && cel.angles[i] > CelClip.NoAngle + 1f;
             _socketRight.parent.localRotation = Quaternion.Euler(0f, 0f, SmoothBlade(blade, drawn) - 90f);
             KeepBladeAboveGround(drawn);
+            SetMainWeaponBehind(i < cel.behind.Length && cel.behind[i]);
         }
         if (_socketLeft != null && i < cel.handB.Length)
         {
@@ -1068,6 +1070,24 @@ public class PixelRig : CharacterRig
                 continue;
             }
             _weaponRenderers[i].enabled = !hide;
+        }
+    }
+
+    /// <summary>뒷모습 프레임은 주무기를 몸 뒤에(몸 앞 = 화면 안쪽). 바뀔 때만 순서를 다시 매긴다</summary>
+    private void SetMainWeaponBehind(bool behind)
+    {
+        if (behind == _mainBehind)
+        {
+            return;
+        }
+        _mainBehind = behind;
+        for (int i = _weaponRenderers.Count - 1; i >= 0; i--)
+        {
+            SpriteRenderer r = _weaponRenderers[i];
+            if (r != null && !_backWeapon.Contains(r))
+            {
+                r.sortingOrder = behind ? _weaponOrderBack : _weaponOrderFront;
+            }
         }
     }
 
