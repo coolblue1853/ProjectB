@@ -383,10 +383,8 @@ public class PlayerController : MonoBehaviour
                 // 로프 위에 고정시키기
                 Vector2 newPosition = new Vector2(nowLadder.transform.position.x, transform.position.y);
                 
-                //로프 애니메이션 재생, 레이어 순서 변경
-                SpriteRenderer sR = nowLadder.GetComponent<SpriteRenderer>();
-                SpriteRenderer playerSR = GetComponent<SpriteRenderer>();
-                sR.sortingOrder = playerSR.sortingOrder + 1;
+                // 로프는 몸 뒤에 둔다(LadderLayer 그대로) — 오르기 셀이 뒷모습이라 가슴 쪽에 로프가 있어야 한다. 예전 측면 오르기 때처럼
+                // 로프를 플레이어 앞(+1)으로 올리면 등·머리 위로 로프가 지나가 로프 뒤에 매달린 것처럼 보였다(10-30 인게임 캡처)
 
                 // 현재 위치와 로프 위치 사이의 거리 계산
                 Vector2 distance = newPosition - (Vector2)transform.position;
