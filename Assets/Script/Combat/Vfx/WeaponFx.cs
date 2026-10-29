@@ -57,6 +57,13 @@ public static class WeaponFx
         }
     }
 
+    /// <summary>기본 3타 셀의 스미어·타격 프레임 — 재생 프로파일(MotionVariants)이 기본 셀을 빌려 쓸 때 리그가 띄운다(연속 찌르기 = 찌르기 반복)</summary>
+    public static bool TryBasicCelStrike(string cel, out VfxId id, out int frame)
+    {
+        id = cel == "Stab" ? VfxId.WSmearStab : cel == "SwingDown" ? VfxId.WSmearDown : cel == "SwingUp" ? VfxId.WSmearUp : VfxId.None;
+        return StrikeFrame.TryGetValue(cel, out frame) && id != VfxId.None;
+    }
+
     /// <summary>셀 좌표로 그린 스미어(리그 셀 원점에 크기 1로 띄운다)</summary>
     public static bool IsCelSmear(VfxId id)
     {

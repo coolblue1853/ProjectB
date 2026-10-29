@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 CEL='Assets/Art/Player/PixelRig/Cel'
 cj=json.load(open(f'{CEL}/cel.json'))
-skip={'Idle','Walk','Run','JumpCrouch','JumpArc','Land','RopeUp','RopeStay','StabEnd','SwingDownEnd','Hurt','Death','Dash'}
+skip={'Slam','LeapSlam','DaggerFlurry','Grab','Charge','Idle','Walk','Run','JumpCrouch','JumpArc','Land','RopeUp','RopeStay','StabEnd','SwingDownEnd','Hurt','Death','Dash'}
 def masks(n):
     out=[]
     for f in cj[n]['frames']:

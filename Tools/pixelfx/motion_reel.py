@@ -14,12 +14,12 @@ NAMES = {
     "Idle": "대기(기본 유지)", "Walk": "걷기", "Run": "달리기", "Dash": "대시", "JumpCrouch": "점프 준비", "Land": "착지", "RopeUp": "로프 오르기",
     "Hurt": "피격", "Death": "사망", "Stab": "A3 찌르기(기본 통과본)", "SwingDown": "A1 내려베기(기본)", "SwingUp": "A2 올려베기(기본)",
     "GreatDown": "A4 양손 내려찍기 · 대검", "GreatSide": "A5 양손 수평 · 대검", "GreatSideOne": "A5′ 한손 수평 · 장검",
-    "DaggerFlurry": "A6 연속 찌르기 · 쌍단검", "DaggerCross": "A7 교차 베기 · 쌍단검", "AirSlash": "A8 공중 베기", "Lunge": "A9 돌진 · 창",
+    "DaggerFlurry": "A6→찌르기 반복(재생 프로파일)", "DaggerCross": "A7 교차 베기 · 쌍단검", "AirSlash": "A8 공중 베기", "Lunge": "A9 돌진 · 창",
     "Spin": "A10 회전 베기 · 대검", "Cast": "A11 시전 · 지팡이", "Throw": "A12 던지기 · 투척 단검", "Bow": "A13 사격 · 활",
-    "Guard": "A14 막기 · 검+방패", "Charge": "A15 모으기 · 지팡이", "LeapSlam": "A16 도약 내려찍기 · 해머", "Backstep": "A17 백스텝 · 쌍단검",
+    "Guard": "A14 막기 · 검+방패", "Charge": "A15→시전 정지(재생 프로파일)", "LeapSlam": "A16→공중 베기(재생 프로파일)", "Backstep": "A17 백스텝 · 쌍단검",
     "Punch": "A18 주먹 · 너클", "Iaido": "A19 발도 · 카타나", "ShoulderAim": "R1 견착 · 대포", "Raise": "R2 양손 들기 · 지팡이",
-    "Place": "R6 웅크려 놓기", "Kick": "R7 발차기", "Grab": "R3 잡기", "Ride": "R4 탈것 · 창", "Knockdown": "R5 넘어짐",
-    "ShieldBash": "R8 방패 밀치기", "Slam": "R9 메치기", "Pull": "R10 당기기 · 사슬낫",
+    "Place": "R6 웅크려 놓기", "Kick": "R7 발차기", "Grab": "R3→당기기(재생 프로파일)", "Ride": "R4 탈것 · 창", "Knockdown": "R5 넘어짐",
+    "ShieldBash": "R8 방패 밀치기", "Slam": "R9→양손 내려찍기(재생 프로파일)", "Pull": "R10 당기기 · 사슬낫",
 }
 
 

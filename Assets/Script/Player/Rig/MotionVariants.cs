@@ -1,0 +1,87 @@
+﻿using UnityEngine;
+
+/// <summary>
+/// 셀 재생 프로파일(10-29 사용자: "속도를 바꾸거나 중간에 멈추는 것으로도 쓸 수 있다") — 그림 없이 기존 셀의 구간·속도·정지·반복으로 만드는 동작.
+/// MotionSpec39 §7 에서 합친 동작(모으기·연속 찌르기·메치기·도약 내려찍기·잡기)을 여기서 정의한다. 이름으로 Play 하면 기본 셀을 이 규칙으로 재생한다.
+/// </summary>
+public static class MotionVariants
+{
+    public sealed class Variant
+    {
+        public readonly string name;
+        public readonly string baseCel;
+        public readonly float speed;
+        public readonly int from;
+        /// <summary>마지막 프레임(포함). -1 = 셀 끝</summary>
+        public readonly int to;
+        /// <summary>이 프레임에 도착하면 멈춰 있는다(-1 = 멈추지 않음)</summary>
+        public readonly int hold;
+        /// <summary>from~to 를 반복</summary>
+        public readonly bool loop;
+
+        public Variant(string name, string baseCel, float speed, int from = 0, int to = -1, int hold = -1, bool loop = false)
+        {
+            this.name = name;
+            this.baseCel = baseCel;
+            this.speed = speed;
+            this.from = from;
+            this.to = to;
+            this.hold = hold;
+            this.loop = loop;
+        }
+
+        /// <summary>재생 경과 시간 → 기본 셀 프레임 번호</summary>
+        public int IndexIn(CelClip cel, float time)
+        {
+            int n = cel.sprites.Length;
+            if (n == 0)
+            {
+                return 0;
+            }
+            int last = to < 0 || to >= n ? n - 1 : to;
+            float t0 = cel.StartTimeOf(from);
+            float t1 = cel.StartTimeOf(last + 1);
+            float t = time * speed;
+            float local;
+            if (loop)
+            {
+                local = t0 + Mathf.Repeat(t, Mathf.Max(0.0001f, t1 - t0));
+            }
+            else
+            {
+                local = Mathf.Min(t0 + t, t1 - 0.0001f);
+                if (hold >= 0)
+                {
+                    local = Mathf.Min(local, cel.StartTimeOf(hold));
+                }
+            }
+            return cel.IndexAt(local);
+        }
+    }
+
+    // 프레임 번호는 Assets/Art/Player/PixelRig/Cel/cel.json 기준(셀을 다시 만들면 함께 확인)
+    private static readonly Variant[] All =
+    {
+        new Variant("Charge", "Cast", 0.6f, 0, 1, hold: 1),             // 모으기 = 시전의 모으는 자세(1)에서 정지(차이는 이펙트)
+        new Variant("DaggerFlurry", "Stab", 1.6f, 2, 4, loop: true),     // 연속 찌르기 = 찌르기 뻗는 구간을 빠르게 반복
+        new Variant("Slam", "GreatDown", 0.85f),                         // 메치기 = 양손 내려찍기를 조금 느리게
+        new Variant("LeapSlam", "AirSlash", 0.9f),                       // 도약 내려찍기 = 점프 + 공중 베기
+        new Variant("Grab", "Pull", 1f),                                 // 잡기 = 당기기
+    };
+
+    public static Variant Find(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            return null;
+        }
+        foreach (Variant v in All)
+        {
+            if (v.name == name)
+            {
+                return v;
+            }
+        }
+        return null;
+    }
+}

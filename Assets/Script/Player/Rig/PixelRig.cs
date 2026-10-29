@@ -55,6 +55,7 @@ public class PixelRig : CharacterRig
     private float _clipSpeed = 1f;
     private CelClip _fxCel; // 마스터 모션 이펙트(MotionFxTable): 지금 셀과 이미 지난 프레임
     private int _fxFrame = -1;
+    private MotionVariants.Variant _variant; // 재생 프로파일(구간·속도·정지·반복, MotionVariants)
     // 점프 세분(상승·꼭대기·낙하)과 착지 눌림 — 플레이어 코드는 Play("Jump") 하나만 부른다
     private Rigidbody2D _body;
     private float _playedAt;
@@ -214,6 +215,7 @@ public class PixelRig : CharacterRig
             _endStart = Time.time;
         }
         _playedAt = Time.time;
+        _variant = MotionVariants.Find(anim);
         _current = Resolve(anim);
         _requested = anim;
         _time = 0f;
@@ -440,7 +442,8 @@ public class PixelRig : CharacterRig
             _fxCel = cel;
             _fxFrame = -1;
         }
-        if (i <= _fxFrame || _diedAt >= 0f || _requested != cel.name)
+        bool own = _requested == cel.name || (_variant != null && _variant.baseCel == cel.name);
+        if (i <= _fxFrame || _diedAt >= 0f || !own)
         {
             _fxFrame = Mathf.Max(_fxFrame, i);
             return;
@@ -454,6 +457,10 @@ public class PixelRig : CharacterRig
             {
                 Vfx.PlayThemed(s.id, root.position, left, scale, PixelRampId.Steel, false, false, 1f, true);
             }
+        }
+        if (_variant != null && WeaponFx.TryBasicCelStrike(cel.name, out VfxId basic, out int bf) && bf > _fxFrame && bf <= i)
+        {
+            Vfx.PlayThemed(basic, root.position, left, scale, PixelRampId.Steel, false, false, 1f, true);
         }
         foreach (MotionFxTable.Impact m in MotionFxTable.Impacts)
         {
@@ -528,7 +535,9 @@ public class PixelRig : CharacterRig
         else
         {
             // 걷기는 대기 그림과 같은 3번(두 발 모임)부터 — 0번부터면 출발 순간 한 번 튀었다(대기·걷기0 차이 634px, 걷기3 = 0px)
-            i = cel.IndexAt(_time + (c.name == "Walk" ? WalkStartFrame * cel.frame : 0f));
+            i = _variant != null && cel.name == _variant.baseCel
+                ? _variant.IndexIn(cel, _time)
+                : cel.IndexAt(_time + (c.name == "Walk" ? WalkStartFrame * cel.frame : 0f));
         }
         ShowCel(true);
         MotionFx(cel, i);
@@ -642,6 +651,10 @@ public class PixelRig : CharacterRig
     private string CelKey(string clip, bool isRequested)
     {
         // 피격·착지·대기 몸짓처럼 요청과 다른 변형 클립이 골라졌으면 그 클립 셀을 쓴다(10-27: 대기 중 피격이 대기 셀로 보이던 문제)
+        if (isRequested && _variant != null && _celByName.ContainsKey(_variant.baseCel))
+        {
+            return _variant.baseCel;
+        }
         if (isRequested && !string.IsNullOrEmpty(_requested) && _celByName.ContainsKey(_requested))
         {
             return _requested;
