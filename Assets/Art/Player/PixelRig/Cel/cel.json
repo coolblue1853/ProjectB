@@ -1512,166 +1512,151 @@
    {
     "png": "GreatSide_0",
     "hand": [
-     43,
-     25
-    ],
-    "handB": [
-     49,
-     43
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.06,
-    "angle": 80.0
-   },
-   {
-    "png": "GreatSide_1",
-    "hand": [
-     24,
-     32
-    ],
-    "handB": [
-     25,
-     31
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.11,
-    "angle": 180.0
-   },
-   {
-    "png": "GreatSide_2",
-    "hand": [
-     25,
-     32
-    ],
-    "handB": [
-     26,
-     31
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.09,
-    "angle": 181.0
-   },
-   {
-    "png": "GreatSide_3",
-    "hand": [
-     40,
-     43
-    ],
-    "handB": [
-     50,
+     27,
      39
+    ],
+    "handB": [
+     29,
+     40
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.06,
+    "angle": -100.0
+   },
+   {
+    "png": "GreatSide_1",
+    "hand": [
+     23,
+     33
+    ],
+    "handB": [
+     29,
+     40
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.2,
+    "angle": -180.0
+   },
+   {
+    "png": "GreatSide_2",
+    "hand": [
+     38,
+     44
+    ],
+    "handB": [
+     41,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.04,
     "angle": -95.0
    },
    {
-    "png": "GreatSide_4",
+    "png": "GreatSide_3",
     "hand": [
      54,
      35
     ],
     "handB": [
-     50,
-     39
+     41,
+     43
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.1,
-    "angle": 2.0
+    "time": 0.04,
+    "angle": 0.0
    },
    {
-    "png": "GreatSide_5",
+    "png": "GreatSide_4",
     "hand": [
-     54,
+     53,
      32
     ],
     "handB": [
-     50,
-     39
+     41,
+     43
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": 23.5
+    "angle": 25.0
+   },
+   {
+    "png": "GreatSide_5",
+    "hand": [
+     52,
+     29
+    ],
+    "handB": [
+     41,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.17,
+    "angle": 50.0
    },
    {
     "png": "GreatSide_6",
     "hand": [
      53,
-     29
+     36
     ],
     "handB": [
-     50,
-     39
+     53,
+     36
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": 45.0
+    "angle": 10.0
    },
    {
     "png": "GreatSide_7",
     "hand": [
-     53,
-     34
+     47,
+     42
     ],
     "handB": [
-     54,
-     34
+     47,
+     42
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.1,
-    "angle": 12.5
+    "time": 0.12,
+    "angle": -30.0
    },
    {
     "png": "GreatSide_8",
     "hand": [
-     49,
-     40
+     44,
+     42
     ],
     "handB": [
-     49,
-     40
+     42,
+     43
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.1,
-    "angle": -20.0
+    "time": 0.06,
+    "angle": -25.0
    },
    {
     "png": "GreatSide_9",
     "hand": [
-     44,
-     41
+     40,
+     42
     ],
     "handB": [
-     44,
-     41
+     33,
+     30
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.09,
-    "angle": -20.0
-   },
-   {
-    "png": "GreatSide_10",
-    "hand": [
-     40,
-     41
-    ],
-    "handB": [
-     40,
-     41
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.11,
+    "time": 0.08,
     "angle": -20.0
    }
   ]
@@ -2352,102 +2337,117 @@
    {
     "png": "Throw_0",
     "hand": [
-     45,
-     30
+     44,
+     29
     ],
     "handB": [
-     49,
-     37
+     27,
+     32
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": 40.0
+    "angle": 50.0
    },
    {
     "png": "Throw_1",
     "hand": [
-     30,
-     24
+     26,
+     27
     ],
     "handB": [
-     24,
-     31
+     26,
+     33
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.1,
-    "angle": 100.0
+    "time": 0.18,
+    "angle": 120.0
    },
    {
     "png": "Throw_2",
     "hand": [
-     29,
-     24
+     40,
+     23
     ],
     "handB": [
-     23,
+     28,
      32
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.13,
-    "angle": 102.0
+    "time": 0.04,
+    "angle": 75.0
    },
    {
     "png": "Throw_3",
     "hand": [
-     55,
-     31
+     53,
+     28
     ],
     "handB": [
-     23,
-     32
+     50,
+     41
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.08,
-    "angle": 15.0
+    "time": 0.07,
+    "angle": 30.0
    },
    {
     "png": "Throw_4",
     "hand": [
      55,
-     35
+     36
     ],
     "handB": [
-     59,
-     40
+     52,
+     46
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.08,
-    "angle": -5.0
+    "time": 0.03,
+    "angle": -10.0
    },
    {
     "png": "Throw_5",
     "hand": [
-     52,
-     36
+     53,
+     42
     ],
     "handB": [
      53,
-     36
+     42
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.1,
-    "angle": -17.5
+    "time": 0.16,
+    "angle": -50.0
    },
    {
     "png": "Throw_6",
     "hand": [
-     48,
-     37
+     49,
+     41
     ],
     "handB": [
      49,
-     37
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -40.0
+   },
+   {
+    "png": "Throw_7",
+    "hand": [
+     45,
+     41
+    ],
+    "handB": [
+     44,
+     41
     ],
     "dy": -1,
     "sx": 0,
@@ -2455,33 +2455,33 @@
     "angle": -30.0
    },
    {
-    "png": "Throw_7",
-    "hand": [
-     44,
-     40
-    ],
-    "handB": [
-     43,
-     40
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.1,
-    "angle": -25.0
-   },
-   {
     "png": "Throw_8",
     "hand": [
-     38,
+     42,
      41
     ],
     "handB": [
-     37,
-     42
+     31,
+     30
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.11,
+    "time": 0.06,
+    "angle": -25.0
+   },
+   {
+    "png": "Throw_9",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     39,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
     "angle": -20.0
    }
   ]
@@ -5049,23 +5049,113 @@
    {
     "png": "GreatSideOne_0",
     "hand": [
-     43,
-     25
+     28,
+     39
     ],
     "handB": [
-     46,
+     47,
      40
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": 80.0
+    "angle": -100.0
    },
    {
     "png": "GreatSideOne_1",
     "hand": [
      24,
-     32
+     33
+    ],
+    "handB": [
+     25,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.18,
+    "angle": -180.0
+   },
+   {
+    "png": "GreatSideOne_2",
+    "hand": [
+     38,
+     43
+    ],
+    "handB": [
+     49,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.04,
+    "angle": -95.0
+   },
+   {
+    "png": "GreatSideOne_3",
+    "hand": [
+     53,
+     33
+    ],
+    "handB": [
+     53,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.05,
+    "angle": 2.0
+   },
+   {
+    "png": "GreatSideOne_4",
+    "hand": [
+     52,
+     29
+    ],
+    "handB": [
+     53,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 36.0
+   },
+   {
+    "png": "GreatSideOne_5",
+    "hand": [
+     49,
+     25
+    ],
+    "handB": [
+     53,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.14,
+    "angle": 70.0
+   },
+   {
+    "png": "GreatSideOne_6",
+    "hand": [
+     52,
+     33
+    ],
+    "handB": [
+     52,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 20.0
+   },
+   {
+    "png": "GreatSideOne_7",
+    "hand": [
+     47,
+     40
     ],
     "handB": [
      45,
@@ -5074,141 +5164,36 @@
     "dy": -1,
     "sx": 0,
     "time": 0.11,
-    "angle": 180.0
-   },
-   {
-    "png": "GreatSideOne_2",
-    "hand": [
-     25,
-     32
-    ],
-    "handB": [
-     26,
-     31
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.09,
-    "angle": 181.0
-   },
-   {
-    "png": "GreatSideOne_3",
-    "hand": [
-     40,
-     42
-    ],
-    "handB": [
-     51,
-     41
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.06,
-    "angle": -95.0
-   },
-   {
-    "png": "GreatSideOne_4",
-    "hand": [
-     54,
-     34
-    ],
-    "handB": [
-     54,
-     41
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.1,
-    "angle": 2.0
-   },
-   {
-    "png": "GreatSideOne_5",
-    "hand": [
-     54,
-     31
-    ],
-    "handB": [
-     54,
-     42
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.06,
-    "angle": 23.5
-   },
-   {
-    "png": "GreatSideOne_6",
-    "hand": [
-     53,
-     28
-    ],
-    "handB": [
-     54,
-     42
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.06,
-    "angle": 45.0
-   },
-   {
-    "png": "GreatSideOne_7",
-    "hand": [
-     53,
-     34
-    ],
-    "handB": [
-     53,
-     41
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.1,
-    "angle": 12.5
+    "angle": -30.0
    },
    {
     "png": "GreatSideOne_8",
     "hand": [
-     49,
-     40
+     43,
+     42
     ],
     "handB": [
-     48,
-     41
+     41,
+     42
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.1,
-    "angle": -20.0
+    "time": 0.06,
+    "angle": -25.0
    },
    {
     "png": "GreatSideOne_9",
     "hand": [
-     44,
-     41
-    ],
-    "handB": [
-     43,
-     41
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.09,
-    "angle": -20.0
-   },
-   {
-    "png": "GreatSideOne_10",
-    "hand": [
-     40,
-     41
-    ],
-    "handB": [
      39,
-     41
+     42
     ],
-    "dy": -1,
+    "handB": [
+     38,
+     42
+    ],
+    "dy": 0,
     "sx": 0,
-    "time": 0.11,
+    "time": 0.08,
     "angle": -20.0
    }
   ]

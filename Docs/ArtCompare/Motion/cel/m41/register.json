@@ -172,78 +172,85 @@
  },
  "Throw": {
   "frames": [
-   "m41/b2/throw/0",
-   "m41/b2/throw/1",
-   "m41/b2/throw/2",
-   "m41/b2/throw/3",
-   "m41/b2/throw/4",
-   "m41/b2/throw/5",
-   "m41/b2/throw/6",
-   "m41/b2/throw/7",
-   "m41/b2/throw/8"
+   "m41/s2/throw/0",
+   "m41/s2/throw/1",
+   "m41/s2/throw/2",
+   "m41/s2/throw/3",
+   "m41/s2/throw/4",
+   "m41/s2/throw/5",
+   "m41/s2/throw/6",
+   "m41/s2/throw/7",
+   "m41/s2/throw/8",
+   "m41/s2/throw/9"
   ],
   "hand": [
    [
-    45,
-    31
+    44,
+    29
    ],
    [
-    30,
-    25
+    26,
+    27
    ],
    [
-    29,
-    25
+    40,
+    24
+   ],
+   [
+    53,
+    29
    ],
    [
     55,
-    32
-   ],
-   [
-    55,
-    36
-   ],
-   [
-    52,
     37
    ],
    [
-    48,
-    38
+    53,
+    43
    ],
    [
-    44,
-    41
+    49,
+    42
    ],
    [
-    38,
+    45,
+    42
+   ],
+   [
+    42,
+    42
+   ],
+   [
+    39,
     42
    ]
   ],
   "angle": [
-   40.0,
-   100.0,
-   102.0,
-   15.0,
-   -5.0,
-   -17.5,
+   50.0,
+   120.0,
+   75.0,
+   30.0,
+   -10.0,
+   -50.0,
+   -40.0,
    -30.0,
    -25.0,
    -20.0
   ],
   "times": [
    0.06,
-   0.1,
-   0.13,
-   0.08,
-   0.08,
-   0.1,
+   0.18,
+   0.04,
+   0.07,
+   0.03,
+   0.16,
+   0.06,
    0.11,
-   0.1,
-   0.11
+   0.06,
+   0.08
   ],
-  "job": "c612cdc9-50fc-4cca-a646-38cc07fb2551",
-  "motion": "B2_A12_Throw"
+  "job": "68908ef3-0d60-41e5-a61a-a350a5e7314b",
+  "motion": "S2_A12_Throw"
  },
  "Raise": {
   "frames": [
@@ -582,54 +589,49 @@
  },
  "GreatSide": {
   "frames": [
-   "m41/b3/greatside/0",
-   "m41/b3/greatside/1",
-   "m41/b3/greatside/2",
-   "m41/b3/greatside/3",
-   "m41/b3/greatside/4",
-   "m41/b3/greatside/5",
-   "m41/b3/greatside/6",
-   "m41/b3/greatside/7",
-   "m41/b3/greatside/8",
-   "m41/b3/greatside/9",
-   "m41/b3/greatside/10"
+   "m41/s2/greatside/0",
+   "m41/s2/greatside/1",
+   "m41/s2/greatside/2",
+   "m41/s2/greatside/3",
+   "m41/s2/greatside/4",
+   "m41/s2/greatside/5",
+   "m41/s2/greatside/6",
+   "m41/s2/greatside/7",
+   "m41/s2/greatside/8",
+   "m41/s2/greatside/9"
   ],
   "hand": [
    [
-    43,
-    26
+    27,
+    39
    ],
    [
-    24,
+    23,
     33
    ],
    [
-    25,
-    33
-   ],
-   [
-    40,
-    43
+    38,
+    44
    ],
    [
     54,
     35
    ],
    [
-    54,
+    53,
     32
    ],
    [
-    53,
+    52,
     29
    ],
    [
     53,
-    35
+    36
    ],
    [
-    49,
-    41
+    47,
+    42
    ],
    [
     44,
@@ -641,33 +643,31 @@
    ]
   ],
   "angle": [
-   80.0,
-   180.0,
-   181.0,
+   -100.0,
+   -180.0,
    -95.0,
-   2.0,
-   23.5,
-   45.0,
-   12.5,
-   -20.0,
-   -20.0,
+   0.0,
+   25.0,
+   50.0,
+   10.0,
+   -30.0,
+   -25.0,
    -20.0
   ],
   "times": [
    0.06,
-   0.11,
-   0.09,
+   0.2,
+   0.04,
+   0.04,
    0.06,
-   0.1,
+   0.17,
    0.06,
+   0.12,
    0.06,
-   0.1,
-   0.1,
-   0.09,
-   0.11
+   0.08
   ],
-  "job": "7cd57f98-0fa7-4959-a70b-8ea6c25b916e",
-  "motion": "A5_GreatSide"
+  "job": "0d307121-e0a9-40fd-a043-9217fe888175",
+  "motion": "S2_A5_GreatSide"
  },
  "DaggerFlurry": {
   "frames": [
@@ -856,92 +856,85 @@
  },
  "GreatSideOne": {
   "frames": [
-   "m41/b3/greatsideone/0",
-   "m41/b3/greatsideone/1",
-   "m41/b3/greatsideone/2",
-   "m41/b3/greatsideone/3",
-   "m41/b3/greatsideone/4",
-   "m41/b3/greatsideone/5",
-   "m41/b3/greatsideone/6",
-   "m41/b3/greatsideone/7",
-   "m41/b3/greatsideone/8",
-   "m41/b3/greatsideone/9",
-   "m41/b3/greatsideone/10"
+   "m41/s2/greatsideone/0",
+   "m41/s2/greatsideone/1",
+   "m41/s2/greatsideone/2",
+   "m41/s2/greatsideone/3",
+   "m41/s2/greatsideone/4",
+   "m41/s2/greatsideone/5",
+   "m41/s2/greatsideone/6",
+   "m41/s2/greatsideone/7",
+   "m41/s2/greatsideone/8",
+   "m41/s2/greatsideone/9"
   ],
   "hand": [
    [
-    43,
-    26
+    28,
+    39
    ],
    [
     24,
     33
    ],
    [
-    25,
-    33
-   ],
-   [
-    40,
-    43
-   ],
-   [
-    54,
-    35
-   ],
-   [
-    54,
-    32
+    38,
+    44
    ],
    [
     53,
-    29
+    34
    ],
    [
-    53,
-    35
+    52,
+    30
    ],
    [
     49,
+    26
+   ],
+   [
+    52,
+    34
+   ],
+   [
+    47,
     41
    ],
    [
-    44,
+    43,
     42
    ],
    [
-    40,
+    39,
     42
    ]
   ],
   "angle": [
-   80.0,
-   180.0,
-   181.0,
+   -100.0,
+   -180.0,
    -95.0,
    2.0,
-   23.5,
-   45.0,
-   12.5,
-   -20.0,
-   -20.0,
+   36.0,
+   70.0,
+   20.0,
+   -30.0,
+   -25.0,
    -20.0
   ],
   "times": [
    0.06,
+   0.18,
+   0.04,
+   0.05,
+   0.06,
+   0.14,
+   0.06,
    0.11,
-   0.09,
    0.06,
-   0.1,
-   0.06,
-   0.06,
-   0.1,
-   0.1,
-   0.09,
-   0.11
+   0.08
   ],
-  "job": "2187ab22-6dbe-4970-94cc-0cbce7b62f31",
-  "motion": "A5b_OneHandSide"
+  "job": "7a908627-5e40-44cf-addf-e7735b74b7f2",
+  "motion": "S2_A5b_OneHandSide"
  },
  "ShieldBash": {
   "frames": [
