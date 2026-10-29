@@ -18,8 +18,10 @@ public static class MotionVariants
         public readonly int hold;
         /// <summary>from~to 를 반복</summary>
         public readonly bool loop;
+        /// <summary>to → from 으로 거꾸로(납도 = 발도 역재생)</summary>
+        public readonly bool reverse;
 
-        public Variant(string name, string baseCel, float speed, int from = 0, int to = -1, int hold = -1, bool loop = false)
+        public Variant(string name, string baseCel, float speed, int from = 0, int to = -1, int hold = -1, bool loop = false, bool reverse = false)
         {
             this.name = name;
             this.baseCel = baseCel;
@@ -28,6 +30,7 @@ public static class MotionVariants
             this.to = to;
             this.hold = hold;
             this.loop = loop;
+            this.reverse = reverse;
         }
 
         /// <summary>재생 경과 시간 → 기본 셀 프레임 번호</summary>
@@ -55,18 +58,24 @@ public static class MotionVariants
                     local = Mathf.Min(local, cel.StartTimeOf(hold));
                 }
             }
+            if (reverse)
+            {
+                local = t1 - 0.0001f - (local - t0);
+            }
             return cel.IndexAt(local);
         }
     }
 
-    // 프레임 번호는 Assets/Art/Player/PixelRig/Cel/cel.json 기준(셀을 다시 만들면 함께 확인)
+    // 프레임 번호는 Assets/Art/Player/PixelRig/Cel/cel.json 기준(셀을 다시 만들면 함께 확인 — 10-29 보간 다듬기 번호)
     private static readonly Variant[] All =
     {
-        new Variant("Charge", "Cast", 0.6f, 0, 1, hold: 1),             // 모으기 = 시전의 모으는 자세(1)에서 정지(차이는 이펙트)
+        // 모으기(Charge)는 10-29 빠진 동작 조사로 합치기 취소 — 원래 셀(가슴 앞 교차 후 활짝 펼치기)을 쓴다
         new Variant("DaggerFlurry", "Stab", 1.6f, 2, 4, loop: true),     // 연속 찌르기 = 찌르기 뻗는 구간을 빠르게 반복
         new Variant("Slam", "GreatDown", 0.85f),                         // 메치기 = 양손 내려찍기를 조금 느리게
         new Variant("LeapSlam", "AirSlash", 0.9f),                       // 도약 내려찍기 = 점프 + 공중 베기
         new Variant("Grab", "Pull", 1f),                                 // 잡기 = 당기기
+        new Variant("Sheathe", "Iaido", 0.5f, 0, 7, reverse: true),      // 납도 = 발도(뽑아 벤 자세 7 → 칼집 0) 천천히 역재생(10-29 사용자 예시)
+        new Variant("DownThrust", "AirSlash", 1f, 8, 8, hold: 8),        // 공중 아래 찌르기 = 공중 베기 끝 자세(칼 아래)를 떨어지는 동안 유지
     };
 
     public static Variant Find(string name)

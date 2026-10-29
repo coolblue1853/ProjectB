@@ -693,149 +693,149 @@
   ]
  },
  "RopeUp": {
-  "frame": 0.08,
-  "loop": true,
+  "frame": 0.05,
+  "loop": false,
   "frames": [
    {
     "png": "RopeUp_0",
     "hand": [
-     34,
-     38
+     38,
+     14
     ],
     "handB": [
-     27,
-     29
+     28,
+     22
     ],
-    "dy": -5,
+    "dy": -9,
     "sx": 0,
-    "time": 0.0,
-    "angle": -999.0
+    "time": 0.08,
+    "angle": 90.0
    },
    {
     "png": "RopeUp_1",
     "hand": [
-     28,
-     44
+     40,
+     15
     ],
     "handB": [
-     28,
-     44
+     27,
+     22
     ],
-    "dy": -5,
+    "dy": -9,
     "sx": 0,
-    "time": 0.0,
-    "angle": -999.0
+    "time": 0.08,
+    "angle": 90.0
    },
    {
     "png": "RopeUp_2",
     "hand": [
-     28,
-     46
+     40,
+     16
     ],
     "handB": [
-     28,
-     46
+     35,
+     41
     ],
-    "dy": -5,
+    "dy": -9,
     "sx": 0,
-    "time": 0.0,
-    "angle": -999.0
+    "time": 0.08,
+    "angle": 90.0
    },
    {
     "png": "RopeUp_3",
     "hand": [
-     28,
-     44
+     41,
+     17
     ],
     "handB": [
-     28,
-     44
+     34,
+     41
     ],
-    "dy": -5,
+    "dy": -9,
     "sx": 0,
-    "time": 0.0,
-    "angle": -999.0
+    "time": 0.08,
+    "angle": 90.0
    },
    {
     "png": "RopeUp_4",
     "hand": [
-     31,
-     38
+     40,
+     16
     ],
     "handB": [
-     31,
-     38
+     34,
+     41
     ],
-    "dy": -5,
+    "dy": -9,
     "sx": 0,
-    "time": 0.0,
-    "angle": -999.0
+    "time": 0.08,
+    "angle": 90.0
    },
    {
     "png": "RopeUp_5",
     "hand": [
-     32,
-     44
+     40,
+     15
     ],
     "handB": [
-     32,
-     44
+     27,
+     23
     ],
-    "dy": -5,
+    "dy": -9,
     "sx": 0,
-    "time": 0.0,
-    "angle": -999.0
+    "time": 0.08,
+    "angle": 90.0
    },
    {
     "png": "RopeUp_6",
     "hand": [
-     30,
-     46
+     38,
+     14
     ],
     "handB": [
-     30,
-     46
+     28,
+     22
     ],
-    "dy": -5,
+    "dy": -9,
     "sx": 0,
-    "time": 0.0,
-    "angle": -999.0
+    "time": 0.08,
+    "angle": 90.0
    },
    {
     "png": "RopeUp_7",
     "hand": [
-     29,
-     44
+     38,
+     14
     ],
     "handB": [
-     29,
-     44
+     28,
+     22
     ],
-    "dy": -5,
+    "dy": -9,
     "sx": 0,
-    "time": 0.0,
-    "angle": -999.0
+    "time": 0.08,
+    "angle": 90.0
    }
   ]
  },
  "RopeStay": {
-  "frame": 0.3,
-  "loop": true,
+  "frame": 0.05,
+  "loop": false,
   "frames": [
    {
     "png": "RopeStay_0",
     "hand": [
-     34,
-     38
+     38,
+     14
     ],
     "handB": [
-     27,
-     29
+     28,
+     22
     ],
-    "dy": -5,
+    "dy": -9,
     "sx": 0,
-    "time": 0.0,
-    "angle": -999.0
+    "time": 0.3,
+    "angle": 90.0
    }
   ]
  },
@@ -1356,27 +1356,42 @@
    {
     "png": "GreatDown_0",
     "hand": [
-     45,
-     29
+     44,
+     38
     ],
     "handB": [
-     27,
+     46,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 24.1
+   },
+   {
+    "png": "GreatDown_1",
+    "hand": [
+     36,
+     24
+    ],
+    "handB": [
+     26,
      32
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": 65.0
+    "time": 0.045,
+    "angle": 105.9
    },
    {
-    "png": "GreatDown_1",
+    "png": "GreatDown_2",
     "hand": [
      27,
      28
     ],
     "handB": [
-     25,
-     32
+     22,
+     33
     ],
     "dy": 0,
     "sx": 0,
@@ -1384,29 +1399,44 @@
     "angle": 150.0
    },
    {
-    "png": "GreatDown_2",
+    "png": "GreatDown_3",
     "hand": [
-     29,
-     24
+     28,
+     26
     ],
     "handB": [
-     24,
-     32
+     23,
+     33
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.05,
-    "angle": 122.5
+    "time": 0.045,
+    "angle": 135.7
    },
    {
-    "png": "GreatDown_3",
+    "png": "GreatDown_4",
+    "hand": [
+     31,
+     24
+    ],
+    "handB": [
+     23,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 109.3
+   },
+   {
+    "png": "GreatDown_5",
     "hand": [
      33,
      24
     ],
     "handB": [
      23,
-     32
+     33
     ],
     "dy": 0,
     "sx": 0,
@@ -1414,29 +1444,44 @@
     "angle": 95.0
    },
    {
-    "png": "GreatDown_4",
+    "png": "GreatDown_6",
     "hand": [
-     50,
-     29
+     42,
+     25
     ],
     "handB": [
-     23,
+     26,
      32
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.03,
-    "angle": 35.0
+    "angle": 63.9
    },
    {
-    "png": "GreatDown_5",
+    "png": "GreatDown_7",
+    "hand": [
+     55,
+     36
+    ],
+    "handB": [
+     56,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 6.1
+   },
+   {
+    "png": "GreatDown_8",
     "hand": [
      57,
      43
     ],
     "handB": [
-     58,
-     44
+     56,
+     45
     ],
     "dy": 0,
     "sx": 0,
@@ -1444,28 +1489,43 @@
     "angle": -25.0
    },
    {
-    "png": "GreatDown_6",
+    "png": "GreatDown_9",
     "hand": [
-     52,
-     42
+     55,
+     43
     ],
     "handB": [
      53,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.6
+   },
+   {
+    "png": "GreatDown_10",
+    "hand": [
+     50,
+     42
+    ],
+    "handB": [
+     49,
      43
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": -30.0
+    "time": 0.045,
+    "angle": -32.4
    },
    {
-    "png": "GreatDown_7",
+    "png": "GreatDown_11",
     "hand": [
      47,
      42
     ],
     "handB": [
-     47,
+     46,
      42
     ],
     "dy": 0,
@@ -1474,29 +1534,29 @@
     "angle": -35.0
    },
    {
-    "png": "GreatDown_8",
+    "png": "GreatDown_12",
     "hand": [
      43,
      42
     ],
     "handB": [
-     43,
+     42,
      42
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -27.5
    },
    {
-    "png": "GreatDown_9",
+    "png": "GreatDown_13",
     "hand": [
      39,
      42
     ],
     "handB": [
-     38,
-     43
+     31,
+     30
     ],
     "dy": 0,
     "sx": 0,
@@ -1512,27 +1572,42 @@
    {
     "png": "GreatSide_0",
     "hand": [
-     27,
-     40
+     31,
+     42
     ],
     "handB": [
-     40,
-     31
+     32,
+     41
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": -100.0
+    "time": 0.045,
+    "angle": -61.5
    },
    {
     "png": "GreatSide_1",
+    "hand": [
+     24,
+     37
+    ],
+    "handB": [
+     32,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -138.5
+   },
+   {
+    "png": "GreatSide_2",
     "hand": [
      23,
      34
     ],
     "handB": [
-     24,
-     35
+     32,
+     41
     ],
     "dy": 0,
     "sx": 0,
@@ -1540,14 +1615,14 @@
     "angle": -180.0
    },
    {
-    "png": "GreatSide_2",
+    "png": "GreatSide_3",
     "hand": [
      39,
      44
     ],
     "handB": [
-     38,
-     41
+     41,
+     42
     ],
     "dy": -1,
     "sx": 0,
@@ -1555,14 +1630,14 @@
     "angle": -95.0
    },
    {
-    "png": "GreatSide_3",
+    "png": "GreatSide_4",
     "hand": [
      54,
      34
     ],
     "handB": [
-     53,
-     38
+     41,
+     42
     ],
     "dy": -1,
     "sx": 0,
@@ -1570,29 +1645,44 @@
     "angle": 0.0
    },
    {
-    "png": "GreatSide_4",
+    "png": "GreatSide_5",
     "hand": [
-     50,
-     28
+     53,
+     31
     ],
     "handB": [
-     53,
-     38
+     41,
+     42
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 60.0
+    "time": 0.045,
+    "angle": 31.1
    },
    {
-    "png": "GreatSide_5",
+    "png": "GreatSide_6",
+    "hand": [
+     47,
+     25
+    ],
+    "handB": [
+     48,
+     31
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 88.9
+   },
+   {
+    "png": "GreatSide_7",
     "hand": [
      43,
      24
     ],
     "handB": [
-     53,
-     38
+     48,
+     31
     ],
     "dy": -1,
     "sx": 0,
@@ -1600,22 +1690,37 @@
     "angle": 120.0
    },
    {
-    "png": "GreatSide_6",
+    "png": "GreatSide_8",
     "hand": [
-     51,
-     31
+     48,
+     26
     ],
     "handB": [
-     53,
-     38
+     48,
+     31
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 45.0
+    "time": 0.045,
+    "angle": 81.1
    },
    {
-    "png": "GreatSide_7",
+    "png": "GreatSide_9",
+    "hand": [
+     50,
+     37
+    ],
+    "handB": [
+     50,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 8.9
+   },
+   {
+    "png": "GreatSide_10",
     "hand": [
      46,
      42
@@ -1630,29 +1735,44 @@
     "angle": -30.0
    },
    {
-    "png": "GreatSide_8",
+    "png": "GreatSide_11",
     "hand": [
-     42,
+     44,
      42
     ],
     "handB": [
-     42,
+     43,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "GreatSide_12",
+    "hand": [
+     41,
+     42
+    ],
+    "handB": [
+     40,
      43
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": -25.0
+    "time": 0.045,
+    "angle": -22.6
    },
    {
-    "png": "GreatSide_9",
+    "png": "GreatSide_13",
     "hand": [
      39,
      42
     ],
     "handB": [
-     38,
-     42
+     49,
+     41
     ],
     "dy": 0,
     "sx": 0,
@@ -1668,119 +1788,179 @@
    {
     "png": "AirSlash_0",
     "hand": [
-     45,
-     31
+     44,
+     38
     ],
     "handB": [
-     49,
-     43
+     50,
+     36
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 65.0
+    "time": 0.045,
+    "angle": 24.1
    },
    {
     "png": "AirSlash_1",
     "hand": [
-     29,
-     27
+     39,
+     24
     ],
     "handB": [
-     49,
-     43
+     25,
+     31
     ],
-    "dy": 0,
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 105.9
+   },
+   {
+    "png": "AirSlash_2",
+    "hand": [
+     29,
+     26
+    ],
+    "handB": [
+     25,
+     31
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.13,
     "angle": 150.0
    },
    {
-    "png": "AirSlash_2",
-    "hand": [
-     47,
-     28
-    ],
-    "handB": [
-     49,
-     43
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.03,
-    "angle": 50.0
-   },
-   {
     "png": "AirSlash_3",
     "hand": [
-     52,
-     43
+     39,
+     24
     ],
     "handB": [
-     49,
-     43
+     25,
+     31
     ],
-    "dy": 0,
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 98.1
+   },
+   {
+    "png": "AirSlash_4",
+    "hand": [
+     53,
+     34
+    ],
+    "handB": [
+     25,
+     31
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 1.9
+   },
+   {
+    "png": "AirSlash_5",
+    "hand": [
+     52,
+     42
+    ],
+    "handB": [
+     54,
+     42
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.06,
     "angle": -50.0
    },
    {
-    "png": "AirSlash_4",
+    "png": "AirSlash_6",
     "hand": [
-     50,
-     46
-    ],
-    "handB": [
-     58,
+     52,
      44
     ],
-    "dy": 0,
+    "handB": [
+     50,
+     44
+    ],
+    "dy": -1,
     "sx": 0,
-    "time": 0.04,
-    "angle": -67.5
+    "time": 0.045,
+    "angle": -59.1
    },
    {
-    "png": "AirSlash_5",
+    "png": "AirSlash_7",
     "hand": [
-     48,
-     48
-    ],
-    "handB": [
-     56,
+     49,
      46
     ],
-    "dy": 0,
+    "handB": [
+     49,
+     46
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -75.9
+   },
+   {
+    "png": "AirSlash_8",
+    "hand": [
+     48,
+     47
+    ],
+    "handB": [
+     48,
+     46
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.12,
     "angle": -85.0
    },
    {
-    "png": "AirSlash_6",
+    "png": "AirSlash_9",
     "hand": [
-     42,
-     46
+     45,
+     45
     ],
     "handB": [
-     43,
-     46
+     45,
+     45
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -52.5
+    "time": 0.045,
+    "angle": -68.1
    },
    {
-    "png": "AirSlash_7",
+    "png": "AirSlash_10",
     "hand": [
-     37,
+     40,
      44
     ],
     "handB": [
-     36,
-     45
+     40,
+     43
     ],
-    "dy": 0,
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -36.9
+   },
+   {
+    "png": "AirSlash_11",
+    "hand": [
+     37,
+     43
+    ],
+    "handB": [
+     27,
+     31
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.09,
     "angle": -20.0
@@ -1794,59 +1974,59 @@
    {
     "png": "Lunge_0",
     "hand": [
-     39,
+     38,
      40
     ],
     "handB": [
-     36,
-     39
+     37,
+     40
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -10.0
+    "time": 0.045,
+    "angle": -14.8
    },
    {
     "png": "Lunge_1",
     "hand": [
      40,
-     36
+     37
     ],
     "handB": [
-     38,
-     36
+     37,
+     37
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.17,
-    "angle": 0.0
+    "time": 0.045,
+    "angle": -5.2
    },
    {
     "png": "Lunge_2",
     "hand": [
-     58,
-     41
+     40,
+     35
     ],
     "handB": [
-     56,
-     44
+     37,
+     34
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.04,
+    "time": 0.17,
     "angle": 0.0
    },
    {
     "png": "Lunge_3",
     "hand": [
      58,
-     41
+     40
     ],
     "handB": [
-     57,
-     44
+     28,
+     45
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.04,
     "angle": 0.0
@@ -1854,74 +2034,134 @@
    {
     "png": "Lunge_4",
     "hand": [
-     59,
-     41
+     58,
+     40
     ],
     "handB": [
-     58,
-     44
+     28,
+     45
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.14,
+    "time": 0.045,
     "angle": 0.0
    },
    {
     "png": "Lunge_5",
     "hand": [
-     54,
-     39
+     58,
+     40
     ],
     "handB": [
-     54,
-     39
+     28,
+     45
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.05,
-    "angle": -5.0
+    "time": 0.045,
+    "angle": 0.0
    },
    {
     "png": "Lunge_6",
     "hand": [
-     47,
+     59,
      40
     ],
     "handB": [
-     46,
-     40
+     30,
+     45
     ],
-    "dy": 0,
+    "dy": -1,
+    "sx": 0,
+    "time": 0.14,
+    "angle": 0.0
+   },
+   {
+    "png": "Lunge_7",
+    "hand": [
+     57,
+     39
+    ],
+    "handB": [
+     30,
+     46
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -2.6
+   },
+   {
+    "png": "Lunge_8",
+    "hand": [
+     51,
+     38
+    ],
+    "handB": [
+     49,
+     38
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -7.4
+   },
+   {
+    "png": "Lunge_9",
+    "hand": [
+     47,
+     39
+    ],
+    "handB": [
+     47,
+     39
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.11,
     "angle": -10.0
    },
    {
-    "png": "Lunge_7",
+    "png": "Lunge_10",
     "hand": [
-     44,
-     42
+     46,
+     40
     ],
     "handB": [
-     50,
-     41
+     44,
+     40
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -15.0
+    "time": 0.045,
+    "angle": -12.6
    },
    {
-    "png": "Lunge_8",
+    "png": "Lunge_11",
+    "hand": [
+     42,
+     41
+    ],
+    "handB": [
+     29,
+     30
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -17.4
+   },
+   {
+    "png": "Lunge_12",
     "hand": [
      40,
-     42
+     41
     ],
     "handB": [
      39,
-     42
+     41
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.09,
     "angle": -20.0
@@ -1935,27 +2175,42 @@
    {
     "png": "Spin_0",
     "hand": [
-     46,
-     34
+     43,
+     40
     ],
     "handB": [
-     49,
-     43
+     51,
+     37
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": 80.0
+    "time": 0.045,
+    "angle": 31.9
    },
    {
     "png": "Spin_1",
+    "hand": [
+     43,
+     27
+    ],
+    "handB": [
+     51,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 128.1
+   },
+   {
+    "png": "Spin_2",
     "hand": [
      36,
      24
     ],
     "handB": [
-     49,
-     43
+     51,
+     37
     ],
     "dy": 0,
     "sx": 0,
@@ -1963,14 +2218,14 @@
     "angle": 180.0
    },
    {
-    "png": "Spin_2",
+    "png": "Spin_3",
     "hand": [
      37,
      24
     ],
     "handB": [
-     49,
-     43
+     51,
+     37
     ],
     "dy": 0,
     "sx": 0,
@@ -1978,14 +2233,14 @@
     "angle": 90.0
    },
    {
-    "png": "Spin_3",
+    "png": "Spin_4",
     "hand": [
      41,
      24
     ],
     "handB": [
-     49,
-     43
+     51,
+     37
     ],
     "dy": 0,
     "sx": 0,
@@ -1993,14 +2248,14 @@
     "angle": 5.0
    },
    {
-    "png": "Spin_4",
+    "png": "Spin_5",
     "hand": [
      37,
      24
     ],
     "handB": [
-     49,
-     43
+     51,
+     37
     ],
     "dy": 0,
     "sx": 0,
@@ -2008,14 +2263,14 @@
     "angle": 90.0
    },
    {
-    "png": "Spin_5",
+    "png": "Spin_6",
     "hand": [
      35,
      24
     ],
     "handB": [
-     49,
-     43
+     51,
+     37
     ],
     "dy": 0,
     "sx": 0,
@@ -2023,14 +2278,14 @@
     "angle": 178.0
    },
    {
-    "png": "Spin_6",
+    "png": "Spin_7",
     "hand": [
      38,
      24
     ],
     "handB": [
-     49,
-     43
+     51,
+     37
     ],
     "dy": 0,
     "sx": 0,
@@ -2038,14 +2293,14 @@
     "angle": 90.0
    },
    {
-    "png": "Spin_7",
+    "png": "Spin_8",
     "hand": [
      50,
      29
     ],
     "handB": [
-     49,
-     43
+     51,
+     37
     ],
     "dy": 0,
     "sx": 0,
@@ -2053,14 +2308,14 @@
     "angle": 30.0
    },
    {
-    "png": "Spin_8",
+    "png": "Spin_9",
     "hand": [
      53,
      39
     ],
     "handB": [
-     49,
-     43
+     52,
+     40
     ],
     "dy": 0,
     "sx": 0,
@@ -2068,7 +2323,7 @@
     "angle": -30.0
    },
    {
-    "png": "Spin_9",
+    "png": "Spin_10",
     "hand": [
      50,
      41
@@ -2079,18 +2334,18 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -30.0
    },
    {
-    "png": "Spin_10",
+    "png": "Spin_11",
     "hand": [
      46,
      42
     ],
     "handB": [
-     45,
-     41
+     46,
+     42
     ],
     "dy": 0,
     "sx": 0,
@@ -2098,28 +2353,28 @@
     "angle": -30.0
    },
    {
-    "png": "Spin_11",
+    "png": "Spin_12",
     "hand": [
      42,
      42
     ],
     "handB": [
-     49,
-     41
+     42,
+     42
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -25.0
    },
    {
-    "png": "Spin_12",
+    "png": "Spin_13",
     "hand": [
      39,
      42
     ],
     "handB": [
-     38,
+     37,
      42
     ],
     "dy": 0,
@@ -2136,20 +2391,35 @@
    {
     "png": "Cast_0",
     "hand": [
-     40,
-     38
-    ],
-    "handB": [
-     49,
+     39,
      40
     ],
-    "dy": 0,
+    "handB": [
+     47,
+     39
+    ],
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 30.0
+    "time": 0.045,
+    "angle": 5.9
    },
    {
     "png": "Cast_1",
+    "hand": [
+     39,
+     34
+    ],
+    "handB": [
+     48,
+     37
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 54.1
+   },
+   {
+    "png": "Cast_2",
     "hand": [
      36,
      32
@@ -2164,29 +2434,44 @@
     "angle": 80.0
    },
    {
-    "png": "Cast_2",
+    "png": "Cast_3",
     "hand": [
-     46,
+     41,
      33
     ],
     "handB": [
-     44,
-     38
+     45,
+     37
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.04,
-    "angle": 75.0
+    "time": 0.045,
+    "angle": 77.4
    },
    {
-    "png": "Cast_3",
+    "png": "Cast_4",
+    "hand": [
+     50,
+     33
+    ],
+    "handB": [
+     45,
+     37
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 72.6
+   },
+   {
+    "png": "Cast_5",
     "hand": [
      52,
      32
     ],
     "handB": [
-     44,
-     38
+     45,
+     37
     ],
     "dy": -1,
     "sx": 0,
@@ -2194,14 +2479,14 @@
     "angle": 70.0
    },
    {
-    "png": "Cast_4",
+    "png": "Cast_6",
     "hand": [
      51,
      33
     ],
     "handB": [
-     44,
-     38
+     45,
+     37
     ],
     "dy": -1,
     "sx": 0,
@@ -2209,28 +2494,43 @@
     "angle": 70.0
    },
    {
-    "png": "Cast_5",
+    "png": "Cast_7",
     "hand": [
-     49,
-     36
+     51,
+     35
     ],
     "handB": [
-     48,
-     36
+     49,
+     34
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 25.0
+    "time": 0.045,
+    "angle": 46.7
    },
    {
-    "png": "Cast_6",
+    "png": "Cast_8",
+    "hand": [
+     47,
+     38
+    ],
+    "handB": [
+     47,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 3.3
+   },
+   {
+    "png": "Cast_9",
     "hand": [
      45,
      39
     ],
     "handB": [
-     47,
+     46,
      40
     ],
     "dy": -1,
@@ -2239,28 +2539,43 @@
     "angle": -20.0
    },
    {
-    "png": "Cast_7",
+    "png": "Cast_10",
     "hand": [
-     42,
-     41
+     43,
+     40
     ],
     "handB": [
-     42,
+     50,
      40
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -20.0
    },
    {
-    "png": "Cast_8",
+    "png": "Cast_11",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     48,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "Cast_12",
     "hand": [
      38,
      41
     ],
     "handB": [
-     38,
+     37,
      42
     ],
     "dy": -1,
@@ -2278,85 +2593,130 @@
     "png": "Throw_0",
     "hand": [
      45,
-     28
+     37
     ],
     "handB": [
      49,
-     37
+     39
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 50.0
+    "time": 0.045,
+    "angle": 16.3
    },
    {
     "png": "Throw_1",
     "hand": [
+     36,
+     22
+    ],
+    "handB": [
+     49,
+     46
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 83.7
+   },
+   {
+    "png": "Throw_2",
+    "hand": [
      26,
-     27
+     26
     ],
     "handB": [
      47,
-     46
+     44
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.2,
     "angle": 120.0
    },
    {
-    "png": "Throw_2",
+    "png": "Throw_3",
     "hand": [
-     40,
+     33,
      23
     ],
     "handB": [
-     51,
-     46
+     50,
+     45
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.03,
-    "angle": 75.0
-   },
-   {
-    "png": "Throw_3",
-    "hand": [
-     53,
-     30
-    ],
-    "handB": [
-     49,
-     40
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.06,
-    "angle": 30.0
+    "angle": 96.7
    },
    {
     "png": "Throw_4",
     "hand": [
-     57,
-     40
+     47,
+     24
     ],
     "handB": [
-     55,
-     43
+     50,
+     46
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.04,
-    "angle": -15.0
+    "time": 0.03,
+    "angle": 53.3
    },
    {
     "png": "Throw_5",
     "hand": [
      53,
-     47
+     29
+    ],
+    "handB": [
+     49,
+     46
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 30.0
+   },
+   {
+    "png": "Throw_6",
+    "hand": [
+     56,
+     35
+    ],
+    "handB": [
+     50,
+     43
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 6.7
+   },
+   {
+    "png": "Throw_7",
+    "hand": [
+     56,
+     44
     ],
     "handB": [
      32,
+     46
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -36.7
+   },
+   {
+    "png": "Throw_8",
+    "hand": [
+     53,
+     47
+    ],
+    "handB": [
+     34,
      45
     ],
     "dy": 0,
@@ -2365,61 +2725,76 @@
     "angle": -60.0
    },
    {
-    "png": "Throw_6",
+    "png": "Throw_9",
     "hand": [
-     50,
+     52,
      44
     ],
     "handB": [
      34,
      46
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.07,
-    "angle": -45.0
+    "time": 0.045,
+    "angle": -52.2
    },
    {
-    "png": "Throw_7",
+    "png": "Throw_10",
     "hand": [
-     47,
+     49,
      42
     ],
     "handB": [
-     45,
+     48,
      42
     ],
-    "dy": 0,
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -37.8
+   },
+   {
+    "png": "Throw_11",
+    "hand": [
+     47,
+     41
+    ],
+    "handB": [
+     51,
+     39
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.11,
     "angle": -30.0
    },
    {
-    "png": "Throw_8",
+    "png": "Throw_12",
     "hand": [
      43,
-     42
+     41
     ],
     "handB": [
-     42,
-     42
+     50,
+     39
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -25.0
    },
    {
-    "png": "Throw_9",
+    "png": "Throw_13",
     "hand": [
      39,
-     42
+     41
     ],
     "handB": [
-     38,
-     42
+     39,
+     41
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.08,
     "angle": -20.0
@@ -2433,27 +2808,42 @@
    {
     "png": "Guard_0",
     "hand": [
-     47,
-     34
+     43,
+     40
     ],
     "handB": [
-     44,
-     35
+     51,
+     39
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.05,
-    "angle": -7.5
+    "time": 0.045,
+    "angle": -13.5
    },
    {
     "png": "Guard_1",
+    "hand": [
+     47,
+     29
+    ],
+    "handB": [
+     51,
+     39
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -1.5
+   },
+   {
+    "png": "Guard_2",
     "hand": [
      43,
      27
     ],
     "handB": [
-     44,
-     35
+     51,
+     39
     ],
     "dy": -1,
     "sx": 0,
@@ -2461,14 +2851,14 @@
     "angle": 5.0
    },
    {
-    "png": "Guard_2",
+    "png": "Guard_3",
     "hand": [
      37,
      27
     ],
     "handB": [
-     44,
-     35
+     25,
+     33
     ],
     "dy": 0,
     "sx": 0,
@@ -2476,29 +2866,44 @@
     "angle": 10.0
    },
    {
-    "png": "Guard_3",
+    "png": "Guard_4",
     "hand": [
      38,
-     26
+     27
     ],
     "handB": [
-     44,
-     35
+     25,
+     33
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.04,
-    "angle": 8.0
+    "time": 0.045,
+    "angle": 9.0
    },
    {
-    "png": "Guard_4",
+    "png": "Guard_5",
+    "hand": [
+     39,
+     28
+    ],
+    "handB": [
+     25,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 7.0
+   },
+   {
+    "png": "Guard_6",
     "hand": [
      40,
      27
     ],
     "handB": [
-     44,
-     35
+     25,
+     33
     ],
     "dy": -1,
     "sx": 0,
@@ -2506,29 +2911,44 @@
     "angle": 6.0
    },
    {
-    "png": "Guard_5",
+    "png": "Guard_7",
     "hand": [
-     46,
-     30
+     44,
+     28
     ],
     "handB": [
-     44,
-     35
+     25,
+     33
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -12.0
+    "time": 0.045,
+    "angle": -3.3
    },
    {
-    "png": "Guard_6",
+    "png": "Guard_8",
+    "hand": [
+     47,
+     34
+    ],
+    "handB": [
+     25,
+     33
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.7
+   },
+   {
+    "png": "Guard_9",
     "hand": [
      45,
      38
     ],
     "handB": [
-     47,
-     36
+     46,
+     38
     ],
     "dy": -1,
     "sx": 0,
@@ -2536,29 +2956,44 @@
     "angle": -30.0
    },
    {
-    "png": "Guard_7",
+    "png": "Guard_10",
     "hand": [
-     41,
+     43,
+     40
+    ],
+    "handB": [
+     50,
+     39
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "Guard_11",
+    "hand": [
+     39,
      41
     ],
     "handB": [
-     40,
+     47,
      40
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -25.0
+    "time": 0.045,
+    "angle": -22.6
    },
    {
-    "png": "Guard_8",
+    "png": "Guard_12",
     "hand": [
      36,
      41
     ],
     "handB": [
      36,
-     42
+     41
     ],
     "dy": -1,
     "sx": 0,
@@ -2916,20 +3351,35 @@
    {
     "png": "Backstep_0",
     "hand": [
-     39,
-     43
+     37,
+     42
     ],
     "handB": [
-     38,
-     42
+     28,
+     30
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.05,
-    "angle": -40.0
+    "time": 0.045,
+    "angle": -30.4
    },
    {
     "png": "Backstep_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     40,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -49.6
+   },
+   {
+    "png": "Backstep_2",
     "hand": [
      41,
      42
@@ -2944,29 +3394,44 @@
     "angle": -60.0
    },
    {
-    "png": "Backstep_2",
+    "png": "Backstep_3",
     "hand": [
      43,
-     36
+     40
     ],
     "handB": [
      44,
-     37
+     39
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.04,
-    "angle": -10.0
+    "time": 0.045,
+    "angle": -34.1
    },
    {
-    "png": "Backstep_3",
+    "png": "Backstep_4",
+    "hand": [
+     42,
+     32
+    ],
+    "handB": [
+     44,
+     39
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 14.1
+   },
+   {
+    "png": "Backstep_5",
     "hand": [
      38,
      29
     ],
     "handB": [
-     21,
-     33
+     22,
+     34
     ],
     "dy": -1,
     "sx": 0,
@@ -2974,14 +3439,14 @@
     "angle": 40.0
    },
    {
-    "png": "Backstep_4",
+    "png": "Backstep_6",
     "hand": [
      39,
      28
     ],
     "handB": [
-     27,
-     46
+     23,
+     33
     ],
     "dy": -1,
     "sx": 0,
@@ -2989,28 +3454,43 @@
     "angle": 30.0
    },
    {
-    "png": "Backstep_5",
+    "png": "Backstep_7",
     "hand": [
-     42,
-     32
+     41,
+     30
     ],
     "handB": [
-     48,
-     33
+     28,
+     46
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.04,
-    "angle": 0.0
+    "time": 0.045,
+    "angle": 14.4
    },
    {
-    "png": "Backstep_6",
+    "png": "Backstep_8",
+    "hand": [
+     43,
+     34
+    ],
+    "handB": [
+     44,
+     34
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -14.4
+   },
+   {
+    "png": "Backstep_9",
     "hand": [
      43,
      37
     ],
     "handB": [
-     50,
+     49,
      36
     ],
     "dy": -1,
@@ -3019,28 +3499,43 @@
     "angle": -30.0
    },
    {
-    "png": "Backstep_7",
+    "png": "Backstep_10",
     "hand": [
-     39,
-     40
+     41,
+     39
     ],
     "handB": [
-     46,
-     40
+     47,
+     38
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -25.0
+    "time": 0.045,
+    "angle": -27.4
    },
    {
-    "png": "Backstep_8",
+    "png": "Backstep_11",
+    "hand": [
+     36,
+     41
+    ],
+    "handB": [
+     24,
+     29
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "Backstep_12",
     "hand": [
      32,
      41
     ],
     "handB": [
-     32,
+     31,
      41
     ],
     "dy": -1,
@@ -3058,26 +3553,41 @@
     "png": "Punch_0",
     "hand": [
      37,
-     39
+     40
     ],
     "handB": [
-     50,
-     37
+     48,
+     38
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.05,
-    "angle": -10.0
+    "time": 0.045,
+    "angle": -14.8
    },
    {
     "png": "Punch_1",
+    "hand": [
+     36,
+     36
+    ],
+    "handB": [
+     49,
+     35
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -5.2
+   },
+   {
+    "png": "Punch_2",
     "hand": [
      35,
      33
     ],
     "handB": [
-     46,
-     34
+     47,
+     35
     ],
     "dy": -1,
     "sx": 0,
@@ -3085,14 +3595,14 @@
     "angle": 0.0
    },
    {
-    "png": "Punch_2",
+    "png": "Punch_3",
     "hand": [
-     45,
-     37
+     40,
+     36
     ],
     "handB": [
-     45,
-     37
+     49,
+     35
     ],
     "dy": -1,
     "sx": 0,
@@ -3100,13 +3610,28 @@
     "angle": 0.0
    },
    {
-    "png": "Punch_3",
+    "png": "Punch_4",
+    "hand": [
+     51,
+     36
+    ],
+    "handB": [
+     48,
+     36
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 0.0
+   },
+   {
+    "png": "Punch_5",
     "hand": [
      54,
      33
     ],
     "handB": [
-     54,
+     48,
      36
     ],
     "dy": -1,
@@ -3115,13 +3640,13 @@
     "angle": 0.0
    },
    {
-    "png": "Punch_4",
+    "png": "Punch_6",
     "hand": [
      54,
      33
     ],
     "handB": [
-     54,
+     48,
      36
     ],
     "dy": -1,
@@ -3130,22 +3655,37 @@
     "angle": 2.0
    },
    {
-    "png": "Punch_5",
+    "png": "Punch_7",
     "hand": [
-     47,
-     37
+     51,
+     35
     ],
     "handB": [
-     46,
+     47,
+     36
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 1.5
+   },
+   {
+    "png": "Punch_8",
+    "hand": [
+     42,
+     36
+    ],
+    "handB": [
+     38,
      37
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.04,
-    "angle": 1.0
+    "time": 0.045,
+    "angle": 0.5
    },
    {
-    "png": "Punch_6",
+    "png": "Punch_9",
     "hand": [
      38,
      33
@@ -3160,29 +3700,44 @@
     "angle": 0.0
    },
    {
-    "png": "Punch_7",
+    "png": "Punch_10",
     "hand": [
-     38,
-     38
+     39,
+     36
     ],
     "handB": [
      36,
-     37
+     36
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -10.0
+    "time": 0.045,
+    "angle": -5.2
    },
    {
-    "png": "Punch_8",
+    "png": "Punch_11",
+    "hand": [
+     38,
+     40
+    ],
+    "handB": [
+     36,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -14.8
+   },
+   {
+    "png": "Punch_12",
     "hand": [
      37,
      41
     ],
     "handB": [
-     35,
-     42
+     36,
+     41
     ],
     "dy": -1,
     "sx": 0,
@@ -3198,65 +3753,95 @@
    {
     "png": "Iaido_0",
     "hand": [
-     37,
+     36,
      41
     ],
     "handB": [
-     49,
+     47,
      41
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.08,
-    "angle": -95.0
+    "time": 0.045,
+    "angle": -58.9
    },
    {
     "png": "Iaido_1",
     "hand": [
-     38,
+     37,
      40
     ],
     "handB": [
-     50,
-     41
+     49,
+     40
     ],
-    "dy": 0,
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -131.1
+   },
+   {
+    "png": "Iaido_2",
+    "hand": [
+     38,
+     39
+    ],
+    "handB": [
+     50,
+     40
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.22,
     "angle": -170.0
    },
    {
-    "png": "Iaido_2",
+    "png": "Iaido_3",
     "hand": [
      37,
-     40
+     39
     ],
     "handB": [
      50,
-     41
+     40
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.15,
     "angle": -171.0
    },
    {
-    "png": "Iaido_3",
+    "png": "Iaido_4",
     "hand": [
+     42,
+     40
+    ],
+    "handB": [
      48,
      41
     ],
+    "dy": -2,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -126.7
+   },
+   {
+    "png": "Iaido_5",
+    "hand": [
+     53,
+     38
+    ],
     "handB": [
-     46,
-     40
+     51,
+     37
     ],
     "dy": -1,
     "sx": 0,
     "time": 0.03,
-    "angle": -85.5
+    "angle": -44.3
    },
    {
-    "png": "Iaido_4",
+    "png": "Iaido_6",
     "hand": [
      56,
      34
@@ -3271,7 +3856,7 @@
     "angle": 0.0
    },
    {
-    "png": "Iaido_5",
+    "png": "Iaido_7",
     "hand": [
      56,
      35
@@ -3286,28 +3871,43 @@
     "angle": -3.0
    },
    {
-    "png": "Iaido_6",
+    "png": "Iaido_8",
     "hand": [
-     53,
-     36
+     55,
+     35
     ],
     "handB": [
-     51,
+     52,
      36
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -16.5
+    "time": 0.045,
+    "angle": -10.0
    },
    {
-    "png": "Iaido_7",
+    "png": "Iaido_9",
+    "hand": [
+     52,
+     37
+    ],
+    "handB": [
+     50,
+     37
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -23.0
+   },
+   {
+    "png": "Iaido_10",
     "hand": [
      50,
      38
     ],
     "handB": [
-     48,
+     49,
      40
     ],
     "dy": -1,
@@ -3316,22 +3916,37 @@
     "angle": -30.0
    },
    {
-    "png": "Iaido_8",
+    "png": "Iaido_11",
     "hand": [
-     45,
-     41
+     48,
+     40
     ],
     "handB": [
-     44,
+     47,
      41
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -25.0
+    "time": 0.045,
+    "angle": -27.4
    },
    {
-    "png": "Iaido_9",
+    "png": "Iaido_12",
+    "hand": [
+     43,
+     41
+    ],
+    "handB": [
+     42,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "Iaido_13",
     "hand": [
      40,
      41
@@ -3354,26 +3969,41 @@
    {
     "png": "ShoulderAim_0",
     "hand": [
-     40,
-     38
+     39,
+     40
     ],
     "handB": [
-     51,
-     38
+     49,
+     39
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -5.0
+    "time": 0.045,
+    "angle": -12.2
    },
    {
     "png": "ShoulderAim_1",
+    "hand": [
+     39,
+     34
+    ],
+    "handB": [
+     54,
+     34
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 2.2
+   },
+   {
+    "png": "ShoulderAim_2",
     "hand": [
      37,
      32
     ],
     "handB": [
-     51,
+     50,
      32
     ],
     "dy": -1,
@@ -3382,112 +4012,127 @@
     "angle": 10.0
    },
    {
-    "png": "ShoulderAim_2",
+    "png": "ShoulderAim_3",
+    "hand": [
+     36,
+     33
+    ],
+    "handB": [
+     50,
+     33
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 7.4
+   },
+   {
+    "png": "ShoulderAim_4",
     "hand": [
      35,
      34
     ],
     "handB": [
-     50,
-     34
+     33,
+     38
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 5.0
+    "time": 0.045,
+    "angle": 2.6
    },
    {
-    "png": "ShoulderAim_3",
+    "png": "ShoulderAim_5",
     "hand": [
      34,
-     36
+     35
     ],
     "handB": [
      32,
-     40
+     39
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.14,
     "angle": 0.0
    },
    {
-    "png": "ShoulderAim_4",
+    "png": "ShoulderAim_6",
     "hand": [
      34,
-     36
+     35
     ],
     "handB": [
      32,
-     40
+     39
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.1,
     "angle": 0.0
    },
    {
-    "png": "ShoulderAim_5",
+    "png": "ShoulderAim_7",
     "hand": [
      31,
-     36
+     35
     ],
     "handB": [
-     29,
-     40
+     30,
+     39
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.05,
     "angle": 8.0
    },
    {
-    "png": "ShoulderAim_6",
+    "png": "ShoulderAim_8",
     "hand": [
      32,
-     36
+     35
     ],
     "handB": [
-     30,
-     40
+     31,
+     39
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.04,
+    "time": 0.045,
     "angle": 4.0
    },
    {
-    "png": "ShoulderAim_7",
+    "png": "ShoulderAim_9",
     "hand": [
      33,
-     36
+     35
     ],
     "handB": [
      32,
-     40
+     39
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.12,
     "angle": 0.0
    },
    {
-    "png": "ShoulderAim_8",
+    "png": "ShoulderAim_10",
     "hand": [
      40,
-     37
+     36
     ],
     "handB": [
-     39,
-     39
+     50,
+     33
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.07,
+    "time": 0.045,
     "angle": -15.0
    },
    {
-    "png": "ShoulderAim_9",
+    "png": "ShoulderAim_11",
     "hand": [
      45,
      35
@@ -3502,7 +4147,7 @@
     "angle": -30.0
    },
    {
-    "png": "ShoulderAim_10",
+    "png": "ShoulderAim_12",
     "hand": [
      42,
      40
@@ -3513,11 +4158,11 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -25.0
    },
    {
-    "png": "ShoulderAim_11",
+    "png": "ShoulderAim_13",
     "hand": [
      36,
      41
@@ -3540,27 +4185,42 @@
    {
     "png": "Raise_0",
     "hand": [
-     42,
-     41
+     39,
+     42
     ],
     "handB": [
-     50,
+     49,
      42
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -20.0
    },
    {
     "png": "Raise_1",
     "hand": [
+     45,
+     39
+    ],
+    "handB": [
+     47,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "Raise_2",
+    "hand": [
      47,
      38
     ],
     "handB": [
-     54,
-     38
+     49,
+     37
     ],
     "dy": -1,
     "sx": 0,
@@ -3568,22 +4228,37 @@
     "angle": -20.0
    },
    {
-    "png": "Raise_2",
+    "png": "Raise_3",
     "hand": [
-     46,
-     28
+     47,
+     33
     ],
     "handB": [
-     54,
-     38
+     47,
+     34
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.04,
-    "angle": 37.5
+    "time": 0.045,
+    "angle": 9.8
    },
    {
-    "png": "Raise_3",
+    "png": "Raise_4",
+    "hand": [
+     41,
+     24
+    ],
+    "handB": [
+     25,
+     31
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 65.2
+   },
+   {
+    "png": "Raise_5",
     "hand": [
      35,
      22
@@ -3598,14 +4273,14 @@
     "angle": 95.0
    },
    {
-    "png": "Raise_4",
+    "png": "Raise_6",
     "hand": [
      34,
      22
     ],
     "handB": [
-     22,
-     30
+     24,
+     32
     ],
     "dy": -1,
     "sx": 0,
@@ -3613,28 +4288,43 @@
     "angle": 92.0
    },
    {
-    "png": "Raise_5",
+    "png": "Raise_7",
     "hand": [
-     44,
-     28
+     40,
+     24
     ],
     "handB": [
-     22,
-     30
+     25,
+     31
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 31.0
+    "time": 0.045,
+    "angle": 60.4
    },
    {
-    "png": "Raise_6",
+    "png": "Raise_8",
+    "hand": [
+     46,
+     33
+    ],
+    "handB": [
+     25,
+     31
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 1.6
+   },
+   {
+    "png": "Raise_9",
     "hand": [
      44,
      38
     ],
     "handB": [
-     45,
+     50,
      38
     ],
     "dy": -1,
@@ -3643,29 +4333,44 @@
     "angle": -30.0
    },
    {
-    "png": "Raise_7",
+    "png": "Raise_10",
     "hand": [
-     41,
+     43,
+     40
+    ],
+    "handB": [
+     49,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "Raise_11",
+    "hand": [
+     39,
      41
     ],
     "handB": [
-     48,
+     47,
      41
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -25.0
+    "time": 0.045,
+    "angle": -22.6
    },
    {
-    "png": "Raise_8",
+    "png": "Raise_12",
     "hand": [
      36,
      41
     ],
     "handB": [
      35,
-     41
+     42
     ],
     "dy": -1,
     "sx": 0,
@@ -3696,27 +4401,42 @@
    {
     "png": "Knockdown_1",
     "hand": [
-     26,
-     26
+     31,
+     25
     ],
     "handB": [
-     18,
-     34
+     49,
+     43
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 95.0
+    "time": 0.045,
+    "angle": 78.1
    },
    {
     "png": "Knockdown_2",
+    "hand": [
+     22,
+     30
+    ],
+    "handB": [
+     49,
+     43
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 111.9
+   },
+   {
+    "png": "Knockdown_3",
     "hand": [
      18,
      34
     ],
     "handB": [
-     14,
-     38
+     49,
+     43
     ],
     "dy": -1,
     "sx": 0,
@@ -3724,10 +4444,25 @@
     "angle": 130.0
    },
    {
-    "png": "Knockdown_3",
+    "png": "Knockdown_4",
+    "hand": [
+     17,
+     34
+    ],
+    "handB": [
+     50,
+     45
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 141.7
+   },
+   {
+    "png": "Knockdown_5",
     "hand": [
      15,
-     37
+     43
     ],
     "handB": [
      51,
@@ -3735,17 +4470,17 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 152.5
+    "time": 0.045,
+    "angle": 163.3
    },
    {
-    "png": "Knockdown_4",
+    "png": "Knockdown_6",
     "hand": [
      14,
      51
     ],
     "handB": [
-     24,
+     21,
      45
     ],
     "dy": -2,
@@ -3754,13 +4489,13 @@
     "angle": 175.0
    },
    {
-    "png": "Knockdown_5",
+    "png": "Knockdown_7",
     "hand": [
      14,
      51
     ],
     "handB": [
-     23,
+     21,
      45
     ],
     "dy": -2,
@@ -3769,29 +4504,44 @@
     "angle": 176.0
    },
    {
-    "png": "Knockdown_6",
+    "png": "Knockdown_8",
     "hand": [
-     38,
-     29
+     23,
+     34
     ],
     "handB": [
-     50,
-     46
+     21,
+     45
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.08,
-    "angle": 58.0
+    "time": 0.045,
+    "angle": 114.8
    },
    {
-    "png": "Knockdown_7",
+    "png": "Knockdown_9",
+    "hand": [
+     48,
+     36
+    ],
+    "handB": [
+     48,
+     35
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 1.2
+   },
+   {
+    "png": "Knockdown_10",
     "hand": [
      48,
      46
     ],
     "handB": [
-     54,
-     45
+     55,
+     43
     ],
     "dy": -1,
     "sx": 0,
@@ -3799,29 +4549,44 @@
     "angle": -60.0
    },
    {
-    "png": "Knockdown_8",
+    "png": "Knockdown_11",
     "hand": [
-     43,
-     43
+     45,
+     44
     ],
     "handB": [
-     40,
-     43
+     52,
+     42
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.08,
-    "angle": -40.0
+    "time": 0.045,
+    "angle": -49.6
    },
    {
-    "png": "Knockdown_9",
+    "png": "Knockdown_12",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     39,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -30.4
+   },
+   {
+    "png": "Knockdown_13",
     "hand": [
      37,
      41
     ],
     "handB": [
-     35,
-     42
+     36,
+     41
     ],
     "dy": -1,
     "sx": 0,
@@ -3837,27 +4602,42 @@
    {
     "png": "Place_0",
     "hand": [
-     43,
-     42
-    ],
-    "handB": [
-     50,
+     39,
      41
     ],
-    "dy": 0,
+    "handB": [
+     47,
+     40
+    ],
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -30.0
+    "time": 0.045,
+    "angle": -25.2
    },
    {
     "png": "Place_1",
+    "hand": [
+     46,
+     41
+    ],
+    "handB": [
+     51,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -34.8
+   },
+   {
+    "png": "Place_2",
     "hand": [
      48,
      40
     ],
     "handB": [
-     54,
-     39
+     49,
+     40
     ],
     "dy": -1,
     "sx": 0,
@@ -3865,44 +4645,59 @@
     "angle": -40.0
    },
    {
-    "png": "Place_2",
-    "hand": [
-     50,
-     44
-    ],
-    "handB": [
-     52,
-     44
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.05,
-    "angle": -50.0
-   },
-   {
     "png": "Place_3",
     "hand": [
-     51,
-     47
+     49,
+     41
     ],
     "handB": [
-     54,
-     46
+     50,
+     41
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.12,
-    "angle": -60.0
+    "time": 0.045,
+    "angle": -45.2
    },
    {
     "png": "Place_4",
     "hand": [
      51,
+     44
+    ],
+    "handB": [
+     51,
+     44
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -54.8
+   },
+   {
+    "png": "Place_5",
+    "hand": [
+     51,
      46
     ],
     "handB": [
-     58,
-     45
+     51,
+     46
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -60.0
+   },
+   {
+    "png": "Place_6",
+    "hand": [
+     51,
+     46
+    ],
+    "handB": [
+     51,
+     46
     ],
     "dy": -1,
     "sx": 0,
@@ -3910,28 +4705,43 @@
     "angle": -60.0
    },
    {
-    "png": "Place_5",
+    "png": "Place_7",
     "hand": [
-     50,
+     51,
      43
     ],
     "handB": [
-     53,
+     50,
      44
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -45.0
+    "time": 0.045,
+    "angle": -52.2
    },
    {
-    "png": "Place_6",
+    "png": "Place_8",
+    "hand": [
+     48,
+     40
+    ],
+    "handB": [
+     50,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -37.8
+   },
+   {
+    "png": "Place_9",
     "hand": [
      47,
      39
     ],
     "handB": [
-     49,
+     48,
      39
     ],
     "dy": -1,
@@ -3940,29 +4750,44 @@
     "angle": -30.0
    },
    {
-    "png": "Place_7",
+    "png": "Place_10",
     "hand": [
-     42,
-     41
+     45,
+     40
     ],
     "handB": [
-     46,
-     41
+     43,
+     40
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -25.0
+    "time": 0.045,
+    "angle": -27.4
    },
    {
-    "png": "Place_8",
+    "png": "Place_11",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     28,
+     29
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "Place_12",
     "hand": [
      37,
      41
     ],
     "handB": [
-     37,
-     42
+     28,
+     29
     ],
     "dy": -1,
     "sx": 0,
@@ -3978,8 +4803,8 @@
    {
     "png": "Kick_0",
     "hand": [
-     40,
-     39
+     39,
+     41
     ],
     "handB": [
      38,
@@ -3987,22 +4812,22 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -20.0
    },
    {
     "png": "Kick_1",
     "hand": [
-     42,
-     35
+     41,
+     38
     ],
     "handB": [
-     41,
-     46
+     40,
+     38
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.1,
+    "time": 0.045,
     "angle": -20.0
    },
    {
@@ -4012,37 +4837,67 @@
      36
     ],
     "handB": [
-     23,
-     31
+     47,
+     46
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.03,
-    "angle": -25.0
+    "time": 0.1,
+    "angle": -20.0
    },
    {
     "png": "Kick_3",
     "hand": [
      42,
-     37
+     35
     ],
     "handB": [
-     22,
-     31
+     49,
+     45
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -30.0
+    "time": 0.03,
+    "angle": -22.6
    },
    {
     "png": "Kick_4",
     "hand": [
      42,
+     37
+    ],
+    "handB": [
+     24,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -27.4
+   },
+   {
+    "png": "Kick_5",
+    "hand": [
+     42,
+     38
+    ],
+    "handB": [
+     24,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -30.0
+   },
+   {
+    "png": "Kick_6",
+    "hand": [
+     42,
      36
     ],
     "handB": [
-     23,
+     24,
      31
     ],
     "dy": -1,
@@ -4051,29 +4906,44 @@
     "angle": -30.0
    },
    {
-    "png": "Kick_5",
+    "png": "Kick_7",
+    "hand": [
+     43,
+     37
+    ],
+    "handB": [
+     52,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "Kick_8",
     "hand": [
      43,
      35
     ],
     "handB": [
-     50,
-     43
+     49,
+     45
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.05,
-    "angle": -25.0
+    "time": 0.045,
+    "angle": -22.6
    },
    {
-    "png": "Kick_6",
+    "png": "Kick_9",
     "hand": [
      43,
      34
     ],
     "handB": [
      42,
-     46
+     45
     ],
     "dy": -1,
     "sx": 0,
@@ -4081,28 +4951,43 @@
     "angle": -20.0
    },
    {
-    "png": "Kick_7",
+    "png": "Kick_10",
     "hand": [
-     41,
-     39
+     43,
+     37
     ],
     "handB": [
      41,
-     36
+     46
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -20.0
    },
    {
-    "png": "Kick_8",
+    "png": "Kick_11",
+    "hand": [
+     39,
+     41
+    ],
+    "handB": [
+     38,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "Kick_12",
     "hand": [
      36,
      41
     ],
     "handB": [
-     36,
+     35,
      41
     ],
     "dy": -1,
@@ -4558,56 +5443,86 @@
     "png": "DaggerCross_0",
     "hand": [
      45,
-     27
+     37
     ],
     "handB": [
-     50,
-     39
+     48,
+     38
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": 72.5
+    "time": 0.045,
+    "angle": 28.0
    },
    {
     "png": "DaggerCross_1",
     "hand": [
+     35,
+     22
+    ],
+    "handB": [
      26,
      31
     ],
-    "handB": [
-     52,
-     34
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 117.0
+   },
+   {
+    "png": "DaggerCross_2",
+    "hand": [
+     26,
+     30
     ],
-    "dy": 0,
+    "handB": [
+     26,
+     31
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.15,
     "angle": 165.0
    },
    {
-    "png": "DaggerCross_2",
+    "png": "DaggerCross_3",
     "hand": [
-     37,
-     24
+     31,
+     25
     ],
     "handB": [
-     25,
-     33
+     50,
+     31
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.03,
-    "angle": 112.5
+    "angle": 137.8
    },
    {
-    "png": "DaggerCross_3",
+    "png": "DaggerCross_4",
+    "hand": [
+     44,
+     26
+    ],
+    "handB": [
+     50,
+     33
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 87.2
+   },
+   {
+    "png": "DaggerCross_5",
     "hand": [
      47,
      31
     ],
     "handB": [
-     25,
-     33
+     30,
+     31
     ],
     "dy": -1,
     "sx": 0,
@@ -4615,29 +5530,44 @@
     "angle": 60.0
    },
    {
-    "png": "DaggerCross_4",
+    "png": "DaggerCross_6",
     "hand": [
      47,
      31
     ],
     "handB": [
-     25,
-     33
+     30,
+     31
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.05,
-    "angle": 59.0
+    "time": 0.045,
+    "angle": 59.5
    },
    {
-    "png": "DaggerCross_5",
+    "png": "DaggerCross_7",
+    "hand": [
+     47,
+     31
+    ],
+    "handB": [
+     30,
+     31
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 58.5
+   },
+   {
+    "png": "DaggerCross_8",
     "hand": [
      48,
      31
     ],
     "handB": [
-     25,
-     33
+     30,
+     31
     ],
     "dy": -1,
     "sx": 0,
@@ -4645,61 +5575,76 @@
     "angle": 58.0
    },
    {
-    "png": "DaggerCross_6",
+    "png": "DaggerCross_9",
     "hand": [
      48,
-     36
+     33
     ],
     "handB": [
-     53,
-     34
+     30,
+     31
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 14.0
+    "time": 0.045,
+    "angle": 35.2
    },
    {
-    "png": "DaggerCross_7",
+    "png": "DaggerCross_10",
     "hand": [
-     43,
-     42
+     46,
+     38
     ],
     "handB": [
-     50,
+     52,
+     37
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -7.2
+   },
+   {
+    "png": "DaggerCross_11",
+    "hand": [
+     43,
      41
     ],
-    "dy": 0,
+    "handB": [
+     29,
+     30
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.1,
     "angle": -30.0
    },
    {
-    "png": "DaggerCross_8",
+    "png": "DaggerCross_12",
     "hand": [
      40,
-     42
+     41
     ],
     "handB": [
-     48,
-     42
+     39,
+     41
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -25.0
    },
    {
-    "png": "DaggerCross_9",
+    "png": "DaggerCross_13",
     "hand": [
      37,
-     42
+     41
     ],
     "handB": [
-     37,
-     42
+     36,
+     41
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.08,
     "angle": -20.0
@@ -4713,8 +5658,8 @@
    {
     "png": "Bow_0",
     "hand": [
-     42,
-     41
+     39,
+     42
     ],
     "handB": [
      48,
@@ -4722,23 +5667,23 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": -12.5
+    "time": 0.045,
+    "angle": -16.1
    },
    {
     "png": "Bow_1",
     "hand": [
-     45,
-     36
+     44,
+     39
     ],
     "handB": [
-     26,
-     32
+     45,
+     39
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.1,
-    "angle": -5.0
+    "time": 0.045,
+    "angle": -8.9
    },
    {
     "png": "Bow_2",
@@ -4747,23 +5692,53 @@
      36
     ],
     "handB": [
-     26,
-     32
+     45,
+     37
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": -6.5
+    "time": 0.1,
+    "angle": -5.0
    },
    {
     "png": "Bow_3",
     "hand": [
      45,
+     36
+    ],
+    "handB": [
+     45,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -5.8
+   },
+   {
+    "png": "Bow_4",
+    "hand": [
+     45,
+     36
+    ],
+    "handB": [
+     45,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -7.2
+   },
+   {
+    "png": "Bow_5",
+    "hand": [
+     45,
      35
     ],
     "handB": [
-     25,
-     32
+     45,
+     37
     ],
     "dy": 0,
     "sx": 0,
@@ -4771,14 +5746,14 @@
     "angle": -8.0
    },
    {
-    "png": "Bow_4",
+    "png": "Bow_6",
     "hand": [
      44,
      34
     ],
     "handB": [
-     24,
-     32
+     45,
+     37
     ],
     "dy": 0,
     "sx": 0,
@@ -4786,29 +5761,44 @@
     "angle": 4.0
    },
    {
-    "png": "Bow_5",
+    "png": "Bow_7",
     "hand": [
      44,
      34
     ],
     "handB": [
-     24,
-     32
+     45,
+     37
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.05,
-    "angle": -1.0
+    "time": 0.045,
+    "angle": 1.4
    },
    {
-    "png": "Bow_6",
+    "png": "Bow_8",
     "hand": [
      45,
      35
     ],
     "handB": [
-     25,
-     32
+     45,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -3.4
+   },
+   {
+    "png": "Bow_9",
+    "hand": [
+     45,
+     35
+    ],
+    "handB": [
+     45,
+     37
     ],
     "dy": 0,
     "sx": 0,
@@ -4816,29 +5806,29 @@
     "angle": -6.0
    },
    {
-    "png": "Bow_7",
+    "png": "Bow_10",
     "hand": [
      45,
      36
     ],
     "handB": [
-     44,
-     36
+     45,
+     37
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -18.0
    },
    {
-    "png": "Bow_8",
+    "png": "Bow_11",
     "hand": [
      45,
      36
     ],
     "handB": [
-     26,
-     31
+     45,
+     36
     ],
     "dy": 0,
     "sx": 0,
@@ -4846,29 +5836,29 @@
     "angle": -30.0
    },
    {
-    "png": "Bow_9",
+    "png": "Bow_12",
     "hand": [
      41,
      41
     ],
     "handB": [
-     26,
-     31
+     44,
+     40
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.045,
     "angle": -25.0
    },
    {
-    "png": "Bow_10",
+    "png": "Bow_13",
     "hand": [
      35,
      42
     ],
     "handB": [
-     34,
-     42
+     35,
+     43
     ],
     "dy": 0,
     "sx": 0,
@@ -4884,149 +5874,209 @@
    {
     "png": "GreatSideOne_0",
     "hand": [
-     29,
-     39
+     32,
+     41
     ],
     "handB": [
-     51,
-     36
+     49,
+     39
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.05,
-    "angle": -100.0
+    "time": 0.045,
+    "angle": -61.5
    },
    {
     "png": "GreatSideOne_1",
     "hand": [
-     26,
-     32
+     27,
+     35
     ],
     "handB": [
      27,
-     37
+     35
     ],
-    "dy": 0,
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -138.5
+   },
+   {
+    "png": "GreatSideOne_2",
+    "hand": [
+     26,
+     31
+    ],
+    "handB": [
+     27,
+     35
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.15,
     "angle": -180.0
    },
    {
-    "png": "GreatSideOne_2",
+    "png": "GreatSideOne_3",
     "hand": [
      38,
-     43
+     42
     ],
     "handB": [
-     51,
-     34
+     52,
+     36
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.03,
     "angle": -95.0
    },
    {
-    "png": "GreatSideOne_3",
+    "png": "GreatSideOne_4",
     "hand": [
      50,
-     29
+     28
     ],
     "handB": [
-     47,
-     32
+     52,
+     36
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.04,
     "angle": 35.0
    },
    {
-    "png": "GreatSideOne_4",
-    "hand": [
-     50,
-     29
-    ],
-    "handB": [
-     47,
-     32
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.06,
-    "angle": 37.5
-   },
-   {
     "png": "GreatSideOne_5",
     "hand": [
-     49,
+     50,
      28
     ],
     "handB": [
-     47,
-     32
+     52,
+     36
     ],
-    "dy": 0,
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 36.3
+   },
+   {
+    "png": "GreatSideOne_6",
+    "hand": [
+     49,
+     27
+    ],
+    "handB": [
+     52,
+     36
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 38.7
+   },
+   {
+    "png": "GreatSideOne_7",
+    "hand": [
+     49,
+     27
+    ],
+    "handB": [
+     52,
+     36
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.16,
     "angle": 40.0
    },
    {
-    "png": "GreatSideOne_6",
+    "png": "GreatSideOne_8",
     "hand": [
      50,
-     35
+     31
     ],
     "handB": [
-     48,
-     34
+     52,
+     36
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": 5.0
+    "time": 0.045,
+    "angle": 21.9
    },
    {
-    "png": "GreatSideOne_7",
+    "png": "GreatSideOne_9",
     "hand": [
-     45,
-     41
+     48,
+     37
     ],
     "handB": [
+     46,
+     37
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -11.9
+   },
+   {
+    "png": "GreatSideOne_10",
+    "hand": [
      45,
+     40
+    ],
+    "handB": [
+     49,
      41
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.1,
     "angle": -30.0
    },
    {
-    "png": "GreatSideOne_8",
+    "png": "GreatSideOne_11",
     "hand": [
-     42,
-     42
+     43,
+     41
     ],
     "handB": [
      49,
-     39
+     41
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -25.0
+    "time": 0.045,
+    "angle": -27.4
    },
    {
-    "png": "GreatSideOne_9",
+    "png": "GreatSideOne_12",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     40,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "GreatSideOne_13",
     "hand": [
      38,
-     42
+     41
     ],
     "handB": [
      38,
-     43
+     41
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
     "time": 0.08,
     "angle": -20.0
@@ -5040,26 +6090,41 @@
    {
     "png": "ShieldBash_0",
     "hand": [
-     32,
+     34,
      42
     ],
     "handB": [
-     49,
-     38
+     48,
+     41
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": -85.0
+    "time": 0.045,
+    "angle": -53.7
    },
    {
     "png": "ShieldBash_1",
+    "hand": [
+     30,
+     42
+    ],
+    "handB": [
+     48,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -116.3
+   },
+   {
+    "png": "ShieldBash_2",
     "hand": [
      28,
      41
     ],
     "handB": [
-     47,
+     46,
      35
     ],
     "dy": 0,
@@ -5068,29 +6133,44 @@
     "angle": -150.0
    },
    {
-    "png": "ShieldBash_2",
+    "png": "ShieldBash_3",
     "hand": [
-     32,
+     30,
+     41
+    ],
+    "handB": [
+     50,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -151.3
+   },
+   {
+    "png": "ShieldBash_4",
+    "hand": [
+     34,
      40
     ],
     "handB": [
-     54,
+     55,
      34
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.03,
-    "angle": -152.5
+    "angle": -153.7
    },
    {
-    "png": "ShieldBash_3",
+    "png": "ShieldBash_5",
     "hand": [
      36,
      41
     ],
     "handB": [
-     36,
-     41
+     37,
+     40
     ],
     "dy": 0,
     "sx": 0,
@@ -5098,14 +6178,14 @@
     "angle": -155.0
    },
    {
-    "png": "ShieldBash_4",
+    "png": "ShieldBash_6",
     "hand": [
      36,
      41
     ],
     "handB": [
-     36,
-     41
+     37,
+     40
     ],
     "dy": 0,
     "sx": 0,
@@ -5113,22 +6193,37 @@
     "angle": -155.0
    },
    {
-    "png": "ShieldBash_5",
+    "png": "ShieldBash_7",
     "hand": [
      36,
      42
     ],
     "handB": [
-     57,
+     56,
      35
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": -137.5
+    "time": 0.045,
+    "angle": -145.9
    },
    {
-    "png": "ShieldBash_6",
+    "png": "ShieldBash_8",
+    "hand": [
+     37,
+     43
+    ],
+    "handB": [
+     56,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -129.1
+   },
+   {
+    "png": "ShieldBash_9",
     "hand": [
      37,
      43
@@ -5143,31 +6238,46 @@
     "angle": -120.0
    },
    {
-    "png": "ShieldBash_7",
+    "png": "ShieldBash_10",
     "hand": [
      38,
-     43
+     42
     ],
     "handB": [
      53,
-     40
+     37
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -70.0
+    "time": 0.045,
+    "angle": -94.1
    },
    {
-    "png": "ShieldBash_8",
+    "png": "ShieldBash_11",
     "hand": [
      38,
-     42
+     41
     ],
     "handB": [
-     38,
-     42
+     50,
+     41
     ],
-    "dy": 0,
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -45.9
+   },
+   {
+    "png": "ShieldBash_12",
+    "hand": [
+     38,
+     41
+    ],
+    "handB": [
+     37,
+     41
+    ],
+    "dy": -1,
     "sx": 0,
     "time": 0.08,
     "angle": -20.0
@@ -5367,32 +6477,32 @@
    {
     "png": "Pull_0",
     "hand": [
-     47,
-     40
+     42,
+     42
     ],
     "handB": [
-     31,
-     30
+     48,
+     41
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": -7.5
+    "time": 0.045,
+    "angle": -13.5
    },
    {
     "png": "Pull_1",
     "hand": [
-     53,
-     34
+     51,
+     37
     ],
     "handB": [
-     52,
-     42
+     49,
+     43
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.12,
-    "angle": 5.0
+    "time": 0.045,
+    "angle": -1.5
    },
    {
     "png": "Pull_2",
@@ -5401,8 +6511,23 @@
      34
     ],
     "handB": [
-     52,
-     42
+     53,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": 5.0
+   },
+   {
+    "png": "Pull_3",
+    "hand": [
+     53,
+     34
+    ],
+    "handB": [
+     53,
+     43
     ],
     "dy": 0,
     "sx": 0,
@@ -5410,22 +6535,37 @@
     "angle": 4.0
    },
    {
-    "png": "Pull_3",
+    "png": "Pull_4",
     "hand": [
-     42,
-     38
+     48,
+     36
     ],
     "handB": [
-     42,
+     46,
      42
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.03,
-    "angle": 17.0
+    "angle": 10.7
    },
    {
-    "png": "Pull_4",
+    "png": "Pull_5",
+    "hand": [
+     35,
+     38
+    ],
+    "handB": [
+     21,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 23.3
+   },
+   {
+    "png": "Pull_6",
     "hand": [
      28,
      36
@@ -5440,7 +6580,7 @@
     "angle": 30.0
    },
    {
-    "png": "Pull_5",
+    "png": "Pull_7",
     "hand": [
      28,
      36
@@ -5455,24 +6595,54 @@
     "angle": 30.0
    },
    {
-    "png": "Pull_6",
+    "png": "Pull_8",
     "hand": [
-     34,
-     39
-    ],
-    "handB": [
      31,
      38
     ],
+    "handB": [
+     21,
+     33
+    ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": 0.0
+    "time": 0.045,
+    "angle": 14.4
    },
    {
-    "png": "Pull_7",
+    "png": "Pull_9",
+    "hand": [
+     37,
+     41
+    ],
+    "handB": [
+     36,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -14.4
+   },
+   {
+    "png": "Pull_10",
     "hand": [
      40,
+     42
+    ],
+    "handB": [
+     47,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -30.0
+   },
+   {
+    "png": "Pull_11",
+    "hand": [
+     39,
      42
     ],
     "handB": [
@@ -5481,35 +6651,35 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.1,
-    "angle": -30.0
+    "time": 0.045,
+    "angle": -27.4
    },
    {
-    "png": "Pull_8",
+    "png": "Pull_12",
     "hand": [
-     38,
+     37,
      42
     ],
     "handB": [
      46,
-     41
+     37
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": -25.0
+    "time": 0.045,
+    "angle": -22.6
    },
    {
-    "png": "Pull_9",
+    "png": "Pull_13",
     "hand": [
      36,
-     41
+     42
     ],
     "handB": [
-     36,
-     41
+     46,
+     38
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.08,
     "angle": -20.0
