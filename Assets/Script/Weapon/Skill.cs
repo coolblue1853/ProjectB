@@ -39,6 +39,7 @@ public class Skill : MonoBehaviour
     private int _activeSlot = -1; // 실제로 발동된 슬롯(ActiveSkill 인자). Inspector skillNum 과 다를 수 있다 (B-113)
     private Sequence _spawnDelaySequence;  // 선딜 뒤 데미지 오브젝트 생성
     private Sequence _dmgDelaySequence;    // 선딜 뒤 데미지 설정
+    private Coroutine _spawnRoutine;       // 프리팹 여러 개 순차 생성(SpawnSkills)
     /// <summary>홀드 스킬이 유지 중인지 — 유지 중에는 다른 스킬을 발동하지 않는다 (B-113)</summary>
     public bool IsHolding => isActiveHold;
 
@@ -121,6 +122,7 @@ public class Skill : MonoBehaviour
         skillSequence.Kill();
         _spawnDelaySequence.Kill();
         _dmgDelaySequence.Kill();
+        StopSpawnRoutine(); // 컴포넌트만 꺼지는 경우에도 순차 생성을 멈춘다
         if (isActiveHold && weapon != null)
         {
             weapon.isSkillAttackWait = true; // 홀드가 내린 스킬 대기를 되돌린다(만료 콜백이 Kill 되었으므로)
@@ -238,13 +240,12 @@ public class Skill : MonoBehaviour
                 }
             }
             PlaySkillSound(i);
-            if (isNullParent == true )
-            {
-                damageObject.transform.parent = null;
-  
-            }
             if( damageObject != null)
             {
+                if (isNullParent == true)
+                {
+                    damageObject.transform.parent = null; // 바닥을 못 찾아 생성이 안 됐으면 건너뛴다(NRE 방지)
+                }
                 dmOb = damageObject.GetComponent<DamageObject>();
                 dmOb.skillName = skillName;
                 dmOb.SetDamge(damgeArray);
@@ -257,6 +258,7 @@ public class Skill : MonoBehaviour
                 yield return new WaitForSeconds(interval[i] / StatMath.AttackSpeedMul);
         }
         originPoint = Vector2.zero;
+        _spawnRoutine = null;
     }
 
     public void RoundSpawn(GameObject damageOb, GameObject attackPivot)
@@ -308,6 +310,9 @@ public class Skill : MonoBehaviour
         {
             isActive = true;
             _activeSlot = num;
+            // 이전 시전의 오브젝트를 다시 잡지 않게 — 바닥을 못 찾아 생성이 안 되면 SetSkillDmg 가 건너뛴다
+            damageObject = null;
+            dmOb = null;
             if (isRoundAttack == true) RoundAttack(skillWaitTime / StatMath.AttackSpeedMul);
             else if (isGorundCheckSkill == false) NomalAttack(skillWaitTime / StatMath.AttackSpeedMul);
             else
@@ -333,17 +338,19 @@ public class Skill : MonoBehaviour
         }
         if (isHoldSkill == true && isActiveHold == true)
         {
-            ReleaseHold();
+            EndHold();
         }
     }
 
-    /// <summary>키 해제로 홀드 종료. 선딜 중에 떼면 아직 안 나온 생성·데미지 설정도 취소한다 (B-113)</summary>
-    void ReleaseHold()
+    /// <summary>홀드 종료 단일 경로(키 해제·시간 만료). 선딜 중이면 아직 안 나온 생성·데미지 설정, 순차 생성 코루틴도 멈춘다 (B-113, 설계 2.4-6).
+    /// 만료도 키 해제처럼 데미지 오브젝트를 즉시 파괴한다(예전 만료는 DestroyObject 의 지연 파괴). DestroyObject 는 홀드 버프 해제(BuffOff)를 위해 부른다.</summary>
+    void EndHold()
     {
         isActiveHold = false;
         skillSequence.Kill();
         _spawnDelaySequence.Kill();
         _dmgDelaySequence.Kill();
+        StopSpawnRoutine();
         skillCooldown.UseSkill(_activeSlot, skillName);
         CheckAttackWait();
         if (PlayerController.instance != null)
@@ -360,6 +367,15 @@ public class Skill : MonoBehaviour
         }
         dmOb = null;
         damageObject = null;
+    }
+
+    void StopSpawnRoutine()
+    {
+        if (_spawnRoutine != null)
+        {
+            StopCoroutine(_spawnRoutine);
+            _spawnRoutine = null;
+        }
     }
   
     void GroundAttack() // 땅에서 생성되는 기술, 단일 개체
@@ -415,12 +431,19 @@ public class Skill : MonoBehaviour
     {
         if(isRoundAttack == false)
         {
+            if (damageObject == null)
+            {
+                return; // 바닥을 못 찾아 생성되지 않음(GroundAttack) 또는 이미 해제됨
+            }
             if (isNullParent == true) damageObject.transform.parent = null;
             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.skillName = skillName;
             dmOb.SetDamge(damgeArray);
                 dmOb.isSkill = true; // 스킬 여부는 코드가 정한다(공유 프리팹 플래그 무시, W-04)
-            if (skillprefab.Length > 1) StartCoroutine(SpawnSkills());// 다수의 오브젝트를 생성하는 기술의 경우
+            if (skillprefab.Length > 1)
+            {
+                _spawnRoutine = StartCoroutine(SpawnSkills()); // 다수의 오브젝트를 생성하는 기술의 경우. 홀드 종료 때만 멈춘다(일반 스킬의 앞 시전은 그대로 둔다)
+            }
         }
 
     }
@@ -480,10 +503,7 @@ public class Skill : MonoBehaviour
                 weapon.isSkillAttackWait = false; // 홀드 중 평타 금지 — 종료 시 CheckAttackWait 가 되돌린다(W-06)
                 skillSequence = DOTween.Sequence()
                .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
-               .AppendCallback(() => isActiveHold = false)      
-               .AppendCallback(() => skillCooldown.UseSkill(skillNum, skillName))
-               .AppendCallback(() => CheckAttackWait())
-               .AppendCallback(() => { if (dmOb != null) dmOb.DestroyObject(); }).SetLink(gameObject); // 시간 만료 경로 null 가드 (W-18)
+               .AppendCallback(() => { if (isActiveHold) { EndHold(); } }).SetLink(gameObject); // 시간 만료도 키 해제와 같은 정리 (B-113, W-18)
             }
         }
     }
