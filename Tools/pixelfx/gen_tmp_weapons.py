@@ -1,5 +1,5 @@
 """모션 확인용 임시 도트 무기(10-29 사용자: 모션에 맞는 임시 무기로 합본 영상). 칼날·자루가 위, 손잡이 피벗, 24 PPU — Resources/PixelRig/Weapons 규약.
-기존 도트 무기(대검·단검·활·지팡이·너클·창·방패)에 없는 것만 그린다: 카타나·해머·대포·투척 단검·사슬낫.
+기존 도트 무기(대검·단검·활·지팡이·너클·창·방패)에 없는 것만 그린다: 카타나·해머·대포·투척 단검·사슬낫·권총·소총.
 사용: python Tools/pixelfx/gen_tmp_weapons.py → Unity 에서 Tools/probes/import_tmp_weapons.cs(스프라이트 피벗·PPU 설정)
 """
 import json
@@ -96,8 +96,27 @@ def hook():
     return outline(im), (6, 24), False
 
 
+def pistol():
+    im = canvas(7, 13)
+    rect(im, 2, 1, 4, 7, I1)         # 총신(위)
+    rect(im, 4, 1, 4, 7, I2)
+    rect(im, 2, 8, 4, 11, W2)        # 손잡이
+    im.putpixel((5, 8), I2)          # 방아쇠울
+    return outline(im), (3, 9), False
+
+
+def rifle():
+    im = canvas(7, 40)
+    rect(im, 3, 1, 3, 20, I2)        # 총열
+    rect(im, 2, 21, 4, 29, I1)       # 몸통
+    rect(im, 2, 12, 4, 20, W1)       # 앞 손잡이(받침손)
+    rect(im, 2, 30, 4, 38, W2)       # 개머리판
+    im.putpixel((5, 27), I2)
+    return outline(im), (3, 28), False
+
+
 def main():
-    for name, fn in (("TmpKatana", katana), ("TmpHammer", hammer), ("TmpCannon", cannon), ("TmpKnife", knife), ("TmpHook", hook)):
+    for name, fn in (("TmpKatana", katana), ("TmpHammer", hammer), ("TmpCannon", cannon), ("TmpKnife", knife), ("TmpHook", hook), ("TmpPistol", pistol), ("TmpRifle", rifle)):
         im, grip, upright = fn()
         im.save(os.path.join(OUT, name + ".png"))
         with open(os.path.join(OUT, name + ".json"), "w") as fp:
