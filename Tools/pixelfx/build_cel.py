@@ -190,6 +190,15 @@ TIMES = {
 # 스켈레톤 셀(10-27): 손 = 자세표 손목 관절(가로·세로 맞춤만 더함), 칼 각도 = 자세표 설계값
 SKEL_HAND = {"Stab": [[35, 42], [33, 40], [32, 37], [44, 42], [57, 38], [56, 38]], "StabEnd": [[53, 41], [42, 43], [36, 43]], "SwingDown": [[46, 33], [35, 23], [34, 23], [52, 33], [55, 42], [54, 43], [54, 43]], "SwingDownEnd": [[50, 43], [46, 43], [42, 43], [39, 42]], "SwingUp": [[35, 42], [35, 40], [35, 40], [44, 45], [50, 27], [40, 24], [32, 29], [32, 29], [30, 34], [33, 40], [35, 42], [39, 42]]}
 SKEL_ANGLE = {"Stab": [-14.8, -5.2, 0.0, 0.0, 0.0, -5.0], "StabEnd": [-8.9, -16.1, -20.0], "SwingDown": [100, 172, 174, 60, -30, -35, -34], "SwingDownEnd": [-36, -35, -28, -20], "SwingUp": [-160, -165, -165, -25, 60, 165, 168, 169, 190, -150, -43, -20]}
+# 10-29 마스터 모션 강화(MotionSet §8): 졸라맨 승인 → 스켈레톤 보간 생성분은 m41/register.json 에서 읽어 덧붙인다
+# 형식: {"클립": {"frames": ["m41/b2/bow/0", ...], "hand": [[x, y], ...], "angle": [...], "times": [...]}}
+_REG = os.path.join(SRC, "m41", "register.json")
+if os.path.exists(_REG):
+    for _name, _r in json.load(open(_REG, encoding="utf-8")).items():
+        CLIPS[_name] = ("m41", _r["frames"], 0.05, False, "feet")
+        SKEL_HAND[_name] = _r["hand"]
+        SKEL_ANGLE[_name] = _r["angle"]
+        TIMES[_name] = _r["times"]
 ANGLE_FIX = {}
 HAND_FIX = {("JumpCrouch", 2): (24, 33), ("JumpArc", 0): (24, 33), ("JumpArc", 1): (25, 33), ("JumpArc", 2): (27, 33), ("JumpArc", 3): (28, 34),
             ("Land", 0): (27, 31), ("Land", 1): (28, 36)}
