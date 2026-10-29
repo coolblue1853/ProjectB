@@ -3990,113 +3990,188 @@
   ]
  },
  "DaggerFlurry": {
-  "frame": 0.035,
+  "frame": 0.05,
   "loop": false,
   "frames": [
    {
     "png": "DaggerFlurry_0",
     "hand": [
-     37,
-     42
+     38,
+     38
     ],
     "handB": [
-     49,
-     42
+     46,
+     39
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.0,
-    "angle": 144.69154039587656
+    "time": 0.06,
+    "angle": -10.0
    },
    {
     "png": "DaggerFlurry_1",
     "hand": [
-     49,
-     43
+     38,
+     33
     ],
     "handB": [
-     48,
-     43
+     46,
+     39
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.0,
-    "angle": 25.440235841083247
+    "time": 0.11,
+    "angle": 0.0
    },
    {
     "png": "DaggerFlurry_2",
     "hand": [
-     46,
-     43
+     51,
+     33
     ],
     "handB": [
-     45,
-     43
+     46,
+     39
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.0,
-    "angle": 13.317547441210422
+    "time": 0.07,
+    "angle": 0.0
    },
    {
     "png": "DaggerFlurry_3",
     "hand": [
-     28,
-     41
+     43,
+     35
     ],
     "handB": [
-     46,
-     40
+     58,
+     34
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.0,
-    "angle": 141.9931969857061
+    "time": 0.07,
+    "angle": 0.0
    },
    {
     "png": "DaggerFlurry_4",
     "hand": [
-     29,
-     41
+     43,
+     35
     ],
     "handB": [
-     47,
-     41
+     44,
+     36
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.0,
-    "angle": 141.9931969857061
+    "time": 0.06,
+    "angle": 0.0
    },
    {
     "png": "DaggerFlurry_5",
     "hand": [
-     49,
-     43
+     57,
+     35
     ],
     "handB": [
-     48,
-     43
+     54,
+     35
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.0,
-    "angle": 25.440235841083247
+    "time": 0.1,
+    "angle": 2.0
    },
    {
     "png": "DaggerFlurry_6",
     "hand": [
-     46,
-     43
+     57,
+     35
     ],
     "handB": [
-     45,
-     43
+     54,
+     35
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.0,
-    "angle": 28.682835079743082
+    "time": 0.07,
+    "angle": 2.5
+   },
+   {
+    "png": "DaggerFlurry_7",
+    "hand": [
+     57,
+     35
+    ],
+    "handB": [
+     54,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.09,
+    "angle": 3.0
+   },
+   {
+    "png": "DaggerFlurry_8",
+    "hand": [
+     53,
+     41
+    ],
+    "handB": [
+     53,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -13.5
+   },
+   {
+    "png": "DaggerFlurry_9",
+    "hand": [
+     44,
+     42
+    ],
+    "handB": [
+     43,
+     43
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -30.0
+   },
+   {
+    "png": "DaggerFlurry_10",
+    "hand": [
+     42,
+     42
+    ],
+    "handB": [
+     42,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -25.0
+   },
+   {
+    "png": "DaggerFlurry_11",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     40,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -20.0
    }
   ]
  },

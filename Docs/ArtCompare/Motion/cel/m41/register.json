@@ -675,5 +675,101 @@
   ],
   "job": "7cd57f98-0fa7-4959-a70b-8ea6c25b916e",
   "motion": "A5_GreatSide"
+ },
+ "DaggerFlurry": {
+  "frames": [
+   "m41/b3/daggerflurry/0",
+   "m41/b3/daggerflurry/1",
+   "m41/b3/daggerflurry/2",
+   "m41/b3/daggerflurry/3",
+   "m41/b3/daggerflurry/4",
+   "m41/b3/daggerflurry/5",
+   "m41/b3/daggerflurry/6",
+   "m41/b3/daggerflurry/7",
+   "m41/b3/daggerflurry/8",
+   "m41/b3/daggerflurry/9",
+   "m41/b3/daggerflurry/10",
+   "m41/b3/daggerflurry/11"
+  ],
+  "hand": [
+   [
+    38,
+    39
+   ],
+   [
+    38,
+    34
+   ],
+   [
+    51,
+    33
+   ],
+   [
+    43,
+    35
+   ],
+   [
+    43,
+    35
+   ],
+   [
+    57,
+    35
+   ],
+   [
+    57,
+    35
+   ],
+   [
+    57,
+    35
+   ],
+   [
+    53,
+    41
+   ],
+   [
+    44,
+    43
+   ],
+   [
+    42,
+    43
+   ],
+   [
+    40,
+    42
+   ]
+  ],
+  "angle": [
+   -10.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   2.0,
+   2.5,
+   3.0,
+   -13.5,
+   -30.0,
+   -25.0,
+   -20.0
+  ],
+  "times": [
+   0.06,
+   0.11,
+   0.07,
+   0.07,
+   0.06,
+   0.1,
+   0.07,
+   0.09,
+   0.1,
+   0.1,
+   0.1,
+   0.11
+  ],
+  "job": "83a500fb-67fd-4c36-a3ed-610958369a8a",
+  "motion": "A6_DaggerFlurry"
  }
 }
