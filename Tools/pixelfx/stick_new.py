@@ -13,6 +13,31 @@ from skel_keys import IDLEK, run  # noqa: E402
 from stick_prev import FONT, draw  # noqa: E402
 
 LIMBUS = "C:/Users/user/LimbusRef/cap"
+CLASS = "C:/Users/user/LimbusRef/strips/class.tsv"
+CEL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "Assets", "Art", "Player", "PixelRig", "Cel")
+
+
+def board_ref(code, row):
+    """lb_boards.py 와 같은 후보 순서(주코드만 있는 것 먼저, 최대 6)에서 row 번째(1부터) 클립 → (캐릭터, 클립)."""
+    if not os.path.exists(CLASS):
+        return None
+    cands = []
+    for line in open(CLASS, encoding="utf-8"):
+        i, main_, c, n, clip = line.rstrip("\n").split("\t")
+        if main_ == code:
+            cands.append(("/" not in c, n, clip))
+    cands = sorted(cands, key=lambda x: not x[0])[:6]
+    return (cands[row - 1][1], cands[row - 1][2]) if 0 < row <= len(cands) else None
+
+
+def cel_frames(name, n):
+    """지금 우리 셀 프레임 경로(제안 프레임 수에 맞춰 고르게)."""
+    import json
+    cj = json.load(open(os.path.join(CEL, "cel.json")))
+    if name not in cj:
+        return [None] * n
+    fs = [os.path.join(CEL, f["png"] + ".png") for f in cj[name]["frames"]]
+    return [fs[min(len(fs) - 1, int(i * len(fs) / n))] for i in range(n)]
 IDLE_AT = lambda x: ((x, 44),) + IDLEK[1:]  # noqa: E731 — 제자리 회복(골반을 끌어오지 않는다)
 LUNGE = (-140, -140, -40, -95)
 CROUCH = (-125, -95, -60, -100)
@@ -55,6 +80,86 @@ MOTIONS = {
     },
 }
 
+A_STANCE = (-112, -112, -68, -68)
+TUCK = (-85, -40)
+DEEP_LUNGE = (-145, -150, -35, -100)
+# 1차 묶음(10-29): 1차본 공격 → 림버스 참고 줄(Docs/MotionReview_Limbus.md) + GPT 제안 완급. cur = 지금 우리 셀 이름
+MOTIONS.update({
+    # A4 양손 내려찍기: 뒤로 젖혀 머리 위 높이(유지) → 0.07초 앞발 내딛으며 전신 내려찍기 → 낮게 주저앉아 유지
+    "A4_GreatDown": {
+        "ref": board_ref("A4", 3), "cur": "GreatDown",
+        "keys": [IDLEK, [
+            (((40, 44), -10, 150, 170, 145, 165) + A_STANCE + (170,), 2),
+            (((40.5, 44), -12, 110, 135, 108, 133) + A_STANCE + (160,), 2),
+            (((45, 45), 30, -10, -40, -12, -42) + LUNGE + (-50,), 1),
+            (((46, 46), 40, -40, -70, -42, -72) + DEEP_LUNGE + (-62,), 2),
+        ], [(((46, 45), 15, -95, -70, -95, -70) + WIDE_LOW + (-60,), 2), (IDLE_AT(46), 2)]],
+        "times": [60, 120, 90, 90, 70, 90, 90, 100, 100, 100, 110],
+    },
+    # A5 양손 수평 휘두르기: 몸통을 뒤로 비틀어 무기 뒤 수평(유지) → 0.06초 몸 옆을 지나 → 앞 수평으로 쭉 → 관성으로 앞 위까지
+    "A5_GreatSide": {
+        "ref": board_ref("A5", 1), "cur": "GreatSide",
+        "keys": [IDLEK, [
+            (((39.5, 44), -6, 175, 178, 170, 175) + A_STANCE + (180,), 2),
+            (((40, 44), -7, 176, 179, 171, 176) + A_STANCE + (181,), 1),
+            (((43, 44), 6, -100, -95, -100, -95) + (-118, -118, -62, -90) + (-95,), 1),
+            (((46, 44), 14, 0, 2, -2, 0) + LUNGE + (2,), 1),
+            (((46.5, 44), 16, 28, 40, 25, 38) + LUNGE + (45,), 2),
+        ], [(((46.5, 44), 5, -60, -30, -70, -40) + WIDE_LOW + (-20,), 2), (IDLE_AT(46.5), 2)]],
+        "times": [60, 110, 90, 60, 100, 60, 60, 100, 100, 90, 110],
+    },
+    # A5′ 한손 수평 베기(셀 변형): A5 와 같은 궤적, 반대손은 배 앞(TUCK)
+    "A5b_OneHandSide": {
+        "ref": board_ref("A5", 1), "cur": "GreatSide",
+        "keys": [IDLEK, [
+            (((39.5, 44), -6, 175, 178) + TUCK + A_STANCE + (180,), 2),
+            (((40, 44), -7, 176, 179) + TUCK + A_STANCE + (181,), 1),
+            (((43, 44), 6, -100, -95) + TUCK + (-118, -118, -62, -90) + (-95,), 1),
+            (((46, 44), 14, 0, 2) + TUCK + LUNGE + (2,), 1),
+            (((46.5, 44), 16, 28, 40) + TUCK + LUNGE + (45,), 2),
+        ], [(((46.5, 44), 5, -60, -30) + TUCK + WIDE_LOW + (-20,), 2), (IDLE_AT(46.5), 2)]],
+        "times": [60, 110, 90, 60, 100, 60, 60, 100, 100, 90, 110],
+    },
+    # A6 연속 찌르기(쌍단검): 두 손 가슴 앞으로 당겨 준비 → 오른손 0.07 → 왼손 0.07 → 오른손 크게 내딛어 0.10 → 신전 유지
+    "A6_DaggerFlurry": {
+        "ref": board_ref("A6", 2), "cur": "DaggerFlurry",
+        "keys": [IDLEK, [
+            (((40, 44), 6, -160, 10, -150, 20) + A_STANCE + (0,), 2),
+            (((42, 44), 12, 0, 0, -150, 20) + (-120, -115, -60, -85) + (0,), 1),
+            (((43, 44), 14, -155, 15, 0, 0) + (-122, -116, -58, -86) + (0,), 1),
+            (((43.5, 44), 12, -150, 15, -140, 25) + (-122, -116, -58, -86) + (0,), 1),
+            (((47, 44), 26, 2, 2, -150, 20) + LUNGE + (2,), 1),
+            (((47.5, 44), 28, 3, 3, -152, 18) + LUNGE + (3,), 2),
+        ], [(((47.5, 44), 8, -100, -60) + TUCK + WIDE_LOW + (-30,), 2), (IDLE_AT(47.5), 2)]],
+        "times": [60, 110, 70, 70, 60, 100, 70, 90, 100, 100, 100, 110],
+    },
+    # A7 교차 베기: 두 팔 위로 교차해 들어 올림(유지) → 오른손 대각 0.09 → 몸 역회전 → 왼손 반대 대각 0.09 → 앞에서 X 로 교차한 마무리 유지
+    "A7_DaggerCross": {
+        "ref": None, "cur": "DaggerCross",
+        "keys": [IDLEK, [
+            (((40, 44), -5, 120, 150, 100, 140) + A_STANCE + (150,), 2),
+            (((43, 44), 15, -40, -50, 110, 140) + (-118, -118, -62, -90) + (-45,), 1),
+            (((43.5, 44), 5, -90, -60, 120, 150) + (-118, -118, -62, -90) + (-70,), 1),
+            (((45, 44), 18, -120, -100, -40, -50) + LUNGE + (-110,), 1),
+            (((45.5, 44), 10, -20, 30, -30, 40) + LUNGE + (60,), 2),
+        ], [(((45.5, 44), 4, -90, -60) + TUCK + WIDE_LOW + (-40,), 2), (IDLE_AT(45.5), 2)]],
+        "times": [60, 100, 90, 80, 90, 100, 90, 90, 100, 100, 110],
+    },
+    # A9 돌진: 낮게 웅크려 무기 허리 앞(유지) → 0.07초 뒷발로 밀기 → 낮게 길게 돌진(골반 +12px) → 최대 전진 → 앞발로 제동, 상체 세움
+    "A9_Lunge": {
+        "ref": board_ref("A9", 5), "cur": "Lunge",
+        "keys": [IDLEK, [
+            (((39, 46), 20, -150, 175, -60, -20) + CROUCH + (0,), 2),
+            (((39.5, 46), 21, -151, 176, -61, -21) + CROUCH + (0,), 1),
+            (((44, 45), 35, -30, -10, -150, -150) + (-150, -150, -30, -80) + (-5,), 1),
+            (((52, 45), 38, 0, 0, -155, -150) + (-150, -140, -25, -85) + (0,), 2),
+            (((56, 45), 32, 2, 2, -150, -145) + (-148, -138, -28, -84) + (2,), 1),
+            (((57, 44), -5, -40, -10) + TUCK + (-140, -120, -45, -70) + (-20,), 2),
+        ], [(IDLE_AT(57), 2)]],
+        "times": [60, 110, 100, 70, 90, 90, 100, 60, 100, 100, 110],
+    },
+})
+
 
 def frames(keys):
     start, main_segs, end_segs = keys
@@ -75,24 +180,35 @@ def ref_frames(ref, n):
 def main():
     out = sys.argv[1]
     os.makedirs(out, exist_ok=True)
+    only = sys.argv[2].split(",") if len(sys.argv) > 2 else None
     for name, m in MOTIONS.items():
+        if only and not any(name.startswith(o) for o in only):
+            continue
         fr = frames(m["keys"])
         assert len(fr) == len(m["times"]), (name, len(fr))
         refs = ref_frames(m["ref"], len(fr))
+        curs = cel_frames(m["cur"], len(fr)) if m.get("cur") else None
         gif = []
         for i, ((k, ang), rp) in enumerate(zip(fr, refs)):
             b, _, _ = draw(k, ang, scale=4)
-            c = Image.new("RGB", (b.width * 2 + 8, b.height + 30), (255, 255, 255))
+            off = b.width + 8 if curs else 0
+            c = Image.new("RGB", (b.width * 2 + 8 + off, b.height + 30), (255, 255, 255))
+            if curs and curs[i]:
+                ci = Image.open(curs[i]).convert("RGBA").resize((b.width, b.height), Image.NEAREST)
+                bg = Image.new("RGB", ci.size, (236, 232, 222))
+                bg.paste(ci, (0, 0), ci)
+                c.paste(bg, (b.width + 8, 30))
+                ImageDraw.Draw(c).text((b.width + 14, 2), "지금 " + m["cur"], fill=(0, 0, 0), font=FONT)
             if rp:
                 r = Image.open(rp).convert("RGB")
                 r = r.crop((r.width // 2 - 200, 60, r.width // 2 + 160, r.height - 60)).resize((b.width, b.height))
                 c.paste(r, (0, 30))
             else:
                 ImageDraw.Draw(c).text((10, 120), "레퍼런스 없음\n(일반 문법)", fill=(120, 120, 120), font=FONT)
-            c.paste(b, (b.width + 8, 30))
+            c.paste(b, (b.width + 8 + off, 30))
             g = ImageDraw.Draw(c)
             g.text((6, 2), "레퍼런스 " + (m["ref"][1] if m["ref"] else "-"), fill=(0, 90, 160), font=FONT)
-            g.text((b.width + 14, 2), f"제안 {name} {i}  {m['times'][i] / 1000:.2f}s", fill=(180, 30, 30), font=FONT)
+            g.text((b.width + 14 + off, 2), f"제안 {name} {i}  {m['times'][i] / 1000:.2f}s", fill=(180, 30, 30), font=FONT)
             gif.append(c)
         gif[0].save(f"{out}/{name}_stick.gif", save_all=True, append_images=gif[1:], duration=m["times"], loop=0)
         slow = [t * 3 for t in m["times"]]
