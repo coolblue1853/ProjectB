@@ -327,9 +327,16 @@ public class ShopManager : MonoBehaviour
             {
                 LeftMove();
             }
-            if (selectAction.triggered && DatabaseManager.money >= nowShopItem.buyprice)
+            if (selectAction.triggered)
             {
-                BuyItem();
+                if (DatabaseManager.money >= nowShopItem.buyprice)
+                {
+                    BuyItem();
+                }
+                else
+                {
+                    PickupLog.Warn(Loc.T("Not enough gold"));
+                }
             }
         }
         if (ShopUI.activeSelf == true && InventoryManager.instance.state == "ShopCusorOn")
@@ -360,10 +367,17 @@ public class ShopManager : MonoBehaviour
                 isCheckDetail = true;
                 SetNeedDetail();
             }
-            else if(isBuyDetail == true && selectAction.triggered == true && DatabaseManager.money >= nowShopItem.buyprice)
+            else if(isBuyDetail == true && selectAction.triggered == true)
             {
-                InventoryManager.instance.state = "BuyDetail";
-                SellItemUI();
+                if (DatabaseManager.money >= nowShopItem.buyprice)
+                {
+                    InventoryManager.instance.state = "BuyDetail";
+                    SellItemUI();
+                }
+                else
+                {
+                    PickupLog.Warn(Loc.T("Not enough gold")); // 조용히 무시하던 것을 알려 준다
+                }
             }
             if (name.text == "")
             {

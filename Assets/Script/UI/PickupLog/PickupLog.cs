@@ -30,6 +30,7 @@ public class PickupLog : MonoBehaviour
     Row[] rows;
     TextMeshProUGUI fullText;
     float lastFull = -99f;
+    string lastWarn;
     int maxShownId; // 처음 보이는 줄만 등장 연출 (밀려 올라가는 줄은 제외)
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -48,19 +49,30 @@ public class PickupLog : MonoBehaviour
 
     public static void ReportFull()
     {
-        PickupLog log = Ensure();
-        if (Time.time - log.lastFull < FullThrottle)
+        if (Warn(Loc.T("Inventory Full")))
         {
-            return;
+            GameLog.Info(GameLog.Cat.Item, "인벤토리 가득 참 — 획득 거절");
         }
-        log.lastFull = Time.time;
+    }
+
+    /// <summary>화면 아래 가운데 빨간 경고 한 줄(인벤토리 가득 참·골드 부족 등). 같은 문구는 2초 스로틀. 표시했으면 true</summary>
+    public static bool Warn(string message)
+    {
+        PickupLog log = Ensure();
+        if (message == log.lastWarn && Time.unscaledTime - log.lastFull < FullThrottle)
+        {
+            return false;
+        }
+        log.lastWarn = message;
+        log.lastFull = Time.unscaledTime;
         log.fullText.DOKill();
+        log.fullText.text = message;
         log.fullText.alpha = 1f;
         log.fullText.gameObject.SetActive(true);
-        log.fullText.DOFade(0f, 0.6f).SetDelay(1.4f).SetLink(log.fullText.gameObject)
+        log.fullText.DOFade(0f, 0.6f).SetDelay(1.4f).SetUpdate(true).SetLink(log.fullText.gameObject)
             .OnComplete(() => log.fullText.gameObject.SetActive(false));
         Sfx.Play(SfxId.CraftFail, 0.5f);
-        GameLog.Info(GameLog.Cat.Item, "인벤토리 가득 참 — 획득 거절");
+        return true;
     }
 
     static PickupLog Ensure()

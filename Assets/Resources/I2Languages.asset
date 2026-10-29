@@ -4344,6 +4344,14 @@ MonoBehaviour:
       - "\uC7AC\uC2DC\uC791 \uC911..."
       Flags: 0000
       Languages_Touch: []
+    - Term: Not enough gold
+      TermType: 0
+      Description: 
+      Languages:
+      - Not enough gold
+      - "\uACE8\uB4DC \uBD80\uC871"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
