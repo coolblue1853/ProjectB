@@ -336,6 +336,7 @@ MonoBehaviour:
   isAttackWait: 0
   isSkillAttackWait: 1
   isWeaponStopMove: 0
+  _attackMoveSpeedMul: 1
   time: 0
   isOverHand: 0
   swingVfx: 0
@@ -364,6 +365,11 @@ MonoBehaviour:
   - {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
+  _windupMul: 1.1
+  _recoverMul: 1
+  _chain: 0
+  _chainLinks: 12
+  _chainColor: {r: 0.45, g: 0.48, b: 0.52, a: 1}
   isSkillCancel: 0
   _comboGrace: 0.35
   _meleeActiveRatio: 0.6
