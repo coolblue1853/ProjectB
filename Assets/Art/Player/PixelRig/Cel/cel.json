@@ -1356,41 +1356,86 @@
    {
     "png": "GreatDown_0",
     "hand": [
+     45,
+     29
+    ],
+    "handB": [
+     27,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 65.0
+   },
+   {
+    "png": "GreatDown_1",
+    "hand": [
      27,
      28
     ],
     "handB": [
-     49,
-     43
+     25,
+     32
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.2,
+    "time": 0.16,
     "angle": 150.0
    },
    {
-    "png": "GreatDown_1",
+    "png": "GreatDown_2",
+    "hand": [
+     29,
+     24
+    ],
+    "handB": [
+     24,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": 122.5
+   },
+   {
+    "png": "GreatDown_3",
     "hand": [
      33,
      24
     ],
     "handB": [
-     49,
-     43
+     23,
+     32
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.12,
+    "time": 0.1,
     "angle": 95.0
    },
    {
-    "png": "GreatDown_2",
+    "png": "GreatDown_4",
+    "hand": [
+     50,
+     29
+    ],
+    "handB": [
+     23,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 35.0
+   },
+   {
+    "png": "GreatDown_5",
     "hand": [
      57,
      43
     ],
     "handB": [
-     56,
+     58,
      44
     ],
     "dy": 0,
@@ -1399,19 +1444,64 @@
     "angle": -25.0
    },
    {
-    "png": "GreatDown_3",
+    "png": "GreatDown_6",
+    "hand": [
+     52,
+     42
+    ],
+    "handB": [
+     53,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -30.0
+   },
+   {
+    "png": "GreatDown_7",
     "hand": [
      47,
      42
     ],
     "handB": [
-     45,
+     47,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -35.0
+   },
+   {
+    "png": "GreatDown_8",
+    "hand": [
+     43,
+     42
+    ],
+    "handB": [
+     43,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -27.5
+   },
+   {
+    "png": "GreatDown_9",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     38,
      43
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.16,
-    "angle": -35.0
+    "time": 0.08,
+    "angle": -20.0
    }
   ]
  },

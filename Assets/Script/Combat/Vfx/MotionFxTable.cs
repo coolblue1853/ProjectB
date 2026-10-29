@@ -45,7 +45,7 @@ public static class MotionFxTable
 
     public static readonly Strike[] Strikes =
     {
-        new Strike("GreatDown", 2, VfxId.MSmear0, new SmearAura.Shape { arc = true, c = new Vector2(4f, 20.5f), ea = 28.6f, eb = 22.8f, tilt = 0f, a0 = 119f, a1 = -31f }),
+        new Strike("GreatDown", 5, VfxId.MSmear0, new SmearAura.Shape { arc = true, c = new Vector2(-5f, 9.9f), ea = 38f, eb = 30.4f, tilt = 0f, a0 = 140f, a1 = -10f }),
         new Strike("GreatSide", 4, VfxId.MSmear1, new SmearAura.Shape { arc = true, c = new Vector2(-0.8f, 26.5f), ea = 36.4f, eb = 29.1f, tilt = 0f, a0 = -220.1f, a1 = -12f }),
         new Strike("GreatSideOne", 4, VfxId.MSmear2, new SmearAura.Shape { arc = true, c = new Vector2(-1f, 27.6f), ea = 36.5f, eb = 29.2f, tilt = 0f, a0 = -220.2f, a1 = -12.1f }),
         new Strike("DaggerCross", 2, VfxId.MSmear3, new SmearAura.Shape { arc = true, c = new Vector2(-2f, 21.5f), ea = 28.9f, eb = 23.1f, tilt = 0f, a0 = 183.7f, a1 = -40.5f }),
@@ -64,7 +64,7 @@ public static class MotionFxTable
 
     public static readonly Impact[] Impacts =
     {
-        new Impact("GreatDown", 2, VfxId.GroundShock, 22f, 0.8f),
+        new Impact("GreatDown", 5, VfxId.GroundShock, 22f, 0.8f),
         new Impact("LeapSlam", 5, VfxId.GroundShock, 20f, 1f),
         new Impact("LeapSlam", 5, VfxId.DustBrown, 6f, 0.9f),
         new Impact("Slam", 5, VfxId.GroundShock, 18f, 0.9f),

@@ -21,7 +21,7 @@ CX, CY = 41, 54  # 셀 원점(발 가운데) — 셀 좌표(y 아래) → 피벗
 # (동작, 시작 프레임, 도착 프레임(= 띄우는 프레임), 종류, 방향 +1 반시계 / -1 시계, 머리 두께)
 # 방향: 각도 0 앞·90 위 기준. 위 → 앞 아래로 내려치면 시계(-1), 뒤 → 아래 → 앞으로 휘두르면 반시계(+1)
 STRIKES = [
-    ("GreatDown", 1, 2, "arc", -1, 9.0),  # 10-29 규격 시험: 키 포즈 4장(세움 → 타격)
+    ("GreatDown", 3, 5, "arc", -1, 9.0),  # 10-29 규격 시험 v2: 세움(3) → 사이(4) → 타격(5)
     ("GreatSide", 2, 4, "arc", +1, 8.0),
     ("GreatSideOne", 2, 4, "arc", +1, 7.0),
     ("DaggerCross", 1, 2, "arc", -1, 6.0),
@@ -39,7 +39,7 @@ STRIKES = [
 ]
 # 지면 충격(기존 도트 VfxId, 발 앞 거리 px): (동작, 프레임, VfxId, 앞 거리, 크기)
 IMPACTS = [
-    ("GreatDown", 2, "GroundShock", 22, 0.8),
+    ("GreatDown", 5, "GroundShock", 22, 0.8),
     ("LeapSlam", 5, "GroundShock", 20, 1.0),
     ("LeapSlam", 5, "DustBrown", 6, 0.9),
     ("Slam", 5, "GroundShock", 18, 0.9),

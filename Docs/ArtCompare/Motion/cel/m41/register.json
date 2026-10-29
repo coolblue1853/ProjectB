@@ -411,42 +411,84 @@
  },
  "GreatDown": {
   "frames": [
-   "m41/s1/greatdown/0",
-   "m41/s1/greatdown/1",
-   "m41/s1/greatdown/2",
-   "m41/s1/greatdown/3"
+   "m41/s1/greatdown2/0",
+   "m41/s1/greatdown2/1",
+   "m41/s1/greatdown2/2",
+   "m41/s1/greatdown2/3",
+   "m41/s1/greatdown2/4",
+   "m41/s1/greatdown2/5",
+   "m41/s1/greatdown2/6",
+   "m41/s1/greatdown2/7",
+   "m41/s1/greatdown2/8",
+   "m41/s1/greatdown2/9"
   ],
   "hand": [
    [
+    45,
+    29
+   ],
+   [
     27,
     28
+   ],
+   [
+    29,
+    24
    ],
    [
     33,
     24
    ],
    [
+    50,
+    29
+   ],
+   [
     57,
     43
    ],
    [
+    52,
+    42
+   ],
+   [
     47,
+    42
+   ],
+   [
+    43,
+    42
+   ],
+   [
+    39,
     42
    ]
   ],
   "angle": [
+   65.0,
    150.0,
+   122.5,
    95.0,
+   35.0,
    -25.0,
-   -35.0
+   -30.0,
+   -35.0,
+   -27.5,
+   -20.0
   ],
   "times": [
-   0.2,
-   0.12,
+   0.06,
+   0.16,
+   0.05,
+   0.1,
+   0.03,
    0.22,
-   0.16
+   0.06,
+   0.11,
+   0.06,
+   0.08
   ],
-  "job": "69a275b3-96d5-4008-aede-90459df42179",
+  "job": "9aa2bb6d-5080-449d-8cb4-0601c4d6bacf",
   "motion": "S1_A4_GreatDown"
  },
  "Lunge": {
