@@ -7615,35 +7615,21 @@
    {
     "png": "Roundhouse_1",
     "hand": [
-     44,
-     26
+     46,
+     40
     ],
     "handB": [
-     52,
-     27
+     24,
+     42
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -20.0
+    "angle": -20.0,
+    "behind": true
    },
    {
     "png": "Roundhouse_2",
-    "hand": [
-     38,
-     23
-    ],
-    "handB": [
-     46,
-     24
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.08,
-    "angle": -20.0
-   },
-   {
-    "png": "Roundhouse_3",
     "hand": [
      47,
      38
@@ -7654,7 +7640,23 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.045,
+    "time": 0.04,
+    "angle": -20.0,
+    "behind": true
+   },
+   {
+    "png": "Roundhouse_3",
+    "hand": [
+     47,
+     38
+    ],
+    "handB": [
+     21,
+     41
+    ],
+    "dy": 1,
+    "sx": 0,
+    "time": 0.04,
     "angle": -20.0,
     "behind": true
    },
@@ -7701,7 +7703,7 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.04,
+    "time": 0.06,
     "angle": -20.0
    },
    {
@@ -7716,7 +7718,7 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.12,
+    "time": 0.14,
     "angle": -20.0
    },
    {
@@ -7798,7 +7800,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -14.8
+    "angle": -14.8,
+    "angleB": -999.0
    },
    {
     "png": "DualPistol_1",
@@ -7813,7 +7816,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -5.2
+    "angle": -5.2,
+    "angleB": -999.0
    },
    {
     "png": "DualPistol_2",
@@ -7828,7 +7832,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.1,
-    "angle": 0.0
+    "angle": 0.0,
+    "angleB": -999.0
    },
    {
     "png": "DualPistol_3",
@@ -7843,7 +7848,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 3.9
+    "angle": 6.0,
+    "angleB": -999.0
    },
    {
     "png": "DualPistol_4",
@@ -7858,7 +7864,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 11.1
+    "angle": 16.0,
+    "angleB": -999.0
    },
    {
     "png": "DualPistol_5",
@@ -7873,7 +7880,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.07,
-    "angle": 15.0
+    "angle": 24.0,
+    "angleB": -999.0
    },
    {
     "png": "DualPistol_6",
@@ -7888,7 +7896,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 7.5
+    "angle": 9.0,
+    "angleB": -999.0
    },
    {
     "png": "DualPistol_7",
@@ -7903,7 +7912,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.05,
-    "angle": 0.0
+    "angle": 0.0,
+    "angleB": 0.0
    },
    {
     "png": "DualPistol_8",
@@ -7918,7 +7928,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 0.0
+    "angle": 0.0,
+    "angleB": 8.0
    },
    {
     "png": "DualPistol_9",
@@ -7933,7 +7944,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.07,
-    "angle": 0.0
+    "angle": 0.0,
+    "angleB": 22.0
    },
    {
     "png": "DualPistol_10",
@@ -7948,7 +7960,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 0.0
+    "angle": 0.0,
+    "angleB": 7.0
    },
    {
     "png": "DualPistol_11",
@@ -7963,7 +7976,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.1,
-    "angle": 0.0
+    "angle": 0.0,
+    "angleB": 0.0
    },
    {
     "png": "DualPistol_12",
@@ -7978,7 +7992,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -10.0
+    "angle": -10.0,
+    "angleB": -999.0
    },
    {
     "png": "DualPistol_13",
@@ -7993,7 +8008,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.12,
-    "angle": -20.0
+    "angle": -20.0,
+    "angleB": -999.0
    }
   ]
  },
@@ -8104,7 +8120,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 1.6
+    "angle": 4.0
    },
    {
     "png": "Rifle_7",
@@ -8119,7 +8135,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 4.4
+    "angle": 12.0
    },
    {
     "png": "Rifle_8",
@@ -8134,7 +8150,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": 6.0
+    "angle": 16.0
    },
    {
     "png": "Rifle_9",
@@ -8149,7 +8165,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 4.4
+    "angle": 8.0
    },
    {
     "png": "Rifle_10",
@@ -8164,7 +8180,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 1.6
+    "angle": 2.0
    },
    {
     "png": "Rifle_11",
