@@ -20,7 +20,7 @@ var list = new (string anim, string r, string l)[] {
     ("Backstep","TmpDagger","TmpDagger"), ("Punch","TmpKnuckle","TmpKnuckle"), ("Iaido","TmpKatana",""),
     ("ShoulderAim","TmpCannon",""), ("Raise","TmpStaff",""), ("Place","",""), ("Kick","TmpKnuckle","TmpKnuckle"),
     ("Grab","",""), ("Ride","TmpSpear",""), ("Knockdown","TmpSword",""), ("ShieldBash","TmpSword","TmpShield"),
-    ("Slam","",""), ("Pull","TmpHook",""), ("LowSweep","TmpSpear",""), ("GreatUpper","TmpGreatSword",""), ("DashSlash","TmpSword",""), ("WhipSnap","TmpWhip",""), ("Roundhouse","TmpKnuckle","TmpKnuckle"), ("Sheathe","TmpKatana",""), ("Whirl","TmpGreatSword",""), ("DownThrust","TmpSword",""),
+    ("Slam","",""), ("Pull","TmpHook",""), ("LowSweep","TmpSpear",""), ("GreatUpper","TmpGreatSword",""), ("DashSlash","TmpSword",""), ("WhipSnap","TmpWhip",""), ("Roundhouse","TmpKnuckle","TmpKnuckle"), ("Sheathe","TmpKatana",""), ("Whirl","TmpGreatSword",""), ("DownThrust","TmpSword",""), ("DualPistol","TmpPistol","TmpPistol"), ("Rifle","TmpRifle",""), ("SwordPistol","TmpSword","TmpPistol"),
 };
 var basic = new System.Collections.Generic.Dictionary<string, VfxId> { { "Stab", VfxId.WSmearStab }, { "SwingDown", VfxId.WSmearDown }, { "SwingUp", VfxId.WSmearUp } };
 var temps = new System.Collections.Generic.List<GameObject>();
@@ -33,6 +33,8 @@ System.Func<string, Transform, bool, GameObject> hold = (nm, sock, left) =>
 };
 System.IO.Directory.CreateDirectory("Logs/playtest/all");
 float t = 0.3f; int idx = 0;
+var move = new System.Collections.Generic.Dictionary<string, float> { { "Backstep", -0.9f }, { "Lunge", 0.9f }, { "DashSlash", 0.9f }, { "ShieldBash", 0.4f } }; // 실제 이동(유닛) — 백스텝 등은 움직여야 읽힌다(10-29 사용자)
+var camX = new float[1];
 foreach (var m in list)
 {
     var mm = m; int id = idx++; string dir = $"Logs/playtest/all/{id:00}_{mm.anim}";
@@ -44,6 +46,8 @@ foreach (var m in list)
         if (mm.r != "") temps.Add(hold(mm.r, sockR, false));
         if (mm.l != "") temps.Add(hold(mm.l, sockL, true));
         rig.Play(mm.anim);
+        camX[0] = pc.transform.position.x;
+        if (move.TryGetValue(mm.anim, out float dx)) DG.Tweening.TweenSettingsExtensions.SetUpdate(DG.Tweening.TweenSettingsExtensions.SetEase(DG.Tweening.ShortcutExtensions.DOMoveX(pc.transform, pc.transform.position.x + dx, 0.35f), DG.Tweening.Ease.OutQuad), true);
         if (basic.TryGetValue(mm.anim, out VfxId sm))
         {
             DG.Tweening.DOVirtual.DelayedCall(WeaponFx.StrikeDelayFor(mm.anim, rig), () =>
@@ -57,7 +61,7 @@ foreach (var m in list)
         {
             var go = new GameObject("VidCam"); var cam = go.AddComponent<Camera>(); cam.orthographic = true; cam.orthographicSize = 1.8f;
             cam.clearFlags = CameraClearFlags.SolidColor; cam.backgroundColor = new Color(0.15f, 0.17f, 0.21f, 1f);
-            Vector3 p = pc.transform.position; go.transform.position = new Vector3(p.x + 0.5f, p.y + 0.9f, p.z - 50f);
+            Vector3 p = pc.transform.position; go.transform.position = new Vector3(camX[0] + 0.5f, p.y + 0.9f, p.z - 50f);
             var rt = new RenderTexture(360, 240, 24); cam.targetTexture = rt; cam.Render();
             var tex = new Texture2D(360, 240, TextureFormat.RGB24, false); RenderTexture.active = rt; tex.ReadPixels(new Rect(0, 0, 360, 240), 0, 0); RenderTexture.active = null;
             System.IO.File.WriteAllBytes($"{dir}/f_{kk:000}.png", tex.EncodeToPNG());

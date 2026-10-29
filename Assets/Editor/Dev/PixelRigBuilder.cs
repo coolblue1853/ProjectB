@@ -700,7 +700,7 @@ public static class PixelRigBuilder
         string text = File.ReadAllText(json);
         string[] names = { "Idle", "Walk", "Run", "JumpCrouch", "JumpArc", "Land", "Dash", "Hurt", "Death", "Stab", "SwingDown", "SwingUp", "RopeUp", "RopeStay", "GreatDown", "GreatSide", "DaggerFlurry", "DaggerCross",
             // 마스터 모션 38개(MotionSet.md) 10-27 추가분
-            "AirSlash", "Lunge", "Spin", "Cast", "Throw", "Guard", "Charge", "LeapSlam", "Backstep", "Punch", "Iaido", "ShoulderAim", "Raise", "Knockdown", "Place", "Kick", "Grab", "Ride", "StabEnd", "SwingDownEnd", "Bow", "GreatSideOne", "ShieldBash", "Slam", "Pull", "LowSweep", "GreatUpper", "DashSlash", "WhipSnap", "Roundhouse" }; // Bow = A13 활·총(10-29 스켈레톤 생성, PixelRig: Shoot → Bow)
+            "AirSlash", "Lunge", "Spin", "Cast", "Throw", "Guard", "Charge", "LeapSlam", "Backstep", "Punch", "Iaido", "ShoulderAim", "Raise", "Knockdown", "Place", "Kick", "Grab", "Ride", "StabEnd", "SwingDownEnd", "Bow", "GreatSideOne", "ShieldBash", "Slam", "Pull", "LowSweep", "GreatUpper", "DashSlash", "WhipSnap", "Roundhouse", "DualPistol", "Rifle", "SwordPistol" }; // Bow = A13 활·총(10-29 스켈레톤 생성, PixelRig: Shoot → Bow)
         var list = new List<(string, CelClipJson)>();
         foreach (string n in names)
         {

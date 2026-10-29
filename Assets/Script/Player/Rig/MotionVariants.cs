@@ -85,7 +85,7 @@ public static class MotionVariants
         new Variant("Grab", "Pull", 1f),                                 // 잡기 = 당기기
         new Variant("Sheathe", "Iaido", 0.5f, 0, 7, reverse: true),      // 납도 = 발도(뽑아 벤 자세 7 → 칼집 0) 천천히 역재생(10-29 사용자 예시)
         new Variant("DownThrust", "AirSlash", 0.8f, 5, 8, hold: 8),       // 10-29 사용자 "멈춤이라 모르겠다" → 벤 뒤(5) 칼을 아래로 돌려(8) 유지
-        new Variant("GreatUpper", "GreatUpper", 1f, 0, 8, hold: 8),     // 올려친 끝(8)에서 멈춤 — 회복에서 칼을 내리는 게 내려치기로 보였다(10-29 사용자)
+        new Variant("GreatUpper", "GreatUpper", 1f, 0, 11, hold: 11),     // 올려친 끝(8)에서 멈춤 — 회복에서 칼을 내리는 게 내려치기로 보였다(10-29 사용자)
         new Variant("Whirl", "GreatSide", 0.7f, flipFrom: 4, flipTo: 6),   // 10-29 사용자 "너무 빠르다" 1.1 → 0.7
         new Variant("Spin", "GreatSide", 0.7f, flipFrom: 4, flipTo: 6),    // A10 회전 베기 = 전신 회전(10-29 사용자: 머리 위 휘적임은 회전 베기로 안 보인다)  // A23 전신 회전베기 = 양손 수평을 재생하며 지나가는 구간(4~6)만 좌우 반전(뒤돈 몸) — MotionGapSurvey        // 공중 아래 찌르기 = 공중 베기 끝 자세(칼 아래)를 떨어지는 동안 유지
     };
