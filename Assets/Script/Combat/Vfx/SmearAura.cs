@@ -12,7 +12,7 @@ public class SmearAura : MonoBehaviour
 {
     // 호·선 모양(셀 px, 스미어 피벗 = 셀 원점 기준, y 위 +). 호 = 기울어진 타원(gen_smear.ELLIPSE 와 같은 값, 10-28 v7 림버스식) — 스미어를 다시 뽑으면 같이 고친다.
     // a0 = 꼬리 각, a1 = 머리 각(타원 매개변수 각), ea·eb = 가로·세로 반지름, tilt = 기울기°
-    struct Shape
+    public struct Shape
     {
         public bool arc;
         public Vector2 c;
@@ -66,7 +66,7 @@ public class SmearAura : MonoBehaviour
             case VfxId.WSmearUp:
                 return new Shape { arc = true, c = new Vector2(2f, 20f), ea = 31f, eb = 24f, tilt = 10f, a0 = -70f, a1 = 150f };
             default:
-                return new Shape { arc = false, p0 = new Vector2(14f, 18f), p1 = new Vector2(58f, 19f) };
+                return MotionFxTable.TryShape(id, out Shape m) ? m : new Shape { arc = false, p0 = new Vector2(14f, 18f), p1 = new Vector2(58f, 19f) };
         }
     }
 

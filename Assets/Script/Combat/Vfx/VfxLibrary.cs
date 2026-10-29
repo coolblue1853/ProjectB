@@ -18,6 +18,8 @@ public enum VfxId
     WSmearDown, WSmearUp, WSmearStab,
     // 타격 이펙트 v7(Tools/pixelfx/gen_hit.py, 림버스 타격 문법: 불규칙 바늘 별 + 맞은 방향 찢긴 쐐기, 10-29). WHitStar 는 보존 — 끝에만 추가
     WHit7,
+    // 마스터 모션 스미어 슬롯(Tools/pixelfx/gen_motion_fx.py 가 MotionFxTable 로 동작·모양을 배정, 10-29) — 끝에만 추가
+    MSmear0, MSmear1, MSmear2, MSmear3, MSmear4, MSmear5, MSmear6, MSmear7, MSmear8, MSmear9, MSmear10, MSmear11, MSmear12, MSmear13, MSmear14, MSmear15,
 }
 
 /// <summary>이펙트 ID → 프리팹·회전·크기 매핑 (Resources/FX/VfxLibrary.asset). Magic Slashes FX의 3D 베기를 2D 화면용으로 눕혀 쓴다.</summary>

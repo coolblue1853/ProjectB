@@ -60,7 +60,7 @@ public static class WeaponFx
     /// <summary>셀 좌표로 그린 스미어(리그 셀 원점에 크기 1로 띄운다)</summary>
     public static bool IsCelSmear(VfxId id)
     {
-        return id == VfxId.WSmearDown || id == VfxId.WSmearUp || id == VfxId.WSmearStab;
+        return id == VfxId.WSmearDown || id == VfxId.WSmearUp || id == VfxId.WSmearStab || MotionFxTable.IsMotionSmear(id);
     }
 
     public static bool IsMeleeSwing(VfxId swing)

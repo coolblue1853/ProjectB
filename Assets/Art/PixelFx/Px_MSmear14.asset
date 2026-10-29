@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480f0081bf64b7e4cadd8bd813de2add, type: 3}
+  m_Name: Px_MSmear14
+  m_EditorClassIdentifier: Assembly-CSharp::PixelFxClip
+  frames:
+  - {fileID: -7268192444615130805, guid: f1d303d1b455a3c43a73f323f63f0837, type: 3}
+  - {fileID: -5345017936896496146, guid: f1d303d1b455a3c43a73f323f63f0837, type: 3}
+  - {fileID: -1488445528108664056, guid: f1d303d1b455a3c43a73f323f63f0837, type: 3}
+  - {fileID: -8696589396969912326, guid: f1d303d1b455a3c43a73f323f63f0837, type: 3}
+  fps: 36
+  source: Tools/pixelfx/gen_motion_fx.py

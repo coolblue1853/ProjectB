@@ -53,6 +53,8 @@ public class PixelRig : CharacterRig
     private float _time;
     private float _globalSpeed = 1f;
     private float _clipSpeed = 1f;
+    private CelClip _fxCel; // 마스터 모션 이펙트(MotionFxTable): 지금 셀과 이미 지난 프레임
+    private int _fxFrame = -1;
     // 점프 세분(상승·꼭대기·낙하)과 착지 눌림 — 플레이어 코드는 Play("Jump") 하나만 부른다
     private Rigidbody2D _body;
     private float _playedAt;
@@ -216,6 +218,7 @@ public class PixelRig : CharacterRig
         _requested = anim;
         _time = 0f;
         _clipSpeed = 1f;
+        _fxCel = null;
     }
 
     public override void CrossFade(string anim, float fade)
@@ -426,6 +429,42 @@ public class PixelRig : CharacterRig
     /// 셀 클립이 있는 동작이면 부위 그림을 숨기고 셀 프레임을 보여 준다. 무기 소켓(앞손·뒷손 뼈)은 그 프레임의 손 좌표로 옮기고 칼날은 앞 위 45°.
     /// 프레임 시점: 걷기·달리기 = 클립 경과(_time, 이동 속도 배율 반영), 공중 = 세로 속도(_arcAt), 착지 = 착지 시작부터 눌림 구간 비율.
     /// </summary>
+    /// <summary>
+    /// 마스터 모션 이펙트(10-29): 셀 이름으로 직접 재생한 동작(스킬)만 타격 프레임에 스미어·지면 충격을 띄운다.
+    /// 무기 평타(Weapon)가 다른 이름으로 같은 셀을 빌려 쓸 때는 Weapon 이 이미 궤적을 띄우므로 건너뛴다(기본 3타 보존).
+    /// </summary>
+    private void MotionFx(CelClip cel, int i)
+    {
+        if (cel != _fxCel || i < _fxFrame)
+        {
+            _fxCel = cel;
+            _fxFrame = -1;
+        }
+        if (i <= _fxFrame || _diedAt >= 0f || _requested != cel.name)
+        {
+            _fxFrame = Mathf.Max(_fxFrame, i);
+            return;
+        }
+        Transform root = CelRoot;
+        bool left = root.lossyScale.x < 0f;
+        float scale = Mathf.Abs(root.lossyScale.y);
+        foreach (MotionFxTable.Strike s in MotionFxTable.Strikes)
+        {
+            if (s.anim == cel.name && s.frame > _fxFrame && s.frame <= i)
+            {
+                Vfx.PlayThemed(s.id, root.position, left, scale, PixelRampId.Steel, false, false, 1f, true);
+            }
+        }
+        foreach (MotionFxTable.Impact m in MotionFxTable.Impacts)
+        {
+            if (m.anim == cel.name && m.frame > _fxFrame && m.frame <= i)
+            {
+                Vfx.Play(m.id, transform.TransformPoint(new Vector3(m.ahead / _ppu, 0f, 0f)), left, m.scale);
+            }
+        }
+        _fxFrame = i;
+    }
+
     private void ApplyCel(Clip c)
     {
         CelClip cel = null;
@@ -492,6 +531,7 @@ public class PixelRig : CharacterRig
             i = cel.IndexAt(_time + (c.name == "Walk" ? WalkStartFrame * cel.frame : 0f));
         }
         ShowCel(true);
+        MotionFx(cel, i);
         _cel.sprite = _celComposite.TryGetValue(cel.name, out Sprite[] comp) && i < comp.Length && comp[i] != null ? comp[i] : cel.sprites[i];
         if (_celFist != null)
         {
