@@ -50,7 +50,10 @@ def main():
     if len(sys.argv) > 5:
         dirs = os.path.join(ROOT, "Docs", "ArtCompare", "CharacterGen", "dirs")
         view = sys.argv[5]
-        args["direction"] = {"south": "south", "north": "north", "se": "south-east", "ne": "north-east"}[view]
+        args["direction"] = {"south": "south", "north": "north", "se": "south-east", "ne": "north-east"}.get(view, "east")  # 그 밖 = 직업 외형 측면 원본(10-30)
+        desc = os.path.join(dirs, "desc.json")
+        if os.path.exists(desc) and view in json.load(open(desc, encoding="utf-8")):
+            args["description"] = json.load(open(desc, encoding="utf-8"))[view]
         args["first_frame_url"] = json.load(open(os.path.join(dirs, "uploads.json")))[view]
         args["first_frame_keypoints"] = json.load(open(os.path.join(dirs, "skel.json")))[view]
     res, _ = rpc(url, headers, {"jsonrpc": "2.0", "id": 2, "method": "tools/call",

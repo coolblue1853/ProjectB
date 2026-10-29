@@ -12530,6 +12530,2622 @@
    }
   ]
  },
+ "JBH_GreatSideOne": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JBH_GreatSideOne_0",
+    "hand": [
+     32,
+     41
+    ],
+    "handB": [
+     49,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -61.5
+   },
+   {
+    "png": "JBH_GreatSideOne_1",
+    "hand": [
+     27,
+     36
+    ],
+    "handB": [
+     53,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -138.5
+   },
+   {
+    "png": "JBH_GreatSideOne_2",
+    "hand": [
+     26,
+     32
+    ],
+    "handB": [
+     50,
+     27
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.15,
+    "angle": -180.0
+   },
+   {
+    "png": "JBH_GreatSideOne_3",
+    "hand": [
+     38,
+     43
+    ],
+    "handB": [
+     54,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -95.0
+   },
+   {
+    "png": "JBH_GreatSideOne_4",
+    "hand": [
+     50,
+     29
+    ],
+    "handB": [
+     38,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.04,
+    "angle": 35.0
+   },
+   {
+    "png": "JBH_GreatSideOne_5",
+    "hand": [
+     50,
+     29
+    ],
+    "handB": [
+     38,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 36.3
+   },
+   {
+    "png": "JBH_GreatSideOne_6",
+    "hand": [
+     49,
+     28
+    ],
+    "handB": [
+     37,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 38.7
+   },
+   {
+    "png": "JBH_GreatSideOne_7",
+    "hand": [
+     49,
+     28
+    ],
+    "handB": [
+     37,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.16,
+    "angle": 40.0
+   },
+   {
+    "png": "JBH_GreatSideOne_8",
+    "hand": [
+     50,
+     32
+    ],
+    "handB": [
+     39,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 21.9
+   },
+   {
+    "png": "JBH_GreatSideOne_9",
+    "hand": [
+     48,
+     38
+    ],
+    "handB": [
+     45,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -11.9
+   },
+   {
+    "png": "JBH_GreatSideOne_10",
+    "hand": [
+     45,
+     41
+    ],
+    "handB": [
+     50,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -30.0
+   },
+   {
+    "png": "JBH_GreatSideOne_11",
+    "hand": [
+     43,
+     42
+    ],
+    "handB": [
+     49,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "JBH_GreatSideOne_12",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "JBH_GreatSideOne_13",
+    "hand": [
+     38,
+     42
+    ],
+    "handB": [
+     46,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JBH_SwordPistol": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JBH_SwordPistol_0",
+    "hand": [
+     37,
+     42
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -7.0
+   },
+   {
+    "png": "JBH_SwordPistol_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     51,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 17.0
+   },
+   {
+    "png": "JBH_SwordPistol_2",
+    "hand": [
+     41,
+     41
+    ],
+    "handB": [
+     53,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": 30.0
+   },
+   {
+    "png": "JBH_SwordPistol_3",
+    "hand": [
+     41,
+     41
+    ],
+    "handB": [
+     54,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 30.0
+   },
+   {
+    "png": "JBH_SwordPistol_4",
+    "hand": [
+     42,
+     41
+    ],
+    "handB": [
+     56,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 30.0
+   },
+   {
+    "png": "JBH_SwordPistol_5",
+    "hand": [
+     43,
+     41
+    ],
+    "handB": [
+     57,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": 30.0
+   },
+   {
+    "png": "JBH_SwordPistol_6",
+    "hand": [
+     42,
+     41
+    ],
+    "handB": [
+     56,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 31.0
+   },
+   {
+    "png": "JBH_SwordPistol_7",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     54,
+     31
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.07,
+    "angle": 32.0
+   },
+   {
+    "png": "JBH_SwordPistol_8",
+    "hand": [
+     42,
+     41
+    ],
+    "handB": [
+     56,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 31.0
+   },
+   {
+    "png": "JBH_SwordPistol_9",
+    "hand": [
+     43,
+     41
+    ],
+    "handB": [
+     57,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": 30.0
+   },
+   {
+    "png": "JBH_SwordPistol_10",
+    "hand": [
+     42,
+     41
+    ],
+    "handB": [
+     56,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 31.0
+   },
+   {
+    "png": "JBH_SwordPistol_11",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     54,
+     31
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.07,
+    "angle": 32.0
+   },
+   {
+    "png": "JBH_SwordPistol_12",
+    "hand": [
+     38,
+     42
+    ],
+    "handB": [
+     52,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 6.0
+   },
+   {
+    "png": "JBH_SwordPistol_13",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JBH_Backstep": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JBH_Backstep_0",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     51,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_1",
+    "hand": [
+     44,
+     42
+    ],
+    "handB": [
+     56,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_2",
+    "hand": [
+     47,
+     43
+    ],
+    "handB": [
+     54,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     53,
+     30
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_4",
+    "hand": [
+     28,
+     42
+    ],
+    "handB": [
+     48,
+     28
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_5",
+    "hand": [
+     22,
+     41
+    ],
+    "handB": [
+     44,
+     29
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_6",
+    "hand": [
+     21,
+     41
+    ],
+    "handB": [
+     43,
+     28
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_7",
+    "hand": [
+     18,
+     40
+    ],
+    "handB": [
+     40,
+     28
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_8",
+    "hand": [
+     17,
+     40
+    ],
+    "handB": [
+     39,
+     28
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_9",
+    "hand": [
+     21,
+     40
+    ],
+    "handB": [
+     45,
+     29
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_10",
+    "hand": [
+     31,
+     42
+    ],
+    "handB": [
+     50,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_11",
+    "hand": [
+     37,
+     43
+    ],
+    "handB": [
+     48,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_12",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     46,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JBH_Backstep_13",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JNC_Cast": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JNC_Cast_0",
+    "hand": [
+     38,
+     41
+    ],
+    "handB": [
+     46,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 9.8
+   },
+   {
+    "png": "JNC_Cast_1",
+    "hand": [
+     35,
+     35
+    ],
+    "handB": [
+     48,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 65.2
+   },
+   {
+    "png": "JNC_Cast_2",
+    "hand": [
+     31,
+     33
+    ],
+    "handB": [
+     46,
+     34
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.2,
+    "angle": 95.0
+   },
+   {
+    "png": "JNC_Cast_3",
+    "hand": [
+     38,
+     34
+    ],
+    "handB": [
+     48,
+     38
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 89.8
+   },
+   {
+    "png": "JNC_Cast_4",
+    "hand": [
+     50,
+     33
+    ],
+    "handB": [
+     46,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 80.2
+   },
+   {
+    "png": "JNC_Cast_5",
+    "hand": [
+     53,
+     31
+    ],
+    "handB": [
+     44,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.09,
+    "angle": 75.0
+   },
+   {
+    "png": "JNC_Cast_6",
+    "hand": [
+     53,
+     31
+    ],
+    "handB": [
+     43,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.22,
+    "angle": 75.0
+   },
+   {
+    "png": "JNC_Cast_7",
+    "hand": [
+     52,
+     34
+    ],
+    "handB": [
+     45,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 50.4
+   },
+   {
+    "png": "JNC_Cast_8",
+    "hand": [
+     48,
+     38
+    ],
+    "handB": [
+     49,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 4.6
+   },
+   {
+    "png": "JNC_Cast_9",
+    "hand": [
+     45,
+     39
+    ],
+    "handB": [
+     52,
+     40
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -20.0
+   },
+   {
+    "png": "JNC_Cast_10",
+    "hand": [
+     43,
+     40
+    ],
+    "handB": [
+     50,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JNC_Cast_11",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     47,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JNC_Cast_12",
+    "hand": [
+     38,
+     41
+    ],
+    "handB": [
+     46,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JNC_Raise": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JNC_Raise_0",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     43,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JNC_Raise_1",
+    "hand": [
+     45,
+     42
+    ],
+    "handB": [
+     42,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JNC_Raise_2",
+    "hand": [
+     48,
+     41
+    ],
+    "handB": [
+     42,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.16,
+    "angle": -20.0
+   },
+   {
+    "png": "JNC_Raise_3",
+    "hand": [
+     50,
+     33
+    ],
+    "handB": [
+     48,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 20.2
+   },
+   {
+    "png": "JNC_Raise_4",
+    "hand": [
+     37,
+     23
+    ],
+    "handB": [
+     54,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 94.8
+   },
+   {
+    "png": "JNC_Raise_5",
+    "hand": [
+     28,
+     25
+    ],
+    "handB": [
+     49,
+     25
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": 135.0
+   },
+   {
+    "png": "JNC_Raise_6",
+    "hand": [
+     27,
+     26
+    ],
+    "handB": [
+     49,
+     26
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 137.6
+   },
+   {
+    "png": "JNC_Raise_7",
+    "hand": [
+     25,
+     27
+    ],
+    "handB": [
+     48,
+     27
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 142.4
+   },
+   {
+    "png": "JNC_Raise_8",
+    "hand": [
+     24,
+     28
+    ],
+    "handB": [
+     47,
+     28
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.3,
+    "angle": 145.0
+   },
+   {
+    "png": "JNC_Raise_9",
+    "hand": [
+     24,
+     28
+    ],
+    "handB": [
+     48,
+     28
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 147.6
+   },
+   {
+    "png": "JNC_Raise_10",
+    "hand": [
+     25,
+     29
+    ],
+    "handB": [
+     49,
+     27
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 152.4
+   },
+   {
+    "png": "JNC_Raise_11",
+    "hand": [
+     25,
+     29
+    ],
+    "handB": [
+     50,
+     27
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.14,
+    "angle": 155.0
+   },
+   {
+    "png": "JNC_Raise_12",
+    "hand": [
+     44,
+     27
+    ],
+    "handB": [
+     52,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 67.5
+   },
+   {
+    "png": "JNC_Raise_13",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JNC_Charge": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JNC_Charge_0",
+    "hand": [
+     42,
+     41
+    ],
+    "handB": [
+     50,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 5.9
+   },
+   {
+    "png": "JNC_Charge_1",
+    "hand": [
+     46,
+     35
+    ],
+    "handB": [
+     54,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 54.1
+   },
+   {
+    "png": "JNC_Charge_2",
+    "hand": [
+     45,
+     33
+    ],
+    "handB": [
+     51,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.2,
+    "angle": 80.0
+   },
+   {
+    "png": "JNC_Charge_3",
+    "hand": [
+     45,
+     33
+    ],
+    "handB": [
+     51,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.25,
+    "angle": 81.0
+   },
+   {
+    "png": "JNC_Charge_4",
+    "hand": [
+     45,
+     38
+    ],
+    "handB": [
+     52,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 13.3
+   },
+   {
+    "png": "JNC_Charge_5",
+    "hand": [
+     30,
+     42
+    ],
+    "handB": [
+     53,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -112.3
+   },
+   {
+    "png": "JNC_Charge_6",
+    "hand": [
+     24,
+     34
+    ],
+    "handB": [
+     51,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -180.0
+   },
+   {
+    "png": "JNC_Charge_7",
+    "hand": [
+     24,
+     34
+    ],
+    "handB": [
+     51,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.25,
+    "angle": -182.0
+   },
+   {
+    "png": "JNC_Charge_8",
+    "hand": [
+     26,
+     39
+    ],
+    "handB": [
+     52,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -142.6
+   },
+   {
+    "png": "JNC_Charge_9",
+    "hand": [
+     37,
+     43
+    ],
+    "handB": [
+     52,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -69.4
+   },
+   {
+    "png": "JNC_Charge_10",
+    "hand": [
+     43,
+     40
+    ],
+    "handB": [
+     51,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -30.0
+   },
+   {
+    "png": "JNC_Charge_11",
+    "hand": [
+     42,
+     41
+    ],
+    "handB": [
+     50,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "JNC_Charge_12",
+    "hand": [
+     38,
+     42
+    ],
+    "handB": [
+     46,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "JNC_Charge_13",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JEN_GreatDown": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JEN_GreatDown_0",
+    "hand": [
+     44,
+     38
+    ],
+    "handB": [
+     52,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 25.4
+   },
+   {
+    "png": "JEN_GreatDown_1",
+    "hand": [
+     35,
+     24
+    ],
+    "handB": [
+     40,
+     24
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 109.6
+   },
+   {
+    "png": "JEN_GreatDown_2",
+    "hand": [
+     25,
+     29
+    ],
+    "handB": [
+     30,
+     31
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.2,
+    "angle": 155.0
+   },
+   {
+    "png": "JEN_GreatDown_3",
+    "hand": [
+     25,
+     27
+    ],
+    "handB": [
+     30,
+     29
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 140.7
+   },
+   {
+    "png": "JEN_GreatDown_4",
+    "hand": [
+     28,
+     25
+    ],
+    "handB": [
+     31,
+     27
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 114.3
+   },
+   {
+    "png": "JEN_GreatDown_5",
+    "hand": [
+     30,
+     24
+    ],
+    "handB": [
+     32,
+     26
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.17,
+    "angle": 100.0
+   },
+   {
+    "png": "JEN_GreatDown_6",
+    "hand": [
+     41,
+     25
+    ],
+    "handB": [
+     46,
+     24
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 67.6
+   },
+   {
+    "png": "JEN_GreatDown_7",
+    "hand": [
+     56,
+     36
+    ],
+    "handB": [
+     61,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 7.4
+   },
+   {
+    "png": "JEN_GreatDown_8",
+    "hand": [
+     59,
+     45
+    ],
+    "handB": [
+     61,
+     46
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.26,
+    "angle": -25.0
+   },
+   {
+    "png": "JEN_GreatDown_9",
+    "hand": [
+     56,
+     44
+    ],
+    "handB": [
+     59,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.6
+   },
+   {
+    "png": "JEN_GreatDown_10",
+    "hand": [
+     51,
+     43
+    ],
+    "handB": [
+     53,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -32.4
+   },
+   {
+    "png": "JEN_GreatDown_11",
+    "hand": [
+     47,
+     42
+    ],
+    "handB": [
+     50,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -35.0
+   },
+   {
+    "png": "JEN_GreatDown_12",
+    "hand": [
+     43,
+     42
+    ],
+    "handB": [
+     48,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.5
+   },
+   {
+    "png": "JEN_GreatDown_13",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JEN_Place": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JEN_Place_0",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -25.2
+   },
+   {
+    "png": "JEN_Place_1",
+    "hand": [
+     46,
+     42
+    ],
+    "handB": [
+     53,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -34.8
+   },
+   {
+    "png": "JEN_Place_2",
+    "hand": [
+     48,
+     41
+    ],
+    "handB": [
+     56,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -40.0
+   },
+   {
+    "png": "JEN_Place_3",
+    "hand": [
+     49,
+     42
+    ],
+    "handB": [
+     57,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -45.2
+   },
+   {
+    "png": "JEN_Place_4",
+    "hand": [
+     51,
+     45
+    ],
+    "handB": [
+     58,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -54.8
+   },
+   {
+    "png": "JEN_Place_5",
+    "hand": [
+     51,
+     47
+    ],
+    "handB": [
+     59,
+     46
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -60.0
+   },
+   {
+    "png": "JEN_Place_6",
+    "hand": [
+     51,
+     46
+    ],
+    "handB": [
+     59,
+     45
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.2,
+    "angle": -60.0
+   },
+   {
+    "png": "JEN_Place_7",
+    "hand": [
+     51,
+     44
+    ],
+    "handB": [
+     58,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -52.2
+   },
+   {
+    "png": "JEN_Place_8",
+    "hand": [
+     48,
+     41
+    ],
+    "handB": [
+     56,
+     40
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -37.8
+   },
+   {
+    "png": "JEN_Place_9",
+    "hand": [
+     47,
+     40
+    ],
+    "handB": [
+     55,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -30.0
+   },
+   {
+    "png": "JEN_Place_10",
+    "hand": [
+     45,
+     41
+    ],
+    "handB": [
+     53,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "JEN_Place_11",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     48,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "JEN_Place_12",
+    "hand": [
+     37,
+     42
+    ],
+    "handB": [
+     45,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JEN_Throw": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JEN_Throw_0",
+    "hand": [
+     45,
+     38
+    ],
+    "handB": [
+     48,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 16.3
+   },
+   {
+    "png": "JEN_Throw_1",
+    "hand": [
+     36,
+     23
+    ],
+    "handB": [
+     52,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 83.7
+   },
+   {
+    "png": "JEN_Throw_2",
+    "hand": [
+     26,
+     27
+    ],
+    "handB": [
+     50,
+     29
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.2,
+    "angle": 120.0
+   },
+   {
+    "png": "JEN_Throw_3",
+    "hand": [
+     33,
+     24
+    ],
+    "handB": [
+     54,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 96.7
+   },
+   {
+    "png": "JEN_Throw_4",
+    "hand": [
+     47,
+     24
+    ],
+    "handB": [
+     52,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 53.3
+   },
+   {
+    "png": "JEN_Throw_5",
+    "hand": [
+     53,
+     29
+    ],
+    "handB": [
+     50,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 30.0
+   },
+   {
+    "png": "JEN_Throw_6",
+    "hand": [
+     56,
+     35
+    ],
+    "handB": [
+     50,
+     44
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 6.7
+   },
+   {
+    "png": "JEN_Throw_7",
+    "hand": [
+     56,
+     44
+    ],
+    "handB": [
+     50,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -36.7
+   },
+   {
+    "png": "JEN_Throw_8",
+    "hand": [
+     53,
+     47
+    ],
+    "handB": [
+     50,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.17,
+    "angle": -60.0
+   },
+   {
+    "png": "JEN_Throw_9",
+    "hand": [
+     52,
+     45
+    ],
+    "handB": [
+     51,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -52.2
+   },
+   {
+    "png": "JEN_Throw_10",
+    "hand": [
+     49,
+     43
+    ],
+    "handB": [
+     52,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -37.8
+   },
+   {
+    "png": "JEN_Throw_11",
+    "hand": [
+     47,
+     41
+    ],
+    "handB": [
+     52,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -30.0
+   },
+   {
+    "png": "JEN_Throw_12",
+    "hand": [
+     43,
+     41
+    ],
+    "handB": [
+     50,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -25.0
+   },
+   {
+    "png": "JEN_Throw_13",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JAS_DaggerCross": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JAS_DaggerCross_0",
+    "hand": [
+     44,
+     38
+    ],
+    "handB": [
+     51,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 26.7
+   },
+   {
+    "png": "JAS_DaggerCross_1",
+    "hand": [
+     34,
+     23
+    ],
+    "handB": [
+     46,
+     24
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 113.3
+   },
+   {
+    "png": "JAS_DaggerCross_2",
+    "hand": [
+     24,
+     28
+    ],
+    "handB": [
+     36,
+     24
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.18,
+    "angle": 160.0
+   },
+   {
+    "png": "JAS_DaggerCross_3",
+    "hand": [
+     35,
+     23
+    ],
+    "handB": [
+     48,
+     24
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 103.0
+   },
+   {
+    "png": "JAS_DaggerCross_4",
+    "hand": [
+     52,
+     34
+    ],
+    "handB": [
+     59,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -3.0
+   },
+   {
+    "png": "JAS_DaggerCross_5",
+    "hand": [
+     52,
+     43
+    ],
+    "handB": [
+     56,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": -60.0
+   },
+   {
+    "png": "JAS_DaggerCross_6",
+    "hand": [
+     52,
+     43
+    ],
+    "handB": [
+     56,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -60.5
+   },
+   {
+    "png": "JAS_DaggerCross_7",
+    "hand": [
+     52,
+     43
+    ],
+    "handB": [
+     56,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -61.5
+   },
+   {
+    "png": "JAS_DaggerCross_8",
+    "hand": [
+     51,
+     43
+    ],
+    "handB": [
+     55,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.22,
+    "angle": -62.0
+   },
+   {
+    "png": "JAS_DaggerCross_9",
+    "hand": [
+     48,
+     43
+    ],
+    "handB": [
+     53,
+     44
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -51.1
+   },
+   {
+    "png": "JAS_DaggerCross_10",
+    "hand": [
+     40,
+     43
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -30.9
+   },
+   {
+    "png": "JAS_DaggerCross_11",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JAS_Throw": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JAS_Throw_0",
+    "hand": [
+     45,
+     38
+    ],
+    "handB": [
+     48,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 16.3
+   },
+   {
+    "png": "JAS_Throw_1",
+    "hand": [
+     36,
+     23
+    ],
+    "handB": [
+     52,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 83.7
+   },
+   {
+    "png": "JAS_Throw_2",
+    "hand": [
+     26,
+     27
+    ],
+    "handB": [
+     50,
+     29
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.2,
+    "angle": 120.0
+   },
+   {
+    "png": "JAS_Throw_3",
+    "hand": [
+     33,
+     24
+    ],
+    "handB": [
+     54,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 96.7
+   },
+   {
+    "png": "JAS_Throw_4",
+    "hand": [
+     47,
+     24
+    ],
+    "handB": [
+     52,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 53.3
+   },
+   {
+    "png": "JAS_Throw_5",
+    "hand": [
+     53,
+     29
+    ],
+    "handB": [
+     50,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 30.0
+   },
+   {
+    "png": "JAS_Throw_6",
+    "hand": [
+     56,
+     35
+    ],
+    "handB": [
+     50,
+     44
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 6.7
+   },
+   {
+    "png": "JAS_Throw_7",
+    "hand": [
+     56,
+     44
+    ],
+    "handB": [
+     50,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -36.7
+   },
+   {
+    "png": "JAS_Throw_8",
+    "hand": [
+     53,
+     47
+    ],
+    "handB": [
+     50,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.17,
+    "angle": -60.0
+   },
+   {
+    "png": "JAS_Throw_9",
+    "hand": [
+     52,
+     45
+    ],
+    "handB": [
+     51,
+     45
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -52.2
+   },
+   {
+    "png": "JAS_Throw_10",
+    "hand": [
+     49,
+     42
+    ],
+    "handB": [
+     52,
+     43
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -37.8
+   },
+   {
+    "png": "JAS_Throw_11",
+    "hand": [
+     47,
+     41
+    ],
+    "handB": [
+     52,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -30.0
+   },
+   {
+    "png": "JAS_Throw_12",
+    "hand": [
+     43,
+     41
+    ],
+    "handB": [
+     50,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -25.0
+   },
+   {
+    "png": "JAS_Throw_13",
+    "hand": [
+     39,
+     41
+    ],
+    "handB": [
+     47,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JAS_Backstep": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "JAS_Backstep_0",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     51,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_1",
+    "hand": [
+     44,
+     42
+    ],
+    "handB": [
+     56,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_2",
+    "hand": [
+     47,
+     43
+    ],
+    "handB": [
+     54,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     53,
+     30
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_4",
+    "hand": [
+     28,
+     42
+    ],
+    "handB": [
+     48,
+     28
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_5",
+    "hand": [
+     22,
+     41
+    ],
+    "handB": [
+     44,
+     29
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_6",
+    "hand": [
+     21,
+     41
+    ],
+    "handB": [
+     43,
+     28
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_7",
+    "hand": [
+     18,
+     40
+    ],
+    "handB": [
+     40,
+     28
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_8",
+    "hand": [
+     17,
+     40
+    ],
+    "handB": [
+     39,
+     28
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.11,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_9",
+    "hand": [
+     21,
+     40
+    ],
+    "handB": [
+     45,
+     29
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_10",
+    "hand": [
+     31,
+     41
+    ],
+    "handB": [
+     50,
+     37
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_11",
+    "hand": [
+     37,
+     43
+    ],
+    "handB": [
+     48,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_12",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     46,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "JAS_Backstep_13",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0
+   }
+  ]
+ },
+ "JBH_Idle": {
+  "frame": 0.05,
+  "loop": true,
+  "frames": [
+   {
+    "png": "JBH_Idle_0",
+    "hand": [
+     34,
+     44
+    ],
+    "handB": [
+     49,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.5,
+    "angle": -999.0
+   }
+  ]
+ },
+ "JNC_Idle": {
+  "frame": 0.05,
+  "loop": true,
+  "frames": [
+   {
+    "png": "JNC_Idle_0",
+    "hand": [
+     34,
+     44
+    ],
+    "handB": [
+     49,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.5,
+    "angle": -999.0
+   }
+  ]
+ },
+ "JEN_Idle": {
+  "frame": 0.05,
+  "loop": true,
+  "frames": [
+   {
+    "png": "JEN_Idle_0",
+    "hand": [
+     34,
+     44
+    ],
+    "handB": [
+     49,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.5,
+    "angle": -999.0
+   }
+  ]
+ },
+ "JAS_Idle": {
+  "frame": 0.05,
+  "loop": true,
+  "frames": [
+   {
+    "png": "JAS_Idle_0",
+    "hand": [
+     34,
+     44
+    ],
+    "handB": [
+     49,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.5,
+    "angle": -999.0
+   }
+  ]
+ },
  "Idle": {
   "frame": 0.2,
   "loop": true,

@@ -1,5 +1,5 @@
 """직업 4개 최종본 영상(10-29 밤): Logs/playtest/final/<번호>/f_###.png(capture_final_jobs.cs) → 직업 이름 자막, 2배, 직업별 GIF + 합본 mp4.
-사용: python Tools/pixelfx/final_jobs_reel.py <출력 폴더>
+사용: python Tools/pixelfx/final_jobs_reel.py <출력 폴더> [chars]
 """
 import os
 import subprocess
@@ -17,8 +17,17 @@ JOBS = [("사무라이", "카타나 · 발도 → 돌진 횡베기 → 내려베
         ("마도학자", "눈알 지팡이+마도서 · 시전 → 모으기 → 소환 → 승리")]
 
 
+CHARS = [("블러드 헌터", "커틀러스+권총 · 한손 수평 → 검 든 채 사격 → 백스텝"),
+         ("사령술사", "지팡이 · 시전 → 모으기 → 소환"),
+         ("기계공학자", "해머 · 내려찍기 → 폭탄 던지기 → 포탑 설치"),
+         ("암살자", "쌍단검 · 교차 베기 → 투척 → 백스텝(연막)")]
+
+
 def main():
+    global SRC, JOBS
     out = sys.argv[1]
+    if len(sys.argv) > 2 and sys.argv[2] == "chars":  # 사용자 지정 외형 4직업(capture_job_chars.cs)
+        SRC, JOBS = "Logs/playtest/final_chars", CHARS
     os.makedirs(out, exist_ok=True)
     tmp = tempfile.mkdtemp()
     n = 0

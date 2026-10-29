@@ -703,8 +703,14 @@ public static class PixelRigBuilder
         string[] names = { "Idle", "Walk", "Run", "JumpCrouch", "JumpArc", "Land", "Dash", "Hurt", "Death", "Stab", "SwingDown", "SwingUp", "RopeUp", "RopeStay", "GreatDown", "GreatSide", "DaggerFlurry", "DaggerCross",
             // 마스터 모션 38개(MotionSet.md) 10-27 추가분
             "AirSlash", "Lunge", "Spin", "Cast", "Throw", "Guard", "Charge", "LeapSlam", "Backstep", "Punch", "Iaido", "ShoulderAim", "Raise", "Knockdown", "Place", "Kick", "Grab", "Ride", "StabEnd", "SwingDownEnd", "Bow", "GreatSideOne", "ShieldBash", "Slam", "Pull", "LowSweep", "GreatUpper", "DashSlash", "WhipSnap", "Roundhouse", "DualPistol", "Rifle", "SwordPistol", "Sheathe", "Victory", "Dance", "Lute", "PalmBlast" }; // Bow = A13 활·총(10-29 스켈레톤 생성, PixelRig: Shoot → Bow)
+        // 직업 외형 셀(10-30): "J<직업>_<셀>" 이름은 목록 없이 전부(build_cel 이 register 의 직업 셀을 넣는다)
+        var all = new List<string>(names);
+        foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(text, "\"(J[A-Z]{2}_[A-Za-z]+)\": "))
+        {
+            all.Add(m.Groups[1].Value);
+        }
         var list = new List<(string, CelClipJson)>();
-        foreach (string n in names)
+        foreach (string n in all)
         {
             int k = text.IndexOf("\"" + n + "\"");
             if (k < 0)

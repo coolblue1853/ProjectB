@@ -465,11 +465,12 @@ public class PixelRig : CharacterRig
             return;
         }
         Transform root = CelRoot;
+        string fxName = FxName(cel.name);
         bool left = root.lossyScale.x < 0f;
         float scale = Mathf.Abs(root.lossyScale.y);
         foreach (MotionFxTable.Strike s in MotionFxTable.Strikes)
         {
-            if (s.anim == cel.name && s.frame > _fxFrame && s.frame <= i)
+            if (s.anim == fxName && s.frame > _fxFrame && s.frame <= i)
             {
                 Vfx.PlayThemed(s.id, root.position, left, scale, MotionFxRamp, false, false, 1f, true);
             }
@@ -480,7 +481,7 @@ public class PixelRig : CharacterRig
         }
         foreach (MotionFxTable.Impact m in MotionFxTable.Impacts)
         {
-            if (m.anim == cel.name && m.frame > _fxFrame && m.frame <= i)
+            if (m.anim == fxName && m.frame > _fxFrame && m.frame <= i)
             {
                 Vfx.Play(m.id, transform.TransformPoint(new Vector3(m.ahead / _ppu, 0f, 0f)), left, m.scale);
             }
@@ -1117,8 +1118,15 @@ public class PixelRig : CharacterRig
         _recoverMul = Mathf.Clamp(recover, 0.3f, 3f);
     }
 
+    /// <summary>직업 외형 셀 "J<직업>_<셀>" 은 같은 이름 공용 셀의 이펙트·타격 프레임을 쓴다(10-30 — 키가 같은 측면 원본이라 프레임 구조가 같거나 비슷)</summary>
+    private static string FxName(string cel)
+    {
+        return cel.Length > 4 && cel[0] == 'J' && cel[3] == '_' ? cel.Substring(4) : cel;
+    }
+
     private int StrikeFrameOf(string cel)
     {
+        cel = FxName(cel);
         if (_strikeFrame.TryGetValue(cel, out int f))
         {
             return f;
