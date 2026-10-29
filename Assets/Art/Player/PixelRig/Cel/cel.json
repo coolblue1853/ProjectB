@@ -1612,7 +1612,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.22,
-    "angle": -180.0
+    "angle": 180.0
    },
    {
     "png": "GreatSide_3",
@@ -2185,7 +2185,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 31.9
+    "angle": 25.4
    },
    {
     "png": "Spin_1",
@@ -2200,7 +2200,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 128.1
+    "angle": 109.7
    },
    {
     "png": "Spin_2",
@@ -2215,7 +2215,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.14,
-    "angle": 180.0
+    "angle": 155.0
    },
    {
     "png": "Spin_3",
@@ -2245,7 +2245,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.05,
-    "angle": 5.0
+    "angle": 20.0
    },
    {
     "png": "Spin_5",
@@ -2275,7 +2275,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.05,
-    "angle": 178.0
+    "angle": 165.0
    },
    {
     "png": "Spin_7",
@@ -2476,7 +2476,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.09,
-    "angle": 70.0
+    "angle": 60.0
    },
    {
     "png": "Cast_6",
@@ -2491,7 +2491,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.2,
-    "angle": 70.0
+    "angle": 58.0
    },
    {
     "png": "Cast_7",
@@ -2833,7 +2833,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": -1.5
+    "angle": 0.8
    },
    {
     "png": "Guard_2",
@@ -2848,7 +2848,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.12,
-    "angle": 5.0
+    "angle": 50.0
    },
    {
     "png": "Guard_3",
@@ -2863,7 +2863,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.05,
-    "angle": 10.0
+    "angle": 60.0
    },
    {
     "png": "Guard_4",
@@ -2878,7 +2878,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 9.0
+    "angle": 57.9
    },
    {
     "png": "Guard_5",
@@ -2893,7 +2893,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 7.0
+    "angle": 54.1
    },
    {
     "png": "Guard_6",
@@ -2908,7 +2908,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.2,
-    "angle": 6.0
+    "angle": 52.0
    },
    {
     "png": "Guard_7",
@@ -2923,7 +2923,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": -3.3
+    "angle": 17.7
    },
    {
     "png": "Guard_8",
@@ -3124,7 +3124,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.25,
-    "angle": -182.0
+    "angle": 178.0
    },
    {
     "png": "Charge_8",
@@ -3667,7 +3667,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.03,
-    "angle": 0.0
+    "angle": -0.0
    },
    {
     "png": "Punch_4",
@@ -3838,7 +3838,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": -131.1
+    "angle": -103.0
    },
    {
     "png": "Iaido_2",
@@ -3853,7 +3853,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.22,
-    "angle": -170.0
+    "angle": -90.0
    },
    {
     "png": "Iaido_3",
@@ -3868,7 +3868,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.15,
-    "angle": -171.0
+    "angle": -91.0
    },
    {
     "png": "Iaido_4",
@@ -3883,7 +3883,7 @@
     "dy": -2,
     "sx": 0,
     "time": 0.03,
-    "angle": -126.7
+    "angle": -82.9
    },
    {
     "png": "Iaido_5",
@@ -4099,7 +4099,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": 2.6
+    "angle": 7.4
    },
    {
     "png": "ShoulderAim_5",
@@ -4114,7 +4114,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.14,
-    "angle": 0.0
+    "angle": 10.0
    },
    {
     "png": "ShoulderAim_6",
@@ -4129,7 +4129,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.1,
-    "angle": 0.0
+    "angle": 11.0
    },
    {
     "png": "ShoulderAim_7",
@@ -4144,7 +4144,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.05,
-    "angle": 8.0
+    "angle": 18.0
    },
    {
     "png": "ShoulderAim_8",
@@ -4159,7 +4159,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": 4.0
+    "angle": 14.0
    },
    {
     "png": "ShoulderAim_9",
@@ -4174,7 +4174,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.12,
-    "angle": 0.0
+    "angle": 10.0
    },
    {
     "png": "ShoulderAim_10",
@@ -5371,7 +5371,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.05,
-    "angle": 0.0
+    "angle": -0.0
    },
    {
     "png": "DaggerFlurry_4",
@@ -5401,7 +5401,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.05,
-    "angle": 0.0
+    "angle": -0.0
    },
    {
     "png": "DaggerFlurry_6",
@@ -5974,7 +5974,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.15,
-    "angle": -180.0
+    "angle": 180.0
    },
    {
     "png": "GreatSideOne_3",
@@ -6793,7 +6793,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.18,
-    "angle": -185.0
+    "angle": 175.0
    },
    {
     "png": "LowSweep_3",
@@ -7210,7 +7210,7 @@
     "dy": 0,
     "sx": 0,
     "time": 0.16,
-    "angle": -180.0
+    "angle": 180.0
    },
    {
     "png": "DashSlash_3",
@@ -7642,7 +7642,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.03,
-    "angle": -22.6
+    "angle": -28.5
    },
    {
     "png": "Roundhouse_4",
@@ -7657,7 +7657,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.03,
-    "angle": -27.4
+    "angle": -81.5
    },
    {
     "png": "Roundhouse_5",
@@ -7672,7 +7672,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.06,
-    "angle": -30.0
+    "angle": -110.0
    },
    {
     "png": "Roundhouse_6",
@@ -7687,7 +7687,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.11,
-    "angle": -30.0
+    "angle": -108.0
    },
    {
     "png": "Roundhouse_7",
@@ -7702,7 +7702,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": -27.4
+    "angle": -80.0
    },
    {
     "png": "Roundhouse_8",
@@ -7717,7 +7717,7 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": -22.6
+    "angle": -28.0
    },
    {
     "png": "Roundhouse_9",

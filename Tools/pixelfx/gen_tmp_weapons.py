@@ -115,8 +115,120 @@ def rifle():
     return outline(im), (3, 28), False
 
 
+# 10-29 사용자 "우리 무기가 이상하다 — 직접 만들어 씌워라": 무기 종류별 임시 무기 전부(같은 외곽선·팔레트로 통일)
+L1, L2 = (120, 132, 150, 255), (84, 92, 108, 255)   # 날 어두운 쪽(크기 큰 날 음영)
+
+
+def blade(im, x, y0, y1, w=2):
+    for y in range(y0, y1 + 1):
+        for k in range(w):
+            im.putpixel((x + k, y), S1 if k < w - 1 or w == 1 else S2)
+
+
+def sword():
+    im = canvas(9, 26)
+    blade(im, 3, 2, 17, 3)
+    im.putpixel((4, 1), S1)
+    rect(im, 1, 18, 7, 18, G)        # 가드
+    rect(im, 4, 19, 4, 23, W2)       # 손잡이
+    im.putpixel((4, 24), G)
+    return outline(im), (4, 21), False
+
+
+def greatsword():
+    im = canvas(13, 48)
+    rect(im, 4, 3, 8, 34, S1)
+    rect(im, 7, 3, 8, 34, S2)
+    rect(im, 6, 5, 6, 32, L1)        # 홈
+    for x in range(5, 8):
+        im.putpixel((x, 2), S1)
+    im.putpixel((6, 1), S1)
+    rect(im, 1, 35, 11, 36, G)
+    rect(im, 5, 37, 7, 45, W2)
+    rect(im, 5, 46, 7, 46, G)
+    return outline(im), (6, 41), False
+
+
+def dagger():
+    im = canvas(7, 16)
+    blade(im, 2, 2, 9, 2)
+    im.putpixel((2, 1), S1)
+    rect(im, 1, 10, 5, 10, G)
+    rect(im, 3, 11, 3, 14, W2)
+    return outline(im), (3, 12), False
+
+
+def spear():
+    im = canvas(7, 62)
+    rect(im, 3, 9, 3, 60, W1)        # 자루
+    for y in range(12, 60, 6):
+        im.putpixel((3, y), W2)
+    for y, w in ((1, 0), (2, 1), (3, 1), (4, 2), (5, 2), (6, 2), (7, 1), (8, 1)):  # 창날
+        rect(im, 3 - w, y, 3 + w, y, S1)
+        im.putpixel((3 + w, y), S2)
+    rect(im, 2, 9, 4, 9, G)
+    return outline(im), (3, 46), False
+
+
+def staff():
+    im = canvas(11, 46)
+    rect(im, 5, 9, 5, 44, W1)
+    rect(im, 4, 2, 6, 8, (110, 170, 230, 255))   # 보석
+    rect(im, 5, 3, 5, 4, (220, 240, 255, 255))
+    rect(im, 3, 8, 7, 9, G)
+    im.putpixel((3, 3), G)
+    im.putpixel((7, 3), G)
+    return outline(im), (5, 34), False
+
+
+def bow():
+    im = canvas(10, 32)
+    pts = [(2, 1), (3, 2), (4, 4), (5, 7), (5, 10), (6, 13), (6, 16), (6, 19), (5, 22), (5, 25), (4, 28), (3, 30), (2, 31)]
+    for x, y in pts:
+        im.putpixel((x, y), W1)
+        im.putpixel((x + 1, y), W2)
+    for y in range(2, 31):           # 시위
+        im.putpixel((1, y), (230, 225, 210, 255))
+    rect(im, 6, 14, 7, 18, W2)       # 손잡이 감개
+    return outline(im), (7, 16), True
+
+
+def shield():
+    im = canvas(18, 22)
+    for y in range(1, 21):
+        half = 8 if y < 13 else max(1, 8 - (y - 12))
+        rect(im, 9 - half, y, 8 + half, y, (110, 70, 45, 255))
+    for y in range(1, 21):           # 테두리 쇠
+        half = 8 if y < 13 else max(1, 8 - (y - 12))
+        im.putpixel((9 - half, y), I1)
+        im.putpixel((8 + half, y), I1)
+    rect(im, 1, 1, 16, 1, I1)
+    rect(im, 8, 3, 9, 18, G)         # 문장 세로
+    rect(im, 4, 8, 13, 9, G)         # 가로
+    return outline(im), (9, 10), True
+
+
+def knuckle():
+    im = canvas(8, 8)
+    rect(im, 1, 1, 6, 3, I1)
+    rect(im, 1, 3, 6, 3, I2)
+    for x in (1, 3, 5):
+        im.putpixel((x, 1), S1)
+    rect(im, 2, 4, 5, 6, W2)
+    return outline(im), (3, 5), True
+
+
+def whip_handle():
+    im = canvas(5, 14)
+    rect(im, 2, 1, 2, 9, (90, 60, 40, 255))   # 감긴 가죽 끈(늘어나는 끈은 T1 줄 그리기에서)
+    for y in range(2, 9, 2):
+        im.putpixel((2, y), W2)
+    rect(im, 1, 10, 3, 12, W2)
+    return outline(im), (2, 11), False
+
+
 def main():
-    for name, fn in (("TmpKatana", katana), ("TmpHammer", hammer), ("TmpCannon", cannon), ("TmpKnife", knife), ("TmpHook", hook), ("TmpPistol", pistol), ("TmpRifle", rifle)):
+    for name, fn in (("TmpKatana", katana), ("TmpHammer", hammer), ("TmpCannon", cannon), ("TmpKnife", knife), ("TmpHook", hook), ("TmpPistol", pistol), ("TmpRifle", rifle), ("TmpSword", sword), ("TmpGreatSword", greatsword), ("TmpDagger", dagger), ("TmpSpear", spear), ("TmpStaff", staff), ("TmpBow", bow), ("TmpShield", shield), ("TmpKnuckle", knuckle), ("TmpWhip", whip_handle)):
         im, grip, upright = fn()
         im.save(os.path.join(OUT, name + ".png"))
         with open(os.path.join(OUT, name + ".json"), "w") as fp:

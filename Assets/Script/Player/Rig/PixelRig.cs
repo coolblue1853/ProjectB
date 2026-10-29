@@ -584,6 +584,7 @@ public class PixelRig : CharacterRig
             }
             bool drawn = i < cel.angles.Length && cel.angles[i] > CelClip.NoAngle + 1f;
             _socketRight.parent.localRotation = Quaternion.Euler(0f, 0f, SmoothBlade(blade, drawn) - 90f);
+            KeepBladeAboveGround(drawn);
         }
         if (_socketLeft != null && i < cel.handB.Length)
         {
@@ -632,6 +633,39 @@ public class PixelRig : CharacterRig
     /// <summary>
     /// 이동 자세 사이 칼 각도는 한 프레임에 뒤집지 않고 아래로 휘둘러 돈다(착지 때 170° → 15° 가 한 번에 바뀌어 튀었다). 공격 셀 각도는 그대로.
     /// </summary>
+    /// <summary>
+    /// 긴 무기 끝이 발바닥(리그 원점)보다 내려가면 그만큼 칼끝을 들어 올린다(10-29 사용자 "무기 움직임이 부자연스럽다":
+    /// 대검·창이 짧은 칼 기준 각도(-25~-35°)로 땅을 뚫고 내려갔다). 앞 아래면 수평 쪽으로, 뒤 아래면 뒤 수평 쪽으로 6°씩.
+    /// </summary>
+    private void KeepBladeAboveGround(bool drawn)
+    {
+        if (!drawn || _weaponsHidden)
+        {
+            return;
+        }
+        Transform hand = _socketRight.parent;
+        float ground = transform.position.y - 1f / 24f;
+        for (int step = 0; step < 12; step++)
+        {
+            float low = float.MaxValue;
+            foreach (SpriteRenderer r in _weaponRenderers)
+            {
+                if (r != null && r.enabled && !_backWeapon.Contains(r) && !_upright.Contains(r.transform) && r.transform.IsChildOf(hand))
+                {
+                    low = Mathf.Min(low, r.bounds.min.y);
+                }
+            }
+            if (low >= ground || low == float.MaxValue)
+            {
+                return;
+            }
+            float z = Mathf.Repeat(hand.localEulerAngles.z + 90f, 360f); // 칼 방향(0 = 앞, 270 = 아래)
+            float dir = z > 270f || z < 90f ? 6f : -6f;                  // 앞 아래 → 위로, 뒤 아래 → 아래쪽 반대로(뒤 수평 쪽)
+            hand.localRotation = Quaternion.Euler(0f, 0f, z + dir - 90f);
+            _bladeAt = Mathf.Repeat(z + dir - 90f, 360f) + 90f;
+        }
+    }
+
     private float SmoothBlade(float target, bool exact)
     {
         target = Mathf.Repeat(target - 90f, 360f) + 90f; // 90~450: 위(90)를 끝으로 두어 아래(270)를 지나게

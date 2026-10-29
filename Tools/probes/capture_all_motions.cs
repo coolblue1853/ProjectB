@@ -10,17 +10,17 @@ foreach (var rr in UnityEngine.Object.FindObjectsByType<Renderer>(FindObjectsSor
 foreach (var s in new[] { sockR, sockL }) foreach (var r in s.GetComponentsInChildren<SpriteRenderer>(true)) r.gameObject.SetActive(false);
 // 동작, 오른손 무기, 왼손 무기("" = 없음)
 var list = new (string anim, string r, string l)[] {
-    ("Idle","ShortSword",""), ("Walk","ShortSword",""), ("Run","ShortSword",""), ("Dash","ShortSword",""), ("JumpCrouch","ShortSword",""), ("Land","ShortSword",""),
-    ("RopeUp","",""), ("Hurt","ShortSword",""), ("Death","ShortSword",""),
-    ("Stab","ShortSword",""), ("SwingDown","ShortSword",""), ("SwingUp","ShortSword",""),
-    ("GreatDown","SacreGreatSword",""), ("GreatSide","SacreGreatSword",""), ("GreatSideOne","PoisonSword",""),
-    ("DaggerFlurry","DoubleDagger","DoubleDagger"), ("DaggerCross","DoubleDagger","DoubleDagger"), ("AirSlash","ShortSword",""),
-    ("Lunge","Wood Spear",""), ("Spin","SacreGreatSword",""), ("Cast","LeafStaff",""), ("Throw","TmpKnife",""),
-    ("Bow","BanditShortbow",""), ("Guard","ShortSword","WoodShield"), ("Charge","ScareStaff",""), ("LeapSlam","TmpHammer",""),
-    ("Backstep","DoubleDagger","DoubleDagger"), ("Punch","Rleatherknuckles","Lleatherknuckles"), ("Iaido","TmpKatana",""),
-    ("ShoulderAim","TmpCannon",""), ("Raise","LeafStaff",""), ("Place","",""), ("Kick","Rleatherknuckles","Lleatherknuckles"),
-    ("Grab","",""), ("Ride","Wood Spear",""), ("Knockdown","ShortSword",""), ("ShieldBash","ShortSword","WoodShield"),
-    ("Slam","",""), ("Pull","TmpHook",""), ("LowSweep","Wood Spear",""), ("GreatUpper","SacreGreatSword",""), ("DashSlash","ShortSword",""), ("WhipSnap","TmpHook",""), ("Roundhouse","Rleatherknuckles","Lleatherknuckles"), ("Sheathe","TmpKatana",""), ("Whirl","SacreGreatSword",""), ("DownThrust","ShortSword",""),
+    ("Idle","TmpSword",""), ("Walk","TmpSword",""), ("Run","TmpSword",""), ("Dash","TmpSword",""), ("JumpCrouch","TmpSword",""), ("Land","TmpSword",""),
+    ("RopeUp","",""), ("Hurt","TmpSword",""), ("Death","TmpSword",""),
+    ("Stab","TmpSword",""), ("SwingDown","TmpSword",""), ("SwingUp","TmpSword",""),
+    ("GreatDown","TmpGreatSword",""), ("GreatSide","TmpGreatSword",""), ("GreatSideOne","TmpSword",""),
+    ("DaggerFlurry","TmpDagger","TmpDagger"), ("DaggerCross","TmpDagger","TmpDagger"), ("AirSlash","TmpSword",""),
+    ("Lunge","TmpSpear",""), ("Spin","TmpGreatSword",""), ("Cast","TmpStaff",""), ("Throw","TmpKnife",""),
+    ("Bow","TmpBow",""), ("Guard","TmpSword","TmpShield"), ("Charge","TmpStaff",""), ("LeapSlam","TmpHammer",""),
+    ("Backstep","TmpDagger","TmpDagger"), ("Punch","TmpKnuckle","TmpKnuckle"), ("Iaido","TmpKatana",""),
+    ("ShoulderAim","TmpCannon",""), ("Raise","TmpStaff",""), ("Place","",""), ("Kick","TmpKnuckle","TmpKnuckle"),
+    ("Grab","",""), ("Ride","TmpSpear",""), ("Knockdown","TmpSword",""), ("ShieldBash","TmpSword","TmpShield"),
+    ("Slam","",""), ("Pull","TmpHook",""), ("LowSweep","TmpSpear",""), ("GreatUpper","TmpGreatSword",""), ("DashSlash","TmpSword",""), ("WhipSnap","TmpWhip",""), ("Roundhouse","TmpKnuckle","TmpKnuckle"), ("Sheathe","TmpKatana",""), ("Whirl","TmpGreatSword",""), ("DownThrust","TmpSword",""),
 };
 var basic = new System.Collections.Generic.Dictionary<string, VfxId> { { "Stab", VfxId.WSmearStab }, { "SwingDown", VfxId.WSmearDown }, { "SwingUp", VfxId.WSmearUp } };
 var temps = new System.Collections.Generic.List<GameObject>();
