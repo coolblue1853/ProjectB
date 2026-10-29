@@ -1082,6 +1082,14 @@ MOTIONS.update({
 })
 
 
+# A22 검 든 채 사격 v3(10-29 사용자 "검을 머리 위로 들면 벌서는 것 같다"): 검은 허리 앞에서 앞 위로 겨눈 준비 자세(펜싱 엉 가르드), 앞손만 뻗어 두 번 사격
+SW = (-100, -40)
+MOTIONS.update({
+    "S17_A22_SwordPistol": gpt([(5,) + SW + (-55, -25) + L0 + (30, 0, 2), (8,) + SW + (0, 0) + L0 + (30, 1, 2), (2,) + SW + (12, 15) + L0 + (32, 0, 2),
+                                (8,) + SW + (0, 0) + L0 + (30, 1, 2), (2,) + SW + (12, 15) + L0 + (32, 0, 2)], [0.12, 0.12, 0.07, 0.10, 0.07], "SwordPistol"),
+})
+
+
 def frames(keys):
     start, main_segs, end_segs = keys
     a, last = run(start, main_segs)

@@ -596,6 +596,8 @@ public class PixelRig : CharacterRig
         if (_socketLeft != null && i < cel.handB.Length)
         {
             _socketLeft.parent.position = transform.TransformPoint(cel.handB[i]);
+            // 앞손 무기(권총·두 번째 단검)는 앞을 향한다 — 손목 각도 채널이 없어 위를 향해 세워져 있었다(10-29 사용자 "무기 방향 위치 잘 맞춰라")
+            _socketLeft.parent.localRotation = Quaternion.Euler(0f, 0f, -90f);
         }
     }
 

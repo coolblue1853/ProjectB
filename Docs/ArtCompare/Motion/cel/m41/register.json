@@ -5521,73 +5521,73 @@
  },
  "SwordPistol": {
   "frames": [
-   "m41/s16/swordpistol/0",
-   "m41/s16/swordpistol/1",
-   "m41/s16/swordpistol/2",
-   "m41/s16/swordpistol/3",
-   "m41/s16/swordpistol/4",
-   "m41/s16/swordpistol/5",
-   "m41/s16/swordpistol/6",
-   "m41/s16/swordpistol/7",
-   "m41/s16/swordpistol/8",
-   "m41/s16/swordpistol/9",
-   "m41/s16/swordpistol/10",
-   "m41/s16/swordpistol/11",
-   "m41/s16/swordpistol/12",
-   "m41/s16/swordpistol/13"
+   "m41/s17/swordpistol/0",
+   "m41/s17/swordpistol/1",
+   "m41/s17/swordpistol/2",
+   "m41/s17/swordpistol/3",
+   "m41/s17/swordpistol/4",
+   "m41/s17/swordpistol/5",
+   "m41/s17/swordpistol/6",
+   "m41/s17/swordpistol/7",
+   "m41/s17/swordpistol/8",
+   "m41/s17/swordpistol/9",
+   "m41/s17/swordpistol/10",
+   "m41/s17/swordpistol/11",
+   "m41/s17/swordpistol/12",
+   "m41/s17/swordpistol/13"
   ],
   "hand": [
    [
-    44,
-    40
-   ],
-   [
-    46,
-    27
-   ],
-   [
-    39,
-    23
-   ],
-   [
-    39,
-    23
+    37,
+    42
    ],
    [
     40,
-    23
+    42
+   ],
+   [
+    41,
+    41
+   ],
+   [
+    41,
+    41
+   ],
+   [
+    42,
+    41
+   ],
+   [
+    43,
+    41
+   ],
+   [
+    42,
+    41
    ],
    [
     40,
-    23
+    41
    ],
    [
-    39,
-    23
+    42,
+    41
+   ],
+   [
+    43,
+    41
+   ],
+   [
+    42,
+    41
+   ],
+   [
+    40,
+    41
    ],
    [
     38,
-    23
-   ],
-   [
-    39,
-    23
-   ],
-   [
-    40,
-    23
-   ],
-   [
-    39,
-    23
-   ],
-   [
-    38,
-    23
-   ],
-   [
-    47,
-    33
+    42
    ],
    [
     36,
@@ -5653,19 +5653,19 @@
    ]
   ],
   "angle": [
-   11.1,
-   68.9,
-   100.0,
-   100.0,
-   100.0,
-   100.0,
-   100.0,
-   100.0,
-   100.0,
-   100.0,
-   100.0,
-   100.0,
-   40.0,
+   -7.0,
+   17.0,
+   30.0,
+   30.0,
+   30.0,
+   30.0,
+   31.0,
+   32.0,
+   31.0,
+   30.0,
+   31.0,
+   32.0,
+   6.0,
    -20.0
   ],
   "times": [
@@ -5684,7 +5684,7 @@
    0.045,
    0.12
   ],
-  "job": "3524d0d6-939d-47e5-adb4-3c7643adff27",
+  "job": "8a30683e-4f29-4073-87ad-318e47ca0792",
   "motion": "S11_A22_SwordPistol"
  }
 }

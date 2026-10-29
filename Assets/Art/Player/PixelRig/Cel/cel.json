@@ -8265,209 +8265,209 @@
    {
     "png": "SwordPistol_0",
     "hand": [
-     44,
-     39
+     37,
+     42
     ],
     "handB": [
      47,
-     42
+     43
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 11.1
+    "angle": -7.0
    },
    {
     "png": "SwordPistol_1",
     "hand": [
-     46,
-     26
+     40,
+     42
     ],
     "handB": [
      51,
-     40
+     41
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 68.9
+    "angle": 17.0
    },
    {
     "png": "SwordPistol_2",
     "hand": [
-     39,
-     22
+     41,
+     41
     ],
     "handB": [
      53,
-     38
+     39
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.12,
-    "angle": 100.0
+    "angle": 30.0
    },
    {
     "png": "SwordPistol_3",
     "hand": [
-     39,
-     22
+     41,
+     41
     ],
     "handB": [
      54,
-     37
+     38
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 100.0
+    "angle": 30.0
    },
    {
     "png": "SwordPistol_4",
     "hand": [
-     40,
-     22
+     42,
+     41
     ],
     "handB": [
      56,
-     34
+     35
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 100.0
+    "angle": 30.0
    },
    {
     "png": "SwordPistol_5",
     "hand": [
-     40,
-     22
+     43,
+     41
     ],
     "handB": [
      57,
-     32
+     33
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.12,
-    "angle": 100.0
+    "angle": 30.0
    },
    {
     "png": "SwordPistol_6",
     "hand": [
-     39,
-     22
+     42,
+     41
     ],
     "handB": [
      56,
-     31
+     32
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 100.0
+    "angle": 31.0
    },
    {
     "png": "SwordPistol_7",
     "hand": [
-     38,
-     22
+     40,
+     41
     ],
     "handB": [
      54,
-     30
+     31
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.07,
-    "angle": 100.0
+    "angle": 32.0
    },
    {
     "png": "SwordPistol_8",
     "hand": [
-     39,
-     22
+     42,
+     41
     ],
     "handB": [
      56,
-     31
+     32
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 100.0
+    "angle": 31.0
    },
    {
     "png": "SwordPistol_9",
     "hand": [
-     40,
-     22
+     43,
+     41
     ],
     "handB": [
      57,
-     32
+     33
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.1,
-    "angle": 100.0
+    "angle": 30.0
    },
    {
     "png": "SwordPistol_10",
     "hand": [
-     39,
-     22
+     42,
+     41
     ],
     "handB": [
      56,
-     31
+     32
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 100.0
+    "angle": 31.0
    },
    {
     "png": "SwordPistol_11",
     "hand": [
-     38,
-     22
+     40,
+     41
     ],
     "handB": [
      54,
-     30
+     31
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.07,
-    "angle": 100.0
+    "angle": 32.0
    },
    {
     "png": "SwordPistol_12",
     "hand": [
-     47,
-     32
+     38,
+     42
     ],
     "handB": [
      52,
-     38
+     39
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 40.0
+    "angle": 6.0
    },
    {
     "png": "SwordPistol_13",
     "hand": [
      36,
-     41
+     42
     ],
     "handB": [
      44,
-     42
+     43
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.12,
     "angle": -20.0
