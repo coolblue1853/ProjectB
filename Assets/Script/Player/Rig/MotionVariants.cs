@@ -86,6 +86,8 @@ public static class MotionVariants
         new Variant("DownThrust", "AirSlash", 0.8f, 5, 8, hold: 8),       // 10-29 사용자 "멈춤이라 모르겠다" → 벤 뒤(5) 칼을 아래로 돌려(8) 유지
         new Variant("GreatUpper", "GreatUpper", 1f, 0, 12, hold: 12),     // 올려친 끝(8)에서 멈춤 — 회복에서 칼을 내리는 게 내려치기로 보였다(10-29 사용자)
         new Variant("Whirl", "Spin", 0.9f),                              // A23 전신 회전베기 = 회전 베기 셀(10-29 밤 방향 그림 프레임으로 다시 — 좌우 반전 방식 폐기, 사용자 "이 방향 아니다")
+        new Variant("PalmBlast", "Pull", 1.3f, 0, 8, reverse: true),    // N6 두 손바닥 내밀기(장풍·기공포) = 당기기(정면 버팀 → 앞으로 뻗음) 역재생 — 가슴에서 앞으로 미는 두 손(10-29 밤)
+        new Variant("UnderThrow", "Place", 1.4f),                         // N7 아래로 던지기(볼링·씨앗·포션 굴리기) = 웅크려 놓기를 빠르게
     };
 
     public static Variant Find(string name)

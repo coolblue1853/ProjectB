@@ -54,6 +54,13 @@ foreach (var m in items)
         foreach (var g in temps) if (g != null) UnityEngine.Object.Destroy(g);
         temps.Clear();
         if (mm.r != "") temps.Add(hold(mm.r, sockR, false));
+        if (mm.r == "TmpWhip" || mm.r == "TmpHook")
+        {
+            // T1 줄·사슬(WeaponChain, 10-29 밤): 채찍 = 갈색 가는 끈 길게, 사슬낫 = 쇠사슬
+            var cgo = new GameObject("PXFX_Chain"); cgo.transform.SetParent(temps[temps.Count - 1].transform, false);
+            cgo.AddComponent<LineRenderer>(); var wc = cgo.AddComponent<WeaponChain>();
+            if (mm.r == "TmpWhip") wc.Setup(14, 0.1f, new Color(0.42f, 0.27f, 0.17f, 1f), 49); else wc.Setup(10, 0.1f, new Color(0.45f, 0.48f, 0.52f, 1f), 49);
+        }
         if (mm.l != "") temps.Add(hold(mm.l, sockL, true));
         rig.Play(mm.anim);
         camX[0] = pc.transform.position.x;

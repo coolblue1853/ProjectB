@@ -26,12 +26,22 @@ SPLICE = {
                    ("BashNE", "D_BashNE", 2, -95, .04, False), "4", "5", "6", "7", "8", "9", "10", "11", "13"],
     "LowSweep": ["0", "1", ("SweepNE", "D_SweepNE", 0, 165, .05, True), ("SweepNE", "D_SweepNE", 1, 170, .15, True),
                  ("SweepNE", "D_SweepNE", 2, 200, .04, True), "3", "4", "5", "6", "7", "8", "9", "10", "12"],
+    "Punch": ["0", "1", "2", "3", "4", "5", "6", "7", ("PunchNE", "D_PunchNE", 1, 0, .07, False), ("PunchSE", "D_PunchSE", 1, 0, .035, False),
+              "10", "11", "12", "13"],  # 원투의 투: 3/4 뒤 장전 → 3/4 앞 통과 → 측면 스트레이트(GPT D4)
+    # 검 든 채 사격: 3/4 앞으로 몸을 열고 권총(앞손)을 어깨 높이로, 검은 반대 허리 뒤(GPT 리뷰 "두 무기가 겹친다") — 사격 4·6번
+    "SwordPistol": ["0", "1", "2", ("GunSE", "D_GunSE", 0, 200, .08, True), ("GunSE", "D_GunSE", 1, 200, .05, True),
+                    ("GunSE", "D_GunSE", 0, 200, .1, True), ("GunSE", "D_GunSE", 1, 200, .05, True), ("GunSE", "D_GunSE", 2, 205, .14, True), "12", "13"],
+    # 새 셀: 춤(N3)·악기(N2, 생성기가 류트를 그림 — 현악기 전용)
+    "Dance": [("DanceS", "D_DanceS", i, 0, .15, False) for i in range(4)],
+    "Lute": [("LuteSE", "D_LuteSE", i, 30, .12, False) for i in range(3)],
     # 새 셀: 납도(발도 끝 자세 → 3/4 앞으로 돌아서며 칼집에) · 승리 포즈(정면)
     "Sheathe": [("7@Iaido", .12), ("9@Iaido", .045), ("SheatheSE", "D_SheatheSE", 0, 90, .08, False),
                 ("SheatheSE", "D_SheatheSE", 1, 160, .06, False), ("SheatheSE", "D_SheatheSE", 2, 175, .35, False)],
     "Victory": [("VictoryS", "D_VictoryS", 0, 45, .06, False), ("VictoryS", "D_VictoryS", 1, 80, .06, False),
                 ("VictoryS", "D_VictoryS", 2, 90, .6, False)],
 }
+
+LOOP = {"Dance", "Lute"}
 
 
 def joint(keys, name, i, label):
@@ -67,6 +77,8 @@ def main():
             out["times"].append(base["times"][k] if t is None else t)
             out["behind"].append(False)
         out["motion"] = f"splice_dirs({cel})"
+        if cel in LOOP:
+            out["loop"] = True
         reg[cel] = out
         print(cel, len(out["frames"]), round(sum(out["times"]), 2))
     json.dump(reg, open(REG, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

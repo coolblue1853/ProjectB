@@ -197,7 +197,7 @@ SKEL_ANGLE = {"Stab": [-14.8, -5.2, 0.0, 0.0, 0.0, -5.0], "StabEnd": [-8.9, -16.
 _REG = os.path.join(SRC, "m41", "register.json")
 if os.path.exists(_REG):
     for _name, _r in json.load(open(_REG, encoding="utf-8")).items():
-        CLIPS[_name] = ("m41", _r["frames"], 0.05, False, "feet")
+        CLIPS[_name] = ("m41", _r["frames"], 0.05, bool(_r.get("loop", False)), "feet")  # loop: 춤·악기 반복(10-29 밤)
         SKEL_HAND[_name] = _r["hand"]
         if "handB" in _r:
             SKEL_HAND_B[_name] = _r["handB"]  # 앞손(반대 손) — 방패·보조손 무기가 따라간다(10-29)

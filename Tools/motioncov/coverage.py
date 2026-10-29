@@ -26,6 +26,7 @@ def jobs():
         for e in extra.split():
             (tech if e.startswith("T") else need).add(e)
         tech.discard("T3")  # 투사체 그리기는 이펙트 쪽(모든 원거리 공통) — 판정에서 뺀다
+        tech.discard("T1")  # 10-29 밤 WeaponChain(버렛 사슬)으로 해결 — 채찍·사슬낫 캡처 확인
         out.append((cat, name, ws, need, tech))
     return out
 

@@ -14,14 +14,17 @@ var jobs = new (string name, string r, string l, PixelRampId ramp, (string, floa
         new (string, float)[] { ("Iaido", 0.98f), ("DashSlash", 0.94f), ("SwingDown", 0.46f), ("Sheathe", 0.8f), ("Victory", 0.9f) },
         new (int, float, VfxId, float, float, float)[] { (0, 0.42f, VfxId.WHit7, 30f, 14f, 1f), (0, 0.33f, VfxId.StepDust, -6f, 0f, 1f), (1, 0.35f, VfxId.WHit7, 30f, 16f, 1f), (2, 0.2f, VfxId.WHit7, 22f, 12f, 0.9f), (3, 0.3f, VfxId.SlashWhite, 4f, 14f, 0.3f) }),
     ("해적 선장", "TmpCutlass", "TmpPistol", PixelRampId.Gold,
-        new (string, float)[] { ("GreatSideOne", 0.92f), ("SwordPistol", 0.96f), ("Stab", 0.39f), ("Backstep", 0.92f), ("Victory", 0.9f) },
-        new (int, float, VfxId, float, float, float)[] { (0, 0.3f, VfxId.WHit7, 24f, 14f, 0.9f), (1, 0.21f, VfxId.SmokeGray, 22f, 18f, 0.5f), (1, 0.21f, VfxId.BurstGold, 22f, 18f, 0.35f), (1, 0.46f, VfxId.SmokeGray, 22f, 18f, 0.5f), (1, 0.46f, VfxId.BurstGold, 22f, 18f, 0.35f), (2, 0.17f, VfxId.WHit7, 26f, 14f, 0.8f), (3, 0.2f, VfxId.DustBrown, 0f, 0f, 0.7f) }),
+        new (string, float)[] { ("GreatSideOne", 0.92f), ("SwordPistol", 0.82f), ("Stab", 0.39f), ("Backstep", 0.92f), ("Victory", 0.9f) },
+        // 총구 이펙트는 앞손(권총) 위치 기준(앞 px 1000+ = 앞손 기준) — GPT 리뷰 "총구 앞 원형 오브젝트가 너무 크고 손에서 떠 있다"
+        new (int, float, VfxId, float, float, float)[] { (0, 0.3f, VfxId.WHit7, 24f, 14f, 0.9f), (1, 0.29f, VfxId.BurstGold, 1009f, 1f, 0.16f), (1, 0.32f, VfxId.SmokeGray, 1010f, 2f, 0.18f), (1, 0.44f, VfxId.BurstGold, 1009f, 1f, 0.16f), (1, 0.47f, VfxId.SmokeGray, 1010f, 2f, 0.18f), (2, 0.17f, VfxId.WHit7, 26f, 14f, 0.8f), (3, 0.05f, VfxId.DustBrown, 4f, 0f, 0.5f), (3, 0.45f, VfxId.DustBrown, -6f, 0f, 0.6f) }),
     ("심해 닻 전사", "TmpAnchor", "", PixelRampId.Blue,
         new (string, float)[] { ("GreatDown", 1.05f), ("Whirl", 0.95f), ("GreatUpper", 1.2f), ("Pull", 0.99f), ("Victory", 0.9f) },
-        new (int, float, VfxId, float, float, float)[] { (0, 0.5f, VfxId.BurstBlue, 26f, 2f, 0.8f), (0, 0.5f, VfxId.DustStone, 26f, 0f, 0.8f), (1, 0.45f, VfxId.BurstBlue, 28f, 12f, 0.6f), (2, 0.6f, VfxId.PillarBlue, 24f, 0f, 0.6f), (3, 0.35f, VfxId.SmokeGray, 20f, 14f, 0.4f) }),
+        // GPT 리뷰: 수직 광선은 마법처럼 읽힌다 → 빼고 물보라·돌 파편·지면 충격(중량 무기)
+        new (int, float, VfxId, float, float, float)[] { (0, 0.5f, VfxId.GroundShock, 26f, 0f, 0.8f), (0, 0.5f, VfxId.DustStone, 26f, 0f, 0.9f), (0, 0.52f, VfxId.BurstBlue, 26f, 4f, 0.45f), (1, 0.45f, VfxId.BurstBlue, 26f, 10f, 0.35f), (2, 0.6f, VfxId.DustStone, 22f, 0f, 0.7f), (2, 0.62f, VfxId.BurstBlue, 26f, 26f, 0.35f), (3, 0.4f, VfxId.DustBrown, -4f, 0f, 0.7f) }),
     ("마도학자", "TmpEyeStaff", "TmpTome", PixelRampId.Purple,
         new (string, float)[] { ("Cast", 1.0f), ("Charge", 1.37f), ("Raise", 0.95f), ("Victory", 0.9f) },
-        new (int, float, VfxId, float, float, float)[] { (0, 0.35f, VfxId.BurstPurple, 30f, 18f, 0.7f), (1, 0.1f, VfxId.RunePurple, 0f, 0f, 0.8f), (1, 0.75f, VfxId.SmokePurple, 0f, 10f, 0.8f), (2, 0.44f, VfxId.PillarPurple, 30f, 0f, 0.8f), (2, 0.44f, VfxId.RunePurple, 30f, 0f, 0.7f) }),
+        // GPT 리뷰: 몸·얼굴을 가리지 말 것 — 시전은 지팡이 끝 앞, 모으기 마법진은 발밑, 소환은 앞쪽 지면에 마법진 → 작은 기둥
+        new (int, float, VfxId, float, float, float)[] { (0, 0.35f, VfxId.BurstPurple, 34f, 20f, 0.45f), (1, 0.1f, VfxId.RunePurple, 0f, -2f, 0.6f), (2, 0.3f, VfxId.RunePurple, 34f, -2f, 0.6f), (2, 0.5f, VfxId.PillarPurple, 34f, 0f, 0.5f), (2, 0.55f, VfxId.SmokePurple, 34f, 4f, 0.4f) }),
 };
 var temps = new System.Collections.Generic.List<GameObject>();
 var dummy = new Texture2D(1, 1);
@@ -54,6 +57,18 @@ foreach (var j in jobs)
         {
             rig.Play(mm.Item1);
             if (move.TryGetValue(mm.Item1, out float dx)) DG.Tweening.TweenSettingsExtensions.SetUpdate(DG.Tweening.TweenSettingsExtensions.SetEase(DG.Tweening.ShortcutExtensions.DOMoveX(pc.transform, pc.transform.position.x + dx, 0.35f), DG.Tweening.Ease.OutQuad), true);
+            if (mm.Item1 == "Pull")
+            {
+                // 사슬 선 임시(T1 전): 손 → 앞쪽 걸린 점, 당기는 동안 짧아짐(GPT 리뷰 "사슬이 안 보여 연결감이 없다")
+                var lgo = new GameObject("PXFX_Chain"); var lr = lgo.AddComponent<LineRenderer>(); lr.material = new Material(Shader.Find("Sprites/Default"));
+                lr.startColor = lr.endColor = new Color(0.32f, 0.36f, 0.4f, 1f); lr.startWidth = lr.endWidth = 2f / 36f; lr.positionCount = 2; lr.sortingOrder = 49;
+                float x0 = pc.transform.position.x + 2.2f;
+                DG.Tweening.TweenSettingsExtensions.SetUpdate(DG.Tweening.TweenSettingsExtensions.OnComplete(DG.Tweening.DOVirtual.Float(0f, 1f, 0.9f, v =>
+                {
+                    Vector3 h = sockR.position; float tip = Mathf.Lerp(x0, h.x + 0.5f, Mathf.SmoothStep(0f, 1f, Mathf.Clamp01((v - 0.35f) / 0.4f)));
+                    lr.SetPosition(0, h); lr.SetPosition(1, new Vector3(tip, h.y - 0.05f, h.z));
+                }), () => UnityEngine.Object.Destroy(lgo)), true);
+            }
             if (mm.Item1 == "SwingDown")
             {
                 DG.Tweening.DOVirtual.DelayedCall(WeaponFx.StrikeDelayFor("SwingDown", rig), () => Vfx.PlayThemed(VfxId.WSmearDown, rig.CelRoot.position, false, Mathf.Abs(rig.CelRoot.lossyScale.y), jj.ramp, false, false, 1f, true), true);
@@ -69,7 +84,7 @@ foreach (var j in jobs)
     {
         var ff = f;
         DG.Tweening.DOVirtual.DelayedCall(starts[ff.Item1] + ff.Item2, () =>
-            Vfx.Play(ff.Item3, pc.transform.position + new Vector3(ff.Item4 / Ppu, ff.Item5 / Ppu, 0f), false, ff.Item6), true);
+            Vfx.Play(ff.Item3, (ff.Item4 >= 900f ? sockL.position + new Vector3((ff.Item4 - 1000f) / Ppu, ff.Item5 / Ppu, 0f) : pc.transform.position + new Vector3(ff.Item4 / Ppu, ff.Item5 / Ppu, 0f)), false, ff.Item6), true);
     }
     DG.Tweening.DOVirtual.DelayedCall(tt, () => rig.Play("Idle"), true); tt += 0.4f;
     int frames = Mathf.CeilToInt((tt - t) * 30f);

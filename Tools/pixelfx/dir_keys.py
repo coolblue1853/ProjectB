@@ -99,6 +99,33 @@ MOTIONS = {
         ("south", {"RIGHT ARM": (42, 33), "LEFT ARM": (25, 44), "LEFT LEG": (25, 52), "RIGHT LEG": (39, 52)}, 80),
         ("south", {"RIGHT ARM": (42, 31), "LEFT ARM": (25, 44), "LEFT LEG": (25, 52), "RIGHT LEG": (39, 52), "shift": (0, -1)}, 90),
     ],
+    "D_PunchNE": [   # 원투의 투 장전: 골반을 돌려 등을 보이며 뒷주먹을 가까운 어깨 옆에 장전, 앞손은 가드
+        ("ne", {"RIGHT ARM": (43, 40), "LEFT ARM": (36, 36), "LEFT LEG": (29, 52), "RIGHT LEG": (42, 52), "shift": (-1, 0)}, 0),
+        ("ne", {"RIGHT ARM": (44, 41), "LEFT ARM": (35, 35), "LEFT LEG": (29, 52), "RIGHT LEG": (43, 52), "shift": (-2, 1)}, 0),
+        ("ne", {"RIGHT ARM": (44, 38), "LEFT ARM": (36, 35), "LEFT LEG": (29, 52), "RIGHT LEG": (43, 52), "shift": (-1, 0)}, 0),
+    ],
+    "D_PunchSE": [   # 뒷주먹이 가슴 앞을 지나 나가는 순간(3/4 앞): 어깨 비틀어 앞으로, 앞손은 턱 가드
+        ("se", {"RIGHT SHOULDER": (37, 36), "RIGHT ARM": (41, 38), "LEFT ARM": (43, 33), "RIGHT LEG": (31, 52), "LEFT LEG": (47, 52), "shift": (1, 0)}, 0),
+        ("se", {"RIGHT SHOULDER": (38, 36), "RIGHT ARM": (44, 37), "LEFT ARM": (43, 33), "RIGHT LEG": (31, 52), "LEFT LEG": (47, 52), "shift": (2, 0)}, 0),
+        ("se", {"RIGHT SHOULDER": (39, 36), "RIGHT ARM": (46, 37), "LEFT ARM": (44, 34), "RIGHT LEG": (31, 52), "LEFT LEG": (48, 52), "shift": (2, 0)}, 0),
+    ],
+    "D_GunSE": [     # 검 든 채 사격(해적): 3/4 앞, 앞손(권총) 어깨 높이로 앞, 검손은 반대 허리 뒤로 빼 두 무기 분리(GPT 리뷰)
+        ("se", {"LEFT ARM": (50, 38), "RIGHT ARM": (31, 44), "RIGHT LEG": (31, 52), "LEFT LEG": (48, 52)}, 200),
+        ("se", {"LEFT ARM": (49, 36), "RIGHT ARM": (31, 44), "RIGHT LEG": (31, 52), "LEFT LEG": (48, 52), "shift": (-1, 0)}, 200),
+        ("se", {"LEFT ARM": (51, 38), "RIGHT ARM": (32, 45), "RIGHT LEG": (31, 52), "LEFT LEG": (48, 52), "shift": (1, 0)}, 205),
+    ],
+    # 빠진 동작 후보(MotionCoverage N3 춤 9직업·N2 악기 9직업) — 정면/3/4 앞이 읽기 좋다
+    "D_DanceS": [   # 춤·스텝 4장 반복: 팔 벌림 ↔ 위로, 발 교차
+        ("south", {"RIGHT ARM": (44, 40), "LEFT ARM": (20, 40), "LEFT LEG": (26, 52), "RIGHT LEG": (38, 52)}, 0),
+        ("south", {"RIGHT ARM": (43, 31), "LEFT ARM": (21, 31), "LEFT LEG": (33, 52), "RIGHT LEG": (37, 49), "shift": (1, -1)}, 0),
+        ("south", {"RIGHT ARM": (44, 40), "LEFT ARM": (20, 40), "LEFT LEG": (26, 52), "RIGHT LEG": (38, 52), "shift": (-1, 0)}, 0),
+        ("south", {"RIGHT ARM": (43, 31), "LEFT ARM": (21, 31), "LEFT LEG": (27, 49), "RIGHT LEG": (31, 52), "shift": (-1, -1)}, 0),
+    ],
+    "D_LuteSE": [   # 악기 연주(류트·기타): 3/4 앞, 앞손은 목(줄감개) 쪽, 뒷손은 배 앞에서 튕김 — 3장 반복
+        ("se", {"LEFT ARM": (49, 38), "RIGHT ARM": (39, 44)}, 30),
+        ("se", {"LEFT ARM": (49, 38), "RIGHT ARM": (40, 41), "shift": (0, 1)}, 30),
+        ("se", {"LEFT ARM": (49, 39), "RIGHT ARM": (38, 45)}, 30),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 

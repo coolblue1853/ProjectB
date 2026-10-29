@@ -142,10 +142,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 112
+        width: 136
         height: 80
       alignment: 9
-      pivot: {x: 0.58035713, y: 0.1125}
+      pivot: {x: 0.4779412, y: 0.1125}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: Px_WSmearDown_1
       rect:
         serializedVersion: 2
-        x: 112
+        x: 136
         y: 0
-        width: 112
+        width: 136
         height: 80
       alignment: 9
-      pivot: {x: 0.58035713, y: 0.1125}
+      pivot: {x: 0.4779412, y: 0.1125}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: Px_WSmearDown_2
       rect:
         serializedVersion: 2
-        x: 224
+        x: 272
         y: 0
-        width: 112
+        width: 136
         height: 80
       alignment: 9
-      pivot: {x: 0.58035713, y: 0.1125}
+      pivot: {x: 0.4779412, y: 0.1125}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: Px_WSmearDown_3
       rect:
         serializedVersion: 2
-        x: 336
+        x: 408
         y: 0
-        width: 112
+        width: 136
         height: 80
       alignment: 9
-      pivot: {x: 0.58035713, y: 0.1125}
+      pivot: {x: 0.4779412, y: 0.1125}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
