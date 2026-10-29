@@ -729,8 +729,35 @@ public class PixelRig : CharacterRig
         {
             return _requested;
         }
+        string skill = isRequested ? SkillCel(_requested) : null;
+        if (skill != null && _celByName.ContainsKey(skill))
+        {
+            return skill;
+        }
         string own = clip == "Shoot" ? "Bow" : clip;
         return _celByName.ContainsKey(own) ? own : CelAlias(clip);
+    }
+
+    // 무기 스킬(예전 AnyPortrait 애니 이름) → 마스터 모션 셀(10-30): MapName 의 공용 5종(내려·올려·수평·찌르기·시전)보다 무기에 맞는 동작으로.
+    // 무기별 사용처는 Resources/Weapon 프리팹 skillAnim(대검·둔기 GreatVashDown, 도끼·낫 GreatSideAttack·DeathSideGround, 너클 upperCut, 창·깃발 StrongStab, 단검 StabLR·SpeadBuff …)
+    private static readonly Dictionary<string, string> SkillCels = new Dictionary<string, string>
+    {
+        { "GreatVashDown", "GreatDown" },       // 대검·둔기 양손 내려찍기
+        { "GreatSideAttack", "GreatSide" },     // 도끼·대낫 양손 수평
+        { "DeathSideGround", "LowSweep" },      // 대낫·도끼 하단 쓸기
+        { "upperCut", "Punch" },                // 너클 — 한 손 올려베기보다 원투
+        { "StrongStab", "Lunge" },              // 창·할버드·깃발 몸째 돌진 찌르기
+        { "StabLR", "DaggerCross" },            // 쌍단검 좌우 → 교차 베기
+        { "SpeadBuff", "Charge" },              // 버프 → 모으기(정면)
+        { "AdeaAttSpeadBuff", "Charge" },
+        { "WideVesh", "GreatSideOne" },         // 한손검 수평(3/4 뒤 감기·3/4 앞 팔로스루)
+        { "StaffMiddle", "Charge" },
+    };
+
+    /// <summary>무기 스킬 애니 이름에 맞는 마스터 모션 셀 이름(없으면 null — 공용 MapName 셀)</summary>
+    public static string SkillCel(string anim)
+    {
+        return !string.IsNullOrEmpty(anim) && SkillCels.TryGetValue(anim, out string cel) ? cel : null;
     }
 
     private static string CelAlias(string clip)

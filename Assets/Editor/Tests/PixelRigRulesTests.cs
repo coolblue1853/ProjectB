@@ -26,11 +26,21 @@ public class PixelRigRulesTests
     public void WeaponFx_MeleeSwingPicksTrail()
     {
         Assert.IsTrue(WeaponFx.TryMelee("RightHandstabbing_OneHand", VfxId.SlashWhite, out VfxId id, out bool flip));
-        Assert.AreEqual(VfxId.WThrust, id);
+        Assert.AreEqual(VfxId.WSmearStab, id); // 10-28 기본 3타 스미어 v7(셀 좌표 스미어)로 교체 — 예전 WThrust 기대값이 남아 있었다
         Assert.IsFalse(flip);
         Assert.IsTrue(WeaponFx.TryMelee("RightHandVashUp_OneHand", VfxId.SlashRed, out id, out flip));
-        Assert.AreEqual(VfxId.WSlashDown, id);
-        Assert.IsTrue(flip, "올려베기는 세로 초승달 상하 반전");
+        Assert.AreEqual(VfxId.WSmearUp, id); // 올려베기 전용 스미어(뒤집기 없이)
+        Assert.IsFalse(flip);
+    }
+
+    [TestCase("GreatVashDown", "GreatDown")]
+    [TestCase("DeathSideGround", "LowSweep")]
+    [TestCase("StabLR", "DaggerCross")]
+    [TestCase("WideVesh", "GreatSideOne")]
+    [TestCase("RightHandstabbing_OneHand", null)]
+    public void SkillCel_WeaponSkillsUseMasterMotions(string anim, string cel)
+    {
+        Assert.AreEqual(cel, PixelRig.SkillCel(anim));
     }
 
     [Test]
