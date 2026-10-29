@@ -21,7 +21,7 @@ CX, CY = 41, 54  # 셀 원점(발 가운데) — 셀 좌표(y 아래) → 피벗
 # (동작, 시작 프레임, 도착 프레임(= 띄우는 프레임), 종류, 방향 +1 반시계 / -1 시계, 머리 두께)
 # 방향: 각도 0 앞·90 위 기준. 위 → 앞 아래로 내려치면 시계(-1), 뒤 → 아래 → 앞으로 휘두르면 반시계(+1)
 STRIKES = [
-    ("GreatDown", 3, 4, "arc", -1, 9.0),
+    ("GreatDown", 1, 2, "arc", -1, 9.0),  # 10-29 규격 시험: 키 포즈 4장(세움 → 타격)
     ("GreatSide", 2, 4, "arc", +1, 8.0),
     ("GreatSideOne", 2, 4, "arc", +1, 7.0),
     ("DaggerCross", 1, 2, "arc", -1, 6.0),
@@ -39,7 +39,7 @@ STRIKES = [
 ]
 # 지면 충격(기존 도트 VfxId, 발 앞 거리 px): (동작, 프레임, VfxId, 앞 거리, 크기)
 IMPACTS = [
-    ("GreatDown", 4, "GroundShock", 22, 0.8),
+    ("GreatDown", 2, "GroundShock", 22, 0.8),
     ("LeapSlam", 5, "GroundShock", 20, 1.0),
     ("LeapSlam", 5, "DustBrown", 6, 0.9),
     ("Slam", 5, "GroundShock", 18, 0.9),
@@ -86,6 +86,12 @@ def fit(pts):
 def arc_shape(fr, f0, f1, sgn):
     pts, swept = tip_path(fr, f0, f1, sgn)
     cx, cy, r = fit(pts)
+    if f1 - f0 == 1:
+        # 키 포즈 2장 사이(규격 시험 10-29): 손이 크게 옮겨 가 원 맞춤이 몸 밖으로 튄다 → 두 손의 가운데를 중심, 칼끝까지 평균 거리를 반지름
+        hx = sum(fr[k]["hand"][0] for k in (f0, f1)) / 2 - CX
+        hy = CY - sum(fr[k]["hand"][1] for k in (f0, f1)) / 2
+        cx, cy = hx, hy
+        r = sum(math.hypot(x - cx, y - cy) for x, y in pts) / len(pts)
     r = min(max(r, 16.0), 34.0)  # 손 위치 흔들림으로 원이 너무 작거나 커지지 않게
     tx, ty = pts[-1]
     head = math.degrees(math.atan2(ty - cy, tx - cx))

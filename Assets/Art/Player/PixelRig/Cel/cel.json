@@ -1356,167 +1356,62 @@
    {
     "png": "GreatDown_0",
     "hand": [
-     44,
-     26
+     27,
+     28
     ],
     "handB": [
      49,
      43
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.06,
-    "angle": 75.0
+    "time": 0.2,
+    "angle": 150.0
    },
    {
     "png": "GreatDown_1",
     "hand": [
-     25,
-     29
+     33,
+     24
     ],
     "handB": [
      49,
      43
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
     "time": 0.12,
-    "angle": 170.0
+    "angle": 95.0
    },
    {
     "png": "GreatDown_2",
     "hand": [
-     26,
-     26
-    ],
-    "handB": [
-     49,
+     57,
      43
     ],
-    "dy": -1,
+    "handB": [
+     56,
+     44
+    ],
+    "dy": 0,
     "sx": 0,
-    "time": 0.09,
-    "angle": 165.0
+    "time": 0.22,
+    "angle": -25.0
    },
    {
     "png": "GreatDown_3",
     "hand": [
-     29,
-     24
-    ],
-    "handB": [
-     24,
-     31
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.09,
-    "angle": 160.0
-   },
-   {
-    "png": "GreatDown_4",
-    "hand": [
-     54,
-     39
-    ],
-    "handB": [
-     31,
-     46
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.07,
-    "angle": -50.0
-   },
-   {
-    "png": "GreatDown_5",
-    "hand": [
-     54,
-     42
-    ],
-    "handB": [
-     55,
-     43
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.09,
-    "angle": -56.0
-   },
-   {
-    "png": "GreatDown_6",
-    "hand": [
-     53,
-     45
-    ],
-    "handB": [
-     32,
-     46
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.09,
-    "angle": -62.0
-   },
-   {
-    "png": "GreatDown_7",
-    "hand": [
-     48,
-     44
-    ],
-    "handB": [
      47,
-     44
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.1,
-    "angle": -61.0
-   },
-   {
-    "png": "GreatDown_8",
-    "hand": [
-     43,
-     43
-    ],
-    "handB": [
-     43,
-     43
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.1,
-    "angle": -60.0
-   },
-   {
-    "png": "GreatDown_9",
-    "hand": [
-     40,
      42
     ],
     "handB": [
-     40,
-     41
+     45,
+     43
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.1,
-    "angle": -40.0
-   },
-   {
-    "png": "GreatDown_10",
-    "hand": [
-     38,
-     41
-    ],
-    "handB": [
-     48,
-     41
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.11,
-    "angle": -20.0
+    "time": 0.16,
+    "angle": -35.0
    }
   ]
  },

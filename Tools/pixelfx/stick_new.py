@@ -161,6 +161,29 @@ MOTIONS.update({
 })
 
 
+def two_hand(hip, lean, ra, rf, sword, gap=3.0):
+    """양손 무기 보조손(규격 §1-5): 반대 팔(la, lf)이 주손에서 칼 방향으로 gap px 위 손잡이를 잡도록 2관절 IK. 팔꿈치는 아래쪽으로 굽힌다."""
+    import math
+    from skel_pose import FORE, NECK_UP, SHOULDER_W, UPPER, p as pt
+    neck = pt(hip, 90 - lean, NECK_UP)
+    rsh, lsh = (neck[0] - SHOULDER_W, neck[1] + 2), (neck[0] + SHOULDER_W, neck[1] + 2)
+    hand = pt(pt(rsh, ra, UPPER), rf, FORE)
+    tgt = pt(hand, sword, gap)
+    dx, dy = tgt[0] - lsh[0], -(tgt[1] - lsh[1])  # y 위로
+    d = max(abs(UPPER - FORE) + 0.1, min(UPPER + FORE - 0.1, math.hypot(dx, dy)))
+    base = math.degrees(math.atan2(dy, dx))
+    a = math.degrees(math.acos((UPPER ** 2 + d ** 2 - FORE ** 2) / (2 * UPPER * d)))
+    up = base - a  # 팔꿈치 아래쪽
+    el = (lsh[0] + UPPER * math.cos(math.radians(up)), lsh[1] - UPPER * math.sin(math.radians(up)))
+    fore = math.degrees(math.atan2(-(tgt[1] - el[1]), tgt[0] - el[0]))
+    return (round(up, 1), round(fore, 1))
+
+
+def k2(hip, lean, ra, rf, legs4, sword):
+    """양손 무기 키: 반대 팔을 two_hand 로 채운 키 튜플."""
+    return ((hip, lean, ra, rf) + two_hand(hip, lean, ra, rf, sword) + legs4 + (sword,))
+
+
 def legs(front, back):
     """관절표(Docs/MotionBodyTable.md) 다리 → 스켈레톤 각도. front/back = (보폭 px, 무릎 굽힘 °). 앞다리 = L, 뒷다리 = R(LUNGE 와 같은 배치)."""
     fs, fb = front
@@ -416,6 +439,21 @@ MOTIONS.update({
             (((40, 44), -3, -120, 0, -18, -2) + GUN_LEGS + (0,), 2),
         ], [(((40.5, 44), 0, -40, 0, -40, 0) + legs((3, 15), (3, 15)) + (-30,), 2), (IDLE_AT(40.5), 2)]],
         "times": [80, 110, 100, 140, 60, 90, 130, 60, 90, 140, 100, 100, 110, 110],
+    },
+})
+
+
+# 규격 시험(10-29, MotionSpec39 확정): 키 포즈만 4장, 사이 프레임 없음 — 유지 시간으로 완급(45/10/45, 0.70초). 무기 끝부터: 준비 = 머리 뒤 위(125°), 타격 = 앞(−10°), 끝 = 앞 아래 땅 근처(−65°)
+MOTIONS.update({
+    "S1_A4_GreatDown": {
+        "ref": board_ref("A4", 3), "cur": "GreatDown",
+        # 메이플 swingT1(뒤로 감기 → 머리 위 세움 → 낮게 깊이) + 림버스 A4 줄 3(압축된 착지). 보조손은 two_hand IK 로 손잡이에. 타격은 사이 프레임 없이 넘어가고 스미어가 메운다
+        "keys": [IDLEK, [
+            (k2((39.5, 44), -12, 165, 110, legs((4, 25), (5, 30)), 150), 1),   # 감기: 두 손 머리 뒤 어깨 높이, 칼끝 뒤 위
+            (k2((40, 44), -18, 80, 95, legs((4, 25), (5, 30)), 95), 1),        # 세움: 두 손 머리 위, 칼 수직
+            (k2((43.5, 46), 40, -30, -35, DEEP_LUNGE, -25), 1),               # 타격·끝: 깊은 런지, 두 손 허리 앞, 칼 앞 아래 거의 수평
+        ], [(k2((43.5, 44), 10, -80, -40, legs((4, 25), (4, 25)), -35), 1)]],  # 회복
+        "times": [200, 120, 220, 160],
     },
 })
 
