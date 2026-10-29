@@ -13,16 +13,16 @@ PixelRig.MotionFxEnabled = true;
 var jobs = new (string name, string r, string l, PixelRampId ramp, (string, float)[] seq, (int, float, VfxId, float, float, float)[] fx)[] {
     ("블러드 헌터", "TmpCutlass", "TmpPistol", PixelRampId.Red,
         new (string, float)[] { ("JBH_GreatSideOne", 0.92f), ("JBH_SwordPistol", 0.96f), ("JBH_Backstep", 0.92f) },
-        new (int, float, VfxId, float, float, float)[] { (0, 0.27f, VfxId.WHit7, 24f, 14f, 0.9f), (1, 0.21f, VfxId.BurstRed, 1009f, 1f, 0.16f), (1, 0.24f, VfxId.SmokeGray, 1010f, 2f, 0.18f), (1, 0.46f, VfxId.BurstRed, 1009f, 1f, 0.16f), (1, 0.49f, VfxId.SmokeGray, 1010f, 2f, 0.18f), (2, 0.05f, VfxId.DustBrown, 4f, 0f, 0.5f) }),
+        new (int, float, VfxId, float, float, float)[] { (0, 0.27f, VfxId.WHit7, 24f, 14f, 0.9f), (0, 0.29f, VfxId.BurstRed, 26f, 14f, 0.3f), (1, 0.21f, VfxId.BurstRed, 1009f, 1f, 0.16f), (1, 0.24f, VfxId.SmokeGray, 1010f, 2f, 0.18f), (1, 0.46f, VfxId.BurstRed, 1009f, 1f, 0.16f), (1, 0.49f, VfxId.SmokeGray, 1010f, 2f, 0.18f), (2, 0.05f, VfxId.DustBrown, 4f, 0f, 0.5f) }),
     ("사령술사", "TmpEyeStaff", "", PixelRampId.Purple,
         new (string, float)[] { ("JNC_Cast", 1.0f), ("JNC_Charge", 1.37f), ("JNC_Raise", 1.24f) },
-        new (int, float, VfxId, float, float, float)[] { (0, 0.35f, VfxId.BurstPurple, 34f, 20f, 0.45f), (1, 0.1f, VfxId.RunePurple, 0f, -2f, 0.6f), (1, 0.8f, VfxId.SmokePurple, 0f, 8f, 0.5f), (2, 0.35f, VfxId.RunePurple, 34f, -2f, 0.6f), (2, 0.6f, VfxId.SmokePurple, 34f, 6f, 0.6f), (2, 0.65f, VfxId.PillarPurple, 34f, 0f, 0.4f) }),
+        new (int, float, VfxId, float, float, float)[] { (0, 0.35f, VfxId.BurstPurple, 34f, 20f, 0.45f), (1, 0.1f, VfxId.RunePurple, 0f, -2f, 0.6f), (1, 0.8f, VfxId.SmokePurple, 0f, 8f, 0.5f), (2, 0.35f, VfxId.RunePurple, 34f, -2f, 0.6f), (2, 0.6f, VfxId.SmokePurple, 34f, 6f, 0.6f), (2, 0.8f, VfxId.SmokePurple, 30f, 14f, 0.5f), (2, 0.95f, VfxId.SmokePurple, 38f, 10f, 0.45f) }),
     ("기계공학자", "TmpHammer", "", PixelRampId.Gold,
         new (string, float)[] { ("JEN_GreatDown", 1.05f), ("JEN_Throw", 0.99f), ("JEN_Place", 0.98f) },
-        new (int, float, VfxId, float, float, float)[] { (0, 0.5f, VfxId.GroundShock, 26f, 0f, 0.8f), (0, 0.5f, VfxId.DustStone, 26f, 0f, 0.8f), (1, 0.75f, VfxId.BurstRed, 60f, 4f, 0.7f), (1, 0.78f, VfxId.SmokeGray, 60f, 6f, 0.6f), (2, 0.45f, VfxId.RuneGold, 26f, -2f, 0.6f), (2, 0.5f, VfxId.DustStone, 26f, 0f, 0.6f) }),
+        new (int, float, VfxId, float, float, float)[] { (0, 0.5f, VfxId.GroundShock, 26f, 0f, 0.8f), (0, 0.5f, VfxId.DustStone, 26f, 0f, 0.8f), (1, 0.75f, VfxId.BurstRed, 60f, 4f, 0.7f), (1, 0.78f, VfxId.SmokeGray, 60f, 6f, 0.6f), (2, 0.45f, VfxId.DustStone, 26f, 0f, 0.6f), (2, 0.5f, VfxId.WHit7, 26f, 6f, 0.45f), (2, 0.62f, VfxId.WHit7, 30f, 10f, 0.35f), (2, 0.7f, VfxId.SmokeGray, 26f, 8f, 0.35f) }),
     ("암살자", "TmpDagger", "TmpDagger", PixelRampId.Red,
         new (string, float)[] { ("JAS_DaggerCross", 0.93f), ("JAS_Throw", 0.99f), ("JAS_Backstep", 0.92f) },
-        new (int, float, VfxId, float, float, float)[] { (0, 0.3f, VfxId.WHit7, 24f, 14f, 0.9f), (1, 0.6f, VfxId.WHit7, 60f, 16f, 0.6f), (2, 0.05f, VfxId.SmokeGray, 0f, 10f, 0.6f) }),
+        new (int, float, VfxId, float, float, float)[] { (0, 0.3f, VfxId.WHit7, 24f, 14f, 0.9f), (0, 0.32f, VfxId.BurstRed, 26f, 14f, 0.25f), (1, 0.6f, VfxId.WHit7, 60f, 16f, 0.6f), (1, 0.62f, VfxId.BurstRed, 60f, 16f, 0.2f), (2, 0.05f, VfxId.SmokeGray, 0f, 10f, 0.6f) }),
 };
 var idles = new[] { "JBH_Idle", "JNC_Idle", "JEN_Idle", "JAS_Idle" };
 // 히트스톱·흔들림(GPT 2차 리뷰 "무기군별 히트스톱·무게감으로 전투 맛을 달리") — (직업 번호, 동작 번호, 동작 시작 후 초, 멈춤 초, 흔들림 px)
