@@ -26,6 +26,8 @@ CHARS = [("블러드 헌터", "커틀러스+권총 · 한손 수평 → 검 든 
 def main():
     global SRC, JOBS
     out = sys.argv[1]
+    if len(sys.argv) > 2 and sys.argv[2] == "transforms":  # 변신형 시제품(capture_transforms.cs)
+        SRC, JOBS = "Logs/playtest/transforms", [("변신: 메카 슈트", "주먹 → 내려찍기 → 어깨 포격"), ("변신: 골렘", "주먹 → 내려찍기 → 몸통 박치기")]
     if len(sys.argv) > 2 and sys.argv[2] == "chars":  # 사용자 지정 외형 4직업(capture_job_chars.cs)
         SRC, JOBS = "Logs/playtest/final_chars", CHARS
     os.makedirs(out, exist_ok=True)

@@ -112,7 +112,7 @@ foreach (var j in jobs)
     for (int k = 0; k < frames; k++)
     {
         int kk = k;
-        DG.Tweening.DOVirtual.DelayedCall(t + 0.06f + kk / 30f, () =>
+        DG.Tweening.DOVirtual.DelayedCall(t + 0.12f + kk / 30f, () =>
         {
             var go = new GameObject("VidCam"); var cam = go.AddComponent<Camera>(); cam.orthographic = true; cam.orthographicSize = 1.6f;
             cam.clearFlags = CameraClearFlags.SolidColor; cam.backgroundColor = new Color(0.13f, 0.15f, 0.19f, 1f);
