@@ -20,7 +20,7 @@ var list = new (string anim, string r, string l)[] {
     ("Backstep","DoubleDagger","DoubleDagger"), ("Punch","Rleatherknuckles","Lleatherknuckles"), ("Iaido","TmpKatana",""),
     ("ShoulderAim","TmpCannon",""), ("Raise","LeafStaff",""), ("Place","",""), ("Kick","Rleatherknuckles","Lleatherknuckles"),
     ("Grab","",""), ("Ride","Wood Spear",""), ("Knockdown","ShortSword",""), ("ShieldBash","ShortSword","WoodShield"),
-    ("Slam","",""), ("Pull","TmpHook",""),
+    ("Slam","",""), ("Pull","TmpHook",""), ("LowSweep","Wood Spear",""), ("GreatUpper","SacreGreatSword",""), ("DashSlash","ShortSword",""), ("WhipSnap","TmpHook",""), ("Roundhouse","Rleatherknuckles","Lleatherknuckles"), ("Sheathe","TmpKatana",""), ("DownThrust","ShortSword",""),
 };
 var basic = new System.Collections.Generic.Dictionary<string, VfxId> { { "Stab", VfxId.WSmearStab }, { "SwingDown", VfxId.WSmearDown }, { "SwingUp", VfxId.WSmearUp } };
 var temps = new System.Collections.Generic.List<GameObject>();
