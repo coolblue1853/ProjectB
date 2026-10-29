@@ -20,8 +20,10 @@ public static class MotionVariants
         public readonly bool loop;
         /// <summary>to → from 으로 거꾸로(납도 = 발도 역재생)</summary>
         public readonly bool reverse;
+        /// <summary>이 프레임 구간(포함)은 리그를 좌우 반전 — 몸이 한 바퀴 도는 것처럼(전신 회전베기). -1 = 없음</summary>
+        public readonly int flipFrom, flipTo;
 
-        public Variant(string name, string baseCel, float speed, int from = 0, int to = -1, int hold = -1, bool loop = false, bool reverse = false)
+        public Variant(string name, string baseCel, float speed, int from = 0, int to = -1, int hold = -1, bool loop = false, bool reverse = false, int flipFrom = -1, int flipTo = -1)
         {
             this.name = name;
             this.baseCel = baseCel;
@@ -31,6 +33,13 @@ public static class MotionVariants
             this.hold = hold;
             this.loop = loop;
             this.reverse = reverse;
+            this.flipFrom = flipFrom;
+            this.flipTo = flipTo;
+        }
+
+        public bool FlipAt(int frame)
+        {
+            return flipFrom >= 0 && frame >= flipFrom && frame <= flipTo;
         }
 
         /// <summary>재생 경과 시간 → 기본 셀 프레임 번호</summary>
@@ -75,7 +84,8 @@ public static class MotionVariants
         new Variant("LeapSlam", "AirSlash", 0.9f),                       // 도약 내려찍기 = 점프 + 공중 베기
         new Variant("Grab", "Pull", 1f),                                 // 잡기 = 당기기
         new Variant("Sheathe", "Iaido", 0.5f, 0, 7, reverse: true),      // 납도 = 발도(뽑아 벤 자세 7 → 칼집 0) 천천히 역재생(10-29 사용자 예시)
-        new Variant("DownThrust", "AirSlash", 1f, 8, 8, hold: 8),        // 공중 아래 찌르기 = 공중 베기 끝 자세(칼 아래)를 떨어지는 동안 유지
+        new Variant("DownThrust", "AirSlash", 1f, 8, 8, hold: 8),
+        new Variant("Whirl", "GreatSide", 1.1f, flipFrom: 4, flipTo: 6),  // A23 전신 회전베기 = 양손 수평을 재생하며 지나가는 구간(4~6)만 좌우 반전(뒤돈 몸) — MotionGapSurvey        // 공중 아래 찌르기 = 공중 베기 끝 자세(칼 아래)를 떨어지는 동안 유지
     };
 
     public static Variant Find(string name)

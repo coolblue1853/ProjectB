@@ -19,7 +19,7 @@ NAMES = {
     "Guard": "A14 막기 · 검+방패", "Charge": "A15 모으기·가슴 펴기", "LeapSlam": "A16→공중 베기(재생 프로파일)", "Backstep": "A17 백스텝 · 쌍단검",
     "Punch": "A18 주먹 · 너클", "Iaido": "A19 발도 · 카타나", "ShoulderAim": "R1 견착 · 대포", "Raise": "R2 양손 들기 · 지팡이",
     "Place": "R6 웅크려 놓기", "Kick": "R7 발차기", "Grab": "R3→당기기(재생 프로파일)", "Ride": "R4 탈것 · 창", "Knockdown": "R5 넘어짐",
-    "ShieldBash": "R8 방패 밀치기", "Slam": "R9→양손 내려찍기(재생 프로파일)", "Pull": "R10 당기기 · 사슬낫", "LowSweep": "A24 하단 쓸기(새)", "GreatUpper": "A25 양손 올려치기(새)", "DashSlash": "A26 돌진 횡베기(새)", "WhipSnap": "A27 채찍 스냅(새)", "Roundhouse": "R11 돌려차기(새)", "Sheathe": "납도(발도 역재생)", "DownThrust": "공중 아래 찌르기(공중 베기 정지)",
+    "ShieldBash": "R8 방패 밀치기", "Slam": "R9→양손 내려찍기(재생 프로파일)", "Pull": "R10 당기기 · 사슬낫", "LowSweep": "A24 하단 쓸기(새)", "GreatUpper": "A25 양손 올려치기(새)", "DashSlash": "A26 돌진 횡베기(새)", "WhipSnap": "A27 채찍 스냅(새)", "Roundhouse": "R11 돌려차기(새)", "Sheathe": "납도(발도 역재생)", "Whirl": "A23 전신 회전베기(수평 + 좌우 반전)", "DownThrust": "공중 아래 찌르기(공중 베기 정지)",
 }
 
 

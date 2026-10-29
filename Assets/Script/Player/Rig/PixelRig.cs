@@ -540,6 +540,14 @@ public class PixelRig : CharacterRig
                 : cel.IndexAt(_time + (c.name == "Walk" ? WalkStartFrame * cel.frame : 0f));
         }
         ShowCel(true);
+        // 전신 회전 구간: 리그를 좌우 반전(몸·무기·주먹이 함께 뒤집혀 뒤돈 것처럼), 끝나면 원래대로
+        bool flip = _variant != null && _diedAt < 0f && cel.name == _variant.baseCel && _variant.FlipAt(i);
+        Vector3 ls = transform.localScale;
+        if ((ls.x < 0f) != flip)
+        {
+            ls.x = -ls.x;
+            transform.localScale = ls;
+        }
         MotionFx(cel, i);
         _cel.sprite = _celComposite.TryGetValue(cel.name, out Sprite[] comp) && i < comp.Length && comp[i] != null ? comp[i] : cel.sprites[i];
         if (_celFist != null)
