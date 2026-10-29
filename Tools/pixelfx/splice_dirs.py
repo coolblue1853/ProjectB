@@ -18,8 +18,9 @@ SPLICE = {
               ("ThrowNE", "D_ThrowNE", 2, 90, .03, False), "3", "4", "5", "6", "7", "8", "9", "10", "11", "13"],
     "GreatUpper": ["0", "1", ("UpperNE", "D_UpperNE", 0, -178, .1, True), ("UpperNE", "D_UpperNE", 1, -174, .18, True),
                    ("UpperNE", "D_UpperNE", 2, -160, .05, True), "4", "5", "6", "7", "8", "9", "10", "11", "13"],
-    "Pull": ["0", "1", "2", "3", "4", "5", ("PullS", "D_PullS", 0, 5, .06, False), ("PullS", "D_PullS", 1, 10, .15, False),
-             ("PullS", "D_PullS", 2, 15, .1, False), "8", "9", "10", "11", "13"],
+    # GPT 46동작 리뷰 "내미는 것처럼 보인다" → 던져 거는 앞부분은 빠르게, 정면으로 버텨 당기는 뒷부분을 길게
+    "Pull": ["0", "1", ("2", .06), ("3", .04), "4", "5", ("PullS", "D_PullS", 0, 5, .08, False), ("PullS", "D_PullS", 1, 10, .2, False),
+             ("PullS", "D_PullS", 2, 15, .16, False), "8", "9", "10", "11", "13"],
     "Raise": ["0", "1", "2", "3", "4", ("RaiseS", "D_RaiseS", 0, 60, .05, False), ("RaiseS", "D_RaiseS", 1, 85, .05, False),
               ("RaiseS", "D_RaiseS", 2, 90, .35, False), "12", "13"],
     "ShieldBash": ["0", "1", ("BashNE", "D_BashNE", 0, -100, .05, False), ("BashNE", "D_BashNE", 1, -100, .12, False),
