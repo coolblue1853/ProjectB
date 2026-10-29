@@ -22,7 +22,7 @@ var jobs = new (string name, string r, string l, PixelRampId ramp, (string, floa
         // GPT 리뷰: 수직 광선은 마법처럼 읽힌다 → 빼고 물보라·돌 파편·지면 충격(중량 무기)
         new (int, float, VfxId, float, float, float)[] { (0, 0.5f, VfxId.GroundShock, 26f, 0f, 0.8f), (0, 0.5f, VfxId.DustStone, 26f, 0f, 0.9f), (0, 0.52f, VfxId.BurstBlue, 26f, 4f, 0.45f), (1, 0.45f, VfxId.BurstBlue, 26f, 10f, 0.35f), (2, 0.6f, VfxId.DustStone, 22f, 0f, 0.7f), (2, 0.62f, VfxId.BurstBlue, 26f, 26f, 0.35f), (3, 0.4f, VfxId.DustBrown, -4f, 0f, 0.7f) }),
     ("마도학자", "TmpEyeStaff", "TmpTome", PixelRampId.Purple,
-        new (string, float)[] { ("Cast", 1.0f), ("Charge", 1.37f), ("Raise", 0.95f), ("Victory", 0.9f) },
+        new (string, float)[] { ("Cast", 1.0f), ("Charge", 1.12f), ("Raise", 0.95f), ("Victory", 0.9f) },
         // GPT 리뷰: 몸·얼굴을 가리지 말 것 — 시전은 지팡이 끝 앞, 모으기 마법진은 발밑, 소환은 앞쪽 지면에 마법진 → 작은 기둥
         new (int, float, VfxId, float, float, float)[] { (0, 0.35f, VfxId.BurstPurple, 34f, 20f, 0.45f), (1, 0.1f, VfxId.RunePurple, 0f, -2f, 0.6f), (2, 0.3f, VfxId.RunePurple, 34f, -2f, 0.6f), (2, 0.5f, VfxId.PillarPurple, 34f, 0f, 0.5f), (2, 0.55f, VfxId.SmokePurple, 34f, 4f, 0.4f) }),
 };

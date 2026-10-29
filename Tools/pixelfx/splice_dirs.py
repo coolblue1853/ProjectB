@@ -36,6 +36,12 @@ SPLICE = {
                   ("FollowSE", "D_FollowSE", 0, -10, .06, True), ("FollowSE", "D_FollowSE", 1, -20, .1, True), "9", "10", "11", "13"],
     "GreatSideOne": ["0", "1", ("CoilNE", "D_CoilNE", 0, 190, .06, True), ("CoilNE", "D_CoilNE", 1, 195, .12, True), "3", "4", "5", "6",
                      ("FollowSE", "D_FollowSE", 0, -10, .08, True), ("FollowSE", "D_FollowSE", 1, -20, .1, True), "9", "10", "11", "13"],
+    # 쌍검 X 교차 정면(GPT D3) — 7번째 값 = 앞손 무기 각도(angleB, 10-30 채널)
+    "DaggerCross": ["0", "1", ("CrossS", "D_CrossS", 0, 135, .14, False, 45), ("3", .03), ("CrossS", "D_CrossS", 1, -135, .04, False, -45),
+                    ("CrossS", "D_CrossS", 2, -40, .22, False, -140), "9", "10", "11"],
+    # 모으기(마도학자): 정면으로 두 팔 엇갈려 웅크림 → 활짝 펼침 — 시전(측면)·소환(정면 V)과 몸 자세 구별(GPT 2차)
+    "Charge": ["0", "1", ("ChargeS", "D_ChargeS", 0, 120, .12, False), ("ChargeS", "D_ChargeS", 1, 120, .25, False),
+               ("ChargeS", "D_ChargeS", 2, 60, .33, False), "9", "10", "11", "12", "13"],
     # 새 셀: 춤(N3)·악기(N2, 생성기가 류트를 그림 — 현악기 전용)
     "Dance": [("DanceS", "D_DanceS", i, 0, .15, False) for i in range(4)],
     "Lute": [("LuteSE", "D_LuteSE", i, 30, .12, False) for i in range(3)],
@@ -62,8 +68,9 @@ def main():
             reg[cel + "_side"] = reg[cel]
         out = {"frames": [], "hand": [], "handB": [], "angle": [], "times": [], "behind": []}
         for it in items:
-            if isinstance(it, tuple) and len(it) == 6:
-                folder, kname, i, ang, t, back = it
+            if isinstance(it, tuple) and len(it) >= 6:
+                folder, kname, i, ang, t, back = it[:6]
+                out.setdefault("angleB", [-999.0] * len(out["frames"])).append(it[6] if len(it) > 6 else -999.0)
                 out["frames"].append(f"m41/dirs/{folder}/{i}")
                 out["hand"].append(joint(keys, kname, i, "RIGHT ARM"))
                 out["handB"].append(joint(keys, kname, i, "LEFT ARM"))
@@ -81,6 +88,8 @@ def main():
             out["angle"].append(base["angle"][k])
             out["times"].append(base["times"][k] if t is None else t)
             out["behind"].append(False)
+            if "angleB" in out:
+                out["angleB"].append(-999.0)
         out["motion"] = f"splice_dirs({cel})"
         if cel in LOOP:
             out["loop"] = True

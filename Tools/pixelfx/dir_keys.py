@@ -137,6 +137,16 @@ MOTIONS = {
         ("se", {"RIGHT SHOULDER": (39, 38), "RIGHT ARM": (47, 43), "LEFT ARM": (43, 46), "RIGHT LEG": (30, 52), "LEFT LEG": (49, 52), "shift": (2, 3)}, -20),
         ("se", {"RIGHT SHOULDER": (38, 37), "RIGHT ARM": (45, 43), "LEFT ARM": (42, 45), "RIGHT LEG": (31, 52), "LEFT LEG": (48, 52), "shift": (1, 2)}, -25),
     ],
+    "D_CrossS": [    # 교차 베기(쌍검) 정면 X(GPT D3): 두 손 머리 양옆 위로 엇갈려 → 가슴 앞에서 X 로 내려 벰 → 양옆 아래로 벌림
+        ("south", {"RIGHT ARM": (37, 30), "LEFT ARM": (27, 30), "LEFT LEG": (25, 52), "RIGHT LEG": (39, 52), "shift": (0, -1)}, 135),
+        ("south", {"RIGHT ARM": (29, 41), "LEFT ARM": (35, 41), "LEFT LEG": (24, 52), "RIGHT LEG": (40, 52), "shift": (0, 2)}, -135),
+        ("south", {"RIGHT ARM": (42, 45), "LEFT ARM": (22, 45), "LEFT LEG": (24, 52), "RIGHT LEG": (40, 52), "shift": (0, 2)}, -40),
+    ],
+    "D_ChargeS": [   # 모으기(마도학자): 정면, 두 팔을 가슴 앞에 엇갈려 웅크림 → 아래로 활짝 펼침(시전·소환과 몸 자세가 달라 보이게 — GPT 2차)
+        ("south", {"RIGHT ARM": (29, 38), "LEFT ARM": (35, 38), "LEFT LEG": (26, 52), "RIGHT LEG": (38, 52), "shift": (0, 2)}, 120),
+        ("south", {"RIGHT ARM": (30, 37), "LEFT ARM": (34, 37), "LEFT LEG": (26, 52), "RIGHT LEG": (38, 52), "shift": (0, 3)}, 120),
+        ("south", {"RIGHT ARM": (44, 43), "LEFT ARM": (20, 43), "LEFT LEG": (24, 52), "RIGHT LEG": (40, 52), "shift": (0, -1)}, 60),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 
