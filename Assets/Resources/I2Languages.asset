@@ -6023,6 +6023,110 @@ MonoBehaviour:
       - "\uB053\uC5B4 \uB118\uCCD0 \uD0D4\uB2E4!"
       Flags: 0000
       Languages_Touch: []
+    - Term: Precision forging
+      TermType: 0
+      Description: 
+      Languages:
+      - Precision forging
+      - "\uC815\uBC00 \uB2E8\uC870"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forging up to +{0} p
+      TermType: 0
+      Description: 
+      Languages:
+      - Forging up to +{0}%p
+      - "\uB2E8\uC870\uB85C \uCD5C\uB300 +{0}%p"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pity +{0} p
+      TermType: 0
+      Description: 
+      Languages:
+      - Pity +{0}%p
+      - "\uCC9C\uC7A5 +{0}%p"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Refund {0} crystals
+      TermType: 0
+      Description: 
+      Languages:
+      - Refund {0} crystals
+      - "\uACB0\uC815 {0}\uAC1C \uBC18\uD658"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forge score {0}
+      TermType: 0
+      Description: 
+      Languages:
+      - Forge score {0}
+      - "\uB2E8\uC870 \uC810\uC218 {0}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Crystal refund on 9
+      TermType: 0
+      Description: 
+      Languages:
+      - Crystal refund on 9
+      - "9\uC810\uC774\uBA74 \uC2E4\uD328 \uC2DC \uACB0\uC815 \uBC18\uD658"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hit with ATTACK BACK cancel
+      TermType: 0
+      Description: 
+      Languages:
+      - Hit with ATTACK    BACK cancel
+      - "\uACF5\uACA9 \uD0A4\uB85C \uD0C0\uACA9    \uB4A4\uB85C \uCDE8\uC18C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: HAMMER!
+      TermType: 0
+      Description: 
+      Languages:
+      - HAMMER!
+      - "\uB9DD\uCE58\uC9C8!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PERFECT
+      TermType: 0
+      Description: 
+      Languages:
+      - PERFECT
+      - "\uC644\uBCBD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GREAT
+      TermType: 0
+      Description: 
+      Languages:
+      - GREAT
+      - "\uD6CC\uB96D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GOOD
+      TermType: 0
+      Description: 
+      Languages:
+      - GOOD
+      - "\uC88B\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MISS
+      TermType: 0
+      Description: 
+      Languages:
+      - MISS
+      - "\uBE57\uB098\uAC10"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FALL
+      TermType: 0
+      Description: 
+      Languages:
+      - FALL
+      - "\uCD94\uB77D"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

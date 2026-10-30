@@ -47,7 +47,12 @@ public static class EnhanceRules
     /// <summary>무기 데미지 배율: 단계당 +4%, +5·+10 달성 시 각각 +10% (최대 1.6)</summary>
     public static float WeaponMultiplier(int level)
     {
-        return 1f + Bonus(level, 0.04f);
+        float b = Bonus(level, 0.04f);
+        if (level >= AdvancedEnhanceRules.MaxLevel)
+        {
+            b += 0.1f; // +15 달성 추가 보너스(무기만, FloorCoreContent 4.1)
+        }
+        return 1f + b;
     }
 
     /// <summary>방어구·장신구 수치 배율: 단계당 +5%, +5·+10 달성 시 각각 +10% (최대 1.7)</summary>
@@ -62,9 +67,9 @@ public static class EnhanceRules
         {
             return 0f;
         }
-        if (level > MaxLevel)
+        if (level > AdvancedEnhanceRules.MaxLevel)
         {
-            level = MaxLevel;
+            level = AdvancedEnhanceRules.MaxLevel; // +11~+15 도 단계당 같은 비율로 이어진다
         }
         float b = level * perLevel;
         if (level >= 5)

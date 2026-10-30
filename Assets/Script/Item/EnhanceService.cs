@@ -16,6 +16,29 @@ public static class EnhanceService
 
     public enum Check { Ok, MaxLevel, NoStones, NoGold, NotEquipment }
 
+    /// <summary>마지막 시도에서 돌려받은 결정 수(정밀 단조 9점 실패)와 적용된 최종 성공률(0~1, 고급 구간만)</summary>
+    /// <summary>고급 강화 난수 공급원(0~1). 프로브·테스트가 고정값으로 바꾼다</summary>
+    public static System.Func<float> Rng = () => Random.value;
+
+    public static int LastRefund { get; private set; }
+    public static float LastRate { get; private set; }
+
+    /// <summary>현재 단계에서 더 올릴 수 있는가: +10 이하는 기존 규칙, +10~+14 는 해금 비트가 있어야 한다</summary>
+    public static bool CanEnhance(int level)
+    {
+        return AdvancedEnhanceRules.IsAdvanced(level) ? ForgeState.IsUnlocked(level) : EnhanceRules.CanEnhance(level);
+    }
+
+    public static int StonesFor(int level)
+    {
+        return AdvancedEnhanceRules.IsAdvanced(level) ? AdvancedEnhanceRules.Stones(level) : EnhanceRules.Stones(level);
+    }
+
+    public static int GoldFor(int level)
+    {
+        return AdvancedEnhanceRules.IsAdvanced(level) ? AdvancedEnhanceRules.Gold(level) : EnhanceRules.Gold(level);
+    }
+
     public static Check CanTry(ItemCheck item)
     {
         if (item == null || item.itemData == null || item.itemData.type != "Equip")
@@ -23,15 +46,15 @@ public static class EnhanceService
             return Check.NotEquipment;
         }
         int lv = item.itemData.upgrade;
-        if (!EnhanceRules.CanEnhance(lv))
+        if (!CanEnhance(lv))
         {
             return Check.MaxLevel;
         }
-        if (InventoryManager.instance.CountItem(EnhanceRules.StoneName) < EnhanceRules.Stones(lv))
+        if (InventoryManager.instance.CountItem(EnhanceRules.StoneName) < StonesFor(lv))
         {
             return Check.NoStones;
         }
-        if (DatabaseManager.money < EnhanceRules.Gold(lv))
+        if (DatabaseManager.money < GoldFor(lv))
         {
             return Check.NoGold;
         }
@@ -39,7 +62,7 @@ public static class EnhanceService
     }
 
     /// <returns>결과. Check가 Ok가 아니면 MaxLevel/Fail 대신 null 의미로 false 반환</returns>
-    public static bool TryEnhance(ItemCheck item, out EnhanceRules.Result result, out int newLevel)
+    public static bool TryEnhance(ItemCheck item, out EnhanceRules.Result result, out int newLevel, int forgeScore = 0)
     {
         result = EnhanceRules.Result.Fail;
         newLevel = item != null && item.itemData != null ? item.itemData.upgrade : 0;
@@ -51,11 +74,21 @@ public static class EnhanceService
             return false;
         }
         int lv = item.itemData.upgrade;
-        InventoryManager.instance.DeletItemByName(EnhanceRules.StoneName, EnhanceRules.Stones(lv));
-        DatabaseManager.money -= EnhanceRules.Gold(lv);
+        InventoryManager.instance.DeletItemByName(EnhanceRules.StoneName, StonesFor(lv));
+        DatabaseManager.money -= GoldFor(lv);
 
         int streak = FailStreak;
-        result = EnhanceRules.Roll(lv, Random.value, streak, out newLevel);
+        bool advanced = AdvancedEnhanceRules.IsAdvanced(lv);
+        LastRefund = 0;
+        LastRate = 0f;
+        if (advanced)
+        {
+            result = RollAdvanced(lv, forgeScore, out newLevel);
+        }
+        else
+        {
+            result = EnhanceRules.Roll(lv, Random.value, streak, out newLevel);
+        }
         InventoryService service = InventoryManager.instance.Service;
         if (service.IndexOf(item) < 0)
         {
@@ -65,7 +98,10 @@ public static class EnhanceService
         {
             GameLog.Warn(GameLog.Cat.Item, "강화 수치 반영 실패(모델 거절): " + item.name);
         }
-        FailStreak = result == EnhanceRules.Result.Success ? 0 : streak + 1;
+        if (!advanced) // +11 이상은 별도 천장(ForgeState.Pity)
+        {
+            FailStreak = result == EnhanceRules.Result.Success ? 0 : streak + 1;
+        }
 
         InventoryManager.instance.SaveInventory();
         Sfx.Play(result == EnhanceRules.Result.Success ? (newLevel >= 5 ? SfxId.EnhanceGreat : SfxId.EnhanceSuccess) : SfxId.EnhanceFail);
@@ -75,5 +111,27 @@ public static class EnhanceService
         }
         GameLog.Info(GameLog.Cat.Item, "강화 " + item.itemData.name + " +" + lv + " → +" + newLevel + " (" + result + ", 연속실패 " + FailStreak + ")");
         return true;
+    }
+
+    /// <summary>고급 강화 한 번: 단조 점수 반영 성공률로 굴리고, 천장 보조 갱신, 9점 실패 시 결정 반환. 실패는 단계 유지</summary>
+    static EnhanceRules.Result RollAdvanced(int lv, int forgeScore, out int newLevel)
+    {
+        int pity = ForgeState.Pity;
+        LastRate = AdvancedEnhanceRules.FinalRate(lv, pity, forgeScore);
+        bool ok = Rng() < LastRate;
+        if (ok)
+        {
+            newLevel = lv + 1;
+            ForgeState.Pity = 0;
+            return EnhanceRules.Result.Success;
+        }
+        newLevel = lv;
+        ForgeState.Pity = pity + 1;
+        int refund = AdvancedEnhanceRules.RefundStones(AdvancedEnhanceRules.Stones(lv), forgeScore);
+        if (refund > 0 && InventoryManager.instance.Service.Add(EnhanceRules.StoneName, refund, AddSource.Other))
+        {
+            LastRefund = refund;
+        }
+        return EnhanceRules.Result.Fail;
     }
 }

@@ -187,6 +187,14 @@
 
 - 없으면 기본값 0·빈 배열.
 
+### 구현 (10-30, 4층계 고급 강화 +11~+15·정밀 단조)
+- 코드 `Assets/Script/Item/`: `AdvancedEnhanceRules`(순수 표·천장·단조 점수·상한 90%) · `ForgeState`(ES3 공용 `forge.unlock` 비트 1/2/4/8·`forge.pity`, 공용 파일 `SaveFile.es3`) · `ForgeSession`(3타 판, 채집 `GatherRules` 커서 재사용) · `ForgeHammerView`(패널). `EnhanceService.TryEnhance(..., forgeScore)`·`EnhanceWindow` 가 연결. +10 이하 경로·수치·`enhanceFailStreak` 는 그대로.
+- 게이트: 비트 없으면 +10 이 상한(지금과 동일 "최대 강화 완료"). 목표 11·12=비트1, 13=2, 14=4, 15=8. 4층계 구역 개방 때 `ForgeState.Unlock(bit)` 호출만 하면 된다(맵 미구현).
+- 보너스: 무기 단계당 +4%·+15 추가 +10%(+15 = +90%), 방어구 단계당 +5%(+15 = +95%, 임시 가정 — 표의 "+75%" 는 +11~+15 구간 증가분으로 해석).
+- 정밀 단조: 강화 창에서 +10 이상 장비 선택 → 공격 키 3타(타당 3초 제한, 시간 초과=빗나감) → 끝나면 재료·골드 소모 후 굴림. ESC 는 소모 전까지 손실 없음. 9점 실패 시 결정 절반(올림) 반환.
+- 검증: EditMode 257/257(`AdvancedEnhanceRulesTests` 신규, +0~+10 회귀 포함). 플레이 `Tools/probes/forge_run.cs`: 비트 없음 CanTry=MaxLevel → 비트1 → 3타 완벽 9점, 실패(Rng 고정) 성공률 77%·결정 5 소모 3 반환(33→31)·골드 −1000·pity 1, 단조 0 실패 pity 2·환급 0, 성공 lv 10→11·pity 0·무기 배율 1.64. 스크린샷 `Logs/playtest/forge_panel.png`.
+- 미검증: 실제 공격 키 입력으로 3타(프로브는 세션 시뮬·패널은 시간 초과로만 확인), 4층계 맵 연동(비트는 디버그로만).
+
 ## 5. 구현 순서
 
 4층계·3층계 맵은 아직 없다. 맵이 없어도 만들 수 있는 **시스템을 먼저** 만들고, 해금은 `forge.unlock` 같은 플래그로 막아 둔다(디버그 프로브로 열어 검증).

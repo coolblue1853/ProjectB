@@ -291,7 +291,7 @@ public class GlideCourse : MonoBehaviour
         _time += dt;
         _grace -= dt;
         _label.transform.position = new Vector3(p.x, p.y + 3.8f, transform.position.z);
-        _label.text = _time.ToString("0.0") + "s  FALL " + _falls + "  " + _sentences + "/" + _marks.Count;
+        _label.text = _time.ToString("0.0") + "s  " + Loc.T("FALL") + " " + _falls + "  " + _sentences + "/" + _marks.Count;
 
         for (int i = 0; i < _zones.Count; i++)
         {
@@ -390,7 +390,7 @@ public class GlideCourse : MonoBehaviour
         {
             PickupLog.ReportFull();
         }
-        BossBanner.Show("Glide Course " + grade, _time.ToString("0.0") + "s  FALL " + _falls + "  " + (first ? "FIRST" : "REPEAT 50%") + (given ? "" : "  BAG FULL"), true);
+        BossBanner.Show("Glide Course " + grade, _time.ToString("0.0") + "s  " + Loc.T("FALL") + " " + _falls + "  " + (first ? "FIRST" : "REPEAT 50%") + (given ? "" : "  BAG FULL"), true);
         GameLog.Info(GameLog.Cat.Player, "활공 코스 완주 " + grade + " " + _time.ToString("0.0") + "s 추락 " + _falls + " 문장 " + _sentences + " 보상 " + count + (first ? " (첫 완주)" : " (반복)"));
     }
 }

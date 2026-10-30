@@ -28,6 +28,9 @@ public class EnhanceWindow : MonoBehaviour
     int cursor, scroll;
     bool open;
     float openedAt;
+    ForgeSession forge;
+    ForgeHammerView hammer;
+    float forgeDoneAt;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void ResetStatics()
@@ -81,6 +84,7 @@ public class EnhanceWindow : MonoBehaviour
 
     void Close()
     {
+        EndForge();
         open = false;
         UiLock.Set("Enhance", false);
         action.UI.Disable();
@@ -109,6 +113,11 @@ public class EnhanceWindow : MonoBehaviour
         // 여는 키 입력이 같은 프레임에 선택으로 읽히지 않도록 잠깐 무시
         if (Time.unscaledTime - openedAt < 0.15f)
         {
+            return;
+        }
+        if (forge != null)
+        {
+            TickForge();
             return;
         }
         if (backAction.triggered)
@@ -152,8 +161,75 @@ public class EnhanceWindow : MonoBehaviour
     void DoEnhance()
     {
         ItemCheck item = items[cursor];
+        if (AdvancedEnhanceRules.IsAdvanced(item.itemData.upgrade) && EnhanceService.CanTry(item) == EnhanceService.Check.Ok)
+        {
+            StartForge();
+            return;
+        }
+        Execute(item, 0);
+    }
+
+    /// <summary>정밀 단조 시작: 재료는 3타가 끝나 강화를 실행할 때 소모한다(그 전 ESC 는 손실 없음)</summary>
+    void StartForge()
+    {
+        forge = new ForgeSession(EnhanceService.Rng);
+        action.Player.Attack.Enable();
+        hammer.SetActive(true);
+        detail.gameObject.SetActive(false);
+        resultText.text = "";
+        forgeDoneAt = 0f;
+        Sfx.Play(SfxId.UiOpen, 0.6f);
+        hammer.Refresh(forge, (AdvancedEnhanceRules.Stones(items[cursor].itemData.upgrade) + 1) / 2);
+    }
+
+    void EndForge()
+    {
+        if (forge == null)
+        {
+            return;
+        }
+        forge = null;
+        action.Player.Attack.Disable();
+        hammer.SetActive(false);
+        detail.gameObject.SetActive(true);
+    }
+
+    void TickForge()
+    {
+        ItemCheck item = items[cursor];
+        if (forgeDoneAt <= 0f)
+        {
+            if (backAction.triggered)
+            {
+                EndForge();
+                Redraw();
+                return;
+            }
+            forge.Tick(Time.unscaledDeltaTime);
+            if (action.Player.Attack.WasPressedThisFrame() && forge.Hit() >= 0)
+            {
+                Sfx.Play(forge.LastScore >= 2 ? SfxId.EnhanceSuccess : SfxId.UiMove, 0.8f);
+                HitFeedback.Shake(HitFeedback.ShakeTier.Light);
+            }
+            if (forge.Done)
+            {
+                forgeDoneAt = Time.unscaledTime + 0.9f;
+            }
+        }
+        else if (Time.unscaledTime >= forgeDoneAt)
+        {
+            int score = forge.Total;
+            EndForge();
+            Execute(item, score);
+            return;
+        }
+        hammer.Refresh(forge, (AdvancedEnhanceRules.Stones(item.itemData.upgrade) + 1) / 2);
+    }
+
+    void Execute(ItemCheck item, int forgeScore)
+    {
         int before = item.itemData.upgrade;
-        if (!EnhanceService.TryEnhance(item, out EnhanceRules.Result result, out int after))
+        if (!EnhanceService.TryEnhance(item, out EnhanceRules.Result result, out int after, forgeScore))
         {
             ShowResult("<shake>" + Reason(EnhanceService.CanTry(item)) + "</shake>", UiTheme.Get().warning);
             Redraw();
@@ -170,7 +246,8 @@ public class EnhanceWindow : MonoBehaviour
                 ShowResult("<shake>" + Loc.F("FAILED  +{0} → +{1}", before, after) + "</shake>", theme.warning);
                 break;
             default:
-                ShowResult("<shake>" + Loc.T("FAILED") + "</shake>", theme.warning);
+                string refund = EnhanceService.LastRefund > 0 ? "\n" + Loc.F("Refund {0} crystals", EnhanceService.LastRefund) : "";
+                ShowResult("<shake>" + Loc.T("FAILED") + "</shake>" + refund, theme.warning);
                 break;
         }
         Redraw();
@@ -225,7 +302,7 @@ public class EnhanceWindow : MonoBehaviour
         string ok = "#8CFF8C", bad = "#" + ColorUtility.ToHtmlStringRGB(theme.warning);
         var sb = new System.Text.StringBuilder();
         sb.Append("<size=120%>").Append(EnhanceRules.DisplayName(string.IsNullOrEmpty(d.itemNameT) ? d.name : d.itemNameT, lv)).Append("</size>\n\n");
-        if (!EnhanceRules.CanEnhance(lv))
+        if (!EnhanceService.CanEnhance(lv))
         {
             sb.Append("<color=#FFC640>").Append(Loc.T("MAX ENHANCED")).Append("</color>");
             return sb.ToString();
@@ -235,12 +312,27 @@ public class EnhanceWindow : MonoBehaviour
         float next = weapon ? EnhanceRules.WeaponMultiplier(lv + 1) : EnhanceRules.GearMultiplier(lv + 1);
         sb.Append("+").Append(lv).Append("  →  <color=#FFC640>+").Append(lv + 1).Append("</color>\n");
         sb.Append(Loc.T(weapon ? "Damage" : "Stats")).Append(" ").Append(Pct(now)).Append(" → ").Append(Pct(next)).Append("\n\n");
-        int streak = EnhanceService.FailStreak;
-        bool chance = streak >= EnhanceRules.PityFails;
-        sb.Append(Loc.T("Success")).Append("  ").Append(chance ? "<color=#FFC640>" + Loc.T("100% (CHANCE!)") + "</color>" : Mathf.RoundToInt(EnhanceRules.Rate(lv) * 100f) + "%").Append("\n");
-        sb.Append(Loc.T("On fail")).Append("  ").Append(EnhanceRules.FailDrops(lv) ? "<color=" + bad + ">" + Loc.T("-1 level") + "</color>" : Loc.T("keep level")).Append("\n\n");
-        int haveStone = InventoryManager.instance.CountItem(EnhanceRules.StoneName), needStone = EnhanceRules.Stones(lv);
-        int needGold = EnhanceRules.Gold(lv);
+        bool adv = AdvancedEnhanceRules.IsAdvanced(lv);
+        if (adv)
+        {
+            int pity = ForgeState.Pity;
+            sb.Append(Loc.T("Success")).Append("  ").Append(Mathf.RoundToInt(AdvancedEnhanceRules.FinalRate(lv, pity, 0) * 100f)).Append("%");
+            if (pity > 0)
+            {
+                sb.Append("  <color=#FFC640>").Append(Loc.F("Pity +{0}%p", AdvancedEnhanceRules.PityPct(pity))).Append("</color>");
+            }
+            sb.Append("\n").Append(Loc.F("Forging up to +{0}%p", AdvancedEnhanceRules.ForgeBonusPct(AdvancedEnhanceRules.MaxScore))).Append("\n");
+            sb.Append(Loc.T("On fail")).Append("  ").Append(Loc.T("keep level")).Append("\n\n");
+        }
+        else
+        {
+            int streak = EnhanceService.FailStreak;
+            bool chance = streak >= EnhanceRules.PityFails;
+            sb.Append(Loc.T("Success")).Append("  ").Append(chance ? "<color=#FFC640>" + Loc.T("100% (CHANCE!)") + "</color>" : Mathf.RoundToInt(EnhanceRules.Rate(lv) * 100f) + "%").Append("\n");
+            sb.Append(Loc.T("On fail")).Append("  ").Append(EnhanceRules.FailDrops(lv) ? "<color=" + bad + ">" + Loc.T("-1 level") + "</color>" : Loc.T("keep level")).Append("\n\n");
+        }
+        int haveStone = InventoryManager.instance.CountItem(EnhanceRules.StoneName), needStone = EnhanceService.StonesFor(lv);
+        int needGold = EnhanceService.GoldFor(lv);
         sb.Append(Loc.T("Crystals")).Append("  <color=").Append(haveStone >= needStone ? ok : bad).Append(">").Append(haveStone).Append(" / ").Append(needStone).Append("</color>\n");
         sb.Append(Loc.T("Gold")).Append("    <color=").Append(DatabaseManager.money >= needGold ? ok : bad).Append(">").Append(DatabaseManager.money).Append(" / ").Append(needGold).Append("</color>");
         return sb.ToString();
@@ -305,6 +397,8 @@ public class EnhanceWindow : MonoBehaviour
         Place(resultText.rectTransform, new Vector2(0f, 0f), new Vector2(510f, 60f), new Vector2(460f, 60f));
         resultText.alignment = TextAlignmentOptions.Center;
         resultAnimator = resultText.gameObject.AddComponent<TextAnimator>();
+
+        hammer = new ForgeHammerView(pr, theme);
 
         panel.SetActive(false);
     }
