@@ -35,8 +35,9 @@ SPLICE = {
     # 한손 베기 회전(GPT 2차 "골반·어깨 회전 부족"): 3/4 뒤 감기 → 측면 타격 → 3/4 앞 팔로스루 — 공용 프레임
     "DashSlash": ["0", "1", ("CoilNE", "D_CoilNE", 0, -170, .06, True), ("CoilNE", "D_CoilNE", 1, -165, .12, True), "3", "4", "5", "6",
                   ("FollowSE", "D_FollowSE", 0, -10, .06, True), ("FollowSE", "D_FollowSE", 1, -20, .1, True), "9", "10", "11", "13"],
-    "GreatSideOne": ["0", "1", ("CoilNE", "D_CoilNE", 0, -170, .06, True), ("CoilNE", "D_CoilNE", 1, -165, .12, True), "3", "4", "5", "6",
-                     ("FollowSE", "D_FollowSE", 0, -10, .08, True), ("FollowSE", "D_FollowSE", 1, -20, .1, True), "9", "10", "11", "13"],
+    # 품질 8회차(GPT 한손 수평 6.3 "무겁지도 빠르지도 않음 — 양손 수평과 준비가 비슷"): 3/4 뒤 감기 빼고 측면 머리 옆 짧은 장전 → 내딛으며 수평 타격 → 3/4 앞 팔로스루
+    "GreatSideOne": ["0", ("OneSide", "E_OneSide", 0, 170, .12, False), ("OneSide", "E_OneSide", 1, 20, .03, False), ("OneSide", "E_OneSide", 1, 0, .1, False),
+                     ("FollowSE", "D_FollowSE", 1, -20, .07, True), ("OneSide", "E_OneSide", 2, -25, .1, False), "11", "12", "13"],
     # 쌍검 X 교차 정면(GPT D3) — 7번째 값 = 앞손 무기 각도(angleB, 10-30 채널)
     "DaggerCross": ["0", "1", ("CrossS", "D_CrossS", 0, 135, .14, False, 45), ("3", .03), ("CrossS", "D_CrossS", 1, -135, .04, False, -45),
                     ("CrossS", "D_CrossS", 2, -40, .22, False, -140), "9", "10", "11"],
@@ -59,7 +60,7 @@ SPLICE = {
              ("FrontKick2", "E_FrontKick2", 2, -20, .05, False), ("9", .05), "10", "11"],
     # 품질 7회차(GPT 돌려차기 6.0 "앞차기처럼 읽힘"): v3(Roundhouse_v3 보관) 3/4 뒤·뒷모습·3/4 앞 타격 뒤에 측면 팔로스루(발이 골반 위로 지나감) → 흘려 내림
     "Roundhouse": ["0@Roundhouse_v3", "1@Roundhouse_v3", "2@Roundhouse_v3", "3@Roundhouse_v3", "4@Roundhouse_v3", ("5@Roundhouse_v3", .04), ("6@Roundhouse_v3", .06),
-                   ("RoundFollow", "E_RoundFollow", 0, -20, .1, False), ("RoundFollow", "E_RoundFollow", 1, -20, .06, False), ("9@Roundhouse_v3", .05), "10@Roundhouse_v3", "11@Roundhouse_v3"],
+                   ("RoundFollow", "E_RoundFollow", 0, -20, .15, False), ("RoundFollow", "E_RoundFollow", 1, -20, .05, False), ("9@Roundhouse_v3", .05), "10@Roundhouse_v3", "11@Roundhouse_v3"],  # 8회차: 높은 팔로스루 유지
     # 품질 7회차(GPT 소총 6.0 "발사 반동·복귀 타이밍이 약해 총이 가벼워 보임"): 조준 0.2초 버팀 → 발사 짧게 → 반동 → 천천히 복귀(생성 0)
     "Rifle": ["0", "1", ("2", .1), "3", "4", ("5", .2), ("6", .04), ("8", .08), ("9", .06), ("10", .08), ("11", .12), "12", "13"],
     # 품질 7회차(GPT 쌍권총 6.4 "두 총이 같은 높이·같은 타이밍"): 측면 — 주손 높이 뻗어 쏨(반동) → 왼손 뻗어 쏨(반동, angleB) → 주손 한 번 더 → 둘 다 앞
@@ -67,6 +68,8 @@ SPLICE = {
                    ("DualFire", "E_DualFire", 1, -6, .07, False, 0), ("DualFire", "E_DualFire", 1, -6, .05, False, 22),
                    ("DualFire", "E_DualFire", 0, 0, .06, False, 0), ("DualFire", "E_DualFire", 0, 24, .05, False, 0),
                    ("DualFire", "E_DualFire", 2, 6, .12, False, 6), "12", "13"],
+    # 품질 8회차(GPT 백스텝 6.4 "예비동작·이탈·착지 분리가 약해 미끄러져 보임"): 몸 낮춤 버팀 → 이탈 빠르게 → 공중 → 착지 웅크림 버팀(생성 0)
+    "Backstep": ["0", "1", ("2", .12), ("3", .035), ("4", .035), ("5", .06), ("6", .06), ("7", .04), ("8", .13), ("9", .05), "10", "11", "12", "13"],
     # 10-30 품질 루프(GPT 잡기 5.0 "움켜잡는 순간이 없다"): 3/4 앞 두 팔 벌림 → 앞으로 모아 움켜쥠 → 갈비뼈로 당김(재생 프로파일 대체)
     "Grab": [("0@Pull", .045), ("GrabSE", "D_GrabSE", 0, -20, .12, False), ("GrabSE", "D_GrabSE", 1, -20, .05, False), ("GrabSE", "D_GrabSE", 1, -20, .08, False),
              ("GrabSE", "D_GrabSE", 2, -20, .22, False), ("13@Pull", .1)],

@@ -247,6 +247,12 @@ MOTIONS = {
         ("side", {"RIGHT SHOULDER": (39, 33), "RIGHT ARM": (44, 38), "LEFT ARM": (53, 32), "RIGHT LEG": (35, 53), "LEFT LEG": (47, 53), "shift": (1, 0)}, 0),
         ("side", {"RIGHT SHOULDER": (40, 33), "RIGHT ARM": (48, 34), "LEFT ARM": (50, 37), "RIGHT LEG": (35, 53), "LEFT LEG": (47, 53)}, 0),
     ],
+    # 품질 8회차(GPT 한손 수평 6.3 "무겁지도 빠르지도 않음"): 측면 — 검손 머리 옆 뒤로 짧게 장전 → 앞발 내딛으며 어깨 높이로 8px 앞 수평 타격 → 손목 따라 흘림
+    "E_OneSide": [
+        ("side", {"RIGHT SHOULDER": (36, 33), "RIGHT ARM": (34, 29), "LEFT ARM": (46, 39), "RIGHT LEG": (35, 53), "LEFT LEG": (46, 53), "shift": (-1, 1)}, 170),
+        ("side", {"RIGHT SHOULDER": (41, 33), "RIGHT ARM": (50, 35), "LEFT ARM": (42, 39), "RIGHT LEG": (32, 53), "LEFT LEG": (50, 53), "shift": (2, 1)}, 0),
+        ("side", {"RIGHT SHOULDER": (41, 34), "RIGHT ARM": (48, 39), "LEFT ARM": (41, 39), "RIGHT LEG": (32, 53), "LEFT LEG": (50, 53), "shift": (2, 2)}, -25),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 

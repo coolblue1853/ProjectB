@@ -47,7 +47,7 @@ public static class MotionFxTable
     {
         new Strike("GreatDown", 8, VfxId.MSmear0, new SmearAura.Shape { arc = true, c = new Vector2(-8.3f, 4.8f), ea = 38f, eb = 30.4f, tilt = 0f, a0 = 145.2f, a1 = -4.8f }),
         new Strike("GreatSide", 4, VfxId.MSmear1, new SmearAura.Shape { arc = true, c = new Vector2(-2.3f, 26.7f), ea = 37.4f, eb = 29.9f, tilt = 0f, a0 = -218.2f, a1 = -11.2f }),
-        new Strike("GreatSideOne", 5, VfxId.MSmear2, new SmearAura.Shape { arc = true, c = new Vector2(-6.8f, 25.9f), ea = 35.5f, eb = 28.4f, tilt = 0f, a0 = -210.9f, a1 = 19.1f }),
+        new Strike("GreatSideOne", 3, VfxId.MSmear2, new SmearAura.Shape { arc = true, c = new Vector2(-0.8f, 10.4f), ea = 34.3f, eb = 27.5f, tilt = 0f, a0 = 212.4f, a1 = 16.9f }),
         new Strike("DaggerCross", 5, VfxId.MSmear3, new SmearAura.Shape { arc = true, c = new Vector2(-6.5f, 20.9f), ea = 26.8f, eb = 21.4f, tilt = 0f, a0 = 252.3f, a1 = -47.7f }),
         new Strike("DaggerCross", 5, VfxId.MSmear4, new SmearAura.Shape { arc = true, c = new Vector2(-5.7f, 18.8f), ea = 25.8f, eb = 20.6f, tilt = 0f, a0 = 253.9f, a1 = -46.1f }),
         new Strike("Spin", 4, VfxId.MSmear5, new SmearAura.Shape { arc = true, c = new Vector2(-2.3f, 26.7f), ea = 37.4f, eb = 29.9f, tilt = 0f, a0 = -218.2f, a1 = -11.2f }),
