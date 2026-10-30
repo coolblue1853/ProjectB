@@ -122,6 +122,7 @@
   - money, playerPos, time
   - invenItem[5,25,4] / chestItem[5,30,4]: 칸마다 이름·수량·티어·강화
   - equipGear[10,3]
+- **별도 키(같은 슬롯 파일):** `quickslot.items`(string[4], 퀵슬롯 등록 아이템 이름, 빈칸 "") — BasicFeatures.md 3절
 - **사용하지 않는 필드:** level, camPos
 - **저장 시점:** 획득·매매·인벤토리 닫기·창고 닫기·포털 이동, 그리고 디버그 Space 키 🐞
 

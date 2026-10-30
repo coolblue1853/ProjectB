@@ -172,6 +172,42 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick1"",
+                    ""type"": ""Button"",
+                    ""id"": ""5e43be45-9439-4052-af99-ec8dcbe1cf74"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick2"",
+                    ""type"": ""Button"",
+                    ""id"": ""c1688e92-9ce2-486b-af37-323b6d05ebca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick3"",
+                    ""type"": ""Button"",
+                    ""id"": ""a9e3b43a-02d7-4646-bd56-c71068dfa176"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick4"",
+                    ""type"": ""Button"",
+                    ""id"": ""aaf369b4-0030-45c1-94aa-d92f9e7beaed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -414,6 +450,50 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SkillF"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""870e5b6a-dd84-466b-a722-8a5e49b5d33e"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1029028-3483-4a7d-b30f-cf5ac1b9b401"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""739dffe0-820e-4219-8133-a4dee7a6447e"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a838cf66-7ba1-4d61-a25e-27ec90b501f2"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1214,6 +1294,10 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         m_Player_SkillS = m_Player.FindAction("SkillS", throwIfNotFound: true);
         m_Player_SkillD = m_Player.FindAction("SkillD", throwIfNotFound: true);
         m_Player_SkillF = m_Player.FindAction("SkillF", throwIfNotFound: true);
+        m_Player_Quick1 = m_Player.FindAction("Quick1", throwIfNotFound: true);
+        m_Player_Quick2 = m_Player.FindAction("Quick2", throwIfNotFound: true);
+        m_Player_Quick3 = m_Player.FindAction("Quick3", throwIfNotFound: true);
+        m_Player_Quick4 = m_Player.FindAction("Quick4", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_OpenInventory = m_UI.FindAction("OpenInventory", throwIfNotFound: true);
@@ -1328,6 +1412,10 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SkillS;
     private readonly InputAction m_Player_SkillD;
     private readonly InputAction m_Player_SkillF;
+    private readonly InputAction m_Player_Quick1;
+    private readonly InputAction m_Player_Quick2;
+    private readonly InputAction m_Player_Quick3;
+    private readonly InputAction m_Player_Quick4;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1375,6 +1463,22 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/SkillF".
         /// </summary>
         public InputAction @SkillF => m_Wrapper.m_Player_SkillF;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Quick1".
+        /// </summary>
+        public InputAction @Quick1 => m_Wrapper.m_Player_Quick1;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Quick2".
+        /// </summary>
+        public InputAction @Quick2 => m_Wrapper.m_Player_Quick2;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Quick3".
+        /// </summary>
+        public InputAction @Quick3 => m_Wrapper.m_Player_Quick3;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Quick4".
+        /// </summary>
+        public InputAction @Quick4 => m_Wrapper.m_Player_Quick4;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1428,6 +1532,18 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @SkillF.started += instance.OnSkillF;
             @SkillF.performed += instance.OnSkillF;
             @SkillF.canceled += instance.OnSkillF;
+            @Quick1.started += instance.OnQuick1;
+            @Quick1.performed += instance.OnQuick1;
+            @Quick1.canceled += instance.OnQuick1;
+            @Quick2.started += instance.OnQuick2;
+            @Quick2.performed += instance.OnQuick2;
+            @Quick2.canceled += instance.OnQuick2;
+            @Quick3.started += instance.OnQuick3;
+            @Quick3.performed += instance.OnQuick3;
+            @Quick3.canceled += instance.OnQuick3;
+            @Quick4.started += instance.OnQuick4;
+            @Quick4.performed += instance.OnQuick4;
+            @Quick4.canceled += instance.OnQuick4;
         }
 
         /// <summary>
@@ -1466,6 +1582,18 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @SkillF.started -= instance.OnSkillF;
             @SkillF.performed -= instance.OnSkillF;
             @SkillF.canceled -= instance.OnSkillF;
+            @Quick1.started -= instance.OnQuick1;
+            @Quick1.performed -= instance.OnQuick1;
+            @Quick1.canceled -= instance.OnQuick1;
+            @Quick2.started -= instance.OnQuick2;
+            @Quick2.performed -= instance.OnQuick2;
+            @Quick2.canceled -= instance.OnQuick2;
+            @Quick3.started -= instance.OnQuick3;
+            @Quick3.performed -= instance.OnQuick3;
+            @Quick3.canceled -= instance.OnQuick3;
+            @Quick4.started -= instance.OnQuick4;
+            @Quick4.performed -= instance.OnQuick4;
+            @Quick4.canceled -= instance.OnQuick4;
         }
 
         /// <summary>
@@ -1948,6 +2076,34 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSkillF(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Quick1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQuick1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Quick2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQuick2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Quick3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQuick3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Quick4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQuick4(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

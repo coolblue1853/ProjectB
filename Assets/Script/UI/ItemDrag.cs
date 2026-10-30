@@ -182,12 +182,31 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         try
         {
-            EndDrag();
+            if (!TryDropOnQuickSlot(eventData.position))
+            {
+                EndDrag();
+            }
         }
         finally
         {
             ReleaseSaveHold(); // 어느 분기로 끝나도 미뤄 둔 저장을 1회로 푼다
         }
+    }
+
+    /// <summary>퀵슬롯 칸 위에 놓으면 등록만 하고 아이템은 원래 칸으로 되돌린다(BasicFeatures.md 3절). 처리했으면 true</summary>
+    private bool TryDropOnQuickSlot(Vector2 screenPos)
+    {
+        if (itemCheck == null || currentParent == null || currentParent.childCount > 0
+            || currentParent.parent == null || !currentParent.parent.CompareTag("Inventory"))
+        {
+            return false; // 인벤 칸에서 시작한 드래그만(창고·장비칸 제외). 원래 칸이 채워졌으면 되돌릴 수 없으니 기존 경로로
+        }
+        if (!QuickSlotBar.TryAssignFromDrag(screenPos, itemCheck))
+        {
+            return false;
+        }
+        ReturnToOrigin();
+        return true;
     }
 
     /// <summary>인벤 칸 → 인벤 칸 놓기는 모델 명령(MoveSlot)으로. 처리했으면 true</summary>

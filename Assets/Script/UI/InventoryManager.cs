@@ -682,6 +682,11 @@ public class InventoryManager : MonoBehaviour
     }
     void BoxOpen()
     {
+        Keyboard shiftKb = Keyboard.current;
+        if (shiftKb != null && shiftKb.shiftKey.isPressed)
+        {
+            return; // Shift+숫자는 퀵슬롯 등록(QuickSlotBar)이라 페이지를 넘기지 않는다
+        }
         if (DigitPressed(Key.Digit1) && nowBox != 0 && inventoryBox[0].activeSelf == true)
         {
             OpenBox(0);
@@ -1422,23 +1427,69 @@ public class InventoryManager : MonoBehaviour
 
     public void ActiveConsum()
     {
-        GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
-        if (gameObject.transform.childCount > 0)
+        TryConsume(CursorItem());
+    }
+
+    /// <summary>열린 인벤토리에서 커서가 가리키는 아이템. 창이 닫혔거나 빈칸이면 null (퀵슬롯 등록용)</summary>
+    public ItemCheck CursorItem()
+    {
+        if (inventory == null || !inventory.activeSelf || inventoryUI == null || nowBox < 0 || nowBox >= inventoryUI.Length)
         {
-            ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
-            if (item.itemData.type == "Consum")
+            return null;
+        }
+        GameObject box = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+        if (box == null || box.transform.childCount == 0)
+        {
+            return null;
+        }
+        return box.transform.GetChild(0).GetComponent<ItemCheck>();
+    }
+
+    /// <summary>
+    /// 소비 아이템 1개 사용(인벤 소비 키·퀵슬롯 공용). 공유 쿨다운(ConsumeCooldown) 중이면 실패.
+    /// 칸에서 1개를 먼저 빼고(InventoryService.RemoveAt) 성공했을 때만 저장 → 효과를 준다. 사용했으면 true.
+    /// </summary>
+    public bool TryConsume(ItemCheck item)
+    {
+        if (item == null || item.itemData == null || item.itemData.type != "Consum")
+        {
+            return false;
+        }
+        string group = ConsumeCooldown.GroupOf(item.itemData.effectOb);
+        if (!ConsumeCooldown.Shared.IsReady(group, Time.time))
+        {
+            Sfx.Play(SfxId.CraftFail, 0.4f);
+            return false;
+        }
+        // 0개가 되어도 Destroy 는 프레임 끝이라 이 프레임 안의 ApplyConsumeEffect 는 itemData 를 읽을 수 있다.
+        if (!Service.RemoveAt(item, 1))
+        {
+            GameLog.Warn(GameLog.Cat.Item, "소비 실패(인벤토리 칸이 아님): " + item.name);
+            return false;
+        }
+        ConsumeCooldown.Shared.Start(group, Time.time);
+        SaveInventory(); // 효과(CSV 파싱)에서 예외가 나도 차감은 저장되게 먼저 저장
+        item.ApplyConsumeEffect();
+        return true;
+    }
+
+    /// <summary>인벤토리에서 itemName 인 첫 소비 아이템 스택을 1개 사용한다(퀵슬롯). 없거나 쿨다운이면 false</summary>
+    public bool ConsumeFirst(string itemName)
+    {
+        if (string.IsNullOrEmpty(itemName))
+        {
+            return false;
+        }
+        ItemCheck found = null;
+        foreach (ItemCheck check in EnumerateInventoryItems())
+        {
+            if (check.name == itemName && check.itemData != null && check.itemData.type == "Consum")
             {
-                // 먼저 칸에서 1개를 빼고 성공했을 때만 효과를 준다(빼지 못했는데 효과만 나가는 경로 제거).
-                // 0개가 되어도 Destroy 는 프레임 끝이라 이 프레임 안의 ApplyConsumeEffect 는 itemData 를 읽을 수 있다.
-                if (!Service.RemoveAt(item, 1))
-                {
-                    GameLog.Warn(GameLog.Cat.Item, "소비 실패(인벤토리 칸이 아님): " + item.name);
-                    return;
-                }
-                SaveInventory(); // 효과(CSV 파싱)에서 예외가 나도 차감은 저장되게 먼저 저장
-                item.ApplyConsumeEffect();
+                found = check;
+                break;
             }
         }
+        return TryConsume(found);
     }
     public void RepeatCheck()
     {
