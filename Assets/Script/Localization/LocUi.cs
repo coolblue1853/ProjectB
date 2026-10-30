@@ -28,6 +28,7 @@ public static class LocUi
         ("That key is reserved", "이동·확인용 고정 키라 지정할 수 없다"),
         ("EQUIPPED", "착용 중"),
         ("Pinned: ", "제작 핀: "), ("Unpinned: ", "핀 해제: "), ("CRAFT PIN", "제작 핀"), ("Ready to craft: ", "제작 가능: "),
+        ("Only equipment in the bag can be dismantled", "가방 안의 장비만 분해할 수 있다"), ("Press D again to dismantle {0}", "한 번 더 D: {0} 분해"),
         ("Path sealed by the Tower.", "탑이 길을 봉인했다."),
         ("Tower Gate", "탑의 문"), ("The way to the 2nd floor is open", "2층계로 가는 길이 열렸다"),
         ("ENRAGED — Calls the gang!", "격노 — 패거리를 부른다!"),

@@ -4603,6 +4603,22 @@ MonoBehaviour:
       - "\uC81C\uC791 \uAC00\uB2A5: "
       Flags: 0000
       Languages_Touch: []
+    - Term: Only equipment in the bag can be dismantled
+      TermType: 0
+      Description: 
+      Languages:
+      - Only equipment in the bag can be dismantled
+      - "\uAC00\uBC29 \uC548\uC758 \uC7A5\uBE44\uB9CC \uBD84\uD574\uD560 \uC218 \uC788\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Press D again to dismantle {0}
+      TermType: 0
+      Description: 
+      Languages:
+      - Press D again to dismantle {0}
+      - "\uD55C \uBC88 \uB354 D: {0} \uBD84\uD574"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
