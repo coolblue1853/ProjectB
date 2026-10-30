@@ -16,10 +16,10 @@ public static class EnhanceService
 
     public enum Check { Ok, MaxLevel, NoStones, NoGold, NotEquipment }
 
-    /// <summary>마지막 시도에서 돌려받은 결정 수(정밀 단조 9점 실패)와 적용된 최종 성공률(0~1, 고급 구간만)</summary>
     /// <summary>고급 강화 난수 공급원(0~1). 프로브·테스트가 고정값으로 바꾼다</summary>
     public static System.Func<float> Rng = () => Random.value;
 
+    /// <summary>마지막 시도에서 실제로 인벤에 돌려준 결정 수(정밀 단조 9점 실패)와 적용된 최종 성공률(0~1, 고급 구간만)</summary>
     public static int LastRefund { get; private set; }
     public static float LastRate { get; private set; }
 
@@ -128,9 +128,17 @@ public static class EnhanceService
         newLevel = lv;
         ForgeState.Pity = pity + 1;
         int refund = AdvancedEnhanceRules.RefundStones(AdvancedEnhanceRules.Stones(lv), forgeScore);
-        if (refund > 0 && InventoryManager.instance.Service.Add(EnhanceRules.StoneName, refund, AddSource.Other))
+        if (refund > 0)
         {
-            LastRefund = refund;
+            // 환불(<= 소모량의 절반)은 방금 차감해 비운 칸에 들어간다. 그래도 못 넣으면 소실을 로그로 남기고 UI 에는 0 으로 알린다.
+            if (InventoryManager.instance.Service.Add(EnhanceRules.StoneName, refund, AddSource.Other))
+            {
+                LastRefund = refund;
+            }
+            else
+            {
+                GameLog.Warn(GameLog.Cat.Item, "정밀 단조 환불 실패(인벤 가득): 결정 " + refund);
+            }
         }
         return EnhanceRules.Result.Fail;
     }

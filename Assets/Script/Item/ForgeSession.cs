@@ -9,7 +9,7 @@ public sealed class ForgeSession
 {
     public const float StartDelay = 0.35f;   // 열린 입력이 첫 타격으로 읽히지 않게
     public const float StrikeGap = 0.45f;    // 타격 사이 쉬는 시간
-    public const float StrikeTimeLimit = 3f; // 타당 제한(1회 6~9초)
+    public const float StrikeTimeLimit = 3f; // 타당 제한(3타 합쳐 최대 약 10초)
 
     private readonly Func<float> _rng;
     private readonly int[] _scores = new int[AdvancedEnhanceRules.Strikes];

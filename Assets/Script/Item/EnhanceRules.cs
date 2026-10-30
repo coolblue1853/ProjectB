@@ -44,7 +44,7 @@ public static class EnhanceRules
         return Result.Fail;
     }
 
-    /// <summary>무기 데미지 배율: 단계당 +4%, +5·+10 달성 시 각각 +10% (최대 1.6)</summary>
+    /// <summary>무기 데미지 배율: 단계당 +4%, +5·+10 달성 시 각각 +10% (+15 에서 최대 1.9)</summary>
     public static float WeaponMultiplier(int level)
     {
         float b = Bonus(level, 0.04f);
@@ -55,7 +55,7 @@ public static class EnhanceRules
         return 1f + b;
     }
 
-    /// <summary>방어구·장신구 수치 배율: 단계당 +5%, +5·+10 달성 시 각각 +10% (최대 1.7)</summary>
+    /// <summary>방어구·장신구 수치 배율: 단계당 +5%, +5·+10 달성 시 각각 +10% (+15 에서 최대 1.95)</summary>
     public static float GearMultiplier(int level)
     {
         return 1f + Bonus(level, 0.05f);

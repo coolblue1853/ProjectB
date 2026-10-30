@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// 대장간 공용 진행(FloorCoreContent 4.7): 해금 비트 <c>forge.unlock</c> 과 천장 보조 <c>forge.pity</c>. 공용 세이브 파일, 없으면 0.
+/// 대장간 공용 진행(FloorCoreContent 4.7): 해금 비트 <c>forge.unlock</c> 과 천장 보조 <c>forge.pity</c>. 현재 슬롯 세이브(진행 플래그라 슬롯별), 없으면 0. 천장은 아이템별이 아니라 슬롯 전역.
 /// 비트: 1 = +11~+12, 2 = +13, 4 = +14, 8 = +15. 4층계 구역을 열 때 <see cref="Unlock"/> 으로 켠다.
 /// </summary>
 public static class ForgeState
@@ -8,22 +8,21 @@ public static class ForgeState
     public const int BitLv13 = 2;
     public const int BitLv14 = 4;
     public const int BitLv15 = 8;
-    public const int SingleBitFrom = 1; // 정밀 단조는 비트 1 부터 쓴다(임시 가정, OpenQuestions)
 
     const string UnlockKey = "forge.unlock";
     const string PityKey = "forge.pity";
 
     public static int UnlockMask
     {
-        get { return ES3.KeyExists(UnlockKey, SaveSlots.SharedFile) ? ES3.Load<int>(UnlockKey, SaveSlots.SharedFile) : 0; }
-        set { ES3.Save(UnlockKey, value, SaveSlots.SharedFile); }
+        get { return ES3.KeyExists(UnlockKey) ? ES3.Load<int>(UnlockKey) : 0; }
+        set { ES3.Save(UnlockKey, value); }
     }
 
     /// <summary>천장 보조용 +11 이상 연속 실패 수</summary>
     public static int Pity
     {
-        get { return ES3.KeyExists(PityKey, SaveSlots.SharedFile) ? ES3.Load<int>(PityKey, SaveSlots.SharedFile) : 0; }
-        set { ES3.Save(PityKey, value, SaveSlots.SharedFile); }
+        get { return ES3.KeyExists(PityKey) ? ES3.Load<int>(PityKey) : 0; }
+        set { ES3.Save(PityKey, value); }
     }
 
     public static void Unlock(int bits)

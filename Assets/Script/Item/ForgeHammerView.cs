@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,8 @@ public sealed class ForgeHammerView
     private readonly RectTransform _perfect;
     private readonly RectTransform _cursor;
     private float _shownTarget = -1f;
+    private readonly System.Text.StringBuilder _sb = new System.Text.StringBuilder(128);
+    private int _shownKey = -1;   // 점수 텍스트 캐시 키(판정 3개·합계·환불량)
 
     public ForgeHammerView(RectTransform parent, UiTheme theme)
     {
@@ -57,6 +60,7 @@ public sealed class ForgeHammerView
     {
         _root.SetActive(on);
         _shownTarget = -1f;
+        _shownKey = -1;
     }
 
     public void Refresh(ForgeSession s, int stonesRefundIfNine)
@@ -73,7 +77,18 @@ public sealed class ForgeHammerView
         _cursor.anchorMin = new Vector2(a, 0f);
         _cursor.anchorMax = new Vector2(a, 1f);
 
-        var sb = new System.Text.StringBuilder();
+        int key = stonesRefundIfNine;
+        for (int i = 0; i < AdvancedEnhanceRules.Strikes; i++)
+        {
+            key = key * 5 + (s.ScoreAt(i) + 1);
+        }
+        if (key == _shownKey)
+        {
+            return;
+        }
+        _shownKey = key;
+        StringBuilder sb = _sb;
+        sb.Length = 0;
         for (int i = 0; i < AdvancedEnhanceRules.Strikes; i++)
         {
             int sc = s.ScoreAt(i);
