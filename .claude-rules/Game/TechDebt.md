@@ -107,7 +107,7 @@
 | B-216 | ⏳ Shift 키 겹침: 달리기 토글을 누를 때마다 아티팩트 발동(`ArtifactSystem` Shift 하드코딩). 키 배치 결정 대기 Q-422 (10-25) | `ArtifactSystem.cs`, `KeyAction.inputactions` |
 | B-217 | ✅ 대시 잔상이 픽셀 리그에서 큰 파란 사각형으로 찍힘(FullRect 부위를 메시로 복사) → SpriteRenderer 복사 (10-26) | `DashAfterimage.cs` |
 | B-218 | ✅ isAttack 이 없는 몹 애니메이터(토끼 등)를 맞힐 때마다 'Parameter isAttack does not exist' 경고 → 존재 여부를 Awake 에서 한 번 캐시 (10-26) | `EnemyHealth.cs` |
-| B-219 | 인벤 드래그 임시 구멍(Phase 3c 전까지): ① 드래그 중인 아이템은 dragCanvas 아래라 그 사이 다른 경로가 `SaveInventory` 를 부르고 종료되면 세이브에서 빠짐 ② 페이지 탭 드롭 사전 검사 `CheckBoxCanCreat` 는 `inventoryArray`(폴링) 기준, 실제 배치는 모델 기준이라 거짓 음성 가능(실패 시 원위치라 소실은 없음) ③ `ShopItemDrag` 는 어디서도 안 쓰이는데 `DropFromEquipNotAllowed` 가드가 없음. 조치 후보: OnBeginDrag~OnEndDrag 를 `BeginSaveBatch/EndSaveBatch` 로 감싸기, 3c 에서 사전 검사 삭제, ShopItemDrag 삭제 | `ItemDrag.cs`, `ShopItemDrag.cs`, `InventoryService.PutInPage` |
+| B-219 | 인벤 드래그 임시 구멍(Phase 3c 전까지): ① 드래그 중인 아이템은 dragCanvas 아래라 그 사이 다른 경로가 `SaveInventory` 를 부르고 종료되면 세이브에서 빠짐 ② 페이지 탭 드롭 사전 검사 `CheckBoxCanCreat` 는 `inventoryArray`(폴링) 기준, 실제 배치는 모델 기준이라 거짓 음성 가능(실패 시 원위치라 소실은 없음) ③ `ShopItemDrag` 는 어디서도 안 쓰이는데 `DropFromEquipNotAllowed` 가드가 없음. 조치 후보: OnBeginDrag~OnEndDrag 를 `BeginSaveBatch/EndSaveBatch` 로 감싸기, 3c 에서 사전 검사 삭제, ShopItemDrag 삭제. 🔶(10-30) ① 인벤·창고 모두 드래그 동안 `BeginSaveBatch` 로 미룸(`Chest.SaveChest`·`SaveInventoryAndChest` 도 배치 공유, 끝에 같은 시점 스캔 1회 저장), 파괴·씬 해제 중엔 저장 없이 풀고(`AbandonSaveBatch`) 페이지가 파괴됐으면 저장 건너뜀(`PagesAlive`) ✅ ② 인벤 쪽 `CheckBoxCanCreat` 삭제 ✅(창고 쪽은 Phase 4) ③ `ShopItemDrag` 삭제 ✅. 남은 것: OnEndDrag 가 오지 않고 오브젝트도 살아 있으면 배치가 풀리지 않음(감시·강제 해제 또는 프록시 드래그로 근본 해결, 3c) | `ItemDrag.cs`, `InventoryService.PutInPage` |
 
 ## P3 (정리)
 

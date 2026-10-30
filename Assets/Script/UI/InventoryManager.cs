@@ -157,6 +157,10 @@ public class InventoryManager : MonoBehaviour
     }
     int _saveBatchDepth;
     bool _saveBatchPending;
+    bool _saveBatchChestPending;
+
+    /// <summary>저장을 미루는 중인지(드래그 중·여러 개 구매 중)</summary>
+    public bool IsSaveBatching => _saveBatchDepth > 0;
 
     /// <summary>여러 개를 연달아 넣을 때(상점 N개 구매·디버그 생성) 저장을 미룬다. 반드시 EndSaveBatch 와 짝으로 부른다(B-022)</summary>
     public void BeginSaveBatch()
@@ -171,11 +175,45 @@ public class InventoryManager : MonoBehaviour
         {
             _saveBatchDepth--;
         }
-        if (_saveBatchDepth == 0 && _saveBatchPending)
+        if (_saveBatchDepth == 0 && (_saveBatchPending || _saveBatchChestPending))
         {
+            bool withChest = _saveBatchChestPending;
             _saveBatchPending = false;
+            _saveBatchChestPending = false;
+            if (withChest && chest != null && PagesAlive(chest.inventoryUI))
+            {
+                chest.WriteChestArray(); // 미뤄 둔 창고 저장도 같은 시점 스캔으로, 디스크 쓰기는 아래 1회(B-015)
+            }
             SaveInventory();
         }
+    }
+
+    /// <summary>
+    /// 종료·씬 해제 중에 끊긴 배치를 저장 없이 푼다. 페이지가 이미 파괴돼 빈 인벤이 저장되는 것을 막는다
+    /// (디스크에는 배치 전 상태가 남아 있어 손실 없음).
+    /// </summary>
+    public void AbandonSaveBatch()
+    {
+        if (_saveBatchDepth > 0)
+        {
+            _saveBatchDepth--;
+        }
+        if (_saveBatchDepth == 0)
+        {
+            _saveBatchPending = false;
+            _saveBatchChestPending = false;
+        }
+    }
+
+    /// <summary>창고 저장 요청. 배치 중이면 미루고 true(Chest.SaveChest 가 디스크에 바로 쓰지 않게)</summary>
+    public bool DeferChestSave()
+    {
+        if (_saveBatchDepth == 0)
+        {
+            return false;
+        }
+        _saveBatchChestPending = true;
+        return true;
     }
 
     public void SaveInventory()
@@ -185,6 +223,12 @@ public class InventoryManager : MonoBehaviour
             _saveBatchPending = true;
             return;
         }
+        if (!PagesAlive(inventoryUI))
+        {
+            // 종료·씬 해제 중에 페이지가 이미 파괴됐다 → 스캔하면 빈 인벤이 저장된다. 디스크의 이전 상태를 지킨다
+            GameLog.Warn(GameLog.Cat.Save, "인벤 페이지가 없어 저장을 건너뜀(종료 중)");
+            return;
+        }
         SaveManager.instance.datas.money = DatabaseManager.money;
         // Phase 2 브리지: UI 슬롯 → 모델 → 세이브 배열 (SaveMapper)
         string[,,] saveInven = Service.BuildSaveArray(); // 열린 칸 밖 아이템도 보존
@@ -192,12 +236,45 @@ public class InventoryManager : MonoBehaviour
         SaveManager.instance.DataSave();
     }
 
+    /// <summary>스캔 저장 전에 페이지 오브젝트가 모두 살아 있는지(파괴된 페이지를 건너뛰면 빈 칸으로 저장됨)</summary>
+    public static bool PagesAlive(GameObject[] pages)
+    {
+        if (pages == null || SaveManager.instance == null)
+        {
+            return false;
+        }
+        foreach (GameObject p in pages)
+        {
+            if (p == null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /// <summary>인벤토리 칸 → 칸 이동(키보드 교환·드래그 놓기). 성공하면 저장</summary>
+    public bool MoveInInventory(Transform fromBox, Transform toBox)
+    {
+        if (!Service.MoveSlot(fromBox, toBox))
+        {
+            return false;
+        }
+        SaveInventory();
+        return true;
+    }
+
     /// <summary>인벤과 (열려 있으면) 창고를 세이브 데이터에 쓰고 디스크에는 한 번만 쓴다 — 둘 사이 이동 뒤 한쪽만 저장되는 복제·소실 방지(B-015)</summary>
     public void SaveInventoryAndChest()
     {
-        if (chest != null)
+        if (DeferChestSave())
         {
-            chest.WriteChestArray(); // 배치 중이면 datas 에만 들어가고 배치 끝의 저장 1회에 같이 실린다
+            _saveBatchPending = true; // 배치 중: 둘 다 배치 끝에 같은 시점 스캔으로 저장
+            return;
+        }
+        if (chest != null && PagesAlive(chest.inventoryUI))
+        {
+            chest.WriteChestArray();
         }
         SaveInventory();
     }
@@ -270,26 +347,6 @@ public class InventoryManager : MonoBehaviour
         return item == null || item.itemData == null || item.itemData.equipArea != "Weapon";
     }
 
-    public bool CheckBoxCanCreat(int num)
-    {
-        bool isCreat = false;
-        for (int i = 0; i < maxHor * maxVer; i++)
-        {
-            if (inventoryArray[i, num] == 0 && num * maxHor * maxVer + i < maxBoxNum)
-            {
-                isCreat = true;
-                break;
-            }
-        }
-        if (isCreat == true)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
     public bool CheckBoxCanCreatAll()
     {
         bool isCreat = false;
@@ -338,12 +395,10 @@ public class InventoryManager : MonoBehaviour
         int siblingParentIndex = boxCheck.siblingIndex;
         if (nowBox != siblingParentIndex)
         {
-            if (CheckBoxCanCreat(siblingParentIndex))
+            // 빈칸 판정은 모델이 한다(옛 inventoryArray 사전 검사 제거, B-219). 못 옮기면 상태 유지
+            if (Service.MoveToPage(itemCheck, siblingParentIndex))
             {
-                if (Service.MoveToPage(itemCheck, siblingParentIndex))
-                {
-                    SaveInventory();
-                }
+                SaveInventory();
                 cusorCount[nowBox] = beforeCusorInt;
                 changeCusor.SetActive(false);
                 state = "";
@@ -440,48 +495,11 @@ public class InventoryManager : MonoBehaviour
         }
         else if (state == "change")
         {
-            bool isSame = false;
             afterBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-            GameObject changeItem;
-            GameObject beforitem;
-            ItemCheck beforeItemCheck;
-            ItemCheck afterItemCheck;
-            if (afterBox.transform.childCount != 0 && beforBox != afterBox)
+            // 이동·합치기(넘침은 원래 칸)·교환을 모델 명령 하나로(3b)
+            if (afterBox != null && beforBox != afterBox)
             {
-                changeItem = afterBox.transform.GetChild(0).gameObject;
-                afterItemCheck = changeItem.GetComponent<ItemCheck>();
-                beforitem = beforBox.transform.GetChild(0).gameObject;
-                beforeItemCheck = beforitem.GetComponent<ItemCheck>();
-                if (afterItemCheck.name == beforeItemCheck.name && (afterItemCheck.nowStack != afterItemCheck.itemData.maxStack && beforeItemCheck.nowStack != beforeItemCheck.itemData.maxStack))
-                {
-                    isSame = true; // 같다면 가능한 만큼 스택을 합친다.
-
-                    if (afterItemCheck.nowStack + beforeItemCheck.nowStack <= afterItemCheck.itemData.maxStack)
-                    {
-                        afterItemCheck.nowStack += beforeItemCheck.nowStack;
-                        Destroy(beforitem);
-                    }
-                    else
-                    {
-                        beforeItemCheck.nowStack -= (afterItemCheck.itemData.maxStack - afterItemCheck.nowStack);
-                        afterItemCheck.nowStack = afterItemCheck.itemData.maxStack;
-                    }
-                }
-                else
-                {
-                    changeItem = afterBox.transform.GetChild(0).gameObject;
-                    changeItem.transform.SetParent(beforBox.transform);
-                    changeItem.transform.position = beforBox.transform.position;
-                }
-            }
-            if (isSame == false)
-            {
-                if (beforBox.transform.childCount > 0)
-                {
-                    beforitem = beforBox.transform.GetChild(0).gameObject;
-                    beforitem.transform.SetParent(afterBox.transform);
-                    beforitem.transform.position = afterBox.transform.position;
-                }
+                MoveInInventory(beforBox.transform, afterBox.transform);
             }
             GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
             cusor.transform.position = insPositon.transform.position;

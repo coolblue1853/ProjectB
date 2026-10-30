@@ -89,11 +89,20 @@ public sealed class InventoryService
     /// <summary>슬롯 GameObject 에 놓인 아이템의 모델 칸 번호. 인벤토리 칸이 아니면 -1</summary>
     public int IndexOf(ItemCheck item)
     {
-        if (item == null || item.transform.parent == null)
+        if (item == null)
         {
             return -1;
         }
-        Transform box = item.transform.parent;
+        return IndexOfBox(item.transform.parent);
+    }
+
+    /// <summary>인벤토리 슬롯 박스의 모델 칸 번호. 인벤토리 슬롯이 아니면 -1</summary>
+    public int IndexOfBox(Transform box)
+    {
+        if (box == null)
+        {
+            return -1;
+        }
         for (int p = 0; p < inv.inventoryUI.Length; p++)
         {
             if (box.parent == inv.inventoryUI[p].transform)
@@ -103,6 +112,26 @@ public sealed class InventoryService
             }
         }
         return -1;
+    }
+
+    /// <summary>
+    /// 인벤토리 칸 → 칸 이동(키보드 교환·드래그 놓기, 3b). 빈칸이면 이동, 같은 스택(id·티어·강화)이면 합치고 넘침은 원래 칸,
+    /// 아니면 교환. 두 칸 중 하나라도 인벤토리 칸이 아니거나 같은 칸이면 false.
+    /// </summary>
+    public bool MoveSlot(Transform fromBox, Transform toBox)
+    {
+        int from = IndexOfBox(fromBox), to = IndexOfBox(toBox);
+        if (from < 0 || to < 0 || from == to)
+        {
+            return false;
+        }
+        SyncModelFromViews();
+        if (!model.Move(from, to))
+        {
+            return false;
+        }
+        ApplyDirty(null);
+        return true;
     }
 
     /// <summary>특정 아이템(칸)에서 n 개를 뺀다(판매·소비). 인벤토리 칸이 아니거나 수량이 모자라면 false</summary>

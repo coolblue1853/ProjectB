@@ -379,7 +379,8 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
   - `CreatItem`, `DeletItemByName`, 소비, 판매가 모델 명령을 쓴다. 뷰는 `SlotView.Bind`로 그린다.
   - 아직 GameObject를 직접 옮기는 경로(드래그, 키보드 교환, 나누기)는 끝에서 `SyncModelFromViews()`를 호출한다. 이것이 Phase 2 스캐너를 쓰는 **양방향 브리지**다.
 - **3b. 키보드 경로 이전:** 키보드 교환·나누기·페이지 이동을 `Move`/`Split`으로 옮긴다.
-  - ✅(10-30) 페이지 이동(`MoveToPage`)·나누기(`SplitAt`)는 3a 마무리에서 옮겼다. 남은 것: 같은 페이지 안 키보드 교환(`itemBoxChange`).
+  - ✅(10-30) 페이지 이동(`MoveToPage`)·나누기(`SplitAt`)는 3a 마무리에서 옮겼다.
+  - ✅(10-30) 키보드 교환(`ActiveChangeCursor` "change")과 드래그 인벤 칸→인벤 칸 놓기를 `Service.MoveSlot`(빈칸 이동·같은 스택 합치기·넘침 원위치·교환)으로. 합치기 판정이 이름 → id·티어·강화로 바뀌고, 출발 칸이 가득 찬 같은 스택이면 교환 대신 수량을 맞바꾼다. 드래그는 원래 칸에 되돌린 뒤 명령(끄는 사이 원래 칸이 채워졌으면 옛 경로). 프로브 `inv_phase3b_move`. 남은 GameObject 직접 이동: 창고↔인벤 칸 놓기, 장비칸↔인벤, 키보드 장착·해제, 창고 I2C/C2I, 강화(제자리 변경) → 3c.
 - **3c. 드래그 이전:** `ItemDrag`가 명령만 호출하게 한다. 이로써 브리지 호출이 0이 된다.
   - 그다음 `BoxCheck` 폴링, `inventoryArray`, `inventoryItemStack`을 삭제한다. 제작·상점은 `Count`를 직접 쓴다.
 - **픽업 로그(D6):** 3a 직후 붙일 수 있다.

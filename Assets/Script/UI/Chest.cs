@@ -129,6 +129,15 @@ public class Chest : MonoBehaviour
     }
     public void SaveChest()
     {
+        if (InventoryManager.instance != null && InventoryManager.instance.DeferChestSave())
+        {
+            return; // 드래그 중 등 배치 중이면 인벤과 함께 배치 끝에 저장(끌던 아이템이 빠진 창고가 저장되지 않게, B-219)
+        }
+        if (!InventoryManager.PagesAlive(inventoryUI))
+        {
+            GameLog.Warn(GameLog.Cat.Save, "창고 페이지가 없어 저장을 건너뜀(종료 중)");
+            return;
+        }
         WriteChestArray();
         SaveManager.instance.DataSave();
     }

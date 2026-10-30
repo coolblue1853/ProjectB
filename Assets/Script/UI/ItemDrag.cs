@@ -15,6 +15,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     int siblingParentIndex;
     int siblingIndex;
     public GameObject dragCanvus;
+    private bool _holdingSave; // 드래그 동안 저장을 미루는 중(B-219)
 
 
     private void Start()
@@ -101,6 +102,43 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             Debug.LogWarning("부모가 없습니다.");
         }
         DefaultPos = this.transform.position;
+        // 끄는 동안 아이템은 슬롯 밖(드래그 캔버스)이라 스캔 저장에 안 잡힌다 → 놓을 때까지 저장을 미룬다(B-219)
+        if (!_holdingSave)
+        {
+            _holdingSave = true;
+            InventoryManager.instance.BeginSaveBatch();
+        }
+    }
+
+    /// <summary>드래그 중 미뤄 둔 저장을 푼다(놓기·비활성 어느 쪽이든 한 번만). flush=false 면 저장 없이 푼다</summary>
+    private void ReleaseSaveHold(bool flush = true)
+    {
+        if (!_holdingSave)
+        {
+            return;
+        }
+        _holdingSave = false;
+        if (InventoryManager.instance == null)
+        {
+            return;
+        }
+        if (flush)
+        {
+            InventoryManager.instance.EndSaveBatch();
+        }
+        else
+        {
+            InventoryManager.instance.AbandonSaveBatch();
+        }
+    }
+
+    /// <summary>
+    /// 드래그 중 파괴·씬 해제·종료: 비활성화 도중에는 부모를 바꿀 수 없으므로 원위치는 하지 않는다.
+    /// 씬이 내려가는 중이면 페이지가 이미 없을 수 있어 저장 없이 배치만 푼다(빈 인벤 저장 방지). dragCanvas 는 씬 루트라 창 닫기로는 오지 않는다.
+    /// </summary>
+    private void OnDisable()
+    {
+        ReleaseSaveHold(gameObject.scene.isLoaded);
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
@@ -142,6 +180,48 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
+        try
+        {
+            EndDrag();
+        }
+        finally
+        {
+            ReleaseSaveHold(); // 어느 분기로 끝나도 미뤄 둔 저장을 1회로 푼다
+        }
+    }
+
+    /// <summary>인벤 칸 → 인벤 칸 놓기는 모델 명령(MoveSlot)으로. 처리했으면 true</summary>
+    private bool TryDropInventoryToInventory()
+    {
+        if (changeParent == null || currentParent == null || currentParent.parent == null
+            || !currentParent.parent.CompareTag("Inventory") || !changeParent.parent.CompareTag("Inventory"))
+        {
+            return false;
+        }
+        if (currentParent.childCount > 0)
+        {
+            // 끄는 사이 원래 칸이 다른 아이템으로 채워졌다(획득 등). 되돌리면 한 칸에 둘이 되므로 옛 경로(직접 배치)로 넘긴다
+            return false;
+        }
+        InventoryManager inv = InventoryManager.instance;
+        if (inv.chest != null)
+        {
+            inv.chest.cusor.SetActive(false);
+        }
+        inv.cusor.SetActive(true);
+        Transform target = changeParent;
+        ReturnToOrigin(); // 먼저 원래 칸에 돌려놓아 모델이 보게 한 뒤 명령으로 옮긴다(이 오브젝트는 다시 그려지며 사라질 수 있음)
+        inv.MoveInInventory(currentParent, target);
+        inv.ChangeCusor(target.gameObject);
+        return true;
+    }
+
+    private void EndDrag()
+    {
+        if (TryDropInventoryToInventory())
+        {
+            return;
+        }
         if (DropFromEquipNotAllowed())
         {
             ReturnToOrigin();
@@ -252,8 +332,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 if (InventoryManager.instance.nowBox != siblingParentIndex)
                 {
                     AddSource? from = currentParent.parent.CompareTag("Chest") ? AddSource.Chest : (AddSource?)null;
-                    if (InventoryManager.instance.CheckBoxCanCreat(siblingParentIndex)
-                        && InventoryManager.instance.CreatItemSelected(itemCheck.itemData.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData, from))
+                    if (InventoryManager.instance.CreatItemSelected(itemCheck.itemData.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData, from))
                     {
                         InventoryManager.instance.CommitDragToPage(gameObject);
                     }
