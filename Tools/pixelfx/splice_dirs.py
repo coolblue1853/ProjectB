@@ -48,9 +48,11 @@ SPLICE = {
                   ("GetupS", "D_GetupS", 2, -20, .05, False), "12", "13"],
     # GPT 46동작 리뷰 약한 동작: 장풍(3/4 앞 두 손바닥 밀기 — 재생 프로파일 대체)·메치기(앞으로 잡기 → 정면 머리 위로 들어 → 측면 내려꽂기, 생성 0)
     "PalmBlast": [("PalmSE2", "D_PalmSE2", 0, -20, .16, False), ("PalmSE2", "D_PalmSE2", 1, -20, .03, False), ("PalmE", "D_PalmE", 0, -20, .04, False),
-                  ("PalmE", "D_PalmE", 1, -20, .28, False), ("PalmE", "D_PalmE", 2, -20, .06, False), ("13@Pull", .1)],  # 10-30 품질 4회차: 타격 때 두 손 위아래로 크게 벌려 내밂
+                  ("PalmE", "D_PalmE", 1, -20, .2, False), ("PalmRecoil", "D_PalmRecoil", 1, -20, .08, False),
+                  ("PalmRecoil", "D_PalmRecoil", 2, -20, .08, False), ("13@Pull", .1)],  # 5회차: 방출 뒤 상체 반동  # 10-30 품질 4회차: 타격 때 두 손 위아래로 크게 벌려 내밂
     "Slam": [("2@Pull", .06), ("4@Pull", .1), ("LiftS", "D_LiftS", 0, 90, .1, False), ("LiftS", "D_LiftS", 1, 90, .16, False),  # 4회차: 무릎 굽혀 버티며 머리 위로 높이
-             ("3@GreatDown", .06), ("4@GreatDown", .1), ("5@GreatDown", .03), ("6@GreatDown", .03), ("7@GreatDown", .05), ("8@GreatDown", .25), ("10@GreatDown", .06), ("12@GreatDown", .06), ("13@GreatDown", .1)],
+             ("3@GreatDown", .06), ("4@GreatDown", .1), ("5@GreatDown", .03), ("6@GreatDown", .03), ("SlamSE", "D_SlamSE", 0, -60, .03, False), ("SlamSE", "D_SlamSE", 1, -70, .25, False),
+             ("SlamSE", "D_SlamSE", 2, -60, .06, False), ("12@GreatDown", .06), ("13@GreatDown", .1)],  # 5회차: 3/4 앞 깊은 내리꽂기
     # 10-30 품질 루프(GPT 잡기 5.0 "움켜잡는 순간이 없다"): 3/4 앞 두 팔 벌림 → 앞으로 모아 움켜쥠 → 갈비뼈로 당김(재생 프로파일 대체)
     "Grab": [("0@Pull", .045), ("GrabSE", "D_GrabSE", 0, -20, .12, False), ("GrabSE", "D_GrabSE", 1, -20, .05, False), ("GrabSE", "D_GrabSE", 1, -20, .08, False),
              ("GrabSE", "D_GrabSE", 2, -20, .22, False), ("13@Pull", .1)],

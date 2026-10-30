@@ -196,6 +196,18 @@ MOTIONS = {
         ("south", {"RIGHT ARM": (39, 28), "LEFT ARM": (25, 28), "LEFT LEG": (23, 52), "RIGHT LEG": (41, 52), "shift": (0, 1)}, 90),
         ("south", {"RIGHT ARM": (38, 29), "LEFT ARM": (26, 29), "LEFT LEG": (24, 52), "RIGHT LEG": (40, 52), "shift": (0, 0)}, 90),
     ],
+    # 품질 5회차: 메치기 내리꽂는 순간(3/4 앞) — 두 손을 앞 땅까지 내리꽂고 골반 깊게(GPT "하강 폭이 작다")
+    "D_SlamSE": [
+        ("se", {"RIGHT ARM": (46, 49), "LEFT ARM": (49, 49), "RIGHT LEG": (29, 52), "LEFT LEG": (50, 52), "shift": (2, 5)}, -60),
+        ("se", {"RIGHT ARM": (48, 52), "LEFT ARM": (51, 52), "RIGHT LEG": (29, 52), "LEFT LEG": (51, 52), "shift": (3, 7)}, -70),
+        ("se", {"RIGHT ARM": (46, 50), "LEFT ARM": (49, 50), "RIGHT LEG": (29, 52), "LEFT LEG": (50, 52), "shift": (2, 6)}, -60),
+    ],
+    # 장풍 방출 뒤 반동(3/4 앞) — 두 팔 뻗은 채 상체가 뒤로 밀림(GPT "방출 반동이 약함")
+    "D_PalmRecoil": [
+        ("se", {"RIGHT SHOULDER": (39, 36), "RIGHT ARM": (47, 36), "LEFT ARM": (50, 42), "RIGHT LEG": (28, 52), "LEFT LEG": (51, 52), "shift": (0, 2)}, -20),
+        ("se", {"RIGHT SHOULDER": (38, 36), "RIGHT ARM": (45, 37), "LEFT ARM": (48, 42), "RIGHT LEG": (28, 52), "LEFT LEG": (50, 52), "shift": (-2, 1)}, -20),
+        ("se", {"RIGHT SHOULDER": (37, 36), "RIGHT ARM": (43, 40), "LEFT ARM": (46, 43), "RIGHT LEG": (29, 52), "LEFT LEG": (49, 52), "shift": (-2, 1)}, -20),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 
