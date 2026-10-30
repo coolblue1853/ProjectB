@@ -1156,10 +1156,15 @@ public class InventoryManager : MonoBehaviour
     void SellItem()
     {
         int sellCount = (int)sellSlider.value;
+        // 되사기 기록용(칸에서 빼면 오브젝트가 파괴될 수 있어 먼저 읽는다)
+        string soldId = detail != null ? detail.name : null;
+        int soldTier = detail != null && detail.itemData != null ? detail.itemData.tear : 0;
+        int soldUpgrade = detail != null && detail.itemData != null ? detail.itemData.upgrade : 0;
         // 칸에서 실제로 뺀 경우에만 돈을 준다(인벤토리 칸이 아니거나 수량이 모자라면 판매 취소)
         if (Service.RemoveAt(detail, sellCount))
         {
             DatabaseManager.money += totalSellPrice;
+            Buyback.Record(soldId, sellCount, soldTier, soldUpgrade, totalSellPrice);
         }
         else
         {

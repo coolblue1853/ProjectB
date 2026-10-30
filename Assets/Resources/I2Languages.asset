@@ -4812,6 +4812,22 @@ MonoBehaviour:
       - "\uD504\uB9AC\uC14B {0} \uC7A5\uCC29 ({1}\uBD80\uC704 \uAD50\uCCB4)"
       Flags: 0000
       Languages_Touch: []
+    - Term: Nothing to buy back
+      TermType: 0
+      Description: 
+      Languages:
+      - Nothing to buy back
+      - "\uB418\uC0B4 \uBB3C\uAC74\uC774 \uC5C6\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'U: buy back last sold item'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'U: buy back last sold item'
+      - "U: \uBC29\uAE08 \uD310 \uBB3C\uAC74 \uB418\uC0AC\uAE30"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
