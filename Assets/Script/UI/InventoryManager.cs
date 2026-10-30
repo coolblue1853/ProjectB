@@ -416,19 +416,20 @@ public class InventoryManager : MonoBehaviour
             GameObject item = itemBox.transform.GetChild(0).gameObject;
             itemCheck = item.transform.GetComponent<ItemCheck>();
 
+            // 창고에 들어간 수량만큼 인벤 쪽은 모델 명령으로 뺀다(3c-3, 예전엔 창고 코드가 인벤 nowStack 을 직접 깎았다)
             int count = itemCheck.nowStack;
+            int moved = 0;
             for (int i = 0; i < count; i++)
             {
-                int before = itemCheck.nowStack;
-                chest.CreatItem(itemCheck.name, itemCheck.itemData); // 성공하면 itemCheck.nowStack이 1 줄어든다
-                if (itemCheck.nowStack == before)
+                if (!chest.CreatItem(itemCheck.name, itemCheck.itemData))
                 {
                     break; // 창고가 가득 참
                 }
+                moved++;
             }
-            if (itemCheck.nowStack <= 0)
+            if (moved > 0 && !Service.RemoveAt(itemCheck, moved))
             {
-                Destroy(item.gameObject);
+                GameLog.Warn(GameLog.Cat.Item, "창고 이동 후 인벤 차감 실패: " + itemCheck.name + " x" + moved);
             }
             // 양쪽을 함께 저장 (한쪽만 저장된 상태로 종료되면 복제·소실, B-015)
             SaveInventoryAndChest();
@@ -2024,34 +2025,6 @@ public class InventoryManager : MonoBehaviour
                         }
                     }
 
-                }
-            }
-        }
-        return false;
-    }
-    public bool CheckStack(string itemName)
-    {
-        for (int j = 0; j < 5; j++)
-        {
-            for (int i = 0; i < (maxHor * maxVer); i++)
-            {
-                if (maxBoxNum > (j * (maxHor * maxVer)) + i)
-                {
-                    GameObject insPositon = GetNthChildGameObject(inventoryUI[j], i);
-                    if (insPositon.transform.childCount > 0)
-                    {
-                        GameObject item = insPositon.transform.GetChild(0).gameObject;
-                        ItemCheck check = item.GetComponent<ItemCheck>();
-                        if (check.name == itemName)
-                        {
-                            if (check.itemData.maxStack > check.nowStack)
-                            {
-                                check.nowStack += 1;
-                                DatabaseManager.PlusInventoryDict(itemName, 1);
-                                return true;
-                            }
-                        }
-                    }
                 }
             }
         }

@@ -655,10 +655,15 @@ public class Chest : MonoBehaviour
         chestOb.SetActive(false);
         InventoryManager.instance.state = "chestOpen";
     }
-    public void CreatItem(string itemName, ItemData data = null)
+    /// <summary>창고 현재 페이지에 1개 넣는다(스택 우선). 넣었으면 true. 인벤 쪽 차감은 호출자가 모델 명령으로 한다(3c-3)</summary>
+    public bool CreatItem(string itemName, ItemData data = null)
     {
         bool isCreate = false;
-        if (CheckStack(itemName) == false)
+        if (CheckStack(itemName))
+        {
+            return true;
+        }
+        else
         {
             for (int i = 0; i < (maxHor * maxVer); i++)
             {
@@ -674,12 +679,12 @@ public class Chest : MonoBehaviour
                         check.SetItem(itemName, data != null ? data.Clone() : null);
                         inventoryArray[i, nowBox] = 1; // 같은 프레임에 같은 칸에 또 생성되지 않도록
                         isCreate = true;
-                        InventoryManager.instance.itemCheck.nowStack -= 1;
                         break;
                     }
                 }
             }
         }
+        return isCreate;
     }
     bool CheckStack(string itemName, int stack =1)
     {
@@ -696,7 +701,6 @@ public class Chest : MonoBehaviour
                     {
                         if (check.itemData.maxStack > check.nowStack)
                         {
-                            InventoryManager.instance.itemCheck.nowStack -= 1;
                             check.nowStack += stack;
                             return true;
                         }

@@ -280,6 +280,99 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         return true;
     }
 
+    /// <summary>같은 아이템·티어·강화이고 대상이 덜 찼으면 합칠 수 있다(인벤 모델 CanStackWith 와 같은 기준)</summary>
+    private static bool CanMerge(ItemCheck b, ItemCheck c)
+    {
+        return b != null && c != null && b.itemData != null && c.itemData != null
+            && b.itemData.name == c.itemData.name && b.itemData.tear == c.itemData.tear && b.itemData.upgrade == c.itemData.upgrade
+            && c.nowStack < c.itemData.maxStack;
+    }
+
+    /// <summary>
+    /// 창고 칸 ↔ 인벤 칸 놓기(3c-3): 인벤 쪽은 모델 명령(TakeOut/PutIn/RemoveAt/SetCount), 창고 쪽은 아직 오브젝트 직접(Phase 4).
+    /// 빈칸=이동, 합칠 수 있으면 합치고 넘침은 원래 칸, 아니면 교환. 끝나면 인벤·창고 한 번에 저장. 처리했으면 true
+    /// </summary>
+    private bool TryDropAcrossContainers()
+    {
+        InventoryManager inv = InventoryManager.instance;
+        if (inv.chest == null || changeParent == null || changeParent.parent == null || currentParent == null || currentParent.parent == null)
+        {
+            return false;
+        }
+        bool fromInv = currentParent.parent.CompareTag("Inventory"), fromChest = currentParent.parent.CompareTag("Chest");
+        bool toInv = changeParent.parent.CompareTag("Inventory"), toChest = changeParent.parent.CompareTag("Chest");
+        if (!((fromInv && toChest) || (fromChest && toInv)) || currentParent.childCount > 0)
+        {
+            return false;
+        }
+        Transform origin = currentParent, target = changeParent;
+        ItemCheck b = itemCheck;
+        ReturnToOrigin(); // 먼저 원래 칸으로(모델이 보는 상태와 같게) 돌려놓고 명령으로 옮긴다
+        ItemCheck c = target.childCount > 0 ? target.GetChild(0).GetComponent<ItemCheck>() : null;
+        InventoryService svc = inv.Service;
+        if (c == null)
+        {
+            if (fromInv)
+            {
+                svc.TakeOut(b, target);
+            }
+            else
+            {
+                svc.PutIn(svc.IndexOfBox(target), b);
+            }
+        }
+        else if (CanMerge(b, c))
+        {
+            int put = Mathf.Min(b.nowStack, c.itemData.maxStack - c.nowStack);
+            if (fromInv)
+            {
+                if (svc.RemoveAt(b, put))
+                {
+                    c.nowStack += put;
+                }
+            }
+            else if (svc.SetCount(c, c.nowStack + put))
+            {
+                b.nowStack -= put;
+                if (b.nowStack <= 0)
+                {
+                    b.transform.SetParent(null, false);
+                    Destroy(b.gameObject);
+                }
+            }
+        }
+        else if (fromInv)
+        {
+            int originIndex = svc.IndexOfBox(origin);
+            if (svc.TakeOut(b, target) && !svc.PutIn(originIndex, c))
+            {
+                svc.PutIn(originIndex, b); // 교환 실패 → 되돌림
+            }
+        }
+        else
+        {
+            int targetIndex = svc.IndexOfBox(target);
+            if (svc.TakeOut(c, origin) && !svc.PutIn(targetIndex, b))
+            {
+                svc.PutIn(targetIndex, c);
+            }
+        }
+        if (toInv)
+        {
+            inv.chest.cusor.SetActive(false);
+            inv.cusor.SetActive(true);
+            inv.ChangeCusor(target.gameObject);
+        }
+        else
+        {
+            inv.cusor.SetActive(false);
+            inv.chest.cusor.SetActive(true);
+            inv.chest.ChangeCusor(target.gameObject);
+        }
+        inv.SaveInventoryAndChest();
+        return true;
+    }
+
     private void EndDrag()
     {
         if (DropFromEquipNotAllowed())
@@ -287,7 +380,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             ReturnToOrigin();
             return;
         }
-        if (TryDropInventoryToInventory() || TryDropEquipToInventory() || TryDropInventoryToEquip())
+        if (TryDropInventoryToInventory() || TryDropEquipToInventory() || TryDropInventoryToEquip() || TryDropAcrossContainers())
         {
             return;
         }

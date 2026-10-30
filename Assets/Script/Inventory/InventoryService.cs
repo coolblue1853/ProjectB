@@ -251,6 +251,29 @@ public sealed class InventoryService
         return true;
     }
 
+    /// <summary>
+    /// 3c-3: 인벤 칸 아이템의 수량을 count(1 ~ 최대 스택)로 바꾼다(창고에서 합치기). 같은 오브젝트의 nowStack 만 바꾼다.
+    /// 인벤 칸이 아니거나 범위 밖이면 false, 아무것도 안 바뀜. 0 으로 만들려면 RemoveAt.
+    /// </summary>
+    public bool SetCount(ItemCheck item, int count)
+    {
+        int index = IndexOf(item);
+        if (index < 0 || item.itemData == null || count < 1 || count > Mathf.Max(1, item.itemData.maxStack))
+        {
+            return false;
+        }
+        SyncModelFromViews();
+        ItemStack cur = model[index];
+        if (cur.IsEmpty || !model.TryRemoveAt(index) || !model.PutAt(index, cur.WithCount(count)))
+        {
+            return false;
+        }
+        dirty.Clear();
+        item.nowStack = count;
+        inv.RebuildItemStackCache();
+        return true;
+    }
+
     /// <summary>특정 아이템(칸)에서 n 개를 뺀다(판매·소비). 인벤토리 칸이 아니거나 수량이 모자라면 false</summary>
     public bool RemoveAt(ItemCheck item, int n)
     {
