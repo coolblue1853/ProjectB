@@ -143,18 +143,39 @@ public static class FishingRules
     }
 
     /// <summary>어종 표에서 하나를 고른다(정규화된 누적 확률). 표 인덱스를 돌려준다</summary>
-    public static int RollFish(FishDef[] table, float roll01, RodDef rod, CastQuality quality)
+    public static int RollFish(FishDef[] table, float roll01, RodDef rod, CastQuality quality, float rarePoints = 0f)
     {
+        var weights = new float[table.Length];
         float total = 0f;
+        float commons = 0f;
+        float rares = 0f;
         for (int i = 0; i < table.Length; i++)
         {
-            total += Weight(table[i], rod, quality);
+            weights[i] = Weight(table[i], rod, quality);
+            total += weights[i];
+            if (table[i].Rarity == ItemRarity.C)
+            {
+                commons += weights[i];
+            }
+            else
+            {
+                rares += weights[i];
+            }
+        }
+        // 요리 버프(희귀 확률 +n%p): 전체의 n% 만큼을 일반 어종에서 R/U 로 옮긴다(R/U 끼리는 기존 비율 유지)
+        float shift = Math.Min(commons, total * Math.Max(0f, rarePoints) / 100f);
+        if (shift > 0f && rares > 0f)
+        {
+            for (int i = 0; i < table.Length; i++)
+            {
+                weights[i] *= table[i].Rarity == ItemRarity.C ? (commons - shift) / commons : (rares + shift) / rares;
+            }
         }
         float pick = Clamp01(roll01) * total;
         float acc = 0f;
         for (int i = 0; i < table.Length; i++)
         {
-            acc += Weight(table[i], rod, quality);
+            acc += weights[i];
             if (pick < acc)
             {
                 return i;

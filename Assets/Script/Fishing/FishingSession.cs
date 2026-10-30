@@ -13,6 +13,7 @@ public sealed class FishingSession
     private readonly RodDef _rod;
     private readonly FishDef[] _table;
     private readonly Func<float> _random;
+    private readonly float _rarePoints;
     private float _waitTarget;
 
     public FishingPhase Phase { get; private set; }
@@ -24,8 +25,9 @@ public sealed class FishingSession
     public FishingTension Tension { get; private set; }
 
     /// <summary>random: 0~1 난수 공급자(테스트에서 고정값)</summary>
-    public FishingSession(RodDef rod, FishDef[] table, Func<float> random)
+    public FishingSession(RodDef rod, FishDef[] table, Func<float> random, float rarePoints = 0f)
     {
+        _rarePoints = rarePoints;
         _rod = rod;
         _table = table;
         _random = random;
@@ -94,7 +96,7 @@ public sealed class FishingSession
 
     private void Hook()
     {
-        int index = FishingRules.RollFish(_table, _random(), _rod, Cast);
+        int index = FishingRules.RollFish(_table, _random(), _rod, Cast, _rarePoints);
         Fish = _table[index];
         Count = FishingRules.RollCount(Fish, _random());
         Tension = new FishingTension(Fish.Rarity, _rod);

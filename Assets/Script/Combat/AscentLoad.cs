@@ -16,7 +16,8 @@ public static class AscentLoad
     public static int CurrentLoad { get; private set; }
     public static int Rank { get; private set; }
     public static int Resistance => Resist(Rank);
-    public static int Deficit => DeficitOf(CurrentLoad, Rank);
+    /// <summary>부족분. 요리 버프(상승 부하 저항)가 있으면 맵 부하의 일정 %만큼 줄어든다</summary>
+    public static int Deficit => Mathf.Max(0, DeficitOf(CurrentLoad, Rank) - FoodBuff.AscentReduction(CurrentLoad));
 
     public static event System.Action Changed;
 
@@ -46,6 +47,12 @@ public static class AscentLoad
     {
         CurrentLoad = Mathf.Max(0, load);
         GameLog.Info(GameLog.Cat.Map, "상승 부하 " + CurrentLoad + " / 저항 " + Resistance + " (부족 " + Deficit + ")");
+        Changed?.Invoke();
+    }
+
+    /// <summary>요리 버프가 바뀌었을 때 구독자에게 알린다</summary>
+    public static void Refresh()
+    {
         Changed?.Invoke();
     }
 

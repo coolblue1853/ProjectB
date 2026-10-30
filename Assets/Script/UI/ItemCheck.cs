@@ -88,8 +88,20 @@ public class ItemCheck : MonoBehaviour
                     logBuilder.AppendLine($"Light activated with parameters {effectPowerDetail[0]}, {effectPowerDetail[1]}, {effectPowerDetail[2]}");
                 }
             }
+            else if (FoodBuff.TryParseKind(effectStr[0], out FoodBuffKind foodKind) && effectStr[1] == "+")
+            {
+                // 요리 버프(탐험가 요리): 음식 버프는 1종만 — 기존 방어 음식 버프도 지운다
+                AttackManager cook = GameObject.FindWithTag("Player").GetComponent<AttackManager>();
+                if (cook.foodBuff != null)
+                {
+                    cook.foodBuff.DestoryBuff();
+                }
+                FoodBuff.Apply(foodKind, int.Parse(effectPowerDetail[0]), int.Parse(effectPowerDetail[1]));
+                logBuilder.AppendLine($"Food buff {foodKind} +{effectPowerDetail[0]} for {effectPowerDetail[1]}s");
+            }
             else if (effectStr[0] == "def")
             {
+                FoodBuff.Clear();
                 AttackManager player = GameObject.FindWithTag("Player").GetComponent<AttackManager>();
                 if (player.foodBuff != null) // 이미 버프면
                 {

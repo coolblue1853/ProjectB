@@ -15,7 +15,7 @@
 | 9 | 전진 야영지 | 고층 상승 부하를 견디는 거점 | 텐트·화로·정화 장치 배치, 보급 관리 | 원정 버프·제작 시설·소모품 | 중 |
 | 10 | 천공 기상 관측 | 불규칙 기류·폭풍·상승 부하 현상 조사 | 관측기 방향 맞추고 바람·번개 패턴 계측 | 채집 시기·희귀 몬스터 출현 정보·기상 소재 | 중 |
 
-- 진행: ① 낚시(+ 요리와 묶음) → ④·⑤ 채집·채굴(기존 줍기·제작 재사용) → ③ 발굴 → ⑥ 추적. 구현 규칙·수치는 구현하면서 이 문서 아래에 적는다.
+- 진행: ① 낚시(+ 요리와 묶음, ② 요리 구현됨) → ④·⑤ 채집·채굴(기존 줍기·제작 재사용) → ③ 발굴 → ⑥ 추적. 구현 규칙·수치는 구현하면서 이 문서 아래에 적는다.
 
 ## 층계 낚시 구현 (1순위, 10-30 확정)
 
@@ -160,3 +160,27 @@
 - 배치(씬 파일 안 고침, 부트 때 맵 아래 생성, 처음 켜질 때 아래 Ground 에 붙음): `Lv1_NormalForest` x −290, `Lv1_DeepForest` −270, `Lv1_Swamp` −380. 포털과 25 이상, 다른 미니게임 지점과 50 이상(10-30 레이캐스트). 표시 = 붉은 천을 묶은 기운 말뚝 + 발자국 셋(24×18 코드 도트).
 - UI: 화면 위 가운데 패널(다른 미니게임 HUD 자리) — 목표 몹·흔적 종류, "흔적 n/4 · 실수 n/2", 왼쪽·위·오른쪽 세 칸(흔적 + 신선도 색, 지운 칸 X), 남은 시간 막대, 덫 단계는 왕복 막대(좋음 하늘색·완벽 초록·금색 커서). 결과는 문구 + 덫 품질·처치 보너스.
 - 검증(10-30): EditMode `TrackingRulesTests` 9 + 낚시·채집·발굴·자가 제작·DataIntegrity 49/49. 프로브 `Tools/probes/tracking_setup.cs`(`__MAP__` 이동·낮·스포너 트리거 끔) → `input_bg_on` → `tracking_drive.cs`(perfect = 깊은 숲 숲 곰 완벽 덫·3초 묶음·곰 가죽 3 / normal = 늪 늪 개구리 보통 / miss = 오답 3 실패 / esc = 중단·잠금 해제) → `tracking_kill.cs`(kill = 처치 → 강화석·GroveArmor·곰 가죽 3 드롭, expire = 만료 → 드롭 없이 사라짐) → `tracking_check.cs`. 맵 이동 시 추적 정예 해제 확인. 스크린샷(흔적 단계 한국어·덫 막대·결과). 콘솔 에러 0, 세이브 백업·복원.
+
+## 탐험가 요리 구현 (②, 10-30 확정)
+
+출처: GPT 기획 초안(10-30) + 메인 조정. 임시 가정은 `Docs/OpenQuestions.md` Q-443.
+
+- 코드: `Assets/Script/Cooking/` — `CookingRules`(순수 수치·레시피 6·판정), `CookingSession`(선택 → 굽기/끓이기 → 결과 상태 머신, 순수), `CookingStove`(MiniGameSpot 하위, 입력·재료 소모·보상·쿨타임), `CookingUI`(코드 생성 HUD), `CookingStovePlacer`(배치·코드 도트 모닥불 + LightFlicker), `FoodBuff`(요리 버프 1종). 연결 수정: `ItemCheck.ApplyConsumeEffect`(effectOb `ascent/gather/atk/fish +`), `AscentLoad.Deficit`, `FishingRules.RollFish`(희귀 +%p), `AddSource.Cooking`. 테스트 `Assets/Editor/Tests/CookingRulesTests.cs`(15개).
+- 조작: 화로 트리거 안에서 "위  요리" → **↑** 시작 → **좌우**로 재료가 있는 레시피만 고르기, **공격 키(X)** 로 요리 시작(이때 재료 소모) → 굽기는 X 로 뒤집기, 끓이기는 X 홀드. **ESC(패드 East)** 중단(시작 뒤 중단·피격은 재료 손실·결과 없음, 시작 전 중단은 손실 없음). 재료 없으면 "재료가 없다" 안내만. UiLock "Cooking", 결과 3초 또는 ↑.
+- 굽기 12초 3회: 회마다 4초 구간 마지막 1.5초가 입력 창(왕복 커서 주기 1.5초, 목표 중심 30~70 무작위). 완벽 = 3회 모두 오차 ≤8, 좋음 = 평균 ≤15, 보통 = 평균 ≤30, 실패 = 평균 >30 또는 미입력 2회(미입력 회는 오차 60 계산). 한 번이라도 >8 이면 완벽 불가.
+- 끓이기 18초: 화력 0~100(시작 50), X 홀드 +40/초·뗌 −30/초·변동 ±20/초(0.5초마다). 안전 40~65 유지율 ≥90% 완벽 / ≥75% 좋음 / ≥50% 보통 / 미만 실패, 85%↑ 연속 3초 = 즉시 실패(탄 요리).
+- 결과: 완벽 = 요리 2개, 좋음·보통 1개, 실패 = 탄 요리(Burnt Meal, 포만감 +20, 판매 1) 1개. 화로 쿨타임 90초(화로별, 세션 한정).
+- 레시피·아이템(ItemSheet 234~240, acqPath `cook`, 이름·재료·효과):
+
+| 키 | 한글 | 재료 | 조리 | 효과(effectOb / Pow) | 판매 / 등급 |
+|---|---|---|---|---|---|
+| Herb Roasted Rabbit | 약초구이 토끼 | Rabbit Meat 2, GreenHurb 1, Wood 1 | 굽기 | fullness 130 / ascent +5% 180초 | 100 C |
+| Moss Loach Broth | 이끼미꾸라지 탕 | Moss Loach 2, Forest Mushroom 1, GreenHurb 1 | 끓이기 | fullness 100 hp 60 / gather +5% 180초 | 125 C |
+| Ember Fox Skewer | 잿불 여우꼬치 | Fox Meat 2, Wood 2, GreenHurb 1 | 굽기 | fullness 150 / atk +3% 180초 | 180 R |
+| Glowwing Carp Soup | 반딧불 붕어탕 | Forest Carp 2, Glow Moth Wing 1, Forest Mushroom 1 | 끓이기 | fullness 110 / fish +2%p 240초 | 210 R |
+| Amber Herb Stew | 호박빛 약초스튜 | Amber Trout 1, GreenHurb 2, Forest Mushroom 2 | 끓이기 | fullness 170 hp 100 / ascent +8% 240초 | 260 R |
+| Spirit Carp Moon Roast | 월광 정령잉어구이 | Spirit Koi 1, Moonpetal 1, Wood 2 | 굽기 | fullness 200 stemina 40 / gather +8% 300초 | 600 U |
+
+- 버프: 1종만(다른 요리 버프·기존 방어 음식 버프와 교체, 같은 종류는 시간 갱신). 공격력 = 증뎀 가산 모디파이어, 상승 부하 저항 = 맵 부하의 n% 만큼 `AscentLoad.Deficit` 감소(반올림), 낚시 = R/U 확률 +n%p(일반에서 이동). **채집 속도는 효과 미연결**(Q-443). HP 회복 음식은 물약 공유 쿨다운.
+- 배치(씬 파일 안 고침, 부트 때 맵 아래 생성, 처음 켜질 때 지면에 붙음): `Lv1_NearForest_SideRoad` x −375(y 1.4, 채집 지점과 25 이상) · `Lv1_Swamp` x −296(y −180, 낚시터와 34). 표시 = 돌 테두리 모닥불 24×18 코드 도트 + Light2D/LightFlicker. 아이콘 `Tools/make_cooking_icons.py`(기존 음식 도트 색조 가공, 임시).
+- 검증(10-30): EditMode 237/237(요리 15 포함, DataIntegrity 통과). 프로브 `cooking_ground`(자리 잼) → `cooking_setup`(`__MAP__` 이동·낮) → `input_bg_on` → `cooking_drive`(grill_perfect = 약초구이 토끼 +2·재료 소모, grill_fail = 탄 요리 +1, boil_perfect = 이끼미꾸라지 탕 +2(유지율 1.00), boil_fail = 과열 즉시 실패·탄 요리, esc = 재료 손실·결과 없음·잠금 해제) → `cooking_check`. 음식 사용: 약초구이(부하 40 → 부족 38) → 여우꼬치(증뎀 +3, 이전 버프 해제) → 붕어탕(낚시 +2) 교체 확인. 스크린샷(끓이기 패널 한국어). 콘솔 에러 0, 세이브 백업·복원 md5 일치.

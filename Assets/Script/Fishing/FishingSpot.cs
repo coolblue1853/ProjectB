@@ -31,7 +31,8 @@ public class FishingSpot : MiniGameSpot
 
     protected override void StartSession()
     {
-        Session = new FishingSession(FishingRules.Rod(FishingSave.LoadRod()), FishingRules.TableFor(_floor), RandomValue);
+        Session = new FishingSession(FishingRules.Rod(FishingSave.LoadRod()), FishingRules.TableFor(_floor), RandomValue,
+            FoodBuff.Bonus(FoodBuffKind.FishRare));
     }
 
     protected override void TickSession(float dt, bool held, bool pressed)
