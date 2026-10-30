@@ -41,7 +41,7 @@ public static class MotionFxTable
         }
     }
 
-    public const int SlotCount = 14;
+    public const int SlotCount = 15;
 
     public static readonly Strike[] Strikes =
     {
@@ -59,6 +59,7 @@ public static class MotionFxTable
         new Strike("Lunge", 3, VfxId.MSmear11, new SmearAura.Shape { arc = false, p0 = new Vector2(7f, 14f), p1 = new Vector2(61.5f, 14f) }),
         new Strike("DashSlash", 7, VfxId.MSmear12, new SmearAura.Shape { arc = true, c = new Vector2(2.3f, 20.1f), ea = 36.6f, eb = 29.2f, tilt = 0f, a0 = -196.3f, a1 = -0.8f }),
         new Strike("Punch", 11, VfxId.MSmear13, new SmearAura.Shape { arc = false, p0 = new Vector2(8f, 17f), p1 = new Vector2(62.5f, 17f) }),
+        new Strike("PalmBlast", 3, VfxId.MSmear14, new SmearAura.Shape { arc = false, p0 = new Vector2(2f, 21f), p1 = new Vector2(56.5f, 21f) }),
     };
 
     public static readonly Impact[] Impacts =

@@ -51,8 +51,8 @@ SPLICE = {
                   ("GetupS", "D_GetupS", 2, -20, .05, False), "12", "13"],
     # GPT 46동작 리뷰 약한 동작: 장풍(3/4 앞 두 손바닥 밀기 — 재생 프로파일 대체)·메치기(앞으로 잡기 → 정면 머리 위로 들어 → 측면 내려꽂기, 생성 0)
     # 품질 6회차(GPT "SE 비틀기 → E 측면 방출, 두 손 어깨보다 7~8px 앞, 뒷발로 밀기"): 3/4 앞 웅크림 → 측면 방출·유지·반동
-    "PalmBlast": [("PalmSE2", "D_PalmSE2", 0, -20, .16, False), ("PalmSE2", "D_PalmSE2", 1, -20, .03, False), ("PalmSide", "E_PalmSide", 0, -20, .04, False),
-                  ("PalmSide", "E_PalmSide", 1, -20, .2, False), ("PalmSide", "E_PalmSide", 2, -20, .08, False),
+    "PalmBlast": [("PalmSE2", "D_PalmSE2", 0, -20, .15, False), ("PalmSE2", "D_PalmSE2", 1, -20, .03, False), ("PalmSide", "E_PalmSide", 0, -20, .03, False),
+                  ("PalmSide", "E_PalmSide", 1, 0, .12, False), ("PalmSide", "E_PalmSide", 2, -20, .1, False),  # 12회차: 압축 0.15 → 방출 순간 짧게 + 바늘 이펙트 → 반동 0.1
                   ("PalmRecoil", "D_PalmRecoil", 2, -20, .08, False), ("13@Pull", .1)],  # 5회차: 방출 뒤 상체 반동  # 10-30 품질 4회차: 타격 때 두 손 위아래로 크게 벌려 내밂
     "Slam": [("2@Pull", .06), ("4@Pull", .1), ("LiftS", "D_LiftS", 0, 90, .1, False), ("LiftS", "D_LiftS", 1, 90, .24, False),  # 4회차: 무릎 굽혀 버티며 머리 위로 높이
              ("3@GreatDown", .08), ("5@GreatDown", .04), ("6@GreatDown", .025), ("SlamSE", "D_SlamSE", 0, -60, .025, False), ("SlamSE2", "D_SlamSE2", 1, -75, .03, False), ("SlamSE2", "D_SlamSE2", 1, -75, .22, False),  # 6회차: 머리 위에서 더 버티다 급격히 숙임
@@ -78,7 +78,7 @@ SPLICE = {
     "Grab": [("0@Pull", .045), ("GrabSE", "D_GrabSE", 0, -20, .1, False), ("GrabE", "E_GrabE", 0, -20, .04, False), ("GrabE", "E_GrabE", 1, -20, .12, False),
              ("GrabE", "E_GrabE", 2, -20, .2, False), ("13@Pull", .1)],  # 10회차: 측면 뻗음 → 움켜쥠 고정 → 골반 빼며 당김
     # 10-30 품질 루프(GPT 놓기 5.5 "물체를 놓는 접지 순간이 없다"): 3/4 앞으로 깊게 웅크려 손을 앞발 옆 땅까지 → 회수
-    "Place": ["0", "1", ("PlaceSE", "D_PlaceSE", 0, -20, .1, False), ("PlaceSE", "D_PlaceSE", 1, -20, .22, False), ("PlaceSE", "D_PlaceSE", 2, -20, .12, False),
+    "Place": ["0", "1", ("PlaceSE2", "D_PlaceSE2", 0, -20, .1, False), ("PlaceSE2", "D_PlaceSE2", 1, -20, .2, False), ("PlaceSE2", "D_PlaceSE2", 2, -20, .12, False),  # 12회차: 손 땅에 붙임 → 떼어 가슴 앞(골반 낮게)
               "10", "11", "12"],
     # 10-30 품질 루프(GPT 활 5.5 "시위를 턱까지 당겼다 놓는 차이가 없다"): 3/4 뒤 — 앞손 활을 뻗고 뒷손을 턱까지 당김 → 측면에서 놓기
     "Bow": ["0", "1", ("BowNE", "D_BowNE", 0, 0, .08, False), ("BowNE", "D_BowNE", 1, 0, .1, False), ("BowNE", "D_BowNE", 2, 0, .12, False),

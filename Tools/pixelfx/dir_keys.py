@@ -277,6 +277,18 @@ MOTIONS = {
         ("se", {"RIGHT ARM": (48, 53), "LEFT ARM": (51, 53), "RIGHT LEG": (28, 52), "LEFT LEG": (52, 52), "shift": (3, 10)}, -75),
         ("se", {"RIGHT ARM": (47, 52), "LEFT ARM": (50, 52), "RIGHT LEG": (28, 52), "LEFT LEG": (52, 52), "shift": (2, 9)}, -65),
     ],
+    # 품질 12회차(GPT 장풍 6.8 "방출 키 팔·어깨 전진이 작다"): 측면 — 골반·어깨 2px 더 앞, 두 손바닥 각 어깨 앞 8px(뻗기 직전 → 최대 → 상체 2px 후퇴)
+    "E_PalmSide2": [
+        ("side", {"RIGHT SHOULDER": (42, 33), "RIGHT ARM": (48, 34), "LEFT ARM": (51, 36), "RIGHT HIP": (40, 45), "LEFT HIP": (45, 45), "RIGHT LEG": (29, 53), "LEFT LEG": (52, 53), "shift": (4, 1)}, -20),
+        ("side", {"RIGHT SHOULDER": (44, 33), "RIGHT ARM": (52, 33), "LEFT ARM": (56, 35), "RIGHT HIP": (41, 45), "LEFT HIP": (46, 45), "RIGHT LEG": (28, 53), "LEFT LEG": (53, 53), "shift": (6, 1)}, -20),
+        ("side", {"RIGHT SHOULDER": (42, 33), "RIGHT ARM": (50, 34), "LEFT ARM": (54, 36), "RIGHT HIP": (40, 45), "LEFT HIP": (45, 45), "RIGHT LEG": (28, 53), "LEFT LEG": (53, 53), "shift": (4, 1)}, -20),
+    ],
+    # 품질 12회차(GPT 놓기 6.5 "손에서 물건을 내려놓는 순간이 불분명"): 3/4 앞 — 골반 낮춰 물건손 앞 아래 → 골반 더 낮춰 손을 앞 땅에 붙임 → 손 떼어 가슴 앞으로(골반 낮게 유지)
+    "D_PlaceSE2": [
+        ("se", {"RIGHT ARM": (45, 46), "LEFT ARM": (48, 46), "RIGHT LEG": (31, 52), "LEFT LEG": (50, 52), "shift": (1, 4)}, -20),
+        ("se", {"RIGHT ARM": (48, 52), "LEFT ARM": (51, 52), "RIGHT LEG": (30, 52), "LEFT LEG": (51, 52), "shift": (2, 7)}, -20),
+        ("se", {"RIGHT ARM": (42, 40), "LEFT ARM": (45, 40), "RIGHT LEG": (30, 52), "LEFT LEG": (51, 52), "shift": (0, 5)}, -20),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 
