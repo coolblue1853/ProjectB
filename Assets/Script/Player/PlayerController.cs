@@ -200,12 +200,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    [Tooltip("공격 시작 후 방향 전환을 막는 시간(초). 이동 가능 무기로 휘두르는 중 뒤돌면 판정까지 뒤집히던 문제 (W-13)")]
+    [Tooltip("방향 잠금을 끈 공격(무기·스킬 옵션)만 쓰는 값: 공격 시작 후 방향 전환을 막는 시간(초) (W-13)")]
     [SerializeField] private float _turnLockTime = 0.2f;
     float attackStartedAt = -10f;
+    // 던파식 방향 잠금(10-30): 기본은 공격 모션 내내 시작 방향을 본다. 좌우 입력은 이동만 하고 모션이 끝나면 입력 방향으로 돌아온다
+    bool attackFacingLocked = true;
     // 평타 중 이동 가능한 무기(녹슨 검 등)는 후딜 동안 무기별 배율로 느리게 걷는다
     private float AttackMoveMul => Weapon.Equipped != null ? Weapon.Equipped.AttackMoveSpeedMul : 1f;
-    bool TurnLocked => isAttackAnim && Time.time - attackStartedAt < _turnLockTime;
+    bool TurnLocked => isAttackAnim && (attackFacingLocked || Time.time - attackStartedAt < _turnLockTime);
+
+    /// <summary>공격·스킬 시작 직전에 부른다: 지금 좌우 입력이 있으면 그 방향으로 돌아선다(잠금 중이라도 새 공격은 입력 방향으로 시작, 10-30).
+    /// 입력이 없으면 현재 방향 그대로. 대시·벽점프 중에는 돌지 않는다</summary>
+    public void FaceInputForAttack()
+    {
+        if (moveAction == null || states == "dash" || states == "wallJump")
+        {
+            return;
+        }
+        float h = moveAction.ReadValue<float>();
+        if (h < 0f)
+        {
+            transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
+        }
+        else if (h > 0f)
+        {
+            transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
+        }
+    }
 
     string attackAnimPlaying; // 공속 배율이 걸린 공격 애니 (히트스톱 해제 후 배율 복원용, W-11)
 
@@ -448,14 +469,12 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, moveVelocity.y);
 
 
-            if (horizontalInput < 0)
+            if (horizontalInput < 0 && !TurnLocked) // 로프 공격 중에도 방향 고정 (10-30)
             {
-
                 transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
             }
-            else if (horizontalInput > 0)
+            else if (horizontalInput > 0 && !TurnLocked)
             {
-
                 transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
             }
         }
@@ -562,7 +581,7 @@ public class PlayerController : MonoBehaviour
 
                 states = "moveLeft";
                 moveVelocity = Vector2.left * (isRun ? runSpeed : moveSpeed) * StatMath.MoveSpeedMul * AttackMoveMul;
-                if (!TurnLocked) // 공격 초반엔 방향 고정 (W-13)
+                if (!TurnLocked) // 공격 모션 중엔 방향 고정 (W-13, 10-30 던파식)
                 {
                     transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
                 }
@@ -587,7 +606,7 @@ public class PlayerController : MonoBehaviour
 
                 states = "moveRight";
                 moveVelocity = Vector2.right * (isRun ? runSpeed : moveSpeed) * StatMath.MoveSpeedMul * AttackMoveMul;
-                if (!TurnLocked) // 공격 초반엔 방향 고정 (W-13)
+                if (!TurnLocked) // 공격 모션 중엔 방향 고정 (W-13, 10-30 던파식)
                 {
                     transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);
                 }
@@ -654,6 +673,9 @@ public class PlayerController : MonoBehaviour
     void Dash()
     {
         CancelSkillHold(); // 홀드 중 대시하면 홀드를 끝낸다(쿨 적용)
+        // 공격 중 대시는 잠긴 방향이 아니라 입력 방향으로 나가고, 남은 모션 동안 방향 잠금도 푼다 (10-30). states 가 dash 로 바뀌기 전에 불러야 돈다
+        FaceInputForAttack();
+        attackFacingLocked = false;
         MasterAudio.PlaySound("Dash");
         if (isAttackAnim == false)
         {
@@ -905,7 +927,8 @@ public class PlayerController : MonoBehaviour
     Sequence attackAnimSequence;
     public GameObject RightSoket;
     GameObject revOb;
-    public void ActiveAttackAnim(bool isRevers, string anim, float time, bool isDelay = false)
+    /// <param name="lockFacing">true(기본)면 모션 내내 방향 고정, false면 시작 후 _turnLockTime 만 고정</param>
+    public void ActiveAttackAnim(bool isRevers, string anim, float time, bool isDelay = false, bool lockFacing = true)
     {
         if(anim == null || anim == "")
         {
@@ -919,6 +942,7 @@ public class PlayerController : MonoBehaviour
         // 공격 애니 속도 = 공속 배율 (세트·장비 공속이 눈에 보이게)
         attackAnimPlaying = anim;
         attackStartedAt = Time.time;
+        attackFacingLocked = lockFacing;
         if (hitStopTimer <= 0f)
         {
             Rig.SetAnimationSpeed(anim, StatMath.AttackSpeedMul);

@@ -85,7 +85,11 @@ final  = dmg × (1 + 최종뎀/100) × dmgRatio
 - **평타 중 이동 (10-26):** 무기 프리팹의 `isWeaponStopMove`가 켜져 있으면 평타 후딜 동안 MoveLock으로 멈춘다. 꺼진 무기는 후딜 동안 `_attackMoveSpeedMul`(기본 1) 배율로 걷거나 달린다(`Weapon.AttackMoveSpeedMul` → `PlayerController.Move`).
   - 녹슨 검(`RustedSword`, id 41)만 `isWeaponStopMove 0` + `_attackMoveSpeedMul 0.6`(걷기 3.0 → 1.8). 다른 한손검·단검·대검·둔기·창은 기존 설정 그대로다. 기존에 이미 정지 0이던 무기는 배율 1이라 속도 변화가 없다.
   - 배율은 `isAttackWait == false` 구간 전체(선딜 `delayTime` 포함, 공중 평타 포함)에 걸린다. 달리기 중이면 달리기 속도 × 0.6이고 달리기 스태미나 소모는 그대로다.
-  - 방향 전환 잠금(`TurnLocked`, 공격 시작 0.2초)은 그대로다. 스킬의 이동 정지는 `Skill.isWeaponStopMove`가 따로 정하므로 녹슨 검 스킬은 여전히 멈춘다.
+  - 스킬의 이동 정지는 `Skill.isWeaponStopMove`가 따로 정하므로 녹슨 검 스킬은 여전히 멈춘다.
+- **공격 중 방향 잠금 (10-30, 던파식):** 평타·스킬은 공격 모션(`PlayerController.isAttackAnim`) 내내 시작 때 방향을 본다. 그동안 좌우 입력은 이동(평타 중 배율 규칙 그대로)만 하고 뒤돌지 않으며(로프 위 공격 포함), 모션이 끝난 다음 프레임에 `Move`가 입력 방향으로 돌려놓는다. 그래서 뒤로 걸으면서 앞 방향키+공격으로 잠깐 앞을 보고 치고 다시 뒤로 갈 수 있다(공격 중 몸은 뒤로 가도 얼굴은 앞).
+  - 시작 방향: 평타(`Weapon.CreatAttackPrefab`, 데이터 검증 뒤)와 스킬(`Skill.ActiveSkill`, `CanActivate` 통과 뒤·오브젝트 생성 전)이 `PlayerController.FaceInputForAttack()`을 먼저 부른다. 좌우 입력이 있으면 그 방향, 없으면 현재 방향으로 시작한다(앞 공격이 잠근 방향이어도 새 공격은 입력 방향). 쿨·스태미나로 발동하지 않은 스킬 키는 돌리지 않는다. 대시·벽점프 중에는 돌지 않는다.
+  - 공격 중 대시: `Dash()`가 시작할 때 입력 방향으로 돌고 남은 모션의 잠금을 푼다(잠긴 방향으로 거꾸로 대시하지 않게).
+  - 예외: 무기 `_turnDuringAttack`, 스킬 `_turnDuringCast`(기본 꺼짐)를 켜면 예전처럼 시작 `_turnLockTime`(0.2초)만 고정한다. 현재 켠 무기·스킬은 없다.
 
 ## 6. 스킬 — `Skill.cs`, `SkillCooldown.cs`, `DamageObject.cs`
 

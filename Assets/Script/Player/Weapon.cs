@@ -29,6 +29,8 @@ public class Weapon : MonoBehaviour
     public bool isWeaponStopMove = false;
     [Tooltip("평타 후딜 중 좌우 이동 속도 배율(1=평소). isWeaponStopMove가 꺼진 무기에만 의미가 있다")]
     [SerializeField, Range(0f, 1f)] private float _attackMoveSpeedMul = 1f;
+    [Tooltip("켜면 평타 모션 중에도 좌우 입력으로 뒤돈다(시작 0.2초만 고정). 기본 꺼짐 = 던파식으로 모션 내내 시작 방향 고정 (10-30)")]
+    [SerializeField] private bool _turnDuringAttack = false;
     public float time;
     Sequence comboSequence;
     public bool isOverHand =false;
@@ -275,7 +277,8 @@ public class Weapon : MonoBehaviour
             GameLog.Warn(GameLog.Cat.Player, "무기 데이터 부족: " + name + " 콤보 " + step + "단계 (W-01)", this);
             return;
         }
-        pC.ActiveAttackAnim(spriteReverse.Length >= step && spriteReverse[step - 1], attackAnimName[step - 1], attckSpeed[step - 1] / StatMath.AttackSpeedMul);
+        pC.FaceInputForAttack(); // 새 공격은 그 순간 입력 방향으로 시작(잠긴 방향은 모션 끝까지 유지, 10-30)
+        pC.ActiveAttackAnim(spriteReverse.Length >= step && spriteReverse[step - 1], attackAnimName[step - 1], attckSpeed[step - 1] / StatMath.AttackSpeedMul, false, !_turnDuringAttack);
         bool celMelee = WeaponFx.TryMelee(attackAnimName[step - 1], swingVfx, out VfxId meleeFx, out bool fxFlipY) && WeaponFx.IsCelSmear(meleeFx);
         // 셀 스미어 무기는 판정도 칼이 실제로 지나가는 순간에(10-28): 입력 순간에 만들면 준비 동작(0.16~0.19초) 중에 먼저 맞고 히트스톱이 걸렸다
         float hitDelay = celMelee ? WeaponFx.StrikeDelayFor(attackAnimName[step - 1], pC.Rig) / StatMath.AttackSpeedMul : 0f;

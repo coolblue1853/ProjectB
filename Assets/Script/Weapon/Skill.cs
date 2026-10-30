@@ -19,6 +19,8 @@ public class Skill : MonoBehaviour
     public Sprite skillImage;
     public string skillAnim;
     public bool isWeaponStopMove;
+    [Tooltip("켜면 스킬 모션 중에도 좌우 입력으로 뒤돈다(시작 0.2초만 고정). 기본 꺼짐 = 던파식으로 모션 내내 시작 방향 고정 (10-30)")]
+    [SerializeField] private bool _turnDuringCast = false;
     public int useStemina;
     public float attckSpeed;
     Weapon weapon;
@@ -289,6 +291,11 @@ public class Skill : MonoBehaviour
     {
         if (CanActivate(num))
         {
+            // 발동이 확정된 뒤에만 입력 방향으로 돌아선다(쿨·스태미나로 안 나가면 잠긴 방향 유지). 오브젝트 생성보다 먼저 (10-30)
+            if (PlayerController.instance != null)
+            {
+                PlayerController.instance.FaceInputForAttack();
+            }
             isActive = true;
             _activeSlot = num;
             // 이전 시전의 오브젝트를 다시 잡지 않게 — 바닥을 못 찾아 생성이 안 되면 SetSkillDmg 가 건너뛴다
@@ -404,7 +411,7 @@ public class Skill : MonoBehaviour
 
     void SkillEffect() // 기술 에니메이션 및 데미지 오브젝트에 공격설정
     {
-        PlayerController.instance.ActiveAttackAnim(false,skillAnim, attckSpeed / StatMath.AttackSpeedMul);
+        PlayerController.instance.ActiveAttackAnim(false, skillAnim, attckSpeed / StatMath.AttackSpeedMul, false, !_turnDuringCast);
         PlayerHealthManager.Instance.SteminaDown(useStemina);
 
         float waitTime = 0;
