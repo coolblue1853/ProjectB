@@ -103,3 +103,10 @@
 - 비용: 타일 순회는 타일맵 경계와 영역이 겹치는 칸만(40만 칸 넘으면 건너뜀). 텍스처가 512 로 잘려도 화면 비율은 월드 크기대로.
 - 조작: **N** 으로 켜고 끔(키 설정 예약 키), ES3 `settings.minimap`(공용 파일). 기본 켬(Q-435).
 - 검증: 프로브 `Tools/probes/minimap_probe.cs`(마을 75×17 영역·점 5, 외곽 샛길 618 유닛 → 512×64 텍스처·점 6, 맵 이름 한국어), 스크린샷 2장, 보스 스폰(PassiveTerror) 후 점 6→7.
+
+## 10. 자가 제작 페이지 + 물고기 요리 (Q-110·Q-436, 2026-10-30)
+
+- 문제: 씬의 자가 제작 상자가 1페이지 1줄 3칸(스튜 3종)으로 가득 차 레시피를 더 넣지 못했다.
+- 해결: `Assets/Resources/SelfCraftRecipes.csv`(결과,재료*수;재료*수)의 추가 레시피로 1페이지를 복제한 페이지를 런타임에 뒤에 붙인다(`Assets/Script/UI/CraftUI/SelfCraftPages.cs`, `CraftingManager.Start`). 페이지 넘김은 기존 Q/E(패드 LB/RB). 레시피 상자 기준 아래쪽(-70)에 "2 / 2  Q · E" 표시(키보드 기준 문구). 씬 파일은 고치지 않는다.
+- 추가 레시피(수치는 GPT 초안 채택): 여우 꼬치구이(Fox Meat 2 + Wood 1, Q-110 보류분), **숲붕어 구이**(Forest Carp 2 + Wood 1 → 포만감 +120, 판매 45, C), **호박빛송어 수프**(Amber Trout 1 + Moss Loach 1 + GreenHurb 2 → 포만감 +180 / HP +120 / 스태미나 +30, 판매 180, R). HP 효과가 있어 물약과 같은 공유 쿨다운(6초)을 탄다 — 의도(물약 대용 회복 요리 연타 방지, Q-430). ItemSheet 217·218 행, 아이콘은 기존 물고기·스튜 도트를 가공(임시).
+- 검증: EditMode `SelfCraftPagesTests`(파싱·출하 CSV 이름이 시트에 있음), 프로브 `Tools/probes/selfcraft_probe.cs`(가상 키 K→E 로 2/2 페이지, 숲붕어 2·나무 1 → 숲붕어 구이 0→1), 스크린샷.

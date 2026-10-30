@@ -103,7 +103,7 @@
 - 레시피는 씬 오브젝트(NeedItem 컴포넌트)에 있다. 오브젝트 이름이 결과물이고, needItem과 needItemAmount 리스트가 재료다.
 - 제작 UI는 3종이다: 자가 제작, 무기 대장장이, 방어구 대장장이.
 - 재료 패턴은 `T0_Ore + Wood + 몬스터 재료`이고 수량은 3~20개다.
-- Lv2 레시피(2026-10-18): 방어구 대장장이 6(Cliff 방어구 5 + Eye of the Cliffs), 무기 대장장이 3(CliffBlade, CliffStaff, AbyssStaff). 재생성: `Tools/probes/add_lv2_recipes.cs`. UI 칸 부족으로 Bringer's Sigil Ring·Roasted Fox Skewer는 보류(Q-110).
+- Lv2 레시피(2026-10-18): 방어구 대장장이 6(Cliff 방어구 5 + Eye of the Cliffs), 무기 대장장이 3(CliffBlade, CliffStaff, AbyssStaff). 재생성: `Tools/probes/add_lv2_recipes.cs`. UI 칸 부족으로 Bringer's Sigil Ring은 보류(Q-110). 자가 제작은 10-30 부터 `Resources/SelfCraftRecipes.csv` 추가 페이지(BasicFeatures.md 10절): Roasted Fox Skewer·Grilled Forest Carp·Amber Trout Soup.
 - 개선 방향: 레시피를 CSV(`CraftRecipe.csv`)로 옮겨 데이터로 관리한다.
 
 **상점:**

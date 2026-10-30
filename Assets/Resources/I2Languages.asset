@@ -4764,6 +4764,22 @@ MonoBehaviour:
       - "\uB09A\uC2DC"
       Flags: 0000
       Languages_Touch: []
+    - Term: Grilled Forest Carp
+      TermType: 0
+      Description: 
+      Languages:
+      - Grilled Forest Carp
+      - "\uC232\uBD95\uC5B4 \uAD6C\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Amber Trout Soup
+      TermType: 0
+      Description: 
+      Languages:
+      - Amber Trout Soup
+      - "\uD638\uBC15\uBE5B\uC1A1\uC5B4 \uC218\uD504"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

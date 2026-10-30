@@ -40,7 +40,7 @@ public static class LocItems
         ("Cliff Crystal Ore", "절벽 수정 광석"), ("Cliff Fox Pelt", "절벽 여우 가죽"), ("Fox Meat", "여우고기"), ("Glowing Spore", "빛나는 포자"),
         ("Spongy Mushroom Cap", "말랑한 버섯갓"), ("Goblin Fang", "고블린 송곳니"), ("Tarnished Goblin Coin", "녹슨 고블린 동전"),
         ("Membrane Wing", "막 날개"), ("Bloodshot Lens", "충혈된 수정체"), ("Ancient Bone", "고대의 뼈"), ("Cracked Shield Shard", "금 간 방패 조각"),
-        ("Death Sigil", "죽음의 인장"), ("Abyssal Core", "심연의 핵"), ("Roasted Fox Skewer", "여우 꼬치구이"),
+        ("Death Sigil", "죽음의 인장"), ("Abyssal Core", "심연의 핵"), ("Roasted Fox Skewer", "여우 꼬치구이"), ("Grilled Forest Carp", "숲붕어 구이"), ("Amber Trout Soup", "호박빛송어 수프"),
 
         // ── 2층계 절벽 ──
         ("Cliffwalker Hood", "절벽 순례자 두건"), ("Cliffwalker Mail", "절벽 순례자 갑옷"), ("Cliffwalker Greaves", "절벽 순례자 각반"),

@@ -217,3 +217,5 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 214,Moss Loach,Misc,World,18,1,fishing,50,-,0,-,,Moss Loach,0,C,0,
 215,Amber Trout,Misc,World,90,1,fishing,50,-,0,-,,Amber Trout,0,R,0,
 216,Spirit Koi,Misc,World,450,1,fishing,50,-,0,-,,Spirit Koi,0,U,0,
+217,Grilled Forest Carp,Consum,eat!,45,5,cook,50,fullness +,120,-,,Grilled Forest Carp,0,C,0,
+218,Amber Trout Soup,Consum,eat!,180,5,cook,50,fullness +/hp +/stemina +,180/120/30,-,,Amber Trout Soup,0,R,0,

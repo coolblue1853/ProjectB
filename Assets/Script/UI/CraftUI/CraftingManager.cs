@@ -125,6 +125,11 @@ public class CraftingManager : MonoBehaviour
     }
     void Start()
     {
+        if (isSelfCraft)
+        {
+            SelfCraftPages.Build(LV1craftBox[0].transform); // 1줄 3칸이 가득 차 추가 레시피는 페이지로(Q-110)
+            BuildPageLabel();
+        }
         nowLv = 0;
         line = 0;
         nowPage = 0;
@@ -658,11 +663,51 @@ public class CraftingManager : MonoBehaviour
 
     }
 
-    CraftItemCheck _pinSyncedItem;
+    private CraftItemCheck _pinSyncedItem;
+    private TextMeshProUGUI _pageLabel;
+    private int _shownPage = -1;
+
+    /// <summary>페이지가 2개 이상이면 레시피 줄 아래에 "1/2  Q·E" 표시(자가 제작)</summary>
+    private void BuildPageLabel()
+    {
+        Transform box = LV1craftBox[0].transform;
+        if (box.childCount < 2)
+        {
+            return;
+        }
+        var go = new GameObject("PageLabel", typeof(RectTransform), typeof(TextMeshProUGUI));
+        go.transform.SetParent(box.parent, false); // 상자 자식이면 페이지로 세어진다
+        _pageLabel = go.GetComponent<TextMeshProUGUI>();
+        UiTheme theme = UiTheme.Get();
+        if (theme.pixelFont != null)
+        {
+            _pageLabel.font = theme.pixelFont;
+        }
+        _pageLabel.fontSize = 22f;
+        _pageLabel.alignment = TextAlignmentOptions.Center;
+        _pageLabel.textWrappingMode = TextWrappingModes.NoWrap;
+        _pageLabel.raycastTarget = false;
+        RectTransform rt = _pageLabel.rectTransform;
+        rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.position = box.position;
+        rt.anchoredPosition += new Vector2(0f, -70f);
+        rt.sizeDelta = new Vector2(240f, 30f);
+    }
+
+    private void UpdatePageLabel()
+    {
+        if (_pageLabel == null || _shownPage == nowPage)
+        {
+            return;
+        }
+        _shownPage = nowPage;
+        _pageLabel.text = (nowPage + 1) + " / " + LV1craftBox[0].transform.childCount + "   Q · E";
+    }
 
     /// <summary>제작 핀(BasicFeatures.md 7절): 제작 창에서 P(패드 R3)로 지금 레시피를 고정/해제한다</summary>
     void CheckPinInput()
     {
+        UpdatePageLabel();
         if (nowCraftItem != _pinSyncedItem && nowCraftItem != null && nowCraftItem.itemData != null && nowNeedItem != null)
         {
             _pinSyncedItem = nowCraftItem; // 커서가 고정한 레시피에 오면 재료 목록을 조용히 맞춘다(데이터 변경 대비)
