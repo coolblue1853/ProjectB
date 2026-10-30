@@ -253,6 +253,24 @@ MOTIONS = {
         ("side", {"RIGHT SHOULDER": (41, 33), "RIGHT ARM": (50, 35), "LEFT ARM": (42, 39), "RIGHT LEG": (32, 53), "LEFT LEG": (50, 53), "shift": (2, 1)}, 0),
         ("side", {"RIGHT SHOULDER": (41, 34), "RIGHT ARM": (48, 39), "LEFT ARM": (41, 39), "RIGHT LEG": (32, 53), "LEFT LEG": (50, 53), "shift": (2, 2)}, -25),
     ],
+    # 품질 10회차(GPT 검+권총 6.0 "두 무기가 몸 앞에서 겹쳐 교차해 든 것처럼"): 측면 — 권총손(LEFT, 앞) 어깨 높이로 8px 앞, 검손(RIGHT) 뒤 허리 아래, 앞발 내딛음 → 사격 → 반동
+    "E_GunE": [
+        ("side", {"LEFT ARM": (51, 34), "RIGHT ARM": (34, 42), "RIGHT LEG": (34, 53), "LEFT LEG": (48, 53), "shift": (0, 1)}, 200),
+        ("side", {"LEFT ARM": (53, 33), "RIGHT ARM": (34, 41), "RIGHT LEG": (33, 53), "LEFT LEG": (50, 53), "shift": (1, 1)}, 200),
+        ("side", {"LEFT ARM": (50, 31), "RIGHT ARM": (34, 41), "RIGHT LEG": (33, 53), "LEFT LEG": (50, 53), "shift": (-1, 1)}, 205),
+    ],
+    # 품질 10회차(GPT 활 6.5 "발사 순간 활손과 시위손 분리 부족"): 측면 — 활손(LEFT) 8px 앞 고정, 시위손(RIGHT) 턱 옆까지 당김 → 놓으며 뒤로 튕김 → 정리
+    "E_BowE": [
+        ("side", {"LEFT ARM": (53, 33), "RIGHT ARM": (40, 30), "RIGHT LEG": (34, 53), "LEFT LEG": (48, 53), "shift": (0, 1)}, 0),
+        ("side", {"LEFT ARM": (53, 33), "RIGHT ARM": (32, 31), "RIGHT LEG": (34, 53), "LEFT LEG": (48, 53), "shift": (-1, 1)}, 0),
+        ("side", {"LEFT ARM": (51, 35), "RIGHT ARM": (35, 37), "RIGHT LEG": (34, 53), "LEFT LEG": (48, 53), "shift": (-1, 1)}, 0),
+    ],
+    # 품질 10회차(GPT 잡기 6.5 "잡는 순간의 고정과 끌어당기는 힘"): 측면 — 두 손 어깨 높이로 뻗음 → 내딛으며 앞 아래에서 움켜쥠 → 골반 뒤로 빼며 당김
+    "E_GrabE": [
+        ("side", {"RIGHT SHOULDER": (40, 33), "RIGHT ARM": (48, 34), "LEFT ARM": (51, 33), "RIGHT LEG": (34, 53), "LEFT LEG": (48, 53), "shift": (1, 2)}, -20),
+        ("side", {"RIGHT SHOULDER": (41, 34), "RIGHT ARM": (49, 37), "LEFT ARM": (52, 36), "RIGHT LEG": (33, 53), "LEFT LEG": (51, 53), "shift": (2, 2)}, -20),
+        ("side", {"RIGHT SHOULDER": (38, 33), "RIGHT ARM": (43, 38), "LEFT ARM": (46, 37), "RIGHT LEG": (31, 53), "LEFT LEG": (47, 53), "shift": (-2, 1)}, -20),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 

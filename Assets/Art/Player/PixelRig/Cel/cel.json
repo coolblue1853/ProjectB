@@ -4887,55 +4887,55 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.12,
+    "time": 0.1,
     "angle": -20.0,
     "angleB": -999.0
    },
    {
     "png": "Grab_2",
     "hand": [
-     45,
-     39
+     48,
+     34
     ],
     "handB": [
-     50,
-     40
+     51,
+     33
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.05,
+    "time": 0.04,
     "angle": -20.0,
     "angleB": -999.0
    },
    {
     "png": "Grab_3",
     "hand": [
-     45,
-     39
+     49,
+     37
     ],
     "handB": [
-     50,
-     40
+     52,
+     36
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.08,
+    "time": 0.12,
     "angle": -20.0,
     "angleB": -999.0
    },
    {
     "png": "Grab_4",
     "hand": [
-     42,
-     42
+     43,
+     38
     ],
     "handB": [
-     45,
-     42
+     46,
+     37
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.22,
+    "time": 0.2,
     "angle": -20.0,
     "angleB": -999.0
    },
@@ -5499,56 +5499,56 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.28,
+    "time": 0.12,
     "angle": 0.0,
     "angleB": -999.0
    },
    {
     "png": "Bow_5",
     "hand": [
-     45,
-     35
+     53,
+     33
     ],
     "handB": [
-     42,
-     35
+     40,
+     30
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.12,
-    "angle": -6.0,
+    "time": 0.16,
+    "angle": 0.0,
     "angleB": -999.0
    },
    {
     "png": "Bow_6",
     "hand": [
-     45,
-     36
+     53,
+     33
     ],
     "handB": [
-     46,
-     37
+     32,
+     31
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.045,
-    "angle": -18.0,
+    "time": 0.05,
+    "angle": 0.0,
     "angleB": -999.0
    },
    {
     "png": "Bow_7",
     "hand": [
-     45,
-     36
-    ],
-    "handB": [
      51,
      35
+    ],
+    "handB": [
+     35,
+     37
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.1,
-    "angle": -30.0,
+    "angle": -10.0,
     "angleB": -999.0
    },
    {
@@ -5617,7 +5617,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.12,
+    "time": 0.08,
     "angle": 170.0,
     "angleB": -999.0
    },
@@ -5633,7 +5633,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.03,
+    "time": 0.025,
     "angle": 20.0,
     "angleB": -999.0
    },
@@ -5649,7 +5649,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.1,
+    "time": 0.14,
     "angle": 0.0,
     "angleB": -999.0
    },
@@ -5665,7 +5665,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.07,
+    "time": 0.05,
     "angle": -20.0,
     "angleB": -999.0,
     "behind": true
@@ -5682,7 +5682,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.1,
+    "time": 0.08,
     "angle": -25.0,
     "angleB": -999.0
    },
@@ -7156,7 +7156,7 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.17,
+    "time": 0.12,
     "angle": 150.0
    },
    {
@@ -7171,7 +7171,7 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.03,
+    "time": 0.04,
     "angle": 111.1
    },
    {
@@ -7186,7 +7186,7 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.03,
+    "time": 0.04,
     "angle": 38.9
    },
    {
@@ -7201,7 +7201,7 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.07,
+    "time": 0.12,
     "angle": 0.0
    },
    {
@@ -7216,7 +7216,7 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.12,
+    "time": 0.06,
     "angle": -10.0
    },
    {
@@ -7964,73 +7964,90 @@
    {
     "png": "SwordPistol_4",
     "hand": [
-     31,
-     44
+     34,
+     42
     ],
     "handB": [
-     49,
-     36
+     51,
+     34
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.05,
+    "time": 0.06,
     "angle": 200.0,
-    "angleB": -999.0,
+    "angleB": 0.0,
     "behind": true
    },
    {
     "png": "SwordPistol_5",
     "hand": [
-     31,
-     44
+     34,
+     41
     ],
     "handB": [
-     50,
-     38
+     53,
+     33
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.1,
+    "time": 0.04,
     "angle": 200.0,
-    "angleB": -999.0,
+    "angleB": 0.0,
     "behind": true
    },
    {
     "png": "SwordPistol_6",
     "hand": [
-     31,
-     44
+     34,
+     41
     ],
     "handB": [
-     49,
-     36
+     50,
+     31
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.05,
-    "angle": 200.0,
-    "angleB": -999.0,
+    "time": 0.06,
+    "angle": 205.0,
+    "angleB": 18.0,
     "behind": true
    },
    {
     "png": "SwordPistol_7",
     "hand": [
-     32,
-     44
+     34,
+     41
     ],
     "handB": [
-     51,
-     38
+     53,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
+    "angle": 200.0,
+    "angleB": 0.0,
+    "behind": true
+   },
+   {
+    "png": "SwordPistol_8",
+    "hand": [
+     34,
+     41
+    ],
+    "handB": [
+     50,
+     31
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.14,
     "angle": 205.0,
-    "angleB": -999.0,
+    "angleB": 18.0,
     "behind": true
    },
    {
-    "png": "SwordPistol_8",
+    "png": "SwordPistol_9",
     "hand": [
      38,
      42
@@ -8046,7 +8063,7 @@
     "angleB": -999.0
    },
    {
-    "png": "SwordPistol_9",
+    "png": "SwordPistol_10",
     "hand": [
      36,
      42
@@ -18279,6 +18296,207 @@
     "dy": -1,
     "sx": 0,
     "time": 0.12,
+    "angle": -20.0
+   }
+  ]
+ },
+ "WhipSnap_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "WhipSnap_side_0",
+    "hand": [
+     44,
+     39
+    ],
+    "handB": [
+     46,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 24.1
+   },
+   {
+    "png": "WhipSnap_side_1",
+    "hand": [
+     38,
+     23
+    ],
+    "handB": [
+     48,
+     39
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 105.9
+   },
+   {
+    "png": "WhipSnap_side_2",
+    "hand": [
+     28,
+     25
+    ],
+    "handB": [
+     48,
+     37
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.17,
+    "angle": 150.0
+   },
+   {
+    "png": "WhipSnap_side_3",
+    "hand": [
+     36,
+     23
+    ],
+    "handB": [
+     49,
+     39
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 111.1
+   },
+   {
+    "png": "WhipSnap_side_4",
+    "hand": [
+     49,
+     27
+    ],
+    "handB": [
+     50,
+     41
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.03,
+    "angle": 38.9
+   },
+   {
+    "png": "WhipSnap_side_5",
+    "hand": [
+     53,
+     32
+    ],
+    "handB": [
+     50,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.07,
+    "angle": 0.0
+   },
+   {
+    "png": "WhipSnap_side_6",
+    "hand": [
+     52,
+     34
+    ],
+    "handB": [
+     49,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -10.0
+   },
+   {
+    "png": "WhipSnap_side_7",
+    "hand": [
+     51,
+     36
+    ],
+    "handB": [
+     49,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -15.2
+   },
+   {
+    "png": "WhipSnap_side_8",
+    "hand": [
+     47,
+     39
+    ],
+    "handB": [
+     49,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -24.8
+   },
+   {
+    "png": "WhipSnap_side_9",
+    "hand": [
+     45,
+     40
+    ],
+    "handB": [
+     50,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -30.0
+   },
+   {
+    "png": "WhipSnap_side_10",
+    "hand": [
+     43,
+     41
+    ],
+    "handB": [
+     49,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "WhipSnap_side_11",
+    "hand": [
+     40,
+     41
+    ],
+    "handB": [
+     47,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "WhipSnap_side_12",
+    "hand": [
+     38,
+     41
+    ],
+    "handB": [
+     46,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.08,
     "angle": -20.0
    }
   ]

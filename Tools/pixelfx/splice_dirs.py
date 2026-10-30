@@ -30,14 +30,15 @@ SPLICE = {
     "Punch": ["0", "1", "2", "3", "4", "5", "6", "7", ("PunchNE", "D_PunchNE", 1, 0, .07, False), ("PunchSE", "D_PunchSE", 1, 0, .035, False),
               "10", "11", "12", "13"],  # 원투의 투: 3/4 뒤 장전 → 3/4 앞 통과 → 측면 스트레이트(GPT D4)
     # 검 든 채 사격: 3/4 앞으로 몸을 열고 권총(앞손)을 어깨 높이로, 검은 반대 허리 뒤(GPT 리뷰 "두 무기가 겹친다") — 사격 4·6번
-    "SwordPistol": ["0", "1", "2", ("GunSE", "D_GunSE", 0, 200, .08, True), ("GunSE", "D_GunSE", 1, 200, .05, True),
-                    ("GunSE", "D_GunSE", 0, 200, .1, True), ("GunSE", "D_GunSE", 1, 200, .05, True), ("GunSE", "D_GunSE", 2, 205, .14, True), "12", "13"],
+    # 품질 10회차(GPT 6.0 "두 무기가 몸 앞에서 겹침"): 3/4 앞 겨눔 → 측면에서 권총손 어깨 높이 8px 앞·검손 뒤 허리(E_GunE) 사격·반동(angleB 18°)
+    "SwordPistol": ["0", "1", "2", ("GunSE", "D_GunSE", 0, 200, .08, True), ("GunE", "E_GunE", 0, 200, .06, True, 0), ("GunE", "E_GunE", 1, 200, .04, True, 0),
+                    ("GunE", "E_GunE", 2, 205, .06, True, 18), ("GunE", "E_GunE", 1, 200, .08, True, 0), ("GunE", "E_GunE", 2, 205, .14, True, 18), "12", "13"],
     # 한손 베기 회전(GPT 2차 "골반·어깨 회전 부족"): 3/4 뒤 감기 → 측면 타격 → 3/4 앞 팔로스루 — 공용 프레임
     "DashSlash": ["0", "1", ("CoilNE", "D_CoilNE", 0, -170, .06, True), ("CoilNE", "D_CoilNE", 1, -165, .12, True), "3", "4", "5", "6",
                   ("FollowSE", "D_FollowSE", 0, -10, .06, True), ("FollowSE", "D_FollowSE", 1, -20, .1, True), "9", "10", "11", "13"],
     # 품질 8회차(GPT 한손 수평 6.3 "무겁지도 빠르지도 않음 — 양손 수평과 준비가 비슷"): 3/4 뒤 감기 빼고 측면 머리 옆 짧은 장전 → 내딛으며 수평 타격 → 3/4 앞 팔로스루
-    "GreatSideOne": ["0", ("OneSide", "E_OneSide", 0, 170, .12, False), ("OneSide", "E_OneSide", 1, 20, .03, False), ("OneSide", "E_OneSide", 1, 0, .1, False),
-                     ("FollowSE", "D_FollowSE", 1, -20, .07, True), ("OneSide", "E_OneSide", 2, -25, .1, False), "11", "12", "13"],
+    "GreatSideOne": ["0", ("OneSide", "E_OneSide", 0, 170, .08, False), ("OneSide", "E_OneSide", 1, 20, .025, False), ("OneSide", "E_OneSide", 1, 0, .14, False),
+                     ("FollowSE", "D_FollowSE", 1, -20, .05, True), ("OneSide", "E_OneSide", 2, -25, .08, False), "11", "12", "13"],  # 9회차: 빠른 스냅·수평 타격 유지
     # 쌍검 X 교차 정면(GPT D3) — 7번째 값 = 앞손 무기 각도(angleB, 10-30 채널)
     "DaggerCross": ["0", "1", ("CrossS", "D_CrossS", 0, 135, .14, False, 45), ("3", .03), ("CrossS", "D_CrossS", 1, -135, .04, False, -45),
                     ("CrossS", "D_CrossS", 2, -40, .22, False, -140), "9", "10", "11"],
@@ -70,15 +71,17 @@ SPLICE = {
                    ("DualFire", "E_DualFire", 2, 6, .12, False, 6), "12", "13"],
     # 품질 8회차(GPT 백스텝 6.4 "예비동작·이탈·착지 분리가 약해 미끄러져 보임"): 몸 낮춤 버팀 → 이탈 빠르게 → 공중 → 착지 웅크림 버팀(생성 0)
     "Backstep": ["0", "1", ("2", .12), ("3", .035), ("4", .035), ("5", .06), ("6", .06), ("7", .04), ("8", .13), ("9", .05), "10", "11", "12", "13"],
+    # 품질 10회차(GPT 채찍 6.5 "끝이 앞으로 펴지는 스냅 순간이 약함"): 장전 0.12 → 전환·손목 스냅 0.04씩 → 최대 전개 0.12 → 회수(생성 0)
+    "WhipSnap": ["0", "1", ("2", .12), ("3", .04), ("4", .04), ("5", .12), ("6", .06), "7", "8", "9", "10", "11", "12"],
     # 10-30 품질 루프(GPT 잡기 5.0 "움켜잡는 순간이 없다"): 3/4 앞 두 팔 벌림 → 앞으로 모아 움켜쥠 → 갈비뼈로 당김(재생 프로파일 대체)
-    "Grab": [("0@Pull", .045), ("GrabSE", "D_GrabSE", 0, -20, .12, False), ("GrabSE", "D_GrabSE", 1, -20, .05, False), ("GrabSE", "D_GrabSE", 1, -20, .08, False),
-             ("GrabSE", "D_GrabSE", 2, -20, .22, False), ("13@Pull", .1)],
+    "Grab": [("0@Pull", .045), ("GrabSE", "D_GrabSE", 0, -20, .1, False), ("GrabE", "E_GrabE", 0, -20, .04, False), ("GrabE", "E_GrabE", 1, -20, .12, False),
+             ("GrabE", "E_GrabE", 2, -20, .2, False), ("13@Pull", .1)],  # 10회차: 측면 뻗음 → 움켜쥠 고정 → 골반 빼며 당김
     # 10-30 품질 루프(GPT 놓기 5.5 "물체를 놓는 접지 순간이 없다"): 3/4 앞으로 깊게 웅크려 손을 앞발 옆 땅까지 → 회수
     "Place": ["0", "1", ("PlaceSE", "D_PlaceSE", 0, -20, .1, False), ("PlaceSE", "D_PlaceSE", 1, -20, .22, False), ("PlaceSE", "D_PlaceSE", 2, -20, .12, False),
               "10", "11", "12"],
     # 10-30 품질 루프(GPT 활 5.5 "시위를 턱까지 당겼다 놓는 차이가 없다"): 3/4 뒤 — 앞손 활을 뻗고 뒷손을 턱까지 당김 → 측면에서 놓기
-    "Bow": ["0", "1", ("BowNE", "D_BowNE", 0, 0, .08, False), ("BowNE", "D_BowNE", 1, 0, .1, False), ("BowNE", "D_BowNE", 2, 0, .28, False),
-            "9", "10", "11", "12", "13"],
+    "Bow": ["0", "1", ("BowNE", "D_BowNE", 0, 0, .08, False), ("BowNE", "D_BowNE", 1, 0, .1, False), ("BowNE", "D_BowNE", 2, 0, .12, False),
+            ("BowE", "E_BowE", 0, 0, .16, False), ("BowE", "E_BowE", 1, 0, .05, False), ("BowE", "E_BowE", 2, -10, .1, False), "12", "13"],  # 10회차: 측면 만작 → 놓으며 시위손 뒤로 튕김
     # 10-30 품질 루프(GPT 양손 수평 6.0 "올려베기처럼 보인다, 한손 수평과 비슷"): 타격 직후 3/4 앞 양손 팔로스루(회전 베기 프레임)로 수평 통과를 보이게
     "GreatSide": ["0", "1", "2", "3", "4", ("v2SpinSE", "D_SpinSE", 1, -8, .05, False), ("v2SpinSE", "D_SpinSE", 2, -15, .1, False), "10", "11", "12", "13"],
     # 새 셀: 춤(N3)·악기(N2, 생성기가 류트를 그림 — 현악기 전용)
