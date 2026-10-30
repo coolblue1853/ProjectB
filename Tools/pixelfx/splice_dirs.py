@@ -16,8 +16,10 @@ SPLICE = {
               ("IaidoNE", "D_IaidoNE", 2, -60, .03, True), "4", "5", "6", "7", "8", "9", "10", "11", ("13", .08)],
     "Throw": ["0", ("ThrowNE", "D_ThrowNE", 0, 110, .05, False), ("ThrowNE", "D_ThrowNE", 1, 120, .12, False),  # 15회차: 젖힘 0.12 → 릴리즈 0.04씩 → 팔로스루 0.14 + 투사체 바늘
               ("ThrowNE", "D_ThrowNE", 2, 90, .03, False), "3", "4", ("5", .03), ("6", .03), ("7", .04), ("8", .14), "9", "10", "11", "13"],
-    "GreatUpper": ["0", "1", ("UpperNE", "D_UpperNE", 0, -178, .1, True), ("UpperNE", "D_UpperNE", 1, -174, .18, True),  # 15회차 타이밍 시도(6.9→6.8)는 되돌림 — 캡처에서 끝 자세 칼이 수평으로 보임(확인 필요)
-                   ("UpperNE", "D_UpperNE", 2, -160, .05, True), "4", "5", "6", "7", "8", "9", "10", "11", "13"],
+    "GreatUpper": ["0", "1", ("UpperNE", "D_UpperNE", 0, -178, .08, True), ("UpperNE", "D_UpperNE", 1, -174, .1, True),
+                   ("UpperNE", "D_UpperNE", 2, -160, .04, True),
+                   ("UpperE", "E_UpperE", 0, -75, .1, False), ("UpperE", "E_UpperE", 1, 35, .04, False), ("UpperE", "E_UpperE", 1, 70, .03, False),
+                   ("UpperE", "E_UpperE", 2, 110, .14, False), ("UpperE", "E_UpperE", 2, 110, .1, False), ("11", .04), ("11", .04), ("11", .2), "13"],  # 17회차: 측면 아래(-75°) → 상승(35°) → 상단 멈춤(110°), 14장 유지(MotionVariants hold 12)
     # GPT 46동작 리뷰 "내미는 것처럼 보인다" → 던져 거는 앞부분은 빠르게, 정면으로 버텨 당기는 뒷부분을 길게
     "Pull": ["0", "1", ("2", .06), ("3", .04), "4", "5", ("PullS", "D_PullS", 0, 5, .12, False), ("PullS", "D_PullS", 1, 10, .06, False),
              ("PullS", "D_PullS", 2, 15, .18, False), "8", "9", "10", "11", "13"],  # 15회차: 걸림 0.12 → 당김 0.06 급가속 → 젖힘 0.14

@@ -511,7 +511,9 @@ public class PixelRig : CharacterRig
             {
                 key = "DaggerCross";
             }
-            if (_diedAt < 0f && _requested != null && _requested.StartsWith("Great", StringComparison.Ordinal))
+            // 마스터 모션 셀 이름으로 바로 요청한 경우(GreatUpper·GreatSideOne 등)는 그 셀을 그대로 쓴다 — 예전엔 Great… 요청을 전부
+            // 내려찍기/옆 휘두르기로 덮어써 올려치기·한손 수평 셀이 재생되지 않았다(10-30 품질 루프)
+            if (_diedAt < 0f && _requested != null && _requested.StartsWith("Great", StringComparison.Ordinal) && !_celByName.ContainsKey(_requested))
             {
                 string great = _requested.IndexOf("Side", StringComparison.Ordinal) >= 0 && _celByName.ContainsKey("GreatSide") ? "GreatSide" : "GreatDown"; // 옆 휘두르기 셀은 생성기가 몸을 돌려 그려 기각 → 내려찍기로
                 if (_celByName.ContainsKey(great))

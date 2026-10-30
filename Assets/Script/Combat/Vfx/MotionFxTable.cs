@@ -55,7 +55,7 @@ public static class MotionFxTable
         new Strike("LowSweep", 8, VfxId.MSmear7, new SmearAura.Shape { arc = true, c = new Vector2(0.2f, 22.1f), ea = 36.6f, eb = 29.3f, tilt = 0f, a0 = -195.5f, a1 = -17.3f }),
         new Strike("Iaido", 7, VfxId.MSmear8, new SmearAura.Shape { arc = true, c = new Vector2(7.7f, 16.4f), ea = 25.5f, eb = 20.4f, tilt = 0f, a0 = -292.1f, a1 = 7.9f }),
         new Strike("AirSlash", 5, VfxId.MSmear9, new SmearAura.Shape { arc = true, c = new Vector2(-3.2f, 15.3f), ea = 36.4f, eb = 29.1f, tilt = 0f, a0 = 196.1f, a1 = -33.9f }),
-        new Strike("GreatUpper", 9, VfxId.MSmear10, new SmearAura.Shape { arc = true, c = new Vector2(-5.2f, 17.9f), ea = 37.2f, eb = 29.7f, tilt = 0f, a0 = -89f, a1 = 61f }),
+        new Strike("GreatUpper", 8, VfxId.MSmear10, new SmearAura.Shape { arc = true, c = new Vector2(-0.6f, 19.7f), ea = 28.4f, eb = 22.8f, tilt = 0f, a0 = -116.6f, a1 = 96.1f }),
         new Strike("Lunge", 3, VfxId.MSmear11, new SmearAura.Shape { arc = false, p0 = new Vector2(7f, 14f), p1 = new Vector2(61.5f, 14f) }),
         new Strike("DashSlash", 7, VfxId.MSmear12, new SmearAura.Shape { arc = true, c = new Vector2(2.3f, 20.1f), ea = 36.6f, eb = 29.2f, tilt = 0f, a0 = -196.3f, a1 = -0.8f }),
         new Strike("Punch", 11, VfxId.MSmear13, new SmearAura.Shape { arc = false, p0 = new Vector2(8f, 17f), p1 = new Vector2(62.5f, 17f) }),

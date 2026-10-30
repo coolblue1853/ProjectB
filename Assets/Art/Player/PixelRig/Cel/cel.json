@@ -6691,7 +6691,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.1,
+    "time": 0.08,
     "angle": -178.0,
     "angleB": -999.0,
     "behind": true
@@ -6708,7 +6708,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.18,
+    "time": 0.1,
     "angle": -174.0,
     "angleB": -999.0,
     "behind": true
@@ -6725,7 +6725,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.05,
+    "time": 0.04,
     "angle": -160.0,
     "angleB": -999.0,
     "behind": true
@@ -6733,113 +6733,113 @@
    {
     "png": "GreatUpper_5",
     "hand": [
-     49,
-     43
+     42,
+     41
     ],
     "handB": [
-     57,
-     42
+     45,
+     41
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.05,
-    "angle": -50.2,
+    "time": 0.1,
+    "angle": -75.0,
     "angleB": -999.0
    },
    {
     "png": "GreatUpper_6",
     "hand": [
-     50,
-     42
+     48,
+     33
     ],
     "handB": [
-     58,
-     41
+     50,
+     34
     ],
-    "dy": 0,
+    "dy": 1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -45.0,
+    "time": 0.04,
+    "angle": 35.0,
     "angleB": -999.0
    },
    {
     "png": "GreatUpper_7",
     "hand": [
-     51,
-     37
+     48,
+     33
     ],
     "handB": [
-     59,
-     36
+     50,
+     34
     ],
-    "dy": 0,
+    "dy": 1,
     "sx": 0,
-    "time": 0.05,
-    "angle": -16.5,
+    "time": 0.03,
+    "angle": 70.0,
     "angleB": -999.0
    },
    {
     "png": "GreatUpper_8",
     "hand": [
-     48,
-     27
+     44,
+     26
     ],
     "handB": [
-     56,
-     28
+     47,
+     27
     ],
-    "dy": -1,
+    "dy": 1,
     "sx": 0,
-    "time": 0.05,
-    "angle": 36.5,
+    "time": 0.14,
+    "angle": 110.0,
     "angleB": -999.0
    },
    {
     "png": "GreatUpper_9",
     "hand": [
      44,
-     24
+     26
     ],
     "handB": [
-     52,
-     25
+     47,
+     27
     ],
-    "dy": -1,
+    "dy": 1,
     "sx": 0,
-    "time": 0.08,
-    "angle": 65.0,
+    "time": 0.1,
+    "angle": 110.0,
     "angleB": -999.0
    },
    {
     "png": "GreatUpper_10",
     "hand": [
-     42,
+     36,
      23
     ],
     "handB": [
-     50,
-     24
+     45,
+     23
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.05,
-    "angle": 70.2,
+    "time": 0.04,
+    "angle": 85.0,
     "angleB": -999.0
    },
    {
     "png": "GreatUpper_11",
     "hand": [
-     38,
+     36,
      23
     ],
     "handB": [
-     47,
+     45,
      23
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.05,
-    "angle": 79.8,
+    "time": 0.04,
+    "angle": 85.0,
     "angleB": -999.0
    },
    {
@@ -6854,7 +6854,7 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.25,
+    "time": 0.2,
     "angle": 85.0,
     "angleB": -999.0
    },
