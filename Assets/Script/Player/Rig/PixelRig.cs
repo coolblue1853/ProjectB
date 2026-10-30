@@ -62,6 +62,7 @@ public class PixelRig : CharacterRig
     private int _celPhase;
     private readonly Dictionary<string, int> _strikeFrame = new Dictionary<string, int>();
     private MotionVariants.Variant _variant; // 재생 프로파일(구간·속도·정지·반복, MotionVariants)
+    private string _requestOverride; // 요청 이름으로 정해지는 대체 셀(단검·대검 분기, RequestOverride), 없으면 null
     // 점프 세분(상승·꼭대기·낙하)과 착지 눌림 — 플레이어 코드는 Play("Jump") 하나만 부른다
     private Rigidbody2D _body;
     private float _playedAt;
@@ -215,7 +216,7 @@ public class PixelRig : CharacterRig
         bool toGround = anim == "Idle" || anim == "Walk" || anim == "Run";
         _endCel = null;
         if (toGround && _current != null && _diedAt < 0f && _celByName != null
-            && _celByName.TryGetValue(CelKey(_current.name, true) + "End", out CelClip end))
+            && _celByName.TryGetValue(CelKey(_current.name, _requested, _variant) + "End", out CelClip end))
         {
             _endCel = end;
             _endStart = Time.time;
@@ -224,6 +225,7 @@ public class PixelRig : CharacterRig
         _variant = MotionVariants.Find(anim);
         _current = Resolve(anim);
         _requested = anim;
+        _requestOverride = RequestOverride(anim); // 매 프레임 문자열 검사 대신 요청이 바뀔 때 한 번
         _time = 0f;
         _clipSpeed = 1f;
         _fxCel = null;
@@ -279,9 +281,44 @@ public class PixelRig : CharacterRig
 
     public override Transform CelRoot => _cel != null ? _cel.transform : transform;
 
+    /// <summary>
+    /// frame = MapName 기본 셀(Stab·SwingDown·SwingUp)의 프레임 번호(WeaponFx.StrikeFrame). 실제로 재생될 셀이 기본 셀과 다르면
+    /// (GreatUpper·GreatDown·Lunge·Punch·단검 등) 그 셀의 타격 프레임(StrikeFrameOf — MotionFxTable) 시작 시각을, 표에 없으면 예전처럼 기본 셀 시각을 돌려준다.
+    /// 무기군 준비 배율(SetTimingProfile)·변형 구간(MotionVariants from·speed)도 재생과 같은 규칙으로 반영한다.
+    /// 예전엔 MapName 셀·속도 1 기준이라 대검 내려찍기 판정·궤적이 칼을 드는 중(0.22초)에 먼저 나왔다(10-30 모션 리뷰)
+    /// </summary>
     public override float FrameStartTime(string anim, int frame)
     {
-        return _celByName.TryGetValue(MapName(anim), out CelClip c) ? c.StartTimeOf(frame) : -1f;
+        if (string.IsNullOrEmpty(anim))
+        {
+            return -1f;
+        }
+        string baseKey = MapName(anim);
+        _celByName.TryGetValue(baseKey, out CelClip baseCel);
+        Clip clip = Resolve(anim);
+        MotionVariants.Variant variant = MotionVariants.Find(anim);
+        string key = RequestOverride(anim) ?? CelKey(clip != null ? clip.name : baseKey, anim, variant);
+        if (!_celByName.TryGetValue(key, out CelClip cel))
+        {
+            return baseCel != null ? baseCel.StartTimeOf(frame) : -1f;
+        }
+        int strike = StrikeFrameOf(key);
+        if (key != baseKey && strike < 0)
+        {
+            // 타격 프레임을 모르는 셀(예: 단검 연속 찌르기)은 예전처럼 기본 셀 시각 — 길이 비율로 옮기면 짧은 무기 공격 주기(0.3초)를 넘었다
+            return baseCel != null ? baseCel.StartTimeOf(frame) : cel.StartTimeOf(frame);
+        }
+        int index = key == baseKey ? frame : Mathf.Min(strike, cel.sprites.Length - 1);
+        float t = cel.StartTimeOf(index);
+        if (variant != null && variant.baseCel == key && variant.speed > 0f)
+        {
+            t = Mathf.Max(0f, t - cel.StartTimeOf(variant.from)) / variant.speed; // 변형은 from 프레임부터 speed 배로(MotionVariants.IndexIn 과 같은 규칙)
+        }
+        if (strike >= 0 && !cel.loop && index <= strike)
+        {
+            t *= _windupMul; // 타격 프레임 앞(준비 구간)은 재생이 _windupMul 배 느리다(Update 의 phase)
+        }
+        return t;
     }
 
     public override Transform GetBoneSocket(string socket)
@@ -500,26 +537,11 @@ public class PixelRig : CharacterRig
         {
             // 제동은 셀 대기 그림으로(리그 제동 포즈는 3/4 정면이라 달리기 셀에서 멈출 때 몸이 돌아 보였다), 사망은 셀 사망(무릎 → 눕기)
             // 셀이 없는 공격·스킬은 비슷한 측면 셀로(3/4 리그로 돌아가면 몸이 확 돌아 보였다): 옆베기·회전 → 내려베기, 시전 → 올려베기, 활 → 찌르기, 막기 → 대기
-            string key = _diedAt >= 0f ? "Death" : c == _brake ? "Idle" : CelKey(c.name, c == _current);
-            // 대검·둔기(공격 이름 Great…)는 양손 셀 — 한손 베기 셀로 대체하면 묵직한 무기가 가볍게 보였다(10-26)
-            // 단검: 왼손 찌르기 → 연속 찌르기 셀, 교차 베기 → X 베기 셀(10-26)
-            if (_diedAt < 0f && _requested == "LeftHandStab" && _celByName.ContainsKey("DaggerFlurry"))
+            string key = _diedAt >= 0f ? "Death" : c == _brake ? "Idle" : c == _current ? CelKey(c.name, _requested, _variant) : CelKey(c.name, null, null);
+            // 단검·대검 분기(요청 이름으로 정해지는 대체 셀)는 Play 때 RequestOverride 로 한 번 계산해 둔다
+            if (_diedAt < 0f && _requestOverride != null)
             {
-                key = "DaggerFlurry";
-            }
-            else if (_diedAt < 0f && _requested == "CrossAttack" && _celByName.ContainsKey("DaggerCross"))
-            {
-                key = "DaggerCross";
-            }
-            // 마스터 모션 셀 이름으로 바로 요청한 경우(GreatUpper·GreatSideOne 등)는 그 셀을 그대로 쓴다 — 예전엔 Great… 요청을 전부
-            // 내려찍기/옆 휘두르기로 덮어써 올려치기·한손 수평 셀이 재생되지 않았다(10-30 품질 루프)
-            if (_diedAt < 0f && _requested != null && _requested.StartsWith("Great", StringComparison.Ordinal) && !_celByName.ContainsKey(_requested))
-            {
-                string great = _requested.IndexOf("Side", StringComparison.Ordinal) >= 0 && _celByName.ContainsKey("GreatSide") ? "GreatSide" : "GreatDown"; // 옆 휘두르기 셀은 생성기가 몸을 돌려 그려 기각 → 내려찍기로
-                if (_celByName.ContainsKey(great))
-                {
-                    key = great;
-                }
+                key = _requestOverride;
             }
             _celByName.TryGetValue(key, out cel);
         }
@@ -723,21 +745,49 @@ public class PixelRig : CharacterRig
     }
 
     /// <summary>
+    /// 요청 이름으로 정해지는 대체 셀(없으면 null): 단검 왼손 찌르기 → 연속 찌르기, 교차 베기 → X 베기(10-26).
+    /// 대검·둔기(Great…)인데 같은 이름 셀이 없으면 양손 셀(옆 → GreatSide, 그 밖 → GreatDown) — 한손 베기 셀로 대체하면 묵직한 무기가 가볍게 보였다(10-26).
+    /// 마스터 모션 셀 이름으로 바로 요청한 경우(GreatUpper·GreatSideOne 등)는 그 셀을 그대로 쓴다(10-30 품질 루프)
+    /// </summary>
+    private string RequestOverride(string anim)
+    {
+        if (string.IsNullOrEmpty(anim))
+        {
+            return null;
+        }
+        if (anim == "LeftHandStab" && _celByName.ContainsKey("DaggerFlurry"))
+        {
+            return "DaggerFlurry";
+        }
+        if (anim == "CrossAttack" && _celByName.ContainsKey("DaggerCross"))
+        {
+            return "DaggerCross";
+        }
+        if (!anim.StartsWith("Great", StringComparison.Ordinal) || _celByName.ContainsKey(anim))
+        {
+            return null;
+        }
+        string great = anim.IndexOf("Side", StringComparison.Ordinal) >= 0 && _celByName.ContainsKey("GreatSide") ? "GreatSide" : "GreatDown"; // 옆 휘두르기 셀은 생성기가 몸을 돌려 그려 기각 → 내려찍기로
+        return _celByName.ContainsKey(great) ? great : null;
+    }
+
+    /// <summary>
     /// 셀 고르기(마스터 모션 38개, MotionSet.md): 요청한 애니 이름과 같은 셀(예 "Kick", "Knockdown") → 리그 클립과 같은 이름의 셀(회전·시전·막기)
     /// → 예전 대체 셀(CelAlias). 새 스킬은 셀 이름을 애니 이름으로 바로 요청하면 된다.
     /// </summary>
-    private string CelKey(string clip, bool isRequested)
+    /// requested·variant 는 요청 클립일 때만(아니면 null) — 재생 중 요청이든 FrameStartTime 의 미리 보기든 같은 셀을 고른다.
+    private string CelKey(string clip, string requested, MotionVariants.Variant variant)
     {
         // 피격·착지·대기 몸짓처럼 요청과 다른 변형 클립이 골라졌으면 그 클립 셀을 쓴다(10-27: 대기 중 피격이 대기 셀로 보이던 문제)
-        if (isRequested && _variant != null && _celByName.ContainsKey(_variant.baseCel))
+        if (variant != null && _celByName.ContainsKey(variant.baseCel))
         {
-            return _variant.baseCel;
+            return variant.baseCel;
         }
-        if (isRequested && !string.IsNullOrEmpty(_requested) && _celByName.ContainsKey(_requested))
+        if (!string.IsNullOrEmpty(requested) && _celByName.ContainsKey(requested))
         {
-            return _requested;
+            return requested;
         }
-        string skill = isRequested ? SkillCel(_requested) : null;
+        string skill = SkillCel(requested);
         if (skill != null && _celByName.ContainsKey(skill))
         {
             return skill;
