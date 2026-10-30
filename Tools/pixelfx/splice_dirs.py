@@ -50,6 +50,9 @@ SPLICE = {
     "PalmBlast": [("PalmSE2", "D_PalmSE2", 0, -20, .18, False), ("PalmSE2", "D_PalmSE2", 1, -20, .04, False), ("PalmSE2", "D_PalmSE2", 2, -20, .3, False), ("13@Pull", .1)],  # 10-30 품질 루프: 더 깊게 웅크렸다 크게 내딛음
     "Slam": [("2@Pull", .06), ("4@Pull", .1), ("RaiseS", "D_RaiseS", 1, 90, .06, False), ("RaiseS", "D_RaiseS", 2, 90, .14, False),
              ("3@GreatDown", .06), ("4@GreatDown", .1), ("5@GreatDown", .03), ("6@GreatDown", .03), ("7@GreatDown", .05), ("8@GreatDown", .25), ("10@GreatDown", .06), ("12@GreatDown", .06), ("13@GreatDown", .1)],
+    # 10-30 품질 루프(GPT 잡기 5.0 "움켜잡는 순간이 없다"): 3/4 앞 두 팔 벌림 → 앞으로 모아 움켜쥠 → 갈비뼈로 당김(재생 프로파일 대체)
+    "Grab": [("0@Pull", .045), ("GrabSE", "D_GrabSE", 0, -20, .12, False), ("GrabSE", "D_GrabSE", 1, -20, .05, False), ("GrabSE", "D_GrabSE", 1, -20, .08, False),
+             ("GrabSE", "D_GrabSE", 2, -20, .22, False), ("13@Pull", .1)],
     # 새 셀: 춤(N3)·악기(N2, 생성기가 류트를 그림 — 현악기 전용)
     "Dance": [("DanceS", "D_DanceS", i, 0, .15, False) for i in range(4)],
     "Lute": [("LuteSE", "D_LuteSE", i, 30, .12, False) for i in range(3)],

@@ -81,7 +81,6 @@ public static class MotionVariants
         // 모으기(Charge)는 10-29 빠진 동작 조사로 합치기 취소 — 원래 셀(가슴 앞 교차 후 활짝 펼치기)을 쓴다
         new Variant("DaggerFlurry", "Stab", 0.9f, 1, 4, loop: true),     // 연속 찌르기 = 찌르기(당김 1 → 뻗음 4) 구간 반복. 10-29 사용자 "너무 빨라서 모르겠다" 1.6 → 0.9
         new Variant("LeapSlam", "AirSlash", 0.9f),                       // 도약 내려찍기 = 점프 + 공중 베기
-        new Variant("Grab", "Pull", 1f),                                 // 잡기 = 당기기
         new Variant("DownThrust", "AirSlash", 0.8f, 5, 8, hold: 8),       // 10-29 사용자 "멈춤이라 모르겠다" → 벤 뒤(5) 칼을 아래로 돌려(8) 유지
         new Variant("GreatUpper", "GreatUpper", 1f, 0, 12, hold: 12),     // 올려친 끝(8)에서 멈춤 — 회복에서 칼을 내리는 게 내려치기로 보였다(10-29 사용자)
         new Variant("Whirl", "Spin", 0.9f),                              // A23 전신 회전베기 = 회전 베기 셀(10-29 밤 방향 그림 프레임으로 다시 — 좌우 반전 방식 폐기, 사용자 "이 방향 아니다")

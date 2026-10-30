@@ -169,6 +169,11 @@ MOTIONS = {
         ("se", {"RIGHT SHOULDER": (40, 36), "RIGHT ARM": (49, 39), "LEFT ARM": (52, 38), "RIGHT LEG": (28, 52), "LEFT LEG": (52, 52), "shift": (3, 2)}, -20),
         ("se", {"RIGHT SHOULDER": (41, 36), "RIGHT ARM": (50, 39), "LEFT ARM": (53, 38), "RIGHT LEG": (28, 52), "LEFT LEG": (53, 52), "shift": (4, 2)}, -20),
     ],
+    "D_GrabSE": [    # 10-30 품질 루프(GPT 잡기 5.0): 3/4 앞 — 두 팔 벌려 웅크림 → 앞으로 모아 움켜쥠 → 갈비뼈로 당기며 젖힘
+        ("se", {"RIGHT ARM": (31, 38), "LEFT ARM": (51, 37), "RIGHT LEG": (31, 52), "LEFT LEG": (48, 52), "shift": (0, 2)}, -20),
+        ("se", {"RIGHT SHOULDER": (38, 36), "RIGHT ARM": (47, 40), "LEFT ARM": (50, 40), "RIGHT LEG": (30, 52), "LEFT LEG": (50, 52), "shift": (2, 2)}, -20),
+        ("se", {"RIGHT SHOULDER": (37, 37), "RIGHT ARM": (42, 42), "LEFT ARM": (45, 42), "RIGHT LEG": (29, 52), "LEFT LEG": (47, 52), "shift": (-2, 1)}, -20),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 
