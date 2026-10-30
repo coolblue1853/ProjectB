@@ -184,6 +184,18 @@ MOTIONS = {
         ("ne", {"LEFT ARM": (51, 35), "RIGHT ARM": (40, 34), "LEFT LEG": (30, 52), "RIGHT LEG": (42, 52), "shift": (-1, 0)}, 0),
         ("ne", {"LEFT ARM": (51, 35), "RIGHT ARM": (36, 33), "LEFT LEG": (30, 52), "RIGHT LEG": (42, 52), "shift": (-1, 0)}, 0),
     ],
+    # 10-30 품질 루프 4회차(GPT 장풍 5.5 "타격 때 두 팔·어깨가 덜 펼쳐짐"): 측면 쪽으로 몸을 열며 두 손바닥을 위아래로 벌려 크게 내밂
+    "D_PalmE": [
+        ("se", {"RIGHT SHOULDER": (41, 36), "RIGHT ARM": (50, 35), "LEFT ARM": (53, 42), "RIGHT LEG": (27, 52), "LEFT LEG": (53, 52), "shift": (4, 2)}, -20),
+        ("se", {"RIGHT SHOULDER": (42, 36), "RIGHT ARM": (51, 34), "LEFT ARM": (54, 42), "RIGHT LEG": (27, 52), "LEFT LEG": (54, 52), "shift": (5, 2)}, -20),
+        ("se", {"RIGHT SHOULDER": (41, 37), "RIGHT ARM": (49, 36), "LEFT ARM": (52, 43), "RIGHT LEG": (28, 52), "LEFT LEG": (52, 52), "shift": (4, 3)}, -20),
+    ],
+    # 메치기 들기 2판(GPT 5.5 "들어 올리는 높이·무게"): 정면 — 무릎 굽혀 버티며 두 손을 머리 위로 높이(무거운 것) → 뒤로 젖힘
+    "D_LiftS": [
+        ("south", {"RIGHT ARM": (40, 30), "LEFT ARM": (24, 30), "LEFT LEG": (23, 52), "RIGHT LEG": (41, 52), "shift": (0, 3)}, 90),
+        ("south", {"RIGHT ARM": (39, 28), "LEFT ARM": (25, 28), "LEFT LEG": (23, 52), "RIGHT LEG": (41, 52), "shift": (0, 1)}, 90),
+        ("south", {"RIGHT ARM": (38, 29), "LEFT ARM": (26, 29), "LEFT LEG": (24, 52), "RIGHT LEG": (40, 52), "shift": (0, 0)}, 90),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 
