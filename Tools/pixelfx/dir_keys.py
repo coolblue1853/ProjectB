@@ -229,6 +229,24 @@ MOTIONS = {
         ("side", {"RIGHT ARM": (39, 38), "LEFT ARM": (46, 37), "LEFT LEG": (55, 42), "RIGHT LEG": (36, 53), "shift": (-3, 0)}, -20),
         ("side", {"RIGHT ARM": (40, 38), "LEFT ARM": (47, 37), "LEFT KNEE": (48, 44), "LEFT LEG": (46, 50), "RIGHT LEG": (37, 53), "shift": (-1, 0)}, -20),
     ],
+    # 품질 7회차(GPT 앞차기 6.4 "무릎 더 높이·발목 더 멀리·지지 무릎 굽힘"): 골반을 앞으로 내밀고 상체 뒤로
+    "E_FrontKick2": [
+        ("side", {"RIGHT ARM": (40, 38), "LEFT ARM": (47, 36), "LEFT HIP": (44, 43), "LEFT KNEE": (49, 39), "LEFT LEG": (48, 46), "RIGHT KNEE": (39, 49), "RIGHT LEG": (37, 53), "shift": (-2, 1)}, -20),
+        ("side", {"RIGHT ARM": (38, 39), "LEFT ARM": (46, 37), "LEFT HIP": (45, 43), "LEFT LEG": (54, 41), "RIGHT KNEE": (38, 49), "RIGHT LEG": (36, 53), "shift": (-3, 1)}, -20),
+        ("side", {"RIGHT ARM": (40, 38), "LEFT ARM": (47, 37), "LEFT KNEE": (49, 42), "LEFT LEG": (46, 48), "RIGHT LEG": (37, 53), "shift": (-1, 1)}, -20),
+    ],
+    # 품질 7회차(GPT 돌려차기 6.0 "앞차기처럼 읽힘 — SE 타격 뒤 E 팔로스루"): 측면 — 발을 골반보다 높이 휘둘러 지나감 → 흘려 내림 → 착지 준비, 상체 크게 젖힘
+    "E_RoundFollow": [
+        ("side", {"RIGHT ARM": (32, 38), "LEFT ARM": (44, 36), "LEFT HIP": (45, 43), "LEFT LEG": (53, 37), "RIGHT LEG": (36, 53), "shift": (-4, 1)}, -20),
+        ("side", {"RIGHT ARM": (33, 39), "LEFT ARM": (45, 37), "LEFT HIP": (45, 43), "LEFT LEG": (53, 43), "RIGHT LEG": (36, 53), "shift": (-3, 1)}, -20),
+        ("side", {"RIGHT ARM": (36, 40), "LEFT ARM": (46, 38), "LEFT KNEE": (48, 46), "LEFT LEG": (49, 52), "RIGHT LEG": (36, 53), "shift": (-1, 1)}, -20),
+    ],
+    # 품질 7회차(GPT 쌍권총 6.4 "두 총이 같은 높이·같은 타이밍"): 측면 — 주손(RIGHT) 어깨 높이로 뻗어 쏨(왼손 낮게) → 왼손 뻗어 쏨(주손 당겨 낮게) → 둘 다 앞, 높이 차 유지
+    "E_DualFire": [
+        ("side", {"RIGHT SHOULDER": (41, 33), "RIGHT ARM": (50, 33), "LEFT ARM": (47, 38), "RIGHT LEG": (35, 53), "LEFT LEG": (47, 53), "shift": (-1, 0)}, 0),
+        ("side", {"RIGHT SHOULDER": (39, 33), "RIGHT ARM": (44, 38), "LEFT ARM": (53, 32), "RIGHT LEG": (35, 53), "LEFT LEG": (47, 53), "shift": (1, 0)}, 0),
+        ("side", {"RIGHT SHOULDER": (40, 33), "RIGHT ARM": (48, 34), "LEFT ARM": (50, 37), "RIGHT LEG": (35, 53), "LEFT LEG": (47, 53)}, 0),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 

@@ -4776,8 +4776,8 @@
    {
     "png": "Kick_3",
     "hand": [
-     39,
-     37
+     38,
+     38
     ],
     "handB": [
      46,
@@ -7411,7 +7411,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": -20.0
+    "angle": -20.0,
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_1",
@@ -7427,7 +7428,7 @@
     "sx": 0,
     "time": 0.045,
     "angle": -20.0,
-    "behind": true
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_2",
@@ -7443,7 +7444,7 @@
     "sx": 0,
     "time": 0.04,
     "angle": -20.0,
-    "behind": true
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_3",
@@ -7459,7 +7460,7 @@
     "sx": 0,
     "time": 0.04,
     "angle": -20.0,
-    "behind": true
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_4",
@@ -7475,7 +7476,7 @@
     "sx": 0,
     "time": 0.04,
     "angle": -20.0,
-    "behind": true
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_5",
@@ -7490,7 +7491,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.04,
-    "angle": -20.0
+    "angle": -20.0,
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_6",
@@ -7504,38 +7506,41 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.14,
-    "angle": -20.0
+    "time": 0.06,
+    "angle": -20.0,
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_7",
     "hand": [
      32,
-     39
+     37
     ],
     "handB": [
-     41,
-     38
+     44,
+     35
     ],
-    "dy": 0,
+    "dy": -1,
     "sx": 0,
-    "time": 0.05,
-    "angle": -20.0
+    "time": 0.1,
+    "angle": -20.0,
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_8",
     "hand": [
-     25,
-     28
+     33,
+     38
     ],
     "handB": [
-     46,
-     24
+     45,
+     36
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.045,
-    "angle": -20.0
+    "time": 0.06,
+    "angle": -20.0,
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_9",
@@ -7549,8 +7554,9 @@
     ],
     "dy": -1,
     "sx": 0,
-    "time": 0.06,
-    "angle": -20.0
+    "time": 0.05,
+    "angle": -20.0,
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_10",
@@ -7565,7 +7571,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.045,
-    "angle": -20.0
+    "angle": -20.0,
+    "angleB": -999.0
    },
    {
     "png": "Roundhouse_11",
@@ -7580,7 +7587,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.1,
-    "angle": -20.0
+    "angle": -20.0,
+    "angleB": -999.0
    }
   ]
  },
@@ -7623,165 +7631,117 @@
    {
     "png": "DualPistol_2",
     "hand": [
-     48,
-     32
+     50,
+     33
     ],
     "handB": [
-     55,
-     35
+     47,
+     38
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.1,
-    "angle": 8.0,
-    "angleB": -999.0
+    "time": 0.07,
+    "angle": 0.0,
+    "angleB": 0.0
    },
    {
     "png": "DualPistol_3",
     "hand": [
-     48,
-     31
+     50,
+     33
     ],
     "handB": [
-     55,
-     35
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 14.2,
-    "angleB": -999.0
-   },
-   {
-    "png": "DualPistol_4",
-    "hand": [
      47,
-     29
-    ],
-    "handB": [
-     55,
-     35
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 25.8,
-    "angleB": -999.0
-   },
-   {
-    "png": "DualPistol_5",
-    "hand": [
-     46,
-     28
-    ],
-    "handB": [
-     54,
-     35
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.06,
-    "angle": 32.0,
-    "angleB": -999.0
-   },
-   {
-    "png": "DualPistol_6",
-    "hand": [
-     47,
-     30
-    ],
-    "handB": [
-     55,
-     35
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 20.0,
-    "angleB": -999.0
-   },
-   {
-    "png": "DualPistol_7",
-    "hand": [
-     48,
-     32
-    ],
-    "handB": [
-     55,
-     35
+     38
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.05,
-    "angle": 8.0,
-    "angleB": -999.0
+    "angle": 24.0,
+    "angleB": 0.0
+   },
+   {
+    "png": "DualPistol_4",
+    "hand": [
+     44,
+     38
+    ],
+    "handB": [
+     53,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.07,
+    "angle": -6.0,
+    "angleB": 0.0
+   },
+   {
+    "png": "DualPistol_5",
+    "hand": [
+     44,
+     38
+    ],
+    "handB": [
+     53,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": -6.0,
+    "angleB": 22.0
+   },
+   {
+    "png": "DualPistol_6",
+    "hand": [
+     50,
+     33
+    ],
+    "handB": [
+     47,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 0.0,
+    "angleB": 0.0
+   },
+   {
+    "png": "DualPistol_7",
+    "hand": [
+     50,
+     33
+    ],
+    "handB": [
+     47,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": 24.0,
+    "angleB": 0.0
    },
    {
     "png": "DualPistol_8",
     "hand": [
      48,
-     32
+     34
     ],
     "handB": [
-     55,
-     33
+     50,
+     37
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.045,
-    "angle": 8.0,
+    "time": 0.12,
+    "angle": 6.0,
     "angleB": 6.0
    },
    {
     "png": "DualPistol_9",
-    "hand": [
-     48,
-     32
-    ],
-    "handB": [
-     55,
-     31
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.06,
-    "angle": 8.0,
-    "angleB": 18.0
-   },
-   {
-    "png": "DualPistol_10",
-    "hand": [
-     48,
-     32
-    ],
-    "handB": [
-     55,
-     33
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 8.0,
-    "angleB": 6.0
-   },
-   {
-    "png": "DualPistol_11",
-    "hand": [
-     48,
-     32
-    ],
-    "handB": [
-     55,
-     35
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.1,
-    "angle": 8.0,
-    "angleB": -999.0
-   },
-   {
-    "png": "DualPistol_12",
     "hand": [
      45,
      40
@@ -7797,7 +7757,7 @@
     "angleB": -999.0
    },
    {
-    "png": "DualPistol_13",
+    "png": "DualPistol_10",
     "hand": [
      36,
      42
@@ -7860,7 +7820,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.12,
+    "time": 0.1,
     "angle": -20.0
    },
    {
@@ -7905,7 +7865,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.14,
+    "time": 0.2,
     "angle": 0.0
    },
    {
@@ -7920,26 +7880,11 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.045,
+    "time": 0.04,
     "angle": 4.0
    },
    {
     "png": "Rifle_7",
-    "hand": [
-     46,
-     33
-    ],
-    "handB": [
-     56,
-     34
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 12.0
-   },
-   {
-    "png": "Rifle_8",
     "hand": [
      46,
      33
@@ -7950,11 +7895,11 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.08,
     "angle": 16.0
    },
    {
-    "png": "Rifle_9",
+    "png": "Rifle_8",
     "hand": [
      46,
      33
@@ -7965,11 +7910,11 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.045,
+    "time": 0.06,
     "angle": 8.0
    },
    {
-    "png": "Rifle_10",
+    "png": "Rifle_9",
     "hand": [
      47,
      34
@@ -7980,11 +7925,11 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.045,
+    "time": 0.08,
     "angle": 2.0
    },
    {
-    "png": "Rifle_11",
+    "png": "Rifle_10",
     "hand": [
      48,
      34
@@ -7995,11 +7940,11 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.14,
+    "time": 0.12,
     "angle": 0.0
    },
    {
-    "png": "Rifle_12",
+    "png": "Rifle_11",
     "hand": [
      45,
      40
@@ -8014,7 +7959,7 @@
     "angle": -10.0
    },
    {
-    "png": "Rifle_13",
+    "png": "Rifle_12",
     "hand": [
      36,
      42
@@ -17566,6 +17511,642 @@
     "sx": 0,
     "time": 0.12,
     "angle": -20.0
+   }
+  ]
+ },
+ "Roundhouse_v3": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Roundhouse_v3_0",
+    "hand": [
+     43,
+     39
+    ],
+    "handB": [
+     51,
+     39
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "Roundhouse_v3_1",
+    "hand": [
+     46,
+     40
+    ],
+    "handB": [
+     24,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0,
+    "behind": true
+   },
+   {
+    "png": "Roundhouse_v3_2",
+    "hand": [
+     47,
+     38
+    ],
+    "handB": [
+     22,
+     40
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.04,
+    "angle": -20.0,
+    "behind": true
+   },
+   {
+    "png": "Roundhouse_v3_3",
+    "hand": [
+     47,
+     38
+    ],
+    "handB": [
+     21,
+     41
+    ],
+    "dy": 1,
+    "sx": 0,
+    "time": 0.04,
+    "angle": -20.0,
+    "behind": true
+   },
+   {
+    "png": "Roundhouse_v3_4",
+    "hand": [
+     47,
+     37
+    ],
+    "handB": [
+     20,
+     41
+    ],
+    "dy": 1,
+    "sx": 0,
+    "time": 0.04,
+    "angle": -20.0,
+    "behind": true
+   },
+   {
+    "png": "Roundhouse_v3_5",
+    "hand": [
+     32,
+     38
+    ],
+    "handB": [
+     41,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.04,
+    "angle": -20.0
+   },
+   {
+    "png": "Roundhouse_v3_6",
+    "hand": [
+     31,
+     37
+    ],
+    "handB": [
+     40,
+     36
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.14,
+    "angle": -20.0
+   },
+   {
+    "png": "Roundhouse_v3_7",
+    "hand": [
+     32,
+     39
+    ],
+    "handB": [
+     41,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": -20.0
+   },
+   {
+    "png": "Roundhouse_v3_8",
+    "hand": [
+     25,
+     28
+    ],
+    "handB": [
+     46,
+     24
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "Roundhouse_v3_9",
+    "hand": [
+     25,
+     27
+    ],
+    "handB": [
+     45,
+     23
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.06,
+    "angle": -20.0
+   },
+   {
+    "png": "Roundhouse_v3_10",
+    "hand": [
+     44,
+     27
+    ],
+    "handB": [
+     52,
+     34
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "Roundhouse_v3_11",
+    "hand": [
+     36,
+     41
+    ],
+    "handB": [
+     44,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.1,
+    "angle": -20.0
+   }
+  ]
+ },
+ "Rifle_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "Rifle_side_0",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     48,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "Rifle_side_1",
+    "hand": [
+     44,
+     40
+    ],
+    "handB": [
+     53,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -20.0
+   },
+   {
+    "png": "Rifle_side_2",
+    "hand": [
+     47,
+     39
+    ],
+    "handB": [
+     55,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0
+   },
+   {
+    "png": "Rifle_side_3",
+    "hand": [
+     47,
+     37
+    ],
+    "handB": [
+     56,
+     36
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -14.8
+   },
+   {
+    "png": "Rifle_side_4",
+    "hand": [
+     48,
+     35
+    ],
+    "handB": [
+     57,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -5.2
+   },
+   {
+    "png": "Rifle_side_5",
+    "hand": [
+     48,
+     34
+    ],
+    "handB": [
+     57,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.14,
+    "angle": 0.0
+   },
+   {
+    "png": "Rifle_side_6",
+    "hand": [
+     47,
+     34
+    ],
+    "handB": [
+     57,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 4.0
+   },
+   {
+    "png": "Rifle_side_7",
+    "hand": [
+     46,
+     33
+    ],
+    "handB": [
+     56,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 12.0
+   },
+   {
+    "png": "Rifle_side_8",
+    "hand": [
+     46,
+     33
+    ],
+    "handB": [
+     55,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 16.0
+   },
+   {
+    "png": "Rifle_side_9",
+    "hand": [
+     46,
+     33
+    ],
+    "handB": [
+     56,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 8.0
+   },
+   {
+    "png": "Rifle_side_10",
+    "hand": [
+     47,
+     34
+    ],
+    "handB": [
+     57,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 2.0
+   },
+   {
+    "png": "Rifle_side_11",
+    "hand": [
+     48,
+     34
+    ],
+    "handB": [
+     57,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.14,
+    "angle": 0.0
+   },
+   {
+    "png": "Rifle_side_12",
+    "hand": [
+     45,
+     40
+    ],
+    "handB": [
+     52,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -10.0
+   },
+   {
+    "png": "Rifle_side_13",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0
+   }
+  ]
+ },
+ "DualPistol_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "DualPistol_side_0",
+    "hand": [
+     41,
+     42
+    ],
+    "handB": [
+     48,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -12.7,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_side_1",
+    "hand": [
+     47,
+     36
+    ],
+    "handB": [
+     53,
+     38
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 0.7,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_side_2",
+    "hand": [
+     48,
+     32
+    ],
+    "handB": [
+     55,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": 8.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_side_3",
+    "hand": [
+     48,
+     31
+    ],
+    "handB": [
+     55,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 14.2,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_side_4",
+    "hand": [
+     47,
+     29
+    ],
+    "handB": [
+     55,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 25.8,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_side_5",
+    "hand": [
+     46,
+     28
+    ],
+    "handB": [
+     54,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 32.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_side_6",
+    "hand": [
+     47,
+     30
+    ],
+    "handB": [
+     55,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 20.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_side_7",
+    "hand": [
+     48,
+     32
+    ],
+    "handB": [
+     55,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": 8.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_side_8",
+    "hand": [
+     48,
+     32
+    ],
+    "handB": [
+     55,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 8.0,
+    "angleB": 6.0
+   },
+   {
+    "png": "DualPistol_side_9",
+    "hand": [
+     48,
+     32
+    ],
+    "handB": [
+     55,
+     31
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.06,
+    "angle": 8.0,
+    "angleB": 18.0
+   },
+   {
+    "png": "DualPistol_side_10",
+    "hand": [
+     48,
+     32
+    ],
+    "handB": [
+     55,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 8.0,
+    "angleB": 6.0
+   },
+   {
+    "png": "DualPistol_side_11",
+    "hand": [
+     48,
+     32
+    ],
+    "handB": [
+     55,
+     35
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": 8.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_side_12",
+    "hand": [
+     45,
+     40
+    ],
+    "handB": [
+     51,
+     41
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -6.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_side_13",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0,
+    "angleB": -999.0
    }
   ]
  },
