@@ -271,6 +271,12 @@ MOTIONS = {
         ("side", {"RIGHT SHOULDER": (41, 34), "RIGHT ARM": (49, 37), "LEFT ARM": (52, 36), "RIGHT LEG": (33, 53), "LEFT LEG": (51, 53), "shift": (2, 2)}, -20),
         ("side", {"RIGHT SHOULDER": (38, 33), "RIGHT ARM": (43, 38), "LEFT ARM": (46, 37), "RIGHT LEG": (31, 53), "LEFT LEG": (47, 53), "shift": (-2, 1)}, -20),
     ],
+    # 품질 11회차(GPT 메치기 6.8 "급강하 때 골반 하강·손 낙하 거리가 더 커야"): 3/4 앞 — 머리 높이에서 넘기는 전환 → 골반 깊게(10px) 떨어뜨리며 두 손 앞 땅까지 → 최저점 버팀
+    "D_SlamSE2": [
+        ("se", {"RIGHT ARM": (44, 30), "LEFT ARM": (47, 30), "RIGHT LEG": (30, 52), "LEFT LEG": (49, 52), "shift": (1, 2)}, 60),
+        ("se", {"RIGHT ARM": (48, 53), "LEFT ARM": (51, 53), "RIGHT LEG": (28, 52), "LEFT LEG": (52, 52), "shift": (3, 10)}, -75),
+        ("se", {"RIGHT ARM": (47, 52), "LEFT ARM": (50, 52), "RIGHT LEG": (28, 52), "LEFT LEG": (52, 52), "shift": (2, 9)}, -65),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 

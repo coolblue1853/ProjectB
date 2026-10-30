@@ -72,6 +72,7 @@ public static class MotionFxTable
         new Impact("Iaido", 7, VfxId.StepDust, -6f, 1f),
         new Impact("Lunge", 3, VfxId.StepDust, -6f, 0.9f),
         new Impact("Backstep", 6, VfxId.StepDust, 0f, 0.9f),
+        new Impact("PalmBlast", 3, VfxId.StepDust, -12f, 0.8f),
     };
 
     public static bool IsMotionSmear(VfxId id)

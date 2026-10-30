@@ -31,8 +31,9 @@ SPLICE = {
               "10", "11", "12", "13"],  # 원투의 투: 3/4 뒤 장전 → 3/4 앞 통과 → 측면 스트레이트(GPT D4)
     # 검 든 채 사격: 3/4 앞으로 몸을 열고 권총(앞손)을 어깨 높이로, 검은 반대 허리 뒤(GPT 리뷰 "두 무기가 겹친다") — 사격 4·6번
     # 품질 10회차(GPT 6.0 "두 무기가 몸 앞에서 겹침"): 3/4 앞 겨눔 → 측면에서 권총손 어깨 높이 8px 앞·검손 뒤 허리(E_GunE) 사격·반동(angleB 18°)
-    "SwordPistol": ["0", "1", "2", ("GunSE", "D_GunSE", 0, 200, .08, True), ("GunE", "E_GunE", 0, 200, .06, True, 0), ("GunE", "E_GunE", 1, 200, .04, True, 0),
-                    ("GunE", "E_GunE", 2, 205, .06, True, 18), ("GunE", "E_GunE", 1, 200, .08, True, 0), ("GunE", "E_GunE", 2, 205, .14, True, 18), "12", "13"],
+    "SwordPistol": ["0", "1", "2", ("GunSE", "D_GunSE", 0, 200, .08, True), ("GunE", "E_GunE", 0, 200, .05, True, 0), ("GunE", "E_GunE", 1, 200, .06, True, 0),
+                    ("GunE", "E_GunE", 2, 205, .05, True, 18), ("GunE", "E_GunE", 0, 200, .08, True, 4), ("GunE", "E_GunE", 1, 200, .06, True, 0),
+                    ("GunE", "E_GunE", 2, 205, .12, True, 22), "12", "13"],  # 11회차: 사격 → 반동 → 재조준 → 두 번째 사격 → 큰 반동
     # 한손 베기 회전(GPT 2차 "골반·어깨 회전 부족"): 3/4 뒤 감기 → 측면 타격 → 3/4 앞 팔로스루 — 공용 프레임
     "DashSlash": ["0", "1", ("CoilNE", "D_CoilNE", 0, -170, .06, True), ("CoilNE", "D_CoilNE", 1, -165, .12, True), "3", "4", "5", "6",
                   ("FollowSE", "D_FollowSE", 0, -10, .06, True), ("FollowSE", "D_FollowSE", 1, -20, .1, True), "9", "10", "11", "13"],
@@ -54,8 +55,8 @@ SPLICE = {
                   ("PalmSide", "E_PalmSide", 1, -20, .2, False), ("PalmSide", "E_PalmSide", 2, -20, .08, False),
                   ("PalmRecoil", "D_PalmRecoil", 2, -20, .08, False), ("13@Pull", .1)],  # 5회차: 방출 뒤 상체 반동  # 10-30 품질 4회차: 타격 때 두 손 위아래로 크게 벌려 내밂
     "Slam": [("2@Pull", .06), ("4@Pull", .1), ("LiftS", "D_LiftS", 0, 90, .1, False), ("LiftS", "D_LiftS", 1, 90, .24, False),  # 4회차: 무릎 굽혀 버티며 머리 위로 높이
-             ("3@GreatDown", .08), ("4@GreatDown", .04), ("5@GreatDown", .025), ("6@GreatDown", .025), ("SlamSE", "D_SlamSE", 0, -60, .03, False), ("SlamSE", "D_SlamSE", 1, -70, .25, False),  # 6회차: 머리 위에서 더 버티다 급격히 숙임
-             ("SlamSE", "D_SlamSE", 2, -60, .06, False), ("12@GreatDown", .06), ("13@GreatDown", .1)],  # 5회차: 3/4 앞 깊은 내리꽂기
+             ("3@GreatDown", .08), ("5@GreatDown", .04), ("6@GreatDown", .025), ("SlamSE", "D_SlamSE", 0, -60, .025, False), ("SlamSE2", "D_SlamSE2", 1, -75, .03, False), ("SlamSE2", "D_SlamSE2", 1, -75, .22, False),  # 6회차: 머리 위에서 더 버티다 급격히 숙임
+             ("SlamSE2", "D_SlamSE2", 2, -65, .06, False), ("12@GreatDown", .06), ("13@GreatDown", .1)],  # 11회차: 골반 10px 깊게 내리꽂기(SlamSE2 0번 = 손이 얼굴을 가려 버림)  # 5회차: 3/4 앞 깊은 내리꽂기
     # 품질 6회차(GPT 앞차기 6.0 "무릎 배 앞까지, 발목 7px 앞, 즉시 회수"): 측면 준비 2장 → 무릎 장전 → 뻗음 → 회수 → 측면 복귀
     "Kick": ["0", "1", ("FrontKick2", "E_FrontKick2", 0, -20, .1, False), ("FrontKick2", "E_FrontKick2", 1, -20, .14, False),  # 7회차: 무릎 더 높이·골반 앞으로
              ("FrontKick2", "E_FrontKick2", 2, -20, .05, False), ("9", .05), "10", "11"],

@@ -6053,22 +6053,6 @@
    {
     "png": "Slam_5",
     "hand": [
-     28,
-     25
-    ],
-    "handB": [
-     31,
-     27
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.04,
-    "angle": 114.3,
-    "angleB": -999.0
-   },
-   {
-    "png": "Slam_6",
-    "hand": [
      30,
      24
     ],
@@ -6078,12 +6062,12 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.025,
+    "time": 0.04,
     "angle": 100.0,
     "angleB": -999.0
    },
    {
-    "png": "Slam_7",
+    "png": "Slam_6",
     "hand": [
      41,
      25
@@ -6099,7 +6083,7 @@
     "angleB": -999.0
    },
    {
-    "png": "Slam_8",
+    "png": "Slam_7",
     "hand": [
      42,
      46
@@ -6110,40 +6094,56 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.03,
+    "time": 0.025,
     "angle": -60.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "Slam_8",
+    "hand": [
+     44,
+     51
+    ],
+    "handB": [
+     51,
+     53
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.03,
+    "angle": -75.0,
     "angleB": -999.0
    },
    {
     "png": "Slam_9",
     "hand": [
-     43,
-     48
+     44,
+     51
     ],
     "handB": [
-     50,
-     51
+     51,
+     53
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.25,
-    "angle": -70.0,
+    "time": 0.22,
+    "angle": -75.0,
     "angleB": -999.0
    },
    {
     "png": "Slam_10",
     "hand": [
-     42,
-     47
+     43,
+     50
     ],
     "handB": [
-     49,
-     50
+     50,
+     52
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.06,
-    "angle": -60.0,
+    "angle": -65.0,
     "angleB": -999.0
    },
    {
@@ -7973,7 +7973,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.05,
     "angle": 200.0,
     "angleB": 0.0,
     "behind": true
@@ -7990,7 +7990,7 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.04,
+    "time": 0.06,
     "angle": 200.0,
     "angleB": 0.0,
     "behind": true
@@ -8007,13 +8007,30 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.06,
+    "time": 0.05,
     "angle": 205.0,
     "angleB": 18.0,
     "behind": true
    },
    {
     "png": "SwordPistol_7",
+    "hand": [
+     34,
+     42
+    ],
+    "handB": [
+     51,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
+    "angle": 200.0,
+    "angleB": 4.0,
+    "behind": true
+   },
+   {
+    "png": "SwordPistol_8",
     "hand": [
      34,
      41
@@ -8024,13 +8041,13 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.08,
+    "time": 0.06,
     "angle": 200.0,
     "angleB": 0.0,
     "behind": true
    },
    {
-    "png": "SwordPistol_8",
+    "png": "SwordPistol_9",
     "hand": [
      34,
      41
@@ -8041,13 +8058,13 @@
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.14,
+    "time": 0.12,
     "angle": 205.0,
-    "angleB": 18.0,
+    "angleB": 22.0,
     "behind": true
    },
    {
-    "png": "SwordPistol_9",
+    "png": "SwordPistol_10",
     "hand": [
      38,
      42
@@ -8063,7 +8080,7 @@
     "angleB": -999.0
    },
    {
-    "png": "SwordPistol_10",
+    "png": "SwordPistol_11",
     "hand": [
      36,
      42
