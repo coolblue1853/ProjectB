@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// 상점 되사기(BasicFeatures.md 12절): 상점에서 판 아이템을 기억했다가, 상점이 열려 있을 때 U 로 가장 최근 판매분을 판 값 그대로 되산다.
 /// 판매 기록은 InventoryManager.SellItem 이 Record 로 넘긴다. 되사기는 InventoryService.Add(티어·강화 보존) 후 골드 차감.
-/// 목록은 세션 동안만(게임을 다시 켜면 비어 있음).
+/// 목록은 세션 동안만(게임을 다시 켜면 비어 있음). 패드는 RT(13절). 목록은 BuybackPanel 이 그린다.
 /// </summary>
 public class Buyback : MonoBehaviour
 {
@@ -56,13 +56,20 @@ public class Buyback : MonoBehaviour
     private void Update()
     {
         Keyboard kb = Keyboard.current;
-        InventoryManager inv = InventoryManager.instance;
-        if (kb == null || !kb.uKey.wasPressedThisFrame || inv == null || inv.inventory == null || !inv.inventory.activeSelf
-            || inv.ShopGameObject == null || !inv.ShopGameObject.activeSelf || !(string.IsNullOrEmpty(inv.state) || inv.state == "ShopCusorOn"))
+        Gamepad pad = Gamepad.current;
+        bool pressed = (kb != null && kb.uKey.wasPressedThisFrame) || (pad != null && pad.rightTrigger.wasPressedThisFrame);
+        if (pressed && CanUse())
         {
-            return;
+            TryBuyBackLast();
         }
-        TryBuyBackLast();
+    }
+
+    /// <summary>되사기 키(U·패드 RT)를 받는 때: 상점이 열려 있고 상점 커서 상태일 때</summary>
+    public static bool CanUse()
+    {
+        InventoryManager inv = InventoryManager.instance;
+        return inv != null && inv.inventory != null && inv.inventory.activeSelf && inv.ShopGameObject != null && inv.ShopGameObject.activeSelf
+            && (string.IsNullOrEmpty(inv.state) || inv.state == "ShopCusorOn");
     }
 
     /// <summary>가장 최근 판매분을 되산다. 성공하면 true</summary>

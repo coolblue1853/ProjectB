@@ -5713,6 +5713,63 @@ MonoBehaviour:
       - "\uB0AF\uC120 \uD754\uC801"
       Flags: 0000
       Languages_Touch: []
+    - Term: GEAR PRESETS
+      TermType: 0
+      Description: 
+      Languages:
+      - GEAR PRESETS
+      - "\uC7A5\uBE44 \uD504\uB9AC\uC14B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (empty)
+      TermType: 0
+      Description: 
+      Languages:
+      - (empty)
+      - "(\uBE44\uC5B4 \uC788\uC74C)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (no weapon)
+      TermType: 0
+      Description: 
+      Languages:
+      - (no weapon)
+      - "(\uBB34\uAE30 \uC5C6\uC74C)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 7 8 9 equip Shift+7 8 9 save
+      TermType: 0
+      Description: 
+      Languages:
+      - "7/8/9 equip  \xB7  Shift+7/8/9 save"
+      - "7/8/9 \uC7A5\uCC29  \xB7  Shift+7/8/9 \uC800\uC7A5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Pad: SELECT pick (hold: save) RT equip'
+      TermType: 0
+      Description: 
+      Languages:
+      - "Pad: SELECT pick (hold: save)  \xB7  RT equip"
+      - "\uD328\uB4DC: SELECT \uACE0\uB974\uAE30(\uAE38\uAC8C: \uC800\uC7A5)  \xB7 
+        RT \uC7A5\uCC29"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BUY BACK
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY BACK
+      - "\uB418\uC0AC\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'U Pad RT: buy back top'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'U / Pad RT: buy back top'
+      - "U / \uD328\uB4DC RT: \uB9E8 \uC704 \uB418\uC0AC\uAE30"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

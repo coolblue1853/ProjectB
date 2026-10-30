@@ -47,4 +47,19 @@ public class GearPresetModelTests
         Assert.AreEqual(2, m.Get(0).Count);
         Assert.IsNull(m.Get(5));
     }
+
+    [Test]
+    public void Version_BumpsOnSetAndLoad()
+    {
+        var m = new GearPresetModel();
+        int v0 = m.Version;
+        m.Set(0, Two());
+        int v1 = m.Version;
+        Assert.Greater(v1, v0);
+        m.LoadFrom(m.ToSaveArray());
+        Assert.Greater(m.Version, v1);
+        int v2 = m.Version;
+        m.Set(9, Two());
+        Assert.AreEqual(v2, m.Version); // 범위 밖은 무시
+    }
 }

@@ -21,6 +21,15 @@ public sealed class BuybackModel
 
     public int Count => _list.Count;
 
+    /// <summary>내용이 바뀔 때마다 오른다(목록 UI 가 바뀐 때만 다시 그리게)</summary>
+    public int Version { get; private set; }
+
+    /// <summary>최근 것부터 i 번째(0 = 다음에 되살 것). 범위 밖이면 빈 값(Id null)</summary>
+    public Sold PeekAt(int i)
+    {
+        return i >= 0 && i < _list.Count ? _list[_list.Count - 1 - i] : default(Sold);
+    }
+
     public void Record(Sold s)
     {
         if (string.IsNullOrEmpty(s.Id) || s.Count <= 0)
@@ -28,6 +37,7 @@ public sealed class BuybackModel
             return;
         }
         _list.Add(s);
+        Version++;
         if (_list.Count > Capacity)
         {
             _list.RemoveAt(0);
@@ -50,11 +60,13 @@ public sealed class BuybackModel
         if (_list.Count > 0)
         {
             _list.RemoveAt(_list.Count - 1);
+            Version++;
         }
     }
 
     public void Clear()
     {
         _list.Clear();
+        Version++;
     }
 }

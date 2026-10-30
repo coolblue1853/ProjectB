@@ -41,4 +41,23 @@ public class BuybackModelTests
         m.Pop();
         Assert.IsFalse(m.TryPeek(out s));
     }
+
+    [Test]
+    public void PeekAt_NewestFirst_AndVersionBumpsOnChange()
+    {
+        var m = new BuybackModel();
+        int v0 = m.Version;
+        m.Record(S("A", 1));
+        m.Record(S("B", 2));
+        Assert.AreEqual("B", m.PeekAt(0).Id);
+        Assert.AreEqual("A", m.PeekAt(1).Id);
+        int v1 = m.Version;
+        Assert.Greater(v1, v0);
+        m.Record(new BuybackModel.Sold { Id = "", Count = 1 });
+        Assert.AreEqual(v1, m.Version); // 무시된 기록은 버전을 올리지 않는다
+        m.Pop();
+        Assert.Greater(m.Version, v1);
+        Assert.IsNull(m.PeekAt(5).Id); // 범위 밖은 빈 값
+        Assert.IsNull(m.PeekAt(-1).Id);
+    }
 }

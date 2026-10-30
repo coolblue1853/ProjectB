@@ -55,6 +55,8 @@ public static class LocUi
         ("Gnawed scraps", "갉아먹은 부스러기"), ("Straw scraps", "짚 부스러기"), ("Black ooze", "검은 진액"), ("Strange tracks", "낯선 흔적"),
         ("Only equipment in the bag can be dismantled", "가방 안의 장비만 분해할 수 있다"), ("Press D again to dismantle {0}", "한 번 더 D: {0} 분해"),
         ("Preset {0} saved ({1})", "프리셋 {0} 저장 ({1}부위)"), ("Preset {0} equipped ({1})", "프리셋 {0} 장착 ({1}부위 교체)"), ("Preset {0} is empty", "프리셋 {0} 비어 있음"),
+        ("GEAR PRESETS", "장비 프리셋"), ("(empty)", "(비어 있음)"), ("(no weapon)", "(무기 없음)"), ("7/8/9 equip  ·  Shift+7/8/9 save", "7/8/9 장착  ·  Shift+7/8/9 저장"),
+        ("Pad: SELECT pick (hold: save)  ·  RT equip", "패드: SELECT 고르기(길게: 저장)  ·  RT 장착"), ("BUY BACK", "되사기"), ("U / Pad RT: buy back top", "U / 패드 RT: 맨 위 되사기"),
         ("Nothing to buy back", "되살 물건이 없다"), ("U: buy back last sold item", "U: 방금 판 물건 되사기"), ("Preset {0}: {1} item(s) not in bag", "프리셋 {0}: 가방에 없는 장비 {1}개"),
         ("Path sealed by the Tower.", "탑이 길을 봉인했다."),
         ("Tower Gate", "탑의 문"), ("The way to the 2nd floor is open", "2층계로 가는 길이 열렸다"),

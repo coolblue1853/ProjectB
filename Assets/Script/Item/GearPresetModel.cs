@@ -19,6 +19,9 @@ public sealed class GearPresetModel
 
     private readonly Dictionary<string, Entry>[] _presets = new Dictionary<string, Entry>[PresetCount];
 
+    /// <summary>내용이 바뀔 때마다 오른다(목록 UI 가 바뀐 때만 다시 그리게)</summary>
+    public int Version { get; private set; }
+
     public GearPresetModel()
     {
         for (int i = 0; i < PresetCount; i++)
@@ -45,6 +48,7 @@ public sealed class GearPresetModel
             return;
         }
         _presets[preset].Clear();
+        Version++;
         if (entries == null)
         {
             return;
@@ -81,6 +85,7 @@ public sealed class GearPresetModel
     /// <summary>세이브 배열을 읽는다. 깨진 항목은 건너뛴다</summary>
     public void LoadFrom(string[] saved)
     {
+        Version++;
         for (int i = 0; i < PresetCount; i++)
         {
             _presets[i].Clear();
