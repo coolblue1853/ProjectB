@@ -30,4 +30,22 @@ public class SelfCraftPagesTests
             }
         }
     }
+
+    [Test]
+    public void ArmorCsv_ParsesSigilRingAndNamesExist()
+    {
+        var csv = UnityEngine.Resources.Load<UnityEngine.TextAsset>(SelfCraftPages.ArmorResourcePath);
+        Assert.IsNotNull(csv);
+        var list = SelfCraftPages.Parse(csv.text);
+        Assert.AreEqual(1, list.Count);
+        Assert.AreEqual("Bringer's Sigil Ring", list[0].Result);
+        CollectionAssert.AreEqual(new[] { "Death Sigil", "T1_Ore" }, list[0].Ids);
+        CollectionAssert.AreEqual(new[] { 8, 10 }, list[0].Counts);
+        string sheet = System.IO.File.ReadAllText("Assets/Resources/ItemSheet.csv");
+        StringAssert.Contains("," + list[0].Result + ",", sheet);
+        foreach (string id in list[0].Ids)
+        {
+            StringAssert.Contains("," + id + ",", sheet);
+        }
+    }
 }

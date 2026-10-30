@@ -142,3 +142,11 @@
 - 키 설정 창 표시: "D-Pad Left" → "D-Left"(칸 폭).
 - 인벤·상점 안 패드 조작은 13절(SELECT·RT), 분해 L3, 정렬·제작 핀 R3, 비교 LT.
 - 검증: EditMode `InputBindingsTests` 7/7(기본 경로·십자 위/아래 거절·십자 왼쪽 지정 시 퀵슬롯 2 와 교환), 프로브 `Tools/probes/pad_quick_probe.cs`(가상 패드 십자 왼쪽 → 2번 칸 물약 3→2·HP 100→200), 키 설정 창 스크린샷(D-LEFT·D-RIGHT).
+
+## 15. 방어구 대장장이 추가 페이지 — 브링어 인장 반지 (Q-110, 2026-10-30)
+
+- 문제: 방어구 대장장이 상자가 가득 차(2페이지) `Bringer's Sigil Ring`(Death Sigil 8 + T1_Ore 10, Lv2ContentPlan 4절)을 넣지 못했다.
+- 데이터: `Assets/Resources/ArmorCraftRecipes.csv`(자가 제작 `SelfCraftRecipes.csv` 와 같은 형식 — 결과,재료*수;재료*수). 제작소별로 CSV 가 따로라 기존 자가 제작 파일·동작은 그대로.
+- 코드: `SelfCraftPages.Build(box, resourcePath)` 로 일반화(기존 `Build(box)` 는 자가 제작 경로 위임). `CraftingManager.Start` 가 `!isSelfCraft && !isCraftWeapon`(방어구)이면 `BuildArmorPagesWhenReady` 코루틴으로 3페이지를 붙이고 "3 / 3  Q · E" 라벨을 만든다. 씬 파일은 고치지 않는다. 틀 = 1페이지 첫 줄(5칸).
+- 함정: 방어구 매니저의 Start 는 `ItemDatabase.Start`(시트 채움)보다 먼저라 그때 이름 조회가 전부 -1 → 레시피가 모두 걸러졌다(자가 제작은 순서가 운 좋게 맞음). 그래서 시트가 채워질 때까지(최대 120프레임) 기다렸다 만든다.
+- 검증: EditMode `SelfCraftPagesTests` 3/3(방어구 CSV 파싱·시트 이름 포함 추가), 프로브 `Tools/probes/sigilring_probe.cs`(pages=3 → 재료 지급 → 3페이지 반지로 커서 → 제작 → 반지 0→1, Death Sigil·T1_Ore 각 8·10 소모), 스크린샷 `Logs/playtest/sigil_page3.png`(한국어 "인도자의 인장 반지", 3 / 3).

@@ -130,6 +130,11 @@ public class CraftingManager : MonoBehaviour
             SelfCraftPages.Build(LV1craftBox[0].transform); // 1줄 3칸이 가득 차 추가 레시피는 페이지로(Q-110)
             BuildPageLabel();
         }
+        else if (!isCraftWeapon)
+        {
+            // 방어구 대장장이 40칸이 가득 차 Bringer's Sigil Ring 을 못 넣던 문제(Q-110): 추가 페이지
+            StartCoroutine(BuildArmorPagesWhenReady());
+        }
         nowLv = 0;
         line = 0;
         nowPage = 0;
@@ -666,6 +671,22 @@ public class CraftingManager : MonoBehaviour
     private CraftItemCheck _pinSyncedItem;
     private TextMeshProUGUI _pageLabel;
     private int _shownPage = -1;
+
+    /// <summary>ItemDatabase 는 Start 에서 시트를 채워서 이 매니저 Start 시점엔 아이템 이름 조회가 전부 -1 이다 → 채워질 때까지(최대 120프레임) 기다렸다 만든다</summary>
+    private System.Collections.IEnumerator BuildArmorPagesWhenReady()
+    {
+        for (int i = 0; i < 120; i++)
+        {
+            DatabaseManager db = DatabaseManager.instance;
+            if (db != null && db.Items != null && db.Items.Count > 0)
+            {
+                break;
+            }
+            yield return null;
+        }
+        SelfCraftPages.Build(LV1craftBox[0].transform, SelfCraftPages.ArmorResourcePath);
+        BuildPageLabel();
+    }
 
     /// <summary>페이지가 2개 이상이면 레시피 줄 아래에 "1/2  Q·E" 표시(자가 제작)</summary>
     private void BuildPageLabel()

@@ -9,6 +9,7 @@ using UnityEngine;
 public static class SelfCraftPages
 {
     public const string ResourcePath = "SelfCraftRecipes";
+    public const string ArmorResourcePath = "ArmorCraftRecipes"; // 방어구 대장장이(Q-110, BasicFeatures.md 15절)
 
     public struct Recipe
     {
@@ -64,7 +65,7 @@ public static class SelfCraftPages
         bool bad = db.FindItemDataIndex(r.Result) < 0 || r.Ids.Exists(id => db.FindItemDataIndex(id) < 0);
         if (bad)
         {
-            GameLog.Warn(GameLog.Cat.Item, "자가 제작 레시피 제외(시트에 없는 이름): " + r.Result);
+            GameLog.Warn(GameLog.Cat.Item, "제작 레시피 제외(시트에 없는 이름): " + r.Result);
         }
         return bad;
     }
@@ -74,11 +75,17 @@ public static class SelfCraftPages
     /// box(페이지들의 부모)의 첫 페이지를 틀로 추가 페이지를 만든다. 만든 페이지 수</summary>
     public static int Build(Transform box)
     {
+        return Build(box, ResourcePath);
+    }
+
+    /// <summary>resourcePath 의 CSV 로 추가 페이지를 만든다(자가 제작·방어구 대장장이 공용). 틀 페이지는 box 의 첫 페이지, 줄은 그 첫 줄</summary>
+    public static int Build(Transform box, string resourcePath)
+    {
         if (box == null || box.childCount == 0)
         {
             return 0;
         }
-        TextAsset csv = Resources.Load<TextAsset>(ResourcePath);
+        TextAsset csv = Resources.Load<TextAsset>(resourcePath);
         List<Recipe> recipes = Parse(csv != null ? csv.text : null);
         recipes.RemoveAll(Invalid);
         Transform template = box.GetChild(0);
@@ -111,7 +118,7 @@ public static class SelfCraftPages
             page.gameObject.SetActive(false);
             pages++;
         }
-        GameLog.Info(GameLog.Cat.Item, "자가 제작 추가 페이지 " + pages + " (레시피 " + recipes.Count + ")");
+        GameLog.Info(GameLog.Cat.Item, "제작 추가 페이지(" + resourcePath + ") " + pages + " (레시피 " + recipes.Count + ")");
         return pages;
     }
 

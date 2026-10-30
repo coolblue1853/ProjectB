@@ -105,6 +105,7 @@
 - 방어구 대장장이(40칸)·자가 제작(3칸)이 가득 차서 `Bringer's Sigil Ring`, `Roasted Fox Skewer` 레시피를 넣지 못함.
 - **[임시 가정]** 인벤토리 리팩터(D2) 때 제작 UI를 데이터 기반(CSV 레시피 + 스크롤 목록)으로 바꾸면서 추가.
 - **10-30 자가 제작은 해결:** `SelfCraftRecipes.csv` + 런타임 페이지(BasicFeatures.md 10절)로 여우 꼬치구이·숲붕어 구이·호박빛송어 수프 추가. 방어구 대장장이(Bringer's Sigil Ring)는 아직 — 같은 방식으로 확장 가능.
+- **10-30 방어구도 해결:** `ArmorCraftRecipes.csv` + 3페이지 런타임 추가(BasicFeatures.md 15절), Bringer's Sigil Ring 제작 확인.
 
 ### Q-101 💬 정수 나눗셈으로 무력화된 % 스탯
 - 공속/이속/받피증/치명피해/증뎀/스킬뎀/방무/최종뎀이 `int/100` 이라 100% 미만 값은 전부 0으로 처리됨 → 사실상 효과 없음.
