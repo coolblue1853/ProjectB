@@ -6,16 +6,16 @@ public enum GatherKind { Specimen, Ore }
 /// <summary>표본 채집 한 번 누름의 판정</summary>
 public enum SpecimenJudge { Miss, Good, Perfect }
 
-/// <summary>채집물·광석 정의. Id 는 ItemSheet.csv name(인벤 키). 희귀도는 낚시와 같은 C/R/U 글자</summary>
+/// <summary>채집물·광석 정의. Id 는 ItemSheet.csv name(인벤 키). 희귀도는 공용 ItemRarity(C/R/U)</summary>
 public readonly struct GatherDef
 {
     public readonly string Id;
-    public readonly FishRarity Rarity;
+    public readonly ItemRarity Rarity;
     public readonly float BaseWeight;
     public readonly int MinCount;
     public readonly int MaxCount;
 
-    public GatherDef(string id, FishRarity rarity, float baseWeight, int minCount, int maxCount)
+    public GatherDef(string id, ItemRarity rarity, float baseWeight, int minCount, int maxCount)
     {
         Id = id;
         Rarity = rarity;
@@ -60,18 +60,18 @@ public static class GatherRules
     /// <summary>층계 1 표본(숲). 가중치는 % 기준</summary>
     public static readonly GatherDef[] SpecimenFloor1 =
     {
-        new GatherDef("GreenHurb", FishRarity.C, 45f, 1, 2),
-        new GatherDef("Forest Mushroom", FishRarity.C, 35f, 1, 2),
-        new GatherDef("Glow Moth Wing", FishRarity.R, 17f, 1, 1),
-        new GatherDef("Moonpetal", FishRarity.U, 3f, 1, 1),
+        new GatherDef("GreenHurb", ItemRarity.C, 45f, 1, 2),
+        new GatherDef("Forest Mushroom", ItemRarity.C, 35f, 1, 2),
+        new GatherDef("Glow Moth Wing", ItemRarity.R, 17f, 1, 1),
+        new GatherDef("Moonpetal", ItemRarity.U, 3f, 1, 1),
     };
 
     /// <summary>층계 1 광석. C 는 기존 강화 재료 T0_Ore 를 그대로 쓴다(Q-439)</summary>
     public static readonly GatherDef[] OreFloor1 =
     {
-        new GatherDef("T0_Ore", FishRarity.C, 80f, 1, 2),
-        new GatherDef("Bog Copper Ore", FishRarity.R, 17f, 1, 1),
-        new GatherDef("Starfall Ore", FishRarity.U, 3f, 1, 1),
+        new GatherDef("T0_Ore", ItemRarity.C, 80f, 1, 2),
+        new GatherDef("Bog Copper Ore", ItemRarity.R, 17f, 1, 1),
+        new GatherDef("Starfall Ore", ItemRarity.U, 3f, 1, 1),
     };
 
     /// <summary>층계별 표. 표가 없는 층계는 층계 1 표</summary>
@@ -146,15 +146,15 @@ public static class GatherRules
         GatherDef d = table[index];
         switch (d.Rarity)
         {
-            case FishRarity.R:
+            case ItemRarity.R:
                 return d.BaseWeight + rBonus;
-            case FishRarity.U:
+            case ItemRarity.U:
                 return d.BaseWeight + uBonus;
             default:
                 int commons = 0;
                 foreach (GatherDef g in table)
                 {
-                    if (g.Rarity == FishRarity.C)
+                    if (g.Rarity == ItemRarity.C)
                     {
                         commons++;
                     }

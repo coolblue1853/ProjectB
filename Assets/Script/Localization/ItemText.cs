@@ -9,6 +9,18 @@ public static class ItemText
         "", "-", "String", "String2", "World", "eat!", "equipment", "ToxicPickAxe",
     };
 
+    /// <summary>아이템 표시 이름(시트 itemNameT 번역본). DB 가 없거나 시트에 없으면 키를 번역</summary>
+    public static string DisplayName(string id)
+    {
+        DatabaseManager db = DatabaseManager.instance;
+        if (db == null)
+        {
+            return Loc.T(id);
+        }
+        ItemData d = db.LoadItemData(db.FindItemDataIndex(id));
+        return d != null && !string.IsNullOrEmpty(d.itemNameT) ? d.itemNameT : Loc.T(id);
+    }
+
     public static string Description(ItemData d)
     {
         if (d == null)

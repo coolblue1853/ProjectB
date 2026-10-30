@@ -21,7 +21,7 @@ tw = DG.Tweening.DOVirtual.Float(0f, 1f, 60f, v =>
     if (s == null)
     {
         if (!begun) { set(!down); return; } // 눌렀다 뗐다 → 시작
-        set(false); log.name += " END after=" + counts() + " lock=" + UiLock.IsHeld(GatherNode.LockOwner) + " ready=" + (node == null ? "?" : "-"); DG.Tweening.TweenExtensions.Kill(tw, false); return;
+        set(false); log.name += " END after=" + counts() + " lock=" + UiLock.IsHeld(GatherNode.Lock) + " ready=" + (node == null ? "?" : "-"); DG.Tweening.TweenExtensions.Kill(tw, false); return;
     }
     if (!begun) { begun = true; set(false); log.name += " begun@" + (now - t0).ToString("F1"); return; }
     if (s.Done)

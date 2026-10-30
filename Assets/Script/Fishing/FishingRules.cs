@@ -1,8 +1,5 @@
 ﻿using System;
 
-/// <summary>물고기 희귀도(ItemSheet rarity 와 같은 글자)</summary>
-public enum FishRarity { C, R, U }
-
 /// <summary>캐스팅 품질: 짧음(0.3초 미만) / 보통 / 최적(0.65~0.95초)</summary>
 public enum CastQuality { Short, Normal, Optimal }
 
@@ -10,12 +7,12 @@ public enum CastQuality { Short, Normal, Optimal }
 public readonly struct FishDef
 {
     public readonly string Id;
-    public readonly FishRarity Rarity;
+    public readonly ItemRarity Rarity;
     public readonly float BaseWeight;
     public readonly int MinCount;
     public readonly int MaxCount;
 
-    public FishDef(string id, FishRarity rarity, float baseWeight, int minCount, int maxCount)
+    public FishDef(string id, ItemRarity rarity, float baseWeight, int minCount, int maxCount)
     {
         Id = id;
         Rarity = rarity;
@@ -81,10 +78,10 @@ public static class FishingRules
     /// <summary>층계 1 어종(숲 수계). 가중치는 % 기준, 롤 때 다시 정규화</summary>
     public static readonly FishDef[] Floor1 =
     {
-        new FishDef("Forest Carp", FishRarity.C, 50f, 1, 2),
-        new FishDef("Moss Loach", FishRarity.C, 30f, 1, 2),
-        new FishDef("Amber Trout", FishRarity.R, 17f, 1, 1),
-        new FishDef("Spirit Koi", FishRarity.U, 3f, 1, 1),
+        new FishDef("Forest Carp", ItemRarity.C, 50f, 1, 2),
+        new FishDef("Moss Loach", ItemRarity.C, 30f, 1, 2),
+        new FishDef("Amber Trout", ItemRarity.R, 17f, 1, 1),
+        new FishDef("Spirit Koi", ItemRarity.U, 3f, 1, 1),
     };
 
     /// <summary>낚싯대 3등급. 0 = 낡은 낚싯대(기본)</summary>
@@ -137,7 +134,7 @@ public static class FishingRules
     /// <summary>가중치 적용 뒤의 실제 가중치(R/U 만 낚싯대·최적 캐스팅 배율)</summary>
     public static float Weight(FishDef fish, RodDef rod, CastQuality quality)
     {
-        if (fish.Rarity == FishRarity.C)
+        if (fish.Rarity == ItemRarity.C)
         {
             return fish.BaseWeight;
         }
@@ -174,15 +171,15 @@ public static class FishingRules
     }
 
     /// <summary>희귀도별 안전 장력 구간 + 낚싯대 확장(양쪽)</summary>
-    public static void SafeZone(FishRarity rarity, RodDef rod, out float min, out float max)
+    public static void SafeZone(ItemRarity rarity, RodDef rod, out float min, out float max)
     {
         switch (rarity)
         {
-            case FishRarity.R:
+            case ItemRarity.R:
                 min = 35f;
                 max = 65f;
                 break;
-            case FishRarity.U:
+            case ItemRarity.U:
                 min = 40f;
                 max = 60f;
                 break;
@@ -196,13 +193,13 @@ public static class FishingRules
     }
 
     /// <summary>저항 중 추가 장력(초당)</summary>
-    public static float ResistRate(FishRarity rarity)
+    public static float ResistRate(ItemRarity rarity)
     {
         switch (rarity)
         {
-            case FishRarity.R:
+            case ItemRarity.R:
                 return 11f;
-            case FishRarity.U:
+            case ItemRarity.U:
                 return 14f;
             default:
                 return 8f;

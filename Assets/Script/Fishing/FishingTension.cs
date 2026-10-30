@@ -21,7 +21,7 @@ public sealed class FishingTension
     public float SafeMax { get; }
     public ReelOutcome Outcome { get; private set; }
 
-    public FishingTension(FishRarity rarity, RodDef rod)
+    public FishingTension(ItemRarity rarity, RodDef rod)
     {
         FishingRules.SafeZone(rarity, rod, out float min, out float max);
         SafeMin = min;

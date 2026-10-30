@@ -4,9 +4,9 @@ foreach (var g in UnityEngine.Object.FindObjectsByType<UnityEngine.GameObject>(F
 var spot = FishingSpot.Current;
 var s = spot != null ? spot.Session : null;
 sb.Append("now: " + (s == null ? "idle" : s.Phase + "(" + s.Result + ")" + (s.Tension != null ? " tension " + s.Tension.Tension.ToString("F0") + " safe " + s.Tension.SafeMin + "-" + s.Tension.SafeMax + " prog " + s.Tension.Progress.ToString("F0") : "")));
-sb.Append(" lock=" + UiLock.IsHeld(FishingSpot.LockOwner) + " isOpenUI=" + DatabaseManager.isOpenUI);
+sb.Append(" lock=" + UiLock.IsHeld(FishingSpot.Lock) + " isOpenUI=" + DatabaseManager.isOpenUI);
 var inv = InventoryManager.instance;
 foreach (var id in new[] { "Forest Carp", "Moss Loach", "Amber Trout", "Spirit Koi" }) sb.Append(" " + id + "=" + inv.CountItem(id));
-var prompt = UnityEngine.GameObject.Find("FishPrompt");
+var prompt = UnityEngine.GameObject.Find("SpotPrompt");
 sb.Append(" promptVisible=" + (prompt != null && prompt.activeInHierarchy));
 return sb.ToString();

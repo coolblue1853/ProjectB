@@ -85,3 +85,10 @@
 
 - 숲버섯 수프 버섯 수량은 GPT 5 → 3(채집 1회 1~2개라 5는 과함, Q-439). HP 효과가 있는 포션·엘릭서는 물약과 같은 공유 쿨다운을 탄다. 합금 사용처(장비 강화 재료)는 아직 없음 — 강화 재료 확장 때(Q-439).
 - 검증: EditMode `SelfCraftPagesTests`(출하 CSV 이름이 시트에 있음) 통과, 프로브 `Tools/probes/alchemy_probe.cs`(재료 지급 → 해당 페이지·칸 제작) 6종 모두 결과 0→1·재료 0, 스크린샷(4/4 페이지).
+
+## 공용 베이스 (10-30 리팩터)
+
+- `Assets/Script/MiniGame/MiniGameSpot.cs`: 낚시터(`FishingSpot`)·채집 지점(`GatherNode`)이 물려받는 추상 틀. 머리 위 안내(`SpotPrompt`), 시작 조건 `CanBegin`(Ready·다른 미니게임/UI 없음·대화 아님), 중단 조건(좌우 이동·경직 피격·사망·트리거 이탈), 결과 닫기(ResultHold 또는 ↑), UiLock, 보상 단일 창구 `GiveReward`(InventoryService.Add → SaveInventory → 획득 로그, 가득 차면 BagFull)를 한 곳에서 처리한다. 진행 중 지점은 `MiniGameSpot.Active` 하나(`FishingSpot.Current`·`GatherNode.Current` 는 그 형변환). 입력은 정적 KeyAction 하나를 같이 쓴다.
+- 하위 클래스는 세션 생성·틱·중단·결과(`OnResult`)와 안내 문구 키·잠금 이름·결과 시간만 정한다. 새 미니게임(③ 발굴·⑥ 추적)도 이 틀을 물려받는다.
+- 희귀도는 공용 `ItemRarity`(C/R/U, 옛 FishRarity), 아이템 표시 이름은 `ItemText.DisplayName`(옛 FishingUI.DisplayName). 잠금 이름 상수는 `FishingSpot.Lock`·`GatherNode.Lock`.
+- 검증: EditMode 30/30(낚시·채집·자가 제작·DataIntegrity), 플레이 프로브 낚시 포획(숲붕어 +1)·→ 키 중단, 표본 완벽(초록 약초 +3)·광맥 정타 3타, 콘솔 에러 0.

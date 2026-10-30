@@ -34,7 +34,7 @@ tw = DG.Tweening.DOVirtual.Float(0f, 1f, 120f, v =>
         case FishingPhase.Reeling: set(win ? s.Tension.Tension < (s.Tension.SafeMin + s.Tension.SafeMax) * 0.5f : true); break;
         default:
             set(false);
-            if (!log.name.Contains("res=")) log.name += " res=" + s.Result + " cast=" + s.Cast + " fish=" + s.Fish.Id + " x" + s.Count + " t=" + (s.Tension != null ? s.Tension.Tension.ToString("F0") + "/" + s.Tension.Progress.ToString("F0") : "-") + " bagFull=" + spot.BagFull + " lock=" + UiLock.IsHeld(FishingSpot.LockOwner);
+            if (!log.name.Contains("res=")) log.name += " res=" + s.Result + " cast=" + s.Cast + " fish=" + s.Fish.Id + " x" + s.Count + " t=" + (s.Tension != null ? s.Tension.Tension.ToString("F0") + "/" + s.Tension.Progress.ToString("F0") : "-") + " bagFull=" + spot.BagFull + " lock=" + UiLock.IsHeld(FishingSpot.Lock);
             break;
     }
 });

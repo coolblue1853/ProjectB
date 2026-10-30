@@ -137,7 +137,7 @@ public class GatherUI : MonoBehaviour
                 }
                 string color = ColorUtility.ToHtmlStringRGB(UiTheme.Get().RarityColor(s.Item.Rarity.ToString()));
                 string head = s is SpecimenSession sp && sp.LastJudge == SpecimenJudge.Perfect ? Loc.T("Perfect! ") : "";
-                return head + Loc.T("Got: ") + "<color=#" + color + ">" + FishingUI.DisplayName(s.Item.Id) + "</color> x" + s.Count;
+                return head + Loc.T("Got: ") + "<color=#" + color + ">" + ItemText.DisplayName(s.Item.Id) + "</color> x" + s.Count;
             case GatherResult.Failed:
                 return Loc.T("The specimen was damaged");
             case GatherResult.TimedOut:

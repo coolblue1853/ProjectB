@@ -71,10 +71,10 @@ public class FishingRulesTests
     [Test]
     public void SafeZone_ByRarityAndRod()
     {
-        FishingRules.SafeZone(FishRarity.C, OldRod, out float min, out float max);
+        FishingRules.SafeZone(ItemRarity.C, OldRod, out float min, out float max);
         Assert.AreEqual(25f, min);
         Assert.AreEqual(75f, max);
-        FishingRules.SafeZone(FishRarity.U, FishingRules.Rod(1), out min, out max);
+        FishingRules.SafeZone(ItemRarity.U, FishingRules.Rod(1), out min, out max);
         Assert.AreEqual(35f, min);
         Assert.AreEqual(65f, max);
     }
@@ -82,7 +82,7 @@ public class FishingRulesTests
     [Test]
     public void Tension_HoldOnlyRises_ThenSnaps()
     {
-        var t = new FishingTension(FishRarity.C, OldRod);
+        var t = new FishingTension(ItemRarity.C, OldRod);
         ReelOutcome o = ReelOutcome.Reeling;
         for (int i = 0; i < 200 && o == ReelOutcome.Reeling; i++)
         {
@@ -95,7 +95,7 @@ public class FishingRulesTests
     [Test]
     public void Tension_NeverHold_Escapes()
     {
-        var t = new FishingTension(FishRarity.C, OldRod);
+        var t = new FishingTension(ItemRarity.C, OldRod);
         ReelOutcome o = t.Step(10f, false);
         Assert.AreEqual(ReelOutcome.Escaped, o);
         Assert.AreEqual(0f, t.Progress);
@@ -104,16 +104,16 @@ public class FishingRulesTests
     [Test]
     public void Tension_KeepInSafeZone_Catches()
     {
-        Assert.AreEqual(ReelOutcome.Caught, PlaySafe(FishRarity.C, out float elapsed));
+        Assert.AreEqual(ReelOutcome.Caught, PlaySafe(ItemRarity.C, out float elapsed));
         Assert.LessOrEqual(elapsed, FishingRules.ReelTimeLimit);
-        Assert.AreEqual(ReelOutcome.Caught, PlaySafe(FishRarity.U, out _));
+        Assert.AreEqual(ReelOutcome.Caught, PlaySafe(ItemRarity.U, out _));
     }
 
     [Test]
     public void Tension_LargeFrameSameAsSmallSteps()
     {
-        var a = new FishingTension(FishRarity.R, OldRod);
-        var b = new FishingTension(FishRarity.R, OldRod);
+        var a = new FishingTension(ItemRarity.R, OldRod);
+        var b = new FishingTension(ItemRarity.R, OldRod);
         a.Step(1f, true);
         for (int i = 0; i < 20; i++)
         {
@@ -174,7 +174,7 @@ public class FishingRulesTests
         {
             float w = FishingRules.Weight(f, rod, q);
             total += w;
-            if (f.Rarity != FishRarity.C)
+            if (f.Rarity != ItemRarity.C)
             {
                 rare += w;
             }
@@ -183,7 +183,7 @@ public class FishingRulesTests
     }
 
     /// <summary>안전 구간 가운데를 기준으로 누르고 떼는 단순 플레이</summary>
-    private static ReelOutcome PlaySafe(FishRarity rarity, out float elapsed)
+    private static ReelOutcome PlaySafe(ItemRarity rarity, out float elapsed)
     {
         var t = new FishingTension(rarity, OldRod);
         float mid = (t.SafeMin + t.SafeMax) * 0.5f;

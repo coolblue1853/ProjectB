@@ -45,18 +45,6 @@ public class FishingUI : MonoBehaviour
         _instance.Build();
     }
 
-    /// <summary>아이템 표시 이름(시트 itemNameT 번역본). DB 가 없으면 키를 번역</summary>
-    public static string DisplayName(string id)
-    {
-        DatabaseManager db = DatabaseManager.instance;
-        if (db == null)
-        {
-            return Loc.T(id);
-        }
-        ItemData d = db.LoadItemData(db.FindItemDataIndex(id));
-        return d != null && !string.IsNullOrEmpty(d.itemNameT) ? d.itemNameT : Loc.T(id);
-    }
-
     private void Update()
     {
         FishingSpot spot = FishingSpot.Current;
@@ -143,7 +131,7 @@ public class FishingUI : MonoBehaviour
                     return Loc.T("Bag full - released it");
                 }
                 string color = ColorUtility.ToHtmlStringRGB(UiTheme.Get().RarityColor(s.Fish.Rarity.ToString()));
-                return Loc.T("Caught: ") + "<color=#" + color + ">" + DisplayName(s.Fish.Id) + "</color> x" + s.Count;
+                return Loc.T("Caught: ") + "<color=#" + color + ">" + ItemText.DisplayName(s.Fish.Id) + "</color> x" + s.Count;
             case FishingResult.Snapped:
                 return Loc.T("The line snapped");
             case FishingResult.Escaped:
