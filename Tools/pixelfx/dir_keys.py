@@ -289,6 +289,12 @@ MOTIONS = {
         ("se", {"RIGHT ARM": (48, 52), "LEFT ARM": (51, 52), "RIGHT LEG": (30, 52), "LEFT LEG": (51, 52), "shift": (2, 7)}, -20),
         ("se", {"RIGHT ARM": (42, 40), "LEFT ARM": (45, 40), "RIGHT LEG": (30, 52), "LEFT LEG": (51, 52), "shift": (0, 5)}, -20),
     ],
+    # 품질 17회차(GPT 대검 올려치기 6.8 "올려치기가 아니라 내려베기로 읽힘"): 측면 양손 — 칼끝 아래(-75°) 낮은 장전 → 가슴 높이 상승 타격(35°) → 머리 위 앞 상단에서 멈춤(110°)
+    "E_UpperE": [
+        ("side", {"RIGHT SHOULDER": (40, 34), "RIGHT ARM": (42, 41), "LEFT ARM": (45, 41), "RIGHT LEG": (32, 53), "LEFT LEG": (48, 53), "shift": (-1, 3)}, -75),
+        ("side", {"RIGHT SHOULDER": (41, 33), "RIGHT ARM": (48, 32), "LEFT ARM": (50, 33), "RIGHT LEG": (32, 53), "LEFT LEG": (50, 53), "shift": (2, 0)}, 35),
+        ("side", {"RIGHT SHOULDER": (41, 32), "RIGHT ARM": (44, 25), "LEFT ARM": (47, 26), "RIGHT LEG": (33, 53), "LEFT LEG": (50, 53), "shift": (2, -1)}, 110),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 
