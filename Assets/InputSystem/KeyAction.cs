@@ -208,6 +208,24 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Artifact"",
+                    ""type"": ""Button"",
+                    ""id"": ""ac33c5fb-44a8-464d-b4de-d192df20f9ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ArtifactNext"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b4319cd-654b-4092-9fdf-2a66f80128cc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -490,6 +508,94 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""a838cf66-7ba1-4d61-a25e-27ec90b501f2"",
                     ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3fe6d878-0ad6-43cb-a1e6-67843a061418"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Artifact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87cfbed1-6187-42a7-ba99-d16e2b769c4c"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Artifact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""362b1b51-5cc8-4827-a39c-2f19283613fa"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ArtifactNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""647518f4-54fd-4e7e-a6c1-a57d782e2ac4"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ArtifactNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24cda343-bb6e-48c8-b63a-1d6f27fbe97b"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c52ee869-3432-42f7-bfb9-2093ceec4f75"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4b99a0e-2ac6-4845-953c-831d15c1bd81"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6af4bb2b-1f73-499d-9b3c-22e2886655c5"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1298,6 +1404,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         m_Player_Quick2 = m_Player.FindAction("Quick2", throwIfNotFound: true);
         m_Player_Quick3 = m_Player.FindAction("Quick3", throwIfNotFound: true);
         m_Player_Quick4 = m_Player.FindAction("Quick4", throwIfNotFound: true);
+        m_Player_Artifact = m_Player.FindAction("Artifact", throwIfNotFound: true);
+        m_Player_ArtifactNext = m_Player.FindAction("ArtifactNext", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_OpenInventory = m_UI.FindAction("OpenInventory", throwIfNotFound: true);
@@ -1416,6 +1524,8 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Quick2;
     private readonly InputAction m_Player_Quick3;
     private readonly InputAction m_Player_Quick4;
+    private readonly InputAction m_Player_Artifact;
+    private readonly InputAction m_Player_ArtifactNext;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1479,6 +1589,14 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Quick4".
         /// </summary>
         public InputAction @Quick4 => m_Wrapper.m_Player_Quick4;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Artifact".
+        /// </summary>
+        public InputAction @Artifact => m_Wrapper.m_Player_Artifact;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ArtifactNext".
+        /// </summary>
+        public InputAction @ArtifactNext => m_Wrapper.m_Player_ArtifactNext;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1544,6 +1662,12 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @Quick4.started += instance.OnQuick4;
             @Quick4.performed += instance.OnQuick4;
             @Quick4.canceled += instance.OnQuick4;
+            @Artifact.started += instance.OnArtifact;
+            @Artifact.performed += instance.OnArtifact;
+            @Artifact.canceled += instance.OnArtifact;
+            @ArtifactNext.started += instance.OnArtifactNext;
+            @ArtifactNext.performed += instance.OnArtifactNext;
+            @ArtifactNext.canceled += instance.OnArtifactNext;
         }
 
         /// <summary>
@@ -1594,6 +1718,12 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @Quick4.started -= instance.OnQuick4;
             @Quick4.performed -= instance.OnQuick4;
             @Quick4.canceled -= instance.OnQuick4;
+            @Artifact.started -= instance.OnArtifact;
+            @Artifact.performed -= instance.OnArtifact;
+            @Artifact.canceled -= instance.OnArtifact;
+            @ArtifactNext.started -= instance.OnArtifactNext;
+            @ArtifactNext.performed -= instance.OnArtifactNext;
+            @ArtifactNext.canceled -= instance.OnArtifactNext;
         }
 
         /// <summary>
@@ -2104,6 +2234,20 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnQuick4(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Artifact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnArtifact(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ArtifactNext" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnArtifactNext(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

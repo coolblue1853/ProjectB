@@ -27,8 +27,9 @@ public class QuickSlotBar : MonoBehaviour
     private readonly int[] _shownCounts = new int[QuickSlotModel.SlotCount];
     private readonly string[] _groups = new string[QuickSlotModel.SlotCount];
     private readonly InputAction[] _keys = new InputAction[QuickSlotModel.SlotCount];
+    private readonly TextMeshProUGUI[] _keyLabels = new TextMeshProUGUI[QuickSlotModel.SlotCount];
 
-    private KeyAction _action; // TODO(키 설정, BasicFeatures 3순위): 리바인딩 오버라이드를 이 인스턴스에도 적용
+    private KeyAction _action; // 키 설정 오버라이드는 InputBindings 가 켜질 때 입힌다
     private GameObject _root;
     private float _countTimer;
 
@@ -56,7 +57,9 @@ public class QuickSlotBar : MonoBehaviour
         BuildHud();
         _model.LoadFrom(LoadSaved());
         _model.Changed += OnModelChanged;
+        InputBindings.Changed += RefreshKeyLabels;
         ApplyModel();
+        RefreshKeyLabels();
     }
 
     private static string[] LoadSaved()
@@ -85,6 +88,7 @@ public class QuickSlotBar : MonoBehaviour
     private void OnDestroy()
     {
         _model.Changed -= OnModelChanged;
+        InputBindings.Changed -= RefreshKeyLabels;
         _action?.Dispose();
         if (_instance == this)
         {
@@ -186,6 +190,16 @@ public class QuickSlotBar : MonoBehaviour
             }
         }
         return false;
+    }
+
+    /// <summary>칸 왼쪽 위 키 이름(키 설정 반영)</summary>
+    private void RefreshKeyLabels()
+    {
+        for (int i = 0; i < QuickSlotModel.SlotCount; i++)
+        {
+            string k = InputBindings.Display("Quick" + (i + 1), false);
+            _keyLabels[i].text = k.Length > 3 ? k.Substring(0, 3) : k;
+        }
     }
 
     private void OnModelChanged()
@@ -319,6 +333,7 @@ public class QuickSlotBar : MonoBehaviour
 
         TextMeshProUGUI key = NewText("Key", cr, theme, 24f, TextAlignmentOptions.TopLeft, new Color(1f, 0.95f, 0.8f));
         key.text = (i + 1).ToString();
+        _keyLabels[i] = key;
         key.rectTransform.offsetMin = new Vector2(7f, 0f);
         key.rectTransform.offsetMax = new Vector2(0f, -4f);
 

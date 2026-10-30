@@ -10,7 +10,7 @@ public enum ArtifactId { None, HealingDew, GuardianShell, Hourglass, StarBurst }
 
 /// <summary>
 /// 아티팩트: Shift 로 발동하는 액티브 아이템. 인벤토리 아이템이 아니라 '해금 목록'이며(ES3 artifact.unlocked),
-/// 장착 1개(ES3 artifact.equipped)를 Shift 로 쓴다. Tab 으로 다음 해금 아티팩트로 교체.
+/// 장착 1개(ES3 artifact.equipped)를 입력 액션 Player/Artifact(기본 V, Q-422 로 Shift 에서 이동)로 쓴다. Player/ArtifactNext(기본 Tab)로 교체.
 /// 효과: 이슬(회복 35%) · 수호 껍질(무적 3초) · 모래시계(시간 20% 4초, 플레이어는 정상) · 별 폭발(주변 적 피해 + 넉백).
 /// HUD: 탐험가 칩 아래 아이콘 + 쿨다운.
 /// </summary>
@@ -42,6 +42,8 @@ public class ArtifactSystem : MonoBehaviour
     Image icon, cdFill;
     TextMeshProUGUI label;
     Tween slowTween;
+    KeyAction action;
+    string keyLabel = "V";
 
     public static ArtifactId Equipped => instance != null ? instance.equipped : ArtifactId.None;
     public static bool IsUnlocked(ArtifactId id) => instance != null && instance.unlocked.Contains(id);
@@ -61,6 +63,9 @@ public class ArtifactSystem : MonoBehaviour
 
     void Awake()
     {
+        action = new KeyAction();
+        RefreshKeyLabel();
+        InputBindings.Changed += RefreshKeyLabel;
         if (ES3.KeyExists(UnlockKey))
         {
             unlocked = new HashSet<ArtifactId>(ES3.Load<List<ArtifactId>>(UnlockKey));
@@ -102,18 +107,40 @@ public class ArtifactSystem : MonoBehaviour
         ES3.Save(UnlockKey, new List<ArtifactId>(unlocked));
     }
 
+    void OnEnable()
+    {
+        action?.Player.Artifact.Enable();
+        action?.Player.ArtifactNext.Enable();
+    }
+
+    void OnDisable()
+    {
+        action?.Player.Artifact.Disable();
+        action?.Player.ArtifactNext.Disable();
+    }
+
+    void OnDestroy()
+    {
+        InputBindings.Changed -= RefreshKeyLabel;
+        action?.Dispose();
+    }
+
+    void RefreshKeyLabel()
+    {
+        keyLabel = InputBindings.Display("Artifact", false).ToUpperInvariant();
+    }
+
     void Update()
     {
-        Keyboard kb = Keyboard.current;
-        if (kb == null || DatabaseManager.isOpenUI)
+        if (DatabaseManager.isOpenUI)
         {
             return;
         }
-        if (kb.tabKey.wasPressedThisFrame)
+        if (action.Player.ArtifactNext.WasPressedThisFrame())
         {
             CycleEquipped();
         }
-        if (kb.leftShiftKey.wasPressedThisFrame || kb.rightShiftKey.wasPressedThisFrame)
+        if (action.Player.Artifact.WasPressedThisFrame())
         {
             TryUse();
         }
@@ -122,7 +149,7 @@ public class ArtifactSystem : MonoBehaviour
             float left = CooldownLeft;
             Def d = Get(equipped);
             cdFill.fillAmount = d != null && d.cooldown > 0f ? Mathf.Clamp01(left / d.cooldown) : 0f;
-            label.text = left > 0.05f ? Mathf.CeilToInt(left).ToString() : "SHIFT";
+            label.text = left > 0.05f ? Mathf.CeilToInt(left).ToString() : keyLabel;
         }
     }
 

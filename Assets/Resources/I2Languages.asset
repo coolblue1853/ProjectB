@@ -4352,6 +4352,225 @@ MonoBehaviour:
       - "\uACE8\uB4DC \uBD80\uC871"
       Flags: 0000
       Languages_Touch: []
+    - Term: Only consumables go in quick slots
+      TermType: 0
+      Description: 
+      Languages:
+      - Only consumables go in quick slots
+      - "\uD035\uC2AC\uB86F\uC5D0\uB294 \uC18C\uBE44 \uC544\uC774\uD15C\uB9CC \uB123\uC744
+        \uC218 \uC788\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PICKUP
+      TermType: 0
+      Description: 
+      Languages:
+      - PICKUP
+      - "\uC90D\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ALL
+      TermType: 0
+      Description: 
+      Languages:
+      - ALL
+      - "\uC804\uBD80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SKIP COMMON MAT.
+      TermType: 0
+      Description: 
+      Languages:
+      - SKIP COMMON MAT.
+      - "\uC77C\uBC18 \uC7AC\uB8CC \uC81C\uC678"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: KEY BINDINGS
+      TermType: 0
+      Description: 
+      Languages:
+      - KEY BINDINGS
+      - "\uD0A4 \uC124\uC815"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: KEYBOARD
+      TermType: 0
+      Description: 
+      Languages:
+      - KEYBOARD
+      - "\uD0A4\uBCF4\uB4DC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GAMEPAD
+      TermType: 0
+      Description: 
+      Languages:
+      - GAMEPAD
+      - "\uAC8C\uC784\uD328\uB4DC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RESET TO DEFAULTS
+      TermType: 0
+      Description: 
+      Languages:
+      - RESET TO DEFAULTS
+      - "\uAE30\uBCF8\uAC12\uC73C\uB85C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: JUMP
+      TermType: 0
+      Description: 
+      Languages:
+      - JUMP
+      - "\uC810\uD504"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: DASH
+      TermType: 0
+      Description: 
+      Languages:
+      - DASH
+      - "\uB300\uC2DC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: RUN
+      TermType: 0
+      Description: 
+      Languages:
+      - RUN
+      - "\uB2EC\uB9AC\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ATTACK
+      TermType: 0
+      Description: 
+      Languages:
+      - ATTACK
+      - "\uACF5\uACA9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SKILL 1
+      TermType: 0
+      Description: 
+      Languages:
+      - SKILL 1
+      - "\uC2A4\uD0AC 1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SKILL 2
+      TermType: 0
+      Description: 
+      Languages:
+      - SKILL 2
+      - "\uC2A4\uD0AC 2"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SKILL 3
+      TermType: 0
+      Description: 
+      Languages:
+      - SKILL 3
+      - "\uC2A4\uD0AC 3"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SKILL 4
+      TermType: 0
+      Description: 
+      Languages:
+      - SKILL 4
+      - "\uC2A4\uD0AC 4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: QUICK SLOT 1
+      TermType: 0
+      Description: 
+      Languages:
+      - QUICK SLOT 1
+      - "\uD035\uC2AC\uB86F 1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: QUICK SLOT 2
+      TermType: 0
+      Description: 
+      Languages:
+      - QUICK SLOT 2
+      - "\uD035\uC2AC\uB86F 2"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: QUICK SLOT 3
+      TermType: 0
+      Description: 
+      Languages:
+      - QUICK SLOT 3
+      - "\uD035\uC2AC\uB86F 3"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: QUICK SLOT 4
+      TermType: 0
+      Description: 
+      Languages:
+      - QUICK SLOT 4
+      - "\uD035\uC2AC\uB86F 4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ARTIFACT
+      TermType: 0
+      Description: 
+      Languages:
+      - ARTIFACT
+      - "\uC544\uD2F0\uD329\uD2B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: NEXT ARTIFACT
+      TermType: 0
+      Description: 
+      Languages:
+      - NEXT ARTIFACT
+      - "\uB2E4\uC74C \uC544\uD2F0\uD329\uD2B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PRESS A KEY ESC cancel
+      TermType: 0
+      Description: 
+      Languages:
+      - "PRESS A KEY  \xB7  ESC cancel"
+      - "\uC0C8 \uD0A4\uB97C \uB204\uB974\uC138\uC694  \xB7  ESC \uCDE8\uC18C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP DOWN LEFT RIGHT column SELECT rebind ESC back
+      TermType: 0
+      Description: 
+      Languages:
+      - "UP/DOWN  \xB7  LEFT/RIGHT column  \xB7  SELECT rebind  \xB7  ESC back"
+      - "\uC704/\uC544\uB798  \xB7  \uC88C/\uC6B0 \uC5F4  \xB7  \uC120\uD0DD \uD0A4
+        \uBCC0\uACBD  \xB7  ESC \uB4A4\uB85C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: That key is reserved
+      TermType: 0
+      Description: 
+      Languages:
+      - That key is reserved
+      - "\uC774\uB3D9\xB7\uD655\uC778\uC6A9 \uACE0\uC815 \uD0A4\uB77C \uC9C0\uC815\uD560
+        \uC218 \uC5C6\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: EQUIPPED
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIPPED
+      - "\uCC29\uC6A9 \uC911"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PRESS A BUTTON START cancel
+      TermType: 0
+      Description: 
+      Languages:
+      - "PRESS A BUTTON  \xB7  START cancel"
+      - "\uC0C8 \uBC84\uD2BC\uC744 \uB204\uB974\uC138\uC694  \xB7  START \uCDE8\uC18C"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
