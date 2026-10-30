@@ -7822,164 +7822,148 @@
      42
     ],
     "handB": [
-     49,
+     48,
      42
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -14.8,
+    "angle": -12.7,
     "angleB": -999.0
    },
    {
     "png": "DualPistol_1",
     "hand": [
      47,
-     37
+     36
     ],
     "handB": [
-     54,
-     36
+     53,
+     38
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -5.2,
+    "angle": 0.7,
     "angleB": -999.0
    },
    {
     "png": "DualPistol_2",
     "hand": [
      48,
-     33
+     32
     ],
     "handB": [
      55,
-     32
+     35
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.1,
-    "angle": 0.0,
+    "angle": 8.0,
     "angleB": -999.0
    },
    {
     "png": "DualPistol_3",
     "hand": [
      48,
-     32
+     31
     ],
     "handB": [
      55,
-     32
+     35
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 6.0,
+    "angle": 14.2,
     "angleB": -999.0
    },
    {
     "png": "DualPistol_4",
     "hand": [
-     48,
-     31
+     47,
+     29
     ],
     "handB": [
      55,
-     32
+     35
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 16.0,
+    "angle": 25.8,
     "angleB": -999.0
    },
    {
     "png": "DualPistol_5",
     "hand": [
-     47,
-     31
+     46,
+     28
     ],
     "handB": [
-     55,
-     32
+     54,
+     35
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.07,
-    "angle": 24.0,
+    "time": 0.06,
+    "angle": 32.0,
     "angleB": -999.0
    },
    {
     "png": "DualPistol_6",
     "hand": [
-     48,
-     32
+     47,
+     30
     ],
     "handB": [
      55,
-     32
+     35
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 9.0,
+    "angle": 20.0,
     "angleB": -999.0
    },
    {
     "png": "DualPistol_7",
     "hand": [
      48,
-     33
+     32
     ],
     "handB": [
      55,
-     32
+     35
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.05,
-    "angle": 0.0,
-    "angleB": 0.0
+    "angle": 8.0,
+    "angleB": -999.0
    },
    {
     "png": "DualPistol_8",
     "hand": [
      48,
-     33
+     32
     ],
     "handB": [
      55,
-     31
+     33
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": 0.0,
-    "angleB": 8.0
+    "angle": 8.0,
+    "angleB": 6.0
    },
    {
     "png": "DualPistol_9",
     "hand": [
      48,
-     33
-    ],
-    "handB": [
-     54,
-     30
-    ],
-    "dy": 0,
-    "sx": 0,
-    "time": 0.07,
-    "angle": 0.0,
-    "angleB": 22.0
-   },
-   {
-    "png": "DualPistol_10",
-    "hand": [
-     48,
-     33
+     32
     ],
     "handB": [
      55,
@@ -7987,40 +7971,56 @@
     ],
     "dy": 0,
     "sx": 0,
+    "time": 0.06,
+    "angle": 8.0,
+    "angleB": 18.0
+   },
+   {
+    "png": "DualPistol_10",
+    "hand": [
+     48,
+     32
+    ],
+    "handB": [
+     55,
+     33
+    ],
+    "dy": 0,
+    "sx": 0,
     "time": 0.045,
-    "angle": 0.0,
-    "angleB": 7.0
+    "angle": 8.0,
+    "angleB": 6.0
    },
    {
     "png": "DualPistol_11",
     "hand": [
      48,
-     33
+     32
     ],
     "handB": [
      55,
-     32
+     35
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.1,
-    "angle": 0.0,
-    "angleB": 0.0
+    "angle": 8.0,
+    "angleB": -999.0
    },
    {
     "png": "DualPistol_12",
     "hand": [
-     44,
+     45,
      40
     ],
     "handB": [
-     52,
-     40
+     51,
+     41
     ],
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -10.0,
+    "angle": -6.0,
     "angleB": -999.0
    },
    {
@@ -16562,6 +16562,236 @@
     "sx": 0,
     "time": 0.5,
     "angle": -999.0
+   }
+  ]
+ },
+ "DualPistol_s16": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "DualPistol_s16_0",
+    "hand": [
+     41,
+     42
+    ],
+    "handB": [
+     49,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -14.8,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_s16_1",
+    "hand": [
+     47,
+     37
+    ],
+    "handB": [
+     54,
+     36
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -5.2,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_s16_2",
+    "hand": [
+     48,
+     33
+    ],
+    "handB": [
+     55,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": 0.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_s16_3",
+    "hand": [
+     48,
+     32
+    ],
+    "handB": [
+     55,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 6.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_s16_4",
+    "hand": [
+     48,
+     31
+    ],
+    "handB": [
+     55,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 16.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_s16_5",
+    "hand": [
+     47,
+     31
+    ],
+    "handB": [
+     55,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.07,
+    "angle": 24.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_s16_6",
+    "hand": [
+     48,
+     32
+    ],
+    "handB": [
+     55,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 9.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_s16_7",
+    "hand": [
+     48,
+     33
+    ],
+    "handB": [
+     55,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.05,
+    "angle": 0.0,
+    "angleB": 0.0
+   },
+   {
+    "png": "DualPistol_s16_8",
+    "hand": [
+     48,
+     33
+    ],
+    "handB": [
+     55,
+     31
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 0.0,
+    "angleB": 8.0
+   },
+   {
+    "png": "DualPistol_s16_9",
+    "hand": [
+     48,
+     33
+    ],
+    "handB": [
+     54,
+     30
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.07,
+    "angle": 0.0,
+    "angleB": 22.0
+   },
+   {
+    "png": "DualPistol_s16_10",
+    "hand": [
+     48,
+     33
+    ],
+    "handB": [
+     55,
+     31
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 0.0,
+    "angleB": 7.0
+   },
+   {
+    "png": "DualPistol_s16_11",
+    "hand": [
+     48,
+     33
+    ],
+    "handB": [
+     55,
+     32
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.1,
+    "angle": 0.0,
+    "angleB": 0.0
+   },
+   {
+    "png": "DualPistol_s16_12",
+    "hand": [
+     44,
+     40
+    ],
+    "handB": [
+     52,
+     40
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -10.0,
+    "angleB": -999.0
+   },
+   {
+    "png": "DualPistol_s16_13",
+    "hand": [
+     36,
+     42
+    ],
+    "handB": [
+     44,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -20.0,
+    "angleB": -999.0
    }
   ]
  },
