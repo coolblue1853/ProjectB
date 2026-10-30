@@ -4619,6 +4619,151 @@ MonoBehaviour:
       - "\uD55C \uBC88 \uB354 D: {0} \uBD84\uD574"
       Flags: 0000
       Languages_Touch: []
+    - Term: Forest Carp
+      TermType: 0
+      Description: 
+      Languages:
+      - Forest Carp
+      - "\uC232\uBD95\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Moss Loach
+      TermType: 0
+      Description: 
+      Languages:
+      - Moss Loach
+      - "\uC774\uB07C\uBBF8\uAFB8\uB77C\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Amber Trout
+      TermType: 0
+      Description: 
+      Languages:
+      - Amber Trout
+      - "\uD638\uBC15\uBE5B\uC1A1\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spirit Koi
+      TermType: 0
+      Description: 
+      Languages:
+      - Spirit Koi
+      - "\uC815\uB839\uC789\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP FISH
+      TermType: 0
+      Description: 
+      Languages:
+      - UP  FISH
+      - "\uC704  \uB09A\uC2DC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hold UP, release to cast
+      TermType: 0
+      Description: 
+      Languages:
+      - Hold UP, release to cast
+      - "\uC704 \uD0A4\uB97C \uB204\uB974\uACE0 \uC788\uB2E4 \uB5BC\uC11C \uB358\uC9C0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Waiting for a bite...
+      TermType: 0
+      Description: 
+      Languages:
+      - Waiting for a bite...
+      - "\uC785\uC9C8\uC744 \uAE30\uB2E4\uB9AC\uB294 \uC911..."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Perfect cast! Waiting for a bite...
+      TermType: 0
+      Description: 
+      Languages:
+      - Perfect cast! Waiting for a bite...
+      - "\uC644\uBCBD\uD55C \uCE90\uC2A4\uD305! \uC785\uC9C8\uC744 \uAE30\uB2E4\uB9AC\uB294
+        \uC911..."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BITE! Press UP
+      TermType: 0
+      Description: 
+      Languages:
+      - BITE!  Press UP
+      - "\uC785\uC9C8!  \uC704 \uD0A4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hold UP to reel release to ease
+      TermType: 0
+      Description: 
+      Languages:
+      - "Hold UP to reel  \xB7  release to ease"
+      - "\uC704 \uD0A4 \uB204\uB974\uBA74 \uAC10\uAE30  \xB7  \uB5BC\uBA74 \uD480\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Caught:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Caught: '
+      - "\uB09A\uC558\uB2E4: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bag full - released it
+      TermType: 0
+      Description: 
+      Languages:
+      - Bag full - released it
+      - "\uAC00\uBC29\uC774 \uAC00\uB4DD \uCC28 \uB193\uC544\uC92C\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The line snapped
+      TermType: 0
+      Description: 
+      Languages:
+      - The line snapped
+      - "\uC904\uC774 \uB04A\uC5B4\uC84C\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: It got away
+      TermType: 0
+      Description: 
+      Languages:
+      - It got away
+      - "\uBB3C\uACE0\uAE30\uAC00 \uB2EC\uC544\uB0AC\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Missed the bite
+      TermType: 0
+      Description: 
+      Languages:
+      - Missed the bite
+      - "\uC785\uC9C8\uC744 \uB193\uCCE4\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Reeled in too early
+      TermType: 0
+      Description: 
+      Languages:
+      - Reeled in too early
+      - "\uB108\uBB34 \uC77C\uCC0D \uB2F9\uACBC\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stopped fishing
+      TermType: 0
+      Description: 
+      Languages:
+      - Stopped fishing
+      - "\uB09A\uC2DC \uC911\uB2E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: fishing
+      TermType: 0
+      Description: 
+      Languages:
+      - fishing
+      - "\uB09A\uC2DC"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

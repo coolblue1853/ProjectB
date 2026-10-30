@@ -28,6 +28,7 @@ public static class LocItems
         ("Small Bone", "작은 뼈"), ("Rabbit Hide", "토끼 가죽"), ("Fine Rabbit Hide", "고운 토끼 가죽"), ("Round Bone", "둥근 뼈"),
         ("Green Hurb", "초록 약초"), ("Pristine Low-Grade Ore", "깨끗한 하급 광석"), ("Green Wreath", "초록 화관"), ("Small Tube", "작은 관"),
         ("Fresh Green Leaves", "싱싱한 초록 잎"), ("Sturdy Roots", "튼튼한 뿌리"), ("Herbal Salad", "약초 샐러드"),
+        ("Forest Carp", "숲붕어"), ("Moss Loach", "이끼미꾸라지"), ("Amber Trout", "호박빛송어"), ("Spirit Koi", "정령잉어"),
         ("Gentle Spring Guidance", "봄바람의 인도"), ("Sharp Petal Ring", "날카로운 꽃잎 반지"), ("Sturdy Leaf", "튼튼한 잎"), ("Sharp Petal", "날카로운 꽃잎"),
         ("Nasty Rat Ring", "고약한 쥐 반지"), ("Disgusting Rat Meat", "역겨운 쥐고기"), ("Rat Thief's Stash", "쥐 도적의 장물"),
         ("Filthy Rat Hide", "더러운 쥐 가죽"), ("Stinky Rat Meat Stew", "냄새나는 쥐고기 스튜"),

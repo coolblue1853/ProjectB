@@ -45,6 +45,7 @@ public static class ItemText
             case "Buy":
             case "Craft":
             case "cook":
+            case "fishing":
                 return Loc.T(d.acqPath);
             case "Boss":
                 return Loc.T("BOSS");
