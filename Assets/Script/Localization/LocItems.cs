@@ -31,6 +31,7 @@ public static class LocItems
         ("Forest Carp", "숲붕어"), ("Moss Loach", "이끼미꾸라지"), ("Amber Trout", "호박빛송어"), ("Spirit Koi", "정령잉어"),
         ("Forest Mushroom", "숲버섯"), ("Glow Moth Wing", "반딧나방 날개"), ("Moonpetal", "달빛꽃잎"), ("Bog Copper Ore", "늪구리 광석"), ("Starfall Ore", "별똥 광석"),
         ("Minor Herbal Potion", "초급 약초 포션"), ("Glow Stamina Potion", "반딧 활력 포션"), ("Forest Mushroom Soup", "숲버섯 수프"), ("Moonpetal Elixir", "달빛 엘릭서"), ("Bog Copper Alloy", "늪구리 합금"), ("Starfall Alloy", "별똥 합금"),
+        ("Ancient Relic Shard", "고대 유물 파편"), ("Ancient Blueprint Fragment", "고대 설계도 조각"), ("Ancient Gear Core", "고대 기어 코어"), ("Forgotten Runestone", "잊힌 룬석"),
         ("Gentle Spring Guidance", "봄바람의 인도"), ("Sharp Petal Ring", "날카로운 꽃잎 반지"), ("Sturdy Leaf", "튼튼한 잎"), ("Sharp Petal", "날카로운 꽃잎"),
         ("Nasty Rat Ring", "고약한 쥐 반지"), ("Disgusting Rat Meat", "역겨운 쥐고기"), ("Rat Thief's Stash", "쥐 도적의 장물"),
         ("Filthy Rat Hide", "더러운 쥐 가죽"), ("Stinky Rat Meat Stew", "냄새나는 쥐고기 스튜"),

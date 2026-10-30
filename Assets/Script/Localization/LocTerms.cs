@@ -173,5 +173,22 @@ public static class LocTerms
         ("...Father?", "...아버지?"),
         ("...Turn... back...", "...돌아... 가라..."),
         ("No. Whatever you are, I'm going up.", "아니. 당신이 무엇이든, 나는 올라갈 거야."),
+
+        // ── 아버지의 기록(발굴 수집 로그, FathersRecords) ──
+        ("01. The First Ascent", "01. 첫 번째 오름"),
+        ("The tower casts its shadow against the sun, yet the stones beneath it are strangely warm. I left before she woke. I wonder if she will forgive me for that.",
+            "탑은 태양을 등지고 그림자를 드리우지만, 그 아래 돌들은 기묘하게 따뜻하다. 아이가 깨어나기 전에 떠났다. 그 일을 언젠가 용서해 줄까."),
+        ("02. A Name in the Rain", "02. 빗속의 이름"),
+        ("Her fever has followed me into my dreams. Last night, the rain whispered her name through the cracks of an empty temple. I did not answer, though every part of me wanted to.",
+            "아이의 열병은 꿈속까지 나를 따라왔다. 지난밤, 빗소리가 텅 빈 신전의 틈새로 아이의 이름을 속삭였다. 온몸으로 대답하고 싶었지만, 끝내 입을 열지 않았다."),
+        ("03. The Four-Pointed Star", "03. 네 갈래 별"),
+        ("The same four-pointed star is carved above every sealed doorway. The golden brooch I left with her bears that mark. I thought it a keepsake, but perhaps someone meant it to be a key.",
+            "봉인된 모든 문 위에 똑같은 네 갈래 별이 새겨져 있다. 아이에게 남긴 금빛 브로치에도 그 문양이 있다. 그저 기념품인 줄 알았는데, 어쩌면 누군가는 그것을 열쇠로 만들었을지도 모른다."),
+        ("04. The Price of a Wish", "04. 소원의 값"),
+        ("They say the summit grants a single wish. No account speaks of those who received one, only of those who climbed. If the price is mine alone, I will pay it.",
+            "정상에서는 단 하나의 소원을 이룰 수 있다고 한다. 소원을 이룬 사람의 기록은 없고, 오직 올라간 사람들의 기록만 남아 있다. 대가를 치르는 것이 나 혼자라면, 기꺼이 받아들이겠다."),
+        ("05. Someone at the Door", "05. 문 앞의 누군가"),
+        ("There is a door in my dreams, and someone stands beyond it. Tonight, the figure spoke with a voice I almost recognized. It asked whether I would still open the door if I knew I could never leave.",
+            "꿈속에 문이 하나 있고, 그 너머에 누군가 서 있다. 오늘 밤, 그 형체는 어딘지 익숙한 목소리로 말했다. 다시는 떠날 수 없다는 걸 알게 되어도, 그 문을 열겠느냐고."),
     };
 }

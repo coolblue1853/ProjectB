@@ -5052,6 +5052,290 @@ MonoBehaviour:
       - "\uC81C\uB828"
       Flags: 0000
       Languages_Touch: []
+    - Term: 01. The First Ascent
+      TermType: 0
+      Description: 
+      Languages:
+      - 01. The First Ascent
+      - "01. \uCCAB \uBC88\uC9F8 \uC624\uB984"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The tower casts its shadow against the sun, yet the stones beneath it
+        are strangely warm. I left before she woke. I wonder if she will forgive
+        me for that.
+      TermType: 0
+      Description: 
+      Languages:
+      - The tower casts its shadow against the sun, yet the stones beneath it are
+        strangely warm. I left before she woke. I wonder if she will forgive me for
+        that.
+      - "\uD0D1\uC740 \uD0DC\uC591\uC744 \uB4F1\uC9C0\uACE0 \uADF8\uB9BC\uC790\uB97C
+        \uB4DC\uB9AC\uC6B0\uC9C0\uB9CC, \uADF8 \uC544\uB798 \uB3CC\uB4E4\uC740 \uAE30\uBB18\uD558\uAC8C
+        \uB530\uB73B\uD558\uB2E4. \uC544\uC774\uAC00 \uAE68\uC5B4\uB098\uAE30 \uC804\uC5D0
+        \uB5A0\uB0AC\uB2E4. \uADF8 \uC77C\uC744 \uC5B8\uC820\uAC00 \uC6A9\uC11C\uD574
+        \uC904\uAE4C."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 02. A Name in the Rain
+      TermType: 0
+      Description: 
+      Languages:
+      - 02. A Name in the Rain
+      - "02. \uBE57\uC18D\uC758 \uC774\uB984"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Her fever has followed me into my dreams. Last night, the rain whispered
+        her name through the cracks of an empty temple. I did not answer, though
+        every part of me wanted to.
+      TermType: 0
+      Description: 
+      Languages:
+      - Her fever has followed me into my dreams. Last night, the rain whispered
+        her name through the cracks of an empty temple. I did not answer, though
+        every part of me wanted to.
+      - "\uC544\uC774\uC758 \uC5F4\uBCD1\uC740 \uAFC8\uC18D\uAE4C\uC9C0 \uB098\uB97C
+        \uB530\uB77C\uC654\uB2E4. \uC9C0\uB09C\uBC24, \uBE57\uC18C\uB9AC\uAC00 \uD145
+        \uBE48 \uC2E0\uC804\uC758 \uD2C8\uC0C8\uB85C \uC544\uC774\uC758 \uC774\uB984\uC744
+        \uC18D\uC0AD\uC600\uB2E4. \uC628\uBAB8\uC73C\uB85C \uB300\uB2F5\uD558\uACE0
+        \uC2F6\uC5C8\uC9C0\uB9CC, \uB05D\uB0B4 \uC785\uC744 \uC5F4\uC9C0 \uC54A\uC558\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 03. The Four-Pointed Star
+      TermType: 0
+      Description: 
+      Languages:
+      - 03. The Four-Pointed Star
+      - "03. \uB124 \uAC08\uB798 \uBCC4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The same four-pointed star is carved above every sealed doorway. The
+        golden brooch I left with her bears that mark. I thought it a keepsake, but
+        perhaps someone meant it to be a key.
+      TermType: 0
+      Description: 
+      Languages:
+      - The same four-pointed star is carved above every sealed doorway. The golden
+        brooch I left with her bears that mark. I thought it a keepsake, but perhaps
+        someone meant it to be a key.
+      - "\uBD09\uC778\uB41C \uBAA8\uB4E0 \uBB38 \uC704\uC5D0 \uB611\uAC19\uC740 \uB124
+        \uAC08\uB798 \uBCC4\uC774 \uC0C8\uACA8\uC838 \uC788\uB2E4. \uC544\uC774\uC5D0\uAC8C
+        \uB0A8\uAE34 \uAE08\uBE5B \uBE0C\uB85C\uCE58\uC5D0\uB3C4 \uADF8 \uBB38\uC591\uC774
+        \uC788\uB2E4. \uADF8\uC800 \uAE30\uB150\uD488\uC778 \uC904 \uC54C\uC558\uB294\uB370,
+        \uC5B4\uCA4C\uBA74 \uB204\uAD70\uAC00\uB294 \uADF8\uAC83\uC744 \uC5F4\uC1E0\uB85C
+        \uB9CC\uB4E4\uC5C8\uC744\uC9C0\uB3C4 \uBAA8\uB978\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 04. The Price of a Wish
+      TermType: 0
+      Description: 
+      Languages:
+      - 04. The Price of a Wish
+      - "04. \uC18C\uC6D0\uC758 \uAC12"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: They say the summit grants a single wish. No account speaks of those
+        who received one, only of those who climbed. If the price is mine alone,
+        I will pay it.
+      TermType: 0
+      Description: 
+      Languages:
+      - They say the summit grants a single wish. No account speaks of those who
+        received one, only of those who climbed. If the price is mine alone, I will
+        pay it.
+      - "\uC815\uC0C1\uC5D0\uC11C\uB294 \uB2E8 \uD558\uB098\uC758 \uC18C\uC6D0\uC744
+        \uC774\uB8F0 \uC218 \uC788\uB2E4\uACE0 \uD55C\uB2E4. \uC18C\uC6D0\uC744 \uC774\uB8EC
+        \uC0AC\uB78C\uC758 \uAE30\uB85D\uC740 \uC5C6\uACE0, \uC624\uC9C1 \uC62C\uB77C\uAC04
+        \uC0AC\uB78C\uB4E4\uC758 \uAE30\uB85D\uB9CC \uB0A8\uC544 \uC788\uB2E4. \uB300\uAC00\uB97C
+        \uCE58\uB974\uB294 \uAC83\uC774 \uB098 \uD63C\uC790\uB77C\uBA74, \uAE30\uAEBC\uC774
+        \uBC1B\uC544\uB4E4\uC774\uACA0\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 05. Someone at the Door
+      TermType: 0
+      Description: 
+      Languages:
+      - 05. Someone at the Door
+      - "05. \uBB38 \uC55E\uC758 \uB204\uAD70\uAC00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: There is a door in my dreams, and someone stands beyond it. Tonight,
+        the figure spoke with a voice I almost recognized. It asked whether I would
+        still open the door if I knew I could never leave.
+      TermType: 0
+      Description: 
+      Languages:
+      - There is a door in my dreams, and someone stands beyond it. Tonight, the
+        figure spoke with a voice I almost recognized. It asked whether I would still
+        open the door if I knew I could never leave.
+      - "\uAFC8\uC18D\uC5D0 \uBB38\uC774 \uD558\uB098 \uC788\uACE0, \uADF8 \uB108\uBA38\uC5D0
+        \uB204\uAD70\uAC00 \uC11C \uC788\uB2E4. \uC624\uB298 \uBC24, \uADF8 \uD615\uCCB4\uB294
+        \uC5B4\uB518\uC9C0 \uC775\uC219\uD55C \uBAA9\uC18C\uB9AC\uB85C \uB9D0\uD588\uB2E4.
+        \uB2E4\uC2DC\uB294 \uB5A0\uB0A0 \uC218 \uC5C6\uB2E4\uB294 \uAC78 \uC54C\uAC8C
+        \uB418\uC5B4\uB3C4, \uADF8 \uBB38\uC744 \uC5F4\uACA0\uB290\uB0D0\uACE0."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Relic Shard
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Relic Shard
+      - "\uACE0\uB300 \uC720\uBB3C \uD30C\uD3B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Blueprint Fragment
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Blueprint Fragment
+      - "\uACE0\uB300 \uC124\uACC4\uB3C4 \uC870\uAC01"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Gear Core
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Gear Core
+      - "\uACE0\uB300 \uAE30\uC5B4 \uCF54\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forgotten Runestone
+      TermType: 0
+      Description: 
+      Languages:
+      - Forgotten Runestone
+      - "\uC78A\uD78C \uB8EC\uC11D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP EXCAVATE
+      TermType: 0
+      Description: 
+      Languages:
+      - UP  EXCAVATE
+      - "\uC704  \uBC1C\uAD74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ARROWS move X dig ESC stop
+      TermType: 0
+      Description: 
+      Languages:
+      - "ARROWS move  \xB7  X dig  \xB7  ESC stop"
+      - "\uBC29\uD5A5\uD0A4 \uC774\uB3D9  \xB7  X \uD30C\uAE30  \xB7  ESC \uC911\uB2E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Read the signs, find the relics
+      TermType: 0
+      Description: 
+      Languages:
+      - Read the signs, find the relics
+      - "\uC2E0\uD638\uB97C \uC77D\uACE0 \uC720\uBB3C\uC744 \uCC3E\uC544\uB77C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rare ruin! Read the signs, find the relics
+      TermType: 0
+      Description: 
+      Languages:
+      - Rare ruin! Read the signs, find the relics
+      - "\uD76C\uADC0 \uC720\uC801! \uC2E0\uD638\uB97C \uC77D\uACE0 \uC720\uBB3C\uC744
+        \uCC3E\uC544\uB77C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Picks {0} Relics {1} {2}
+      TermType: 0
+      Description: 
+      Languages:
+      - "Picks {0}  \xB7  Relics {1}/{2}"
+      - "\uACE1\uAD2D\uC774 {0}  \xB7  \uC720\uBB3C {1}/{2}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Collapse
+      TermType: 0
+      Description: 
+      Languages:
+      - Collapse
+      - "\uBD95\uAD34"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Excavation complete!
+      TermType: 0
+      Description: 
+      Languages:
+      - Excavation complete!
+      - "\uBC1C\uAD74 \uC644\uB8CC!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Out of picks
+      TermType: 0
+      Description: 
+      Languages:
+      - Out of picks
+      - "\uACE1\uAD2D\uC774\uAC00 \uB2E4 \uB2F3\uC558\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The ruin collapsed
+      TermType: 0
+      Description: 
+      Languages:
+      - The ruin collapsed
+      - "\uC720\uC801\uC774 \uBB34\uB108\uC84C\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Time ran out
+      TermType: 0
+      Description: 
+      Languages:
+      - Time ran out
+      - "\uC2DC\uAC04\uC774 \uB2E4 \uB410\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stopped excavating
+      TermType: 0
+      Description: 
+      Languages:
+      - Stopped excavating
+      - "\uBC1C\uAD74 \uC911\uB2E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Nothing found
+      TermType: 0
+      Description: 
+      Languages:
+      - Nothing found
+      - "\uC544\uBB34\uAC83\uB3C4 \uCC3E\uC9C0 \uBABB\uD588\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Father's Record
+      TermType: 0
+      Description: 
+      Languages:
+      - Father's Record
+      - "\uC544\uBC84\uC9C0\uC758 \uAE30\uB85D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'New record:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'New record: '
+      - "\uC0C8 \uAE30\uB85D: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: All records found - took a gear core instead
+      TermType: 0
+      Description: 
+      Languages:
+      - All records found - took a gear core instead
+      - "\uAE30\uB85D\uC744 \uBAA8\uB450 \uBAA8\uC544 \uAE30\uC5B4 \uCF54\uC5B4\uB97C
+        \uCC59\uACBC\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: excavation
+      TermType: 0
+      Description: 
+      Languages:
+      - excavation
+      - "\uBC1C\uAD74"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

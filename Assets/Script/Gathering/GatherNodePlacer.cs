@@ -105,7 +105,7 @@ public static class GatherNodePlacer
         var mid = new Color32(78, 116, 70, 255);
         var light = new Color32(132, 168, 96, 255);
         var glint = new Color32(240, 220, 120, 255);
-        Color32[] px = Blank(w * h);
+        Color32[] px = MiniGameSprites.Blank(w * h);
         for (int y = 0; y < h; y++)
         {
             for (int x = 0; x < w; x++)
@@ -121,7 +121,7 @@ public static class GatherNodePlacer
         }
         px[8 * w + 5] = glint;
         px[6 * w + 11] = glint;
-        _bush = MakeSprite(px, w, h);
+        _bush = MiniGameSprites.MakeSprite(px, w, h);
         return _bush;
     }
 
@@ -139,7 +139,7 @@ public static class GatherNodePlacer
         var lit = new Color32(132, 124, 120, 255);
         var crystal = new Color32(96, 196, 200, 255);
         var shine = new Color32(210, 250, 245, 255);
-        Color32[] px = Blank(w * h);
+        Color32[] px = MiniGameSprites.Blank(w * h);
         for (int y = 0; y < h; y++)
         {
             for (int x = 0; x < w; x++)
@@ -163,27 +163,7 @@ public static class GatherNodePlacer
             px[cy * w + cx + 1] = crystal;
             px[(cy + 2) * w + cx] = shine;
         }
-        _vein = MakeSprite(px, w, h);
+        _vein = MiniGameSprites.MakeSprite(px, w, h);
         return _vein;
-    }
-
-    private static Color32[] Blank(int n)
-    {
-        var px = new Color32[n];
-        var clear = new Color32(0, 0, 0, 0);
-        for (int i = 0; i < n; i++)
-        {
-            px[i] = clear;
-        }
-        return px;
-    }
-
-    private static Sprite MakeSprite(Color32[] px, int w, int h)
-    {
-        var tex = new Texture2D(w, h, TextureFormat.RGBA32, false);
-        tex.filterMode = FilterMode.Point;
-        tex.SetPixels32(px);
-        tex.Apply();
-        return Sprite.Create(tex, new Rect(0, 0, w, h), new Vector2(0.5f, 0f), 16f);
     }
 }

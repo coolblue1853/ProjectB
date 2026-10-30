@@ -49,7 +49,7 @@ public class GatherNode : MiniGameSpot
         if (!_snapped)
         {
             _snapped = true;
-            SnapToGround();
+            SnapToGround(SnapUp, SnapDown);
         }
         bool ready = Ready;
         if (_mark != null && ready != _shownReady && !HasSession)
@@ -100,24 +100,5 @@ public class GatherNode : MiniGameSpot
     public void ResetCooldown()
     {
         _readyAt = 0f;
-    }
-
-    private void SnapToGround()
-    {
-        var filter = new ContactFilter2D();
-        filter.SetLayerMask(LayerMask.GetMask("Ground"));
-        filter.useTriggers = false;
-        var hits = new RaycastHit2D[4];
-        Vector2 from = (Vector2)transform.position + Vector2.up * SnapUp;
-        int n = Physics2D.Raycast(from, Vector2.down, filter, hits, SnapUp + SnapDown);
-        if (n > 0)
-        {
-            Vector3 p = transform.position;
-            transform.position = new Vector3(p.x, hits[0].point.y, p.z);
-        }
-        else
-        {
-            Debug.LogWarning("[PB][Gather] 지면 못 찾음: " + name + " @" + transform.position);
-        }
     }
 }

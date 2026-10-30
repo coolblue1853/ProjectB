@@ -47,6 +47,8 @@ public abstract class MiniGameSpot : MonoBehaviour
 
     /// <summary>시작 가능 여부 추가 조건(쿨타임 등)</summary>
     protected virtual bool Ready => true;
+    /// <summary>좌우 이동 입력으로 중단하는가(발굴처럼 방향키를 커서로 쓰는 미니게임은 false, 자체 중단 키를 둔다)</summary>
+    protected virtual bool CancelOnMove => true;
 
     protected abstract void StartSession();
     protected abstract void TickSession(float dt, bool held, bool pressed);
@@ -168,7 +170,7 @@ public abstract class MiniGameSpot : MonoBehaviour
         {
             return true;
         }
-        return Mathf.Abs(SharedInput.Player.Move.ReadValue<float>()) > 0.5f; // Move 는 1D 축(좌우)
+        return CancelOnMove && Mathf.Abs(SharedInput.Player.Move.ReadValue<float>()) > 0.5f; // Move 는 1D 축(좌우)
     }
 
     private void UpdateResult(bool pressed)
@@ -263,6 +265,26 @@ public abstract class MiniGameSpot : MonoBehaviour
         _prompt.rectTransform.sizeDelta = new Vector2(6f, 1f);
         _prompt.sortingOrder = 500;
         go.SetActive(false);
+    }
+
+    /// <summary>아래 지면(Ground 레이어)에 붙인다. 시작 높이 up 은 머리 위 발판에 올라가지 않게 낮게</summary>
+    protected void SnapToGround(float up, float down)
+    {
+        var filter = new ContactFilter2D();
+        filter.SetLayerMask(LayerMask.GetMask("Ground"));
+        filter.useTriggers = false;
+        var hits = new RaycastHit2D[4];
+        Vector2 from = (Vector2)transform.position + Vector2.up * up;
+        int n = Physics2D.Raycast(from, Vector2.down, filter, hits, up + down);
+        if (n > 0)
+        {
+            Vector3 p = transform.position;
+            transform.position = new Vector3(p.x, hits[0].point.y, p.z);
+        }
+        else
+        {
+            Debug.LogWarning("[PB][MiniGame] 지면 못 찾음: " + name + " @" + transform.position);
+        }
     }
 
     protected static float RandomValue()

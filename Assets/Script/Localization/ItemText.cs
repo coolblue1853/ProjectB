@@ -60,6 +60,7 @@ public static class ItemText
             case "fishing":
             case "gathering":
             case "mining":
+            case "excavation":
             case "alchemy":
             case "smelt":
                 return Loc.T(d.acqPath);

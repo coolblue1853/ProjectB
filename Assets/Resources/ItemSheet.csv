@@ -230,3 +230,7 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 227,Moonpetal Elixir,Consum,World,580,5,alchemy,50,hp +/stemina +,250/100,-,,Moonpetal Elixir,0,U,0,
 228,Bog Copper Alloy,Misc,World,310,1,smelt,50,-,0,-,,Bog Copper Alloy,0,R,0,
 229,Starfall Alloy,Misc,World,740,1,smelt,50,-,0,-,,Starfall Alloy,0,U,0,
+230,Ancient Relic Shard,Misc,World,18,1,excavation,50,-,0,-,,Ancient Relic Shard,0,C,0,
+231,Ancient Blueprint Fragment,Misc,World,35,1,excavation,50,-,0,-,,Ancient Blueprint Fragment,0,C,0,
+232,Ancient Gear Core,Misc,World,85,1,excavation,50,-,0,-,,Ancient Gear Core,0,R,0,
+233,Forgotten Runestone,Misc,World,120,1,excavation,50,-,0,-,,Forgotten Runestone,0,R,0,

@@ -89,6 +89,46 @@
 ## 공용 베이스 (10-30 리팩터)
 
 - `Assets/Script/MiniGame/MiniGameSpot.cs`: 낚시터(`FishingSpot`)·채집 지점(`GatherNode`)이 물려받는 추상 틀. 머리 위 안내(`SpotPrompt`), 시작 조건 `CanBegin`(Ready·다른 미니게임/UI 없음·대화 아님), 중단 조건(좌우 이동·경직 피격·사망·트리거 이탈), 결과 닫기(ResultHold 또는 ↑), UiLock, 보상 단일 창구 `GiveReward`(InventoryService.Add → SaveInventory → 획득 로그, 가득 차면 BagFull)를 한 곳에서 처리한다. 진행 중 지점은 `MiniGameSpot.Active` 하나(`FishingSpot.Current`·`GatherNode.Current` 는 그 형변환). 입력은 정적 KeyAction 하나를 같이 쓴다.
-- 하위 클래스는 세션 생성·틱·중단·결과(`OnResult`)와 안내 문구 키·잠금 이름·결과 시간만 정한다. 새 미니게임(③ 발굴·⑥ 추적)도 이 틀을 물려받는다.
+- 하위 클래스는 세션 생성·틱·중단·결과(`OnResult`)와 안내 문구 키·잠금 이름·결과 시간만 정한다. 새 미니게임(③ 발굴·⑥ 추적)도 이 틀을 물려받는다. (10-30 ③ 발굴 추가 때) 좌우 이동 중단을 끄는 `CancelOnMove`(기본 true), 지면 붙기 `SnapToGround`(옛 GatherNode 것)를 베이스로, 코드 도트 도우미 `MiniGameSprites`(Blank·MakeSprite)를 공용으로 옮김.
 - 희귀도는 공용 `ItemRarity`(C/R/U, 옛 FishRarity), 아이템 표시 이름은 `ItemText.DisplayName`(옛 FishingUI.DisplayName). 잠금 이름 상수는 `FishingSpot.Lock`·`GatherNode.Lock`.
 - 검증: EditMode 30/30(낚시·채집·자가 제작·DataIntegrity), 플레이 프로브 낚시 포획(숲붕어 +1)·→ 키 중단, 표본 완벽(초록 약초 +3)·광맥 정타 3타, 콘솔 에러 0.
+
+## 고대 유물 발굴 구현 (③, 10-30 확정)
+
+출처: GPT 기획 대화(10-30) 규칙·수치·보상표·기록 초안을 공용 틀(MiniGameSpot)로 옮김. 임시 가정은 `Docs/OpenQuestions.md` Q-440.
+
+- 코드: `Assets/Script/Excavation/` — `ExcavationRules`(순수 수치·판 생성·힌트·기록 추첨), `ExcavationSession`(상태 머신, 순수), `ExcavationSite`(MiniGameSpot 하위, 입력·보상·쿨타임), `ExcavationUI`(코드 생성 HUD), `ExcavationSitePlacer`(배치·코드 도트 벽), `FathersRecords`(기록 5편·ES3). 테스트 `Assets/Editor/Tests/ExcavationRulesTests.cs`(10개).
+- 조작: 유적 트리거 안에서 머리 위 "위  발굴" → **↑(UI/Up)** 로 시작. 발굴 중 **방향키(UI 좌우상하 = 키보드 화살표·패드 십자·스틱)** 로 커서, **공격 키(X, 패드 West)** 로 파기, **ESC(패드 East)** 로 중단. 방향키를 커서로 쓰므로 좌우 이동으로 중단하지 않는다(경직 피격·사망·이탈은 중단). 잠금 UiLock "Excavation". 결과는 2.5초(기록이 나오면 9초) 또는 ↑ 로 닫는다.
+- 규칙(지뢰찾기 변형): 숨은 5×5 판. 가운데 칸은 공짜로 드러남(곡괭이 안 씀, 유물·위험 아님). 판 칸에는 **상하좌우 4칸의 유물 수**. 유물끼리는 상하좌우로 붙지 않고, 위험 칸은 유물과 겹치지 않으며 **파기 전부터 붉은 균열(!)로 보인다**. 위험 칸을 파면 붕괴 +50(100 = 무너짐). 이미 판 칸은 다시 파지 않음(곡괭이 안 씀).
+- 성공 = 유물 전부. 실패 = 곡괭이 소진 / 붕괴 100 / 시간 초과. **캔 유물은 그 자리에서 지급**되어 실패·중단해도 남는다.
+
+| 판 | 확률 | 유물 | 곡괭이 | 위험 칸 | 시간 | 쿨타임 |
+|---|---|---|---|---|---|---|
+| 기본 유적 | 85% | 2 | 12 | 3 | 45초 | 5분 |
+| 희귀 유적 | 15% | 3 | 13 | 4 | 60초 | 10분 |
+
+- 쿨타임: 유물을 하나라도 캐면(성공·실패·중단·맵 꺼짐 무관) 그 유적이 쉰다(흐리게, 세션 한정). 아무것도 못 캤으면 바로 다시.
+- 가방이 가득 차면 그 유물 보상은 두고 온다(결과 줄 "가방이 가득 차 두고 왔다"). 기록 편은 인벤을 거치지 않아 가방과 무관하게 수집된다.
+- 보상(층계 1, `ExcavationRules.Floor1`, 유물 하나마다 독립 추첨, ItemSheet 230~233 Misc, acqPath `excavation`, AddSource.Excavation, 아이콘 `Tools/make_excavation_icons.py` 코드 도트):
+
+| 키(name) | 표시 | 등급 | 확률 | 수량 | 가격 | 사용처(예정) |
+|---|---|---|---|---|---|---|
+| Ancient Relic Shard | 고대 유물 파편 | C | 41% | 1~2 | 18 | 일반 장비 개조 |
+| Ancient Blueprint Fragment | 고대 설계도 조각 | C | 30% | 1 | 35 | 초급 설계도 복원 |
+| Ancient Gear Core | 고대 기어 코어 | R | 15% | 1 | 85 | 희귀 장비 개조 |
+| Forgotten Runestone | 잊힌 룬석 | R | 8% | 1 | 120 | 고대 장비 제작·강화 |
+| (아버지의 기록) | 수집 로그 | U | 6% | 1편 | 판매 불가 | 스토리 단서 |
+
+- 아버지의 기록: 인벤 아이템이 아니라 ES3 `excavation.records`(int 비트마스크, 세이브 슬롯 파일, 새 키). 못 모은 편 중 균등, 5편 다 모았으면 고대 기어 코어 1 로 대체. 얻으면 획득 로그 "아버지의 기록 n" + 결과 패널에 제목·본문. 문지기 정체는 확정하지 않는다(TowerWorld.md 16절 암시 원칙). 영어 원문 = Loc 키(`FathersRecords.All`), 한국어 = LocTerms.
+
+| 편 | 제목 | 요지 |
+|---|---|---|
+| 01 | The First Ascent / 첫 번째 오름 | 탑 아래 돌이 따뜻하다, 딸이 깨기 전에 떠났다 |
+| 02 | A Name in the Rain / 빗속의 이름 | 딸의 열병이 꿈까지, 빈 신전 틈으로 이름을 속삭이는 비 |
+| 03 | The Four-Pointed Star / 네 갈래 별 | 봉인된 문마다 브로치와 같은 별 — 기념품이 아니라 열쇠일지도 |
+| 04 | The Price of a Wish / 소원의 값 | 소원을 이룬 자의 기록은 없다, 대가가 나 혼자라면 치른다 |
+| 05 | Someone at the Door / 문 앞의 누군가 | 꿈속 문 너머 익숙한 목소리 — 다시는 못 떠나도 열겠느냐 |
+
+- 배치(씬 파일 안 고침, 부트 때 맵 아래 생성, 처음 켜질 때 아래 Ground 에 붙음): `Lv1_TowerOutskirts` x −285(탑 외벽), `Lv1_BanditFortress` −360(성채 폐허), `Lv1_DeepForest` −345(숲 폐허). 포털과 30 이상·채집 지점과 25 이상 떨어진 자리(10-30 레이캐스트 `Tools/probes/excavation_ground.cs`). 표시 = 네 갈래 별이 새겨진 무너진 벽돌 벽(24×20 코드 도트).
+- UI: 화면 위 가운데 패널(낚시·채집 HUD 자리) — 안내 문구(희귀 유적이면 "희귀 유적!"), 곡괭이·유물 수, 5×5 칸(돌 / 붉은 ! 위험 / 판 칸 숫자 0 회색·1 하늘·2 금·3+ 주황 / 유물 금색 + / 무너짐 X), 커서 테두리, 붕괴 막대, 남은 시간 막대, 조작 안내. 결과 때는 패널을 줄이고 결과 문구·얻은 것·기록 본문.
+- 검증(10-30): EditMode `ExcavationRulesTests` 10 + 낚시·채집·자가 제작·DataIntegrity 40/40. 프로브 `Tools/probes/excavation_setup.cs`(`__MAP__` 이동·낮·스포너 끔) → `input_bg_on` → `excavation_drive.cs`(가상 키: win = 유물 2개 성공·아이템 지급·쿨타임, collapse = 유물 1 + 위험 2 → 붕괴·캔 유물 유지, esc = 중단·잠금 해제, record = 기록 100% 표로 바꿔 기록 2편 저장, recordall = 5편 다 모은 상태 → 기어 코어 대체) → `excavation_check.cs`. 스크린샷(판 진행·기록 결과, 한국어). 콘솔 에러 0, 세이브 백업·복원.
