@@ -157,6 +157,18 @@ MOTIONS = {
         ("se", {"RIGHT SHOULDER": (39, 36), "RIGHT ARM": (48, 40), "LEFT ARM": (51, 39), "RIGHT LEG": (30, 52), "LEFT LEG": (49, 52), "shift": (2, 1)}, -20),
         ("se", {"RIGHT SHOULDER": (40, 36), "RIGHT ARM": (49, 39), "LEFT ARM": (52, 38), "RIGHT LEG": (30, 52), "LEFT LEG": (50, 52), "shift": (3, 1)}, -20),
     ],
+    # 10-30 품질 루프(GPT): 돌려차기 = 뒷모습 다음 3/4 앞에서 골반을 틀며 차는 발을 골반 높이로 오른쪽 끝까지, 상체는 반대(왼)로 기울임
+    "D_KickSE": [   # 2판: 3/4 앞에선 화면 오른쪽 다리 = LEFT(추정 골격) — 그 다리로 오른쪽 골반 높이까지
+        ("se", {"RIGHT ARM": (32, 38), "LEFT ARM": (41, 37), "RIGHT LEG": (34, 52), "LEFT LEG": (51, 43), "shift": (-3, 0)}, 0),
+        ("se", {"RIGHT ARM": (31, 37), "LEFT ARM": (40, 36), "RIGHT LEG": (34, 52), "LEFT LEG": (52, 41), "shift": (-4, 0)}, 0),
+        ("se", {"RIGHT ARM": (32, 39), "LEFT ARM": (41, 38), "RIGHT LEG": (35, 52), "LEFT LEG": (50, 46), "shift": (-2, 0)}, 0),
+    ],
+    # 장풍 2판: 더 깊게 웅크려 두 손 허리 뒤 → 앞발 크게 내딛으며 가슴 앞 최대로
+    "D_PalmSE2": [
+        ("se", {"RIGHT SHOULDER": (36, 38), "RIGHT ARM": (33, 46), "LEFT ARM": (37, 47), "RIGHT LEG": (29, 52), "LEFT LEG": (46, 52), "shift": (-2, 4)}, -20),
+        ("se", {"RIGHT SHOULDER": (40, 36), "RIGHT ARM": (49, 39), "LEFT ARM": (52, 38), "RIGHT LEG": (28, 52), "LEFT LEG": (52, 52), "shift": (3, 2)}, -20),
+        ("se", {"RIGHT SHOULDER": (41, 36), "RIGHT ARM": (50, 39), "LEFT ARM": (53, 38), "RIGHT LEG": (28, 52), "LEFT LEG": (53, 52), "shift": (4, 2)}, -20),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 

@@ -47,15 +47,16 @@ SPLICE = {
     "Knockdown": ["0", "1", "2", "3", "4", "5", "6", "7", "8", ("GetupS", "D_GetupS", 0, -20, .12, False), ("GetupS", "D_GetupS", 1, -20, .06, False),
                   ("GetupS", "D_GetupS", 2, -20, .05, False), "12", "13"],
     # GPT 46동작 리뷰 약한 동작: 장풍(3/4 앞 두 손바닥 밀기 — 재생 프로파일 대체)·메치기(앞으로 잡기 → 정면 머리 위로 들어 → 측면 내려꽂기, 생성 0)
-    "PalmBlast": [("PalmSE", "D_PalmSE", 0, -20, .14, False), ("PalmSE", "D_PalmSE", 1, -20, .04, False), ("PalmSE", "D_PalmSE", 2, -20, .28, False), ("13@Pull", .1)],
-    "Slam": [("2@Pull", .06), ("4@Pull", .1), ("RaiseS", "D_RaiseS", 1, 90, .06, False), ("RaiseS", "D_RaiseS", 2, 90, .18, False),
-             ("5@GreatDown", .03), ("6@GreatDown", .03), ("7@GreatDown", .05), ("8@GreatDown", .25), ("10@GreatDown", .06), ("12@GreatDown", .06), ("13@GreatDown", .1)],
+    "PalmBlast": [("PalmSE2", "D_PalmSE2", 0, -20, .18, False), ("PalmSE2", "D_PalmSE2", 1, -20, .04, False), ("PalmSE2", "D_PalmSE2", 2, -20, .3, False), ("13@Pull", .1)],  # 10-30 품질 루프: 더 깊게 웅크렸다 크게 내딛음
+    "Slam": [("2@Pull", .06), ("4@Pull", .1), ("RaiseS", "D_RaiseS", 1, 90, .06, False), ("RaiseS", "D_RaiseS", 2, 90, .14, False),
+             ("3@GreatDown", .06), ("4@GreatDown", .1), ("5@GreatDown", .03), ("6@GreatDown", .03), ("7@GreatDown", .05), ("8@GreatDown", .25), ("10@GreatDown", .06), ("12@GreatDown", .06), ("13@GreatDown", .1)],
     # 새 셀: 춤(N3)·악기(N2, 생성기가 류트를 그림 — 현악기 전용)
     "Dance": [("DanceS", "D_DanceS", i, 0, .15, False) for i in range(4)],
     "Lute": [("LuteSE", "D_LuteSE", i, 30, .12, False) for i in range(3)],
     # 새 셀: 납도(발도 끝 자세 → 3/4 앞으로 돌아서며 칼집에) · 승리 포즈(정면)
-    "Sheathe": [("7@Iaido", .12), ("9@Iaido", .045), ("SheatheSE", "D_SheatheSE", 0, 90, .08, False),
-                ("SheatheSE", "D_SheatheSE", 1, 160, .06, True), ("SheatheSE", "D_SheatheSE", 2, 175, .35, True)],
+    "Sheathe": [("7@Iaido", .12), ("9@Iaido", .045), ("SheatheSE", "D_SheatheSE", 0, 90, .1, False), ("SheatheSE", "D_SheatheSE", 0, 115, .04, False),
+                ("SheatheSE", "D_SheatheSE", 1, 140, .04, False), ("SheatheSE", "D_SheatheSE", 1, 160, .05, True), ("SheatheSE", "D_SheatheSE", 2, 172, .06, True),
+                ("SheatheSE", "D_SheatheSE", 2, 178, .3, True)],  # 10-30 품질 루프: 각도를 단계로(수직 → 칼집)
     "Victory": [("VictoryS", "D_VictoryS", 0, 45, .06, False), ("VictoryS", "D_VictoryS", 1, 80, .06, False),
                 ("VictoryS", "D_VictoryS", 2, 90, .6, False)],
 }

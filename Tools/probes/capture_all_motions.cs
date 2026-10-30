@@ -86,7 +86,7 @@ foreach (var m in items)
         {
             var go = new GameObject("VidCam"); var cam = go.AddComponent<Camera>(); cam.orthographic = true; cam.orthographicSize = 1.8f;
             cam.clearFlags = CameraClearFlags.SolidColor; cam.backgroundColor = new Color(0.15f, 0.17f, 0.21f, 1f);
-            Vector3 p = pc.transform.position; go.transform.position = new Vector3(camX[0] + 0.5f, p.y + 0.9f, p.z - 50f);
+            Vector3 p = pc.transform.position; go.transform.position = new Vector3((camX[0] + p.x) * 0.5f + 0.5f, p.y + 0.9f, p.z - 50f); // 반쯤 따라감 — 백스텝이 화면 밖으로 잘렸다(10-30 GPT)
             var rt = new RenderTexture(360, 240, 24); cam.targetTexture = rt; cam.Render();
             var tex = new Texture2D(360, 240, TextureFormat.RGB24, false); RenderTexture.active = rt; tex.ReadPixels(new Rect(0, 0, 360, 240), 0, 0); RenderTexture.active = null;
             System.IO.File.WriteAllBytes($"{dir}/f_{kk:000}.png", tex.EncodeToPNG());
