@@ -34,6 +34,7 @@ public static class LocUi
         ("Caught: ", "낚았다: "), ("Bag full - released it", "가방이 가득 차 놓아줬다"), ("The line snapped", "줄이 끊어졌다"),
         ("It got away", "물고기가 달아났다"), ("Missed the bite", "입질을 놓쳤다"), ("Reeled in too early", "너무 일찍 당겼다"), ("Stopped fishing", "낚시 중단"),
         ("Only equipment in the bag can be dismantled", "가방 안의 장비만 분해할 수 있다"), ("Press D again to dismantle {0}", "한 번 더 D: {0} 분해"),
+        ("Preset {0} saved ({1})", "프리셋 {0} 저장 ({1}부위)"), ("Preset {0} equipped ({1})", "프리셋 {0} 장착 ({1}부위 교체)"), ("Preset {0} is empty", "프리셋 {0} 비어 있음"), ("Preset {0}: {1} item(s) not in bag", "프리셋 {0}: 가방에 없는 장비 {1}개"),
         ("Path sealed by the Tower.", "탑이 길을 봉인했다."),
         ("Tower Gate", "탑의 문"), ("The way to the 2nd floor is open", "2층계로 가는 길이 열렸다"),
         ("ENRAGED — Calls the gang!", "격노 — 패거리를 부른다!"),

@@ -4780,6 +4780,38 @@ MonoBehaviour:
       - "\uD638\uBC15\uBE5B\uC1A1\uC5B4 \uC218\uD504"
       Flags: 0000
       Languages_Touch: []
+    - Term: Preset {0} is empty
+      TermType: 0
+      Description: 
+      Languages:
+      - Preset {0} is empty
+      - "\uD504\uB9AC\uC14B {0} \uBE44\uC5B4 \uC788\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Preset {0}: {1} item(s) not in bag'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Preset {0}: {1} item(s) not in bag'
+      - "\uD504\uB9AC\uC14B {0}: \uAC00\uBC29\uC5D0 \uC5C6\uB294 \uC7A5\uBE44 {1}\uAC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Preset {0} saved ({1})
+      TermType: 0
+      Description: 
+      Languages:
+      - Preset {0} saved ({1})
+      - "\uD504\uB9AC\uC14B {0} \uC800\uC7A5 ({1}\uBD80\uC704)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Preset {0} equipped ({1})
+      TermType: 0
+      Description: 
+      Languages:
+      - Preset {0} equipped ({1})
+      - "\uD504\uB9AC\uC14B {0} \uC7A5\uCC29 ({1}\uBD80\uC704 \uAD50\uCCB4)"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
