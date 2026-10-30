@@ -1728,13 +1728,29 @@ public class InventoryManager : MonoBehaviour
         equipDetail.SetActive(true);
     }
 
-    /// <summary>같은 부위에 착용 중인 아이템 (없으면 null)</summary>
-    ItemCheck EquippedFor(string equipArea)
+    /// <summary>같은 부위에 착용 중인 아이템 (없으면 null). 비교 패널(ComparePanel)도 쓴다</summary>
+    public ItemCheck EquippedFor(string equipArea)
     {
-        ItemCheck saved = detail;
-        GameObject box = SetEquipBox();
-        detail = saved;
+        int i = EquipBoxIndex(equipArea);
+        GameObject box = i >= 0 && equipBox != null && i < equipBox.Length ? equipBox[i] : null;
         return box != null && box.transform.childCount > 0 ? box.transform.GetChild(0).GetComponent<ItemCheck>() : null;
+    }
+
+    /// <summary>부위 → equipBox 칸 번호(SetEquipBox 와 같은 표). 모르는 부위면 -1</summary>
+    static int EquipBoxIndex(string equipArea)
+    {
+        switch (equipArea)
+        {
+            case "Ring": return 1;
+            case "Head": return 2;
+            case "Necklace": return 3;
+            case "Chest": return 5;
+            case "Hand": return 6;
+            case "Weapon": return 7;
+            case "Leg": return 8;
+            case "Shoes": return 9;
+            default: return -1;
+        }
     }
     public GameObject skillDetailUi;
     public void CheckSkillDetail(Weapon weapon) // 기술 체크.
