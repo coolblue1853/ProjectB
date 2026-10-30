@@ -4828,6 +4828,166 @@ MonoBehaviour:
       - "U: \uBC29\uAE08 \uD310 \uBB3C\uAC74 \uB418\uC0AC\uAE30"
       Flags: 0000
       Languages_Touch: []
+    - Term: Forest Mushroom
+      TermType: 0
+      Description: 
+      Languages:
+      - Forest Mushroom
+      - "\uC232\uBC84\uC12F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Glow Moth Wing
+      TermType: 0
+      Description: 
+      Languages:
+      - Glow Moth Wing
+      - "\uBC18\uB527\uB098\uBC29 \uB0A0\uAC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Moonpetal
+      TermType: 0
+      Description: 
+      Languages:
+      - Moonpetal
+      - "\uB2EC\uBE5B\uAF43\uC78E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Copper Ore
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Copper Ore
+      - "\uB2AA\uAD6C\uB9AC \uAD11\uC11D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Starfall Ore
+      TermType: 0
+      Description: 
+      Languages:
+      - Starfall Ore
+      - "\uBCC4\uB625 \uAD11\uC11D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP GATHER
+      TermType: 0
+      Description: 
+      Languages:
+      - UP  GATHER
+      - "\uC704  \uCC44\uC9D1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP MINE
+      TermType: 0
+      Description: 
+      Languages:
+      - UP  MINE
+      - "\uC704  \uCC44\uAD74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Press UP inside the mark
+      TermType: 0
+      Description: 
+      Languages:
+      - Press UP inside the mark
+      - "\uD45C\uC2DC \uC548\uC5D0\uC11C \uC704 \uD0A4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Strike when the weak spot glows
+      TermType: 0
+      Description: 
+      Languages:
+      - Strike when the weak spot glows
+      - "\uC57D\uC810\uC774 \uBE5B\uB0A0 \uB54C \uC704 \uD0A4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tries left {0}
+      TermType: 0
+      Description: 
+      Languages:
+      - Tries left {0}
+      - "\uB0A8\uC740 \uC2DC\uB3C4 {0}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cracks {0} {1}
+      TermType: 0
+      Description: 
+      Languages:
+      - Cracks {0}/{1}
+      - "\uADE0\uC5F4 {0}/{1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: CRITICAL!
+      TermType: 0
+      Description: 
+      Languages:
+      - CRITICAL!
+      - "\uC815\uD0C0!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Perfect!
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Perfect! '
+      - "\uC644\uBCBD! "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Got:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Got: '
+      - "\uC5BB\uC5C8\uB2E4: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bag full - left it
+      TermType: 0
+      Description: 
+      Languages:
+      - Bag full - left it
+      - "\uAC00\uBC29\uC774 \uAC00\uB4DD \uCC28 \uB450\uACE0 \uC654\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The specimen was damaged
+      TermType: 0
+      Description: 
+      Languages:
+      - The specimen was damaged
+      - "\uD45C\uBCF8\uC774 \uC0C1\uD588\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The vein held firm
+      TermType: 0
+      Description: 
+      Languages:
+      - The vein held firm
+      - "\uAD11\uB9E5\uC774 \uBC84\uD17C\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stopped gathering
+      TermType: 0
+      Description: 
+      Languages:
+      - Stopped gathering
+      - "\uCC44\uC9D1 \uC911\uB2E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: gathering
+      TermType: 0
+      Description: 
+      Languages:
+      - gathering
+      - "\uCC44\uC9D1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: mining
+      TermType: 0
+      Description: 
+      Languages:
+      - mining
+      - "\uCC44\uAD74"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

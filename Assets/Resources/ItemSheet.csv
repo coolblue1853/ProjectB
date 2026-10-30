@@ -219,3 +219,8 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 216,Spirit Koi,Misc,World,450,1,fishing,50,-,0,-,,Spirit Koi,0,U,0,
 217,Grilled Forest Carp,Consum,eat!,45,5,cook,50,fullness +,120,-,,Grilled Forest Carp,0,C,0,
 218,Amber Trout Soup,Consum,eat!,180,5,cook,50,fullness +/hp +/stemina +,180/120/30,-,,Amber Trout Soup,0,R,0,
+219,Forest Mushroom,Misc,World,12,1,gathering,50,-,0,-,,Forest Mushroom,0,C,0,
+220,Glow Moth Wing,Misc,World,65,1,gathering,50,-,0,-,,Glow Moth Wing,0,R,0,
+221,Moonpetal,Misc,World,280,1,gathering,50,-,0,-,,Moonpetal,0,U,0,
+222,Bog Copper Ore,Misc,World,85,1,mining,50,-,0,-,,Bog Copper Ore,0,R,0,
+223,Starfall Ore,Misc,World,400,1,mining,50,-,0,-,,Starfall Ore,0,U,0,

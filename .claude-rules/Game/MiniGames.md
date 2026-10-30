@@ -43,3 +43,29 @@
 - UI: 화면 위 가운데 패널(테마 패널·픽셀 폰트) — 안내 문구(LocUi, I2 동기화), 찌(입질 때 흔들림), 장력 바(안전 구간 하늘색, 안이면 초록·밖이면 빨강), 진행도 바(금색).
 - 요리 연계(10-30): 자가 제작 추가 페이지로 숲붕어 구이(숲붕어 2 + 나무 1)·호박빛송어 수프(호박빛송어 1 + 이끼미꾸라지 1 + 초록 약초 2) — BasicFeatures.md 10절.
 - 검증: EditMode `FishingRulesTests` 11개 통과. 프로브 `Tools/probes/fishing_setup.cs`(늪 이동·낮·스포너 끔) → `input_bg_on` → `fishing_drive.cs`(가상 ↑ 키: win = 포획 성공 숲붕어·이끼미꾸라지, snap = 계속 눌러 줄 끊어짐·인벤 변화 없음) → `fishing_check.cs`, `fishing_cancel.cs`(→ 키로 중단·잠금 해제). 스크린샷(프롬프트·릴링 패널). 세이브 백업·복원.
+
+## 생태 표본 채집·절벽 광맥 채굴 구현 (④⑤, 10-30 확정)
+
+출처: GPT 기획 대화(10-30) 규칙·수치표를 낚시와 같은 구조로 옮김. 임시 가정은 `Docs/OpenQuestions.md` Q-439.
+
+- 코드: `Assets/Script/Gathering/` — `GatherRules`(순수 수치·판정·롤), `GatherSession`(공통 상태 머신 + `SpecimenSession`·`MiningSession`, 순수), `GatherNode`(트리거·입력·보상·쿨타임, 낚시터와 같은 틀), `GatherUI`(코드 생성 HUD, 낚시 HUD 자리), `GatherNodePlacer`(배치·코드 도트 표시). 테스트 `Assets/Editor/Tests/GatherRulesTests.cs`(11개).
+- 조작: **↑(KeyAction `UI/Up`)** 하나. 지점 트리거 안에서 머리 위 "위  채집" / "위  채굴". 잠금 UiLock "Gather"(이동·공격 막음). 중단 조건은 낚시와 같음(좌우 이동·경직 피격·사망·이탈 → 바로 해제, 대화 중 시작 안 함, 일시정지 동안 정지). 낚시와 동시에 열리지 않음(isOpenUI).
+- ④ 표본 채집: 커서가 0~100 을 초당 85 로 왕복, 목표 중심은 20~80 무작위. ↑ 로 멈춰 판정 — 완벽(중심 ±5) = 수량 +1, 좋음(±15) = 기본 수량, 빗나감 = 시도 소모(0.4초 멈춘 뒤 목표 다시 뽑기). 3회 빗나가면 실패, 12초 넘으면 실패. 성공 시 즉시 종료.
+- ⑤ 광맥 채굴: ↑ 마다 곡괭이질(연타 간격 0.3초). 약점이 1.5초 주기로 빛나고(주기 가운데 0.75초 ±0.2초 = 정타 창) 정타면 균열 +2, 아니면 +1. 균열 5 = 파괴·광석 지급. 15초 제한. 정타율(정타/타격) 50% 이상 R +5%p·U +1%p, 80% 이상 R +10%p·U +3%p(C 에서 차감).
+- 재채집: 성공한 지점만 표본 90초·광맥 120초 쉰다(흐리게 표시·안내 숨김, 세션 한정). 실패·중단은 바로 다시 가능. 가방이 가득 차면 두고 오고 지점도 쉬지 않음.
+- 표(층계 1, `GatherRules.SpecimenFloor1`·`OreFloor1`, 새 아이템 ItemSheet 219~223 Misc, acqPath `gathering`/`mining`, 아이콘 `Tools/make_gather_icons.py` 코드 도트):
+
+| 종류 | 키(name) | 표시 | 등급 | 기본 확률 | 수량 | 가격 | 사용처(예정) |
+|---|---|---|---|---|---|---|---|
+| 표본 | GreenHurb | 초록 약초(기존) | C | 45% | 1~2 | 100(기존) | 요리·회복 |
+| 표본 | Forest Mushroom | 숲버섯 | C | 35% | 1~2 | 12 | 요리 |
+| 표본 | Glow Moth Wing | 반딧나방 날개 | R | 17% | 1 | 65 | 연금·제작 |
+| 표본 | Moonpetal | 달빛꽃잎 | U | 3% | 1 | 280 | 희귀 연금 |
+| 광석 | T0_Ore | 깨끗한 하급 광석(기존) | C | 80% | 1~2 | 100(기존) | 강화석(분해 재료와 같음) |
+| 광석 | Bog Copper Ore | 늪구리 광석 | R | 17% | 1 | 85 | 방어구 광물 |
+| 광석 | Starfall Ore | 별똥 광석 | U | 3% | 1 | 400 | 희귀 합금 |
+
+- 배치(씬 파일 안 고침, 부트 때 맵 아래 생성, 처음 켜질 때 아래 Ground 에 붙음): 표본 = `Lv1_NearForest_SideRoad` x −350·−420, `Lv1_NormalForest` −360, `Lv1_DeepForest` −375 / 광맥 = `Lv1_TowerOutskirts` −330·−370, `Lv1_BanditFortress` −320. 발판·포털과 떨어진 자리(10-30 레이캐스트로 잼).
+- 보상: 성공 때만 `InventoryService.Add(키, 수량, AddSource.Gathering/Mining)` → `SaveInventory` → 획득 로그.
+- UI: 화면 위 가운데 패널 — 안내 문구, 보조 문구(남은 시도 / 균열 n/5·정타!), 표본 막대(좋음 하늘색·완벽 초록·금색 커서) 또는 균열 막대 + 막대 오른쪽 약점 보석(빛나면 밝은 청록), 남은 시간 막대. 결과 때는 막대를 숨기고 문구만.
+- 검증(10-30): EditMode `GatherRulesTests` 11 + 낚시 12 + DataIntegrity 통과. 프로브 `Tools/probes/gather_setup.cs`(`__MAP__` 이동·낮·스포너 끔) → `input_bg_on` → `gather_drive.cs`(가상 ↑ 키: perfect = 완벽 1회 성공·초록 약초 +2, miss = 3회 빗나감 실패·인벤 변화 없음, crit = 정타 3타 파괴, plain = 일반 5타 파괴) → `gather_check.cs`. → 키 중단(잠금 해제·쿨타임 없음), 성공 뒤 쿨타임(ready=False·안내 숨김) 확인. 스크린샷(안내·표본 패널·균열 패널). 세이브 백업·복원.

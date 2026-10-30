@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>획득 경로 (픽업 로그·퀘스트가 구분해서 쓴다)</summary>
-public enum AddSource { Pickup, Craft, Shop, Chest, Unequip, Load, Other, Dismantle, Fishing }
+public enum AddSource { Pickup, Craft, Shop, Chest, Unequip, Load, Other, Dismantle, Fishing, Gathering, Mining }
 
 /// <summary>
 /// Phase 3a (InventoryRefactorDesign 4절): 인벤토리 쓰기 명령을 모델(SlotContainer)로 처리하고, 바뀐 칸만 슬롯 GameObject 에 반영한다.
