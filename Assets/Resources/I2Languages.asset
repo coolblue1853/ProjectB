@@ -5336,6 +5336,383 @@ MonoBehaviour:
       - "\uBC1C\uAD74"
       Flags: 0000
       Languages_Touch: []
+    - Term: UP TRACK
+      TermType: 0
+      Description: 
+      Languages:
+      - UP  TRACK
+      - "\uC704  \uCD94\uC801"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Track {0}: {1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Track {0}: {1}'
+      - "{0} \uCD94\uC801: {1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Set the trap for {0}!
+      TermType: 0
+      Description: 
+      Languages:
+      - Set the trap for {0}!
+      - "{0}\uC5D0\uAC8C \uB36B\uC744 \uB193\uC544\uB77C!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stop in the middle
+      TermType: 0
+      Description: 
+      Languages:
+      - Stop in the middle
+      - "\uAC00\uC6B4\uB370\uC5D0\uC11C \uBA48\uCDB0\uB77C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: X set trap ESC stop
+      TermType: 0
+      Description: 
+      Languages:
+      - "X set trap  \xB7  ESC stop"
+      - "X \uB36B \uC124\uCE58  \xB7  ESC \uC911\uB2E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LEFT UP RIGHT pick the trail ESC stop
+      TermType: 0
+      Description: 
+      Languages:
+      - "LEFT UP RIGHT pick the trail  \xB7  ESC stop"
+      - "\uC67C\uCABD \uC704 \uC624\uB978\uCABD \uD754\uC801 \uACE0\uB974\uAE30 
+        \xB7  ESC \uC911\uB2E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Trail {0} {1} Mistakes {2} {3}
+      TermType: 0
+      Description: 
+      Languages:
+      - "Trail {0}/{1}  \xB7  Mistakes {2}/{3}"
+      - "\uD754\uC801 {0}/{1}  \xB7  \uC2E4\uC218 {2}/{3}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Left
+      TermType: 0
+      Description: 
+      Languages:
+      - Left
+      - "\uC67C\uCABD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Up
+      TermType: 0
+      Description: 
+      Languages:
+      - Up
+      - "\uC704"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Right
+      TermType: 0
+      Description: 
+      Languages:
+      - Right
+      - "\uC624\uB978\uCABD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fresh
+      TermType: 0
+      Description: 
+      Languages:
+      - Fresh
+      - "\uC120\uBA85"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Faint
+      TermType: 0
+      Description: 
+      Languages:
+      - Faint
+      - "\uD750\uB9BC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Old
+      TermType: 0
+      Description: 
+      Languages:
+      - Old
+      - "\uC624\uB798\uB428"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Elite {0} appeared!
+      TermType: 0
+      Description: 
+      Languages:
+      - Elite {0} appeared!
+      - "\uC815\uC608 {0} \uCD9C\uD604!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The trail went cold
+      TermType: 0
+      Description: 
+      Languages:
+      - The trail went cold
+      - "\uD754\uC801\uC774 \uB04A\uACBC\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Lost the trail
+      TermType: 0
+      Description: 
+      Languages:
+      - Lost the trail
+      - "\uD754\uC801\uC744 \uB193\uCCE4\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stopped tracking
+      TermType: 0
+      Description: 
+      Languages:
+      - Stopped tracking
+      - "\uCD94\uC801 \uC911\uB2E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Trap:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Trap: '
+      - "\uB36B: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: TrapNormal
+      TermType: 0
+      Description: 
+      Languages:
+      - TrapNormal
+      - "\uBCF4\uD1B5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: TrapGood
+      TermType: 0
+      Description: 
+      Languages:
+      - TrapGood
+      - "\uC88B\uC74C (2\uCD08 \uBB36\uC74C)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: TrapPerfect
+      TermType: 0
+      Description: 
+      Languages:
+      - TrapPerfect
+      - "\uC644\uBCBD (3\uCD08 \uBB36\uC74C)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Kill bonus:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Kill bonus: '
+      - "\uCC98\uCE58 \uBCF4\uB108\uC2A4: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: lineage weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - lineage weapon
+      - "\uACC4\uBCF4 \uBB34\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wolf paw prints
+      TermType: 0
+      Description: 
+      Languages:
+      - Wolf paw prints
+      - "\uB291\uB300 \uBC1C\uC790\uAD6D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tusk-dug soil
+      TermType: 0
+      Description: 
+      Languages:
+      - Tusk-dug soil
+      - "\uC5C4\uB2C8\uB85C \uD310 \uD759"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shell slime trail
+      TermType: 0
+      Description: 
+      Languages:
+      - Shell slime trail
+      - "\uAECD\uC9C8 \uC810\uC561 \uC790\uAD6D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Scorched embers
+      TermType: 0
+      Description: 
+      Languages:
+      - Scorched embers
+      - "\uADF8\uC744\uB9B0 \uBD88\uC528"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spore patches
+      TermType: 0
+      Description: 
+      Languages:
+      - Spore patches
+      - "\uD3EC\uC790 \uC5BC\uB8E9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Deep claw marks
+      TermType: 0
+      Description: 
+      Languages:
+      - Deep claw marks
+      - "\uAE4A\uC740 \uBC1C\uD1B1 \uC790\uAD6D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dragged root furrows
+      TermType: 0
+      Description: 
+      Languages:
+      - Dragged root furrows
+      - "\uBFCC\uB9AC\uAC00 \uB04C\uB9B0 \uACE0\uB791"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Small boot prints
+      TermType: 0
+      Description: 
+      Languages:
+      - Small boot prints
+      - "\uC791\uC740 \uC7A5\uD654 \uC790\uAD6D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Frost marks
+      TermType: 0
+      Description: 
+      Languages:
+      - Frost marks
+      - "\uC11C\uB9AC \uC790\uAD6D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Glittering dust
+      TermType: 0
+      Description: 
+      Languages:
+      - Glittering dust
+      - "\uBC18\uC9DD\uC774\uB294 \uAC00\uB8E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Muddy tail drag
+      TermType: 0
+      Description: 
+      Languages:
+      - Muddy tail drag
+      - "\uC9C4\uD759 \uAF2C\uB9AC \uC790\uAD6D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Slime puddles
+      TermType: 0
+      Description: 
+      Languages:
+      - Slime puddles
+      - "\uC810\uC561 \uC6C5\uB369\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pincer scratches
+      TermType: 0
+      Description: 
+      Languages:
+      - Pincer scratches
+      - "\uC9D1\uAC8C \uAE01\uD78C \uC790\uAD6D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gel trail
+      TermType: 0
+      Description: 
+      Languages:
+      - Gel trail
+      - "\uC824 \uC790\uAD6D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blood drops
+      TermType: 0
+      Description: 
+      Languages:
+      - Blood drops
+      - "\uD54F\uBC29\uC6B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Boot prints and torch ash
+      TermType: 0
+      Description: 
+      Languages:
+      - Boot prints and torch ash
+      - "\uC7A5\uD654 \uC790\uAD6D\uACFC \uD683\uBD88 \uC7AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cracked stone dust
+      TermType: 0
+      Description: 
+      Languages:
+      - Cracked stone dust
+      - "\uAC08\uB77C\uC9C4 \uB3CC\uAC00\uB8E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Drifting ruin motes
+      TermType: 0
+      Description: 
+      Languages:
+      - Drifting ruin motes
+      - "\uB5A0\uB3C4\uB294 \uC720\uC801 \uBA3C\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hop prints
+      TermType: 0
+      Description: 
+      Languages:
+      - Hop prints
+      - "\uAE61\uCDA9 \uBC1C\uC790\uAD6D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Burrow mounds
+      TermType: 0
+      Description: 
+      Languages:
+      - Burrow mounds
+      - "\uAD74 \uD759\uB354\uBBF8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gnawed scraps
+      TermType: 0
+      Description: 
+      Languages:
+      - Gnawed scraps
+      - "\uAC09\uC544\uBA39\uC740 \uBD80\uC2A4\uB7EC\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Straw scraps
+      TermType: 0
+      Description: 
+      Languages:
+      - Straw scraps
+      - "\uC9DA \uBD80\uC2A4\uB7EC\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Black ooze
+      TermType: 0
+      Description: 
+      Languages:
+      - Black ooze
+      - "\uAC80\uC740 \uC9C4\uC561"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Strange tracks
+      TermType: 0
+      Description: 
+      Languages:
+      - Strange tracks
+      - "\uB0AF\uC120 \uD754\uC801"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

@@ -223,7 +223,10 @@ public class EnemyHealth : PoolAble
         bleedStacks = 0;
         isBleeding = false;
         if (behaviorTree != null)
+        {
             behaviorTree.enabled = true; // 경직 중 반환되어 꺼진 채로 재사용되는 것 방지
+        }
+        isStun = false; // 덫·경직 중 반환된 채 재사용 방지
         if (hpBar != null)
             hpBar.setHpBar(this);
     }
@@ -402,6 +405,7 @@ public class EnemyHealth : PoolAble
 
     private void EndStiffness()
     {
+        snareTween?.Kill(); // 경직이 먼저 끝나면 덫도 같이 풀린다(남은 덫 트윈이 다음 경직을 끊지 않게)
         behaviorTree.enabled = true;
         isStun = false;
         if (this != null && behaviorTree != null)
@@ -605,7 +609,32 @@ public class EnemyHealth : PoolAble
         striffSequence?.Kill();
         onlyShakeSeq?.Kill();
         wait?.Kill();
+        snareTween?.Kill();
         transform.DOKill();
+    }
+
+    Tween snareTween;
+
+    /// <summary>
+    /// 덫에 걸림(MiniGames.md ⑥ 흔적 추적): seconds 동안 BT 를 멈춘다(경직과 같은 방식). 맞아서 경직이 먼저 끝나면 그때 풀린다.
+    /// </summary>
+    public void Snare(float seconds)
+    {
+        if (seconds <= 0f || behaviorTree == null || isBossMob)
+        {
+            return;
+        }
+        behaviorTree.sequence?.Kill();
+        behaviorTree.enabled = false;
+        isStun = true;
+        snareTween?.Kill();
+        snareTween = DOVirtual.DelayedCall(seconds, () =>
+        {
+            if (stiffShakeTime <= 0f)
+            {
+                EndStiffness(); // 맞아서 경직 중이면 경직이 끝날 때 풀린다
+            }
+        }, false).SetLink(gameObject);
     }
 
     /// <summary>

@@ -46,6 +46,23 @@ public class EnemySpawner : MonoBehaviour
 
     private bool isSpawning;
 
+    // 흔적 추적(MiniGames.md ⑥)으로 부른 정예: 슬롯 밖, 한 번에 하나(TrackedTarget). 처치 때 정예 확정 보상 + 추적 보너스
+    private EnemyHealth tracked;
+    private float trackedUntil;
+    private readonly List<string> trackedBonus = new List<string>();
+
+    /// <summary>지금 살아 있는 추적 정예(모든 스포너 통틀어 하나, 없으면 null)</summary>
+    public static EnemyHealth TrackedTarget { get; private set; }
+
+    /// <summary>살아 있는 추적 정예가 있는가(풀에 돌아간 참조는 없는 것으로 본다)</summary>
+    public static bool HasTrackedTarget => TrackedTarget != null && !TrackedTarget.IsInPool;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics()
+    {
+        TrackedTarget = null;
+    }
+
     #region Unity
     private void Awake()
     {
@@ -69,6 +86,11 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
+        if (tracked != null && Time.time >= trackedUntil)
+        {
+            tracked.DisaperByTime(); // 제한 시간 안에 못 잡으면 보상 없이 사라진다
+            trackedUntil = float.MaxValue;
+        }
         bool shouldSpawn = isInPlayer && IsMyTime();
         if (shouldSpawn && !isSpawning)
         {
@@ -230,6 +252,10 @@ public class EnemySpawner : MonoBehaviour
         GameLog.Info(GameLog.Cat.Pool, name + ": 맵 이탈 정리 — 활성 " + activeObjects.Count + "개 반환 (풀 유지 " + pools.Count + "종)", this);
         CancelInvoke(nameof(CycleCheck));
         isSpawning = false;
+        if (tracked != null)
+        {
+            tracked.ForceEnemyRelease(); // 이벤트로 추적 상태가 비워진다
+        }
 
         if (enemySlot != null)
         {
@@ -357,6 +383,7 @@ public class EnemySpawner : MonoBehaviour
             enemyHealth.enemyNum = i;
             enemyHealth.OnReleasedToPool -= OnEnemyReleased; // 중복 등록 방지
             enemyHealth.OnReleasedToPool -= OnMinionReleased; // 부하로 쓰였던 오브젝트면 부하 경로 해제
+            enemyHealth.OnReleasedToPool -= OnTrackedReleased;
             enemyHealth.OnReleasedToPool += OnEnemyReleased;
             enemySlot[i] = enemyObject;
             if (Random.value < eliteChance)
@@ -390,6 +417,7 @@ public class EnemySpawner : MonoBehaviour
         enemyHealth.hasSpawnPosition = true;
         enemyHealth.OnReleasedToPool -= OnEnemyReleased;
         enemyHealth.OnReleasedToPool -= OnMinionReleased;
+        enemyHealth.OnReleasedToPool -= OnTrackedReleased;
         enemyHealth.OnReleasedToPool += OnMinionReleased;
         if (!minions.Contains(enemyHealth))
         {
@@ -431,6 +459,93 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /// <summary>이 스포너의 일반 몹 프리팹(풀 키 "enemy", 없으면 null). 흔적 추적 대상 고르기용</summary>
+    public GameObject EnemyPrefab
+    {
+        get
+        {
+            if (objectInfos == null)
+            {
+                return null;
+            }
+            foreach (ObjectInfo info in objectInfos)
+            {
+                if (info.objectName == EnemyKey)
+                {
+                    return info.perfab;
+                }
+            }
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// 흔적 추적 정예 소환(MiniGames.md ⑥): 슬롯 밖에서 일반 몹을 꺼내 pos 에 두고 정예로 승격, stunSeconds 동안 덫에 묶는다.
+    /// lifetime 초 안에 못 잡으면 사라진다(보상 없음). 처치하면 정예 확정 보상 + bonusLoot(계보 재료 등)를 떨어뜨린다.
+    /// 이미 추적 정예가 있거나 꺼낼 수 없으면 null.
+    /// </summary>
+    public EnemyHealth SpawnTracked(Vector3 pos, IEnumerable<string> bonusLoot, float stunSeconds, float lifetime)
+    {
+        if (HasTrackedTarget || !pools.ContainsKey(EnemyKey))
+        {
+            return null;
+        }
+        GameObject go = GetOb(EnemyKey);
+        if (go == null || !go.TryGetComponent(out EnemyHealth enemyHealth))
+        {
+            return null;
+        }
+        enemyHealth.enemySpowner = this;
+        enemyHealth.enemyNum = -1;
+        go.transform.position = pos;
+        enemyHealth.spawnPosition = pos;
+        enemyHealth.hasSpawnPosition = true;
+        enemyHealth.OnReleasedToPool -= OnEnemyReleased;
+        enemyHealth.OnReleasedToPool -= OnMinionReleased;
+        enemyHealth.OnReleasedToPool -= OnTrackedReleased;
+        enemyHealth.OnReleasedToPool += OnTrackedReleased;
+        enemyHealth.PromoteElite();
+        enemyHealth.Snare(stunSeconds);
+        tracked = enemyHealth;
+        TrackedTarget = enemyHealth;
+        trackedUntil = Time.time + lifetime;
+        trackedBonus.Clear();
+        trackedBonus.AddRange(bonusLoot);
+        GameLog.Info(GameLog.Cat.Spawn, name + ": 추적 정예 소환 " + go.name + " @" + pos.ToString("F1") + " 보너스 " + string.Join(",", trackedBonus), this);
+        return enemyHealth;
+    }
+
+    private void OnTrackedReleased(int num, int force, Vector3 pos, bool isDeadBody, bool isDrop)
+    {
+        if (tracked != null)
+        {
+            tracked.OnReleasedToPool -= OnTrackedReleased;
+        }
+        if (isDrop && dropManager != null)
+        {
+            List<string> loot = EliteLoot();
+            loot.AddRange(trackedBonus);
+            dropManager.DropGuaranteed(loot, pos);
+            dropManager.DropItems(pos);
+        }
+        if (isDeadBody)
+        {
+            GameObject deadbody = GetOb(DeadBodyKey);
+            if (deadbody != null)
+            {
+                deadbody.transform.position = pos;
+                deadbody.GetComponent<DeadBody>().Force2DeadBody(force);
+            }
+        }
+        GameLog.Info(GameLog.Cat.Spawn, name + ": 추적 정예 반환 (drop=" + isDrop + ")", this);
+        if (TrackedTarget == tracked)
+        {
+            TrackedTarget = null;
+        }
+        tracked = null;
+        trackedBonus.Clear();
+    }
+
     /// <summary>보스 부하 풀 키 (BossMinionCall 기본값, build_bandit_fortress.cs 가 같은 이름으로 등록). 부하 BT 의 공격 키(예: "stab")도 같은 스포너에 있어야 한다</summary>
     public const string MinionKey = "minion";
     public const string MinionDeadKey = "minionDead";
@@ -439,6 +554,10 @@ public class EnemySpawner : MonoBehaviour
     private void DeCycleCheck()
     {
         DismissMinions();
+        if (tracked != null)
+        {
+            tracked.DisaperByTime();
+        }
         if (enemySlot == null)
         {
             return;
