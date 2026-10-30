@@ -296,6 +296,10 @@ public class PixelRig : CharacterRig
 
     public override void AdoptWeapon(Transform weapon, bool isLeft)
     {
+        if (_socketRight != null)
+        {
+            _socketRight.localScale = Vector3.one; // 납도(weaponLen) 도중 무기를 바꾸면 줄어든 소켓 배율로 새 무기 크기를 보정해 거대해졌다(10-30 GPT 캡처)
+        }
         if (!isLeft)
         {
             _ranged = false; // 오른손(주무기)이 활이면 아래에서 다시 켠다
