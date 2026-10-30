@@ -990,6 +990,25 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    /// <summary>드래그로 인벤 칸 → 장비칸에 놓았을 때(키보드 장착과 같은 경로)</summary>
+    public void EquipFromInventory(ItemCheck item)
+    {
+        UseEquipment(item);
+    }
+
+    /// <summary>장착할 장비칸(부위별). 없는 부위면 null</summary>
+    public GameObject EquipBoxFor(ItemCheck item)
+    {
+        ItemCheck keep = detail;
+        GameObject box = SetEquipBox(item);
+        detail = keep;
+        return box;
+    }
+
+    /// <summary>
+    /// 장착. 인벤 칸에서 꺼내는 경우 인벤 쪽은 모델 명령(TakeOut)으로, 교체되는 장비는 비운 그 칸에 PutIn(3c).
+    /// 인벤 밖(로드·기본 무기)에서 오는 아이템은 인벤을 건드리지 않는다.
+    /// </summary>
     void UseEquipment(ItemCheck nowItem = null)
     {
         GameObject equipBox;
@@ -1002,60 +1021,62 @@ public class InventoryManager : MonoBehaviour
         {
             equipBox = SetEquipBox();
         }
-        ItemCheck beforeItem = CheckNowEquipment(detail.itemData.equipArea);
-        AttackManager attackManager = player.GetComponent<AttackManager>();
-        GameObject nowEquipItem = detail.gameObject;
-
+        string area = detail.itemData.equipArea;
         EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
-
-        if (detail.itemData.equipArea != "Weapon")
+        // 지금 칸에 실제로 꽂혀 있는 장비(장착 목록이 낡았으면 칸의 자식). 무기 프리팹이 아직 활성화 전이어도
+        // (equipWeapon == null) 칸에 무기가 있으면 교체로 본다 — 예전엔 한 칸에 무기 둘이 들어갔다
+        ItemCheck beforeItem = CheckNowEquipment(area);
+        if ((beforeItem == null || beforeItem.transform.parent != equipBox.transform) && equipBox.transform.childCount > 0)
         {
-            if (equipBox.transform.childCount == 0) // 무기가 아니고 방어구라면
+            beforeItem = equipBox.transform.GetChild(0).GetComponent<ItemCheck>();
+        }
+        bool occupied = beforeItem != null && beforeItem != detail && beforeItem.transform.parent == equipBox.transform;
+        int fromIndex = Service.IndexOf(detail);
+        if (fromIndex >= 0)
+        {
+            if (!Service.TakeOut(detail, equipBox.transform))
             {
-                CheckNowEquipItem(detail.itemData.equipArea);
-                nowEquipItem.transform.SetParent(equipBox.transform);
-                nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.itemData.name, detail.itemData.equipArea, detail.itemData.tfName);
-                equipBoxCheck.SaveEquipItem(detail, true);
-            }
-            else
-            {
-                // 아이템을 해체한는 부분
-                DetechItem(detail.itemData.equipArea);
-                equipBoxCheck.DeletPrefab(beforeItem, beforeItem.itemData.equipArea);
-
-                nowEquipItem.transform.SetParent(equipBox.transform);
-                nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.name, detail.itemData.equipArea, detail.itemData.tfName);
-                equipBoxCheck.ActivePrefab(detail.itemData.equipArea);
-                equipBoxCheck.SaveEquipItem(detail, true);
-                CheckNowEquipItem(detail.itemData.equipArea);
+                GameLog.Warn(GameLog.Cat.Item, "장착 실패(인벤 칸에서 꺼내지 못함): " + detail.name);
+                return;
             }
         }
         else
         {
-            skillCooldown.ResetCoolTime();
-            if (attackManager.equipWeapon == null)
-            {
-                CheckNowEquipItem(detail.itemData.equipArea);
-                nowEquipItem.transform.SetParent(equipBox.transform);
-                nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.itemData.name, detail.itemData.equipArea, detail.itemData.tfName);
-                equipBoxCheck.SaveEquipItem(detail, true);
+            detail.transform.SetParent(equipBox.transform);
+            detail.transform.position = equipBox.transform.position;
+        }
 
-            }
-            else
+        if (occupied)
+        {
+            // 교체: 원래 장비는 방금 비운 인벤 칸으로(인벤 밖에서 온 장착이면 커서 칸으로 — 옛 경로)
+            if (fromIndex < 0)
             {
-                // 아이템을 해체한는 부분
-                DetechItem(detail.itemData.equipArea);
-                equipBoxCheck.DeletPrefab(beforeItem, beforeItem.itemData.equipArea);
-                nowEquipItem.transform.SetParent(equipBox.transform);
-                nowEquipItem.transform.position = equipBox.transform.position;
-                equipBoxCheck.LoadPrefab(detail.itemData.name, detail.itemData.equipArea, detail.itemData.tfName);
-                equipBoxCheck.ActivePrefab(detail.itemData.equipArea);
-                equipBoxCheck.SaveEquipItem(detail, true);
-                CheckNowEquipItem(detail.itemData.equipArea);
+                DetechItem(area); // 인벤 밖에서 온 장착(로드·기본 무기): 옛 경로
             }
+            else if (!Service.PutIn(fromIndex, beforeItem))
+            {
+                // 방금 비운 칸이라 거의 없음. 커서 칸(DetechItem)은 드래그 때 엉뚱한 칸일 수 있어 쓰지 않고, 사본을 넣고 원본은 지운다
+                GameLog.Warn(GameLog.Cat.Item, "교체 장비를 원래 칸에 못 넣음 → 사본 생성: " + beforeItem.name);
+                CreatItem(beforeItem.name, false, beforeItem.itemData.Clone());
+                beforeItem.transform.SetParent(null, false);
+                Destroy(beforeItem.gameObject);
+            }
+            equipBoxCheck.DeletPrefab(beforeItem, area);
+        }
+        if (area == "Weapon")
+        {
+            skillCooldown.ResetCoolTime(); // 장착이 확정된 뒤에만
+        }
+        equipBoxCheck.LoadPrefab(detail.itemData.name, area, detail.itemData.tfName);
+        if (occupied)
+        {
+            equipBoxCheck.ActivePrefab(area);
+        }
+        equipBoxCheck.SaveEquipItem(detail, true);
+        CheckNowEquipItem(area);
+        if (fromIndex >= 0)
+        {
+            SaveInventory(); // 인벤·장비를 한 번에 저장(SaveEquipItem 은 datas 에만 씀)
         }
     }
     void MoveEquipItem2Inventory(GameObject moveItem, GameObject equipChangeBox)

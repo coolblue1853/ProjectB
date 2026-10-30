@@ -216,15 +216,79 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         return true;
     }
 
+    /// <summary>인벤 칸 → 맞는 장비칸: 키보드 장착과 같은 경로(인벤 쪽은 TakeOut, 교체 장비는 PutIn). 처리했으면 true</summary>
+    private bool TryDropInventoryToEquip()
+    {
+        if (equipBox == null || changeParent != null || changeBox != null || currentParent == null || currentParent.parent == null
+            || itemCheck == null || itemCheck.itemData == null)
+        {
+            return false;
+        }
+        if (currentParent.parent.CompareTag("Chest"))
+        {
+            ReturnToOrigin(); // 창고 → 장비칸 직접 장착은 막는다(장비 저장 누락 경로). 인벤으로 옮긴 뒤 장착 — 창고 명령화(Phase 4) 때 다시 연다
+            return true;
+        }
+        if (!currentParent.parent.CompareTag("Inventory") || currentParent.childCount > 0)
+        {
+            return false;
+        }
+        InventoryManager inv = InventoryManager.instance;
+        GameObject target = inv.EquipBoxFor(itemCheck);
+        if (target == null || target.transform != equipBox)
+        {
+            return false; // 부위가 다르거나 보조 칸 등 — 옛 경로
+        }
+        ReturnToOrigin(); // 원래 칸에 돌려놓은 뒤 명령으로 꺼낸다
+        inv.EquipFromInventory(itemCheck);
+        return true;
+    }
+
+    /// <summary>장비칸 → 빈 인벤 칸: 인벤 쪽은 PutIn(오브젝트 그대로), 장비 쪽은 해제 처리. 처리했으면 true</summary>
+    private bool TryDropEquipToInventory()
+    {
+        if (changeParent == null || changeParent.parent == null || currentParent == null || !changeParent.parent.CompareTag("Inventory") || changeParent.childCount > 0)
+        {
+            return false;
+        }
+        EquipBoxCheck from = currentParent.GetComponent<EquipBoxCheck>();
+        if (from == null)
+        {
+            return false;
+        }
+        InventoryManager inv = InventoryManager.instance;
+        ItemCheck item = GetComponent<ItemCheck>();
+        int index = inv.Service.IndexOfBox(changeParent);
+        if (!inv.Service.PutIn(index, item))
+        {
+            ReturnToOrigin(); // 잠긴 칸 등 — 장착 그대로
+            return true;
+        }
+        from.DeletPrefab(item, item.itemData.equipArea);
+        // 드래그 해제도 세이브·장착 목록에 반영 (안 하면 재접속 시 장착+인벤토리 양쪽에 생겨 복제됨)
+        from.SaveEquipItem(item, false);
+        inv.ForgetEquippedItem(item);
+        if (inv.chest != null)
+        {
+            inv.chest.cusor.SetActive(false);
+        }
+        inv.cusor.SetActive(true);
+        inv.ChangeCusor(changeParent.gameObject);
+        inv.SaveInventory();
+        equipBox = null;
+        changeParent = null;
+        return true;
+    }
+
     private void EndDrag()
     {
-        if (TryDropInventoryToInventory())
-        {
-            return;
-        }
         if (DropFromEquipNotAllowed())
         {
             ReturnToOrigin();
+            return;
+        }
+        if (TryDropInventoryToInventory() || TryDropEquipToInventory() || TryDropInventoryToEquip())
+        {
             return;
         }
         if(changeParent != null)

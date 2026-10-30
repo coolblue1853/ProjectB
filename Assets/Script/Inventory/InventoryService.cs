@@ -180,6 +180,54 @@ public sealed class InventoryService
         return true;
     }
 
+    /// <summary>
+    /// 3c: 인벤 칸의 아이템 오브젝트를 통째로 다른 곳(장비칸 등)으로 꺼낸다. 모델에서 칸을 비우고 오브젝트는 파괴하지 않고
+    /// newParent 로 옮긴다(장착 아이템은 같은 ItemCheck 를 계속 쓴다). 인벤토리 칸이 아니면 false, 아무것도 안 바뀜.
+    /// </summary>
+    public bool TakeOut(ItemCheck item, Transform newParent)
+    {
+        int index = IndexOf(item);
+        if (index < 0 || newParent == null)
+        {
+            return false;
+        }
+        SyncModelFromViews();
+        if (!model.TryRemoveAt(index))
+        {
+            return false;
+        }
+        dirty.Clear(); // 뷰는 아래에서 직접 맞춘다(DrawSlot 이 이 오브젝트를 파괴하지 않게)
+        item.transform.SetParent(newParent);
+        item.transform.position = newParent.position;
+        inv.inventoryArray[index % PerPage, index / PerPage] = 0;
+        inv.RebuildItemStackCache();
+        return true;
+    }
+
+    /// <summary>
+    /// 3c: 인벤 밖(장비칸 등)의 아이템 오브젝트를 그대로 index 칸에 넣는다(새로 만들지 않음). 칸이 차 있거나 잠겼으면 false, 아무것도 안 바뀜.
+    /// </summary>
+    public bool PutIn(int index, ItemCheck item)
+    {
+        if (item == null || item.itemData == null || index < 0 || IndexOf(item) >= 0) // 이미 인벤 칸에 있는 오브젝트는 거절(한 오브젝트가 두 칸 차지 방지)
+        {
+            return false;
+        }
+        SyncModelFromViews();
+        var s = new ItemStack(item.itemData.name, Mathf.Max(1, item.nowStack), item.itemData.tear, item.itemData.upgrade);
+        if (!model.PutAt(index, s))
+        {
+            return false;
+        }
+        dirty.Clear();
+        Transform box = inv.inventoryUI[index / PerPage].transform.GetChild(index % PerPage);
+        item.transform.SetParent(box);
+        item.transform.position = box.position;
+        inv.inventoryArray[index % PerPage, index / PerPage] = 1;
+        inv.RebuildItemStackCache();
+        return true;
+    }
+
     /// <summary>특정 아이템(칸)에서 n 개를 뺀다(판매·소비). 인벤토리 칸이 아니거나 수량이 모자라면 false</summary>
     public bool RemoveAt(ItemCheck item, int n)
     {
