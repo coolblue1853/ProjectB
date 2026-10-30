@@ -6127,6 +6127,86 @@ MonoBehaviour:
       - "\uCD94\uB77D"
       Flags: 0000
       Languages_Touch: []
+    - Term: UP INVESTIGATE
+      TermType: 0
+      Description: 
+      Languages:
+      - UP  INVESTIGATE
+      - "\uC704  \uC870\uC0AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Nest hunt: trail {0} {1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Nest hunt: trail {0}/{1}'
+      - "\uB465\uC9C0 \uCD94\uC801: \uD754\uC801 {0}/{1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Nest hunt: find the nest'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Nest hunt: find the nest'
+      - "\uB465\uC9C0 \uCD94\uC801: \uB465\uC9C0\uB97C \uCC3E\uC544\uB77C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Next sign: {0} about {1}m'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Next sign: {0} about {1}m'
+      - "\uB2E4\uC74C \uD754\uC801: {0} \uC57D {1}m"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Nest: {0} about {1}m'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Nest: {0} about {1}m'
+      - "\uB465\uC9C0: {0} \uC57D {1}m"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Right here - investigate (UP)
+      TermType: 0
+      Description: 
+      Languages:
+      - Right here - investigate (UP)
+      - "\uBC14\uB85C \uC55E - \uC704 \uD0A4\uB85C \uC0B4\uD53C\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Investigating...
+      TermType: 0
+      Description: 
+      Languages:
+      - Investigating...
+      - "\uC0B4\uD53C\uB294 \uC911..."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The nest was lost
+      TermType: 0
+      Description: 
+      Languages:
+      - The nest was lost
+      - "\uB465\uC9C0\uB97C \uB193\uCCE4\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Elite {0} emerged from the nest!
+      TermType: 0
+      Description: 
+      Languages:
+      - Elite {0} emerged from the nest!
+      - "\uB465\uC9C0\uC5D0\uC11C \uC815\uC608 {0} \uCD9C\uD604!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The nest was empty
+      TermType: 0
+      Description: 
+      Languages:
+      - The nest was empty
+      - "\uB465\uC9C0\uAC00 \uBE44\uC5B4 \uC788\uC5C8\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

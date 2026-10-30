@@ -16,6 +16,12 @@
 
 ## 1. 1층계 — 채집·흔적 추적 본무대 확장
 
+### 구현(10-30) — ② 정예 둥지 추적
+- 코드 `Assets/Script/Tracking/`: `NestHuntRules`(수치·힌트 + `NestHuntState` 순수 상태 머신), `NestMark`(MiniGameSpot 하위, 0.8초 살피기), `NestHuntSite`(맵당 하나: 순서·시계·소환·쿨타임), `NestHuntPlacer`(런타임 배치·코드 도트 발자국/둥지), `NestHuntUI`(화면 위 패널). 기존 `TrackingSpot.IsHuntable` 공개·`TrackingUI` 헬퍼 internal 로 재사용, 소환은 `EnemySpawner.SpawnTracked`(보너스 없음).
+- 흐름: 시작 흔적(항상 보임, 쿨타임 중 흐림) ↑ → 흔적 2 → 흔적 3 → 둥지 순서대로만 나타나고 조사 가능. 첫 조사부터 **50초**. 둥지를 살피면 정예 확정 출현(금색 외곽선·★), 처치 시 기존 정예 보상. 시간 초과·맵 이탈 = 실패.
+- 배치: `Lv1_NormalForest`(x −322 → −380 → −345 → 둥지 −413), `Lv1_DeepForest`(−322 → −398 → −360 → 둥지 −300). 쿨타임 성공 10분·실패 3분, 세션 한정. 수치 가정은 Q-445.
+- 검증(10-30): EditMode `NestHuntRulesTests` 8 + 전체 265/265. 프로브 `Tools/probes/nest_setup.cs`(`__MAP__`) → `nest_drive.cs`(win = 흔적 3 → 둥지 → 숲 늑대 정예 소환 8.0초·쿨타임 598 / order = 순서 어긋남 거부 / timeout·cd = 시간 초과 실패·쿨타임 180 / 맵 이탈 취소·쿨타임 178) → `tracking_kill.cs`(처치 → 강화석 2·WolfShoes·늑대 송곳니 드롭). 스크린샷(한국어 힌트 "다음 흔적: 왼쪽 약 55m"·남은 시간 막대). 콘솔 에러 0. **미검증**: 실제 ↑ 키 입력(프로브는 `Begin()` 사용), 밤 시간대 소환, 깊은 숲 배치 실제 확인.
+
 입문판(MiniGames.md ③~⑥)은 그대로 두고 아래 3개를 더한다.
 
 | 추가 | 규칙 | 보상 |

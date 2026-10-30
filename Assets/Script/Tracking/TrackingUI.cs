@@ -294,7 +294,7 @@ public class TrackingUI : MonoBehaviour
         return rt;
     }
 
-    private static RectTransform NewRect(string name, Transform parent)
+    internal static RectTransform NewRect(string name, Transform parent)
     {
         var rt = new GameObject(name, typeof(RectTransform)).GetComponent<RectTransform>();
         rt.SetParent(parent, false);
@@ -305,7 +305,7 @@ public class TrackingUI : MonoBehaviour
         return rt;
     }
 
-    private static Image NewImage(string name, Transform parent, Color color)
+    internal static Image NewImage(string name, Transform parent, Color color)
     {
         var img = new GameObject(name, typeof(RectTransform), typeof(Image)).GetComponent<Image>();
         img.transform.SetParent(parent, false);
@@ -314,7 +314,7 @@ public class TrackingUI : MonoBehaviour
         return img;
     }
 
-    private static TextMeshProUGUI NewText(UiTheme theme, string name, RectTransform parent, Vector2 pos, float size)
+    internal static TextMeshProUGUI NewText(UiTheme theme, string name, RectTransform parent, Vector2 pos, float size)
     {
         var t = new GameObject(name, typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TextMeshProUGUI>();
         t.transform.SetParent(parent, false);

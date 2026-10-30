@@ -246,7 +246,7 @@ public class TrackingSpot : MiniGameSpot
         return _kinds.Count;
     }
 
-    private static bool IsHuntable(EnemySpawner s)
+    public static bool IsHuntable(EnemySpawner s)
     {
         GameObject prefab = s.EnemyPrefab;
         if (prefab == null || !prefab.TryGetComponent(out EnemyHealth eh) || eh.isBossMob)
