@@ -56,6 +56,9 @@ SPLICE = {
     # 10-30 품질 루프(GPT 놓기 5.5 "물체를 놓는 접지 순간이 없다"): 3/4 앞으로 깊게 웅크려 손을 앞발 옆 땅까지 → 회수
     "Place": ["0", "1", ("PlaceSE", "D_PlaceSE", 0, -20, .1, False), ("PlaceSE", "D_PlaceSE", 1, -20, .22, False), ("PlaceSE", "D_PlaceSE", 2, -20, .12, False),
               "10", "11", "12"],
+    # 10-30 품질 루프(GPT 활 5.5 "시위를 턱까지 당겼다 놓는 차이가 없다"): 3/4 뒤 — 앞손 활을 뻗고 뒷손을 턱까지 당김 → 측면에서 놓기
+    "Bow": ["0", "1", ("BowNE", "D_BowNE", 0, 0, .08, False), ("BowNE", "D_BowNE", 1, 0, .1, False), ("BowNE", "D_BowNE", 2, 0, .28, False),
+            "9", "10", "11", "12", "13"],
     # 새 셀: 춤(N3)·악기(N2, 생성기가 류트를 그림 — 현악기 전용)
     "Dance": [("DanceS", "D_DanceS", i, 0, .15, False) for i in range(4)],
     "Lute": [("LuteSE", "D_LuteSE", i, 30, .12, False) for i in range(3)],
@@ -70,6 +73,8 @@ SPLICE = {
 LOOP = {"Dance", "Lute"}
 # 앞손에 칼집을 쥐는 셀: 앞손 무기 각도(뒤·아래로 허리에 찬 칼집, 10-30 GPT "납도에 칼집이 안 보인다")
 SCABBARD = {"Iaido": 200.0, "Sheathe": 200.0}
+# 방향 프레임에서 무기를 앞손(LEFT ARM)에 쥐는 셀 — 활: 앞손이 활, 뒷손이 시위를 턱까지 당긴다
+SWAP_HANDS = {"Bow"}
 
 
 def joint(keys, name, i, label):
@@ -89,8 +94,9 @@ def main():
                 folder, kname, i, ang, t, back = it[:6]
                 out.setdefault("angleB", [-999.0] * len(out["frames"])).append(it[6] if len(it) > 6 else -999.0)
                 out["frames"].append(f"m41/dirs/{folder}/{i}")
-                out["hand"].append(joint(keys, kname, i, "RIGHT ARM"))
-                out["handB"].append(joint(keys, kname, i, "LEFT ARM"))
+                main, off = ("LEFT ARM", "RIGHT ARM") if cel in SWAP_HANDS else ("RIGHT ARM", "LEFT ARM")
+                out["hand"].append(joint(keys, kname, i, main))
+                out["handB"].append(joint(keys, kname, i, off))
                 out["angle"].append(ang)
                 out["times"].append(t)
                 out["behind"].append(back)
