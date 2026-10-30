@@ -29,7 +29,20 @@ public class InputBindingsTests
         Assert.AreEqual("<Keyboard>/v", Path("Artifact", false));
         Assert.AreEqual("<Keyboard>/leftShift", Path("Run", false));
         Assert.AreEqual("<Keyboard>/1", Path("Quick1", false));
-        Assert.AreEqual("", Path("Quick2", true)); // 게임패드 미지정 칸도 재지정 대상
+        Assert.AreEqual("<Gamepad>/dpad/left", Path("Quick2", true)); // 패드 퀵슬롯 2·3 = 십자 좌·우(BasicFeatures 14절)
+        Assert.AreEqual("<Gamepad>/dpad/right", Path("Quick3", true));
+        Assert.AreEqual("", Path("Quick4", true)); // 게임패드 미지정 칸도 재지정 대상
+    }
+
+    [Test]
+    public void Gamepad_DpadUpReserved_DpadLeftSwapsWithQuick2()
+    {
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Quick4", true, "<Gamepad>/dpad/up", out _)); // 대화·채집(UI/Up)
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Quick4", true, "<Gamepad>/dpad/down", out _)); // 제작(UI/OpenCraft)
+        var r = InputBindings.Assign(_ka.asset, "Quick4", true, "<Gamepad>/dpad/left", out string swapped);
+        Assert.AreEqual(InputBindings.AssignResult.Swapped, r);
+        Assert.AreEqual("Quick2", swapped);
+        Assert.AreEqual("<Gamepad>/dpad/left", Path("Quick4", true));
     }
 
     [Test]

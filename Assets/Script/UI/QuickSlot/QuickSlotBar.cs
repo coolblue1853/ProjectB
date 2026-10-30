@@ -120,8 +120,11 @@ public class QuickSlotBar : MonoBehaviour
         InventoryManager inv = InventoryManager.instance;
         if (inv != null && inv.inventory != null && inv.inventory.activeSelf)
         {
-            // 나누기·이동 같은 진행 중 상태에서는 등록하지 않는다(커서 아이템이 바뀌는 중)
-            if (string.IsNullOrEmpty(inv.state) || inv.state == "detail")
+            // 등록은 키보드 Shift+숫자만(3절). 패드 퀵슬롯 키(L3·십자 좌우)는 인벤에서 분해·커서 이동과 같은 버튼이라 등록하지 않는다(14절).
+            // 나누기·이동 같은 진행 중 상태에서도 등록하지 않는다(커서 아이템이 바뀌는 중)
+            Keyboard kb = Keyboard.current;
+            bool shiftFromKeyboard = kb != null && kb.shiftKey.isPressed && _keys[slot].activeControl != null && _keys[slot].activeControl.device is Keyboard;
+            if (shiftFromKeyboard && (string.IsNullOrEmpty(inv.state) || inv.state == "detail"))
             {
                 AssignFrom(slot, inv.CursorItem());
             }
