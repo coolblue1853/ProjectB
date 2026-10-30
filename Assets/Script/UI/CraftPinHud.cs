@@ -23,6 +23,7 @@ public class CraftPinHud : MonoBehaviour
     private bool _wasReady;
     private float _timer;
     private GameObject _chip;
+    private RectTransform _chipRect;
     private TextMeshProUGUI _text;
     private readonly StringBuilder _sb = new StringBuilder(256);
     private bool _namesResolved;
@@ -179,6 +180,11 @@ public class CraftPinHud : MonoBehaviour
         {
             _chip.SetActive(show);
         }
+        float y = -16f - MinimapHud.OccupiedHeight; // 미니맵이 켜져 있으면 그 아래에 붙는다
+        if (show && !Mathf.Approximately(_chipRect.anchoredPosition.y, y))
+        {
+            _chipRect.anchoredPosition = new Vector2(_chipRect.anchoredPosition.x, y);
+        }
         if (_pin.IsEmpty)
         {
             return;
@@ -249,6 +255,7 @@ public class CraftPinHud : MonoBehaviour
         Image chip = theme.NewPanel("Chip", transform, false, 0.85f);
         _chip = chip.gameObject;
         RectTransform cr = chip.rectTransform;
+        _chipRect = cr;
         cr.anchorMin = cr.anchorMax = cr.pivot = new Vector2(1f, 1f);
         cr.anchoredPosition = new Vector2(-16f, -16f);
         cr.sizeDelta = new Vector2(380f, 60f);
