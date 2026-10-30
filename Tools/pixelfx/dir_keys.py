@@ -10,6 +10,9 @@ import sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
 SKEL = json.load(open(os.path.join(ROOT, "Docs", "ArtCompare", "CharacterGen", "dirs", "skel.json"), encoding="utf-8"))
+# 측면(east) = 주인공 측면 원본 골격(m41/first_frame.json) — m41_submit 에 방향 인자를 주지 않으면 측면으로 생성(10-30 품질 6회차)
+# 측면에서 RIGHT = 몸 뒤쪽(화면 왼쪽) 팔·다리, LEFT = 앞쪽(화면 오른쪽)
+SKEL["side"] = json.load(open(os.path.join(ROOT, "Docs", "ArtCompare", "Motion", "cel", "m41", "first_frame.json"), encoding="utf-8"))["first_frame_keypoints"]
 
 # 프레임 = (방향, {관절: (x, y)}, 무기 각도) — 0 = 화면 오른쪽, 90 = 위. 'shift' 는 몸 전체 이동
 # 회전 베기(양손 무기): 측면 장전(기존 양손 수평 셀) → 3/4 뒤(무기 뒤에 끌림) → 뒷모습(무기 화면 왼쪽 수평) → 정면(무기 화면 오른쪽 수평) → 3/4 앞(앞으로 휩쓸며) → 측면 타격(기존 셀)
@@ -207,6 +210,24 @@ MOTIONS = {
         ("se", {"RIGHT SHOULDER": (39, 36), "RIGHT ARM": (47, 36), "LEFT ARM": (50, 42), "RIGHT LEG": (28, 52), "LEFT LEG": (51, 52), "shift": (0, 2)}, -20),
         ("se", {"RIGHT SHOULDER": (38, 36), "RIGHT ARM": (45, 37), "LEFT ARM": (48, 42), "RIGHT LEG": (28, 52), "LEFT LEG": (50, 52), "shift": (-2, 1)}, -20),
         ("se", {"RIGHT SHOULDER": (37, 36), "RIGHT ARM": (43, 40), "LEFT ARM": (46, 43), "RIGHT LEG": (29, 52), "LEFT LEG": (49, 52), "shift": (-2, 1)}, -20),
+    ],
+    # 품질 6회차(GPT 장풍 6.5 "방출 때 SE 비틀기 → E 측면에서 양손을 어깨보다 7~8px 앞으로, 뒷발로 밀기"): 측면 방출 → 유지 → 반동
+    "E_PalmSide": [
+        ("side", {"RIGHT SHOULDER": (42, 33), "RIGHT ARM": (52, 34), "LEFT ARM": (54, 37), "RIGHT LEG": (30, 53), "LEFT LEG": (51, 53), "shift": (3, 1)}, -20),
+        ("side", {"RIGHT SHOULDER": (43, 33), "RIGHT ARM": (53, 33), "LEFT ARM": (55, 37), "RIGHT LEG": (29, 53), "LEFT LEG": (52, 53), "shift": (4, 1)}, -20),
+        ("side", {"RIGHT SHOULDER": (40, 33), "RIGHT ARM": (49, 35), "LEFT ARM": (51, 38), "RIGHT LEG": (30, 53), "LEFT LEG": (50, 53), "shift": (1, 1)}, -20),
+    ],
+    # 품질 6회차(GPT 메치기 6.5 "들 때 상체 15° 젖힘 후 급격히 숙임"): 측면 — 두 손 머리 뒤 위로 들고 상체 젖힘 → 더 젖힘 → 앞으로 넘기기 시작
+    "E_SlamBack": [
+        ("side", {"RIGHT ARM": (36, 22), "LEFT ARM": (39, 21), "RIGHT LEG": (34, 53), "LEFT LEG": (48, 53), "shift": (-3, 1)}, 110),
+        ("side", {"RIGHT ARM": (34, 23), "LEFT ARM": (37, 22), "RIGHT LEG": (34, 53), "LEFT LEG": (48, 53), "shift": (-4, 1)}, 120),
+        ("side", {"RIGHT ARM": (43, 23), "LEFT ARM": (46, 23), "RIGHT LEG": (33, 53), "LEFT LEG": (49, 53), "shift": (1, 2)}, 80),
+    ],
+    # 품질 6회차(GPT 앞차기 6.0 "무릎을 배 앞까지, 발목 오른쪽 7px, 즉시 회수"): 측면 — 앞다리 무릎 배 높이 장전 → 발바닥 앞으로 뻗음 → 회수
+    "E_FrontKick": [
+        ("side", {"RIGHT ARM": (40, 38), "LEFT ARM": (47, 36), "LEFT KNEE": (49, 41), "LEFT LEG": (47, 47), "RIGHT LEG": (37, 53), "shift": (-2, 0)}, -20),
+        ("side", {"RIGHT ARM": (39, 38), "LEFT ARM": (46, 37), "LEFT LEG": (55, 42), "RIGHT LEG": (36, 53), "shift": (-3, 0)}, -20),
+        ("side", {"RIGHT ARM": (40, 38), "LEFT ARM": (47, 37), "LEFT KNEE": (48, 44), "LEFT LEG": (46, 50), "RIGHT LEG": (37, 53), "shift": (-1, 0)}, -20),
     ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
