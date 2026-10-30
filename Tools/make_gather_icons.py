@@ -1,4 +1,4 @@
-# 채집·채굴(MiniGames.md ④⑤) 아이템 아이콘(코드 도트): 32x32 를 8배(256x256)로 키워 Assets/Resources/Item/{이름}.png 로 저장.
+# 채집·채굴(MiniGames.md ④⑤) 아이템 + 그 재료로 만드는 자가 제작 결과물(포션·수프·합금) 아이콘(코드 도트): 32x32 를 8배(256x256)로 키워 Assets/Resources/Item/{이름}.png 로 저장.
 # 새 아트 생성 없이 도형 + 팔레트 3단 명암 + 외곽선. make_fish_icons.py 와 같은 방식. 실행: python Tools/make_gather_icons.py
 from PIL import Image
 import os
@@ -65,12 +65,48 @@ def ore(light, base, dark, gem=None):
     return px
 
 
+def bottle(light, base, dark, cork=(150, 110, 70)):
+    px = blank()
+    ellipse(px, 16, 20, 8, 8, light, base, dark)          # 둥근 병 몸
+    rect(px, 14, 8, 17, 12, (200, 214, 220))              # 목
+    rect(px, 13, 5, 18, 7, cork)                          # 코르크
+    px[17][12] = (250, 250, 250)                          # 반사
+    px[18][12] = (250, 250, 250)
+    return px
+
+
+def soup():
+    px = blank()
+    ellipse(px, 16, 15, 11, 3, (196, 150, 100), (170, 120, 80), (140, 96, 64))   # 수프 면
+    for y in range(16, 25):
+        half = 11 - (y - 16)
+        rect(px, 16 - half, y, 16 + half - 1, y, (120, 84, 60) if y < 22 else (90, 62, 46))  # 그릇
+    for x, y in ((11, 14), (19, 15), (15, 13)):
+        px[y][x] = (110, 70, 50)                          # 버섯 조각
+    return px
+
+
+def ingot(light, base, dark):
+    px = blank()
+    for y in range(12, 22):
+        inset = (21 - y) // 3
+        rect(px, 6 + inset, y, 25 - inset, y, light if y < 15 else (base if y < 19 else dark))
+    rect(px, 9, 13, 14, 13, (255, 255, 255))
+    return px
+
+
 ICONS = {
     'Forest Mushroom': mushroom,
     'Glow Moth Wing': moth_wing,
     'Moonpetal': moonpetal,
     'Bog Copper Ore': lambda: ore((226, 160, 110), (184, 112, 70), (120, 70, 44)),
     'Starfall Ore': lambda: ore((200, 210, 255), (130, 140, 220), (80, 84, 150), gem=(250, 236, 140)),
+    'Minor Herbal Potion': lambda: bottle((150, 210, 120), (90, 160, 80), (56, 110, 56)),
+    'Glow Stamina Potion': lambda: bottle((250, 236, 150), (220, 190, 80), (160, 130, 50)),
+    'Forest Mushroom Soup': soup,
+    'Moonpetal Elixir': lambda: bottle((236, 236, 255), (180, 186, 240), (120, 126, 190), cork=(220, 200, 120)),
+    'Bog Copper Alloy': lambda: ingot((236, 170, 120), (190, 120, 76), (130, 78, 50)),
+    'Starfall Alloy': lambda: ingot((214, 222, 255), (150, 160, 230), (96, 100, 170)),
 }
 
 

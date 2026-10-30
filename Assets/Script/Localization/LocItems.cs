@@ -30,6 +30,7 @@ public static class LocItems
         ("Fresh Green Leaves", "싱싱한 초록 잎"), ("Sturdy Roots", "튼튼한 뿌리"), ("Herbal Salad", "약초 샐러드"),
         ("Forest Carp", "숲붕어"), ("Moss Loach", "이끼미꾸라지"), ("Amber Trout", "호박빛송어"), ("Spirit Koi", "정령잉어"),
         ("Forest Mushroom", "숲버섯"), ("Glow Moth Wing", "반딧나방 날개"), ("Moonpetal", "달빛꽃잎"), ("Bog Copper Ore", "늪구리 광석"), ("Starfall Ore", "별똥 광석"),
+        ("Minor Herbal Potion", "초급 약초 포션"), ("Glow Stamina Potion", "반딧 활력 포션"), ("Forest Mushroom Soup", "숲버섯 수프"), ("Moonpetal Elixir", "달빛 엘릭서"), ("Bog Copper Alloy", "늪구리 합금"), ("Starfall Alloy", "별똥 합금"),
         ("Gentle Spring Guidance", "봄바람의 인도"), ("Sharp Petal Ring", "날카로운 꽃잎 반지"), ("Sturdy Leaf", "튼튼한 잎"), ("Sharp Petal", "날카로운 꽃잎"),
         ("Nasty Rat Ring", "고약한 쥐 반지"), ("Disgusting Rat Meat", "역겨운 쥐고기"), ("Rat Thief's Stash", "쥐 도적의 장물"),
         ("Filthy Rat Hide", "더러운 쥐 가죽"), ("Stinky Rat Meat Stew", "냄새나는 쥐고기 스튜"),

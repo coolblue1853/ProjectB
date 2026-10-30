@@ -88,7 +88,7 @@ public static class LocUi
         ("Crafting material", "제작 재료"), ("Consumable", "소모품"), ("Equipment", "장비"), ("set", "세트"),
         ("A crystal born of the tower. Fed to a core at the smith to raise its enhancement.", "탑에서 태어난 결정. 대장간에서 장비에 먹여 강화 단계를 올린다."),
         ("on the light", "어둠을 밝힌다."),
-        ("Buy", "상점 구매"), ("Craft", "제작"), ("cook", "요리"), ("fishing", "낚시"), ("gathering", "채집"), ("mining", "채굴"),
+        ("Buy", "상점 구매"), ("Craft", "제작"), ("cook", "요리"), ("fishing", "낚시"), ("gathering", "채집"), ("mining", "채굴"), ("alchemy", "연금"), ("smelt", "제련"),
         ("Dmg", "피해"), ("Critical Chance", "치명타 확률"), ("Critical Dmg", "치명타 피해"), ("Dmg Increase", "피해 증가"), ("Dmg Decrease", "피해 감소"),
         ("Armor Penetration", "방어 관통"), ("Skill Dmg", "스킬 피해"), ("Additional Dmg", "추가 피해"), ("Basic Dmg", "기본 피해"),
         ("Def", "방어"), ("Hp", "체력"), ("Critical Rate", "치명타율"), ("Drop Rate", "드롭률"), ("Movement Speed", "이동 속도"),

@@ -69,3 +69,19 @@
 - 보상: 성공 때만 `InventoryService.Add(키, 수량, AddSource.Gathering/Mining)` → `SaveInventory` → 획득 로그.
 - UI: 화면 위 가운데 패널 — 안내 문구, 보조 문구(남은 시도 / 균열 n/5·정타!), 표본 막대(좋음 하늘색·완벽 초록·금색 커서) 또는 균열 막대 + 막대 오른쪽 약점 보석(빛나면 밝은 청록), 남은 시간 막대. 결과 때는 막대를 숨기고 문구만.
 - 검증(10-30): EditMode `GatherRulesTests` 11 + 낚시 12 + DataIntegrity 통과. 프로브 `Tools/probes/gather_setup.cs`(`__MAP__` 이동·낮·스포너 끔) → `input_bg_on` → `gather_drive.cs`(가상 ↑ 키: perfect = 완벽 1회 성공·초록 약초 +2, miss = 3회 빗나감 실패·인벤 변화 없음, crit = 정타 3타 파괴, plain = 일반 5타 파괴) → `gather_check.cs`. → 키 중단(잠금 해제·쿨타임 없음), 성공 뒤 쿨타임(ready=False·안내 숨김) 확인. 스크린샷(안내·표본 패널·균열 패널). 세이브 백업·복원.
+
+### 채집 재료 레시피 (10-30)
+
+출처: GPT 기획 대화(10-30). 자가 제작 추가 페이지(`Assets/Resources/SelfCraftRecipes.csv`, BasicFeatures.md 10절)에 붙임 — 지금 4페이지(3·4페이지가 이번 것). ItemSheet 224~229, 아이콘 `Tools/make_gather_icons.py`(병·그릇·주괴 코드 도트). acqPath `alchemy`(연금)·`smelt`(제련)·`cook`.
+
+| 키 | 표시 | 재료 | 효과 | 판매가 | 등급 |
+|---|---|---|---|---|---|
+| Minor Herbal Potion | 초급 약초 포션 | 초록 약초 2 + 숲버섯 1 | HP +120 | 240 | C |
+| Glow Stamina Potion | 반딧 활력 포션 | 초록 약초 1 + 반딧나방 날개 2 | 스태미나 +100 | 260 | R |
+| Forest Mushroom Soup | 숲버섯 수프 | 숲버섯 3 + 초록 약초 1 | 포만감 +120 / 방어 +3(180초) | 185 | C |
+| Moonpetal Elixir | 달빛 엘릭서 | 달빛꽃잎 1 + 반딧나방 날개 2 + 초록 약초 1 | HP +250 / 스태미나 +100 | 580 | U |
+| Bog Copper Alloy | 늪구리 합금 | 늪구리 광석 2 + 하급 광석 1 | 재료(Misc) | 310 | R |
+| Starfall Alloy | 별똥 합금 | 별똥 광석 1 + 늪구리 광석 2 + 하급 광석 1 | 재료(Misc) | 740 | U |
+
+- 숲버섯 수프 버섯 수량은 GPT 5 → 3(채집 1회 1~2개라 5는 과함, Q-439). HP 효과가 있는 포션·엘릭서는 물약과 같은 공유 쿨다운을 탄다. 합금 사용처(장비 강화 재료)는 아직 없음 — 강화 재료 확장 때(Q-439).
+- 검증: EditMode `SelfCraftPagesTests`(출하 CSV 이름이 시트에 있음) 통과, 프로브 `Tools/probes/alchemy_probe.cs`(재료 지급 → 해당 페이지·칸 제작) 6종 모두 결과 0→1·재료 0, 스크린샷(4/4 페이지).

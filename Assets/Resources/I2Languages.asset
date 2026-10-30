@@ -4988,6 +4988,70 @@ MonoBehaviour:
       - "\uCC44\uAD74"
       Flags: 0000
       Languages_Touch: []
+    - Term: Minor Herbal Potion
+      TermType: 0
+      Description: 
+      Languages:
+      - Minor Herbal Potion
+      - "\uCD08\uAE09 \uC57D\uCD08 \uD3EC\uC158"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Glow Stamina Potion
+      TermType: 0
+      Description: 
+      Languages:
+      - Glow Stamina Potion
+      - "\uBC18\uB527 \uD65C\uB825 \uD3EC\uC158"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forest Mushroom Soup
+      TermType: 0
+      Description: 
+      Languages:
+      - Forest Mushroom Soup
+      - "\uC232\uBC84\uC12F \uC218\uD504"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Moonpetal Elixir
+      TermType: 0
+      Description: 
+      Languages:
+      - Moonpetal Elixir
+      - "\uB2EC\uBE5B \uC5D8\uB9AD\uC11C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Copper Alloy
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Copper Alloy
+      - "\uB2AA\uAD6C\uB9AC \uD569\uAE08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Starfall Alloy
+      TermType: 0
+      Description: 
+      Languages:
+      - Starfall Alloy
+      - "\uBCC4\uB625 \uD569\uAE08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: alchemy
+      TermType: 0
+      Description: 
+      Languages:
+      - alchemy
+      - "\uC5F0\uAE08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: smelt
+      TermType: 0
+      Description: 
+      Languages:
+      - smelt
+      - "\uC81C\uB828"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
