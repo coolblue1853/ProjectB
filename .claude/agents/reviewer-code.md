@@ -1,5 +1,6 @@
 ---
 name: reviewer-code
+model: haiku
 description: Project B 코드 품질 리뷰어. 정확성·규약·null 안전성을 본다. 코드를 직접 고치지 않는다.
 tools: Read, Grep, Glob, Bash
 ---

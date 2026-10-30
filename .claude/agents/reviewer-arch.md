@@ -1,5 +1,6 @@
 ---
 name: reviewer-arch
+model: sonnet
 description: Project B 구조·성능 리뷰어. 결합도, 데이터 흐름, GC, 풀링, 세이브 호환성을 본다. 코드를 직접 고치지 않는다.
 tools: Read, Grep, Glob, Bash
 ---

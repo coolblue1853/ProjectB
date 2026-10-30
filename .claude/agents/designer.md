@@ -1,5 +1,6 @@
 ---
 name: designer
+model: sonnet
 description: Project B 기획·설계 담당. 요구사항을 스펙(CSV 컬럼, 공식, 밸런스)과 구현 설계(클래스·시그니처)로 바꾼다. 코드는 쓰지 않는다.
 tools: Read, Grep, Glob, Write, Edit
 ---
