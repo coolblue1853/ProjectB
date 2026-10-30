@@ -60,6 +60,8 @@ SPLICE = {
     # 10-30 품질 루프(GPT 활 5.5 "시위를 턱까지 당겼다 놓는 차이가 없다"): 3/4 뒤 — 앞손 활을 뻗고 뒷손을 턱까지 당김 → 측면에서 놓기
     "Bow": ["0", "1", ("BowNE", "D_BowNE", 0, 0, .08, False), ("BowNE", "D_BowNE", 1, 0, .1, False), ("BowNE", "D_BowNE", 2, 0, .28, False),
             "9", "10", "11", "12", "13"],
+    # 10-30 품질 루프(GPT 양손 수평 6.0 "올려베기처럼 보인다, 한손 수평과 비슷"): 타격 직후 3/4 앞 양손 팔로스루(회전 베기 프레임)로 수평 통과를 보이게
+    "GreatSide": ["0", "1", "2", "3", "4", ("v2SpinSE", "D_SpinSE", 1, -8, .05, False), ("v2SpinSE", "D_SpinSE", 2, -15, .1, False), "10", "11", "12", "13"],
     # 새 셀: 춤(N3)·악기(N2, 생성기가 류트를 그림 — 현악기 전용)
     "Dance": [("DanceS", "D_DanceS", i, 0, .15, False) for i in range(4)],
     "Lute": [("LuteSE", "D_LuteSE", i, 30, .12, False) for i in range(3)],

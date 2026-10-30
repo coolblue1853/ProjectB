@@ -1527,7 +1527,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -61.5
+    "angle": -61.5,
+    "angleB": -999.0
    },
    {
     "png": "GreatSide_1",
@@ -1542,7 +1543,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -138.5
+    "angle": -138.5,
+    "angleB": -999.0
    },
    {
     "png": "GreatSide_2",
@@ -1557,7 +1559,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.22,
-    "angle": 180.0
+    "angle": 180.0,
+    "angleB": -999.0
    },
    {
     "png": "GreatSide_3",
@@ -1572,7 +1575,8 @@
     "dy": -1,
     "sx": 0,
     "time": 0.04,
-    "angle": -95.0
+    "angle": -95.0,
+    "angleB": -999.0
    },
    {
     "png": "GreatSide_4",
@@ -1587,85 +1591,43 @@
     "dy": -1,
     "sx": 0,
     "time": 0.04,
-    "angle": 0.0
+    "angle": 0.0,
+    "angleB": -999.0
    },
    {
     "png": "GreatSide_5",
     "hand": [
-     53,
-     31
+     48,
+     39
     ],
     "handB": [
-     57,
-     30
+     52,
+     40
     ],
-    "dy": -1,
+    "dy": 0,
     "sx": 0,
-    "time": 0.045,
-    "angle": 31.1
+    "time": 0.05,
+    "angle": -8.0,
+    "angleB": -999.0
    },
    {
     "png": "GreatSide_6",
     "hand": [
-     47,
-     25
+     46,
+     42
     ],
     "handB": [
      50,
-     24
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 88.9
-   },
-   {
-    "png": "GreatSide_7",
-    "hand": [
-     43,
-     24
-    ],
-    "handB": [
-     44,
-     25
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.17,
-    "angle": 120.0
-   },
-   {
-    "png": "GreatSide_8",
-    "hand": [
-     48,
-     26
-    ],
-    "handB": [
-     53,
-     24
-    ],
-    "dy": -1,
-    "sx": 0,
-    "time": 0.045,
-    "angle": 81.1
-   },
-   {
-    "png": "GreatSide_9",
-    "hand": [
-     50,
-     37
-    ],
-    "handB": [
-     56,
-     39
+     44
     ],
     "dy": 0,
     "sx": 0,
-    "time": 0.045,
-    "angle": 8.9
+    "time": 0.1,
+    "angle": -15.0,
+    "angleB": -999.0
    },
    {
-    "png": "GreatSide_10",
+    "png": "GreatSide_7",
     "hand": [
      46,
      42
@@ -1677,10 +1639,11 @@
     "dy": 0,
     "sx": 0,
     "time": 0.12,
-    "angle": -30.0
+    "angle": -30.0,
+    "angleB": -999.0
    },
    {
-    "png": "GreatSide_11",
+    "png": "GreatSide_8",
     "hand": [
      44,
      42
@@ -1692,10 +1655,11 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -27.4
+    "angle": -27.4,
+    "angleB": -999.0
    },
    {
-    "png": "GreatSide_12",
+    "png": "GreatSide_9",
     "hand": [
      41,
      42
@@ -1707,10 +1671,11 @@
     "dy": 0,
     "sx": 0,
     "time": 0.045,
-    "angle": -22.6
+    "angle": -22.6,
+    "angleB": -999.0
    },
    {
-    "png": "GreatSide_13",
+    "png": "GreatSide_10",
     "hand": [
      39,
      42
@@ -1722,7 +1687,8 @@
     "dy": 0,
     "sx": 0,
     "time": 0.08,
-    "angle": -20.0
+    "angle": -20.0,
+    "angleB": -999.0
    }
   ]
  },
@@ -17220,6 +17186,222 @@
     ],
     "handB": [
      43,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.08,
+    "angle": -20.0
+   }
+  ]
+ },
+ "GreatSide_side": {
+  "frame": 0.05,
+  "loop": false,
+  "frames": [
+   {
+    "png": "GreatSide_side_0",
+    "hand": [
+     31,
+     42
+    ],
+    "handB": [
+     39,
+     42
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -61.5
+   },
+   {
+    "png": "GreatSide_side_1",
+    "hand": [
+     24,
+     37
+    ],
+    "handB": [
+     31,
+     37
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -138.5
+   },
+   {
+    "png": "GreatSide_side_2",
+    "hand": [
+     23,
+     34
+    ],
+    "handB": [
+     30,
+     34
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.22,
+    "angle": 180.0
+   },
+   {
+    "png": "GreatSide_side_3",
+    "hand": [
+     39,
+     44
+    ],
+    "handB": [
+     41,
+     42
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.04,
+    "angle": -95.0
+   },
+   {
+    "png": "GreatSide_side_4",
+    "hand": [
+     54,
+     34
+    ],
+    "handB": [
+     57,
+     34
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.04,
+    "angle": 0.0
+   },
+   {
+    "png": "GreatSide_side_5",
+    "hand": [
+     53,
+     31
+    ],
+    "handB": [
+     57,
+     30
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 31.1
+   },
+   {
+    "png": "GreatSide_side_6",
+    "hand": [
+     47,
+     25
+    ],
+    "handB": [
+     50,
+     24
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 88.9
+   },
+   {
+    "png": "GreatSide_side_7",
+    "hand": [
+     43,
+     24
+    ],
+    "handB": [
+     44,
+     25
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.17,
+    "angle": 120.0
+   },
+   {
+    "png": "GreatSide_side_8",
+    "hand": [
+     48,
+     26
+    ],
+    "handB": [
+     53,
+     24
+    ],
+    "dy": -1,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 81.1
+   },
+   {
+    "png": "GreatSide_side_9",
+    "hand": [
+     50,
+     37
+    ],
+    "handB": [
+     56,
+     39
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": 8.9
+   },
+   {
+    "png": "GreatSide_side_10",
+    "hand": [
+     46,
+     42
+    ],
+    "handB": [
+     49,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.12,
+    "angle": -30.0
+   },
+   {
+    "png": "GreatSide_side_11",
+    "hand": [
+     44,
+     42
+    ],
+    "handB": [
+     48,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -27.4
+   },
+   {
+    "png": "GreatSide_side_12",
+    "hand": [
+     41,
+     42
+    ],
+    "handB": [
+     47,
+     43
+    ],
+    "dy": 0,
+    "sx": 0,
+    "time": 0.045,
+    "angle": -22.6
+   },
+   {
+    "png": "GreatSide_side_13",
+    "hand": [
+     39,
+     42
+    ],
+    "handB": [
+     47,
      43
     ],
     "dy": 0,
