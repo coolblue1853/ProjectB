@@ -1,6 +1,6 @@
 // 임시 도트 무기(gen_tmp_weapons.py) 임포트 설정: 스프라이트·점 필터·무압축·24 PPU·피벗 = 손잡이(json grip, ShortSword 와 같은 식). 재실행 안전
 var sb = new System.Text.StringBuilder();
-foreach (var n in new[] { "TmpKatana", "TmpHammer", "TmpCannon", "TmpKnife", "TmpHook", "TmpPistol", "TmpRifle", "TmpSword", "TmpGreatSword", "TmpDagger", "TmpSpear", "TmpStaff", "TmpBow", "TmpShield", "TmpKnuckle", "TmpWhip", "TmpCutlass", "TmpAnchor", "TmpEyeStaff", "TmpTome" })
+foreach (var n in new[] { "TmpKatana", "TmpHammer", "TmpCannon", "TmpKnife", "TmpHook", "TmpPistol", "TmpRifle", "TmpSword", "TmpGreatSword", "TmpDagger", "TmpSpear", "TmpStaff", "TmpBow", "TmpShield", "TmpKnuckle", "TmpWhip", "TmpCutlass", "TmpAnchor", "TmpEyeStaff", "TmpTome", "TmpScabbard" })
 {
     string p = "Assets/Resources/PixelRig/Weapons/" + n + ".png";
     AssetDatabase.ImportAsset(p);

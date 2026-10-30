@@ -53,6 +53,9 @@ SPLICE = {
     # 10-30 품질 루프(GPT 잡기 5.0 "움켜잡는 순간이 없다"): 3/4 앞 두 팔 벌림 → 앞으로 모아 움켜쥠 → 갈비뼈로 당김(재생 프로파일 대체)
     "Grab": [("0@Pull", .045), ("GrabSE", "D_GrabSE", 0, -20, .12, False), ("GrabSE", "D_GrabSE", 1, -20, .05, False), ("GrabSE", "D_GrabSE", 1, -20, .08, False),
              ("GrabSE", "D_GrabSE", 2, -20, .22, False), ("13@Pull", .1)],
+    # 10-30 품질 루프(GPT 놓기 5.5 "물체를 놓는 접지 순간이 없다"): 3/4 앞으로 깊게 웅크려 손을 앞발 옆 땅까지 → 회수
+    "Place": ["0", "1", ("PlaceSE", "D_PlaceSE", 0, -20, .1, False), ("PlaceSE", "D_PlaceSE", 1, -20, .22, False), ("PlaceSE", "D_PlaceSE", 2, -20, .12, False),
+              "10", "11", "12"],
     # 새 셀: 춤(N3)·악기(N2, 생성기가 류트를 그림 — 현악기 전용)
     "Dance": [("DanceS", "D_DanceS", i, 0, .15, False) for i in range(4)],
     "Lute": [("LuteSE", "D_LuteSE", i, 30, .12, False) for i in range(3)],
@@ -65,6 +68,8 @@ SPLICE = {
 }
 
 LOOP = {"Dance", "Lute"}
+# 앞손에 칼집을 쥐는 셀: 앞손 무기 각도(뒤·아래로 허리에 찬 칼집, 10-30 GPT "납도에 칼집이 안 보인다")
+SCABBARD = {"Iaido": 200.0, "Sheathe": 200.0}
 
 
 def joint(keys, name, i, label):
@@ -105,6 +110,8 @@ def main():
         out["motion"] = f"splice_dirs({cel})"
         if cel in LOOP:
             out["loop"] = True
+        if cel in SCABBARD:
+            out["angleB"] = [SCABBARD[cel]] * len(out["frames"])
         reg[cel] = out
         print(cel, len(out["frames"]), round(sum(out["times"]), 2))
     json.dump(reg, open(REG, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

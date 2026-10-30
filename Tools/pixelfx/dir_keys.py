@@ -174,6 +174,16 @@ MOTIONS = {
         ("se", {"RIGHT SHOULDER": (38, 36), "RIGHT ARM": (47, 40), "LEFT ARM": (50, 40), "RIGHT LEG": (30, 52), "LEFT LEG": (50, 52), "shift": (2, 2)}, -20),
         ("se", {"RIGHT SHOULDER": (37, 37), "RIGHT ARM": (42, 42), "LEFT ARM": (45, 42), "RIGHT LEG": (29, 52), "LEFT LEG": (47, 52), "shift": (-2, 1)}, -20),
     ],
+    "D_PlaceSE": [   # 10-30 품질 루프(GPT 놓기 5.5): 3/4 앞 — 배 앞에 들고 → 골반 크게 낮춰 손을 앞발 옆 땅까지 → 손 떼고 회수
+        ("se", {"RIGHT ARM": (42, 44), "LEFT ARM": (45, 44), "RIGHT LEG": (32, 52), "LEFT LEG": (47, 52), "shift": (0, 2)}, -20),
+        ("se", {"RIGHT ARM": (47, 51), "LEFT ARM": (50, 51), "RIGHT LEG": (31, 52), "LEFT LEG": (49, 52), "shift": (2, 6)}, -20),
+        ("se", {"RIGHT ARM": (44, 47), "LEFT ARM": (46, 47), "RIGHT LEG": (31, 52), "LEFT LEG": (49, 52), "shift": (1, 5)}, -20),
+    ],
+    "D_BowNE": [     # 10-30 품질 루프(GPT 활 5.5 "시위를 턱까지 당겼다 놓는 차이가 없다"): 3/4 뒤 — 활 든 손 앞으로 뻗고 당기는 손 턱 옆까지 → 놓으며 뒤로 튕김
+        ("ne", {"LEFT ARM": (50, 36), "RIGHT ARM": (44, 37), "LEFT LEG": (30, 52), "RIGHT LEG": (42, 52)}, 0),
+        ("ne", {"LEFT ARM": (51, 35), "RIGHT ARM": (40, 34), "LEFT LEG": (30, 52), "RIGHT LEG": (42, 52), "shift": (-1, 0)}, 0),
+        ("ne", {"LEFT ARM": (51, 35), "RIGHT ARM": (36, 33), "LEFT LEG": (30, 52), "RIGHT LEG": (42, 52), "shift": (-1, 0)}, 0),
+    ],
 }
 LIMB = {"ARM": ("SHOULDER", "ELBOW"), "LEG": ("HIP", "KNEE")}
 

@@ -286,8 +286,18 @@ def tome():
     return outline(im), (5, 6), True
 
 
+def scabbard():
+    """카타나 칼집(앞손, 10-30 납도 품질 — GPT "칼집에 들어가는 게 안 보인다"): 검은 옻칠 + 금 입구 고리. 피벗 = 입구(손이 잡는 곳), 칼집은 위(각도 방향)로 뻗는다."""
+    im = canvas(6, 30)
+    rect(im, 2, 2, 3, 27, (40, 30, 42, 255))
+    rect(im, 3, 2, 3, 27, (24, 18, 26, 255))
+    rect(im, 1, 26, 4, 27, G)        # 입구 고리
+    rect(im, 2, 2, 3, 3, G)          # 끝 장식
+    return outline(im), (2, 27), False
+
+
 def main():
-    for name, fn in (("TmpKatana", katana), ("TmpHammer", hammer), ("TmpCannon", cannon), ("TmpKnife", knife), ("TmpHook", hook), ("TmpPistol", pistol), ("TmpRifle", rifle), ("TmpSword", sword), ("TmpGreatSword", greatsword), ("TmpDagger", dagger), ("TmpSpear", spear), ("TmpStaff", staff), ("TmpBow", bow), ("TmpShield", shield), ("TmpKnuckle", knuckle), ("TmpWhip", whip_handle), ("TmpCutlass", cutlass), ("TmpAnchor", anchor), ("TmpEyeStaff", eye_staff), ("TmpTome", tome)):
+    for name, fn in (("TmpKatana", katana), ("TmpHammer", hammer), ("TmpCannon", cannon), ("TmpKnife", knife), ("TmpHook", hook), ("TmpPistol", pistol), ("TmpRifle", rifle), ("TmpSword", sword), ("TmpGreatSword", greatsword), ("TmpDagger", dagger), ("TmpSpear", spear), ("TmpStaff", staff), ("TmpBow", bow), ("TmpShield", shield), ("TmpKnuckle", knuckle), ("TmpWhip", whip_handle), ("TmpCutlass", cutlass), ("TmpAnchor", anchor), ("TmpEyeStaff", eye_staff), ("TmpTome", tome), ("TmpScabbard", scabbard)):
         im, grip, upright = fn()
         im.save(os.path.join(OUT, name + ".png"))
         with open(os.path.join(OUT, name + ".json"), "w") as fp:
