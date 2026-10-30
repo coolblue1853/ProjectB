@@ -21,6 +21,7 @@ Project B 작업 지침. 모든 대화와 문서는 **한글**로 쓴다.
 
 - **커밋:** 기능 단위로 커밋하고 push한다. 메시지는 `(추가)/(수정)/(삭제)/(문서) 요약` + 본문 bullet 형식으로 쓴다.
 - **검증:** 버그 수정과 기능은 **Unity 에디터에서 실제로 확인**한다(unity-mcp: 콘솔 로그, 플레이 모드, 스크린샷). 확인하지 못했으면 커밋 메시지와 문서에 "미검증"으로 적는다.
+- **사용량 절약(10-30 사용자):** Claude 사용량을 아끼려고, GPT(Claude in Chrome 의 ChatGPT 탭, Plus)로 해도 품질 차이가 없는 일은 GPT 에 맡긴다 — 기획서·수치표·리서치·레퍼런스 조사·이미지 리뷰·채점·초안 코드. Claude 는 Unity 통합·검증·커밋·판단만. 아끼는 순서 PixelLab > Claude > GPT.
 - **참조 프로젝트:** `C:\Users\user\Downloads\PurpleCow_MadDucks-main`은 **읽기 전용**이다. 절대 수정·생성·커밋하지 않는다.
 
 @../.claude-rules/AGENTS.md
