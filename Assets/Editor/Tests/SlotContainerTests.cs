@@ -171,6 +171,31 @@ public class SlotContainerTests
     }
 
     [Test]
+    public void Split_PrefersGivenPage_KeepsTierAndUpgrade()
+    {
+        var c = New(6, 6); // 3칸 × 2페이지
+        Assert.IsTrue(c.PutAt(0, new ItemStack("Wood", 8, 2, 3)));
+        Assert.IsTrue(c.Split(0, 3, 1, 3));
+        Assert.AreEqual(5, c[0].Count);
+        Assert.IsTrue(c[1].IsEmpty, "같은 페이지 빈칸보다 지정 페이지가 먼저");
+        Assert.AreEqual(3, c[3].Count);
+        Assert.AreEqual(2, c[3].Tier);
+        Assert.AreEqual(3, c[3].Upgrade);
+    }
+
+    [Test]
+    public void Split_GivenPageFull_FallsBackToAnyEmptySlot()
+    {
+        var c = New(4, 4); // 2칸 × 2페이지, 1페이지 꽉 참
+        c.PutAt(0, Wood(8));
+        c.PutAt(2, new ItemStack("Ore", 1));
+        c.PutAt(3, new ItemStack("Ore", 1));
+        Assert.IsTrue(c.Split(0, 3, 1, 2));
+        Assert.AreEqual(3, c[1].Count);
+        Assert.AreEqual(8, c.Count("Wood"));
+    }
+
+    [Test]
     public void Split_AmountMustBeBetweenOneAndCount()
     {
         var c = New();

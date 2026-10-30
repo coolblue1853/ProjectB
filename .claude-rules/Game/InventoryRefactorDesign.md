@@ -373,12 +373,13 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 
 ### Phase 3 — 진실을 모델로 옮기기 (인벤토리)
 
-> **진행(2026-10-18):** 🔶 3a 1차 — `InventoryService`(Add/Remove → 모델 명령 → 바뀐 칸만 `DrawSlot`, 명령 전 `SyncModelFromViews` 브리지, `OnItemAdded(ItemStack, AddSource)` 이벤트). `CreatItem`·`DeletItemByName`이 서비스를 쓴다. 프로브 `inv_test`(기존과 동일 결과)·`inv_model_sync`(불일치 0). 2차: `LoadInventory` → `Service.LoadFrom`(매퍼 → 전 칸 그리기, 열린 칸 밖 세이브 아이템은 경고·보존), `CreatItem(source)`로 `AddSource` 전달(드롭·제작·상점·창고), `DeletItemByName` 즉시 저장. 남은 것: 소비·판매·`CreatItemSelected` 이전, `SlotView` 바인딩, 픽업 로그 구독. ✅ 열린 칸 밖 세이브 아이템은 `hidden`에 보관해 `BuildSaveArray`가 다시 쓴다(프로브 `inv_hidden_keep`). 판매·소비는 `RemoveAt`(aa63a13f).
+> **진행(2026-10-18):** 🔶 3a 1차 — `InventoryService`(Add/Remove → 모델 명령 → 바뀐 칸만 `DrawSlot`, 명령 전 `SyncModelFromViews` 브리지, `OnItemAdded(ItemStack, AddSource)` 이벤트). `CreatItem`·`DeletItemByName`이 서비스를 쓴다. 프로브 `inv_test`(기존과 동일 결과)·`inv_model_sync`(불일치 0). 2차: `LoadInventory` → `Service.LoadFrom`(매퍼 → 전 칸 그리기, 열린 칸 밖 세이브 아이템은 경고·보존), `CreatItem(source)`로 `AddSource` 전달(드롭·제작·상점·창고), `DeletItemByName` 즉시 저장. 남은 것: 소비·판매·`CreatItemSelected` 이전, `SlotView` 바인딩, 픽업 로그 구독. ✅ 열린 칸 밖 세이브 아이템은 `hidden`에 보관해 `BuildSaveArray`가 다시 쓴다(프로브 `inv_hidden_keep`). 판매·소비는 `RemoveAt`(aa63a13f). ✅ 3a 마무리(10-30): 소비는 `RemoveAt` 성공 후에만 효과(먼저 빼고 효과), 판매는 `RemoveAt` 성공 시에만 돈 지급(예외 경로의 직접 차감 삭제, 죽은 `ItemCheck.ConsumItemActive` 삭제). `CreatItemSelected` → `Service.PutInPage`(지정 페이지 첫 빈칸에 그대로, 티어·강화 보존, 데이터 사본), 키보드 페이지 이동 `BoxChange` → `Service.MoveToPage`, 나누기 `DownNowStack` → `Service.SplitAt`(지정 페이지 우선, 가득 차면 다른 페이지 빈칸, Q-429). 드래그 페이지 탭 드롭은 성공 시에만 원본 삭제 + 인벤(출발이 창고면 창고도) 저장, 실패 시 원래 칸 복귀. 프로브 `inv_phase3a_paths`(소비 -1·나누기 총량 보존·놓기 t2u3·판매 +돈/초과 판매 거절·배열/뷰 불일치 0). 키보드 페이지 이동·페이지 탭 드래그는 2~5페이지가 잠겨 있어 실제 이동은 미검증. 리뷰 반영: `PutInPage` 는 시트에 없는 이름을 미리 거절(성공 보고 후 원본 삭제 → 소실 방지)·`source` 를 주면 `OnItemAdded` 발행(창고발 = Chest), 페이지 탭 드롭(인벤↔창고 양방향)은 `SaveInventoryAndChest` 로 디스크 1회 저장, 소비는 차감 저장 후 효과. 드래그 임시 구멍은 B-219. 저장은 여전히 스캐너→매퍼(`BuildSaveArray`)다 — 모델 소유 저장은 드래그·키보드 교환이 GameObject 를 직접 옮기는 동안 진실이 UI 라서 3c 이후로 미룬다. 남은 것: `SlotView` 바인딩, 픽업 로그 구독, 창고 쪽 `Chest.CreatItemSelected`(Phase 4).
 
 - **3a. 기본 명령 이전:** `InventoryService`가 모델을 소유한다. `LoadInventory`는 매퍼로 모델을 채우고 뷰를 그린다.
   - `CreatItem`, `DeletItemByName`, 소비, 판매가 모델 명령을 쓴다. 뷰는 `SlotView.Bind`로 그린다.
   - 아직 GameObject를 직접 옮기는 경로(드래그, 키보드 교환, 나누기)는 끝에서 `SyncModelFromViews()`를 호출한다. 이것이 Phase 2 스캐너를 쓰는 **양방향 브리지**다.
 - **3b. 키보드 경로 이전:** 키보드 교환·나누기·페이지 이동을 `Move`/`Split`으로 옮긴다.
+  - ✅(10-30) 페이지 이동(`MoveToPage`)·나누기(`SplitAt`)는 3a 마무리에서 옮겼다. 남은 것: 같은 페이지 안 키보드 교환(`itemBoxChange`).
 - **3c. 드래그 이전:** `ItemDrag`가 명령만 호출하게 한다. 이로써 브리지 호출이 0이 된다.
   - 그다음 `BoxCheck` 폴링, `inventoryArray`, `inventoryItemStack`을 삭제한다. 제작·상점은 `Count`를 직접 쓴다.
 - **픽업 로그(D6):** 3a 직후 붙일 수 있다.
@@ -393,6 +394,7 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 - `Chest`가 `SlotContainer`와 `GridCursor`를 쓰게 한다. 중복 메서드(커서, 나누기, 교체, 툴팁)를 삭제해 Chest를 300줄 이하로 줄이는 것이 목표다.
 - 인벤 → 창고, 창고 → 인벤 이동은 `SlotContainer.Transfer` 한 함수로 처리한다.
 - 인벤·창고·장비를 원자적으로 함께 저장한다(B-015).
+  - (10-30) 시작점: `InventoryManager.SaveInventoryAndChest()`(창고 `WriteChestArray` + 인벤 저장, 디스크 쓰기 1회). 임시 창구 `CommitDragToPage`(페이지 탭 드롭)는 `Transfer` + 원자 저장으로 대체하고 지운다. 페이지 탭 드롭은 지금 합치지 않고 빈칸에 그대로 놓는다 — `Transfer` 로 바꿀 때 합치기 여부를 정한다.
 - **프로브:** `chest_transfer.cs`
   - 양방향으로 이동한다.
   - 대상이 가득 차도 총량이 보존되는지 확인한다.

@@ -191,6 +191,16 @@ public class InventoryManager : MonoBehaviour
         SaveManager.instance.datas.invenItem = saveInven;
         SaveManager.instance.DataSave();
     }
+
+    /// <summary>인벤과 (열려 있으면) 창고를 세이브 데이터에 쓰고 디스크에는 한 번만 쓴다 — 둘 사이 이동 뒤 한쪽만 저장되는 복제·소실 방지(B-015)</summary>
+    public void SaveInventoryAndChest()
+    {
+        if (chest != null)
+        {
+            chest.WriteChestArray(); // 배치 중이면 datas 에만 들어가고 배치 끝의 저장 1회에 같이 실린다
+        }
+        SaveInventory();
+    }
     public void LoadInventory()
     {
         if (SaveManager.instance.datas.invenItem == null)
@@ -322,8 +332,7 @@ public class InventoryManager : MonoBehaviour
     {
         changeCusor.SetActive(false);
         GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], beforeCusorInt);
-        GameObject item = itemBox.transform.GetChild(0).gameObject;
-        ItemCheck itemCheck = item.transform.GetComponent<ItemCheck>();
+        ItemCheck itemCheck = itemBox.transform.GetChild(0).GetComponent<ItemCheck>();
 
         InventoryAlpha boxCheck = inventoryUI[num].GetComponent<InventoryAlpha>();
         int siblingParentIndex = boxCheck.siblingIndex;
@@ -331,9 +340,9 @@ public class InventoryManager : MonoBehaviour
         {
             if (CheckBoxCanCreat(siblingParentIndex))
             {
-                if (CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData))
+                if (Service.MoveToPage(itemCheck, siblingParentIndex))
                 {
-                    Destroy(item.gameObject);
+                    SaveInventory();
                 }
                 cusorCount[nowBox] = beforeCusorInt;
                 changeCusor.SetActive(false);
@@ -367,8 +376,7 @@ public class InventoryManager : MonoBehaviour
                 Destroy(item.gameObject);
             }
             // 양쪽을 함께 저장 (한쪽만 저장된 상태로 종료되면 복제·소실, B-015)
-            SaveInventory();
-            chest.SaveChest();
+            SaveInventoryAndChest();
         }
     }
 
@@ -409,9 +417,9 @@ public class InventoryManager : MonoBehaviour
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
         // 새 칸을 만든 경우에만 원본을 줄인다 (빈칸이 없으면 나눈 수량이 사라지던 문제, B-009)
-        if (output > 0 && output < item.nowStack && CreatItemSelected(item.name, nowBox, output, item.itemData))
+        if (output > 0 && output < item.nowStack && Service.SplitAt(item, output, nowBox))
         {
-            item.nowStack -= output;
+            SaveInventory();
         }
     }
 
@@ -1103,16 +1111,15 @@ public class InventoryManager : MonoBehaviour
     void SellItem()
     {
         int sellCount = (int)sellSlider.value;
-        if (!Service.RemoveAt(detail, sellCount))
+        // 칸에서 실제로 뺀 경우에만 돈을 준다(인벤토리 칸이 아니거나 수량이 모자라면 판매 취소)
+        if (Service.RemoveAt(detail, sellCount))
         {
-            // 인벤토리 칸 밖(예외 경로)은 기존 방식
-            detail.nowStack -= sellCount;
-            if (detail.nowStack <= 0)
-            {
-                Destroy(detail.gameObject);
-            }
+            DatabaseManager.money += totalSellPrice;
         }
-        DatabaseManager.money += totalSellPrice;
+        else
+        {
+            GameLog.Warn(GameLog.Cat.Item, "판매 실패(인벤토리 칸이 아니거나 수량 부족): " + (detail != null ? detail.name : "null") + " x" + sellCount);
+        }
         sellUIGameObject.SetActive(false);
         miscDetail.SetActive(false);
         consumDetail.SetActive(false);
@@ -1381,20 +1388,15 @@ public class InventoryManager : MonoBehaviour
             ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
             if (item.itemData.type == "Consum")
             {
-                item.ApplyConsumeEffect();
+                // 먼저 칸에서 1개를 빼고 성공했을 때만 효과를 준다(빼지 못했는데 효과만 나가는 경로 제거).
+                // 0개가 되어도 Destroy 는 프레임 끝이라 이 프레임 안의 ApplyConsumeEffect 는 itemData 를 읽을 수 있다.
                 if (!Service.RemoveAt(item, 1))
                 {
-                    // 인벤토리 칸 밖(예외 경로): 수량만 직접 차감 (효과는 위에서 이미 적용)
-                    item.nowStack -= 1;
-                    if (item.nowStack <= 0)
-                    {
-                        Destroy(item.gameObject);
-                    }
+                    GameLog.Warn(GameLog.Cat.Item, "소비 실패(인벤토리 칸이 아님): " + item.name);
+                    return;
                 }
-                else
-                {
-                    SaveInventory();
-                }
+                SaveInventory(); // 효과(CSV 파싱)에서 예외가 나도 차감은 저장되게 먼저 저장
+                item.ApplyConsumeEffect();
             }
         }
     }
@@ -2016,28 +2018,24 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
-    /// <summary>지정 페이지의 첫 빈칸에 Stack개짜리 아이템을 만든다. 빈칸이 없으면 false(호출자는 원본을 줄이지 말 것).</summary>
-    public bool CreatItemSelected(string itemName, int boxNum, int Stack = 1, ItemData data = null)
+    /// <summary>
+    /// 인벤토리 밖(드래그 중·창고)에서 온 Stack개짜리 아이템을 지정 페이지의 첫 빈칸에 놓는다(InventoryService.PutInPage).
+    /// 빈칸이 없으면 false(호출자는 원본을 지우지 말 것). 저장은 호출자가 한다.
+    /// </summary>
+    public bool CreatItemSelected(string itemName, int boxNum, int Stack = 1, ItemData data = null, AddSource? source = null)
     {
-        for (int i = 0; i < (maxHor * maxVer); i++)
-        {
-            if (maxBoxNum > (boxNum * (maxHor * maxVer)) + i)
-            {
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[boxNum], i);
-                if (inventoryArray[i, boxNum] == 0 && insPositon.transform.childCount == 0)
-                {
-                    inventoryArray[i, boxNum] = 1; // 같은 프레임 중복 배치 방지 (B-010)
-                    GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
-                    ItemCheck check = item.GetComponent<ItemCheck>();
-                    float scaleFactor = 0.8f; // 크기를 조절할 비율
-                    item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-                    check.SetItem(itemName, data != null ? data.Clone() : null); // 티어·강화 보존 (B-014)
-                    check.nowStack = Stack;
-                    return true;
-                }
-            }
-        }
-        return false;
+        var stack = new ItemStack(itemName, Stack, data != null ? data.tear : 0, data != null ? data.upgrade : 0);
+        return Service.PutInPage(boxNum, stack, data, source);
+    }
+    /// <summary>
+    /// 드래그로 페이지 탭(인벤·창고)에 놓아 CreatItemSelected 가 성공한 뒤: 끌던 원본을 지우고 인벤·창고를 한 번에 저장한다(B-015).
+    /// Phase 4 에서 SlotContainer.Transfer + 원자 저장으로 대체할 임시 창구다.
+    /// </summary>
+    public void CommitDragToPage(GameObject dragged)
+    {
+        dragged.transform.SetParent(null, false); // Destroy 는 프레임 끝이라 먼저 떼어 같은 프레임 스캔에 안 잡히게
+        Destroy(dragged);
+        SaveInventoryAndChest();
     }
     public void TestDelet(int uiNum, int boxNum)
     {

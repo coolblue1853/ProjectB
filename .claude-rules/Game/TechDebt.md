@@ -107,6 +107,7 @@
 | B-216 | ⏳ Shift 키 겹침: 달리기 토글을 누를 때마다 아티팩트 발동(`ArtifactSystem` Shift 하드코딩). 키 배치 결정 대기 Q-422 (10-25) | `ArtifactSystem.cs`, `KeyAction.inputactions` |
 | B-217 | ✅ 대시 잔상이 픽셀 리그에서 큰 파란 사각형으로 찍힘(FullRect 부위를 메시로 복사) → SpriteRenderer 복사 (10-26) | `DashAfterimage.cs` |
 | B-218 | ✅ isAttack 이 없는 몹 애니메이터(토끼 등)를 맞힐 때마다 'Parameter isAttack does not exist' 경고 → 존재 여부를 Awake 에서 한 번 캐시 (10-26) | `EnemyHealth.cs` |
+| B-219 | 인벤 드래그 임시 구멍(Phase 3c 전까지): ① 드래그 중인 아이템은 dragCanvas 아래라 그 사이 다른 경로가 `SaveInventory` 를 부르고 종료되면 세이브에서 빠짐 ② 페이지 탭 드롭 사전 검사 `CheckBoxCanCreat` 는 `inventoryArray`(폴링) 기준, 실제 배치는 모델 기준이라 거짓 음성 가능(실패 시 원위치라 소실은 없음) ③ `ShopItemDrag` 는 어디서도 안 쓰이는데 `DropFromEquipNotAllowed` 가드가 없음. 조치 후보: OnBeginDrag~OnEndDrag 를 `BeginSaveBatch/EndSaveBatch` 로 감싸기, 3c 에서 사전 검사 삭제, ShopItemDrag 삭제 | `ItemDrag.cs`, `ShopItemDrag.cs`, `InventoryService.PutInPage` |
 
 ## P3 (정리)
 

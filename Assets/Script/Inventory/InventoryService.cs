@@ -128,6 +128,85 @@ public sealed class InventoryService
         return true;
     }
 
+    /// <summary>page 페이지의 열린 칸 중 첫 빈칸. 없으면 -1 (model 은 호출 전에 동기화돼 있어야 한다)</summary>
+    int FirstEmptyInPage(int page)
+    {
+        if (page < 0 || page >= inv.inventoryUI.Length)
+        {
+            return -1;
+        }
+        int end = Mathf.Min(model.Unlocked, (page + 1) * PerPage);
+        for (int i = page * PerPage; i < end; i++)
+        {
+            if (model[i].IsEmpty)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /// <summary>
+    /// 인벤토리 밖(드래그 중·창고)에서 온 스택을 page 페이지의 첫 빈칸에 그대로 놓는다(합치지 않음).
+    /// 빈칸이 없거나 시트에 없는 이름이면 아무것도 하지 않고 false — 호출자는 원본을 지우지 말 것.
+    /// source 를 주면 OnItemAdded 를 발행한다(창고에서 온 경우 Chest, 인벤 안 페이지 이동이면 null).
+    /// </summary>
+    public bool PutInPage(int page, ItemStack s, ItemData data, AddSource? source = null)
+    {
+        // DrawSlot 이 칸을 비우는 이름(시트에 없음)을 미리 거른다 — 성공을 보고한 뒤 호출자가 원본을 지우면 소실
+        if (s.IsEmpty || !CsvItemCatalog.Shared.Exists(s.Id))
+        {
+            return false;
+        }
+        SyncModelFromViews();
+        int target = FirstEmptyInPage(page);
+        if (target < 0 || !model.PutAt(target, s))
+        {
+            return false;
+        }
+        ApplyDirty(data != null ? data.Clone() : null); // 티어·강화 보존(B-014), 원본과 참조 공유 금지
+        if (source.HasValue)
+        {
+            OnItemAdded?.Invoke(s, source.Value);
+        }
+        return true;
+    }
+
+    /// <summary>인벤토리 칸의 아이템을 page 페이지 첫 빈칸으로 통째로 옮긴다(키보드 페이지 이동). 같은 페이지·빈칸 없음이면 false</summary>
+    public bool MoveToPage(ItemCheck item, int page)
+    {
+        int from = IndexOf(item);
+        if (from < 0 || from / PerPage == page)
+        {
+            return false;
+        }
+        SyncModelFromViews();
+        int target = FirstEmptyInPage(page);
+        if (target < 0 || !model.Move(from, target))
+        {
+            return false;
+        }
+        ApplyDirty(null);
+        return true;
+    }
+
+    /// <summary>인벤토리 칸에서 amount 개를 떼어 page 페이지 빈칸(없으면 다른 페이지 빈칸)에 둔다. 빈칸이 없으면 false, 총량 보존(B-009)</summary>
+    public bool SplitAt(ItemCheck item, int amount, int page)
+    {
+        int index = IndexOf(item);
+        if (index < 0)
+        {
+            return false;
+        }
+        SyncModelFromViews();
+        if (!model.Split(index, amount, page, PerPage))
+        {
+            return false;
+        }
+        ApplyDirty(null);
+        return true;
+    }
+
     /// <summary>세이브 배열로 모델을 채우고 슬롯 박스가 있는 칸을 전부 그린다(로드)</summary>
     public void LoadFrom(string[,,] saved)
     {

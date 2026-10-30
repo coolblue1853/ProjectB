@@ -129,11 +129,16 @@ public class Chest : MonoBehaviour
     }
     public void SaveChest()
     {
+        WriteChestArray();
+        SaveManager.instance.DataSave();
+    }
+
+    /// <summary>창고 슬롯 → 세이브 데이터(datas.chestItem)에 쓰기만 한다. 디스크 쓰기는 호출자(인벤과 한 번에 저장할 때, B-015)</summary>
+    public void WriteChestArray()
+    {
         // Phase 2 브리지: UI 슬롯 → 모델 → 세이브 배열 (SaveMapper)
         SlotContainer model = ViewScanner.BuildFrom(inventoryUI, 30, CsvItemCatalog.Shared);
-        string[,,] saveChest = SaveMapper.ToArray(model, 5, 30);
-        SaveManager.instance.datas.chestItem = saveChest;
-        SaveManager.instance.DataSave();
+        SaveManager.instance.datas.chestItem = SaveMapper.ToArray(model, 5, 30);
     }
     public void LoadChest()
     {

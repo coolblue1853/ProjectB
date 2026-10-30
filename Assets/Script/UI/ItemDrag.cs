@@ -251,10 +251,17 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 int siblingParentIndex = changeBox.transform.GetSiblingIndex();
                 if (InventoryManager.instance.nowBox != siblingParentIndex)
                 {
-                    if (InventoryManager.instance.CheckBoxCanCreat(siblingParentIndex))
+                    AddSource? from = currentParent.parent.CompareTag("Chest") ? AddSource.Chest : (AddSource?)null;
+                    if (InventoryManager.instance.CheckBoxCanCreat(siblingParentIndex)
+                        && InventoryManager.instance.CreatItemSelected(itemCheck.itemData.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData, from))
                     {
-                        InventoryManager.instance.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData);
-                        Destroy(this.gameObject);
+                        InventoryManager.instance.CommitDragToPage(gameObject);
+                    }
+                    else
+                    {
+                        // 대상 페이지에 빈칸이 없으면 원래 칸으로 되돌린다(드래그 캔버스에 남지 않게)
+                        transform.SetParent(currentParent);
+                        transform.position = currentParent.position;
                     }
                 }
                 else
@@ -278,10 +285,16 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 int siblingParentIndex = changeBox.transform.GetSiblingIndex();
                 if (InventoryManager.instance.chest.nowBox != siblingParentIndex)
                 {
-                    if (InventoryManager.instance.chest.CheckBoxCanCreat(siblingParentIndex))
+                    if (InventoryManager.instance.chest.CheckBoxCanCreat(siblingParentIndex)
+                        && InventoryManager.instance.chest.CreatItemSelected(itemCheck.itemData.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData))
                     {
-                        InventoryManager.instance.chest.CreatItemSelected(itemCheck.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData);
-                        Destroy(this.gameObject);
+                        InventoryManager.instance.CommitDragToPage(gameObject);
+                    }
+                    else
+                    {
+                        // 대상 창고 페이지에 빈칸이 없으면 원래 칸으로 되돌린다
+                        transform.SetParent(currentParent);
+                        transform.position = currentParent.position;
                     }
                 }
                 else
