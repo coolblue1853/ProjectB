@@ -56,10 +56,17 @@ public static class EnhanceService
 
         int streak = FailStreak;
         result = EnhanceRules.Roll(lv, Random.value, streak, out newLevel);
-        item.itemData.upgrade = newLevel;
+        InventoryService service = InventoryManager.instance.Service;
+        if (service.IndexOf(item) < 0)
+        {
+            item.itemData.upgrade = newLevel; // 인벤 밖(지금 강화 창은 인벤 아이템만 보여 주므로 예외 경로)
+        }
+        else if (!service.SetUpgrade(item, newLevel)) // 인벤 칸이면 모델 명령으로(3c-2)
+        {
+            GameLog.Warn(GameLog.Cat.Item, "강화 수치 반영 실패(모델 거절): " + item.name);
+        }
         FailStreak = result == EnhanceRules.Result.Success ? 0 : streak + 1;
 
-        InventoryManager.instance.RebuildItemStackCache();
         InventoryManager.instance.SaveInventory();
         Sfx.Play(result == EnhanceRules.Result.Success ? (newLevel >= 5 ? SfxId.EnhanceGreat : SfxId.EnhanceSuccess) : SfxId.EnhanceFail);
         if (result == EnhanceRules.Result.Success)

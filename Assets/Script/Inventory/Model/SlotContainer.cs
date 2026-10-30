@@ -261,6 +261,21 @@ public sealed class SlotContainer
         return true;
     }
 
+    /// <summary>차 있는 칸의 강화·티어를 바꾼다(강화용, 수량은 그대로여야 함). 빈칸·다른 id·다른 수량이면 false</summary>
+    public bool ReplaceAt(int index, ItemStack s)
+    {
+        if (!InRange(index) || slots[index].IsEmpty || s.IsEmpty || slots[index].Id != s.Id || slots[index].Count != s.Count)
+        {
+            return false;
+        }
+        if (Same(slots[index], s))
+        {
+            return true;
+        }
+        Set(index, s);
+        return true;
+    }
+
     /// <summary>빈칸에 그대로 놓기 (장착 교환용). 차 있으면 false</summary>
     public bool PutAt(int index, ItemStack s)
     {

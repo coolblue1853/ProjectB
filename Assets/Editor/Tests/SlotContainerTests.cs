@@ -196,6 +196,25 @@ public class SlotContainerTests
     }
 
     [Test]
+    public void ReplaceAt_ChangesUpgradeInPlace_RejectsOtherIdOrEmpty()
+    {
+        var c = New();
+        c.PutAt(2, new ItemStack("Sword", 1, 1, 0));
+        int events = 0;
+        c.OnSlotChanged += i => events++;
+        Assert.IsTrue(c.ReplaceAt(2, new ItemStack("Sword", 1, 1, 5)));
+        Assert.AreEqual(5, c[2].Upgrade);
+        Assert.AreEqual(1, c[2].Tier);
+        Assert.AreEqual(1, events);
+        Assert.IsTrue(c.ReplaceAt(2, new ItemStack("Sword", 1, 1, 5)), "같은 값(강화 실패 유지)은 성공·이벤트 없음");
+        Assert.AreEqual(1, events);
+        Assert.IsFalse(c.ReplaceAt(2, new ItemStack("Sword", 2, 1, 5)), "수량 변경은 거절");
+        Assert.IsFalse(c.ReplaceAt(2, new ItemStack("Wood", 1)));
+        Assert.IsFalse(c.ReplaceAt(0, new ItemStack("Sword", 1)));
+        Assert.AreEqual(5, c[2].Upgrade);
+    }
+
+    [Test]
     public void Split_AmountMustBeBetweenOneAndCount()
     {
         var c = New();

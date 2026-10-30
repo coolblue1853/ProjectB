@@ -228,6 +228,29 @@ public sealed class InventoryService
         return true;
     }
 
+    /// <summary>
+    /// 3c-2: 인벤 칸 아이템의 강화 수치를 바꾼다(강화). 모델은 ReplaceAt, 뷰는 같은 오브젝트의 itemData 만 바꾼다
+    /// (DrawSlot 은 강화가 다르면 오브젝트를 새로 만들어 강화 창이 쥔 참조가 끊기므로 쓰지 않는다). 인벤 칸이 아니면 false.
+    /// </summary>
+    public bool SetUpgrade(ItemCheck item, int upgrade)
+    {
+        int index = IndexOf(item);
+        if (index < 0 || item.itemData == null)
+        {
+            return false;
+        }
+        SyncModelFromViews();
+        ItemStack cur = model[index];
+        if (!model.ReplaceAt(index, new ItemStack(cur.Id, cur.Count, cur.Tier, upgrade)))
+        {
+            return false;
+        }
+        dirty.Clear();
+        item.itemData.upgrade = upgrade;
+        inv.RebuildItemStackCache();
+        return true;
+    }
+
     /// <summary>특정 아이템(칸)에서 n 개를 뺀다(판매·소비). 인벤토리 칸이 아니거나 수량이 모자라면 false</summary>
     public bool RemoveAt(ItemCheck item, int n)
     {
