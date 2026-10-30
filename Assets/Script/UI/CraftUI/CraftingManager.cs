@@ -384,6 +384,7 @@ public class CraftingManager : MonoBehaviour
 
         if(CraftUI.activeSelf == true)
         {
+            CheckPinInput();
             if(isCheckDetail == true)
             {
                 MoveDetailCusor();
@@ -655,6 +656,26 @@ public class CraftingManager : MonoBehaviour
 
         }
 
+    }
+
+    CraftItemCheck _pinSyncedItem;
+
+    /// <summary>제작 핀(BasicFeatures.md 7절): 제작 창에서 P(패드 R3)로 지금 레시피를 고정/해제한다</summary>
+    void CheckPinInput()
+    {
+        if (nowCraftItem != _pinSyncedItem && nowCraftItem != null && nowCraftItem.itemData != null && nowNeedItem != null)
+        {
+            _pinSyncedItem = nowCraftItem; // 커서가 고정한 레시피에 오면 재료 목록을 조용히 맞춘다(데이터 변경 대비)
+            CraftPinHud.SyncIfPinned(nowCraftItem.itemData.name, nowNeedItem.needItem, nowNeedItem.needItemAmount);
+        }
+        Keyboard kb = Keyboard.current;
+        Gamepad gp = Gamepad.current;
+        bool pressed = (kb != null && kb.pKey.wasPressedThisFrame) || (gp != null && gp.rightStickButton.wasPressedThisFrame);
+        if (!pressed || nowCraftItem == null || nowCraftItem.itemData == null || nowNeedItem == null)
+        {
+            return;
+        }
+        CraftPinHud.Toggle(nowCraftItem.itemData.name, nowNeedItem.needItem, nowNeedItem.needItemAmount);
     }
 
     //DatabaseManager.inventoryItemStack[name]+"/" + needCount

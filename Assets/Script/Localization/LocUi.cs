@@ -27,6 +27,7 @@ public static class LocUi
         ("UP/DOWN  ·  LEFT/RIGHT column  ·  SELECT rebind  ·  ESC back", "위/아래  ·  좌/우 열  ·  선택 키 변경  ·  ESC 뒤로"),
         ("That key is reserved", "이동·확인용 고정 키라 지정할 수 없다"),
         ("EQUIPPED", "착용 중"),
+        ("Pinned: ", "제작 핀: "), ("Unpinned: ", "핀 해제: "), ("CRAFT PIN", "제작 핀"), ("Ready to craft: ", "제작 가능: "),
         ("Path sealed by the Tower.", "탑이 길을 봉인했다."),
         ("Tower Gate", "탑의 문"), ("The way to the 2nd floor is open", "2층계로 가는 길이 열렸다"),
         ("ENRAGED — Calls the gang!", "격노 — 패거리를 부른다!"),

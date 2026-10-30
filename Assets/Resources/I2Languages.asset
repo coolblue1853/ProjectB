@@ -4571,6 +4571,38 @@ MonoBehaviour:
       - "\uC0C8 \uBC84\uD2BC\uC744 \uB204\uB974\uC138\uC694  \xB7  START \uCDE8\uC18C"
       Flags: 0000
       Languages_Touch: []
+    - Term: 'Pinned:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Pinned: '
+      - "\uC81C\uC791 \uD540: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Unpinned:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Unpinned: '
+      - "\uD540 \uD574\uC81C: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: CRAFT PIN
+      TermType: 0
+      Description: 
+      Languages:
+      - CRAFT PIN
+      - "\uC81C\uC791 \uD540"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Ready to craft:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Ready to craft: '
+      - "\uC81C\uC791 \uAC00\uB2A5: "
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

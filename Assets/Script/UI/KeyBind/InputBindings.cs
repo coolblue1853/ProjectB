@@ -24,7 +24,7 @@ public static class InputBindings
     };
 
     // ESC·ENTER·패드 Start(일시정지) + 하드코딩·UI 단축키(도감 B, 지도 M). UI 맵의 인벤 열기·제작·포털 키는 IsReserved 가 에셋에서 읽는다
-    private static readonly string[] ReservedPaths = { "<Keyboard>/escape", "<Keyboard>/enter", "<Gamepad>/start", "<Keyboard>/b", "<Keyboard>/m" };
+    private static readonly string[] ReservedPaths = { "<Keyboard>/escape", "<Keyboard>/enter", "<Gamepad>/start", "<Keyboard>/b", "<Keyboard>/m", "<Keyboard>/p" }; // P = 제작 핀(제작 창)
     private static readonly string[] ReservedActions = { "UI/OpenInventory", "UI/OpenCraft", "Portal/PortalOn" };
 
     /// <summary>오버라이드가 바뀌었다(키 표시 갱신용)</summary>
