@@ -17,6 +17,7 @@ public static class LocUi
         ("COMBO", "콤보"),
         ("Inventory Full", "인벤토리 가득 참"), ("Not enough gold", "골드 부족"),
         ("Only consumables go in quick slots", "퀵슬롯에는 소비 아이템만 넣을 수 있다"),
+        ("PICKUP", "줍기"), ("ALL", "전부"), ("SKIP COMMON MAT.", "일반 재료 제외"),
         ("Path sealed by the Tower.", "탑이 길을 봉인했다."),
         ("Tower Gate", "탑의 문"), ("The way to the 2nd floor is open", "2층계로 가는 길이 열렸다"),
         ("ENRAGED — Calls the gang!", "격노 — 패거리를 부른다!"),

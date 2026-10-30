@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     static PauseMenu instance;
 
     readonly string[] items = { "RESUME", "TOWER MAP", "BESTIARY", "SETTINGS", "RETURN TO VILLAGE", "QUIT GAME" };
-    readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "LANGUAGE", "BACK" };
+    readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "LANGUAGE", "PICKUP", "BACK" };
     bool settingsMode;
     readonly List<(Image bg, TextMeshProUGUI text)> rows = new List<(Image, TextMeshProUGUI)>();
     KeyAction action;
@@ -151,6 +151,7 @@ public class PauseMenu : MonoBehaviour
             case 1: GameSettings.SetShake(GameSettings.Shake + 0.25f * dir); break;
             case 2: GameSettings.SetFlash(!GameSettings.Flash); break;
             case 3: Loc.Toggle(); break; // 한국어 ↔ English (I2, Q-407)
+            case 4: GameSettings.SetPickup(PickupRules.Next(GameSettings.Pickup)); break; // 줍기 필터 (BasicFeatures 4절)
         }
         Sfx.Play(SfxId.UiMove, 0.6f);
         Redraw();
@@ -215,7 +216,8 @@ public class PauseMenu : MonoBehaviour
             if (settingsMode)
             {
                 value = i == 0 ? "  " + Mathf.RoundToInt(GameSettings.Volume * 100f) + "%" : i == 1 ? "  " + Mathf.RoundToInt(GameSettings.Shake * 100f) + "%"
-                    : i == 2 ? "  " + Loc.T(GameSettings.Flash ? "ON" : "OFF") : i == 3 ? (Loc.IsKorean ? "  한국어" : "  ENGLISH") : "";
+                    : i == 2 ? "  " + Loc.T(GameSettings.Flash ? "ON" : "OFF") : i == 3 ? (Loc.IsKorean ? "  한국어" : "  ENGLISH")
+                    : i == 4 ? "  " + Loc.T(GameSettings.Pickup == PickupFilter.All ? "ALL" : "SKIP COMMON MAT.") : "";
             }
             rows[i].bg.color = i == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
             rows[i].text.color = i == cursor ? theme.unique : Color.white;

@@ -60,6 +60,60 @@ public class DropItemCheck : PoolAble
     {
         rigidbody.gravityScale = 1;
         isGround = false;
+        _magnet = false;
+        _magnetSpeed = 0f;
+        _roomCheckAt = 0f;
+    }
+
+    // ── 줍기 자석 (BasicFeatures.md 4절): 바닥에 닿은 드롭이 가까우면 플레이어 쪽으로 끌려온다. 실제 줍기는 기존 접촉 경로 ──
+    private bool _magnet;
+    private float _magnetSpeed;
+    private float _roomCheckAt;
+    private const float RoomCheckInterval = 0.5f;
+
+    private void Update()
+    {
+        if (!isGround || itemData == null || PlayerController.instance == null || InventoryManager.instance == null)
+        {
+            return;
+        }
+        if (!PickupRules.ShouldPickUp(itemData.type, itemData.rarity, GameSettings.Pickup))
+        {
+            _magnet = false;
+            return;
+        }
+        Vector2 pos = transform.position;
+        Vector2 target = PlayerController.instance.transform.position;
+        bool wasMagnet = _magnet;
+        _magnet = PickupRules.UpdateMagnet(_magnet, (target - pos).sqrMagnitude);
+        if (_magnet && !wasMagnet)
+        {
+            // 인벤이 가득 차서 못 주울 아이템은 끌어오지 않는다(발밑에 쌓여 경고만 반복). 검사는 0.5초에 한 번
+            // 타이머는 실제로 HasRoomFor 를 불렀을 때만 민다(범위 안에 머무는 동안에도 0.5초마다 재검사)
+            if (Time.time < _roomCheckAt)
+            {
+                _magnet = false;
+            }
+            else if (!InventoryManager.instance.HasRoomFor(name))
+            {
+                _roomCheckAt = Time.time + RoomCheckInterval;
+                _magnet = false;
+            }
+        }
+        if (!_magnet)
+        {
+            if (wasMagnet)
+            {
+                // 끌려오다 놓치면(대시·포털) 공중에 멈추지 않게 다시 떨어뜨린다
+                rigidbody.gravityScale = 1;
+                isGround = false;
+            }
+            _magnetSpeed = 0f;
+            return;
+        }
+        _magnetSpeed = PickupRules.Accelerate(_magnetSpeed, Time.deltaTime);
+        Vector2 next = Vector2.MoveTowards(pos, target, _magnetSpeed * Time.deltaTime);
+        transform.position = new Vector3(next.x, next.y, transform.position.z);
     }
     private void OnDisable()
     {
@@ -93,6 +147,10 @@ public class DropItemCheck : PoolAble
     {
         if (collision.tag == "Player" && isGround == true)
         {
+            if (itemData != null && !PickupRules.ShouldPickUp(itemData.type, itemData.rarity, GameSettings.Pickup))
+            {
+                return; // 줍기 필터로 거른 아이템(설정 PICKUP)
+            }
             if(InventoryManager.instance.CheckBoxCanCreatAll() == true || InventoryManager.instance.OnlyCheckStack(name) == true)
             {
                 if (this.gameObject != null && gameObject.activeSelf != false)

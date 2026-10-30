@@ -23,7 +23,7 @@
 | 순위 | 기능 | 참고 게임 | 내용 | 상태 |
 |---|---|---|---|---|
 | 1 | **퀵슬롯 + 물약 쿨다운** | 메이플·디아 | 소비 아이템을 숫자 1~4 로 사용하는 HUD 4칸. 수량·0개 회색·공유 쿨다운 표시, ES3 저장 | ✅ 3절 |
-| 2 | **줍기 범위(자석)·줍기 필터** | 디아·메이플 펫 | 가까운 드롭을 끌어와 줍기, 등급 필터(일반 재료 줍지 않기 등) | ⏳ 4절 |
+| 2 | **줍기 범위(자석)·줍기 필터** | 디아·메이플 펫 | 가까운 드롭을 끌어와 줍기, 등급 필터(일반 재료 줍지 않기 등) | ✅ 4절 |
 | 3 | 키 설정 화면 | 메이플 | 입력 액션 리바인딩(PerformInteractiveRebinding) + 저장(PlayerPrefs `SaveBindingOverridesAsJson`). Shift 겹침 Q-422 도 여기서 해소 | ⏳ |
 | 4 | 비교 패널(Shift 누르는 동안 착용품 툴팁 나란히) | 디아 | 툴팁 비교 수치는 있음. 옆 패널은 InventoryRefactorDesign 3.1 설계만 | ⏳ |
 | 5 | 제작 재료 추적(핀) | 몬헌 | 레시피를 고정하면 필요 재료 x/y 를 HUD 에 표시, 획득 시 갱신 | ⏳ |
@@ -45,7 +45,9 @@
 - 저장: ES3 키 `quickslot.items`(string[4], 빈칸 ""), 세이브 슬롯 파일별. 기존 키는 건드리지 않는다. 읽기 실패 시 빈 칸으로 시작(경고 로그).
 - 검증: EditMode `QuickSlotModelTests`, 프로브 `Tools/probes/quickslot_probe.cs`(등록 → 사용 → 수량·쿨다운·세이브 키 확인).
 
-## 4. 줍기 범위·필터 (2순위, 설계)
+## 4. 줍기 범위·필터 (2순위, 2026-10-30)
 
-- 자석: 바닥에 닿은 드롭이 플레이어 반경 R(기본 2.2유닛) 안이면 플레이어 쪽으로 가속해 끌려온다. 기존 접촉 줍기 경로(`DropItemCheck.OnTriggerStay2D`)를 그대로 쓴다.
-- 필터: 설정 메뉴 "PICKUP" — 전부 / 일반(C) 재료 제외. 장비·소비·R/U 는 항상 줍는다. 설정은 `GameSettings`(PlayerPrefs) 에 둔다.
+- 코드: `Assets/Script/Item/PickupRules.cs`(순수 규칙·수치, 테스트 `PickupRulesTests`) + `Enemy/DropItemCheck.Update`(자석 이동) + `UI/GameSettings.Pickup` + 일시정지 설정 행 "PICKUP".
+- 자석: 바닥에 닿은 드롭이 플레이어 2.2유닛 안이면 끌려오기 시작(가속 30/s², 최고 14/s), 4.5유닛 밖으로 멀어지면 멈춤. 실제 줍기는 기존 접촉 경로(`DropItemCheck.OnTriggerStay2D` → `CreatItem`) 그대로. 인벤에 자리가 없는 아이템은 끌어오지 않는다(0.5초마다 재검사).
+- 필터: 설정 "PICKUP" — 전부(기본) / 일반 재료 제외(type Misc + rarity C). 장비·소비·R/U 는 항상 줍는다. 거른 아이템은 끌려오지도, 주워지지도 않고 바닥에 남는다(120초 뒤 소멸). 저장은 ES3 `settings.pickup`(int, 공용 파일 `SaveSlots.SharedFile`). Q-431.
+- 검증: 프로브 `Tools/probes/pickup_magnet_probe.cs`(전부: 나무 12→13 자석 줍기 / 필터: 나무 2.1유닛에 있어도 안 주움, 물약은 끌려와 주움 / 전부로 되돌리면 남은 나무 줍기).
