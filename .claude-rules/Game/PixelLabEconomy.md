@@ -1,4 +1,4 @@
-# PixelLab 사용량 절약 (10-30 조사)
+﻿# PixelLab 사용량 절약 (10-30 조사)
 
 잔액 **251.2 / 2,000**(사용 1,748.8, 11-25 리셋, Pixel Apprentice $12/월). 이 문서는 "남은 251로 무엇을 먼저, 어떻게 싸게" 정리한다. 비용은 `search_help`(공식 도움말 에이전트) 답변 기준 — 실제 청구는 첫 호출 뒤 `get_balance` 로 확인한다(미검증).
 
@@ -110,3 +110,12 @@ Retro Diffusion(RD) 비교: `image_edit`/`inpainting` $0.18/회, 후처리 도�
 ## 6. 조사 한계
 - ChatGPT 브레인스토밍 탭은 쓰지 않았다(공식 도움말 에이전트 답변으로 충분, 사용량 절약).
 - `edit_image_pixen` 의 우리 그림체 적합성, `transfer_outfit` 의 실제 프레임 수 한계(우리 64px 셀)는 실측 필요.
+
+## 웹 조사 보강 (10-30, pixellab.ai 가격표·제3자 리뷰)
+
+- **비용 차이:** Pixen/Pixflux 이미지 약 $0.008, Pro Flash 이미지 $0.024~0.033, Pro 계열 $0.08~0.15(달러는 GPU 시간 추정). → **시안·탐색은 Pixen(`edit_image_pixen` 1생성)/Pixflux, 확정 후 Pro Flash 1회.**
+- **skeleton v3는 프레임 수 과금이고 크기와 무관:** 3프레임 $0.044, 15프레임 $0.062. 길게 한 번 뽑는 게 짧게 여러 번보다 싸다. PixMiniMax는 시간 과금(8프레임 $0.023).
+- **무료:** `pixelart_workbench`·`vfx_workbench`(구독자 MCP 무료). 정리·격자·색 줄이기·미러는 AI 호출 대신 여기서.
+- **재사용:** Pro Flash 저장된 첫 방향 재사용은 재과금 없음. 프롬프트 enhance 별도 호출 $0.002.
+- **플랜:** Tier1 $12 2,000생성 / Tier2 $24 우선 큐·400px·실험 도구 / Tier3 $50 10,000생성(제3자 요약, 공식 미확인).
+- 미확인: 시드 재사용 효과, Reddit·Discord 절약 팁(검색 결과 없음).

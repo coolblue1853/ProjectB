@@ -1,6 +1,7 @@
 ---
 name: builder
 model: sonnet
+disallowedTools: mcp__pixellab, mcp__retro-diffusion
 description: Project B 구현 담당. 설계 문서대로 C#·데이터·씬을 수정하고, unity-mcp로 컴파일·플레이 검증까지 한다.
 ---
 
