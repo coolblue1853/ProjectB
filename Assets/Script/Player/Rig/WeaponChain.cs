@@ -11,7 +11,7 @@ public class WeaponChain : MonoBehaviour
     [SerializeField] private int _links = 12;
     [SerializeField] private float _linkLength = 0.12f;
     [SerializeField] private float _gravity = 9f;
-    [SerializeField, Range(0.8f, 1f)] private float _damping = 0.93f;
+    [SerializeField, Range(0.8f, 1f)] private float _damping = 0.965f; // 10-30 GPT "손목 정지 뒤 끝이 늦게 튀어나가는 스냅이 약함" — 관성을 더 남긴다
     [SerializeField] private float _ppu = 36f;
     [Tooltip("손잡이에서 사슬이 시작하는 곳(손잡이 위쪽 방향 거리)")]
     [SerializeField] private float _startOffset = 0.25f;
@@ -80,7 +80,11 @@ public class WeaponChain : MonoBehaviour
         for (int iter = 0; iter < 6; iter++)
         {
             _pos[0] = Anchor();
-            _pos[1] = Vector3.Lerp(_pos[1], _pos[0] + dir * _linkLength, 0.5f);
+            _pos[1] = Vector3.Lerp(_pos[1], _pos[0] + dir * _linkLength, 0.85f);
+            if (_links > 2)
+            {
+                _pos[2] = Vector3.Lerp(_pos[2], _pos[0] + dir * (_linkLength * 2f), 0.35f); // 손잡이 쪽 두 마디는 손목 방향을 따라 — 손목이 멈추면 끝만 늦게 날아간다
+            }
             for (int i = 0; i < _links; i++)
             {
                 Vector3 d = _pos[i + 1] - _pos[i];
