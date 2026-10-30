@@ -58,8 +58,8 @@ SPLICE = {
              ("3@GreatDown", .08), ("5@GreatDown", .04), ("6@GreatDown", .025), ("SlamSE", "D_SlamSE", 0, -60, .025, False), ("SlamSE2", "D_SlamSE2", 1, -75, .03, False), ("SlamSE2", "D_SlamSE2", 1, -75, .22, False),  # 6회차: 머리 위에서 더 버티다 급격히 숙임
              ("SlamSE2", "D_SlamSE2", 2, -65, .06, False), ("12@GreatDown", .06), ("13@GreatDown", .1)],  # 11회차: 골반 10px 깊게 내리꽂기(SlamSE2 0번 = 손이 얼굴을 가려 버림)  # 5회차: 3/4 앞 깊은 내리꽂기
     # 품질 6회차(GPT 앞차기 6.0 "무릎 배 앞까지, 발목 7px 앞, 즉시 회수"): 측면 준비 2장 → 무릎 장전 → 뻗음 → 회수 → 측면 복귀
-    "Kick": ["0", "1", ("FrontKick2", "E_FrontKick2", 0, -20, .1, False), ("FrontKick2", "E_FrontKick2", 1, -20, .14, False),  # 7회차: 무릎 더 높이·골반 앞으로
-             ("FrontKick2", "E_FrontKick2", 2, -20, .05, False), ("9", .05), "10", "11"],
+    "Kick": ["0", "1", ("FrontKick2", "E_FrontKick2", 0, -20, .14, False), ("FrontKick2", "E_FrontKick2", 1, 0, .14, False),  # 7회차: 무릎 더 높이·골반 앞으로
+             ("FrontKick2", "E_FrontKick2", 2, -20, .04, False), ("9", .05), "10", "11"],  # 14회차: 장전 0.14 버팀 → 뻗음 0.14 + 지지발 먼지·발끝 바늘
     # 품질 7회차(GPT 돌려차기 6.0 "앞차기처럼 읽힘"): v3(Roundhouse_v3 보관) 3/4 뒤·뒷모습·3/4 앞 타격 뒤에 측면 팔로스루(발이 골반 위로 지나감) → 흘려 내림
     "Roundhouse": ["0@Roundhouse_v3", "1@Roundhouse_v3", "2@Roundhouse_v3", "3@Roundhouse_v3", "4@Roundhouse_v3", ("5@Roundhouse_v3", .04), ("6@Roundhouse_v3", .06),
                    ("RoundFollow", "E_RoundFollow", 0, -20, .15, False), ("RoundFollow", "E_RoundFollow", 1, -20, .05, False), ("9@Roundhouse_v3", .05), "10@Roundhouse_v3", "11@Roundhouse_v3"],  # 8회차: 높은 팔로스루 유지

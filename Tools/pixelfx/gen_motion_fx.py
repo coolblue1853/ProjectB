@@ -48,6 +48,7 @@ IMPACTS = [
     ("Iaido", 7, "StepDust", -6, 1.0),
     ("Lunge", 3, "StepDust", -6, 0.9),
     ("Backstep", 6, "StepDust", 0, 0.9),
+    ("Kick", 3, "StepDust", -4, 0.7),  # 품질 14회차: 앞차기 타격 때 지지발 먼지
     ("PalmBlast", 3, "StepDust", -12, 0.8),  # 품질 11회차: 장풍 방출 때 뒷발 밀기 먼지(GPT "민다 → 쏜다")
 ]
 
