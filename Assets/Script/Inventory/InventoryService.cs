@@ -25,26 +25,68 @@ public sealed class InventoryService
 
     int PerPage => inv.maxHor * inv.maxVer;
 
-    public SlotContainer Model
+    /// <summary>슬롯을 다시 훑어 만든 모델(전체 스캔 + 할당이 있으니 매 프레임 부르지 말 것)</summary>
+    public SlotContainer ScanModel()
     {
-        get
-        {
-            SyncModelFromViews();
-            return model;
-        }
+        SyncModelFromViews();
+        return model;
     }
+
+    /// <summary>
+    /// 3c 준비(그림자 모델): 직전 명령 뒤의 모델과 지금 슬롯이 다른 칸 수 누계. 0 이 아니면 모델을 거치지 않고
+    /// GameObject 를 직접 옮긴 경로가 있다는 뜻이다(창고↔인벤 칸 놓기, 장비칸↔인벤, 강화 등). 동작은 바꾸지 않고 기록만 한다.
+    /// </summary>
+    public int OutsideChanges { get; private set; }
+
+    /// <summary>마지막으로 감지한 모델 밖 변경(첫 칸) 설명</summary>
+    public string LastOutsideChange { get; private set; }
 
     /// <summary>UI 슬롯 → 모델. 잠긴 칸(maxBoxNum 밖)은 명령 대상에서 뺀다</summary>
     public void SyncModelFromViews()
     {
+        SlotContainer scan = ViewScanner.BuildFrom(inv.inventoryUI, PerPage, CsvItemCatalog.Shared);
         if (model != null)
         {
             model.OnSlotChanged -= MarkDirty;
+            DetectOutsideChanges(model, scan);
         }
-        model = ViewScanner.BuildFrom(inv.inventoryUI, PerPage, CsvItemCatalog.Shared);
+        model = scan;
         model.Unlocked = Mathf.Clamp(inv.maxBoxNum, 0, model.Capacity);
         model.OnSlotChanged += MarkDirty;
         dirty.Clear();
+    }
+
+    private void DetectOutsideChanges(SlotContainer before, SlotContainer now)
+    {
+        if (before.Capacity != now.Capacity)
+        {
+            return;
+        }
+        int n = 0;
+        string first = null;
+        for (int i = 0; i < now.Capacity; i++)
+        {
+            ItemStack a = before[i], b = now[i];
+            if (a.IsEmpty && b.IsEmpty)
+            {
+                continue;
+            }
+            if (a.Id != b.Id || a.Count != b.Count || a.Tier != b.Tier || a.Upgrade != b.Upgrade)
+            {
+                n++;
+                if (first == null)
+                {
+                    first = i + ": " + a + " -> " + b;
+                }
+            }
+        }
+        if (n == 0)
+        {
+            return;
+        }
+        OutsideChanges += n;
+        LastOutsideChange = first;
+        GameLog.Info(GameLog.Cat.Item, "모델 밖 변경 " + n + "칸 (첫 칸 " + first + ")");
     }
 
     void MarkDirty(int index)
@@ -55,6 +97,10 @@ public sealed class InventoryService
     /// <summary>1개 이상 넣는다. 전부 들어갈 자리가 없으면 아무것도 넣지 않고 false</summary>
     public bool Add(string id, int count, AddSource source, ItemData data = null)
     {
+        if (!CsvItemCatalog.Shared.Exists(id))
+        {
+            return false; // 시트에 없는 이름은 DrawSlot 이 그리지 못해 모델·뷰가 어긋난다(B-020)
+        }
         SyncModelFromViews();
         var stack = new ItemStack(id, count, data != null ? data.tear : 0, data != null ? data.upgrade : 0);
         if (!model.TryAddAll(stack))
@@ -240,6 +286,11 @@ public sealed class InventoryService
     public void LoadFrom(string[,,] saved)
     {
         hidden.Clear();
+        if (model != null)
+        {
+            model.OnSlotChanged -= MarkDirty;
+            model = null; // 로드는 뷰를 직접 다시 그리므로 그림자 비교 기준을 버린다(모델 밖 변경 오탐 방지)
+        }
         SlotContainer loaded = SaveMapper.FromArray(saved, CsvItemCatalog.Shared, inv.inventoryUI.Length, PerPage);
         int drawn = 0;
         for (int index = 0; index < loaded.Capacity; index++)

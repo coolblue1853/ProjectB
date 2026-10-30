@@ -382,6 +382,8 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
   - ✅(10-30) 페이지 이동(`MoveToPage`)·나누기(`SplitAt`)는 3a 마무리에서 옮겼다.
   - ✅(10-30) 키보드 교환(`ActiveChangeCursor` "change")과 드래그 인벤 칸→인벤 칸 놓기를 `Service.MoveSlot`(빈칸 이동·같은 스택 합치기·넘침 원위치·교환)으로. 합치기 판정이 이름 → id·티어·강화로 바뀌고, 출발 칸이 가득 찬 같은 스택이면 교환 대신 수량을 맞바꾼다. 드래그는 원래 칸에 되돌린 뒤 명령(끄는 사이 원래 칸이 채워졌으면 옛 경로). 프로브 `inv_phase3b_move`. 남은 GameObject 직접 이동: 창고↔인벤 칸 놓기, 장비칸↔인벤, 키보드 장착·해제, 창고 I2C/C2I, 강화(제자리 변경) → 3c.
 - **3c. 드래그 이전:** `ItemDrag`가 명령만 호출하게 한다. 이로써 브리지 호출이 0이 된다.
+  - 🔶(10-30) 중간 단계 = **그림자 모델 + 차이 감시**(캐시 + 무효화는 무효화 누락 시 낡은 모델로 복제·소실이 생겨 채택 안 함). `InventoryService.SyncModelFromViews` 가 직전 명령 뒤 모델과 새 스캔을 칸 단위로 비교해 `OutsideChanges`/`LastOutsideChange` 누계 + `GameLog.Info`. 동작 변화 없음. 프로브 `inv_shadow`(명령만 → 0, 직접 SetParent → 2칸 감지), 3a·3b·inv_test 프로브 흐름 → 0. `Model` getter 는 비용이 드러나게 `ScanModel()` 로 바꿨다. 한계: 명령 사이에 옮겼다 되돌린 변경은 못 잡는다. `LoadFrom` 은 비교 기준을 버리고, `Add` 는 시트에 없는 이름을 미리 거절한다(그리기 실패를 밖 변경으로 오탐하지 않게).
+  - 순서: ① 장비칸↔인벤(`UseEquipment/UnUseEquipment`, 드래그 장착·해제)을 `TakeAt/PutAt` + 장비 쪽 저장 1회로 ② 강화 제자리 변경(`EnhanceService`) → `ReplaceAt` ③ 창고↔인벤(인벤 쪽만 명령, 창고는 Phase 4) ④ 드래그를 프록시(고스트 이미지)로 — 진짜 아이템은 원래 칸에 두어 저장 보류(B-219)를 없앤다. 감시 누계가 실제 플레이·soak 에서 0 이 되면 저장을 모델(+hidden 흡수)에서 하고 스캔은 디버그 단언으로 남긴 뒤 브리지를 지운다.
   - 그다음 `BoxCheck` 폴링, `inventoryArray`, `inventoryItemStack`을 삭제한다. 제작·상점은 `Count`를 직접 쓴다.
 - **픽업 로그(D6):** 3a 직후 붙일 수 있다.
 - **프로브:**

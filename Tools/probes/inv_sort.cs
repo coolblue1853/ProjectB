@@ -10,7 +10,7 @@ if ("__KEY__" == "run")
 int wood = inv.CountItem("Wood"), cap = inv.CountItem("Cap");
 inv.nowBox = 0;
 inv.SortCurrentPage();
-var model = inv.Service.Model;
+var model = inv.Service.ScanModel();
 for (int i = 0; i < 15; i++) { var s = model[i]; if (!s.IsEmpty) sb.Append(i + ":" + s + " "); }
 sb.Append("| wood " + wood + "->" + inv.CountItem("Wood") + " cap " + cap + "->" + inv.CountItem("Cap"));
 return sb.ToString();
