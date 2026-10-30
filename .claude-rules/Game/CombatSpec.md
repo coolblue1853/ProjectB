@@ -82,6 +82,7 @@ final  = dmg × (1 + 최종뎀/100) × dmgRatio
 - **캔슬 규칙:**
   - 평타는 스킬 후딜 중에 캔슬 가능 옵션(isSkillCancel)이 있다.
   - 스킬은 평타 대기 중에 캔슬 가능 옵션(isCancleAttack)이 있다.
+- **활공 (10-30):** 2층계(Lv2_*) 첫 진입 시 해금(ES3 `glide.unlocked`). 공중 하강 중 점프 키 0.2초 홀드 → 낙하 −1.3 u/s·수평 85%·최대 12초(착지 초기화, 상승 부하 부족 시 −10~20%), 짧은 누름은 기존 2단 점프. 상세 `Game/FloorCoreContent.md` 2절.
 - **평타 중 이동 (10-26):** 무기 프리팹의 `isWeaponStopMove`가 켜져 있으면 평타 후딜 동안 MoveLock으로 멈춘다. 꺼진 무기는 후딜 동안 `_attackMoveSpeedMul`(기본 1) 배율로 걷거나 달린다(`Weapon.AttackMoveSpeedMul` → `PlayerController.Move`).
   - 녹슨 검(`RustedSword`, id 41)만 `isWeaponStopMove 0` + `_attackMoveSpeedMul 0.6`(걷기 3.0 → 1.8). 다른 한손검·단검·대검·둔기·창은 기존 설정 그대로다. 기존에 이미 정지 0이던 무기는 배율 1이라 속도 변화가 없다.
   - 배율은 `isAttackWait == false` 구간 전체(선딜 `delayTime` 포함, 공중 평타 포함)에 걸린다. 달리기 중이면 달리기 속도 × 0.6이고 달리기 스태미나 소모는 그대로다.

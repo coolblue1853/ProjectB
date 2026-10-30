@@ -122,6 +122,8 @@ public class PlayerController : MonoBehaviour
  
     BoxCollider2D bc;
     public bool isAttacked;
+    /// <summary>점프 키를 누르고 있는가 (활공 GlideMotor 가 읽는다)</summary>
+    public bool JumpHeld { get { return jumpAction != null && jumpAction.IsPressed(); } }
     public bool isAttackedUp;
     void Start()
     {
