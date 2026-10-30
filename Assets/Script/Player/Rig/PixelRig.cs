@@ -604,6 +604,8 @@ public class PixelRig : CharacterRig
             bool drawn = i < cel.angles.Length && cel.angles[i] > CelClip.NoAngle + 1f;
             _socketRight.parent.localRotation = Quaternion.Euler(0f, 0f, SmoothBlade(blade, drawn) - 90f);
             KeepBladeAboveGround(drawn);
+            float len = i < cel.weaponLen.Length && cel.weaponLen[i] > 0f ? cel.weaponLen[i] : 1f;
+            _socketRight.localScale = new Vector3(1f, len, 1f); // 손잡이 피벗 기준으로 칼날만 짧게(칼집에 들어감)
             SetMainWeaponBehind(i < cel.behind.Length && cel.behind[i]);
         }
         if (_socketLeft != null && i < cel.handB.Length)

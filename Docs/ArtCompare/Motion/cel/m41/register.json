@@ -7338,7 +7338,17 @@
    200.0,
    200.0
   ],
-  "motion": "splice_dirs(Sheathe)"
+  "motion": "splice_dirs(Sheathe)",
+  "weaponLen": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   0.75,
+   0.4,
+   0.08
+  ]
  },
  "Victory": {
   "frames": [

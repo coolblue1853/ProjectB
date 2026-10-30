@@ -78,6 +78,8 @@ LOOP = {"Dance", "Lute"}
 SCABBARD = {"Iaido": 200.0, "Sheathe": 200.0}
 # 방향 프레임에서 무기를 앞손(LEFT ARM)에 쥐는 셀 — 활: 앞손이 활, 뒷손이 시위를 턱까지 당긴다
 SWAP_HANDS = {"Bow"}
+# 프레임별 주무기 보이는 길이(납도: 칼이 칼집에 들어가며 짧아짐, GPT "칼 길이 변화가 안 보인다")
+WEAPON_LEN = {"Sheathe": [1, 1, 1, 1, 1, 0.75, 0.4, 0.08]}
 
 
 def joint(keys, name, i, label):
@@ -119,6 +121,8 @@ def main():
         out["motion"] = f"splice_dirs({cel})"
         if cel in LOOP:
             out["loop"] = True
+        if cel in WEAPON_LEN:
+            out["weaponLen"] = WEAPON_LEN[cel]
         if cel in SCABBARD:
             out["angleB"] = [SCABBARD[cel]] * len(out["frames"])
         reg[cel] = out

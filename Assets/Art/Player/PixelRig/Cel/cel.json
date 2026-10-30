@@ -9984,6 +9984,7 @@
     "sx": 0,
     "time": 0.12,
     "angle": -3.0,
+    "weaponLen": 1.0,
     "angleB": 200.0
    },
    {
@@ -10000,6 +10001,7 @@
     "sx": 0,
     "time": 0.045,
     "angle": -23.0,
+    "weaponLen": 1.0,
     "angleB": 200.0
    },
    {
@@ -10016,6 +10018,7 @@
     "sx": 0,
     "time": 0.1,
     "angle": 90.0,
+    "weaponLen": 1.0,
     "angleB": 200.0
    },
    {
@@ -10032,6 +10035,7 @@
     "sx": 0,
     "time": 0.04,
     "angle": 115.0,
+    "weaponLen": 1.0,
     "angleB": 200.0
    },
    {
@@ -10048,6 +10052,7 @@
     "sx": 0,
     "time": 0.04,
     "angle": 140.0,
+    "weaponLen": 1.0,
     "angleB": 200.0
    },
    {
@@ -10064,6 +10069,7 @@
     "sx": 0,
     "time": 0.05,
     "angle": 160.0,
+    "weaponLen": 0.75,
     "angleB": 200.0,
     "behind": true
    },
@@ -10081,6 +10087,7 @@
     "sx": 0,
     "time": 0.06,
     "angle": 172.0,
+    "weaponLen": 0.4,
     "angleB": 200.0,
     "behind": true
    },
@@ -10098,6 +10105,7 @@
     "sx": 0,
     "time": 0.3,
     "angle": 178.0,
+    "weaponLen": 0.08,
     "angleB": 200.0,
     "behind": true
    }

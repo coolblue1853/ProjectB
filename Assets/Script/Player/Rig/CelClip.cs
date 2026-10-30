@@ -20,6 +20,8 @@ public class CelClip
     public bool[] behind = new bool[0];
     /// <summary>프레임별 앞손(반대 손) 무기 각도 — 쌍검 X 교차·쌍권총(10-30). 비어 있거나 NoAngle 이면 앞(0°) 고정</summary>
     public float[] anglesB = new float[0];
+    /// <summary>프레임별 주무기 보이는 길이 비율(1 = 전부) — 납도처럼 칼이 칼집에 들어가며 짧아지는 프레임(10-30). 비면 1</summary>
+    public float[] weaponLen = new float[0];
     public float[] angles = new float[0]; // 칼날 각도(도, 0 = 앞, 90 = 위). NoAngle 이면 리그가 손 위치로 정한다(공격 셀은 그림 속 칼에서 읽은 값)
     public const float NoAngle = -999f;
 

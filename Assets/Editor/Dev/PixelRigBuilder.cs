@@ -678,6 +678,7 @@ public static class PixelRigBuilder
         public float angle = CelClip.NoAngle;
         public bool behind; // 주무기를 몸 뒤에(뒷모습 프레임)
         public float angleB = CelClip.NoAngle; // 앞손 무기 각도(쌍검 X 등)
+        public float weaponLen = 1f; // 주무기 보이는 길이(납도)
         public float time; // 0 = 클립 frame 사용
     }
 
@@ -742,6 +743,8 @@ public static class PixelRigBuilder
             SerializedProperty wp = e.FindPropertyRelative("behind");
             SerializedProperty abp = e.FindPropertyRelative("anglesB");
             abp.arraySize = clip.frames.Length;
+            SerializedProperty wl = e.FindPropertyRelative("weaponLen");
+            wl.arraySize = clip.frames.Length;
             wp.arraySize = clip.frames.Length;
             SerializedProperty tp = e.FindPropertyRelative("times");
             tp.arraySize = clip.frames.Length;
@@ -768,6 +771,7 @@ public static class PixelRigBuilder
                 ap.GetArrayElementAtIndex(i).floatValue = f.angle;
                 wp.GetArrayElementAtIndex(i).boolValue = f.behind;
                 abp.GetArrayElementAtIndex(i).floatValue = f.angleB;
+                wl.GetArrayElementAtIndex(i).floatValue = f.weaponLen;
             }
         }
     }

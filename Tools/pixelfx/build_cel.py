@@ -190,6 +190,7 @@ TIMES = {
 # 스켈레톤 셀(10-27): 손 = 자세표 손목 관절(가로·세로 맞춤만 더함), 칼 각도 = 자세표 설계값
 SKEL_HAND_B = {}
 ANGLE_B = {}  # 클립 → 프레임별 앞손 무기 각도(쌍검 X·쌍권총, 10-30; -999 = 앞 고정)
+WEAPON_LEN = {}  # 클립 → 프레임별 주무기 보이는 길이(납도, 10-30)
 PALETTE = {}  # 클립 → 직업 외형 원본(그 그림 색으로 고정, 10-30 직업 셀)
 BEHIND = {}  # 클립 → 프레임별 주무기 몸 뒤(뒷모습 프레임, 10-29 밤)
 SKEL_HAND = {"Stab": [[35, 42], [33, 40], [32, 37], [44, 42], [57, 38], [56, 38]], "StabEnd": [[53, 41], [42, 43], [36, 43]], "SwingDown": [[46, 33], [35, 23], [34, 23], [52, 33], [55, 42], [54, 43], [54, 43]], "SwingDownEnd": [[50, 43], [46, 43], [42, 43], [39, 42]], "SwingUp": [[35, 42], [35, 40], [35, 40], [44, 45], [50, 27], [40, 24], [32, 29], [32, 29], [30, 34], [33, 40], [35, 42], [39, 42]]}
@@ -206,6 +207,8 @@ if os.path.exists(_REG):
         SKEL_ANGLE[_name] = _r["angle"]
         if "behind" in _r:
             BEHIND[_name] = _r["behind"]
+        if "weaponLen" in _r:
+            WEAPON_LEN[_name] = _r["weaponLen"]
         if "palette" in _r:
             PALETTE[_name] = _r["palette"]
         if "angleB" in _r:
@@ -794,6 +797,8 @@ def main():
                     b = [SKEL_HAND_B[clip][k][0] + sx, SKEL_HAND_B[clip][k][1] + dy]
             angle = ANGLE_FIX.get((clip, k), angle)
             fr = {"png": name, "hand": h, "handB": b, "dy": dy, "sx": sx, "time": TIMES.get(clip, [0.0] * len(idx))[k], "angle": angle if angle is not None else -999.0}  # -999 = 리그 규칙(손 위치로)
+            if clip in WEAPON_LEN:
+                fr["weaponLen"] = float(WEAPON_LEN[clip][k])
             if clip in ANGLE_B:
                 fr["angleB"] = float(ANGLE_B[clip][k])
             if BEHIND.get(clip, [False] * len(idx))[k]:
