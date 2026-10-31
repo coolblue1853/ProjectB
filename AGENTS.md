@@ -7,6 +7,19 @@ Claude Code 가 지시를 쓰고, Codex 가 구현·검증을 맡는다(10-31 �
 - 규칙 인덱스: `.claude-rules/AGENTS.md`. 작업과 관련된 문서를 찾아 **읽고** 시작한다.
 - 항상 지킬 것: `.claude-rules/Framework/CodeStyle.md`, `.claude-rules/Framework/EditorAutomation.md`, `.claude-rules/Framework/ContextEconomy.md`.
 - 모션·이펙트 작업이면 `.claude-rules/Game/MotionFxChecklist.md` 필독. 기본 3타·스미어 v7은 덮어쓰지 않는다.
+- **사용자 취향·결정 메모리**(Claude 와 같은 맥락): `C:\Users\user\.claude\projects\C--Users-user-ProjectB\memory\MEMORY.md` 색인을 읽고, 작업과 관련된 항목 파일을 읽는다(읽기만, 수정 금지). 특히 `classic-maple-direction`, `game-pillars`, `early-game-modest`, `abyss-mood-not-childish`, `keep-basic-motion-fx`, `test-daytime`, `no-focus-steal`.
+- 리뷰 기준: `.claude/agents/reviewer-code.md`, `.claude/agents/reviewer-arch.md` 체크리스트를 쓴다.
+
+## 품질 기준 (속도보다 우선)
+
+- 빨라도 품질이 낮으면 의미 없다(사용자 10-31). 추측으로 끝내지 말고 코드·데이터를 읽고 확인한다.
+- 게임 감: 진행은 클래식 메이플(레벨·퀘스트·몸박·물약), 스킬은 장비에서, 공격은 답답하지 않게. 초반은 작고 소박하게, 유아틱 금지(메이드 인 어비스풍 몽환·섬뜩).
+- 기존 코드 스타일·구조를 따르고 재사용한다. 새 시스템을 만들기 전에 비슷한 기존 것을 찾는다.
+- 숫자로 검증한다. 확인 못 한 것은 반드시 "미검증"으로 적는다.
+
+## 환경 메모
+
+- uv 캐시는 `Logs/uv-cache`(run.sh 가 `UV_CACHE_DIR` 설정). PowerShell 로 한글 파일을 읽을 때 `-Encoding UTF8`.
 
 ## 하지 말 것
 

@@ -8,6 +8,9 @@ name="$1"; brief="$2"; effort="${3:-auto}"
 [ "$effort" = "auto" ] && effort=$(bash Tools/codex/usage.sh --effort)
 echo "effort=$effort"
 mkdir -p Logs/codex
+# 샌드박스는 %LOCALAPPDATA%\uv 캐시 잠금을 막는다 → 작업 폴더 안 캐시로(u.sh 의 uv run 용)
+export UV_CACHE_DIR="$PWD/Logs/uv-cache"
+export PATH="/c/Users/user/AppData/Roaming/Python/Python314/Scripts:$PATH"
 # 작업 폴더 쓰기 + 네트워크(unity-mcp localhost) + 세이브 폴더만 허용. 커밋 금지 등은 AGENTS.md 로 막는다.
 "$CODEX" exec -s workspace-write -c sandbox_workspace_write.network_access=true \
   -c model_reasoning_effort="$effort" \
