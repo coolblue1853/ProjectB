@@ -67,3 +67,6 @@
 - 샌드박스: workspace-write + 네트워크 + 세이브 폴더. 샌드박스 전체 해제는 쓰지 않는다.
 - Codex 규칙은 저장소 루트 `AGENTS.md`(커밋 금지·제외 파일·검증 절차). 남은 사용량 `bash Tools/codex/usage.sh`.
 - Unity 는 하나라 Codex 구현 작업은 한 번에 하나씩.
+- **언제 쓰나(사용자 10-31):** Claude 주간 사용량이 많이 찼거나(85%↑) 사용자가 정해 준 하루 한도에 다가오면 이 방식으로 바꾼다. 평소에도 Codex 여유가 크면 우선 사용.
+- **리뷰도 Codex:** 구현 실행 뒤 `bash Tools/codex/review.sh <이름>` 이 별도 Codex 실행으로 리뷰·품질 확인·[필수] 수정. 묶음 실행은 `bash Logs/codex/queue.sh <이름…>`(작업→리뷰 반복).
+- Codex 리셋이 가까우면(6시간 안, 30%↑ 남음) 강도 max 로 몰아 쓴다(usage.sh 자동).
