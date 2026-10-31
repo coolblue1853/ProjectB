@@ -11,21 +11,21 @@ ScareArmor_5,(+)15 IncDmg/(+)15 AtkSpeed/(+)50 Hp
 CliffArmor_2,(+)15 Def/(+)5 Crit
 CliffArmor_4,(+)10 IncDmg/(+)20 coolDown Cyclone_Edge/(+)20 coolDown Starfall
 CliffArmor_6,(+)20 CritDmg/(+)10 AtkSpeed/(+)30 coolDown Skybreaker/(+)30 coolDown Cliff_Quake/(+)30 coolDown Talon_Dive
-WolfArmor_2,(+)8 MoveSpeed/(+)5 Crit
-WolfArmor_4,(+)15 CritDmg/(+)40 coolDown Howl_of_the_Pack/(+)30 coolDown Boar_Charge
-WolfArmor_6,(+)10 AtkSpeed/(+)10 IncDmg/(+)50 Hp
+WolfArmor_2,(+)8 MoveSpeed/(+)8 Crit/(+)3 IncDmg
+WolfArmor_4,(+)15 CritDmg/(+)7 IncDmg/(+)40 coolDown Howl_of_the_Pack/(+)30 coolDown Boar_Charge
+WolfArmor_6,(+)8 AtkSpeed/(+)50 Hp
 WispArmor_2,(+)12 Def/(+)60 Hp
 WispArmor_4,(+)8 IncDmg/(+)40 coolDown Ghostlight_Ring/(+)30 coolDown Shell_Guard
 WispArmor_6,(+)20 Def/(+)15 CritDmg/(+)40 coolDown Wisp_Bolt
-GroveArmor_2,(+)15 Def/(+)80 Hp
+GroveArmor_2,(+)8 Def/(+)40 Hp
 GroveArmor_4,(+)10 IncDmg/(+)40 coolDown Ancient_Roots/(+)30 coolDown Mauling_Rush
-GroveArmor_6,(+)10 AtkSpeed/(+)20 CritDmg/(+)120 Hp
+GroveArmor_6,(+)6 AtkSpeed/(+)20 CritDmg/(+)120 Hp
 FaeArmor_2,(+)8 MoveSpeed/(+)6 Crit
 FaeArmor_4,(+)12 CritDmg/(+)40 coolDown Phantom_Glide/(+)40 coolDown Fairy_Dust_Bolt
 FaeArmor_6,(+)12 IncDmg/(+)10 AtkSpeed/(+)8 DropRate
 BogArmor_2,(+)6 MoveSpeed/(+)8 Def
-BogArmor_4,(+)30 coolDown Tongue_Lash/(+)30 coolDown Jaw_Shake/(+)30 coolDown Pincer_Flurry
-BogArmor_6,(+)10 AtkSpeed/(+)15 BleedDmg/(+)8 IncDmg
+BogArmor_4,(+)8 IncDmg/(+)30 coolDown Tongue_Lash/(+)30 coolDown Jaw_Shake/(+)30 coolDown Pincer_Flurry
+BogArmor_6,(+)6 AtkSpeed/(+)15 BleedDmg/(+)2 IncDmg
 GloomArmor_2,(+)80 Hp/(+)5 Crit
 GloomArmor_4,(+)40 coolDown Bloodsting/(+)35 coolDown Slime_Smash
 GloomArmor_6,(+)12 Poison/(+)10 IncDmg/(+)10 CritDmg

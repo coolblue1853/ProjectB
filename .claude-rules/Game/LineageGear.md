@@ -59,3 +59,7 @@
 2. ✅ 원거리 무기 타입(활): `Weapon` 옵션 대신 평타 판정 복제본(`BowShot`, 근접 판정 끔)이 `SpawnOnStart` 로 `StraightArrow` 를 쏘는 방식 (2026-10-19, Bandit Shortbow).
 3. 몬스터 둔화(점액 장판 등) — 몹 이동 속도 배율 토큰.
 4. 소환수 수 증가 세트 효과(`SummonCount <스킬>`) — `SummonSkill` 이 스킬 이름을 알아야 한다.
+
+## 5. 1층계 첫 1시간 장비 구성 (2026-10-31)
+
+Lv1~12 보상 무기 6종·3세트(Pack Hunter·Ancient Grove·Bog Stalker)의 입수 시각, 방어구 레시피, 세트 수치 재조정(4세트 +17~20%, 6세트 +26~29%, 6세트가 4+2의 8% 이내)은 `Docs/Balance/Floor1FirstHourGear.md`. NPC 퀘스트 보상(QuestsFloor1.csv)이 첫 대체 무기를 고정 지급한다. 샛길 장비 드롭은 공급원이 아니다.

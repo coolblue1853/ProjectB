@@ -1,2 +1,17 @@
 result,materials
 Bringer's Sigil Ring,Death Sigil*8;T1_Ore*10
+WolfCap,Wolf Fang*8
+WolfHandArmor,Boar Tusk*8
+WolfLegArmor,Wolf Fang*8;Boar Tusk*3
+WolfShoes,Wolf Fang*6;Boar Tusk*5
+WolfArmor,Wolf Fang*10;Boar Tusk*8
+GroveCap,Heartwood Chip*8
+GroveHandArmor,Bear Pelt*8
+GroveLegArmor,Heartwood Chip*6;Bear Pelt*4
+GroveShoes,Heartwood Chip*5;Bear Pelt*6
+GroveArmor,Heartwood Chip*10;Bear Pelt*8
+BogCap,Frog Skin*8
+BogHandArmor,Crab Pincer*8
+BogLegArmor,Croc Tooth*8
+BogShoes,Frog Skin*5;Crab Pincer*5
+BogArmor,Croc Tooth*8;Crab Pincer*6;Frog Skin*4
