@@ -1,10 +1,17 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using ProjectB.EditorTools;
 
 /// <summary>NPC 퀘스트 v1: CSV 파싱·대상 id 존재·상태 전이·선행/레벨 조건·보상·세이브 직렬화 (ClassicMapleDesign.md 10절)</summary>
 public class NpcQuestTests
 {
+    private sealed class RewardCatalog : IItemCatalog
+    {
+        public ItemDef Get(string id) => new ItemDef { Id = id, MaxStack = 99 };
+        public bool Exists(string id) => true;
+    }
+
+    private static readonly IItemCatalog RewardItems = new RewardCatalog();
     private int _level;
     private readonly Dictionary<string, int> _items = new Dictionary<string, int>();
     private readonly List<NpcQuestDef> _rewards = new List<NpcQuestDef>();
@@ -29,6 +36,7 @@ public class NpcQuestTests
         };
         NpcQuestLog.RecordCounter = () => _records;
         NpcQuestLog.RewardApplier = d => _rewards.Add(d);
+        NpcQuestLog.RewardCapacity = d => true;
         NpcQuestLog.SaveHook = () => { };
     }
 
@@ -40,6 +48,7 @@ public class NpcQuestTests
         NpcQuestLog.ItemCounter = id => InventoryManager.instance != null ? InventoryManager.instance.CountItem(id) : 0;
         NpcQuestLog.RecordCounter = () => 0;
         NpcQuestLog.RewardApplier = NpcQuestRewards.Apply;
+        NpcQuestLog.RewardCapacity = NpcQuestRewards.CanReceive;
         NpcQuestLog.SaveHook = () => { };
     }
 
@@ -275,6 +284,63 @@ public class NpcQuestTests
         Assert.IsTrue(NpcQuestLog.IsDone("Q101"));
         Assert.AreEqual(NpcQuestStatus.Available, NpcQuestLog.StatusOf("Q102")); // 잘못된 항목은 무시, Q101 완료라 수락 가능
         Assert.AreEqual(NpcQuestStatus.Active, NpcQuestLog.StatusOf("Q103")); // 음수 진행은 0 으로
+    }
+
+    [Test]
+    public void 보상_공간_부족이면_재료_보상_완료_저장_모두_그대로()
+    {
+        NpcQuestLog.Deserialize("Q103:1:0");
+        _items["GreenHurb"] = 3;
+        NpcQuestLog.RewardCapacity = d => false;
+        int saves = 0;
+        NpcQuestLog.SaveHook = () => saves++;
+        Assert.IsFalse(NpcQuestLog.Complete("Q103"));
+        Assert.AreEqual(NpcQuestStatus.Ready, NpcQuestLog.StatusOf("Q103"));
+        Assert.AreEqual(3, _items["GreenHurb"]);
+        Assert.AreEqual(0, _removed.Count);
+        Assert.AreEqual(0, _rewards.Count);
+        Assert.AreEqual(0, saves);
+        NpcQuestLog.RewardCapacity = d => true;
+        Assert.IsTrue(NpcQuestLog.Complete("Q103"));
+        Assert.IsFalse(NpcQuestLog.Complete("Q103"));
+        Assert.AreEqual(1, _rewards.Count);
+    }
+
+    [Test]
+    public void 수집_재료_회수로_생길_공간도_보상_검사에_포함()
+    {
+        var inventory = new SlotContainer(RewardItems, 1, 1);
+        inventory.PutAt(0, new ItemStack("GreenHurb", 3));
+        Assert.IsTrue(NpcQuestRewards.CanFitReward(NpcQuestCatalog.Find("Q103"), inventory, RewardItems));
+        Assert.AreEqual(3, inventory.Count("GreenHurb"), "사전 검사는 원본 불변");
+    }
+
+    [Test]
+    public void 만원_인벤에서_키_아이템_보상은_거절()
+    {
+        var inventory = new SlotContainer(RewardItems, 1, 1);
+        inventory.PutAt(0, new ItemStack("Wood", 1));
+        Assert.IsFalse(NpcQuestRewards.CanFitReward(NpcQuestCatalog.Find("Q604"), inventory, RewardItems));
+        Assert.AreEqual(1, inventory.Count("Wood"));
+    }
+
+    [Test]
+    public void 보상_두개는_스택_한칸_여유만으로_보고할_수_없다()
+    {
+        var inventory = new SlotContainer(RewardItems, 1, 1);
+        int max = RewardItems.Get("Enhance Stone").MaxStack;
+        inventory.PutAt(0, new ItemStack("Enhance Stone", max - 1));
+        Assert.IsFalse(NpcQuestRewards.CanFitReward(NpcQuestCatalog.Find("Q603"), inventory, RewardItems));
+        Assert.AreEqual(max - 1, inventory.Count("Enhance Stone"));
+    }
+
+    [Test]
+    public void 브로치_공명은_판매_불가_일반_퀘스트_재료는_판매_가능()
+    {
+        Assert.IsFalse(ItemTradeRules.CanSell("BroochResonance"));
+        Assert.IsTrue(ItemTradeRules.CanSell("StarBarkFragment"));
+        Assert.IsTrue(ItemTradeRules.CanSell("Wood"));
+        Assert.IsFalse(ItemTradeRules.CanSell(null));
     }
 
     private void Pass(string id)

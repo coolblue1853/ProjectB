@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -38,6 +38,7 @@ public static class NpcQuestLog
     public static Action<string, int> ItemRemover = DefaultItemRemove;
     public static Func<int> RecordCounter = DefaultRecordCount;
     public static Action<NpcQuestDef> RewardApplier = NpcQuestRewards.Apply;
+    public static Func<NpcQuestDef, bool> RewardCapacity = NpcQuestRewards.CanReceive;
     public static Action SaveHook = DefaultSave;
 
     /// <summary>상태가 바뀜 (NPC 표시·퀘스트 창·추적 표시 갱신)</summary>
@@ -53,6 +54,7 @@ public static class NpcQuestLog
         ItemRemover = DefaultItemRemove;
         RecordCounter = DefaultRecordCount;
         RewardApplier = NpcQuestRewards.Apply;
+        RewardCapacity = NpcQuestRewards.CanReceive;
         SaveHook = DefaultSave;
     }
 
@@ -191,7 +193,7 @@ public static class NpcQuestLog
     public static bool Complete(string id)
     {
         NpcQuestDef d = NpcQuestCatalog.Find(id);
-        if (d == null || StatusOf(d) != NpcQuestStatus.Ready)
+        if (d == null || StatusOf(d) != NpcQuestStatus.Ready || !RewardCapacity(d))
         {
             return false;
         }

@@ -1116,6 +1116,11 @@ public class InventoryManager : MonoBehaviour
 
     public void SellItemUI()
     {
+        if (detail == null || !ItemTradeRules.CanSell(detail.name))
+        {
+            Sfx.Play(SfxId.CraftFail, 0.4f);
+            return;
+        }
         InitializeSlider();
         state = "Sell";
         sellUIGameObject.SetActive(true);
@@ -1155,6 +1160,11 @@ public class InventoryManager : MonoBehaviour
     }
     void SellItem()
     {
+        if (detail == null || !ItemTradeRules.CanSell(detail.name))
+        {
+            Sfx.Play(SfxId.CraftFail, 0.4f);
+            return;
+        }
         int sellCount = (int)sellSlider.value;
         // 되사기 기록용(칸에서 빼면 오브젝트가 파괴될 수 있어 먼저 읽는다)
         string soldId = detail != null ? detail.name : null;

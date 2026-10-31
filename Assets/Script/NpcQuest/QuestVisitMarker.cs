@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 방문 목표 지점 표시 (야간 관측지·정예 둥지·별 제단). 플레이어가 닿으면 NpcQuestLog.OnVisit.
@@ -39,13 +39,13 @@ public class QuestVisitMarker : MonoBehaviour
             _snapped = true;
             GroundSnap.Snap(transform, SnapUp, SnapDown);
         }
-        if (_inside)
-        {
-            NpcQuestLog.OnVisit(_markerId);
-        }
         if (Time.unscaledTime >= _nextRefresh)
         {
             _nextRefresh = Time.unscaledTime + RefreshInterval;
+            if (_inside)
+            {
+                NpcQuestLog.OnVisit(_markerId);
+            }
             if (_sr != null)
             {
                 _sr.enabled = IsWanted();

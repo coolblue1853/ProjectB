@@ -3,12 +3,12 @@
 /// <summary>골드 더미 스프라이트 3단계(절차 생성, 점 필터). 코인 1개 / 코인 더미 / 자루. PPU 20 → 0.8·1.2·1.6 유닛(드롭 프리팹 스케일 0.5 적용 전)</summary>
 public static class GoldSprites
 {
-    const float Ppu = 20f;
-    static readonly int[] Sizes = { 16, 24, 32 };
-    static Sprite[] cache;
+    private const float Ppu = 20f;
+    private static readonly int[] Sizes = { 16, 24, 32 };
+    private static Sprite[] cache;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void ResetStatics()
+    private static void ResetStatics()
     {
         cache = null;
     }
@@ -27,7 +27,7 @@ public static class GoldSprites
         return cache[tier];
     }
 
-    static Sprite Build(int tier)
+    private static Sprite Build(int tier)
     {
         int s = Sizes[tier];
         var px = new Color32[s * s];
@@ -53,12 +53,12 @@ public static class GoldSprites
         return Sprite.Create(tex, new Rect(0, 0, s, s), new Vector2(0.5f, 0.1f), Ppu);
     }
 
-    static readonly Color32 Outline = new Color32(70, 40, 10, 255);
-    static readonly Color32 Dark = new Color32(190, 130, 20, 255);
-    static readonly Color32 Mid = new Color32(250, 200, 50, 255);
-    static readonly Color32 Light = new Color32(255, 240, 150, 255);
+    private static readonly Color32 Outline = new Color32(70, 40, 10, 255);
+    private static readonly Color32 Dark = new Color32(190, 130, 20, 255);
+    private static readonly Color32 Mid = new Color32(250, 200, 50, 255);
+    private static readonly Color32 Light = new Color32(255, 240, 150, 255);
 
-    static void Put(Color32[] px, int s, int x, int y, Color32 c)
+    private static void Put(Color32[] px, int s, int x, int y, Color32 c)
     {
         if (x >= 0 && y >= 0 && x < s && y < s)
         {
@@ -67,7 +67,7 @@ public static class GoldSprites
     }
 
     /// <summary>cx, cy = 중심, r = 반지름. 외곽선 + 어두운 아랫면 + 밝은 윗 하이라이트</summary>
-    static void Coin(Color32[] px, int s, int cx, int cy, int r)
+    private static void Coin(Color32[] px, int s, int cx, int cy, int r)
     {
         for (int y = -r; y <= r; y++)
         {
@@ -84,7 +84,7 @@ public static class GoldSprites
         }
     }
 
-    static void Bag(Color32[] px, int s)
+    private static void Bag(Color32[] px, int s)
     {
         // 자루 몸통(타원) + 목 + 끈
         for (int y = 1; y < 22; y++)
@@ -109,5 +109,5 @@ public static class GoldSprites
         }
     }
 
-    static int Ax(int x) => x < 0 ? -x : x;
+    private static int Ax(int x) => x < 0 ? -x : x;
 }

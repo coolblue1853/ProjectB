@@ -31,7 +31,7 @@ public class DropItemCheck : PoolAble
     /// <summary>0 보다 크면 골드 더미(itemData 없음). 줍으면 DatabaseManager.money 가 오른다 (ClassicMapleDesign 14절)</summary>
     [System.NonSerialized] public int goldAmount;
     public static int GoldPickedCount, GoldPickedTotal; // 검증용 누적(프로브가 읽음)
-    bool IsGold => goldAmount > 0;
+    private bool IsGold => goldAmount > 0;
 
     /// <summary>골드 더미로 설정: 금액에 따라 스프라이트 3단계</summary>
     public void SetGold(int amount)
@@ -49,12 +49,20 @@ public class DropItemCheck : PoolAble
         Invoke("DestroyItembyTime", 120);
     }
 
-    void PickUpGold()
+    private void PickUpGold()
     {
+        if (!isActiveAndEnabled || !IsGold)
+        {
+            return;
+        }
         int amount = goldAmount;
         goldAmount = 0;
         ReleaseObject();
         DatabaseManager.money += amount;
+        if (InventoryManager.instance != null)
+        {
+            InventoryManager.instance.SaveInventory();
+        }
         GoldPickedCount++;
         GoldPickedTotal += amount;
         PickupLog.ReportGold(amount);
@@ -180,6 +188,10 @@ public class DropItemCheck : PoolAble
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (!isActiveAndEnabled || (itemData == null && !IsGold) || InventoryManager.instance == null)
+        {
+            return;
+        }
         if (collision.tag == "Player" && isGround == true)
         {
             if (IsGold)

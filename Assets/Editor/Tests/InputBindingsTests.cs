@@ -46,6 +46,14 @@ public class InputBindingsTests
     }
 
     [Test]
+    public void QuestShortcut_DoesNotUseQuick1_AndIsReserved()
+    {
+        Assert.AreEqual("<Gamepad>/leftStickPress", Path("Quick1", true));
+        Assert.AreEqual(InputBindings.AssignResult.Reserved,
+            InputBindings.Assign(_ka.asset, "Quick4", true, "<Gamepad>/rightStickPress", out _));
+    }
+
+    [Test]
     public void Assign_FreeKey_Ok()
     {
         var r = InputBindings.Assign(_ka.asset, "Quick1", false, "<Keyboard>/7", out string swapped);

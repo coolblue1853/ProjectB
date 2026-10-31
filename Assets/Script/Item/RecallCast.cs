@@ -29,6 +29,7 @@ public sealed class RecallCast : MonoBehaviour
     private float _elapsed;
     private Vector2 _start;
     private bool _hit;
+    private bool _casting;
     private PlayerHealthManager _hp;
 
     /// <summary>시전 바 표시용 이름</summary>
@@ -38,7 +39,7 @@ public sealed class RecallCast : MonoBehaviour
     /// <summary>시전 종료. true = 완료(시간 다 채움), false = 취소</summary>
     public static event System.Action<bool> Ended;
 
-    public static bool IsCasting => _instance != null && _instance.enabled;
+    public static bool IsCasting => _instance != null && _instance._casting && _instance.isActiveAndEnabled;
     public static float Progress => IsCasting ? Mathf.Clamp01(_instance._elapsed / RecallRules.CastSeconds) : 0f;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -90,6 +91,7 @@ public sealed class RecallCast : MonoBehaviour
         _start = PlayerController.instance.transform.position;
         _hp = hp;
         _hp.OnHpDamaged += OnHit;
+        _casting = true;
         enabled = true;
         Started?.Invoke();
         GameLog.Info(GameLog.Cat.Item, "귀환 시전 시작(" + RecallRules.CastSeconds + "초)");
@@ -134,7 +136,8 @@ public sealed class RecallCast : MonoBehaviour
         {
             _hp.OnHpDamaged -= OnHit;
         }
-        bool wasCasting = enabled;
+        bool wasCasting = _casting;
+        _casting = false;
         enabled = false;
         if (wasCasting)
         {
@@ -152,6 +155,11 @@ public sealed class RecallCast : MonoBehaviour
         if (_hp != null)
         {
             _hp.OnHpDamaged -= OnHit;
+        }
+        if (_casting)
+        {
+            _casting = false;
+            Ended?.Invoke(false);
         }
     }
 }

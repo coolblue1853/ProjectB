@@ -1,9 +1,9 @@
-using PixelCrushers;
+﻿using PixelCrushers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// NPC 퀘스트 런타임 구동: MessageSystem Kill/Craft 수신, 세이브 슬롯이 (다시) 만들어지면 상태 읽기, 퀘스트 창 키(J, 패드 왼쪽 스틱 누름).
+/// NPC 퀘스트 런타임 구동: MessageSystem Kill/Craft 수신, 세이브 슬롯이 (다시) 만들어지면 상태 읽기, 퀘스트 창 키(J, 패드 오른쪽 스틱 누름).
 /// 씬을 건드리지 않고 부트 때 만든다 (LevelSystem 과 같은 방식).
 /// </summary>
 public class NpcQuestDriver : MonoBehaviour, IMessageHandler

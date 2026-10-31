@@ -1,11 +1,11 @@
-using System.Text;
+﻿using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>
-/// 퀘스트 창: 진행 중 NPC 퀘스트 목록 + 목표 x/y + 보상. J(패드 왼쪽 스틱 누름)로 열고 닫는다. 위/아래로 선택, Back 으로 닫기.
+/// 퀘스트 창: 진행 중 NPC 퀘스트 목록 + 목표 x/y + 보상. J(패드 오른쪽 스틱 누름)로 열고 닫는다. 위/아래로 선택, Back 으로 닫기.
 /// 코드 생성 UI (BestiaryWindow 와 같은 방식). 열려 있는 동안 UiLock "NpcQuest".
 /// </summary>
 public class NpcQuestWindow : MonoBehaviour
@@ -19,6 +19,7 @@ public class NpcQuestWindow : MonoBehaviour
     private TextMeshProUGUI _list, _detail, _title;
     private int _cursor;
     private bool _open;
+    private int _activeCount;
 
     public static bool IsOpen => s_instance != null && s_instance._open;
 
@@ -66,6 +67,7 @@ public class NpcQuestWindow : MonoBehaviour
     private void OnDisable()
     {
         NpcQuestLog.Changed -= OnChanged;
+        Close();
     }
 
     private void OnChanged()
@@ -80,7 +82,7 @@ public class NpcQuestWindow : MonoBehaviour
     {
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
-        bool pressed = (kb != null && kb.jKey.wasPressedThisFrame) || (pad != null && pad.leftStickButton.wasPressedThisFrame);
+        bool pressed = (kb != null && kb.jKey.wasPressedThisFrame) || (pad != null && pad.rightStickButton.wasPressedThisFrame);
         if (pressed && (_open || !DatabaseManager.isOpenUI))
         {
             Toggle();
@@ -95,7 +97,7 @@ public class NpcQuestWindow : MonoBehaviour
             Close();
             return;
         }
-        int n = NpcQuestLog.ActiveQuests().Count;
+        int n = _activeCount;
         int prev = _cursor;
         if (_up.triggered && n > 0)
         {
@@ -157,13 +159,15 @@ public class NpcQuestWindow : MonoBehaviour
     private void Redraw()
     {
         var active = NpcQuestLog.ActiveQuests();
+        _activeCount = active.Count;
         _cursor = Mathf.Clamp(_cursor, 0, Mathf.Max(0, active.Count - 1));
         var list = new StringBuilder();
         if (active.Count == 0)
         {
             list.Append("<color=#999999>진행 중인 퀘스트가 없습니다.\n마을 NPC 머리 위 ! 를 찾아 보세요.</color>");
         }
-        for (int i = 0; i < active.Count && i < MaxRows; i++)
+        int first = Mathf.Max(0, _cursor - MaxRows + 1);
+        for (int i = first; i < active.Count && i < first + MaxRows; i++)
         {
             NpcQuestDef d = active[i];
             bool ready = NpcQuestLog.StatusOf(d) == NpcQuestStatus.Ready;

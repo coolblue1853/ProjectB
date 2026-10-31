@@ -22,6 +22,7 @@ public sealed class CastBar : MonoBehaviour
     private TextMeshProUGUI _label;
     private Func<float> _progress;
     private Tween _blink;
+    private Sprite _fillSprite;
 
     public static bool IsVisible => _instance != null && _instance._root != null && _instance._root.activeSelf;
 
@@ -77,6 +78,8 @@ public sealed class CastBar : MonoBehaviour
         var fgo = new GameObject("Fill", typeof(RectTransform), typeof(Image));
         fgo.transform.SetParent(_root.transform, false);
         _fill = fgo.GetComponent<Image>();
+        _fillSprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0f, 0f, 1f, 1f), Vector2.zero);
+        _fill.sprite = _fillSprite;
         _fill.color = FillColor;
         _fill.raycastTarget = false;
         _fill.type = Image.Type.Filled;
@@ -120,6 +123,19 @@ public sealed class CastBar : MonoBehaviour
         RecallCast.Ended -= OnRecallEnded;
         _blink?.Kill();
         _blink = null;
+        _progress = null;
+        if (_root != null)
+        {
+            _root.SetActive(false);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_fillSprite != null)
+        {
+            Destroy(_fillSprite);
+        }
     }
 
     private void OnRecallStarted()
