@@ -20,5 +20,5 @@ export PATH="/c/Users/user/AppData/Roaming/Python/Python314/Scripts:$PATH"
   -o "Logs/codex/$name.last.md" - < "$brief" > "Logs/codex/$name.log" 2>&1
 rc=$?
 # 실행 중 한도에 걸린 경우
-grep -qi "usage limit\|rate limit reached\|hit your usage limit" "Logs/codex/$name.log" && { echo "LIMIT $name"; exit 75; }
+grep -qi "usage limit\|rate limit reached\|hit your usage limit\|out of credits" "Logs/codex/$name.log" && { echo "LIMIT $name"; exit 75; }
 echo "exit=$rc report=Logs/codex/$name.last.md"
