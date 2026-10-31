@@ -345,6 +345,8 @@ public class EnemySpawner : MonoBehaviour
             dropManager.DropItems(pos);
             if (released != null)
             {
+                bool isBoss = released.TryGetComponent(out EnemyHealth bossHp) && bossHp.isBossMob;
+                dropManager.DropGold(ExtraDrops.MonsterId(released.name), wasElite, isBoss, pos);
                 dropManager.DropExtra(ExtraDrops.MonsterId(released.name), pos); // 계보 무기 추가 드롭(MonsterExtraDrops.csv)
             }
         }
@@ -533,6 +535,7 @@ public class EnemySpawner : MonoBehaviour
             dropManager.DropItems(pos);
             if (tracked != null)
             {
+                dropManager.DropGold(ExtraDrops.MonsterId(tracked.name), true, false, pos);
                 dropManager.DropExtra(ExtraDrops.MonsterId(tracked.name), pos);
             }
         }

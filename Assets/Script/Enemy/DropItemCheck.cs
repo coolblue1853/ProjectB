@@ -23,10 +23,44 @@ public class DropItemCheck : PoolAble
         name = itemData.name;
         Buyprice = (int)(itemData.price * 1.5f);
         nowStack = 1;
+        goldAmount = 0;
         LoadImage();
         ApplyRarityLook(itemData.rarity);
         Invoke("DestroyItembyTime", 120);
     }
+    /// <summary>0 보다 크면 골드 더미(itemData 없음). 줍으면 DatabaseManager.money 가 오른다 (ClassicMapleDesign 14절)</summary>
+    [System.NonSerialized] public int goldAmount;
+    public static int GoldPickedCount, GoldPickedTotal; // 검증용 누적(프로브가 읽음)
+    bool IsGold => goldAmount > 0;
+
+    /// <summary>골드 더미로 설정: 금액에 따라 스프라이트 3단계</summary>
+    public void SetGold(int amount)
+    {
+        itemData = null;
+        goldAmount = amount;
+        name = "Gold";
+        Buyprice = 0;
+        nowStack = 1;
+        var sr = GetComponent<SpriteRenderer>();
+        sr.sprite = GoldSprites.Get(GoldDropRules.Tier(amount));
+        sr.sharedMaterial = defaultMaterial != null ? defaultMaterial : sr.sharedMaterial;
+        spriteRenderer = sr;
+        DropLightPillar.Apply(gameObject, "C");
+        Invoke("DestroyItembyTime", 120);
+    }
+
+    void PickUpGold()
+    {
+        int amount = goldAmount;
+        goldAmount = 0;
+        ReleaseObject();
+        DatabaseManager.money += amount;
+        GoldPickedCount++;
+        GoldPickedTotal += amount;
+        PickupLog.ReportGold(amount);
+        Sfx.Play(SfxId.Pickup);
+    }
+
     Rigidbody2D rigidbody;
     BoxCollider2D boxCollider2D;
     static Material rareMaterial, uniqueMaterial;
@@ -73,11 +107,11 @@ public class DropItemCheck : PoolAble
 
     private void Update()
     {
-        if (!isGround || itemData == null || PlayerController.instance == null || InventoryManager.instance == null)
+        if (!isGround || (itemData == null && !IsGold) || PlayerController.instance == null || InventoryManager.instance == null)
         {
             return;
         }
-        if (!PickupRules.ShouldPickUp(itemData.type, itemData.rarity, GameSettings.Pickup))
+        if (!IsGold && !PickupRules.ShouldPickUp(itemData.type, itemData.rarity, GameSettings.Pickup))
         {
             _magnet = false;
             return;
@@ -86,7 +120,7 @@ public class DropItemCheck : PoolAble
         Vector2 target = PlayerController.instance.transform.position;
         bool wasMagnet = _magnet;
         _magnet = PickupRules.UpdateMagnet(_magnet, (target - pos).sqrMagnitude);
-        if (_magnet && !wasMagnet)
+        if (_magnet && !wasMagnet && !IsGold)
         {
             // 인벤이 가득 차서 못 주울 아이템은 끌어오지 않는다(발밑에 쌓여 경고만 반복). 검사는 0.5초에 한 번
             // 타이머는 실제로 HasRoomFor 를 불렀을 때만 민다(범위 안에 머무는 동안에도 0.5초마다 재검사)
@@ -117,6 +151,7 @@ public class DropItemCheck : PoolAble
     }
     private void OnDisable()
     {
+        goldAmount = 0;
         CancelInvoke(); // 반환된 뒤 120초 소멸 타이머가 재사용된 아이템을 지우지 않도록
     }
     void DestroyItembyTime()
@@ -147,6 +182,11 @@ public class DropItemCheck : PoolAble
     {
         if (collision.tag == "Player" && isGround == true)
         {
+            if (IsGold)
+            {
+                PickUpGold(); // 골드는 인벤 공간·줍기 필터와 무관
+                return;
+            }
             if (itemData != null && !PickupRules.ShouldPickUp(itemData.type, itemData.rarity, GameSettings.Pickup))
             {
                 return; // 줍기 필터로 거른 아이템(설정 PICKUP)

@@ -47,6 +47,17 @@ public class PickupLog : MonoBehaviour
         GameLog.Info(GameLog.Cat.Item, "획득 로그: " + itemName + " x" + line.count);
     }
 
+    public const string GoldKey = "Gold";
+
+    /// <summary>골드 획득: "+N G" 한 줄(1.5초 안에 또 얻으면 합산)</summary>
+    public static void ReportGold(int amount)
+    {
+        PickupLog log = Ensure();
+        PickupLogModel.Line line = log.model.Add(GoldKey, amount, "C", Time.time);
+        log.Refresh();
+        GameLog.Info(GameLog.Cat.Item, "획득 로그: +" + line.count + " G");
+    }
+
     public static void ReportFull()
     {
         if (Warn(Loc.T("Inventory Full")))
@@ -230,7 +241,8 @@ public class PickupLog : MonoBehaviour
             row.lineId = line.id;
             row.version = line.version;
             row.rect.gameObject.SetActive(true);
-            row.icon.sprite = Resources.Load<Sprite>("Item/" + line.itemName);
+            bool gold = line.itemName == GoldKey;
+            row.icon.sprite = gold ? GoldSprites.Get(0) : Resources.Load<Sprite>("Item/" + line.itemName);
             row.icon.enabled = row.icon.sprite != null;
             Color c = theme.RarityColor(line.rarity);
             row.glow.enabled = line.emphasis;
@@ -239,7 +251,7 @@ public class PickupLog : MonoBehaviour
             string shown = DisplayName(line.itemName);
             string name = line.emphasis ? "<wave a=0.4 f=0.8>" + shown + "</wave>" : shown;
             string countText = line.count > 1 ? " <color=#DDDDDD>x" + line.count + "</color>" : "";
-            row.animator.SetText("<color=#" + hex + ">" + name + "</color>" + countText, false);
+            row.animator.SetText(gold ? "<color=#FFD24D>+" + line.count + " G</color>" : "<color=#" + hex + ">" + name + "</color>" + countText, false);
             row.rect.DOKill(true);
             if (isNew)
             {

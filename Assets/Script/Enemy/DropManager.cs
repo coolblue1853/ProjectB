@@ -150,6 +150,47 @@ public class DropManager : MonoBehaviour
         }
     }
 
+    public static int GoldDroppedCount, GoldDroppedTotal; // 검증용 누적(프로브가 읽음)
+
+    /// <summary>몹 골드 직접 드롭 (GoldDropRules). 일반 60%, 정예·보스 확정. 레벨은 MonsterSheet. 떨어뜨린 총액 반환(0 이면 없음)</summary>
+    public int DropGold(string monsterId, bool isElite, bool isBoss, Vector3 dropPosition)
+    {
+        MonsterTable.Row row = MonsterTable.Get(monsterId);
+        int level = row != null && row.level.HasValue ? row.level.Value : 0;
+        if (itemPrefab == null || !GoldDropRules.ShouldDrop(isElite, isBoss, Random.value))
+        {
+            return 0;
+        }
+        int total = GoldDropRules.Total(level, isElite, isBoss, Random.value);
+        if (total <= 0)
+        {
+            return 0;
+        }
+        int piles = GoldDropRules.PileCount(isElite, isBoss);
+        float offsetX = piles > 1 ? -0.4f : 0f;
+        for (int i = 0; i < piles; i++)
+        {
+            int amount = GoldDropRules.Share(total, piles, i);
+            GameObject go = GetGo("Gold");
+            if (go == null || amount <= 0)
+            {
+                continue;
+            }
+            go.transform.position = dropPosition + new Vector3(offsetX, 0.2f, 0f);
+            offsetX += 0.4f;
+            if (go.TryGetComponent(out Rigidbody2D rb))
+            {
+                rb.gravityScale = 1f;
+                rb.AddForce(new Vector2(Random.Range(-0.6f, 0.6f), 1f) * impulseForce, ForceMode2D.Impulse);
+            }
+            go.GetComponent<DropItemCheck>().SetGold(amount);
+        }
+        GoldDroppedCount++;
+        GoldDroppedTotal += total;
+        GameLog.Info(GameLog.Cat.Item, "골드 드롭 " + total + "G x" + piles + " (" + monsterId + ", Lv" + level + ")", this);
+        return total;
+    }
+
     /// <summary>드롭 테이블 전체 (도감 표시용): 아이템 이름과 확률</summary>
     public List<(string name, float chance)> AllDrops()
     {
