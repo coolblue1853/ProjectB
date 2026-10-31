@@ -25,6 +25,17 @@ public class TalkNpc : MonoBehaviour
         set => _conversation = value;
     }
 
+    /// <summary>런타임으로 만든 NPC 용 설정 (대화 이름·프롬프트 높이). Awake 전이면 Awake 가 이 높이를 쓴다</summary>
+    public void Configure(string conversation, float promptHeight)
+    {
+        _conversation = conversation;
+        _promptHeight = promptHeight;
+        if (prompt != null)
+        {
+            prompt.transform.localPosition = new Vector3(0f, _promptHeight, 0f);
+        }
+    }
+
     void Awake()
     {
         action = new KeyAction();
@@ -73,6 +84,10 @@ public class TalkNpc : MonoBehaviour
         if (canTalk && action.UI.Up.triggered)
         {
             FacePlayer();
+            if (NpcQuestGiver.TryTalk(gameObject))
+            {
+                return; // NPC 퀘스트 수락·보고 대화가 우선
+            }
             if (_portrait != null && !string.IsNullOrEmpty(_actorName))
             {
                 StoryDialogues.SetPortrait(_actorName, _portrait);

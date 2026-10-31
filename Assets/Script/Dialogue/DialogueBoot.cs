@@ -41,6 +41,8 @@ public class DialogueBoot : MonoBehaviour
         instance.openingDone = ES3.KeyExists(OpeningKey) && ES3.Load<bool>(OpeningKey);
         go.SetActive(true);
         Lua.RegisterFunction("OpenElderQuests", null, SymbolExtensions.GetMethodInfo(() => OpenElderQuests()));
+        Lua.RegisterFunction("NpcQuestAccept", null, SymbolExtensions.GetMethodInfo(() => NpcQuestBridge.Accept("")));
+        Lua.RegisterFunction("NpcQuestComplete", null, SymbolExtensions.GetMethodInfo(() => NpcQuestBridge.Complete("")));
         ctrl.conversationEnded += OnConversationEnded;
         GameLog.Info(GameLog.Cat.Player, "대화 시스템 준비: 대화 " + ctrl.initialDatabase.conversations.Count + "개");
     }

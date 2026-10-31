@@ -1275,7 +1275,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Potion
-      - "\uBB3C\uC57D"
+      - "\uACE0\uAE09 \uBB3C\uC57D"
       Flags: 0000
       Languages_Touch: []
     - Term: Food
@@ -6205,6 +6205,294 @@ MonoBehaviour:
       Languages:
       - The nest was empty
       - "\uB465\uC9C0\uAC00 \uBE44\uC5B4 \uC788\uC5C8\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sword
+      TermType: 0
+      Description: 
+      Languages:
+      - Sword
+      - "\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Greatsword
+      TermType: 0
+      Description: 
+      Languages:
+      - Greatsword
+      - "\uB300\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Scythe
+      TermType: 0
+      Description: 
+      Languages:
+      - Scythe
+      - "\uB0AB"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dagger
+      TermType: 0
+      Description: 
+      Languages:
+      - Dagger
+      - "\uB2E8\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Knuckle
+      TermType: 0
+      Description: 
+      Languages:
+      - Knuckle
+      - "\uB108\uD074"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Claw
+      TermType: 0
+      Description: 
+      Languages:
+      - Claw
+      - "\uD074\uB85C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spear
+      TermType: 0
+      Description: 
+      Languages:
+      - Spear
+      - "\uCC3D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Adae
+      TermType: 0
+      Description: 
+      Languages:
+      - Adae
+      - "\uC544\uB300"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Staff
+      TermType: 0
+      Description: 
+      Languages:
+      - Staff
+      - "\uC9C0\uD321\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Axe
+      TermType: 0
+      Description: 
+      Languages:
+      - Axe
+      - "\uB3C4\uB07C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Mace
+      TermType: 0
+      Description: 
+      Languages:
+      - Mace
+      - "\uB454\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Whip
+      TermType: 0
+      Description: 
+      Languages:
+      - Whip
+      - "\uCC44\uCC0D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Flail
+      TermType: 0
+      Description: 
+      Languages:
+      - Flail
+      - "\uC0AC\uC2AC \uCCA0\uD1F4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dual
+      TermType: 0
+      Description: 
+      Languages:
+      - Dual
+      - "\uC30D\uAC80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tachi
+      TermType: 0
+      Description: 
+      Languages:
+      - Tachi
+      - "\uD0DC\uB3C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bow
+      TermType: 0
+      Description: 
+      Languages:
+      - Bow
+      - "\uD65C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Crossbow
+      TermType: 0
+      Description: 
+      Languages:
+      - Crossbow
+      - "\uC11D\uAD81"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tome
+      TermType: 0
+      Description: 
+      Languages:
+      - Tome
+      - "\uB9C8\uB3C4\uC11C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Javelin
+      TermType: 0
+      Description: 
+      Languages:
+      - Javelin
+      - "\uD22C\uCC3D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bulwark
+      TermType: 0
+      Description: 
+      Languages:
+      - Bulwark
+      - "\uBC29\uD328"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Small HP Potion
+      TermType: 0
+      Description: 
+      Languages:
+      - Small HP Potion
+      - "\uC18C\uD615 \uBB3C\uC57D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Medium HP Potion
+      TermType: 0
+      Description: 
+      Languages:
+      - Medium HP Potion
+      - "\uC911\uD615 \uBB3C\uC57D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Large HP Potion
+      TermType: 0
+      Description: 
+      Languages:
+      - Large HP Potion
+      - "\uB300\uD615 \uBB3C\uC57D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Recall Scroll
+      TermType: 0
+      Description: 
+      Languages:
+      - Recall Scroll
+      - "\uADC0\uD658 \uC8FC\uBB38\uC11C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Star-Marked Bark Shard
+      TermType: 0
+      Description: 
+      Languages:
+      - Star-Marked Bark Shard
+      - "\uBCC4\uBB34\uB2AC \uC218\uD53C \uC870\uAC01"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ent Heartwood
+      TermType: 0
+      Description: 
+      Languages:
+      - Ent Heartwood
+      - "\uC5D4\uD2B8 \uC2EC\uC7AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Locked Star Shard
+      TermType: 0
+      Description: 
+      Languages:
+      - Locked Star Shard
+      - "\uC7A0\uAE34 \uBCC4 \uC870\uAC01"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Looted Forge Crate
+      TermType: 0
+      Description: 
+      Languages:
+      - Looted Forge Crate
+      - "\uC57D\uD0C8\uD55C \uB300\uC7A5\uAC04 \uD654\uBB3C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Brooch Resonance
+      TermType: 0
+      Description: 
+      Languages:
+      - Brooch Resonance
+      - "\uBE0C\uB85C\uCE58 \uACF5\uBA85"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hunter's Longbow
+      TermType: 0
+      Description: 
+      Languages:
+      - Hunter's Longbow
+      - "\uC0AC\uB0E5\uAFBC\uC758 \uC7A5\uAD81"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gnarled Club
+      TermType: 0
+      Description: 
+      Languages:
+      - Gnarled Club
+      - "\uC639\uC774\uC9C4 \uBABD\uB465\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Woodcutter's Axe
+      TermType: 0
+      Description: 
+      Languages:
+      - Woodcutter's Axe
+      - "\uB098\uBB34\uAFBC\uC758 \uB3C4\uB07C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Twin Fang
+      TermType: 0
+      Description: 
+      Languages:
+      - Twin Fang
+      - "\uC30D\uC1A1\uACF3\uB2C8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Vine Lash
+      TermType: 0
+      Description: 
+      Languages:
+      - Vine Lash
+      - "\uB369\uAD74 \uCC44\uCC0D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LEVEL UP
+      TermType: 0
+      Description: 
+      Languages:
+      - LEVEL UP
+      - "\uB808\uBCA8 \uC5C5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: EXP
+      TermType: 0
+      Description: 
+      Languages:
+      - EXP
+      - "\uACBD\uD5D8\uCE58"
       Flags: 0000
       Languages_Touch: []
     CaseInsensitiveTerms: 0

@@ -18,6 +18,7 @@ public static class LocItems
 
         // ── 기본·재료·소모품 ──
         ("Rock", "돌멩이"), ("Wood", "나무"), ("PickAxe", "곡괭이"), ("Potion", "고급 물약"), ("Small HP Potion", "소형 물약"), ("Medium HP Potion", "중형 물약"), ("Large HP Potion", "대형 물약"), ("Recall Scroll", "귀환 주문서"), ("Food", "음식"),
+        ("Star-Marked Bark Shard", "별무늬 수피 조각"), ("Ent Heartwood", "엔트 심재"), ("Locked Star Shard", "잠긴 별 조각"), ("Looted Forge Crate", "약탈한 대장간 화물"), ("Brooch Resonance", "브로치 공명"),
         ("Cap", "모자"), ("Armor", "갑옷"), ("HighArmor", "상급 갑옷"), ("LegArmor", "다리 갑옷"), ("HandArmor", "장갑"),
         ("Necklace", "목걸이"), ("Ring", "반지"), ("ToxicPickAxe", "독 곡괭이"), ("Shoes", "신발"),
         ("Leather Knuckles", "가죽 너클"), ("Wood Spear", "나무 창"),

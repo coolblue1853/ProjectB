@@ -1,0 +1,25 @@
+﻿id,title,giver,minLevel,requires,objective,target,count,exp,gold,rewardItem,rewardCount,description
+Q101,마지막 별의 방향,elder,1,,talk,elder,1,700,100,,,메인: 브로치의 네 갈래 별을 확인하고 숲 샛길로 향한다.
+Q102,뿌리 밑의 발자국,ruen,1,Q101,kill,FlowerMole_BD,8,600,120,,,사냥 입문: 샛길 첫 사냥터를 익힌다.
+Q103,바람에 쓸린 약초,sena,2,Q102,collect,GreenHurb,3,742,90,GreenHurb,1,채집 입문: 숲 샛길 채집 지점을 방문한다.
+Q104,밤을 지키는 허수아비,ruen,3,Q102,kill,Scarecrow_BD,6,800,180,Potion,1,샛길 끝과 야간 위험을 암시한다.
+Q201,나무에 새겨진 별,elder,3,Q101,collect,StarBarkFragment,3,1000,160,,,메인: 숲 늑대의 흔적에서 아버지의 표식을 찾는다.
+Q202,숲의 경계선,ruen,4,Q102,kill,ForestWolf_BD,8,900,210,,,일반 숲의 표준 사냥터를 안내한다.
+Q203,손수 끓인 첫 끼,merchant,4,Q103,craft,Rabbit Meat Stew,1,1080,140,Rabbit Meat Stew,1,요리 입문: 화로에서 첫 요리를 만든다.
+Q204,어두워지는 숲,eve,5,Q202,visit,forest_night_post,1,1000,210,,,밤 도깨비불 출현 지역으로 동선을 유도한다.
+Q301,말하는 나이테,elder,6,Q201,kill,AncientEnt_BD,1,1300,300,,,메인: 고대 엔트의 기억에서 탑의 문장을 본다.
+Q302,곰의 길,ruen,6,Q202,kill,ForestBear_BD,7,1200,250,,,깊은 숲의 중형 몬스터를 소개한다.
+Q303,죽은 나무의 심장,smith,7,Q302,collect,EntHeartwood,3,1316,270,Enhance Stone,1,엔트 파밍과 대장장이 방문을 연결한다.
+Q304,새벽의 빈 둥지,eve,8,Q302,visit,deep_nest,1,1300,240,,,흔적 추적 및 정예 둥지 위치를 안내한다.
+Q401,물속의 네 갈래 별,elder,9,Q301,collect,SwampStarShard,3,1500,350,,,메인: 늪 악어가 삼킨 별 문장 조각을 모은다.
+Q402,늪이 삼킨 낚싯줄,merchant,9,Q401,collect,Moss Loach,2,1400,250,Wood,2,낚시 입문: 늪 낚시터에서 이끼미꾸라지를 낚는다.
+Q403,가라앉지 않는 진흙,sena,10,Q401,kill,BogSlime_BD,8,1469,310,Potion,1,야간 늪 사냥과 슬라임 위험을 안내한다.
+Q404,부풀어 오른 심장,ruen,11,Q403,kill,GiantSlime_BD,1,1600,470,Enhance Stone,1,늪 보스 공략 후 성채 분기와 탑 근교를 연다.
+Q501,사라진 운반대,merchant,11,Q404,kill,BanditCutthroat_BD,8,800,350,,,선택: 산적 성채의 보급로를 확인한다.
+Q502,빼앗긴 대장간 화물,smith,12,Q501,collect,StolenForgeCrate,4,900,420,T0_Ore,1,선택: 산적 궁수 드롭을 모아 제작 거점을 돕는다.
+Q503,방패 너머의 길,ruen,12,Q501,kill,BanditShieldman_BD,7,811,390,,,선택: 성채 안쪽으로 진입한다.
+Q504,성채에 남은 밤,eve,13,Q502,kill,BanditChief_BD,1,900,650,Enhance Stone,2,선택: 성채 분기 보스를 격파한다.
+Q601,별이 닿은 돌문,elder,13,Q401,visit,tower_altar,1,1700,540,,,메인: 브로치가 유적 제단에 반응한다.
+Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,1800,470,,,발굴 입문: 유적 5개 지점에서 아버지 기록 5편을 모은다.
+Q603,잠들지 않는 골렘,smith,14,Q601,kill,GolemMedium_BD,6,1607,580,Enhance Stone,2,골렘 사냥과 강화 재료 획득을 안내한다.
+Q604,첫 번째 문의 수호자,elder,15,Q601,kill,Gatekeeper_BD,1,2000,1000,BroochResonance,1,메인: 문지기 격파 후 브로치에 다음 층계 길이 새겨진다.

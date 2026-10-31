@@ -126,6 +126,10 @@ public class DropManager : MonoBehaviour
         float offsetX = 0.6f;
         foreach (ExtraDrops.Entry e in list)
         {
+            if (e.QuestOnly && !NpcQuestLog.WantsDrop(e.Item))
+            {
+                continue;
+            }
             if (Random.value <= e.Probability * (1 + (float)DatabaseManager.playerDropRate / 100) && DropOne(e.Item, dropPosition, 0f, ref offsetX))
             {
                 GameLog.Info(GameLog.Cat.Item, "추가 드롭 " + e.Item + " (확률 " + (e.Probability * 100f).ToString("F2") + "%, " + monsterId + ")", this);

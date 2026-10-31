@@ -250,3 +250,8 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 247,Medium HP Potion,Consum,Restores 220 HP.,30,1,shop,99,hp +,220,-,,Medium HP Potion,0,C,0,,
 248,Large HP Potion,Consum,Restores 320 HP.,47,1,shop,99,hp +,320,-,,Large HP Potion,0,C,0,,
 249,Recall Scroll,Consum,Returns to town after 2s. Cancels on move or hit.,80,1,shop,99,recall +,0,-,,Recall Scroll,0,C,0,,
+250,StarBarkFragment,Misc,Bark carved with a four-pointed star. Only found while helping the Elder.,10,1,quest,99,-,0,-,,Star-Marked Bark Shard,0,R,0,,
+251,EntHeartwood,Misc,Heartwood from a dead Ent. A quest item for the smith.,10,1,quest,99,-,0,-,,Ent Heartwood,0,R,0,,
+252,SwampStarShard,Misc,A locked shard of the star crest swallowed by a croc.,10,1,quest,99,-,0,-,,Locked Star Shard,0,R,0,,
+253,StolenForgeCrate,Misc,A forge crate looted by bandit archers.,10,1,quest,99,-,0,-,,Looted Forge Crate,0,R,0,,
+254,BroochResonance,Misc,Key item. The brooch hums with the path to the next floor.,0,1,quest,1,-,0,-,,Brooch Resonance,0,U,0,,

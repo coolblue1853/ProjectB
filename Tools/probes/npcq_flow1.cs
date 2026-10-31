@@ -1,0 +1,12 @@
+var sb = new System.Text.StringBuilder();
+var elder = GameObject.Find("NPC_Elder");
+bool started = NpcQuestGiver.TryTalk(elder);
+sb.AppendLine("offer talk started=" + started + " active=" + PixelCrushers.DialogueSystem.DialogueManager.isConversationActive + " conv=" + PixelCrushers.DialogueSystem.DialogueManager.lastConversationStarted);
+PixelCrushers.DialogueSystem.DialogueManager.StopConversation();
+int exp0 = LevelSystem.Exp, lv0 = LevelSystem.Level, g0 = DatabaseManager.money;
+PixelCrushers.DialogueSystem.Lua.Run("NpcQuestAccept('Q101'); NpcQuestComplete('Q101')");
+sb.AppendLine("Q101 status=" + NpcQuestLog.StatusOf("Q101") + " Lv" + lv0 + "->" + LevelSystem.Level + " exp " + exp0 + "->" + LevelSystem.Exp + " gold " + g0 + "->" + DatabaseManager.money);
+sb.AppendLine("Q102 status=" + NpcQuestLog.StatusOf("Q102") + " ruen mark=" + GameObject.Find("NPC_ruen").GetComponent<NpcQuestGiver>().MarkState);
+NpcQuestLog.Accept("Q102");
+sb.AppendLine("disk=" + ES3.Load<string>("npcq.state"));
+return sb.ToString();

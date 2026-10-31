@@ -34,6 +34,23 @@ public class EnemyHealthBar : MonoBehaviour
 
     private TMPro.TextMeshProUGUI _lvLabel;
 
+    /// <summary>
+    /// 레벨 라벨은 주인 몹이 켜져 있고 살아 있고 레벨이 있을 때만 보인다.
+    /// 몹이 풀로 돌아가거나 죽은 뒤에도 라벨만 남아 배경 프롭 위에 "LV.1"로 떠 있던 문제 방지.
+    /// </summary>
+    private void LateUpdate()
+    {
+        if (_lvLabel == null || !_lvLabel.gameObject.activeSelf)
+        {
+            return;
+        }
+        bool visible = healthSystem != null && healthSystem.isActiveAndEnabled && healthSystem.nowHP > 0 && healthSystem.Level > 0;
+        if (!visible)
+        {
+            _lvLabel.gameObject.SetActive(false);
+        }
+    }
+
     /// <summary>플레이어 레벨 대비 몹 레벨 색: +4 이상 붉게, -4 이하 회색, 나머지 흰색 (메이플식)</summary>
     public static Color LevelColor(int monsterLevel, int playerLevel)
     {

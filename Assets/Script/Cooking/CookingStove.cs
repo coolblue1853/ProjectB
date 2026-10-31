@@ -147,7 +147,10 @@ public class CookingStove : MiniGameSpot
         ItemRarity rarity = Session.Grade == CookGrade.Fail ? ItemRarity.C : Session.Recipe.Rarity;
         ResultId = id;
         ResultCount = count;
-        GiveReward(id, count, AddSource.Cooking, rarity);
+        if (GiveReward(id, count, AddSource.Cooking, rarity) && Session.Grade != CookGrade.Fail)
+        {
+            PixelCrushers.MessageSystem.SendMessage(this, "Craft", id); // 제작 퀘스트(G11)·NPC 퀘스트 제작 목표
+        }
         _readyAt = Time.time + CookingRules.StoveCooldown;
     }
 

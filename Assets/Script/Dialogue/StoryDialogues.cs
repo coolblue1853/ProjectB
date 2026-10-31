@@ -6,7 +6,7 @@ using UnityEngine;
 /// 대사 데이터베이스를 코드로 만든다 (Dialogue System 에디터 미사용 — 퀘스트처럼 코드 생성).
 /// 스토리: TowerWorld.md 2절(아버지를 찾는 소녀, 브로치). 문구는 픽셀 폰트에 한글이 없어 영어(I2 도입 시 키로 이전, Q-407).
 /// </summary>
-public static class StoryDialogues
+public static partial class StoryDialogues
 {
     public const string Opening = "Story/Opening";
     public const string Elder = "Village/Elder";
@@ -30,12 +30,14 @@ public static class StoryDialogues
         db.actors.Add(template.CreateActor(SmithId, "Smith Brann", false));
         db.actors.Add(template.CreateActor(MerchantId, "Merchant Ilsa", false));
         db.actors.Add(template.CreateActor(GatekeeperId, "Gatekeeper of the Tower", false));
+        AddNpcQuestActors();
 
         BuildOpening(1);
         BuildElder(2);
         BuildSmith(3);
         BuildMerchant(4);
         BuildGatekeeper(5);
+        BuildNpcQuests();
         return db;
     }
 

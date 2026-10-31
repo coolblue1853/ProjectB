@@ -239,3 +239,14 @@ Gatekeeper_BD,15,3800,56
 - 몹 레벨 라벨(`EnemyHealthBar`): HP 바 왼쪽 끝에 정렬(바 pivot 무관). 폰트가 대문자 전용이라 화면에는 `LV.1` 로 보인다(코드는 "Lv."). 기록만.
 - 1층계 몹 골드 조사: 몹은 **골드를 직접 주지 않는다**. 골드는 드롭 아이템 판매가(price)와 퀘스트 보상뿐이다. 소재 판매가 대표값 50~100G(Rabbit Meat 100, Rock 100). 드롭은 프리팹별 DropManager 라 마리당 기대 골드·시간당 수입은 미집계(§8 가정 5~30G/마리와 비교하려면 플레이 중 DropManager.AllDrops x price 집계 필요, probes/potion_gold_survey.cs 는 에디트 모드에서 DB 미로드로 0). 이번엔 수정하지 않음.
 - 검증: EditMode 전체 307 통과(`PotionEconomyTests`: 쿨다운 2초·회복량·구매가·귀환 규칙), 플레이 프로브 `potion_shop_buy.cs`(500→475G, 소형 물약 0→1), `potion_cooldown.cs`(t=0 사용, t=1.0 거절, t=2.1 사용·HP 회복), `recall_cast.cs`·`recall_cancel.cs`(시전 후 마을 도착·주문서 1개 소비, 피격·이동 취소 시 소모 없음). 시전 중 프레임 정체 때문에 프로브 타이밍은 에디터 지연이 섞인다. 라벨 스크린샷은 몹 라벨 위치만 확인(`Logs/playtest/recall_lvl_z.png`), 미검증: 라벨 왼쪽 정렬 육안 확인, 시전 UI 없음.
+
+## 13. 구현 4단계 (2026-10-31, 1층계 NPC 퀘스트)
+
+- 데이터: `Resources/QuestsFloor1.csv`(24개, 열 id,title,giver,minLevel,requires,objective,target,count,exp,gold,rewardItem,rewardCount,description). 목표 키 talk/kill/collect/craft/visit, 대상 = NPC id·MonsterSheet id·ItemSheet 키·방문 지점 id(`forest_night_post`·`deep_nest`·`tower_altar`). Q602 = collect + 대상 `excavation.records`(발굴 기록 개수).
+- 코드 `Script/NpcQuest/`: `NpcQuestCatalog`(파싱)·`NpcQuestLog`(상태 전이·세이브, 외부 의존은 델리게이트)·`NpcQuestRewards`·`NpcQuestDriver`(MessageSystem Kill/Craft·세이브 로드)·`NpcQuestGiver`(머리 위 ! ? 표시·상호작용)·`NpcQuestPlacer`(신규 NPC·방문 지점 런타임 배치)·`QuestVisitMarker`·`NpcQuestWindow`(J)·`NpcQuestTracker`(우측 최대 3개). 대화는 `StoryDialogues.NpcQuests.cs` 가 퀘스트마다 수락·보고 대화를 CSV 에서 생성, Lua `NpcQuestAccept/Complete`.
+- 상태: 미수락(Locked 표시 없음/LevelLow 회색 !/Available 노란 !) → 진행 → 완료 가능(노란 ?) → 완료. 수집은 인벤토리 개수, 처치·제작·방문은 수락 후 진행만 센다. "수락 NPC 와 대화"(Q101)는 수락 즉시 보고까지.
+- 세이브: ES3 새 키 `npcq.state` = "id:상태:진행;..."(1 진행·2 완료). 기존 키 불변.
+- 전용 드롭 4종(ItemSheet 250~253, 아이콘은 기존 아이콘 색조 변경 임시) + 키 아이템 `BroochResonance`(254). `MonsterExtraDrops.csv` 4번째 열 `condition=quest` → `NpcQuestLog.WantsDrop` 일 때만 굴림.
+- 기존 NPC 연결: `TalkNpc`·`ShopUI`·`WeaponSmithUI` 의 ↑ 가 `NpcQuestGiver.TryTalk` 를 먼저 부른다. 요리 화로가 성공 시 "Craft" 메시지를 보낸다(Q203).
+- `EnemyHealthBar` 레벨 라벨: 재현 못 함(Rock/tree 프롭은 레벨 0 이라 라벨 없음) — 몹이 꺼졌거나 죽었거나 레벨 0 이면 라벨을 숨기는 LateUpdate 방어만 추가.
+- 검증: EditMode `NpcQuestTests` 13개(파싱·EXP 합 28425·대상 id 존재·전이·선행·레벨·보상·세이브). 플레이 프로브 `npcq_flow1~4.cs`: Q101 수락+보고 → EXP 700(Lv1→2, 200)·골드 +100, Q102 처치 8 → 보고 → Lv3, 레벨 부족 회색 !, 전용 드롭 비진행 0/60 → 진행 16/60, 저장·로드 문자열 일치, 퀘스트 창·추적 표시 스크린샷(`Logs/playtest/npcq_town.png`, `npcq_window.png`). 미검증: 실제 대화 UI 클릭, 패드 키, 방문 지점·이브 위치, 서브 퀘스트 전체 실플레이(데이터만), 요리 Craft 메시지, 키 아이템 판매 차단.
