@@ -240,6 +240,12 @@ Gatekeeper_BD,15,3800,56
 - 1층계 몹 골드 조사: 몹은 **골드를 직접 주지 않는다**. 골드는 드롭 아이템 판매가(price)와 퀘스트 보상뿐이다. 소재 판매가 대표값 50~100G(Rabbit Meat 100, Rock 100). 드롭은 프리팹별 DropManager 라 마리당 기대 골드·시간당 수입은 미집계(§8 가정 5~30G/마리와 비교하려면 플레이 중 DropManager.AllDrops x price 집계 필요, probes/potion_gold_survey.cs 는 에디트 모드에서 DB 미로드로 0). 이번엔 수정하지 않음.
 - 검증: EditMode 전체 307 통과(`PotionEconomyTests`: 쿨다운 2초·회복량·구매가·귀환 규칙), 플레이 프로브 `potion_shop_buy.cs`(500→475G, 소형 물약 0→1), `potion_cooldown.cs`(t=0 사용, t=1.0 거절, t=2.1 사용·HP 회복), `recall_cast.cs`·`recall_cancel.cs`(시전 후 마을 도착·주문서 1개 소비, 피격·이동 취소 시 소모 없음). 시전 중 프레임 정체 때문에 프로브 타이밍은 에디터 지연이 섞인다. 라벨 스크린샷은 몹 라벨 위치만 확인(`Logs/playtest/recall_lvl_z.png`), 미검증: 라벨 왼쪽 정렬 육안 확인, 시전 UI 없음.
 
+### 12.1 귀환 시전 바 (2026-10-31)
+
+- `UI/CastBar.cs`: 범용 시전 바(화면 하단 중앙, 채워지는 바 + 이름, Galmuri 폰트). `CastBar.Show(이름, Func<float> 진행)` / `Hide(성공)`. 취소면 빨갛게 3번 깜박인 뒤 사라지고(DOTween, SetLink·OnDisable Kill), 완료면 바로 사라진다.
+- `RecallCast` 가 `Started` / `Ended(bool 완료)` 이벤트와 `Progress` 를 노출, `CastBar` 가 OnEnable/OnDisable 로 구독만 한다. 다른 시전은 Show/Hide 를 부르면 된다.
+- 검증: EditMode 336/336 통과, 컴파일 에러 0, 플레이 프로브 `castbar_start/state/hit.cs`(시전 시 bar=True, 피격 후 casting=False·bar=False), 스크린샷 `Logs/playtest/castbar_cast.png`. 미검증: 취소 깜박임 육안(에디터 지연으로 못 잡음), 이동 취소 경로 바 확인, 패드.
+
 ## 13. 구현 4단계 (2026-10-31, 1층계 NPC 퀘스트)
 
 - 데이터: `Resources/QuestsFloor1.csv`(24개, 열 id,title,giver,minLevel,requires,objective,target,count,exp,gold,rewardItem,rewardCount,description). 목표 키 talk/kill/collect/craft/visit, 대상 = NPC id·MonsterSheet id·ItemSheet 키·방문 지점 id(`forest_night_post`·`deep_nest`·`tower_altar`). Q602 = collect + 대상 `excavation.records`(발굴 기록 개수).

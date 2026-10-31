@@ -31,6 +31,13 @@ public sealed class RecallCast : MonoBehaviour
     private bool _hit;
     private PlayerHealthManager _hp;
 
+    /// <summary>시전 바 표시용 이름</summary>
+    public const string CastLabel = "귀환";
+    /// <summary>시전 시작</summary>
+    public static event System.Action Started;
+    /// <summary>시전 종료. true = 완료(시간 다 채움), false = 취소</summary>
+    public static event System.Action<bool> Ended;
+
     public static bool IsCasting => _instance != null && _instance.enabled;
     public static float Progress => IsCasting ? Mathf.Clamp01(_instance._elapsed / RecallRules.CastSeconds) : 0f;
 
@@ -38,6 +45,8 @@ public sealed class RecallCast : MonoBehaviour
     private static void ResetStatics()
     {
         _instance = null;
+        Started = null;
+        Ended = null;
     }
 
     /// <summary>시전 시작. 이미 시전 중·마을·사망·플레이어 없음이면 false(소모 없음)</summary>
@@ -82,6 +91,7 @@ public sealed class RecallCast : MonoBehaviour
         _hp = hp;
         _hp.OnHpDamaged += OnHit;
         enabled = true;
+        Started?.Invoke();
         GameLog.Info(GameLog.Cat.Item, "귀환 시전 시작(" + RecallRules.CastSeconds + "초)");
     }
 
@@ -124,7 +134,12 @@ public sealed class RecallCast : MonoBehaviour
         {
             _hp.OnHpDamaged -= OnHit;
         }
+        bool wasCasting = enabled;
         enabled = false;
+        if (wasCasting)
+        {
+            Ended?.Invoke(cancelReason == null);
+        }
         if (cancelReason != null)
         {
             Sfx.Play(SfxId.CraftFail, 0.4f);
