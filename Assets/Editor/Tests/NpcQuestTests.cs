@@ -7,7 +7,11 @@ public class NpcQuestTests
 {
     private sealed class RewardCatalog : IItemCatalog
     {
-        public ItemDef Get(string id) => new ItemDef { Id = id, MaxStack = 99 };
+        public ItemDef Get(string id) => new ItemDef
+        {
+            Id = id,
+            MaxStack = id == "RustedSword" || id == "FangDagger" || id == "WolfCap" ? 1 : 99,
+        };
         public bool Exists(string id) => true;
     }
 
@@ -410,6 +414,64 @@ public class NpcQuestTests
         inventory.PutAt(0, new ItemStack("GreenHurb", 3));
         Assert.IsTrue(NpcQuestRewards.CanFitReward(NpcQuestCatalog.Find("Q103"), inventory, RewardItems));
         Assert.AreEqual(3, inventory.Count("GreenHurb"), "사전 검사는 원본 불변");
+    }
+
+    [Test]
+    public void 장비_보상은_15칸_포화에서_진행을_보존하고_판매_후_한번만_지급한다()
+    {
+        NpcQuestLog.Deserialize("Q202:1:8");
+        var inventory = new SlotContainer(RewardItems, 15, 15);
+        for (int i = 0; i < 15; i++)
+        {
+            inventory.PutAt(i, new ItemStack("RustedSword", 1));
+        }
+        NpcQuestLog.RewardCapacity = d => NpcQuestRewards.CanFitReward(d, inventory, RewardItems);
+        Assert.IsFalse(NpcQuestLog.Complete("Q202"));
+        Assert.AreEqual(NpcQuestStatus.Ready, NpcQuestLog.StatusOf("Q202"));
+        Assert.AreEqual(0, _rewards.Count);
+        Assert.AreEqual(15, inventory.Count("RustedSword"));
+        Assert.IsTrue(inventory.TryRemove("RustedSword", 1));
+        Assert.IsTrue(NpcQuestLog.Complete("Q202"));
+        Assert.IsFalse(NpcQuestLog.Complete("Q202"));
+        Assert.AreEqual("FangDagger", _rewards[0].RewardItem);
+        Assert.AreEqual(1, _rewards.Count);
+    }
+
+    [Test]
+    public void 수피가_남는_만원_가방은_방어구_보상_공간을_따로_확보해야_한다()
+    {
+        var inventory = new SlotContainer(RewardItems, 15, 15);
+        inventory.PutAt(0, new ItemStack("StarBarkFragment", 4));
+        for (int i = 1; i < 15; i++)
+        {
+            inventory.PutAt(i, new ItemStack("RustedSword", 1));
+        }
+        Assert.IsFalse(NpcQuestRewards.CanFitReward(NpcQuestCatalog.Find("Q201"), inventory, RewardItems));
+        Assert.AreEqual(4, inventory.Count("StarBarkFragment"), "사전 안내에서 수피를 회수하지 않는다.");
+        Assert.IsTrue(inventory.TryRemove("StarBarkFragment", 1));
+        Assert.IsTrue(NpcQuestRewards.CanFitReward(NpcQuestCatalog.Find("Q201"), inventory, RewardItems), "보고 재료가 칸을 비우면 별도 판매 없이 보고한다.");
+    }
+
+    [Test]
+    public void 보상_공간_안내_대화는_완료_스크립트를_실행하지_않는다()
+    {
+        PixelCrushers.DialogueSystem.DialogueDatabase database = StoryDialogues.Build();
+        try
+        {
+            var conversation = database.GetConversation(StoryDialogues.InventoryFullConversation("Q202"));
+            Assert.IsNotNull(conversation);
+            bool foundHint = false;
+            foreach (var entry in conversation.dialogueEntries)
+            {
+                Assert.IsTrue(string.IsNullOrEmpty(entry.userScript));
+                foundHint |= entry.DialogueText == NpcQuestRewards.InventoryFullHint;
+            }
+            Assert.IsTrue(foundHint);
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(database);
+        }
     }
 
     [Test]

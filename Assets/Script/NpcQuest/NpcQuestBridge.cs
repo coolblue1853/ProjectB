@@ -10,7 +10,7 @@ public static class NpcQuestBridge
     {
         if (!NpcQuestLog.Complete(questId) && NpcQuestLog.StatusOf(questId) == NpcQuestStatus.Ready)
         {
-            PickupLog.ReportFull();
+            PickupLog.Warn(NpcQuestRewards.InventoryFullHint);
         }
     }
 }

@@ -3,6 +3,9 @@
 /// <summary>NPC 퀘스트 보상 지급: EXP(LevelSystem)·골드·아이템 (QuestBoard.GrantReward 와 같은 방식)</summary>
 public static class NpcQuestRewards
 {
+    public const string InventoryFullHint = "보상을 받을 가방 공간이 부족하네. I에서 장비를 착용하거나 마을 왼쪽 상인에게 남는 장비·재료를 팔고 다시 보고하게. 요리용 토끼고기 2·약초 1·나무 1은 남겨두게.";
+    public const string ShopInventoryFullHint = "보상 공간 부족: 상점에서 남는 장비·재료를 판매한 뒤 다시 보고하세요.";
+
     public static bool CanReceive(NpcQuestDef d)
     {
         if (d == null)

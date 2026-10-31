@@ -1,4 +1,4 @@
-using PixelCrushers.DialogueSystem;
+﻿using PixelCrushers.DialogueSystem;
 
 /// <summary>
 /// 1층계 NPC 퀘스트 대화 (ClassicMapleDesign.md 10절). 퀘스트마다 수락 대화(설명 한 줄 → 수락/나중에)와 보고 대화를 CSV 에서 만든다.
@@ -17,6 +17,8 @@ public static partial class StoryDialogues
     public static string OfferConversation(string questId) => "NpcQ/" + questId + "/offer";
 
     public static string ReportConversation(string questId) => "NpcQ/" + questId + "/report";
+
+    public static string InventoryFullConversation(string questId) => "NpcQ/" + questId + "/inventoryFull";
 
     private static void AddNpcQuestActors()
     {
@@ -79,6 +81,8 @@ public static partial class StoryDialogues
 
     private static void BuildReport(int convId, NpcQuestDef d, int npc)
     {
+        Conv blocked = NewConv(convId + 1000, InventoryFullConversation(d.Id), PlayerId, npc);
+        Chain(blocked, Start(blocked), npc, NpcQuestRewards.InventoryFullHint);
         Conv v = NewConv(convId, ReportConversation(d.Id), PlayerId, npc);
         DialogueEntry e = Chain(v, Start(v), npc, "해냈군. 수고했네. 약속한 보상일세.");
         e.userScript = "NpcQuestComplete('" + d.Id + "')";

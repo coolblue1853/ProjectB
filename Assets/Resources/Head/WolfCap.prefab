@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 10
-  hp: 80
+  hp: 40
   basicDmg: 0
   critical: 0
   criticalDmg: 0

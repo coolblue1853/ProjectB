@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -120,6 +120,15 @@ public class NpcQuestGiver : MonoBehaviour
         string conv;
         if (s == NpcQuestStatus.Ready)
         {
+            if (!NpcQuestLog.RewardCapacity(q))
+            {
+                if (_npcId == "merchant")
+                {
+                    PickupLog.Warn(NpcQuestRewards.ShopInventoryFullHint);
+                    return false; // 같은 ↑ 입력으로 상점을 열어 판매할 수 있게 한다.
+                }
+                return DialogueBoot.Talk(StoryDialogues.InventoryFullConversation(q.Id), transform);
+            }
             conv = StoryDialogues.ReportConversation(q.Id);
         }
         else if (s == NpcQuestStatus.Available && !_offerShown)
