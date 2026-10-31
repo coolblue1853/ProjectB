@@ -4,7 +4,7 @@
 # 강도 규칙(리셋 시점 기준 남은 양으로 판단):
 #   기본 medium(사용자 10-31: 1회 5시간 창 19% 는 높다).
 #   리셋 6시간 안 + 주간 30% 이상 남음 → max, 5시간 창 30% 미만 + 주간 여유 2배 → high
-#   주간 90% 이상 → low. --limit: 5시간 85%↑ 또는 주간 95%↑ 이면 LIMIT(→ Claude 가 직접 작업)
+#   주간 90% 이상 → low. --limit: 5시간 85%↑ 또는 주간 90%↑ 이면 LIMIT(사용자 10-31 허용선)(→ Claude 가 직접 작업)
 # 진행 중인 세션에는 아직 기록이 없을 수 있어, 최근 파일부터 rate_limits 가 있는 것을 찾는다.
 line=""
 for f in $(ls -t ~/.codex/sessions/*/*/*/*.jsonl 2>/dev/null | head -10); do
@@ -28,7 +28,7 @@ BEGIN {
   else if (wh <= 6 && allow >= 30) e = "max"
   else if (pu < 30 && pace >= 2) e = "high"
   if (mode == "--effort") { print e; exit }
-  if (mode == "--limit") { print ((pu >= 85 || wu >= 95) ? "LIMIT" : "OK"); exit }
+  if (mode == "--limit") { print ((pu >= 85 || wu >= 90) ? "LIMIT" : "OK"); exit }
   printf "5시간: %.0f%% 사용, 리셋까지 %.1f시간\n", pu, ph
   printf "주간: %.0f%% 사용, 리셋까지 %.1f시간 (여유 배율 %.1f)\n", wu, wh, pace
   printf "권장 강도: %s\n", e
