@@ -39,11 +39,35 @@ public static class DamageCalculator
         public bool isCrit;
     }
 
+    /// <summary>레벨 차 감소가 시작되는 몹-플레이어 레벨 차 (+4부터)</summary>
+    public const int LevelGapStart = 4;
+    public const int LevelGapPercentPerStep = 3;
+    public const int LevelGapMaxPercent = 30;
+
+    /// <summary>
+    /// 플레이어가 주는 피해 배율(클래식 메이플). 몹 레벨 - 플레이어 레벨 >= 4 이면 초과 1당 -3%, 최대 -30%.
+    /// 몹 레벨이 0(미지정)이면 1. MISS 없음. (ClassicMapleDesign.md 3.3)
+    /// </summary>
+    public static float LevelGapMul(int monsterLevel, int playerLevel)
+    {
+        if (monsterLevel <= 0)
+        {
+            return 1f;
+        }
+        int gap = monsterLevel - playerLevel;
+        if (gap < LevelGapStart)
+        {
+            return 1f;
+        }
+        int percent = Mathf.Min(LevelGapMaxPercent, (gap - LevelGapStart + 1) * LevelGapPercentPerStep);
+        return 1f - percent / 100f;
+    }
+
     /// <param name="weapon">무기 damage 배열 (길이 10, 부족한 값은 0으로 본다)</param>
     /// <param name="baseRoll">0~1 난수: 최소~최대 피해 사이 위치 (양 끝 포함)</param>
     /// <param name="critRoll">0~100 난수: 치명타 확률과 비교</param>
     public static Result Calculate(int[] weapon, PlayerOffense player, int enemyDef, bool targetBleeding,
-                                   bool isSkill, float dmgRatio, float baseRoll, float critRoll)
+                                   bool isSkill, float dmgRatio, float baseRoll, float critRoll, float levelGapMul = 1f)
     {
         var result = new Result();
         if (weapon == null || weapon.Length < 2)
@@ -78,7 +102,7 @@ public static class DamageCalculator
             dmg = dmg * dmg / (dmg + effectiveDef);
         }
 
-        float final = dmg * (1f + Get(weapon, FinalDmg) / 100f) * dmgRatio;
+        float final = dmg * (1f + Get(weapon, FinalDmg) / 100f) * dmgRatio * levelGapMul;
         result.damage = final > 0f ? Mathf.Max(1, Mathf.RoundToInt(final)) : 0;
         result.extraDamage = Mathf.RoundToInt(final * Get(weapon, AddDmg) / 100f);
         return result;

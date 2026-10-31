@@ -219,3 +219,12 @@ Gatekeeper_BD,15,3800,56
 - 퀘스트 전용 드롭(진행 중에만): 별무늬 수피 조각(숲 늑대 35%), 엔트 심재(엔트 40%), 잠긴 별 조각(늪 악어 35%), 약탈한 대장간 화물(산적 궁수 50%).
 - [조정] Q602 의 "아버지의 기록 조각"은 아이템이 아니라 이미 있는 발굴 기록(ES3 `excavation.records` 비트) 개수로 판정한다. Q604 보상 `BroochResonance` 는 키 아이템(판매·버림 불가).
 - 목표 타입: NPC 대화, 몹 처치, 아이템 수집, 제작, 맵 방문. 기존 `QuestBoard`(게시판 반복 의뢰)는 그대로 두고 NPC 퀘스트를 따로 만든다(머리 위 ! / ? 표시, 퀘스트 창).
+
+## 10. 구현 2단계 (2026-10-31, 몸박 + 레벨 차 피해)
+
+- 몸박: `Script/Combat/ContactDamage.cs`(런타임 자동 생성 `[ContactDamage]`). 0.1초마다 `EnemyHealth.Active`(몬스터)와 플레이어 BoxCollider2D 를 **z 무시 2D 겹침**으로 검사(맵마다 z 오프셋이 달라 `Bounds.Intersects` 불가). 콜라이더는 Dictionary 캐시. 여럿이 닿으면 가장 센 하나만.
+- 피해: MonsterSheet `contactDamage`(방어 전 고정값, 정예 ×1.5 = `EnemyHealth.ContactDamage`) → `damage2Player`(기존 방어 공식·상승 부하 배율 적용). 넉백 힘 4·경직 0.12초, 피격 무적 0.9초(`invincibleTime` 인자, 기본 noDamgeTime=1). 무적(`PlayerHealthManager.CanBeHit`: 피격 무적·대시/스킬 무적·사망)이면 호출하지 않아 IMMUNE 도배 없음. 몹 공격 판정과 같은 무적 플래그를 공유해 같은 프레임 이중 피해 없음.
+- 제외: 죽는 중·사라지는 중·활성 0.3초 이내(`EnemyHealth.CanContact`).
+- 레벨 차: `DamageCalculator.LevelGapMul` → `Calculate(..., levelGapMul)`, `EnemyHealth.damage2Enemy` 에서 `Level`(MonsterSheet level) vs `LevelSystem.Level`.
+- 레벨 표시: `EnemyHealthBar` 가 "Lv.N" 라벨을 런타임 생성(+4 이상 붉게, -4 이하 회색, 보스·레벨 미지정 숨김).
+- 검증: EditMode(`ContactRulesTests`), 프로브 `contact_test.cs`: Lv16 몹 겹침 → 0.9~1.0초 간격 -32(원 24, 방어 1·상승 부하 반영), 무적 중 손실 0, 정예 원 24→36(-49), Lv1 vs Lv16 배율 0.70(94→66; 상승 부하 중엔 40). 스크린샷 `Logs/playtest/contact_lv.png`. 미검증: 실제 대시 키 입력 무적, 게임패드, 라벨 위치 다듬기(HP 바 위치와 어긋남, 글꼴 대문자 "LV."), 몹 20마리 성능 프로파일.

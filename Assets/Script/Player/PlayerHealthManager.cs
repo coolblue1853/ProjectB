@@ -297,7 +297,11 @@ public class PlayerHealthManager : MonoBehaviour
         .OnComplete(() => RepeatAnimation());
     }
     bool isAlphaChange = false;
-    public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange)
+    /// <summary>지금 피해를 받을 수 있는가: 피격 무적·대시/스킬 무적이 아니고 살아 있다</summary>
+    public bool CanBeHit => !isNoDamge && !DatabaseManager.isInvincibility && nowHp > 0;
+
+    /// <param name="invincibleTime">피격 후 무적 시간. 0 이하면 noDamgeTime</param>
+    public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, float invincibleTime = 0f)
     {
 
         if (isNoDamge == false && DatabaseManager.isInvincibility == true)
@@ -311,7 +315,7 @@ public class PlayerHealthManager : MonoBehaviour
             noDamgeSycle = DOTween.Sequence()      
             .AppendCallback(() => isNoDamge = true)
             .AppendCallback(() => Rig.SetControlParamInt("Eye Param", 4))
-            .AppendInterval(noDamgeTime)
+            .AppendInterval(invincibleTime > 0f ? invincibleTime : noDamgeTime)
             .AppendCallback(() => Rig.SetControlParamInt("Eye Param", 0))
             .AppendCallback(() => isNoDamge = false)
             .AppendCallback(() => alphaSequence.Kill())

@@ -61,7 +61,7 @@ dmg    = (base + armorAtp) × critM × inc
 skill  = 스킬 공격이면 × (1 + 스킬뎀/100)
 def    = 적 방어 × (1 - 방무/100)                                 🐞 현재 코드는 `× 방무/100`(반대 의미)
 dmg    = dmg² / (dmg + def)
-final  = dmg × (1 + 최종뎀/100) × dmgRatio
+final  = dmg × (1 + 최종뎀/100) × dmgRatio × 레벨차배율   (레벨차: 몹Lv − 플레이어Lv ≥ 4 이면 초과 1당 −3%, 최대 −30%. +3=0%, +4=−3%, +13=−30%. 몹 Lv 미지정=1. MISS 없음. `DamageCalculator.LevelGapMul`)
 추가타 = final × 추가타%/100 (별도 숫자로 표시)
 ```
 

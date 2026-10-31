@@ -123,6 +123,19 @@ public class EnemyHealth : PoolAble
     /// <summary>행동 트리가 있는 진짜 몬스터인지 (나무·바위 같은 채집물 제외)</summary>
     public bool IsMonster => behaviorTree != null;
 
+    /// <summary>몬스터 레벨(MonsterSheet level, 없으면 0 = 레벨 차 계산 안 함)</summary>
+    public int Level { get; private set; }
+    int _contactBase;
+    float _enabledAt;
+    const float SpawnGraceTime = 0.3f;
+
+    /// <summary>몸박 공격력(방어 적용 전). 정예는 x1.5, 값이 없으면 0</summary>
+    public int ContactDamage => IsElite ? Mathf.RoundToInt(_contactBase * EliteAtkMul) : _contactBase;
+
+    /// <summary>지금 몸박을 줄 수 있는가: 죽는 중·사라지는 중·막 소환된 직후(0.3초)는 아니다</summary>
+    public bool CanContact => !deadOnec && nowHP > 0 && Time.time - _enabledAt >= SpawnGraceTime
+        && (disappearSequence == null || !disappearSequence.IsActive());
+
     /// <summary>활성 몬스터 목록 (유도 탄 등 매 프레임 FindObjects 를 피하려고)</summary>
     public static readonly System.Collections.Generic.HashSet<EnemyHealth> Active = new System.Collections.Generic.HashSet<EnemyHealth>();
 
@@ -175,6 +188,9 @@ public class EnemyHealth : PoolAble
     private void Awake()
     {
         MonsterTable.Apply(this); // Resources/MonsterSheet.csv 값이 있으면 프리팹 값을 덮어쓴다 (C5)
+        MonsterTable.Row levelRow = MonsterTable.Get(name);
+        Level = levelRow != null && levelRow.level.HasValue ? levelRow.level.Value : 0;
+        _contactBase = levelRow != null && levelRow.contactDamage.HasValue ? levelRow.contactDamage.Value : 0;
         BossPhase.AttachIfBoss(this); // 보스 페이즈 (C4)
         anim = transform.GetComponent<Animator>();
         animHasAttack = false;
@@ -199,6 +215,7 @@ public class EnemyHealth : PoolAble
     private void OnEnable()
     {
         Active.Add(this);
+        _enabledAt = Time.time;
         ///isReleased = false;
         nowHP = maxHP;
         // 이미 끝나 Kill 된 시퀀스에 IsPlaying 을 부르면 DOTween 이 '죽은 트윈' 경고를 남긴다(풀 워밍업 때 다수) → IsActive 로 확인
@@ -270,7 +287,8 @@ public class EnemyHealth : PoolAble
 
         shakeTime = shaking;
         var result = DamageCalculator.Calculate(damage, DamageCalculator.PlayerOffense.FromDatabase(), enemyDef,
-            isBleeding, isSkill, dmgRatio, UnityEngine.Random.value, UnityEngine.Random.Range(0f, 100f));
+            isBleeding, isSkill, dmgRatio, UnityEngine.Random.value, UnityEngine.Random.Range(0f, 100f),
+            DamageCalculator.LevelGapMul(Level, LevelSystem.Level));
         isCrit = result.isCrit;
         result.damage = Mathf.Max(1, Mathf.RoundToInt(result.damage * AscentLoad.OutgoingMul())); // 상승 부하: 부족분만큼 주는 피해 감소
         finDmg = result.damage;
