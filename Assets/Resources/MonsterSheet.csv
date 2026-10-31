@@ -1,45 +1,45 @@
-id,displayName,floor,zone,maxHP,enemyDef,isBoss,superArmor,hpHeight,moveSpeed,dropRate,note
-AbyssWizard_BD,Abyss Wizard,2,Cliff Altar (night),8000,20,1,1,0,,,
-CliffGoblin_BD,Cliff Goblin,2,Magic Cliffs,150,4,0,0,-1.2,,,
-CliffSkeleton_BD,Cliff Skeleton,2,Magic Cliffs (night),260,12,0,0,-1.2,,,
-DeathBringer_BD,Death Bringer,2,Magic Cliffs (night),2500,15,0,1,0,,,
-FlowerMole_BD,Flower Mole,1,Forest Side Road,90,2,0,0,-1.2,,,
-GazeEye_BD,Gaze Eye,2,Magic Cliffs (night),120,3,0,0,-1.2,,,
-LeftMole_BD,Leaf Mole,1,Forest Side Road,186,3,0,0,-1.2,,,
-PassiveTerror_BD,Passive Terror,1,Forest Side Road (night),3800,12,1,1,0,,,
-Rabbit_BD,Forest Rabbit,1,Forest Road,90,2,0,0,-0.8,,,
-RatChief_BD,Rat Chief,1,Forest Side Road,154,2,0,0,-1.2,,,
-RatThief_BD,Rat Thief,1,Forest Side Road,128,2,0,0,-1.2,,,
-Scarecrow_BD,Scarecrow,1,Forest Side Road,128,2,0,0,-1.5,,,
-SporeShroom_BD,Spore Shroom,2,Magic Cliffs,160,4,0,0,-1.2,,,
-StoneRabbit_BD,Stone Rabbit,1,Forest Road,186,6,0,0,-1.2,,,
-ForestWolf_BD,Forest Wolf,1,Normal Forest,160,5,0,0,-1.2,,,pack hunter (gen_forest_mobs)
-WildBoar_BD,Wild Boar,1,Normal Forest,200,5,0,0,-1.2,,,charge (gen_forest_mobs)
-Wisp_BD,Wisp,1,Normal Forest (night),80,2,0,0,-1.2,,,night (gen_forest_mobs)
-ForestSnail_BD,Forest Snail,1,Normal Forest (night),232,8,0,0,-1.0,,,night tank (gen_forest_mobs)
-ForestBear_BD,Forest Bear,1,Deep Forest,250,8,0,0,-1.2,,,heavy claw (gen_deep_forest_mobs)
-Ent_BD,Ent,1,Deep Forest,290,10,0,0,-1.2,,,slow root tank (gen_deep_forest_mobs)
-Ghost_BD,Ghost,1,Deep Forest (night),100,3,0,0,-1.2,,,night translucent (gen_deep_forest_mobs)
-Fairy_BD,Fairy,1,Deep Forest (night),100,3,0,0,-1.0,,,night small glow (gen_deep_forest_mobs)
-AncientEnt_BD,Ancient Ent,1,Deep Forest (boss),6000,18,1,1,0,,,zone boss (gen_deep_forest_mobs)
-SwampFrog_BD,Swamp Frog,1,Swamp,250,11,0,0,-1.0,,,tongue hop (gen_swamp_mobs)
-MarshCrab_BD,Marsh Crab,1,Swamp,362,18,0,0,-1.0,,,pincer guard (gen_swamp_mobs)
-BogCroc_BD,Bog Croc,1,Swamp,312,11,0,0,-1.0,,,heavy bite (gen_swamp_mobs)
-SwampMosquito_BD,Swamp Mosquito,1,Swamp (night),175,9,0,0,-1.0,,,night flying drain (gen_swamp_mobs)
-BogSlime_BD,Bog Slime,1,Swamp (night),362,14,0,0,-1.2,,,night slow (gen_swamp_mobs)
-GiantSlime_BD,Giant Slime,1,Swamp (boss),7500,21,1,1,0,,,zone boss (gen_swamp_mobs)
-BanditCutthroat_BD,Bandit Cutthroat,1,Bandit Fortress,312,14,0,0,-1.2,,,quick dagger (gen_bandit_mobs)
-BanditArcher_BD,Bandit Archer,1,Bandit Fortress,219,11,0,0,-1.2,,,straight arrow (gen_bandit_mobs)
-BanditShieldman_BD,Bandit Shieldman,1,Bandit Fortress,453,22,0,1,-1.2,,,shield super armor (gen_bandit_mobs)
-BanditTorchbearer_BD,Bandit Torchbearer,1,Bandit Fortress (night),312,14,0,0,-1.2,,,night torch light (gen_bandit_mobs)
-BanditChief_BD,Bandit Chief,1,Bandit Fortress (boss),9400,24,1,1,0,,,zone boss calls minions at phase 2 (gen_bandit_mobs)
-GolemSmall_BD,Small Golem,1,Tower Outskirts,390,17,0,0,-1.2,,,rolling charge (gen_outskirts_mobs)
-GolemMedium_BD,Medium Golem,1,Tower Outskirts,566,22,0,0,-1.2,,,ground slam quake (gen_outskirts_mobs)
-GolemLarge_BD,Large Golem,1,Tower Outskirts,742,27,0,1,-1.2,,,super armor boulder throw (gen_outskirts_mobs)
-RuinSpirit_BD,Ruin Spirit,1,Tower Outskirts (night),195,7,0,0,-1.2,,,night rune light bolt (gen_outskirts_mobs)
-Gatekeeper_BD,Gatekeeper of the Tower,1,Tower Outskirts (boss),15600,27,1,1,0,,,floor 1 final boss 3 phases calls golems at phase 2 (gen_outskirts_mobs)
-RampartKnight_BD,Rampart Knight,2,Broken Rampart,640,24,0,0,-1.2,,,shield bash slash (gen_rampart_mobs)
-HalberdSentry_BD,Halberd Sentry,2,Broken Rampart,880,28,0,0,-1.2,,,slow halberd crescent sweep (gen_rampart_mobs)
-Gargoyle_BD,Gargoyle,2,Broken Rampart,420,26,0,0,-1.2,,,winged statue stone feather shot (gen_rampart_mobs)
-CloudWisp_BD,Cloud Wisp,2,Broken Rampart (night),300,10,0,0,-1.2,,,night spark light (gen_rampart_mobs)
-GargoyleLord_BD,Gargoyle Lord,2,Broken Rampart (boss),18000,34,1,1,0,,,zone boss night calls gargoyles at phase 2 (gen_rampart_mobs)
+id,displayName,floor,zone,maxHP,enemyDef,isBoss,superArmor,hpHeight,moveSpeed,dropRate,note,level,exp,contactDamage
+AbyssWizard_BD,Abyss Wizard,2,Cliff Altar (night),8000,20,1,1,0,,,,22,9000,50
+CliffGoblin_BD,Cliff Goblin,2,Magic Cliffs,150,4,0,0,-1.2,,,,16,240,24
+CliffSkeleton_BD,Cliff Skeleton,2,Magic Cliffs (night),260,12,0,0,-1.2,,,,19,394,26
+DeathBringer_BD,Death Bringer,2,Magic Cliffs (night),2500,15,0,1,0,,,,20,464,26
+FlowerMole_BD,Flower Mole,1,Forest Side Road,90,2,0,0,-1.2,,,,1,12,13
+GazeEye_BD,Gaze Eye,2,Magic Cliffs (night),120,3,0,0,-1.2,,,,18,334,25
+LeftMole_BD,Leaf Mole,1,Forest Side Road,186,3,0,0,-1.2,,,,2,15,19
+PassiveTerror_BD,Passive Terror,1,Forest Side Road (night),3800,12,1,1,0,,,,3,320,37
+Rabbit_BD,Forest Rabbit,1,Forest Road,90,2,0,0,-0.8,,,,1,12,13
+RatChief_BD,Rat Chief,1,Forest Side Road,154,2,0,0,-1.2,,,,3,19,19
+RatThief_BD,Rat Thief,1,Forest Side Road,128,2,0,0,-1.2,,,,2,15,16
+Scarecrow_BD,Scarecrow,1,Forest Side Road,128,2,0,0,-1.5,,,,3,19,17
+SporeShroom_BD,Spore Shroom,2,Magic Cliffs,160,4,0,0,-1.2,,,,17,283,25
+StoneRabbit_BD,Stone Rabbit,1,Forest Road,186,6,0,0,-1.2,,,,3,19,21
+ForestWolf_BD,Forest Wolf,1,Normal Forest,160,5,0,0,-1.2,,,pack hunter (gen_forest_mobs),4,23,18
+WildBoar_BD,Wild Boar,1,Normal Forest,200,5,0,0,-1.2,,,charge (gen_forest_mobs),5,28,20
+Wisp_BD,Wisp,1,Normal Forest (night),80,2,0,0,-1.2,,,night (gen_forest_mobs),3,19,16
+ForestSnail_BD,Forest Snail,1,Normal Forest (night),232,8,0,0,-1.0,,,night tank (gen_forest_mobs),6,35,23
+ForestBear_BD,Forest Bear,1,Deep Forest,250,8,0,0,-1.2,,,heavy claw (gen_deep_forest_mobs),7,43,23
+Ent_BD,Ent,1,Deep Forest,290,10,0,0,-1.2,,,slow root tank (gen_deep_forest_mobs),8,52,25
+Ghost_BD,Ghost,1,Deep Forest (night),100,3,0,0,-1.2,,,night translucent (gen_deep_forest_mobs),6,35,18
+Fairy_BD,Fairy,1,Deep Forest (night),100,3,0,0,-1.0,,,night small glow (gen_deep_forest_mobs),7,43,19
+AncientEnt_BD,Ancient Ent,1,Deep Forest (boss),6000,18,1,1,0,,,zone boss (gen_deep_forest_mobs),9,950,43
+SwampFrog_BD,Swamp Frog,1,Swamp,250,11,0,0,-1.0,,,tongue hop (gen_swamp_mobs),9,64,23
+MarshCrab_BD,Marsh Crab,1,Swamp,362,18,0,0,-1.0,,,pincer guard (gen_swamp_mobs),10,77,28
+BogCroc_BD,Bog Croc,1,Swamp,312,11,0,0,-1.0,,,heavy bite (gen_swamp_mobs),11,94,28
+SwampMosquito_BD,Swamp Mosquito,1,Swamp (night),175,9,0,0,-1.0,,,night flying drain (gen_swamp_mobs),9,64,22
+BogSlime_BD,Bog Slime,1,Swamp (night),362,14,0,0,-1.2,,,night slow (gen_swamp_mobs),12,115,29
+GiantSlime_BD,Giant Slime,1,Swamp (boss),7500,21,1,1,0,,,zone boss (gen_swamp_mobs),12,1700,48
+BanditCutthroat_BD,Bandit Cutthroat,1,Bandit Fortress,312,14,0,0,-1.2,,,quick dagger (gen_bandit_mobs),12,115,26
+BanditArcher_BD,Bandit Archer,1,Bandit Fortress,219,11,0,0,-1.2,,,straight arrow (gen_bandit_mobs),11,94,24
+BanditShieldman_BD,Bandit Shieldman,1,Bandit Fortress,453,22,0,1,-1.2,,,shield super armor (gen_bandit_mobs),13,139,31
+BanditTorchbearer_BD,Bandit Torchbearer,1,Bandit Fortress (night),312,14,0,0,-1.2,,,night torch light (gen_bandit_mobs),13,139,28
+BanditChief_BD,Bandit Chief,1,Bandit Fortress (boss),9400,24,1,1,0,,,zone boss calls minions at phase 2 (gen_bandit_mobs),14,2400,53
+GolemSmall_BD,Small Golem,1,Tower Outskirts,390,17,0,0,-1.2,,,rolling charge (gen_outskirts_mobs),13,139,28
+GolemMedium_BD,Medium Golem,1,Tower Outskirts,566,22,0,0,-1.2,,,ground slam quake (gen_outskirts_mobs),14,169,30
+GolemLarge_BD,Large Golem,1,Tower Outskirts,742,27,0,1,-1.2,,,super armor boulder throw (gen_outskirts_mobs),15,203,31
+RuinSpirit_BD,Ruin Spirit,1,Tower Outskirts (night),195,7,0,0,-1.2,,,night rune light bolt (gen_outskirts_mobs),13,139,25
+Gatekeeper_BD,Gatekeeper of the Tower,1,Tower Outskirts (boss),15600,27,1,1,0,,,floor 1 final boss 3 phases calls golems at phase 2 (gen_outskirts_mobs),15,3800,56
+RampartKnight_BD,Rampart Knight,2,Broken Rampart,640,24,0,0,-1.2,,,shield bash slash (gen_rampart_mobs),21,548,27
+HalberdSentry_BD,Halberd Sentry,2,Broken Rampart,880,28,0,0,-1.2,,,slow halberd crescent sweep (gen_rampart_mobs),23,763,28
+Gargoyle_BD,Gargoyle,2,Broken Rampart,420,26,0,0,-1.2,,,winged statue stone feather shot (gen_rampart_mobs),22,647,28
+CloudWisp_BD,Cloud Wisp,2,Broken Rampart (night),300,10,0,0,-1.2,,,night spark light (gen_rampart_mobs),21,548,27
+GargoyleLord_BD,Gargoyle Lord,2,Broken Rampart (boss),18000,34,1,1,0,,,zone boss night calls gargoyles at phase 2 (gen_rampart_mobs),25,14000,52

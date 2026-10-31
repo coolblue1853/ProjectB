@@ -5,6 +5,7 @@
 ## 1. 몬스터 목록
 
 > **데이터 출처(2026-10-18):** HP·방어·보스·슈퍼아머·HP바 높이는 `Assets/Resources/MonsterSheet.csv`가 우선한다(빈 칸이면 프리팹 값). 새 몬스터는 프리팹을 만든 뒤 `Tools/probes/export_monster_sheet.cs`로 행을 추가하고 값을 CSV에서 고친다. 컬럼 추가는 맨 뒤에만.
+> **레벨 컬럼(10-31):** 맨 뒤 `level,exp,contactDamage` — 몹 레벨·처치 EXP·몸박 공격력(고정값, 방어 적용 전). 1층계 33종은 ClassicMapleDesign §8 값, 2층계 9종은 **임시**(Lv16~25, EXP=203×1.18^(Lv-15), 몸박=플레이어 HP의 7.5%, 보스 AbyssWizard 9000/GargoyleLord 14000). 정예 승격 EXP x4, 보스 고정. contactDamage 는 데이터만(몸박 구현은 다음 단계).
 
 | 몬스터 | 시간대 | HP / Def | 성향 | 공격 (피해) | 추격 속도 (u / 0.1s) |
 |---|---|---|---|---|---|

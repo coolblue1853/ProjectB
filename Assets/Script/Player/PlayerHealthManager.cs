@@ -149,6 +149,17 @@ public class PlayerHealthManager : MonoBehaviour
         healthBar.ResetHealthStat(this);
         steminaBar.ResetSteminaStat(this);
         fullnesBar.ResetFullnessStat(this);
+        Started = true;
+    }
+
+    /// <summary>Start 가 끝났는가 (LevelSystem 이 최대 HP 성장분을 얹는 시점)</summary>
+    public bool Started { get; private set; }
+
+    /// <summary>레벨 성장 최대 HP 증가분 (회복 없이 최대치만, 레벨업 때 LevelSystem 이 따로 회복)</summary>
+    public void AddLevelMaxHp(int delta)
+    {
+        fullHP += delta;
+        healthBar.ResetHealthStat(this);
     }
 
     public void EquipmentActiveTrue(int hp)
@@ -185,6 +196,7 @@ public class PlayerHealthManager : MonoBehaviour
     void Die()
     {
         isDead = true;
+        LevelSystem.ApplyDeathPenalty(); // 현재 레벨 EXP -5% (레벨 다운 없음)
         GameLog.Info(GameLog.Cat.Player, "플레이어 사망 → " + RespawnDelay + "초 뒤 마을 부활");
         Sfx.Play(SfxId.PlayerDeath);
         deathInputLock = PlayerStatus.Acquire(StatusFlag.InputLock, "Death");

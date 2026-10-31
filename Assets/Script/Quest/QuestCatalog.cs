@@ -13,6 +13,7 @@ public static class QuestCatalog
         public string[] targets;   // 하나라도 맞으면 카운트
         public int count;
         public int gold, stones;
+        public int exp;                 // 보상 EXP (LevelSystem.GainExp)
         public string rewardItem;
         public string requires;    // 선행 퀘스트 id (없으면 null)
         public string message = "Kill"; // 카운트할 MessageSystem 메시지 (Kill / Pickup / Craft)

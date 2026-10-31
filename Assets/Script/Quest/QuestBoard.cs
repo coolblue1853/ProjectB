@@ -187,6 +187,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
             return;
         }
         DatabaseManager.money += d.gold;
+        LevelSystem.GainExp(d.exp, d.id);
         if (d.gold > 0 && PlayerController.instance != null)
         {
             HitFeedback.SpawnText(null, PlayerController.instance.transform.position + Vector3.up, "+" + d.gold + " G", HitFeedback.TextKind.Gold);

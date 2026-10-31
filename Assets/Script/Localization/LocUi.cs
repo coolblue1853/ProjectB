@@ -15,6 +15,7 @@ public static class LocUi
         ("Rank up: {0} Explorer", "승급: {0} 탐험가"),
         ("LOAD", "부하"), ("RES", "저항"), ("DMG", "피해"),
         ("COMBO", "콤보"),
+        ("LEVEL UP", "레벨 업"), ("EXP", "경험치"),
         ("Inventory Full", "인벤토리 가득 참"), ("Not enough gold", "골드 부족"),
         ("Only consumables go in quick slots", "퀵슬롯에는 소비 아이템만 넣을 수 있다"),
         ("PICKUP", "줍기"), ("ALL", "전부"), ("SKIP COMMON MAT.", "일반 재료 제외"),

@@ -8,6 +8,7 @@ public class Datas
 {
     public int money;
     public int level = 0;
+    public int exp = 0; // 현재 레벨에서 쌓은 EXP (LevelSystem)
     public Vector2 playerPos;
     public Vector2 camPos;
     public float time;
@@ -57,6 +58,7 @@ public class SaveManager : MonoBehaviour
     }
     public void DataSave()
     {
+        LevelSystem.WriteTo(datas);
         GameLog.Info(GameLog.Cat.Save, "저장 money=" + datas.money + " pos=" + datas.playerPos);
         ES3.Save(keyName, datas);
     }
@@ -70,6 +72,6 @@ public class SaveManager : MonoBehaviour
         {
             DataSave();
         }
-
+        LevelSystem.LoadFrom(datas); // 레벨·EXP (세이브에 없으면 Lv1)
     }
 }

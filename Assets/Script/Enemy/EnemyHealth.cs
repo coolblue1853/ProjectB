@@ -571,6 +571,7 @@ public class EnemyHealth : PoolAble
         GameLog.Info(GameLog.Cat.Combat, name + " 사망 (overkill " + (-nowHP) + ")", this);
         // 퀘스트 처치 카운트 (Quest Machine 카운터가 "Kill" + 프리팹 이름을 듣는다, G11)
         PixelCrushers.MessageSystem.SendMessage(this, "Kill", name.Replace("(Clone)", "").Trim());
+        LevelSystem.OnEnemyKilled(this); // 처치 EXP (정예 x4, 보스 고정)
         // 사망 연출(연기·정예/보스 폭발): 반환 전, 정예 여부·스프라이트 경계가 살아 있을 때 (사망 1회만 조회)
         DeathFx.Play(this, TryGetComponent(out SpriteRenderer body) ? body.bounds : new Bounds(transform.position, Vector3.one));
         ReleaseEnemy(true, true);
