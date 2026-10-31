@@ -63,6 +63,103 @@ public class NpcQuestTests
         Assert.AreEqual(28425, exp);
     }
 
+    [Test] public void 요리_입문_목표는_실제_화로에서_제작할_수_있다()
+    {
+        NpcQuestDef quest = NpcQuestCatalog.Find("Q203");
+        Assert.AreEqual(NpcQuestObjective.Craft, quest.Objective);
+        bool found = false;
+        foreach (CookRecipe recipe in CookingRules.Recipes)
+        {
+            if (recipe.Id == quest.Target)
+            {
+                found = true;
+                Assert.AreEqual(recipe.Id, quest.RewardItem);
+            }
+        }
+        Assert.IsTrue(found, "화로 안내 퀘스트가 실제 레시피를 가리켜야 한다.");
+    }
+
+    [Test] public void 발굴_컴포넌트의_상속_필드_이름은_중복되지_않는다()
+    {
+        var names = new HashSet<string>();
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public
+            | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.DeclaredOnly;
+        for (System.Type type = typeof(ExcavationSite); type != typeof(UnityEngine.MonoBehaviour); type = type.BaseType)
+        {
+            foreach (System.Reflection.FieldInfo field in type.GetFields(flags))
+            {
+                Assert.IsTrue(names.Add(field.Name), "Unity 도메인 리로드 직렬화 충돌: " + field.Name);
+            }
+        }
+    }
+
+    [TestCase("Lv1_NearForest_SideRoad", "Lv1_NormalForest", 5.52f)]
+    [TestCase("Lv1_NormalForest", "Lv1_NearForest_SideRoad", 5.52f)]
+    [TestCase("Town", "Lv1_NearForest_SideRoad", -0.41f)]
+    public void 일반숲_연결만_지면_위로_정렬한다(string from, string to, float expectedY)
+    {
+        var root = new UnityEngine.GameObject("PortalTest");
+        root.SetActive(false);
+        var source = new UnityEngine.GameObject(from);
+        var destination = new UnityEngine.GameObject(to);
+        try
+        {
+            Portal portal = root.AddComponent<Portal>();
+            portal.closeMap = source;
+            portal.openMap = destination;
+            var arrival = new UnityEngine.GameObject("InactiveArrival");
+            arrival.transform.SetParent(destination.transform);
+            arrival.transform.position = new UnityEngine.Vector3(-262.35f, -0.41f, 158.5f);
+            destination.SetActive(false);
+            portal.destination = arrival.transform;
+            root.transform.position = new UnityEngine.Vector3(-262.35f, -0.41f, 158.5f);
+            typeof(Portal).GetMethod("AlignForestEntrance", System.Reflection.BindingFlags.Instance
+                | System.Reflection.BindingFlags.NonPublic).Invoke(portal, null);
+            Assert.AreEqual(new UnityEngine.Vector3(-262.35f, expectedY, 158.5f), root.transform.position);
+            Assert.AreEqual(expectedY, arrival.transform.position.y);
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(root);
+            UnityEngine.Object.DestroyImmediate(source);
+            UnityEngine.Object.DestroyImmediate(destination);
+        }
+    }
+
+    [Test] public void 중간_발판은_기존_타일을_재사용하고_지형을_덮어쓰지_않는다()
+    {
+        var root = new UnityEngine.GameObject("StepTest", typeof(UnityEngine.Grid));
+        var ground = new UnityEngine.GameObject("Ground", typeof(UnityEngine.Tilemaps.Tilemap),
+            typeof(UnityEngine.Tilemaps.TilemapRenderer), typeof(UnityEngine.Tilemaps.TilemapCollider2D));
+        ground.transform.SetParent(root.transform, false);
+        var map = ground.GetComponent<UnityEngine.Tilemaps.Tilemap>();
+        var source = UnityEngine.ScriptableObject.CreateInstance<UnityEngine.Tilemaps.Tile>();
+        var existing = UnityEngine.ScriptableObject.CreateInstance<UnityEngine.Tilemaps.Tile>();
+        source.colliderType = UnityEngine.Tilemaps.Tile.ColliderType.Grid;
+        existing.colliderType = UnityEngine.Tilemaps.Tile.ColliderType.Grid;
+        try
+        {
+            map.SetTile(map.WorldToCell(new UnityEngine.Vector3(-335f, -0.1f)), source);
+            var first = map.WorldToCell(new UnityEngine.Vector3(-339f, -1.1f));
+            map.SetTile(first + UnityEngine.Vector3Int.right, existing);
+            EarlyForestSteps steps = root.AddComponent<EarlyForestSteps>();
+            typeof(EarlyForestSteps).GetMethod("OnEnable", System.Reflection.BindingFlags.Instance
+                | System.Reflection.BindingFlags.NonPublic).Invoke(steps, null);
+            Assert.AreSame(source, map.GetTile(first));
+            Assert.AreSame(existing, map.GetTile(first + UnityEngine.Vector3Int.right));
+            Assert.IsNull(map.GetTile(first + UnityEngine.Vector3Int.left));
+            var second = map.WorldToCell(new UnityEngine.Vector3(-269f, 2.9f));
+            Assert.AreSame(source, map.GetTile(second));
+            Assert.AreSame(source, map.GetTile(second + UnityEngine.Vector3Int.right));
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(root);
+            UnityEngine.Object.DestroyImmediate(source);
+            UnityEngine.Object.DestroyImmediate(existing);
+        }
+    }
+
     [Test] public void 모든_대상_id가_실제로_존재한다()
     {
         var items = new HashSet<string>();
@@ -244,7 +341,7 @@ public class NpcQuestTests
         Assert.IsTrue(NpcQuestLog.Accept("Q203"));
         NpcQuestLog.OnCraft("Rabbit Meat");
         Assert.AreEqual(NpcQuestStatus.Active, NpcQuestLog.StatusOf("Q203"));
-        NpcQuestLog.OnCraft("Rabbit Meat Stew");
+        NpcQuestLog.OnCraft(NpcQuestCatalog.Find("Q203").Target);
         Assert.AreEqual(NpcQuestStatus.Ready, NpcQuestLog.StatusOf("Q203"));
     }
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// NPC 퀘스트 배치 (씬 파일 수정 없이 부트 때 만든다, ExcavationSitePlacer 와 같은 방식).
@@ -20,7 +20,7 @@ public static class NpcQuestPlacer
     {
         new NewNpc { Id = "ruen", Conversation = StoryDialogues.RuenTalk, Map = "Town", Source = "EquipSmith", X = -402.5f, Tint = new Color(0.72f, 1f, 0.7f) },
         new NewNpc { Id = "sena", Conversation = StoryDialogues.SenaTalk, Map = "Town", Source = "Shop", X = -409.5f, Tint = new Color(0.65f, 1f, 0.9f) },
-        new NewNpc { Id = "eve", Conversation = StoryDialogues.EveTalk, Map = "Lv1_NormalForest", Source = "EquipSmith", X = -274f, Y = -0.4f, Tint = new Color(0.9f, 0.75f, 1f) },
+        new NewNpc { Id = "eve", Conversation = StoryDialogues.EveTalk, Map = "Lv1_NormalForest", Source = "EquipSmith", X = -274f, Y = 1.4f, Tint = new Color(0.9f, 0.75f, 1f) },
     };
 
     private struct Marker
@@ -110,7 +110,7 @@ public static class NpcQuestPlacer
         go.transform.position = new Vector3(n.X, n.Y ?? src.position.y, town ? src.position.z : parent.position.z);
         Vector3 ls = src.lossyScale;
         go.transform.localScale = new Vector3(Mathf.Abs(ls.x) / Mathf.Max(0.0001f, Mathf.Abs(parent.lossyScale.x)), Mathf.Abs(ls.y) / Mathf.Max(0.0001f, Mathf.Abs(parent.lossyScale.y)), 1f);
-        SpriteRenderer srcSr = src.GetComponentInChildren<SpriteRenderer>();
+        SpriteRenderer srcSr = src.GetComponentInChildren<SpriteRenderer>(true);
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = srcSr.sprite;
         sr.sortingLayerID = srcSr.sortingLayerID;

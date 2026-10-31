@@ -99,6 +99,32 @@ public class MovementUnlockPersistenceTests
     }
 
     [Test]
+    public void RopeAllowsJumpButRequiresAirDashUnlockWithoutGroundContact()
+    {
+        _go = new UnityEngine.GameObject("MovementUnlockTest");
+        MovementUnlocks state = _go.AddComponent<MovementUnlocks>();
+        state.Reload();
+        state.ReleaseBrooch(1);
+        PlayerController player = _go.AddComponent<PlayerController>();
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        typeof(PlayerController).GetField("_movementUnlocks", flags).SetValue(player, state);
+        player.isUpLadder = true;
+        player.jumpsRemaining = 1;
+
+        Assert.That(player.CanMovementJump, Is.True);
+        Assert.That(player.CanMovementDash, Is.False);
+        player.isUpLadder = false;
+        var coyote = new CoyoteTimer(0.08f);
+        coyote.SetGrounded(true, UnityEngine.Time.time);
+        coyote.SetGrounded(false, UnityEngine.Time.time);
+        typeof(PlayerController).GetField("_coyote", flags).SetValue(player, coyote);
+        Assert.That(player.CanMovementJump, Is.True);
+        Assert.That(player.CanMovementDash, Is.False);
+        state.ReachFloor(3, false);
+        Assert.That(player.CanMovementDash, Is.True);
+    }
+
+    [Test]
     public void BroochAndDebugRoundTrip()
     {
         ES3.Save(MovementUnlocks.FloorKey, 2);
@@ -114,5 +140,78 @@ public class MovementUnlockPersistenceTests
         state.Reload();
         Assert.That(state.BroochStage, Is.EqualTo(1));
         Assert.That(state.CanDash(false), Is.False);
+    }
+
+    [Test]
+    public void StandingOnGroundKeepsSingleJumpAcrossPhysicsTicks()
+    {
+        PlayerController player = CreateGroundedPlayer();
+        InvokeGroundCheck(player);
+        InvokeGroundCheck(player);
+        Assert.That(player.isGround, Is.True);
+        Assert.That(player.isOnGround, Is.True);
+        Assert.That(player.jumpsRemaining, Is.EqualTo(1));
+        Assert.That(player.CanMovementJump, Is.True);
+    }
+
+    [Test]
+    public void SaveDatasPreservesMapAlongsideProgress()
+    {
+        var data = new Datas { mapName = "Lv1_NormalForest", level = 5, exp = 123, money = 456 };
+        ES3.Save("firsthour.datas", data);
+        Datas loaded = ES3.Load<Datas>("firsthour.datas");
+        Assert.That(loaded.mapName, Is.EqualTo("Lv1_NormalForest"));
+        Assert.That(loaded.level, Is.EqualTo(5));
+        Assert.That(loaded.exp, Is.EqualTo(123));
+        Assert.That(loaded.money, Is.EqualTo(456));
+    }
+
+    [Test]
+    public void RisingFromGroundDoesNotRefillSingleJump()
+    {
+        PlayerController player = CreateGroundedPlayer();
+        player.jumpsRemaining = 0;
+        player.GetComponent<UnityEngine.Rigidbody2D>().linearVelocity = UnityEngine.Vector2.up * 10f;
+        InvokeGroundCheck(player);
+        Assert.That(player.isGround, Is.False);
+        Assert.That(player.jumpsRemaining, Is.Zero);
+        Assert.That(player.CanMovementJump, Is.False);
+    }
+
+    private PlayerController CreateGroundedPlayer()
+    {
+        _go = new UnityEngine.GameObject("FirstHourGroundTest");
+        _go.transform.position = new UnityEngine.Vector3(4000f, 4000f, 0f);
+        MovementUnlocks state = _go.AddComponent<MovementUnlocks>();
+        state.Reload();
+        var rb = _go.AddComponent<UnityEngine.Rigidbody2D>();
+        rb.gravityScale = 0f;
+        PlayerController player = _go.AddComponent<PlayerController>();
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        typeof(PlayerController).GetField("_movementUnlocks", flags).SetValue(player, state);
+        typeof(PlayerController).GetField("rb", flags).SetValue(player, rb);
+        var ground = new UnityEngine.GameObject("Ground");
+        ground.transform.SetParent(_go.transform, false);
+        ground.transform.localPosition = UnityEngine.Vector3.down;
+        ground.layer = UnityEngine.LayerMask.NameToLayer("Ground");
+        ground.AddComponent<UnityEngine.BoxCollider2D>().size = new UnityEngine.Vector2(2f, 1f);
+        player.groundCheck = NewGroundCheck(-0.1f);
+        player.groundCheck2 = NewGroundCheck(0.1f);
+        UnityEngine.Physics2D.SyncTransforms();
+        return player;
+    }
+
+    private UnityEngine.GameObject NewGroundCheck(float x)
+    {
+        var check = new UnityEngine.GameObject("GroundCheck");
+        check.transform.SetParent(_go.transform, false);
+        check.transform.localPosition = new UnityEngine.Vector3(x, -0.25f, 0f);
+        return check;
+    }
+
+    private static void InvokeGroundCheck(PlayerController player)
+    {
+        typeof(PlayerController).GetMethod("FixedUpdate", System.Reflection.BindingFlags.Instance
+            | System.Reflection.BindingFlags.NonPublic).Invoke(player, null);
     }
 }

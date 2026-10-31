@@ -9,6 +9,7 @@ public class Datas
     public int money;
     public int level = 0;
     public int exp = 0; // 현재 레벨에서 쌓은 EXP (LevelSystem)
+    public string mapName; // 같은 좌표를 공유하는 사냥터 구분. 구 세이브는 활성 맵·높이로 추정한다.
     public Vector2 playerPos;
     public Vector2 camPos;
     public float time;
@@ -40,7 +41,72 @@ public class SaveManager : MonoBehaviour
         {
             datas.camPos = origin;
         }
+        // AfterSceneLoad의 카메라 경계 계산도 저장 위치를 기준으로 하도록 Start보다 먼저 배치한다.
+        if (player != null)
+        {
+            player.transform.position = datas.playerPos;
+        }
+        RestoreMap();
+    }
 
+    private void OnEnable()
+    {
+        Portal.MapChanged += OnMapChanged;
+    }
+
+    private void OnDisable()
+    {
+        Portal.MapChanged -= OnMapChanged;
+    }
+
+    private void OnMapChanged(GameObject map)
+    {
+        if (map == null)
+        {
+            return;
+        }
+        datas.mapName = map.name;
+        SavePos();
+    }
+
+    private void RestoreMap()
+    {
+        GameObject root = GameObject.Find("Map");
+        if (root == null)
+        {
+            return;
+        }
+        Transform target = string.IsNullOrEmpty(datas.mapName) ? null : root.transform.Find(datas.mapName);
+        if (target == null)
+        {
+            float nearest = float.MaxValue;
+            foreach (Transform map in root.transform)
+            {
+                float distance = Mathf.Abs(map.position.y - datas.playerPos.y);
+                if (map.gameObject.activeSelf && map.GetComponent<MapInfo>() != null && distance < nearest)
+                {
+                    nearest = distance;
+                    target = map;
+                }
+            }
+        }
+        if (target == null)
+        {
+            return;
+        }
+        datas.mapName = target.name;
+        foreach (Transform map in root.transform)
+        {
+            if (map.GetComponent<MapInfo>() != null)
+            {
+                map.gameObject.SetActive(map == target);
+            }
+        }
+        PoolCheck pools = target.GetComponent<PoolCheck>();
+        if (pools != null)
+        {
+            pools.AbleSpwaner();
+        }
     }
     void Start()
     {
@@ -49,6 +115,19 @@ public class SaveManager : MonoBehaviour
     public void SavePos() 
     {
         datas.playerPos = player.transform.position;
+        DataSave();
+    }
+
+    public void SaveProgress()
+    {
+        if (InventoryManager.instance != null)
+        {
+            InventoryManager.instance.SaveInventoryAndChest();
+        }
+        if (player != null)
+        {
+            datas.playerPos = player.transform.position;
+        }
         DataSave();
     }
     public void SaveTime(float time)

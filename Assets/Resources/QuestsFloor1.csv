@@ -1,12 +1,12 @@
 ﻿id,title,giver,minLevel,requires,objective,target,count,exp,gold,rewardItem,rewardCount,description
-Q101,마지막 별의 방향,elder,1,,talk,elder,1,700,100,,,메인: 브로치의 네 갈래 별을 확인하고 숲 샛길로 향한다.
-Q102,뿌리 밑의 발자국,ruen,1,Q101,kill,FlowerMole_BD,8,600,120,,,사냥 입문: 샛길 첫 사냥터를 익힌다.
-Q103,바람에 쓸린 약초,sena,2,Q102,collect,GreenHurb,3,742,90,GreenHurb,1,채집 입문: 숲 샛길 채집 지점을 방문한다.
-Q104,밤을 지키는 허수아비,ruen,3,Q102,kill,Scarecrow_BD,6,800,180,Potion,1,샛길 끝과 야간 위험을 암시한다.
-Q201,나무에 새겨진 별,elder,3,Q101,collect,StarBarkFragment,3,1000,160,,,메인: 숲 늑대의 흔적에서 아버지의 표식을 찾는다.
-Q202,숲의 경계선,ruen,4,Q102,kill,ForestWolf_BD,8,900,210,,,일반 숲의 표준 사냥터를 안내한다.
-Q203,손수 끓인 첫 끼,merchant,4,Q103,craft,Rabbit Meat Stew,1,1080,140,Rabbit Meat Stew,1,요리 입문: 화로에서 첫 요리를 만든다.
-Q204,어두워지는 숲,eve,5,Q202,visit,forest_night_post,1,1000,210,,,밤 도깨비불 출현 지역으로 동선을 유도한다.
+Q101,마지막 별의 방향,elder,1,,talk,elder,1,700,100,,,마을 오른쪽 끝 포털에서 ↑를 눌러 숲 샛길로 가게. 먼저 마을 사냥꾼 루엔에게 ↑로 사냥 의뢰를 받게. X 공격·C 점프·Shift 달리기·J 퀘스트·I 가방·1~4 물약. 대시는 나중에 열린다.
+Q102,뿌리 밑의 발자국,ruen,1,Q101,kill,FlowerMole_BD,8,600,120,,,샛길 오른쪽 끝 연결 포털로 서쪽 구역에 간다. 오른쪽으로 이동해 로프를 ↑로 잡고 고지대의 꽃두더지 8마리를 처치한다. C 점프·↑↓ 로프. 마을 루엔에게 보고한다.
+Q103,바람에 쓸린 약초,sena,2,Q102,collect,GreenHurb,3,742,90,GreenHurb,1,샛길 입구 근처 약초나 오른쪽 표본 덤불에서 약초 3개를 모아 세나에게 보고한다. 덤불은 ↑ 시작·표적에 맞춰 다시 ↑. 보고 뒤 요리에 쓸 약초 1개를 돌려준다.
+Q104,밤을 지키는 허수아비,ruen,3,Q102,kill,Scarecrow_BD,6,800,180,Potion,1,샛길 허수아비 6마리를 처치해 루엔에게 보고한다. 밤에만 나오는 적이므로 낮이면 꽃두더지와 토끼를 사냥하며 기다린다. 물약을 준비한다.
+Q201,나무에 새겨진 별,elder,3,Q101,collect,StarBarkFragment,3,1000,160,,,샛길의 오른쪽 일반 숲 포털 → 숲 늑대를 사냥해 별무늬 수피 조각 3개를 주워 장로에게 보고한다. 수락 중에만 조각이 떨어진다.
+Q202,숲의 경계선,ruen,4,Q102,kill,ForestWolf_BD,8,900,210,,,샛길 오른쪽 일반 숲 포털에서 들어가 왼쪽으로 이동하며 숲 늑대 8마리를 처치한 뒤 마을 루엔에게 보고한다.
+Q203,불가에서 만든 첫 끼,merchant,4,Q103,craft,Herb Roasted Rabbit,1,1080,140,Herb Roasted Rabbit,1,샛길 화로(입구에서 오른쪽)에서 토끼고기 2·약초 1·나무 1로 허브 토끼구이를 만든다. ↑ 시작·X 요리 및 뒤집기·ESC 취소.
+Q204,어두워지는 숲,eve,5,Q202,visit,forest_night_post,1,1000,210,,,일반 숲 입구 이브에게 받은 뒤 왼쪽으로 조금 가서 금빛 별 관측지를 밟고 이브에게 돌아온다. 방문은 낮에도 가능하다.
 Q301,말하는 나이테,elder,6,Q201,kill,AncientEnt_BD,1,1300,300,,,메인: 고대 엔트의 기억에서 탑의 문장을 본다.
 Q302,곰의 길,ruen,6,Q202,kill,ForestBear_BD,7,1200,250,,,깊은 숲의 중형 몬스터를 소개한다.
 Q303,죽은 나무의 심장,smith,7,Q302,collect,EntHeartwood,3,1316,270,Enhance Stone,1,엔트 파밍과 대장장이 방문을 연결한다.

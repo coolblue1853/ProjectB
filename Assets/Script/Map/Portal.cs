@@ -25,6 +25,7 @@ public class Portal : MonoBehaviour
     }
     private void Awake()
     {
+        AlignForestEntrance();
         action = new KeyAction();
         upAction = action.UI.UPInventory;
         // 열/닫을 맵이 없으면 같은 맵 안에서 위치만 옮기는 포털 (B-111)
@@ -32,6 +33,30 @@ public class Portal : MonoBehaviour
         openMapCheck = openMap != null ? openMap.GetComponent<PoolCheck>() : null;
         closeMapCheck = closeMap != null ? closeMap.GetComponent<PoolCheck>() : null;
         seal = GetComponent<PortalSeal>();
+    }
+
+    private void AlignForestEntrance()
+    {
+        if (closeMap == null || openMap == null)
+        {
+            return;
+        }
+        bool toForest = closeMap.name == "Lv1_NearForest_SideRoad" && openMap.name == "Lv1_NormalForest";
+        bool toSideRoad = closeMap.name == "Lv1_NormalForest" && openMap.name == "Lv1_NearForest_SideRoad";
+        if (toForest || toSideRoad)
+        {
+            // 이 연결의 지면은 y=4.40. 옛 씬 좌표(-0.41)는 트리거까지 지면 밑에 묻힌다.
+            Vector3 position = transform.position;
+            position.y = 5.52f;
+            transform.position = position;
+            // 목적지 맵이 비활성이면 그쪽 Awake보다 먼저 좌표를 읽고 이동한다.
+            if (destination != null)
+            {
+                Vector3 arrival = destination.position;
+                arrival.y = position.y;
+                destination.position = arrival;
+            }
+        }
     }
     private void Update()
     {
@@ -59,6 +84,7 @@ public class Portal : MonoBehaviour
             DatabaseManager.isUsePortal = true;
             Sequence seq = DOTween.Sequence()
           // .AppendCallback(() => player .transform.position = destination.position)
+           .AppendCallback(ApplyLocalCameraBounds)
            .AppendCallback(() => proCamera.CenterOnTargets())
            .AppendInterval(1f)
            .OnComplete(() => EndOnlyMove());
@@ -87,11 +113,24 @@ public class Portal : MonoBehaviour
             AbleOpenMap();
             AbleCloseMap();
         }
+        else
+        {
+            ApplyLocalCameraBounds();
+        }
         if (proCamera != null)
         {
             proCamera.CenterOnTargets();
         }
         DatabaseManager.isUsePortal = false;
+    }
+
+    private void ApplyLocalCameraBounds()
+    {
+        MapInfo map = GetComponentInParent<MapInfo>();
+        if (map != null)
+        {
+            MapInfo.Apply(map);
+        }
     }
 
     void AbleOpenMap()

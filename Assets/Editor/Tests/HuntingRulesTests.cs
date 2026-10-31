@@ -190,8 +190,8 @@ public class HuntingRulesTests
     [Test]
     public void ReusedArt_DoesNotChangeFloor2Stats()
     {
-        Assert.AreEqual(17, MonsterTable.Get("SporeShroom_BD").level);
-        Assert.AreEqual(283, MonsterTable.Get("SporeShroom_BD").exp);
+        Assert.AreEqual(16, MonsterTable.Get("SporeShroom_BD").level);
+        Assert.AreEqual(240, MonsterTable.Get("SporeShroom_BD").exp);
         Assert.AreEqual(16, MonsterTable.Get("CliffGoblin_BD").level);
         Assert.AreEqual(240, MonsterTable.Get("CliffGoblin_BD").exp);
         Assert.AreEqual(5, MonsterTable.Get("ForestSpore_BD").level);

@@ -120,7 +120,7 @@
 ## 6. 세이브 — Easy Save 3 (`SaveFile.es3`, 키 `Datas`)
 
 - **저장 항목:**
-  - money, playerPos, time
+  - money, level, exp, playerPos, time, mapName(구역 식별자; 구 세이브 미지정이면 활성 맵·높이로 추정)
   - invenItem[5,25,4] / chestItem[5,30,4]: 칸마다 이름·수량·티어·강화
   - equipGear[10,3]
 - **별도 키(같은 슬롯 파일):** `quickslot.items`(string[4], 퀵슬롯 등록 아이템 이름, 빈칸 "") — BasicFeatures.md 3절

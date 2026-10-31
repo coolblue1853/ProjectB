@@ -193,6 +193,10 @@ public class PauseMenu : MonoBehaviour
                 }
                 break;
             case 5:
+                if (SaveManager.instance != null)
+                {
+                    SaveManager.instance.SaveProgress();
+                }
                 GameLog.Info(GameLog.Cat.Save, "게임 종료 (일시정지 메뉴)");
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;

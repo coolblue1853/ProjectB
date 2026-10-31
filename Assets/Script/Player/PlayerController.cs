@@ -25,11 +25,11 @@ public class PlayerController : MonoBehaviour
     private MovementUnlocks _movementUnlocks;
     private float _airLaunchDirection;
     private int AvailableJumps => _movementUnlocks.JumpLimit(maxJumps);
-    private bool MovementGrounded => rb != null && rb.linearVelocity.y <= 0.01f &&
+    private bool MovementGrounded => rb != null && isOnGround && isPlafromCheck && rb.linearVelocity.y <= 0.01f &&
         ((hit1.collider != null && IsGrounded(hit1.normal)) || (hit2.collider != null && IsGrounded(hit2.normal)));
     private bool OnMovementGround => isUpLadder || MovementGrounded || coyote.InCoyote(Time.time);
     public bool CanMovementJump => (jumpsRemaining > 0 && (AvailableJumps > 1 || OnMovementGround)) || coyote.InCoyote(Time.time);
-    public bool CanMovementDash => _movementUnlocks.CanDash(OnMovementGround);
+    public bool CanMovementDash => _movementUnlocks.CanDash(MovementGrounded);
     public int MovementJumpLimit => AvailableJumps;
     public int jumpsRemaining;    // 남은 점프 횟수
     private bool isChangeDirection = false;    // 남은 점프 횟수
@@ -821,6 +821,7 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         jumpsRemaining--;
         isGround = false;
+        isOnGround = false;
         coyote.NotifyJumped();
         // 점프 후에도 isGrounded를 false로 유지하여 FixedUpdate에서 다시 체크할 수 있도록 합니다.
         Invoke("ReturnIsGround", 0.2f);
@@ -856,11 +857,11 @@ public class PlayerController : MonoBehaviour
 
         // 바닥 감지 레이캐스트
 
-        if (((hit1.collider != null && hit1.collider.CompareTag("Ground") && IsGrounded(hit1.normal)) ||( hit2.collider != null && hit2.collider.CompareTag("Ground") && IsGrounded(hit2.normal))) && isOnGround == true && isPlafromCheck == true)
+        bool grounded = MovementGrounded;
+        if (grounded)
         {
-
-            isOnGround = false;
             jumpsRemaining = AvailableJumps;
+            isWallReset = false;
             if (isJumpAnim == true && isUpLadder == false && states != "dash" && isAttackAnim ==false)
             {
                 isJumpAnim = false;
@@ -873,21 +874,8 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        // Ground 태그를 가진 오브젝트에 닿았고, 각도가 일정 범위 내에 있으면 점프 횟수 초기화
-        if (hit1.collider != null && hit1.collider.CompareTag("Ground") && IsGrounded(hit1.normal) && isOnGround == true)//&& isPlafromCheck == true
-        {
-
-            isWallReset = false;
-            isGround = true;
-           // jumpsRemaining = AvailableJumps;
-
-
-
-        }
-        else
-        {
-            isGround = false;
-        }
+        // 착지 상태를 계속 유지해야 코요테 타이머가 서 있는 플레이어를 추락으로 보지 않는다.
+        isGround = grounded;
 
         // 메이플식: 점프 없이 발판에서 떨어지면 코요테 시간 뒤 공중 점프 1회만 남긴다 (Q-105 Q-B)
         coyote.SetGrounded(isGround || isUpLadder, Time.time);

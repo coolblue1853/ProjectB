@@ -22,7 +22,7 @@ public class ExcavationSite : MiniGameSpot
     private bool _snapped;
     private float _readyAt;
     private bool _shownReady = true;
-    private int _granted;
+    private int _grantedFindCount;
     private bool _inputOn;
 
     /// <summary>지금 진행 중인 유적(없으면 null). ExcavationUI 가 읽는다</summary>
@@ -72,7 +72,7 @@ public class ExcavationSite : MiniGameSpot
     {
         DigSpec spec = ExcavationRules.SpecFor(RandomValue());
         Session = new ExcavationSession(spec, ExcavationRules.TableFor(_floor), RandomValue);
-        _granted = 0;
+        _grantedFindCount = 0;
         RecordFound = -1;
         RecordReplaced = false;
         SetInput(true);
@@ -136,9 +136,9 @@ public class ExcavationSite : MiniGameSpot
     /// <summary>캔 유물 보상을 지급(유물마다 한 번). 기록은 수집 로그로, 다 모았으면 대체 아이템</summary>
     private void GrantNewFinds()
     {
-        for (; _granted < Session.Finds.Count; _granted++)
+        for (; _grantedFindCount < Session.Finds.Count; _grantedFindCount++)
         {
-            DigFind f = Session.Finds[_granted];
+            DigFind f = Session.Finds[_grantedFindCount];
             if (f.Def.Id != ExcavationRules.RecordId)
             {
                 GiveReward(f.Def.Id, f.Count, AddSource.Excavation, f.Def.Rarity);
