@@ -25,7 +25,7 @@ System.Action<float, System.Action> at = (t, a) => DG.Tweening.DOVirtual.Delayed
 System.Func<string, string> hitboxes = prefix => {
     var s = new System.Text.StringBuilder();
     foreach (var o in UnityEngine.Object.FindObjectsByType<DamageObject>(FindObjectsSortMode.None))
-        if (o.name.StartsWith(prefix)) s.Append(o.name.Replace("(Clone)", "") + "{ratio" + o.dmgRatio.ToString("F2") + " sx" + o.transform.lossyScale.x.ToString("F2") + " stiff" + o.stiffnessTime.ToString("F2") + " ign" + (o.damageArr != null ? o.damageArr[5] : -1) + " mod" + (o.hitModifier != null) + "} ");
+        if (o.name.StartsWith(prefix)) s.Append(o.name.Replace("(Clone)", "") + "{ratio" + o.dmgRatio.ToString("F2") + " sx" + o.transform.lossyScale.x.ToString("F2") + " stiff" + o.stiffnessTime.ToString("F2") + " ign" + (o.damageArr != null ? o.damageArr[5] : -1) + " mod" + o.HasHitModifier + "} ");
     return s.ToString(); };
 var ph = PlayerHealthManager.Instance; ph.nowHp = ph.fullHP;
 log.Append(w.name + " kind" + w.Kind + " target " + target.name + " def" + target.enemyDef + " hp" + target.nowHP + " gap " + (target.transform.position.x - pc.transform.position.x).ToString("F1") + " | ");
@@ -76,13 +76,13 @@ else if (mode == "whip")
         foreach (var o in UnityEngine.Object.FindObjectsByType<DamageObject>(FindObjectsSortMode.None)) if (o.name.StartsWith("VineLash")) hb = o;
         if (hb == null) { log.Append("no hitbox"); return; }
         var bc = hb.GetComponent<BoxCollider2D>(); var b = bc.bounds; var tc = target.GetComponent<Collider2D>();
-        log.Append("hb mod" + (hb.hitModifier != null) + " bounds x" + b.min.x.ToString("F2") + ".." + b.max.x.ToString("F2") + " len" + b.size.x.ToString("F2") + " | ");
+        log.Append("hb mod" + hb.HasHitModifier + " bounds x" + b.min.x.ToString("F2") + ".." + b.max.x.ToString("F2") + " len" + b.size.x.ToString("F2") + " | ");
         var home = target.transform.position;
         foreach (float f in new[]{ 0.05f, 0.5f, 0.9f })
         {
             float cx = b.min.x + f * b.size.x + tc.bounds.extents.x;
             target.transform.position = new Vector3(cx, home.y, home.z); Physics2D.SyncTransforms();
-            log.Append("frac" + f + " mul" + hb.hitModifier.HitMultiplier(hb, target, tc).ToString("F2") + "; ");
+            log.Append("frac" + f + " mul" + Weapon.Equipped.GetComponent<TipBonus>().HitMultiplier(hb, target, tc).ToString("F2") + "; ");
         }
         target.transform.position = home;
     });

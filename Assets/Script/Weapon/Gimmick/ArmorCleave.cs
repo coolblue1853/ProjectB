@@ -5,7 +5,7 @@ public class ArmorCleave : WeaponGimmick
 {
     public override void OnHitboxSpawned(Weapon weapon, int step, DamageObject hitbox)
     {
-        hitbox.hitModifier = this;
+        hitbox.AddHitModifier(this);
     }
 
     public override float HitMultiplier(DamageObject hitbox, EnemyHealth enemy, Collider2D enemyCollider)

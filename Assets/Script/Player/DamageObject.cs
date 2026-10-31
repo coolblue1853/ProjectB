@@ -11,7 +11,40 @@ public class DamageObject : MonoBehaviour
     Transform playerTf;
     public float dmgRatio = 1.0f;
     /// <summary>무기 계열 기믹이 타격 직전 피해 배율을 바꿀 때 등록(런타임 전용, 직렬화 안 함)</summary>
-    [System.NonSerialized] public IHitModifier hitModifier;
+    [System.NonSerialized] private System.Collections.Generic.List<IHitModifier> _hitModifiers;
+
+    /// <summary>기믹 배율 등록. 여러 개면 배율을 곱한다</summary>
+    public void AddHitModifier(IHitModifier m)
+    {
+        if (m == null)
+        {
+            return;
+        }
+        if (_hitModifiers == null)
+        {
+            _hitModifiers = new System.Collections.Generic.List<IHitModifier>(2);
+        }
+        if (!_hitModifiers.Contains(m))
+        {
+            _hitModifiers.Add(m);
+        }
+    }
+
+    /// <summary>등록된 기믹이 있는가</summary>
+    public bool HasHitModifier => _hitModifiers != null && _hitModifiers.Count > 0;
+
+    private float HitModifierMul(EnemyHealth enemy, Collider2D col)
+    {
+        float mul = 1f;
+        if (_hitModifiers != null)
+        {
+            for (int i = 0; i < _hitModifiers.Count; i++)
+            {
+                mul *= _hitModifiers[i].HitMultiplier(this, enemy, col);
+            }
+        }
+        return mul;
+    }
     public float ShakeTime;
     public  bool isSkill = false;
     public bool isDestroyByTime = true;
@@ -480,7 +513,7 @@ public class DamageObject : MonoBehaviour
                         }
 
                     // 무기 계열 기믹(끝 판정·쪼개기 등)이 이 타격의 피해 배율을 바꾼다
-                    float ratio = hitModifier != null ? dmgRatio * hitModifier.HitMultiplier(this, enemyHealth, collision) : dmgRatio;
+                    float ratio = _hitModifiers != null ? dmgRatio * HitModifierMul(enemyHealth, collision) : dmgRatio;
                     enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, dir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, ratio);
 
                     }

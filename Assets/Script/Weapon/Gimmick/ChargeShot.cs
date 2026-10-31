@@ -12,7 +12,10 @@ public class ChargeShot : WeaponGimmick
 
     private bool _holding;
     private float _holdStart;
-    private int _releasedTier;
+    private int _pendingTier;
+    private float _pendingAt = -100f;
+    private const float PendingKeepTime = 1.0f;
+    private static ChargeShot s_owner;
     private SpriteRenderer[] _tintTargets;
     private Color[] _baseColors;
 
@@ -22,46 +25,57 @@ public class ChargeShot : WeaponGimmick
         s_validUntil = 0f;
         s_mul = 1f;
         s_pierce = 0;
+        s_owner = null;
     }
 
     /// <summary>지금 키를 누르고 충전 중인가</summary>
     public bool Holding => _holding;
 
     /// <summary>방금 놓은 충전 단계(다음 평타가 소비)</summary>
-    public int ReleasedTier => _releasedTier;
+    public int ReleasedTier => _pendingTier;
 
     /// <summary>충전 시작 (평타 키를 누른 순간)</summary>
     public void BeginHold(float now)
     {
+        // 놓은 단계(_pendingTier)는 건드리지 않는다 - 릴리스~발사 사이에 재입력해도 단계 유지
         _holding = true;
         _holdStart = now;
-        _releasedTier = 0;
     }
 
     /// <summary>키를 놓았다 — 단계를 확정해 돌려준다</summary>
     public int EndHold(float now)
     {
-        _releasedTier = _holding ? WeaponGimmickRules.ChargeTier(now - _holdStart) : 0;
+        int tier = _holding ? WeaponGimmickRules.ChargeTier(now - _holdStart) : 0;
         _holding = false;
         RestoreTint();
-        return _releasedTier;
+        // 아직 발사되지 않은 더 높은 단계가 있으면 유지한다
+        if (Time.time - _pendingAt > PendingKeepTime || tier > _pendingTier)
+        {
+            _pendingTier = tier;
+        }
+        _pendingAt = Time.time;
+        return tier;
     }
 
     public void CancelHold()
     {
         _holding = false;
-        _releasedTier = 0;
+        _pendingTier = 0;
         RestoreTint();
     }
 
     public override void OnAttackStart(Weapon weapon, int step)
     {
         // 평타가 실제로 시작될 때 놓은 단계를 화살에 넘기고 비운다
-        s_mul = WeaponGimmickRules.ChargeDamageMul(_releasedTier);
-        s_pierce = WeaponGimmickRules.ChargePierce(_releasedTier);
-        s_validUntil = Time.time + WeaponGimmickRules.ChargeValidTime;
-        GameLog.Info(GameLog.Cat.Combat, "차지 샷 단계 " + _releasedTier + " x" + s_mul.ToString("F2") + " 관통+" + s_pierce, this);
-        _releasedTier = 0;
+        int tier = Time.time - _pendingAt <= PendingKeepTime ? _pendingTier : 0;
+        s_mul = WeaponGimmickRules.ChargeDamageMul(tier);
+        s_pierce = WeaponGimmickRules.ChargePierce(tier);
+        // 유효 시간은 화살이 생성되는 시점 기준 - 선딜(delayTime)만큼 더 준다
+        float preDelay = weapon != null && weapon.isHasDelayTime && weapon.delayTime != null && weapon.delayTime.Length >= step ? weapon.delayTime[step - 1] / StatMath.AttackSpeedMul : 0f;
+        s_validUntil = Time.time + preDelay + WeaponGimmickRules.ChargeValidTime;
+        s_owner = (s_mul > 1f || s_pierce > 0) ? this : null;
+        GameLog.Info(GameLog.Cat.Combat, "차지 샷 단계 " + tier + " x" + s_mul.ToString("F2") + " 관통+" + s_pierce, this);
+        _pendingTier = 0;
     }
 
     /// <summary>평타 화살이 생길 때 한 번 소비한다. 차지가 없으면 false(배율 1)</summary>
@@ -96,7 +110,11 @@ public class ChargeShot : WeaponGimmick
         if (_tintTargets == null)
         {
             Weapon w = GetComponent<Weapon>();
-            _tintTargets = w != null && w.RightWeqponSprite != null ? w.RightWeqponSprite.GetComponentsInChildren<SpriteRenderer>(true) : new SpriteRenderer[0];
+            if (w == null || w.RightWeqponSprite == null)
+            {
+                return; // 아직 무기 그림이 없다 - 빈 배열로 고정하지 않고 다음에 다시 시도
+            }
+            _tintTargets = w.RightWeqponSprite.GetComponentsInChildren<SpriteRenderer>(true);
             _baseColors = new Color[_tintTargets.Length];
             for (int i = 0; i < _tintTargets.Length; i++)
             {
@@ -131,5 +149,13 @@ public class ChargeShot : WeaponGimmick
     {
         _holding = false;
         RestoreTint();
+        if (s_owner == this)
+        {
+            // 무기를 바꾸면 남은 충전을 버린다(다른 무기 화살이 소비하지 못하게)
+            s_validUntil = 0f;
+            s_mul = 1f;
+            s_pierce = 0;
+            s_owner = null;
+        }
     }
 }

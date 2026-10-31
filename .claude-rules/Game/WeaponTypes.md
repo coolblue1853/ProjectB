@@ -220,3 +220,5 @@
 - 회귀: RustedSword 3타 Steb→VashDown→VashUp 순환 유지.
 - 공격 스크린샷 5장 `Logs/playtest/wtype_*.png`(커밋 제외).
 미검증: 드롭 실제 확률 롤(표 파싱·아이템 존재만 테스트), 쌍검·채찍 모션 어색함 눈 평가, 툴팁 실제 표시, 스킬 발동 실사(복제 프리팹 값 확인만), 게임패드 입력, 도끼 몹 다수 전투.
+
+리뷰 수정(10-31): 활 릴리스 대기 0.4초 버퍼(`_chargeReleaseBufferTime`)·`_pendingTier` 분리(재입력해도 단계 유지)·OnDisable 시 정적 충전 폐기·유효 시간을 선딜만큼 연장·Tint 재시도·`DamageObject.AddHitModifier`(리스트, 배율 곱)·TipBonus 박스 캐시·왼쪽 방향 부호(lossyScale 대체). 검증: 프로브 `wfix_test.cs`(2단계 유지·버퍼 발사·교체 후 소비 불가·채찍 왼쪽 ×0.8/1.0/1.4).

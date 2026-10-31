@@ -23,6 +23,10 @@ public class AttackManager : MonoBehaviour
     [Tooltip("평타 선입력 시간(초). 후딜이 끝나기 직전에 누른 평타를 이어 준다 (W-15)")]
     [SerializeField] private float _attackBufferTime = 0.2f;
     InputBuffer _attackBuffer;
+    // 활 차지 릴리스는 콤보 창 밖에서 놓아도 샷이 사라지지 않도록 평타 버퍼보다 길게 기다린다
+    [SerializeField] private float _chargeReleaseBufferTime = 0.4f;
+    InputBuffer _chargeBuffer;
+    InputBuffer chargeBuffer => _chargeBuffer ?? (_chargeBuffer = new InputBuffer(_chargeReleaseBufferTime));
     InputBuffer attackBuffer => _attackBuffer ?? (_attackBuffer = new InputBuffer(_attackBufferTime));
     [Tooltip("스킬 선입력 시간(초). 후딜 중 누른 스킬을 이 시간 안에 쓸 수 있게 되면 발동 (W-09)")]
     [SerializeField] private float _skillBufferTime = 0.2f;
@@ -143,14 +147,15 @@ public class AttackManager : MonoBehaviour
                 if (charge.Holding && !attackAction.IsPressed())
                 {
                     charge.EndHold(Time.time);
-                    attackBuffer.Press(Time.time);
+                    chargeBuffer.Press(Time.time);
                 }
             }
             else if (attackAction.triggered)
             {
                 attackBuffer.Press(Time.time);
             }
-            if (!staggered && equipWeapon.CanMeleeNow && attackBuffer.Consume(Time.time))
+            InputBuffer meleeBuf = charge != null ? chargeBuffer : attackBuffer;
+            if (!staggered && equipWeapon.CanMeleeNow && meleeBuf.Consume(Time.time))
             {
                 equipWeapon.MeleeAttack();
             }
@@ -159,6 +164,7 @@ public class AttackManager : MonoBehaviour
         else
         {
             attackBuffer.Clear();
+            chargeBuffer.Clear();
             ClearSkillBuffers();
             if (equipWeapon != null && equipWeapon.Charge != null)
             {
