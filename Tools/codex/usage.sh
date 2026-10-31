@@ -18,6 +18,8 @@ w_reset=$(echo "$line" | grep -o '"secondary":{[^}]*"resets_at":[0-9]*' | grep -
 now=$(date +%s)
 awk -v pu="${p_used:-0}" -v pr="${p_reset:-$now}" -v wu="${w_used:-0}" -v wr="${w_reset:-$now}" -v now="$now" -v mode="$1" '
 BEGIN {
+  # 기록이 리셋 전 것이면 리셋된 것으로 본다
+  if (pr <= now) pu = 0; if (wr <= now) wu = 0
   ph = (pr - now) / 3600; wh = (wr - now) / 3600; if (wh < 0.1) wh = 0.1
   # 주간 페이스: 남은 시간 비율만큼 쓸 수 있다고 보고, 남은 양이 그보다 많으면 여유
   allow = 100 - wu; pace = allow / (wh / 168 * 100)
