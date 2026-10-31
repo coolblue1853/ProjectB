@@ -5,7 +5,7 @@ using UnityEngine;
 /// 풍향 활공 이동 능력(FloorCoreContent.md 2절). 플레이어에 런타임으로 붙는다(씬 파일 수정 없음).
 /// 점프 키 0.2초 홀드(공중·하강 중) → 활공: 낙하 −1.3 u/s, 수평 85%. 짧은 누름은 기존 2단 점프 그대로(PlayerController 는 건드리지 않는다).
 /// 기류(AirflowZone)는 위치 폴링으로 판정한다. 지속 최대 12초(상승 부하 부족 시 −10~20%), 상승 기류 안 +3/s, 착지 시 초기화.
-/// 해금: 2층계(Lv2_*) 맵 첫 진입 시 ES3 `glide.unlocked` 저장, 이후 어디서나 사용.
+/// 해금 상태는 MovementUnlocks가 소유한다. 기존 glide.unlocked 키는 이관 시 읽기만 한다.
 /// </summary>
 [DefaultExecutionOrder(50)]
 public class GlideMotor : MonoBehaviour
@@ -25,7 +25,7 @@ public class GlideMotor : MonoBehaviour
     private GlideGauge _gauge;
 
     public static GlideMotor Instance { get; private set; }
-    public static bool Unlocked { get; private set; }
+    public static bool Unlocked => MovementUnlocks.Instance != null && MovementUnlocks.Instance.Glide;
 
     public bool Gliding { get; private set; }
     public bool Grounded { get; private set; }
@@ -38,16 +38,11 @@ public class GlideMotor : MonoBehaviour
     private static void ResetStatics()
     {
         Instance = null;
-        Unlocked = false;
-        Portal.MapChanged -= OnMapChanged;
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Boot()
     {
-        Unlocked = ES3.KeyExists(UnlockKey) && ES3.Load<bool>(UnlockKey);
-        Portal.MapChanged -= OnMapChanged;
-        Portal.MapChanged += OnMapChanged;
         PlayerController pc = Object.FindFirstObjectByType<PlayerController>();
         if (pc != null && pc.GetComponent<GlideMotor>() == null)
         {
@@ -55,26 +50,10 @@ public class GlideMotor : MonoBehaviour
         }
     }
 
-    private static void OnMapChanged(GameObject openMap)
-    {
-        if (!Unlocked && openMap != null && openMap.name.StartsWith("Lv2_"))
-        {
-            Unlock();
-        }
-    }
-
-    /// <summary>해금(저장). 이미 해금이면 false</summary>
+    /// <summary>호환 해금 API. 상태·저장은 MovementUnlocks가 관리한다.</summary>
     public static bool Unlock()
     {
-        if (Unlocked)
-        {
-            return false;
-        }
-        Unlocked = true;
-        ES3.Save(UnlockKey, true);
-        BossBanner.Show("Wind Glide", "HOLD JUMP IN THE AIR TO GLIDE", true);
-        GameLog.Info(GameLog.Cat.Player, "활공 해금");
-        return true;
+        return MovementUnlocks.Instance != null && MovementUnlocks.Instance.ReachFloor(2);
     }
 
     private void Awake()

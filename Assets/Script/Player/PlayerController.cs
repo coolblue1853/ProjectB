@@ -22,6 +22,15 @@ public class PlayerController : MonoBehaviour
     private float dashTimer; // 대쉬 타이머
     public int dashStemina; // 대쉬시 사용하는 스테미나
     public int maxJumps = 2;      // 최대 점프 횟수
+    private MovementUnlocks _movementUnlocks;
+    private float _airLaunchDirection;
+    private int AvailableJumps => _movementUnlocks.JumpLimit(maxJumps);
+    private bool MovementGrounded => rb != null && rb.linearVelocity.y <= 0.01f &&
+        ((hit1.collider != null && IsGrounded(hit1.normal)) || (hit2.collider != null && IsGrounded(hit2.normal)));
+    private bool OnMovementGround => isUpLadder || MovementGrounded || coyote.InCoyote(Time.time);
+    public bool CanMovementJump => (jumpsRemaining > 0 && (AvailableJumps > 1 || OnMovementGround)) || coyote.InCoyote(Time.time);
+    public bool CanMovementDash => _movementUnlocks.CanDash(OnMovementGround);
+    public int MovementJumpLimit => AvailableJumps;
     public int jumpsRemaining;    // 남은 점프 횟수
     private bool isChangeDirection = false;    // 남은 점프 횟수
     private Rigidbody2D rb;
@@ -97,6 +106,11 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
+        _movementUnlocks = GetComponent<MovementUnlocks>();
+        if (_movementUnlocks == null)
+        {
+            _movementUnlocks = gameObject.AddComponent<MovementUnlocks>();
+        }
         action = new KeyAction();
         moveAction = action.Player.Move;
         jumpAction = action.Player.Jump;
@@ -132,7 +146,7 @@ public class PlayerController : MonoBehaviour
         bc = this.GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         _attackManager = GetComponent<AttackManager>();
-        jumpsRemaining = maxJumps;
+        jumpsRemaining = AvailableJumps;
     }
     bool once = false;
     public GameObject touchLight;
@@ -349,11 +363,8 @@ public class PlayerController : MonoBehaviour
 
 
             // 대쉬
-            if (DatabaseManager.isOpenUI == false && !PlayerStatus.Has(StatusFlag.DashLock) && dashAction.triggered && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false 
+            if (DatabaseManager.isOpenUI == false && !PlayerStatus.Has(StatusFlag.DashLock) && dashAction.triggered && CanMovementDash && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false
             {
-                rb.gravityScale =3;
-                isUpLadder = false;
-                ChangeLadderLayerOrder();
                 Dash();
             }
 
@@ -373,16 +384,13 @@ public class PlayerController : MonoBehaviour
             else if (jumpBuffer.Peek(Time.time) && DatabaseManager.weaponStopMove == false && isWall == false && states != "dash")
             {
                 // 코요테: 발판에서 걸어 내려간 직후에는 지상 점프로 인정
-                if (jumpsRemaining > 0 || coyote.InCoyote(Time.time))
+                if (CanMovementJump)
                 {
                     jumpBuffer.Consume(Time.time);
                     if (jumpsRemaining <= 0)
                     {
                         jumpsRemaining = 1;
                     }
-                    rb.gravityScale = 3;
-                    isUpLadder = false;
-                    ChangeLadderLayerOrder();
                     Jump();
                 }
             }
@@ -399,7 +407,7 @@ public class PlayerController : MonoBehaviour
             if(upAction.triggered == true|| downAction.triggered)
             {
 
-                jumpsRemaining = maxJumps;
+                jumpsRemaining = AvailableJumps;
                 rb.linearVelocity = Vector2.zero;
                 rb.gravityScale = 0;
                 isUpLadder = true;
@@ -561,6 +569,15 @@ public class PlayerController : MonoBehaviour
         if (states != "dash" && states != "wallJump")
         {
             horizontalInput = moveAction.ReadValue<float>();
+            if (OnMovementGround)
+            {
+                _airLaunchDirection = horizontalInput;
+            }
+            else
+            {
+                if (_airLaunchDirection == 0f) { _airLaunchDirection = horizontalInput; }
+                horizontalInput = MovementUnlockRules.AirInput(horizontalInput, _airLaunchDirection, true, _movementUnlocks.AirTurn);
+            }
             verticalInput = verticalAction.ReadValue<float>();
             if (horizontalInput < 0)
             {
@@ -674,6 +691,10 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
+        if (!CanMovementDash) { return; }
+        rb.gravityScale = 3;
+        isUpLadder = false;
+        ChangeLadderLayerOrder();
         CancelSkillHold(); // 홀드 중 대시하면 홀드를 끝낸다(쿨 적용)
         // 공격 중 대시는 잠긴 방향이 아니라 입력 방향으로 나가고, 남은 모션 동안 방향 잠금도 푼다 (10-30). states 가 dash 로 바뀌기 전에 불러야 돈다
         FaceInputForAttack();
@@ -771,6 +792,10 @@ public class PlayerController : MonoBehaviour
     bool isJumpAnim = false;
     void Jump()
     {
+        if (!CanMovementJump) { return; }
+        rb.gravityScale = 3;
+        isUpLadder = false;
+        ChangeLadderLayerOrder();
        
         MasterAudio.PlaySound("Jump");
         BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
@@ -835,7 +860,7 @@ public class PlayerController : MonoBehaviour
         {
 
             isOnGround = false;
-            jumpsRemaining = maxJumps;
+            jumpsRemaining = AvailableJumps;
             if (isJumpAnim == true && isUpLadder == false && states != "dash" && isAttackAnim ==false)
             {
                 isJumpAnim = false;
@@ -854,7 +879,7 @@ public class PlayerController : MonoBehaviour
 
             isWallReset = false;
             isGround = true;
-           // jumpsRemaining = maxJumps;
+           // jumpsRemaining = AvailableJumps;
 
 
 
@@ -866,9 +891,9 @@ public class PlayerController : MonoBehaviour
 
         // 메이플식: 점프 없이 발판에서 떨어지면 코요테 시간 뒤 공중 점프 1회만 남긴다 (Q-105 Q-B)
         coyote.SetGrounded(isGround || isUpLadder, Time.time);
-        if (_fallConsumesGroundJump && coyote.FellPastCoyote(Time.time) && jumpsRemaining >= maxJumps)
+        if (_fallConsumesGroundJump && coyote.FellPastCoyote(Time.time) && jumpsRemaining >= AvailableJumps)
         {
-            jumpsRemaining = maxJumps - 1;
+            jumpsRemaining = AvailableJumps - 1;
         }
 
         /*
@@ -1035,7 +1060,7 @@ public class PlayerController : MonoBehaviour
                 }
                 if (jumpsRemaining != maxJumps)
                 {
-                    jumpsRemaining = maxJumps;
+                    jumpsRemaining = AvailableJumps;
                 }
                 if (isUpLadder == true)
                 {
