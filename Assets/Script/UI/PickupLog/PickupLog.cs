@@ -31,6 +31,7 @@ public class PickupLog : MonoBehaviour
     TextMeshProUGUI fullText;
     float lastFull = -99f;
     string lastWarn;
+    Color warnColor = Color.red;
     int maxShownId; // 처음 보이는 줄만 등장 연출 (밀려 올라가는 줄은 제외)
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -69,7 +70,18 @@ public class PickupLog : MonoBehaviour
     /// <summary>화면 아래 가운데 빨간 경고 한 줄(인벤토리 가득 참·골드 부족 등). 같은 문구는 2초 스로틀. 표시했으면 true</summary>
     public static bool Warn(string message)
     {
-        PickupLog log = Ensure();
+        return Ensure().ShowCenter(message, true);
+    }
+
+    /// <summary>화면 아래 가운데 흰색 안내 한 줄(저장 완료 등 성공 알림). 실패음 없음. 같은 문구는 2초 스로틀</summary>
+    public static bool Notice(string message)
+    {
+        return Ensure().ShowCenter(message, false);
+    }
+
+    bool ShowCenter(string message, bool warning)
+    {
+        PickupLog log = this;
         if (message == log.lastWarn && Time.unscaledTime - log.lastFull < FullThrottle)
         {
             return false;
@@ -77,12 +89,16 @@ public class PickupLog : MonoBehaviour
         log.lastWarn = message;
         log.lastFull = Time.unscaledTime;
         log.fullText.DOKill();
+        log.fullText.color = warning ? warnColor : Color.white;
         log.fullText.text = message;
         log.fullText.alpha = 1f;
         log.fullText.gameObject.SetActive(true);
         log.fullText.DOFade(0f, 0.6f).SetDelay(1.4f).SetUpdate(true).SetLink(log.fullText.gameObject)
             .OnComplete(() => log.fullText.gameObject.SetActive(false));
-        Sfx.Play(SfxId.CraftFail, 0.5f);
+        if (warning)
+        {
+            Sfx.Play(SfxId.CraftFail, 0.5f);
+        }
         return true;
     }
 
@@ -123,6 +139,7 @@ public class PickupLog : MonoBehaviour
         fr.sizeDelta = new Vector2(600f, 50f);
         fullText.alignment = TextAlignmentOptions.Center;
         fullText.color = theme.warning;
+        warnColor = theme.warning;
         fullText.text = Loc.T("Inventory Full");
         fullText.gameObject.SetActive(false);
     }

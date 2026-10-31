@@ -51,7 +51,7 @@ public sealed class TownSavePoint : MonoBehaviour
             return false;
         }
         SaveManager.instance.SaveProgress();
-        PickupLog.Warn("여기까지의 여정을 기록했어요. 무사히 돌아오세요.");
+        PickupLog.Notice("여기까지의 여정을 기록했어요. 무사히 돌아오세요.");
         return true;
     }
 }
