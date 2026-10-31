@@ -18,6 +18,7 @@ public class TalkNpc : MonoBehaviour
     KeyAction action;
     TextMeshPro prompt;
     bool playerNear;
+    public bool HasServiceLabel { get; set; }
 
     public string Conversation
     {
@@ -77,9 +78,10 @@ public class TalkNpc : MonoBehaviour
     void Update()
     {
         bool canTalk = playerNear && !DatabaseManager.isOpenUI && !PixelCrushers.DialogueSystem.DialogueManager.isConversationActive;
-        if (prompt.gameObject.activeSelf != canTalk)
+        bool showPrompt = canTalk && !HasServiceLabel;
+        if (prompt.gameObject.activeSelf != showPrompt)
         {
-            prompt.gameObject.SetActive(canTalk);
+            prompt.gameObject.SetActive(showPrompt);
         }
         if (canTalk && action.UI.Up.triggered)
         {

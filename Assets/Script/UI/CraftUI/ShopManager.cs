@@ -32,6 +32,7 @@ public class ShopManager : MonoBehaviour
     public GameObject craftCusor;
     public GameObject[] LV1craftBox;
     int nowPage = 0;
+    private TextMeshProUGUI _stockPageLabel;
     public GameObject Inventory;
 
     KeyAction action;
@@ -120,6 +121,7 @@ public class ShopManager : MonoBehaviour
     }
     void SetDetail()
     {
+        UpdateStockPageLabel();
         name.text = nowShopItem.itemData.itemNameT; // 내부 이름이 아니라 표시 이름(현지화)
         type.text = ItemText.TypeLine(nowShopItem.itemData, false);
         description.text = ItemText.Description(nowShopItem.itemData);
@@ -152,7 +154,7 @@ public class ShopManager : MonoBehaviour
             misc.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.itemNameT;
             misc.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(nowShopItem.itemData, false);
             misc.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(nowShopItem.itemData);
-            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (nowShopItem.itemData.price).ToString();
+            misc.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (nowShopItem.buyprice).ToString();
             misc.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.itemData.tear.ToString();
             misc.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.itemData.rarity);
             miscDetail.transform.position = detailPos.transform.position;
@@ -169,7 +171,7 @@ public class ShopManager : MonoBehaviour
             consum.GetChild(1).GetComponent<TextMeshProUGUI>().text = nowShopItem.itemData.itemNameT;
             consum.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(nowShopItem.itemData, false);
             consum.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(nowShopItem.itemData);
-            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (nowShopItem.itemData.price).ToString();
+            consum.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (nowShopItem.buyprice).ToString();
             consum.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.itemData.tear.ToString();
             consum.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.itemData.rarity);
             InventoryManager.instance.SetConsumEffect(consum.GetChild(7).gameObject, nowShopItem);
@@ -189,7 +191,7 @@ public class ShopManager : MonoBehaviour
             equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(nowShopItem.itemData, true);
             equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(nowShopItem.itemData);
             equip.GetChild(3).GetComponent<TextMeshProUGUI>().text = ItemText.Description(nowShopItem.itemData);
-            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (nowShopItem.itemData.price).ToString();
+            equip.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T("Price : ") + (nowShopItem.buyprice).ToString();
             equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + nowShopItem.itemData.tear.ToString();
             equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = InventoryManager.instance.SetRarity(nowShopItem.itemData.rarity);
             InventoryManager.instance.SetEffectDetail(equip.GetChild(8).gameObject, nowShopItem);
@@ -398,14 +400,80 @@ public class ShopManager : MonoBehaviour
             InventoryManager.instance.cusor.SetActive(true);
             Invoke("ChangeisMoveCusor", 0.2f);
             ShopUI.SetActive(true);
+            ResetStockSelection();
+            InventoryManager.instance.state = "ShopCusorOn";
+            InventoryManager.instance.cusor.SetActive(false);
+            cusor.SetActive(true);
             Inventory.SetActive(true);
             UiLock.Set("InvGroup", true);
         }
     }
+    public void ResetStockSelection()
+    {
+        nowLv = 0;
+        nowPage = 0;
+        line = 0;
+        childCount = 0;
+        state = "";
+        if (LV1craftBox == null || LV1craftBox.Length == 0 || LV1craftBox[0] == null)
+        {
+            return;
+        }
+        Transform box = LV1craftBox[0].transform;
+        if (box.childCount == 0 || box.GetChild(0).childCount == 0 || box.GetChild(0).GetChild(0).childCount == 0)
+        {
+            return;
+        }
+        for (int i = 0; i < box.childCount; i++)
+        {
+            box.GetChild(i).gameObject.SetActive(i == 0);
+        }
+        nowShopItem = box.GetChild(0).GetChild(0).GetChild(0).GetComponent<ItemCheck>();
+        cusor.transform.position = nowShopItem.transform.position;
+        DetailOff();
+        if (nowShopItem.itemData != null)
+        {
+            SetDetail();
+        }
+    }
+
     public string state = "";
+    public void BuildStockPageLabel()
+    {
+        if (_stockPageLabel != null)
+        {
+            return;
+        }
+        Transform box = LV1craftBox[0].transform;
+        var go = new GameObject("TownStockPageLabel", typeof(RectTransform), typeof(TextMeshProUGUI));
+        go.transform.SetParent(box.parent, false);
+        _stockPageLabel = go.GetComponent<TextMeshProUGUI>();
+        _stockPageLabel.font = UiTheme.Get().pixelFont;
+        _stockPageLabel.fontSize = 20f;
+        _stockPageLabel.alignment = TextAlignmentOptions.Center;
+        _stockPageLabel.textWrappingMode = TextWrappingModes.NoWrap;
+        _stockPageLabel.raycastTarget = false;
+        RectTransform rt = _stockPageLabel.rectTransform;
+        rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.position = box.position;
+        rt.anchoredPosition += new Vector2(140f, -340f);
+        rt.sizeDelta = new Vector2(560f, 30f);
+        UpdateStockPageLabel();
+    }
+
+    private void UpdateStockPageLabel()
+    {
+        if (_stockPageLabel != null)
+        {
+            _stockPageLabel.text = (nowPage == 0 ? "보급품" : "기본 무기·방어구") +
+                "  " + (nowPage + 1) + " / " + LV1craftBox[0].transform.childCount + "   Q · E / LB · RB";
+        }
+    }
+
     public void DetailOff()
     {
         isBuyDetail = false;
+        skillDetailUi.SetActive(false);
         miscDetail.SetActive(false);
         consumDetail.SetActive(false);
         equipDetail.SetActive(false);
@@ -516,6 +584,7 @@ public class ShopManager : MonoBehaviour
             line = 0;
             childCount = 0;
             nowPage += 1;
+            DetailOff();
             LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(true);
             nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
             SetDetail();
@@ -526,6 +595,7 @@ public class ShopManager : MonoBehaviour
             line = 0;
             childCount = 0;
             nowPage -= 1;
+            DetailOff();
             LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(true);
             nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
             SetDetail();
