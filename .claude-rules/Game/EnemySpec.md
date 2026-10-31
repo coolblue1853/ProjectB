@@ -1,4 +1,4 @@
-﻿# 몬스터 스펙 (스탯 · AI · 스폰 · 드롭)
+# 몬스터 스펙 (스탯 · AI · 스폰 · 드롭)
 
 > 상태: 프리팹·씬 YAML 역산(2026-10-18). 프리팹은 `Assets/Prefab/Enemy_BD/*`에 있다.
 
@@ -43,9 +43,12 @@ Repeater → Selector
 
 ## 3. 스폰 — `EnemySpawner.cs`
 
-- 스포너는 35개이고, 스포너마다 DropManager가 1개씩 있다.
+- 현재 씬 전체 스포너는 147개이며 1층계는 115개(일반 92·보스 5·채집물 18)다. 스포너마다 DropManager가 1개씩 있다.
 - 플레이어가 스포너 영역 안에 있고 낮/밤 조건이 맞으면 1초 후부터 `cycle`초마다 빈 슬롯을 채운다.
 - 기본 주기: 일반 10초, 채집물 3~30초, 보스 120초.
+- 1층계 일반 스포너는 `Resources/HuntingSpawnsFloor1.csv`(map,spawner,count,cycle,profile,pointWeights)를 첫 활성화·풀 생성 전에 적용한다. 일반 리젠 10초, 기존 발판 중심 화면 기대 밀도 6~12마리. `pointWeights`는 각 기존 위치를 사용하는 슬롯 수(`|` 구분, 합=count)다. 맵 전체 슬롯 합과 화면 수는 다르며 발판 중심 표본의 일반몹 활성 트리거 정원은 최대 31~44다(전체 위치 상한 아님; 경계 점 겹침 검사에서 일부 맵 58슬롯). 보스·채집물은 표에 넣지 않는다(거대 슬라임 보스는 기존 180초).
+- `profile`은 같은 아트·AI를 다른 지역 수치로 재사용하는 MonsterSheet 키다. 스포너의 풀 생성 직후·정예 승격 전에 적용하며 풀 재사용 시 유지한다. EXP·골드·몸박·추가 드롭이 `EnemyHealth.MonsterId`를 공유한다. 처치 메시지는 `KillMessageId`(기존 프리팹 키)를 써서 도감·퀘스트 저장 호환을 보존한다. 1층계에서 재사용한 SporeShroom/CliffGoblin은 지역 변종을 쓰고 2층계 원본은 유지한다. 세부 수치·전후 표는 `ClassicMapleDesign.md` 15절과 `Docs/Balance/Floor1HuntingAudit.md`.
+- 에디터/앱 종료는 `EnemySpawner.OnApplicationQuit`에서 활성 풀을 먼저 반환하고, `OnDestroy`에서는 비활성 풀을 비운다. 트윈 매니저 파괴 뒤 몹의 OnDisable 경로가 실행되어 DOTween 오브젝트가 남던 종료 오류를 방지한다(활성 사냥터 정지 오류 1→0 확인).
 - 위치는 `enemyPositon` 자식 중 하나(랜덤 옵션)이고 x에 ±1 지터를 준다.
 - 영역 이탈이나 시간대 불일치가 생기면 적이 1.5초 페이드아웃 후 풀에 반환된다. 이때 드롭은 없다.
   - 영역 이탈 판정은 **자기 스포너** 경계만 본다(B-117, 2026-10-19). 다른 스포너 영역을 지나가는 몹은 사라지지 않는다.
@@ -56,7 +59,7 @@ Repeater → Selector
 | Lv1_NearForest | Rabbit, StoneRabbit, LeafMole, 채집물 | RatThief, RatChief, Scarecrow |
 | Lv1_NearForest_SideRoad | + FlowerMole, LeafMole | + CreepingTerror, **보스** |
 | Lv1_NormalForest (②) | ForestWolf, WildBoar, SporeShroom | Wisp, ForestSnail |
-| Lv1_DeepForest (③) | ForestBear(400/8), Ent(500/10), CliffGoblin, SporeShroom, **보스 AncientEnt(6000/18, 낮)** | Ghost(160/4), Fairy(110/3) |
+| Lv1_DeepForest (③) | ForestBear(250/8), Ent(290/10), ForestGoblin(지역 변종), SporeShroom(지역 변종), **보스 AncientEnt(6000/18, 낮)** | Ghost(100/3), Fairy(100/3) |
 
 - 깊은 숲 드롭(`build_deep_forest.cs`): 곰 Bear Pelt 35%·BearClaw 2% / 엔트 Heartwood Chip 35%·RootStaff 2% / 유령 Ectoplasm 30% / 요정 Fairy Dust 30% / 보스 스포너 Heartwood Chip 100% + `Resources/Boss/AncientEnt_BD`(확정 BearClaw|RootStaff, 고유 HeartwoodGreatsword 8%·천장 12). 아이템·보스 프리팹 이름은 세이브 키(인벤토리 문자열, `bossSinceUnique.<프리팹>`)이므로 바꾸지 않는다.
 

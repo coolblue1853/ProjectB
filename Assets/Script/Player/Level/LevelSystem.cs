@@ -51,7 +51,7 @@ public static class LevelSystem
         {
             return;
         }
-        MonsterTable.Row r = MonsterTable.Get(e.name);
+        MonsterTable.Row r = MonsterTable.Get(e.MonsterId);
         int baseExp = r != null && r.exp.HasValue ? r.exp.Value : 0;
         GainExp(LevelRules.KillExp(baseExp, e.IsElite, e.isBossMob), e.name);
     }

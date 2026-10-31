@@ -1,0 +1,8 @@
+﻿map,seconds,kills,damage,hpLoss,exp,goldEmitted,startLevel,endLevel,def,offense
+Lv1_NearForest_SideRoad,30.00,3,284,13,36,12,2,2,1,0
+Lv1_NearForest,30.00,3,295,0,36,18,2,2,1,0
+Lv1_NormalForest,30.00,4,827,608,92,55,4,4,2,1
+Lv1_DeepForest,30.00,8,2894,801,344,166,7,7,4,3
+Lv1_Swamp,30.00,2,1469,416,134,78,10,10,5,4
+Lv1_BanditFortress,30.00,1,702,317,121,57,12,12,6,5
+Lv1_TowerOutskirts,90.00,3,1383,4268,438,145,14,14,7,6

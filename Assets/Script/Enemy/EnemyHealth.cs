@@ -125,6 +125,24 @@ public class EnemyHealth : PoolAble
 
     /// <summary>몬스터 레벨(MonsterSheet level, 없으면 0 = 레벨 차 계산 안 함)</summary>
     public int Level { get; private set; }
+    public string MonsterId { get; private set; }
+
+    /// <summary>도감·기존 퀘스트의 저장/메시지 키는 지역 수치 키와 독립적으로 유지한다.</summary>
+    public string KillMessageId => ExtraDrops.MonsterId(name);
+
+    /// <summary>같은 아트를 쓰는 지역 변종. 풀 생성 직후, 정예 승격 전에 한 번만 적용한다.</summary>
+    public void ApplySpawnProfile(string monsterId)
+    {
+        MonsterTable.Row row = MonsterTable.Get(monsterId);
+        if (row == null || !MonsterTable.Apply(this, monsterId))
+        {
+            return;
+        }
+        MonsterId = row.id;
+        Level = row.level ?? 0;
+        _contactBase = row.contactDamage ?? 0;
+        nowHP = maxHP;
+    }
     int _contactBase;
     float _enabledAt;
     const float SpawnGraceTime = 0.3f;
@@ -187,6 +205,7 @@ public class EnemyHealth : PoolAble
 
     private void Awake()
     {
+        MonsterId = ExtraDrops.MonsterId(name);
         MonsterTable.Apply(this); // Resources/MonsterSheet.csv 값이 있으면 프리팹 값을 덮어쓴다 (C5)
         MonsterTable.Row levelRow = MonsterTable.Get(name);
         Level = levelRow != null && levelRow.level.HasValue ? levelRow.level.Value : 0;
@@ -588,7 +607,7 @@ public class EnemyHealth : PoolAble
         deadOnec = true;
         GameLog.Info(GameLog.Cat.Combat, name + " 사망 (overkill " + (-nowHP) + ")", this);
         // 퀘스트 처치 카운트 (Quest Machine 카운터가 "Kill" + 프리팹 이름을 듣는다, G11)
-        PixelCrushers.MessageSystem.SendMessage(this, "Kill", name.Replace("(Clone)", "").Trim());
+        PixelCrushers.MessageSystem.SendMessage(this, "Kill", KillMessageId);
         LevelSystem.OnEnemyKilled(this); // 처치 EXP (정예 x4, 보스 고정)
         // 사망 연출(연기·정예/보스 폭발): 반환 전, 정예 여부·스프라이트 경계가 살아 있을 때 (사망 1회만 조회)
         DeathFx.Play(this, TryGetComponent(out SpriteRenderer body) ? body.bounds : new Bounds(transform.position, Vector3.one));

@@ -71,16 +71,42 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnable()
     {
+        if (!isReady)
+        {
+            MapInfo map = GetComponentInParent<MapInfo>();
+            HuntingSpawnTable.Row setting = map != null ? HuntingSpawnTable.Get(map.name, name) : null;
+            if (setting != null)
+            {
+                enemyCount = setting.Count;
+                cycleFloat = setting.Cycle;
+                spawnProfile = setting.Profile;
+                spawnPointWeights = setting.PointWeights;
+            }
+        }
         Init();
     }
+
+    private string spawnProfile;
+    private int[] spawnPointWeights;
+
+    /// <summary>재사용 프리팹의 지역별 수치 키. 비어 있으면 기존 프리팹 이름을 쓴다.</summary>
+    public string MonsterProfile => string.IsNullOrEmpty(spawnProfile)
+        ? (EnemyPrefab != null ? EnemyPrefab.name : "") : spawnProfile;
 
     private void Start()
     {
         enemySlot = new GameObject[enemyCount];
         enemyPositionArray = new GameObject[enemyCount];
+        if (enemyPositon == null || enemyPositon.transform.childCount == 0)
+        {
+            enabled = false;
+            return;
+        }
+        int[] positions = HuntingSpawnTable.PositionIndices(enemyCount, enemyPositon.transform.childCount, spawnPointWeights);
         for (int i = 0; i < enemyCount; i++)
         {
-            enemyPositionArray[i] = enemyPositon.transform.GetChild(i).gameObject;
+            // 증원은 기존 발판을 재사용한다. 자식 위치 수와 동시 슬롯 수를 분리한다.
+            enemyPositionArray[i] = enemyPositon.transform.GetChild(positions[i]).gameObject;
         }
     }
 
@@ -210,6 +236,11 @@ public class EnemySpawner : MonoBehaviour
             GameLog.Info(GameLog.Cat.Pool, name + ": 풀 확장 생성 " + prefab.name, this);
         }
         GameObject go = Instantiate(prefab);
+        if (!string.IsNullOrEmpty(spawnProfile) && prefab == EnemyPrefab
+            && go.TryGetComponent(out EnemyHealth enemy))
+        {
+            enemy.ApplySpawnProfile(spawnProfile);
+        }
         go.GetComponent<PoolAble>().pool = pool;
         return go;
     }
@@ -280,6 +311,13 @@ public class EnemySpawner : MonoBehaviour
         activeObjects.Clear();
     }
 
+    private void OnApplicationQuit()
+    {
+        // DOTween 매니저가 파괴되기 전에 활성 몹·투사체를 반환한다.
+        // OnDestroy에서 처음 반환하면 OnDisable 경로가 종료 중 트윈 매니저를 다시 만들 수 있다.
+        ClearAllPools();
+    }
+
     void OnDestroy()
     {
         foreach (ObjectPool<GameObject> pool in pools.Values)
@@ -346,8 +384,9 @@ public class EnemySpawner : MonoBehaviour
             if (released != null)
             {
                 bool isBoss = released.TryGetComponent(out EnemyHealth bossHp) && bossHp.isBossMob;
-                dropManager.DropGold(ExtraDrops.MonsterId(released.name), wasElite, isBoss, pos);
-                dropManager.DropExtra(ExtraDrops.MonsterId(released.name), pos); // 계보 무기 추가 드롭(MonsterExtraDrops.csv)
+                string monsterId = released.GetComponent<EnemyHealth>().MonsterId;
+                dropManager.DropGold(monsterId, wasElite, isBoss, pos);
+                dropManager.DropExtra(monsterId, pos); // 계보 무기 추가 드롭(MonsterExtraDrops.csv)
             }
         }
         if (isDeadBody)
@@ -535,8 +574,8 @@ public class EnemySpawner : MonoBehaviour
             dropManager.DropItems(pos);
             if (tracked != null)
             {
-                dropManager.DropGold(ExtraDrops.MonsterId(tracked.name), true, false, pos);
-                dropManager.DropExtra(ExtraDrops.MonsterId(tracked.name), pos);
+                dropManager.DropGold(tracked.MonsterId, true, false, pos);
+                dropManager.DropExtra(tracked.MonsterId, pos);
             }
         }
         if (isDeadBody)

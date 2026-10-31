@@ -101,9 +101,9 @@ public static class MonsterTable
     static bool? ParseBool(string s) => s == "1" ? true : s == "0" ? false : (bool?)null;
 
     /// <summary>프리팹 값 위에 CSV 값을 덮어쓴다 (행이 없으면 그대로)</summary>
-    public static bool Apply(EnemyHealth enemy)
+    public static bool Apply(EnemyHealth enemy, string monsterId = null)
     {
-        Row r = Get(enemy.name);
+        Row r = Get(monsterId ?? enemy.name);
         if (r == null)
         {
             return false;
