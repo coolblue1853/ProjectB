@@ -1,243 +1,248 @@
-int,string,string,string,int,int,string,int,string,int,string,string,string,int,string,int,string
-index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equipArea,tfName,itemNameT,tear,rarity,upgrade,setName
-0,Rock,Misc,String,100,1,hand,99,-,0,-,,Rock,0,C,0,
-1,Wood,Misc,String2,200,2,odnw,60,-,0,-,,Wood,0,C,0,
-2,PickAxe,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,PickAxe,0,C,0,
-3,test4,Misc,World,400,1,soie,1,-,0,-,,test4,0,C,0,
-4,Potion,Consum,World,400,1,soie,5,hp +,200,-,,Potion,0,C,0,
-5,Food,Consum,eat!,50,5,cook,3,fullness +/def +,100/5,-,,Food,0,C,0,
-6,Cap,Equip,equipment,500,50,Buy,1,-,0,Head,RabbitArmor,Cap,0,C,0,Basic Gear
-7,Armor,Equip,equipment,500,50,Buy,1,-,0,Chest,RabbitArmor,Armor,0,C,0,Basic Gear
-8,HighArmor,Equip,equipment,5000,0,Buy,1,-,0,Chest,,HighArmor,0,C,0,
-9,LegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,RabbitArmor,LegArmor,0,C,0,Basic Gear
-10,HandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,RabbitArmor,HandArmor,0,C,0,Basic Gear
-11,Necklace,Equip,equipment,500,50,Buy,1,-,0,Necklace,,Necklace,0,C,0,
-12,Ring,Equip,equipment,500,50,Buy,1,-,0,Ring,,Ring,0,C,0,
-13,ToxicPickAxe,Equip,ToxicPickAxe,300,2,diopvh,1,-,0,Weapon,,ToxicPickAxe,0,C,0,
-14,Shoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,RabbitArmor,Shoes,0,C,0,Basic Gear
-15,Leather Knuckles,Equip,equipment,500,50,Buy,1,-,0,Weapon,,Leather Knuckles,0,C,0,
-16,Wood Spear,Equip,equipment,500,50,Buy,1,-,0,Weapon,,Wood Spear,0,C,0,
-17,LeafCap,Equip,equipment,500,50,Buy,1,-,0,Head,LeafArmor,LeafCap,0,R,0,Nature's Reward
-18,LeafArmor,Equip,equipment,500,50,Buy,1,-,0,Chest,LeafArmor,LeafArmor,0,R,0,Nature's Reward
-19,LeafLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,LeafArmor,LeafLegArmor,0,R,0,Nature's Reward
-20,LeafHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,LeafArmor,LeafHandArmor,0,R,0,Nature's Reward
-21,LeafShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,LeafArmor,LeafShoes,0,R,0,Nature's Reward
-22,LeafStaff,Equip,equipment,500,50,Buy,1,-,0,Weapon,,LeafStaff,0,R,0,
-23,LeafAdae,Equip,equipment,500,50,Buy,1,-,0,Weapon,,LeafAdae,0,R,0,
-24,RatCap,Equip,equipment,500,50,Buy,1,-,0,Head,RatArmor,RatCap,0,R,0,
-25,RatArmor,Equip,equipment,500,50,Buy,1,-,0,Chest,RatArmor,RatArmor,0,R,0,
-26,RatLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,RatArmor,RatLegArmor,0,R,0,
-27,RatHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,RatArmor,RatHandArmor,0,R,0,
-28,RatShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,RatArmor,RatShoes,0,R,0,
-29,DoubleDagger,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,DoubleDagger,0,R,0,
-30,PoisonSword,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,PoisonSword,0,R,0,
-31,RatCheifDagger,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,RatCheifDagger,0,U,0,
-32,ScareCap,Equip,equipment,500,50,Buy,1,-,0,Head,ScareArmor,ScareCap,0,R,0,
-33,ScareArmor,Equip,equipment,500,50,Buy,1,-,0,Chest,ScareArmor,ScareArmor,0,R,0,
-34,ScareLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,ScareArmor,ScareLegArmor,0,R,0,
-35,ScareHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,ScareArmor,ScareHandArmor,0,R,0,
-36,ScareShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,ScareArmor,ScareShoes,0,R,0,
-37,SacreGreatSword,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,SacreGreatSword,0,R,0,
-38,ScareStaff,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,ScareStaff,0,R,0,
-39,ScareSide,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,ScareSide,0,U,0,
-40,ScareClow,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,ScareClow,0,U,0,
-41,RustedSword,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,RustedSword,0,C,0,
-42,RustedSwordandShield,Equip,equipment,300,2,diopvh,1,-,0,Weapon,RabbitArmor,Rusted Sword and Shield,0,C,0,Basic Gear
-43,Four-Leaf Clover Ring,Equip,equipment,100,1,-,1,-,0,Ring,,Four-Leaf Clover Ring,0,R,0,
-44,Rabbit's Foot,Equip,equipment,100,1,-,1,-,0,Necklace,,Rabbit's Foot,0,R,0,
-45,Rabbit Meat Stew,Consum,eat!,50,5,cook,50,fullness +,100,-,,Rabbit Meat Stew,0,C,0,
-46,Rabbit Meat,Misc,World,100,1,-,50,-,0,-,,Rabbit Meat,0,C,0,
-47,Small Bone,Misc,World,100,1,-,99,-,0,-,,Small Bone,0,C,0,
-48,Rabbit Hide,Misc,World,100,1,-,99,-,0,-,,Rabbit Hide,0,C,0,
-49,Fine Rabbit Hide,Misc,World,100,1,-,99,-,0,-,,Fine Rabbit Hide,0,R,0,
-50,Round Bone,Misc,World,100,1,-,99,-,0,-,,Round Bone,0,R,0,
-51,GreenHurb,Misc,World,100,1,-,99,-,0,-,,Green Hurb,0,C,0,
-52,T0_Ore,Misc,World,100,1,-,99,-,0,-,,Pristine Low-Grade Ore,0,C,0,
-53,Green Wreath,Equip,equipment,100,1,-,1,-,0,Necklace,,Green Wreath,0,R,0,
-54,Small Tuber,Misc,World,100,1,-,99,-,0,-,,Small Tube,0,C,0,
-55,Fresh Green Leaves,Misc,World,100,1,-,99,-,0,-,,Fresh Green Leaves,0,R,0,
-56,Sturdy Roots,Misc,World,100,1,-,99,-,0,-,,Sturdy Roots,0,C,0,
-57,Herbal Salad,Consum,eat!,50,5,cook,50,fullness +/def +,100/5_180,-,,Herbal Salad,0,R,0,
-58,Gentle Spring Guidance,Equip,equipment,100,1,-,1,-,0,Necklace,,Gentle Spring Guidance,0,R,0,
-59,Sharp Petal Ring,Equip,equipment,100,1,-,1,-,0,Ring,,Sharp Petal Ring,0,U,0,
-60,Sturdy Leaf,Misc,World,100,1,-,99,-,0,-,,Sturdy Leaf,0,R,0,
-61,Sharp Petal,Misc,World,100,1,-,99,-,0,-,,Sharp Petal,0,R,0,
-62,Nasty Rat Ring,Equip,equipment,100,1,-,1,-,0,Ring,,Nasty Rat Ring,0,R,0,
-63,Disgusting Rat Meat,Misc,World,100,1,-,99,-,0,-,,Disgusting Rat Meat,0,C,0,
-64,Rat Thief's Stash,Misc,World,100,1,-,99,-,0,-,,Rat Thief's Stash,0,C,0,
-65,Filthy Rat Hide,Misc,World,100,1,-,99,-,0,-,,Filthy Rat Hide,0,C,0,
-66,Stinky Rat Meat Stew,Consum,eat!,50,5,cook,50,fullness +/def -,300/5_60,-,,Stinky Rat Meat Stew,0,R,0,
-67,Necklace of Spreading Corruption,Equip,equipment,100,1,-,1,-,0,Necklace,,Necklace of Spreading Corruption,0,R,0,
-68,Necklace of the Sly Plunderer,Equip,equipment,100,1,-,1,-,0,Necklace,,Necklace of the Sly Plunderer,0,R,0,
-69,Ring Finger that Tears Wounds,Equip,equipment,100,1,-,1,-,0,Ring,,Ring Finger that Tears Wounds,0,R,0,
-70,Rat Cheif 's Loot,Misc,World,100,1,-,99,-,0,-,,Rat Cheif 's Loot,0,C,0,
-71,Tough Rat Hide,Misc,World,100,1,-,99,-,0,-,,Tough Rat Hide,0,C,0,
-72,Shabby Straw Ring,Equip,equipment,100,1,-,1,-,0,Ring,,Shabby Straw Ring,0,C,0,
-73,Ominous Black Liquid,Misc,World,100,1,-,99,-,0,-,,Ominous Black Liquid,0,C,0,
-74,Blackened Branch,Misc,World,100,1,-,99,-,0,-,,Blackened Branch,0,C,0,
-75,Eerie Cloth Scrap,Misc,World,100,1,-,99,-,0,-,,Eerie Cloth Scrap,0,C,0,
-76,Malice-Infused Branch,Misc,World,100,1,-,99,-,0,-,,Malice-Infused Branch,0,C,0,
-77,Gloomy Cloth Scrap,Misc,World,100,1,-,99,-,0,-,,Gloomy Cloth Scrap,0,C,0,
-78,Necklace of Silent Screams,Equip,equipment,100,1,-,1,-,0,Necklace,,Necklace of Silent Screams,0,U,0,
-79,Torch,Consum,on the light,50,5,cook,20,light +,1.4_60_180,-,,Torch,0,C,0,
-80,Emergency Rations,Consum,eat!,150,5,cook,50,fullness +,300,-,,Emergency Rations,0,C,0,
-81,T1_Ore,Misc,World,200,1,-,99,-,0,-,,Cliff Crystal Ore,0,C,0,
-82,Cliff Fox Pelt,Misc,World,150,1,-,99,-,0,-,,Cliff Fox Pelt,0,C,0,
-83,Fox Meat,Misc,World,120,1,-,50,-,0,-,,Fox Meat,0,C,0,
-84,Glowing Spore,Misc,World,150,1,-,99,-,0,-,,Glowing Spore,0,C,0,
-85,Spongy Mushroom Cap,Misc,World,150,1,-,99,-,0,-,,Spongy Mushroom Cap,0,C,0,
-86,Goblin Fang,Misc,World,150,1,-,99,-,0,-,,Goblin Fang,0,C,0,
-87,Tarnished Goblin Coin,Misc,World,300,1,-,99,-,0,-,,Tarnished Goblin Coin,0,R,0,
-88,Membrane Wing,Misc,World,150,1,-,99,-,0,-,,Membrane Wing,0,C,0,
-89,Bloodshot Lens,Misc,World,300,1,-,99,-,0,-,,Bloodshot Lens,0,R,0,
-90,Ancient Bone,Misc,World,150,1,-,99,-,0,-,,Ancient Bone,0,C,0,
-91,Cracked Shield Shard,Misc,World,300,1,-,99,-,0,-,,Cracked Shield Shard,0,R,0,
-92,Death Sigil,Misc,World,800,1,-,99,-,0,-,,Death Sigil,0,R,0,
-93,Abyssal Core,Misc,World,3000,1,-,99,-,0,-,,Abyssal Core,0,U,0,
-94,Roasted Fox Skewer,Consum,eat!,150,5,cook,50,fullness +/def +,150/8_180,-,,Roasted Fox Skewer,0,R,0,
-95,CliffCap,Equip,equipment,1200,50,Craft,1,-,0,Head,CliffArmor,Cliffwalker Hood,0,R,0,Cliffwalker's Vow
-96,CliffArmor,Equip,equipment,1500,50,Craft,1,-,0,Chest,CliffArmor,Cliffwalker Mail,0,R,0,Cliffwalker's Vow
-97,CliffLegArmor,Equip,equipment,1200,50,Craft,1,-,0,Leg,CliffArmor,Cliffwalker Greaves,0,R,0,Cliffwalker's Vow
-98,CliffHandArmor,Equip,equipment,1200,50,Craft,1,-,0,Hand,CliffArmor,Cliffwalker Gloves,0,R,0,Cliffwalker's Vow
-99,CliffShoes,Equip,equipment,900,50,Craft,1,-,0,Shoes,CliffArmor,Cliffwalker Boots,0,R,0,Cliffwalker's Vow
-100,CliffStaff,Equip,equipment,1500,2,Craft,1,-,0,Weapon,CliffArmor,Cliffwind Staff,0,R,0,Cliffwalker's Vow
-101,CliffBlade,Equip,equipment,1500,2,Craft,1,-,0,Weapon,CliffArmor,Cliffwind Blade,0,R,0,Cliffwalker's Vow
-102,AbyssStaff,Equip,equipment,5000,2,Boss,1,-,0,Weapon,,Abyssal Wizard Staff,0,U,0,
-103,Eye of the Cliffs,Equip,equipment,800,1,-,1,-,0,Necklace,,Eye of the Cliffs,0,R,0,
-104,Bringer's Sigil Ring,Equip,equipment,1500,1,-,1,-,0,Ring,,Bringer's Sigil Ring,0,U,0,
-105,Enhance Stone,Misc,A crystal born of the tower. Fed to a core at the smith to raise its enhancement.,200,1,hand,99,-,0,-,,Floor Crystal,1,R,0,
-106,FangDagger,Equip,equipment,450,2,-,1,-,0,Weapon,WolfArmor,Fang Dagger,0,R,0,Pack Hunter
-107,Wolf Fang,Misc,World,60,1,-,99,-,0,-,,Wolf Fang,0,C,0,
-108,Boar Tusk,Misc,World,80,1,-,99,-,0,-,,Boar Tusk,0,C,0,
-109,Wisp Ember,Misc,World,90,1,-,99,-,0,-,,Wisp Ember,0,R,0,
-110,Snail Shell,Misc,World,70,1,-,99,-,0,-,,Snail Shell,0,C,0,
-111,TuskKnuckles,Equip,equipment,450,2,-,1,-,0,Weapon,WolfArmor,Tusk Knuckles,0,R,0,Pack Hunter
-112,WispLantern,Equip,equipment,450,2,-,1,-,0,Weapon,WispArmor,Wisp Lantern,0,R,0,Night Lantern
-113,ShellShield,Equip,equipment,450,2,-,1,-,0,Weapon,WispArmor,Shell Shield,0,R,0,Night Lantern
-114,WolfCap,Equip,equipment,800,50,-,1,-,0,Head,WolfArmor,Pack Hunter Hood,0,R,0,Pack Hunter
-115,WolfArmor,Equip,equipment,1000,50,-,1,-,0,Chest,WolfArmor,Pack Hunter Coat,0,R,0,Pack Hunter
-116,WolfLegArmor,Equip,equipment,800,50,-,1,-,0,Leg,WolfArmor,Pack Hunter Greaves,0,R,0,Pack Hunter
-117,WolfHandArmor,Equip,equipment,800,50,-,1,-,0,Hand,WolfArmor,Pack Hunter Gloves,0,R,0,Pack Hunter
-118,WolfShoes,Equip,equipment,600,50,-,1,-,0,Shoes,WolfArmor,Pack Hunter Boots,0,R,0,Pack Hunter
-119,WispCap,Equip,equipment,800,50,-,1,-,0,Head,WispArmor,Night Lantern Hood,0,R,0,Night Lantern
-120,WispArmor,Equip,equipment,1000,50,-,1,-,0,Chest,WispArmor,Night Lantern Coat,0,R,0,Night Lantern
-121,WispLegArmor,Equip,equipment,800,50,-,1,-,0,Leg,WispArmor,Night Lantern Greaves,0,R,0,Night Lantern
-122,WispHandArmor,Equip,equipment,800,50,-,1,-,0,Hand,WispArmor,Night Lantern Gloves,0,R,0,Night Lantern
-123,WispShoes,Equip,equipment,600,50,-,1,-,0,Shoes,WispArmor,Night Lantern Boots,0,R,0,Night Lantern
-124,BearClaw,Equip,equipment,500,2,-,1,-,0,Weapon,GroveArmor,Bear Claw,0,R,0,Ancient Grove
-125,RootStaff,Equip,equipment,500,2,-,1,-,0,Weapon,GroveArmor,Root Staff,0,R,0,Ancient Grove
-126,HeartwoodGreatsword,Equip,equipment,6000,3,Boss,1,-,0,Weapon,,Heartwood Greatsword,0,U,0,
-127,Bear Pelt,Misc,World,90,1,-,99,-,0,-,,Bear Pelt,0,C,0,
-128,Heartwood Chip,Misc,World,110,1,-,99,-,0,-,,Heartwood Chip,0,C,0,
-129,Ectoplasm,Misc,World,100,1,-,99,-,0,-,,Ectoplasm,0,C,0,
-130,Fairy Dust,Misc,World,120,1,-,99,-,0,-,,Fairy Dust,0,R,0,
-131,PhantomScythe,Equip,equipment,500,2,-,1,-,0,Weapon,FaeArmor,Phantom Scythe,0,R,0,Will-o'-Fae
-132,FaeWand,Equip,equipment,500,2,-,1,-,0,Weapon,FaeArmor,Fae Wand,0,R,0,Will-o'-Fae
-133,GroveCap,Equip,equipment,900,50,-,1,-,0,Head,GroveArmor,Ancient Grove Hood,0,R,0,Ancient Grove
-134,GroveArmor,Equip,equipment,1100,50,-,1,-,0,Chest,GroveArmor,Ancient Grove Coat,0,R,0,Ancient Grove
-135,GroveLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,GroveArmor,Ancient Grove Greaves,0,R,0,Ancient Grove
-136,GroveHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,GroveArmor,Ancient Grove Gloves,0,R,0,Ancient Grove
-137,GroveShoes,Equip,equipment,700,50,-,1,-,0,Shoes,GroveArmor,Ancient Grove Boots,0,R,0,Ancient Grove
-138,FaeCap,Equip,equipment,900,50,-,1,-,0,Head,FaeArmor,Will-o'-Fae Hood,0,R,0,Will-o'-Fae
-139,FaeArmor,Equip,equipment,1100,50,-,1,-,0,Chest,FaeArmor,Will-o'-Fae Coat,0,R,0,Will-o'-Fae
-140,FaeLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,FaeArmor,Will-o'-Fae Greaves,0,R,0,Will-o'-Fae
-141,FaeHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,FaeArmor,Will-o'-Fae Gloves,0,R,0,Will-o'-Fae
-142,FaeShoes,Equip,equipment,700,50,-,1,-,0,Shoes,FaeArmor,Will-o'-Fae Boots,0,R,0,Will-o'-Fae
-143,FrogTongueWhip,Equip,equipment,500,2,-,1,-,0,Weapon,BogArmor,Frog Tongue Whip,0,R,0,Bog Stalker
-144,CrocJawAxe,Equip,equipment,500,2,-,1,-,0,Weapon,BogArmor,Croc Jaw Axe,0,R,0,Bog Stalker
-145,PetalPincer,Equip,equipment,500,2,-,1,-,0,Weapon,BogArmor,Petal Pincer,0,R,0,Bog Stalker
-146,BloodstingRapier,Equip,equipment,500,2,-,1,-,0,Weapon,GloomArmor,Bloodsting Rapier,0,R,0,Gloom Swarm
-147,SlimeMace,Equip,equipment,500,2,-,1,-,0,Weapon,GloomArmor,Slime Mace,0,R,0,Gloom Swarm
-148,PrimordialGel,Equip,equipment,7000,3,Boss,1,-,0,Weapon,,Primordial Gel,0,U,0,
-149,Frog Skin,Misc,World,110,1,-,99,-,0,-,,Frog Skin,0,C,0,
-150,Crab Pincer,Misc,World,120,1,-,99,-,0,-,,Crab Pincer,0,C,0,
-151,Croc Tooth,Misc,World,130,1,-,99,-,0,-,,Croc Tooth,0,C,0,
-152,Blood Sting,Misc,World,120,1,-,99,-,0,-,,Blood Sting,0,C,0,
-153,Slime Gel,Misc,World,110,1,-,99,-,0,-,,Slime Gel,0,C,0,
-154,BogCap,Equip,equipment,900,50,-,1,-,0,Head,BogArmor,Bog Stalker Hood,0,R,0,Bog Stalker
-155,BogArmor,Equip,equipment,1100,50,-,1,-,0,Chest,BogArmor,Bog Stalker Coat,0,R,0,Bog Stalker
-156,BogLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,BogArmor,Bog Stalker Greaves,0,R,0,Bog Stalker
-157,BogHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,BogArmor,Bog Stalker Gloves,0,R,0,Bog Stalker
-158,BogShoes,Equip,equipment,700,50,-,1,-,0,Shoes,BogArmor,Bog Stalker Boots,0,R,0,Bog Stalker
-159,GloomCap,Equip,equipment,900,50,-,1,-,0,Head,GloomArmor,Gloom Swarm Hood,0,R,0,Gloom Swarm
-160,GloomArmor,Equip,equipment,1100,50,-,1,-,0,Chest,GloomArmor,Gloom Swarm Coat,0,R,0,Gloom Swarm
-161,GloomLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,GloomArmor,Gloom Swarm Greaves,0,R,0,Gloom Swarm
-162,GloomHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,GloomArmor,Gloom Swarm Gloves,0,R,0,Gloom Swarm
-163,GloomShoes,Equip,equipment,700,50,-,1,-,0,Shoes,GloomArmor,Gloom Swarm Boots,0,R,0,Gloom Swarm
-164,CutthroatDagger,Equip,equipment,500,2,-,1,-,0,Weapon,OutlawArmor,Cutthroat Dagger,0,R,0,Outlaw
-165,BanditShortbow,Equip,equipment,500,2,-,1,-,0,Weapon,OutlawArmor,Bandit Shortbow,0,R,0,Outlaw
-166,RaiderBuckler,Equip,equipment,500,2,-,1,-,0,Weapon,RaiderArmor,Raider Buckler,0,R,0,Iron Raider
-167,ChiefsWarBanner,Equip,equipment,7000,3,Boss,1,-,0,Weapon,,Chief's War Banner,0,U,0,
-168,Bandit Bandana,Misc,World,110,1,-,99,-,0,-,,Bandit Bandana,0,C,0,
-169,Broken Arrow,Misc,World,110,1,-,99,-,0,-,,Broken Arrow,0,C,0,
-170,Iron Rivet,Misc,World,130,1,-,99,-,0,-,,Iron Rivet,0,C,0,
-171,Pitch Torch,Misc,World,120,1,-,99,-,0,-,,Pitch Torch,0,C,0,
-172,OutlawCap,Equip,equipment,900,50,-,1,-,0,Head,OutlawArmor,Outlaw Hood,0,R,0,Outlaw
-173,OutlawArmor,Equip,equipment,1100,50,-,1,-,0,Chest,OutlawArmor,Outlaw Vest,0,R,0,Outlaw
-174,OutlawLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,OutlawArmor,Outlaw Breeches,0,R,0,Outlaw
-175,OutlawHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,OutlawArmor,Outlaw Gloves,0,R,0,Outlaw
-176,OutlawShoes,Equip,equipment,700,50,-,1,-,0,Shoes,OutlawArmor,Outlaw Boots,0,R,0,Outlaw
-177,RaiderCap,Equip,equipment,900,50,-,1,-,0,Head,RaiderArmor,Iron Raider Helm,0,R,0,Iron Raider
-178,RaiderArmor,Equip,equipment,1100,50,-,1,-,0,Chest,RaiderArmor,Iron Raider Mail,0,R,0,Iron Raider
-179,RaiderLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,RaiderArmor,Iron Raider Greaves,0,R,0,Iron Raider
-180,RaiderHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,RaiderArmor,Iron Raider Gauntlets,0,R,0,Iron Raider
-181,RaiderShoes,Equip,equipment,700,50,-,1,-,0,Shoes,RaiderArmor,Iron Raider Boots,0,R,0,Iron Raider
-182,PebbleGauntlet,Equip,equipment,500,2,-,1,-,0,Weapon,StoneArmor,Pebble Gauntlet,0,R,0,Stoneborn
-183,QuakestoneMaul,Equip,equipment,500,3,-,1,-,0,Weapon,StoneArmor,Quakestone Maul,0,R,0,Stoneborn
-184,MonolithShield,Equip,equipment,500,3,-,1,-,0,Weapon,StoneArmor,Monolith Shield,0,R,0,Stoneborn
-185,GatekeepersOath,Equip,equipment,9000,3,Boss,1,-,0,Weapon,,Gatekeeper's Oath,0,U,0,
-186,Golem Pebble,Misc,World,130,1,-,99,-,0,-,,Golem Pebble,0,C,0,
-187,Quake Core,Misc,World,150,1,-,99,-,0,-,,Quake Core,0,C,0,
-188,Monolith Shard,Misc,World,150,1,-,99,-,0,-,,Monolith Shard,0,C,0,
-189,Ruin Mote,Misc,World,140,1,-,99,-,0,-,,Ruin Mote,0,C,0,
-190,StoneCap,Equip,equipment,1000,50,-,1,-,0,Head,StoneArmor,Stoneborn Helm,0,R,0,Stoneborn
-191,StoneArmor,Equip,equipment,1200,50,-,1,-,0,Chest,StoneArmor,Stoneborn Plate,0,R,0,Stoneborn
-192,StoneLegArmor,Equip,equipment,1000,50,-,1,-,0,Leg,StoneArmor,Stoneborn Greaves,0,R,0,Stoneborn
-193,StoneHandArmor,Equip,equipment,1000,50,-,1,-,0,Hand,StoneArmor,Stoneborn Gauntlets,0,R,0,Stoneborn
-194,StoneShoes,Equip,equipment,800,50,-,1,-,0,Shoes,StoneArmor,Stoneborn Boots,0,R,0,Stoneborn
-195,RampartSword,Equip,equipment,600,3,-,1,-,0,Weapon,RampartArmor,Rampart Sword,0,R,0,Rampart Guard
-196,SentryHalberd,Equip,equipment,600,3,-,1,-,0,Weapon,RampartArmor,Sentry Halberd,0,R,0,Rampart Guard
-197,GargoyleWing,Equip,equipment,600,3,-,1,-,0,Weapon,SkyArmor,Gargoyle Wing,0,R,0,Skybound
-198,SkyfallTalon,Equip,equipment,10000,3,Boss,1,-,0,Weapon,,Skyfall Talon,0,U,0,
-199,Rampart Shard,Misc,World,160,1,-,99,-,0,-,,Rampart Shard,0,C,0,
-200,Halberd Fragment,Misc,World,170,1,-,99,-,0,-,,Halberd Fragment,0,C,0,
-201,Gargoyle Feather,Misc,World,170,1,-,99,-,0,-,,Gargoyle Feather,0,C,0,
-202,Storm Wisp,Misc,World,160,1,-,99,-,0,-,,Storm Wisp,0,C,0,
-203,RampartCap,Equip,equipment,1100,50,-,1,-,0,Head,RampartArmor,Rampart Guard Helm,0,R,0,Rampart Guard
-204,RampartArmor,Equip,equipment,1300,50,-,1,-,0,Chest,RampartArmor,Rampart Guard Plate,0,R,0,Rampart Guard
-205,RampartLegArmor,Equip,equipment,1100,50,-,1,-,0,Leg,RampartArmor,Rampart Guard Greaves,0,R,0,Rampart Guard
-206,RampartHandArmor,Equip,equipment,1100,50,-,1,-,0,Hand,RampartArmor,Rampart Guard Gauntlets,0,R,0,Rampart Guard
-207,RampartShoes,Equip,equipment,900,50,-,1,-,0,Shoes,RampartArmor,Rampart Guard Sabatons,0,R,0,Rampart Guard
-208,SkyCap,Equip,equipment,1100,50,-,1,-,0,Head,SkyArmor,Skybound Cowl,0,R,0,Skybound
-209,SkyArmor,Equip,equipment,1300,50,-,1,-,0,Chest,SkyArmor,Skybound Vest,0,R,0,Skybound
-210,SkyLegArmor,Equip,equipment,1100,50,-,1,-,0,Leg,SkyArmor,Skybound Leggings,0,R,0,Skybound
-211,SkyHandArmor,Equip,equipment,1100,50,-,1,-,0,Hand,SkyArmor,Skybound Gloves,0,R,0,Skybound
-212,SkyShoes,Equip,equipment,900,50,-,1,-,0,Shoes,SkyArmor,Skybound Boots,0,R,0,Skybound
-213,Forest Carp,Misc,World,15,1,fishing,50,-,0,-,,Forest Carp,0,C,0,
-214,Moss Loach,Misc,World,18,1,fishing,50,-,0,-,,Moss Loach,0,C,0,
-215,Amber Trout,Misc,World,90,1,fishing,50,-,0,-,,Amber Trout,0,R,0,
-216,Spirit Koi,Misc,World,450,1,fishing,50,-,0,-,,Spirit Koi,0,U,0,
-217,Grilled Forest Carp,Consum,eat!,45,5,cook,50,fullness +,120,-,,Grilled Forest Carp,0,C,0,
-218,Amber Trout Soup,Consum,eat!,180,5,cook,50,fullness +/hp +/stemina +,180/120/30,-,,Amber Trout Soup,0,R,0,
-219,Forest Mushroom,Misc,World,12,1,gathering,50,-,0,-,,Forest Mushroom,0,C,0,
-220,Glow Moth Wing,Misc,World,65,1,gathering,50,-,0,-,,Glow Moth Wing,0,R,0,
-221,Moonpetal,Misc,World,280,1,gathering,50,-,0,-,,Moonpetal,0,U,0,
-222,Bog Copper Ore,Misc,World,85,1,mining,50,-,0,-,,Bog Copper Ore,0,R,0,
-223,Starfall Ore,Misc,World,400,1,mining,50,-,0,-,,Starfall Ore,0,U,0,
-224,Minor Herbal Potion,Consum,World,240,5,alchemy,50,hp +,120,-,,Minor Herbal Potion,0,C,0,
-225,Glow Stamina Potion,Consum,World,260,5,alchemy,50,stemina +,100,-,,Glow Stamina Potion,0,R,0,
-226,Forest Mushroom Soup,Consum,eat!,185,5,cook,50,fullness +/def +,120/3_180,-,,Forest Mushroom Soup,0,C,0,
-227,Moonpetal Elixir,Consum,World,580,5,alchemy,50,hp +/stemina +,250/100,-,,Moonpetal Elixir,0,U,0,
-228,Bog Copper Alloy,Misc,World,310,1,smelt,50,-,0,-,,Bog Copper Alloy,0,R,0,
-229,Starfall Alloy,Misc,World,740,1,smelt,50,-,0,-,,Starfall Alloy,0,U,0,
-230,Ancient Relic Shard,Misc,World,18,1,excavation,50,-,0,-,,Ancient Relic Shard,0,C,0,
-231,Ancient Blueprint Fragment,Misc,World,35,1,excavation,50,-,0,-,,Ancient Blueprint Fragment,0,C,0,
-232,Ancient Gear Core,Misc,World,85,1,excavation,50,-,0,-,,Ancient Gear Core,0,R,0,
-233,Forgotten Runestone,Misc,World,120,1,excavation,50,-,0,-,,Forgotten Runestone,0,R,0,
-234,Herb Roasted Rabbit,Consum,eat!,100,5,cook,50,fullness +/ascent +,130/5_180,-,,Herb Roasted Rabbit,0,C,0,
-235,Moss Loach Broth,Consum,eat!,125,5,cook,50,fullness +/hp +/gather +,100/60/5_180,-,,Moss Loach Broth,0,C,0,
-236,Ember Fox Skewer,Consum,eat!,180,5,cook,50,fullness +/atk +,150/3_180,-,,Ember Fox Skewer,0,R,0,
-237,Glowwing Carp Soup,Consum,eat!,210,5,cook,50,fullness +/fish +,110/2_240,-,,Glowwing Carp Soup,0,R,0,
-238,Amber Herb Stew,Consum,eat!,260,5,cook,50,fullness +/hp +/ascent +,170/100/8_240,-,,Amber Herb Stew,0,R,0,
-239,Spirit Carp Moon Roast,Consum,eat!,600,5,cook,50,fullness +/stemina +/gather +,200/40/8_300,-,,Spirit Carp Moon Roast,0,U,0,
-240,Burnt Meal,Consum,eat!,1,5,cook,50,fullness +,20,-,,Burnt Meal,0,C,0,
+int,string,string,string,int,int,string,int,string,int,string,string,string,int,string,int,string,string
+index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equipArea,tfName,itemNameT,tear,rarity,upgrade,setName,WeaponType
+0,Rock,Misc,String,100,1,hand,99,-,0,-,,Rock,0,C,0,,
+1,Wood,Misc,String2,200,2,odnw,60,-,0,-,,Wood,0,C,0,,
+2,PickAxe,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,PickAxe,0,C,0,,Mace
+3,test4,Misc,World,400,1,soie,1,-,0,-,,test4,0,C,0,,
+4,Potion,Consum,World,400,1,soie,5,hp +,200,-,,Potion,0,C,0,,
+5,Food,Consum,eat!,50,5,cook,3,fullness +/def +,100/5,-,,Food,0,C,0,,
+6,Cap,Equip,equipment,500,50,Buy,1,-,0,Head,RabbitArmor,Cap,0,C,0,Basic Gear,
+7,Armor,Equip,equipment,500,50,Buy,1,-,0,Chest,RabbitArmor,Armor,0,C,0,Basic Gear,
+8,HighArmor,Equip,equipment,5000,0,Buy,1,-,0,Chest,,HighArmor,0,C,0,,
+9,LegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,RabbitArmor,LegArmor,0,C,0,Basic Gear,
+10,HandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,RabbitArmor,HandArmor,0,C,0,Basic Gear,
+11,Necklace,Equip,equipment,500,50,Buy,1,-,0,Necklace,,Necklace,0,C,0,,
+12,Ring,Equip,equipment,500,50,Buy,1,-,0,Ring,,Ring,0,C,0,,
+13,ToxicPickAxe,Equip,ToxicPickAxe,300,2,diopvh,1,-,0,Weapon,,ToxicPickAxe,0,C,0,,Mace
+14,Shoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,RabbitArmor,Shoes,0,C,0,Basic Gear,
+15,Leather Knuckles,Equip,equipment,500,50,Buy,1,-,0,Weapon,,Leather Knuckles,0,C,0,,Knuckle
+16,Wood Spear,Equip,equipment,500,50,Buy,1,-,0,Weapon,,Wood Spear,0,C,0,,Spear
+17,LeafCap,Equip,equipment,500,50,Buy,1,-,0,Head,LeafArmor,LeafCap,0,R,0,Nature's Reward,
+18,LeafArmor,Equip,equipment,500,50,Buy,1,-,0,Chest,LeafArmor,LeafArmor,0,R,0,Nature's Reward,
+19,LeafLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,LeafArmor,LeafLegArmor,0,R,0,Nature's Reward,
+20,LeafHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,LeafArmor,LeafHandArmor,0,R,0,Nature's Reward,
+21,LeafShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,LeafArmor,LeafShoes,0,R,0,Nature's Reward,
+22,LeafStaff,Equip,equipment,500,50,Buy,1,-,0,Weapon,,LeafStaff,0,R,0,,Staff
+23,LeafAdae,Equip,equipment,500,50,Buy,1,-,0,Weapon,,LeafAdae,0,R,0,,Adae
+24,RatCap,Equip,equipment,500,50,Buy,1,-,0,Head,RatArmor,RatCap,0,R,0,,
+25,RatArmor,Equip,equipment,500,50,Buy,1,-,0,Chest,RatArmor,RatArmor,0,R,0,,
+26,RatLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,RatArmor,RatLegArmor,0,R,0,,
+27,RatHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,RatArmor,RatHandArmor,0,R,0,,
+28,RatShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,RatArmor,RatShoes,0,R,0,,
+29,DoubleDagger,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,DoubleDagger,0,R,0,,Dagger
+30,PoisonSword,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,PoisonSword,0,R,0,,Sword
+31,RatCheifDagger,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,RatCheifDagger,0,U,0,,Dagger
+32,ScareCap,Equip,equipment,500,50,Buy,1,-,0,Head,ScareArmor,ScareCap,0,R,0,,
+33,ScareArmor,Equip,equipment,500,50,Buy,1,-,0,Chest,ScareArmor,ScareArmor,0,R,0,,
+34,ScareLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,ScareArmor,ScareLegArmor,0,R,0,,
+35,ScareHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,ScareArmor,ScareHandArmor,0,R,0,,
+36,ScareShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,ScareArmor,ScareShoes,0,R,0,,
+37,SacreGreatSword,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,SacreGreatSword,0,R,0,,Greatsword
+38,ScareStaff,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,ScareStaff,0,R,0,,Staff
+39,ScareSide,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,ScareSide,0,U,0,,Scythe
+40,ScareClow,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,ScareClow,0,U,0,,Claw
+41,RustedSword,Equip,equipment,300,2,diopvh,1,-,0,Weapon,,RustedSword,0,C,0,,Sword
+42,RustedSwordandShield,Equip,equipment,300,2,diopvh,1,-,0,Weapon,RabbitArmor,Rusted Sword and Shield,0,C,0,Basic Gear,Sword
+43,Four-Leaf Clover Ring,Equip,equipment,100,1,-,1,-,0,Ring,,Four-Leaf Clover Ring,0,R,0,,
+44,Rabbit's Foot,Equip,equipment,100,1,-,1,-,0,Necklace,,Rabbit's Foot,0,R,0,,
+45,Rabbit Meat Stew,Consum,eat!,50,5,cook,50,fullness +,100,-,,Rabbit Meat Stew,0,C,0,,
+46,Rabbit Meat,Misc,World,100,1,-,50,-,0,-,,Rabbit Meat,0,C,0,,
+47,Small Bone,Misc,World,100,1,-,99,-,0,-,,Small Bone,0,C,0,,
+48,Rabbit Hide,Misc,World,100,1,-,99,-,0,-,,Rabbit Hide,0,C,0,,
+49,Fine Rabbit Hide,Misc,World,100,1,-,99,-,0,-,,Fine Rabbit Hide,0,R,0,,
+50,Round Bone,Misc,World,100,1,-,99,-,0,-,,Round Bone,0,R,0,,
+51,GreenHurb,Misc,World,100,1,-,99,-,0,-,,Green Hurb,0,C,0,,
+52,T0_Ore,Misc,World,100,1,-,99,-,0,-,,Pristine Low-Grade Ore,0,C,0,,
+53,Green Wreath,Equip,equipment,100,1,-,1,-,0,Necklace,,Green Wreath,0,R,0,,
+54,Small Tuber,Misc,World,100,1,-,99,-,0,-,,Small Tube,0,C,0,,
+55,Fresh Green Leaves,Misc,World,100,1,-,99,-,0,-,,Fresh Green Leaves,0,R,0,,
+56,Sturdy Roots,Misc,World,100,1,-,99,-,0,-,,Sturdy Roots,0,C,0,,
+57,Herbal Salad,Consum,eat!,50,5,cook,50,fullness +/def +,100/5_180,-,,Herbal Salad,0,R,0,,
+58,Gentle Spring Guidance,Equip,equipment,100,1,-,1,-,0,Necklace,,Gentle Spring Guidance,0,R,0,,
+59,Sharp Petal Ring,Equip,equipment,100,1,-,1,-,0,Ring,,Sharp Petal Ring,0,U,0,,
+60,Sturdy Leaf,Misc,World,100,1,-,99,-,0,-,,Sturdy Leaf,0,R,0,,
+61,Sharp Petal,Misc,World,100,1,-,99,-,0,-,,Sharp Petal,0,R,0,,
+62,Nasty Rat Ring,Equip,equipment,100,1,-,1,-,0,Ring,,Nasty Rat Ring,0,R,0,,
+63,Disgusting Rat Meat,Misc,World,100,1,-,99,-,0,-,,Disgusting Rat Meat,0,C,0,,
+64,Rat Thief's Stash,Misc,World,100,1,-,99,-,0,-,,Rat Thief's Stash,0,C,0,,
+65,Filthy Rat Hide,Misc,World,100,1,-,99,-,0,-,,Filthy Rat Hide,0,C,0,,
+66,Stinky Rat Meat Stew,Consum,eat!,50,5,cook,50,fullness +/def -,300/5_60,-,,Stinky Rat Meat Stew,0,R,0,,
+67,Necklace of Spreading Corruption,Equip,equipment,100,1,-,1,-,0,Necklace,,Necklace of Spreading Corruption,0,R,0,,
+68,Necklace of the Sly Plunderer,Equip,equipment,100,1,-,1,-,0,Necklace,,Necklace of the Sly Plunderer,0,R,0,,
+69,Ring Finger that Tears Wounds,Equip,equipment,100,1,-,1,-,0,Ring,,Ring Finger that Tears Wounds,0,R,0,,
+70,Rat Cheif 's Loot,Misc,World,100,1,-,99,-,0,-,,Rat Cheif 's Loot,0,C,0,,
+71,Tough Rat Hide,Misc,World,100,1,-,99,-,0,-,,Tough Rat Hide,0,C,0,,
+72,Shabby Straw Ring,Equip,equipment,100,1,-,1,-,0,Ring,,Shabby Straw Ring,0,C,0,,
+73,Ominous Black Liquid,Misc,World,100,1,-,99,-,0,-,,Ominous Black Liquid,0,C,0,,
+74,Blackened Branch,Misc,World,100,1,-,99,-,0,-,,Blackened Branch,0,C,0,,
+75,Eerie Cloth Scrap,Misc,World,100,1,-,99,-,0,-,,Eerie Cloth Scrap,0,C,0,,
+76,Malice-Infused Branch,Misc,World,100,1,-,99,-,0,-,,Malice-Infused Branch,0,C,0,,
+77,Gloomy Cloth Scrap,Misc,World,100,1,-,99,-,0,-,,Gloomy Cloth Scrap,0,C,0,,
+78,Necklace of Silent Screams,Equip,equipment,100,1,-,1,-,0,Necklace,,Necklace of Silent Screams,0,U,0,,
+79,Torch,Consum,on the light,50,5,cook,20,light +,1.4_60_180,-,,Torch,0,C,0,,
+80,Emergency Rations,Consum,eat!,150,5,cook,50,fullness +,300,-,,Emergency Rations,0,C,0,,
+81,T1_Ore,Misc,World,200,1,-,99,-,0,-,,Cliff Crystal Ore,0,C,0,,
+82,Cliff Fox Pelt,Misc,World,150,1,-,99,-,0,-,,Cliff Fox Pelt,0,C,0,,
+83,Fox Meat,Misc,World,120,1,-,50,-,0,-,,Fox Meat,0,C,0,,
+84,Glowing Spore,Misc,World,150,1,-,99,-,0,-,,Glowing Spore,0,C,0,,
+85,Spongy Mushroom Cap,Misc,World,150,1,-,99,-,0,-,,Spongy Mushroom Cap,0,C,0,,
+86,Goblin Fang,Misc,World,150,1,-,99,-,0,-,,Goblin Fang,0,C,0,,
+87,Tarnished Goblin Coin,Misc,World,300,1,-,99,-,0,-,,Tarnished Goblin Coin,0,R,0,,
+88,Membrane Wing,Misc,World,150,1,-,99,-,0,-,,Membrane Wing,0,C,0,,
+89,Bloodshot Lens,Misc,World,300,1,-,99,-,0,-,,Bloodshot Lens,0,R,0,,
+90,Ancient Bone,Misc,World,150,1,-,99,-,0,-,,Ancient Bone,0,C,0,,
+91,Cracked Shield Shard,Misc,World,300,1,-,99,-,0,-,,Cracked Shield Shard,0,R,0,,
+92,Death Sigil,Misc,World,800,1,-,99,-,0,-,,Death Sigil,0,R,0,,
+93,Abyssal Core,Misc,World,3000,1,-,99,-,0,-,,Abyssal Core,0,U,0,,
+94,Roasted Fox Skewer,Consum,eat!,150,5,cook,50,fullness +/def +,150/8_180,-,,Roasted Fox Skewer,0,R,0,,
+95,CliffCap,Equip,equipment,1200,50,Craft,1,-,0,Head,CliffArmor,Cliffwalker Hood,0,R,0,Cliffwalker's Vow,
+96,CliffArmor,Equip,equipment,1500,50,Craft,1,-,0,Chest,CliffArmor,Cliffwalker Mail,0,R,0,Cliffwalker's Vow,
+97,CliffLegArmor,Equip,equipment,1200,50,Craft,1,-,0,Leg,CliffArmor,Cliffwalker Greaves,0,R,0,Cliffwalker's Vow,
+98,CliffHandArmor,Equip,equipment,1200,50,Craft,1,-,0,Hand,CliffArmor,Cliffwalker Gloves,0,R,0,Cliffwalker's Vow,
+99,CliffShoes,Equip,equipment,900,50,Craft,1,-,0,Shoes,CliffArmor,Cliffwalker Boots,0,R,0,Cliffwalker's Vow,
+100,CliffStaff,Equip,equipment,1500,2,Craft,1,-,0,Weapon,CliffArmor,Cliffwind Staff,0,R,0,Cliffwalker's Vow,Staff
+101,CliffBlade,Equip,equipment,1500,2,Craft,1,-,0,Weapon,CliffArmor,Cliffwind Blade,0,R,0,Cliffwalker's Vow,Scythe
+102,AbyssStaff,Equip,equipment,5000,2,Boss,1,-,0,Weapon,,Abyssal Wizard Staff,0,U,0,,Staff
+103,Eye of the Cliffs,Equip,equipment,800,1,-,1,-,0,Necklace,,Eye of the Cliffs,0,R,0,,
+104,Bringer's Sigil Ring,Equip,equipment,1500,1,-,1,-,0,Ring,,Bringer's Sigil Ring,0,U,0,,
+105,Enhance Stone,Misc,A crystal born of the tower. Fed to a core at the smith to raise its enhancement.,200,1,hand,99,-,0,-,,Floor Crystal,1,R,0,,
+106,FangDagger,Equip,equipment,450,2,-,1,-,0,Weapon,WolfArmor,Fang Dagger,0,R,0,Pack Hunter,Dagger
+107,Wolf Fang,Misc,World,60,1,-,99,-,0,-,,Wolf Fang,0,C,0,,
+108,Boar Tusk,Misc,World,80,1,-,99,-,0,-,,Boar Tusk,0,C,0,,
+109,Wisp Ember,Misc,World,90,1,-,99,-,0,-,,Wisp Ember,0,R,0,,
+110,Snail Shell,Misc,World,70,1,-,99,-,0,-,,Snail Shell,0,C,0,,
+111,TuskKnuckles,Equip,equipment,450,2,-,1,-,0,Weapon,WolfArmor,Tusk Knuckles,0,R,0,Pack Hunter,Knuckle
+112,WispLantern,Equip,equipment,450,2,-,1,-,0,Weapon,WispArmor,Wisp Lantern,0,R,0,Night Lantern,Staff
+113,ShellShield,Equip,equipment,450,2,-,1,-,0,Weapon,WispArmor,Shell Shield,0,R,0,Night Lantern,Bulwark
+114,WolfCap,Equip,equipment,800,50,-,1,-,0,Head,WolfArmor,Pack Hunter Hood,0,R,0,Pack Hunter,
+115,WolfArmor,Equip,equipment,1000,50,-,1,-,0,Chest,WolfArmor,Pack Hunter Coat,0,R,0,Pack Hunter,
+116,WolfLegArmor,Equip,equipment,800,50,-,1,-,0,Leg,WolfArmor,Pack Hunter Greaves,0,R,0,Pack Hunter,
+117,WolfHandArmor,Equip,equipment,800,50,-,1,-,0,Hand,WolfArmor,Pack Hunter Gloves,0,R,0,Pack Hunter,
+118,WolfShoes,Equip,equipment,600,50,-,1,-,0,Shoes,WolfArmor,Pack Hunter Boots,0,R,0,Pack Hunter,
+119,WispCap,Equip,equipment,800,50,-,1,-,0,Head,WispArmor,Night Lantern Hood,0,R,0,Night Lantern,
+120,WispArmor,Equip,equipment,1000,50,-,1,-,0,Chest,WispArmor,Night Lantern Coat,0,R,0,Night Lantern,
+121,WispLegArmor,Equip,equipment,800,50,-,1,-,0,Leg,WispArmor,Night Lantern Greaves,0,R,0,Night Lantern,
+122,WispHandArmor,Equip,equipment,800,50,-,1,-,0,Hand,WispArmor,Night Lantern Gloves,0,R,0,Night Lantern,
+123,WispShoes,Equip,equipment,600,50,-,1,-,0,Shoes,WispArmor,Night Lantern Boots,0,R,0,Night Lantern,
+124,BearClaw,Equip,equipment,500,2,-,1,-,0,Weapon,GroveArmor,Bear Claw,0,R,0,Ancient Grove,Claw
+125,RootStaff,Equip,equipment,500,2,-,1,-,0,Weapon,GroveArmor,Root Staff,0,R,0,Ancient Grove,Staff
+126,HeartwoodGreatsword,Equip,equipment,6000,3,Boss,1,-,0,Weapon,,Heartwood Greatsword,0,U,0,,Greatsword
+127,Bear Pelt,Misc,World,90,1,-,99,-,0,-,,Bear Pelt,0,C,0,,
+128,Heartwood Chip,Misc,World,110,1,-,99,-,0,-,,Heartwood Chip,0,C,0,,
+129,Ectoplasm,Misc,World,100,1,-,99,-,0,-,,Ectoplasm,0,C,0,,
+130,Fairy Dust,Misc,World,120,1,-,99,-,0,-,,Fairy Dust,0,R,0,,
+131,PhantomScythe,Equip,equipment,500,2,-,1,-,0,Weapon,FaeArmor,Phantom Scythe,0,R,0,Will-o'-Fae,Scythe
+132,FaeWand,Equip,equipment,500,2,-,1,-,0,Weapon,FaeArmor,Fae Wand,0,R,0,Will-o'-Fae,Staff
+133,GroveCap,Equip,equipment,900,50,-,1,-,0,Head,GroveArmor,Ancient Grove Hood,0,R,0,Ancient Grove,
+134,GroveArmor,Equip,equipment,1100,50,-,1,-,0,Chest,GroveArmor,Ancient Grove Coat,0,R,0,Ancient Grove,
+135,GroveLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,GroveArmor,Ancient Grove Greaves,0,R,0,Ancient Grove,
+136,GroveHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,GroveArmor,Ancient Grove Gloves,0,R,0,Ancient Grove,
+137,GroveShoes,Equip,equipment,700,50,-,1,-,0,Shoes,GroveArmor,Ancient Grove Boots,0,R,0,Ancient Grove,
+138,FaeCap,Equip,equipment,900,50,-,1,-,0,Head,FaeArmor,Will-o'-Fae Hood,0,R,0,Will-o'-Fae,
+139,FaeArmor,Equip,equipment,1100,50,-,1,-,0,Chest,FaeArmor,Will-o'-Fae Coat,0,R,0,Will-o'-Fae,
+140,FaeLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,FaeArmor,Will-o'-Fae Greaves,0,R,0,Will-o'-Fae,
+141,FaeHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,FaeArmor,Will-o'-Fae Gloves,0,R,0,Will-o'-Fae,
+142,FaeShoes,Equip,equipment,700,50,-,1,-,0,Shoes,FaeArmor,Will-o'-Fae Boots,0,R,0,Will-o'-Fae,
+143,FrogTongueWhip,Equip,equipment,500,2,-,1,-,0,Weapon,BogArmor,Frog Tongue Whip,0,R,0,Bog Stalker,Whip
+144,CrocJawAxe,Equip,equipment,500,2,-,1,-,0,Weapon,BogArmor,Croc Jaw Axe,0,R,0,Bog Stalker,Axe
+145,PetalPincer,Equip,equipment,500,2,-,1,-,0,Weapon,BogArmor,Petal Pincer,0,R,0,Bog Stalker,Claw
+146,BloodstingRapier,Equip,equipment,500,2,-,1,-,0,Weapon,GloomArmor,Bloodsting Rapier,0,R,0,Gloom Swarm,Dagger
+147,SlimeMace,Equip,equipment,500,2,-,1,-,0,Weapon,GloomArmor,Slime Mace,0,R,0,Gloom Swarm,Mace
+148,PrimordialGel,Equip,equipment,7000,3,Boss,1,-,0,Weapon,,Primordial Gel,0,U,0,,Mace
+149,Frog Skin,Misc,World,110,1,-,99,-,0,-,,Frog Skin,0,C,0,,
+150,Crab Pincer,Misc,World,120,1,-,99,-,0,-,,Crab Pincer,0,C,0,,
+151,Croc Tooth,Misc,World,130,1,-,99,-,0,-,,Croc Tooth,0,C,0,,
+152,Blood Sting,Misc,World,120,1,-,99,-,0,-,,Blood Sting,0,C,0,,
+153,Slime Gel,Misc,World,110,1,-,99,-,0,-,,Slime Gel,0,C,0,,
+154,BogCap,Equip,equipment,900,50,-,1,-,0,Head,BogArmor,Bog Stalker Hood,0,R,0,Bog Stalker,
+155,BogArmor,Equip,equipment,1100,50,-,1,-,0,Chest,BogArmor,Bog Stalker Coat,0,R,0,Bog Stalker,
+156,BogLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,BogArmor,Bog Stalker Greaves,0,R,0,Bog Stalker,
+157,BogHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,BogArmor,Bog Stalker Gloves,0,R,0,Bog Stalker,
+158,BogShoes,Equip,equipment,700,50,-,1,-,0,Shoes,BogArmor,Bog Stalker Boots,0,R,0,Bog Stalker,
+159,GloomCap,Equip,equipment,900,50,-,1,-,0,Head,GloomArmor,Gloom Swarm Hood,0,R,0,Gloom Swarm,
+160,GloomArmor,Equip,equipment,1100,50,-,1,-,0,Chest,GloomArmor,Gloom Swarm Coat,0,R,0,Gloom Swarm,
+161,GloomLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,GloomArmor,Gloom Swarm Greaves,0,R,0,Gloom Swarm,
+162,GloomHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,GloomArmor,Gloom Swarm Gloves,0,R,0,Gloom Swarm,
+163,GloomShoes,Equip,equipment,700,50,-,1,-,0,Shoes,GloomArmor,Gloom Swarm Boots,0,R,0,Gloom Swarm,
+164,CutthroatDagger,Equip,equipment,500,2,-,1,-,0,Weapon,OutlawArmor,Cutthroat Dagger,0,R,0,Outlaw,Dagger
+165,BanditShortbow,Equip,equipment,500,2,-,1,-,0,Weapon,OutlawArmor,Bandit Shortbow,0,R,0,Outlaw,Bow
+166,RaiderBuckler,Equip,equipment,500,2,-,1,-,0,Weapon,RaiderArmor,Raider Buckler,0,R,0,Iron Raider,Bulwark
+167,ChiefsWarBanner,Equip,equipment,7000,3,Boss,1,-,0,Weapon,,Chief's War Banner,0,U,0,,Spear
+168,Bandit Bandana,Misc,World,110,1,-,99,-,0,-,,Bandit Bandana,0,C,0,,
+169,Broken Arrow,Misc,World,110,1,-,99,-,0,-,,Broken Arrow,0,C,0,,
+170,Iron Rivet,Misc,World,130,1,-,99,-,0,-,,Iron Rivet,0,C,0,,
+171,Pitch Torch,Misc,World,120,1,-,99,-,0,-,,Pitch Torch,0,C,0,,
+172,OutlawCap,Equip,equipment,900,50,-,1,-,0,Head,OutlawArmor,Outlaw Hood,0,R,0,Outlaw,
+173,OutlawArmor,Equip,equipment,1100,50,-,1,-,0,Chest,OutlawArmor,Outlaw Vest,0,R,0,Outlaw,
+174,OutlawLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,OutlawArmor,Outlaw Breeches,0,R,0,Outlaw,
+175,OutlawHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,OutlawArmor,Outlaw Gloves,0,R,0,Outlaw,
+176,OutlawShoes,Equip,equipment,700,50,-,1,-,0,Shoes,OutlawArmor,Outlaw Boots,0,R,0,Outlaw,
+177,RaiderCap,Equip,equipment,900,50,-,1,-,0,Head,RaiderArmor,Iron Raider Helm,0,R,0,Iron Raider,
+178,RaiderArmor,Equip,equipment,1100,50,-,1,-,0,Chest,RaiderArmor,Iron Raider Mail,0,R,0,Iron Raider,
+179,RaiderLegArmor,Equip,equipment,900,50,-,1,-,0,Leg,RaiderArmor,Iron Raider Greaves,0,R,0,Iron Raider,
+180,RaiderHandArmor,Equip,equipment,900,50,-,1,-,0,Hand,RaiderArmor,Iron Raider Gauntlets,0,R,0,Iron Raider,
+181,RaiderShoes,Equip,equipment,700,50,-,1,-,0,Shoes,RaiderArmor,Iron Raider Boots,0,R,0,Iron Raider,
+182,PebbleGauntlet,Equip,equipment,500,2,-,1,-,0,Weapon,StoneArmor,Pebble Gauntlet,0,R,0,Stoneborn,Knuckle
+183,QuakestoneMaul,Equip,equipment,500,3,-,1,-,0,Weapon,StoneArmor,Quakestone Maul,0,R,0,Stoneborn,Mace
+184,MonolithShield,Equip,equipment,500,3,-,1,-,0,Weapon,StoneArmor,Monolith Shield,0,R,0,Stoneborn,Bulwark
+185,GatekeepersOath,Equip,equipment,9000,3,Boss,1,-,0,Weapon,,Gatekeeper's Oath,0,U,0,,Greatsword
+186,Golem Pebble,Misc,World,130,1,-,99,-,0,-,,Golem Pebble,0,C,0,,
+187,Quake Core,Misc,World,150,1,-,99,-,0,-,,Quake Core,0,C,0,,
+188,Monolith Shard,Misc,World,150,1,-,99,-,0,-,,Monolith Shard,0,C,0,,
+189,Ruin Mote,Misc,World,140,1,-,99,-,0,-,,Ruin Mote,0,C,0,,
+190,StoneCap,Equip,equipment,1000,50,-,1,-,0,Head,StoneArmor,Stoneborn Helm,0,R,0,Stoneborn,
+191,StoneArmor,Equip,equipment,1200,50,-,1,-,0,Chest,StoneArmor,Stoneborn Plate,0,R,0,Stoneborn,
+192,StoneLegArmor,Equip,equipment,1000,50,-,1,-,0,Leg,StoneArmor,Stoneborn Greaves,0,R,0,Stoneborn,
+193,StoneHandArmor,Equip,equipment,1000,50,-,1,-,0,Hand,StoneArmor,Stoneborn Gauntlets,0,R,0,Stoneborn,
+194,StoneShoes,Equip,equipment,800,50,-,1,-,0,Shoes,StoneArmor,Stoneborn Boots,0,R,0,Stoneborn,
+195,RampartSword,Equip,equipment,600,3,-,1,-,0,Weapon,RampartArmor,Rampart Sword,0,R,0,Rampart Guard,Sword
+196,SentryHalberd,Equip,equipment,600,3,-,1,-,0,Weapon,RampartArmor,Sentry Halberd,0,R,0,Rampart Guard,Spear
+197,GargoyleWing,Equip,equipment,600,3,-,1,-,0,Weapon,SkyArmor,Gargoyle Wing,0,R,0,Skybound,Claw
+198,SkyfallTalon,Equip,equipment,10000,3,Boss,1,-,0,Weapon,,Skyfall Talon,0,U,0,,Claw
+199,Rampart Shard,Misc,World,160,1,-,99,-,0,-,,Rampart Shard,0,C,0,,
+200,Halberd Fragment,Misc,World,170,1,-,99,-,0,-,,Halberd Fragment,0,C,0,,
+201,Gargoyle Feather,Misc,World,170,1,-,99,-,0,-,,Gargoyle Feather,0,C,0,,
+202,Storm Wisp,Misc,World,160,1,-,99,-,0,-,,Storm Wisp,0,C,0,,
+203,RampartCap,Equip,equipment,1100,50,-,1,-,0,Head,RampartArmor,Rampart Guard Helm,0,R,0,Rampart Guard,
+204,RampartArmor,Equip,equipment,1300,50,-,1,-,0,Chest,RampartArmor,Rampart Guard Plate,0,R,0,Rampart Guard,
+205,RampartLegArmor,Equip,equipment,1100,50,-,1,-,0,Leg,RampartArmor,Rampart Guard Greaves,0,R,0,Rampart Guard,
+206,RampartHandArmor,Equip,equipment,1100,50,-,1,-,0,Hand,RampartArmor,Rampart Guard Gauntlets,0,R,0,Rampart Guard,
+207,RampartShoes,Equip,equipment,900,50,-,1,-,0,Shoes,RampartArmor,Rampart Guard Sabatons,0,R,0,Rampart Guard,
+208,SkyCap,Equip,equipment,1100,50,-,1,-,0,Head,SkyArmor,Skybound Cowl,0,R,0,Skybound,
+209,SkyArmor,Equip,equipment,1300,50,-,1,-,0,Chest,SkyArmor,Skybound Vest,0,R,0,Skybound,
+210,SkyLegArmor,Equip,equipment,1100,50,-,1,-,0,Leg,SkyArmor,Skybound Leggings,0,R,0,Skybound,
+211,SkyHandArmor,Equip,equipment,1100,50,-,1,-,0,Hand,SkyArmor,Skybound Gloves,0,R,0,Skybound,
+212,SkyShoes,Equip,equipment,900,50,-,1,-,0,Shoes,SkyArmor,Skybound Boots,0,R,0,Skybound,
+213,Forest Carp,Misc,World,15,1,fishing,50,-,0,-,,Forest Carp,0,C,0,,
+214,Moss Loach,Misc,World,18,1,fishing,50,-,0,-,,Moss Loach,0,C,0,,
+215,Amber Trout,Misc,World,90,1,fishing,50,-,0,-,,Amber Trout,0,R,0,,
+216,Spirit Koi,Misc,World,450,1,fishing,50,-,0,-,,Spirit Koi,0,U,0,,
+217,Grilled Forest Carp,Consum,eat!,45,5,cook,50,fullness +,120,-,,Grilled Forest Carp,0,C,0,,
+218,Amber Trout Soup,Consum,eat!,180,5,cook,50,fullness +/hp +/stemina +,180/120/30,-,,Amber Trout Soup,0,R,0,,
+219,Forest Mushroom,Misc,World,12,1,gathering,50,-,0,-,,Forest Mushroom,0,C,0,,
+220,Glow Moth Wing,Misc,World,65,1,gathering,50,-,0,-,,Glow Moth Wing,0,R,0,,
+221,Moonpetal,Misc,World,280,1,gathering,50,-,0,-,,Moonpetal,0,U,0,,
+222,Bog Copper Ore,Misc,World,85,1,mining,50,-,0,-,,Bog Copper Ore,0,R,0,,
+223,Starfall Ore,Misc,World,400,1,mining,50,-,0,-,,Starfall Ore,0,U,0,,
+224,Minor Herbal Potion,Consum,World,240,5,alchemy,50,hp +,120,-,,Minor Herbal Potion,0,C,0,,
+225,Glow Stamina Potion,Consum,World,260,5,alchemy,50,stemina +,100,-,,Glow Stamina Potion,0,R,0,,
+226,Forest Mushroom Soup,Consum,eat!,185,5,cook,50,fullness +/def +,120/3_180,-,,Forest Mushroom Soup,0,C,0,,
+227,Moonpetal Elixir,Consum,World,580,5,alchemy,50,hp +/stemina +,250/100,-,,Moonpetal Elixir,0,U,0,,
+228,Bog Copper Alloy,Misc,World,310,1,smelt,50,-,0,-,,Bog Copper Alloy,0,R,0,,
+229,Starfall Alloy,Misc,World,740,1,smelt,50,-,0,-,,Starfall Alloy,0,U,0,,
+230,Ancient Relic Shard,Misc,World,18,1,excavation,50,-,0,-,,Ancient Relic Shard,0,C,0,,
+231,Ancient Blueprint Fragment,Misc,World,35,1,excavation,50,-,0,-,,Ancient Blueprint Fragment,0,C,0,,
+232,Ancient Gear Core,Misc,World,85,1,excavation,50,-,0,-,,Ancient Gear Core,0,R,0,,
+233,Forgotten Runestone,Misc,World,120,1,excavation,50,-,0,-,,Forgotten Runestone,0,R,0,,
+234,Herb Roasted Rabbit,Consum,eat!,100,5,cook,50,fullness +/ascent +,130/5_180,-,,Herb Roasted Rabbit,0,C,0,,
+235,Moss Loach Broth,Consum,eat!,125,5,cook,50,fullness +/hp +/gather +,100/60/5_180,-,,Moss Loach Broth,0,C,0,,
+236,Ember Fox Skewer,Consum,eat!,180,5,cook,50,fullness +/atk +,150/3_180,-,,Ember Fox Skewer,0,R,0,,
+237,Glowwing Carp Soup,Consum,eat!,210,5,cook,50,fullness +/fish +,110/2_240,-,,Glowwing Carp Soup,0,R,0,,
+238,Amber Herb Stew,Consum,eat!,260,5,cook,50,fullness +/hp +/ascent +,170/100/8_240,-,,Amber Herb Stew,0,R,0,,
+239,Spirit Carp Moon Roast,Consum,eat!,600,5,cook,50,fullness +/stemina +/gather +,200/40/8_300,-,,Spirit Carp Moon Roast,0,U,0,,
+240,Burnt Meal,Consum,eat!,1,5,cook,50,fullness +,20,-,,Burnt Meal,0,C,0,,
+241,HuntersLongbow,Equip,equipment,500,2,-,1,-,0,Weapon,,Hunter's Longbow,0,R,0,,Bow
+242,GnarledClub,Equip,equipment,450,3,-,1,-,0,Weapon,,Gnarled Club,0,C,0,,Mace
+243,WoodcuttersAxe,Equip,equipment,450,3,-,1,-,0,Weapon,,Woodcutter's Axe,0,C,0,,Axe
+244,TwinFang,Equip,equipment,500,2,-,1,-,0,Weapon,,Twin Fang,0,R,0,,Dual
+245,VineLash,Equip,equipment,450,2,-,1,-,0,Weapon,,Vine Lash,0,C,0,,Whip

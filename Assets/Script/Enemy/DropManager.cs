@@ -115,6 +115,24 @@ public class DropManager : MonoBehaviour
         }
     }
 
+    /// <summary>몹별 추가 드롭 표(ExtraDrops) 굴리기 — 스포너 표와 같은 확률 규칙, 기본 드롭과 겹치지 않게 옆으로 놓는다</summary>
+    public void DropExtra(string monsterId, Vector3 dropPosition)
+    {
+        List<ExtraDrops.Entry> list = ExtraDrops.For(monsterId);
+        if (list == null)
+        {
+            return;
+        }
+        float offsetX = 0.6f;
+        foreach (ExtraDrops.Entry e in list)
+        {
+            if (Random.value <= e.Probability * (1 + (float)DatabaseManager.playerDropRate / 100) && DropOne(e.Item, dropPosition, 0f, ref offsetX))
+            {
+                GameLog.Info(GameLog.Cat.Item, "추가 드롭 " + e.Item + " (확률 " + (e.Probability * 100f).ToString("F2") + "%, " + monsterId + ")", this);
+            }
+        }
+    }
+
     /// <summary>확정 드롭 (정예·보스 보상). 확률표와 별개로 반드시 떨어뜨린다</summary>
     public void DropGuaranteed(IEnumerable<string> itemNames, Vector3 dropPosition)
     {

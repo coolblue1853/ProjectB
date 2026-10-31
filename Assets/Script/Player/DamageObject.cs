@@ -10,6 +10,8 @@ public class DamageObject : MonoBehaviour
     public string skillName;
     Transform playerTf;
     public float dmgRatio = 1.0f;
+    /// <summary>무기 계열 기믹이 타격 직전 피해 배율을 바꿀 때 등록(런타임 전용, 직렬화 안 함)</summary>
+    [System.NonSerialized] public IHitModifier hitModifier;
     public float ShakeTime;
     public  bool isSkill = false;
     public bool isDestroyByTime = true;
@@ -477,7 +479,9 @@ public class DamageObject : MonoBehaviour
                             dir.x = player.transform.localScale.x > 0 ? Mathf.Abs(knockbackDir.x) : -Mathf.Abs(knockbackDir.x);
                         }
 
-                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, dir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio);
+                    // 무기 계열 기믹(끝 판정·쪼개기 등)이 이 타격의 피해 배율을 바꾼다
+                    float ratio = hitModifier != null ? dmgRatio * hitModifier.HitMultiplier(this, enemyHealth, collision) : dmgRatio;
+                    enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, dir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, ratio);
 
                     }
                     else

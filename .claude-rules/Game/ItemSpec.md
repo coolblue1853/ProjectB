@@ -25,6 +25,7 @@
 | 14 | rarity | string | C=Common, R=Rare, U=Unique |
 | 15 | upgrade | int | 강화 단계 +0~+10 (CSV 기본 0, 아이템 인스턴스마다 ES3 저장 — `EnhanceRules`, ProgressionDesign 3절) |
 | 16 | setName | string | 세트 표시 이름 |
+| 17 | WeaponType | string | 무기 계열(10-31, `WeaponKind` 열거형 이름: Sword·Greatsword·Scythe·Dagger·Knuckle·Claw·Spear·Adae·Staff·Axe·Mace·Whip·Dual·Bow·Bulwark …). 무기 행만 채움, 나머지 빈칸. 프리팹 `Weapon._kind` 가 None 이 아니면 일치해야 한다(DataIntegrity). 툴팁 "Weapon (활)" 표시 |
 
 **현황:**
 - 유효 행 81개: 장비 48(무기 15, 방어구 5부위 × 4~5, 반지 6, 목걸이 7), Misc 23, Consum 9, 테스트 행 일부

@@ -25,6 +25,7 @@ public class StraightArrow : MonoBehaviour
     private Vector2 _dir;
     private int[] _damage;
     private int _hits;
+    private int _pierceTotal;
     private readonly HashSet<EnemyHealth> _struck = new HashSet<EnemyHealth>();
     private static int s_terrainMask = -1;
     private static int s_wallMask = -1;
@@ -41,7 +42,13 @@ public class StraightArrow : MonoBehaviour
             transform.position += new Vector3(Random.Range(-_spawnJitter.x, _spawnJitter.x), Random.Range(-_spawnJitter.y, _spawnJitter.y), 0f);
         }
         transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(_dir.y, _dir.x) * Mathf.Rad2Deg);
-        _damage = HomingOrb.WeaponDamage(_damageScale);
+        _pierceTotal = _pierce;
+        float chargeMul = 1f;
+        if (!_isSkill && ChargeShot.TryConsume(out chargeMul, out int chargePierce))
+        {
+            _pierceTotal += chargePierce; // 활 차지 샷: 평타 화살만 받는다 (WeaponTypes.md 2.1)
+        }
+        _damage = HomingOrb.WeaponDamage(_damageScale * chargeMul);
         _rb = GetComponent<Rigidbody2D>();
         _rb.linearVelocity = _dir * _speed;
         if (s_terrainMask < 0)
@@ -66,14 +73,14 @@ public class StraightArrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_hits > _pierce)
+        if (_hits > _pierceTotal)
         {
             return; // Destroy 는 프레임 끝까지 미뤄진다 — 같은 물리 단계의 추가 타격 방지
         }
         // 땅을 타는 충격파(_ignoreTerrain)도 벽에서는 사라진다
         if (!other.isTrigger && ((1 << other.gameObject.layer) & (_ignoreTerrain ? s_wallMask : s_terrainMask)) != 0)
         {
-            _hits = _pierce + 1;
+            _hits = _pierceTotal + 1;
             Destroy(gameObject);
             return;
         }
@@ -91,7 +98,7 @@ public class StraightArrow : MonoBehaviour
             }
         }
         _hits++;
-        if (_hits > _pierce)
+        if (_hits > _pierceTotal)
         {
             Destroy(gameObject);
         }

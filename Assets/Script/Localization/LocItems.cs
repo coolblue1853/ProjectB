@@ -12,6 +12,10 @@ public static class LocItems
         ("Bog Stalker", "늪 추적자"), ("Gloom Swarm", "음울한 떼"), ("Outlaw", "무법자"), ("Iron Raider", "강철 약탈자"),
         ("Stoneborn", "돌에서 깨어난 자"), ("Rampart Guard", "성벽 수비대"), ("Skybound", "하늘을 향한 자"),
 
+        // ── 무기 계열 (ItemSheet WeaponType, 툴팁 표시) ──
+        ("Sword", "검"), ("Greatsword", "대검"), ("Scythe", "낫"), ("Dagger", "단검"), ("Knuckle", "너클"), ("Claw", "클로"), ("Spear", "창"), ("Adae", "아대"), ("Staff", "지팡이"),
+        ("Axe", "도끼"), ("Mace", "둔기"), ("Whip", "채찍"), ("Flail", "사슬 철퇴"), ("Dual", "쌍검"), ("Tachi", "태도"), ("Bow", "활"), ("Crossbow", "석궁"), ("Tome", "마도서"), ("Javelin", "투창"), ("Bulwark", "방패"),
+
         // ── 기본·재료·소모품 ──
         ("Rock", "돌멩이"), ("Wood", "나무"), ("PickAxe", "곡괭이"), ("Potion", "물약"), ("Food", "음식"),
         ("Cap", "모자"), ("Armor", "갑옷"), ("HighArmor", "상급 갑옷"), ("LegArmor", "다리 갑옷"), ("HandArmor", "장갑"),
@@ -76,6 +80,9 @@ public static class LocItems
         ("Gloom Swarm Gloves", "음울한 떼 장갑"), ("Gloom Swarm Boots", "음울한 떼 장화"),
 
         // ── 산적 성채 ──
+        // ── 무기 계열 1차 (WeaponTypes.md) ──
+        ("Hunter's Longbow", "사냥꾼의 장궁"), ("Gnarled Club", "옹이진 몽둥이"), ("Woodcutter's Axe", "나무꾼의 도끼"), ("Twin Fang", "쌍송곳니"), ("Vine Lash", "덩굴 채찍"),
+        // ── 산적 성채 (계속) ──
         ("Cutthroat Dagger", "멱따기 단검"), ("Bandit Shortbow", "산적 단궁"), ("Raider Buckler", "약탈자 버클러"), ("Chief's War Banner", "두목의 군기"),
         ("Bandit Bandana", "산적 두건 천"), ("Broken Arrow", "부러진 화살"), ("Iron Rivet", "쇠 리벳"), ("Pitch Torch", "송진 횃불"),
         ("Outlaw Hood", "무법자 두건"), ("Outlaw Vest", "무법자 조끼"), ("Outlaw Breeches", "무법자 바지"), ("Outlaw Gloves", "무법자 장갑"),

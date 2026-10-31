@@ -106,6 +106,7 @@ namespace ProjectB.EditorTools
         [ValueDropdown(nameof(Rarities))] public string Rarity;
         public int Upgrade;
         [ShowIf(nameof(IsEquip))] public string SetName;
+        [ShowIf(nameof(IsEquip)), Tooltip("무기 계열(WeaponKind 이름). 무기가 아니면 비움")] public string WeaponType;
 
         bool IsEquip => Type == "Equip";
         static bool NoComma(string v) => v == null || !v.Contains(",");
@@ -122,6 +123,22 @@ namespace ProjectB.EditorTools
             if (Icon == null) yield return "아이콘 없음: Resources/Item/" + Name;
             if (IsEquip && Resources.Load<GameObject>(EquipArea + "/" + Name) == null) yield return "장비 프리팹 없음: Resources/" + EquipArea + "/" + Name;
             if (IsEquip && !string.IsNullOrEmpty(TfName) && EquipArea != "Weapon" && Resources.Load<Texture2D>("Sprite/" + TfName) == null) yield return "방어구 텍스처 없음: Resources/Sprite/" + TfName;
+            if (IsEquip && EquipArea == "Weapon")
+            {
+                if (!WeaponGimmickRules.TryParseKind(WeaponType, out WeaponKind kind) || kind == WeaponKind.None)
+                {
+                    yield return "WeaponType 비었거나 모르는 이름: '" + WeaponType + "'";
+                }
+                else
+                {
+                    GameObject pf = Resources.Load<GameObject>("Weapon/" + Name);
+                    Weapon w = pf != null ? pf.GetComponent<Weapon>() : null;
+                    if (w != null && w.Kind != WeaponKind.None && w.Kind != kind)
+                    {
+                        yield return "WeaponType(" + kind + ") 와 프리팹 계열(" + w.Kind + ") 불일치";
+                    }
+                }
+            }
             if (string.IsNullOrEmpty(Rarity)) yield return "등급 비어 있음";
             if (!NoComma(Name) || !NoComma(Description)) yield return "쉼표 포함";
         }
@@ -129,7 +146,7 @@ namespace ProjectB.EditorTools
         public string ToCsv() => string.Join(",", new[]
         {
             Index.ToString(), Name, Type, Description, Price.ToString(), Weight.ToString(), AcqPath, MaxStack.ToString(),
-            EffectOb, EffectPow, EquipArea, TfName, ItemNameT, Tear.ToString(), Rarity, Upgrade.ToString(), SetName,
+            EffectOb, EffectPow, EquipArea, TfName, ItemNameT, Tear.ToString(), Rarity, Upgrade.ToString(), SetName, WeaponType,
         });
 
         public static ItemRow FromCsv(string[] c)
@@ -140,7 +157,7 @@ namespace ProjectB.EditorTools
             {
                 Index = I(0), Name = G(1), Type = G(2), Description = G(3), Price = I(4), Weight = I(5), AcqPath = G(6),
                 MaxStack = I(7), EffectOb = G(8), EffectPow = G(9), EquipArea = G(10), TfName = G(11), ItemNameT = G(12),
-                Tear = I(13), Rarity = G(14), Upgrade = I(15), SetName = G(16),
+                Tear = I(13), Rarity = G(14), Upgrade = I(15), SetName = G(16), WeaponType = G(17),
             };
         }
     }

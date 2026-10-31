@@ -193,3 +193,30 @@
 6. `WeaponType` 기본 문자열은 영문 키. 한글 표시는 I2에서.
 7. 둔기 방어 무시 20%는 `DamageCalculator` 방어 항에 일시 반영(공식 문서 `CombatSpec.md` 후속 갱신).
 8. 신규 몹(숲 사냥꾼·감시병·나무꾼·덩굴 요정 등)은 2차 이후 구현, 1차는 기존 몹 드롭 이전으로 시작.
+
+## 7. 1차 구현 (10-31)
+
+구현: 활(차지)·둔기·도끼·쌍검·채찍 대표 5종. 코드 `Assets/Script/Weapon/Gimmick/`(`WeaponGimmick` 추상 + `ChargeShot`·`StaggerOnHit`·`ArmorCleave`·`FinisherBonus`·`TipBonus`, 수치 `WeaponGimmickRules`), `Weapon._kind`·`Weapon.Charge`, `DamageObject.hitModifier`(타격 직전 피해 배율, IHitModifier), `StraightArrow` 평타 화살이 차지를 소비, `AttackManager` 활은 누름=충전·뗌=발사. 빌더 `Tools/probes/build_wtype_weapons.cs`(재실행 안전, 판정은 `DamageObject/<무기>/` 복제본).
+
+| 무기(ItemSheet 241~245) | 계열 | 기반 | 드롭(확률 2%) | 수치 | 스킬 |
+|---|---|---|---|---|---|
+| HuntersLongbow | Bow R | BanditShortbow | 산적 궁수(BanditArcher_BD) | 13~20, 치 12/25, 속 0.55, 화살 속도 20·수명 0.8. 차지 0.35s ×1.25 / 1.0s ×1.6+관통 1 | A Hunter's Volley(3연사 복제), S Venom Rain(독화살 비 복제) |
+| GnarledClub | Mace C | QuakestoneMaul | 엔트(Ent_BD) | 15~23, 속 0.65/0.9, 판정 ×0.68·maxE 1·넉백 ×1.5, 경직 +0.3s, 방어 무시 +20% | Club Smash, Root Tremor(퀘이크 복제 ×0.8) |
+| WoodcuttersAxe | Axe C | CrocJawAxe | 산적 단검병(BanditCutthroat_BD) | 14~21, 속 0.5/0.7, maxE 2, 방어 15 이상 몹 ×1.2 | Timber Chop, Log Roller |
+| TwinFang | Dual R | DoubleDagger | 숲 늑대(ForestWolf_BD) | 9~14, 4타 0.25/0.25/0.25/0.4, 4타 피해 ×1.5·범위 ×1.2 | A Cross Fang(4연), S Turn and Thrust(Cutthroat Backstab 판정 재사용) |
+| VineLash | Whip C | FrogTongueWhip | 요정(Fairy_BD) | 11~17, 2타 0.45/0.5, 판정 길이 ×2.2, 끝 30% ×1.4 / 근접 30% ×0.8 | Vine Pull, Pounce Lash |
+
+문서와 달라진 점(코드 확인 결과):
+- 몹 경직 필드는 이미 `DamageObject.stiffnessTime`(슈퍼아머 몹은 무시) → 둔기는 값만 더함. 방어 무시는 `damageArr[5]` 복사본에 가산.
+- `Armored` 태그 없음 → `enemyDef >= 15` 로 판정(기사·방패병·골렘·정예). 도끼 2타 "방패 막기 무시"는 몹에 막기 메커니즘이 없어 미구현.
+- 쌍검 4타는 `maxComboCount`와 배열 4칸이면 되고, W-02 개선으로 `maxComboTime` 제약은 없음(후딜 뒤 0.35s 유예). 쌍검 X자 판정은 마지막 타 판정 확대로 대체(별도 판정 없음).
+- 드롭: 스포너 드롭표가 씬에 직렬화돼 씬을 건드리지 않고 `Resources/MonsterExtraDrops.csv`(monsterId,item,probability) + `ExtraDrops`/`DropManager.DropExtra` 로 연결(EnemySpawner 일반·추적 정예 드롭). 신규 몹(숲 사냥꾼·나무꾼 산적·덩굴 요정 등)은 아직 없어 가까운 기존 몹으로 대체. 도감·정예 확정 장비 후보에는 아직 반영 안 됨.
+- 기존 BanditShortbow·CrocJawAxe·FrogTongueWhip·SlimeMace·QuakestoneMaul 은 WeaponType 만 채움(기믹 미적용, 밸런스 보존). 나머지 기존 무기도 WeaponType 채움(곡괭이=Mace 임시).
+- 아트: 아이콘은 기존 아이콘 색조 변경, 손 그림은 원본 스프라이트 색조 변경, 이펙트 신규 없음(기존 스윙 이펙트). 로컬라이즈 이름·계열명은 `LocItems`(I2 동기화 미실행).
+
+검증(10-31): 컴파일 에러 0, EditMode 276/276(신규 `WeaponGimmickRulesTests` 11: 차지 단계·끝 판정 경계·마무리·쪼개기·데이터 무결성 포함). 플레이(산적 성채 낮, `Tools/probes/wtype_test.cs`): 
+- 활: 누른 0.1/0.5/1.1s → 단계 0/1/2, 화살 피해 14~22 → 18~28 → 23~35, 관통 0/0/1. 실제 X 키 1.2s 홀드 → 뗄 때 발사, 23~35·관통 1.
+- 둔기: 판정 경직 1.0→1.3, 방어 무시 20. 도끼: hitModifier 등록, 방어 24 보스 ×1.2·방어 14 ×1.0. 쌍검: 4타까지 순환, 4타 ratio 0.9→1.35, 크기 ×1.2. 채찍: 박스 앞 5%/50%/90% → ×0.80/1.00/1.40.
+- 회귀: RustedSword 3타 Steb→VashDown→VashUp 순환 유지.
+- 공격 스크린샷 5장 `Logs/playtest/wtype_*.png`(커밋 제외).
+미검증: 드롭 실제 확률 롤(표 파싱·아이템 존재만 테스트), 쌍검·채찍 모션 어색함 눈 평가, 툴팁 실제 표시, 스킬 발동 실사(복제 프리팹 값 확인만), 게임패드 입력, 도끼 몹 다수 전투.

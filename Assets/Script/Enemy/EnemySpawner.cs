@@ -343,6 +343,10 @@ public class EnemySpawner : MonoBehaviour
         if (isDrop && dropManager != null)
         {
             dropManager.DropItems(pos);
+            if (released != null)
+            {
+                dropManager.DropExtra(ExtraDrops.MonsterId(released.name), pos); // 계보 무기 추가 드롭(MonsterExtraDrops.csv)
+            }
         }
         if (isDeadBody)
         {
@@ -527,6 +531,10 @@ public class EnemySpawner : MonoBehaviour
             loot.AddRange(trackedBonus);
             dropManager.DropGuaranteed(loot, pos);
             dropManager.DropItems(pos);
+            if (tracked != null)
+            {
+                dropManager.DropExtra(ExtraDrops.MonsterId(tracked.name), pos);
+            }
         }
         if (isDeadBody)
         {

@@ -132,7 +132,21 @@ public class AttackManager : MonoBehaviour
         if (DatabaseManager.isOpenUI == false && equipWeapon != null)
         {
             // 평타 입력 0.1초 버퍼: 후딜이 끝나기 직전에 눌러도 콤보가 끊기지 않는다
-            if (attackAction.triggered)
+            ChargeShot charge = equipWeapon.Charge;
+            if (charge != null)
+            {
+                // 차지 무기(활): 누르는 동안 충전, 떼는 순간 평타 입력으로 바꾼다
+                if (attackAction.triggered)
+                {
+                    charge.BeginHold(Time.time);
+                }
+                if (charge.Holding && !attackAction.IsPressed())
+                {
+                    charge.EndHold(Time.time);
+                    attackBuffer.Press(Time.time);
+                }
+            }
+            else if (attackAction.triggered)
             {
                 attackBuffer.Press(Time.time);
             }
@@ -146,6 +160,10 @@ public class AttackManager : MonoBehaviour
         {
             attackBuffer.Clear();
             ClearSkillBuffers();
+            if (equipWeapon != null && equipWeapon.Charge != null)
+            {
+                equipWeapon.Charge.CancelHold(); // UI 가 열리면 충전을 버린다
+            }
         }
     }
 

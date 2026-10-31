@@ -94,12 +94,23 @@ public class Weapon : MonoBehaviour
     }
     /// <summary>현재 장착 무기 (무기 밑에서 분리돼 생성되는 스킬 오브젝트가 테마색을 찾을 때 사용)</summary>
     public static Weapon Equipped { get; private set; }
+
+    [Header("무기 계열(WeaponTypes.md)")]
+    [Tooltip("ItemSheet WeaponType 과 같아야 한다. 계열 기믹(WeaponGimmick)은 이 프리팹 루트에 붙인다")]
+    [SerializeField] private WeaponKind _kind = WeaponKind.None;
+    private WeaponGimmick[] _gimmicks;
+    /// <summary>이 무기의 계열</summary>
+    public WeaponKind Kind => _kind;
+    /// <summary>활 차지 기믹(없으면 null) — AttackManager 가 키 누름·뗌을 넘긴다</summary>
+    public ChargeShot Charge { get; private set; }
     /// <summary>지금 이동 속도에 곱할 배율. 평타 후딜 중이면 무기별 배율, 아니면 1</summary>
     public float AttackMoveSpeedMul => isAttackWait ? 1f : _attackMoveSpeedMul;
 
     private void Start()
     {
         Equipped = this;
+        _gimmicks = GetComponents<WeaponGimmick>();
+        Charge = GetComponent<ChargeShot>();
         phm = transform.parent.transform.GetChild(0).GetComponent<PlayerHealthManager>();
         if (pC == null)
         {
@@ -240,6 +251,13 @@ public class Weapon : MonoBehaviour
     public void MeleeAttackActive()
     {
         int step = nowConboCount; // 지연 생성 중에 콤보가 리셋돼도 이 단계로 만든다 (W-23)
+        if (_gimmicks != null)
+        {
+            for (int g = 0; g < _gimmicks.Length; g++)
+            {
+                _gimmicks[g].OnAttackStart(this, step);
+            }
+        }
         float delay = isHasDelayTime && delayTime.Length >= step ? delayTime[step - 1] / StatMath.AttackSpeedMul : 0f;
         if (delay > 0f)
         {
@@ -342,6 +360,13 @@ public class Weapon : MonoBehaviour
             dmOb.activeEnd = attckSpeed[step - 1] * _meleeActiveRatio;
         }
         dmOb.isSkill = false; // 평타는 스킬뎀% 를 받지 않는다(공유 프리팹 플래그 무시, W-04)
+        if (_gimmicks != null)
+        {
+            for (int g = 0; g < _gimmicks.Length; g++)
+            {
+                _gimmicks[g].OnHitboxSpawned(this, step, dmOb);
+            }
+        }
         if (hideArt || WeaponFx.TryMelee(attackAnimName[step - 1], swingVfx, out _, out _))
         {
             damageObject.GetComponentsInChildren(true, hideRenderers);

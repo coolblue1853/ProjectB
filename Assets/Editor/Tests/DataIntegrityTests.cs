@@ -27,7 +27,7 @@ public class DataIntegrityTests
         Assert.Greater(items.Rows.Count, 80);
         foreach (var r in items.Rows)
         {
-            Assert.AreEqual(17, r.ToCsv().Split(',').Length, "컬럼 수: " + r.Name);
+            Assert.AreEqual(18, r.ToCsv().Split(',').Length, "컬럼 수: " + r.Name);
         }
     }
 }

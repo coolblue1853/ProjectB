@@ -35,6 +35,10 @@ public static class ItemText
         {
             case "Equip":
                 string area = Loc.T(d.equipArea);
+                if (!string.IsNullOrEmpty(d.weaponType))
+                {
+                    area += " (" + Loc.T(d.weaponType) + ")"; // 무기 계열 표시 (WeaponTypes.md 4절)
+                }
                 return string.IsNullOrEmpty(d.setName) ? Loc.T("Equipment") + " · " + area : area + " · " + Loc.T(d.setName) + " " + Loc.T("set");
             case "Consum":
                 return Loc.T("Consumable");

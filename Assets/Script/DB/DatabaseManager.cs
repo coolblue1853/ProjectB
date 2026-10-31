@@ -195,6 +195,7 @@ public class DatabaseManager : MonoBehaviour
                 rarity = ItemDataList[itemNum].rarity,
                 upgrade = ItemDataList[itemNum].upgrade,
                 setName = ItemDataList[itemNum].setName,
+                weaponType = ItemDataList[itemNum].weaponType,
             };
             return newItem;
 
