@@ -149,3 +149,51 @@
 4. 1층계 몹 레벨·EXP 배치(구역 T → Lv1~15) + EXP 곡선 역산(처치 속도 실측).
 5. NPC 퀘스트(연계·지역 메인) — 1층계부터.
 6. 리젠·맵 동선 점검.
+
+## 8. 1층계 수치 v1 (GPT 초안 10-31, 구현 때 실측으로 보정)
+
+몹(레벨, EXP, 몸박 공격력 — 방어 적용 전 고정값, 그 구간 플레이어 HP의 6~10%). HP·방어는 그대로(조정 후보: LeftMole 186→140, StoneRabbit 186→165).
+
+```
+id,lv,exp,contact
+FlowerMole_BD,1,12,13
+Rabbit_BD,1,12,13
+LeftMole_BD,2,15,19
+RatThief_BD,2,15,16
+RatChief_BD,3,19,19
+Scarecrow_BD,3,19,17
+StoneRabbit_BD,3,19,21
+PassiveTerror_BD,3,320,37
+ForestWolf_BD,4,23,18
+WildBoar_BD,5,28,20
+Wisp_BD,3,19,16
+ForestSnail_BD,6,35,23
+ForestBear_BD,7,43,23
+Ent_BD,8,52,25
+Ghost_BD,6,35,18
+Fairy_BD,7,43,19
+AncientEnt_BD,9,950,43
+SwampFrog_BD,9,64,23
+MarshCrab_BD,10,77,28
+BogCroc_BD,11,94,28
+SwampMosquito_BD,9,64,22
+BogSlime_BD,12,115,29
+GiantSlime_BD,12,1700,48
+BanditCutthroat_BD,12,115,26
+BanditArcher_BD,11,94,24
+BanditShieldman_BD,13,139,31
+BanditTorchbearer_BD,13,139,28
+BanditChief_BD,14,2400,53
+GolemSmall_BD,13,139,28
+GolemMedium_BD,14,169,30
+GolemLarge_BD,15,203,31
+RuinSpirit_BD,13,139,25
+Gatekeeper_BD,15,3800,56
+```
+
+- 정예 승격: HP ×4, EXP ×4, 몸박 ×1.5. 보스는 고정 EXP(정예 승격 없음).
+- 레벨별 다음 레벨 필요 EXP(Lv1~15): 500, 650, 800, 1200, 1450, 2900, 3500, 4200, 5000, 6000, 11500, 14000, 17000, 20500, 24500 → Lv16 누적 113,700. 근거: 분당 처치 수(초반 11·중반 10·후반 8) × 동레벨 몹 EXP × 목표 분(Lv1~5 4분, 6~10 8분, 11~15 16분), 사냥만 140분.
+- 퀘스트 EXP 예산(전체의 25% = 28,425): ① 2,842 / ② 3,980 / ③ 5,116 / ④ 5,969 / ⑤ 3,411(분기 — 건너뛰면 22%) / ⑥ 7,107.
+- 물약: 소 HP 120 / 25G, 중 220 / 45G, 대 320 / 70G, 공유 쿨다운 2초(지금 6초 → 단축, 물약 연타 문화). 1시간 20개 × 45G ≈ 900G = 수입 6,000~8,000G 의 11~15%. 기존 Potion(HP+200 / 400G)은 재조정.
+- 귀환 주문서 120G, 시전 2초(피격 시 취소), 마지막 방문 거점으로. 사망 = 현재 레벨에서 쌓은 EXP의 5%, 레벨 다운 없음. 피격 무적 0.9초.
+- 확인할 것: Lv11 이후 현재 몹 HP를 1~3초에 잡는지(장비 DPS 실측). 보스 보상은 EXP보다 장비·재료 위주.
