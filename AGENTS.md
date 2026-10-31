@@ -26,6 +26,7 @@ Claude Code 가 지시를 쓰고, Codex 가 구현·검증을 맡는다(10-31 �
 - **커밋·push 금지.** 커밋은 Claude 가 한다. `git stash`·`reset`·브랜치 전환 금지.
 - 건드리지 말 것: `Assets/Scenes/*.unity`(필요한 변경이 아니면), 폰트 asset, `ES3Defaults.asset`, `M_PixelSlash.mat`, `Tools/keep_going.sh`, `Docs/ArtCompare/`, `.claude/`, 서드파티 폴더(Plugins 등).
 - `C:\Users\user\Downloads\PurpleCow_MadDucks-main` 는 읽기 전용.
+- **모션·이펙트·스프라이트 제작은 하지 않는다(Claude 담당). 해당 지시를 받으면 코드 연결만 하고 보고.**
 - PixelLab 등 유료 생성 도구 금지. 그림이 필요하면 코드로 절차 생성하거나 기존 스프라이트 재사용.
 - Unity 창을 앞으로 가져오지 않는다.
 
