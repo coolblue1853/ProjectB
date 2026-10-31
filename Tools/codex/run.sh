@@ -8,6 +8,8 @@ name="$1"; brief="$2"; effort="${3:-auto}"
 [ "$effort" = "auto" ] && effort=$(bash Tools/codex/usage.sh --effort)
 echo "effort=$effort"
 mkdir -p Logs/codex
+# 한도 근접이면 실행하지 않고 75 로 끝낸다 → 큐가 멈추고 Claude 가 직접 작업(사용자 10-31)
+if [ "$(bash Tools/codex/usage.sh --limit)" = "LIMIT" ]; then echo "LIMIT $name"; exit 75; fi
 # 샌드박스는 %LOCALAPPDATA%\uv 캐시 잠금을 막는다 → 작업 폴더 안 캐시로(u.sh 의 uv run 용)
 export UV_CACHE_DIR="$PWD/Logs/uv-cache"
 export PATH="/c/Users/user/AppData/Roaming/Python/Python314/Scripts:$PATH"
@@ -16,4 +18,7 @@ export PATH="/c/Users/user/AppData/Roaming/Python/Python314/Scripts:$PATH"
   -c model_reasoning_effort="$effort" \
   --add-dir "$USERPROFILE/AppData/LocalLow/DefaultCompany/ProjectB" -C "$PWD" \
   -o "Logs/codex/$name.last.md" - < "$brief" > "Logs/codex/$name.log" 2>&1
-echo "exit=$? report=Logs/codex/$name.last.md"
+rc=$?
+# 실행 중 한도에 걸린 경우
+grep -qi "usage limit\|rate limit reached\|hit your usage limit" "Logs/codex/$name.log" && { echo "LIMIT $name"; exit 75; }
+echo "exit=$rc report=Logs/codex/$name.last.md"
