@@ -464,7 +464,7 @@ public class NpcQuestTests
             foreach (var entry in conversation.dialogueEntries)
             {
                 Assert.IsTrue(string.IsNullOrEmpty(entry.userScript));
-                foundHint |= entry.DialogueText == NpcQuestRewards.InventoryFullHint;
+                foundHint |= entry.DialogueText == NpcQuestRewards.InventoryFullHintFor("ruen");
             }
             Assert.IsTrue(foundHint);
         }
@@ -520,4 +520,58 @@ public class NpcQuestTests
     {
         NpcQuestLog.Deserialize(NpcQuestLog.Serialize() + (NpcQuestLog.Serialize().Length > 0 ? ";" : "") + id + ":2:1");
     }
+    [Test]
+    public void 모든_퀘스트_대화는_올바른_NPC와_완료_경로를_유지한다()
+    {
+        var database = StoryDialogues.Build();
+        try
+        {
+            var ids = new HashSet<int>();
+            foreach (var conversation in database.conversations)
+            {
+                Assert.IsTrue(ids.Add(conversation.id), "중복 대화 ID: " + conversation.id);
+            }
+            foreach (NpcQuestDef quest in NpcQuestCatalog.All)
+            {
+                var offer = database.GetConversation(StoryDialogues.OfferConversation(quest.Id));
+                var report = database.GetConversation(StoryDialogues.ReportConversation(quest.Id));
+                var progress = database.GetConversation(StoryDialogues.ProgressConversation(quest.Id));
+                var blocked = database.GetConversation(StoryDialogues.InventoryFullConversation(quest.Id));
+                Assert.IsNotNull(offer, quest.Id);
+                Assert.IsNotNull(report, quest.Id);
+                Assert.IsNotNull(progress, quest.Id);
+                Assert.IsNotNull(blocked, quest.Id);
+                Assert.AreEqual(offer.ConversantID, report.ConversantID, quest.Id);
+                Assert.AreEqual(offer.ConversantID, progress.ConversantID, quest.Id);
+                Assert.AreEqual(offer.ConversantID, blocked.ConversantID, quest.Id);
+                int accepts = 0;
+                int completes = 0;
+                foreach (var entry in offer.dialogueEntries)
+                {
+                    string script = entry.userScript ?? "";
+                    if (script.Contains("NpcQuestAccept('" + quest.Id + "')")) { accepts++; }
+                    if (script.Contains("NpcQuestComplete('" + quest.Id + "')")) { completes++; }
+                }
+                Assert.AreEqual(1, accepts, quest.Id);
+                Assert.AreEqual(quest.Id == "Q101" ? 1 : 0, completes, quest.Id);
+                Assert.AreEqual("NpcQuestComplete('" + quest.Id + "')", report.dialogueEntries[1].userScript);
+                foreach (var conversation in new[] { offer, report, progress, blocked })
+                {
+                    foreach (var entry in conversation.dialogueEntries)
+                    {
+                        Assert.LessOrEqual((entry.DialogueText ?? "").Split('\n').Length, 2, conversation.Title);
+                        if (conversation == progress || conversation == blocked)
+                        {
+                            Assert.IsTrue(string.IsNullOrEmpty(entry.userScript), conversation.Title);
+                        }
+                    }
+                }
+            }
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(database);
+        }
+    }
+
 }

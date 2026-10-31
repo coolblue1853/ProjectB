@@ -136,6 +136,11 @@ public class NpcQuestGiver : MonoBehaviour
             conv = StoryDialogues.OfferConversation(q.Id);
             _offerShown = true;
         }
+        else if (s == NpcQuestStatus.Active && !_offerShown)
+        {
+            conv = StoryDialogues.ProgressConversation(q.Id);
+            _offerShown = true;
+        }
         else
         {
             return false;

@@ -3,8 +3,22 @@
 /// <summary>NPC 퀘스트 보상 지급: EXP(LevelSystem)·골드·아이템 (QuestBoard.GrantReward 와 같은 방식)</summary>
 public static class NpcQuestRewards
 {
-    public const string InventoryFullHint = "보상을 받을 가방 공간이 부족하네. I에서 장비를 착용하거나 마을 왼쪽 상인에게 남는 장비·재료를 팔고 다시 보고하게. 요리용 토끼고기 2·약초 1·나무 1은 남겨두게.";
-    public const string ShopInventoryFullHint = "보상 공간 부족: 상점에서 남는 장비·재료를 판매한 뒤 다시 보고하세요.";
+    public const string InventoryFullHint = "보상을 받을 가방 공간이 부족합니다.\nI에서 장비를 착용하거나 마을 왼쪽 상인에게 판매한 뒤 다시 보고하세요.";
+    public const string ShopInventoryFullHint = "보상 공간이 모자라요. 상점에서 남는 장비·재료를 팔고 다시 와요.\n요리용 토끼고기 2·약초 1·나무 1은 남겨 둬요.";
+
+    public static string InventoryFullHintFor(string npcId)
+    {
+        switch (npcId)
+        {
+            case "elder": return "보상을 담을 자리가 없군. I에서 장비를 착용해 보게.\n마을 왼쪽 상인에게 남는 장비·재료를 팔고 다시 오게.";
+            case "ruen": return "가방이 찼어. I에서 장비부터 착용해.\n마을 왼쪽 상인에게 남는 장비·재료를 팔고 돌아와.";
+            case "sena": return "보상 넣을 곳이 없네요. I에서 장비를 착용해 보세요.\n마을 왼쪽 상인에게 남는 장비·재료를 팔고 오셔도 돼요.";
+            case "eve": return "가방부터 비워야겠네. I에서 장비를 착용해 봐.\n마을 왼쪽 상인에게 남는 장비·재료를 팔고 돌아와.";
+            case "merchant": return ShopInventoryFullHint;
+            case "smith": return "보상 넣을 자리가 없다. I에서 장비부터 착용해.\n마을 왼쪽 상인에게 남는 장비·재료를 팔고 와.";
+            default: return InventoryFullHint;
+        }
+    }
 
     public static bool CanReceive(NpcQuestDef d)
     {

@@ -3,7 +3,7 @@
 /// <summary>
 /// 1층계 NPC 퀘스트 대화 (ClassicMapleDesign.md 10절). 퀘스트마다 수락 대화(설명 한 줄 → 수락/나중에)와 보고 대화를 CSV 에서 만든다.
 /// 수락·보고는 Lua 함수 NpcQuestAccept / NpcQuestComplete (DialogueBoot 이 등록 → NpcQuestLog).
-/// 퀘스트 문구는 CSV 의 한국어 원문 그대로 쓴다(번역 표 없음).
+/// 퀘스트 규칙·저널은 CSV, 대사는 NpcQuestVoice의 한국어 문구를 쓴다(번역 표 없음).
 /// </summary>
 public static partial class StoryDialogues
 {
@@ -19,6 +19,8 @@ public static partial class StoryDialogues
     public static string ReportConversation(string questId) => "NpcQ/" + questId + "/report";
 
     public static string InventoryFullConversation(string questId) => "NpcQ/" + questId + "/inventoryFull";
+
+    public static string ProgressConversation(string questId) => "NpcQ/" + questId + "/progress";
 
     private static void AddNpcQuestActors()
     {
@@ -44,8 +46,8 @@ public static partial class StoryDialogues
     private static void BuildNpcQuests()
     {
         BuildGreeting(90, RuenTalk, RuenId, "조용히 걸어. 발소리가 크면 사냥감이 먼저 도망가거든.");
-        BuildGreeting(91, SenaTalk, SenaId, "약초는 뿌리가 마르기 전에 캐야 해요. 해가 지면 늪 근처는 위험하니 조심해요.");
-        BuildGreeting(92, EveTalk, EveId, "길은 발이 먼저 알아. 어디든 한 번은 직접 가 봐야지.");
+        BuildGreeting(91, SenaTalk, SenaId, "약초는 뿌리가 마르기 전에 캐야 해요.\n해가 지면 늪 근처는 피하세요.");
+        BuildGreeting(92, EveTalk, EveId, "지도에는 돌아온 사람이 본 길만 남아.\n빈 곳은 직접 가 봐야지.");
 
         int id = QuestConvBase;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
@@ -53,6 +55,7 @@ public static partial class StoryDialogues
             int npc = ActorOf(d.Giver);
             BuildOffer(id++, d, npc);
             BuildReport(id++, d, npc);
+            BuildGreeting(QuestConvBase + 2000 + id, ProgressConversation(d.Id), npc, NpcQuestVoice.Progress(d));
         }
     }
 
@@ -66,7 +69,7 @@ public static partial class StoryDialogues
     private static void BuildOffer(int convId, NpcQuestDef d, int npc)
     {
         Conv v = NewConv(convId, OfferConversation(d.Id), PlayerId, npc);
-        DialogueEntry hub = Chain(v, Start(v), npc, d.Description);
+        DialogueEntry hub = Chain(v, Start(v), npc, NpcQuestVoice.Offer(d));
         DialogueEntry yes = Line(v, PlayerId, "수락한다");
         DialogueEntry no = Line(v, PlayerId, "나중에");
         Link(v, hub, yes);
@@ -75,16 +78,16 @@ public static partial class StoryDialogues
         yes.userScript = instant
             ? "NpcQuestAccept('" + d.Id + "'); NpcQuestComplete('" + d.Id + "')"
             : "NpcQuestAccept('" + d.Id + "')";
-        Chain(v, yes, npc, instant ? "그래, 확인했네. 약속한 보상일세." : "부탁하지. 일이 끝나면 다시 오게.");
-        Chain(v, no, npc, "그래, 준비되면 다시 오게.");
+        Chain(v, yes, npc, instant ? NpcQuestVoice.Report(d) : NpcQuestVoice.Accepted(d.Giver));
+        Chain(v, no, npc, NpcQuestVoice.Declined(d.Giver));
     }
 
     private static void BuildReport(int convId, NpcQuestDef d, int npc)
     {
         Conv blocked = NewConv(convId + 1000, InventoryFullConversation(d.Id), PlayerId, npc);
-        Chain(blocked, Start(blocked), npc, NpcQuestRewards.InventoryFullHint);
+        Chain(blocked, Start(blocked), npc, NpcQuestRewards.InventoryFullHintFor(d.Giver));
         Conv v = NewConv(convId, ReportConversation(d.Id), PlayerId, npc);
-        DialogueEntry e = Chain(v, Start(v), npc, "해냈군. 수고했네. 약속한 보상일세.");
+        DialogueEntry e = Chain(v, Start(v), npc, NpcQuestVoice.Report(d));
         e.userScript = "NpcQuestComplete('" + d.Id + "')";
     }
 }
