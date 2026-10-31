@@ -1466,6 +1466,17 @@ public class InventoryManager : MonoBehaviour
             Sfx.Play(SfxId.CraftFail, 0.4f);
             return false;
         }
+        if (item.itemData.effectOb != null && item.itemData.effectOb.StartsWith("recall"))
+        {
+            // 귀환 주문서: 시전이 끝나 이동이 성사될 때 RemoveOne 으로 소비한다(취소하면 소모 없음)
+            if (!RecallCast.Begin(item.itemData.name))
+            {
+                Sfx.Play(SfxId.CraftFail, 0.4f);
+                return false;
+            }
+            ConsumeCooldown.Shared.Start(group, Time.time);
+            return true;
+        }
         // 0개가 되어도 Destroy 는 프레임 끝이라 이 프레임 안의 ApplyConsumeEffect 는 itemData 를 읽을 수 있다.
         if (!Service.RemoveAt(item, 1))
         {
@@ -1476,6 +1487,20 @@ public class InventoryManager : MonoBehaviour
         SaveInventory(); // 효과(CSV 파싱)에서 예외가 나도 차감은 저장되게 먼저 저장
         item.ApplyConsumeEffect();
         return true;
+    }
+
+    /// <summary>인벤토리에서 itemName 스택 1개를 빼고 저장한다(귀환 주문서 시전 완료용). 없으면 false</summary>
+    public bool RemoveOne(string itemName)
+    {
+        foreach (ItemCheck check in EnumerateInventoryItems())
+        {
+            if (check.name == itemName && Service.RemoveAt(check, 1))
+            {
+                SaveInventory();
+                return true;
+            }
+        }
+        return false;
     }
 
     /// <summary>인벤토리에서 itemName 인 첫 소비 아이템 스택을 1개 사용한다(퀵슬롯). 없거나 쿨다운이면 false</summary>

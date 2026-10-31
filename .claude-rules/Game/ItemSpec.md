@@ -131,3 +131,5 @@
 
 - 드롭 판정은 `Random.value ≤ p × (1 + dropRate/100)`이다.
 - 몬스터별 드롭 테이블은 `Game/EnemySpec.md` 참조.
+
+- (10-31) 소비 아이템 추가: Small/Medium/Large HP Potion(246~248, hp +120/220/320)·Recall Scroll(249, effectOb `recall +`). 구매가는 price x1.5. 기존 Potion 은 hp +500(고급 물약). 상세는 `ClassicMapleDesign.md` 12절.

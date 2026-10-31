@@ -3,14 +3,14 @@ using UnityEngine;
 
 /// <summary>
 /// 소비 아이템 공유 쿨다운(디아블로식 물약 쿨, BasicFeatures.md 3절·Q-430).
-/// 효과에 hp 가 있으면 "potion" 그룹(6초), 그 외는 "misc" 그룹(1초, 연타 낭비 방지). 같은 그룹끼리 쿨을 공유한다.
+/// 효과에 hp 가 있으면 "potion" 그룹(2초), 그 외는 "misc" 그룹(1초, 연타 낭비 방지). 같은 그룹끼리 쿨을 공유한다.
 /// 퀵슬롯과 인벤 소비 키가 같은 인스턴스(Shared)를 써서 우회할 수 없다. 시간은 호출자가 넘긴다(테스트 가능).
 /// </summary>
 public sealed class ConsumeCooldown
 {
     public const string PotionGroup = "potion";
     public const string MiscGroup = "misc";
-    public const float PotionSeconds = 6f;
+    public const float PotionSeconds = 2f;
     public const float MiscSeconds = 1f;
 
     private readonly Dictionary<string, float> _readyAt = new Dictionary<string, float>();

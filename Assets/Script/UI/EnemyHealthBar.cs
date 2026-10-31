@@ -64,8 +64,9 @@ public class EnemyHealthBar : MonoBehaviour
             RectTransform rt = go.GetComponent<RectTransform>();
             rt.anchorMin = hpBarRect.anchorMin;
             rt.anchorMax = hpBarRect.anchorMax;
-            rt.pivot = new Vector2(hpBarRect.pivot.x, 0f);
-            rt.anchoredPosition = hpBarRect.anchoredPosition + new Vector2(0f, hpBarRect.sizeDelta.y * (1f - hpBarRect.pivot.y) + 2f);
+            // HP 바 왼쪽 끝(바 pivot 과 무관하게)에 라벨 왼쪽 아래를 맞춘다
+            rt.pivot = new Vector2(0f, 0f);
+            rt.anchoredPosition = hpBarRect.anchoredPosition + new Vector2(-hpBarRect.sizeDelta.x * hpBarRect.pivot.x, hpBarRect.sizeDelta.y * (1f - hpBarRect.pivot.y) + 2f);
             rt.sizeDelta = new Vector2(Mathf.Max(60f, hpBarRect.sizeDelta.x), 18f);
             _lvLabel = go.AddComponent<TMPro.TextMeshProUGUI>();
             _lvLabel.fontSize = 14f;

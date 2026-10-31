@@ -228,3 +228,14 @@ Gatekeeper_BD,15,3800,56
 - 레벨 차: `DamageCalculator.LevelGapMul` → `Calculate(..., levelGapMul)`, `EnemyHealth.damage2Enemy` 에서 `Level`(MonsterSheet level) vs `LevelSystem.Level`.
 - 레벨 표시: `EnemyHealthBar` 가 "Lv.N" 라벨을 런타임 생성(+4 이상 붉게, -4 이하 회색, 보스·레벨 미지정 숨김).
 - 검증: EditMode(`ContactRulesTests`), 프로브 `contact_test.cs`: Lv16 몹 겹침 → 0.9~1.0초 간격 -32(원 24, 방어 1·상승 부하 반영), 무적 중 손실 0, 정예 원 24→36(-49), Lv1 vs Lv16 배율 0.70(94→66; 상승 부하 중엔 40). 스크린샷 `Logs/playtest/contact_lv.png`. 미검증: 실제 대시 키 입력 무적, 게임패드, 라벨 위치 다듬기(HP 바 위치와 어긋남, 글꼴 대문자 "LV."), 몹 20마리 성능 프로파일.
+
+## 12. 구현 3단계 (2026-10-31, 물약·귀환 주문서)
+
+- 물약 3종(ItemSheet 246~248): `Small/Medium/Large HP Potion` = HP +120/+220/+320, 구매 25/45/70G(구매가 = price x1.5 → price 17/30/47), 최대 99. 표시명 소/중/대형 물약. 귀환 주문서 `Recall Scroll`(249): effectOb `recall +`, 구매 120G(price 80). 아이콘은 Minor Herbal Potion·Ancient Blueprint Fragment 색조 변경(임시, `Resources/Item/*.png`).
+- 기존 `Potion`(400G, 샐러드 아이콘)은 **'고급 물약' = HP +500 으로 두고** 상점에 팔지 않는다(키·세이브 불변). 표 체계와 겹치지 않게 회복만 올렸다.
+- 쿨다운: 물약 그룹(효과에 hp 포함 = HP 회복 음식 포함) 6→**2초**(`ConsumeCooldown.PotionSeconds`). 그 외 소비 1초 그대로.
+- 상점: 씬은 그대로, `UI/CraftUI/ShopStockExtender.cs` 가 시작 시 상점 Line1 을 복제해 `LineExtra` 줄(물약 3 + 귀환 주문서)을 덧붙인다. 구매 흐름은 기존 그대로.
+- 귀환: `Item/RecallCast.cs`(`RecallRules` 순수 규칙). 사용 → 2초 시전, 피격(OnHpDamaged)·이동(시작 위치에서 0.2 초과)·사망이면 취소(소모 없음). 완료 때 1개 소비(`InventoryManager.RemoveOne`) 후 `MapInfo.GoToTown`. 목적지는 마을뿐(현재 거점 = 마을, 사망 부활과 동일). 마을에서는 사용 불가(소모 없음). 소비템이라 퀵슬롯 등록 가능(1초 공용 쿨다운 그룹). 시전 UI(진행 바)는 없다 — 후속.
+- 몹 레벨 라벨(`EnemyHealthBar`): HP 바 왼쪽 끝에 정렬(바 pivot 무관). 폰트가 대문자 전용이라 화면에는 `LV.1` 로 보인다(코드는 "Lv."). 기록만.
+- 1층계 몹 골드 조사: 몹은 **골드를 직접 주지 않는다**. 골드는 드롭 아이템 판매가(price)와 퀘스트 보상뿐이다. 소재 판매가 대표값 50~100G(Rabbit Meat 100, Rock 100). 드롭은 프리팹별 DropManager 라 마리당 기대 골드·시간당 수입은 미집계(§8 가정 5~30G/마리와 비교하려면 플레이 중 DropManager.AllDrops x price 집계 필요, probes/potion_gold_survey.cs 는 에디트 모드에서 DB 미로드로 0). 이번엔 수정하지 않음.
+- 검증: EditMode 전체 307 통과(`PotionEconomyTests`: 쿨다운 2초·회복량·구매가·귀환 규칙), 플레이 프로브 `potion_shop_buy.cs`(500→475G, 소형 물약 0→1), `potion_cooldown.cs`(t=0 사용, t=1.0 거절, t=2.1 사용·HP 회복), `recall_cast.cs`·`recall_cancel.cs`(시전 후 마을 도착·주문서 1개 소비, 피격·이동 취소 시 소모 없음). 시전 중 프레임 정체 때문에 프로브 타이밍은 에디터 지연이 섞인다. 라벨 스크린샷은 몹 라벨 위치만 확인(`Logs/playtest/recall_lvl_z.png`), 미검증: 라벨 왼쪽 정렬 육안 확인, 시전 UI 없음.
