@@ -20,7 +20,7 @@ HAND_B = [26, 42]
 # 원본 묶음: 이름 → (폴더, 프레임 번호들)
 SETS = {
     "idle": ("motions/idle", range(0, 8)),
-    "walk": ("walk_6101", range(0, 8)),
+    "walk": ("walk_6104", range(0, 8)),  # 11-01 사용자 "걷기 팔이 이상" → 반 주기 2번(첫·끝 고정, 가운데 보폭 프레임 고정)으로 옆모습·칼 유지
     "run": ("motions/run", range(0, 8)),
     "crouch": ("motions/jump", [1]),
     "arc": ("motions/jump", [2, 3, 4]),
