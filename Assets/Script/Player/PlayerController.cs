@@ -25,8 +25,53 @@ public class PlayerController : MonoBehaviour
     private MovementUnlocks _movementUnlocks;
     private float _airLaunchDirection;
     private int AvailableJumps => _movementUnlocks.JumpLimit(maxJumps);
-    private bool MovementGrounded => rb != null && isOnGround && isPlafromCheck && rb.linearVelocity.y <= 0.01f &&
-        ((hit1.collider != null && IsGrounded(hit1.normal)) || (hit2.collider != null && IsGrounded(hit2.normal)));
+    private bool MovementGrounded => rb != null && rb.linearVelocity.y <= 0.01f &&
+        ((isOnGround && isPlafromCheck && ((hit1.collider != null && IsGrounded(hit1.normal)) || (hit2.collider != null && IsGrounded(hit2.normal))))
+         || TouchingFloor());
+
+    // 계단 모서리처럼 발 감지 레이 두 개가 다 빗나가도 몸 충돌 박스가 바닥(위를 향한 면)에 얹혀 있으면 땅으로 본다.
+    // 레이만 보면 공중 판정 → 공중 방향 잠금(반대 입력 0)·점프 소진으로 아무 조작도 안 됐다(11-01 사용자 "벽에 닿으면 반대로도 못 움직임")
+    private static ContactFilter2D s_floorFilter;
+    private static bool s_floorFilterReady;
+    private bool TouchingFloor()
+    {
+        if (!s_floorFilterReady)
+        {
+            s_floorFilter = new ContactFilter2D();
+            s_floorFilter.SetLayerMask(LayerMask.GetMask("Ground"));
+            s_floorFilter.SetNormalAngle(60f, 120f);
+            s_floorFilterReady = true;
+        }
+        return rb.IsTouching(s_floorFilter);
+    }
+    /// <summary>치트 Unstuck 용: 조작이 막혔을 때 원인을 남길 상태 한 줄</summary>
+    public string DebugStateLine()
+    {
+        return $"states={states} attacked={isAttacked} attackedUp={isAttackedUp} attackAnim={isAttackAnim} jumpAnim={isJumpAnim} " +
+               $"ladder={isLadder}/{isUpLadder} onGround={isOnGround} plat={isPlafromCheck} rays={hit1.collider != null}/{hit2.collider != null} " +
+               $"floor={(rb != null && TouchingFloor())} grounded={MovementGrounded} coyote={coyote.InCoyote(Time.time)} jumps={jumpsRemaining} " +
+               $"hIn={horizontalInput} airDir={_airLaunchDirection} vel={(rb != null ? rb.linearVelocity : Vector2.zero)} trigger={(bc != null && bc.isTrigger)} " +
+               $"wall={isWall} pos={transform.position}";
+    }
+
+    /// <summary>치트 Unstuck 용: 조작을 막는 플래그를 전부 내리고 조금 띄운다</summary>
+    public void DebugUnstuck()
+    {
+        isAttacked = false;
+        isAttackedUp = false;
+        isAttackAnim = false;
+        isJumpAnim = false;
+        isWall = false;
+        states = "";
+        _airLaunchDirection = 0f;
+        jumpsRemaining = AvailableJumps;
+        if (rb != null)
+        {
+            rb.gravityScale = 3f;
+            rb.linearVelocity = Vector2.zero;
+            rb.position += Vector2.up * 0.3f;
+        }
+    }
     private bool OnMovementGround => isUpLadder || MovementGrounded || coyote.InCoyote(Time.time);
     public bool CanMovementJump => (jumpsRemaining > 0 && (AvailableJumps > 1 || OnMovementGround)) || coyote.InCoyote(Time.time);
     public bool CanMovementDash => _movementUnlocks.CanDash(MovementGrounded);

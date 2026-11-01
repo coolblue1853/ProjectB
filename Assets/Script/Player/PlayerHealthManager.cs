@@ -274,6 +274,14 @@ public class PlayerHealthManager : MonoBehaviour
             Die();
         }
 
+        // 경직 해제는 시퀀스 OnComplete 하나뿐이라 시퀀스가 죽으면 이동·점프·공격이 영영 막혔다(11-01 "아무 조작이 안 됨" 후보).
+        // 끝날 시각을 넘겼는데도 경직이면 강제로 푼다.
+        if (playerController != null && playerController.isAttacked && Time.time > _stiffEndAt + 0.5f)
+        {
+            Debug.LogWarning("[PB][Player] 경직이 시간 지나도 안 풀려 강제 해제");
+            EndStiffness();
+        }
+
         if(isAlphaChange == false && alphaSequence.IsActive() == true)
         {
 
@@ -283,6 +291,7 @@ public class PlayerHealthManager : MonoBehaviour
     }
     PlayerController playerController;
     Sequence mysequence;
+    private float _stiffEndAt;
     Sequence alphaSequence;
     const float InvincibleBlinkAlpha = 0.45f;
     private void RepeatAnimation()
@@ -335,6 +344,7 @@ public class PlayerHealthManager : MonoBehaviour
                 mysequence.Kill(); // 재공격시 경직 시간 초기화.
                 playerController.isAttacked = true;
                 playerController.isAttackedUp = true;
+                _stiffEndAt = Time.time + stiffTime;
                 playerController.CancelSkillHold(); // 경직되면 홀드 스킬도 끊긴다 (B-113)
 
             mysequence = DOTween.Sequence()

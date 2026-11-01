@@ -58,6 +58,29 @@ public partial class SROptions
         }
     }
 
+    /// <summary>조작이 막혔을 때: 상태를 Logs/stuck_state.txt 에 남기고 잠금 토큰·플래그를 모두 푼다(11-01 "벽에 닿으면 아무 조작이 안 됨")</summary>
+    [Category(Cheat), DisplayName("Unstuck")]
+    public void Unstuck()
+    {
+        if (Pc == null)
+        {
+            return;
+        }
+        string line = $"[{System.DateTime.Now:HH:mm:ss}] map={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}\n" +
+                      Pc.DebugStateLine() + "\n" + PlayerStatus.Dump() + "\n\n";
+        Debug.LogWarning("[PB][Unstuck] " + line);
+        try
+        {
+            System.IO.File.AppendAllText(System.IO.Path.Combine(Application.dataPath, "../Logs/stuck_state.txt"), line);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning("[PB][Unstuck] 기록 실패: " + e.Message);
+        }
+        PlayerStatus.ForceClear("cheat unstuck");
+        Pc.DebugUnstuck();
+    }
+
     [Category(Cheat), DisplayName("God Mode")]
     public bool GodMode
     {
