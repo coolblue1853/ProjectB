@@ -81,3 +81,7 @@
 - **사고(11-01 0시):** TaskStop 은 바깥 셸만 멈추고 안쪽 `queue_wait.sh`·`resume*.sh` 가 고아로 남았다 → 큐 3개가 동시에 Codex 를 돌려 40분에 주간 16→47%. 큐를 바꿀 때는 `ps -ef | grep -E "queue_wait|resume|run.sh"` 로 고아까지 확인해 kill 한다.
 
 - 11-01 14:50 Claude 94%: 포털 검정 암전·배너 쿨다운·자원 재배치(bfdddb91), 암전 프레임 대기(6d88b94e). Codex 리허설 3차(`Logs/codex/rehearsal3.md`)를 5시간 창 리셋(약 16:20) 뒤 자동 실행하도록 큐(queue_wait.sh)에 걸어 둠 — 그동안 Unity 사용 금지.
+
+## 11-01 밤 (주간 리셋 직후)
+
+- 사용자: Claude 주간 상한 **10%**(9%쯤 정리·중단). 구현·검증은 **Codex 우선**, Codex 가 LIMIT 이면 Claude 가 직접. 시작 시 Claude 0%, Codex 주간 73%(리셋 90시간 뒤).
