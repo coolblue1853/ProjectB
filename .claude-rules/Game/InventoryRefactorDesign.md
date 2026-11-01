@@ -1,8 +1,10 @@
-﻿# 인벤토리 리팩터 설계 (D2~D6)
+# 인벤토리 리팩터 설계 (D2~D6)
 
 > 상태: 설계안(2026-10-18, 코드 역산). 구현 전이다. 줄 번호는 커밋 928178f1 기준이다.
 > 관련: `Game/ItemSpec.md`(데이터·세이브), `Game/QualityRoadmap.md` D절, `Game/TechDebt.md`.
 > 원칙: **단계마다 컴파일·플레이가 되는 상태**를 유지한다. 외부에서 쓰는 API(`CreatItem`, `CountItem`, `HasRoomFor`, `DeletItemByName`, `SaveInventory`)는 마지막 단계까지 시그니처를 유지한다.
+
+> 2026-11-01 창고 보완: `InventoryService.TransferChest/DepositChest`가 인벤·창고 모델 연산을 끝내고 양쪽 뷰에 반영하며, 호출자는 `SaveInventoryAndChest`로 같은 `Datas`를 1회 저장한다. 보관·꺼내기는 전체 열린 칸을 대상으로 하고 실제 이동량만 차감한다. 기존 ES3 키·배열과 인벤토리 API를 유지한다. 같은 종류는 동일 ID의 재료·소비품으로 정의하고, 일괄 보관·정렬도 인스턴스 티어·강화를 보존한다. 창고 순서는 종류→등급→이름(인벤 부위 우선과 분리). 재개 후 Unity EditMode 460/460, 플레이 데이터/즉시 저장 대조 5,521회·키보드/가상 패드 11건 통과. 낮 캡처에서 발견한 안내 겹침은 페이지/커서 84% 배율과 하단 전용 공간으로 해소. 페이지 이동은 Destroy 전에 원본을 분리하고 즉시 저장한다. 상세는 `Docs/Playtest/ChestReview.md`.
 
 ---
 

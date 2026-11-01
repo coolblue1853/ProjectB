@@ -17,6 +17,8 @@
 
 > 인벤토리 신규 버그 B-008~B-023(창고→인벤 이중 차감, 나누기 소실, 목걸이 오타 NRE, 장비 드래그 교환, 티어·강화 소실, 강제종료 복제 등)은 `Game/InventoryRefactorDesign.md` 1절 표에 상세(파일:라인)가 있다. 처리하면 여기에도 ✅로 옮긴다.
 
+> **11-01 창고 재점검:** B-008은 개당 생성 루프를 `SlotContainer.Transfer` 수량 이동으로 통합. B-014는 창고 이름만 비교하던 생성·키보드 교환·창고 내부 드래그까지 ID/티어/강화 일치로 보완(아래 기존 완료 기록의 "스택 병합은 이름 비교 유지"는 이 경로에서 해소). B-015는 꺼내기 도중 인벤만 여러 번 저장하던 중간 상태를 없애고, 양쪽 모델·뷰 반영 후 `SaveInventoryAndChest` 1회로 저장. 창고 내부 드래그도 드롭 직후 양쪽 저장 요청. 신규 `ChestTransferTests` 10개 포함 Unity EditMode 460/460, 낮 플레이 데이터·즉시 저장값 대조 5,521개, 키보드/가상 패드 11/11 통과(11-02 독립 리뷰에서도 재확인). 초기 MCP 무응답에 따른 검증 보류는 해소했다. 실제 강제 종료·물리 입력·빌드 실행은 미검증이며, Windows64 빌드 시도는 IL2CPP 모듈 미설치로 실패했다. 상세 `Docs/Playtest/ChestReview.md`.
+
 | ID | 내용 | 상태 |
 |---|---|---|
 | B-008 | 창고→인벤(인벤 가득) 이중 차감·공짜 1개 (P0) | ✅ C2IMove 단일 경로 — 프로브 c2i_full_p1/p2 |
@@ -133,3 +135,50 @@
 - **독립 리뷰(p3_1101, 11-01):** 지정된 미커밋 6파일만 검토한 결과 신규 [필수] 결함 0건, 런타임·테스트 코드 수정 없음. CSV 경로의 가중치/루트 null 처리, 배너의 암전 대기/이전 요청 취소/비활성 맵 방어와 세이브 키 미변경을 확인했다. 기존 배너 이벤트 구독·트윈 코드는 이번 diff에서 변경하지 않았다. EditMode 443/443(실패·스킵 0), 컴파일 후·플레이·정지 콘솔 오류 각 0. CSV 10행/대응 스포너 10개/비자원 0개 재확인. SR 옵션 창과 핀 버튼에 UI pointerClick 이벤트를 전달해 Give Item +1, Give Weapons 각 +1, 퀘스트 5종 Ready, Unstuck 토큰 6→0 검증(물리 마우스/키보드 입력·화면 좌표 hit-test는 미검증). 낮 실제 Portal.Use 최초·재진입 각 16표본: Busy=True인 각 6표본 모두 배너 alpha=0·표시 이력=0, 재진입 1.205초 Busy=False·이력=1, 2.090초 alpha=1. 재진입 캡처 `p3review_reentry_11.png`에서 배너 겹침·잘림, 캐릭터 끼임·방향 이상 없음. 최초 진입은 기존 보스 연출 중첩·카메라 이탈 재현(playerY=0.26, cameraY 최대 61.32), 위 별도 부채 유지. 품질 의견: 보스 조우 전 큰 경고 연출은 초반 소박한 진행을 해치고, 상단 치트 버튼은 체력 HUD와 겹쳐 시인성을 낮춘다(기존 화면, 이번 범위 밖). 근거는 `Logs/playtest/p3review_*`. 세이브 3/3 MD5 일치·슬롯 3/SaveSlot3.es3 원상 복구, 플레이 정지. 1시간 연속 실행은 미검증.
 - **리뷰 빌드 제한:** Windows64 개발 빌드 요청(`build-b31078565c`, 출력 예정 `Logs/Builds/p3review/ProjectB.exe`)은 접수됐으나 이후 unity-mcp 상태 조회 3회가 TimeoutError, execute_code 상태 조회도 실패했다. 빌드 취소 요청도 시도했으며 완료/취소 확정은 미검증이다. 빌드 실행 파일 생성은 확인되지 않았다. 컴퓨터 사용 도구의 Unity 읽기 접근은 자동 승인 검토에서 거절되어 UI 경유 진단을 중단했다. 빌드 요청 **전** 플레이 정지와 세이브 복원은 확인됐고, 그 뒤 새 플레이는 시작하지 않았다. 빌드 성공이나 최종 에디터 응답 정상화로 보고하지 않는다.
 - 빌드 취소 응답은 `Unity plugin session 467cb400-e0b1-4d9d-9e70-8a415876dcf0 disconnected while awaiting command_result`로 실패했다.
+
+## 2026-11-01 플레이테스트 버그 3건
+
+| 내용 | 원인·수정 | 검증 |
+|---|---|---|
+| 음식 후 스태미너 자연 회복 미재개 | 허기 부족 시 DOTween 회복 체인이 끝났지만 음식에서 재예약하지 않음. `FullnessHeal`에서 끊긴 회복만 재예약, 대기 중 중복 금지, 만충 허기 소모 방지 | ✅ 신규 회귀 7개 포함 EditMode 460/460·아래 실제 플레이 검증 (미커밋) |
+| ESC로 창 닫기와 일시정지 동시 열림 | 개별 UI와 PauseMenu가 같은 입력을 따로 판단. 프레임 시작 최상위 UI 고정 + 단일 소비(`UiBackFrame`), 키 설정도 UiLock 참여, 대화·게시판 취소 연결 | ✅ 신규 회귀 7개 포함 EditMode 460/460·아래 실제 플레이 검증 (미커밋) |
+| 착용 장비 강화 불가 | 강화 수집이 가방만 순회. 착용 장비 추가·표시, 실착 프리팹 스탯과 equipGear 동기화. HP 차이만 적용, 세트 출처 보존 | ✅ 신규 회귀 7개 포함 EditMode 460/460·아래 실제 플레이 검증 (미커밋) |
+
+### 세 버그 최종 검증 (11-01)
+
+- **전체 EditMode:** 460/460 통과, 실패 0·스킵 0. 신규 `PlaytestBugRegressionTests` 7개: 허기 0 후 회복 재예약·중복 예약 방지, 소비 직후 대기 보존, 만충 허기 소모 방지, 최상위 창 소비·같은 프레임 일시정지 낙하 방지, 중첩 UI 소비, 착용 방어구/무기 스탯·저장 갱신 및 하락·반복 적용.
+- **컴파일·플레이 콘솔 오류:** 각 0. `git diff --check` 통과. reviewer-code/reviewer-arch 체크리스트로 새 필드·ES3 호환·null 경로·UI 수명·갱신 비용을 검토했다. 세트/출혈/쿨다운은 장비 강화로 변하지 않아 해제·재적용하지 않고 기존 출처를 보존한다.
+- **자연 회복:** 실제 대기 2초, 주기 0.1초·틱당 4. 허기/스태미너 `0/0` → 대기 종료 뒤 `0/0` → `Rabbit Meat Stew` 실제 인벤 소비 성공 `100/0` → 자연 회복 관찰 `96/16`. 값 직접 회복이나 콜백 강제 완료 없이 측정했다(`stamina.txt`).
+- **ESC 실제 입력:** 테스트용 Input System Keyboard를 런타임에 추가하고 게임 내부 이벤트만 큐잉했다(OS 키·마우스 주입 없음). 22+10=32/32 통과. 강화·인벤·상점·제작·지도·도감·NPC 퀘스트·대화·창고·일시정지·키 설정 및 인벤 상세·제작 선택·Quest Machine 게시판. 창고 취소는 창고만 닫고 인벤 유지 → 다음 ESC로 인벤 닫기 → 다음 ESC로 일시정지 열기. 중첩 키 설정 취소는 일시정지 유지. 추가 장치와 복제한 입력 설정은 프로브 종료 때 제거·복원했다(`escape.txt`, `escape-details.txt`).
+- **착용 강화:** 무기·장갑 모두 +4→+5 확정 성공(기존 찬스타임 사용), 가방으로 옮기지 않고 강화석 각각 3·골드 각각 400 차감, ES3를 다시 읽어 해당 `equipGear` 강화값 5 확인(`enhance.txt`). 녹슨 검 최소 데미지 6→6은 반올림 결과이며 최대 데미지는 12→13으로 즉시 변경됐다. RabbitArmor 2부위 활성 상태에서 장갑 강화: 부위 수 2→2, 방어 15→16, 최대 HP 336→351, 현재 HP 336→336(무료 회복 없음, `active-set.txt`). 강화 창 목록에서 착용 무기·장갑 포함 확인, 모자를 더 착용한 최종 화면에서도 세 장비가 `[착용]`으로 표시된다.
+- **낮 화면 눈 검토:** `Logs/playtest/bugs1101/`의 강화·인벤·상점·제작·창고·대화·게시판·일시정지·회복 캡처를 직접 확인했다. 새 `[착용]` 행과 강화 정보에 겹침·잘림 없음. NPC/캐릭터 끼임·튐·방향 이상은 정지 화면에서 관찰되지 않았다. 전투 연속 모션은 이번 수정 범위가 아니며 검증하지 않았다.
+- **기존 화면 문제(별도 부채):** 퀘스트 추적 HUD가 인벤·제작 창 위에 겹치며, 우상단 Quest Machine 추적 제목 일부가 화면 밖으로 잘린다. 창고 하단 편의 안내 일부가 슬롯/화면 경계와 겹치고 좌상단 아티팩트 HUD도 창고 슬롯 위에 남는다. 치트 줄은 체력 HUD와 겹친다. 이번 세 버그 수정으로 UI 정렬·폰트·씬을 바꾸지는 않았다. 후속 작업은 기존 HUD의 UI 표시 정책/캔버스 정렬/안전 영역을 정리할 것.
+- **미검증:** 실제 게임패드·빌드 실행·+11~+15 정밀 단조의 직접 플레이·모든 강화 실패 확률의 장시간 실측·장시간 전투 소크. 강화 하락/반복 적용의 수치·저장은 EditMode 회귀로 확인했으며 실제 플레이에서는 성공 경로를 확인했다.
+- **세이브 보호:** 시작 전 `Logs/playtest/bugs1101-save-backup/`에 es3 3개 백업, 최종 플레이 정지(`idle`) 뒤 3/3 MD5 일치 복원. `SaveFile.es3`: `F1CBD3EDF7E845CACE5442F6641C5B2F`, `SaveSlot2.es3`: `4683BD8B4FFE564E86535BDF7861504B`, 사용자 진행 `SaveSlot3.es3`: `F1A9AC9E7D4BE9716FB6ED03A0BD2C4F`. 슬롯 선택 3·ES3 경로 SaveSlot3.es3 유지. 근거 `save-restore.json`.
+
+### 이번 작업 파일 (기존 미커밋 변경은 유지)
+
+- 신규: `Assets/Script/Player/State/UiBackFrame.cs`, `Assets/Editor/Tests/PlaytestBugRegressionTests.cs`, 두 파일의 Unity `.meta`.
+- 수정(회복·강화): `Assets/Script/Player/PlayerHealthManager.cs`, `Assets/Script/UI/EquipBoxCheck.cs`, `Assets/Script/Item/EnhanceService.cs`, `Assets/Script/Item/EnhanceWindow.cs`.
+- 수정(ESC): `Assets/Script/Player/State/UiLock.cs`, `Assets/Script/UI/PauseMenu.cs`, `Assets/Script/UI/InventoryManager.cs`, `Assets/Script/UI/Chest.cs`, `Assets/Script/UI/CraftUI/CraftingManager.cs`, `Assets/Script/UI/WaypointMap.cs`, `Assets/Script/UI/Bestiary/BestiaryWindow.cs`, `Assets/Script/UI/KeyBind/KeyBindWindow.cs`, `Assets/Script/NpcQuest/NpcQuestWindow.cs`, `Assets/Script/Dialogue/PixelDialogueUI.cs`, `Assets/Script/Quest/QuestBoard.cs`.
+- 수정(문서): `.claude-rules/Game/BasicFeatures.md`, `ItemSpec.md`, `TechDebt.md`, `ProgressionDesign.md`, `Docs/Playtest/FirstHourGuide.md` 조작표.
+- **커밋 제외:** 이번 임시 `Tools/probes/bugs1101_*.cs`, `Tools/probes/bugs1101_*.sh` 전체. 로그·캡처·편집 보조 스크립트·세이브 백업은 `Logs/playtest/bugs1101*` 아래(커밋 제외). 커밋·push·stash·reset·브랜치 전환 없음.
+
+### 독립 리뷰 fix_1101b (2026-11-01)
+
+- **범위·판정:** 위 `이번 작업 파일`의 신규 4파일(코드 2 + meta 2), 수정 코드 15파일·문서 5파일에서 이 작업 변경만 검토했다. `Chest.cs`·`InventoryManager.cs`·공유 문서에 섞인 선행 창고 편의 변경은 별도 작업으로 구분했다. 신규 **[필수] 결함 0건**, 런타임·테스트 코드 수정 0파일. null 경로, 입력 단일 소비, 구독/트윈 수명, 프레임별 할당, 장비 모디파이어 출처, HP 차이 적용, 기존 `equipGear` 키·배열 호환을 확인했다. 신규 C# 2파일은 UTF-8 BOM·CRLF(단독 LF 0개)다.
+- **자동 검증:** 전체 EditMode 460/460(실패 0·스킵 0, 7.315초, job `bc84775505c84bd4bef128fcb56ecfae`). 플레이 정지 확인 후 force refresh/compile 요청이 접수됐고, 컴파일 후·플레이·정지 콘솔 오류 각 0. 대상 코드 `git diff --check` 통과. 코드 변경이 없어 새 회귀 테스트는 추가하지 않았다.
+- **입력 재검증:** 별도 Input System 가상 Keyboard로 ESC 기본 22/22 + 상세/제작 선택/게시판 10/10 = **32/32**. 가상 Gamepad 및 실제 게임 UI 경로 추가 검증 **12/12**: Start로 중첩 키 설정만 닫기·다음 Start로 일시정지 닫기, B로 강화 창 닫기·정밀 단조 취소 시 무소모, 착용 무기 +10→+11·장갑 +14→+15. 단조는 `Tick/Hit/Execute` 직접 호출 없이 Z로 시작하고 X 입력 이벤트 3회로 마쳤다. 비용·ES3 저장값·현재 HP 미회복을 확인했다. 고급 성공 RNG만 0으로 고정했으므로 확률 실측은 아니다. 가상 장치·복제 입력 설정·RNG는 종료 때 제거/복원했다.
+- **강화 수치:** 무기 +10→+11 데미지 8~16, ES3 강화 11·결정 5·골드 1,000 차감. 장갑 +14→+15 최대 HP 306→311·현재 HP 306→306, ES3 강화 15·결정 8·골드 6,000 차감. 기존 장비를 착용한 채 진행했다. +12~+14 도달 전체 경로는 이번 직접 플레이에 포함하지 않았다.
+- **자연 회복:** 허기 0에서 실제 대기 종료 후 음식 소비. 스태미너 0→16·허기 100→96, 별도 HP 검증 281→291·허기 100→94. 회복 콜백을 직접 실행하지 않았다. 테스트 재료 과다 지급으로 음식 추가가 거절된 초기 보조 실행은 인벤 공간을 확보한 뒤 재실행했으며, 최종 로그의 추가/소비 성공을 확인했다.
+- **화면·품질 [참고/P2, 미수정]:** 낮 캡처 `forge-Weapon10.png`, `forge-Hand14.png`, `inventory.png`, `chest.png`, `hp-recovered.png` 직접 검토. 새 `[착용]` 목록의 겹침·잘림은 없었다. 기존 TechDebt의 HUD/퀘스트 중첩·우상단 제목 잘림·창고 하단 안내 잘림을 재확인했다. 소박한 장갑·녹슨 검을 그대로 강화하는 흐름은 초반 장비 축적 감각과 맞는다. 정밀 단조의 숫자와 한글 글자 크기가 다르고 안내가 조밀해 읽기 어렵다(`Assets/Script/Item/ForgeHammerView.cs:97`, 기존 코드·이번 diff 밖). 이번 변경에서 유아틱한 새 요소나 과장된 초반 외형은 추가되지 않았다. 캐릭터는 해당 정지 캡처에서 끼임·방향 이상을 관찰하지 않았으며 연속 이동/전투는 미검증이다.
+- **남은 미검증:** 물리 게임패드·OS 실제 키 조작, 빌드 실행, +12~+14 도달 전체 UI 경로, 고급 실패/9점 환불의 이번 직접 플레이, 실패 확률 장시간 실측·장시간 전투 소크. 가상 입력을 물리 장치 검증으로 간주하지 않는다. 같은 에디터의 선행 빌드 요청이 MCP 시간 초과·연결 해제를 일으킨 기록(위 `리뷰 빌드 제한`)이 있어 이번 빌드는 재요청하지 않았다.
+- **종료·세이브:** 최종 `idle`, 슬롯 3·`SaveSlot3.es3` 유지. 시작 전 `Logs/playtest/fix1101b-review-save-backup/` 백업에서 es3 **3/3 원본 MD5 일치** 복원(SaveSlot3 `F1A9AC9E7D4BE9716FB6ED03A0BD2C4F`). 근거 `Logs/playtest/fix1101b-review/save-restore.json`, 입력/회복 텍스트와 낮 PNG. 커밋·push 없음.
+- **커밋 범위:** 위 `이번 작업 파일`의 24파일(신규 4·수정 20) 내 해당 작업 hunk만. 이번 리뷰가 추가 수정한 파일은 `TechDebt.md` 1개다. 특히 창고 선행 변경이 섞인 파일 전체를 일괄 stage하지 않는다. `Tools/probes/fix1101b_review_*`, `bugs1101_*`, 모든 Logs/세이브 백업은 커밋 제외. 기타 씬·폰트·서드파티·렌더링 설정·아트 삭제 등 기존 미커밋 변경은 이번 범위 밖이다.
+### 창고 재개 완료 (2026-11-01)
+
+- B-008/B-014/B-015 창고 경로를 모델 이동·속성별 병합·인벤/창고 동일 Datas 즉시 저장으로 보완. 같은 종류/재료 전부 보관·전체 병합 정렬·꺼낼 수량·용량/가득 참 안내 구현. 창고 페이지 이동의 즉시 저장도 추가했다.
+- 전체 EditMode 460/460(신규 창고 10개 포함), 실패/스킵 0. 플레이 모델·양쪽 디스크 5,521개 비교, 키보드/가상 패드 11/11, 레거시 핸들러/페이지 이동 보조 검사 7/7. 재진입 후 가방 Wood 11 T2 +3·창고 2페이지 녹슨 검 1 T3 +10 유지. 컴파일/최종 플레이 콘솔 오류 0.
+- 낮 캡처로 확인한 창고 하단 겹침은 페이지/커서 84% 배율·66px 안내 영역으로 해소. 수량 실행 버튼은 꺼내기/나누기를 구분한다. 기존 퀘스트 HUD의 인벤 중첩과 상단 디버그 UI는 별도 부채로 유지한다.
+- 미검증: 물리 장치·마우스 hit-test·실제 강제 종료/정전·빌드·장시간 소크. 기존 Item.prefab의 ItemDrag/2D 콜라이더 비활성은 유지하며 레거시 핸들러 보조 검사를 마우스 지원 판정으로 보지 않는다.
+- 플레이 정지 idle·세이브 재개 시작본 3개 원본 복원 후 MD5 3/3 일치, SaveSlot3 원본 MD5 `F1A9AC9E7D4BE9716FB6ED03A0BD2C4F`. 상세/작업 파일/커밋 제외 프로브는 `Docs/Playtest/ChestReview.md`, 증거는 `Logs/playtest/chest-resume/`. 커밋·push 없음.

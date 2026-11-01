@@ -186,6 +186,10 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             {
                 EndDrag();
             }
+            if (InventoryManager.instance != null && InventoryManager.instance.chest != null)
+            {
+                InventoryManager.instance.SaveInventoryAndChest();
+            }
         }
         finally
         {
@@ -455,7 +459,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
                 if (itemB.itemData.equipArea == itemC.itemData.equipArea || equipBox == null)
                 {
-                    if (itemC.name == itemB.name && (itemC.nowStack != itemC.itemData.maxStack && itemB.nowStack != itemB.itemData.maxStack))
+                    if (CanMerge(itemB, itemC))
                     {
 
                         if (itemC.nowStack + itemB.nowStack <= itemC.itemData.maxStack)
@@ -463,6 +467,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                             itemC.nowStack += itemB.nowStack;
                             changeItem.transform.SetParent(changeParent);
                             changeItem.transform.position = changeParent.transform.position;
+                            itemB.transform.SetParent(null, false);
                             Destroy(itemB.gameObject);
                         }
                         else

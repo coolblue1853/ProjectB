@@ -265,6 +265,15 @@ public class InventoryManager : MonoBehaviour
     }
 
     /// <summary>인벤과 (열려 있으면) 창고를 세이브 데이터에 쓰고 디스크에는 한 번만 쓴다 — 둘 사이 이동 뒤 한쪽만 저장되는 복제·소실 방지(B-015)</summary>
+    public void SaveInventoryAndChest(Chest storage)
+    {
+        if (storage != null)
+        {
+            chest = storage;
+        }
+        SaveInventoryAndChest();
+    }
+
     public void SaveInventoryAndChest()
     {
         if (DeferChestSave())
@@ -410,29 +419,17 @@ public class InventoryManager : MonoBehaviour
     public ItemCheck itemCheck;
     void I2CMove()
     {
-        GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-        if (itemBox.transform.childCount > 0)
-        {
-            GameObject item = itemBox.transform.GetChild(0).gameObject;
-            itemCheck = item.transform.GetComponent<ItemCheck>();
+        chest.DepositSelected(SelectedInventoryItem);
+    }
 
-            // 창고에 들어간 수량만큼 인벤 쪽은 모델 명령으로 뺀다(3c-3, 예전엔 창고 코드가 인벤 nowStack 을 직접 깎았다)
-            int count = itemCheck.nowStack;
-            int moved = 0;
-            for (int i = 0; i < count; i++)
-            {
-                if (!chest.CreatItem(itemCheck.name, itemCheck.itemData))
-                {
-                    break; // 창고가 가득 참
-                }
-                moved++;
-            }
-            if (moved > 0 && !Service.RemoveAt(itemCheck, moved))
-            {
-                GameLog.Warn(GameLog.Cat.Item, "창고 이동 후 인벤 차감 실패: " + itemCheck.name + " x" + moved);
-            }
-            // 양쪽을 함께 저장 (한쪽만 저장된 상태로 종료되면 복제·소실, B-015)
-            SaveInventoryAndChest();
+    public bool IsSaveBatchActive => _saveBatchDepth > 0;
+
+    public ItemCheck SelectedInventoryItem
+    {
+        get
+        {
+            GameObject box = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
+            return box != null && box.transform.childCount > 0 ? box.transform.GetChild(0).GetComponent<ItemCheck>() : null;
         }
     }
 
@@ -1303,7 +1300,7 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
-        if (backAction.triggered)
+        if (inventory.activeSelf && (chest == null || !chest.chestOb.activeSelf || state != "InChestMove") && UiLock.TryBack("InvGroup", backAction.triggered))
         {
             CloseCheck();
         }
@@ -1964,11 +1961,20 @@ public class InventoryManager : MonoBehaviour
 
     public bool CreatItem(string itemName, bool isC2I = false, ItemData itemData = null, AddSource source = AddSource.Other)
     {
-        bool placed = Service.Add(itemName, 1, isC2I ? AddSource.Chest : source, itemData);
-        if (placed && isC2I)
+        if (isC2I)
         {
-            chest.itemCheck.nowStack -= 1;
+            if (chest == null || chest.itemCheck == null || chest.itemCheck.itemData == null || chest.itemCheck.itemData.name != itemName)
+            {
+                return false;
+            }
+            int moved = Service.TransferChest(chest, chest.IndexOf(chest.itemCheck), false, 1);
+            if (moved > 0)
+            {
+                SaveInventoryAndChest();
+            }
+            return moved > 0;
         }
+        bool placed = Service.Add(itemName, 1, isC2I ? AddSource.Chest : source, itemData);
         if (!placed)
         {
             GameLog.Info(GameLog.Cat.Item, "인벤토리 가득: " + itemName + " 넣지 못함", this);

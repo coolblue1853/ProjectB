@@ -23,6 +23,7 @@ public class ChestDivideSlider : MonoBehaviour
     float horizontalInput;
 
     public Chest chest;
+    private TextMeshProUGUI _actionLabel;
 
     private void OnEnable()
     {
@@ -65,12 +66,13 @@ public class ChestDivideSlider : MonoBehaviour
     {
         // 슬라이더의 최소값과 최대값 설정
         divideSlider.minValue = 1;
-        divideSlider.maxValue = currentValue-1;
+        divideSlider.maxValue = chest.IsWithdrawQuantity ? currentValue : currentValue - 1;
 
         // 슬라이더의 현재 값 설정
         divideSlider.value = 1;
         output = 1;
         uiTxt.text = output.ToString() + "/" + currentValue.ToString();
+        RefreshActionLabel();
     }
 
     void OnSliderValueChanged(float value)
@@ -82,12 +84,35 @@ public class ChestDivideSlider : MonoBehaviour
     public void ResetData()
     {
         divideSlider.minValue = 1;
-        divideSlider.maxValue = currentValue-1;
+        divideSlider.maxValue = chest.IsWithdrawQuantity ? currentValue : currentValue - 1;
 
         // 슬라이더의 현재 값 설정
         divideSlider.value = 1;
         output = 1;
         uiTxt.text = output.ToString() + "/" + currentValue.ToString();
+        RefreshActionLabel();
+    }
+
+    private void RefreshActionLabel()
+    {
+        if (_actionLabel == null)
+        {
+            foreach (Button button in GetComponentsInChildren<Button>(true))
+            {
+                for (int i = 0; i < button.onClick.GetPersistentEventCount(); i++)
+                {
+                    if (button.onClick.GetPersistentMethodName(i) == nameof(Divide))
+                    {
+                        _actionLabel = button.GetComponentInChildren<TextMeshProUGUI>(true);
+                        break;
+                    }
+                }
+            }
+        }
+        if (_actionLabel != null)
+        {
+            _actionLabel.text = chest.IsWithdrawQuantity ? "꺼내기" : "나누기";
+        }
     }
     public void Divide()
     {

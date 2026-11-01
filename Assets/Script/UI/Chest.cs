@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 using DG.Tweening;
-public class Chest : MonoBehaviour
+public partial class Chest : MonoBehaviour
 {
     public bool deletChest = false;
     public Image cusorImage;
@@ -277,6 +277,7 @@ public class Chest : MonoBehaviour
 
     private void Update()
     {
+        UpdateConvenience();
         if (isChestClose == true&& upAction.triggered && DatabaseManager.isOpenUI == false)
         {
             state = ""; 
@@ -322,7 +323,7 @@ public class Chest : MonoBehaviour
                         }
                     }
                 }
-                if (backAction.triggered)
+                if (UiLock.TryBack("InvGroup", backAction.triggered))
                 {
                     CloseCheck();
                 }
@@ -352,35 +353,14 @@ public class Chest : MonoBehaviour
             }
         }
     }
-    GameObject item;
    public  ItemCheck itemCheck ;
    /// <summary>
-    /// 커서 칸의 창고 아이템을 인벤토리로 옮긴다. 1개씩 넣고, 넣은 만큼만 창고에서 줄인다.
+    /// 커서 칸의 창고 아이템을 모델로 옮기고, 실제 이동한 수량만 창고에서 줄인다.
     /// 인벤토리가 가득 차면 남은 수량은 창고에 그대로 둔다 (이중 차감·공짜 생성 버그 B-008 수정).
     /// </summary>
     void C2IMove()
     {
-        GameObject itemBox = GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]);
-        if (itemBox.transform.childCount == 0)
-        {
-            return;
-        }
-        item = itemBox.transform.GetChild(0).gameObject;
-        itemCheck = item.transform.GetComponent<ItemCheck>();
-        int count = itemCheck.nowStack;
-        for (int i = 0; i < count; i++)
-        {
-            // isC2I: 인벤토리에 실제로 넣었을 때만 chest.itemCheck(=itemCheck)를 1 줄인다
-            if (!InventoryManager.instance.CreatItem(itemCheck.itemData.name, true, itemCheck.itemData.Clone()))
-            {
-                break;
-            }
-        }
-        if (itemCheck.nowStack <= 0)
-        {
-            Destroy(item.gameObject);
-        }
-        SaveChest(); // 인벤토리는 즉시 저장되므로 창고도 같이 저장 (강제 종료 시 복제 방지, B-015)
+        WithdrawSelected(int.MaxValue);
     }
     void OnlyDetailObOff()
     {
@@ -420,13 +400,14 @@ public class Chest : MonoBehaviour
                 afterItemCheck = changeItem.GetComponent<ItemCheck>();
                 beforitem = beforBox.transform.GetChild(0).gameObject;
                 beforeItemCheck = beforitem.GetComponent<ItemCheck>();
-                if (afterItemCheck.itemData.name == beforeItemCheck.itemData.name && (afterItemCheck.nowStack != afterItemCheck.itemData.maxStack && beforeItemCheck.nowStack != beforeItemCheck.itemData.maxStack))
+                if (ViewScanner.Read(afterBox.transform).CanStackWith(ViewScanner.Read(beforBox.transform)) && afterItemCheck.nowStack < afterItemCheck.itemData.maxStack)
                 {
                     isSame = true; // 같다면 가능한 만큼 스택을 합친다.
 
                     if (afterItemCheck.nowStack + beforeItemCheck.nowStack <= afterItemCheck.itemData.maxStack)
                     {
                         afterItemCheck.nowStack += beforeItemCheck.nowStack;
+                        beforitem.transform.SetParent(null, false);
                         Destroy(beforitem);
                     }
                     else
@@ -452,6 +433,7 @@ public class Chest : MonoBehaviour
             cusor.transform.position = insPositon.transform.position;
             changeCusor.SetActive(false);
             state = "";
+            SaveChest();
         }
     }
     void OpenDivide()
@@ -464,6 +446,7 @@ public class Chest : MonoBehaviour
             ItemCheck nowDivideItem = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
             if (nowDivideItem.nowStack > 1)
             {
+                _withdrawQuantity = state == "C2IMove";
                 state = "divide";
                 divideSlider.currentValue = nowDivideItem.nowStack;
                 divideSlider.gameObject.SetActive(true);
@@ -474,12 +457,23 @@ public class Chest : MonoBehaviour
     }
     public void DownNowStack(int output)
     {
-
+        if (_withdrawQuantity)
+        {
+            WithdrawSelected(output);
+            _withdrawQuantity = false;
+            state = "C2IMove";
+            return;
+        }
         GameObject gameObject = (GetNthChildGameObject(inventoryUI[nowBox], cusorCount[nowBox]));
         ItemCheck item = gameObject.transform.GetChild(0).GetComponent<ItemCheck>();
         if (output > 0 && output < item.nowStack && CreatItemSelected(item.itemData.name, nowBox, output, item.itemData))
         {
             item.nowStack -= output; // 새 칸을 만든 경우에만 원본 감소 (B-009)
+            SaveChest();
+        }
+        else if (output > 0 && output < item.nowStack)
+        {
+            PickupLog.Warn("이 페이지가 가득 찼습니다 — 나눌 빈칸이 필요합니다");
         }
     }
     void ChangeCusorChecker()
@@ -655,60 +649,20 @@ public class Chest : MonoBehaviour
         chestOb.SetActive(false);
         InventoryManager.instance.state = "chestOpen";
     }
-    /// <summary>창고 현재 페이지에 1개 넣는다(스택 우선). 넣었으면 true. 인벤 쪽 차감은 호출자가 모델 명령으로 한다(3c-3)</summary>
+    /// <summary>창고 전체 페이지에 1개 넣는다(같은 속성의 스택 우선). 인벤 쪽 차감과 저장은 호출자 책임.</summary>
     public bool CreatItem(string itemName, ItemData data = null)
     {
-        bool isCreate = false;
-        if (CheckStack(itemName))
+        if (!CsvItemCatalog.Shared.Exists(itemName))
         {
-            return true;
+            return false;
         }
-        else
+        SlotContainer model = ScanModel();
+        if (!model.TryAddAll(new ItemStack(itemName, 1, data != null ? data.tear : 0, data != null ? data.upgrade : 0)))
         {
-            for (int i = 0; i < (maxHor * maxVer); i++)
-            {
-                if (maxBoxNum > (nowBox * (maxHor * maxVer)) + i)
-                {
-                    if (inventoryArray[i, nowBox] == 0 && GetNthChildGameObject(inventoryUI[nowBox], i).transform.childCount == 0)
-                    {
-                        GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], i);
-                        GameObject item = Instantiate(itemPrefab, insPositon.transform.position, Quaternion.identity, insPositon.transform);
-                        float scaleFactor = 0.8f; // 크기를 조절할 비율
-                        item.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-                        ItemCheck check = item.GetComponent<ItemCheck>();
-                        check.SetItem(itemName, data != null ? data.Clone() : null);
-                        inventoryArray[i, nowBox] = 1; // 같은 프레임에 같은 칸에 또 생성되지 않도록
-                        isCreate = true;
-                        break;
-                    }
-                }
-            }
+            return false;
         }
-        return isCreate;
-    }
-    bool CheckStack(string itemName, int stack =1)
-    {
-        for (int i = 0; i < (maxHor * maxVer); i++)
-        {
-            if (maxBoxNum > (nowBox * (maxHor * maxVer)) + i)
-            {
-                GameObject insPositon = GetNthChildGameObject(inventoryUI[nowBox], i);
-                if (insPositon.transform.childCount > 0)
-                {
-                    GameObject item = insPositon.transform.GetChild(0).gameObject;
-                    ItemCheck check = item.GetComponent<ItemCheck>();
-                    if (check.itemData.name == itemName)
-                    {
-                        if (check.itemData.maxStack > check.nowStack)
-                        {
-                            check.nowStack += stack;
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
+        ApplyModel(model);
+        return true;
     }
     GameObject GetNthChildGameObject(GameObject parent, int n)
     {
@@ -906,7 +860,8 @@ public class Chest : MonoBehaviour
     public void CloseDivide()
     {
         divideSlider.gameObject.SetActive(false);
-        state = "";
+        state = _withdrawQuantity ? "C2IMove" : "";
+        _withdrawQuantity = false;
     }
     public bool CheckBoxCanCreat()
     {
@@ -964,11 +919,17 @@ public class Chest : MonoBehaviour
             {
                 if (CreatItemSelected(itemCheck.itemData.name, siblingParentIndex, itemCheck.nowStack, itemCheck.itemData))
                 {
+                    item.transform.SetParent(null, false);
                     Destroy(item.gameObject);
+                    SaveChest();
                 }
                 cusorCount[nowBox] = beforeCusorInt;
                 changeCusor.SetActive(false);
                 state = "";
+            }
+            else
+            {
+                PickupLog.Warn("이 창고 페이지가 가득 찼습니다");
             }
         }
     }

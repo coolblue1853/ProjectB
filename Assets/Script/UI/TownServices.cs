@@ -45,7 +45,7 @@ public sealed class TownServices : MonoBehaviour
             {
                 chest.transform.SetParent(town, true);
                 chest.transform.position += Vector3.right * (-413.2f - chest.transform.position.x);
-                Label(chest.transform, "마을 창고", "↑ 보관·꺼내기");
+                Label(chest.transform, "마을 창고", "↑ 보관·꺼내기 / T 재료 보관");
                 break;
             }
         }

@@ -120,6 +120,40 @@ public sealed class InventoryService
         ApplyDirty(null);
     }
 
+    /// <summary>양쪽 모델의 이동을 먼저 끝낸 뒤 뷰에 반영한다. 디스크 저장은 호출자가 양쪽을 한 번에 한다.</summary>
+    public int TransferChest(Chest chest, int index, bool deposit, int amount)
+    {
+        SyncModelFromViews();
+        SlotContainer storage = chest.ScanModel();
+        ItemStack source = deposit ? (index >= 0 && index < model.Unlocked ? model[index] : ItemStack.Empty) :
+            (index >= 0 && index < storage.Unlocked ? storage[index] : ItemStack.Empty);
+        int moved = deposit ? SlotContainer.Transfer(model, index, storage, amount) :
+            SlotContainer.Transfer(storage, index, model, amount);
+        if (moved > 0)
+        {
+            ApplyDirty(null);
+            chest.ApplyModel(storage);
+            if (!deposit)
+            {
+                OnItemAdded?.Invoke(source.WithCount(moved), AddSource.Chest);
+            }
+        }
+        return moved;
+    }
+
+    public int DepositChest(Chest chest, string id = null)
+    {
+        SyncModelFromViews();
+        SlotContainer storage = chest.ScanModel();
+        int moved = ChestTransferRules.Deposit(model, storage, CsvItemCatalog.Shared, id);
+        if (moved > 0)
+        {
+            ApplyDirty(null);
+            chest.ApplyModel(storage);
+        }
+        return moved;
+    }
+
     /// <summary>앞 칸부터 count 만큼 지운다. 모자라면 아무것도 지우지 않고 false</summary>
     public bool Remove(string id, int count)
     {

@@ -237,7 +237,7 @@ public sealed class SlotContainer
     /// <summary>src 칸에서 dst 로 최대 amount 옮기고, 실제로 옮긴 수량만 원본에서 차감한다(B-006/008). 티어·강화 보존(B-014)</summary>
     public static int Transfer(SlotContainer src, int index, SlotContainer dst, int amount)
     {
-        if (!src.InRange(index) || src.slots[index].IsEmpty || amount <= 0)
+        if (src == null || dst == null || ReferenceEquals(src, dst) || !src.InRange(index) || src.slots[index].IsEmpty || amount <= 0)
         {
             return 0;
         }
