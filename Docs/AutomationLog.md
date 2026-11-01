@@ -1,4 +1,4 @@
-# 자동 실행 로그
+﻿# 자동 실행 로그
 
 예약 작업 `projectb-auto-improve`가 실행될 때마다 한 줄씩 추가한다.
 주간 사용량 %는 `get_usage`의 "Weekly · all models" 값이다. 리셋은 **매주 일요일 21:00 (KST)** 이다.
@@ -79,3 +79,5 @@
 - **Claude 상한(10-31 밤):** Codex 가 막힌 동안 Claude 는 가볍게 일하되 주간 95% 에서 멈춘다. 남은 약 4% 는 11-01 낮 1시간 테스트 대응용(Claude 리셋은 11-01 21:00).
 - **11-01:** 사용자가 Claude 상한을 주간 **100%** 로 올림. 95% 정지 규칙 해제. 1시간 테스트는 19:00로 미룸 — 그때까지 Claude 100% 써서 준비(Claude 리셋 21:00).
 - **사고(11-01 0시):** TaskStop 은 바깥 셸만 멈추고 안쪽 `queue_wait.sh`·`resume*.sh` 가 고아로 남았다 → 큐 3개가 동시에 Codex 를 돌려 40분에 주간 16→47%. 큐를 바꿀 때는 `ps -ef | grep -E "queue_wait|resume|run.sh"` 로 고아까지 확인해 kill 한다.
+
+- 11-01 14:50 Claude 94%: 포털 검정 암전·배너 쿨다운·자원 재배치(bfdddb91), 암전 프레임 대기(6d88b94e). Codex 리허설 3차(`Logs/codex/rehearsal3.md`)를 5시간 창 리셋(약 16:20) 뒤 자동 실행하도록 큐(queue_wait.sh)에 걸어 둠 — 그동안 Unity 사용 금지.
