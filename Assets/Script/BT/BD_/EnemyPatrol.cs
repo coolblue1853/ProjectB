@@ -68,10 +68,13 @@ public class EnemyPatrol : EnemyAction
         }
     }
 
+    /// <summary>순찰 속도 × 임시 몹 이동 배율(slow). 돌진의 일시 정지는 순찰에 쓰지 않는다(0 나눗셈 방지)</summary>
+    private float PatrolSpeed => desiredSpeed * Mathf.Max(0.1f, enemyHealth != null && enemyHealth.MoveSpeedMul > 0f ? enemyHealth.MoveSpeedMul : 1f);
+
     private void MoveToOrigin()
     {
         float distanceToMove = Mathf.Abs(enemyObject.transform.position.x - originPosition.x);
-        float moveDuration = distanceToMove / desiredSpeed;
+        float moveDuration = distanceToMove / PatrolSpeed;
 
         bt.sequence = DOTween.Sequence()
             .Append(enemyObject.transform.DOMoveX(originPosition.x, moveDuration).SetEase(Ease.Linear))
@@ -82,7 +85,7 @@ public class EnemyPatrol : EnemyAction
     private void MoveToNewPoint()
     {
         float distanceToMove = Mathf.Abs(movePoint);
-        float moveDuration = distanceToMove / desiredSpeed;
+        float moveDuration = distanceToMove / PatrolSpeed;
 
         bt.sequence = DOTween.Sequence()
             .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + movePoint, moveDuration).SetEase(Ease.Linear))

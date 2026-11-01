@@ -39,6 +39,7 @@ Unity 에디터는 이미 켜져 있고 unity-mcp 로 조작한다.
 2. 컴파일 전 `bash Tools/u.sh cs Tools/probes/is_playing.cs` → playing 이면 먼저 플레이 정지(플레이 중 C# 컴파일 금지, 전례: 에디터 멈춤). 그다음 `bash Tools/u.sh call refresh_unity '{}'` 로 컴파일 → `bash Tools/u.sh call read_console '{"types":["error"]}'` 에러 0.
 3. EditMode 테스트 전체 통과(`run_tests`). 새 규칙 로직에는 테스트를 추가한다(`Assets/Editor/Tests/`).
 4. 플레이 확인은 프로브(`Tools/probes/*.cs`, `bash Tools/u.sh cs <파일>`)로 숫자를 찍는다. 화면 확인은 낮 시간대로 바꾼 뒤 스크린샷을 `Logs/playtest/` 에.
+   - **최종 수정은 직접 플레이로 찍어서 눈으로 검토(11-01 사용자):** 바뀐 장면을 플레이 모드에서 스크린샷 또는 연속 캡처(DOVirtual.DelayedCall + ScreenCapture.CaptureScreenshot 0.1초 간격 → 프레임 시트·GIF)로 남기고, 이상한 부분(겹침·끼임·튐·잘림·방향)이 없는지 보고에 적는다.
 5. 끝나면 플레이 정지, 세이브 파일을 백업본으로 복원(md5 확인).
 
 ## 보고 형식 (마지막 메시지)

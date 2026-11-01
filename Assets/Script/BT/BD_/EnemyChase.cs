@@ -41,7 +41,8 @@ public class EnemyChase : EnemyAction
                 ChangeFace();
             }
             Vector3 p = enemyObject.transform.position;
-            p.x += direction * chaseSpeed * Time.deltaTime;
+            float mul = enemyHealth != null ? enemyHealth.MoveSpeedMul : 1f; // 임시 몹 특성(느림·돌진 중 정지)
+            p.x += direction * chaseSpeed * mul * Time.deltaTime;
             enemyObject.transform.position = p;
         }
         return isEnd ? TaskStatus.Success : TaskStatus.Running;

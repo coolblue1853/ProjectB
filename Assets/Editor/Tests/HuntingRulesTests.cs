@@ -43,11 +43,49 @@ public class HuntingRulesTests
             Assert.AreEqual(level, enemy.Level);
             Assert.AreEqual(spore, go.GetComponent<SporeCloud>() != null);
             Assert.IsNotNull(NpcQuestCatalog.All.FirstOrDefault(q => q.Target == profile), profile);
+            // 11-01 전용 행동: 딱정벌레 느림·무거움, 여우 돌진, 두꺼비 낮은 도약
+            Assert.AreEqual(profile == "MossShellBeetle_BD" ? TempMobTraits.SlowMoveMul : 1f, enemy.MoveSpeedMul);
+            Assert.AreEqual(profile == "MossShellBeetle_BD" ? TempMobTraits.HeavyKnockbackMul : 1f, enemy.KnockbackMul);
+            Assert.AreEqual(profile == "SporeBackToad_BD" ? TempMobTraits.LowHopMul : 1f, enemy.JumpMul);
+            Assert.AreEqual(profile == "BranchAntlerFox_BD", go.GetComponent<TempMobDash>() != null);
         }
         finally
         {
             UnityEngine.Object.DestroyImmediate(go);
         }
+    }
+
+    [Test]
+    public void HostMobsWithoutProfile_KeepNormalMovement()
+    {
+        var go = new GameObject("CliffGoblin_BD(Clone)");
+        go.SetActive(false);
+        try
+        {
+            var enemy = go.AddComponent<EnemyHealth>();
+            Assert.AreEqual(1f, enemy.MoveSpeedMul);
+            Assert.AreEqual(1f, enemy.KnockbackMul);
+            Assert.AreEqual(1f, enemy.JumpMul);
+            Assert.IsNull(go.GetComponent<TempMobDash>());
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(go);
+        }
+    }
+
+    [Test]
+    public void TempMobTraits_ParseAndDashRange()
+    {
+        Assert.IsTrue(TempMobTraits.Has("spore|lowhop", "lowhop"));
+        Assert.IsFalse(TempMobTraits.Has("spore", "dash"));
+        Assert.IsFalse(TempMobTraits.Has("", "dash"));
+        Assert.IsTrue(TempMobTraits.DashInRange(-3f, 0.5f));
+        Assert.IsFalse(TempMobTraits.DashInRange(1.5f, 0f));   // 너무 가까움(몸박 거리)
+        Assert.IsFalse(TempMobTraits.DashInRange(6f, 0f));     // 너무 멂
+        Assert.IsTrue(TempMobTraits.DashInRange(2.2f, 0f));
+        Assert.IsFalse(TempMobTraits.DashInRange(3f, 2f));     // 다른 발판
+        Assert.AreEqual(3f, TempMobTraits.DashSpeed * TempMobTraits.DashTime, 0.01f);
     }
 
     [Test]

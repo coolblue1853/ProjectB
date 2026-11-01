@@ -89,7 +89,10 @@ public sealed class TempMobMotion : MonoBehaviour
 {
     const float BreathAmp = 0.035f, BreathSpeed = 3.2f, MaxTilt = 7f, TiltPerSpeed = 3f, TiltSmooth = 12f;
 
+    const float CrouchSquash = 0.18f; // 여우 돌진 전 웅크림: 키를 18% 낮춘다
+
     EnemyHealth _enemy;
+    TempMobDash _dash;
     float _breath = 1f, _tilt, _lastX, _phase;
     bool _hasLast;
 
@@ -101,6 +104,7 @@ public sealed class TempMobMotion : MonoBehaviour
 
     void OnEnable()
     {
+        _dash = GetComponent<TempMobDash>(); // 돌진 특성은 이 컴포넌트보다 늦게 붙으므로 풀에서 꺼낼 때마다 찾는다
         _hasLast = false;
         _breath = 1f;
         _tilt = 0f;
@@ -134,6 +138,10 @@ public sealed class TempMobMotion : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, _tilt);
 
         float f = _enemy != null && _enemy.IsElite ? 1f : 1f + BreathAmp * Mathf.Sin(Time.time * BreathSpeed + _phase);
+        if (_dash != null)
+        {
+            f *= 1f - CrouchSquash * _dash.CrouchAmount;
+        }
         Vector3 s = transform.localScale;
         s.y = s.y / _breath * f;
         transform.localScale = s;

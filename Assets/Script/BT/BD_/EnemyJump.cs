@@ -24,7 +24,7 @@ public class EnemyJump : EnemyAction
     public void StartJump()
     {
         // 수직 점프 힘 설정
-        body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
+        body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce * (enemyHealth != null ? enemyHealth.JumpMul : 1f));
 
         // x 방향 점프 힘 설정
         float cSize = enemyObject.transform.localScale.x;

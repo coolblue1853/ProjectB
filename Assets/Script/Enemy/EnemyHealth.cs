@@ -148,11 +148,29 @@ public class EnemyHealth : PoolAble
         {
             TempMobVisual.Apply(this, row);
         }
-        if (row.trait == "spore" && !TryGetComponent(out SporeCloud _))
+        if (TempMobTraits.Has(row.trait, "spore") && !TryGetComponent(out SporeCloud _))
         {
             gameObject.AddComponent<SporeCloud>();
         }
+        _moveMul = TempMobTraits.MoveMul(row.trait);
+        _knockbackMul = TempMobTraits.KnockbackMul(row.trait);
+        _jumpMul = TempMobTraits.JumpMul(row.trait);
+        if (TempMobTraits.Has(row.trait, "dash") && !TryGetComponent(out _dash))
+        {
+            _dash = gameObject.AddComponent<TempMobDash>();
+        }
     }
+
+    // 0 = 프로필 없음(1배). 필드 초기값에 기대지 않는다(에디터에서 만든 컴포넌트는 0으로 시작한 사례, 11-01 테스트)
+    float _moveMul, _knockbackMul, _jumpMul;
+    TempMobDash _dash;
+
+    /// <summary>추적·순찰 이동 배율(임시 몹 특성 slow·dash). 기존 몹은 1</summary>
+    public float MoveSpeedMul => (_moveMul > 0f ? _moveMul : 1f) * (_dash != null ? _dash.ChaseMul : 1f);
+    /// <summary>넉백 힘 배율(heavy 0.5). 기존 몹은 1</summary>
+    public float KnockbackMul => _knockbackMul > 0f ? _knockbackMul : 1f;
+    /// <summary>BT 도약 높이 배율(lowhop 0.8). 기존 몹은 1</summary>
+    public float JumpMul => _jumpMul > 0f ? _jumpMul : 1f;
     int _contactBase;
     float _enabledAt;
     const float SpawnGraceTime = 0.3f;
@@ -500,7 +518,7 @@ public class EnemyHealth : PoolAble
                 knockbackDir.x = -knockbackDir.x;
             }
             // 힘을 가해 넉백을 적용
-            rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
+            rb.AddForce(knockbackDir.normalized * knockbackForce * KnockbackMul, ForceMode2D.Impulse);
             //    transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
             Vector2 currentVelocity = rb.linearVelocity;
 
