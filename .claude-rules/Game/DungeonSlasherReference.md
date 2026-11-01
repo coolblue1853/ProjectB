@@ -85,3 +85,4 @@
 - 굽기: 메뉴 `Tools/ProjectB/Pixel Rig/Build Adventurer DS`(프로브 `Tools/probes/build_ds.cs`). 프리팹 `_celArtWeapon = true` → 무기 스프라이트 숨김, 장비 레이어 합성 안 함, 리그 모션 스미어·무기 기본 스미어 안 띄움(`CharacterRig.ArtOwnsWeapon`), 걷기 시작 프레임 0. 되돌리기 = `Build Adventurer`.
 - 플레이 확인(11-01, 낮, `Logs/playtest/rig_act_{walk,run,jump,combo3,hurt,death,rope}.png`, `ds_game_idle.png`): 발이 땅에 붙고 무기 겹침 없음, 3타 찌르기→내려베기→올려베기, 피격 흰 번쩍·깜빡임, 사망 무릎→엎드림, 로프 등 보고 오르기·멈춤 정상. 사망 컷에 흰 칼 모양이 잠깐 보이는데 플레이어 스프라이트가 아니다(근처 SpriteRenderer 는 셀 1개뿐) — 사망 연출 쪽, 미확인.
 - 남은 흠: 크기 56px(예전 48px)라 판정 박스보다 조금 크다 / 무기 종류가 겉모습에 안 드러남 / 장비 외형 없음 / 대시·변신·직업 셀 없음(1층계엔 안 씀).
+- 2차(11-01, 1시간 테스트 순서): 공중 평타 3종(airstab 6521·airdown 6522·airup 6523 — 첫 프레임 = 점프 꼭대기 `jump?index=3`, 다리 접음 유지) → 점프 중 시작한 공격은 `Air`+셀 이름(`PixelRig._airAttack`). 녹슨 검 스킬 수평 베기 sweep 6524(옆베기 묶음 교체). 연속 찌르기 새 시도 flurry2 6525는 웅크린 자세·정면 돎이라 기각. StabEnd·SwingDownEnd 는 마지막 1장으로(전체 재생 반복 방지). 확인: `Logs/playtest/rig_act_airattack.png`.

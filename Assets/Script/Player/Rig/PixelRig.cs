@@ -34,6 +34,7 @@ public class PixelRig : CharacterRig
     [SerializeField] private SpriteRenderer _cel;
     [SerializeField] private SpriteRenderer _celFist; // 무기 위 주먹(정렬 = 앞 무기 + 1)
     [SerializeField] private CelClip[] _celClips = new CelClip[0];
+    private bool _airAttack; // 공중에서 시작한 공격 — CelDS 는 "Air"+셀 이름(다리 접은 그림)이 있으면 그걸로
     [SerializeField] private bool _celArtWeapon; // 셀 그림에 칼·궤적이 그려져 있다(CelDS) — 무기 스프라이트·장비 레이어·기본 스미어를 쓰지 않는다
 
     private const string WeaponDir = "PixelRig/Weapons/";
@@ -215,6 +216,8 @@ public class PixelRig : CharacterRig
             _tookOff = false;
         }
         bool toGround = anim == "Idle" || anim == "Walk" || anim == "Run";
+        bool airborne = _requested == "Jump" || (_airAttack && _body != null && Mathf.Abs(_body.linearVelocity.y) > 0.01f);
+        _airAttack = _celArtWeapon && airborne && !toGround && anim != "Jump" && !anim.StartsWith("Rope", StringComparison.Ordinal);
         _endCel = null;
         if (toGround && _current != null && _diedAt < 0f && _celByName != null
             && _celByName.TryGetValue(CelKey(_current.name, _requested, _variant) + "End", out CelClip end))
@@ -545,6 +548,10 @@ public class PixelRig : CharacterRig
             if (_diedAt < 0f && _requestOverride != null)
             {
                 key = _requestOverride;
+            }
+            if (_airAttack && _diedAt < 0f && c == _current && _celByName.ContainsKey("Air" + key))
+            {
+                key = "Air" + key;
             }
             _celByName.TryGetValue(key, out cel);
         }

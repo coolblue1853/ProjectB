@@ -2566,12 +2566,12 @@
   ]
  },
  "StabEnd": {
-  "frame": 0.083,
+  "frame": 0.08,
   "loop": false,
-  "strike": 1,
+  "strike": -1,
   "frames": [
    {
-    "png": "ds_stab_0",
+    "png": "ds_stabend_0",
     "hand": [
      40,
      42
@@ -2580,57 +2580,18 @@
      26,
      42
     ],
-    "time": 0.07,
-    "angle": -999.0
-   },
-   {
-    "png": "ds_stab_1",
-    "hand": [
-     40,
-     42
-    ],
-    "handB": [
-     26,
-     42
-    ],
-    "time": 0.06,
-    "angle": -999.0
-   },
-   {
-    "png": "ds_stab_2",
-    "hand": [
-     40,
-     42
-    ],
-    "handB": [
-     26,
-     42
-    ],
-    "time": 0.09,
-    "angle": -999.0
-   },
-   {
-    "png": "ds_stab_3",
-    "hand": [
-     40,
-     42
-    ],
-    "handB": [
-     26,
-     42
-    ],
-    "time": 0.1,
+    "time": 0.0,
     "angle": -999.0
    }
   ]
  },
  "SwingDownEnd": {
-  "frame": 0.083,
+  "frame": 0.08,
   "loop": false,
-  "strike": 2,
+  "strike": -1,
   "frames": [
    {
-    "png": "ds_down_0",
+    "png": "ds_downend_0",
     "hand": [
      40,
      42
@@ -2639,46 +2600,7 @@
      26,
      42
     ],
-    "time": 0.07,
-    "angle": -999.0
-   },
-   {
-    "png": "ds_down_1",
-    "hand": [
-     40,
-     42
-    ],
-    "handB": [
-     26,
-     42
-    ],
-    "time": 0.06,
-    "angle": -999.0
-   },
-   {
-    "png": "ds_down_2",
-    "hand": [
-     40,
-     42
-    ],
-    "handB": [
-     26,
-     42
-    ],
-    "time": 0.09,
-    "angle": -999.0
-   },
-   {
-    "png": "ds_down_3",
-    "hand": [
-     40,
-     42
-    ],
-    "handB": [
-     26,
-     42
-    ],
-    "time": 0.1,
+    "time": 0.0,
     "angle": -999.0
    }
   ]
@@ -3966,6 +3888,360 @@
    },
    {
     "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "AirStab": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_airstab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airstab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airstab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airstab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "AirSwingDown": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_airdown_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "AirSwingUp": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_airup_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airup_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airup_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airup_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "AirGreatDown": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_airdown_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "AirGreatSide": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_airdown_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "AirGreatSideOne": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_airdown_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_airdown_3",
     "hand": [
      40,
      42

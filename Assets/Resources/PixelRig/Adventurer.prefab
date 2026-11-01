@@ -2480,95 +2480,47 @@ MonoBehaviour:
     - -999
     strike: -1
   - name: StabEnd
-    frame: 0.083
+    frame: 0.08
     loop: 0
     sprites:
-    - {fileID: 21300000, guid: b001c7b62177b0e49bd10e2a181a805a, type: 3}
-    - {fileID: 21300000, guid: 3df1308743a001c45b05fe9b9148d953, type: 3}
-    - {fileID: 21300000, guid: 3a187b37157a6c84fb8e3f0615319c97, type: 3}
-    - {fileID: 21300000, guid: c298675cf14573545af50680e82af130, type: 3}
+    - {fileID: 21300000, guid: 1dd9a9a8d7798c94484ce2fe7264214d, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
     - {fileID: 0}
     hand:
     - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
     handB:
     - {x: -0.15277778, y: 0.5138889}
-    - {x: -0.15277778, y: 0.5138889}
-    - {x: -0.15277778, y: 0.5138889}
-    - {x: -0.15277778, y: 0.5138889}
     times:
-    - 0.07
-    - 0.06
-    - 0.09
-    - 0.1
-    behind: 00000000
+    - 0
+    behind: 00
     anglesB:
-    - -999
-    - -999
-    - -999
     - -999
     weaponLen:
     - 1
-    - 1
-    - 1
-    - 1
     angles:
     - -999
-    - -999
-    - -999
-    - -999
-    strike: 1
+    strike: -1
   - name: SwingDownEnd
-    frame: 0.083
+    frame: 0.08
     loop: 0
     sprites:
-    - {fileID: 21300000, guid: 337cdaf917146cc419c04fabc07ab745, type: 3}
-    - {fileID: 21300000, guid: d54b788c599b03b439e59486c25642ff, type: 3}
-    - {fileID: 21300000, guid: c4b2a12bb0ababd42a767eb9d27aea8c, type: 3}
-    - {fileID: 21300000, guid: e78b59e4282c11c4e922752cd8b57126, type: 3}
+    - {fileID: 21300000, guid: 04ff7db7c7674d642b8e5e57212d80d8, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
     - {fileID: 0}
     hand:
     - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
     handB:
     - {x: -0.15277778, y: 0.5138889}
-    - {x: -0.15277778, y: 0.5138889}
-    - {x: -0.15277778, y: 0.5138889}
-    - {x: -0.15277778, y: 0.5138889}
     times:
-    - 0.07
-    - 0.06
-    - 0.09
-    - 0.1
-    behind: 00000000
+    - 0
+    behind: 00
     anglesB:
-    - -999
-    - -999
-    - -999
     - -999
     weaponLen:
     - 1
-    - 1
-    - 1
-    - 1
     angles:
     - -999
-    - -999
-    - -999
-    - -999
-    strike: 2
+    strike: -1
   - name: Bow
     frame: 0.083
     loop: 0
@@ -3486,6 +3438,276 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 3df1308743a001c45b05fe9b9148d953, type: 3}
     - {fileID: 21300000, guid: 3a187b37157a6c84fb8e3f0615319c97, type: 3}
     - {fileID: 21300000, guid: c298675cf14573545af50680e82af130, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.07
+    - 0.06
+    - 0.09
+    - 0.1
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 1
+  - name: AirStab
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 68b20d134b85fdc41acb6f6f33647288, type: 3}
+    - {fileID: 21300000, guid: 7a42e6858952a494e8e1584cc3889c6d, type: 3}
+    - {fileID: 21300000, guid: 5bcf3720752a8424b88d138adbba1e20, type: 3}
+    - {fileID: 21300000, guid: 5703edfd9b0a3ce498573c47e9c3ae56, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.07
+    - 0.06
+    - 0.09
+    - 0.1
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 1
+  - name: AirSwingDown
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: c258135b93b25d142a1a3ab60f93677b, type: 3}
+    - {fileID: 21300000, guid: 1cc79e650b861c740ac15035f5f59ba2, type: 3}
+    - {fileID: 21300000, guid: a008d139d2374144590c6b508e63b041, type: 3}
+    - {fileID: 21300000, guid: d2199b1c7c219cb449736ec1cb79afee, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.07
+    - 0.06
+    - 0.09
+    - 0.1
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 1
+  - name: AirSwingUp
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: b9501875b6352ab4698400356a0ff546, type: 3}
+    - {fileID: 21300000, guid: 7ae8fc0cfc6b612459f60a560dbab8fb, type: 3}
+    - {fileID: 21300000, guid: 52464c653bdffca468dd0d2dbb1f9d96, type: 3}
+    - {fileID: 21300000, guid: 1546af3bf541be54f8ac012b782110f5, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.07
+    - 0.06
+    - 0.09
+    - 0.1
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 1
+  - name: AirGreatDown
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: c258135b93b25d142a1a3ab60f93677b, type: 3}
+    - {fileID: 21300000, guid: 1cc79e650b861c740ac15035f5f59ba2, type: 3}
+    - {fileID: 21300000, guid: a008d139d2374144590c6b508e63b041, type: 3}
+    - {fileID: 21300000, guid: d2199b1c7c219cb449736ec1cb79afee, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.07
+    - 0.06
+    - 0.09
+    - 0.1
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 1
+  - name: AirGreatSide
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: c258135b93b25d142a1a3ab60f93677b, type: 3}
+    - {fileID: 21300000, guid: 1cc79e650b861c740ac15035f5f59ba2, type: 3}
+    - {fileID: 21300000, guid: a008d139d2374144590c6b508e63b041, type: 3}
+    - {fileID: 21300000, guid: d2199b1c7c219cb449736ec1cb79afee, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.07
+    - 0.06
+    - 0.09
+    - 0.1
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 1
+  - name: AirGreatSideOne
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: c258135b93b25d142a1a3ab60f93677b, type: 3}
+    - {fileID: 21300000, guid: 1cc79e650b861c740ac15035f5f59ba2, type: 3}
+    - {fileID: 21300000, guid: a008d139d2374144590c6b508e63b041, type: 3}
+    - {fileID: 21300000, guid: d2199b1c7c219cb449736ec1cb79afee, type: 3}
     fists:
     - {fileID: 0}
     - {fileID: 0}

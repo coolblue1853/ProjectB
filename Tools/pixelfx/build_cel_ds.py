@@ -30,7 +30,12 @@ SETS = {
     "stab": ("motions/stab", [1, 2, 3, 4]),
     "down": ("motions/down", [1, 2, 3, 4]),
     "up": ("motions/up", [1, 2, 3, 4]),
-    "side": ("motions/atk2", [1, 2, 3, 7]),
+    "side": ("motions/sweep", [1, 2, 3, 4]),  # 11-01 수평 베기 새로(예전 atk2 1·2·3·7 은 7번이 어색)
+    "stabend": ("motions/stab", [3]),  # 공격 끝 → 땅 동작 전환 1장(예전 StabEnd 처럼 전체를 다시 틀지 않게)
+    "downend": ("motions/down", [3]),
+    "airstab": ("motions/airstab", [1, 2, 3, 4]),  # 공중 평타(점프 꼭대기 프레임에서 시작, 다리 접음)
+    "airdown": ("motions/airdown", [1, 2, 3, 4]),
+    "airup": ("motions/airup", [1, 2, 3, 4]),
     "flurry": ("motions/flurry", range(1, 8)),
     "cross": ("motions/cross", [1, 2, 3, 4, 8]),
     "charge": ("motions/charge", range(1, 8)),
@@ -57,6 +62,11 @@ PLAY = {
     "cross": (0.083, False, [0.07, 0.06, 0.09, 0.09, 0.1], 2),
     "charge": (0.083, False, None, 3),
     "rope": (0.1, True, None, -1),
+    "stabend": (0.08, False, None, -1),
+    "downend": (0.08, False, None, -1),
+    "airstab": (0.083, False, ATK, 1),
+    "airdown": (0.083, False, ATK, 1),
+    "airup": (0.083, False, ATK, 1),
     "ropestay": (0.1, True, None, -1),
 }
 
@@ -68,11 +78,13 @@ CLIPS = {
     "DaggerFlurry": "flurry", "DaggerCross": "cross", "AirSlash": "down", "Lunge": "stab", "Spin": "side",
     "Cast": "charge", "Throw": "stab", "Guard": "idle", "Charge": "charge", "LeapSlam": "down", "Backstep": "hurt",
     "Punch": "flurry", "Iaido": "side", "ShoulderAim": "stab", "Raise": "up", "Knockdown": "death", "Place": "crouch",
-    "Kick": "stab", "Grab": "stab", "Ride": "idle", "StabEnd": "stab", "SwingDownEnd": "down", "Bow": "stab",
+    "Kick": "stab", "Grab": "stab", "Ride": "idle", "StabEnd": "stabend", "SwingDownEnd": "downend", "Bow": "stab",
     "GreatSideOne": "side", "ShieldBash": "stab", "Slam": "down", "Pull": "flurry", "LowSweep": "down",
     "GreatUpper": "up", "DashSlash": "side", "WhipSnap": "down", "Roundhouse": "side", "DualPistol": "stab",
     "Rifle": "stab", "SwordPistol": "stab", "Sheathe": "idle", "Victory": "charge", "Dance": "idle", "Lute": "idle",
     "PalmBlast": "stab",
+    "AirStab": "airstab", "AirSwingDown": "airdown", "AirSwingUp": "airup", "AirGreatDown": "airdown", "AirGreatSide": "airdown",
+    "AirGreatSideOne": "airdown",
 }
 
 
