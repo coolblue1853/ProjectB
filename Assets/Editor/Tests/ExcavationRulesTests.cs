@@ -198,4 +198,14 @@ public class ExcavationRulesTests
     {
         s.Move(index % s.Size - s.Cursor % s.Size, index / s.Size - s.Cursor / s.Size);
     }
+
+    [Test]
+    public void PityRecord_OnlyWhenRelicDugWithoutRecordAndNotComplete()
+    {
+        Assert.IsTrue(ExcavationRules.PityRecord(false, 1, 0, 5));
+        Assert.IsFalse(ExcavationRules.PityRecord(true, 1, 0, 5));   // 이미 이번 판에 기록
+        Assert.IsFalse(ExcavationRules.PityRecord(false, 0, 0, 5));  // 유물 0개(빈 판·중단)
+        Assert.IsFalse(ExcavationRules.PityRecord(false, 3, 31, 5)); // 5편 다 모음
+        Assert.IsTrue(ExcavationRules.PityRecord(false, 2, 15, 5));
+    }
 }

@@ -124,7 +124,36 @@ public class ExcavationSite : MiniGameSpot
 
     protected override void OnResult()
     {
+        GrantPityRecord();
         StartCooldownIfUsed();
+    }
+
+    /// <summary>유물을 캤는데 기록이 안 나온 판이면 못 모은 기록 1편(ExcavationRules.PityRecord)</summary>
+    private void GrantPityRecord()
+    {
+        if (Session == null)
+        {
+            return;
+        }
+        int mask = FathersRecords.LoadMask();
+        if (!ExcavationRules.PityRecord(RecordFound >= 0, Session.RelicsFound, mask, FathersRecords.All.Length))
+        {
+            return;
+        }
+        int index = ExcavationRules.PickRecord(mask, FathersRecords.All.Length, RandomValue());
+        if (index < 0)
+        {
+            return;
+        }
+        UnlockRecord(index);
+    }
+
+    private void UnlockRecord(int index)
+    {
+        FathersRecords.Unlock(index);
+        RecordFound = index;
+        PickupLog.Report(Loc.T("Father's Record") + " " + (index + 1), 1, ItemRarity.U.ToString());
+        GameLog.Info(GameLog.Cat.Item, "Excavation: father's record " + (index + 1));
     }
 
     /// <summary>쿨타임 즉시 해제(프로브용)</summary>
@@ -151,10 +180,7 @@ public class ExcavationSite : MiniGameSpot
                 GiveReward(ExcavationRules.RecordFallbackId, 1, AddSource.Excavation, ItemRarity.R);
                 continue;
             }
-            FathersRecords.Unlock(index);
-            RecordFound = index;
-            PickupLog.Report(Loc.T("Father's Record") + " " + (index + 1), 1, ItemRarity.U.ToString());
-            GameLog.Info(GameLog.Cat.Item, "Excavation: father's record " + (index + 1));
+            UnlockRecord(index);
         }
     }
 

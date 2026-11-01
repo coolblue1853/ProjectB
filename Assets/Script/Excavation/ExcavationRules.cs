@@ -117,6 +117,26 @@ public static class ExcavationRules
     }
 
     /// <summary>
+    /// 기록 보장(11-01, Q602 리듬): 유물을 하나라도 캔 판에서 기록이 안 나왔고 아직 다 못 모았으면 기록 1편을 준다.
+    /// 6% 확률만으로는 기록 5편에 약 47판(쿨타임 5분)이 걸려 Q602가 멈춘다 → 5판이면 끝난다.
+    /// </summary>
+    public static bool PityRecord(bool recordThisDig, int relicsFound, int mask, int count)
+    {
+        if (recordThisDig || relicsFound <= 0)
+        {
+            return false;
+        }
+        for (int i = 0; i < count; i++)
+        {
+            if ((mask & (1 << i)) == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
     /// 기록 추첨: 아직 못 모은 편 중 균등(mask 비트 i = i번 편 수집). 다 모았으면 -1(대체 보상).
     /// </summary>
     public static int PickRecord(int mask, int count, float roll01)

@@ -23,6 +23,6 @@ Q502,빼앗긴 대장간 화물,smith,12,Q501,collect,StolenForgeCrate,4,900,420
 Q503,방패 너머의 길,ruen,12,Q501,kill,BanditShieldman_BD,7,811,390,,,선택: 성채 안쪽으로 진입한다.
 Q504,성채에 남은 밤,eve,13,Q502,kill,BanditChief_BD,1,900,650,Enhance Stone,2,선택: 성채 분기 보스를 격파한다.
 Q601,별이 닿은 돌문,elder,13,Q401,visit,tower_altar,1,1700,540,,,메인: 브로치가 유적 제단에 반응한다.
-Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,1800,470,,,탑 근교 유적에서 발굴을 반복해 아버지의 기록 5편을 모은다. 기록은 확률로 나오며 유물을 캐면 일반 5분·희귀 10분 후 다시 발굴할 수 있다.
+Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,1800,470,,,탑 근교 유적에서 발굴을 반복해 아버지의 기록 5편을 모은다. 유물을 하나라도 캐면 기록 1편을 얻고(확률로 더 나오기도 한다) 일반 5분·희귀 10분 후 다시 발굴할 수 있다.
 Q603,잠들지 않는 골렘,smith,14,Q601,kill,GolemMedium_BD,6,1607,580,Enhance Stone,2,골렘 사냥과 강화 재료 획득을 안내한다.
 Q604,첫 번째 문의 수호자,elder,15,Q601,kill,Gatekeeper_BD,1,2000,1000,BroochResonance,1,메인: 문지기 격파 후 브로치에 다음 층계 길이 새겨진다.
