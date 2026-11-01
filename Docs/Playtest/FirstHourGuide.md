@@ -8,6 +8,12 @@
 2. 타이틀에서 ←→로 **EMPTY 슬롯**을 고르고 Enter. 다른 슬롯을 고르면 플레이가 멈추니 다시 Play하고 같은 슬롯에서 Enter.
 3. 메뉴 `Tools/ProjectB/Playtest/Enable Day-Night Cycle (Play Mode)`를 한 번 실행한다. 이걸 안 켜면 계속 낮이라 밤 몹 퀘스트(Q104 허수아비)를 할 수 없다.
 
+## 치트 (SR Debugger, 11-01)
+
+화면 위 가운데에 치트 버튼 줄이 늘 떠 있다: Level +1 · EXP +500 · Gold +1000 · Heal · Day · Night · Day-Night Cycle · Fill Quests(진행 중 의뢰 목표 채우기, 수집은 아이템 지급) · Save · God Mode(무적).
+구역 이동(Town·Side Road·Near/Normal/Deep Forest·Swamp·Bandit Fortress·Tower Outskirts)과 아이템 지급(Item Key 입력 → Give Item, LeafAdae+FangDagger 한 번에)은 **Ctrl+Shift+F1**(또는 화면 오른쪽 위 구석 세 번 클릭) → Options 탭.
+**조작이 안 먹으면 Game 창을 한 번 클릭**한다(에디터가 포커스 없이 플레이를 시작한다).
+
 ## 조작
 
 | 행동 | 키 |

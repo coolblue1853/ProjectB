@@ -253,6 +253,30 @@ public static class NpcQuestLog
         Changed?.Invoke();
     }
 
+    /// <summary>테스트 치트(SR Debugger): 진행 중인 의뢰 목표를 채운다 — 처치·제작·방문·대화는 진행량, 수집은 모자란 만큼 아이템 지급</summary>
+    public static void DebugFillActive()
+    {
+        foreach (NpcQuestDef d in ActiveQuests())
+        {
+            if (d.Objective == NpcQuestObjective.Collect)
+            {
+                if (!d.IsRecordsTarget && InventoryManager.instance != null)
+                {
+                    for (int i = Progress(d); i < d.Count; i++)
+                    {
+                        InventoryManager.instance.CreatItem(d.Target);
+                    }
+                }
+                continue;
+            }
+            if (s_recs.TryGetValue(d.Id, out Rec r))
+            {
+                r.Progress = d.Count;
+            }
+        }
+        Notify();
+    }
+
     private static void Notify()
     {
         Changed?.Invoke();
