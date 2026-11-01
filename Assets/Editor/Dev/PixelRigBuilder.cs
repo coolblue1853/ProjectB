@@ -34,6 +34,22 @@ public static class PixelRigBuilder
         public int[] hips, pack, head, shoulder_l, hand_l, shoulder_r, hand_r, leg_l, leg_r;
     }
 
+    /// <summary>던전 슬래셔 그림체 주인공(ds03, 11-01) 셀로 굽기 — Tools/pixelfx/build_cel_ds.py 산출(CelDS). 칼·궤적은 그림에 있어 리그 무기·장비 레이어·기본 스미어를 끈다.
+    /// 예전 주인공으로 되돌리려면 "Build Adventurer" 를 다시 실행한다</summary>
+    [MenuItem("Tools/ProjectB/Pixel Rig/Build Adventurer DS")]
+    public static string BuildAdventurerDS()
+    {
+        s_celDir = CelDSDir;
+        try
+        {
+            return BuildAdventurer();
+        }
+        finally
+        {
+            s_celDir = CelDir;
+        }
+    }
+
     [MenuItem("Tools/ProjectB/Pixel Rig/Build Adventurer")]
     public static string BuildAdventurer()
     {
@@ -102,6 +118,7 @@ public static class PixelRigBuilder
         so.FindProperty("_cel").objectReferenceValue = celSr;
         so.FindProperty("_celFist").objectReferenceValue = fistSr;
         BuildCel(so.FindProperty("_celClips"), ox);
+        so.FindProperty("_celArtWeapon").boolValue = s_celDir == CelDSDir;
         BuildEquipLayers();
         so.FindProperty("_airLegF").objectReferenceValue = PartSprite(LegPose("leg_l", 1, 1));
         so.FindProperty("_airLegB").objectReferenceValue = PartSprite(LegPose("leg_r", 0, 1));
@@ -668,6 +685,9 @@ public static class PixelRigBuilder
 
     // ── 셀(Q-423) ────────────────────────────────────────────────────────────
     private const string CelDir = "Assets/Art/Player/PixelRig/Cel";
+    private const string CelDSDir = "Assets/Art/Player/PixelRig/CelDS";
+    private static string s_celDir = CelDir;
+    private static readonly int[] DSPivot = { 32, 60 }; // CelDS 그림의 몸 가운데 x · 발바닥 행(build_cel_ds.py)
 
     [System.Serializable]
     private class CelFrameJson
@@ -687,13 +707,17 @@ public static class PixelRigBuilder
     {
         public float frame;
         public bool loop;
+        public int strike = -1;
         public CelFrameJson[] frames;
     }
 
     /// <summary>Tools/pixelfx/build_cel.py 산출물(cel.json + PNG)을 임포트해 리그의 셀 클립으로. 피벗 = 리그 원점(엉덩이 x, 발바닥 행)</summary>
     private static void BuildCel(SerializedProperty arr, int ox)
     {
-        string json = CelDir + "/cel.json";
+        string celDir = s_celDir;
+        bool ds = celDir == CelDSDir;
+        int[] pivot = ds ? DSPivot : new[] { ox, FeetRow - 1 };
+        string json = celDir + "/cel.json";
         if (!File.Exists(json))
         {
             arr.arraySize = 0;
@@ -735,6 +759,7 @@ public static class PixelRigBuilder
             e.FindPropertyRelative("name").stringValue = name;
             e.FindPropertyRelative("frame").floatValue = clip.frame;
             e.FindPropertyRelative("loop").boolValue = clip.loop;
+            e.FindPropertyRelative("strike").intValue = clip.strike;
             SerializedProperty sp = e.FindPropertyRelative("sprites");
             SerializedProperty fp = e.FindPropertyRelative("fists");
             fp.arraySize = clip.frames.Length;
@@ -758,16 +783,16 @@ public static class PixelRigBuilder
             for (int i = 0; i < clip.frames.Length; i++)
             {
                 CelFrameJson f = clip.frames[i];
-                ImportPart(f.png, new[] { ox, FeetRow - 1 }, CelDir);
-                sp.GetArrayElementAtIndex(i).objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(CelDir + "/" + f.png + ".png");
-                string fistPng = CelDir + "/" + f.png + "_fist.png";
+                ImportPart(f.png, pivot, celDir);
+                sp.GetArrayElementAtIndex(i).objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(celDir + "/" + f.png + ".png");
+                string fistPng = celDir + "/" + f.png + "_fist.png";
                 if (File.Exists(fistPng))
                 {
-                    ImportPart(f.png + "_fist", new[] { ox, FeetRow - 1 }, CelDir);
+                    ImportPart(f.png + "_fist", pivot, celDir);
                 }
                 fp.GetArrayElementAtIndex(i).objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(fistPng);
-                hp.GetArrayElementAtIndex(i).vector2Value = CelLocal(f.hand, ox);
-                bp.GetArrayElementAtIndex(i).vector2Value = CelLocal(f.handB, ox);
+                hp.GetArrayElementAtIndex(i).vector2Value = ds ? CelLocalAt(f.hand, DSPivot) : CelLocal(f.hand, ox);
+                bp.GetArrayElementAtIndex(i).vector2Value = ds ? CelLocalAt(f.handB, DSPivot) : CelLocal(f.handB, ox);
                 ap.GetArrayElementAtIndex(i).floatValue = f.angle;
                 wp.GetArrayElementAtIndex(i).boolValue = f.behind;
                 abp.GetArrayElementAtIndex(i).floatValue = f.angleB;
@@ -864,6 +889,11 @@ public static class PixelRigBuilder
     }
 
     /// <summary>64 캔버스 픽셀(왼쪽 위 0) → 리그 로컬 유닛(원점 = 엉덩이 x·발바닥, 위 +). 픽셀 가운데</summary>
+    private static Vector2 CelLocalAt(int[] p, int[] pivot)
+    {
+        return new Vector2((p[0] + 0.5f - pivot[0]) / Ppu, (pivot[1] + 1 - (p[1] + 0.5f)) / Ppu);
+    }
+
     private static Vector2 CelLocal(int[] p, int ox)
     {
         return new Vector2((p[0] + 0.5f - ox) / Ppu, (FeetRow - (p[1] + 0.5f)) / Ppu);
@@ -903,7 +933,7 @@ public static class PixelRigBuilder
         settings.spriteMeshType = SpriteMeshType.FullRect;
         ti.SetTextureSettings(settings);
         ti.spritePivot = new Vector2(pivot[0] / (float)Size, (Size - (pivot[1] + 1)) / (float)Size);
-        ti.isReadable = dir == CelDir; // 셀은 장비 레이어 합성(CelComposer)에서 픽셀을 읽는다
+        ti.isReadable = dir == CelDir || dir == CelDSDir; // 셀은 장비 레이어 합성(CelComposer)에서 픽셀을 읽는다
         ti.SaveAndReimport();
     }
 

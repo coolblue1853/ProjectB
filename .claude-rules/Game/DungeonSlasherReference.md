@@ -54,3 +54,34 @@
   - 수치: 프레임마다 색 31개 그대로(뭉개짐 없음), 키 54~56px, 이음새 차이 924 / 이웃 평균 675 = 1.37배(기준 1.5 이하 통과).
   - 눈: 얼굴·머리·배낭 형태 유지, 다리 보폭 보임. 문제 ① 4~7번에서 얼굴이 옆으로 조금 더 돈다 ② 허리 칼이 4~7번에서 사라진다 ③ 폭이 27~32px로 흔들린다.
   - 다음 손잡이: 4번 프레임(반대발)을 1장 직접 고정해 반 주기씩 두 번 생성(첫·끝 고정) 또는 칼을 등으로 옮긴 기준 그림. 파일 `Docs/ArtCompare/CharacterGen/ds01/walk_6101/raw_0~8.png`(8 = 0과 같음).
+
+## 확정 레시피 — ds03 주인공·걷기 (11-01 사용자 합격)
+
+> 사용자(11-01): ds03 "3차는 확실히 잘 나왔다", 걷기 walk_6101 "개잘나왔네… 지금 걷기는 거의 문제없다" → **걷기를 합격 기준**으로 삼는다. "한 번에 잘 나온 건 드문 일"이라 방법을 그대로 남긴다.
+
+### 1) 캐릭터 1장 (create_image_pro_flash, 1장 약 5 gen)
+- 64×64, `no_background: true`, seed 6003.
+- `style_image` = 원작 상점 NPC **Nana 대기 첫 프레임**을 64×64 캔버스에 놓은 것(`DungeonSlasherRef/style_nana_64.png`). usage_description: "그림체만 복사(약 3등신·큰 머리 덩어리·부위색 외곽선·평면 음영·픽셀 밀도), 얼굴·색·디자인은 복사 금지".
+- `style_options`: `color_palette: false`(원작 색 안 빌림), outline·detail·shading true.
+- 설명문 핵심(그대로 재사용): 옆모습 대기 / 약 3등신·큰 머리·작은 몸·짧은 다리 / 풍성한 회금발 낮은 포니테일 / 청록 렌즈 황동 고글 / **짙은 남청록 긴 코트(머리색과 확실히 다른 색)** / 크림 스카프 / 금색 네 갈래 별 브로치 / 큰 갈색 가죽 배낭(침낭·작은 랜턴) / 검은 스타킹·갈색 부츠 / 허리 단검 / 밝은 피부·큰 청록 눈 / 오른쪽 3/4 / **부위색의 어두운 톤 외곽선(검정 금지)** / 큰 색 덩어리·머리·코트·배낭 대비 강하게·잔디테일 적게 / 몽환·섬뜩한 어비스 탐험가, 유아틱 금지 / 약 48px.
+- 결과 56px(그대로 써도 된다고 사용자 확인). 파일 `Docs/ArtCompare/CharacterGen/ds01/raw_6003_explorer_navy.png`, PixelLab URL `https://api.pixellab.ai/mcp/images/501da339-8d43-4aea-aed3-9a4570fce0a4/download`.
+- 실패에서 배운 것: ① 원작(01_05 기사)을 style로 쓰면 3.5등신·검정 굵은 외곽선이 나와 "느낌이 다르다"(ds01) ② 코트·머리·배낭 색이 비슷하면 얼굴이 안 읽힌다(ds02) → 색 덩어리를 서로 다른 색상으로 갈라 말한다.
+
+### 2) 모션 (animate_image_pixminimax, 64px 8장 = 1 gen)
+- `first_frame_url` = `last_frame_url` = 위 ds03 URL(**루프 고정** — 첫·끝이 같아 이음새가 안 튄다).
+- `frame_count` 8, `direction` south-east, `view` side, seed 6101.
+- `subject_description`: "a chibi girl explorer with ash-blonde hair, goggles, navy-teal coat and a large brown backpack".
+- `initial_pose`: "standing upright, arms relaxed at the sides".
+- description: 제자리 한 주기, 작은 교차 보폭, 몸 1px 위아래, 팔 살짝, 코트 끝·포니테일 살짝, **배낭은 몸에 붙어 같이 움직임**, "같은 자리·같은 크기·같은 방향, 돌지 않음".
+- **보간 넣지 않는다.** 원작이 12fps 키 프레임만 쓴다. 우리 픽셀 보간은 뭉개진다. 재생은 0.1초/장(원작 Run 8fps 참고).
+- 합격 수치: 프레임마다 색 수 그대로(31), 키 54~56px, 루프 이음새 차이 ≤ 이웃 평균 × 1.5.
+- 남은 사소한 흠(사용자 "거의 문제없다"로 수용): 4~7번 얼굴 조금 더 돎·허리 칼 사라짐·폭 27~32px.
+- 다른 모션도 같은 틀: 기준 ds03 1장 + 동작 설명 + "same spot/size/facing, backpack attached". 루프 아닌 동작(공격·점프)은 끝 프레임을 고정하지 않거나 ds03으로 돌아오게 한다.
+
+### 3) 게임 적용 — 1시간 테스트 분량 (11-01, 사용자 "허락 없이 최대한")
+- 생성(모두 pixminimax 64px, 첫 프레임 = ds03 URL, 1 gen씩, 합계 15 gen): idle 6201·run 6301(첫·끝 고정 루프) / jump 6401 / hurt 6601(4장, 첫·끝 고정) / death 6701 / 평타 stab 6511·down 6512·up 6513(4장, direction east) / flurry 6514·cross 6515·charge 6516 / rope 6801(돌아서 등 보고 오르기) / 시험 atk1~3 6501~6503(8장은 도중에 몸이 돌아 대부분 기각, atk2 1·2·3·7만 옆베기로). 원본 `Docs/ArtCompare/CharacterGen/ds01/motions/<이름>/raw_N.png`.
+- 배운 것: 공격은 **4장 + direction east + "always faces right, never turns around or toward the camera"** 가 안전하다. 8장 공격은 5번째부터 몸을 돌리거나 정면을 본다. 공격 그림엔 스미어(흰 호)가 같이 그려져 나온다(원작 느낌 — 그대로 씀). 피격은 피(빨강)가 그려져 지웠다. 로프는 그림에 밧줄까지 그려지지만 게임 밧줄과 거의 겹쳐 그대로 둔다.
+- 변환: `Tools/pixelfx/build_cel_ds.py` → `Assets/Art/Player/PixelRig/CelDS/`(ds_<묶음>_N.png + cel.json, 빌더의 56개 클립 이름 전부를 가장 가까운 묶음에 연결). 피벗 (32, 60). 클립마다 `strike`(타격 프레임) — 판정·궤적 시각에 쓴다. 평타 시간 0.07·0.06·0.09·0.1초.
+- 굽기: 메뉴 `Tools/ProjectB/Pixel Rig/Build Adventurer DS`(프로브 `Tools/probes/build_ds.cs`). 프리팹 `_celArtWeapon = true` → 무기 스프라이트 숨김, 장비 레이어 합성 안 함, 리그 모션 스미어·무기 기본 스미어 안 띄움(`CharacterRig.ArtOwnsWeapon`), 걷기 시작 프레임 0. 되돌리기 = `Build Adventurer`.
+- 플레이 확인(11-01, 낮, `Logs/playtest/rig_act_{walk,run,jump,combo3,hurt,death,rope}.png`, `ds_game_idle.png`): 발이 땅에 붙고 무기 겹침 없음, 3타 찌르기→내려베기→올려베기, 피격 흰 번쩍·깜빡임, 사망 무릎→엎드림, 로프 등 보고 오르기·멈춤 정상. 사망 컷에 흰 칼 모양이 잠깐 보이는데 플레이어 스프라이트가 아니다(근처 SpriteRenderer 는 셀 1개뿐) — 사망 연출 쪽, 미확인.
+- 남은 흠: 크기 56px(예전 48px)라 판정 박스보다 조금 크다 / 무기 종류가 겉모습에 안 드러남 / 장비 외형 없음 / 대시·변신·직업 셀 없음(1층계엔 안 씀).

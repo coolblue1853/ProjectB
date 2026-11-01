@@ -23,6 +23,9 @@ public abstract class CharacterRig : MonoBehaviour
     public virtual Transform CelRoot => null;
 
     /// <summary>공격 클립의 frame 번째 프레임 시작 시각(초, 속도 1). 모르면 음수</summary>
+    /// <summary>셀 그림에 칼·궤적이 그려져 있어 무기 스프라이트·기본 스미어를 띄우지 않는다(던전 슬래셔 그림체 CelDS, 11-01)</summary>
+    public virtual bool ArtOwnsWeapon => false;
+
     public virtual float FrameStartTime(string anim, int frame)
     {
         return -1f;

@@ -24,6 +24,8 @@ public class CelClip
     public float[] weaponLen = new float[0];
     public float[] angles = new float[0]; // 칼날 각도(도, 0 = 앞, 90 = 위). NoAngle 이면 리그가 손 위치로 정한다(공격 셀은 그림 속 칼에서 읽은 값)
     public const float NoAngle = -999f;
+    /// <summary>타격 프레임(그림 속 칼이 지나가는 프레임). -1 이면 MotionFxTable·WeaponFx 표를 쓴다 — 던전 슬래셔 그림체 셀(CelDS, 11-01)은 cel.json 에 직접 적는다</summary>
+    public int strike = -1;
 
     /// <summary>클립 전체 길이(초) — 프레임별 시간이 있으면 그 합</summary>
     public float Length

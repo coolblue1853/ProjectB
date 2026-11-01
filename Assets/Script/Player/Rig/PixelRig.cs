@@ -34,6 +34,7 @@ public class PixelRig : CharacterRig
     [SerializeField] private SpriteRenderer _cel;
     [SerializeField] private SpriteRenderer _celFist; // 무기 위 주먹(정렬 = 앞 무기 + 1)
     [SerializeField] private CelClip[] _celClips = new CelClip[0];
+    [SerializeField] private bool _celArtWeapon; // 셀 그림에 칼·궤적이 그려져 있다(CelDS) — 무기 스프라이트·장비 레이어·기본 스미어를 쓰지 않는다
 
     private const string WeaponDir = "PixelRig/Weapons/";
     private const float WeaponWorldScale = 1f; // 도트 무기 24 PPU × 1 = 아트 1px 1/24유닛(몹·캐릭터와 같은 밀도)
@@ -281,6 +282,8 @@ public class PixelRig : CharacterRig
 
     public override Transform CelRoot => _cel != null ? _cel.transform : transform;
 
+    public override bool ArtOwnsWeapon => _celArtWeapon;
+
     /// <summary>
     /// frame = MapName 기본 셀(Stab·SwingDown·SwingUp)의 프레임 번호(WeaponFx.StrikeFrame). 실제로 재생될 셀이 기본 셀과 다르면
     /// (GreatUpper·GreatDown·Lunge·Punch·단검 등) 그 셀의 타격 프레임(StrikeFrameOf — MotionFxTable) 시작 시각을, 표에 없으면 예전처럼 기본 셀 시각을 돌려준다.
@@ -308,7 +311,7 @@ public class PixelRig : CharacterRig
             // 타격 프레임을 모르는 셀(예: 단검 연속 찌르기)은 예전처럼 기본 셀 시각 — 길이 비율로 옮기면 짧은 무기 공격 주기(0.3초)를 넘었다
             return baseCel != null ? baseCel.StartTimeOf(frame) : cel.StartTimeOf(frame);
         }
-        int index = key == baseKey ? frame : Mathf.Min(strike, cel.sprites.Length - 1);
+        int index = cel.strike >= 0 ? cel.strike : key == baseKey ? frame : Mathf.Min(strike, cel.sprites.Length - 1);
         float t = cel.StartTimeOf(index);
         if (variant != null && variant.baseCel == key && variant.speed > 0f)
         {
@@ -490,7 +493,7 @@ public class PixelRig : CharacterRig
 
     private void MotionFx(CelClip cel, int i)
     {
-        if (!MotionFxEnabled)
+        if (!MotionFxEnabled || _celArtWeapon)
         {
             return;
         }
@@ -582,7 +585,7 @@ public class PixelRig : CharacterRig
             // 걷기는 대기 그림과 같은 3번(두 발 모임)부터 — 0번부터면 출발 순간 한 번 튀었다(대기·걷기0 차이 634px, 걷기3 = 0px)
             i = _variant != null && cel.name == _variant.baseCel
                 ? _variant.IndexIn(cel, _time)
-                : cel.IndexAt(_time + (c.name == "Walk" ? WalkStartFrame * cel.frame : 0f));
+                : cel.IndexAt(_time + (c.name == "Walk" && !_celArtWeapon ? WalkStartFrame * cel.frame : 0f));
             int strike = StrikeFrameOf(cel.name);
             _celPhase = strike < 0 || cel.loop ? 0 : i < strike ? -1 : i > strike ? 1 : 0;
         }
@@ -635,6 +638,10 @@ public class PixelRig : CharacterRig
             float len = i < cel.weaponLen.Length && cel.weaponLen[i] > 0f ? cel.weaponLen[i] : 1f;
             _socketRight.localScale = new Vector3(1f, len, 1f); // 손잡이 피벗 기준으로 칼날만 짧게(칼집에 들어감)
             SetMainWeaponBehind(i < cel.behind.Length && cel.behind[i]);
+            if (_celArtWeapon)
+            {
+                _socketRight.localScale = Vector3.zero; // 칼은 셀 그림에 있다
+            }
         }
         if (_socketLeft != null && i < cel.handB.Length)
         {
@@ -642,6 +649,10 @@ public class PixelRig : CharacterRig
             // 앞손 무기(권총·두 번째 단검)는 앞을 향한다 — 손목 각도 채널이 없어 위를 향해 세워져 있었다(10-29 사용자 "무기 방향 위치 잘 맞춰라")
             float angleB = i < cel.anglesB.Length && cel.anglesB[i] > CelClip.NoAngle + 1f ? cel.anglesB[i] : 0f;
             _socketLeft.parent.localRotation = Quaternion.Euler(0f, 0f, angleB - 90f);
+            if (_celArtWeapon)
+            {
+                _socketLeft.localScale = Vector3.zero;
+            }
         }
     }
 
@@ -660,6 +671,10 @@ public class PixelRig : CharacterRig
         }
         _composedSprites.Clear();
         _celComposite.Clear();
+        if (_celArtWeapon)
+        {
+            return; // CelDS 는 장비 레이어(예전 그림 좌표)를 합성하지 않는다
+        }
         List<CelEquipLayer> ordered = CelComposer.Ordered(layers ?? new CelEquipLayer[0]);
         if (ordered.Count == 0)
         {
@@ -1211,6 +1226,10 @@ public class PixelRig : CharacterRig
 
     private int StrikeFrameOf(string cel)
     {
+        if (_celByName.TryGetValue(cel, out CelClip own) && own.strike >= 0)
+        {
+            return own.strike;
+        }
         cel = FxName(cel);
         if (_strikeFrame.TryGetValue(cel, out int f))
         {

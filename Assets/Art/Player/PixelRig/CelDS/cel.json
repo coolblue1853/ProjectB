@@ -1,0 +1,3982 @@
+{
+ "Idle": {
+  "frame": 0.12,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_idle_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Walk": {
+  "frame": 0.1,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_walk_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_walk_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_walk_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_walk_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_walk_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_walk_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_walk_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_walk_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Run": {
+  "frame": 0.08,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_run_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "JumpCrouch": {
+  "frame": 0.08,
+  "loop": false,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_crouch_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "JumpArc": {
+  "frame": 0.1,
+  "loop": false,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_arc_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_arc_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_arc_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Land": {
+  "frame": 0.06,
+  "loop": false,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_land_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_land_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_land_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Dash": {
+  "frame": 0.08,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_run_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_run_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Hurt": {
+  "frame": 0.08,
+  "loop": false,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_hurt_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_hurt_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_hurt_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Death": {
+  "frame": 0.1,
+  "loop": false,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_death_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Stab": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "SwingDown": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_down_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "SwingUp": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_up_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_up_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_up_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_up_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "RopeUp": {
+  "frame": 0.1,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_rope_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_rope_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_rope_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_rope_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_rope_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_rope_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "RopeStay": {
+  "frame": 0.1,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_ropestay_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "GreatDown": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_down_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "GreatSide": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_side_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "DaggerFlurry": {
+  "frame": 0.06,
+  "loop": true,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_flurry_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "DaggerCross": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_cross_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_cross_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_cross_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_cross_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_cross_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "AirSlash": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_down_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Lunge": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Spin": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_side_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Cast": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 3,
+  "frames": [
+   {
+    "png": "ds_charge_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Throw": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Guard": {
+  "frame": 0.12,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_idle_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Charge": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 3,
+  "frames": [
+   {
+    "png": "ds_charge_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "LeapSlam": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_down_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Backstep": {
+  "frame": 0.08,
+  "loop": false,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_hurt_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_hurt_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_hurt_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Punch": {
+  "frame": 0.06,
+  "loop": true,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_flurry_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Iaido": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_side_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "ShoulderAim": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Raise": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_up_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_up_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_up_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_up_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Knockdown": {
+  "frame": 0.1,
+  "loop": false,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_death_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_death_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Place": {
+  "frame": 0.08,
+  "loop": false,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_crouch_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Kick": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Grab": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Ride": {
+  "frame": 0.12,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_idle_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "StabEnd": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "SwingDownEnd": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_down_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Bow": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "GreatSideOne": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_side_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "ShieldBash": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Slam": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_down_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Pull": {
+  "frame": 0.06,
+  "loop": true,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_flurry_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_flurry_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "LowSweep": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_down_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "GreatUpper": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_up_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_up_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_up_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_up_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "DashSlash": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_side_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "WhipSnap": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_down_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_down_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Roundhouse": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 2,
+  "frames": [
+   {
+    "png": "ds_side_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_side_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "DualPistol": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Rifle": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "SwordPistol": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Sheathe": {
+  "frame": 0.12,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_idle_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Victory": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 3,
+  "frames": [
+   {
+    "png": "ds_charge_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_charge_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Dance": {
+  "frame": 0.12,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_idle_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "Lute": {
+  "frame": 0.12,
+  "loop": true,
+  "strike": -1,
+  "frames": [
+   {
+    "png": "ds_idle_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_4",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_5",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_6",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_idle_7",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.0,
+    "angle": -999.0
+   }
+  ]
+ },
+ "PalmBlast": {
+  "frame": 0.083,
+  "loop": false,
+  "strike": 1,
+  "frames": [
+   {
+    "png": "ds_stab_0",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.07,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_1",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.06,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_2",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.09,
+    "angle": -999.0
+   },
+   {
+    "png": "ds_stab_3",
+    "hand": [
+     40,
+     42
+    ],
+    "handB": [
+     26,
+     42
+    ],
+    "time": 0.1,
+    "angle": -999.0
+   }
+  ]
+ }
+}
