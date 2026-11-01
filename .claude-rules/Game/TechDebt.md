@@ -119,3 +119,9 @@
 - 빈 클래스와 중복 코드 정리: ShopItemDrag, ShopCostUI, Equip/WeaponSmithUI, CameraResolution, HealthSystem 데모.
 - 벤더 코드 수정분 분리: Behavior Designer BehaviorTree.cs.
 - AnyPortrait Unity 6 경고: 새 버전으로 업데이트한다(캐시에 패키지 있음).
+
+## 11-01 리뷰 남은 것 (P3)
+
+- 자원 스포너 트리거를 좌표 전체로 넓혀(`EnemySpawner.FitAreaToPoints`, 위 15·아래 6) 맵 어디서나 감지 — 자원(정지 오브젝트)이라 지금은 무해. 몹 스포너에 CSV 덮어쓰기를 쓰면 감지·스폰 영역 분리 필요.
+- CSV 덮어쓰기 경로는 `spawnPointWeights` 를 쓰지 않고, 씬 발판이 0개인 스포너는 덮어쓰기를 타지 않는다.
+- 지역 배너가 포털 암전(검정) 중에 시작돼 앞 0.5초가 가려짐 — `MapChanged` 를 밝아진 뒤로 미루면 해결.
