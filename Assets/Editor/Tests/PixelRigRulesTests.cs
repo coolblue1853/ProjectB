@@ -127,4 +127,36 @@ public class PixelRigRulesTests
             Assert.GreaterOrEqual(maxR - minR, 19f, clip.name + " 앞다리 기울기 폭(도)");
         }
     }
+    [TestCase(0.26f)]
+    [TestCase(-179.14f)]
+    public void InstallerFeetFollowSavedPositionBeforePhysicsTick(float savedY)
+    {
+        bool autoSync = UnityEngine.Physics2D.autoSyncTransforms;
+        var root = new UnityEngine.GameObject("SavedPositionRigTest");
+        try
+        {
+            UnityEngine.Physics2D.autoSyncTransforms = false;
+            root.transform.position = new UnityEngine.Vector3(4000f, 136.36f, 0f);
+            var collider = root.AddComponent<UnityEngine.BoxCollider2D>();
+            collider.size = new UnityEngine.Vector2(1f, 2f);
+            collider.offset = new UnityEngine.Vector2(0f, 0.1f);
+            var player = root.AddComponent<PlayerController>();
+            var group = new UnityEngine.GameObject("CharGroup").transform;
+            group.SetParent(root.transform, false);
+            UnityEngine.Physics2D.SyncTransforms();
+            root.transform.position = new UnityEngine.Vector3(4000f, savedY, 0f);
+
+            var method = typeof(PixelRigInstaller).GetMethod("FeetLocalY",
+                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+            float feet = (float)method.Invoke(null, new object[] { player, group });
+
+            Assert.That(feet, Is.EqualTo(-0.9f).Within(0.001f),
+                "저장 위치 배치 직후에도 발은 충돌체 아래에 붙어야 한다.");
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(root);
+            UnityEngine.Physics2D.autoSyncTransforms = autoSync;
+        }
+    }
 }

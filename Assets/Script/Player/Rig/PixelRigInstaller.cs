@@ -73,6 +73,8 @@ public static class PixelRigInstaller
         {
             return 0f;
         }
+        // SaveManager가 저장 위치로 옮긴 직후에도 이전 물리 좌표를 읽지 않도록 한다.
+        Physics2D.SyncTransforms();
         float worldY = col.bounds.min.y;
         return group.InverseTransformPoint(new Vector3(pc.transform.position.x, worldY, 0f)).y;
     }

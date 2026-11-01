@@ -30,6 +30,7 @@
 
 - `CharacterRig`(추상) — 플레이어 코드가 쓰는 API: Play, CrossFade, IsPlaying, SetAnimationSpeed(전체/클립), SetMeshAlphaAll, SetControlParamInt, GetBoneSocket, SetMeshImage.
   - `PortraitRig` = apPortrait 래퍼(기존 동작 그대로), `PixelRig` = 새 리그.
+- 2026-11-01 2차 리허설: 저장 위치를 먼저 적용한 뒤 리그 발바닥을 계산할 때 Physics2D.SyncTransforms()로 충돌체 bounds를 갱신한다. 물리 틱 전 이전 마을 bounds를 읽어 재시작 시 몸이 위로 약 135유닛 뜨던 연결 오류를 수정했다. 프리팹·모션·스미어는 변경하지 않는다.
 - `PlayerController.Rig`가 활성 리그를 돌려준다(자식에 켜진 PixelRig가 있으면 그것, 없으면 apPortrait 래퍼). `mainCharacter`(apPortrait) 필드는 씬 직렬화 때문에 남긴다.
 - 픽셀 리그에서 아직 안 되는 것: 방어구 외형 교체(SetMeshImage는 무시 — CharacterPixelRules 6절 레이어 설계 후), 눈 표정 파라미터(앞머리로 가려짐).
 

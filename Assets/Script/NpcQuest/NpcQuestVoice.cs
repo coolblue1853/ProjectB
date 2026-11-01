@@ -31,7 +31,7 @@ public static class NpcQuestVoice
             case "Q503": return "성채의 방패 산적 7명을 처치해 줘.\n안쪽 길을 막고 있어.".Split('|');
             case "Q504": return "성채의 산적 대장 1명을 쓰러뜨려 줘.\n남은 흔적은 그 안으로 이어져.".Split('|');
             case "Q601": return "탑 근교의 네 갈래 별 제단을 찾아가게.\n그곳에서 브로치의 반응을 살펴 주게.".Split('|');
-            case "Q602": return "유적 발굴 지점 5곳에서 아버지의 기록 5편을 모아.\n돌에 묻힌 글은 아직 읽을 수 있어.".Split('|');
+            case "Q602": return "탑 근교 유적에서 아버지의 기록 5편을 모아.\n발굴은 반복할 수 있어. 유물이 나오면 잠시 쉬어.".Split('|');
             case "Q603": return "탑 근교의 중형 골렘 6기를 부숴 줘.\n놈들이 길을 지키는 동안은 짐을 옮길 수 없어.".Split('|');
             case "Q604": return "탑의 문지기 1기를 쓰러뜨려 주게.\n그 너머가 다음 층계로 가는 길일세.".Split('|');
             default: throw new ArgumentException("대사가 없는 퀘스트: " + quest.Id);
@@ -66,7 +66,7 @@ public static class NpcQuestVoice
             case "Q503": return "방패 산적 7명이야.\n정면에 오래 서 있지 마.";
             case "Q504": return "산적 대장이 남았어. 한 명이야.\n돌아올 길을 놓치지는 말고.";
             case "Q601": return "탑 근교의 별 제단일세.\n브로치가 반응하면 돌아와 들려주게.";
-            case "Q602": return "발굴 지점 5곳의 기록 5편이야.\n빠진 글이 없는지 살펴봐.";
+            case "Q602": return "모을 기록은 다섯 편이야.\n같은 유적도 쉬었다 다시 파 봐.";
             case "Q603": return "중형 골렘 6기다.\n탑 근교에서 찾아. 작은 놈과 혼동 말고.";
             case "Q604": return "탑 근교의 문지기가 남았네.\n준비를 마치고 문 앞에 서게.";
             default: throw new ArgumentException("대사가 없는 퀘스트: " + quest.Id);
