@@ -85,3 +85,4 @@
 ## 11-01 밤 (주간 리셋 직후)
 
 - 사용자: Claude 주간 상한 **10%**(9%쯤 정리·중단). 구현·검증은 **Codex 우선**, Codex 가 LIMIT 이면 Claude 가 직접. 시작 시 Claude 0%, Codex 주간 73%(리셋 90시간 뒤).
+- 11-02 08:36: Codex 주간 93%(LIMIT, 리셋 79시간 뒤) — 큐가 03:05 이후 대기 중이었다. 규칙대로 남은 작업(shop_maple·ui_func·combat_dnf)은 Claude 가 직접. 커밋 eb01a478·42879d6c·f3aebf03·c3232384 + 인벤 편의.
