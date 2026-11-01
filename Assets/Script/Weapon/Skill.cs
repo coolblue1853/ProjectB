@@ -35,6 +35,7 @@ public class Skill : MonoBehaviour
     [ConditionalHide("isEffectMaxAdd")]
     public int objectMaxCount; // 최대 발생량이 증가하는 아이템 효과를 위함. 아무리 많아도 여기에 지정된 횟수만큼 나감.
      bool isActiveHold = false;
+    private TempSkillFxLibrary _tempFxLibrary;
     private int _activeSlot = -1; // 실제로 발동된 슬롯(ActiveSkill 인자). Inspector skillNum 과 다를 수 있다 (B-113)
     private Sequence _spawnDelaySequence;  // 선딜 뒤 데미지 오브젝트 생성
     private Sequence _dmgDelaySequence;    // 선딜 뒤 데미지 설정
@@ -118,6 +119,7 @@ public class Skill : MonoBehaviour
     }
     private void Awake()
     {
+        _tempFxLibrary = Resources.Load<TempSkillFxLibrary>("FX/TempSkillFxLibrary");
         originPoint = Vector2.zero;
         skillCooldown = GameObject.FindWithTag("Cooldown").GetComponent<SkillCooldown>();
         for (int i = 0; i < Mathf.Min(skillBackGround.Length, 4); i++) // 슬롯 A S D F 4개
@@ -423,7 +425,13 @@ public class Skill : MonoBehaviour
             {
                 fxPos.y = PlayerController.instance.groundCheck.transform.position.y + 0.15f; // 마법진·빛기둥은 발밑 높이
             }
-            Vfx.Play(castVfx, fxPos, PlayerController.instance.transform.localScale.x < 0f, castVfxScale);
+            PixelFxClip tempClip = _tempFxLibrary != null
+                ? _tempFxLibrary.GetClip(TempSkillFxLibrary.SkillId(skillName)) : null;
+            bool facingLeft = PlayerController.instance.transform.localScale.x < 0f;
+            if (!Vfx.PlaySkillClip(tempClip, fxPos, facingLeft))
+            {
+                Vfx.Play(castVfx, fxPos, facingLeft, castVfxScale);
+            }
         }
         if (delayEffectPrefab != null)
         {

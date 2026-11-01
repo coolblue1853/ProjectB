@@ -113,6 +113,14 @@ final  = dmg × (1 + 최종뎀/100) × dmgRatio × 레벨차배율   (레벨차:
 
 ## 7. 버프 · 소환
 
+### 임시 스킬 시전 FX 슬롯 (11-01)
+
+- 첫 1시간 테스트용 그림 연결: `Assets/Art/Temp/FX/<스킬ID>.png` 또는 `<스킬ID>_f<N>.png`(1~64프레임 가로 시트). ID는 `Skill.skillName` 공백을 `_`로 치환하며 기존 철자·작은따옴표를 유지한다.
+- `TempSkillFxImporter`가 정지 상태에서 Resources 카탈로그에 텍스처 참조를 등록한다. `TempSkillFxLibrary`는 36 PPU·중앙 피벗 클립을 만들고 기존 `Vfx` 풀로 1회 재생한다(단일 0.2초, 시트 20fps).
+- 리뷰 보강(11-01): 임시 FX도 Vfx 공통 프레임당 6개 생성 제한을 따른다. 런타임 카탈로그의 null 항목·중복 ID·1~64 범위 밖 프레임 수도 기존 FX로 폴백한다.
+- PNG는 시전 첫 피벗의 `castVfx`만 대체한다. 누락·중복·잘못된 시트는 기존 시전 효과로 폴백한다. 공격 판정·투사체·소환수·장판·기본 3타·스미어 v7은 기존 연결을 유지한다.
+- 그림 제작·시각 판정은 Claude 담당. 전체 조사표·제작 주문: `Docs/Playtest/TempFxSlots.md`.
+
 - **버프** — `PlayerBuff.cs`: `AttSpeed / Speed / HitCount / def` 문자열로 대상을 고르고, 지속 시간 뒤 원복한다. 🐞 DamageObject는 대문자 "Def"를 써서 표기가 다르다.
 - **소환** — `SummonSkill.cs`, `SummonAttack.cs`: 플레이어 앞에 N기를 소환한다. 소환물은 주기 공격 후 사라진다.
 

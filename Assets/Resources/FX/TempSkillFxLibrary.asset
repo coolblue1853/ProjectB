@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e5f53813a4e5cd4680b85abf5cd9f82, type: 3}
+  m_Name: TempSkillFxLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::TempSkillFxLibrary
+  entries:
+  - skillId: Ancient_Roots
+    texture: {fileID: 2800000, guid: c2e0e5f72ce31404e8531fca98e647b3, type: 3}
+    frameCount: 4
+  - skillId: Bear_Roar
+    texture: {fileID: 2800000, guid: 5853b0e552ee9b147aeb80cc7c4b1bd1, type: 3}
+    frameCount: 4
+  - skillId: Boar_Charge
+    texture: {fileID: 2800000, guid: 6697c2b1de5598142a9b57e93c1f9413, type: 3}
+    frameCount: 4
+  - skillId: Bog_Eruption
+    texture: {fileID: 2800000, guid: c82df72f1b092264282d81f43d1b3116, type: 3}
+    frameCount: 4
+  - skillId: Crab_Scuttle
+    texture: {fileID: 2800000, guid: 57c5c2c4bbce20443b71553ab352c9f5, type: 3}
+    frameCount: 4
+  - skillId: Death_Roll
+    texture: {fileID: 2800000, guid: 4b783690307faa8478aa0fae3b1d9358, type: 3}
+    frameCount: 4
+  - skillId: Falling_Leaf_Step
+    texture: {fileID: 2800000, guid: 7fa3f4f3d2992c3408cb90ab9cb5f209, type: 3}
+    frameCount: 4
+  - skillId: Fang_Rush
+    texture: {fileID: 2800000, guid: f2503459c5726ca41909fd6370951498, type: 3}
+    frameCount: 4
+  - skillId: Haste
+    texture: {fileID: 2800000, guid: 1389462ab5f4c0745a87baccec434583, type: 3}
+    frameCount: 4
+  - skillId: Hoof_Step
+    texture: {fileID: 2800000, guid: 9f6cf50158e9fb541a6a9b0dc4367e21, type: 3}
+    frameCount: 4
+  - skillId: Howl_of_the_Pack
+    texture: {fileID: 2800000, guid: e7d638ccfdeb7ce459c61f44765e9d15, type: 3}
+    frameCount: 4
+  - skillId: Hunter's_Stride
+    texture: {fileID: 2800000, guid: 38c9e784d1be77f45a33af949f061c63, type: 3}
+    frameCount: 4
+  - skillId: Jaw_Shake
+    texture: {fileID: 2800000, guid: 6edea62b341930243b20df36d4733853, type: 3}
+    frameCount: 4
+  - skillId: Leap_Slam
+    texture: {fileID: 2800000, guid: e185fcb1c53f3fe408454bb884e53270, type: 3}
+    frameCount: 4
+  - skillId: Mauling_Rush
+    texture: {fileID: 2800000, guid: b3a978891a7a31c4b8f6a901f82250c0, type: 3}
+    frameCount: 4
+  - skillId: Pack_Step
+    texture: {fileID: 2800000, guid: fa13ecbbf31927c48b4adff415f10909, type: 3}
+    frameCount: 4
+  - skillId: Pincer_Flurry
+    texture: {fileID: 2800000, guid: 7b99ecb367d4832439dd5bf8995bcc7b, type: 3}
+    frameCount: 4
+  - skillId: Rending_Upswipe
+    texture: {fileID: 2800000, guid: 975e4aa49ef52bb4b8cce65fea5c5061, type: 3}
+    frameCount: 4
+  - skillId: Root_Step
+    texture: {fileID: 2800000, guid: 66e1227ae34789b4e8f72aee3f436cf4, type: 3}
+    frameCount: 4
+  - skillId: Sap_Mend
+    texture: {fileID: 2800000, guid: e947456dca124d3489567ec8f334ca27, type: 3}
+    frameCount: 4
+  - skillId: Scattering_Leaves
+    texture: {fileID: 2800000, guid: ebb619674cffce746ad6b60f73dc0ca8, type: 3}
+    frameCount: 4
+  - skillId: Shell_Back
+    texture: {fileID: 2800000, guid: d17a260a44c4faa48a5c5379c6d0ae22, type: 3}
+    frameCount: 4
+  - skillId: Slash_Attck
+    texture: {fileID: 2800000, guid: faaf292d48702c54d9604ffefea3170b, type: 3}
+    frameCount: 4
+  - skillId: Smash_Down
+    texture: {fileID: 2800000, guid: 68a163f61f7a651498f63208d694911d, type: 3}
+    frameCount: 4
+  - skillId: Tail_Whirl
+    texture: {fileID: 2800000, guid: ba2d11895a7c131488bbff979136fe02, type: 3}
+    frameCount: 4
+  - skillId: Tongue_Lash
+    texture: {fileID: 2800000, guid: 26912acb52ff4784cbdc0e9e7a66fb76, type: 3}
+    frameCount: 4
+  - skillId: Tusk_Uppercut
+    texture: {fileID: 2800000, guid: 735f5236ed1ad2442ae4d5d8296594ca, type: 3}
+    frameCount: 4

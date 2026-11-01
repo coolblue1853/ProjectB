@@ -107,6 +107,28 @@ public static class Vfx
         return true;
     }
 
+    /// <summary>스킬 임시 클립은 기본 3타와 분리된 None 풀로 재생한다.</summary>
+    public static bool PlaySkillClip(PixelFxClip clip, Vector3 position, bool facingLeft)
+    {
+        if (clip == null || clip.frames == null || clip.frames.Length == 0 || !EnsureInit())
+        {
+            return false;
+        }
+        if (frame != Time.frameCount)
+        {
+            frame = Time.frameCount;
+            spawnedThisFrame = 0;
+        }
+        if (spawnedThisFrame >= MaxPerFrame)
+        {
+            return false;
+        }
+        spawnedThisFrame++;
+        var entry = new VfxLibrary.Entry { pixel = clip, sortingOrder = 210 };
+        PlayPixel(VfxId.None, entry, position, facingLeft, 1f);
+        return true;
+    }
+
     /// <summary>
     /// 회색조 도트 이펙트를 무기 테마 색으로 재생한다(PixelSlash2D 셰이더). flipY = 올려베기처럼 위아래 반전.
     /// </summary>
