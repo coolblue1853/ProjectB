@@ -36,7 +36,7 @@ SETS = {
     "airstab": ("motions/airstab", [1, 2, 3, 4]),  # 공중 평타(점프 꼭대기 프레임에서 시작, 다리 접음)
     "airdown": ("motions/airdown", [1, 2, 3, 4]),
     "airup": ("motions/airup", [1, 2, 3, 4]),
-    "flurry": ("motions/flurry", range(1, 8)),
+    "flurry": ("motions/flurry3", [0, 1, 2, 4, 5, 6]),  # 11-01 찌른 자세에서 시작한 연속 찌르기(예전 flurry 는 팔만 살짝 움직여 약했다)
     "cross": ("motions/cross", [1, 2, 3, 4, 8]),
     "charge": ("motions/charge", range(1, 8)),
     "rope": ("motions/rope", range(3, 9)),
@@ -58,7 +58,7 @@ PLAY = {
     "down": (0.083, False, ATK, 2),
     "up": (0.083, False, ATK, 2),
     "side": (0.083, False, ATK, 2),
-    "flurry": (0.06, True, None, 1),
+    "flurry": (0.06, True, None, 0),
     "cross": (0.083, False, [0.07, 0.06, 0.09, 0.09, 0.1], 2),
     "charge": (0.083, False, None, 3),
     "rope": (0.1, True, None, -1),

@@ -320,6 +320,10 @@ public class Weapon : MonoBehaviour
             float scale = swingVfxScale * (step >= ComboFinisherMinSteps && step == attackAnimName.Length ? ComboFinisherScale : 1f);
             DOVirtual.DelayedCall(WeaponFx.StrikeDelayFor(attackAnimName[step - 1], pC.Rig) / StatMath.AttackSpeedMul, () =>
             {
+                if (pC.Rig != null && pC.Rig.ArtOwnsWeapon)
+                {
+                    return; // 궤적이 셀 그림에 있다(CelDS) — 기본 스미어·옆베기 궤적을 겹쳐 띄우지 않는다
+                }
                 Vector3 at = pivot != null ? pivot.position : fxPos;
                 // 찌르기 궤적은 칼날 높이(손 소켓)에 — 판정 위치는 예전 캐릭터 기준이라 칼날보다 아래로 지나갔다(10-26)
                 Transform hand = meleeFx == VfxId.WThrust && pC.Rig != null ? pC.Rig.GetBoneSocket("RightWeapon") : null;
@@ -331,10 +335,6 @@ public class Weapon : MonoBehaviour
                 Transform celRoot = WeaponFx.IsCelSmear(meleeFx) && pC.Rig != null ? pC.Rig.CelRoot : null;
                 if (celRoot != null)
                 {
-                    if (pC.Rig.ArtOwnsWeapon)
-                    {
-                        return; // 궤적이 셀 그림에 있다(CelDS)
-                    }
                     // 흰 램프는 거의 단색이라 납작해 보여 기본 칼 스미어는 푸른 강철 램프로(10-28 레퍼런스 비교)
                     PixelRampId smearRamp = ramp == PixelRampId.White ? PixelRampId.Steel : ramp;
                     Vfx.PlayThemed(meleeFx, celRoot.position, fxLeft, Mathf.Abs(celRoot.lossyScale.y), smearRamp, false, false, 1f, true);

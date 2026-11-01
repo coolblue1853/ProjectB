@@ -1115,7 +1115,7 @@
  "DaggerFlurry": {
   "frame": 0.06,
   "loop": true,
-  "strike": 1,
+  "strike": 0,
   "frames": [
    {
     "png": "ds_flurry_0",
@@ -1184,19 +1184,6 @@
    },
    {
     "png": "ds_flurry_5",
-    "hand": [
-     40,
-     42
-    ],
-    "handB": [
-     26,
-     42
-    ],
-    "time": 0.0,
-    "angle": -999.0
-   },
-   {
-    "png": "ds_flurry_6",
     "hand": [
      40,
      42
@@ -1933,7 +1920,7 @@
  "Punch": {
   "frame": 0.06,
   "loop": true,
-  "strike": 1,
+  "strike": 0,
   "frames": [
    {
     "png": "ds_flurry_0",
@@ -2002,19 +1989,6 @@
    },
    {
     "png": "ds_flurry_5",
-    "hand": [
-     40,
-     42
-    ],
-    "handB": [
-     26,
-     42
-    ],
-    "time": 0.0,
-    "angle": -999.0
-   },
-   {
-    "png": "ds_flurry_6",
     "hand": [
      40,
      42
@@ -2844,7 +2818,7 @@
  "Pull": {
   "frame": 0.06,
   "loop": true,
-  "strike": 1,
+  "strike": 0,
   "frames": [
    {
     "png": "ds_flurry_0",
@@ -2913,19 +2887,6 @@
    },
    {
     "png": "ds_flurry_5",
-    "hand": [
-     40,
-     42
-    ],
-    "handB": [
-     26,
-     42
-    ],
-    "time": 0.0,
-    "angle": -999.0
-   },
-   {
-    "png": "ds_flurry_6",
     "hand": [
      40,
      42

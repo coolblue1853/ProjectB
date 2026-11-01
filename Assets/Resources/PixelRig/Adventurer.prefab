@@ -1421,9 +1421,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 7efec971927d3854abd732e1d89b02ec, type: 3}
     - {fileID: 21300000, guid: 79827799477a3534d9990b3fd2c49696, type: 3}
     - {fileID: 21300000, guid: 27e802b67459aae4abbfd254120667ab, type: 3}
-    - {fileID: 21300000, guid: 2dc66ee512c551a42b5efbf40a2c9d57, type: 3}
     fists:
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -1437,9 +1435,7 @@ MonoBehaviour:
     - {x: 0.2361111, y: 0.5138889}
     - {x: 0.2361111, y: 0.5138889}
     - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
     handB:
-    - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -1453,10 +1449,8 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-    - 0
-    behind: 00000000000000
+    behind: 000000000000
     anglesB:
-    - -999
     - -999
     - -999
     - -999
@@ -1470,7 +1464,6 @@ MonoBehaviour:
     - 1
     - 1
     - 1
-    - 1
     angles:
     - -999
     - -999
@@ -1478,8 +1471,7 @@ MonoBehaviour:
     - -999
     - -999
     - -999
-    - -999
-    strike: 1
+    strike: 0
   - name: DaggerCross
     frame: 0.083
     loop: 0
@@ -2020,9 +2012,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 7efec971927d3854abd732e1d89b02ec, type: 3}
     - {fileID: 21300000, guid: 79827799477a3534d9990b3fd2c49696, type: 3}
     - {fileID: 21300000, guid: 27e802b67459aae4abbfd254120667ab, type: 3}
-    - {fileID: 21300000, guid: 2dc66ee512c551a42b5efbf40a2c9d57, type: 3}
     fists:
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -2036,9 +2026,7 @@ MonoBehaviour:
     - {x: 0.2361111, y: 0.5138889}
     - {x: 0.2361111, y: 0.5138889}
     - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
     handB:
-    - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -2052,10 +2040,8 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-    - 0
-    behind: 00000000000000
+    behind: 000000000000
     anglesB:
-    - -999
     - -999
     - -999
     - -999
@@ -2069,7 +2055,6 @@ MonoBehaviour:
     - 1
     - 1
     - 1
-    - 1
     angles:
     - -999
     - -999
@@ -2077,8 +2062,7 @@ MonoBehaviour:
     - -999
     - -999
     - -999
-    - -999
-    strike: 1
+    strike: 0
   - name: Iaido
     frame: 0.083
     loop: 0
@@ -2711,9 +2695,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 7efec971927d3854abd732e1d89b02ec, type: 3}
     - {fileID: 21300000, guid: 79827799477a3534d9990b3fd2c49696, type: 3}
     - {fileID: 21300000, guid: 27e802b67459aae4abbfd254120667ab, type: 3}
-    - {fileID: 21300000, guid: 2dc66ee512c551a42b5efbf40a2c9d57, type: 3}
     fists:
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -2727,9 +2709,7 @@ MonoBehaviour:
     - {x: 0.2361111, y: 0.5138889}
     - {x: 0.2361111, y: 0.5138889}
     - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
     handB:
-    - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -2743,10 +2723,8 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-    - 0
-    behind: 00000000000000
+    behind: 000000000000
     anglesB:
-    - -999
     - -999
     - -999
     - -999
@@ -2760,7 +2738,6 @@ MonoBehaviour:
     - 1
     - 1
     - 1
-    - 1
     angles:
     - -999
     - -999
@@ -2768,8 +2745,7 @@ MonoBehaviour:
     - -999
     - -999
     - -999
-    - -999
-    strike: 1
+    strike: 0
   - name: LowSweep
     frame: 0.083
     loop: 0
