@@ -13,6 +13,7 @@
 화면 위 가운데에 치트 버튼 줄이 늘 떠 있다: Level +1 · EXP +500 · Gold +1000 · Heal · Day · Night · Day-Night Cycle · Fill Quests(진행 중 의뢰 목표 채우기, 수집은 아이템 지급) · Save · God Mode(무적).
 구역 이동(Town·Side Road·Near/Normal/Deep Forest·Swamp·Bandit Fortress·Tower Outskirts)과 아이템 지급(Item Key 입력 → Give Item, LeafAdae+FangDagger 한 번에)은 **Ctrl+Shift+F1**(또는 화면 오른쪽 위 구석 세 번 클릭) → Options 탭.
 **조작이 안 먹으면 Game 창을 한 번 클릭**한다(에디터가 포커스 없이 플레이를 시작한다).
+**벽·모서리에서 몸이 굳으면 치트 줄의 Unstuck**을 누른다. 그때 상태가 `Logs/stuck_state.txt`에 남아 원인을 찾을 수 있다.
 
 ## 조작
 
