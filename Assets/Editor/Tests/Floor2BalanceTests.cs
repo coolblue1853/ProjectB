@@ -22,7 +22,7 @@ public class Floor2BalanceTests
             {
                 continue;
             }
-            Assert.AreEqual(15, c.Length, c[0]);
+            Assert.That(c.Length, Is.InRange(15, 18), c[0]); // 15열 + 선택 killKey/tint/trait
             Assert.IsTrue(ids.Add(c[0]), "중복 id: " + c[0]);
             if (c[2] != "2")
             {

@@ -3,6 +3,7 @@ Q101,마지막 별의 방향,elder,1,,talk,elder,1,700,100,,,마을 오른쪽 �
 Q102,뿌리 밑의 발자국,ruen,1,Q101,kill,FlowerMole_BD,8,600,120,LeafAdae,1,샛길 오른쪽 끝 연결 포털로 서쪽 구역에 간다. 오른쪽으로 이동해 로프를 ↑로 잡고 고지대의 꽃두더지 8마리를 처치한다. C 점프·↑↓ 로프. 마을 루엔에게 보고한다.
 Q103,바람에 쓸린 약초,sena,2,Q102,collect,GreenHurb,3,742,90,GreenHurb,1,샛길 입구 근처 약초나 오른쪽 표본 덤불에서 약초 3개를 모아 세나에게 보고한다. 덤불은 ↑ 시작·표적에 맞춰 다시 ↑. 보고 뒤 요리에 쓸 약초 1개를 돌려준다.
 Q104,밤을 지키는 허수아비,ruen,3,Q102,kill,Scarecrow_BD,6,800,180,Potion,1,샛길 허수아비 6마리를 처치해 루엔에게 보고한다. 밤에만 나오는 적이므로 낮이면 꽃두더지와 토끼를 사냥하며 기다린다. 물약을 준비한다.
+Q105,이끼 낀 껍질,ruen,3,Q102,kill,MossShellBeetle_BD,5,450,120,Potion,1,샛길 낮 사냥터의 이끼껍질 딱정벌레 5마리를 처치해 마을 루엔에게 보고한다. 느리고 단단하니 서두르지 말고 몸박을 피한다.
 Q201,나무에 새겨진 별,elder,3,Q101,collect,StarBarkFragment,3,1000,160,WolfCap,1,샛길의 오른쪽 일반 숲 포털 → 숲 늑대를 사냥해 별무늬 수피 조각 3개를 주워 장로에게 보고한다. 수락 중에만 조각이 떨어진다.
 Q202,숲의 경계선,ruen,4,Q102,kill,ForestWolf_BD,8,900,210,FangDagger,1,샛길 오른쪽 일반 숲 포털에서 들어가 왼쪽으로 이동하며 숲 늑대 8마리를 처치한 뒤 마을 루엔에게 보고한다.
 Q203,불가에서 만든 첫 끼,merchant,4,Q103,craft,Herb Roasted Rabbit,1,1080,140,Herb Roasted Rabbit,1,샛길 화로(입구에서 오른쪽)에서 토끼고기 2·약초 1·나무 1로 허브 토끼구이를 만든다. ↑ 시작·X 요리 및 뒤집기·ESC 취소.
@@ -11,10 +12,12 @@ Q301,말하는 나이테,elder,6,Q201,kill,AncientEnt_BD,1,1300,300,GroveCap,1,�
 Q302,곰의 길,ruen,6,Q202,kill,ForestBear_BD,7,1200,250,BearClaw,1,깊은 숲의 중형 몬스터를 소개한다.
 Q303,죽은 나무의 심장,smith,7,Q302,collect,EntHeartwood,3,1316,270,Enhance Stone,1,엔트 파밍과 대장장이 방문을 연결한다.
 Q304,새벽의 빈 둥지,eve,8,Q302,visit,deep_nest,1,1300,240,RootStaff,1,흔적 추적 및 정예 둥지 위치를 안내한다.
+Q305,가지뿔에 걸린 길,ruen,7,Q302,kill,BranchAntlerFox_BD,6,850,200,Potion,1,깊은 숲의 가지뿔 여우 6마리를 처치해 루엔에게 보고한다. 짧게 돌진하니 달려드는 방향을 보고 거리를 벌린다.
 Q401,물속의 네 갈래 별,elder,9,Q301,collect,SwampStarShard,3,1500,350,CrocJawAxe,1,메인: 늪 악어가 삼킨 별 문장 조각을 모은다.
 Q402,늪이 삼킨 낚싯줄,merchant,9,Q401,collect,Moss Loach,2,1400,250,BogCap,1,낚시 입문: 늪 낚시터에서 이끼미꾸라지를 낚는다.
 Q403,가라앉지 않는 진흙,sena,10,Q401,kill,BogSlime_BD,8,1469,310,Potion,1,야간 늪 사냥과 슬라임 위험을 안내한다.
 Q404,부풀어 오른 심장,ruen,11,Q403,kill,GiantSlime_BD,1,1600,470,Enhance Stone,1,늪 보스 공략 후 성채 분기와 탑 근교를 연다.
+Q405,등에 핀 포자,sena,9,Q401,kill,SporeBackToad_BD,6,950,230,Potion,1,늪의 포자등 두꺼비 6마리를 처치해 세나에게 보고한다. 맞으면 포자 구름이 퍼지니 터진 자리에서 물러난다.
 Q501,사라진 운반대,merchant,11,Q404,kill,BanditCutthroat_BD,8,800,350,,,선택: 산적 성채의 보급로를 확인한다.
 Q502,빼앗긴 대장간 화물,smith,12,Q501,collect,StolenForgeCrate,4,900,420,T0_Ore,1,선택: 산적 궁수 드롭을 모아 제작 거점을 돕는다.
 Q503,방패 너머의 길,ruen,12,Q501,kill,BanditShieldman_BD,7,811,390,,,선택: 성채 안쪽으로 진입한다.

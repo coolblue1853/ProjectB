@@ -3,7 +3,8 @@ using UnityEngine;
 
 /// <summary>
 /// 몬스터 스탯 데이터 (Resources/MonsterSheet.csv, QualityRoadmap C5). 프리팹 이름이 키. EnemyHealth 가 Awake 에서 행이 있으면 적용한다.
-/// 컬럼: id,displayName,floor,zone,maxHP,enemyDef,isBoss,superArmor,hpHeight,moveSpeed,dropRate,note,level,exp,contactDamage — 빈 값은 프리팹 값 유지.
+/// 컬럼: id,displayName,floor,zone,maxHP,enemyDef,isBoss,superArmor,hpHeight,moveSpeed,dropRate,note,level,exp,contactDamage,killKey,tint,trait — 빈 값은 프리팹 값 유지.
+/// killKey: 처치 메시지·퀘스트 키(비면 프리팹 이름). tint: 임시 그림이 없을 때 호스트 스프라이트에 곱하는 RRGGBB. trait: 특성(spore).
 /// 컬럼 추가는 맨 뒤에만(기존 행 호환).
 /// </summary>
 public static class MonsterTable
@@ -16,6 +17,8 @@ public static class MonsterTable
         public bool? isBoss, superArmor;
         public float? hpHeight;
         public int? level, exp, contactDamage; // 클래식 메이플 레벨·처치 EXP·몸박 공격력(몸박 구현은 다음 단계)
+        public string killKey, trait;          // 새 몹의 처치 키·특성(없으면 빈 문자열)
+        public Color? tint;                    // 임시 그림 없을 때의 색 곱(없으면 null)
     }
 
     static Dictionary<string, Row> rows;
@@ -90,6 +93,18 @@ public static class MonsterTable
                 r.level = ParseInt(c[12]);
                 r.exp = ParseInt(c[13]);
                 r.contactDamage = ParseInt(c[14]);
+            }
+            if (c.Length > 15)
+            {
+                r.killKey = c[15].Trim();
+            }
+            if (c.Length > 16 && ColorUtility.TryParseHtmlString("#" + c[16].Trim(), out Color tint))
+            {
+                r.tint = tint;
+            }
+            if (c.Length > 17)
+            {
+                r.trait = c[17].Trim();
             }
             rows[r.id] = r;
         }

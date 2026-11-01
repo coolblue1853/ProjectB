@@ -27,6 +27,29 @@ public class HuntingRulesTests
         }
     }
 
+    [TestCase("LeftMole_BD", "MossShellBeetle_BD", 3, false)]
+    [TestCase("CliffGoblin_BD", "BranchAntlerFox_BD", 7, false)]
+    [TestCase("SwampFrog_BD", "SporeBackToad_BD", 9, true)]
+    public void NewTempMobs_UseOwnKillKeyAndTraits(string prefabId, string profile, int level, bool spore)
+    {
+        var go = new GameObject(prefabId + "(Clone)");
+        go.SetActive(false);
+        try
+        {
+            var enemy = go.AddComponent<EnemyHealth>();
+            enemy.ApplySpawnProfile(profile);
+            Assert.AreEqual(profile, enemy.MonsterId);
+            Assert.AreEqual(profile, enemy.KillMessageId);
+            Assert.AreEqual(level, enemy.Level);
+            Assert.AreEqual(spore, go.GetComponent<SporeCloud>() != null);
+            Assert.IsNotNull(NpcQuestCatalog.All.FirstOrDefault(q => q.Target == profile), profile);
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(go);
+        }
+    }
+
     [Test]
     public void Goal15_DoesNotIncludeLevel15To16()
     {
@@ -38,8 +61,8 @@ public class HuntingRulesTests
     public void QuestBudget_ExcludesRewardAvailableAtGoal()
     {
         int budget = NpcQuestCatalog.All.Where(q => q.MinLevel < 15).Sum(q => q.Exp);
-        Assert.AreEqual(26425, budget);
-        Assert.AreEqual(23014, NpcQuestCatalog.All.Where(q => q.MinLevel < 15 && !q.Id.StartsWith("Q5")).Sum(q => q.Exp));
+        Assert.AreEqual(28675, budget);
+        Assert.AreEqual(25264, NpcQuestCatalog.All.Where(q => q.MinLevel < 15 && !q.Id.StartsWith("Q5")).Sum(q => q.Exp));
         var quests = new[] { new NpcQuestDef { Id = "Q604", MinLevel = 15, Exp = int.MaxValue } };
         Assert.AreEqual(892, HuntingRules.LevelingMinutes(15, quests, lv => 100, false), 0.0001);
     }
@@ -185,6 +208,21 @@ public class HuntingRulesTests
         }
         Assert.IsNull(HuntingSpawnTable.Get("Lv2_MagicCliffs", "Rabbit"));
         Assert.IsNull(HuntingSpawnTable.Get("Lv1_Swamp", "BossSpawoner"));
+    }
+
+    [Test]
+    public void SpawnProfileRatio_MixesNewMobWithOriginal()
+    {
+        var rows = HuntingSpawnTable.Parse("map,spawner,count,cycle,profile,pointWeights\nA,B,4,10,X_BD@0.5,4\nA,C,4,10,Y_BD,4\nA,D,4,10,Z_BD@bad,4");
+        Assert.AreEqual("X_BD", rows["A/B"].Profile);
+        Assert.AreEqual(0.5f, rows["A/B"].ProfileRatio);
+        Assert.AreEqual(1f, rows["A/C"].ProfileRatio);
+        Assert.AreEqual("Z_BD", rows["A/D"].Profile);
+        Assert.AreEqual(1f, rows["A/D"].ProfileRatio);
+        // 11-01: 새 몹은 기존 몹 자리를 통째로 빼앗지 않는다(가지뿔 여우·포자등 두꺼비 절반 섞기)
+        var floor1 = HuntingSpawnTable.Parse(Resources.Load<TextAsset>("HuntingSpawnsFloor1").text);
+        Assert.AreEqual(0.5f, floor1["Lv1_DeepForest/Goblin1"].ProfileRatio);
+        Assert.AreEqual(0.5f, floor1["Lv1_Swamp/Frog1"].ProfileRatio);
     }
 
     [Test]

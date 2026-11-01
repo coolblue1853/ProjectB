@@ -96,3 +96,20 @@ Repeater → Selector
 
 `Game/AssetInventory.md`의 도트 몬스터 팩(Luiz Melo 시리즈, RPG Monster Pack)으로 **Lv2 사냥터 + 신규 세트 2종**을 만든다.
 상세 기획은 확정 후 이 문서에 추가한다.
+
+## 임시 몹 3종 (11-01, 단일 그림·스폰 프로필 방식)
+
+- 데이터: `MonsterSheet.csv` 끝 3열 `killKey,tint,trait` 추가(기존 행 호환). killKey 가 있으면 처치 메시지·퀘스트 키가 프로필 id 가 된다(없으면 프리팹 이름).
+- 스폰: `HuntingSpawnsFloor1.csv` 의 기존 스포너 프로필만 교체(씬 수정 없음). 호스트 프리팹이 행동 트리·콜라이더를 제공한다.
+- **기존 몹 유지(사용자 "지금 있는 것에 더해서")**: 프로필 `ID@비율` 은 생성 개체 중 그 비율만 새 몹으로 만들고 나머지는 원래 몹이다(`HuntingSpawnTable.Row.ProfileRatio`, `EnemySpawner.TakeProfileSlot` 이 고르게 섞음). 깊은 숲 고블린·늪 개구리(FrogTongueWhip 계보)는 유일 스포너라 절반 섞기, 고블린 스포너는 8→12마리. 샛길 딱정벌레는 두더지 스포너가 3개라 `Mole3` 전부 교체.
+
+| id | 구역·스포너(호스트) | Lv | HP | 방어 | EXP | 몸박 | 퀘스트 |
+|---|---|---|---|---|---|---|---|
+| MossShellBeetle_BD | 샛길 `Mole3` 16마리 (LeftMole) | 3 | 210 | 7 | 19 | 19 | Q105 5마리 |
+| BranchAntlerFox_BD | 깊은 숲 `Goblin1` 12마리 중 절반 `@0.5` (CliffGoblin, 나머지는 기존 DeepGoblin) | 7 | 180 | 5 | 43 | 23 | Q305 6마리 |
+| SporeBackToad_BD | 늪 `Frog1` 36마리 중 절반 `@0.5` (SwampFrog, 나머지는 기존 개구리) | 9 | 270 | 10 | 67 | 22 | Q405 6마리 |
+
+- 그림: `Assets/Art/Temp/Mobs/Temp_<ID>.png`(왼쪽을 봄 → flipX). `TempMobVisual` 이 호스트 콜라이더 폭·높이·바닥에 맞춰 런타임 스프라이트를 만들고 애니메이터를 끈다. 없으면 호스트 스프라이트에 `tint` 색 곱. 움직임은 `TempMobMotion`(숨쉬기·이동 기울기), 피격 흰 번쩍임은 기존 SpriteHitFx.
+- 두꺼비 `trait=spore`: 맞으면 `SporeCloud`(반지름 1.3, 2.5초, 0.8초마다 원피해 5, 쿨 3.5초).
+- 행동은 호스트 BT 그대로(딱정벌레=두더지 걷기, 여우=고블린 접근, 두꺼비=개구리 도약). 전용 돌진·도약은 후속.
+- 퀘스트 EXP +2250(Q105 450, Q305 850, Q405 950)로 1층계 퀘스트 합 30675.

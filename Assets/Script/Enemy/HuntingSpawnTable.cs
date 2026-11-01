@@ -10,6 +10,8 @@ public static class HuntingSpawnTable
         public int Count;
         public float Cycle;
         public string Profile;
+        /// <summary>프로필을 입힐 생성 비율. CSV "ID@0.5" = 절반은 새 몹, 나머지는 원래 몹(11-01 기존 몹 유지)</summary>
+        public float ProfileRatio = 1f;
         public int[] PointWeights;
     }
 
@@ -45,9 +47,22 @@ public static class HuntingSpawnTable
             {
                 continue;
             }
+            string profile = c[4].Trim();
+            float ratio = 1f;
+            int at = profile.IndexOf('@');
+            if (at >= 0)
+            {
+                if (!float.TryParse(profile.Substring(at + 1), NumberStyles.Float, CultureInfo.InvariantCulture, out ratio)
+                    || float.IsNaN(ratio))
+                {
+                    ratio = 1f;
+                }
+                ratio = Mathf.Clamp01(ratio);
+                profile = profile.Substring(0, at).Trim();
+            }
             rows[c[0].Trim() + "/" + c[1].Trim()] = new Row
             {
-                Count = count, Cycle = cycle, Profile = c[4].Trim(),
+                Count = count, Cycle = cycle, Profile = profile, ProfileRatio = ratio,
                 PointWeights = c.Length > 5 ? ParseWeights(c[5], count) : null,
             };
         }

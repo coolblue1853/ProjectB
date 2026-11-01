@@ -80,6 +80,7 @@ public class EnemySpawner : MonoBehaviour
                 enemyCount = setting.Count;
                 cycleFloat = setting.Cycle;
                 spawnProfile = setting.Profile;
+                spawnProfileRatio = setting.ProfileRatio;
                 spawnPointWeights = setting.PointWeights;
             }
         }
@@ -87,7 +88,17 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private string spawnProfile;
+    /// <summary>생성 개체 중 프로필을 입힐 비율(HuntingSpawnTable "ID@0.5"). 나머지는 원래 몹</summary>
+    private float spawnProfileRatio = 1f;
+    private int profiledCreated;
     private int[] spawnPointWeights;
+
+    /// <summary>비율대로 고르게 섞는다: n번째 생성에서 floor((n+1)r) 가 늘어날 때만 프로필</summary>
+    private bool TakeProfileSlot()
+    {
+        int n = profiledCreated++;
+        return Mathf.FloorToInt((n + 1) * spawnProfileRatio) > Mathf.FloorToInt(n * spawnProfileRatio);
+    }
 
     /// <summary>재사용 프리팹의 지역별 수치 키. 비어 있으면 기존 프리팹 이름을 쓴다.</summary>
     public string MonsterProfile => string.IsNullOrEmpty(spawnProfile)
@@ -237,7 +248,7 @@ public class EnemySpawner : MonoBehaviour
         }
         GameObject go = Instantiate(prefab);
         if (!string.IsNullOrEmpty(spawnProfile) && prefab == EnemyPrefab
-            && go.TryGetComponent(out EnemyHealth enemy))
+            && TakeProfileSlot() && go.TryGetComponent(out EnemyHealth enemy))
         {
             enemy.ApplySpawnProfile(spawnProfile);
         }
