@@ -92,7 +92,7 @@ public class NpcQuestWindow : MonoBehaviour
         {
             return;
         }
-        if (_back.triggered)
+        if (UiLock.TryBack("NpcQuest", _back.triggered))
         {
             Close();
             return;

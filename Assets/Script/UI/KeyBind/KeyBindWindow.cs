@@ -83,6 +83,7 @@ public class KeyBindWindow : MonoBehaviour
 
     private void OnDestroy()
     {
+        UiLock.Set("KeyBind", false);
         _open = false; // 취소 콜백이 파괴 중인 글자를 다시 그리지 않게
         CancelRebind();
         _action?.Dispose();
@@ -95,6 +96,7 @@ public class KeyBindWindow : MonoBehaviour
     private void Show()
     {
         _open = true;
+        UiLock.Set("KeyBind", true);
         _cursor = 0;
         _column = 0;
         _ignoreUntil = Time.unscaledTime + InputGuard;
@@ -108,6 +110,7 @@ public class KeyBindWindow : MonoBehaviour
     {
         CancelRebind();
         _open = false;
+        UiLock.Set("KeyBind", false);
         ClosedFrame = Time.frameCount;
         _action.UI.Disable();
         _panel.SetActive(false);
@@ -122,7 +125,7 @@ public class KeyBindWindow : MonoBehaviour
         }
         Keyboard kb = Keyboard.current;
         bool esc = (kb != null && kb.escapeKey.wasPressedThisFrame) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame);
-        if (esc)
+        if (UiLock.TryBack("KeyBind", esc))
         {
             Close();
             return;

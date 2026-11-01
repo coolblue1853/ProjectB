@@ -369,7 +369,7 @@ public class CraftingManager : MonoBehaviour
             }
         }
 
-        if(backAction.triggered == true)
+        if (UiLock.TryBack("Craft", backAction.triggered))
         {
             miscDetail.SetActive(false);
             consumDetail.SetActive(false);
@@ -398,6 +398,10 @@ public class CraftingManager : MonoBehaviour
             if(isCheckDetail == true)
             {
                 MoveDetailCusor();
+                if (backAction.triggered)
+                {
+                    return;
+                }
             }
 
 
@@ -408,7 +412,7 @@ public class CraftingManager : MonoBehaviour
                     ResetDetail();
                     Craft();
                 }
-                if ((backAction.triggered == true && isCheckDetail == false) || leftInventoryAction.triggered == true)
+                if ((isCheckDetail == false && UiLock.TryBack("Craft", backAction.triggered)) || leftInventoryAction.triggered == true)
                 {
                     isLeftCraft = true;
                     Sequence seq = DOTween.Sequence()
@@ -459,7 +463,7 @@ public class CraftingManager : MonoBehaviour
             UiLock.Set("Craft", true);
         }
 
-        else if (CraftUI.activeSelf == true && backAction.triggered && cusor.activeSelf == true && isCheckDetail == false && isCraft ==false)
+        else if (CraftUI.activeSelf == true && cusor.activeSelf == true && isCheckDetail == false && isCraft == false && UiLock.TryBack("Craft", backAction.triggered))
         {
             PlayerController.instance.DashWait2F();
             ResetDetail();

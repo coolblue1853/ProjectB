@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// 대장장이 강화 창 (코드 생성 UI). 대장장이 앞에서 ↓로 연다.
-/// 왼쪽: 인벤토리의 장비 목록(↑↓ 선택) / 오른쪽: 성공률·강화석·골드·실패 규칙 / 선택 키 = 강화, 뒤로 = 닫기.
+/// 왼쪽: 착용 장비와 인벤토리 장비 목록(↑↓ 선택) / 오른쪽: 성공률·강화석·골드·실패 규칙 / 선택 키 = 강화, 뒤로 = 닫기.
 /// </summary>
 public class EnhanceWindow : MonoBehaviour
 {
@@ -94,6 +94,17 @@ public class EnhanceWindow : MonoBehaviour
     void Collect()
     {
         items.Clear();
+        foreach (GameObject box in InventoryManager.instance.equipBox)
+        {
+            if (box != null && box.transform.childCount > 0)
+            {
+                ItemCheck worn = box.transform.GetChild(0).GetComponent<ItemCheck>();
+                if (worn != null && worn.itemData != null && worn.itemData.type == "Equip")
+                {
+                    items.Add(worn);
+                }
+            }
+        }
         foreach (ItemCheck c in InventoryManager.instance.EnumerateInventoryItems())
         {
             if (c.itemData != null && c.itemData.type == "Equip")
@@ -120,7 +131,7 @@ public class EnhanceWindow : MonoBehaviour
             TickForge();
             return;
         }
-        if (backAction.triggered)
+        if (UiLock.TryBack("Enhance", backAction.triggered))
         {
             Close();
             return;
@@ -199,7 +210,7 @@ public class EnhanceWindow : MonoBehaviour
         ItemCheck item = items[cursor];
         if (forgeDoneAt <= 0f)
         {
-            if (backAction.triggered)
+            if (UiLock.TryBack("Enhance", backAction.triggered))
             {
                 EndForge();
                 Redraw();
@@ -291,7 +302,7 @@ public class EnhanceWindow : MonoBehaviour
             row.bg.color = i == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
             row.icon.sprite = Resources.Load<Sprite>("Item/" + d.name);
             row.icon.enabled = row.icon.sprite != null;
-            row.text.text = "<color=#" + ColorUtility.ToHtmlStringRGB(theme.RarityColor(d.rarity)) + ">" + EnhanceRules.DisplayName(string.IsNullOrEmpty(d.itemNameT) ? d.name : d.itemNameT, d.upgrade) + "</color>";
+            row.text.text = (InventoryManager.instance.EquippedFor(d.equipArea) == items[i] ? "[착용] " : "") + "<color=#" + ColorUtility.ToHtmlStringRGB(theme.RarityColor(d.rarity)) + ">" + EnhanceRules.DisplayName(string.IsNullOrEmpty(d.itemNameT) ? d.name : d.itemNameT, d.upgrade) + "</color>";
         }
         detail.text = items.Count == 0 ? "" : DetailText(items[cursor].itemData, theme);
     }

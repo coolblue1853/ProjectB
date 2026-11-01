@@ -144,6 +144,12 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
         {
             return;
         }
+        if (UiLock.TryBack("Dialogue", action.UI.Back.triggered))
+        {
+            DialogueManager.StopConversation();
+            Close();
+            return;
+        }
         Keyboard kb = Keyboard.current;
         bool confirm = select.triggered || (kb != null && (kb.enterKey.wasPressedThisFrame || kb.zKey.wasPressedThisFrame));
         if (responses != null)

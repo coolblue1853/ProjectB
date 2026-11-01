@@ -92,7 +92,11 @@ public static class EnhanceService
         InventoryService service = InventoryManager.instance.Service;
         if (service.IndexOf(item) < 0)
         {
-            item.itemData.upgrade = newLevel; // 인벤 밖(지금 강화 창은 인벤 아이템만 보여 주므로 예외 경로)
+            item.itemData.upgrade = newLevel;
+            if (InventoryManager.instance.EquippedFor(item.itemData.equipArea) == item)
+            {
+                item.transform.parent.GetComponent<EquipBoxCheck>().RefreshEnhancement(item);
+            }
         }
         else if (!service.SetUpgrade(item, newLevel)) // 인벤 칸이면 모델 명령으로(3c-2)
         {

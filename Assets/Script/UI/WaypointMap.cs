@@ -115,7 +115,7 @@ public class WaypointMap : MonoBehaviour
         {
             return;
         }
-        if (back.triggered)
+        if (UiLock.TryBack("Waypoint", back.triggered))
         {
             Close();
             return;

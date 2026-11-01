@@ -141,6 +141,29 @@ public class EquipBoxCheck : MonoBehaviour
             }
         }
     }
+    /// <summary>장착 상태를 유지하며 강화 스탯만 교체한다. HP는 차이만 적용해 회복·손실을 막는다.</summary>
+    public void RefreshEnhancement(ItemCheck item)
+    {
+        ActivePrefab(item.itemData.equipArea);
+        if (item.itemData.equipArea == "Weapon")
+        {
+            weapon.SetEnhance(item.itemData.upgrade);
+        }
+        else
+        {
+            Equipment equip = equipmentList[CheckEquipBoxNum(item.itemData.equipArea)];
+            int oldHp = equip.appliedHp;
+            equip.enhanceLevel = item.itemData.upgrade;
+            equip.appliedHp = equip.Enhanced(equip.hp);
+            equip.appliedBasicDmg = equip.Enhanced(equip.basicDmg);
+            equip.appliedArmor = Mathf.RoundToInt(equip.Enhanced(equip.armor) * Equipment.ArmorToDef);
+            // 강화로 바뀌는 세 스탯만 갱신한다. 세트·출혈·쿨다운 출처는 그대로 유지한다.
+            ApplyEquipmentStats(equip);
+            PlayerHealthManager.Instance.ApplyEnhancementMaxHp(equip.appliedHp - oldHp);
+        }
+        SaveEquipItem(item, true);
+    }
+
     public void SetEquipmentSkillCool(Equipment equip)
     {
         for(int i =0; i < equip.coolDownSkill.Length; i++)
@@ -174,18 +197,7 @@ public class EquipBoxCheck : MonoBehaviour
         equip.appliedHp = equip.Enhanced(equip.hp);
         equip.appliedArmor = Mathf.RoundToInt(equip.Enhanced(equip.armor) * Equipment.ArmorToDef); // 방어구 방어력 반영 (B-212)
         // 정수 스탯은 이 장비 인스턴스를 출처로 하는 모디파이어 — 해제는 RemoveBySource 한 줄 (PlayerStateDesign Phase 10a)
-        PlayerStats.RemoveBySource(equip); // 같은 장비가 두 번 적용돼도 중복되지 않게
-        AddEquipStat(equip, StatId.DropRate, equip.dropRate);
-        AddEquipStat(equip, StatId.CritRate, equip.critical);
-        AddEquipStat(equip, StatId.MoveSpeed, equip.moveSpeed);
-        AddEquipStat(equip, StatId.AttackSpeed, equip.attSpeed);
-        AddEquipStat(equip, StatId.CritDmg, equip.criticalDmg);
-        AddEquipStat(equip, StatId.BasicDmg, equip.appliedBasicDmg);
-        AddEquipStat(equip, StatId.Def, equip.appliedArmor);
-        AddEquipStat(equip, StatId.BleedIncDmg, equip.bleedingDmgPer);
-        AddEquipStat(equip, StatId.IncomingDmg, equip.addIncomingDmg);
-        AddEquipStat(equip, StatId.IncDmg, equip.incDmg);
-        AddEquipStat(equip, StatId.PoisonDmg, equip.poisonDmg);
+        ApplyEquipmentStats(equip);
         PlayerHealthManager.Instance.EquipmentActiveTrue(equip.appliedHp);
         GameLog.Info(GameLog.Cat.Item, "장비 적용 " + equip.name + " +" + equip.enhanceLevel + " hp=" + equip.appliedHp + " def=" + equip.appliedArmor + " atk=" + equip.appliedBasicDmg);
         // 출혈관련
@@ -207,6 +219,22 @@ public class EquipBoxCheck : MonoBehaviour
             DatabaseManager.bleedingEquipment.Remove(BleedKey(equip));
             DatabaseManager.bleedingEquipmentInterval.Remove(BleedKey(equip));
         }
+    }
+
+    private static void ApplyEquipmentStats(Equipment equip)
+    {
+        PlayerStats.RemoveBySource(equip); // 같은 장비가 두 번 적용돼도 중복되지 않게
+        AddEquipStat(equip, StatId.DropRate, equip.dropRate);
+        AddEquipStat(equip, StatId.CritRate, equip.critical);
+        AddEquipStat(equip, StatId.MoveSpeed, equip.moveSpeed);
+        AddEquipStat(equip, StatId.AttackSpeed, equip.attSpeed);
+        AddEquipStat(equip, StatId.CritDmg, equip.criticalDmg);
+        AddEquipStat(equip, StatId.BasicDmg, equip.appliedBasicDmg);
+        AddEquipStat(equip, StatId.Def, equip.appliedArmor);
+        AddEquipStat(equip, StatId.BleedIncDmg, equip.bleedingDmgPer);
+        AddEquipStat(equip, StatId.IncomingDmg, equip.addIncomingDmg);
+        AddEquipStat(equip, StatId.IncDmg, equip.incDmg);
+        AddEquipStat(equip, StatId.PoisonDmg, equip.poisonDmg);
     }
 
     static void AddEquipStat(Equipment equip, StatId id, int value)

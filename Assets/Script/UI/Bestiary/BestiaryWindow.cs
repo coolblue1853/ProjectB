@@ -81,13 +81,17 @@ public class BestiaryWindow : MonoBehaviour
             Toggle();
             return;
         }
-        if (!open || data == null || data.entries.Count == 0)
+        if (!open)
         {
             return;
         }
-        if (back.triggered)
+        if (UiLock.TryBack("Bestiary", back.triggered))
         {
             Close();
+            return;
+        }
+        if (data == null || data.entries.Count == 0)
+        {
             return;
         }
         int n = data.entries.Count, prev = cursor;

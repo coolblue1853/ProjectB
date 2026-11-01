@@ -8,6 +8,7 @@ using UnityEngine.UI;
 /// 일시정지 메뉴 (Esc, 다른 창이 없을 때): 계속하기 · 층계 지도 · 도감 · 마을로 귀환 · 게임 종료.
 /// 열리면 Time.timeScale 0 + UiLock "Pause". 코드 생성 UI(공용 픽셀 프레임).
 /// </summary>
+[DefaultExecutionOrder(-10000)]
 public class PauseMenu : MonoBehaviour
 {
     static PauseMenu instance;
@@ -56,15 +57,12 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
+        UiLock.CaptureBackFrame();
         Keyboard kb = Keyboard.current;
-        if (kb == null)
-        {
-            return;
-        }
-        bool esc = kb.escapeKey.wasPressedThisFrame || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame);
+        bool esc = (kb != null && kb.escapeKey.wasPressedThisFrame) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame);
         if (!open)
         {
-            if (esc && !DatabaseManager.isOpenUI)
+            if (!DatabaseManager.isOpenUI && UiLock.TryBack(null, esc))
             {
                 Open();
             }
@@ -74,7 +72,7 @@ public class PauseMenu : MonoBehaviour
         {
             return; // 키 설정 창이 입력을 가진다(닫은 프레임의 ESC 도 여기서 다시 받지 않음)
         }
-        if (esc)
+        if (UiLock.TryBack("Pause", esc))
         {
             if (settingsMode) { settingsMode = false; cursor = 3; Redraw(); }
             else Close();
@@ -98,7 +96,7 @@ public class PauseMenu : MonoBehaviour
             Sfx.Play(SfxId.UiMove, 0.6f);
             Redraw();
         }
-        else if (select.triggered || kb.enterKey.wasPressedThisFrame)
+        else if (select.triggered || (kb != null && kb.enterKey.wasPressedThisFrame))
         {
             Activate();
         }

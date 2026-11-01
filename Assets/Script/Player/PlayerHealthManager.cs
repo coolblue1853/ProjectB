@@ -104,6 +104,17 @@ public class PlayerHealthManager : MonoBehaviour
         {
             nowFullness = fullFullness;
         }
+        // 허기 부족으로 끝난 회복만 다시 예약한다. 소비 직후 대기 시간은 건너뛰지 않는다.
+        if (nowFullness >= 1 && nowStemina < fullStemina && !sequence.IsActive() && !waitSequence.IsActive())
+        {
+            waitSequence = DOTween.Sequence().AppendInterval(intervalTimeSteminaHeal)
+                .OnComplete(OnSequenceComplete).SetLink(gameObject);
+        }
+        if (nowFullness >= 3 && nowHp < fullHP && !hpSequence.IsActive() && !waitHpSequence.IsActive())
+        {
+            waitHpSequence = DOTween.Sequence().AppendInterval(intervalTimeHpHeal)
+                .OnComplete(OnHpSequenceComplete).SetLink(gameObject);
+        }
         if (OnFullnessHealed != null) OnFullnessHealed(this, EventArgs.Empty);
     }
     public void SteminaDamage(int amount)
@@ -160,6 +171,13 @@ public class PlayerHealthManager : MonoBehaviour
     {
         fullHP += delta;
         healthBar.ResetHealthStat(this);
+    }
+
+    /// <summary>착용 강화의 최대 HP 차이만 적용한다. 현재 HP를 회복하지 않고 HUD에 알린다.</summary>
+    public void ApplyEnhancementMaxHp(int delta)
+    {
+        fullHP += delta;
+        HpUp(0);
     }
 
     public void EquipmentActiveTrue(int hp)
@@ -434,7 +452,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void OnSequenceComplete()
     {
-        if(nowFullness >= 1)
+        if (nowFullness >= 1 && nowStemina < fullStemina)
         {
             FullnessDown(1);
 
@@ -463,7 +481,7 @@ public class PlayerHealthManager : MonoBehaviour
     }
     private void OnHpSequenceComplete()
     {
-        if (nowFullness >= 3)
+        if (nowFullness >= 3 && nowHp < fullHP)
         {
             FullnessDown(3);
 

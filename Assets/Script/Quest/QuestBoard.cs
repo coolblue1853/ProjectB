@@ -29,7 +29,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
     string ReportTo => _source == Source.Board ? "the quest board" : "the Village Elder";
 
     KeyAction action;
-    InputAction upAction;
+    InputAction upAction, backAction;
     QuestGiver giver;
     QuestJournal journal;
     bool playerNear, lockedUi;
@@ -38,12 +38,14 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
     {
         action = new KeyAction();
         upAction = action.UI.Up;
+        backAction = action.UI.Back;
         giver = GetComponent<QuestGiver>();
     }
 
     void OnEnable()
     {
         upAction.Enable();
+        backAction.Enable();
         MessageSystem.AddListener(this, QuestMachineMessages.QuestStateChangedMessage, string.Empty);
         MessageSystem.AddListener(this, QuestMachineMessages.QuestCounterChangedMessage, string.Empty);
     }
@@ -51,6 +53,7 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
     void OnDisable()
     {
         upAction.Disable();
+        backAction.Disable();
         MessageSystem.RemoveListener(this);
     }
 
@@ -304,6 +307,13 @@ public class QuestBoard : MonoBehaviour, IMessageHandler
         {
             lockedUi = dialogueOpen;
             UiLock.Set("QuestDialog", dialogueOpen);
+        }
+        if (dialogueOpen && UiLock.TryBack("QuestDialog", backAction.WasPressedThisFrame()))
+        {
+            QuestMachine.defaultQuestDialogueUI.Hide();
+            UiLock.Set("QuestDialog", false);
+            lockedUi = false;
+            return;
         }
         if (_useUpKey && playerNear && upAction.triggered && DatabaseManager.isOpenUI == false)
         {
