@@ -94,7 +94,7 @@ public sealed class TempMobMotion : MonoBehaviour
     EnemyHealth _enemy;
     TempMobDash _dash;
     float _breath = 1f, _tilt, _lastX, _phase;
-    bool _hasLast;
+    bool _hasLast, _dashLookedUp;
 
     void Awake()
     {
@@ -104,7 +104,7 @@ public sealed class TempMobMotion : MonoBehaviour
 
     void OnEnable()
     {
-        _dash = GetComponent<TempMobDash>(); // 돌진 특성은 이 컴포넌트보다 늦게 붙으므로 풀에서 꺼낼 때마다 찾는다
+        _dashLookedUp = false; // 돌진 특성은 첫 생성 때 OnEnable 뒤에 붙으므로 첫 LateUpdate 에서 한 번 찾는다
         _hasLast = false;
         _breath = 1f;
         _tilt = 0f;
@@ -128,6 +128,11 @@ public sealed class TempMobMotion : MonoBehaviour
         if (dt <= 0f)
         {
             return;
+        }
+        if (!_dashLookedUp)
+        {
+            _dash = GetComponent<TempMobDash>();
+            _dashLookedUp = true;
         }
         float x = transform.position.x;
         float vx = _hasLast ? (x - _lastX) / dt : 0f;
