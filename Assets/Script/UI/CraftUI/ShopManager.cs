@@ -263,7 +263,7 @@ public class ShopManager : MonoBehaviour
         sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
         // 슬라이더의 최소값과 최대값 설정. 살 수 없어도 max 가 min 보다 작아지지 않게 1 로 막고, 실제 구매 수는 BuyItem 이 다시 자른다(B-018)
         sellSlider.minValue = 1;
-        sellSlider.maxValue = Mathf.Max(1, MaxAffordable(nowShopItem.itemData.maxStack, nowShopItem.buyprice, DatabaseManager.money));
+        sellSlider.maxValue = Mathf.Max(1, BuyLimit(nowShopItem));
         // 슬라이더의 현재 값 설정
         sellSlider.value = 1;
         output = 1;
@@ -278,9 +278,39 @@ public class ShopManager : MonoBehaviour
         return Mathf.Clamp(money / price, 0, Mathf.Max(0, maxStack));
     }
 
+    /// <summary>가방에 더 넣을 수 있는 개수(같은 스택 여유 + 빈칸 × 스택 한도)</summary>
+    public static int BagSpaceFor(string id)
+    {
+        InventoryManager inv = InventoryManager.instance;
+        return inv == null ? 0 : inv.Service.ScanModel().SpaceFor(new ItemStack(id, 1));
+    }
+
+    /// <summary>골드·가방 여유·스택 한도를 모두 따진 한 번에 살 수 있는 개수</summary>
+    public static int BuyLimit(ItemCheck item)
+    {
+        return ShopRules.MaxBuyable(item.itemData.maxStack, item.buyprice, DatabaseManager.money, BagSpaceFor(item.name));
+    }
+
+    /// <summary>살 수 없는 이유를 알린다(골드 부족 / 가방 가득). 살 수 있으면 true</summary>
+    public static bool CanBuyOne(ItemCheck item)
+    {
+        switch (ShopRules.CheckBuy(item.buyprice, DatabaseManager.money, BagSpaceFor(item.name)))
+        {
+            case ShopRules.BuyBlock.NoGold:
+                PickupLog.Warn("골드 부족 (필요 " + item.buyprice.ToString("N0") + "G / 보유 " + DatabaseManager.money.ToString("N0") + "G)");
+                return false;
+            case ShopRules.BuyBlock.BagFull:
+                PickupLog.ReportFull();
+                return false;
+            default:
+                return true;
+        }
+    }
+
     void BuyItem()
     {
-        int count = Mathf.Min(Mathf.RoundToInt(sellSlider.value), MaxAffordable(nowShopItem.itemData.maxStack, nowShopItem.buyprice, DatabaseManager.money));
+        int count = Mathf.Min(Mathf.RoundToInt(sellSlider.value), BuyLimit(nowShopItem));
+        int bought = 0, spent = 0;
         InventoryManager.instance.BeginSaveBatch(); // N개 구매 = 저장 1회(B-022)
         try
         {
@@ -295,9 +325,12 @@ public class ShopManager : MonoBehaviour
                     if (InventoryManager.instance.CreatItem(nowShopItem.name, false, null, AddSource.Shop))
                     {
                         DatabaseManager.money -= nowShopItem.buyprice; // 실제로 들어간 것만 돈을 뺀다
+                        bought++;
+                        spent += nowShopItem.buyprice;
                     }
                 }
             }
+            ReportBought(nowShopItem, bought, spent, Mathf.RoundToInt(sellSlider.value));
             InventoryManager.instance.SaveInventory(); // 하나도 못 샀어도 돈·인벤을 한 번 저장(배치 안이라 표시만)
         }
         finally
@@ -311,6 +344,28 @@ public class ShopManager : MonoBehaviour
         isMoveCusor = true;
         DetailOff();
     }
+    /// <summary>구매 결과 안내: 산 개수·쓴 골드, 요청보다 적게 샀으면 이유(가방/골드)</summary>
+    public static void ReportBought(ItemCheck item, int bought, int spent, int requested)
+    {
+        if (bought > 0)
+        {
+            PickupLog.Report(item.itemData.itemNameT, bought, item.itemData.rarity);
+            Sfx.Play(SfxId.Money);
+            GameLog.Info(GameLog.Cat.Item, "구매: " + item.name + " x" + bought + " (-" + spent + "G)");
+        }
+        if (bought < requested)
+        {
+            if (bought == 0 && DatabaseManager.money < item.buyprice)
+            {
+                PickupLog.Warn("골드 부족");
+            }
+            else
+            {
+                PickupLog.Warn("가방이 가득 차 " + bought + "/" + requested + "개만 샀다");
+            }
+        }
+    }
+
     public void CloseBuyUI()
     {
         InventoryManager.instance.state = "ShopCusorOn";
@@ -371,14 +426,14 @@ public class ShopManager : MonoBehaviour
             }
             else if(isBuyDetail == true && selectAction.triggered == true)
             {
-                if (DatabaseManager.money >= nowShopItem.buyprice)
+                if (CanBuyOne(nowShopItem))
                 {
                     InventoryManager.instance.state = "BuyDetail";
                     SellItemUI();
                 }
                 else
                 {
-                    PickupLog.Warn(Loc.T("Not enough gold")); // 조용히 무시하던 것을 알려 준다
+                    Sfx.Play(SfxId.CraftFail, 0.4f); // 이유는 CanBuyOne 이 알렸다
                 }
             }
             if (name.text == "")
@@ -400,6 +455,7 @@ public class ShopManager : MonoBehaviour
             InventoryManager.instance.cusor.SetActive(true);
             Invoke("ChangeisMoveCusor", 0.2f);
             ShopUI.SetActive(true);
+            ShopStockExtender.RefreshFor(this); // 층계가 오른 뒤 처음 열 때 새 품목을 진열
             ResetStockSelection();
             InventoryManager.instance.state = "ShopCusorOn";
             InventoryManager.instance.cusor.SetActive(false);
@@ -465,7 +521,7 @@ public class ShopManager : MonoBehaviour
     {
         if (_stockPageLabel != null)
         {
-            _stockPageLabel.text = (nowPage == 0 ? "보급품" : "기본 무기·방어구") +
+            _stockPageLabel.text = ShopStockExtender.PageName(nowPage) +
                 "  " + (nowPage + 1) + " / " + LV1craftBox[0].transform.childCount + "   Q · E / LB · RB";
         }
     }

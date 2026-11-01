@@ -37,7 +37,7 @@ public class ItemCheck : MonoBehaviour
         }
 
         _shownStack = _shownHave = _shownNeed = int.MinValue; // 재사용 시 표시 캐시 무효화
-        buyprice = (int)(itemData.price * 1.5f);
+        buyprice = ShopRules.BuyPrice(itemData.price);
         nowStack = 1;
         name = itemData.name;
         LoadImage();

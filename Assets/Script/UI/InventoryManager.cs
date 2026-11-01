@@ -1123,6 +1123,16 @@ public class InventoryManager : MonoBehaviour
         if (detail == null || detail.itemData == null || detail.itemData.isLocked || !ItemTradeRules.CanSell(detail.name))
         {
             Sfx.Play(SfxId.CraftFail, 0.4f);
+            if (detail != null && detail.itemData != null && detail.itemData.isLocked)
+            {
+                PickupLog.Warn("잠긴 아이템은 팔 수 없다 (L 해제)");
+            }
+            return;
+        }
+        if (!ShopConvenience.AllowsSale(detail.itemData.type))
+        {
+            Sfx.Play(SfxId.CraftFail, 0.4f);
+            PickupLog.Warn("판매 필터(" + ShopRules.FilterLabel(ShopConvenience.Filter) + ") 밖의 아이템 - O 로 필터 변경");
             return;
         }
         InitializeSlider();

@@ -1,0 +1,15 @@
+﻿Page,Row,ItemId,MinFloor,PageName
+0,0,Small HP Potion,1,보급품
+0,0,Medium HP Potion,1,보급품
+0,0,Large HP Potion,1,보급품
+0,0,Recall Scroll,1,보급품
+0,1,Emergency Rations,1,보급품
+0,1,Torch,1,보급품
+1,0,RustedSword,1,기본 무기·방어구
+1,0,Leather Knuckles,1,기본 무기·방어구
+1,0,Wood Spear,1,기본 무기·방어구
+1,1,Cap,1,기본 무기·방어구
+1,1,Armor,1,기본 무기·방어구
+1,1,HandArmor,1,기본 무기·방어구
+1,1,LegArmor,1,기본 무기·방어구
+1,1,Shoes,1,기본 무기·방어구

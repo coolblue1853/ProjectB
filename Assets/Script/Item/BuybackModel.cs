@@ -64,6 +64,21 @@ public sealed class BuybackModel
         }
     }
 
+    /// <summary>최근 것부터 i 번째를 꺼낸다(목록에서 골라 되사기). 범위 밖이면 false</summary>
+    public bool TryTakeAt(int i, out Sold s)
+    {
+        if (i < 0 || i >= _list.Count)
+        {
+            s = default(Sold);
+            return false;
+        }
+        int at = _list.Count - 1 - i;
+        s = _list[at];
+        _list.RemoveAt(at);
+        Version++;
+        return true;
+    }
+
     public void Clear()
     {
         _list.Clear();

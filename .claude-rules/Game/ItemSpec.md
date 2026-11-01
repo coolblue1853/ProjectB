@@ -120,7 +120,7 @@
 
 **상점:**
 - 구매가 = `int(price × 1.5)`, 판매가 = price이다.
-- 품목은 씬에서 `ItemCheck.isShopItem`으로 표시된 오브젝트다.
+- 품목은 `Assets/Resources/ShopStock.csv`(`Page,Row,ItemId,MinFloor,PageName`)에서 만든다(11-02). MinFloor 이상 층계에 도달하면 진열, 컬럼은 맨 뒤에만 추가. 상세는 BasicFeatures.md 17절.
 
 ## 5.1 강화 (대장장이 ↓) — 상세는 `ProgressionDesign.md` 3절
 

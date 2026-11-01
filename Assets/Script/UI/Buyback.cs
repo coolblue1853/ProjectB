@@ -19,6 +19,7 @@ public class Buyback : MonoBehaviour
     {
         _instance = null;
         _model.Clear();
+        _selected = 0;
         _hinted = false;
     }
 
@@ -46,21 +47,45 @@ public class Buyback : MonoBehaviour
     public static void Record(string id, int count, int tier, int upgrade, int price)
     {
         _model.Record(new BuybackModel.Sold { Id = id, Count = count, Tier = tier, Upgrade = upgrade, Price = price });
+        _selected = 0; // 새로 판 것이 맨 위 — 선택도 맨 위로
         if (!_hinted)
         {
             _hinted = true; // 세션 첫 판매 때 한 번 키를 알려 준다
-            PickupLog.Report(Loc.T("U: buy back last sold item"), 1, "C");
+            PickupLog.Report("U: 되사기 ([ ] 로 고르기)", 1, "C");
         }
+    }
+
+    private static int _selected;
+
+    /// <summary>되살 줄(0 = 가장 최근). [ ] / 패드 LT+Y 로 옮기고 U·RT 로 산다</summary>
+    public static int Selected => Mathf.Clamp(_selected, 0, Mathf.Max(0, _model.Count - 1));
+
+    public static void MoveSelection(int delta)
+    {
+        int n = _model.Count;
+        _selected = n <= 0 ? 0 : ((Selected + delta) % n + n) % n;
     }
 
     private void Update()
     {
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
-        bool pressed = (kb != null && kb.uKey.wasPressedThisFrame) || (pad != null && pad.rightTrigger.wasPressedThisFrame);
-        if (pressed && CanUse())
+        if (!CanUse())
         {
-            TryBuyBackLast();
+            return;
+        }
+        if (kb != null && kb.leftBracketKey.wasPressedThisFrame)
+        {
+            MoveSelection(-1);
+        }
+        else if ((kb != null && kb.rightBracketKey.wasPressedThisFrame) || (pad != null && pad.leftTrigger.isPressed && pad.buttonNorth.wasPressedThisFrame))
+        {
+            MoveSelection(1);
+        }
+        bool pressed = (kb != null && kb.uKey.wasPressedThisFrame) || (pad != null && pad.rightTrigger.wasPressedThisFrame);
+        if (pressed)
+        {
+            TryBuyBack(Selected);
         }
     }
 
@@ -75,26 +100,33 @@ public class Buyback : MonoBehaviour
     /// <summary>가장 최근 판매분을 되산다. 성공하면 true</summary>
     public static bool TryBuyBackLast()
     {
+        return TryBuyBack(0);
+    }
+
+    /// <summary>목록의 index 번째(0 = 가장 최근)를 판 값 그대로 되산다. 성공하면 true. 골드·가방이 모자라면 목록은 그대로</summary>
+    public static bool TryBuyBack(int index)
+    {
         InventoryManager inv = InventoryManager.instance;
         if (inv == null)
         {
             return false;
         }
-        if (!_model.TryPeek(out BuybackModel.Sold s))
+        BuybackModel.Sold s = _model.PeekAt(index);
+        if (s.Id == null)
         {
             PickupLog.Warn(Loc.T("Nothing to buy back"));
             return false;
         }
         if (DatabaseManager.money < s.Price)
         {
-            PickupLog.Warn(Loc.T("Not enough gold"));
+            PickupLog.Warn(Loc.T("Not enough gold") + " (" + s.Price.ToString("N0") + "G)");
             return false;
         }
         DatabaseManager db = DatabaseManager.instance;
         ItemData data = db != null ? db.LoadItemData(db.FindItemDataIndex(s.Id)) : null;
         if (data == null)
         {
-            _model.Pop(); // 시트에서 사라진 이름 — 되살 수 없으니 버린다
+            _model.TryTakeAt(index, out _); // 시트에서 사라진 이름 — 되살 수 없으니 버린다
             GameLog.Warn(GameLog.Cat.Item, "되사기 불가(시트에 없는 이름) 버림: " + s.Id);
             return false;
         }
@@ -106,7 +138,7 @@ public class Buyback : MonoBehaviour
             return false;
         }
         DatabaseManager.money -= s.Price;
-        _model.Pop();
+        _model.TryTakeAt(index, out _);
         inv.SaveInventory();
         PickupLog.Report(data.itemNameT, s.Count, data.rarity);
         Sfx.Play(SfxId.Money);

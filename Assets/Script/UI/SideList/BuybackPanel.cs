@@ -12,7 +12,7 @@ public class BuybackPanel : SideListPanel
     private const int NameMax = 14;
 
     private readonly StringBuilder _sb = new StringBuilder();
-    private int _version = -1, _money = -1;
+    private int _version = -1, _money = -1, _sel = -1;
     private bool _korean;
     private Transform _root;
     private RectTransform _anchor;
@@ -72,12 +72,14 @@ public class BuybackPanel : SideListPanel
         int v = Buyback.Model.Version;
         int money = DatabaseManager.money;
         bool ko = Loc.IsKorean;
-        if (v == _version && money == _money && ko == _korean)
+        int sel = Buyback.Selected;
+        if (v == _version && money == _money && sel == _sel && ko == _korean)
         {
             return false;
         }
         _version = v;
         _money = money;
+        _sel = sel;
         _korean = ko;
         return true;
     }
@@ -85,6 +87,7 @@ public class BuybackPanel : SideListPanel
     protected override void Render(TextMeshProUGUI title, TextMeshProUGUI body)
     {
         BuybackModel model = Buyback.Model;
+        int selected = Buyback.Selected;
         title.text = Loc.T("BUY BACK") + "  <size=75%><color=#A0A0A0>" + model.Count + "/" + BuybackModel.Capacity + "</color></size>";
         _sb.Clear();
         for (int i = 0; i < model.Count; i++)
@@ -92,7 +95,7 @@ public class BuybackPanel : SideListPanel
             BuybackModel.Sold s = model.PeekAt(i);
             ItemData d = LookUp(s.Id);
             bool afford = DatabaseManager.money >= s.Price;
-            _sb.Append(i == 0 ? "<color=#FFD040>> </color>" : "   ");
+            _sb.Append(i == selected ? "<color=#FFD040>> </color>" : "   ");
             if (d == null)
             {
                 _sb.Append(s.Id);
@@ -111,7 +114,7 @@ public class BuybackPanel : SideListPanel
             }
             _sb.Append("<pos=80%>").Append(afford ? "<color=#FFE08A>" : "<color=#FF5A4D>").Append(s.Price.ToString("N0")).Append("G</color>\n");
         }
-        _sb.Append("<size=80%><color=#A0A0A0>").Append(Loc.T("U / Pad RT: buy back top")).Append("</color></size>");
+        _sb.Append("<size=80%><color=#A0A0A0>").Append("U / RT 되사기  [ ] / LT+Y 고르기").Append("</color></size>");
         body.text = _sb.ToString();
     }
 }
