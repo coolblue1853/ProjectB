@@ -65,33 +65,43 @@ public class Portal : MonoBehaviour
             seal.NotifySealed();
             return;
         }
-        if (upAction.triggered == true && DatabaseManager.isUsePortal == false && isMapChange == true && player != null && destination != null)
+        if (upAction.triggered == true && player != null)
         {
-            player.transform.position = destination.position;
-            Debug.Log("포탈작동");
-            DatabaseManager.isUsePortal = true;
-            Sequence seq = DOTween.Sequence()
-           .AppendCallback(() => AbleOpenMap())
-           .AppendCallback(() => AbleCloseMap())
-       //    .AppendCallback(() => player.transform.position = destination.position)
-           .AppendCallback(() => proCamera.CenterOnTargets())
-           .AppendInterval(1f)
-           .OnComplete(() => OpenParrelx());
+            Use(player);
         }
-        else if (upAction.triggered == true && DatabaseManager.isUsePortal == false && isMapChange == false && player != null && destination != null)
+    }
+
+    /// <summary>
+    /// 플레이어가 ↑로 포털을 탄다. 11-01: 화면이 어두워진 사이에 이동·맵 교체·카메라 맞춤 → 밝아지며 도착(카메라가 날아가는 모습을 가린다).
+    /// 이미 이동 중이거나 목적지가 없으면 false. 봉인은 Update 에서 먼저 거른다.
+    /// </summary>
+    public bool Use(GameObject traveler)
+    {
+        if (DatabaseManager.isUsePortal || traveler == null || destination == null)
         {
-            player.transform.position = destination.position;
-            DatabaseManager.isUsePortal = true;
-            Sequence seq = DOTween.Sequence()
-          // .AppendCallback(() => player .transform.position = destination.position)
-           .AppendCallback(ApplyLocalCameraBounds)
-           .AppendCallback(() => proCamera.CenterOnTargets())
-           .AppendInterval(1f)
-           .OnComplete(() => EndOnlyMove());
+            return false;
         }
-
-
-
+        DatabaseManager.isUsePortal = true;
+        if (isMapChange)
+        {
+            ScreenFader.Transition(() =>
+            {
+                traveler.transform.position = destination.position;
+                AbleOpenMap();
+                AbleCloseMap();
+                proCamera.CenterOnTargets();
+            }, OpenParrelx);
+        }
+        else
+        {
+            ScreenFader.Transition(() =>
+            {
+                traveler.transform.position = destination.position;
+                ApplyLocalCameraBounds();
+                proCamera.CenterOnTargets();
+            }, EndOnlyMove);
+        }
+        return true;
     }
 
 

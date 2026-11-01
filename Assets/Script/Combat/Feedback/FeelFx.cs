@@ -31,7 +31,6 @@ public static class FeelFx
     static readonly Color RankColor = new Color(0.45f, 0.95f, 0.9f);
     static readonly Color EnhanceColor = new Color(1f, 0.78f, 0.35f);
     static readonly Color UniqueColor = new Color(1f, 0.85f, 0.45f);
-    static readonly Color PortalColor = new Color(0.55f, 0.5f, 0.78f);
 
     /// <summary>탐험가 랭크업: 청록 플래시 + 몸 팝</summary>
     public static void RankUp()
@@ -72,10 +71,13 @@ public static class FeelFx
         PlayerPop(0.2f);
     }
 
-    /// <summary>포털 진입: 순간이동 직후 라벤더에서 걷히는 페이드로 맵 전환을 가린다</summary>
+    /// <summary>포털 진입(순간이동 직후): 검은 화면에서 밝아지며 맵 전환을 가린다(11-01 사용자: 보라빛 대신 검정)</summary>
     public static void PortalEnter()
     {
-        Flash(PortalColor, 0.85f, 0.5f, true);
+        if (Application.isPlaying)
+        {
+            ScreenFader.FadeInFromBlack();
+        }
     }
 
     /// <summary>

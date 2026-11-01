@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// 지역 배너 (디아블로식 존 타이틀): 포털로 맵이 바뀌거나 게임을 시작할 때 "FLOOR 1" + 구역 이름을 2.5초 띄운다.
+/// 같은 구역은 5분 안에 다시 띄우지 않는다(마을 왕복마다 뜨지 않게, 11-01).
 /// 데이터는 맵 루트의 MapInfo(floor, zoneTitle). TO THE BEYOND 층계 구조(TowerWorld.md).
 /// </summary>
 public class ZoneBanner : MonoBehaviour
@@ -84,12 +85,28 @@ public class ZoneBanner : MonoBehaviour
         instance.Play(floor, Loc.T(info.zoneTitle));
     }
 
+    /// <summary>같은 구역 배너를 다시 띄우지 않는 시간(11-01 사용자: 마을을 나갈 때마다 배너가 떠서 번거롭다)</summary>
+    public const float RepeatCooldown = 300f;
+    readonly System.Collections.Generic.Dictionary<string, float> _shownAt = new System.Collections.Generic.Dictionary<string, float>();
+
+    /// <summary>이 구역 배너를 지금 띄울까: 처음이거나 마지막으로 띄운 지 RepeatCooldown 초가 지났을 때</summary>
+    public static bool ShouldShow(float lastShown, bool everShown, float now)
+    {
+        return !everShown || now - lastShown >= RepeatCooldown;
+    }
+
     void Play(string top, string zone)
     {
         if (zone == lastZone && group.alpha > 0.01f)
         {
             return;
         }
+        bool ever = _shownAt.TryGetValue(zone, out float last);
+        if (!ShouldShow(last, ever, Time.unscaledTime))
+        {
+            return;
+        }
+        _shownAt[zone] = Time.unscaledTime;
         lastZone = zone;
         floorText.text = top;
         zoneText.text = zone.ToUpperInvariant();

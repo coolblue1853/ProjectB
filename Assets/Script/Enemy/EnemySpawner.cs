@@ -113,12 +113,67 @@ public class EnemySpawner : MonoBehaviour
             enabled = false;
             return;
         }
+        if (TryOverridePoints())
+        {
+            return;
+        }
         int[] positions = HuntingSpawnTable.PositionIndices(enemyCount, enemyPositon.transform.childCount, spawnPointWeights);
         for (int i = 0; i < enemyCount; i++)
         {
             // 증원은 기존 발판을 재사용한다. 자식 위치 수와 동시 슬롯 수를 분리한다.
             enemyPositionArray[i] = enemyPositon.transform.GetChild(positions[i]).gameObject;
         }
+    }
+
+    private const float AreaMarginX = 12f;
+    private const float AreaMarginBelow = 6f;
+    private const float AreaMarginAbove = 15f;
+
+    /// <summary>SpawnPointTable 에 이 스포너 좌표가 있으면 그 자리에 발판을 새로 만들어 쓴다(씬의 기존 발판은 두고 안 쓴다)</summary>
+    private bool TryOverridePoints()
+    {
+        MapInfo map = GetComponentInParent<MapInfo>();
+        Vector2[] points = map != null ? SpawnPointTable.Get(map.name, name) : null;
+        if (points == null)
+        {
+            return false;
+        }
+        var root = new GameObject("PointsOverride").transform;
+        root.SetParent(enemyPositon.transform.parent, false);
+        var created = new GameObject[points.Length];
+        for (int i = 0; i < points.Length; i++)
+        {
+            created[i] = new GameObject("P" + i);
+            created[i].transform.SetParent(root, false);
+            created[i].transform.position = new Vector3(points[i].x, points[i].y, enemyPositon.transform.position.z);
+        }
+        int[] positions = HuntingSpawnTable.PositionIndices(enemyCount, points.Length, null);
+        for (int i = 0; i < enemyCount; i++)
+        {
+            enemyPositionArray[i] = created[positions[i]];
+        }
+        FitAreaToPoints(points);
+        return true;
+    }
+
+    /// <summary>스폰 영역(트리거)을 새 좌표 전체로 넓힌다. 영역 밖에 서면 '영역 이탈'로 바로 사라지기 때문</summary>
+    private void FitAreaToPoints(Vector2[] points)
+    {
+        if (!TryGetComponent(out BoxCollider2D area))
+        {
+            return;
+        }
+        Vector2 min = points[0], max = points[0];
+        foreach (Vector2 p in points)
+        {
+            min = Vector2.Min(min, p);
+            max = Vector2.Max(max, p);
+        }
+        min -= new Vector2(AreaMarginX, AreaMarginBelow);
+        max += new Vector2(AreaMarginX, AreaMarginAbove);
+        Vector3 scale = transform.lossyScale;
+        area.offset = transform.InverseTransformPoint((min + max) * 0.5f);
+        area.size = new Vector2((max.x - min.x) / Mathf.Abs(scale.x), (max.y - min.y) / Mathf.Abs(scale.y));
     }
 
     private void Update()

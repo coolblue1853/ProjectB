@@ -1,4 +1,4 @@
-# 월드 스펙 (시간 · 맵 · 카메라)
+﻿# 월드 스펙 (시간 · 맵 · 카메라)
 
 ## 1. 낮/밤 — `Script/Time/TimeChange.cs`
 
@@ -19,6 +19,9 @@
 | Lv1_NearForest | 구버전(비활성, 미사용). SideRoad의 부분집합 |
 | **Lv2_MagicCliffs** | 사냥터 2 "마법 절벽" (x -420~-180, 바닥 y -180). SideRoad 서쪽(`Portal_ToLv2`, x≈-722)에서 진입. 낮: 버섯·고블린 / 밤: 눈·해골·고블린, 엘리트 Bringer(y=12 발판), 보스 Abyss Wizard(오른쪽 끝). 생성: `Tools/probes/build_lv2_map.cs` |
 
+- **포털 암전(11-01 사용자):** 이동은 `ScreenFader.Transition`으로 검정 암전(어두워짐 0.18초 → 이동·카메라 리센터 → 유지 0.12초 → 밝아짐 0.3초) 속에서 한다. 카메라가 미끄러지는 모습이 보이지 않는다. 웨이포인트(`MapInfo.GoToMap`)·귀환은 `FeelFx.PortalEnter` → `ScreenFader.FadeInFromBlack`(예전 보라 섬광 대체).
+- **지역 배너:** 같은 구역 배너는 5분(`ZoneBanner.RepeatCooldown`) 안에 다시 띄우지 않는다. 마을↔샛길 왕복 때마다 뜨던 문제.
+- **채집 나무·광석 배치(11-01):** `Resources/SpawnPointsFloor1.csv`(`map,spawner,points="x:y|…"`)가 씬 발판을 덮어쓴다(`SpawnPointTable`). 덮어쓸 때 스포너 트리거 영역도 좌표 전체로 넓힌다(영역 밖이면 '영역 이탈'로 바로 사라짐). 기준: 마을 도착 지점(x −425)에서 20칸 이상, 포털에서 8칸 이상, 지면 확인, 가려지는 굴 안 금지. 캡처 확인: `Logs/playtest/resall_*`.
 - 포털은 ↑ 키로 이동한다. `openMap`이 비어 있으면 같은 맵 안에서 위치만 옮긴다. 이동하면 대상 맵을 켜고, 이전 맵을 끄고, 스포너를 정리한 뒤 카메라를 리센터한다. 1초 뒤 위치를 저장한다.
 - 패럴랙스 배경(ParrelaxBacground)과 ProCamera2D PixelPerfect를 쓴다.
 - **공용 원경(2026-10-26)**: `Assets/Sprite/LV1_Field`의 far-clouds·near-clouds·far-mountains·mountains·trees 는 Town·Lv1 전 맵·Lv2_BrokenRampart 가 같이 쓴다(맵별 차이는 SpriteRenderer 틴트뿐). 어비스풍 정리 = 색만 1:1 교체(먼 층일수록 밝고 흐리게, 구름은 안개 회색·라벤더) + 점 필터, 형태는 원본 그대로(`Tools/pixelfx/bg_abyss.py`, 원본 `Docs/ArtCompare/Background/orig`). 먼 탑 `far-tower`(PixelLab, 구름 위로 솟은 탑·떠 있는 고리·청록 창)를 원경 있는 8개 맵에 추가: 가로는 카메라 고정, 세로는 far-clouds 와 같은 0.9, order -20·z -0.1(near-clouds 뒤). 프로브 `Tools/probes/setup_bg_tower.cs`. ⏳ 낮 하늘색(밝은 청록)은 레이어가 아니라 조명/카메라 쪽이라 손대지 않음
