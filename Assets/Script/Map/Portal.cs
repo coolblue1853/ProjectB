@@ -89,7 +89,10 @@ public class Portal : MonoBehaviour
                 traveler.transform.position = destination.position;
                 AbleOpenMap();
                 AbleCloseMap();
-                proCamera.CenterOnTargets();
+                if (proCamera != null)
+                {
+                    proCamera.CenterOnTargets();
+                }
             }, OpenParrelx);
         }
         else
@@ -98,7 +101,10 @@ public class Portal : MonoBehaviour
             {
                 traveler.transform.position = destination.position;
                 ApplyLocalCameraBounds();
-                proCamera.CenterOnTargets();
+                if (proCamera != null)
+                {
+                    proCamera.CenterOnTargets();
+                }
             }, EndOnlyMove);
         }
         return true;

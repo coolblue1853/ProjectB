@@ -1,18 +1,20 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 /// <summary>
 /// 가지뿔 여우 특성(trait=dash): 플레이어가 앞 2~5.5칸에 있으면 웅크렸다가(0.35초) 짧게 돌진(0.3초·약 3칸)한다. 쿨 3.5초.
-/// 웅크림·돌진 동안 추적·순찰 이동은 멈춘다(EnemyHealth.MoveSpeedMul 이 0). 앞에 땅이 없거나 벽이면 돌진을 멈춘다.
+/// 웅크림·돌진 동안 추적은 멈추고(EnemyHealth.MoveSpeedMul 이 0) 순찰 트윈(BehaviorTree.sequence)은 일시 정지한다. 앞에 땅이 없거나 벽이면 돌진을 멈춘다.
 /// 몸박 피해는 평소 그대로(EnemyContact). 그림은 TempMobMotion 이 CrouchAmount 로 낮춘다.
 /// </summary>
 public sealed class TempMobDash : MonoBehaviour
 {
     enum State { Idle, Crouch, Dash }
 
-    EnemyHealth _enemy;
-    State _state;
-    float _stateUntil, _readyAt, _dir;
-    int _groundMask, _wallMask;
+    private EnemyHealth _enemy;
+    private BehaviorDesigner.Runtime.BehaviorTree _bt;
+    private State _state;
+    private float _stateUntil, _readyAt, _dir;
+    private int _groundMask, _wallMask;
 
     /// <summary>추적·순찰 이동 배율: 웅크림·돌진 중 0</summary>
     public float ChaseMul => _state == State.Idle ? 1f : 0f;
@@ -25,6 +27,7 @@ public sealed class TempMobDash : MonoBehaviour
     void Awake()
     {
         _enemy = GetComponent<EnemyHealth>();
+        _bt = GetComponent<BehaviorDesigner.Runtime.BehaviorTree>();
         _groundMask = LayerMask.GetMask("Ground");
         _wallMask = LayerMask.GetMask("Wall");
     }
@@ -40,7 +43,7 @@ public sealed class TempMobDash : MonoBehaviour
     {
         if (_enemy == null || !_enemy.CanContact || _enemy.isStun)
         {
-            _state = State.Idle;
+            EndDash();
             CrouchAmount = 0f;
             return;
         }
@@ -78,8 +81,25 @@ public sealed class TempMobDash : MonoBehaviour
         }
         _dir = Mathf.Sign(d.x);
         _state = State.Crouch;
+        if (_bt != null && _bt.sequence != null)
+        {
+            _bt.sequence.Pause(); // 순찰 트윈이 돌진과 겹쳐 미끄러지지 않게
+        }
         _stateUntil = Time.time + TempMobTraits.CrouchTime;
         _readyAt = Time.time + TempMobTraits.CrouchTime + TempMobTraits.DashTime + TempMobTraits.DashCooldown;
+    }
+
+    /// <summary>돌진 끝·중단: 멈춰 둔 순찰 트윈을 다시 돌린다(돌진으로 위치가 바뀌어도 순찰이 다음 지점에서 새로 잡는다)</summary>
+    void EndDash()
+    {
+        if (_state != State.Idle)
+        {
+            if (_bt != null && _bt.sequence != null)
+            {
+                _bt.sequence.Play();
+            }
+        }
+        _state = State.Idle;
     }
 
     void StepDash()
@@ -90,7 +110,7 @@ public sealed class TempMobDash : MonoBehaviour
         bool wallAhead = Physics2D.Raycast(pos + Vector2.up * 0.3f, new Vector2(_dir, 0f), 0.6f + step, _wallMask);
         if (Time.time >= _stateUntil || !groundAhead || wallAhead)
         {
-            _state = State.Idle;
+            EndDash();
             return;
         }
         Vector3 p = transform.position;

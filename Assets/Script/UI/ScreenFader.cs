@@ -32,9 +32,11 @@ public class ScreenFader : MonoBehaviour
         return instance;
     }
 
-    /// <summary>지금 암전 중인가(Out~In 사이)</summary>
-    bool _waiting;
+    private bool _waiting;
+    // 진행 중 Transition 의 이동(아직 안 불렸으면)·완료 콜백. 다른 암전이 끊어도 Kill 이 대신 불러 포털 플래그가 남지 않게 한다
+    private System.Action _pendingMid, _pendingDone;
 
+    /// <summary>지금 암전 중인가(Out~In 사이)</summary>
     public static bool Busy => instance != null && (instance._waiting || (instance._seq != null && instance._seq.IsActive()));
 
     /// <summary>어두워진 뒤 midAction 을 부르고, 잠깐 유지했다가 밝아진다. done 은 다 밝아진 뒤</summary>
@@ -43,11 +45,19 @@ public class ScreenFader : MonoBehaviour
         ScreenFader f = Ensure();
         f.Kill();
         f._black.gameObject.SetActive(true);
+        f._pendingMid = midAction;
+        f._pendingDone = done;
         f._seq = f._black.DOFade(1f, OutTime)
             .OnComplete(() =>
             {
-                midAction?.Invoke();
-                f.FadeIn(done);
+                try
+                {
+                    f.RunPendingMid();
+                }
+                finally
+                {
+                    f.FadeIn(); // 이동이 예외를 던져도 화면이 검게 남지 않는다
+                }
             })
             .SetUpdate(true)
             .SetLink(f.gameObject);
@@ -62,17 +72,31 @@ public class ScreenFader : MonoBehaviour
         Color c = f._black.color;
         c.a = 1f;
         f._black.color = c;
-        f.FadeIn(null);
+        f.FadeIn();
     }
 
     /// <summary>검은 화면 유지 → 밝아짐. 맵을 켜는 무거운 프레임이 지난 뒤(2프레임) 시작한다 — 그 프레임의 긴 unscaled 시간이 유지·페이드를 건너뛰던 문제(11-01 캡처)</summary>
-    void FadeIn(System.Action done)
+    void FadeIn()
     {
         _waiting = true;
-        StartCoroutine(FadeInAfterFrames(done));
+        StartCoroutine(FadeInAfterFrames());
     }
 
-    System.Collections.IEnumerator FadeInAfterFrames(System.Action done)
+    void RunPendingMid()
+    {
+        System.Action mid = _pendingMid;
+        _pendingMid = null;
+        mid?.Invoke();
+    }
+
+    void RunPendingDone()
+    {
+        System.Action done = _pendingDone;
+        _pendingDone = null;
+        done?.Invoke();
+    }
+
+    System.Collections.IEnumerator FadeInAfterFrames()
     {
         yield return null;
         yield return null;
@@ -80,17 +104,26 @@ public class ScreenFader : MonoBehaviour
         _seq = DOTween.Sequence()
             .AppendInterval(HoldTime)
             .Append(_black.DOFade(0f, InTime))
-            .OnComplete(() => { _black.gameObject.SetActive(false); done?.Invoke(); })
+            .OnComplete(() => { _black.gameObject.SetActive(false); RunPendingDone(); })
             .SetUpdate(true)
             .SetLink(gameObject);
     }
 
+    /// <summary>진행 중 암전을 끊는다. 끊긴 Transition 의 이동·완료 콜백은 바로 부른다(웨이포인트가 포털 암전을 끊어도 이동·플래그 해제가 빠지지 않게)</summary>
     void Kill()
     {
         StopAllCoroutines();
         _waiting = false;
         _seq?.Kill();
         _black.DOKill();
+        try
+        {
+            RunPendingMid();
+        }
+        finally
+        {
+            RunPendingDone();
+        }
     }
 
     void Build()
