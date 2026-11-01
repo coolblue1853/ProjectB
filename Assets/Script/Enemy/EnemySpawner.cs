@@ -108,13 +108,13 @@ public class EnemySpawner : MonoBehaviour
     {
         enemySlot = new GameObject[enemyCount];
         enemyPositionArray = new GameObject[enemyCount];
+        if (TryOverridePoints())
+        {
+            return;
+        }
         if (enemyPositon == null || enemyPositon.transform.childCount == 0)
         {
             enabled = false;
-            return;
-        }
-        if (TryOverridePoints())
-        {
             return;
         }
         int[] positions = HuntingSpawnTable.PositionIndices(enemyCount, enemyPositon.transform.childCount, spawnPointWeights);
@@ -139,15 +139,15 @@ public class EnemySpawner : MonoBehaviour
             return false;
         }
         var root = new GameObject("PointsOverride").transform;
-        root.SetParent(enemyPositon.transform.parent, false);
+        root.SetParent(enemyPositon != null ? enemyPositon.transform.parent : transform, false);
         var created = new GameObject[points.Length];
         for (int i = 0; i < points.Length; i++)
         {
             created[i] = new GameObject("P" + i);
             created[i].transform.SetParent(root, false);
-            created[i].transform.position = new Vector3(points[i].x, points[i].y, enemyPositon.transform.position.z);
+            created[i].transform.position = new Vector3(points[i].x, points[i].y, enemyPositon != null ? enemyPositon.transform.position.z : transform.position.z);
         }
-        int[] positions = HuntingSpawnTable.PositionIndices(enemyCount, points.Length, null);
+        int[] positions = HuntingSpawnTable.PositionIndices(enemyCount, points.Length, spawnPointWeights);
         for (int i = 0; i < enemyCount; i++)
         {
             enemyPositionArray[i] = created[positions[i]];

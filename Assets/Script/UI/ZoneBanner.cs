@@ -15,6 +15,7 @@ public class ZoneBanner : MonoBehaviour
     CanvasGroup group;
     TextMeshProUGUI floorText, zoneText;
     string lastZone;
+    private Coroutine _pendingShow;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Boot()
@@ -75,14 +76,33 @@ public class ZoneBanner : MonoBehaviour
         }
     }
 
+    private System.Collections.IEnumerator ShowWhenVisible(MapInfo info)
+    {
+        // 같은 프레임 뒤에 시작하는 FadeInFromBlack도 감지하도록 한 프레임 기다린다.
+        yield return null;
+        while (ScreenFader.Busy)
+        {
+            yield return null;
+        }
+        _pendingShow = null;
+        if (info != null && info.gameObject.activeInHierarchy)
+        {
+            string floor = info.floor <= 0 ? "TO THE BEYOND" : Loc.IsKorean ? info.floor + Loc.T("FLOOR") : "FLOOR " + info.floor;
+            Play(floor, Loc.T(info.zoneTitle));
+        }
+    }
+
     public static void Show(MapInfo info)
     {
         if (instance == null || info == null || string.IsNullOrEmpty(info.zoneTitle))
         {
             return;
         }
-        string floor = info.floor <= 0 ? "TO THE BEYOND" : Loc.IsKorean ? info.floor + Loc.T("FLOOR") : "FLOOR " + info.floor;
-        instance.Play(floor, Loc.T(info.zoneTitle));
+        if (instance._pendingShow != null)
+        {
+            instance.StopCoroutine(instance._pendingShow);
+        }
+        instance._pendingShow = instance.StartCoroutine(instance.ShowWhenVisible(info));
     }
 
     /// <summary>같은 구역 배너를 다시 띄우지 않는 시간(11-01 사용자: 마을을 나갈 때마다 배너가 떠서 번거롭다)</summary>

@@ -1,4 +1,4 @@
-﻿# 버그 · 기술 부채 백로그
+# 버그 · 기술 부채 백로그
 
 > 우선순위: P0 = 게임 진행 불가·데이터 손실, P1 = 핵심 수치/기능 오류, P2 = 잠재 크래시·누수, P3 = 정리.
 > 수정하면 상태를 ✅로 바꾸고 커밋 해시와 **검증 방법**(에디터 플레이·프로브)을 적는다.
@@ -122,6 +122,14 @@
 
 ## 11-01 리뷰 남은 것 (P3)
 
-- 자원 스포너 트리거를 좌표 전체로 넓혀(`EnemySpawner.FitAreaToPoints`, 위 15·아래 6) 맵 어디서나 감지 — 자원(정지 오브젝트)이라 지금은 무해. 몹 스포너에 CSV 덮어쓰기를 쓰면 감지·스폰 영역 분리 필요.
-- CSV 덮어쓰기 경로는 `spawnPointWeights` 를 쓰지 않고, 씬 발판이 0개인 스포너는 덮어쓰기를 타지 않는다.
-- 지역 배너가 포털 암전(검정) 중에 시작돼 앞 0.5초가 가려짐 — `MapChanged` 를 밝아진 뒤로 미루면 해결.
+- **판단: 감지·스폰 영역 분리 보류.** `SpawnPointsFloor1.csv` 10행은 모두 Tree/Stone이고, 플레이 프로브에서도 대응 스포너 10개·프리팹 tree/Rock·그 외 대상 0개 확인. 정지 자원이므로 현재 `FitAreaToPoints`의 좌표 전체 + 좌우 12·위 15·아래 6 확장은 무해하다. `isInPlayer`와 자기 몹의 영역 이탈 판정이 같은 BoxCollider2D를 사용하므로, 몹에 CSV 좌표를 도입하기 전에 두 영역을 분리해야 한다. 지금 분리하면 기존 활성 범위·영역 이탈 반환까지 바뀌므로 적용하지 않는다.
+- ✅ **CSV 가중치·발판 0개 처리:** `Start`에서 씬 발판 유무 검사보다 CSV 덮어쓰기를 먼저 실행한다. 원본 발판 루트가 없으면 스포너 아래에 생성하며, CSV에도 `spawnPointWeights`를 전달한다. `CsvSpawnOverrideTests` 2건(루트 null/빈 루트, 가중치 0|3|0|1 → x=-316 3슬롯·x=-705 1슬롯) 통과. 현재 CSV 자원은 가중치가 없고 씬 발판도 있으므로 기존 배치와 동일하다.
+- ✅ **지역 배너 암전 대기:** `MapChanged` 발행은 그대로 유지하고 `ZoneBanner`만 한 프레임 대기 후 `ScreenFader.Busy`가 끝나면 표시한다. 새 요청은 이전 대기를 취소하며, 기다리던 맵이 비활성이면 표시하지 않는다. 대기·비활성 맵 회귀 테스트 통과. 실제 `Portal.Use` 재진입 추적 23표본 중 Busy=True 7표본은 alpha=0·표시 이력=0, 1.311초에 Busy=False·표시 이력=1, 1.499초 alpha=0.360. 다른 이벤트 구독자 변경 없음.
+- ✅ **1시간 플레이 테스트용 SR 치트 4종:** 플레이 모드에서 실제 `SROptions.Current` 호출. Give Item: LeafAdae 1→2. Give Weapons: LeafAdae 2→3·FangDagger 0→1. Fill Quests: Q101 대화 0→1/1, Q102 처치 0→8/8, Q103 수집 1→3/3(GreenHurb=3), Q203 제작 0→1/1, Q204 방문 0→1/1, 모두 Ready. Unstuck: 6종 상태 토큰 합 6→0, Dump=(none), 피격·공격·사다리 플래그 false.
+- **재개 검증(11-01):** EditMode 443/443 통과(실패·스킵 0), 컴파일/플레이/정지 콘솔 오류 각 0. 낮 실제 포털 연속 캡처 `Logs/playtest/p3_resume_portal_sheet.png`에서 암전 뒤 배너가 온전히 나타남. 재진입 장면의 배너 겹침·잘림, 캐릭터 끼임·튐·방향 이상 없음. 근거: `p3_resume_tests.json`, `p3_cheats.txt`, `p3_portal_trace.csv`, `p3_resume_spawners.txt`(모두 `Logs/playtest/`). 커밋하지 않음.
+- **추가 발견(별도 보류):** 최초 맵 진입 때 보스 배너가 지역 배너 위에 겹치고 카메라가 플레이어를 벗어나는 장면 관찰(cameraY 2.90→57.86, playerY=0.26). `WarmUp`의 Get/Release가 보스를 활성화하고 `EnemyHealth.OnEnable`이 `BossIntro.Play`를 호출하는 경로가 원인으로 추정된다. 재진입에서는 발생하지 않았으며, 보스 등장 연출·워밍업 분리는 이번 P3 수정 범위 밖으로 남긴다.
+- **미검증:** 1시간 연속 소크·빌드 실행·실제 SR 버튼 입력 경로(옵션 메서드는 직접 호출 검증), 몹 스포너에 CSV 덮어쓰기 도입 시 감지/이탈 범위. Fill Quests의 도감 수집 목표는 의도적으로 채우지 않는 기존 구현이며 이번 5종 목표 검증에 포함하지 않았다.
+- **세이브 복원:** 시작 직전 `Logs/save-backup-p3-resume-20261101-214422/`에 3개 es3 백업 → 플레이 정지 후 3/3 MD5 일치 복원. SaveSlot3.es3 원본 75,451바이트·MD5 `1A521B8574EA743FA7B982B997487536` 유지, 에디터 슬롯 3·ES3 경로 SaveSlot3.es3 복구. 근거 `Logs/playtest/p3_resume_save_restore.json`.
+- **독립 리뷰(p3_1101, 11-01):** 지정된 미커밋 6파일만 검토한 결과 신규 [필수] 결함 0건, 런타임·테스트 코드 수정 없음. CSV 경로의 가중치/루트 null 처리, 배너의 암전 대기/이전 요청 취소/비활성 맵 방어와 세이브 키 미변경을 확인했다. 기존 배너 이벤트 구독·트윈 코드는 이번 diff에서 변경하지 않았다. EditMode 443/443(실패·스킵 0), 컴파일 후·플레이·정지 콘솔 오류 각 0. CSV 10행/대응 스포너 10개/비자원 0개 재확인. SR 옵션 창과 핀 버튼에 UI pointerClick 이벤트를 전달해 Give Item +1, Give Weapons 각 +1, 퀘스트 5종 Ready, Unstuck 토큰 6→0 검증(물리 마우스/키보드 입력·화면 좌표 hit-test는 미검증). 낮 실제 Portal.Use 최초·재진입 각 16표본: Busy=True인 각 6표본 모두 배너 alpha=0·표시 이력=0, 재진입 1.205초 Busy=False·이력=1, 2.090초 alpha=1. 재진입 캡처 `p3review_reentry_11.png`에서 배너 겹침·잘림, 캐릭터 끼임·방향 이상 없음. 최초 진입은 기존 보스 연출 중첩·카메라 이탈 재현(playerY=0.26, cameraY 최대 61.32), 위 별도 부채 유지. 품질 의견: 보스 조우 전 큰 경고 연출은 초반 소박한 진행을 해치고, 상단 치트 버튼은 체력 HUD와 겹쳐 시인성을 낮춘다(기존 화면, 이번 범위 밖). 근거는 `Logs/playtest/p3review_*`. 세이브 3/3 MD5 일치·슬롯 3/SaveSlot3.es3 원상 복구, 플레이 정지. 1시간 연속 실행은 미검증.
+- **리뷰 빌드 제한:** Windows64 개발 빌드 요청(`build-b31078565c`, 출력 예정 `Logs/Builds/p3review/ProjectB.exe`)은 접수됐으나 이후 unity-mcp 상태 조회 3회가 TimeoutError, execute_code 상태 조회도 실패했다. 빌드 취소 요청도 시도했으며 완료/취소 확정은 미검증이다. 빌드 실행 파일 생성은 확인되지 않았다. 컴퓨터 사용 도구의 Unity 읽기 접근은 자동 승인 검토에서 거절되어 UI 경유 진단을 중단했다. 빌드 요청 **전** 플레이 정지와 세이브 복원은 확인됐고, 그 뒤 새 플레이는 시작하지 않았다. 빌드 성공이나 최종 에디터 응답 정상화로 보고하지 않는다.
+- 빌드 취소 응답은 `Unity plugin session 467cb400-e0b1-4d9d-9e70-8a415876dcf0 disconnected while awaiting command_result`로 실패했다.
