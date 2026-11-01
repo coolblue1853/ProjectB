@@ -15,6 +15,9 @@ public class Datas
     public float time;
     public string[,,] invenItem;
     public string[,,] chestItem;
+    public int[,] inventoryFlags; // bit 0: 잠금, bit 1: 아직 보지 않은 획득
+    public int[,] chestFlags;
+    public int[] equipmentFlags = new int[10];
     public string[,] equipGear = new string[10, 3]; // 장비아이템, [이름,티어,강화]
 }
 

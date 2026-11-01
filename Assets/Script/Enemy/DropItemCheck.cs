@@ -203,18 +203,14 @@ public class DropItemCheck : PoolAble
             {
                 return; // 줍기 필터로 거른 아이템(설정 PICKUP)
             }
-            if(InventoryManager.instance.CheckBoxCanCreatAll() == true || InventoryManager.instance.OnlyCheckStack(name) == true)
+            string pickedName = name;
+            string rarity = itemData != null ? itemData.rarity : "C";
+            if (InventoryManager.instance.CreatItem(pickedName, false, null, AddSource.Pickup))
             {
-                if (this.gameObject != null && gameObject.activeSelf != false)
-                {
-                    ReleaseObject();
-                }
-                string rarity = itemData != null ? itemData.rarity : "C";
-                if (InventoryManager.instance.CreatItem(name, false, null, AddSource.Pickup))
-                {
-                    PickupLog.Report(name, 1, rarity);
-                    PixelCrushers.MessageSystem.SendMessage(this, "Pickup", name); // 수집 퀘스트 (G11)
-                }
+                // 잠금 상태가 다른 스택에는 합칠 수 없다. 실제 추가 성공 후에만 바닥 아이템을 반환한다.
+                ReleaseObject();
+                PickupLog.Report(pickedName, 1, rarity);
+                PixelCrushers.MessageSystem.SendMessage(this, "Pickup", pickedName); // 수집 퀘스트 (G11)
                 Sfx.Play(rarity == "U" ? SfxId.RareDrop : SfxId.Pickup);
             }
             else

@@ -41,6 +41,10 @@ public class ItemCheck : MonoBehaviour
         nowStack = 1;
         name = itemData.name;
         LoadImage();
+        if (!isCraftItem && !isShopItem && GetComponent<ItemStatusBadge>() == null)
+        {
+            gameObject.AddComponent<ItemStatusBadge>();
+        }
     }
     public AttackManager attackManager;
     /// <summary>소비 아이템 효과만 적용한다(수량은 건드리지 않음)</summary>

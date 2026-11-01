@@ -42,6 +42,6 @@ public static class ViewScanner
         {
             return ItemStack.Empty;
         }
-        return new ItemStack(item.itemData.name, item.nowStack, item.itemData.tear, item.itemData.upgrade);
+        return new ItemStack(item.itemData.name, item.nowStack, item.itemData.tear, item.itemData.upgrade, item.itemData.isLocked, item.itemData.isNew);
     }
 }

@@ -52,7 +52,7 @@ public class DismantleInput : MonoBehaviour
     {
         Keyboard kb = Keyboard.current;
         Gamepad gp = Gamepad.current;
-        return (kb != null && kb.dKey.wasPressedThisFrame) || (gp != null && gp.leftStickButton.wasPressedThisFrame);
+        return (kb != null && kb.dKey.wasPressedThisFrame) || (gp != null && !gp.leftTrigger.isPressed && gp.leftStickButton.wasPressedThisFrame);
     }
 
     /// <summary>분해 요청(첫 요청은 확인 문구, 같은 아이템 두 번째 요청이 실행). 실행했으면 true. 프로브용 공개 창구</summary>
@@ -65,7 +65,7 @@ public class DismantleInput : MonoBehaviour
         DismantleService.Check check = DismantleService.CanTry(inv, item);
         if (check != DismantleService.Check.Ok)
         {
-            PickupLog.Warn(Loc.T("Only equipment in the bag can be dismantled"));
+            PickupLog.Warn(check == DismantleService.Check.Locked ? "잠금 해제 후 분해할 수 있습니다" : Loc.T("Only equipment in the bag can be dismantled"));
             _instance._pending = null;
             return false;
         }

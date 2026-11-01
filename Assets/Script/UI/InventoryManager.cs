@@ -233,6 +233,7 @@ public class InventoryManager : MonoBehaviour
         // Phase 2 브리지: UI 슬롯 → 모델 → 세이브 배열 (SaveMapper)
         string[,,] saveInven = Service.BuildSaveArray(); // 열린 칸 밖 아이템도 보존
         SaveManager.instance.datas.invenItem = saveInven;
+        SaveManager.instance.datas.inventoryFlags = Service.BuildSaveFlags();
         SaveManager.instance.DataSave();
     }
 
@@ -298,7 +299,7 @@ public class InventoryManager : MonoBehaviour
         {
             DatabaseManager.money = SaveManager.instance.datas.money;
             LoadEquipItem();
-            Service.LoadFrom(SaveManager.instance.datas.invenItem);
+            Service.LoadFrom(SaveManager.instance.datas.invenItem, SaveManager.instance.datas.inventoryFlags);
         }
         EnsureDefaultWeapon();
     }
@@ -896,7 +897,7 @@ public class InventoryManager : MonoBehaviour
             Sequence waitSequence = DOTween.Sequence()
             .OnComplete(() => equipBoxCheck.DeletPrefab(detail, detail.itemData.equipArea, false));
             equipBoxCheck.SaveEquipItem(detail, false);
-            CreatItem(detail.name, false, detail.itemData.Clone()); // 해제 시 강화 유지 (B-014)
+            CreatItem(detail.name, false, detail.itemData.Clone(), AddSource.Unequip); // 해제 시 강화·잠금·열람 상태 유지
         }
     }
     void LoadEquipItem()
@@ -908,6 +909,11 @@ public class InventoryManager : MonoBehaviour
                 GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
                 ItemCheck item = equip.GetComponent<ItemCheck>();
                 item.SetItem(SaveManager.instance.datas.equipGear[i, 0]);
+                if (item.itemData != null)
+                {
+                    int[] flags = SaveManager.instance.datas.equipmentFlags;
+                    ItemFlagSave.Apply(item.itemData, flags != null && i < flags.Length ? flags[i] : 0);
+                }
                 if (item.itemData == null) // 아이템 시트에서 사라진 이름(손상·구버전 세이브)
                 {
                     Debug.LogWarning("[PB][Save] 알 수 없는 장비 무시: " + SaveManager.instance.datas.equipGear[i, 0]);
@@ -1025,6 +1031,7 @@ public class InventoryManager : MonoBehaviour
             equipBox = SetEquipBox();
         }
         string area = detail.itemData.equipArea;
+        detail.itemData.isNew = false; // 직접 장착한 아이템은 이미 확인했다.
         EquipBoxCheck equipBoxCheck = equipBox.GetComponent<EquipBoxCheck>();
         // 지금 칸에 실제로 꽂혀 있는 장비(장착 목록이 낡았으면 칸의 자식). 무기 프리팹이 아직 활성화 전이어도
         // (equipWeapon == null) 칸에 무기가 있으면 교체로 본다 — 예전엔 한 칸에 무기 둘이 들어갔다
@@ -1060,7 +1067,7 @@ public class InventoryManager : MonoBehaviour
             {
                 // 방금 비운 칸이라 거의 없음. 커서 칸(DetechItem)은 드래그 때 엉뚱한 칸일 수 있어 쓰지 않고, 사본을 넣고 원본은 지운다
                 GameLog.Warn(GameLog.Cat.Item, "교체 장비를 원래 칸에 못 넣음 → 사본 생성: " + beforeItem.name);
-                CreatItem(beforeItem.name, false, beforeItem.itemData.Clone());
+                CreatItem(beforeItem.name, false, beforeItem.itemData.Clone(), AddSource.Unequip);
                 beforeItem.transform.SetParent(null, false);
                 Destroy(beforeItem.gameObject);
             }
@@ -1113,7 +1120,7 @@ public class InventoryManager : MonoBehaviour
 
     public void SellItemUI()
     {
-        if (detail == null || !ItemTradeRules.CanSell(detail.name))
+        if (detail == null || detail.itemData == null || detail.itemData.isLocked || !ItemTradeRules.CanSell(detail.name))
         {
             Sfx.Play(SfxId.CraftFail, 0.4f);
             return;
@@ -1157,7 +1164,7 @@ public class InventoryManager : MonoBehaviour
     }
     void SellItem()
     {
-        if (detail == null || !ItemTradeRules.CanSell(detail.name))
+        if (detail == null || detail.itemData == null || detail.itemData.isLocked || !ItemTradeRules.CanSell(detail.name))
         {
             Sfx.Play(SfxId.CraftFail, 0.4f);
             return;
@@ -1194,7 +1201,7 @@ public class InventoryManager : MonoBehaviour
     {
         Keyboard kb = Keyboard.current;
         Gamepad gp = Gamepad.current;
-        return (kb != null && kb.rKey.wasPressedThisFrame) || (gp != null && gp.rightStickButton.wasPressedThisFrame);
+        return (kb != null && kb.rKey.wasPressedThisFrame) || (gp != null && !gp.leftTrigger.isPressed && gp.rightStickButton.wasPressedThisFrame);
     }
 
     /// <summary>현재 페이지만 정렬하고 저장한다</summary>
@@ -2130,7 +2137,8 @@ public class InventoryManager : MonoBehaviour
                         ItemCheck check = item.GetComponent<ItemCheck>();
                         if (check.name == itemName)
                         {
-                            if (check.itemData.maxStack > check.nowStack)
+                            if (!check.itemData.isLocked && check.itemData.tear == 0 && check.itemData.upgrade == 0
+                                && check.itemData.maxStack > check.nowStack)
                             {
                                 return true;
                             }
@@ -2149,7 +2157,7 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     public bool CreatItemSelected(string itemName, int boxNum, int Stack = 1, ItemData data = null, AddSource? source = null)
     {
-        var stack = new ItemStack(itemName, Stack, data != null ? data.tear : 0, data != null ? data.upgrade : 0);
+        var stack = new ItemStack(itemName, Stack, data != null ? data.tear : 0, data != null ? data.upgrade : 0, data != null && data.isLocked, data != null && data.isNew);
         return Service.PutInPage(boxNum, stack, data, source);
     }
     /// <summary>

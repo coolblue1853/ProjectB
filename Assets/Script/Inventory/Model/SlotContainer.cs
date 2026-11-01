@@ -83,7 +83,7 @@ public sealed class SlotContainer
             if (slots[i].CanStackWith(s) && slots[i].Count < max)
             {
                 int put = Math.Min(left, max - slots[i].Count);
-                Set(i, slots[i].WithCount(slots[i].Count + put));
+                Set(i, slots[i].WithCount(slots[i].Count + put).WithFlags(s.IsLocked, slots[i].IsNew || s.IsNew));
                 left -= put;
             }
         }
@@ -147,7 +147,7 @@ public sealed class SlotContainer
         if (a.CanStackWith(b) && b.Count < max)
         {
             int put = Math.Min(a.Count, max - b.Count);
-            Set(to, b.WithCount(b.Count + put));
+            Set(to, b.WithCount(b.Count + put).WithFlags(b.IsLocked, a.IsNew || b.IsNew));
             Set(from, a.WithCount(a.Count - put));
             return true;
         }
@@ -294,6 +294,6 @@ public sealed class SlotContainer
 
     static bool Same(ItemStack a, ItemStack b)
     {
-        return a.Id == b.Id && a.Count == b.Count && a.Tier == b.Tier && a.Upgrade == b.Upgrade;
+        return a.Id == b.Id && a.Count == b.Count && a.Tier == b.Tier && a.Upgrade == b.Upgrade && a.IsLocked == b.IsLocked && a.IsNew == b.IsNew;
     }
 }

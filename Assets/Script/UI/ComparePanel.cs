@@ -131,9 +131,11 @@ public class ComparePanel : MonoBehaviour
         _body.text = d.equipArea == "Weapon"
             ? TooltipBuilder.WeaponBlock(GearPrefabCache.Comp<Weapon>(prefab), d.upgrade, null, 0)
             : TooltipBuilder.ArmorBlock(GearPrefabCache.Comp<Equipment>(prefab), d.upgrade, null, 0);
+        _body.text += SetSwapPreview.Build(InventoryManager.instance, _shownFor, worn);
         Canvas.ForceUpdateCanvases();
         float h = 150f + _body.preferredHeight;
         _panel.sizeDelta = new Vector2(Width, h);
+        _body.rectTransform.sizeDelta = new Vector2(Width - 40f, h - 140f);
     }
 
     /// <summary>
@@ -156,6 +158,9 @@ public class ComparePanel : MonoBehaviour
         Vector2 screen = left
             ? new Vector2(topLeft.x - w, topLeft.y)
             : new Vector2(bottomRight.x + Gap * scale, bottomRight.y + _panel.sizeDelta.y * scale);
+        screen.x = Mathf.Clamp(screen.x, Gap * scale, Mathf.Max(Gap * scale, Screen.width - w));
+        float bottom = (_panel.sizeDelta.y + 100f) * scale;
+        screen.y = Mathf.Clamp(screen.y, Mathf.Min(bottom, Screen.height - 140f * scale), Screen.height - 140f * scale);
         _panel.anchoredPosition = new Vector2(screen.x / scale, screen.y / scale);
     }
 

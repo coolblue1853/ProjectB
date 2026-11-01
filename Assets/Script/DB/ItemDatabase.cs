@@ -114,6 +114,8 @@ public class ItemData
     public int tear;
     public string rarity;
     public int upgrade;
+    public bool isLocked;
+    public bool isNew;
     public string setName;
     public string weaponType; // ItemSheet 맨 뒤 컬럼 WeaponType (WeaponKind 이름, 빈 칸 = 무기 아님)
 }

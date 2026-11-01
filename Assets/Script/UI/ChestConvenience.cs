@@ -51,7 +51,7 @@ public partial class Chest
     private void DrawStorageSlot(Transform box, ItemStack stack, int slot, int page)
     {
         ItemStack previous = ViewScanner.Read(box);
-        if (previous.Id == stack.Id && previous.Count == stack.Count && previous.Tier == stack.Tier && previous.Upgrade == stack.Upgrade)
+        if (previous.Id == stack.Id && previous.Count == stack.Count && previous.Tier == stack.Tier && previous.Upgrade == stack.Upgrade && previous.IsLocked == stack.IsLocked && previous.IsNew == stack.IsNew)
         {
             return;
         }
@@ -74,6 +74,8 @@ public partial class Chest
         check.itemData.tear = stack.Tier;
         check.itemData.upgrade = stack.Upgrade;
         check.nowStack = stack.Count;
+        check.itemData.isLocked = stack.IsLocked;
+        check.itemData.isNew = stack.IsNew;
     }
 
     public int WithdrawSelected(int amount)

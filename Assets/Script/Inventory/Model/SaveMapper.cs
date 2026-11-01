@@ -57,14 +57,14 @@ public static class SaveMapper
     }
 
     /// <summary>세이브 배열 → 모델. 세이브에 있는 칸은 잠금 여부와 상관없이 전부 싣는다(소실 금지)</summary>
-    public static SlotContainer FromArray(string[,,] arr, IItemCatalog catalog, int pages, int perPage)
+    public static SlotContainer FromArray(string[,,] arr, IItemCatalog catalog, int pages, int perPage, int[,] flags = null)
     {
         var c = new SlotContainer(catalog, pages * perPage, pages * perPage);
         for (int p = 0; p < pages; p++)
         {
             for (int s = 0; s < perPage; s++)
             {
-                ItemStack st = ReadCell(arr, p, s);
+                ItemStack st = ItemFlagSave.Read(ReadCell(arr, p, s), flags, p, s);
                 if (!st.IsEmpty)
                 {
                     c.PutAt(p * perPage + s, st);

@@ -102,7 +102,8 @@ public sealed class InventoryService
             return false; // 시트에 없는 이름은 DrawSlot 이 그리지 못해 모델·뷰가 어긋난다(B-020)
         }
         SyncModelFromViews();
-        var stack = new ItemStack(id, count, data != null ? data.tear : 0, data != null ? data.upgrade : 0);
+        var stack = new ItemStack(id, count, data != null ? data.tear : 0, data != null ? data.upgrade : 0, data != null && data.isLocked,
+            source == AddSource.Load || source == AddSource.Chest || source == AddSource.Unequip ? data != null && data.isNew : true);
         if (!model.TryAddAll(stack))
         {
             return false;
@@ -248,7 +249,7 @@ public sealed class InventoryService
             return false;
         }
         SyncModelFromViews();
-        var s = new ItemStack(item.itemData.name, Mathf.Max(1, item.nowStack), item.itemData.tear, item.itemData.upgrade);
+        var s = new ItemStack(item.itemData.name, Mathf.Max(1, item.nowStack), item.itemData.tear, item.itemData.upgrade, item.itemData.isLocked, item.itemData.isNew);
         if (!model.PutAt(index, s))
         {
             return false;
@@ -275,7 +276,7 @@ public sealed class InventoryService
         }
         SyncModelFromViews();
         ItemStack cur = model[index];
-        if (!model.ReplaceAt(index, new ItemStack(cur.Id, cur.Count, cur.Tier, upgrade)))
+        if (!model.ReplaceAt(index, new ItemStack(cur.Id, cur.Count, cur.Tier, upgrade, cur.IsLocked, cur.IsNew)))
         {
             return false;
         }
@@ -411,7 +412,7 @@ public sealed class InventoryService
     }
 
     /// <summary>세이브 배열로 모델을 채우고 슬롯 박스가 있는 칸을 전부 그린다(로드)</summary>
-    public void LoadFrom(string[,,] saved)
+    public void LoadFrom(string[,,] saved, int[,] flags = null)
     {
         hidden.Clear();
         if (model != null)
@@ -419,7 +420,7 @@ public sealed class InventoryService
             model.OnSlotChanged -= MarkDirty;
             model = null; // 로드는 뷰를 직접 다시 그리므로 그림자 비교 기준을 버린다(모델 밖 변경 오탐 방지)
         }
-        SlotContainer loaded = SaveMapper.FromArray(saved, CsvItemCatalog.Shared, inv.inventoryUI.Length, PerPage);
+        SlotContainer loaded = SaveMapper.FromArray(saved, CsvItemCatalog.Shared, inv.inventoryUI.Length, PerPage, flags);
         int drawn = 0;
         for (int index = 0; index < loaded.Capacity; index++)
         {
@@ -460,6 +461,19 @@ public sealed class InventoryService
             }
         }
         return arr;
+    }
+
+    public int[,] BuildSaveFlags()
+    {
+        SlotContainer scan = ViewScanner.BuildFrom(inv.inventoryUI, PerPage, CsvItemCatalog.Shared);
+        foreach (KeyValuePair<int, ItemStack> kv in hidden)
+        {
+            if (kv.Key < scan.Capacity && scan[kv.Key].IsEmpty)
+            {
+                scan.PutAt(kv.Key, kv.Value);
+            }
+        }
+        return ItemFlagSave.ToArray(scan, inv.inventoryUI.Length, PerPage);
     }
 
     /// <summary>모델에서 바뀐 칸만 슬롯 GameObject 에 그린다 (아이템 오브젝트 생성·삭제·수량)</summary>
@@ -515,6 +529,8 @@ public sealed class InventoryService
             cur.itemData.tear = s.Tier;
             cur.itemData.upgrade = s.Upgrade;
         }
+        cur.itemData.isLocked = s.IsLocked;
+        cur.itemData.isNew = s.IsNew;
         cur.nowStack = s.Count;
         inv.inventoryArray[slot, page] = 1;
         return used;

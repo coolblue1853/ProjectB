@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// 인벤토리 정렬 순서 (InventoryRefactorDesign 3.2, D4): 타입(Equip→Consum→Misc) → 장비 부위 → 등급(U→R→C) → 티어·강화 내림차순 → 이름.
+/// 인벤토리 정렬 순서 (InventoryRefactorDesign 3.2, D4): 타입(Equip→Consum→Misc) → 등급(L→U→R→C) → 티어·강화 내림차순 → 장비 부위 → 이름.
 /// 순수 클래스 — 카탈로그만 있으면 테스트할 수 있다.
 /// </summary>
 public sealed class ItemSortComparer : IComparer<ItemStack>
 {
     static readonly string[] TypeOrder = { "Equip", "Consum", "Misc" };
     static readonly string[] AreaOrder = { "Weapon", "Head", "Chest", "Hand", "Leg", "Shoes", "Ring", "Necklace" };
-    static readonly string[] RarityOrder = { "U", "R", "C" };
+    static readonly string[] RarityOrder = { "L", "U", "R", "C" };
 
     readonly IItemCatalog catalog;
 
@@ -27,13 +27,13 @@ public sealed class ItemSortComparer : IComparer<ItemStack>
         ItemDef da = catalog.Get(a.Id), db = catalog.Get(b.Id);
         int c = Rank(TypeOrder, da?.Type).CompareTo(Rank(TypeOrder, db?.Type));
         if (c != 0) return c;
-        c = Rank(AreaOrder, da?.EquipArea).CompareTo(Rank(AreaOrder, db?.EquipArea));
-        if (c != 0) return c;
         c = Rank(RarityOrder, RarityKey(da?.Rarity)).CompareTo(Rank(RarityOrder, RarityKey(db?.Rarity)));
         if (c != 0) return c;
         c = b.Tier.CompareTo(a.Tier);
         if (c != 0) return c;
         c = b.Upgrade.CompareTo(a.Upgrade);
+        if (c != 0) return c;
+        c = Rank(AreaOrder, da?.EquipArea).CompareTo(Rank(AreaOrder, db?.EquipArea));
         if (c != 0) return c;
         c = string.CompareOrdinal(da?.DisplayName ?? a.Id, db?.DisplayName ?? b.Id);
         if (c != 0) return c;

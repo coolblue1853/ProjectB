@@ -95,7 +95,12 @@ public class EquipBoxCheck : MonoBehaviour
     public void SaveEquipItem(ItemCheck itemCheck, bool isSave) // 저장할지 삭제할지.
     {
         string[] gear = new string[] { itemCheck.itemData.name , itemCheck.itemData.tear.ToString() , itemCheck.itemData.upgrade.ToString() };
-        int nowEquipNum = CheckEquipBoxNum(itemCheck.itemData.equipArea); // 현재 저장해야할 장비 번호
+        int nowEquipNum = CheckEquipBoxNum(itemCheck.itemData.equipArea);
+        if (SaveManager.instance.datas.equipmentFlags == null)
+        {
+            SaveManager.instance.datas.equipmentFlags = new int[10];
+        }
+        SaveManager.instance.datas.equipmentFlags[nowEquipNum] = isSave ? ItemFlagSave.Encode(itemCheck.itemData.isLocked, itemCheck.itemData.isNew) : 0; // 현재 저장해야할 장비 번호
         if (isSave == true)
         {
             for(int i =0; i< 3; i++)

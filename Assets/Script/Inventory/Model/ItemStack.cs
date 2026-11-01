@@ -6,27 +6,35 @@ public readonly struct ItemStack
 {
     public readonly string Id;
     public readonly int Count, Tier, Upgrade;
+    public readonly bool IsLocked, IsNew;
 
     public static readonly ItemStack Empty = default;
 
-    public ItemStack(string id, int count, int tier = 0, int upgrade = 0)
+    public ItemStack(string id, int count, int tier = 0, int upgrade = 0, bool isLocked = false, bool isNew = false)
     {
         Id = id;
         Count = count;
         Tier = tier;
         Upgrade = upgrade;
+        IsLocked = isLocked;
+        IsNew = isNew;
     }
 
     public bool IsEmpty => Id == null || Count <= 0;
 
     public bool CanStackWith(ItemStack o)
     {
-        return !IsEmpty && !o.IsEmpty && Id == o.Id && Tier == o.Tier && Upgrade == o.Upgrade;
+        return !IsEmpty && !o.IsEmpty && Id == o.Id && Tier == o.Tier && Upgrade == o.Upgrade && IsLocked == o.IsLocked;
     }
 
     public ItemStack WithCount(int c)
     {
-        return c <= 0 ? Empty : new ItemStack(Id, c, Tier, Upgrade);
+        return c <= 0 ? Empty : new ItemStack(Id, c, Tier, Upgrade, IsLocked, IsNew);
+    }
+
+    public ItemStack WithFlags(bool locked, bool fresh)
+    {
+        return IsEmpty ? Empty : new ItemStack(Id, Count, Tier, Upgrade, locked, fresh);
     }
 
     public override string ToString()

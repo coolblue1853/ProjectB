@@ -1,4 +1,4 @@
-# 인벤토리 리팩터 설계 (D2~D6)
+﻿# 인벤토리 리팩터 설계 (D2~D6)
 
 > 상태: 설계안(2026-10-18, 코드 역산). 구현 전이다. 줄 번호는 커밋 928178f1 기준이다.
 > 관련: `Game/ItemSpec.md`(데이터·세이브), `Game/QualityRoadmap.md` D절, `Game/TechDebt.md`.
@@ -462,3 +462,11 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 - 디바운스 저장(0.5s)은 "획득할 때마다 저장" 규칙을 대체한다. 강제 종료 시 최대 0.5초분이 유실될 수 있다(복제보다 낫다고 판단).
 - 반지 슬롯은 1개를 유지한다. 반지 2칸 여부는 별도 기획 질문이다.
 - 툴팁 문구 예시는 한글로 적었지만 현재 UI 텍스트는 영어다. 표시 언어는 별도로 결정한다(Q 등록 대상).
+
+## 6. 편의 기능 추가 이행 (2026-11-02)
+
+- ItemStack에 IsLocked/IsNew를 추가하고 WithCount/WithFlags로 값 보존. 병합은 잠금까지 같아야 하며 새 획득은 OR. 모델 정렬·분할·창고 이동을 그대로 재사용한다. ItemData.Clone은 인스턴스 플래그도 복사한다.
+- Datas의 기존 배열 차원은 유지. 별도 inventoryFlags/chestFlags/equipmentFlags를 동일 저장 호출에 넣어 구 세이브와 호환한다. 숨겨진 가방 칸의 아이템과 플래그도 함께 보존한다.
+- 새 UI/명령은 InventoryConvenience(입력·확인·페이지 열람), BulkSaleRules(순수 후보·금액·재확인), ItemStatusBadge(캐시 표시), ItemFlagSave, SetSwapPreview(기존 SetBonusEvaluator.Diff)로 분리했다.
+- 정렬 최신 규칙은 **종류→등급→티어→강화→부위→이름**이다(§3.2의 부위 우선 순서를 대체). 장비 요구 레벨 필드는 추가하지 않는다. 창고 정렬·150칸·즉시 양쪽 저장 동작은 유지한다.
+- DropItemCheck는 가득 찬 잠금 스택을 빈 공간으로 오판하지 않으며, InventoryService.Add 실패 시 바닥 드롭을 유지한다. 기존 Before/After 풀 반환 경로는 성공 후 ReleaseObject 1회로 한정한다.

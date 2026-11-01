@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public static class DismantleService
 {
-    public enum Check { Ok, NotEquipment, NotInInventory, NoRoom }
+    public enum Check { Ok, NotEquipment, NotInInventory, NoRoom, Locked }
 
     public static Check CanTry(InventoryManager inv, ItemCheck item)
     {
@@ -20,7 +20,7 @@ public static class DismantleService
         {
             return Check.NotInInventory; // 착용칸·창고는 대상 아님
         }
-        return Check.Ok;
+        return item.itemData.isLocked ? Check.Locked : Check.Ok;
     }
 
     public static Check TryDismantle(InventoryManager inv, ItemCheck item, out List<KeyValuePair<string, int>> outputs)
@@ -53,7 +53,7 @@ public static class DismantleService
         }
         inv.SaveInventory();
         GameLog.Info(GameLog.Cat.Item, "분해: " + name + " +" + d.upgrade + " (" + d.rarity + ")");
-        return Check.Ok;
+        return item.itemData.isLocked ? Check.Locked : Check.Ok;
     }
 
     private static void Rollback(InventoryService svc, List<KeyValuePair<string, int>> added)

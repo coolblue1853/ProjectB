@@ -148,6 +148,7 @@ public partial class Chest : MonoBehaviour
         // Phase 2 브리지: UI 슬롯 → 모델 → 세이브 배열 (SaveMapper)
         SlotContainer model = ViewScanner.BuildFrom(inventoryUI, 30, CsvItemCatalog.Shared);
         SaveManager.instance.datas.chestItem = SaveMapper.ToArray(model, 5, 30);
+        SaveManager.instance.datas.chestFlags = ItemFlagSave.ToArray(model, 5, 30);
     }
     public void LoadChest()
     {
@@ -181,6 +182,7 @@ public partial class Chest : MonoBehaviour
                             check.nowStack = saved.Count;
                             check.itemData.tear = saved.Tier;
                             check.itemData.upgrade = saved.Upgrade;
+                            ItemFlagSave.Apply(check.itemData, ItemFlagSave.At(SaveManager.instance.datas.chestFlags, i, j));
                         }
                     }
                 }
@@ -657,7 +659,7 @@ public partial class Chest : MonoBehaviour
             return false;
         }
         SlotContainer model = ScanModel();
-        if (!model.TryAddAll(new ItemStack(itemName, 1, data != null ? data.tear : 0, data != null ? data.upgrade : 0)))
+        if (!model.TryAddAll(new ItemStack(itemName, 1, data != null ? data.tear : 0, data != null ? data.upgrade : 0, data != null && data.isLocked, data != null && data.isNew)))
         {
             return false;
         }
