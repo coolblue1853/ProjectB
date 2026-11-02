@@ -89,6 +89,8 @@
 - 3차(11-01): 연속 찌르기 flurry3 6526 — 첫 프레임 = 찌르기 뻗은 자세(stab ?index=2)에서 시작하니 웅크리지 않고 팔만 당겼다 뻗는다(0·1·2·4·5·6 반복). 무기 평타 궤적(옆베기 WSlashSide 포함)은 CelDS 에서 전부 끔 — 교차 베기 그림 위에 큰 초승달이 겹쳤다.
 - **걷기 교체 walk_6104(11-01, 사용자 "걷기 팔이 이상"):** walk_6101·6102·6103 모두 뒤 절반(4~7번)에서 몸이 3/4 정면으로 돌고 두 팔이 옆으로 벌어지며 허리 칼이 사라졌다(8장 한 번 생성의 버릇). 해결 = **반 주기 2번**: ① ds03 → 보폭 프레임(6102 의 3번, `76f6879d…?index=3`) 4장 ② 보폭 프레임 → ds03 4장, 둘 다 첫·끝 고정(seed 6104·6105, 2 gen). 8장 내내 옆모습·팔 옆구리·칼 허리, 색 31 그대로. 긴 루프 동작은 이 방식이 안전하다.
 - **달리기 교체 run_6311(11-01, 사용자 "달리기 팔이 여전히 이상"):** 옛 run(6301) 도 4~7번에서 몸이 정면으로 돌고 팔이 벌어졌다. 걷기와 같은 반 주기 2번 — ds03 → 옛 run 3번(옆모습 보폭, base64) 4장 / 그 프레임 → ds03 4장(seed 6311·6312, 2 gen, 0.08초). 8장 내내 옆모습·팔 몸에 붙음.
+- **보류(11-02 사용자 "여기까지 하고 넘어가자"):** 4차(머리 고정 문구, `*_v4.png`)로 머리는 맞췄지만 **배낭 형태·랜턴 위치 같은 소품이 방향마다 계속 다르다**(요소가 항상 같아야 함). 기준 그림은 3차 유지, 4차는 후보. 다음에 이어 할 때: 소품도 고정 문구에 구체적으로(배낭 크기·덮개·끈, 랜턴은 왼쪽 옆 고리) + 방향별로 측면 배낭을 잘라 붙이는 수작업(pixelart_workbench, 0 gen) 검토.
+
 ### ds03 외형 고정 문구(11-02, 머리 모양이 매번 바뀌는 문제 대응)
 모든 ds03 생성·편집 프롬프트에 아래 문구를 **그대로** 붙인다("same hair" 금지):
 > ash-blonde shoulder-length wavy hair tied into a low short ponytail at the nape with a dark band, one ahoge strand on top, brass goggles with teal lenses on the forehead, navy-teal long coat with brass buttons, brown leather backpack with a small lantern on the left side, dark pants, brown boots
