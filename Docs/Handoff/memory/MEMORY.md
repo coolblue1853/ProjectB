@@ -1,4 +1,4 @@
-- [Usage budget](usage-budget.md) — 11-02: Claude 주간 상한 15%, Codex 우선·Codex 바닥나면 Claude; 진행 여부 묻지 말고 알아서
+- [Usage budget](usage-budget.md) — 11-02: Claude 주간 상한 15%, Codex 금지(11-02); 진행 여부 묻지 말고 알아서
 - [Question batching](questions-batching.md) — log 기획 questions in Docs/OpenQuestions.md, keep working
 - [Git auto-commit](git-autocommit.md) — commit+push per finished feature (shell push works via GCM)
 - [MadDucks reference](maducks-reference.md) — read-only parent project; Unity 6, private repo, no-touch rule
@@ -36,8 +36,7 @@
 - [Budget priority](budget-priority.md) — 10-29: 아끼는 순서 PixelLab > Claude > GPT, 잡일은 GPT(크롬)에 맡겨도 됨
 - [Classic Maple direction](classic-maple-direction.md) — 10-31: 진행 구조 = 클래식 메이플(레벨·EXP·퀘스트·몸박·물약), 스킬은 장비, 조작은 층계별 개방
 - [UI 메이플·전투 메이플+던파](ui-maple-combat-dnf.md) — 11-01~02: 인벤·상점·창고=메이플식 기능 최대(임시 UI), 전투=완전 횡스크롤이라 메이플+던파 적당히(깊이축·과한 띄우기 금지), 1층계 고도화
-- [Codex delegation](codex-delegation.md) — 10-31: 구현·검증은 Codex CLI(Tools/codex/run.sh), Claude는 지시서·커밋만
-- [Codex↔Claude 번갈아](codex-claude-alternate.md) — 11-02: Codex LIMIT 면 기다리지 말고 바로 Claude builder 로, 풀리면 다시 Codex(감시에 usage.sh --limit 포함)
+- [No Codex](no-codex.md) — 11-02: Codex 사용 금지, 구현·검증·리뷰는 Claude builder 로만(옛 Codex 위임 규칙 폐기)
 - [Graphics need user review](graphics-user-review.md) — 10-31: 그래픽은 사용자 검토 후 적용, 대기 채우기용 그래픽 작업 금지
 - [Final playtest capture](final-playtest-capture.md) — 11-01: 최종 수정은 플레이 모드 스샷·연속 캡처로 눈 검토까지
 - [Dungeon Slasher ref](dungeon-slasher-reference.md) — 11-01: 던전 슬래셔 APK 전체 추출(DungeonSlasherRef, 저장소 밖) 모션·이펙트·캐릭터·UI 참고, 주인공 그림체 후보

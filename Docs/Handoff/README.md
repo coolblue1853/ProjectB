@@ -13,9 +13,7 @@ Claude Code 계정을 바꿔도 이 저장소와 이 폴더만 있으면 그대�
 ## 2. 일하는 방식 (사용자가 정한 것)
 
 - 한국어, 짧게. 진행 여부를 묻지 말고 알아서 이어 간다. 기획 질문은 `Docs/OpenQuestions.md` 에 임시 가정과 함께 쌓는다.
-- **Codex 우선, Codex 가 한도(LIMIT)면 Claude builder 에이전트로 바로 넘긴다.** 감시에 `bash Tools/codex/usage.sh --limit` 포함(11-02 Codex 대기로 5시간 날린 적 있음).
-  - Codex: `bash Tools/codex/run.sh <이름> Logs/codex/<이름>.md` (지시서는 파일 경로로). 큐 `bash Tools/codex/queue_wait.sh 이름…` — 멈출 때는 queue_wait·run.sh·codex.exe exec 를 모두 꺼야 한다(하나만 끄면 다음 작업이 뜬다).
-  - Claude: builder 에이전트(sonnet)에 "지시서 `Logs/codex/<이름>.md` 를 그대로 수행" 으로 맡기고, 보고를 보고 커밋.
+- **Codex 금지(11-02).** 구현·검증·리뷰는 Claude builder 에이전트(sonnet)에 "지시서 `Logs/codex/<이름>.md` 를 그대로 수행" 으로 맡기고, 보고를 보고 커밋.
 - 커밋은 기능 단위, `(추가|수정|삭제|문서) 요약` + bullet + 검증/미검증 + `Co-Authored-By`. 커밋할 파일만 골라 add(씬·폰트·ES3Defaults·M_PixelSlash.mat·ProjectSettings·Docs/ArtCompare 삭제분은 사용자 작업 — 넣지 않는다).
 - **SaveSlot3.es3 는 사용자 진행분.** 플레이 테스트 전 백업, 끝나면 md5 그대로 복원.
 - 사용자가 플레이 중이라고 하면 Unity 플레이 종료·컴파일 금지(Codex·에이전트 전부 멈춤).
@@ -29,11 +27,11 @@ Claude Code 계정을 바꿔도 이 저장소와 이 폴더만 있으면 그대�
 
 ## 4. 다음 할 일 (순서대로)
 
-1. **장비 HP 기준 정리(Q-F1H)** — 지시서 `Docs/Handoff/briefs/f1_hpbal.md` 를 `Logs/codex/` 로 복사해 실행. 늑대 세트만 껴도 HP 124→434 라 보스 피해 기준이 맞지 않는다.
+1. **장비 HP 기준 정리(Q-F1H)** — 지시서 `Docs/Handoff/briefs/f1_hpbal.md` 를 `Logs/codex/` 로 복사해 builder 로 실행. 늑대 세트만 껴도 HP 124→434 라 보스 피해 기준이 맞지 않는다.
 2. OpenQuestions 사용자 판단 대기: Q-F1B(1→2층계 몹 HP 단차), Q-F1E(샛길 초반 물약비 부담), Q-F1H.
 3. 미검증 확인: 나머지 보스 3종 실측, 첫 행동 힌트 실제 트리거, 대화 무적·루엔 의뢰 순서 인게임, 창고 마우스 드래그, 실제 키보드·패드 입력.
 4. 그래픽(사용자 검토 필요): 새 주인공 로프 공격·사망 모션 흰 칼, 신규 몹·보스 그림(현재 코드 도트 임시), ds03 방향 그림 소품 통일.
-5. PixelLab 남은 생성 약 143회(11-25 리셋). Codex 주간 한도는 11-05 무렵 풀림.
+5. PixelLab 남은 생성 약 143회(11-25 리셋).
 
 ## 5. 파일 위치
 

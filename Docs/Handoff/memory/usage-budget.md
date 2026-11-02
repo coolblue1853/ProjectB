@@ -17,6 +17,7 @@ metadata:
 - Unity Asset Store purchased assets (https://assetstore.unity.com/account/assets) may be imported; user expects few pixel-art ones fit.
 
 **Why:** User is automating long-running improvement of Project B and has other projects sharing the quota.
+- 2026-11-02: Codex 사용 금지([[no-codex]]), 상한 15%.
 **How to apply:** User wants continuous in-session work (fix → next fix, no stopping), NOT a scheduled routine (task projectb-auto-improve is disabled). After the 2026-10-18 21:00 reset, check get_usage between work items and stop for the day at ~2%/weekday, 10%/week; log in Docs/AutomationLog.md. Related: [[questions-batching]]
 
 10-28: 사용자 "상한 올려줌" → 50%로(+5%, 버튼 문구 기준). 49% 근처에서 멈춤.
