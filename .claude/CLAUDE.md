@@ -1,4 +1,4 @@
-# CLAUDE.md
+﻿# CLAUDE.md
 
 Project B 작업 지침. 모든 대화와 문서는 **한글**로 쓴다.
 
@@ -24,10 +24,11 @@ Project B 작업 지침. 모든 대화와 문서는 **한글**로 쓴다.
 - **사용량 절약(10-30 사용자):** Claude 사용량을 아끼려고, GPT(Claude in Chrome 의 ChatGPT 탭, Plus)로 해도 품질 차이가 없는 일은 GPT 에 맡긴다 — 기획서·수치표·리서치·레퍼런스 조사·이미지 리뷰·채점·초안 코드. Claude 는 Unity 통합·검증·커밋·판단만. 아끼는 순서 PixelLab > Claude > GPT.
 - **Codex 금지(11-02 사용자):** Codex CLI(`Tools/codex/*`)는 쓰지 않는다. 구현·검증·리뷰는 Claude builder·reviewer 에이전트로 한다. 지시서(`Logs/codex/*.md`)는 builder 에 "그대로 수행"으로 맡긴다.
 - **토큰 절약(10-30 사용자):** 출력은 간결 모드(`.claude/output-styles/gando.md`, 케이브맨식 짧은 한국어). 서브에이전트는 builder·designer·reviewer-arch = sonnet, reviewer-code = haiku(정의 파일 model). 대기는 짧은 폴링 대신 길게(sleep 290+), 긴 문서·로그는 grep 으로 필요한 줄만.
+- **MCP 절약(11-02):** retro-diffusion 제거. pixellab 은 평소 꺼 둔다 — 픽셀 작업 때만 `python Tools/mcp_toggle.py on`, 끝나면 `off`(새 세션부터 적용).
 - **모션·이펙트·PixelLab 작업 전:** `.claude-rules/Game/MotionFxChecklist.md`를 반드시 읽는다(3타·스미어 v7 기준·보존, 이펙트는 절차 생성).
 - **참조 프로젝트:** `C:\Users\user\Downloads\PurpleCow_MadDucks-main`은 **읽기 전용**이다. 절대 수정·생성·커밋하지 않는다.
 
 @../.claude-rules/AGENTS.md
 
-@../.claude-rules/Framework/ContextEconomy.md
+@../.claude-rules/Framework/TokenEconomy.md
 @../.claude-rules/Framework/CodeStyle.md
