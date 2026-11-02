@@ -204,9 +204,24 @@ public class PickupLog : MonoBehaviour
         return text;
     }
 
+    bool wasHidden;
+
+    /// <summary>큰 창이 열려 있으면 왼쪽 아래의 되사기·장비 목록과 겹치지 않게 오른쪽 아래로 옮긴다(HudPolicy).</summary>
+    float RowLeft()
+    {
+        if (!HudPolicy.Hidden)
+        {
+            return LeftOffset;
+        }
+        return Mathf.Max(LeftOffset, ((RectTransform)transform).rect.width - rows[0].rect.sizeDelta.x - LeftOffset);
+    }
+
     void Update()
     {
-        if (model.Tick(Time.time) > 0)
+        bool hidden = HudPolicy.Hidden;
+        bool moved = hidden != wasHidden;
+        wasHidden = hidden;
+        if (model.Tick(Time.time) > 0 || moved)
         {
             Refresh();
         }
@@ -247,7 +262,7 @@ public class PickupLog : MonoBehaviour
             }
             PickupLogModel.Line line = lines[i];
             int fromBottom = lines.Count - 1 - i;
-            row.rect.anchoredPosition = new Vector2(LeftOffset, BottomOffset + fromBottom * RowHeight);
+            row.rect.anchoredPosition = new Vector2(RowLeft(), BottomOffset + fromBottom * RowHeight);
             if (row.lineId == line.id && row.version == line.version)
             {
                 continue;

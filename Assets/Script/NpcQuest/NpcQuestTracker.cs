@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +13,7 @@ public class NpcQuestTracker : MonoBehaviour
     private GameObject _root;
     private float _nextRefresh;
     private bool _dirty = true;
+    private bool _wasHidden;
 
     private void Awake()
     {
@@ -34,9 +35,9 @@ public class NpcQuestTracker : MonoBehaviour
         bg.raycastTarget = false;
         var rt = (RectTransform)_root.transform;
         rt.anchorMin = rt.anchorMax = new Vector2(1f, 0.5f);
-        rt.pivot = new Vector2(1f, 0.5f);
-        rt.anchoredPosition = new Vector2(-16f, 40f);
-        rt.sizeDelta = new Vector2(380f, 170f);
+        rt.pivot = new Vector2(1f, 1f);
+        rt.anchoredPosition = new Vector2(-HudPolicy.ColumnMargin, HudPolicy.ColumnTopAboveMiddle);
+        rt.sizeDelta = new Vector2(HudPolicy.ColumnWidth, HudPolicy.TrackerMaxHeight);
 
         var tgo = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
         tgo.transform.SetParent(_root.transform, false);
@@ -67,6 +68,7 @@ public class NpcQuestTracker : MonoBehaviour
     private void OnDisable()
     {
         NpcQuestLog.Changed -= MarkDirty;
+        HudPolicy.TrackerHeight = 0f;
     }
 
     private void MarkDirty()
@@ -76,12 +78,28 @@ public class NpcQuestTracker : MonoBehaviour
 
     private void Update()
     {
+        bool hidden = HudPolicy.Hidden;
+        if (hidden != _wasHidden)
+        {
+            _wasHidden = hidden;
+            _dirty = true; // 창이 열리고 닫히는 즉시 반영
+        }
         if (!_dirty && Time.unscaledTime < _nextRefresh)
         {
             return;
         }
         _dirty = false;
         _nextRefresh = Time.unscaledTime + RefreshInterval;
+        if (HudPolicy.Hidden)
+        {
+            // 큰 창이 열려 있으면 창 위에 겹치지 않게 숨긴다(HudPolicy)
+            if (_root.activeSelf)
+            {
+                _root.SetActive(false);
+            }
+            HudPolicy.TrackerHeight = 0f;
+            return;
+        }
         var active = NpcQuestLog.ActiveQuests();
         if (active.Count == 0)
         {
@@ -89,6 +107,7 @@ public class NpcQuestTracker : MonoBehaviour
             {
                 _root.SetActive(false);
             }
+            HudPolicy.TrackerHeight = 0f;
             return;
         }
         var sb = new StringBuilder();
@@ -100,6 +119,10 @@ public class NpcQuestTracker : MonoBehaviour
             sb.Append("<color=#BBBBBB>  ").Append(ready ? "완료! " + NpcQuestCatalog.NpcName(d.Giver) + "에게 보고" : NpcQuestWindow.ObjectiveText(d)).Append("</color>\n");
         }
         _text.text = sb.ToString();
+        float height = _text.GetPreferredValues(_text.text, HudPolicy.ColumnWidth - 20f, 0f).y + 12f;
+        height = Mathf.Clamp(height, 44f, HudPolicy.TrackerMaxHeight);
+        ((RectTransform)_root.transform).sizeDelta = new Vector2(HudPolicy.ColumnWidth, height);
+        HudPolicy.TrackerHeight = height;
         if (!_root.activeSelf)
         {
             _root.SetActive(true);

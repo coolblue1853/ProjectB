@@ -175,7 +175,7 @@ public class CraftPinHud : MonoBehaviour
 
     private void Update()
     {
-        bool show = !_pin.IsEmpty && !DatabaseManager.isOpenUI;
+        bool show = !_pin.IsEmpty && !HudPolicy.Hidden;
         if (_chip.activeSelf != show)
         {
             _chip.SetActive(show);

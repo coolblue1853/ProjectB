@@ -28,9 +28,9 @@ public class AscentHud : MonoBehaviour
     /// <summary>인벤토리·상점 등 UI 가 열리면 숨긴다(툴팁 위에 겹쳐 그려지던 문제)</summary>
     void LateUpdate()
     {
-        if (chipGo != null && chipGo.activeSelf == DatabaseManager.isOpenUI)
+        if (chipGo != null && chipGo.activeSelf == HudPolicy.Hidden)
         {
-            chipGo.SetActive(!DatabaseManager.isOpenUI);
+            chipGo.SetActive(!HudPolicy.Hidden);
         }
     }
 

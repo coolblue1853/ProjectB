@@ -128,7 +128,7 @@ public class MinimapHud : MonoBehaviour
         {
             SetVisible(!_visible);
         }
-        bool show = _visible && _map != null && !DatabaseManager.isOpenUI;
+        bool show = _visible && _map != null && !HudPolicy.Hidden;
         if (_root.activeSelf != show)
         {
             _root.SetActive(show);

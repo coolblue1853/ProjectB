@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// 1시간 플레이 테스트용 치트(SR Debugger 옵션, 11-01 사용자 "치트를 상시 볼 수 있게").
-/// 시작하면 "Cheat" 묶음을 화면 왼쪽 가운데에 고정한다. 전체 창 = 오른쪽 위 구석 세 번 탭 또는 Ctrl+Shift+F1.
+/// 시작하면 "Cheat" 묶음을 화면 우하단(경험치 바 위)에 고정한다(HudPolicy 가 배치, 큰 창이 열리면 숨김). 전체 창 = 오른쪽 위 구석 세 번 탭 또는 Ctrl+Shift+F1.
 /// 라벨은 SR Debugger 기본 글꼴이 한글을 못 그릴 수 있어 영어로 쓴다.
 /// </summary>
 public partial class SROptions

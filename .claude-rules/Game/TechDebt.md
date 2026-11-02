@@ -192,3 +192,11 @@
 - 남은 P2 UI: 원래 대형 장비 상세의 긴 설명 줄바꿈·상단 치트 UI 중첩, 퀘스트HUD가 가방 슬롯에 겹침, 장비 교체 후 슬롯 아이콘이 작아지는 기존 경로. 새 비교 패널의 하단HUD 중첩/미지원 minus 글리프는 수정·낮 재캡처 확인.
 - 사용자 정책은 Q-INV01: 제작·의뢰 재료를 별도 잡템 분류로 자동 보존하지 않고 잠금으로 보호, 기존 되사기12건 유지. 물리 장치·빌드·강제 종료·장시간 소크는 미검증.
 - 상점 강화(11-02): 진열 MinFloor 는 현재 전부 1이라 층계 확장 경로(CSV 행 추가→상점 재오픈 시 재구성)는 EditMode 로만 검증했고 인게임 층계 상승은 미검증. 되사기 선택 패드 조합(LT+Y)·판매 필터 패드(SELECT)·물약 충전(LT+X)은 실제 장치 미검증. 큰 진열(줄 3개 이상)은 RowGap 110 고정이라 화면 밖 가능성.
+
+### HUD 겹침 정책 (2026-11-02)
+
+- `Assets/Script/UI/HudPolicy.cs` 한 곳에 정리: `HudPolicy.Hidden`(= UiLock 잡힘 = `isOpenUI`)이면 퀘스트 추적(NpcQuestTracker)·Quest Machine 추적·아티팩트 칩·SR 치트 줄을 숨기고, AscentHud·CraftPinHud·MinimapHud 도 같은 값을 본다. 상주 `HudPolicyDriver` 가 아티팩트·SR 캔버스를 끄고 켜며, QM HUD 는 하위 Canvas 를 얹어 끈다.
+- 평소 배치: 우측 추적 열(1080 기준 폭 380, 중앙선 위 125)에 NpcQuestTracker(내용 높이에 맞춰 최대 190) → 그 아래 Quest Machine 추적(고정 폭 줄바꿈, 폰트 26/24 환산 = QM 캔버스 기준 14/13). 잘리던 QM 제목 해결. SR 치트 줄은 `PinnedUIRoot.Options` 를 `ignoreLayout` 으로 우하단 두 줄에 옮김(체력 HUD 와 겹침 해결). 서드파티 소스 수정 없음(런타임 조정).
+- 첫 판매 토스트: 창이 열려 있으면 PickupLog 줄을 오른쪽 아래로 옮겨 되사기·장비 목록과 겹치지 않음.
+- 검증: EditMode 483/483(신규 HudPolicyTests 4), 콘솔 오류 0, 낮 캡처 `Logs/playtest/uifunc/`(before `base_*`, after `after_*`·`final_hud`·`shop_toast_after`)에서 인벤·상점·Craft·InvGroup·Pause·NpcQuest 잠금 시 숨김·해제 시 복귀 수치 확인. 미검증: 물리 해상도 변경, 비 16:9 화면, 퀘스트 창(NpcQuest)·창고 실제 열기 캡처.
+- 남음: 창고 하단 슬롯과 좌하단 스킬 아이콘이 큰 창에 가려지는 것은 그대로(스킬 HUD 는 숨기지 않음).
