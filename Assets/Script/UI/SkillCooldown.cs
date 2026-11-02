@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillCooldown : MonoBehaviour
@@ -32,9 +33,109 @@ public class SkillCooldown : MonoBehaviour
             instance = this;
         }
     }
+    // ── 남은 쿨다운 숫자·스태미나 부족 표시 (던파식 HUD, CombatSpec 9절). 큰 창이 열리면(HudPolicy.Hidden) 숨긴다 ──
+    const float ShortFlashTime = 0.6f;
+    TextMeshProUGUI[] _labels;
+    readonly float[] _shortUntil = new float[8];
+    readonly int[] _shownKey = { -2, -2, -2, -2, -2, -2, -2, -2 }; // 라벨 문자열을 0.1초 단위로 바뀔 때만 다시 만든다(프레임당 할당 방지)
+
+    /// <summary>슬롯 i 의 남은 쿨다운 초(쿨다운이 아니면 0)</summary>
+    public float Remaining(int i)
+    {
+        return i >= 0 && i < isCooldown.Length && isCooldown[i] ? Mathf.Max(0f, cooldownTimer[i]) : 0f;
+    }
+
+    /// <summary>쿨다운 숫자 문자열: 10초 이상 정수, 미만 소수 한 자리, 아니면 빈 문자열</summary>
+    public static string FormatRemaining(float seconds)
+    {
+        if (seconds <= 0f)
+        {
+            return string.Empty;
+        }
+        return seconds >= 10f ? Mathf.CeilToInt(seconds).ToString() : seconds.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>스태미나 부족으로 스킬이 안 나갔다 — 그 슬롯에 잠깐 붉은 표시</summary>
+    public void FlashShort(int slot)
+    {
+        if (slot >= 0 && slot < _shortUntil.Length)
+        {
+            _shortUntil[slot] = Time.time + ShortFlashTime;
+        }
+    }
+
+    /// <summary>프로브·테스트용: 슬롯 라벨의 현재 문자열(없으면 null)</summary>
+    public string LabelText(int slot)
+    {
+        return _labels != null && slot >= 0 && slot < _labels.Length && _labels[slot] != null ? _labels[slot].text : null;
+    }
+
+    void EnsureLabels()
+    {
+        if (_labels != null)
+        {
+            return;
+        }
+        _labels = new TextMeshProUGUI[cooldownImage.Length];
+        UiTheme theme = UiTheme.Get();
+        for (int i = 0; i < cooldownImage.Length; i++)
+        {
+            if (cooldownImage[i] == null)
+            {
+                continue;
+            }
+            var go = new GameObject("CdText", typeof(RectTransform), typeof(TextMeshProUGUI));
+            go.transform.SetParent(cooldownImage[i].transform, false);
+            var t = go.GetComponent<TextMeshProUGUI>();
+            if (theme.pixelFont != null)
+            {
+                t.font = theme.pixelFont;
+            }
+            t.enableAutoSizing = true;
+            t.fontSizeMin = 10f;
+            t.fontSizeMax = 30f;
+            t.alignment = TextAlignmentOptions.Center;
+            t.enableWordWrapping = false;
+            t.raycastTarget = false;
+            t.outlineWidth = 0.3f;
+            t.outlineColor = new Color32(0, 0, 0, 255);
+            var r = t.rectTransform;
+            r.anchorMin = Vector2.zero;
+            r.anchorMax = Vector2.one;
+            r.offsetMin = r.offsetMax = Vector2.zero;
+            _labels[i] = t;
+        }
+    }
+
+    void UpdateLabels()
+    {
+        EnsureLabels();
+        bool hidden = HudPolicy.Hidden;
+        for (int i = 0; i < _labels.Length; i++)
+        {
+            TextMeshProUGUI t = _labels[i];
+            if (t == null)
+            {
+                continue;
+            }
+            bool slotOn = cooldownImage[i] != null && cooldownImage[i].sprite != null && cooldownImage[i].gameObject.activeInHierarchy;
+            bool shortage = slotOn && !hidden && Time.time < _shortUntil[i];
+            // 키: -1 = 비움, -3 = 부족 표시, 그 외 = 남은 시간(0.1초 단위 올림)
+            int key = !slotOn || hidden ? -1 : shortage ? -3 : Mathf.CeilToInt(Remaining(i) * 10f) - (Remaining(i) > 0f ? 0 : 1);
+            if (key == _shownKey[i])
+            {
+                continue;
+            }
+            _shownKey[i] = key;
+            t.text = key == -3 ? "STA" : key < 0 ? string.Empty : FormatRemaining(key * 0.1f);
+            t.color = shortage ? new Color(1f, 0.4f, 0.35f) : Color.white;
+        }
+    }
+
     void Update()
     {
         CheckCoolTime();
+        UpdateLabels();
     }
     void CheckCoolTime()
     {

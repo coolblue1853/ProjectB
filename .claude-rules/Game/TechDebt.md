@@ -200,3 +200,7 @@
 - 첫 판매 토스트: 창이 열려 있으면 PickupLog 줄을 오른쪽 아래로 옮겨 되사기·장비 목록과 겹치지 않음.
 - 검증: EditMode 483/483(신규 HudPolicyTests 4), 콘솔 오류 0, 낮 캡처 `Logs/playtest/uifunc/`(before `base_*`, after `after_*`·`final_hud`·`shop_toast_after`)에서 인벤·상점·Craft·InvGroup·Pause·NpcQuest 잠금 시 숨김·해제 시 복귀 수치 확인. 미검증: 물리 해상도 변경, 비 16:9 화면, 퀘스트 창(NpcQuest)·창고 실제 열기 캡처.
 - 남음: 창고 하단 슬롯과 좌하단 스킬 아이콘이 큰 창에 가려지는 것은 그대로(스킬 HUD 는 숨기지 않음).
+
+## 2026-11-02 던파식 전투 보강 남은 것 (P3)
+- 아티팩트 범위 피해(`ArtifactSystem.cs:226`)가 위쪽 넉백이라 전원 띄움·다운이 된다 — 의도 확인.
+- `EnemyAirState` 착지 판정이 `GroundProbe`와 별개 레이캐스트(통합 여지). 다운 공격·캔슬은 순수 규칙만 단위 테스트, 통합은 플레이 프로브로만 검증.

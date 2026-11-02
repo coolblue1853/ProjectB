@@ -605,6 +605,8 @@ public class PlayerController : MonoBehaviour
         }
     }
     float verticalInput;
+    /// <summary>↓ 를 누른 채 공격 중인가 — 다운된 적에게 다운 공격(피해 x1.3, CombatSpec 9절). 새 키 없이 기존 ↓ 입력을 쓴다</summary>
+    public bool IsDownAttackHeld => isAttackAnim && verticalAction != null && verticalAction.ReadValue<float>() < -0.5f;
     Sequence moveSequence;
     void Move()
     {

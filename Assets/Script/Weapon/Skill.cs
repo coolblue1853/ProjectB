@@ -282,11 +282,16 @@ public class Skill : MonoBehaviour
         }
     }
 
-    /// <summary>지금 이 슬롯 스킬을 쓸 수 있는지 (쿨다운·스태미나·후딜)</summary>
+    /// <summary>지금 이 슬롯 스킬이 막힌 이유(None = 발동 가능). 평타 후딜은 판정 뒤 절반이 지나면 스킬로 끊을 수 있다(던파식 캔슬)</summary>
+    public SkillBlock BlockReason(int num)
+    {
+        bool timingOk = (weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack || weapon.CanSkillCancelMelee;
+        return CombatRules.GetSkillBlock(skillCooldown.isCooldown[num], PlayerHealthManager.Instance.nowStemina, useStemina, timingOk);
+    }
+
     public bool CanActivate(int num)
     {
-        return isButtonDownSkill && skillCooldown.isCooldown[num] == false && PlayerHealthManager.Instance.nowStemina > useStemina
-            && ((weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack);
+        return isButtonDownSkill && BlockReason(num) == SkillBlock.None;
     }
 
     public void ActiveSkill(int num)
@@ -298,6 +303,7 @@ public class Skill : MonoBehaviour
             {
                 PlayerController.instance.FaceInputForAttack();
             }
+            weapon.CancelMeleeRecovery(); // 평타 후딜 중이면 끊고 시작(스킬 캔슬)
             isActive = true;
             _activeSlot = num;
             // 이전 시전의 오브젝트를 다시 잡지 않게 — 바닥을 못 찾아 생성이 안 되면 SetSkillDmg 가 건너뛴다

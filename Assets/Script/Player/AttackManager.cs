@@ -135,6 +135,12 @@ public class AttackManager : MonoBehaviour
         bool staggered = PlayerController.instance != null && PlayerController.instance.isAttacked;
         if (DatabaseManager.isOpenUI == false && equipWeapon != null)
         {
+            if (staggered)
+            {
+                // 던파식: 경직 중 눌러 둔 입력은 버린다(경직이 풀리자마자 옛 입력이 튀어나가지 않게). 활 차지 릴리스는 그대로
+                attackBuffer.Clear();
+                ClearSkillBuffers();
+            }
             // 평타 입력 0.1초 버퍼: 후딜이 끝나기 직전에 눌러도 콤보가 끊기지 않는다
             ChargeShot charge = equipWeapon.Charge;
             if (charge != null)
@@ -193,12 +199,17 @@ public class AttackManager : MonoBehaviour
             if (skillAction[i].triggered)
             {
                 skillBuffers[i].Press(Time.time);
+                if (!staggered && s.isButtonDownSkill && s.BlockReason(i) == SkillBlock.Stamina)
+                {
+                    CombatHud.NotifyStaminaShort(i); // 스태미나 부족 안내(슬롯 표시 + 안내 문구)
+                }
             }
             // 홀드 스킬은 키를 누르고 있는 동안만 의미가 있으므로 즉시 판정만 한다(버퍼로 늦게 시작하면 떼기를 놓친다)
             bool want = s.isHoldSkill ? skillAction[i].triggered : skillBuffers[i].Peek(Time.time);
             if (want && !staggered && s.CanActivate(i))
             {
                 skillBuffers[i].Clear();
+                attackBuffer.Clear(); // 스킬이 나가면 그 전에 눌러 둔 평타 입력은 버린다
                 equipWeapon.ActiveWeaponSkill(i);
             }
         }

@@ -155,6 +155,7 @@ public class EnemyHealth : PoolAble
         _moveMul = TempMobTraits.MoveMul(row.trait);
         _knockbackMul = TempMobTraits.KnockbackMul(row.trait);
         _jumpMul = TempMobTraits.JumpMul(row.trait);
+        _sturdy = TempMobTraits.Has(row.trait, "sturdy");
         if (TempMobTraits.Has(row.trait, "dash") && !TryGetComponent(out _dash))
         {
             _dash = gameObject.AddComponent<TempMobDash>();
@@ -163,12 +164,15 @@ public class EnemyHealth : PoolAble
 
     // 0 = 프로필 없음(1배). 필드 초기값에 기대지 않는다(에디터에서 만든 컴포넌트는 0으로 시작한 사례, 11-01 테스트)
     float _moveMul, _knockbackMul, _jumpMul;
+    bool _sturdy; // trait sturdy = 경직 저항 50%
     TempMobDash _dash;
 
     /// <summary>추적·순찰 이동 배율(임시 몹 특성 slow·dash). 기존 몹은 1</summary>
     public float MoveSpeedMul => (_moveMul > 0f ? _moveMul : 1f) * (_dash != null ? _dash.ChaseMul : 1f);
     /// <summary>넉백 힘 배율(heavy 0.5). 기존 몹은 1</summary>
     public float KnockbackMul => _knockbackMul > 0f ? _knockbackMul : 1f;
+    /// <summary>경직 저항 0~1(보스 0.6·sturdy 0.5·정예 0.3 중 최대, 던파식 경직 수치 정리). 슈퍼아머 몹은 경직 자체가 없다</summary>
+    public float StaggerResist => CombatRules.StaggerResist(isBossMob, _sturdy, IsElite);
     /// <summary>BT 도약 높이 배율(lowhop 0.8). 기존 몹은 1</summary>
     public float JumpMul => _jumpMul > 0f ? _jumpMul : 1f;
     int _contactBase;
@@ -291,6 +295,8 @@ public class EnemyHealth : PoolAble
             behaviorTree.enabled = true; // 경직 중 반환되어 꺼진 채로 재사용되는 것 방지
         }
         isStun = false; // 덫·경직 중 반환된 채 재사용 방지
+        _staggerChain = 0;
+        _lastStaggerAt = -10f;
         if (hpBar != null)
             hpBar.setHpBar(this);
     }
@@ -338,6 +344,12 @@ public class EnemyHealth : PoolAble
             DamageCalculator.LevelGapMul(Level, LevelSystem.Level));
         isCrit = result.isCrit;
         result.damage = Mathf.Max(1, Mathf.RoundToInt(result.damage * AscentLoad.OutgoingMul())); // 상승 부하: 부족분만큼 주는 피해 감소
+        bool downed = _air != null && _air.IsDown;
+        bool downAttack = downed && PlayerController.instance != null && PlayerController.instance.IsDownAttackHeld;
+        if (downAttack)
+        {
+            result.damage = Mathf.Max(1, Mathf.RoundToInt(result.damage * CombatRules.DownDamageMul(true, true))); // 다운 공격(↓+공격) x1.3
+        }
         finDmg = result.damage;
         if (isBossMob && bossPhase == null)
         {
@@ -361,6 +373,7 @@ public class EnemyHealth : PoolAble
         if (isSuperArmor == true)
         {
             transform.DOShakePosition(0.15f, strength: new Vector3(0.04f, 0.04f, 0), vibrato: 30, randomness: 90, fadeOut: false);
+            HitFeedback.SpawnText(damageNumber, transform.position + Vector3.up, "ARMOR", HitFeedback.TextKind.Block); // 슈퍼아머 표시(0.5초에 한 번)
         }
         if ((int)addDmg != 0) // 추가 데미지 판정
         {
@@ -369,6 +382,7 @@ public class EnemyHealth : PoolAble
         }
 
 
+        CombatHud.OnPlayerHit((int)finDmg + (int)addDmg); // 히트 수 집계(던파식 콤보 카운터)
         bool killed = TryDie();
         HitFeedback.OnEnemyHit(this, isCrit, isSkill, killed); // 플래시·히트스톱·흔들림
         if (killed)
@@ -379,6 +393,7 @@ public class EnemyHealth : PoolAble
 
         if(isSuperArmor == false)
         {
+            ApplyAirAndStagger(ref stiffTime, ref force, ref knockbackDir, downAttack);
 
             if (anim != null)
             {
@@ -468,7 +483,50 @@ public class EnemyHealth : PoolAble
         }
     }
 
+    // ── 던파식 경직 연쇄·공중 콤보 (CombatSpec 9절) ──
+    EnemyAirState _air;
+    int _staggerChain;
+    float _lastStaggerAt = -10f;
+
+    /// <summary>피격 때: 경직 연쇄/저항으로 경직 시간을 줄이고, 공중 추가타면 중력을 낮추고, 다운 중이면 넉백을 눕힌다</summary>
+    void ApplyAirAndStagger(ref float stiffTime, ref float force, ref Vector2 knockbackDir, bool downAttack)
+    {
+        if (stiffTime > 0f)
+        {
+            _staggerChain = CombatRules.NextChain(_staggerChain, Time.time - _lastStaggerAt);
+            stiffTime *= CombatRules.StiffnessScale(_staggerChain, StaggerResist);
+        }
+        _lastStaggerAt = Time.time;
+        if (behaviorTree == null || rb == null)
+        {
+            return; // 나무·바위 같은 채집물은 공중 콤보 대상이 아니다
+        }
+        if (_air == null && !TryGetComponent(out _air))
+        {
+            _air = gameObject.AddComponent<EnemyAirState>();
+        }
+        if (_air.IsDown)
+        {
+            knockbackDir.y = 0f; // 누운 적은 더 안 뜬다
+            force *= 0.5f;
+            if (downAttack)
+            {
+                _air.ExtendDown(0.3f);
+            }
+        }
+        _air.RegisterHit();
+    }
+
     private void EndStiffness()
+    {
+        if (_air != null && _air.TryDeferRecovery(FinishStiffness))
+        {
+            return; // 띄워진 몹은 착지 + 다운 시간 뒤에 행동 복귀
+        }
+        FinishStiffness();
+    }
+
+    private void FinishStiffness()
     {
         snareTween?.Kill(); // 경직이 먼저 끝나면 덫도 같이 풀린다(남은 덫 트윈이 다음 경직을 끊지 않게)
         behaviorTree.enabled = true;
@@ -537,6 +595,11 @@ public class EnemyHealth : PoolAble
 
             // 최종 속도 적용
             rb.linearVelocity = currentVelocity;
+            if (_air != null)
+            {
+                _air.ApplyJuggle();                      // 공중 추가타: 수평 감쇠 + 위로 살짝 띄움
+                _air.NoteKnockVelocity(rb.linearVelocity); // 위로 크게 뜬 몹은 착지하면 다운
+            }
         }
 
     }

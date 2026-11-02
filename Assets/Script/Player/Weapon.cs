@@ -282,6 +282,8 @@ public class Weapon : MonoBehaviour
                 MasterAudio.PlaySound(sound);
             }
         }
+        _attackHitDelay = delay + (WeaponFx.Enabled && WeaponFx.IsMeleeSwing(swingVfx) && pC != null && attackAnimName.Length >= step
+            ? WeaponFx.StrikeDelayFor(attackAnimName[step - 1], pC.Rig) / StatMath.AttackSpeedMul : 0f); // 판정이 나오는 시점(캔슬 하한)
         CheckAttackWait();
     }
     public void CreatAttackPrefab()
@@ -402,6 +404,8 @@ public class Weapon : MonoBehaviour
             baseTime += delayTime[step - 1];
         }
         float waitTime = baseTime / StatMath.AttackSpeedMul;
+        _attackWaitStartedAt = Time.time;
+        _attackWaitTotal = waitTime;
         attackWaitSequence = DOTween.Sequence()
         .AppendInterval(waitTime) // 사전에 지정한 공격 주기만큼 대기.
         .AppendCallback(() =>
@@ -412,6 +416,27 @@ public class Weapon : MonoBehaviour
             comboSequence.Kill();
             comboSequence = DOTween.Sequence().AppendInterval(_comboGrace).AppendCallback(() => nowConboCount = 0);
         });
+    }
+
+    // ── 캔슬(던파식, CombatSpec 9절): 평타 후딜을 스킬로 끊는다 ──
+    float _attackWaitStartedAt = -10f, _attackWaitTotal, _attackHitDelay;
+
+    /// <summary>평타 후딜 중 스킬로 끊을 수 있는가: 판정이 나온 뒤 + 후딜의 절반이 지난 때부터 후딜이 끝나기 전까지</summary>
+    public bool CanSkillCancelMelee => !isAttackWait && isSkillAttackWait
+        && CombatRules.CanCancelMeleeRecovery(Time.time - _attackWaitStartedAt, _attackWaitTotal, _attackHitDelay);
+
+    /// <summary>스킬이 평타 후딜을 끊을 때: 후딜 잠금·대기를 풀고 콤보 유예만 다시 건다(스킬 뒤 평타는 1타부터가 아니라 유예 안이면 이어짐)</summary>
+    public void CancelMeleeRecovery()
+    {
+        if (isAttackWait)
+        {
+            return;
+        }
+        attackWaitSequence.Kill();
+        ReleaseAttackLocks();
+        isAttackWait = true;
+        comboSequence.Kill();
+        comboSequence = DOTween.Sequence().AppendInterval(_comboGrace).AppendCallback(() => nowConboCount = 0).SetLink(gameObject);
     }
 
     void ReleaseAttackLocks()

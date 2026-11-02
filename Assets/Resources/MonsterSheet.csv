@@ -48,6 +48,6 @@ ForestSpore_BD,Spore Shroom,1,Normal Forest,160,4,0,0,-1.2,,,shared SporeShroom 
 DeepSpore_BD,Spore Shroom,1,Deep Forest,160,4,0,0,-1.2,,,shared SporeShroom art with floor 1 stats,7,43,23
 DeepGoblin_BD,Forest Goblin,1,Deep Forest,150,4,0,0,-1.2,,,shared CliffGoblin art with floor 1 stats,7,43,23
 SwampSpore_BD,Spore Shroom,1,Swamp,160,4,0,0,-1.2,,,shared SporeShroom art with floor 1 stats,9,67,23
-MossShellBeetle_BD,Moss Shell Beetle,1,Forest Side Road,210,7,0,0,-1.2,,,slow tank body slam (temp art tint),3,19,19,MossShellBeetle_BD,6F9A55,slow|heavy
+MossShellBeetle_BD,Moss Shell Beetle,1,Forest Side Road,210,7,0,0,-1.2,,,slow tank body slam (temp art tint),3,19,19,MossShellBeetle_BD,6F9A55,slow|heavy|sturdy
 BranchAntlerFox_BD,Branch Antler Fox,1,Deep Forest,180,5,0,0,-1.2,,,fast short dash (temp art tint),7,43,23,BranchAntlerFox_BD,B07A4A,dash
 SporeBackToad_BD,Spore Back Toad,1,Swamp,270,10,0,0,-1.0,,,short hop and spore cloud on hit (temp art tint),9,67,22,SporeBackToad_BD,7FA05A,spore|lowhop
