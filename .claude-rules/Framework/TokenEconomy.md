@@ -30,3 +30,6 @@
 ## 5. 측정
 - 주간 사용량은 `mcp__ccd_session_mgmt__get_usage`로 본다. 큰 작업 전후 %를 `Docs/AutomationLog.md`에 한 줄 기록해 "1시간당 몇 %"를 추정한다.
 - 목표 소모율: 하루 주간 한도의 약 14%(7일) 이하.
+
+## 업무 생성·전달
+`Framework/Dispatch.md`: 큐 원본 확인→세션 점검→전달. 두 번 일하지 않기.

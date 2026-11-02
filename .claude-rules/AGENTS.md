@@ -20,6 +20,7 @@
 |------|------|
 | `Framework/TokenEconomy.md` | **절약 대원칙·세션 담당자 운영** |
 | `Framework/AutoRun.md` | 자동 진행 `/loop` 틱 절차(5시간 한도·주간 페이스) |
+| `Framework/Dispatch.md` | 업무 생성·전달 규칙(중복 방지, 큐 원본, SendMessage) |
 | `Framework/ContextEconomy.md` | 컨텍스트 절약 |
 | `Framework/CodeStyle.md` | 코드 스타일 |
 | `Framework/EditorAutomation.md` | unity-mcp로 컴파일 |
