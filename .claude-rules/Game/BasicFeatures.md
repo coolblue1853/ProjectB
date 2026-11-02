@@ -204,4 +204,4 @@
 
 ## 첫 경험 안내 (11-02)
 
-`FirstHints`(첫 처치·포털·로프·채집물·장비·물약·레벨업 힌트, 설정 HINTS) · `EventBanner`(퀘스트 수락/완료 배너·사망 안내) · 레벨업 배너 수치 줄 · NPC 진행 중 회색 ?. 세이브 새 키 `hints.seen`(슬롯), `settings.hints`(공유). 테스트 `FirstExperienceTests`.
+`FirstHints`(첫 처치·포털·로프·채집물·장비·물약·레벨업 힌트, 설정 HINTS) · `EventBanner`(퀘스트 수락/완료 배너·사망 안내) · 레벨업 배너 수치 줄 · NPC 진행 중 회색 ?. 세이브 새 키 `hints.seen`(슬롯), `settings.hints`(공유). 테스트 `FirstExperienceTests`. 플레이 모드 확인(11-02): 처치·포털·채집물·물약/장비 획득·레벨업 힌트 정상 표시·순차 큐. 로프 힌트만 미검증.
