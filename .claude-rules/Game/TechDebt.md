@@ -220,3 +220,4 @@
 - (해결 11-02: PixelDialogueUI 무적 토큰, 끝난 뒤 0.5초) (P2) NPC 대화 중에도 몹이 플레이어를 때려 사망(이브 대화, 일반 숲 입구). 대화 중 무적 또는 몹 정지 검토.
 - (해결 11-02: NpcQuestLog.BestFor 본 흐름 우선) (P3) 루엔이 Q105·Q202 동시 수락 가능 상태일 때 Q105가 먼저 잡힘 — 안내 필요 여부 확인.
 - (P3) EnemyTelegraph: 바닥 띠 0.7초 vs 공격 시작 0.5초, `isBoss` Start 단발 캡처, `!` 마크 트윈 OnDisable Kill 누락. BossReward.RewardSummary 영문/한글 혼용. BossPhase.Thresholds 가변 배열 공개. BossPortrait 초상 없으면 페이즈 선도 생략.
+- (확인 11-02, 버그 아님, Floor1Balance §7-2) 받는 피해가 문서 계산보다 약 25% 큼 = 깊은 숲 상승 부하(×1.4). SaveSlot2 Lv4 HP 434 = 성장 124 + 늑대 장비 260 + 세트 50.
