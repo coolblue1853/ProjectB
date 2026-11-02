@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using AnyPortrait;
 public class AttackManager : MonoBehaviour
 {
+    /// <summary>쿨다운 안내를 띄우는 최소 남은 시간(초). 이보다 짧으면 입력 버퍼가 곧 발동시킨다</summary>
+    const float CooldownNoticeMin = 0.4f;
     public apPortrait portrait;
     PlayerController _pc;
     /// <summary>활성 캐릭터 리그 — 무기 소켓을 여기서 얻는다</summary>
@@ -199,9 +201,17 @@ public class AttackManager : MonoBehaviour
             if (skillAction[i].triggered)
             {
                 skillBuffers[i].Press(Time.time);
-                if (!staggered && s.isButtonDownSkill && s.BlockReason(i) == SkillBlock.Stamina)
+                if (!staggered && s.isButtonDownSkill)
                 {
-                    CombatHud.NotifyStaminaShort(i); // 스태미나 부족 안내(슬롯 표시 + 안내 문구)
+                    SkillBlock block = s.BlockReason(i);
+                    if (block == SkillBlock.Stamina)
+                    {
+                        CombatHud.NotifyStaminaShort(i); // 스태미나 부족 안내(슬롯 표시 + 알림)
+                    }
+                    else if (block == SkillBlock.Cooldown && SkillCooldown.instance != null && SkillCooldown.instance.Remaining(i) > CooldownNoticeMin)
+                    {
+                        CombatHud.NotifyCooldown(i); // 입력 버퍼로 곧 나갈 짧은 남은 시간은 안내하지 않는다
+                    }
                 }
             }
             // 홀드 스킬은 키를 누르고 있는 동안만 의미가 있으므로 즉시 판정만 한다(버퍼로 늦게 시작하면 떼기를 놓친다)

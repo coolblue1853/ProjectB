@@ -157,12 +157,12 @@ public static class LevelSystem
         }
     }
 
-    /// <summary>레벨업 연출: 작은 텍스트 + 기존 효과음 재사용 (새 이펙트 없음)</summary>
+    /// <summary>레벨업 연출: 효과음 + 머리 위 작은 글자. 화면 위쪽 큰 알림은 LevelUpBanner 가 LeveledUp 이벤트로 한 번 띄운다</summary>
     static void PlayLevelUpFx()
     {
         pendingLevelUpFx = false;
         HitFeedback.SpawnText(null, PlayerController.instance.transform.position + Vector3.up * 1.2f,
-            Loc.T("LEVEL UP") + " Lv" + Level, HitFeedback.TextKind.Gold);
+            "Lv" + Level, HitFeedback.TextKind.Gold);
         Sfx.Play(SfxId.Victory, 0.6f);
     }
 

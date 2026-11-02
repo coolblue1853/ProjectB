@@ -8,6 +8,7 @@ using UnityEngine.UI;
 /// 획득 로그 뷰 (좌측 하단): PickupLogModel 상태를 줄 6개 풀로 그린다.
 /// R/U 등급은 Text Animator로 이름이 출렁이고(&lt;wave&gt;) 테두리 글로우가 붙는다. 인벤토리가 가득 차면 빨간 경고(2초 스로틀).
 /// 사용: PickupLog.Report(itemName, count, rarity) / PickupLog.ReportFull()
+/// 안내 문구(가방 가득·골드 부족·잠금·쿨다운·스태미나 부족 등)는 모두 Warn(빨강)/Notice(흰색) 한 곳으로 보낸다. 같은 문구는 2초 안에 다시 띄우지 않는다(11-02).
 /// </summary>
 public class PickupLog : MonoBehaviour
 {
@@ -82,7 +83,7 @@ public class PickupLog : MonoBehaviour
     bool ShowCenter(string message, bool warning)
     {
         PickupLog log = this;
-        if (message == log.lastWarn && Time.unscaledTime - log.lastFull < FullThrottle)
+        if (string.IsNullOrEmpty(message) || !PickupLogModel.ShouldShowNotice(log.lastWarn, log.lastFull, message, Time.unscaledTime, FullThrottle))
         {
             return false;
         }

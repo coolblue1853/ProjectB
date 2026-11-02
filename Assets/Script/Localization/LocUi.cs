@@ -16,7 +16,7 @@ public static class LocUi
         ("LOAD", "부하"), ("RES", "저항"), ("DMG", "피해"),
         ("COMBO", "콤보"),
         ("HIT", "히트"), ("ARMOR", "방어"), ("Not enough stamina", "스태미나 부족"),
-        ("LEVEL UP", "레벨 업"), ("EXP", "경험치"),
+        ("LEVEL UP", "레벨 업"), ("EXP", "경험치"), ("CONTROLS", "조작 안내"), ("On cooldown", "재사용 대기 중"),
         ("Inventory Full", "인벤토리 가득 참"), ("Not enough gold", "골드 부족"),
         ("Only consumables go in quick slots", "퀵슬롯에는 소비 아이템만 넣을 수 있다"),
         ("PICKUP", "줍기"), ("ALL", "전부"), ("SKIP COMMON MAT.", "일반 재료 제외"),

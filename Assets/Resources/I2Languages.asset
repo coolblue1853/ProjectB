@@ -6495,6 +6495,46 @@ MonoBehaviour:
       - "\uACBD\uD5D8\uCE58"
       Flags: 0000
       Languages_Touch: []
+    - Term: HIT
+      TermType: 0
+      Description: 
+      Languages:
+      - HIT
+      - "\uD788\uD2B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ARMOR
+      TermType: 0
+      Description: 
+      Languages:
+      - ARMOR
+      - "\uBC29\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Not enough stamina
+      TermType: 0
+      Description: 
+      Languages:
+      - Not enough stamina
+      - "\uC2A4\uD0DC\uBBF8\uB098 \uBD80\uC871"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: CONTROLS
+      TermType: 0
+      Description: 
+      Languages:
+      - CONTROLS
+      - "\uC870\uC791 \uC548\uB0B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: On cooldown
+      TermType: 0
+      Description: 
+      Languages:
+      - On cooldown
+      - "\uC7AC\uC0AC\uC6A9 \uB300\uAE30 \uC911"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

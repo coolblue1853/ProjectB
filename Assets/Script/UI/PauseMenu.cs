@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
 {
     static PauseMenu instance;
 
-    readonly string[] items = { "RESUME", "TOWER MAP", "BESTIARY", "SETTINGS", "RETURN TO VILLAGE", "QUIT GAME" };
+    readonly string[] items = { "RESUME", "TOWER MAP", "BESTIARY", "SETTINGS", "CONTROLS", "RETURN TO VILLAGE", "QUIT GAME" };
     readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "LANGUAGE", "PICKUP", "KEY BINDINGS", "BACK" };
     bool settingsMode;
     readonly List<(Image bg, TextMeshProUGUI text)> rows = new List<(Image, TextMeshProUGUI)>();
@@ -184,13 +184,17 @@ public class PauseMenu : MonoBehaviour
                 break;
             case 4:
                 Close();
+                ControlsWindow.Toggle();
+                break;
+            case 5:
+                Close();
                 if (PlayerController.instance != null)
                 {
                     Sfx.Play(SfxId.Portal);
                     MapInfo.GoToTown(PlayerController.instance.gameObject);
                 }
                 break;
-            case 5:
+            case 6:
                 if (SaveManager.instance != null)
                 {
                     SaveManager.instance.SaveProgress();

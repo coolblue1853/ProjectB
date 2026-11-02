@@ -1,11 +1,13 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>
-/// 퀘스트 창: 진행 중 NPC 퀘스트 목록 + 목표 x/y + 보상. J(패드 오른쪽 스틱 누름)로 열고 닫는다. 위/아래로 선택, Back 으로 닫기.
+/// 퀘스트 창: 진행 중 / 완료 탭. 진행 중은 완료 가능을 맨 위에, 목표 x/y·목표 구역·보상을 보여 주고 Z 로 추적을 지정한다(최대 3개, 우측 추적 HUD 와 연결).
+/// J(패드 오른쪽 스틱 누름)로 열고 닫는다. 위/아래 선택, 좌/우 탭, Back 으로 닫기.
 /// 코드 생성 UI (BestiaryWindow 와 같은 방식). 열려 있는 동안 UiLock "NpcQuest".
 /// </summary>
 public class NpcQuestWindow : MonoBehaviour
@@ -14,12 +16,15 @@ public class NpcQuestWindow : MonoBehaviour
     private static NpcQuestWindow s_instance;
 
     private KeyAction _action;
-    private InputAction _up, _down, _back;
+    private InputAction _up, _down, _left, _right, _select, _back;
     private GameObject _panel;
-    private TextMeshProUGUI _list, _detail, _title;
+    private TextMeshProUGUI _list, _detail, _title, _hint;
     private int _cursor;
     private bool _open;
-    private int _activeCount;
+    private int _count;
+    private QuestListRules.Tab _tab;
+    private List<NpcQuestDef> _shown = new List<NpcQuestDef>();
+    private string _notice = "";
 
     public static bool IsOpen => s_instance != null && s_instance._open;
 
@@ -51,6 +56,9 @@ public class NpcQuestWindow : MonoBehaviour
         _action = new KeyAction();
         _up = _action.UI.UPInventory;
         _down = _action.UI.DownInventory;
+        _left = _action.UI.LeftInventory;
+        _right = _action.UI.RightInventory;
+        _select = _action.UI.Select;
         _back = _action.UI.Back;
     }
 
@@ -97,8 +105,22 @@ public class NpcQuestWindow : MonoBehaviour
             Close();
             return;
         }
-        int n = _activeCount;
+        int n = _count;
         int prev = _cursor;
+        if (_left.triggered || _right.triggered)
+        {
+            _tab = _tab == QuestListRules.Tab.Active ? QuestListRules.Tab.Done : QuestListRules.Tab.Active;
+            _cursor = 0;
+            _notice = "";
+            Sfx.Play(SfxId.UiMove, 0.6f);
+            Redraw();
+            return;
+        }
+        if (_select.triggered && _tab == QuestListRules.Tab.Active && n > 0)
+        {
+            ToggleTracking();
+            return;
+        }
         if (_up.triggered && n > 0)
         {
             _cursor = (_cursor - 1 + n) % n;
@@ -109,6 +131,7 @@ public class NpcQuestWindow : MonoBehaviour
         }
         if (_cursor != prev)
         {
+            _notice = "";
             Sfx.Play(SfxId.UiMove, 0.6f);
             Redraw();
         }
@@ -122,6 +145,8 @@ public class NpcQuestWindow : MonoBehaviour
         }
         _open = true;
         _cursor = 0;
+        _tab = QuestListRules.Tab.Active;
+        _notice = "";
         UiLock.Set("NpcQuest", true);
         _action.UI.Enable();
         _panel.SetActive(true);
@@ -156,42 +181,134 @@ public class NpcQuestWindow : MonoBehaviour
         return what + " " + have + "/" + d.Count;
     }
 
+    private void ToggleTracking()
+    {
+        var active = NpcQuestLog.ActiveQuests();
+        NpcQuestDef cur = _shown[Mathf.Clamp(_cursor, 0, _shown.Count - 1)];
+        if (NpcQuestTrack.Toggle(cur.Id, active))
+        {
+            _notice = NpcQuestTrack.IsTracked(cur.Id, active) ? "<color=#FFD633>추적을 켰습니다</color>" : "<color=#BBBBBB>추적을 껐습니다</color>";
+            Sfx.Play(SfxId.UiMove, 0.6f);
+        }
+        else
+        {
+            _notice = "<color=#FF7766>추적은 최대 " + NpcQuestTrack.Max + "개 — 다른 퀘스트의 추적을 먼저 끄세요</color>";
+        }
+        NpcQuestLog.NotifyTrackingChanged(); // 표시 갱신(Redraw 포함) + 저장
+    }
+
     private void Redraw()
     {
         var active = NpcQuestLog.ActiveQuests();
-        _activeCount = active.Count;
-        _cursor = Mathf.Clamp(_cursor, 0, Mathf.Max(0, active.Count - 1));
+        bool activeTab = _tab == QuestListRules.Tab.Active;
+        _shown = activeTab
+            ? QuestListRules.Active(active, d => NpcQuestLog.StatusOf(d) == NpcQuestStatus.Ready)
+            : QuestListRules.Done(NpcQuestCatalog.All, NpcQuestLog.IsDone);
+        _count = _shown.Count;
+        _cursor = Mathf.Clamp(_cursor, 0, Mathf.Max(0, _count - 1));
+        int doneCount = CountDone();
+        _title.text = (Loc.IsKorean ? "퀘스트" : "QUESTS") + "   "
+            + (activeTab ? "<color=#FFFFFF>[진행 중 " + active.Count + "]</color>  <color=#777777>완료 " + doneCount + "</color>"
+                         : "<color=#777777>진행 중 " + active.Count + "</color>  <color=#FFFFFF>[완료 " + doneCount + "]</color>");
+
         var list = new StringBuilder();
-        if (active.Count == 0)
+        if (_count == 0)
         {
-            list.Append("<color=#999999>진행 중인 퀘스트가 없습니다.\n마을 NPC 머리 위 ! 를 찾아 보세요.</color>");
+            list.Append(activeTab
+                ? "<color=#999999>진행 중인 퀘스트가 없습니다.\n마을 NPC 머리 위 ! 를 찾아 보세요.</color>"
+                : "<color=#999999>완료한 퀘스트가 없습니다.</color>");
         }
-        int first = Mathf.Max(0, _cursor - MaxRows + 1);
-        for (int i = first; i < active.Count && i < first + MaxRows; i++)
+        // 줄 = 구분 머리글 + 퀘스트. 커서가 보이도록 아래로 스크롤
+        var lines = new List<string>();
+        int cursorLine = 0;
+        bool sawReady = false, sawActive = false;
+        for (int i = 0; i < _count; i++)
         {
-            NpcQuestDef d = active[i];
-            bool ready = NpcQuestLog.StatusOf(d) == NpcQuestStatus.Ready;
-            list.Append(i == _cursor ? "> " : "  ").Append(ready ? "<color=#FFD633>? " : "<color=#FFFFFF>").Append(d.Title).Append("</color>\n");
+            NpcQuestDef d = _shown[i];
+            bool ready = activeTab && NpcQuestLog.StatusOf(d) == NpcQuestStatus.Ready;
+            if (ready && !sawReady)
+            {
+                sawReady = true;
+                lines.Add("<color=#FFD633>- 완료 가능 -</color>");
+            }
+            else if (activeTab && !ready && !sawActive)
+            {
+                sawActive = true;
+                lines.Add("<color=#88AACC>- 진행 중 -</color>");
+            }
+            if (i == _cursor)
+            {
+                cursorLine = lines.Count;
+            }
+            string star = activeTab && NpcQuestTrack.IsTracked(d.Id, active) ? "<color=#7FE0FF>*</color>" : " ";
+            string color = !activeTab ? "#AAAAAA" : ready ? "#FFD633" : "#FFFFFF";
+            lines.Add((i == _cursor ? "> " : "  ") + star + "<color=" + color + ">" + (ready ? "? " : "") + d.Title + "</color>");
+        }
+        int first = Mathf.Max(0, cursorLine - MaxRows + 1);
+        for (int i = first; i < lines.Count && i < first + MaxRows; i++)
+        {
+            list.Append(lines[i]).Append('\n');
         }
         _list.text = list.ToString();
-        if (active.Count == 0)
+        _hint.text = HintText(activeTab);
+        if (_count == 0)
         {
             _detail.text = "";
             return;
         }
-        NpcQuestDef cur = active[_cursor];
-        bool done = NpcQuestLog.StatusOf(cur) == NpcQuestStatus.Ready;
+        NpcQuestDef cur = _shown[_cursor];
+        bool done = activeTab && NpcQuestLog.StatusOf(cur) == NpcQuestStatus.Ready;
         var sb = new StringBuilder();
         sb.Append("<color=#FFD633>").Append(cur.Title).Append("</color>\n");
-        sb.Append("의뢰인  ").Append(NpcQuestCatalog.NpcName(cur.Giver)).Append("   필요 레벨 ").Append(cur.MinLevel).Append("\n\n");
-        sb.Append(cur.Description).Append("\n\n");
-        sb.Append(done ? "<color=#FFD633>" : "").Append("목표  ").Append(ObjectiveText(cur)).Append(done ? "  (완료! 의뢰인에게 보고)</color>" : "").Append("\n\n");
-        sb.Append("보상  EXP ").Append(cur.Exp).Append("   ").Append(cur.Gold).Append(" G");
+        sb.Append("의뢰인  ").Append(NpcQuestCatalog.NpcName(cur.Giver)).Append("   필요 레벨 ").Append(cur.MinLevel).Append('\n');
+        string zone = NpcQuestZone.Of(cur);
+        if (zone.Length > 0)
+        {
+            sb.Append("목표 구역  <color=#9ED0FF>").Append(zone).Append("</color>\n");
+        }
+        sb.Append('\n').Append(cur.Description).Append("\n\n");
+        if (!activeTab)
+        {
+            sb.Append("<color=#88DD88>완료</color>   목표  ").Append(ObjectiveText(cur));
+        }
+        else
+        {
+            sb.Append(done ? "<color=#FFD633>" : "").Append("목표  ").Append(ObjectiveText(cur)).Append(done ? "  (완료! 의뢰인에게 보고)</color>" : "");
+        }
+        sb.Append("\n\n보상  EXP ").Append(cur.Exp).Append("   ").Append(cur.Gold).Append(" G");
         if (!string.IsNullOrEmpty(cur.RewardItem))
         {
             sb.Append("   ").Append(ItemText.DisplayName(cur.RewardItem)).Append(" x").Append(cur.RewardCount);
         }
+        if (activeTab)
+        {
+            bool tracked = NpcQuestTrack.IsTracked(cur.Id, active);
+            sb.Append("\n\n").Append(tracked ? "<color=#7FE0FF>* 추적 중</color>" : "<color=#777777>추적 안 함</color>")
+              .Append("  (").Append(NpcQuestTrack.Tracked(active).Count).Append('/').Append(NpcQuestTrack.Max).Append(')');
+            if (_notice.Length > 0)
+            {
+                sb.Append("   ").Append(_notice);
+            }
+        }
         _detail.text = sb.ToString();
+    }
+
+    private static string HintText(bool activeTab)
+    {
+        return activeTab ? "위/아래 선택    좌/우 탭    Z 추적 지정(최대 3)    J / BACK 닫기" : "위/아래 선택    좌/우 탭    J / BACK 닫기";
+    }
+
+    private static int CountDone()
+    {
+        int n = 0;
+        foreach (NpcQuestDef d in NpcQuestCatalog.All)
+        {
+            if (NpcQuestLog.IsDone(d.Id))
+            {
+                n++;
+            }
+        }
+        return n;
     }
 
     private void Build()
@@ -211,14 +328,12 @@ public class NpcQuestWindow : MonoBehaviour
         pr.sizeDelta = new Vector2(1180f, 640f);
 
         _title = NewText("Title", pr, theme, 42f);
-        Place(_title.rectTransform, new Vector2(30f, -18f), new Vector2(600f, 54f));
-        _title.text = Loc.IsKorean ? "퀘스트" : "QUESTS";
+        Place(_title.rectTransform, new Vector2(30f, -18f), new Vector2(1100f, 54f));
         _title.color = theme.unique;
 
-        TextMeshProUGUI hint = NewText("Hint", pr, theme, 22f);
-        Place(hint.rectTransform, new Vector2(30f, -600f), new Vector2(1100f, 30f));
-        hint.text = "위/아래 선택    J / BACK 닫기";
-        hint.color = new Color(1f, 1f, 1f, 0.55f);
+        _hint = NewText("Hint", pr, theme, 22f);
+        Place(_hint.rectTransform, new Vector2(30f, -600f), new Vector2(1100f, 30f));
+        _hint.color = new Color(1f, 1f, 1f, 0.55f);
 
         Image left = theme.NewPanel("ListBg", pr, true);
         Place(left.rectTransform, new Vector2(30f, -86f), new Vector2(380f, 500f));

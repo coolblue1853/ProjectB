@@ -3,10 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>화면 우측 작은 퀘스트 추적 표시: 진행 중 최대 3개의 제목과 목표 x/y (완료 가능이면 노란색). 없으면 숨김.</summary>
+/// <summary>화면 우측 작은 퀘스트 추적 표시: 추적 지정한(NpcQuestTrack, 최대 3개) 퀘스트의 제목·목표 x/y·목표 구역 (완료 가능이면 노란색). 없으면 숨김.</summary>
 public class NpcQuestTracker : MonoBehaviour
 {
-    private const int MaxShown = 3;
     private const float RefreshInterval = 0.5f;
 
     private TextMeshProUGUI _text;
@@ -100,7 +99,7 @@ public class NpcQuestTracker : MonoBehaviour
             HudPolicy.TrackerHeight = 0f;
             return;
         }
-        var active = NpcQuestLog.ActiveQuests();
+        var active = NpcQuestTrack.Tracked(NpcQuestLog.ActiveQuests());
         if (active.Count == 0)
         {
             if (_root.activeSelf)
@@ -111,12 +110,18 @@ public class NpcQuestTracker : MonoBehaviour
             return;
         }
         var sb = new StringBuilder();
-        for (int i = 0; i < active.Count && i < MaxShown; i++)
+        for (int i = 0; i < active.Count; i++)
         {
             NpcQuestDef d = active[i];
             bool ready = NpcQuestLog.StatusOf(d) == NpcQuestStatus.Ready;
             sb.Append(ready ? "<color=#FFD633>" : "<color=#FFFFFF>").Append(d.Title).Append("</color>\n");
-            sb.Append("<color=#BBBBBB>  ").Append(ready ? "완료! " + NpcQuestCatalog.NpcName(d.Giver) + "에게 보고" : NpcQuestWindow.ObjectiveText(d)).Append("</color>\n");
+            string zone = NpcQuestZone.Of(d);
+            sb.Append("<color=#BBBBBB>  ").Append(ready ? "완료! " + NpcQuestCatalog.NpcName(d.Giver) + "에게 보고" : NpcQuestWindow.ObjectiveText(d)).Append("</color>");
+            if (!ready && zone.Length > 0)
+            {
+                sb.Append("  <color=#7FA8C8>@").Append(zone).Append("</color>");
+            }
+            sb.Append('\n');
         }
         _text.text = sb.ToString();
         float height = _text.GetPreferredValues(_text.text, HudPolicy.ColumnWidth - 20f, 0f).y + 12f;

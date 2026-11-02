@@ -184,6 +184,7 @@ public static class NpcQuestLog
             rec.Progress = d.Count;
         }
         s_recs[id] = rec;
+        NpcQuestTrack.OnAccepted(id);
         Notify();
         GameLog.Info(GameLog.Cat.Item, "NPC 퀘스트 수락 " + id);
         return true;
@@ -202,6 +203,7 @@ public static class NpcQuestLog
             ItemRemover(d.Target, d.Count);
         }
         s_recs[id] = new Rec { State = 2, Progress = d.Count };
+        NpcQuestTrack.OnCompleted(id);
         RewardApplier(d);
         Notify();
         GameLog.Info(GameLog.Cat.Item, "NPC 퀘스트 완료 " + id + " EXP " + d.Exp + " 골드 " + d.Gold);
@@ -245,6 +247,12 @@ public static class NpcQuestLog
         {
             Notify();
         }
+    }
+
+    /// <summary>추적 지정이 바뀌었다 — 표시를 갱신하고 저장한다</summary>
+    public static void NotifyTrackingChanged()
+    {
+        Notify();
     }
 
     /// <summary>수집·기록처럼 외부 상태에서 계산되는 진행이 바뀌었을 수 있을 때 표시만 갱신 (저장 없음)</summary>
@@ -328,6 +336,7 @@ public static class NpcQuestLog
     public static void ClearAll()
     {
         s_recs.Clear();
+        NpcQuestTrack.Reset();
         Changed?.Invoke();
     }
 
@@ -336,6 +345,7 @@ public static class NpcQuestLog
         try
         {
             ES3.Save(SaveKey, Serialize());
+            NpcQuestTrack.Save();
         }
         catch (Exception e)
         {
@@ -348,6 +358,8 @@ public static class NpcQuestLog
         try
         {
             Deserialize(ES3.KeyExists(SaveKey) ? ES3.Load<string>(SaveKey) : "");
+            NpcQuestTrack.Load();
+            Changed?.Invoke(); // 추적 목록을 읽은 뒤 한 번 더 알린다
         }
         catch (Exception e)
         {

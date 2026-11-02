@@ -27,6 +27,12 @@ public class PickupLogModel
         }
     }
 
+    /// <summary>가운데 알림(경고·안내) 중복 방지: 같은 문구는 throttle 초 안에 다시 띄우지 않는다. 다른 문구는 바로 바꾼다.</summary>
+    public static bool ShouldShowNotice(string lastMessage, float lastShownAt, string message, float now, float throttle)
+    {
+        return message != lastMessage || now - lastShownAt >= throttle;
+    }
+
     readonly List<Line> lines = new List<Line>();
     int nextId = 1;
 

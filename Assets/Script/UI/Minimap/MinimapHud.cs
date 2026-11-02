@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// 메이플식 미니맵(BasicFeatures.md 9절): 오른쪽 위에 지금 맵의 지형 실루엣(Ground 콜라이더·타일을 1유닛=1픽셀로 구운 텍스처)과
-/// 플레이어(노랑)·포털(하늘)·NPC(초록)·보스(빨강) 점, 맵 이름. N 으로 켜고 끈다(ES3 settings.minimap, 공용 파일).
+/// 플레이어(노랑)·포털(하늘)·NPC(초록, 퀘스트 완료 가능은 크고 금색 / 수락 가능은 연노랑)·보스(빨강) 점, 맵 이름. N 으로 켜고 끈다(ES3 settings.minimap, 공용 파일).
 /// 지형·고정 점은 맵이 바뀔 때만(Portal.MapChanged) 다시 만들고, 플레이어 점은 매 프레임, 보스 점은 1초마다 갱신한다.
 /// </summary>
 public class MinimapHud : MonoBehaviour
@@ -30,6 +30,8 @@ public class MinimapHud : MonoBehaviour
     private bool _visible = true;
     private float _bossTimer;
     private readonly List<RectTransform> _staticDots = new List<RectTransform>();
+    private readonly List<(RectTransform dot, NpcQuestGiver giver)> _npcDots = new List<(RectTransform, NpcQuestGiver)>();
+    private bool _npcDirty;
     private readonly List<RectTransform> _bossDots = new List<RectTransform>();
     private readonly List<Transform> _bosses = new List<Transform>();
 
@@ -68,6 +70,7 @@ public class MinimapHud : MonoBehaviour
         }
         Build();
         Portal.MapChanged += OnMapChanged;
+        NpcQuestLog.Changed += MarkNpcDirty;
     }
 
     private void Start()
@@ -78,6 +81,7 @@ public class MinimapHud : MonoBehaviour
     private void OnDestroy()
     {
         Portal.MapChanged -= OnMapChanged;
+        NpcQuestLog.Changed -= MarkNpcDirty;
         if (_tex != null)
         {
             Destroy(_tex);
@@ -147,6 +151,12 @@ public class MinimapHud : MonoBehaviour
         {
             _bossTimer = BossRefresh;
             RefreshBosses();
+            _npcDirty = true; // 레벨·수집 개수처럼 이벤트 없이 바뀌는 수락 가능 여부도 1초마다 본다
+        }
+        if (_npcDirty)
+        {
+            _npcDirty = false;
+            RefreshNpcDots();
         }
     }
 
@@ -304,6 +314,7 @@ public class MinimapHud : MonoBehaviour
             Destroy(d.gameObject);
         }
         _staticDots.Clear();
+        _npcDots.Clear();
         if (_map == null)
         {
             return;
@@ -312,13 +323,75 @@ public class MinimapHud : MonoBehaviour
         {
             _staticDots.Add(NewDot(new Color(0.45f, 0.85f, 1f), 7f, p.transform.position));
         }
+        // NPC: 대화 NPC·상점·대장장이·기록지기·게시판 + 퀘스트 NPC. 한 오브젝트에 점 하나(퀘스트 NPC 는 상태에 따라 색·크기가 바뀐다)
+        var seen = new HashSet<GameObject>();
+        foreach (NpcQuestGiver g in _map.GetComponentsInChildren<NpcQuestGiver>(false))
+        {
+            if (seen.Add(g.gameObject))
+            {
+                RectTransform dot = NewDot(MinimapMath.NpcDotColor(NpcQuestStatus.Locked), 6f, g.transform.position);
+                _staticDots.Add(dot);
+                _npcDots.Add((dot, g));
+            }
+        }
+        foreach (Component c in NpcComponents())
+        {
+            if (seen.Add(c.gameObject))
+            {
+                _staticDots.Add(NewDot(MinimapMath.NpcDotColor(NpcQuestStatus.Locked), 6f, c.transform.position));
+            }
+        }
+        _npcDirty = true;
+        _playerDot.SetAsLastSibling();
+    }
+
+    private IEnumerable<Component> NpcComponents()
+    {
         foreach (TalkNpc n in _map.GetComponentsInChildren<TalkNpc>(false))
         {
-            _staticDots.Add(NewDot(new Color(0.45f, 1f, 0.5f), 6f, n.transform.position));
+            yield return n;
+        }
+        foreach (ShopUI s in _map.GetComponentsInChildren<ShopUI>(false))
+        {
+            yield return s;
+        }
+        foreach (WeaponSmithUI w in _map.GetComponentsInChildren<WeaponSmithUI>(false))
+        {
+            yield return w;
+        }
+        foreach (TownSavePoint t in _map.GetComponentsInChildren<TownSavePoint>(false))
+        {
+            yield return t;
         }
         foreach (QuestBoard q in _map.GetComponentsInChildren<QuestBoard>(false))
         {
-            _staticDots.Add(NewDot(new Color(0.45f, 1f, 0.5f), 6f, q.transform.position));
+            yield return q;
+        }
+    }
+
+    private void MarkNpcDirty()
+    {
+        _npcDirty = true;
+    }
+
+    /// <summary>퀘스트 NPC 점: 완료 가능 = 크고 금색, 수락 가능 = 연노랑, 레벨 부족 = 회색, 그 밖 = 초록</summary>
+    private void RefreshNpcDots()
+    {
+        for (int i = 0; i < _npcDots.Count; i++)
+        {
+            (RectTransform dot, NpcQuestGiver giver) = _npcDots[i];
+            if (dot == null || giver == null)
+            {
+                continue;
+            }
+            NpcQuestStatus s = NpcQuestLog.BestFor(giver.NpcId, out _);
+            dot.GetComponent<Image>().color = MinimapMath.NpcDotColor(s);
+            float size = MinimapMath.NpcDotSize(s);
+            dot.sizeDelta = new Vector2(size, size);
+            if (s == NpcQuestStatus.Ready)
+            {
+                dot.SetAsLastSibling(); // 강조 점이 다른 점에 가리지 않게
+            }
         }
         _playerDot.SetAsLastSibling();
     }
