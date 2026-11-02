@@ -80,11 +80,13 @@ public static class BossLoot
         string killKey = "bossSinceUnique." + bossName, firstKey = FirstKillKey(bossName);
         int since = (ES3.KeyExists(killKey) ? ES3.Load<int>(killKey) : 0) + 1;
 
-        if (r.setPieces != null && r.setPieces.Length > 0)
+        // 같은 날 같은 보스를 또 잡으면 보상이 줄어든다(Floor1Content.csv bossretry, BossRetryRules)
+        float mult = BossRetryRules.Multiplier(BossRetry.KillsToday(bossName));
+        if (r.setPieces != null && r.setPieces.Length > 0 && BossRetryRules.GivesSetPiece(mult, Random.value))
         {
             loot.Add(r.setPieces[Random.Range(0, r.setPieces.Length)]);
         }
-        int stones = Random.Range(r.stoneMin, r.stoneMax + 1);
+        int stones = BossRetryRules.Stones(Random.Range(r.stoneMin, r.stoneMax + 1), mult);
         if (!ES3.KeyExists(firstKey))
         {
             stones += r.firstKillStones;
@@ -96,13 +98,23 @@ public static class BossLoot
         {
             loot.Add(EnhanceRules.StoneName);
         }
-        bool unique = !string.IsNullOrEmpty(r.uniqueItem) && BossLootRules.ShouldDropUnique(since, Random.value, r.uniqueChance, r.pity);
+        bool counts = BossRetryRules.CountsForPity(mult);
+        if (!counts)
+        {
+            since--; // 보상이 반 미만인 재처치는 천장 카운트에 넣지 않는다
+        }
+        bool unique = !string.IsNullOrEmpty(r.uniqueItem) && BossLootRules.ShouldDropUnique(since, Random.value, BossRetryRules.UniqueChance(r.uniqueChance, mult), r.pity);
         if (unique)
         {
             loot.Add(r.uniqueItem);
             since = 0;
         }
         ES3.Save(killKey, since);
+        if (mult < 1f)
+        {
+            PickupLog.Notice("같은 날 다시 쓰러뜨려 보스 보상이 " + BossRetryRules.Describe(mult) + "로 줄었다");
+        }
+        BossRetry.Record(bossName);
         BossBanner.Show(string.IsNullOrEmpty(r.displayName) ? MonsterTable.DisplayName(bossName) : Loc.T(r.displayName), unique ? ItemDisplayName(r.uniqueItem) : null); // G2 승리 연출
         // 승급 배너는 처치 배너 뒤에 이어진다(BossBanner 대기열)
         if (r.grantsRank > 0 && AscentLoad.GrantRank(r.grantsRank))

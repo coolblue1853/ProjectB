@@ -111,6 +111,13 @@ public class BountyBoard : MonoBehaviour, IMessageHandler
         _dirty = true;
     }
 
+    /// <summary>우측 퀘스트 추적 HUD 에 붙일 사냥 의뢰 두 줄(리치 텍스트). 진행 중 의뢰가 없으면 빈 문자열</summary>
+    public string TrackerText()
+    {
+        BountyDef d = _state.Active.Length > 0 ? BountyRules.Find(_defs, _state.Active) : null;
+        return BountyRules.TrackerLines(_state, d);
+    }
+
     public bool Accept(string id)
     {
         bool ok = BountyRules.Accept(_state, id);

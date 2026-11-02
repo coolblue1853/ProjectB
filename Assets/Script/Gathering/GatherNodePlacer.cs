@@ -93,7 +93,7 @@ public static class GatherNodePlacer
     }
 
     /// <summary>표본 덤불(16×12, PPU 16): 어두운 잎 무더기 + 밝은 잎 + 노란 반짝임 2점</summary>
-    private static Sprite BushSprite()
+    public static Sprite BushSprite()
     {
         if (_bush != null)
         {
@@ -126,7 +126,7 @@ public static class GatherNodePlacer
     }
 
     /// <summary>광맥 바위(16×14, PPU 16): 회갈색 바위 + 청록 결정 3개</summary>
-    private static Sprite VeinSprite()
+    public static Sprite VeinSprite()
     {
         if (_vein != null)
         {

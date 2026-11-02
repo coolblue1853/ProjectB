@@ -74,9 +74,29 @@ public static class GatherRules
         new GatherDef("Starfall Ore", ItemRarity.U, 3f, 1, 1),
     };
 
-    /// <summary>층계별 표. 표가 없는 층계는 층계 1 표</summary>
-    public static GatherDef[] TableFor(GatherKind kind, int floor)
+    /// <summary>층계 1 희귀 군락 표본(Floor1RareNodes): 일반 표보다 R/U 가 훨씬 잘 나온다(일반 3% → 군락 30%)</summary>
+    public static readonly GatherDef[] RareSpecimenFloor1 =
     {
+        new GatherDef("Forest Mushroom", ItemRarity.C, 20f, 2, 3),
+        new GatherDef("Glow Moth Wing", ItemRarity.R, 50f, 1, 2),
+        new GatherDef("Moonpetal", ItemRarity.U, 30f, 1, 2),
+    };
+
+    /// <summary>층계 1 희귀 군락 광석: Starfall Ore 가 일반(3%)의 10배</summary>
+    public static readonly GatherDef[] RareOreFloor1 =
+    {
+        new GatherDef("T0_Ore", ItemRarity.C, 20f, 2, 3),
+        new GatherDef("Bog Copper Ore", ItemRarity.R, 50f, 1, 2),
+        new GatherDef("Starfall Ore", ItemRarity.U, 30f, 1, 1),
+    };
+
+    /// <summary>층계별 표. 표가 없는 층계는 층계 1 표. rare 면 희귀 군락 표</summary>
+    public static GatherDef[] TableFor(GatherKind kind, int floor, bool rare = false)
+    {
+        if (rare)
+        {
+            return kind == GatherKind.Ore ? RareOreFloor1 : RareSpecimenFloor1;
+        }
         return kind == GatherKind.Ore ? OreFloor1 : SpecimenFloor1;
     }
 

@@ -34,6 +34,7 @@ public class MinimapHud : MonoBehaviour
     private bool _npcDirty;
     private readonly List<RectTransform> _bossDots = new List<RectTransform>();
     private readonly List<Transform> _bosses = new List<Transform>();
+    private readonly List<RectTransform> _markerDots = new List<RectTransform>();
 
     /// <summary>미니맵 패널 높이(켜져 있을 때). 아래에 붙는 HUD(제작 핀)가 위치를 맞춘다</summary>
     public static float OccupiedHeight => _instance != null && _instance._visible && _instance._root.activeSelf ? ((RectTransform)_instance._root.transform).sizeDelta.y + 8f : 0f;
@@ -151,6 +152,7 @@ public class MinimapHud : MonoBehaviour
         {
             _bossTimer = BossRefresh;
             RefreshBosses();
+            RefreshMarkers();
             _npcDirty = true; // 레벨·수집 개수처럼 이벤트 없이 바뀌는 수락 가능 여부도 1초마다 본다
         }
         if (_npcDirty)
@@ -428,6 +430,37 @@ public class MinimapHud : MonoBehaviour
             {
                 Place(_bossDots[i], _bosses[i].position);
             }
+        }
+        _playerDot.SetAsLastSibling();
+    }
+
+    /// <summary>
+    /// 표지(MinimapMarker): 사냥 의뢰 게시대·희귀 군락처럼 코드가 맵에 세운 곳. 미니맵 영역 안에 있고 Visible 인 것만, 1초마다 놓는다.
+    /// </summary>
+    private void RefreshMarkers()
+    {
+        int used = 0;
+        IReadOnlyList<MinimapMarker> all = MinimapMarker.All;
+        for (int i = 0; i < all.Count; i++)
+        {
+            MinimapMarker m = all[i];
+            if (m == null || !m.gameObject.activeInHierarchy || !_area.Contains(m.transform.position) || !m.IsShown)
+            {
+                continue;
+            }
+            if (used >= _markerDots.Count)
+            {
+                _markerDots.Add(NewDot(m.DotColor, m.DotSize, m.transform.position));
+            }
+            RectTransform dot = _markerDots[used++];
+            dot.gameObject.SetActive(true);
+            dot.GetComponent<Image>().color = m.DotColor;
+            dot.sizeDelta = new Vector2(m.DotSize, m.DotSize);
+            Place(dot, m.transform.position);
+        }
+        for (int i = used; i < _markerDots.Count; i++)
+        {
+            _markerDots[i].gameObject.SetActive(false);
         }
         _playerDot.SetAsLastSibling();
     }

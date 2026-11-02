@@ -1,0 +1,7 @@
+﻿map,minLevel,waves,perWave,gold,exp,item,itemCount
+Lv1_NearForest_SideRoad,1,2,4,40,70,Potion,1
+Lv1_NormalForest,4,2,5,70,120,Potion,1
+Lv1_DeepForest,6,2,6,100,170,Potion,2
+Lv1_Swamp,8,3,5,130,210,Potion,2
+Lv1_BanditFortress,10,3,5,160,260,Enhance Stone,1
+Lv1_TowerOutskirts,12,3,6,200,320,Enhance Stone,1

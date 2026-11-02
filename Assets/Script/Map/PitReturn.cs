@@ -76,41 +76,10 @@ public static class PitReturn
 
     private static void Build(Transform container, Portal sibling, float pitGround, float roadGround)
     {
-        var go = new GameObject(ObjectName);
-        go.SetActive(false); // 필드를 다 채운 뒤 켜서 Portal.Awake 가 완성된 상태로 돈다
-        go.transform.SetParent(container, false);
-        go.transform.position = new Vector3(PitX, pitGround + 1.2f, sibling.transform.position.z);
-
-        var src = sibling.GetComponentInChildren<BoxCollider2D>(true);
-        var col = go.AddComponent<BoxCollider2D>();
-        col.isTrigger = true;
-        col.size = src != null ? src.size : new Vector2(1.5f, 3f);
-        col.offset = src != null ? src.offset : Vector2.zero;
-
-        var srcRenderer = sibling.GetComponentInChildren<SpriteRenderer>(true);
-        if (srcRenderer != null)
-        {
-            var vis = new GameObject("Visual");
-            vis.transform.SetParent(go.transform, false);
-            vis.transform.localPosition = srcRenderer.transform.position - sibling.transform.position;
-            vis.transform.localScale = srcRenderer.transform.lossyScale;
-            var sr = vis.AddComponent<SpriteRenderer>();
-            sr.sprite = srcRenderer.sprite;
-            sr.sharedMaterial = srcRenderer.sharedMaterial;
-            sr.color = srcRenderer.color;
-            sr.sortingLayerID = srcRenderer.sortingLayerID;
-            sr.sortingOrder = srcRenderer.sortingOrder;
-        }
-
         var dest = new GameObject("PitReturn_Arrival").transform;
-        dest.SetParent(go.transform, false);
+        dest.SetParent(container, false);
         dest.position = new Vector3(RoadX, roadGround + 1.1f, sibling.transform.position.z);
-
-        var portal = go.AddComponent<Portal>();
-        portal.destination = dest;
-        portal.proCamera = sibling.proCamera;
-        portal.labelOverride = "Upper road";
-        go.SetActive(true);
-        GameLog.Info(GameLog.Cat.Map, "구덩이 탈출 포털: " + container.parent.name + " " + go.transform.position + " → " + dest.position);
+        Portal portal = PortalFactory.Clone(container, sibling, ObjectName, new Vector3(PitX, pitGround + 1.2f, sibling.transform.position.z), dest, "Upper road");
+        GameLog.Info(GameLog.Cat.Map, "구덩이 탈출 포털: " + container.parent.name + " " + portal.transform.position + " → " + dest.position);
     }
 }

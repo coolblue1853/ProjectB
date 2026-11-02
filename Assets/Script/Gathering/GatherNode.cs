@@ -14,6 +14,7 @@ public class GatherNode : MiniGameSpot
     [SerializeField] private GatherKind _kind;
     [SerializeField] private int _floor = 1;
     [SerializeField] private SpriteRenderer _mark;
+    [SerializeField] private bool _rare;
 
     private bool _snapped;
     private float _readyAt;
@@ -25,6 +26,7 @@ public class GatherNode : MiniGameSpot
     public GatherSession Session { get; private set; }
     public GatherKind Kind => _kind;
     public bool IsReady => Ready;
+    public bool IsRare => _rare;
 
     protected override bool Ready => Time.time >= _readyAt;
     protected override string PromptKey => _kind == GatherKind.Ore ? "UP  MINE" : "UP  GATHER";
@@ -36,8 +38,9 @@ public class GatherNode : MiniGameSpot
     protected override float ResultElapsed => Session.Elapsed;
 
     /// <summary>배치기가 만든 직후 한 번 부른다(부모 맵이 꺼져 있으면 Awake 보다 먼저)</summary>
-    public void Init(GatherKind kind, int floor, SpriteRenderer mark)
+    public void Init(GatherKind kind, int floor, SpriteRenderer mark, bool rare = false)
     {
+        _rare = rare;
         _kind = kind;
         _floor = floor;
         _mark = mark;
@@ -62,7 +65,7 @@ public class GatherNode : MiniGameSpot
 
     protected override void StartSession()
     {
-        GatherDef[] table = GatherRules.TableFor(_kind, _floor);
+        GatherDef[] table = GatherRules.TableFor(_kind, _floor, _rare);
         Session = _kind == GatherKind.Ore
             ? (GatherSession)new MiningSession(table, RandomValue)
             : new SpecimenSession(table, RandomValue);

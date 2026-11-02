@@ -375,6 +375,10 @@ public class EnemySpawner : MonoBehaviour
             }
         }
         activeObjects.Clear();
+        foreach (EnemyHealth raider in new List<EnemyHealth>(raiderHandlers.Keys))
+        {
+            DropRaiderHandler(raider);
+        }
     }
 
     private void OnApplicationQuit()
@@ -495,6 +499,7 @@ public class EnemySpawner : MonoBehaviour
             enemyHealth.OnReleasedToPool -= OnEnemyReleased; // 중복 등록 방지
             enemyHealth.OnReleasedToPool -= OnMinionReleased; // 부하로 쓰였던 오브젝트면 부하 경로 해제
             enemyHealth.OnReleasedToPool -= OnTrackedReleased;
+            DropRaiderHandler(enemyHealth);
             enemyHealth.OnReleasedToPool += OnEnemyReleased;
             enemySlot[i] = enemyObject;
             if (Random.value < eliteChance)
@@ -529,6 +534,7 @@ public class EnemySpawner : MonoBehaviour
         enemyHealth.OnReleasedToPool -= OnEnemyReleased;
         enemyHealth.OnReleasedToPool -= OnMinionReleased;
         enemyHealth.OnReleasedToPool -= OnTrackedReleased;
+        DropRaiderHandler(enemyHealth);
         enemyHealth.OnReleasedToPool += OnMinionReleased;
         if (!minions.Contains(enemyHealth))
         {
@@ -614,6 +620,7 @@ public class EnemySpawner : MonoBehaviour
         enemyHealth.OnReleasedToPool -= OnEnemyReleased;
         enemyHealth.OnReleasedToPool -= OnMinionReleased;
         enemyHealth.OnReleasedToPool -= OnTrackedReleased;
+        DropRaiderHandler(enemyHealth);
         enemyHealth.OnReleasedToPool += OnTrackedReleased;
         enemyHealth.PromoteElite();
         enemyHealth.Snare(stunSeconds);
@@ -624,6 +631,74 @@ public class EnemySpawner : MonoBehaviour
         trackedBonus.AddRange(bonusLoot);
         GameLog.Info(GameLog.Cat.Spawn, name + ": 추적 정예 소환 " + go.name + " @" + pos.ToString("F1") + " 보너스 " + string.Join(",", trackedBonus), this);
         return enemyHealth;
+    }
+
+    /// <summary>
+    /// 밤 습격(NightRaid) 몹: 슬롯 밖에서 일반 몹을 꺼내 pos 에 둔다. 한꺼번에 여러 마리 가능(추적 정예와 별개).
+    /// 쓰러지거나 사라지면 onDown(드롭 여부) 한 번. 일반 드롭(아이템·골드·계보 추가 드롭)은 그대로, 정예 승격 없음.
+    /// </summary>
+    public EnemyHealth SpawnRaider(Vector3 pos, System.Action<EnemyHealth, bool> onDown)
+    {
+        if (!pools.ContainsKey(EnemyKey))
+        {
+            return null;
+        }
+        GameObject go = GetOb(EnemyKey);
+        if (go == null || !go.TryGetComponent(out EnemyHealth enemyHealth))
+        {
+            return null;
+        }
+        enemyHealth.enemySpowner = this;
+        enemyHealth.enemyNum = -1;
+        go.transform.position = pos;
+        enemyHealth.spawnPosition = pos;
+        enemyHealth.hasSpawnPosition = true;
+        enemyHealth.OnReleasedToPool -= OnEnemyReleased;
+        enemyHealth.OnReleasedToPool -= OnMinionReleased;
+        enemyHealth.OnReleasedToPool -= OnTrackedReleased;
+        DropRaiderHandler(enemyHealth);
+        System.Action<int, int, Vector3, bool, bool> handler = null;
+        handler = (num, force, at, isDeadBody, isDrop) =>
+        {
+            DropRaiderHandler(enemyHealth); // 풀로 돌아가면 다시 슬롯 몹으로 쓰이므로 스스로 해제
+            OnRaiderReleased(enemyHealth, force, at, isDeadBody, isDrop);
+            onDown?.Invoke(enemyHealth, isDrop);
+        };
+        enemyHealth.OnReleasedToPool += handler;
+        raiderHandlers[enemyHealth] = handler;
+        GameLog.Info(GameLog.Cat.Spawn, name + ": 습격 몹 소환 " + go.name + " @" + pos.ToString("F1"), this);
+        return enemyHealth;
+    }
+
+    // 습격 몹의 반환 핸들러: ClearAllPools 처럼 이벤트 없이 풀로 돌아가는 경로에서도 남지 않게 몹마다 들고 있다가 해제한다
+    private readonly Dictionary<EnemyHealth, System.Action<int, int, Vector3, bool, bool>> raiderHandlers = new Dictionary<EnemyHealth, System.Action<int, int, Vector3, bool, bool>>();
+
+    private void DropRaiderHandler(EnemyHealth e)
+    {
+        if (e != null && raiderHandlers.TryGetValue(e, out System.Action<int, int, Vector3, bool, bool> h))
+        {
+            e.OnReleasedToPool -= h;
+            raiderHandlers.Remove(e);
+        }
+    }
+
+    private void OnRaiderReleased(EnemyHealth who, int force, Vector3 pos, bool isDeadBody, bool isDrop)
+    {
+        if (isDrop && dropManager != null)
+        {
+            dropManager.DropItems(pos);
+            dropManager.DropGold(who.MonsterId, false, false, pos);
+            dropManager.DropExtra(who.MonsterId, pos);
+        }
+        if (isDeadBody)
+        {
+            GameObject deadbody = GetOb(DeadBodyKey);
+            if (deadbody != null)
+            {
+                deadbody.transform.position = pos;
+                deadbody.GetComponent<DeadBody>().Force2DeadBody(force);
+            }
+        }
     }
 
     private void OnTrackedReleased(int num, int force, Vector3 pos, bool isDeadBody, bool isDrop)

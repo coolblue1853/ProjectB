@@ -153,6 +153,19 @@ public static class BountyRules
         s.Progress = 0;
     }
 
+    /// <summary>추적 HUD 두 줄: 의뢰 제목 / 진행 n/m 또는 보고 안내. 의뢰가 없으면 빈 문자열</summary>
+    public static string TrackerLines(BountyState s, BountyDef d)
+    {
+        if (d == null || s.Active != d.Id)
+        {
+            return "";
+        }
+        bool ready = IsReady(s, d);
+        string head = (ready ? "<color=#FFD633>" : "<color=#FFFFFF>") + "[의뢰] " + d.Title + "</color>\n";
+        string body = ready ? "완료! 마을 게시대에서 보고" : "처치 " + s.Progress + "/" + d.Count;
+        return head + "<color=#BBBBBB>  " + body + "</color>\n";
+    }
+
     /// <summary>한 줄 상태 문구: 완료됨 / 진행 n/m / 보고 가능 / 수락 가능</summary>
     public static string StatusOf(BountyState s, BountyDef d)
     {

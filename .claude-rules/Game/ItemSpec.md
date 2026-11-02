@@ -169,4 +169,4 @@
 - `npcq.tracked`: 퀘스트 추적 지정 id 를 `;` 로 이은 문자열(최대 3). 키가 없으면 자동(진행 중 앞 3개). 지정 모드에서 빈 문자열은 "추적 없음".
 
 ## 1층계 보강 CSV (11-02)
-`Resources/Floor1Content.csv`(기능 켜기/끄기), `Floor1Bounties.csv`, `Floor1Treasures.csv`, `Floor1BestiaryRewards.csv` — 보상 item 은 ItemSheet name. 쉼표 없는 평문. 세이브 키 `f1.bounty`·`f1.caches`·`f1.bestiary.claimed`(추가 전용).
+`Resources/Floor1Content.csv`(기능 켜기/끄기), `Floor1Bounties.csv`, `Floor1Treasures.csv`, `Floor1BestiaryRewards.csv`, `Floor1RareNodes.csv`(희귀 군락 후보 id,map,x,y,kind,hint), `Floor1Raids.csv`(밤 습격 map,minLevel,waves,perWave,gold,exp,item,itemCount) — 보상 item 은 ItemSheet name. 쉼표 없는 평문. 세이브 키 `f1.bounty`·`f1.caches`·`f1.bestiary.claimed`·`f1.day`·`f1.bossToday.<보스>`(추가 전용).

@@ -117,6 +117,7 @@ public static class BountyKioskPlacer
             sr.sortingOrder = src.sortingOrder;
         }
         go.AddComponent<BountyKiosk>();
+        go.AddComponent<MinimapMarker>().Init(new Color(1f, 0.72f, 0.2f), 7f, null);
     }
 
     /// <summary>푯말 (24×30, PPU 16): 나무 기둥 + 널빤지에 붙은 종이 3장</summary>

@@ -1,0 +1,13 @@
+﻿id,map,x,y,kind,hint
+R01a,Lv1_NearForest_SideRoad,-425,-0.6,Specimen,샛길 서쪽 끝 이슬 맺힌 덤불
+R01b,Lv1_NearForest_SideRoad,-225,-1.6,Specimen,샛길 구덩이 안 달빛 풀숲
+R02a,Lv1_NormalForest,-420,-0.6,Specimen,숲 길 왼쪽 반짝이는 풀숲
+R02b,Lv1_NormalForest,-372,1.4,Specimen,작은 발판 위 빛나는 이끼
+R03a,Lv1_DeepForest,-345,-1.6,Specimen,깊은 숲 나무 사이 푸른 군락
+R03b,Lv1_DeepForest,-212,-1.6,Specimen,구덩이 안 달빛 풀숲
+R04a,Lv1_Swamp,-330,-179.5,Specimen,늪가 빛나는 이끼 군락
+R04b,Lv1_Swamp,-250,-179.5,Specimen,진흙 위 반딧불이 군락
+R05a,Lv1_TowerOutskirts,-345,-1.6,Ore,무너진 담 아래 별빛 광맥
+R05b,Lv1_TowerOutskirts,-220,-1.6,Ore,구덩이 안 푸른 결정 광맥
+R06a,Lv1_BanditFortress,-420,-0.6,Ore,성채 서쪽 숨은 광맥
+R06b,Lv1_BanditFortress,-300,0.4,Ore,길 한복판 반짝이는 광맥
