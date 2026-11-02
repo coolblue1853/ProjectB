@@ -135,9 +135,9 @@ public class HuntingRulesTests
         Assert.AreEqual(6.2, HuntingRules.ExpectedHit(damage, default, 0, 1, 1, 0.5f), 0.00001);
     }
 
-    [TestCase(1, 0f, 3.6)]
-    [TestCase(1, 0.04f, 4.176)]
-    [TestCase(15, 0.04f, 43.152)]
+    [TestCase(1, 0f, 2.4)]
+    [TestCase(1, 0.04f, 3.024)]
+    [TestCase(15, 0.04f, 31.248)]
     public void Gold_UsesDropChanceAndEliteMultiplier(int level, float elite, double expected)
     {
         Assert.AreEqual(expected, HuntingRules.GoldPerKill(level, elite), 0.00001);

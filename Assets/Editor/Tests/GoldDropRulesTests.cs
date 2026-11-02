@@ -24,8 +24,8 @@ public class GoldDropRulesTests
     [Test]
     public void ShouldDrop_Chance()
     {
-        Assert.IsTrue(GoldDropRules.ShouldDrop(false, false, 0.59f));
-        Assert.IsFalse(GoldDropRules.ShouldDrop(false, false, 0.6f));
+        Assert.IsTrue(GoldDropRules.ShouldDrop(false, false, 0.39f));
+        Assert.IsFalse(GoldDropRules.ShouldDrop(false, false, 0.4f));
         Assert.IsTrue(GoldDropRules.ShouldDrop(true, false, 0.99f));
         Assert.IsTrue(GoldDropRules.ShouldDrop(false, true, 0.99f));
     }

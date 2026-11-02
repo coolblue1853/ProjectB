@@ -152,7 +152,7 @@ public class DropManager : MonoBehaviour
 
     public static int GoldDroppedCount, GoldDroppedTotal; // 검증용 누적(프로브가 읽음)
 
-    /// <summary>몹 골드 직접 드롭 (GoldDropRules). 일반 60%, 정예·보스 확정. 레벨은 MonsterSheet. 떨어뜨린 총액 반환(0 이면 없음)</summary>
+    /// <summary>몹 골드 직접 드롭 (GoldDropRules). 일반 40%, 정예·보스 확정. 레벨은 MonsterSheet. 떨어뜨린 총액 반환(0 이면 없음)</summary>
     public int DropGold(string monsterId, bool isElite, bool isBoss, Vector3 dropPosition)
     {
         MonsterTable.Row row = MonsterTable.Get(monsterId);

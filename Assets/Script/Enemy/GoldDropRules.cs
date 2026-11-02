@@ -2,12 +2,12 @@
 
 /// <summary>
 /// 몹 골드(메소) 직접 드롭 규칙 (ClassicMapleDesign.md 14절). 상태 없음 → EditMode 테스트 가능.
-/// 금액 = 몹 레벨 x (3~5) + 2, 정예 x3, 보스 x10. 일반 몹은 60% 확률, 정예·보스는 확정.
+/// 금액 = 몹 레벨 x (3~5) + 2, 정예 x3, 보스 x10. 일반 몹은 40% 확률, 정예·보스는 확정.
 /// 더미 개수: 일반 1, 정예 2, 보스 3 (총액을 균등 분할). 모양 단계는 더미 하나의 금액으로 정한다.
 /// </summary>
 public static class GoldDropRules
 {
-    public const float NormalChance = 0.6f;
+    public const float NormalChance = 0.4f;
     public const int EliteMul = 3, BossMul = 10;
     public const int Tier1Max = 19, Tier2Max = 59; // 1단계(코인 1개) < 20 <= 2단계(코인 더미) < 60 <= 3단계(자루)
 
@@ -23,7 +23,7 @@ public static class GoldDropRules
         return Mathf.Max(1, Mathf.RoundToInt(baseGold * mul));
     }
 
-    /// <summary>드롭 여부: 정예·보스는 확정, 일반은 60%. roll = 0~1 난수</summary>
+    /// <summary>드롭 여부: 정예·보스는 확정, 일반은 40%. roll = 0~1 난수</summary>
     public static bool ShouldDrop(bool isElite, bool isBoss, float roll)
     {
         return isElite || isBoss || roll < NormalChance;
