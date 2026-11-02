@@ -167,3 +167,6 @@
 ## 세이브 키 추가 (11-02)
 
 - `npcq.tracked`: 퀘스트 추적 지정 id 를 `;` 로 이은 문자열(최대 3). 키가 없으면 자동(진행 중 앞 3개). 지정 모드에서 빈 문자열은 "추적 없음".
+
+## 1층계 보강 CSV (11-02)
+`Resources/Floor1Content.csv`(기능 켜기/끄기), `Floor1Bounties.csv`, `Floor1Treasures.csv`, `Floor1BestiaryRewards.csv` — 보상 item 은 ItemSheet name. 쉼표 없는 평문. 세이브 키 `f1.bounty`·`f1.caches`·`f1.bestiary.claimed`(추가 전용).

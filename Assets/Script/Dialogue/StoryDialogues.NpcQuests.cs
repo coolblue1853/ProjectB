@@ -45,9 +45,9 @@ public static partial class StoryDialogues
 
     private static void BuildNpcQuests()
     {
-        BuildGreeting(90, RuenTalk, RuenId, "조용히 걸어. 발소리가 크면 사냥감이 먼저 도망가거든.");
-        BuildGreeting(91, SenaTalk, SenaId, "약초는 뿌리가 마르기 전에 캐야 해요.\n해가 지면 늪 근처는 피하세요.");
-        BuildGreeting(92, EveTalk, EveId, "지도에는 돌아온 사람이 본 길만 남아.\n빈 곳은 직접 가 봐야지.");
+        BuildGreeting(90, RuenTalk, RuenId, Floor1Chatter.Pages("ruen", "조용히 걸어. 발소리가 크면 사냥감이 먼저 도망가거든."));
+        BuildGreeting(91, SenaTalk, SenaId, Floor1Chatter.Pages("sena", "약초는 뿌리가 마르기 전에 캐야 해요.\n해가 지면 늪 근처는 피하세요."));
+        BuildGreeting(92, EveTalk, EveId, Floor1Chatter.Pages("eve", "지도에는 돌아온 사람이 본 길만 남아.\n빈 곳은 직접 가 봐야지."));
 
         int id = QuestConvBase;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
@@ -59,10 +59,10 @@ public static partial class StoryDialogues
         }
     }
 
-    private static void BuildGreeting(int id, string title, int npc, string line)
+    private static void BuildGreeting(int id, string title, int npc, params string[] lines)
     {
         Conv v = NewConv(id, title, PlayerId, npc);
-        Chain(v, Start(v), npc, line);
+        Chain(v, Start(v), npc, lines);
     }
 
     /// <summary>수락 대화: NPC 설명 → [수락한다 / 나중에]. "수락한 NPC 와 대화" 목표(Q101)는 수락과 동시에 보고까지 끝낸다</summary>

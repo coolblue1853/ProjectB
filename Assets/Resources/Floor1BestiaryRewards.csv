@@ -1,0 +1,8 @@
+﻿id,metric,threshold,gold,exp,item,count,title
+B01,kinds,3,150,0,,0,도감 입문: 3종 처치
+B02,kinds,6,200,200,Potion,3,도감 6종 달성
+B03,kinds,10,300,300,Enhance Stone,1,도감 10종 달성
+B04,kinds,15,500,0,Enhance Stone,2,도감 15종 달성
+B05,kills,100,200,0,Potion,5,누적 처치 100
+B06,kills,300,500,300,Enhance Stone,1,누적 처치 300
+B07,kills,1000,1500,0,Enhance Stone,3,누적 처치 1000

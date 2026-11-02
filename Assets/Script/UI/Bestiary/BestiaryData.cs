@@ -46,6 +46,26 @@ public class BestiaryRecord : MonoBehaviour, PixelCrushers.IMessageHandler
         return instance != null && instance.kills.TryGetValue(id, out int n) ? n : 0;
     }
 
+    /// <summary>한 번이라도 처치한 몬스터 종류 수 (도감 수집 보상용)</summary>
+    public static int KindsKilled => instance != null ? instance.kills.Count : 0;
+
+    /// <summary>누적 처치 수 (도감 수집 보상용)</summary>
+    public static int TotalKills
+    {
+        get
+        {
+            int sum = 0;
+            if (instance != null)
+            {
+                foreach (int n in instance.kills.Values)
+                {
+                    sum += n;
+                }
+            }
+            return sum;
+        }
+    }
+
     void Awake()
     {
         if (ES3.KeyExists(SaveKey))

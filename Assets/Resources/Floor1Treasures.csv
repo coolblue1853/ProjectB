@@ -1,0 +1,7 @@
+﻿id,map,x,y,gold,exp,item,count,hint
+T01,Lv1_NearForest_SideRoad,-640,6.5,120,150,Potion,2,고지대 끝에 숨겨 둔 상자
+T02,Lv1_NormalForest,-405,1.4,150,180,Enhance Stone,1,숲 서쪽 끝 뿌리 아래 상자
+T03,Lv1_DeepForest,-392,1.4,200,240,Potion,3,깊은 숲 끝 오래된 나무 밑 상자
+T04,Lv1_Swamp,-400,-179.5,250,300,Enhance Stone,1,늪가 끝 진흙에 반쯤 묻힌 상자
+T05,Lv1_TowerOutskirts,-390,1.4,300,360,Enhance Stone,1,탑 근교 끝 무너진 석실 상자
+T06,Lv1_BanditFortress,-390,1.4,350,400,Enhance Stone,2,성채 끝 산적이 숨긴 상자
