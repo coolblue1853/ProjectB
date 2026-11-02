@@ -1,0 +1,44 @@
+- [Usage budget](usage-budget.md) — 11-02: Claude 주간 상한 15%, Codex 우선·Codex 바닥나면 Claude; 진행 여부 묻지 말고 알아서
+- [Question batching](questions-batching.md) — log 기획 questions in Docs/OpenQuestions.md, keep working
+- [Git auto-commit](git-autocommit.md) — commit+push per finished feature (shell push works via GCM)
+- [MadDucks reference](maducks-reference.md) — read-only parent project; Unity 6, private repo, no-touch rule
+- [No focus steal](no-focus-steal.md) — drive Unity headlessly; never raise windows
+- [Project B progress](projectb-progress.md) — 10-28: 기본 칼 3타 확정·build_cel 적용(7824f898); 다음 = Unity 빌드·인게임 영상(미검증) → 스미어
+- [한국어로만 응답](korean-only.md) — 진행 중 메시지까지 전부 한국어
+- [Heredoc backslash gotcha](heredoc-backslash.md) — use chr(92) for C# escapes written via Python heredoc
+- [Monster art pipeline](monster-art-pipeline.md) — mobs/character/backgrounds/tilesets: Pinterest pixel refs → GPT (logged in) or PixelLab MCP; SPUM banned
+- [No stopping](no-stopping.md) — never end turn asking to continue; chain tasks until 종료
+- [Monster lineage gear](monster-lineage-gear.md) — weapons/sets copy the dropping monster's skills; core design rule
+- [Polish existing first](polish-existing-first.md) — 10-19: 기존 아트(캐릭터·마을·배경·몹·아이콘) 개선이 신규보다 우선
+- [Abyss mood, not childish](abyss-mood-not-childish.md) — 10-19: 유아틱 금지, 메이드 인 어비스 몽환·섬뜩, 픽셀 통일, 기존 강화 우선
+- [Download permission](download-permission.md) — 10-19: 공식 출처 에셋·폰트 다운로드는 묻지 않고 진행(라이선스 확인)
+- [Art ref criteria](art-ref-criteria.md) — 10-19: Claude가 ArtStyle §0 기준으로 핀터 레퍼런스를 먼저 고르고 사용자는 굿/배드만
+- [Pixel character skill](pixel-character-skill.md) — 10-25: 캐릭터 도트 = CharacterPixelRules §0(원본 편집으로 컨셉 교체·같은 자세·20색), 세대별 4컨셉·사용자 판정
+- [Game pillars](game-pillars.md) — 10-25: 2D 횡스크롤, 전투 메이플/던파, 파밍·무기 스킬 디아블로, 장비 제작 몬헌+디아블로(몹 잡아 그 몹 무기)
+- [Test in daytime](test-daytime.md) — 10-25: 인게임 시각 확인·캡처는 낮 시간대로 바꾼 뒤
+- [Hero polish loop](hero-polish-loop.md) — 10-25: 주인공·기본공격 상업 기준으로 질문 없이 계속(이동→점프→무기→이펙트), 남는 시간 이펙트, PixelLab 후순위
+- [Motion quality bar](motion-quality-bar.md) — 10-26: 기본 이동·점프는 원본 AnyPortrait 수준, 0.04초 프레임 단위 수치 분석·나란히 영상
+- [No questions, autorun](no-questions-autorun.md) — 10-26: 질문으로 턴 끝내지 말 것, 효율적 방법 골라 가정 기록 후 계속
+- [Early game modest](early-game-modest.md) — 10-26: 초반 몹·장비·이펙트는 작고 소박하게, 화려함은 유니크·레전더리만
+- [Skul reference](skul-reference.md) — 10-27: 공격 모션·이펙트는 게임 '스컬' 기준(유튜브로 먼저 학습), 캐릭터 형태는 우리 것
+- [One motion review](one-motion-review.md) — 10-27: 공격 모션은 스컬 실제 프레임 비교로 내가 통과 판정한 것만, 한 번에 하나씩 보여주기
+- [Skul asset library](skul-asset-library.md) — 10-27: 정품 스컬 추출 분류(SkulRef/lib, SkulAssetLibrary.md)를 모든 아트 작업 기준으로; 참고만, 커밋 금지
+- [Motion batch review](motion-batch-review.md) — 10-27: 38모션 한 번에 끝까지 → 마지막에 묶어 보여주기, 기준 매우 높게, 모션·이펙트 분리
+- [Weapon hand rule](weapon-hand-rule.md) — 10-27: 한손 무기 = 화면 오른쪽 손(주), 왼손 보조, 동작 중 손 전환 금지
+- [PixelLab budget](pixellab-budget.md) — 10-27: 1,086/2,000 사용(11-25 리셋), 코드 먼저·모션당 ~30생성·전이는 확정 후 1번
+- [Body consistency rule](body-consistency-rule.md) — 10-27: 부위 크기 일정·손 위치 튐 금지·투구 빼고 기본 복장·머리카락 유지
+- [Stick-first pipeline](stick-first-pipeline.md) — 10-27: 모션은 레퍼런스 졸라맨 3칸 GIF 승인 → 스켈레톤 보간 → PixelLab 1회(MotionPipeline.md)
+- [No YouTube autoplay](no-youtube-autoplay.md) — 10-27: 유튜브 멋대로 재생 금지(광고 소리), 필요하면 묻고 음소거 먼저
+- [Use Chrome for web](use-chrome-for-web.md) — 10-27: 웹 검색·레퍼런스는 Claude in Chrome(사용자 크롬)으로, 내장 브라우저 X
+- [Limbus FX reference](limbus-fx-reference.md) — 10-28: 이펙트 기준 = 림버스 컴퍼니(형태 도트, 디테일 VFX), 추출은 LimbusRef 밖·커밋 금지
+- [Keep basic motion+FX](keep-basic-motion-fx.md) — 10-28: 기본 동작·칼 3타·스미어 v7은 절대 보존(태그 keep/basic-motion-fx-v7), 강화는 새 이름으로
+- [Visual ref Skul+Limbus](visual-ref-skul-limbus.md) — 10-28: 외형 작업은 묻지 않아도 스컬+림버스 레퍼런스부터(그대로 옮기지 않음·커밋 금지)
+- [Budget priority](budget-priority.md) — 10-29: 아끼는 순서 PixelLab > Claude > GPT, 잡일은 GPT(크롬)에 맡겨도 됨
+- [Classic Maple direction](classic-maple-direction.md) — 10-31: 진행 구조 = 클래식 메이플(레벨·EXP·퀘스트·몸박·물약), 스킬은 장비, 조작은 층계별 개방
+- [UI 메이플·전투 메이플+던파](ui-maple-combat-dnf.md) — 11-01~02: 인벤·상점·창고=메이플식 기능 최대(임시 UI), 전투=완전 횡스크롤이라 메이플+던파 적당히(깊이축·과한 띄우기 금지), 1층계 고도화
+- [Codex delegation](codex-delegation.md) — 10-31: 구현·검증은 Codex CLI(Tools/codex/run.sh), Claude는 지시서·커밋만
+- [Codex↔Claude 번갈아](codex-claude-alternate.md) — 11-02: Codex LIMIT 면 기다리지 말고 바로 Claude builder 로, 풀리면 다시 Codex(감시에 usage.sh --limit 포함)
+- [Graphics need user review](graphics-user-review.md) — 10-31: 그래픽은 사용자 검토 후 적용, 대기 채우기용 그래픽 작업 금지
+- [Final playtest capture](final-playtest-capture.md) — 11-01: 최종 수정은 플레이 모드 스샷·연속 캡처로 눈 검토까지
+- [Dungeon Slasher ref](dungeon-slasher-reference.md) — 11-01: 던전 슬래셔 APK 전체 추출(DungeonSlasherRef, 저장소 밖) 모션·이펙트·캐릭터·UI 참고, 주인공 그림체 후보
+- [ds03 hero recipe](ds03-hero-recipe.md) — 11-01: 던전슬래셔풍 주인공 ds03+걷기 합격 레시피, 걷기가 기준
