@@ -83,6 +83,21 @@ public class NpcQuestTests
         Assert.IsTrue(found, "화로 안내 퀘스트가 실제 레시피를 가리켜야 한다.");
     }
 
+    [Test] public void 같은_등급이면_본_흐름_퀘스트가_부가보다_먼저_잡힌다()
+    {
+        NpcQuestLog.Accept("Q101");
+        NpcQuestLog.Complete("Q101");
+        NpcQuestLog.Accept("Q102");
+        for (int i = 0; i < 8; i++)
+        {
+            NpcQuestLog.OnKill("FlowerMole_BD");
+        }
+        NpcQuestLog.Complete("Q102");
+        _level = 4;
+        Assert.AreEqual(NpcQuestStatus.Available, NpcQuestLog.BestFor("ruen", out NpcQuestDef q));
+        Assert.AreEqual("Q202", q.Id); // Q104·Q105 는 아무도 선행으로 요구하지 않는 부가
+    }
+
     [Test] public void 발굴_컴포넌트의_상속_필드_이름은_중복되지_않는다()
     {
         var names = new HashSet<string>();

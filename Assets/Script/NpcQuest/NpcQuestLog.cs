@@ -121,13 +121,27 @@ public static class NpcQuestLog
                 continue;
             }
             NpcQuestStatus s = StatusOf(d);
-            if (Rank(s) > Rank(best))
+            int rs = Rank(s), rb = Rank(best);
+            if (rs > rb || (rs == rb && rs > 0 && quest != null && !GatesOthers(quest) && GatesOthers(d)))
             {
                 best = s;
                 quest = d;
             }
         }
         return best;
+    }
+
+    /// <summary>다른 퀘스트의 선행(Requires)이 되는 본 흐름 퀘스트인가 — 같은 등급이면 본 흐름이 부가(아무도 요구하지 않는 것)보다 먼저 잡힌다</summary>
+    private static bool GatesOthers(NpcQuestDef q)
+    {
+        foreach (NpcQuestDef d in NpcQuestCatalog.All)
+        {
+            if (d.Requires == q.Id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static int Rank(NpcQuestStatus s)

@@ -28,6 +28,8 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
     Response[] responses;
     int cursor;
     bool open, typing, waitingContinue;
+    System.IDisposable _guard; // 대화 중 무적 토큰 (끝나면 0.5초 뒤 해제)
+    const float GuardAfterClose = 0.5f;
     float shownAt, alertUntil, savedMusicVolume = -1f;
     const float DuckRatio = 0.45f; // 대사 중 BGM 덕킹 비율
 
@@ -44,6 +46,7 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
 
     void OnDestroy()
     {
+        _guard?.Dispose();
         action?.Dispose();
     }
 
@@ -54,6 +57,10 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
         responsePanel.SetActive(false);
         action.UI.Enable();
         UiLock.Set("Dialogue", true);
+        if (_guard == null)
+        {
+            _guard = PlayerStatus.Acquire(StatusFlag.Invincible, "Dialogue");
+        }
         Sfx.Play(SfxId.UiOpen, 0.6f);
         if (DarkTonic.MasterAudio.MasterAudio.SafeInstance != null && savedMusicVolume < 0f)
         {
@@ -68,6 +75,12 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
         root.SetActive(false);
         action.UI.Disable();
         UiLock.Set("Dialogue", false);
+        if (_guard != null)
+        {
+            _guard.Dispose();
+            _guard = null;
+            PlayerStatus.AcquireFor(StatusFlag.Invincible, GuardAfterClose, "DialogueEnd");
+        }
         if (savedMusicVolume >= 0f && DarkTonic.MasterAudio.MasterAudio.SafeInstance != null)
         {
             DarkTonic.MasterAudio.MasterAudio.PlaylistMasterVolume = savedMusicVolume;
