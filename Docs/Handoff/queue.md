@@ -7,7 +7,7 @@
 - [x] 방어 계산 규명: 스윙 1회가 계산식(24→약 23)보다 약 +25% 크게 나오는 원인(방어 반영 순서). Floor1Balance §8 근거, 코드 읽기+프로브, 수정은 TechDebt 기록 후 최소로
 - [x] 1층계 구역 도착 위치 벽 끼임 전수 확인(8구역 중 샛길→일반 숲만 검증됨), 늪·성채 낙사 지점 — Floor1NavReview 갱신
 - [x] 상점 장비·강화 비용(50~2,500G/회) 대비 1시간 소득 비교표 작성 — Floor1Balance 에 추가(문서 위주, 코드 변경 없음)
-- [ ] 물약 사용 실플레이 검증 + 보스 실제 처치 시간(권장 Lv·풀세트) 실측 — 세이브 백업·복원
+- [x] 물약 사용 실플레이 검증 + 보스 실제 처치 시간(권장 Lv·풀세트) 실측 — 세이브 백업·복원 (엔트만 실측 42.5초, 거대 슬라임·산적 대장·탑 문지기는 미검증 — 필요 시 재큐)
 - [ ] 아티팩트 별폭발이 실제 몹을 맞추는지 확인(몹 소환 프로브 사용)
 - [ ] 1층계 완성 L5(데이터): Floor1Completion §4-3·§5-2 대로 ArmorCraftRecipes.csv 에 Wisp·Fae·Gloom·Outlaw·Raider·Stone 30행 추가(재료 출처가 MonsterSheet/드롭표에 없으면 MonsterExtraDrops.csv 에 30~35% 행 추가), 신규 무기 5종 setName 편입. EditMode 데이터 무결성 검증, 그래픽 없음
 - [ ] 1층계 완성 L1(코드): Floor1Completion §4-1 신규 퀘스트 목표 타입 killElite·equip(세트 n부위)·enhance(+n)·bestiary(종류 수)를 NpcQuest 에 추가 + EditMode 테스트, 기존 세이브 키 이름 변경 금지
