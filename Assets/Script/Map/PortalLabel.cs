@@ -50,6 +50,10 @@ public sealed class PortalLabel : MonoBehaviour
 
     private static string ResolveTitle(Portal portal)
     {
+        if (!string.IsNullOrEmpty(portal.labelOverride))
+        {
+            return Loc.T(portal.labelOverride);
+        }
         MapInfo dest = portal.openMap != null ? portal.openMap.GetComponent<MapInfo>() : null;
         if (dest == null && portal.destination != null)
         {

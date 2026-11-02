@@ -151,5 +151,5 @@ final  = dmg × (1 + 최종뎀/100) × dmgRatio × 레벨차배율   (레벨차:
 | 스태미나 부족 | 스킬 키를 눌렀는데 스태미나가 모자라면 그 칸에 붉은 `STA` + 아래 중앙 `[키] Not enough stamina`(0.6초 제한, 1.1초 표시). MP 는 이 게임에 없다 |
 | 히트 카운터 | 왼쪽 가운데 아래 작게 `N HIT` + 누적 피해 + 2초 유지 게이지(10 / 30 히트에서 색 변화). 맞으면 0. `HudPolicy.Hidden` 일 때 숨김. 우상단 처치 콤보(KillCombo)와 별개 |
 
-- 알려진 효과: 아티팩트 범위 피해(`ArtifactSystem`, 위쪽 넉백)도 몹을 띄워 착지 다운시킨다(의도 확인 필요).
+- 아티팩트 범위 피해(`ArtifactSystem` 별폭발)는 11-02 띄움 없이 수평 넉백만으로 줄였다(`CombatRules.AreaBurstKnockDir`).
 - 구현: `CombatRules`·`HitComboCounter`(순수), `EnemyAirState`(몹별 중력·착지·다운), `CombatHud`(히트·안내), `SkillCooldown` 라벨, `EnemyHealth.ApplyAirAndStagger/EndStiffness`.

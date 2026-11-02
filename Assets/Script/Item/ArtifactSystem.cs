@@ -223,7 +223,7 @@ public class ArtifactSystem : MonoBehaviour
                     {
                         if (e.nowHP > 0 && Vector2.Distance(e.transform.position, pos) <= BurstRadius)
                         {
-                            e.damage2Enemy(dmg, 0.3f, 8f, Vector2.up, pos.x, true, true, 0.15f, 1f);
+                            e.damage2Enemy(dmg, 0.3f, 8f, CombatRules.AreaBurstKnockDir(), pos.x, true, true, 0.15f, 1f); // 띄움 없이 수평 넉백만(CombatSpec §9)
                         }
                     }
                     break;

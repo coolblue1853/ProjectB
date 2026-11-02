@@ -17,6 +17,8 @@ public class Portal : MonoBehaviour
     private Collider2D _playerCol, _col;
     /// <summary>도착 직후 무적(초). 암전이 밝아지는 동안·도착 지점의 몹에게 바로 맞지 않게</summary>
     public const float ArrivalInvincible = 1.0f;
+    /// <summary>라벨에 쓸 이름(비우면 목적지 구역 이름). 같은 맵 안 이동 포털용</summary>
+    public string labelOverride;
     public GameObject player;
     private void OnEnable()
     {

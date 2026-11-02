@@ -198,3 +198,5 @@
 
 ## 11. 1층계 보강 콘텐츠 (11-02)
 사냥 의뢰 게시대·숨은 보물 상자·도감 수집 보상·NPC 힌트 대사. 목록·끄는 법은 `Docs/Playtest/Floor1ContentList.md`. 코드 `Assets/Script/Floor1Extra/`.
+
+- **이동 점검 2차(11-02):** 층계 지도(M)는 줄 스크롤·연결 구역·HOME 마을 귀환 추가. `FallRescue`(낙사 복구)·`PitReturn`(복제 지형 구덩이 탈출 포털 "윗길로", 런타임 생성)·`Portal.labelOverride`. 상세 `Docs/Playtest/Floor1NavReview.md`.

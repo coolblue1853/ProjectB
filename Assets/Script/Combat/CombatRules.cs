@@ -102,6 +102,18 @@ public static class CombatRules
         return Mathf.Max(0f, JuggleLiftBase - JuggleLiftStep * Mathf.Max(0, airHits - 1));
     }
 
+    /// <summary>아티팩트 범위 피해 넉백 방향(11-02): 완전 횡스크롤이라 띄우지 않고 수평으로만 민다. 좌우는 EnemyHealth 가 맞은 쪽 기준으로 뒤집는다.</summary>
+    public static Vector2 AreaBurstKnockDir()
+    {
+        return Vector2.right;
+    }
+
+    /// <summary>이 넉백(방향 x 힘)이 몹을 띄우는가(위쪽 속도가 LaunchSpeed 이상).</summary>
+    public static bool IsLaunch(Vector2 dir, float force)
+    {
+        return dir.sqrMagnitude > 0f && dir.normalized.y * force >= LaunchSpeed;
+    }
+
     /// <summary>다운된 적을 ↓ 를 누른 채 때리면(다운 공격) 피해 ×1.3. 그 외 1.</summary>
     public static float DownDamageMul(bool isDown, bool downAttack)
     {

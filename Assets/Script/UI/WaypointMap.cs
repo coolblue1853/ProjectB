@@ -26,7 +26,7 @@ public class WaypointMap : MonoBehaviour
     InputAction up, down, select, back;
     GameObject panel;
     TextMeshProUGUI detail;
-    int cursor;
+    int cursor, scroll;
     bool open;
     float openedAt;
 
@@ -124,6 +124,11 @@ public class WaypointMap : MonoBehaviour
         {
             return;
         }
+        if (kb != null && kb.homeKey.wasPressedThisFrame)
+        {
+            SelectVillage(); // 마을 귀환 바로가기 (HOME)
+            return;
+        }
         if (up.triggered)
         {
             cursor = (cursor - 1 + entries.Count) % entries.Count;
@@ -198,6 +203,45 @@ public class WaypointMap : MonoBehaviour
         return MapInfo.GoToMap(mapName, PlayerController.instance.gameObject);
     }
 
+    /// <summary>목록에서 마을(floor 0) 칸으로 커서를 옮기고 이동한다. 이미 마을이면 닫기만 한다.</summary>
+    private void SelectVillage()
+    {
+        for (int i = 0; i < entries.Count; i++)
+        {
+            if (entries[i].map.floor <= 0)
+            {
+                cursor = i;
+                Travel();
+                return;
+            }
+        }
+    }
+
+    /// <summary>이 구역 포털이 이어 주는 구역 목록(연결도). 미방문 구역은 ???, 봉인 포털은 [봉인]. 같은 맵 안 이동 포털은 건너뛴다.</summary>
+    private string BuildConnections(MapInfo map, UiTheme theme)
+    {
+        var lines = new List<string>();
+        var seen = new HashSet<string>();
+        foreach (Portal p in map.GetComponentsInChildren<Portal>(true))
+        {
+            if (p.openMap == null || p.openMap == map.gameObject)
+            {
+                continue;
+            }
+            MapInfo dest = p.openMap.GetComponent<MapInfo>();
+            if (dest == null || string.IsNullOrEmpty(dest.zoneTitle) || !seen.Add(dest.gameObject.name))
+            {
+                continue;
+            }
+            bool known = visited.Contains(dest.gameObject.name);
+            PortalSeal seal = p.GetComponent<PortalSeal>();
+            bool sealedPath = seal != null && !seal.IsOpen;
+            string title = known ? Loc.T(dest.zoneTitle).ToUpperInvariant() : "???";
+            lines.Add("<color=#9ED0FF>></color> " + title + (sealedPath ? " <color=#" + ColorUtility.ToHtmlStringRGB(theme.warning) + ">" + Loc.T("[Sealed]") + "</color>" : ""));
+        }
+        return lines.Count == 0 ? "" : "\n\n<size=80%>" + Loc.T("Connections") + "\n" + string.Join("\n", lines) + "</size>";
+    }
+
     void Travel()
     {
         Entry e = entries[cursor];
@@ -219,21 +263,25 @@ public class WaypointMap : MonoBehaviour
     void Redraw()
     {
         UiTheme theme = UiTheme.Get();
+        // 목록이 줄 수보다 길면 커서가 보이도록 창을 민다(구역이 9개를 넘으면 아래가 잘리던 문제)
+        scroll = Mathf.Clamp(scroll, Mathf.Max(0, cursor - rows.Count + 1), cursor);
+        scroll = Mathf.Clamp(scroll, 0, Mathf.Max(0, entries.Count - rows.Count));
         for (int i = 0; i < rows.Count; i++)
         {
-            bool has = i < entries.Count;
+            int idx = scroll + i;
+            bool has = idx < entries.Count;
             rows[i].bg.gameObject.SetActive(has);
             if (!has)
             {
                 continue;
             }
-            Entry e = entries[i];
+            Entry e = entries[idx];
             bool here = e.map.gameObject.activeInHierarchy;
             string name = e.visited ? Loc.T(e.map.zoneTitle).ToUpperInvariant() : "???";
             string floor = e.map.floor <= 0 ? Loc.T("VILLAGE") : Loc.IsKorean ? e.map.floor + Loc.T("FLOOR") : "FLOOR " + e.map.floor;
             string col = !e.visited ? "#777777" : here ? "#" + ColorUtility.ToHtmlStringRGB(theme.unique) : "#FFFFFF";
             rows[i].text.text = "<color=#9ED0FF>" + floor + "</color>  <color=" + col + ">" + name + "</color>" + (here ? "  <size=70%>" + Loc.T("(HERE)") + "</size>" : "");
-            rows[i].bg.color = i == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
+            rows[i].bg.color = idx == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
         }
         if (entries.Count == 0)
         {
@@ -246,6 +294,7 @@ public class WaypointMap : MonoBehaviour
             ? Loc.T(cur.map.zoneTitle) + "\n\n" + Loc.T("Ascent load") + "  " + cur.map.ascentLoad + "\n" + Loc.T("Your resistance") + "  " + AscentLoad.Resistance + "\n"
               + (d > 0 ? "<color=#" + ColorUtility.ToHtmlStringRGB(theme.warning) + ">" + Loc.F("Deficit {0}  (-{1}% damage)", d, Mathf.RoundToInt(d * AscentLoad.PenaltyPerPoint * 100f)) + "</color>"
                        : "<color=#8CFF8C>" + Loc.T("No ascent penalty") + "</color>")
+              + BuildConnections(cur.map, theme)
               + "\n\n<size=80%>" + Loc.T("SELECT  travel here") + "</size>"
             : Loc.T("Undiscovered.") + "\n" + Loc.T("Reach it on foot to unlock the waypoint.");
     }
@@ -272,7 +321,7 @@ public class WaypointMap : MonoBehaviour
         head.color = theme.unique;
         var hint = NewText("Hint", pr, theme, 22f);
         Place(hint.rectTransform, new Vector2(30f, -520f), new Vector2(940f, 30f));
-        hint.text = Loc.T("UP/DOWN select    SELECT travel    M / BACK close");
+        hint.text = Loc.T("UP/DOWN select    SELECT travel    HOME village    M / BACK close");
         hint.color = new Color(1f, 1f, 1f, 0.55f);
 
         for (int r = 0; r < 9; r++)

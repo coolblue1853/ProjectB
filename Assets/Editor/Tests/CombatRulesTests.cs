@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using UnityEngine;
 
 /// <summary>던파식 전투 규칙(CombatSpec 9절): 캔슬·경직 연쇄/저항·공중 콤보·다운·스킬 막힘 이유·히트 카운터</summary>
 public class CombatRulesTests
@@ -112,6 +113,16 @@ public class CombatRulesTests
         Assert.AreEqual(1f, c.Remaining01(1f), 1e-4f);
         Assert.AreEqual(0.5f, c.Remaining01(2f), 1e-4f);
         Assert.AreEqual(0f, c.Remaining01(5f), 1e-4f);
+    }
+
+    [Test]
+    public void AreaBurstKnock_IsHorizontalOnly_NoLaunch()
+    {
+        Vector2 dir = CombatRules.AreaBurstKnockDir();
+        Assert.AreEqual(0f, dir.y);
+        Assert.AreNotEqual(0f, dir.x);
+        Assert.IsFalse(CombatRules.IsLaunch(dir, 8f));
+        Assert.IsTrue(CombatRules.IsLaunch(Vector2.up, 8f)); // 예전 값은 띄움이었다
     }
 
     [Test]
