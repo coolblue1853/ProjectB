@@ -76,6 +76,7 @@
 | `Game/PixelLabEconomy.md` | PixelLab 사용량 절약 |
 | `Game/WeaponTypes.md` | 무기 타입 확장 |
 | `Game/Floor1Completion.md` | 1층계 완성 계획: 최단 클리어 모델·할 것 설계·세트/무기 표 |
+| `Game/CombatFeelPlan.md` | 전투 조작감 개선: 진단·메이플+던파 조합 선택·CF 항목 |
 
 ## 운영
 

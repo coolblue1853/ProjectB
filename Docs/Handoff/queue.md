@@ -19,3 +19,6 @@
 - [ ] 1층계 완성 R1(데이터): Floor1Completion §11 대로 QuestsFloor1.csv Q202 target 을 ForestWolf_BD→WildBoar_BD 8 로 교체(보상 유지)하고, EditMode 에 "선행→후속 퀘스트의 target 동일 금지"(같은 구역) 검사 추가. 위 L2·L10 신규 29행 추가 항목과 같이 해도 됨
 - [ ] 1층계 완성 R2·R3(데이터): §12 흐름표대로 신규 퀘스트 보상 아이템을 세트 부위·계보 무기로 채우고(교체 17회), HuntingSpawnsFloor1.csv 구역 앵커 3지점별 몹 비율 차등. 교체 간격 검증은 L9 프로브 결과에 8분 구간 빈칸 검사 추가
 - [ ] 1층계 완성 R4·R5(코드·데이터): 마을 대장장이 무기 시연대(Lv5·Lv10, 계보 무기 3종 대여→1종 보상, 대화+데이터) 및 정예 둥지 소형 던전화(흔적 3→웨이브 2→정예→상자, 기존 NestHunt·Raid 재사용). 그래픽 없음
+- [ ] 전투 조작감 CF-A (담당: 미정, 파일: Assets/Script/Player/Weapon.cs·PlayerController.cs·State/CombatRules): `Game/CombatFeelPlan.md` §3 CF-1·2·3·5 순서대로 — 지상 평타 후딜 중 앞키 전진(Attack Drift 1·2타 0.5/3타 0.25, 녹슨 검은 0.6 유지), 판정 후 점프 캔슬, 후딜 40% 이후 이동 캔슬, 방향 전환 보정. 순수 함수는 CombatRules 에 두고 EditMode 테스트. Unity 가 비는 때에 플레이 확인, 못 하면 "미검증"
+- [ ] 전투 조작감 CF-B (담당: 미정, 파일: Assets/Script/Player/PlayerController.cs): CombatFeelPlan CF-4·6·7 — 점프 버퍼 0.15·코요테 0.12, 공중 평타 수평 관성 유지, 가변 점프(해제 시 vy×0.5, 최소 0.08초). CF-A 와 같은 파일이므로 CF-A 후에
+- [ ] 전투 조작감 CF-C (담당: 미정, 파일: Weapon.cs·프리팹 _comboGrace·PlayerController.cs): CombatFeelPlan CF-8·9·10 — _comboGrace 0.45, 이동 가감속(0.06/0.05), 대시 버퍼 0.1. CF-B 후에. 층계별 캔슬 비율(MovementUnlockRules CancelStartRatio 1층계 40%→3층계 30%→5층계 20%)도 같이
