@@ -75,6 +75,7 @@
 | `Game/FloorCoreContent.md` | 1~4층계 본무대 확정 |
 | `Game/PixelLabEconomy.md` | PixelLab 사용량 절약 |
 | `Game/WeaponTypes.md` | 무기 타입 확장 |
+| `Game/Floor1Completion.md` | 1층계 완성 계획: 최단 클리어 모델·할 것 설계·세트/무기 표 |
 
 ## 운영
 
