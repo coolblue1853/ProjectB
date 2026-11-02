@@ -101,7 +101,7 @@ public class LevelRulesTests
         Assert.IsNotNull(r);
         Assert.AreEqual(9, r.level);
         Assert.AreEqual(950, r.exp);
-        Assert.AreEqual(18, r.contactDamage);
+        Assert.AreEqual(27, r.contactDamage);
         foreach (MonsterTable.Row row in MonsterTable.All())
         {
             Assert.IsTrue(row.level.HasValue && row.level.Value >= 1 && row.level.Value <= 70, row.id + " level");

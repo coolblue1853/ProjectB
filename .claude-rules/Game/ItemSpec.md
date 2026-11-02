@@ -52,11 +52,12 @@
 - 키는 `{tfName}_{장착수}`이다.
 - 효과 문법은 `(sign)값 스탯 [스킬명]`이고, 여러 효과는 `/`로 구분한다. 스킬명의 `_`는 공백으로 바뀐다.
 - 지원 스탯: Def, Hp, skillHitCount, bulletCount, coolDown
+- 방어구 프리팹 hp·armor 와 세트 Hp/Def 기준은 `Docs/Playtest/Floor1Balance.md` §8 (11-02 재정리: 권장 풀세트 HP ≈ 성장 HP 40~65 %, 세트 HP ≤ 장비 HP 절반).
 
 | 키 | 효과 |
 |---|---|
 | RabbitArmor_2 | Def +10 |
-| RabbitArmor_5 | Hp +100 |
+| RabbitArmor_5 | Hp +15 |
 | LeafArmor_2 | Rising Roots 타격 +1, Scattering Leaves 탄 +2 |
 | LeafArmor_5 | Rising Roots 타격 +2, Haste 쿨감 50 |
 

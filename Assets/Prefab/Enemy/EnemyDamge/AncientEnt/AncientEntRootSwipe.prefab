@@ -156,7 +156,7 @@ MonoBehaviour:
   attackSound: 
   isDestroyByTime: 1
   holdingTime: 0.75
-  damage: 24
+  damage: 37
   stiffnessTime: 0.5
   knockForce: 30
   knockbackDir: {x: 1, y: 1}
