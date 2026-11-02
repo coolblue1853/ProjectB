@@ -43,6 +43,8 @@ public static class NpcQuestLog
 
     /// <summary>상태가 바뀜 (NPC 표시·퀘스트 창·추적 표시 갱신)</summary>
     public static event Action Changed;
+    /// <summary>수락·완료 성공 직후(알림 배너용). 완료는 보상 지급 뒤에 온다</summary>
+    public static event Action<NpcQuestDef> Accepted, Completed;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics()
@@ -186,6 +188,7 @@ public static class NpcQuestLog
         s_recs[id] = rec;
         NpcQuestTrack.OnAccepted(id);
         Notify();
+        Accepted?.Invoke(d);
         GameLog.Info(GameLog.Cat.Item, "NPC 퀘스트 수락 " + id);
         return true;
     }
@@ -206,6 +209,7 @@ public static class NpcQuestLog
         NpcQuestTrack.OnCompleted(id);
         RewardApplier(d);
         Notify();
+        Completed?.Invoke(d);
         GameLog.Info(GameLog.Cat.Item, "NPC 퀘스트 완료 " + id + " EXP " + d.Exp + " 골드 " + d.Gold);
         return true;
     }

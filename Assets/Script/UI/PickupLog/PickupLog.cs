@@ -41,8 +41,12 @@ public class PickupLog : MonoBehaviour
         instance = null;
     }
 
+    /// <summary>아이템 획득 로그가 찍힐 때(첫 경험 힌트용)</summary>
+    public static event System.Action<string> Picked;
+
     public static void Report(string itemName, int count, string rarity)
     {
+        Picked?.Invoke(itemName);
         PickupLog log = Ensure();
         PickupLogModel.Line line = log.model.Add(itemName, count, rarity ?? "C", Time.time);
         log.Refresh();

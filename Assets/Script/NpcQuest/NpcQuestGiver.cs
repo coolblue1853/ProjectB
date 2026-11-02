@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// 퀘스트를 주는 NPC (머리 위 표시 + 상호작용). 노란 ! = 수락 가능, 노란 ? = 완료 가능, 회색 ! = 레벨 부족 (메이플식).
+/// 퀘스트를 주는 NPC (머리 위 표시 + 상호작용). 노란 ! = 수락 가능, 노란 ? = 완료 가능, 회색 ! = 레벨 부족, 회색 ? = 진행 중 (메이플식).
 /// 상호작용은 NPC 기존 ↑ 처리(TalkNpc / 상점 UI)가 TryTalk 를 먼저 불러서 퀘스트 대화를 우선한다.
 /// 수락 대화를 한 번 본 뒤 거절하면 그 NPC 곁에 머무는 동안은 다시 묻지 않는다(상점 NPC 가 막히지 않게).
 /// </summary>
@@ -72,7 +72,7 @@ public class NpcQuestGiver : MonoBehaviour
         }
     }
 
-    /// <summary>현재 표시 상태 (테스트·프로브용): "", "!", "?", "!grey"</summary>
+    /// <summary>현재 표시 상태 (테스트·프로브용): "", "!", "?", "!grey", "?grey"</summary>
     public string MarkState { get; private set; } = "";
 
     private void RefreshMark()
@@ -88,6 +88,7 @@ public class NpcQuestGiver : MonoBehaviour
             case NpcQuestStatus.Available: state = "!"; break;
             case NpcQuestStatus.Ready: state = "?"; break;
             case NpcQuestStatus.LevelLow: state = "!grey"; break;
+            case NpcQuestStatus.Active: state = "?grey"; break; // 진행 중: 회색 ?
         }
         MarkState = state;
         bool show = state.Length > 0;
@@ -97,8 +98,8 @@ public class NpcQuestGiver : MonoBehaviour
         }
         if (show)
         {
-            _mark.text = state == "?" ? "?" : "!";
-            _mark.color = state == "!grey" ? Grey : Gold;
+            _mark.text = state[0] == '?' ? "?" : "!";
+            _mark.color = state.EndsWith("grey") ? Grey : Gold;
         }
     }
 

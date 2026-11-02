@@ -56,6 +56,13 @@ public static class LevelSystem
         GainExp(LevelRules.KillExp(baseExp, e.IsElite, e.isBossMob), e.name);
     }
 
+    /// <summary>가장 최근 레벨업으로 오른 자동 성장 수치(레벨업 배너용)</summary>
+    public static int LastGainHp { get; private set; }
+    public static int LastGainAtk { get; private set; }
+    public static int LastGainDef { get; private set; }
+    /// <summary>가장 최근 사망으로 잃은 EXP(사망 안내용)</summary>
+    public static int LastDeathLoss { get; private set; }
+
     /// <summary>EXP 지급 (처치·퀘스트 공용)</summary>
     public static void GainExp(int amount, string source = null)
     {
@@ -65,6 +72,7 @@ public static class LevelSystem
         }
         int level = Level;
         int exp = Exp;
+        int levelBefore = level;
         int ups = LevelRules.AddExp(ref level, ref exp, amount);
         Level = level;
         Exp = exp;
@@ -72,6 +80,9 @@ public static class LevelSystem
         if (ups > 0)
         {
             pendingLevelUpFx = true;
+            LastGainHp = LevelRules.HpBonus(level) - LevelRules.HpBonus(levelBefore);
+            LastGainAtk = LevelRules.AtkBonus(level) - LevelRules.AtkBonus(levelBefore);
+            LastGainDef = LevelRules.DefBonus(level) - LevelRules.DefBonus(levelBefore);
             ApplyStats(true);
             LeveledUp?.Invoke(Level);
             if (SaveManager.instance != null)
@@ -87,6 +98,7 @@ public static class LevelSystem
     {
         int before = Exp;
         Exp = LevelRules.ExpAfterDeath(Exp);
+        LastDeathLoss = before - Exp;
         GameLog.Info(GameLog.Cat.Player, "사망 EXP 손실 " + before + " → " + Exp + " (Lv" + Level + ")");
         Changed?.Invoke();
     }

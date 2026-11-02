@@ -14,7 +14,7 @@ public sealed class LevelUpBanner : MonoBehaviour
     private static LevelUpBanner s_instance;
 
     private CanvasGroup _group;
-    private TextMeshProUGUI _title, _sub;
+    private TextMeshProUGUI _title, _sub, _gain;
     private Tween _tween;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -54,6 +54,7 @@ public sealed class LevelUpBanner : MonoBehaviour
     {
         _title.text = Loc.T("LEVEL UP");
         _sub.text = "Lv " + level;
+        _gain.text = GainText(LevelSystem.LastGainHp, LevelSystem.LastGainAtk, LevelSystem.LastGainDef);
         _tween?.Kill();
         _group.alpha = 1f;
         var rt = (RectTransform)_group.transform;
@@ -62,6 +63,16 @@ public sealed class LevelUpBanner : MonoBehaviour
             .Append(rt.DOScale(1f, Pop).SetEase(Ease.OutBack))
             .AppendInterval(Hold)
             .Append(_group.DOFade(0f, Fade));
+    }
+
+    /// <summary>오른 수치 한 줄: "HP +8   ATK +1   DEF +1" (0 은 뺀다)</summary>
+    public static string GainText(int hp, int atk, int def)
+    {
+        var parts = new System.Collections.Generic.List<string>(3);
+        if (hp > 0) { parts.Add("HP +" + hp); }
+        if (atk > 0) { parts.Add((Loc.IsKorean ? "공격" : "ATK") + " +" + atk); }
+        if (def > 0) { parts.Add((Loc.IsKorean ? "방어" : "DEF") + " +" + def); }
+        return string.Join("   ", parts);
     }
 
     private void Build()
@@ -80,7 +91,7 @@ public sealed class LevelUpBanner : MonoBehaviour
         var rr = (RectTransform)root.transform;
         rr.anchorMin = rr.anchorMax = rr.pivot = new Vector2(0.5f, 0.5f);
         rr.anchoredPosition = new Vector2(0f, 250f);
-        rr.sizeDelta = new Vector2(900f, 190f);
+        rr.sizeDelta = new Vector2(900f, 260f);
         _group = root.GetComponent<CanvasGroup>();
         _group.alpha = 0f;
         _group.blocksRaycasts = false;
@@ -88,9 +99,10 @@ public sealed class LevelUpBanner : MonoBehaviour
 
         _title = NewText("Title", rr, theme, 96f, new Vector2(0f, 40f), theme.unique);
         _sub = NewText("Sub", rr, theme, 54f, new Vector2(0f, -50f), Color.white);
+        _gain = NewText("Gain", rr, theme, 38f, new Vector2(0f, -112f), new Color(0.62f, 0.93f, 0.62f));
     }
 
-    private static TextMeshProUGUI NewText(string name, Transform parent, UiTheme theme, float size, Vector2 pos, Color color)
+    internal static TextMeshProUGUI NewText(string name, Transform parent, UiTheme theme, float size, Vector2 pos, Color color)
     {
         var go = new GameObject(name, typeof(RectTransform), typeof(TextMeshProUGUI));
         go.transform.SetParent(parent, false);

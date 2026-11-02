@@ -134,7 +134,7 @@ public class ControlsWindow : MonoBehaviour
     }
 
     /// <summary>{이름} 자리를 현재 키 설정 표시로: "Jump" = Player 맵(재지정 가능), "UI/OpenInventory" = UI 맵</summary>
-    private static string Resolve(string name, bool gamepad)
+    internal static string Resolve(string name, bool gamepad)
     {
         if (name.IndexOf('/') < 0)
         {

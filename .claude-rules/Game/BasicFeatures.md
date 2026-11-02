@@ -201,3 +201,7 @@
 사냥 의뢰 게시대·숨은 보물 상자·도감 수집 보상·NPC 힌트 대사. 목록·끄는 법은 `Docs/Playtest/Floor1ContentList.md`. 코드 `Assets/Script/Floor1Extra/`.
 
 - **이동 점검 2차(11-02):** 층계 지도(M)는 줄 스크롤·연결 구역·HOME 마을 귀환 추가. `FallRescue`(낙사 복구)·`PitReturn`(복제 지형 구덩이 탈출 포털 "윗길로", 런타임 생성)·`Portal.labelOverride`. 상세 `Docs/Playtest/Floor1NavReview.md`.
+
+## 첫 경험 안내 (11-02)
+
+`FirstHints`(첫 처치·포털·로프·채집물·장비·물약·레벨업 힌트, 설정 HINTS) · `EventBanner`(퀘스트 수락/완료 배너·사망 안내) · 레벨업 배너 수치 줄 · NPC 진행 중 회색 ?. 세이브 새 키 `hints.seen`(슬롯), `settings.hints`(공유). 테스트 `FirstExperienceTests`.
