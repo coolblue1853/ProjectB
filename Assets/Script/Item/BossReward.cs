@@ -110,6 +110,7 @@ public static class BossLoot
             since = 0;
         }
         ES3.Save(killKey, since);
+        PickupLog.Notice(RewardSummary(loot, mult, unique));
         if (mult < 1f)
         {
             PickupLog.Notice("같은 날 다시 쓰러뜨려 보스 보상이 " + BossRetryRules.Describe(mult) + "로 줄었다");
@@ -125,6 +126,38 @@ public static class BossLoot
         GameLog.Info(GameLog.Cat.Item, "보스 보상 " + bossName + ": " + string.Join(", ", loot) + (unique ? " (고유템!)" : " (천장까지 " + (r.pity - since) + ")"));
         RaiseDefeated(bossName);
         return loot;
+    }
+
+    /// <summary>처치 보상 요약 한 줄: 강화석 N · 장비/고유템 이름 · 감소율 (순수 문자열 조립)</summary>
+    public static string RewardSummary(List<string> loot, float mult, bool unique)
+    {
+        int stones = 0;
+        var others = new List<string>();
+        foreach (string id in loot)
+        {
+            if (id == EnhanceRules.StoneName)
+            {
+                stones++;
+            }
+            else
+            {
+                others.Add(ItemDisplayName(id));
+            }
+        }
+        string text = "Boss reward - Enhance Stone x" + stones;
+        if (others.Count > 0)
+        {
+            text += ", " + string.Join(", ", others);
+        }
+        if (unique)
+        {
+            text += " (Unique!)";
+        }
+        if (mult < 1f)
+        {
+            text += " [" + BossRetryRules.Describe(mult) + "]";
+        }
+        return text;
     }
 
     /// <summary>아이템 id → 현재 언어 표시 이름 (배너용)</summary>

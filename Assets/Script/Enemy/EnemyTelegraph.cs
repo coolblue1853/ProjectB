@@ -20,6 +20,14 @@ public class EnemyTelegraph : MonoBehaviour
     bool last;
     float hideAt, secondFlashAt = -1f;
 
+    // 보스 전용: 더 길고 큰 예고(0.7초) + 바닥 붉은 띠. 공격 타이밍(BT 준비 0.5초)은 그대로다
+    const float BossMarkTime = 0.7f;
+    bool isBoss;
+    SpriteRenderer groundBar;
+    Transform player;
+    float barHalfLen = 2.2f, feetY;
+    static Sprite s_white;
+
     public static void AttachIfAttacker(EnemyHealth enemy)
     {
         var anim = enemy.GetComponent<Animator>();
@@ -50,6 +58,8 @@ public class EnemyTelegraph : MonoBehaviour
         holder.SetParent(enemy.transform, false);
         holder.localScale = new Vector3(1f / Mathf.Abs(ls.x), 1f / Mathf.Abs(ls.y), 1f); // 월드 단위로 그리기
         float top = local.max.y * Mathf.Abs(ls.y);
+        isBoss = enemy.isBossMob;
+        feetY = local.min.y * Mathf.Abs(ls.y);
 
         var markGo = new GameObject("Mark", typeof(TextMeshPro));
         markGo.transform.SetParent(holder, false);
@@ -69,6 +79,53 @@ public class EnemyTelegraph : MonoBehaviour
         mark.sortingOrder = 121;
         mark.rectTransform.sizeDelta = new Vector2(1f, 1f);
         markGo.SetActive(false);
+        if (isBoss)
+        {
+            mark.fontSize = 34f;
+            BuildGroundBar();
+        }
+    }
+
+    void BuildGroundBar()
+    {
+        if (s_white == null)
+        {
+            var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false) { filterMode = FilterMode.Point };
+            tex.SetPixel(0, 0, Color.white);
+            tex.Apply();
+            s_white = Sprite.Create(tex, new Rect(0, 0, 1, 1), new Vector2(0f, 0.5f), 1f);
+        }
+        var go = new GameObject("GroundWarn", typeof(SpriteRenderer));
+        go.transform.SetParent(holder, false);
+        groundBar = go.GetComponent<SpriteRenderer>();
+        groundBar.sprite = s_white;
+        groundBar.color = new Color(1f, 0.1f, 0.05f, 0f);
+        groundBar.sortingOrder = 5;
+        go.transform.localPosition = new Vector3(0f, feetY + 0.15f, 0f);
+        go.transform.localScale = new Vector3(barHalfLen * 2f, 0.3f, 1f);
+        go.SetActive(false);
+    }
+
+    void ShowGroundBar()
+    {
+        if (groundBar == null)
+        {
+            return;
+        }
+        if (player == null)
+        {
+            var p = GameObject.FindWithTag("Player"); // 첫 예고 때 한 번만 찾는다
+            player = p != null ? p.transform : null;
+        }
+        // 플레이어 쪽으로 뻗는다(Update 가 holder 의 월드 x 부호를 양수로 유지하므로 로컬 부호 = 월드 방향)
+        float local = player != null ? Mathf.Sign(player.position.x - transform.position.x) : 1f;
+        var t = groundBar.transform;
+        t.localScale = new Vector3(barHalfLen * 2f * local, 0.3f, 1f);
+        t.localPosition = new Vector3(0f, feetY + 0.15f, 0f);
+        groundBar.gameObject.SetActive(true);
+        groundBar.DOKill();
+        groundBar.color = new Color(1f, 0.1f, 0.05f, 0.1f);
+        groundBar.DOFade(0.55f, BossMarkTime * 0.9f).SetEase(Ease.InQuad).SetLink(groundBar.gameObject);
     }
 
     void Update()
@@ -83,6 +140,11 @@ public class EnemyTelegraph : MonoBehaviour
         if (mark.gameObject.activeSelf && Time.time >= hideAt)
         {
             mark.gameObject.SetActive(false);
+            if (groundBar != null)
+            {
+                groundBar.DOKill();
+                groundBar.gameObject.SetActive(false);
+            }
         }
         if (secondFlashAt > 0f && Time.time >= secondFlashAt)
         {
@@ -101,13 +163,17 @@ public class EnemyTelegraph : MonoBehaviour
     void Trigger()
     {
         mark.gameObject.SetActive(true);
-        hideAt = Time.time + MarkTime;
+        hideAt = Time.time + (isBoss ? BossMarkTime : MarkTime);
         Transform mt = mark.transform;
         mt.DOKill(true);
         mt.localScale = Vector3.one * 0.4f;
         mt.DOScale(1f, 0.12f).SetEase(Ease.OutBack).SetLink(mark.gameObject);
         Flash();
         secondFlashAt = Time.time + FlashGap;
+        if (isBoss)
+        {
+            ShowGroundBar();
+        }
     }
 
     void Flash()
@@ -125,6 +191,11 @@ public class EnemyTelegraph : MonoBehaviour
         if (mark != null)
         {
             mark.gameObject.SetActive(false);
+        }
+        if (groundBar != null)
+        {
+            groundBar.DOKill();
+            groundBar.gameObject.SetActive(false);
         }
     }
 }

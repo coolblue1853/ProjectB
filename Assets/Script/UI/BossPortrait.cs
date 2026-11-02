@@ -44,6 +44,17 @@ public static class BossPortrait
         icon.rectTransform.offsetMin = new Vector2(6f, 6f);
         icon.rectTransform.offsetMax = new Vector2(-6f, -6f);
 
+        // 페이즈 구분선: HP 50%·25% 지점(BossPhase.Thresholds)에 세로선. 바는 fillAmount 로 줄어 사각형이 고정이다
+        foreach (float t in BossPhase.Thresholds)
+        {
+            var line = NewImage("PhaseLine", bar, new Color(0f, 0f, 0f, 0.85f));
+            line.rectTransform.anchorMin = new Vector2(t, 0f);
+            line.rectTransform.anchorMax = new Vector2(t, 1f);
+            line.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            line.rectTransform.anchoredPosition = Vector2.zero;
+            line.rectTransform.sizeDelta = new Vector2(3f, 0f);
+        }
+
         // 이름 (바 아래 왼쪽 — 바가 화면 맨 위라 위에 두면 잘린다)
         var nameGo = new GameObject("BossName", typeof(RectTransform), typeof(TextMeshProUGUI));
         nameGo.transform.SetParent(bar, false);
