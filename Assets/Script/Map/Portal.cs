@@ -14,6 +14,9 @@ public class Portal : MonoBehaviour
     private PortalSeal seal; // 있으면 보스 첫 처치 전엔 이동을 막는다(Q-414)
     public ProCamera2D proCamera;
     bool isMapChange = true;
+    private Collider2D _playerCol, _col;
+    /// <summary>도착 직후 무적(초). 암전이 밝아지는 동안·도착 지점의 몹에게 바로 맞지 않게</summary>
+    public const float ArrivalInvincible = 1.0f;
     public GameObject player;
     private void OnEnable()
     {
@@ -22,6 +25,9 @@ public class Portal : MonoBehaviour
     private void OnDisable()
     {
         upAction.Disable();
+        // 맵이 꺼지면 OnTriggerExit2D 가 오지 않아 player 가 남는다 → 다시 켜졌을 때 어디서든 ↑ 한 번에 이동하는 문제(11-02)
+        player = null;
+        _playerCol = null;
     }
     private void Awake()
     {
@@ -33,6 +39,8 @@ public class Portal : MonoBehaviour
         openMapCheck = openMap != null ? openMap.GetComponent<PoolCheck>() : null;
         closeMapCheck = closeMap != null ? closeMap.GetComponent<PoolCheck>() : null;
         seal = GetComponent<PortalSeal>();
+        _col = GetComponentInChildren<Collider2D>();
+        PortalLabel.Attach(this, seal);
     }
 
     private void AlignForestEntrance()
@@ -60,6 +68,11 @@ public class Portal : MonoBehaviour
     }
     private void Update()
     {
+        if (player != null && _col != null && _playerCol != null && !_col.bounds.Intersects(_playerCol.bounds))
+        {
+            player = null; // 텔레포트·맵 교체로 Exit 이벤트 없이 벗어난 경우
+            _playerCol = null;
+        }
         if (seal != null && upAction.triggered && player != null && DatabaseManager.isUsePortal == false && !seal.IsOpen)
         {
             seal.NotifySealed();
@@ -87,6 +100,7 @@ public class Portal : MonoBehaviour
             ScreenFader.Transition(() =>
             {
                 traveler.transform.position = destination.position;
+                GrantArrivalInvincible();
                 AbleOpenMap();
                 AbleCloseMap();
                 if (proCamera != null)
@@ -100,6 +114,7 @@ public class Portal : MonoBehaviour
             ScreenFader.Transition(() =>
             {
                 traveler.transform.position = destination.position;
+                GrantArrivalInvincible();
                 ApplyLocalCameraBounds();
                 if (proCamera != null)
                 {
@@ -140,6 +155,11 @@ public class Portal : MonoBehaviour
         DatabaseManager.isUsePortal = false;
     }
 
+    private static void GrantArrivalInvincible()
+    {
+        PlayerStatus.AcquireFor(StatusFlag.Invincible, ArrivalInvincible, "PortalArrival");
+    }
+
     private void ApplyLocalCameraBounds()
     {
         MapInfo map = GetComponentInParent<MapInfo>();
@@ -178,6 +198,7 @@ public class Portal : MonoBehaviour
         if (collision.transform.tag == "Player")
         {
             player = collision.gameObject;
+            _playerCol = collision;
 
         }
     }
@@ -187,7 +208,7 @@ public class Portal : MonoBehaviour
         if (collision.transform.tag == "Player")
         {
             player = null;
-
+            _playerCol = null;
         }
     }
 

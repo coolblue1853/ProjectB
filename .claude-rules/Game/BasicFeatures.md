@@ -99,6 +99,7 @@
 
 - 코드: `Assets/Script/UI/Minimap/MinimapHud.cs`(HUD·굽기) + `MinimapMath.cs`(순수, 테스트 `MinimapMathTests`).
 - 표시: 오른쪽 위 패널 — 맵 이름(MapInfo.displayName) + 지면 실루엣 + 점(플레이어 노랑·포털 하늘·NPC/퀘스트 게시판 초록·보스 빨강). 제작 핀 칩은 미니맵 아래로 밀린다(`MinimapHud.OccupiedHeight`). UI 가 열리면 숨김.
+- **포털 라벨(11-02):** 포털 위에 목적지 구역 이름(`PortalLabel`), 서 있으면 "↑ 이름"·봉인 포털은 "[봉인]". 도착 직후 무적 1초(`Portal.ArrivalInvincible`). 맵이 꺼질 때 `Portal.player` 초기화(↑ 오작동 방지).
 - 지면: 지금 맵의 태그 Ground 콜라이더(크기 0.5 이상)들로 영역을 정하고(흩어진 장식 타일이 영역을 늘리지 않게), 타일맵 지면은 칠한 칸, 그 밖의 발판은 경계 사각형을 1유닛=1픽셀(최대 512)로 굽는다. 맵이 바뀔 때만(Portal.MapChanged, 웨이포인트·부활 포함) 다시 굽는다.
 - 갱신: 플레이어 점 매 프레임, 보스 점 1초마다(EnemyHealth.Active 의 살아 있는 isBossMob 중 영역 안 — 스포너가 몹을 씬 최상위에 만들어서), 포털·NPC 는 맵 변경 시(꺼진 포털·NPC 제외).
 - 비용: 타일 순회는 타일맵 경계와 영역이 겹치는 칸만(40만 칸 넘으면 건너뜀). 텍스처가 512 로 잘려도 화면 비율은 월드 크기대로.
