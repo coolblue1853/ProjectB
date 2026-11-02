@@ -1,18 +1,18 @@
 ﻿id,zone,title,targets,count,minLevel,exp,gold,item,itemCount
-D01,샛길,토끼 솎아내기,Rabbit_BD|StoneRabbit_BD,10,1,120,60,,0
-D02,샛길,두더지 굴 정리,FlowerMole_BD|LeftMole_BD,8,1,130,70,Potion,1
-D03,샛길,밤 허수아비,Scarecrow_BD,5,3,160,90,Potion,1
-D04,샛길,이끼껍질 솎기,MossShellBeetle_BD,4,3,150,80,,0
-D05,일반 숲,늑대 무리 경계,ForestWolf_BD,8,4,220,120,Potion,2
-D06,일반 숲,멧돼지 몰이,WildBoar_BD,6,4,210,110,,0
-D07,일반 숲,숲 도깨비불,Wisp_BD,6,5,230,120,Potion,1
-D08,깊은 숲,곰 발자국,ForestBear_BD,6,6,300,170,Potion,2
-D09,깊은 숲,가지뿔 여우,BranchAntlerFox_BD,6,6,300,170,,0
-D10,깊은 숲,엔트 가지치기,Ent_BD,5,7,330,180,Enhance Stone,1
-D11,늪,늪 슬라임 청소,BogSlime_BD|GiantSlime_BD,8,8,380,220,Potion,2
-D12,늪,포자 두꺼비,SporeBackToad_BD,6,8,390,230,,0
-D13,늪,늪 게 사냥,MarshCrab_BD|SwampFrog_BD,8,9,400,230,Potion,2
-D14,성채,산적 보급로,BanditCutthroat_BD|BanditArcher_BD,8,10,480,300,Potion,2
-D15,성채,방패 깨기,BanditShieldman_BD,6,10,500,320,Enhance Stone,1
-D16,탑 근교,골렘 해체,GolemSmall_BD|GolemMedium_BD,6,12,600,400,Enhance Stone,1
-D17,탑 근교,폐허 정령,RuinSpirit_BD,6,12,620,400,,0
+D01,샛길,토끼 솎아내기,Rabbit_BD|StoneRabbit_BD,10,1,65,60,,0
+D02,샛길,두더지 굴 정리,FlowerMole_BD|LeftMole_BD,8,1,70,70,Potion,1
+D03,샛길,밤 허수아비,Scarecrow_BD,5,3,85,90,Potion,1
+D04,샛길,이끼껍질 솎기,MossShellBeetle_BD,4,3,80,80,,0
+D05,일반 숲,늑대 무리 경계,ForestWolf_BD,8,4,70,120,Potion,2
+D06,일반 숲,멧돼지 몰이,WildBoar_BD,6,4,65,110,,0
+D07,일반 숲,숲 도깨비불,Wisp_BD,6,5,75,120,Potion,1
+D08,깊은 숲,곰 발자국,ForestBear_BD,6,6,90,170,Potion,2
+D09,깊은 숲,가지뿔 여우,BranchAntlerFox_BD,6,6,90,170,,0
+D10,깊은 숲,엔트 가지치기,Ent_BD,5,7,100,180,Enhance Stone,1
+D11,늪,늪 슬라임 청소,BogSlime_BD|GiantSlime_BD,8,8,165,220,Potion,2
+D12,늪,포자 두꺼비,SporeBackToad_BD,6,8,170,230,,0
+D13,늪,늪 게 사냥,MarshCrab_BD|SwampFrog_BD,8,9,170,230,Potion,2
+D14,성채,산적 보급로,BanditCutthroat_BD|BanditArcher_BD,8,10,180,300,Potion,2
+D15,성채,방패 깨기,BanditShieldman_BD,6,10,190,320,Enhance Stone,1
+D16,탑 근교,골렘 해체,GolemSmall_BD|GolemMedium_BD,6,12,240,400,Enhance Stone,1
+D17,탑 근교,폐허 정령,RuinSpirit_BD,6,12,250,400,,0

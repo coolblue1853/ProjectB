@@ -3,51 +3,51 @@ AbyssWizard_BD,Abyss Wizard,2,Cliff Altar (night),8000,20,1,1,0,,,,17,4000,49
 CliffGoblin_BD,Cliff Goblin,2,Magic Cliffs,150,4,0,0,-1.2,,,,16,240,26
 CliffSkeleton_BD,Cliff Skeleton,2,Magic Cliffs (night),260,12,0,0,-1.2,,,,17,283,30
 DeathBringer_BD,Death Bringer,2,Magic Cliffs (night),2500,15,0,1,0,,,,17,283,33
-FlowerMole_BD,Flower Mole,1,Forest Side Road,90,2,0,0,-1.2,,,,1,12,13
+FlowerMole_BD,Flower Mole,1,Forest Side Road,20,2,0,0,-1.2,,,,1,6,13
 GazeEye_BD,Gaze Eye,2,Magic Cliffs (night),120,3,0,0,-1.2,,,,17,283,23
-LeftMole_BD,Leaf Mole,1,Forest Side Road,186,3,0,0,-1.2,,,,2,15,19
+LeftMole_BD,Leaf Mole,1,Forest Side Road,24,3,0,0,-1.2,,,,2,8,19
 PassiveTerror_BD,Passive Terror,1,Forest Side Road (night),3800,12,1,1,0,,,,3,320,37
-Rabbit_BD,Forest Rabbit,1,Forest Road,90,2,0,0,-0.8,,,,1,12,13
-RatChief_BD,Rat Chief,1,Forest Side Road,154,2,0,0,-1.2,,,,3,19,19
-RatThief_BD,Rat Thief,1,Forest Side Road,128,2,0,0,-1.2,,,,2,15,16
-Scarecrow_BD,Scarecrow,1,Forest Side Road,128,2,0,0,-1.5,,,,3,19,17
+Rabbit_BD,Forest Rabbit,1,Forest Road,20,2,0,0,-0.8,,,,1,6,13
+RatChief_BD,Rat Chief,1,Forest Side Road,40,2,0,0,-1.2,,,,3,10,19
+RatThief_BD,Rat Thief,1,Forest Side Road,20,2,0,0,-1.2,,,,2,8,16
+Scarecrow_BD,Scarecrow,1,Forest Side Road,40,2,0,0,-1.5,,,,3,10,17
 SporeShroom_BD,Spore Shroom,2,Magic Cliffs,160,4,0,0,-1.2,,,,16,240,26
-StoneRabbit_BD,Stone Rabbit,1,Forest Road,186,6,0,0,-1.2,,,,3,19,21
-ForestWolf_BD,Forest Wolf,1,Normal Forest,160,5,0,0,-1.2,,,pack hunter (gen_forest_mobs),4,23,18
-WildBoar_BD,Wild Boar,1,Normal Forest,200,5,0,0,-1.2,,,charge (gen_forest_mobs),5,28,20
-Wisp_BD,Wisp,1,Normal Forest (night),80,2,0,0,-1.2,,,night (gen_forest_mobs),3,19,16
-ForestSnail_BD,Forest Snail,1,Normal Forest (night),232,8,0,0,-1.0,,,night tank (gen_forest_mobs),6,35,23
-ForestBear_BD,Forest Bear,1,Deep Forest,250,8,0,0,-1.2,,,heavy claw (gen_deep_forest_mobs),7,43,23
-Ent_BD,Ent,1,Deep Forest,290,10,0,0,-1.2,,,slow root tank (gen_deep_forest_mobs),8,52,25
-Ghost_BD,Ghost,1,Deep Forest (night),100,3,0,0,-1.2,,,night translucent (gen_deep_forest_mobs),6,35,18
-Fairy_BD,Fairy,1,Deep Forest (night),100,3,0,0,-1.0,,,night small glow (gen_deep_forest_mobs),7,43,19
+StoneRabbit_BD,Stone Rabbit,1,Forest Road,44,6,0,0,-1.2,,,,3,10,21
+ForestWolf_BD,Forest Wolf,1,Normal Forest,46,5,0,0,-1.2,,,pack hunter (gen_forest_mobs),4,7,18
+WildBoar_BD,Wild Boar,1,Normal Forest,62,5,0,0,-1.2,,,charge (gen_forest_mobs),5,9,20
+Wisp_BD,Wisp,1,Normal Forest (night),26,2,0,0,-1.2,,,night (gen_forest_mobs),3,6,16
+ForestSnail_BD,Forest Snail,1,Normal Forest (night),130,8,0,0,-1.0,,,night tank (gen_forest_mobs),6,11,23
+ForestBear_BD,Forest Bear,1,Deep Forest,115,8,0,0,-1.2,,,heavy claw (gen_deep_forest_mobs),7,13,23
+Ent_BD,Ent,1,Deep Forest,135,10,0,0,-1.2,,,slow root tank (gen_deep_forest_mobs),8,16,25
+Ghost_BD,Ghost,1,Deep Forest (night),84,3,0,0,-1.2,,,night translucent (gen_deep_forest_mobs),6,10,18
+Fairy_BD,Fairy,1,Deep Forest (night),90,3,0,0,-1.0,,,night small glow (gen_deep_forest_mobs),7,13,19
 AncientEnt_BD,Ancient Ent,1,Deep Forest (boss),6000,18,1,1,0,,,zone boss (gen_deep_forest_mobs),9,950,43
-SwampFrog_BD,Swamp Frog,1,Swamp,250,11,0,0,-1.0,,,tongue hop (gen_swamp_mobs),9,67,23
-MarshCrab_BD,Marsh Crab,1,Swamp,362,18,0,0,-1.0,,,pincer guard (gen_swamp_mobs),10,81,28
-BogCroc_BD,Bog Croc,1,Swamp,312,11,0,0,-1.0,,,heavy bite (gen_swamp_mobs),11,99,28
-SwampMosquito_BD,Swamp Mosquito,1,Swamp (night),175,9,0,0,-1.0,,,night flying drain (gen_swamp_mobs),9,67,22
-BogSlime_BD,Bog Slime,1,Swamp (night),362,14,0,0,-1.2,,,night slow (gen_swamp_mobs),12,121,29
+SwampFrog_BD,Swamp Frog,1,Swamp,160,11,0,0,-1.0,,,tongue hop (gen_swamp_mobs),9,29,23
+MarshCrab_BD,Marsh Crab,1,Swamp,160,18,0,0,-1.0,,,pincer guard (gen_swamp_mobs),10,35,28
+BogCroc_BD,Bog Croc,1,Swamp,94,11,0,0,-1.0,,,heavy bite (gen_swamp_mobs),11,43,28
+SwampMosquito_BD,Swamp Mosquito,1,Swamp (night),135,9,0,0,-1.0,,,night flying drain (gen_swamp_mobs),9,29,22
+BogSlime_BD,Bog Slime,1,Swamp (night),88,14,0,0,-1.2,,,night slow (gen_swamp_mobs),12,52,29
 GiantSlime_BD,Giant Slime,1,Swamp (boss),7500,21,1,1,0,,,zone boss (gen_swamp_mobs),12,1700,48
-BanditCutthroat_BD,Bandit Cutthroat,1,Bandit Fortress,312,14,0,0,-1.2,,,quick dagger (gen_bandit_mobs),12,121,26
-BanditArcher_BD,Bandit Archer,1,Bandit Fortress,219,11,0,0,-1.2,,,straight arrow (gen_bandit_mobs),11,99,24
-BanditShieldman_BD,Bandit Shieldman,1,Bandit Fortress,453,22,0,1,-1.2,,,shield super armor (gen_bandit_mobs),13,146,31
-BanditTorchbearer_BD,Bandit Torchbearer,1,Bandit Fortress (night),312,14,0,0,-1.2,,,night torch light (gen_bandit_mobs),13,146,28
+BanditCutthroat_BD,Bandit Cutthroat,1,Bandit Fortress,88,14,0,0,-1.2,,,quick dagger (gen_bandit_mobs),12,46,26
+BanditArcher_BD,Bandit Archer,1,Bandit Fortress,76,11,0,0,-1.2,,,straight arrow (gen_bandit_mobs),11,38,24
+BanditShieldman_BD,Bandit Shieldman,1,Bandit Fortress,110,22,0,1,-1.2,,,shield super armor (gen_bandit_mobs),13,55,31
+BanditTorchbearer_BD,Bandit Torchbearer,1,Bandit Fortress (night),110,14,0,0,-1.2,,,night torch light (gen_bandit_mobs),13,55,28
 BanditChief_BD,Bandit Chief,1,Bandit Fortress (boss),9400,24,1,1,0,,,zone boss calls minions at phase 2 (gen_bandit_mobs),14,2400,53
-GolemSmall_BD,Small Golem,1,Tower Outskirts,390,17,0,0,-1.2,,,rolling charge (gen_outskirts_mobs),13,146,28
-GolemMedium_BD,Medium Golem,1,Tower Outskirts,566,22,0,0,-1.2,,,ground slam quake (gen_outskirts_mobs),14,177,30
-GolemLarge_BD,Large Golem,1,Tower Outskirts,742,27,0,1,-1.2,,,super armor boulder throw (gen_outskirts_mobs),15,213,31
-RuinSpirit_BD,Ruin Spirit,1,Tower Outskirts (night),195,7,0,0,-1.2,,,night rune light bolt (gen_outskirts_mobs),13,146,25
+GolemSmall_BD,Small Golem,1,Tower Outskirts,100,17,0,0,-1.2,,,rolling charge (gen_outskirts_mobs),13,58,28
+GolemMedium_BD,Medium Golem,1,Tower Outskirts,92,22,0,0,-1.2,,,ground slam quake (gen_outskirts_mobs),14,71,30
+GolemLarge_BD,Large Golem,1,Tower Outskirts,105,27,0,1,-1.2,,,super armor boulder throw (gen_outskirts_mobs),15,85,31
+RuinSpirit_BD,Ruin Spirit,1,Tower Outskirts (night),76,7,0,0,-1.2,,,night rune light bolt (gen_outskirts_mobs),13,58,25
 Gatekeeper_BD,Gatekeeper of the Tower,1,Tower Outskirts (boss),15600,27,1,1,0,,,floor 1 final boss 3 phases calls golems at phase 2 (gen_outskirts_mobs),15,3800,56
 RampartKnight_BD,Rampart Knight,2,Broken Rampart,640,24,0,0,-1.2,,,shield bash slash (gen_rampart_mobs),18,334,30
 HalberdSentry_BD,Halberd Sentry,2,Broken Rampart,880,28,0,0,-1.2,,,slow halberd crescent sweep (gen_rampart_mobs),19,394,31
 Gargoyle_BD,Gargoyle,2,Broken Rampart,420,26,0,0,-1.2,,,winged statue stone feather shot (gen_rampart_mobs),18,334,24
 CloudWisp_BD,Cloud Wisp,2,Broken Rampart (night),300,10,0,0,-1.2,,,night spark light (gen_rampart_mobs),18,334,24
 GargoyleLord_BD,Gargoyle Lord,2,Broken Rampart (boss),18000,34,1,1,0,,,zone boss night calls gargoyles at phase 2 (gen_rampart_mobs),19,5500,52
-CreepingTerror_BD,Creeping Terror,1,Forest Side Road (night),50,1,0,1,-1.2,,,floor 1 night profile,3,19,21
-ForestSpore_BD,Spore Shroom,1,Normal Forest,160,4,0,0,-1.2,,,shared SporeShroom art with floor 1 stats,5,28,20
-DeepSpore_BD,Spore Shroom,1,Deep Forest,160,4,0,0,-1.2,,,shared SporeShroom art with floor 1 stats,7,43,23
-DeepGoblin_BD,Forest Goblin,1,Deep Forest,150,4,0,0,-1.2,,,shared CliffGoblin art with floor 1 stats,7,43,23
-SwampSpore_BD,Spore Shroom,1,Swamp,160,4,0,0,-1.2,,,shared SporeShroom art with floor 1 stats,9,67,23
-MossShellBeetle_BD,Moss Shell Beetle,1,Forest Side Road,210,7,0,0,-1.2,,,slow tank body slam (temp art tint),3,19,19,MossShellBeetle_BD,6F9A55,slow|heavy|sturdy
-BranchAntlerFox_BD,Branch Antler Fox,1,Deep Forest,180,5,0,0,-1.2,,,fast short dash (temp art tint),7,43,23,BranchAntlerFox_BD,B07A4A,dash
-SporeBackToad_BD,Spore Back Toad,1,Swamp,270,10,0,0,-1.0,,,short hop and spore cloud on hit (temp art tint),9,67,22,SporeBackToad_BD,7FA05A,spore|lowhop
+CreepingTerror_BD,Creeping Terror,1,Forest Side Road (night),50,1,0,1,-1.2,,,floor 1 night profile,3,10,21
+ForestSpore_BD,Spore Shroom,1,Normal Forest,52,4,0,0,-1.2,,,shared SporeShroom art with floor 1 stats,5,9,20
+DeepSpore_BD,Spore Shroom,1,Deep Forest,135,4,0,0,-1.2,,,shared SporeShroom art with floor 1 stats,7,13,23
+DeepGoblin_BD,Forest Goblin,1,Deep Forest,135,4,0,0,-1.2,,,shared CliffGoblin art with floor 1 stats,7,13,23
+SwampSpore_BD,Spore Shroom,1,Swamp,165,4,0,0,-1.2,,,shared SporeShroom art with floor 1 stats,9,29,23
+MossShellBeetle_BD,Moss Shell Beetle,1,Forest Side Road,52,7,0,0,-1.2,,,slow tank body slam (temp art tint),3,10,19,MossShellBeetle_BD,6F9A55,slow|heavy|sturdy
+BranchAntlerFox_BD,Branch Antler Fox,1,Deep Forest,130,5,0,0,-1.2,,,fast short dash (temp art tint),7,13,23,BranchAntlerFox_BD,B07A4A,dash
+SporeBackToad_BD,Spore Back Toad,1,Swamp,165,10,0,0,-1.0,,,short hop and spore cloud on hit (temp art tint),9,29,22,SporeBackToad_BD,7FA05A,spore|lowhop
