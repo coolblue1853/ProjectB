@@ -10,7 +10,11 @@ public static class NpcQuestZone
     private static readonly Dictionary<string, string> CollectSource = new Dictionary<string, string>
     {
         { "GreenHurb", "Forest Side Road" },
+        { "Forest Mushroom", "Forest Side Road" },
         { "Moss Loach", "Swamp" },
+        { "Amber Trout", "Swamp" },
+        { "Bog Copper Ore", "Bandit Fortress" },
+        { "Ancient Relic Shard", "Tower Outskirts" },
         { FathersRecords.SaveKey, "Tower Outskirts" },
     };
 
@@ -44,6 +48,10 @@ public static class NpcQuestZone
         {
             case NpcQuestObjective.Kill:
             case NpcQuestObjective.KillElite:
+                if (d.Target == NpcQuestObjectiveRules.AnyElite)
+                {
+                    return Loc.IsKorean ? "정예 둥지" : "Elite Nest";
+                }
                 MonsterTable.Row row = MonsterTable.Get(d.Target);
                 return row != null ? Loc.Region(row.zone) : "";
             case NpcQuestObjective.Visit:

@@ -13,7 +13,7 @@ public static class NpcQuestVoice
             case "Q104": return "밤의 샛길에서 허수아비 6마리를 잡아 줘.\n낮이면 꽃두더지와 토끼를 사냥하며 기다려.|물약부터 챙겨.\n낮에 서 있던 자리만 보고 다가가진 마.".Split('|');
             case "Q105": return "샛길 낮 사냥터의 이끼껍질 딱정벌레 5마리를 잡아 줘.\n느리고 단단해. 서두르지 말고 몸박부터 피해.".Split('|');
             case "Q201": return "샛길 오른쪽 포털 너머 일반 숲으로 가게.\n숲 늑대에게서 별무늬 수피 조각 3개를 찾아 주게.|이 의뢰를 받은 동안에만 조각을 얻을 수 있네.\n브로치의 문양과 닮았는지 살펴보세.".Split('|');
-            case "Q202": return "샛길 오른쪽 포털로 일반 숲에 들어가.\n왼쪽으로 가며 숲 늑대 8마리를 잡아 줘.".Split('|');
+            case "Q202": return "샛길 오른쪽 포털로 일반 숲에 들어가.\n왼쪽으로 가며 멧돼지 8마리를 잡아 줘.".Split('|');
             case "Q203": return "샛길 입구 오른쪽 화로를 써 봐요.\n허브 토끼구이 1개를 만들면 돼요.|토끼고기 2·약초 1·나무 1은 남겨 둬요.\n↑ 시작·X 요리와 뒤집기·ESC 취소예요.".Split('|');
             case "Q204": return "여기 일반 숲 입구에서 왼쪽으로 조금 가 봐.\n금빛 별 관측지를 밟고 내게 돌아와.|이름은 야간 관측지지만 낮에도 갈 수 있어.\n어둡기 전에 길을 알아 두는 거지.".Split('|');
             case "Q301": return "깊은 숲의 고대 엔트 1마리를 쓰러뜨려 주게.\n오래된 나이테에 탑의 흔적이 남아 있네.".Split('|');
@@ -34,7 +34,7 @@ public static class NpcQuestVoice
             case "Q602": return "탑 근교 유적에서 아버지의 기록 5편을 모아.\n발굴은 반복할 수 있어. 유물이 나오면 잠시 쉬어.".Split('|');
             case "Q603": return "탑 근교의 중형 골렘 6기를 부숴 줘.\n놈들이 길을 지키는 동안은 짐을 옮길 수 없어.".Split('|');
             case "Q604": return "탑의 문지기 1기를 쓰러뜨려 주게.\n그 너머가 다음 층계로 가는 길일세.".Split('|');
-            default: throw new ArgumentException("대사가 없는 퀘스트: " + quest.Id);
+            default: return new[] { quest.Description }; // 신규 퀘스트는 목표 설명만 쓴다(스토리 대사는 나중에 교체)
         }
     }
 
@@ -48,7 +48,7 @@ public static class NpcQuestVoice
             case "Q104": return "허수아비는 밤에만 나와. 6마리야.\n물약이 모자라면 먼저 돌아와.";
             case "Q105": return "이끼껍질 딱정벌레 5마리야.\n껍질이 단단하니 몇 번 더 쳐야 해.";
             case "Q201": return "일반 숲 늑대에게서 수피 조각 3개일세.\n작은 흔적도 버리지 말게.";
-            case "Q202": return "일반 숲의 늑대 8마리야.\n무리가 붙으면 한쪽부터 끊어.";
+            case "Q202": return "일반 숲의 멧돼지 8마리야.\n돌진하니 거리를 벌리며 잡아.";
             case "Q203": return "토끼고기 2·약초 1·나무 1이에요.\n샛길 화로에서 ↑ 시작·X 요리와 뒤집기·ESC 취소.";
             case "Q204": return "입구 왼쪽의 금빛 별을 밟으면 돼.\n낮에도 괜찮아. 돌아오는 길도 봐 두고.";
             case "Q301": return "깊은 숲의 고대 엔트일세.\n그 기억에서 문양을 찾을 수 있겠지.";
@@ -69,7 +69,7 @@ public static class NpcQuestVoice
             case "Q602": return "모을 기록은 다섯 편이야.\n같은 유적도 쉬었다 다시 파 봐.";
             case "Q603": return "중형 골렘 6기다.\n탑 근교에서 찾아. 작은 놈과 혼동 말고.";
             case "Q604": return "탑 근교의 문지기가 남았네.\n준비를 마치고 문 앞에 서게.";
-            default: throw new ArgumentException("대사가 없는 퀘스트: " + quest.Id);
+            default: return "아직 끝나지 않았어.\n" + quest.Description;
         }
     }
 
@@ -104,7 +104,7 @@ public static class NpcQuestVoice
             case "Q602": return "다섯 편을 다 찾았구나.\n아버지가 남긴 말은 네가 간직해.";
             case "Q603": return "여섯 기, 확인했다.\n층계 결정이다. 다음 문 앞에서 장비부터 살펴.";
             case "Q604": return "브로치에 새 길이 새겨졌군.\n다음 층계에서도 무사히 돌아오게.";
-            default: throw new ArgumentException("대사가 없는 퀘스트: " + quest.Id);
+            default: return "수고했어.\n보상을 받아 가.";
         }
     }
 

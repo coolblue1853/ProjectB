@@ -56,15 +56,15 @@ public class NpcQuestTests
         NpcQuestLog.SaveHook = () => { };
     }
 
-    [Test] public void CSV_27개_파싱_EXP_합계_30675()
+    [Test] public void CSV_56개_파싱_EXP_합계_74575()
     {
-        Assert.AreEqual(27, NpcQuestCatalog.All.Count);
+        Assert.AreEqual(56, NpcQuestCatalog.All.Count);
         int exp = 0;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
         {
             exp += d.Exp;
         }
-        Assert.AreEqual(30675, exp);
+        Assert.AreEqual(74575, exp);
     }
 
     [Test] public void 요리_입문_목표는_실제_화로에서_제작할_수_있다()
@@ -223,9 +223,9 @@ public class NpcQuestTests
         }
     }
 
-    [Test] public void 전용_드롭_4종은_시트와_드롭표에_있다()
+    [Test] public void 전용_드롭_5종은_시트와_드롭표에_있다()
     {
-        string[] drops = { "StarBarkFragment", "EntHeartwood", "SwampStarShard", "StolenForgeCrate" };
+        string[] drops = { "StarBarkFragment", "EntHeartwood", "SwampStarShard", "StolenForgeCrate", "Monolith Shard" };
         var items = new HashSet<string>();
         foreach (ItemRow r in ItemTable.Load().Rows)
         {
@@ -248,7 +248,7 @@ public class NpcQuestTests
                 }
             }
         }
-        Assert.AreEqual(4, questOnly);
+        Assert.AreEqual(6, questOnly);
     }
 
     [Test] public void 선행_미완료는_Locked_레벨_부족은_LevelLow()
@@ -568,7 +568,7 @@ public class NpcQuestTests
                     if (script.Contains("NpcQuestComplete('" + quest.Id + "')")) { completes++; }
                 }
                 Assert.AreEqual(1, accepts, quest.Id);
-                Assert.AreEqual(quest.Id == "Q101" ? 1 : 0, completes, quest.Id);
+                Assert.AreEqual(quest.Objective == NpcQuestObjective.Talk ? 1 : 0, completes, quest.Id);
                 Assert.AreEqual("NpcQuestComplete('" + quest.Id + "')", report.dialogueEntries[1].userScript);
                 foreach (var conversation in new[] { offer, report, progress, blocked })
                 {

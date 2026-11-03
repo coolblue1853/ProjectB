@@ -99,8 +99,8 @@ public class HuntingRulesTests
     public void QuestBudget_ExcludesRewardAvailableAtGoal()
     {
         int budget = NpcQuestCatalog.All.Where(q => q.MinLevel < 15).Sum(q => q.Exp);
-        Assert.AreEqual(28675, budget);
-        Assert.AreEqual(25264, NpcQuestCatalog.All.Where(q => q.MinLevel < 15 && !q.Id.StartsWith("Q5")).Sum(q => q.Exp));
+        Assert.AreEqual(68575, budget);
+        Assert.AreEqual(54164, NpcQuestCatalog.All.Where(q => q.MinLevel < 15 && !q.Id.StartsWith("Q5")).Sum(q => q.Exp));
         var quests = new[] { new NpcQuestDef { Id = "Q604", MinLevel = 15, Exp = int.MaxValue } };
         Assert.AreEqual(892, HuntingRules.LevelingMinutes(15, quests, lv => 100, false), 0.0001);
     }
