@@ -65,15 +65,27 @@ public static class CombatRules
         return total > 0f && elapsed >= hitDelay + CancelHitMargin && elapsed < total;
     }
 
-    /// <summary>후딜 중 이동 캔슬: 판정 뒤 + 후딜 40%(마무리 타 60%) 경과부터 후딜이 끝나기 전까지.</summary>
-    public static bool CanMoveCancel(float elapsed, float total, float hitDelay, bool finisher)
+    /// <summary>후딜 중 이동 캔슬: 판정 뒤 + 후딜 fraction(기본 40%, 층계가 오르면 MovementUnlockRules.CancelStartRatio; 마무리 타는 +0.2) 경과부터 후딜이 끝나기 전까지.</summary>
+    public static bool CanMoveCancel(float elapsed, float total, float hitDelay, bool finisher, float fraction = MoveCancelFraction)
     {
         if (total <= 0f)
         {
             return false;
         }
-        float point = Mathf.Max(total * (finisher ? FinisherMoveCancelFraction : MoveCancelFraction), hitDelay + CancelHitMargin);
+        float frac = finisher ? fraction + (FinisherMoveCancelFraction - MoveCancelFraction) : fraction;
+        float point = Mathf.Max(total * frac, hitDelay + CancelHitMargin);
         return elapsed >= point && elapsed < total;
+    }
+
+    // ── 조작감 CF-9·10: 지상 가감속, 대시 입력 버퍼 (CombatFeelPlan §3) ──
+    public const float GroundAccelTime = 0.06f, GroundDecelTime = 0.05f, DashBufferTime = 0.1f;
+
+    /// <summary>지상 가로 속도 가감속. 목표 방향이 있으면 0.06초에 최고속, 없으면 0.05초에 정지(현재·목표 중 큰 속도 기준 선형).</summary>
+    public static float GroundVx(float currentVx, float targetVx, float dt)
+    {
+        float time = Mathf.Abs(targetVx) > 0.01f ? GroundAccelTime : GroundDecelTime;
+        float reference = Mathf.Max(Mathf.Abs(currentVx), Mathf.Abs(targetVx));
+        return Mathf.MoveTowards(currentVx, targetVx, reference / time * dt);
     }
 
     /// <summary>후딜 중 반대키로 몸 돌리기: 판정 뒤부터, 마무리 타는 돌지 않는다.</summary>

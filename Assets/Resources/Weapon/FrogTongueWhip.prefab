@@ -305,7 +305,7 @@ MonoBehaviour:
   _chainLinks: 14
   _chainColor: {r: 0.62, g: 0.35, b: 0.4, a: 1}
   isSkillCancel: 1
-  _comboGrace: 0.35
+  _comboGrace: 0.45
   _meleeActiveRatio: 0.6
 --- !u!1 &1291193055778619313
 GameObject:

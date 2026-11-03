@@ -459,9 +459,14 @@ public class PlayerController : MonoBehaviour
             }
 
 
-            // 대쉬
-            if (DatabaseManager.isOpenUI == false && !PlayerStatus.Has(StatusFlag.DashLock) && dashAction.triggered && CanMovementDash && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false
+            // 대쉬 (CF-10: 입력을 0.1초 버퍼링)
+            if (dashAction.triggered)
             {
+                dashBuffer.Press(Time.time);
+            }
+            if (DatabaseManager.isOpenUI == false && !PlayerStatus.Has(StatusFlag.DashLock) && dashBuffer.Peek(Time.time) && CanMovementDash && dashTimer <= 0f && PlayerHealthManager.Instance.nowStemina > dashStemina)//&& DatabaseManager.weaponStopMove == false
+            {
+                dashBuffer.Consume(Time.time);
                 Dash();
             }
 
@@ -739,7 +744,9 @@ public class PlayerController : MonoBehaviour
                     .AppendCallback(() => RunChecker());
             }
             // Applying velocity to the Rigidbody2D
-            rb.linearVelocity = new Vector2(moveVelocity.x, rb.linearVelocity.y);
+            // CF-9: 지상은 0.06초 가속·0.05초 감속, 공중은 즉시
+            float vx = OnMovementGround ? CombatRules.GroundVx(rb.linearVelocity.x, moveVelocity.x, Time.deltaTime) : moveVelocity.x;
+            rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
         }
 
     }
@@ -962,7 +969,8 @@ public class PlayerController : MonoBehaviour
     const float _jumpBufferTime = CombatRules.JumpBufferTime;
     const float _coyoteTime = CombatRules.CoyoteTime;
     [SerializeField] private bool _fallConsumesGroundJump = true;
-    InputBuffer _jumpBuffer;
+    InputBuffer _jumpBuffer, _dashBuffer;
+    InputBuffer dashBuffer => _dashBuffer ?? (_dashBuffer = new InputBuffer(CombatRules.DashBufferTime));
     CoyoteTimer _coyote;
     InputBuffer jumpBuffer => _jumpBuffer ?? (_jumpBuffer = new InputBuffer(_jumpBufferTime));
     CoyoteTimer coyote => _coyote ?? (_coyote = new CoyoteTimer(_coyoteTime));

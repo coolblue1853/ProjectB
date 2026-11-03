@@ -176,6 +176,37 @@ public class CombatRulesTests
     }
 
     [Test]
+    public void MoveCancel_FractionByFloor()
+    {
+        Assert.IsFalse(CombatRules.CanMoveCancel(0.14f, 0.5f, 0.05f, false, MovementUnlockRules.CancelStartRatio(3))); // 30% = 0.15
+        Assert.IsTrue(CombatRules.CanMoveCancel(0.15f, 0.5f, 0.05f, false, MovementUnlockRules.CancelStartRatio(3)));
+        Assert.IsTrue(CombatRules.CanMoveCancel(0.1f, 0.5f, 0.05f, false, MovementUnlockRules.CancelStartRatio(5))); // 20% = 0.1
+        Assert.IsFalse(CombatRules.CanMoveCancel(0.19f, 0.5f, 0.05f, true, MovementUnlockRules.CancelStartRatio(5))); // 마무리 0.2+0.2 = 0.4 → 0.2
+        Assert.IsTrue(CombatRules.CanMoveCancel(0.21f, 0.5f, 0.05f, true, MovementUnlockRules.CancelStartRatio(5)));
+    }
+
+    [Test]
+    public void CancelStartRatio_Steps()
+    {
+        Assert.AreEqual(0.4f, MovementUnlockRules.CancelStartRatio(1), 0.0001f);
+        Assert.AreEqual(0.4f, MovementUnlockRules.CancelStartRatio(2), 0.0001f);
+        Assert.AreEqual(0.3f, MovementUnlockRules.CancelStartRatio(3), 0.0001f);
+        Assert.AreEqual(0.3f, MovementUnlockRules.CancelStartRatio(4), 0.0001f);
+        Assert.AreEqual(0.2f, MovementUnlockRules.CancelStartRatio(5), 0.0001f);
+        Assert.AreEqual(0.2f, MovementUnlockRules.CancelStartRatio(7), 0.0001f);
+    }
+
+    [Test]
+    public void GroundVx_AccelDecel()
+    {
+        Assert.AreEqual(5f, CombatRules.GroundVx(0f, 5f, 0.06f), 0.001f); // 0.06초에 최고속
+        Assert.AreEqual(2.5f, CombatRules.GroundVx(0f, 5f, 0.03f), 0.001f);
+        Assert.AreEqual(0f, CombatRules.GroundVx(5f, 0f, 0.05f), 0.001f); // 0.05초에 정지
+        Assert.AreEqual(2.5f, CombatRules.GroundVx(5f, 0f, 0.025f), 0.001f);
+        Assert.AreEqual(5f, CombatRules.GroundVx(5f, 5f, 0.016f), 0.001f);
+    }
+
+    [Test]
     public void Turn_AfterHit_NotFinisher()
     {
         Assert.IsFalse(CombatRules.CanTurnInRecovery(0.1f, 0.5f, 0.2f, false));

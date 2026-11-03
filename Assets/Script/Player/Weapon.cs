@@ -239,7 +239,7 @@ public class Weapon : MonoBehaviour
     public bool CanMeleeNow => isAttackWait == true && (isSkillAttackWait || isSkillCancel);
 
     [Tooltip("후딜이 끝난 뒤 다음 콤보 입력을 기다리는 시간(초). 이 안에 누르면 다음 단계로 이어진다 (W-02/W-03)")]
-    [SerializeField] private float _comboGrace = 0.35f;
+    [SerializeField] private float _comboGrace = 0.45f;
     [Tooltip("평타 판정이 열려 있는 시간 = 공격 주기 × 이 비율 (단타 판정만). 0이면 프리팹 holdingTime 그대로 (W-07)")]
     [SerializeField] private float _meleeActiveRatio = 0.6f;
 
@@ -443,7 +443,7 @@ public class Weapon : MonoBehaviour
     public bool CanJumpCancelNow => OwnsMoveLockInRecovery && CombatRules.CanJumpCancel(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay);
 
     /// <summary>이동 캔슬 가능(CF-3): 판정 뒤 + 후딜 40%(3타 60%)</summary>
-    public bool CanMoveCancelNow => OwnsMoveLockInRecovery && CombatRules.CanMoveCancel(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay, IsFinisherStep);
+    public bool CanMoveCancelNow => OwnsMoveLockInRecovery && CombatRules.CanMoveCancel(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay, IsFinisherStep, MovementUnlockRules.CancelStartRatio(MovementUnlocks.Instance != null ? MovementUnlocks.Instance.HighestFloor : 1));
 
     /// <summary>반대키로 몸 돌리기 가능(CF-5)</summary>
     public bool CanTurnNow => OwnsMoveLockInRecovery && CombatRules.CanTurnInRecovery(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay, IsFinisherStep);

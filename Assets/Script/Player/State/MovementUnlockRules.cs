@@ -9,6 +9,12 @@ public static class MovementUnlockRules
     public static bool Glide(int floor) { return floor >= 2; }
     public static bool AirDash(int floor) { return floor >= 3; }
 
+    /// <summary>후딜 이동 캔슬 시작 비율: 1~2층계 0.4, 3~4층계 0.3, 5층계 이상 0.2.</summary>
+    public static float CancelStartRatio(int floor)
+    {
+        return floor >= 5 ? 0.2f : floor >= 3 ? 0.3f : 0.4f;
+    }
+
     public static int JumpLimit(int configured, int floor, bool debugAll)
     {
         return DoubleJump(floor) || debugAll ? Mathf.Clamp(configured, 1, 2) : 1;
