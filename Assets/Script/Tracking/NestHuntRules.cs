@@ -2,6 +2,12 @@
 
 public enum NestPhase { Idle, Hunting, NestRevealed, Success, TimedOut, Cancelled }
 
+/// <summary>소형 던전화(Floor1Completion R5): 둥지를 찾은 뒤의 단계. 웨이브 → 정예 (상자는 정예 처치 때)</summary>
+public enum NestStage { None, Wave, Elite }
+
+/// <summary>웨이브 진행의 다음 행동</summary>
+public enum NestWaveStep { Spawn, Wait, NextWave, Elite }
+
 /// <summary>
 /// ② 정예 둥지 추적 순수 규칙·수치(FloorCoreContent.md 1절, MiniGames.md 흔적 추적의 상위판).
 /// 흔적 지점 3곳을 순서대로 조사하면 둥지 표식이 나타나고, 둥지를 조사하면 정예가 확정 출현한다.
@@ -18,6 +24,36 @@ public static class NestHuntRules
     public const float EliteLifetime = 120f;     // 출현한 정예가 안 잡히면 사라지는 시간
     public const float HintStep = 5f;            // 거리 힌트 반올림 단위(m)
     public const float HereRange = 4f;           // 이 안이면 "바로 앞"
+
+    // R5 소형 던전: 흔적 3 → 웨이브 2 → 정예 → 상자 (한 판 3~4분)
+    public const int Waves = 2;
+    public const int PerWave = 3;
+    public const float WaveGap = 2f;             // 웨이브 몹을 다 잡은 뒤 다음 단계까지 숨 돌리는 시간
+    public const float WaveTimeLimit = 60f;      // 웨이브 하나당 제한
+    public const float WaveNear = 5f;            // 둥지에서 몹이 나타나는 좌우 거리(최소/최대)
+    public const float WaveFar = 9f;
+
+    /// <summary>웨이브 진행(순수). wave 는 1부터, spawned 는 이번 웨이브에 소환한 수, alive 는 살아 있는 웨이브 몹, since 는 웨이브 시작 후 초</summary>
+    public static NestWaveStep Step(int wave, int spawned, int alive, float since)
+    {
+        if (spawned < PerWave)
+        {
+            return NestWaveStep.Spawn;
+        }
+        if (alive > 0 || since < WaveGap)
+        {
+            return NestWaveStep.Wait;
+        }
+        return wave >= Waves ? NestWaveStep.Elite : NestWaveStep.NextWave;
+    }
+
+    /// <summary>정예 처치 확정 상자 보상(순수): 레벨에 비례한 골드·EXP (+ 강화석 1은 호출부)</summary>
+    public static void ChestReward(int level, out int gold, out int exp)
+    {
+        int lv = Math.Max(1, level);
+        gold = 100 + 40 * lv;
+        exp = 40 + 20 * lv;
+    }
 
     /// <summary>from → to 의 방향(−1 왼쪽, +1 오른쪽)과 5m 단위 거리. 거리가 HereRange 안이면 0 방향(바로 앞)</summary>
     public static void Hint(float fromX, float toX, out int dir, out int meters)

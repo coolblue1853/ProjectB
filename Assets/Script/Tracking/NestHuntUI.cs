@@ -55,6 +55,20 @@ public class NestHuntUI : MonoBehaviour
             return;
         }
         NestHuntState s = site.State;
+        if (site.Stage == NestStage.Wave)
+        {
+            _timeTrack.gameObject.SetActive(false);
+            Set(ref _lastMessage, _message, string.Format("둥지 습격 {0}/{1}차례", site.Wave, NestHuntRules.Waves));
+            Set(ref _lastSub, _sub, "남은 몬스터 " + site.WaveAlive + "마리 - 모두 쓰러뜨려라");
+            return;
+        }
+        if (site.Stage == NestStage.Elite && !site.ShowResult)
+        {
+            _timeTrack.gameObject.SetActive(false);
+            Set(ref _lastMessage, _message, "둥지의 정예를 쓰러뜨려라");
+            Set(ref _lastSub, _sub, "처치하면 상자 보상");
+            return;
+        }
         if (s.Finished)
         {
             _timeTrack.gameObject.SetActive(false);

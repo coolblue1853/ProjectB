@@ -144,7 +144,7 @@ public class NpcQuestGiver : MonoBehaviour
         }
         else
         {
-            return false;
+            return _npcId == "smith" && WeaponTrial.TryTalk(transform); // R4 무기 시연대
         }
         return DialogueBoot.Talk(conv, transform);
     }

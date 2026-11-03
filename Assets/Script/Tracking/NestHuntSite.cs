@@ -18,6 +18,23 @@ public class NestHuntSite : MonoBehaviour
     private float _readyAt;
     private float _resultUntil;
 
+    // R5 소형 던전: 둥지를 찾으면 웨이브 → 정예 → 상자
+    private readonly List<EnemyHealth> _raiders = new List<EnemyHealth>();
+    private EnemyHealth _elite;
+    private System.Action<int, int, Vector3, bool, bool> _eliteHandler;
+    private int _wave;
+    private int _spawned;
+    private int _alive;
+    private int _epoch; // 중단할 때마다 올려, 이전 웨이브 몹의 늦은 콜백이 새 집계를 건드리지 않게 한다
+    private float _waveStart;
+    private float _nextSpawn;
+    private float _deadline;
+
+    /// <summary>웨이브·정예 단계(없으면 None). HUD 가 읽는다</summary>
+    public NestStage Stage { get; private set; }
+    public int Wave => _wave;
+    public int WaveAlive => _alive;
+
     /// <summary>HUD 가 읽는 가장 최근 사이트(진행 중이거나 결과 표시 중)</summary>
     public static NestHuntSite Latest { get; private set; }
 
@@ -27,7 +44,7 @@ public class NestHuntSite : MonoBehaviour
     /// <summary>둥지 정예 처치 확정 추가 드롭(구역 인장). NestHuntPlacer 가 정한다</summary>
     public string[] BonusLoot { get; set; } = new string[0];
     public bool ShowResult => State.Finished && Time.time < _resultUntil;
-    public bool Active => State.Running || ShowResult;
+    public bool Active => State.Running || ShowResult || Stage != NestStage.None;
     /// <summary>쿨타임 남은 초(0이면 가능)</summary>
     public float CooldownLeft => Mathf.Max(0f, _readyAt - Time.time);
 
@@ -55,6 +72,7 @@ public class NestHuntSite : MonoBehaviour
             State.Cancel();
             _readyAt = Time.time + NestHuntRules.FailCooldown;
         }
+        EndDungeon(true);
         State = new NestHuntState();
         SummonedName = null;
         if (Latest == this)
@@ -65,6 +83,10 @@ public class NestHuntSite : MonoBehaviour
 
     private void Update()
     {
+        if (Stage == NestStage.Wave)
+        {
+            TickWave();
+        }
         if (State.Running)
         {
             State.Tick(Time.deltaTime);
@@ -73,7 +95,7 @@ public class NestHuntSite : MonoBehaviour
                 Fail();
             }
         }
-        else if (State.Finished && Time.time >= _resultUntil)
+        else if (State.Finished && Stage != NestStage.Wave && Time.time >= _resultUntil)
         {
             State = new NestHuntState(); // 결과 표시가 끝나면 처음 상태로
             SummonedName = null;
@@ -107,8 +129,147 @@ public class NestHuntSite : MonoBehaviour
         GameLog.Info(GameLog.Cat.Spawn, "NestHunt: mark " + index + " found=" + State.Found + " t=" + State.Elapsed.ToString("F1"));
         if (State.Phase == NestPhase.Success)
         {
-            Summon();
+            BeginWaves();
         }
+    }
+
+    /// <summary>둥지에 닿으면 정예 전에 웨이브 몹이 먼저 몰려온다. 소환할 몹이 없으면 곧바로 정예(기존 동작)</summary>
+    private void BeginWaves()
+    {
+        _readyAt = Time.time + NestHuntRules.SuccessCooldown;
+        if (RefreshCandidates() == 0)
+        {
+            Summon();
+            return;
+        }
+        Stage = NestStage.Wave;
+        _wave = 0;
+        StartWave();
+        PickupLog.Notice("둥지에서 몬스터가 몰려온다! " + NestHuntRules.Waves + "차례를 막아내라");
+    }
+
+    private void StartWave()
+    {
+        _wave++;
+        _spawned = 0;
+        _waveStart = Time.time;
+        _nextSpawn = Time.time + 1f;
+        _deadline = Time.time + NestHuntRules.WaveTimeLimit;
+        if (_wave > 1)
+        {
+            PickupLog.Notice("둥지 습격 " + _wave + "/" + NestHuntRules.Waves + "차례");
+        }
+    }
+
+    private void TickWave()
+    {
+        if (Time.time >= _deadline)
+        {
+            PickupLog.Warn("시간이 지나 둥지를 놓쳤다");
+            _readyAt = Time.time + NestHuntRules.FailCooldown;
+            SummonedName = null;
+            _resultUntil = Time.time + ResultShow;
+            EndDungeon(true);
+            return;
+        }
+        switch (NestHuntRules.Step(_wave, _spawned, _alive, Time.time - _waveStart))
+        {
+            case NestWaveStep.Spawn:
+                if (Time.time >= _nextSpawn)
+                {
+                    _nextSpawn = Time.time + 0.7f;
+                    SpawnWaveMob();
+                }
+                break;
+            case NestWaveStep.NextWave:
+                StartWave();
+                break;
+            case NestWaveStep.Elite:
+                Stage = NestStage.None;
+                Summon();
+                break;
+        }
+    }
+
+    private void SpawnWaveMob()
+    {
+        if (RefreshCandidates() == 0)
+        {
+            _spawned++;
+            return;
+        }
+        EnemySpawner spawner = _candidates[TrackingRules.Pick(_candidates.Count, Random.value)];
+        float side = _spawned % 2 == 0 ? 1f : -1f;
+        Vector3 pos = _marks[NestHuntRules.Trails].Position + new Vector3(side * Random.Range(NestHuntRules.WaveNear, NestHuntRules.WaveFar), 1f, 0f);
+        int epoch = _epoch;
+        EnemyHealth e = spawner.SpawnRaider(pos, (who, killed) => OnWaveMobDown(epoch, who));
+        _spawned++;
+        if (e != null)
+        {
+            _alive++;
+            _raiders.Add(e);
+        }
+    }
+
+    private void OnWaveMobDown(int epoch, EnemyHealth who)
+    {
+        if (epoch != _epoch)
+        {
+            return;
+        }
+        _raiders.Remove(who);
+        _alive = Mathf.Max(0, _alive - 1);
+    }
+
+    /// <summary>웨이브·정예 단계를 끝낸다. clear 면 남은 웨이브 몹을 서서히 사라지게 하고 정예 감시도 푼다</summary>
+    private void EndDungeon(bool clear)
+    {
+        _epoch++;
+        if (clear)
+        {
+            foreach (EnemyHealth e in new List<EnemyHealth>(_raiders))
+            {
+                if (e != null && !e.IsInPool)
+                {
+                    e.DisaperByTime();
+                }
+            }
+            ReleaseEliteWatch();
+        }
+        _raiders.Clear();
+        _alive = 0;
+        _spawned = 0;
+        Stage = NestStage.None;
+    }
+
+    private void ReleaseEliteWatch()
+    {
+        if (_elite != null && _eliteHandler != null)
+        {
+            _elite.OnReleasedToPool -= _eliteHandler;
+        }
+        _elite = null;
+        _eliteHandler = null;
+    }
+
+    /// <summary>정예가 쓰러지면 상자 보상(골드·EXP·강화석). 시간이 다 돼 사라진 경우는 보상 없음</summary>
+    private void OnEliteReleased(int num, int force, Vector3 at, bool deadBody, bool killed)
+    {
+        ReleaseEliteWatch();
+        Stage = NestStage.None;
+        if (!killed)
+        {
+            return;
+        }
+        NestHuntRules.ChestReward(LevelSystem.Level, out int gold, out int exp);
+        var r = new Floor1Data.Reward { Gold = gold, Exp = exp, Item = "Enhance Stone", Count = 1, Label = "NestChest" };
+        if (!r.CanReceive())
+        {
+            r = new Floor1Data.Reward { Gold = gold, Exp = exp, Label = r.Label };
+            PickupLog.Warn("가방 공간이 부족해 상자의 강화석은 받지 못했다");
+        }
+        r.Apply();
+        PickupLog.Notice("둥지 상자! " + r.Describe());
     }
 
     /// <summary>쿨타임 즉시 해제(프로브용)</summary>
@@ -151,6 +312,11 @@ public class NestHuntSite : MonoBehaviour
         if (e != null)
         {
             SummonedName = MonsterTable.DisplayName(spawner.EnemyPrefab.name);
+            ReleaseEliteWatch();
+            _elite = e;
+            _eliteHandler = OnEliteReleased;
+            e.OnReleasedToPool += _eliteHandler;
+            Stage = NestStage.Elite;
         }
         GameLog.Info(GameLog.Cat.Spawn, "NestHunt: 둥지 소환 " + spawner.EnemyPrefab.name + " summoned=" + (e != null) + " t=" + State.Elapsed.ToString("F1"));
     }

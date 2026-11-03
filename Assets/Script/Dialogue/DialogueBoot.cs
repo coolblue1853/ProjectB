@@ -43,6 +43,8 @@ public class DialogueBoot : MonoBehaviour
         Lua.RegisterFunction("OpenElderQuests", null, SymbolExtensions.GetMethodInfo(() => OpenElderQuests()));
         Lua.RegisterFunction("NpcQuestAccept", null, SymbolExtensions.GetMethodInfo(() => NpcQuestBridge.Accept("")));
         Lua.RegisterFunction("NpcQuestComplete", null, SymbolExtensions.GetMethodInfo(() => NpcQuestBridge.Complete("")));
+        Lua.RegisterFunction("WeaponTrialRent", null, SymbolExtensions.GetMethodInfo(() => WeaponTrial.Rent("")));
+        Lua.RegisterFunction("WeaponTrialPick", null, SymbolExtensions.GetMethodInfo(() => WeaponTrial.Pick("", "")));
         ctrl.conversationEnded += OnConversationEnded;
         GameLog.Info(GameLog.Cat.Player, "대화 시스템 준비: 대화 " + ctrl.initialDatabase.conversations.Count + "개");
     }

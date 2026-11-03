@@ -38,6 +38,7 @@ public static partial class StoryDialogues
         BuildMerchant(4);
         BuildGatekeeper(5);
         BuildNpcQuests();
+        BuildWeaponTrials();
         return db;
     }
 
