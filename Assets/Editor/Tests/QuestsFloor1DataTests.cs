@@ -26,7 +26,7 @@ public class QuestsFloor1DataTests
     }
 
     [Test]
-    public void NewQuests_Are29AndExpSumIs43900()
+    public void NewQuests_Are29AndExpSumIs89500()
     {
         var all = NpcQuestCatalog.All;
         Assert.AreEqual(29, NewIds.Length);
@@ -37,7 +37,7 @@ public class QuestsFloor1DataTests
             Assert.IsNotNull(d, id);
             sum += d.Exp;
         }
-        Assert.AreEqual(43900, sum);
+        Assert.AreEqual(89500, sum);
         Assert.AreEqual(27 + 29, all.Count, "기존 27 + 신규 29");
     }
 

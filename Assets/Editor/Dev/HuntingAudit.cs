@@ -48,6 +48,10 @@ public static class HuntingAudit
     private static double Sale(EnemySpawner spawner)
     {
         double gold = 0;
+        if (DatabaseManager.instance == null || spawner.GetComponent<DropManager>() == null)
+        {
+            return gold; // 에디터 모드 감사에서는 DB 싱글턴이 없어 판매액 제외
+        }
         foreach (var drop in spawner.GetComponent<DropManager>().AllDrops())
         {
             int index = DatabaseManager.instance.FindItemDataIndex(drop.name);
