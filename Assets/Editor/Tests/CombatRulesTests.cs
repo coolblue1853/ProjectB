@@ -243,4 +243,24 @@ public class CombatRulesTests
         Assert.AreEqual(0.15f, CombatRules.JumpBufferTime, 0.0001f);
         Assert.AreEqual(0.12f, CombatRules.CoyoteTime, 0.0001f);
     }
+
+    [Test]
+    public void Contact_NormalHalved_EliteBossKept()
+    {
+        Assert.AreEqual(5, ContactRules.ScaledDamage(10, false, false));
+        Assert.AreEqual(10, ContactRules.ScaledDamage(10, true, false));
+        Assert.AreEqual(10, ContactRules.ScaledDamage(10, false, true));
+        Assert.AreEqual(1, ContactRules.ScaledDamage(1, false, false));
+        Assert.AreEqual(0, ContactRules.ScaledDamage(0, false, false));
+        Assert.Less(ContactRules.KnockFor(false, false), ContactRules.KnockFor(true, false));
+    }
+
+    [Test]
+    public void Contact_AttackingGrace_ExceptSuperArmorBoss()
+    {
+        Assert.IsTrue(ContactRules.AttackingGrace(true, false, false));
+        Assert.IsFalse(ContactRules.AttackingGrace(false, false, false));
+        Assert.IsFalse(ContactRules.AttackingGrace(true, true, false));
+        Assert.IsFalse(ContactRules.AttackingGrace(true, false, true));
+    }
 }

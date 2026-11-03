@@ -1071,6 +1071,8 @@ public class PlayerController : MonoBehaviour
 
 
     bool isAttackAnim = false;
+    /// <summary>평타/공격 모션 진행 중(몸박 유예 판정용)</summary>
+    public bool IsAttackAnimating => isAttackAnim;
     Sequence attackAnimSequence;
     public GameObject RightSoket;
     GameObject revOb;

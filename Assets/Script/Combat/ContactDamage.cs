@@ -15,6 +15,29 @@ public static class ContactRules
     /// <summary>플레이어가 받는 몸박 원피해(방어 적용 전). 정예 x1.5 는 EnemyHealth.ContactDamage 에서 이미 반영</summary>
     public static int RawDamage(int contactDamage) => Mathf.Max(0, contactDamage);
 
+    /// <summary>전역 스위치. false 면 몸박 완전 비활성화(CombatFeelPlan §7 C안)</summary>
+    public static bool contactEnabled = true;
+    /// <summary>일반 몹 몸박 피해 배율(정예·보스는 1)</summary>
+    public const float NormalMul = 0.5f;
+    /// <summary>일반 몹 몸박 넉백 힘 배율</summary>
+    public const float NormalKnockMul = 0.75f;
+
+    /// <summary>몸박 피해 배율: 일반 몹만 약화</summary>
+    public static float Mul(bool isElite, bool isBoss) => (isElite || isBoss) ? 1f : NormalMul;
+
+    /// <summary>몸박 원피해(배율 적용, 0 초과면 최소 1)</summary>
+    public static int ScaledDamage(int contactDamage, bool isElite, bool isBoss)
+    {
+        int raw = RawDamage(contactDamage);
+        return raw <= 0 ? 0 : Mathf.Max(1, Mathf.RoundToInt(raw * Mul(isElite, isBoss)));
+    }
+
+    /// <summary>몸박 넉백 힘: 일반 몹은 감소</summary>
+    public static float KnockFor(bool isElite, bool isBoss) => (isElite || isBoss) ? KnockForce : KnockForce * NormalKnockMul;
+
+    /// <summary>플레이어 평타 후딜 중 몸박 무시. 슈퍼아머 몹·보스는 제외(계속 맞는다)</summary>
+    public static bool AttackingGrace(bool playerAttacking, bool mobSuperArmor, bool isBoss) => playerAttacking && !mobSuperArmor && !isBoss;
+
     /// <summary>몹이 플레이어 오른쪽에 있으면 왼쪽(-1)으로 밀친다</summary>
     public static float KnockSign(float playerX, float mobX) => playerX >= mobX ? 1f : -1f;
 }
@@ -55,6 +78,10 @@ public sealed class ContactDamage : MonoBehaviour
         {
             _hp = PlayerHealthManager.Instance;
         }
+        if (!ContactRules.contactEnabled)
+        {
+            return;
+        }
         if (_hp == null || !_hp.CanBeHit)
         {
             return;
@@ -84,6 +111,10 @@ public sealed class ContactDamage : MonoBehaviour
             {
                 continue;
             }
+            if (ContactRules.AttackingGrace(pc.IsAttackAnimating, e.isSuperArmor, e.isBossMob))
+            {
+                continue;
+            }
             if (hit == null || e.ContactDamage > hit.ContactDamage)
             {
                 hit = e; // 동시에 여럿이면 가장 센 하나만 (무적이 곧 걸린다)
@@ -104,10 +135,10 @@ public sealed class ContactDamage : MonoBehaviour
 
     private void Apply(EnemyHealth mob, Transform player)
     {
-        int raw = ContactRules.RawDamage(mob.ContactDamage);
+        int raw = ContactRules.ScaledDamage(mob.ContactDamage, mob.IsElite, mob.isBossMob);
         float sign = ContactRules.KnockSign(player.position.x, mob.transform.position.x);
         GameLog.Info(GameLog.Cat.Combat, "몸박 " + mob.name + " 원피해 " + raw + (mob.IsElite ? " [정예]" : ""), mob);
-        _hp.damage2Player(raw, ContactRules.StiffTime, ContactRules.KnockForce, new Vector2(sign, 0.5f), mob.transform.position.x, false, ContactRules.InvincibleTime);
+        _hp.damage2Player(raw, ContactRules.StiffTime, ContactRules.KnockFor(mob.IsElite, mob.isBossMob), new Vector2(sign, 0.5f), mob.transform.position.x, false, ContactRules.InvincibleTime);
     }
 
     private void PruneCache()
