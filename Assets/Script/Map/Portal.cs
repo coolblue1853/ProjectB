@@ -97,33 +97,12 @@ public class Portal : MonoBehaviour
             return false;
         }
         DatabaseManager.isUsePortal = true;
-        if (isMapChange)
+        MapTransit.Run(traveler, () =>
         {
-            ScreenFader.Transition(() =>
-            {
-                traveler.transform.position = destination.position;
-                GrantArrivalInvincible();
-                AbleOpenMap();
-                AbleCloseMap();
-                if (proCamera != null)
-                {
-                    proCamera.CenterOnTargets();
-                }
-            }, OpenParrelx);
-        }
-        else
-        {
-            ScreenFader.Transition(() =>
-            {
-                traveler.transform.position = destination.position;
-                GrantArrivalInvincible();
-                ApplyLocalCameraBounds();
-                if (proCamera != null)
-                {
-                    proCamera.CenterOnTargets();
-                }
-            }, EndOnlyMove);
-        }
+            traveler.transform.position = destination.position;
+            GrantArrivalInvincible();
+            MoveMaps();
+        }, isMapChange ? (System.Action)OpenParrelx : EndOnlyMove, proCamera);
         return true;
     }
 
@@ -133,14 +112,24 @@ public class Portal : MonoBehaviour
     public static void RaiseMapChanged(GameObject openMap) => MapChanged?.Invoke(openMap);
 
     /// <summary>입력 없이 이 포털로 이동 (사망 후 마을 귀환 등). 맵 전환 포털이면 맵을 바꾸고 스포너를 정리한다. PortalSeal 봉인은 확인하지 않는다(강제 이동용).</summary>
-    public void TravelNow(GameObject traveler)
+    public void TravelNow(GameObject traveler, System.Action arrived = null)
     {
         if (destination == null || traveler == null)
         {
             return;
         }
-        traveler.transform.position = destination.position;
-        FeelFx.PortalEnter();
+        DatabaseManager.isUsePortal = true;
+        MapTransit.Run(traveler, () =>
+        {
+            traveler.transform.position = destination.position;
+            MoveMaps();
+            arrived?.Invoke();
+        }, EndOnlyMove, proCamera);
+    }
+
+    /// <summary>맵 전환 포털이면 목적지 맵을 켜고 출발 맵을 끈다. 같은 맵 안 이동이면 카메라 경계만 다시 맞춘다</summary>
+    private void MoveMaps()
+    {
         if (isMapChange)
         {
             AbleOpenMap();
@@ -150,11 +139,6 @@ public class Portal : MonoBehaviour
         {
             ApplyLocalCameraBounds();
         }
-        if (proCamera != null)
-        {
-            proCamera.CenterOnTargets();
-        }
-        DatabaseManager.isUsePortal = false;
     }
 
     private static void GrantArrivalInvincible()

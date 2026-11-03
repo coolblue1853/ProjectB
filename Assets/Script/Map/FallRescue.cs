@@ -153,20 +153,10 @@ public sealed class FallRescue : MonoBehaviour
         _rescuing = true;
         Vector3 target = _safePrev;
         GameLog.Info(GameLog.Cat.Player, "낙사 복구: " + pc.transform.position + " → " + target);
-        ScreenFader.Transition(() =>
+        MapTransit.Run(pc.gameObject, () =>
         {
             pc.transform.position = target;
-            var rb = pc.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector2.zero;
-            }
             PlayerStatus.AcquireFor(StatusFlag.Invincible, 1.0f, "FallRescue");
-            Com.LuisPedroFonseca.ProCamera2D.ProCamera2D cam = FindFirstObjectByType<Com.LuisPedroFonseca.ProCamera2D.ProCamera2D>();
-            if (cam != null)
-            {
-                cam.CenterOnTargets();
-            }
         }, () => _rescuing = false);
     }
 }

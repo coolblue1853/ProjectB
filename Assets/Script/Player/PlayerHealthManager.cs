@@ -243,14 +243,20 @@ public class PlayerHealthManager : MonoBehaviour
                 break;
             }
         }
-        if (toTown != null)
+        // 이동은 암전 가운데에서 일어나므로 부활 처리(HP 회복·상태 해제)도 도착과 함께 한다
+        bool toTownPortal = toTown != null;
+        if (toTownPortal)
         {
-            toTown.TravelNow(PlayerController.instance.gameObject);
+            toTown.TravelNow(PlayerController.instance.gameObject, () => FinishRespawn(toTownPortal));
         }
-        else
+        else if (!MapInfo.GoToTown(PlayerController.instance.gameObject, () => FinishRespawn(toTownPortal))) // 마을 직행 포털이 없는 맵(Lv2 등)
         {
-            MapInfo.GoToTown(PlayerController.instance.gameObject); // 마을 직행 포털이 없는 맵(Lv2 등)
+            FinishRespawn(toTownPortal);
         }
+    }
+
+    void FinishRespawn(bool toTown)
+    {
         nowHp = fullHP;
         nowStemina = fullStemina;
         HpUp(0);
@@ -269,7 +275,7 @@ public class PlayerHealthManager : MonoBehaviour
             healthBar.ResetHealthStat(this);
         }
         PlayerRespawned?.Invoke();
-        GameLog.Info(GameLog.Cat.Player, "부활 완료 (마을 이동=" + (toTown != null) + ")");
+        GameLog.Info(GameLog.Cat.Player, "부활 완료 (마을 이동=" + toTown + ")");
     }
 
     private void ResetMHp()

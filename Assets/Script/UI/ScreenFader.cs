@@ -35,6 +35,8 @@ public class ScreenFader : MonoBehaviour
     private bool _waiting;
     // 진행 중 Transition 의 이동(아직 안 불렸으면)·완료 콜백. 다른 암전이 끊어도 Kill 이 대신 불러 포털 플래그가 남지 않게 한다
     private System.Action _pendingMid, _pendingDone;
+    // 전환 내내(암전 시작~완전히 밝아질 때까지) 입력 잠금. 끊겨도 Kill 이 done 을 부르며 풀어 준다
+    private System.IDisposable _inputLock;
 
     /// <summary>지금 암전 중인가(Out~In 사이)</summary>
     public static bool Busy => instance != null && (instance._waiting || (instance._seq != null && instance._seq.IsActive()));
@@ -47,6 +49,7 @@ public class ScreenFader : MonoBehaviour
         f._black.gameObject.SetActive(true);
         f._pendingMid = midAction;
         f._pendingDone = done;
+        f._inputLock = PlayerStatus.Acquire(StatusFlag.InputLock, "ScreenFader");
         f._seq = f._black.DOFade(1f, OutTime)
             .OnComplete(() =>
             {
@@ -91,6 +94,8 @@ public class ScreenFader : MonoBehaviour
 
     void RunPendingDone()
     {
+        _inputLock?.Dispose();
+        _inputLock = null;
         System.Action done = _pendingDone;
         _pendingDone = null;
         done?.Invoke();
@@ -124,6 +129,12 @@ public class ScreenFader : MonoBehaviour
         {
             RunPendingDone();
         }
+    }
+
+    void OnDestroy()
+    {
+        _inputLock?.Dispose();
+        _inputLock = null;
     }
 
     void Build()

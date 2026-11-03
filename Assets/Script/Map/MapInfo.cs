@@ -184,13 +184,13 @@ public class MapInfo : MonoBehaviour
     }
 
     /// <summary>어느 맵에 있든 마을로 즉시 이동 (사망 부활 등): 활성 사냥터를 정리·비활성화하고 마을을 켠다.</summary>
-    public static bool GoToTown(GameObject traveler)
+    public static bool GoToTown(GameObject traveler, System.Action arrived = null)
     {
-        return GoToMap("Town", traveler);
+        return GoToMap("Town", traveler, arrived);
     }
 
     /// <summary>지정 맵으로 즉시 이동 (웨이포인트): 다른 맵을 정리·비활성화하고 대상 맵을 켠 뒤 그 맵의 첫 포털 위치에 선다.</summary>
-    public static bool GoToMap(string mapName, GameObject traveler)
+    public static bool GoToMap(string mapName, GameObject traveler, System.Action arrived = null)
     {
         var map = GameObject.Find("Map");
         if (map == null || traveler == null)
@@ -203,34 +203,33 @@ public class MapInfo : MonoBehaviour
         {
             return false;
         }
-        foreach (Transform m in map.transform)
+        // 포털과 같은 전환: 입력 잠금 → 암전 → 맵 교체·이동·카메라 스냅 → 밝아짐
+        MapTransit.Run(traveler, () =>
         {
-            if (m == target || !m.gameObject.activeSelf)
+            foreach (Transform m in map.transform)
             {
-                continue;
+                if (m == target || !m.gameObject.activeSelf)
+                {
+                    continue;
+                }
+                var pc = m.GetComponent<PoolCheck>();
+                if (pc != null)
+                {
+                    pc.DisableSpwaner();
+                }
+                m.gameObject.SetActive(false);
             }
-            var pc = m.GetComponent<PoolCheck>();
-            if (pc != null)
+            target.gameObject.SetActive(true);
+            var targetCheck = target.GetComponent<PoolCheck>();
+            if (targetCheck != null)
             {
-                pc.DisableSpwaner();
+                targetCheck.AbleSpwaner(); // 웨이포인트 이동도 포털처럼 스포너를 켠다
             }
-            m.gameObject.SetActive(false);
-        }
-        target.gameObject.SetActive(true);
-        var targetCheck = target.GetComponent<PoolCheck>();
-        if (targetCheck != null)
-        {
-            targetCheck.AbleSpwaner(); // 웨이포인트 이동도 포털처럼 스포너를 켠다
-        }
-        traveler.transform.position = entry.transform.position;
-        FeelFx.PortalEnter(); // 웨이포인트 이동도 포털과 같은 페이드
-        Portal.RaiseMapChanged(target.gameObject);
-        var cam = Object.FindFirstObjectByType<ProCamera2D>();
-        if (cam != null)
-        {
-            cam.CenterOnTargets();
-        }
-        GameLog.Info(GameLog.Cat.Map, "웨이포인트 이동: " + mapName);
+            traveler.transform.position = entry.transform.position;
+            Portal.RaiseMapChanged(target.gameObject);
+            arrived?.Invoke();
+            GameLog.Info(GameLog.Cat.Map, "웨이포인트 이동: " + mapName);
+        });
         return true;
     }
 
