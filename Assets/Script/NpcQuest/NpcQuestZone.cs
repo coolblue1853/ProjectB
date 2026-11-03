@@ -43,6 +43,7 @@ public static class NpcQuestZone
         switch (d.Objective)
         {
             case NpcQuestObjective.Kill:
+            case NpcQuestObjective.KillElite:
                 MonsterTable.Row row = MonsterTable.Get(d.Target);
                 return row != null ? Loc.Region(row.zone) : "";
             case NpcQuestObjective.Visit:

@@ -40,6 +40,9 @@ public static class NpcQuestLog
     public static Action<NpcQuestDef> RewardApplier = NpcQuestRewards.Apply;
     public static Func<NpcQuestDef, bool> RewardCapacity = NpcQuestRewards.CanReceive;
     public static Action SaveHook = DefaultSave;
+    public static Func<string, int> EquipCounter = NpcQuestObjectiveRules.DefaultEquipCount;
+    public static Func<string, int> EnhanceSeed = NpcQuestObjectiveRules.DefaultEnhanceSeed;
+    public static Func<int> BestiaryCounter = NpcQuestObjectiveRules.DefaultBestiaryKinds;
 
     /// <summary>상태가 바뀜 (NPC 표시·퀘스트 창·추적 표시 갱신)</summary>
     public static event Action Changed;
@@ -58,6 +61,9 @@ public static class NpcQuestLog
         RewardApplier = NpcQuestRewards.Apply;
         RewardCapacity = NpcQuestRewards.CanReceive;
         SaveHook = DefaultSave;
+        EquipCounter = NpcQuestObjectiveRules.DefaultEquipCount;
+        EnhanceSeed = NpcQuestObjectiveRules.DefaultEnhanceSeed;
+        BestiaryCounter = NpcQuestObjectiveRules.DefaultBestiaryKinds;
     }
 
     // ── 조회 ──
@@ -82,6 +88,14 @@ public static class NpcQuestLog
         {
             int have = d.IsRecordsTarget ? RecordCounter() : ItemCounter(d.Target);
             return Mathf.Clamp(have, 0, d.Count);
+        }
+        if (d.Objective == NpcQuestObjective.Equip)
+        {
+            return Mathf.Clamp(EquipCounter(d.Target), 0, d.Count);
+        }
+        if (d.Objective == NpcQuestObjective.Bestiary)
+        {
+            return Mathf.Clamp(BestiaryCounter(), 0, d.Count);
         }
         return s_recs.TryGetValue(d.Id, out Rec r) ? Mathf.Clamp(r.Progress, 0, d.Count) : 0;
     }
@@ -199,6 +213,10 @@ public static class NpcQuestLog
         {
             rec.Progress = d.Count;
         }
+        else if (d.Objective == NpcQuestObjective.Enhance)
+        {
+            rec.Progress = Mathf.Clamp(EnhanceSeed(d.Target), 0, d.Count); // 이미 끼고 있는 장비의 강화 단계부터
+        }
         s_recs[id] = rec;
         NpcQuestTrack.OnAccepted(id);
         Notify();
@@ -231,6 +249,46 @@ public static class NpcQuestLog
     public static void OnKill(string monsterId)
     {
         Bump(NpcQuestObjective.Kill, monsterId);
+    }
+
+    /// <summary>정예·보스 처치 (EnemyHealth 의 "KillElite" 메시지). target "*" 은 아무 정예</summary>
+    public static void OnKillElite(string monsterId)
+    {
+        bool changed = false;
+        foreach (NpcQuestDef d in NpcQuestCatalog.All)
+        {
+            if (d.Objective != NpcQuestObjective.KillElite || !NpcQuestObjectiveRules.EliteMatches(d.Target, monsterId)
+                || !s_recs.TryGetValue(d.Id, out Rec r) || r.State != 1 || r.Progress >= d.Count)
+            {
+                continue;
+            }
+            r.Progress++;
+            changed = true;
+        }
+        if (changed)
+        {
+            Notify();
+        }
+    }
+
+    /// <summary>강화 성공 (EnhanceService). 진행 중인 강화 퀘스트의 진행을 최고 단계로 올린다 — 이후 해제·판매해도 유지</summary>
+    public static void OnEnhance(string equipArea, int newLevel)
+    {
+        bool changed = false;
+        foreach (NpcQuestDef d in NpcQuestCatalog.All)
+        {
+            if (d.Objective != NpcQuestObjective.Enhance || !NpcQuestObjectiveRules.EnhanceMatches(d.Target, equipArea)
+                || !s_recs.TryGetValue(d.Id, out Rec r) || r.State != 1 || r.Progress >= newLevel)
+            {
+                continue;
+            }
+            r.Progress = Mathf.Min(newLevel, d.Count);
+            changed = true;
+        }
+        if (changed)
+        {
+            Notify();
+        }
     }
 
     public static void OnCraft(string itemName)
@@ -284,6 +342,10 @@ public static class NpcQuestLog
     {
         foreach (NpcQuestDef d in ActiveQuests())
         {
+            if (d.Objective == NpcQuestObjective.Equip || d.Objective == NpcQuestObjective.Bestiary)
+            {
+                continue; // 착용·도감 상태로 계산되는 진행은 채울 수 없다
+            }
             if (d.Objective == NpcQuestObjective.Collect)
             {
                 if (!d.IsRecordsTarget && InventoryManager.instance != null)

@@ -256,6 +256,7 @@ public class EquipBoxCheck : MonoBehaviour
     public void DeletPrefab(ItemCheck detail, string reciveEquipArea, bool isFalse= true)
     {
         DatabaseManager.MinusSetDict(detail.itemData.tfName, 1);
+        NpcQuestLog.Refresh();
         // 활성화 전(장비창 닫힘)에 해제되면 아래 경로가 프리팹을 못 찾으므로 여기서 파괴한다. 세트 수는 위에서 이미 뺐다.
         // 파괴는 프레임 끝이라 참조를 먼저 끊어 LoadPrefab 이 '대기 중 로드분'으로 다시 세지 않게 한다 (B-128)
         if (equipPrefab != null && !IsActivated(equipPrefab))
@@ -319,6 +320,7 @@ public class EquipBoxCheck : MonoBehaviour
         if (!string.IsNullOrEmpty(tfName)) // 세트가 아닌 장비는 세트 카운트에 넣지 않는다 (B-112)
             DatabaseManager.PlusSetDict(tfName, 1);
         reciveEquipArea = equipArea;
+        NpcQuestLog.Refresh(); // 세트가 아닌 방어구 착용도 퀘스트 표시에 반영
 
         string folderPath = equipArea+"/";
         GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);        // 리소스 폴더 내의 equipName을 로드합니다.

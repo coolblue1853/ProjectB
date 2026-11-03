@@ -35,6 +35,7 @@ public class NpcQuestDriver : MonoBehaviour, IMessageHandler
     {
         MessageSystem.AddListener(this, "Kill", string.Empty);
         MessageSystem.AddListener(this, "Craft", string.Empty);
+        MessageSystem.AddListener(this, "KillElite", string.Empty);
     }
 
     private void OnDisable()
@@ -47,6 +48,10 @@ public class NpcQuestDriver : MonoBehaviour, IMessageHandler
         if (messageArgs.message == "Kill")
         {
             NpcQuestLog.OnKill(messageArgs.parameter);
+        }
+        else if (messageArgs.message == "KillElite")
+        {
+            NpcQuestLog.OnKillElite(messageArgs.parameter);
         }
         else if (messageArgs.message == "Craft")
         {

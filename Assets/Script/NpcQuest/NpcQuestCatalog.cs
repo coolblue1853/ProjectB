@@ -10,6 +10,10 @@ public enum NpcQuestObjective
     Collect,
     Craft,
     Visit,
+    KillElite,
+    Equip,
+    Enhance,
+    Bestiary,
 }
 
 /// <summary>NPC 퀘스트 한 건의 정의 (ClassicMapleDesign.md 10절)</summary>
@@ -36,6 +40,11 @@ public sealed class NpcQuestDef
 /// <summary>
 /// 1층계 NPC 퀘스트 표 (Resources/QuestsFloor1.csv). 기존 QuestCatalog(게시판·촌장 반복 의뢰)와 별개다.
 /// CSV: id,title,giver,minLevel,requires,objective,target,count,exp,gold,rewardItem,rewardCount,description (쉼표 없는 평문).
+/// 신규 목표(objective 는 대소문자 무시)의 target/count 문법:
+///   killElite : target = 몬스터 id 또는 "*"(아무 정예·보스), count = 처치 수. 처치 시점에 세어 저장한다.
+///   equip     : target = 세트 키(tfName) | "armor"(방어구 부위 수) | "sets:N"(N부위 이상 낀 세트 종류 수), count = 부위 수(sets:N 은 세트 종류 수). 지금 착용 상태로 계산한다.
+///   enhance   : target = "weapon" | "armor" | "any", count = 목표 강화 단계(+n). 수락 시 착용품 최고 단계로 시작하고 강화 성공 때 최고값을 저장한다.
+///   bestiary  : target = "any", count = 처치한 몬스터 종류 수. 도감 기록으로 계산한다.
 /// </summary>
 public static class NpcQuestCatalog
 {
@@ -65,14 +74,30 @@ public static class NpcQuestCatalog
         return id != null && s_byId.TryGetValue(id, out NpcQuestDef d) ? d : null;
     }
 
+    /// <summary>테스트용: 표를 주어진 CSV 텍스트로 바꾼다. null 이면 Resources 표로 되돌린다</summary>
+    public static void SetTableForTests(string csvText)
+    {
+        s_all = csvText == null ? null : Parse(csvText);
+        s_byId = null;
+        if (s_all != null)
+        {
+            BuildIndex();
+        }
+    }
+
     private static void EnsureLoaded()
     {
-        if (s_all != null)
+        if (s_all != null && s_byId != null)
         {
             return;
         }
         TextAsset csv = Resources.Load<TextAsset>(ResourceName);
         s_all = Parse(csv != null ? csv.text : "");
+        BuildIndex();
+    }
+
+    private static void BuildIndex()
+    {
         s_byId = new Dictionary<string, NpcQuestDef>();
         foreach (NpcQuestDef d in s_all)
         {
@@ -125,8 +150,12 @@ public static class NpcQuestCatalog
 
     private static bool TryObjective(string s, out NpcQuestObjective obj)
     {
-        switch (s)
+        switch (s.ToLowerInvariant())
         {
+            case "killelite": obj = NpcQuestObjective.KillElite; return true;
+            case "equip": obj = NpcQuestObjective.Equip; return true;
+            case "enhance": obj = NpcQuestObjective.Enhance; return true;
+            case "bestiary": obj = NpcQuestObjective.Bestiary; return true;
             case "talk": obj = NpcQuestObjective.Talk; return true;
             case "kill": obj = NpcQuestObjective.Kill; return true;
             case "collect": obj = NpcQuestObjective.Collect; return true;

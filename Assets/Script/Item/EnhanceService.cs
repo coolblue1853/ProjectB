@@ -112,6 +112,7 @@ public static class EnhanceService
         if (result == EnhanceRules.Result.Success)
         {
             FeelFx.EnhanceSuccess(newLevel);
+            NpcQuestLog.OnEnhance(item.itemData.equipArea, newLevel);
         }
         GameLog.Info(GameLog.Cat.Item, "강화 " + item.itemData.name + " +" + lv + " → +" + newLevel + " (" + result + ", 연속실패 " + FailStreak + ")");
         return true;

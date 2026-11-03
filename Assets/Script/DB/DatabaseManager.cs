@@ -55,6 +55,7 @@ public class DatabaseManager : MonoBehaviour
         setsEffectStack[name] = now + count;
         GameLog.Info(GameLog.Cat.Item, "세트 " + name + " 장착 수 " + now + "→" + (now + count));
         SetEffectActvie(name, setsEffectStack[name]);
+        NpcQuestLog.Refresh(); // 착용 목표 표시 갱신
     }
 
     /// <summary>세트 부위 장착 수 감소 → 줄기 전 단계의 효과 해제</summary>
@@ -75,6 +76,7 @@ public class DatabaseManager : MonoBehaviour
         {
             setsEffectStack[name] = now;
         }
+        NpcQuestLog.Refresh();
     }
 
     public static void SetEffectActvie(string name, int level)

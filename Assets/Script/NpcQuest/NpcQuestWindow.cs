@@ -176,9 +176,22 @@ public class NpcQuestWindow : MonoBehaviour
             case NpcQuestObjective.Collect: what = d.IsRecordsTarget ? "아버지의 기록 수집" : ItemText.DisplayName(d.Target) + " 수집"; break;
             case NpcQuestObjective.Craft: what = ItemText.DisplayName(d.Target) + " 제작"; break;
             case NpcQuestObjective.Visit: what = NpcQuestCatalog.VisitName(d.Target) + " 방문"; break;
+            case NpcQuestObjective.KillElite: what = (d.Target == NpcQuestObjectiveRules.AnyElite ? "정예" : MonsterTable.DisplayName(d.Target)) + " 처치"; break;
+            case NpcQuestObjective.Equip: what = EquipText(d.Target) + " 착용"; break;
+            case NpcQuestObjective.Enhance: what = (d.Target == NpcQuestObjectiveRules.WeaponTarget ? "무기" : d.Target == NpcQuestObjectiveRules.ArmorTarget ? "방어구" : "장비") + " 강화 +" + d.Count; break;
+            case NpcQuestObjective.Bestiary: what = "도감 몬스터 종류 처치"; break;
             default: what = NpcQuestCatalog.NpcName(d.Target) + "와(과) 대화"; break;
         }
         return what + " " + have + "/" + d.Count;
+    }
+
+    private static string EquipText(string target)
+    {
+        if (target == NpcQuestObjectiveRules.ArmorTarget)
+        {
+            return "방어구 부위";
+        }
+        return NpcQuestObjectiveRules.TryParseSets(target, out int min) ? "세트 " + min + "부위 이상 세트 종류" : target + " 세트 부위";
     }
 
     private void ToggleTracking()
