@@ -222,3 +222,5 @@
 - (P3) EnemyTelegraph: 바닥 띠 0.7초 vs 공격 시작 0.5초, `isBoss` Start 단발 캡처, `!` 마크 트윈 OnDisable Kill 누락. BossReward.RewardSummary 영문/한글 혼용. BossPhase.Thresholds 가변 배열 공개. BossPortrait 초상 없으면 페이즈 선도 생략.
 - (확인 11-02, 버그 아님, Floor1Balance §7-2) 받는 피해가 문서 계산보다 약 25% 큼 = 깊은 숲 상승 부하(×1.4). SaveSlot2 Lv4 HP 434 = 성장 124 + 늑대 장비 260 + 세트 50.
 - (11-03) 별폭발(StarBurst) 아티팩트 적중 확인: 허수아비 2.0/3.5m 소환 후 발동 → HP 100000→99848/99909 감소(반경 4). 수정 불필요. 프로브 `Tools/probes/_sb_test.cs`.
+- (11-03 PV1) (P3) 구역 인장 3종 아이콘 없음: `Resources/Item/ZoneSeal_Swamp|Fortress|Tower` 이미지 파일 없어 드롭·인벤 표시 때 Error "이미지 파일을 로드하지 못했습니다". 아이콘 제작 필요(그래픽 사용자 검토 후 적용). 확인: 둥지 정예 처치 드롭 시 콘솔.
+- (11-03 PV1) (P3) 방어구 제작창 정적 페이지 0~1 칸이 창 열기 전 itemData 가 비어 있음(지연 로드, 열면 정상 — 동작에는 문제 없음). PV1 로 확인한 CF-A~D·L1·L5·L7·미니보스·둥지는 모두 통과, 상세 `Docs/Playtest/Floor1PlayVerify.md`.
