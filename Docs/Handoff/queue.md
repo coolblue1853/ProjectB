@@ -8,7 +8,7 @@
 - [x] 1층계 구역 도착 위치 벽 끼임 전수 확인(8구역 중 샛길→일반 숲만 검증됨), 늪·성채 낙사 지점 — Floor1NavReview 갱신
 - [x] 상점 장비·강화 비용(50~2,500G/회) 대비 1시간 소득 비교표 작성 — Floor1Balance 에 추가(문서 위주, 코드 변경 없음)
 - [x] 물약 사용 실플레이 검증 + 보스 실제 처치 시간(권장 Lv·풀세트) 실측 — 세이브 백업·복원 (엔트만 실측 42.5초, 거대 슬라임·산적 대장·탑 문지기는 미검증 — 필요 시 재큐)
-- [ ] 아티팩트 별폭발이 실제 몹을 맞추는지 확인(몹 소환 프로브 사용)
+- [ ] 아티팩트 별폭발이 실제 몹을 맞추는지 확인(몹 소환 프로브 사용) (담당: autorun-3)
 - [ ] 1층계 완성 L5(데이터): Floor1Completion §4-3·§5-2 대로 ArmorCraftRecipes.csv 에 Wisp·Fae·Gloom·Outlaw·Raider·Stone 30행 추가(재료 출처가 MonsterSheet/드롭표에 없으면 MonsterExtraDrops.csv 에 30~35% 행 추가), 신규 무기 5종 setName 편입. EditMode 데이터 무결성 검증, 그래픽 없음
 - [ ] 1층계 완성 L1(코드): Floor1Completion §4-1 신규 퀘스트 목표 타입 killElite·equip(세트 n부위)·enhance(+n)·bestiary(종류 수)를 NpcQuest 에 추가 + EditMode 테스트, 기존 세이브 키 이름 변경 금지
 - [ ] 1층계 완성 L3·L4(데이터+코드): 미니보스 M1~M5 MonsterSheet 행·스포너·확정 드롭(§4-4 표), 정예 둥지 3곳(Swamp·BanditFortress·TowerOutskirts) 추가. 기존 프리팹 확대+금색 외곽선 임시 그림. 플레이 확인은 Unity 가 비는 때에
@@ -22,7 +22,7 @@
 - [x] 전투 조작감 CF-A (담당: autorun-3, 파일: Assets/Script/Player/Weapon.cs·PlayerController.cs·State/CombatRules): `Game/CombatFeelPlan.md` §3 CF-1·2·3·5 순서대로 — 지상 평타 후딜 중 앞키 전진(Attack Drift 1·2타 0.5/3타 0.25, 녹슨 검은 0.6 유지), 판정 후 점프 캔슬, 후딜 40% 이후 이동 캔슬, 방향 전환 보정. 순수 함수는 CombatRules 에 두고 EditMode 테스트. Unity 가 비는 때에 플레이 확인, 못 하면 "미검증" — 커밋 8afaab12(플레이 미검증)
 - [x] 전투 조작감 CF-B (담당: autorun-3, 파일: Assets/Script/Player/PlayerController.cs): CombatFeelPlan CF-4·6·7 — 점프 버퍼 0.15·코요테 0.12, 공중 평타 수평 관성 유지, 가변 점프(해제 시 vy×0.5, 최소 0.08초). CF-A 와 같은 파일이므로 CF-A 후에 — 커밋 afcbcf1e(플레이 미검증)
 - [x] 전투 조작감 CF-C (담당: autorun-3, 파일: Weapon.cs·프리팹 _comboGrace·PlayerController.cs): CombatFeelPlan CF-8·9·10 — _comboGrace 0.45, 이동 가감속(0.06/0.05), 대시 버퍼 0.1. CF-B 후에. 층계별 캔슬 비율(MovementUnlockRules CancelStartRatio 1층계 40%→3층계 30%→5층계 20%)도 같이 — 커밋 eed56ccc(플레이 미검증)
-- [ ] 전투 조작감 CF-D 몸박 약화 검토 (담당: autorun-3, 파일: Assets/Script/Combat/ContactDamage.cs·Enemy/EnemyHealth.cs): CombatFeelPlan §7 B안 — 일반 몹 몸박 ×0.5, 플레이어 평타 후딜 중 몸박 무시(슈퍼아머·보스 제외), 전역 스위치 contactEnabled. 순수 함수 + EditMode 테스트, 1층계 물약 소비 영향은 Floor1Balance 로 확인. CF-A 후에
+- [x] 전투 조작감 CF-D 몸박 약화 검토 (담당: autorun-3, 파일: Assets/Script/Combat/ContactDamage.cs·Enemy/EnemyHealth.cs): CombatFeelPlan §7 B안 — 일반 몹 몸박 ×0.5, 플레이어 평타 후딜 중 몸박 무시(슈퍼아머·보스 제외), 전역 스위치 contactEnabled. 순수 함수 + EditMode 테스트, 1층계 물약 소비 영향은 Floor1Balance 로 확인. CF-A 후에 — 커밋 421c8dd2(플레이 미검증)
 - [ ] 1층계 완성 개정 A (담당: 미정, 파일: QuestsFloor1.csv·NpcQuest·문지기 Boss 코드): Floor1Completion §14-1·14-2 대로 졸업 시험 소프트화 — Q604 선행에서 Q704 제외(Q601 유지), 달성도 a 계산(인장 .4·세트 .3·도감 .3)과 문지기 HP/피해 계수, 입장 알림 한 줄. 위 "L2·L10" 큐 줄은 이 줄로 대체(성채 필수화 취소). 검증: a=0/1 처치 시간 비율 1.3~1.6
 - [ ] 1층계 완성 개정 B (담당: 미정, 파일: MonsterSheet.csv·MonsterExtraDrops.csv·SetItem.csv·ShopStock.csv): §14-2 성채 선택 콘텐츠 상향 — Outlaw·Raider 재료 45%, M4 확정 Outlaw 1점+강화석 3, 대장 강화석 12·ChiefsWarBanner 확률 ×2, T06 강화석 +1, 두 세트 HP +8%·방어 +2, 성채 전용 보급 상점 상품
 - [ ] 1층계 신규 맵 2장 (담당: 미정, 파일: Assets/Scenes·HuntingSpawnsFloor1.csv·PortalFactory): §14-3 깊은 숲 심부 `Lv1_DeepForestCore`·안개 늪 `Lv1_MistSwamp` 레이아웃·몹·주둔·수집·포털 연결, 임시 리소스(기존 타일 색조·안개 스프라이트), 신규 퀘스트 Q310·Q311·Q410·Q411(EXP 7,200), 탑 근교 지하 석실 앵커 좌표. 씬 편집이라 Unity 가 비는 때에, 플레이 확인 필수
