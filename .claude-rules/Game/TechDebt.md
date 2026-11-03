@@ -221,3 +221,4 @@
 - (해결 11-02: NpcQuestLog.BestFor 본 흐름 우선 — 플레이 모드 확인: Q104 완료 뒤 Q105·Q202 동시 수락 가능일 때 Q202 가 잡힘) (P3) 루엔이 Q105·Q202 동시 수락 가능 상태일 때 Q105가 먼저 잡힘 — 안내 필요 여부 확인.
 - (P3) EnemyTelegraph: 바닥 띠 0.7초 vs 공격 시작 0.5초, `isBoss` Start 단발 캡처, `!` 마크 트윈 OnDisable Kill 누락. BossReward.RewardSummary 영문/한글 혼용. BossPhase.Thresholds 가변 배열 공개. BossPortrait 초상 없으면 페이즈 선도 생략.
 - (확인 11-02, 버그 아님, Floor1Balance §7-2) 받는 피해가 문서 계산보다 약 25% 큼 = 깊은 숲 상승 부하(×1.4). SaveSlot2 Lv4 HP 434 = 성장 124 + 늑대 장비 260 + 세트 50.
+- (11-03) 별폭발(StarBurst) 아티팩트 적중 확인: 허수아비 2.0/3.5m 소환 후 발동 → HP 100000→99848/99909 감소(반경 4). 수정 불필요. 프로브 `Tools/probes/_sb_test.cs`.
