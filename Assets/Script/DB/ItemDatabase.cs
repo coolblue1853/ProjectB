@@ -81,6 +81,9 @@ public class ItemDatabase : MonoBehaviour
                     case 17: // WeaponType
                         item.weaponType = values[j].Trim();
                         break;
+                    case 18: // category (Junk/Material, 빈 값 = 기존 동작)
+                        item.category = values[j].Trim();
+                        break;
                         // 필요한 다른 열에 대한 처리를 추가합니다.
                 }
             }
@@ -117,5 +120,6 @@ public class ItemData
     public bool isLocked;
     public bool isNew;
     public string setName;
+    public string category; // ItemSheet 맨 뒤 category (Junk=잡템 일괄 판매 대상, 빈 값=기존 동작)
     public string weaponType; // ItemSheet 맨 뒤 컬럼 WeaponType (WeaponKind 이름, 빈 칸 = 무기 아님)
 }

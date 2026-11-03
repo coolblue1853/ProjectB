@@ -41,6 +41,7 @@ public sealed class CsvItemCatalog : IItemCatalog
             DisplayName = row.itemNameT,
             MaxStack = row.maxStack <= 0 ? 1 : row.maxStack,
             Price = row.price,
+            Category = row.category,
         };
         cache[id] = def;
         return def;

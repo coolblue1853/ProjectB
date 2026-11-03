@@ -7,7 +7,9 @@ public sealed class InventoryConvenienceTests
     {
         private readonly Dictionary<string, ItemDef> _items = new Dictionary<string, ItemDef>
         {
-            { "Wood", new ItemDef { Id = "Wood", Type = "Misc", Price = 7, MaxStack = 99 } },
+            { "Wood", new ItemDef { Id = "Wood", Type = "Misc", Price = 7, MaxStack = 99, Category = "Junk" } },
+            { "Ore", new ItemDef { Id = "Ore", Type = "Misc", Price = 50, MaxStack = 99, Category = "Material" } },
+            { "Fang", new ItemDef { Id = "Fang", Type = "Misc", Price = 50, MaxStack = 99 } },
             { "Potion", new ItemDef { Id = "Potion", Type = "Consum", Price = 10, MaxStack = 99 } },
             { "Blade", new ItemDef { Id = "Blade", Type = "Equip", EquipArea = "Weapon", Rarity = "C" } },
             { "Helm", new ItemDef { Id = "Helm", Type = "Equip", EquipArea = "Head", Rarity = "U" } },
@@ -89,6 +91,8 @@ public sealed class InventoryConvenienceTests
         bag.PutAt(3, new ItemStack("Potion", 5));
         bag.PutAt(4, new ItemStack("Unknown", 1));
         bag.PutAt(5, new ItemStack("BroochResonance", 1));
+        bag.PutAt(6, new ItemStack("Ore", 9));
+        bag.PutAt(7, new ItemStack("Fang", 9));
         BulkSaleRules.Plan plan = BulkSaleRules.Build(bag, _catalog);
         Assert.AreEqual(3, plan.Count);
         Assert.AreEqual(21L, plan.Price);
@@ -120,7 +124,7 @@ public sealed class InventoryConvenienceTests
 
     private sealed class HugePriceCatalog : IItemCatalog
     {
-        public ItemDef Get(string id) { return new ItemDef { Type = "Misc", Price = int.MaxValue }; }
+        public ItemDef Get(string id) { return new ItemDef { Type = "Misc", Price = int.MaxValue, Category = "Junk" }; }
         public bool Exists(string id) { return true; }
     }
 

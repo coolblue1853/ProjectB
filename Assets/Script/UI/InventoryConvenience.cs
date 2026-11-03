@@ -80,7 +80,7 @@ public sealed class InventoryConvenience : MonoBehaviour
         if (current.Count == 0 || current.Price > int.MaxValue - (long)DatabaseManager.money)
         {
             _pending = null;
-            PickupLog.Warn(current.Count == 0 ? "판매할 잠금 해제 재료가 없습니다" : "골드 한도를 초과합니다");
+            PickupLog.Warn(current.Count == 0 ? "판매할 잠금 해제 잡템이 없습니다" : "골드 한도를 초과합니다");
             return false;
         }
         if (Time.unscaledTime > _until || !BulkSaleRules.Matches(_pending, current))
@@ -114,7 +114,7 @@ public sealed class InventoryConvenience : MonoBehaviour
             inv.EndSaveBatch();
         }
         Sfx.Play(SfxId.Money);
-        PickupLog.Report("재료 " + current.Count + "개 판매 +" + current.Price + "G", 1, "C");
+        PickupLog.Report("잡템 " + current.Count + "개 판매 +" + current.Price + "G", 1, "C");
         return true;
     }
 
@@ -167,8 +167,8 @@ public sealed class InventoryConvenience : MonoBehaviour
         _shownPlan = _pending;
         _shownShop = shop;
         string text = _pending != null
-            ? "<color=#FFD480>재료 " + _pending.Count + "개 / " + _pending.Price + "G  —  J 또는 LT+L3 다시 눌러 판매</color>\n제작·의뢰 재료 포함 · 잠글 재료는 L · 8초 후 취소"
-            : "L / LT+R3 잠금·해제 (L 표시) · 초록 점: 새 아이템" + (shop ? "   J / LT+L3 재료 일괄 판매" : "");
+            ? "<color=#FFD480>잡템 " + _pending.Count + "개 / " + _pending.Price + "G  —  J 또는 LT+L3 다시 눌러 판매</color>\n잡템만 판매 · 잠금·창고 제외 · 8초 후 취소"
+            : "L / LT+R3 잠금·해제 (L 표시) · 초록 점: 새 아이템" + (shop ? "   J / LT+L3 잡템 일괄 판매" : "");
         if (_hint.text != text) { _hint.text = text; }
     }
 }

@@ -46,7 +46,7 @@ public readonly struct ItemStack
 /// <summary>아이템 정의(CSV 행)의 읽기 전용 뷰. 인스턴스 값은 ItemStack 에만 둔다</summary>
 public sealed class ItemDef
 {
-    public string Id, Type, EquipArea, SetKey, Rarity, DisplayName;
+    public string Id, Type, EquipArea, SetKey, Rarity, DisplayName, Category;
     public int MaxStack = 1, Price;
 }
 

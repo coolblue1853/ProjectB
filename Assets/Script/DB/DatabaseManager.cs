@@ -198,6 +198,7 @@ public class DatabaseManager : MonoBehaviour
                 upgrade = ItemDataList[itemNum].upgrade,
                 setName = ItemDataList[itemNum].setName,
                 weaponType = ItemDataList[itemNum].weaponType,
+                category = ItemDataList[itemNum].category,
             };
             return newItem;
 

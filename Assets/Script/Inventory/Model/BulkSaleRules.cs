@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-/// <summary>장비·소비품을 제외한 판매 계획. 확인 뒤 구성이 달라지면 다시 확인한다.</summary>
+/// <summary>잡템(category=Junk)만 대상인 일괄 판매 계획. 확인 뒤 구성이 달라지면 다시 확인한다.</summary>
 public static class BulkSaleRules
 {
     public sealed class Plan
@@ -11,9 +11,16 @@ public static class BulkSaleRules
         public long Price;
     }
 
+    public const string JunkCategory = "Junk";
+
+    public static bool IsJunk(ItemDef definition)
+    {
+        return definition != null && definition.Category == JunkCategory;
+    }
+
     public static bool Eligible(ItemStack stack, ItemDef definition)
     {
-        return !stack.IsEmpty && !stack.IsLocked && definition != null && definition.Type == "Misc"
+        return !stack.IsEmpty && !stack.IsLocked && IsJunk(definition) && definition.Type == "Misc"
             && definition.Price > 0 && ItemTradeRules.CanSell(stack.Id);
     }
 
