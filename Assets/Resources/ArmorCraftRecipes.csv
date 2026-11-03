@@ -15,3 +15,33 @@ BogHandArmor,Crab Pincer*8
 BogLegArmor,Croc Tooth*8
 BogShoes,Frog Skin*5;Crab Pincer*5
 BogArmor,Croc Tooth*8;Crab Pincer*6;Frog Skin*4
+WispCap,Wisp Ember*8
+WispHandArmor,Snail Shell*8
+WispLegArmor,Wisp Ember*6;Snail Shell*4
+WispShoes,Wisp Ember*5;Snail Shell*5
+WispArmor,Wisp Ember*10;Snail Shell*8
+FaeCap,Fairy Dust*8
+FaeHandArmor,Ectoplasm*8
+FaeLegArmor,Fairy Dust*6;Ectoplasm*4
+FaeShoes,Fairy Dust*5;Ectoplasm*5
+FaeArmor,Fairy Dust*10;Ectoplasm*8
+GloomCap,Blood Sting*8
+GloomHandArmor,Slime Gel*8
+GloomLegArmor,Blood Sting*6;Slime Gel*4
+GloomShoes,Blood Sting*5;Slime Gel*5
+GloomArmor,Blood Sting*10;Slime Gel*8
+OutlawCap,Bandit Bandana*8
+OutlawHandArmor,Broken Arrow*8
+OutlawLegArmor,Bandit Bandana*6;Broken Arrow*4
+OutlawShoes,Bandit Bandana*5;Broken Arrow*5
+OutlawArmor,Bandit Bandana*10;Broken Arrow*8
+RaiderCap,Pitch Torch*8
+RaiderHandArmor,Iron Rivet*8
+RaiderLegArmor,Pitch Torch*6;Iron Rivet*4
+RaiderShoes,Pitch Torch*5;Iron Rivet*5
+RaiderArmor,Pitch Torch*10;Iron Rivet*8
+StoneCap,Golem Pebble*8
+StoneHandArmor,Quake Core*8
+StoneLegArmor,Golem Pebble*6;Quake Core*4
+StoneShoes,Golem Pebble*5;Quake Core*5
+StoneArmor,Golem Pebble*10;Quake Core*8

@@ -241,11 +241,11 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 238,Amber Herb Stew,Consum,eat!,260,5,cook,50,fullness +/hp +/ascent +,170/100/8_240,-,,Amber Herb Stew,0,R,0,,
 239,Spirit Carp Moon Roast,Consum,eat!,600,5,cook,50,fullness +/stemina +/gather +,200/40/8_300,-,,Spirit Carp Moon Roast,0,U,0,,
 240,Burnt Meal,Consum,eat!,1,5,cook,50,fullness +,20,-,,Burnt Meal,0,C,0,,
-241,HuntersLongbow,Equip,equipment,500,2,-,1,-,0,Weapon,,Hunter's Longbow,0,R,0,,Bow
-242,GnarledClub,Equip,equipment,450,3,-,1,-,0,Weapon,,Gnarled Club,0,C,0,,Mace
-243,WoodcuttersAxe,Equip,equipment,450,3,-,1,-,0,Weapon,,Woodcutter's Axe,0,C,0,,Axe
-244,TwinFang,Equip,equipment,500,2,-,1,-,0,Weapon,,Twin Fang,0,R,0,,Dual
-245,VineLash,Equip,equipment,450,2,-,1,-,0,Weapon,,Vine Lash,0,C,0,,Whip
+241,HuntersLongbow,Equip,equipment,500,2,-,1,-,0,Weapon,OutlawArmor,Hunter's Longbow,0,R,0,,Bow
+242,GnarledClub,Equip,equipment,450,3,-,1,-,0,Weapon,GroveArmor,Gnarled Club,0,C,0,,Mace
+243,WoodcuttersAxe,Equip,equipment,450,3,-,1,-,0,Weapon,OutlawArmor,Woodcutter's Axe,0,C,0,,Axe
+244,TwinFang,Equip,equipment,500,2,-,1,-,0,Weapon,WolfArmor,Twin Fang,0,R,0,,Dual
+245,VineLash,Equip,equipment,450,2,-,1,-,0,Weapon,FaeArmor,Vine Lash,0,C,0,,Whip
 246,Small HP Potion,Consum,Restores 120 HP.,17,1,shop,99,hp +,120,-,,Small HP Potion,0,C,0,,
 247,Medium HP Potion,Consum,Restores 220 HP.,30,1,shop,99,hp +,220,-,,Medium HP Potion,0,C,0,,
 248,Large HP Potion,Consum,Restores 320 HP.,47,1,shop,99,hp +,320,-,,Large HP Potion,0,C,0,,
