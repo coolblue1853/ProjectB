@@ -4,11 +4,13 @@
 
 ## 사용
 ```bash
+bash Tools/ptbot.sh restore-orig             # 최초 원본 세이브 복원
 bash Tools/ptbot.sh [key=value ...]          # 예: zones=Lv1_NearForest_SideRoad,Lv1_NormalForest zoneSec=120 timescale=3 quests=1
 bash Tools/u.sh cs Tools/probes/ptbot_status.cs   # 진행 확인
 bash Tools/u.sh cs Tools/probes/ptbot_stop.cs     # 중간 중지(다음 틱에 요약 작성)
 ```
 - 옵션: `zones`(콤마, 구역=맵 오브젝트 이름) `zoneSec`(구역당 게임초, 120) `totalRealSec`(실시간 상한, 280) `timescale`(0.5~4, 기본 2, 코드가 4로 제한) `quests`(1=구역 입장 시 수락/완료 가능 NPC 대화) `boss`(1=보스·미니보스·정예 우선 도전, 0이면 보스/미니보스 무시) `god`(1=무적) `night`(1=밤) `givePotions`(5, 가방이 가득이면 잡템 한 칸 비움) `weapon`(이름|none) `lv`(시작 레벨 하한) `logEvery`(5) `stuckSec`(6) `potionPct`(0.45).
+- 세이브 백업: 최초 원본 `Logs/pt_save/orig/`(있으면 덮어쓰지 않음) + 실행별 `Logs/pt_save/run_YYYYmmdd_HHMMSS/`. 종료 시 **이번 실행 시작 사본**으로 복원. 최초 원본으로 되돌리려면 `bash Tools/ptbot.sh restore-orig`. 점검 기록 `Docs/Playtest/SaveSlotCheck.md`.
 - 자동 처리: 세이브 전부 백업 → 플레이 → 낮 고정 → 가상 키 입력(백그라운드 허용) → 봇 → 정지 → 세이브 복원. 입력 설정 복구가 필요하면 `input_bg_off.cs`.
 - 산출: `Logs/ptbot/report.md`(보고서), `run.log`(원본), `summary.txt`, `console_errors.json`. 창 포커스는 건드리지 않는다. 최소화 시 게임 시간이 느리니 totalRealSec 를 넉넉히.
 
