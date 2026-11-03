@@ -24,6 +24,8 @@ public class NestHuntSite : MonoBehaviour
     public NestHuntState State { get; private set; } = new NestHuntState();
     /// <summary>끝난 판의 결과 문구용: 출현한 정예 이름(실패면 null)</summary>
     public string SummonedName { get; private set; }
+    /// <summary>둥지 정예 처치 확정 추가 드롭(구역 인장). NestHuntPlacer 가 정한다</summary>
+    public string[] BonusLoot { get; set; } = new string[0];
     public bool ShowResult => State.Finished && Time.time < _resultUntil;
     public bool Active => State.Running || ShowResult;
     /// <summary>쿨타임 남은 초(0이면 가능)</summary>
@@ -145,7 +147,7 @@ public class NestHuntSite : MonoBehaviour
         }
         EnemySpawner spawner = _candidates[TrackingRules.Pick(_candidates.Count, Random.value)];
         Vector3 pos = _marks[NestHuntRules.Trails].Position;
-        EnemyHealth e = spawner.SpawnTracked(pos, new string[0], 0f, NestHuntRules.EliteLifetime);
+        EnemyHealth e = spawner.SpawnTracked(pos, BonusLoot, 0f, NestHuntRules.EliteLifetime);
         if (e != null)
         {
             SummonedName = MonsterTable.DisplayName(spawner.EnemyPrefab.name);

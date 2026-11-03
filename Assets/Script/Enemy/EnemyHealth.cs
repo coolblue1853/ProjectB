@@ -47,6 +47,9 @@ public class EnemyHealth : PoolAble
     // ── 정예(중간보스) — ProgressionDesign 1절 ──
     public const float EliteHpMul = 4f, EliteDefMul = 1.5f, EliteScaleMul = 1.25f, EliteAtkMul = 1.5f;
     public bool IsElite { get; private set; }
+    /// <summary>미니보스(Floor1Completion 4-4): 정예 표식·몸박 x1.5 를 쓰지만 HP·방어는 MonsterSheet 값 그대로이고 EXP 는 정예 배수를 받지 않는다</summary>
+    public bool IsMiniBoss { get; private set; }
+    public const float MiniBossScaleMul = 1.5f;
     BossPhase bossPhase;
     int baseMaxHP, baseDef;
     Vector3 baseScale;
@@ -54,22 +57,26 @@ public class EnemyHealth : PoolAble
     EliteAura eliteAura;
 
     /// <summary>스폰 직후 정예로 승격. 풀 반환(OnDisable) 때 Demote로 원래 값 복구</summary>
-    public void PromoteElite()
+    public void PromoteElite(bool keepStats = false, float scaleMul = EliteScaleMul)
     {
         if (IsElite || isBossMob)
         {
             return;
         }
         IsElite = true;
+        IsMiniBoss = keepStats;
         baseMaxHP = maxHP;
         baseDef = enemyDef;
         baseScale = transform.localScale;
         var sr = GetComponent<SpriteRenderer>();
         baseColor = sr.color;
-        maxHP = Mathf.RoundToInt(maxHP * EliteHpMul);
+        if (!keepStats)
+        {
+            maxHP = Mathf.RoundToInt(maxHP * EliteHpMul);
+            enemyDef = Mathf.RoundToInt(enemyDef * EliteDefMul);
+        }
         nowHP = maxHP;
-        enemyDef = Mathf.RoundToInt(enemyDef * EliteDefMul);
-        transform.localScale = baseScale * EliteScaleMul;
+        transform.localScale = baseScale * scaleMul;
         sr.color = new Color(1f, 0.92f, 0.7f, baseColor.a);
         if (eliteAura == null)
         {
@@ -98,6 +105,7 @@ public class EnemyHealth : PoolAble
             return;
         }
         IsElite = false;
+        IsMiniBoss = false;
         maxHP = baseMaxHP;
         enemyDef = baseDef;
         transform.localScale = baseScale;

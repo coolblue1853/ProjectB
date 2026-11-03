@@ -3,6 +3,6 @@ public static class ItemTradeRules
 {
     public static bool CanSell(string itemId)
     {
-        return !string.IsNullOrEmpty(itemId) && itemId != "BroochResonance";
+        return !string.IsNullOrEmpty(itemId) && itemId != "BroochResonance" && !itemId.StartsWith("ZoneSeal_");
     }
 }

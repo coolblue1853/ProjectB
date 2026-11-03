@@ -11,10 +11,12 @@ public static class NestHuntPlacer
     {
         public string Map;
         public Vector2[] Marks; // 흔적 0~2, 둥지
+        public string Seal;     // 둥지 정예 처치 확정 추가 드롭(구역 인장 키 아이템), 없으면 null
 
-        public Layout(string map, params Vector2[] marks)
+        public Layout(string map, string seal, params Vector2[] marks)
         {
             Map = map;
+            Seal = seal;
             Marks = marks;
         }
     }
@@ -22,9 +24,15 @@ public static class NestHuntPlacer
     private static readonly Layout[] Layouts =
     {
         // 보통 숲: 오른쪽 시작 → 왼쪽 → 되돌아 오른쪽 → 왼쪽 끝 둥지(포털 −425 에서 10 이상)
-        new Layout("Lv1_NormalForest", new Vector2(-322f, 0.4f), new Vector2(-380f, 1.4f), new Vector2(-345f, -1.6f), new Vector2(-413f, -0.6f)),
+        new Layout("Lv1_NormalForest", null, new Vector2(-322f, 0.4f), new Vector2(-380f, 1.4f), new Vector2(-345f, -1.6f), new Vector2(-413f, -0.6f)),
         // 깊은 숲: 가운데 시작 → 왼쪽 끝 → 오른쪽 → 오른쪽 둥지(발굴 −345·채집 −375·추적 −270 과 15 이상)
-        new Layout("Lv1_DeepForest", new Vector2(-322f, 0.4f), new Vector2(-398f, -0.6f), new Vector2(-360f, 1.4f), new Vector2(-300f, 0.4f)),
+        new Layout("Lv1_DeepForest", null, new Vector2(-322f, 0.4f), new Vector2(-398f, -0.6f), new Vector2(-360f, 1.4f), new Vector2(-300f, 0.4f)),
+        // 늪(L4, Floor1Completion 4-4): 지면 y -178.5. 포털 −417·−186, 게 발판(−368~−358)·보스 −200 과 10 이상. 오른쪽 → 왼쪽 끝 → 되돌아 가운데 둥지
+        new Layout("Lv1_Swamp", "ZoneSeal_Swamp", new Vector2(-270f, -178.5f), new Vector2(-330f, -178.5f), new Vector2(-392f, -178.5f), new Vector2(-305f, -178.5f)),
+        // 산적 성채 앞마당: 스폰 발판 좌표에서 따온 지면. 포털 −425·−236, 미니보스 M4(−655) 와 겹치지 않는다
+        new Layout("Lv1_BanditFortress", "ZoneSeal_Fortress", new Vector2(-305f, 0.7f), new Vector2(-380f, 1.6f), new Vector2(-326f, 0.7f), new Vector2(-248f, -2.9f)),
+        // 탑 근교: 문지기(−412)·포털(−432·−236)에서 10 이상, 미니보스 M5(−250) 와 겹치지 않게 둥지는 가운데
+        new Layout("Lv1_TowerOutskirts", "ZoneSeal_Tower", new Vector2(-287f, 1.8f), new Vector2(-380f, 1.6f), new Vector2(-305f, 0.7f), new Vector2(-326f, 0.7f)),
     };
 
     private static Sprite _trail;
@@ -70,6 +78,7 @@ public static class NestHuntPlacer
         var siteGo = new GameObject("NestHuntSite");
         siteGo.transform.SetParent(parent, false);
         var site = siteGo.AddComponent<NestHuntSite>();
+        site.BonusLoot = string.IsNullOrEmpty(layout.Seal) ? new string[0] : new[] { layout.Seal };
         for (int i = 0; i < layout.Marks.Length; i++)
         {
             CreateMark(siteGo.transform, site, i, layout.Marks[i], parent.position.z);

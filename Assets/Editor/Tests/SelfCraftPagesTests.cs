@@ -37,7 +37,7 @@ public class SelfCraftPagesTests
         var csv = UnityEngine.Resources.Load<UnityEngine.TextAsset>(SelfCraftPages.ArmorResourcePath);
         Assert.IsNotNull(csv);
         var list = SelfCraftPages.Parse(csv.text);
-        Assert.AreEqual(16, list.Count); // 인장 반지 1 + 첫 1시간 계보 방어구 15(Wolf·Grove·Bog 각 5)
+        Assert.AreEqual(46, list.Count); // 인장 반지 1 + 첫 1시간 계보 방어구 15(Wolf·Grove·Bog 각 5) + L5 신규 6세트 30
         Assert.AreEqual("Bringer's Sigil Ring", list[0].Result);
         CollectionAssert.AreEqual(new[] { "Death Sigil", "T1_Ore" }, list[0].Ids);
         CollectionAssert.AreEqual(new[] { 8, 10 }, list[0].Counts);
