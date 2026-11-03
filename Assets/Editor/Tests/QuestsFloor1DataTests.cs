@@ -38,7 +38,7 @@ public class QuestsFloor1DataTests
             sum += d.Exp;
         }
         Assert.AreEqual(89500, sum);
-        Assert.AreEqual(27 + 29, all.Count, "기존 27 + 신규 29");
+        Assert.AreEqual(27 + 29 + 4, all.Count, "기존 27 + 신규 29 + 신규 맵 4");
     }
 
     [Test]

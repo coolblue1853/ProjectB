@@ -56,15 +56,15 @@ public class NpcQuestTests
         NpcQuestLog.SaveHook = () => { };
     }
 
-    [Test] public void CSV_56개_파싱_EXP_합계_120175()
+    [Test] public void CSV_60개_파싱_EXP_합계_127375()
     {
-        Assert.AreEqual(56, NpcQuestCatalog.All.Count);
+        Assert.AreEqual(60, NpcQuestCatalog.All.Count);
         int exp = 0;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
         {
             exp += d.Exp;
         }
-        Assert.AreEqual(120175, exp);
+        Assert.AreEqual(127375, exp);
     }
 
     [Test] public void 요리_입문_목표는_실제_화로에서_제작할_수_있다()

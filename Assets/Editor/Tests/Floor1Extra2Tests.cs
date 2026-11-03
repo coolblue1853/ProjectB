@@ -23,7 +23,7 @@ public class Floor1Extra2Tests
         {
             perMap[d.Map] = perMap.TryGetValue(d.Map, out int n) ? n + 1 : 1;
         }
-        Assert.AreEqual(6, perMap.Count);
+        Assert.AreEqual(8, perMap.Count); // 6구역 + 신규 맵 2장
         foreach (KeyValuePair<string, int> kv in perMap)
         {
             Assert.GreaterOrEqual(kv.Value, 2, kv.Key);
@@ -133,7 +133,7 @@ public class Floor1Extra2Tests
     public void Treasures_PositionsAreDistinctPerMap()
     {
         List<TreasureDef> defs = TreasureLedger.Parse(Resources.Load<TextAsset>("Floor1Treasures").text);
-        Assert.AreEqual(6, defs.Count);
+        Assert.AreEqual(8, defs.Count); // 6구역 + 신규 맵 2장
         var ids = new HashSet<string>();
         foreach (TreasureDef d in defs)
         {

@@ -38,6 +38,8 @@ public static class LocTerms
         ("Normal Forest", "숲"),
         ("Deep Forest", "깊은 숲"),
         ("Swamp", "늪"),
+        ("Deep Forest Core", "깊은 숲 심부"),
+        ("Mist Swamp", "안개 늪"),
         ("Bandit Fortress", "산적 성채"),
         ("Tower Outskirts", "탑 근교"),
         ("Broken Rampart", "무너진 성벽"),

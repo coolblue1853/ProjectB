@@ -54,6 +54,7 @@ public class AmbienceDirector : MonoBehaviour
             case "Town":
                 return "background_wind_chimes_loop";
             case "Lv1_Swamp":
+            case "Lv1_MistSwamp":
                 return night ? "swamp_night_frogs_crickets_ducks_loop_02" : "swamp_bayou_frogs_birds_daytime_loop2";
             case "Lv1_BanditFortress":
             case "Lv1_TowerOutskirts":

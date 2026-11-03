@@ -125,7 +125,7 @@ public class Floor1ExtraTests
     public void Treasures_ParseAndMapsAreFloor1()
     {
         List<TreasureDef> defs = TreasureLedger.Parse(Resources.Load<TextAsset>("Floor1Treasures").text);
-        Assert.AreEqual(6, defs.Count);
+        Assert.AreEqual(8, defs.Count); // 6구역 + 신규 맵 2장
         var ids = new HashSet<string>();
         foreach (TreasureDef d in defs)
         {

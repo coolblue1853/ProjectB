@@ -24,6 +24,9 @@ public static class FishingSpotPlacer
     {
         new Placement("Lv1_Swamp", -330f, -179.5f, 1),
         new Placement("Lv1_Swamp", -262f, -179.5f, 1),
+        // 안개 늪(Floor1Completion 14-3): 낚시터 2. 포털 -417·진흙 구덩이(-376~-368, -232~-226) 밖
+        new Placement("Lv1_MistSwamp", -340f, -179.5f, 1),
+        new Placement("Lv1_MistSwamp", -270f, -179.5f, 1),
     };
 
     private static Sprite _ripple;

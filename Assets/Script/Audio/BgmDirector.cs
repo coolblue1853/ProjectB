@@ -105,8 +105,10 @@ public class BgmDirector : MonoBehaviour
     {
         switch (map)
         {
-            case "Lv1_Swamp": return "Swamp";
-            case "Lv1_DeepForest": return night ? null : "DeepForest";
+            case "Lv1_Swamp":
+            case "Lv1_MistSwamp": return "Swamp";
+            case "Lv1_DeepForest":
+            case "Lv1_DeepForestCore": return night ? null : "DeepForest";
             case "Lv1_TowerOutskirts": return night ? null : "Ruins";
             default: return null;
         }

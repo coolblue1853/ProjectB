@@ -22,10 +22,27 @@ public class MapInfo : MonoBehaviour
     public bool fireflies;
     [Tooltip("구역 분위기 입자 (깊은 숲 잎·포자, 늪 안개, 성채 불씨, 탑 근교 룬)")]
     public AmbienceKind ambience;
+    [Tooltip("지면 이동 속도 배율 (안개 늪 진흙 0.8). 1 = 보통")]
+    public float groundMoveMul = 1f;
+    [Tooltip("흰 안개 스프라이트 2겹 스크롤 (안개 늪)")]
+    public bool mistFog;
+
+    /// <summary>지금 열린 맵의 지면 이동 배율. StatMath.MoveSpeedMul 이 곱한다</summary>
+    public static float CurrentGroundMoveMul { get; private set; } = 1f;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetStatics()
+    {
+        CurrentGroundMoveMul = 1f;
+    }
 
     void Start()
     {
         ZoneAmbience.Attach(this, ambience);
+        if (mistFog)
+        {
+            MistFogLayers.Attach(this);
+        }
         if (!fireflies)
         {
             return;
@@ -82,6 +99,7 @@ public class MapInfo : MonoBehaviour
 
     public static void Apply(MapInfo info)
     {
+        CurrentGroundMoveMul = info != null && info.groundMoveMul > 0f ? info.groundMoveMul : 1f;
         var bounds = Object.FindFirstObjectByType<ProCamera2DNumericBoundaries>();
         if (bounds == null)
         {

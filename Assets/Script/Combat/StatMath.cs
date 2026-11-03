@@ -10,7 +10,7 @@ public static class StatMath
     public static float AttackSpeedMul => 1f + DatabaseManager.attackSpeedBuff / 100f;
 
     /// <summary>이동 속도 배율</summary>
-    public static float MoveSpeedMul => 1f + DatabaseManager.SpeedBuff / 100f;
+    public static float MoveSpeedMul => (1f + DatabaseManager.SpeedBuff / 100f) * MapInfo.CurrentGroundMoveMul;
 
     /// <summary>받는 피해 배율</summary>
     public static float IncomingDamageMul => 1f + DatabaseManager.incIncomingDmg / 100f;
