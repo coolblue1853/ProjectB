@@ -44,6 +44,33 @@ public class Floor1R4R5Tests
     }
 
     [Test]
+    public void WeaponTrial_RentedIdOnlyWhileRented()
+    {
+        var defs = WeaponTrialRules.Parse(Resources.Load<TextAsset>("Floor1WeaponTrials").text);
+        Assert.IsTrue(WeaponTrialRules.IsRentedId(defs, "TwinFang", s => s == 1 ? WeaponTrialRules.Rented : 0));
+        Assert.IsFalse(WeaponTrialRules.IsRentedId(defs, "TwinFang", s => 0));
+        Assert.IsFalse(WeaponTrialRules.IsRentedId(defs, "TwinFang", s => WeaponTrialRules.Done));
+        Assert.IsFalse(WeaponTrialRules.IsRentedId(defs, "Wood", s => WeaponTrialRules.Rented));
+        Assert.IsFalse(WeaponTrialRules.IsRentedId(defs, null, s => WeaponTrialRules.Rented));
+    }
+
+    [Test]
+    public void NestChest_ZoneTableCoversNestsAndRises()
+    {
+        string[] maps = { "Lv1_NormalForest", "Lv1_DeepForest", "Lv1_Swamp", "Lv1_BanditFortress", "Lv1_TowerOutskirts" };
+        NestHuntRules.ChestRow prev = default;
+        foreach (string m in maps)
+        {
+            Assert.IsTrue(NestHuntRules.TryChest(m, out NestHuntRules.ChestRow row), m);
+            Assert.That(row.Stones, Is.InRange(1, 2), m);
+            Assert.Greater(row.Gold, prev.Gold, m);
+            Assert.Greater(row.Exp, prev.Exp, m);
+            prev = row;
+        }
+        Assert.IsFalse(NestHuntRules.TryChest("Lv1_Town", out _));
+    }
+
+    [Test]
     public void NestWave_StepSequence()
     {
         Assert.AreEqual(NestWaveStep.Spawn, NestHuntRules.Step(1, 0, 0, 0f));

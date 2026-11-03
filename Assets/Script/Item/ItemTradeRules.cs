@@ -1,8 +1,8 @@
-﻿/// <summary>세이브 아이템 키를 유지한 채 진행 필수 아이템의 판매를 막는다.</summary>
+﻿/// <summary>세이브 아이템 키를 유지한 채 진행 필수 아이템·대여 중인 시연 무기의 판매를 막는다.</summary>
 public static class ItemTradeRules
 {
     public static bool CanSell(string itemId)
     {
-        return !string.IsNullOrEmpty(itemId) && itemId != "BroochResonance" && !itemId.StartsWith("ZoneSeal_");
+        return !string.IsNullOrEmpty(itemId) && itemId != "BroochResonance" && !itemId.StartsWith("ZoneSeal_") && !WeaponTrial.IsRented(itemId);
     }
 }

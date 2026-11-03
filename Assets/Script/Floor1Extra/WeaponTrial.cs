@@ -55,6 +55,23 @@ public static class WeaponTrialRules
         return d != null && Array.IndexOf(d.Weapons, weapon) >= 0;
     }
 
+    /// <summary>이 아이템이 지금 대여 중인가: 대여 중(Rented)인 단계의 무기 목록에 있으면 true</summary>
+    public static bool IsRentedId(IReadOnlyList<WeaponTrialDef> defs, string id, Func<int, int> stateOf)
+    {
+        if (defs == null || string.IsNullOrEmpty(id))
+        {
+            return false;
+        }
+        foreach (WeaponTrialDef d in defs)
+        {
+            if (Contains(d, id) && stateOf(d.Stage) == Rented)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /// <summary>고르기를 막아야 하나: 착용 중인 무기가 이번 시연 무기이고 고른 것이 아닐 때(돌려받을 수 없어 두 자루가 남는다)</summary>
     public static bool PickBlocked(WeaponTrialDef d, string chosen, string equipped)
     {
@@ -74,6 +91,8 @@ public static class WeaponTrial
     private static void ResetStatics()
     {
         s_defs = null;
+        s_rentCacheFrame = -1;
+        s_rented.Clear();
     }
 
     public static IReadOnlyList<WeaponTrialDef> Defs
@@ -97,6 +116,42 @@ public static class WeaponTrial
     public static int StateOf(int stage)
     {
         return ES3.KeyExists(Key(stage)) ? ES3.Load<int>(Key(stage)) : WeaponTrialRules.NotStarted;
+    }
+
+    // 판매·분해 검사가 목록을 훑을 때마다 ES3 를 읽지 않도록 프레임당 한 번만 계산한다(Rent/Pick 이 바로 무효화)
+    private static int s_rentCacheFrame = -1;
+    private static readonly HashSet<string> s_rented = new HashSet<string>();
+
+    /// <summary>대여 중인 무기인가 (대여 중에는 판매·분해 불가, ItemTradeRules). 정산(Pick) 뒤 고른 무기는 풀린다</summary>
+    public static bool IsRented(string itemId)
+    {
+        if (string.IsNullOrEmpty(itemId))
+        {
+            return false;
+        }
+        if (s_rentCacheFrame != Time.frameCount)
+        {
+            s_rentCacheFrame = Time.frameCount;
+            s_rented.Clear();
+            foreach (WeaponTrialDef d in Defs)
+            {
+                if (StateOf(d.Stage) != WeaponTrialRules.Rented)
+                {
+                    continue;
+                }
+                foreach (string w in d.Weapons)
+                {
+                    s_rented.Add(w);
+                }
+            }
+        }
+        return s_rented.Contains(itemId);
+    }
+
+    /// <summary>대화 선택지용 한글 아이템 이름 (Lua: WeaponTrialName)</summary>
+    public static string ItemName(string id)
+    {
+        return ItemText.DisplayName(id);
     }
 
     public static string RentConversation(int stage) => "Trial/" + stage + "/rent";
@@ -159,9 +214,15 @@ public static class WeaponTrial
             return;
         }
         ES3.Save(Key(d.Stage), WeaponTrialRules.Rented);
+        s_rentCacheFrame = -1;
         inv.RebuildItemStackCache();
         inv.SaveInventory();
-        PickupLog.Notice("시연 무기 대여: " + string.Join(", ", d.Weapons) + " - 사냥터에서 써 보고 하나를 고르세요");
+        var names = new List<string>();
+        foreach (string w in d.Weapons)
+        {
+            names.Add(ItemName(w));
+        }
+        PickupLog.Notice("시연 무기 대여: " + string.Join(", ", names) + " - 사냥터에서 써 보고 하나를 고르세요 (대여 중에는 판매·분해 불가)");
     }
 
     /// <summary>Lua: 고른 무기만 남기고 나머지 대여품을 돌려받는다</summary>
@@ -192,9 +253,10 @@ public static class WeaponTrial
             inv.CreatItem(chosen); // 대여품을 이미 팔았거나 버린 경우에도 보상은 받는다
         }
         ES3.Save(Key(d.Stage), WeaponTrialRules.Done);
+        s_rentCacheFrame = -1;
         inv.RebuildItemStackCache();
         inv.SaveInventory();
         Sfx.Play(SfxId.Victory, 0.6f);
-        PickupLog.Notice("시연 보상: " + chosen + " 획득");
+        PickupLog.Notice("시연 보상: " + ItemName(chosen) + " 획득");
     }
 }

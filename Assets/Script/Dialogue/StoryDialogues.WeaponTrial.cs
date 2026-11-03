@@ -34,7 +34,7 @@ public static partial class StoryDialogues
         DialogueEntry hub = Chain(v, Start(v), SmithId, "써 봤나? 가져갈 무기를 하나 골라라. 나머지는 돌려받는다.");
         foreach (string w in d.Weapons)
         {
-            DialogueEntry pick = Line(v, PlayerId, w + " 로 한다");
+            DialogueEntry pick = Line(v, PlayerId, "[lua(WeaponTrialName('" + w + "'))] 로 한다"); // 영문 ID 대신 한글 이름(대화 때 조회)
             Link(v, hub, pick);
             pick.userScript = "WeaponTrialPick('" + d.Stage + "','" + w + "')";
             Chain(v, pick, SmithId, "좋은 선택이다.");

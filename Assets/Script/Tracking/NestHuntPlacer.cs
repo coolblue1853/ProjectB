@@ -78,6 +78,7 @@ public static class NestHuntPlacer
         var siteGo = new GameObject("NestHuntSite");
         siteGo.transform.SetParent(parent, false);
         var site = siteGo.AddComponent<NestHuntSite>();
+        site.Zone = layout.Map;
         site.BonusLoot = string.IsNullOrEmpty(layout.Seal) ? new string[0] : new[] { layout.Seal };
         for (int i = 0; i < layout.Marks.Length; i++)
         {

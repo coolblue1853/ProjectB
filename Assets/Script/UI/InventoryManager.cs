@@ -1127,6 +1127,10 @@ public class InventoryManager : MonoBehaviour
             {
                 PickupLog.Warn("잠긴 아이템은 팔 수 없다 (L 해제)");
             }
+            else if (detail != null && WeaponTrial.IsRented(detail.name))
+            {
+                PickupLog.Warn("시연대 대여품은 반납(무기 고르기) 전까지 팔 수 없다");
+            }
             return;
         }
         if (!ShopConvenience.AllowsSale(detail.itemData.type))

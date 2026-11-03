@@ -43,6 +43,8 @@ public class NestHuntSite : MonoBehaviour
     public string SummonedName { get; private set; }
     /// <summary>둥지 정예 처치 확정 추가 드롭(구역 인장). NestHuntPlacer 가 정한다</summary>
     public string[] BonusLoot { get; set; } = new string[0];
+    /// <summary>이 둥지가 있는 맵 이름(NestHuntRules.ChestTable 키). NestHuntPlacer 가 정한다</summary>
+    public string Zone { get; set; }
     public bool ShowResult => State.Finished && Time.time < _resultUntil;
     public bool Active => State.Running || ShowResult || Stage != NestStage.None;
     /// <summary>쿨타임 남은 초(0이면 가능)</summary>
@@ -261,8 +263,18 @@ public class NestHuntSite : MonoBehaviour
         {
             return;
         }
-        NestHuntRules.ChestReward(LevelSystem.Level, out int gold, out int exp);
-        var r = new Floor1Data.Reward { Gold = gold, Exp = exp, Item = "Enhance Stone", Count = 1, Label = "NestChest" };
+        int gold, exp, stones = 1;
+        if (NestHuntRules.TryChest(Zone, out NestHuntRules.ChestRow row))
+        {
+            gold = row.Gold;
+            exp = row.Exp;
+            stones = row.Stones;
+        }
+        else
+        {
+            NestHuntRules.ChestReward(LevelSystem.Level, out gold, out exp);
+        }
+        var r = new Floor1Data.Reward { Gold = gold, Exp = exp, Item = "Enhance Stone", Count = stones, Label = "NestChest" };
         if (!r.CanReceive())
         {
             r = new Floor1Data.Reward { Gold = gold, Exp = exp, Label = r.Label };

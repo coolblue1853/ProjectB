@@ -65,7 +65,16 @@ public class DismantleInput : MonoBehaviour
         DismantleService.Check check = DismantleService.CanTry(inv, item);
         if (check != DismantleService.Check.Ok)
         {
-            PickupLog.Warn(check == DismantleService.Check.Locked ? "잠금 해제 후 분해할 수 있습니다" : Loc.T("Only equipment in the bag can be dismantled"));
+            string why = Loc.T("Only equipment in the bag can be dismantled");
+            if (check == DismantleService.Check.Locked)
+            {
+                why = "잠금 해제 후 분해할 수 있습니다";
+            }
+            else if (check == DismantleService.Check.Rented)
+            {
+                why = "시연대 대여품은 반납(무기 고르기) 전까지 분해할 수 없습니다";
+            }
+            PickupLog.Warn(why);
             _instance._pending = null;
             return false;
         }

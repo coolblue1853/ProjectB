@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public static class DismantleService
 {
-    public enum Check { Ok, NotEquipment, NotInInventory, NoRoom, Locked }
+    public enum Check { Ok, NotEquipment, NotInInventory, NoRoom, Locked, Rented }
 
     public static Check CanTry(InventoryManager inv, ItemCheck item)
     {
@@ -19,6 +19,10 @@ public static class DismantleService
         if (inv == null || inv.Service.IndexOf(item) < 0)
         {
             return Check.NotInInventory; // 착용칸·창고는 대상 아님
+        }
+        if (WeaponTrial.IsRented(item.name))
+        {
+            return Check.Rented; // 시연대 대여품은 반납 정산 전까지 분해 불가
         }
         return item.itemData.isLocked ? Check.Locked : Check.Ok;
     }

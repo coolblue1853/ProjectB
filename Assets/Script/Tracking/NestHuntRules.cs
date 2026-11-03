@@ -47,7 +47,53 @@ public static class NestHuntRules
         return wave >= Waves ? NestWaveStep.Elite : NestWaveStep.NextWave;
     }
 
-    /// <summary>정예 처치 확정 상자 보상(순수): 레벨에 비례한 골드·EXP (+ 강화석 1은 호출부)</summary>
+    /// <summary>구역별 상자 보상 한 줄: 골드·EXP·강화석 수량</summary>
+    public readonly struct ChestRow
+    {
+        public readonly string Map;
+        public readonly int Gold;
+        public readonly int Exp;
+        public readonly int Stones;
+
+        public ChestRow(string map, int gold, int exp, int stones)
+        {
+            Map = map;
+            Gold = gold;
+            Exp = exp;
+            Stones = stones;
+        }
+    }
+
+    /// <summary>
+    /// 상자 보상 표(Floor1Completion §5·§14 확정): 구역 레벨대에 비례. 강화석은 지침대로 1~2(후반 구역 2).
+    /// EXP 는 구역 분당 EXP(깊은 숲 150·늪 270·성채/탑 420, k=1.5) × 한 판 약 4분에 맞춘 값이라 반복 사냥보다 이득이고,
+    /// 골드는 EXP 의 약 25~30%. 인장(ZoneSeal)은 별도(BonusLoot). 표에 없는 맵은 ChestReward(level) 로 대체.
+    /// </summary>
+    public static readonly ChestRow[] ChestTable =
+    {
+        new ChestRow("Lv1_NormalForest", 150, 500, 1),    // Lv3~6
+        new ChestRow("Lv1_DeepForest", 250, 900, 1),      // Lv6~9
+        new ChestRow("Lv1_Swamp", 400, 1600, 2),          // Lv9~12
+        new ChestRow("Lv1_BanditFortress", 550, 2400, 2), // Lv11~13
+        new ChestRow("Lv1_TowerOutskirts", 700, 3000, 2), // Lv13~15
+    };
+
+    /// <summary>맵 이름으로 상자 보상 줄을 찾는다. 없으면 false</summary>
+    public static bool TryChest(string map, out ChestRow row)
+    {
+        foreach (ChestRow r in ChestTable)
+        {
+            if (r.Map == map)
+            {
+                row = r;
+                return true;
+            }
+        }
+        row = default;
+        return false;
+    }
+
+    /// <summary>표에 없는 맵용 대체 보상(순수): 레벨에 비례한 골드·EXP</summary>
     public static void ChestReward(int level, out int gold, out int exp)
     {
         int lv = Math.Max(1, level);
