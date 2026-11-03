@@ -11,8 +11,8 @@
 - [x] 아티팩트 별폭발이 실제 몹을 맞추는지 확인(몹 소환 프로브 사용) (담당: autorun-3) — 커밋 e88ae579(명중 확인)
 - [x] 1층계 완성 L5(데이터) (담당: autorun-3): Floor1Completion §4-3·§5-2 대로 ArmorCraftRecipes.csv 에 Wisp·Fae·Gloom·Outlaw·Raider·Stone 30행 추가(재료 출처가 MonsterSheet/드롭표에 없으면 MonsterExtraDrops.csv 에 30~35% 행 추가), 신규 무기 5종 setName 편입. EditMode 데이터 무결성 검증, 그래픽 없음 — 커밋 3342998e
 - [x] 1층계 완성 L1(코드) (담당: autorun-3): Floor1Completion §4-1 신규 퀘스트 목표 타입 killElite·equip(세트 n부위)·enhance(+n)·bestiary(종류 수)를 NpcQuest 에 추가 + EditMode 테스트, 기존 세이브 키 이름 변경 금지 — 커밋 64cc52f4(target 문법: killElite=id|*, equip=세트키|armor|sets:N, enhance=weapon|armor|any, bestiary=any)
-- [ ] 1층계 완성 L3·L4(데이터+코드) (담당: autorun-3): 미니보스 M1~M5 MonsterSheet 행·스포너·확정 드롭(§4-4 표), 정예 둥지 3곳(Swamp·BanditFortress·TowerOutskirts) 추가. 기존 프리팹 확대+금색 외곽선 임시 그림. 플레이 확인은 Unity 가 비는 때에
-- [ ] 1층계 완성 L2·L10(데이터+코드): QuestsFloor1.csv 에 Q106~Q704 신규 29행 추가(§4-1 표, EXP 합 43,900), 성채 Q501~504 필수화(Q601 선행 Q504), 졸업 시험 Q704 → Q604 선행, 인장 키 아이템 3종. EditMode: 선행 그래프 순환 없음·보상 아이템 실존·EXP 합
+- [x] 1층계 완성 L3·L4(데이터+코드) (담당: autorun-3): 미니보스 M1~M5 MonsterSheet 행·스포너·확정 드롭(§4-4 표), 정예 둥지 3곳(Swamp·BanditFortress·TowerOutskirts) 추가. 기존 프리팹 확대+금색 외곽선 임시 그림. 플레이 확인은 Unity 가 비는 때에 — 커밋 ded52c06 (M1만 플레이 확인, M2~M5·둥지 미검증; 인장 ZoneSeal_Swamp·Fortress·Tower id255~257 이미 생성 → L2·L10 은 재사용)
+- [ ] 1층계 완성 L2·L10(데이터+코드) (담당: autorun-3): QuestsFloor1.csv 에 Q106~Q704 신규 29행 추가(§4-1 표, EXP 합 43,900), 성채 Q501~504 필수화(Q601 선행 Q504), 졸업 시험 Q704 → Q604 선행, 인장 키 아이템 3종. EditMode: 선행 그래프 순환 없음·보상 아이템 실존·EXP 합
 - [ ] 1층계 완성 L6(UI): 구역 입장 배너(상자·군락·정예·미니보스·세트 n/5), 추적 HUD 세트 재료 n/m 한 줄, 도감 창 구역 완료율 탭. 텍스트만, 그래픽 없음
 - [ ] 1층계 완성 L7(코드): 신규 몹 6종(숲 사냥꾼·덩굴 요정·숲 오우거·산적 감시병·나무꾼 산적·유적 파수꾼, §7) 기존 프리팹 틴트 재사용 + 기존 무기 드롭 이전
 - [ ] 1층계 완성 L9(검증): 개편 데이터로 최단 시간 모델 재계산(k=1.2/1.5/2.0) → Docs/Playtest/Floor1Fastest.md. 합격 기준 Floor1Completion §9 (최단 k=2.0 ≥130분, 반복 사냥 ≤15%), 미달이면 퀘스트 EXP 조정
