@@ -13,7 +13,7 @@ fi
 U="bash Tools/u.sh"
 OUT=Logs/ptbot; mkdir -p $OUT
 SAVEDIR="/c/Users/user/AppData/LocalLow/DefaultCompany/ProjectB"
-declare -A O=( [zones]=Lv1_NearForest_SideRoad [zoneSec]=120 [totalRealSec]=280 [timescale]=2 [quests]=0 [boss]=0 [god]=0 [night]=0 [givePotions]=5 [weapon]=none [lv]=1 [logEvery]=5 [stuckSec]=6 [potionPct]=0.45 )
+declare -A O=( [zones]=Lv1_NearForest_SideRoad [zoneSec]=120 [totalRealSec]=280 [timescale]=2 [quests]=0 [boss]=0 [god]=0 [night]=0 [givePotions]=5 [weapon]=none [lv]=1 [logEvery]=5 [stuckSec]=6 [potionPct]=0.45 [camp]=0 [freshSlot]=0 )
 for a in "$@"; do O[${a%%=*}]=${a#*=}; done
 { for k in "${!O[@]}"; do echo "$k=${O[$k]}"; done; } > $OUT/config.txt
 rm -f $OUT/stop $OUT/summary.txt $OUT/run.log
@@ -28,6 +28,7 @@ restore() {
   echo "save restored from $RUN"
 }
 trap restore EXIT
+[ "${O[freshSlot]}" != 0 ] && rm -f "$SAVEDIR"/SaveSlot${O[freshSlot]}.es3 "$SAVEDIR"/SaveSlot${O[freshSlot]}.es3.bac
 $U call manage_scene '{"action":"load","path":"Assets/Scenes/SampleScene.unity"}' >/dev/null 2>&1
 $U call read_console '{"action":"clear"}' >/dev/null 2>&1
 $U call manage_editor '{"action":"play"}' | head -c 80; echo
@@ -35,7 +36,8 @@ sleep 14
 $U cs Tools/probes/dismiss_title.cs | head -c 80; echo
 sed -e "s/__W__/${O[weapon]}/" -e "s/__LV__/${O[lv]}/" Tools/probes/ptbot_prep.cs > $OUT/prep.cs
 $U cs $OUT/prep.cs | head -c 200; echo
-$U cs Tools/probes/ptbot_run.cs | head -c 300; echo
+RUNP=Tools/probes/ptbot_run.cs; [ "${O[camp]}" = 1 ] && RUNP=Tools/probes/ptbot_camp.cs
+$U cs $RUNP | head -c 300; echo
 LIMIT=$(( ${O[totalRealSec]} + 60 ))
 for i in $(seq 1 $((LIMIT/5))); do
   sleep 5
