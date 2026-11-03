@@ -476,3 +476,5 @@
 - **[임시 가정] Q-F1C15** 신규 하위 맵 2장은 깊은 숲·늪에 포털로 붙고 보스(엔트·슬라임)는 기존 맵에 둔다. 폭·층수는 초안.
 
 - [Q-AR3-1] 신규 맵 2장은 SampleScene 메모리에만 생성됨(SampleScene.unity 는 작업 전부터 대량 변경 상태라 저장·커밋 안 함). 임시 가정: 빌더 스크립트(`Tools/probes/build_f1_newmaps.cs`)로 재생성 가능. 질문: SampleScene 을 저장·커밋할지, 맵 씬을 분리할지.
+
+- [Q-AR3-1 갱신] builder 확인: 디스크 SampleScene.unity(16:48 저장본)에 신규 맵 2장이 이미 포함돼 있고 에디터 씬은 isDirty=False. 즉 맵은 디스크에 있으나 SampleScene.unity 가 사용자 미커밋 변경과 섞여 있어 커밋만 안 된 상태. 백업 프리팹은 Assets/Backup/Floor1Maps. 질문: SampleScene 을 커밋할 시점.
