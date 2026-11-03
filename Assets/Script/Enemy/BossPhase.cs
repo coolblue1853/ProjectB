@@ -29,7 +29,7 @@ public class BossPhase : MonoBehaviour
     }
 
     public int Phase => phase;
-    public float DamageMultiplier => DamageMul[phase];
+    public float DamageMultiplier => DamageMul[phase] * (health != null ? health.TrialDamageMul : 1f);
 
     public static BossPhase AttachIfBoss(EnemyHealth enemy)
     {

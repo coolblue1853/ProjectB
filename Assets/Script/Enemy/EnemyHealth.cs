@@ -52,6 +52,28 @@ public class EnemyHealth : PoolAble
     public const float MiniBossScaleMul = 1.5f;
     BossPhase bossPhase;
     int baseMaxHP, baseDef;
+    int _trialBaseHP;
+    /// <summary>문지기 시험 피해 계수(Floor1Completion 14-1). 문지기가 아니면 1</summary>
+    public float TrialDamageMul { get; private set; } = 1f;
+
+    /// <summary>문지기 스폰 시 달성도로 HP·피해 계수를 정하고 알림을 띄운다. 풀 재사용에도 기준 HP 에서 다시 계산한다.</summary>
+    void ApplyGatekeeperTrial()
+    {
+        TrialDamageMul = 1f;
+        if (!isBossMob || !GatekeeperTrial.IsGatekeeper(name))
+        {
+            return;
+        }
+        if (_trialBaseHP <= 0)
+        {
+            _trialBaseHP = maxHP;
+        }
+        float a = GatekeeperTrial.CurrentReadiness();
+        maxHP = Mathf.RoundToInt(_trialBaseHP * GatekeeperTrial.HpMultiplier(a));
+        TrialDamageMul = GatekeeperTrial.DamageMultiplier(a);
+        PickupLog.Report(Loc.T("Trial readiness") + ": " + Mathf.RoundToInt(a * 100f) + "%", 1, "U");
+        GameLog.Info(GameLog.Cat.Spawn, "문지기 시험 달성도 " + a.ToString("F2") + " HP " + maxHP + " 피해x" + TrialDamageMul.ToString("F2"), this);
+    }
     Vector3 baseScale;
     Color baseColor;
     EliteAura eliteAura;
@@ -275,6 +297,7 @@ public class EnemyHealth : PoolAble
     {
         Active.Add(this);
         _enabledAt = Time.time;
+        ApplyGatekeeperTrial();
         ///isReleased = false;
         nowHP = maxHP;
         // 이미 끝나 Kill 된 시퀀스에 IsPlaying 을 부르면 DOTween 이 '죽은 트윈' 경고를 남긴다(풀 워밍업 때 다수) → IsActive 로 확인
