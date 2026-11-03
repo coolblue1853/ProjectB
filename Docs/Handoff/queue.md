@@ -36,5 +36,5 @@
 - [x] 성채 전용 보급 상점 (담당: autorun-3, 파일: ShopStock.csv·상점 NPC/맵 조건 코드): 개정 B 에서 남은 §14-2 성채 전용 보급 상점 상품 — ShopStock 이 전역 단일 상점이라 성채 맵 조건 또는 성채 상점 NPC 필요. 마을에서 살 수 없게 — 커밋 5f87a88b (대량·할인 미구현, 미검증)
 - [x] R4·R5 후속 (담당: autorun-3, 파일: Floor1Extra/WeaponTrial.cs·Tracking/NestHuntRules.cs·ItemTradeRules): 총괄 지시 — (1) 무기 시연대 선택지에 영문 아이템 ID 대신 한글 이름 표시 (2) 대여품 판매·분해·버리기 불가 처리로 선택 보상 정산이 깨지지 않게 (3) 정예 둥지 상자 보상 임시값을 구역별 표로 확정 — 커밋 a0e4dfb1 (미검증, 표는 추정)
 - [ ] 신규 맵 2장 보존 (담당: autorun-3, 파일: Assets/Scenes 별도 씬 또는 프리팹·Docs/Handoff/scene_backup/): 총괄 전달(사용자 결정) — Lv1_DeepForestCore·Lv1_MistSwamp 를 잃지 않게 별도 씬/프리팹으로 분리 저장해 그 파일만 커밋. SampleScene 은 사용자 미커밋 변경이 섞여 있으니 커밋 금지. 분리가 어려우면 SampleScene 현재 상태를 Docs/Handoff/scene_backup/ 에 복사만(Logs/ 밖)
-- [ ] 세이브 슬롯 점검·ptbot 백업 개선 (담당: autorun-3, 파일: Tools/ptbot.sh): 총괄 전달 — SaveSlot(2/3) 16:42 .bac 와 현재 md5 비교를 Docs/Playtest/ 에 기록, ptbot.sh 백업을 '최초 원본 보존(덮어쓰지 않음) + 실행별 사본' 으로 개선
+- [ ] 세이브 슬롯 점검·ptbot 백업 개선 (담당: autorun-3, 맵 보존과 함께, 파일: Tools/ptbot.sh): 총괄 전달 — SaveSlot(2/3) 16:42 .bac 와 현재 md5 비교를 Docs/Playtest/ 에 기록, ptbot.sh 백업을 '최초 원본 보존(덮어쓰지 않음) + 실행별 사본' 으로 개선
 - [ ] PT-BOT 1층계 통주 (담당: autorun-3, 파일: Tools/probes/ptbot_*.cs·Docs/Playtest/PtBot.md): 총괄 전달 — 보스 대응 보강 후 Lv1→졸업 자동 통주, 구역별 처치 시간·사망·막힘을 PtBot.md 에 기록하고 목표 2시간 이상 여부 판정. 위 두 항목 후
