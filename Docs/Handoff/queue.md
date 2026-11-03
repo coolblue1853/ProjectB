@@ -9,8 +9,8 @@
 - [x] 상점 장비·강화 비용(50~2,500G/회) 대비 1시간 소득 비교표 작성 — Floor1Balance 에 추가(문서 위주, 코드 변경 없음)
 - [x] 물약 사용 실플레이 검증 + 보스 실제 처치 시간(권장 Lv·풀세트) 실측 — 세이브 백업·복원 (엔트만 실측 42.5초, 거대 슬라임·산적 대장·탑 문지기는 미검증 — 필요 시 재큐)
 - [x] 아티팩트 별폭발이 실제 몹을 맞추는지 확인(몹 소환 프로브 사용) (담당: autorun-3) — 커밋 e88ae579(명중 확인)
-- [ ] 1층계 완성 L5(데이터) (담당: autorun-3): Floor1Completion §4-3·§5-2 대로 ArmorCraftRecipes.csv 에 Wisp·Fae·Gloom·Outlaw·Raider·Stone 30행 추가(재료 출처가 MonsterSheet/드롭표에 없으면 MonsterExtraDrops.csv 에 30~35% 행 추가), 신규 무기 5종 setName 편입. EditMode 데이터 무결성 검증, 그래픽 없음
-- [ ] 1층계 완성 L1(코드): Floor1Completion §4-1 신규 퀘스트 목표 타입 killElite·equip(세트 n부위)·enhance(+n)·bestiary(종류 수)를 NpcQuest 에 추가 + EditMode 테스트, 기존 세이브 키 이름 변경 금지
+- [x] 1층계 완성 L5(데이터) (담당: autorun-3): Floor1Completion §4-3·§5-2 대로 ArmorCraftRecipes.csv 에 Wisp·Fae·Gloom·Outlaw·Raider·Stone 30행 추가(재료 출처가 MonsterSheet/드롭표에 없으면 MonsterExtraDrops.csv 에 30~35% 행 추가), 신규 무기 5종 setName 편입. EditMode 데이터 무결성 검증, 그래픽 없음 — 커밋 3342998e
+- [ ] 1층계 완성 L1(코드) (담당: autorun-3): Floor1Completion §4-1 신규 퀘스트 목표 타입 killElite·equip(세트 n부위)·enhance(+n)·bestiary(종류 수)를 NpcQuest 에 추가 + EditMode 테스트, 기존 세이브 키 이름 변경 금지
 - [ ] 1층계 완성 L3·L4(데이터+코드): 미니보스 M1~M5 MonsterSheet 행·스포너·확정 드롭(§4-4 표), 정예 둥지 3곳(Swamp·BanditFortress·TowerOutskirts) 추가. 기존 프리팹 확대+금색 외곽선 임시 그림. 플레이 확인은 Unity 가 비는 때에
 - [ ] 1층계 완성 L2·L10(데이터+코드): QuestsFloor1.csv 에 Q106~Q704 신규 29행 추가(§4-1 표, EXP 합 43,900), 성채 Q501~504 필수화(Q601 선행 Q504), 졸업 시험 Q704 → Q604 선행, 인장 키 아이템 3종. EditMode: 선행 그래프 순환 없음·보상 아이템 실존·EXP 합
 - [ ] 1층계 완성 L6(UI): 구역 입장 배너(상자·군락·정예·미니보스·세트 n/5), 추적 HUD 세트 재료 n/m 한 줄, 도감 창 구역 완료율 탭. 텍스트만, 그래픽 없음
