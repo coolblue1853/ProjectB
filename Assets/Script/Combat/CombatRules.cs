@@ -82,6 +82,27 @@ public static class CombatRules
         return !finisher && CanJumpCancel(elapsed, total, hitDelay);
     }
 
+    // ── 조작감 CF-4·6·7: 점프 버퍼·코요테, 공중 평타 관성, 가변 점프 (CombatFeelPlan §3) ──
+    public const float JumpBufferTime = 0.15f, CoyoteTime = 0.12f;
+    public const float AirAttackInputMul = 0.7f, AirAttackDecelTime = 0.15f;
+    public const float JumpCutMul = 0.5f, JumpMinHold = 0.08f;
+
+    /// <summary>공중 평타 중 가로 속도. 입력 있으면 maxSpeed×0.7 방향 이동, 없으면 0.15초 안에 0 으로 감속(지상처럼 즉시 0 으로 멈추지 않는다).</summary>
+    public static float AirAttackVx(float currentVx, float inputDir, float maxSpeed, float dt)
+    {
+        if (Mathf.Abs(inputDir) > 0.01f)
+        {
+            return Mathf.Sign(inputDir) * maxSpeed * AirAttackInputMul;
+        }
+        return Mathf.MoveTowards(currentVx, 0f, maxSpeed / AirAttackDecelTime * dt);
+    }
+
+    /// <summary>가변 점프: 상승 중 키를 뗐고 점프 후 최소 홀드(0.08초)가 지났으면 true. 호출 쪽은 true 일 때 vy×JumpCutMul 을 1회만 적용한다.</summary>
+    public static bool ShouldCutJump(bool pressed, float sinceJump, float vy)
+    {
+        return !pressed && vy > 0f && sinceJump >= JumpMinHold;
+    }
+
     /// <summary>스킬이 막힌 이유. 우선순위: 쿨다운 → 스태미나 → 동작 중. 스태미나는 기존 규칙대로 '초과'여야 한다(같으면 부족).</summary>
     public static SkillBlock GetSkillBlock(bool cooling, int stamina, int cost, bool timingOk)
     {

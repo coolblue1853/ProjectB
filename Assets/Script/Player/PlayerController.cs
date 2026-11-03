@@ -426,10 +426,20 @@ public class PlayerController : MonoBehaviour
             bool moveBlocked = DatabaseManager.weaponStopMove == true && !driftBypass;
             // 공격 이동정지 중에도 대시는 움직인다(대시가 MoveLock을 끄지 않고 무시, B-114 C5)
             // 가로 속도만 멈춘다. y 까지 0 으로 만들면 공중 평타 연타로 떨어지지 않는다(W-08)
-            if (rb.linearVelocity.x != 0f && moveBlocked && states != "dash")
+            if (moveBlocked && states != "dash" && !isUpLadder && !MovementGrounded)
+            {
+                // CF-6: 공중 평타는 가로 관성 유지(입력 없으면 0.15초 내 감속, 입력 시 이동속도 x0.7)
+                float airVx = CombatRules.AirAttackVx(rb.linearVelocity.x, moveAction.ReadValue<float>(), moveSpeed * StatMath.MoveSpeedMul, Time.deltaTime);
+                if (airVx != rb.linearVelocity.x)
+                {
+                    rb.linearVelocity = new Vector2(airVx, rb.linearVelocity.y);
+                }
+            }
+            else if (rb.linearVelocity.x != 0f && moveBlocked && states != "dash")
             {
                 rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             }
+            UpdateJumpCut();
 
             if (runAction.triggered && isRun == false && DatabaseManager.weaponStopMove == false && Mathf.Abs(horizontalInput) > 0 )
             {
@@ -909,11 +919,35 @@ public class PlayerController : MonoBehaviour
         states = "jump";
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         jumpsRemaining--;
+        _jumpCutArmed = true;
+        _jumpStartTime = Time.time;
         isGround = false;
         isOnGround = false;
         coyote.NotifyJumped();
         // 점프 후에도 isGrounded를 false로 유지하여 FixedUpdate에서 다시 체크할 수 있도록 합니다.
         Invoke("ReturnIsGround", 0.2f);
+    }
+
+    bool _jumpCutArmed;
+    float _jumpStartTime;
+
+    /// <summary>CF-7 가변 점프: 상승 중 키를 떼면 vy×0.5 를 1회 적용(최소 홀드 0.08초 전에 뗐으면 그 시점까지 기다린다)</summary>
+    void UpdateJumpCut()
+    {
+        if (!_jumpCutArmed)
+        {
+            return;
+        }
+        if (rb.linearVelocity.y <= 0f || states == "dash" || states == "wallJump" || isAttacked || isUpLadder)
+        {
+            _jumpCutArmed = false;
+            return;
+        }
+        if (CombatRules.ShouldCutJump(jumpAction.IsPressed(), Time.time - _jumpStartTime, rb.linearVelocity.y))
+        {
+            _jumpCutArmed = false;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * CombatRules.JumpCutMul);
+        }
     }
 
     void ReturnIsGround()
@@ -924,8 +958,9 @@ public class PlayerController : MonoBehaviour
     public GameObject groundCheck2;
     public bool isPlafromCheck = true;
     public bool isOnGround = true;
-    [SerializeField] private float _jumpBufferTime = 0.1f;
-    [SerializeField] private float _coyoteTime = 0.08f;
+    // 씬에 옛 값(0.1/0.08)이 직렬화돼 있어 필드 대신 CombatRules 상수를 쓴다(CF-4)
+    const float _jumpBufferTime = CombatRules.JumpBufferTime;
+    const float _coyoteTime = CombatRules.CoyoteTime;
     [SerializeField] private bool _fallConsumesGroundJump = true;
     InputBuffer _jumpBuffer;
     CoyoteTimer _coyote;

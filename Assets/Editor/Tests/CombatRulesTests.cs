@@ -182,4 +182,34 @@ public class CombatRulesTests
         Assert.IsTrue(CombatRules.CanTurnInRecovery(0.3f, 0.5f, 0.2f, false));
         Assert.IsFalse(CombatRules.CanTurnInRecovery(0.3f, 0.5f, 0.2f, true));
     }
+
+    [Test]
+    public void AirAttackVx_InputKeeps70Percent_NoInputDecaysIn015()
+    {
+        Assert.AreEqual(7f, CombatRules.AirAttackVx(3f, 1f, 10f, 0.02f), 0.001f);
+        Assert.AreEqual(-7f, CombatRules.AirAttackVx(0f, -1f, 10f, 0.02f), 0.001f);
+        float vx = 10f;
+        for (int i = 0; i < 8; i++)
+        {
+            vx = CombatRules.AirAttackVx(vx, 0f, 10f, 0.02f); // 0.16초
+        }
+        Assert.AreEqual(0f, vx, 0.001f);
+        Assert.Greater(CombatRules.AirAttackVx(10f, 0f, 10f, 0.02f), 0f); // 즉시 0 아님
+    }
+
+    [Test]
+    public void JumpCut_ReleasedAfterMinHold_WhileRising()
+    {
+        Assert.IsTrue(CombatRules.ShouldCutJump(false, 0.1f, 5f));
+        Assert.IsFalse(CombatRules.ShouldCutJump(false, 0.05f, 5f)); // 최소 홀드 전
+        Assert.IsFalse(CombatRules.ShouldCutJump(true, 0.3f, 5f));   // 누르는 중
+        Assert.IsFalse(CombatRules.ShouldCutJump(false, 0.3f, -1f)); // 하강 중
+    }
+
+    [Test]
+    public void JumpBufferCoyote_Constants()
+    {
+        Assert.AreEqual(0.15f, CombatRules.JumpBufferTime, 0.0001f);
+        Assert.AreEqual(0.12f, CombatRules.CoyoteTime, 0.0001f);
+    }
 }
