@@ -29,6 +29,8 @@ public class Weapon : MonoBehaviour
     public bool isWeaponStopMove = false;
     [Tooltip("평타 후딜 중 좌우 이동 속도 배율(1=평소). isWeaponStopMove가 꺼진 무기에만 의미가 있다")]
     [SerializeField, Range(0f, 1f)] private float _attackMoveSpeedMul = 1f;
+    [Tooltip("이동정지 무기의 후딜 중 앞키 전진 속도 배율(던파식 Attack Drift, CF-1). 마무리 타는 절반, 타격 전은 x0.7")]
+    [SerializeField, Range(0f, 1f)] private float _driftMul = 0.5f;
     [Tooltip("켜면 평타 모션 중에도 좌우 입력으로 뒤돈다(시작 0.2초만 고정). 기본 꺼짐 = 던파식으로 모션 내내 시작 방향 고정 (10-30)")]
     [SerializeField] private bool _turnDuringAttack = false;
     public float time;
@@ -104,7 +106,9 @@ public class Weapon : MonoBehaviour
     /// <summary>활 차지 기믹(없으면 null) — AttackManager 가 키 누름·뗌을 넘긴다</summary>
     public ChargeShot Charge { get; private set; }
     /// <summary>지금 이동 속도에 곱할 배율. 평타 후딜 중이면 무기별 배율, 아니면 1</summary>
-    public float AttackMoveSpeedMul => isAttackWait ? 1f : _attackMoveSpeedMul;
+    public float AttackMoveSpeedMul => isAttackWait ? 1f
+        : isWeaponStopMove ? CombatRules.DriftMul(_driftMul, nowConboCount, attackAnimName != null ? attackAnimName.Length : 0, _attackWaitElapsed, _attackHitDelay)
+        : _attackMoveSpeedMul;
 
     private void Start()
     {
@@ -424,6 +428,25 @@ public class Weapon : MonoBehaviour
     /// <summary>평타 후딜 중 스킬로 끊을 수 있는가: 판정이 나온 뒤 + 후딜의 절반이 지난 때부터 후딜이 끝나기 전까지</summary>
     public bool CanSkillCancelMelee => !isAttackWait && isSkillAttackWait
         && CombatRules.CanCancelMeleeRecovery(Time.time - _attackWaitStartedAt, _attackWaitTotal, _attackHitDelay);
+
+    // ── 조작감 CF-1·2·3·5: 이동정지 무기 후딜 중 전진·캔슬 (이 무기만 MoveLock 을 쥔 때만) ──
+    float _attackWaitElapsed => Time.time - _attackWaitStartedAt;
+    bool IsFinisherStep => CombatRules.IsFinisher(nowConboCount, attackAnimName != null ? attackAnimName.Length : 0);
+
+    /// <summary>후딜 중이고 이동정지를 이 무기만 쥐고 있다(스킬·UI 잠금이 겹치면 false → 기존 정지 유지)</summary>
+    public bool OwnsMoveLockInRecovery => !isAttackWait && isSkillAttackWait && moveLockToken != null && PlayerStatus.Count(StatusFlag.MoveLock) == 1;
+
+    /// <summary>앞키 전진 허용(CF-1)</summary>
+    public bool CanDriftNow(float inputDir, float facingDir) => OwnsMoveLockInRecovery && CombatRules.CanDrift(inputDir, facingDir);
+
+    /// <summary>점프로 후딜 캔슬 가능(CF-2): 판정 뒤부터</summary>
+    public bool CanJumpCancelNow => OwnsMoveLockInRecovery && CombatRules.CanJumpCancel(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay);
+
+    /// <summary>이동 캔슬 가능(CF-3): 판정 뒤 + 후딜 40%(3타 60%)</summary>
+    public bool CanMoveCancelNow => OwnsMoveLockInRecovery && CombatRules.CanMoveCancel(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay, IsFinisherStep);
+
+    /// <summary>반대키로 몸 돌리기 가능(CF-5)</summary>
+    public bool CanTurnNow => OwnsMoveLockInRecovery && CombatRules.CanTurnInRecovery(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay, IsFinisherStep);
 
     /// <summary>스킬이 평타 후딜을 끊을 때: 후딜 잠금·대기를 풀고 콤보 유예만 다시 건다(스킬 뒤 평타는 1타부터가 아니라 유예 안이면 이어짐)</summary>
     public void CancelMeleeRecovery()

@@ -134,4 +134,52 @@ public class CombatRulesTests
         Assert.AreEqual("10", SkillCooldown.FormatRemaining(10f));
         Assert.AreEqual("13", SkillCooldown.FormatRemaining(12.4f));
     }
+
+    [Test]
+    public void Drift_FinisherHalved_PreHitScaled()
+    {
+        Assert.AreEqual(0.5f, CombatRules.DriftMul(0.5f, 1, 3, 0.3f, 0.2f), 1e-4f);
+        Assert.AreEqual(0.5f, CombatRules.DriftMul(0.5f, 2, 3, 0.3f, 0.2f), 1e-4f);
+        Assert.AreEqual(0.25f, CombatRules.DriftMul(0.5f, 3, 3, 0.3f, 0.2f), 1e-4f);
+        Assert.AreEqual(0.35f, CombatRules.DriftMul(0.5f, 1, 3, 0.1f, 0.2f), 1e-4f); // 선딜 x0.7
+        Assert.AreEqual(0.5f, CombatRules.DriftMul(0.5f, 2, 2, 0.3f, 0.2f), 1e-4f); // 2단 콤보는 마무리 취급 안 함
+    }
+
+    [Test]
+    public void Drift_OnlyForwardInput()
+    {
+        Assert.IsTrue(CombatRules.CanDrift(1f, 1f));
+        Assert.IsTrue(CombatRules.CanDrift(-1f, -1f));
+        Assert.IsFalse(CombatRules.CanDrift(-1f, 1f));
+        Assert.IsFalse(CombatRules.CanDrift(0f, 1f));
+    }
+
+    [Test]
+    public void JumpCancel_OnlyAfterHit()
+    {
+        Assert.IsFalse(CombatRules.CanJumpCancel(0.1f, 0.5f, 0.2f));
+        Assert.IsFalse(CombatRules.CanJumpCancel(0.24f, 0.5f, 0.2f));
+        Assert.IsTrue(CombatRules.CanJumpCancel(0.26f, 0.5f, 0.2f));
+        Assert.IsFalse(CombatRules.CanJumpCancel(0.5f, 0.5f, 0.2f)); // 후딜 끝
+        Assert.IsFalse(CombatRules.CanJumpCancel(0.3f, 0f, 0f));
+    }
+
+    [Test]
+    public void MoveCancel_FortyPercent_FinisherSixty()
+    {
+        Assert.IsFalse(CombatRules.CanMoveCancel(0.15f, 0.5f, 0.1f, false)); // 40% = 0.2
+        Assert.IsTrue(CombatRules.CanMoveCancel(0.2f, 0.5f, 0.1f, false));
+        Assert.IsFalse(CombatRules.CanMoveCancel(0.25f, 0.5f, 0.1f, true)); // 60% = 0.3
+        Assert.IsTrue(CombatRules.CanMoveCancel(0.3f, 0.5f, 0.1f, true));
+        Assert.IsFalse(CombatRules.CanMoveCancel(0.2f, 0.5f, 0.18f, false)); // 판정 + 0.05 가 더 늦다
+        Assert.IsFalse(CombatRules.CanMoveCancel(0.5f, 0.5f, 0.1f, false));
+    }
+
+    [Test]
+    public void Turn_AfterHit_NotFinisher()
+    {
+        Assert.IsFalse(CombatRules.CanTurnInRecovery(0.1f, 0.5f, 0.2f, false));
+        Assert.IsTrue(CombatRules.CanTurnInRecovery(0.3f, 0.5f, 0.2f, false));
+        Assert.IsFalse(CombatRules.CanTurnInRecovery(0.3f, 0.5f, 0.2f, true));
+    }
 }

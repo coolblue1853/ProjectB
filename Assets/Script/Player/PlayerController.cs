@@ -268,6 +268,46 @@ public class PlayerController : MonoBehaviour
     bool attackFacingLocked = true;
     // 평타 중 이동 가능한 무기(녹슨 검 등)는 후딜 동안 무기별 배율로 느리게 걷는다
     private float AttackMoveMul => Weapon.Equipped != null ? Weapon.Equipped.AttackMoveSpeedMul : 1f;
+    // 후딜 전진(Attack Drift) 중에는 달리기여도 걷기 속도 기준으로 배율을 곱한다
+    bool RunNow => isRun && !(Weapon.Equipped != null && Weapon.Equipped.OwnsMoveLockInRecovery);
+
+    /// <summary>이동정지 무기의 평타 후딜 중 조작 편의(CombatFeelPlan CF-1·2·3·5). 점프·이동 캔슬이면 후딜을 끊고, 반대키는 판정 뒤 몸을 돌리고,
+    /// 지상 앞키는 true(정지 대신 전진 허용)를 돌려준다. 스킬·UI 잠금이 겹치면 아무것도 안 한다</summary>
+    bool UpdateAttackRecoveryMove(Weapon w)
+    {
+        if (w == null || !w.OwnsMoveLockInRecovery || moveAction == null || states == "dash" || states == "wallJump" || isUpLadder)
+        {
+            return false;
+        }
+        float h = moveAction.ReadValue<float>();
+        float facing = transform.localScale.x < 0f ? -1f : 1f;
+        bool back = h * facing < 0f;
+        bool wantJump = jumpAction.triggered || jumpBuffer.Peek(Time.time);
+        if (wantJump && verticalAction.ReadValue<float>() >= -0.5f && !isWall && CanMovementJump && w.CanJumpCancelNow)
+        {
+            EndRecoveryForMove(w);
+            return false;
+        }
+        if ((back || (runAction.triggered && h != 0f)) && w.CanMoveCancelNow)
+        {
+            EndRecoveryForMove(w);
+            return false;
+        }
+        if (back && w.CanTurnNow)
+        {
+            transform.localScale = new Vector3(h < 0f ? -chInRommSize : chInRommSize, chInRommSize, 1); // 모션은 유지, 이동만 새 방향
+            facing = -facing;
+        }
+        return OnMovementGround && w.CanDriftNow(h, facing);
+    }
+
+    void EndRecoveryForMove(Weapon w)
+    {
+        StopAttackAnim();
+        w.CancelMeleeRecovery();
+        attackFacingLocked = false;
+    }
+
     bool TurnLocked => isAttackAnim && (attackFacingLocked || Time.time - attackStartedAt < _turnLockTime);
 
     /// <summary>공격·스킬 시작 직전에 부른다: 지금 좌우 입력이 있으면 그 방향으로 돌아선다(잠금 중이라도 새 공격은 입력 방향으로 시작, 10-30).
@@ -382,9 +422,11 @@ public class PlayerController : MonoBehaviour
         if(DatabaseManager.isOpenUI == false && isAttacked == false)
         {
             once = false;
+            bool driftBypass = UpdateAttackRecoveryMove(Weapon.Equipped); // CF-1·2·3·5: 후딜 중 전진·캔슬·방향 전환 (캔슬되면 잠금이 풀린다)
+            bool moveBlocked = DatabaseManager.weaponStopMove == true && !driftBypass;
             // 공격 이동정지 중에도 대시는 움직인다(대시가 MoveLock을 끄지 않고 무시, B-114 C5)
             // 가로 속도만 멈춘다. y 까지 0 으로 만들면 공중 평타 연타로 떨어지지 않는다(W-08)
-            if (rb.linearVelocity.x != 0f && DatabaseManager.weaponStopMove == true && states != "dash")
+            if (rb.linearVelocity.x != 0f && moveBlocked && states != "dash")
             {
                 rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             }
@@ -400,7 +442,7 @@ public class PlayerController : MonoBehaviour
                 isRun = false;
             }
             // 이동
-            if (DatabaseManager.weaponStopMove == false && isUpLadder == false&& states != "dash")
+            if (!moveBlocked && isUpLadder == false&& states != "dash")
             {
 
                 Move();
@@ -646,7 +688,7 @@ public class PlayerController : MonoBehaviour
 
 
                 states = "moveLeft";
-                moveVelocity = Vector2.left * (isRun ? runSpeed : moveSpeed) * StatMath.MoveSpeedMul * AttackMoveMul;
+                moveVelocity = Vector2.left * (RunNow ? runSpeed : moveSpeed) * StatMath.MoveSpeedMul * AttackMoveMul;
                 if (!TurnLocked) // 공격 모션 중엔 방향 고정 (W-13, 10-30 던파식)
                 {
                     transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
@@ -671,7 +713,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 states = "moveRight";
-                moveVelocity = Vector2.right * (isRun ? runSpeed : moveSpeed) * StatMath.MoveSpeedMul * AttackMoveMul;
+                moveVelocity = Vector2.right * (RunNow ? runSpeed : moveSpeed) * StatMath.MoveSpeedMul * AttackMoveMul;
                 if (!TurnLocked) // 공격 모션 중엔 방향 고정 (W-13, 10-30 던파식)
                 {
                     transform.localScale = new Vector3(chInRommSize, chInRommSize, 1);

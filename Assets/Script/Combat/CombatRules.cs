@@ -26,6 +26,62 @@ public static class CombatRules
         return elapsed >= point && elapsed < total;
     }
 
+    // ── 조작감 CF-1·2·3·5: 평타 후딜 중 전진·점프/이동 캔슬·방향 전환 (CombatFeelPlan §3) ──
+    /// <summary>마무리 타(3타 이상 무기의 마지막 타)는 전진을 절반으로, 이동 캔슬은 60% 에서.</summary>
+    public const float FinisherDriftScale = 0.5f, PreHitDriftScale = 0.7f;
+    public const float MoveCancelFraction = 0.4f, FinisherMoveCancelFraction = 0.6f;
+    const int FinisherMinSteps = 3;
+
+    /// <summary>step(1부터)이 3타 이상 콤보의 마지막 타인가.</summary>
+    public static bool IsFinisher(int step, int totalSteps)
+    {
+        return totalSteps >= FinisherMinSteps && step == totalSteps;
+    }
+
+    /// <summary>후딜 중 전진 속도 배율. 타격 전(선딜)은 x0.7, 마무리 타는 x0.5.</summary>
+    public static float DriftMul(float baseMul, int step, int totalSteps, float elapsed, float hitDelay)
+    {
+        float mul = Mathf.Clamp01(baseMul);
+        if (IsFinisher(step, totalSteps))
+        {
+            mul *= FinisherDriftScale;
+        }
+        if (elapsed < hitDelay)
+        {
+            mul *= PreHitDriftScale;
+        }
+        return mul;
+    }
+
+    /// <summary>앞키(바라보는 방향과 같은 입력)일 때만 전진한다. 뒤키·무입력은 제자리.</summary>
+    public static bool CanDrift(float inputDir, float facingDir)
+    {
+        return inputDir * facingDir > 0f;
+    }
+
+    /// <summary>판정이 나온 뒤(+여유)부터 후딜이 끝나기 전까지만 점프 캔슬·방향 전환이 된다. 타격 전에는 안 된다.</summary>
+    public static bool CanJumpCancel(float elapsed, float total, float hitDelay)
+    {
+        return total > 0f && elapsed >= hitDelay + CancelHitMargin && elapsed < total;
+    }
+
+    /// <summary>후딜 중 이동 캔슬: 판정 뒤 + 후딜 40%(마무리 타 60%) 경과부터 후딜이 끝나기 전까지.</summary>
+    public static bool CanMoveCancel(float elapsed, float total, float hitDelay, bool finisher)
+    {
+        if (total <= 0f)
+        {
+            return false;
+        }
+        float point = Mathf.Max(total * (finisher ? FinisherMoveCancelFraction : MoveCancelFraction), hitDelay + CancelHitMargin);
+        return elapsed >= point && elapsed < total;
+    }
+
+    /// <summary>후딜 중 반대키로 몸 돌리기: 판정 뒤부터, 마무리 타는 돌지 않는다.</summary>
+    public static bool CanTurnInRecovery(float elapsed, float total, float hitDelay, bool finisher)
+    {
+        return !finisher && CanJumpCancel(elapsed, total, hitDelay);
+    }
+
     /// <summary>스킬이 막힌 이유. 우선순위: 쿨다운 → 스태미나 → 동작 중. 스태미나는 기존 규칙대로 '초과'여야 한다(같으면 부족).</summary>
     public static SkillBlock GetSkillBlock(bool cooling, int stamina, int cost, bool timingOk)
     {
