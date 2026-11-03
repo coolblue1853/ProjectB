@@ -27,29 +27,29 @@ Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,1800,470,,,�
 Q603,잠들지 않는 골렘,smith,14,Q601,kill,GolemMedium_BD,6,1607,580,Enhance Stone,2,골렘 사냥과 강화 재료 획득을 안내한다.
 Q604,첫 번째 문의 수호자,elder,15,Q601,kill,Gatekeeper_BD,1,2000,1000,BroochResonance,1,메인: 문지기 격파 후 브로치에 다음 층계 길이 새겨진다.
 Q106,쥐 도둑 소탕,ruen,2,Q102,kill,RatThief_BD,6,300,70,Tough Rat Hide,1,쥐 도둑 6마리를 처치해 루엔에게 보고한다.
-Q107,기본 방어구 착용,merchant,2,Q101,equip,armor,2,300,70,Potion,2,기본 방어구를 2부위 착용하고 상인에게 보고한다.
+Q107,기본 방어구 착용,merchant,2,Q101,equip,armor,2,300,70,LeafCap,1,기본 방어구를 2부위 착용하고 상인에게 보고한다.
 Q108,표본 버섯 채집,sena,3,Q103,collect,Forest Mushroom,5,300,70,Potion,1,샛길 약초 덤불에서 숲 버섯 5개를 모아 세나에게 보고한다.
 Q205,도깨비불 사냥,eve,4,Q201,kill,Wisp_BD,8,500,120,Wisp Ember,3,밤에 나오는 도깨비불 8마리를 처치해 이브에게 보고한다.
-Q206,늑대 투구 제작,smith,5,Q202,craft,WolfCap,1,500,120,Enhance Stone,1,늑대 송곳니 8개로 늑대 투구를 제작해 대장장이에게 보고한다.
-Q207,우두머리 늑대,ruen,5,Q202,killElite,AlphaWolf_BD,1,500,120,Potion,2,일반 숲의 우두머리 늑대를 처치해 루엔에게 보고한다.
-Q306,곰 가죽 장갑 제작,sena,6,Q302,craft,GroveHandArmor,1,900,200,Enhance Stone,1,곰 가죽으로 숲지기 장갑을 제작해 세나에게 보고한다.
-Q307,숲지기 세트 착용,smith,7,Q303,equip,GroveArmor,3,900,200,Enhance Stone,1,숲지기 세트를 3부위 착용하고 대장장이에게 보고한다.
+Q206,늑대 투구 제작,smith,5,Q202,craft,WolfCap,1,500,120,WolfHandArmor,1,늑대 송곳니 8개로 늑대 투구를 제작해 대장장이에게 보고한다.
+Q207,우두머리 늑대,ruen,5,Q202,killElite,AlphaWolf_BD,1,500,120,WolfArmor,1,일반 숲의 우두머리 늑대를 처치해 루엔에게 보고한다.
+Q306,곰 가죽 장갑 제작,sena,6,Q302,craft,GroveHandArmor,1,900,200,GroveLegArmor,1,곰 가죽으로 숲지기 장갑을 제작해 세나에게 보고한다.
+Q307,숲지기 세트 착용,smith,7,Q303,equip,GroveArmor,3,900,200,GroveArmor,1,숲지기 세트를 3부위 착용하고 대장장이에게 보고한다.
 Q308,깊은 숲 둥지 정예,eve,7,Q304,killElite,*,1,900,200,Enhance Stone,2,깊은 숲 둥지의 정예를 처치해 이브에게 보고한다. 구역 인장 보상은 아이템 추가 후 교체.
-Q309,늙은 곰,ruen,8,Q305,killElite,OldBear_BD,1,1000,220,Potion,2,깊은 숲의 늙은 곰을 처치해 루엔에게 보고한다.
-Q406,늪 낚시,sena,9,Q402,collect,Amber Trout,2,5100,350,Potion,2,늪 낚시터에서 호박송어 2마리를 낚아 세나에게 보고한다.
-Q407,늪 사냥꾼 세트 착용,smith,10,Q405,equip,BogArmor,3,5400,370,Enhance Stone,1,늪 사냥꾼 세트를 3부위 착용하고 대장장이에게 보고한다.
+Q309,늙은 곰,ruen,8,Q305,killElite,OldBear_BD,1,1000,220,GroveShoes,1,깊은 숲의 늙은 곰을 처치해 루엔에게 보고한다.
+Q406,늪 낚시,sena,9,Q402,collect,Amber Trout,2,5100,350,BogLegArmor,1,늪 낚시터에서 호박송어 2마리를 낚아 세나에게 보고한다.
+Q407,늪 사냥꾼 세트 착용,smith,10,Q405,equip,BogArmor,3,5400,370,BogArmor,1,늪 사냥꾼 세트를 3부위 착용하고 대장장이에게 보고한다.
 Q408,늪 둥지 정예,eve,10,Q403,killElite,*,1,5400,370,ZoneSeal_Swamp,1,늪 둥지의 정예를 처치해 이브에게 보고한다.
-Q409,무기 강화 +3,smith,11,Q407,enhance,weapon,3,5700,390,Enhance Stone,2,무기를 +3까지 강화하고 대장장이에게 보고한다.
-Q505,산적 부두목,ruen,12,Q501,killElite,BanditLieutenant_BD,1,2000,420,Enhance Stone,2,선택: 성채의 산적 부두목을 처치한다.
-Q506,무법자 세트 착용,smith,12,Q502,equip,OutlawArmor,3,2200,460,Enhance Stone,1,선택: 무법자 세트를 3부위 착용한다.
-Q507,무기 강화 +5,merchant,12,Q504,enhance,weapon,5,2300,480,Enhance Stone,2,선택: 무기를 +5까지 강화한다.
-Q508,약탈자 세트 착용,eve,13,Q503,equip,RaiderArmor,3,2200,460,Enhance Stone,1,선택: 약탈자 세트를 3부위 착용한다. 밤 성채에서 재료를 모은다.
+Q409,무기 강화 +3,smith,11,Q407,enhance,weapon,3,5700,390,SlimeMace,1,무기를 +3까지 강화하고 대장장이에게 보고한다.
+Q505,산적 부두목,ruen,12,Q501,killElite,BanditLieutenant_BD,1,2000,420,OutlawCap,1,선택: 성채의 산적 부두목을 처치한다.
+Q506,무법자 세트 착용,smith,12,Q502,equip,OutlawArmor,3,2200,460,OutlawArmor,1,선택: 무법자 세트를 3부위 착용한다.
+Q507,무기 강화 +5,merchant,12,Q504,enhance,weapon,5,2300,480,CutthroatDagger,1,선택: 무기를 +5까지 강화한다.
+Q508,약탈자 세트 착용,eve,13,Q503,equip,RaiderArmor,3,2200,460,RaiderArmor,1,선택: 약탈자 세트를 3부위 착용한다. 밤 성채에서 재료를 모은다.
 Q509,성채 광맥 채집,sena,13,Q504,collect,Bog Copper Ore,3,2300,480,Enhance Stone,1,선택: 희귀 광맥에서 늪 구리 광석 3개를 모은다.
-Q605,장로 골렘,ruen,13,Q601,killElite,ElderGolem_BD,1,7200,500,Enhance Stone,2,탑 근교의 장로 골렘을 처치해 루엔에게 보고한다.
-Q606,돌탑 세트 착용,smith,13,Q603,equip,StoneArmor,3,7500,520,Enhance Stone,1,돌탑 세트를 3부위 착용하고 대장장이에게 보고한다.
-Q607,유적 파편 수집,eve,14,Q602,collect,Ancient Relic Shard,8,7800,540,Enhance Stone,1,탑 근교 유적 발굴로 고대 유물 파편 8개를 모아 이브에게 보고한다.
-Q608,석판 조각 수집,sena,14,Q601,collect,Monolith Shard,6,7800,540,Enhance Stone,1,탑 근교에서 석판 조각 6개를 모아 세나에게 보고한다.
-Q609,방어구 강화 +5,merchant,14,Q606,enhance,armor,5,8100,560,Enhance Stone,2,방어구를 +5까지 강화하고 상인에게 보고한다.
+Q605,장로 골렘,ruen,13,Q601,killElite,ElderGolem_BD,1,7200,500,StoneCap,1,탑 근교의 장로 골렘을 처치해 루엔에게 보고한다.
+Q606,돌탑 세트 착용,smith,13,Q603,equip,StoneArmor,3,7500,520,StoneArmor,1,돌탑 세트를 3부위 착용하고 대장장이에게 보고한다.
+Q607,유적 파편 수집,eve,14,Q602,collect,Ancient Relic Shard,8,7800,540,StoneLegArmor,1,탑 근교 유적 발굴로 고대 유물 파편 8개를 모아 이브에게 보고한다.
+Q608,석판 조각 수집,sena,14,Q601,collect,Monolith Shard,6,7800,540,StoneHandArmor,1,탑 근교에서 석판 조각 6개를 모아 세나에게 보고한다.
+Q609,방어구 강화 +5,merchant,14,Q606,enhance,armor,5,8100,560,StoneShoes,1,방어구를 +5까지 강화하고 상인에게 보고한다.
 Q610,도감 12종,elder,14,Q603,bestiary,any,12,8400,580,Enhance Stone,1,서로 다른 몬스터 12종을 처치해 장로에게 보고한다.
 Q701,정예 사냥 5,elder,15,Q610,killElite,*,5,1000,200,Enhance Stone,1,정예 몬스터 5마리를 처치해 장로에게 보고한다.
 Q702,세트 3종 착용,smith,15,Q609,equip,sets:3,3,1000,200,Enhance Stone,1,서로 다른 세트 3종을 각 3부위 이상 착용한다.

@@ -60,7 +60,27 @@ def skip(q):
     return q["id"].startswith(("Q5", "Q7")) or q["id"] == "Q104"
 
 
-def run(quests, rate, k, target=15):
+UPGRADE_ITEMS = ("Enhance Stone", "ZoneSeal")
+TRACE = False
+GAP_LIMIT = 8  # R6: 어느 8분 구간에도 업그레이드(장비·강화석·인장) 1건 이상
+
+
+def is_upgrade(item, equips):
+    return bool(item) and (item in equips or item.startswith(UPGRADE_ITEMS))
+
+
+def load_equips():
+    rows = list(csv.reader(open(ROOT / "Assets/Resources/ItemSheet.csv", encoding="utf-8-sig")))[3:]
+    return {r[1] for r in rows if len(r) > 2 and r[2] == "Equip"}
+
+
+def gaps(events, end):
+    """events: 업그레이드 시각(분) 목록. 시작(0)~end 사이 간격이 GAP_LIMIT 초과인 구간 [(from, to)]."""
+    pts = [0.0] + sorted(events) + [end]
+    return [(round(a, 1), round(b, 1)) for a, b in zip(pts, pts[1:]) if b - a > GAP_LIMIT]
+
+
+def run(quests, rate, k, target=15, events=None, equips=frozenset()):
     lv, exp, grind, qt = 1, 0, 0.0, 0.0
     done = set()
     per_lv = {}
@@ -81,6 +101,10 @@ def run(quests, rate, k, target=15):
                 continue
             done.add(q["id"])
             qt += qtime(q, k)
+            if events is not None and is_upgrade(q["rewardItem"], equips):
+                events.append(qt + grind)
+                if TRACE:
+                    print(f"  {qt + grind:6.1f} {q['id']} lv{lv} {q['rewardItem']}")
             add(int(q["exp"]))
             got = True
             if lv >= target:
@@ -93,11 +117,18 @@ def run(quests, rate, k, target=15):
         per_lv[lv] = (round(need), round(m, 1))
         lv += 1
         exp = 0
+    if events is not None:
+        events.append(qt + grind)  # 종점(문지기)도 장비 지급 시점
     return qt + TRAVEL + GATE, grind, per_lv
 
 
 if __name__ == "__main__":
-    qs, rt = load_quests(), load_rates()
+    qs, rt, eq = load_quests(), load_rates(), load_equips()
     for k in (1.2, 1.5, 2.0):
         non, g, per = run(qs, rt, k)
+        ev = []
+        run(qs, rt, k, events=ev, equips=eq)
+        end = ev.pop()
+        gp = gaps(ev, end)
+        print(f"k={k}: 업그레이드 {len(ev)}건, {GAP_LIMIT}분 초과 빈칸 {len(gp)}곳 {gp}")
         print(f"k={k}: 비사냥 {non:.0f}분 + 그라인드 {g:.0f}분 = {non + g:.0f}분, 그라인드 {g / (non + g) * 100:.1f}%  구간={per}")

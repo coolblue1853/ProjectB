@@ -33,4 +33,10 @@
 - 퀘스트 완료 시점에 이미 Lv15 에 가까워 후반 퀘스트(Q609·Q610 등) 일부는 EXP 를 못 받는다(과레벨/낭비). 의도는 "하는 쪽이 빠른 길". 사용자 판단 필요 시 `Docs/OpenQuestions.md`.
 - 성채 선택 경로는 별도(성채 Q5xx 14,411 EXP 추가)로 계산하지 않았다.
 - 퀘스트 목표 몹 처치 EXP 는 미반영(보수적). 구역 분당 EXP 는 `Logs/playtest/hunt_progression.txt` 와 동일 데이터이며 구간 기준 낮/밤 평균.
-- 교체 간격 8분 빈칸 검사(R2·R3 큐)는 이 문서 범위 밖.
+- 8분 빈칸 검사는 아래 절 참조(퀘스트 보상만 계산, 몹 드롭·상점·미니보스 확정 드롭 미반영이라 보수적).
+
+## R2·R3 데이터 반영과 8분 빈칸 검사 (11-03)
+- R2: QuestsFloor1.csv 신규 17건 보상을 §12 세트 부위·계보 무기로 교체 + Q107 LeafCap. Q206 WolfHandArmor · Q207 WolfArmor · Q306 GroveLegArmor · Q307 GroveArmor · Q309 GroveShoes · Q406 BogLegArmor · Q407 BogArmor · Q409 SlimeMace · Q505 OutlawCap · Q506 OutlawArmor · Q507 CutthroatDagger · Q508 RaiderArmor · Q605 StoneCap · Q606 StoneArmor · Q607 StoneLegArmor · Q608 StoneHandArmor · Q609 StoneShoes. Q308 은 `ZoneSeal_Deep` 아이템이 없어 §5 지침(둥지 = 인장 아닌 확정 강화석)대로 Enhance Stone 2 유지.
+- R3: HuntingSpawnsFloor1.csv 5개 구역(일반 숲·성채·깊은 숲·늪·탑 근교)에서 L7 몹 `id@비율` 을 3개 스포너(입구 평지 낮음 → 고지대 → 심부 높음, 예 0.15/0.3/0.5)에 분산. 앵커 지점 좌표가 CSV 에 없어 스포너 순서로 근사.
+- 검사: `python Tools/floor1_fastest.py` 가 퀘스트 보상(장비·강화석·인장) 시각을 모델 시간축에 펼쳐 8분 초과 빈칸을 출력. k=1.5 에서 5곳: 3.7~12.6 · 40.8~52.2 · 79.3~88.5 · 108.2~131.4(Lv12 반복 사냥, 성채 선택이라 퀘스트 없음) · 131.4~142.8.
+- 한계: 모델은 퀘스트를 파일 순서로 소화해 Q206 등이 실제보다 늦게 잡힘(정렬하면 빈칸 4곳). 남은 빈칸은 몹 드롭·미니보스 확정 드롭·상점으로 메워야 하며 이번 데이터만으로는 Lv12~13 구간이 남음(후속 제안: Q601 방문에 강화석 보상).
