@@ -13,7 +13,9 @@ public class ZoneBanner : MonoBehaviour
     static ZoneBanner instance;
 
     CanvasGroup group;
-    TextMeshProUGUI floorText, zoneText;
+    TextMeshProUGUI floorText, zoneText, guardText;
+    RectTransform bandRect;
+    RectTransform bottomLine;
     string lastZone;
     private Coroutine _pendingShow;
 
@@ -88,12 +90,17 @@ public class ZoneBanner : MonoBehaviour
         if (info != null && info.gameObject.activeInHierarchy)
         {
             string floor = info.floor <= 0 ? "TO THE BEYOND" : Loc.IsKorean ? info.floor + Loc.T("FLOOR") : "FLOOR " + info.floor;
-            Play(floor, Loc.T(info.zoneTitle));
+            ZoneProgress.Zone zone = ZoneProgress.Find(info.gameObject.name);
+            Play(floor, Loc.T(info.zoneTitle), ZoneProgress.GuardianLine(zone, ZoneProgress.IsDefeated(zone), Loc.IsKorean));
         }
     }
 
     public static void Show(MapInfo info)
     {
+        if (info != null)
+        {
+            ZoneProgress.SetCurrent(info.gameObject.name);
+        }
         if (instance == null || info == null || string.IsNullOrEmpty(info.zoneTitle))
         {
             return;
@@ -115,7 +122,7 @@ public class ZoneBanner : MonoBehaviour
         return !everShown || now - lastShown >= RepeatCooldown;
     }
 
-    void Play(string top, string zone)
+    void Play(string top, string zone, string guardian = "")
     {
         if (zone == lastZone && group.alpha > 0.01f)
         {
@@ -130,6 +137,13 @@ public class ZoneBanner : MonoBehaviour
         lastZone = zone;
         floorText.text = top;
         zoneText.text = zone.ToUpperInvariant();
+        // 수호자가 있는 구역만 띠를 한 줄 늘려 수호자 이름+목표를 보인다(§14-7: 개수 정보는 도감 구역 탭)
+        bool hasGuard = !string.IsNullOrEmpty(guardian);
+        guardText.gameObject.SetActive(hasGuard);
+        guardText.text = guardian;
+        bandRect.sizeDelta = new Vector2(760f, hasGuard ? 166f : 122f);
+        bandRect.anchoredPosition = new Vector2(0f, hasGuard ? -31f : -9f);
+        bottomLine.anchoredPosition = new Vector2(0f, hasGuard ? -114f : -70f);
         group.gameObject.SetActive(true);
         group.DOKill();
         group.alpha = 0f;
@@ -169,6 +183,7 @@ public class ZoneBanner : MonoBehaviour
         var band = theme.NewPanel("Band", root.transform, false, 0.9f).gameObject;
         var bdr = (RectTransform)band.transform;
         bdr.anchorMin = bdr.anchorMax = new Vector2(0.5f, 0.5f);
+        bandRect = bdr;
         bdr.sizeDelta = new Vector2(760f, 122f);
         bdr.anchoredPosition = new Vector2(0f, -9f);
         // 위아래 얇은 금선
@@ -180,12 +195,18 @@ public class ZoneBanner : MonoBehaviour
             lr.anchorMin = lr.anchorMax = new Vector2(0.5f, 0.5f);
             lr.sizeDelta = new Vector2(520f, 3f);
             lr.anchoredPosition = new Vector2(0f, y);
+            if (y < 0f)
+            {
+                bottomLine = lr;
+            }
             var img = line.GetComponent<Image>();
             img.color = new Color(theme.unique.r, theme.unique.g, theme.unique.b, 0.8f);
             img.raycastTarget = false;
         }
         floorText = NewText(root.transform, theme, 36f, new Vector2(0f, 24f), theme.unique);
         zoneText = NewText(root.transform, theme, 60f, new Vector2(0f, -26f), Color.white);
+        guardText = NewText(root.transform, theme, 28f, new Vector2(0f, -90f), new Color(1f, 0.78f, 0.45f));
+        guardText.gameObject.SetActive(false);
         root.SetActive(false);
     }
 

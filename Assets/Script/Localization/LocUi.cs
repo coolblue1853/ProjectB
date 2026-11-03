@@ -90,6 +90,8 @@ public static class LocUi
         ("Stats: defeat {0} more", "능력치: {0}마리 더 처치"),
         ("Drops", "드롭"), ("Drops: defeat {0} more", "드롭: {0}마리 더 처치"),
         ("ARROWS select    B / BACK close", "방향키 선택    B / 뒤로 닫기"),
+        ("ARROWS select    TAB zones    B / BACK close", "방향키 선택    TAB 구역    B / 뒤로 닫기"),
+        ("TAB bestiary    B / BACK close", "TAB 도감    B / 뒤로 닫기"),
         ("Forest Road", "숲길"), ("Forest Side Road", "숲 샛길"), ("Magic Cliffs", "마법 절벽"), ("Cliff Altar", "절벽 제단"),
         ("night", "밤"), ("boss", "보스"),
 

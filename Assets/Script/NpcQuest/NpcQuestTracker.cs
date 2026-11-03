@@ -101,7 +101,8 @@ public class NpcQuestTracker : MonoBehaviour
         }
         var active = NpcQuestTrack.Tracked(NpcQuestLog.ActiveQuests());
         string bounty = BountyBoard.Instance != null ? BountyBoard.Instance.TrackerText() : "";
-        if (active.Count == 0 && bounty.Length == 0)
+        string setLine = ZoneProgress.TrackerLine(); // 현재 구역 세트 재료 n/m 한 줄(L6)
+        if (active.Count == 0 && bounty.Length == 0 && setLine.Length == 0)
         {
             if (_root.activeSelf)
             {
@@ -111,6 +112,7 @@ public class NpcQuestTracker : MonoBehaviour
             return;
         }
         var sb = new StringBuilder();
+        sb.Append(setLine);
         sb.Append(bounty); // 사냥 의뢰 게시대(Floor1Extra)의 진행 중 의뢰 — 퀘스트 추적 3개와 별개로 한 줄 묶음
         for (int i = 0; i < active.Count; i++)
         {

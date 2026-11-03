@@ -27,7 +27,9 @@ public class BestiaryWindow : MonoBehaviour
     InputAction up, down, left, right, back;
     GameObject panel;
     Image bigIcon;
-    TextMeshProUGUI title, body;
+    TextMeshProUGUI title, body, zoneBody;
+    TextMeshProUGUI hint;
+    bool zoneTab;
     int cursor;
     bool open;
 
@@ -90,7 +92,14 @@ public class BestiaryWindow : MonoBehaviour
             Close();
             return;
         }
-        if (data == null || data.entries.Count == 0)
+        if (kb != null && kb.tabKey.wasPressedThisFrame)
+        {
+            zoneTab = !zoneTab; // 도감 ↔ 구역 완료율 탭(L6)
+            Sfx.Play(SfxId.UiMove, 0.6f);
+            Redraw();
+            return;
+        }
+        if (zoneTab || data == null || data.entries.Count == 0)
         {
             return;
         }
@@ -118,6 +127,7 @@ public class BestiaryWindow : MonoBehaviour
             Build();
         }
         ScanSpawners();
+        zoneTab = false;
         open = true;
         UiLock.Set("Bestiary", true);
         action.UI.Enable();
@@ -177,6 +187,20 @@ public class BestiaryWindow : MonoBehaviour
     void Redraw()
     {
         UiTheme theme = UiTheme.Get();
+        hint.text = Loc.T(zoneTab ? "TAB bestiary    B / BACK close" : "ARROWS select    TAB zones    B / BACK close");
+        zoneBody.gameObject.SetActive(zoneTab);
+        bigIcon.gameObject.SetActive(!zoneTab);
+        title.gameObject.SetActive(!zoneTab);
+        body.gameObject.SetActive(!zoneTab);
+        if (zoneTab)
+        {
+            for (int i = 0; i < cells.Count; i++)
+            {
+                cells[i].bg.gameObject.SetActive(false);
+            }
+            zoneBody.text = ZoneProgress.TabText();
+            return;
+        }
         for (int i = 0; i < cells.Count; i++)
         {
             bool has = i < data.entries.Count;
@@ -252,7 +276,7 @@ public class BestiaryWindow : MonoBehaviour
         Place(head.rectTransform, new Vector2(30f, -18f), new Vector2(600f, 54f));
         head.text = Loc.T("BESTIARY");
         head.color = theme.unique;
-        var hint = NewText("Hint", pr, theme, 22f);
+        hint = NewText("Hint", pr, theme, 22f);
         Place(hint.rectTransform, new Vector2(30f, -600f), new Vector2(1100f, 30f));
         hint.text = Loc.T("ARROWS select    B / BACK close");
         hint.color = new Color(1f, 1f, 1f, 0.55f);
@@ -279,6 +303,12 @@ public class BestiaryWindow : MonoBehaviour
         Place(body.rectTransform, new Vector2(520f, -270f), new Vector2(640f, 320f));
         body.alignment = TextAlignmentOptions.TopLeft;
         body.enableWordWrapping = true;
+        zoneBody = NewText("ZoneBody", pr, theme, 24f);
+        Place(zoneBody.rectTransform, new Vector2(30f, -86f), new Vector2(1120f, 500f));
+        zoneBody.alignment = TextAlignmentOptions.TopLeft;
+        zoneBody.richText = true;
+        zoneBody.enableWordWrapping = true;
+        zoneBody.gameObject.SetActive(false);
         panel.SetActive(false);
     }
 
