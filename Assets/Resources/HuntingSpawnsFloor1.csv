@@ -1,12 +1,12 @@
 ﻿map,spawner,count,cycle,profile,pointWeights
 Lv1_BanditFortress,Archer1,8,10,,1|1|1|2|3
-Lv1_BanditFortress,Archer2,16,10,,3|2|3|3|2|1|2
+Lv1_BanditFortress,Archer2,16,10,BanditSentry_BD@0.35,3|2|3|3|2|1|2
 Lv1_BanditFortress,Archer3,18,10,,3|1|1|3|1|2|2|1|2|1|1
 Lv1_BanditFortress,Archer4,8,10,,2|2|2|1|1
 Lv1_BanditFortress,Archer5,16,10,,3|2|3|3|2|1|2
 Lv1_BanditFortress,Cutthroat1,18,10,,1|2|1|1|1|1|3|2|2|1|3
 Lv1_BanditFortress,Cutthroat2,15,10,,4|4|2|2|3
-Lv1_BanditFortress,Cutthroat3,16,10,,3|1|2|4|2|4
+Lv1_BanditFortress,Cutthroat3,16,10,BanditWoodcutter_BD@0.35,3|1|2|4|2|4
 Lv1_BanditFortress,Cutthroat4,16,10,,1|1|2|1|1|1|1|1|1|1|1|2|1|1
 Lv1_BanditFortress,Cutthroat5,8,10,,3|1|1|1|2
 Lv1_BanditFortress,Cutthroat6,18,10,,3|1|1|3|1|1|3|1|1|2|1
@@ -19,7 +19,7 @@ Lv1_BanditFortress,Torch3,17,10,,4|4|3|1|4|1
 Lv1_BanditFortress,Torch4,16,10,,1|1|2|1|1|1|1|1|1|1|1|2|1|1
 Lv1_DeepForest,Bear1,18,10,,3|1|1|1|1|1|3|2|1|2|2
 Lv1_DeepForest,Bear2,15,10,,4|2|4|3|2
-Lv1_DeepForest,Ent1,16,10,,3|2|3|3|3|1|1
+Lv1_DeepForest,Ent1,16,10,ForestOgre_BD@0.4,3|2|3|3|3|1|1
 Lv1_DeepForest,Fairy1,8,10,,3|1|1|1|2
 Lv1_DeepForest,Fairy2,16,10,,3|2|3|3|2|1|2
 Lv1_DeepForest,Ghost1,18,10,,5|1|4|3|5
@@ -61,10 +61,10 @@ Lv1_NormalForest,Flowermole1,18,10,ForestSpore_BD,3|1|1|3|1|1|3|1|1|1|2
 Lv1_NormalForest,Flowermole2,16,10,ForestSpore_BD,1|1|2|1|1|1|1|1|1|1|1|2|1|1
 Lv1_NormalForest,Mole,15,10,,4|1|3|3|4
 Lv1_NormalForest,Mole2,14,10,,2|3|2|1|3|3
-Lv1_NormalForest,Mole3,16,10,,1|4|2|3|3|3
+Lv1_NormalForest,Mole3,16,10,VineFairy_BD@0.3,1|4|2|3|3|3
 Lv1_NormalForest,Rabbit,18,10,,1|1|1|2|1|1|3|2|2|3|1
 Lv1_NormalForest,Rabbit2,8,10,,1|1|1|3|2
-Lv1_NormalForest,Rabbit2_2,15,10,,4|4|1|4|2
+Lv1_NormalForest,Rabbit2_2,15,10,ForestHunter_BD@0.3,4|4|1|4|2
 Lv1_NormalForest,Rabbit3,16,10,,3|2|3|3|3|1|1
 Lv1_NormalForest,RatCheif,8,10,,2|1|2|1|2
 Lv1_NormalForest,RatCheif2,16,10,,3|2|3|3|3|1|1
@@ -87,7 +87,7 @@ Lv1_TowerOutskirts,GolemMedium1,8,10,,1|1|1|2|3
 Lv1_TowerOutskirts,GolemMedium2,15,10,,4|4|1|3|3
 Lv1_TowerOutskirts,GolemMedium3,15,10,,4|3|3|3|2
 Lv1_TowerOutskirts,GolemSmall1,18,10,,1|1|1|2|1|1|2|3|3|1|2
-Lv1_TowerOutskirts,GolemSmall2,15,10,,4|4|1|4|2
+Lv1_TowerOutskirts,GolemSmall2,15,10,RuinWarden_BD@0.3,4|4|1|4|2
 Lv1_TowerOutskirts,GolemSmall3,18,10,,5|1|3|4|5
 Lv1_TowerOutskirts,RuinSpirit1,7,10,,3|1|1|1|1
 Lv1_TowerOutskirts,RuinSpirit2,16,10,,3|2|3|3|2|1|2

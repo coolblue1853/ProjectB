@@ -56,3 +56,9 @@ OldBear_BD,Old Bear,1,Deep Forest (miniboss),1150,8,0,0,-1.2,,,miniboss M2 Fores
 OldCroc_BD,Old Croc,1,Swamp (miniboss),940,11,0,0,-1.0,,,miniboss M3 BogCroc x10 HP (L3),11,860,28,OldCroc_BD,,
 BanditLieutenant_BD,Bandit Lieutenant,1,Bandit Fortress (miniboss),880,14,0,0,-1.2,,,miniboss M4 BanditCutthroat x10 HP (L3),12,920,26,BanditLieutenant_BD,,
 ElderGolem_BD,Elder Golem,1,Tower Outskirts (miniboss),1050,27,0,1,-1.2,,,miniboss M5 GolemLarge x10 HP super armor (L3),15,1700,31,ElderGolem_BD,,
+ForestHunter_BD,Forest Hunter,1,Normal Forest,56,6,0,0,-1.2,,,ranged hunter temp tint on wolf host (L7),5,10,20,ForestHunter_BD,5E7F3A,
+VineFairy_BD,Vine Fairy,1,Normal Forest,70,3,0,0,-1.0,,,slow binder temp tint on boar host (L7),6,11,18,VineFairy_BD,4FB36A,slow
+ForestOgre_BD,Forest Ogre,1,Deep Forest,230,12,0,0,-1.2,,,slow tank temp tint on Ent host (L7),9,24,28,ForestOgre_BD,8A6A3A,slow|heavy|sturdy
+BanditSentry_BD,Bandit Sentry,1,Bandit Fortress,84,12,0,0,-1.2,,,reload ranged temp tint on archer host (L7),12,42,24,BanditSentry_BD,9A6A5A,
+BanditWoodcutter_BD,Bandit Woodcutter,1,Bandit Fortress,100,14,0,0,-1.2,,,charging axe temp tint on cutthroat host (L7),13,52,30,BanditWoodcutter_BD,A0522D,dash
+RuinWarden_BD,Ruin Warden,1,Tower Outskirts,95,12,0,0,-1.2,,,rune ranged temp tint on golem host (L7),14,66,28,RuinWarden_BD,7F8FB0,
