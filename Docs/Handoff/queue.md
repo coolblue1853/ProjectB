@@ -17,8 +17,8 @@
 - [x] 1층계 완성 L7(코드) (담당: autorun-3): 신규 몹 6종(숲 사냥꾼·덩굴 요정·숲 오우거·산적 감시병·나무꾼 산적·유적 파수꾼, §7) 기존 프리팹 틴트 재사용 + 기존 무기 드롭 이전 — 커밋 e0c8da8a (임시: 호스트 BT 재사용 → 원거리 행동 없음, 플레이 미검증)
 - [x] 1층계 완성 L9(검증) (담당: autorun-3): 개편 데이터로 최단 시간 모델 재계산(k=1.2/1.5/2.0) → Docs/Playtest/Floor1Fastest.md. 합격 기준 Floor1Completion §9 (최단 k=2.0 ≥130분, 반복 사냥 ≤15%), 미달이면 퀘스트 EXP 조정 — 커밋 479379e4 (k=2.0 164분·그라인드 9.6%, 모델 추정)
 - [x] 1층계 완성 R1(데이터) (담당: autorun-3, L2·L10 과 함께): Floor1Completion §11 대로 QuestsFloor1.csv Q202 target 을 ForestWolf_BD→WildBoar_BD 8 로 교체(보상 유지)하고, EditMode 에 "선행→후속 퀘스트의 target 동일 금지"(같은 구역) 검사 추가. 위 L2·L10 신규 29행 추가 항목과 같이 해도 됨 — 커밋 33a9c2c7
-- [ ] 1층계 완성 R2·R3(데이터) (담당: autorun-3): §12 흐름표대로 신규 퀘스트 보상 아이템을 세트 부위·계보 무기로 채우고(교체 17회), HuntingSpawnsFloor1.csv 구역 앵커 3지점별 몹 비율 차등. 교체 간격 검증은 L9 프로브 결과에 8분 구간 빈칸 검사 추가
-- [ ] 1층계 완성 R4·R5(코드·데이터): 마을 대장장이 무기 시연대(Lv5·Lv10, 계보 무기 3종 대여→1종 보상, 대화+데이터) 및 정예 둥지 소형 던전화(흔적 3→웨이브 2→정예→상자, 기존 NestHunt·Raid 재사용). 그래픽 없음
+- [x] 1층계 완성 R2·R3(데이터) (담당: autorun-3): §12 흐름표대로 신규 퀘스트 보상 아이템을 세트 부위·계보 무기로 채우고(교체 17회), HuntingSpawnsFloor1.csv 구역 앵커 3지점별 몹 비율 차등. 교체 간격 검증은 L9 프로브 결과에 8분 구간 빈칸 검사 추가 — 커밋 44d9a842 (8분 빈칸 5곳 남음, 제안: Q601 방문 강화석)
+- [ ] 1층계 완성 R4·R5(코드·데이터) (담당: autorun-3): 마을 대장장이 무기 시연대(Lv5·Lv10, 계보 무기 3종 대여→1종 보상, 대화+데이터) 및 정예 둥지 소형 던전화(흔적 3→웨이브 2→정예→상자, 기존 NestHunt·Raid 재사용). 그래픽 없음
 - [x] 전투 조작감 CF-A (담당: autorun-3, 파일: Assets/Script/Player/Weapon.cs·PlayerController.cs·State/CombatRules): `Game/CombatFeelPlan.md` §3 CF-1·2·3·5 순서대로 — 지상 평타 후딜 중 앞키 전진(Attack Drift 1·2타 0.5/3타 0.25, 녹슨 검은 0.6 유지), 판정 후 점프 캔슬, 후딜 40% 이후 이동 캔슬, 방향 전환 보정. 순수 함수는 CombatRules 에 두고 EditMode 테스트. Unity 가 비는 때에 플레이 확인, 못 하면 "미검증" — 커밋 8afaab12(플레이 미검증)
 - [x] 전투 조작감 CF-B (담당: autorun-3, 파일: Assets/Script/Player/PlayerController.cs): CombatFeelPlan CF-4·6·7 — 점프 버퍼 0.15·코요테 0.12, 공중 평타 수평 관성 유지, 가변 점프(해제 시 vy×0.5, 최소 0.08초). CF-A 와 같은 파일이므로 CF-A 후에 — 커밋 afcbcf1e(플레이 미검증)
 - [x] 전투 조작감 CF-C (담당: autorun-3, 파일: Weapon.cs·프리팹 _comboGrace·PlayerController.cs): CombatFeelPlan CF-8·9·10 — _comboGrace 0.45, 이동 가감속(0.06/0.05), 대시 버퍼 0.1. CF-B 후에. 층계별 캔슬 비율(MovementUnlockRules CancelStartRatio 1층계 40%→3층계 30%→5층계 20%)도 같이 — 커밋 eed56ccc(플레이 미검증)
