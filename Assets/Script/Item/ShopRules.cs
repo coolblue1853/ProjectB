@@ -92,7 +92,7 @@ public static class ShopRules
 }
 
 /// <summary>
-/// 상점 진열 데이터(ShopStock.csv): Page,Row,ItemId,MinFloor,PageName. 도달한 층계가 MinFloor 이상이어야 진열된다.
+/// 상점 진열 데이터(ShopStock.csv): Page,Row,ItemId,MinFloor,PageName,MapOnly(선택). 도달한 층계가 MinFloor 이상이어야 진열된다.
 /// 같은 Page 가 한 페이지, 같은 (Page,Row) 가 한 줄. 순수 파서(층계는 호출자가 넘긴다).
 /// </summary>
 public sealed class ShopStockTable
@@ -100,7 +100,7 @@ public sealed class ShopStockTable
     public struct Entry
     {
         public int Page, Row, MinFloor;
-        public string Id, PageName;
+        public string Id, PageName, MapOnly;
     }
 
     private readonly List<Entry> _entries = new List<Entry>();
@@ -129,20 +129,27 @@ public sealed class ShopStockTable
             {
                 Page = page, Row = row, Id = c[2].Trim(), MinFloor = Math.Max(1, minFloor),
                 PageName = c.Length > 4 ? c[4].Trim() : "",
+                MapOnly = c.Length > 5 ? c[5].Trim() : "",
             });
         }
         return table;
     }
 
+    /// <summary>맵 한정 품목 규칙: mapOnly 가 비면 전역(항상 진열), 아니면 현재 맵 이름과 같을 때만</summary>
+    public static bool MapAllows(string mapOnly, string map)
+    {
+        return string.IsNullOrEmpty(mapOnly) || mapOnly == map;
+    }
+
     /// <summary>floor 에서 진열되는 항목을 페이지 → 줄 → 아이템 순으로. exists 가 false 인 이름(시트에 없음)은 뺀다. 비는 페이지·줄은 건너뛰어 번호를 앞으로 당긴다</summary>
-    public List<List<List<string>>> Layout(int floor, Func<string, bool> exists, out List<string> pageNames)
+    public List<List<List<string>>> Layout(int floor, Func<string, bool> exists, out List<string> pageNames, string map = null)
     {
         pageNames = new List<string>();
         var pages = new SortedDictionary<int, SortedDictionary<int, List<string>>>();
         var names = new Dictionary<int, string>();
         foreach (Entry e in _entries)
         {
-            if (e.MinFloor > floor || (exists != null && !exists(e.Id)))
+            if (e.MinFloor > floor || !MapAllows(e.MapOnly, map) || (exists != null && !exists(e.Id)))
             {
                 continue;
             }

@@ -94,6 +94,21 @@ public class ShopRulesTests
     }
 
     [Test]
+    public void StockTable_MapOnly_ShownOnlyInThatMap_NoColumnIsGlobal()
+    {
+        string csv = "Page,Row,ItemId,MinFloor,PageName,MapOnly\n0,0,A,1,x\n2,0,S,1,fort,Lv1_BanditFortress\n";
+        var t = ShopStockTable.Parse(csv);
+        Assert.AreEqual(1, t.Layout(1, null, out _, "Lv1_Town").Count);
+        Assert.AreEqual(1, t.Layout(1, null, out _, null).Count);
+        var fort = t.Layout(1, null, out var names, "Lv1_BanditFortress");
+        Assert.AreEqual(2, fort.Count);
+        CollectionAssert.AreEqual(new[] { "S" }, fort[1][0]);
+        Assert.AreEqual("fort", names[1]);
+        Assert.AreEqual(2, ShopStockTable.Parse(Csv).Layout(1, null, out _, "Lv1_BanditFortress").Count); // 열 없는 CSV 호환
+        Assert.IsTrue(ShopStockTable.MapAllows("", "any"));
+    }
+
+    [Test]
     public void StockTable_ExistsFilterDropsUnknown_AndEmptyPagesCollapse()
     {
         var t = ShopStockTable.Parse(Csv);

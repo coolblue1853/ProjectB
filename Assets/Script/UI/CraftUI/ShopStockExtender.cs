@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 상점 진열을 ShopStock.csv(Page,Row,ItemId,MinFloor,PageName)로 만든다. 씬의 기존 진열 슬롯을 템플릿으로 복제해 페이지·줄·칸을 채운다.
+/// 상점 진열을 ShopStock.csv(Page,Row,ItemId,MinFloor,PageName,MapOnly)로 만든다. 씬의 기존 진열 슬롯을 템플릿으로 복제해 페이지·줄·칸을 채운다.
 /// 도달한 층계(MovementUnlocks.HighestFloor)가 MinFloor 이상인 품목만 진열하고, 상점을 열 때 층계가 달라졌으면 다시 만든다.
 /// </summary>
 public sealed class ShopStockExtender : MonoBehaviour
@@ -31,6 +31,7 @@ public sealed class ShopStockExtender : MonoBehaviour
     private GameObject _pageTemplate, _rowTemplate, _slotTemplate;
     private Vector2 _rowOrigin;
     private int _builtFloor = -1;
+    private string _builtMap;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics()
@@ -87,10 +88,15 @@ public sealed class ShopStockExtender : MonoBehaviour
     /// <summary>상점을 열 때: 층계가 바뀌었으면 진열을 다시 만든다</summary>
     public static void RefreshFor(ShopManager shop)
     {
-        if (_active != null && _active._shop == shop && CurrentFloor() != _active._builtFloor)
+        if (_active != null && _active._shop == shop && (CurrentFloor() != _active._builtFloor || CurrentMap() != _active._builtMap))
         {
             _active.Rebuild();
         }
+    }
+
+    private static string CurrentMap()
+    {
+        return ZoneProgress.CurrentMap ?? "";
     }
 
     private static int CurrentFloor()
@@ -141,12 +147,14 @@ public sealed class ShopStockExtender : MonoBehaviour
     private void Rebuild()
     {
         int floor = CurrentFloor();
+        string map = CurrentMap();
         ShopStockTable table = ShopStockTable.Parse(LoadCsv());
-        List<List<List<string>>> layout = table.Layout(floor, id => DatabaseManager.instance.FindItemDataIndex(id) >= 0, out List<string> names);
+        List<List<List<string>>> layout = table.Layout(floor, id => DatabaseManager.instance.FindItemDataIndex(id) >= 0, out List<string> names, map);
         if (layout.Count == 0)
         {
             GameLog.Warn(GameLog.Cat.Item, "ShopStock.csv 에 진열 품목이 없어 기존 진열을 유지");
             _builtFloor = floor;
+            _builtMap = map;
             return;
         }
         ClearChildren(_box);
@@ -164,6 +172,7 @@ public sealed class ShopStockExtender : MonoBehaviour
             }
         }
         _builtFloor = floor;
+        _builtMap = map;
         _shop.BuildStockPageLabel();
         _shop.ResetStockSelection();
     }
