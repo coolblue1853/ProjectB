@@ -2,5 +2,5 @@ id,map,x,y,baseMonster,respawnSec,guaranteed
 AlphaWolf_BD,Lv1_NormalForest,-657,5.4,ForestWolf_BD,300,Wolf Fang:6|Enhance Stone:1
 OldBear_BD,Lv1_DeepForest,-250,-2.9,ForestBear_BD,300,Bear Pelt:6|Enhance Stone:1
 OldCroc_BD,Lv1_Swamp,-240,-178.5,BogCroc_BD,300,Croc Tooth:6|Enhance Stone:1
-BanditLieutenant_BD,Lv1_BanditFortress,-655,5.4,BanditCutthroat_BD,300,Iron Rivet:6|Enhance Stone:2
+BanditLieutenant_BD,Lv1_BanditFortress,-655,5.4,BanditCutthroat_BD,300,Iron Rivet:6|Enhance Stone:3|OutlawShoes:1
 ElderGolem_BD,Lv1_TowerOutskirts,-250,-2.9,GolemLarge_BD,300,Golem Pebble:6|Enhance Stone:2

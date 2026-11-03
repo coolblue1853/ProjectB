@@ -20,10 +20,10 @@ MonoBehaviour:
   - BanditShortbow
   - RaiderBuckler
   uniqueItem: ChiefsWarBanner
-  uniqueChance: 0.08
+  uniqueChance: 0.16
   pity: 12
-  stoneMin: 3
-  stoneMax: 6
-  firstKillStones: 6
+  stoneMin: 4
+  stoneMax: 9
+  firstKillStones: 9
   grantsRank: 0
   firstKillArtifact: 0

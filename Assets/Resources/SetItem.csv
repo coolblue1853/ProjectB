@@ -31,10 +31,10 @@ GloomArmor_4,(+)40 coolDown Bloodsting/(+)35 coolDown Slime_Smash
 GloomArmor_6,(+)12 Poison/(+)10 IncDmg/(+)10 CritDmg
 OutlawArmor_2,(+)6 Crit/(+)5 MoveSpeed
 OutlawArmor_4,(+)25 CritDmg/(+)35 coolDown Backstab/(+)30 coolDown Triple_Shot
-OutlawArmor_6,(+)12 AtkSpeed/(+)8 IncDmg
+OutlawArmor_6,(+)12 AtkSpeed/(+)8 IncDmg/(+)8 Hp/(+)2 Def
 RaiderArmor_2,(+)4 Def/(+)15 Hp
 RaiderArmor_4,(+)30 coolDown Shield_Shove/(+)35 coolDown Counter_Stance/(+)8 IncDmg
-RaiderArmor_6,(+)25 Hp/(+)6 Def/(+)10 CritDmg
+RaiderArmor_6,(+)33 Hp/(+)8 Def/(+)10 CritDmg
 StoneArmor_2,(+)6 Def/(+)16 Hp
 StoneArmor_4,(+)30 coolDown Rolling_Charge/(+)30 coolDown Aftershock/(+)30 coolDown Boulder_Toss/(+)8 IncDmg
 StoneArmor_6,(+)8 Def/(+)28 Hp/(+)10 IncDmg
