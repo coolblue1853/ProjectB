@@ -39,7 +39,7 @@ public class ArmorCraftRecipeDataTests
         var seen = new HashSet<string>();
         foreach (string[] r in LoadRecipes())
         {
-            Assert.AreEqual(2, r.Length, "열 수: " + r[0]);
+            Assert.IsTrue(r.Length == 2 || r.Length == 3, "열 수(gold 열 선택): " + r[0]);
             Assert.IsTrue(items.ContainsKey(r[0]), "결과 아이템 없음: " + r[0]);
             Assert.IsTrue(seen.Add(r[0]), "결과 중복: " + r[0]);
             foreach (string m in r[1].Split(';'))

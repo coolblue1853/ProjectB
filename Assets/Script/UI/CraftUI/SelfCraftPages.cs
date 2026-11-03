@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// 자가 제작 UI 페이지 확장(Q-110·Q-436, BasicFeatures.md 10절): 씬의 자가 제작 상자는 1페이지 1줄 3칸이라 레시피를 더 못 넣었다.
 /// Resources/SelfCraftRecipes.csv 의 추가 레시피로 1페이지를 복제한 페이지를 만들어 뒤에 붙인다(페이지 넘김 Q/E·LB/RB 는 CraftingManager 기존 기능).
-/// 형식: 결과,재료*수;재료*수 (첫 줄 머리글). 시트에 없는 이름은 건너뛴다.
+/// 형식: 결과,재료*수;재료*수[,gold] (첫 줄 머리글, gold 열은 선택). 시트에 없는 이름은 건너뛴다.
 /// </summary>
 public static class SelfCraftPages
 {
@@ -16,6 +16,7 @@ public static class SelfCraftPages
         public string Result;
         public List<string> Ids;
         public List<int> Counts;
+        public int Gold; // 제작 골드(Q-F1C4). 열 없음·빈 값·잘못된 값 = 0
     }
 
     /// <summary>CSV 텍스트 → 레시피(순수, 테스트 대상). 깨진 줄·재료 없는 줄은 건너뛴다</summary>
@@ -36,7 +37,14 @@ public static class SelfCraftPages
                 continue;
             }
             var r = new Recipe { Result = line.Substring(0, comma).Trim(), Ids = new List<string>(), Counts = new List<int>() };
-            foreach (string part in line.Substring(comma + 1).Split(';'))
+            string rest = line.Substring(comma + 1);
+            int comma2 = rest.IndexOf(',');
+            if (comma2 >= 0)
+            {
+                r.Gold = CraftGoldRules.ParseGold(rest.Substring(comma2 + 1));
+                rest = rest.Substring(0, comma2);
+            }
+            foreach (string part in rest.Split(';'))
             {
                 int star = part.LastIndexOf('*');
                 if (star <= 0 || !int.TryParse(part.Substring(star + 1).Trim(), out int n) || n <= 0)

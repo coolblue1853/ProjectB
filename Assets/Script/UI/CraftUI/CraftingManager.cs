@@ -161,6 +161,11 @@ public class CraftingManager : MonoBehaviour
         type.text = ItemText.TypeLine(nowCraftItem.itemData, false);
         description.text = ItemText.Description(nowCraftItem.itemData);
         price.text = Loc.T("Price : ") + (nowCraftItem.itemData.price).ToString();
+        string goldLabel = CraftGoldRules.CostLabel(CraftGoldRules.GoldFor(nowCraftItem.itemData.name));
+        if (goldLabel.Length > 0)
+        {
+            price.text += "  /  " + Loc.T("Craft cost : ") + goldLabel;
+        }
         tear.text = "T" + nowCraftItem.itemData.tear.ToString();
         rarity.text = InventoryManager.instance.SetRarity(nowCraftItem.itemData.rarity);
 
@@ -184,6 +189,13 @@ public class CraftingManager : MonoBehaviour
 
         // 표시 이름(itemNameT)이 아니라 아이템 키(name)로 생성해야 한다
         string resultName = nowCraftItem.itemData.name;
+        int goldCost = CraftGoldRules.GoldFor(resultName);
+        if (CraftGoldRules.Short(goldCost, DatabaseManager.money))
+        {
+            Debug.Log($"제작 실패: 골드 부족 ({DatabaseManager.money}/{goldCost})");
+            Sfx.Play(SfxId.CraftFail);
+            return;
+        }
         if (!InventoryManager.instance.HasRoomFor(resultName))
         {
             Debug.Log("제작 실패: 인벤토리 공간 부족");
@@ -191,6 +203,7 @@ public class CraftingManager : MonoBehaviour
             return;
         }
 
+        DatabaseManager.money = CraftGoldRules.Spend(goldCost, DatabaseManager.money);
         foreach (var need in needs)
         {
             InventoryManager.instance.DeletItemByName(need.Key, need.Value);

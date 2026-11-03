@@ -1,47 +1,47 @@
-result,materials
-Bringer's Sigil Ring,Death Sigil*8;T1_Ore*10
-WolfCap,Wolf Fang*8
-WolfHandArmor,Boar Tusk*8
-WolfLegArmor,Wolf Fang*8;Boar Tusk*3
-WolfShoes,Wolf Fang*6;Boar Tusk*5
-WolfArmor,Wolf Fang*10;Boar Tusk*8
-GroveCap,Heartwood Chip*8
-GroveHandArmor,Bear Pelt*8
-GroveLegArmor,Heartwood Chip*6;Bear Pelt*4
-GroveShoes,Heartwood Chip*5;Bear Pelt*6
-GroveArmor,Heartwood Chip*10;Bear Pelt*8
-BogCap,Frog Skin*8
-BogHandArmor,Crab Pincer*8
-BogLegArmor,Croc Tooth*8
-BogShoes,Frog Skin*5;Crab Pincer*5
-BogArmor,Croc Tooth*8;Crab Pincer*6;Frog Skin*4
-WispCap,Wisp Ember*8
-WispHandArmor,Snail Shell*8
-WispLegArmor,Wisp Ember*6;Snail Shell*4
-WispShoes,Wisp Ember*5;Snail Shell*5
-WispArmor,Wisp Ember*10;Snail Shell*8
-FaeCap,Fairy Dust*8
-FaeHandArmor,Ectoplasm*8
-FaeLegArmor,Fairy Dust*6;Ectoplasm*4
-FaeShoes,Fairy Dust*5;Ectoplasm*5
-FaeArmor,Fairy Dust*10;Ectoplasm*8
-GloomCap,Blood Sting*8
-GloomHandArmor,Slime Gel*8
-GloomLegArmor,Blood Sting*6;Slime Gel*4
-GloomShoes,Blood Sting*5;Slime Gel*5
-GloomArmor,Blood Sting*10;Slime Gel*8
-OutlawCap,Bandit Bandana*8
-OutlawHandArmor,Broken Arrow*8
-OutlawLegArmor,Bandit Bandana*6;Broken Arrow*4
-OutlawShoes,Bandit Bandana*5;Broken Arrow*5
-OutlawArmor,Bandit Bandana*10;Broken Arrow*8
-RaiderCap,Pitch Torch*8
-RaiderHandArmor,Iron Rivet*8
-RaiderLegArmor,Pitch Torch*6;Iron Rivet*4
-RaiderShoes,Pitch Torch*5;Iron Rivet*5
-RaiderArmor,Pitch Torch*10;Iron Rivet*8
-StoneCap,Golem Pebble*8
-StoneHandArmor,Quake Core*8
-StoneLegArmor,Golem Pebble*6;Quake Core*4
-StoneShoes,Golem Pebble*5;Quake Core*5
-StoneArmor,Golem Pebble*10;Quake Core*8
+result,materials,gold
+Bringer's Sigil Ring,Death Sigil*8;T1_Ore*10,0
+WolfCap,Wolf Fang*8,210
+WolfHandArmor,Boar Tusk*8,210
+WolfLegArmor,Wolf Fang*8;Boar Tusk*3,290
+WolfShoes,Wolf Fang*6;Boar Tusk*5,210
+WolfArmor,Wolf Fang*10;Boar Tusk*8,390
+GroveCap,Heartwood Chip*8,320
+GroveHandArmor,Bear Pelt*8,320
+GroveLegArmor,Heartwood Chip*6;Bear Pelt*4,440
+GroveShoes,Heartwood Chip*5;Bear Pelt*6,320
+GroveArmor,Heartwood Chip*10;Bear Pelt*8,600
+BogCap,Frog Skin*8,270
+BogHandArmor,Crab Pincer*8,270
+BogLegArmor,Croc Tooth*8,370
+BogShoes,Frog Skin*5;Crab Pincer*5,270
+BogArmor,Croc Tooth*8;Crab Pincer*6;Frog Skin*4,510
+WispCap,Wisp Ember*8,210
+WispHandArmor,Snail Shell*8,210
+WispLegArmor,Wisp Ember*6;Snail Shell*4,290
+WispShoes,Wisp Ember*5;Snail Shell*5,210
+WispArmor,Wisp Ember*10;Snail Shell*8,390
+FaeCap,Fairy Dust*8,320
+FaeHandArmor,Ectoplasm*8,320
+FaeLegArmor,Fairy Dust*6;Ectoplasm*4,440
+FaeShoes,Fairy Dust*5;Ectoplasm*5,320
+FaeArmor,Fairy Dust*10;Ectoplasm*8,600
+GloomCap,Blood Sting*8,270
+GloomHandArmor,Slime Gel*8,270
+GloomLegArmor,Blood Sting*6;Slime Gel*4,370
+GloomShoes,Blood Sting*5;Slime Gel*5,270
+GloomArmor,Blood Sting*10;Slime Gel*8,510
+OutlawCap,Bandit Bandana*8,400
+OutlawHandArmor,Broken Arrow*8,400
+OutlawLegArmor,Bandit Bandana*6;Broken Arrow*4,550
+OutlawShoes,Bandit Bandana*5;Broken Arrow*5,400
+OutlawArmor,Bandit Bandana*10;Broken Arrow*8,750
+RaiderCap,Pitch Torch*8,400
+RaiderHandArmor,Iron Rivet*8,400
+RaiderLegArmor,Pitch Torch*6;Iron Rivet*4,550
+RaiderShoes,Pitch Torch*5;Iron Rivet*5,400
+RaiderArmor,Pitch Torch*10;Iron Rivet*8,750
+StoneCap,Golem Pebble*8,340
+StoneHandArmor,Quake Core*8,340
+StoneLegArmor,Golem Pebble*6;Quake Core*4,460
+StoneShoes,Golem Pebble*5;Quake Core*5,340
+StoneArmor,Golem Pebble*10;Quake Core*8,630
