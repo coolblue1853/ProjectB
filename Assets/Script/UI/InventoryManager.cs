@@ -301,6 +301,8 @@ public class InventoryManager : MonoBehaviour
             LoadEquipItem();
             Service.LoadFrom(SaveManager.instance.datas.invenItem, SaveManager.instance.datas.inventoryFlags);
         }
+        ExtraEquip.Load();
+        ExtraEquipPanel.Ensure(inventory != null ? inventory.transform : null);
         EnsureDefaultWeapon();
     }
 
@@ -1046,6 +1048,10 @@ public class InventoryManager : MonoBehaviour
     void UseEquipment(ItemCheck nowItem = null)
     {
         GameObject equipBox;
+        if (ExtraEquip.TryHandleEquip(nowItem != null ? nowItem : detail)) // 칭호·오라·부적·망토 (SLOT-2)
+        {
+            return;
+        }
         if (nowItem != null)
         {
             detail = nowItem;

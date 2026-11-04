@@ -59,7 +59,7 @@
 - [x] INV-EXP-3 (담당: inv-exp, 14711f2d; 독립 프로브 ptbot_bag.cs, run 루프 연동은 후속) PT-BOT 확장 (파일: Tools/probes/ptbot_*.cs, Docs/Playtest/PtBot.md): 구역별 슬롯 점유율·가득 참 횟수·판매/분해 빈도 로그, 가득 차면 확장 구매·정리 자동 수행, 결과 PtBot.md 기록. INV-EXP-2 후.
 - [ ] INV-EXP-4 (담당: inv-exp, 통주 로그 필요) 시작 칸·가격 보정 (문서): PtBot 점유율 로그로 §7 가격표 조정, BasicFeatures 갱신. INV-EXP-3 후.
 - [x] SLOT-1 장비 슬롯 모델·세이브 (파일: Inventory/Model/EquipmentModel.cs, `SlotRules`, ES3 `equip.extra`·`equip.extraUnlock`): 설계 `Game/EquipSlotExpansion.md` §4~5. EditMode 테스트(구 세이브 호환). → 완료 11-04 커밋 3dc2dfae
-- [ ] SLOT-2 장비창 신규 4칸 UI·잠금 툴팁 (SLOT-1 후, 파일: 장비 UI·입력).
+- [x] SLOT-2 장비창 신규 4칸 UI·잠금 툴팁 → 완료 11-04(코드 생성 임시 패널 `UI/ExtraEquip.cs`, 마우스 호버·클릭, 패드 커서·위치 미검증).
 - [ ] SLOT-3 해금·보상 연결 (도감 완성/보스 첫 처치 → 슬롯 해금 + 칭호·오라 첫 아이템 ItemSheet 행, SLOT-1 후).
 - [ ] SLOT-4 `AuraFx` 코드 생성 링·칭호 이름표 텍스트 (SLOT-3 후). SLOT-5 망토 `CelEquipLayer.Slot.Back` 아트는 후속.
 - [x] CHIEF-1 대장 보상 데이터 (파일: ItemSheet 258·259행, MonsterExtraDrops, QuestsFloor1 Q504, LocItems): 설계 `Floor1Completion.md` §15-2. CSV 로드 테스트. → 완료 11-04 커밋 9e8ca9d6
