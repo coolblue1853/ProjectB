@@ -10,7 +10,7 @@
 |---|---|---|
 | 조작 | 2단 점프·대시·사다리/로프·하향 점프, 입력 버퍼·코요테 | `Player/PlayerController.cs`, CombatSpec 1~2절 |
 | 전투 | 무기 스킬 4슬롯(A/S/D/F) + 쿨다운 HUD, 평타 콤보, 아티팩트(Shift) | `UI/SkillCooldown.cs`, `Item/ArtifactSystem.cs` |
-| 아이템 | 인벤토리(5페이지·정렬)·창고·상점·제작·강화 +0~+10·세트 2/5 | `UI/InventoryManager.cs`, `Inventory/InventoryService.cs`, ProgressionDesign |
+| 아이템 | 인벤토리(시작 25칸·상점 N 키로 5칸씩 골드 확장, 최대 125칸·층계 상한, `Inventory/BagExpansion.cs`·InventoryRefactorDesign §7)·창고·상점·제작·강화 +0~+10·세트 2/5 | `UI/InventoryManager.cs`, `Inventory/InventoryService.cs`, ProgressionDesign |
 | 창고 편의 | 같은 재료·소비품 모두 보관(G/RT), 재료 전부(T/SELECT), 전체 정렬(R/R3), 꺼낼 수량(C/Y), 사용/전체 칸 표시·가득 참 안내. Unity 전체 테스트 460/460·낮 플레이·가상 입력 검증 완료 | `UI/ChestConvenience.cs`, ItemSpec 4절, `Docs/Playtest/ChestReview.md` |
 | 툴팁 | 등급 색, 세트 진행도, 착용품 대비 ▲/▼ 비교 | `UI/TooltipBuilder.cs` |
 | 소비 | 인벤에서 소비 키로 사용(HP·스태미나·포만감·횃불·방어 버프) | `InventoryManager.ActiveConsum` → `ItemCheck.ApplyConsumeEffect` |

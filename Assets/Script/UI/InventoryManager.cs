@@ -390,6 +390,10 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         inventory.SetActive(true);
+        if (SaveManager.instance != null)
+        {
+            maxBoxNum = BagExpansionRules.Clamp(SaveManager.instance.datas.bagUnlocked); // 씬 값 대신 세이브의 해금 칸 수(구 세이브 = 25)
+        }
         MakeInventoryBox();
         inventoryArray = new int[maxBoxNum, 5];
         Invoke("ActiveFalse", 0.000000001f); // 인벤토리 리로드, 이 과정이 없으면 GridLayoutGroup이 정상작동하지 않음.
@@ -542,6 +546,27 @@ public class InventoryManager : MonoBehaviour
                 }
             }
             SaveInventory();
+        }
+    }
+
+    /// <summary>가방 칸을 newCount 칸까지 늘린다(가방 확장 구매). 새 칸에 걸려 있던 보관 아이템은 다시 그린다</summary>
+    public void ExpandBag(int newCount)
+    {
+        int perPage = maxHor * maxVer;
+        int target = Mathf.Min(BagExpansionRules.Clamp(newCount), inventoryUI.Length * perPage);
+        for (int i = maxBoxNum; i < target; i++)
+        {
+            Instantiate(inventoryBoxPrefab, inventoryUI[i / perPage].transform);
+        }
+        if (target > maxBoxNum)
+        {
+            maxBoxNum = target;
+            maxBoxCusor = (maxBoxNum + perPage - 1) / perPage;
+            if (inventoryArray == null || inventoryArray.GetLength(0) < perPage)
+            {
+                inventoryArray = new int[Mathf.Max(maxBoxNum, perPage), 5];
+            }
+            Service.OnBagExpanded();
         }
     }
 

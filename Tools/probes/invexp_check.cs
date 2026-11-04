@@ -1,0 +1,12 @@
+var inv = InventoryManager.instance;
+string s = "start max=" + inv.maxBoxNum + " p0=" + inv.inventoryUI[0].transform.childCount + " p1=" + inv.inventoryUI[1].transform.childCount + " save=" + SaveManager.instance.datas.bagUnlocked;
+int m = DatabaseManager.money;
+DatabaseManager.money = 100000;
+bool ok = BagExpansion.TryBuy();
+s += " | buy=" + ok + " max=" + inv.maxBoxNum + " p0=" + inv.inventoryUI[0].transform.childCount + " p1=" + inv.inventoryUI[1].transform.childCount + " model=" + inv.Service.ScanModel().Unlocked + " gold=" + DatabaseManager.money + " save=" + SaveManager.instance.datas.bagUnlocked;
+BagExpansion.TryBuy(); BagExpansion.TryBuy(); BagExpansion.TryBuy(); BagExpansion.TryBuy();
+s += " | after5 max=" + inv.maxBoxNum + " p1=" + inv.inventoryUI[1].transform.childCount;
+bool six = BagExpansion.TryBuy();
+s += " six=" + six + " max=" + inv.maxBoxNum;
+DatabaseManager.money = m;
+return s;

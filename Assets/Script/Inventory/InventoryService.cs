@@ -446,6 +446,26 @@ public sealed class InventoryService
         GameLog.Info(GameLog.Cat.Item, "인벤토리 로드: " + drawn + "칸");
     }
 
+    /// <summary>가방 칸이 늘어난 뒤: 새로 열린 칸의 보관 아이템을 그리고 모델 용량(Unlocked)을 갱신한다</summary>
+    public void OnBagExpanded()
+    {
+        var reopened = new List<int>();
+        foreach (KeyValuePair<int, ItemStack> kv in hidden)
+        {
+            if (kv.Key % PerPage < inv.inventoryUI[kv.Key / PerPage].transform.childCount)
+            {
+                reopened.Add(kv.Key);
+            }
+        }
+        foreach (int index in reopened)
+        {
+            DrawSlot(index, hidden[index], null);
+            hidden.Remove(index);
+        }
+        SyncModelFromViews();
+        inv.RebuildItemStackCache();
+    }
+
     /// <summary>현재 슬롯 + 열린 칸 밖에 보관 중인 아이템까지 담은 세이브 배열</summary>
     public string[,,] BuildSaveArray()
     {

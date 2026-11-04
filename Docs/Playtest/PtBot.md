@@ -66,3 +66,10 @@ bash Tools/u.sh cs Tools/probes/ptbot_stop.cs     # 중간 중지(다음 틱에 
 - NPC 대화 수락 실패: 루엔(Q104·105·106)·세나(Q310)·이브(Q311)의 선택 퀘스트가 `Available` 인데 봇 대화로 수락되지 않음(`NPC_BLOCK`). 원인 미규명.
 - 수집 퀘스트: 드롭 대상이 `MonsterExtraDrops.csv` 에 있는 것만 해당 몹 사냥, 없는 것(약초·버섯·낚시)은 90~240초 사냥 후 치트 지급(`CHEAT_COLLECT`, +2.5분 환산). `BranchAntlerFox_BD` 는 스포너 프로필이 없어 Q305 스킵.
 - 시간 가속 ×3~×4 실측: ×4 에서 게임초/실초 ≈ 4.0.
+
+## 가방 점유율·확장 (INV-EXP-3, 11-04)
+- `Tools/probes/ptbot_bag.cs` — 폴링 루프에서 호출하는 독립 프로브(`bash Tools/u.sh cs Tools/probes/ptbot_bag.cs`). `Logs/ptbot/bag.log` 에 `시각|맵|사용/해금|점유율|이벤트` 한 줄을 남긴다.
+- 가득(사용 ≥ 해금−1)이면 ① 잡템 일괄 판매(`BulkSaleRules`, 이벤트 `sell`) ② 그래도 가득이면 가방 확장 구매(`expand`, 층계 상한·골드 안, 아니면 `expand-blocked`).
+- 가득 참 횟수·판매·확장 빈도는 `grep -c full|sell|expand Logs/ptbot/bag.log` 로 집계.
+- 스모크: 1회 호출로 `Lv1_NearForest|16/25|63%` 기록 확인. 통주 연동(`ptbot_run.cs` 루프에서 호출)은 사용자 미커밋 변경 파일이라 수정하지 않았다 → 후속: run 루프 N초마다 이 프로브 호출 + 구역별 집계. 가격표 보정(INV-EXP-4)은 그 로그 이후.
+

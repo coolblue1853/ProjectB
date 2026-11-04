@@ -507,3 +507,10 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 2. INV-EXP-2 UI: 상점 "가방 확장" 항목(현재/다음 칸·가격·층계 안내·골드 부족 처리), 구매 후 새 칸 즉시 표시·페이지 탭 잠금 해제, 패드 입력.
 3. INV-EXP-3 PT-BOT 확장(`Tools/probes/ptbot_*.cs`, `Docs/Playtest/PtBot.md`): 통주 중 구역별 슬롯 점유율·가득 참 횟수·판매/분해 빈도 로그, 가득 차면 확장 구매(골드·층계 상한 안)와 정리(일괄 판매 `BulkSaleRules`) 자동 수행, 확장 흐름 검증 결과를 PtBot.md 에 기록.
 4. INV-EXP-4 문서·튜닝: PtBot 점유율 로그로 시작 칸·가격표 보정, `BasicFeatures.md` 가방 항목 갱신.
+
+### 7-6. 구현 결과 (11-04, INV-EXP-1·2)
+- `BagExpansionRules`(순수: Clamp·TryNext·Check·FloorCap·TotalCost) + `Assets/Resources/BagExpansion.csv`(20단계 25→125, §7-3 가격표 그대로). EditMode `BagExpansionRulesTests` 5건.
+- ES3: `Datas.bagUnlocked`(int, 0 = 키 없음 → 25). `InventoryManager.Start` 가 씬 `maxBoxNum`(15) 대신 이 값으로 칸을 만든다 → **씬 수정 없음**, 구 세이브는 15→25칸으로 늘어난다. 확장은 `InventoryManager.ExpandBag`(새 칸 생성·모델 `Unlocked` 갱신·보관 아이템 재표시).
+- 구매 UI(씬 수정 없이 런타임): 상점이 열린 상태에서 **N**(패드 LT+X) → 다음 단계·가격 안내(5초 확인 대기) → 한 번 더 N 으로 구매. 층계 상한 초과·골드 부족·최대 크기는 안내만. 구현 `Inventory/BagExpansion.cs`(Buyback 과 같은 패턴). 상점 목록 안의 별도 항목·페이지 탭 잠금 표시는 후속(인벤 페이지는 `maxBoxCusor` 로 자동 확장됨).
+- 검증: 플레이 프로브로 25칸 시작 → 5회 구매 50칸 → 6회째 층계 상한으로 거절, 새 칸 즉시 생성(2페이지 5→25칸), 골드 차감·`bagUnlocked` 저장 확인. N 키 입력 경로·화면 캡처는 미검증.
+
