@@ -260,7 +260,7 @@ public class PauseMenu : MonoBehaviour
         panel = theme.NewPanel("Panel", transform).gameObject;
         var pr = (RectTransform)panel.transform;
         pr.anchorMin = pr.anchorMax = new Vector2(0.5f, 0.5f);
-        pr.sizeDelta = new Vector2(520f, 546f);
+        pr.sizeDelta = new Vector2(520f, 572f);
 
         title = NewText("Title", pr, theme, 40f);
         var head = title;
@@ -272,14 +272,14 @@ public class PauseMenu : MonoBehaviour
         for (int i = 0; i < Mathf.Max(items.Length, settingItems.Length); i++)
         {
             Image bg = theme.NewPanel("Row" + i, pr, true, 0f);
-            Place(bg.rectTransform, new Vector2(40f, -96f - i * 56f), new Vector2(440f, 48f));
+            Place(bg.rectTransform, new Vector2(40f, -96f - i * 52f), new Vector2(440f, 44f));
             var text = NewText("Text", bg.transform, theme, 30f);
-            Place(text.rectTransform, new Vector2(16f, 0f), new Vector2(410f, 48f));
+            Place(text.rectTransform, new Vector2(16f, 0f), new Vector2(410f, 44f));
             text.alignment = TextAlignmentOptions.MidlineLeft;
             rows.Add((bg, text));
         }
         hint = NewText("Hint", pr, theme, 20f);
-        Place(hint.rectTransform, new Vector2(0f, -506f), new Vector2(520f, 28f));
+        Place(hint.rectTransform, new Vector2(0f, -534f), new Vector2(520f, 28f));
         hint.alignment = TextAlignmentOptions.Center;
         hint.text = "UP/DOWN  ·  SELECT / ENTER  ·  ESC resume";
         hint.color = new Color(1f, 1f, 1f, 0.55f);
