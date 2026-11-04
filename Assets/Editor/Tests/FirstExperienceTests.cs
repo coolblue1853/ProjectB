@@ -18,6 +18,33 @@ public class FirstExperienceTests
     }
 
     [Test]
+    public void 마을_튜토리얼은_5단계_한번만_건너뛰기_가능()
+    {
+        var seen = new HashSet<string>();
+        System.Collections.Generic.List<string> first = FirstHintRules.TakeTutorial(seen);
+        Assert.AreEqual(5, first.Count);
+        Assert.AreEqual(FirstHintRules.TutMove, first[0]);
+        Assert.AreEqual(FirstHintRules.TutQuest, first[4]);
+        Assert.AreEqual(0, FirstHintRules.TakeTutorial(seen).Count);
+
+        var seen2 = new HashSet<string> { FirstHintRules.TutMove };
+        Assert.AreEqual(4, FirstHintRules.TakeTutorial(seen2).Count);
+
+        var seen3 = new HashSet<string>();
+        FirstHintRules.SkipTutorial(seen3);
+        Assert.AreEqual(0, FirstHintRules.TakeTutorial(seen3).Count);
+        Assert.IsTrue(FirstHintRules.IsTutorial(FirstHintRules.TutJump));
+        Assert.IsFalse(FirstHintRules.IsTutorial(FirstHintRules.Kill));
+    }
+
+    [Test]
+    public void 튜토리얼_문구는_키_설정을_따른다()
+    {
+        Assert.IsTrue(FirstHintRules.Text(FirstHintRules.TutJump, k => k == "Jump" ? "X9" : "?").Contains("[X9]"));
+        Assert.IsTrue(FirstHintRules.Text(FirstHintRules.TutAttack, k => k == "Attack" ? "Z7" : "?").Contains("[Z7]"));
+    }
+
+    [Test]
     public void 모든_힌트에_문구가_있다()
     {
         foreach (string id in FirstHintRules.All)

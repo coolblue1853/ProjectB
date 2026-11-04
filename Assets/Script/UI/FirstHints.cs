@@ -3,6 +3,7 @@ using DG.Tweening;
 using PixelCrushers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>첫 경험 힌트 규칙 (순수): 힌트 id·문구, 본 목록 직렬화. 세이브는 ES3 새 키 "hints.seen" (쉼표 문자열)</summary>
@@ -11,7 +12,41 @@ public static class FirstHintRules
     public const string SaveKey = "hints.seen";
     public const string Kill = "kill", Portal = "portal", Rope = "rope", Gather = "gather", Equip = "equip", Potion = "potion", LevelUp = "levelup";
 
-    public static readonly string[] All = { Kill, Portal, Rope, Gather, Equip, Potion, LevelUp };
+    public const string TutMove = "tut_move", TutAttack = "tut_attack", TutJump = "tut_jump", TutPotion = "tut_potion", TutQuest = "tut_quest";
+    public const string TutorialSkipHint = "  (Backspace: 건너뛰기)";
+
+    public static readonly string[] All = { Kill, Portal, Rope, Gather, Equip, Potion, LevelUp, TutMove, TutAttack, TutJump, TutPotion, TutQuest };
+
+    /// <summary>마을 첫 진입 튜토리얼 순서 (이동·공격·점프·물약·퀘스트창)</summary>
+    public static readonly string[] Tutorial = { TutMove, TutAttack, TutJump, TutPotion, TutQuest };
+
+    public static bool IsTutorial(string id)
+    {
+        return System.Array.IndexOf(Tutorial, id) >= 0;
+    }
+
+    /// <summary>튜토리얼 중 아직 안 본 단계를 본 것으로 표시하고 순서대로 돌려준다 (본 단계는 제외 → 한 번만)</summary>
+    public static List<string> TakeTutorial(HashSet<string> seen)
+    {
+        var list = new List<string>();
+        foreach (string id in Tutorial)
+        {
+            if (TryMarkSeen(seen, id))
+            {
+                list.Add(id);
+            }
+        }
+        return list;
+    }
+
+    /// <summary>건너뛰기: 모든 튜토리얼 단계를 본 것으로 표시</summary>
+    public static void SkipTutorial(HashSet<string> seen)
+    {
+        foreach (string id in Tutorial)
+        {
+            seen.Add(id);
+        }
+    }
 
     /// <summary>힌트 문구. key(이름) 는 현재 키 설정 표시로 바꿔 주는 함수</summary>
     public static string Text(string id, System.Func<string, string> key)
@@ -24,6 +59,11 @@ public static class FirstHintRules
             case Gather: return "채집물 앞에서 [↑] 를 누르면 채집해요.";
             case Equip: return "장비를 얻었어요! [" + key("UI/OpenInventory") + "] 로 가방을 열어 장착해요.";
             case Potion: return "물약을 얻었어요! 가방에서 Shift+[1~4] 로 퀵슬롯에 등록하면 [1~4] 로 써요.";
+            case TutMove: return "[←] [→] 로 이동, [" + key("Run") + "] 를 누른 채 달려요.";
+            case TutAttack: return "[" + key("Attack") + "] 로 공격해요. 연타하면 콤보가 이어져요.";
+            case TutJump: return "[" + key("Jump") + "] 로 점프, 공중에서 한 번 더 누르면 2단 점프예요.";
+            case TutPotion: return "물약은 가방에서 Shift+[1~4] 로 퀵슬롯에 등록하고 [1~4] 로 써요.";
+            case TutQuest: return "[J] 로 퀘스트를 확인하고, 마을 게시판에서 의뢰를 받아요.";
             case LevelUp: return "[J] 로 퀘스트를 확인하고 다음 목표를 찾아봐요.";
         }
         return "";
@@ -76,6 +116,8 @@ public sealed class FirstHints : MonoBehaviour, IMessageHandler
     private HashSet<string> _seen = new HashSet<string>();
     private readonly Queue<string> _queue = new Queue<string>();
     private Datas _boundDatas;
+    private bool _showingTutorial;
+    private bool _tutorialChecked; // 시작 맵이 마을이면 한 번 검사
     private bool _loaded; // 세이브 읽기 전에는 저장하지 않는다(본 목록 덮어쓰기 방지)
     private float _nextPoll, _nextList, _hideAt;
     private Portal[] _portals = new Portal[0];
@@ -129,6 +171,7 @@ public sealed class FirstHints : MonoBehaviour, IMessageHandler
         MessageSystem.AddListener(this, "Kill", string.Empty);
         LevelSystem.LeveledUp += OnLevelUp;
         PickupLog.Picked += OnPicked;
+        Portal.MapChanged += OnMapChanged;
     }
 
     private void OnDisable()
@@ -136,6 +179,7 @@ public sealed class FirstHints : MonoBehaviour, IMessageHandler
         MessageSystem.RemoveListener(this);
         LevelSystem.LeveledUp -= OnLevelUp;
         PickupLog.Picked -= OnPicked;
+        Portal.MapChanged -= OnMapChanged;
     }
 
     private void OnDestroy()
@@ -153,6 +197,56 @@ public sealed class FirstHints : MonoBehaviour, IMessageHandler
         {
             Trigger(FirstHintRules.Kill);
         }
+    }
+
+    private void OnMapChanged(GameObject openMap)
+    {
+        if (openMap != null && openMap.name == "Town")
+        {
+            TryStartTutorial();
+        }
+    }
+
+    /// <summary>마을 첫 진입 시 튜토리얼 5단계를 큐에 넣는다 (한 번만)</summary>
+    private void TryStartTutorial()
+    {
+        if (!_loaded || !GameSettings.Hints)
+        {
+            return;
+        }
+        List<string> steps = FirstHintRules.TakeTutorial(_seen);
+        if (steps.Count == 0)
+        {
+            return;
+        }
+        foreach (string id in steps)
+        {
+            _queue.Enqueue(id);
+        }
+        Save();
+    }
+
+    private void SkipTutorial()
+    {
+        FirstHintRules.SkipTutorial(_seen);
+        var keep = new Queue<string>();
+        foreach (string id in _queue)
+        {
+            if (!FirstHintRules.IsTutorial(id))
+            {
+                keep.Enqueue(id);
+            }
+        }
+        _queue.Clear();
+        foreach (string id in keep)
+        {
+            _queue.Enqueue(id);
+        }
+        _showingTutorial = false;
+        _tween?.Kill();
+        _group.alpha = 0f;
+        _hideAt = 0f;
+        Save();
     }
 
     private void OnLevelUp(int level)
@@ -193,6 +287,22 @@ public sealed class FirstHints : MonoBehaviour, IMessageHandler
         {
             _boundDatas = sm.datas;
             Load();
+        }
+        if (_loaded && !_tutorialChecked)
+        {
+            _tutorialChecked = true;
+            foreach (MapInfo m in FindObjectsByType<MapInfo>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+            {
+                if (m.name == "Town")
+                {
+                    TryStartTutorial();
+                    break;
+                }
+            }
+        }
+        if (_showingTutorial && _group.alpha > 0.01f && Keyboard.current != null && Keyboard.current.backspaceKey.wasPressedThisFrame)
+        {
+            SkipTutorial();
         }
         if (Time.unscaledTime >= _nextPoll)
         {
@@ -256,7 +366,8 @@ public sealed class FirstHints : MonoBehaviour, IMessageHandler
     private void ShowNext()
     {
         string id = _queue.Dequeue();
-        _text.text = FirstHintRules.Text(id, k => ControlsWindow.Resolve(k, false));
+        _showingTutorial = FirstHintRules.IsTutorial(id);
+        _text.text = FirstHintRules.Text(id, k => ControlsWindow.Resolve(k, false)) + (_showingTutorial ? FirstHintRules.TutorialSkipHint : "");
         _hideAt = Time.unscaledTime + Show + Fade + 0.2f;
         _tween?.Kill();
         _group.alpha = 0f;
