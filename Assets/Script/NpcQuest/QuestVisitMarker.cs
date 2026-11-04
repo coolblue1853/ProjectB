@@ -55,14 +55,7 @@ public class QuestVisitMarker : MonoBehaviour
 
     private bool IsWanted()
     {
-        foreach (NpcQuestDef d in NpcQuestLog.ActiveQuests())
-        {
-            if (d.Objective == NpcQuestObjective.Visit && d.Target == _markerId && NpcQuestLog.Progress(d) < d.Count)
-            {
-                return true;
-            }
-        }
-        return false;
+        return MinimapMath.IsVisitWanted(NpcQuestLog.ActiveQuests(), _markerId, NpcQuestLog.Progress);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

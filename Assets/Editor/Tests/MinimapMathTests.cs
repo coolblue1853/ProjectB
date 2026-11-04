@@ -22,4 +22,16 @@ public class MinimapMathTests
         Assert.AreEqual(150f, tall.y, 1e-3f);
         Assert.AreEqual(40f, tall.x, 1e-3f); // 최소 변
     }
+
+    [Test]
+    public void IsVisitWanted_OnlyUnfinishedMatchingVisit()
+    {
+        var q = new NpcQuestDef { Objective = NpcQuestObjective.Visit, Target = "m1", Count = 1 };
+        var other = new NpcQuestDef { Objective = NpcQuestObjective.Visit, Target = "m2", Count = 1 };
+        var list = new[] { q, other };
+        Assert.IsTrue(MinimapMath.IsVisitWanted(list, "m1", d => 0));
+        Assert.IsFalse(MinimapMath.IsVisitWanted(list, "m1", d => 1));
+        Assert.IsFalse(MinimapMath.IsVisitWanted(list, "m3", d => 0));
+        Assert.IsFalse(MinimapMath.IsVisitWanted(null, "m1", d => 0));
+    }
 }

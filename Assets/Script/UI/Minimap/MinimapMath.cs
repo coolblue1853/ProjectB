@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>미니맵 좌표 계산(순수, BasicFeatures.md 9절). 테스트 대상</summary>
 public static class MinimapMath
@@ -40,5 +41,25 @@ public static class MinimapMath
         }
         float s = Mathf.Min(maxSize.x / content.x, maxSize.y / content.y);
         return new Vector2(Mathf.Max(minSide, content.x * s), Mathf.Max(minSide, content.y * s));
+    }
+
+    /// <summary>퀘스트 목적지 점 색(분홍) — 방문 목표</summary>
+    public static readonly Color QuestDestColor = new Color(1f, 0.45f, 0.85f);
+
+    /// <summary>진행 중 퀘스트 중 이 방문 지점(markerId)을 아직 채우지 못한 것이 있는가 (순수)</summary>
+    public static bool IsVisitWanted(IEnumerable<NpcQuestDef> active, string markerId, System.Func<NpcQuestDef, int> progress)
+    {
+        if (active == null)
+        {
+            return false;
+        }
+        foreach (NpcQuestDef d in active)
+        {
+            if (d != null && d.Objective == NpcQuestObjective.Visit && d.Target == markerId && progress(d) < d.Count)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
