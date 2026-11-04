@@ -50,6 +50,7 @@ async def main() -> None:
             elif cmd == "cs":
                 # C# 코드 파일(메서드 본문)을 에디터에서 실행: cs <file.cs>
                 code = open(sys.argv[2], encoding="utf-8").read()
+                await session.call_tool("manage_tools", {"action": "activate", "group": "scripting_ext"})  # 세션마다 그룹이 꺼져 있다
                 res = await session.call_tool("execute_code", {"action": "execute", "code": code})
                 for c in res.content:
                     if getattr(c, "type", "") == "text":

@@ -165,7 +165,7 @@ public static class MapScan
     }
 
     struct Surf { public string name; public float x0, x1, top; public bool oneway; }
-    const float JumpUp = 2.6f;     // 1층계 단일 점프(풀홀드 2.87) 여유 반영
+    const float JumpUp = 1.5f;     // 실측(11-04 _mp_jump 프로브): 풀홀드 1.62, 탭 0.9~1.0. 1.5 면 풀홀드 기준
     const float JumpGap = 4f;      // 점프 수평 도달
     const float FallGap = 12f;
 
@@ -200,6 +200,17 @@ public static class MapScan
         }
         if (runStart >= 0 && !float.IsNaN(runY)) { surfs.Add(new Surf { name = "ground", x0 = gb.min.x + runStart * 0.25f, x1 = lastX, top = runY }); }
         int groundCount = surfs.Count;
+        // 계단: 이어진 지면 구간의 높이 차. 탭 점프(~1.0)로는 못 넘고 풀홀드(1.62)로만 넘는 것/풀홀드로도 못 넘는 것을 따로 표시한다
+        var ord = new List<Surf>(surfs);
+        ord.Sort((a, b) => a.x0.CompareTo(b.x0));
+        for (int i = 0; i + 1 < ord.Count; i++)
+        {
+            float gp = ord[i + 1].x0 - ord[i].x1;
+            float rise = ord[i + 1].top - ord[i].top;
+            if (gp > 0.6f) { continue; }
+            if (rise > 1.62f) { sb.AppendLine("- [StepTooHigh] x " + ord[i].x1.ToString("F1") + " 단차 +" + rise.ToString("F2") + " (풀홀드 점프 1.62 초과: 사다리·발판 필요)"); }
+            else if (rise > 0.95f) { sb.AppendLine("- [StepTapFail] x " + ord[i].x1.ToString("F1") + " 단차 +" + rise.ToString("F2") + " (탭 점프 ~1.0 로는 불안정, 홀드 필요)"); }
+        }
         foreach (var g in grounds)
         {
             if (g is BoxCollider2D && (g.usedByEffector || g.GetComponent<PlatformEffector2D>() != null))

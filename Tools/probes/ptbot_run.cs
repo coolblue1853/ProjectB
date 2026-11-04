@@ -68,7 +68,8 @@ EnemyHealth.Killed += onKilled; PlayerHealthManager.PlayerDied += onDied; Applic
 
 System.Action<string> setKeys = null;
 var keyList = new System.Collections.Generic.List<UnityEngine.InputSystem.Key>();
-System.Action flush = () => { UnityEngine.InputSystem.InputSystem.QueueStateEvent(kb, new UnityEngine.InputSystem.LowLevel.KeyboardState(keyList.ToArray())); keyList.Clear(); };
+float jumpHoldUntil = 0f; // 가변 점프(CF-7): 키를 일찍 떼면 vy×0.5 로 잘려 1칸 계단도 못 넘으므로 점프 키를 0.35초 유지한다
+System.Action flush = () => { if (keyList.Contains(UnityEngine.InputSystem.Key.C)) { if (Time.time >= jumpHoldUntil) jumpHoldUntil = Time.time + 0.35f; } else if (Time.time < jumpHoldUntil) keyList.Add(UnityEngine.InputSystem.Key.C); UnityEngine.InputSystem.InputSystem.QueueStateEvent(kb, new UnityEngine.InputSystem.LowLevel.KeyboardState(keyList.ToArray())); keyList.Clear(); };
 System.Action release = () => { keyList.Clear(); UnityEngine.InputSystem.InputSystem.QueueStateEvent(kb, new UnityEngine.InputSystem.LowLevel.KeyboardState()); };
 
 UnityEditor.EditorApplication.CallbackFunction tick = null;

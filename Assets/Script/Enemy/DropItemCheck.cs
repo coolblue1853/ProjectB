@@ -171,10 +171,26 @@ public class DropItemCheck : PoolAble
     }
 
     bool isGround = false;
+    static readonly Collider2D[] _footHits = new Collider2D[4];
+    static int _groundMask = -1;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        TryLand(collision);
+    }
+
+    private void TryLand(Collider2D collision)
+    {
+        if (isGround || !gameObject.activeInHierarchy)
+        {
+            return;
+        }
         if (collision.transform.tag == "Ground"|| collision.transform.tag == "Wall" || collision.transform.tag == "InGroundPlayer")
         {
+            // 옆벽(계단 단차 측면)에 닿았을 뿐인데 허공에 멈추던 문제: 발밑에 실제 지면이 있을 때만 안착한다
+            if (!HasGroundUnderFoot())
+            {
+                return;
+            }
             rigidbody.linearVelocity = Vector2.zero;
             rigidbody.gravityScale = 0;
             //boxCollider2D.isTrigger = true;
@@ -182,12 +198,29 @@ public class DropItemCheck : PoolAble
             Invoke("GroundCheckOn", 0.1f);
         }
     }
+
+    /// <summary>발바닥(콜라이더 아래 면) 근처의 얇은 띠가 Ground 레이어 비트리거 콜라이더와 겹치는지</summary>
+    private bool HasGroundUnderFoot()
+    {
+        if (boxCollider2D == null)
+        {
+            return true;
+        }
+        if (_groundMask < 0)
+        {
+            _groundMask = LayerMask.GetMask("Ground");
+        }
+        Bounds b = boxCollider2D.bounds;
+        var filter = new ContactFilter2D { useLayerMask = true, layerMask = _groundMask, useTriggers = false };
+        return Physics2D.OverlapBox(new Vector2(b.center.x, b.min.y + 0.02f), new Vector2(0.05f, 0.1f), 0f, filter, _footHits) > 0;
+    }
     void GroundCheckOn()
     {
         isGround = true;
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        TryLand(collision);
         if (!isActiveAndEnabled || (itemData == null && !IsGold) || InventoryManager.instance == null)
         {
             return;
