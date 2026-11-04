@@ -17,6 +17,17 @@ public class EquipSlotExpansionTests
     }
 
     [Test]
+    public void FloorToSlot_MapsOneToFour()
+    {
+        Assert.IsFalse(SlotRules.TrySlotForFloor(0, out _));
+        Assert.IsTrue(SlotRules.TrySlotForFloor(1, out EquipSlot a));
+        Assert.AreEqual(EquipSlot.Title, a);
+        Assert.IsTrue(SlotRules.TrySlotForFloor(4, out EquipSlot b));
+        Assert.AreEqual(EquipSlot.Cape, b);
+        Assert.IsFalse(SlotRules.TrySlotForFloor(5, out _));
+    }
+
+    [Test]
     public void Enum_ExistingValuesUnchanged_NewValues()
     {
         Assert.AreEqual(1, (int)EquipSlot.Ring);

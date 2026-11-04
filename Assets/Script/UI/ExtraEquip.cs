@@ -174,6 +174,44 @@ public static class ExtraEquip
     }
 }
 
+/// <summary>해금 보상 연결 (SLOT-3): 해금되면 첫 아이템을 인벤에 지급한다. 같은 슬롯은 한 번만 열리므로 중복 지급 없음</summary>
+public static class ExtraEquipRewards
+{
+    public const string BestiaryTitleMilestone = "B04";
+    static readonly string[] FirstItem = { "TitleWanderer", "AuraFaintGlow", "", "" };
+
+    public static void OnFloorBossFirstKill(int floor)
+    {
+        if (SlotRules.TrySlotForFloor(floor, out EquipSlot slot))
+        {
+            Grant(slot);
+        }
+    }
+
+    public static void OnBestiaryMilestone(string id)
+    {
+        if (id == BestiaryTitleMilestone)
+        {
+            Grant(EquipSlot.Title);
+        }
+    }
+
+    public static void Grant(EquipSlot slot)
+    {
+        if (!ExtraEquip.Unlock(slot))
+        {
+            return;
+        }
+        PickupLog.Notice(Loc.T("New equipment slot unlocked: ") + ExtraEquip.SlotLabel(slot));
+        int i = Array.IndexOf(SlotRules.Extras, slot);
+        string item = i >= 0 ? FirstItem[i] : "";
+        if (item.Length > 0 && InventoryManager.instance != null)
+        {
+            InventoryManager.instance.CreatItem(item, false, null, AddSource.Other);
+        }
+    }
+}
+
 /// <summary>
 /// 장비창 옆 신규 4칸 (코드 생성 임시 UI): 잠금 표시·호버 툴팁·클릭 해제. 게임패드·키보드 커서 이동은 후속(TechDebt).
 /// InventoryManager.inventory 아래에 한 번 만든다.

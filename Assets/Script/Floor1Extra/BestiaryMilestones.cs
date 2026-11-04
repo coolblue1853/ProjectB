@@ -128,6 +128,7 @@ public class BestiaryMilestones : MonoBehaviour
         _claimed.Add(d.Id);
         ES3.Save(SaveKey, new List<string>(_claimed));
         d.Reward.Apply();
+        ExtraEquipRewards.OnBestiaryMilestone(d.Id); // 도감 15종(B04) → 칭호 슬롯 해금 (SLOT-3)
         PickupLog.Notice("도감 보상 - " + d.Title + ": " + d.Reward.Describe());
     }
 }

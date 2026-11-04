@@ -260,3 +260,5 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 257,ZoneSeal_Tower,Misc,Key item. Seal taken from the tower outskirts elite nest.,0,1,quest,99,-,0,-,,Tower Zone Seal,0,U,0,,,
 258,BanditPlunderMedal,Equip,equipment,2500,1,Boss,1,-,0,Necklace,,Bandit Plunder Medal,0,U,0,,,
 259,ChiefsLastStandRing,Equip,equipment,2500,1,quest,1,-,0,Ring,,Chief's Last Stand Ring,0,U,0,,,
+260,TitleWanderer,Equip,Title. A plain mark of someone who finished the Floor 1 bestiary.,0,1,quest,1,-,0,Title,,Title: Wanderer,0,U,0,,,
+261,AuraFaintGlow,Equip,Aura. A faint ring of light at your feet.,0,1,Boss,1,-,0,Aura,,Faint Glow Aura,0,U,0,,,

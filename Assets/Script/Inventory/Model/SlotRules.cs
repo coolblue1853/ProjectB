@@ -14,6 +14,18 @@ public static class SlotRules
 
     public const int AllExtraMask = 15;
 
+    /// <summary>층계 번호(1~4, 탐험가 승급 rank 와 같음) → 해금되는 슬롯. 범위 밖이면 false</summary>
+    public static bool TrySlotForFloor(int floor, out EquipSlot slot)
+    {
+        slot = default;
+        if (floor < 1 || floor > Extras.Length)
+        {
+            return false;
+        }
+        slot = Extras[floor - 1];
+        return true;
+    }
+
     public static bool IsExtra(EquipSlot slot)
     {
         return Array.IndexOf(Extras, slot) >= 0;

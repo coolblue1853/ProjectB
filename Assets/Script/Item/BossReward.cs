@@ -92,6 +92,7 @@ public static class BossLoot
             stones += r.firstKillStones;
             ES3.Save(firstKey, true);
             ArtifactSystem.Unlock(r.firstKillArtifact);
+            ExtraEquipRewards.OnFloorBossFirstKill(r.grantsRank); // 신규 장비 슬롯 해금 (SLOT-3)
             GameLog.Info(GameLog.Cat.Item, "보스 첫 처치 보너스: " + bossName + " 강화석 +" + r.firstKillStones);
         }
         for (int i = 0; i < stones; i++)
