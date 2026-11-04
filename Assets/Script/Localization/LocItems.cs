@@ -84,7 +84,7 @@ public static class LocItems
         // ── 무기 계열 1차 (WeaponTypes.md) ──
         ("Hunter's Longbow", "사냥꾼의 장궁"), ("Gnarled Club", "옹이진 몽둥이"), ("Woodcutter's Axe", "나무꾼의 도끼"), ("Twin Fang", "쌍송곳니"), ("Vine Lash", "덩굴 채찍"),
         // ── 산적 성채 (계속) ──
-        ("Cutthroat Dagger", "멱따기 단검"), ("Bandit Shortbow", "산적 단궁"), ("Raider Buckler", "약탈자 버클러"), ("Chief's War Banner", "두목의 군기"),
+        ("Cutthroat Dagger", "멱따기 단검"), ("Bandit Shortbow", "산적 단궁"), ("Raider Buckler", "약탈자 버클러"), ("Chief's War Banner", "두목의 군기"), ("Bandit Plunder Medal", "약탈의 훈장"), ("Chief's Last Stand Ring", "대장의 오기 반지"),
         ("Bandit Bandana", "산적 두건 천"), ("Broken Arrow", "부러진 화살"), ("Iron Rivet", "쇠 리벳"), ("Pitch Torch", "송진 횃불"),
         ("Outlaw Hood", "무법자 두건"), ("Outlaw Vest", "무법자 조끼"), ("Outlaw Breeches", "무법자 바지"), ("Outlaw Gloves", "무법자 장갑"),
         ("Outlaw Boots", "무법자 장화"), ("Iron Raider Helm", "강철 약탈자 투구"), ("Iron Raider Mail", "강철 약탈자 갑옷"),

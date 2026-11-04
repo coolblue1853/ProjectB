@@ -258,3 +258,5 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 255,ZoneSeal_Swamp,Misc,Key item. Seal taken from the swamp elite nest.,0,1,quest,99,-,0,-,,Swamp Zone Seal,0,U,0,,,
 256,ZoneSeal_Fortress,Misc,Key item. Seal taken from the fortress elite nest.,0,1,quest,99,-,0,-,,Fortress Zone Seal,0,U,0,,,
 257,ZoneSeal_Tower,Misc,Key item. Seal taken from the tower outskirts elite nest.,0,1,quest,99,-,0,-,,Tower Zone Seal,0,U,0,,,
+258,BanditPlunderMedal,Equip,equipment,2500,1,Boss,1,-,0,Necklace,,Bandit Plunder Medal,0,U,0,,,
+259,ChiefsLastStandRing,Equip,equipment,2500,1,quest,1,-,0,Ring,,Chief's Last Stand Ring,0,U,0,,,

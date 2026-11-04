@@ -166,6 +166,12 @@ public class DropManager : MonoBehaviour
         {
             return 0;
         }
+        int plundered = PlunderRules.Apply(total, AccessoryGimmick.IsEquipped(AccessoryGimmick.PlunderMedal), Random.value);
+        if (plundered != total)
+        {
+            total = plundered;
+            HitFeedback.SpawnText(null, dropPosition + Vector3.up * 1.2f, "약탈! x" + PlunderRules.GoldMul, HitFeedback.TextKind.Gold);
+        }
         int piles = GoldDropRules.PileCount(isElite, isBoss);
         float offsetX = piles > 1 ? -0.4f : 0f;
         for (int i = 0; i < piles; i++)

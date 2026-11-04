@@ -343,6 +343,14 @@ public class PlayerHealthManager : MonoBehaviour
         }
         if(isNoDamge == false && DatabaseManager.isInvincibility == false)
         {
+            int dmgAfDef = DamageCalculator.IncomingToPlayer(damage, Def, StatMath.IncomingDamageMul * AscentLoad.IncomingMul()); // 상승 부하: 받는 피해 증가
+            // 대장의 오기 반지: 치사 피해면 HP 1 로 버티고 2초 무적 (재사용 180초, Floor1Completion 15절)
+            bool lastStand = AccessoryGimmick.IsEquipped(AccessoryGimmick.LastStandRing)
+                && AccessoryGimmick.LastStand.TryRescue(nowHp, ref dmgAfDef, Time.time);
+            if (lastStand)
+            {
+                invincibleTime = LastStandRules.InvulnSeconds;
+            }
             isAlphaChange = true;
             RepeatAnimation();
             noDamgeSycle = DOTween.Sequence()      
@@ -354,8 +362,11 @@ public class PlayerHealthManager : MonoBehaviour
             .AppendCallback(() => alphaSequence.Kill())
             .AppendCallback(() => isAlphaChange = false);
 
-            int dmgAfDef = DamageCalculator.IncomingToPlayer(damage, Def, StatMath.IncomingDamageMul * AscentLoad.IncomingMul()); // 상승 부하: 받는 피해 증가
             HitFeedback.OnPlayerHit();
+            if (lastStand)
+            {
+                HitFeedback.SpawnText(_numberPrefab, NumberAnchor() + Vector3.up * 0.5f, "버텼다!", HitFeedback.TextKind.Status);
+            }
             if (dmgAfDef <= 0)
             {
                 HitFeedback.SpawnText(_numberPrefab, NumberAnchor(), "BLOCK", HitFeedback.TextKind.Block); // 방어력이 전부 흡수
