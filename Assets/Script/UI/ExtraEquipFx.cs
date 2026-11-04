@@ -26,7 +26,7 @@ public static class AuraRingRules
 /// </summary>
 public sealed class ExtraEquipFx : MonoBehaviour
 {
-    const float RingRx = 0.7f, RingRy = 0.18f, TitleHeight = 2.3f;
+    const float RingRx = 0.7f, RingRy = 0.18f, TitleHeight = 2.85f; // 머리 위 한글 이름표(≈2.3) 위로 띄운다
     LineRenderer _ring;
     TextMeshPro _title;
     Material _mat;

@@ -236,10 +236,11 @@ public sealed class ExtraEquipPanel : MonoBehaviour
     void Build()
     {
         var rt = (RectTransform)transform;
-        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0f);
+        // 장비 그리드(BackGround) 아래 빈 띠에 맞춤: 인벤 칸·프리셋 박스를 가리지 않는다
+        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
         rt.pivot = new Vector2(0.5f, 1f);
-        rt.anchoredPosition = new Vector2(0f, -8f);
-        rt.sizeDelta = new Vector2(520f, 76f);
+        rt.anchoredPosition = new Vector2(-332f, -80f);
+        rt.sizeDelta = new Vector2(290f, 66f);
         for (int i = 0; i < 4; i++)
         {
             var box = new GameObject("Box" + i, typeof(RectTransform), typeof(Image));
@@ -247,13 +248,18 @@ public sealed class ExtraEquipPanel : MonoBehaviour
             box.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.12f);
             var br = (RectTransform)box.transform;
             br.anchorMin = br.anchorMax = br.pivot = new Vector2(0f, 1f);
-            br.anchoredPosition = new Vector2(8f + i * 128f, -6f);
-            br.sizeDelta = new Vector2(120f, 40f);
+            br.anchoredPosition = new Vector2(4f + i * 71f, -4f);
+            br.sizeDelta = new Vector2(67f, 26f);
             box.AddComponent<ExtraSlotBox>().Init(this, SlotRules.Extras[i]);
-            _labels[i] = NewText("Label", box.transform, 18f, new Vector2(120f, 40f), Vector2.zero);
+            _labels[i] = NewText("Label", box.transform, 10f, new Vector2(67f, 26f), Vector2.zero);
             _labels[i].alignment = TextAlignmentOptions.Center;
+            _labels[i].enableAutoSizing = true;
+            _labels[i].fontSizeMax = 10f;
+            _labels[i].fontSizeMin = 6f;
+            _labels[i].overflowMode = TextOverflowModes.Ellipsis;
         }
-        _tip = NewText("Tip", transform, 16f, new Vector2(504f, 24f), new Vector2(8f, -48f));
+        _tip = NewText("Tip", transform, 9f, new Vector2(282f, 26f), new Vector2(4f, -34f));
+        _tip.enableWordWrapping = true;
         _tip.color = new Color(1f, 1f, 1f, 0.7f);
         ExtraEquip.Changed += Refresh;
         Refresh();
