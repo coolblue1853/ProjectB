@@ -74,6 +74,15 @@ public class LevelRulesTests
     }
 
     [Test]
+    public void DeathPenalty_ByLevelAndBoss()
+    {
+        Assert.AreEqual(1000, LevelRules.ExpAfterDeath(1000, 10, false)); // Lv1~10 면제
+        Assert.AreEqual(1000, LevelRules.ExpAfterDeath(1000, 5, true));   // 보스여도 초보 면제
+        Assert.AreEqual(950, LevelRules.ExpAfterDeath(1000, 11, false));
+        Assert.AreEqual(930, LevelRules.ExpAfterDeath(1000, 11, true));
+    }
+
+    [Test]
     public void KillExp_EliteX4_BossFixed()
     {
         Assert.AreEqual(43, LevelRules.KillExp(43, false, false));

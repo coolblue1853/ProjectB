@@ -93,14 +93,29 @@ public static class LevelRules
         return ups;
     }
 
-    /// <summary>사망 페널티: 현재 레벨에서 쌓은 EXP 의 5% 감소(내림 후 차감), 레벨 다운 없음</summary>
-    public static int ExpAfterDeath(int exp)
+    /// <summary>초보 보호: 이 레벨 이하는 사망 EXP 손실 0 (Q-DEATH 승인안)</summary>
+    public const int DeathFreeMaxLevel = 10;
+    /// <summary>보스 전투 중 사망 EXP 손실 %</summary>
+    public const int BossDeathExpLossPercent = 7;
+
+    /// <summary>사망 시 EXP 손실 % : Lv1~10 은 0, 보스 구간은 7, 그 외 5</summary>
+    public static int DeathLossPercent(int level, bool bossFight)
+    {
+        if (level <= DeathFreeMaxLevel)
+        {
+            return 0;
+        }
+        return bossFight ? BossDeathExpLossPercent : DeathExpLossPercent;
+    }
+
+    /// <summary>사망 페널티: 현재 레벨에서 쌓은 EXP 의 손실% 감소(내림 후 차감), 레벨 다운 없음. 기본값은 일반 5%</summary>
+    public static int ExpAfterDeath(int exp, int level = int.MaxValue, bool bossFight = false)
     {
         if (exp <= 0)
         {
             return 0;
         }
-        return exp - exp * DeathExpLossPercent / 100;
+        return exp - exp * DeathLossPercent(level, bossFight) / 100;
     }
 
     /// <summary>최대 HP 성장분 (기본값 위에 더하는 증가분)</summary>

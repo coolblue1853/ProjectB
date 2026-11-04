@@ -94,10 +94,10 @@ public static class LevelSystem
     }
 
     /// <summary>사망 시 현재 레벨 EXP 5% 감소 (PlayerHealthManager.Die)</summary>
-    public static void ApplyDeathPenalty()
+    public static void ApplyDeathPenalty(bool bossFight = false)
     {
         int before = Exp;
-        Exp = LevelRules.ExpAfterDeath(Exp);
+        Exp = LevelRules.ExpAfterDeath(Exp, Level, bossFight);
         LastDeathLoss = before - Exp;
         GameLog.Info(GameLog.Cat.Player, "사망 EXP 손실 " + before + " → " + Exp + " (Lv" + Level + ")");
         Changed?.Invoke();

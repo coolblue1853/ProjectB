@@ -64,4 +64,4 @@
 - [ ] SLOT-4 `AuraFx` 코드 생성 링·칭호 이름표 텍스트 (SLOT-3 후). SLOT-5 망토 `CelEquipLayer.Slot.Back` 아트는 후속.
 - [x] CHIEF-1 대장 보상 데이터 (파일: ItemSheet 258·259행, MonsterExtraDrops, QuestsFloor1 Q504, LocItems): 설계 `Floor1Completion.md` §15-2. CSV 로드 테스트. → 완료 11-04 커밋 9e8ca9d6
 - [~] CHIEF-2 대장 보상 규칙·훅 (`PlunderRules`·`LastStandRules` 순수 클래스 + 몹 골드 드롭·치사 피해 훅, CHIEF-1 후). CHIEF-3 툴팁·발동 텍스트. CHIEF-4 PT-BOT 검증. → CHIEF-2 완료 11-04 커밋 9e8ca9d6, CHIEF-3·4 남음
-- [ ] DEATH-PENALTY-IMPL (사용자가 Q-DEATH 제안안 승인 후만): `LevelRules` 사망 EXP 손실에 레벨·보스 인자 + EditMode 테스트.
+- [x] DEATH-PENALTY-IMPL (사용자가 Q-DEATH 제안안 승인 후만): `LevelRules` 사망 EXP 손실에 레벨·보스 인자 + EditMode 테스트.

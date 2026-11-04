@@ -81,7 +81,7 @@ public class BgmDirector : MonoBehaviour
     /// 보스 곡은 살아 있는 보스가 플레이어 근처(11유닛)에 있을 때만. 보스가 상주하는 구역(깊은 숲·탑 근교·늪 밤)에서
     /// 들어가자마자 보스 곡이 나와 구역 곡이 묻히던 문제(2026-10-19).
     /// </summary>
-    static bool BossNearPlayer()
+    public static bool BossNearPlayer()
     {
         if (EnemyHealth.ActiveBossCount <= 0 || PlayerController.instance == null)
         {
