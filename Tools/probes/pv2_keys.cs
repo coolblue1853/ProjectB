@@ -1,0 +1,15 @@
+System.Text.StringBuilder o = new System.Text.StringBuilder();
+o.Append("before Jump=" + InputBindings.Display("Jump", false) + " saved=" + (ES3.KeyExists(InputBindings.SaveKey, SaveSlots.SharedFile)) + "\n");
+var r = InputBindings.Assign(InputBindings.Master.asset, "Jump", false, "<Keyboard>/g", out var sw);
+o.Append("assign=" + r + " swapped=" + sw + " display=" + InputBindings.Display("Jump", false) + "\n");
+InputBindings.Commit();
+o.Append("saved json len=" + (ES3.KeyExists(InputBindings.SaveKey, SaveSlots.SharedFile) ? ES3.Load<string>(InputBindings.SaveKey, SaveSlots.SharedFile).Length : -1) + "\n");
+InputBindings.ResetToDefaults(); InputBindings.Commit();
+o.Append("after reset Jump=" + InputBindings.Display("Jump", false) + " json=" + (ES3.KeyExists(InputBindings.SaveKey, SaveSlots.SharedFile) ? ES3.Load<string>(InputBindings.SaveKey, SaveSlots.SharedFile).Length : -1) + "\n");
+GameSettings.SetVolume(1f);
+var t = typeof(PauseMenu); var bf = System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+var inst = (PauseMenu)t.GetField("instance", System.Reflection.BindingFlags.Static|bf).GetValue(null);
+t.GetField("settingsMode", bf).SetValue(inst, false); t.GetMethod("Close", bf).Invoke(inst, null);
+NpcQuestWindow.Toggle();
+ControlsWindow.Toggle(); o.Append("controlsOpen=" + ControlsWindow.IsOpen + " timeScale=" + Time.timeScale + "\n");
+return o.ToString();

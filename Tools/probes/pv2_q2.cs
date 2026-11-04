@@ -1,0 +1,18 @@
+var o = new System.Text.StringBuilder();
+NpcQuestGiver ruen = null;
+foreach (var g in UnityEngine.Object.FindObjectsByType<NpcQuestGiver>(FindObjectsInactive.Include, FindObjectsSortMode.None)) if (g.NpcId=="ruen") ruen = g;
+o.Append("map=" + ruen.gameObject.scene.name + " active=" + ruen.gameObject.activeInHierarchy + "\n");
+bool t1 = NpcQuestGiver.TryTalk(ruen.gameObject);
+o.Append("talk1(report Q104) = " + t1 + " conv=" + PixelCrushers.DialogueSystem.DialogueManager.isConversationActive + "\n");
+PixelCrushers.DialogueSystem.DialogueManager.StopAllConversations();
+bool c = NpcQuestLog.Complete("Q104");
+NpcQuestStatus s = NpcQuestLog.BestFor("ruen", out var q);
+o.Append("complete Q104=" + c + " best=" + s + " " + (q!=null?q.Id:"-") + "\n");
+bool t2 = NpcQuestGiver.TryTalk(ruen.gameObject);
+o.Append("talk2(offer) = " + t2 + " conv=" + PixelCrushers.DialogueSystem.DialogueManager.isConversationActive + "\n");
+PixelCrushers.DialogueSystem.DialogueManager.StopAllConversations();
+bool a = NpcQuestLog.Accept(q.Id);
+o.Append("accept " + q.Id + "=" + a + "\n");
+s = NpcQuestLog.BestFor("ruen", out q);
+o.Append("next best=" + s + " " + (q!=null?q.Id:"-") + "\n");
+return o.ToString();

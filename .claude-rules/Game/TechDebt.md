@@ -226,3 +226,5 @@
 - (11-03 PV1) (P3) 방어구 제작창 정적 페이지 0~1 칸이 창 열기 전 itemData 가 비어 있음(지연 로드, 열면 정상 — 동작에는 문제 없음). PV1 로 확인한 CF-A~D·L1·L5·L7·미니보스·둥지는 모두 통과, 상세 `Docs/Playtest/Floor1PlayVerify.md`.
 
 - (11-04 arrival-safe) ✅ 포털 도착 안전: `ArrivalSafeZone`(Portal.OnEnable 이 목적지 등록, 반경 14×9) 안에는 `EnemySpawner.CycleCheck` 가 스폰 안 함(풀에서 꺼내기 전 걸러 누수 없음). 도착 무적 1→2초, `TravelNow`(사망 귀환)에도 적용. `BossIntro` 배너·카메라 연출은 맵 이동 중(`isUsePortal`)이거나 플레이어와 20유닛 밖이면 생략(마을 출입마다 뜨던 '탑의 수호자' 배너, GUARD-BANNER). 초반 3맵(NearForest/SideRoad/NormalForest) 스폰 수 ×0.65·한 점 최대 2슬롯. 미검증: 플레이 모드 실측. 한계: 추적 정예·밤 습격·보스 부하 스폰은 안전지대 미적용. 테스트 `ArrivalSafeZoneTests`.
+- (11-04 PV2) (P3) 산적 대장 보상 아이콘 없음: `Resources/Item/BanditPlunderMedal`·`ChiefsLastStandRing` 이미지·프리팹 없어 장착·드롭 때 Error. 아이콘 제작 필요(그래픽 사용자 검토).
+- (11-04 PV2) (P4) 일시정지 > 설정 화면 마지막 행 "뒤로" 가 하단 안내문(위/아래·좌우 조절·ESC)과 겹침(행 7개). `PauseMenu` 패널 높이 또는 행 간격 조정 필요.

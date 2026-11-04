@@ -1,0 +1,12 @@
+var o = new System.Text.StringBuilder();
+NpcQuestGiver ruen = null;
+foreach (var g in UnityEngine.Object.FindObjectsByType<NpcQuestGiver>(FindObjectsInactive.Include, FindObjectsSortMode.None)) if (g.NpcId=="ruen") ruen = g;
+PixelCrushers.DialogueSystem.DialogueManager.StopAllConversations();
+bool t3 = NpcQuestGiver.TryTalk(ruen.gameObject);
+o.Append("talk3(Q105 offer) conv=" + PixelCrushers.DialogueSystem.DialogueManager.isConversationActive + " ret=" + t3 + "\n");
+PixelCrushers.DialogueSystem.DialogueManager.StopAllConversations();
+bool t4 = NpcQuestGiver.TryTalk(ruen.gameObject);
+o.Append("talk4(same Q105, no re-ask) conv=" + PixelCrushers.DialogueSystem.DialogueManager.isConversationActive + " ret=" + t4 + "\n");
+bool a = NpcQuestLog.Accept("Q105");
+o.Append("accept Q105=" + a + " status=" + NpcQuestLog.StatusOf("Q105") + "\n");
+return o.ToString();
