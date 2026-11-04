@@ -71,3 +71,22 @@ bash 봇(PT-BOT 본체)은 쓰지 않고 항목별 전용 프로브를 새로 �
 
 ## 못 한 것
 키 입력 경로(Backspace·N·J), 무적 2초 만료, 밀집 완화 전후 정량, 대장 실제 처치.
+
+# PV3 (11-04) 슬롯·사망 페널티·설정 화면 플레이 확인
+
+에디터 플레이 모드 실측(SampleScene, 낮 고정, Lv9). 세이브 백업(`Logs/pv3/backup`)·복원 완료, 플레이 정지. 프로브 `Tools/probes/pv3_*.cs`, 캡처 `Logs/pv3/*.png`(gitignore). 보상은 `ExtraEquipRewards` 를 직접 호출(실제 보스 처치 경로는 미확인), 장착은 `ExtraEquip.TryHandleEquip` 호출(드래그·클릭 입력 경로 미확인).
+
+| # | 항목 | 결과 | 수치·관찰 |
+|---|---|---|---|
+| 1 | 신규 4칸·잠금 툴팁 | 통과(레이아웃 이슈) | 초기 4칸 모두 잠김, 라벨 `[X] TITLE/AURA/CHARM/CAPE`. Box0 호버 → 팁 "Locked: complete the Floor 1 bestiary or first-clear a Floor 1 boss". 이슈: 패널이 인벤 칸 아래쪽(2·3행 사이)에 겹쳐 아이템 칸 일부를 가림 (`slots_locked.png`) |
+| 2 | 해금·지급·외형 | 통과 | `OnFloorBossFirstKill(1)` → Title 해금+`TitleWanderer` 1개, `OnBestiaryMilestone("B04")` 중복 호출 → 추가 지급 없음, `OnFloorBossFirstKill(2)` → Aura 해금+`AuraFaintGlow` 1개(Charm·Cape 잠금 유지). 장착 후 라벨 'Title: Wanderer'·'Faint Glow Aura', `ExtraEquipFx` 의 `AuraRing`(32점, 발밑)·`TitleTag`(머리 위 +2.3) 활성, 캡처 `fx_equipped.png`에서 링·이름표 확인. 이슈: 이름표 영문 'Title: Wanderer' 가 한글 텍스트(NPC 이름표 추정)와 겹쳐 읽기 어려움 |
+| 3 | 사망 페널티 | 통과 | `LevelSystem.ApplyDeathPenalty`: Lv1(50)·Lv10(2000) 손실 0 / Lv11 2000→1900(5%), 보스 1860(7%) / Lv20 3000→2850(5%), 보스 2790(7%). 레벨 다운 없음. 미확인: 실제 `Die()` 경로의 `BossNearPlayer()` 연결(코드상 `PlayerHealthManager.cs:217`), 사망 배너 문구 |
+| 4 | 설정 '뒤로' 겹침 | 통과 | 설정 7행 + '뒤로' 가 하단 안내문(위/아래·좌우 조절·ESC 뒤로) 위에 분리되어 표시, 겹침 없음 (`pause_settings.png`) |
+| 5 | 대장 훈장·반지 훅 | PV2 에서 확인 | PV2 #5 로 갈음(약탈 7.25%·오기 반지 HP1). 이번엔 재확인 안 함 |
+
+## 발견 버그
+- (P3) `ExtraEquipPanel` 이 인벤 아이템 칸을 가림(앵커 하단 중앙, 2·3행 사이).
+- (P3) `TitleTag` 영문 이름표가 한글 이름표와 겹침(플레이어 머리 위 높이).
+
+## 못 한 것
+실제 보스 처치 첫 보상, 도감 B04 실제 달성, 장비창 드래그·클릭 장착, 실사망(`Die`) 경로, 밤 시간대.

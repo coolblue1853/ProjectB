@@ -227,7 +227,10 @@
 
 - (11-04 arrival-safe) ✅ 포털 도착 안전: `ArrivalSafeZone`(Portal.OnEnable 이 목적지 등록, 반경 14×9) 안에는 `EnemySpawner.CycleCheck` 가 스폰 안 함(풀에서 꺼내기 전 걸러 누수 없음). 도착 무적 1→2초, `TravelNow`(사망 귀환)에도 적용. `BossIntro` 배너·카메라 연출은 맵 이동 중(`isUsePortal`)이거나 플레이어와 20유닛 밖이면 생략(마을 출입마다 뜨던 '탑의 수호자' 배너, GUARD-BANNER). 초반 3맵(NearForest/SideRoad/NormalForest) 스폰 수 ×0.65·한 점 최대 2슬롯. 미검증: 플레이 모드 실측. 한계: 추적 정예·밤 습격·보스 부하 스폰은 안전지대 미적용. 테스트 `ArrivalSafeZoneTests`.
 - (11-04 PV2) (P3) 산적 대장 보상 아이콘 없음: `Resources/Item/BanditPlunderMedal`·`ChiefsLastStandRing` 이미지·프리팹 없어 장착·드롭 때 Error. 아이콘 제작 필요(그래픽 사용자 검토).
-- (11-04 PV2) (해결 11-04, 미검증) (P4) 일시정지 > 설정 화면 마지막 행 "뒤로" 가 하단 안내문(위/아래·좌우 조절·ESC)과 겹침(행 7개). `PauseMenu` 패널 높이 또는 행 간격 조정 필요.
+- (11-04 PV2) (해결 11-04, PV3 검증) (P4) 일시정지 > 설정 화면 마지막 행 "뒤로" 가 하단 안내문(위/아래·좌우 조절·ESC)과 겹침(행 7개). `PauseMenu` 패널 높이 또는 행 간격 조정 필요.
 
 - (11-04 SLOT-2) 신규 장비 4칸 패널(`ExtraEquipPanel`)은 코드 생성 임시 UI. 위치(인벤창 하단 중앙)·화면 겹침 미검증, 게임패드/키보드 커서 이동 없음(마우스 호버·클릭만), 아이콘/자물쇠 아트는 사용자 검토 후속.
 - (11-04 SLOT-4) `ExtraEquipFx` 오라 링(LineRenderer 단색 펄스)·칭호 이름표(TMP, 머리 위 2.3유닛)는 임시 코드 연출. 위치·크기·가독성 화면 미검증, 아트 교체는 사용자 검토 후속. 신규 슬롯 아이템의 실제 효과(오라 이동속도 등)·부적/망토 첫 아이템·SLOT-5는 미구현. 기본 SLOT-3 은 탐험가 rank=층계 번호 가정.
+- (11-04 PV3) (P3) `ExtraEquipPanel`(신규 슬롯 4칸) 이 장비창 앵커 하단 중앙이라 인벤 아이템 칸(2·3행 사이)을 가림. 위치 조정 필요. 캡처 `Logs/pv3/slots_locked.png`.
+- (11-04 PV3) (P3) `ExtraEquipFx.TitleTag` 영문 이름표가 머리 위 한글 이름표와 겹침. 높이·표시 방식 조정 필요. 캡처 `Logs/pv3/fx_equipped.png`.
+- (11-04 PV3) 설정 '뒤로' 겹침(P4)은 해결 확인(통과).
