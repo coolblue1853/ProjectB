@@ -27,3 +27,8 @@
 
 ## 4. 검증 상태
 - Unity 배치 컴파일 통과(에러 0). 플레이 모드 화면 확인은 **미검증**(에디터 비실행).
+
+## 5. 남긴 범위
+- Quest Machine 게시판 체인(`QuestCatalog`, 5건 안팎) 통합 안 함 — 저널 API 가 달라 별도 어댑터 필요. 후순위.
+- 추적 HUD 에서 현상 의뢰를 NPC 추적 한도(3개)와 통합하는 것은 다음 작업.
+- 순수 규칙 EditMode 테스트: `Assets/Editor/Tests/QuestListTabsTests.cs`.
