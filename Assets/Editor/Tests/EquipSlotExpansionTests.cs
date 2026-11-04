@@ -148,4 +148,14 @@ public class EquipSlotExpansionTests
         }
         CollectionAssert.AreEqual(new[] { "Halo" }, ids);
     }
+
+    [Test]
+    public void AuraRing_PointsOnEllipse_PulseGrows()
+    {
+        var p = AuraRingRules.Points(8, 2f, 1f, 0f);
+        Assert.AreEqual(8, p.Length);
+        Assert.AreEqual(2f, p[0].x, 0.001f);
+        Assert.AreEqual(1f, p[2].y, 0.001f);
+        Assert.Greater(AuraRingRules.Points(8, 2f, 1f, 1f)[0].x, 2.1f);
+    }
 }

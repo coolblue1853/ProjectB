@@ -61,7 +61,7 @@
 - [x] SLOT-1 장비 슬롯 모델·세이브 (파일: Inventory/Model/EquipmentModel.cs, `SlotRules`, ES3 `equip.extra`·`equip.extraUnlock`): 설계 `Game/EquipSlotExpansion.md` §4~5. EditMode 테스트(구 세이브 호환). → 완료 11-04 커밋 3dc2dfae
 - [x] SLOT-2 장비창 신규 4칸 UI·잠금 툴팁 → 완료 11-04(코드 생성 임시 패널 `UI/ExtraEquip.cs`, 마우스 호버·클릭, 패드 커서·위치 미검증).
 - [x] SLOT-3 해금·보상 연결 → 완료 11-04(보스 첫 처치 rank1~4→칭호·오라·부적·망토, 도감 B04→칭호, 첫 아이템 TitleWanderer·AuraFaintGlow 지급, 실플레이 미검증) / (도감 완성/보스 첫 처치 → 슬롯 해금 + 칭호·오라 첫 아이템 ItemSheet 행, SLOT-1 후).
-- [ ] SLOT-4 `AuraFx` 코드 생성 링·칭호 이름표 텍스트 (SLOT-3 후). SLOT-5 망토 `CelEquipLayer.Slot.Back` 아트는 후속.
+- [x] SLOT-4 `AuraFx` 코드 생성 링·칭호 이름표 텍스트 (SLOT-3 후). SLOT-5 망토 `CelEquipLayer.Slot.Back` 아트는 후속. → SLOT-4 완료 11-04(`UI/ExtraEquipFx.cs`: 오라 링 LineRenderer·칭호 이름표 TMP, 화면 미검증).
 - [x] CHIEF-1 대장 보상 데이터 (파일: ItemSheet 258·259행, MonsterExtraDrops, QuestsFloor1 Q504, LocItems): 설계 `Floor1Completion.md` §15-2. CSV 로드 테스트. → 완료 11-04 커밋 9e8ca9d6
 - [~] CHIEF-2 대장 보상 규칙·훅 (`PlunderRules`·`LastStandRules` 순수 클래스 + 몹 골드 드롭·치사 피해 훅, CHIEF-1 후). CHIEF-3 툴팁·발동 텍스트. CHIEF-4 PT-BOT 검증. → CHIEF-2 완료 11-04 커밋 9e8ca9d6, CHIEF-3·4 남음
 - [x] DEATH-PENALTY-IMPL (사용자가 Q-DEATH 제안안 승인 후만): `LevelRules` 사망 EXP 손실에 레벨·보스 인자 + EditMode 테스트.
