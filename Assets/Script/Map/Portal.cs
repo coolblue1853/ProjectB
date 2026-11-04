@@ -16,13 +16,17 @@ public class Portal : MonoBehaviour
     bool isMapChange = true;
     private Collider2D _playerCol, _col;
     /// <summary>도착 직후 무적(초). 암전이 밝아지는 동안·도착 지점의 몹에게 바로 맞지 않게</summary>
-    public const float ArrivalInvincible = 1.0f;
+    public const float ArrivalInvincible = 2.0f;
     /// <summary>라벨에 쓸 이름(비우면 목적지 구역 이름). 같은 맵 안 이동 포털용</summary>
     public string labelOverride;
     public GameObject player;
     private void OnEnable()
     {
         upAction.Enable();
+        if (destination != null)
+        {
+            ArrivalSafeZone.Register(destination.position); // 도착점 반경은 몹 스폰 금지
+        }
     }
     private void OnDisable()
     {
@@ -122,6 +126,7 @@ public class Portal : MonoBehaviour
         MapTransit.Run(traveler, () =>
         {
             traveler.transform.position = destination.position;
+            GrantArrivalInvincible();
             MoveMaps();
             arrived?.Invoke();
         }, EndOnlyMove, proCamera);

@@ -22,6 +22,12 @@ public static class BossIntro
         {
             return;
         }
+        PlayerController player = PlayerController.instance;
+        float distance = player != null ? Vector2.Distance(player.transform.position, boss.transform.position) : float.MaxValue;
+        if (!BossIntroRules.ShouldPlay(DatabaseManager.isUsePortal, distance))
+        {
+            return; // 맵 이동(마을 출입 포함)으로 켜졌거나 멀리 있는 보스: 마주친 게 아니므로 배너·카메라 연출 없음
+        }
         string key = boss.name.Replace("(Clone)", "").Trim();
         if (lastShown.TryGetValue(key, out float t) && Time.time - t < Cooldown)
         {

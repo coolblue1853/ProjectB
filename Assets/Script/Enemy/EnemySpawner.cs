@@ -470,6 +470,19 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    private readonly List<Vector2> _candidateBuffer = new List<Vector2>();
+
+    /// <summary>선호 인덱스부터 포털 도착 안전지대 밖인 발판을 찾는다. 전부 안이면 -1</summary>
+    private int PickSafeIndex(int preferred)
+    {
+        _candidateBuffer.Clear();
+        for (int k = 0; k < enemyCount; k++)
+        {
+            _candidateBuffer.Add(enemyPositionArray[k].transform.position);
+        }
+        return ArrivalSafeZone.PickIndex(_candidateBuffer, preferred, ArrivalSafeZone.Points);
+    }
+
     private void CycleCheck()
     {
         for (int i = 0; i < enemyCount; i++)
@@ -480,6 +493,11 @@ public class EnemySpawner : MonoBehaviour
                 continue;
             }
 
+            int posIndex = PickSafeIndex(isRandSpawn ? Random.Range(0, enemyCount) : i);
+            if (posIndex < 0)
+            {
+                continue; // 모든 후보가 포털 도착 안전지대 안 → 이번 주기는 비워 둔다(풀에서 꺼내기 전에 거른다)
+            }
             GameObject enemyObject = GetOb(EnemyKey);
             if (enemyObject == null)
             {
@@ -489,7 +507,6 @@ public class EnemySpawner : MonoBehaviour
             EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
             enemyHealth.enemySpowner = this;
 
-            int posIndex = isRandSpawn ? Random.Range(0, enemyCount) : i;
             var jitter = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
             enemyObject.transform.position = enemyPositionArray[posIndex].transform.position + jitter;
             enemyHealth.spawnPosition = enemyObject.transform.position;

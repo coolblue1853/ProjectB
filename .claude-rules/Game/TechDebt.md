@@ -224,3 +224,5 @@
 - (11-03) 별폭발(StarBurst) 아티팩트 적중 확인: 허수아비 2.0/3.5m 소환 후 발동 → HP 100000→99848/99909 감소(반경 4). 수정 불필요. 프로브 `Tools/probes/_sb_test.cs`.
 - (11-03 PV1) (P3) 구역 인장 3종 아이콘 없음: `Resources/Item/ZoneSeal_Swamp|Fortress|Tower` 이미지 파일 없어 드롭·인벤 표시 때 Error "이미지 파일을 로드하지 못했습니다". 아이콘 제작 필요(그래픽 사용자 검토 후 적용). 확인: 둥지 정예 처치 드롭 시 콘솔.
 - (11-03 PV1) (P3) 방어구 제작창 정적 페이지 0~1 칸이 창 열기 전 itemData 가 비어 있음(지연 로드, 열면 정상 — 동작에는 문제 없음). PV1 로 확인한 CF-A~D·L1·L5·L7·미니보스·둥지는 모두 통과, 상세 `Docs/Playtest/Floor1PlayVerify.md`.
+
+- (11-04 arrival-safe) ✅ 포털 도착 안전: `ArrivalSafeZone`(Portal.OnEnable 이 목적지 등록, 반경 14×9) 안에는 `EnemySpawner.CycleCheck` 가 스폰 안 함(풀에서 꺼내기 전 걸러 누수 없음). 도착 무적 1→2초, `TravelNow`(사망 귀환)에도 적용. `BossIntro` 배너·카메라 연출은 맵 이동 중(`isUsePortal`)이거나 플레이어와 20유닛 밖이면 생략(마을 출입마다 뜨던 '탑의 수호자' 배너, GUARD-BANNER). 초반 3맵(NearForest/SideRoad/NormalForest) 스폰 수 ×0.65·한 점 최대 2슬롯. 미검증: 플레이 모드 실측. 한계: 추적 정예·밤 습격·보스 부하 스폰은 안전지대 미적용. 테스트 `ArrivalSafeZoneTests`.
