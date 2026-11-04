@@ -54,9 +54,9 @@
 - [x] 사망 페널티 재점검 DEATH-PENALTY (담당: 미정): 현재 EXP −5%. 몸박 ×0.5·캔슬·점프 개선 후 체감 기준으로 `ClassicMapleDesign.md` 와 대조해 제안안을 OpenQuestions 에 적는다(수정은 사용자 확인 후). → 설계 완료 11-04: `OpenQuestions.md` Q-DEATH 제안안(Lv1~10 면제·보스 7%·나머지 5% 유지), 사용자 확인 후 구현. 커밋 46b33a1f
 - [x] 산적 치프 특별 보상 CHIEF-REWARD (담당: 미정, 파일: ItemSheet·보스 드롭·퀘스트 보상): 최종 보스(산적 치프) 확률 드롭 또는 퀘스트 확정 보상으로 좋은/특별한 아이템(특별 기믹) 설계·추가. 강화석 외에 기믹이 있는 장비(예: 특수 효과 1줄)를 1~2종. LineageGear 계보 규칙 준수. → 설계 완료 11-04: `Floor1Completion.md` §15(약탈의 훈장·대장의 오기 반지), 구현은 아래 CHIEF-1~4. 커밋 32c67b1b
 - [x] 새 장비 슬롯 해금 구조 설계 SLOT-EXPAND (담당: 미정, 파일: 신규 `Game/EquipSlotExpansion.md`, 장비 슬롯 정의·UI·ES3): 현재 고정 장비 슬롯에 오라/칭호 등 새 슬롯을 추가하고 처음엔 잠금, 층계별 1~2개씩 해금. 도감 완성 보상(칭호·특수 아이템)과 연결. 먼저 설계 문서(슬롯 후보·해금 조건·외형 영향·세이브 필드)를 쓰고 큐 항목으로 나눈다. → 설계 완료 11-04: `Game/EquipSlotExpansion.md`(칭호·오라·부적·망토), 구현은 아래 SLOT-1~5. 커밋 e4170c76
-- [x] INV-EXP-1 (담당: inv-exp, HASHX) 가방 확장 규칙·세이브 (파일: Inventory/Model 신규 `BagExpansionRules`, `Assets/Resources/BagExpansion.csv`, `inventory.unlocked` ES3, 씬 maxBoxNum 15→25): 설계 `InventoryRefactorDesign.md` §7. EditMode 테스트(구 세이브·클램프·가격표).
-- [x] INV-EXP-2 (담당: inv-exp, HASHX; 상점 N 키 확인 구매 런타임 UI, N 키·캡처 미검증) 가방 확장 UI (파일: `UI/CraftUI/ShopManager.cs`, 인벤 페이지 탭): 상점 "가방 확장" 항목·가격·층계 상한 안내·구매 후 즉시 반영. INV-EXP-1 후.
-- [x] INV-EXP-3 (담당: inv-exp, HASHX; 독립 프로브 ptbot_bag.cs, run 루프 연동은 후속) PT-BOT 확장 (파일: Tools/probes/ptbot_*.cs, Docs/Playtest/PtBot.md): 구역별 슬롯 점유율·가득 참 횟수·판매/분해 빈도 로그, 가득 차면 확장 구매·정리 자동 수행, 결과 PtBot.md 기록. INV-EXP-2 후.
+- [x] INV-EXP-1 (담당: inv-exp, 14711f2d) 가방 확장 규칙·세이브 (파일: Inventory/Model 신규 `BagExpansionRules`, `Assets/Resources/BagExpansion.csv`, `inventory.unlocked` ES3, 씬 maxBoxNum 15→25): 설계 `InventoryRefactorDesign.md` §7. EditMode 테스트(구 세이브·클램프·가격표).
+- [x] INV-EXP-2 (담당: inv-exp, 14711f2d; 상점 N 키 확인 구매 런타임 UI, N 키·캡처 미검증) 가방 확장 UI (파일: `UI/CraftUI/ShopManager.cs`, 인벤 페이지 탭): 상점 "가방 확장" 항목·가격·층계 상한 안내·구매 후 즉시 반영. INV-EXP-1 후.
+- [x] INV-EXP-3 (담당: inv-exp, 14711f2d; 독립 프로브 ptbot_bag.cs, run 루프 연동은 후속) PT-BOT 확장 (파일: Tools/probes/ptbot_*.cs, Docs/Playtest/PtBot.md): 구역별 슬롯 점유율·가득 참 횟수·판매/분해 빈도 로그, 가득 차면 확장 구매·정리 자동 수행, 결과 PtBot.md 기록. INV-EXP-2 후.
 - [ ] INV-EXP-4 (담당: inv-exp, 통주 로그 필요) 시작 칸·가격 보정 (문서): PtBot 점유율 로그로 §7 가격표 조정, BasicFeatures 갱신. INV-EXP-3 후.
 - [ ] SLOT-1 장비 슬롯 모델·세이브 (파일: Inventory/Model/EquipmentModel.cs, `SlotRules`, ES3 `equip.extra`·`equip.extraUnlock`): 설계 `Game/EquipSlotExpansion.md` §4~5. EditMode 테스트(구 세이브 호환).
 - [ ] SLOT-2 장비창 신규 4칸 UI·잠금 툴팁 (SLOT-1 후, 파일: 장비 UI·입력).
