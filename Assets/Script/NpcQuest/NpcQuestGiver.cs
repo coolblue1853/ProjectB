@@ -16,7 +16,8 @@ public class NpcQuestGiver : MonoBehaviour
     [SerializeField] private string _npcId;
 
     private TextMeshPro _mark;
-    private bool _offerShown;
+    // 같은 퀘스트·같은 상태로는 한 번만 묻는다. 다른 퀘스트(보고 직후 다음 수락 등)로 바뀌면 NPC 곁을 떠나지 않아도 다시 묻는다
+    private string _offerKey = "";
     private float _nextRefresh;
 
     public string NpcId => _npcId;
@@ -132,15 +133,15 @@ public class NpcQuestGiver : MonoBehaviour
             }
             conv = StoryDialogues.ReportConversation(q.Id);
         }
-        else if (s == NpcQuestStatus.Available && !_offerShown)
+        else if (s == NpcQuestStatus.Available && _offerKey != OfferKeyOf(q, s))
         {
             conv = StoryDialogues.OfferConversation(q.Id);
-            _offerShown = true;
+            _offerKey = OfferKeyOf(q, s);
         }
-        else if (s == NpcQuestStatus.Active && !_offerShown)
+        else if (s == NpcQuestStatus.Active && _offerKey != OfferKeyOf(q, s))
         {
             conv = StoryDialogues.ProgressConversation(q.Id);
-            _offerShown = true;
+            _offerKey = OfferKeyOf(q, s);
         }
         else
         {
@@ -149,11 +150,16 @@ public class NpcQuestGiver : MonoBehaviour
         return DialogueBoot.Talk(conv, transform);
     }
 
+    private static string OfferKeyOf(NpcQuestDef q, NpcQuestStatus s)
+    {
+        return q.Id + ":" + s;
+    }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            _offerShown = false;
+            _offerKey = "";
         }
     }
 }

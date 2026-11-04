@@ -62,6 +62,9 @@ foreach (var sp in UnityEngine.Object.FindObjectsByType<EnemySpawner>(FindObject
     string pn = (sp.MonsterProfile ?? "").Split('@')[0]; if (string.IsNullOrEmpty(pn) || pn == "Rock" || pn == "tree" || pn == "GreenHurb") continue;
     if (sp.GetComponentInParent<MapInfo>(true) == null) continue;
     if (!mobSp.ContainsKey(pn)) mobSp[pn] = new System.Collections.Generic.List<EnemySpawner>(); mobSp[pn].Add(sp);
+    // 사냥 표(HuntingSpawnsFloor1.csv)가 섞는 보조 몹(예: BranchAntlerFox_BD)도 같은 스포너에서 나온다
+    var hrow = HuntingSpawnTable.Get(sp.GetComponentInParent<MapInfo>(true).name, sp.name);
+    if (hrow != null && !string.IsNullOrEmpty(hrow.Profile) && hrow.Profile != pn) { if (!mobSp.ContainsKey(hrow.Profile)) mobSp[hrow.Profile] = new System.Collections.Generic.List<EnemySpawner>(); mobSp[hrow.Profile].Add(sp); }
 }
 var bossSet = new System.Collections.Generic.HashSet<string> { "AncientEnt_BD", "GiantSlime_BD", "Gatekeeper_BD" };
 System.Func<EnemySpawner, string> spMap = (sp) => sp.GetComponentInParent<MapInfo>(true).name;

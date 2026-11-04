@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 
@@ -177,6 +177,7 @@ public static class NpcQuestCatalog
             case "ruen": return "사냥꾼 루엔";
             case "sena": return "약초꾼 세나";
             case "eve": return "떠돌이 탐험가 이브";
+            case "bountyboard": return "마을 게시대";
         }
         return npcId;
     }

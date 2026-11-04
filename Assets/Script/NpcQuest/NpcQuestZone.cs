@@ -93,10 +93,62 @@ public static class NpcQuestZone
     }
 }
 
-/// <summary>퀘스트 창 목록 규칙 (순수): 완료 가능을 맨 위, 나머지 진행 중은 표 순서, 완료는 별도 탭</summary>
+/// <summary>퀘스트 창 목록 규칙 (순수): 받을 수 있는 / 진행 중(완료 가능이 맨 위) / 완료 세 탭, 같은 구역끼리 묶는다</summary>
 public static class QuestListRules
 {
-    public enum Tab { Active, Done }
+    public enum Tab { Available, Active, Done }
+
+    /// <summary>좌(-1)/우(+1) 탭 순환: 받을 수 있는 → 진행 중 → 완료</summary>
+    public static Tab Step(Tab tab, int dir)
+    {
+        int n = System.Enum.GetValues(typeof(Tab)).Length;
+        return (Tab)(((int)tab + dir + n) % n);
+    }
+
+    /// <summary>받을 수 있는 퀘스트: 수락 가능을 먼저, 레벨 부족(회색)을 뒤에. 각각 표 순서</summary>
+    public static List<NpcQuestDef> Available(IEnumerable<NpcQuestDef> all, System.Func<NpcQuestDef, NpcQuestStatus> statusOf)
+    {
+        var open = new List<NpcQuestDef>();
+        var low = new List<NpcQuestDef>();
+        foreach (NpcQuestDef d in all)
+        {
+            NpcQuestStatus st = statusOf(d);
+            if (st == NpcQuestStatus.Available)
+            {
+                open.Add(d);
+            }
+            else if (st == NpcQuestStatus.LevelLow)
+            {
+                low.Add(d);
+            }
+        }
+        open.AddRange(low);
+        return open;
+    }
+
+    /// <summary>같은 구역끼리 모은다 — 구역은 처음 나온 순서, 구역 안은 원래 순서(안정)</summary>
+    public static List<NpcQuestDef> GroupByZone(IList<NpcQuestDef> list, System.Func<NpcQuestDef, string> zoneOf)
+    {
+        var order = new List<string>();
+        var buckets = new Dictionary<string, List<NpcQuestDef>>();
+        foreach (NpcQuestDef d in list)
+        {
+            string z = zoneOf(d) ?? "";
+            if (!buckets.TryGetValue(z, out List<NpcQuestDef> bucket))
+            {
+                bucket = new List<NpcQuestDef>();
+                buckets[z] = bucket;
+                order.Add(z);
+            }
+            bucket.Add(d);
+        }
+        var res = new List<NpcQuestDef>(list.Count);
+        foreach (string z in order)
+        {
+            res.AddRange(buckets[z]);
+        }
+        return res;
+    }
 
     public static List<NpcQuestDef> Active(IList<NpcQuestDef> active, System.Func<NpcQuestDef, bool> isReady)
     {
