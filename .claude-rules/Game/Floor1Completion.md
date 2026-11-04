@@ -417,3 +417,45 @@ HP·방어는 Floor1Balance §8 기준. 효과 단계 2/4/6은 `SetItem.csv`(Out
 - 스토리 텍스트 작업 제외(계획·큐 모두). 과레벨 감쇠 없음, 퀘스트 보상 고정(Q-F1C3). 최단 기록 없음 → 모델 k=1.5 가정 유지(Q-F1C6).
 - 취소: L10(성채 필수화), 졸업 시험 하드 게이트(L2는 달성도 계수 구현으로 변경).
 - 추가 로직 항목: 문지기 달성도 강화(L11), 하위 맵 2장(L12), 제작 골드 열(L13), 잡템 분류·일괄 판매(L14), 포털 전환 점검(L15), 샛길 경제 시뮬(L16).
+
+## 15. 산적 대장 특별 보상 (11-04, 큐 `CHIEF-REWARD`) — 기믹 장신구 2종 (설계만)
+
+> 최종 보스 = 산적 대장(`BanditChief_BD`, 성채 보스, 선택 콘텐츠 §14-2). 기존 유니크 Chief's War Banner(창, 부하 소환)는 그대로 두고, **무기 외 장신구 슬롯**에 효과 1줄짜리 기믹 장비를 추가한다. 강화석 외 "갈 이유"가 목적이다.
+
+### 15-1. 설계
+
+| 항목 | A. Bandit Plunder Medal (약탈의 훈장) | B. Chief's Last Stand Ring (대장의 오기 반지) |
+|---|---|---|
+| 슬롯·등급 | Necklace · U | Ring · U |
+| 입수 | 산적 대장 **확률 드롭 15%**(`MonsterExtraDrops`, 천장은 기존 보스 pity 비적용) | **Q504 완료 확정 보상**(성채 선택 퀘스트, 강화석 보상은 대장 드롭 12개가 이미 있어 이 행은 반지로 교체) |
+| 효과 1줄 | 몹 처치 시 8% 확률로 그 몹의 골드 드롭 ×3 | 치명 피해를 받으면 HP 1로 버티고 2초 무적(재사용 대기 180초) |
+| 기본 스탯 | 없음(기믹만) — 초반 소박 | 없음(기믹만) |
+| 계보 근거 | 산적의 약탈 정체성. `LineageGear.md` 0절 "유니크부터 계보를 벗어난 특색" 허용 구간 | 대장 2페이즈의 위기 호출(`BossMinionCall`)을 본뜬 "끈질김" |
+| 보여주기 | 골드 3배 때 황금 번쩍임 텍스트 | "버텼다!" 텍스트 + 쿨다운은 장비창 툴팁에 표시 |
+
+- 이 반지는 사망 페널티(`Docs/OpenQuestions.md` Q-DEATH)를 완화하는 장치이므로 3분 쿨다운, 보스 전투 중 1회로 제한(임시 가정: 일반 몹 구간에서도 작동하되 쿨다운으로 연타 방지).
+- 훈장은 `Floor1Completion` §14-8 샛길 경제에 영향이 작다(기대 골드 +16%/몹골드). 시뮬 후 8%→6%로 낮출 수 있다.
+- 둘 다 세트 효과(`tfName`) 없음. 신규 슬롯(`EquipSlotExpansion.md`)이 열려도 기존 Ring/Necklace 슬롯이라 충돌 없음.
+
+### 15-2. 데이터 행 초안 (`ItemSheet.csv` 맨 뒤 추가, 마지막 index 257 다음)
+
+```
+258,BanditPlunderMedal,Equip,equipment,2500,1,Boss,1,-,0,Necklace,,Bandit Plunder Medal,0,U,0,,,
+259,ChiefsLastStandRing,Equip,equipment,2500,1,quest,1,-,0,Ring,,Chief's Last Stand Ring,0,U,0,,,
+```
+- `MonsterExtraDrops.csv`: `BanditChief_BD,BanditPlunderMedal,0.15`
+- `QuestsFloor1.csv` Q504: `rewardItem=ChiefsLastStandRing, rewardCount=1`(`Enhance Stone,2` 대체)
+- `LocItems.cs` 한글명: ("Bandit Plunder Medal","약탈의 훈장"), ("Chief's Last Stand Ring","대장의 오기 반지")
+- 아이콘은 임시(기존 Ring/Necklace 아이콘 틴트), 정식 도트는 후속.
+
+### 15-3. 구현 방식 (코드 변경은 후속)
+
+- 효과 키는 `effectOb/effectPow` 로 두지 않고 신규 `AccessoryGimmick`(순수 규칙 + 이름 키 레지스트리) — 장착 중인 아이템 이름을 조회. 훈장 `PlunderRules.Roll`(몹 사망 골드 드롭 경로에 훅), 반지 `LastStandRules.TryRescue`(치사 피해 직전 `PlayerHealthManager`에서 호출, 쿨다운 상태는 런타임 값이라 세이브 안 함).
+- 세이브 추가 없음(아이템 id만 기존 장비 저장).
+
+### 15-4. 구현 큐 항목
+
+1. CHIEF-1 데이터: ItemSheet 2행·MonsterExtraDrops·Q504 보상 교체·LocItems 한글명 + 로드 EditMode 테스트(CSV 파싱).
+2. CHIEF-2 규칙·훅: `PlunderRules`·`LastStandRules` 순수 클래스 + EditMode 테스트(확률·쿨다운), 몹 사망·치사 피해 훅 연결.
+3. CHIEF-3 표시: 장비 툴팁 기믹 줄·발동 텍스트·쿨다운 표시.
+4. CHIEF-4 검증: PT-BOT 으로 성채 대장 처치 → 드롭률·Q504 보상 수령 로그, 미검증 항목 기록.
