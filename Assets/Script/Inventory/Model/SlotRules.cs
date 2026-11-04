@@ -1,0 +1,92 @@
+using System;
+
+/// <summary>
+/// 신규 장비 슬롯(EquipSlotExpansion.md 4~5절) 규칙 — 순수 C#. 기본 8칸은 항상 해금, 신규 4칸은 해금 비트가 필요하다.
+/// 세이브 키: equip.extra(string[4]), equip.extraUnlock(int 비트마스크). 키가 없으면 전부 잠금·빈칸(구 세이브 호환).
+/// </summary>
+public static class SlotRules
+{
+    public const string SaveKeyExtra = "equip.extra";
+    public const string SaveKeyUnlock = "equip.extraUnlock";
+
+    /// <summary>세이브 배열 순서 = 비트 순서</summary>
+    public static readonly EquipSlot[] Extras = { EquipSlot.Title, EquipSlot.Aura, EquipSlot.Charm, EquipSlot.Cape };
+
+    public const int AllExtraMask = 15;
+
+    public static bool IsExtra(EquipSlot slot)
+    {
+        return Array.IndexOf(Extras, slot) >= 0;
+    }
+
+    /// <summary>1=Title, 2=Aura, 4=Charm, 8=Cape. 기본 슬롯은 0</summary>
+    public static int Bit(EquipSlot slot)
+    {
+        int i = Array.IndexOf(Extras, slot);
+        return i < 0 ? 0 : 1 << i;
+    }
+
+    public static bool IsUnlocked(int mask, EquipSlot slot)
+    {
+        return !IsExtra(slot) || (mask & Bit(slot)) != 0;
+    }
+
+    public static int Unlock(int mask, EquipSlot slot)
+    {
+        return mask | Bit(slot);
+    }
+
+    /// <summary>"id" 또는 강화·티어가 있으면 "id|티어|강화". 빈칸은 ""</summary>
+    public static string EncodeStack(ItemStack s)
+    {
+        if (s.IsEmpty)
+        {
+            return "";
+        }
+        return s.Tier > 0 || s.Upgrade > 0 ? s.Id + "|" + s.Tier + "|" + s.Upgrade : s.Id;
+    }
+
+    public static ItemStack DecodeStack(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return ItemStack.Empty;
+        }
+        string[] p = text.Split('|');
+        if (p[0].Length == 0)
+        {
+            return ItemStack.Empty;
+        }
+        int tier = p.Length > 1 && int.TryParse(p[1], out int t) ? t : 0;
+        int up = p.Length > 2 && int.TryParse(p[2], out int u) ? u : 0;
+        return new ItemStack(p[0], 1, tier, up);
+    }
+}
+
+/// <summary>신규 슬롯 ES3 입출력 (얇은 래퍼 — 로직은 EquipmentModel/SlotRules). 읽기 실패 시 잠금·빈칸</summary>
+public static class EquipExtraSave
+{
+    public static void Save(EquipmentModel model)
+    {
+        ES3.Save(SlotRules.SaveKeyExtra, model.ToExtraArray());
+        ES3.Save(SlotRules.SaveKeyUnlock, model.ExtraUnlockMask);
+    }
+
+    public static void Load(EquipmentModel model, SlotContainer inventory)
+    {
+        string[] ids = null;
+        int mask = 0;
+        try
+        {
+            ids = ES3.KeyExists(SlotRules.SaveKeyExtra) ? ES3.Load<string[]>(SlotRules.SaveKeyExtra) : null;
+            mask = ES3.KeyExists(SlotRules.SaveKeyUnlock) ? ES3.Load<int>(SlotRules.SaveKeyUnlock) : 0;
+        }
+        catch (Exception e)
+        {
+            GameLog.Warn(GameLog.Cat.Item, "신규 장비 슬롯 세이브 읽기 실패, 잠금·빈칸으로 시작: " + e.Message);
+            ids = null;
+            mask = 0;
+        }
+        model.LoadExtra(ids, mask, inventory);
+    }
+}
