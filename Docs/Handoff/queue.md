@@ -39,7 +39,7 @@
 - [x] 세이브 슬롯 점검·ptbot 백업 개선 (담당: autorun-3, 맵 보존과 함께, 파일: Tools/ptbot.sh): 총괄 전달 — SaveSlot(2/3) 16:42 .bac 와 현재 md5 비교를 Docs/Playtest/ 에 기록, ptbot.sh 백업을 '최초 원본 보존(덮어쓰지 않음) + 실행별 사본' 으로 개선 — 커밋 0a3f5f17 (ptbot.sh 실행 미검증)
 - [x] PT-BOT 1층계 통주 (담당: autorun-3, 파일: Tools/probes/ptbot_*.cs·Docs/Playtest/PtBot.md): 총괄 전달 — 보스 대응 보강 후 Lv1→졸업 자동 통주, 구역별 처치 시간·사망·막힘을 PtBot.md 에 기록하고 목표 2시간 이상 여부 판정. 위 두 항목 후 — 미완(Q301 막힘), 결과 Docs/Playtest/PtBot.md, 2시간 판정 불확정
 - [x] 보스 구역 도착 안전 장치 (담당: arrival-safe, 파일: Map/MapTransit.cs·Portal.cs·MapInfo.cs·Enemy 보스 코드): 사용자 확인 — 마을을 나오자마자 고대 엔트(깊은 숲 보스)에게 맞아 죽는 일이 이전에도 있었음(이번은 통주 봇의 순간이동). 마을 출구 도착 규칙(마지막 구역 복귀/고정 샛길)을 코드로 확인, 어떤 경로든 보스 어그로 범위 안에 도착하지 않게 보강(도착 지점 이격, 도착 직후 N초 무적 또는 보스 휴면), EditMode 재발 방지 테스트, TechDebt 기록. PT-BOT 통주 후(플레이 정지 상태에서 컴파일) → 완료 11-04: ArrivalSafeZone(도착점 반경 스폰 금지)·BossIntro 배너 게이트·도착 무적 2초·초반 3맵 밀집 ×0.65/가중치≤2. 컴파일+EditMode 통과, 플레이 미검증. 커밋 60c1f176
-- [ ] 인벤토리 칸 확장 기능 INV-EXP (담당: 미정, 파일: InventoryManager·InventoryModel·상점/NPC·ES3 필드(추가만), Docs/Playtest/PtBot.md): 가방 칸이 부족한 경향. 먼저 `InventoryRefactorDesign.md`·`BasicFeatures.md` 와 현재 칸 수·페이지 구조를 읽고 메이플식 확장안으로 설계(확장 NPC/상점에서 골드로 페이지 또는 칸 추가, 단계별 가격 상승, 최대치, 세이브 호환은 필드 추가만). 1층계 습득량 대비 적정 시작 칸 수도 검토(소비·재료·장비 합산). 구현 후 PT-BOT 확장: 통주 중 구역별 슬롯 점유율·가득 참 횟수·판매/분해 빈도를 로그에 남기고, 가득 차면 확장 구매·정리를 자동 수행해 확장 흐름을 검증. 결과를 PtBot.md 에 기록.
+- [x] 인벤토리 칸 확장 기능 INV-EXP (담당: 미정, 파일: InventoryManager·InventoryModel·상점/NPC·ES3 필드(추가만), Docs/Playtest/PtBot.md): 가방 칸이 부족한 경향. 먼저 `InventoryRefactorDesign.md`·`BasicFeatures.md` 와 현재 칸 수·페이지 구조를 읽고 메이플식 확장안으로 설계(확장 NPC/상점에서 골드로 페이지 또는 칸 추가, 단계별 가격 상승, 최대치, 세이브 호환은 필드 추가만). 1층계 습득량 대비 적정 시작 칸 수도 검토(소비·재료·장비 합산). 구현 후 PT-BOT 확장: 통주 중 구역별 슬롯 점유율·가득 참 횟수·판매/분해 빈도를 로그에 남기고, 가득 차면 확장 구매·정리를 자동 수행해 확장 흐름을 검증. 결과를 PtBot.md 에 기록. → 설계 완료 11-04: `InventoryRefactorDesign.md` §7(시작 25칸·5칸 단위·층계 상한·가격표), 구현은 아래 INV-EXP-1~4. 커밋 03d07e3e
 - [ ] 떨어지는 오브젝트 이상 현상 (담당: map-physics, 파일: 낙하 물체·FallRescue·Rigidbody 관련): 사용자 제보 — 떨어지는 물체가 이상하게 동작/낙하. 재현 조건 파악 후 원인 조사·수정, EditMode 또는 봇 스모크로 재발 방지 확인
 - [ ] 계단형 지형 점프 불가 (담당: map-physics, 파일: PlayerController 점프·지형 콜라이더·Tools/probes/ptbot_*.cs): 봇 자동이동 중 계단형 지형을 점프로 못 넘는 현상이 잦음. 발판 높이 대비 점프 높이(CF-B 가변 점프 영향 포함)·콜라이더 점검, 봇 점프 로직 문제인지 게임 지형 문제인지 분리해 기록하고 수정
 - [x] (e4170c76, 컴파일만 검증·플레이 미검증) 선택 퀘스트 수락 불가(NPC_BLOCK) 조사 (담당: quest-ui, 파일: NpcQuestGiver·QuestsFloor1.csv): PT-BOT 통주에서 루엔 Q104·105·106, 세나 Q310, 이브 Q311 이 Available 인데 수락 안 됨. 봇 문제인지 게임(대화 조건/상호작용 범위)인지 분리하고 수정. BranchAntlerFox_BD 스포너 프로필 없음(Q305 스킵)도 함께 확인
@@ -51,6 +51,17 @@
 - [ ] 첫 행동 힌트·튜토리얼 TUTORIAL-HINT (담당: 미정): 마을 첫 진입 때 이동·공격·점프·물약·퀘스트창을 짧게 안내(한 번만, 건너뛰기 가능). 기존 '첫 행동 힌트 트리거' 코드가 있으면 재사용.
 - [ ] 미니맵·웨이포인트 MINIMAP (담당: 미정, 파일: BasicFeatures.md §미니맵): 현재 구역 미니맵과 퀘스트 목적지 표시. Q-435 임시 가정 참고.
 - [ ] 설정 메뉴·키 설정 SETTINGS-KEYS (담당: 미정): 사운드 볼륨(지금 사운드는 임시), 키 설정(겹침 허용 범위는 Q-432 임시 가정), 설정 저장(ES3 필드 추가만).
-- [ ] 사망 페널티 재점검 DEATH-PENALTY (담당: 미정): 현재 EXP −5%. 몸박 ×0.5·캔슬·점프 개선 후 체감 기준으로 `ClassicMapleDesign.md` 와 대조해 제안안을 OpenQuestions 에 적는다(수정은 사용자 확인 후).
-- [ ] 산적 치프 특별 보상 CHIEF-REWARD (담당: 미정, 파일: ItemSheet·보스 드롭·퀘스트 보상): 최종 보스(산적 치프) 확률 드롭 또는 퀘스트 확정 보상으로 좋은/특별한 아이템(특별 기믹) 설계·추가. 강화석 외에 기믹이 있는 장비(예: 특수 효과 1줄)를 1~2종. LineageGear 계보 규칙 준수.
-- [ ] 새 장비 슬롯 해금 구조 설계 SLOT-EXPAND (담당: 미정, 파일: 신규 `Game/EquipSlotExpansion.md`, 장비 슬롯 정의·UI·ES3): 현재 고정 장비 슬롯에 오라/칭호 등 새 슬롯을 추가하고 처음엔 잠금, 층계별 1~2개씩 해금. 도감 완성 보상(칭호·특수 아이템)과 연결. 먼저 설계 문서(슬롯 후보·해금 조건·외형 영향·세이브 필드)를 쓰고 큐 항목으로 나눈다.
+- [x] 사망 페널티 재점검 DEATH-PENALTY (담당: 미정): 현재 EXP −5%. 몸박 ×0.5·캔슬·점프 개선 후 체감 기준으로 `ClassicMapleDesign.md` 와 대조해 제안안을 OpenQuestions 에 적는다(수정은 사용자 확인 후). → 설계 완료 11-04: `OpenQuestions.md` Q-DEATH 제안안(Lv1~10 면제·보스 7%·나머지 5% 유지), 사용자 확인 후 구현. 커밋 46b33a1f
+- [x] 산적 치프 특별 보상 CHIEF-REWARD (담당: 미정, 파일: ItemSheet·보스 드롭·퀘스트 보상): 최종 보스(산적 치프) 확률 드롭 또는 퀘스트 확정 보상으로 좋은/특별한 아이템(특별 기믹) 설계·추가. 강화석 외에 기믹이 있는 장비(예: 특수 효과 1줄)를 1~2종. LineageGear 계보 규칙 준수. → 설계 완료 11-04: `Floor1Completion.md` §15(약탈의 훈장·대장의 오기 반지), 구현은 아래 CHIEF-1~4. 커밋 32c67b1b
+- [x] 새 장비 슬롯 해금 구조 설계 SLOT-EXPAND (담당: 미정, 파일: 신규 `Game/EquipSlotExpansion.md`, 장비 슬롯 정의·UI·ES3): 현재 고정 장비 슬롯에 오라/칭호 등 새 슬롯을 추가하고 처음엔 잠금, 층계별 1~2개씩 해금. 도감 완성 보상(칭호·특수 아이템)과 연결. 먼저 설계 문서(슬롯 후보·해금 조건·외형 영향·세이브 필드)를 쓰고 큐 항목으로 나눈다. → 설계 완료 11-04: `Game/EquipSlotExpansion.md`(칭호·오라·부적·망토), 구현은 아래 SLOT-1~5. 커밋 e4170c76
+- [ ] INV-EXP-1 가방 확장 규칙·세이브 (파일: Inventory/Model 신규 `BagExpansionRules`, `Assets/Resources/BagExpansion.csv`, `inventory.unlocked` ES3, 씬 maxBoxNum 15→25): 설계 `InventoryRefactorDesign.md` §7. EditMode 테스트(구 세이브·클램프·가격표).
+- [ ] INV-EXP-2 가방 확장 UI (파일: `UI/CraftUI/ShopManager.cs`, 인벤 페이지 탭): 상점 "가방 확장" 항목·가격·층계 상한 안내·구매 후 즉시 반영. INV-EXP-1 후.
+- [ ] INV-EXP-3 PT-BOT 확장 (파일: Tools/probes/ptbot_*.cs, Docs/Playtest/PtBot.md): 구역별 슬롯 점유율·가득 참 횟수·판매/분해 빈도 로그, 가득 차면 확장 구매·정리 자동 수행, 결과 PtBot.md 기록. INV-EXP-2 후.
+- [ ] INV-EXP-4 시작 칸·가격 보정 (문서): PtBot 점유율 로그로 §7 가격표 조정, BasicFeatures 갱신. INV-EXP-3 후.
+- [ ] SLOT-1 장비 슬롯 모델·세이브 (파일: Inventory/Model/EquipmentModel.cs, `SlotRules`, ES3 `equip.extra`·`equip.extraUnlock`): 설계 `Game/EquipSlotExpansion.md` §4~5. EditMode 테스트(구 세이브 호환).
+- [ ] SLOT-2 장비창 신규 4칸 UI·잠금 툴팁 (SLOT-1 후, 파일: 장비 UI·입력).
+- [ ] SLOT-3 해금·보상 연결 (도감 완성/보스 첫 처치 → 슬롯 해금 + 칭호·오라 첫 아이템 ItemSheet 행, SLOT-1 후).
+- [ ] SLOT-4 `AuraFx` 코드 생성 링·칭호 이름표 텍스트 (SLOT-3 후). SLOT-5 망토 `CelEquipLayer.Slot.Back` 아트는 후속.
+- [ ] CHIEF-1 대장 보상 데이터 (파일: ItemSheet 258·259행, MonsterExtraDrops, QuestsFloor1 Q504, LocItems): 설계 `Floor1Completion.md` §15-2. CSV 로드 테스트.
+- [ ] CHIEF-2 대장 보상 규칙·훅 (`PlunderRules`·`LastStandRules` 순수 클래스 + 몹 골드 드롭·치사 피해 훅, CHIEF-1 후). CHIEF-3 툴팁·발동 텍스트. CHIEF-4 PT-BOT 검증.
+- [ ] DEATH-PENALTY-IMPL (사용자가 Q-DEATH 제안안 승인 후만): `LevelRules` 사망 EXP 손실에 레벨·보스 인자 + EditMode 테스트.
