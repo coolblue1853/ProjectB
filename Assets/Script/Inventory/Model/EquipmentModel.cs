@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-/// <summary>장비 부위 = 세이브 인덱스 그대로 (equipGear[슬롯]). 10~13 은 해금형 신규 슬롯(EquipSlotExpansion.md, 별도 ES3 키)</summary>
-public enum EquipSlot { Ring = 1, Head = 2, Necklace = 3, Chest = 5, Hand = 6, Weapon = 7, Leg = 8, Shoes = 9, Title = 10, Aura = 11, Charm = 12, Cape = 13 }
+/// <summary>장비 부위 = 세이브 인덱스 그대로 (equipGear[슬롯]). 10~13 은 해금형 비외형 장신구 슬롯(귀걸이·팔찌·부적·마법석, EquipSlotExpansion.md, 별도 ES3 키). 11-05 이전 이름 Title·Aura·Cape 는 폐기, 값 유지</summary>
+public enum EquipSlot { Ring = 1, Head = 2, Necklace = 3, Chest = 5, Hand = 6, Weapon = 7, Leg = 8, Shoes = 9, Earring = 10, Bracelet = 11, Charm = 12, Stone = 13 }
 
 /// <summary>
 /// 장비 모델 (InventoryRefactorDesign 2.6) — 순수 C#. 부위 문자열 매핑은 TryGetSlot 한 곳(B-011 "Neckles" 류 재발 방지).
@@ -39,7 +39,7 @@ public sealed class EquipmentModel
         return true;
     }
 
-    /// <summary>신규 슬롯 아이템을 세이브 문자열 4개로 (Title·Aura·Charm·Cape, 빈칸 "")</summary>
+    /// <summary>신규 슬롯 아이템을 세이브 문자열 4개로 (Earring·Bracelet·Charm·Stone, 빈칸 "")</summary>
     public string[] ToExtraArray()
     {
         var arr = new string[SlotRules.Extras.Length];
@@ -51,7 +51,7 @@ public sealed class EquipmentModel
     }
 
     /// <summary>
-    /// 세이브에서 신규 슬롯 복원. null·짧은 배열(구 세이브)은 빈칸. 해금 안 된 슬롯에 아이템이 있으면 인벤토리로 돌려보낸다
+    /// 세이브에서 신규 슬롯 복원. null·짧은 배열(구 세이브)은 빈칸. 해금 안 됐거나 부위가 맞지 않는(폐기된) 아이템이 있으면 인벤토리로 돌려보낸다
     /// (공간이 없으면 소실 방지로 그 자리에 둔다). 돌려보낸 개수를 반환
     /// </summary>
     public int LoadExtra(string[] ids, int unlockMask, SlotContainer inventory)
@@ -67,7 +67,9 @@ public sealed class EquipmentModel
             {
                 continue;
             }
-            if (!IsUnlocked(slot) && inventory != null && inventory.TryAddAll(st))
+            ItemDef def = catalog.Get(st.Id);
+            bool mismatch = def == null || !TryGetSlot(def, out EquipSlot want) || want != slot; // 폐기 아이템(구 Title/Aura 등)이 낀 구 세이브
+            if ((mismatch || !IsUnlocked(slot)) && inventory != null && inventory.TryAddAll(st))
             {
                 returned++;
                 continue;

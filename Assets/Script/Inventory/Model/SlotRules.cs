@@ -10,7 +10,7 @@ public static class SlotRules
     public const string SaveKeyUnlock = "equip.extraUnlock";
 
     /// <summary>세이브 배열 순서 = 비트 순서</summary>
-    public static readonly EquipSlot[] Extras = { EquipSlot.Title, EquipSlot.Aura, EquipSlot.Charm, EquipSlot.Cape };
+    public static readonly EquipSlot[] Extras = { EquipSlot.Earring, EquipSlot.Bracelet, EquipSlot.Charm, EquipSlot.Stone };
 
     public const int AllExtraMask = 15;
 
@@ -31,7 +31,7 @@ public static class SlotRules
         return Array.IndexOf(Extras, slot) >= 0;
     }
 
-    /// <summary>1=Title, 2=Aura, 4=Charm, 8=Cape. 기본 슬롯은 0</summary>
+    /// <summary>1=Earring, 2=Bracelet, 4=Charm, 8=Stone. 기본 슬롯은 0</summary>
     public static int Bit(EquipSlot slot)
     {
         int i = Array.IndexOf(Extras, slot);

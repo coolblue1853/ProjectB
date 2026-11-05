@@ -8,8 +8,9 @@ public class EquipSlotExpansionTests
     {
         readonly Dictionary<string, ItemDef> defs = new Dictionary<string, ItemDef>
         {
-            { "Crown", new ItemDef { Id = "Crown", Type = "Equip", EquipArea = "Title", MaxStack = 1 } },
-            { "Halo", new ItemDef { Id = "Halo", Type = "Equip", EquipArea = "Aura", MaxStack = 1 } },
+            { "Crown", new ItemDef { Id = "Crown", Type = "Equip", EquipArea = "Earring", MaxStack = 1 } },
+            { "Halo", new ItemDef { Id = "Halo", Type = "Equip", EquipArea = "Bracelet", MaxStack = 1 } },
+            { "OldTitle", new ItemDef { Id = "OldTitle", Type = "Equip", EquipArea = "Etc", MaxStack = 1 } },
             { "Sword", new ItemDef { Id = "Sword", Type = "Equip", EquipArea = "Weapon", MaxStack = 1 } },
         };
         public ItemDef Get(string id) => id != null && defs.TryGetValue(id, out var d) ? d : null;
@@ -21,9 +22,9 @@ public class EquipSlotExpansionTests
     {
         Assert.IsFalse(SlotRules.TrySlotForFloor(0, out _));
         Assert.IsTrue(SlotRules.TrySlotForFloor(1, out EquipSlot a));
-        Assert.AreEqual(EquipSlot.Title, a);
+        Assert.AreEqual(EquipSlot.Earring, a);
         Assert.IsTrue(SlotRules.TrySlotForFloor(4, out EquipSlot b));
-        Assert.AreEqual(EquipSlot.Cape, b);
+        Assert.AreEqual(EquipSlot.Stone, b);
         Assert.IsFalse(SlotRules.TrySlotForFloor(5, out _));
     }
 
@@ -32,23 +33,23 @@ public class EquipSlotExpansionTests
     {
         Assert.AreEqual(1, (int)EquipSlot.Ring);
         Assert.AreEqual(9, (int)EquipSlot.Shoes);
-        Assert.AreEqual(10, (int)EquipSlot.Title);
-        Assert.AreEqual(11, (int)EquipSlot.Aura);
+        Assert.AreEqual(10, (int)EquipSlot.Earring);
+        Assert.AreEqual(11, (int)EquipSlot.Bracelet);
         Assert.AreEqual(12, (int)EquipSlot.Charm);
-        Assert.AreEqual(13, (int)EquipSlot.Cape);
+        Assert.AreEqual(13, (int)EquipSlot.Stone);
     }
 
     [Test]
     public void SlotRules_BitsAndDefaults()
     {
-        Assert.AreEqual(1, SlotRules.Bit(EquipSlot.Title));
-        Assert.AreEqual(2, SlotRules.Bit(EquipSlot.Aura));
+        Assert.AreEqual(1, SlotRules.Bit(EquipSlot.Earring));
+        Assert.AreEqual(2, SlotRules.Bit(EquipSlot.Bracelet));
         Assert.AreEqual(4, SlotRules.Bit(EquipSlot.Charm));
-        Assert.AreEqual(8, SlotRules.Bit(EquipSlot.Cape));
+        Assert.AreEqual(8, SlotRules.Bit(EquipSlot.Stone));
         Assert.AreEqual(0, SlotRules.Bit(EquipSlot.Ring));
         Assert.IsTrue(SlotRules.IsUnlocked(0, EquipSlot.Weapon));
-        Assert.IsFalse(SlotRules.IsUnlocked(0, EquipSlot.Title));
-        Assert.IsTrue(SlotRules.IsUnlocked(SlotRules.Unlock(0, EquipSlot.Aura), EquipSlot.Aura));
+        Assert.IsFalse(SlotRules.IsUnlocked(0, EquipSlot.Earring));
+        Assert.IsTrue(SlotRules.IsUnlocked(SlotRules.Unlock(0, EquipSlot.Bracelet), EquipSlot.Bracelet));
     }
 
     [Test]
@@ -60,11 +61,11 @@ public class EquipSlotExpansionTests
         inv.TryAdd(new ItemStack("Crown", 1));
         Assert.IsFalse(eq.Equip(inv, 0));
         Assert.IsFalse(inv[0].IsEmpty);
-        Assert.IsTrue(eq.Unlock(EquipSlot.Title));
-        Assert.IsFalse(eq.Unlock(EquipSlot.Title));
+        Assert.IsTrue(eq.Unlock(EquipSlot.Earring));
+        Assert.IsFalse(eq.Unlock(EquipSlot.Earring));
         Assert.IsFalse(eq.Unlock(EquipSlot.Weapon));
         Assert.IsTrue(eq.Equip(inv, 0));
-        Assert.AreEqual("Crown", eq[EquipSlot.Title].Id);
+        Assert.AreEqual("Crown", eq[EquipSlot.Earring].Id);
     }
 
     [Test]
@@ -83,8 +84,8 @@ public class EquipSlotExpansionTests
         var cat = new Cat();
         var inv = new SlotContainer(cat, 4, 4);
         var eq = new EquipmentModel(cat);
-        eq.Unlock(EquipSlot.Title);
-        eq.Unlock(EquipSlot.Aura);
+        eq.Unlock(EquipSlot.Earring);
+        eq.Unlock(EquipSlot.Bracelet);
         inv.TryAdd(new ItemStack("Halo", 1, 2, 3));
         Assert.IsTrue(eq.Equip(inv, 0));
         string[] arr = eq.ToExtraArray();
@@ -95,9 +96,9 @@ public class EquipSlotExpansionTests
         var back = new EquipmentModel(cat);
         Assert.AreEqual(0, back.LoadExtra(arr, eq.ExtraUnlockMask, new SlotContainer(cat, 4, 4)));
         Assert.AreEqual(3, back.ExtraUnlockMask);
-        Assert.AreEqual("Halo", back[EquipSlot.Aura].Id);
-        Assert.AreEqual(2, back[EquipSlot.Aura].Tier);
-        Assert.AreEqual(3, back[EquipSlot.Aura].Upgrade);
+        Assert.AreEqual("Halo", back[EquipSlot.Bracelet].Id);
+        Assert.AreEqual(2, back[EquipSlot.Bracelet].Tier);
+        Assert.AreEqual(3, back[EquipSlot.Bracelet].Upgrade);
     }
 
     [Test]
@@ -113,7 +114,7 @@ public class EquipSlotExpansionTests
             Assert.IsFalse(eq.IsUnlocked(s));
         }
         eq.LoadExtra(new[] { "Crown" }, 1, null);
-        Assert.AreEqual("Crown", eq[EquipSlot.Title].Id);
+        Assert.AreEqual("Crown", eq[EquipSlot.Earring].Id);
     }
 
     [Test]
@@ -123,13 +124,13 @@ public class EquipSlotExpansionTests
         var inv = new SlotContainer(cat, 4, 4);
         var eq = new EquipmentModel(cat);
         Assert.AreEqual(1, eq.LoadExtra(new[] { "", "Halo", "", "" }, 0, inv));
-        Assert.IsTrue(eq[EquipSlot.Aura].IsEmpty);
+        Assert.IsTrue(eq[EquipSlot.Bracelet].IsEmpty);
         Assert.AreEqual(1, inv.Count("Halo"));
 
         var full = new SlotContainer(cat, 1, 1);
         full.TryAdd(new ItemStack("Sword", 1));
         Assert.AreEqual(0, eq.LoadExtra(new[] { "", "Halo", "", "" }, 0, full));
-        Assert.AreEqual("Halo", eq[EquipSlot.Aura].Id);
+        Assert.AreEqual("Halo", eq[EquipSlot.Bracelet].Id);
     }
 
     [Test]
@@ -138,7 +139,7 @@ public class EquipSlotExpansionTests
         var cat = new Cat();
         var inv = new SlotContainer(cat, 4, 4);
         var eq = new EquipmentModel(cat);
-        eq.Unlock(EquipSlot.Aura);
+        eq.Unlock(EquipSlot.Bracelet);
         inv.TryAdd(new ItemStack("Halo", 1));
         eq.Equip(inv, 0);
         var ids = new List<string>();
@@ -150,12 +151,25 @@ public class EquipSlotExpansionTests
     }
 
     [Test]
-    public void AuraRing_PointsOnEllipse_PulseGrows()
+    public void DeprecatedItemInOldSave_ReturnsToInventory()
     {
-        var p = AuraRingRules.Points(8, 2f, 1f, 0f);
-        Assert.AreEqual(8, p.Length);
-        Assert.AreEqual(2f, p[0].x, 0.001f);
-        Assert.AreEqual(1f, p[2].y, 0.001f);
-        Assert.Greater(AuraRingRules.Points(8, 2f, 1f, 1f)[0].x, 2.1f);
+        var cat = new Cat();
+        var inv = new SlotContainer(cat, 4, 4);
+        var eq = new EquipmentModel(cat);
+        // 구 세이브: 폐기된 칭호(이제 Etc)가 Earring 칸에 장착돼 있음, 해금 비트는 유효
+        Assert.AreEqual(1, eq.LoadExtra(new[] { "OldTitle", "", "", "" }, 1, inv));
+        Assert.IsTrue(eq[EquipSlot.Earring].IsEmpty);
+        Assert.AreEqual(1, inv.Count("OldTitle"));
+        Assert.IsTrue(eq.IsUnlocked(EquipSlot.Earring));
+    }
+
+    [Test]
+    public void WrongSlotItem_ReturnsToInventory()
+    {
+        var cat = new Cat();
+        var inv = new SlotContainer(cat, 4, 4);
+        var eq = new EquipmentModel(cat);
+        Assert.AreEqual(1, eq.LoadExtra(new[] { "Halo", "", "", "" }, 3, inv)); // Halo=Bracelet 인데 Earring 칸
+        Assert.IsTrue(eq[EquipSlot.Earring].IsEmpty);
     }
 }

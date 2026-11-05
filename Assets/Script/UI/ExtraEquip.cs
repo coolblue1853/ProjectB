@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
-/// 신규 장비 슬롯(칭호·오라·부적·망토) 런타임 상태 (EquipSlotExpansion.md). 순수 규칙은 SlotRules, 여기는 ItemData 보관·ES3 저장·인벤 연결.
-/// 기본 8칸 장비 경로(equipBox·equipGear)는 건드리지 않는다. 장착 판정은 ItemSheet equipArea 가 Title/Aura/Charm/Cape 인 아이템만.
+/// 신규 장비 슬롯(귀걸이·팔찌·부적·마법석) 런타임 상태 (EquipSlotExpansion.md). 순수 규칙은 SlotRules, 여기는 ItemData 보관·ES3 저장·인벤 연결.
+/// 기본 8칸 장비 경로(equipBox·equipGear)는 건드리지 않는다. 장착 판정은 ItemSheet equipArea 가 Earring/Bracelet/Charm/Stone 인 아이템만.
 /// </summary>
 public static class ExtraEquip
 {
@@ -50,17 +50,17 @@ public static class ExtraEquip
     {
         switch (s)
         {
-            case EquipSlot.Title: return Loc.T("Locked: complete the Floor 1 bestiary or first-clear a Floor 1 boss");
-            case EquipSlot.Aura: return Loc.T("Locked: first-clear a Floor 2 boss");
+            case EquipSlot.Earring: return Loc.T("Locked: complete the Floor 1 bestiary or first-clear a Floor 1 boss");
+            case EquipSlot.Bracelet: return Loc.T("Locked: first-clear a Floor 2 boss");
             case EquipSlot.Charm: return Loc.T("Locked: complete the Floor 3 bestiary or finish its quest chain");
-            case EquipSlot.Cape: return Loc.T("Locked: first-clear a Floor 4 boss");
+            case EquipSlot.Stone: return Loc.T("Locked: first-clear a Floor 4 boss");
             default: return "";
         }
     }
 
     public static string SlotLabel(EquipSlot s)
     {
-        return Loc.T(s == EquipSlot.Title ? "TITLE" : s == EquipSlot.Aura ? "AURA" : s == EquipSlot.Charm ? "CHARM" : "CAPE");
+        return Loc.T(s == EquipSlot.Earring ? "EARRING" : s == EquipSlot.Bracelet ? "BRACELET" : s == EquipSlot.Charm ? "CHARM" : "STONE");
     }
 
     /// <summary>인벤의 신규 슬롯 장비를 장착한다. 대상 부위가 아니면 false(기본 경로로), 잠금이면 true(처리됨·장착 안 함)</summary>
@@ -141,6 +141,12 @@ public static class ExtraEquip
                     continue;
                 }
                 ItemData d = db.LoadItemData(index);
+                if (!Enum.TryParse(d.equipArea, out EquipSlot want) || want != SlotRules.Extras[i])
+                {
+                    // 폐기된 칭호·오라 등(11-05): 장착 해제하고 인벤으로 반환, 가득이면 판매값 골드 지급
+                    ReturnDeprecated(d);
+                    continue;
+                }
                 d.tear = st.Tier;
                 d.upgrade = st.Upgrade;
                 Items[i] = d;
@@ -153,6 +159,17 @@ public static class ExtraEquip
             Array.Clear(Items, 0, Items.Length);
         }
         Changed?.Invoke();
+    }
+
+    static void ReturnDeprecated(ItemData d)
+    {
+        InventoryManager inv = InventoryManager.instance;
+        if (inv != null && inv.CreatItem(d.name, false, d, AddSource.Unequip))
+        {
+            return;
+        }
+        DatabaseManager.money += Mathf.Max(0, d.price / 2);
+        GameLog.Warn(GameLog.Cat.Item, "폐기 장신구 반환 실패(가방 가득/없음), 판매값 골드 지급: " + d.name);
     }
 
     static void Save()
@@ -177,7 +194,7 @@ public static class ExtraEquip
 /// <summary>해금 보상 연결 (SLOT-3): 해금되면 첫 아이템을 인벤에 지급한다. 같은 슬롯은 한 번만 열리므로 중복 지급 없음</summary>
 public static class ExtraEquipRewards
 {
-    public const string BestiaryTitleMilestone = "B04";
+    public const string BestiaryEarringMilestone = "B04";
     static readonly string[] FirstItem = { "TitleWanderer", "AuraFaintGlow", "", "" };
 
     public static void OnFloorBossFirstKill(int floor)
@@ -190,9 +207,9 @@ public static class ExtraEquipRewards
 
     public static void OnBestiaryMilestone(string id)
     {
-        if (id == BestiaryTitleMilestone)
+        if (id == BestiaryEarringMilestone)
         {
-            Grant(EquipSlot.Title);
+            Grant(EquipSlot.Earring);
         }
     }
 
