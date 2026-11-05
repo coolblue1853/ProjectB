@@ -145,3 +145,27 @@ bash 봇(PT-BOT 본체)은 쓰지 않고 항목별 전용 프로브를 새로 �
 
 ## 못 한 것
 실제 몹 분리 생성 탄막(`EnemyRoundAttackNode`) 피격, 실보스 격노 배율, 방패 홀드 입력 경로.
+
+
+# PV7 (11-05) AUTO-12~17 플레이 확인
+프로브 `Tools/probes/pv7_equip.cs`·`pv7_guard.cs`·`pv7_mob.cs`·`pv7_reflect.cs`, 결과 `Logs/pv7/*.txt`(gitignore). SampleScene·낮·Lv1_NearForest(-384,9 부근, 플레이어 근처에서만 몹 스폰), 세이브 백업(`Logs/pv7/backup`)·복원, 플레이 정지, 콘솔 에러 0. 키 입력은 InputSystem 상태 주입(G).
+
+| 항목 | 결과 | 수치·관찰 |
+|---|---|---|
+| 방패 장착 훅 (AUTO-15) | 통과 | ShellShield 장착 → `ShieldGuard`·`CounterBuff` 존재, `PlayerGuard.Source` 연결 |
+| G 홀드 방어 | 통과 | 미방어 피해 100 → 86 손실. G 0.5초 홀드 후 같은 100 → 26 손실(×0.3, blocked), 경직 없음 |
+| 반격 버프 | 통과 | 막은 직후 `CounterBuff.Active`, 배율 1.2, 3.5초 뒤 해제 |
+| 패링 (AUTO-17) | 통과 | G 누른 0.08초 안 피격 → 손실 0·parried, 반격 버프 활성. 반사 비율 0(ShellShield 기본값)이라 `reflected=0` |
+| 몹 둔화 (AUTO-12) | 통과 | `MoveSpeedMul` 1 → 0.5(1.5초) → 1 복귀 |
+| 석화 연쇄 제한 | 통과 | 석화1 BT 정지 → 0.5초 뒤 복귀, 면역 중 석화2 무시, 3초 뒤 석화3 정상 |
+| 화상 | 통과 | 공격력 1000 → 4.6초 HP −600(150×4) |
+| 적 대상 장판 (AUTO-13) | 통과 | 반경 3·틱 50·2초 → −200, 둔화 0.6 동시 적용 |
+| 몹 반사 자세 (AUTO-14) | 통과 | 몹 손실 22002 → 플레이어 손실 6585(≈30%). 주의: `damage2Enemy` 의 피해 배열은 [최소,최대] 2칸 필요 |
+| 플레이어 수면 | 통과 | `Apply(2)` → 최소 3초로 보정, InputLock 잡힘, 0.3초 뒤 피격에 해제·락 해제, 재적용 후 자연 종료 |
+| 석궁·투창·마도서 래퍼 (AUTO-16) | **미연결** | `AmmoGimmick`·`ThrownSpearGimmick`·`TomePageGimmick` 를 쓰는 프리팹·코드 0건. 무기에 안 붙어 플레이 확인 불가 |
+
+## 발견
+- (P2) AUTO-16 래퍼 3종이 어떤 무기 프리팹에도 안 붙음 → 석궁/창/책 무기에 컴포넌트 부착 + 임시 HUD 연결이 남음(TechDebt 등록).
+
+## 못 한 것
+실제 몹의 반사 자세·화상·석화 사용 공격 경로(2층계 몹 미구현), 방패 패드(왼쪽 트리거) 입력, 방어 중 몹 실공격 피격, 방어 연출 그래픽(보류).

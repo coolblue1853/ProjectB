@@ -94,6 +94,7 @@
 ## P2
 
 | ID | 내용 | 위치 |
+| B-PV7-1 | 석궁 `AmmoGimmick`·투창 `ThrownSpearGimmick`·마도서 `TomePageGimmick` 가 무기 프리팹에 안 붙음(PV7 확인). 부착 + 임시 HUD 필요 | `Assets/Resources/Weapon/*` |
 |---|---|---|
 | B-201 | ✅ DisaperByTime 재진입 → 이중 Release 예외 (PoolAble 이중 반환 가드 + 시퀀스 OnDisable Kill) | `EnemyHealth.cs` |
 | B-202 | ✅ `CountInactive==0`이면 Destroy하는 패턴 → 풀 붕괴 (B-001의 실제 원인) | EnemyHealth, DeadBody, DropItemCheck |
