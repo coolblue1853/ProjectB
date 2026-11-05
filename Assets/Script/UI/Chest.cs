@@ -943,7 +943,6 @@ public partial class Chest : MonoBehaviour
         {
             if (inventoryArray[i, num] == 0 && num * maxHor * maxVer + i < maxBoxNum)
             {
-                Debug.Log(i);
                 isCreat = true;
                 break;
             }

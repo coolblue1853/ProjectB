@@ -1099,7 +1099,6 @@ public class PlayerController : MonoBehaviour
         isAttackAnim = true;
         if(isUpLadder == true)
         {
-            Debug.Log("공격시작");
             isRopeAttack = true;
         }
         if (isRevers)
@@ -1225,14 +1224,12 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (isRopeAttack == true)
                 {
-                    Debug.Log("공격끝");
                     isRopeAttack = false;
                     Rig.Play("RopeStay");
                 }
             }
             if (collision.tag == "InGroundPlayer")
             {
-                Debug.Log("나감");
                 platformTrue = false;
             }
         

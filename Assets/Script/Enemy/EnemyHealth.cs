@@ -196,8 +196,11 @@ public class EnemyHealth : PoolAble
     float _moveMul, _knockbackMul, _jumpMul;
     bool _sturdy; // trait sturdy = 경직 저항 50%
     TempMobDash _dash;
-    readonly MobReflectRules _reflect = new MobReflectRules(); // 반사 자세(F2-MOBREFLECT)
-    readonly MobDebuffRules _debuff = new MobDebuffRules(); // 런타임 디버프(둔화·석화 연쇄 제한, F2-DEBUFF)
+    // 필드 초기화에 기대지 않는다: 테스트·에디터가 만든 컴포넌트는 초기화가 안 돈 사례가 있다(11-01 _moveMul 와 같은 이유)
+    MobReflectRules _reflectRules; // 반사 자세(F2-MOBREFLECT)
+    MobDebuffRules _debuffRules; // 런타임 디버프(둔화·석화 연쇄 제한, F2-DEBUFF)
+    MobReflectRules _reflect => _reflectRules ?? (_reflectRules = new MobReflectRules());
+    MobDebuffRules _debuff => _debuffRules ?? (_debuffRules = new MobDebuffRules());
 
     /// <summary>추적·순찰 이동 배율(임시 몹 특성 slow·dash). 기존 몹은 1</summary>
     public float MoveSpeedMul => (_moveMul > 0f ? _moveMul : 1f) * (_dash != null ? _dash.ChaseMul : 1f) * _debuff.SlowMul;

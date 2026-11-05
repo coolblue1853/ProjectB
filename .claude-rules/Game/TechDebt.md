@@ -7,6 +7,7 @@
 - ✅ 닫음: B-114(토큰화 세 갈래 모두 완료), B-120(빌더 반영, 씬 재확인만 남음).
 - P3 보류: B-023(`ItemCheck.name` 인벤 리팩터 때), B-115(픽셀 퍼펙트 적용·재발 보고 없음), B-219(드래그 OnEndDrag 누락 근본 해결 3c).
 - P3 화면·품질: 정밀 단조 숫자·한글 크기 불일치(`ForgeHammerView.cs` 97줄) 한 건.
+- ✅ 11-05 AUTO-20: 코드 5건 정리(플레이 미검증, EditMode 707 통과) — `EnemyWallChecker` 매 프레임 `LayerMask.GetMask` 캐시, 디버그 `Debug.Log` 제거(`EnemyRoundAttackNode`, `PlayerController` 3곳, `Chest`, `ItemDrag` 2곳, `InventoryManager` 2곳, `CraftingManager`).
 - P1/P2 승격 없음: 🔶 표기 6건 중 진행 불가·데이터 손실 위험이 남은 것은 없음. 사용자 판단 필요 항목 없음.
 
 ## P0

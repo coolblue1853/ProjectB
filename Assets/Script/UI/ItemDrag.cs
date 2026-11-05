@@ -43,7 +43,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Debug.Log(this.name); // 나누기창 띄우기.
         }
         else if (eventData.button == PointerEventData.InputButton.Left)
         {
@@ -505,7 +504,6 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
        else if(changeBox != null )
         {
 
-            Debug.Log("Check0");
             equipBox = null;
             if (changeBox.parent.tag == "Inventory")
             {

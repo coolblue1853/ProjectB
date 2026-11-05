@@ -2052,12 +2052,10 @@ public class InventoryManager : MonoBehaviour
     public void ExchangeItem(GameObject nowBoxOb, GameObject afterBoxOb)
     {
         GameObject changeItem = afterBoxOb.transform.GetChild(0).gameObject;
-        Debug.Log(changeItem);
         changeItem.transform.SetParent(nowBoxOb.transform);
         changeItem.transform.position = nowBoxOb.transform.position;
 
         GameObject beforitem = nowBoxOb.transform.GetChild(0).gameObject;
-        Debug.Log(beforitem);
         beforitem.transform.SetParent(afterBoxOb.transform);
         beforitem.transform.position = afterBoxOb.transform.position;
 

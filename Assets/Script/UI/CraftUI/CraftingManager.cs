@@ -356,7 +356,6 @@ public class CraftingManager : MonoBehaviour
         {
             if (detailCount < 4 && needMaterail.transform.childCount > detailCount+ 4 && itemDataPrefab[detailCount + 4].gameObject.activeSelf == true) // 현재 0 1 2 3   4 가 있을때 
             {
-                Debug.Log("작동1");
                 detailCount += 4;
                 SetNeedDetail();
             }
