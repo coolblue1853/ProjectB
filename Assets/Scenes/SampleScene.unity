@@ -647403,7 +647403,7 @@ MonoBehaviour:
   runStemina: 1
   intervalRunStemina: 0.1
   moveSpeed: 3
-  jumpForce: 10
+  jumpForce: 13
   dashSpeed: 15
   dashDuration: 0.2
   dashWait: 0.4
