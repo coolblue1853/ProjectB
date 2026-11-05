@@ -585,7 +585,7 @@
 - **[임시 가정 F2R-5]** 밤 몹 무기 드롭(Wraith 0.02, Bat·Ember 0.01) 후보 3종은 설계 목록만. CSV 추가는 무기 구현 큐와 함께.
 
 ## Q-INPUT-AUTO59 패드 최종표 후속 판단 (11-05, AUTO-59) — `Docs/Playtest/InputAudit.md` §3·§5
-- **[판단 필요 IN-1]** 십자 이동 추가(P10) 시 퀵슬롯 2·3(십자 ←→) 재배치 방식. 임시 가정 없음. 이동 우선인지 퀵슬롯 우선인지 결정 필요.
-- **[판단 필요 IN-2]** LT+R3 중복: 보기 필터(`InputAudit.md` §2) vs 잠금(`BasicFeatures.md` §16). 실제 바인딩 확인 후 한쪽 이동 필요.
+- **[IN-1 임시 가정 확정, AUTO-63]** 십자 이동(P10): 스틱 이동 유지, 십자 ←→ 퀵슬롯 2·3 유지. 십자 이동은 기본 OFF 설정 옵션으로만 제공하고, 켜면 퀵슬롯 2·3 비활성(옵션 UI에 경고). 구현은 후순위 큐 후보. 사용자 반대 시 뒤집을 수 있음.
+- **[IN-2 임시 가정 확정, AUTO-63]** LT+R3 중복은 실제 코드로 확인됨: `InventoryFilterView.cs:64`(보기 필터, state "" 일 때)와 `InventoryConvenience.cs:47`(잠금, state ""·detail·ShopCusorOn·chestOpen)가 둘 다 `leftTrigger.isPressed && rightStickButton.wasPressedThisFrame` 라서 state "" 에서 한 번 누르면 필터와 잠금이 동시에 발동한다(`KeyAction.inputactions` 에는 LT+R3 바인딩 없음, 두 곳 모두 코드 직접 폴링). 가정: 잠금은 LT+R3 유지(키보드 L 과 동일, 칸 단위 동작), 보기 필터를 **LT+RT** 로 이동(키보드 G 유지). RT 단독 사용처 3곳(`Buyback.cs:85`·`ChestConvenience.cs:173`·`GearPresets.cs:117`)에 `!leftTrigger.isPressed` 가드 추가 필요. 입력 사양은 `InputAudit.md` §6.
 - **[임시 가정 IN-3]** 미니맵 토글 패드 조합(P6)은 LT+L3 로 잡되 상점 재료 일괄 판매(LT+L3)와 겹치므로 보류. 후속 큐 후보(번호 미부여).
 - **[임시 가정 IN-4]** P11 방어 LT·도감·지도 키 설정 재지정 대상 제외 유지(현행).

@@ -38,7 +38,7 @@
 | 창고 이동 활성 | Tab | LB |
 | 소비 사용(ActiveConsum) | 없음 | LT |
 | 제작 진입 | K | 십자↓ |
-| 정렬 R / 분해 D / 보기필터 G / 핀 P | 키 | R3 / L3 / LT+R3 / R3 |
+| 정렬 R / 분해 D / 보기필터 G / 핀 P | 키 | R3 / L3 / LT+RT(AUTO-63 가정, 현행 LT+R3 이중) / R3 |
 | 프리셋·되사기 | 숫자·U·] | Select·RT·LT+Y |
 | 상점 O·H | O·H | **확인 안 됨**(`ShopConvenience.cs:77-84` 패드 분기 있음, 매핑 미확인) |
 | 가방 확장 N | N | LT+X |
@@ -95,3 +95,16 @@ UI 탐색은 방향키/십자/스틱 → UI 맵 4방향 + `verticalCheck`·`hori
 | Start | 인벤 열기 / 일시정지 | 인벤 / 일시정지 | | 지도(LT+Start, 가방·일시정지와 동시 발동 안 함) | 공통 | 미검증 |
 
 비고: 미니맵 토글 패드 없음(P6). 방어 LT·도감/지도 조합은 키 설정 재지정 대상 아님(P11). 전 행 실기 패드 미검증.
+
+## 6. AUTO-63 입력 사양 (AUTO-64·65 가 읽는다)
+
+근거: 필터·잠금 모두 `KeyAction.inputactions` 가 아니라 코드에서 `Gamepad.current` 를 직접 폴링한다. 따라서 AUTO-64 는 inputactions 가 아니라 `InventoryFilterView.cs:64` 한 줄(과 RT 되사기 가드)을 바꾼다. 표는 임시 가정.
+
+| 기능 | 키보드 | 패드(변경 후) | 발동 조건 | 충돌 없음 근거 |
+|---|---|---|---|---|
+| 잠금 토글 | L | LT+R3 (유지) | 가방 state ""·detail·ShopCusorOn·chestOpen | R3 단독=정렬(`InventoryManager.cs:1249` 이미 `!lt` 가드), 핀 P=제작 창 한정 |
+| 보기 필터 순환 | G | **LT+RT** (이동) | state ""·chest 없음 | LT+RT 조합 사용처 없음. 단 RT 단독 3곳이 `!lt` 가드 없이 폴링 → 가드 추가 필수: `Buyback.cs:85`(되사기), `ChestConvenience.cs:173`(창고 G), `GearPresets.cs:117`(프리셋 장착) |
+| 십자 이동(옵션) | 없음 | 십자 ←→ (기본 OFF) | 설정 옵션 ON, 필드 | ON 이면 퀵슬롯 2·3 비활성 |
+
+후보 비교: LT 와 쓰이지 않는 버튼은 A·B·LB·RB·RT 이나 A(선택)·B(뒤로)·LB/RB(페이지)는 단독 동작과 겹쳐 RT 가 가드 3줄로 가장 싸다. LT 사용 중: X 가방확장·상점 H, Y 되사기, L3 일괄판매, R3 잠금, Select 도감(필드), Start 지도.
+미검증: 위 근거는 정적 grep.
