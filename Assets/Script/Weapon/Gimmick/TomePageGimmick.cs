@@ -7,11 +7,11 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class TomePageGimmick : WeaponGimmick
 {
-    private static readonly string[] PageNames = { "불", "냉기", "번개" };
+    private static readonly string[] PageNames = { "Fire", "Frost", "Lightning" };
     private readonly TomePage _tome = new TomePage();
 
     public TomePage Tome => _tome;
-    public string HudText => $"장: {PageNames[_tome.Page]}" + (_tome.CanSwitch ? "" : $" ({_tome.CooldownRemaining:0.0}s)");
+    public string HudText => Loc.F("Page: {0}", Loc.T(PageNames[_tome.Page])) + (_tome.CanSwitch ? "" : $" ({_tome.CooldownRemaining:0.0}s)");
 
     private void Update()
     {

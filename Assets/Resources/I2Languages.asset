@@ -6706,6 +6706,110 @@ MonoBehaviour:
       - "\uACE0\uC720\uD15C!"
       Flags: 0000
       Languages_Touch: []
+    - Term: Sentry Crossbow
+      TermType: 0
+      Description: 
+      Languages:
+      - Sentry Crossbow
+      - "\uAC10\uC2DC\uBCD1 \uC11D\uAD81"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hunters Javelin
+      TermType: 0
+      Description: 
+      Languages:
+      - Hunters Javelin
+      - "\uC0AC\uB0E5\uAFBC \uD22C\uCC3D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fairys Grimoire
+      TermType: 0
+      Description: 
+      Languages:
+      - Fairys Grimoire
+      - "\uC694\uC815 \uB9C8\uB3C4\uC11C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Reloading {0}s
+      TermType: 0
+      Description: 
+      Languages:
+      - Reloading {0}s
+      - "\uC7AC\uC7A5\uC804 {0}s"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ammo {0} {1}
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo {0}/{1}
+      - "\uD0C4 {0}/{1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spear held
+      TermType: 0
+      Description: 
+      Languages:
+      - Spear held
+      - "\uCC3D \uBCF4\uC720"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spear in flight
+      TermType: 0
+      Description: 
+      Languages:
+      - Spear in flight
+      - "\uD22C\uCC3D \uBE44\uD589"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spear planted (trap)
+      TermType: 0
+      Description: 
+      Languages:
+      - Spear planted (trap)
+      - "\uCC3D \uBC15\uD798(\uD568\uC815)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spear planted
+      TermType: 0
+      Description: 
+      Languages:
+      - Spear planted
+      - "\uCC3D \uBC15\uD798"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fire
+      TermType: 0
+      Description: 
+      Languages:
+      - Fire
+      - "\uBD88"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Frost
+      TermType: 0
+      Description: 
+      Languages:
+      - Frost
+      - "\uB0C9\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Lightning
+      TermType: 0
+      Description: 
+      Languages:
+      - Lightning
+      - "\uBC88\uAC1C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Page: {0}'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Page: {0}'
+      - "\uC7A5: {0}"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

@@ -13,7 +13,7 @@ public class ThrownSpearGimmick : WeaponGimmick
     private float _flight;
 
     public ThrownSpear Spear => _spear;
-    public string HudText => _spear.Current == ThrownSpear.State.InHand ? "창 보유" : _spear.Current == ThrownSpear.State.InFlight ? "투창 비행" : (_spear.TrapActive ? "창 박힘(함정)" : "창 박힘");
+    public string HudText => _spear.Current == ThrownSpear.State.InHand ? Loc.T("Spear held") : _spear.Current == ThrownSpear.State.InFlight ? Loc.T("Spear in flight") : (_spear.TrapActive ? Loc.T("Spear planted (trap)") : Loc.T("Spear planted"));
 
     private void Update()
     {

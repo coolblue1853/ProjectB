@@ -8,6 +8,9 @@ public static class LocUi
     {
         // ── 알림·HUD ──
         ("UP  TALK", "위  대화"),
+        ("Reloading {0}s", "재장전 {0}s"), ("Ammo {0}/{1}", "탄 {0}/{1}"),
+        ("Spear held", "창 보유"), ("Spear in flight", "투창 비행"), ("Spear planted (trap)", "창 박힘(함정)"), ("Spear planted", "창 박힘"),
+        ("Fire", "불"), ("Frost", "냉기"), ("Lightning", "번개"), ("Page: {0}", "장: {0}"),
         ("Elite: ", "정예: "),
         ("POISON", "독"), ("BLEED", "출혈"), ("IMMUNE", "무효"), ("BLOCK", "막음"),
         ("Artifact: ", "아티팩트: "),

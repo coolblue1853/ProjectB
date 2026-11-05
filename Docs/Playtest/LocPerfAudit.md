@@ -120,3 +120,5 @@
 - LP-8 (P2): `NpcQuestWindow`·`EventBanner`·필터 라벨.
 - LP-9 (P3): 조작 안내·튜토리얼·NPC 라벨(한국어 전용 방침 결정 후).
 
+### 10-3. 후속 수정 (11-05 AUTO-90) ✅
+기믹 HUD 3종 P1(`AmmoGimmick`·`ThrownSpearGimmick`·`TomePageGimmick`)을 `Loc.T/F` 로 교체, `LocUi.cs` 12키 추가 + `sync_i2_terms` 반영. 남은 P1: `PlayerHealthManager.cs:379`(`Survived!`)·`DropManager.cs:173`(`Plunder! x{0}`) — 호출부 파일 3개 한도로 다음 큐. P2·P3 미착수.

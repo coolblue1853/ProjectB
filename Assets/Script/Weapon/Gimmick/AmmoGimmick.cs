@@ -12,7 +12,7 @@ public class AmmoGimmick : WeaponGimmick
     /// <summary>방금 발사한 발이 치명 확정이었는가(후속 연결용)</summary>
     public bool LastShotGuaranteedCrit { get; private set; }
 
-    public string HudText => _mag.Reloading ? $"재장전 {_mag.ReloadRemaining:0.0}s" : $"탄 {_mag.Ammo}/{AmmoMagazine.Capacity}";
+    public string HudText => _mag.Reloading ? Loc.F("Reloading {0}s", _mag.ReloadRemaining.ToString("0.0")) : Loc.F("Ammo {0}/{1}", _mag.Ammo, AmmoMagazine.Capacity);
 
     private void Update()
     {
