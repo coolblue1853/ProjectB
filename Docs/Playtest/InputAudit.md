@@ -187,3 +187,17 @@ UI 탐색은 방향키/십자/스틱 → UI 맵 4방향 + `verticalCheck`·`hori
 2. 대안: LB+RB 동시(조합). 미사용 조합이지만 스킬 A·D 동시 발동 오입력 위험, 새 코드 필요. 비추천.
 
 "미지정" 안내 문구 위치: `KeyBindWindow.Redraw` 의 pad 칸 출력(`InputBindings.Display(name, true)` 결과가 빈 값일 때 Quick4 만 고정 문구)과 `ControlsGuide.cs:82` 행(이미 "L3 길게" 안내 있음, 키 설정 창과 일치시키기). 힌트 줄(`_hint`)에는 추가하지 않는다(길이). 구현은 별도 큐 후보, 미검증(정적 점검).
+
+## 12. L3 `_l3InUi` 가상 패드 확인 (AUTO-126, 11-05)
+
+프로브 `Tools/probes/_pad_l3.cs`(InputSystem 가상 게임패드 `AddDevice<Gamepad>`, UI 열림은 `PlayerStatus.Acquire(InputLock)` 토큰). 플레이 모드, 세이브 백업·복원, 가상 장치 제거·입력 원복, 콘솔 에러 0. **전부 합격.**
+
+| 시나리오 | 기대 | 실측 |
+|----------|------|------|
+| S1 UI 닫힘, L3 짧게 | `L3InUi` false, 뗄 때 Tap 1 | false, Tap 1 |
+| S2 UI 열림, L3 짧게 | `L3InUi` true(소비자 무시), Tap 1 | true, Tap 1 |
+| S3 L3 누른 채 LT 추가 | `L3InUi` false, 취소로 Tap 0 | false, Tap 0 |
+| S4 UI 닫은 뒤 다음 L3 | `L3InUi` false, Tap 1 정상 소비 | false, Tap 1 |
+| `CountdownTimer.Tick(-5)` | 남은 시간 유지(1.0), 이후 Tick(0.4) = 0.6 | 1.0, 0.6 |
+
+결론: LT 취소 후 `_l3InUi` 가 false 로 돌아가고 다음 L3 가 정상 소비된다. 음수 dt 가드 동작. `TechDebt.md` 등록 없음.
