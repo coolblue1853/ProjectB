@@ -77,7 +77,8 @@
 | `Game/WeaponTypes.md` | 무기 타입 확장 |
 | `Game/Floor1Completion.md` | 1층계 완성 계획: 최단 클리어 모델·할 것 설계·세트/무기 표 |
 | `Game/CombatFeelPlan.md` | 전투 조작감 개선: 진단·메이플+던파 조합 선택·CF 항목 |
-| `Game/EquipSlotExpansion.md` | 오라·칭호·부적·망토 신규 장비 슬롯: 잠금·층계별 해금·ES3·구현 큐 |
+| `Game/EquipSlotExpansion.md` | 비외형 장신구 신규 슬롯(귀걸이·팔찌·부적·마법석): 잠금·층계별 해금·폐기 정리·ES3·SLOT-R 큐 |
+| `Game/Durability.md` | 던파식 내구도·수리 도입 검토(추천: 보류) |
 
 ## 운영
 

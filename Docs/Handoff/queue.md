@@ -66,4 +66,11 @@
 - [~] CHIEF-2 대장 보상 규칙·훅 (`PlunderRules`·`LastStandRules` 순수 클래스 + 몹 골드 드롭·치사 피해 훅, CHIEF-1 후). CHIEF-3 툴팁·발동 텍스트. CHIEF-4 PT-BOT 검증. → CHIEF-2 완료 11-04 커밋 9e8ca9d6, CHIEF-3·4 남음
 - [x] DEATH-PENALTY-IMPL (사용자가 Q-DEATH 제안안 승인 후만): `LevelRules` 사망 EXP 손실에 레벨·보스 인자 + EditMode 테스트.
 - [ ] DEC-1105-A 코드 묶음 (담당: dec-code, Unity): ① 사망 보스 7% 제거(Lv1~10 손실 0만 유지, 그 외 5%) ② 사망 배너에 tips 한 줄(회전 힌트: 물약·귀환·저장 등) ③ 대장 훈장 골드 ×3→×1.5 ④ 탭 점프 JumpCutMul 0.5→0.7(탭 1.27, 1.0 계단 통과 확인·MAP-SCAN 점프 테스트 갱신) ⑤ 퀘스트 창 구역별 접기·펼치기
-- [ ] DEC-1105-B 장신구 슬롯 재설계 (담당: dec-design, 문서만): OpenQuestions [결정 11-05] 2 대로 EquipSlotExpansion.md 개정 — 기존 장신구/슬롯 현황 조사, 칭호·오라·망토 폐기, 귀걸이·팔찌·반지·목걸이·마법석 등 비외형 슬롯, 외형은 투구·상의·하의·신발·장갑만. 구현 큐 SLOT-R1.. 로 분해(폐기분 코드 정리 포함). 겸해서 내구도·수리(던파식) 도입 검토 문서(Game/ 신규 또는 절)와 가방 탭 vs 스크롤 추천안
+- [x] DEC-1105-B 장신구 슬롯 재설계 (담당: dec-design, 문서만): OpenQuestions [결정 11-05] 2 대로 EquipSlotExpansion.md 개정 — 기존 장신구/슬롯 현황 조사, 칭호·오라·망토 폐기, 귀걸이·팔찌·반지·목걸이·마법석 등 비외형 슬롯, 외형은 투구·상의·하의·신발·장갑만. 구현 큐 SLOT-R1.. 로 분해(폐기분 코드 정리 포함). 겸해서 내구도·수리(던파식) 도입 검토 문서(Game/ 신규 또는 절)와 가방 탭 vs 스크롤 추천안  → 완료 11-05 커밋 34068d0c(+후속)
+- [ ] SLOT-R1 슬롯 재정의·폐기 정리 (Unity, 설계 `Game/EquipSlotExpansion.md` §2·6·8): EquipSlot 10~13 이름 변경(Earring·Bracelet·Charm·Stone, 값·ES3 키 유지), SlotRules 주석·비트, LoadExtra 장착 불일치 시 인벤 반환, `UI/ExtraEquipFx.cs` 삭제, ExtraEquip Aura/Title 분기 제거, EquipSlotExpansionTests 갱신(폐기 아이템 낀 구 세이브 케이스).
+- [ ] SLOT-R2 슬롯 데이터 (R1 후): ItemSheet 260·261 equipArea→Etc(행 삭제 금지), 신규 4슬롯 첫 아이템·소수 드롭 장신구 행, `ExtraEquip.FirstItem` 갱신, ItemSpec 부위 값 표 갱신.
+- [ ] SLOT-R3 슬롯 UI 문구 (R1 후): 라벨·해금 조건 툴팁·아이콘(기존 장신구 재색조), 패드 커서 확인.
+- [ ] SLOT-R4 신규 슬롯 스탯 합산·세트 무영향 EditMode 확인 (R2 후).
+- [ ] SLOT-R5 (선택) Ring2=14·비트 16·짧은 구 배열 허용 로더.
+- [ ] DUR-REVIEW 내구도·수리: 추천=보류(`Game/Durability.md`). 3~4층계 골드 과잉이 PT-BOT 로그로 확인되면 재검토. 코드 없음.
+- [ ] INV-FILTER (낮음) 가방 보기 필터 탭(전체/장비/소비/재료), 설계 `InventoryRefactorDesign.md` §8. INV-EXP-4 로그 후 판단.
