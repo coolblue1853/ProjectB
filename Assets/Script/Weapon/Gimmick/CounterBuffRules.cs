@@ -9,28 +9,25 @@ public sealed class CounterBuffRules
     public const float Duration = 3f;
     public const float Multiplier = 1.2f;
 
-    private float _remaining;
+    private CountdownTimer _timer;
 
-    public bool Active => _remaining > 0f;
-    public float Remaining => _remaining;
+    public bool Active => _timer.Active;
+    public float Remaining => _timer.Remaining;
 
     /// <summary>막기 성공. 이미 활성이면 시간만 갱신(중첩 없음).</summary>
     public void Arm()
     {
-        _remaining = Duration;
+        _timer.Start(Duration);
     }
 
     public void Tick(float dt)
     {
-        if (_remaining > 0f)
-        {
-            _remaining = Mathf.Max(0f, _remaining - dt);
-        }
+        _timer.Tick(dt);
     }
 
     public void Clear()
     {
-        _remaining = 0f;
+        _timer.Clear();
     }
 
     public float DamageMultiplier => Active ? Multiplier : 1f;

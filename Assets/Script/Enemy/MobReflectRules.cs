@@ -8,26 +8,23 @@ public sealed class MobReflectRules
 {
     public const float Ratio = 0.3f;
 
-    private float _remaining;
+    private CountdownTimer _timer;
 
-    public bool Active => _remaining > 0f;
+    public bool Active => _timer.Active;
 
     public void Begin(float seconds)
     {
-        _remaining = Mathf.Max(_remaining, seconds);
+        _timer.Extend(seconds);
     }
 
     public void Tick(float dt)
     {
-        if (_remaining > 0f)
-        {
-            _remaining = Mathf.Max(0f, _remaining - dt);
-        }
+        _timer.Tick(dt);
     }
 
     public void Clear()
     {
-        _remaining = 0f;
+        _timer.Clear();
     }
 
     /// <summary>받은 피해 dealt 에 대한 반사 피해</summary>
