@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-/// <summary>방패 기믹 — 반격 버프. 막기 성공 시 NotifyBlocked() 를 부르면 3초간 평타 피해 +20% (연결은 후속: 막기 판정 훅 미구현)</summary>
+/// <summary>방패 기믹 — 반격 버프. 막기 성공 시 NotifyBlocked() 를 부르면 3초간 평타 피해 +20% (ShieldGuard 가 PlayerGuard 훅으로 호출)</summary>
 public class CounterBuff : WeaponGimmick
 {
     private readonly CounterBuffRules _rules = new CounterBuffRules();
