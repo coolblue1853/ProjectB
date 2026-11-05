@@ -52,7 +52,7 @@ public sealed class ContactDamage : MonoBehaviour
     private readonly List<EnemyHealth> _stale = new List<EnemyHealth>(8);
     private Collider2D _playerCol;
     private PlayerHealthManager _hp;
-    private float _nextCheck;
+    private Cooldown _nextCheck;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Boot()
@@ -64,11 +64,11 @@ public sealed class ContactDamage : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time < _nextCheck)
+        if (!_nextCheck.Ready(Time.time))
         {
             return;
         }
-        _nextCheck = Time.time + ContactRules.CheckInterval;
+        _nextCheck.Arm(Time.time, ContactRules.CheckInterval);
         PlayerController pc = PlayerController.instance;
         if (pc == null)
         {

@@ -99,14 +99,14 @@ public class NightRaid : MonoBehaviour
     private int _spawned;
     private int _alive;
     private int _kills;
-    private float _nextSpawnAt;
+    private Cooldown _nextSpawn;
     private float _waveStartAt;
-    private float _deadline;
+    private Cooldown _deadline;
     private readonly List<EnemyHealth> _raiders = new List<EnemyHealth>();
     private EnemySpawner[] _spawners;
     private int _spawnerCursor;
     private float _failedSpawnSince = -1f;
-    private float _nextBeginAt;
+    private Cooldown _nextBegin;
     private int _epoch; // 취소할 때마다 올려, 이전 습격 몹의 늦은 콜백이 새 습격 집계를 건드리지 않게 한다
     private int _groundMask = -1;
 
@@ -190,9 +190,9 @@ public class NightRaid : MonoBehaviour
         _wasDay = tc.isDaytime;
         if (_phase == Phase.Pending && _map == _today.Map && PlayerController.instance != null)
         {
-            if (Time.time >= _nextBeginAt)
+            if (_nextBegin.Ready(Time.time))
             {
-                _nextBeginAt = Time.time + 0.5f; // 밤 스포너가 준비될 때까지 0.5초마다만 찾는다
+                _nextBegin.Arm(Time.time, 0.5f); // 밤 스포너가 준비될 때까지 0.5초마다만 찾는다
                 Begin();
             }
         }
@@ -283,7 +283,7 @@ public class NightRaid : MonoBehaviour
         _alive = 0;
         _raiders.Clear();
         _failedSpawnSince = -1f;
-        _deadline = Time.time + NightRaidRules.Timeout(_today);
+        _deadline.Arm(Time.time, NightRaidRules.Timeout(_today));
         PickupLog.Notice("몬스터 무리의 습격! 전부 쓰러뜨려라 (" + _today.Waves + "차례)");
         StartWave();
     }
@@ -313,7 +313,7 @@ public class NightRaid : MonoBehaviour
         _wave++;
         _spawned = 0;
         _waveStartAt = Time.time;
-        _nextSpawnAt = Time.time + 1f;
+        _nextSpawn.Arm(Time.time, 1f);
         if (_wave > 1)
         {
             PickupLog.Notice("습격 " + _wave + "/" + _today.Waves + "차례");
@@ -322,16 +322,16 @@ public class NightRaid : MonoBehaviour
 
     private void Tick()
     {
-        if (Time.time >= _deadline)
+        if (_deadline.Ready(Time.time))
         {
             Fail("시간이 지나 습격을 놓쳤다");
             return;
         }
         if (_spawned < _today.PerWave)
         {
-            if (Time.time >= _nextSpawnAt)
+            if (_nextSpawn.Ready(Time.time))
             {
-                _nextSpawnAt = Time.time + NightRaidRules.SpawnInterval;
+                _nextSpawn.Arm(Time.time, NightRaidRules.SpawnInterval);
                 TrySpawn();
             }
             return;
