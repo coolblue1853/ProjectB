@@ -117,7 +117,7 @@
 - [x] AUTO-28 (8fd3150a) [Unity] (담당: 미정, 우선순위 8) ES3 세이브 호환·마이그레이션 테스트 (파일: 신규 `Assets/Editor/Tests/SaveCompatTests.cs`, 읽기만 `SaveMapper`·`SaveMapperTests.cs`): 신규 키(`explorer.seals`·`bestiary.kills`·`qm.board` 등 `FloorTransition.md` §6 목록) 누락된 구세이브(키 없음)를 읽어도 기본값으로 로드되는지, 키 이름 변경 없음(목록을 상수 배열로 고정)을 검사. 실제 파일 쓰기 없이 메모리/임시 파일 설정만. 완료: 구세이브 시뮬레이션 테스트 통과, 키 목록 불일치는 `TechDebt.md` 에 추가. 읽을 문서: `FloorTransition.md` §6, `CodeStyle.md` §3.
 - [x] AUTO-29 [문서] (담당: 미정, 우선순위 9) `Loc` 누락 문자열 + 성능/GC 점검 문서 (파일: 신규 `Docs/Playtest/LocPerfAudit.md`, 읽기만): ① 코드의 `Loc.` 호출 키와 로케일 CSV/표 키를 grep 으로 대조해 누락·미사용 키를 표로(수정 안 함, 1회 grep 결과만), ② `Update`/`FixedUpdate` 안 `new`·`GetComponent`·`Find*`·LINQ·문자열 결합을 grep 으로 뽑아 AUTO-20 이후 남은 상위 10건 파일:줄 기록. 완료: 문서 1개 + 수정 후보 큐 ID 3~5개(P1~P3 표기). 읽을 문서: `TechDebt.md` 상단, `ContextEconomy.md` 생략 가능. → d337593e
 
-## 4차 큐 (11-05, AUTO-30~36 — 그래픽 제외. [문서]=Unity 불필요, [Unity]=컴파일·EditMode 필요. 각 항목 사용량 3~5% 크기)
+## 4차 큐 (11-05, AUTO-30~37 — 그래픽 제외. [문서]=Unity 불필요, [Unity]=컴파일·EditMode 필요. 각 항목 사용량 3~5% 크기)
 
 겹침 순서: ①AUTO-30→31(`NestHuntUI` 공유) ②AUTO-32 는 `EnemyHealth`·`ContactDamage` 라 단독 ③AUTO-33→34(`Floor2Preview` CSV·`MigrationPlan.md` 공유) ④AUTO-35→36(`LineageGear.md`·`Floor2Plan.md` 공유, 35 가 세트 소속 확인 후 36 문서 반영) ⑤AUTO-37 은 읽기 위주라 어느 때나. 이미 [x]·사용자 보류(Q13~18, 통주 봇 재측정, 엔딩·BGM)는 제외.
 
