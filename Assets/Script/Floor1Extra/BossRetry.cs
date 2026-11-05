@@ -18,7 +18,7 @@ public class Floor1Clock : MonoBehaviour
         {
             if (s_day < 0)
             {
-                s_day = ES3.KeyExists(SaveKey) ? ES3.Load<int>(SaveKey) : 1;
+                s_day = SaveUtil.LoadOr(SaveKey, 1);
             }
             return s_day;
         }

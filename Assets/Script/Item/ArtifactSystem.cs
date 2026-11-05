@@ -75,7 +75,7 @@ public class ArtifactSystem : MonoBehaviour
             unlocked.Add(ArtifactId.HealingDew); // 시작 아티팩트 (브로치의 이슬)
             SaveUnlocked();
         }
-        equipped = ES3.KeyExists(EquipKey) ? ES3.Load<ArtifactId>(EquipKey) : ArtifactId.HealingDew;
+        equipped = SaveUtil.LoadOr(EquipKey, ArtifactId.HealingDew);
         if (!unlocked.Contains(equipped))
         {
             equipped = ArtifactId.HealingDew;

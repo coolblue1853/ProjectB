@@ -30,7 +30,7 @@ public static class TreasureLedger
         {
             if (s_opened == null)
             {
-                s_opened = new HashSet<string>(ES3.KeyExists(SaveKey) ? ES3.Load<List<string>>(SaveKey) : new List<string>());
+                s_opened = new HashSet<string>(SaveUtil.LoadOr(SaveKey, new List<string>()));
             }
             return s_opened;
         }

@@ -80,7 +80,7 @@ public static class BossLoot
     {
         var loot = new List<string>();
         string killKey = "bossSinceUnique." + bossName, firstKey = FirstKillKey(bossName);
-        int since = (ES3.KeyExists(killKey) ? ES3.Load<int>(killKey) : 0) + 1;
+        int since = SaveUtil.LoadOr(killKey, 0) + 1;
 
         // 같은 날 같은 보스를 또 잡으면 보상이 줄어든다(Floor1Content.csv bossretry, BossRetryRules)
         float mult = BossRetryRules.Multiplier(BossRetry.KillsToday(bossName));

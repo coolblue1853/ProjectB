@@ -14,14 +14,14 @@ public static class ForgeState
 
     public static int UnlockMask
     {
-        get { return ES3.KeyExists(UnlockKey) ? ES3.Load<int>(UnlockKey) : 0; }
+        get { return SaveUtil.LoadOr(UnlockKey, 0); }
         set { ES3.Save(UnlockKey, value); }
     }
 
     /// <summary>천장 보조용 +11 이상 연속 실패 수</summary>
     public static int Pity
     {
-        get { return ES3.KeyExists(PityKey) ? ES3.Load<int>(PityKey) : 0; }
+        get { return SaveUtil.LoadOr(PityKey, 0); }
         set { ES3.Save(PityKey, value); }
     }
 
