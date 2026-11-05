@@ -161,3 +161,29 @@ UI 탐색은 방향키/십자/스틱 → UI 맵 4방향 + `verticalCheck`·`hori
 | 포커스 | 소실 | 해당 없음 | 두 창 모두 EventSystem 선택을 쓰지 않고 `triggered` 폴링(선택 오브젝트 항상 null)이라 포커스 소실 개념 없음 |
 
 - 후속: TechDebt T11-4(도감·퀘스트 창이 Start 로 안 닫힘, 키 설정 창과 불일치), T11-5(도감 상/하는 고정·좌/우는 순환 불일치, 사소). 수정 금지 범위라 등록만.
+
+## 11. Quick4 패드 기본 키 후보 결정 (AUTO-122, 11-05)
+문서·grep 점검만(코드 수정 없음). 근거: `InputBindings.cs`(ReservedPaths·ReservedActions), `KeyBindWindow.cs` Redraw, `PadFieldInput.cs:83`·`PadFieldInputRules.cs`, 본 문서 §5.
+
+핵심 발견: Quick4 는 이미 패드로 쓸 수 있다. L3 길게(0.5초, `Quick4HoldSeconds`) = 퀵슬롯 4(`PadFieldInput` 가 `QuickSlotBar.OnKey(Quick4Slot)` 호출). 다만 이 경로는 inputactions 바인딩이 아니라 제스처라 키 설정 창은 패드 칸을 "-"(미지정)로 보여 준다. 즉 T11-3 의 본질은 키 부족이 아니라 "표시 불일치 + 재지정 수단 없음".
+
+패드 전수(필드 기준):
+
+| 버튼 | 기본 용도 | 키 설정 예약 | Quick4 후보성 |
+|---|---|---|---|
+| A / B / X / Y | 점프 / 대시 / 평타 / 달리기 | 재지정 대상(교환) | 전투 핵심, 불가 |
+| LB / RB | 스킬 A / 스킬 D | 재지정 대상 | 불가(단독), 조합 시 §5 충돌 없음 |
+| LT / RT | 스킬 S / 스킬 F (LT 는 조합 접두) | 재지정 대상 | 불가 |
+| 십자 ↑ | 포털·대화·채집 | Reserved(UI/Up) | 불가 |
+| 십자 ↓ | 제작 | Reserved(UI/OpenCraft) | 불가 |
+| 십자 ← / → | 퀵슬롯 2 / 3 (십자 이동 옵션 ON 이면 이동) | 재지정 대상 | 사용 중 |
+| L3 | 퀵슬롯 1 (길게 = 4) | Reserved | 이미 Quick4 보유 |
+| R3 | 아티팩트 | Reserved | 불가 |
+| Select | 다음 아티팩트 / 길게 퀘스트 | Reserved | 불가 |
+| Start | 일시정지·인벤 | Reserved | 불가 |
+
+후보:
+1. **추천: 현행 L3 길게 유지 + 표시만 고침.** 새 키 소모 0, 충돌 0, 이미 구현됨. 키 설정 창 Quick4 패드 칸을 "-" 대신 "L3 길게"(고정 표기, 재지정 불가 칸이면 회색)로 출력.
+2. 대안: LB+RB 동시(조합). 미사용 조합이지만 스킬 A·D 동시 발동 오입력 위험, 새 코드 필요. 비추천.
+
+"미지정" 안내 문구 위치: `KeyBindWindow.Redraw` 의 pad 칸 출력(`InputBindings.Display(name, true)` 결과가 빈 값일 때 Quick4 만 고정 문구)과 `ControlsGuide.cs:82` 행(이미 "L3 길게" 안내 있음, 키 설정 창과 일치시키기). 힌트 줄(`_hint`)에는 추가하지 않는다(길이). 구현은 별도 큐 후보, 미검증(정적 점검).
