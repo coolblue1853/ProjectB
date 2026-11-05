@@ -31,6 +31,8 @@ public class Weapon : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float _attackMoveSpeedMul = 1f;
     [Tooltip("이동정지 무기의 후딜 중 앞키 전진 속도 배율(던파식 Attack Drift, CF-1). 마무리 타는 절반, 타격 전은 x0.7")]
     [SerializeField, Range(0f, 1f)] private float _driftMul = 0.5f;
+    [Tooltip("후딜 몇 % 경과 후 이동 캔슬 허용(기본 0.4 = 층계 비율 그대로, 클수록 늦음)")]
+    [SerializeField, Range(0.2f, 0.8f)] private float _moveCancelFraction = 0.4f;
     [Tooltip("켜면 평타 모션 중에도 좌우 입력으로 뒤돈다(시작 0.2초만 고정). 기본 꺼짐 = 던파식으로 모션 내내 시작 방향 고정 (10-30)")]
     [SerializeField] private bool _turnDuringAttack = false;
     public float time;
@@ -443,7 +445,7 @@ public class Weapon : MonoBehaviour
     public bool CanJumpCancelNow => OwnsMoveLockInRecovery && CombatRules.CanJumpCancel(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay);
 
     /// <summary>이동 캔슬 가능(CF-3): 판정 뒤 + 후딜 40%(3타 60%)</summary>
-    public bool CanMoveCancelNow => OwnsMoveLockInRecovery && CombatRules.CanMoveCancel(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay, IsFinisherStep, MovementUnlockRules.CancelStartRatio(MovementUnlocks.Instance != null ? MovementUnlocks.Instance.HighestFloor : 1));
+    public bool CanMoveCancelNow => OwnsMoveLockInRecovery && CombatRules.CanMoveCancel(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay, IsFinisherStep, CombatRules.WeaponCancelFraction(MovementUnlockRules.CancelStartRatio(MovementUnlocks.Instance != null ? MovementUnlocks.Instance.HighestFloor : 1), _moveCancelFraction));
 
     /// <summary>반대키로 몸 돌리기 가능(CF-5)</summary>
     public bool CanTurnNow => OwnsMoveLockInRecovery && CombatRules.CanTurnInRecovery(_attackWaitElapsed, _attackWaitTotal, _attackHitDelay, IsFinisherStep);

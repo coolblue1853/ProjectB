@@ -66,6 +66,12 @@ public static class CombatRules
     }
 
     /// <summary>후딜 중 이동 캔슬: 판정 뒤 + 후딜 fraction(기본 40%, 층계가 오르면 MovementUnlockRules.CancelStartRatio; 마무리 타는 +0.2) 경과부터 후딜이 끝나기 전까지.</summary>
+    /// <summary>층계 캔슬 비율에 무기 비율(기본 0.4 = 불변)을 배율로 곱한다. 범위 0.05~0.95.</summary>
+    public static float WeaponCancelFraction(float floorRatio, float weaponFraction)
+    {
+        return Mathf.Clamp(floorRatio * (weaponFraction / MoveCancelFraction), 0.05f, 0.95f);
+    }
+
     public static bool CanMoveCancel(float elapsed, float total, float hitDelay, bool finisher, float fraction = MoveCancelFraction)
     {
         if (total <= 0f)

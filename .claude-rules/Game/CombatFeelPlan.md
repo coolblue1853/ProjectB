@@ -107,7 +107,7 @@ CF-1·CF-2·CF-3·CF-5(공격 이동 묶음, 같은 `Weapon.cs`·`PlayerControll
 - 검증: 1층계 숲에서 몹 앞 평타 연타 시 피해량·횟수 측정, 물약 소비 시간 비교(`Floor1Balance`). 사망 페널티·레벨 구간 영향 확인.
 - 판단은 사용자 몫: Q-CF3로 `Docs/OpenQuestions.md`에 임시 가정(B안) 기록.
 
-## 8. 선정 항목: CF-12 일부 — 무기별 이동 캔슬 비율 (AUTO-87, 11-05 확정)
+## 8. 선정 항목: CF-12 일부 — 무기별 이동 캔슬 비율 (AUTO-87, 11-05 확정) ✅ 구현(AUTO-88): `_moveCancelFraction` 기본 0.4, 층계 비율에 배율로 곱함(`CombatRules.WeaponCancelFraction`). 프리팹 조정·플레이 미검증
 
 CF-1~10 은 모두 코드에 있다(위 상태 열). 남은 비그래픽 중 가장 작은 것을 고른다: 캔슬 비율을 무기별 직렬화 필드로 노출.
 

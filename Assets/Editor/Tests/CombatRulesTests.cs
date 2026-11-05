@@ -186,6 +186,17 @@ public class CombatRulesTests
     }
 
     [Test]
+    public void WeaponCancelFraction_DefaultUnchanged_ScalesByWeapon()
+    {
+        Assert.AreEqual(0.4f, CombatRules.WeaponCancelFraction(0.4f, 0.4f), 0.0001f);
+        Assert.AreEqual(0.2f, CombatRules.WeaponCancelFraction(0.2f, 0.4f), 0.0001f);
+        Assert.AreEqual(0.55f, CombatRules.WeaponCancelFraction(0.4f, 0.55f), 0.0001f);
+        Assert.AreEqual(0.3f, CombatRules.WeaponCancelFraction(0.4f, 0.3f), 0.0001f);
+        Assert.IsFalse(CombatRules.CanMoveCancel(0.25f, 0.5f, 0.05f, false, CombatRules.WeaponCancelFraction(0.4f, 0.55f))); // 0.275
+        Assert.IsTrue(CombatRules.CanMoveCancel(0.28f, 0.5f, 0.05f, false, CombatRules.WeaponCancelFraction(0.4f, 0.55f)));
+    }
+
+    [Test]
     public void CancelStartRatio_Steps()
     {
         Assert.AreEqual(0.4f, MovementUnlockRules.CancelStartRatio(1), 0.0001f);
