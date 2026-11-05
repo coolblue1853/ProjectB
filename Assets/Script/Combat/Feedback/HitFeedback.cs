@@ -247,6 +247,10 @@ public static class HitFeedback
     /// </summary>
     public static void SpawnText(DamageNumber prefab, Vector3 position, string text, TextKind kind)
     {
+        if (!Application.isPlaying)
+        {
+            return; // 에디트 모드 테스트: 플레이 뒤 남은 LastPrefab 으로 풀을 만들지 않는다
+        }
         prefab = prefab != null ? prefab : LastPrefab;
         if (prefab == null || string.IsNullOrEmpty(text))
         {

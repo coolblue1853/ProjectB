@@ -1878,10 +1878,9 @@ public class InventoryManager : MonoBehaviour
     {
         ItemData d = nowItem.itemData;
         var tiers = new List<KeyValuePair<int, string>>();
-        var setItem = new SetItem();
         for (int i = 0; i < 8; i++)
         {
-            string effect = setItem.SetEffectStr(d.tfName, i);
+            string effect = SetItem.SetEffectStr(d.tfName, i);
             if (!string.IsNullOrEmpty(effect))
             {
                 tiers.Add(new KeyValuePair<int, string>(i, TooltipBuilder.FormatSetEffect(effect)));

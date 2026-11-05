@@ -81,13 +81,11 @@ public class DatabaseManager : MonoBehaviour
 
     public static void SetEffectActvie(string name, int level)
     {
-        SetItem setItem = new SetItem();
-        setItem.CheckSetEffect(name, level);
+        SetItem.CheckSetEffect(name, level);
     }
     public static void SetEffectDisactvie(string name, int level)
     {
-        SetItem setItem = new SetItem();
-        setItem.CheckSetDisEffect(name, level);
+        SetItem.CheckSetDisEffect(name, level);
     }
 
 

@@ -20,7 +20,7 @@ public class SetItem : MonoBehaviour
     }
 
 
-    public void CheckSetEffect(string name, int level)
+    public static void CheckSetEffect(string name, int level)
     {
         SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name+"_"+level));
         if(item != null)
@@ -28,7 +28,7 @@ public class SetItem : MonoBehaviour
             SetEffectApplier.Apply(item.effect, true, "Set:" + name + "_" + level);
         }
     }
-    public void CheckSetDisEffect(string name, int level)
+    public static void CheckSetDisEffect(string name, int level)
     {
         SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name + "_" + level));
         if (item != null)
@@ -37,7 +37,7 @@ public class SetItem : MonoBehaviour
         }
     }
 
-    public string SetEffectStr(string name, int level) //외부에서 세트 아이템의 효과를 확인할 수 있는 항목.
+    public static string SetEffectStr(string name, int level) //외부에서 세트 아이템의 효과를 확인할 수 있는 항목.
     {
         SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name + "_" + level));
         if (item != null)
