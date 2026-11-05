@@ -36,6 +36,7 @@ public sealed class TempMobDash : MonoBehaviour
     void OnEnable()
     {
         _state = State.Idle;
+        _stateUntil = default; // 풀링 재사용 시 이전 대시 종료 시각이 남지 않게
         CrouchAmount = 0f;
         _readyAt.Arm(Time.time, 0.3f); // 막 나타나자마자 달려들지 않는다
     }
