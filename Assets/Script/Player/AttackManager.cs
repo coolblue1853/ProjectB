@@ -35,6 +35,17 @@ public class AttackManager : MonoBehaviour
     InputBuffer[] skillBuffers;
     KeyAction action;
     InputAction attackAction;
+    // 방패 장착 중 패드 LT 는 방어 전용(AUTO-46)
+    bool IsLtGuardConflict(int i)
+    {
+        if (i != GuardInputRules.SkillSSlot || !(PlayerGuard.Source is ShieldGuard))
+        {
+            return false;
+        }
+        UnityEngine.InputSystem.InputControl c = skillAction[i].activeControl;
+        return GuardInputRules.SuppressSkillTrigger(i, true, c != null && c.path == "/Gamepad/leftTrigger");
+    }
+
     InputAction[] skillAction = new InputAction[4];
     public SkillCooldown skillCooldown;
     public Transform sword;
@@ -198,7 +209,8 @@ public class AttackManager : MonoBehaviour
             {
                 continue;
             }
-            if (skillAction[i].triggered)
+            bool trig = skillAction[i].triggered && !IsLtGuardConflict(i);
+            if (trig)
             {
                 skillBuffers[i].Press(Time.time);
                 if (!staggered && s.isButtonDownSkill)
@@ -215,7 +227,7 @@ public class AttackManager : MonoBehaviour
                 }
             }
             // 홀드 스킬은 키를 누르고 있는 동안만 의미가 있으므로 즉시 판정만 한다(버퍼로 늦게 시작하면 떼기를 놓친다)
-            bool want = s.isHoldSkill ? skillAction[i].triggered : skillBuffers[i].Peek(Time.time);
+            bool want = s.isHoldSkill ? trig : skillBuffers[i].Peek(Time.time);
             if (want && !staggered && s.CanActivate(i))
             {
                 skillBuffers[i].Clear();
