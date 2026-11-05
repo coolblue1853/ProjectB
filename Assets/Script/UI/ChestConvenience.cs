@@ -170,7 +170,7 @@ public partial class Chest
         {
             DepositAll();
         }
-        else if (!chestFocus && ((kb != null && kb.gKey.wasPressedThisFrame) || (pad != null && pad.rightTrigger.wasPressedThisFrame)))
+        else if (!chestFocus && ((kb != null && kb.gKey.wasPressedThisFrame) || (pad != null && PadChordRules.RtAlone(pad.leftTrigger.isPressed, pad.rightTrigger.wasPressedThisFrame))))
         {
             ItemCheck selected = inv.SelectedInventoryItem;
             if (selected != null)

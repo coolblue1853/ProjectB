@@ -38,7 +38,7 @@
 | 창고 이동 활성 | Tab | LB |
 | 소비 사용(ActiveConsum) | 없음 | LT |
 | 제작 진입 | K | 십자↓ |
-| 정렬 R / 분해 D / 보기필터 G / 핀 P | 키 | R3 / L3 / LT+RT(AUTO-63 가정, 현행 LT+R3 이중) / R3 |
+| 정렬 R / 분해 D / 보기필터 G / 핀 P | 키 | R3 / L3 / LT+RT(AUTO-64 적용) / R3 |
 | 프리셋·되사기 | 숫자·U·] | Select·RT·LT+Y |
 | 상점 O·H | O·H | **확인 안 됨**(`ShopConvenience.cs:77-84` 패드 분기 있음, 매핑 미확인) |
 | 가방 확장 N | N | LT+X |
@@ -58,7 +58,7 @@ UI 탐색은 방향키/십자/스틱 → UI 맵 4방향 + `verticalCheck`·`hori
 | P7 | 미지정 | 포털 ↑ 패드 바인딩 없음 | ✅ 해소(AUTO-49). 십자↑ | 커밋 3e66bdef |
 | P8 | 탐색 | 도감 구역 탭 패드 없음 | ✅ 해소(AUTO-50). LB/RB 전환 | 커밋 b22ee2c8 |
 | P9 | 일관성 | Select 필드 = 다음 아티팩트, 인벤 = 프리셋 | 문서화 완료(본 표 §2·§1). 키 설정 안내문 반영은 후속 | 이중 의미는 UI 잠금으로 분기 |
-| P10 | 이동 | 십자로 이동 불가(스틱만) | 미해결. 퀵슬롯 2·3 과 충돌, 재배치 필요 | `OpenQuestions` 임시 가정 |
+| P10 | 이동 | 십자로 이동 불가(스틱만) | 해결(AUTO-65): 설정 PAUSE>SETTINGS>DPAD MOVE(기본 OFF, ES3 `settings.dpadMove`). ON 이면 십자 ←→ 이동, 퀵슬롯 2·3 패드 비활성. 실기 패드 미검증 | `OpenQuestions` 임시 가정 |
 | P11 | 설정 | 방어 G·도감 B·지도 M·미니맵 N 키 설정 재지정 대상 아님 | 미해결(후순위). 패드 도감·지도(LT 조합)도 재지정 대상 아님 | `BasicFeatures.md` §5 "남은 한계" |
 
 신규 확인 사항(문서 간 불일치): 보기 필터(§2 표)와 잠금(`BasicFeatures.md` §16)이 둘 다 **LT+R3** 으로 적혀 있다. 실제 바인딩 확인 전까지 어느 쪽이 맞는지 미정 → `OpenQuestions` 임시 가정.
@@ -108,3 +108,9 @@ UI 탐색은 방향키/십자/스틱 → UI 맵 4방향 + `verticalCheck`·`hori
 
 후보 비교: LT 와 쓰이지 않는 버튼은 A·B·LB·RB·RT 이나 A(선택)·B(뒤로)·LB/RB(페이지)는 단독 동작과 겹쳐 RT 가 가드 3줄로 가장 싸다. LT 사용 중: X 가방확장·상점 H, Y 되사기, L3 일괄판매, R3 잠금, Select 도감(필드), Start 지도.
 미검증: 위 근거는 정적 grep.
+
+## 7. 구현 결과 (AUTO-64·65, 11-05)
+
+- AUTO-64: 보기 필터 = LT+RT 로 이동(`InventoryFilterView`), RT 단독 3곳(`Buyback`·`ChestConvenience`·`GearPresets`)에 LT 가드. 규칙은 `PadChordRules`. 잠금 LT+R3 유지(`InventoryConvenience`도 `LockChord` 사용). `KeyAction.inputactions` 변경 없음(코드 폴링이라). ReviewCode_1105b 필수 1·2 해소.
+- AUTO-65: `Input/DpadMoveRules.cs` + `PlayerController.MoveInput()`(이동 읽기 6곳) + `QuickSlotBar` 2·3 차단. 키보드 불변.
+- 검증: EditMode 792 통과(새 9 포함), 컴파일 0. **실기/가상 패드 플레이 미검증**.

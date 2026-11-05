@@ -114,7 +114,7 @@ public class GearPresets : MonoBehaviour
             Selected = (Selected + 1) % GearPresetModel.PresetCount;
             Sfx.Play(SfxId.UiMove, 0.6f);
         }
-        if (pad.rightTrigger.wasPressedThisFrame)
+        if (PadChordRules.RtAlone(pad.leftTrigger.isPressed, pad.rightTrigger.wasPressedThisFrame))
         {
             Apply(Selected, out _);
         }

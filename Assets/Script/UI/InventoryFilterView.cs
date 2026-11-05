@@ -61,7 +61,7 @@ public class InventoryFilterView : MonoBehaviour
         }
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
-        bool pressed = (kb != null && kb.gKey.wasPressedThisFrame) || (pad != null && pad.leftTrigger.isPressed && pad.rightStickButton.wasPressedThisFrame);
+        bool pressed = (kb != null && kb.gKey.wasPressedThisFrame) || (pad != null && PadChordRules.FilterChord(pad.leftTrigger.isPressed, pad.rightTrigger.wasPressedThisFrame));
         if (pressed && m.state == "" && m.chest == null)
         {
             Current = InventoryFilterRules.Next(Current);

@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
-        float h = moveAction.ReadValue<float>();
+        float h = MoveInput();
         float facing = transform.localScale.x < 0f ? -1f : 1f;
         bool back = h * facing < 0f;
         bool wantJump = jumpAction.triggered || jumpBuffer.Peek(Time.time);
@@ -318,7 +318,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        float h = moveAction.ReadValue<float>();
+        float h = MoveInput();
         if (h < 0f)
         {
             transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
@@ -429,7 +429,7 @@ public class PlayerController : MonoBehaviour
             if (moveBlocked && states != "dash" && !isUpLadder && !MovementGrounded)
             {
                 // CF-6: 공중 평타는 가로 관성 유지(입력 없으면 0.15초 내 감속, 입력 시 이동속도 x0.7)
-                float airVx = CombatRules.AirAttackVx(rb.linearVelocity.x, moveAction.ReadValue<float>(), moveSpeed * StatMath.MoveSpeedMul, Time.deltaTime);
+                float airVx = CombatRules.AirAttackVx(rb.linearVelocity.x, MoveInput(), moveSpeed * StatMath.MoveSpeedMul, Time.deltaTime);
                 if (airVx != rb.linearVelocity.x)
                 {
                     rb.linearVelocity = new Vector2(airVx, rb.linearVelocity.y);
@@ -552,7 +552,7 @@ public class PlayerController : MonoBehaviour
 
         if (states != "dash" && states != "wallJump"&& DatabaseManager.isOpenUI == false)
         {
-            horizontalInput = moveAction.ReadValue<float>();
+            horizontalInput = MoveInput();
             verticalInput = verticalAction.ReadValue<float>();
             if (verticalInput < -0.2f && isAttackAnim == false)
             {
@@ -665,6 +665,18 @@ public class PlayerController : MonoBehaviour
     /// <summary>↓ 를 누른 채 공격 중인가 — 다운된 적에게 다운 공격(피해 x1.3, CombatSpec 9절). 새 키 없이 기존 ↓ 입력을 쓴다</summary>
     public bool IsDownAttackHeld => isAttackAnim && verticalAction != null && verticalAction.ReadValue<float>() < -0.5f;
     Sequence moveSequence;
+    /// <summary>이동 축 입력: 스틱·키보드 + (옵션 ON 일 때) 십자 좌우. DpadMoveRules 참고</summary>
+    float MoveInput()
+    {
+        float stick = moveAction.ReadValue<float>();
+        if (!GameSettings.DpadMove)
+        {
+            return stick;
+        }
+        Gamepad pad = Gamepad.current;
+        return pad == null ? stick : DpadMoveRules.Resolve(true, stick, pad.dpad.left.isPressed, pad.dpad.right.isPressed);
+    }
+
     void Move()
     {
         moveVelocity = Vector2.zero;
@@ -672,7 +684,7 @@ public class PlayerController : MonoBehaviour
 
         if (states != "dash" && states != "wallJump")
         {
-            horizontalInput = moveAction.ReadValue<float>();
+            horizontalInput = MoveInput();
             if (OnMovementGround)
             {
                 _airLaunchDirection = horizontalInput;
@@ -1024,7 +1036,7 @@ public class PlayerController : MonoBehaviour
 
             if (((hitWall.collider != null && hitWall.collider.CompareTag("Ground") && transform.localScale == new Vector3(chInRommSize, chInRommSize, 1)) ||( hitWall2.collider != null && hitWall2.collider.CompareTag("Ground") && transform.localScale == new Vector3(-chInRommSize, chInRommSize, 1)) ) && isGround ==false)
             {
-                horizontalInput = moveAction.ReadValue<float>();
+                horizontalInput = MoveInput();
                 if (isWallReset == false && horizontalInput != 0)
                 {
 

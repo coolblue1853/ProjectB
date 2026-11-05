@@ -82,7 +82,7 @@ public class Buyback : MonoBehaviour
         {
             MoveSelection(1);
         }
-        bool pressed = (kb != null && kb.uKey.wasPressedThisFrame) || (pad != null && pad.rightTrigger.wasPressedThisFrame);
+        bool pressed = (kb != null && kb.uKey.wasPressedThisFrame) || (pad != null && PadChordRules.RtAlone(pad.leftTrigger.isPressed, pad.rightTrigger.wasPressedThisFrame));
         if (pressed)
         {
             TryBuyBack(Selected);

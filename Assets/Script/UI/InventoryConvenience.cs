@@ -44,7 +44,7 @@ public sealed class InventoryConvenience : MonoBehaviour
         if (!shop || !browse || Time.unscaledTime > _until) { _pending = null; }
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
-        if (browse && ((kb != null && kb.lKey.wasPressedThisFrame) || (pad != null && pad.leftTrigger.isPressed && pad.rightStickButton.wasPressedThisFrame)))
+        if (browse && ((kb != null && kb.lKey.wasPressedThisFrame) || (pad != null && PadChordRules.LockChord(pad.leftTrigger.isPressed, pad.rightStickButton.wasPressedThisFrame))))
         {
             ToggleLock(_inv, _inv.state == "detail" ? _inv.detail : _inv.CursorItem());
             _pending = null;

@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
     static PauseMenu instance;
 
     readonly string[] items = { "RESUME", "TOWER MAP", "BESTIARY", "SETTINGS", "CONTROLS", "RETURN TO VILLAGE", "QUIT GAME" };
-    readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "LANGUAGE", "PICKUP", "HINTS", "KEY BINDINGS", "BACK" };
+    readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "LANGUAGE", "PICKUP", "HINTS", "DPAD MOVE", "KEY BINDINGS", "BACK" };
     bool settingsMode;
     readonly List<(Image bg, TextMeshProUGUI text)> rows = new List<(Image, TextMeshProUGUI)>();
     KeyAction action;
@@ -151,6 +151,7 @@ public class PauseMenu : MonoBehaviour
             case 3: Loc.Toggle(); break; // 한국어 ↔ English (I2, Q-407)
             case 4: GameSettings.SetPickup(PickupRules.Next(GameSettings.Pickup)); break; // 줍기 필터 (BasicFeatures 4절)
             case 5: GameSettings.SetHints(!GameSettings.Hints); break; // 첫 경험 힌트
+            case 6: GameSettings.SetDpadMove(!GameSettings.DpadMove); break; // 십자 이동(IN-1, 켜면 퀵슬롯 2·3 패드 비활성)
         }
         Sfx.Play(SfxId.UiMove, 0.6f);
         Redraw();
@@ -225,7 +226,7 @@ public class PauseMenu : MonoBehaviour
             {
                 value = i == 0 ? "  " + Mathf.RoundToInt(GameSettings.Volume * 100f) + "%" : i == 1 ? "  " + Mathf.RoundToInt(GameSettings.Shake * 100f) + "%"
                     : i == 2 ? "  " + Loc.T(GameSettings.Flash ? "ON" : "OFF") : i == 3 ? (Loc.IsKorean ? "  한국어" : "  ENGLISH")
-                    : i == 4 ? "  " + Loc.T(GameSettings.Pickup == PickupFilter.All ? "ALL" : "SKIP COMMON MAT.") : i == 5 ? "  " + Loc.T(GameSettings.Hints ? "ON" : "OFF") : "";
+                    : i == 4 ? "  " + Loc.T(GameSettings.Pickup == PickupFilter.All ? "ALL" : "SKIP COMMON MAT.") : i == 5 ? "  " + Loc.T(GameSettings.Hints ? "ON" : "OFF") : i == 6 ? "  " + Loc.T(GameSettings.DpadMove ? "ON (QUICK 2/3 OFF)" : "OFF") : "";
             }
             rows[i].bg.color = i == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
             rows[i].text.color = i == cursor ? theme.unique : Color.white;
@@ -260,7 +261,7 @@ public class PauseMenu : MonoBehaviour
         panel = theme.NewPanel("Panel", transform).gameObject;
         var pr = (RectTransform)panel.transform;
         pr.anchorMin = pr.anchorMax = new Vector2(0.5f, 0.5f);
-        pr.sizeDelta = new Vector2(520f, 572f);
+        pr.sizeDelta = new Vector2(520f, 624f);
 
         title = NewText("Title", pr, theme, 40f);
         var head = title;
@@ -279,7 +280,7 @@ public class PauseMenu : MonoBehaviour
             rows.Add((bg, text));
         }
         hint = NewText("Hint", pr, theme, 20f);
-        Place(hint.rectTransform, new Vector2(0f, -534f), new Vector2(520f, 28f));
+        Place(hint.rectTransform, new Vector2(0f, -586f), new Vector2(520f, 28f));
         hint.alignment = TextAlignmentOptions.Center;
         hint.text = "UP/DOWN  ·  SELECT / ENTER  ·  ESC resume";
         hint.color = new Color(1f, 1f, 1f, 0.55f);
