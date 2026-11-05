@@ -257,4 +257,5 @@
 - (11-05 AUTO-71) (P4) ~~`HuntingRules.RefillAfter` cycle<=0 → NaN~~ **해소**: cycle<=0 이면 0 반환 + `RefillAfter_NonPositiveCycle_ReturnsZeroNotNaN` 테스트.
 - (11-05 PV13 AUTO-94) (P3) 투창 `ThrownSpearGimmick` 은 착지 시각·거리만 상태로 계산하고 **함정 오브젝트·박힌 위치를 만들지 않는다**(착지 지점 = 던진 위치 + 방향×min(막힘 거리, 6) 계산값뿐). 바닥에 박힌 창 판정은 그래픽 확정 후 구현(후속).
 - (11-05 PV13 AUTO-96) (P4) NightRaid 스폰 지점: 한쪽(SideRoad 왼쪽, 지면 없는 x)이 잘리면 같은 side 로 `_failedSpawnSince` 8초를 기다려 마리 수를 채운 것으로 친다 → 웨이브 사이 6~8초 정체, 정의 8마리 중 7마리만 실제 스폰(보상은 처치 수 무관, 지급 정상). 후보: 실패 시 반대편 side 시도 또는 재추첨.
+- (11-05 AUTO-98) (P4) 신규 무기 313~315: ItemSheet `WeaponType` 열이 호스트 계열(Bow/Spear/Staff)이고 프리팹 `Weapon._kind` 는 None(기믹은 컴포넌트로만 부착) — `WeaponTypes.md` 의 Crossbow/Javelin/Tome 과 불일치. 계열 기반 로직(WeaponKind)이 생기면 이 3종이 걸린다. `Floor1NewItemsTests` 가 현재 값을 고정(바꾸면 테스트도 같이 수정).
 
