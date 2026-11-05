@@ -7,13 +7,13 @@ public sealed class AmmoMagazine
     public const float ReloadTime = 1.2f;
 
     private int _ammo = Capacity;
-    private float _reload;
+    private CountdownTimer _reload;
     private bool _critReady;
 
     public int Ammo => _ammo;
-    public bool Reloading => _reload > 0f;
+    public bool Reloading => _reload.Active;
     public bool CanFire => !Reloading && _ammo > 0;
-    public float ReloadRemaining => _reload;
+    public float ReloadRemaining => _reload.Remaining;
 
     /// <summary>발사 시도. 성공하면 true, out crit 는 이 발이 치명 확정인지.</summary>
     public bool TryFire(out bool guaranteedCrit)
@@ -28,19 +28,19 @@ public sealed class AmmoMagazine
         _ammo--;
         if (_ammo <= 0)
         {
-            _reload = ReloadTime;
+            _reload.Start(ReloadTime);
         }
         return true;
     }
 
     public void Tick(float dt)
     {
-        if (_reload <= 0f)
+        if (!_reload.Active)
         {
             return;
         }
-        _reload = Mathf.Max(0f, _reload - dt);
-        if (_reload <= 0f)
+        _reload.Tick(dt);
+        if (!_reload.Active)
         {
             _ammo = Capacity;
             _critReady = true;
@@ -50,7 +50,7 @@ public sealed class AmmoMagazine
     public void Reset()
     {
         _ammo = Capacity;
-        _reload = 0f;
+        _reload.Clear();
         _critReady = false;
     }
 }

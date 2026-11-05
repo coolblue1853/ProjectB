@@ -7,11 +7,11 @@ public sealed class TomePage
     public const float SwitchCooldown = 3f;
 
     private int _page;
-    private float _cooldown;
+    private CountdownTimer _cooldown;
 
     public int Page => _page;
-    public bool CanSwitch => _cooldown <= 0f;
-    public float CooldownRemaining => _cooldown;
+    public bool CanSwitch => !_cooldown.Active;
+    public float CooldownRemaining => _cooldown.Remaining;
 
     public bool TrySwitch()
     {
@@ -20,15 +20,12 @@ public sealed class TomePage
             return false;
         }
         _page = (_page + 1) % PageCount;
-        _cooldown = SwitchCooldown;
+        _cooldown.Start(SwitchCooldown);
         return true;
     }
 
     public void Tick(float dt)
     {
-        if (_cooldown > 0f)
-        {
-            _cooldown = Mathf.Max(0f, _cooldown - dt);
-        }
+        _cooldown.Tick(dt);
     }
 }

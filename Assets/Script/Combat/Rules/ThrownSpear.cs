@@ -8,11 +8,11 @@ public sealed class ThrownSpear
     public enum State { InHand, InFlight, Planted }
 
     private State _state = State.InHand;
-    private float _trapRemaining;
+    private CountdownTimer _trap;
 
     public State Current => _state;
     public bool CanThrow => _state == State.InHand;
-    public bool TrapActive => _state == State.Planted && _trapRemaining > 0f;
+    public bool TrapActive => _state == State.Planted && _trap.Active;
 
     public bool Throw()
     {
@@ -30,7 +30,7 @@ public sealed class ThrownSpear
         if (_state == State.InFlight)
         {
             _state = State.Planted;
-            _trapRemaining = TrapDuration;
+            _trap.Start(TrapDuration);
         }
     }
 
@@ -42,15 +42,15 @@ public sealed class ThrownSpear
             return false;
         }
         _state = State.InHand;
-        _trapRemaining = 0f;
+        _trap.Clear();
         return true;
     }
 
     public void Tick(float dt)
     {
-        if (_state == State.Planted && _trapRemaining > 0f)
+        if (_state == State.Planted)
         {
-            _trapRemaining = Mathf.Max(0f, _trapRemaining - dt);
+            _trap.Tick(dt);
         }
     }
 }
