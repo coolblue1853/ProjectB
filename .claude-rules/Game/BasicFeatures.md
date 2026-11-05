@@ -29,6 +29,10 @@
 | 슬롯 | 가방 확장(25→125칸, 층계 상한), 비외형 장신구 슬롯(귀걸이·팔찌·부적·마법석, 층계별 해금) | `EquipSlotExpansion.md`, `BagExpansion.csv` |
 | 안내 | 첫 경험 힌트(`FirstHints`)·퀘스트/사망 배너·구역 배너(튜토리얼 역할) | 첫 경험 안내 절 |
 | 설정 | 음량·흔들림·번쩍임·언어·HINTS, 키 설정 | §5, `GameSettings` |
+| 전투 상태 | ✅ 몹 둔화·화상·경직 연쇄 제한(AUTO-12 `MobDebuffRules`), ✅ 적 대상 지속 피해 장판(AUTO-13), ✅ 플레이어 수면·몹 반사 자세(AUTO-14) | `Floor2Plan.md` §5.5 |
+| 방어 훅 | ✅ 방패 막기 훅(AUTO-15 `CounterBuff`), ✅ 홀드 방어·반사·패링 공용 상태(AUTO-17 `GuardRules`), ✅ 석궁·투창·마도서 실무기 연결(AUTO-16) | `WeaponTypes.md` §5.2 |
+| 세이브 호환 | ✅ ES3 신규 키(`explorer.seals`·`best...`) 누락 시 기본값, 구 세이브 로드 테스트(AUTO-28 `SaveCompatTests`) | `Docs/Playtest/` |
+| 데이터 검증 | ✅ 경제 불변식 테스트(AUTO-27), ✅ 2층계 데이터 로드 스위치·검증(AUTO-22·23, 기본 OFF) | `Docs/Floor2Data/MigrationPlan.md` |
 
 EditMode 테스트 공백 점검(11-05): 세트 판정 `SetBonusAndEquipmentTests`(14)·`SetEffectApplierTests`(5), 인벤토리 스택 `SlotContainerTests`(24)·`InventoryConvenienceTests`(10)·`ChestTransferTests`·`SaveMapperTests` 가 이미 있어 신규 테스트 불필요.
 
