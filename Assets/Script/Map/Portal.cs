@@ -74,7 +74,8 @@ public class Portal : MonoBehaviour
     }
     private void Update()
     {
-        if (player != null && _col != null && _playerCol != null && !_col.bounds.Intersects(_playerCol.bounds))
+        // bounds.Intersects 는 z 까지 비교한다. 포털이 z=158.5 같은 깊이에 있으면(마을 포털) 항상 false 라 player 가 매 프레임 지워져 ↑ 로 못 탄다(11-05). 2D 겹침으로 판정.
+        if (player != null && _col != null && _playerCol != null && !_col.IsTouching(_playerCol))
         {
             player = null; // 텔레포트·맵 교체로 Exit 이벤트 없이 벗어난 경우
             _playerCol = null;
