@@ -548,3 +548,7 @@
 ## Q-AUTO15 방패 막기 훅 (11-05)
 - **[임시 가정]** 방어 키 = G / 패드 왼쪽 트리거(홀드, 임시 바인딩 — 설정 화면 리바인딩은 후속). 방어 중 피해 70% 감소(최소 1), 경직 없음, 막으면 CounterBuff 발동. 이동 속도 감소·방향 판정(정면만)은 없음.
 - 공용 훅 `PlayerGuard.TryIntercept`(damage2Player 앞단)를 F2-GUARD(AUTO-17)가 재사용. 방어 연출 그래픽 보류, "GUARD" 텍스트만.
+
+## Q-AUTO16 석궁·투창·마도서 래퍼 (11-05)
+- 석궁/마도서/투창 계열 ItemSheet 무기가 없어(WeaponKind 값만 존재) 래퍼 3개(`AmmoGimmick`·`ThrownSpearGimmick`·`TomePageGimmick`)는 프리팹에 붙이지 않았다. 무기 추가 시 부착.
+- **[임시 가정]** 마도서 장 전환 키 C, 투창 비행 0.4초 뒤 착지. 발사 차단·치명 확정·박힌 창 오브젝트·장별 평타는 Weapon 게이트/그래픽 필요라 후속. HUD는 임시 OnGUI 텍스트(그래픽 보류).
