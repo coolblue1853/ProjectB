@@ -248,3 +248,4 @@
 - (11-05 AUTO-5) (P3) **해결**: `EnemyRoundAttackNode`(isSetParent=false) 탄막은 `enemyOb` 미지정이라 정예 ×1.5·보스 격노가 빠졌음 → 노드가 `enemyOb=this.gameObject` 지정, 배율은 순수 `EnemyAttackScale.Apply`로 통일(`EnemyAttackScaleTests` 4건 통과). 플레이 미검증. 해당 몹 목록은 BD 직렬화라 grep 불가 — RoundAttackNode 사용 몹 전체에 적용됨.
 - (11-05 PV8) (P3) AUTO-16 래퍼 3종을 임시 대용 무기(BanditShortbow·Wood Spear·FaeWand)에 부착·플레이 확인. 석궁 발사 차단·치명 확정, 투창 실제 투사체·함정 판정, 마도서 장별 평타는 후속. 전용 무기 생기면 컴포넌트 이동.
 - (11-05 PV9 AUTO-44) (P4) **해결 11-05** Loc 키 `[Sealed]` → `Sealed`(I2 GetValidTermName 이 대괄호를 깨 용어가 빈 이름으로 저장됨), 괄호는 `WaypointMap` 코드에서 붙임. I2 동기화·EditMode 764 통과, 지도 화면은 미검증.
+- (11-05 PV11 AUTO-61) (P4) 퀘스트 창 구역 접기: Z·패드 A 는 가상 입력으로 토글 확인, **Enter 는 무동작**인데 `NpcQuestWindow.cs:306` 안내 문구는 "Z/Enter 로 접기·펼치기". 문구에서 Enter 제거 또는 `UI.Enter` 연결(선택). PV4 (P4) 와 같은 건.
