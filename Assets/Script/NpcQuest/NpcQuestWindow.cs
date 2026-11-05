@@ -303,7 +303,7 @@ public class NpcQuestWindow : MonoBehaviour
             return;
         }
         NpcQuestDef cur = CurrentQuest();
-        _detail.text = cur != null ? DetailText(cur, active) : "<color=#999999>구역 머리글 — Z/Enter 로 접기·펼치기</color>";
+        _detail.text = cur != null ? DetailText(cur, active) : "<color=#999999>구역 머리글 — Z / Pad A 로 접기·펼치기</color>";
     }
 
     /// <summary>_shown(구역별로 이미 묶임)을 머리글+퀘스트 행으로 펴고, 접힌 구역은 퀘스트를 감춘다</summary>
