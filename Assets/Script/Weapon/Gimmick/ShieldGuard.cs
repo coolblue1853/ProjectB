@@ -44,6 +44,15 @@ public class ShieldGuard : WeaponGimmick, IGuardSource
         PlayerGuard.Source = this;
     }
 
+    private void OnDestroy()
+    {
+        if (_guardAction != null)
+        {
+            _guardAction.Dispose();
+            _guardAction = null;
+        }
+    }
+
     private void OnDisable()
     {
         if (_guardAction != null)
@@ -57,8 +66,9 @@ public class ShieldGuard : WeaponGimmick, IGuardSource
         }
     }
 
-    public bool Intercept(ref int damage)
+    public bool Intercept(ref int damage, out bool parried)
     {
+        parried = false;
         if (!_state.Holding || damage <= 0)
         {
             return false;
@@ -66,7 +76,7 @@ public class ShieldGuard : WeaponGimmick, IGuardSource
         GuardOutcome o = _state.Resolve(damage);
         LastOutcome = o;
         damage = o.Taken;
-        PlayerGuard.LastParried = o.Parried;
+        parried = o.Parried;
         if (_counter != null)
         {
             _counter.NotifyBlocked();

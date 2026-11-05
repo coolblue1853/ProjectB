@@ -5,7 +5,7 @@ public class GuardRulesTests
     private sealed class FakeSource : IGuardSource
     {
         public bool Called;
-        public bool Intercept(ref int damage) { Called = true; damage = GuardRules.Resolve(damage, true); return true; }
+        public bool Intercept(ref int damage, out bool parried) { parried = false; Called = true; damage = GuardRules.Resolve(damage, true); return true; }
     }
 
     [TearDown] public void Cleanup() { PlayerGuard.Source = null; }

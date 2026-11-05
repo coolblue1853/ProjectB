@@ -13,7 +13,6 @@ public static class RecallRules
 
     public static bool Completed(float elapsed) => elapsed >= CastSeconds;
 
-    /// <summary>시전 취소 여부: 피격(HP 감소)·이동·사망</summary>
     /// <summary>보스가 이 거리(월드 단위) 안에 살아 있으면 귀환 주문서를 쓸 수 없다(FT-BOSSROOM)</summary>
     public const float BossBlockRange = 30f;
 
@@ -21,6 +20,7 @@ public static class RecallRules
     public static bool BlockedByBoss(float nearestBossDist)
         => nearestBossDist >= 0f && nearestBossDist <= BossBlockRange;
 
+    /// <summary>시전 취소 여부: 피격(HP 감소)·이동·사망</summary>
     public static bool ShouldCancel(bool hit, bool moved, bool dead) => hit || moved || dead;
 }
 

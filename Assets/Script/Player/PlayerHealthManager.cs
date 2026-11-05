@@ -345,15 +345,15 @@ public class PlayerHealthManager : MonoBehaviour
         {
             int dmgAfDef = DamageCalculator.IncomingToPlayer(damage, Def, StatMath.IncomingDamageMul * AscentLoad.IncomingMul()); // 상승 부하: 받는 피해 증가
             // 홀드 방어(방패 등): 피해 감소 + 경직 없음. F2-GUARD 도 같은 훅 사용 (AUTO-15)
-            bool guarded = PlayerGuard.TryIntercept(ref dmgAfDef);
+            bool guarded = PlayerGuard.TryIntercept(ref dmgAfDef, out bool parried);
             if (guarded)
             {
                 stiffTime = 0f;
-                if (PlayerGuard.LastParried)
+                if (parried)
                 {
                     invincibleTime = GuardState.ParryInvuln; // 패링: 짧은 무적 (반격은 CounterBuff)
                 }
-                HitFeedback.SpawnText(_numberPrefab, NumberAnchor(), PlayerGuard.LastParried ? "PARRY" : "GUARD", HitFeedback.TextKind.Block);
+                HitFeedback.SpawnText(_numberPrefab, NumberAnchor(), parried ? "PARRY" : "GUARD", HitFeedback.TextKind.Block);
             }
             // 대장의 오기 반지: 치사 피해면 HP 1 로 버티고 2초 무적 (재사용 180초, Floor1Completion 15절)
             bool lastStand = AccessoryGimmick.IsEquipped(AccessoryGimmick.LastStandRing)
