@@ -1,0 +1,6 @@
+﻿no,zoneName,map,load,tier,dayMobs,nightMobs,boss,bossTime,status
+1,Cloud Cliffs,Lv2_MagicCliffs,25,6,CliffGoblin_BD/SporeShroom_BD,CliffSkeleton_BD/GazeEye_BD/DeathBringer_BD,AbyssWizard_BD,night,exists
+2,Broken Rampart,Lv2_BrokenRampart,35,7,RampartKnight_BD/HalberdSentry_BD/Gargoyle_BD,Gargoyle_BD/CloudWisp_BD/RampartKnight_BD,GargoyleLord_BD,night,exists
+3,Statue Garden,Lv2_StatueGarden,45,8,ScaleStatue_BD/GardenerGolem_BD/WingedStatue_BD,ScaleStatue_BD/MoonMoth_BD/WingedStatue_BD,StatueQueen_BD,night,draft
+4,Knight Citadel,Lv2_KnightCitadel,50,9,LancerKnight_BD/SwordKnight_BD/ArcherKnight_BD/MageKnight_BD,WraithKnight_BD/CitadelBat_BD,KnightCommander_BD,day,draft
+5,Dragon Nest,Lv2_DragonNest,60,10,Drakeling_BD/Wyvern_BD/DragonCultist_BD,Wyvern_BD/EmberSpirit_BD,CloudseaDrake_BD,night,draft

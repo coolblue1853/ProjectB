@@ -1,0 +1,7 @@
+﻿id,maxHP_old,maxHP_new,enemyDef_old,enemyDef_new
+CliffGoblin_BD,150,480,4,18
+SporeShroom_BD,160,520,4,20
+CliffSkeleton_BD,260,700,12,28
+GazeEye_BD,120,340,3,14
+DeathBringer_BD,2500,6000,15,30
+AbyssWizard_BD,8000,14700,20,30
