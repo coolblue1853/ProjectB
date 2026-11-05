@@ -227,6 +227,19 @@ bash 봇(PT-BOT 본체)은 쓰지 않고 항목별 전용 프로브를 새로 �
 - 한계: 1층계 일반 몹에는 분리 생성 탄막 노드가 없고(노드 쓰는 8종은 전부 보스 프리팹) 보스는 `PromoteElite` 가 거부돼, 프로브에서만 `isBossMob` 를 잠시 껐다 켜서 정예 판정을 만들었다. 보스 페이즈 배율은 두 경우 동일(1단계).
 - 발견: 실게임에서 정예 + 분리 탄막 조합은 현재 존재하지 않음(2층계 몹 추가 때 재확인 대상).
 
+## PV11 결과 (11-05, AUTO-51~54 변경분 확인)
+프로브 `Tools/probes/_pv11_save.cs`·`_pv11_day.cs`·`_pv11_eq.cs`·`_pv11_hud.cs`·`_pv11_mv.cs`·`_pv11_atk.cs`, 결과 `Logs/pv11/atk.txt`·`hud.png`. SampleScene, 세이브 3파일 백업(`Logs/pv11b_save`)·복원(cmp 동일), 플레이 정지, 콘솔 에러 0.
+
+| 항목 | 결과 | 수치·관찰 |
+|---|---|---|
+| AUTO-53 `SaveUtil.LoadOr` | 통과 | `ForgeState.Pity` 7 저장→7, 키 삭제→0(기본값), 원복. `UnlockMask` 5→5, 삭제→0. `Floor1Clock.Day` 키 없음→1(기본값) |
+| AUTO-52 임시 HUD 단일화 | 통과 | 장착 시 `Wood Spear`=[창 보유], `BanditShortbow`=[탄 3/3], `FaeWand`=[장: 불]. 3종 모두 `GimmickHud.Draw` 경유. 화면 모습은 스샷 `hud.png`(그래픽 보류 임시) |
+| AUTO-51 소환수 | 통과 | `WolfSpirit`(SummonRunner) 소환 3초: 몹 HP -31 |
+| AUTO-51 유도탄 | 통과 | `WispOrb`(HomingOrb): 3초 -48 |
+| AUTO-51 궤도 불 | 통과 | `WispRing`(OrbitWisps) 반경 안 몹: 3초 -68 / -295 / -232(겹침 포함). 반경 밖(1.8)이면 0, 설계대로 |
+
+- 한계: 프리팹 직접 소환(장착 무기 스킬 키 경로 아님). 타격 판정 경로(`TryGetComponent`)는 동일.
+
 # 미검증 통합 (11-05, AUTO-43)
 PV1~PV9 의 "못 한 것·미연결·미검증" 정리. 예상 사용량: 소=프로브 1개·5분, 중=프로브 2~3개, 대=신규 구현 필요. 해소=후속 PV 에서 확인됨(취소선 대신 "해소" 표기).
 
