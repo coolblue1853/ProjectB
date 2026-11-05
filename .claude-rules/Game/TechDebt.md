@@ -248,10 +248,10 @@
 - (11-04 PV3) (P3) ~~`ExtraEquipFx.TitleTag` 영문 이름표가 한글 이름표와 겹침~~ → **해결(11-04)**: TitleHeight 2.3→2.85. 플레이 스샷 확인.
 - (11-04 PV3) 설정 '뒤로' 겹침(P4)은 해결 확인(통과).
 - (11-05 PV4) (P2) **해결 11-05** `SampleScene` 직렬화 `jumpForce` 10→13(코드 기본·`JumpReachTests` 와 일치). 플레이 실측 탭(0.05~0.1초) 1.83~1.91·풀 2.76 → 1.0·1.6 계단 탭 통과, 4칸 발판은 여전히 사다리 필요.
-- (11-05 PV4) (P4) 퀘스트 창 구역 접기는 Z·패드 A 만 동작(UI.Select 에 Enter 바인딩 없음). 문구/바인딩 정리.
+- (11-05 PV4) (P4) 퀘스트 창 구역 접기는 Z·패드 A 만 동작(UI.Select 에 Enter 바인딩 없음). 문구/바인딩 정리. **해소 AUTO-78**: 문구를 "Z / Pad A 로 접기·펼치기"로 수정(바인딩 불변).
 - (11-05 SLOT-R) 신규 4슬롯 패드 커서 이동·드래그 장착은 여전히 미구현·미확인. 폐기 장신구 반환 시 가방 가득이면 판매값/2 골드(임시).
 - (11-05 AUTO-5) (P3) **해결**: `EnemyRoundAttackNode`(isSetParent=false) 탄막은 `enemyOb` 미지정이라 정예 ×1.5·보스 격노가 빠졌음 → 노드가 `enemyOb=this.gameObject` 지정, 배율은 순수 `EnemyAttackScale.Apply`로 통일(`EnemyAttackScaleTests` 4건 통과). 플레이 미검증. 해당 몹 목록은 BD 직렬화라 grep 불가 — RoundAttackNode 사용 몹 전체에 적용됨.
 - (11-05 PV8) (P3) AUTO-16 래퍼 3종을 임시 대용 무기(BanditShortbow·Wood Spear·FaeWand)에 부착·플레이 확인. 석궁 발사 차단·치명 확정, 투창 실제 투사체·함정 판정, 마도서 장별 평타는 후속. 전용 무기 생기면 컴포넌트 이동.
 - (11-05 PV9 AUTO-44) (P4) **해결 11-05** Loc 키 `[Sealed]` → `Sealed`(I2 GetValidTermName 이 대괄호를 깨 용어가 빈 이름으로 저장됨), 괄호는 `WaypointMap` 코드에서 붙임. I2 동기화·EditMode 764 통과, 지도 화면은 미검증.
-- (11-05 PV11 AUTO-61) (P4) 퀘스트 창 구역 접기: Z·패드 A 는 가상 입력으로 토글 확인, **Enter 는 무동작**인데 `NpcQuestWindow.cs:306` 안내 문구는 "Z/Enter 로 접기·펼치기". 문구에서 Enter 제거 또는 `UI.Enter` 연결(선택). PV4 (P4) 와 같은 건.
+- (11-05 PV11 AUTO-61) (P4) 퀘스트 창 구역 접기: Z·패드 A 는 가상 입력으로 토글 확인, **Enter 는 무동작**인데 `NpcQuestWindow.cs:306` 안내 문구는 "Z/Enter 로 접기·펼치기". 문구에서 Enter 제거 또는 `UI.Enter` 연결(선택). PV4 (P4) 와 같은 건. **해소 AUTO-78**: 문구를 "Z / Pad A 로 접기·펼치기"로 수정(바인딩 불변).
 - (11-05 AUTO-71) (P4) ~~`HuntingRules.RefillAfter` cycle<=0 → NaN~~ **해소**: cycle<=0 이면 0 반환 + `RefillAfter_NonPositiveCycle_ReturnsZeroNotNaN` 테스트.
