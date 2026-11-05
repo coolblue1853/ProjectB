@@ -90,6 +90,30 @@ public sealed class EventBanner : MonoBehaviour
         return loss + "   ·   마을에서 부활합니다";
     }
 
+    /// <summary>사망 배너 팁 (결정 11-05): 죽을 때마다 순서대로 순환</summary>
+    public static readonly string[] DeathTips =
+    {
+        "HP 물약은 빠른 슬롯에 등록해 두면 위기에 바로 쓸 수 있어요",
+        "귀환 주문서로 위험한 사냥터에서 마을로 빠르게 돌아올 수 있어요",
+        "저장 지점(마을 NPC)에서 진행 상황을 자주 저장하세요",
+        "레벨 10 이하에서는 사망해도 EXP 를 잃지 않아요",
+        "보스는 패턴을 외우면 쉬워져요. 구르기로 공격을 피해 보세요",
+    };
+
+    private static int s_tipIndex = -1;
+
+    /// <summary>다음 팁 한 줄 (호출마다 한 칸씩 순환)</summary>
+    public static string NextDeathTip()
+    {
+        if (s_tipIndex < 0)
+        {
+            s_tipIndex = Random.Range(0, DeathTips.Length);
+        }
+        string tip = DeathTips[s_tipIndex % DeathTips.Length];
+        s_tipIndex = (s_tipIndex + 1) % DeathTips.Length;
+        return tip;
+    }
+
     private void OnAccepted(NpcQuestDef d)
     {
         ShowQuest("퀘스트 수락", new Color(1f, 0.85f, 0.2f), d.Title, "J 로 퀘스트 확인");
@@ -118,7 +142,7 @@ public sealed class EventBanner : MonoBehaviour
     private void OnDied()
     {
         _dTitle.text = "쓰러졌다";
-        _dSub.text = DeathSub(LevelSystem.LastDeathLoss);
+        _dSub.text = DeathSub(LevelSystem.LastDeathLoss) + "\n<size=70%><color=#BBBBBB>TIP  " + NextDeathTip() + "</color></size>";
         _dTween?.Kill();
         _dTween = _death.DOFade(1f, 0.4f).SetUpdate(true).SetLink(gameObject);
     }
@@ -151,7 +175,7 @@ public sealed class EventBanner : MonoBehaviour
         deathCanvas.sortingOrder = 950;
         _dTitle = LevelUpBanner.NewText("Head", _death.transform, theme, 90f, new Vector2(0f, 40f), new Color(0.9f, 0.25f, 0.25f));
         _dSub = LevelUpBanner.NewText("Sub", _death.transform, theme, 40f, new Vector2(0f, -55f), Color.white);
-        _dSub.rectTransform.sizeDelta = new Vector2(1000f, 60f);
+        _dSub.rectTransform.sizeDelta = new Vector2(1000f, 110f);
     }
 
     private CanvasGroup NewGroup(string name, Vector2 pos, Vector2 size)
