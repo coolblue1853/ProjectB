@@ -93,6 +93,97 @@ public static class NpcQuestZone
     }
 }
 
+/// <summary>
+/// 퀘스트 창 구역별 접기 상태 (결정 11-05). 키 = "탭|머리글" 문자열. 새 세이브 키 npcq.folded 만 추가(기존 필드 불변).
+/// </summary>
+public static class QuestFoldRules
+{
+    public const string SaveKey = "npcq.folded";
+    private static readonly HashSet<string> s_folded = new HashSet<string>();
+    private static bool s_loaded;
+
+    [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics()
+    {
+        s_folded.Clear();
+        s_loaded = false;
+    }
+
+    public static string Key(QuestListRules.Tab tab, string header)
+    {
+        return (int)tab + "|" + header;
+    }
+
+    public static bool IsFolded(string key)
+    {
+        EnsureLoaded();
+        return s_folded.Contains(key);
+    }
+
+    /// <summary>접기/펼치기 전환 후 저장. 반환 = 접힘 여부</summary>
+    public static bool Toggle(string key)
+    {
+        EnsureLoaded();
+        bool folded = s_folded.Add(key);
+        if (!folded)
+        {
+            s_folded.Remove(key);
+        }
+        Save();
+        return folded;
+    }
+
+    public static string Serialize(IEnumerable<string> keys)
+    {
+        return string.Join("\n", keys);
+    }
+
+    public static void Deserialize(string text, HashSet<string> into)
+    {
+        into.Clear();
+        if (string.IsNullOrEmpty(text))
+        {
+            return;
+        }
+        foreach (string k in text.Split('\n'))
+        {
+            if (k.Length > 0)
+            {
+                into.Add(k);
+            }
+        }
+    }
+
+    private static void EnsureLoaded()
+    {
+        if (s_loaded)
+        {
+            return;
+        }
+        s_loaded = true;
+        try
+        {
+            Deserialize(ES3.KeyExists(SaveKey) ? ES3.Load<string>(SaveKey) : "", s_folded);
+        }
+        catch (System.Exception e)
+        {
+            GameLog.Warn(GameLog.Cat.Save, "퀘스트 접기 읽기 실패: " + e.Message);
+        }
+    }
+
+    private static void Save()
+    {
+        try
+        {
+            ES3.Save(SaveKey, Serialize(s_folded));
+        }
+        catch (System.Exception e)
+        {
+            GameLog.Warn(GameLog.Cat.Save, "퀘스트 접기 저장 실패: " + e.Message);
+        }
+    }
+}
+
 /// <summary>퀘스트 창 목록 규칙 (순수): 받을 수 있는 / 진행 중(완료 가능이 맨 위) / 완료 세 탭, 같은 구역끼리 묶는다</summary>
 public static class QuestListRules
 {
