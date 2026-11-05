@@ -574,3 +574,6 @@
 
 ## Q-F2M 2층계 병합 시점 (11-05, AUTO-34)
 - **[임시 가정 F2M]** 그래픽(몹 스프라이트·프리팹·아이콘) 없이도 2층계 데이터 CSV 병합은 진행한다(로드 플래그 OFF 로 플레이 영향 0). 플래그 ON 은 그래픽 사용자 승인 후. 체크리스트 `Docs/Floor2Data/MigrationPlan.md` §3.
+
+## Q-INPUT 패드 조작 충돌 (11-05, AUTO-40)
+- **[임시 가정 INPUT]** `Docs/Playtest/InputAudit.md` §3. 방패 방어 패드 LT 가 SkillS 와 겹침 → 방패 장착 중 SkillS 패드 바인딩 비활성(LT 방어 우선). R3 중복(아티팩트·퀘스트·핀)은 퀘스트 창을 Select 길게로 이동 제안. 도감·지도·미니맵은 LT+Select·LT+Start·LT+L3 제안. 구현은 보류(문서만).

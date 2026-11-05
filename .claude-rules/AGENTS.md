@@ -88,6 +88,7 @@
 
 | 파일 | 설명 |
 |------|------|
+| `Docs/Playtest/InputAudit.md` *(저장소 루트)* | 키보드·패드 조작 점검표(충돌·미지정) |
 | `Docs/OpenQuestions.md` *(저장소 루트)* | 사용자 확인이 필요한 기획 질문과 임시 가정 |
 | `Docs/MorningQuestions.md` *(저장소 루트)* | 아침에 한 번에 답할 질문 모음(번호·추천) |
 | `Docs/AutomationLog.md` *(저장소 루트)* | 예약 자동 실행 기록과 사용량 예산 규칙 |
