@@ -23,3 +23,5 @@
 ## 부족한 정보 → `Docs/OpenQuestions.md` Q-F2D1~4 임시 가정
 ## 편입 방법(후속)
 Unity 사용 가능한 세션에서 CSV 맨 뒤에 붙이고 `DataIntegrityTests` 실행. 프리팹·아이콘이 없으면 검증 리포트의 누락 목록에 나오므로 무기/방어구 프리팹 복제와 함께 진행.
+
+이행 계획·스키마 재대조: `MigrationPlan.md` (AUTO-21).
