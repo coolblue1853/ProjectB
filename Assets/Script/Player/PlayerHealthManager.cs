@@ -376,7 +376,7 @@ public class PlayerHealthManager : MonoBehaviour
             HitFeedback.OnPlayerHit();
             if (lastStand)
             {
-                HitFeedback.SpawnText(_numberPrefab, NumberAnchor() + Vector3.up * 0.5f, "버텼다!", HitFeedback.TextKind.Status);
+                HitFeedback.SpawnText(_numberPrefab, NumberAnchor() + Vector3.up * 0.5f, Loc.T("Survived!"), HitFeedback.TextKind.Status);
             }
             if (GuardState.ShowBlockText(guarded, dmgAfDef))
             {
