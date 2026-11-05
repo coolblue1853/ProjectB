@@ -100,7 +100,7 @@ public static class BountyKioskPlacer
         }
         var go = new GameObject("BountyKiosk");
         go.transform.SetParent(town.transform, false);
-        go.transform.position = new Vector3(board.position.x + OffsetX, board.position.y, board.position.z);
+        go.transform.position = new Vector3(PickX(town, board), board.position.y, board.position.z);
         go.layer = LayerMask.NameToLayer("Default");
         var box = go.AddComponent<BoxCollider2D>();
         box.isTrigger = true;
@@ -118,6 +118,52 @@ public static class BountyKioskPlacer
         }
         go.AddComponent<BountyKiosk>();
         go.AddComponent<MinimapMarker>().Init(new Color(1f, 0.72f, 0.2f), 7f, null);
+    }
+
+    /// <summary>푯말 x. 푯말 트리거가 포털 트리거와 겹치면 ↑ 가 의뢰창으로 가 포털을 못 타므로(11-05), 겹치지 않는 후보를 고른다</summary>
+    private static float PickX(MapInfo town, Transform board)
+    {
+        float[] offsets = { OffsetX, -OffsetX, 3.5f, -3.5f, 10.5f };
+        Portal[] portals = town.GetComponentsInChildren<Portal>(true);
+        foreach (float offset in offsets)
+        {
+            float x = board.position.x + offset;
+            if (!OverlapsPortal(portals, x) && HasGround(x, board.position.y))
+            {
+                return x;
+            }
+        }
+        return board.position.x + OffsetX;
+    }
+
+    /// <summary>푯말 자리 아래에 트리거가 아닌 바닥 콜라이더가 있는가 (맵 밖·허공 배치 방지)</summary>
+    private static bool HasGround(float x, float y)
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(new Vector2(x, y + 3f), Vector2.down, 8f);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && !hit.collider.isTrigger)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    internal static bool OverlapsPortal(Portal[] portals, float x)
+    {
+        const float half = 1.75f + 0.5f; // 푯말 트리거 반폭 + 여유
+        foreach (Portal portal in portals)
+        {
+            Collider2D col = portal.GetComponentInChildren<Collider2D>(true);
+            float px = col != null ? col.bounds.center.x : portal.transform.position.x;
+            float ext = col != null ? col.bounds.extents.x : 0.5f;
+            if (Mathf.Abs(px - x) < half + ext)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /// <summary>푯말 (24×30, PPU 16): 나무 기둥 + 널빤지에 붙은 종이 3장</summary>
