@@ -153,4 +153,6 @@ CF-11 의 "적 스프라이트 정지"는 이미 코드에 있다: `HitFeedback.
 - 완료 기준: 위 변경 후 이 절 제목에 ✅, 컴파일 0, 기본 칼 3타·스미어 불변.
 - CF-13(평타→평타 캔슬)은 `ClassicMapleDesign §6` 4~7층계와 묶이므로 이번 선정에서 제외.
 
-구현(AUTO-114): `StopBasic`·`StopSkill` 0.07, `StopFinisher` 0.10 추가. 검증: 컴파일 0, EditMode 900/900, 프로브 `_cf11_stop.cs` 로 적 Animator 정지(1→0)와 복원 확인. 마무리 타 0.10 경계 시간 측정은 미검증(실제 콤보 마무리 타 플레이 미확인).
+구현(AUTO-114): `StopBasic`·`StopSkill` 0.07, `StopFinisher` 0.10 추가. 검증: 컴파일 0, EditMode 900/900, 프로브 `_cf11_stop.cs` 로 적 Animator 정지(1→0)와 복원 확인. 마무리 타 경계는 AUTO-125 에서 확인(아래).
+
+마무리 타 경계 실측(AUTO-125, 11-05, `Tools/probes/_cf11_finisher.cs`, RustedSword 3타, `nowConboCount` 를 1/2/3 으로 맞춰 `OnEnemyHit` 호출, 적 Animator.speed==0 지속 시간): 1타 0.072(기대 0.07)·2타 0.071(0.07)·3타 마무리 0.101(0.10)·3타+치명 0.131(0.13)·1타+치명 0.101(0.10)·스킬 0.071(0.07)·스킬+치명 0.103(0.10) — 전부 일치(±1프레임), 종료 후 속도 1 복원. 불일치 없음, `TechDebt.md` 등록 없음.
