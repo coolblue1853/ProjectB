@@ -40,7 +40,7 @@
 | 6 ✅ | `Weapon/OrbitWisps.cs:72` | 타격마다 `GetComponent<DamageObject>()` | 낮음 |
 | 7 ✅ | `Weapon/HomingOrb.cs:57` | 대상 `GetComponent<Collider2D>()` | 낮음(대상 갱신 시) |
 | 8 ✅ | `Enemy/EnemyHealth.cs:598` | 몹마다 `Camera.main` 조회 | 정적 `MainCam()` 캐시(파괴 시 재조회, 서브시스템 리셋 시 null) |
-| 9 | `Enemy/StatusTint.cs:43,44` | `GetComponentInChildren` 2회 | `CheckInterval` 로 제한돼 낮음 |
+| 9 ✅(유지) | `Enemy/StatusTint.cs:43,44` | `GetComponentInChildren` 2회 | 독/출혈 공격 컴포넌트가 자식으로 런타임에 붙고 떨어지므로 초기화 캐시 불가. 0.2초류 `CheckInterval` 호출만 유지(AUTO-70, 코드 변경 없음) |
 | 10 | `Player/PlayerController.cs:525` | 사다리 처리 `GetComponent<BoxCollider2D>()` | 사다리 상태에서만 |
 
 참고(낮음): `Floor1Extra/BestiaryMilestones.cs:129` `new List`+`ES3.Save` 는 보상 수령 시 1회, `Tracking/NestHuntSite.cs:102` 상태 생성은 조건부로 보임(미확인).
