@@ -141,12 +141,23 @@ public class EnemyHealth : PoolAble
             eliteAura.gameObject.SetActive(false);
         }
     }
+    private static Camera _mainCam;
+    /// <summary>Camera.main 정적 캐시. 씬 전환으로 파괴되면(Unity null) 다시 조회한다(LP-4)</summary>
+    private static Camera MainCam()
+    {
+        if (_mainCam == null)
+        {
+            _mainCam = Camera.main;
+        }
+        return _mainCam;
+    }
     /// <summary>현재 활성 보스 수 (BGM 전환 등에서 사용)</summary>
     public static int ActiveBossCount { get; private set; }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void ResetBossCount()
     {
         ActiveBossCount = 0;
+        _mainCam = null;
         Active.Clear();
     }
 
@@ -595,7 +606,7 @@ public class EnemyHealth : PoolAble
     {
         if(isBossMob == false && hpObject!= null)
         {
-            hpObject.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, hpHeight, 0));
+            hpObject.transform.position = MainCam().WorldToScreenPoint(transform.position + new Vector3(0, hpHeight, 0));
         }
         if(stiffShakeTime > 0)
         {

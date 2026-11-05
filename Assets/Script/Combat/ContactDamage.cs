@@ -104,7 +104,7 @@ public sealed class ContactDamage : MonoBehaviour
             }
             if (!_colliders.TryGetValue(e, out Collider2D col))
             {
-                col = e.GetComponent<Collider2D>();
+                e.TryGetComponent(out col); // 적마다 한 번만 조회 후 딕셔너리 캐시(null 도 저장)
                 _colliders[e] = col;
             }
             if (col == null || !col.enabled || !Overlap2D(col.bounds, pb))
