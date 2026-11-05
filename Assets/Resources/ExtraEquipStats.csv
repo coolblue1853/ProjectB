@@ -1,0 +1,7 @@
+name,critical,criticalDmg,attSpeed,moveSpeed,dropRate,def,incDmg
+EarringPlain,2,0,0,0,0,0,0
+EarringHunter,3,5,0,0,0,0,0
+BraceletPlain,0,0,2,0,0,0,0
+BraceletSwift,0,0,3,2,0,0,0
+CharmPlain,0,0,0,0,3,0,0
+StonePlain,0,0,0,0,0,2,0

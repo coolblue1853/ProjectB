@@ -18,7 +18,7 @@
 | 7 | maxStack | int | 슬롯당 최대 수량 |
 | 8 | effectOb | string | 소비 효과 키. `"stat sign"`을 `/`로 구분. 키: hp, fullness, stemina, light, def |
 | 9 | effectPow | string | 효과 수치. `/`는 effectOb 순서에 대응, `_`는 보조값(def `5_180` = 수치_초) |
-| 10 | equipArea | string | Weapon/Head/Chest/Leg/Hand/Shoes/Ring/Necklace, 장비가 아니면 `-` |
+| 10 | equipArea | string | Weapon/Head/Chest/Leg/Hand/Shoes/Ring/Necklace, 비외형 장신구 슬롯 `Earring`(10)/`Bracelet`(11)/`Charm`(12)/`Stone`(13)(해금형, `EquipSlotExpansion.md`), 비장착은 `-` 또는 `Etc`(폐기 기념품 260·261). 신규 4슬롯 스탯은 프리팹 없이 `ExtraEquipStats.csv`(name,critical,criticalDmg,attSpeed,moveSpeed,dropRate,def,incDmg) |
 | 11 | tfName | string | **세트 키** 겸 방어구 텍스처 이름 `Resources/Sprite/{tfName}` |
 | 12 | itemNameT | string | 표시 이름 |
 | 13 | tear | int | 티어(전부 0) |

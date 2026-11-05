@@ -12,9 +12,19 @@ public static class ExtraEquip
 {
     static readonly ItemData[] Items = new ItemData[4];
     static int _mask;
+    static readonly object[] StatSources = { new object(), new object(), new object(), new object() };
     static bool _loaded;
 
     public static event Action Changed;
+
+    /// <summary>슬롯별 장착 아이템 보조 스탯을 PlayerStats 에 다시 건다 (R4)</summary>
+    static void ApplyStats()
+    {
+        for (int i = 0; i < Items.Length; i++)
+        {
+            ExtraEquipStats.Apply(StatSources[i], Items[i] == null ? null : Items[i].name);
+        }
+    }
 
     static int Idx(EquipSlot s) => Array.IndexOf(SlotRules.Extras, s);
 
@@ -90,6 +100,7 @@ public static class ExtraEquip
         }
         Save();
         inv.SaveInventory();
+        ApplyStats();
         Changed?.Invoke();
         return true;
     }
@@ -106,6 +117,7 @@ public static class ExtraEquip
         }
         Items[Idx(slot)] = null;
         Save();
+        ApplyStats();
         Changed?.Invoke();
         return true;
     }
@@ -158,6 +170,7 @@ public static class ExtraEquip
             _mask = 0;
             Array.Clear(Items, 0, Items.Length);
         }
+        ApplyStats();
         Changed?.Invoke();
     }
 
@@ -195,7 +208,7 @@ public static class ExtraEquip
 public static class ExtraEquipRewards
 {
     public const string BestiaryEarringMilestone = "B04";
-    static readonly string[] FirstItem = { "TitleWanderer", "AuraFaintGlow", "", "" };
+    static readonly string[] FirstItem = { "EarringPlain", "BraceletPlain", "CharmPlain", "StonePlain" };
 
     public static void OnFloorBossFirstKill(int floor)
     {
