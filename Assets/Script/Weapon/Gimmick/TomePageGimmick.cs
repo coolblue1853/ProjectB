@@ -25,6 +25,6 @@ public class TomePageGimmick : WeaponGimmick
 
     private void OnGUI()
     {
-        GUI.Label(new Rect(20, 120, 220, 24), HudText); // 임시 HUD(그래픽 보류)
+        GimmickHud.Draw(HudText); // 임시 HUD(그래픽 보류, 확정 시 교체)
     }
 }
