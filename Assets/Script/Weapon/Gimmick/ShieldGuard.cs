@@ -9,9 +9,27 @@ public class ShieldGuard : WeaponGimmick, IGuardSource
 {
     private InputAction _guardAction;
     private CounterBuff _counter;
+    private readonly GuardState _state = new GuardState();
 
     /// <summary>지금 방어 중인가</summary>
-    public bool Holding => _guardAction != null && _guardAction.IsPressed();
+    public bool Holding => _state.Holding;
+
+    /// <summary>마지막 판정 결과(반사 피해 연결용)</summary>
+    public GuardOutcome LastOutcome { get; private set; }
+
+    private void Update()
+    {
+        bool pressed = _guardAction != null && _guardAction.IsPressed();
+        if (pressed)
+        {
+            _state.Press();
+            _state.Tick(Time.deltaTime);
+        }
+        else
+        {
+            _state.Release();
+        }
+    }
 
     private void OnEnable()
     {
@@ -32,6 +50,7 @@ public class ShieldGuard : WeaponGimmick, IGuardSource
         {
             _guardAction.Disable();
         }
+        _state.Release();
         if (ReferenceEquals(PlayerGuard.Source, this))
         {
             PlayerGuard.Source = null;
@@ -40,11 +59,14 @@ public class ShieldGuard : WeaponGimmick, IGuardSource
 
     public bool Intercept(ref int damage)
     {
-        if (!Holding || damage <= 0)
+        if (!_state.Holding || damage <= 0)
         {
             return false;
         }
-        damage = GuardRules.Resolve(damage, true);
+        GuardOutcome o = _state.Resolve(damage);
+        LastOutcome = o;
+        damage = o.Taken;
+        PlayerGuard.LastParried = o.Parried;
         if (_counter != null)
         {
             _counter.NotifyBlocked();

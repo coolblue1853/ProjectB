@@ -12,6 +12,9 @@ public static class PlayerGuard
 {
     public static IGuardSource Source { get; set; }
 
+    /// <summary>직전 가로채기가 패링이었는가(PlayerHealthManager 가 짧은 무적·반격 처리)</summary>
+    public static bool LastParried { get; set; }
+
     public static bool TryIntercept(ref int damage)
     {
         return Source != null && Source.Intercept(ref damage);

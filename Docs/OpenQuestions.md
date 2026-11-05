@@ -552,3 +552,7 @@
 ## Q-AUTO16 석궁·투창·마도서 래퍼 (11-05)
 - 석궁/마도서/투창 계열 ItemSheet 무기가 없어(WeaponKind 값만 존재) 래퍼 3개(`AmmoGimmick`·`ThrownSpearGimmick`·`TomePageGimmick`)는 프리팹에 붙이지 않았다. 무기 추가 시 부착.
 - **[임시 가정]** 마도서 장 전환 키 C, 투창 비행 0.4초 뒤 착지. 발사 차단·치명 확정·박힌 창 오브젝트·장별 평타는 Weapon 게이트/그래픽 필요라 후속. HUD는 임시 OnGUI 텍스트(그래픽 보류).
+
+## Q-AUTO17 F2-GUARD 공용 상태 (11-05)
+- **[임시 가정]** 패링 판정창 0.2초(누른 직후), 패링 시 피해 0 + 0.5초 무적, 이후 감쇠 70%, 방벽 최대 3초(초과 시 다시 눌러야 함), 반사는 막은 피해의 비율(`GuardState` 생성자, 방패는 0).
+- 미연결: 반사 피해를 공격자에게 돌리려면 damage2Player 에 공격자 정보가 필요(후속). 현재 `ShieldGuard.LastOutcome.Reflected` 로 노출만. 마법기사 방벽·천칭 장비는 장비 추가 시 `GuardState(감쇠, 반사)`로 부착.

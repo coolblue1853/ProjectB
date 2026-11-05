@@ -349,7 +349,11 @@ public class PlayerHealthManager : MonoBehaviour
             if (guarded)
             {
                 stiffTime = 0f;
-                HitFeedback.SpawnText(_numberPrefab, NumberAnchor(), "GUARD", HitFeedback.TextKind.Block);
+                if (PlayerGuard.LastParried)
+                {
+                    invincibleTime = GuardState.ParryInvuln; // 패링: 짧은 무적 (반격은 CounterBuff)
+                }
+                HitFeedback.SpawnText(_numberPrefab, NumberAnchor(), PlayerGuard.LastParried ? "PARRY" : "GUARD", HitFeedback.TextKind.Block);
             }
             // 대장의 오기 반지: 치사 피해면 HP 1 로 버티고 2초 무적 (재사용 180초, Floor1Completion 15절)
             bool lastStand = AccessoryGimmick.IsEquipped(AccessoryGimmick.LastStandRing)
