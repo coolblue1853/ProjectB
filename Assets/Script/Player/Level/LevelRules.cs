@@ -95,17 +95,15 @@ public static class LevelRules
 
     /// <summary>초보 보호: 이 레벨 이하는 사망 EXP 손실 0 (Q-DEATH 승인안)</summary>
     public const int DeathFreeMaxLevel = 10;
-    /// <summary>보스 전투 중 사망 EXP 손실 %</summary>
-    public const int BossDeathExpLossPercent = 7;
 
-    /// <summary>사망 시 EXP 손실 % : Lv1~10 은 0, 보스 구간은 7, 그 외 5</summary>
+    /// <summary>사망 시 EXP 손실 % : Lv1~10 은 0, 그 외 5 (보스 구분 없음, 결정 11-05). bossFight 는 호출 호환용으로 무시한다.</summary>
     public static int DeathLossPercent(int level, bool bossFight)
     {
         if (level <= DeathFreeMaxLevel)
         {
             return 0;
         }
-        return bossFight ? BossDeathExpLossPercent : DeathExpLossPercent;
+        return DeathExpLossPercent;
     }
 
     /// <summary>사망 페널티: 현재 레벨에서 쌓은 EXP 의 손실% 감소(내림 후 차감), 레벨 다운 없음. 기본값은 일반 5%</summary>

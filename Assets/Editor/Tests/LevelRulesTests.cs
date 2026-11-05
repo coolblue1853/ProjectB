@@ -79,7 +79,7 @@ public class LevelRulesTests
         Assert.AreEqual(1000, LevelRules.ExpAfterDeath(1000, 10, false)); // Lv1~10 면제
         Assert.AreEqual(1000, LevelRules.ExpAfterDeath(1000, 5, true));   // 보스여도 초보 면제
         Assert.AreEqual(950, LevelRules.ExpAfterDeath(1000, 11, false));
-        Assert.AreEqual(930, LevelRules.ExpAfterDeath(1000, 11, true));
+        Assert.AreEqual(950, LevelRules.ExpAfterDeath(1000, 11, true)); // 보스도 5% (결정 11-05)
     }
 
     [Test]

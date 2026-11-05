@@ -214,7 +214,7 @@ public class PlayerHealthManager : MonoBehaviour
     void Die()
     {
         isDead = true;
-        LevelSystem.ApplyDeathPenalty(BgmDirector.BossNearPlayer()); // Lv1~10 0%, 보스 7%, 그 외 5% (레벨 다운 없음)
+        LevelSystem.ApplyDeathPenalty(BgmDirector.BossNearPlayer()); // Lv1~10 0%, 그 외 5% (레벨 다운 없음)
         GameLog.Info(GameLog.Cat.Player, "플레이어 사망 → " + RespawnDelay + "초 뒤 마을 부활");
         Sfx.Play(SfxId.PlayerDeath);
         deathInputLock = PlayerStatus.Acquire(StatusFlag.InputLock, "Death");
