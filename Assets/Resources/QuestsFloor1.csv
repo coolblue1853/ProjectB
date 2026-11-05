@@ -55,7 +55,7 @@ Q701,정예 사냥 5,elder,15,Q610,killElite,*,5,1000,200,Enhance Stone,1,정예
 Q702,세트 3종 착용,smith,15,Q609,equip,sets:3,3,1000,200,Enhance Stone,1,서로 다른 세트 3종을 각 3부위 이상 착용한다.
 Q703,도감 15종,eve,15,Q610,bestiary,any,15,1000,200,Enhance Stone,1,서로 다른 몬스터 15종을 처치해 이브에게 보고한다.
 Q704,문지기 도전 선언,elder,15,Q701,talk,elder,1,1000,200,,,장로에게 문지기 도전을 알린다.
-Q310,심부의 심재,sena,7,Q302,collect,EntHeartwood,5,1200,300,Potion,2,깊은 숲 심부의 엔트에게서 심재 5개를 모아 세나에게 보고한다. 깊은 숲 오른쪽 끝 포털로 들어간다.
+Q310,심부의 포자,sena,7,Q302,kill,DeepSpore_BD,8,1200,300,Potion,2,깊은 숲 심부의 포자버섯 8마리를 처치해 세나에게 보고한다. 깊은 숲 오른쪽 끝 포털로 들어간다.
 Q311,심부의 요정 가루,eve,8,Q304,collect,Fairy Dust,8,1200,300,Potion,2,깊은 숲 심부의 밤 요정에게서 요정 가루 8개를 모아 이브에게 보고한다.
 Q410,안개 속 희귀 어종,sena,10,Q402,collect,Spirit Koi,1,2400,500,Enhance Stone,1,안개 늪 낚시터에서 정령잉어 1마리를 낚아 세나에게 보고한다. 늪 중앙 포털로 들어간다.
 Q411,안개 속 슬라임,eve,11,Q403,collect,Slime Gel,8,2400,500,Enhance Stone,1,안개 늪의 밤 슬라임에게서 슬라임 젤 8개를 모아 이브에게 보고한다.

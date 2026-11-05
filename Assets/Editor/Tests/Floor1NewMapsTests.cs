@@ -22,8 +22,17 @@ public class Floor1NewMapsTests
             NpcQuestDef d = NpcQuestCatalog.Find(id);
             Assert.IsNotNull(d, id);
             exp += d.Exp;
-            Assert.AreEqual(NpcQuestObjective.Collect, d.Objective, id);
-            Assert.IsTrue(items.Contains(d.Target), id + " 수집 " + d.Target);
+            if (id == "Q310")
+            {
+                // Q-A1: Q303 과 목표 중복을 피해 처치 퀘스트로 교체.
+                Assert.AreEqual(NpcQuestObjective.Kill, d.Objective, id);
+                Assert.AreEqual("DeepSpore_BD", d.Target, id);
+            }
+            else
+            {
+                Assert.AreEqual(NpcQuestObjective.Collect, d.Objective, id);
+                Assert.IsTrue(items.Contains(d.Target), id + " 수집 " + d.Target);
+            }
             Assert.IsTrue(items.Contains(d.RewardItem), id + " 보상 " + d.RewardItem);
             Assert.IsNotNull(NpcQuestCatalog.Find(d.Requires), id + " 선행 " + d.Requires);
         }

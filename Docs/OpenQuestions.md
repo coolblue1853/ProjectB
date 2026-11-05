@@ -527,7 +527,7 @@
 - 기타: 사망 배너 tips 예, 퀘스트 창 지역 접기 예.
 
 ## AUTO-1 (11-05) 퀘스트 동종 중복
-- **[임시 가정] Q-A1** Q303(smith, Lv7) 과 Q310(sena, Lv7)이 같은 선행(Q302)·같은 목표(`EntHeartwood` collect)다. 임시로 둘 다 유지(Q310 은 심부 맵 유도용). 후속: Q310 목표를 심부 구역 다른 몹/아이템(예: 심부 몹 처치 N)으로 교체하면 R1 위반 0건. 몹 ID 는 Unity 에서 확인 필요.
+- **[해결 11-05] Q-A1** Q310 목표를 `EntHeartwood` 수집 → 심부 `DeepSpore_BD`(포자버섯, Lv1_DeepForestCore Shroom1 스폰) 8마리 처치로 교체(이름 "심부의 포자"). Q303 과 목표 중복 해소. DataIntegrityTests·Floor1NewMapsTests 13건 통과(NewMapsTests 의 Q310 기대값도 Kill 로 수정).
 
 ## AUTO-8 (11-05) 2층계 데이터 초안 — `Docs/Floor2Data/`
 - **[임시 가정] Q-F2D1** 4기사 중간보스 HP = 평균 HP×12(합 4×12=48 ≈ 단장 ×30의 1.6배). 기사단장 28,500 은 §3.2 표대로. 난이도 확인 후 조정.
