@@ -559,3 +559,7 @@
 
 ## Q-AUTO12 몹 디버프 (11-05)
 - **[임시 가정]** 석화 끝난 뒤 3초 재석화 면역, 화상 = 공격력 15% ×4틱(1초 간격), 저항은 `StaggerResist`(보스는 Snare 가 막음). 둔화는 강한 배율·긴 시간 유지(중첩 곱 없음). 호출처(F2 몹·무기 스킬)는 장비/몹 추가 시 `EnemyHealth.ApplySlow/ApplyPetrify/ApplyBurn` 호출.
+
+## Q-AUTO13 적 대상 지속 피해 장판 (11-05)
+- **[임시 가정]** 기본 3초·0.5초 간격·첫 틱 0.2초 뒤, 틱 피해는 `onlyDamage2Enemy`(방어·치명 무시), 선택적으로 둔화(`ApplySlow`) 동반. 모양 없음(그래픽 보류).
+- 미연결: 무기 스킬에서 `EnemyDamageZone.Spawn` 호출, 몹 장판(`SporeCloud`)을 `GroundZoneRules`로 이전(기존 동작 보존 위해 이번엔 미변경).
