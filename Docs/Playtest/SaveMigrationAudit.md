@@ -99,3 +99,7 @@
 - `BossRetry` 손상 문자열(`"abc"`, `"1"`) 파싱.
 - `ArtifactId` 정수 값 고정(`HealingDew` 등).
 - `saveVersion` 없는 파일 로드 후 1 기록.
+
+## 9차 반영 (11-05, AUTO-105)
+- ✅ §5 #1~5·#8 (AUTO-100 9aaedfd1, AUTO-101 8c06d65d): `LoadOr` 기본값+경고, 저장 차단 호출부 `LoadOrThrow`, `ArtifactId` 값·`BountyState`/`Datas` 필드명 고정, `BossRetry.ParseKills`.
+- 남음: #6 공유 설정 파일 분리 결정, #7 saveVersion 분기 훅, #9 인벤·상자 키 점검(미확인).

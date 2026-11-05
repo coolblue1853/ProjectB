@@ -124,3 +124,7 @@
 기믹 HUD 3종 P1(`AmmoGimmick`·`ThrownSpearGimmick`·`TomePageGimmick`)을 `Loc.T/F` 로 교체, `LocUi.cs` 12키 추가 + `sync_i2_terms` 반영. 남은 P1: `PlayerHealthManager.cs:379`(`Survived!`)·`DropManager.cs:173`(`Plunder! x{0}`) — 호출부 파일 3개 한도로 다음 큐. P2·P3 미착수.
 
 11-05 AUTO-91·92: `Survived!`·`Plunder! x{0}` Loc 적용(LocUi 2키, I2 831항). 남은 P1 0건. P2·P3 미착수.
+
+## 9차 반영 (11-05, AUTO-105)
+- ✅ AUTO-91 `Survived!`(7cdc0009), AUTO-92 `Plunder!`(74c11477): Loc P1 남은 0건. 석궁/투창/마도서 HUD 키는 기존 Loc 처리.
+- 후속: P2/P3 한국어 전용 대사·창 문자열은 그대로(그래픽·사용자 검토 제외).

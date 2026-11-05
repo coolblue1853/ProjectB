@@ -473,3 +473,6 @@ HP·방어는 Floor1Balance §8 기준. 효과 단계 2/4/6은 `SetItem.csv`(Out
 7. ✅ FJ-7 단검·창 등 "△" 타입 기믹 필요성 판정(`WeaponReview.md`). 완료: 문서 판정표.
 
 구현 기록(11-05 AUTO-86): FJ-1 `ItemSheet` 313~315(`SentryCrossbow`·`HuntersJavelin`·`FairysGrimoire`; 268 이상은 Floor2 초안 id 와 겹쳐 313부터). FJ-2 호스트 프리팹 복제(스탯·아이콘은 임시, 아이콘 없음). FJ-3 `MonsterExtraDrops` 2%(BanditSentry·ForestHunter·VineFairy). FJ-4 `ThrownSpear.FlightTime`(Ground/Wall 레이캐스트 거리÷속도 18, 사거리 6; `_flightTime` 제거). FJ-5 호스트 부착(BanditShortbow·Wood Spear·FaeWand)은 유지 — 신규 3종과 병존. FJ-7 판정: 단검·창·지팡이 등 △ 타입은 평타 기믹 불필요(스킬·세트로 차별화), 2층계 이후 재검토. FJ-6 ✅ 11-05 AUTO-93: `_fj6_hud.cs` 플레이 확인(석궁 탄 3/3→2/3→1/3→재장전 1.2s→3/3, 마도서 장 불→냉기→번개→불·쿨 3.0s, 한글 Loc 10키 확인) — `Floor1PlayVerify.md` PV13.
+
+### 현황 갱신 (11-05 AUTO-105)
+FJ-1~7 완료 + 313~315 `WeaponType` 열·프리팹 `_kind` 일치(Crossbow/Javelin/Tome, a2bbdb7d), EditMode 데이터 테스트(Floor1NewItemsTests)·경계 테스트 D(BoundaryRulesDTests) 통과. 남은 것은 아이콘·도트(그래픽 제외)와 투창 함정 피해.
