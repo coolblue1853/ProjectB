@@ -46,7 +46,11 @@ public static class ExtraEquipStats
         if (_table == null)
         {
             TextAsset ta = Resources.Load<TextAsset>(CsvName);
-            _table = Parse(ta != null ? ta.text : "");
+            if (ta == null)
+            {
+                return System.Array.Empty<(StatId, float)>(); // 로드 실패는 캐시하지 않는다(다음 호출에 재시도)
+            }
+            _table = Parse(ta.text);
         }
         return itemName != null && _table.TryGetValue(itemName, out var s) ? s : System.Array.Empty<(StatId, float)>();
     }

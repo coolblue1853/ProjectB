@@ -46,4 +46,14 @@ public class ExtraEquipStatsTests
             Assert.IsFalse(SlotRules.IsExtra(s), s.ToString());
         }
     }
+
+    [Test]
+    public void DiscardedArea_Detected()
+    {
+        Assert.IsTrue(ExtraEquip.IsDiscardedArea("Title"));
+        Assert.IsTrue(ExtraEquip.IsDiscardedArea("Aura"));
+        Assert.IsTrue(ExtraEquip.IsDiscardedArea("Cape"));
+        Assert.IsFalse(ExtraEquip.IsDiscardedArea("Earring"));
+        Assert.IsFalse(ExtraEquip.IsDiscardedArea(null));
+    }
 }

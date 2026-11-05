@@ -27,6 +27,13 @@ public static class ExplorerSeal
         AscentLoad.Refresh();
     }
 
+    /// <summary>세이브 초기화 때 호출(현재 호출부 없음 - 초기화 기능 추가 시 연결). 메모리 개수만 0, ES3 키 삭제는 호출 측 몫</summary>
+    public static void ResetCount()
+    {
+        Count = 0;
+        AscentLoad.Refresh();
+    }
+
     /// <summary>인장 1개 획득. 상한이면 false</summary>
     public static bool Grant()
     {

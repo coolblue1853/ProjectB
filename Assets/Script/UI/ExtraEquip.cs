@@ -73,9 +73,20 @@ public static class ExtraEquip
         return Loc.T(s == EquipSlot.Earring ? "EARRING" : s == EquipSlot.Bracelet ? "BRACELET" : s == EquipSlot.Charm ? "CHARM" : "STONE");
     }
 
+    /// <summary>11-05 폐기된 부위 이름(Title·Aura·Cape). 순수 판정</summary>
+    public static bool IsDiscardedArea(string equipArea)
+    {
+        return equipArea == "Title" || equipArea == "Aura" || equipArea == "Cape";
+    }
+
     /// <summary>인벤의 신규 슬롯 장비를 장착한다. 대상 부위가 아니면 false(기본 경로로), 잠금이면 true(처리됨·장착 안 함)</summary>
     public static bool TryHandleEquip(ItemCheck item)
     {
+        if (item != null && item.itemData != null && IsDiscardedArea(item.itemData.equipArea))
+        {
+            GameLog.Info(GameLog.Cat.Item, "폐기된 부위 아이템은 장착 불가: " + item.itemData.equipArea);
+            return true; // 처리됨: 기본 장착 경로로 넘기지 않는다
+        }
         if (item == null || item.itemData == null || !Enum.TryParse(item.itemData.equipArea, out EquipSlot slot) || !SlotRules.IsExtra(slot))
         {
             return false;
