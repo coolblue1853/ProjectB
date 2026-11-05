@@ -355,3 +355,22 @@ PV1~PV9 의 "못 한 것·미연결·미검증" 정리. 예상 사용량: 소=�
 | 웅크림 시작(초) | 0.30 | 4.45 | 8.60 | 12.75 | 16.91 | 21.06 |
 
 - 간격 5개 모두 4.15초 = 웅크림 0.35 + 돌진 0.3 + 쿨 3.5(기대 하한과 일치). 연속 돌진·미발동 없음, 첫 돌진은 `OnEnable` 0.3초 지연 뒤.
+
+### PV13 추가 (AUTO-96, 11-05)
+프로브 `Tools/probes/_nr_full.cs`(→`Logs/nr_full/result.txt`). 세이브 백업→복원·플레이 정지·콘솔 에러 0.
+
+**NightRaid 끝까지 (AUTO-96) 통과** — 밤 전환(`Night()`) 후 SideRoad 에서 `DebugBegin`(오늘 구역은 NormalForest 로 추첨돼 디버그 시작 사용), 스폰 1초 뒤 `ReleaseEnemy(true,true)` 로 처치. Lv9, 게임 시간:
+
+| 시각(초) | 이벤트 | 값 |
+|---|---|---|
+| 0.0 | 시작 | active, wave 1 (SideRoad 2웨이브×4마리) |
+| 1.0 | 첫 스폰 | 시작 후 1초(`_nextSpawn` 1f) |
+| 5.9 / 6.6 | 스폰 #2 / #3 | 간격 0.70 (`SpawnInterval`, Cooldown 교체 후 불변) |
+| 14.3 | 스폰 #4 → 15.3 웨이브 2 | 웨이브 2 첫 스폰 +1.0 |
+| 16.3 / 24.7 / 25.4 | 스폰 #5 / #6 / #7 | #6→#7 간격 0.70 |
+| 34.6 | 종료(Complete) | 처치 7, 최대 동시 2 |
+
+- 보상: 골드 +40, EXP +35, Potion +1 = `Floor1Raids.csv` SideRoad 행과 일치.
+- 종료 후 8초: 신규 스폰 0, raiders 0, alive 0, active=false. `Day()`+시간 진행 후 isDay=true, active=false, raiders 0 (낮 복귀 정상).
+- 이상: 한쪽 지면 없는 곳에서 스폰 실패 8초 대기로 7마리만 스폰, 웨이브 사이 6~8초 정체 → `TechDebt.md` 등재(보상은 정상).
+
