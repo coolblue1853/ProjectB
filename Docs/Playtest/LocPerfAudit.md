@@ -32,9 +32,9 @@
 
 | # | 위치 | 내용 | 비용 판단 |
 |---|---|---|---|
-| 1 | `NpcQuest/NpcQuestTracker.cs:114,123` | `new StringBuilder()` + 문자열 결합 | 매 프레임이면 GC. 갱신 주기 확인 필요 |
-| 2 | `Tracking/NestHuntUI.cs:61,62,83` | `string.Format`·결합 후 `Set(ref last...)` 비교 | 비교 전에 문자열 생성 → 프레임당 GC |
-| 3 | `UI/ItemCheck.cs:169` | `have + "/" + needCount` | 프레임당 GC(UI 열린 동안) |
+| 1 ✅ | `NpcQuest/NpcQuestTracker.cs:114,123` | `new StringBuilder()` + 문자열 결합 | 0.5초 주기였음. 이제 결과 문구가 같으면 TMP 높이 재계산·대입 생략(LP-3) |
+| 2 ✅(습격 구간) | `Tracking/NestHuntUI.cs:61,62,83` | `string.Format`·결합 후 `Set(ref last...)` 비교 | 습격 단계는 차례·남은 수·언어가 같으면 문자열 생성 생략. 추적 단계의 Format/퍼센트 문구는 미적용 |
+| 3 ✅ | `UI/ItemCheck.cs:169` | `have + "/" + needCount` | 이미 `_shownHave/_shownNeed` 숫자 비교 뒤에만 생성(코드 확인) |
 | 4 | `Combat/ContactDamage.cs:107` | 접촉 적마다 `GetComponent<Collider2D>()` | 적 수에 비례 |
 | 5 | `Weapon/SummonRunner.cs:65` | 타격마다 `GetComponent<DamageObject>()` | 소환수 있을 때만 |
 | 6 | `Weapon/OrbitWisps.cs:72` | 타격마다 `GetComponent<DamageObject>()` | 낮음 |
@@ -55,3 +55,26 @@
 
 ## 4. LP-1 적용 (11-05)
 `LocUi` 에 8종 추가(Craft cost·Explorer Seal·잠금 문구 4·슬롯 해금·Trial readiness), `PortalLabel` 키 `건너편`→`Other side`(번역 `건너편`). QuestBoard 조각 키는 동적 키(`"Report to " + ReportTo`)로 표에 전체 문장이 이미 있어 **오탐 → 변경 없음**. 검증: `LocUiKeysTests` + EditMode 741 통과.
+
+## 5. LP-2·LP-3 적용 (11-05)
+`NestHuntUI`·`BestiaryMilestones` 한국어를 `Loc` 키 5종으로 교체(LocUi). §2 #1~3 위 표기. 검증: 컴파일 에러 0 + EditMode 741 통과.
+
+## 5. LP-5 번역 미사용 22종 분류 (11-05, AUTO-37)
+
+방법: `LocTerms`·`LocItems`·`LocUi` 번역 818종을 `Assets/Script`(Localization 제외)+`Assets/Resources/**/*.csv` 에서 문자열 검색 → 22종 미검출(§1-3 의 21종 + `LocUi` 1종 추가분). 이어서 개별 grep(`*.cs`·씬·에셋)으로 사용처 재확인. 코드·CSV 수정 없음. 삭제는 `I2Languages.asset` 재동기화(`sync_i2_terms`)가 필요해 별도 작업.
+
+| # | 키 | 분류 | 근거 |
+|---|---|---|---|
+| 1~4 | Forest Outskirts / Outskirts - Side Road / Village at the Tower's Foot / Undercloud Cliffs | 보존(로드 전용) | 지역명은 `SampleScene.unity`·`I2Languages.asset` 에 문자열로 존재, 표시 때 `Loc` 경유 |
+| 5~6 | Report back to the quest board. / ...the Village Elder. | 보존(동적 키) | `QuestBoard.cs:130` `Loc.T("Report back to " + ReportTo + ".")` |
+| 7~8 | Report to the quest board / ...the Village Elder | 보존(동적 키) | `QuestBoard.cs:131` |
+| 9~10 | ` complete! Report to the quest board.` / `...Village Elder.` | 보존(동적 키) | `QuestBoard.cs:132` |
+| 11~16 | 스토리 대사 6문장(Hunters found...·The crest was carved...·Beyond the swamp...·The same crest...·An armored giant...·It wore his crest...) | 보존(퀘스트 본문) | `Quest/QuestCatalog.cs:99~125` 의 `offer`/`report` 리터럴 |
+| 17 | Crafting material | 보존(오탐) | `Localization/ItemText.cs:46` 에서 사용(검색 범위가 Localization 제외라 누락) |
+| 18 | TrapNormal | 삭제 후보 | 코드·CSV·씬 어디에도 없음 |
+| 19 | Crystal refund on 9 | 삭제 후보 | 사용처 없음 |
+| 20 | HAMMER! | 삭제 후보 | 사용처 없음 |
+| 21 | U / Pad RT: buy back top | 삭제 후보 | `Buyback.cs` 는 `Nothing to buy back` 만 사용, 안내 문구 호출 없음 |
+| 22 | U: buy back last sold item | 삭제 후보 | 위와 동일 |
+
+요약: 보존 17(오탐 1 포함) · 삭제 후보 5 · **번역 누락 0**(반대 방향 누락은 §1-1 LP-1 로 처리 완료). 삭제 후보 5종은 위험이 낮지만 수혜도 작아(문자열 5개) 우선순위 P4, 필요 시 `LocUi.cs` 5행 제거 + `sync_i2_terms` 재실행 + `LocUiKeysTests` 확인.

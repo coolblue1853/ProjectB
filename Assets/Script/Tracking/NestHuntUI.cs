@@ -22,6 +22,9 @@ public class NestHuntUI : MonoBehaviour
     private RectTransform _timeFill;
     private string _lastMessage;
     private string _lastSub;
+    private int _waveShown = -1;   // 습격 문구를 만든 차례·남은 수·언어 — 같으면 문자열을 만들지 않는다(LP-3)
+    private int _aliveShown = -1;
+    private string _langShown;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics()
@@ -55,11 +58,21 @@ public class NestHuntUI : MonoBehaviour
             return;
         }
         NestHuntState s = site.State;
+        if (site.Stage != NestStage.Wave)
+        {
+            _waveShown = -1; // 다른 문구가 덮어쓴 뒤 다시 습격이면 문구를 새로 만든다
+        }
         if (site.Stage == NestStage.Wave)
         {
             _timeTrack.gameObject.SetActive(false);
-            Set(ref _lastMessage, _message, Loc.F("Nest raid wave {0}/{1}", site.Wave, NestHuntRules.Waves));
-            Set(ref _lastSub, _sub, Loc.F("Monsters left: {0} - defeat them all", site.WaveAlive));
+            if (site.Wave != _waveShown || site.WaveAlive != _aliveShown || !ReferenceEquals(Loc.Current, _langShown))
+            {
+                _waveShown = site.Wave;
+                _aliveShown = site.WaveAlive;
+                _langShown = Loc.Current;
+                Set(ref _lastMessage, _message, Loc.F("Nest raid wave {0}/{1}", site.Wave, NestHuntRules.Waves));
+                Set(ref _lastSub, _sub, Loc.F("Monsters left: {0} - defeat them all", site.WaveAlive));
+            }
             return;
         }
         if (site.Stage == NestStage.Elite && !site.ShowResult)

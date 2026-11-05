@@ -11,6 +11,7 @@ public class NpcQuestTracker : MonoBehaviour
     private TextMeshProUGUI _text;
     private GameObject _root;
     private float _nextRefresh;
+    private string _lastText; // 마지막으로 적용한 추적 문구 — 같으면 TMP 높이 재계산을 건너뛴다(LP-3)
     private bool _dirty = true;
     private bool _wasHidden;
 
@@ -96,6 +97,7 @@ public class NpcQuestTracker : MonoBehaviour
             {
                 _root.SetActive(false);
             }
+            _lastText = null;
             HudPolicy.TrackerHeight = 0f;
             return;
         }
@@ -108,6 +110,7 @@ public class NpcQuestTracker : MonoBehaviour
             {
                 _root.SetActive(false);
             }
+            _lastText = null;
             HudPolicy.TrackerHeight = 0f;
             return;
         }
@@ -127,8 +130,14 @@ public class NpcQuestTracker : MonoBehaviour
             }
             sb.Append('\n');
         }
-        _text.text = sb.ToString();
-        float height = _text.GetPreferredValues(_text.text, HudPolicy.ColumnWidth - 20f, 0f).y + 12f;
+        string built = sb.ToString();
+        if (built == _lastText && _root.activeSelf)
+        {
+            return; // 값이 그대로면 텍스트·높이 갱신 생략
+        }
+        _lastText = built;
+        _text.text = built;
+        float height = _text.GetPreferredValues(built, HudPolicy.ColumnWidth - 20f, 0f).y + 12f;
         height = Mathf.Clamp(height, 44f, HudPolicy.TrackerMaxHeight);
         ((RectTransform)_root.transform).sizeDelta = new Vector2(HudPolicy.ColumnWidth, height);
         HudPolicy.TrackerHeight = height;
