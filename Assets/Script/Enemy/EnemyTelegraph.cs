@@ -125,7 +125,7 @@ public class EnemyTelegraph : MonoBehaviour
         groundBar.gameObject.SetActive(true);
         groundBar.DOKill();
         groundBar.color = new Color(1f, 0.1f, 0.05f, 0.1f);
-        groundBar.DOFade(0.55f, BossMarkTime * 0.9f).SetEase(Ease.InQuad).SetLink(groundBar.gameObject);
+        groundBar.DOFade(0.55f, 0.5f).SetEase(Ease.InQuad).SetLink(groundBar.gameObject);
     }
 
     void Update()
@@ -190,6 +190,7 @@ public class EnemyTelegraph : MonoBehaviour
         secondFlashAt = -1f;
         if (mark != null)
         {
+            mark.transform.DOKill();
             mark.gameObject.SetActive(false);
         }
         if (groundBar != null)
