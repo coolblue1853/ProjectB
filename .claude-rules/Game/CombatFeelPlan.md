@@ -133,3 +133,22 @@ CF-1~10 은 모두 코드에 있다(위 상태 열). 남은 비그래픽 중 가
 - 대검·둔기는 2타 콤보(마무리 보정 `FinisherMinSteps` 3 미만이라 2타도 0.40). 단검은 3타 마무리만 0.60.
 - 해석: 비율이 같아도 후딜 총길이가 달라 체감 지연은 단검 0.12초 대 대검·둔기 0.40초(3배). 설계 목표(대검 늦게·단검 빠르게)는 후딜 길이 차로 이미 어느 정도 달성. 값 조정(대검 0.55·단검 0.30)은 사용자 판단 → `OpenQuestions.md` Q-CF12 임시 가정.
 
+
+## 9. 선정 항목: CF-11 잔여분 — 적 히트스톱 강화 (AUTO-113, 11-05 확정, 코드 읽기만·미구현)
+
+CF-11 의 "적 스프라이트 정지"는 이미 코드에 있다: `HitFeedback.OnEnemyHit` → `SpriteHitFx.HitStop(sec)`(Animator.speed 0, 타이머 후 복원, `max` 갱신으로 누적 없음, 전역 timeScale 미사용). 현재 적 정지 `StopBasic 0.06`·`StopSkill 0.06`·치명 `+0.03`, 처치 시 적 정지 없음(디졸브 진행). 공격자 정지는 별도(`BasicStop()` 0.05, 마무리 0.08). 따라서 남은 비그래픽 델타는 **수치 미세 상향 + 마무리 타 구분** 하나다(렌더러 애니 정지만, 그래픽 산출물 없음).
+
+- 파일: `Assets/Script/Combat/Feedback/HitFeedback.cs` 1개만(`SpriteHitFx.cs`·`PlayerController.cs` 수정 없음).
+- 변경:
+  - `StopBasic` 0.06 → **0.07**, `StopSkill` 0.06 → **0.07**, 치명 보너스 `StopCritBonus` 0.03 유지.
+  - 신규 `const float StopFinisher = 0.10f`. `OnEnemyHit` 의 `stop` 계산에서 `!isSkill && IsFinisher()` 이면 `StopBasic` 대신 `StopFinisher` 사용(치명 보너스는 그대로 더함). 기존 `IsFinisher()` 재사용.
+  - 처치(`killed`) 분기·공격자 히트스톱·흔들림 티어·플래시 수치는 건드리지 않는다.
+- 영향 줄: `HitFeedback.cs` 20행(상수)·51~54행(`stop` 계산). 정지 상한: `0.10 + 0.03 = 0.13s` 이하(깜빡임 느낌 방지, 클램프 불필요).
+- 불변 조건: 기본 칼 3타 모션·스미어 v7·`WHit7` 타격 이펙트·`Weapon` 후딜 타이머(DOTween)·`PlayerController.HitStop` 불변. 적 이동·넉백은 그대로(Animator.speed 만 0이라 Rigidbody 는 멈추지 않음). 보스 `isBossMob` 도 동일 수치(별도 가중 없음).
+- 검증:
+  1. 프로브 `Tools/probes/_cf11_stop.cs`(신규, 에디터 플레이 중 `execute_code`): 낮 시간대에 적 1체 스폰 → `HitFeedback.OnEnemyHit(t, false, false, false)` 직접 호출 직후 `animator.speed==0` 확인, 0.08초 후에도 0, 0.3초 후 원래 속도 복원을 로그. 마무리 타는 `Weapon.nowConboCount` 를 마지막 값으로 맞춰 `0.10s` 경계(0.09초 후 0, 0.15초 후 복원) 확인. 치명 호출(`isCrit true`)은 합산 0.10/0.13 확인.
+  2. `Tools/probes/hitfx_all.cs` 재실행: 1층계 활성 몹 19종 전부 정지 확인(회귀).
+  3. 컴파일 0, 기존 EditMode(`CombatRulesTests` 등) 통과. 플레이 연속 캡처는 선택.
+  4. 플레이 못 하면 커밋·문서에 "플레이 미검증".
+- 완료 기준: 위 변경 후 이 절 제목에 ✅, 컴파일 0, 기본 칼 3타·스미어 불변.
+- CF-13(평타→평타 캔슬)은 `ClassicMapleDesign §6` 4~7층계와 묶이므로 이번 선정에서 제외.

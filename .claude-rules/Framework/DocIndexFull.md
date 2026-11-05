@@ -90,6 +90,7 @@
 | `Docs/Balance/Floor2Recalc.md` · `Docs/Balance/Floor2BalanceReview.md` · `Docs/Balance/Floor1FirstHourGear.md` · `Docs/Balance/Floor1HuntingAudit.md` · `Docs/Balance/Floor1HuntingReview.md` | 층계 밸런스 재계산·리뷰·사냥 감사 |
 | `Docs/Research/LevelingVsGear.md` | 레벨링 대 장비 조사 |
 | `Docs/Playtest/SaveMigrationAudit.md` · `Docs/Playtest/LocPerfAudit.md` · `Docs/Playtest/LineageAudit.md` · `Docs/Playtest/InputAudit.md` · `Docs/Playtest/DedupAudit.md` | 세이브 호환·Loc/성능·계보·입력·중복 코드 감사 |
+| `Docs/Playtest/ProbeInventory.md` | 미추적 `_`접두 프로브 전수 표와 유지/통합/삭제 후보 판정(삭제는 사용자 확인 후) |
 | `Docs/Playtest/ReviewCode_1105.md` · `Docs/Playtest/ReviewCode_1105b.md` · `Docs/Playtest/ReviewCode_1105c.md` | 코드 커밋 정적 리뷰(1~8차 큐) |
 | `Docs/Playtest/Floor1PlayVerify.md` · `Docs/Playtest/Floor1Balance.md` · `Docs/Playtest/Floor1Fastest.md` · `Docs/Playtest/Floor1Fullrun.md` · `Docs/Playtest/Floor1ContentList.md` · `Docs/Playtest/Floor1NavReview.md` | 1층계 플레이 검증·밸런스·최단 경로·전체 주행·콘텐츠 목록·길찾기 |
 | `Docs/Playtest/FirstHourChecklist.md` · `Docs/Playtest/FirstHourGuide.md` · `Docs/Playtest/Rehearsal3.md` · `Docs/Playtest/PtBot.md` | 첫 1시간 점검·가이드·리허설·자동 플레이 봇 |

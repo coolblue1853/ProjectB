@@ -81,6 +81,7 @@
 | `Docs/Floor2Data/MigrationPlan.md` *(저장소 루트)* | 2층계 초안 CSV 이행 계획·재대조·롤백 |
 | `Docs/Playtest/LineageAudit.md` *(저장소 루트)* | 계보 장비(몹 스킬↔무기↔세트) 정합 점검과 수정 후보 |
 | `Docs/Playtest/LocPerfAudit.md` *(저장소 루트)* | Loc 누락 문자열·Update 할당/탐색 점검과 수정 후보 |
+| `Docs/Playtest/ProbeInventory.md` *(저장소 루트)* | 미추적 `_`접두 프로브 170개 정리 목록(유지/통합/삭제 후보) |
 | `Docs/Playtest/SaveMigrationAudit.md` *(저장소 루트)* | ES3 키 전수·구세이브 로드 시나리오·예외 처리 위치·필요 테스트 |
 | `Game/Durability.md` | 던파식 내구도·수리 도입 검토(추천: 보류) |
 | `Game/FloorTransition.md` | 층계 전환 규칙: 이동 조건·칭호 부하·포털/귀환·안전지대·구현 갭 FT-* |
