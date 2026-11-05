@@ -6,6 +6,8 @@
 ## 11-05 11차 요약 (AUTO-115)
 - 11차 후보 T11-2 (P3, AUTO-116): `InputBindings.ReservedPaths` 에 기본 패드 키 LS·RS·Select 가 들어 있어, Quick1/Artifact/ArtifactNext 를 바꾼 뒤 그 기본 키를 직접 다시 지정할 수 없음(RESET 으로만 복귀). `Docs/Playtest/InputAudit.md` §9.
 - 11차 후보 T11-3 (P3, AUTO-116): Quick4 패드 기본 미지정, 십자 위/아래도 예약이라 선택지 좁고 화면에 "미지정" 안내 없음.
+- 11차 후보 T11-4 (P3, AUTO-117): 도감·퀘스트 창이 패드 Start 로 닫히지 않음(B 만). 키 설정 창은 Start 로 닫혀 불일치. `InputAudit.md` §10.
+- 11차 후보 T11-5 (P3, AUTO-117): 도감 커서 상/하는 가장자리 고정, 좌/우는 순환 — 방식 불일치(사소).
 - 11차 후보 T11-1 (P2, 수정 금지·점검만): 늪 `Lv1_Swamp`·`Lv1_MistSwamp` 이동 후 스포너 8~9개가 활성인데 몹이 안 나옴(다른 구간은 정상). 프로브 `Tools/f1_fullrun.sh Lv1_Swamp 9 12`. 스포너 조건·좌표 확인 필요.
 
 ## 11-05 9차 요약 (AUTO-105)
