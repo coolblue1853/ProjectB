@@ -109,6 +109,48 @@ public class Floor2DataTests
         Assert.AreEqual("h\na", Floor2Data.MergeRows("h\na", ""));
     }
 
+    [Test]
+    public void MergeRows_UnifiesEol_ToBaseStyle()
+    {
+        Assert.AreEqual("h\r\na\r\nb\r\nc", Floor2Data.MergeRows("h\r\na\r\n", "h\nb\nc\n"));
+        Assert.AreEqual("h\na\nb", Floor2Data.MergeRows("h\na", "h\r\nb"));
+    }
+
+    [Test]
+    public void MergeRows_RejectsMismatchedHeaderOrder()
+    {
+        UnityEngine.TestTools.LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex("헤더 열 순서 불일치"));
+        Assert.AreEqual("a,b\n1,2", Floor2Data.MergeRows("a,b\n1,2", "b,a\n3,4"));
+    }
+
+    [Test]
+    public void MergeRows_AcceptsHeaderBehindTypeRow()
+    {
+        Assert.AreEqual("int,string\nid,name\n1,x\n2,y", Floor2Data.MergeRows("int,string\nid,name\n1,x", "id,name\n2,y"));
+    }
+
+    [Test]
+    public void RealHeaders_MatchBase()
+    {
+        foreach (var (b, p) in new[] { ("MonsterSheet", "Floor2Monsters"), ("ItemSheet", "Floor2ItemSheet"), ("SetItem", "Floor2SetItem"), ("MonsterExtraDrops", "Floor2ExtraDrops") })
+        {
+            string head = Resources.Load<TextAsset>("Floor2Preview/" + p).text.TrimStart('﻿').Replace("\r", "").Split('\n')[0];
+            Assert.IsTrue(Floor2Data.HeaderMatches(Raw(b), head), b);
+        }
+    }
+
+    [Test]
+    public void ProductionCode_NeverEnablesSwitch()
+    {
+        foreach (string f in System.IO.Directory.GetFiles(Application.dataPath + "/Script", "*.cs", System.IO.SearchOption.AllDirectories))
+        {
+            if (System.IO.Path.GetFileName(f) != "Floor2Data.cs")
+            {
+                StringAssert.DoesNotContain("Floor2Data.Enabled = true", System.IO.File.ReadAllText(f), f);
+            }
+        }
+    }
+
     private static void AssertUnique(string text, int col, int skip)
     {
         var seen = new HashSet<string>();

@@ -23,7 +23,11 @@ public static class Floor2Data
         return Enabled ? MergeRows(baseText, PreviewText(previewName)) : baseText;
     }
 
-    /// <summary>순수 규칙: 초안 머리글 1행을 버리고 데이터 행을 baseText 끝에 이어 붙인다(테스트용으로 공개).</summary>
+    /// <summary>
+    /// 순수 규칙: 초안 머리글 1행을 버리고 데이터 행을 baseText 끝에 이어 붙인다(테스트용으로 공개).
+    /// 초안 머리글이 baseText 앞 3줄(타입 행 포함) 중 어느 것과도 열 순서까지 같지 않으면 병합을 거절하고 baseText 를 그대로 돌려준다.
+    /// 줄바꿈은 baseText 가 CRLF 면 CRLF, 아니면 LF 로 통일한다.
+    /// </summary>
     public static string MergeRows(string baseText, string previewText)
     {
         if (string.IsNullOrEmpty(previewText))
@@ -31,15 +35,36 @@ public static class Floor2Data
             return baseText;
         }
         string[] lines = previewText.Replace("\r", "").TrimStart('\uFEFF').Split('\n');
+        if (!HeaderMatches(baseText, lines[0]))
+        {
+            Debug.LogError("[Floor2Data] 헤더 열 순서 불일치 - 병합 거절: " + lines[0]);
+            return baseText;
+        }
+        string eol = baseText.Contains("\r\n") ? "\r\n" : "\n";
         var sb = new StringBuilder(baseText.TrimEnd('\r', '\n'));
         for (int i = 1; i < lines.Length; i++)
         {
             if (!string.IsNullOrWhiteSpace(lines[i]))
             {
-                sb.Append('\n').Append(lines[i]);
+                sb.Append(eol).Append(lines[i]);
             }
         }
         return sb.ToString();
+    }
+
+    /// <summary>초안 머리글이 baseText 앞 3줄 중 하나와 동일한가(열 이름·순서)</summary>
+    public static bool HeaderMatches(string baseText, string previewHeader)
+    {
+        string want = previewHeader.Replace("\r", "").Trim('\uFEFF', ' ');
+        string[] head = baseText.TrimStart('\uFEFF').Split('\n');
+        for (int i = 0; i < head.Length && i < 3; i++)
+        {
+            if (head[i].Replace("\r", "").Trim() == want)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static string PreviewText(string previewName)
