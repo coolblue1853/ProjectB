@@ -22,6 +22,8 @@ public class BossReward : ScriptableObject
     public int grantsRank;
     [Tooltip("첫 처치 시 해금되는 아티팩트")]
     public ArtifactId firstKillArtifact;
+    [Tooltip("첫 처치 시 탐사 인장 +1 (상승 저항 +3, FT-SEAL). 2층계 구역 보스 ②③④")]
+    public bool grantsSeal;
 }
 
 /// <summary>보스 고유템 천장 판정 (순수 — 테스트 대상)</summary>
@@ -93,6 +95,10 @@ public static class BossLoot
             ES3.Save(firstKey, true);
             ArtifactSystem.Unlock(r.firstKillArtifact);
             ExtraEquipRewards.OnFloorBossFirstKill(r.grantsRank); // 신규 장비 슬롯 해금 (SLOT-3)
+            if (r.grantsSeal && ExplorerSeal.Grant())
+            {
+                PickupLog.Report(Loc.F("Explorer Seal acquired ({0}/{1})", ExplorerSeal.Count, ExplorerSeal.MaxSeals), 1, "U");
+            }
             GameLog.Info(GameLog.Cat.Item, "보스 첫 처치 보너스: " + bossName + " 강화석 +" + r.firstKillStones);
         }
         for (int i = 0; i < stones; i++)

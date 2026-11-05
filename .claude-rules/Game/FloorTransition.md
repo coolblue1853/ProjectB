@@ -40,12 +40,12 @@
 
 | ID | 갭 | 크기 | 비고 |
 |---|---|---|---|
-| FT-GATE-2F | 2층계 구역 간 보스 처치 봉인(②→③→④→⑤)을 둘지 결정 후 `PortalSeal` 적용 | 소 | 임시 가정 = 자유 통행. 결정은 `OpenQuestions.md` |
-| FT-SEAL | 탐사 인장 `explorer.seals` + `AscentRes` 효과 키(§3.3) | 중 | ES3 추가만. 부족분 ③ 15·④ 20·⑤ 30 완화 |
+| FT-GATE-2F | 2층계 구역 간 보스 처치 봉인(②→③→④→⑤)을 둘지 결정 후 `PortalSeal` 적용 | 소 | **보류(11-05)**: 임시 가정 = 자유 통행 유지. 인장·상승 부하가 진행을 막으므로 별도 봉인 불필요. 2층계 맵·보스가 생기면 `PortalSeal` 한 줄 추가 |
+| FT-SEAL | ✅ 탐사 인장 `explorer.seals` + `AscentRes` 효과 키(§3.3) | 중 | 11-05 구현: `ExplorerSeal`(+3씩·상한 12, ES3 추가만), `BossReward.grantsSeal`(첫 처치), `AscentLoad.GearResist`/`SetGearResist`(세트 효과 연결은 2층계 세트 구현 때). 2층계 보스 프리팹에 `grantsSeal` 켜기는 보스 구현 때 |
 | FT-GATE-3F | ⑤ 용 처치 → 3층계 `TowerGatePortal` + 칭호 3 이전(Abyss Wizard 임시 보상 제거) | 중 | 용·3층계 맵 필요 → 맵 이후 |
-| FT-RESPAWN | 층계별 거점(마을 외 부활·귀환 지점)이 필요한지 판단, 필요 시 거점 포털 | 중 | 2층계 길이에 따라. 기본은 마을 고정 유지 |
-| FT-BOSSROOM | 보스방 입장 보호·보스 도중 귀환 주문서 제한 규칙 | 소 | `RecallCast` 취소 조건 확장 |
+| FT-RESPAWN | 층계별 거점(마을 외 부활·귀환 지점)이 필요한지 판단, 필요 시 거점 포털 | 중 | **보류(11-05)**: 마을 고정 유지. 2층계 5구역 길이 실측 후 재판단 |
+| FT-BOSSROOM | ✅(부분) 보스방 입장 보호·보스 도중 귀환 주문서 제한 규칙 | 소 | 11-05: 살아 있는 보스 30유닛 안이면 `RecallCast.Begin` 거부(`RecallRules.BlockedByBoss`). 입장 보호는 기존 포털 도착 무적 2초가 대신(PV5). 보스 도중 포털 이용은 허용 유지. 게임 내 보스 앞 확인은 미검증 |
 
 ## 6. 세이브 필드 (추가만, 이름 변경 금지)
 
-기존: `explorer.rank` · `bossFirstKill.<보스>` · `bossSinceUnique.<보스>`(천장 카운터) · `glide.unlocked` · `forge.unlock` · `forge.pity` · 현재 위치(`SavePos`). 신규 후보는 `explorer.seals`(FT-SEAL)만. 층계 전환은 새 키 없이 `bossFirstKill` 로 판정한다.
+기존: `explorer.rank` · `bossFirstKill.<보스>` · `bossSinceUnique.<보스>`(천장 카운터) · `glide.unlocked` · `forge.unlock` · `forge.pity` · 현재 위치(`SavePos`). `explorer.seals`(FT-SEAL, 인장 개수 int, 구현됨)이 추가됐다. 층계 전환은 새 키 없이 `bossFirstKill` 로 판정한다.

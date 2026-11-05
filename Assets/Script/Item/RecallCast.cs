@@ -14,6 +14,13 @@ public static class RecallRules
     public static bool Completed(float elapsed) => elapsed >= CastSeconds;
 
     /// <summary>시전 취소 여부: 피격(HP 감소)·이동·사망</summary>
+    /// <summary>보스가 이 거리(월드 단위) 안에 살아 있으면 귀환 주문서를 쓸 수 없다(FT-BOSSROOM)</summary>
+    public const float BossBlockRange = 30f;
+
+    /// <summary>nearestBossDist: 살아 있는 보스까지의 최단 거리(없으면 음수 또는 큰 값)</summary>
+    public static bool BlockedByBoss(float nearestBossDist)
+        => nearestBossDist >= 0f && nearestBossDist <= BossBlockRange;
+
     public static bool ShouldCancel(bool hit, bool moved, bool dead) => hit || moved || dead;
 }
 
@@ -58,6 +65,11 @@ public sealed class RecallCast : MonoBehaviour
         {
             return false;
         }
+        if (RecallRules.BlockedByBoss(NearestBossDistance(PlayerController.instance.transform.position)))
+        {
+            PickupLog.Notice("보스가 가까워 귀환할 수 없다");
+            return false;
+        }
         if (_instance == null)
         {
             var go = new GameObject("[RecallCast]");
@@ -66,6 +78,25 @@ public sealed class RecallCast : MonoBehaviour
         }
         _instance.StartCast(itemName, hp);
         return true;
+    }
+
+    /// <summary>살아 있는 보스까지 최단 거리. 없으면 -1</summary>
+    private static float NearestBossDistance(Vector3 from)
+    {
+        float best = -1f;
+        foreach (EnemyHealth e in EnemyHealth.Active)
+        {
+            if (e == null || !e.isBossMob || e.nowHP <= 0 || !e.isActiveAndEnabled)
+            {
+                continue;
+            }
+            float d = Vector2.Distance(from, e.transform.position);
+            if (best < 0f || d < best)
+            {
+                best = d;
+            }
+        }
+        return best;
     }
 
     public static void Cancel(string reason)

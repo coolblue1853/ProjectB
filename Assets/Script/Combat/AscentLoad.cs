@@ -15,9 +15,12 @@ public static class AscentLoad
 
     public static int CurrentLoad { get; private set; }
     public static int Rank { get; private set; }
-    public static int Resistance => Resist(Rank);
+    /// <summary>저항 = 칭호 + 탐사 인장(+3씩) + 장비 상승 저항(AscentRes, 세트 효과가 SetGearResist 로 넣음)</summary>
+    public static int Resistance => Resist(Rank) + ExplorerSeal.Bonus + GearResist;
+    /// <summary>장비 세트 '상승 저항' 합(FT-SEAL). 세트 효과 연결 전에는 0</summary>
+    public static int GearResist { get; private set; }
     /// <summary>부족분. 요리 버프(상승 부하 저항)가 있으면 맵 부하의 일정 %만큼 줄어든다</summary>
-    public static int Deficit => Mathf.Max(0, DeficitOf(CurrentLoad, Rank) - FoodBuff.AscentReduction(CurrentLoad));
+    public static int Deficit => Mathf.Max(0, DeficitOf(CurrentLoad, Rank, ExplorerSeal.Bonus + GearResist) - FoodBuff.AscentReduction(CurrentLoad));
 
     public static event System.Action Changed;
 
@@ -26,6 +29,7 @@ public static class AscentLoad
     {
         CurrentLoad = 0;
         Rank = 0;
+        GearResist = 0;
         Changed = null;
     }
 
@@ -47,6 +51,12 @@ public static class AscentLoad
     {
         CurrentLoad = Mathf.Max(0, load);
         GameLog.Info(GameLog.Cat.Map, "상승 부하 " + CurrentLoad + " / 저항 " + Resistance + " (부족 " + Deficit + ")");
+        Changed?.Invoke();
+    }
+
+    public static void SetGearResist(int value)
+    {
+        GearResist = Mathf.Max(0, value);
         Changed?.Invoke();
     }
 
@@ -81,6 +91,7 @@ public static class AscentLoad
     // ── 순수 계산 ──
     public static int Resist(int rank) => Mathf.Clamp(rank, 0, MaxRank) * ResistPerRank;
     public static int DeficitOf(int load, int rank) => Mathf.Max(0, load - Resist(rank));
+    public static int DeficitOf(int load, int rank, int bonusResist) => Mathf.Max(0, load - Resist(rank) - Mathf.Max(0, bonusResist));
     public static float OutgoingMul(int deficit) => Mathf.Max(MinOutgoing, 1f - PenaltyPerPoint * deficit);
     public static float IncomingMul(int deficit) => 1f + PenaltyPerPoint * deficit;
 
