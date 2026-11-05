@@ -538,3 +538,6 @@
 ## Q-AUTO6 방패 CounterBuff 수치 (11-05)
 - **[임시 가정]** 홀드 방어 성공 후 3초간 공격 피해 +20%, 재방어 시 시간만 갱신(중첩 없음). `Floor1Completion.md`·`WeaponTypes.md` 에 수치가 없어 가정. 값은 `CounterBuffRules` 상수.
 - 미연결: 막기 성공 판정 훅이 코드에 없어 `CounterBuff.NotifyBlocked()` 호출부와 방패 프리팹 부착은 후속(ShellShield·RaiderBuckler·MonolithShield).
+
+## Q-FT1 층계 전환 (11-05, AUTO-18)
+- **[임시 가정]** 2층계 ①~⑤ 구역 간 포털은 자유 통행(보스 처치 봉인 없음), 부활·귀환은 마을 고정. 봉인을 두려면 FT-GATE-2F, 층계별 거점은 FT-RESPAWN (`Game/FloorTransition.md` §5).
