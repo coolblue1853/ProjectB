@@ -1252,6 +1252,10 @@ public class InventoryManager : MonoBehaviour
     /// <summary>현재 페이지만 정렬하고 저장한다</summary>
     public void SortCurrentPage()
     {
+        if (InventoryFilterView.Current != InventoryFilter.All) // 필터 중 정렬 금지(INV-FILTER)
+        {
+            return;
+        }
         Service.SortPage(nowBox);
         SaveInventory();
         Sfx.Play(SfxId.UiMove);
