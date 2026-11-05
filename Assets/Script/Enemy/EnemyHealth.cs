@@ -196,9 +196,10 @@ public class EnemyHealth : PoolAble
     float _moveMul, _knockbackMul, _jumpMul;
     bool _sturdy; // trait sturdy = 경직 저항 50%
     TempMobDash _dash;
+    readonly MobDebuffRules _debuff = new MobDebuffRules(); // 런타임 디버프(둔화·석화 연쇄 제한, F2-DEBUFF)
 
     /// <summary>추적·순찰 이동 배율(임시 몹 특성 slow·dash). 기존 몹은 1</summary>
-    public float MoveSpeedMul => (_moveMul > 0f ? _moveMul : 1f) * (_dash != null ? _dash.ChaseMul : 1f);
+    public float MoveSpeedMul => (_moveMul > 0f ? _moveMul : 1f) * (_dash != null ? _dash.ChaseMul : 1f) * _debuff.SlowMul;
     /// <summary>넉백 힘 배율(heavy 0.5). 기존 몹은 1</summary>
     public float KnockbackMul => _knockbackMul > 0f ? _knockbackMul : 1f;
     /// <summary>경직 저항 0~1(보스 0.6·sturdy 0.5·정예 0.3 중 최대, 던파식 경직 수치 정리). 슈퍼아머 몹은 경직 자체가 없다</summary>
@@ -328,6 +329,7 @@ public class EnemyHealth : PoolAble
         isStun = false; // 덫·경직 중 반환된 채 재사용 방지
         _staggerChain = 0;
         _lastStaggerAt = -10f;
+        _debuff.Clear();
         if (hpBar != null)
             hpBar.setHpBar(this);
     }
@@ -589,6 +591,29 @@ public class EnemyHealth : PoolAble
         {
             stiffShakeTime -= Time.deltaTime;
         }
+        _debuff.Tick(Time.deltaTime);
+    }
+
+    /// <summary>시간제한 둔화(덩굴 묶기 등). 순찰·추적이 MoveSpeedMul 로 같은 값을 읽는다</summary>
+    public void ApplySlow(float mul, float seconds)
+    {
+        _debuff.ApplySlow(mul, seconds);
+    }
+
+    /// <summary>석화 = 경직(Snare 재사용). 보스 제외, 정예·저항 반영, 끝난 뒤 면역 시간 동안 연쇄 불가</summary>
+    public void ApplyPetrify(float seconds)
+    {
+        float actual = _debuff.TryPetrify(seconds, StaggerResist, Time.time);
+        if (actual > 0f)
+        {
+            Snare(actual);
+        }
+    }
+
+    /// <summary>화상 = 독 틱 재사용(표시만 BURN). attackPower 는 시전자 공격력</summary>
+    public void ApplyBurn(int attackPower)
+    {
+        CreatPoisonPrefab(MobDebuffRules.BurnDamage(attackPower), MobDebuffRules.BurnInterval, MobDebuffRules.BurnCount, "BURN");
     }
 
     public float maxXSpeed =10f; // x축 넉백 속도 상한
@@ -664,14 +689,14 @@ public class EnemyHealth : PoolAble
     public GameObject poisonPrefab;
     public GameObject bleedingPrefab;
 
-    public void CreatPoisonPrefab(int poisonDamage, float damageInterval,int damageCount)
+    public void CreatPoisonPrefab(int poisonDamage, float damageInterval,int damageCount, string label = "POISON")
     {
         if (this.gameObject != null)
         {
             StatusTint.Ensure(gameObject);
             if (GetComponentInChildren<PosionAttack>() == null)
             {
-                HitFeedback.SpawnText(damageNumber, transform.position + Vector3.up, "POISON", HitFeedback.TextKind.Status); // 새로 걸릴 때만
+                HitFeedback.SpawnText(damageNumber, transform.position + Vector3.up, label, HitFeedback.TextKind.Status); // 새로 걸릴 때만
             }
             GameObject poisonObject = Instantiate(poisonPrefab, transform.position, transform.rotation, this.transform);
             PosionAttack posionAttack = poisonObject.GetComponent<PosionAttack>();
