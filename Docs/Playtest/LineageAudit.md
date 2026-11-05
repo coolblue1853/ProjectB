@@ -35,13 +35,13 @@
 
 ## 3. 불일치 · 공백 목록
 
-| ID | 내용 | 영향 |
-|---|---|---|
-| L1 | 문서 공백: `LineageGear.md` 에 Cliff·Wolf·Wisp·Grove·Fae 5세트의 몹 스킬 열이 없음(§1~3 은 ④~⑥구역만) | 규칙 대조 불가, 값은 무기·세트 키 일치 |
-| L2 | 비계보 무기 5종(TwinFang·GnarledClub·VineLash·HuntersLongbow·WoodcuttersAxe)이 세트 키(tfName)를 갖지만 세트 4세트 coolDown 에 스킬 없음 | 세트 수 카운트 포함 여부 확인 필요, 쿨감 혜택 없음 |
-| L3 | 초안 Garden·Order·Drake 의 S 슬롯 스킬(덩굴 묶기·패링·방벽·꼬리 독침)이 세트 4세트 키에 없음 | 세트 4 쿨감이 일부 스킬만 적용 |
-| L4 | 초안 스킬 키가 `Floor2Plan.md` §5 에는 한글 설명뿐 — 영문 키 표 없음 | 프리팹 제작 때 이름 어긋날 위험 |
-| L5 | 문서의 Petal Pincer S "방어 자세(Shell Guard)" 는 ShellShield 쪽에만 존재(PetalPincer 는 Shell_Back) | 문서 표현 불일치(기능 영향 없음) |
+| ID | 내용 | 영향 | 상태 |
+|---|---|---|---|
+| L1 | 문서 공백: `LineageGear.md` 에 Cliff·Wolf·Wisp·Grove·Fae 5세트의 몹 스킬 열이 없음(§1~3 은 ④~⑥구역만) | 규칙 대조 불가, 값은 무기·세트 키 일치 | ✅ `LineageGear.md` §7 (AUTO-36 확인) |
+| L2 | 비계보 무기 5종(TwinFang·GnarledClub·VineLash·HuntersLongbow·WoodcuttersAxe)이 세트 키(tfName)를 갖지만 세트 4세트 coolDown 에 스킬 없음 | 세트 수 카운트 포함 여부 확인 필요, 쿨감 혜택 없음 | 임시 가정 유지(LA-2, AUTO-35 확인 대기) |
+| L3 | 초안 Garden·Order·Drake 의 S 슬롯 스킬(덩굴 묶기·패링·방벽·꼬리 독침)이 세트 4세트 키에 없음 | 세트 4 쿨감이 일부 스킬만 적용 | ✅ 임시 가정 Q-LA3: S 슬롯은 쿨감 제외, `Floor2Plan.md` §5.6 에 명시 (AUTO-36) |
+| L4 | 초안 스킬 키가 `Floor2Plan.md` §5 에는 한글 설명뿐 — 영문 키 표 없음 | 프리팹 제작 때 이름 어긋날 위험 | ✅ `Floor2Plan.md` §5.6 |
+| L5 | 문서의 Petal Pincer S "방어 자세(Shell Guard)" 는 ShellShield 쪽에만 존재(PetalPincer 는 Shell_Back) | 문서 표현 불일치(기능 영향 없음) | ✅ `LineageGear.md` §1 Shell_Back (AUTO-36 확인) |
 
 ## 4. 수정 후보 큐 ID
 
