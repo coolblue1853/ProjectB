@@ -1386,7 +1386,7 @@ public class InventoryManager : MonoBehaviour
         DebugSpawnKeys(); // F1~F6 테스트 아이템 생성은 에디터·개발 빌드에만(B-021)
 #endif
 
-        if (openInventoryAction.triggered)
+        if (openInventoryAction.triggered && !PadFieldInput.StartChordThisFrame) // LT+START = 지도(AUTO-49)
         {
             if (inventory.activeSelf == true && ShopGameObject.activeSelf == false)
             {

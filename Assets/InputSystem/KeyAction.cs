@@ -1383,6 +1383,17 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""action"": ""PortalOn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a5af9b7-9e7a-4ba3-8073-2e92676d86fb"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PortalOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }

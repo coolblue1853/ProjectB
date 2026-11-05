@@ -104,8 +104,10 @@ public class NpcQuestWindow : MonoBehaviour
     private void Update()
     {
         Keyboard kb = Keyboard.current;
-        Gamepad pad = Gamepad.current;
-        bool pressed = (kb != null && kb.jKey.wasPressedThisFrame) || (pad != null && pad.rightStickButton.wasPressedThisFrame);
+        PadFieldInput.Refresh();
+        // 패드는 SELECT 길게(0.8초). R3 는 아티팩트 사용과 겹쳐서 뺐다(AUTO-49). 눌린 순간 UI 가 열려 있었으면(인벤 프리셋 저장 등) 무시
+        bool padHold = PadFieldInput.Select == PadGesture.Hold && (_open || !PadFieldInput.SelectInUi);
+        bool pressed = (kb != null && kb.jKey.wasPressedThisFrame) || padHold;
         if (pressed && (_open || !DatabaseManager.isOpenUI))
         {
             Toggle();

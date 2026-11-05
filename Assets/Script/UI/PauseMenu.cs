@@ -59,7 +59,7 @@ public class PauseMenu : MonoBehaviour
     {
         UiLock.CaptureBackFrame();
         Keyboard kb = Keyboard.current;
-        bool esc = (kb != null && kb.escapeKey.wasPressedThisFrame) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame);
+        bool esc = (kb != null && kb.escapeKey.wasPressedThisFrame) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame && !PadFieldInput.StartChordThisFrame); // LT+START = 지도(AUTO-49)
         if (!open)
         {
             if (!DatabaseManager.isOpenUI && UiLock.TryBack(null, esc))

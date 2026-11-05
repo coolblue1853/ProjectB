@@ -132,11 +132,15 @@ public class ArtifactSystem : MonoBehaviour
 
     void Update()
     {
+        PadFieldInput.Refresh();
         if (DatabaseManager.isOpenUI)
         {
             return;
         }
-        if (action.Player.ArtifactNext.WasPressedThisFrame())
+        // 패드 SELECT 는 짧게 뗄 때만 교체(길게 = 퀘스트 창, AUTO-49). 키보드 Tab 은 누르는 즉시
+        bool padNext = PadFieldInput.Select == PadGesture.Tap && !PadFieldInput.SelectInUi;
+        bool keyNext = action.Player.ArtifactNext.WasPressedThisFrame() && !PadFieldInput.IsFromGamepad(action.Player.ArtifactNext);
+        if (keyNext || padNext)
         {
             CycleEquipped();
         }

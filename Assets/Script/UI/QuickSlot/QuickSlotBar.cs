@@ -98,11 +98,24 @@ public class QuickSlotBar : MonoBehaviour
 
     private void Update()
     {
+        PadFieldInput.Refresh();
         for (int i = 0; i < QuickSlotModel.SlotCount; i++)
         {
-            if (_keys[i].WasPressedThisFrame())
+            // 패드 L3 는 짧게 = 1번, 길게 = 4번이라 누르는 즉시 반응하지 않고 아래 제스처로 처리한다(AUTO-49)
+            if (_keys[i].WasPressedThisFrame() && !(i == 0 && PadFieldInput.IsFromGamepad(_keys[i])))
             {
                 OnKey(i);
+            }
+        }
+        if (!PadFieldInput.L3InUi)
+        {
+            if (PadFieldInput.L3 == PadGesture.Tap)
+            {
+                OnKey(0);
+            }
+            else if (PadFieldInput.L3 == PadGesture.Hold)
+            {
+                OnKey(PadFieldInputRules.Quick4Slot);
             }
         }
         UpdateVisibility();

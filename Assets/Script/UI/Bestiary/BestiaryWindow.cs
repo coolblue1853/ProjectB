@@ -78,7 +78,8 @@ public class BestiaryWindow : MonoBehaviour
     void Update()
     {
         Keyboard kb = Keyboard.current;
-        if (kb != null && kb.bKey.wasPressedThisFrame && (open || !DatabaseManager.isOpenUI))
+        PadFieldInput.Refresh();
+        if (((kb != null && kb.bKey.wasPressedThisFrame) || PadFieldInput.LtSelect) && (open || !DatabaseManager.isOpenUI))
         {
             Toggle();
             return;

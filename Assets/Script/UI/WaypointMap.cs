@@ -106,7 +106,8 @@ public class WaypointMap : MonoBehaviour
     void Update()
     {
         Keyboard kb = Keyboard.current;
-        if (kb != null && kb.mKey.wasPressedThisFrame && (open || !DatabaseManager.isOpenUI))
+        PadFieldInput.Refresh();
+        if (((kb != null && kb.mKey.wasPressedThisFrame) || PadFieldInput.LtStart) && (open || !DatabaseManager.isOpenUI))
         {
             if (open) Close(); else Open();
             return;
