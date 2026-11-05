@@ -577,3 +577,9 @@
 
 ## Q-INPUT 패드 조작 충돌 (11-05, AUTO-40)
 - **[임시 가정 INPUT]** `Docs/Playtest/InputAudit.md` §3. 방패 방어 패드 LT 가 SkillS 와 겹침 → 방패 장착 중 SkillS 패드 바인딩 비활성(LT 방어 우선). R3 중복(아티팩트·퀘스트·핀)은 퀘스트 창을 Select 길게로 이동 제안. 도감·지도·미니맵은 LT+Select·LT+Start·LT+L3 제안. 구현은 보류(문서만).
+
+## Q-F2R 2층계 재계산 조정안 채택 (11-05, AUTO-57·58) — `Docs/Balance/Floor2Recalc.md` §8~9
+- **[임시 가정 F2R-2]** §6 #2 밤 몹 EXP 70%(Moon Moth 276·Citadel Bat 326·Ember Spirit 384, Wraith Knight 465 유지): 채택. 적용은 TTK 프로브 후. 수치 수정 없음.
+- **[임시 가정 F2R-3]** §6 #3 일부 몹 HP -10~15%: 보류. 레벨 보너스 반영 시 TTK 초과 5건 중 4건이 대역 안이라 실측 먼저.
+- **[임시 가정 F2R-4]** §6 #4 보스 EXP 2배: 보류. Knight Commander TTK 가 초당 타수 2.0 이면 대역 밖(659초), 2.5 면 안이라 실측 콤보 속도 확정 뒤 판단.
+- **[임시 가정 F2R-5]** 밤 몹 무기 드롭(Wraith 0.02, Bat·Ember 0.01) 후보 3종은 설계 목록만. CSV 추가는 무기 구현 큐와 함께.

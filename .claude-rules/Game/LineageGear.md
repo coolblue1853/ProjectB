@@ -84,3 +84,5 @@ Lv1~12 보상 무기 6종·3세트(Pack Hunter·Ancient Grove·Bog Stalker)의 �
 | Night Lantern(`WispArmor`) | 도깨비불·껍질 | WispLantern: Wisp_Bolt·Ghostlight_Ring / ShellShield: Shell_Guard |
 | Ancient Grove(`GroveArmor`) | 곰·엔트 | BearClaw: Mauling_Rush / RootStaff: Ancient_Roots |
 | Will-o'-Fae(`FaeArmor`) | 요정 | PhantomScythe: Phantom_Glide / FaeWand: Fairy_Dust_Bolt |
+
+> 2층계 밤 몹(Wraith Knight·Citadel Bat·Ember Spirit)도 계보 규칙상 무기 후보가 있다(재료 전용 유지, 설계 목록만). `Docs/Balance/Floor2Recalc.md` §9.1.
