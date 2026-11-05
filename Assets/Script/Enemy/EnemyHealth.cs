@@ -638,10 +638,18 @@ public class EnemyHealth : PoolAble
         }
     }
 
-    /// <summary>화상 = 독 틱 재사용(표시만 BURN). attackPower 는 시전자 공격력</summary>
+    PosionAttack _burn;
+
+    /// <summary>화상 = 독 틱 재사용(표시만 BURN). attackPower 는 시전자 공격력. 중첩 금지: 재적용은 기존 틱을 갱신(리뷰 #4)</summary>
     public void ApplyBurn(int attackPower)
     {
-        CreatPoisonPrefab(MobDebuffRules.BurnDamage(attackPower), MobDebuffRules.BurnInterval, MobDebuffRules.BurnCount, "BURN");
+        int dmg = MobDebuffRules.BurnDamage(attackPower);
+        if (_burn != null)
+        {
+            _burn.ActivePoison(dmg, MobDebuffRules.BurnInterval, MobDebuffRules.BurnCount);
+            return;
+        }
+        _burn = CreatPoisonPrefab(dmg, MobDebuffRules.BurnInterval, MobDebuffRules.BurnCount, "BURN");
     }
 
     public float maxXSpeed =10f; // x축 넉백 속도 상한
@@ -717,8 +725,9 @@ public class EnemyHealth : PoolAble
     public GameObject poisonPrefab;
     public GameObject bleedingPrefab;
 
-    public void CreatPoisonPrefab(int poisonDamage, float damageInterval,int damageCount, string label = "POISON")
+    public PosionAttack CreatPoisonPrefab(int poisonDamage, float damageInterval,int damageCount, string label = "POISON")
     {
+        PosionAttack posionAttack = null;
         if (this.gameObject != null)
         {
             StatusTint.Ensure(gameObject);
@@ -727,10 +736,11 @@ public class EnemyHealth : PoolAble
                 HitFeedback.SpawnText(damageNumber, transform.position + Vector3.up, label, HitFeedback.TextKind.Status); // 새로 걸릴 때만
             }
             GameObject poisonObject = Instantiate(poisonPrefab, transform.position, transform.rotation, this.transform);
-            PosionAttack posionAttack = poisonObject.GetComponent<PosionAttack>();
+            posionAttack = poisonObject.GetComponent<PosionAttack>();
             posionAttack.enemyHealth = this.GetComponent<EnemyHealth>();
             posionAttack.ActivePoison(poisonDamage, damageInterval, damageCount);
         }
+        return posionAttack;
     }
     public void CreatBleedingPrefab(int bleedingDamage, float bleedingDamageInterval, int bleedingDamageCount)
     {
