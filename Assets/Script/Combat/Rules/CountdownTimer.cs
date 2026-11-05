@@ -11,7 +11,7 @@ public struct CountdownTimer
     /// <summary>남은 시간을 seconds 로 덮어쓴다(재시작).</summary>
     public void Start(float seconds)
     {
-        _remaining = seconds;
+        _remaining = seconds > 0f ? seconds : 0f;
     }
 
     /// <summary>남은 시간과 seconds 중 큰 값 유지(짧게 연장해도 줄지 않음).</summary>

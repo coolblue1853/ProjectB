@@ -55,4 +55,16 @@ public class CountdownTimerTests
         t.Clear();
         Assert.IsFalse(t.Active);
     }
+
+    [Test] public void Start_NegativeOrZero_RemainingNotNegative()
+    {
+        var t = new CountdownTimer();
+        t.Start(-2f);
+        Assert.AreEqual(0f, t.Remaining, 1e-4f);
+        Assert.IsFalse(t.Active);
+        t.Start(0f);
+        Assert.AreEqual(0f, t.Remaining, 1e-4f);
+        t.Start(2f);
+        Assert.AreEqual(2f, t.Remaining, 1e-4f);
+    }
 }

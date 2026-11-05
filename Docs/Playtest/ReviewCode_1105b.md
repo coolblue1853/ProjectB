@@ -17,7 +17,7 @@
 6. `Assets/Script/Player/AttackManager.cs`(방패 장착 중 LT 억제) — 방패를 장착했지만 방어를 못 하는 상태(쿨다운 등)에도 LT 로 SkillS 를 못 쓴다. 재현: 방패 장착 + 패드 + SkillS 사용 시 항상. 의도(LT = 방어 전용)와 일치하나 `InputAudit` P1 의 "방패 없을 때 SkillS 동시 발동" 은 그대로. 대안: 의도 확인용 한 줄만 문서화.
 7. `Assets/Script/DB/SaveUtil.cs` 전체 — `ES3.KeyExists` 후 `ES3.Load<T>` 라 키는 있으나 형식이 달라진 저장(예: `ArtifactId` enum 값 변경, int→다른 형)은 예외를 그대로 던진다. 기존 삼항도 동일했으므로 회귀는 아님. 호출부 5곳(`BossRetry`·`TreasureCache`·`ArtifactSystem`·`BossReward`·`ForgeState`)의 키 이름·반환 기본값은 diff 상 불변 확인. 대안: 주석에 "예외는 호출부 책임" 명시, `ExtraEquip` 식 try/catch 가 필요한 곳은 적용 제외(AUTO-68 지시와 일치).
 8. `Assets/Script/Floor1Extra/TreasureCache.cs` `SaveUtil.LoadOr(SaveKey, new List<string>())` — 키가 있어도 기본 리스트를 매번 할당한다. 호출은 로드 시 1회라 영향 작음. 대안: 없음(참고 수준).
-9. `Assets/Script/Combat/Rules/CountdownTimer.cs:Start` — `Start(seconds)` 가 음수·0 을 그대로 대입한다. `Active` 는 false 지만 `Remaining` 이 음수로 노출되어(`CounterBuff`·`MobReflect` HUD가 Remaining 을 쓰면) 음수 표시 가능. 현재 호출은 `Duration`(양수)뿐. 대안: Start 에서 `Mathf.Max(0f, seconds)`. `Tick` 은 dt<=0 이어도 감소 후 0 하한이라 경계(정확히 0)는 안전.
+9. ✅(AUTO-81 해소: Start 음수→0) `Assets/Script/Combat/Rules/CountdownTimer.cs:Start` — `Start(seconds)` 가 음수·0 을 그대로 대입한다. `Active` 는 false 지만 `Remaining` 이 음수로 노출되어(`CounterBuff`·`MobReflect` HUD가 Remaining 을 쓰면) 음수 표시 가능. 현재 호출은 `Duration`(양수)뿐. 대안: Start 에서 `Mathf.Max(0f, seconds)`. `Tick` 은 dt<=0 이어도 감소 후 0 하한이라 경계(정확히 0)는 안전.
 
 ### [참고]
 
