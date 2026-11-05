@@ -1,4 +1,4 @@
-// AUTO-94: 투창 착지 판정 — 바닥(열린 지면)/벽(사거리 안)/허공(공중)/사거리 밖 벽 4경우. ClearDistance·_flight·실제 착지 시각 → Logs/fj_spear/result.txt. 플레이 모드, 세이브는 호출자가 백업/복원
+// AUTO-94/110(함정 생성·소멸·상한 3 추가): 투창 착지 판정 — 바닥(열린 지면)/벽(사거리 안)/허공(공중)/사거리 밖 벽 4경우. ClearDistance·_flight·실제 착지 시각 → Logs/fj_spear/result.txt. 플레이 모드, 세이브는 호출자가 백업/복원
 var inv = InventoryManager.instance; var box = inv.equipBox[7].GetComponent<EquipBoxCheck>(); var am = UnityEngine.Object.FindFirstObjectByType<AttackManager>(); var db = DatabaseManager.instance; var pc = PlayerController.instance;
 var sb = new System.Text.StringBuilder();
 if (am != null && am.equipWeapon != null) { am.UnEquipMainWeaopon(); am.equipWeapon = null; }
@@ -37,7 +37,7 @@ System.Action<string, Vector3, bool> cas = (label, pos, air) => {
   float fl = (float)typeof(ThrownSpearGimmick).GetField("_flight", bf).GetValue(tg); float expect = ThrownSpear.FlightTime(clear, 6f, 18f);
   float dir = root.localScale.x < 0f ? -1f : 1f; throwT = Time.time; landT = -1f; tracking = true;
   sb.AppendLine(label + " pos=" + root.position.ToString("0.00") + " clear=" + clear.ToString("0.000") + " expectFlight=" + expect.ToString("0.000") + " _flight=" + fl.ToString("0.000") + " landingPoint~" + (root.position + new Vector3(dir * Mathf.Min(clear, 6f), 0f, 0f)).ToString("0.00") + " hud " + before + "->" + tg.HudText); };
-System.Action<string> res = (label) => { sb.AppendLine(label + " landDt=" + (landT < 0 ? "none" : (landT - throwT).ToString("0.000")) + " state=" + tg.Spear.Current + " trap=" + tg.Spear.TrapActive + " pos(now)=" + tg.transform.root.position.ToString("0.00")); tracking = false; tg.Retrieve(); };
+System.Action<string> res = (label) => { sb.AppendLine(label + " landDt=" + (landT < 0 ? "none" : (landT - throwT).ToString("0.000")) + " state=" + tg.Spear.Current + " trap=" + tg.Spear.TrapActive + " pos(now)=" + tg.transform.root.position.ToString("0.00") + " | traps live=" + SpearTrap.LiveCount + " " + string.Join(",", System.Linq.Enumerable.Select(UnityEngine.Object.FindObjectsByType<SpearTrap>(FindObjectsSortMode.None), t => t.transform.position.ToString("0.0") + "@expire+" + (t.ExpireTime - Time.time).ToString("0.0")))); tracking = false; tg.Retrieve(); };
 add(0.1f, () => { cas("CASE1 ground-open", hasOpen ? openPos : home, false); });
 add(1.2f, () => res("CASE1"));
 add(0.3f, () => { if (hasWall) cas("CASE2 wall-in-range", wallPos, false); else sb.AppendLine("CASE2 skipped (no wall found)"); });
@@ -46,6 +46,7 @@ add(0.3f, () => { cas("CASE3 air", hasOpen ? openPos : home, true); });
 add(1.2f, () => res("CASE3"));
 add(0.3f, () => { if (hasFar) cas("CASE4 wall-beyond-range(9)", farPos, false); });
 add(1.2f, () => { if (hasFar) res("CASE4"); var f = GameObject.Find("TmpFarWall"); if (f != null) UnityEngine.Object.Destroy(f); tg.transform.root.position = home; var rbe = tg.transform.root.GetComponent<Rigidbody2D>(); if (rbe != null) rbe.bodyType = RigidbodyType2D.Dynamic; });
+add(5f, () => { sb.AppendLine("after 5s traps live=" + SpearTrap.LiveCount + " activeObjs=" + UnityEngine.Object.FindObjectsByType<SpearTrap>(FindObjectsSortMode.None).Length); });
 int si = 0; float due = Time.time;
 UnityEditor.EditorApplication.CallbackFunction upd = null;
 upd = () => { try {
