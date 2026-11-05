@@ -19,6 +19,19 @@
 | 시스템 | 사망·마을 부활, 세이브 슬롯·백업, 일시정지·설정(음량·흔들림·번쩍임·언어) | `DB/SaveSlots.cs`, `UI/PauseMenu.cs`, `UI/GameSettings.cs` |
 | 채집 | 돌·나무·약초 채집물(파괴 오브젝트) → 제작 재료 | EnemySpec, ItemSpec 5절 |
 
+**11-05 현행화 — §2~§18 에서 구현된 기능 요약(위 표에 없던 것):**
+
+| 영역 | 기능 | 절 |
+|---|---|---|
+| 조작 | 퀵슬롯 1~4 + 공유 쿨다운, 키 설정(리바인딩), 게임패드 기본 키 | §3·§5·§14 |
+| 편의 | 줍기 자석·필터, 비교 패널, 제작 재료 핀, 분해, 장비 프리셋, 상점 되사기, 자가 제작·물고기 요리 | §4·§6~§8·§10~§12 |
+| 지도 | 미니맵(`MinimapMath`), 층계 지도, 웨이포인트 | §9 |
+| 슬롯 | 가방 확장(25→125칸, 층계 상한), 비외형 장신구 슬롯(귀걸이·팔찌·부적·마법석, 층계별 해금) | `EquipSlotExpansion.md`, `BagExpansion.csv` |
+| 안내 | 첫 경험 힌트(`FirstHints`)·퀘스트/사망 배너·구역 배너(튜토리얼 역할) | 첫 경험 안내 절 |
+| 설정 | 음량·흔들림·번쩍임·언어·HINTS, 키 설정 | §5, `GameSettings` |
+
+EditMode 테스트 공백 점검(11-05): 세트 판정 `SetBonusAndEquipmentTests`(14)·`SetEffectApplierTests`(5), 인벤토리 스택 `SlotContainerTests`(24)·`InventoryConvenienceTests`(10)·`ChestTransferTests`·`SaveMapperTests` 가 이미 있어 신규 테스트 불필요.
+
 ## 2. 기본인데 없는 것 (우선순위)
 
 | 순위 | 기능 | 참고 게임 | 내용 | 상태 |
