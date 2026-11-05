@@ -119,3 +119,22 @@ UI 탐색은 방향키/십자/스틱 → UI 맵 4방향 + `verticalCheck`·`hori
 - ✅ IN-2 LT+R3 중복(AUTO-64, 7b674773): 보기 필터 LT+RT 로 이동, RT 단독 3곳(Buyback·ChestConvenience·GearPresets) LT 가드. ReviewCode_1105b [필수] 2건 모두 해소.
 - ✅ IN-1 십자 이동 옵션(AUTO-65, 기본 OFF). P10 해소.
 - 남음: P6(미니맵 LT+L3), P11(키 설정 재지정 확대), 퀘스트 창 Enter 접기 문구 불일치(PV11, 후속 AUTO 후보). 실기 패드는 여전히 미검증(가상 패드만).
+
+## 9. 키 설정 UI 점검 (AUTO-116, 11-05)
+프로브 `Tools/probes/_keybind_ui.cs`(+임시 보조 호출), 로그 `Logs/keybind_ui.log`(gitignore). 플레이 모드에서 `InputBindings` API 직접 호출(실제 키·패드 입력 주입은 안 함, 창 입력 경로는 코드 읽기). 설정 파일 `SaveFile.es3` 백업(`Logs/cfbk`)·복원, 플레이 정지, 콘솔 에러 0.
+
+| 항목 | 결과 | 관찰 |
+|---|---|---|
+| 모든 액션 행 열거 | 합격 | 14 액션(Jump Dash Run Attack SkillA/S/D/F Quick1~4 Artifact ArtifactNext) + RESET + BACK = 16행. 키보드·패드 표시 전부 출력. Quick4 패드만 "-"(기본 미지정) |
+| 충돌 재바인딩 | 합격 | Jump 에 Dash 키 지정 -> `Swapped`(Dash 에 Jump 의 이전 키). 교환형이라 경고 없이 바뀜(표시 갱신) |
+| 고정/예약 키 | 합격 | Esc·M·패드 Start·이동 키(←) -> `Reserved`("That key is reserved" 경고) |
+| 필수 액션 미지정 방지 | 합격 | 빈/null 경로·없는 액션 -> `Invalid`, 키 제거 수단 없음(미지정 불가) |
+| 저장 후 재로드 | 합격 | Commit 후 `settings.bindings` JSON 281자 저장, 새 `KeyAction` 에 로드하면 Jump=F9 로 일치 |
+| 기본값 복원 | 합격 | `ResetToDefaults` 후 14 액션 키보드·패드 표시가 최초와 전부 일치, 저장 JSON 길이 0(오버라이드 삭제) |
+| 패드로 행 이동 | 합격(코드·바인딩) | UI 액션 Up/Down/Left/Right = 십자 + 왼스틱, Select = 패드 A(buttonSouth)·Z. 행 이동은 위아래 순환, 좌우는 키보드/패드 열 전환 |
+| 패드로 재바인딩 진입 | 합격 | `BeginRebind(Attack, 패드)` 진입 후 대기 true, 취소 시 대기 false·값 유지. 코드상 취소 키 = 패드 Start(키보드 Esc), 제한시간 8초 후 자동 취소 |
+| 패드로 창 닫기 | 합격(코드) | Esc 또는 패드 Start -> `UiLock.TryBack` -> 닫기. 실제 Start 입력 주입은 미확인 |
+| 기본 패드 키로 되돌리기 | **불합격** | LS(Quick1)·RS(Artifact)·Select(ArtifactNext)가 `ReservedPaths` 에 있어 다른 키로 바꾼 뒤 이 기본 키를 직접 다시 지정하면 `Reserved`. RESET TO DEFAULTS 로만 복귀 |
+| Quick4 패드 키 | **불합격(약함)** | 기본 미지정이고 십자 위/아래도 `Reserved`(UI 이동용). 선택지가 face 버튼·트리거뿐이며 지정 시 다른 액션과 교환됨 |
+
+- 후속: TechDebt T11-2(예약 목록에 든 기본 패드 키 재지정 불가), T11-3(Quick4 패드 미지정 안내 없음). 수정 금지 범위라 등록만.

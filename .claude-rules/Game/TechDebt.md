@@ -4,6 +4,8 @@
 > 수정하면 상태를 ✅로 바꾸고 커밋 해시와 **검증 방법**(에디터 플레이·프로브)을 적는다.
 
 ## 11-05 11차 요약 (AUTO-115)
+- 11차 후보 T11-2 (P3, AUTO-116): `InputBindings.ReservedPaths` 에 기본 패드 키 LS·RS·Select 가 들어 있어, Quick1/Artifact/ArtifactNext 를 바꾼 뒤 그 기본 키를 직접 다시 지정할 수 없음(RESET 으로만 복귀). `Docs/Playtest/InputAudit.md` §9.
+- 11차 후보 T11-3 (P3, AUTO-116): Quick4 패드 기본 미지정, 십자 위/아래도 예약이라 선택지 좁고 화면에 "미지정" 안내 없음.
 - 11차 후보 T11-1 (P2, 수정 금지·점검만): 늪 `Lv1_Swamp`·`Lv1_MistSwamp` 이동 후 스포너 8~9개가 활성인데 몹이 안 나옴(다른 구간은 정상). 프로브 `Tools/f1_fullrun.sh Lv1_Swamp 9 12`. 스포너 조건·좌표 확인 필요.
 
 ## 11-05 9차 요약 (AUTO-105)
