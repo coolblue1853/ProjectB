@@ -534,3 +534,7 @@
 - **[임시 가정] Q-F2D2** 레전더리 등급 키가 없어 `Cloudsea Breath` 를 `U` 로 둔다. 등급 `L` 신설 여부는 별도 판단.
 - **[임시 가정] Q-F2D3** 접촉 피해·EXP·레벨은 ② 값에서 T당 외삽(레벨 +1, EXP ×1.18, 접촉 +3). 실제 밸런스는 플레이 검증 후.
 - **[임시 가정] Q-F2D4** 부위 방어 수치·무기 피해 범위는 ItemSheet 가 아니라 프리팹/세트 데이터에 있어 이 초안에 없음. §3.2 (세트 부위 방어 합 216/228/240, 무기 30/32.5/35)를 구현 시 적용.
+
+## Q-AUTO6 방패 CounterBuff 수치 (11-05)
+- **[임시 가정]** 홀드 방어 성공 후 3초간 공격 피해 +20%, 재방어 시 시간만 갱신(중첩 없음). `Floor1Completion.md`·`WeaponTypes.md` 에 수치가 없어 가정. 값은 `CounterBuffRules` 상수.
+- 미연결: 막기 성공 판정 훅이 코드에 없어 `CounterBuff.NotifyBlocked()` 호출부와 방패 프리팹 부착은 후속(ShellShield·RaiderBuckler·MonolithShield).
