@@ -129,8 +129,18 @@ public static class BossRetry
         {
             return 0;
         }
-        string[] p = ES3.Load<string>(Key(boss)).Split(':');
-        return p.Length == 2 && int.TryParse(p[0], out int day) && int.TryParse(p[1], out int n) && day == Floor1Clock.Day ? n : 0;
+        return ParseKills(SaveUtil.LoadOr<string>(Key(boss), null), Floor1Clock.Day);
+    }
+
+    /// <summary>"날짜:횟수" 파싱. null·길이 불일치·숫자 아님·다른 날 → 0 (손상 문자열 방어)</summary>
+    public static int ParseKills(string raw, int today)
+    {
+        if (string.IsNullOrEmpty(raw))
+        {
+            return 0;
+        }
+        string[] p = raw.Split(':');
+        return p.Length == 2 && int.TryParse(p[0], out int day) && int.TryParse(p[1], out int n) && day == today && n > 0 ? n : 0;
     }
 
     public static void Record(string boss)

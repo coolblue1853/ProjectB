@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>아티팩트 종류 (TowerWorld.md 5절 — Shift 액티브 아이템)</summary>
+/// <remarks>세이브(ES3 artifact.unlocked/equipped)가 정수 값으로 저장된다. 순서 변경·중간 삽입 금지, 새 값은 맨 뒤에만 추가(SaveCompatTests 가 값 고정).</remarks>
 public enum ArtifactId { None, HealingDew, GuardianShell, Hourglass, StarBurst }
 
 /// <summary>

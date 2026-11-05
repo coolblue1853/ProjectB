@@ -78,14 +78,14 @@
 
 ## 5. 위험 항목별 수정 후보 (건별 1줄)
 
-1. `SaveUtil.LoadOr` 형식 불일치 예외: `LoadOr` 내부 try/catch 후 기본값 반환 + 경고 로그(저장 차단이 필요한 호출부는 별도 `TryLoad`).
-2. `SlotRules.cs:94` try/catch 밖 `LoadOr`: `ExtraEquip` 처럼 감싸거나 1번으로 해결.
-3. `artifact.unlocked/equipped` enum 의존: `ArtifactId` 에 "순서 변경 금지, 맨 뒤 추가" 주석 + 값 고정 테스트.
-4. `Floor1Extra/BossRetry` `Split(':')` 파싱: 길이 확인 후 기본값.
-5. `BountyState` 등 클래스 직렬화: 필드 이름 고정 목록을 `SaveCompatTests.KeyNames_StillInSource` 에 추가.
+1. ✅(AUTO-100) `SaveUtil.LoadOr` 형식 불일치 예외: `LoadOr` 내부 try/catch 후 기본값 반환 + 경고 로그(저장 차단이 필요한 호출부는 별도 `TryLoad`).
+2. ✅(AUTO-100: 이미 try/catch 안, 저장 차단 호출부는 `LoadOrThrow`) `SlotRules.cs:94` try/catch 밖 `LoadOr`: `ExtraEquip` 처럼 감싸거나 1번으로 해결.
+3. ✅(AUTO-101) `artifact.unlocked/equipped` enum 의존: `ArtifactId` 에 "순서 변경 금지, 맨 뒤 추가" 주석 + 값 고정 테스트.
+4. ✅(AUTO-101, `ParseKills`) `Floor1Extra/BossRetry` `Split(':')` 파싱: 길이 확인 후 기본값.
+5. ✅(AUTO-101, `SerializedClasses_FieldNamesFixed`) `BountyState` 등 클래스 직렬화: 필드 이름 고정 목록을 `SaveCompatTests.KeyNames_StillInSource` 에 추가.
 6. 공유 설정 파일 = 슬롯1 파일: 설정을 별도 `Settings.es3` 로 분리하는 안과 현행 유지 결정(OpenQuestions 후보).
 7. `saveVersion` 은 기록만 하고 분기가 없음: 첫 비호환 변경 때 `if version < N` 마이그레이션 훅 추가.
-8. `GameSettings` `pickup` int→enum: 범위 밖 값 Clamp.
+8. ✅(AUTO-100: 기존 `Enum.IsDefined` 가드 확인) `GameSettings` `pickup` int→enum: 범위 밖 값 Clamp.
 9. 인벤·상자 저장: 키·타입 표 추가 점검(미확인).
 
 ## 6. 필요 테스트 목록

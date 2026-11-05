@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -63,5 +63,45 @@ public class SaveCompatTests
     {
         Assert.AreEqual(0, ExplorerSeal.BonusOf(0)); // 인장 없음 = 저항 보너스 0
         Assert.AreEqual(25, BagExpansionRules.Clamp(0)); // 가방 키 없음 = 시작 칸
+    }
+
+    [Test]
+    public void ArtifactId_ValuesFixed()
+    {
+        Assert.AreEqual(0, (int)ArtifactId.None);
+        Assert.AreEqual(1, (int)ArtifactId.HealingDew);
+        Assert.AreEqual(2, (int)ArtifactId.GuardianShell);
+        Assert.AreEqual(3, (int)ArtifactId.Hourglass);
+        Assert.AreEqual(4, (int)ArtifactId.StarBurst);
+    }
+
+    [Test]
+    public void BossRetry_ParseKills_BadStrings()
+    {
+        Assert.AreEqual(3, BossRetry.ParseKills("5:3", 5));
+        Assert.AreEqual(0, BossRetry.ParseKills("4:3", 5)); // 다른 날
+        Assert.AreEqual(0, BossRetry.ParseKills(null, 5));
+        Assert.AreEqual(0, BossRetry.ParseKills("", 5));
+        Assert.AreEqual(0, BossRetry.ParseKills("abc", 5));
+        Assert.AreEqual(0, BossRetry.ParseKills("1", 5));
+        Assert.AreEqual(0, BossRetry.ParseKills("5:x", 5));
+        Assert.AreEqual(0, BossRetry.ParseKills("5:3:1", 5));
+        Assert.AreEqual(0, BossRetry.ParseKills("5:-2", 5));
+    }
+
+    [Test]
+    public void SerializedClasses_FieldNamesFixed()
+    {
+        AssertFields(typeof(BountyState), "Day", "Offered", "Done", "Active", "Progress");
+        AssertFields(typeof(Datas), "money", "level", "exp", "mapName", "playerPos", "camPos", "time",
+            "invenItem", "chestItem", "bagUnlocked", "inventoryFlags", "chestFlags", "equipmentFlags", "equipGear");
+    }
+
+    static void AssertFields(System.Type t, params string[] names)
+    {
+        foreach (string n in names)
+        {
+            Assert.IsNotNull(t.GetField(n), t.Name + "." + n + " 필드 사라짐/이름 변경(세이브 값 유실)");
+        }
     }
 }
