@@ -268,3 +268,6 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 265,BraceletSwift,Equip,Bracelet. Attack Speed +3% and Move Speed +2%.,600,1,Boss,1,-,0,Bracelet,,Swift Bracelet,0,R,0,,,
 266,CharmPlain,Equip,Charm. Drop Rate +3%.,150,1,quest,1,-,0,Charm,,Plain Charm,0,C,0,,,
 267,StonePlain,Equip,Stone. Defense +2.,150,1,Boss,1,-,0,Stone,,Plain Stone,0,C,0,,,
+313,SentryCrossbow,Equip,equipment,500,2,-,1,-,0,Weapon,,Sentry Crossbow,0,R,0,,Bow,
+314,HuntersJavelin,Equip,equipment,500,2,-,1,-,0,Weapon,,Hunters Javelin,0,R,0,,Spear,
+315,FairysGrimoire,Equip,equipment,500,2,-,1,-,0,Weapon,,Fairys Grimoire,0,R,0,,Staff,

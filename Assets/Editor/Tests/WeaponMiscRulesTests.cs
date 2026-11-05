@@ -39,6 +39,14 @@ public class WeaponMiscRulesTests
         Assert.IsTrue(s.CanThrow);
     }
 
+    [Test] public void Spear_FlightTime_ClampsToRangeAndWall()
+    {
+        Assert.AreEqual(0.5f, ThrownSpear.FlightTime(20f, 9f, 18f), 0.001f); // 사거리 제한
+        Assert.AreEqual(0.25f, ThrownSpear.FlightTime(4.5f, 9f, 18f), 0.001f); // 벽에 막힘
+        Assert.AreEqual(0f, ThrownSpear.FlightTime(5f, 9f, 0f));
+        Assert.AreEqual(0f, ThrownSpear.FlightTime(-1f, 9f, 18f));
+    }
+
     [Test] public void Spear_RetrieveClearsTrap()
     {
         var s = new ThrownSpear();

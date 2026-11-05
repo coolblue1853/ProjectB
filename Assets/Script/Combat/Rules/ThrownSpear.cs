@@ -7,6 +7,16 @@ public sealed class ThrownSpear
 
     public enum State { InHand, InFlight, Planted }
 
+    /// <summary>비행 시간 = min(막힌 거리, 사거리) / 속도. 속도 0 이하면 즉시 착지(0).</summary>
+    public static float FlightTime(float clearDistance, float range, float speed)
+    {
+        if (speed <= 0f)
+        {
+            return 0f;
+        }
+        return Mathf.Max(0f, Mathf.Min(clearDistance, range)) / speed;
+    }
+
     private State _state = State.InHand;
     private CountdownTimer _trap;
 

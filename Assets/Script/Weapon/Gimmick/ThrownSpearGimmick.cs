@@ -6,7 +6,8 @@
 /// </summary>
 public class ThrownSpearGimmick : WeaponGimmick
 {
-    [SerializeField] private float _flightTime = 0.4f; // 임시 비행 시간(착지 판정 후속)
+    [SerializeField] private float _throwRange = 6f;   // 최대 사거리
+    [SerializeField] private float _throwSpeed = 18f;  // 비행 속도(유닛/초)
 
     private readonly ThrownSpear _spear = new ThrownSpear();
     private float _flight;
@@ -31,8 +32,18 @@ public class ThrownSpearGimmick : WeaponGimmick
     {
         if (_spear.Throw())
         {
-            _flight = _flightTime;
+            _flight = ThrownSpear.FlightTime(ClearDistance(), _throwRange, _throwSpeed);
         }
+    }
+
+    /// <summary>던지는 방향으로 Ground/Wall 에 막힐 때까지의 거리(없으면 사거리)</summary>
+    private float ClearDistance()
+    {
+        Transform player = transform.root;
+        Vector2 dir = player.localScale.x < 0f ? Vector2.left : Vector2.right;
+        int mask = LayerMask.GetMask("Ground", "Wall");
+        RaycastHit2D hit = Physics2D.Raycast(player.position, dir, _throwRange, mask);
+        return hit.collider != null ? hit.distance : _throwRange;
     }
 
     /// <summary>줍기·소환 회수</summary>

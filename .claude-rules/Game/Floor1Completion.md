@@ -464,10 +464,12 @@ HP·방어는 Floor1Balance §8 기준. 효과 단계 2/4/6은 `SetItem.csv`(Out
 
 기믹 코드(`CounterBuff`·`AmmoGimmick`·`ThrownSpearGimmick`·`TomePageGimmick`)는 구현됨. 남은 것은 데이터·연결이다. 아이콘·도트는 제외.
 
-1. FJ-1 석궁/투창/마도서 아이템 행 3개(`Sentry Crossbow`·`Hunter's Javelin`·`Fairy's Grimoire`) — `ItemSheet.csv` 맨 뒤 + WeaponType 컬럼. 완료: CSV 로드 테스트 통과.
-2. FJ-2 위 3종 프리팹(`Resources/Weapon/`)에 해당 기믹 부착, 임시 아이콘 틴트. 완료: 프리팹 로드·장착 프로브 에러 0.
-3. FJ-3 드롭 연결 — `MonsterExtraDrops.csv` 에 감시병·숲 사냥꾼·요정 행. 완료: 드롭 확률 표와 일치.
-4. FJ-4 `ThrownSpearGimmick` 임시 `_flightTime` 을 실제 착지 판정으로 교체(`ThrownSpear` 규칙 호출). 완료: EditMode 테스트 + 프로브.
-5. FJ-5 단일 부착된 시험용 기믹 정리 — BanditShortbow(Ammo)·Wood Spear(ThrownSpear)·FaeWand(TomePage) 부착 유지/이전 결정. 완료: 결정 기록.
+1. ✅ FJ-1 석궁/투창/마도서 아이템 행 3개(`Sentry Crossbow`·`Hunter's Javelin`·`Fairy's Grimoire`) — `ItemSheet.csv` 맨 뒤 + WeaponType 컬럼. 완료: CSV 로드 테스트 통과.
+2. ✅ FJ-2 위 3종 프리팹(`Resources/Weapon/`)에 해당 기믹 부착, 임시 아이콘 틴트. 완료: 프리팹 로드·장착 프로브 에러 0.
+3. ✅ FJ-3 드롭 연결 — `MonsterExtraDrops.csv` 에 감시병·숲 사냥꾼·요정 행. 완료: 드롭 확률 표와 일치.
+4. ✅ FJ-4 `ThrownSpearGimmick` 임시 `_flightTime` 을 실제 착지 판정으로 교체(`ThrownSpear` 규칙 호출). 완료: EditMode 테스트 + 프로브.
+5. ✅ FJ-5 단일 부착된 시험용 기믹 정리 — BanditShortbow(Ammo)·Wood Spear(ThrownSpear)·FaeWand(TomePage) 부착 유지/이전 결정. 완료: 결정 기록.
 6. FJ-6 `GimmickHud` 에 석궁 탄수·마도서 장 표시 확인. 완료: HUD 프로브 로그.
-7. FJ-7 단검·창 등 "△" 타입 기믹 필요성 판정(`WeaponReview.md`). 완료: 문서 판정표.
+7. ✅ FJ-7 단검·창 등 "△" 타입 기믹 필요성 판정(`WeaponReview.md`). 완료: 문서 판정표.
+
+구현 기록(11-05 AUTO-86): FJ-1 `ItemSheet` 313~315(`SentryCrossbow`·`HuntersJavelin`·`FairysGrimoire`; 268 이상은 Floor2 초안 id 와 겹쳐 313부터). FJ-2 호스트 프리팹 복제(스탯·아이콘은 임시, 아이콘 없음). FJ-3 `MonsterExtraDrops` 2%(BanditSentry·ForestHunter·VineFairy). FJ-4 `ThrownSpear.FlightTime`(Ground/Wall 레이캐스트 거리÷속도 18, 사거리 6; `_flightTime` 제거). FJ-5 호스트 부착(BanditShortbow·Wood Spear·FaeWand)은 유지 — 신규 3종과 병존. FJ-7 판정: 단검·창·지팡이 등 △ 타입은 평타 기믹 불필요(스킬·세트로 차별화), 2층계 이후 재검토. FJ-6 HUD 프로브는 아직(6번 유지).
