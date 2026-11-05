@@ -52,3 +52,6 @@
 - LP-3 (P2): `NpcQuestTracker`·`NestHuntUI`·`ItemCheck` 문자열 생성을 값 변경 때만 하도록 캐시 (§2 #1~3)
 - LP-4 (P3): `EnemyHealth` `Camera.main` 캐시, `ContactDamage` 접촉 컴포넌트 캐시 (§2 #4,#8)
 - LP-5 (P3): 미확인 번역 21종 사용처 확인 후 정리 (§1-3)
+
+## 4. LP-1 적용 (11-05)
+`LocUi` 에 8종 추가(Craft cost·Explorer Seal·잠금 문구 4·슬롯 해금·Trial readiness), `PortalLabel` 키 `건너편`→`Other side`(번역 `건너편`). QuestBoard 조각 키는 동적 키(`"Report to " + ReportTo`)로 표에 전체 문장이 이미 있어 **오탐 → 변경 없음**. 검증: `LocUiKeysTests` + EditMode 741 통과.

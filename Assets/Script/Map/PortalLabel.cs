@@ -62,7 +62,7 @@ public sealed class PortalLabel : MonoBehaviour
         MapInfo here = portal.GetComponentInParent<MapInfo>();
         if (dest == null || dest == here)
         {
-            return Loc.T("건너편");
+            return Loc.T("Other side");
         }
         return string.IsNullOrEmpty(dest.displayName) ? dest.name : Loc.T(dest.displayName);
     }

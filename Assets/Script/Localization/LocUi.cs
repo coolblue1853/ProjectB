@@ -141,5 +141,12 @@ public static class LocUi
         ("Refund {0} crystals", "결정 {0}개 반환"), ("Forge score {0}", "단조 점수 {0}"), ("Crystal refund on 9", "9점이면 실패 시 결정 반환"),
         ("Hit with ATTACK    BACK cancel", "공격 키로 타격    뒤로 취소"), ("HAMMER!", "망치질!"),
         ("PERFECT", "완벽"), ("GREAT", "훌륭"), ("GOOD", "좋음"), ("MISS", "빗나감"), ("FALL", "추락"),
+        // ── 추가 키 (LP-1, AUTO-29 점검) ──
+        ("Craft cost : ", "제작 비용 : "), ("Explorer Seal acquired ({0}/{1})", "탐험가의 인장 획득 ({0}/{1})"),
+        ("Locked: complete the Floor 1 bestiary or first-clear a Floor 1 boss", "잠김: 1층계 도감을 완성하거나 1층계 보스를 처음 처치"),
+        ("Locked: first-clear a Floor 2 boss", "잠김: 2층계 보스를 처음 처치"),
+        ("Locked: complete the Floor 3 bestiary or finish its quest chain", "잠김: 3층계 도감을 완성하거나 퀘스트 연쇄를 완료"),
+        ("Locked: first-clear a Floor 4 boss", "잠김: 4층계 보스를 처음 처치"),
+        ("New equipment slot unlocked: ", "새 장비 슬롯 해금: "), ("Trial readiness", "시험 준비도"), ("Other side", "건너편"),
     };
 }
