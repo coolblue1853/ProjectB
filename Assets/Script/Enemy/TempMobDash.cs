@@ -13,7 +13,8 @@ public sealed class TempMobDash : MonoBehaviour
     private EnemyHealth _enemy;
     private BehaviorDesigner.Runtime.BehaviorTree _bt;
     private State _state;
-    private float _stateUntil, _readyAt, _dir;
+    private Cooldown _stateUntil, _readyAt;
+    private float _dir;
     private int _groundMask, _wallMask;
 
     /// <summary>추적·순찰 이동 배율: 웅크림·돌진 중 0</summary>
@@ -36,7 +37,7 @@ public sealed class TempMobDash : MonoBehaviour
     {
         _state = State.Idle;
         CrouchAmount = 0f;
-        _readyAt = Time.time + 0.3f; // 막 나타나자마자 달려들지 않는다
+        _readyAt.Arm(Time.time, 0.3f); // 막 나타나자마자 달려들지 않는다
     }
 
     void Update()
@@ -54,10 +55,10 @@ public sealed class TempMobDash : MonoBehaviour
                 break;
             case State.Crouch:
                 CrouchAmount = Mathf.MoveTowards(CrouchAmount, 1f, Time.deltaTime / 0.12f);
-                if (Time.time >= _stateUntil)
+                if (_stateUntil.Ready(Time.time))
                 {
                     _state = State.Dash;
-                    _stateUntil = Time.time + TempMobTraits.DashTime;
+                    _stateUntil.Arm(Time.time, TempMobTraits.DashTime);
                 }
                 break;
             case State.Dash:
@@ -70,7 +71,7 @@ public sealed class TempMobDash : MonoBehaviour
     void TryStart()
     {
         PlayerController player = PlayerController.instance;
-        if (player == null || Time.time < _readyAt)
+        if (player == null || !_readyAt.Ready(Time.time))
         {
             return;
         }
@@ -85,8 +86,8 @@ public sealed class TempMobDash : MonoBehaviour
         {
             _bt.sequence.Pause(); // 순찰 트윈이 돌진과 겹쳐 미끄러지지 않게
         }
-        _stateUntil = Time.time + TempMobTraits.CrouchTime;
-        _readyAt = Time.time + TempMobTraits.CrouchTime + TempMobTraits.DashTime + TempMobTraits.DashCooldown;
+        _stateUntil.Arm(Time.time, TempMobTraits.CrouchTime);
+        _readyAt.Arm(Time.time, TempMobTraits.CrouchTime + TempMobTraits.DashTime + TempMobTraits.DashCooldown);
     }
 
     /// <summary>돌진 끝·중단: 멈춰 둔 순찰 트윈을 다시 돌린다(돌진으로 위치가 바뀌어도 순찰이 다음 지점에서 새로 잡는다)</summary>
@@ -108,7 +109,7 @@ public sealed class TempMobDash : MonoBehaviour
         Vector2 pos = transform.position;
         bool groundAhead = Physics2D.Raycast(pos + new Vector2(_dir * 0.6f, 0.3f), Vector2.down, 1.6f, _groundMask);
         bool wallAhead = Physics2D.Raycast(pos + Vector2.up * 0.3f, new Vector2(_dir, 0f), 0.6f + step, _wallMask);
-        if (Time.time >= _stateUntil || !groundAhead || wallAhead)
+        if (_stateUntil.Ready(Time.time) || !groundAhead || wallAhead)
         {
             EndDash();
             return;
