@@ -96,7 +96,7 @@ public static class ExtraEquip
         Items[Idx(slot)] = data;
         if (old != null)
         {
-            inv.CreatItem(old.name, false, old, AddSource.Unequip);
+            ReturnOrRefund(old);
         }
         Save();
         inv.SaveInventory();
@@ -130,33 +130,86 @@ public static class ExtraEquip
         }
     }
 
-    /// <summary>세이브 로드(키 없음·손상 → 전부 잠금·빈칸). 인벤 로드 직후 호출</summary>
+    /// <summary>테스트용 주입점: 가방 반환(true=가방에 들어감). null 이면 InventoryManager 사용</summary>
+    public static Func<ItemData, bool> BagReturn;
+    /// <summary>테스트용 주입점: 저장 대상 교체(ids, mask). null 이면 ES3</summary>
+    public static Action<string[], int> SaveSink;
+    static bool _saveBlocked;
+
+    /// <summary>읽기 실패로 Save 를 막고 있는가 (손상 세이브를 빈 값으로 덮지 않으려는 보호)</summary>
+    public static bool SaveBlocked => _saveBlocked;
+
+    /// <summary>세이브 로드(키 없음 → 전부 잠금·빈칸, 읽기 실패 → 메모리만 비우고 Save 차단). 인벤 로드 직후 호출</summary>
     public static void Load()
     {
         _loaded = true;
+        _saveBlocked = false;
         _mask = 0;
         Array.Clear(Items, 0, Items.Length);
+        int rawMask = 0;
+        string[] ids = null;
+        bool read = false;
         try
         {
-            if (ES3.KeyExists(SlotRules.SaveKeyUnlock))
-            {
-                _mask = ES3.Load<int>(SlotRules.SaveKeyUnlock) & SlotRules.AllExtraMask;
-            }
-            string[] ids = ES3.KeyExists(SlotRules.SaveKeyExtra) ? ES3.Load<string[]>(SlotRules.SaveKeyExtra) : null;
+            rawMask = ES3.KeyExists(SlotRules.SaveKeyUnlock) ? ES3.Load<int>(SlotRules.SaveKeyUnlock) : 0;
+            ids = ES3.KeyExists(SlotRules.SaveKeyExtra) ? ES3.Load<string[]>(SlotRules.SaveKeyExtra) : null;
+            read = true;
+        }
+        catch (Exception e)
+        {
+            _saveBlocked = true;
+            GameLog.Warn(GameLog.Cat.Item, "신규 장비 슬롯 세이브 읽기 실패, 저장 차단: " + e.Message);
+        }
+        if (read)
+        {
             DatabaseManager db = DatabaseManager.instance;
-            for (int i = 0; ids != null && i < ids.Length && i < Items.Length && db != null; i++)
+            LoadCore(rawMask, ids, db == null ? (Func<ItemStack, ItemData>)null : st => ResolveStack(db, st));
+        }
+        ApplyStats();
+        Changed?.Invoke();
+    }
+
+    /// <summary>테스트 정리용: 주입점·차단 플래그를 초기화하고 다음 접근 때 세이브를 다시 읽게 한다</summary>
+    public static void ResetForTests()
+    {
+        BagReturn = null;
+        SaveSink = null;
+        _saveBlocked = false;
+        _loaded = false;
+        _mask = 0;
+        Array.Clear(Items, 0, Items.Length);
+        ApplyStats();
+    }
+
+    static ItemData ResolveStack(DatabaseManager db, ItemStack st)
+    {
+        int index = st.IsEmpty ? -1 : db.FindItemDataIndex(st.Id);
+        return index < 0 ? null : db.LoadItemData(index);
+    }
+
+    /// <summary>로드 본체(테스트 가능). 폐기 장신구를 반환했으면 칸을 비운 채 즉시 저장해 재지급을 막는다</summary>
+    public static void LoadCore(int rawMask, string[] ids, Func<ItemStack, ItemData> resolve)
+    {
+        _loaded = true;
+        _mask = rawMask & SlotRules.AllExtraMask;
+        Array.Clear(Items, 0, Items.Length);
+        bool dirty = false;
+        bool bagTouched = false;
+        try
+        {
+            for (int i = 0; ids != null && resolve != null && i < ids.Length && i < Items.Length; i++)
             {
                 ItemStack st = SlotRules.DecodeStack(ids[i]);
-                int index = st.IsEmpty ? -1 : db.FindItemDataIndex(st.Id);
-                if (index < 0 || !SlotRules.IsUnlocked(_mask, SlotRules.Extras[i]))
+                ItemData d = st.IsEmpty ? null : resolve(st);
+                if (d == null || !SlotRules.IsUnlocked(_mask, SlotRules.Extras[i]))
                 {
                     continue;
                 }
-                ItemData d = db.LoadItemData(index);
                 if (!Enum.TryParse(d.equipArea, out EquipSlot want) || want != SlotRules.Extras[i])
                 {
                     // 폐기된 칭호·오라 등(11-05): 장착 해제하고 인벤으로 반환, 가득이면 판매값 골드 지급
-                    ReturnDeprecated(d);
+                    bagTouched |= ReturnOrRefund(d);
+                    dirty = true;
                     continue;
                 }
                 d.tear = st.Tier;
@@ -166,27 +219,60 @@ public static class ExtraEquip
         }
         catch (Exception e)
         {
-            GameLog.Warn(GameLog.Cat.Item, "신규 장비 슬롯 세이브 읽기 실패, 잠금·빈칸으로 시작: " + e.Message);
-            _mask = 0;
-            Array.Clear(Items, 0, Items.Length);
+            // 해금 mask 는 이미 읽었으므로 유지한다. 일부 칸만 못 읽었을 수 있어 Save 를 막아 세이브 덮어쓰기를 방지
+            _saveBlocked = true;
+            GameLog.Warn(GameLog.Cat.Item, "신규 장비 슬롯 세이브 해석 실패, 저장 차단: " + e.Message);
         }
-        ApplyStats();
-        Changed?.Invoke();
+        if (dirty && !_saveBlocked)
+        {
+            if (bagTouched && BagReturn == null && InventoryManager.instance != null)
+            {
+                InventoryManager.instance.SaveInventory();
+            }
+            Save();
+        }
     }
 
-    static void ReturnDeprecated(ItemData d)
+    /// <summary>가방에 넣고, 실패하면 판매값 골드로 보상. 가방에 들어갔으면 true</summary>
+    static bool ReturnOrRefund(ItemData d)
     {
         InventoryManager inv = InventoryManager.instance;
-        if (inv != null && inv.CreatItem(d.name, false, d, AddSource.Unequip))
+        bool ok = BagReturn != null ? BagReturn(d) : inv != null && inv.CreatItem(d.name, false, d, AddSource.Unequip);
+        if (ok)
         {
-            return;
+            return true;
         }
         DatabaseManager.money += Mathf.Max(0, d.price / 2);
-        GameLog.Warn(GameLog.Cat.Item, "폐기 장신구 반환 실패(가방 가득/없음), 판매값 골드 지급: " + d.name);
+        GameLog.Warn(GameLog.Cat.Item, "장신구 반환 실패(가방 가득/없음), 판매값 골드 지급: " + d.name);
+        return false;
+    }
+
+    /// <summary>해금 첫 아이템 지급: 가방이 가득이면 판매값 골드로 대체(해금만 남고 아이템이 사라지는 것 방지)</summary>
+    public static void GrantFirstItem(string itemName)
+    {
+        DatabaseManager db = DatabaseManager.instance;
+        int index = db == null ? -1 : db.FindItemDataIndex(itemName);
+        if (index < 0)
+        {
+            InventoryManager.instance?.CreatItem(itemName, false, null, AddSource.Other);
+            return;
+        }
+        ItemData d = db.LoadItemData(index);
+        InventoryManager inv = InventoryManager.instance;
+        bool ok = BagReturn != null ? BagReturn(d) : inv != null && inv.CreatItem(itemName, false, null, AddSource.Other);
+        if (!ok)
+        {
+            DatabaseManager.money += Mathf.Max(0, d.price / 2);
+            GameLog.Warn(GameLog.Cat.Item, "해금 첫 아이템 지급 실패, 판매값 골드 지급: " + itemName);
+        }
     }
 
     static void Save()
     {
+        if (_saveBlocked)
+        {
+            return;
+        }
         var ids = new string[Items.Length];
         for (int i = 0; i < ids.Length; i++)
         {
@@ -194,6 +280,11 @@ public static class ExtraEquip
         }
         try
         {
+            if (SaveSink != null)
+            {
+                SaveSink(ids, _mask);
+                return;
+            }
             ES3.Save(SlotRules.SaveKeyExtra, ids);
             ES3.Save(SlotRules.SaveKeyUnlock, _mask);
         }
@@ -237,7 +328,7 @@ public static class ExtraEquipRewards
         string item = i >= 0 ? FirstItem[i] : "";
         if (item.Length > 0 && InventoryManager.instance != null)
         {
-            InventoryManager.instance.CreatItem(item, false, null, AddSource.Other);
+            ExtraEquip.GrantFirstItem(item);
         }
     }
 }

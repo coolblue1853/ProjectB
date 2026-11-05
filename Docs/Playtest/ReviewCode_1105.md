@@ -6,15 +6,15 @@
 
 ### [필수]
 
-1. `Assets/Script/UI/ExtraEquip.cs:156-161, 177-186` — Load 중 폐기 장신구를 인벤으로 반환하고 Save()를 부르지 않는다. ES3 extra 키에는 옛 id가 남아, 다음 LoadInventory 때 같은 아이템이 또 반환된다(인벤 저장과 맞물리면 세션마다 증식). 대안: 반환 처리 뒤 해당 칸을 비우고 Save() 호출, 인벤 저장 순서 확인. 재현 미확인.
-2. `Assets/Script/UI/ExtraEquip.cs:167-172` — catch가 `_mask`와 Items를 전부 0/빈칸으로 만든다. 이후 Unlock·Equip이 Save()를 부르면 `equip.extraUnlock`이 0으로 덮여 해금이 영구 소실된다. 대안: 항목별 검사로 범위를 좁히고, 읽기 실패 시 Save를 막는 플래그를 둔다.
+1. `Assets/Script/UI/ExtraEquip.cs:156-161, 177-186` — Load 중 폐기 장신구를 인벤으로 반환하고 Save()를 부르지 않는다. ES3 extra 키에는 옛 id가 남아, 다음 LoadInventory 때 같은 아이템이 또 반환된다(인벤 저장과 맞물리면 세션마다 증식). 대안: 반환 처리 뒤 해당 칸을 비우고 Save() 호출, 인벤 저장 순서 확인. 재현 미확인. **[해결 11-05: Load 중 폐기 반환 직후 칸을 비우고 저장(인벤 먼저), 재로드 재지급 없음. ExtraEquipLoadTests]**
+2. `Assets/Script/UI/ExtraEquip.cs:167-172` — catch가 `_mask`와 Items를 전부 0/빈칸으로 만든다. 이후 Unlock·Equip이 Save()를 부르면 `equip.extraUnlock`이 0으로 덮여 해금이 영구 소실된다. 대안: 항목별 검사로 범위를 좁히고, 읽기 실패 시 Save를 막는 플래그를 둔다. **[해결 11-05: catch 가 mask 를 유지하고 Save 를 차단(SaveBlocked). ExtraEquipLoadTests]**
 
 ### [권장]
 
 3. `Assets/Script/Player/PlayerHealthManager.cs:348-357, 383` — 막기 성공 후 dmgAfDef가 0이면 PARRY/GUARD와 BLOCK 텍스트가 겹쳐 뜬다. 대안: BLOCK 조건에 `!guarded`를 추가.
 4. `Assets/Script/Enemy/EnemyHealth.cs:633, 709-719` — ApplyBurn이 호출마다 PosionAttack을 새로 Instantiate한다. 화상 중첩 상한이 없어 연타 시 틱 피해가 N배가 된다. 대안: 재적용 시 기존 틱을 갱신하거나 상한 설정. 설계 의도 확인 필요.
-5. `Assets/Script/UI/ExtraEquip.cs:237-240` — 해금 첫 아이템 CreatItem 반환값을 무시한다. 가방이 가득이면 해금은 저장된 채 아이템만 사라진다. 대안: 실패 시 골드 지급 또는 보류 큐.
-6. `Assets/Script/UI/ExtraEquip.cs:95-100` — 장착 교체 시 old 반환 CreatItem 결과를 무시한다. RemoveAt(1) 직후라 보통 성공하지만 보장은 없다. 대안: 반환 성공을 확인한 뒤 Items를 교체.
+5. `Assets/Script/UI/ExtraEquip.cs:237-240` — 해금 첫 아이템 CreatItem 반환값을 무시한다. 가방이 가득이면 해금은 저장된 채 아이템만 사라진다. 대안: 실패 시 골드 지급 또는 보류 큐. **[해결 11-05: 해금 첫 아이템 지급 실패 시 판매값 골드(GrantFirstItem). ExtraEquipLoadTests]**
+6. `Assets/Script/UI/ExtraEquip.cs:95-100` — 장착 교체 시 old 반환 CreatItem 결과를 무시한다. RemoveAt(1) 직후라 보통 성공하지만 보장은 없다. 대안: 반환 성공을 확인한 뒤 Items를 교체. **[해결 11-05: 교체 반환 실패 시 판매값 골드(ReturnOrRefund). ExtraEquipLoadTests]**
 7. `Assets/Script/Item/RecallCast.cs:155-161` — Stop(null)이 Ended(true)를 먼저 발행한 뒤 RemoveOne이 실패해도 이동 없이 완료로 처리된다. 구독 UI가 성공으로 표시할 수 있다. 대안: RemoveOne 성공을 확인한 뒤 완료 처리.
 8. `Assets/Script/Enemy/MobDebuffRules.cs:64` — 석화 면역 타이머를 Snare 호출 전에 기록한다. Snare가 보스·behaviorTree null로 거절해도 면역이 소모된다. 대안: 실제 적용 성공 뒤에만 면역을 기록.
 
