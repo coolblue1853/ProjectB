@@ -15,7 +15,7 @@
 | 5 | 몹 id 중복 | 통과 | 초안 21행 id 중복 0, 실 63행과 겹침 0 | 유지 |
 | 6 | 아이템 index·이름 중복 | 통과 | 초안 268~312(45행) 연속, 초안 내 중복 0, 실 최대 267(268행)과 겹침 0, 이름 겹침 0 | 유지(Resources 사본 행수 아이템 46·세트 13·드롭 29, 헤더 포함) |
 | 7 | 세트 키 중복·연결 | 통과 | 초안 12행이 실 키와 겹침 0. 아이템 `tfName` 4종(Garden·MoonStone·Order·Drake Armor) 모두 `_2/_4/_6` 키 존재 | 유지 |
-| 8 | Docs 초안 ↔ Resources 사본 일치 | **불일치** | 아이템 45·세트 12·드롭 28 행은 동일. 몹 21행 중 **7행이 다름**: Docs 사본은 보스 7행 `killKey` 가 빈칸, Resources 사본은 `killKey=id` 채움. `MigrationPlan.md` §2b 는 "이미 채워짐"이라 적었으나 Docs 사본에는 해당 없음 → 수정 후보: 병합은 Resources 사본을 원본으로 삼거나 Docs 사본 7행을 채워 동기화 | **불일치 유지**: 몹 22행(헤더 포함) 중 7행 다름, 아이템·세트·드롭 0행 다름 |
+| 8 | Docs 초안 ↔ Resources 사본 일치 | **통과(AUTO-102)** | 아이템 45·세트 12·드롭 28 행은 동일. 몹 21행 중 **7행이 다름**: Docs 사본은 보스 7행 `killKey` 가 빈칸, Resources 사본은 `killKey=id` 채움. `MigrationPlan.md` §2b 는 "이미 채워짐"이라 적었으나 Docs 사본에는 해당 없음 → 수정 후보: 병합은 Resources 사본을 원본으로 삼거나 Docs 사본 7행을 채워 동기화 | **통과**: Docs 몹 사본 보스 7행 `killKey=id` 채움, 두 사본 diff 0행(BOM 제외). 원본 = Resources 사본 |
 | 9 | 보스 `killKey==id` | 통과 | Resources 사본 보스 7행(StatueQueen·Lancer/Sword/Archer/MageCaptain·KnightCommander·CloudseaDrake) 모두 `killKey=id`. `On_BossRowsHaveKillKey` 가 이 사본을 검증 | 유지 |
 | 10 | 드롭의 몹 참조 | 통과 | 28행 몹 id 전부 실 또는 초안 몹에 존재(미해결 0) | 유지 |
 | 11 | 드롭의 아이템 참조 | 통과 | 28행 아이템 이름 전부 실 또는 초안 `name` 에 존재(미해결 0) | 유지 |
@@ -24,7 +24,7 @@
 | 14 | EditMode 테스트 실제 통과 | 미확인 | 이번 점검은 테스트 미실행(Unity 사용 금지). 아래 §2 로 병합 직전 실행 | 미확인 유지(테스트 미실행) |
 | 15 | 아이콘·프리팹 | 미확인 | 그래픽 별도(Q-F2M). `DataIntegrity.md` 에 누락 목록 기록 예정 | 미확인 유지 |
 
-불일치 1건(#8)이 병합 전 정리 대상이다. 나머지 데이터 정합은 모두 통과.
+#8 은 AUTO-102 로 정리됐다(불일치 0건). 나머지 데이터 정합은 모두 통과.
 
 ## 2. 필요 테스트와 실행 명령
 

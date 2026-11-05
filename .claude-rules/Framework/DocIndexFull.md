@@ -79,3 +79,21 @@
 |------|------|
 | `Docs/OpenQuestions.md` *(저장소 루트)* | 사용자 확인이 필요한 기획 질문과 임시 가정 |
 | `Docs/AutomationLog.md` *(저장소 루트)* | 예약 자동 실행 기록과 사용량 예산 규칙 |
+
+## 점검·감사·인수인계 문서 (AUTO-104 정합 추가, 모두 저장소 루트 기준)
+
+| 파일 | 설명 |
+|------|------|
+| `Framework/AutoRun.md` · `Framework/Dispatch.md` · `Framework/DocIndexFull.md` · `Framework/TokenEconomy.md` | 자동 진행 틱·업무 전달·이 전체 인덱스·절약 원칙 |
+| `Game/Durability.md` · `Game/EquipSlotExpansion.md` · `Game/FloorTransition.md` | 내구도 검토·신규 장신구 슬롯·층계 전환 규칙 |
+| `Docs/Floor2Data/Preflight.md` · `Docs/Floor2Data/README.md` · `Docs/Floor2Data/MigrationPlan.md` | 2층계 초안 병합 사전 점검(#8 통과)·초안 개요·이행 계획 |
+| `Docs/Balance/Floor2Recalc.md` · `Docs/Balance/Floor2BalanceReview.md` · `Docs/Balance/Floor1FirstHourGear.md` · `Docs/Balance/Floor1HuntingAudit.md` · `Docs/Balance/Floor1HuntingReview.md` | 층계 밸런스 재계산·리뷰·사냥 감사 |
+| `Docs/Research/LevelingVsGear.md` | 레벨링 대 장비 조사 |
+| `Docs/Playtest/SaveMigrationAudit.md` · `Docs/Playtest/LocPerfAudit.md` · `Docs/Playtest/LineageAudit.md` · `Docs/Playtest/InputAudit.md` · `Docs/Playtest/DedupAudit.md` | 세이브 호환·Loc/성능·계보·입력·중복 코드 감사 |
+| `Docs/Playtest/ReviewCode_1105.md` · `Docs/Playtest/ReviewCode_1105b.md` · `Docs/Playtest/ReviewCode_1105c.md` | 코드 커밋 정적 리뷰(1~8차 큐) |
+| `Docs/Playtest/Floor1PlayVerify.md` · `Docs/Playtest/Floor1Balance.md` · `Docs/Playtest/Floor1Fastest.md` · `Docs/Playtest/Floor1Fullrun.md` · `Docs/Playtest/Floor1ContentList.md` · `Docs/Playtest/Floor1NavReview.md` | 1층계 플레이 검증·밸런스·최단 경로·전체 주행·콘텐츠 목록·길찾기 |
+| `Docs/Playtest/FirstHourChecklist.md` · `Docs/Playtest/FirstHourGuide.md` · `Docs/Playtest/Rehearsal3.md` · `Docs/Playtest/PtBot.md` | 첫 1시간 점검·가이드·리허설·자동 플레이 봇 |
+| `Docs/Playtest/ChestReview.md` · `Docs/Playtest/DataIntegrity.md` · `Docs/Playtest/EconomyAudit.md` · `Docs/Playtest/InventoryConvenienceReview.md` · `Docs/Playtest/MapScan.md` · `Docs/Playtest/NpcVoice.md` · `Docs/Playtest/PortalTransition.md` · `Docs/Playtest/QuestUiAudit.md` · `Docs/Playtest/SaveSlotCheck.md` · `Docs/Playtest/ShopMapleReview.md` · `Docs/Playtest/SideRoadEconomy.md` · `Docs/Playtest/TempAssets.md` · `Docs/Playtest/TempFxSlots.md` · `Docs/Playtest/Town1Audit.md` | 기타 점검 문서 |
+| `Docs/Handoff/queue.md` · `Docs/Handoff/state.md` · `Docs/Handoff/README.md` · `Docs/Handoff/ChiefPrompt.md` · `Docs/Handoff/scene_backup/README.md` | 작업 큐 원본·현재 상태·인수인계 안내·총괄 프롬프트·씬 백업 |
+| `Docs/MotionBodyTable.md` · `Docs/MotionReview_Limbus.md` · `Docs/SoundCatalog.md` · `Docs/MorningQuestions.md` | 모션 몸 표·림버스 검토·사운드 목록·아침 질문 |
+| `Docs/ArtCompare/` *(하위 gen_log·README·design 문서 일괄)* | 아트 비교·생성 기록 |

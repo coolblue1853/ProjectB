@@ -19,7 +19,7 @@
 | # | 항목 | 내용 | 조치 |
 |---|---|---|---|
 | a | `minFloor` | `MonsterSheet`·`ItemSheet`·`SetItem` 에 `minFloor` 열이 **없다**(`BagExpansion.csv`·`ShopStock` 만 사용). 몹은 `floor` 열(=2)과 구역으로 구분 | 2층계 상점/가방 행을 더할 때만 `minFloor=2` 설정. 몹·아이템 행은 변경 없음 |
-| b ✅ | 계보 키(`killKey`) | 초안 21행 전부 `killKey` 빈칸. 실 CSV 는 보스·정예 14행이 `killKey=id`(`MiniBossDataTests` 가 중간보스 `killKey==id` 를 요구) | (AUTO-33 확인: 초안 보스 7행은 이미 `killKey=id` 채워짐, `On_BossRowsHaveKillKey` 통과. 세트 `tfName`↔`SetItem` 키는 `SetItems_TfNameLinksToSetItemKeys` 로 4세트×3 검증) 병합 때 `isBoss=1` 7행(StatueQueen·Lancer/Sword/Archer/MageCaptain·KnightCommander·CloudseaDrake)에 `killKey=id` 채움. 일반 몹은 빈칸 유지 |
+| b ✅ | 계보 키(`killKey`) | 초안 21행 전부 `killKey` 빈칸. 실 CSV 는 보스·정예 14행이 `killKey=id`(`MiniBossDataTests` 가 중간보스 `killKey==id` 를 요구) | (AUTO-102: 원본 = `Assets/Resources/Floor2Preview` 사본, Docs 사본 보스 7행도 `killKey=id` 로 동기화해 두 사본 내용 동일(BOM 만 다름). AUTO-33 확인: 초안 보스 7행은 `killKey=id` 채워짐, `On_BossRowsHaveKillKey` 통과. 세트 `tfName`↔`SetItem` 키는 `SetItems_TfNameLinksToSetItemKeys` 로 4세트×3 검증) 병합 때 `isBoss=1` 7행(StatueQueen·Lancer/Sword/Archer/MageCaptain·KnightCommander·CloudseaDrake)에 `killKey=id` 채움. 일반 몹은 빈칸 유지 |
 | c | 세트 이름 | 아이템 `setName`(표시명 Garden Warden 등)과 `SetItem` 키(`GardenArmor_N`)는 `tfName` 으로 연결됨. 실 구조와 동일 | 변경 없음. 4세트(Garden·MoonStone·Order·Drake)×(2/4/6)=12행 모두 키 존재 |
 
 ## 3. 병합 순서와 롤백 (11-05, AUTO-34 확정 — 체크리스트)

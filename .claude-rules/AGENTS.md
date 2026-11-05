@@ -94,3 +94,9 @@
 | `Docs/OpenQuestions.md` *(저장소 루트)* | 사용자 확인이 필요한 기획 질문과 임시 가정 |
 | `Docs/MorningQuestions.md` *(저장소 루트)* | 아침에 한 번에 답할 질문 모음(번호·추천) |
 | `Docs/AutomationLog.md` *(저장소 루트)* | 예약 자동 실행 기록과 사용량 예산 규칙 |
+| `Docs/Floor2Data/Preflight.md` *(저장소 루트)* | 2층계 병합 사전 점검(#8 통과) |
+| `Docs/Playtest/SaveMigrationAudit.md` *(저장소 루트)* | 세이브 호환 점검과 권고 |
+| `Docs/Playtest/ReviewCode_1105c.md` *(저장소 루트)* | 코드 커밋 정적 리뷰(1105·b·c 같은 형식) |
+| `Docs/Playtest/Floor1PlayVerify.md` *(저장소 루트)* | 1층계 플레이 검증 표(미검증 통합) |
+| `Docs/Handoff/queue.md` *(저장소 루트)* | 작업 큐 원본(현재 상태 `Docs/Handoff/state.md`) |
+| 그 밖의 `Docs/Playtest/*`·`Docs/Balance/*`·`Docs/Handoff/*` 문서 | `Framework/DocIndexFull.md` 의 점검·감사·인수인계 절 |
