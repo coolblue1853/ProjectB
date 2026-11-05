@@ -123,7 +123,7 @@ public class MinimapHud : MonoBehaviour
         BuildStaticDots();
         _bossTimer = 0f;
         MapInfo info = map != null ? map.GetComponent<MapInfo>() : null;
-        _title.text = info != null && !string.IsNullOrEmpty(info.displayName) ? Loc.T(info.displayName) : "";
+        _title.SetIfChanged(info != null && !string.IsNullOrEmpty(info.displayName) ? Loc.T(info.displayName) : "");
     }
 
     private void Update()

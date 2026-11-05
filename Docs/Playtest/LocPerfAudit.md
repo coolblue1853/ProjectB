@@ -71,10 +71,10 @@
 | 9~10 | ` complete! Report to the quest board.` / `...Village Elder.` | 보존(동적 키) | `QuestBoard.cs:132` |
 | 11~16 | 스토리 대사 6문장(Hunters found...·The crest was carved...·Beyond the swamp...·The same crest...·An armored giant...·It wore his crest...) | 보존(퀘스트 본문) | `Quest/QuestCatalog.cs:99~125` 의 `offer`/`report` 리터럴 |
 | 17 | Crafting material | 보존(오탐) | `Localization/ItemText.cs:46` 에서 사용(검색 범위가 Localization 제외라 누락) |
-| 18 | TrapNormal | 삭제 후보 | 코드·CSV·씬 어디에도 없음 |
-| 19 | Crystal refund on 9 | 삭제 후보 | 사용처 없음 |
-| 20 | HAMMER! | 삭제 후보 | 사용처 없음 |
-| 21 | U / Pad RT: buy back top | 삭제 후보 | `Buyback.cs` 는 `Nothing to buy back` 만 사용, 안내 문구 호출 없음 |
-| 22 | U: buy back last sold item | 삭제 후보 | 위와 동일 |
+| 18 | TrapNormal | 유지 | 삭제 안 함: `TrackingUI.cs:179` 가 `Loc.T("Trap" + s.Quality)` 로 동적 조회(Normal/Good) |
+| 19 ✅ | Crystal refund on 9 | 삭제함 | 사용처 없음 |
+| 20 ✅ | HAMMER! | 삭제함 | 사용처 없음 |
+| 21 ✅ | U / Pad RT: buy back top | 삭제함 | `Buyback.cs` 는 `Nothing to buy back` 만 사용, 안내 문구 호출 없음 |
+| 22 ✅ | U: buy back last sold item | 삭제함 | 위와 동일 |
 
 요약: 보존 17(오탐 1 포함) · 삭제 후보 5 · **번역 누락 0**(반대 방향 누락은 §1-1 LP-1 로 처리 완료). 삭제 후보 5종은 위험이 낮지만 수혜도 작아(문자열 5개) 우선순위 P4, 필요 시 `LocUi.cs` 5행 제거 + `sync_i2_terms` 재실행 + `LocUiKeysTests` 확인.

@@ -4811,14 +4811,6 @@ MonoBehaviour:
       - "\uB418\uC0B4 \uBB3C\uAC74\uC774 \uC5C6\uB2E4"
       Flags: 0000
       Languages_Touch: []
-    - Term: 'U: buy back last sold item'
-      TermType: 0
-      Description: 
-      Languages:
-      - 'U: buy back last sold item'
-      - "U: \uBC29\uAE08 \uD310 \uBB3C\uAC74 \uB418\uC0AC\uAE30"
-      Flags: 0000
-      Languages_Touch: []
     - Term: Forest Mushroom
       TermType: 0
       Description: 
@@ -5753,14 +5745,6 @@ MonoBehaviour:
       - "\uB418\uC0AC\uAE30"
       Flags: 0000
       Languages_Touch: []
-    - Term: 'U Pad RT: buy back top'
-      TermType: 0
-      Description: 
-      Languages:
-      - 'U / Pad RT: buy back top'
-      - "U / \uD328\uB4DC RT: \uB9E8 \uC704 \uB418\uC0AC\uAE30"
-      Flags: 0000
-      Languages_Touch: []
     - Term: Herb Roasted Rabbit
       TermType: 0
       Description: 
@@ -6054,28 +6038,12 @@ MonoBehaviour:
       - "\uB2E8\uC870 \uC810\uC218 {0}"
       Flags: 0000
       Languages_Touch: []
-    - Term: Crystal refund on 9
-      TermType: 0
-      Description: 
-      Languages:
-      - Crystal refund on 9
-      - "9\uC810\uC774\uBA74 \uC2E4\uD328 \uC2DC \uACB0\uC815 \uBC18\uD658"
-      Flags: 0000
-      Languages_Touch: []
     - Term: Hit with ATTACK BACK cancel
       TermType: 0
       Description: 
       Languages:
       - Hit with ATTACK    BACK cancel
       - "\uACF5\uACA9 \uD0A4\uB85C \uD0C0\uACA9    \uB4A4\uB85C \uCDE8\uC18C"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: HAMMER!
-      TermType: 0
-      Description: 
-      Languages:
-      - HAMMER!
-      - "\uB9DD\uCE58\uC9C8!"
       Flags: 0000
       Languages_Touch: []
     - Term: PERFECT

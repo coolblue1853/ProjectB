@@ -232,7 +232,7 @@ public class CraftPinHud : MonoBehaviour
             _sb.Append('\n').Append(ok ? "<color=#4CD964>" : "<color=#D8D8D8>").Append(_names[i]).Append("  ")
                 .Append(Mathf.Min(_shown[i], need)).Append('/').Append(need).Append("</color>");
         }
-        _text.text = _sb.ToString();
+        _text.SetIfChanged(_sb.ToString());
         if (ready && !_wasReady && Time.unscaledTime >= _silentUntil)
         {
             PickupLog.Report(Loc.T("Ready to craft: ") + _resultName, 1, "U");

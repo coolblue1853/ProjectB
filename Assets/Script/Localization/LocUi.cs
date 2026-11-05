@@ -61,8 +61,8 @@ public static class LocUi
         ("Only equipment in the bag can be dismantled", "가방 안의 장비만 분해할 수 있다"), ("Press D again to dismantle {0}", "한 번 더 D: {0} 분해"),
         ("Preset {0} saved ({1})", "프리셋 {0} 저장 ({1}부위)"), ("Preset {0} equipped ({1})", "프리셋 {0} 장착 ({1}부위 교체)"), ("Preset {0} is empty", "프리셋 {0} 비어 있음"),
         ("GEAR PRESETS", "장비 프리셋"), ("(empty)", "(비어 있음)"), ("(no weapon)", "(무기 없음)"), ("7/8/9 equip  ·  Shift+7/8/9 save", "7/8/9 장착  ·  Shift+7/8/9 저장"),
-        ("Pad: SELECT pick (hold: save)  ·  RT equip", "패드: SELECT 고르기(길게: 저장)  ·  RT 장착"), ("BUY BACK", "되사기"), ("U / Pad RT: buy back top", "U / 패드 RT: 맨 위 되사기"),
-        ("Nothing to buy back", "되살 물건이 없다"), ("U: buy back last sold item", "U: 방금 판 물건 되사기"), ("Preset {0}: {1} item(s) not in bag", "프리셋 {0}: 가방에 없는 장비 {1}개"),
+        ("Pad: SELECT pick (hold: save)  ·  RT equip", "패드: SELECT 고르기(길게: 저장)  ·  RT 장착"), ("BUY BACK", "되사기"),
+        ("Nothing to buy back", "되살 물건이 없다"), ("Preset {0}: {1} item(s) not in bag", "프리셋 {0}: 가방에 없는 장비 {1}개"),
         ("Path sealed by the Tower.", "탑이 길을 봉인했다."),
         ("Tower Gate", "탑의 문"), ("The way to the 2nd floor is open", "2층계로 가는 길이 열렸다"),
         ("ENRAGED — Calls the gang!", "격노 — 패거리를 부른다!"),
@@ -139,8 +139,8 @@ public static class LocUi
         ("UP  COOK", "위  요리"), ("LEFT RIGHT pick  ·  X cook  ·  ESC close", "좌우 고르기  ·  X 요리 시작  ·  ESC 닫기"), ("ESC close", "ESC 닫기"), ("X flip when the cursor hits the mark  ·  ESC stop", "커서가 표시에 닿을 때 X 로 뒤집기  ·  ESC 중단"), ("Hold X for heat  ·  keep it in the blue  ·  ESC stop", "X 홀드로 화력 올리기  ·  파란 구간 유지  ·  ESC 중단"), ("No ingredients", "재료가 없다"), ("Nothing to cook with what you carry", "가진 재료로 만들 수 있는 요리가 없다"), ("Gather, hunt and fish for ingredients", "채집, 사냥, 낚시로 재료를 모아 오자"), ("Grill - flip on time", "굽기 - 제때 뒤집기"), ("Boil - hold the heat", "끓이기 - 불 세기 유지"), ("Flip {0}/{1}", "뒤집기 {0}/{1}"), ("Missed a flip!", "뒤집을 때를 놓쳤다!"), ("Wait for the sizzle", "지글거릴 때를 기다려라"), ("Off by {0}%", "오차 {0}%"), ("Steady {0}%", "안정 {0}%"), ("Too hot! {0}s", "너무 뜨겁다! {0}초"), ("Keep the heat in the blue", "불을 파란 구간에 두어라"), ("Stopped cooking", "요리 중단"), ("The ingredients were lost", "재료를 잃었다"), ("Perfect dish!", "완벽한 요리!"), ("Well cooked", "잘 익었다"), ("Edible", "먹을 만하다"), ("Burnt!", "새까맣게 탔다!"), ("Boiled over - burnt!", "끓어 넘쳐 탔다!"),
         // ── 고급 강화·정밀 단조 ──
         ("Precision forging", "정밀 단조"), ("Forging up to +{0}%p", "단조로 최대 +{0}%p"), ("Pity +{0}%p", "천장 +{0}%p"),
-        ("Refund {0} crystals", "결정 {0}개 반환"), ("Forge score {0}", "단조 점수 {0}"), ("Crystal refund on 9", "9점이면 실패 시 결정 반환"),
-        ("Hit with ATTACK    BACK cancel", "공격 키로 타격    뒤로 취소"), ("HAMMER!", "망치질!"),
+        ("Refund {0} crystals", "결정 {0}개 반환"), ("Forge score {0}", "단조 점수 {0}"),
+        ("Hit with ATTACK    BACK cancel", "공격 키로 타격    뒤로 취소"),
         ("PERFECT", "완벽"), ("GREAT", "훌륭"), ("GOOD", "좋음"), ("MISS", "빗나감"), ("FALL", "추락"),
         // ── 추가 키 (LP-1, AUTO-29 점검) ──
         ("Craft cost : ", "제작 비용 : "), ("Explorer Seal acquired ({0}/{1})", "탐험가의 인장 획득 ({0}/{1})"),
