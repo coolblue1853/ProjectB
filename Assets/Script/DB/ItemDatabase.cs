@@ -14,7 +14,7 @@ public class ItemDatabase : MonoBehaviour
     void LoadItemsFromCSV(string filePath)
     {
         TextAsset csvData = Resources.Load<TextAsset>(filePath); // Resources 폴더에 있는 CSV 파일을 불러옵니다.
-        string[] lines = csvData.text.Split(new char[] { '\n' }); // CSV 파일 내용을 줄 단위로 분할합니다.
+        string[] lines = Floor2Data.Merge(csvData.text, "Floor2ItemSheet").Split(new char[] { '\n' }); // CSV 파일 내용을 줄 단위로 분할합니다.
 
         // 각 라인의 데이터를 처리합니다.
         for (int i = 2; i < lines.Length; i++) // 첫 번째 줄은 타입 정의, 두 번째 줄은 열 이름이므로 2부터 시작합니다.

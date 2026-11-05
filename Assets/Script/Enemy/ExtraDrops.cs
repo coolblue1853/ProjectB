@@ -38,7 +38,7 @@ public static class ExtraDrops
         if (s_table == null)
         {
             TextAsset csv = Resources.Load<TextAsset>(ResourceName);
-            s_table = Parse(csv != null ? csv.text : "");
+            s_table = Parse(Floor2Data.Merge(csv != null ? csv.text : "", "Floor2ExtraDrops"));
         }
         return s_table.TryGetValue(monsterId, out List<Entry> list) ? list : null;
     }

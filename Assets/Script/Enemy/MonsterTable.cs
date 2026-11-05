@@ -68,7 +68,7 @@ public static class MonsterTable
             GameLog.Warn(GameLog.Cat.AI, "Resources/MonsterSheet.csv 없음 — 프리팹 값 사용");
             return;
         }
-        string[] lines = text.text.Split('\n');
+        string[] lines = Floor2Data.Merge(text.text, "Floor2Monsters").Split('\n');
         for (int i = 1; i < lines.Length; i++)
         {
             string line = lines[i].TrimEnd('\r');
