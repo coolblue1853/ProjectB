@@ -571,3 +571,6 @@
 ## Q-LA2/LA3 계보 점검 판단 건 (11-05, LineageAudit L2·L3)
 - **[임시 가정 LA-2]** 비계보 무기 5종(TwinFang·GnarledClub·VineLash·HuntersLongbow·WoodcuttersAxe)의 세트 소속은 의도된 것으로 보고 유지(세트 키 이름 변경 금지). 세트 카운트 기준(`setName`/`tfName`) 확인은 별도 코드 점검 때.
 - **[임시 가정 LA-3/4]** 2층계 초안 S 슬롯 스킬(덩굴 묶기·패링·방벽·꼬리 독침)은 4세트 `coolDown` 에 넣지 않는다(쿨감은 A 슬롯만). 프리팹 제작 때 S 스킬 영문 키가 정해지면 재검토. 키 표는 `Floor2Plan.md` 5.6.
+
+## Q-F2M 2층계 병합 시점 (11-05, AUTO-34)
+- **[임시 가정 F2M]** 그래픽(몹 스프라이트·프리팹·아이콘) 없이도 2층계 데이터 CSV 병합은 진행한다(로드 플래그 OFF 로 플레이 영향 0). 플래그 ON 은 그래픽 사용자 승인 후. 체크리스트 `Docs/Floor2Data/MigrationPlan.md` §3.
