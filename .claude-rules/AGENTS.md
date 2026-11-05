@@ -80,6 +80,7 @@
 | `Game/EquipSlotExpansion.md` | 비외형 장신구 신규 슬롯(귀걸이·팔찌·부적·마법석): 잠금·층계별 해금·폐기 정리·ES3·SLOT-R 큐 |
 | `Docs/Floor2Data/MigrationPlan.md` *(저장소 루트)* | 2층계 초안 CSV 이행 계획·재대조·롤백 |
 | `Docs/Playtest/LineageAudit.md` *(저장소 루트)* | 계보 장비(몹 스킬↔무기↔세트) 정합 점검과 수정 후보 |
+| `Docs/Playtest/LocPerfAudit.md` *(저장소 루트)* | Loc 누락 문자열·Update 할당/탐색 점검과 수정 후보 |
 | `Game/Durability.md` | 던파식 내구도·수리 도입 검토(추천: 보류) |
 | `Game/FloorTransition.md` | 층계 전환 규칙: 이동 조건·칭호 부하·포털/귀환·안전지대·구현 갭 FT-* |
 
