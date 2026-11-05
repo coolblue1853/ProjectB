@@ -1,0 +1,12 @@
+var pc = PlayerController.instance; var hp = PlayerHealthManager.Instance;
+GameObject map = GameObject.Find("Map"); Transform town = map != null ? map.transform.Find("Town") : null;
+string s = "dead=" + hp.IsDead + " casting=" + RecallCast.IsCasting + " townActive=" + (town != null && town.gameObject.activeInHierarchy) + " pos=" + pc.transform.position;
+bool nb = RecallCast.Begin("귀환 주문서"); s += " | noBoss Begin=" + nb; if (nb) RecallCast.Cancel("t");
+var pf = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/CreepingTerror_BD.prefab");
+var go = UnityEngine.Object.Instantiate(pf, pc.transform.position + new Vector3(10, 0, 0), Quaternion.identity);
+go.GetComponent<EnemyHealth>().isBossMob = true;
+bool near = RecallCast.Begin("귀환 주문서"); s += " | boss10 Begin=" + near; if (near) RecallCast.Cancel("t");
+go.transform.position = pc.transform.position + new Vector3(60, 0, 0);
+bool far = RecallCast.Begin("귀환 주문서"); s += " | boss60 Begin=" + far; if (far) RecallCast.Cancel("t");
+UnityEngine.Object.Destroy(go);
+return s;

@@ -61,6 +61,7 @@ MonoBehaviour:
   skillImage: {fileID: 21300000, guid: bd48fc6da4eb1984bb29946ff5c3cace, type: 3}
   skillAnim: StaffAttack
   isWeaponStopMove: 1
+  _turnDuringCast: 0
   useStemina: 5
   attckSpeed: 1
   rb: {fileID: 0}
@@ -162,6 +163,7 @@ MonoBehaviour:
   skillImage: {fileID: 21300000, guid: eeb42ce9a7b989c40be279e7a9e057bd, type: 3}
   skillAnim: StaffAttack
   isWeaponStopMove: 1
+  _turnDuringCast: 0
   useStemina: 1
   attckSpeed: 0.5
   rb: {fileID: 0}
@@ -211,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1291193055134064077}
   - component: {fileID: 1291193055134064076}
+  - component: {fileID: 3912441817365806930}
   m_Layer: 7
   m_Name: BanditShortbow
   m_TagString: Untagged
@@ -271,6 +274,9 @@ MonoBehaviour:
   isAttackWait: 1
   isSkillAttackWait: 1
   isWeaponStopMove: 0
+  _attackMoveSpeedMul: 1
+  _driftMul: 0.5
+  _turnDuringAttack: 0
   time: 0
   isOverHand: 0
   swingVfx: 0
@@ -297,9 +303,27 @@ MonoBehaviour:
   - {fileID: 0}
   leftWeqponSprite: {fileID: 0}
   RightWeqponSprite: {fileID: 5146013849899753334}
+  _windupMul: 1
+  _recoverMul: 1
+  _chain: 0
+  _chainLinks: 12
+  _chainColor: {r: 0.45, g: 0.48, b: 0.52, a: 1}
+  _kind: 0
   isSkillCancel: 1
   _comboGrace: 0.45
   _meleeActiveRatio: 0.6
+--- !u!114 &3912441817365806930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291193055431298620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7491fdcc4210a84192bc86a371777ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoGimmick
 --- !u!1 &1291193055778619313
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +667,7 @@ MonoBehaviour:
   skillImage: {fileID: 21300000, guid: eeb42ce9a7b989c40be279e7a9e057bd, type: 3}
   skillAnim: StaffAttack
   isWeaponStopMove: 1
+  _turnDuringCast: 0
   useStemina: 5
   attckSpeed: 1
   rb: {fileID: 0}

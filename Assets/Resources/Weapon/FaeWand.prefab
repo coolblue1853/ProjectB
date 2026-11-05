@@ -61,6 +61,7 @@ MonoBehaviour:
   skillImage: {fileID: 21300000, guid: db89f83012780d7458fd443e8fd986d4, type: 3}
   skillAnim: StaffAttack
   isWeaponStopMove: 1
+  _turnDuringCast: 0
   useStemina: 5
   attckSpeed: 1
   rb: {fileID: 0}
@@ -162,6 +163,7 @@ MonoBehaviour:
   skillImage: {fileID: 21300000, guid: 2db42b6d0bbf41d4e861fcc525e6b629, type: 3}
   skillAnim: StaffAttack
   isWeaponStopMove: 1
+  _turnDuringCast: 0
   useStemina: 1
   attckSpeed: 0.5
   rb: {fileID: 0}
@@ -211,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1291193055134064077}
   - component: {fileID: 1291193055134064076}
+  - component: {fileID: 4391213831371544828}
   m_Layer: 7
   m_Name: FaeWand
   m_TagString: Untagged
@@ -272,6 +275,8 @@ MonoBehaviour:
   isSkillAttackWait: 1
   isWeaponStopMove: 0
   _attackMoveSpeedMul: 1
+  _driftMul: 0.5
+  _turnDuringAttack: 0
   time: 0
   isOverHand: 0
   swingVfx: 0
@@ -303,9 +308,22 @@ MonoBehaviour:
   _chain: 0
   _chainLinks: 12
   _chainColor: {r: 0.45, g: 0.48, b: 0.52, a: 1}
+  _kind: 0
   isSkillCancel: 1
   _comboGrace: 0.45
   _meleeActiveRatio: 0.6
+--- !u!114 &4391213831371544828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291193055431298620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e8af8d1688a4c14ea899b03e5ca4151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TomePageGimmick
 --- !u!1 &1291193055778619313
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,6 +699,7 @@ MonoBehaviour:
   skillImage: {fileID: 21300000, guid: 2db42b6d0bbf41d4e861fcc525e6b629, type: 3}
   skillAnim: StaffAttack
   isWeaponStopMove: 1
+  _turnDuringCast: 0
   useStemina: 5
   attckSpeed: 1
   rb: {fileID: 0}

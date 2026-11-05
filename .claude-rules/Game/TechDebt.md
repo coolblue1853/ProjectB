@@ -246,3 +246,4 @@
 - (11-05 PV4) (P4) 퀘스트 창 구역 접기는 Z·패드 A 만 동작(UI.Select 에 Enter 바인딩 없음). 문구/바인딩 정리.
 - (11-05 SLOT-R) 신규 4슬롯 패드 커서 이동·드래그 장착은 여전히 미구현·미확인. 폐기 장신구 반환 시 가방 가득이면 판매값/2 골드(임시).
 - (11-05 AUTO-5) (P3) **해결**: `EnemyRoundAttackNode`(isSetParent=false) 탄막은 `enemyOb` 미지정이라 정예 ×1.5·보스 격노가 빠졌음 → 노드가 `enemyOb=this.gameObject` 지정, 배율은 순수 `EnemyAttackScale.Apply`로 통일(`EnemyAttackScaleTests` 4건 통과). 플레이 미검증. 해당 몹 목록은 BD 직렬화라 grep 불가 — RoundAttackNode 사용 몹 전체에 적용됨.
+- (11-05 PV8) (P3) AUTO-16 래퍼 3종을 임시 대용 무기(BanditShortbow·Wood Spear·FaeWand)에 부착·플레이 확인. 석궁 발사 차단·치명 확정, 투창 실제 투사체·함정 판정, 마도서 장별 평타는 후속. 전용 무기 생기면 컴포넌트 이동.
