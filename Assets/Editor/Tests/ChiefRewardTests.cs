@@ -83,7 +83,8 @@ public class ChiefRewardTests
     {
         Assert.IsTrue(PlunderRules.Roll(0.079f));
         Assert.IsFalse(PlunderRules.Roll(0.08f));
-        Assert.AreEqual(300, PlunderRules.Apply(100, true, 0.01f));
+        Assert.AreEqual(150, PlunderRules.Apply(100, true, 0.01f));
+        Assert.AreEqual(7, PlunderRules.Apply(5, true, 0.01f)); // 7.5 내림
         Assert.AreEqual(100, PlunderRules.Apply(100, true, 0.5f));
         Assert.AreEqual(100, PlunderRules.Apply(100, false, 0.01f));
         Assert.AreEqual(0, PlunderRules.Apply(0, true, 0.01f));

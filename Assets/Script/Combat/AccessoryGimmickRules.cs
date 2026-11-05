@@ -41,11 +41,11 @@ public static class AccessoryGimmick
     }
 }
 
-/// <summary>약탈의 훈장: 몹 처치 골드 드롭 8% 확률로 x3. 상태 없음.</summary>
+/// <summary>약탈의 훈장: 몹 처치 골드 드롭 8% 확률로 x1.5 (결정 11-05, 구 x3). 상태 없음.</summary>
 public static class PlunderRules
 {
     public const float Chance = 0.08f;
-    public const int GoldMul = 3;
+    public const float GoldMul = 1.5f;
 
     /// <summary>roll = 0~1 난수. 발동 여부</summary>
     public static bool Roll(float roll)
@@ -53,10 +53,10 @@ public static class PlunderRules
         return roll < Chance;
     }
 
-    /// <summary>장착·발동 시 골드 x3 (장착 안 했거나 미발동이면 그대로)</summary>
+    /// <summary>장착·발동 시 골드 x1.5 내림 (장착 안 했거나 미발동이면 그대로)</summary>
     public static int Apply(int gold, bool equipped, float roll)
     {
-        return equipped && gold > 0 && Roll(roll) ? gold * GoldMul : gold;
+        return equipped && gold > 0 && Roll(roll) ? Mathf.FloorToInt(gold * GoldMul) : gold;
     }
 }
 
