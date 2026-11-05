@@ -147,6 +147,17 @@
 - `F2-BREATH` 용의 숨결 지속 판정 (13) — 중
 - `F2-SEQBOSS` 4기사 순차 중간보스 방 + 기사단장 순환 (11) — 중
 
+### 5.6 무기 스킬 영문 키 표 (11-05, LA-3·L4 — 초안 `Floor2SetItem_draft.csv` 4세트 `coolDown` 키 기준)
+
+프리팹 제작 때 `skillName` 을 아래 키(공백=`_`)로 맞춘다. 세트 4 쿨감이 걸리는 키는 A 슬롯 스킬뿐이다(S 슬롯은 임시 가정으로 제외, `Docs/OpenQuestions.md` Q-LA3).
+
+| 세트 | 무기 | `skillName` (4세트 coolDown 대상) |
+|---|---|---|
+| GardenArmor | ScaleBulwark / PruningShears | Scale_Guard / Pruning_Cut |
+| MoonStoneArmor | PetrifiedWing / MoonmothCenser | Wing_Dive / Dust_Field |
+| OrderArmor | LancersPike / KnightCommanderBlade / LongbowOfTheOrder / SpellguardRod | Pike_Charge / Triple_Slash / Pierce_Arrow / Homing_Orb |
+| DrakeArmor | DrakelingFang / WyvernGlaive / CinderCenser | Ember_Combo / Glide_Slash / Fire_Orbs |
+
 ## 6. 공통 구현 경로 (2층계)
 
 - 몹: 코드 도트(`Tools/pixelfx/gen_<zone>_mobs.py`) → `MonsterBuilder`(RatThief = 빠른 근접 / LeftMole = 느린 탱커 / FlowerMole = 원거리·비행 / PassiveTerror = 보스, 18px/유닛). SPUM 금지.

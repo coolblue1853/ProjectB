@@ -567,3 +567,7 @@
 ## Q-AUTO14 수면·몹 반사 자세 (11-05)
 - **[임시 가정]** 수면 3~6초(경직보다 길게), 피격 시 해제(잠든 직후 0.3초 유예), 자는 중 재적용 불가. `PlayerStatus` InputLock+MoveLock 토큰 사용(대시/스킬 무적은 건드리지 않음). 몹 반사 = 자세 중 받은 피해의 30%를 `damage2Player`(방어 가로채기 적용).
 - 미연결: `PlayerSleep.Apply(초)`·`EnemyHealth.BeginReflect(초)` 호출처(나방 가루·천칭 석상 BT)는 몹 추가 때. 수면 연출(그래픽)·Zzz 표시 보류.
+
+## Q-LA2/LA3 계보 점검 판단 건 (11-05, LineageAudit L2·L3)
+- **[임시 가정 LA-2]** 비계보 무기 5종(TwinFang·GnarledClub·VineLash·HuntersLongbow·WoodcuttersAxe)의 세트 소속은 의도된 것으로 보고 유지(세트 키 이름 변경 금지). 세트 카운트 기준(`setName`/`tfName`) 확인은 별도 코드 점검 때.
+- **[임시 가정 LA-3/4]** 2층계 초안 S 슬롯 스킬(덩굴 묶기·패링·방벽·꼬리 독침)은 4세트 `coolDown` 에 넣지 않는다(쿨감은 A 슬롯만). 프리팹 제작 때 S 스킬 영문 키가 정해지면 재검토. 키 표는 `Floor2Plan.md` 5.6.

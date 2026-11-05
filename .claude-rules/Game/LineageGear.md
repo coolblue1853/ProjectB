@@ -18,7 +18,7 @@
 | 개구리 | 혀 당기기, 점프 압사 | **Frog Tongue Whip**(채찍형, Spear 기반) | A 혀 끌어당기기(적을 앞으로), S 도약 내려찍기 | 당기기는 음수 넉백 |
 | 모기 | 흡혈 돌진(비행) | **Bloodsting Rapier**(Dagger 기반) | A 흡혈 찌르기(피해 일부 회복), S 3연 돌진 | `HpHeal` 연동 |
 | 슬라임 | 분열 | **Slime Mace**(GreatSword 기반) | A 내려찍기 시 작은 슬라임 소환 2(`SummonRunner` 변형: 튀는 슬라임) | |
-| 꽃게 | 집게 연타·방어 | **Petal Pincer**(Knuckles 기반) | A 집게 연타, S 방어 자세(Shell Guard 재사용) | |
+| 꽃게 | 집게 연타·방어 | **Petal Pincer**(Knuckles 기반) | A 집게 연타, S 방어 자세(Shell_Back — 실제 프리팹 키. Shell_Guard 는 ShellShield 쪽 스킬) | |
 | 악어 | 물어 흔들기 | **Croc Jaw Axe**(Side 기반) | A 물어 흔들기(다단 3), S 돌진 회전 | |
 | 보스 **거대 슬라임** | 분열·점프 | 유니크 **Primordial Gel** | 처치 시 아군 슬라임 소환(확률) | `BossReward` |
 
@@ -72,3 +72,15 @@ Lv1~12 보상 무기 6종·3세트(Pack Hunter·Ancient Grove·Bog Stalker)의 �
 - 기존 시전 `castVfx`만 교체한다. 피해 판정·지연 FX·소환수·투사체·장판은 유지한다. 첫 피벗과 기존 바닥 보정을 재사용하고 홀드도 시작 1회만 표시한다.
 - PNG가 없으면 기존 경로 그대로. 36 PPU·중심 피벗·오른쪽 원본/왼쪽 반전, 단일 이미지 0.2초·시트 20fps. 기존 Vfx 도트 풀/PixelFxClip 재사용, None 풀로 기본 3타와 분리한다.
 - 정지 상태에서 PNG를 임포트하고 Resources 카탈로그로 빌드 참조를 유지한다. 그림 제작·시각 품질 판정은 Claude 담당이며 Codex는 코드 연결만 한다. 기본 3타·스미어 v7은 수정하지 않는다.
+
+## 7. 1층계 ①~③ 세트 몹 → 무기 표 (11-05, LA-1, 실데이터 대조)
+
+④~⑥ 외 5세트의 빠졌던 몹 스킬 열. 무기 스킬 키는 `Resources/Weapon/*.prefab` 의 `skillName`, 세트 4·6 `coolDown` 키와 일치 확인(`Docs/Playtest/LineageAudit.md` §1). 몹 스킬 열은 이름 기준 추정.
+
+| 세트(`tfName`) | 몹 | 계보 무기 · 스킬 키 |
+|---|---|---|
+| Cliffwalker's Vow(`CliffArmor`) | 절벽 몹 | CliffStaff: Starfall·Cliff_Quake / CliffBlade: Cyclone_Edge·Talon_Dive·Skybreaker |
+| Pack Hunter(`WolfArmor`) | 늑대·멧돼지 | FangDagger: Howl_of_the_Pack / TuskKnuckles: Boar_Charge |
+| Night Lantern(`WispArmor`) | 도깨비불·껍질 | WispLantern: Wisp_Bolt·Ghostlight_Ring / ShellShield: Shell_Guard |
+| Ancient Grove(`GroveArmor`) | 곰·엔트 | BearClaw: Mauling_Rush / RootStaff: Ancient_Roots |
+| Will-o'-Fae(`FaeArmor`) | 요정 | PhantomScythe: Phantom_Glide / FaeWand: Fairy_Dust_Bolt |

@@ -50,3 +50,8 @@
 - LA-3 (문서, P2): `Floor2Plan.md` §5 에 무기 스킬 영문 키 표 추가, 초안 coolDown 키와 대조 (L3·L4)
 - LA-4 (설계, P3): 초안 S 슬롯 스킬 4종을 4세트 coolDown 에 포함할지 결정 (L3)
 - LA-5 (문서, P3): `LineageGear.md` Petal Pincer 서술을 실제 키(Shell_Back/Shell_Guard)에 맞춤 (L5)
+
+## 5. 적용 결과 (11-05)
+- L1 → `LineageGear.md` §7 추가. L4 → `Floor2Plan.md` §5.6 영문 키 표. L5 → `LineageGear.md` §1 서술을 실제 키(Shell_Back)에 맞춤.
+- L2·L3 → 판단 건: `Docs/OpenQuestions.md` Q-LA2/LA3 임시 가정(유지·A 슬롯만). 데이터(CSV) 변경 없음, 세트 키 이름 변경 없음.
+- 검증: 데이터 변경이 없어 기존 EditMode 741 통과 상태 그대로(문서만 수정).
