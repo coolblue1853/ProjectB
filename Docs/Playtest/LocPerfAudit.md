@@ -78,3 +78,7 @@
 | 22 ✅ | U: buy back last sold item | 삭제함 | 위와 동일 |
 
 요약: 보존 17(오탐 1 포함) · 삭제 후보 5 · **번역 누락 0**(반대 방향 누락은 §1-1 LP-1 로 처리 완료). 삭제 후보 5종은 위험이 낮지만 수혜도 작아(문자열 5개) 우선순위 P4, 필요 시 `LocUi.cs` 5행 제거 + `sync_i2_terms` 재실행 + `LocUiKeysTests` 확인.
+
+## 9. 7차 큐 상태 (AUTO-75, 11-05)
+- ✅ LP-1~LP-4 적용, LP-5 미사용 번역 4종 삭제(AUTO-55), 타격 GetComponent 3곳 TryGetComponent(AUTO-51), UiText.SetIfChanged(AUTO-56).
+- 보류: LP-6 StatusTint(AUTO-70, 캐시 불가 사유 기록), §2 #10 사다리 GetComponent(사다리 상태에서만, 영향 작음).

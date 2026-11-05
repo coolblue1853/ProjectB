@@ -10,6 +10,11 @@
 - ✅ 11-05 AUTO-20: 코드 5건 정리(플레이 미검증, EditMode 707 통과) — `EnemyWallChecker` 매 프레임 `LayerMask.GetMask` 캐시, 디버그 `Debug.Log` 제거(`EnemyRoundAttackNode`, `PlayerController` 3곳, `Chest`, `ItemDrag` 2곳, `InventoryManager` 2곳, `CraftingManager`).
 - P1/P2 승격 없음: 🔶 표기 6건 중 진행 불가·데이터 손실 위험이 남은 것은 없음. 사용자 판단 필요 항목 없음.
 
+## 11-05 AUTO-75 7차 정리
+- 해소: SetItem new 생성 에러 6건(f9fcfc99), HuntingRules.RefillAfter cycle<=0(5f59f3c2), 십자 이동·LT+R3 중복(AUTO-64·65), CountdownTimer/LoadOr/Cooldown 중복 정리.
+- 남은 P1/P2 요약: (1) P2 실기 패드 미검증 전반, (2) P2 2층계 CSV 병합·몹 미구현, (3) P2 보스 격노/첫 보상 실측 보류, (4) P4 퀘스트 창 "Z/Enter" 문구, (5) P3 보스 보상 아이콘 없음(그래픽 검토).
+- 8차 큐 후보(ReviewCode_1105b [필수] 없음, 둘 다 해소): 권장 #3·#4(PadFieldInput 제스처 갱신/_selectInUi), #5(IsLtGuardConflict 참조 비교), #9(CountdownTimer.Start 음수 가드), Enter 문구 수정.
+
 ## P0
 
 | ID | 내용 | 위치 | 상태 |

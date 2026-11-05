@@ -55,3 +55,6 @@
 - L1 → `LineageGear.md` §7 추가. L4 → `Floor2Plan.md` §5.6 영문 키 표. L5 → `LineageGear.md` §1 서술을 실제 키(Shell_Back)에 맞춤.
 - L2·L3 → 판단 건: `Docs/OpenQuestions.md` Q-LA2/LA3 임시 가정(유지·A 슬롯만). 데이터(CSV) 변경 없음, 세트 키 이름 변경 없음.
 - 검증: 데이터 변경이 없어 기존 EditMode 741 통과 상태 그대로(문서만 수정).
+
+## 6. 7차 큐 상태 (AUTO-75, 11-05)
+- 7차에서 계보 데이터 변경 없음(L1~L5 상태 §5 그대로). L2·L3 은 OpenQuestions Q-LA2/LA3 임시 가정 유지. AUTO-62 로 FangDagger 소환수(Howl of the Pack) 키 경로 플레이 확인.

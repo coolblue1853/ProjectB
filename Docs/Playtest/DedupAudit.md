@@ -25,3 +25,7 @@
 - 건드리지 말 것: 서드파티·자동 생성(`KeyAction.cs`).
 
 #5 적용: `UiText.SetIfChanged` 신규, `CraftPinHud`·`MinimapHud` 적용. `InventoryFilterView` 는 TMP 가 아니라 OnGUI 라벨이라 대상 아님(OnGUI 는 GUI 교체 시 정리).
+
+## 7차 큐 종료 상태 (AUTO-75, 11-05)
+- ✅ #1 SaveUtil.LoadOr(AUTO-53·68), #2 CountdownTimer(AUTO-54·66·67), #3 Cooldown(AUTO-69), #5 UiText.SetIfChanged(AUTO-56), GimmickHud 단일화(AUTO-52).
+- 보류: LP-6 StatusTint 자식 탐색 캐시는 불가 사유 기록(AUTO-70). 나머지 후보는 효과 작아 보류.

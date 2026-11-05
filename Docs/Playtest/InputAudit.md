@@ -114,3 +114,8 @@ UI 탐색은 방향키/십자/스틱 → UI 맵 4방향 + `verticalCheck`·`hori
 - AUTO-64: 보기 필터 = LT+RT 로 이동(`InventoryFilterView`), RT 단독 3곳(`Buyback`·`ChestConvenience`·`GearPresets`)에 LT 가드. 규칙은 `PadChordRules`. 잠금 LT+R3 유지(`InventoryConvenience`도 `LockChord` 사용). `KeyAction.inputactions` 변경 없음(코드 폴링이라). ReviewCode_1105b 필수 1·2 해소.
 - AUTO-65: `Input/DpadMoveRules.cs` + `PlayerController.MoveInput()`(이동 읽기 6곳) + `QuickSlotBar` 2·3 차단. 키보드 불변.
 - 검증: EditMode 792 통과(새 9 포함), 컴파일 0. **실기/가상 패드 플레이 미검증**.
+
+## 8. 7차 큐 상태 (AUTO-75, 11-05)
+- ✅ IN-2 LT+R3 중복(AUTO-64, 7b674773): 보기 필터 LT+RT 로 이동, RT 단독 3곳(Buyback·ChestConvenience·GearPresets) LT 가드. ReviewCode_1105b [필수] 2건 모두 해소.
+- ✅ IN-1 십자 이동 옵션(AUTO-65, 기본 OFF). P10 해소.
+- 남음: P6(미니맵 LT+L3), P11(키 설정 재지정 확대), 퀘스트 창 Enter 접기 문구 불일치(PV11, 후속 AUTO 후보). 실기 패드는 여전히 미검증(가상 패드만).
