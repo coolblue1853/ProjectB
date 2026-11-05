@@ -3496,15 +3496,6 @@ MonoBehaviour:
         \uC5F4\uB9B0\uB2E4."
       Flags: 0000
       Languages_Touch: []
-    - Term: UP DOWN select SELECT travel M BACK close
-      TermType: 0
-      Description: 
-      Languages:
-      - UP/DOWN select    SELECT travel    M / BACK close
-      - "\uC704/\uC544\uB798 \uC120\uD0DD    \uC120\uD0DD \uC774\uB3D9    M / \uB4A4\uB85C
-        \uB2EB\uAE30"
-      Flags: 0000
-      Languages_Touch: []
     - Term: 'Sell {0} {1}EA, Price : {2}'
       TermType: 0
       Description: 
@@ -6533,6 +6524,202 @@ MonoBehaviour:
       Languages:
       - On cooldown
       - "\uC7AC\uC0AC\uC6A9 \uB300\uAE30 \uC911"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Deep Forest Core
+      TermType: 0
+      Description: 
+      Languages:
+      - Deep Forest Core
+      - "\uAE4A\uC740 \uC232 \uC2EC\uBD80"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Mist Swamp
+      TermType: 0
+      Description: 
+      Languages:
+      - Mist Swamp
+      - "\uC548\uAC1C \uB2AA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bandit Plunder Medal
+      TermType: 0
+      Description: 
+      Languages:
+      - Bandit Plunder Medal
+      - "\uC57D\uD0C8\uC758 \uD6C8\uC7A5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Chief's Last Stand Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Chief's Last Stand Ring
+      - "\uB300\uC7A5\uC758 \uC624\uAE30 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ARROWS select TAB zones B BACK close
+      TermType: 0
+      Description: 
+      Languages:
+      - ARROWS select    TAB zones    B / BACK close
+      - "\uBC29\uD5A5\uD0A4 \uC120\uD0DD    TAB \uAD6C\uC5ED    B / \uB4A4\uB85C
+        \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: TAB bestiary B BACK close
+      TermType: 0
+      Description: 
+      Languages:
+      - TAB bestiary    B / BACK close
+      - "TAB \uB3C4\uAC10    B / \uB4A4\uB85C \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP DOWN select SELECT travel HOME village M BACK close
+      TermType: 0
+      Description: 
+      Languages:
+      - UP/DOWN select    SELECT travel    HOME village    M / BACK close
+      - "\uC704/\uC544\uB798 \uC120\uD0DD    \uC120\uD0DD \uC774\uB3D9    HOME \uB9C8\uC744   
+        M / \uB4A4\uB85C \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Connections
+      TermType: 0
+      Description: 
+      Languages:
+      - Connections
+      - "\uC5F0\uACB0 \uAD6C\uC5ED"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 
+      TermType: 0
+      Description: 
+      Languages:
+      - '[Sealed]'
+      - "[\uBD09\uC778]"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Upper road
+      TermType: 0
+      Description: 
+      Languages:
+      - Upper road
+      - "\uC717\uAE38\uB85C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Craft cost :'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Craft cost : '
+      - "\uC81C\uC791 \uBE44\uC6A9 : "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Explorer Seal acquired ({0} {1})
+      TermType: 0
+      Description: 
+      Languages:
+      - Explorer Seal acquired ({0}/{1})
+      - "\uD0D0\uD5D8\uAC00\uC758 \uC778\uC7A5 \uD68D\uB4DD ({0}/{1})"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Locked: complete the Floor 1 bestiary or first-clear a Floor 1 boss'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Locked: complete the Floor 1 bestiary or first-clear a Floor 1 boss'
+      - "\uC7A0\uAE40: 1\uCE35\uACC4 \uB3C4\uAC10\uC744 \uC644\uC131\uD558\uAC70\uB098
+        1\uCE35\uACC4 \uBCF4\uC2A4\uB97C \uCC98\uC74C \uCC98\uCE58"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Locked: first-clear a Floor 2 boss'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Locked: first-clear a Floor 2 boss'
+      - "\uC7A0\uAE40: 2\uCE35\uACC4 \uBCF4\uC2A4\uB97C \uCC98\uC74C \uCC98\uCE58"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Locked: complete the Floor 3 bestiary or finish its quest chain'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Locked: complete the Floor 3 bestiary or finish its quest chain'
+      - "\uC7A0\uAE40: 3\uCE35\uACC4 \uB3C4\uAC10\uC744 \uC644\uC131\uD558\uAC70\uB098
+        \uD018\uC2A4\uD2B8 \uC5F0\uC1C4\uB97C \uC644\uB8CC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Locked: first-clear a Floor 4 boss'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Locked: first-clear a Floor 4 boss'
+      - "\uC7A0\uAE40: 4\uCE35\uACC4 \uBCF4\uC2A4\uB97C \uCC98\uC74C \uCC98\uCE58"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'New equipment slot unlocked:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'New equipment slot unlocked: '
+      - "\uC0C8 \uC7A5\uBE44 \uC2AC\uB86F \uD574\uAE08: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Trial readiness
+      TermType: 0
+      Description: 
+      Languages:
+      - Trial readiness
+      - "\uC2DC\uD5D8 \uC900\uBE44\uB3C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Other side
+      TermType: 0
+      Description: 
+      Languages:
+      - Other side
+      - "\uAC74\uB108\uD3B8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Nest raid wave {0} {1}
+      TermType: 0
+      Description: 
+      Languages:
+      - Nest raid wave {0}/{1}
+      - "\uB465\uC9C0 \uC2B5\uACA9 {0}/{1}\uCC28\uB840"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Monsters left: {0} - defeat them all'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Monsters left: {0} - defeat them all'
+      - "\uB0A8\uC740 \uBAAC\uC2A4\uD130 {0}\uB9C8\uB9AC - \uBAA8\uB450 \uC4F0\uB7EC\uB728\uB824\uB77C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Defeat the nest's elite
+      TermType: 0
+      Description: 
+      Languages:
+      - Defeat the nest's elite
+      - "\uB465\uC9C0\uC758 \uC815\uC608\uB97C \uC4F0\uB7EC\uB728\uB824\uB77C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Defeat it for a chest reward
+      TermType: 0
+      Description: 
+      Languages:
+      - Defeat it for a chest reward
+      - "\uCC98\uCE58\uD558\uBA74 \uC0C1\uC790 \uBCF4\uC0C1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bestiary reward -
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Bestiary reward - '
+      - "\uB3C4\uAC10 \uBCF4\uC0C1 - "
       Flags: 0000
       Languages_Touch: []
     CaseInsensitiveTerms: 0

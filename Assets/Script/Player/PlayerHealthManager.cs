@@ -378,7 +378,7 @@ public class PlayerHealthManager : MonoBehaviour
             {
                 HitFeedback.SpawnText(_numberPrefab, NumberAnchor() + Vector3.up * 0.5f, "버텼다!", HitFeedback.TextKind.Status);
             }
-            if (dmgAfDef <= 0)
+            if (GuardState.ShowBlockText(guarded, dmgAfDef))
             {
                 HitFeedback.SpawnText(_numberPrefab, NumberAnchor(), "BLOCK", HitFeedback.TextKind.Block); // 방어력이 전부 흡수
             }

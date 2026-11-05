@@ -153,8 +153,10 @@ public sealed class RecallCast : MonoBehaviour
             return;
         }
         string item = _itemName;
-        Stop(null);
-        if (InventoryManager.instance != null && InventoryManager.instance.RemoveOne(item))
+        // 소모 성공을 확인한 뒤에만 완료(Ended(true)) 처리한다(리뷰 #7)
+        bool consumed = InventoryManager.instance != null && InventoryManager.instance.RemoveOne(item);
+        Stop(consumed ? null : "아이템 없음");
+        if (consumed)
         {
             MapInfo.GoToTown(pc.gameObject);
             GameLog.Info(GameLog.Cat.Item, "귀환 완료 → 마을");

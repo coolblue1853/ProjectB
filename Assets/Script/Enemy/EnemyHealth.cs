@@ -631,6 +631,10 @@ public class EnemyHealth : PoolAble
     /// <summary>석화 = 경직(Snare 재사용). 보스 제외, 정예·저항 반영, 끝난 뒤 면역 시간 동안 연쇄 불가</summary>
     public void ApplyPetrify(float seconds)
     {
+        if (behaviorTree == null || isBossMob)
+        {
+            return; // Snare 가 거절할 대상은 면역 타이머도 소모하지 않는다(리뷰 #8)
+        }
         float actual = _debuff.TryPetrify(seconds, StaggerResist, Time.time);
         if (actual > 0f)
         {

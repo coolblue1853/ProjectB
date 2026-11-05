@@ -11,12 +11,12 @@
 
 ### [권장]
 
-3. `Assets/Script/Player/PlayerHealthManager.cs:348-357, 383` — 막기 성공 후 dmgAfDef가 0이면 PARRY/GUARD와 BLOCK 텍스트가 겹쳐 뜬다. 대안: BLOCK 조건에 `!guarded`를 추가.
+3. `Assets/Script/Player/PlayerHealthManager.cs:348-357, 383` — 막기 성공 후 dmgAfDef가 0이면 PARRY/GUARD와 BLOCK 텍스트가 겹쳐 뜬다. 대안: BLOCK 조건에 `!guarded`를 추가. **[해결 11-05: BLOCK 문구는 막기 성공 시 제외 GuardState.ShowBlockText. ReviewFix1105bTests]**
 4. `Assets/Script/Enemy/EnemyHealth.cs:633, 709-719` — ApplyBurn이 호출마다 PosionAttack을 새로 Instantiate한다. 화상 중첩 상한이 없어 연타 시 틱 피해가 N배가 된다. 대안: 재적용 시 기존 틱을 갱신하거나 상한 설정. 설계 의도 확인 필요. **[해결 11-05: 화상은 기존 틱 갱신으로 중첩 금지(_burn). 독은 기존대로 중첩. BurnStackTests]**
 5. `Assets/Script/UI/ExtraEquip.cs:237-240` — 해금 첫 아이템 CreatItem 반환값을 무시한다. 가방이 가득이면 해금은 저장된 채 아이템만 사라진다. 대안: 실패 시 골드 지급 또는 보류 큐. **[해결 11-05: 해금 첫 아이템 지급 실패 시 판매값 골드(GrantFirstItem). ExtraEquipLoadTests]**
 6. `Assets/Script/UI/ExtraEquip.cs:95-100` — 장착 교체 시 old 반환 CreatItem 결과를 무시한다. RemoveAt(1) 직후라 보통 성공하지만 보장은 없다. 대안: 반환 성공을 확인한 뒤 Items를 교체. **[해결 11-05: 교체 반환 실패 시 판매값 골드(ReturnOrRefund). ExtraEquipLoadTests]**
-7. `Assets/Script/Item/RecallCast.cs:155-161` — Stop(null)이 Ended(true)를 먼저 발행한 뒤 RemoveOne이 실패해도 이동 없이 완료로 처리된다. 구독 UI가 성공으로 표시할 수 있다. 대안: RemoveOne 성공을 확인한 뒤 완료 처리.
-8. `Assets/Script/Enemy/MobDebuffRules.cs:64` — 석화 면역 타이머를 Snare 호출 전에 기록한다. Snare가 보스·behaviorTree null로 거절해도 면역이 소모된다. 대안: 실제 적용 성공 뒤에만 면역을 기록.
+7. `Assets/Script/Item/RecallCast.cs:155-161` — Stop(null)이 Ended(true)를 먼저 발행한 뒤 RemoveOne이 실패해도 이동 없이 완료로 처리된다. 구독 UI가 성공으로 표시할 수 있다. 대안: RemoveOne 성공을 확인한 뒤 완료 처리. **[해결 11-05: RemoveOne 성공 확인 뒤에만 Ended(true), 실패는 "아이템 없음" 취소. 테스트 불가(MonoBehaviour+인벤 싱글턴), 코드 검토만]**
+8. `Assets/Script/Enemy/MobDebuffRules.cs:64` — 석화 면역 타이머를 Snare 호출 전에 기록한다. Snare가 보스·behaviorTree null로 거절해도 면역이 소모된다. 대안: 실제 적용 성공 뒤에만 면역을 기록. **[11-05 거의 오탐: Snare 거절 대상(보스·BT 없음)은 어차피 석화 안 됨이라 면역 소모가 무영향. 그래도 ApplyPetrify 에서 선검사해 면역 미소모로 정리]**
 
 ### [참고]
 

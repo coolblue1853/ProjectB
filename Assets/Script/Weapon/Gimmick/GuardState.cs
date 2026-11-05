@@ -21,6 +21,12 @@ public sealed class GuardState
 {
     public const float ParryWindow = 0.2f;
     public const float ParryInvuln = 0.5f;
+
+    /// <summary>"BLOCK"(방어력 전부 흡수) 문구 표시 여부. 막기(GUARD/PARRY) 문구와 겹치지 않게 막은 경우는 제외(리뷰 #3)</summary>
+    public static bool ShowBlockText(bool guarded, int damageAfterDef)
+    {
+        return !guarded && damageAfterDef <= 0;
+    }
     public const float BarrierDuration = 3f;
 
     private readonly float _reduceRatio;

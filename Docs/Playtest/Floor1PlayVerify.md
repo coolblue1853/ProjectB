@@ -184,3 +184,21 @@ bash 봇(PT-BOT 본체)은 쓰지 않고 항목별 전용 프로브를 새로 �
 ## 발견
 - (P3) 세 래퍼 효과는 상태·임시 HUD 텍스트뿐: 석궁 발사 차단·치명 확정, 투창 실제 투사체·함정 판정, 마도서 장별 평타는 후속. HUD(`OnGUI`)는 같은 위치라 한 번에 한 무기만 보임. 마도서 C 키는 다른 쓰임과 충돌 없음(grep).
 - 못 확인: 키보드 C 입력 자체(프로브는 `TrySwitch` 직접 호출), 보스 근접 귀환 거부 시 화면 안내 문구 모습(그래픽 보류).
+
+# PV9 (11-05) EditMode 통과분 플레이 모드 확인
+프로브 `Tools/probes/pv9_extra.cs`·`pv9_burn.cs`·`pv9_ui.cs`·`pv9_fold.cs`(+ 재사용 `nest_setup`·`nest_drive`·`pv4_tapjump`·`pv4_death`). SampleScene·낮, 세이브 백업(`/tmp/savebk_pv9`)·복원, Loc 원래(English) 복원, 플레이 정지.
+
+| 항목 | 결과 | 수치·관찰 |
+|---|---|---|
+| 장신구 세이브/로드 왕복 | 통과 | 1·2층 해금(mask 3) → `Load()` 후 mask 3 유지·SaveBlocked 거짓. 폐기 `TitleWanderer` 를 칸0에 심고 Load → 인벤 0→1, 다시 Load → 1(재지급 없음), 저장 키 칸0 비워짐 |
+| 화상 재적용 | 통과 | 재적용 3회 뒤 자식 `PosionAttack` 1개. 총 손실 900(150×6, 재적용이 기존 틱을 갱신하며 지속 연장. 3중첩이면 ~1800) |
+| NestHuntUI 습격 문구 | 통과(표시) | Lv1_NormalForest 흔적 3개 → Stage=Wave, "Nest raid wave 1/2 / Monsters left: 3 - defeat them all" 표시 |
+| NpcQuestTracker 캐시 | 통과(일부) | 추적 박스 표시·`_lastText` 에 퀘스트+구역 문구 보관. 캐시로 TMP 재계산 생략하는 횟수는 미측정 |
+| Loc 영어/한국어 전환 | **실패→수정** | 신규 24개 키(습격 문구·장비 슬롯 해금 등 LocUi)가 `I2Languages.asset` 에 없어 한국어 모드에서도 영어 표시. `sync_i2_terms.cs` 재실행(added 24, 옛 키 1 정리)으로 해결 — 재검증 안 함 |
+| 사망 TIP | 통과 | 사망 2회 → TIP 문구 순환(보스 패턴→HP 물약 퀵슬롯). 배너 alpha 육안 미확인 |
+| 퀘스트 접기 | 통과 | `QuestFoldRules.Toggle` False→True→False, ES3 `npcq.folded='1|PV9'` 저장 |
+| 탭 점프 | 통과 | C 0.1초 탭 상승 1.83(1.0·1.6 계단 통과) |
+
+## 발견
+- (P3) LocUi 키 추가 때 I2 에셋 동기화(`sync_i2_terms.cs`)를 안 해서 한국어 모드에서 영어가 나옴 → 수정함. 재발 방지: 키 추가 후 sync 실행 또는 EditMode 테스트(asset 에 term 존재)를 후속으로.
+- 폐기 아이콘 `Item/TitleWanderer` 로드 Error 1건(프로브가 폐기 아이템을 인벤에 넣어 발생, 실플레이 경로는 아님).
