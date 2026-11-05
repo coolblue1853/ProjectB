@@ -43,7 +43,7 @@ public class AttackManager : MonoBehaviour
             return false;
         }
         UnityEngine.InputSystem.InputControl c = skillAction[i].activeControl;
-        return GuardInputRules.SuppressSkillTrigger(i, true, c != null && c.path == "/Gamepad/leftTrigger");
+        return GuardInputRules.SuppressSkillTrigger(i, true, c != null && Gamepad.current != null && c == Gamepad.current.leftTrigger);
     }
 
     InputAction[] skillAction = new InputAction[4];
