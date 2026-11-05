@@ -69,8 +69,7 @@ public class OrbitWisps : MonoBehaviour
             if (hit && _hitPrefab != null)
             {
                 GameObject h = Instantiate(_hitPrefab, orbs[i].position, Quaternion.identity);
-                DamageObject d = h.GetComponent<DamageObject>();
-                if (d != null)
+                if (h.TryGetComponent(out DamageObject d))
                 {
                     d.SetDamge(damage);
                     d.isSkill = true;

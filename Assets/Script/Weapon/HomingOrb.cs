@@ -54,7 +54,8 @@ public class HomingOrb : MonoBehaviour
         {
             retarget = 0.2f;
             target = Nearest();
-            targetCol = target != null ? target.GetComponent<Collider2D>() : null;
+            targetCol = null;
+            if (target != null) target.TryGetComponent(out targetCol);
         }
         if (target != null && age > 0.15f)
         {

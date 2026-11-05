@@ -36,9 +36,9 @@
 | 2 ✅(습격 구간) | `Tracking/NestHuntUI.cs:61,62,83` | `string.Format`·결합 후 `Set(ref last...)` 비교 | 습격 단계는 차례·남은 수·언어가 같으면 문자열 생성 생략. 추적 단계의 Format/퍼센트 문구는 미적용 |
 | 3 ✅ | `UI/ItemCheck.cs:169` | `have + "/" + needCount` | 이미 `_shownHave/_shownNeed` 숫자 비교 뒤에만 생성(코드 확인) |
 | 4 ✅ | `Combat/ContactDamage.cs:107` | 접촉 적마다 `GetComponent<Collider2D>()` | 이미 딕셔너리 캐시(적당 1회). `TryGetComponent` 로 교체(LP-4) |
-| 5 | `Weapon/SummonRunner.cs:65` | 타격마다 `GetComponent<DamageObject>()` | 소환수 있을 때만 |
-| 6 | `Weapon/OrbitWisps.cs:72` | 타격마다 `GetComponent<DamageObject>()` | 낮음 |
-| 7 | `Weapon/HomingOrb.cs:57` | 대상 `GetComponent<Collider2D>()` | 낮음(대상 갱신 시) |
+| 5 ✅ | `Weapon/SummonRunner.cs:65` | 타격마다 `GetComponent<DamageObject>()` | 소환수 있을 때만 |
+| 6 ✅ | `Weapon/OrbitWisps.cs:72` | 타격마다 `GetComponent<DamageObject>()` | 낮음 |
+| 7 ✅ | `Weapon/HomingOrb.cs:57` | 대상 `GetComponent<Collider2D>()` | 낮음(대상 갱신 시) |
 | 8 ✅ | `Enemy/EnemyHealth.cs:598` | 몹마다 `Camera.main` 조회 | 정적 `MainCam()` 캐시(파괴 시 재조회, 서브시스템 리셋 시 null) |
 | 9 | `Enemy/StatusTint.cs:43,44` | `GetComponentInChildren` 2회 | `CheckInterval` 로 제한돼 낮음 |
 | 10 | `Player/PlayerController.cs:525` | 사다리 처리 `GetComponent<BoxCollider2D>()` | 사다리 상태에서만 |

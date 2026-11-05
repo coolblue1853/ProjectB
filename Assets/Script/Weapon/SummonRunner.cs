@@ -62,8 +62,7 @@ public class SummonRunner : MonoBehaviour
         {
             nextAttack += _attackInterval;
             GameObject hit = Instantiate(_attackPrefab, transform.position + new Vector3(dir * 0.6f, 0.4f, 0f), Quaternion.identity);
-            DamageObject d = hit.GetComponent<DamageObject>();
-            if (d != null)
+            if (hit.TryGetComponent(out DamageObject d))
             {
                 d.SetDamge(damage);
                 d.isSkill = true;
