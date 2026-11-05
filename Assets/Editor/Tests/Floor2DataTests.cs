@@ -73,6 +73,36 @@ public class Floor2DataTests
     }
 
     [Test]
+    public void SetItems_TfNameLinksToSetItemKeys()
+    {
+        // 세트 소속 아이템의 tfName 이 SetItem 키(tfName_2/_4/_6)와 이어지는지 (MigrationPlan §2 b)
+        var keys = new HashSet<string>(Resources.Load<TextAsset>("Floor2Preview/Floor2SetItem").text
+            .Replace("\r", "").Split('\n').Skip(1).Where(x => x.Length > 0).Select(x => x.Split(',')[0]));
+        int checkedSets = 0;
+        var sets = new HashSet<string>();
+        foreach (string l in Resources.Load<TextAsset>("Floor2Preview/Floor2ItemSheet").text.Replace("\r", "").Split('\n').Skip(1).Where(x => x.Length > 0))
+        {
+            string[] c = l.Split(',');
+            if (c[16].Length == 0)
+            {
+                continue;
+            }
+            Assert.IsNotEmpty(c[11], "세트 아이템은 tfName 필요: " + l);
+            sets.Add(c[11]);
+        }
+        foreach (string tf in sets)
+        {
+            foreach (string n in new[] { "_2", "_4", "_6" })
+            {
+                Assert.IsTrue(keys.Contains(tf + n), "SetItem 키 없음: " + tf + n);
+            }
+            checkedSets++;
+        }
+        Assert.AreEqual(4, checkedSets, "세트 4종");
+        Assert.AreEqual(12, keys.Count, "SetItem 12행");
+    }
+
+    [Test]
     public void MergeRows_DropsDraftHeader_AndHandlesEmpty()
     {
         Assert.AreEqual("h\na\nb", Floor2Data.MergeRows("h\na\n", "\uFEFFh\r\nb\r\n"));
