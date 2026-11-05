@@ -103,6 +103,7 @@ public static class LocUi
         ("SELECT  travel here", "선택  이곳으로 이동"),
         ("Undiscovered.", "미발견."), ("Reach it on foot to unlock the waypoint.", "직접 걸어서 도착하면 웨이포인트가 열린다."),
         ("UP/DOWN select    SELECT travel    HOME village    M / BACK close", "위/아래 선택    선택 이동    HOME 마을    M / 뒤로 닫기"),
+        ("Boss reward", "보스 보상"), ("Unique!", "고유템!"),
         ("Connections", "연결 구역"), ("Sealed", "봉인"), ("Upper road", "윗길로"),
 
         // ── 인벤토리·상점·제작 ──

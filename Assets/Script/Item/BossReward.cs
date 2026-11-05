@@ -151,14 +151,14 @@ public static class BossLoot
                 others.Add(ItemDisplayName(id));
             }
         }
-        string text = "Boss reward - Enhance Stone x" + stones;
+        string text = Loc.T("Boss reward") + " - " + ItemDisplayName(EnhanceRules.StoneName) + " x" + stones;
         if (others.Count > 0)
         {
             text += ", " + string.Join(", ", others);
         }
         if (unique)
         {
-            text += " (Unique!)";
+            text += " (" + Loc.T("Unique!") + ")";
         }
         if (mult < 1f)
         {
