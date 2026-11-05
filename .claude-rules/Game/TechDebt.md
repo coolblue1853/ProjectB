@@ -5,7 +5,7 @@
 
 ## 11-05 11차 요약 (AUTO-115)
 - **11차 후보 ID 목록**: T11-1(늪 몹 미스폰 P2), T11-2(예약 목록에 든 기본 패드 키 재지정 불가 P3), T11-3(Quick4 패드 미지정 P3), T11-4(도감·퀘스트 창 Start 미닫힘 P3), T11-5(도감 상하 고정·좌우 순환 불일치 P3), T11-6(샛길 사냥 EXP 실측 +52%, 재확인만 P3). 모두 미수정.
-- 11차 후보 T11-2 (P3, AUTO-116): `InputBindings.ReservedPaths` 에 기본 패드 키 LS·RS·Select 가 들어 있어, Quick1/Artifact/ArtifactNext 를 바꾼 뒤 그 기본 키를 직접 다시 지정할 수 없음(RESET 으로만 복귀). `Docs/Playtest/InputAudit.md` §9.
+- 11차 후보 T11-2 (P3, AUTO-116, **해소 AUTO-121**: Assign 이 액션 자신의 패드 기본 키는 예약 검사 면제, 타 액션은 거부 유지, EditMode 케이스 추가): `InputBindings.ReservedPaths` 에 기본 패드 키 LS·RS·Select 가 들어 있어, Quick1/Artifact/ArtifactNext 를 바꾼 뒤 그 기본 키를 직접 다시 지정할 수 없음(RESET 으로만 복귀). `Docs/Playtest/InputAudit.md` §9.
 - 11차 후보 T11-3 (P3, AUTO-116): Quick4 패드 기본 미지정, 십자 위/아래도 예약이라 선택지 좁고 화면에 "미지정" 안내 없음.
   - AUTO-122 결론: Quick4 는 이미 L3 길게로 동작, 키 설정 창 표시만 "-". 추천 = L3 길게 유지 + 패드 칸에 "L3 길게" 표기 (`Docs/Playtest/InputAudit.md` §11).
 - 11차 후보 T11-6 (P3, AUTO-128): 재계산 결과 +52% 는 구성 차이 아님(마리당 EXP 이론 7.96 vs 실측 8.2), 처치 수 차이(모델 8.4/분 vs 환산 15/분). 조정 없음, 종결 가능 (`Docs/Balance/Floor1HuntingAudit.md` 하단 절).

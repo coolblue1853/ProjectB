@@ -134,7 +134,7 @@ UI 탐색은 방향키/십자/스틱 → UI 맵 4방향 + `verticalCheck`·`hori
 | 패드로 행 이동 | 합격(코드·바인딩) | UI 액션 Up/Down/Left/Right = 십자 + 왼스틱, Select = 패드 A(buttonSouth)·Z. 행 이동은 위아래 순환, 좌우는 키보드/패드 열 전환 |
 | 패드로 재바인딩 진입 | 합격 | `BeginRebind(Attack, 패드)` 진입 후 대기 true, 취소 시 대기 false·값 유지. 코드상 취소 키 = 패드 Start(키보드 Esc), 제한시간 8초 후 자동 취소 |
 | 패드로 창 닫기 | 합격(코드) | Esc 또는 패드 Start -> `UiLock.TryBack` -> 닫기. 실제 Start 입력 주입은 미확인 |
-| 기본 패드 키로 되돌리기 | **불합격** | LS(Quick1)·RS(Artifact)·Select(ArtifactNext)가 `ReservedPaths` 에 있어 다른 키로 바꾼 뒤 이 기본 키를 직접 다시 지정하면 `Reserved`. RESET TO DEFAULTS 로만 복귀 |
+| 기본 패드 키로 되돌리기 | ~~불합격~~ **해소(AUTO-121)** | LS(Quick1)·RS(Artifact)·Select(ArtifactNext)가 `ReservedPaths` 에 있어 다른 키로 바꾼 뒤 이 기본 키를 직접 다시 지정하면 `Reserved`. RESET TO DEFAULTS 로만 복귀. -> AUTO-121: 액션 자신의 기본 패드 키는 재지정 허용, 타 액션은 `Reserved` 유지 |
 | Quick4 패드 키 | **불합격(약함)** | 기본 미지정이고 십자 위/아래도 `Reserved`(UI 이동용). 선택지가 face 버튼·트리거뿐이며 지정 시 다른 액션과 교환됨 |
 
 - 후속: TechDebt T11-2(예약 목록에 든 기본 패드 키 재지정 불가), T11-3(Quick4 패드 미지정 안내 없음). 수정 금지 범위라 등록만.

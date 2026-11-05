@@ -284,7 +284,9 @@ public static class InputBindings
         {
             return AssignResult.Invalid;
         }
-        if (IsReserved(map, newPath))
+        // 패드 기본 키(LS·RS·Select 등 필드 제스처와 공유)는 그 기본 키를 가진 액션 자신만 되돌려 지정할 수 있다(T11-2)
+        bool ownPadDefault = gamepad && SamePath(action.bindings[index].path, newPath);
+        if (!ownPadDefault && IsReserved(map, newPath))
         {
             return AssignResult.Reserved;
         }

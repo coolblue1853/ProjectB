@@ -54,6 +54,28 @@ public class InputBindingsTests
     }
 
     [Test]
+    public void Gamepad_OwnReservedDefault_CanBeReassignedBack_OthersStayReserved()
+    {
+        // 패드 면 버튼은 모두 기본 사용 중이라 교환(Swapped)이 되지만, 예약(Reserved)이 아니면 된다
+        AssertOwnDefaultRoundTrip("Quick1", "<Gamepad>/leftStickPress");
+        AssertOwnDefaultRoundTrip("Artifact", "<Gamepad>/rightStickPress");
+        AssertOwnDefaultRoundTrip("ArtifactNext", "<Gamepad>/select");
+        // 타 액션은 그 키 거부(예약 유지)
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Quick2", true, "<Gamepad>/leftStickPress", out _));
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Quick1", true, "<Gamepad>/rightStickPress", out _));
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Quick4", true, "<Gamepad>/select", out _));
+    }
+
+    private void AssertOwnDefaultRoundTrip(string action, string defaultPath)
+    {
+        Assert.AreEqual(defaultPath, Path(action, true));
+        Assert.AreNotEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, action, true, "<Gamepad>/buttonEast", out _));
+        Assert.AreEqual("<Gamepad>/buttonEast", Path(action, true));
+        Assert.AreNotEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, action, true, defaultPath, out _)); // 자기 기본 키로 복귀
+        Assert.AreEqual(defaultPath, Path(action, true));
+    }
+
+    [Test]
     public void Assign_FreeKey_Ok()
     {
         var r = InputBindings.Assign(_ka.asset, "Quick1", false, "<Keyboard>/7", out string swapped);
