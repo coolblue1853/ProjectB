@@ -30,6 +30,7 @@ public class BestiaryWindow : MonoBehaviour
     TextMeshProUGUI title, body, zoneBody;
     TextMeshProUGUI hint;
     bool zoneTab;
+    const int TabCount = 2; // 0 = 도감, 1 = 구역 완료율
     int cursor;
     bool open;
 
@@ -93,9 +94,23 @@ public class BestiaryWindow : MonoBehaviour
             Close();
             return;
         }
+        Gamepad pad = Gamepad.current;
+        int tabStep = 0;
         if (kb != null && kb.tabKey.wasPressedThisFrame)
         {
-            zoneTab = !zoneTab; // 도감 ↔ 구역 완료율 탭(L6)
+            tabStep = 1;
+        }
+        else if (pad != null && pad.rightShoulder.wasPressedThisFrame)
+        {
+            tabStep = 1; // 패드 LB/RB 로 탭 전환(InputAudit P8). inputactions 는 건드리지 않고 직접 읽는다
+        }
+        else if (pad != null && pad.leftShoulder.wasPressedThisFrame)
+        {
+            tabStep = -1;
+        }
+        if (tabStep != 0)
+        {
+            zoneTab = PadFieldInputRules.StepTab(zoneTab ? 1 : 0, TabCount, tabStep) == 1; // 도감 ↔ 구역 완료율 탭(L6)
             Sfx.Play(SfxId.UiMove, 0.6f);
             Redraw();
             return;
