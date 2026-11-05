@@ -73,7 +73,7 @@
 - [x] SLOT-R4 (완료 11-05 83b14fe7, EditMode ExtraEquipStatsTests) 신규 슬롯 스탯 합산·세트 무영향 EditMode 확인 (R2 후).
 - [ ] SLOT-R5 (선택) Ring2=14·비트 16·짧은 구 배열 허용 로더.
 - [ ] DUR-REVIEW 내구도·수리: 추천=보류(`Game/Durability.md`). 3~4층계 골드 과잉이 PT-BOT 로그로 확인되면 재검토. 코드 없음.
-- [ ] INV-FILTER (낮음) 가방 보기 필터 탭(전체/장비/소비/재료), 설계 `InventoryRefactorDesign.md` §8. INV-EXP-4 로그 후 판단.
+- [x] INV-FILTER (완료 11-05 d184495b, 플레이 표시 미검증) (낮음) 가방 보기 필터 탭(전체/장비/소비/재료), 설계 `InventoryRefactorDesign.md` §8. INV-EXP-4 로그 후 판단.
 - [x] AUTO-1 (4feeb1f2) (담당: 미정, 문서·데이터, 우선순위 1) 1층계 퀘스트 연속 동종 금지 점검 (파일: `QuestsFloor1.csv`, `Docs/Playtest/Floor1ContentList.md`): `Floor1Completion.md` §10 R1(Q201·Q202·Q204 늑대 3연속 등)을 현재 CSV 와 대조해 인접 퀘스트 목표 몹 겹침을 표로 뽑고, 겹치면 목표 몹/수량 교체(보상·EXP 합 유지). 완료: 위반 0건, CSV 로드 EditMode 테스트 통과. 읽을 문서: `Floor1Completion.md` §9~12·§14(충돌 시 §14 우선). 주의: AUTO-2 와 같은 CSV 라 AUTO-1 먼저.
 - [x] AUTO-2 (담당: 미정, EditMode, 우선순위 2, AUTO-1 후) 퀘스트·드롭 데이터 무결성 테스트 (파일: `Assets/Editor/Tests/` 신규, 읽기만): 선행 그래프 순환 없음, 보상 아이템이 ItemSheet 에 실존, 목표 몹이 MonsterSheet 에 실존, 졸업 게이트(Q604·Q704) 도달 가능, 세트 키 편입 누락 없음. 완료: 테스트 통과, 위반이 있으면 목록을 `Docs/Playtest/DataIntegrity.md` 에 기록(수정은 별도). 읽을 문서: `Floor1Completion.md` §9. → 3c50d13b
 - [x] AUTO-3 (담당: 미정, 문서·프로브, 우선순위 3) 1층계 최단 시간 모델 재계산 L9 (파일: `HuntingRules.LevelingMinutes` 호출 프로브 `Tools/probes/`, `Docs/Playtest/Floor1Fastest.md`): 현재 퀘스트·스폰 데이터로 k=1.2/1.5/2.0 세 행을 다시 계산해 기록. 합격 기준(최단≥130분, 중앙 160~200분)과 비교해 미달이면 조정안만 `Docs/OpenQuestions.md` 에 임시 가정으로 적는다(수치 수정 금지). 읽을 문서: `Floor1Completion.md` §1·§9, `Floor1Fastest.md`. → cb1779eb
