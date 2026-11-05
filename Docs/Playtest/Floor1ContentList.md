@@ -28,3 +28,17 @@
 | 일반 숲 도착 보정 | 깊은 숲→일반 숲 도착을 왼쪽 산(x -722)에서 길 위(x -300)로, 길(x -334)에 깊은 숲 가는 포털 추가 | `RoadLink`, `PortalFactory` | `roadlink` |
 
 주의: 낮 고정(`TimeChange._lockDaytime` 기본 켬)이면 밤이 오지 않아 밤 습격·의뢰 하루 경계·보스 재처치 날짜 갱신이 일어나지 않는다. 낮/밤 순환(디버그 "Day-Night Cycle")을 켜야 보인다.
+
+## 퀘스트 연속 동종 점검 (11-05, AUTO-1)
+
+기준: `Floor1Completion.md` §11 R1 — 선행→후속 인접 쌍의 목표(kill/killElite/collect) 몹이 겹치지 않는다. `QuestsFloor1.csv` 60행을 선행 그래프로 검사.
+
+| 쌍 | 상태 |
+|---|---|
+| Q201(수피 수집)·Q202(WildBoar)·Q204(방문) | 해결됨(Q202 는 이미 WildBoar_BD 8). 늑대 3연속 아님 |
+| 선행→후속 target 동일 | 0건 |
+| 같은 레벨·같은 선행 형제 중복 | **Q303 / Q310**: 둘 다 Lv7·선행 Q302·collect `EntHeartwood`(3개 / 5개). 위반 1건 |
+| Q403(BogSlime 처치) → Q411(Slime Gel 수집) | 같은 몹 계열이나 Q411 은 야간 슬라임 한정·선행 간격 큼. 허용 |
+| `*`(killElite) Q308·Q408·Q701 | 인접 퀘스트와 겹침 없음 |
+
+조치: Q310 을 다른 목표로 바꾸려면 심부 구역의 다른 몹 ID 를 Unity 에서 확인해야 해 CSV 는 수정하지 않았다. `Docs/OpenQuestions.md` 에 임시 가정으로 등록. EditMode CSV 로드 테스트는 Unity 사용 금지라 미실행(미검증).
