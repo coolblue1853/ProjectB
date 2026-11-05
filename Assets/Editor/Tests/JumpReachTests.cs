@@ -14,10 +14,12 @@ public class JumpReachTests
     [Test]
     public void TapJump_StillClimbsOneUnitStairs()
     {
-        // 1층계 샛길 계단은 1칸씩. 탭 점프(1.4)도 모서리 여유 0.2 를 두고 넘어야 한다
-        Assert.GreaterOrEqual(JumpReach.TapHeight(JumpForce), 1.3f);
+        // 1층계 샛길 계단은 1칸씩. 탭 점프(JumpCutMul 0.7 → 약 1.89)도 모서리 여유 0.2 를 두고 넘어야 한다 (결정 11-05)
+        Assert.AreEqual(1.89f, JumpReach.TapHeight(JumpForce), 0.05f);
         Assert.IsTrue(JumpReach.CanStepWithTap(JumpForce, 1f));
-        Assert.IsFalse(JumpReach.CanStepWithTap(JumpForce, 1.6f));
+        Assert.IsTrue(JumpReach.CanStepWithTap(JumpForce, 1.6f));
+        Assert.IsFalse(JumpReach.CanStepWithTap(JumpForce, 2.2f));
+        Assert.Less(JumpReach.TapHeight(JumpForce), JumpReach.FullHeight(JumpForce));
     }
 
     [Test]

@@ -2,7 +2,7 @@
 
 /// <summary>
 /// 점프 도달 높이 순수 계산(MAP-SCAN 11-04). 지형 계단/발판 높이가 단일 점프로 넘을 수 있는지 판정하는 기준.
-/// PlayerController: jumpForce=13, gravityScale=3, Physics2D 중력 -9.81, 가변 점프 CombatRules(JumpCutMul 0.5·JumpMinHold 0.08).
+/// PlayerController: jumpForce=13, gravityScale=3, Physics2D 중력 -9.81, 가변 점프 CombatRules(JumpCutMul 0.7·JumpMinHold 0.08).
 /// </summary>
 public static class JumpReach
 {

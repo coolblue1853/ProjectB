@@ -97,7 +97,7 @@ public static class CombatRules
     // ── 조작감 CF-4·6·7: 점프 버퍼·코요테, 공중 평타 관성, 가변 점프 (CombatFeelPlan §3) ──
     public const float JumpBufferTime = 0.15f, CoyoteTime = 0.12f;
     public const float AirAttackInputMul = 0.7f, AirAttackDecelTime = 0.15f;
-    public const float JumpCutMul = 0.5f, JumpMinHold = 0.08f;
+    public const float JumpCutMul = 0.7f, JumpMinHold = 0.08f;
 
     /// <summary>공중 평타 중 가로 속도. 입력 있으면 maxSpeed×0.7 방향 이동, 없으면 0.15초 안에 0 으로 감속(지상처럼 즉시 0 으로 멈추지 않는다).</summary>
     public static float AirAttackVx(float currentVx, float inputDir, float maxSpeed, float dt)
