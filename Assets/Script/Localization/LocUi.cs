@@ -148,5 +148,7 @@ public static class LocUi
         ("Locked: complete the Floor 3 bestiary or finish its quest chain", "잠김: 3층계 도감을 완성하거나 퀘스트 연쇄를 완료"),
         ("Locked: first-clear a Floor 4 boss", "잠김: 4층계 보스를 처음 처치"),
         ("New equipment slot unlocked: ", "새 장비 슬롯 해금: "), ("Trial readiness", "시험 준비도"), ("Other side", "건너편"),
+        ("Nest raid wave {0}/{1}", "둥지 습격 {0}/{1}차례"), ("Monsters left: {0} - defeat them all", "남은 몬스터 {0}마리 - 모두 쓰러뜨려라"),
+        ("Defeat the nest's elite", "둥지의 정예를 쓰러뜨려라"), ("Defeat it for a chest reward", "처치하면 상자 보상"), ("Bestiary reward - ", "도감 보상 - "),
     };
 }
