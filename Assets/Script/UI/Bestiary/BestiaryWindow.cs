@@ -89,7 +89,7 @@ public class BestiaryWindow : MonoBehaviour
         {
             return;
         }
-        if (UiLock.TryBack("Bestiary", back.triggered))
+        if (UiLock.TryBack("Bestiary", back.triggered || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))) // 패드 Start 로도 닫는다(키 설정 창과 동일, T11-4)
         {
             Close();
             return;
@@ -120,8 +120,8 @@ public class BestiaryWindow : MonoBehaviour
             return;
         }
         int n = data.entries.Count, prev = cursor;
-        if (left.triggered) cursor = (cursor - 1 + n) % n;
-        else if (right.triggered) cursor = (cursor + 1) % n;
+        if (left.triggered) cursor = Mathf.Max(0, cursor - 1); // 목록 끝에서 멈춘다(상/하와 동일, 메이플식, T11-5)
+        else if (right.triggered) cursor = Mathf.Min(n - 1, cursor + 1);
         else if (up.triggered) cursor = Mathf.Max(0, cursor - Cols);
         else if (down.triggered) cursor = Mathf.Min(n - 1, cursor + Cols);
         if (cursor != prev)

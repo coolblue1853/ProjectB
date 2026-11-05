@@ -117,7 +117,7 @@ public class NpcQuestWindow : MonoBehaviour
         {
             return;
         }
-        if (UiLock.TryBack("NpcQuest", _back.triggered))
+        if (UiLock.TryBack("NpcQuest", _back.triggered || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))) // 패드 Start 로도 닫는다(T11-4)
         {
             Close();
             return;
