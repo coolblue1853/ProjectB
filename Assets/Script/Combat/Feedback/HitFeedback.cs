@@ -17,7 +17,8 @@ public static class HitFeedback
 
     // 튜닝 값 (GameFeelPlan 4~5절)
     const float FlashBasic = 0.06f, FlashSkill = 0.08f, FlashCritBonus = 0.02f;
-    const float StopBasic = 0.06f, StopSkill = 0.06f, StopCritBonus = 0.03f; // 맞은 적 멈춤 평타 0.04 → 0.06(공격자와 맞춤, 10-28)
+    const float StopBasic = 0.07f, StopSkill = 0.07f, StopCritBonus = 0.03f; // 맞은 적 멈춤 0.06 → 0.07(CF-11 AUTO-114)
+    const float StopFinisher = 0.10f; // 평타 마무리 타 적 멈춤(CF-11)
     const float ShakeWindow = 0.10f;
 
     static float shakeWindowEnd;
@@ -49,7 +50,7 @@ public static class HitFeedback
         if (fx != null && !killed)
         {
             float flash = (isSkill ? FlashSkill : FlashBasic) + (isCrit ? FlashCritBonus : 0f);
-            float stop = (isSkill ? StopSkill : StopBasic) + (isCrit ? StopCritBonus : 0f);
+            float stop = (isSkill ? StopSkill : (IsFinisher() ? StopFinisher : StopBasic)) + (isCrit ? StopCritBonus : 0f);
             fx.Flash(flash, target.isBossMob ? 0.6f : 1f, isCrit ? 3f : 1f);
             fx.HitStop(stop);
         }
