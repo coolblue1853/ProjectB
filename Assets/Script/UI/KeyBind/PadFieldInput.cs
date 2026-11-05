@@ -34,6 +34,10 @@ public static class PadFieldInput
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void CreateDriver()
     {
+        if (Resources.FindObjectsOfTypeAll<Driver>().Length > 0)
+        {
+            return; // 이미 있으면 중복 생성하지 않는다(ReviewCode_1105c 6). HideAndDontSave 라 FindFirstObjectByType 으로는 안 잡혀 FindObjectsOfTypeAll 을 쓴다
+        }
         var go = new GameObject("PadFieldInputDriver") { hideFlags = HideFlags.HideAndDontSave };
         Object.DontDestroyOnLoad(go);
         go.AddComponent<Driver>();
