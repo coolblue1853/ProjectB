@@ -74,7 +74,7 @@ public class BestiaryMilestones : MonoBehaviour
 
     private List<BestiaryMilestoneDef> _defs;
     private readonly HashSet<string> _claimed = new HashSet<string>();
-    private float _nextCheck;
+    private Cooldown _check;
 
     public static IReadOnlyCollection<string> Claimed => s_instance != null ? s_instance._claimed : (IReadOnlyCollection<string>)new string[0];
 
@@ -111,11 +111,11 @@ public class BestiaryMilestones : MonoBehaviour
 
     private void Update()
     {
-        if (Time.unscaledTime < _nextCheck)
+        if (!_check.Ready(Time.unscaledTime))
         {
             return;
         }
-        _nextCheck = Time.unscaledTime + CheckInterval;
+        _check.Arm(Time.unscaledTime, CheckInterval);
         if (PlayerController.instance == null || DatabaseManager.isOpenUI)
         {
             return;

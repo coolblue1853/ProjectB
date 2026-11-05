@@ -86,7 +86,7 @@ public static class RareColonyDirector
     private const string ResourceName = "Floor1RareNodes";
     private static readonly Dictionary<string, List<RareNodeDef>> s_defs = new Dictionary<string, List<RareNodeDef>>();
     private static readonly Dictionary<string, List<GameObject>> s_nodes = new Dictionary<string, List<GameObject>>();
-    private static readonly Dictionary<string, float> s_nextRoll = new Dictionary<string, float>();
+    private static readonly Dictionary<string, Cooldown> s_nextRoll = new Dictionary<string, Cooldown>();
     private static Sprite s_glow;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -149,11 +149,13 @@ public static class RareColonyDirector
             return;
         }
         List<GameObject> nodes = s_nodes[map.name];
-        if (!RareColonyRules.CanRoll(Time.time, s_nextRoll.TryGetValue(map.name, out float at) ? at : 0f))
+        s_nextRoll.TryGetValue(map.name, out Cooldown roll);
+        if (!RareColonyRules.CanRoll(Time.time, roll.ReadyAt))
         {
             return; // 방금 굴렸다: 나타나 있던 군락은 그대로 둔다
         }
-        s_nextRoll[map.name] = Time.time + RareColonyRules.RollCooldown;
+        roll.Arm(Time.time, RareColonyRules.RollCooldown);
+        s_nextRoll[map.name] = roll;
         int pick = RareColonyRules.Pick(nodes.Count, Random.value, Random.value);
         for (int i = 0; i < nodes.Count; i++)
         {
