@@ -13,12 +13,12 @@ public sealed class MobDebuffRules
     public const float BurnRatio = 0.15f;
 
     private float _slowMul = 1f;
-    private float _slowRemain;
+    private CountdownTimer _slow;
     private float _petrifyImmuneUntil = -999f;
 
     /// <summary>지금 곱할 이동 배율(순찰·추적 공통). 없으면 1</summary>
-    public float SlowMul => _slowRemain > 0f ? _slowMul : 1f;
-    public bool Slowed => _slowRemain > 0f;
+    public float SlowMul => _slow.Active ? _slowMul : 1f;
+    public bool Slowed => _slow.Active;
 
     /// <summary>둔화 적용. mul 은 0.1~1로 제한. 더 강한(작은) 배율·더 긴 시간을 유지한다.</summary>
     public void ApplySlow(float mul, float seconds)
@@ -28,22 +28,19 @@ public sealed class MobDebuffRules
             return;
         }
         mul = Mathf.Clamp(mul, 0.1f, 1f);
-        if (_slowRemain <= 0f)
+        if (!_slow.Active)
         {
             _slowMul = mul;
-            _slowRemain = seconds;
+            _slow.Start(seconds);
             return;
         }
         _slowMul = Mathf.Min(_slowMul, mul);
-        _slowRemain = Mathf.Max(_slowRemain, seconds);
+        _slow.Extend(seconds);
     }
 
     public void Tick(float dt)
     {
-        if (_slowRemain > 0f)
-        {
-            _slowRemain = Mathf.Max(0f, _slowRemain - dt);
-        }
+        _slow.Tick(dt);
     }
 
     /// <summary>
@@ -68,7 +65,7 @@ public sealed class MobDebuffRules
     public void Clear()
     {
         _slowMul = 1f;
-        _slowRemain = 0f;
+        _slow.Clear();
         _petrifyImmuneUntil = -999f;
     }
 

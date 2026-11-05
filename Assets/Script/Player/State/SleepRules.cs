@@ -10,11 +10,11 @@ public sealed class SleepRules
     public const float MaxSeconds = 6f;
     public const float WakeGrace = 0.3f;
 
-    private float _remaining;
+    private CountdownTimer _timer;
     private float _asleepFor;
 
-    public bool Sleeping => _remaining > 0f;
-    public float Remaining => _remaining;
+    public bool Sleeping => _timer.Active;
+    public float Remaining => _timer.Remaining;
 
     /// <summary>수면 적용. 요청 시간은 [MinSeconds, MaxSeconds] 로 보정. 이미 자는 중이면 false.</summary>
     public bool TryApply(float seconds)
@@ -23,7 +23,7 @@ public sealed class SleepRules
         {
             return false;
         }
-        _remaining = Mathf.Clamp(seconds, MinSeconds, MaxSeconds);
+        _timer.Start(Mathf.Clamp(seconds, MinSeconds, MaxSeconds));
         _asleepFor = 0f;
         return true;
     }
@@ -36,7 +36,7 @@ public sealed class SleepRules
             return false;
         }
         _asleepFor += dt;
-        _remaining = Mathf.Max(0f, _remaining - dt);
+        _timer.Tick(dt);
         return !Sleeping;
     }
 
@@ -47,13 +47,13 @@ public sealed class SleepRules
         {
             return false;
         }
-        _remaining = 0f;
+        _timer.Clear();
         return true;
     }
 
     public void Clear()
     {
-        _remaining = 0f;
+        _timer.Clear();
         _asleepFor = 0f;
     }
 }
