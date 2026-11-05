@@ -98,8 +98,8 @@
 | P1 | `Weapon/Gimmick/AmmoGimmick.cs:15` | `Reloading {0}s` / `Ammo {0}/{1}` | 석궁 HUD(`HudText`), 현재 `$"재장전 ..."` |
 | P1 | `Weapon/Gimmick/ThrownSpearGimmick.cs:15` | `Spear held` 외 상태 | 투창 HUD |
 | P1 | `Weapon/Gimmick/TomePageGimmick.cs:10,14` | `Fire`·`Frost`·`Lightning`, `Page: {0}` | 마도서 HUD |
-| P1 | `Player/PlayerHealthManager.cs:379` | `Survived!` | 치명 피해 버팀 텍스트(LastStand) |
-| P1 | `Enemy/DropManager.cs:173` | `Plunder! x{0}` | 약탈 훈장 골드 배수 텍스트 |
+| P1 ✅ | `Player/PlayerHealthManager.cs:379` | `Survived!` | 치명 피해 버팀 텍스트(LastStand) |
+| P1 ✅ | `Enemy/DropManager.cs:173` | `Plunder! x{0}` | 약탈 훈장 골드 배수 텍스트 |
 | P2 | `NpcQuest/NpcQuestWindow.cs:204~211,221~223` | `{0} kill`·`Collect`·`Craft`·`Equip` 등 목표 문구 | `NpcQuestWindow` 에 `Loc.` 1회뿐 |
 | P2 | `NpcQuest/NpcQuestWindow.cs:236,241,257~259,306,381~383,406~465` | 추적 안내·탭 이름·빈 목록·도움말 | 306행 문구는 AUTO-78 대상 |
 | P2 | `NpcQuest/QuestBountyLink.cs:87,97` | `[Bounty] {0}`·`Daily bounty…` | 현상 의뢰 제목·설명 |
@@ -122,3 +122,5 @@
 
 ### 10-3. 후속 수정 (11-05 AUTO-90) ✅
 기믹 HUD 3종 P1(`AmmoGimmick`·`ThrownSpearGimmick`·`TomePageGimmick`)을 `Loc.T/F` 로 교체, `LocUi.cs` 12키 추가 + `sync_i2_terms` 반영. 남은 P1: `PlayerHealthManager.cs:379`(`Survived!`)·`DropManager.cs:173`(`Plunder! x{0}`) — 호출부 파일 3개 한도로 다음 큐. P2·P3 미착수.
+
+11-05 AUTO-91·92: `Survived!`·`Plunder! x{0}` Loc 적용(LocUi 2키, I2 831항). 남은 P1 0건. P2·P3 미착수.

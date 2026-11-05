@@ -170,7 +170,7 @@ public class DropManager : MonoBehaviour
         if (plundered != total)
         {
             total = plundered;
-            HitFeedback.SpawnText(null, dropPosition + Vector3.up * 1.2f, "약탈! x" + PlunderRules.GoldMul, HitFeedback.TextKind.Gold);
+            HitFeedback.SpawnText(null, dropPosition + Vector3.up * 1.2f, Loc.F("Plunder! x{0}", PlunderRules.GoldMul), HitFeedback.TextKind.Gold);
         }
         int piles = GoldDropRules.PileCount(isElite, isBoss);
         float offsetX = piles > 1 ? -0.4f : 0f;
