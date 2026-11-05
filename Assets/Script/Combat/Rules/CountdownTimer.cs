@@ -25,6 +25,10 @@ public struct CountdownTimer
 
     public void Tick(float dt)
     {
+        if (dt < 0f)
+        {
+            dt = 0f; // 음수 dt 로 남은 시간이 늘지 않게
+        }
         if (_remaining > 0f)
         {
             _remaining = _remaining - dt > 0f ? _remaining - dt : 0f;

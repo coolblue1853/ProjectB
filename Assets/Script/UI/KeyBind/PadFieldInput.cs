@@ -75,6 +75,7 @@ public static class PadFieldInput
             // 누르는 도중 LT 를 더하면 조합으로 보고 진행 중 제스처를 버린다(SELECT 길게 중 LT → 퀘스트 창 오발동 방지)
             _select.Cancel();
             _l3.Cancel();
+            _l3InUi = false;
             _selectInUi = false; // 취소한 제스처의 UI 상태가 다음 눌림까지 남지 않게(ReviewCode_1105b #4)
         }
         // LT 조합(LT+SELECT 등)은 제스처로 세지 않는다

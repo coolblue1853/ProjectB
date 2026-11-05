@@ -140,13 +140,13 @@ public class BoundaryRulesDTests
         c.Extend(4f);
         Assert.AreEqual(4f, c.Remaining, Eps);
     }
-    [Test] public void Timer_NegativeTick_CurrentlyExtends_Pinned()
+    [Test] public void Timer_NegativeTick_IgnoredAsZero()
     {
-        // 현재 동작 고정: 음수 dt 는 남은 시간을 늘린다(가드 없음, TechDebt 참고)
+        // AUTO-109: 음수 dt 는 0 취급, 남은 시간이 늘지 않는다
         var c = new CountdownTimer();
         c.Start(1f);
         c.Tick(-2f);
-        Assert.AreEqual(3f, c.Remaining, Eps);
+        Assert.AreEqual(1f, c.Remaining, Eps);
     }
 
     // Cooldown
