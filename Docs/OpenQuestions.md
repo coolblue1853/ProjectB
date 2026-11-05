@@ -589,3 +589,5 @@
 - **[IN-2 임시 가정 확정, AUTO-63]** LT+R3 중복은 실제 코드로 확인됨: `InventoryFilterView.cs:64`(보기 필터, state "" 일 때)와 `InventoryConvenience.cs:47`(잠금, state ""·detail·ShopCusorOn·chestOpen)가 둘 다 `leftTrigger.isPressed && rightStickButton.wasPressedThisFrame` 라서 state "" 에서 한 번 누르면 필터와 잠금이 동시에 발동한다(`KeyAction.inputactions` 에는 LT+R3 바인딩 없음, 두 곳 모두 코드 직접 폴링). 가정: 잠금은 LT+R3 유지(키보드 L 과 동일, 칸 단위 동작), 보기 필터를 **LT+RT** 로 이동(키보드 G 유지). RT 단독 사용처 3곳(`Buyback.cs:85`·`ChestConvenience.cs:173`·`GearPresets.cs:117`)에 `!leftTrigger.isPressed` 가드 추가 필요. 입력 사양은 `InputAudit.md` §6.
 - **[임시 가정 IN-3]** 미니맵 토글 패드 조합(P6)은 LT+L3 로 잡되 상점 재료 일괄 판매(LT+L3)와 겹치므로 보류. 후속 큐 후보(번호 미부여).
 - **[임시 가정 IN-4]** P11 방어 LT·도감·지도 키 설정 재지정 대상 제외 유지(현행).
+- **[임시 가정 Q-CF12, AUTO-97]** 무기별 `_moveCancelFraction` 은 전부 기본 0.40 유지. 실측: 단검 캔슬 0.12초·대검/둔기 0.40초(후딜 길이 차로 이미 3배 차). 대검 0.55·단검 0.30 조정은 체감 확인 뒤 사용자 판단, 지금은 값 불변(`CombatFeelPlan.md` CF-12 실측 표).
+
