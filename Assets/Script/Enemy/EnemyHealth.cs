@@ -196,6 +196,7 @@ public class EnemyHealth : PoolAble
     float _moveMul, _knockbackMul, _jumpMul;
     bool _sturdy; // trait sturdy = 경직 저항 50%
     TempMobDash _dash;
+    readonly MobReflectRules _reflect = new MobReflectRules(); // 반사 자세(F2-MOBREFLECT)
     readonly MobDebuffRules _debuff = new MobDebuffRules(); // 런타임 디버프(둔화·석화 연쇄 제한, F2-DEBUFF)
 
     /// <summary>추적·순찰 이동 배율(임시 몹 특성 slow·dash). 기존 몹은 1</summary>
@@ -330,6 +331,7 @@ public class EnemyHealth : PoolAble
         _staggerChain = 0;
         _lastStaggerAt = -10f;
         _debuff.Clear();
+        _reflect.Clear();
         if (hpBar != null)
             hpBar.setHpBar(this);
     }
@@ -377,6 +379,11 @@ public class EnemyHealth : PoolAble
             DamageCalculator.LevelGapMul(Level, LevelSystem.Level));
         isCrit = result.isCrit;
         result.damage = Mathf.Max(1, Mathf.RoundToInt(result.damage * AscentLoad.OutgoingMul())); // 상승 부하: 부족분만큼 주는 피해 감소
+        int reflected = _reflect.Reflect(result.damage);
+        if (reflected > 0 && PlayerHealthManager.Instance != null)
+        {
+            PlayerHealthManager.Instance.damage2Player(reflected, 0f, 0f, Vector2.zero, transform.position.x, false, 0.25f); // 반사 자세(방어 가로채기 적용)
+        }
         bool downed = _air != null && _air.IsDown;
         bool downAttack = downed && PlayerController.instance != null && PlayerController.instance.IsDownAttackHeld;
         if (downAttack)
@@ -592,6 +599,13 @@ public class EnemyHealth : PoolAble
             stiffShakeTime -= Time.deltaTime;
         }
         _debuff.Tick(Time.deltaTime);
+        _reflect.Tick(Time.deltaTime);
+    }
+
+    /// <summary>반사 자세 시작: seconds 동안 받은 피해의 일부를 플레이어에게 되돌린다(천칭 석상 등)</summary>
+    public void BeginReflect(float seconds)
+    {
+        _reflect.Begin(seconds);
     }
 
     /// <summary>시간제한 둔화(덩굴 묶기 등). 순찰·추적이 MoveSpeedMul 로 같은 값을 읽는다</summary>

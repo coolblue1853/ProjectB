@@ -563,3 +563,7 @@
 ## Q-AUTO13 적 대상 지속 피해 장판 (11-05)
 - **[임시 가정]** 기본 3초·0.5초 간격·첫 틱 0.2초 뒤, 틱 피해는 `onlyDamage2Enemy`(방어·치명 무시), 선택적으로 둔화(`ApplySlow`) 동반. 모양 없음(그래픽 보류).
 - 미연결: 무기 스킬에서 `EnemyDamageZone.Spawn` 호출, 몹 장판(`SporeCloud`)을 `GroundZoneRules`로 이전(기존 동작 보존 위해 이번엔 미변경).
+
+## Q-AUTO14 수면·몹 반사 자세 (11-05)
+- **[임시 가정]** 수면 3~6초(경직보다 길게), 피격 시 해제(잠든 직후 0.3초 유예), 자는 중 재적용 불가. `PlayerStatus` InputLock+MoveLock 토큰 사용(대시/스킬 무적은 건드리지 않음). 몹 반사 = 자세 중 받은 피해의 30%를 `damage2Player`(방어 가로채기 적용).
+- 미연결: `PlayerSleep.Apply(초)`·`EnemyHealth.BeginReflect(초)` 호출처(나방 가루·천칭 석상 BT)는 몹 추가 때. 수면 연출(그래픽)·Zzz 표시 보류.

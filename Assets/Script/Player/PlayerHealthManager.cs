@@ -382,6 +382,7 @@ public class PlayerHealthManager : MonoBehaviour
             {
                 HitFeedback.SpawnText(_numberPrefab, NumberAnchor(), "BLOCK", HitFeedback.TextKind.Block); // 방어력이 전부 흡수
             }
+            PlayerSleep.OnHit(); // 수면 중이면 깨운다 (F2-SLEEP)
             HpDown(dmgAfDef);
             rb.linearVelocity = Vector2.zero;
             if (DatabaseManager.isSuperArmor == false && stiffTime > 0)
