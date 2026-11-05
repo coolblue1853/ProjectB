@@ -237,7 +237,7 @@ public class WaypointMap : MonoBehaviour
             PortalSeal seal = p.GetComponent<PortalSeal>();
             bool sealedPath = seal != null && !seal.IsOpen;
             string title = known ? Loc.T(dest.zoneTitle).ToUpperInvariant() : "???";
-            lines.Add("<color=#9ED0FF>></color> " + title + (sealedPath ? " <color=#" + ColorUtility.ToHtmlStringRGB(theme.warning) + ">" + Loc.T("[Sealed]") + "</color>" : ""));
+            lines.Add("<color=#9ED0FF>></color> " + title + (sealedPath ? " <color=#" + ColorUtility.ToHtmlStringRGB(theme.warning) + ">" + "[" + Loc.T("Sealed") + "]" + "</color>" : ""));
         }
         return lines.Count == 0 ? "" : "\n\n<size=80%>" + Loc.T("Connections") + "\n" + string.Join("\n", lines) + "</size>";
     }

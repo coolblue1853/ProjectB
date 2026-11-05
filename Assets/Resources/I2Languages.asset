@@ -6592,14 +6592,6 @@ MonoBehaviour:
       - "\uC5F0\uACB0 \uAD6C\uC5ED"
       Flags: 0000
       Languages_Touch: []
-    - Term: 
-      TermType: 0
-      Description: 
-      Languages:
-      - '[Sealed]'
-      - "[\uBD09\uC778]"
-      Flags: 0000
-      Languages_Touch: []
     - Term: Upper road
       TermType: 0
       Description: 
@@ -6720,6 +6712,14 @@ MonoBehaviour:
       Languages:
       - 'Bestiary reward - '
       - "\uB3C4\uAC10 \uBCF4\uC0C1 - "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sealed
+      TermType: 0
+      Description: 
+      Languages:
+      - Sealed
+      - "\uBD09\uC778"
       Flags: 0000
       Languages_Touch: []
     CaseInsensitiveTerms: 0
