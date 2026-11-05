@@ -377,3 +377,12 @@ PV1~PV9 의 "못 한 것·미연결·미검증" 정리. 예상 사용량: 소=�
 ## 9차 미검증 통합 갱신 (11-05, AUTO-105)
 - 해소: PV13 석궁 탄수·마도서 장 HUD(AUTO-93), 투창 착지(AUTO-94), 대시 재돌진 쿨(AUTO-95), NightRaid 흐름(AUTO-96), CF-12 이동 캔슬 지연 실측(AUTO-97).
 - 남음: 실기 패드 전반, 313~315 아이콘(그래픽 제외), 투창 함정 피해 미구현(TechDebt AUTO-94).
+
+## PV14 (11-05) AUTO-106~110 실기 확인
+프로브 `Tools/probes/_dash_cd.cs`·`_nr_full.cs`·`_fj_spear.cs`·`_spear_cap.cs`, 결과 `Logs/dash_cd`·`Logs/nr_full`·`Logs/fj_spear/result.txt`(gitignore). 세이브 백업(`Logs/auto110`)·복원, 플레이 정지, 콘솔 에러 0. EditMode 900 통과.
+
+- **TempMobDash (AUTO-108)**: 돌진 시작 간격 4.15초 ×5, 쿨 기대값 4.15 이상 만족(AUTO-95와 동일). 풀링 재사용 경로는 별도 미확인.
+- **NightRaid (AUTO-106·107)**: 정의 8마리 모두 스폰(이전 7마리), 8.22초에 종료(이전 34.6초, 웨이브 사이 6~8초 정체 해소). 보상 골드 +40·EXP +35·Potion +1 동일, 종료 후 8초 신규 스폰 0, 낮 복귀 정상. 해소.
+- **투창 함정 (AUTO-110)**: 바닥·허공·사거리 밖 3경우에서 착지 지점(-479.5)에 함정 생성, 착지 후 약 4초에 소멸(live 0), 5개 연속 생성 시 live 3 상한. 벽 안 경우는 맵에 벽이 없어 미확인.
+- **미확인 유지**: `_l3InUi`(AUTO-109 a, 실기 패드 필요), `CountdownTimer` 음수 dt(EditMode 케이스로만 확인), 함정의 실제 적 피해 틱.
+- **Floor2Data 헤더 LogError**: `Floor2Data.MergeRows` 가 헤더 열 순서가 다르면 의도적으로 LogError 후 병합 거절. 발생 지점은 `Floor2DataTests.MergeRows_RejectsMismatchedHeaderOrder` 한 곳뿐이며 이미 `LogAssert.Expect` 처리됨(의도된 로그, 수정 불필요).
