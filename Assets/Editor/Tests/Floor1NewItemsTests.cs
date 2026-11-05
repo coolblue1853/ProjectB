@@ -78,10 +78,10 @@ public class Floor1NewItemsTests
     [Test]
     public void WeaponTypeColumn_IsPinned()
     {
-        // 현재 동작 고정: 열은 호스트 무기의 계열(Bow/Spear/Staff). 프리팹 _kind 는 None(TechDebt 등재)
-        Assert.AreEqual("Bow", Item(313)[17].Trim());
-        Assert.AreEqual("Spear", Item(314)[17].Trim());
-        Assert.AreEqual("Staff", Item(315)[17].Trim());
+        // 현재 동작 고정: 열은 기믹 계열(Crossbow/Javelin/Tome)이며 프리팹 _kind 와 일치(AUTO-100 후속)
+        Assert.AreEqual("Crossbow", Item(313)[17].Trim());
+        Assert.AreEqual("Javelin", Item(314)[17].Trim());
+        Assert.AreEqual("Tome", Item(315)[17].Trim());
     }
 
     [Test]
@@ -98,12 +98,14 @@ public class Floor1NewItemsTests
     }
 
     [Test]
-    public void HostPrefabs_KindIsNone_PinnedCurrentBehavior()
+    public void HostPrefabs_KindMatchesWeaponTypeColumn()
     {
-        foreach (string n in Names)
+        var expect = new WeaponKind[] { WeaponKind.Crossbow, WeaponKind.Javelin, WeaponKind.Tome };
+        for (int i = 0; i < Names.Length; i++)
         {
-            Weapon w = Resources.Load<GameObject>("Weapon/" + n).GetComponent<Weapon>();
-            Assert.AreEqual(WeaponKind.None, w.Kind, n);
+            Weapon w = Resources.Load<GameObject>("Weapon/" + Names[i]).GetComponent<Weapon>();
+            Assert.AreEqual(expect[i], w.Kind, Names[i]);
+            Assert.AreEqual(Item(Ids[i])[17].Trim(), w.Kind.ToString(), Names[i]);
         }
     }
 
