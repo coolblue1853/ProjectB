@@ -437,7 +437,7 @@ public static class NpcQuestLog
     {
         try
         {
-            Deserialize(ES3.KeyExists(SaveKey) ? ES3.Load<string>(SaveKey) : "");
+            Deserialize(SaveUtil.LoadOr(SaveKey, ""));
             NpcQuestTrack.Load();
             Changed?.Invoke(); // 추적 목록을 읽은 뒤 한 번 더 알린다
         }

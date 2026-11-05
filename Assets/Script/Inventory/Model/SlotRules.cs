@@ -90,8 +90,8 @@ public static class EquipExtraSave
         int mask = 0;
         try
         {
-            ids = ES3.KeyExists(SlotRules.SaveKeyExtra) ? ES3.Load<string[]>(SlotRules.SaveKeyExtra) : null;
-            mask = ES3.KeyExists(SlotRules.SaveKeyUnlock) ? ES3.Load<int>(SlotRules.SaveKeyUnlock) : 0;
+            ids = SaveUtil.LoadOr<string[]>(SlotRules.SaveKeyExtra, null);
+            mask = SaveUtil.LoadOr(SlotRules.SaveKeyUnlock, 0);
         }
         catch (Exception e)
         {

@@ -162,8 +162,8 @@ public static class ExtraEquip
         bool read = false;
         try
         {
-            rawMask = ES3.KeyExists(SlotRules.SaveKeyUnlock) ? ES3.Load<int>(SlotRules.SaveKeyUnlock) : 0;
-            ids = ES3.KeyExists(SlotRules.SaveKeyExtra) ? ES3.Load<string[]>(SlotRules.SaveKeyExtra) : null;
+            rawMask = SaveUtil.LoadOr(SlotRules.SaveKeyUnlock, 0);
+            ids = SaveUtil.LoadOr<string[]>(SlotRules.SaveKeyExtra, null);
             read = true;
         }
         catch (Exception e)
