@@ -130,3 +130,18 @@ bash 봇(PT-BOT 본체)은 쓰지 않고 항목별 전용 프로브를 새로 �
 ## 못 한 것
 상점 안 확인 UI, 대장 실제 처치 15% 드롭, 도착 직후 실제 몹 추적 전투.
 
+
+# PV6 (11-05) AUTO-5·6·7 미검증분
+프로브 `Tools/probes/pv6_scale.cs`·`pv6_dbg.cs`, 결과 `Logs/pv6/scale.txt`(gitignore). 세이브 백업(`Logs/pv6/backup`)·복원, 플레이 정지. Lv1_NearForest 에서 실측.
+
+| 항목 | 결과 | 수치·관찰 |
+|---|---|---|
+| AUTO-5 정예 분리 생성 공격 ×1.5 | 통과 | 부모 없는 `EnemyDamageObject`(damage 300, `enemyOb`=몹)로 플레이어 피격: 일반 284 → `PromoteElite` 후 434, 비율 1.53(방어력 반올림 차). 보스 페이즈 배율은 EditMode 4건만(실보스 미확인) |
+| AUTO-6 `CounterBuff` 컴포넌트 | 통과(부분) | `NotifyBlocked()` 전 배율 1.0 → 후 1.2, `Active=true`, 3.2초 뒤 `false`·1.0. **막기 판정 호출부 없음**(`NotifyBlocked` 호출처 0): 방패 홀드 방어 → 반격 실연결은 미구현, ShellShield 등 장착 경로 검증 불가 |
+| AUTO-7 규칙 클래스 무기 연결 | 미연결(기록만) | 석궁 `AmmoMagazine`·투창 `ThrownSpear`·마도서 `TomePage` 는 순수 규칙+테스트뿐, 무기에서 사용 안 함(후순위 L8). 방패 쪽 연결은 큐 `AUTO-15`(=AUTO-7B)에 이미 있음 |
+
+## 발견
+- 트리거 충돌(물리)로는 새로 만든 판정이 플레이어에 닿지 않았다. 프로브 한정(생성 레이어·타이밍 추정)이며 실게임 몹 공격 경로는 아님. `OnTriggerEnter2D` 직접 호출로 배율만 확인.
+
+## 못 한 것
+실제 몹 분리 생성 탄막(`EnemyRoundAttackNode`) 피격, 실보스 격노 배율, 방패 홀드 입력 경로.
