@@ -237,3 +237,4 @@
 - (11-05 PV4) (P2) **해결 11-05** `SampleScene` 직렬화 `jumpForce` 10→13(코드 기본·`JumpReachTests` 와 일치). 플레이 실측 탭(0.05~0.1초) 1.83~1.91·풀 2.76 → 1.0·1.6 계단 탭 통과, 4칸 발판은 여전히 사다리 필요.
 - (11-05 PV4) (P4) 퀘스트 창 구역 접기는 Z·패드 A 만 동작(UI.Select 에 Enter 바인딩 없음). 문구/바인딩 정리.
 - (11-05 SLOT-R) 신규 4슬롯 패드 커서 이동·드래그 장착은 여전히 미구현·미확인. 폐기 장신구 반환 시 가방 가득이면 판매값/2 골드(임시).
+- (11-05 AUTO-5) (P3) **해결**: `EnemyRoundAttackNode`(isSetParent=false) 탄막은 `enemyOb` 미지정이라 정예 ×1.5·보스 격노가 빠졌음 → 노드가 `enemyOb=this.gameObject` 지정, 배율은 순수 `EnemyAttackScale.Apply`로 통일(`EnemyAttackScaleTests` 4건 통과). 플레이 미검증. 해당 몹 목록은 BD 직렬화라 grep 불가 — RoundAttackNode 사용 몹 전체에 적용됨.

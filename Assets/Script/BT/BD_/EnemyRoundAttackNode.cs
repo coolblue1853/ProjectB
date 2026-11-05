@@ -121,6 +121,7 @@ public class EnemyRoundAttackNode : EnemyAction
                 damageObject.transform.localScale = new Vector3(Mathf.Abs(damageObject.transform.localScale.x), damageObject.transform.localScale.y, 1);
 
                 var enemyDamageObject = damageObject.GetComponent<EnemyDamageObject>();
+                if (enemyDamageObject != null) enemyDamageObject.enemyOb = this.gameObject; // 분리 생성 탄막도 정예/보스 공격 배율 적용(AUTO-5)
                 if (enemyDamageObject.isLaunch) enemyDamageObject.LaunchObject();
             }
 

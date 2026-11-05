@@ -75,7 +75,7 @@
 ## 4.2 P2 구현 메모 (2026-10-18)
 
 - `EnemySpawner.eliteChance`(기본 4%) → 스폰 직후 `EnemyHealth.PromoteElite()`: HP×4·방어×1.5·크기×1.25·금빛 틴트·`EliteAura`(머리 위 ★ + 금빛 입자). 풀 반환(OnDisable) 때 `DemoteElite`로 원래 값 복구.
-- 공격×1.5는 `EnemyDamageObject`가 몬스터 자식으로 생성될 때만 적용(분리 생성 공격은 미적용 — TechDebt 후보).
+- 공격×1.5는 `EnemyDamageObject`가 몬스터 자식으로 생성될 때만 적용(분리 생성 공격은 AUTO-5 로 `enemyOb` 지정해 해결).
 - 확정 드롭: `DropManager.DropGuaranteed` — 강화석 1~2 + 그 스포너 드롭표의 장비 1개(없으면 강화석). 별도 `LootTable` 에셋 대신 스포너 드롭표를 재사용.
 - 검증: elite_test 프로브(승격 스크린샷, 처치 후 강화석 2·RustedSword 드롭 로그).
 

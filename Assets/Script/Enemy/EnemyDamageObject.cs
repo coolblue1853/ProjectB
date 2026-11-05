@@ -216,15 +216,8 @@ public class EnemyDamageObject : PoolAble
                 int dealt = damage;
                 if (enemyOb != null && enemyOb.TryGetComponent(out EnemyHealth owner))
                 {
-                    if (owner.IsElite)
-                    {
-                        dealt = Mathf.RoundToInt(damage * EnemyHealth.EliteAtkMul); // 몬스터에 붙어 있는 공격만 (분리 생성 공격은 미적용)
-                    }
                     BossPhase bp = enemyOb.GetComponent<BossPhase>();
-                    if (bp != null)
-                    {
-                        dealt = Mathf.RoundToInt(dealt * bp.DamageMultiplier); // 보스 페이즈 격노
-                    }
+                    dealt = EnemyAttackScale.Apply(damage, owner.IsElite, bp != null ? bp.DamageMultiplier : 1f);
                 }
                 playerHealth.damage2Player(dealt, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
 
