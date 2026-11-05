@@ -205,10 +205,10 @@ Q604(`minLevel` 15)의 선행에 Q704를 추가한다. 내용은 Q701~704(위 �
 | 아대 | LeafAdae(Q102) | △ | |
 | 낫 | ScareSide, PhantomScythe | △ | |
 | 대검 | SacreGreatSword, HeartwoodGreatsword(U), GatekeepersOath(문지기 U) | △ | |
-| 방패 | ShellShield, RaiderBuckler, MonolithShield | △ | 단독 방패 `CounterBuff` 미구현 |
-| 석궁 | Sentry Crossbow(신규 감시병) | × | `AmmoMagazine` 미구현 |
-| 투창 | Hunter's Javelin(신규 숲 사냥꾼) | × | `ThrownSpear` 미구현 |
-| 마도서 | Fairy's Grimoire(요정) | × | `TomePage` 미구현 |
+| 방패 | ShellShield, RaiderBuckler, MonolithShield | ○ | `CounterBuff`·`ShieldGuard` 구현·3종 프리팹 부착(11-05 대조) |
+| 석궁 | Sentry Crossbow(신규 감시병) | △ | `AmmoGimmick`(AmmoMagazine 래퍼) 구현, 현재 BanditShortbow 프리팹에만 부착. Crossbow 아이템 행·프리팹 없음 |
+| 투창 | Hunter's Javelin(신규 숲 사냥꾼) | △ | `ThrownSpearGimmick`(착지 판정은 임시 `_flightTime`) 구현, Wood Spear 프리팹에만 부착. Javelin 아이템 행·프리팹 없음 |
+| 마도서 | Fairy's Grimoire(요정) | △ | `TomePageGimmick`(C키 장 전환) 구현, FaeWand 프리팹에만 부착. Grimoire 아이템 행·프리팹 없음 |
 | 태도·플레일 | (1층계 배정 없음) | × | 2층계 이후 |
 
 1층계 목표: **타입 14종 이상 체험, 기믹 ○ 5종 + 후속 3종(석궁·투창·마도서)**. 3종은 큰 작업이라 이번 큐에는 "신규 몹 + 임시 무기(기존 프리팹 복제)"만 넣고 기믹은 별도 큐로 둔다.
@@ -459,3 +459,15 @@ HP·방어는 Floor1Balance §8 기준. 효과 단계 2/4/6은 `SetItem.csv`(Out
 2. CHIEF-2 규칙·훅: `PlunderRules`·`LastStandRules` 순수 클래스 + EditMode 테스트(확률·쿨다운), 몹 사망·치사 피해 훅 연결.
 3. CHIEF-3 표시: 장비 툴팁 기믹 줄·발동 텍스트·쿨다운 표시.
 4. CHIEF-4 검증: PT-BOT 으로 성채 대장 처치 → 드롭률·Q504 보상 수령 로그, 미검증 항목 기록.
+
+## 16. 남은 작업 (비그래픽, 11-05 AUTO-85 대조)
+
+기믹 코드(`CounterBuff`·`AmmoGimmick`·`ThrownSpearGimmick`·`TomePageGimmick`)는 구현됨. 남은 것은 데이터·연결이다. 아이콘·도트는 제외.
+
+1. FJ-1 석궁/투창/마도서 아이템 행 3개(`Sentry Crossbow`·`Hunter's Javelin`·`Fairy's Grimoire`) — `ItemSheet.csv` 맨 뒤 + WeaponType 컬럼. 완료: CSV 로드 테스트 통과.
+2. FJ-2 위 3종 프리팹(`Resources/Weapon/`)에 해당 기믹 부착, 임시 아이콘 틴트. 완료: 프리팹 로드·장착 프로브 에러 0.
+3. FJ-3 드롭 연결 — `MonsterExtraDrops.csv` 에 감시병·숲 사냥꾼·요정 행. 완료: 드롭 확률 표와 일치.
+4. FJ-4 `ThrownSpearGimmick` 임시 `_flightTime` 을 실제 착지 판정으로 교체(`ThrownSpear` 규칙 호출). 완료: EditMode 테스트 + 프로브.
+5. FJ-5 단일 부착된 시험용 기믹 정리 — BanditShortbow(Ammo)·Wood Spear(ThrownSpear)·FaeWand(TomePage) 부착 유지/이전 결정. 완료: 결정 기록.
+6. FJ-6 `GimmickHud` 에 석궁 탄수·마도서 장 표시 확인. 완료: HUD 프로브 로그.
+7. FJ-7 단검·창 등 "△" 타입 기믹 필요성 판정(`WeaponReview.md`). 완료: 문서 판정표.

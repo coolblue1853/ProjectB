@@ -6,23 +6,23 @@
 
 ## 1. 점검 표
 
-| # | 항목 | 결과 | 근거 |
-|---|---|---|---|
-| 1 | 몹 헤더 열 순서 | 통과 | 18열 이름·순서 `MonsterSheet.csv` 와 일치 (초안·Resources 사본 모두) |
-| 2 | 아이템 헤더 열 순서 | 통과 | 19열 일치. 실 `ItemSheet.csv` 는 1행 타입 행, 2행 헤더, 19번째 열 `category` 포함(원시 줄 확인). 초안 `category` 값은 전부 빈칸 |
-| 3 | 세트 헤더 | 통과 | `setName,effect` 2열, 실 파일 1행 타입·2행 헤더 |
-| 4 | 드롭 헤더 | 통과 | 초안 `monsterId,item,probability,condition` 4열, 실 파일 동일 4열 |
-| 5 | 몹 id 중복 | 통과 | 초안 21행 id 중복 0, 실 63행과 겹침 0 |
-| 6 | 아이템 index·이름 중복 | 통과 | 초안 268~312(45행) 연속, 초안 내 중복 0, 실 최대 267(268행)과 겹침 0, 이름 겹침 0 |
-| 7 | 세트 키 중복·연결 | 통과 | 초안 12행이 실 키와 겹침 0. 아이템 `tfName` 4종(Garden·MoonStone·Order·Drake Armor) 모두 `_2/_4/_6` 키 존재 |
-| 8 | Docs 초안 ↔ Resources 사본 일치 | **불일치** | 아이템 45·세트 12·드롭 28 행은 동일. 몹 21행 중 **7행이 다름**: Docs 사본은 보스 7행 `killKey` 가 빈칸, Resources 사본은 `killKey=id` 채움. `MigrationPlan.md` §2b 는 "이미 채워짐"이라 적었으나 Docs 사본에는 해당 없음 → 수정 후보: 병합은 Resources 사본을 원본으로 삼거나 Docs 사본 7행을 채워 동기화 |
-| 9 | 보스 `killKey==id` | 통과 | Resources 사본 보스 7행(StatueQueen·Lancer/Sword/Archer/MageCaptain·KnightCommander·CloudseaDrake) 모두 `killKey=id`. `On_BossRowsHaveKillKey` 가 이 사본을 검증 |
-| 10 | 드롭의 몹 참조 | 통과 | 28행 몹 id 전부 실 또는 초안 몹에 존재(미해결 0) |
-| 11 | 드롭의 아이템 참조 | 통과 | 28행 아이템 이름 전부 실 또는 초안 `name` 에 존재(미해결 0) |
-| 12 | 드롭 (몹, 아이템) 쌍 중복 | 통과 | 실 파일과 겹침 0, 초안 내 중복 0 |
-| 13 | 병합 로더 기본 OFF | 통과(정적) | `Floor2Data.Enabled` 기본 false, 로더는 OFF 면 원문 반환. 실서비스 코드에서 ON 으로 켜는 곳 0 은 `ProductionCode_NeverEnablesSwitch` 가 검사 |
-| 14 | EditMode 테스트 실제 통과 | 미확인 | 이번 점검은 테스트 미실행(Unity 사용 금지). 아래 §2 로 병합 직전 실행 |
-| 15 | 아이콘·프리팹 | 미확인 | 그래픽 별도(Q-F2M). `DataIntegrity.md` 에 누락 목록 기록 예정 |
+| # | 항목 | 결과 | 근거 | 재대조(AUTO-89, 11-05) |
+|---|---|---|---|---|
+| 1 | 몹 헤더 열 순서 | 통과 | 18열 이름·순서 `MonsterSheet.csv` 와 일치 (초안·Resources 사본 모두) | 유지 |
+| 2 | 아이템 헤더 열 순서 | 통과 | 19열 일치. 실 `ItemSheet.csv` 는 1행 타입 행, 2행 헤더, 19번째 열 `category` 포함(원시 줄 확인). 초안 `category` 값은 전부 빈칸 | 유지 |
+| 3 | 세트 헤더 | 통과 | `setName,effect` 2열, 실 파일 1행 타입·2행 헤더 | 유지 |
+| 4 | 드롭 헤더 | 통과 | 초안 `monsterId,item,probability,condition` 4열, 실 파일 동일 4열 | 유지 |
+| 5 | 몹 id 중복 | 통과 | 초안 21행 id 중복 0, 실 63행과 겹침 0 | 유지 |
+| 6 | 아이템 index·이름 중복 | 통과 | 초안 268~312(45행) 연속, 초안 내 중복 0, 실 최대 267(268행)과 겹침 0, 이름 겹침 0 | 유지(Resources 사본 행수 아이템 46·세트 13·드롭 29, 헤더 포함) |
+| 7 | 세트 키 중복·연결 | 통과 | 초안 12행이 실 키와 겹침 0. 아이템 `tfName` 4종(Garden·MoonStone·Order·Drake Armor) 모두 `_2/_4/_6` 키 존재 | 유지 |
+| 8 | Docs 초안 ↔ Resources 사본 일치 | **불일치** | 아이템 45·세트 12·드롭 28 행은 동일. 몹 21행 중 **7행이 다름**: Docs 사본은 보스 7행 `killKey` 가 빈칸, Resources 사본은 `killKey=id` 채움. `MigrationPlan.md` §2b 는 "이미 채워짐"이라 적었으나 Docs 사본에는 해당 없음 → 수정 후보: 병합은 Resources 사본을 원본으로 삼거나 Docs 사본 7행을 채워 동기화 | **불일치 유지**: 몹 22행(헤더 포함) 중 7행 다름, 아이템·세트·드롭 0행 다름 |
+| 9 | 보스 `killKey==id` | 통과 | Resources 사본 보스 7행(StatueQueen·Lancer/Sword/Archer/MageCaptain·KnightCommander·CloudseaDrake) 모두 `killKey=id`. `On_BossRowsHaveKillKey` 가 이 사본을 검증 | 유지 |
+| 10 | 드롭의 몹 참조 | 통과 | 28행 몹 id 전부 실 또는 초안 몹에 존재(미해결 0) | 유지 |
+| 11 | 드롭의 아이템 참조 | 통과 | 28행 아이템 이름 전부 실 또는 초안 `name` 에 존재(미해결 0) | 유지 |
+| 12 | 드롭 (몹, 아이템) 쌍 중복 | 통과 | 실 파일과 겹침 0, 초안 내 중복 0 | 유지 |
+| 13 | 병합 로더 기본 OFF | 통과(정적) | `Floor2Data.Enabled` 기본 false, 로더는 OFF 면 원문 반환. 실서비스 코드에서 ON 으로 켜는 곳 0 은 `ProductionCode_NeverEnablesSwitch` 가 검사 | 유지 |
+| 14 | EditMode 테스트 실제 통과 | 미확인 | 이번 점검은 테스트 미실행(Unity 사용 금지). 아래 §2 로 병합 직전 실행 | 미확인 유지(테스트 미실행) |
+| 15 | 아이콘·프리팹 | 미확인 | 그래픽 별도(Q-F2M). `DataIntegrity.md` 에 누락 목록 기록 예정 | 미확인 유지 |
 
 불일치 1건(#8)이 병합 전 정리 대상이다. 나머지 데이터 정합은 모두 통과.
 
@@ -58,3 +58,10 @@
 ## 5. 수정 후보 (불일치)
 
 - #8: `Docs/Floor2Data/Floor2Monsters.csv` 보스 7행 `killKey` 를 `Assets/Resources/Floor2Preview/Floor2Monsters.csv` 와 같게 채우고, `MigrationPlan.md` §2b 에 "원본 = Resources 사본" 한 줄 추가.
+
+## 6. 병합 가능한 최소 범위 (11-05 재대조 확정)
+
+- 실 `ItemSheet.csv` 최대 index 는 여전히 267, 신규 초안 268~312 와 겹침 없음. 데이터 단계 불일치는 #8 한 건뿐이다.
+- 최소 범위 = (1) #8 해소(Docs 몹 사본 보스 7행 `killKey` 채우기 또는 Resources 사본을 원본으로 확정) → (2) §2 테스트 실행 → (3) 몹 → 아이템 → 세트 → 드롭 순으로 단계별 병합. 그래픽·몹 행동·신규 시스템은 병합 블로커 아님.
+- 후속 (b): 병합 후 신규 아이템 이름의 한글 표시 `LocItems.cs` 누락 여부는 병합 후 재확인(`LocPerfAudit.md` §10 은 코드 문자열 대상).
+

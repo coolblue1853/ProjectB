@@ -82,3 +82,41 @@
 ## 9. 7차 큐 상태 (AUTO-75, 11-05)
 - ✅ LP-1~LP-4 적용, LP-5 미사용 번역 4종 삭제(AUTO-55), 타격 GetComponent 3곳 TryGetComponent(AUTO-51), UiText.SetIfChanged(AUTO-56).
 - 보류: LP-6 StatusTint(AUTO-70, 캐시 불가 사유 기록), §2 #10 사다리 GetComponent(사다리 상태에서만, 영향 작음).
+
+## 10. 후속 재점검: 신규 코드 Loc 누락 (11-05, AUTO-89b)
+
+방법: `Assets/Script`(Localization 제외)의 `Loc.T/F/Region("리터럴")` 키를 `Localization/*.cs` 번역 항목과 재대조, 그리고 `Loc.` 없이 한글 리터럴을 쓰는 줄(로그·Tooltip 제외)을 grep. 코드·CSV 수정 없음.
+
+### 10-1. 리터럴 키 누락
+신규 누락 **0**. 남은 4건은 동적 조합 키라 정상: `QuestBoard.cs:130~132`(`Report back to `·`Report to `·` complete! Report to `)와 `TrackingUI.cs:179`(`Trap`+품질). EquipSlotExpansion(`ExtraEquip.cs` 6곳)·도감(`BestiaryMilestones.cs`)은 LP-1/LP-2 로 이미 키 등록됨.
+
+### 10-2. 한국어 하드코딩 후보 (건별 1줄, 호출부는 `Loc.` 미경유. 한국어 모드 영향 없음, 영어 모드에서 한글 노출)
+우선순위: P1 = 전투 중 항상 보이는 HUD, P2 = 창·안내, P3 = 한국어 전용 콘텐츠로 볼 수 있는 대사·튜토리얼.
+
+| 우선 | 파일:줄 | 키(제안 영어 원문) | 비고 |
+|---|---|---|---|
+| P1 | `Weapon/Gimmick/AmmoGimmick.cs:15` | `Reloading {0}s` / `Ammo {0}/{1}` | 석궁 HUD(`HudText`), 현재 `$"재장전 ..."` |
+| P1 | `Weapon/Gimmick/ThrownSpearGimmick.cs:15` | `Spear held` 외 상태 | 투창 HUD |
+| P1 | `Weapon/Gimmick/TomePageGimmick.cs:10,14` | `Fire`·`Frost`·`Lightning`, `Page: {0}` | 마도서 HUD |
+| P1 | `Player/PlayerHealthManager.cs:379` | `Survived!` | 치명 피해 버팀 텍스트(LastStand) |
+| P1 | `Enemy/DropManager.cs:173` | `Plunder! x{0}` | 약탈 훈장 골드 배수 텍스트 |
+| P2 | `NpcQuest/NpcQuestWindow.cs:204~211,221~223` | `{0} kill`·`Collect`·`Craft`·`Equip` 등 목표 문구 | `NpcQuestWindow` 에 `Loc.` 1회뿐 |
+| P2 | `NpcQuest/NpcQuestWindow.cs:236,241,257~259,306,381~383,406~465` | 추적 안내·탭 이름·빈 목록·도움말 | 306행 문구는 AUTO-78 대상 |
+| P2 | `NpcQuest/QuestBountyLink.cs:87,97` | `[Bounty] {0}`·`Daily bounty…` | 현상 의뢰 제목·설명 |
+| P2 | `Floor1Extra/BountyPanel.cs:157~215`, `BountyRules.cs:164~180`, `BountyKiosk.cs:22` | 의뢰 패널·상태 문구 | 파일 전체 한글 |
+| P2 | `Item/RecallCast.cs:43,147,158` | `Recall`·`Hit`·`Moved`·`No item` | 귀환 시전 라벨 |
+| P2 | `UI/EventBanner.cs:89~144` | 사망 배너·팁 5줄·퀘스트 수락/완료 | `Loc` 0회 |
+| P2 | `Inventory/Model/InventoryFilterRules.cs:27~30`, `Item/ShopRules.cs:80~83` | `Equip`·`Consumable`·`Material`·`All` | 필터 라벨 |
+| P2 | `UI/ShopConvenience.cs:279~301`, `UI/InventoryConvenience.cs:170,171`, `UI/ChestConvenience.cs:211`, `UI/SideList/BuybackPanel.cs:117` | 편의 기능 안내 줄 | 키 안내 포함 |
+| P2 | `UI/DismantleInput.cs:71,75`, `UI/SetSwapPreview.cs:49,50`, `Map/PortalLabel.cs:84` | 분해 불가 사유·세트 교체 미리보기·`[Sealed]` | 짧은 문구 |
+| P3 | `UI/ControlsGuide.cs:59~121` (41행), `UI/ControlsWindow.cs:156,197` | 조작 안내 표 | `Loc` 0회(타이틀만 `Loc.IsKorean` 분기) |
+| P3 | `UI/FirstHints.cs:16~67`, `UI/TownServices.cs:30~69` | 튜토리얼·NPC 라벨 | `Loc` 0회 |
+| P3 | `NpcQuest/NpcQuestVoice.cs`(97), `NpcQuestCatalog.cs`(10), `Floor1Chatter.cs`, `StoryDialogues.*.cs`, `Floor1Extra/ZoneProgress.cs`(`ZoneKo`/`ZoneEn` 쌍으로 이미 이중화) | 대사·카탈로그 | 한국어 콘텐츠 전용이면 보존 |
+
+참고: `NightRaid.cs:161,243,327`·`HuntingRules.cs:90` 는 `Fail`/예외 메시지(로그성)라 제외 가능. `Loc.IsKorean ? "한글" : "ENGLISH"` 분기 패턴은 제목 몇 곳에서 이미 쓰이므로, 번역 항목이 과한 곳은 이 패턴으로 대체해도 된다.
+
+### 10-3. 후속 큐 (AUTO-90 대상 = P1 5건)
+- LP-7 (P1): 위 P1 5건(`AmmoGimmick`·`ThrownSpearGimmick`·`TomePageGimmick` + `PlayerHealthManager`·`DropManager`)을 `LocUi.cs` 항목 추가 + `Loc.T/F` 교체. 호출부 파일이 5개라 AUTO-90 한도(3개)는 기믹 3종부터. `LocUiKeysTests` 통과 확인.
+- LP-8 (P2): `NpcQuestWindow`·`EventBanner`·필터 라벨.
+- LP-9 (P3): 조작 안내·튜토리얼·NPC 라벨(한국어 전용 방침 결정 후).
+

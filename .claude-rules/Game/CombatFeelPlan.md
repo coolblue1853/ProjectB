@@ -45,23 +45,23 @@
 
 ### P0 — 즉시 체감 (1층계에 바로 적용)
 
-| ID | 내용 | 수치 제안 | 영향 파일 | 검증 |
-|---|---|---|---|---|
-| CF-1 | **공격 전진(Attack Drift)**: 지상 평타 후딜 중 **앞키를 누르고 있으면** 입력 방향으로 이동 속도 `moveSpeed × driftMul`로 이동(MoveLock 해제하지 않고 허용 속도만). 키를 놓으면 즉시 0. 입력 없으면 제자리. 뒤키는 전진 안 함(방향 전환 CF-5 참조). 3타째(마무리)는 `driftMul` 절반 | `driftMul` 1·2타 0.5, 3타 0.25 (걷기 10 기준 5/2.5u/s). 시작 후 선딜(타격 전)에는 0.7배 | `Weapon.cs`(`AttackMoveSpeedMul`을 단계별 값으로 확장), `PlayerController.cs`(`Move` 의 정지 분기·649/674행 근처, 389행 정지 조건) | 에디터: 평타 연타+→ 유지 시 이동 거리 측정, 키 해제 시 정지, 벽 끼임 없음 |
-| CF-2 | **공격 중 점프 허용**: 후딜 중 점프 입력은 후딜 **판정 이후(`_attackHitDelay`+0.05)** 부터 점프로 캔슬. 점프 직전 평타 후딜은 `CancelMeleeRecovery` 재사용(콤보 유예 유지) | 캔슬 시작: 판정 시점 +0.05초(스킬 캔슬과 동일 하한). 타격 전엔 불가 | `PlayerController.cs`(점프 분기 429행 조건 `weaponStopMove == false` → `CanMoveCancelNow`), `Weapon.cs`(`CanMoveCancel`) | 평타→점프 캔슬이 되고, 타격 전엔 안 됨. 점프 후 콤보 유예 안 이어짐 확인 |
-| CF-3 | **지상 평타 → 이동 캔슬 창**: 후딜 중 **판정 이후 후딜 40% 경과** 시점부터 좌우 입력으로 후딜을 끊고 이동(전진 보정이 켜져 있으면 별도 불필요, 반대 방향이나 달리기 입력만 해당) | 후딜의 40%(스킬 캔슬 50%보다 약간 이르게). 단 3타는 60% | `Weapon.cs`(`CanMoveCancel`), `PlayerController.cs` | 3타 모두 가로 입력으로 빠져나감 |
-| CF-4 | **점프 버퍼·코요테 확대** | 점프 버퍼 0.1→0.15초, 코요테 0.08→0.12초(직렬화 필드 기본값만) | `PlayerController.cs` 885~886행 | 착지 직전 점프 입력 성공률(프로브), 가장자리 점프 |
-| CF-5 | **방향 전환 보정**: 후딜 중 **반대 방향키를 누르면** 판정이 나간 뒤(`_attackHitDelay`+0.05) 몸을 돌린다(공격 모션은 유지, 이동만 새 방향). 다음 공격은 이미 입력 방향으로 시작 | 전환은 판정 이후만. 3타 모션 중에는 전환 없음 | `PlayerController.FaceInputForAttack`, `attackFacingLocked` | 뒤로 돌며 연타 시 새 방향으로 공격 시작 |
+| ID | 내용 | 수치 제안 | 영향 파일 | 검증 | 상태(11-05 grep 대조) |
+|---|---|---|---|---|---|
+| CF-1 | **공격 전진(Attack Drift)**: 지상 평타 후딜 중 **앞키를 누르고 있으면** 입력 방향으로 이동 속도 `moveSpeed × driftMul`로 이동(MoveLock 해제하지 않고 허용 속도만). 키를 놓으면 즉시 0. 입력 없으면 제자리. 뒤키는 전진 안 함(방향 전환 CF-5 참조). 3타째(마무리)는 `driftMul` 절반 | `driftMul` 1·2타 0.5, 3타 0.25 (걷기 10 기준 5/2.5u/s). 시작 후 선딜(타격 전)에는 0.7배 | `Weapon.cs`(`AttackMoveSpeedMul`을 단계별 값으로 확장), `PlayerController.cs`(`Move` 의 정지 분기·649/674행 근처, 389행 정지 조건) | 에디터: 평타 연타+→ 유지 시 이동 거리 측정, 키 해제 시 정지, 벽 끼임 없음 | ✅ `Weapon._driftMul`·`UpdateAttackRecoveryMove` |
+| CF-2 | **공격 중 점프 허용**: 후딜 중 점프 입력은 후딜 **판정 이후(`_attackHitDelay`+0.05)** 부터 점프로 캔슬. 점프 직전 평타 후딜은 `CancelMeleeRecovery` 재사용(콤보 유예 유지) | 캔슬 시작: 판정 시점 +0.05초(스킬 캔슬과 동일 하한). 타격 전엔 불가 | `PlayerController.cs`(점프 분기 429행 조건 `weaponStopMove == false` → `CanMoveCancelNow`), `Weapon.cs`(`CanMoveCancel`) | 평타→점프 캔슬이 되고, 타격 전엔 안 됨. 점프 후 콤보 유예 안 이어짐 확인 | ✅ `CanJumpCancelNow` |
+| CF-3 | **지상 평타 → 이동 캔슬 창**: 후딜 중 **판정 이후 후딜 40% 경과** 시점부터 좌우 입력으로 후딜을 끊고 이동(전진 보정이 켜져 있으면 별도 불필요, 반대 방향이나 달리기 입력만 해당) | 후딜의 40%(스킬 캔슬 50%보다 약간 이르게). 단 3타는 60% | `Weapon.cs`(`CanMoveCancel`), `PlayerController.cs` | 3타 모두 가로 입력으로 빠져나감 | ✅ `CanMoveCancelNow`(0.4/0.6) |
+| CF-4 | **점프 버퍼·코요테 확대** | 점프 버퍼 0.1→0.15초, 코요테 0.08→0.12초(직렬화 필드 기본값만) | `PlayerController.cs` 885~886행 | 착지 직전 점프 입력 성공률(프로브), 가장자리 점프 | ✅ `CombatRules` 0.15/0.12 |
+| CF-5 | **방향 전환 보정**: 후딜 중 **반대 방향키를 누르면** 판정이 나간 뒤(`_attackHitDelay`+0.05) 몸을 돌린다(공격 모션은 유지, 이동만 새 방향). 다음 공격은 이미 입력 방향으로 시작 | 전환은 판정 이후만. 3타 모션 중에는 전환 없음 | `PlayerController.FaceInputForAttack`, `attackFacingLocked` | 뒤로 돌며 연타 시 새 방향으로 공격 시작 | ✅ `CanTurnNow` |
 
 ### P1 — 체감 보강
 
-| ID | 내용 | 수치 제안 | 영향 파일 | 검증 |
-|---|---|---|---|---|
-| CF-6 | **공중 평타 관성 유지**: 공중에서 평타 시 가로 속도를 0으로 만들지 않고 현재 속도 유지(`isWeaponStopMove`여도 공중은 예외). 입력 없으면 점차 감속 | 감속 0.15초 내 0, 입력 시 `moveSpeed×0.7` 허용 | `PlayerController.cs` 387~390행 조건에 `isGrounded` 추가 | 점프 중 평타 시 이동 유지, 착지 시 정지 |
-| CF-7 | **가변 점프 높이**: 점프 키를 상승 중 놓으면 `velocity.y *= 0.5`(1회). 첫 0.08초(최소 높이)는 무시 | 컷 계수 0.5, 최소 홀드 0.08초 | `PlayerController.cs`(jumpAction 해제 감지, 868행 근처) | 짧게 눌렀을 때 높이 약 45~55% |
-| CF-8 | **평타 간 이음새 단축**: `_comboGrace` 0.35→0.45초(더 넉넉히), 후딜 말미 0.08초 안의 평타 입력은 버퍼로 보장(현재 0.2초라 대체로 충족, 검증만) | 유예 0.45초 | `Weapon.cs`(프리팹 47곳 일괄 `_comboGrace`) | 느린 연타에도 3타까지 이어짐 |
-| CF-9 | **이동 가감속**: 지상 시작 가속 0.06초(최고속 도달), 정지 감속 0.05초. 공격 시작 직전 이동속도의 70%를 유지하다 CF-1 속도로 수렴 | 가속 0.06, 감속 0.05 | `PlayerController.cs` `Move`(690행) | 입력 즉응 지연 체감 없음(너무 미끄럽지 않게). 기준은 프로브가 아니라 플레이 영상 |
-| CF-10 | **대시 선입력**: 대시가 개방된 층계에서 대시 입력 버퍼 0.1초, 공격 후딜 중 대시는 후딜을 끊음(이미 가능, 버퍼만 추가) | 0.1초 | `PlayerController.cs` 411행 | 후딜 중 대시 버퍼 |
+| ID | 내용 | 수치 제안 | 영향 파일 | 검증 | 상태(11-05 grep 대조) |
+|---|---|---|---|---|---|
+| CF-6 | **공중 평타 관성 유지**: 공중에서 평타 시 가로 속도를 0으로 만들지 않고 현재 속도 유지(`isWeaponStopMove`여도 공중은 예외). 입력 없으면 점차 감속 | 감속 0.15초 내 0, 입력 시 `moveSpeed×0.7` 허용 | `PlayerController.cs` 387~390행 조건에 `isGrounded` 추가 | 점프 중 평타 시 이동 유지, 착지 시 정지 | ✅ `AirAttackVx` |
+| CF-7 | **가변 점프 높이**: 점프 키를 상승 중 놓으면 `velocity.y *= 0.5`(1회). 첫 0.08초(최소 높이)는 무시 | 컷 계수 0.5, 최소 홀드 0.08초 | `PlayerController.cs`(jumpAction 해제 감지, 868행 근처) | 짧게 눌렀을 때 높이 약 45~55% | ✅ `UpdateJumpCut`, 컷 계수 **0.7**(문서 0.5와 다름, `JumpReachTests` 계단 여유 기준으로 의도적) |
+| CF-8 | **평타 간 이음새 단축**: `_comboGrace` 0.35→0.45초(더 넉넉히), 후딜 말미 0.08초 안의 평타 입력은 버퍼로 보장(현재 0.2초라 대체로 충족, 검증만) | 유예 0.45초 | `Weapon.cs`(프리팹 47곳 일괄 `_comboGrace`) | 느린 연타에도 3타까지 이어짐 | ✅ `_comboGrace` 0.45 |
+| CF-9 | **이동 가감속**: 지상 시작 가속 0.06초(최고속 도달), 정지 감속 0.05초. 공격 시작 직전 이동속도의 70%를 유지하다 CF-1 속도로 수렴 | 가속 0.06, 감속 0.05 | `PlayerController.cs` `Move`(690행) | 입력 즉응 지연 체감 없음(너무 미끄럽지 않게). 기준은 프로브가 아니라 플레이 영상 | ✅ `GroundAccelTime` 0.06/`GroundDecelTime` 0.05 |
+| CF-10 | **대시 선입력**: 대시가 개방된 층계에서 대시 입력 버퍼 0.1초, 공격 후딜 중 대시는 후딜을 끊음(이미 가능, 버퍼만 추가) | 0.1초 | `PlayerController.cs` 411행 | 후딜 중 대시 버퍼 | ✅ `DashBufferTime` 0.1 |
 
 ### P2 — 후속 (이번 계획 범위 밖, 기록만)
 
@@ -106,3 +106,15 @@ CF-1·CF-2·CF-3·CF-5(공격 이동 묶음, 같은 `Weapon.cs`·`PlayerControll
 - 구현: `ContactDamage` 에 `Mul(floor, isElite)` 순수 함수와 `AttackingGrace` 판정 추가, `CombatRulesTests` 확장. 설정 필드 `contactEnabled`(전역 비활성화 스위치)도 두어 C안이 필요하면 값만 바꾸게 한다.
 - 검증: 1층계 숲에서 몹 앞 평타 연타 시 피해량·횟수 측정, 물약 소비 시간 비교(`Floor1Balance`). 사망 페널티·레벨 구간 영향 확인.
 - 판단은 사용자 몫: Q-CF3로 `Docs/OpenQuestions.md`에 임시 가정(B안) 기록.
+
+## 8. 선정 항목: CF-12 일부 — 무기별 이동 캔슬 비율 (AUTO-87, 11-05 확정)
+
+CF-1~10 은 모두 코드에 있다(위 상태 열). 남은 비그래픽 중 가장 작은 것을 고른다: 캔슬 비율을 무기별 직렬화 필드로 노출.
+
+- 파일: `Assets/Script/Player/Weapon.cs` 1개만. `CombatRules.CanMoveCancel(..., fraction)` 는 이미 `fraction` 인자(기본 `MoveCancelFraction` 0.4)를 받으므로 규칙 수정 불필요.
+- 변경: `[SerializeField, Range(0.2f, 0.8f)] private float _moveCancelFraction = 0.4f;` 추가(툴팁: 후딜 몇 % 경과 후 이동 캔슬 허용). `CanMoveCancelNow`(446행 부근)에서 `CanMoveCancel` 호출 마지막 인자로 전달. 기본값 0.4 라 **기존 모든 무기 동작 불변**.
+- 수치(프리팹 변경은 이번 범위 밖, 기본값만): 대검류 0.55·단검류 0.3 은 후속에서 프리팹 직렬화로 조정.
+- 영향: `CanMoveCancelNow` 호출 `PlayerController.UpdateAttackRecoveryMove` 한 곳. 3타 마무리 보정(`+0.2`)은 `CanMoveCancel` 내부에서 그대로.
+- 검증: EditMode `CombatRulesTests` 에 `fraction` 0.3/0.4/0.55 별 `CanMoveCancel` 경계 케이스 추가(기본값 호출 결과 = 기존 값). 프로브 `Tools/probes/_cf_cancel.cs`: 기본 칼로 3타 후 후딜 40% 직전/직후 좌우 입력 캔슬 여부 로그 확인(playtest 가능 시), 불가 시 "플레이 미검증".
+- 완료 기준: 컴파일 0, 기존 EditMode 통과, 기본 칼 3타·스미어 불변, 이 절에 ✅.
+
