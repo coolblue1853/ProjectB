@@ -37,4 +37,15 @@ public class CooldownTests
         Assert.AreEqual(8f, c.ReadyAt, 1e-4f);
         Assert.IsFalse(c.Ready(7.9f));
     }
+
+    [Test]
+    public void NightRaid_TimedOut_NotBeforeActive()
+    {
+        Cooldown c = default;
+        Assert.IsFalse(NightRaidRules.TimedOut(false, c, 100f));
+        Assert.IsTrue(NightRaidRules.TimedOut(true, c, 100f));
+        c.Arm(10f, 40f);
+        Assert.IsFalse(NightRaidRules.TimedOut(true, c, 49f));
+        Assert.IsTrue(NightRaidRules.TimedOut(true, c, 50f));
+    }
 }

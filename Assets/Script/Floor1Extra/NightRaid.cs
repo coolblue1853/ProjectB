@@ -24,6 +24,12 @@ public static class NightRaidRules
     public const float SpawnNear = 11f;
     public const float SpawnFar = 17f;
 
+    /// <summary>시간 초과 판정. 습격이 활성이 아니면(Arm 전·종료 후) 기본값 쿨다운이 즉시 Ready 여도 초과로 보지 않는다</summary>
+    public static bool TimedOut(bool active, Cooldown deadline, float now)
+    {
+        return active && deadline.Ready(now);
+    }
+
     public static List<NightRaidDef> Parse(string text)
     {
         var list = new List<NightRaidDef>();
@@ -322,7 +328,7 @@ public class NightRaid : MonoBehaviour
 
     private void Tick()
     {
-        if (_deadline.Ready(Time.time))
+        if (NightRaidRules.TimedOut(_phase == Phase.Active, _deadline, Time.time))
         {
             Fail("시간이 지나 습격을 놓쳤다");
             return;
@@ -358,7 +364,10 @@ public class NightRaid : MonoBehaviour
             return;
         }
         Vector3 at;
-        if (!FindSpawnPoint(player.transform.position, _spawned % 2 == 0 ? 1f : -1f, out at))
+        float side = _spawned % 2 == 0 ? 1f : -1f;
+        // 한쪽이 지면 없음으로 실패하면 반대쪽으로 즉시 재시도한다
+        if (!FindSpawnPoint(player.transform.position, side, out at)
+            && !FindSpawnPoint(player.transform.position, -side, out at))
         {
             if (_failedSpawnSince < 0f)
             {
