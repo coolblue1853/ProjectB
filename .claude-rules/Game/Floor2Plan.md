@@ -114,6 +114,39 @@
 | 용 숭배자 | **Cinder Censer** (지팡이) | A 화염 구슬 3발 | Cloudsea Drake |
 | 운해의 용(층계 보스) | 레전더리 **Cloudsea Breath** | D 용의 숨결(전방 지속 판정), 처치 시 칭호 2 · 3층계 입구 | — |
 
+### 5.5 ③~⑤ 신규 판정·시스템 요구 정리 (11-05, AUTO-9 — 코드 대조는 grep 기준, 구현 전 재확인)
+
+대조 근거(`Assets/Script`): 몹 경직 `EnemyHealth.ApplyAirAndStagger`·`StaggerResist`, 플레이어 경직·무적 `PlayerHealthManager.damage2Player(stiffTime, …, invincibleTime)`, 지속 피해 `DotEffectBase`(`PosionAttack`·`BleedingAttack`), 몹 특성 `TempMobTraits`(slow 이동 0.65·heavy·dash·spore), 몹→플레이어 지속 장판 `SporeCloud`, 플레이어 장판 `DamageObject.ResetHealGround`, 홀드 `AttackManager.CancelHold`·`ChargeShot.BeginHold`, 소환 `SummonRunner`·`SummonSkill`, 발사체 `StraightArrow`·`HomingOrb`, 반격 `CounterBuff`. `Reflect`·`Parry`·`Dive`·막기(Guard) 는 프로젝트 코드에 없음.
+
+| # | 요구 (구역) | 현재 코드 | 분류 | 규모 | 비고 |
+|---|---|---|---|---|---|
+| 1 | 홀드 방어 + 피해 반사 (③ 천칭 막기, ④ 마법기사 방벽) | 홀드 입력은 있음(차지 샷). 방어 상태·피해 가로채기 없음 | **신규 필요** | 중 | `damage2Player` 앞 가로채기 + 방어 상태 토큰(`PlayerStateDesign.md`). 방벽(감쇠만)과 천칭(반사)을 한 시스템 파라미터로 |
+| 2 | 몹 측 피해 반사 (③ 천칭 석상 자세) | 몹 피해 경로 `EnemyHealth` 만 | **신규 필요** | 소 | 특정 자세 중 받은 피해의 N%를 플레이어에 `damage2Player`. 1 번과 별개로 먼저 가능 |
+| 3 | 몹 둔화 (③ 덩굴 묶기) | `TempMobTraits.SlowMoveMul` 은 고정 특성 | **일부 재사용** | 소 | 시간제한 런타임 배율(디버프) 추가, 순찰·추적이 같은 배율을 읽게 |
+| 4 | 석화 = 경직 (③ 석상의 여왕 시선 → 플레이어, ③ 무기 '시선' → 몹 2s) | 경직 `stiffTime`·`StaggerResist`·슈퍼아머 존중 있음 | **재사용 가능** | 소 | 플레이어 쪽은 피해 0 판정에 `stiffTime=2` 전달, 몹 쪽은 보스·정예 저항 안에서 연쇄 제한 |
+| 5 | 피해 장판 (③ 달빛 나방 가루, ⑤ 불씨) | 몹→플레이어 `SporeCloud`, 플레이어 `HealGround` 복제 방식, `DotEffectBase` | **재사용 가능** | 소~중 | 플레이어판 '적 대상 지속 피해 장판' 은 `HealGround` 판정 복제 + `DotEffectBase` 틱. 몹판은 `SporeCloud` 확장 |
+| 6 | 수면 (③ 나방 가루 → 플레이어) | 입력 차단 상태 없음, 경직만 | **신규 필요** | 소~중 | 경직보다 길고 피격 시 해제. 5 번 장판에 얹는 효과 |
+| 7 | 급강하 찌르기 (③ Petrified Wing) | `Dive` 키워드 없음, 공중 판정 모션 없음 | **신규 필요** | 중 | 공중 → 지면 하강 + 착지 판정. 모션·판정 프리팹 필요 |
+| 8 | 패링 (④ 검기사 S) | 무적 시간 인자와 `CounterBuff` 는 있음, 패링 판정창 없음 | **일부 재사용** | 중 | 짧은 무적 + 피격 시 반격. 1 번 방어 상태와 같은 가로채기 지점 |
+| 9 | 돌진 찌르기·관통 화살 (④ 창기사·궁기사) | 대시, `StraightArrow` 관통 있음 | **재사용 가능** | 소 | 데이터(판정 크기·관통 수)와 프리팹 복제 위주 |
+| 10 | 유도 마탄 (④ 마법기사) | `HomingOrb` | **재사용 가능** | 소 | |
+| 11 | 4기사 연속 중간보스 방 (④) | `MiniBosses.csv`·`Raid` 웨이브는 있음, 순차 스폰 보스 방 없음 | **일부 재사용** | 중 | 4기사 순차 스폰 + 기사단장 스킬 순환(4기사 스킬 무작위 1개) |
+| 12 | 화상·독침 (⑤ 불씨 연타·꼬리 독침) | `PosionAttack`·`BleedingAttack` | **재사용 가능** | 소 | 화상은 Poison 틱의 색·아이콘만 다르게 |
+| 13 | 용의 숨결 (⑤ 전방 지속 판정) | 지속 전방 판정 없음 | **신규 필요** | 중 | 몹용(보스 BT 지속 데미지 오브젝트)과 플레이어 무기 D 스킬용 둘 다 |
+| 14 | 석상 깨우기·가고일 호출 | `SummonRunner`·`SummonSkill` | **재사용 가능** | 소 | ② 에서 이미 사용 |
+
+구현 순서 제안: (a) 재사용 위주 소규모 → (b) 상태 가로채기(방어·패링) → (c) 지속 판정·보스 방.
+
+구현 큐 후보 ID (코드, 그래픽 제외):
+- `F2-DEBUFF` 몹 런타임 둔화·화상·경직 연쇄 제한 (3·4·12) — 소
+- `F2-AREA` 적 대상 지속 피해 장판 + 몹 장판 확장 (5) — 소~중, F2-DEBUFF 뒤
+- `F2-MOBREFLECT` 몹 반사 자세 (2) — 소
+- `F2-GUARD` 홀드 방어·반사·방벽·패링 공용 상태 (1·8) — 중, 상태 토큰 설계 확인 후
+- `F2-SLEEP` 플레이어 수면 상태 (6) — 소~중, F2-AREA 뒤
+- `F2-DIVE` 급강하 찌르기 모션·판정 (7) — 중, 모션 작업 포함이라 그래픽 큐와 조율
+- `F2-BREATH` 용의 숨결 지속 판정 (13) — 중
+- `F2-SEQBOSS` 4기사 순차 중간보스 방 + 기사단장 순환 (11) — 중
+
 ## 6. 공통 구현 경로 (2층계)
 
 - 몹: 코드 도트(`Tools/pixelfx/gen_<zone>_mobs.py`) → `MonsterBuilder`(RatThief = 빠른 근접 / LeftMole = 느린 탱커 / FlowerMole = 원거리·비행 / PassiveTerror = 보스, 18px/유닛). SPUM 금지.
