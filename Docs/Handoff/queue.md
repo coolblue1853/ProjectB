@@ -65,3 +65,5 @@
 - [x] CHIEF-1 대장 보상 데이터 (파일: ItemSheet 258·259행, MonsterExtraDrops, QuestsFloor1 Q504, LocItems): 설계 `Floor1Completion.md` §15-2. CSV 로드 테스트. → 완료 11-04 커밋 9e8ca9d6
 - [~] CHIEF-2 대장 보상 규칙·훅 (`PlunderRules`·`LastStandRules` 순수 클래스 + 몹 골드 드롭·치사 피해 훅, CHIEF-1 후). CHIEF-3 툴팁·발동 텍스트. CHIEF-4 PT-BOT 검증. → CHIEF-2 완료 11-04 커밋 9e8ca9d6, CHIEF-3·4 남음
 - [x] DEATH-PENALTY-IMPL (사용자가 Q-DEATH 제안안 승인 후만): `LevelRules` 사망 EXP 손실에 레벨·보스 인자 + EditMode 테스트.
+- [ ] DEC-1105-A 코드 묶음 (담당: dec-code, Unity): ① 사망 보스 7% 제거(Lv1~10 손실 0만 유지, 그 외 5%) ② 사망 배너에 tips 한 줄(회전 힌트: 물약·귀환·저장 등) ③ 대장 훈장 골드 ×3→×1.5 ④ 탭 점프 JumpCutMul 0.5→0.7(탭 1.27, 1.0 계단 통과 확인·MAP-SCAN 점프 테스트 갱신) ⑤ 퀘스트 창 구역별 접기·펼치기
+- [ ] DEC-1105-B 장신구 슬롯 재설계 (담당: dec-design, 문서만): OpenQuestions [결정 11-05] 2 대로 EquipSlotExpansion.md 개정 — 기존 장신구/슬롯 현황 조사, 칭호·오라·망토 폐기, 귀걸이·팔찌·반지·목걸이·마법석 등 비외형 슬롯, 외형은 투구·상의·하의·신발·장갑만. 구현 큐 SLOT-R1.. 로 분해(폐기분 코드 정리 포함). 겸해서 내구도·수리(던파식) 도입 검토 문서(Game/ 신규 또는 절)와 가방 탭 vs 스크롤 추천안
