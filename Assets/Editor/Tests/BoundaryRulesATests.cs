@@ -208,4 +208,11 @@ public class BoundaryRulesATests
         Assert.AreEqual(11d, HuntingRules.RefillAfter(10, 10), 1e-9);
         Assert.AreEqual(21d, HuntingRules.RefillAfter(11, 10), 1e-9);
     }
+
+    [Test]
+    public void RefillAfter_NonPositiveCycle_ReturnsZeroNotNaN()
+    {
+        Assert.AreEqual(0d, HuntingRules.RefillAfter(5, 0), 1e-9);
+        Assert.AreEqual(0d, HuntingRules.RefillAfter(5, -3), 1e-9);
+    }
 }

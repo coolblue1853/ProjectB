@@ -249,4 +249,4 @@
 - (11-05 PV8) (P3) AUTO-16 래퍼 3종을 임시 대용 무기(BanditShortbow·Wood Spear·FaeWand)에 부착·플레이 확인. 석궁 발사 차단·치명 확정, 투창 실제 투사체·함정 판정, 마도서 장별 평타는 후속. 전용 무기 생기면 컴포넌트 이동.
 - (11-05 PV9 AUTO-44) (P4) **해결 11-05** Loc 키 `[Sealed]` → `Sealed`(I2 GetValidTermName 이 대괄호를 깨 용어가 빈 이름으로 저장됨), 괄호는 `WaypointMap` 코드에서 붙임. I2 동기화·EditMode 764 통과, 지도 화면은 미검증.
 - (11-05 PV11 AUTO-61) (P4) 퀘스트 창 구역 접기: Z·패드 A 는 가상 입력으로 토글 확인, **Enter 는 무동작**인데 `NpcQuestWindow.cs:306` 안내 문구는 "Z/Enter 로 접기·펼치기". 문구에서 Enter 제거 또는 `UI.Enter` 연결(선택). PV4 (P4) 와 같은 건.
-- (11-05 AUTO-71) (P4) `HuntingRules.RefillAfter(deathTime, cycle)` 가 cycle=0 이면 NaN 반환(0 나눗셈). 현재 호출부는 cycle>0 이라 실사용 영향 없음. 경계 테스트에서는 고정하지 않음. 필요 시 cycle<=0 가드 추가.
+- (11-05 AUTO-71) (P4) ~~`HuntingRules.RefillAfter` cycle<=0 → NaN~~ **해소**: cycle<=0 이면 0 반환 + `RefillAfter_NonPositiveCycle_ReturnsZeroNotNaN` 테스트.

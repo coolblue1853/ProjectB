@@ -63,6 +63,10 @@ public static class HuntingRules
     /// <summary>죽은 슬롯은 죽은 뒤 cycle초가 아니라 다음 전역 리젠 틱에서 채워진다. 첫 틱은 1초.</summary>
     public static double RefillAfter(double deathTime, double cycle)
     {
+        if (cycle <= 0)
+        {
+            return 0;
+        }
         return 1 + (Math.Floor(Math.Max(0, deathTime - 1) / cycle) + 1) * cycle;
     }
 
