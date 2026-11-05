@@ -22,6 +22,23 @@ public static class PadFieldInput
     public static bool LtSelect { get; private set; }
     public static bool LtStart { get; private set; }
 
+    // 소비자(아티팩트·퀘스트 창 등)가 비활성이어도 홀드 타이머가 흐르도록 매 프레임 Refresh 를 부르는 구동기(ReviewCode_1105b #3)
+    private sealed class Driver : MonoBehaviour
+    {
+        private void Update()
+        {
+            Refresh();
+        }
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    private static void CreateDriver()
+    {
+        var go = new GameObject("PadFieldInputDriver") { hideFlags = HideFlags.HideAndDontSave };
+        Object.DontDestroyOnLoad(go);
+        go.AddComponent<Driver>();
+    }
+
     /// <summary>이번 프레임 소비자가 공통으로 부르는 갱신(여러 번 불러도 한 번만 계산)</summary>
     public static void Refresh()
     {
@@ -58,6 +75,7 @@ public static class PadFieldInput
             // 누르는 도중 LT 를 더하면 조합으로 보고 진행 중 제스처를 버린다(SELECT 길게 중 LT → 퀘스트 창 오발동 방지)
             _select.Cancel();
             _l3.Cancel();
+            _selectInUi = false; // 취소한 제스처의 UI 상태가 다음 눌림까지 남지 않게(ReviewCode_1105b #4)
         }
         // LT 조합(LT+SELECT 등)은 제스처로 세지 않는다
         Select = _select.Step(pad.selectButton.wasPressedThisFrame && !lt, pad.selectButton.isPressed, now, PadFieldInputRules.QuestHoldSeconds);
