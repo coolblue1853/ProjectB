@@ -162,8 +162,8 @@ public static class ExtraEquip
         bool read = false;
         try
         {
-            rawMask = SaveUtil.LoadOr(SlotRules.SaveKeyUnlock, 0);
-            ids = SaveUtil.LoadOr<string[]>(SlotRules.SaveKeyExtra, null);
+            rawMask = SaveUtil.LoadOrThrow(SlotRules.SaveKeyUnlock, 0);
+            ids = SaveUtil.LoadOrThrow<string[]>(SlotRules.SaveKeyExtra, null);
             read = true;
         }
         catch (Exception e)

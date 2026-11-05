@@ -27,4 +27,29 @@ public class SaveUtilTests
         ES3.Save(Key, 42, _s);
         Assert.AreEqual(42, SaveUtil.LoadOr(Key, 7, _s));
     }
+
+    [Test] public void WrongType_LoadOr_ReturnsDefault()
+    {
+        ES3.Save(Key, "not-an-int", _s); // int 키에 string 저장(손상·타입 변경)
+        UnityEngine.TestTools.LogAssert.ignoreFailingMessages = true;
+        try
+        {
+            Assert.AreEqual(7, SaveUtil.LoadOr(Key, 7, _s));
+        }
+        finally
+        {
+            UnityEngine.TestTools.LogAssert.ignoreFailingMessages = false;
+        }
+    }
+
+    [Test] public void WrongType_LoadOrThrow_Throws()
+    {
+        ES3.Save(Key, "not-an-int", _s);
+        Assert.Catch(() => SaveUtil.LoadOrThrow(Key, 7, _s));
+    }
+
+    [Test] public void MissingKey_LoadOrThrow_ReturnsDefault()
+    {
+        Assert.AreEqual(7, SaveUtil.LoadOrThrow(Key, 7, _s));
+    }
 }

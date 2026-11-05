@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 /// <summary>
 /// 신규 장비 슬롯(EquipSlotExpansion.md 4~5절) 규칙 — 순수 C#. 기본 8칸은 항상 해금, 신규 4칸은 해금 비트가 필요하다.
@@ -90,8 +90,8 @@ public static class EquipExtraSave
         int mask = 0;
         try
         {
-            ids = SaveUtil.LoadOr<string[]>(SlotRules.SaveKeyExtra, null);
-            mask = SaveUtil.LoadOr(SlotRules.SaveKeyUnlock, 0);
+            ids = SaveUtil.LoadOrThrow<string[]>(SlotRules.SaveKeyExtra, null);
+            mask = SaveUtil.LoadOrThrow(SlotRules.SaveKeyUnlock, 0);
         }
         catch (Exception e)
         {
