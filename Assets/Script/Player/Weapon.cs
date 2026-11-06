@@ -73,6 +73,20 @@ public class Weapon : MonoBehaviour
     /// <summary>장착된 아이템의 강화 단계 (EquipBoxCheck.ActivePrefab이 넣어 줌)</summary>
     [System.NonSerialized] public int enhanceLevel;
 
+    string _masteryKey;
+    /// <summary>무기 숙련도 키 = 아이템 키(프리팹 이름, "(Clone)" 제외). 한 번 계산해 캐시한다</summary>
+    public string MasteryKey
+    {
+        get
+        {
+            if (_masteryKey == null)
+            {
+                _masteryKey = WeaponMasteryRules.KeyFromName(name);
+            }
+            return _masteryKey;
+        }
+    }
+
     public void SetEnhance(int level)
     {
         enhanceLevel = level;
