@@ -111,7 +111,67 @@ public static class WeaponMasteryService
         {
             return;
         }
-        AddExp(w.MasteryKey, amount);
+        string key = w.MasteryKey;
+        if (!Data.Has(key))
+        {
+            Data.RaiseTo(key, WeaponMasteryRules.StartExp(StartMasteryOf(key))); // 첫 획득 시 시작 숙련(StartMastery)
+        }
+        WeaponKind kind = KindOf(key);
+        bool catchUp = kind != WeaponKind.None
+            && Data.AnyAtLevel(WeaponMasteryRules.CatchUpSourceLevel, k => k != key && KindOf(k) == kind);
+        AddExp(key, amount * WeaponMasteryRules.GainMultiplier(Data.GetLevel(key), catchUp));
+    }
+
+    static readonly Dictionary<string, WeaponKind> KindCache = new Dictionary<string, WeaponKind>();
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetKindCache()
+    {
+        KindCache.Clear();
+    }
+
+    static WeaponKind KindOf(string key)
+    {
+        WeaponKind kind;
+        if (!KindCache.TryGetValue(key, out kind))
+        {
+            ItemData it = FindItem(key); // 구 무기는 프리팹 _kind 가 비어 있어 ItemSheet WeaponType 을 기준으로 한다
+            if (it == null)
+            {
+                return WeaponKind.None; // DB 미로드: 캐시하지 않는다
+            }
+            WeaponGimmickRules.TryParseKind(it.weaponType, out kind);
+            KindCache[key] = kind;
+        }
+        return kind;
+    }
+
+    /// <summary>ItemSheet StartMastery 컬럼(빈칸 = 1)</summary>
+    static int StartMasteryOf(string key)
+    {
+        ItemData it = FindItem(key);
+        return it != null ? it.startMastery : 1;
+    }
+
+    static ItemData FindItem(string key)
+    {
+        if (DatabaseManager.instance != null && DatabaseManager.instance.Items != null)
+        {
+            foreach (ItemData it in DatabaseManager.instance.Items)
+            {
+                if (it.name == key)
+                {
+                    return it;
+                }
+            }
+        }
+        return null;
+    }
+
+    /// <summary>숙련 데미지 배율(Lv5 +5%). 데이터 미로드 = 1</summary>
+    public static float DamageBonus(string key)
+    {
+        return Data != null ? WeaponMasteryRules.Bonus(Data.GetLevel(key)) : 1f;
     }
 
     public static void AddExp(string key, int amount)

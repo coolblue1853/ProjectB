@@ -154,4 +154,33 @@ public class WeaponMasteryRulesTests
         Assert.AreEqual(5, d.GetLevel("RustedSword"));
         Assert.AreEqual(1, d.GetLevel("HealPotion"));
     }
+
+    [Test]
+    public void GainMultiplier_CatchUpUntilLv3()
+    {
+        Assert.AreEqual(2, WeaponMasteryRules.GainMultiplier(1, true));
+        Assert.AreEqual(2, WeaponMasteryRules.GainMultiplier(2, true));
+        Assert.AreEqual(1, WeaponMasteryRules.GainMultiplier(3, true));
+        Assert.AreEqual(1, WeaponMasteryRules.GainMultiplier(1, false));
+    }
+
+    [Test]
+    public void StartExp_ClampsAndMatchesLevel()
+    {
+        Assert.AreEqual(0, WeaponMasteryRules.StartExp(0));
+        Assert.AreEqual(0, WeaponMasteryRules.StartExp(1));
+        Assert.AreEqual(2, WeaponMasteryRules.LevelFromExp(WeaponMasteryRules.StartExp(2)));
+        Assert.AreEqual(5, WeaponMasteryRules.LevelFromExp(WeaponMasteryRules.StartExp(99)));
+    }
+
+    [Test]
+    public void AnyAtLevel_FiltersByLevelAndMatch()
+    {
+        var d = new WeaponMasteryData();
+        d.RaiseTo("A", WeaponMasteryRules.TotalExpForLevel(3));
+        d.RaiseTo("B", WeaponMasteryRules.TotalExpForLevel(2));
+        Assert.IsTrue(d.AnyAtLevel(3, k => k == "A"));
+        Assert.IsFalse(d.AnyAtLevel(3, k => k == "B"));
+        Assert.IsFalse(d.AnyAtLevel(4, null));
+    }
 }

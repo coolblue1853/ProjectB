@@ -84,6 +84,10 @@ public class ItemDatabase : MonoBehaviour
                     case 18: // category (Junk/Material, 빈 값 = 기존 동작)
                         item.category = values[j].Trim();
                         break;
+                    case 19: // StartMastery (무기 시작 숙련 Lv, 빈칸 = 1)
+                        int sm;
+                        item.startMastery = int.TryParse(values[j].Trim(), out sm) && sm > 1 ? sm : 1;
+                        break;
                         // 필요한 다른 열에 대한 처리를 추가합니다.
                 }
             }
@@ -121,5 +125,6 @@ public class ItemData
     public bool isNew;
     public string setName;
     public string category; // ItemSheet 맨 뒤 category (Junk=잡템 일괄 판매 대상, 빈 값=기존 동작)
+    public int startMastery = 1; // ItemSheet 맨 뒤 선택 컬럼 StartMastery (WeaponSkillProgression 5.2)
     public string weaponType; // ItemSheet 맨 뒤 컬럼 WeaponType (WeaponKind 이름, 빈 칸 = 무기 아님)
 }

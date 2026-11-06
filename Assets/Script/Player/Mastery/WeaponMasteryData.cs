@@ -54,6 +54,19 @@ public sealed class WeaponMasteryData
         }
     }
 
+    /// <summary>minLevel 이상이면서 match 를 만족하는 키가 하나라도 있는가(따라잡기 판정)</summary>
+    public bool AnyAtLevel(int minLevel, Func<string, bool> match)
+    {
+        foreach (KeyValuePair<string, int> kv in _exp)
+        {
+            if (WeaponMasteryRules.LevelFromExp(kv.Value) >= minLevel && (match == null || match(kv.Key)))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public WeaponMasterySave ToSave()
     {
         var s = new WeaponMasterySave { keys = new string[_exp.Count], exps = new int[_exp.Count] };

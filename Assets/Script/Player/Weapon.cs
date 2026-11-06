@@ -87,6 +87,19 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        WeaponMasteryService.LevelUp += OnMasteryLevelUp;
+    }
+
+    void OnMasteryLevelUp(string key, int level)
+    {
+        if (phm != null && key == MasteryKey)
+        {
+            SetDmgArray();
+        }
+    }
+
     public void SetEnhance(int level)
     {
         enhanceLevel = level;
@@ -98,7 +111,7 @@ public class Weapon : MonoBehaviour
 
     void SetDmgArray()
     {
-        float mul = EnhanceRules.WeaponMultiplier(enhanceLevel);
+        float mul = EnhanceRules.WeaponMultiplier(enhanceLevel) * WeaponMasteryService.DamageBonus(MasteryKey); // 강화 x 숙련(Lv5 +5%)
         damgeArray[0] = Mathf.RoundToInt(minDmg * mul);
         damgeArray[1] = Mathf.RoundToInt(maxDmg * mul);
         damgeArray[2] = critPer;
@@ -488,6 +501,7 @@ public class Weapon : MonoBehaviour
 
     private void OnDisable()
     {
+        WeaponMasteryService.LevelUp -= OnMasteryLevelUp;
         if (Equipped == this)
         {
             Equipped = null;

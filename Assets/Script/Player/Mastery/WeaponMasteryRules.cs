@@ -84,7 +84,25 @@ public static class WeaponMasteryRules
         return masteryLevel >= UnlockLevel(rank, skillCount);
     }
 
-    /// <summary>만렙 보너스 데미지 배율(+5%, 임시). 적용은 P4</summary>
+    /// <summary>따라잡기: 같은 계열에 이 레벨 이상 무기가 있으면 신규 무기 EXP x2(임시)</summary>
+    public const int CatchUpSourceLevel = 3;
+    /// <summary>따라잡기 배율. 신규 무기가 CatchUpUntilLevel 에 도달하면 끝</summary>
+    public const int CatchUpMultiplier = 2;
+    public const int CatchUpUntilLevel = 3;
+
+    /// <summary>EXP 획득 배율. 같은 계열에 Lv3+ 무기가 있고 이 무기가 Lv3 미만이면 2, 아니면 1</summary>
+    public static int GainMultiplier(int weaponLevel, bool sameKindHasLv3)
+    {
+        return sameKindHasLv3 && weaponLevel < CatchUpUntilLevel ? CatchUpMultiplier : 1;
+    }
+
+    /// <summary>시작 숙련 Lv(StartMastery, 1~5로 보정) → 최초 누적 EXP</summary>
+    public static int StartExp(int startMastery)
+    {
+        return TotalExpForLevel(Math.Max(1, Math.Min(startMastery, MaxLevel)));
+    }
+
+    /// <summary>만렙 보너스 데미지 배율(+5%, 임시)</summary>
     public static float Bonus(int masteryLevel)
     {
         return masteryLevel >= MaxLevel ? 1.05f : 1f;
