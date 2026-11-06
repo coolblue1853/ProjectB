@@ -144,10 +144,12 @@ public class SaveManager : MonoBehaviour
         LevelSystem.WriteTo(datas);
         GameLog.Info(GameLog.Cat.Save, "저장 money=" + datas.money + " pos=" + datas.playerPos);
         ES3.Save(keyName, datas);
+        WeaponMasteryService.Save(); // 무기 숙련(신규 키, 바뀐 때만)
     }
     public void DataLoad()
     {
-        if (ES3.FileExists()) // 슬롯 파일(SaveSlots 가 기본 경로를 정한다)
+        bool hadFile = ES3.FileExists();
+        if (hadFile) // 슬롯 파일(SaveSlots 가 기본 경로를 정한다)
         {
             ES3.LoadInto(keyName, datas);
         }
@@ -156,5 +158,6 @@ public class SaveManager : MonoBehaviour
             DataSave();
         }
         LevelSystem.LoadFrom(datas); // 레벨·EXP (세이브에 없으면 Lv1)
+        WeaponMasteryService.Load(hadFile, datas); // 무기 숙련(구세이브면 인벤 무기 만렙으로 1회 마이그레이션)
     }
 }

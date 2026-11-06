@@ -77,6 +77,7 @@ public static class LevelSystem
         Level = level;
         Exp = exp;
         GameLog.Info(GameLog.Cat.Player, "EXP +" + amount + " (" + source + ") → Lv" + Level + " " + Exp + "/" + LevelRules.ExpToNext(Level));
+        WeaponMasteryService.AddForEquipped(amount); // 같은 양을 장착 무기 숙련 EXP 로 (레벨업 저장보다 먼저)
         if (ups > 0)
         {
             pendingLevelUpFx = true;
