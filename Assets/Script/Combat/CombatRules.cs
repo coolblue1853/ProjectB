@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>스킬이 지금 나가지 못하는 이유(HUD 안내용). None 이면 발동 가능.</summary>
-public enum SkillBlock { None, Cooldown, Stamina, Busy }
+public enum SkillBlock { None, Cooldown, Stamina, Busy, Locked }
 
 /// <summary>
 /// 던파식 전투 규칙 수치 한 곳(11-02, CombatSpec 9절). 순수 함수라 EditMode 테스트로 고정한다.

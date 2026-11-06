@@ -1,6 +1,6 @@
 # 무기 스킬 순차 해금·성장 설계 (WSKILL-1)
 
-> 상태: 설계안(2026-11-06). **코드 수정 없음, 구현은 사용자 확인 후.** 임시 가정은 `Docs/OpenQuestions.md` WSKILL 항목.
+> 상태: B 채택(사용자 선택, 임시 가정 WS-1~3). **P0·P1·P2 구현 완료(2026-11-06)**, P3 이후 미착수. 이행 상태는 9절 표. 임시 가정은 `Docs/OpenQuestions.md` WSKILL 항목.
 > 읽은 것: `WeaponReview.md`(1.1·1.3), `ProgressionDesign.md`, `WeaponTypes.md`(4절), `LineageGear.md`, 코드 `Weapon.cs`·`AttackManager.cs`·`Skill.cs`·`LevelRules.cs`·`LevelSystem.cs`.
 
 ## 0. 추천 (결론)
@@ -108,6 +108,8 @@
 | `weaponMastery` | `Dictionary<string, WeaponMasteryData>` 또는 `string[] keys` + `int[] exps` | 무기 키 → 누적 숙련 EXP(레벨은 EXP 에서 계산, 저장 안 함 → 곡선 조정 시 세이브 재계산) |
 
 - 기존 세이브에 키 없음 → 빈 사전. **구세이브 마이그레이션 문제**: 이미 모든 스킬을 쓰던 세이브가 잠기는 것을 막기 위해, 로드 시 `weaponMastery` 키가 **없으면** 현재 인벤·장착 무기에 한해 숙련 EXP 를 Lv3 상당(1500)으로 초기화(1회, 플래그 `weaponMasteryMigrated`). 임시.
+  - **구현 변경(P2):** Lv3(1500)은 스킬 3·4번(해금 Lv4)이 잠겨 기존 플레이어가 스킬을 잃는다. 그래서 대상 무기(인벤·창고·장착 중 `Resources/Weapon/<키>` 가 있는 것)를 **만렙 EXP 12000(Lv5)** 로 시작시킨다(`WeaponMasteryRules.LegacyStartExp`). 새로 얻는 무기는 0부터.
+  - 저장: ES3 키 `weaponMastery`(`WeaponMasterySave{keys[],exps[]}`), `weaponMasteryMigrated`(bool). `Datas` 는 불변. 새 게임(세이브 파일 없음)은 마이그레이션 없이 플래그만 기록.
 - 기존 키 이름·타입 변경 없음(`CodeStyle.md` §3 준수).
 
 ### 5.2 CSV (맨 뒤 컬럼 추가, `ItemSpec.md` 갱신)
@@ -155,14 +157,14 @@
 
 ## 9. 단계적 이행안
 
-| 단계 | 내용 | 검증 |
-|---|---|---|
-| P0 | `WeaponMasteryRules` + 테스트(곡선·해금표) | EditMode 테스트 통과 |
-| P1 | `Data`·`Service`·ES3 + `LevelSystem` 연결(해금 **적용 안 함**, 숙련만 누적) | 프로브: 몹 처치 후 장착 무기 숙련 EXP 증가, 재시작 후 유지 |
-| P2 | 슬롯 잠금(`AttackManager`·`Skill.BlockReason`) + 구세이브 마이그레이션 | 프로브: Lv1 무기에서 2번 슬롯 입력 거부·안내, 레벨 오르면 사용 |
-| P3 | HUD 잠금 표시 + 인벤 툴팁 + 토스트 | 플레이 스크린샷(낮 시간대) |
-| P4 | Lv5 보너스·따라잡기·StartMastery + 수치 조정 | 플레이 후 곡선 재조정 |
-| P5(선택) | 간이 스킬 창, 숙련 그룹 | - |
+| 단계 | 내용 | 검증 | 상태 |
+|---|---|---|---|
+| P0 | `WeaponMasteryRules` + 테스트(곡선·해금표) | EditMode 테스트 통과 | 완료 11-06 (13/13) |
+| P1 | `Data`·`Service`·ES3 + `LevelSystem` 연결(숙련만 누적) | 프로브: 몹 처치 후 숙련 EXP 증가, 재시작 후 유지 | 완료 11-06 (BanditArcher +38=플레이어 EXP, 재시작 유지) |
+| P2 | 슬롯 잠금(`AttackManager`·`Skill.BlockReason`=`SkillBlock.Locked`) + 구세이브 마이그레이션 | 프로브: Lv1 무기에서 2번 슬롯 입력 거부·쿨·스태미나 불변, Lv3 에서 발동 | 완료 11-06 (EditMode 914/914) |
+| P3 | HUD 잠금 표시 + 인벤 툴팁 + 토스트 | 플레이 스크린샷(낮 시간대) | 미착수 |
+| P4 | Lv5 보너스·따라잡기·StartMastery·등급 계수 + 수치 조정 | 플레이 후 곡선 재조정 | 미착수 |
+| P5(선택) | 간이 스킬 창, 숙련 그룹 | - | 미착수 |
 
 P1 까지는 플레이 영향이 없으므로 안전하게 먼저 넣을 수 있다.
 

@@ -285,6 +285,10 @@ public class Skill : MonoBehaviour
     /// <summary>지금 이 슬롯 스킬이 막힌 이유(None = 발동 가능). 평타 후딜은 판정 뒤 절반이 지나면 스킬로 끊을 수 있다(던파식 캔슬)</summary>
     public SkillBlock BlockReason(int num)
     {
+        if (!WeaponMasteryService.IsSlotUnlocked(weapon, num))
+        {
+            return SkillBlock.Locked; // 무기 숙련 레벨 미달 — 쿨·스태미나 판정 이전에 막는다
+        }
         bool timingOk = (weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack || weapon.CanSkillCancelMelee;
         return CombatRules.GetSkillBlock(skillCooldown.isCooldown[num], PlayerHealthManager.Instance.nowStemina, useStemina, timingOk);
     }

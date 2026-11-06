@@ -209,6 +209,16 @@ public class AttackManager : MonoBehaviour
             {
                 continue;
             }
+            if (!WeaponMasteryService.IsSlotUnlocked(equipWeapon, i))
+            {
+                // 숙련 잠금: 버퍼 이전에 처리. 쿨·스태미나는 건드리지 않고 안내만 한다
+                if (!staggered && skillAction[i].triggered && !IsLtGuardConflict(i))
+                {
+                    CombatHud.NotifyLocked(i, WeaponMasteryService.UnlockLevelFor(equipWeapon, i));
+                }
+                skillBuffers[i].Clear();
+                continue;
+            }
             bool trig = skillAction[i].triggered && !IsLtGuardConflict(i);
             if (trig)
             {

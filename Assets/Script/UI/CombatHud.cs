@@ -80,6 +80,15 @@ public class CombatHud : MonoBehaviour
         }
     }
 
+    /// <summary>슬롯 스킬이 무기 숙련 레벨 미달로 잠겨 있다(쿨·스태미나 소모 없음)</summary>
+    public static void NotifyLocked(int slot, int unlockLevel)
+    {
+        if (instance != null)
+        {
+            instance.ShowNotice(slot, Loc.F("Unlocks at weapon mastery Lv {0}", unlockLevel));
+        }
+    }
+
     void RegisterHit(int damage)
     {
         _hits.Hit(Time.time, damage);
