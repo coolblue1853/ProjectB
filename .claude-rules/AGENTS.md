@@ -52,6 +52,7 @@
 | `Game/MotionPipeline.md` | 모션 제작 절차 |
 | `Game/MotionRootCause.md` | 공격 모션이 이상하게 나오는 원인 검토 |
 | `Game/DungeonSlasherReference.md` | 던전 슬래셔 레퍼런스 |
+| `Game/BackgroundRefPlan.md` | 던전 슬래셔 기반 배경 후보·1~4층계 대응·재제작 방법(적용은 검토 후) |
 | `Game/LimbusReference.md` | 이펙트 레퍼런스(림버스) |
 | `Game/MotionSpec39.md` | 마스터 모션 39 규격 |
 | `Game/MotionReferenceMaple.md` | 비슷한 환경 레퍼런스 = 메이플 몸 동작 34개 |
