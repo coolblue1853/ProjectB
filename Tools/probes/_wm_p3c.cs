@@ -1,0 +1,1 @@
+return "noticeVisible=" + CombatHud.NoticeVisible;

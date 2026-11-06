@@ -1814,7 +1814,7 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Weapon weapon = GearPrefabCache.Comp<Weapon>(prefab);
-            stats.text = TooltipBuilder.WeaponBlock(weapon, d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Weapon>() : null, wornUp);
+            stats.text = TooltipBuilder.WeaponBlock(weapon, d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Weapon>() : null, wornUp) + WeaponMasteryTooltip.Build(weapon);
             CheckSkillDetail(weapon);
         }
         equip.transform.position = detailPos.transform.position;

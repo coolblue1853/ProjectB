@@ -1,0 +1,1 @@
+var w = UnityEngine.Object.FindFirstObjectByType<AttackManager>().equipWeapon; UnityEngine.ScreenCapture.CaptureScreenshot("C:/Users/user/ProjectB/Logs/playtest/wsp3_hud_unlocked.png"); return "lab1=[" + SkillCooldown.instance.LabelText(1) + "] " + WeaponMasteryTooltip.Build(w).Replace("\n"," / ");

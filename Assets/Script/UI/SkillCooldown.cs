@@ -37,6 +37,8 @@ public class SkillCooldown : MonoBehaviour
     const float ShortFlashTime = 0.6f;
     TextMeshProUGUI[] _labels;
     readonly float[] _shortUntil = new float[8];
+    static readonly Color LockedTint = new Color(0.32f, 0.32f, 0.36f, 1f);
+    AttackManager _attackManager;
     readonly int[] _shownKey = { -2, -2, -2, -2, -2, -2, -2, -2 }; // 라벨 문자열을 0.1초 단위로 바뀔 때만 다시 만든다(프레임당 할당 방지)
 
     /// <summary>슬롯 i 의 남은 쿨다운 초(쿨다운이 아니면 0)</summary>
@@ -107,6 +109,21 @@ public class SkillCooldown : MonoBehaviour
         }
     }
 
+    /// <summary>슬롯이 무기 숙련 레벨 미달이면 해금 레벨, 아니면 0</summary>
+    int LockedLevel(int slot)
+    {
+        if (_attackManager == null)
+        {
+            _attackManager = FindFirstObjectByType<AttackManager>();
+        }
+        Weapon w = _attackManager != null ? _attackManager.equipWeapon : null;
+        if (w == null || WeaponMasteryService.IsSlotUnlocked(w, slot))
+        {
+            return 0;
+        }
+        return WeaponMasteryService.UnlockLevelFor(w, slot);
+    }
+
     void UpdateLabels()
     {
         EnsureLabels();
@@ -120,15 +137,25 @@ public class SkillCooldown : MonoBehaviour
             }
             bool slotOn = cooldownImage[i] != null && cooldownImage[i].sprite != null && cooldownImage[i].gameObject.activeInHierarchy;
             bool shortage = slotOn && !hidden && Time.time < _shortUntil[i];
-            // 키: -1 = 비움, -3 = 부족 표시, 그 외 = 남은 시간(0.1초 단위 올림)
-            int key = !slotOn || hidden ? -1 : shortage ? -3 : Mathf.CeilToInt(Remaining(i) * 10f) - (Remaining(i) > 0f ? 0 : 1);
+            int lockLv = slotOn ? LockedLevel(i) : 0;
+            // 키: -1 = 비움, -3 = 부족 표시, -100-Lv = 숙련 잠금, 그 외 = 남은 시간(0.1초 단위 올림)
+            int key = !slotOn || hidden ? -1 : lockLv > 0 ? -100 - lockLv : shortage ? -3 : Mathf.CeilToInt(Remaining(i) * 10f) - (Remaining(i) > 0f ? 0 : 1);
+            Color tint = lockLv > 0 ? LockedTint : Color.white;
+            if (cooldownImage[i] != null && cooldownImage[i].color != tint)
+            {
+                cooldownImage[i].color = tint;
+                if (backImage[i] != null)
+                {
+                    backImage[i].color = tint;
+                }
+            }
             if (key == _shownKey[i])
             {
                 continue;
             }
             _shownKey[i] = key;
-            t.text = key == -3 ? "STA" : key < 0 ? string.Empty : FormatRemaining(key * 0.1f);
-            t.color = shortage ? new Color(1f, 0.4f, 0.35f) : Color.white;
+            t.text = key <= -100 ? Loc.F("Lv {0}", -100 - key) : key == -3 ? "STA" : key < 0 ? string.Empty : FormatRemaining(key * 0.1f);
+            t.color = key <= -100 ? new Color(1f, 0.85f, 0.4f) : shortage ? new Color(1f, 0.4f, 0.35f) : Color.white;
         }
     }
 

@@ -6826,6 +6826,62 @@ MonoBehaviour:
       - "\uC57D\uD0C8! x{0}"
       Flags: 0000
       Languages_Touch: []
+    - Term: Unlocks at weapon mastery Lv {0}
+      TermType: 0
+      Description: 
+      Languages:
+      - Unlocks at weapon mastery Lv {0}
+      - "\uBB34\uAE30 \uC219\uB828 Lv {0} \uC5D0 \uD574\uAE08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Lv {0}
+      TermType: 0
+      Description: 
+      Languages:
+      - Lv {0}
+      - Lv {0}
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Weapon mastery Lv {0} ({1} {2})
+      TermType: 0
+      Description: 
+      Languages:
+      - Weapon mastery Lv {0} ({1}/{2})
+      - "\uBB34\uAE30 \uC219\uB828 Lv {0} ({1}/{2})"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Weapon mastery Lv {0} (MAX)
+      TermType: 0
+      Description: 
+      Languages:
+      - Weapon mastery Lv {0} (MAX)
+      - "\uBB34\uAE30 \uC219\uB828 Lv {0} (\uCD5C\uB300)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Next unlock: {0} (Lv {1})'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Next unlock: {0} (Lv {1})'
+      - "\uB2E4\uC74C \uD574\uAE08: {0} (Lv {1})"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Weapon mastery Lv {0}!
+      TermType: 0
+      Description: 
+      Languages:
+      - Weapon mastery Lv {0}!
+      - "\uBB34\uAE30 \uC219\uB828 Lv {0}!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Skill unlocked: {0}'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Skill unlocked: {0}'
+      - "\uC2A4\uD0AC \uD574\uAE08: {0}"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

@@ -1,6 +1,6 @@
 # 무기 스킬 순차 해금·성장 설계 (WSKILL-1)
 
-> 상태: B 채택(사용자 선택, 임시 가정 WS-1~3). **P0·P1·P2 구현 완료(2026-11-06)**, P3 이후 미착수. 이행 상태는 9절 표. 임시 가정은 `Docs/OpenQuestions.md` WSKILL 항목.
+> 상태: B 채택(사용자 선택, 임시 가정 WS-1~3). **P0~P3 구현 완료(2026-11-06)**, P4 이후 미착수. 이행 상태는 9절 표. 임시 가정은 `Docs/OpenQuestions.md` WSKILL 항목.
 > 읽은 것: `WeaponReview.md`(1.1·1.3), `ProgressionDesign.md`, `WeaponTypes.md`(4절), `LineageGear.md`, 코드 `Weapon.cs`·`AttackManager.cs`·`Skill.cs`·`LevelRules.cs`·`LevelSystem.cs`.
 
 ## 0. 추천 (결론)
@@ -162,7 +162,7 @@
 | P0 | `WeaponMasteryRules` + 테스트(곡선·해금표) | EditMode 테스트 통과 | 완료 11-06 (13/13) |
 | P1 | `Data`·`Service`·ES3 + `LevelSystem` 연결(숙련만 누적) | 프로브: 몹 처치 후 숙련 EXP 증가, 재시작 후 유지 | 완료 11-06 (BanditArcher +38=플레이어 EXP, 재시작 유지) |
 | P2 | 슬롯 잠금(`AttackManager`·`Skill.BlockReason`=`SkillBlock.Locked`) + 구세이브 마이그레이션 | 프로브: Lv1 무기에서 2번 슬롯 입력 거부·쿨·스태미나 불변, Lv3 에서 발동 | 완료 11-06 (EditMode 914/914) |
-| P3 | HUD 잠금 표시 + 인벤 툴팁 + 토스트 | 플레이 스크린샷(낮 시간대) | 미착수 |
+| P3 | HUD 잠금 표시 + 인벤 툴팁 + 토스트 | 플레이 스크린샷(낮 시간대) | 완료 11-06 (EditMode 914/914, `Logs/playtest/wsp3_*.png`: 잠긴 슬롯 어둡게+"LV 3", NotifyLocked 화면 표시, 해금 토스트. 툴팁은 문자열만 프로브 확인·시각 미검증) |
 | P4 | Lv5 보너스·따라잡기·StartMastery·등급 계수 + 수치 조정 | 플레이 후 곡선 재조정 | 미착수 |
 | P5(선택) | 간이 스킬 창, 숙련 그룹 | - | 미착수 |
 

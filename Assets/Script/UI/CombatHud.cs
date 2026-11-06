@@ -47,6 +47,7 @@ public class CombatHud : MonoBehaviour
         DontDestroyOnLoad(go);
         instance = go.AddComponent<CombatHud>();
         instance.Build();
+        WeaponMasteryService.LevelUp += instance.OnMasteryLevelUp;
     }
 
     /// <summary>플레이어가 적을 맞혔다(피해 합계 = 본타 + 추가타)</summary>
@@ -86,6 +87,37 @@ public class CombatHud : MonoBehaviour
         if (instance != null)
         {
             instance.ShowNotice(slot, Loc.F("Unlocks at weapon mastery Lv {0}", unlockLevel));
+        }
+    }
+
+    void OnDestroy()
+    {
+        WeaponMasteryService.LevelUp -= OnMasteryLevelUp;
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
+    /// <summary>장착 무기의 숙련 레벨이 올랐다 — 토스트(해금된 스킬 이름 포함)</summary>
+    void OnMasteryLevelUp(string key, int level)
+    {
+        AttackManager am = FindFirstObjectByType<AttackManager>();
+        Weapon w = am != null ? am.equipWeapon : null;
+        string msg = Loc.F("Weapon mastery Lv {0}!", level);
+        if (w != null && w.MasteryKey == key)
+        {
+            for (int i = 0; i < w.skill.Length; i++)
+            {
+                if (w.skill[i] != null && WeaponMasteryService.UnlockLevelFor(w, i) == level)
+                {
+                    msg += "  " + Loc.F("Skill unlocked: {0}", w.skill[i].skillName);
+                }
+            }
+        }
+        if (PickupLog.Notice(msg))
+        {
+            _noticeUntil = Time.time + NoticeTime;
         }
     }
 
