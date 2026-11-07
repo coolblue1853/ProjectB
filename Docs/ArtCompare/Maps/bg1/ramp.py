@@ -19,7 +19,7 @@ def scene(far,mid,near,hero,mob,fogcol,fogalpha,ground):
     d=ImageDraw.Draw(W);d.rectangle((0,106,511,127),fill=ground);d.rectangle((0,106,511,107),fill=tuple(min(255,c+40) for c in ground))
     hb=hero.crop(hero.getbbox());W.alpha_composite(hb,(110,107-hb.height))
     gb=mob.crop(mob.getbbox());W.alpha_composite(gb,(300,107-gb.height))
-    n=near.crop((0,int(near.height*0.8),near.width,near.height)) # 하단 20%만
-    n=fade_alpha(n,0.7)
-    for x in (0,256): W.alpha_composite(n,(x,128-n.height))
+    n=fade_alpha(near,0.85)
+    sh=int(near.height*0.36)   # 아래로 내려 풀끝만 바닥선 위로 보이게(자르지 않고 이동)
+    for x in (0,256): W.alpha_composite(n,(x,sh))
     return W
