@@ -51,6 +51,8 @@
 | `Game/MotionFxReview.md` | 3타 품질 검토 절차서 |
 | `Game/MotionPipeline.md` | 모션 제작 절차 |
 | `Game/MotionTheory.md` | **모션 백서**: 합격/실패 조건·모션 이론·PixelLab 운용 규칙·판정 기준·100생성 연구 계획 |
+| `Game/MobBgPlan.md` | 몬스터·배경·NPC·방어구 2주 계획: 현황·합격 기준·PixelLab 예산·평일 위임 규칙 |
+| `Game/MobRules.md` | 몬스터 규칙: 던전 슬래셔 통계(프레임·속도·크기)·크기 등급·생성 절차·한 종 비용 |
 | `Game/MotionRootCause.md` | 공격 모션이 이상하게 나오는 원인 검토 |
 | `Game/DungeonSlasherReference.md` | 던전 슬래셔 레퍼런스 |
 | `Game/BackgroundRefPlan.md` | 던전 슬래셔 기반 배경 후보·1~4층계 대응·재제작 방법(적용은 검토 후) |
@@ -95,6 +97,7 @@
 |------|------|
 | `Docs/Playtest/UpslashDirGen.md` *(저장소 루트)* | 올려베기 방향 전환(②③④) 생성 기록·합격 세트·재생성 절약 교훈 |
 | `Docs/Playtest/MotionJudgeLog.md` *(저장소 루트)* | 모션 판정 기록: Claude 판정 vs 사용자 판정 비교·연구 실험 표 |
+| `Docs/Playtest/MobJudgeLog.md` *(저장소 루트)* | 몬스터 판정 기록(Claude 판정 먼저 → 사용자 판정, 실패 원인) |
 | `Docs/Playtest/InputAudit.md` *(저장소 루트)* | 키보드·패드 조작 점검표(충돌·미지정) |
 | `Docs/Playtest/DedupAudit.md` *(저장소 루트)* | 중복 코드 정리 후보 8건 |
 | `Docs/OpenQuestions.md` *(저장소 루트)* | 사용자 확인이 필요한 기획 질문과 임시 가정 |
