@@ -1,5 +1,6 @@
 # 작업 큐 (위에서부터 1개씩, 완료는 [x])
 
+- [ ] **[그래픽 1순위, 사용자 지정 11-07, 사용자가 있을 때]** 부위별 방어구 교체 합성(핵심 기능): CelDS 에 장비 레이어 합성을 붙인다. 잎사귀 세트 21프레임(대기·3타) 전이 결과 `Docs/ArtCompare/Motion/equip/leaf_set/t1·t2` → 5부위(모자·상의·장갑·바지·신발) 레이어·지울 마스크 추출 → `PixelRig.SetEquipmentLayers`(CelDS 일 때 반환하는 부분)와 `CelComposer` 를 CelDS 좌표로 확장 → `CelEquipMap.csv` Leaf* 연결 → 인게임에서 부위별로 갈아 끼워 확인. 메모는 `.claude-rules/Game/CelEquipmentPlan.md` 하단 「잎사귀 세트 시험」. 이후 CelDS 나머지 모션·피부·눈색 팔레트 스왑(`Docs/OpenQuestions.md` 커스터마이징)
 - [x] 장비 HP 기준 정리(Q-F1H): Docs/Handoff/briefs/f1_hpbal.md 를 builder 에 "그대로 수행" (세이브 백업·복원, 플레이 중 컴파일 금지, 커밋 금지)
 - [x] 1층계 미검증 확인: 나머지 보스 3종 실측, 첫 행동 힌트 트리거, 대화 무적·루엔 의뢰 순서
 - [x] 창고 마우스 드래그, 키보드·패드 입력, 달리기 인게임 캡처 확인
