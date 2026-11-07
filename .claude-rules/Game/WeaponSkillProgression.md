@@ -170,3 +170,128 @@ P1 까지는 플레이 영향이 없으므로 안전하게 먼저 넣을 수 있
 
 ## 10. 임시 가정 요약
 `Docs/OpenQuestions.md` WSKILL 항목 참고: B 채택, 키별 숙련, Lv 1~5, 곡선 400/1100/3000/7500, 등급 계수, Lv5 보너스 +5%, 구세이브 Lv3 초기화, 잠금 시 소모 없음.
+
+---
+
+# V2. 타입별 숙련 + 스킬트리 (사용자 11-07, 1~10절을 대체하는 부분은 아래에 명시)
+
+> 상태: 설계 확정(임시 가정 V2-1~8, `Docs/OpenQuestions.md` Q-WSKILL2). 구현 전. 1~10절 중 **키별 Lv·따라잡기·StartMastery·Lv5 +5%** 는 V2 에서 비활성(코드 유지, V.5). 스킬 슬롯 해금 표(3.2)·잠금 UI(P2·P3)는 그대로 쓰되 기준 레벨만 "무기 키 → 타입"으로 바뀐다.
+> 읽은 것: 위 1~10절, `WeaponTypes.md`, `ProgressionDesign.md`, 코드 `WeaponMasteryService/Rules/Data`, `WeaponGimmick.cs`(`WeaponKind` 20값), `Weapon.cs`(critPer·critDmg·`SetDmgArray`).
+
+## V.1 타입별 숙련
+
+| 항목 | 규칙 |
+|---|---|
+| 키 | `WeaponKind`(Sword, Greatsword, Scythe, Dagger, Knuckle, Claw, Spear, Adae, Staff, Axe, Mace, Whip, Flail, Dual, Tachi, Bow, Crossbow, Tome, Javelin, Bulwark). `None` 제외. 무기 키→종류는 기존 `WeaponMasteryService.KindOf`(ItemSheet `WeaponType`) 재사용. 저장 문자열은 enum 이름(순서 변경에 안전) |
+| EXP | 기존과 같다: EXP 획득 시 **같은 양**을 현재 장착 무기의 **타입**에 가산(`AddForEquipped`). 만렙(플레이어 Lv70)이어도 누적, 사망 손실 없음, 무기 없음(맨손)은 가산 없음 |
+| 같은 타입 새 무기 | 타입 EXP 를 공유하므로 새 검을 주워도 검 Lv 그대로 이어진다. 따라잡기 x2·StartMastery 는 불필요해져 비활성 |
+| 최대 Lv | **10**(기존 5 → 확장) |
+| 곡선(Lv→Lv+1) | 1→2 400, 2→3 1100, 3→4 3000, 4→5 7500(기존 재사용, 누적 12000) · 5→6 12000, 6→7 18000, 7→8 26000, 8→9 36000, 9→10 48000. 누적 152000 |
+| 근거 | Lv5 까지는 기존 값 그대로라 구세이브·해금 표 호환. 플레이어 EXP Lv1~15 누적 약 17.5만(`LevelRules`)이므로 주력 타입 Lv10 ≈ 플레이어 Lv15 전후(1층계 말). 서브 타입은 Lv4~6 |
+| 등급 칭호 5단계 | Lv1~2 **견습** · Lv3~4 **숙련자** · Lv5~6 **전문가** · Lv7~8 **달인** · Lv9~10 **명인**. 한글은 Loc 키 `Mastery.Title.1..5` |
+| 해금 연결 | 슬롯 해금 표(3.2)는 변경 없이 **타입 Lv** 로 판정(Lv1~4 안에서 끝). 타입 Lv5+ 는 스킬 해금과 무관하고 트리 포인트만 준다 |
+| 포인트 지급 | 타입 Lv2~10 도달마다 1포인트(타입당 최대 9). **저장하지 않는다**: `earned = Lv-1`, `available = earned - spent`. 곡선 조정에도 안전 |
+
+순수 함수(`TypeMasteryRules`): `ExpToNext(lv)`, `LevelFromExp(exp)`, `TitleIndex(lv)`(0~4), `EarnedPoints(lv)`.
+
+## V.2 타입 스킬트리 (공통 템플릿 + 타입별 극의)
+
+모든 타입이 같은 3갈래·8노드 템플릿을 쓴다(19종 개별 설계 대신 템플릿 + 극의 1개만 타입별). 노드 레벨당 비용 1포인트, 극의만 3포인트.
+
+| 갈래 | 노드 ID | 효과(레벨당) | 최대 Lv | 선행 |
+|---|---|---|---|---|
+| 위력 | `P1` 평타 단련 | 평타 데미지 +2% | 5 | - |
+| | `P2` 기술 단련 | 스킬 데미지 +3% | 3 | P1≥3 |
+| | `P3` 극의 | 타입 고유 효과 강화(아래 표) | 1(비용 3) | P2≥2 |
+| 정밀 | `A1` 급소 | 치명타 확률 +0.5%p | 5 | - |
+| | `A2` 치명 | 치명타 피해 +3%p | 5 | A1≥3 |
+| 기동 | `M1` 연타 | 공격 속도 +1.5% | 5 | - |
+| | `M2` 숙달 | 스킬 쿨다운 -3% | 3 | M1≥3 |
+| | `M3` 효율 | 스킬 스태미나 소모 -4% | 3 | M1≥3 |
+
+- 총 용량 = 5+3+3+5+5+5+3+3 = **32** 포인트 대 획득 9 → 28% 만 채운다. 선택이 의미 있다(위력 올인 P1·P2·P3 = 11 > 9 로 불가).
+- 타입 트리 효과는 **그 타입 무기를 장착했을 때만** 적용(타입이 다르면 0).
+- 검 데미지 증가(사용자 예) = `P1`·`P2`.
+- 극의 `P3` 효과(배율은 `WeaponGimmick` 기믹 수치에 곱, 기믹 없는 타입은 "평타 마지막 타 데미지 +15%" 기본): Sword 3타 마무리 +15% · Greatsword/Scythe 차지·홀드 효과 +15% · Dagger 연타 판정 +1회 · Bow/Crossbow 차지 사거리 +15% · Staff/Tome 발사체 데미지 +10% · 나머지 기본 효과. 상세 수치는 구현 때 조정(P7).
+- 노드 데이터: 코드 상수 `SkillTreeRules.Nodes`(순수 정적 배열, `LevelRules` 방식). CSV 화는 후속. 노드 ID 는 불변(세이브 키).
+
+## V.3 공용 트리
+
+| 항목 | 규칙 |
+|---|---|
+| 포인트 | 플레이어 레벨 **1당 1포인트**(Lv2 부터, `earned = Lv-1`, 저장 안 함). Lv15 = 14, Lv70 = 69 |
+| 노드 | 비용 1/레벨 | 
+| `C1` 치명타 확률 +0.5%p ×10 | `C2` 치명타 피해 +2%p ×10 |
+| `C3` 공격 속도 +1% ×10 | `C4` 이동 속도 +1% ×5 |
+| `C5` 최대 HP +2% ×10 | `C6` 방어 +1% ×10 |
+| `C7` 스태미나 회복 +2% ×5 | 총 용량 65 |
+| 선행 | 없음(공용은 자유 배분. 선택지가 많아 상한으로 제어) |
+
+**합산 상한**(타입 트리 + 공용 트리 + 장비 제외, **트리 출처만**): 치명타 확률 +10%p, 치명타 피해 +40%p, 공격 속도 +25%, 평타·스킬 데미지 합 +30%, 이동 속도 +10%, 쿨 감소 -15%, 스태미나 소모 -20%. 상한은 `SkillTreeRules.Cap(stat)` 로 최종 합산에서 clamp(노드 투자는 막지 않는다 → 초과분은 낭비라 UI 에 "상한" 표시). 장비 수치는 상한과 별개로 기존 공식에 합산한다.
+
+- 스탯 적용 위치(모두 "곱/합산 한 줄"): 데미지 = `Weapon.SetDmgArray`(강화 x 숙련과 같은 곱, `Weapon.cs:114`), 치명타 = `Weapon.cs:117` critPer·critDmg 에 가산, 공속 = 공격 애니/판정 속도 계수(builder 가 `AttackManager`·`PlayerController` 에서 기존 공속 훅을 grep 해 확인, 없으면 Animator speed 에 곱), 쿨·스태미나 = `Skill`, 이동 = `PlayerController.moveSpeed` 사용처, HP·방어 = `PlayerHealthManager`.
+
+## V.4 초기화(리스펙)
+
+| 규칙 | 값(임시) |
+|---|---|
+| 단위 | 트리별(타입별 각각 + 공용) 전체 초기화만. 노드 1단계 되돌리기는 없음 |
+| 환불 | 투입 포인트 100% 환불. 숙련 EXP·Lv 손실 없음 |
+| 비용 | 각 트리의 **첫 1회 무료**. 이후 골드 = `150 × 투입포인트 × min(누적 초기화 횟수, 5)`. (횟수는 트리별 `respec` 카운트) |
+| 불가 조건 | 전투 중(`BlockReason` 유사 체크)·보스전은 창 자체를 못 연다 |
+| 안전망 | 곡선·노드 개정으로 `spent > earned` 가 되면 로드 시 해당 트리를 무료 자동 초기화 |
+
+골드 소모 API 는 기존 재화 코드(`Datas` 골드)를 builder 가 확인. 없으면 임시로 무료.
+
+## V.5 개별 무기 숙련 비활성 (삭제 금지)
+
+- 정적 플래그 `WeaponMasteryRules.PerWeaponMastery`(**기본 false**, 불 스테이지 개조에서 true 로). 상수가 아니라 `static bool` 이라 런타임·프로브로 토글 가능.
+- **계속 동작(비활성 아님)**: 키별 EXP 누적(`Data.Add`/ES3 `weaponMastery` 저장). 이유: 개조 스테이지가 열릴 때 기존 진행도가 살아 있다.
+- **플래그 false 시 우회**: ① `DamageBonus(key)` = 1(Lv5 +5% 무효, `Weapon.cs:114` 변경 없음), ② `AddForEquipped` 의 따라잡기 계산·`StartMasteryOf` 첫 획득 승급 건너뜀, ③ `LevelOf(key)`·`IsSlotUnlocked` 는 타입 Lv 를 본다(true 면 기존 키별 Lv).
+- 새 함수 `WeaponMasteryService.EffectiveLevel(Weapon w)` 한 곳에서 분기(`PerWeaponMastery ? 키별 : 타입별`). `AttackManager`·`SkillCooldown`·툴팁은 이 함수만 호출하도록 교체(직접 `LevelOf(key)` 호출 금지).
+- EditMode 테스트로 두 모드 모두 보호(플래그 true 에서 기존 16개 테스트 그대로 통과해야 한다).
+
+## V.6 ES3·구세이브
+
+신규 키만(기존 `weaponMastery`·`weaponMasteryMigrated`·`Datas` 불변):
+
+| 키 | 타입 | 내용 |
+|---|---|---|
+| `typeMastery` | `TypeMasterySave{string[] kinds; int[] exps}` | 타입 이름 → 누적 EXP(Lv 비저장) |
+| `skillTree` | `SkillTreeSave{string[] nodeIds; int[] levels; string[] respecTrees; int[] respecCounts}` | 노드 ID(`P1`..`C7`, 타입 노드는 `Sword.P1` 형식) → Lv, 트리별 초기화 횟수 |
+| `typeMasteryMigrated` | bool | 이행 1회 플래그 |
+
+- 이행(`typeMasteryMigrated` 없음): `weaponMastery` 가 있으면 각 무기 키 → `KindOf` → 타입별 **최대** EXP 로 `typeMastery` 시드(합산 아님: 복제·구세이브 Lv5 초기화가 타입에 중복 인플레하지 않게). `weaponMastery` 없음 + 세이브 있음(P1 이전 세이브)이면 보유 무기 타입을 Lv5(12000) 로 시드(기존 `LegacyStartExp` 재사용, 스킬 잠김 방지). 새 게임은 빈 상태. 포인트는 파생값이라 소급 지급된다.
+- 로드 실패는 `GameLog.Warn` 후 빈 상태(기존 패턴).
+- 저장 시점: 기존 `SaveManager.DataSave` 에 `TypeMasteryService.Save()`·`SkillTreeService.Save()` 한 줄씩(더티 플래그 패턴 동일).
+
+## V.7 UI 최소안
+
+| 요소 | 방법 |
+|---|---|
+| 스킬창 | 단축키 K(임시). 코드 생성 창 1장(`SkillTreeWindow`): 상단 탭 [공용][현재 무기 타입], 헤더에 타입명·칭호·Lv·EXP 바·남은 포인트·[초기화]. 본문은 노드 행(이름·Lv/최대·효과 한 줄·[+]) 목록. 선행 미충족 노드는 회색. 합산 상한 도달 줄에 "상한" 표시. 기존 UI 창 열기/닫기·입력 잠금 관례(인벤 창) 재사용 |
+| HUD 슬롯 | `SkillCooldown` 잠금 표시 그대로(판정 레벨만 EffectiveLevel) |
+| 툴팁 | `WeaponMasteryTooltip` 한 줄을 "검 숙련 Lv3 숙련자 (1200/3000)" 로 교체 |
+| 토스트 | 기존 `LevelUp` 이벤트 경로 재사용: 타입 Lv 상승 "검 숙련 Lv4 · 포인트 +1". 포인트 미사용 시 스킬창 아이콘 점(후속) |
+
+## V.8 구현 단계 P0~P7
+
+| 단계 | 내용 | 검증 | 건드릴 파일 |
+|---|---|---|---|
+| P0 | `TypeMasteryRules`(곡선·칭호·포인트) + `SkillTreeRules`(노드표·선행·상한 clamp·리스펙 비용) 순수 클래스 | EditMode: 곡선 누적 152000·Lv 경계·칭호 5단계·포인트 Lv-1·선행/상한/비용 | 신규 `Script/Player/Mastery/TypeMasteryRules.cs`, `SkillTreeRules.cs`, `Editor/Tests/TypeMasteryRulesTests.cs`, `SkillTreeRulesTests.cs` |
+| P1 | 타입 EXP 누적·ES3·이행·`PerWeaponMastery` 플래그·`EffectiveLevel` 교체 | 프로브: 검 A 로 처치→검 B 장착 시 같은 Lv 이어짐, 재시작 유지, 구세이브(weaponMastery 만 있는 ES3) 이행 값, 플래그 true 시 기존 16 테스트 통과, 플래그 false 에서 Lv5 보너스 1.0 | 신규 `TypeMasteryData.cs`·`TypeMasteryService.cs`; 수정 `WeaponMasteryService.cs`(분기), `WeaponMasteryRules.cs`(플래그), `AttackManager.cs`·`SkillCooldown.cs`·`WeaponMasteryTooltip.cs`(EffectiveLevel), `SaveManager.cs`(Load/Save 한 줄) |
+| P2 | 트리 상태·투자/환불/리스펙·집계기 `SkillTreeService.Mod(stat, kind)` | 프로브: 포인트 소모·선행 거부·리스펙 환불/비용·로드 후 유지·`spent>earned` 자동 초기화 | 신규 `SkillTreeData.cs`·`SkillTreeService.cs`; `SaveManager.cs` |
+| P3 | 타입 트리 효과 연결(데미지·치명·공속·쿨·스태미나·극의 1~2종 먼저) | 프로브: P1 레벨별 평타 데미지 숫자 비교(검 Lv2 P1=3 → +6%), 타입 불일치 무기 0 적용, 상한 clamp | `Weapon.cs`, `Skill.cs`, `AttackManager.cs`, `WeaponGimmick.cs`(극의) |
+| P4 | 공용 트리 효과(이동·HP·방어·스태미나 회복·공속·치명) | 프로브: 노드별 최종 스탯 변화 로그 | `PlayerController.cs`, `PlayerHealthManager.cs` |
+| P5 | 스킬창 UI | 플레이 스크린샷(낮 시간대): 탭 전환·+ 클릭·초기화·상한 표시 | 신규 `UI/SkillTreeWindow.cs`; 입력 등록(K) |
+| P6 | 툴팁·토스트·Loc 문구 | 스크린샷 + Loc 누락 점검 | `WeaponMasteryTooltip.cs`, Loc CSV |
+| P7 | 수치 조정·극의 전 타입·문서 갱신 | 1층계 플레이 후 곡선·포인트 체감 | 문서, 노드표 |
+
+P0~P2 는 플레이 영향 없음(안전). P1 은 해금 판정 기준이 바뀌므로 반드시 구세이브 이행 프로브 후 커밋.
+
+## V.9 위험·함정
+
+- 타입 EXP 시드가 "키별 최대"라 구세이브 이행 후 일부 타입이 Lv5 로 시작 — 의도(스킬 잠김 방지). 트리 포인트 4 가 소급 지급되는 것도 허용.
+- `KindOf` 가 DB 미로드 시 None 을 돌려준다(캐시 안 함): None 타입은 EXP·트리 모두 무시하고 해금은 열림 처리(기존 방침).
+- 공속·방어 스탯 훅은 코드에 이름 확정이 안 된 곳이 있다(builder 가 grep, 없으면 P4 에서 해당 노드를 후속으로 미룬다).
+- 노드 ID·타입 이름은 세이브 키이므로 개정 시 추가만 한다(삭제 노드는 로드 시 무시 후 환불).
