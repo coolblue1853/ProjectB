@@ -1246,7 +1246,7 @@ MonoBehaviour:
     - 230
     - 50
     - 120
-    strike: 1
+    strike: 3
   - name: RopeUp
     frame: 0.1
     loop: 1

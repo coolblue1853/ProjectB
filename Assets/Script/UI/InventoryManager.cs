@@ -290,7 +290,8 @@ public class InventoryManager : MonoBehaviour
     }
     public void LoadInventory()
     {
-        if (SaveManager.instance.datas.invenItem == null)
+        bool newGame = SaveManager.instance.datas.invenItem == null;
+        if (newGame)
         {
             SaveManager.instance.datas.money = DatabaseManager.money;
             SaveInventory();
@@ -304,6 +305,31 @@ public class InventoryManager : MonoBehaviour
         ExtraEquip.Load();
         ExtraEquipPanel.Ensure(inventory != null ? inventory.transform : null);
         EnsureDefaultWeapon();
+        if (newGame)
+        {
+            EquipStartOutfit();
+        }
+    }
+
+    /// <summary>새 게임 시작 방어구 5부위(2026-11-07 사용자 요청: 잎사귀 세트로 시작). 기본 장비가 있던 칸은 교체되어 인벤토리로 간다.</summary>
+    public static readonly string[] StartOutfit = { "LeafCap", "LeafArmor", "LeafLegArmor", "LeafHandArmor", "LeafShoes" };
+
+    private void EquipStartOutfit()
+    {
+        foreach (string id in StartOutfit)
+        {
+            GameObject go = Instantiate(itemPrefab, transform.position, Quaternion.identity, transform);
+            ItemCheck item = go.GetComponent<ItemCheck>();
+            item.SetItem(id);
+            if (item.itemData == null)
+            {
+                Destroy(go);
+                continue;
+            }
+            UseEquipment(item);
+        }
+        SaveInventory();
+        GameLog.Info(GameLog.Cat.Item, "시작 방어구 장착: 잎사귀 세트");
     }
 
     /// <summary>무기 칸이 비면 자동 장착하는 기본 무기(ItemSheet id 41 "RustedSword"). 맨손 공격이 없어 무기가 없으면 진행이 막힌다.</summary>

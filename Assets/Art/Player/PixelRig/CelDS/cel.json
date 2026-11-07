@@ -833,7 +833,7 @@
  "SwingUp": {
   "frame": 0.083,
   "loop": false,
-  "strike": 1,
+  "strike": 3,
   "frames": [
    {
     "png": "ds_up_0",
