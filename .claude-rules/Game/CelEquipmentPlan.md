@@ -60,3 +60,9 @@ PixelLab 기능(문서·MCP 답변, 일부 불일치): transfer_outfit(참조 1�
 ## 다듬기 (10-26)
 - `build_equip.py`: 레이어는 맨몸 그림 4px 안쪽만, 합성 시 몸 본체의 25% 미만 조각 제거 — 공격 타격 프레임 전이가 잔상 자리에 투구를 그려 허공에 떴다. 그 프레임(내려베기 2번, 0.04초)은 투구가 빠진다(타격 이펙트가 덮음).
 - 공격 21프레임 포함 셀 전체 64프레임에 철 투구·흉갑.
+
+## 잎사귀 세트 시험 (11-07, CelDS 대기·3타, 생성 약 35)
+- 대상: **현재 게임이 쓰는 CelDS**(주인공 `ds_*`, 64px). 기존 장비 레이어(`Cel`·`CelComposer`)는 CelDS 에 합성되지 않는다(`PixelRig.SetEquipmentLayers` 가 `_celArtWeapon` 일 때 반환) → CelDS 용 합성 연결이 남은 일.
+- 프레임: `ds_idle_0~7`(8) + `ds_stab_0~3`(4) + `ds_down_0~3`(4) + `ds_up_0~4`(5) = 21. 기준 그림 `edit_image_pro_flash` 2시안(5×2) 중 b 채택 → `transfer_outfit` 2회(15+6프레임, seed 41, 10×2). 5부위(모자·상의·장갑·바지·신발) 한 번에 입혀 둔다.
+- 결과: `Docs/ArtCompare/Motion/equip/leaf_set/`(`ref_b.png`, `t1/0~14`, `t2/0~5`, 비교 `transfer_cmp.png`). 자세·몸 유지됨, 찌르기 팔 소매 무늬가 약간 거침.
+- 남은 일: 부위 분리(모자/상의/장갑/바지/신발) 레이어·지울 마스크 추출 → CelDS 합성 코드 → `CelEquipMap.csv` 에 Leaf* 연결 → 인게임 확인(미검증).
