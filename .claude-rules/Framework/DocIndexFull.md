@@ -98,3 +98,6 @@
 | `Docs/Handoff/queue.md` · `Docs/Handoff/state.md` · `Docs/Handoff/README.md` · `Docs/Handoff/ChiefPrompt.md` · `Docs/Handoff/scene_backup/README.md` | 작업 큐 원본·현재 상태·인수인계 안내·총괄 프롬프트·씬 백업 |
 | `Docs/MotionBodyTable.md` · `Docs/MotionReview_Limbus.md` · `Docs/SoundCatalog.md` · `Docs/MorningQuestions.md` | 모션 몸 표·림버스 검토·사운드 목록·아침 질문 |
 | `Docs/ArtCompare/` *(하위 gen_log·README·design 문서 일괄)* | 아트 비교·생성 기록 |
+
+| `Game/MotionTheory.md` | **모션 백서(11-07)**: 걷기·1·2타 합격 공통 조건(방향 고정·한 호출·4장), 올려베기 실패 원인, 공격 3단계·타이밍 수치·호·턴어라운드 이론(출처), PixelLab 체이닝 규칙, 판정 8항, 100생성 연구 가설 H1~H5 |
+| `Docs/Playtest/MotionJudgeLog.md` *(저장소 루트)* | Claude 판정 vs 사용자 판정 비교표·실험 기록 |

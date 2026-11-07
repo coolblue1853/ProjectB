@@ -116,10 +116,10 @@ TextureImporter:
       name: ds_stab_0_0
       rect:
         serializedVersion: 2
-        x: 13
+        x: 16
         y: 2
-        width: 51
-        height: 57
+        width: 46
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

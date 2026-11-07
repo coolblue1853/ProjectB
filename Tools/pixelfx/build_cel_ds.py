@@ -17,6 +17,13 @@ DST = os.path.join(ROOT, "Assets/Art/Player/PixelRig/CelDS")
 HAND = [40, 42]   # 앞손(그림 좌표, 무기는 숨기지만 손 소켓 이펙트 위치용)
 HAND_B = [26, 42]
 
+# 빈손 Stab 4장(11-06): 프레임별 (주먹 그림 좌표, 칼 각도 — 각도 = 칼이 향하는 수학 각도 그대로(0 = 오른쪽, 90 = 위; 11-06 재실측 — 앞서 "180 = 오른쪽"은 틀렸다). 각도 채널은 손목 소켓 회전 blade-90)
+HAND_OVERRIDE = {
+    "stab": [([58, 30], 0.0), ([58, 30], 0.0), ([58, 30], 0.0), ([51, 30], 8.0)],  # 사용자 확정(11-06) 오른손 = 번호 2·2·2·2. 주먹 좌표 = 살색 덩어리 무게중심(+y 1px: 칼이 손 위로 떠 보임)
+    "down": [([12, 17], 95.0), ([8, 16], 150.0), ([51, 47], 350.0), ([51, 47], 330.0)],  # 오른손 = 1·1·1·2
+    "up": [([29, 39], 250.0), ([17, 37], 235.0), ([17, 37], 230.0), ([53, 20], 50.0), ([40, 7], 120.0)],  # 11-07 M1-a(pixminimax 문장 방식, 사용자 합격). 주먹 = 살색 덩어리 무게중심, 칼 각도 추정(미검증). 11-07 웅크린 두 칸 칼 손을 반대 주먹(17,37)으로(사용자 지적). 이전 skeleton 5장(up_dfo5): [25,28]140·[39,35]170·[52,42]190·[39,17]330·[35,13]40
+}
+
 # 원본 묶음: 이름 → (폴더, 프레임 번호들)
 SETS = {
     "idle": ("motions/idle", range(0, 8)),
@@ -27,12 +34,12 @@ SETS = {
     "land": ("motions/jump", [5, 6, 7]),
     "hurt": ("motions/hurt", [1, 2, 3]),
     "death": ("motions/death", range(1, 9)),
-    "stab": ("motions/stab", [1, 2, 3, 4]),
-    "down": ("motions/down", [1, 2, 3, 4]),
-    "up": ("motions/up", [1, 2, 3, 4]),
+    "stab": ("motions_bare/stab", [0, 1, 2, 3]),  # 11-06 빈손 3타(주먹에 칼을 붙인다). 이전: motions/stab 1~4
+    "down": ("motions_bare/down", [0, 1, 2, 3]),
+    "up": ("motions_bare/up_m1a", [0, 1, 2, 3, 4]),  # 11-06 올려베기 5장(졸라맨 키 생성 up_new3, 0번은 뒤 손 직접 추가). 이전 4장은 motions_bare/up_old
     "side": ("motions/sweep", [1, 2, 3, 4]),  # 11-01 수평 베기 새로(예전 atk2 1·2·3·7 은 7번이 어색)
-    "stabend": ("motions/stab", [3]),  # 공격 끝 → 땅 동작 전환 1장(예전 StabEnd 처럼 전체를 다시 틀지 않게)
-    "downend": ("motions/down", [3]),
+    "stabend": ("motions_bare/stab", [3]),  # 11-07 옛 motions/stab 3 은 칼이 그려져 있어 빈손 마지막 프레임으로(이전 motions/stab)  # 공격 끝 → 땅 동작 전환 1장(예전 StabEnd 처럼 전체를 다시 틀지 않게)
+    "downend": ("motions_bare/down", [3]),  # 11-07 옛 motions/down 3 에 흰 궤적 이펙트가 그려져 있었다(사용자 지적) → 빈손 마지막 프레임으로
     "airstab": ("motions/airstab", [1, 2, 3, 4]),  # 공중 평타(점프 꼭대기 프레임에서 시작, 다리 접음)
     "airdown": ("motions/airdown", [1, 2, 3, 4]),
     "airup": ("motions/airup", [1, 2, 3, 4]),
@@ -54,9 +61,9 @@ PLAY = {
     "land": (0.06, False, None, -1),
     "hurt": (0.08, False, None, -1),
     "death": (0.1, False, None, -1),
-    "stab": (0.083, False, ATK, 1),
-    "down": (0.083, False, ATK, 2),
-    "up": (0.083, False, ATK, 2),
+    "stab": (0.083, False, [0.12, 0.1, 0.28, 0.3], 1),  # 11-07 사용자: 1타 0.8초 · 2타 0.8초 · 3타 0.9초(초반 무기 느리게, 사용자 조정). 백서 §3.1: 예비 짧게·타격 자세 길게(비례 확대 금지). 이전 ATK 0.32초
+    "down": (0.083, False, [0.175, 0.15, 0.225, 0.25], 2),
+    "up": (0.083, False, [0.1, 0.07, 0.07, 0.08, 0.53], 1),
     "side": (0.083, False, ATK, 2),
     "flurry": (0.06, True, None, 0),
     "cross": (0.083, False, [0.07, 0.06, 0.09, 0.09, 0.1], 2),
@@ -101,10 +108,36 @@ def clean(im, key):
     return im
 
 
+def make_fist(im, hand):
+    """주먹만 남긴 같은 크기 PNG — 무기 위에 한 번 더 그린다(순서: 몸·머리 < 칼 < 주먹, 11-06 사용자). 살색 덩어리 + 그 둘레 1px 어두운 외곽선."""
+    px = im.load()
+    W, H = im.size
+    skin = set()
+    for y in range(max(0, hand[1] - 5), min(H, hand[1] + 6)):
+        for x in range(max(0, hand[0] - 5), min(W, hand[0] + 6)):
+            r, g, b, a = px[x, y]
+            if a and r > 215 and 160 < g < 235 and 120 < b < 205 and r - b > 40:
+                skin.add((x, y))
+    keep = set(skin)
+    for (x, y) in skin:
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                q = (x + dx, y + dy)
+                if 0 <= q[0] < W and 0 <= q[1] < H and q not in keep:
+                    r, g, b, a = px[q]
+                    if a and r + g + b < 330:  # 어두운 외곽선·장갑만(밝은 머리카락·옷 제외)
+                        keep.add(q)
+    out = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    po = out.load()
+    for (x, y) in keep:
+        po[x, y] = px[x, y]
+    return out
+
+
 def main():
     if os.path.isdir(DST):
         for f in os.listdir(DST):
-            if f.endswith(".png") or f == "cel.json":
+            if f.endswith(".png") or f.endswith(".png.meta") and "_fist" in f or f == "cel.json":
                 os.remove(os.path.join(DST, f))
     os.makedirs(DST, exist_ok=True)
     pngs = {}
@@ -116,13 +149,17 @@ def main():
             name = "ds_%s_%d" % (key, n)
             clean(im, key).save(os.path.join(DST, name + ".png"))
             names.append(name)
+            if key in HAND_OVERRIDE:
+                make_fist(im, HAND_OVERRIDE[key][n][0]).save(os.path.join(DST, name + "_fist.png"))
         pngs[key] = names
     out = {}
     for clip, key in CLIPS.items():
         frame, loop, times, strike = PLAY[key]
         frames = []
         for n, png in enumerate(pngs[key]):
-            frames.append({"png": png, "hand": HAND, "handB": HAND_B, "time": times[n] if times else 0.0, "angle": -999.0})
+            ov = HAND_OVERRIDE.get(key)  # 빈손 프레임: 주먹 위치·칼 각도를 적으면 장비 칼을 손목에 그린다(PixelRig drawn 분기)
+            hand, ang = (ov[n][0], ov[n][1]) if ov else (HAND, -999.0)
+            frames.append({"png": png, "hand": hand, "handB": HAND_B, "time": times[n] if times else 0.0, "angle": ang})
         out[clip] = {"frame": frame, "loop": loop, "strike": strike, "frames": frames}
     with open(os.path.join(DST, "cel.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, indent=1)

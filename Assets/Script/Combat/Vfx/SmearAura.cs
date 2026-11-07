@@ -62,11 +62,11 @@ public class SmearAura : MonoBehaviour
         switch (id)
         {
             case VfxId.WSmearDown:
-                return new Shape { arc = true, c = new Vector2(-1f, 14f), ea = 38f, eb = 27f, tilt = -12f, a0 = 212f, a1 = -18f };
+                return new Shape { arc = true, c = new Vector2(-4.9f, 25.9f), ea = 45.7f, eb = 20.9f, tilt = -29.5f, a0 = 171f, a1 = 1f }; // DS 11-06 칼끝 경로 맞춤(이전 2등신: c(-1,14) 38·27 tilt -12 a0 212 a1 -18)
             case VfxId.WSmearUp:
-                return new Shape { arc = true, c = new Vector2(2f, 20f), ea = 31f, eb = 24f, tilt = 10f, a0 = -70f, a1 = 150f };
+                return new Shape { arc = true, c = new Vector2(3.3f, 40.4f), ea = 28f, eb = 28f, tilt = 0f, a0 = 216f, a1 = 456f }; // 11-07 M1-a 칼끝이 머리 위(96°)까지(이전 a0 170 a1 412). // 이전 2등신: c(2,20) 31·24 tilt 10 a0 -70 a1 150
             default:
-                return MotionFxTable.TryShape(id, out Shape m) ? m : new Shape { arc = false, p0 = new Vector2(14f, 18f), p1 = new Vector2(58f, 19f) };
+                return MotionFxTable.TryShape(id, out Shape m) ? m : new Shape { arc = false, p0 = new Vector2(14f, 30f), p1 = new Vector2(54f, 30f) };
         }
     }
 

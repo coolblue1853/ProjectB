@@ -79,7 +79,7 @@ foreach (var m in items)
                 Vfx.PlayThemed(sm, rig.CelRoot.position, false, Mathf.Abs(rig.CelRoot.lossyScale.y), PixelRampId.Steel, false, false, 1f, true), true);
         }
     }, true);
-    for (int k = 0; k < 42; k++)
+    for (int k = 0; k < 96; k++)
     {
         int kk = k;
         DG.Tweening.DOVirtual.DelayedCall(t + 0.01f + kk / 30f, () =>
@@ -93,6 +93,6 @@ foreach (var m in items)
             cam.targetTexture = null; UnityEngine.Object.DestroyImmediate(go); UnityEngine.Object.DestroyImmediate(rt); UnityEngine.Object.DestroyImmediate(tex);
         }, true);
     }
-    t += 1.6f;
+    t += 3.4f;
 }
 return "scheduled " + t + " s, " + items.Count + " motions";
