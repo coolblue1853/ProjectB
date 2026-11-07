@@ -112,14 +112,41 @@ public static class WeaponMasteryService
             return;
         }
         string key = w.MasteryKey;
-        if (!Data.Has(key))
-        {
-            Data.RaiseTo(key, WeaponMasteryRules.StartExp(StartMasteryOf(key))); // 첫 획득 시 시작 숙련(StartMastery)
-        }
         WeaponKind kind = KindOf(key);
-        bool catchUp = kind != WeaponKind.None
-            && Data.AnyAtLevel(WeaponMasteryRules.CatchUpSourceLevel, k => k != key && KindOf(k) == kind);
-        AddExp(key, amount * WeaponMasteryRules.GainMultiplier(Data.GetLevel(key), catchUp));
+        if (WeaponMasteryRules.PerWeaponMastery)
+        {
+            if (!Data.Has(key))
+            {
+                Data.RaiseTo(key, WeaponMasteryRules.StartExp(StartMasteryOf(key))); // 첫 획득 시 시작 숙련(StartMastery)
+            }
+            bool catchUp = kind != WeaponKind.None
+                && Data.AnyAtLevel(WeaponMasteryRules.CatchUpSourceLevel, k => k != key && KindOf(k) == kind);
+            AddExp(key, amount * WeaponMasteryRules.GainMultiplier(Data.GetLevel(key), catchUp));
+        }
+        else
+        {
+            AddExp(key, amount); // 키별 누적은 유지(불 스테이지 개조 대비). 따라잡기·StartMastery 는 꺼진다
+        }
+        AddTypeExp(key, kind, amount);
+    }
+
+    /// <summary>타입 EXP 누적(항상). 타입 숙련이 해금 기준일 때만 레벨업 알림·저장을 건다</summary>
+    static void AddTypeExp(string key, WeaponKind kind, int amount)
+    {
+        int lv = TypeMasteryService.AddExp(kind, amount);
+        if (lv <= 0)
+        {
+            return;
+        }
+        GameLog.Info(GameLog.Cat.Player, "타입 숙련 " + kind + " Lv" + lv);
+        if (!WeaponMasteryRules.PerWeaponMastery)
+        {
+            LevelUp?.Invoke(key, lv);
+        }
+        if (SaveManager.instance != null)
+        {
+            SaveManager.instance.DataSave();
+        }
     }
 
     static readonly Dictionary<string, WeaponKind> KindCache = new Dictionary<string, WeaponKind>();
@@ -130,7 +157,13 @@ public static class WeaponMasteryService
         KindCache.Clear();
     }
 
-    static WeaponKind KindOf(string key)
+    /// <summary>아이템 DB 가 로드돼 타입을 알 수 있는가</summary>
+    public static bool DbReady
+    {
+        get { return DatabaseManager.instance != null && DatabaseManager.instance.Items != null; }
+    }
+
+    public static WeaponKind KindOf(string key)
     {
         WeaponKind kind;
         if (!KindCache.TryGetValue(key, out kind))
@@ -171,6 +204,10 @@ public static class WeaponMasteryService
     /// <summary>숙련 데미지 배율(Lv5 +5%). 데이터 미로드 = 1</summary>
     public static float DamageBonus(string key)
     {
+        if (!WeaponMasteryRules.PerWeaponMastery)
+        {
+            return 1f; // 타입 숙련 모드: Lv5 +5% 무효
+        }
         return Data != null ? WeaponMasteryRules.Bonus(Data.GetLevel(key)) : 1f;
     }
 
@@ -182,7 +219,7 @@ public static class WeaponMasteryService
         }
         bool up = Data.Add(key, amount);
         _dirty = true;
-        if (up)
+        if (up && WeaponMasteryRules.PerWeaponMastery)
         {
             int lv = Data.GetLevel(key);
             GameLog.Info(GameLog.Cat.Player, "무기 숙련 " + key + " Lv" + lv);
@@ -194,15 +231,38 @@ public static class WeaponMasteryService
         }
     }
 
+    /// <summary>해금 판정용 숙련 레벨. 타입 모드(기본) = 그 무기 타입 Lv(1~10), 개별 모드 = 키별 Lv(1~5). 데이터·타입 없음 = 최대(열림)</summary>
     public static int LevelOf(string key)
     {
-        return Data != null ? Data.GetLevel(key) : WeaponMasteryRules.MaxLevel;
+        if (WeaponMasteryRules.PerWeaponMastery)
+        {
+            return Data != null ? Data.GetLevel(key) : WeaponMasteryRules.MaxLevel;
+        }
+        return TypeMasteryService.LevelOf(KindOf(key));
+    }
+
+    /// <summary>장착 무기 기준 유효 숙련 레벨 — AttackManager·SkillCooldown·툴팁은 이 함수만 쓴다(V.5)</summary>
+    public static int EffectiveLevel(Weapon w)
+    {
+        return w == null ? TypeMasteryRules.MaxLevel : LevelOf(w.MasteryKey);
+    }
+
+    /// <summary>EffectiveLevel 에 대응하는 누적 EXP(툴팁용)</summary>
+    public static int EffectiveExp(Weapon w)
+    {
+        if (w == null)
+        {
+            return 0;
+        }
+        return WeaponMasteryRules.PerWeaponMastery
+            ? (Data != null ? Data.GetExp(w.MasteryKey) : 0)
+            : TypeMasteryService.ExpOf(KindOf(w.MasteryKey));
     }
 
     /// <summary>슬롯 스킬이 열려 있는가. 스킬 없는 슬롯·데이터 없음은 열림</summary>
     public static bool IsSlotUnlocked(Weapon w, int slot)
     {
-        return Data == null || w == null || UnlockLevelFor(w, slot) <= LevelOf(w.MasteryKey);
+        return Data == null || w == null || UnlockLevelFor(w, slot) <= EffectiveLevel(w);
     }
 
     /// <summary>슬롯이 열리는 숙련 레벨(스킬 없음·무기 없음 = 1)</summary>

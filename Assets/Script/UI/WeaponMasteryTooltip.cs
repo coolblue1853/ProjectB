@@ -25,18 +25,21 @@ public static class WeaponMasteryTooltip
         {
             return string.Empty;
         }
-        string key = w.MasteryKey;
-        int exp = WeaponMasteryService.Data.GetExp(key);
-        int lv = WeaponMasteryService.LevelOf(key);
+        bool perWeapon = WeaponMasteryRules.PerWeaponMastery;
+        int exp = WeaponMasteryService.EffectiveExp(w);
+        int lv = WeaponMasteryService.EffectiveLevel(w);
+        int maxLv = perWeapon ? WeaponMasteryRules.MaxLevel : TypeMasteryRules.MaxLevel;
         var sb = new StringBuilder();
         sb.Append('\n');
-        if (lv >= WeaponMasteryRules.MaxLevel)
+        if (lv >= maxLv)
         {
             sb.Append(Loc.F("Weapon mastery Lv {0} (MAX)", lv));
         }
         else
         {
-            sb.Append(Loc.F("Weapon mastery Lv {0} ({1}/{2})", lv, WeaponMasteryRules.ExpInLevel(exp), WeaponMasteryRules.ExpToNext(lv)));
+            int inLv = perWeapon ? WeaponMasteryRules.ExpInLevel(exp) : TypeMasteryRules.ExpInLevel(exp);
+            int toNext = perWeapon ? WeaponMasteryRules.ExpToNext(lv) : TypeMasteryRules.ExpToNext(lv);
+            sb.Append(Loc.F("Weapon mastery Lv {0} ({1}/{2})", lv, inLv, toNext));
             int bestLv = int.MaxValue;
             string bestName = null;
             for (int i = 0; i < w.skill.Length; i++)

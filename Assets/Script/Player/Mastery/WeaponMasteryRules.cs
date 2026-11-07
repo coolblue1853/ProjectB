@@ -6,6 +6,12 @@
 /// </summary>
 public static class WeaponMasteryRules
 {
+    /// <summary>
+    /// 개별 무기 숙련 사용 여부(WSKILL-V2, V.5). false(기본) = 타입 숙련이 해금을 정하고 따라잡기·StartMastery·Lv5 보너스는 꺼진다.
+    /// 키별 EXP 누적은 꺼져도 계속된다. 불 스테이지 개조에서 true. static bool 이라 프로브로 토글 가능.
+    /// </summary>
+    public static bool PerWeaponMastery = false;
+
     public const int MaxLevel = 5;
     /// <summary>누적 EXP 상한(오버플로 방지)</summary>
     public const int ExpCap = 1000000;

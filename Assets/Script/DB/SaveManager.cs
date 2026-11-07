@@ -145,6 +145,8 @@ public class SaveManager : MonoBehaviour
         GameLog.Info(GameLog.Cat.Save, "저장 money=" + datas.money + " pos=" + datas.playerPos);
         ES3.Save(keyName, datas);
         WeaponMasteryService.Save(); // 무기 숙련(신규 키, 바뀐 때만)
+        TypeMasteryService.Save(); // 타입 숙련(신규 키)
+        SkillTreeService.Save(); // 스킬트리(신규 키)
     }
     public void DataLoad()
     {
@@ -159,5 +161,7 @@ public class SaveManager : MonoBehaviour
         }
         LevelSystem.LoadFrom(datas); // 레벨·EXP (세이브에 없으면 Lv1)
         WeaponMasteryService.Load(hadFile, datas); // 무기 숙련(구세이브면 인벤 무기 만렙으로 1회 마이그레이션)
+        TypeMasteryService.Load(hadFile); // 타입 숙련(weaponMastery 에서 타입별 최대로 1회 이행)
+        SkillTreeService.Load(); // 스킬트리(레벨·타입 숙련 로드 뒤)
     }
 }
