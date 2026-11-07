@@ -53,6 +53,7 @@
 | `Game/MotionTheory.md` | **모션 백서**: 합격/실패 조건·모션 이론·PixelLab 운용 규칙·판정 기준·100생성 연구 계획 |
 | `Game/MobBgPlan.md` | 몬스터·배경·NPC·방어구 2주 계획: 현황·합격 기준·PixelLab 예산·평일 위임 규칙 |
 | `Game/MobRules.md` | 몬스터 규칙: 던전 슬래셔 통계(프레임·속도·크기)·크기 등급·생성 절차·한 종 비용 |
+| `Game/BgTilePlan.md` | 맵·배경·타일맵 계획: 현황·합격 기준·타일/원경/소품 방법·순서·평일 위임 |
 | `Game/MotionRootCause.md` | 공격 모션이 이상하게 나오는 원인 검토 |
 | `Game/DungeonSlasherReference.md` | 던전 슬래셔 레퍼런스 |
 | `Game/BackgroundRefPlan.md` | 던전 슬래셔 기반 배경 후보·1~4층계 대응·재제작 방법(적용은 검토 후) |
