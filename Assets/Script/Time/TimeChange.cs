@@ -17,7 +17,7 @@ public class TimeChange : MonoBehaviour
     public bool isDaytime = false;
 
     [Tooltip("켜면 시간이 흐르지 않고 항상 낮(_lockedTimeValue)으로 고정된다. 끄면 기존 낮/밤 순환으로 돌아간다(2026-10-26 사용자 요청).")]
-    [SerializeField] private bool _lockDaytime = true;
+    [SerializeField] private bool _lockDaytime = false;
     [Tooltip("낮 고정 시 쓰는 시간값(0~1). 밤 구간(startNighttime~endNighttime) 밖이어야 한다.")]
     [SerializeField, Range(0f, 1f)] private float _lockedTimeValue = 0.25f;
 
@@ -32,6 +32,7 @@ public class TimeChange : MonoBehaviour
     {
         startTime = Time.time -SaveManager.instance.datas.time;
         LightColorController = this.GetComponent<LightColorController>();
+        _lockDaytime = false; // 씬에 직렬화된 낮 고정(true)을 무시하고 기본은 시간 흐름(사용자 11-08). 낮 고정은 치트 Day·프로브가 런타임에 켠다
         if (_lockDaytime)
         {
             ApplyTime(_lockedTimeValue); // 첫 프레임부터 낮으로 — 스포너·BGM 이 Update 순서와 상관없이 낮을 읽게
