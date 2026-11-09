@@ -11,7 +11,7 @@ public static partial class StoryDialogues
     public const string SenaTalk = "Village/Sena";
     public const string EveTalk = "Village/Eve";
 
-    private const int RuenId = 7, SenaId = 8, EveId = 9;
+    private const int RuenId = 7, SenaId = 8, EveId = 9, BoardId = 10;
     private const int QuestConvBase = 100;
 
     public static string OfferConversation(string questId) => "NpcQ/" + questId + "/offer";
@@ -27,6 +27,7 @@ public static partial class StoryDialogues
         db.actors.Add(template.CreateActor(RuenId, "사냥꾼 루엔", false));
         db.actors.Add(template.CreateActor(SenaId, "약초꾼 세나", false));
         db.actors.Add(template.CreateActor(EveId, "떠돌이 탐험가 이브", false));
+        db.actors.Add(template.CreateActor(BoardId, "의뢰 게시판", false));
     }
 
     private static int ActorOf(string npcId)
@@ -39,6 +40,7 @@ public static partial class StoryDialogues
             case "ruen": return RuenId;
             case "sena": return SenaId;
             case "eve": return EveId;
+            case "questboard": return BoardId;
         }
         return ElderId;
     }

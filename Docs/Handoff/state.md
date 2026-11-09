@@ -9,3 +9,5 @@
 - 11-05 중간(주간 48%/5h 88%): 5시간 한도 때문에 중지, 리셋(14:50 KST) 후 재개. 오늘 완료: DEC-1105-A, 슬롯 재구현 R1~R4, AUTO-1~41(22·23 포함), 리뷰 수정 전부, INV-FILTER, PV7~PV9. 남은 큐: AUTO-42·44·46·47. 목표 62%까지 재개 필요. 세션 개설 한도(10개) 도달이라 서브에이전트(builder)로 처리 중.
 - 11-05 오후(주간 49%/5h 95%): AUTO-42(Floor2Recalc.md)·44(PV9 4항목 통과, Loc [Sealed] P4 등록)·46(de1e8284 패드 LT)·47 완료. 큐 비었음. 5h 리셋(14:50 KST) 후 재개: 새 큐 배치 생성(정예 탄막 피격 PV, Loc [봉인] 수정, debt-sweep P1~P3) -> 주간 62%까지. 저녁에 MorningQuestions 작성.
 - 11-05 저녁(주간 61%/5h 93%): 큐 AUTO-1~128 처리, EditMode 901/901. 남은 큐 AUTO-129·130(문서·프로브 정리). 5h 리셋(21:50 KST) 후 크론 틱이 재개, 큐 비면 새 배치. MorningQuestions 작성 완료. 금요일 총괄 교대.
+- 11-09 REWORK-5 P0·P1 완료(주간 사용량 한도로 P2 이전 중지): `QuestService`·확장 열·게시판/촌장 11건 CSV 이행·`QuestMigration`, 컴파일 0·EditMode 1008/1008. 플레이 검증은 에디터에 씬이 없어 미검증(게시판 ↑ 대화·촌장 일 묻기·구 세이브 이행).
+- 이어서: 플레이 검증(Town 로드 후 게시판 ↑, s_wood 수락 시 가방 보유량 반영) → P2(NpcQuestWindow 상세 패널·포기·입구 모드) → P3 HUD. 상세는 `Game/QuestSystemDesign.md` §7-2.

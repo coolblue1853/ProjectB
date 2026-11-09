@@ -123,7 +123,7 @@ public class NpcQuestTracker : MonoBehaviour
             bool ready = NpcQuestLog.StatusOf(d) == NpcQuestStatus.Ready;
             sb.Append(ready ? "<color=#FFD633>" : "<color=#FFFFFF>").Append(d.Title).Append("</color>\n");
             string zone = NpcQuestZone.Of(d);
-            sb.Append("<color=#BBBBBB>  ").Append(ready ? "완료! " + NpcQuestCatalog.NpcName(d.Giver) + "에게 보고" : NpcQuestWindow.ObjectiveText(d)).Append("</color>");
+            sb.Append("<color=#BBBBBB>  ").Append(ready ? "완료! " + QuestService.ReportTarget(d) + "에게 보고" : NpcQuestWindow.ObjectiveText(d)).Append("</color>");
             if (!ready && zone.Length > 0)
             {
                 sb.Append("  <color=#7FA8C8>@").Append(zone).Append("</color>");

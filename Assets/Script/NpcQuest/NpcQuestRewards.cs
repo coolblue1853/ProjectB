@@ -26,7 +26,7 @@ public static class NpcQuestRewards
         {
             return false;
         }
-        if (string.IsNullOrEmpty(d.RewardItem) || d.RewardCount <= 0)
+        if ((string.IsNullOrEmpty(d.RewardItem) || d.RewardCount <= 0) && d.Stones <= 0)
         {
             return true;
         }
@@ -49,7 +49,17 @@ public static class NpcQuestRewards
         {
             return false;
         }
-        return copy.TryAddAll(new ItemStack(d.RewardItem, d.RewardCount));
+        if (d.Stones > 0 && !copy.TryAddAll(new ItemStack(EnhanceRules.StoneName, d.Stones)))
+        {
+            return false;
+        }
+        return string.IsNullOrEmpty(d.RewardItem) || d.RewardCount <= 0 || copy.TryAddAll(new ItemStack(d.RewardItem, d.RewardCount));
+    }
+
+    /// <summary>artifact 열 문자열 → ArtifactId (빈칸·모르는 이름은 None)</summary>
+    public static ArtifactId ParseArtifact(string name)
+    {
+        return !string.IsNullOrEmpty(name) && System.Enum.TryParse(name, true, out ArtifactId id) ? id : ArtifactId.None;
     }
 
     public static void Apply(NpcQuestDef d)
@@ -84,6 +94,26 @@ public static class NpcQuestRewards
             {
                 PickupLog.Report(d.RewardItem, given, "R");
             }
+        }
+        if (inv != null && d.Stones > 0)
+        {
+            int stones = 0;
+            for (int i = 0; i < d.Stones; i++)
+            {
+                if (inv.CreatItem(EnhanceRules.StoneName))
+                {
+                    stones++;
+                }
+            }
+            if (stones > 0)
+            {
+                PickupLog.Report(EnhanceRules.StoneName, stones, "R");
+            }
+        }
+        ArtifactId artifact = ParseArtifact(d.Artifact);
+        if (artifact != ArtifactId.None)
+        {
+            ArtifactSystem.Unlock(artifact);
         }
         if (inv != null)
         {

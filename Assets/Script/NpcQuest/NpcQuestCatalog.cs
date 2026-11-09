@@ -33,13 +33,59 @@ public sealed class NpcQuestDef
     public int RewardCount;
     public string Description;
 
+    // ── REWORK-5 P0 확장 열 (CSV 13열 뒤, 모두 선택. 빈칸 = 기본값) ──
+    public string Source = "";       // npc | board | bountyOffer | bounty (빈칸 = npc)
+    public string Kind = "";         // main | side | reward (빈칸 = reward)
+    public string ReportTo = "";     // 완료 보고 대상 (빈칸 = Giver)
+    public string OfferLine = "";    // 수락 대사 (| = 페이지, ^ = 줄바꿈)
+    public string ProgressLine = ""; // 진행 중 재방문 대사
+    public string DoneLine = "";     // 완료 보고 대사
+    public string Zone = "";         // 목표 구역 태그 (빈칸 = NpcQuestZone 파생)
+    public int Stones;               // 강화석 보상
+    public string Artifact = "";     // 완료 시 해금 아티팩트 id (ArtifactId 이름)
+    public string Repeat = "";       // none | daily
+    public int Sort;                 // 같은 구역·상태 안 정렬 가중
+    public string Objective2 = "";   // 예약(P5 이후 판정)
+    public string Target2 = "";
+    public int Count2;
+
+    /// <summary>완료 보고를 받는 NPC·입구 id</summary>
+    public string ReportNpc => string.IsNullOrEmpty(ReportTo) ? Giver : ReportTo;
+
+    /// <summary>표시·구역 파생용 첫 대상 (대상이 "a|b" 목록이면 앞의 것)</summary>
+    public string FirstTarget
+    {
+        get
+        {
+            int i = Target == null ? -1 : Target.IndexOf('|');
+            return i < 0 ? Target : Target.Substring(0, i);
+        }
+    }
+
+    /// <summary>실제 이벤트 대상이 이 퀘스트 목표에 맞는가: 처치는 "a|b" 목록, 제작은 CraftingManager 가 따로 보내는 "Any" 메시지를 target "Any" 로 받는다</summary>
+    public bool MatchesTarget(string actual)
+    {
+        if (Target == actual)
+        {
+            return true;
+        }
+        if (Target == null || Target.IndexOf('|') < 0 || actual == null)
+        {
+            return false;
+        }
+        return System.Array.IndexOf(Target.Split('|'), actual) >= 0;
+    }
+
     /// <summary>수집 목표 중 인벤토리 아이템이 아니라 발굴 기록 개수로 판정하는 특수 대상 (Q602)</summary>
     public bool IsRecordsTarget => Objective == NpcQuestObjective.Collect && Target == FathersRecords.SaveKey;
 }
 
 /// <summary>
 /// 1층계 NPC 퀘스트 표 (Resources/QuestsFloor1.csv). 기존 QuestCatalog(게시판·촌장 반복 의뢰)와 별개다.
-/// CSV: id,title,giver,minLevel,requires,objective,target,count,exp,gold,rewardItem,rewardCount,description (쉼표 없는 평문).
+/// CSV: id,title,giver,minLevel,requires,objective,target,count,exp,gold,rewardItem,rewardCount,description (쉼표 없는 평문)
+///   + 선택 확장 열(QuestSystemDesign §2-2, 맨 뒤): source,kind,reportTo,offerLine,progressLine,doneLine,zone,stones,artifact,repeat,sort,objective2,target2,count2.
+///   열이 모자라는 줄(구 CSV)은 모자란 열을 빈칸으로 본다.
+///   kill 의 target 은 "idA|idB" 로 여러 몬스터를 허용하고, craft 의 target "Any" 는 제작 1건마다 CraftingManager 가 따로 보내는 "Any" 메시지로 센다(아무 제작).
 /// 신규 목표(objective 는 대소문자 무시)의 target/count 문법:
 ///   killElite : target = 몬스터 id 또는 "*"(아무 정예·보스), count = 처치 수. 처치 시점에 세어 저장한다.
 ///   equip     : target = 세트 키(tfName) | "armor"(방어구 부위 수) | "sets:N"(N부위 이상 낀 세트 종류 수), count = 부위 수(sets:N 은 세트 종류 수). 지금 착용 상태로 계산한다.
@@ -138,9 +184,28 @@ public static class NpcQuestCatalog
                 RewardItem = c[10].Trim(),
                 RewardCount = ToInt(c[11]),
                 Description = c[12].Trim(),
+                Source = Col(c, 13),
+                Kind = Col(c, 14),
+                ReportTo = Col(c, 15),
+                OfferLine = Col(c, 16),
+                ProgressLine = Col(c, 17),
+                DoneLine = Col(c, 18),
+                Zone = Col(c, 19),
+                Stones = ToInt(Col(c, 20)),
+                Artifact = Col(c, 21),
+                Repeat = Col(c, 22),
+                Sort = ToInt(Col(c, 23)),
+                Objective2 = Col(c, 24),
+                Target2 = Col(c, 25),
+                Count2 = ToInt(Col(c, 26)),
             });
         }
         return list;
+    }
+
+    private static string Col(string[] c, int i)
+    {
+        return i < c.Length ? c[i].Trim() : "";
     }
 
     private static int ToInt(string s)
@@ -178,6 +243,7 @@ public static class NpcQuestCatalog
             case "sena": return "약초꾼 세나";
             case "eve": return "떠돌이 탐험가 이브";
             case "bountyboard": return "마을 게시대";
+            case "questboard": return "의뢰 게시판";
         }
         return npcId;
     }

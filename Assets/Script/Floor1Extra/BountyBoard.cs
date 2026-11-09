@@ -125,6 +125,13 @@ public class BountyBoard : MonoBehaviour, IMessageHandler
         return ok;
     }
 
+    public bool Abandon(string id)
+    {
+        bool ok = BountyRules.Abandon(_state, id);
+        _dirty |= ok;
+        return ok;
+    }
+
     /// <summary>보고: 조건을 채웠고 가방에 보상이 들어가면 지급하고 true</summary>
     public bool TryReport(string id)
     {

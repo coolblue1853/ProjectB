@@ -38,7 +38,7 @@ public class QuestsFloor1DataTests
             sum += d.Exp;
         }
         Assert.AreEqual(89500, sum);
-        Assert.AreEqual(27 + 29 + 4, all.Count, "기존 27 + 신규 29 + 신규 맵 4");
+        Assert.AreEqual(27 + 29 + 4 + 11, all.Count, "기존 27 + 신규 29 + 신규 맵 4 + 게시판·촌장 이행 11");
     }
 
     [Test]
@@ -85,7 +85,10 @@ public class QuestsFloor1DataTests
             switch (d.Objective)
             {
                 case NpcQuestObjective.Kill:
-                    Assert.IsTrue(monsters.Contains(d.Target), d.Id + " 몬스터 없음: " + d.Target);
+                    foreach (string t in d.Target.Split('|'))
+                    {
+                        Assert.IsTrue(monsters.Contains(t), d.Id + " 몬스터 없음: " + t);
+                    }
                     break;
                 case NpcQuestObjective.KillElite:
                     Assert.IsTrue(d.Target == "*" || monsters.Contains(d.Target), d.Id + " 정예 없음: " + d.Target);
@@ -97,7 +100,7 @@ public class QuestsFloor1DataTests
                     }
                     break;
                 case NpcQuestObjective.Craft:
-                    Assert.IsTrue(items.Contains(d.Target), d.Id + " 제작 아이템 없음: " + d.Target);
+                    Assert.IsTrue(d.Target == "Any" || items.Contains(d.Target), d.Id + " 제작 아이템 없음: " + d.Target);
                     break;
                 case NpcQuestObjective.Equip:
                     Assert.IsTrue(d.Target == "armor" || d.Target.StartsWith("sets:") || tfNames.Contains(d.Target),

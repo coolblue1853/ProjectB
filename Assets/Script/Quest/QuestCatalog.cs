@@ -4,6 +4,8 @@
 /// 메이플식 사냥 퀘스트 체인 정의 (G11, ProgressionDesign 0절 "사냥터 순차 진행").
 /// 처치 대상은 몬스터 프리팹 이름(Clone 제외) — EnemyHealth 가 처치 시 MessageSystem "Kill" 메시지로 보낸다.
 /// 앞 퀘스트를 완료해야 다음 퀘스트가 게시판에 뜬다.
+/// REWORK-5 P1: 이 정의는 더는 게임에서 쓰이지 않는다 — 게시판·촌장 퀘스트는 QuestsFloor1.csv(source=board/npc)로 이행했다.
+/// 구 저장(qm.*) 이행 대상 id 와 CSV 보상 동등성 검증(QuestMigrationTests)의 기준값으로만 남긴다(P5 에서 삭제 후보).
 /// </summary>
 public static class QuestCatalog
 {

@@ -61,7 +61,7 @@ public class DialogueBoot : MonoBehaviour
         Talk(StoryDialogues.Opening, null);
     }
 
-    /// <summary>Lua: 촌장 대화의 "일 묻기" 줄에서 호출 — 대화가 끝난 뒤 퀘스트 창을 연다(두 UI 동시 표시 방지)</summary>
+    /// <summary>Lua: 촌장 대화의 "일 묻기" 줄에서 호출 — 대화가 끝난 뒤 촌장의 퀘스트 대화(NpcQuestGiver)를 연다(두 대화 동시 표시 방지)</summary>
     public static void OpenElderQuests()
     {
         pendingElderQuests = true;
@@ -69,19 +69,24 @@ public class DialogueBoot : MonoBehaviour
 
     static void OnConversationEnded(Transform actor)
     {
-        // 촌장과 대화를 마치면 촌장 퀘스트 보고 처리(사냥을 끝낸 퀘스트는 여기서 성공 → 보상)
-        if (QuestBoard.ElderBoard != null && DialogueManager.lastConversationStarted == StoryDialogues.Elder)
-        {
-            QuestBoard.ElderBoard.ReportActiveQuests();
-        }
         if (!pendingElderQuests)
         {
             return;
         }
         pendingElderQuests = false;
-        if (QuestBoard.ElderBoard != null)
+        // REWORK-5: 촌장 퀘스트는 NPC 퀘스트(giver elder)라 대화 종료 직후 같은 대화 시스템으로 이어 연다
+        DG.Tweening.DOVirtual.DelayedCall(0.15f, OpenElderQuestTalk);
+    }
+
+    static void OpenElderQuestTalk()
+    {
+        foreach (NpcQuestGiver g in Object.FindObjectsByType<NpcQuestGiver>(FindObjectsSortMode.None))
         {
-            QuestBoard.ElderBoard.OpenDialogue();
+            if (g.NpcId == "elder" && g.HasQuest)
+            {
+                g.TalkQuest();
+                return;
+            }
         }
     }
 

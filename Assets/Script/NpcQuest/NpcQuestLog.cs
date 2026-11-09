@@ -24,6 +24,9 @@ public static class NpcQuestLog
 {
     public const string SaveKey = "npcq.state";
 
+    /// <summary>디스크에서 한 번이라도 읽었다 (REWORK-5 이행이 읽기 전에 기록을 넣었다가 지워지지 않게 기다리는 용도)</summary>
+    public static bool Loaded { get; private set; }
+
     private sealed class Rec
     {
         public int State;      // 1 진행, 2 완료
@@ -53,6 +56,7 @@ public static class NpcQuestLog
     private static void ResetStatics()
     {
         s_recs.Clear();
+        Loaded = false;
         Changed = null;
         LevelGetter = () => LevelSystem.Level;
         ItemCounter = DefaultItemCount;
@@ -246,6 +250,31 @@ public static class NpcQuestLog
         return true;
     }
 
+    /// <summary>포기: 진행 중(State 1)인 기록만 지운다. 완료분·미수락은 그대로 false. 수집·장비류는 아이템·장비에 영향 없음</summary>
+    public static bool Abandon(string id)
+    {
+        if (!s_recs.TryGetValue(id, out Rec r) || r.State != 1)
+        {
+            return false;
+        }
+        s_recs.Remove(id);
+        NpcQuestTrack.OnCompleted(id); // 추적 목록에서 뺀다 (완료 때와 같은 정리)
+        Notify();
+        GameLog.Info(GameLog.Cat.Item, "NPC 퀘스트 포기 " + id);
+        return true;
+    }
+
+    /// <summary>이행·테스트용: 진행 기록을 직접 넣는다. 이미 기록이 있으면 덮지 않고 false (이행은 항상 기존 진행을 우선)</summary>
+    public static bool SeedRecord(string id, int state, int progress)
+    {
+        if (NpcQuestCatalog.Find(id) == null || (state != 1 && state != 2) || s_recs.ContainsKey(id))
+        {
+            return false;
+        }
+        s_recs[id] = new Rec { State = state, Progress = Mathf.Max(0, progress) };
+        return true;
+    }
+
     public static void OnKill(string monsterId)
     {
         Bump(NpcQuestObjective.Kill, monsterId);
@@ -312,7 +341,7 @@ public static class NpcQuestLog
         bool changed = false;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
         {
-            if (d.Objective != kind || d.Target != target || !s_recs.TryGetValue(d.Id, out Rec r) || r.State != 1 || r.Progress >= d.Count)
+            if (d.Objective != kind || !d.MatchesTarget(target) || !s_recs.TryGetValue(d.Id, out Rec r) || r.State != 1 || r.Progress >= d.Count)
             {
                 continue;
             }
@@ -438,6 +467,7 @@ public static class NpcQuestLog
         try
         {
             Deserialize(SaveUtil.LoadOr(SaveKey, ""));
+            Loaded = true;
             NpcQuestTrack.Load();
             Changed?.Invoke(); // 추적 목록을 읽은 뒤 한 번 더 알린다
         }

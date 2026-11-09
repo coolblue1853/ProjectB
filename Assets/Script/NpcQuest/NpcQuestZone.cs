@@ -10,6 +10,7 @@ public static class NpcQuestZone
     private static readonly Dictionary<string, string> CollectSource = new Dictionary<string, string>
     {
         { "GreenHurb", "Forest Side Road" },
+        { "Wood", "Forest Side Road" },
         { "Forest Mushroom", "Forest Side Road" },
         { "Moss Loach", "Swamp" },
         { "Amber Trout", "Swamp" },
@@ -36,6 +37,10 @@ public static class NpcQuestZone
         {
             return "";
         }
+        if (!string.IsNullOrEmpty(d.Zone))
+        {
+            return d.Zone; // CSV zone 열이 있으면 그대로 쓴다 (QuestSystemDesign §2-2)
+        }
         string key = d.Id + (Loc.IsKorean ? "|ko" : "|en");
         if (!s_cache.TryGetValue(key, out string zone))
         {
@@ -55,7 +60,7 @@ public static class NpcQuestZone
                 {
                     return Loc.IsKorean ? "정예 둥지" : "Elite Nest";
                 }
-                MonsterTable.Row row = MonsterTable.Get(d.Target);
+                MonsterTable.Row row = MonsterTable.Get(d.FirstTarget);
                 return row != null ? Loc.Region(row.zone) : "";
             case NpcQuestObjective.Visit:
                 return NpcQuestCatalog.VisitName(d.Target);

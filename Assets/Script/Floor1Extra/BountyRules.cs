@@ -128,6 +128,18 @@ public static class BountyRules
         return true;
     }
 
+    /// <summary>포기: 진행 중인 이 의뢰만 해제한다(오늘 목록 Offered 는 유지, Done 에 넣지 않는다)</summary>
+    public static bool Abandon(BountyState s, string id)
+    {
+        if (s.Active != id || id.Length == 0)
+        {
+            return false;
+        }
+        s.Active = "";
+        s.Progress = 0;
+        return true;
+    }
+
     /// <summary>처치 1건 반영. 진행 중 의뢰의 목표 몬스터면 true</summary>
     public static bool OnKill(BountyState s, IReadOnlyList<BountyDef> defs, string monsterId)
     {

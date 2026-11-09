@@ -56,9 +56,9 @@ public class NpcQuestTests
         NpcQuestLog.SaveHook = () => { };
     }
 
-    [Test] public void CSV_60개_파싱_EXP_합계_127375()
+    [Test] public void CSV_71개_파싱_EXP_합계_127375()
     {
-        Assert.AreEqual(60, NpcQuestCatalog.All.Count);
+        Assert.AreEqual(60 + 11, NpcQuestCatalog.All.Count); // 60 + 게시판·촌장 이행 11(REWORK-5, EXP 0)
         int exp = 0;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
         {
@@ -187,7 +187,7 @@ public class NpcQuestTests
             items.Add(r.Name);
         }
         var ids = new HashSet<string>();
-        string[] npcs = { "elder", "smith", "merchant", "ruen", "sena", "eve" };
+        string[] npcs = { "elder", "smith", "merchant", "ruen", "sena", "eve", "questboard" };
         string[] visits = { "forest_night_post", "deep_nest", "tower_altar" };
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
         {
@@ -205,13 +205,16 @@ public class NpcQuestTests
             switch (d.Objective)
             {
                 case NpcQuestObjective.Kill:
-                    Assert.IsNotNull(MonsterTable.Get(d.Target), d.Id + " 몬스터 " + d.Target);
+                    foreach (string t in d.Target.Split('|'))
+                    {
+                        Assert.IsNotNull(MonsterTable.Get(t), d.Id + " 몬스터 " + t);
+                    }
                     break;
                 case NpcQuestObjective.Collect:
                     Assert.IsTrue(d.IsRecordsTarget || items.Contains(d.Target), d.Id + " 수집 " + d.Target);
                     break;
                 case NpcQuestObjective.Craft:
-                    Assert.IsTrue(items.Contains(d.Target), d.Id + " 제작 " + d.Target);
+                    Assert.IsTrue(d.Target == "Any" || items.Contains(d.Target), d.Id + " 제작 " + d.Target);
                     break;
                 case NpcQuestObjective.Visit:
                     Assert.Contains(d.Target, visits, d.Id);

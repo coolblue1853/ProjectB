@@ -1,6 +1,6 @@
 # 퀘스트 시스템 통합 설계 (REWORK-5, 11-09)
 
-범위: NPC 퀘스트·게시판 퀘스트·사냥꾼 의뢰/현상 3계통을 **한 데이터 모델·한 창(Q)·한 추적 HUD**로 합친다. 입구(NPC·게시판·푯말)는 같은 목록의 필터일 뿐이다. 콘텐츠(유형 정의·대사·층계별 줄기)는 `REWORK-6`(`Game/QuestDesign.md`)에서 확정하고, 이 문서는 틀과 빈칸만 둔다. 이 문서는 설계만이며 코드는 아직 안 바뀌었다.
+범위: NPC 퀘스트·게시판 퀘스트·사냥꾼 의뢰/현상 3계통을 **한 데이터 모델·한 창(Q)·한 추적 HUD**로 합친다. 입구(NPC·게시판·푯말)는 같은 목록의 필터일 뿐이다. 콘텐츠(유형 정의·대사·층계별 줄기)는 `REWORK-6`(`Game/QuestDesign.md`)에서 확정하고, 이 문서는 틀과 빈칸만 둔다. 구현 현황은 §7 아래 `7-2`에 있다(P0·P1 완료, P2~P5 대기).
 
 관련: `Docs/Playtest/ConventionAudit.md` U6·U6a·U7·U8·U8b·U13, `Game/Floor1Completion.md` §4-1(신규 퀘스트 29건)·§12, `Game/TowerWorld.md`(세계관), `Docs/Handoff/queue.md` REWORK-5·6·BUG-U7.
 규칙: 모든 UI는 마우스·키보드·게임패드 3경로. 그래픽 제작 금지(텍스트·기존 UI·기존 아이템 아이콘 재사용). 기존 CSV 컬럼은 **맨 뒤에만 추가**, ES3 기존 키 이름 유지.
@@ -203,14 +203,20 @@ static string ReportTarget(NpcQuestDef d);     // 보고할 NPC·입구 이름
 
 | 단계 | 내용 | 건드릴 파일 | 검증 |
 |---|---|---|---|
-| P0 데이터 모델 | CSV 열 추가·`NpcQuestDef` 필드 추가·`Parse` 열 부족 허용·`QuestService` 뼈대(`All`/`Query`/`CanAccept`/`Objective`/`ReportTarget`) | `NpcQuestCatalog.cs`, `Resources/QuestsFloor1.csv`(열만 추가, 기존 행 빈칸), 새 `QuestService.cs`, `Assets/Editor/Tests/` | EditMode: 구 CSV 파싱 OK·기존 퀘스트 id/값 불변·`Objective` 문자열 스냅샷. `Tools/u.sh` 컴파일 에러 0 |
-| P1 이행 | `QuestMigration.RunOnce`(qm.* → npcq.state), 게시판 `Chain`/`Story`/부가 3종 → CSV 행, 보상 `stones`·`artifact` 지급을 `NpcQuestRewards.Apply` 에 반영, `Pickup`→`Collect`. 한글 대사 재작성 | 새 `QuestMigration.cs`, `NpcQuestRewards.cs`, `QuestsFloor1.csv`, `Quest/QuestBoard.cs`(Build 호출 중단·입구만 남김) | EditMode: 샘플 세이브(구 qm.* 가 든 문자열)로 이행 전후 상태 일치. 플레이: 보드 퀘스트 수락→처치→보고→보상(골드·강화석·아티팩트) |
+| P0 데이터 모델 **(완료 11-09)** | CSV 열 추가·`NpcQuestDef` 필드 추가·`Parse` 열 부족 허용·`QuestService` 뼈대(`All`/`Query`/`CanAccept`/`Objective`/`ReportTarget`) | `NpcQuestCatalog.cs`, `Resources/QuestsFloor1.csv`(열만 추가, 기존 행 빈칸), 새 `QuestService.cs`, `Assets/Editor/Tests/` | EditMode: 구 CSV 파싱 OK·기존 퀘스트 id/값 불변·`Objective` 문자열 스냅샷. `Tools/u.sh` 컴파일 에러 0 |
+| P1 이행 **(완료 11-09)** | `QuestMigration.RunOnce`(qm.* → npcq.state), 게시판 `Chain`/`Story`/부가 3종 → CSV 행, 보상 `stones`·`artifact` 지급을 `NpcQuestRewards.Apply` 에 반영, `Pickup`→`Collect`. 한글 대사 재작성 | 새 `QuestMigration.cs`, `NpcQuestRewards.cs`, `QuestsFloor1.csv`, `Quest/QuestBoard.cs`(Build 호출 중단·입구만 남김) | EditMode: 샘플 세이브(구 qm.* 가 든 문자열)로 이행 전후 상태 일치. 플레이: 보드 퀘스트 수락→처치→보고→보상(골드·강화석·아티팩트) |
 | P2 창 | 상세 패널(요약·요구 사항·보상 아이콘·보고 안내)·포기·유형 태그·한글 라벨·추적 Z(현상 포함)·입구 모드 플래그 | `NpcQuestWindow.cs`(500줄 넘으면 `QuestWindowDetail.cs` 분리), `QuestListRules`, `QuestService.cs` | 플레이: 3탭·마우스/키보드/패드 3경로 각각 선택·추적·포기. 스크린샷으로 글자 크기·줄바꿈·보상 표기(영문 없음) 확인. 선행 조치: Quest Machine HUD 컨텐츠 제거 |
 | P3 HUD | `NpcQuestTracker` 단일화(현상·세트줄 정리)·최대 5·접기·`quest.hudFold` | `NpcQuestTracker.cs`, `NpcQuestTrack.cs`(Max), `BountyBoard.TrackerText` 사용 중단, `HudPolicy` | 플레이: 수락 6건 → 5개+`…외 1건`, 접기 토글, 완료 시 `○○에게 보고`, 큰 창 열면 숨김 |
 | P4 입구 통일 | 게시판·푯말을 `QuestEntrance.Open` 으로 교체, `BountyPanel` 은 입구 모드 창 사용, NPC 선택지 노출 조건을 `Query` 로 | `QuestBoard.cs`, `BountyKiosk.cs`·`BountyPanel.cs`, `NpcMenuRules.cs`·`NpcInteraction.cs`, `NpcQuestGiver.cs`, `QuestBountyLink.cs` | 플레이: 세 입구 모두 같은 창·같은 규칙, 보상 가방 부족 시 안내·보류 |
 | P5 정리·확장 | Quest Machine 퀘스트 UI·`QuestBoard` 의 Build 코드 제거(플러그인은 다른 곳에서 안 쓰면 참조 정리), 2번째 목표 `objective2` 판정(필요 시) | `Quest/QuestCatalog.cs`(삭제 후보), `DialogueBoot.cs` 일부 | 컴파일·`Docs/Playtest/ConventionAudit.md` U6·U6a·U7·U8·U8b 갱신 |
 
 각 단계: 정적 테스트(EditMode)→Unity 콘솔 에러 0→플레이 모드 실제 입력 경로 확인→커밋. 확인 못 한 것은 "미검증"으로 기록. `BountyBoard` 일일 3건·`ZoneProgress` 는 건드리지 않는다.
+
+### 7-2. 구현 현황 (11-09)
+- **P0 완료:** `NpcQuestDef` 확장 필드 14개(source·kind·reportTo·offerLine·progressLine·doneLine·zone·stones·artifact·repeat·sort·objective2·target2·count2, CSV 13열 뒤 선택 열, 구 CSV 호환), `QuestService`(`All/Query/StatusOf/CanAccept/Accept/Abandon/Report/Objective/ReportTarget`·`Warn` 훅), `NpcQuestLog.Abandon/SeedRecord/Loaded`, 현상 `BountyRules/BountyBoard.Abandon`. kill target `a|b` 목록·`FirstTarget`.
+- **P1 완료:** 게시판 Chain 5 + 부가 3 + 촌장 Story 3 = 11건을 `QuestsFloor1.csv` 행으로 이행(id 유지, 한글 재작성, exp 0·stones·artifact, 게시판 giver=`questboard`, 촌장 giver=`elder` kind=main·minLevel 6/13/15). `s_wood`·`s_herb` 는 `collect`(U7 해소), `s_craft` 는 `craft`+target `Any`(CraftingManager 가 따로 보내는 Any 메시지). `NpcQuestRewards` 가 stones·artifact 지급·가방 공간 검사. `QuestMigration`(qm.journal → npcq.state, 키 `quest.migrated`, qm.* 디스크 유지, 저널 메모리에서만 삭제). `QuestBoard` 는 ↑ 입구(`NpcQuestGiver("questboard")` 대화)로 축소, `DialogueBoot` 촌장 퀘스트 대화는 NpcQuestGiver 로 연결.
+- **미검증(플레이):** 게시판 ↑ 대화·머리 위 !·촌장 "일 묻기"→퀘스트 대화·실제 구 세이브 이행은 에디터에 씬이 없어 EditMode 로만 확인. 다음 세션이 플레이 검증부터 한다.
+- **남은 것:** P2(창 상세 패널·포기·입구 모드·한글 라벨), P3(HUD 단일화·최대 5·접기·`quest.hudFold`), P4(푯말·NPC 선택지를 `QuestService.Query` 로 통일), P5(`QuestCatalog` 삭제·Quest Machine UI 정리·`objective2`). `QuestCatalog` 는 이행 id·동등성 테스트 기준값으로 남겨 둠.
 
 ### 7-1. 함정
 - `NpcQuestLog` 는 정적 클래스라 테스트용 훅(`LevelGetter`·`ItemCounter`·`SaveHook`)을 쓰고 `ResetStatics` 에 새 훅을 꼭 추가.

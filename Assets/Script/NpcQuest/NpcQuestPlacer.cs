@@ -92,6 +92,7 @@ public static class NpcQuestPlacer
         }
         AddGiver(town.transform.Find("Shop"), "merchant");
         AddGiver(town.transform.Find("WeaponSmith"), "smith");
+        AddGiver(town.transform.Find("QuestBoard"), QuestBoard.BoardNpcId); // REWORK-5: 게시판 = giver questboard
     }
 
     private static void AddGiver(Transform t, string id)

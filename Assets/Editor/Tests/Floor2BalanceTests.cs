@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -50,7 +51,7 @@ public class Floor2BalanceTests
         string root = Path.GetDirectoryName(Application.dataPath);
         string[] lines = File.ReadAllLines(Path.Combine(root, "Docs/Data/floor2_quests_draft.csv"));
         string header = File.ReadAllLines(Path.Combine(Application.dataPath, "Resources/QuestsFloor1.csv"))[0];
-        Assert.AreEqual(header, lines[0]);
+        Assert.AreEqual(string.Join(",", header.Split(',').Take(13)), lines[0], "초안은 기본 13열 — 확장 열(REWORK-5)은 뒤에 선택");
         Assert.AreEqual(21, lines.Length);
         var seen = new HashSet<string> { "Q604" };
         int exp = 0;

@@ -3,8 +3,18 @@
 /// <summary>1층계 NPC 대사. 제안 페이지는 | 로 나누며 한 페이지는 2줄 이내다.</summary>
 public static class NpcQuestVoice
 {
+    /// <summary>CSV 대사 열: | = 페이지 나눔, ^ = 줄바꿈. 열이 비어 있으면 기존 하드코딩 대사를 쓴다 (REWORK-5)</summary>
+    private static string Line(string csv)
+    {
+        return csv.Replace('^', '\n');
+    }
+
     public static string[] Offer(NpcQuestDef quest)
     {
+        if (!string.IsNullOrEmpty(quest.OfferLine))
+        {
+            return Line(quest.OfferLine).Split('|');
+        }
         switch (quest.Id)
         {
             case "Q101": return "그 브로치… 아버지가 남긴 것이로군.\n떠나기 전 루엔에게 ↑로 의뢰를 받게.|마을 오른쪽 끝 포털에서 ↑를 누르면 숲 샛길일세.|X 공격·C 점프·Shift 달리기.\nQ 퀘스트·I 가방·1~4 물약. 대시는 나중일세.".Split('|');
@@ -40,6 +50,10 @@ public static class NpcQuestVoice
 
     public static string Progress(NpcQuestDef quest)
     {
+        if (!string.IsNullOrEmpty(quest.ProgressLine))
+        {
+            return Line(quest.ProgressLine);
+        }
         switch (quest.Id)
         {
             case "Q101": return "루엔에게 먼저 가 보게.\n숲으로 나가는 길은 마을 오른쪽 끝일세.";
@@ -75,6 +89,10 @@ public static class NpcQuestVoice
 
     public static string Report(NpcQuestDef quest)
     {
+        if (!string.IsNullOrEmpty(quest.DoneLine))
+        {
+            return Line(quest.DoneLine);
+        }
         switch (quest.Id)
         {
             case "Q101": return "이것을 챙겨 가게.\n아버지의 흔적을 찾거든 내게도 들려주게.";
@@ -116,6 +134,7 @@ public static class NpcQuestVoice
             case "ruen": return "끝나면 마을에서 보자. 물약 챙기고.";
             case "sena": return "다녀오세요. 무리하면 돌아오셔도 돼요.";
             case "eve": return "다녀와. 네가 본 길도 들려줘.";
+            case "questboard": return "의뢰를 받았습니다. 끝나면 게시판에 보고하세요.";
             case "merchant": return "일을 마치면 제게 와요. 보상은 맡아 둘게요.";
             case "smith": return "일 끝나면 대장간으로 와.";
             default: return "준비되면 다시 와 주세요.";

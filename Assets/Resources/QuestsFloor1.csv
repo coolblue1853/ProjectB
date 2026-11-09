@@ -1,4 +1,4 @@
-﻿id,title,giver,minLevel,requires,objective,target,count,exp,gold,rewardItem,rewardCount,description
+﻿id,title,giver,minLevel,requires,objective,target,count,exp,gold,rewardItem,rewardCount,description,source,kind,reportTo,offerLine,progressLine,doneLine,zone,stones,artifact,repeat,sort,objective2,target2,count2
 Q101,마지막 별의 방향,elder,1,,talk,elder,1,700,100,,,마을 오른쪽 끝 포털에서 ↑를 눌러 숲 샛길로 가게. 먼저 마을 사냥꾼 루엔에게 ↑로 사냥 의뢰를 받게. X 공격·C 점프·Shift 달리기·Q 퀘스트·I 가방·1~4 물약. 대시는 나중에 열린다.
 Q102,뿌리 밑의 발자국,ruen,1,Q101,kill,FlowerMole_BD,8,600,120,LeafAdae,1,샛길 오른쪽 끝 연결 포털로 서쪽 구역에 간다. 오른쪽으로 이동해 로프를 ↑로 잡고 고지대의 꽃두더지 8마리를 처치한다. C 점프·↑↓ 로프. 마을 루엔에게 보고한다.
 Q103,바람에 쓸린 약초,sena,2,Q102,collect,GreenHurb,3,742,90,GreenHurb,1,샛길 입구 근처 약초나 오른쪽 표본 덤불에서 약초 3개를 모아 세나에게 보고한다. 덤불은 ↑ 시작·표적에 맞춰 다시 ↑. 보고 뒤 요리에 쓸 약초 1개를 돌려준다.
@@ -59,3 +59,14 @@ Q310,심부의 포자,sena,7,Q302,kill,DeepSpore_BD,8,1200,300,Potion,2,깊은 �
 Q311,심부의 요정 가루,eve,8,Q304,collect,Fairy Dust,8,1200,300,Potion,2,깊은 숲 심부의 밤 요정에게서 요정 가루 8개를 모아 이브에게 보고한다.
 Q410,안개 속 희귀 어종,sena,10,Q402,collect,Spirit Koi,1,2400,500,Enhance Stone,1,안개 늪 낚시터에서 정령잉어 1마리를 낚아 세나에게 보고한다. 늪 중앙 포털로 들어간다.
 Q411,안개 속 슬라임,eve,11,Q403,collect,Slime Gel,8,2400,500,Enhance Stone,1,안개 늪의 밤 슬라임에게서 슬라임 젤 8개를 모아 이브에게 보고한다.
+q_rabbits,토끼 소동,questboard,1,,kill,Rabbit_BD|StoneRabbit_BD,10,0,150,,,숲길 토끼 10마리를 쫓아낸다.,board,reward,,숲길 토끼들이 밭을 갉아먹고 있소.^토끼 10마리를 쫓아내 주시오.,토끼는 숲길에 있소.^10마리를 쫓아내면 돌아오시오.,수고했소! 밭이 무사하겠구려.^약속한 보상이오.,,1,,,,,,
+q_moles,두더지 골칫거리,questboard,1,q_rabbits,kill,FlowerMole_BD|LeftMole_BD,8,0,300,,,숲 샛길의 두더지 8마리를 처치한다.,board,reward,,샛길 아래를 두더지가 파헤치고 있소.^8마리를 처치해 주시오.,두더지는 숲 샛길에 있소.^8마리를 처치하시오.,길이 다시 단단해지겠소.^수고했소.,,2,StarBurst,,,,,
+q_terror,밤의 공포,questboard,1,q_moles,kill,PassiveTerror_BD,1,0,600,,,밤의 샛길에 도사린 수동적 공포를 쓰러뜨린다.,board,reward,,밤이면 샛길에 무언가 도사리고 있소.^수동적 공포를 쓰러뜨려 주시오.,밤의 샛길을 찾아가시오.^준비를 단단히 하고.,해냈구려! 이제 샛길의 밤이 조용해지겠소.,,3,,,,,,
+q_goblins,절벽 속으로,questboard,1,q_terror,kill,CliffGoblin_BD,10,0,1000,,,마법 절벽의 절벽 고블린 10마리를 소탕한다.,board,reward,,고블린들이 마법 절벽을 차지했소.^10마리를 소탕해 주시오.,마법 절벽의 고블린 10마리요.^무리하지 마시오.,절벽이 다시 열렸소.^큰일을 했소.,,4,,,,,,
+q_wizard,심연의 마법사,questboard,1,q_goblins,kill,AbyssWizard_BD,1,0,3000,,,절벽 제단의 심연의 마법사를 쓰러뜨린다.,board,reward,,밤이면 심연의 마법사가 절벽을 다스리오.^그의 통치를 끝내 주시오.,절벽 제단은 밤에 열리오.^준비가 되면 가시오.,마침내 끝났구려!^이 보상은 전부 그대 것이오.,,8,,,,,,
+s_wood,땔감 모으기,questboard,1,,collect,Wood,10,0,120,,,나무 10개를 구해 온다. 가방에 있는 나무도 센다.,board,reward,,겨울이 다가오고 있소.^숲에서 나무 10개를 구해 오시오.|가방에 이미 있는 나무도 세어 주겠소.,나무는 숲에서 주울 수 있소.^가방에 10개가 모이면 보고하시오.,충분하구려. 따뜻한 겨울이 되겠소.,,,,,,,,
+s_herb,치유사의 부탁,questboard,1,,collect,GreenHurb,6,0,150,,,녹색 약초 6개를 구해 온다. 가방에 있는 약초도 센다.,board,reward,,마을 치유사가 약초가 떨어졌다고 하오.^녹색 약초 6개를 구해 오시오.|가방에 이미 있는 약초도 세어 주겠소.,약초는 숲 샛길에서 구할 수 있소.^6개가 모이면 보고하시오.,치유사가 크게 기뻐할 것이오.^고맙소.,,1,,,,,,
+s_craft,대장장이의 제자,questboard,1,,craft,Any,2,0,200,,,대장간에서 장비를 아무거나 2개 제작한다.,board,reward,,대장간 일을 배워 볼 생각이 있소?^장비를 아무거나 2개 제작해 오시오.,제작은 대장간에서 할 수 있소.^2개를 만들면 보고하시오.,솜씨가 나쁘지 않구려.^보상을 받으시오.,대장간,2,,,,,,
+st_father1,아버지의 흔적 I,elder,6,,kill,AncientEnt_BD,1,0,800,,,깊은 숲의 고대 엔트를 쓰러뜨려 아버지의 흔적을 찾는다.,npc,main,,사냥꾼들이 깊은 숲 나무에서 낯선 표식을 찾았네.^자네 브로치와 같은 문양일세.|그 숲에 고대 엔트가 뿌리를 내렸네.^쓰러뜨리고 아버지가 남긴 것을 확인하게.,,문양이 속나무 깊이 새겨져 있었군…^그 사람의 길은 탑 외곽으로 이어지네.,,3,,,,,,
+st_father2,아버지의 흔적 II,elder,13,st_father1,kill,GolemSmall_BD|GolemMedium_BD|GolemLarge_BD,12,0,1500,,,탑 외곽의 골렘 12기를 부수고 아버지의 표식을 읽는다.,npc,main,,늪 너머가 탑 외곽일세. 그곳 돌들이 걷는다지.^옛 유적을 지키는 골렘일세.|아버지가 나무에 문양을 새겼다면 돌에도 남겼을 걸세.^골렘 12기를 부수고 읽어 보게.,,핵에도 같은 문양이 닳아 있었군…^모든 표식이 탑의 문을 가리키네.,,5,,,,,,
+st_father3,아버지의 흔적 III,elder,15,st_father2,kill,Gatekeeper_BD,1,0,3000,,,탑 문 앞의 문지기를 쓰러뜨린다.,npc,main,,탑의 문 앞에 갑옷 입은 거인이 서 있네.^맞선 이 중 얼굴을 알고 돌아온 이가 없네.|아버지를 따라 오르려면 그것을 넘어야 하네.,,문은 열렸네. 위에 무엇이 있든^그 브로치가 자네를 집으로 이끌 걸세.,,8,,,,,,
