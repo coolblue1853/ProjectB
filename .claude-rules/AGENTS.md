@@ -90,6 +90,7 @@
 | `Docs/Playtest/SaveMigrationAudit.md` *(저장소 루트)* | ES3 키 전수·구세이브 로드 시나리오·예외 처리 위치·필요 테스트 |
 | `Game/Durability.md` | 던파식 내구도·수리 도입 검토(추천: 보류) |
 | `Game/WeaponSkillProgression.md` | 무기 스킬 순차 해금·성장: 레벨 연동 vs 무기 숙련도 비교, 추천 B·곡선·이행안 |
+| `Game/EquipEffectDesign.md` | 장비·세트 효과 설계(REWORK-12): 스킬 수정자·규칙 대체 프레임워크, 등급별 효과 표, 1층계 효과 초안, P0~P8 |
 | `Game/FloorTransition.md` | 층계 전환 규칙: 이동 조건·칭호 부하·포털/귀환·안전지대·구현 갭 FT-* |
 
 ## 운영
