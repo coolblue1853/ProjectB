@@ -24,7 +24,7 @@ public static class InputBindings
     };
 
     // ESC·ENTER·패드 Start(일시정지) + 하드코딩·UI 단축키(도감 B, 지도 M). UI 맵의 인벤 열기·제작·포털 키는 IsReserved 가 에셋에서 읽는다
-    private static readonly string[] ReservedPaths = { "<Keyboard>/escape", "<Keyboard>/enter", "<Gamepad>/start", "<Keyboard>/b", "<Keyboard>/m", "<Keyboard>/p", "<Keyboard>/n", "<Keyboard>/j", "<Gamepad>/rightStickPress", "<Gamepad>/select", "<Gamepad>/leftStickPress" }; // select·L3 = 필드 제스처(아티팩트·퀘스트·퀵슬롯 1/4, AUTO-49) // J = 퀘스트 창, P = 제작 핀(제작 창), N = 미니맵. 인벤 안 D(분해)는 UI 키라 겹침 허용(Q-432)
+    private static readonly string[] ReservedPaths = { "<Keyboard>/escape", "<Keyboard>/enter", "<Gamepad>/start", "<Keyboard>/b", "<Keyboard>/m", "<Keyboard>/p", "<Keyboard>/n", "<Keyboard>/j", "<Keyboard>/q", "<Gamepad>/rightStickPress", "<Gamepad>/select", "<Gamepad>/leftStickPress" }; // select·L3 = 필드 제스처(아티팩트·퀘스트·퀵슬롯 1/4, AUTO-49) // Q = 퀘스트 창(11-09, 구 J; J 는 상점 일괄 판매), P = 제작 핀(제작 창), N = 미니맵. 인벤 안 D(분해)는 UI 키라 겹침 허용(Q-432)
     private static readonly string[] ReservedActions = { "UI/OpenInventory", "UI/OpenCraft", "Portal/PortalOn", "UI/Up" }; // UI/Up = NPC 대화·채집·미니게임 시작(패드 십자 위)
 
     /// <summary>오버라이드가 바뀌었다(키 표시 갱신용)</summary>
@@ -185,6 +185,7 @@ public static class InputBindings
         try
         {
             asset.LoadBindingOverridesFromJson(json);
+            DropNewlyReservedKeys(asset);
         }
         catch (Exception e)
         {
@@ -193,6 +194,28 @@ public static class InputBindings
             if (json == _json)
             {
                 _json = "";
+            }
+        }
+    }
+
+    /// <summary>구 세이브 호환(REWORK-8): Q 가 퀘스트 창 고정 키가 되었으므로, 예전에 전투 액션에 지정해 둔 Q 는 그 액션의 기본 키로 되돌린다</summary>
+    private static void DropNewlyReservedKeys(InputActionAsset asset)
+    {
+        foreach (InputActionMap map in asset.actionMaps)
+        {
+            if (map.name == "UI")
+            {
+                continue;
+            }
+            foreach (InputAction action in map.actions)
+            {
+                for (int i = 0; i < action.bindings.Count; i++)
+                {
+                    if (action.bindings[i].overridePath == "<Keyboard>/q")
+                    {
+                        action.RemoveBindingOverride(i);
+                    }
+                }
             }
         }
     }

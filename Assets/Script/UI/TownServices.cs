@@ -27,12 +27,12 @@ public sealed class TownServices : MonoBehaviour
 
     private static void Setup(Transform town)
     {
-        Label(town.Find("Shop"), "보급 상인", "↑ 상점·의뢰 / Q·E 품목");
-        Label(town.Find("WeaponSmith"), "무기 대장장이", "↑ 제작·의뢰 / ↓ 강화");
-        Label(town.Find("EquipSmith"), "방어구 대장장이", "↑ 제작 / ↓ 강화");
-        Label(town.Find("NPC_Elder"), "마을 장로", "↑ 대화·의뢰");
-        Label(town.Find("NPC_ruen"), "사냥꾼 루엔", "↑ 대화·의뢰");
-        Label(town.Find("NPC_sena"), "약초꾼 세나", "↑ 대화·의뢰");
+        Label(town.Find("Shop"), "보급 상인", "↑ 말 걸기(상점·의뢰) / Q·E 품목");
+        Label(town.Find("WeaponSmith"), "무기 대장장이", "↑ 말 걸기(제작·강화·의뢰)");
+        Label(town.Find("EquipSmith"), "방어구 대장장이", "↑ 말 걸기(제작·강화)");
+        Label(town.Find("NPC_Elder"), "마을 장로", "↑ 말 걸기(대화·의뢰)");
+        Label(town.Find("NPC_ruen"), "사냥꾼 루엔", "↑ 말 걸기(대화·의뢰)");
+        Label(town.Find("NPC_sena"), "약초꾼 세나", "↑ 말 걸기(대화·의뢰)");
         Label(town.Find("QuestBoard"), "의뢰 게시판", "↑ 의뢰");
         Transform source = town.Find("Shop");
         if (source == null)

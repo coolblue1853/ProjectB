@@ -127,7 +127,7 @@ public static partial class StoryDialogues
             "This brooch was his. If I fall up there, it will carry me home.",
             "Whatever waits on the higher floors - I'm going to find him.",
             "Arrow keys to move. C to jump, X to attack, Shift to run. Up to talk or enter portals.",
-            "The elder is to the right. I should speak to him first. J shows quests; I opens my bag.");
+            "The elder is to the right. I should speak to him first. Q shows quests; I opens my bag.");
     }
 
     static void BuildElder(int id)

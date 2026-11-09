@@ -42,9 +42,9 @@ public class ShopUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isShopClose == true && upAction.triggered && DatabaseManager.isOpenUI == false && !NpcQuestGiver.TryTalk(gameObject))
+        if (isShopClose == true && upAction.triggered && DatabaseManager.isOpenUI == false && !NpcMenu.IsOpen)
         {
-            shopManager.OpenShop();
+            NpcInteraction.Run(gameObject, shopManager.OpenShop, null, null, null);
         }
     }
 }

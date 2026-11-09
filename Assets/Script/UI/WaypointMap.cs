@@ -322,7 +322,7 @@ public class WaypointMap : MonoBehaviour
         head.color = theme.unique;
         var hint = NewText("Hint", pr, theme, 22f);
         Place(hint.rectTransform, new Vector2(30f, -520f), new Vector2(940f, 30f));
-        hint.text = Loc.T("UP/DOWN select    SELECT travel    HOME village    M / BACK close");
+        hint.text = Loc.T("UP/DOWN select    SELECT travel    HOME village    M / ESC close");
         hint.color = new Color(1f, 1f, 1f, 0.55f);
 
         for (int r = 0; r < 9; r++)

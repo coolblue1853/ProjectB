@@ -81,7 +81,7 @@ public static class ControlsGuide
             {
                 new Row("물약·귀환 주문서", "{Quick1} {Quick2} {Quick3} {Quick4}", "L3 / 십자 ←→ / L3 길게"),
                 new Row("퀵슬롯 등록", "가방에서 Shift+1~4", "-"),
-                new Row("NPC·포털·채집·화로", "↑", "십자 ↑"),
+                new Row("NPC 말 걸기(선택지)·포털·채집·화로", "↑", "십자 ↑"),
                 new Row("대화 넘기기", "Enter / Z", "A"),
                 new Row("창 닫기 · 일시정지", "ESC", "B / START"),
             },
@@ -94,7 +94,7 @@ public static class ControlsGuide
             {
                 new Row("가방", "{UI/OpenInventory}", "{UI/OpenInventory}"),
                 new Row("제작", "{UI/OpenCraft}", "{UI/OpenCraft}"),
-                new Row("퀘스트", "J", "SELECT 길게"),
+                new Row("퀘스트", "Q", "SELECT 길게"),
                 new Row("층계 지도", "M", "LT+START"),
                 new Row("도감", "B", "LT+SELECT"),
                 new Row("미니맵 켜기·끄기", "N", "-"),

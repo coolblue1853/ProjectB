@@ -63,8 +63,8 @@ public static class FirstHintRules
             case TutAttack: return "[" + key("Attack") + "] 로 공격해요. 연타하면 콤보가 이어져요.";
             case TutJump: return "[" + key("Jump") + "] 로 점프, 공중에서 한 번 더 누르면 2단 점프예요.";
             case TutPotion: return "물약은 가방에서 Shift+[1~4] 로 퀵슬롯에 등록하고 [1~4] 로 써요.";
-            case TutQuest: return "[J] 로 퀘스트를 확인하고, 마을 게시판에서 의뢰를 받아요.";
-            case LevelUp: return "[J] 로 퀘스트를 확인하고 다음 목표를 찾아봐요.";
+            case TutQuest: return "[Q] 로 퀘스트를 확인하고, 마을 게시판에서 의뢰를 받아요.";
+            case LevelUp: return "[Q] 로 퀘스트를 확인하고 다음 목표를 찾아봐요.";
         }
         return "";
     }

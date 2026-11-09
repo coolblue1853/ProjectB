@@ -107,7 +107,7 @@ public class NpcQuestWindow : MonoBehaviour
         PadFieldInput.Refresh();
         // 패드는 SELECT 길게(0.8초). R3 는 아티팩트 사용과 겹쳐서 뺐다(AUTO-49). 눌린 순간 UI 가 열려 있었으면(인벤 프리셋 저장 등) 무시
         bool padHold = PadFieldInput.Select == PadGesture.Hold && (_open || !PadFieldInput.SelectInUi);
-        bool pressed = (kb != null && kb.jKey.wasPressedThisFrame) || padHold;
+        bool pressed = (kb != null && kb.qKey.wasPressedThisFrame) || padHold;
         if (pressed && (_open || !DatabaseManager.isOpenUI))
         {
             Toggle();
@@ -462,7 +462,7 @@ public class NpcQuestWindow : MonoBehaviour
 
     private static string HintText(bool activeTab)
     {
-        return activeTab ? "위/아래 선택    좌/우 탭    Z 추적 지정(최대 3) / 구역 접기    J / BACK 닫기" : "위/아래 선택    좌/우 탭(받을 수 있는·진행 중·완료)    Z 구역 접기    J / BACK 닫기";
+        return activeTab ? "위/아래 선택    좌/우 탭    Z 추적 지정(최대 3) / 구역 접기    Q / BACK 닫기" : "위/아래 선택    좌/우 탭(받을 수 있는·진행 중·완료)    Z 구역 접기    Q / BACK 닫기";
     }
 
     private static int CountDone()

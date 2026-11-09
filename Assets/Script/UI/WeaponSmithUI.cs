@@ -45,13 +45,9 @@ public class WeaponSmithUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isShopClose == true && upAction.triggered && DatabaseManager.isOpenUI == false && !NpcQuestGiver.TryTalk(gameObject))
+        if (isShopClose == true && upAction.triggered && DatabaseManager.isOpenUI == false && !NpcMenu.IsOpen)
         {
-            craftWeapon.WeaponOpen();
-        }
-        else if (isShopClose == true && downAction.triggered && DatabaseManager.isOpenUI == false)
-        {
-            EnhanceWindow.Open();
+            NpcInteraction.Run(gameObject, null, craftWeapon.WeaponOpen, EnhanceWindow.Open, null);
         }
     }
 }

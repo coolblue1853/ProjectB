@@ -100,6 +100,7 @@ public class InputBindingsTests
         Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Jump", false, "<Keyboard>/leftArrow", out _));
         Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Jump", false, "<Keyboard>/escape", out _));
         Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Jump", false, "<Keyboard>/i", out _)); // 인벤 열기
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Jump", false, "<Keyboard>/q", out _)); // 퀘스트 창(REWORK-8)
         Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Jump", true, "<Gamepad>/start", out _)); // 일시정지
         Assert.AreEqual("<Keyboard>/c", Path("Jump", false));
     }

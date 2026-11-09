@@ -3,8 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// 퀘스트를 주는 NPC (머리 위 표시 + 상호작용). 노란 ! = 수락 가능, 노란 ? = 완료 가능, 회색 ! = 레벨 부족, 회색 ? = 진행 중 (메이플식).
-/// 상호작용은 NPC 기존 ↑ 처리(TalkNpc / 상점 UI)가 TryTalk 를 먼저 불러서 퀘스트 대화를 우선한다.
-/// 수락 대화를 한 번 본 뒤 거절하면 그 NPC 곁에 머무는 동안은 다시 묻지 않는다(상점 NPC 가 막히지 않게).
+/// 상호작용은 NPC ↑ → 선택지 창(NpcInteraction)에서 "퀘스트 이야기" 를 골랐을 때만 TalkQuest 가 대화를 연다(REWORK-8).
 /// </summary>
 public class NpcQuestGiver : MonoBehaviour
 {
@@ -16,8 +15,6 @@ public class NpcQuestGiver : MonoBehaviour
     [SerializeField] private string _npcId;
 
     private TextMeshPro _mark;
-    // 같은 퀘스트·같은 상태로는 한 번만 묻는다. 다른 퀘스트(보고 직후 다음 수락 등)로 바뀌면 NPC 곁을 떠나지 않아도 다시 묻는다
-    private string _offerKey = "";
     private float _nextRefresh;
 
     public string NpcId => _npcId;
@@ -104,18 +101,22 @@ public class NpcQuestGiver : MonoBehaviour
         }
     }
 
-    /// <summary>NPC 오브젝트에 퀘스트 대화를 시작한다. 시작했으면 true (호출한 쪽은 기존 상호작용을 건너뛴다)</summary>
-    public static bool TryTalk(GameObject npc)
+    /// <summary>선택지에 "퀘스트 이야기" 를 넣을지: 수락 가능·진행 중·완료 가능일 때</summary>
+    public bool HasQuest
     {
-        NpcQuestGiver g = npc != null ? npc.GetComponent<NpcQuestGiver>() : null;
-        return g != null && g.Interact();
+        get
+        {
+            NpcQuestStatus s = NpcQuestLog.BestFor(_npcId, out _);
+            return s == NpcQuestStatus.Available || s == NpcQuestStatus.Active || s == NpcQuestStatus.Ready;
+        }
     }
 
-    private bool Interact()
+    /// <summary>NPC 선택지에서 "퀘스트 이야기" 를 골랐을 때 퀘스트 대화를 시작한다 (REWORK-8: 더는 말만 걸어서 자동 시작하지 않는다)</summary>
+    public bool TalkQuest()
     {
         if (PixelCrushers.DialogueSystem.DialogueManager.isConversationActive)
         {
-            return true; // 대화 중에 ↑ 로 선택지를 고르는 입력이 상점을 열지 않게 먹는다
+            return true;
         }
         NpcQuestLog.OnTalk(_npcId);
         NpcQuestStatus s = NpcQuestLog.BestFor(_npcId, out NpcQuestDef q);
@@ -127,39 +128,24 @@ public class NpcQuestGiver : MonoBehaviour
                 if (_npcId == "merchant")
                 {
                     PickupLog.Warn(NpcQuestRewards.ShopInventoryFullHint);
-                    return false; // 같은 ↑ 입력으로 상점을 열어 판매할 수 있게 한다.
+                    return true;
                 }
                 return DialogueBoot.Talk(StoryDialogues.InventoryFullConversation(q.Id), transform);
             }
             conv = StoryDialogues.ReportConversation(q.Id);
         }
-        else if (s == NpcQuestStatus.Available && _offerKey != OfferKeyOf(q, s))
+        else if (s == NpcQuestStatus.Available)
         {
             conv = StoryDialogues.OfferConversation(q.Id);
-            _offerKey = OfferKeyOf(q, s);
         }
-        else if (s == NpcQuestStatus.Active && _offerKey != OfferKeyOf(q, s))
+        else if (s == NpcQuestStatus.Active)
         {
             conv = StoryDialogues.ProgressConversation(q.Id);
-            _offerKey = OfferKeyOf(q, s);
         }
         else
         {
-            return _npcId == "smith" && WeaponTrial.TryTalk(transform); // R4 무기 시연대
+            return false;
         }
         return DialogueBoot.Talk(conv, transform);
-    }
-
-    private static string OfferKeyOf(NpcQuestDef q, NpcQuestStatus s)
-    {
-        return q.Id + ":" + s;
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            _offerKey = "";
-        }
     }
 }

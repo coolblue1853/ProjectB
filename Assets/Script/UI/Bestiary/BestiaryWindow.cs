@@ -203,7 +203,7 @@ public class BestiaryWindow : MonoBehaviour
     void Redraw()
     {
         UiTheme theme = UiTheme.Get();
-        hint.text = Loc.T(zoneTab ? "TAB bestiary    B / BACK close" : "ARROWS select    TAB zones    B / BACK close");
+        hint.text = Loc.T(zoneTab ? "TAB bestiary    B / ESC close" : "ARROWS select    TAB zones    B / ESC close");
         zoneBody.gameObject.SetActive(zoneTab);
         bigIcon.gameObject.SetActive(!zoneTab);
         title.gameObject.SetActive(!zoneTab);
@@ -294,7 +294,7 @@ public class BestiaryWindow : MonoBehaviour
         head.color = theme.unique;
         hint = NewText("Hint", pr, theme, 22f);
         Place(hint.rectTransform, new Vector2(30f, -600f), new Vector2(1100f, 30f));
-        hint.text = Loc.T("ARROWS select    B / BACK close");
+        hint.text = Loc.T("ARROWS select    B / ESC close");
         hint.color = new Color(1f, 1f, 1f, 0.55f);
 
         for (int i = 0; i < 16; i++)

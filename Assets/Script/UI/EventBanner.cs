@@ -116,7 +116,7 @@ public sealed class EventBanner : MonoBehaviour
 
     private void OnAccepted(NpcQuestDef d)
     {
-        ShowQuest("퀘스트 수락", new Color(1f, 0.85f, 0.2f), d.Title, "J 로 퀘스트 확인");
+        ShowQuest("퀘스트 수락", new Color(1f, 0.85f, 0.2f), d.Title, "Q 로 퀘스트 확인");
     }
 
     private void OnCompleted(NpcQuestDef d)

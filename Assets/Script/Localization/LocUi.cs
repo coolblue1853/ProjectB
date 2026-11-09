@@ -95,9 +95,9 @@ public static class LocUi
         ("Region", "지역"), ("Defeated", "처치"), ("HP", "체력"), ("DEF", "방어"),
         ("Stats: defeat {0} more", "능력치: {0}마리 더 처치"),
         ("Drops", "드롭"), ("Drops: defeat {0} more", "드롭: {0}마리 더 처치"),
-        ("ARROWS select    B / BACK close", "방향키 선택    B / 뒤로 닫기"),
-        ("ARROWS select    TAB zones    B / BACK close", "방향키 선택    TAB 구역    B / 뒤로 닫기"),
-        ("TAB bestiary    B / BACK close", "TAB 도감    B / 뒤로 닫기"),
+        ("ARROWS select    B / ESC close", "방향키 선택    B / ESC 닫기"),
+        ("ARROWS select    TAB zones    B / ESC close", "방향키 선택    TAB 구역    B / ESC 닫기"),
+        ("TAB bestiary    B / ESC close", "TAB 도감    B / ESC 닫기"),
         ("Forest Road", "숲길"), ("Forest Side Road", "숲 샛길"), ("Magic Cliffs", "마법 절벽"), ("Cliff Altar", "절벽 제단"),
         ("night", "밤"), ("boss", "보스"),
 
@@ -108,7 +108,7 @@ public static class LocUi
         ("No ascent penalty", "상승 페널티 없음"),
         ("SELECT  travel here", "선택  이곳으로 이동"),
         ("Undiscovered.", "미발견."), ("Reach it on foot to unlock the waypoint.", "직접 걸어서 도착하면 웨이포인트가 열린다."),
-        ("UP/DOWN select    SELECT travel    HOME village    M / BACK close", "위/아래 선택    선택 이동    HOME 마을    M / 뒤로 닫기"),
+        ("UP/DOWN select    SELECT travel    HOME village    M / ESC close", "위/아래 선택    선택 이동    HOME 마을    M / ESC 닫기"),
         ("Boss reward", "보스 보상"), ("Unique!", "고유템!"),
         ("Connections", "연결 구역"), ("Sealed", "봉인"), ("Upper road", "윗길로"),
 

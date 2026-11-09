@@ -77,7 +77,7 @@ public class TalkNpc : MonoBehaviour
 
     void Update()
     {
-        bool canTalk = playerNear && !DatabaseManager.isOpenUI && !PixelCrushers.DialogueSystem.DialogueManager.isConversationActive;
+        bool canTalk = playerNear && !DatabaseManager.isOpenUI && !NpcMenu.IsOpen && !PixelCrushers.DialogueSystem.DialogueManager.isConversationActive;
         bool showPrompt = canTalk && !HasServiceLabel;
         if (prompt.gameObject.activeSelf != showPrompt)
         {
@@ -86,16 +86,17 @@ public class TalkNpc : MonoBehaviour
         if (canTalk && action.UI.Up.triggered)
         {
             FacePlayer();
-            if (NpcQuestGiver.TryTalk(gameObject))
-            {
-                return; // NPC 퀘스트 수락·보고 대화가 우선
-            }
-            if (_portrait != null && !string.IsNullOrEmpty(_actorName))
-            {
-                StoryDialogues.SetPortrait(_actorName, _portrait);
-            }
-            DialogueBoot.Talk(_conversation, transform);
+            NpcInteraction.Run(gameObject, null, null, null, TalkConversation);
         }
+    }
+
+    void TalkConversation()
+    {
+        if (_portrait != null && !string.IsNullOrEmpty(_actorName))
+        {
+            StoryDialogues.SetPortrait(_actorName, _portrait);
+        }
+        DialogueBoot.Talk(_conversation, transform);
     }
 
     void FacePlayer()
