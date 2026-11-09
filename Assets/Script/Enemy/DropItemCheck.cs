@@ -128,7 +128,14 @@ public class DropItemCheck : PoolAble
         Vector2 target = PlayerController.instance.transform.position;
         bool wasMagnet = _magnet;
         _magnet = PickupRules.UpdateMagnet(_magnet, (target - pos).sqrMagnitude);
-        if (_magnet && !wasMagnet && !IsGold)
+        if (_magnet && wasMagnet && !IsGold && Time.time >= _roomCheckAt && !InventoryManager.instance.HasRoomFor(name))
+        {
+            // U5: 끌려오는 도중에 가방이 찼다(앞서 온 아이템이 마지막 칸을 채움). 계속 끌면 줍지 못한 채 캐릭터에 붙어 다닌다 → 끌기를 끊고 튕겨 내보낸다
+            _roomCheckAt = Time.time + RoomCheckInterval;
+            _magnet = false;
+            PopAway(target);
+        }
+        else if (_magnet && !wasMagnet && !IsGold)
         {
             // 인벤이 가득 차서 못 주울 아이템은 끌어오지 않는다(발밑에 쌓여 경고만 반복). 검사는 0.5초에 한 번
             // 타이머는 실제로 HasRoomFor 를 불렀을 때만 민다(범위 안에 머무는 동안에도 0.5초마다 재검사)
@@ -157,9 +164,21 @@ public class DropItemCheck : PoolAble
         Vector2 next = Vector2.MoveTowards(pos, target, _magnetSpeed * Time.deltaTime);
         transform.position = new Vector3(next.x, next.y, transform.position.z);
     }
+    /// <summary>줍지 못하는 드롭을 플레이어 반대쪽 위로 살짝 튕겨 발밑에서 떨어뜨린다(U5)</summary>
+    private void PopAway(Vector2 from)
+    {
+        float dir = transform.position.x >= from.x ? 1f : -1f;
+        rigidbody.gravityScale = 1;
+        isGround = false;
+        rigidbody.linearVelocity = new Vector2(dir * 2.5f, 4f);
+    }
+
+    private float _pickFailUntil;
+
     private void OnDisable()
     {
         goldAmount = 0;
+        _pickFailUntil = 0f;
         CancelInvoke(); // 반환된 뒤 120초 소멸 타이머가 재사용된 아이템을 지우지 않도록
     }
     void DestroyItembyTime()
@@ -236,6 +255,10 @@ public class DropItemCheck : PoolAble
             {
                 return; // 줍기 필터로 거른 아이템(설정 PICKUP)
             }
+            if (Time.time < _pickFailUntil)
+            {
+                return; // 가득 찬 가방에 매 프레임 넣기를 시도(전체 스캔)하지 않는다 — 0.5초에 한 번만
+            }
             string pickedName = name;
             string rarity = itemData != null ? itemData.rarity : "C";
             if (InventoryManager.instance.CreatItem(pickedName, false, null, AddSource.Pickup))
@@ -249,6 +272,8 @@ public class DropItemCheck : PoolAble
             else
             {
                 PickupLog.ReportFull(); // 2초 스로틀 (이전엔 조용히 무시)
+                _pickFailUntil = Time.time + RoomCheckInterval;
+                PopAway(collision.transform.position); // 발밑에 겹쳐 붙어 있지 않게 비켜 놓는다(U5)
             }
         }
     }
