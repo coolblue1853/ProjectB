@@ -26,6 +26,7 @@ import common as C
 import m1_underdiff as M1
 
 T_DIFF = 30      # ±1px 이웃 중 가장 비슷한 픽셀과 RGB 합 차이가 이보다 크면 '새로 그린 픽셀'
+LEGS_FULL = True
 MIN_PIECE = 1    # 이보다 작은 새 픽셀 조각은 버림(모의 검증에서 1이 재구성 오차 최소: 3→19px, 1→14px)
 SLOT_ID = {"cap": 1, "top": 2, "glove": 3, "legs": 4, "shoes": 5, "back": 7}
 
@@ -84,6 +85,19 @@ def extract(under, stages, frame):
     rep = {}
     for slots, img in stages:
         new = new_pixels(img, prev)
+        # 11-09 보정: 머리 구역의 전이 재그림 잡음 제외(상의 단계는 목 아래부터, 하의 단계는 허리 아래부터)
+        top_y = int(np.nonzero(g["ua"])[0].min())
+        rows = np.arange(new.shape[0])[:, None]
+        if "legs" in slots:
+            wy = int(np.nonzero(g["waist"].any(axis=1))[0].min()) if g["waist"].any() else top_y + 30
+            new &= rows >= wy - 1
+            # 하의 단계는 허리 아래 비(非)살색 그림 전부를 하의로(어두운 바지가 속옷 반바지와 비슷해 차이로는 놓침)
+            if LEGS_FULL:
+                hv = M1.hsv_img(img)
+                skin_ = (hv[..., 0] >= 0.0) & (hv[..., 0] <= 0.12) & (hv[..., 1] > 0.25) & (hv[..., 2] > 0.6)
+                new |= C.alpha(img) & (rows >= wy - 1) & ~skin_
+        elif "top" in slots:
+            new &= rows >= top_y + 16
         erase = C.alpha(prev) & ~C.alpha(img)  # 이 단계가 앞 그림을 지운 곳(모자가 머리카락을 누르는 등)
         # drift: 이 단계 부위가 올 수 없는 곳(이전 단계 레이어 영역 안쪽 깊은 곳)에서 바뀐 픽셀
         deep_prev = np.zeros_like(new)

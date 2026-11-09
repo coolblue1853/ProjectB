@@ -14,7 +14,7 @@ COAT = os.path.join(ROOT, "Assets/Art/Player/PixelRig/EquipDS/base_coat")
 UNDER = os.path.join(ROOT, "Assets/Art/Player/PixelRig/EquipDS/under")
 
 
-def head_mask(o, lab):
+def head_mask(o, lab, u=None):
     h, w = lab.shape
     al = o[:, :, 3] > 128
     ys, xs = np.nonzero(al)
@@ -33,6 +33,14 @@ def head_mask(o, lab):
                 continue
             if True:
                 m[y, x] = True
+    if u is not None:  # 눈 아래에서 원본이 속옷 생성본과 ±1px 로도 다른 픽셀 = 코트 목도리 → 가져오지 않는다
+        import importlib.util
+        sp = importlib.util.spec_from_file_location("m1", os.path.join(ROOT, "Docs/Research/LayerExtraction_Result/result/code/m1_underdiff.py"))
+        sys.path.insert(0, os.path.join(ROOT, "Docs/Research/LayerExtraction_Result/result/code"))
+        m1 = importlib.util.module_from_spec(sp); sp.loader.exec_module(m1)
+        d = m1.near_diff(o, u, 1)
+        rows = np.arange(h)[:, None] >= int(round(gy)) + 2
+        m &= ~((d > 40) & rows)
     return m
 
 
@@ -43,7 +51,7 @@ def main():
         o = e.load(os.path.join(COAT, f + ".png"))
         u = e.load(s)
         lab = np.array(Image.open(os.path.join(e.REG, f + "_region.png")))
-        hm = head_mask(o, lab)
+        hm = head_mask(o, lab, u)
         out = u.copy()
         out[hm] = o[hm]
         Image.fromarray(out).save(os.path.join(UNDER, f + ".png"))

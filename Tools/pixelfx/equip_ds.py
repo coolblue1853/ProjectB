@@ -102,6 +102,32 @@ def export(set_id):
             layer = np.zeros_like(arm)
             m = (emap == slot) & (arm[:, :, 3] > 128)
             layer[m] = arm[m]
+            if set_id == "base_coat" and slot == 2:  # 목도리: 머리 구역이지만 속옷 몸과 다른 원본 픽셀 = 코트 소속
+                ub = load(os.path.join(UNDER, f + ".png"))
+                diff = np.abs(arm[:, :, :3].astype(int) - ub[:, :, :3].astype(int)).sum(2) > 60
+                sc = (np.isin(emap, (0, 1, 6))) & (arm[:, :, 3] > 128) & diff & (layer[:, :, 3] == 0)
+                sc &= np.arange(arm.shape[0])[:, None] >= 14
+                layer[sc] = arm[sc]
+            if slot == 2:  # 머리 높이에 떠 있는 작은 조각(고글 청록 점 등) 제거
+                seen = np.zeros(layer.shape[:2], bool)
+                H_, W_ = seen.shape
+                for y0, x0 in zip(*np.nonzero(layer[:, :, 3] > 0)):
+                    if seen[y0, x0]:
+                        continue
+                    comp, st = [], [(y0, x0)]
+                    seen[y0, x0] = True
+                    while st:
+                        cy, cx = st.pop()
+                        comp.append((cy, cx))
+                        for dy in (-1, 0, 1):
+                            for dx in (-1, 0, 1):
+                                ny, nx = cy + dy, cx + dx
+                                if 0 <= ny < H_ and 0 <= nx < W_ and not seen[ny, nx] and layer[ny, nx, 3] > 0:
+                                    seen[ny, nx] = True
+                                    st.append((ny, nx))
+                    if len(comp) <= 6 and max(c[0] for c in comp) < 20:
+                        for cy, cx in comp:
+                            layer[cy, cx] = 0
             fp = os.path.join(FILL, set_id, {2: "top_fill", 4: "legs_fill"}.get(slot, "-"), f + ".png")
             if os.path.exists(fp):  # 보완 층(가려진 자리)을 아래에 굽는다: 원래 레이어가 위
                 fl = np.array(Image.open(fp).convert("RGBA"))
