@@ -10,6 +10,8 @@ using UnityEngine;
 public class CelEquipSync : MonoBehaviour
 {
     private static readonly int[] ArmorBoxes = { 2, 5, 6, 8, 9 };
+    /// <summary>빈 칸에 보이는 기본 의상(코트·바지) 레이어. ArmorBoxes 와 같은 순서. 속옷 몸(기반)은 겉으로 드러나지 않는다(11-09 사용자).</summary>
+    private static readonly string[] DefaultLayers = { "base_coat_cap", "base_coat_top", "base_coat_glove", "base_coat_legs", "base_coat_shoes" };
     private const float CheckInterval = 0.5f;
     private const string MapPath = "CelEquipMap";
     private const string LayerDir = "PixelRig/Equip/";
@@ -82,11 +84,22 @@ public class CelEquipSync : MonoBehaviour
     {
         LoadMap();
         _layers.Clear();
-        foreach (string itemName in key.Split('|'))
+        string[] names = key.Split('|');
+        for (int i = 0; i < ArmorBoxes.Length && i < names.Length; i++)
         {
-            if (itemName.Length > 0 && _map.TryGetValue(itemName, out string id))
+            string itemName = names[i];
+            string id = null;
+            if (itemName.Length == 0)
+            {
+                id = DefaultLayers[i];
+            }
+            if (id != null || (itemName.Length > 0 && _map.TryGetValue(itemName, out id)))
             {
                 CelEquipLayer layer = Resources.Load<CelEquipLayer>(LayerDir + id);
+                if (layer == null || !layer.forDS)
+                {
+                    layer = Resources.Load<CelEquipLayer>(LayerDir + DefaultLayers[i]); // 새 몸용 그림이 없는 장비는 기본 의상으로 대신
+                }
                 if (layer != null)
                 {
                     _layers.Add(layer);

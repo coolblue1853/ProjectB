@@ -15,8 +15,8 @@ from collections import deque
 import numpy as np
 from PIL import Image
 
-CAP, TOP, GLOVE, LEGS, SHOES, BODY = 1, 2, 3, 4, 5, 6
-COLORS = {CAP: (80, 200, 80), TOP: (60, 120, 230), GLOVE: (240, 220, 60), LEGS: (170, 80, 220), SHOES: (230, 100, 40), BODY: (150, 150, 150)}
+CAP, TOP, GLOVE, LEGS, SHOES, BODY, BACK = 1, 2, 3, 4, 5, 6, 7  # BACK=배낭·랜턴: 기본 코트 상의에 붙은 것으로 취급(상의를 바꾸면 사라짐)
+COLORS = {BACK: (120, 80, 40), CAP: (80, 200, 80), TOP: (60, 120, 230), GLOVE: (240, 220, 60), LEGS: (170, 80, 220), SHOES: (230, 100, 40), BODY: (150, 150, 150)}
 
 
 def hsv(px):
@@ -63,7 +63,7 @@ def classify(arr, ov):
         elif ss < 0.3 and vv < 0.3 and y > head_bottom + 12 and (waist is None or y >= waist):
             lab[y, x] = LEGS
         elif 0.02 <= hh <= 0.1 and ss > 0.45:
-            lab[y, x] = BODY  # 배낭(갈색)
+            lab[y, x] = BACK  # 배낭(갈색)
     # 2차: 나머지는 가장 가까운 확정 픽셀(BFS)
     q = deque()
     dist = -np.ones((h, w), int)
@@ -79,7 +79,33 @@ def classify(arr, ov):
                 dist[ny, nx] = dist[y, x] + 1
                 q.append((ny, nx))
     lab[~alpha] = 0
-    return skirt_to_legs(lab, ov)
+    return lantern_to_back(arr, skirt_to_legs(lab, ov))
+
+
+def lantern_to_back(arr, lab):
+    """배낭에 매달린 랜턴(노란 불빛 픽셀 + 바로 옆 어두운 틀)은 배낭과 같은 부위로 본다. 장갑(손)·바지는 건드리지 않는다."""
+    h, w = lab.shape
+    near = np.zeros((h, w), bool)  # 배낭에서 5칸 이내
+    for y, x in zip(*np.nonzero(lab == BACK)):
+        near[max(0, y - 5):y + 6, max(0, x - 5):x + 6] = True
+    glow = np.zeros((h, w), bool)
+    for y, x in zip(*np.nonzero(near & ((lab == TOP) | (lab == LEGS)))):
+        hh, ss, vv = hsv(arr[y, x])
+        if 0.08 <= hh <= 0.2 and ss > 0.45 and vv > 0.55:
+            glow[y, x] = True
+    for y, x in zip(*np.nonzero(glow)):
+        for yy in range(max(0, y - 2), min(h, y + 3)):
+            for xx in range(max(0, x - 2), min(w, x + 3)):
+                if lab[yy, xx] in (TOP, LEGS) and near[yy, xx]:
+                    hh, ss, vv = hsv(arr[yy, xx])
+                    if not (0.5 <= hh <= 0.62 and ss > 0.3) and not skin_like(arr[yy, xx]) and arr[yy, xx][3] > 128:
+                        lab[yy, xx] = BACK
+    return lab
+
+
+def skin_like(p):
+    hh, ss, vv = hsv(p)
+    return 0.0 <= hh <= 0.12 and 0.33 < ss < 0.55 and vv > 0.6
 
 
 def skirt_to_legs(lab, ov):

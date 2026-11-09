@@ -37,7 +37,7 @@ def ext_map(frame, armors):
     for a in armors:
         cover |= a[:, :, 3] > 128
     out = lab.copy()
-    q = deque((y, x) for y, x in zip(*np.nonzero((lab >= 1) & (lab <= 5))))
+    q = deque((y, x) for y, x in zip(*np.nonzero(((lab >= 1) & (lab <= 5)) | (lab == 7))))
     dist = np.full((h, w), 99)
     for y, x in q:
         dist[y, x] = 0
@@ -91,6 +91,8 @@ def export(set_id):
         for f in FRAMES:
             arm = sets[set_id][f]
             emap = ext_map(f, [arm])
+            if set_id == "base_coat":
+                emap = np.where(emap == 7, 2, emap)  # 기본 코트 상의 = 배낭·랜턴 포함. 다른 세트는 배낭 없음
             base = np.array(Image.open(os.path.join(REG, f + "_region.png")))
             layer = np.zeros_like(arm)
             m = (emap == slot) & (arm[:, :, 3] > 128)

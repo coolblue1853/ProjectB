@@ -1,5 +1,5 @@
 """합격한 방향 그림의 머리를 모션 프레임 머리 자리에 덮어 붙인다(생성 0, 11-07 올려베기 M1-a).
-사용: python Tools/pixelfx/paste_head.py <머리 기준 png> <대상 png> <출력 png> [dx dy] [x0 y0 x1 y1]
+사용: python Tools/pixelfx/paste_head.py <머리 기준 png> <대상 png> <출력 png> [dx dy] [x0 y0 x1 y1]  (인자 4개=dx dy, 4개=영역, 둘 다 8개)
 기본 영역: 열 14~37, 행 4~27(오른팔 열≥38 보존), 오프셋은 머리 실루엣이 가장 겹치는 값을 자동 탐색(±4)."""
 import sys
 import numpy as np
@@ -10,7 +10,7 @@ def main(a):
     ref = Image.open(a[0]).convert("RGBA")
     dst = Image.open(a[1]).convert("RGBA")
     box = [14, 4, 37, 27]
-    if len(a) >= 8:
+    if len(a) in (7, 9):
         box = [int(v) for v in a[-4:]]
     x0, y0, x1, y1 = box
     ra, da = np.array(ref), np.array(dst)
@@ -18,7 +18,7 @@ def main(a):
     tm = np.zeros((64, 64), bool)
     tm[y0:y1 + 1, x0:x1 + 1] = tgt
     best = None
-    if len(a) >= 5 and a[3].lstrip("-").isdigit() and a[4].lstrip("-").isdigit():
+    if len(a) in (5, 9):
         best = (0, int(a[3]), int(a[4]))
     else:
         for dx in range(-4, 5):

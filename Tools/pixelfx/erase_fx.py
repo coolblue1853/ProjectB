@@ -48,7 +48,7 @@ def main(spec_path):
         for z in cfg.get("zones", []):
             for y in range(z[1], z[3] + 1):
                 for x in range(z[0], z[2] + 1):
-                    if eff(px[x, y]):
+                    if (len(z) > 4 and px[x, y][3] > 0) or eff(px[x, y]):  # 5번째 값이 있으면 영역 안 모든 픽셀을 지운다(몸 밖 영역 전용)
                         px[x, y] = (0, 0, 0, 0)
                         n += 1
         for x, y, c in cfg.get("paint", []):

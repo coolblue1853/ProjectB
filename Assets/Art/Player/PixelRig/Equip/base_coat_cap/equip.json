@@ -1,0 +1,91 @@
+{
+ "id": "base_coat_cap",
+ "slot": "head",
+ "ds": true,
+ "frames": [
+  {
+   "clip": "Idle",
+   "k": 0
+  },
+  {
+   "clip": "Idle",
+   "k": 1
+  },
+  {
+   "clip": "Idle",
+   "k": 2
+  },
+  {
+   "clip": "Idle",
+   "k": 3
+  },
+  {
+   "clip": "Idle",
+   "k": 4
+  },
+  {
+   "clip": "Idle",
+   "k": 5
+  },
+  {
+   "clip": "Idle",
+   "k": 6
+  },
+  {
+   "clip": "Idle",
+   "k": 7
+  },
+  {
+   "clip": "Stab",
+   "k": 0
+  },
+  {
+   "clip": "Stab",
+   "k": 1
+  },
+  {
+   "clip": "Stab",
+   "k": 2
+  },
+  {
+   "clip": "Stab",
+   "k": 3
+  },
+  {
+   "clip": "SwingDown",
+   "k": 0
+  },
+  {
+   "clip": "SwingDown",
+   "k": 1
+  },
+  {
+   "clip": "SwingDown",
+   "k": 2
+  },
+  {
+   "clip": "SwingDown",
+   "k": 3
+  },
+  {
+   "clip": "SwingUp",
+   "k": 0
+  },
+  {
+   "clip": "SwingUp",
+   "k": 1
+  },
+  {
+   "clip": "SwingUp",
+   "k": 2
+  },
+  {
+   "clip": "SwingUp",
+   "k": 3
+  },
+  {
+   "clip": "SwingUp",
+   "k": 4
+  }
+ ]
+}

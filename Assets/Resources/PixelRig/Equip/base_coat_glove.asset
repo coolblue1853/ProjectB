@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f6bf581b3ce4404d9c6dc58a7d85948, type: 3}
+  m_Name: base_coat_glove
+  m_EditorClassIdentifier: Assembly-CSharp::CelEquipLayer
+  id: base_coat_glove
+  forDS: 1
+  slot: 30
+  frames:
+  - clip: Idle
+    index: 0
+    layer: {fileID: 2800000, guid: f940ed333739910488de3b5dcdb9629d, type: 3}
+    erase: {fileID: 2800000, guid: 203c7b8074eefe14693fab5217302a8a, type: 3}
+  - clip: Idle
+    index: 1
+    layer: {fileID: 2800000, guid: d946d2e6892110245b33a343dddadfea, type: 3}
+    erase: {fileID: 2800000, guid: 34721616728a5614ab3196e85ad6622e, type: 3}
+  - clip: Idle
+    index: 2
+    layer: {fileID: 2800000, guid: e99dae3063ae3e44bad75e7ab0a23216, type: 3}
+    erase: {fileID: 2800000, guid: 72843ce49f40d6b40b8a0f19109b8237, type: 3}
+  - clip: Idle
+    index: 3
+    layer: {fileID: 2800000, guid: efe1973902ee93843b367fbf8eea0365, type: 3}
+    erase: {fileID: 2800000, guid: 6a99a838bb973a747915f05a41fc00fa, type: 3}
+  - clip: Idle
+    index: 4
+    layer: {fileID: 2800000, guid: b287d721d5835a94db62f276cea641ea, type: 3}
+    erase: {fileID: 2800000, guid: 80ef560bf55f60848adeaa4899a1f68e, type: 3}
+  - clip: Idle
+    index: 5
+    layer: {fileID: 2800000, guid: 5351c3454cf84fb4a8564db447b503e3, type: 3}
+    erase: {fileID: 2800000, guid: b105a4967d213084790917de43310401, type: 3}
+  - clip: Idle
+    index: 6
+    layer: {fileID: 2800000, guid: e2733259b86909c4790ef57c9f81956c, type: 3}
+    erase: {fileID: 2800000, guid: 3f52bbe1b316f5e439d49f0245178645, type: 3}
+  - clip: Idle
+    index: 7
+    layer: {fileID: 2800000, guid: 3edb232bf869d8b4594b4b7c5fe7c902, type: 3}
+    erase: {fileID: 2800000, guid: 7634b7691e4100c4cb473abe5d83762e, type: 3}
+  - clip: Stab
+    index: 0
+    layer: {fileID: 2800000, guid: 48a7a5ba7bdab664483bf0c5a4beee46, type: 3}
+    erase: {fileID: 2800000, guid: c9fb88a8e1a9a5440ba53d88bb9c8924, type: 3}
+  - clip: Stab
+    index: 1
+    layer: {fileID: 2800000, guid: 52033ac4ea314e143b5b8b9b09363314, type: 3}
+    erase: {fileID: 2800000, guid: ae4d6cf689fc6424a838d67d11b293d0, type: 3}
+  - clip: Stab
+    index: 2
+    layer: {fileID: 2800000, guid: b48ea8f2fc707834a955d172a00ca215, type: 3}
+    erase: {fileID: 2800000, guid: 794af876ecc7a2a4bb1edbd40831a3a3, type: 3}
+  - clip: Stab
+    index: 3
+    layer: {fileID: 2800000, guid: 442c4715f6704ee4f9ca7f4c1b46386b, type: 3}
+    erase: {fileID: 2800000, guid: 0df88c4b8c8775e4d9cd0b299a603937, type: 3}
+  - clip: SwingDown
+    index: 0
+    layer: {fileID: 2800000, guid: 6e3f0684b023da5419d0908415fbf4c1, type: 3}
+    erase: {fileID: 2800000, guid: e5739951ba29b444b9e6d62c2f577c31, type: 3}
+  - clip: SwingDown
+    index: 1
+    layer: {fileID: 2800000, guid: dc0c21eb04f89cc4ead56779cc0dd864, type: 3}
+    erase: {fileID: 2800000, guid: 4590b3faa97f4f140a0c631bed9f087d, type: 3}
+  - clip: SwingDown
+    index: 2
+    layer: {fileID: 2800000, guid: 0d418cae94d044546b63edcd3308fd81, type: 3}
+    erase: {fileID: 2800000, guid: fc0cfe80a8c00cc499af6c48d7f6ff39, type: 3}
+  - clip: SwingDown
+    index: 3
+    layer: {fileID: 2800000, guid: dad53c01b5d2b514a8d68e3bcbef6741, type: 3}
+    erase: {fileID: 2800000, guid: 2a52f2c920836f34bae1fc8a3150ef1c, type: 3}
+  - clip: SwingUp
+    index: 0
+    layer: {fileID: 2800000, guid: 45fd2309c90fb3942aafa2ab91c8fdf3, type: 3}
+    erase: {fileID: 2800000, guid: 04ac4f4b0e6505c4890d6cab2a5edaa1, type: 3}
+  - clip: SwingUp
+    index: 1
+    layer: {fileID: 2800000, guid: f99bc044c0bb8924bb2b88ba12334e59, type: 3}
+    erase: {fileID: 2800000, guid: 5b07e04546d902647ae4ccccb74de5db, type: 3}
+  - clip: SwingUp
+    index: 2
+    layer: {fileID: 2800000, guid: 8fdc6e1b664172f4eb74e5b509d14124, type: 3}
+    erase: {fileID: 2800000, guid: e879897621c46324ebf5a21ea33eb0b9, type: 3}
+  - clip: SwingUp
+    index: 3
+    layer: {fileID: 2800000, guid: 6938da72c0133164d91627a1d596ab14, type: 3}
+    erase: {fileID: 2800000, guid: 795ee0377d0e4994f90e9dab5c79164d, type: 3}
+  - clip: SwingUp
+    index: 4
+    layer: {fileID: 2800000, guid: eef1ea5dc96dd8846ad9472a54da087b, type: 3}
+    erase: {fileID: 2800000, guid: 38044275529e40743830c1adeb5b262c, type: 3}
