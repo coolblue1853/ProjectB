@@ -39,6 +39,7 @@ public class SmearAura : MonoBehaviour
     const float WindHi = 1f, WindSlide = 18f, WindLife = 0.10f;
     const int WindPoints = 14;
     const int SparkCount = 14;
+    const float AuraLife = 0.35f; // AdditiveBudget 등록 수명(초, 속도 1 기준): 칼선 0.24 + 불꽃 0.28 에 맞춤
     const float SparkDrag = 6f, SparkGravity = 40f; // px/s²
 
     static Material glowMaterial, addMaterial;
@@ -55,6 +56,7 @@ public class SmearAura : MonoBehaviour
     Shape _shape;
     Color[] _ramp;
     float _started, _fps, _speed, _scale;
+    float _gain = 1f; // AdditiveBudget 밝기 배율(U22). 0 이면 가산 부분을 그리지 않는다
     bool _left, _active;
 
     static Shape ShapeFor(VfxId id)
@@ -157,16 +159,22 @@ public class SmearAura : MonoBehaviour
         _left = _src.flipX;
         _scale = Mathf.Abs(transform.localScale.y);
         _active = true;
-        _glow.enabled = true;
+        _gain = AdditiveBudget.Enter(AuraLife / _speed);
+        _glow.enabled = _gain > 0f;
         foreach (LineRenderer lr in _wind)
         {
-            lr.enabled = true;
+            lr.enabled = _gain > 0f;
             lr.widthMultiplier = _scale / Ppu; // 1px
         }
-        EmitSparks();
         Color tail = _ramp[3];
-        tail.a = 0.35f;
-        _cut.Play(TipPath(), _scale / Ppu, _ramp[4], tail, _speed);
+        tail.a = 0.35f * _gain;
+        Color cutHead = _ramp[4];
+        cutHead.a *= _gain;
+        if (_gain > 0f)
+        {
+            EmitSparks();
+            _cut.Play(TipPath(), _scale / Ppu, cutHead, tail, _speed);
+        }
         LateUpdate();
     }
 
@@ -223,7 +231,7 @@ public class SmearAura : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!_active || _src == null)
+        if (!_active || _src == null || _gain <= 0f)
         {
             return;
         }
@@ -244,7 +252,7 @@ public class SmearAura : MonoBehaviour
         }
         int f = Mathf.Clamp((int)(t * _fps), 0, GlowEnv.Length - 1);
         Color c = _ramp[2];
-        c.a = GlowAlpha * GlowEnv[f];
+        c.a = GlowAlpha * GlowEnv[f] * _gain;
         Texture tex = sp.texture;
         Rect r = sp.textureRect;
         var uv = new Vector4(r.xMin / tex.width, r.yMin / tex.height, r.xMax / tex.width, r.yMax / tex.height);
@@ -261,9 +269,9 @@ public class SmearAura : MonoBehaviour
     void UpdateWind(float t)
     {
         float u = t / WindLife;
-        bool on = u >= 0f && u < 1f;
+        bool on = u >= 0f && u < 1f && _gain > 0f;
         Color head = _ramp[3];
-        head.a = 0.7f * (1f - u);
+        head.a = 0.7f * (1f - u) * _gain;
         Color tail = head;
         tail.a = 0f;
         for (int n = 0; n < _wind.Length; n++)
@@ -307,7 +315,7 @@ public class SmearAura : MonoBehaviour
             new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(0.8f, 0.5f), new GradientAlphaKey(0f, 1f) });
         col.color = grad;
         _sparks.Play();
-        var ep = new ParticleSystem.EmitParams { startColor = Color.white, applyShapeToPosition = false };
+        var ep = new ParticleSystem.EmitParams { startColor = new Color(1f, 1f, 1f, _gain), applyShapeToPosition = false };
         for (int i = 0; i < SparkCount; i++)
         {
             Vector2 p, tang, radial;
