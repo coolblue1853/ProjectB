@@ -16,7 +16,8 @@ public class ItemDatabase : MonoBehaviour
         TextAsset csvData = Resources.Load<TextAsset>(filePath); // Resources 폴더에 있는 CSV 파일을 불러옵니다.
         string[] lines = Floor2Data.Merge(csvData.text, "Floor2ItemSheet").Split(new char[] { '\n' }); // CSV 파일 내용을 줄 단위로 분할합니다.
 
-        // 각 라인의 데이터를 처리합니다.
+        // effectIds 는 머리글(2번째 줄) 이름으로 찾는다 — 구 CSV(열 없음)도 안전. 현재 CSV 의 열 19 가 effectIds 라 옛 StartMastery(case 19)는 그 열이면 건너뛴다(StartMastery 열을 넣으려면 20 이후로)
+        int effectIdsCol = System.Array.IndexOf(lines.Length > 1 ? lines[1].Trim().Split(',') : new string[0], "effectIds");
         for (int i = 2; i < lines.Length; i++) // 첫 번째 줄은 타입 정의, 두 번째 줄은 열 이름이므로 2부터 시작합니다.
         {
             string[] values = lines[i].Split(','); // 각 라인의 데이터를 쉼표로 분할합니다.
@@ -84,11 +85,18 @@ public class ItemDatabase : MonoBehaviour
                     case 18: // category (Junk/Material, 빈 값 = 기존 동작)
                         item.category = values[j].Trim();
                         break;
-                    case 19: // StartMastery (무기 시작 숙련 Lv, 빈칸 = 1)
-                        int sm;
-                        item.startMastery = int.TryParse(values[j].Trim(), out sm) && sm > 1 ? sm : 1;
+                    case 19: // StartMastery (무기 시작 숙련 Lv, 빈칸 = 1). 이 열이 effectIds 면 건너뛴다
+                        if (j != effectIdsCol)
+                        {
+                            int sm;
+                            item.startMastery = int.TryParse(values[j].Trim(), out sm) && sm > 1 ? sm : 1;
+                        }
                         break;
                         // 필요한 다른 열에 대한 처리를 추가합니다.
+                }
+                if (j == effectIdsCol)
+                {
+                    item.effectIds = values[j].Trim(); // 효과 id 를 ';' 로 연결(EquipEffectDesign §2.8). 빈칸 = 효과 없음
                 }
             }
 
@@ -126,5 +134,6 @@ public class ItemData
     public string setName;
     public string category; // ItemSheet 맨 뒤 category (Junk=잡템 일괄 판매 대상, 빈 값=기존 동작)
     public int startMastery = 1; // ItemSheet 맨 뒤 선택 컬럼 StartMastery (WeaponSkillProgression 5.2)
+    public string effectIds; // ItemSheet 맨 뒤 effectIds (EquipEffects.csv id, ';' 구분, 빈 칸 = 효과 없음)
     public string weaponType; // ItemSheet 맨 뒤 컬럼 WeaponType (WeaponKind 이름, 빈 칸 = 무기 아님)
 }

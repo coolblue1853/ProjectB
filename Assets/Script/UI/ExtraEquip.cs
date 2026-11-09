@@ -23,8 +23,8 @@ public static class ExtraEquip
         for (int i = 0; i < Items.Length; i++)
         {
             ExtraEquipStats.Apply(StatSources[i], Items[i] == null ? null : Items[i].name);
-            // 효과 서비스 출처 연결(effectIds 는 P2). 지금은 항상 Detach 와 같다
-            SkillEffectService.Attach("Extra:" + i, null);
+            // 효과 서비스 출처 연결: 아이템의 effectIds(없으면 Detach)
+            SkillEffectService.AttachIds("Extra:" + i, Items[i] == null ? null : Items[i].effectIds, Items[i] == null ? null : Items[i].rarity);
         }
     }
 

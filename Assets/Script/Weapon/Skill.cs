@@ -147,7 +147,7 @@ public class Skill : MonoBehaviour
         skillCooldown.cooldownTime[num] = SkillCoolTime;
         skillCooldown.cooldownImage[num].sprite = skillImage;
         skillCooldown.backImage[num].sprite = skillImage;
-        skillCooldown.UseSkill(num, skillName);
+        skillCooldown.UseSkill(num, skillName, Kind);
     }
 
     void WallCheck( bool isRayCheck, bool isChangeDir, int num)
@@ -189,7 +189,8 @@ public class Skill : MonoBehaviour
     {
         bool isChangeDir = false;
         if (player.transform.localScale.x < 0) isChangeDir = true;
-        allObjectMaxCount = objectMaxCount + SkillEffectService.Query(skillName, WeaponKind.None).hitCountAdd; // 레거시 Dictionary 흡수·상한(+4)
+        SkillMods mods = SkillEffectService.Query(skillName, Kind);
+        allObjectMaxCount = objectMaxCount + mods.hitCountAdd; // 레거시 Dictionary 흡수·상한(+4)
         yield return new WaitForSeconds(interval[0] / StatMath.AttackSpeedMul);
         for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && (isEffectMaxAdd == false || i < allObjectMaxCount); i++)
         {
@@ -232,7 +233,7 @@ public class Skill : MonoBehaviour
                 }
                 dmOb = damageObject.GetComponent<DamageObject>();
                 dmOb.skillName = skillName;
-                dmOb.SetDamge(damgeArray);
+                SkillModApplier.Apply(dmOb, damgeArray, mods); // 장비 효과 수치(없으면 SetDamge 와 동일)
                 dmOb.isSkill = true; // 스킬 여부는 코드가 정한다(공유 프리팹 플래그 무시, W-04)
 
             }
@@ -248,7 +249,8 @@ public class Skill : MonoBehaviour
     public void RoundSpawn(GameObject damageOb, GameObject attackPivot)
     {
         // 아이템 중 해당 기술의 탄환 증가가 있으면 더한다(레거시 Dictionary 흡수, 상한 min(+6, 기본 탄 수)).
-        allBullet = bulletCount + EffectCaps.ClampProjectileAdd(SkillEffectService.Query(skillName, WeaponKind.None).projectileAdd, bulletCount);
+        SkillMods mods = SkillEffectService.Query(skillName, Kind);
+        allBullet = bulletCount + EffectCaps.ClampProjectileAdd(mods.projectileAdd, bulletCount);
         float angleStep = allBullet > 1 ? (endAngle - startAngle) / (allBullet - 1) : 0f; // 탄막 간격 계산 (1발이면 0 — W-24 NaN 방지)
         for (int i = 0; i < allBullet; i++)
         {
@@ -270,7 +272,7 @@ public class Skill : MonoBehaviour
                 if (isNullParent == true) bullet.transform.parent = null;
                 dmOb = bullet.GetComponent<DamageObject>();
                 dmOb.skillName = skillName;
-                dmOb.SetDamge(damgeArray);
+                SkillModApplier.Apply(dmOb, damgeArray, mods);
                 dmOb.isSkill = true; // 스킬 여부는 코드가 정한다(공유 프리팹 플래그 무시, W-04)
 
                 // 탄막 방향 설정
@@ -278,6 +280,12 @@ public class Skill : MonoBehaviour
             }
         }
     }
+
+    /// <summary>장착 무기 종류(효과 선택자 kind: 용). 무기 없으면 None</summary>
+    WeaponKind Kind => weapon != null ? weapon.Kind : WeaponKind.None;
+
+    /// <summary>장비 효과(StaminaPct)를 반영한 실제 스태미나 소모 (캐시 질의, 매 프레임 호출 안전)</summary>
+    int EffectiveStamina => SkillModApplier.Stamina(useStemina, SkillEffectService.StaminaPct(skillName, Kind));
 
     /// <summary>지금 이 슬롯 스킬이 막힌 이유(None = 발동 가능). 평타 후딜은 판정 뒤 절반이 지나면 스킬로 끊을 수 있다(던파식 캔슬)</summary>
     public SkillBlock BlockReason(int num)
@@ -287,7 +295,7 @@ public class Skill : MonoBehaviour
             return SkillBlock.Locked; // 무기 숙련 레벨 미달 — 쿨·스태미나 판정 이전에 막는다
         }
         bool timingOk = (weapon.isAttackWait && weapon.isSkillAttackWait) || isCancleAttack || weapon.CanSkillCancelMelee;
-        return CombatRules.GetSkillBlock(skillCooldown.isCooldown[num], PlayerHealthManager.Instance.nowStemina, useStemina, timingOk);
+        return CombatRules.GetSkillBlock(skillCooldown.isCooldown[num], PlayerHealthManager.Instance.nowStemina, EffectiveStamina, timingOk);
     }
 
     public bool CanActivate(int num)
@@ -355,7 +363,7 @@ public class Skill : MonoBehaviour
         {
             if (_activeSlot >= 0)
             {
-                skillCooldown.UseSkill(_activeSlot, skillName);
+                skillCooldown.UseSkill(_activeSlot, skillName, Kind);
             }
             CheckAttackWait(); // 홀드 스킬: 잠금 해제 + 스킬 대기 복구
             if (PlayerController.instance != null)
@@ -421,7 +429,7 @@ public class Skill : MonoBehaviour
     void SkillEffect() // 기술 에니메이션 및 데미지 오브젝트에 공격설정
     {
         PlayerController.instance.ActiveAttackAnim(false, skillAnim, attckSpeed / StatMath.AttackSpeedMul, false, !_turnDuringCast);
-        PlayerHealthManager.Instance.SteminaDown(useStemina);
+        PlayerHealthManager.Instance.SteminaDown(EffectiveStamina);
 
         float waitTime = 0;
         waitTime = skillWaitTime / StatMath.AttackSpeedMul;
@@ -467,7 +475,7 @@ public class Skill : MonoBehaviour
             if (isNullParent == true) damageObject.transform.parent = null;
             dmOb = damageObject.GetComponent<DamageObject>();
             dmOb.skillName = skillName;
-            dmOb.SetDamge(damgeArray);
+            SkillModApplier.Apply(dmOb, damgeArray, SkillEffectService.Query(skillName, Kind));
                 dmOb.isSkill = true; // 스킬 여부는 코드가 정한다(공유 프리팹 플래그 무시, W-04)
             if (skillprefab.Length > 1)
             {
@@ -514,7 +522,7 @@ public class Skill : MonoBehaviour
             SkillEffect();
             if (isHoldSkill == false)
             {
-                skillCooldown.UseSkill(skillNum, skillName);
+                skillCooldown.UseSkill(skillNum, skillName, Kind);
                 CheckAttackWait();
             }
             else

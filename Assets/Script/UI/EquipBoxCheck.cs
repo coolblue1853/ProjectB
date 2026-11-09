@@ -126,6 +126,7 @@ public class EquipBoxCheck : MonoBehaviour
            LoadPrefab(obItemCheck.itemData.name, obItemCheck.itemData.equipArea, obItemCheck.itemData.tfName);
         }
         int enhance = transform.childCount > 0 && transform.GetChild(0).TryGetComponent(out ItemCheck slotItem) && slotItem.itemData != null ? slotItem.itemData.upgrade : 0;
+        ItemData slotData = transform.childCount > 0 && transform.GetChild(0).TryGetComponent(out ItemCheck slotItem2) ? slotItem2.itemData : null; // 효과 id·등급 출처
         if (reciveEquipArea == "Weapon") // 무기는 Weapon 스크립트를 사용하므로 예외
         {
             if (weapon == null) // 이미 연결됐으면 다시 하지 않는다(두 번째 호출이 방어구 분기로 빠져 NRE 나던 문제)
@@ -135,6 +136,8 @@ public class EquipBoxCheck : MonoBehaviour
                 attackManager.equipWeapon = weapon;
                 attackManager.EquipMainWeaopon();
             }
+            // 교체 직후 옛 weapon 파괴가 지연돼 위 분기를 건너뛰어도 새 아이템 효과가 걸리도록 멱등 Attach 는 분기 밖에서
+            SkillEffectService.AttachIds(WeaponEffectKey, slotData != null ? slotData.effectIds : null, slotData != null ? slotData.rarity : null);
         }
         else
         {
@@ -143,6 +146,7 @@ public class EquipBoxCheck : MonoBehaviour
                 equipmentList[equipNum] = equipPrefab.GetComponent<Equipment>();
                 equipmentList[equipNum].enhanceLevel = enhance;
                 SetEquipment(equipmentList[equipNum]);
+                SkillEffectService.AttachIds(EquipEffectKey(equipmentList[equipNum]), slotData != null ? slotData.effectIds : null, slotData != null ? slotData.rarity : null);
             }
         }
     }
@@ -169,9 +173,12 @@ public class EquipBoxCheck : MonoBehaviour
         SaveEquipItem(item, true);
     }
 
+    const string WeaponEffectKey = "Item:Weapon";
+    static string EquipEffectKey(Equipment equip) => "Item:" + equip.GetInstanceID();
+
     public void SetEquipmentSkillCool(Equipment equip)
     {
-        SkillEffectService.Attach("Item:" + equip.GetInstanceID(), null); // effectIds(P2) 전까지 id 없음. 쿨감은 아래 레거시 Dictionary 경로
+        // 아이템 effectIds 는 ActivePrefab 이 슬롯 아이템에서 읽어 건다(AttachIds). 쿨감 레거시 Dictionary 경로는 아래 그대로
         for(int i =0; i < equip.coolDownSkill.Length; i++)
         {
             if (DatabaseManager.skillCoolDown.ContainsKey(equip.coolDownSkill[i].skillName)) // 기술이 존재하는지 확인. 존재한다면 그냥 수치 추가
@@ -186,7 +193,7 @@ public class EquipBoxCheck : MonoBehaviour
     }
     public void DownquipmentSkillCool(Equipment equip)
     {
-        SkillEffectService.Detach("Item:" + equip.GetInstanceID());
+        SkillEffectService.Detach(EquipEffectKey(equip));
         for (int i = 0; i < equip.coolDownSkill.Length; i++)
         {
             DatabaseManager.skillCoolDown[equip.coolDownSkill[i].skillName] -= equip.coolDownSkill[i].coolDownCount;
@@ -269,6 +276,7 @@ public class EquipBoxCheck : MonoBehaviour
         loadedTfName = null;
         if (reciveEquipArea == "Weapon") // 무기는 예외
         {
+            SkillEffectService.Detach(WeaponEffectKey); // 무기 해제·교체 시 효과 출처 제거(새 무기는 ActivePrefab 에서 다시 건다)
             if (isFalse == false)
             {
                 attackManager.UnEquipMainWeaopon();

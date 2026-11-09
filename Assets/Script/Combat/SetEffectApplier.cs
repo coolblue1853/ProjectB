@@ -57,16 +57,16 @@ public static class SetEffectApplier
     /// group(예: "Set:RabbitArmor_2")이 있으면 정수 스탯은 그 그룹의 모디파이어로 넣고 해제는 RemoveByGroup 한 번(PlayerStateDesign Phase 10b).
     /// HP·스킬별 수치는 아직 기존 경로(10d·10e).
     /// </summary>
-    public static void Apply(string effect, bool apply, string group = null)
+    public static void Apply(string effect, bool apply, string group = null, string effectIds = null)
     {
         GameLog.Info(GameLog.Cat.Item, (apply ? "세트 효과 적용: " : "세트 효과 해제: ") + effect);
         if (group != null)
         {
             PlayerStats.RemoveByGroup(group); // 적용이면 중복 방지, 해제면 정수 스탯 전부 해제
-            // 효과 서비스 출처 연결. effectIds 열(P2) 전까지 id 가 없어 사실상 Detach (멱등)
+            // 효과 서비스 출처 연결. effectIds 가 비면 Detach 와 같다 (멱등)
             if (apply)
             {
-                SkillEffectService.Attach(group, null);
+                SkillEffectService.AttachIds(group, effectIds);
             }
             else
             {

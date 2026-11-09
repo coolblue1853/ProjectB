@@ -51,6 +51,33 @@ public static class SkillEffectService
         Recompute();
     }
 
+    /// <summary>ItemSheet·SetItem 의 effectIds 문자열(';' 구분)로 건다. 비면 Detach. 상한 3개(§2.8) 초과분은 무시</summary>
+    public static void AttachIds(string sourceKey, string effectIds, string grade = null)
+    {
+        Attach(sourceKey, SplitIds(effectIds), grade);
+    }
+
+    /// <summary>"A;B;C" → id 목록(공백 제거, 빈 항목 제외, 최대 MaxIdsPerSource)</summary>
+    public static List<string> SplitIds(string effectIds)
+    {
+        var list = new List<string>();
+        if (string.IsNullOrWhiteSpace(effectIds))
+        {
+            return list;
+        }
+        foreach (string raw in effectIds.Split(';'))
+        {
+            string id = raw.Trim();
+            if (id.Length > 0 && list.Count < MaxIdsPerSource)
+            {
+                list.Add(id);
+            }
+        }
+        return list;
+    }
+
+    public const int MaxIdsPerSource = 3;
+
     public static void Detach(string sourceKey)
     {
         if (sourceKey != null && Sources.Remove(sourceKey))
@@ -63,16 +90,37 @@ public static class SkillEffectService
     public static void Recompute()
     {
         Active.Clear();
+        _staminaCache.Clear();
         foreach (List<ActiveEffect> l in Sources.Values)
         {
             Active.AddRange(l);
         }
     }
 
+    // 스태미나 감소율은 BlockReason 이 매 프레임 부르므로 스킬 이름별로 캐시한다(레거시 Dictionary 와 무관 → Recompute 때만 무효화)
+    static readonly Dictionary<(string, int), float> _staminaCache = new Dictionary<(string, int), float>();
+
+    /// <summary>스킬 스태미나 소모 감소 %(상한 적용). 활성 효과가 없으면 0 (할당 없음)</summary>
+    public static float StaminaPct(string skillName, WeaponKind kind)
+    {
+        if (Active.Count == 0)
+        {
+            return 0f;
+        }
+        var key = (skillName ?? "", (int)kind);
+        if (!_staminaCache.TryGetValue(key, out float v))
+        {
+            v = Query(skillName, kind).staminaPct;
+            _staminaCache[key] = v;
+        }
+        return v;
+    }
+
     public static void ClearAll()
     {
         Sources.Clear();
         Active.Clear();
+        _staminaCache.Clear();
     }
 
     public static int ActiveCount => Active.Count;

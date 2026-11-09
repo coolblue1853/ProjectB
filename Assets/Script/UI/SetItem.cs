@@ -25,7 +25,7 @@ public class SetItem : MonoBehaviour
         SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name+"_"+level));
         if(item != null)
         {
-            SetEffectApplier.Apply(item.effect, true, "Set:" + name + "_" + level);
+            SetEffectApplier.Apply(item.effect, true, "Set:" + name + "_" + level, item.effectIds);
         }
     }
     public static void CheckSetDisEffect(string name, int level)
@@ -33,7 +33,7 @@ public class SetItem : MonoBehaviour
         SetData item = DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(name + "_" + level));
         if (item != null)
         {
-            SetEffectApplier.Apply(item.effect, false, "Set:" + name + "_" + level);
+            SetEffectApplier.Apply(item.effect, false, "Set:" + name + "_" + level, item.effectIds);
         }
     }
 
@@ -79,6 +79,9 @@ public class SetItem : MonoBehaviour
                     case 1: // name
                         setitem.effect = values[j].Trim();
                         break;
+                    case 2: // effectIds (EquipEffects.csv id, ';' 구분, 빈칸 = 기존 동작)
+                        setitem.effectIds = values[j].Trim();
+                        break;
                 }
             }
 
@@ -91,6 +94,6 @@ public class SetData
 {
     public string setName;
     public string effect;
-
+    public string effectIds;
 }
 

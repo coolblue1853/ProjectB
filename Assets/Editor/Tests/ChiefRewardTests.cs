@@ -32,8 +32,8 @@ public class ChiefRewardTests
         string[] ring = ItemRow(AccessoryGimmick.LastStandRing);
         Assert.IsNotNull(medal);
         Assert.IsNotNull(ring);
-        Assert.AreEqual(19, medal.Length);
-        Assert.AreEqual(19, ring.Length);
+        Assert.AreEqual(20, medal.Length); // effectIds 열 추가(REWORK-12 P2)
+        Assert.AreEqual(20, ring.Length);
         Assert.AreEqual("Necklace", medal[10]);
         Assert.AreEqual("Ring", ring[10]);
         Assert.AreEqual("U", medal[14]);
