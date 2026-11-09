@@ -15,8 +15,8 @@ from collections import deque
 import numpy as np
 from PIL import Image
 
-CAP, TOP, GLOVE, LEGS, SHOES, BODY, BACK = 1, 2, 3, 4, 5, 6, 7  # BACK=배낭·랜턴: 기본 코트 상의에 붙은 것으로 취급(상의를 바꾸면 사라짐)
-COLORS = {BACK: (120, 80, 40), CAP: (80, 200, 80), TOP: (60, 120, 230), GLOVE: (240, 220, 60), LEGS: (170, 80, 220), SHOES: (230, 100, 40), BODY: (150, 150, 150)}
+CAP, TOP, GLOVE, LEGS, SHOES, BODY, BACK, HEM = 1, 2, 3, 4, 5, 6, 7, 8  # HEM=코트 치마 자락(허리 아래): 기본 코트에선 상의 소속, 다른 세트에선 바지 소속  # BACK=배낭·랜턴: 기본 코트 상의에 붙은 것으로 취급(상의를 바꾸면 사라짐)
+COLORS = {HEM: (130, 60, 180), BACK: (120, 80, 40), CAP: (80, 200, 80), TOP: (60, 120, 230), GLOVE: (240, 220, 60), LEGS: (170, 80, 220), SHOES: (230, 100, 40), BODY: (150, 150, 150)}
 
 
 def hsv(px):
@@ -89,14 +89,14 @@ def lantern_to_back(arr, lab):
     for y, x in zip(*np.nonzero(lab == BACK)):
         near[max(0, y - 5):y + 6, max(0, x - 5):x + 6] = True
     glow = np.zeros((h, w), bool)
-    for y, x in zip(*np.nonzero(near & ((lab == TOP) | (lab == LEGS)))):
+    for y, x in zip(*np.nonzero(near & ((lab == TOP) | (lab == LEGS) | (lab == HEM)))):
         hh, ss, vv = hsv(arr[y, x])
         if 0.08 <= hh <= 0.2 and ss > 0.45 and vv > 0.55:
             glow[y, x] = True
     for y, x in zip(*np.nonzero(glow)):
         for yy in range(max(0, y - 2), min(h, y + 3)):
             for xx in range(max(0, x - 2), min(w, x + 3)):
-                if lab[yy, xx] in (TOP, LEGS) and near[yy, xx]:
+                if lab[yy, xx] in (TOP, LEGS, HEM) and near[yy, xx]:
                     hh, ss, vv = hsv(arr[yy, xx])
                     if not (0.5 <= hh <= 0.62 and ss > 0.3) and not skin_like(arr[yy, xx]) and arr[yy, xx][3] > 128:
                         lab[yy, xx] = BACK
@@ -124,7 +124,7 @@ def skirt_to_legs(lab, ov):
                 break
     if waist is None:
         return lab
-    lab[waist:][lab[waist:] == TOP] = LEGS
+    lab[waist:][lab[waist:] == TOP] = HEM
     return lab
 
 

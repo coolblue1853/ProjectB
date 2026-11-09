@@ -37,7 +37,7 @@ def ext_map(frame, armors):
     for a in armors:
         cover |= a[:, :, 3] > 128
     out = lab.copy()
-    q = deque((y, x) for y, x in zip(*np.nonzero(((lab >= 1) & (lab <= 5)) | (lab == 7))))
+    q = deque((y, x) for y, x in zip(*np.nonzero(((lab >= 1) & (lab <= 5)) | (lab == 7) | (lab == 8))))
     dist = np.full((h, w), 99)
     for y, x in q:
         dist[y, x] = 0
@@ -92,7 +92,9 @@ def export(set_id):
             arm = sets[set_id][f]
             emap = ext_map(f, [arm])
             if set_id == "base_coat":
-                emap = np.where(emap == 7, 2, emap)  # 기본 코트 상의 = 배낭·랜턴 포함. 다른 세트는 배낭 없음
+                emap = np.where((emap == 7) | (emap == 8), 2, emap)  # 기본 코트 상의 = 배낭·랜턴·치마 자락 포함
+            else:
+                emap = np.where(emap == 8, 4, emap)  # 다른 세트의 치마 자락 자리는 바지 소속(배낭 7 은 버림)
             base = np.array(Image.open(os.path.join(REG, f + "_region.png")))
             layer = np.zeros_like(arm)
             m = (emap == slot) & (arm[:, :, 3] > 128)
@@ -118,6 +120,10 @@ def compose(frame, wear, sets):
         if sid == BASE or sid not in sets:
             continue
         m = emap == slot
+        if "coat" in sid:
+            m = m | ((emap == 7) | (emap == 8)) & (slot == 2)
+        elif slot == 4:
+            m = m | (emap == 8)
         out[m] = sets[sid][frame][m]
     # 장비가 바뀐 부위 밖에서 기본 몸이 지도 밖으로 삐져나온 곳은 없다(지도는 기본 몸을 전부 덮음)
     return out, emap
