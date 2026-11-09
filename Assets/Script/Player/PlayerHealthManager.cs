@@ -309,8 +309,7 @@ public class PlayerHealthManager : MonoBehaviour
         if(isAlphaChange == false && alphaSequence.IsActive() == true)
         {
 
-            alphaSequence.Kill();
-            Rig.SetMeshAlphaAll(1f);
+            StopInvincibleBlink();
         }
     }
     PlayerController playerController;
@@ -318,8 +317,27 @@ public class PlayerHealthManager : MonoBehaviour
     private float _stiffEndAt;
     Sequence alphaSequence;
     const float InvincibleBlinkAlpha = 0.45f;
+    /// <summary>무적 점멸을 멈추고 알파를 1 로 되돌린다. 점멸이 반투명 구간일 때 Kill 만 하면 0.45 로 굳던 문제(U4)</summary>
+    private void StopInvincibleBlink()
+    {
+        alphaSequence.Kill();
+        if (!isDead && Rig != null)
+        {
+            Rig.SetMeshAlphaAll(1f);
+        }
+    }
+
+    private void OnDisable()
+    {
+        noDamgeSycle.Kill();
+        isNoDamge = false;
+        isAlphaChange = false;
+        StopInvincibleBlink();
+    }
+
     private void RepeatAnimation()
     {
+        alphaSequence.Kill(); // 이전 점멸이 남아 겹치지 않게(재피격 경로)
         alphaSequence = DOTween.Sequence()
         // 애니메이션 함수 호출 및 반복 설정
         // 불투명 먼저: 맞는 순간의 흰 번쩍임(PixelRig 0.07초)이 반투명으로 묻히지 않게. 0.85 는 거의 안 보였다 → 0.45(10-26)
@@ -327,7 +345,8 @@ public class PlayerHealthManager : MonoBehaviour
         .AppendInterval(0.1f)
         .AppendCallback(() => Rig.SetMeshAlphaAll(InvincibleBlinkAlpha))
         .AppendInterval(0.1f)
-        .OnComplete(() => RepeatAnimation());
+        .OnComplete(() => RepeatAnimation())
+        .SetLink(gameObject);
     }
     bool isAlphaChange = false;
     /// <summary>지금 피해를 받을 수 있는가: 피격 무적·대시/스킬 무적이 아니고 살아 있다</summary>
@@ -370,8 +389,9 @@ public class PlayerHealthManager : MonoBehaviour
             .AppendInterval(invincibleTime > 0f ? invincibleTime : noDamgeTime)
             .AppendCallback(() => Rig.SetControlParamInt("Eye Param", 0))
             .AppendCallback(() => isNoDamge = false)
-            .AppendCallback(() => alphaSequence.Kill())
-            .AppendCallback(() => isAlphaChange = false);
+            .AppendCallback(() => StopInvincibleBlink())
+            .AppendCallback(() => isAlphaChange = false)
+            .SetLink(gameObject);
 
             HitFeedback.OnPlayerHit();
             if (lastStand)
@@ -385,6 +405,10 @@ public class PlayerHealthManager : MonoBehaviour
             PlayerSleep.OnHit(); // 수면 중이면 깨운다 (F2-SLEEP)
             HpDown(dmgAfDef);
             rb.linearVelocity = Vector2.zero;
+            if (playerController != null && playerController.isUpLadder)
+            {
+                stiffTime = 0f; // U16: 밧줄 위에서 맞아도 피해만 받는다(넉백·경직으로 밧줄에서 떨어지지 않게)
+            }
             if (DatabaseManager.isSuperArmor == false && stiffTime > 0)
             {
        
