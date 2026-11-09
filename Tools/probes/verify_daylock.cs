@@ -1,0 +1,17 @@
+var pm = UnityEngine.Object.FindFirstObjectByType<PauseMenu>();
+var t = typeof(PauseMenu);
+var bf = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public;
+t.GetMethod("Open", bf).Invoke(pm, null);
+t.GetField("settingsMode", bf).SetValue(pm, true);
+t.GetField("cursor", bf).SetValue(pm, 7);
+var sb = new System.Text.StringBuilder();
+sb.Append("before dayLock=" + GameSettings.DayLock + " tc=" + TimeChange.instance.LockDaytime + ";");
+t.GetMethod("Activate", bf).Invoke(pm, null);
+sb.Append(" after1 dayLock=" + GameSettings.DayLock + " tc=" + TimeChange.instance.LockDaytime + " es3=" + ES3.Load<bool>("settings.dayLock", SaveSlots.SharedFile) + ";");
+var rows = (System.Collections.IList)t.GetField("rows", bf).GetValue(pm);
+t.GetMethod("Adjust", bf).Invoke(pm, new object[] { -1 });
+sb.Append(" after2 dayLock=" + GameSettings.DayLock + " tc=" + TimeChange.instance.LockDaytime + ";");
+t.GetMethod("Adjust", bf).Invoke(pm, new object[] { 1 });
+var txt = pm.GetComponentsInChildren<TMPro.TextMeshProUGUI>(true);
+foreach (var x in txt) if (x.text.Contains("낮")) sb.Append(" ROW[" + x.text + "]");
+return sb.ToString();

@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
     static PauseMenu instance;
 
     readonly string[] items = { "RESUME", "TOWER MAP", "BESTIARY", "SETTINGS", "CONTROLS", "RETURN TO VILLAGE", "QUIT GAME" };
-    readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "LANGUAGE", "PICKUP", "HINTS", "DPAD MOVE", "KEY BINDINGS", "BACK" };
+    readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "LANGUAGE", "PICKUP", "HINTS", "DPAD MOVE", "DAY/NIGHT", "KEY BINDINGS", "BACK" };
     bool settingsMode;
     readonly List<(Image bg, TextMeshProUGUI text)> rows = new List<(Image, TextMeshProUGUI)>();
     KeyAction action;
@@ -79,6 +79,10 @@ public class PauseMenu : MonoBehaviour
             return;
         }
         int count = settingsMode ? settingItems.Length : items.Length;
+        if (HandleMouse(count))
+        {
+            return;
+        }
         if (settingsMode && (left.triggered || right.triggered))
         {
             Adjust(right.triggered ? 1 : -1);
@@ -100,6 +104,44 @@ public class PauseMenu : MonoBehaviour
         {
             Activate();
         }
+    }
+
+    /// <summary>마우스: 줄 위로 올리면 커서 이동, 좌클릭 = 선택/값 증가, 설정에서 우클릭 = 값 감소(키보드·패드와 같은 동작)</summary>
+    bool HandleMouse(int count)
+    {
+        Mouse mouse = Mouse.current;
+        if (mouse == null)
+        {
+            return false;
+        }
+        Vector2 pos = mouse.position.ReadValue();
+        bool click = mouse.leftButton.wasPressedThisFrame;
+        bool rightClick = settingsMode && mouse.rightButton.wasPressedThisFrame;
+        for (int i = 0; i < count && i < rows.Count; i++)
+        {
+            if (!RectTransformUtility.RectangleContainsScreenPoint(rows[i].bg.rectTransform, pos, null))
+            {
+                continue;
+            }
+            if (cursor != i && (mouse.delta.ReadValue() != Vector2.zero || click || rightClick))
+            {
+                cursor = i;
+                Sfx.Play(SfxId.UiMove, 0.6f);
+                Redraw();
+            }
+            if (click)
+            {
+                Activate();
+                return true;
+            }
+            if (rightClick)
+            {
+                Adjust(-1);
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
     public static void OpenNow()
@@ -152,6 +194,7 @@ public class PauseMenu : MonoBehaviour
             case 4: GameSettings.SetPickup(PickupRules.Next(GameSettings.Pickup)); break; // 줍기 필터 (BasicFeatures 4절)
             case 5: GameSettings.SetHints(!GameSettings.Hints); break; // 첫 경험 힌트
             case 6: GameSettings.SetDpadMove(!GameSettings.DpadMove); break; // 십자 이동(IN-1, 켜면 퀵슬롯 2·3 패드 비활성)
+            case 7: GameSettings.SetDayLock(!GameSettings.DayLock); break; // 낮/밤 순환 ↔ 낮 고정 (SET-TIME)
         }
         Sfx.Play(SfxId.UiMove, 0.6f);
         Redraw();
@@ -226,7 +269,7 @@ public class PauseMenu : MonoBehaviour
             {
                 value = i == 0 ? "  " + Mathf.RoundToInt(GameSettings.Volume * 100f) + "%" : i == 1 ? "  " + Mathf.RoundToInt(GameSettings.Shake * 100f) + "%"
                     : i == 2 ? "  " + Loc.T(GameSettings.Flash ? "ON" : "OFF") : i == 3 ? (Loc.IsKorean ? "  한국어" : "  ENGLISH")
-                    : i == 4 ? "  " + Loc.T(GameSettings.Pickup == PickupFilter.All ? "ALL" : "SKIP COMMON MAT.") : i == 5 ? "  " + Loc.T(GameSettings.Hints ? "ON" : "OFF") : i == 6 ? "  " + Loc.T(GameSettings.DpadMove ? "ON (QUICK 2/3 OFF)" : "OFF") : "";
+                    : i == 4 ? "  " + Loc.T(GameSettings.Pickup == PickupFilter.All ? "ALL" : "SKIP COMMON MAT.") : i == 5 ? "  " + Loc.T(GameSettings.Hints ? "ON" : "OFF") : i == 6 ? "  " + Loc.T(GameSettings.DpadMove ? "ON (QUICK 2/3 OFF)" : "OFF") : i == 7 ? "  " + Loc.T(GameSettings.DayLock ? "ALWAYS DAY" : "CYCLE") : "";
             }
             rows[i].bg.color = i == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
             rows[i].text.color = i == cursor ? theme.unique : Color.white;
@@ -261,7 +304,7 @@ public class PauseMenu : MonoBehaviour
         panel = theme.NewPanel("Panel", transform).gameObject;
         var pr = (RectTransform)panel.transform;
         pr.anchorMin = pr.anchorMax = new Vector2(0.5f, 0.5f);
-        pr.sizeDelta = new Vector2(520f, 624f);
+        pr.sizeDelta = new Vector2(520f, 676f);
 
         title = NewText("Title", pr, theme, 40f);
         var head = title;
@@ -280,7 +323,7 @@ public class PauseMenu : MonoBehaviour
             rows.Add((bg, text));
         }
         hint = NewText("Hint", pr, theme, 20f);
-        Place(hint.rectTransform, new Vector2(0f, -586f), new Vector2(520f, 28f));
+        Place(hint.rectTransform, new Vector2(0f, -638f), new Vector2(520f, 28f));
         hint.alignment = TextAlignmentOptions.Center;
         hint.text = "UP/DOWN  ·  SELECT / ENTER  ·  ESC resume";
         hint.color = new Color(1f, 1f, 1f, 0.55f);

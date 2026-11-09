@@ -8260,6 +8260,30 @@ MonoBehaviour:
       - "\uC804\uBC29\uC744 \uAC15\uD558\uAC8C \uCC14\uB7EC \uD53C\uD574\uB97C \uC900\uB2E4."
       Flags: 0000
       Languages_Touch: []
+    - Term: DAY NIGHT
+      TermType: 0
+      Description: 
+      Languages:
+      - DAY/NIGHT
+      - "\uB0AE/\uBC24"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: CYCLE
+      TermType: 0
+      Description: 
+      Languages:
+      - CYCLE
+      - "\uC21C\uD658"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ALWAYS DAY
+      TermType: 0
+      Description: 
+      Languages:
+      - ALWAYS DAY
+      - "\uB0AE \uACE0\uC815"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

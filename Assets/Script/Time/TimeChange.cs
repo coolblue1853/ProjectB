@@ -32,7 +32,7 @@ public class TimeChange : MonoBehaviour
     {
         startTime = Time.time -SaveManager.instance.datas.time;
         LightColorController = this.GetComponent<LightColorController>();
-        _lockDaytime = false; // 씬에 직렬화된 낮 고정(true)을 무시하고 기본은 시간 흐름(사용자 11-08). 낮 고정은 치트 Day·프로브가 런타임에 켠다
+        _lockDaytime = GameSettings.DayLock; // 설정 메뉴의 낮 고정(SET-TIME, 기본 순환). 씬에 직렬화된 낮 고정(true)을 무시하고 기본은 시간 흐름(사용자 11-08). 낮 고정은 치트 Day·프로브가 런타임에 켠다
         if (_lockDaytime)
         {
             ApplyTime(_lockedTimeValue); // 첫 프레임부터 낮으로 — 스포너·BGM 이 Update 순서와 상관없이 낮을 읽게
