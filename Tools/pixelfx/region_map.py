@@ -79,6 +79,26 @@ def classify(arr, ov):
                 dist[ny, nx] = dist[y, x] + 1
                 q.append((ny, nx))
     lab[~alpha] = 0
+    return skirt_to_legs(lab, ov)
+
+
+def skirt_to_legs(lab, ov):
+    """코트 치마 자락(상의 폭이 갑자기 넓어지는 줄부터 아래)은 허리 아래이므로 바지 부위로 넘긴다.
+    상의만 바꿔도 하의 쪽이 잘리지 않게 하고, 상의 레이어에 바지 픽셀이 섞이지 않게 한다."""
+    legs_rows = np.nonzero((lab == LEGS).any(axis=1))[0]
+    top_rows = np.nonzero((lab == TOP).any(axis=1))[0]
+    if len(legs_rows) == 0 or len(top_rows) == 0:
+        return lab
+    waist = ov.get("waist_y")
+    if waist is None:
+        widths = {y: int((lab[y] == TOP).sum()) for y in range(top_rows.min(), top_rows.max() + 1)}
+        for y in range(int(legs_rows.min()) - 2, top_rows.max() + 1):
+            if y - 1 in widths and widths[y] >= widths[y - 1] + 3 and y > top_rows.min() + 10:
+                waist = y
+                break
+    if waist is None:
+        return lab
+    lab[waist:][lab[waist:] == TOP] = LEGS
     return lab
 
 

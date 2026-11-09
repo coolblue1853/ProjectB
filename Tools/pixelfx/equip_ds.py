@@ -21,6 +21,7 @@ REG = os.path.join(ROOT, "Docs/ArtCompare/Motion/equip/regions")
 OUT = os.path.join(ROOT, "Assets/Art/Player/PixelRig/EquipDS")
 SLOTS = {1: "cap", 2: "top", 3: "glove", 4: "legs", 5: "shoes"}
 FRAMES = ["ds_idle_%d" % i for i in range(8)] + ["ds_stab_%d" % i for i in range(4)] + ["ds_down_%d" % i for i in range(4)] + ["ds_up_%d" % i for i in range(5)]
+UNDER = os.path.join(ROOT, "Assets/Art/Player/PixelRig/EquipDS/under")  # 속옷 기본 몸(G1-6): 모든 장비는 이 위에 쌓는다
 BASE = "base"  # 기본 방어구 = 원본 몸 프레임
 
 
@@ -94,7 +95,7 @@ def export(set_id):
             layer = np.zeros_like(arm)
             m = (emap == slot) & (arm[:, :, 3] > 128)
             layer[m] = arm[m]
-            erase = ((base == slot) * 255).astype(np.uint8)
+            erase = np.zeros(base.shape, np.uint8)  # 속옷 몸 위에 쌓으므로 지울 영역 없음(G1-6)
             clip = CLIP[f.rsplit("_", 1)[0]]
             k = int(f.rsplit("_", 1)[1])
             Image.fromarray(layer).save(os.path.join(d, "%s_%d.png" % (clip, k)))
@@ -106,7 +107,7 @@ def export(set_id):
 
 def compose(frame, wear, sets):
     """wear: {부위 번호: 세트 id 또는 BASE}. 기본 몸 + 장비 그림을 확장 지도로 합성"""
-    base = load(os.path.join(CEL, frame + ".png"))
+    base = load(os.path.join(UNDER, frame + ".png"))
     armors = [sets[s][frame] for s in set(wear.values()) if s != BASE and s in sets]
     emap = ext_map(frame, armors)
     out = base.copy()
