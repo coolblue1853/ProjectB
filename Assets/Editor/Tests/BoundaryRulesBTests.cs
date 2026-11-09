@@ -3,7 +3,7 @@
 /// <summary>AUTO-72: 상점·가방 확장·강화·방어 경계값 고정(현재 동작 기록).</summary>
 public class BoundaryRulesBTests
 {
-    private const string Csv = "step,slots,price,minFloor\n1,30,200,1\n2,125,500,4\n3,130,999,4\n";
+    private const string Csv = "step,slots,price,minFloor\n1,45,200,1\n2,125,500,4\n3,130,999,4\n";
 
     [Test]
     public void MaxBuyable_GoldExactlyOnePrice()
@@ -66,9 +66,9 @@ public class BoundaryRulesBTests
     [Test]
     public void BagClamp_Boundaries()
     {
-        Assert.AreEqual(25, BagExpansionRules.Clamp(int.MinValue));
-        Assert.AreEqual(25, BagExpansionRules.Clamp(0));
-        Assert.AreEqual(25, BagExpansionRules.Clamp(24));
+        Assert.AreEqual(40, BagExpansionRules.Clamp(int.MinValue));
+        Assert.AreEqual(40, BagExpansionRules.Clamp(0));
+        Assert.AreEqual(40, BagExpansionRules.Clamp(39));
         Assert.AreEqual(125, BagExpansionRules.Clamp(125));
         Assert.AreEqual(125, BagExpansionRules.Clamp(126));
         Assert.AreEqual(125, BagExpansionRules.Clamp(int.MaxValue));
@@ -79,25 +79,25 @@ public class BoundaryRulesBTests
     {
         BagExpansionRules r = BagExpansionRules.Parse(null);
         Assert.AreEqual(0, r.StepCount);
-        Assert.AreEqual(BagExpansionRules.Block.Max, r.Check(25, 4, 99999, out _));
-        Assert.AreEqual(25, r.FloorCap(99));
+        Assert.AreEqual(BagExpansionRules.Block.Max, r.Check(40, 4, 99999, out _));
+        Assert.AreEqual(40, r.FloorCap(99));
     }
 
     [Test]
     public void BagCheck_FloorBeforeGold_ExactGold()
     {
         BagExpansionRules r = BagExpansionRules.Parse(Csv);
-        Assert.AreEqual(BagExpansionRules.Block.NeedFloor, r.Check(25, 0, 0, out _));
-        Assert.AreEqual(BagExpansionRules.Block.NoGold, r.Check(25, 1, 199, out _));
-        Assert.AreEqual(BagExpansionRules.Block.None, r.Check(25, 1, 200, out BagExpansionRules.Step s));
-        Assert.AreEqual(30, s.Slots);
+        Assert.AreEqual(BagExpansionRules.Block.NeedFloor, r.Check(40, 0, 0, out _));
+        Assert.AreEqual(BagExpansionRules.Block.NoGold, r.Check(40, 1, 199, out _));
+        Assert.AreEqual(BagExpansionRules.Block.None, r.Check(40, 1, 200, out BagExpansionRules.Step s));
+        Assert.AreEqual(45, s.Slots);
     }
 
     [Test]
     public void BagCheck_JustAfterMaxExpansion_IsMax()
     {
         BagExpansionRules r = BagExpansionRules.Parse(Csv);
-        Assert.AreEqual(BagExpansionRules.Block.None, r.Check(30, 4, 500, out BagExpansionRules.Step s));
+        Assert.AreEqual(BagExpansionRules.Block.None, r.Check(45, 4, 500, out BagExpansionRules.Step s));
         Assert.AreEqual(125, s.Slots);
         Assert.AreEqual(BagExpansionRules.Block.Max, r.Check(125, 4, 99999, out _));
         Assert.AreEqual(BagExpansionRules.Block.Max, r.Check(500, 4, 99999, out _)); // 130 단계는 MaxSlots 초과라 무시
@@ -107,11 +107,11 @@ public class BoundaryRulesBTests
     public void BagFloorCap_AndTotalCost_Boundaries()
     {
         BagExpansionRules r = BagExpansionRules.Parse(Csv);
-        Assert.AreEqual(25, r.FloorCap(0));
-        Assert.AreEqual(30, r.FloorCap(1));
+        Assert.AreEqual(40, r.FloorCap(0));
+        Assert.AreEqual(45, r.FloorCap(1));
         Assert.AreEqual(130, r.FloorCap(4));
-        Assert.AreEqual(700, r.TotalCost(25, 125));
-        Assert.AreEqual(500, r.TotalCost(30, 125)); // from 은 제외
+        Assert.AreEqual(700, r.TotalCost(40, 125));
+        Assert.AreEqual(500, r.TotalCost(45, 125)); // from 은 제외
         Assert.AreEqual(0, r.TotalCost(125, 125));
     }
 

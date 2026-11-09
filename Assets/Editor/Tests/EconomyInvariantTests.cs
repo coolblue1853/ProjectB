@@ -29,7 +29,7 @@ public class EconomyInvariantTests
     public void Bag_PriceStrictlyIncreasing()
     {
         BagExpansionRules.Step[] s = Steps();
-        Assert.AreEqual(20, s.Length);
+        Assert.AreEqual(17, s.Length);
         for (int i = 1; i < s.Length; i++)
         {
             Assert.Greater(s[i].Price, s[i - 1].Price, $"단계 {i + 1} 가격은 이전보다 커야 한다");
@@ -37,25 +37,25 @@ public class EconomyInvariantTests
     }
 
     [Test]
-    public void Bag_Steps1to5_Price200to900()
+    public void Bag_Steps1to5_Price650to2200()
     {
         BagExpansionRules.Step[] s = Steps();
-        Assert.AreEqual(200, s[0].Price);
-        Assert.AreEqual(900, s[4].Price);
+        Assert.AreEqual(650, s[0].Price);
+        Assert.AreEqual(2200, s[4].Price);
         for (int i = 0; i < 5; i++)
         {
-            Assert.That(s[i].Price, Is.InRange(200, 900));
+            Assert.That(s[i].Price, Is.InRange(650, 2200));
         }
     }
 
     [Test]
-    public void Bag_Steps16to20_MatchTable()
+    public void Bag_Last5Steps_MatchTable()
     {
         BagExpansionRules.Step[] s = Steps();
         int[] expect = { 10500, 12500, 15000, 18000, 22000 };
         for (int i = 0; i < 5; i++)
         {
-            Assert.AreEqual(expect[i], s[15 + i].Price, $"단계 {16 + i}");
+            Assert.AreEqual(expect[i], s[12 + i].Price, $"단계 {13 + i}");
         }
     }
 

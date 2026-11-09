@@ -201,7 +201,7 @@ public static class TooltipBuilder
             {
                 if (c.coolDownCount != 0)
                 {
-                    list.Add(new Stat("Cooldown " + c.skillName, Loc.T("Cooldown") + " " + c.skillName, -c.coolDownCount, "%"));
+                    list.Add(new Stat("Cooldown " + c.skillName, Loc.T("Cooldown") + " " + Loc.T(c.skillName), -c.coolDownCount, "%"));
                 }
             }
         }

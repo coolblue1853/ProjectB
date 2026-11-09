@@ -6882,6 +6882,1384 @@ MonoBehaviour:
       - "\uC2A4\uD0AC \uD574\uAE08: {0}"
       Flags: 0000
       Languages_Touch: []
+    - Term: Abyss Bolt
+      TermType: 0
+      Description: 
+      Languages:
+      - Abyss Bolt
+      - "\uC2EC\uC5F0 \uD654\uC0B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Abyss Quake
+      TermType: 0
+      Description: 
+      Languages:
+      - Abyss Quake
+      - "\uC2EC\uC5F0 \uC9C0\uC9C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Abyss Rain
+      TermType: 0
+      Description: 
+      Languages:
+      - Abyss Rain
+      - "\uC2EC\uC5F0 \uBE44"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Aftershock
+      TermType: 0
+      Description: 
+      Languages:
+      - Aftershock
+      - "\uC5EC\uC9C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Roots
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Roots
+      - "\uD0DC\uACE0\uC758 \uBFCC\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Wrath
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Wrath
+      - "\uD0DC\uACE0\uC758 \uBD84\uB178"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Approaching Nightmare
+      TermType: 0
+      Description: 
+      Languages:
+      - Approaching Nightmare
+      - "\uB2E4\uAC00\uC624\uB294 \uC545\uBABD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Arcane Bolt
+      TermType: 0
+      Description: 
+      Languages:
+      - Arcane Bolt
+      - "\uBE44\uC804 \uD654\uC0B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Backstab
+      TermType: 0
+      Description: 
+      Languages:
+      - Backstab
+      - "\uB4A4\uCE58\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Banner Thrust
+      TermType: 0
+      Description: 
+      Languages:
+      - Banner Thrust
+      - "\uAE43\uBC1C \uCC0C\uB974\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bear Roar
+      TermType: 0
+      Description: 
+      Languages:
+      - Bear Roar
+      - "\uACF0\uC758 \uD3EC\uD6A8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bloodsting
+      TermType: 0
+      Description: 
+      Languages:
+      - Bloodsting
+      - "\uD53C\uC758 \uCE68"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Boar Charge
+      TermType: 0
+      Description: 
+      Languages:
+      - Boar Charge
+      - "\uBA67\uB3FC\uC9C0 \uB3CC\uC9C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Eruption
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Eruption
+      - "\uB2AA \uBD84\uCD9C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Boulder Toss
+      TermType: 0
+      Description: 
+      Languages:
+      - Boulder Toss
+      - "\uBC14\uC717\uB369\uC774 \uB358\uC9C0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Charge Forward!
+      TermType: 0
+      Description: 
+      Languages:
+      - Charge Forward!
+      - "\uC55E\uC73C\uB85C \uB3CC\uACA9!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliff Quake
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliff Quake
+      - "\uC808\uBCBD \uC9C0\uC9C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Club Smash
+      TermType: 0
+      Description: 
+      Languages:
+      - Club Smash
+      - "\uBABD\uB465\uC774 \uB0B4\uB824\uCE58\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Counter Stance
+      TermType: 0
+      Description: 
+      Languages:
+      - Counter Stance
+      - "\uBC18\uACA9 \uC790\uC138"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Crab Scuttle
+      TermType: 0
+      Description: 
+      Languages:
+      - Crab Scuttle
+      - "\uAC8C\uAC78\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Creeping Nightmare
+      TermType: 0
+      Description: 
+      Languages:
+      - Creeping Nightmare
+      - "\uAE30\uC5B4\uB4DC\uB294 \uC545\uBABD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Crescent Reap
+      TermType: 0
+      Description: 
+      Languages:
+      - Crescent Reap
+      - "\uCD08\uC2B9\uB2EC \uBCA0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cross Fang
+      TermType: 0
+      Description: 
+      Languages:
+      - Cross Fang
+      - "\uC2ED\uC790 \uC1A1\uACF3\uB2C8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cutpurse Stride
+      TermType: 0
+      Description: 
+      Languages:
+      - Cutpurse Stride
+      - "\uC18C\uB9E4\uCE58\uAE30 \uAC78\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cyclone Edge
+      TermType: 0
+      Description: 
+      Languages:
+      - Cyclone Edge
+      - "\uD68C\uC624\uB9AC \uCE7C\uB0A0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dark Harvest
+      TermType: 0
+      Description: 
+      Languages:
+      - Dark Harvest
+      - "\uC5B4\uB460\uC758 \uC218\uD655"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Death Roll
+      TermType: 0
+      Description: 
+      Languages:
+      - Death Roll
+      - "\uC8FD\uC74C\uC758 \uD68C\uC804"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Double Step
+      TermType: 0
+      Description: 
+      Languages:
+      - Double Step
+      - "\uC774\uC911 \uAC78\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Double Strike
+      TermType: 0
+      Description: 
+      Languages:
+      - Double Strike
+      - "\uC774\uC5F0\uD0C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dream Eater
+      TermType: 0
+      Description: 
+      Languages:
+      - Dream Eater
+      - "\uAFC8\uC744 \uBA39\uB294 \uC790"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ducking Dash
+      TermType: 0
+      Description: 
+      Languages:
+      - Ducking Dash
+      - "\uC219\uC774\uBA70 \uB3CC\uC9C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Encroaching Darkness
+      TermType: 0
+      Description: 
+      Languages:
+      - Encroaching Darkness
+      - "\uC7A0\uC2DD\uD558\uB294 \uC5B4\uB460"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fae Blessing
+      TermType: 0
+      Description: 
+      Languages:
+      - Fae Blessing
+      - "\uC694\uC815\uC758 \uCD95\uBCF5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fairy Dust Bolt
+      TermType: 0
+      Description: 
+      Languages:
+      - Fairy Dust Bolt
+      - "\uC694\uC815 \uAC00\uB8E8 \uD654\uC0B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Falling Leaf Step
+      TermType: 0
+      Description: 
+      Languages:
+      - Falling Leaf Step
+      - "\uB099\uC5FD \uAC78\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fang Rush
+      TermType: 0
+      Description: 
+      Languages:
+      - Fang Rush
+      - "\uC1A1\uACF3\uB2C8 \uC1C4\uB3C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fierce Thrust
+      TermType: 0
+      Description: 
+      Languages:
+      - Fierce Thrust
+      - "\uB9F9\uB82C\uD55C \uCC0C\uB974\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gale Slash
+      TermType: 0
+      Description: 
+      Languages:
+      - Gale Slash
+      - "\uB3CC\uD48D \uBCA0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gargoyle Dive
+      TermType: 0
+      Description: 
+      Languages:
+      - Gargoyle Dive
+      - "\uAC00\uACE0\uC77C \uAE09\uAC15\uD558"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gargoyle Host
+      TermType: 0
+      Description: 
+      Languages:
+      - Gargoyle Host
+      - "\uAC00\uACE0\uC77C \uBB34\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gate Cleave
+      TermType: 0
+      Description: 
+      Languages:
+      - Gate Cleave
+      - "\uC131\uBB38 \uAC00\uB974\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gathering Nightmare
+      TermType: 0
+      Description: 
+      Languages:
+      - Gathering Nightmare
+      - "\uBAA8\uC5EC\uB4DC\uB294 \uC545\uBABD"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gel Gather
+      TermType: 0
+      Description: 
+      Languages:
+      - Gel Gather
+      - "\uC824 \uBAA8\uC73C\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gel Tsunami
+      TermType: 0
+      Description: 
+      Languages:
+      - Gel Tsunami
+      - "\uC824 \uD574\uC77C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ghostlight Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Ghostlight Ring
+      - "\uC720\uB839\uBD88 \uACE0\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Granite Bash
+      TermType: 0
+      Description: 
+      Languages:
+      - Granite Bash
+      - "\uD654\uAC15\uC554 \uAC15\uD0C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ground Sweep
+      TermType: 0
+      Description: 
+      Languages:
+      - Ground Sweep
+      - "\uC9C0\uBA74 \uC4F8\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Grove Cleave
+      TermType: 0
+      Description: 
+      Languages:
+      - Grove Cleave
+      - "\uC232 \uAC00\uB974\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Halberd Sweep
+      TermType: 0
+      Description: 
+      Languages:
+      - Halberd Sweep
+      - "\uBBF8\uB298\uCC3D \uD718\uB450\uB974\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Haste
+      TermType: 0
+      Description: 
+      Languages:
+      - Haste
+      - "\uAC00\uC18D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hold the Line
+      TermType: 0
+      Description: 
+      Languages:
+      - Hold the Line
+      - "\uC804\uC120 \uC0AC\uC218"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hoof Step
+      TermType: 0
+      Description: 
+      Languages:
+      - Hoof Step
+      - "\uBC1C\uAD7D \uAC78\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Howl of the Pack
+      TermType: 0
+      Description: 
+      Languages:
+      - Howl of the Pack
+      - "\uBB34\uB9AC\uC758 \uC6B8\uBD80\uC9D6\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hunter's Stride
+      TermType: 0
+      Description: 
+      Languages:
+      - Hunter's Stride
+      - "\uC0AC\uB0E5\uAFBC\uC758 \uAC78\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Hunter's Volley
+      TermType: 0
+      Description: 
+      Languages:
+      - Hunter's Volley
+      - "\uC0AC\uB0E5\uAFBC\uC758 \uC5F0\uC0AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Jaw Shake
+      TermType: 0
+      Description: 
+      Languages:
+      - Jaw Shake
+      - "\uD131 \uD754\uB4E4\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Knight's Cleave
+      TermType: 0
+      Description: 
+      Languages:
+      - Knight's Cleave
+      - "\uAE30\uC0AC\uC758 \uAC00\uB974\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Leaf Teleport
+      TermType: 0
+      Description: 
+      Languages:
+      - Leaf Teleport
+      - "\uC78E\uC0C8 \uC21C\uAC04\uC774\uB3D9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Leap Slam
+      TermType: 0
+      Description: 
+      Languages:
+      - Leap Slam
+      - "\uB3C4\uC57D \uB0B4\uB824\uCE58\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Log Roller
+      TermType: 0
+      Description: 
+      Languages:
+      - Log Roller
+      - "\uD1B5\uB098\uBB34 \uAD74\uB9AC\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Manifest Darkness
+      TermType: 0
+      Description: 
+      Languages:
+      - Manifest Darkness
+      - "\uB4DC\uB7EC\uB09C \uC5B4\uB460"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Mauling Rush
+      TermType: 0
+      Description: 
+      Languages:
+      - Mauling Rush
+      - "\uC9D3\uC774\uAE30\uB294 \uC1C4\uB3C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Monolith Stance
+      TermType: 0
+      Description: 
+      Languages:
+      - Monolith Stance
+      - "\uAC70\uC11D \uC790\uC138"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Nature's Healing
+      TermType: 0
+      Description: 
+      Languages:
+      - Nature's Healing
+      - "\uC790\uC5F0\uC758 \uCE58\uC720"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Night Hunt
+      TermType: 0
+      Description: 
+      Languages:
+      - Night Hunt
+      - "\uBC24 \uC0AC\uB0E5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Nightmare Eruption
+      TermType: 0
+      Description: 
+      Languages:
+      - Nightmare Eruption
+      - "\uC545\uBABD \uBD84\uCD9C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Oath Bind
+      TermType: 0
+      Description: 
+      Languages:
+      - Oath Bind
+      - "\uB9F9\uC138\uC758 \uC18D\uBC15"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pack Step
+      TermType: 0
+      Description: 
+      Languages:
+      - Pack Step
+      - "\uBB34\uB9AC \uAC78\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pebble Hop
+      TermType: 0
+      Description: 
+      Languages:
+      - Pebble Hop
+      - "\uC870\uC57D\uB3CC \uB700\uB6F0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Petrify Bolt
+      TermType: 0
+      Description: 
+      Languages:
+      - Petrify Bolt
+      - "\uC11D\uD654 \uD654\uC0B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Phantom Glide
+      TermType: 0
+      Description: 
+      Languages:
+      - Phantom Glide
+      - "\uD658\uC601 \uD65C\uC8FC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Phantom Reap
+      TermType: 0
+      Description: 
+      Languages:
+      - Phantom Reap
+      - "\uD658\uC601 \uC218\uD655"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pincer Flurry
+      TermType: 0
+      Description: 
+      Languages:
+      - Pincer Flurry
+      - "\uC9D1\uAC8C\uBC1C \uB09C\uD0C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pitch Shot
+      TermType: 0
+      Description: 
+      Languages:
+      - Pitch Shot
+      - "\uC1A1\uC9C4 \uD654\uC0B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Poison Volley
+      TermType: 0
+      Description: 
+      Languages:
+      - Poison Volley
+      - "\uB3C5 \uC5F0\uC0AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pounce Lash
+      TermType: 0
+      Description: 
+      Languages:
+      - Pounce Lash
+      - "\uB36E\uCCD0 \uD6C4\uB824\uCE58\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Primordial Pull
+      TermType: 0
+      Description: 
+      Languages:
+      - Primordial Pull
+      - "\uC6D0\uCD08\uC758 \uB04C\uC5B4\uB2F9\uAE40"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Quake Slam
+      TermType: 0
+      Description: 
+      Languages:
+      - Quake Slam
+      - "\uC9C0\uC9C4 \uB0B4\uB824\uCE58\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Raid Charge
+      TermType: 0
+      Description: 
+      Languages:
+      - Raid Charge
+      - "\uC2B5\uACA9 \uB3CC\uACA9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Raider Thrust
+      TermType: 0
+      Description: 
+      Languages:
+      - Raider Thrust
+      - "\uC57D\uD0C8\uC790\uC758 \uCC0C\uB974\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rally Now!
+      TermType: 0
+      Description: 
+      Languages:
+      - Rally Now!
+      - "\uC9C0\uAE08 \uC9D1\uACB0!"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rally the Gang
+      TermType: 0
+      Description: 
+      Languages:
+      - Rally the Gang
+      - "\uD328\uAC70\uB9AC \uC9D1\uACB0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rending Upswipe
+      TermType: 0
+      Description: 
+      Languages:
+      - Rending Upswipe
+      - "\uCC22\uC5B4 \uC62C\uB9AC\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rising Dread
+      TermType: 0
+      Description: 
+      Languages:
+      - Rising Dread
+      - "\uCC28\uC624\uB974\uB294 \uACF5\uD3EC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rising Roots
+      TermType: 0
+      Description: 
+      Languages:
+      - Rising Roots
+      - "\uC19F\uB294 \uBFCC\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rolling Charge
+      TermType: 0
+      Description: 
+      Languages:
+      - Rolling Charge
+      - "\uAD6C\uB974\uB294 \uB3CC\uACA9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Root Step
+      TermType: 0
+      Description: 
+      Languages:
+      - Root Step
+      - "\uBFCC\uB9AC \uAC78\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Root Tremor
+      TermType: 0
+      Description: 
+      Languages:
+      - Root Tremor
+      - "\uBFCC\uB9AC \uC9C4\uB3D9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rubble Uppercut
+      TermType: 0
+      Description: 
+      Languages:
+      - Rubble Uppercut
+      - "\uB3CC\uBB34\uB354\uAE30 \uC5B4\uD37C\uCEF7"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sap Drain
+      TermType: 0
+      Description: 
+      Languages:
+      - Sap Drain
+      - "\uC218\uC561 \uD761\uC218"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sap Mend
+      TermType: 0
+      Description: 
+      Languages:
+      - Sap Mend
+      - "\uC218\uC561 \uD68C\uBCF5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Scattering Leaves
+      TermType: 0
+      Description: 
+      Languages:
+      - Scattering Leaves
+      - "\uD769\uB0A0\uB9AC\uB294 \uC78E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shadow Step
+      TermType: 0
+      Description: 
+      Languages:
+      - Shadow Step
+      - "\uADF8\uB9BC\uC790 \uAC78\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shell Back
+      TermType: 0
+      Description: 
+      Languages:
+      - Shell Back
+      - "\uB4F1\uB531\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shell Bash
+      TermType: 0
+      Description: 
+      Languages:
+      - Shell Bash
+      - "\uB4F1\uB531\uC9C0 \uAC15\uD0C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shell Guard
+      TermType: 0
+      Description: 
+      Languages:
+      - Shell Guard
+      - "\uB4F1\uB531\uC9C0 \uBC29\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shell Pierce
+      TermType: 0
+      Description: 
+      Languages:
+      - Shell Pierce
+      - "\uB4F1\uB531\uC9C0 \uAFF0\uB6AB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shield Charge
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield Charge
+      - "\uBC29\uD328 \uB3CC\uACA9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shield Rush
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield Rush
+      - "\uBC29\uD328 \uC1C4\uB3C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shield Shove
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield Shove
+      - "\uBC29\uD328 \uBC00\uCE58\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sinister Slash
+      TermType: 0
+      Description: 
+      Languages:
+      - Sinister Slash
+      - "\uBD88\uAE38\uD55C \uBCA0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skybreaker
+      TermType: 0
+      Description: 
+      Languages:
+      - Skybreaker
+      - "\uD558\uB298 \uAC00\uB974\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skyfall Rend
+      TermType: 0
+      Description: 
+      Languages:
+      - Skyfall Rend
+      - "\uB099\uD558 \uCC22\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Slash Attck
+      TermType: 0
+      Description: 
+      Languages:
+      - Slash Attck
+      - "\uBCA0\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Slime Smash
+      TermType: 0
+      Description: 
+      Languages:
+      - Slime Smash
+      - "\uC2AC\uB77C\uC784 \uAC15\uD0C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sly Stride
+      TermType: 0
+      Description: 
+      Languages:
+      - Sly Stride
+      - "\uAD50\uD65C\uD55C \uAC78\uC74C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Smash Down
+      TermType: 0
+      Description: 
+      Languages:
+      - Smash Down
+      - "\uB0B4\uB9AC\uCC0D\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spectral Eruption
+      TermType: 0
+      Description: 
+      Languages:
+      - Spectral Eruption
+      - "\uC720\uB839 \uBD84\uCD9C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Starfall
+      TermType: 0
+      Description: 
+      Languages:
+      - Starfall
+      - "\uBCC4\uB625\uBCC4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Starlight Lance
+      TermType: 0
+      Description: 
+      Languages:
+      - Starlight Lance
+      - "\uBCC4\uBE5B \uCC3D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stone Feather
+      TermType: 0
+      Description: 
+      Languages:
+      - Stone Feather
+      - "\uB3CC\uAE43\uD138"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stone Sentinels
+      TermType: 0
+      Description: 
+      Languages:
+      - Stone Sentinels
+      - "\uB3CC \uD30C\uC218\uAFBC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Swarm Call
+      TermType: 0
+      Description: 
+      Languages:
+      - Swarm Call
+      - "\uB5BC\uC758 \uBD80\uB984"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Swarm Dart
+      TermType: 0
+      Description: 
+      Languages:
+      - Swarm Dart
+      - "\uB5BC\uC758 \uD45C\uCC3D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sway Back
+      TermType: 0
+      Description: 
+      Languages:
+      - Sway Back
+      - "\uB4A4\uB85C \uD754\uB4E4\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Swift Assault
+      TermType: 0
+      Description: 
+      Languages:
+      - Swift Assault
+      - "\uC2E0\uC18D\uD55C \uC2B5\uACA9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tail Whirl
+      TermType: 0
+      Description: 
+      Languages:
+      - Tail Whirl
+      - "\uAF2C\uB9AC \uD68C\uC804"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Talon Dive
+      TermType: 0
+      Description: 
+      Languages:
+      - Talon Dive
+      - "\uBC1C\uD1B1 \uAE09\uAC15\uD558"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Talon Storm
+      TermType: 0
+      Description: 
+      Languages:
+      - Talon Storm
+      - "\uBC1C\uD1B1 \uD3ED\uD48D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: This is Our Turf
+      TermType: 0
+      Description: 
+      Languages:
+      - This is Our Turf
+      - "\uC5EC\uAE34 \uC6B0\uB9AC \uAD6C\uC5ED\uC774\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Timber Chop
+      TermType: 0
+      Description: 
+      Languages:
+      - Timber Chop
+      - "\uD1B5\uB098\uBB34 \uCABC\uAC1C\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tongue Lash
+      TermType: 0
+      Description: 
+      Languages:
+      - Tongue Lash
+      - "\uD600 \uCC44\uCC0D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tremor Pull
+      TermType: 0
+      Description: 
+      Languages:
+      - Tremor Pull
+      - "\uC9C4\uB3D9 \uB04C\uC5B4\uB2F9\uAE40"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Triple Shot
+      TermType: 0
+      Description: 
+      Languages:
+      - Triple Shot
+      - "\uC0BC\uC5F0\uC0AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Turn and Thrust
+      TermType: 0
+      Description: 
+      Languages:
+      - Turn and Thrust
+      - "\uB3CC\uC544\uC11C \uCC0C\uB974\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tusk Uppercut
+      TermType: 0
+      Description: 
+      Languages:
+      - Tusk Uppercut
+      - "\uC5C4\uB2C8 \uC5B4\uD37C\uCEF7"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Uppercut
+      TermType: 0
+      Description: 
+      Languages:
+      - Uppercut
+      - "\uC5B4\uD37C\uCEF7"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Venom Rain
+      TermType: 0
+      Description: 
+      Languages:
+      - Venom Rain
+      - "\uB3C5\uC561 \uBE44"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Vicious Assault
+      TermType: 0
+      Description: 
+      Languages:
+      - Vicious Assault
+      - "\uD749\uD3EC\uD55C \uC2B5\uACA9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Vile Ambush
+      TermType: 0
+      Description: 
+      Languages:
+      - Vile Ambush
+      - "\uBE44\uC5F4\uD55C \uAE30\uC2B5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Vine Pull
+      TermType: 0
+      Description: 
+      Languages:
+      - Vine Pull
+      - "\uB369\uAD74 \uB04C\uC5B4\uB2F9\uAE40"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wailing Light
+      TermType: 0
+      Description: 
+      Languages:
+      - Wailing Light
+      - "\uD750\uB290\uB07C\uB294 \uBE5B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Whirling Malice
+      TermType: 0
+      Description: 
+      Languages:
+      - Whirling Malice
+      - "\uC18C\uC6A9\uB3CC\uC774 \uC545\uC758"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wisp Bolt
+      TermType: 0
+      Description: 
+      Languages:
+      - Wisp Bolt
+      - "\uB3C4\uAE68\uBE44\uBD88 \uD654\uC0B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wraith Whirl
+      TermType: 0
+      Description: 
+      Languages:
+      - Wraith Whirl
+      - "\uB9DD\uB839 \uD68C\uC804"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Charges forward with a shield, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Charges forward with a shield, dealing damage.
+      - "\uBC29\uD328\uB97C \uB4E4\uACE0 \uB3CC\uC9C4\uD574 \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cleave the area in front, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Cleave the area in front, dealing damage.
+      - "\uC804\uBC29\uC744 \uAC00\uB974\uBA70 \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Create a burst of darkness that erupts from the ground, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Create a burst of darkness that erupts from the ground, dealing damage.
+      - "\uB545\uC5D0\uC11C \uC5B4\uB460\uC774 \uD130\uC838 \uB098\uC640 \uD53C\uD574\uB97C
+        \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Create a healing zone that restores health to those inside.
+      TermType: 0
+      Description: 
+      Languages:
+      - Create a healing zone that restores health to those inside.
+      - "\uBC94\uC704 \uC548\uC758 \uB300\uC0C1\uC744 \uCE58\uC720\uD558\uB294 \uC601\uC5ED\uC744
+        \uB9CC\uB4E0\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Create a shadow that slashes at enemies in front, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Create a shadow that slashes at enemies in front, dealing damage.
+      - "\uADF8\uB9BC\uC790\uB97C \uB9CC\uB4E4\uC5B4 \uC804\uBC29\uC758 \uC801\uC744
+        \uBCA0\uC5B4 \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Create a toxic mire that poisons enemies within the area.
+      TermType: 0
+      Description: 
+      Languages:
+      - Create a toxic mire that poisons enemies within the area.
+      - "\uB3C5 \uB2AA\uC744 \uB9CC\uB4E4\uC5B4 \uBC94\uC704 \uC548\uC758 \uC801\uC744
+        \uC911\uB3C5\uC2DC\uD0A8\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Create a zone that pulls enemies to the center and deals damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Create a zone that pulls enemies to the center and deals damage.
+      - "\uC801\uC744 \uC911\uC559\uC73C\uB85C \uB04C\uC5B4\uB2F9\uAE30\uBA70 \uD53C\uD574\uB97C
+        \uC8FC\uB294 \uC601\uC5ED\uC744 \uB9CC\uB4E0\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dash backward while evading.
+      TermType: 0
+      Description: 
+      Languages:
+      - Dash backward while evading.
+      - "\uB4A4\uB85C \uBB3C\uB7EC\uB098\uBA70 \uD68C\uD53C\uD55C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dash forward while clawing, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Dash forward while clawing, dealing damage.
+      - "\uC55E\uC73C\uB85C \uB3CC\uC9C4\uD558\uBA70 \uD560\uD034\uC5B4 \uD53C\uD574\uB97C
+        \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dash forward while evading.
+      TermType: 0
+      Description: 
+      Languages:
+      - Dash forward while evading.
+      - "\uC55E\uC73C\uB85C \uB3CC\uC9C4\uD558\uBA70 \uD68C\uD53C\uD55C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dash forward, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Dash forward, dealing damage.
+      - "\uC55E\uC73C\uB85C \uB3CC\uC9C4\uD558\uBA70 \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dash forward, delivering a powerful slash that deals damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Dash forward, delivering a powerful slash that deals damage.
+      - "\uC55E\uC73C\uB85C \uB3CC\uC9C4\uD558\uBA70 \uAC15\uB825\uD55C \uC77C\uACA9\uC744
+        \uAC00\uD574 \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Deal significant damage to the enemy and poison them.
+      TermType: 0
+      Description: 
+      Languages:
+      - Deal significant damage to the enemy and poison them.
+      - "\uC801\uC5D0\uAC8C \uD070 \uD53C\uD574\uB97C \uC8FC\uACE0 \uC911\uB3C5\uC2DC\uD0A8\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Enters a super armor state for up to 1 second, increasing defense by
+        100.
+      TermType: 0
+      Description: 
+      Languages:
+      - Enters a super armor state for up to 1 second, increasing defense by 100.
+      - "\uCD5C\uB300 1\uCD08\uAC04 \uC288\uD37C \uC544\uBA38 \uC0C1\uD0DC\uAC00
+        \uB418\uC5B4 \uBC29\uC5B4\uB825\uC774 100 \uC99D\uAC00\uD55C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Generate a substance that advances forward, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Generate a substance that advances forward, dealing damage.
+      - "\uC804\uBC29\uC73C\uB85C \uB098\uC544\uAC00\uB294 \uB369\uC5B4\uB9AC\uB97C
+        \uB9CC\uB4E4\uC5B4 \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Generate a sweeping sword slash forward, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Generate a sweeping sword slash forward, dealing damage.
+      - "\uC804\uBC29\uC73C\uB85C \uB113\uC740 \uAC80\uAE30\uB97C \uB0A0\uB824 \uD53C\uD574\uB97C
+        \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Increase attack speed by 30 .
+      TermType: 0
+      Description: 
+      Languages:
+      - Increase attack speed by 30%.
+      - "\uACF5\uACA9 \uC18D\uB3C4\uAC00 30% \uC99D\uAC00\uD55C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Increases attack speed by 30 .
+      TermType: 0
+      Description: 
+      Languages:
+      - Increases attack speed by 30%.
+      - "\uACF5\uACA9 \uC18D\uB3C4\uAC00 30% \uC99D\uAC00\uD55C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Increases movement speed by 60 .
+      TermType: 0
+      Description: 
+      Languages:
+      - Increases movement speed by 60%.
+      - "\uC774\uB3D9 \uC18D\uB3C4\uAC00 60% \uC99D\uAC00\uD55C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Increases the hit count of all attacks by 1.
+      TermType: 0
+      Description: 
+      Languages:
+      - Increases the hit count of all attacks by 1.
+      - "\uBAA8\uB4E0 \uACF5\uACA9\uC758 \uD0C0\uACA9 \uD69F\uC218\uAC00 1 \uC99D\uAC00\uD55C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Instantly teleport forward.
+      TermType: 0
+      Description: 
+      Languages:
+      - Instantly teleport forward.
+      - "\uC804\uBC29\uC73C\uB85C \uC21C\uAC04\uC774\uB3D9\uD55C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Leap upward dramatically, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Leap upward dramatically, dealing damage.
+      - "\uD06C\uAC8C \uC704\uB85C \uB3C4\uC57D\uD558\uBA70 \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Savagely stab the enemy in front, dealing significant damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Savagely stab the enemy in front, dealing significant damage.
+      - "\uC804\uBC29\uC758 \uC801\uC744 \uAC70\uCE60\uAC8C \uCC14\uB7EC \uD070 \uD53C\uD574\uB97C
+        \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Send a sword slash forward, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Send a sword slash forward, dealing damage.
+      - "\uC804\uBC29\uC73C\uB85C \uAC80\uAE30\uB97C \uB0A0\uB824 \uD53C\uD574\uB97C
+        \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Slash the enemy twice, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Slash the enemy twice, dealing damage.
+      - "\uC801\uC744 \uB450 \uBC88 \uBCA0\uC5B4 \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Slash the enemy, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Slash the enemy, dealing damage.
+      - "\uC801\uC744 \uBCA0\uC5B4 \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Spin a scythe, pulling in enemies and dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Spin a scythe, pulling in enemies and dealing damage.
+      - "\uB0AB\uC744 \uB3CC\uB824 \uC801\uC744 \uB04C\uC5B4\uB2F9\uAE30\uBA70 \uD53C\uD574\uB97C
+        \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stab the enemy twice, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Stab the enemy twice, dealing damage.
+      - "\uC801\uC744 \uB450 \uBC88 \uCC14\uB7EC \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Strike the enemy from above, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Strike the enemy from above, dealing damage.
+      - "\uC801\uC744 \uC704\uC5D0\uC11C \uB0B4\uB9AC\uCCD0 \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Strike the enemy with an uppercut, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Strike the enemy with an uppercut, dealing damage.
+      - "\uC801\uC5D0\uAC8C \uC5B4\uD37C\uCEF7\uC744 \uB0A0\uB824 \uD53C\uD574\uB97C
+        \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Summon a Rat Thief to fight alongside you.
+      TermType: 0
+      Description: 
+      Languages:
+      - Summon a Rat Thief to fight alongside you.
+      - "\uC950 \uB3C4\uB451\uC744 \uBD88\uB7EC \uD568\uAED8 \uC2F8\uC6B4\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Summon a scarecrow that periodically screams, attacking enemies.
+      TermType: 0
+      Description: 
+      Languages:
+      - Summon a scarecrow that periodically screams, attacking enemies.
+      - "\uC8FC\uAE30\uC801\uC73C\uB85C \uBE44\uBA85\uC744 \uC9C8\uB7EC \uC801\uC744
+        \uACF5\uACA9\uD558\uB294 \uD5C8\uC218\uC544\uBE44\uB97C \uC18C\uD658\uD55C\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Summon roots that burst from the ground in front, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Summon roots that burst from the ground in front, dealing damage.
+      - "\uC804\uBC29\uC758 \uB545\uC5D0\uC11C \uBFCC\uB9AC\uAC00 \uC19F\uC544 \uD53C\uD574\uB97C
+        \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Throws multiple leaf shurikens forward.
+      TermType: 0
+      Description: 
+      Languages:
+      - Throws multiple leaf shurikens forward.
+      - "\uC78E\uC0AC\uADC0 \uD45C\uCC3D \uC5EC\uB7EC \uAC1C\uB97C \uC804\uBC29\uC73C\uB85C
+        \uB358\uC9C4\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Thrusts powerfully forward, dealing damage.
+      TermType: 0
+      Description: 
+      Languages:
+      - Thrusts powerfully forward, dealing damage.
+      - "\uC804\uBC29\uC744 \uAC15\uD558\uAC8C \uCC14\uB7EC \uD53C\uD574\uB97C \uC900\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

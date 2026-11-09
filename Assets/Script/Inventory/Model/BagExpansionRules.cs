@@ -7,7 +7,7 @@ using System.Globalization;
 /// </summary>
 public sealed class BagExpansionRules
 {
-    public const int StartSlots = 25;
+    public const int StartSlots = 40;
     public const int MaxSlots = 125;
 
     public enum Block { None, Max, NeedFloor, NoGold }
@@ -46,7 +46,7 @@ public sealed class BagExpansionRules
         return rules;
     }
 
-    /// <summary>저장값을 유효 범위로. 0(키 없음)·25 미만 → 25, 125 초과 → 125</summary>
+    /// <summary>저장값을 유효 범위로. 0(키 없음)·40 미만 → 40(구 세이브의 25~39 도 40 으로, 더 큰 값은 유지), 125 초과 → 125</summary>
     public static int Clamp(int unlocked)
     {
         return unlocked < StartSlots ? StartSlots : unlocked > MaxSlots ? MaxSlots : unlocked;

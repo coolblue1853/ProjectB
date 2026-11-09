@@ -2,8 +2,8 @@
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// 가방 칸 확장(메이플식, InventoryRefactorDesign.md §7). 상점이 열려 있을 때 N(패드 LT+X) 으로 다음 5칸 단계를 보여 주고,
-/// 5초 안에 한 번 더 누르면 골드로 산다. 칸 수는 Datas.bagUnlocked(구 세이브는 0 → 시작 25칸).
+/// 가방 칸 확장(메이플식, InventoryRefactorDesign.md §7). 상점이 열려 있을 때 N(패드 LT+X) 으로 다음 단계를 보여 주고,
+/// 5초 안에 한 번 더 누르면 골드로 산다. 칸 수는 Datas.bagUnlocked(구 세이브는 0 → 시작 40칸).
 /// </summary>
 public class BagExpansion : MonoBehaviour
 {

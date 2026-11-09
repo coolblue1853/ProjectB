@@ -91,6 +91,7 @@ public static class Loc
         var all = new System.Collections.Generic.List<(string en, string ko)>(LocTerms.Entries);
         all.AddRange(LocItems.Entries);
         all.AddRange(LocUi.Entries);
+        all.AddRange(LocSkills.Entries);
         return all;
     }
 

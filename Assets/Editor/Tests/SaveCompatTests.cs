@@ -62,7 +62,7 @@ public class SaveCompatTests
     public void OldSave_DefaultsAreSafe()
     {
         Assert.AreEqual(0, ExplorerSeal.BonusOf(0)); // 인장 없음 = 저항 보너스 0
-        Assert.AreEqual(25, BagExpansionRules.Clamp(0)); // 가방 키 없음 = 시작 칸
+        Assert.AreEqual(40, BagExpansionRules.Clamp(0)); // 가방 키 없음 = 시작 칸
     }
 
     [Test]

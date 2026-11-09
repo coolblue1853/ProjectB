@@ -52,7 +52,7 @@ public static class WeaponMasteryTooltip
                 if (need > lv && need < bestLv)
                 {
                     bestLv = need;
-                    bestName = w.skill[i].skillName;
+                    bestName = Loc.T(w.skill[i].skillName);
                 }
             }
             if (bestName != null)

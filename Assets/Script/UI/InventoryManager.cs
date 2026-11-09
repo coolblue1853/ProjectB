@@ -1914,10 +1914,10 @@ public class InventoryManager : MonoBehaviour
                 skillSlot.SetActive(true);
                 Skill skill = weapon.skill[i];
                 skillSlot.transform.GetChild(0).GetComponent<Image>().sprite = skill.skillImage;
-                skillSlot.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = skill.skillName;
+                skillSlot.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Loc.T(skill.skillName);
                 skillSlot.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = skill.useStemina.ToString();
                 skillSlot.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = skill.SkillCoolTime.ToString();
-                skillSlot.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = skill.skillDetail;
+                skillSlot.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = Loc.T(skill.skillDetail);
             }
             else
             {

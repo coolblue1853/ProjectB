@@ -15,7 +15,7 @@ public class Datas
     public float time;
     public string[,,] invenItem;
     public string[,,] chestItem;
-    public int bagUnlocked; // 가방 해금 칸 수(0 = 키 없음 → 시작 25칸, BagExpansionRules.Clamp)
+    public int bagUnlocked; // 가방 해금 칸 수(0 = 키 없음 → 시작 40칸, BagExpansionRules.Clamp)
     public int[,] inventoryFlags; // bit 0: 잠금, bit 1: 아직 보지 않은 획득
     public int[,] chestFlags;
     public int[] equipmentFlags = new int[10];

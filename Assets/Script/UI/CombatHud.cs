@@ -111,7 +111,7 @@ public class CombatHud : MonoBehaviour
             {
                 if (w.skill[i] != null && WeaponMasteryService.UnlockLevelFor(w, i) == level)
                 {
-                    msg += "  " + Loc.F("Skill unlocked: {0}", w.skill[i].skillName);
+                    msg += "  " + Loc.F("Skill unlocked: {0}", Loc.T(w.skill[i].skillName));
                 }
             }
         }
