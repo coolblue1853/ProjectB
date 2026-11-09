@@ -91,6 +91,7 @@
 | `Game/Durability.md` | 던파식 내구도·수리 도입 검토(추천: 보류) |
 | `Game/WeaponSkillProgression.md` | 무기 스킬 순차 해금·성장: 레벨 연동 vs 무기 숙련도 비교, 추천 B·곡선·이행안 |
 | `Game/EquipEffectDesign.md` | 장비·세트 효과 설계(REWORK-12): 스킬 수정자·규칙 대체 프레임워크, 등급별 효과 표, 1층계 효과 초안, P0~P8 |
+| `Game/QuestSystemDesign.md` | 퀘스트 통합 설계(REWORK-5): 3계통 비교·공통 데이터 모델·Q 창·추적 HUD·입구 통일·U7 정책·P0~P5 |
 | `Game/FloorTransition.md` | 층계 전환 규칙: 이동 조건·칭호 부하·포털/귀환·안전지대·구현 갭 FT-* |
 
 ## 운영
