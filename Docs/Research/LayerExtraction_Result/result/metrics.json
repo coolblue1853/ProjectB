@@ -1,0 +1,8233 @@
+{
+ "baseline": {
+  "iou_per_class": {
+   "cap": 0.9335,
+   "top": 0.7798,
+   "glove": 0.2275,
+   "legs": 0.6667,
+   "shoes": 0.5382,
+   "body": 0.9713,
+   "back": 0.8585,
+   "hem": 0.8073
+  },
+  "miou_slots_1to6": 0.6862,
+  "holes": 30992,
+  "exposure": 69872,
+  "intrusion": 2624,
+  "cut": 4500,
+  "strays": 1888,
+  "holes_by_map_label": {
+   "none": 256,
+   "body": 320,
+   "back": 25136,
+   "hem": 5280
+  },
+  "exposure_by_map_label": {
+   "cap": 672,
+   "body": 17856,
+   "back": 42720,
+   "hem": 8624
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 1896,
+    "exposure": 2392,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 160,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     1712,
+     264
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1552,
+     344
+    ],
+    "filled": 0,
+    "holes_243": 1896
+   },
+   "ds_idle_1": {
+    "holes": 1928,
+    "exposure": 2672,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 176,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     1728,
+     208
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1552,
+     344
+    ],
+    "filled": 0,
+    "holes_243": 1928
+   },
+   "ds_idle_2": {
+    "holes": 1936,
+    "exposure": 3200,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 184,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     992,
+     1888,
+     320
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1616,
+     288
+    ],
+    "filled": 0,
+    "holes_243": 1936
+   },
+   "ds_idle_3": {
+    "holes": 1792,
+    "exposure": 3640,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 168,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     832,
+     2032,
+     776
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1456,
+     336
+    ],
+    "filled": 0,
+    "holes_243": 1792
+   },
+   "ds_idle_4": {
+    "holes": 1824,
+    "exposure": 3088,
+    "intrusion": 248,
+    "cut": 680,
+    "strays": 136,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     1984,
+     400
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1536,
+     288
+    ],
+    "filled": 0,
+    "holes_243": 1824,
+    "miou": 0.7465
+   },
+   "ds_idle_5": {
+    "holes": 1720,
+    "exposure": 3408,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 136,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     672,
+     2320,
+     416
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1408,
+     312
+    ],
+    "filled": 0,
+    "holes_243": 1720
+   },
+   "ds_idle_6": {
+    "holes": 1816,
+    "exposure": 3264,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 136,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     2144,
+     416
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1472,
+     312
+    ],
+    "filled": 0,
+    "holes_243": 1816
+   },
+   "ds_idle_7": {
+    "holes": 1712,
+    "exposure": 3096,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 168,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     448,
+     2288,
+     360
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1392,
+     320
+    ],
+    "filled": 0,
+    "holes_243": 1712
+   },
+   "ds_stab_0": {
+    "holes": 1648,
+    "exposure": 3688,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     928,
+     2096,
+     664
+    ],
+    "hole_by_label": [
+     128,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1248,
+     272
+    ],
+    "filled": 0,
+    "holes_243": 1648
+   },
+   "ds_stab_1": {
+    "holes": 1240,
+    "exposure": 3152,
+    "intrusion": 280,
+    "cut": 288,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     544,
+     2032,
+     576
+    ],
+    "hole_by_label": [
+     128,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     896,
+     216
+    ],
+    "filled": 0,
+    "holes_243": 1240,
+    "miou": 0.82
+   },
+   "ds_stab_2": {
+    "holes": 576,
+    "exposure": 3688,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     2448,
+     824
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     192
+    ],
+    "filled": 0,
+    "holes_243": 576
+   },
+   "ds_stab_3": {
+    "holes": 848,
+    "exposure": 2656,
+    "intrusion": 808,
+    "cut": 376,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     608,
+     2048,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 0,
+    "holes_243": 848,
+    "miou": 0.6309
+   },
+   "ds_down_0": {
+    "holes": 2048,
+    "exposure": 1856,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 128,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     928,
+     672,
+     256
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1760,
+     288
+    ],
+    "filled": 0,
+    "holes_243": 2048
+   },
+   "ds_down_1": {
+    "holes": 2160,
+    "exposure": 1848,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     880,
+     264
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1888,
+     272
+    ],
+    "filled": 0,
+    "holes_243": 2160
+   },
+   "ds_down_2": {
+    "holes": 1240,
+    "exposure": 4032,
+    "intrusion": 296,
+    "cut": 412,
+    "strays": 72,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1024,
+     2304,
+     704
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     864,
+     376
+    ],
+    "filled": 0,
+    "holes_243": 1240,
+    "miou": 0.7638
+   },
+   "ds_down_3": {
+    "holes": 888,
+    "exposure": 4544,
+    "intrusion": 184,
+    "cut": 376,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1184,
+     2432,
+     928
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     624,
+     264
+    ],
+    "filled": 0,
+    "holes_243": 888,
+    "miou": 0.7807
+   },
+   "ds_up_0": {
+    "holes": 1632,
+    "exposure": 2512,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     800,
+     1312,
+     400
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1456,
+     176
+    ],
+    "filled": 0,
+    "holes_243": 1632
+   },
+   "ds_up_1": {
+    "holes": 672,
+    "exposure": 3048,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     1456,
+     24
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     672,
+     0
+    ],
+    "filled": 0,
+    "holes_243": 672
+   },
+   "ds_up_2": {
+    "holes": 800,
+    "exposure": 2952,
+    "intrusion": 288,
+    "cut": 896,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1280,
+     1424,
+     248
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     608,
+     160
+    ],
+    "filled": 0,
+    "holes_243": 800,
+    "miou": 0.7305
+   },
+   "ds_up_3": {
+    "holes": 1264,
+    "exposure": 4576,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 176,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     3616,
+     256
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1008,
+     224
+    ],
+    "filled": 0,
+    "holes_243": 1264
+   },
+   "ds_up_4": {
+    "holes": 1352,
+    "exposure": 6560,
+    "intrusion": 520,
+    "cut": 1472,
+    "strays": 40,
+    "exp_by_label": [
+     0,
+     672,
+     0,
+     0,
+     0,
+     0,
+     1664,
+     3904,
+     320
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     896,
+     296
+    ],
+    "filled": 0,
+    "holes_243": 1352,
+    "miou": 0.6219
+   }
+  },
+  "holes_243_patterns": 30992,
+  "filled_px": 0,
+  "holes_excl_backpack": 5856,
+  "options": [
+   "none"
+  ]
+ },
+ "m1_underdiff": {
+  "iou_per_class": {
+   "cap": 0.9838,
+   "top": 0.474,
+   "glove": 0.467,
+   "legs": 0.1775,
+   "shoes": 0.7465,
+   "body": 0.8967,
+   "back": 0.5379,
+   "hem": 0.4507
+  },
+  "miou_slots_1to6": 0.6243,
+  "holes": 30592,
+  "exposure": 53896,
+  "intrusion": 9772,
+  "cut": 6456,
+  "strays": 848,
+  "holes_by_map_label": {
+   "body": 128,
+   "back": 21952,
+   "hem": 8512
+  },
+  "exposure_by_map_label": {
+   "body": 6912,
+   "back": 23776,
+   "hem": 23208
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 2080,
+    "exposure": 2400,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     224,
+     1120,
+     1056
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1632,
+     448
+    ],
+    "filled": 0
+   },
+   "ds_idle_1": {
+    "holes": 2096,
+    "exposure": 2200,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     1136,
+     904
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1632,
+     464
+    ],
+    "filled": 0
+   },
+   "ds_idle_2": {
+    "holes": 1976,
+    "exposure": 2480,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 72,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     992,
+     1104
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1584,
+     392
+    ],
+    "filled": 0
+   },
+   "ds_idle_3": {
+    "holes": 1840,
+    "exposure": 2416,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     64,
+     1328,
+     1024
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1472,
+     368
+    ],
+    "filled": 0
+   },
+   "ds_idle_4": {
+    "holes": 1904,
+    "exposure": 2496,
+    "intrusion": 1344,
+    "cut": 1256,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     224,
+     1264,
+     1008
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     336
+    ],
+    "filled": 0,
+    "miou": 0.5647
+   },
+   "ds_idle_5": {
+    "holes": 1752,
+    "exposure": 2920,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 56,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     1696,
+     1032
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1408,
+     344
+    ],
+    "filled": 0
+   },
+   "ds_idle_6": {
+    "holes": 1888,
+    "exposure": 2792,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     224,
+     1568,
+     1000
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1552,
+     336
+    ],
+    "filled": 0
+   },
+   "ds_idle_7": {
+    "holes": 1696,
+    "exposure": 2168,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 224,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     64,
+     1056,
+     1048
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1296,
+     400
+    ],
+    "filled": 0
+   },
+   "ds_stab_0": {
+    "holes": 872,
+    "exposure": 1992,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     352,
+     0,
+     1640
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     96,
+     776
+    ],
+    "filled": 0
+   },
+   "ds_stab_1": {
+    "holes": 800,
+    "exposure": 2136,
+    "intrusion": 2368,
+    "cut": 856,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     1816
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     800
+    ],
+    "filled": 0,
+    "miou": 0.5403
+   },
+   "ds_stab_2": {
+    "holes": 440,
+    "exposure": 2040,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     1848
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     440
+    ],
+    "filled": 0
+   },
+   "ds_stab_3": {
+    "holes": 1088,
+    "exposure": 3344,
+    "intrusion": 556,
+    "cut": 1020,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1792,
+     1232
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     784,
+     304
+    ],
+    "filled": 0,
+    "miou": 0.7287
+   },
+   "ds_down_0": {
+    "holes": 2224,
+    "exposure": 1688,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     336,
+     968
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1776,
+     448
+    ],
+    "filled": 0
+   },
+   "ds_down_1": {
+    "holes": 2304,
+    "exposure": 1584,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 40,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     512,
+     912
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1872,
+     432
+    ],
+    "filled": 0
+   },
+   "ds_down_2": {
+    "holes": 872,
+    "exposure": 2640,
+    "intrusion": 2624,
+    "cut": 1172,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     0,
+     1904
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     872
+    ],
+    "filled": 0,
+    "miou": 0.4347
+   },
+   "ds_down_3": {
+    "holes": 800,
+    "exposure": 3712,
+    "intrusion": 1088,
+    "cut": 524,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     672,
+     2112,
+     928
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     592,
+     208
+    ],
+    "filled": 0,
+    "miou": 0.6107
+   },
+   "ds_up_0": {
+    "holes": 1704,
+    "exposure": 2424,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     912,
+     1032
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1520,
+     184
+    ],
+    "filled": 0
+   },
+   "ds_up_1": {
+    "holes": 736,
+    "exposure": 2008,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     512,
+     576,
+     920
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     576,
+     160
+    ],
+    "filled": 0
+   },
+   "ds_up_2": {
+    "holes": 664,
+    "exposure": 2208,
+    "intrusion": 1192,
+    "cut": 1044,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     848,
+     880
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     512,
+     152
+    ],
+    "filled": 0,
+    "miou": 0.5733
+   },
+   "ds_up_3": {
+    "holes": 1504,
+    "exposure": 3824,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     288,
+     3024,
+     512
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1168,
+     336
+    ],
+    "filled": 0
+   },
+   "ds_up_4": {
+    "holes": 1352,
+    "exposure": 4424,
+    "intrusion": 600,
+    "cut": 584,
+    "strays": 24,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     3504,
+     440
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     912,
+     312
+    ],
+    "filled": 0,
+    "miou": 0.7074
+   }
+  },
+  "filled_px": 0,
+  "holes_excl_backpack": 8640,
+  "options": []
+ },
+ "m1h_hybrid": {
+  "iou_per_class": {
+   "cap": 0.9838,
+   "top": 0.771,
+   "glove": 0.6782,
+   "legs": 0.6687,
+   "shoes": 0.7268,
+   "body": 0.9218,
+   "back": 0.8925,
+   "hem": 0.7793
+  },
+  "miou_slots_1to6": 0.7917,
+  "holes": 32280,
+  "exposure": 58176,
+  "intrusion": 3076,
+  "cut": 3704,
+  "strays": 496,
+  "holes_by_map_label": {
+   "body": 128,
+   "back": 26928,
+   "hem": 5224
+  },
+  "exposure_by_map_label": {
+   "body": 6272,
+   "back": 43568,
+   "hem": 8336
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 2072,
+    "exposure": 2080,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     1696,
+     256
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     344
+    ],
+    "filled": 0
+   },
+   "ds_idle_1": {
+    "holes": 2072,
+    "exposure": 2224,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     1856,
+     208
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     344
+    ],
+    "filled": 0
+   },
+   "ds_idle_2": {
+    "holes": 2048,
+    "exposure": 2480,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1840,
+     320
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1760,
+     288
+    ],
+    "filled": 0
+   },
+   "ds_idle_3": {
+    "holes": 1888,
+    "exposure": 2880,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     2192,
+     656
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     320
+    ],
+    "filled": 0
+   },
+   "ds_idle_4": {
+    "holes": 1984,
+    "exposure": 2760,
+    "intrusion": 332,
+    "cut": 852,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2176,
+     392
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1696,
+     288
+    ],
+    "filled": 0,
+    "miou": 0.7933
+   },
+   "ds_idle_5": {
+    "holes": 1856,
+    "exposure": 3088,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2480,
+     416
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1552,
+     304
+    ],
+    "filled": 0
+   },
+   "ds_idle_6": {
+    "holes": 1904,
+    "exposure": 2912,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2304,
+     416
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1600,
+     304
+    ],
+    "filled": 0
+   },
+   "ds_idle_7": {
+    "holes": 1792,
+    "exposure": 2640,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 80,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     2288,
+     352
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1472,
+     320
+    ],
+    "filled": 0
+   },
+   "ds_stab_0": {
+    "holes": 1520,
+    "exposure": 2952,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 112,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1968,
+     664
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1248,
+     272
+    ],
+    "filled": 0
+   },
+   "ds_stab_1": {
+    "holes": 1112,
+    "exposure": 2832,
+    "intrusion": 384,
+    "cut": 160,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1936,
+     576
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     896,
+     216
+    ],
+    "filled": 0,
+    "miou": 0.9169
+   },
+   "ds_stab_2": {
+    "holes": 576,
+    "exposure": 3416,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2416,
+     808
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     192
+    ],
+    "filled": 0
+   },
+   "ds_stab_3": {
+    "holes": 848,
+    "exposure": 2416,
+    "intrusion": 720,
+    "cut": 264,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     256,
+     2160,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7524
+   },
+   "ds_down_0": {
+    "holes": 2208,
+    "exposure": 1360,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     688,
+     256
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1920,
+     288
+    ],
+    "filled": 0
+   },
+   "ds_down_1": {
+    "holes": 2208,
+    "exposure": 1288,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     864,
+     264
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1936,
+     272
+    ],
+    "filled": 0
+   },
+   "ds_down_2": {
+    "holes": 1208,
+    "exposure": 3584,
+    "intrusion": 484,
+    "cut": 376,
+    "strays": 72,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     2192,
+     656
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     360
+    ],
+    "filled": 0,
+    "miou": 0.7986
+   },
+   "ds_down_3": {
+    "holes": 880,
+    "exposure": 4048,
+    "intrusion": 396,
+    "cut": 468,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     640,
+     2560,
+     848
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     624,
+     256
+    ],
+    "filled": 0,
+    "miou": 0.7872
+   },
+   "ds_up_0": {
+    "holes": 1792,
+    "exposure": 2048,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1328,
+     400
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1616,
+     176
+    ],
+    "filled": 0
+   },
+   "ds_up_1": {
+    "holes": 704,
+    "exposure": 1928,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     1424,
+     24
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_up_2": {
+    "holes": 816,
+    "exposure": 2264,
+    "intrusion": 464,
+    "cut": 992,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     1536,
+     248
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     656,
+     160
+    ],
+    "filled": 0,
+    "miou": 0.7927
+   },
+   "ds_up_3": {
+    "holes": 1440,
+    "exposure": 4240,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     288,
+     3696,
+     256
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1216,
+     224
+    ],
+    "filled": 0
+   },
+   "ds_up_4": {
+    "holes": 1352,
+    "exposure": 4736,
+    "intrusion": 296,
+    "cut": 592,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     448,
+     3968,
+     320
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     928,
+     296
+    ],
+    "filled": 0,
+    "miou": 0.7625
+   }
+  },
+  "filled_px": 0,
+  "holes_excl_backpack": 5352,
+  "options": []
+ },
+ "m2_propagate_chain": {
+  "iou_per_class": {
+   "cap": 0.7734,
+   "top": 0.4689,
+   "glove": 0.1016,
+   "legs": 0.4836,
+   "shoes": 0.7304,
+   "body": 0.6568,
+   "back": 0.4774,
+   "hem": 0.6043
+  },
+  "miou_slots_1to6": 0.5358,
+  "holes": 31672,
+  "exposure": 55816,
+  "intrusion": 13208,
+  "cut": 6492,
+  "strays": 416,
+  "holes_by_map_label": {
+   "none": 416,
+   "body": 768,
+   "back": 24704,
+   "hem": 5784
+  },
+  "exposure_by_map_label": {
+   "cap": 1328,
+   "body": 13472,
+   "back": 30976,
+   "hem": 10040
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 2000,
+    "exposure": 2008,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     1392,
+     200
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1680,
+     320
+    ],
+    "filled": 0
+   },
+   "ds_idle_1": {
+    "holes": 2048,
+    "exposure": 2176,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     672,
+     1280,
+     192
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1696,
+     320
+    ],
+    "filled": 0
+   },
+   "ds_idle_2": {
+    "holes": 2024,
+    "exposure": 2616,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     928,
+     1392,
+     248
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1728,
+     264
+    ],
+    "filled": 0
+   },
+   "ds_idle_3": {
+    "holes": 1832,
+    "exposure": 2552,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     672,
+     1536,
+     296
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     264
+    ],
+    "filled": 0
+   },
+   "ds_idle_4": {
+    "holes": 1920,
+    "exposure": 2536,
+    "intrusion": 688,
+    "cut": 296,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     768,
+     1408,
+     312
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1632,
+     288
+    ],
+    "filled": 0,
+    "miou": 0.8324
+   },
+   "ds_idle_5": {
+    "holes": 1792,
+    "exposure": 2736,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     736,
+     1600,
+     352
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1504,
+     288
+    ],
+    "filled": 0
+   },
+   "ds_idle_6": {
+    "holes": 1928,
+    "exposure": 2624,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     832,
+     1392,
+     352
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     64,
+     1552,
+     312
+    ],
+    "filled": 0
+   },
+   "ds_idle_7": {
+    "holes": 1848,
+    "exposure": 2544,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     112,
+     0,
+     0,
+     0,
+     0,
+     736,
+     1360,
+     336
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1504,
+     344
+    ],
+    "filled": 0
+   },
+   "ds_stab_0": {
+    "holes": 1824,
+    "exposure": 3224,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     640,
+     1872,
+     680
+    ],
+    "hole_by_label": [
+     288,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1296,
+     240
+    ],
+    "filled": 0
+   },
+   "ds_stab_1": {
+    "holes": 1352,
+    "exposure": 3128,
+    "intrusion": 884,
+    "cut": 752,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     480,
+     1872,
+     728
+    ],
+    "hole_by_label": [
+     128,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1008,
+     216
+    ],
+    "filled": 0,
+    "miou": 0.5699
+   },
+   "ds_stab_2": {
+    "holes": 600,
+    "exposure": 3488,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     256,
+     2384,
+     800
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     432,
+     168
+    ],
+    "filled": 0
+   },
+   "ds_stab_3": {
+    "holes": 928,
+    "exposure": 3080,
+    "intrusion": 960,
+    "cut": 796,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     320,
+     2048,
+     664
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     192
+    ],
+    "filled": 0,
+    "miou": 0.5678
+   },
+   "ds_down_0": {
+    "holes": 2072,
+    "exposure": 2336,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     960,
+     1024,
+     320
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     64,
+     1696,
+     312
+    ],
+    "filled": 0
+   },
+   "ds_down_1": {
+    "holes": 2088,
+    "exposure": 2656,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     1120,
+     1152,
+     336
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     64,
+     1760,
+     264
+    ],
+    "filled": 0
+   },
+   "ds_down_2": {
+    "holes": 888,
+    "exposure": 2120,
+    "intrusion": 2976,
+    "cut": 732,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     320,
+     928,
+     824
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     400,
+     488
+    ],
+    "filled": 0,
+    "miou": 0.4394
+   },
+   "ds_down_3": {
+    "holes": 624,
+    "exposure": 2224,
+    "intrusion": 3076,
+    "cut": 672,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     64,
+     0,
+     0,
+     0,
+     0,
+     224,
+     1024,
+     912
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     352,
+     272
+    ],
+    "filled": 0,
+    "miou": 0.4493
+   },
+   "ds_up_0": {
+    "holes": 1696,
+    "exposure": 2296,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 48,
+    "exp_by_label": [
+     0,
+     16,
+     0,
+     0,
+     0,
+     0,
+     736,
+     1168,
+     376
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1536,
+     160
+    ],
+    "filled": 0
+   },
+   "ds_up_1": {
+    "holes": 1112,
+    "exposure": 2448,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     608,
+     1280,
+     528
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     912,
+     200
+    ],
+    "filled": 0
+   },
+   "ds_up_2": {
+    "holes": 920,
+    "exposure": 2616,
+    "intrusion": 972,
+    "cut": 1528,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     64,
+     0,
+     0,
+     0,
+     0,
+     832,
+     1184,
+     536
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     184
+    ],
+    "filled": 0,
+    "miou": 0.5605
+   },
+   "ds_up_3": {
+    "holes": 1312,
+    "exposure": 3680,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     240,
+     0,
+     0,
+     0,
+     0,
+     672,
+     2288,
+     480
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     816,
+     368
+    ],
+    "filled": 0
+   },
+   "ds_up_4": {
+    "holes": 864,
+    "exposure": 2728,
+    "intrusion": 3652,
+    "cut": 1716,
+    "strays": 40,
+    "exp_by_label": [
+     0,
+     224,
+     0,
+     0,
+     0,
+     0,
+     544,
+     1392,
+     568
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     160,
+     320
+    ],
+    "filled": 0,
+    "miou": 0.4268
+   }
+  },
+  "filled_px": 0,
+  "holes_excl_backpack": 6968,
+  "options": []
+ },
+ "m2_propagate_direct": {
+  "iou_per_class": {
+   "cap": 0.8005,
+   "top": 0.5473,
+   "glove": 0.0963,
+   "legs": 0.514,
+   "shoes": 0.6918,
+   "body": 0.7054,
+   "back": 0.5799,
+   "hem": 0.5874
+  },
+  "miou_slots_1to6": 0.5592,
+  "holes": 32648,
+  "exposure": 59976,
+  "intrusion": 8676,
+  "cut": 7040,
+  "strays": 328,
+  "holes_by_map_label": {
+   "none": 416,
+   "body": 512,
+   "back": 26080,
+   "hem": 5640
+  },
+  "exposure_by_map_label": {
+   "cap": 1024,
+   "body": 13856,
+   "back": 35376,
+   "hem": 9720
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 2000,
+    "exposure": 2008,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     1392,
+     200
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1680,
+     320
+    ],
+    "filled": 0
+   },
+   "ds_idle_1": {
+    "holes": 2048,
+    "exposure": 2176,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     672,
+     1280,
+     192
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1696,
+     320
+    ],
+    "filled": 0
+   },
+   "ds_idle_2": {
+    "holes": 2024,
+    "exposure": 2688,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     992,
+     1408,
+     256
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1728,
+     264
+    ],
+    "filled": 0
+   },
+   "ds_idle_3": {
+    "holes": 1840,
+    "exposure": 2664,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     832,
+     1536,
+     264
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     272
+    ],
+    "filled": 0
+   },
+   "ds_idle_4": {
+    "holes": 1912,
+    "exposure": 2544,
+    "intrusion": 800,
+    "cut": 392,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     48,
+     0,
+     0,
+     0,
+     0,
+     832,
+     1408,
+     256
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1648,
+     264
+    ],
+    "filled": 0,
+    "miou": 0.8233
+   },
+   "ds_idle_5": {
+    "holes": 1848,
+    "exposure": 2808,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     64,
+     0,
+     0,
+     0,
+     0,
+     832,
+     1616,
+     296
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1584,
+     264
+    ],
+    "filled": 0
+   },
+   "ds_idle_6": {
+    "holes": 1936,
+    "exposure": 2712,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     864,
+     1472,
+     344
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1616,
+     288
+    ],
+    "filled": 0
+   },
+   "ds_idle_7": {
+    "holes": 1824,
+    "exposure": 2608,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     96,
+     0,
+     0,
+     0,
+     0,
+     736,
+     1488,
+     288
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1520,
+     304
+    ],
+    "filled": 0
+   },
+   "ds_stab_0": {
+    "holes": 1824,
+    "exposure": 3224,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     640,
+     1872,
+     680
+    ],
+    "hole_by_label": [
+     288,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1296,
+     240
+    ],
+    "filled": 0
+   },
+   "ds_stab_1": {
+    "holes": 1344,
+    "exposure": 3304,
+    "intrusion": 724,
+    "cut": 816,
+    "strays": 40,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     480,
+     2048,
+     744
+    ],
+    "hole_by_label": [
+     128,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1008,
+     208
+    ],
+    "filled": 0,
+    "miou": 0.5614
+   },
+   "ds_stab_2": {
+    "holes": 632,
+    "exposure": 3440,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     288,
+     2384,
+     736
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     464,
+     168
+    ],
+    "filled": 0
+   },
+   "ds_stab_3": {
+    "holes": 960,
+    "exposure": 2976,
+    "intrusion": 656,
+    "cut": 404,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     576,
+     1920,
+     448
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     784,
+     176
+    ],
+    "filled": 0,
+    "miou": 0.6812
+   },
+   "ds_down_0": {
+    "holes": 2072,
+    "exposure": 2336,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     960,
+     1024,
+     320
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     64,
+     1696,
+     312
+    ],
+    "filled": 0
+   },
+   "ds_down_1": {
+    "holes": 2240,
+    "exposure": 2688,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     1312,
+     1008,
+     336
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1952,
+     288
+    ],
+    "filled": 0
+   },
+   "ds_down_2": {
+    "holes": 1216,
+    "exposure": 3048,
+    "intrusion": 1600,
+    "cut": 868,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     256,
+     1648,
+     1112
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     688,
+     528
+    ],
+    "filled": 0,
+    "miou": 0.4567
+   },
+   "ds_down_3": {
+    "holes": 896,
+    "exposure": 3472,
+    "intrusion": 1548,
+    "cut": 932,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     192,
+     1936,
+     1312
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     560,
+     336
+    ],
+    "filled": 0,
+    "miou": 0.4758
+   },
+   "ds_up_0": {
+    "holes": 1696,
+    "exposure": 2296,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 48,
+    "exp_by_label": [
+     0,
+     16,
+     0,
+     0,
+     0,
+     0,
+     736,
+     1168,
+     376
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1536,
+     160
+    ],
+    "filled": 0
+   },
+   "ds_up_1": {
+    "holes": 912,
+    "exposure": 2424,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     16,
+     0,
+     0,
+     0,
+     0,
+     384,
+     1632,
+     392
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     672,
+     240
+    ],
+    "filled": 0
+   },
+   "ds_up_2": {
+    "holes": 752,
+    "exposure": 2496,
+    "intrusion": 1232,
+    "cut": 1656,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     32,
+     0,
+     0,
+     0,
+     0,
+     544,
+     1504,
+     416
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     496,
+     224
+    ],
+    "filled": 0,
+    "miou": 0.5348
+   },
+   "ds_up_3": {
+    "holes": 1464,
+    "exposure": 3864,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     64,
+     0,
+     0,
+     0,
+     0,
+     544,
+     2784,
+     472
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     64,
+     1200,
+     200
+    ],
+    "filled": 0
+   },
+   "ds_up_4": {
+    "holes": 1208,
+    "exposure": 4200,
+    "intrusion": 2116,
+    "cut": 1972,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     304,
+     0,
+     0,
+     0,
+     0,
+     768,
+     2848,
+     280
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     256,
+     688,
+     264
+    ],
+    "filled": 0,
+    "miou": 0.4833
+   }
+  },
+  "filled_px": 0,
+  "holes_excl_backpack": 6568,
+  "options": []
+ },
+ "baseline_hemUnifiedTop": {
+  "iou_per_class": {
+   "cap": 0.9335,
+   "top": 0.7798,
+   "glove": 0.2275,
+   "legs": 0.6667,
+   "shoes": 0.5382,
+   "body": 0.9713,
+   "back": 0.8585,
+   "hem": 0.8073
+  },
+  "miou_slots_1to6": 0.6862,
+  "holes": 25712,
+  "exposure": 61248,
+  "intrusion": 2320,
+  "cut": 4368,
+  "strays": 1704,
+  "holes_by_map_label": {
+   "none": 256,
+   "body": 320,
+   "back": 25136
+  },
+  "exposure_by_map_label": {
+   "cap": 672,
+   "body": 17856,
+   "back": 42720
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 1552,
+    "exposure": 2128,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 160,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     1712,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1552,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_1": {
+    "holes": 1584,
+    "exposure": 2464,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 160,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     1728,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1552,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_2": {
+    "holes": 1648,
+    "exposure": 2880,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 160,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     992,
+     1888,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1616,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_3": {
+    "holes": 1456,
+    "exposure": 2864,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 144,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     832,
+     2032,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1456,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_4": {
+    "holes": 1536,
+    "exposure": 2688,
+    "intrusion": 424,
+    "cut": 704,
+    "strays": 136,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     1984,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1536,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7465
+   },
+   "ds_idle_5": {
+    "holes": 1408,
+    "exposure": 2992,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 136,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     672,
+     2320,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1408,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_6": {
+    "holes": 1504,
+    "exposure": 2848,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 136,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     2144,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1472,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_7": {
+    "holes": 1392,
+    "exposure": 2736,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 152,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     448,
+     2288,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1392,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_stab_0": {
+    "holes": 1376,
+    "exposure": 3024,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 88,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     928,
+     2096,
+     0
+    ],
+    "hole_by_label": [
+     128,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1248,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_stab_1": {
+    "holes": 1024,
+    "exposure": 2576,
+    "intrusion": 280,
+    "cut": 288,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     544,
+     2032,
+     0
+    ],
+    "hole_by_label": [
+     128,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     896,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.82
+   },
+   "ds_stab_2": {
+    "holes": 384,
+    "exposure": 2864,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     2448,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_stab_3": {
+    "holes": 848,
+    "exposure": 2656,
+    "intrusion": 288,
+    "cut": 344,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     608,
+     2048,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.6309
+   },
+   "ds_down_0": {
+    "holes": 1760,
+    "exposure": 1600,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 128,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     928,
+     672,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1760,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_down_1": {
+    "holes": 1888,
+    "exposure": 1584,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     880,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1888,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_down_2": {
+    "holes": 864,
+    "exposure": 3328,
+    "intrusion": 288,
+    "cut": 360,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1024,
+     2304,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     864,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7638
+   },
+   "ds_down_3": {
+    "holes": 624,
+    "exposure": 3616,
+    "intrusion": 232,
+    "cut": 304,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1184,
+     2432,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     624,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7807
+   },
+   "ds_up_0": {
+    "holes": 1456,
+    "exposure": 2112,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     800,
+     1312,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1456,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_up_1": {
+    "holes": 672,
+    "exposure": 3024,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     1456,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     672,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_up_2": {
+    "holes": 640,
+    "exposure": 2704,
+    "intrusion": 288,
+    "cut": 896,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1280,
+     1424,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     608,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7305
+   },
+   "ds_up_3": {
+    "holes": 1040,
+    "exposure": 4320,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 176,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     3616,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1008,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_up_4": {
+    "holes": 1056,
+    "exposure": 6240,
+    "intrusion": 520,
+    "cut": 1472,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     672,
+     0,
+     0,
+     0,
+     0,
+     1664,
+     3904,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     896,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.6219
+   }
+  },
+  "filled_px": 0,
+  "holes_excl_backpack": 576,
+  "options": [
+   "hem=2"
+  ]
+ },
+ "m1h_hemUnifiedTop": {
+  "iou_per_class": {
+   "cap": 0.9838,
+   "top": 0.771,
+   "glove": 0.6782,
+   "legs": 0.6687,
+   "shoes": 0.7268,
+   "body": 0.9218,
+   "back": 0.8925,
+   "hem": 0.7793
+  },
+  "miou_slots_1to6": 0.7917,
+  "holes": 27056,
+  "exposure": 49840,
+  "intrusion": 2696,
+  "cut": 3672,
+  "strays": 344,
+  "holes_by_map_label": {
+   "body": 128,
+   "back": 26928
+  },
+  "exposure_by_map_label": {
+   "body": 6272,
+   "back": 43568
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 1728,
+    "exposure": 1824,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     1696,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_1": {
+    "holes": 1728,
+    "exposure": 2016,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     1856,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_2": {
+    "holes": 1760,
+    "exposure": 2160,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1840,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1760,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_3": {
+    "holes": 1568,
+    "exposure": 2224,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     2192,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_4": {
+    "holes": 1696,
+    "exposure": 2368,
+    "intrusion": 504,
+    "cut": 880,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2176,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1696,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7933
+   },
+   "ds_idle_5": {
+    "holes": 1552,
+    "exposure": 2672,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2480,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1552,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_6": {
+    "holes": 1600,
+    "exposure": 2496,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2304,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1600,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_7": {
+    "holes": 1472,
+    "exposure": 2288,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 64,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     2288,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1472,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_stab_0": {
+    "holes": 1248,
+    "exposure": 2288,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 104,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1968,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1248,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_stab_1": {
+    "holes": 896,
+    "exposure": 2256,
+    "intrusion": 384,
+    "cut": 160,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1936,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     896,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.9169
+   },
+   "ds_stab_2": {
+    "holes": 384,
+    "exposure": 2608,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2416,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_stab_3": {
+    "holes": 848,
+    "exposure": 2416,
+    "intrusion": 200,
+    "cut": 232,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     256,
+     2160,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7524
+   },
+   "ds_down_0": {
+    "holes": 1920,
+    "exposure": 1104,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     688,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1920,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_down_1": {
+    "holes": 1936,
+    "exposure": 1024,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     864,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1936,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_down_2": {
+    "holes": 848,
+    "exposure": 2928,
+    "intrusion": 456,
+    "cut": 360,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     2192,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7986
+   },
+   "ds_down_3": {
+    "holes": 624,
+    "exposure": 3200,
+    "intrusion": 392,
+    "cut": 456,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     640,
+     2560,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     624,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7872
+   },
+   "ds_up_0": {
+    "holes": 1616,
+    "exposure": 1648,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1328,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1616,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_up_1": {
+    "holes": 704,
+    "exposure": 1904,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     1424,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_up_2": {
+    "holes": 656,
+    "exposure": 2016,
+    "intrusion": 464,
+    "cut": 992,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     1536,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     656,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7927
+   },
+   "ds_up_3": {
+    "holes": 1216,
+    "exposure": 3984,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     288,
+     3696,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1216,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_up_4": {
+    "holes": 1056,
+    "exposure": 4416,
+    "intrusion": 296,
+    "cut": 592,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     448,
+     3968,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     928,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7625
+   }
+  },
+  "filled_px": 0,
+  "holes_excl_backpack": 128,
+  "options": [
+   "hem=2"
+  ]
+ },
+ "m1h_hemUnifiedLegs": {
+  "iou_per_class": {
+   "cap": 0.9838,
+   "top": 0.771,
+   "glove": 0.6782,
+   "legs": 0.6687,
+   "shoes": 0.7268,
+   "body": 0.9218,
+   "back": 0.8925,
+   "hem": 0.7793
+  },
+  "miou_slots_1to6": 0.7917,
+  "holes": 27056,
+  "exposure": 49840,
+  "intrusion": 3240,
+  "cut": 4216,
+  "strays": 280,
+  "holes_by_map_label": {
+   "body": 128,
+   "back": 26928
+  },
+  "exposure_by_map_label": {
+   "body": 6272,
+   "back": 43568
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 1728,
+    "exposure": 1824,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     1696,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_1": {
+    "holes": 1728,
+    "exposure": 2016,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     1856,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_2": {
+    "holes": 1760,
+    "exposure": 2160,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1840,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1760,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_3": {
+    "holes": 1568,
+    "exposure": 2224,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     2192,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_4": {
+    "holes": 1696,
+    "exposure": 2368,
+    "intrusion": 328,
+    "cut": 704,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2176,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1696,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7933
+   },
+   "ds_idle_5": {
+    "holes": 1552,
+    "exposure": 2672,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2480,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1552,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_6": {
+    "holes": 1600,
+    "exposure": 2496,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2304,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1600,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_idle_7": {
+    "holes": 1472,
+    "exposure": 2288,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 64,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     2288,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1472,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_stab_0": {
+    "holes": 1248,
+    "exposure": 2288,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 48,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1968,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1248,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_stab_1": {
+    "holes": 896,
+    "exposure": 2256,
+    "intrusion": 384,
+    "cut": 160,
+    "strays": 88,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1936,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     896,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.9169
+   },
+   "ds_stab_2": {
+    "holes": 384,
+    "exposure": 2608,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     2416,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_stab_3": {
+    "holes": 848,
+    "exposure": 2416,
+    "intrusion": 856,
+    "cut": 888,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     256,
+     2160,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7524
+   },
+   "ds_down_0": {
+    "holes": 1920,
+    "exposure": 1104,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     688,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1920,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_down_1": {
+    "holes": 1936,
+    "exposure": 1024,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     864,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1936,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_down_2": {
+    "holes": 848,
+    "exposure": 2928,
+    "intrusion": 504,
+    "cut": 408,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     2192,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7986
+   },
+   "ds_down_3": {
+    "holes": 624,
+    "exposure": 3200,
+    "intrusion": 408,
+    "cut": 472,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     640,
+     2560,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     624,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7872
+   },
+   "ds_up_0": {
+    "holes": 1616,
+    "exposure": 1648,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     1328,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1616,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_up_1": {
+    "holes": 704,
+    "exposure": 1904,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     1424,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_up_2": {
+    "holes": 656,
+    "exposure": 2016,
+    "intrusion": 464,
+    "cut": 992,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     1536,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     656,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7927
+   },
+   "ds_up_3": {
+    "holes": 1216,
+    "exposure": 3984,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     288,
+     3696,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1216,
+     0
+    ],
+    "filled": 0
+   },
+   "ds_up_4": {
+    "holes": 1056,
+    "exposure": 4416,
+    "intrusion": 296,
+    "cut": 592,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     448,
+     3968,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     928,
+     0
+    ],
+    "filled": 0,
+    "miou": 0.7625
+   }
+  },
+  "filled_px": 0,
+  "holes_excl_backpack": 128,
+  "options": [
+   "hem=4"
+  ]
+ },
+ "baseline_fill": {
+  "iou_per_class": {
+   "cap": 0.9335,
+   "top": 0.7798,
+   "glove": 0.2275,
+   "legs": 0.6667,
+   "shoes": 0.5382,
+   "body": 0.9713,
+   "back": 0.8585,
+   "hem": 0.8073
+  },
+  "miou_slots_1to6": 0.6862,
+  "holes": 30992,
+  "exposure": 20344,
+  "intrusion": 2596,
+  "cut": 4948,
+  "strays": 1888,
+  "holes_by_map_label": {
+   "none": 256,
+   "body": 320,
+   "back": 25136,
+   "hem": 5280
+  },
+  "exposure_by_map_label": {
+   "cap": 672,
+   "body": 17856,
+   "back": 1744,
+   "hem": 72
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 1896,
+    "exposure": 464,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 160,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     48,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1552,
+     344
+    ],
+    "filled": 2816
+   },
+   "ds_idle_1": {
+    "holes": 1928,
+    "exposure": 816,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 176,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     80,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1552,
+     344
+    ],
+    "filled": 2712
+   },
+   "ds_idle_2": {
+    "holes": 1936,
+    "exposure": 1088,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 184,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     992,
+     96,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1616,
+     288
+    ],
+    "filled": 2928
+   },
+   "ds_idle_3": {
+    "holes": 1792,
+    "exposure": 896,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 168,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     832,
+     64,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1456,
+     336
+    ],
+    "filled": 3856
+   },
+   "ds_idle_4": {
+    "holes": 1824,
+    "exposure": 768,
+    "intrusion": 248,
+    "cut": 720,
+    "strays": 136,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     64,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1536,
+     288
+    ],
+    "filled": 3464,
+    "miou": 0.7465
+   },
+   "ds_idle_5": {
+    "holes": 1720,
+    "exposure": 768,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 136,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     672,
+     96,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1408,
+     312
+    ],
+    "filled": 3680
+   },
+   "ds_idle_6": {
+    "holes": 1816,
+    "exposure": 784,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 136,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     80,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1472,
+     312
+    ],
+    "filled": 3760
+   },
+   "ds_idle_7": {
+    "holes": 1712,
+    "exposure": 560,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 168,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     448,
+     112,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1392,
+     320
+    ],
+    "filled": 3752
+   },
+   "ds_stab_0": {
+    "holes": 1648,
+    "exposure": 1056,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     928,
+     128,
+     0
+    ],
+    "hole_by_label": [
+     128,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1248,
+     272
+    ],
+    "filled": 3200
+   },
+   "ds_stab_1": {
+    "holes": 1240,
+    "exposure": 640,
+    "intrusion": 280,
+    "cut": 296,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     544,
+     96,
+     0
+    ],
+    "hole_by_label": [
+     128,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     896,
+     216
+    ],
+    "filled": 3016,
+    "miou": 0.82
+   },
+   "ds_stab_2": {
+    "holes": 576,
+    "exposure": 512,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     80,
+     16
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     192
+    ],
+    "filled": 3840
+   },
+   "ds_stab_3": {
+    "holes": 848,
+    "exposure": 624,
+    "intrusion": 808,
+    "cut": 392,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     608,
+     16,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 2800,
+    "miou": 0.6309
+   },
+   "ds_down_0": {
+    "holes": 2048,
+    "exposure": 1056,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 128,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     928,
+     128,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1760,
+     288
+    ],
+    "filled": 1216
+   },
+   "ds_down_1": {
+    "holes": 2160,
+    "exposure": 864,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     160,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1888,
+     272
+    ],
+    "filled": 1672
+   },
+   "ds_down_2": {
+    "holes": 1240,
+    "exposure": 1088,
+    "intrusion": 296,
+    "cut": 412,
+    "strays": 72,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1024,
+     64,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     864,
+     376
+    ],
+    "filled": 3472,
+    "miou": 0.7638
+   },
+   "ds_down_3": {
+    "holes": 888,
+    "exposure": 1288,
+    "intrusion": 156,
+    "cut": 584,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1184,
+     48,
+     56
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     624,
+     264
+    ],
+    "filled": 4376,
+    "miou": 0.7807
+   },
+   "ds_up_0": {
+    "holes": 1632,
+    "exposure": 928,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     800,
+     128,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1456,
+     176
+    ],
+    "filled": 2592
+   },
+   "ds_up_1": {
+    "holes": 672,
+    "exposure": 1600,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     32,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     672,
+     0
+    ],
+    "filled": 2392
+   },
+   "ds_up_2": {
+    "holes": 800,
+    "exposure": 1296,
+    "intrusion": 288,
+    "cut": 1060,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1280,
+     16,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     608,
+     160
+    ],
+    "filled": 2648,
+    "miou": 0.7305
+   },
+   "ds_up_3": {
+    "holes": 1264,
+    "exposure": 784,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 176,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     80,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     1008,
+     224
+    ],
+    "filled": 4752
+   },
+   "ds_up_4": {
+    "holes": 1352,
+    "exposure": 2464,
+    "intrusion": 520,
+    "cut": 1484,
+    "strays": 40,
+    "exp_by_label": [
+     0,
+     672,
+     0,
+     0,
+     0,
+     0,
+     1664,
+     128,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     896,
+     296
+    ],
+    "filled": 4720,
+    "miou": 0.6219
+   }
+  },
+  "filled_px": 67664,
+  "holes_excl_backpack": 5856,
+  "options": [
+   "fill"
+  ]
+ },
+ "m3_m1h_fill": {
+  "iou_per_class": {
+   "cap": 0.9838,
+   "top": 0.771,
+   "glove": 0.6782,
+   "legs": 0.6687,
+   "shoes": 0.7268,
+   "body": 0.9218,
+   "back": 0.8925,
+   "hem": 0.7793
+  },
+  "miou_slots_1to6": 0.7917,
+  "holes": 32280,
+  "exposure": 6272,
+  "intrusion": 3060,
+  "cut": 3864,
+  "strays": 496,
+  "holes_by_map_label": {
+   "body": 128,
+   "back": 26928,
+   "hem": 5224
+  },
+  "exposure_by_map_label": {
+   "body": 6272
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 2072,
+    "exposure": 128,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     344
+    ],
+    "filled": 2808
+   },
+   "ds_idle_1": {
+    "holes": 2072,
+    "exposure": 160,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     344
+    ],
+    "filled": 2936
+   },
+   "ds_idle_2": {
+    "holes": 2048,
+    "exposure": 320,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1760,
+     288
+    ],
+    "filled": 2880
+   },
+   "ds_idle_3": {
+    "holes": 1888,
+    "exposure": 32,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     320
+    ],
+    "filled": 4024
+   },
+   "ds_idle_4": {
+    "holes": 1984,
+    "exposure": 192,
+    "intrusion": 332,
+    "cut": 836,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1696,
+     288
+    ],
+    "filled": 3680,
+    "miou": 0.7933
+   },
+   "ds_idle_5": {
+    "holes": 1856,
+    "exposure": 192,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1552,
+     304
+    ],
+    "filled": 3824
+   },
+   "ds_idle_6": {
+    "holes": 1904,
+    "exposure": 192,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1600,
+     304
+    ],
+    "filled": 3840
+   },
+   "ds_idle_7": {
+    "holes": 1792,
+    "exposure": 0,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 80,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1472,
+     320
+    ],
+    "filled": 3840
+   },
+   "ds_stab_0": {
+    "holes": 1520,
+    "exposure": 320,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 112,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1248,
+     272
+    ],
+    "filled": 3184
+   },
+   "ds_stab_1": {
+    "holes": 1112,
+    "exposure": 320,
+    "intrusion": 384,
+    "cut": 156,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     896,
+     216
+    ],
+    "filled": 3000,
+    "miou": 0.9169
+   },
+   "ds_stab_2": {
+    "holes": 576,
+    "exposure": 192,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     192
+    ],
+    "filled": 3872
+   },
+   "ds_stab_3": {
+    "holes": 848,
+    "exposure": 256,
+    "intrusion": 720,
+    "cut": 232,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     256,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 2912,
+    "miou": 0.7524
+   },
+   "ds_down_0": {
+    "holes": 2208,
+    "exposure": 416,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1920,
+     288
+    ],
+    "filled": 1360
+   },
+   "ds_down_1": {
+    "holes": 2208,
+    "exposure": 160,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1936,
+     272
+    ],
+    "filled": 1736
+   },
+   "ds_down_2": {
+    "holes": 1208,
+    "exposure": 736,
+    "intrusion": 484,
+    "cut": 376,
+    "strays": 72,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     360
+    ],
+    "filled": 3440,
+    "miou": 0.7986
+   },
+   "ds_down_3": {
+    "holes": 880,
+    "exposure": 640,
+    "intrusion": 380,
+    "cut": 688,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     640,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     624,
+     256
+    ],
+    "filled": 4512,
+    "miou": 0.7872
+   },
+   "ds_up_0": {
+    "holes": 1792,
+    "exposure": 320,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1616,
+     176
+    ],
+    "filled": 2672
+   },
+   "ds_up_1": {
+    "holes": 704,
+    "exposure": 480,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     0
+    ],
+    "filled": 2296
+   },
+   "ds_up_2": {
+    "holes": 816,
+    "exposure": 480,
+    "intrusion": 464,
+    "cut": 1000,
+    "strays": 8,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     656,
+     160
+    ],
+    "filled": 2776,
+    "miou": 0.7927
+   },
+   "ds_up_3": {
+    "holes": 1440,
+    "exposure": 288,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     288,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1216,
+     224
+    ],
+    "filled": 4880
+   },
+   "ds_up_4": {
+    "holes": 1352,
+    "exposure": 448,
+    "intrusion": 296,
+    "cut": 576,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     448,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     928,
+     296
+    ],
+    "filled": 4880,
+    "miou": 0.7625
+   }
+  },
+  "filled_px": 69352,
+  "holes_excl_backpack": 5352,
+  "options": [
+   "fill"
+  ]
+ },
+ "m3_best_m1h_fill_hemTop": {
+  "iou_per_class": {
+   "cap": 0.9838,
+   "top": 0.771,
+   "glove": 0.6782,
+   "legs": 0.6687,
+   "shoes": 0.7268,
+   "body": 0.9218,
+   "back": 0.8925,
+   "hem": 0.7793
+  },
+  "miou_slots_1to6": 0.7917,
+  "holes": 27056,
+  "exposure": 6272,
+  "intrusion": 2696,
+  "cut": 3652,
+  "strays": 344,
+  "holes_by_map_label": {
+   "body": 128,
+   "back": 26928
+  },
+  "exposure_by_map_label": {
+   "body": 6272
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 1728,
+    "exposure": 128,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     0
+    ],
+    "filled": 2544,
+    "holes_243": 1728
+   },
+   "ds_idle_1": {
+    "holes": 1728,
+    "exposure": 160,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     0
+    ],
+    "filled": 2720,
+    "holes_243": 1728
+   },
+   "ds_idle_2": {
+    "holes": 1760,
+    "exposure": 320,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1760,
+     0
+    ],
+    "filled": 2560,
+    "holes_243": 1760
+   },
+   "ds_idle_3": {
+    "holes": 1568,
+    "exposure": 32,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     0
+    ],
+    "filled": 3152,
+    "holes_243": 1568
+   },
+   "ds_idle_4": {
+    "holes": 1696,
+    "exposure": 192,
+    "intrusion": 504,
+    "cut": 900,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1696,
+     0
+    ],
+    "filled": 3280,
+    "holes_243": 1696,
+    "miou": 0.7933
+   },
+   "ds_idle_5": {
+    "holes": 1552,
+    "exposure": 192,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1552,
+     0
+    ],
+    "filled": 3408,
+    "holes_243": 1552
+   },
+   "ds_idle_6": {
+    "holes": 1600,
+    "exposure": 192,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1600,
+     0
+    ],
+    "filled": 3424,
+    "holes_243": 1600
+   },
+   "ds_idle_7": {
+    "holes": 1472,
+    "exposure": 0,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 64,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1472,
+     0
+    ],
+    "filled": 3488,
+    "holes_243": 1472
+   },
+   "ds_stab_0": {
+    "holes": 1248,
+    "exposure": 320,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 104,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1248,
+     0
+    ],
+    "filled": 2512,
+    "holes_243": 1248
+   },
+   "ds_stab_1": {
+    "holes": 896,
+    "exposure": 320,
+    "intrusion": 384,
+    "cut": 156,
+    "strays": 96,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     896,
+     0
+    ],
+    "filled": 2400,
+    "holes_243": 896,
+    "miou": 0.9169
+   },
+   "ds_stab_2": {
+    "holes": 384,
+    "exposure": 192,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     0
+    ],
+    "filled": 3056,
+    "holes_243": 384
+   },
+   "ds_stab_3": {
+    "holes": 848,
+    "exposure": 256,
+    "intrusion": 200,
+    "cut": 200,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     256,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 2912,
+    "holes_243": 848,
+    "miou": 0.7524
+   },
+   "ds_down_0": {
+    "holes": 1920,
+    "exposure": 416,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1920,
+     0
+    ],
+    "filled": 1040,
+    "holes_243": 1920
+   },
+   "ds_down_1": {
+    "holes": 1936,
+    "exposure": 160,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1936,
+     0
+    ],
+    "filled": 1408,
+    "holes_243": 1936
+   },
+   "ds_down_2": {
+    "holes": 848,
+    "exposure": 736,
+    "intrusion": 456,
+    "cut": 348,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 2784,
+    "holes_243": 848,
+    "miou": 0.7986
+   },
+   "ds_down_3": {
+    "holes": 624,
+    "exposure": 640,
+    "intrusion": 392,
+    "cut": 516,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     640,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     624,
+     0
+    ],
+    "filled": 3472,
+    "holes_243": 624,
+    "miou": 0.7872
+   },
+   "ds_up_0": {
+    "holes": 1616,
+    "exposure": 320,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1616,
+     0
+    ],
+    "filled": 2272,
+    "holes_243": 1616
+   },
+   "ds_up_1": {
+    "holes": 704,
+    "exposure": 480,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     0
+    ],
+    "filled": 2272,
+    "holes_243": 704
+   },
+   "ds_up_2": {
+    "holes": 656,
+    "exposure": 480,
+    "intrusion": 464,
+    "cut": 964,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     656,
+     0
+    ],
+    "filled": 2464,
+    "holes_243": 656,
+    "miou": 0.7927
+   },
+   "ds_up_3": {
+    "holes": 1216,
+    "exposure": 288,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     288,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1216,
+     0
+    ],
+    "filled": 4624,
+    "holes_243": 1216
+   },
+   "ds_up_4": {
+    "holes": 1056,
+    "exposure": 448,
+    "intrusion": 296,
+    "cut": 568,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     448,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     928,
+     0
+    ],
+    "filled": 4560,
+    "holes_243": 1056,
+    "miou": 0.7625
+   }
+  },
+  "holes_243_patterns": 27056,
+  "filled_px": 60352,
+  "holes_excl_backpack": 128,
+  "options": [
+   "fill",
+   "hem=2",
+   "none"
+  ]
+ },
+ "m3_m1h_fill_hemLegs": {
+  "iou_per_class": {
+   "cap": 0.9838,
+   "top": 0.771,
+   "glove": 0.6782,
+   "legs": 0.6687,
+   "shoes": 0.7268,
+   "body": 0.9218,
+   "back": 0.8925,
+   "hem": 0.7793
+  },
+  "miou_slots_1to6": 0.7917,
+  "holes": 27056,
+  "exposure": 6272,
+  "intrusion": 3208,
+  "cut": 4652,
+  "strays": 280,
+  "holes_by_map_label": {
+   "body": 128,
+   "back": 26928
+  },
+  "exposure_by_map_label": {
+   "body": 6272
+  },
+  "frames": 21,
+  "patterns": 32,
+  "test_frames": [
+   "ds_idle_4",
+   "ds_stab_1",
+   "ds_stab_3",
+   "ds_down_2",
+   "ds_down_3",
+   "ds_up_2",
+   "ds_up_4"
+  ],
+  "per_frame": {
+   "ds_idle_0": {
+    "holes": 1728,
+    "exposure": 128,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     0
+    ],
+    "filled": 2544
+   },
+   "ds_idle_1": {
+    "holes": 1728,
+    "exposure": 160,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1728,
+     0
+    ],
+    "filled": 2720
+   },
+   "ds_idle_2": {
+    "holes": 1760,
+    "exposure": 320,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1760,
+     0
+    ],
+    "filled": 2560
+   },
+   "ds_idle_3": {
+    "holes": 1568,
+    "exposure": 32,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     32,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1568,
+     0
+    ],
+    "filled": 3952
+   },
+   "ds_idle_4": {
+    "holes": 1696,
+    "exposure": 192,
+    "intrusion": 328,
+    "cut": 692,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1696,
+     0
+    ],
+    "filled": 3280,
+    "miou": 0.7933
+   },
+   "ds_idle_5": {
+    "holes": 1552,
+    "exposure": 192,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1552,
+     0
+    ],
+    "filled": 3408
+   },
+   "ds_idle_6": {
+    "holes": 1600,
+    "exposure": 192,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1600,
+     0
+    ],
+    "filled": 3424
+   },
+   "ds_idle_7": {
+    "holes": 1472,
+    "exposure": 0,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 64,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1472,
+     0
+    ],
+    "filled": 3488
+   },
+   "ds_stab_0": {
+    "holes": 1248,
+    "exposure": 320,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 48,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1248,
+     0
+    ],
+    "filled": 2512
+   },
+   "ds_stab_1": {
+    "holes": 896,
+    "exposure": 320,
+    "intrusion": 384,
+    "cut": 156,
+    "strays": 88,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     896,
+     0
+    ],
+    "filled": 2400,
+    "miou": 0.9169
+   },
+   "ds_stab_2": {
+    "holes": 384,
+    "exposure": 192,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     192,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     384,
+     0
+    ],
+    "filled": 3056
+   },
+   "ds_stab_3": {
+    "holes": 848,
+    "exposure": 256,
+    "intrusion": 856,
+    "cut": 856,
+    "strays": 32,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     256,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 2912,
+    "miou": 0.7524
+   },
+   "ds_down_0": {
+    "holes": 1920,
+    "exposure": 416,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     416,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1920,
+     0
+    ],
+    "filled": 1040
+   },
+   "ds_down_1": {
+    "holes": 1936,
+    "exposure": 160,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     160,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1936,
+     0
+    ],
+    "filled": 1408
+   },
+   "ds_down_2": {
+    "holes": 848,
+    "exposure": 736,
+    "intrusion": 504,
+    "cut": 424,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     736,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     848,
+     0
+    ],
+    "filled": 2784,
+    "miou": 0.7986
+   },
+   "ds_down_3": {
+    "holes": 624,
+    "exposure": 640,
+    "intrusion": 376,
+    "cut": 872,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     640,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     624,
+     0
+    ],
+    "filled": 4240,
+    "miou": 0.7872
+   },
+   "ds_up_0": {
+    "holes": 1616,
+    "exposure": 320,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     320,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1616,
+     0
+    ],
+    "filled": 2272
+   },
+   "ds_up_1": {
+    "holes": 704,
+    "exposure": 480,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     704,
+     0
+    ],
+    "filled": 2272
+   },
+   "ds_up_2": {
+    "holes": 656,
+    "exposure": 480,
+    "intrusion": 464,
+    "cut": 1084,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     480,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     656,
+     0
+    ],
+    "filled": 2720,
+    "miou": 0.7927
+   },
+   "ds_up_3": {
+    "holes": 1216,
+    "exposure": 288,
+    "intrusion": 0,
+    "cut": 0,
+    "strays": 0,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     288,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1216,
+     0
+    ],
+    "filled": 4624
+   },
+   "ds_up_4": {
+    "holes": 1056,
+    "exposure": 448,
+    "intrusion": 296,
+    "cut": 568,
+    "strays": 16,
+    "exp_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     448,
+     0,
+     0
+    ],
+    "hole_by_label": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     128,
+     928,
+     0
+    ],
+    "filled": 4560,
+    "miou": 0.7625
+   }
+  },
+  "filled_px": 62176,
+  "holes_excl_backpack": 128,
+  "options": [
+   "fill",
+   "hem=4"
+  ]
+ }
+}

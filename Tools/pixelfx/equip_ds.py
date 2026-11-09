@@ -25,6 +25,9 @@ UNDER = os.path.join(ROOT, "Assets/Art/Player/PixelRig/EquipDS/under")  # 속옷
 BASE = "base"  # 기본 방어구 = 원본 몸 프레임
 
 
+FILL = os.path.join(ROOT, "Docs/Research/LayerExtraction_Result/result/layers_fill")
+
+
 def load(path):
     return np.array(Image.open(path).convert("RGBA"))
 
@@ -94,11 +97,16 @@ def export(set_id):
             if set_id == "base_coat":
                 emap = np.where((emap == 7) | (emap == 8), 2, emap)  # 기본 코트 상의 = 배낭·랜턴·치마 자락 포함
             else:
-                emap = np.where(emap == 8, 4, emap)  # 다른 세트의 치마 자락 자리는 바지 소속(배낭 7 은 버림)
+                emap = np.where(emap == 8, 2, emap)  # 치마 자락은 상의 소속으로 통일(연구 11-09: 구멍 5,280→0), 배낭 7 은 버림
             base = np.array(Image.open(os.path.join(REG, f + "_region.png")))
             layer = np.zeros_like(arm)
             m = (emap == slot) & (arm[:, :, 3] > 128)
             layer[m] = arm[m]
+            fp = os.path.join(FILL, set_id, {2: "top_fill", 4: "legs_fill"}.get(slot, "-"), f + ".png")
+            if os.path.exists(fp):  # 보완 층(가려진 자리)을 아래에 굽는다: 원래 레이어가 위
+                fl = np.array(Image.open(fp).convert("RGBA"))
+                keep = layer[:, :, 3] > 128
+                layer = np.where(keep[:, :, None], layer, fl)
             erase = np.zeros(base.shape, np.uint8)  # 속옷 몸 위에 쌓으므로 지울 영역 없음(G1-6)
             clip = CLIP[f.rsplit("_", 1)[0]]
             k = int(f.rsplit("_", 1)[1])
@@ -122,7 +130,7 @@ def compose(frame, wear, sets):
         m = emap == slot
         if "coat" in sid:
             m = m | ((emap == 7) | (emap == 8)) & (slot == 2)
-        elif slot == 4:
+        elif slot == 2:
             m = m | (emap == 8)
         out[m] = sets[sid][frame][m]
     # 장비가 바뀐 부위 밖에서 기본 몸이 지도 밖으로 삐져나온 곳은 없다(지도는 기본 몸을 전부 덮음)
