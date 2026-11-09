@@ -63,6 +63,15 @@ public static class SetEffectApplier
         if (group != null)
         {
             PlayerStats.RemoveByGroup(group); // 적용이면 중복 방지, 해제면 정수 스탯 전부 해제
+            // 효과 서비스 출처 연결. effectIds 열(P2) 전까지 id 가 없어 사실상 Detach (멱등)
+            if (apply)
+            {
+                SkillEffectService.Attach(group, null);
+            }
+            else
+            {
+                SkillEffectService.Detach(group);
+            }
         }
         foreach (Entry e in Parse(effect))
         {

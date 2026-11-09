@@ -171,6 +171,7 @@ public class EquipBoxCheck : MonoBehaviour
 
     public void SetEquipmentSkillCool(Equipment equip)
     {
+        SkillEffectService.Attach("Item:" + equip.GetInstanceID(), null); // effectIds(P2) 전까지 id 없음. 쿨감은 아래 레거시 Dictionary 경로
         for(int i =0; i < equip.coolDownSkill.Length; i++)
         {
             if (DatabaseManager.skillCoolDown.ContainsKey(equip.coolDownSkill[i].skillName)) // 기술이 존재하는지 확인. 존재한다면 그냥 수치 추가
@@ -185,6 +186,7 @@ public class EquipBoxCheck : MonoBehaviour
     }
     public void DownquipmentSkillCool(Equipment equip)
     {
+        SkillEffectService.Detach("Item:" + equip.GetInstanceID());
         for (int i = 0; i < equip.coolDownSkill.Length; i++)
         {
             DatabaseManager.skillCoolDown[equip.coolDownSkill[i].skillName] -= equip.coolDownSkill[i].coolDownCount;

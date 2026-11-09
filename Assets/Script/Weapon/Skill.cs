@@ -189,8 +189,7 @@ public class Skill : MonoBehaviour
     {
         bool isChangeDir = false;
         if (player.transform.localScale.x < 0) isChangeDir = true;
-        if (DatabaseManager.skillHitCount.ContainsKey(skillName)) allObjectMaxCount = objectMaxCount + DatabaseManager.skillHitCount[skillName];
-        else allObjectMaxCount = objectMaxCount;
+        allObjectMaxCount = objectMaxCount + SkillEffectService.Query(skillName, WeaponKind.None).hitCountAdd; // 레거시 Dictionary 흡수·상한(+4)
         yield return new WaitForSeconds(interval[0] / StatMath.AttackSpeedMul);
         for (int i = 1; i < skillprefab.Length && i < skillPivot.Length && (isEffectMaxAdd == false || i < allObjectMaxCount); i++)
         {
@@ -248,10 +247,8 @@ public class Skill : MonoBehaviour
 
     public void RoundSpawn(GameObject damageOb, GameObject attackPivot)
     {
-        if (DatabaseManager.skillBulletCount.ContainsKey(skillName))
-            allBullet = bulletCount + DatabaseManager.skillBulletCount[skillName]; // 아이템 중 해당 기술의 탄환 중가가 있는경우 숫자를 증가시킵니다.
-        else
-            allBullet = bulletCount;
+        // 아이템 중 해당 기술의 탄환 증가가 있으면 더한다(레거시 Dictionary 흡수, 상한 min(+6, 기본 탄 수)).
+        allBullet = bulletCount + EffectCaps.ClampProjectileAdd(SkillEffectService.Query(skillName, WeaponKind.None).projectileAdd, bulletCount);
         float angleStep = allBullet > 1 ? (endAngle - startAngle) / (allBullet - 1) : 0f; // 탄막 간격 계산 (1발이면 0 — W-24 NaN 방지)
         for (int i = 0; i < allBullet; i++)
         {

@@ -1,7 +1,7 @@
 # 장비 특수 효과·세트 효과 설계 (REWORK-12, 11-09)
 
 > 근거: 사용자 11-08 — 게임 핵심 즐거움 = 장비 파밍 → 무기 스킬 강화 → **스킬 로직 자체 변경(디아블로식, 제한 없음)**. 앞으로 만드는 모든 무기·방어구·악세서리는 등급이 높을수록 특이한 효과를 가진다.
-> 상태: 설계(코드 미착수). 수치는 전부 임시 가정(`Docs/OpenQuestions.md` Q-EFX1~6). 읽은 것: `LineageGear.md`, `ItemSpec.md` §1~3, `EquipSlotExpansion.md`, `Floor1Completion.md` §5, `WeaponSkillProgression.md` V.2~V.3b, 코드(아래 §1).
+> 상태: P0·P1 구현 완료(11-09, 수치 불변 EditMode 증명), P2~ 미착수. 수치는 전부 임시 가정(`Docs/OpenQuestions.md` Q-EFX1~6). 읽은 것: `LineageGear.md`, `ItemSpec.md` §1~3, `EquipSlotExpansion.md`, `Floor1Completion.md` §5, `WeaponSkillProgression.md` V.2~V.3b, 코드(아래 §1).
 > 공통 규칙: 모든 UI는 마우스·키보드·게임패드 3경로(§7). 기본 3타·스미어 v7 은 절대 건드리지 않는다.
 
 ## 1. 현황 진단
@@ -277,8 +277,8 @@ DataIntegrity 가 아이템별 합계가 등급 예산의 ±30% 안인지 경고
 
 | 단계 | 내용 | 검증(프로브·테스트) | 건드릴 파일 |
 |---|---|---|---|
-| P0 | 순수 로직: `EffectEntry` 파서·`SkillMods` 합산·상한·충돌 규칙·`EffectDescriber` 템플릿 | EditMode: 상한 clamp(쿨 60·타격 4)·group 최대값·Rule 슬롯 초과 탈락·곱 결합(60%×15%=쿨 0.34배)·파서 오류 행 건너뜀·설명 문장 스냅샷. **현행 전 세트 조합의 스킬별 쿨 합 덤프**로 기존 상한 위반 여부 확인 | 신규 `Combat/Effects/*`, `Editor/Tests/EquipEffect*Tests.cs`, `Resources/EquipEffects.csv`(빈 헤더), `SkillTags.csv` |
-| P1 | 서비스 연결 3곳(쿨·타격·탄)을 `Query` 로 교체 + 레거시 Dictionary 흡수 + `Attach/Detach` 호출 지점(세트·방어구·무기·`ExtraEquip`) | 기존 테스트 전부 통과(수치 불변이 합격 조건). 프로브: 현행 세트 6단계 착용 전후 `SkillCooldown` 쿨 초·탄 수가 **P1 이전과 동일** | `SkillCooldown.cs`, `Skill.cs`, `SetEffectApplier.cs`, `EquipBoxCheck.cs`, `ExtraEquip.cs`, `SetItem.cs`, 무기 교체 지점 |
+| P0 **[완료 11-09]** | 순수 로직: `EffectEntry` 파서·`SkillMods` 합산·상한·충돌 규칙·`EffectDescriber` 템플릿 | EditMode: 상한 clamp(쿨 60·타격 4)·group 최대값·Rule 슬롯 초과 탈락·곱 결합(60%×15%=쿨 0.34배)·파서 오류 행 건너뜀·설명 문장 스냅샷. **현행 전 세트 조합의 스킬별 쿨 합 덤프**로 기존 상한 위반 여부 확인 | 신규 `Combat/Effects/*`, `Editor/Tests/EquipEffect*Tests.cs`, `Resources/EquipEffects.csv`(빈 헤더), `SkillTags.csv` |
+| P1 **[완료 11-09]** | 서비스 연결 3곳(쿨·타격·탄)을 `Query` 로 교체 + 레거시 Dictionary 흡수 + `Attach/Detach` 호출 지점(세트·방어구·무기·`ExtraEquip`) | 기존 테스트 전부 통과(수치 불변이 합격 조건). 프로브: 현행 세트 6단계 착용 전후 `SkillCooldown` 쿨 초·탄 수가 **P1 이전과 동일** | `SkillCooldown.cs`, `Skill.cs`, `SetEffectApplier.cs`, `EquipBoxCheck.cs`, `ExtraEquip.cs`, `SetItem.cs`, 무기 교체 지점 |
 | P2 | `ItemSheet.effectIds`·`SetItem.csv effectIds` 로드, `DataIntegrity` 확장, 신규 Mod op(`DamagePct`·`RangePct`·`ProjSpeedPct`·`DurationPct`·`StaminaPct`·`PierceAdd`·`SummonAdd`) 훅 | 프로브: 효과 1건 장착 시 해당 스킬 판정 크기·피해·스태미나 로그 비교(값 ± 허용). 해제 후 원복 | `ItemSheet.csv`·`SetItem.csv`(맨 뒤 열), 파서, `Skill`·탄 컴포넌트·`SummonRunner` |
 | P3 | Rule 핸들러 1차: `FireMode`·`Homing`·`Pierce/Return`·`OnHitSpawn`(Explode/Slow) + `Skill.RoundSpawn` 전략 위임 | 프로브: Leaf 5세트 장착 → Scattering Leaves 탄 방향 각도 분포·되돌아옴 로그, 스크린샷(낮 시간대). 비장착 시 기존과 동일 | `Skill.cs`(RoundSpawn), 신규 `Rules/*`, `StraightArrow`·`HomingOrb` |
 | P4 | Rule 2차: `Chain`·`OnKillCast`·`Proc`·`CooldownRefund`(+ 적 사망 이벤트 훅) | 프로브: 소환 프로브로 적 3마리 배치 → Chain 전이 수·감쇠·`OnKillCast` 발동·내부 쿨 | `EnemyHealth` 사망 이벤트, `KillSummonProc` 일반화, `SkillCooldown` |
@@ -287,6 +287,7 @@ DataIntegrity 가 아이템별 합계가 등급 예산의 ±30% 안인지 경고
 | P7 | 1층계 데이터 적용(§4) + 기존 아이템 재점검 도구(등급 대비 효과 없는 아이템 목록 → 보강 큐) | 프로브: 6세트 각 단계 `Query` 덤프 vs §4 표, 체감 프로브(쿨·피해 수치), 점수 합계 | `EquipEffects.csv`, `ItemSheet.csv`, `SetItem.csv`, `Docs/Playtest/EquipEffectAudit.md`(신규, 도구 출력) |
 | P8 | 숙련·공용 트리(WSKILL P3·P4)와 합산 결합 확인, 수치 조정, 신규 4칸 장신구·팔찌 추가 | 트리+장비 동시 장착으로 곱 결합 프로브, 1층계 플레이 체감 기록 | 문서, `SkillTreeService` 연결부 |
 
+- **P0·P1 구현 메모(11-09):** `Script/Combat/Effects/*`(EffectEntry·EffectTable·SkillTagTable·SkillMods/EffectCaps/CooldownMath·EffectResolver·SkillEffectService·EffectDescriber), `Editor/Tests/EquipEffectTests.cs`(20건), `Resources/EquipEffects.csv`·`SkillTags.csv`(헤더만). 쿨·타격·탄 3곳은 `Query`로 교체, 레거시 Dictionary는 저장소로 유지하고 Query가 읽어 상한(쿨 60·타격 +4·탄 min(+6,기본)) 통과. 현행 전 세트·방어구 프리팹 합 최대 쿨감 50%라 상한 미달 → 신구 결과 동일(`P1_AllSetsAndEquipment_NewEqualsOld`). Attach/Detach 는 세트·방어구(EquipBoxCheck)·ExtraEquip 에 연결했으나 effectIds(P2) 전이라 id 없음. **P2 전 할 일(리뷰 지적):** 무기 교체 지점 Attach, Query 에 WeaponKind 전달(현재 None → `kind:` 선택자 미작동), 새 게임·로드 진입점 `ClearAll()`+`Recompute()`, 등급(grade) 인자 전달, 활성 행 있을 때 Query 캐시(GC), 쿨 하한 0.5초는 현재 꺼짐(`CooldownMath.Apply` minCooldown), 트리 곱 결합은 SkillTreeService 연결 시(P8).
 - P0~P1 은 플레이 영향 0이어야 한다(안전). P1 은 반드시 "수치 불변" 프로브 후 커밋.
 - 위험 순서: P3 이 가장 크다(탄 생성 루프 개조). 변형은 항상 **효과 없으면 기존 코드 경로 그대로**.
 

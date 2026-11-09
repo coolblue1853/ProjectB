@@ -193,12 +193,10 @@ public class SkillCooldown : MonoBehaviour
     {
         if (!isCooldown[skillNum]) // 쿨타임 중이 아니라면
         {
-            float cooldownPower = 0;
-            if (DatabaseManager.skillCoolDown.ContainsKey(skillName))
-                cooldownPower = DatabaseManager.skillCoolDown[skillName];
+            // 쿨감은 SkillEffectService 가 레거시 Dictionary·장비 효과를 합산·상한(60%) 처리해 돌려준다 (EquipEffectDesign §2.7)
+            float cooldownPower = SkillEffectService.Query(skillName, WeaponKind.None).cooldownPct;
             isCooldown[skillNum] = true; // 쿨타임을 시작합니다.
-            if (cooldownPower == 0) cooldownTimer[skillNum] = cooldownTime[skillNum]; // 쿨타임 타이머를 초기화합니다.
-            else cooldownTimer[skillNum] = cooldownTime[skillNum] * (1 - cooldownPower / 100f); // 쿨타임 타이머를 초기화합니다.
+            cooldownTimer[skillNum] = CooldownMath.Apply(cooldownTime[skillNum], cooldownPower); // 쿨타임 타이머를 초기화합니다.
             cooldownImage[skillNum].fillAmount = 0; // 이미지를 초기화합니다.
         }
     }
