@@ -23,7 +23,7 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 20,LeafHandArmor,Equip,equipment,500,50,Buy,1,-,0,Hand,LeafArmor,LeafHandArmor,0,R,0,Nature's Reward,,,
 21,LeafShoes,Equip,equipment,300,50,Buy,1,-,0,Shoes,LeafArmor,LeafShoes,0,R,0,Nature's Reward,,,
 22,LeafStaff,Equip,equipment,500,50,Buy,1,-,0,Weapon,,LeafStaff,0,R,0,,Staff,,EF_LeafStaff
-23,LeafAdae,Equip,equipment,500,50,Buy,1,-,0,Weapon,,LeafAdae,0,R,0,,Adae,,
+23,LeafAdae,Equip,equipment,500,50,Buy,1,-,0,Weapon,,LeafAdae,0,R,0,,Adae,,EF_TEST_LeafFan
 24,RatCap,Equip,equipment,500,50,Buy,1,-,0,Head,RatArmor,RatCap,0,R,0,,,,
 25,RatArmor,Equip,equipment,500,50,Buy,1,-,0,Chest,RatArmor,RatArmor,0,R,0,,,,
 26,RatLegArmor,Equip,equipment,500,50,Buy,1,-,0,Leg,RatArmor,RatLegArmor,0,R,0,,,,

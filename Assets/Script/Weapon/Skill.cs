@@ -251,22 +251,15 @@ public class Skill : MonoBehaviour
         // 아이템 중 해당 기술의 탄환 증가가 있으면 더한다(레거시 Dictionary 흡수, 상한 min(+6, 기본 탄 수)).
         SkillMods mods = SkillEffectService.Query(skillName, Kind);
         allBullet = bulletCount + EffectCaps.ClampProjectileAdd(mods.projectileAdd, bulletCount);
-        float angleStep = allBullet > 1 ? (endAngle - startAngle) / (allBullet - 1) : 0f; // 탄막 간격 계산 (1발이면 0 — W-24 NaN 방지)
-        for (int i = 0; i < allBullet; i++)
+        // 발사 배치는 전략에 위임한다. FireMode 효과가 없으면 기존 부채꼴 배치(DefaultFirePattern)와 완전히 같다 (EquipEffectDesign §2.3, P3)
+        IFirePattern pattern = FirePatterns.Create(mods, startAngle, endAngle, radius, player.transform.localScale.x < 0);
+        int shots = pattern.Count(allBullet);
+        for (int i = 0; i < shots; i++)
         {
-            float angle = startAngle + i * angleStep; // 현재 탄막의 각도 계산
-            // 적 오브젝트의 방향에 따라 탄막의 각도를 조정합니다.
-            if (player.transform.localScale.x < 0) angle = 180f - angle;
-
-            // 각도를 라디안으로 변환합니다.
-            float angleInRadians = angle * Mathf.Deg2Rad;
-
-            // 탄막의 위치 계산
-            float x = radius * Mathf.Cos(angleInRadians);
-            float y = radius * Mathf.Sin(angleInRadians);
+            pattern.Get(i, shots, out Vector2 offset, out Vector2 fireDir);
 
             // 탄막 생성
-            GameObject bullet = GameObject.Instantiate(damageOb, attackPivot.transform.position + new Vector3(x, y, 0f), Quaternion.identity, this.transform);
+            GameObject bullet = GameObject.Instantiate(damageOb, attackPivot.transform.position + (Vector3)offset, Quaternion.identity, this.transform);
             if (bullet != null)
             {
                 if (isNullParent == true) bullet.transform.parent = null;
@@ -276,7 +269,7 @@ public class Skill : MonoBehaviour
                 dmOb.isSkill = true; // 스킬 여부는 코드가 정한다(공유 프리팹 플래그 무시, W-04)
 
                 // 탄막 방향 설정
-                bullet.transform.up = new Vector2(x, y).normalized;
+                bullet.transform.up = fireDir;
             }
         }
     }

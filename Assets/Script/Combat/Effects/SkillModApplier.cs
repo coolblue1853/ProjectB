@@ -50,5 +50,26 @@ public static class SkillModApplier
             d.launchForce *= mul;
             d.desiredSpeed *= mul;
         }
+        if (m.summonAdd > 0)
+        {
+            AddSummons(d, m.summonAdd);
+        }
+        if (m.pierceAdd > 0 || m.rules != null)
+        {
+            SkillRuleHandlers.ApplyToProjectile(d, m); // 관통·유도·되돌아옴·적중 부가(효과 없으면 건너뜀)
+        }
+    }
+
+    /// <summary>SummonAdd: 판정이 만드는 소환 수 +N (SummonSkill·SpawnOnStart, 둘 다 Start 에서 읽으므로 생성 직후에 더한다)</summary>
+    static void AddSummons(DamageObject d, int add)
+    {
+        if (d.TryGetComponent(out SummonSkill ss))
+        {
+            ss.summonCount += add;
+        }
+        if (d.TryGetComponent(out SpawnOnStart sp))
+        {
+            sp.AddCount(add);
+        }
     }
 }

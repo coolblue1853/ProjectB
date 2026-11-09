@@ -148,8 +148,10 @@ public class SaveManager : MonoBehaviour
         TypeMasteryService.Save(); // 타입 숙련(신규 키)
         SkillTreeService.Save(); // 스킬트리(신규 키)
     }
+    // Awake 전용 호출(ClearAll 포함). 런타임 재호출 시 장착 효과 재Attach 필요
     public void DataLoad()
     {
+        SkillEffectService.ClearAll(); // 새 게임·로드 시 이전 세션의 장비 효과 출처를 비운다(장착 복원이 다시 Attach)
         bool hadFile = ES3.FileExists();
         if (hadFile) // 슬롯 파일(SaveSlots 가 기본 경로를 정한다)
         {

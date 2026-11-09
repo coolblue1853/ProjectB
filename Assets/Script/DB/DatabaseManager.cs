@@ -197,6 +197,7 @@ public class DatabaseManager : MonoBehaviour
                 setName = ItemDataList[itemNum].setName,
                 weaponType = ItemDataList[itemNum].weaponType,
                 category = ItemDataList[itemNum].category,
+                effectIds = ItemDataList[itemNum].effectIds, // 장비 효과 id (P2 에서 누락돼 아이템 효과가 안 걸리던 버그)
             };
             return newItem;
 

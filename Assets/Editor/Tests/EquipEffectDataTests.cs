@@ -125,10 +125,10 @@ public class EquipEffectDataTests
     }
 
     [Test]
-    public void OnlyTwoRealItems_HaveEffectIds()
+    public void OnlyTestItems_HaveEffectIds()
     {
         string[] withEffects = AllSources().Where(s => s.Value.Length > 0).Select(s => s.Key).OrderBy(x => x).ToArray();
-        Assert.AreEqual(new[] { "BearClaw", "LeafStaff" }, withEffects);
+        Assert.AreEqual(new[] { "BearClaw", "LeafAdae", "LeafStaff" }, withEffects);
     }
 
     [Test]

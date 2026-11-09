@@ -33,6 +33,39 @@ public class DamageObject : MonoBehaviour
     /// <summary>등록된 기믹이 있는가</summary>
     public bool HasHitModifier => _hitModifiers != null && _hitModifiers.Count > 0;
 
+    /// <summary>적중 후 부가 효과(장비 효과 OnHitSpawn 등). 런타임 전용, 직렬화 안 함</summary>
+    [System.NonSerialized] private System.Collections.Generic.List<IHitListener> _hitListeners;
+
+    public void AddHitListener(IHitListener l)
+    {
+        if (l == null)
+        {
+            return;
+        }
+        if (_hitListeners == null)
+        {
+            _hitListeners = new System.Collections.Generic.List<IHitListener>(2);
+        }
+        if (!_hitListeners.Contains(l))
+        {
+            _hitListeners.Add(l);
+        }
+    }
+
+    void NotifyHit(EnemyHealth enemy)
+    {
+        for (int i = 0; i < _hitListeners.Count; i++)
+        {
+            _hitListeners[i].OnSkillHit(this, enemy);
+        }
+    }
+
+    /// <summary>이미 맞힌 적 기록을 비운다(되돌아오는 탄이 다시 타격). 장비 효과 Return 용</summary>
+    public void ResetStruck()
+    {
+        damagedEnemy.Clear();
+    }
+
     private float HitModifierMul(EnemyHealth enemy, Collider2D col)
     {
         float mul = 1f;
@@ -535,6 +568,10 @@ public class DamageObject : MonoBehaviour
                     }
 
                 MasterAudio.PlaySound(damageSound);
+                if (_hitListeners != null)
+                {
+                    NotifyHit(enemyHealth); // 장비 효과 적중 부가(폭발·둔화). 리스너 없으면 기존과 동일
+                }
 
 
                 if (isPosionAttack)

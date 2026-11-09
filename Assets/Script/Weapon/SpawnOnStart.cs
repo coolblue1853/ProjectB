@@ -11,6 +11,12 @@ public class SpawnOnStart : MonoBehaviour
     [SerializeField] private float _spacing = 0.6f;
     [SerializeField] private float _yOffset = 0f;
 
+    /// <summary>장비 효과 SummonAdd: Start 전에 소환 수를 더한다</summary>
+    public void AddCount(int add)
+    {
+        _count += add;
+    }
+
     private void Start()
     {
         if (_prefab == null)

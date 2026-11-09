@@ -116,6 +116,7 @@ public static class SkillEffectService
         return v;
     }
 
+    [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
     public static void ClearAll()
     {
         Sources.Clear();
