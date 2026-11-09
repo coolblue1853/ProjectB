@@ -420,7 +420,7 @@ public class InventoryManager : MonoBehaviour
         inventory.SetActive(true);
         if (SaveManager.instance != null)
         {
-            maxBoxNum = BagExpansionRules.Clamp(SaveManager.instance.datas.bagUnlocked); // 씬 값 대신 세이브의 해금 칸 수(구 세이브 = 25)
+            maxBoxNum = BagExpansionRules.Clamp(SaveManager.instance.datas.bagUnlocked); // 씬 값 대신 세이브의 해금 칸 수(구 세이브 = 시작 40칸)
         }
         MakeInventoryBox();
         inventoryArray = new int[maxBoxNum, 5];

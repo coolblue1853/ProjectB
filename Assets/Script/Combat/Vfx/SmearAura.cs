@@ -57,7 +57,7 @@ public class SmearAura : MonoBehaviour
     Color[] _ramp;
     float _started, _fps, _speed, _scale;
     float _gain = 1f; // AdditiveBudget 밝기 배율(U22). 0 이면 가산 부분을 그리지 않는다
-    bool _left, _active;
+    bool _left, _active, _budgeted;
 
     static Shape ShapeFor(VfxId id)
     {
@@ -160,6 +160,7 @@ public class SmearAura : MonoBehaviour
         _scale = Mathf.Abs(transform.localScale.y);
         _active = true;
         _gain = AdditiveBudget.Enter(AuraLife / _speed);
+        _budgeted = _gain > 0f;
         _glow.enabled = _gain > 0f;
         foreach (LineRenderer lr in _wind)
         {
@@ -231,6 +232,10 @@ public class SmearAura : MonoBehaviour
 
     void LateUpdate()
     {
+        if (_budgeted)
+        {
+            _gain = AdditiveBudget.FactorFor(AdditiveBudget.Active); // 뒤에 들어온 오라 때문에 개수가 늘면 앞선 오라도 같이 어두워진다(합산 상한 유지)
+        }
         if (!_active || _src == null || _gain <= 0f)
         {
             return;

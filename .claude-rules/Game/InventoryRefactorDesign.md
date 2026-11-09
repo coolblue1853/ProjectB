@@ -534,3 +534,5 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 - 스크롤은 5×5 격자 UI·패드 커서 이동과 맞지 않고, 구현 크기는 중간인데 체감 개선이 적다.
 - 대안: 가방 상단에 **보기 필터 탭(전체/장비/소비/재료)** 을 추가. 데이터 칸은 그대로(풀 하나)이고 표시만 필터링하는 뷰 옵션 — 정렬(§3.2)과 함께 쓴다. 필터 상태에서 이동·드래그는 비활성(혼란 방지). 크기 소~중, 세이브 변경 없음.
 - 큐: 필요 시 `INV-FILTER`(가방 필터 탭). 우선순위 낮음 — 현재 25칸 시작 + 확장으로 PT-BOT 점유율이 나쁘지 않으면 불필요(INV-EXP-4 로그 후 판단).
+
+> **변경(2026-11-09, U19):** 시작 칸은 25 → **40**(`BagExpansionRules.StartSlots`), `BagExpansion.csv` 는 40 이하 3단계를 빼 17단계(45→125). 구세이브 `bagUnlocked` 는 40 미만이면 40 으로 올리고 큰 값은 유지. 소모품·기타 maxStack 은 100 으로 상향(ItemSheet).
