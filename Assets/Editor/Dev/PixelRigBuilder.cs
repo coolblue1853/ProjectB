@@ -819,6 +819,7 @@ public static class PixelRigBuilder
     {
         public string id;
         public string slot;
+        public bool ds;
         public EquipFrameJson[] frames;
     }
 
@@ -847,6 +848,7 @@ public static class PixelRigBuilder
                 AssetDatabase.CreateAsset(asset, path);
             }
             asset.id = meta.id;
+            asset.forDS = meta.ds;
             asset.slot = System.Enum.TryParse(meta.slot, true, out CelEquipLayer.Slot sl) ? sl : CelEquipLayer.Slot.Body;
             var frames = new List<CelEquipLayer.Frame>();
             foreach (EquipFrameJson f in meta.frames)

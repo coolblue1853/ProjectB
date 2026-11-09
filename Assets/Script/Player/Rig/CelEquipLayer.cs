@@ -9,7 +9,7 @@ using UnityEngine;
 public class CelEquipLayer : ScriptableObject
 {
     /// <summary>그리는 순서(작을수록 아래): 맨몸 위에 하의·신발 → 갑옷 → 장갑 → 투구</summary>
-    public enum Slot { Legs = 10, Body = 20, Gloves = 30, Head = 40 }
+    public enum Slot { Legs = 10, Shoes = 15, Body = 20, Gloves = 30, Head = 40 }
 
     [Serializable]
     public class Frame
@@ -21,6 +21,8 @@ public class CelEquipLayer : ScriptableObject
     }
 
     public string id;
+    /// <summary>true = 새 주인공(CelDS) 그림 좌표용 부위 레이어(equip_ds.py). false = 예전 셀(Cel)용. 리그는 자기 그림과 맞는 레이어만 합성한다</summary>
+    public bool forDS;
     public Slot slot = Slot.Body;
     public Frame[] frames = new Frame[0];
 

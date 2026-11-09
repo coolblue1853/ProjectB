@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: iron_set
   m_EditorClassIdentifier: Assembly-CSharp::CelEquipLayer
   id: iron_set
+  forDS: 0
   slot: 20
   frames:
   - clip: Walk

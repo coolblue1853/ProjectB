@@ -18,7 +18,7 @@ public class CelEquipSync : MonoBehaviour
     /// 장비 외형 레이어 켜기. 10-28 사용자 "투구는 나중에, 동작부터 다지자" — 새 셀(기본 칼 3타 등)에 레이어가 맞지 않아
     /// 투구가 떴다 사라지고 흉갑 지우기 마스크가 다리를 지웠다. 마스터 모션이 확정되고 레이어를 다시 만들 때 true 로.
     /// </summary>
-    public static bool VisualsEnabled = false;
+    public static bool VisualsEnabled = true; // 11-09: 레이어가 리그 그림(forDS)과 맞을 때만 합성되므로 켠다
 
     private static Dictionary<string, string> _map;
     private PixelRig _rig;

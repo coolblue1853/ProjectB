@@ -285,7 +285,8 @@ public class PixelRig : CharacterRig
 
     public override Transform CelRoot => _cel != null ? _cel.transform : transform;
 
-    public override bool ArtOwnsWeapon => _celArtWeapon;
+    public override bool ArtOwnsWeapon => _celArtWeapon && !_drawnNow; // 손·각도 채널로 장비 칼을 그리는 프레임(빈손 3타)은 스미어를 띄운다(11-06)
+    private bool _drawnNow;
 
     /// <summary>
     /// frame = MapName 기본 셀(Stab·SwingDown·SwingUp)의 프레임 번호(WeaponFx.StrikeFrame). 실제로 재생될 셀이 기본 셀과 다르면
@@ -640,14 +641,15 @@ public class PixelRig : CharacterRig
                 blade += Mathf.Clamp((cel.hand[i].x * _ppu - CelHandSwingRef) * CelBladeSwing, -CelBladeSwingMax, CelBladeSwingMax);
             }
             bool drawn = i < cel.angles.Length && cel.angles[i] > CelClip.NoAngle + 1f;
+            _drawnNow = drawn;
             _socketRight.parent.localRotation = Quaternion.Euler(0f, 0f, SmoothBlade(blade, drawn) - 90f);
             KeepBladeAboveGround(drawn);
             float len = i < cel.weaponLen.Length && cel.weaponLen[i] > 0f ? cel.weaponLen[i] : 1f;
             _socketRight.localScale = new Vector3(1f, len, 1f); // 손잡이 피벗 기준으로 칼날만 짧게(칼집에 들어감)
             SetMainWeaponBehind(i < cel.behind.Length && cel.behind[i]);
-            if (_celArtWeapon)
+            if (_celArtWeapon && !drawn)
             {
-                _socketRight.localScale = Vector3.zero; // 칼은 셀 그림에 있다
+                _socketRight.localScale = Vector3.zero; // 칼은 셀 그림에 있다(손·각도 채널을 적은 빈손 프레임은 장비 칼을 손목에 그린다 — Stab 빈손, 11-06)
             }
         }
         if (_socketLeft != null && i < cel.handB.Length)
@@ -678,11 +680,19 @@ public class PixelRig : CharacterRig
         }
         _composedSprites.Clear();
         _celComposite.Clear();
-        if (_celArtWeapon)
+        // CelDS(_celArtWeapon)는 DS 좌표 레이어(forDS)만, 예전 셀은 그 반대만 합성한다 — 그림 좌표가 달라 섞이면 몸이 지워진다
+        var matching = new List<CelEquipLayer>();
+        if (layers != null)
         {
-            return; // CelDS 는 장비 레이어(예전 그림 좌표)를 합성하지 않는다
+            foreach (CelEquipLayer l in layers)
+            {
+                if (l != null && l.forDS == _celArtWeapon)
+                {
+                    matching.Add(l);
+                }
+            }
         }
-        List<CelEquipLayer> ordered = CelComposer.Ordered(layers ?? new CelEquipLayer[0]);
+        List<CelEquipLayer> ordered = CelComposer.Ordered(matching);
         if (ordered.Count == 0)
         {
             return;

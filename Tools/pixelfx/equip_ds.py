@@ -7,6 +7,7 @@
   python Tools/pixelfx/equip_ds.py combos <세트 a> <세트 b> <출력 시트>      # 부위별 섞어 입기 시트(+검사)
 """
 import itertools
+import json
 import os
 import sys
 from collections import deque
@@ -70,6 +71,37 @@ def build(set_id, folders):
     mp = os.path.join(OUT, "_maps")
     os.makedirs(mp, exist_ok=True)
     return len(imgs)
+
+
+CLIP = {"ds_idle": "Idle", "ds_stab": "Stab", "ds_down": "SwingDown", "ds_up": "SwingUp"}
+SLOT_NAME = {1: "head", 2: "body", 3: "gloves", 4: "legs", 5: "shoes"}  # CelEquipLayer.Slot 이름
+
+
+def export(set_id):
+    """세트의 부위별 레이어(그림 = 장비 픽셀 중 확장 지도가 그 부위인 곳, 지울 마스크 = 기본 지도가 그 부위인 곳)를
+    Assets/Art/Player/PixelRig/Equip/<세트>_<부위>/ 에 PixelRigBuilder 형식(equip.json + <클립>_<k>.png·_erase.png)으로 쓴다"""
+    sets = {set_id: frame_armor_files(set_id)}
+    root = os.path.join(ROOT, "Assets/Art/Player/PixelRig/Equip")
+    for slot, sname in SLOT_NAME.items():
+        lid = "%s_%s" % (set_id, {1: "cap", 2: "top", 3: "glove", 4: "legs", 5: "shoes"}[slot])
+        d = os.path.join(root, lid)
+        os.makedirs(d, exist_ok=True)
+        frames = []
+        for f in FRAMES:
+            arm = sets[set_id][f]
+            emap = ext_map(f, [arm])
+            base = np.array(Image.open(os.path.join(REG, f + "_region.png")))
+            layer = np.zeros_like(arm)
+            m = (emap == slot) & (arm[:, :, 3] > 128)
+            layer[m] = arm[m]
+            erase = ((base == slot) * 255).astype(np.uint8)
+            clip = CLIP[f.rsplit("_", 1)[0]]
+            k = int(f.rsplit("_", 1)[1])
+            Image.fromarray(layer).save(os.path.join(d, "%s_%d.png" % (clip, k)))
+            Image.fromarray(erase, "L").save(os.path.join(d, "%s_%d_erase.png" % (clip, k)))
+            frames.append({"clip": clip, "k": k})
+        json.dump({"id": lid, "slot": sname, "ds": True, "frames": frames}, open(os.path.join(d, "equip.json"), "w"), indent=1)
+        print(lid, len(frames))
 
 
 def compose(frame, wear, sets):
@@ -138,5 +170,7 @@ if __name__ == "__main__":
     cmd = sys.argv[1]
     if cmd == "build":
         print("frames", build(sys.argv[2], sys.argv[3:]))
+    elif cmd == "export":
+        export(sys.argv[2])
     elif cmd == "combos":
         combos(sys.argv[2], sys.argv[3], sys.argv[4])
