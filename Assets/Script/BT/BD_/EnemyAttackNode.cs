@@ -73,6 +73,15 @@ public class EnemyAttackNode : EnemyAction
             enemyObject.transform.localScale.y, 1);
     }
 
+    private float AttackTargetY()
+    {
+        if (isApc && behaviorTree.enemy != null)
+        {
+            return behaviorTree.enemy.transform.position.y;
+        }
+        return behaviorTree.aPC != null ? behaviorTree.aPC.transform.position.y : player.transform.position.y;
+    }
+
     private void CreatDamageOb()
     {
         // 공격 오브젝트 생성 및 위치 설정
@@ -84,6 +93,15 @@ public class EnemyAttackNode : EnemyAction
         if (damage == null)
         {
             return; // 풀에 없는 공격(GetOb 가 경고를 남김)
+        }
+        // U16: 원거리(발사형) 공격은 목표가 같은 발판 층 근처일 때만 쏜다 — 밧줄·아래 층 플레이어까지 쏴서 오르지 못하던 문제
+        if (damage.TryGetComponent(out EnemyDamageObject shot) && shot.isLaunch && !RangedAttackRules.InReach(enemyObject.transform.position.y, AttackTargetY()))
+        {
+            if (damage.TryGetComponent(out PoolAble pooled))
+            {
+                pooled.ReleaseObject();
+            }
+            return;
         }
         damage.transform.position = spawnPos;
         damage.transform.rotation = attackPivot.transform.rotation;
