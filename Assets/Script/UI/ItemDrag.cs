@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
 
@@ -39,10 +40,22 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     }
 
+    private static bool IsShiftLeftClick(PointerEventData eventData)
+    {
+        Keyboard kb = Keyboard.current;
+        return eventData.button == PointerEventData.InputButton.Left && kb != null && kb.shiftKey.isPressed;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right || (IsShiftLeftClick(eventData) && InventoryManager.instance != null && InventoryManager.instance.chest != null))
         {
+            // U17: 우클릭·Shift+클릭 = 창고 ↔ 가방 빠른 이동(창고가 열려 있을 때만)
+            InventoryManager inv = InventoryManager.instance;
+            if (inv != null && inv.chest != null)
+            {
+                inv.chest.QuickMove(itemCheck != null ? itemCheck : GetComponent<ItemCheck>());
+            }
         }
         else if (eventData.button == PointerEventData.InputButton.Left)
         {

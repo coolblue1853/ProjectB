@@ -710,20 +710,51 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            SaveInventory();
-            inventory.SetActive(false);
-            UiLock.Set("InvGroup", false);
-            if (ShopGameObject.activeSelf == true)
-            {
-                InventoryManager.instance.state = "";
-                ShopUI.CloseShop();
-            }
-            if (chest != null)
-            {
-                chest.CloseChest();
-                chest = null;
-            }
+            CloseInventoryGroup();
         }
+    }
+
+    /// <summary>인벤·상점·창고 묶음 닫기(저장 + 잠금 해제). Esc 최상위·I·창고 Esc 가 같은 경로를 쓴다(U1).</summary>
+    void CloseInventoryGroup()
+    {
+        SaveInventory();
+        inventory.SetActive(false);
+        UiLock.Set("InvGroup", false);
+        if (ShopGameObject.activeSelf == true)
+        {
+            state = "";
+            ShopUI.CloseShop();
+        }
+        if (chest != null)
+        {
+            chest.CloseChest();
+            chest = null;
+        }
+    }
+
+    /// <summary>
+    /// 인벤·창고·상점 등 열린 창과 하위 상태(상세·나누기·교체·판매·커서)를 한 번에 정리하고 닫는다(U1).
+    /// 세부 상태가 남아 있어도 I 가 한쪽만 닫는 일이 없게 한다.
+    /// </summary>
+    public void CloseAllWindows()
+    {
+        OnlyDetailObOff();
+        changeCusor.SetActive(false);
+        if (sellUIGameObject != null)
+        {
+            sellUIGameObject.SetActive(false);
+        }
+        divideSlider.gameObject.SetActive(false);
+        if (chest != null)
+        {
+            chest.CloseDivide();
+            chest.DragReset();
+            chest.cusor.SetActive(false);
+            chest.isCusorChest = false;
+        }
+        state = "";
+        CloseInventoryGroup();
+        state = ""; // CloseChest 가 chestOpen 으로 남기는 값을 되돌린다
     }
     /// <summary>페이지 숫자키 1~5 (New Input System, B-021)</summary>
     static bool DigitPressed(Key key)
@@ -1414,14 +1445,9 @@ public class InventoryManager : MonoBehaviour
 
         if (openInventoryAction.triggered && !PadFieldInput.StartChordThisFrame) // LT+START = 지도(AUTO-49)
         {
-            if (inventory.activeSelf == true && ShopGameObject.activeSelf == false)
+            if (inventory.activeSelf == true)
             {
-                UiLock.Set("InvGroup", false);
-                SaveInventory();
-                inventory.SetActive(false);
-                CloseCheck();
-
-                state = "";
+                CloseAllWindows(); // 창고·상점·하위 창까지 함께 닫는다(U1)
             }
             else if (inventory.activeSelf == false && DatabaseManager.isOpenUI == false)
             {

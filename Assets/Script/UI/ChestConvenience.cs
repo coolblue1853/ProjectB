@@ -80,11 +80,50 @@ public partial class Chest
 
     public int WithdrawSelected(int amount)
     {
-        int index = nowBox * 30 + cusorCount[nowBox];
-        ItemStack source = ScanModel()[index];
+        return WithdrawAt(nowBox * 30 + cusorCount[nowBox], amount);
+    }
+
+    /// <summary>창고 칸 index 의 아이템을 amount 개까지 가방으로 꺼낸다(U17: 우클릭·Shift+클릭·Z 두 번이 공유).</summary>
+    public int WithdrawAt(int index, int amount)
+    {
+        SlotContainer storage = ScanModel();
+        if (index < 0 || index >= storage.Capacity)
+        {
+            return 0;
+        }
+        ItemStack source = storage[index];
         int moved = InventoryManager.instance.Service.TransferChest(this, index, false, amount);
         FinishTransfer(moved, moved < Mathf.Min(amount, source.Count), false);
         return moved;
+    }
+
+    /// <summary>
+    /// 마우스 빠른 이동(U17): 창고 아이템 → 가방 꺼내기, 가방 아이템 → 창고 보관. 처리했으면 true.
+    /// 창고가 열려 있고 이 아이템이 창고·가방 칸에 있을 때만.
+    /// </summary>
+    public bool QuickMove(ItemCheck item)
+    {
+        InventoryManager inv = InventoryManager.instance;
+        if (item == null || inv == null || inv.chest != this || !chestOb.activeInHierarchy || inv.IsSaveBatchActive)
+        {
+            return false;
+        }
+        Transform box = item.transform.parent;
+        if (box == null || box.parent == null)
+        {
+            return false;
+        }
+        if (box.parent.CompareTag("Chest"))
+        {
+            WithdrawAt(IndexOf(item), int.MaxValue);
+            return true;
+        }
+        if (box.parent.CompareTag("Inventory"))
+        {
+            DepositSelected(item);
+            return true;
+        }
+        return false;
     }
 
     public int DepositSelected(ItemCheck selected)
@@ -208,7 +247,7 @@ public partial class Chest
         {
             _shownUsed = used;
             _shownTotal = total;
-            _storageHint.text = "창고 " + used + " / " + total + "칸\nG/RT: 같은 종류   T/SELECT: 재료 전부\nR/R3: 정렬   꺼내기 모드 C/Y: 수량";
+            _storageHint.text = "창고 " + used + " / " + total + "칸\nG/RT: 같은 종류   T/SELECT: 재료 전부\nR/R3: 정렬   Z 두 번·우클릭: 꺼내기   Tab/LB: 수량";
         }
     }
 

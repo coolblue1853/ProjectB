@@ -317,7 +317,8 @@ public partial class Chest : MonoBehaviour
                         }
                         else if (state == "detail")
                         {
-                            CloseCheck();
+                            WithdrawSelected(int.MaxValue); // U17: 상세를 연 칸에서 Z 한 번 더 = 꺼내기(Tab 모드를 몰라도 꺼내진다)
+                            DetailOff();
                         }
                         if (state == "C2IMove")
                         {
@@ -856,7 +857,7 @@ public partial class Chest : MonoBehaviour
         else
         {
             state = "";
-            CloseChest();
+            InventoryManager.instance.CloseAllWindows(); // Esc 는 창고만이 아니라 인벤까지 함께 닫는다(U1)
         }
     }
     public void CloseDivide()
