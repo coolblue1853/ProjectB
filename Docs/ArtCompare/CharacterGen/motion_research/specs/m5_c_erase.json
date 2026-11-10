@@ -1,0 +1,43 @@
+{
+ "src": "Docs/ArtCompare/CharacterGen/motion_research/m5_c_src",
+ "dst": "Docs/ArtCompare/CharacterGen/motion_research/m5_c_clean",
+ "colors": [
+  [
+   248,
+   248,
+   248
+  ],
+  [
+   143,
+   123,
+   114
+  ],
+  [
+   170,
+   146,
+   129
+  ]
+ ],
+ "frames": {
+  "2": {
+   "zones": [
+    [
+     0,
+     0,
+     63,
+     63
+    ]
+   ]
+  },
+  "3": {
+   "zones": [
+    [
+     0,
+     0,
+     63,
+     63
+    ]
+   ]
+  }
+ }
+}

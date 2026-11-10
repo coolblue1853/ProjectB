@@ -107,3 +107,10 @@
 - 대부분 비도트(부드러운 일러스트풍)이고 도트 느낌은 `Ground_178x70`·`25_Small_Tree`·`City_Tile` 정도다. 우리 도트 규격에 그대로 못 쓰므로 **구도·색·레이어 분할만 참고**.
 - 후보 시트(저장소 밖): `C:\Users\user\DungeonSlasherRef\sheets\bg_standalone.png`·`bg_atlas.png`·`tiles_misc.png`. 적용은 사용자 검토 후.
 - **달리기 교체 run_R1(11-06, 사용자 합격 "팔 엇박·반복마다 멈춤"):** 옛 run 0·7번이 서 있는 자세라 루프마다 멈췄다. 옛 run 2번(접지)에서 시작해 반 주기 2번(seed 6401·6402, 첫·끝 고정, 각 4장, 2 gen) → a0~3 + b0~3 = 8장, 접지→통과→반대발 접지, 서 있는 자세 없음. 프롬프트에 "팔은 다리 반대로·소매 보이게·옆모습·배낭 고정·칼 허리" 명시. 원본 `ds01/run_R1/raw_0~7.png`, 옛 그림 백업 `Logs/motion_review/run_old/`. 색 31 유지. Dash 가 Run 묶음 공유. 플레이 캡처(낮) 발 접지·콘솔 에러 0 확인, 대시 별도 캡처는 미검증.
+
+## 3타 칼 손·각도 규칙 (11-06 사용자 확정 — 임의로 바꾸지 않는다)
+- 칼은 **캐릭터 기준 오른손** 하나로 모든 프레임을 든다. 손 전환 금지. 정방향 잡기(칼끝이 앞/진행 방향), 역수(칼끝이 뒤) 금지.
+- 사용자가 번호 주석(`Logs/motion_review/smear_ds/fist_numbers.png`, 주먹 살색 덩어리를 왼쪽부터 1·2·3)으로 확정한 오른손: 찌르기 2·2·2·2 / 내려베기 1·1·1·2 / 올려베기 1·1·1·2.
+- 주먹 좌표 = 그 살색 덩어리 무게중심(`build_cel_ds.py` HAND_OVERRIDE). 칼 각도 채널 = 칼이 향하는 수학 각도 그대로(0 오른쪽·90 위). "180 = 오른쪽"은 틀렸다.
+- 겹침 순서: 몸·머리 < 칼 < 주먹. 주먹만 남긴 `<png>_fist.png` 를 칼 위에 다시 그린다(`build_cel_ds.py make_fist`, `PixelRig._celFist`).
+- 스미어(ELLIPSE·NEEDLE·SmearAura Shape)는 손·칼이 확정된 뒤 실제 칼끝 경로(`Logs/motion_review/smear_ds/fit2.py`)에 맞춘다. 순서: 손 확정 → 칼 → 이펙트.
