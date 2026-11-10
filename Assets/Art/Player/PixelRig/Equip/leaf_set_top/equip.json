@@ -8,7 +8,47 @@
    "k": 0
   },
   {
+   "clip": "Guard",
+   "k": 0
+  },
+  {
+   "clip": "Ride",
+   "k": 0
+  },
+  {
+   "clip": "Sheathe",
+   "k": 0
+  },
+  {
+   "clip": "Dance",
+   "k": 0
+  },
+  {
+   "clip": "Lute",
+   "k": 0
+  },
+  {
    "clip": "Idle",
+   "k": 1
+  },
+  {
+   "clip": "Guard",
+   "k": 1
+  },
+  {
+   "clip": "Ride",
+   "k": 1
+  },
+  {
+   "clip": "Sheathe",
+   "k": 1
+  },
+  {
+   "clip": "Dance",
+   "k": 1
+  },
+  {
+   "clip": "Lute",
    "k": 1
   },
   {
@@ -16,11 +56,71 @@
    "k": 2
   },
   {
+   "clip": "Guard",
+   "k": 2
+  },
+  {
+   "clip": "Ride",
+   "k": 2
+  },
+  {
+   "clip": "Sheathe",
+   "k": 2
+  },
+  {
+   "clip": "Dance",
+   "k": 2
+  },
+  {
+   "clip": "Lute",
+   "k": 2
+  },
+  {
    "clip": "Idle",
    "k": 3
   },
   {
+   "clip": "Guard",
+   "k": 3
+  },
+  {
+   "clip": "Ride",
+   "k": 3
+  },
+  {
+   "clip": "Sheathe",
+   "k": 3
+  },
+  {
+   "clip": "Dance",
+   "k": 3
+  },
+  {
+   "clip": "Lute",
+   "k": 3
+  },
+  {
    "clip": "Idle",
+   "k": 4
+  },
+  {
+   "clip": "Guard",
+   "k": 4
+  },
+  {
+   "clip": "Ride",
+   "k": 4
+  },
+  {
+   "clip": "Sheathe",
+   "k": 4
+  },
+  {
+   "clip": "Dance",
+   "k": 4
+  },
+  {
+   "clip": "Lute",
    "k": 4
   },
   {
@@ -28,7 +128,47 @@
    "k": 5
   },
   {
+   "clip": "Guard",
+   "k": 5
+  },
+  {
+   "clip": "Ride",
+   "k": 5
+  },
+  {
+   "clip": "Sheathe",
+   "k": 5
+  },
+  {
+   "clip": "Dance",
+   "k": 5
+  },
+  {
+   "clip": "Lute",
+   "k": 5
+  },
+  {
    "clip": "Idle",
+   "k": 6
+  },
+  {
+   "clip": "Guard",
+   "k": 6
+  },
+  {
+   "clip": "Ride",
+   "k": 6
+  },
+  {
+   "clip": "Sheathe",
+   "k": 6
+  },
+  {
+   "clip": "Dance",
+   "k": 6
+  },
+  {
+   "clip": "Lute",
    "k": 6
   },
   {
@@ -36,7 +176,71 @@
    "k": 7
   },
   {
+   "clip": "Guard",
+   "k": 7
+  },
+  {
+   "clip": "Ride",
+   "k": 7
+  },
+  {
+   "clip": "Sheathe",
+   "k": 7
+  },
+  {
+   "clip": "Dance",
+   "k": 7
+  },
+  {
+   "clip": "Lute",
+   "k": 7
+  },
+  {
    "clip": "Stab",
+   "k": 0
+  },
+  {
+   "clip": "Lunge",
+   "k": 0
+  },
+  {
+   "clip": "Throw",
+   "k": 0
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 0
+  },
+  {
+   "clip": "Kick",
+   "k": 0
+  },
+  {
+   "clip": "Grab",
+   "k": 0
+  },
+  {
+   "clip": "Bow",
+   "k": 0
+  },
+  {
+   "clip": "ShieldBash",
+   "k": 0
+  },
+  {
+   "clip": "DualPistol",
+   "k": 0
+  },
+  {
+   "clip": "Rifle",
+   "k": 0
+  },
+  {
+   "clip": "SwordPistol",
+   "k": 0
+  },
+  {
+   "clip": "PalmBlast",
    "k": 0
   },
   {
@@ -44,7 +248,95 @@
    "k": 1
   },
   {
+   "clip": "Lunge",
+   "k": 1
+  },
+  {
+   "clip": "Throw",
+   "k": 1
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 1
+  },
+  {
+   "clip": "Kick",
+   "k": 1
+  },
+  {
+   "clip": "Grab",
+   "k": 1
+  },
+  {
+   "clip": "Bow",
+   "k": 1
+  },
+  {
+   "clip": "ShieldBash",
+   "k": 1
+  },
+  {
+   "clip": "DualPistol",
+   "k": 1
+  },
+  {
+   "clip": "Rifle",
+   "k": 1
+  },
+  {
+   "clip": "SwordPistol",
+   "k": 1
+  },
+  {
+   "clip": "PalmBlast",
+   "k": 1
+  },
+  {
    "clip": "Stab",
+   "k": 2
+  },
+  {
+   "clip": "Lunge",
+   "k": 2
+  },
+  {
+   "clip": "Throw",
+   "k": 2
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 2
+  },
+  {
+   "clip": "Kick",
+   "k": 2
+  },
+  {
+   "clip": "Grab",
+   "k": 2
+  },
+  {
+   "clip": "Bow",
+   "k": 2
+  },
+  {
+   "clip": "ShieldBash",
+   "k": 2
+  },
+  {
+   "clip": "DualPistol",
+   "k": 2
+  },
+  {
+   "clip": "Rifle",
+   "k": 2
+  },
+  {
+   "clip": "SwordPistol",
+   "k": 2
+  },
+  {
+   "clip": "PalmBlast",
    "k": 2
   },
   {
@@ -52,7 +344,75 @@
    "k": 3
   },
   {
+   "clip": "Lunge",
+   "k": 3
+  },
+  {
+   "clip": "Throw",
+   "k": 3
+  },
+  {
+   "clip": "ShoulderAim",
+   "k": 3
+  },
+  {
+   "clip": "Kick",
+   "k": 3
+  },
+  {
+   "clip": "Grab",
+   "k": 3
+  },
+  {
+   "clip": "Bow",
+   "k": 3
+  },
+  {
+   "clip": "ShieldBash",
+   "k": 3
+  },
+  {
+   "clip": "DualPistol",
+   "k": 3
+  },
+  {
+   "clip": "Rifle",
+   "k": 3
+  },
+  {
+   "clip": "SwordPistol",
+   "k": 3
+  },
+  {
+   "clip": "PalmBlast",
+   "k": 3
+  },
+  {
    "clip": "SwingDown",
+   "k": 0
+  },
+  {
+   "clip": "GreatDown",
+   "k": 0
+  },
+  {
+   "clip": "AirSlash",
+   "k": 0
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 0
+  },
+  {
+   "clip": "Slam",
+   "k": 0
+  },
+  {
+   "clip": "LowSweep",
+   "k": 0
+  },
+  {
+   "clip": "WhipSnap",
    "k": 0
   },
   {
@@ -60,7 +420,55 @@
    "k": 1
   },
   {
+   "clip": "GreatDown",
+   "k": 1
+  },
+  {
+   "clip": "AirSlash",
+   "k": 1
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 1
+  },
+  {
+   "clip": "Slam",
+   "k": 1
+  },
+  {
+   "clip": "LowSweep",
+   "k": 1
+  },
+  {
+   "clip": "WhipSnap",
+   "k": 1
+  },
+  {
    "clip": "SwingDown",
+   "k": 2
+  },
+  {
+   "clip": "GreatDown",
+   "k": 2
+  },
+  {
+   "clip": "AirSlash",
+   "k": 2
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 2
+  },
+  {
+   "clip": "Slam",
+   "k": 2
+  },
+  {
+   "clip": "LowSweep",
+   "k": 2
+  },
+  {
+   "clip": "WhipSnap",
    "k": 2
   },
   {
@@ -68,7 +476,39 @@
    "k": 3
   },
   {
+   "clip": "GreatDown",
+   "k": 3
+  },
+  {
+   "clip": "AirSlash",
+   "k": 3
+  },
+  {
+   "clip": "LeapSlam",
+   "k": 3
+  },
+  {
+   "clip": "Slam",
+   "k": 3
+  },
+  {
+   "clip": "LowSweep",
+   "k": 3
+  },
+  {
+   "clip": "WhipSnap",
+   "k": 3
+  },
+  {
    "clip": "SwingUp",
+   "k": 0
+  },
+  {
+   "clip": "Raise",
+   "k": 0
+  },
+  {
+   "clip": "GreatUpper",
    "k": 0
   },
   {
@@ -76,16 +516,176 @@
    "k": 1
   },
   {
+   "clip": "Raise",
+   "k": 1
+  },
+  {
+   "clip": "GreatUpper",
+   "k": 1
+  },
+  {
    "clip": "SwingUp",
    "k": 2
   },
   {
+   "clip": "Raise",
+   "k": 2
+  },
+  {
+   "clip": "GreatUpper",
+   "k": 2
+  },
+  {
    "clip": "SwingUp",
+   "k": 3
+  },
+  {
+   "clip": "Raise",
+   "k": 3
+  },
+  {
+   "clip": "GreatUpper",
    "k": 3
   },
   {
    "clip": "SwingUp",
    "k": 4
+  },
+  {
+   "clip": "Raise",
+   "k": 4
+  },
+  {
+   "clip": "GreatUpper",
+   "k": 4
+  },
+  {
+   "clip": "Walk",
+   "k": 0
+  },
+  {
+   "clip": "Walk",
+   "k": 1
+  },
+  {
+   "clip": "Walk",
+   "k": 2
+  },
+  {
+   "clip": "Walk",
+   "k": 3
+  },
+  {
+   "clip": "Walk",
+   "k": 4
+  },
+  {
+   "clip": "Walk",
+   "k": 5
+  },
+  {
+   "clip": "Walk",
+   "k": 6
+  },
+  {
+   "clip": "Walk",
+   "k": 7
+  },
+  {
+   "clip": "Run",
+   "k": 0
+  },
+  {
+   "clip": "Dash",
+   "k": 0
+  },
+  {
+   "clip": "Run",
+   "k": 1
+  },
+  {
+   "clip": "Dash",
+   "k": 1
+  },
+  {
+   "clip": "Run",
+   "k": 2
+  },
+  {
+   "clip": "Dash",
+   "k": 2
+  },
+  {
+   "clip": "Run",
+   "k": 3
+  },
+  {
+   "clip": "Dash",
+   "k": 3
+  },
+  {
+   "clip": "Run",
+   "k": 4
+  },
+  {
+   "clip": "Dash",
+   "k": 4
+  },
+  {
+   "clip": "Run",
+   "k": 5
+  },
+  {
+   "clip": "Dash",
+   "k": 5
+  },
+  {
+   "clip": "Run",
+   "k": 6
+  },
+  {
+   "clip": "Dash",
+   "k": 6
+  },
+  {
+   "clip": "Run",
+   "k": 7
+  },
+  {
+   "clip": "Dash",
+   "k": 7
+  },
+  {
+   "clip": "JumpCrouch",
+   "k": 0
+  },
+  {
+   "clip": "Place",
+   "k": 0
+  },
+  {
+   "clip": "JumpArc",
+   "k": 0
+  },
+  {
+   "clip": "JumpArc",
+   "k": 1
+  },
+  {
+   "clip": "JumpArc",
+   "k": 2
+  },
+  {
+   "clip": "Land",
+   "k": 0
+  },
+  {
+   "clip": "Land",
+   "k": 1
+  },
+  {
+   "clip": "Land",
+   "k": 2
   }
  ]
 }
