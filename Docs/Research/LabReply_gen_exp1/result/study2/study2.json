@@ -1,0 +1,98 @@
+{
+ "flicker": {
+  "baseline": 496,
+  "m1h": 664,
+  "m1h_stabilized": 520,
+  "miou": {
+   "baseline": 0.6862,
+   "m1h": 0.7917,
+   "m1h_stabilized": 0.7811
+  }
+ },
+ "combos": {
+  "best_v1 (M1h+hemTop+fill)": {
+   "holes_excl_backpack": 128,
+   "exposure": 6272,
+   "strays": 344,
+   "seam_breaks": 5340,
+   "outlined_px": 0,
+   "backpack_residue": 30320,
+   "intrusion": 2696
+  },
+  "+ stray drop only": {
+   "holes_excl_backpack": 176,
+   "exposure": 6272,
+   "strays": 312,
+   "seam_breaks": 5324,
+   "outlined_px": 0,
+   "backpack_residue": 30304,
+   "intrusion": 2696
+  },
+  "+ per-set map only": {
+   "holes_excl_backpack": 2496,
+   "exposure": 6272,
+   "strays": 312,
+   "seam_breaks": 5652,
+   "outlined_px": 0,
+   "backpack_residue": 23648,
+   "intrusion": 2496
+  },
+  "+ per-set map & stray drop": {
+   "holes_excl_backpack": 2624,
+   "exposure": 6272,
+   "strays": 232,
+   "seam_breaks": 5588,
+   "outlined_px": 0,
+   "backpack_residue": 23632,
+   "intrusion": 2496
+  },
+  "+ stray drop + seam outline": {
+   "holes_excl_backpack": 176,
+   "exposure": 6272,
+   "strays": 312,
+   "seam_breaks": 2404,
+   "outlined_px": 7888,
+   "backpack_residue": 30304,
+   "intrusion": 2692
+  },
+  "+ per-set & strays + seam outline": {
+   "holes_excl_backpack": 2624,
+   "exposure": 6272,
+   "strays": 232,
+   "seam_breaks": 2724,
+   "outlined_px": 8044,
+   "backpack_residue": 23632,
+   "intrusion": 2492
+  }
+ },
+ "under_propagation": {
+  "key_only_naive": {
+   "sil_iou": 0.741,
+   "color_err": 33.61,
+   "holes_excl_backpack": 14528,
+   "exposure": 98688,
+   "frames": 17
+  },
+  "warp_from_clip_first": {
+   "sil_iou": 0.8577,
+   "color_err": 24.09,
+   "holes_excl_backpack": 2080,
+   "exposure": 68224,
+   "frames": 17
+  },
+  "warp_chain": {
+   "sil_iou": 0.8602,
+   "color_err": 25.42,
+   "holes_excl_backpack": 2784,
+   "exposure": 72560,
+   "frames": 17
+  },
+  "generated_under_reference": {
+   "sil_iou": 1.0,
+   "color_err": 0.0,
+   "holes_excl_backpack": 128,
+   "exposure": 42976,
+   "frames": 17
+  }
+ }
+}

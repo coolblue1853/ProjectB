@@ -1,0 +1,122 @@
+{
+ "ds_idle_0": {
+  "legs+shoes": {
+   "new_px": 224,
+   "erase_px": 3,
+   "drift_px": 0,
+   "shoes_px": 51,
+   "legs_px": 173
+  },
+  "top": {
+   "new_px": 401,
+   "erase_px": 1,
+   "drift_px": 44,
+   "top_px": 401
+  }
+ },
+ "ds_idle_1": {
+  "legs+shoes": {
+   "new_px": 205,
+   "erase_px": 2,
+   "drift_px": 0,
+   "shoes_px": 50,
+   "legs_px": 155
+  },
+  "top": {
+   "new_px": 403,
+   "erase_px": 0,
+   "drift_px": 41,
+   "top_px": 403
+  }
+ },
+ "ds_idle_2": {
+  "legs+shoes": {
+   "new_px": 226,
+   "erase_px": 4,
+   "drift_px": 0,
+   "shoes_px": 52,
+   "legs_px": 174
+  },
+  "top": {
+   "new_px": 407,
+   "erase_px": 0,
+   "drift_px": 63,
+   "top_px": 407
+  }
+ },
+ "ds_idle_3": {
+  "legs+shoes": {
+   "new_px": 223,
+   "erase_px": 3,
+   "drift_px": 0,
+   "shoes_px": 49,
+   "legs_px": 174
+  },
+  "top": {
+   "new_px": 413,
+   "erase_px": 7,
+   "drift_px": 57,
+   "top_px": 413
+  }
+ },
+ "ds_idle_4": {
+  "legs+shoes": {
+   "new_px": 219,
+   "erase_px": 8,
+   "drift_px": 0,
+   "shoes_px": 47,
+   "legs_px": 172
+  },
+  "top": {
+   "new_px": 409,
+   "erase_px": 5,
+   "drift_px": 65,
+   "top_px": 409
+  }
+ },
+ "ds_idle_5": {
+  "legs+shoes": {
+   "new_px": 223,
+   "erase_px": 4,
+   "drift_px": 0,
+   "shoes_px": 49,
+   "legs_px": 174
+  },
+  "top": {
+   "new_px": 387,
+   "erase_px": 7,
+   "drift_px": 57,
+   "top_px": 387
+  }
+ },
+ "ds_idle_6": {
+  "legs+shoes": {
+   "new_px": 231,
+   "erase_px": 3,
+   "drift_px": 0,
+   "shoes_px": 55,
+   "legs_px": 176
+  },
+  "top": {
+   "new_px": 412,
+   "erase_px": 4,
+   "drift_px": 59,
+   "top_px": 412
+  }
+ },
+ "ds_idle_7": {
+  "legs+shoes": {
+   "new_px": 227,
+   "erase_px": 4,
+   "drift_px": 0,
+   "shoes_px": 47,
+   "legs_px": 180
+  },
+  "top": {
+   "new_px": 412,
+   "erase_px": 2,
+   "drift_px": 57,
+   "top_px": 412
+  }
+ }
+}

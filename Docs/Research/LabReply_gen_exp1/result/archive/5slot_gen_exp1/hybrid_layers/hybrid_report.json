@@ -1,0 +1,42 @@
+{
+ "ds_idle_0": {
+  "visible_legs": 50,
+  "hidden_legs": 109,
+  "stage_covers_visible": 0.88
+ },
+ "ds_idle_1": {
+  "visible_legs": 50,
+  "hidden_legs": 92,
+  "stage_covers_visible": 0.86
+ },
+ "ds_idle_2": {
+  "visible_legs": 49,
+  "hidden_legs": 109,
+  "stage_covers_visible": 0.878
+ },
+ "ds_idle_3": {
+  "visible_legs": 46,
+  "hidden_legs": 118,
+  "stage_covers_visible": 0.87
+ },
+ "ds_idle_4": {
+  "visible_legs": 36,
+  "hidden_legs": 118,
+  "stage_covers_visible": 1.0
+ },
+ "ds_idle_5": {
+  "visible_legs": 33,
+  "hidden_legs": 132,
+  "stage_covers_visible": 0.727
+ },
+ "ds_idle_6": {
+  "visible_legs": 32,
+  "hidden_legs": 131,
+  "stage_covers_visible": 0.781
+ },
+ "ds_idle_7": {
+  "visible_legs": 47,
+  "hidden_legs": 126,
+  "stage_covers_visible": 0.745
+ }
+}

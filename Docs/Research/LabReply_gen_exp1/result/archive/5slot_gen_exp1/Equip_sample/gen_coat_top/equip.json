@@ -1,0 +1,39 @@
+{
+ "id": "gen_coat_top",
+ "slot": "body",
+ "ds": true,
+ "frames": [
+  {
+   "clip": "Idle",
+   "k": 0
+  },
+  {
+   "clip": "Idle",
+   "k": 1
+  },
+  {
+   "clip": "Idle",
+   "k": 2
+  },
+  {
+   "clip": "Idle",
+   "k": 3
+  },
+  {
+   "clip": "Idle",
+   "k": 4
+  },
+  {
+   "clip": "Idle",
+   "k": 5
+  },
+  {
+   "clip": "Idle",
+   "k": 6
+  },
+  {
+   "clip": "Idle",
+   "k": 7
+  }
+ ]
+}

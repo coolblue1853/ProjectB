@@ -1,0 +1,18 @@
+{
+ "4slot": {
+  "holes": 64,
+  "exposure": 3136,
+  "strays": 168,
+  "head_mismatch_all_leaf": 1915,
+  "head_mismatch_cap_leaf_only": 526,
+  "n": 336
+ },
+ "4slot + set-specific cap + erase": {
+  "holes": 64,
+  "exposure": 2688,
+  "strays": 176,
+  "head_mismatch_all_leaf": 634,
+  "head_mismatch_cap_leaf_only": 329,
+  "n": 336
+ }
+}

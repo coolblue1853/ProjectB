@@ -1,0 +1,51 @@
+{
+ "1": {
+  "tp": 121,
+  "fp": 941,
+  "fn": 57,
+  "precision": 0.114,
+  "recall": 0.68
+ },
+ "2": {
+  "tp": 131,
+  "fp": 1006,
+  "fn": 47,
+  "precision": 0.115,
+  "recall": 0.736
+ },
+ "3": {
+  "tp": 131,
+  "fp": 1012,
+  "fn": 47,
+  "precision": 0.115,
+  "recall": 0.736
+ },
+ "4": {
+  "tp": 131,
+  "fp": 1012,
+  "fn": 47,
+  "precision": 0.115,
+  "recall": 0.736
+ },
+ "no erase (hair under hat only)": {
+  "tp": 0,
+  "fp": 0,
+  "fn": 178,
+  "precision": 0.0,
+  "recall": 0.0
+ },
+ "above hat top only": {
+  "tp": 96,
+  "fp": 18,
+  "fn": 82,
+  "precision": 0.842,
+  "recall": 0.539
+ },
+ "above hat top ±1 col": {
+  "tp": 10,
+  "fp": 1,
+  "fn": 168,
+  "precision": 0.909,
+  "recall": 0.056
+ }
+}

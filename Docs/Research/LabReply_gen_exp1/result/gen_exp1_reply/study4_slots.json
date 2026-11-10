@@ -1,0 +1,123 @@
+{
+ "baseline map, 4slot": {
+  "holes": 288,
+  "exposure": 10136,
+  "strays": 832,
+  "head_mismatch_all_leaf": 2106,
+  "intrusion": 1076,
+  "cut": 2432,
+  "combos": 336,
+  "per_combo": {
+   "holes": 0.86,
+   "exposure": 30.17,
+   "strays": 2.48,
+   "intrusion": 3.2,
+   "cut": 7.24
+  },
+  "miou": 0.7116,
+  "iou": {
+   "cap": 0.934,
+   "armor": 0.887,
+   "glove": 0.228,
+   "shoes": 0.538,
+   "body": 0.971
+  }
+ },
+ "5slot": {
+  "holes": 128,
+  "exposure": 6272,
+  "strays": 344,
+  "head_mismatch_all_leaf": 1913,
+  "intrusion": 2656,
+  "cut": 3612,
+  "combos": 672,
+  "per_combo": {
+   "holes": 0.19,
+   "exposure": 9.33,
+   "strays": 0.51,
+   "intrusion": 3.95,
+   "cut": 5.38
+  },
+  "miou": 0.8008,
+  "iou": {
+   "cap": 0.995,
+   "top": 0.771,
+   "glove": 0.721,
+   "legs": 0.669,
+   "shoes": 0.727,
+   "body": 0.922
+  }
+ },
+ "4slot": {
+  "holes": 64,
+  "exposure": 3136,
+  "strays": 168,
+  "head_mismatch_all_leaf": 1915,
+  "intrusion": 1240,
+  "cut": 1708,
+  "combos": 336,
+  "per_combo": {
+   "holes": 0.19,
+   "exposure": 9.33,
+   "strays": 0.5,
+   "intrusion": 3.69,
+   "cut": 5.08
+  },
+  "miou": 0.8564,
+  "iou": {
+   "cap": 0.995,
+   "armor": 0.917,
+   "glove": 0.721,
+   "shoes": 0.727,
+   "body": 0.922
+  }
+ },
+ "4slot + set cap + erase": {
+  "holes": 64,
+  "exposure": 2688,
+  "strays": 176,
+  "head_mismatch_all_leaf": 635,
+  "intrusion": 1108,
+  "cut": 1860,
+  "combos": 336,
+  "per_combo": {
+   "holes": 0.19,
+   "exposure": 8.0,
+   "strays": 0.52,
+   "intrusion": 3.3,
+   "cut": 5.54
+  },
+  "miou": 0.8564,
+  "iou": {
+   "cap": 0.995,
+   "armor": 0.917,
+   "glove": 0.721,
+   "shoes": 0.727,
+   "body": 0.922
+  }
+ },
+ "4slot + set cap + erase + under neck fix": {
+  "holes": 64,
+  "exposure": 912,
+  "strays": 176,
+  "head_mismatch_all_leaf": 622,
+  "intrusion": 1108,
+  "cut": 1860,
+  "combos": 336,
+  "per_combo": {
+   "holes": 0.19,
+   "exposure": 2.71,
+   "strays": 0.52,
+   "intrusion": 3.3,
+   "cut": 5.54
+  },
+  "miou": 0.8564,
+  "iou": {
+   "cap": 0.995,
+   "armor": 0.917,
+   "glove": 0.721,
+   "shoes": 0.727,
+   "body": 0.922
+  }
+ }
+}

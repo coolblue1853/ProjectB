@@ -1,0 +1,18 @@
+{
+ "copied": 114,
+ "skipped": 86,
+ "scores": {
+  "under as given": {
+   "holes": 64,
+   "exposure": 2688,
+   "strays": 176,
+   "n": 336
+  },
+  "under + head palette fix": {
+   "holes": 64,
+   "exposure": 912,
+   "strays": 176,
+   "n": 336
+  }
+ }
+}

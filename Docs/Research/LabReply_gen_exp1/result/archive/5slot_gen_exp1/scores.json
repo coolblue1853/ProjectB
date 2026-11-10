@@ -1,0 +1,32 @@
+{
+ "as_returned (gen_exp1/out)": {
+  "holes": 448,
+  "exposure": 2312,
+  "strays": 96
+ },
+ "recut shared map, hem->top": {
+  "holes": 160,
+  "exposure": 400,
+  "strays": 96
+ },
+ "recut shared map, hem->legs": {
+  "holes": 2336,
+  "exposure": 576,
+  "strays": 96
+ },
+ "hybrid v1 (returned LEGS_FULL)": {
+  "holes": 0,
+  "exposure": 72,
+  "strays": 96
+ },
+ "hybrid v2 (fixed LEGS_FULL, recolor) = recommended": {
+  "holes": 0,
+  "exposure": 232,
+  "strays": 96
+ },
+ "reference (1st study M1h+fill)": {
+  "holes": 0,
+  "exposure": 1216,
+  "strays": 96
+ }
+}

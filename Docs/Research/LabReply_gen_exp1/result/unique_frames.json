@@ -1,0 +1,144 @@
+{
+ "ds_idle": [
+  "ds_idle_0",
+  "ds_idle_1",
+  "ds_idle_2",
+  "ds_idle_3",
+  "ds_idle_4",
+  "ds_idle_5",
+  "ds_idle_6",
+  "ds_idle_7"
+ ],
+ "ds_walk": [
+  "ds_walk_0",
+  "ds_walk_1",
+  "ds_walk_2",
+  "ds_walk_3",
+  "ds_walk_4",
+  "ds_walk_5",
+  "ds_walk_6",
+  "ds_walk_7"
+ ],
+ "ds_run": [
+  "ds_run_0",
+  "ds_run_1",
+  "ds_run_2",
+  "ds_run_3",
+  "ds_run_4",
+  "ds_run_5",
+  "ds_run_6",
+  "ds_run_7"
+ ],
+ "ds_crouch": [
+  "ds_crouch_0"
+ ],
+ "ds_arc": [
+  "ds_arc_0",
+  "ds_arc_1",
+  "ds_arc_2"
+ ],
+ "ds_land": [
+  "ds_land_0",
+  "ds_land_1",
+  "ds_land_2"
+ ],
+ "ds_hurt": [
+  "ds_hurt_0",
+  "ds_hurt_1",
+  "ds_hurt_2"
+ ],
+ "ds_death": [
+  "ds_death_0",
+  "ds_death_1",
+  "ds_death_2",
+  "ds_death_3",
+  "ds_death_4",
+  "ds_death_5",
+  "ds_death_6",
+  "ds_death_7"
+ ],
+ "ds_stab": [
+  "ds_stab_0",
+  "ds_stab_1",
+  "ds_stab_2",
+  "ds_stab_3"
+ ],
+ "ds_down": [
+  "ds_down_0",
+  "ds_down_1",
+  "ds_down_2",
+  "ds_down_3"
+ ],
+ "ds_up": [
+  "ds_up_0",
+  "ds_up_1",
+  "ds_up_2",
+  "ds_up_3",
+  "ds_up_4"
+ ],
+ "ds_rope": [
+  "ds_rope_0",
+  "ds_rope_1",
+  "ds_rope_2",
+  "ds_rope_3",
+  "ds_rope_4",
+  "ds_rope_5"
+ ],
+ "ds_ropestay": [
+  "ds_ropestay_0"
+ ],
+ "ds_side": [
+  "ds_side_0",
+  "ds_side_1",
+  "ds_side_2",
+  "ds_side_3"
+ ],
+ "ds_flurry": [
+  "ds_flurry_0",
+  "ds_flurry_1",
+  "ds_flurry_2",
+  "ds_flurry_3",
+  "ds_flurry_4",
+  "ds_flurry_5"
+ ],
+ "ds_cross": [
+  "ds_cross_0",
+  "ds_cross_1",
+  "ds_cross_2",
+  "ds_cross_3",
+  "ds_cross_4"
+ ],
+ "ds_charge": [
+  "ds_charge_0",
+  "ds_charge_1",
+  "ds_charge_2",
+  "ds_charge_3",
+  "ds_charge_4",
+  "ds_charge_5",
+  "ds_charge_6"
+ ],
+ "ds_stabend": [
+  "ds_stabend_0"
+ ],
+ "ds_downend": [
+  "ds_downend_0"
+ ],
+ "ds_airstab": [
+  "ds_airstab_0",
+  "ds_airstab_1",
+  "ds_airstab_2",
+  "ds_airstab_3"
+ ],
+ "ds_airdown": [
+  "ds_airdown_0",
+  "ds_airdown_1",
+  "ds_airdown_2",
+  "ds_airdown_3"
+ ],
+ "ds_airup": [
+  "ds_airup_0",
+  "ds_airup_1",
+  "ds_airup_2",
+  "ds_airup_3"
+ ]
+}

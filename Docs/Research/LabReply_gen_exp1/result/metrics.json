@@ -1,0 +1,148 @@
+{
+ "_doc": "11-10 최신. 모든 수치는 code/study4_slots.py 로 같은 조건(21프레임, 세트 2벌: base_coat·leaf_set, 조합 전부)에서 계산. iou 는 labels/ 시험 7장(ds_idle_0 제외). holes=두 옷 다 덮는데 투명(배낭 자리·모자 지울 마스크 제외), exposure=두 옷 다 덮는데 속옷 몸이 드러남, strays=몸에서 떨어진 조각, intrusion/cut=정답 지도로 같은 규칙으로 합성한 이상 결과와 출처가 다른 픽셀(시험 7장). 4칸=머리·갑옷(한 벌)·장갑·신발. 1차 보고(report.md)의 5칸 수치는 그때 지도 기준이라 이 파일과 다르다.",
+ "baseline": {
+  "description": "기준선 지도(regions_current), 4칸, 생성 0 보완 층 포함, 원래 속옷 몸",
+  "extra_inputs": [],
+  "iou_per_class": {
+   "cap": 0.934,
+   "armor": 0.887,
+   "glove": 0.228,
+   "shoes": 0.538,
+   "body": 0.971
+  },
+  "miou": 0.7116,
+  "holes": 288,
+  "intrusion": 1076,
+  "cut": 2432,
+  "exposure": 10136,
+  "strays": 832,
+  "head_mismatch_all_leaf": 2106,
+  "combos": 336,
+  "per_combo": {
+   "holes": 0.86,
+   "exposure": 30.17,
+   "strays": 2.48,
+   "intrusion": 3.2,
+   "cut": 7.24
+  },
+  "frames": 21
+ },
+ "recommended": {
+  "description": "M1h 지도(regions/), 4칸, 세트별 모자 확장 + 모자 지울 마스크, 보정 속옷 몸(under_fixed/)",
+  "extra_inputs": [
+   "frames_underwear_base(같은 자세 속옷 몸)",
+   "frames_leaf_set_transfer(같은 자세 다른 옷 1벌: 배낭 판정)"
+  ],
+  "iou_per_class": {
+   "cap": 0.995,
+   "armor": 0.917,
+   "glove": 0.721,
+   "shoes": 0.727,
+   "body": 0.922
+  },
+  "miou": 0.8564,
+  "holes": 64,
+  "intrusion": 1108,
+  "cut": 1860,
+  "exposure": 912,
+  "strays": 176,
+  "head_mismatch_all_leaf": 622,
+  "combos": 336,
+  "per_combo": {
+   "holes": 0.19,
+   "exposure": 2.71,
+   "strays": 0.52,
+   "intrusion": 3.3,
+   "cut": 5.54
+  },
+  "frames": 21
+ },
+ "m1h_4slot_plain": {
+  "description": "M1h 지도, 4칸, 모자 확장 없음, 원래 속옷 몸",
+  "extra_inputs": [
+   "위와 같음"
+  ],
+  "iou_per_class": {
+   "cap": 0.995,
+   "armor": 0.917,
+   "glove": 0.721,
+   "shoes": 0.727,
+   "body": 0.922
+  },
+  "miou": 0.8564,
+  "holes": 64,
+  "intrusion": 1240,
+  "cut": 1708,
+  "exposure": 3136,
+  "strays": 168,
+  "head_mismatch_all_leaf": 1915,
+  "combos": 336,
+  "per_combo": {
+   "holes": 0.19,
+   "exposure": 9.33,
+   "strays": 0.5,
+   "intrusion": 3.69,
+   "cut": 5.08
+  },
+  "frames": 21
+ },
+ "m1h_4slot_cap": {
+  "description": "M1h 지도, 4칸, 모자 확장 + 지울 마스크, 원래 속옷 몸",
+  "extra_inputs": [
+   "위와 같음"
+  ],
+  "iou_per_class": {
+   "cap": 0.995,
+   "armor": 0.917,
+   "glove": 0.721,
+   "shoes": 0.727,
+   "body": 0.922
+  },
+  "miou": 0.8564,
+  "holes": 64,
+  "intrusion": 1108,
+  "cut": 1860,
+  "exposure": 2688,
+  "strays": 176,
+  "head_mismatch_all_leaf": 635,
+  "combos": 336,
+  "per_combo": {
+   "holes": 0.19,
+   "exposure": 8.0,
+   "strays": 0.52,
+   "intrusion": 3.3,
+   "cut": 5.54
+  },
+  "frames": 21
+ },
+ "m1h_5slot_reference": {
+  "description": "참고: M1h 지도, 5칸(상의·바지 분리, 자락→상의), 생성 0 보완 층",
+  "extra_inputs": [
+   "위와 같음"
+  ],
+  "iou_per_class": {
+   "cap": 0.995,
+   "top": 0.771,
+   "glove": 0.721,
+   "legs": 0.669,
+   "shoes": 0.727,
+   "body": 0.922
+  },
+  "miou": 0.8008,
+  "holes": 128,
+  "intrusion": 2656,
+  "cut": 3612,
+  "exposure": 6272,
+  "strays": 344,
+  "head_mismatch_all_leaf": 1913,
+  "combos": 672,
+  "per_combo": {
+   "holes": 0.19,
+   "exposure": 9.33,
+   "strays": 0.51,
+   "intrusion": 3.95,
+   "cut": 5.38
+  },
+  "frames": 21
+ }
+}

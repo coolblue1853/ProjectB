@@ -1,0 +1,33 @@
+{
+ "hair_should_hide": 199,
+ "hair_should_hide_frames": {
+  "ds_idle_0": 5,
+  "ds_idle_1": 5,
+  "ds_idle_2": 1,
+  "ds_idle_3": 15,
+  "ds_idle_4": 31,
+  "ds_idle_5": 31,
+  "ds_idle_6": 39,
+  "ds_idle_7": 8,
+  "ds_stab_0": 1,
+  "ds_stab_1": 4,
+  "ds_stab_2": 1,
+  "ds_stab_3": 5,
+  "ds_down_0": 0,
+  "ds_down_1": 3,
+  "ds_down_2": 0,
+  "ds_down_3": 4,
+  "ds_up_0": 14,
+  "ds_up_1": 2,
+  "ds_up_2": 13,
+  "ds_up_3": 7,
+  "ds_up_4": 10
+ },
+ "hood_px": 3181,
+ "hair_above_goggles_rows": {
+  "min": 2,
+  "max": 5,
+  "mean": 4.0,
+  "frames": 19
+ }
+}
