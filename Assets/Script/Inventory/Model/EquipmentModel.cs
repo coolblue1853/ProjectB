@@ -1,7 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-/// <summary>장비 부위 = 세이브 인덱스 그대로 (equipGear[슬롯]). 10~13 은 해금형 비외형 장신구 슬롯(귀걸이·팔찌·부적·마법석, EquipSlotExpansion.md, 별도 ES3 키). 11-05 이전 이름 Title·Aura·Cape 는 폐기, 값 유지</summary>
+/// <summary>
+/// [EQUIP-SLOT-REFORM v2 · 11-10 확정, 구현 예정 — 상세 Docs/Handoff/equip_redistribution.md, Game/EquipSlotExpansion.md]
+/// 목표 슬롯표: 시작 5칸 = 의상(Chest 로 이행, 외형 한 벌·기본 동작 결정)·무기·반지·목걸이·귀걸이.
+/// 홀수 층계 = 장비 슬롯 해금: 1 보조장비(옛 부적 Charm)·3 팔찌·5 허리띠·7 마법석. 해금은 스토리 진행.
+/// 짝수 층계 = 장비가 아닌 별도 콘텐츠: 2 펫·4 룬·6 성물 — 이 enum 에 넣지 않는다(세트 효과에도 안 들어감).
+/// 세트 효과에 들어가는 것은 장비 슬롯뿐(지금은 시작 5칸 기준 최대 5셋, 해금 슬롯 포함은 나중).
+/// 투구(Head)·장갑(Hand)·하의(Leg)·신발(Shoes)은 외형 합침 후 폐지 예정(반지·목걸이·귀걸이 등으로 이행). 값·세이브 인덱스는 이름만 바뀌고 유지한다.
+/// 모션 소유 원칙: 의상=기본 동작, 무기=공격 동작, 둘은 독립(합으로 늘림).
+/// 장비 부위 = 세이브 인덱스 그대로 (equipGear[슬롯]). 10~13 은 해금형 비외형 장신구 슬롯(귀걸이·팔찌·부적·마법석, EquipSlotExpansion.md, 별도 ES3 키). 11-05 이전 이름 Title·Aura·Cape 는 폐기, 값 유지</summary>
 public enum EquipSlot { Ring = 1, Head = 2, Necklace = 3, Chest = 5, Hand = 6, Weapon = 7, Leg = 8, Shoes = 9, Earring = 10, Bracelet = 11, Charm = 12, Stone = 13 }
 
 /// <summary>

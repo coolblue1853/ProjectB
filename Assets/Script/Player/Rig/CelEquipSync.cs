@@ -7,6 +7,8 @@ using UnityEngine;
 /// 0.5초마다 살펴, 장착 아이템 이름이 바뀌었을 때만 대응표(Resources/CelEquipMap.csv: 아이템 이름,레이어 id)로 레이어를 다시 합성한다.
 /// PixelRigInstaller 가 픽셀 리그에 붙인다.
 /// </summary>
+// [v2 예정 11-10] 외형은 의상 한 벌 + 무기뿐이다. 구현 시 모자·장갑·신발 칸 합성(ArmorBoxes 2·6·9, DefaultLayers cap/glove/shoes)과 임시 규칙(*_glove/*_shoes 기본값,
+// CelComposer.AlignBoots)을 지운다. 기본 동작은 의상, 공격 동작은 무기가 정하며 둘은 독립(모션 소유 원칙).
 public class CelEquipSync : MonoBehaviour
 {
     private static readonly int[] ArmorBoxes = { 2, 5, 6, 9 };
