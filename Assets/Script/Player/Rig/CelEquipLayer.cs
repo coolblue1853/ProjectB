@@ -8,8 +8,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ProjectB/Cel Equip Layer")]
 public class CelEquipLayer : ScriptableObject
 {
-    /// <summary>그리는 순서(작을수록 아래): 맨몸 위에 하의·신발 → 갑옷 → 장갑 → 투구</summary>
-    public enum Slot { Legs = 10, Shoes = 15, Body = 20, Gloves = 30, Head = 40 }
+    /// <summary>그리는 순서(작을수록 아래): 맨몸 위에 옷(Body, 목 아래 지움) → 신발 → 장갑 → 투구(몸+옷 한 조각 방식, 11-10: 옷의 지울 마스크가 신발을 지우지 않게 신발이 옷 위)</summary>
+    public enum Slot { Legs = 10, Body = 20, Shoes = 25, Gloves = 30, Head = 40 }
 
     [Serializable]
     public class Frame

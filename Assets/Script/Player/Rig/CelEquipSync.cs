@@ -3,15 +3,15 @@ using System.Text;
 using UnityEngine;
 
 /// <summary>
-/// 장착한 방어구 → 던파식 장비 레이어(CelEquipmentPlan). 인벤토리 코드는 건드리지 않고 장비 칸(모자 2·갑옷 5·장갑 6·바지 8·신발 9)을
+/// 장착한 방어구 → 던파식 장비 레이어(CelEquipmentPlan). 인벤토리 코드는 건드리지 않고 장비 칸(모자 2·옷 5·장갑 6·신발 9; 바지 8은 외형에서 뺌 — 몸+옷 한 조각 방식 11-10)을
 /// 0.5초마다 살펴, 장착 아이템 이름이 바뀌었을 때만 대응표(Resources/CelEquipMap.csv: 아이템 이름,레이어 id)로 레이어를 다시 합성한다.
 /// PixelRigInstaller 가 픽셀 리그에 붙인다.
 /// </summary>
 public class CelEquipSync : MonoBehaviour
 {
-    private static readonly int[] ArmorBoxes = { 2, 5, 6, 8, 9 };
-    /// <summary>빈 칸에 보이는 기본 의상(코트·바지) 레이어. ArmorBoxes 와 같은 순서. 속옷 몸(기반)은 겉으로 드러나지 않는다(11-09 사용자).</summary>
-    private static readonly string[] DefaultLayers = { "base_coat_cap", "base_coat_top", "base_coat_glove", "base_coat_legs", "base_coat_shoes" };
+    private static readonly int[] ArmorBoxes = { 2, 5, 6, 9 };
+    /// <summary>빈 칸에 보이는 기본 의상 레이어(옷 한 벌=base_coat_top 은 목 아래 전부). ArmorBoxes 와 같은 순서. 속옷 몸(기반)은 겉으로 드러나지 않는다(11-09 사용자).</summary>
+    private static readonly string[] DefaultLayers = { "base_coat_cap", "base_coat_top", "base_coat_glove", "base_coat_shoes" };
     private const float CheckInterval = 0.5f;
     private const string MapPath = "CelEquipMap";
     private const string LayerDir = "PixelRig/Equip/";
