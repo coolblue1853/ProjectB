@@ -74,7 +74,16 @@ def build(set_id, f):
     if set_id == "leaf_set":   # 잎사귀 신발: 새 포즈가 옛 코트 신발 지도와 어긋나므로 신발 지도를 넓혀 장화 전체를 신발 층으로(11-10)
         Sz6 = M1.dil(lab == C.SHOES, 5)
         Sz6 &= (np.arange(lab.shape[0])[:, None] >= (np.nonzero(lab == C.SHOES)[0].min() - 6 if (lab == C.SHOES).any() else 99))
-        em[a & Sz6 & (em != 3) & (em != 1)] = 5
+        # 장화 = 다리 아래 끝 8줄(정강이·허벅지는 옷 층에 남겨 섞어 입어도 다리가 안 끊기게)
+        lowm = a.copy(); lowm[:40] = False; cols = np.nonzero(lowm.any(0))[0]; boot = np.zeros(a.shape, bool)
+        if len(cols):
+            grp = [[cols[0]]]
+            for cx in cols[1:]:
+                (grp[-1].append(cx) if cx - grp[-1][-1] <= 1 else grp.append([cx]))
+            for g in grp:
+                sub = lowm[:, g[0]:g[-1] + 1]; mr = np.nonzero(sub.any(1))[0].max()
+                boot[max(0, mr - 8):mr + 1, g[0]:g[-1] + 1] = True
+        em[a & Sz6 & boot & (em != 3) & (em != 1)] = 5
         Sz = Sz | Sz6
     lay = {s: np.zeros_like(img) for s in PART}
     for s in (1, 2, 3, 5):
@@ -146,6 +155,8 @@ def build(set_id, f):
         if f in NEW:
             lay[1][(lay[2][:, :, 3] > 0) & (lay[1][:, :, 3] > 0)] = 0   # 같은 픽셀은 한 층에만
             lay[("erase", 1)] = (lay[("erase", 1)] | (ua & ~a & (np.arange(H)[:, None] <= hb + 4))) & ~(lay[2][:, :, 3] > 0)   # 모자 지우개가 옷 층 그림을 지우지 않게
+    if set_id == "leaf_set":   # 신발 지우개가 옷 층(정강이 등) 그림을 지우지 않게
+        lay[("erase", 5)] = lay[("erase", 5)] & ~(lay[2][:, :, 3] > 0)
     return lay
 
 def main():
