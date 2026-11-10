@@ -71,7 +71,7 @@ def build(set_id, f):
     em[em == C.BACK] = C.TOP   # 잎사귀 그림엔 배낭이 없다 → 배낭 자리의 픽셀은 옷(뒷모습 등판)
     Gz = M1.dil(lab == C.GLOVE, 1); Sz = M1.dil(lab == C.SHOES, 1)
     P = M1.dil(np.isin(lab, [C.TOP, C.LEGS, C.HEM, C.BACK]), 1)
-    if set_id == "leaf_set":   # 잎사귀 신발: 새 포즈가 옛 코트 신발 지도와 어긋나므로 신발 지도를 넓혀 장화 전체를 신발 층으로(11-10)
+    if True:   # 신발 = 다리 끝 8줄 규칙은 잎사귀·코트 공통(11-10: 코트 정강이가 신발 조각에 들어 있어 신발만 바꾸면 다리가 비었다). 새 포즈가 옛 코트 신발 지도와 어긋나므로 신발 지도를 넓혀 장화 전체를 신발 층으로(11-10)
         Sz6 = M1.dil(lab == C.SHOES, 5)
         Sz6 &= (np.arange(lab.shape[0])[:, None] >= (np.nonzero(lab == C.SHOES)[0].min() - 6 if (lab == C.SHOES).any() else 99))
         # 장화 = 다리 아래 끝 8줄(정강이·허벅지는 옷 층에 남겨 섞어 입어도 다리가 안 끊기게)
@@ -84,6 +84,7 @@ def build(set_id, f):
                 sub = lowm[:, g[0]:g[-1] + 1]; mr = np.nonzero(sub.any(1))[0].max()
                 boot[max(0, mr - 8):mr + 1, g[0]:g[-1] + 1] = True
         em[a & Sz6 & boot & (em != 3) & (em != 1)] = 5
+        em[(em == 5) & ~boot] = 2   # 신발 구역이라도 끝 8줄 밖(정강이)은 옷 층
         Sz = Sz | Sz6
     lay = {s: np.zeros_like(img) for s in PART}
     for s in (1, 2, 3, 5):

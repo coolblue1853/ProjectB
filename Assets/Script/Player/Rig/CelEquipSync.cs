@@ -92,6 +92,15 @@ public class CelEquipSync : MonoBehaviour
             if (itemName.Length == 0)
             {
                 id = DefaultLayers[i];
+                // 11-10: 장갑·신발 칸이 비면 '옷이 그린 손발'(같은 세트의 *_glove/*_shoes)이 기본이다. 코트 신발을 다른 옷 포즈에 얹으면 다리와 떨어져 뜬다
+                if ((i == 2 || i == 3) && names.Length > 1 && names[1].Length > 0 && _map.TryGetValue(names[1], out string topId) && topId.EndsWith("_top"))
+                {
+                    string own = topId.Substring(0, topId.Length - 4) + (i == 2 ? "_glove" : "_shoes");
+                    if (Resources.Load<CelEquipLayer>(LayerDir + own) != null)
+                    {
+                        id = own;
+                    }
+                }
             }
             if (id != null || (itemName.Length > 0 && _map.TryGetValue(itemName, out id)))
             {

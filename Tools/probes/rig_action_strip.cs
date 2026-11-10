@@ -1,11 +1,11 @@
-﻿// 한 프로브 안에서 동작 실행 → 게임 시간 기준 일정 간격 연속 촬영(프로브 컴파일 멈춤 1초가 사이에 끼지 않게).
+// 한 프로브 안에서 동작 실행 → 게임 시간 기준 일정 간격 연속 촬영(프로브 컴파일 멈춤 1초가 사이에 끼지 않게).
 // __ACTION__: jump | attack | dash | combo | combo3(콤보 1·2·3단 생성 함수를 0.42초 간격 직접 호출)  /  결과: Logs/playtest/rig_act___ACTION__.png + 클립 기록(AppDomain pb_rigact)
 var pc = PlayerController.instance;
 var rig = pc.Rig;
 var fReq = typeof(PixelRig).GetField("_requested", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 string action = "__ACTION__";
 bool loco = action == "walk" || action == "run" || action == "brake" || action == "turn"; // turn: 오른쪽으로 달리다 0.45초에 왼쪽 — 방향 전환 먼지 // brake: 달리다 0.45초에 키를 떼고 그 순간부터 제동 포즈·먼지
-int n = action == "combo3" ? 12 : action == "jump" || action == "fall" ? 10 : 8, w = 256; float step = action == "brake" || action == "turn" ? 0.04f : action == "combo3" ? 0.1f : loco ? 0.06f : action == "jump" ? 0.07f : action == "death" ? 0.25f : 0.08f;
+int n = action == "combo3" ? 24 : action == "jump" || action == "fall" ? 10 : 8, w = 256; float step = action == "brake" || action == "turn" ? 0.04f : action == "combo3" ? 0.05f : loco ? 0.06f : action == "jump" ? 0.07f : action == "death" ? 0.25f : 0.08f;
 float lead = action == "brake" || action == "turn" ? 0.4f : loco ? 0.3f : action == "fidget" ? 6.0f : 0.02f; // 걷기·달리기는 가속이 끝난 뒤부터 찍는다
 float camSize = loco || action == "jump" ? 1.15f : 1.6f; // 이동 동작은 크게(빈칸 확인용)
 var strip = new Texture2D(w * n, w, TextureFormat.RGB24, false);
@@ -16,13 +16,17 @@ System.Action<int> shot = (int i) =>
     var go = new GameObject("CloseupCam");
     var cam = go.AddComponent<Camera>();
     cam.orthographic = true; cam.orthographicSize = camSize;
-    cam.clearFlags = CameraClearFlags.SolidColor; cam.backgroundColor = new Color(0.55f, 0.6f, 0.65f, 1f);
+    cam.clearFlags = CameraClearFlags.SolidColor; cam.backgroundColor = new Color(1f, 1f, 1f, 1f); // 흰 바탕: 잘린 조각·겹침이 잘 보이게
     Vector3 p = pc.transform.position;
     go.transform.position = new Vector3(p.x + 0.2f, p.y + (camSize < 1.5f ? 0.15f : 0.5f), p.z - 50f);
     var rt = new RenderTexture(w, w, 24); rt.filterMode = FilterMode.Point;
+    var hid = new System.Collections.Generic.List<Renderer>();
+    foreach (var r in UnityEngine.Object.FindObjectsByType<Renderer>(FindObjectsSortMode.None)) if (r.enabled && !r.transform.IsChildOf(pc.transform)) { r.enabled = false; hid.Add(r); } // 플레이어 말고 전부 숨김
     cam.targetTexture = rt; cam.Render();
+    foreach (var r in hid) if (r != null) r.enabled = true;
     RenderTexture.active = rt; strip.ReadPixels(new Rect(0, 0, w, w), i * w, 0); RenderTexture.active = null;
     cam.targetTexture = null; UnityEngine.Object.DestroyImmediate(go); UnityEngine.Object.DestroyImmediate(rt);
+    { var hs = rig.GetBoneSocket("RightWeapon"); if (hs != null) log.Append("[z=" + hs.parent.localEulerAngles.z.ToString("F0") + " s=" + hs.localScale.y.ToString("F1") + "]"); }
     log.Append(i + ":" + (fReq != null && rig is PixelRig ? fReq.GetValue(rig) : "?") + "@y" + pc.transform.position.y.ToString("F2") + " ");
     if (i == n - 1)
     {
