@@ -71,6 +71,11 @@ def build(set_id, f):
     em[em == C.BACK] = C.TOP   # 잎사귀 그림엔 배낭이 없다 → 배낭 자리의 픽셀은 옷(뒷모습 등판)
     Gz = M1.dil(lab == C.GLOVE, 1); Sz = M1.dil(lab == C.SHOES, 1)
     P = M1.dil(np.isin(lab, [C.TOP, C.LEGS, C.HEM, C.BACK]), 1)
+    if set_id == "leaf_set":   # 잎사귀 신발: 새 포즈가 옛 코트 신발 지도와 어긋나므로 신발 지도를 넓혀 장화 전체를 신발 층으로(11-10)
+        Sz6 = M1.dil(lab == C.SHOES, 5)
+        Sz6 &= (np.arange(lab.shape[0])[:, None] >= (np.nonzero(lab == C.SHOES)[0].min() - 6 if (lab == C.SHOES).any() else 99))
+        em[a & Sz6 & (em != 3) & (em != 1)] = 5
+        Sz = Sz | Sz6
     lay = {s: np.zeros_like(img) for s in PART}
     for s in (1, 2, 3, 5):
         m = a & (em == s); lay[s][m] = img[m]
@@ -94,8 +99,19 @@ def build(set_id, f):
                     if len(comp) <= maxs and not any(near[cy, cx] for cy, cx in comp):
                         for cy, cx in comp: out[cy, cx] = 0
         return out
+    if set_id == "leaf_set":   # 한 조각: 머리 아래 속옷은 전부 지우고(얼굴·머리카락·장갑·신발 구역 제외), 어느 층에도 안 들어간 잎사귀 픽셀은 옷 층으로(11-10 검사 기반)
+        P = np.ones_like(P, bool)
+        cov = np.zeros(a.shape, bool)
+        for s_ in (1, 2, 3, 5): cov |= lay[s_][:, :, 3] > 0
+        un = a & ~cov & below
+        lay[2][un] = img[un]
+        un2 = a & ~cov & ~below & ~prot
+        lay[2][un2] = img[un2]
     er_top = ua & P & below & ~prot & ~Gz & ~Sz
+    if set_id == "leaf_set": er_top |= ua & ~a & below & ~prot   # 잎사귀 그림에 없는 자리의 속옷 잔여는 전부 지움
     lay[("erase", 2)] = er_top
+    if set_id == "leaf_set":
+        lay[("erase", 5)] = ua & Sz & ~M1.dil(lab == C.GLOVE, 1)
     others = ua & ~er_top
     for s_ in (1, 3, 5):
         others = others | (lay[s_][:, :, 3] > 0)
@@ -118,6 +134,18 @@ def build(set_id, f):
         fillc = fill_from(under, gm | above)
         fm = (gm & ~C.alpha(lay[1]))
         lay[1][fm] = fillc[fm]
+        if f in NEW:   # 새로 생성한 프레임은 머리 위치·얼굴이 바탕(코트 원본 머리)과 어긋난다 → 얼굴·머리카락까지 모자 층으로 통째로, 바탕 머리는 지움
+            hd = (np.arange(H)[:, None] <= hb) & np.ones((1, W), bool)
+            take = a & hd & ~Gz & (em != 3)
+            lay[1][take] = img[take]
+            lay[("erase", 1)] = ua & hd
+        cov = np.zeros(a.shape, bool)
+        for s_ in (1, 2, 3, 5): cov |= lay[s_][:, :, 3] > 0
+        rest = a & ~cov   # 어느 층에도 안 들어간 잎사귀 픽셀 → 옷 층(잘림 방지)
+        lay[2][rest] = img[rest]
+        if f in NEW:
+            lay[1][(lay[2][:, :, 3] > 0) & (lay[1][:, :, 3] > 0)] = 0   # 같은 픽셀은 한 층에만
+            lay[("erase", 1)] = (lay[("erase", 1)] | (ua & ~a & (np.arange(H)[:, None] <= hb + 4))) & ~(lay[2][:, :, 3] > 0)   # 모자 지우개가 옷 층 그림을 지우지 않게
     return lay
 
 def main():
