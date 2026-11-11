@@ -98,7 +98,7 @@ public static class SkillEffectService
         _basicMul = 1f + EffectResolver.BasicDamagePct(Active) / 100f;
     }
 
-    static float _basicMul = 1f;
+    private static float _basicMul = 1f;
 
     /// <summary>평타(Basic) 피해 배율. 스킬 타격·효과 없음 = 1 (Recompute 때만 계산, 매 타격 호출 안전)</summary>
     public static float BasicDamageMul(bool isSkill)

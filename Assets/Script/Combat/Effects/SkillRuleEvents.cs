@@ -68,17 +68,19 @@ public static class RuleMath
 /// </summary>
 public static class SkillRuleEvents
 {
-    static readonly Dictionary<string, float> Next = new Dictionary<string, float>();
-    static readonly List<EffectEntry> Seen = new List<EffectEntry>(8);
+    private static readonly Dictionary<string, float> Next = new Dictionary<string, float>();
+    private static readonly List<EffectEntry> Seen = new List<EffectEntry>(8);
+    private static readonly HashSet<string> Missing = new HashSet<string>();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void Hook()
+    private static void Hook()
     {
         EnemyHealth.Killed -= OnKilled;
         EnemyHealth.Killed += OnKilled;
         Skill.Cast -= OnCast;
         Skill.Cast += OnCast;
         Next.Clear();
+        RuleHitRefund.ClearCooldowns();
     }
 
     public static void ClearCooldowns()
@@ -86,7 +88,7 @@ public static class SkillRuleEvents
         Next.Clear();
     }
 
-    static void OnKilled(EnemyHealth enemy)
+    private static void OnKilled(EnemyHealth enemy)
     {
         Weapon w = Weapon.Equipped;
         if (enemy == null || w == null || w.skill == null || SkillEffectService.ActiveCount == 0)
@@ -123,7 +125,7 @@ public static class SkillRuleEvents
         }
     }
 
-    static void OnCast(Skill s)
+    private static void OnCast(Skill s)
     {
         Weapon w = Weapon.Equipped;
         if (s == null || w == null || SkillEffectService.ActiveCount == 0)
@@ -153,16 +155,19 @@ public static class SkillRuleEvents
         }
     }
 
-    static void CastFree(Weapon w, EffectEntry r, Vector3 pos, string tag, float face = 1f)
+    private static void CastFree(Weapon w, EffectEntry r, Vector3 pos, string tag, float face = 1f)
     {
-        if (!RuleMath.PassInternalCooldown(Next, tag + r.id + "#" + r.entry, Time.time, SkillRuleHandlers.F(r.p3, 1f)))
-        {
-            return;
-        }
         Skill target = FindSkill(w, r.p1);
         if (target == null)
         {
-            GameLog.Warn(GameLog.Cat.Combat, "장비 효과 " + r.id + ": 장착 무기에 스킬 '" + r.p1 + "' 없음(" + tag + ")");
+            if (Missing.Add(r.id + "#" + r.entry + "#" + r.p1)) // 같은 항목은 한 번만 경고(스팸 방지)
+            {
+                GameLog.Warn(GameLog.Cat.Combat, "장비 효과 " + r.id + ": 장착 무기에 스킬 '" + r.p1 + "' 없음(" + tag + ")");
+            }
+            return;
+        }
+        if (!RuleMath.PassInternalCooldown(Next, tag + r.id + "#" + r.entry, Time.time, SkillRuleHandlers.F(r.p3, 1f)))
+        {
             return;
         }
         float dmgPct = tag == "OnKill:" ? SkillRuleHandlers.F(r.p2, 100f) : 100f; // OnKillCast p2=피해%, Proc p2=확률이라 피해는 100%
@@ -198,11 +203,11 @@ public static class SkillRuleEvents
 /// <summary>Chain: 적중한 적 주변 N명에게 점프마다 감쇠된 피해를 전이 (p1=N≤5, p2=거리, p3=점프당 감쇠%). 연쇄 피해는 직접 피해라 재연쇄되지 않는다</summary>
 public sealed class RuleChain : MonoBehaviour, IHitListener
 {
-    static readonly EnemyHealth[] Pick = new EnemyHealth[RuleMath.ChainMaxTargets];
-    static readonly float[] PickDist = new float[RuleMath.ChainMaxTargets];
-    int _n = 2;
-    float _range = 4f;
-    float _decay = 25f;
+    private static readonly EnemyHealth[] Pick = new EnemyHealth[RuleMath.ChainMaxTargets];
+    private static readonly float[] PickDist = new float[RuleMath.ChainMaxTargets];
+    private int _n = 2;
+    private float _range = 4f;
+    private float _decay = 25f;
 
     public void Init(DamageObject d, int n, float range, float decayPct)
     {
@@ -236,7 +241,7 @@ public sealed class RuleChain : MonoBehaviour, IHitListener
     }
 
     /// <summary>가까운 순 최대 _n 명을 Pick 에 채우고 수를 돌려준다 (할당 없음)</summary>
-    int Nearest(EnemyHealth from)
+    private int Nearest(EnemyHealth from)
     {
         int count = 0;
         Vector2 o = from.transform.position;
@@ -268,9 +273,14 @@ public sealed class RuleChain : MonoBehaviour, IHitListener
 /// <summary>CooldownRefund(Hit): 이 스킬 판정이 적을 맞힐 때마다 그 스킬의 남은 쿨을 줄인다 (내부 쿨 0.3초 이상)</summary>
 public sealed class RuleHitRefund : MonoBehaviour, IHitListener
 {
-    static readonly Dictionary<string, float> Next = new Dictionary<string, float>();
-    float _seconds = 1f;
-    string _key;
+    private static readonly Dictionary<string, float> Next = new Dictionary<string, float>();
+    private float _seconds = 1f;
+    private string _key;
+
+    public static void ClearCooldowns()
+    {
+        Next.Clear();
+    }
 
     public void Init(DamageObject d, float seconds, string key)
     {

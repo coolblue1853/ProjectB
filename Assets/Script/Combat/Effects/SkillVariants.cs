@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Replace 규칙(EquipEffectDesign §2.3, P5): 스킬의 판정 프리팹을 변형판(Resources/Weapon/Variants/{p1})으로 바꾼다.
-/// 공유 원본 프리팹은 절대 수정하지 않는다(복제본만 로드). 효과가 없거나 변형이 없으면 원본 그대로 돌려준다.
+/// 공유 원본 프리팹은 절대 수정하지 않는다(변형은 원본과 별개 에셋, Resources.Load 결과는 Instantiate 로만 쓴다). SpawnFree(OnKillCast·Proc)는 의도적으로 원본 프리팹을 쓴다. 효과가 없거나 변형이 없으면 원본 그대로 돌려준다.
 /// </summary>
 public static class SkillVariants
 {
