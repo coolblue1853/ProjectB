@@ -184,7 +184,7 @@ public static class QuestService
             bool ok = b != null && b.Accept(id.Substring(QuestBountyLink.Prefix.Length));
             if (ok)
             {
-                NpcQuestTrack.OnAccepted(id); // 현상도 자리가 남으면 추적에 붙인다
+                NpcQuestTrack.OnAccepted(id, ActiveAll()); // 현상도 자리가 남으면 추적에 붙인다
                 NpcQuestLog.NotifyTrackingChanged();
             }
             return ok;

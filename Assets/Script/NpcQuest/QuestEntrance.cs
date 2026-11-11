@@ -24,6 +24,11 @@ public static class QuestEntrance
         {
             BountyBoard.Instance.EnsureOffers();
         }
+        if (filter != null && !HasAnything(filter))
+        {
+            PickupLog.Notice("지금 받을 수 있는 의뢰가 없습니다."); // 빈 창을 열지 않는다
+            return false;
+        }
         return NpcQuestWindow.OpenEntrance(filter);
     }
 
@@ -36,8 +41,8 @@ public static class QuestEntrance
     /// <summary>입구에 보여 줄 것(받을 수 있음·진행 중)이 하나라도 있는가</summary>
     public static bool HasAnything(QuestFilter filter)
     {
-        QuestFilter a = new QuestFilter { Tab = QuestListRules.Tab.Available, Giver = filter.Giver, Source = filter.Source, ReportToo = filter.ReportToo };
-        QuestFilter b = new QuestFilter { Tab = QuestListRules.Tab.Active, Giver = filter.Giver, Source = filter.Source, ReportToo = filter.ReportToo };
+        QuestFilter a = new QuestFilter { Tab = QuestListRules.Tab.Available, Giver = filter.Giver, Source = filter.Source, Zone = filter.Zone, ReportToo = filter.ReportToo };
+        QuestFilter b = new QuestFilter { Tab = QuestListRules.Tab.Active, Giver = filter.Giver, Source = filter.Source, Zone = filter.Zone, ReportToo = filter.ReportToo };
         return QuestService.Query(a).Items.Count > 0 || QuestService.Query(b).Items.Count > 0;
     }
 }

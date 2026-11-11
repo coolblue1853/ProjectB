@@ -96,12 +96,17 @@ public class NpcQuestTracker : MonoBehaviour
     private void OnEnable()
     {
         NpcQuestLog.Changed += MarkDirty;
+        _dirty = true;
     }
 
     private void OnDisable()
     {
         NpcQuestLog.Changed -= MarkDirty;
         HudPolicy.TrackerHeight = 0f;
+        if (_root != null)
+        {
+            _root.SetActive(false); // 컴포넌트가 꺼지면 HUD 도 숨긴다(Update 가 멈춰 남는 것 방지)
+        }
     }
 
     private void MarkDirty()

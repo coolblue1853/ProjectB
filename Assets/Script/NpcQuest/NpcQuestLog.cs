@@ -222,7 +222,7 @@ public static class NpcQuestLog
             rec.Progress = Mathf.Clamp(EnhanceSeed(d.Target), 0, d.Count); // 이미 끼고 있는 장비의 강화 단계부터
         }
         s_recs[id] = rec;
-        NpcQuestTrack.OnAccepted(id);
+        NpcQuestTrack.OnAccepted(id, QuestService.ActiveAll());
         Notify();
         Accepted?.Invoke(d);
         GameLog.Info(GameLog.Cat.Item, "NPC 퀘스트 수락 " + id);

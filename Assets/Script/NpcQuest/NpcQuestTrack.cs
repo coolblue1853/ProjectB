@@ -146,12 +146,45 @@ public static class NpcQuestTrack
     }
 
     /// <summary>새 퀘스트를 수락했다 — 지정 모드에서 자리가 남았으면 뒤에 붙인다(자동 모드는 이미 앞 3개를 본다)</summary>
-    public static void OnAccepted(string id)
+    public static void OnAccepted(string id, IList<NpcQuestDef> active = null)
     {
-        if (s_explicit != null && s_explicit.Count < Max && !s_explicit.Contains(id))
+        if (s_explicit == null || s_explicit.Contains(id))
+        {
+            return;
+        }
+        if (s_explicit.Count >= Max && active != null)
+        {
+            Prune(active, id); // 만료·사라진 id 가 자리를 막지 않게(저장 형식 불변)
+        }
+        if (s_explicit.Count < Max)
         {
             s_explicit.Add(id);
         }
+    }
+
+    /// <summary>지정 목록에서 진행 중이 아닌 id(만료된 현상 등)를 뺀다. keep 은 항상 남긴다. 바뀌었으면 true</summary>
+    public static bool Prune(IList<NpcQuestDef> active, string keep = null)
+    {
+        if (s_explicit == null || active == null)
+        {
+            return false;
+        }
+        int removed = s_explicit.RemoveAll(id =>
+        {
+            if (id == keep)
+            {
+                return false;
+            }
+            for (int i = 0; i < active.Count; i++)
+            {
+                if (active[i].Id == id)
+                {
+                    return false;
+                }
+            }
+            return true;
+        });
+        return removed > 0;
     }
 
     /// <summary>퀘스트를 끝냈다 — 지정 목록에서 뺀다</summary>

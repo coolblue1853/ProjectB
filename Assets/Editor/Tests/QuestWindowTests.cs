@@ -163,6 +163,32 @@ public class QuestWindowTests
     }
 
     [Test]
+    public void 추적_만료_id_는_정리되어_자리를_비운다()
+    {
+        NpcQuestTrack.Deserialize("bounty:a;bounty:b;bounty:c;bounty:d;bounty:e");
+        var active = new List<NpcQuestDef> { Def("bounty:b", ""), Def("bounty:z", "") };
+        Assert.IsTrue(NpcQuestTrack.Prune(active, "bounty:z"));
+        Assert.AreEqual("bounty:b", NpcQuestTrack.Serialize(), "진행 중이 아닌 id 만 빠진다(형식 ; 구분 유지)");
+        Assert.IsFalse(NpcQuestTrack.Prune(active, "bounty:z"), "바뀐 게 없으면 false");
+    }
+
+    [Test]
+    public void 가득_찬_추적_목록은_수락_때_만료_id_를_비우고_새_id_를_붙인다()
+    {
+        NpcQuestTrack.Deserialize("bounty:a;bounty:b;bounty:c;bounty:d;bounty:e");
+        _bountyActive.Add(Def("bounty:new", ""));
+        NpcQuestTrack.OnAccepted("bounty:new", QuestService.ActiveAll());
+        Assert.AreEqual("bounty:new", NpcQuestTrack.Serialize());
+    }
+
+    [Test]
+    public void 빈_입구는_열지_않는다()
+    {
+        Assert.IsFalse(QuestEntrance.Open(QuestEntrance.Board()), "받을 것·진행 중이 없으면 false");
+        Assert.IsFalse(NpcQuestWindow.IsOpen);
+    }
+
+    [Test]
     public void 진행_중_전부는_CSV_퀘스트와_현상을_합친다()
     {
         NpcQuestCatalog.SetTableForTests("h\nT1,제목,ruen,1,,kill,Rabbit_BD,3,0,0,,,x");
