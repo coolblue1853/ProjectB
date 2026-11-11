@@ -158,6 +158,10 @@ public class Weapon : MonoBehaviour
         if(RightWeqponSprite!= null)
         {
             Transform socketR = portrait.GetBoneSocket("RightWeapon");
+            if (socketR != null)
+            {
+                socketR.localScale = Vector3.one; // CelDS 는 빈손 프레임에서 소켓 배율을 0 으로 둔다 — 0 인 채로 붙이면 월드 배율 보존 때문에 칼 배율이 0 이 됐다(11-06)
+            }
             RightWeqponSprite.transform.parent = socketR;
             if (!isOverHand)
                 RightWeqponSprite.transform.localPosition = new Vector3(0, 0, 25f);
