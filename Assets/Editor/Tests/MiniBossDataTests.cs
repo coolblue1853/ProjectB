@@ -48,7 +48,7 @@ public class MiniBossDataTests
             Assert.IsNotNull(baseRow, "baseMonster MonsterSheet 행 없음: " + r.BaseMonster);
             Assert.IsFalse(mini.isBoss ?? false, r.Id + " 는 보스가 아니다(정예 표식 경로)");
             Assert.AreEqual(r.Id, mini.killKey, r.Id + " killKey 는 id 와 같아야 killElite 목표가 맞는다");
-            Assert.AreEqual(baseRow.maxHP.Value * 10, mini.maxHP.Value, r.Id + " HP 는 일반 몹 x10");
+            Assert.IsTrue(mini.maxHP.Value >= baseRow.maxHP.Value * 4 && mini.maxHP.Value <= baseRow.maxHP.Value * 10, r.Id + " HP 는 일반 몹 x4~x10 (REWORK-15: 후반 일반 몹 HP 상향으로 x10 에서 완화)");
             Assert.AreEqual(baseRow.contactDamage.Value, mini.contactDamage.Value, r.Id + " 몸박 기준값(정예 x1.5 는 코드)");
             Assert.AreEqual(baseRow.exp.Value * 20, mini.exp.Value, r.Id + " EXP 는 일반 x20");
             Assert.IsTrue(r.RespawnSec >= 60f, r.Id + " 재리젠");

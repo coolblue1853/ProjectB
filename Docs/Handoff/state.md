@@ -42,3 +42,8 @@
 - `Game/QuestDesign.md` 신규: 메이플 퀘스트 구성 조사(표본 4건)·유형 3종·대사 단계·1/2층계 메인 줄기·사이드 사슬·재분류표.
 - `QuestsFloor1.csv` `kind` 빈칸 60행 채움(main 7·side 8·reward 45, 이행분 포함 71건 = 10/8/53). 다른 값 불변.
 - 코드 변경 없음. Unity MCP 연결 실패로 EditMode 미실행(미검증). 질문 Q-QD1~4 는 OpenQuestions.
+
+## 11-11 REWORK-15·14 (builder)
+- REWORK-15: `MonsterSheet.csv` HP 22종 조정(1층 Lv11~15 76~110 → 200~350, 2층 일반 몹 완화·상향, DeathBringer 2500 → 700·EXP 566), 정예 3종 HP 기반 x4. probe `_bal_ttk` 처치 1.5~2s → 3.5~7s(1층 후반). `MiniBossDataTests` x10 → x4~x10. EditMode 1096 통과. 상세 `LevelDesignRef.md` §7.
+- REWORK-14: `Game/FastTravel.md` 신규(설계만): 정류장 9곳·퀘스트 해금·요금·ES3 `ft.stops`·3경로·히든 포털·P0~P5. 코드 없음.
+- 남음: 실플레이 체감·보스 HP·초반 장비 스탯 상한 점검(Q-BAL1), 마차 구현 P0~.

@@ -1,17 +1,17 @@
 ﻿id,displayName,floor,zone,maxHP,enemyDef,isBoss,superArmor,hpHeight,moveSpeed,dropRate,note,level,exp,contactDamage,killKey,tint,trait,move,edge,chase,chaseRange,visionY,giveUp,aggro,attack
 AbyssWizard_BD,Abyss Wizard,2,Cliff Altar (night),8000,20,1,1,0,,,,17,4000,49,,,,,,,,,,,
-CliffGoblin_BD,Cliff Goblin,2,Magic Cliffs,150,4,0,0,-1.2,,,,16,240,26,,,,patrol,turn,yes,,,,first,melee
-CliffSkeleton_BD,Cliff Skeleton,2,Magic Cliffs (night),260,12,0,0,-1.2,,,,17,283,30,,,,patrol,turn,yes,,,,first,melee
-DeathBringer_BD,Death Bringer,2,Magic Cliffs (night),2500,15,0,1,0,,,,17,283,33,,,,patrol,turn,yes,,,,first,melee
+CliffGoblin_BD,Cliff Goblin,2,Magic Cliffs,380,4,0,0,-1.2,,,,16,240,26,,,,patrol,turn,yes,,,,first,melee
+CliffSkeleton_BD,Cliff Skeleton,2,Magic Cliffs (night),450,12,0,0,-1.2,,,,17,283,30,,,,patrol,turn,yes,,,,first,melee
+DeathBringer_BD,Death Bringer,2,Magic Cliffs (night),700,15,0,1,0,,,,17,566,33,,,,patrol,turn,yes,,,,first,melee
 FlowerMole_BD,Flower Mole,1,Forest Side Road,20,2,0,0,-1.2,,,,1,6,13,,,,patrol,turn,yes,,,14,reactive,ranged
-GazeEye_BD,Gaze Eye,2,Magic Cliffs (night),120,3,0,0,-1.2,,,,17,283,23,,,,stay,turn,no,,3,,first,ranged
+GazeEye_BD,Gaze Eye,2,Magic Cliffs (night),330,3,0,0,-1.2,,,,17,283,23,,,,stay,turn,no,,3,,first,ranged
 LeftMole_BD,Leaf Mole,1,Forest Side Road,24,3,0,0,-1.2,,,,2,8,19,,,,patrol,turn,yes,,,14,reactive,ranged
 PassiveTerror_BD,Passive Terror,1,Forest Side Road (night),3800,12,1,1,0,,,,3,320,37,,,,,,,,,,,
 Rabbit_BD,Forest Rabbit,1,Forest Road,20,2,0,0,-0.8,,,,1,6,13,,,,hop,turn,no,,,,passive,contact
 RatChief_BD,Rat Chief,1,Forest Side Road,40,2,0,0,-1.2,,,,3,10,19,,,,patrol,turn,yes,,,,first,melee
 RatThief_BD,Rat Thief,1,Forest Side Road,20,2,0,0,-1.2,,,,2,8,16,,,,patrol,turn,yes,16,,,first,melee
 Scarecrow_BD,Scarecrow,1,Forest Side Road,40,2,0,0,-1.5,,,,3,10,17,,,,stay,turn,no,,,,first,ranged
-SporeShroom_BD,Spore Shroom,2,Magic Cliffs,160,4,0,0,-1.2,,,,16,240,26,,,,patrol,turn,no,,,12,reactive,ranged
+SporeShroom_BD,Spore Shroom,2,Magic Cliffs,390,4,0,0,-1.2,,,,16,240,26,,,,patrol,turn,no,,,12,reactive,ranged
 StoneRabbit_BD,Stone Rabbit,1,Forest Road,44,6,0,0,-1.2,,,,3,10,21,,,,hop,turn,yes,,,,reactive,melee
 ForestWolf_BD,Forest Wolf,1,Normal Forest,46,5,0,0,-1.2,,,pack hunter (gen_forest_mobs),4,7,18,,,,patrol,turn,yes,,,24,first,melee
 WildBoar_BD,Wild Boar,1,Normal Forest,62,5,0,0,-1.2,,,charge (gen_forest_mobs),5,9,20,,,,patrol,turn,yes,,,,first,melee
@@ -24,24 +24,24 @@ Fairy_BD,Fairy,1,Deep Forest (night),90,3,0,0,-1.0,,,night small glow (gen_deep_
 AncientEnt_BD,Ancient Ent,1,Deep Forest (boss),3000,18,1,1,0,,,zone boss (gen_deep_forest_mobs),9,950,27,,,,,,,,,,,
 SwampFrog_BD,Swamp Frog,1,Swamp,160,11,0,0,-1.0,,,tongue hop (gen_swamp_mobs),9,29,23,,,,hop,turn,yes,,,,first,melee
 MarshCrab_BD,Marsh Crab,1,Swamp,160,18,0,0,-1.0,,,pincer guard (gen_swamp_mobs),10,35,28,,,,patrol,turn,yes,,,,first,melee
-BogCroc_BD,Bog Croc,1,Swamp,94,11,0,0,-1.0,,,heavy bite (gen_swamp_mobs),11,43,28,,,,patrol,turn,yes,,,,first,melee
+BogCroc_BD,Bog Croc,1,Swamp,230,11,0,0,-1.0,,,heavy bite (gen_swamp_mobs),11,43,28,,,,patrol,turn,yes,,,,first,melee
 SwampMosquito_BD,Swamp Mosquito,1,Swamp (night),135,9,0,0,-1.0,,,night flying drain (gen_swamp_mobs),9,29,22,,,,patrol,turn,yes,,,30,first,ranged
-BogSlime_BD,Bog Slime,1,Swamp (night),88,14,0,0,-1.2,,,night slow (gen_swamp_mobs),12,52,29,,,,patrol,turn,yes,,,,first,ranged
+BogSlime_BD,Bog Slime,1,Swamp (night),250,14,0,0,-1.2,,,night slow (gen_swamp_mobs),12,52,29,,,,patrol,turn,yes,,,,first,ranged
 GiantSlime_BD,Giant Slime,1,Swamp (boss),3500,21,1,1,0,,,zone boss (gen_swamp_mobs),12,1700,28,,,,,,,,,,,
-BanditCutthroat_BD,Bandit Cutthroat,1,Bandit Fortress,88,14,0,0,-1.2,,,quick dagger (gen_bandit_mobs),12,46,26,,,,patrol,turn,yes,,,,first,melee
-BanditArcher_BD,Bandit Archer,1,Bandit Fortress,76,11,0,0,-1.2,,,straight arrow (gen_bandit_mobs),11,38,24,,,,patrol,turn,no,,2.5,,first,ranged
-BanditShieldman_BD,Bandit Shieldman,1,Bandit Fortress,110,22,0,1,-1.2,,,shield super armor (gen_bandit_mobs),13,55,31,,,,patrol,turn,yes,,,,first,melee
-BanditTorchbearer_BD,Bandit Torchbearer,1,Bandit Fortress (night),110,14,0,0,-1.2,,,night torch light (gen_bandit_mobs),13,55,28,,,,patrol,turn,yes,,,,first,melee
+BanditCutthroat_BD,Bandit Cutthroat,1,Bandit Fortress,240,14,0,0,-1.2,,,quick dagger (gen_bandit_mobs),12,46,26,,,,patrol,turn,yes,,,,first,melee
+BanditArcher_BD,Bandit Archer,1,Bandit Fortress,200,11,0,0,-1.2,,,straight arrow (gen_bandit_mobs),11,38,24,,,,patrol,turn,no,,2.5,,first,ranged
+BanditShieldman_BD,Bandit Shieldman,1,Bandit Fortress,300,22,0,1,-1.2,,,shield super armor (gen_bandit_mobs),13,55,31,,,,patrol,turn,yes,,,,first,melee
+BanditTorchbearer_BD,Bandit Torchbearer,1,Bandit Fortress (night),270,14,0,0,-1.2,,,night torch light (gen_bandit_mobs),13,55,28,,,,patrol,turn,yes,,,,first,melee
 BanditChief_BD,Bandit Chief,1,Bandit Fortress (boss),4000,24,1,1,0,,,zone boss calls minions at phase 2 (gen_bandit_mobs),14,2400,36,,,,,,,,,,,
-GolemSmall_BD,Small Golem,1,Tower Outskirts,100,17,0,0,-1.2,,,rolling charge (gen_outskirts_mobs),13,58,28,,,,patrol,turn,yes,,,,first,melee
-GolemMedium_BD,Medium Golem,1,Tower Outskirts,92,22,0,0,-1.2,,,ground slam quake (gen_outskirts_mobs),14,71,30,,,,patrol,turn,yes,,,,first,ranged
-GolemLarge_BD,Large Golem,1,Tower Outskirts,105,27,0,1,-1.2,,,super armor boulder throw (gen_outskirts_mobs),15,85,31,,,,patrol,turn,no,,3,,first,ranged
-RuinSpirit_BD,Ruin Spirit,1,Tower Outskirts (night),76,7,0,0,-1.2,,,night rune light bolt (gen_outskirts_mobs),13,58,25,,,,patrol,turn,yes,,,,first,ranged
+GolemSmall_BD,Small Golem,1,Tower Outskirts,260,17,0,0,-1.2,,,rolling charge (gen_outskirts_mobs),13,58,28,,,,patrol,turn,yes,,,,first,melee
+GolemMedium_BD,Medium Golem,1,Tower Outskirts,300,22,0,0,-1.2,,,ground slam quake (gen_outskirts_mobs),14,71,30,,,,patrol,turn,yes,,,,first,ranged
+GolemLarge_BD,Large Golem,1,Tower Outskirts,350,27,0,1,-1.2,,,super armor boulder throw (gen_outskirts_mobs),15,85,31,,,,patrol,turn,no,,3,,first,ranged
+RuinSpirit_BD,Ruin Spirit,1,Tower Outskirts (night),200,7,0,0,-1.2,,,night rune light bolt (gen_outskirts_mobs),13,58,25,,,,patrol,turn,yes,,,,first,ranged
 Gatekeeper_BD,Gatekeeper of the Tower,1,Tower Outskirts (boss),5000,27,1,1,0,,,floor 1 final boss 3 phases calls golems at phase 2 (gen_outskirts_mobs),15,3800,39,,,,,,,,,,,
-RampartKnight_BD,Rampart Knight,2,Broken Rampart,640,24,0,0,-1.2,,,shield bash slash (gen_rampart_mobs),18,334,30,,,,patrol,turn,yes,,,,first,melee
-HalberdSentry_BD,Halberd Sentry,2,Broken Rampart,880,28,0,0,-1.2,,,slow halberd crescent sweep (gen_rampart_mobs),19,394,31,,,,patrol,turn,yes,,,,first,ranged
-Gargoyle_BD,Gargoyle,2,Broken Rampart,420,26,0,0,-1.2,,,winged statue stone feather shot (gen_rampart_mobs),18,334,24,,,,stay,turn,no,,3,,first,ranged
-CloudWisp_BD,Cloud Wisp,2,Broken Rampart (night),300,10,0,0,-1.2,,,night spark light (gen_rampart_mobs),18,334,24,,,,patrol,turn,yes,,,,first,ranged
+RampartKnight_BD,Rampart Knight,2,Broken Rampart,520,24,0,0,-1.2,,,shield bash slash (gen_rampart_mobs),18,334,30,,,,patrol,turn,yes,,,,first,melee
+HalberdSentry_BD,Halberd Sentry,2,Broken Rampart,600,28,0,0,-1.2,,,slow halberd crescent sweep (gen_rampart_mobs),19,394,31,,,,patrol,turn,yes,,,,first,ranged
+Gargoyle_BD,Gargoyle,2,Broken Rampart,480,26,0,0,-1.2,,,winged statue stone feather shot (gen_rampart_mobs),18,334,24,,,,stay,turn,no,,3,,first,ranged
+CloudWisp_BD,Cloud Wisp,2,Broken Rampart (night),430,10,0,0,-1.2,,,night spark light (gen_rampart_mobs),18,334,24,,,,patrol,turn,yes,,,,first,ranged
 GargoyleLord_BD,Gargoyle Lord,2,Broken Rampart (boss),18000,34,1,1,0,,,zone boss night calls gargoyles at phase 2 (gen_rampart_mobs),19,5500,52,,,,,,,,,,,
 CreepingTerror_BD,Creeping Terror,1,Forest Side Road (night),50,1,0,1,-1.2,,,floor 1 night profile,3,10,21,,,,patrol,turn,yes,,,,first,ranged
 ForestSpore_BD,Spore Shroom,1,Normal Forest,52,4,0,0,-1.2,,,shared SporeShroom art with floor 1 stats,5,9,20,,,,patrol,turn,no,,,12,reactive,ranged
@@ -54,11 +54,11 @@ SporeBackToad_BD,Spore Back Toad,1,Swamp,165,10,0,0,-1.0,,,short hop and spore c
 AlphaWolf_BD,Alpha Wolf,1,Normal Forest (miniboss),460,5,0,0,-1.2,,,miniboss M1 ForestWolf x10 HP (L3),4,140,18,AlphaWolf_BD,,,patrol,turn,yes,,,24,first,melee
 OldBear_BD,Old Bear,1,Deep Forest (miniboss),1150,8,0,0,-1.2,,,miniboss M2 ForestBear x10 HP (L3),7,260,23,OldBear_BD,,,patrol,turn,yes,,,,first,melee
 OldCroc_BD,Old Croc,1,Swamp (miniboss),940,11,0,0,-1.0,,,miniboss M3 BogCroc x10 HP (L3),11,860,28,OldCroc_BD,,,patrol,turn,yes,,,,first,melee
-BanditLieutenant_BD,Bandit Lieutenant,1,Bandit Fortress (miniboss),880,14,0,0,-1.2,,,miniboss M4 BanditCutthroat x10 HP (L3),12,920,26,BanditLieutenant_BD,,,patrol,turn,yes,,,,first,melee
-ElderGolem_BD,Elder Golem,1,Tower Outskirts (miniboss),1050,27,0,1,-1.2,,,miniboss M5 GolemLarge x10 HP super armor (L3),15,1700,31,ElderGolem_BD,,,patrol,turn,yes,,,,first,ranged
+BanditLieutenant_BD,Bandit Lieutenant,1,Bandit Fortress (miniboss),960,14,0,0,-1.2,,,miniboss M4 BanditCutthroat x10 HP (L3),12,920,26,BanditLieutenant_BD,,,patrol,turn,yes,,,,first,melee
+ElderGolem_BD,Elder Golem,1,Tower Outskirts (miniboss),1400,27,0,1,-1.2,,,miniboss M5 GolemLarge x10 HP super armor (L3),15,1700,31,ElderGolem_BD,,,patrol,turn,yes,,,,first,ranged
 ForestHunter_BD,Forest Hunter,1,Normal Forest,56,6,0,0,-1.2,,,ranged hunter temp tint on wolf host (L7),5,10,20,ForestHunter_BD,5E7F3A,,patrol,turn,yes,,,24,first,melee
 VineFairy_BD,Vine Fairy,1,Normal Forest,70,3,0,0,-1.0,,,slow binder temp tint on boar host (L7),6,11,18,VineFairy_BD,4FB36A,slow,patrol,turn,yes,,,,first,melee
 ForestOgre_BD,Forest Ogre,1,Deep Forest,230,12,0,0,-1.2,,,slow tank temp tint on Ent host (L7),9,24,28,ForestOgre_BD,8A6A3A,slow|heavy|sturdy,stay,turn,no,,,14,reactive,ranged
-BanditSentry_BD,Bandit Sentry,1,Bandit Fortress,84,12,0,0,-1.2,,,reload ranged temp tint on archer host (L7),12,42,24,BanditSentry_BD,9A6A5A,,patrol,turn,no,,2.5,,first,ranged
-BanditWoodcutter_BD,Bandit Woodcutter,1,Bandit Fortress,100,14,0,0,-1.2,,,charging axe temp tint on cutthroat host (L7),13,52,30,BanditWoodcutter_BD,A0522D,dash,patrol,turn,yes,,,,first,melee
-RuinWarden_BD,Ruin Warden,1,Tower Outskirts,95,12,0,0,-1.2,,,rune ranged temp tint on golem host (L7),14,66,28,RuinWarden_BD,7F8FB0,,patrol,turn,yes,,,,first,melee
+BanditSentry_BD,Bandit Sentry,1,Bandit Fortress,220,12,0,0,-1.2,,,reload ranged temp tint on archer host (L7),12,42,24,BanditSentry_BD,9A6A5A,,patrol,turn,no,,2.5,,first,ranged
+BanditWoodcutter_BD,Bandit Woodcutter,1,Bandit Fortress,260,14,0,0,-1.2,,,charging axe temp tint on cutthroat host (L7),13,52,30,BanditWoodcutter_BD,A0522D,dash,patrol,turn,yes,,,,first,melee
+RuinWarden_BD,Ruin Warden,1,Tower Outskirts,290,12,0,0,-1.2,,,rune ranged temp tint on golem host (L7),14,66,28,RuinWarden_BD,7F8FB0,,patrol,turn,yes,,,,first,melee

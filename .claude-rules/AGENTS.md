@@ -95,6 +95,7 @@
 | `Game/QuestDesign.md` | 퀘스트 콘텐츠(REWORK-6): 메이플 퀘스트 구성 조사·유형 3종 정의·대사 단계 형식·층계별 메인 줄기·사이드 사슬·재분류표 |
 | `Game/EquipSplitPlaybook.md` | 장비 부위 분리 노하우: 속옷 기반 몸+5부위 쌓기·영역 지도·배낭/랜턴=상의·절차·함정 |
 | `Game/FloorTransition.md` | 층계 전환 규칙: 이동 조건·칭호 부하·포털/귀환·안전지대·구현 갭 FT-* |
+| `Game/FastTravel.md` | 빠른 이동(REWORK-14): 수레(마차) 형제 NPC 정류장·퀘스트 해금·골드 이동 규칙·ES3 `ft.stops`·3경로 입력·히든 포털·P0~P5(설계만) |
 | `Game/LevelDesignRef.md` | 레벨 디자인 참고(REWORK-7·10): 메랜 DB 레벨 구간별 몹 HP·EXP·맵당 개체 수와 우리 1~2층계 대조·튀는 구간 L1~L7·수정안 |
 
 ## 운영
