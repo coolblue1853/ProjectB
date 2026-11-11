@@ -519,7 +519,7 @@ public class EnemySpawner : MonoBehaviour
             DropRaiderHandler(enemyHealth);
             enemyHealth.OnReleasedToPool += OnEnemyReleased;
             enemySlot[i] = enemyObject;
-            if (Random.value < eliteChance)
+            if (enemyHealth.AlwaysElite || Random.value < eliteChance)
             {
                 enemyHealth.PromoteElite();
             }

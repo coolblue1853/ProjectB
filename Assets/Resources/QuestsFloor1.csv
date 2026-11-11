@@ -26,7 +26,7 @@ Q601,별이 닿은 돌문,elder,13,Q401,visit,tower_altar,1,1700,540,,,메인: �
 Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,1800,470,,,탑 근교 유적에서 발굴을 반복해 아버지의 기록 5편을 모은다. 유물을 하나라도 캐면 기록 1편을 얻고(확률로 더 나오기도 한다) 일반 5분·희귀 10분 후 다시 발굴할 수 있다.,,side
 Q603,잠들지 않는 골렘,smith,14,Q601,kill,GolemMedium_BD,6,1607,580,Enhance Stone,2,골렘 사냥과 강화 재료 획득을 안내한다.,,reward
 Q604,첫 번째 문의 수호자,elder,15,Q601,kill,Gatekeeper_BD,1,2000,1000,BroochResonance,1,메인: 문지기 격파 후 브로치에 다음 층계 길이 새겨진다.,,main,,문 앞에 서 있는 문지기가 있네.^그를 쓰러뜨려야 위로 가는 길이 열리네.|누구인지는 묻지 않겠네.^다만 준비는 충분히 하게.,문지기는 탑 근교 문 앞에 있네.^준비가 되거든 서게.,문이 열렸군. 브로치에 새 길이 새겨졌네.^무사히 돌아왔으니 그것으로 됐네.
-Q106,쥐 도둑 소탕,ruen,2,Q102,kill,RatThief_BD,6,600,70,RatCap,1,쥐 도둑 6마리를 처치해 루엔에게 보고한다.,,reward,
+Q106,쥐 도둑 소탕,ruen,2,Q102,kill,RatThief_BD,6,600,70,RatCap,1,쥐 도둑 6마리와 쥐 두목(정예) 1마리를 처치해 루엔에게 보고한다.,,reward,,,,,,,,,,killElite,RatChief_BD,1
 Q107,기본 방어구 착용,merchant,3,Q103,equip,armor,1,400,70,LeafCap,1,기본 방어구를 1부위 착용하고 상인에게 보고한다.,,reward,
 Q108,표본 버섯 채집,sena,3,Q103,collect,Forest Mushroom,5,300,70,Potion,1,샛길 약초 덤불에서 숲 버섯 5개를 모아 세나에게 보고한다.,,reward
 Q205,도깨비불 사냥,eve,4,Q201,kill,Wisp_BD,8,500,120,Wisp Ember,3,밤에 나오는 도깨비불 8마리를 처치해 이브에게 보고한다.,,reward

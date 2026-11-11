@@ -204,3 +204,4 @@
 - Q110 선행 = **Q108**(설계는 Q203): `FollowUp_DoesNotRepeatPrerequisiteTarget` 이 같은 목표(Herb Roasted Rabbit)를 금지. 마을 요리대 x3 은 Q203 없이도 가능.
 - Q201 reportTo=eve: 대사(`NpcQuestVoice` doneLine)는 장로 말투 그대로라 이브 입에서 어색함(Q-EH6, 대사 후속).
 - 핀 값 갱신(완화 아님, 새 설계 값): QuestsFloor1DataTests EXP 합 89500→90700·개수 +2, NpcQuestTests 127375→129525·71→73, HuntingRulesTests 121375→123525·106964→109114. 전부 EXP/행 수 변화의 직접 결과.
+- **11-11 R-6 완료:** 쥐 두목 정예 배치 + Q106 `objective2=killElite RatChief_BD`(count2 1) 적용. 두 번째 목표 판정을 `NpcQuestLog` 에 신설(`HasExtra`/`Progress2`/`ExtraDone`, killElite 만 지원, 세이브 `id:상태:진행[:진행2]` 4번째 필드 추가만). 정예 구조: `MonsterSheet` trait `elite` 프로필은 슬롯 스폰마다 정예 승격(×4 HP·×1.5 방어). `HuntingSpawnsFloor1` 샛길 낮 스포너 `Rabbit2_2` 에 `RatChief_BD@0.125`(낮에 1마리), 밤 `RatCheif` 에 `@0.2`. 쥐 도둑은 밤 전용 스포너라 낮 고정이면 Q106 첫 목표는 기존 문제 그대로.

@@ -8,7 +8,7 @@ GazeEye_BD,Gaze Eye,2,Magic Cliffs (night),330,3,0,0,-1.2,,,,17,283,23,,,,stay,t
 LeftMole_BD,Leaf Mole,1,Forest Side Road,24,3,0,0,-1.2,,,,2,8,19,,,,patrol,turn,yes,,,14,reactive,ranged
 PassiveTerror_BD,Passive Terror,1,Forest Side Road (night),3800,12,1,1,0,,,,3,320,37,,,,,,,,,,,
 Rabbit_BD,Forest Rabbit,1,Forest Road,20,2,0,0,-0.8,,,,1,6,13,,,,hop,turn,no,,,,passive,contact
-RatChief_BD,Rat Chief,1,Forest Side Road,40,2,0,0,-1.2,,,,3,10,19,,,,patrol,turn,yes,,,,first,melee
+RatChief_BD,Rat Chief,1,Forest Side Road,40,2,0,0,-1.2,,,,3,10,19,RatChief_BD,,elite,patrol,turn,yes,,,,first,melee
 RatThief_BD,Rat Thief,1,Forest Side Road,20,2,0,0,-1.2,,,,2,8,16,,,,patrol,turn,yes,16,,,first,melee
 Scarecrow_BD,Scarecrow,1,Forest Side Road,40,2,0,0,-1.5,,,,3,10,17,,,,stay,turn,no,,,,first,ranged
 SporeShroom_BD,Spore Shroom,2,Magic Cliffs,390,4,0,0,-1.2,,,,16,240,26,,,,patrol,turn,no,,,12,reactive,ranged

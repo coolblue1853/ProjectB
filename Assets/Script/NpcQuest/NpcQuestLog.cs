@@ -31,6 +31,7 @@ public static class NpcQuestLog
     {
         public int State;      // 1 진행, 2 완료
         public int Progress;   // 처치·제작·방문·대화 진행 (수집은 인벤토리에서 계산)
+        public int Progress2;  // 두 번째 목표(objective2=killElite) 진행. 세이브 4번째 필드(없으면 0)
     }
 
     private static readonly Dictionary<string, Rec> s_recs = new Dictionary<string, Rec>();
@@ -104,6 +105,33 @@ public static class NpcQuestLog
         return s_recs.TryGetValue(d.Id, out Rec r) ? Mathf.Clamp(r.Progress, 0, d.Count) : 0;
     }
 
+    /// <summary>두 번째 목표(objective2=killElite) 진행량 (0..Count2). 두 번째 목표가 없으면 0</summary>
+    public static int Progress2(NpcQuestDef d)
+    {
+        if (d == null || !HasExtra(d))
+        {
+            return 0;
+        }
+        if (IsDone(d.Id))
+        {
+            return d.Count2;
+        }
+        return s_recs.TryGetValue(d.Id, out Rec r) ? Mathf.Clamp(r.Progress2, 0, d.Count2) : 0;
+    }
+
+    /// <summary>두 번째 목표가 있는가 (지원: killElite 만. 그 밖의 값은 무시해 기존 퀘스트가 막히지 않게 한다)</summary>
+    public static bool HasExtra(NpcQuestDef d)
+    {
+        return d != null && d.Count2 > 0 && string.Equals(d.Objective2, "killElite", StringComparison.OrdinalIgnoreCase)
+            && !string.IsNullOrEmpty(d.Target2);
+    }
+
+    /// <summary>두 번째 목표가 없거나 달성했다</summary>
+    public static bool ExtraDone(NpcQuestDef d)
+    {
+        return !HasExtra(d) || Progress2(d) >= d.Count2;
+    }
+
     public static NpcQuestStatus StatusOf(NpcQuestDef d)
     {
         if (d == null)
@@ -116,7 +144,7 @@ public static class NpcQuestLog
             {
                 return NpcQuestStatus.Done;
             }
-            return Progress(d) >= d.Count ? NpcQuestStatus.Ready : NpcQuestStatus.Active;
+            return Progress(d) >= d.Count && ExtraDone(d) ? NpcQuestStatus.Ready : NpcQuestStatus.Active;
         }
         if (!string.IsNullOrEmpty(d.Requires) && !IsDone(d.Requires))
         {
@@ -241,7 +269,7 @@ public static class NpcQuestLog
         {
             ItemRemover(d.Target, d.Count);
         }
-        s_recs[id] = new Rec { State = 2, Progress = d.Count };
+        s_recs[id] = new Rec { State = 2, Progress = d.Count, Progress2 = d.Count2 };
         NpcQuestTrack.OnCompleted(id);
         RewardApplier(d);
         Notify();
@@ -286,13 +314,20 @@ public static class NpcQuestLog
         bool changed = false;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
         {
-            if (d.Objective != NpcQuestObjective.KillElite || !NpcQuestObjectiveRules.EliteMatches(d.Target, monsterId)
-                || !s_recs.TryGetValue(d.Id, out Rec r) || r.State != 1 || r.Progress >= d.Count)
+            if (!s_recs.TryGetValue(d.Id, out Rec r) || r.State != 1)
             {
                 continue;
             }
-            r.Progress++;
-            changed = true;
+            if (d.Objective == NpcQuestObjective.KillElite && NpcQuestObjectiveRules.EliteMatches(d.Target, monsterId) && r.Progress < d.Count)
+            {
+                r.Progress++;
+                changed = true;
+            }
+            if (HasExtra(d) && NpcQuestObjectiveRules.EliteMatches(d.Target2, monsterId) && r.Progress2 < d.Count2)
+            {
+                r.Progress2++;
+                changed = true;
+            }
         }
         if (changed)
         {
@@ -416,6 +451,10 @@ public static class NpcQuestLog
                 sb.Append(';');
             }
             sb.Append(d.Id).Append(':').Append(r.State).Append(':').Append(r.Progress);
+            if (r.Progress2 > 0)
+            {
+                sb.Append(':').Append(r.Progress2); // 두 번째 목표 진행(4번째 필드, 옛 세이브는 3필드)
+            }
         }
         return sb.ToString();
     }
@@ -429,14 +468,19 @@ public static class NpcQuestLog
             foreach (string part in text.Split(';'))
             {
                 string[] f = part.Split(':');
-                if (f.Length != 3 || NpcQuestCatalog.Find(f[0]) == null
+                if ((f.Length != 3 && f.Length != 4) || NpcQuestCatalog.Find(f[0]) == null
                     || !int.TryParse(f[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out int st)
                     || !int.TryParse(f[2], NumberStyles.Integer, CultureInfo.InvariantCulture, out int pr)
                     || (st != 1 && st != 2))
                 {
                     continue;
                 }
-                s_recs[f[0]] = new Rec { State = st, Progress = Mathf.Max(0, pr) };
+                int pr2 = 0;
+                if (f.Length == 4 && !int.TryParse(f[3], NumberStyles.Integer, CultureInfo.InvariantCulture, out pr2))
+                {
+                    continue;
+                }
+                s_recs[f[0]] = new Rec { State = st, Progress = Mathf.Max(0, pr), Progress2 = Mathf.Max(0, pr2) };
             }
         }
         Changed?.Invoke();

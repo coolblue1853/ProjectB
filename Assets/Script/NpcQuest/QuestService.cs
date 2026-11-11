@@ -294,7 +294,12 @@ public static class QuestService
             case NpcQuestObjective.Bestiary: what = "도감 몬스터 종류 처치"; break;
             default: what = NpcQuestCatalog.NpcName(d.Target) + "와(과) 대화"; break;
         }
-        return what + " " + have + "/" + d.Count;
+        string line = what + " " + have + "/" + d.Count;
+        if (!IsBounty(d) && NpcQuestLog.HasExtra(d))
+        {
+            line += " · " + (d.Target2 == NpcQuestObjectiveRules.AnyElite ? "정예" : MonsterTable.DisplayName(d.Target2)) + " 처치 " + NpcQuestLog.Progress2(d) + "/" + d.Count2;
+        }
+        return line;
     }
 
     private static string EquipText(string target)

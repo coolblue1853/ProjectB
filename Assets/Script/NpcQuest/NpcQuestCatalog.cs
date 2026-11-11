@@ -45,7 +45,7 @@ public sealed class NpcQuestDef
     public string Artifact = "";     // 완료 시 해금 아티팩트 id (ArtifactId 이름)
     public string Repeat = "";       // none | daily
     public int Sort;                 // 같은 구역·상태 안 정렬 가중
-    public string Objective2 = "";   // 예약(P5 이후 판정)
+    public string Objective2 = "";   // 두 번째 목표(killElite 만 판정, NpcQuestLog.HasExtra). 둘 다 채워야 완료 가능
     public string Target2 = "";
     public int Count2;
 

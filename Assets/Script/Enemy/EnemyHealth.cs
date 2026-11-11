@@ -171,6 +171,8 @@ public class EnemyHealth : PoolAble
     /// <summary>도감·기존 퀘스트의 저장/메시지 키는 지역 수치 키와 독립적으로 유지한다.</summary>
     public string KillMessageId => string.IsNullOrEmpty(_killKey) ? ExtraDrops.MonsterId(name) : _killKey;
     string _killKey;
+    /// <summary>MonsterSheet trait elite 프로필: 슬롯 스폰 때 확률 없이 정예로 승격한다</summary>
+    public bool AlwaysElite { get; private set; }
 
     /// <summary>같은 아트를 쓰는 지역 변종. 풀 생성 직후, 정예 승격 전에 한 번만 적용한다.</summary>
     public void ApplySpawnProfile(string monsterId)
@@ -185,6 +187,7 @@ public class EnemyHealth : PoolAble
         _contactBase = row.contactDamage ?? 0;
         nowHP = maxHP;
         _killKey = row.killKey; // 새 몹은 프로필 id 로 처치 메시지를 보낸다
+        AlwaysElite = TempMobTraits.Has(row.trait, "elite"); // trait elite = 스폰 때마다 정예 승격(1층 쥐 두목, R-6)
         if (!string.IsNullOrEmpty(row.killKey))
         {
             TempMobVisual.Apply(this, row);
