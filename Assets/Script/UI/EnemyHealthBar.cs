@@ -44,8 +44,19 @@ public class EnemyHealthBar : MonoBehaviour
         {
             return;
         }
-        bool visible = healthSystem != null && healthSystem.isActiveAndEnabled && healthSystem.nowHP > 0 && healthSystem.Level > 0;
+        // BUG-U9: HP 바 본체가 꺼졌는데 라벨(같은 부모의 형제)만 켜져 허공에 "Lv.1"이 뜨는 경우도 숨긴다
+        bool visible = healthSystem != null && healthSystem.isActiveAndEnabled && healthSystem.nowHP > 0 && healthSystem.Level > 0
+            && hpBarRect != null && hpBarRect.gameObject.activeInHierarchy;
         if (!visible)
+        {
+            _lvLabel.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnDisable()
+    {
+        // 이 컴포넌트가 꺼지면 LateUpdate 가 돌지 않으므로 라벨도 함께 끈다(풀 반환·비활성 시 잔상 방지)
+        if (_lvLabel != null)
         {
             _lvLabel.gameObject.SetActive(false);
         }
