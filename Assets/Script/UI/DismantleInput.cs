@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// 분해 입력(BasicFeatures.md 8절): 인벤토리에서 커서가 장비 위일 때 D(패드 L3)를 두 번(2.5초 안) 누르면 분해한다.
-/// 첫 번째는 확인 문구만 띄운다. 실행·규칙은 DismantleService/DismantleRules.
+/// 분해 입력(BasicFeatures.md 8절): 인벤토리에서 커서가 장비 위일 때 D(패드 L3)를 누르면 공용 확인창(ConfirmPopup, 기본 아니오)이 뜨고 예를 고르면 분해한다.
+/// Request(프로브용)는 예전처럼 2.5초 안에 두 번 요청하면 실행한다. 실행·규칙은 DismantleService/DismantleRules.
 /// </summary>
 public class DismantleInput : MonoBehaviour
 {
@@ -41,11 +41,28 @@ public class DismantleInput : MonoBehaviour
             _pending = null;
             return;
         }
-        if (!Pressed() || !(string.IsNullOrEmpty(inv.state) || inv.state == "detail"))
+        if (ConfirmPopup.IsBlocking || !Pressed() || !(string.IsNullOrEmpty(inv.state) || inv.state == "detail"))
         {
             return;
         }
-        Request(inv, inv.CursorItem());
+        Ask(inv, inv.CursorItem());
+    }
+
+    /// <summary>분해 확인창을 연다(분해할 수 없으면 이유만 알린다). 예를 고르면 Execute</summary>
+    private static void Ask(InventoryManager inv, ItemCheck item)
+    {
+        if (item == null || !Validate(inv, item))
+        {
+            return;
+        }
+        ConfirmPopup.Open(new ConfirmRequest
+        {
+            Title = "장비 분해",
+            Message = "<color=#FFD633>" + item.itemData.itemNameT + "</color>\n분해할까요?\n<color=#BBBBBB>장비는 사라지고 재료가 남습니다.</color>",
+            YesLabel = "분해",
+            NoLabel = "취소",
+            OnYes = () => Execute(inv, item),
+        });
     }
 
     private static bool Pressed()
@@ -62,19 +79,8 @@ public class DismantleInput : MonoBehaviour
         {
             return false;
         }
-        DismantleService.Check check = DismantleService.CanTry(inv, item);
-        if (check != DismantleService.Check.Ok)
+        if (!Validate(inv, item))
         {
-            string why = Loc.T("Only equipment in the bag can be dismantled");
-            if (check == DismantleService.Check.Locked)
-            {
-                why = "잠금 해제 후 분해할 수 있습니다";
-            }
-            else if (check == DismantleService.Check.Rented)
-            {
-                why = "시연대 대여품은 반납(무기 고르기) 전까지 분해할 수 없습니다";
-            }
-            PickupLog.Warn(why);
             _instance._pending = null;
             return false;
         }
@@ -87,8 +93,34 @@ public class DismantleInput : MonoBehaviour
             return false;
         }
         _instance._pending = null;
+        return Execute(inv, item);
+    }
+
+    /// <summary>분해할 수 있는지 본다. 못 하면 이유를 알리고 false</summary>
+    private static bool Validate(InventoryManager inv, ItemCheck item)
+    {
+        DismantleService.Check check = DismantleService.CanTry(inv, item);
+        if (check == DismantleService.Check.Ok)
+        {
+            return true;
+        }
+        string why = Loc.T("Only equipment in the bag can be dismantled");
+        if (check == DismantleService.Check.Locked)
+        {
+            why = "잠금 해제 후 분해할 수 있습니다";
+        }
+        else if (check == DismantleService.Check.Rented)
+        {
+            why = "시연대 대여품은 반납(무기 고르기) 전까지 분해할 수 없습니다";
+        }
+        PickupLog.Warn(why);
+        return false;
+    }
+
+    private static bool Execute(InventoryManager inv, ItemCheck item)
+    {
         bool detail = inv.state == "detail";
-        check = DismantleService.TryDismantle(inv, item, out List<KeyValuePair<string, int>> outputs);
+        DismantleService.Check check = DismantleService.TryDismantle(inv, item, out List<KeyValuePair<string, int>> outputs);
         if (check == DismantleService.Check.NoRoom)
         {
             PickupLog.ReportFull();

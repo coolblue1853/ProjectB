@@ -33,6 +33,7 @@ public static class LocUi
         ("SKILL 1", "스킬 1"), ("SKILL 2", "스킬 2"), ("SKILL 3", "스킬 3"), ("SKILL 4", "스킬 4"),
         ("QUICK SLOT 1", "퀵슬롯 1"), ("QUICK SLOT 2", "퀵슬롯 2"), ("QUICK SLOT 3", "퀵슬롯 3"), ("QUICK SLOT 4", "퀵슬롯 4"),
         ("ARTIFACT", "아티팩트"), ("NEXT ARTIFACT", "다음 아티팩트"),
+        ("BESTIARY", "도감"), ("WORLD MAP", "층계 지도"), ("MINIMAP", "미니맵"), ("GUARD", "방어"), ("SKILL WINDOW", "스킬창"), ("QUEST WINDOW", "퀘스트 창"),
         ("PRESS A KEY  ·  ESC cancel", "새 키를 누르세요  ·  ESC 취소"), ("PRESS A BUTTON  ·  START cancel", "새 버튼을 누르세요  ·  START 취소"),
         ("UP/DOWN  ·  LEFT/RIGHT column  ·  SELECT rebind  ·  ESC back", "위/아래  ·  좌/우 열  ·  선택 키 변경  ·  ESC 뒤로"),
         ("That key is reserved", "이동·확인용 고정 키라 지정할 수 없다"),

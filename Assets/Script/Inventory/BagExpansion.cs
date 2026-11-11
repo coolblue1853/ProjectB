@@ -3,14 +3,11 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// 가방 칸 확장(메이플식, InventoryRefactorDesign.md §7). 상점이 열려 있을 때 N(패드 LT+X) 으로 다음 단계를 보여 주고,
-/// 5초 안에 한 번 더 누르면 골드로 산다. 칸 수는 Datas.bagUnlocked(구 세이브는 0 → 시작 40칸).
+/// 확인창에서 예를 고르면 골드로 산다. 칸 수는 Datas.bagUnlocked(구 세이브는 0 → 시작 40칸).
 /// </summary>
 public class BagExpansion : MonoBehaviour
 {
-    private const float ConfirmSeconds = 5f;
-
     private static BagExpansionRules _rules;
-    private static float _armedUntil = -1f;
     private static BagExpansion _instance;
 
     public static BagExpansionRules Rules
@@ -33,7 +30,6 @@ public class BagExpansion : MonoBehaviour
     private static void ResetStatics()
     {
         _rules = null;
-        _armedUntil = -1f;
         _instance = null;
     }
 
@@ -62,19 +58,31 @@ public class BagExpansion : MonoBehaviour
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
         bool pressed = (kb != null && kb.nKey.wasPressedThisFrame) || (pad != null && pad.leftTrigger.isPressed && pad.buttonWest.wasPressedThisFrame);
-        if (pressed && (Buyback.CanUse() || InventoryToolbar.CanUseBag()))
+        if (pressed && !ConfirmPopup.IsBlocking && (Buyback.CanUse() || InventoryToolbar.CanUseBag()))
         {
             Press();
         }
     }
 
-    /// <summary>N·패드 LT+X·인벤 창 버튼 공용: 첫 입력은 안내(5초 확인 대기), 대기 중 한 번 더 누르면 구매</summary>
+    /// <summary>N·패드 LT+X·인벤 창 버튼 공용: 살 수 있으면 공용 확인창(기본 아니오)을 띄우고 예를 고르면 구매, 못 사면 이유 안내</summary>
     public static void Press()
     {
-        if (Time.unscaledTime <= _armedUntil)
+        int cur = Unlocked;
+        BagExpansionRules.Block block = Rules.Check(cur, Floor, DatabaseManager.money, out BagExpansionRules.Step next);
+        if (block == BagExpansionRules.Block.None)
         {
-            _armedUntil = -1f;
-            TryBuy();
+            ConfirmPopup.Open(new ConfirmRequest
+            {
+                Title = "가방 확장",
+                Message = "가방 " + cur + "→" + next.Slots + "칸\n<color=#FFD633>" + next.Price.ToString("N0") + "G</color> 를 내고 확장할까요?",
+                YesLabel = "구매",
+                NoLabel = "취소",
+                OnYes = () => TryBuy(),
+            });
+        }
+        else if (block == BagExpansionRules.Block.NoGold)
+        {
+            TryBuy(); // 골드 부족 안내
         }
         else
         {
@@ -100,7 +108,7 @@ public class BagExpansion : MonoBehaviour
 
     private static int Floor => MovementUnlocks.Instance != null ? MovementUnlocks.Instance.HighestFloor : 1;
 
-    /// <summary>다음 단계 안내. 살 수 있으면 확인 대기(5초)에 들어간다</summary>
+    /// <summary>다음 단계 안내(살 수 있으면 가격 알림)</summary>
     public static void Describe()
     {
         int cur = Unlocked;
@@ -114,8 +122,7 @@ public class BagExpansion : MonoBehaviour
                 PickupLog.Warn("가방 " + cur + "칸: 더 높은 층계에서 확장 가능 (" + next.MinFloor + "층계~)");
                 break;
             default:
-                _armedUntil = Time.unscaledTime + ConfirmSeconds;
-                PickupLog.Notice("가방 " + cur + "→" + next.Slots + "칸 " + next.Price.ToString("N0") + "G (N 한 번 더: 구매)");
+                PickupLog.Notice("가방 " + cur + "→" + next.Slots + "칸 " + next.Price.ToString("N0") + "G");
                 break;
         }
     }

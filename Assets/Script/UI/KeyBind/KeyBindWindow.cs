@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class KeyBindWindow : MonoBehaviour
 {
-    private const float RowHeight = 40f;
+    private const float RowHeight = 34f;
     private const float InputGuard = 0.25f;
 
     private static KeyBindWindow _instance;
@@ -255,7 +255,7 @@ public class KeyBindWindow : MonoBehaviour
                 string name = InputBindings.Rebindable[i];
                 row.label.text = Loc.T(LabelOf(name));
                 row.kb.text = Cell(InputBindings.Display(name, false), sel && _column == 0);
-                row.pad.text = Cell(InputBindings.Display(name, true), sel && _column == 1);
+                row.pad.text = InputBindings.HasPadSlot(name) ? Cell(InputBindings.Display(name, true), sel && _column == 1) : "<color=#666666>-</color>"; // 키보드 전용 행(창 열기 키)
             }
             else
             {
@@ -293,6 +293,12 @@ public class KeyBindWindow : MonoBehaviour
             case "Quick4": return "QUICK SLOT 4";
             case "Artifact": return "ARTIFACT";
             case "ArtifactNext": return "NEXT ARTIFACT";
+            case "Bestiary": return "BESTIARY";
+            case "WorldMap": return "WORLD MAP";
+            case "Minimap": return "MINIMAP";
+            case "Guard": return "GUARD";
+            case "SkillWindow": return "SKILL WINDOW";
+            case "QuestWindow": return "QUEST WINDOW";
             default: return actionName;
         }
     }
@@ -343,6 +349,7 @@ public class KeyBindWindow : MonoBehaviour
             Place(bg.rectTransform, new Vector2(30f, -116f - i * RowHeight), new Vector2(700f, RowHeight - 4f));
             TextMeshProUGUI label = NewText("Label", bg.transform, theme, 24f, TextAlignmentOptions.MidlineLeft);
             Place(label.rectTransform, new Vector2(14f, 0f), new Vector2(330f, RowHeight - 4f));
+            label.fontSize = 22f;
             TextMeshProUGUI kb = NewText("Kb", bg.transform, theme, 24f, TextAlignmentOptions.Center);
             Place(kb.rectTransform, new Vector2(350f, 0f), new Vector2(170f, RowHeight - 4f));
             TextMeshProUGUI pad = NewText("Pad", bg.transform, theme, 24f, TextAlignmentOptions.Center);

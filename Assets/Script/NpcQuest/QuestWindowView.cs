@@ -13,18 +13,17 @@ public sealed class QuestWindowView
     public const float RowH = 56f;
 
     public GameObject Panel;
-    public TextMeshProUGUI Title, Hint, Detail, RewardHeader, RewardText, Guide, ListInfo, ConfirmText;
+    public TextMeshProUGUI Title, Hint, Detail, RewardHeader, RewardText, Guide, ListInfo;
     public readonly Button[] Tabs = new Button[3];
     public readonly TextMeshProUGUI[] TabText = new TextMeshProUGUI[3];
     public readonly Button[] RowButtons = new Button[Rows];
     public readonly Image[] RowBg = new Image[Rows];
     public readonly TextMeshProUGUI[] RowText = new TextMeshProUGUI[Rows];
-    public Button Primary, Track, Abandon, Close, Yes, No;
+    public Button Primary, Track, Abandon, Close;
     public TextMeshProUGUI PrimaryText, TrackText, AbandonText;
     public Image RewardIcon;
-    public GameObject Confirm;
 
-    public void Build(GameObject host, Action<int> onTab, Action<int> onRow, Action onPrimary, Action onTrack, Action onAbandon, Action onClose, Action onYes, Action onNo)
+    public void Build(GameObject host, Action<int> onTab, Action<int> onRow, Action onPrimary, Action onTrack, Action onAbandon, Action onClose)
     {
         UiTheme theme = UiTheme.Get();
         var canvas = host.AddComponent<Canvas>(); // Transform 이 RectTransform 으로 바뀌므로 host.transform 은 그 뒤에 다시 읽는다
@@ -113,29 +112,7 @@ public sealed class QuestWindowView
         Hint.enableWordWrapping = true;
         Hint.color = new Color(1f, 1f, 1f, 0.55f);
 
-        BuildConfirm(pr, theme, onYes, onNo);
         Panel.SetActive(false);
-    }
-
-    private void BuildConfirm(RectTransform pr, UiTheme theme, Action onYes, Action onNo)
-    {
-        Image dim = theme.NewPanel("Confirm", pr, false);
-        Confirm = dim.gameObject;
-        dim.raycastTarget = true;
-        var rt = dim.rectTransform;
-        rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
-        rt.anchoredPosition = Vector2.zero;
-        rt.sizeDelta = new Vector2(640f, 230f);
-        ConfirmText = NewText("Text", rt, theme, 26f);
-        Place(ConfirmText.rectTransform, new Vector2(24f, -20f), new Vector2(592f, 120f));
-        ConfirmText.enableWordWrapping = true;
-        Yes = NewButton("Yes", rt, theme, new Vector2(110f, -160f), new Vector2(200f, 50f), 24f, out TextMeshProUGUI yes, onYes);
-        yes.text = "확인 (Enter · A)";
-        yes.alignment = TextAlignmentOptions.Center;
-        No = NewButton("No", rt, theme, new Vector2(330f, -160f), new Vector2(200f, 50f), 24f, out TextMeshProUGUI no, onNo);
-        no.text = "취소 (Esc · B)";
-        no.alignment = TextAlignmentOptions.Center;
-        Confirm.SetActive(false);
     }
 
     public static Button NewButton(string name, Transform parent, UiTheme theme, Vector2 pos, Vector2 size, float fontSize, out TextMeshProUGUI label, Action onClick)

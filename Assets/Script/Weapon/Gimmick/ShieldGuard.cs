@@ -19,7 +19,7 @@ public class ShieldGuard : WeaponGimmick, IGuardSource
 
     private void Update()
     {
-        bool pressed = _guardAction != null && _guardAction.IsPressed();
+        bool pressed = Hotkeys.Held(Hotkeys.Guard) || (_guardAction != null && _guardAction.IsPressed());
         if (pressed)
         {
             _state.Press();
@@ -37,7 +37,6 @@ public class ShieldGuard : WeaponGimmick, IGuardSource
         if (_guardAction == null)
         {
             _guardAction = new InputAction("Guard", InputActionType.Button);
-            _guardAction.AddBinding("<Keyboard>/g");
             _guardAction.AddBinding("<Gamepad>/leftTrigger");
         }
         _guardAction.Enable();

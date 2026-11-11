@@ -23,7 +23,7 @@ public class NpcQuestWindow : MonoBehaviour
     private QuestFilter _entrance; // null = 일반 모드
     private QuestListRules.Tab _tab;
     private int _cursor, _first;
-    private bool _open, _confirming;
+    private bool _open;
     private float _openedAt;
     private NpcQuestDef _confirmTarget;
     private string _notice = "";
@@ -123,9 +123,13 @@ public class NpcQuestWindow : MonoBehaviour
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
         PadFieldInput.Refresh();
+        if (ConfirmPopup.IsBlocking)
+        {
+            return; // 확인창이 입력을 가진다(같은 프레임 닫힘 포함)
+        }
         // 패드는 SELECT 길게(0.8초). R3 는 아티팩트 사용과 겹쳐서 뺐다(AUTO-49). 눌린 순간 UI 가 열려 있었으면(인벤 프리셋 저장 등) 무시
         bool padHold = PadFieldInput.Select == PadGesture.Hold && (_open || !PadFieldInput.SelectInUi);
-        bool pressed = (kb != null && kb.qKey.wasPressedThisFrame) || padHold;
+        bool pressed = Hotkeys.Pressed(Hotkeys.QuestWindow) || padHold;
         if (pressed && (_open || !DatabaseManager.isOpenUI))
         {
             Toggle();
@@ -138,22 +142,7 @@ public class NpcQuestWindow : MonoBehaviour
         bool back = _back.triggered || (pad != null && pad.startButton.wasPressedThisFrame); // 패드 Start 로도 닫는다(T11-4)
         if (UiLock.TryBack("NpcQuest", back))
         {
-            if (_confirming)
-            {
-                CancelConfirm();
-            }
-            else
-            {
-                Close();
-            }
-            return;
-        }
-        if (_confirming)
-        {
-            if (_confirm.triggered)
-            {
-                DoAbandon();
-            }
+            Close();
             return;
         }
         HandleNavigation(kb, pad);
@@ -237,11 +226,10 @@ public class NpcQuestWindow : MonoBehaviour
     {
         if (_v.Panel == null)
         {
-            _v.Build(gameObject, i => SetTab((QuestListRules.Tab)i), OnRowClick, Primary, ToggleTracking, AskAbandon, Close, DoAbandon, CancelConfirm);
+            _v.Build(gameObject, i => SetTab((QuestListRules.Tab)i), OnRowClick, Primary, ToggleTracking, AskAbandon, Close);
         }
         _entrance = entrance;
         _open = true;
-        _confirming = false;
         _cursor = 0;
         _first = 0;
         _tab = entrance != null ? EntranceStartTab(entrance) : QuestListRules.Tab.Active;
@@ -250,7 +238,6 @@ public class NpcQuestWindow : MonoBehaviour
         UiLock.Set("NpcQuest", true);
         _action.UI.Enable();
         _v.Panel.SetActive(true);
-        _v.Confirm.SetActive(false);
         Redraw();
         Sfx.Play(SfxId.UiOpen);
     }
@@ -270,7 +257,6 @@ public class NpcQuestWindow : MonoBehaviour
     {
         bool was = _open;
         _open = false;
-        _confirming = false;
         _entrance = null;
         UiLock.Set("NpcQuest", false);
         if (was)
@@ -375,26 +361,30 @@ public class NpcQuestWindow : MonoBehaviour
         {
             return;
         }
-        _confirming = true;
         _confirmTarget = cur;
-        _v.ConfirmText.text = "<color=#FFD633>" + cur.Title + "</color>\n퀘스트를 포기할까요?\n<color=#BBBBBB>진행 기록이 지워집니다. 아이템·장비는 그대로입니다.</color>";
-        _v.Confirm.SetActive(true);
         Sfx.Play(SfxId.UiMove, 0.6f);
+        ConfirmPopup.Open(new ConfirmRequest
+        {
+            Title = "퀘스트 포기",
+            Message = "<color=#FFD633>" + cur.Title + "</color>\n퀘스트를 포기할까요?\n<color=#BBBBBB>진행 기록이 지워집니다. 아이템·장비는 그대로입니다.</color>",
+            YesLabel = "포기",
+            NoLabel = "취소",
+            OnYes = DoAbandon,
+            OnNo = CancelConfirm,
+        });
     }
 
     private void CancelConfirm()
     {
         ClearUiFocus();
-        _confirming = false;
-        _v.Confirm.SetActive(false);
+        _confirmTarget = null;
     }
 
     private void DoAbandon()
     {
         ClearUiFocus();
         NpcQuestDef d = _confirmTarget;
-        _confirming = false;
-        _v.Confirm.SetActive(false);
+        _confirmTarget = null;
         if (d != null && QuestService.Abandon(d.Id))
         {
             _notice = "<color=#BBBBBB>포기했습니다: " + d.Title + "</color>";

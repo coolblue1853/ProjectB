@@ -131,4 +131,69 @@ public class InputBindingsTests
             UnityEngine.Object.DestroyImmediate(other.asset);
         }
     }
+
+    // ── U37: 창 열기 키 ──
+
+    [Test]
+    public void Hotkeys_Defaults_KeyboardOnly()
+    {
+        Assert.AreEqual("<Keyboard>/b", Path("Bestiary", false));
+        Assert.AreEqual("<Keyboard>/m", Path("WorldMap", false));
+        Assert.AreEqual("<Keyboard>/n", Path("Minimap", false));
+        Assert.AreEqual("<Keyboard>/g", Path("Guard", false));
+        Assert.AreEqual("<Keyboard>/k", Path("SkillWindow", false));
+        Assert.AreEqual("<Keyboard>/q", Path("QuestWindow", false));
+        foreach (string name in Hotkeys.All)
+        {
+            Assert.IsTrue(System.Array.IndexOf(InputBindings.Rebindable, name) >= 0, name);
+            Assert.AreEqual(-1, InputBindings.BindingIndex(_ka.asset.FindAction("Player/" + name), true), name + " 패드 칸 없음");
+        }
+    }
+
+    [Test]
+    public void Hotkeys_SwapAmongThemselves()
+    {
+        var r = InputBindings.Assign(_ka.asset, "Bestiary", false, "<Keyboard>/m", out string swapped);
+        Assert.AreEqual(InputBindings.AssignResult.Swapped, r);
+        Assert.AreEqual("WorldMap", swapped);
+        Assert.AreEqual("<Keyboard>/m", Path("Bestiary", false));
+        Assert.AreEqual("<Keyboard>/b", Path("WorldMap", false));
+    }
+
+    [Test]
+    public void Hotkeys_FreeKey_Ok_AndDefaultsOwnedKeysAllowed()
+    {
+        Assert.AreEqual(InputBindings.AssignResult.Ok, InputBindings.Assign(_ka.asset, "Minimap", false, "<Keyboard>/u", out _));
+        Assert.AreEqual("<Keyboard>/u", Path("Minimap", false));
+        // 퀘스트 Q 는 전투 액션에게는 예약이지만 창 열기 키 그룹에는 자기 몫이다
+        Assert.AreEqual(InputBindings.AssignResult.Ok, InputBindings.Assign(_ka.asset, "QuestWindow", false, "<Keyboard>/q", out _));
+    }
+
+    [Test]
+    public void Hotkeys_ConflictsWithCombatOrFixedKeys_Rejected()
+    {
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Bestiary", false, "<Keyboard>/c", out _)); // 점프
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Bestiary", false, "<Keyboard>/escape", out _));
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Bestiary", false, "<Keyboard>/i", out _)); // 인벤 열기
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Bestiary", false, "<Keyboard>/p", out _));
+        Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Jump", false, "<Keyboard>/g", out _)); // 방어 키는 전투 액션이 못 쓴다
+        Assert.AreEqual(InputBindings.AssignResult.Invalid, InputBindings.Assign(_ka.asset, "Bestiary", true, "<Gamepad>/buttonEast", out _)); // 패드 칸 없음
+    }
+
+    [Test]
+    public void Hotkeys_OverrideJson_OldSaveCompatible()
+    {
+        string oldJson = _ka.asset.SaveBindingOverridesAsJson(); // 기본(오버라이드 없음) = 신규 액션 항목이 없는 구 세이브와 같다
+        var other = new KeyAction();
+        try
+        {
+            other.asset.LoadBindingOverridesFromJson(oldJson);
+            InputAction a = other.asset.FindAction("Player/Bestiary");
+            Assert.AreEqual("<Keyboard>/b", a.bindings[InputBindings.BindingIndex(a, false)].effectivePath);
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(other.asset);
+        }
+    }
 }

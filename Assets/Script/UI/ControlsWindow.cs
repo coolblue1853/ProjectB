@@ -180,20 +180,20 @@ public class ControlsWindow : MonoBehaviour
         _panel = theme.NewPanel("Panel", transform).gameObject;
         var pr = (RectTransform)_panel.transform;
         pr.anchorMin = pr.anchorMax = new Vector2(0.5f, 0.5f);
-        pr.sizeDelta = new Vector2(1700f, 880f);
+        pr.sizeDelta = new Vector2(1700f, 1000f);
 
         TextMeshProUGUI title = NewText("Title", pr, theme, 42f);
         Place(title.rectTransform, new Vector2(34f, -18f), new Vector2(900f, 54f));
         title.text = Loc.IsKorean ? "조작 안내" : "CONTROLS";
         title.color = theme.unique;
 
-        _left = NewText("Left", pr, theme, 25f);
-        Place(_left.rectTransform, new Vector2(40f, -90f), new Vector2(790f, 720f));
-        _right = NewText("Right", pr, theme, 25f);
-        Place(_right.rectTransform, new Vector2(870f, -90f), new Vector2(790f, 720f));
+        _left = NewText("Left", pr, theme, 21f);
+        Place(_left.rectTransform, new Vector2(40f, -90f), new Vector2(790f, 840f));
+        _right = NewText("Right", pr, theme, 21f);
+        Place(_right.rectTransform, new Vector2(870f, -90f), new Vector2(790f, 840f));
 
         TextMeshProUGUI hint = NewText("Hint", pr, theme, 22f);
-        Place(hint.rectTransform, new Vector2(40f, -830f), new Vector2(1600f, 30f));
+        Place(hint.rectTransform, new Vector2(40f, -950f), new Vector2(1600f, 30f));
         hint.text = "F10 / BACK 닫기    키 변경: 일시정지 > 설정 > 키 설정 (재지정 가능한 키는 이 표에 바로 반영)";
         hint.color = new Color(1f, 1f, 1f, 0.55f);
         _panel.SetActive(false);

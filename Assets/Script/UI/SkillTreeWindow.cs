@@ -94,7 +94,7 @@ public sealed class SkillTreeWindow : MonoBehaviour
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
         bool padOpen = pad != null && PadFieldInputRules.IsLtChord(pad.leftTrigger.isPressed, pad.buttonNorth.wasPressedThisFrame);
-        if (((kb != null && kb.kKey.wasPressedThisFrame) || padOpen) && (_open || !DatabaseManager.isOpenUI))
+        if ((Hotkeys.Pressed(Hotkeys.SkillWindow) || padOpen) && (_open || !DatabaseManager.isOpenUI))
         {
             Toggle();
             return;

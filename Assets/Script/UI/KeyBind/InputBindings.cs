@@ -21,6 +21,8 @@ public static class InputBindings
     {
         "Jump", "Dash", "Run", "Attack", "SkillA", "SkillS", "SkillD", "SkillF",
         "Quick1", "Quick2", "Quick3", "Quick4", "Artifact", "ArtifactNext",
+        // U37: 창·필드 고정 키였던 것(Hotkeys). 키보드 칸만 있다(패드는 고정 제스처). 이 6개끼리만 서로 바꾸고, 전투 액션이 쓰는 키는 거절한다
+        "Bestiary", "WorldMap", "Minimap", "Guard", "SkillWindow", "QuestWindow",
     };
 
     // ESC·ENTER·패드 Start(일시정지) + 하드코딩·UI 단축키(도감 B, 지도 M). UI 맵의 인벤 열기·제작·포털 키는 IsReserved 가 에셋에서 읽는다
@@ -36,6 +38,9 @@ public static class InputBindings
     private static string _json = "";
     private static bool _hooked;
     private static bool _applying; // 오버라이드 적용(재해석) 중 생기는 켜짐/꺼짐 알림은 무시한다 — 다시 대기열에 넣으면 무한 반복
+
+    /// <summary>키 설정이 저장될 때마다 올라간다(Hotkeys 가 키 캐시를 다시 만들 때 본다)</summary>
+    public static int Version { get; private set; }
 
     public enum AssignResult { Ok, Swapped, Reserved, Invalid }
 
@@ -53,6 +58,7 @@ public static class InputBindings
         _master?.Dispose();
         _master = null;
         _json = "";
+        Version++;
         Changed = null;
     }
 
@@ -209,6 +215,10 @@ public static class InputBindings
             }
             foreach (InputAction action in map.actions)
             {
+                if (IsHotkey(action.name))
+                {
+                    continue; // 창 열기 키는 Q 를 정상 지정할 수 있다
+                }
                 for (int i = 0; i < action.bindings.Count; i++)
                 {
                     if (action.bindings[i].overridePath == "<Keyboard>/q")
@@ -220,10 +230,16 @@ public static class InputBindings
         }
     }
 
+    private static bool IsHotkey(string actionName)
+    {
+        return Array.IndexOf(Hotkeys.All, actionName) >= 0;
+    }
+
     /// <summary>마스터의 현재 오버라이드를 저장하고 살아 있는 인스턴스 전부에 입힌다</summary>
     public static void Commit()
     {
         _json = Master.asset.SaveBindingOverridesAsJson();
+        Version++;
         try
         {
             ES3.Save(SaveKey, _json, SaveSlots.SharedFile);
@@ -275,6 +291,12 @@ public static class InputBindings
         return -1;
     }
 
+    /// <summary>이 액션에 게임패드 칸이 있나(창 열기 키 같은 키보드 전용 행은 없다)</summary>
+    public static bool HasPadSlot(string actionName)
+    {
+        return BindingIndex(Master.asset.FindAction("Player/" + actionName), true) >= 0;
+    }
+
     /// <summary>표시 문자열(미지정이면 "-")</summary>
     public static string Display(string actionName, bool gamepad)
     {
@@ -309,7 +331,8 @@ public static class InputBindings
         }
         // 패드 기본 키(LS·RS·Select 등 필드 제스처와 공유)는 그 기본 키를 가진 액션 자신만 되돌려 지정할 수 있다(T11-2)
         bool ownPadDefault = gamepad && SamePath(action.bindings[index].path, newPath);
-        if (!ownPadDefault && IsReserved(map, newPath))
+        bool hot = IsHotkey(actionName);
+        if (!ownPadDefault && IsReserved(map, newPath, hot))
         {
             return AssignResult.Reserved;
         }
@@ -320,7 +343,7 @@ public static class InputBindings
         }
         foreach (string other in Rebindable)
         {
-            if (other == actionName)
+            if (other == actionName || IsHotkey(other) != hot)
             {
                 continue;
             }
@@ -337,13 +360,27 @@ public static class InputBindings
         return swappedWith != null ? AssignResult.Swapped : AssignResult.Ok;
     }
 
-    private static bool IsReserved(InputActionMap map, string path)
+    /// <summary>hot = 창 열기 키(Hotkeys) 쪽 지정이면 도감 B·지도 M·미니맵 N·퀘스트 Q 는 자기 몫이라 예약에서 뺀다. 대신 다른 그룹(전투)이 쓰는 키는 거절한다</summary>
+    private static bool IsReserved(InputActionMap map, string path, bool hot)
     {
         foreach (string r in ReservedPaths)
         {
-            if (SamePath(r, path))
+            if (SamePath(r, path) && !(hot && IsHotDefault(r)))
             {
                 return true;
+            }
+        }
+        foreach (string other in Rebindable)
+        {
+            if (IsHotkey(other) == hot)
+            {
+                continue;
+            }
+            InputAction o = map.FindAction(other);
+            int oi = BindingIndex(o, false);
+            if (oi >= 0 && SamePath(o.bindings[oi].effectivePath, path))
+            {
+                return true; // 전투 액션 ↔ 창 열기 키는 서로 바꾸지 않는다
             }
         }
         foreach (string ra in ReservedActions)
@@ -373,6 +410,11 @@ public static class InputBindings
             }
         }
         return false;
+    }
+
+    private static bool IsHotDefault(string path)
+    {
+        return SamePath(path, "<Keyboard>/b") || SamePath(path, "<Keyboard>/m") || SamePath(path, "<Keyboard>/n") || SamePath(path, "<Keyboard>/q");
     }
 
     private static bool SamePath(string a, string b)

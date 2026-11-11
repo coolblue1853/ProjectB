@@ -56,3 +56,8 @@
 - `InputAudit.md` §14: 키보드 전체 키 표·충돌 7건 판정. 실충돌 K(스킬창 vs 제작) -> 제작 기본 키 Y(inputactions), 디버그 0키 시간 치트 `#if` 게이트.
 - U39: 가방 툴바 필터·확장에 G·N 표기 + 하단 안내 2줄(분해·버리기·비교·프리셋·패드). `ControlsGuide` 행 추가(퀘스트 H·Del, 방어 G, 확장 N·쌓기 T, 페이지, 버리기).
 - 컴파일 0·EditMode 1107 통과. 미검증: 인벤 툴바 화면 실확인·패드. 남음: U40 ConfirmPopup, U37 하드코딩 키 설정 이관, U38 null 체크.
+
+## 11-11 REWORK-8 후속 U37·U38·U40 (builder)
+- U40: `ConfirmPopup`(UI/ConfirmPopup.cs, 기본 아니오, 마우스·←→·Z/Enter/A·Esc/B) 신규, 퀘스트 포기(창 안 확인 제거)·가방 확장(구 N 두 번)·장비 분해(구 D 두 번)에 적용. `DismantleInput.Request`·`BagExpansion.TryBuy/Describe` 프로브 창구는 유지.
+- U37: 도감·지도·미니맵·방어·스킬창·퀘스트 6키를 키 설정 재지정 대상으로(`Hotkeys`, inputactions 액션 6 추가, 충돌 규칙은 InputAudit §14). F10 안내 창 넘침 수정(패널 1000·글자 21). U38: null 체크 누락 없음 확인.
+- 컴파일 0·EditMode 1114 통과(신규 7)·play probe(확인창 기본 아니오·←·Esc→아니오·Enter→예, B→U 재지정 후 U 로 도감 열림, 키 설정·F10 화면 확인). 미검증: 실마우스·패드, 퀘스트 포기·분해·가방 확장 실조작.

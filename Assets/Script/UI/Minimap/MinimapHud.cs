@@ -128,8 +128,7 @@ public class MinimapHud : MonoBehaviour
 
     private void Update()
     {
-        Keyboard kb = Keyboard.current;
-        if (kb != null && kb.nKey.wasPressedThisFrame && !DatabaseManager.isOpenUI)
+        if (Hotkeys.Pressed(Hotkeys.Minimap) && !DatabaseManager.isOpenUI)
         {
             SetVisible(!_visible);
         }

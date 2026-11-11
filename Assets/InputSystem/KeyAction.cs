@@ -226,6 +226,60 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Bestiary"",
+                    ""type"": ""Button"",
+                    ""id"": ""35ea54c8-c117-470c-8ab9-1ea95d0b81e1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WorldMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""f85b1d4f-42b0-4ce3-8235-58e20f512245"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Minimap"",
+                    ""type"": ""Button"",
+                    ""id"": ""35898d5f-c18c-4ce7-b2df-a66d1b575a58"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Guard"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd5c5245-6293-44f7-b11f-00b89aa6c03c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkillWindow"",
+                    ""type"": ""Button"",
+                    ""id"": ""06b27b88-e523-457a-b196-484dc4d17728"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuestWindow"",
+                    ""type"": ""Button"",
+                    ""id"": ""df503ee7-1d8a-409e-b32c-d0a32a230098"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -600,6 +654,72 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Quick4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ad59d6d-9edb-4a09-8a55-34848d907b04"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bestiary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4451370-5c8b-4762-b11f-f0b09fdc4413"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WorldMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ad4fd94-a275-48a0-a2f1-37f02f6b7c3f"",
+                    ""path"": ""<Keyboard>/n"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minimap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72afe742-ad49-461c-a29a-b06d38bda609"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Guard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47841588-aed5-4dfd-8ec7-96ff6e5c0fe8"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkillWindow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5bda50ee-f059-47c7-8833-ecfe2d62b128"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuestWindow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1337,7 +1457,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""7b9624b4-a088-40f3-beaf-eeef0ecef151"",
-                    ""path"": ""<Keyboard>/k"",
+                    ""path"": ""<Keyboard>/y"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1417,6 +1537,12 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         m_Player_Quick4 = m_Player.FindAction("Quick4", throwIfNotFound: true);
         m_Player_Artifact = m_Player.FindAction("Artifact", throwIfNotFound: true);
         m_Player_ArtifactNext = m_Player.FindAction("ArtifactNext", throwIfNotFound: true);
+        m_Player_Bestiary = m_Player.FindAction("Bestiary", throwIfNotFound: true);
+        m_Player_WorldMap = m_Player.FindAction("WorldMap", throwIfNotFound: true);
+        m_Player_Minimap = m_Player.FindAction("Minimap", throwIfNotFound: true);
+        m_Player_Guard = m_Player.FindAction("Guard", throwIfNotFound: true);
+        m_Player_SkillWindow = m_Player.FindAction("SkillWindow", throwIfNotFound: true);
+        m_Player_QuestWindow = m_Player.FindAction("QuestWindow", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_OpenInventory = m_UI.FindAction("OpenInventory", throwIfNotFound: true);
@@ -1537,6 +1663,12 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Quick4;
     private readonly InputAction m_Player_Artifact;
     private readonly InputAction m_Player_ArtifactNext;
+    private readonly InputAction m_Player_Bestiary;
+    private readonly InputAction m_Player_WorldMap;
+    private readonly InputAction m_Player_Minimap;
+    private readonly InputAction m_Player_Guard;
+    private readonly InputAction m_Player_SkillWindow;
+    private readonly InputAction m_Player_QuestWindow;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1609,6 +1741,30 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @ArtifactNext => m_Wrapper.m_Player_ArtifactNext;
         /// <summary>
+        /// Provides access to the underlying input action "Player/Bestiary".
+        /// </summary>
+        public InputAction @Bestiary => m_Wrapper.m_Player_Bestiary;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/WorldMap".
+        /// </summary>
+        public InputAction @WorldMap => m_Wrapper.m_Player_WorldMap;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Minimap".
+        /// </summary>
+        public InputAction @Minimap => m_Wrapper.m_Player_Minimap;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Guard".
+        /// </summary>
+        public InputAction @Guard => m_Wrapper.m_Player_Guard;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SkillWindow".
+        /// </summary>
+        public InputAction @SkillWindow => m_Wrapper.m_Player_SkillWindow;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/QuestWindow".
+        /// </summary>
+        public InputAction @QuestWindow => m_Wrapper.m_Player_QuestWindow;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1679,6 +1835,24 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @ArtifactNext.started += instance.OnArtifactNext;
             @ArtifactNext.performed += instance.OnArtifactNext;
             @ArtifactNext.canceled += instance.OnArtifactNext;
+            @Bestiary.started += instance.OnBestiary;
+            @Bestiary.performed += instance.OnBestiary;
+            @Bestiary.canceled += instance.OnBestiary;
+            @WorldMap.started += instance.OnWorldMap;
+            @WorldMap.performed += instance.OnWorldMap;
+            @WorldMap.canceled += instance.OnWorldMap;
+            @Minimap.started += instance.OnMinimap;
+            @Minimap.performed += instance.OnMinimap;
+            @Minimap.canceled += instance.OnMinimap;
+            @Guard.started += instance.OnGuard;
+            @Guard.performed += instance.OnGuard;
+            @Guard.canceled += instance.OnGuard;
+            @SkillWindow.started += instance.OnSkillWindow;
+            @SkillWindow.performed += instance.OnSkillWindow;
+            @SkillWindow.canceled += instance.OnSkillWindow;
+            @QuestWindow.started += instance.OnQuestWindow;
+            @QuestWindow.performed += instance.OnQuestWindow;
+            @QuestWindow.canceled += instance.OnQuestWindow;
         }
 
         /// <summary>
@@ -1735,6 +1909,24 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
             @ArtifactNext.started -= instance.OnArtifactNext;
             @ArtifactNext.performed -= instance.OnArtifactNext;
             @ArtifactNext.canceled -= instance.OnArtifactNext;
+            @Bestiary.started -= instance.OnBestiary;
+            @Bestiary.performed -= instance.OnBestiary;
+            @Bestiary.canceled -= instance.OnBestiary;
+            @WorldMap.started -= instance.OnWorldMap;
+            @WorldMap.performed -= instance.OnWorldMap;
+            @WorldMap.canceled -= instance.OnWorldMap;
+            @Minimap.started -= instance.OnMinimap;
+            @Minimap.performed -= instance.OnMinimap;
+            @Minimap.canceled -= instance.OnMinimap;
+            @Guard.started -= instance.OnGuard;
+            @Guard.performed -= instance.OnGuard;
+            @Guard.canceled -= instance.OnGuard;
+            @SkillWindow.started -= instance.OnSkillWindow;
+            @SkillWindow.performed -= instance.OnSkillWindow;
+            @SkillWindow.canceled -= instance.OnSkillWindow;
+            @QuestWindow.started -= instance.OnQuestWindow;
+            @QuestWindow.performed -= instance.OnQuestWindow;
+            @QuestWindow.canceled -= instance.OnQuestWindow;
         }
 
         /// <summary>
@@ -2259,6 +2451,48 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnArtifactNext(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Bestiary" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBestiary(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "WorldMap" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnWorldMap(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Minimap" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMinimap(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Guard" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGuard(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SkillWindow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkillWindow(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "QuestWindow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQuestWindow(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

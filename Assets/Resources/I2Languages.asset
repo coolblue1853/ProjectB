@@ -8719,6 +8719,46 @@ MonoBehaviour:
       - "\uAC00\uBC29\uC774 \uAC00\uB4DD \uCC28 {0}\uAC1C\uB97C \uB450\uACE0 \uC654\uB2E4"
       Flags: 0000
       Languages_Touch: []
+    - Term: WORLD MAP
+      TermType: 0
+      Description: 
+      Languages:
+      - WORLD MAP
+      - "\uCE35\uACC4 \uC9C0\uB3C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MINIMAP
+      TermType: 0
+      Description: 
+      Languages:
+      - MINIMAP
+      - "\uBBF8\uB2C8\uB9F5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GUARD
+      TermType: 0
+      Description: 
+      Languages:
+      - GUARD
+      - "\uBC29\uC5B4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SKILL WINDOW
+      TermType: 0
+      Description: 
+      Languages:
+      - SKILL WINDOW
+      - "\uC2A4\uD0AC\uCC3D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: QUEST WINDOW
+      TermType: 0
+      Description: 
+      Languages:
+      - QUEST WINDOW
+      - "\uD018\uC2A4\uD2B8 \uCC3D"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
