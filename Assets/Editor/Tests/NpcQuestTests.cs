@@ -58,13 +58,13 @@ public class NpcQuestTests
 
     [Test] public void CSV_71개_파싱_EXP_합계_127375()
     {
-        Assert.AreEqual(60 + 11, NpcQuestCatalog.All.Count); // 60 + 게시판·촌장 이행 11(REWORK-5, EXP 0)
+        Assert.AreEqual(62 + 11, NpcQuestCatalog.All.Count); // 62(+EarlyHour Q109·Q110) + 게시판·촌장 이행 11(REWORK-5, EXP 0)
         int exp = 0;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
         {
             exp += d.Exp;
         }
-        Assert.AreEqual(127375, exp);
+        Assert.AreEqual(129525, exp); // 127375 + EarlyHour 2150(R-1·2·3·7·8 + Q109·Q110)
     }
 
     [Test] public void 요리_입문_목표는_실제_화로에서_제작할_수_있다()

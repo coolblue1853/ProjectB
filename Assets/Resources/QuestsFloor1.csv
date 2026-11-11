@@ -3,8 +3,8 @@ Q101,마지막 별의 방향,elder,1,,talk,elder,1,700,100,,,마을 오른쪽 �
 Q102,뿌리 밑의 발자국,ruen,1,Q101,kill,FlowerMole_BD,8,600,120,LeafAdae,1,샛길 오른쪽 끝 연결 포털로 서쪽 구역에 간다. 오른쪽으로 이동해 로프를 ↑로 잡고 고지대의 꽃두더지 8마리를 처치한다. C 점프·↑↓ 로프. 마을 루엔에게 보고한다.,,reward
 Q103,바람에 쓸린 약초,sena,2,Q102,collect,GreenHurb,3,742,90,GreenHurb,1,샛길 입구 근처 약초나 오른쪽 표본 덤불에서 약초 3개를 모아 세나에게 보고한다. 덤불은 ↑ 시작·표적에 맞춰 다시 ↑. 보고 뒤 요리에 쓸 약초 1개를 돌려준다.,,reward
 Q104,밤을 지키는 허수아비,ruen,3,Q102,kill,Scarecrow_BD,6,800,180,Potion,1,샛길 허수아비 6마리를 처치해 루엔에게 보고한다. 밤에만 나오는 적이므로 낮이면 꽃두더지와 토끼를 사냥하며 기다린다. 물약을 준비한다.,,reward
-Q105,이끼 낀 껍질,ruen,3,Q102,kill,MossShellBeetle_BD,5,450,120,Potion,1,샛길 낮 사냥터의 이끼껍질 딱정벌레 5마리를 처치해 마을 루엔에게 보고한다. 느리고 단단하니 서두르지 말고 몸박을 피한다.,,reward
-Q201,나무에 새겨진 별,elder,3,Q101,collect,StarBarkFragment,3,1000,160,WolfCap,1,샛길의 오른쪽 일반 숲 포털 → 숲 늑대를 사냥해 별무늬 수피 조각 3개를 주워 장로에게 보고한다. 수락 중에만 조각이 떨어진다.,,main
+Q105,이끼 낀 껍질,ruen,3,Q102,kill,MossShellBeetle_BD,5,600,120,Potion,1,샛길 낮 사냥터의 이끼껍질 딱정벌레 5마리를 처치해 마을 루엔에게 보고한다. 느리고 단단하니 서두르지 말고 몸박을 피한다.,,reward,
+Q201,나무에 새겨진 별,elder,3,Q101,collect,StarBarkFragment,3,1000,160,WolfCap,1,샛길의 오른쪽 일반 숲 포털 → 숲 늑대를 사냥해 별무늬 수피 조각 3개를 주워 장로에게 보고한다. 수락 중에만 조각이 떨어진다.,,main,eve
 Q202,숲의 경계선,ruen,4,Q102,kill,WildBoar_BD,8,900,210,FangDagger,1,샛길 오른쪽 일반 숲 포털에서 들어가 왼쪽으로 이동하며 멧돼지 8마리를 처치한 뒤 마을 루엔에게 보고한다.,,reward
 Q203,불가에서 만든 첫 끼,merchant,4,Q103,craft,Herb Roasted Rabbit,1,1080,140,Herb Roasted Rabbit,1,샛길 화로(입구에서 오른쪽)에서 토끼고기 2·약초 1·나무 1로 허브 토끼구이를 만든다. ↑ 시작·X 요리 및 뒤집기·ESC 취소.,,reward
 Q204,어두워지는 숲,eve,5,Q202,visit,forest_night_post,1,1000,210,WolfShoes,1,일반 숲 입구 이브에게 받은 뒤 왼쪽으로 조금 가서 금빛 별 관측지를 밟고 이브에게 돌아온다. 방문은 낮에도 가능하다.,,side
@@ -26,12 +26,14 @@ Q601,별이 닿은 돌문,elder,13,Q401,visit,tower_altar,1,1700,540,,,메인: �
 Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,1800,470,,,탑 근교 유적에서 발굴을 반복해 아버지의 기록 5편을 모은다. 유물을 하나라도 캐면 기록 1편을 얻고(확률로 더 나오기도 한다) 일반 5분·희귀 10분 후 다시 발굴할 수 있다.,,side
 Q603,잠들지 않는 골렘,smith,14,Q601,kill,GolemMedium_BD,6,1607,580,Enhance Stone,2,골렘 사냥과 강화 재료 획득을 안내한다.,,reward
 Q604,첫 번째 문의 수호자,elder,15,Q601,kill,Gatekeeper_BD,1,2000,1000,BroochResonance,1,메인: 문지기 격파 후 브로치에 다음 층계 길이 새겨진다.,,main
-Q106,쥐 도둑 소탕,ruen,2,Q102,kill,RatThief_BD,6,300,70,Tough Rat Hide,1,쥐 도둑 6마리를 처치해 루엔에게 보고한다.,,reward
-Q107,기본 방어구 착용,merchant,2,Q101,equip,armor,2,300,70,LeafCap,1,기본 방어구를 2부위 착용하고 상인에게 보고한다.,,reward
+Q106,쥐 도둑 소탕,ruen,2,Q102,kill,RatThief_BD,6,600,70,RatCap,1,쥐 도둑 6마리를 처치해 루엔에게 보고한다.,,reward,
+Q107,기본 방어구 착용,merchant,3,Q103,equip,armor,1,400,70,LeafCap,1,기본 방어구를 1부위 착용하고 상인에게 보고한다.,,reward,
 Q108,표본 버섯 채집,sena,3,Q103,collect,Forest Mushroom,5,300,70,Potion,1,샛길 약초 덤불에서 숲 버섯 5개를 모아 세나에게 보고한다.,,reward
 Q205,도깨비불 사냥,eve,4,Q201,kill,Wisp_BD,8,500,120,Wisp Ember,3,밤에 나오는 도깨비불 8마리를 처치해 이브에게 보고한다.,,reward
-Q206,늑대 투구 제작,smith,5,Q202,craft,WolfCap,1,500,120,WolfHandArmor,1,늑대 송곳니 8개로 늑대 투구를 제작해 대장장이에게 보고한다.,,reward
-Q207,우두머리 늑대,ruen,5,Q202,killElite,AlphaWolf_BD,1,500,120,WolfArmor,1,일반 숲의 우두머리 늑대를 처치해 루엔에게 보고한다.,,reward
+Q206,늑대 다리 갑옷 제작,smith,5,Q202,craft,WolfLegArmor,1,800,120,Enhance Stone,2,늑대 송곳니 8개와 멧돼지 엄니 3개로 늑대 다리 갑옷을 제작해 대장장이에게 보고한다.,,reward,
+Q207,우두머리 늑대,ruen,5,Q202,killElite,AlphaWolf_BD,1,1000,120,WolfArmor,1,일반 숲의 우두머리 늑대를 처치해 루엔에게 보고한다.,,reward,
+Q109,첫 강화,smith,5,Q107,enhance,weapon,1,300,50,Enhance Stone,2,대장장이에게서 무기를 한 단계 강화한다. 강화석 1개와 약간의 골드가 든다.,,reward,
+Q110,마을 요리대 일괄 요리,sena,5,Q108,craft,Herb Roasted Rabbit,3,500,80,Potion,1,마을 요리대에서 한 번에 3개를 만든다. 재료는 토끼고기 6 약초 3 나무 3.,,reward,
 Q306,곰 가죽 장갑 제작,sena,6,Q302,craft,GroveHandArmor,1,900,200,GroveLegArmor,1,곰 가죽으로 숲지기 장갑을 제작해 세나에게 보고한다.,,reward
 Q307,숲지기 세트 착용,smith,7,Q303,equip,GroveArmor,3,900,200,GroveArmor,1,숲지기 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
 Q308,깊은 숲 둥지 정예,eve,7,Q304,killElite,*,1,900,200,Enhance Stone,2,깊은 숲 둥지의 정예를 처치해 이브에게 보고한다. 구역 인장 보상은 아이템 추가 후 교체.,,reward

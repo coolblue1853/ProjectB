@@ -194,3 +194,13 @@
 
 ## 9. 적용 상태
 - 11-11: 설계 작성. CSV·코드 미변경. 다음: 사용자 확인 없이 P0(R-1~R-4)부터 builder 가 적용 가능(데이터 성격). R-6·R-9·R-10 은 id 확인이 필요해 builder 조사 선행.
+
+## 10. 적용 결과·코드 확인 정정 (11-11 builder)
+적용: R-1·2·3·4·6(부분)·7·8·10·11. 미적용: R-5(문서만)·R-9·R-12~14.
+- **정정:** 쥐 두목 id 는 `RatChief_BD`(RatCheif 아님). 단 `isBoss=0`·어느 스포너·`HuntingSpawnsFloor1.csv` 에도 배치돼 있지 않고 정예 승격은 확률(`PromoteElite`)뿐 → R-6 의 `killElite RatChief_BD` 는 달성 불가라 **미적용**(RatCap 보상만 적용). 쥐 두목 정예 스폰은 맵 작업 필요(Q-EH3).
+- 강화석 이름 = `Enhance Stone`(ItemSheet 105). 강화 objective 타입 존재: `enhance` (target weapon|armor|any, count=단계). Q109 는 `enhance,weapon,1`.
+- 시작 장비: `InventoryManager.DefaultWeapon="RustedSword"` 가 빈 무기칸에 자동 장착. 방어구 없음.
+- Q107 선행 = **Q103**(설계는 Q105): Q105 를 선행으로 두면 ruen 의 `BestFor` 가 Q202 보다 Q105 를 먼저 잡아 기존 테스트(본 흐름>부가)가 깨진다. Q106 보상 RatCap 이 방어구 1부위라 Q107 은 RatCap 착용만으로도 완료됨.
+- Q110 선행 = **Q108**(설계는 Q203): `FollowUp_DoesNotRepeatPrerequisiteTarget` 이 같은 목표(Herb Roasted Rabbit)를 금지. 마을 요리대 x3 은 Q203 없이도 가능.
+- Q201 reportTo=eve: 대사(`NpcQuestVoice` doneLine)는 장로 말투 그대로라 이브 입에서 어색함(Q-EH6, 대사 후속).
+- 핀 값 갱신(완화 아님, 새 설계 값): QuestsFloor1DataTests EXP 합 89500→90700·개수 +2, NpcQuestTests 127375→129525·71→73, HuntingRulesTests 121375→123525·106964→109114. 전부 EXP/행 수 변화의 직접 결과.
