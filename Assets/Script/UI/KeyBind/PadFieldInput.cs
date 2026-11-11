@@ -21,6 +21,8 @@ public static class PadFieldInput
     public static bool L3InUi { get; private set; }
     public static bool LtSelect { get; private set; }
     public static bool LtStart { get; private set; }
+    /// <summary>LT+R3 조합 이번 프레임(U36 미니맵 켜기·끄기, 필드 한정 소비자가 isOpenUI 로 거른다)</summary>
+    public static bool LtR3 { get; private set; }
 
     // 소비자(아티팩트·퀘스트 창 등)가 비활성이어도 홀드 타이머가 흐르도록 매 프레임 Refresh 를 부르는 구동기(ReviewCode_1105b #3)
     private sealed class Driver : MonoBehaviour
@@ -55,6 +57,7 @@ public static class PadFieldInput
         L3 = PadGesture.None;
         LtSelect = false;
         LtStart = false;
+        LtR3 = false;
         Gamepad pad = Gamepad.current;
         if (pad == null)
         {
@@ -65,6 +68,7 @@ public static class PadFieldInput
         bool lt = pad.leftTrigger.isPressed;
         LtSelect = PadFieldInputRules.IsLtChord(lt, pad.selectButton.wasPressedThisFrame);
         LtStart = PadFieldInputRules.IsLtChord(lt, pad.startButton.wasPressedThisFrame);
+        LtR3 = PadFieldInputRules.IsLtChord(lt, pad.rightStickButton.wasPressedThisFrame);
         float now = Time.unscaledTime;
         if (pad.selectButton.wasPressedThisFrame)
         {

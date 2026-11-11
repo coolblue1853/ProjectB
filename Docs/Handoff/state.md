@@ -92,3 +92,8 @@
 ## 11-11 밤 정리 세션
 - (A) NpcQuestWindow partial 분할(441+187줄)·만료 추적 id Prune·Redraw Query 캐시·Tracker.OnDisable HUD 숨김·빈 입구 차단 커밋. (B) `CookingRecipes.csv`+`CookingRecipeCsv` 로더(폴백 DefaultRecipes). EditMode 1184 통과.
 - (C) U9: 풀 반환·사망·맵 전환 뒤 고아 라벨 0건, 원인 미확정. 기존 방어가 라벨을 영영 못 켜던 결함을 라벨-바 매 프레임 동기로 수정. 프로브 `Tools/probes/_u9_*.cs`(미추적).
+
+## 11-11 점검 U29~U42 잔여 (builder)
+- U33: `Assets/Editor/ReleaseCheatGate`(릴리스 빌드서 SR Debugger 끔·빌드 뒤 복원). U36: 패드 LT+R3 미니맵(`PadFieldInput.LtR3`, 아티팩트 R3 와 분리, InputAudit §14 등록). U31: `TalkNpc` 범위 최소 2.2.
+- U29·U30 은 이미 구현(UiLock.TryBack·PauseMenu) 확인만, U35·U42 는 코드 확인만(시각 미검증). 컴파일 0·EditMode 1184 통과·probe `_u36_pad` 확인.
+- 미검증: 실제 릴리스 빌드, 실패드, NPC 범위 실플레이.

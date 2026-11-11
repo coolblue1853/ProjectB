@@ -15,6 +15,9 @@ public class TalkNpc : MonoBehaviour
     [SerializeField] private Sprite _portrait;
     [SerializeField] private string _actorName;
 
+    /// <summary>U31: 말 걸기 범위 최소 폭(월드 단위). 씬에 박힌 NPC 도 런타임 배치 NPC(2.2)와 같게 맞춘다. 넓은 것은 줄이지 않는다.</summary>
+    public const float MinTalkWidth = 2.2f;
+
     KeyAction action;
     TextMeshPro prompt;
     bool playerNear;
@@ -40,6 +43,7 @@ public class TalkNpc : MonoBehaviour
     void Awake()
     {
         action = new KeyAction();
+        EnsureTalkRange();
         var go = new GameObject("TalkPrompt");
         go.transform.SetParent(transform, false);
         go.transform.localPosition = new Vector3(0f, _promptHeight, 0f);
@@ -58,6 +62,21 @@ public class TalkNpc : MonoBehaviour
         prompt.sortingLayerID = sr != null ? sr.sortingLayerID : 0;
         prompt.sortingOrder = 500;
         go.SetActive(false);
+    }
+
+    void EnsureTalkRange()
+    {
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+        float sx = Mathf.Abs(transform.lossyScale.x);
+        if (box == null || !box.isTrigger || sx < 0.0001f)
+        {
+            return;
+        }
+        float minLocal = MinTalkWidth / sx;
+        if (box.size.x < minLocal)
+        {
+            box.size = new Vector2(minLocal, box.size.y);
+        }
     }
 
     void OnEnable()

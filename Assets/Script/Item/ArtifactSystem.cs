@@ -145,7 +145,9 @@ public class ArtifactSystem : MonoBehaviour
         {
             CycleEquipped();
         }
-        if (action.Player.Artifact.WasPressedThisFrame())
+        PadFieldInput.Refresh();
+        // LT+R3 = 미니맵(U36)이라 패드 조합에서는 아티팩트를 쓰지 않는다
+        if (action.Player.Artifact.WasPressedThisFrame() && !(PadFieldInput.LtR3 && PadFieldInput.IsFromGamepad(action.Player.Artifact)))
         {
             TryUse();
         }

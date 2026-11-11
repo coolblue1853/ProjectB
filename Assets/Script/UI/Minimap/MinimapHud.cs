@@ -128,7 +128,9 @@ public class MinimapHud : MonoBehaviour
 
     private void Update()
     {
-        if (Hotkeys.Pressed(Hotkeys.Minimap) && !DatabaseManager.isOpenUI)
+        // 키보드 N 또는 패드 LT+R3(U36)
+        PadFieldInput.Refresh();
+        if ((Hotkeys.Pressed(Hotkeys.Minimap) || PadFieldInput.LtR3) && !DatabaseManager.isOpenUI)
         {
             SetVisible(!_visible);
         }
