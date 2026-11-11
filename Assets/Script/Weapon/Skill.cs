@@ -184,9 +184,9 @@ public class Skill : MonoBehaviour
             Vector2 groundSafePositon = groundCheckHit.point - groundCheckDir.normalized; // 충돌 지점에서 약간 떨어진 위치
             groundSafePositon = new Vector2(groundSafePositon.x, groundSafePositon.y + yPivot);
             if(isHit == false)
-                damageObject = Instantiate(skillprefab[num], new Vector2(destination.x, groundSafePositon.y), skillPivot[num].transform.rotation, this.transform);
+                damageObject = Instantiate(Variant(skillprefab[num]), new Vector2(destination.x, groundSafePositon.y), skillPivot[num].transform.rotation, this.transform);
             else
-                damageObject = Instantiate(skillprefab[num], new Vector2(safePosition.x, groundSafePositon.y), skillPivot[num].transform.rotation, this.transform);
+                damageObject = Instantiate(Variant(skillprefab[num]), new Vector2(safePosition.x, groundSafePositon.y), skillPivot[num].transform.rotation, this.transform);
         }
     }
     private IEnumerator SpawnSkills() // 
@@ -201,13 +201,13 @@ public class Skill : MonoBehaviour
             if (isRayCheckSkill == false) //RayCast를 확인하는 기술인가
             {
                 if (isGorundCheckSkill == false) //일정 거리이상 점프시에 사용을 못하는 기술인가
-                    damageObject = Instantiate(skillprefab[i], skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
+                    damageObject = Instantiate(Variant(skillprefab[i]), skillPivot[i].transform.position, skillPivot[i].transform.rotation, this.transform);
                 else
                 {
                     WallCheck(false, isChangeDir,i);
                     Vector2 safePosition = hit.point - newDir.normalized; 
                     safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
-                    damageObject = Instantiate(skillprefab[i], new Vector2(skillPivot[i].transform.position.x, safePosition.y), skillPivot[i].transform.rotation, this.transform);
+                    damageObject = Instantiate(Variant(skillprefab[i]), new Vector2(skillPivot[i].transform.position.x, safePosition.y), skillPivot[i].transform.rotation, this.transform);
                 }
             }
             else // ray를 사용하는 기술. 전방으로 향하는 기술로서 pivot이 하나만 있어도 된다.
@@ -216,14 +216,14 @@ public class Skill : MonoBehaviour
                 if (hit.collider == null)
                 {
                     if (isGorundCheckSkill == false)
-                        damageObject = Instantiate(skillprefab[i], new Vector2(destination.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+                        damageObject = Instantiate(Variant(skillprefab[i]), new Vector2(destination.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
                     else //groundCheck를 해줘야하는경우
                         GroundCheck(false, i);
                 }
                 else
                 {
                     if (isGorundCheckSkill == false)
-                        damageObject = Instantiate(skillprefab[i], new Vector2(safePosition.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
+                        damageObject = Instantiate(Variant(skillprefab[i]), new Vector2(safePosition.x, skillPivot[i].transform.position.y), skillPivot[i].transform.rotation, this.transform);
                     else
                         GroundCheck(true, i);
                 }
@@ -258,12 +258,13 @@ public class Skill : MonoBehaviour
         // 발사 배치는 전략에 위임한다. FireMode 효과가 없으면 기존 부채꼴 배치(DefaultFirePattern)와 완전히 같다 (EquipEffectDesign §2.3, P3)
         IFirePattern pattern = FirePatterns.Create(mods, startAngle, endAngle, radius, player.transform.localScale.x < 0);
         int shots = pattern.Count(allBullet);
+        GameObject variantPrefab = Variant(damageOb); // Replace 변형(없으면 원본), 탄마다 질의하지 않는다
         for (int i = 0; i < shots; i++)
         {
             pattern.Get(i, shots, out Vector2 offset, out Vector2 fireDir);
 
             // 탄막 생성
-            GameObject bullet = GameObject.Instantiate(damageOb, attackPivot.transform.position + (Vector3)offset, Quaternion.identity, this.transform);
+            GameObject bullet = GameObject.Instantiate(variantPrefab, attackPivot.transform.position + (Vector3)offset, Quaternion.identity, this.transform);
             if (bullet != null)
             {
                 if (isNullParent == true) bullet.transform.parent = null;
@@ -276,6 +277,16 @@ public class Skill : MonoBehaviour
                 bullet.transform.up = fireDir;
             }
         }
+    }
+
+    /// <summary>장비 효과 Replace: 변형 프리팹이 지정돼 있으면 그것으로. 효과가 하나도 없으면 질의 없이 원본(할당 없음)</summary>
+    GameObject Variant(GameObject basePrefab)
+    {
+        if (basePrefab == null || SkillEffectService.ActiveCount == 0)
+        {
+            return basePrefab;
+        }
+        return SkillVariants.Resolve(basePrefab, SkillEffectService.Query(skillName, Kind));
     }
 
     /// <summary>장착 무기 종류(효과 선택자 kind: 용). 무기 없으면 None</summary>
@@ -442,7 +453,7 @@ public class Skill : MonoBehaviour
         {
             Vector2 safePosition = hit.point - newDir.normalized; // 충돌 지점에서 약간 떨어진 위치
             safePosition = new Vector2(safePosition.x, safePosition.y + yPivot);
-            damageObject = Instantiate(skillprefab[0], new Vector2(skillPivot[0].transform.position.x, safePosition.y), skillPivot[0].transform.rotation, this.transform);
+            damageObject = Instantiate(Variant(skillprefab[0]), new Vector2(skillPivot[0].transform.position.x, safePosition.y), skillPivot[0].transform.rotation, this.transform);
             PlaySkillSound(0);
         }
     }
@@ -510,14 +521,14 @@ public class Skill : MonoBehaviour
     {
         if (waitTime == 0)
         {
-            damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
+            damageObject = Instantiate(Variant(skillprefab[0]), skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform);
             PlaySkillSound(0);
         }
         else
         {
             _spawnDelaySequence = DOTween.Sequence()
             .AppendInterval(waitTime)
-            .AppendCallback(() => damageObject = Instantiate(skillprefab[0], skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform)).SetLink(gameObject);
+            .AppendCallback(() => damageObject = Instantiate(Variant(skillprefab[0]), skillPivot[0].transform.position, skillPivot[0].transform.rotation, this.transform)).SetLink(gameObject);
             PlaySkillSound(0);
         }
     }

@@ -677,3 +677,7 @@
 ## Q-WSKILL-UI 스킬창 임시 가정 (11-11, WSKILL-V2-2 P5)
 - 열기 K / 패드 LT+Y(필드 한정, LT+Y 는 상점 되사기와 같지만 상점은 UI 잠금이라 겹치지 않음). 초기화 R / 패드 X, 확인 Enter/A.
 - 전투 중·보스전 창 차단은 전투 상태 API 가 없어 보류(메이플은 전투 중 스킬창 허용). 생활 탭은 노드 없이 "준비 중".
+
+## Q-EFX7 장비 효과 등급 승격 (11-11, REWORK-12 P5)
+- 설계 §4.2 의 U 목표 효과(RootStaff·WispLantern·FrogTongueWhip·QuakestoneMaul)는 아이템이 현재 R 이라 `EF_U_*` 로 정의만 하고 부착하지 않았다. 임시 가정: 등급을 U 로 올리는 것은 가격·드롭 연출·`Floor1Balance` 에 영향이 있어 사용자 확인 후 진행. L 등급 신설도 같은 이유로 보류(Gatekeeper's Oath 는 U 유지).
+- Gatekeeper's Oath 고유 보너스(슈퍼아머 발동 시 쿨 -2초)는 슈퍼아머 이벤트 훅 필요 → 임시로 생략.

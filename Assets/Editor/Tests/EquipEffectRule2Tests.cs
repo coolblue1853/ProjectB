@@ -57,4 +57,41 @@ public class EquipEffectRule2Tests
         Assert.AreEqual(EffectRule.Chain, l[0].rule);
         Assert.AreEqual(EffectRule.OnKillCast, l[1].rule);
     }
+
+    [Test]
+    public void Replace_NoRule_ReturnsBase_WithRule_ReturnsVariant()
+    {
+        var baseGo = new UnityEngine.GameObject("base");
+        var m = new SkillMods();
+        Assert.AreSame(baseGo, SkillVariants.Resolve(baseGo, m));
+        m.rules = new[] { new EffectEntry { kind = EffectKind.Rule, rule = EffectRule.Replace, p1 = "GateCleave_Wide" } };
+        Assert.AreEqual("GateCleave_Wide", SkillVariants.KeyOf(m));
+        UnityEngine.GameObject v = SkillVariants.Resolve(baseGo, m);
+        Assert.AreNotSame(baseGo, v);
+        Assert.IsNotNull(v.GetComponent<DamageObject>());
+        UnityEngine.Object.DestroyImmediate(baseGo);
+    }
+
+    [Test]
+    public void Replace_MissingVariant_FallsBackToBase()
+    {
+        var baseGo = new UnityEngine.GameObject("base2");
+        string key = "NoSuchVariant_" + System.Guid.NewGuid().ToString("N"); // 정적 1회 경고 집합과 무관하게
+        var m = new SkillMods { rules = new[] { new EffectEntry { kind = EffectKind.Rule, rule = EffectRule.Replace, p1 = key } } };
+        UnityEngine.TestTools.LogAssert.Expect(UnityEngine.LogType.Warning, new System.Text.RegularExpressions.Regex("NoSuchVariant_"));
+        Assert.AreSame(baseGo, SkillVariants.Resolve(baseGo, m));
+        UnityEngine.Object.DestroyImmediate(baseGo);
+    }
+
+    [Test]
+    public void GateCleaveWide_IsSeparateAsset_BaseUntouched()
+    {
+        UnityEngine.GameObject basePf = UnityEngine.Resources.Load<UnityEngine.GameObject>("Weapon/DamageObject/GatekeepersOath/GatekeepersOathSlashWave");
+        UnityEngine.GameObject v = SkillVariants.Load("GateCleave_Wide");
+        Assert.IsNotNull(basePf);
+        Assert.IsNotNull(v);
+        Assert.AreNotSame(basePf, v);
+        Assert.Greater(v.transform.localScale.x, basePf.transform.localScale.x);
+        Assert.AreEqual(0.3f, basePf.transform.localScale.x, 0.001f, "공유 원본 스케일 무변경");
+    }
 }

@@ -128,7 +128,7 @@ public class EquipEffectDataTests
     public void OnlyTestItems_HaveEffectIds()
     {
         string[] withEffects = AllSources().Where(s => s.Value.Length > 0).Select(s => s.Key).OrderBy(x => x).ToArray();
-        Assert.AreEqual(new[] { "BearClaw", "LeafAdae", "LeafStaff" }, withEffects);
+        Assert.AreEqual(new[] { "BearClaw", "FangDagger", "GatekeepersOath", "LeafAdae", "LeafStaff", "QuakestoneMaul", "WispLantern" }, withEffects); // P5 무기 효과 추가(11-11)
     }
 
     [Test]

@@ -106,13 +106,13 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 103,Eye of the Cliffs,Equip,equipment,800,1,-,1,-,0,Necklace,,Eye of the Cliffs,0,R,0,,,,
 104,Bringer's Sigil Ring,Equip,equipment,1500,1,-,1,-,0,Ring,,Bringer's Sigil Ring,0,U,0,,,,
 105,Enhance Stone,Misc,A crystal born of the tower. Fed to a core at the smith to raise its enhancement.,200,1,hand,100,-,0,-,,Floor Crystal,1,R,0,,,,
-106,FangDagger,Equip,equipment,450,2,-,1,-,0,Weapon,WolfArmor,Fang Dagger,0,R,0,Pack Hunter,Dagger,,
+106,FangDagger,Equip,equipment,450,2,-,1,-,0,Weapon,WolfArmor,Fang Dagger,0,R,0,Pack Hunter,Dagger,,EF_FangDagger
 107,Wolf Fang,Misc,World,60,1,-,100,-,0,-,,Wolf Fang,0,C,0,,,,
 108,Boar Tusk,Misc,World,80,1,-,100,-,0,-,,Boar Tusk,0,C,0,,,,
 109,Wisp Ember,Misc,World,90,1,-,100,-,0,-,,Wisp Ember,0,R,0,,,,
 110,Snail Shell,Misc,World,70,1,-,100,-,0,-,,Snail Shell,0,C,0,,,,
 111,TuskKnuckles,Equip,equipment,450,2,-,1,-,0,Weapon,WolfArmor,Tusk Knuckles,0,R,0,Pack Hunter,Knuckle,,
-112,WispLantern,Equip,equipment,450,2,-,1,-,0,Weapon,WispArmor,Wisp Lantern,0,R,0,Night Lantern,Staff,,
+112,WispLantern,Equip,equipment,450,2,-,1,-,0,Weapon,WispArmor,Wisp Lantern,0,R,0,Night Lantern,Staff,,EF_WispLantern
 113,ShellShield,Equip,equipment,450,2,-,1,-,0,Weapon,WispArmor,Shell Shield,0,R,0,Night Lantern,Bulwark,,
 114,WolfCap,Equip,equipment,800,50,-,1,-,0,Earring,WolfArmor,Pack Hunter Hood,0,R,0,Pack Hunter,,,
 115,WolfArmor,Equip,equipment,1000,50,-,1,-,0,Chest,WolfArmor,Pack Hunter Coat,0,R,0,Pack Hunter,,,
@@ -183,9 +183,9 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 180,RaiderHandArmor,Equip,equipment,900,50,-,1,-,0,Ring,RaiderArmor,Iron Raider Gauntlets,0,R,0,Iron Raider,,,
 181,RaiderShoes,Equip,equipment,700,50,-,1,-,0,Charm,,Iron Raider Boots,0,R,0,,,,
 182,PebbleGauntlet,Equip,equipment,500,2,-,1,-,0,Weapon,StoneArmor,Pebble Gauntlet,0,R,0,Stoneborn,Knuckle,,
-183,QuakestoneMaul,Equip,equipment,500,3,-,1,-,0,Weapon,StoneArmor,Quakestone Maul,0,R,0,Stoneborn,Mace,,
+183,QuakestoneMaul,Equip,equipment,500,3,-,1,-,0,Weapon,StoneArmor,Quakestone Maul,0,R,0,Stoneborn,Mace,,EF_QuakestoneMaul
 184,MonolithShield,Equip,equipment,500,3,-,1,-,0,Weapon,StoneArmor,Monolith Shield,0,R,0,Stoneborn,Bulwark,,
-185,GatekeepersOath,Equip,equipment,9000,3,Boss,1,-,0,Weapon,,Gatekeeper's Oath,0,U,0,,Greatsword,,
+185,GatekeepersOath,Equip,equipment,9000,3,Boss,1,-,0,Weapon,,Gatekeeper's Oath,0,U,0,,Greatsword,,EF_GatekeepersOath
 186,Golem Pebble,Misc,World,130,1,-,100,-,0,-,,Golem Pebble,0,C,0,,,,
 187,Quake Core,Misc,World,150,1,-,100,-,0,-,,Quake Core,0,C,0,,,,
 188,Monolith Shard,Misc,World,150,1,-,100,-,0,-,,Monolith Shard,0,C,0,,,,

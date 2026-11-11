@@ -25,3 +25,25 @@ EF_DEV_KillCast,1,Rule,Scattering_Leaves,,,,,OnKillCast,Scattering_Leaves,50,1,,
 EF_DEV_Proc,1,Rule,Scattering_Leaves,,,,,Proc,Scattering_Leaves,100,1,,,
 EF_DEV_RefundKill,1,Rule,Scattering_Leaves,,,,,CooldownRefund,2,Kill,,,,
 EF_DEV_RefundHit,1,Rule,Scattering_Leaves,,,,,CooldownRefund,1,Hit,,,,
+# P5 무기 효과 데이터(REWORK-12). 점수는 §3.2 기준, 모두 임시값(Q-EFX)
+# Gatekeeper's Oath (L 목표, 현 등급 U): Gate_Cleave 피해+15·쿨-10·변형 Wide(스케일 1.7·관통+2) + 처치 시 Stone_Sentinels 20% 피해(내부쿨 3초). 고유 보너스(슈퍼아머 쿨-2초)는 이벤트 없어 보류
+EF_GatekeepersOath,1,Mod,Gate_Cleave,DamagePct,15,,,,,,,,,
+EF_GatekeepersOath,2,Mod,Gate_Cleave,CooldownPct,10,,,,,,,,,
+EF_GatekeepersOath,3,Rule,Gate_Cleave,,,,,Replace,GateCleave_Wide,,,,,
+EF_GatekeepersOath,4,Rule,Gate_Cleave,,,,,OnKillCast,Stone_Sentinels,20,3,,,
+# 도깨비불 랜턴(R): Wisp_Bolt 탄 +1 (4점)
+EF_WispLantern,1,Mod,Wisp_Bolt,ProjectileAdd,1,,,,,,,,,
+# 지진석 망치(R): Quake_Slam 타격 +1 (4점)
+EF_QuakestoneMaul,1,Mod,Quake_Slam,HitCountAdd,1,,,,,,,,,
+# 늑대 송곳니 단검(R): Howl_of_the_Pack 쿨 -20% 지속 +20% (10+4=14점, R 예산 약간 초과 → 쿨 -15 로 낮춤 = 11.5점)
+EF_FangDagger,1,Mod,Howl_of_the_Pack,CooldownPct,15,,,,,,,,,
+EF_FangDagger,2,Mod,Howl_of_the_Pack,DurationPct,20,,,,,,,,,
+# U 목표 효과 정의(아이템 등급이 현재 R 이라 아직 어디에도 안 붙임 — 등급 승격 결정 Q-EFX7 후 부착)
+EF_U_RootStaff,1,Mod,Ancient_Roots,HitCountAdd,2,,,,,,,,,
+EF_U_RootStaff,2,Rule,Ancient_Roots,,,,,Chain,2,4,30,,,
+EF_U_WispLantern,1,Mod,Wisp_Bolt,ProjectileAdd,1,,,,,,,,,
+EF_U_WispLantern,2,Rule,Wisp_Bolt,,,,,Proc,Ghostlight_Ring,10,2,,,
+EF_U_FrogTongueWhip,1,Mod,Tongue_Lash,RangePct,30,,,,,,,,,
+EF_U_FrogTongueWhip,2,Rule,Tongue_Lash,,,,,OnHitSpawn,Slow,30,1,,,
+EF_U_QuakestoneMaul,1,Mod,Quake_Slam,HitCountAdd,1,,,,,,,,,
+EF_U_QuakestoneMaul,2,Rule,Quake_Slam,,,,,Proc,Aftershock,12,2,,,
