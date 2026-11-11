@@ -82,6 +82,7 @@
 | `Game/WeaponTypes.md` | 무기 타입 확장 |
 | `Game/Floor1Completion.md` | 1층계 완성 계획: 최단 클리어 모델·할 것 설계·세트/무기 표 |
 | `Game/CombatFeelPlan.md` | 전투 조작감 개선: 진단·메이플+던파 조합 선택·CF 항목 |
+| `Game/CombatInputRedesign.md` | 전투 입력 재설계(REWORK-4): 무기 타입별 공격 중 이동 모드·패드 버퍼·콤보/캔슬 규칙·P0~P8·프로브 |
 | `Game/EquipSlotExpansion.md` | 비외형 장신구 신규 슬롯(귀걸이·팔찌·부적·마법석): 잠금·층계별 해금·폐기 정리·ES3·SLOT-R 큐 |
 | `Docs/Floor2Data/MigrationPlan.md` *(저장소 루트)* | 2층계 초안 CSV 이행 계획·재대조·롤백 |
 | `Docs/Playtest/LineageAudit.md` *(저장소 루트)* | 계보 장비(몹 스킬↔무기↔세트) 정합 점검과 수정 후보 |
@@ -97,6 +98,7 @@
 | `Game/EquipSplitPlaybook.md` | 장비 부위 분리 노하우: 속옷 기반 몸+5부위 쌓기·영역 지도·배낭/랜턴=상의·절차·함정 |
 | `Game/FloorTransition.md` | 층계 전환 규칙: 이동 조건·칭호 부하·포털/귀환·안전지대·구현 갭 FT-* |
 | `Game/FastTravel.md` | 빠른 이동(REWORK-14): 수레(마차) 형제 NPC 정류장·퀘스트 해금·골드 이동 규칙·ES3 `ft.stops`·3경로 입력·히든 포털·P0~P5(설계만) |
+| `Game/EarlyHourPlan.md` | 초반 30분·1시간 시간표(REWORK-9): 필수 경험·변화 간격·막힘/단조 구간·퀘스트 CSV 조정 R-1~14·검증 시나리오 |
 | `Game/LevelDesignRef.md` | 레벨 디자인 참고(REWORK-7·10): 메랜 DB 레벨 구간별 몹 HP·EXP·맵당 개체 수와 우리 1~2층계 대조·튀는 구간 L1~L7·수정안 |
 
 ## 운영
