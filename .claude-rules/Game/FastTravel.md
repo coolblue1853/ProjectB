@@ -108,3 +108,9 @@
 - 마차 NPC 는 `FastTravelStops.csv` 의 `npcName`(=NPC id)·anchorX/Y 로 부트 때 배치(`NpcQuestPlacer.CreateCoaches`, 상인 도트 + 색조 임시). anchor 는 각 맵 입구 포털 +4 유닛, Y 는 지면 스냅. 도착 위치는 `GoToMap` 기본(입구 포털) 그대로.
 - ↑ 상호작용은 기존 `TalkNpc` 의 `InteractArbiter.Contend` 를 그대로 사용(`NpcInteraction.Run` 이 `FastTravelNpc` 를 보고 Travel 항목 추가). 3경로 입력은 `NpcMenu`(↑↓·Enter·A·마우스·Esc·B)·`ConfirmPopup`(←→·Z·A) 공용.
 - 미구현: P4 히든 포털, 마차 NPC 실좌표 맵별 캡처(낮), 실패드·실마우스 확인, 이동 중 재진입 가드(리뷰 권장), ES3 `ft.*` 슬롯 전환 실기.
+
+## 12. P4 히든 포털 구현 (11-11 builder)
+- 데이터 `Resources/HiddenPortals.csv`(`map,id,ax,ay,bx,by,note`) → `HiddenPortalTable`(파싱·검증: 두 끝 6유닛 이상, id 중복 제거) → `HiddenPortals.Boot` 가 부트 때 맵마다 `Portal` 두 개를 만든다(씬 수정 없음, `openMap` 비어 같은 맵 이동·도착 무적 2초 그대로).
+- 높이는 맵이 처음 켜질 때 지면+1.1 로 맞춘다(`HiddenPortalSnap`). 표식: `PortalLabel` 숨김 모드(평소 옅은 "·", 반경 2 안이면 "↑ 건너편").
+- 입력: 키보드·패드 ↑ = `Portal.Update`(`InteractArbiter.Contend`), 마우스 = 범위 안에서 포털 자리 좌클릭(`HiddenPortalClick`).
+- 배치(임시, Q-FT5): `Lv1_NearForest_SideRoad`·`Lv1_NormalForest` 각 1쌍 `(-230, 높은 막다른 발판) <-> (-355, 길)`. 보스방 금지는 수동(보스 맵 줄을 CSV 에 넣지 않는다). 미검증: 일반 숲 실좌표 지면, 실패드·실마우스.

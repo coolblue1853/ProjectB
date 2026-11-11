@@ -19,6 +19,8 @@ public class Portal : MonoBehaviour
     public const float ArrivalInvincible = 2.0f;
     /// <summary>라벨에 쓸 이름(비우면 목적지 구역 이름). 같은 맵 안 이동 포털용</summary>
     public string labelOverride;
+    /// <summary>숨은 포털(HiddenPortals): 평소엔 거의 안 보이고 가까이 가면 ↑ 힌트</summary>
+    public bool hiddenPortal;
     public GameObject player;
     private void OnEnable()
     {

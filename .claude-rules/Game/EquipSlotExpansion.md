@@ -87,3 +87,8 @@
 - Q-SLOT1: 슬롯 4종·층계 배정은 임시(귀걸이→팔찌→부적→마법석).
 - Q-SLOT3: 쌍 반지(Ring2) 포함 여부.
 - Q-SLOT4: 폐기 아이템 반환 시 가방이 가득 찰 때 처리(판매값 골드 지급 임시).
+
+## 10. 해금 훅 연결 현황 (11-11 builder)
+- 연결 방식: `BossLoot.Roll` 첫 처치 분기가 `ExtraEquipRewards.OnFloorBossFirstKill(r.grantsRank)` → `TriggerHook("boss:" + grantsRank)`. 보스 `BossReward.asset` 의 `grantsRank` 가 층계 번호다. 별도 호출 추가 없이 SlotUnlocks.csv hook 열과 맞물린다.
+- 연결됨: 1층계 `boss:1`(AncientEnt, 칭호 슬롯) + `bestiary:B04`(`BestiaryMilestones`), 2층계 `boss:2`(Gatekeeper, 펫), 3층계 `boss:3`(AbyssWizard, 팔찌).
+- 콘텐츠 대기: `boss:4`(룬), `boss:5`(허리띠), `boss:6`(성물), `boss:7`(마법석). `grantsRank` 4~7 인 보스 에셋이 아직 없다(`Resources/Boss` 7종은 rank 0~3). 4~7층계 보스를 만들 때 `grantsRank` 를 층계 번호로 두면 훅이 자동 해금한다. 층계 진입 훅은 두지 않는다(설계 §5: 해금 = 보스 첫 처치).

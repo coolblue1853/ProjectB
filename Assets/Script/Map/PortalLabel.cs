@@ -81,6 +81,12 @@ public sealed class PortalLabel : MonoBehaviour
     {
         _near = near;
         _sealed = _seal != null && !_seal.IsOpen;
+        if (_portal != null && _portal.hiddenPortal)
+        {
+            _text.text = near ? "↑ " + _title : "·";
+            _text.color = near ? Near : new Color(0.85f, 0.85f, 0.78f, 0.25f);
+            return;
+        }
         string line = _sealed ? "[봉인] " + _title : _title;
         _text.text = near && !_sealed ? "↑ " + line : line;
         _text.color = _sealed ? new Color(0.9f, 0.45f, 0.4f, near ? 1f : 0.7f) : (near ? Near : Idle);
