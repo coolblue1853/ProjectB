@@ -37,3 +37,8 @@
 - `Game/LevelDesignRef.md` 신규: 메랜 DB 몹 749종·맵 7곳(WebFetch, Chrome 미연결) 레벨 구간 HP·EXP·맵당 개체 수 표 → 우리 1~2층 대조, 튀는 구간 L1~L7.
 - 주요: 2층 EXP 2.8배 도약, 1층 후반 HP 정체(EXP/HP 증가), DeathBringer HP 2500 이상치, 층계 경계 HP 8배.
 - CSV 변경 없음(Unity MCP ECONNREFUSED, EditMode 불가). 사이트에 맵 크기·발판·리젠 없음 → Q-LVREF.
+
+## REWORK-6 퀘스트 콘텐츠 (11-11)
+- `Game/QuestDesign.md` 신규: 메이플 퀘스트 구성 조사(표본 4건)·유형 3종·대사 단계·1/2층계 메인 줄기·사이드 사슬·재분류표.
+- `QuestsFloor1.csv` `kind` 빈칸 60행 채움(main 7·side 8·reward 45, 이행분 포함 71건 = 10/8/53). 다른 값 불변.
+- 코드 변경 없음. Unity MCP 연결 실패로 EditMode 미실행(미검증). 질문 Q-QD1~4 는 OpenQuestions.

@@ -1,64 +1,64 @@
 ﻿id,title,giver,minLevel,requires,objective,target,count,exp,gold,rewardItem,rewardCount,description,source,kind,reportTo,offerLine,progressLine,doneLine,zone,stones,artifact,repeat,sort,objective2,target2,count2
-Q101,마지막 별의 방향,elder,1,,talk,elder,1,700,100,,,마을 오른쪽 끝 포털에서 ↑를 눌러 숲 샛길로 가게. 먼저 마을 사냥꾼 루엔에게 ↑로 사냥 의뢰를 받게. X 공격·C 점프·Shift 달리기·Q 퀘스트·I 가방·1~4 물약. 대시는 나중에 열린다.
-Q102,뿌리 밑의 발자국,ruen,1,Q101,kill,FlowerMole_BD,8,600,120,LeafAdae,1,샛길 오른쪽 끝 연결 포털로 서쪽 구역에 간다. 오른쪽으로 이동해 로프를 ↑로 잡고 고지대의 꽃두더지 8마리를 처치한다. C 점프·↑↓ 로프. 마을 루엔에게 보고한다.
-Q103,바람에 쓸린 약초,sena,2,Q102,collect,GreenHurb,3,742,90,GreenHurb,1,샛길 입구 근처 약초나 오른쪽 표본 덤불에서 약초 3개를 모아 세나에게 보고한다. 덤불은 ↑ 시작·표적에 맞춰 다시 ↑. 보고 뒤 요리에 쓸 약초 1개를 돌려준다.
-Q104,밤을 지키는 허수아비,ruen,3,Q102,kill,Scarecrow_BD,6,800,180,Potion,1,샛길 허수아비 6마리를 처치해 루엔에게 보고한다. 밤에만 나오는 적이므로 낮이면 꽃두더지와 토끼를 사냥하며 기다린다. 물약을 준비한다.
-Q105,이끼 낀 껍질,ruen,3,Q102,kill,MossShellBeetle_BD,5,450,120,Potion,1,샛길 낮 사냥터의 이끼껍질 딱정벌레 5마리를 처치해 마을 루엔에게 보고한다. 느리고 단단하니 서두르지 말고 몸박을 피한다.
-Q201,나무에 새겨진 별,elder,3,Q101,collect,StarBarkFragment,3,1000,160,WolfCap,1,샛길의 오른쪽 일반 숲 포털 → 숲 늑대를 사냥해 별무늬 수피 조각 3개를 주워 장로에게 보고한다. 수락 중에만 조각이 떨어진다.
-Q202,숲의 경계선,ruen,4,Q102,kill,WildBoar_BD,8,900,210,FangDagger,1,샛길 오른쪽 일반 숲 포털에서 들어가 왼쪽으로 이동하며 멧돼지 8마리를 처치한 뒤 마을 루엔에게 보고한다.
-Q203,불가에서 만든 첫 끼,merchant,4,Q103,craft,Herb Roasted Rabbit,1,1080,140,Herb Roasted Rabbit,1,샛길 화로(입구에서 오른쪽)에서 토끼고기 2·약초 1·나무 1로 허브 토끼구이를 만든다. ↑ 시작·X 요리 및 뒤집기·ESC 취소.
-Q204,어두워지는 숲,eve,5,Q202,visit,forest_night_post,1,1000,210,WolfShoes,1,일반 숲 입구 이브에게 받은 뒤 왼쪽으로 조금 가서 금빛 별 관측지를 밟고 이브에게 돌아온다. 방문은 낮에도 가능하다.
-Q301,말하는 나이테,elder,6,Q201,kill,AncientEnt_BD,1,1300,300,GroveCap,1,메인: 고대 엔트의 기억에서 탑의 문장을 본다.
-Q302,곰의 길,ruen,6,Q202,kill,ForestBear_BD,7,1200,250,BearClaw,1,깊은 숲의 중형 몬스터를 소개한다.
-Q303,죽은 나무의 심장,smith,7,Q302,collect,EntHeartwood,3,1316,270,Enhance Stone,1,엔트 파밍과 대장장이 방문을 연결한다.
-Q304,새벽의 빈 둥지,eve,8,Q302,visit,deep_nest,1,1300,240,RootStaff,1,흔적 추적 및 정예 둥지 위치를 안내한다.
-Q305,가지뿔에 걸린 길,ruen,7,Q302,kill,BranchAntlerFox_BD,6,850,200,Potion,1,깊은 숲의 가지뿔 여우 6마리를 처치해 루엔에게 보고한다. 짧게 돌진하니 달려드는 방향을 보고 거리를 벌린다.
-Q401,물속의 네 갈래 별,elder,9,Q301,collect,SwampStarShard,3,1500,350,CrocJawAxe,1,메인: 늪 악어가 삼킨 별 문장 조각을 모은다.
-Q402,늪이 삼킨 낚싯줄,merchant,9,Q401,collect,Moss Loach,2,1400,250,BogCap,1,낚시 입문: 늪 낚시터에서 이끼미꾸라지를 낚는다.
-Q403,가라앉지 않는 진흙,sena,10,Q401,kill,BogSlime_BD,8,1469,310,Potion,1,야간 늪 사냥과 슬라임 위험을 안내한다.
-Q404,부풀어 오른 심장,ruen,11,Q403,kill,GiantSlime_BD,1,1600,470,Enhance Stone,1,늪 보스 공략 후 성채 분기와 탑 근교를 연다.
-Q405,등에 핀 포자,sena,9,Q401,kill,SporeBackToad_BD,6,950,230,Potion,1,늪의 포자등 두꺼비 6마리를 처치해 세나에게 보고한다. 맞으면 포자 구름이 퍼지니 터진 자리에서 물러난다.
-Q501,사라진 운반대,merchant,11,Q404,kill,BanditCutthroat_BD,8,800,350,,,선택: 산적 성채의 보급로를 확인한다.
-Q502,빼앗긴 대장간 화물,smith,12,Q501,collect,StolenForgeCrate,4,900,420,T0_Ore,1,선택: 산적 궁수 드롭을 모아 제작 거점을 돕는다.
-Q503,방패 너머의 길,ruen,12,Q501,kill,BanditShieldman_BD,7,811,390,,,선택: 성채 안쪽으로 진입한다.
-Q504,성채에 남은 밤,eve,13,Q502,kill,BanditChief_BD,1,900,650,ChiefsLastStandRing,1,선택: 성채 분기 보스를 격파한다.
-Q601,별이 닿은 돌문,elder,13,Q401,visit,tower_altar,1,1700,540,,,메인: 브로치가 유적 제단에 반응한다.
-Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,1800,470,,,탑 근교 유적에서 발굴을 반복해 아버지의 기록 5편을 모은다. 유물을 하나라도 캐면 기록 1편을 얻고(확률로 더 나오기도 한다) 일반 5분·희귀 10분 후 다시 발굴할 수 있다.
-Q603,잠들지 않는 골렘,smith,14,Q601,kill,GolemMedium_BD,6,1607,580,Enhance Stone,2,골렘 사냥과 강화 재료 획득을 안내한다.
-Q604,첫 번째 문의 수호자,elder,15,Q601,kill,Gatekeeper_BD,1,2000,1000,BroochResonance,1,메인: 문지기 격파 후 브로치에 다음 층계 길이 새겨진다.
-Q106,쥐 도둑 소탕,ruen,2,Q102,kill,RatThief_BD,6,300,70,Tough Rat Hide,1,쥐 도둑 6마리를 처치해 루엔에게 보고한다.
-Q107,기본 방어구 착용,merchant,2,Q101,equip,armor,2,300,70,LeafCap,1,기본 방어구를 2부위 착용하고 상인에게 보고한다.
-Q108,표본 버섯 채집,sena,3,Q103,collect,Forest Mushroom,5,300,70,Potion,1,샛길 약초 덤불에서 숲 버섯 5개를 모아 세나에게 보고한다.
-Q205,도깨비불 사냥,eve,4,Q201,kill,Wisp_BD,8,500,120,Wisp Ember,3,밤에 나오는 도깨비불 8마리를 처치해 이브에게 보고한다.
-Q206,늑대 투구 제작,smith,5,Q202,craft,WolfCap,1,500,120,WolfHandArmor,1,늑대 송곳니 8개로 늑대 투구를 제작해 대장장이에게 보고한다.
-Q207,우두머리 늑대,ruen,5,Q202,killElite,AlphaWolf_BD,1,500,120,WolfArmor,1,일반 숲의 우두머리 늑대를 처치해 루엔에게 보고한다.
-Q306,곰 가죽 장갑 제작,sena,6,Q302,craft,GroveHandArmor,1,900,200,GroveLegArmor,1,곰 가죽으로 숲지기 장갑을 제작해 세나에게 보고한다.
-Q307,숲지기 세트 착용,smith,7,Q303,equip,GroveArmor,3,900,200,GroveArmor,1,숲지기 세트를 3부위 착용하고 대장장이에게 보고한다.
-Q308,깊은 숲 둥지 정예,eve,7,Q304,killElite,*,1,900,200,Enhance Stone,2,깊은 숲 둥지의 정예를 처치해 이브에게 보고한다. 구역 인장 보상은 아이템 추가 후 교체.
-Q309,늙은 곰,ruen,8,Q305,killElite,OldBear_BD,1,1000,220,GroveShoes,1,깊은 숲의 늙은 곰을 처치해 루엔에게 보고한다.
-Q406,늪 낚시,sena,9,Q402,collect,Amber Trout,2,5100,350,BogLegArmor,1,늪 낚시터에서 호박송어 2마리를 낚아 세나에게 보고한다.
-Q407,늪 사냥꾼 세트 착용,smith,10,Q405,equip,BogArmor,3,5400,370,BogArmor,1,늪 사냥꾼 세트를 3부위 착용하고 대장장이에게 보고한다.
-Q408,늪 둥지 정예,eve,10,Q403,killElite,*,1,5400,370,ZoneSeal_Swamp,1,늪 둥지의 정예를 처치해 이브에게 보고한다.
-Q409,무기 강화 +3,smith,11,Q407,enhance,weapon,3,5700,390,SlimeMace,1,무기를 +3까지 강화하고 대장장이에게 보고한다.
-Q505,산적 부두목,ruen,12,Q501,killElite,BanditLieutenant_BD,1,2000,420,OutlawCap,1,선택: 성채의 산적 부두목을 처치한다.
-Q506,무법자 세트 착용,smith,12,Q502,equip,OutlawArmor,3,2200,460,OutlawArmor,1,선택: 무법자 세트를 3부위 착용한다.
-Q507,무기 강화 +5,merchant,12,Q504,enhance,weapon,5,2300,480,CutthroatDagger,1,선택: 무기를 +5까지 강화한다.
-Q508,약탈자 세트 착용,eve,13,Q503,equip,RaiderArmor,3,2200,460,RaiderArmor,1,선택: 약탈자 세트를 3부위 착용한다. 밤 성채에서 재료를 모은다.
-Q509,성채 광맥 채집,sena,13,Q504,collect,Bog Copper Ore,3,2300,480,Enhance Stone,1,선택: 희귀 광맥에서 늪 구리 광석 3개를 모은다.
-Q605,장로 골렘,ruen,13,Q601,killElite,ElderGolem_BD,1,7200,500,StoneCap,1,탑 근교의 장로 골렘을 처치해 루엔에게 보고한다.
-Q606,돌탑 세트 착용,smith,13,Q603,equip,StoneArmor,3,7500,520,StoneArmor,1,돌탑 세트를 3부위 착용하고 대장장이에게 보고한다.
-Q607,유적 파편 수집,eve,14,Q602,collect,Ancient Relic Shard,8,7800,540,StoneLegArmor,1,탑 근교 유적 발굴로 고대 유물 파편 8개를 모아 이브에게 보고한다.
-Q608,석판 조각 수집,sena,14,Q601,collect,Monolith Shard,6,7800,540,StoneHandArmor,1,탑 근교에서 석판 조각 6개를 모아 세나에게 보고한다.
-Q609,방어구 강화 +5,merchant,14,Q606,enhance,armor,5,8100,560,StoneShoes,1,방어구를 +5까지 강화하고 상인에게 보고한다.
-Q610,도감 12종,elder,14,Q603,bestiary,any,12,8400,580,Enhance Stone,1,서로 다른 몬스터 12종을 처치해 장로에게 보고한다.
-Q701,정예 사냥 5,elder,15,Q610,killElite,*,5,1000,200,Enhance Stone,1,정예 몬스터 5마리를 처치해 장로에게 보고한다.
-Q702,세트 3종 착용,smith,15,Q609,equip,sets:3,3,1000,200,Enhance Stone,1,서로 다른 세트 3종을 각 3부위 이상 착용한다.
-Q703,도감 15종,eve,15,Q610,bestiary,any,15,1000,200,Enhance Stone,1,서로 다른 몬스터 15종을 처치해 이브에게 보고한다.
-Q704,문지기 도전 선언,elder,15,Q701,talk,elder,1,1000,200,,,장로에게 문지기 도전을 알린다.
-Q310,심부의 포자,sena,7,Q302,kill,DeepSpore_BD,8,1200,300,Potion,2,깊은 숲 심부의 포자버섯 8마리를 처치해 세나에게 보고한다. 깊은 숲 오른쪽 끝 포털로 들어간다.
-Q311,심부의 요정 가루,eve,8,Q304,collect,Fairy Dust,8,1200,300,Potion,2,깊은 숲 심부의 밤 요정에게서 요정 가루 8개를 모아 이브에게 보고한다.
-Q410,안개 속 희귀 어종,sena,10,Q402,collect,Spirit Koi,1,2400,500,Enhance Stone,1,안개 늪 낚시터에서 정령잉어 1마리를 낚아 세나에게 보고한다. 늪 중앙 포털로 들어간다.
-Q411,안개 속 슬라임,eve,11,Q403,collect,Slime Gel,8,2400,500,Enhance Stone,1,안개 늪의 밤 슬라임에게서 슬라임 젤 8개를 모아 이브에게 보고한다.
+Q101,마지막 별의 방향,elder,1,,talk,elder,1,700,100,,,마을 오른쪽 끝 포털에서 ↑를 눌러 숲 샛길로 가게. 먼저 마을 사냥꾼 루엔에게 ↑로 사냥 의뢰를 받게. X 공격·C 점프·Shift 달리기·Q 퀘스트·I 가방·1~4 물약. 대시는 나중에 열린다.,,main
+Q102,뿌리 밑의 발자국,ruen,1,Q101,kill,FlowerMole_BD,8,600,120,LeafAdae,1,샛길 오른쪽 끝 연결 포털로 서쪽 구역에 간다. 오른쪽으로 이동해 로프를 ↑로 잡고 고지대의 꽃두더지 8마리를 처치한다. C 점프·↑↓ 로프. 마을 루엔에게 보고한다.,,reward
+Q103,바람에 쓸린 약초,sena,2,Q102,collect,GreenHurb,3,742,90,GreenHurb,1,샛길 입구 근처 약초나 오른쪽 표본 덤불에서 약초 3개를 모아 세나에게 보고한다. 덤불은 ↑ 시작·표적에 맞춰 다시 ↑. 보고 뒤 요리에 쓸 약초 1개를 돌려준다.,,reward
+Q104,밤을 지키는 허수아비,ruen,3,Q102,kill,Scarecrow_BD,6,800,180,Potion,1,샛길 허수아비 6마리를 처치해 루엔에게 보고한다. 밤에만 나오는 적이므로 낮이면 꽃두더지와 토끼를 사냥하며 기다린다. 물약을 준비한다.,,reward
+Q105,이끼 낀 껍질,ruen,3,Q102,kill,MossShellBeetle_BD,5,450,120,Potion,1,샛길 낮 사냥터의 이끼껍질 딱정벌레 5마리를 처치해 마을 루엔에게 보고한다. 느리고 단단하니 서두르지 말고 몸박을 피한다.,,reward
+Q201,나무에 새겨진 별,elder,3,Q101,collect,StarBarkFragment,3,1000,160,WolfCap,1,샛길의 오른쪽 일반 숲 포털 → 숲 늑대를 사냥해 별무늬 수피 조각 3개를 주워 장로에게 보고한다. 수락 중에만 조각이 떨어진다.,,main
+Q202,숲의 경계선,ruen,4,Q102,kill,WildBoar_BD,8,900,210,FangDagger,1,샛길 오른쪽 일반 숲 포털에서 들어가 왼쪽으로 이동하며 멧돼지 8마리를 처치한 뒤 마을 루엔에게 보고한다.,,reward
+Q203,불가에서 만든 첫 끼,merchant,4,Q103,craft,Herb Roasted Rabbit,1,1080,140,Herb Roasted Rabbit,1,샛길 화로(입구에서 오른쪽)에서 토끼고기 2·약초 1·나무 1로 허브 토끼구이를 만든다. ↑ 시작·X 요리 및 뒤집기·ESC 취소.,,reward
+Q204,어두워지는 숲,eve,5,Q202,visit,forest_night_post,1,1000,210,WolfShoes,1,일반 숲 입구 이브에게 받은 뒤 왼쪽으로 조금 가서 금빛 별 관측지를 밟고 이브에게 돌아온다. 방문은 낮에도 가능하다.,,side
+Q301,말하는 나이테,elder,6,Q201,kill,AncientEnt_BD,1,1300,300,GroveCap,1,메인: 고대 엔트의 기억에서 탑의 문장을 본다.,,main
+Q302,곰의 길,ruen,6,Q202,kill,ForestBear_BD,7,1200,250,BearClaw,1,깊은 숲의 중형 몬스터를 소개한다.,,reward
+Q303,죽은 나무의 심장,smith,7,Q302,collect,EntHeartwood,3,1316,270,Enhance Stone,1,엔트 파밍과 대장장이 방문을 연결한다.,,reward
+Q304,새벽의 빈 둥지,eve,8,Q302,visit,deep_nest,1,1300,240,RootStaff,1,흔적 추적 및 정예 둥지 위치를 안내한다.,,side
+Q305,가지뿔에 걸린 길,ruen,7,Q302,kill,BranchAntlerFox_BD,6,850,200,Potion,1,깊은 숲의 가지뿔 여우 6마리를 처치해 루엔에게 보고한다. 짧게 돌진하니 달려드는 방향을 보고 거리를 벌린다.,,reward
+Q401,물속의 네 갈래 별,elder,9,Q301,collect,SwampStarShard,3,1500,350,CrocJawAxe,1,메인: 늪 악어가 삼킨 별 문장 조각을 모은다.,,main
+Q402,늪이 삼킨 낚싯줄,merchant,9,Q401,collect,Moss Loach,2,1400,250,BogCap,1,낚시 입문: 늪 낚시터에서 이끼미꾸라지를 낚는다.,,reward
+Q403,가라앉지 않는 진흙,sena,10,Q401,kill,BogSlime_BD,8,1469,310,Potion,1,야간 늪 사냥과 슬라임 위험을 안내한다.,,reward
+Q404,부풀어 오른 심장,ruen,11,Q403,kill,GiantSlime_BD,1,1600,470,Enhance Stone,1,늪 보스 공략 후 성채 분기와 탑 근교를 연다.,,main
+Q405,등에 핀 포자,sena,9,Q401,kill,SporeBackToad_BD,6,950,230,Potion,1,늪의 포자등 두꺼비 6마리를 처치해 세나에게 보고한다. 맞으면 포자 구름이 퍼지니 터진 자리에서 물러난다.,,reward
+Q501,사라진 운반대,merchant,11,Q404,kill,BanditCutthroat_BD,8,800,350,,,선택: 산적 성채의 보급로를 확인한다.,,side
+Q502,빼앗긴 대장간 화물,smith,12,Q501,collect,StolenForgeCrate,4,900,420,T0_Ore,1,선택: 산적 궁수 드롭을 모아 제작 거점을 돕는다.,,side
+Q503,방패 너머의 길,ruen,12,Q501,kill,BanditShieldman_BD,7,811,390,,,선택: 성채 안쪽으로 진입한다.,,side
+Q504,성채에 남은 밤,eve,13,Q502,kill,BanditChief_BD,1,900,650,ChiefsLastStandRing,1,선택: 성채 분기 보스를 격파한다.,,side
+Q601,별이 닿은 돌문,elder,13,Q401,visit,tower_altar,1,1700,540,,,메인: 브로치가 유적 제단에 반응한다.,,main
+Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,1800,470,,,탑 근교 유적에서 발굴을 반복해 아버지의 기록 5편을 모은다. 유물을 하나라도 캐면 기록 1편을 얻고(확률로 더 나오기도 한다) 일반 5분·희귀 10분 후 다시 발굴할 수 있다.,,side
+Q603,잠들지 않는 골렘,smith,14,Q601,kill,GolemMedium_BD,6,1607,580,Enhance Stone,2,골렘 사냥과 강화 재료 획득을 안내한다.,,reward
+Q604,첫 번째 문의 수호자,elder,15,Q601,kill,Gatekeeper_BD,1,2000,1000,BroochResonance,1,메인: 문지기 격파 후 브로치에 다음 층계 길이 새겨진다.,,main
+Q106,쥐 도둑 소탕,ruen,2,Q102,kill,RatThief_BD,6,300,70,Tough Rat Hide,1,쥐 도둑 6마리를 처치해 루엔에게 보고한다.,,reward
+Q107,기본 방어구 착용,merchant,2,Q101,equip,armor,2,300,70,LeafCap,1,기본 방어구를 2부위 착용하고 상인에게 보고한다.,,reward
+Q108,표본 버섯 채집,sena,3,Q103,collect,Forest Mushroom,5,300,70,Potion,1,샛길 약초 덤불에서 숲 버섯 5개를 모아 세나에게 보고한다.,,reward
+Q205,도깨비불 사냥,eve,4,Q201,kill,Wisp_BD,8,500,120,Wisp Ember,3,밤에 나오는 도깨비불 8마리를 처치해 이브에게 보고한다.,,reward
+Q206,늑대 투구 제작,smith,5,Q202,craft,WolfCap,1,500,120,WolfHandArmor,1,늑대 송곳니 8개로 늑대 투구를 제작해 대장장이에게 보고한다.,,reward
+Q207,우두머리 늑대,ruen,5,Q202,killElite,AlphaWolf_BD,1,500,120,WolfArmor,1,일반 숲의 우두머리 늑대를 처치해 루엔에게 보고한다.,,reward
+Q306,곰 가죽 장갑 제작,sena,6,Q302,craft,GroveHandArmor,1,900,200,GroveLegArmor,1,곰 가죽으로 숲지기 장갑을 제작해 세나에게 보고한다.,,reward
+Q307,숲지기 세트 착용,smith,7,Q303,equip,GroveArmor,3,900,200,GroveArmor,1,숲지기 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
+Q308,깊은 숲 둥지 정예,eve,7,Q304,killElite,*,1,900,200,Enhance Stone,2,깊은 숲 둥지의 정예를 처치해 이브에게 보고한다. 구역 인장 보상은 아이템 추가 후 교체.,,reward
+Q309,늙은 곰,ruen,8,Q305,killElite,OldBear_BD,1,1000,220,GroveShoes,1,깊은 숲의 늙은 곰을 처치해 루엔에게 보고한다.,,reward
+Q406,늪 낚시,sena,9,Q402,collect,Amber Trout,2,5100,350,BogLegArmor,1,늪 낚시터에서 호박송어 2마리를 낚아 세나에게 보고한다.,,reward
+Q407,늪 사냥꾼 세트 착용,smith,10,Q405,equip,BogArmor,3,5400,370,BogArmor,1,늪 사냥꾼 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
+Q408,늪 둥지 정예,eve,10,Q403,killElite,*,1,5400,370,ZoneSeal_Swamp,1,늪 둥지의 정예를 처치해 이브에게 보고한다.,,reward
+Q409,무기 강화 +3,smith,11,Q407,enhance,weapon,3,5700,390,SlimeMace,1,무기를 +3까지 강화하고 대장장이에게 보고한다.,,reward
+Q505,산적 부두목,ruen,12,Q501,killElite,BanditLieutenant_BD,1,2000,420,OutlawCap,1,선택: 성채의 산적 부두목을 처치한다.,,reward
+Q506,무법자 세트 착용,smith,12,Q502,equip,OutlawArmor,3,2200,460,OutlawArmor,1,선택: 무법자 세트를 3부위 착용한다.,,reward
+Q507,무기 강화 +5,merchant,12,Q504,enhance,weapon,5,2300,480,CutthroatDagger,1,선택: 무기를 +5까지 강화한다.,,reward
+Q508,약탈자 세트 착용,eve,13,Q503,equip,RaiderArmor,3,2200,460,RaiderArmor,1,선택: 약탈자 세트를 3부위 착용한다. 밤 성채에서 재료를 모은다.,,reward
+Q509,성채 광맥 채집,sena,13,Q504,collect,Bog Copper Ore,3,2300,480,Enhance Stone,1,선택: 희귀 광맥에서 늪 구리 광석 3개를 모은다.,,reward
+Q605,장로 골렘,ruen,13,Q601,killElite,ElderGolem_BD,1,7200,500,StoneCap,1,탑 근교의 장로 골렘을 처치해 루엔에게 보고한다.,,reward
+Q606,돌탑 세트 착용,smith,13,Q603,equip,StoneArmor,3,7500,520,StoneArmor,1,돌탑 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
+Q607,유적 파편 수집,eve,14,Q602,collect,Ancient Relic Shard,8,7800,540,StoneLegArmor,1,탑 근교 유적 발굴로 고대 유물 파편 8개를 모아 이브에게 보고한다.,,reward
+Q608,석판 조각 수집,sena,14,Q601,collect,Monolith Shard,6,7800,540,StoneHandArmor,1,탑 근교에서 석판 조각 6개를 모아 세나에게 보고한다.,,reward
+Q609,방어구 강화 +5,merchant,14,Q606,enhance,armor,5,8100,560,StoneShoes,1,방어구를 +5까지 강화하고 상인에게 보고한다.,,reward
+Q610,도감 12종,elder,14,Q603,bestiary,any,12,8400,580,Enhance Stone,1,서로 다른 몬스터 12종을 처치해 장로에게 보고한다.,,reward
+Q701,정예 사냥 5,elder,15,Q610,killElite,*,5,1000,200,Enhance Stone,1,정예 몬스터 5마리를 처치해 장로에게 보고한다.,,reward
+Q702,세트 3종 착용,smith,15,Q609,equip,sets:3,3,1000,200,Enhance Stone,1,서로 다른 세트 3종을 각 3부위 이상 착용한다.,,reward
+Q703,도감 15종,eve,15,Q610,bestiary,any,15,1000,200,Enhance Stone,1,서로 다른 몬스터 15종을 처치해 이브에게 보고한다.,,reward
+Q704,문지기 도전 선언,elder,15,Q701,talk,elder,1,1000,200,,,장로에게 문지기 도전을 알린다.,,side
+Q310,심부의 포자,sena,7,Q302,kill,DeepSpore_BD,8,1200,300,Potion,2,깊은 숲 심부의 포자버섯 8마리를 처치해 세나에게 보고한다. 깊은 숲 오른쪽 끝 포털로 들어간다.,,reward
+Q311,심부의 요정 가루,eve,8,Q304,collect,Fairy Dust,8,1200,300,Potion,2,깊은 숲 심부의 밤 요정에게서 요정 가루 8개를 모아 이브에게 보고한다.,,reward
+Q410,안개 속 희귀 어종,sena,10,Q402,collect,Spirit Koi,1,2400,500,Enhance Stone,1,안개 늪 낚시터에서 정령잉어 1마리를 낚아 세나에게 보고한다. 늪 중앙 포털로 들어간다.,,reward
+Q411,안개 속 슬라임,eve,11,Q403,collect,Slime Gel,8,2400,500,Enhance Stone,1,안개 늪의 밤 슬라임에게서 슬라임 젤 8개를 모아 이브에게 보고한다.,,reward
 q_rabbits,토끼 소동,questboard,1,,kill,Rabbit_BD|StoneRabbit_BD,10,0,150,,,숲길 토끼 10마리를 쫓아낸다.,board,reward,,숲길 토끼들이 밭을 갉아먹고 있소.^토끼 10마리를 쫓아내 주시오.,토끼는 숲길에 있소.^10마리를 쫓아내면 돌아오시오.,수고했소! 밭이 무사하겠구려.^약속한 보상이오.,,1,,,,,,
 q_moles,두더지 골칫거리,questboard,1,q_rabbits,kill,FlowerMole_BD|LeftMole_BD,8,0,300,,,숲 샛길의 두더지 8마리를 처치한다.,board,reward,,샛길 아래를 두더지가 파헤치고 있소.^8마리를 처치해 주시오.,두더지는 숲 샛길에 있소.^8마리를 처치하시오.,길이 다시 단단해지겠소.^수고했소.,,2,StarBurst,,,,,
 q_terror,밤의 공포,questboard,1,q_moles,kill,PassiveTerror_BD,1,0,600,,,밤의 샛길에 도사린 수동적 공포를 쓰러뜨린다.,board,reward,,밤이면 샛길에 무언가 도사리고 있소.^수동적 공포를 쓰러뜨려 주시오.,밤의 샛길을 찾아가시오.^준비를 단단히 하고.,해냈구려! 이제 샛길의 밤이 조용해지겠소.,,3,,,,,,
