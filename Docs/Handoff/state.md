@@ -82,3 +82,9 @@
 - P7: 정수 스탯 `ToWholePoints`(0.5→1,1,2,2,3)·극의 전 타입 `UltimateMul`·`CombatState` 5초 전투 중 K 창 차단·장비 HP 변화 시 트리 HP% 재계산. `SkillTreeP7Tests` + probe `wskill_p7`.
 - 대사: 로더·열(offer/progress/done)·CSV 우선 폴백은 이미 있었음 → 6건(Q204·Q301·Q403·Q502·Q601·Q604) 새 대사 이행 + `QuestVoiceCsvTests`(형식 상한·폴백). Q102 빈 값 핀·QuestCatalog 기준값 불변.
 - 컴파일 0·EditMode 1177 통과·play probe 확인. 미검증: 실 NPC 대화창 화면, 생활 노드(훅 없음).
+
+## 11-11 총괄 저녁 정리 (주간 51%, 사용자 상한 60%)
+- 큐 완료: ⓪ 슬롯 v2 · ③ REWORK-8(키 표·U37·U39·U40) · ④ REWORK-5 P2~P4 · ⑤ REWORK-1·2 S1~S5(검색 포함) · ⑥ WSKILL-V2-2 P3~P7 · ⑦ REWORK-12 P4~P8 · ⑧ REWORK-3·U23 · ⑨ REWORK-7·10 · ⑩ REWORK-6 설계·kind·대사 6건 · ⑪ REWORK-13·15·14(P0~P4) · ⑫ REWORK-11. 초반 1시간 P0·P1 데이터 적용.
+- 설계서만: REWORK-4(CI-P0~P3·P5·P6 구현 완료, P4·P7 은 모션 방 `Weapon.cs` 정리 후), REWORK-9(`EarlyHourPlan.md`, R-5·R-6 killElite 보류).
+- 남은 것: 4~7층계 보스 콘텐츠(해금 훅은 연결됨), 요리 레시피 CSV화, 퀘스트 대사 나머지, 리뷰 권장(NpcQuestWindow 629줄 분할 등), U9 재현, REWORK-4 P4·P7, 플레이 미검증 전체(`Docs/Playtest/UserPlaytest_1111.md`).
+- Spartan 설치(11-11): 점검 스크립트·git 가드 훅 적용, 훅 실차단은 새 세션에서 확인 필요.
