@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum CookMethod { Grill, Boil }
 
@@ -76,7 +77,25 @@ public static class CookingRules
     public const string BurntId = "Burnt Meal";
     public const float KitchenCooldown = 0f;      // 마을 요리대는 쿨타임 없음(일괄 요리가 이를 대신함)
 
-    public static readonly CookRecipe[] Recipes =
+    private static CookRecipe[] s_recipes;
+
+    /// <summary>레시피 표. Resources/CookingRecipes.csv 를 처음 쓸 때 읽고, 없거나 비면 코드 기본값(DefaultRecipes)</summary>
+    public static CookRecipe[] Recipes => s_recipes ?? (s_recipes = CookingRecipeCsv.Load() ?? DefaultRecipes);
+
+    /// <summary>테스트용: 다시 읽기(null) 또는 바꿔 끼우기</summary>
+    public static void SetRecipesForTests(CookRecipe[] recipes)
+    {
+        s_recipes = recipes;
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics()
+    {
+        s_recipes = null;
+    }
+
+    /// <summary>CSV 가 없을 때의 폴백(CSV 첫 이행 때의 값과 같다)</summary>
+    public static readonly CookRecipe[] DefaultRecipes =
     {
         new CookRecipe("Herb Roasted Rabbit", CookMethod.Grill, ItemRarity.C,
             new CookIngredient("Rabbit Meat", 2), new CookIngredient("GreenHurb", 1), new CookIngredient("Wood", 1)),

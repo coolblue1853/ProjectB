@@ -27,5 +27,6 @@
 - 테스트: `BatchRulesTests`(11건). ES3 키·CSV 변경 없음.
 
 ## 4. 후속
-- 레시피 CSV 화(`CookRecipes.csv`)·생활 탭 트리(V.3b) 연동·요리대 전용 도트·요리 버프 시간 연계는 미구현.
+- 레시피 CSV 화 완료(11-11): `Resources/CookingRecipes.csv`(id,method,rarity,ingredients=`재료*개수;…`) → `CookingRecipeCsv.Load/Parse` → `CookingRules.Recipes`. 파일이 없거나 유효 줄 0 이면 코드 `DefaultRecipes` 폴백, 잘못된 줄은 경고 후 건너뜀. 테스트 `CookingRecipeCsvTests`.
+- 생활 탭 트리(V.3b) 연동·요리대 전용 도트·요리 버프 시간 연계는 미구현.
 - 실마우스·실패드 입력은 미검증(probe 는 API 호출).
