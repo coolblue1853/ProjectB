@@ -103,9 +103,10 @@ public static class SkillEffectService
     /// <summary>스킬 스태미나 소모 감소 %(상한 적용). 활성 효과가 없으면 0 (할당 없음)</summary>
     public static float StaminaPct(string skillName, WeaponKind kind)
     {
+        float tree = SkillTreeEffects.StaminaCostPct(kind); // 스킬트리 효율(장착 타입 한정, 공용 포함)
         if (Active.Count == 0)
         {
-            return 0f;
+            return tree;
         }
         var key = (skillName ?? "", (int)kind);
         if (!_staminaCache.TryGetValue(key, out float v))
@@ -113,7 +114,7 @@ public static class SkillEffectService
             v = Query(skillName, kind).staminaPct;
             _staminaCache[key] = v;
         }
-        return v;
+        return v + tree;
     }
 
     [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -132,6 +133,8 @@ public static class SkillEffectService
         DatabaseManager.skillCoolDown.TryGetValue(skillName ?? "", out int cd);
         DatabaseManager.skillHitCount.TryGetValue(skillName ?? "", out int hit);
         DatabaseManager.skillBulletCount.TryGetValue(skillName ?? "", out int bullet);
-        return EffectResolver.Resolve(Active, skillName, kind == WeaponKind.None ? null : kind.ToString(), cd, hit, bullet, SkillTagTable.HasTag, null);
+        SkillMods m = EffectResolver.Resolve(Active, skillName, kind == WeaponKind.None ? null : kind.ToString(), cd, hit, bullet, SkillTagTable.HasTag, null);
+        m.cooldownPct += SkillTreeEffects.CooldownPct(kind); // 스킬트리 숙달(장착 타입 한정, 공용 포함)
+        return m;
     }
 }

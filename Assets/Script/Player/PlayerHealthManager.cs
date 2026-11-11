@@ -107,7 +107,7 @@ public class PlayerHealthManager : MonoBehaviour
         // 허기 부족으로 끝난 회복만 다시 예약한다. 소비 직후 대기 시간은 건너뛰지 않는다.
         if (nowFullness >= 1 && nowStemina < fullStemina && !sequence.IsActive() && !waitSequence.IsActive())
         {
-            waitSequence = DOTween.Sequence().AppendInterval(intervalTimeSteminaHeal)
+            waitSequence = DOTween.Sequence().AppendInterval(intervalTimeSteminaHeal / SkillTreeEffects.StaminaRegenMul)
                 .OnComplete(OnSequenceComplete).SetLink(gameObject);
         }
         if (nowFullness >= 3 && nowHp < fullHP && !hpSequence.IsActive() && !waitHpSequence.IsActive())
@@ -524,7 +524,7 @@ public class PlayerHealthManager : MonoBehaviour
                 if (isSteminaDown == false)
                 {
                     waitSequence = DOTween.Sequence()
-                        .AppendInterval(intervalTimeSteminaHeal)
+                        .AppendInterval(intervalTimeSteminaHeal / SkillTreeEffects.StaminaRegenMul)
                         .OnComplete(() => OnSequenceComplete());
                 }
 

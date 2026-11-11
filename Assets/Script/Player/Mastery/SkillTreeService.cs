@@ -10,6 +10,9 @@ public static class SkillTreeService
 
     public static SkillTreeData Data { get; private set; }
 
+    /// <summary>투자·초기화·로드로 트리가 바뀜(효과 재집계·UI 갱신)</summary>
+    public static event Action Changed;
+
     private static bool _dirty;
     private static bool _needValidate;
 
@@ -38,6 +41,7 @@ public static class SkillTreeService
         }
         _needValidate = true;
         EnsureValid();
+        Changed?.Invoke();
     }
 
     /// <summary>spent &gt; earned 면 무료 초기화. 타입 숙련 이행이 끝나기 전에는 earned 를 모르니 보류한다</summary>
@@ -123,6 +127,7 @@ public static class SkillTreeService
         {
             _dirty = true;
             SaveNow();
+            Changed?.Invoke();
         }
         return r;
     }
@@ -150,6 +155,7 @@ public static class SkillTreeService
         Data.ClearForRespec(tree);
         _dirty = true;
         SaveNow();
+        Changed?.Invoke();
         return RespecResult.Ok;
     }
 
