@@ -37,7 +37,7 @@ public class QuestsFloor1DataTests
             Assert.IsNotNull(d, id);
             sum += d.Exp;
         }
-        Assert.AreEqual(90700, sum, "89500 + EarlyHour R-1·3·7·8 (+300+100+300+500)");
+        Assert.AreEqual(80800, sum, "90700 - 늪 곁가지 Q406~409 감액(5100·5400·5400·5700 → 2800·2900·3000·3000, 메인 Q401 1500·Q404 1600 의 2배 이내 = 3000 이하, 11-11)");
         Assert.AreEqual(27 + 29 + 4 + 2 + 7 + 11, all.Count, "기존 27 + 신규 29 + 신규 맵 4 + EarlyHour Q109·Q110 + 마차 FT_Q 7 + 게시판·촌장 이행 11");
     }
 

@@ -11,6 +11,33 @@ public static class GatekeeperTrial
     public const int SealGoal = 3, SetGoal = 3, BestiaryGoal = 15, SetMinPieces = 3;
     public const float SealWeight = 0.4f, SetWeight = 0.3f, BestiaryWeight = 0.3f;
     public const float HpBonus = 0.5f, DamageBonus = 0.2f;
+    /// <summary>달성도 a=1(완전 준비) 보상: 처치 때 보너스 강화석(Q 11-11, Floor1Completion 14-1)</summary>
+    public const int FullReadinessBonusStones = 2;
+    const float FullReadiness = 0.999f;
+    /// <summary>마지막 문지기 스폰 시 달성도(처치 보상 계산이 읽는다). 스폰 전 -1</summary>
+    public static float LastSpawnReadiness = -1f;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetStatics()
+    {
+        LastSpawnReadiness = -1f;
+    }
+
+    /// <summary>이 보스 처치 때 더할 보너스 강화석 수(문지기이고 스폰 때 a=1 이었을 때만)</summary>
+    public static int BonusStones(string bossName)
+    {
+        return IsGatekeeper(bossName) && LastSpawnReadiness >= FullReadiness ? FullReadinessBonusStones : 0;
+    }
+
+    /// <summary>입장 알림 한 줄: a&lt;1 이면 "시험 달성도 N% — 문지기가 강해졌다", a=1 이면 보너스 안내</summary>
+    public static string EntryNotice(float readiness)
+    {
+        int pct = Mathf.RoundToInt(Mathf.Clamp01(readiness) * 100f);
+        return readiness >= FullReadiness
+            ? "시험 달성도 100% — 처치하면 강화석 +" + FullReadinessBonusStones
+            : "시험 달성도 " + pct + "% — 문지기가 강해졌다";
+    }
+
     static readonly string[] SealIds = { "ZoneSeal_Swamp", "ZoneSeal_Fortress", "ZoneSeal_Tower" };
 
     /// <summary>seals = 보유 인장 종류 수, sets = 3부위 이상 장착한 세트 종류 수, kinds = 도감 처치 종류 수. 범위 밖 값은 자른다.</summary>

@@ -745,6 +745,7 @@
 ## 11-11 CI-P4·P7·R-6 임시 가정 (builder)
 - Q-CI10 CI-P7: 표준 등급(기본 칼 RustedSword 포함) 0.90 소비로 3타 간격이 약 10% 짧아진다(설계서의 "사실상 불변"과 다름, 프로브 G: 간격/후딜 0.90). 판정 시점이 후딜보다 긴 타(PoisonSword)는 불변. 경량(단검·쌍검·너클) 0.75. 원치 않으면 `ComboConsumeFraction` Standard 를 1.0 으로.
 - Q-CI11 CI-P4 이후 화이트리스트 밖 타입 없음(표의 전 타입). 녹슨 검·창 등 prefab isWeaponStopMove 0 무기도 후딜 이동이 잠기고 Lunge 로 바뀐다(Q-CI2 확정 적용).
+- Q-CI11 해소(11-11): 기본 칼(RustedSword)은 `WeaponMoveProfiles.ActiveProfileOf` 가 null → 후딜 이동 잠금·Lunge 없이 원래 동작('기본 칼 3타 보존'). 다른 무기 규칙 유지.
 - Q-EH4 쥐 두목 정예가 낮에 보이도록 샛길 낮 토끼 스포너 1칸을 쥐 두목 프로필로 바꿨다(그림은 토끼 호스트 + 정예 표식, 그래픽 미작업). 쥐 두목 전용 낮 그림·스포너가 생기면 교체.
 
 ## 11-11 초반 주말 플레이테스트 준비 (builder)

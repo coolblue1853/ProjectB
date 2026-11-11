@@ -71,7 +71,8 @@ public class EnemyHealth : PoolAble
         float a = GatekeeperTrial.CurrentReadiness();
         maxHP = Mathf.RoundToInt(_trialBaseHP * GatekeeperTrial.HpMultiplier(a));
         TrialDamageMul = GatekeeperTrial.DamageMultiplier(a);
-        PickupLog.Report(Loc.T("Trial readiness") + ": " + Mathf.RoundToInt(a * 100f) + "%", 1, "U");
+        GatekeeperTrial.LastSpawnReadiness = a;
+        PickupLog.Notice(GatekeeperTrial.EntryNotice(a));
         GameLog.Info(GameLog.Cat.Spawn, "문지기 시험 달성도 " + a.ToString("F2") + " HP " + maxHP + " 피해x" + TrialDamageMul.ToString("F2"), this);
     }
     Vector3 baseScale;

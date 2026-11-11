@@ -23,7 +23,7 @@ Q502,빼앗긴 대장간 화물,smith,12,Q501,collect,StolenForgeCrate,4,900,420
 Q503,방패 너머의 길,ruen,12,Q501,kill,BanditShieldman_BD,7,811,390,,,선택: 성채 안쪽으로 진입한다.,,side
 Q504,성채에 남은 밤,eve,13,Q502,kill,BanditChief_BD,1,900,650,ChiefsLastStandRing,1,선택: 성채 분기 보스를 격파한다.,,side
 Q601,별이 닿은 돌문,elder,13,Q401,visit,tower_altar,1,1700,540,,,메인: 브로치가 유적 제단에 반응한다.,,main,,탑 가까이에 네 갈래 별 제단이 있네.^브로치를 가져가 보게.|반응이 있다면 그것이 길일세.^돌아와 들려주게.,제단은 탑 근교 길가에 있네.^브로치가 따뜻해지는지 살피게.,브로치가 응답했다니…^그 길은 아직 끝이 아니네. 쉬었다 가게.
-Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,1800,470,,,탑 근교 유적에서 발굴을 반복해 아버지의 기록 5편을 모은다. 유물을 하나라도 캐면 기록 1편을 얻고(확률로 더 나오기도 한다) 일반 5분·희귀 10분 후 다시 발굴할 수 있다.,,side
+Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,2600,550,,,탑 근교 유적에서 발굴을 반복해 아버지의 기록 5편을 모은다. 유물을 하나라도 캐면 기록 1편을 얻고(확률로 더 나오기도 한다) 일반 5분·희귀 10분 후 다시 발굴할 수 있다.,,side
 Q603,잠들지 않는 골렘,smith,14,Q601,kill,GolemMedium_BD,6,1607,580,Enhance Stone,2,골렘 사냥과 강화 재료 획득을 안내한다.,,reward
 Q604,첫 번째 문의 수호자,elder,15,Q601,kill,Gatekeeper_BD,1,2000,1000,BroochResonance,1,메인: 문지기 격파 후 브로치에 다음 층계 길이 새겨진다.,,main,,문 앞에 서 있는 문지기가 있네.^그를 쓰러뜨려야 위로 가는 길이 열리네.|누구인지는 묻지 않겠네.^다만 준비는 충분히 하게.,문지기는 탑 근교 문 앞에 있네.^준비가 되거든 서게.,문이 열렸군. 브로치에 새 길이 새겨졌네.^무사히 돌아왔으니 그것으로 됐네.
 Q106,쥐 도둑 소탕,ruen,2,Q102,kill,RatThief_BD,6,600,70,RatCap,1,쥐 도둑 6마리와 쥐 두목(정예) 1마리를 처치해 루엔에게 보고한다. 낮에는 드물게 나오고 밤에 더 많이 나온다.,,reward,,,,,,,,,,killElite,RatChief_BD,1
@@ -45,10 +45,10 @@ Q306,곰 가죽 장갑 제작,sena,6,Q302,craft,GroveHandArmor,1,900,200,GroveLe
 Q307,숲지기 세트 착용,smith,7,Q303,equip,GroveArmor,3,900,200,GroveArmor,1,숲지기 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
 Q308,깊은 숲 둥지 정예,eve,7,Q304,killElite,*,1,900,200,Enhance Stone,2,깊은 숲 둥지의 정예를 처치해 이브에게 보고한다. 구역 인장 보상은 아이템 추가 후 교체.,,reward
 Q309,늙은 곰,ruen,8,Q305,killElite,OldBear_BD,1,1000,220,GroveShoes,1,깊은 숲의 늙은 곰을 처치해 루엔에게 보고한다.,,reward
-Q406,늪 낚시,sena,9,Q402,collect,Amber Trout,2,5100,350,BogLegArmor,1,늪 낚시터에서 호박송어 2마리를 낚아 세나에게 보고한다.,,reward
-Q407,늪 사냥꾼 세트 착용,smith,10,Q405,equip,BogArmor,3,5400,370,BogArmor,1,늪 사냥꾼 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
-Q408,늪 둥지 정예,eve,10,Q403,killElite,*,1,5400,370,ZoneSeal_Swamp,1,늪 둥지의 정예를 처치해 이브에게 보고한다.,,reward
-Q409,무기 강화 +3,smith,11,Q407,enhance,weapon,3,5700,390,SlimeMace,1,무기를 +3까지 강화하고 대장장이에게 보고한다.,,reward
+Q406,늪 낚시,sena,9,Q402,collect,Amber Trout,2,2800,300,BogLegArmor,1,늪 낚시터에서 호박송어 2마리를 낚아 세나에게 보고한다.,,reward
+Q407,늪 사냥꾼 세트 착용,smith,10,Q405,equip,BogArmor,3,2900,310,BogArmor,1,늪 사냥꾼 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
+Q408,늪 둥지 정예,eve,10,Q403,killElite,*,1,3000,310,ZoneSeal_Swamp,1,늪 둥지의 정예를 처치해 이브에게 보고한다.,,reward
+Q409,무기 강화 +3,smith,11,Q407,enhance,weapon,3,3000,320,SlimeMace,1,무기를 +3까지 강화하고 대장장이에게 보고한다.,,reward
 Q505,산적 부두목,ruen,12,Q501,killElite,BanditLieutenant_BD,1,2000,420,OutlawCap,1,선택: 성채의 산적 부두목을 처치한다.,,reward
 Q506,무법자 세트 착용,smith,12,Q502,equip,OutlawArmor,3,2200,460,OutlawArmor,1,선택: 무법자 세트를 3부위 착용한다.,,reward
 Q507,무기 강화 +5,merchant,12,Q504,enhance,weapon,5,2300,480,CutthroatDagger,1,선택: 무기를 +5까지 강화한다.,,reward

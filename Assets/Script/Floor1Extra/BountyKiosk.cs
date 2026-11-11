@@ -168,7 +168,7 @@ public static class BountyKioskPlacer
     }
 
     /// <summary>푯말 (24×30, PPU 16): 나무 기둥 + 널빤지에 붙은 종이 3장</summary>
-    private static Sprite SignSprite()
+    internal static Sprite SignSprite()
     {
         if (s_sign != null)
         {

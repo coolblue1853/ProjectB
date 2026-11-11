@@ -262,6 +262,15 @@ public class AttackMoveRulesTests
     }
 
     [Test]
+    public void ActiveProfile_DefaultSwordIsAlwaysNull_Q_CI11()
+    {
+        // 기본 칼은 3타 보존 규칙으로 새 이동 규칙(후딜 잠금·Lunge) 제외. 같은 Sword 타입의 다른 무기는 그대로.
+        Assert.IsNull(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Sword, InventoryManager.DefaultWeapon));
+        Assert.IsNotNull(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Sword, "RustedSwordandShield"));
+        Assert.IsFalse(WeaponMoveProfiles.LocksMove(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Sword, InventoryManager.DefaultWeapon), 1));
+    }
+
+    [Test]
     public void LocksMove_FreeKindsDoNotLock_OthersLockPerStep()
     {
         Assert.IsFalse(WeaponMoveProfiles.LocksMove(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Staff, null), 1));

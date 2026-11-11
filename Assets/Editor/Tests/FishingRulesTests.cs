@@ -48,11 +48,11 @@ public class FishingRulesTests
     public void RollFish_BaseProbabilitiesMatchTable()
     {
         FishDef[] t = FishingRules.Floor1;
-        // 누적 50 / 80 / 97 / 100
-        Assert.AreEqual(0, FishingRules.RollFish(t, 0.49f, OldRod, CastQuality.Normal));
-        Assert.AreEqual(1, FishingRules.RollFish(t, 0.51f, OldRod, CastQuality.Normal));
-        Assert.AreEqual(2, FishingRules.RollFish(t, 0.96f, OldRod, CastQuality.Normal));
-        Assert.AreEqual(3, FishingRules.RollFish(t, 0.975f, OldRod, CastQuality.Normal));
+        // 누적 45 / 73 / 90 / 100 (정령잉어 3→10%, 11-11 Q410 보정)
+        Assert.AreEqual(0, FishingRules.RollFish(t, 0.44f, OldRod, CastQuality.Normal));
+        Assert.AreEqual(1, FishingRules.RollFish(t, 0.46f, OldRod, CastQuality.Normal));
+        Assert.AreEqual(2, FishingRules.RollFish(t, 0.89f, OldRod, CastQuality.Normal));
+        Assert.AreEqual(3, FishingRules.RollFish(t, 0.91f, OldRod, CastQuality.Normal));
         Assert.AreEqual(3, FishingRules.RollFish(t, 1f, OldRod, CastQuality.Normal));
     }
 
@@ -63,7 +63,7 @@ public class FishingRulesTests
         float rareOld = RareShare(t, OldRod, CastQuality.Normal);
         float rareSky = RareShare(t, FishingRules.Rod(2), CastQuality.Normal);
         float rareOptimal = RareShare(t, OldRod, CastQuality.Optimal);
-        Assert.AreEqual(0.20f, rareOld, 1e-4f);
+        Assert.AreEqual(0.27f, rareOld, 1e-4f); // R 17 + U 10
         Assert.Greater(rareSky, rareOld);
         Assert.Greater(rareOptimal, rareOld);
     }

@@ -54,6 +54,7 @@ public static class NpcQuestPlacer
             CreateNpc(n, map.transform, src);
         }
         CreateCoaches(maps, town);
+        CreateReportSigns(maps, town);
         foreach (Marker m in Markers)
         {
             MapInfo map = Find(maps, m.Map);
@@ -122,6 +123,27 @@ public static class NpcQuestPlacer
             }
             var n = new NewNpc { Id = s.NpcId, Conversation = StoryDialogues.CoachTalk, Map = s.Id, Source = "Shop", X = s.AnchorX.Value, Y = s.AnchorY, Tint = new Color(1f, 0.85f, 0.55f) };
             CreateNpc(n, map.transform, src).AddComponent<FastTravelNpc>().Init(s.Id);
+        }
+    }
+
+    /// <summary>구역 보고 안내판: 깊은 숲·늪·요새·탑 입구(마차 자리 옆)에 세워 이브 보고 퀘스트를 현지에서 보고한다</summary>
+    private static void CreateReportSigns(MapInfo[] maps, MapInfo town)
+    {
+        Transform src = town != null ? town.transform.Find("Shop") : null;
+        SpriteRenderer srcSr = src != null ? src.GetComponentInChildren<SpriteRenderer>(true) : null;
+        foreach (FastTravelStop s in FastTravelStops.All)
+        {
+            if (System.Array.IndexOf(ZoneReportSign.Maps, s.Id) < 0 || !s.AnchorX.HasValue)
+            {
+                continue;
+            }
+            MapInfo map = Find(maps, s.Id);
+            if (map == null || src == null)
+            {
+                Debug.LogWarning("[PB][NpcQuest] 구역 보고 안내판 배치 실패: " + s.Id);
+                continue;
+            }
+            ZoneReportSign.Create(map.transform, s.AnchorX.Value + ZoneReportSign.OffsetFromCoach, s.AnchorY ?? src.position.y, srcSr);
         }
     }
 

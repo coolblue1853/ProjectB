@@ -15,6 +15,27 @@ public class GatekeeperTrialTests
     }
 
     [Test]
+    public void BonusStones_OnlyWhenGatekeeperSpawnedAtFullReadiness()
+    {
+        GatekeeperTrial.LastSpawnReadiness = 1f;
+        Assert.AreEqual(2, GatekeeperTrial.BonusStones("Gatekeeper_BD"));
+        Assert.AreEqual(0, GatekeeperTrial.BonusStones("GiantSlime_BD"), "문지기가 아니면 0");
+        GatekeeperTrial.LastSpawnReadiness = 0.97f;
+        Assert.AreEqual(0, GatekeeperTrial.BonusStones("Gatekeeper_BD"));
+        GatekeeperTrial.LastSpawnReadiness = -1f;
+        Assert.AreEqual(0, GatekeeperTrial.BonusStones("Gatekeeper_BD"));
+    }
+
+    [Test]
+    public void EntryNotice_SaysStrongerBelowFullReadiness()
+    {
+        StringAssert.Contains("62%", GatekeeperTrial.EntryNotice(0.62f));
+        StringAssert.Contains("문지기가 강해졌다", GatekeeperTrial.EntryNotice(0.62f));
+        StringAssert.DoesNotContain("강해졌다", GatekeeperTrial.EntryNotice(1f));
+        StringAssert.Contains("+2", GatekeeperTrial.EntryNotice(1f));
+    }
+
+    [Test]
     public void Multipliers_MatchSpec()
     {
         Assert.AreEqual(1.5f, GatekeeperTrial.HpMultiplier(0f), 1e-5f);

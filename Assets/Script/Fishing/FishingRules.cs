@@ -75,13 +75,13 @@ public static class FishingRules
     public const float ProgressGoal = 100f;
     public const float ReelTimeLimit = 35f;
 
-    /// <summary>층계 1 어종(숲 수계). 가중치는 % 기준, 롤 때 다시 정규화</summary>
+    /// <summary>층계 1 어종(숲 수계). 가중치는 % 기준, 롤 때 다시 정규화. 정령잉어 3→10%(Q410 필수 목표, 3%는 평균 33회라 과함 — 11-11)</summary>
     public static readonly FishDef[] Floor1 =
     {
-        new FishDef("Forest Carp", ItemRarity.C, 50f, 1, 2),
-        new FishDef("Moss Loach", ItemRarity.C, 30f, 1, 2),
+        new FishDef("Forest Carp", ItemRarity.C, 45f, 1, 2),
+        new FishDef("Moss Loach", ItemRarity.C, 28f, 1, 2),
         new FishDef("Amber Trout", ItemRarity.R, 17f, 1, 1),
-        new FishDef("Spirit Koi", ItemRarity.U, 3f, 1, 1),
+        new FishDef("Spirit Koi", ItemRarity.U, 10f, 1, 1),
     };
 
     /// <summary>낚싯대 3등급. 0 = 낡은 낚싯대(기본)</summary>

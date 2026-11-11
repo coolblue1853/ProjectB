@@ -64,7 +64,7 @@ public class NpcQuestTests
         {
             exp += d.Exp;
         }
-        Assert.AreEqual(129525, exp); // 127375 + EarlyHour 2150(R-1·2·3·7·8 + Q109·Q110)
+        Assert.AreEqual(120425, exp); // 129525 - 늪 곁가지 Q406~409 감액 9900 + Q602 +800(성채 건너뛰기 보충)
     }
 
     [Test] public void 요리_입문_목표는_실제_화로에서_제작할_수_있다()

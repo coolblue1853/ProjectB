@@ -109,9 +109,13 @@ public static class WeaponMoveProfiles
         return Table.TryGetValue(kind, out p) ? p : null;
     }
 
-    /// <summary>화이트리스트에 든 타입만 프로파일을 돌려준다(없으면 null = 현행 경로)</summary>
+    /// <summary>화이트리스트에 든 타입만 프로파일을 돌려준다(없으면 null = 현행 경로). 기본 칼(RustedSword)은 항상 null</summary>
     public static WeaponMoveProfile ActiveProfileOf(WeaponKind kind, string itemKey)
     {
+        if (itemKey == InventoryManager.DefaultWeapon)
+        {
+            return null; // Q-CI11: 기본 칼은 3타 보존 규칙에 따라 원래 경로(프리팹 값·현행 이동)
+        }
         return EnabledKinds.Contains(kind) ? ProfileOf(kind, itemKey) : null;
     }
 

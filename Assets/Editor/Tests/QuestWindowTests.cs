@@ -232,6 +232,24 @@ public class QuestWindowTests
     }
 
     [Test]
+    public void 구역_보고_안내판은_이브가_보고_대상인_진행_중만_보여_준다()
+    {
+        NpcQuestCatalog.SetTableForTests("h\nE1,루엔발,ruen,1,,kill,Rabbit_BD,1,0,0,,,x,,,eve\nE2,이브발,eve,1,,kill,Rabbit_BD,1,0,0,,,x\nE3,세나,sena,1,,kill,Rabbit_BD,1,0,0,,,x");
+        QuestFilter f = QuestEntrance.ZoneReport();
+        Assert.AreEqual("eve", f.Giver);
+        Assert.IsFalse(QuestEntrance.HasAnything(f), "수락 전엔 받을 것도 보고할 것도 없다(안내판은 수락 불가)");
+        Assert.IsTrue(QuestService.Accept("E1"));
+        Assert.IsTrue(QuestService.Accept("E2"));
+        Assert.IsTrue(QuestService.Accept("E3"));
+        var active = new QuestFilter { Tab = QuestListRules.Tab.Active, Giver = f.Giver, ReportToo = true, ReportOnly = true };
+        CollectionAssert.AreEquivalent(new[] { "E1", "E2" }, QuestService.Query(active).Items.Select(d => d.Id).ToArray());
+        Assert.IsEmpty(QuestService.Query(f).Items, "받을 것 탭은 비어 있다");
+        Assert.IsTrue(QuestEntrance.HasAnything(f));
+        Assert.IsTrue(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E1"), f), "루엔발 퀘스트도 보고 대상 eve 라 안내판에서 보고");
+        Assert.IsFalse(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E3"), f));
+    }
+
+    [Test]
     public void 빈_목록_안내는_한글()
     {
         foreach (QuestListRules.Tab t in new[] { QuestListRules.Tab.Available, QuestListRules.Tab.Active, QuestListRules.Tab.Done })

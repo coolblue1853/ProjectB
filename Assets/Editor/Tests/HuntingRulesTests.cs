@@ -99,8 +99,8 @@ public class HuntingRulesTests
     public void QuestBudget_ExcludesRewardAvailableAtGoal()
     {
         int budget = NpcQuestCatalog.All.Where(q => q.MinLevel < 15).Sum(q => q.Exp);
-        Assert.AreEqual(123525, budget); // 신규 맵 퀘스트 4건 +7,200, EarlyHour +2,150
-        Assert.AreEqual(109114, NpcQuestCatalog.All.Where(q => q.MinLevel < 15 && !q.Id.StartsWith("Q5")).Sum(q => q.Exp));
+        Assert.AreEqual(114425, budget); // 123525 - 늪 곁가지 Q406~409 감액 9,900 + Q602 +800
+        Assert.AreEqual(100014, NpcQuestCatalog.All.Where(q => q.MinLevel < 15 && !q.Id.StartsWith("Q5")).Sum(q => q.Exp));
         var quests = new[] { new NpcQuestDef { Id = "Q604", MinLevel = 15, Exp = int.MaxValue } };
         Assert.AreEqual(892, HuntingRules.LevelingMinutes(15, quests, lv => 100, false), 0.0001);
     }

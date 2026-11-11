@@ -10,6 +10,8 @@ public sealed class QuestFilter
     public string Zone;
     /// <summary>true 면 giver 가 보고 대상(reportTo)인 퀘스트도 포함 — 입구 창이 "받을 것 + 보고할 것" 을 함께 보여 줄 때</summary>
     public bool ReportToo;
+    /// <summary>true 면 giver 가 보고 대상인 퀘스트만 보인다(받을 것 탭은 비움) — 구역 보고 안내판(ZoneReportSign)용</summary>
+    public bool ReportOnly;
 }
 
 /// <summary>Query 결과: 필터한 탭의 정렬된 목록</summary>
@@ -101,6 +103,10 @@ public static class QuestService
         switch (f.Tab)
         {
             case QuestListRules.Tab.Available:
+                if (f.ReportOnly)
+                {
+                    break;
+                }
                 view.Items.AddRange(QuestListRules.Available(sorted, StatusOf));
                 break;
             case QuestListRules.Tab.Active:
@@ -130,7 +136,11 @@ public static class QuestService
 
     private static bool Matches(NpcQuestDef d, QuestFilter f)
     {
-        if (!string.IsNullOrEmpty(f.Giver) && d.Giver != f.Giver && !(f.ReportToo && d.ReportNpc == f.Giver))
+        if (f.ReportOnly && !string.IsNullOrEmpty(f.Giver) && d.ReportNpc != f.Giver)
+        {
+            return false;
+        }
+        if (!f.ReportOnly && !string.IsNullOrEmpty(f.Giver) && d.Giver != f.Giver && !(f.ReportToo && d.ReportNpc == f.Giver))
         {
             return false;
         }
