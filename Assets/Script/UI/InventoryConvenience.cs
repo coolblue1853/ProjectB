@@ -49,6 +49,15 @@ public sealed class InventoryConvenience : MonoBehaviour
             ToggleLock(_inv, _inv.state == "detail" ? _inv.detail : _inv.CursorItem());
             _pending = null;
         }
+        bool plain = string.IsNullOrEmpty(_inv.state) || _inv.state == "detail";
+        if (plain && !shop && _inv.chest == null && !QuantityPopup.IsBlocking
+            && ((kb != null && kb.deleteKey.wasPressedThisFrame)
+                || (pad != null && _inv.state == "detail" && PadChordRules.RtAlone(pad.leftTrigger.isPressed, pad.rightTrigger.wasPressedThisFrame))))
+        {
+            // U24 버리기: Delete / 패드는 상세창에서 RT(칸 위 RT 는 프리셋 적용이라 상세창 한정) → 수량·확인 창
+            InventoryDrop.Request(_inv, _inv.state == "detail" ? _inv.detail : _inv.CursorItem());
+            _pending = null;
+        }
         if (shop && browse && ((kb != null && kb.jKey.wasPressedThisFrame) || (pad != null && pad.leftTrigger.isPressed && pad.leftStickButton.wasPressedThisFrame)))
         {
             RequestBulkSale(_inv);

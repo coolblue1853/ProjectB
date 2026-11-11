@@ -279,6 +279,10 @@ public partial class Chest : MonoBehaviour
 
     private void Update()
     {
+        if (QuantityPopup.IsBlocking)
+        {
+            return; // 수량 창이 모달
+        }
         UpdateConvenience();
         bool mine = InteractArbiter.Contend(gameObject, transform.position, isChestClose);
         if (mine && upAction.triggered && DatabaseManager.isOpenUI == false)
@@ -452,12 +456,31 @@ public partial class Chest : MonoBehaviour
             {
                 _withdrawQuantity = state == "C2IMove";
                 state = "divide";
-                divideSlider.currentValue = nowDivideItem.nowStack;
-                divideSlider.gameObject.SetActive(true);
-                divideSlider.itemCheck = nowDivideItem;
-                divideSlider.ResetData();
+                OpenDivideQuantity(nowDivideItem, _withdrawQuantity);
             }
         }
+    }
+
+    /// <summary>창고 나누기/꺼내기 수량 창(U14 공용 창). 꺼내기는 전부(스택 수)까지, 나누기는 1개 남기고까지</summary>
+    void OpenDivideQuantity(ItemCheck item, bool withdraw)
+    {
+        int total = item.nowStack;
+        QuantityPopup.Open(new QuantityRequest
+        {
+            Title = withdraw ? "꺼내기" : "나누기",
+            ItemName = item.itemData.itemNameT,
+            Min = 1,
+            Max = withdraw ? total : total - 1,
+            Initial = withdraw ? total : total / 2,
+            ConfirmLabel = withdraw ? "꺼내기" : "나누기",
+            Detail = n => withdraw ? n + "개를 인벤토리로 (창고에 " + (total - n) + "개 남음)" : n + "개를 새 칸으로 (원래 칸 " + (total - n) + "개)",
+            OnConfirm = n =>
+            {
+                DownNowStack(n);
+                DetailOff();
+            },
+            OnCancel = CloseDivide
+        });
     }
     public void DownNowStack(int output)
     {

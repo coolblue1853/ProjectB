@@ -494,13 +494,33 @@ public class InventoryManager : MonoBehaviour
             if (nowDivideItem.nowStack > 1)
             {
                 state = "divide";
-                divideSlider.currentValue = nowDivideItem.nowStack;
-                divideSlider.gameObject.SetActive(true);
-                divideSlider.itemCheck = nowDivideItem;
-                divideSlider.ResetData();
+                OpenDivideQuantity(nowDivideItem);
             }
         }
     }
+
+    /// <summary>나누기 수량 창(U14 공용 창). 확인=새 칸으로 떼어내기, 취소=원래 상태</summary>
+    void OpenDivideQuantity(ItemCheck item)
+    {
+        int total = item.nowStack;
+        QuantityPopup.Open(new QuantityRequest
+        {
+            Title = "나누기",
+            ItemName = item.itemData.itemNameT,
+            Min = 1,
+            Max = total - 1,
+            Initial = total / 2,
+            ConfirmLabel = "나누기",
+            Detail = n => n + "개를 새 칸으로 (원래 칸 " + (total - n) + "개)",
+            OnConfirm = n =>
+            {
+                DownNowStack(n);
+                DetailOff();
+            },
+            OnCancel = CloseDivide
+        });
+    }
+
     public void CloseDivide()
     {
         if (chest == null)
@@ -762,6 +782,7 @@ public class InventoryManager : MonoBehaviour
         {
             sellUIGameObject.SetActive(false);
         }
+        QuantityPopup.ForceClose(); // 수량 창이 열린 채 인벤이 닫히지 않게
         divideSlider.gameObject.SetActive(false);
         if (chest != null)
         {
@@ -1351,7 +1372,6 @@ public class InventoryManager : MonoBehaviour
     int totalSellPrice;
     public TextMeshProUGUI sellText;
     public Slider sellSlider; // Unity Inspector에서 Slider를 할당
-    int output;
 
     public void SellItemUI()
     {
@@ -1374,51 +1394,37 @@ public class InventoryManager : MonoBehaviour
             PickupLog.Warn("판매 필터(" + ShopRules.FilterLabel(ShopConvenience.Filter) + ") 밖의 아이템 - O 로 필터 변경");
             return;
         }
-        InitializeSlider();
         state = "Sell";
-        sellUIGameObject.SetActive(true);
-        totalSellPrice = (int)(sellSlider.value * detail.itemData.price);
-        sellText.text = Loc.F("Sell {0} {1}EA,  Price : {2}", detail.itemData.itemNameT, sellSlider.value, totalSellPrice);
+        int unit = detail.itemData.price;
+        int stack = detail.nowStack;
+        QuantityPopup.Open(new QuantityRequest
+        {
+            Title = "판매",
+            ItemName = detail.itemData.itemNameT,
+            Min = 1,
+            Max = stack,
+            Initial = stack,
+            ConfirmLabel = "판매",
+            Detail = n => "합계 " + QuantityRules.Total(unit, n).ToString("N0") + " 골드",
+            OnConfirm = SellItem,
+            OnCancel = () =>
+            {
+                if (state == "Sell")
+                {
+                    state = "detail";
+                }
+            }
+        });
     }
-    void OnSliderValueChanged(float value)
-    {
-        output = Mathf.RoundToInt(value);
-
-    }
-    void RightMove()
-    {
-        CusorContinuousInputCheck();
-        sellSlider.value += 1;
-        totalSellPrice = (int)(sellSlider.value * detail.itemData.price);
-        sellText.text = Loc.F("Sell {0} {1}EA,  Price : {2}", detail.itemData.itemNameT, sellSlider.value, totalSellPrice);
-    }
-    void LeftMove()
-    {
-        CusorContinuousInputCheck();
-        sellSlider.value -= 1;
-        totalSellPrice = (int)(sellSlider.value * detail.itemData.price);
-        sellText.text = Loc.F("Sell {0} {1}EA,  Price : {2}", detail.itemData.itemNameT, sellSlider.value, totalSellPrice);
-    }
-
-    void InitializeSlider()
-    {
-        sellSlider.onValueChanged.RemoveListener(OnSliderValueChanged); // 열 때마다 누적되지 않게(B-018)
-        sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
-        sellSlider.maxValue = detail.nowStack;
-        // 슬라이더의 최소값과 최대값 설정
-        sellSlider.minValue = 1;
-        // 슬라이더의 현재 값 설정
-        sellSlider.value = detail.nowStack;
-        output = 1;
-    }
-    void SellItem()
+    void SellItem(int sellCount)
     {
         if (detail == null || detail.itemData == null || detail.itemData.isLocked || !ItemTradeRules.CanSell(detail.name))
         {
             Sfx.Play(SfxId.CraftFail, 0.4f);
+            state = "detail";
             return;
         }
-        int sellCount = (int)sellSlider.value;
+        totalSellPrice = QuantityRules.Total(detail.itemData.price, sellCount);
         // 되사기 기록용(칸에서 빼면 오브젝트가 파괴될 수 있어 먼저 읽는다)
         string soldId = detail != null ? detail.name : null;
         int soldTier = detail != null && detail.itemData != null ? detail.itemData.tear : 0;
@@ -1467,6 +1473,10 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+        if (QuantityPopup.IsBlocking)
+        {
+            return; // 수량 창이 모달: 같은 입력을 인벤이 다시 처리하지 않는다
+        }
         verticalInput = (verticalCheck.ReadValue<float>());
         horizontalInput = (horizontalCheck.ReadValue<float>());
         if (inventory.activeSelf == true)
@@ -1474,21 +1484,6 @@ public class InventoryManager : MonoBehaviour
             if (myMoney.text != DatabaseManager.money.ToString())
             {
                 myMoney.text = DatabaseManager.money.ToString();
-            }
-            if (state == "Sell")
-            {
-                if ((rightInventoryAction.triggered || (checkRepeat == false && horizontalInput == 1)) && sellSlider.value < sellSlider.maxValue)
-                {
-                    RightMove();
-                }
-                else if ((leftInventoryAction.triggered || (checkRepeat == false && horizontalInput == -1)) && sellSlider.value > 1)
-                {
-                    LeftMove();
-                };
-                if (selectAction.triggered)
-                {
-                    SellItem();
-                }
             }
             if (state == "Equipment")
             {

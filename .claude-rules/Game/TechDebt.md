@@ -274,3 +274,5 @@
 - ✅ (11-05 AUTO-100 후속) 신규 무기 313~315 `WeaponType` 열 = Crossbow/Javelin/Tome, 프리팹 `_kind` 17/19/18 로 일치(`WeaponKind` 소비처 없음, 동작 변화 없음). `Floor1NewItemsTests` 갱신. 검증: EditMode 899 통과, 플레이 콘솔 에러 0.
 - (11-05 AUTO-103) (P4) `CountdownTimer.Tick` 음수 dt 는 남은 시간을 늘린다(가드 없음). 호출부는 dt>=0 이라 실해 없음, `BoundaryRulesDTests` 가 현재 동작 고정. **해소(AUTO-109, 음수 dt 0 취급)**
 
+
+- (11-11) 수량 창 이행 뒤 죽은 코드: `InventoryManager`·`ShopManager` 의 `sellSlider`/`sellText`/`sellUIGameObject`, `DivideSlider`·`ChestDivideSlider`(씬 직렬화 필드라 씬 정리와 함께 제거). 모달 가드 `QuantityPopup.IsBlocking` 이 호스트 Update 5곳에 흩어져 있음 → `UiLock` 최상위 조회로 일원화 후보. `ForceClose` 때 `ShopManager.state`("Buy") 가 남을 수 있음(구매 시작 때 덮어써서 실해 없음).

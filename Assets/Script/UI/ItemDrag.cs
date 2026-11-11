@@ -194,7 +194,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         try
         {
-            if (!TryDropOnQuickSlot(eventData.position))
+            if (!TryDropOnQuickSlot(eventData.position) && !TryDropOutside(eventData.position))
             {
                 EndDrag();
             }
@@ -207,6 +207,24 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         {
             ReleaseSaveHold(); // 어느 분기로 끝나도 미뤄 둔 저장을 1회로 푼다
         }
+    }
+
+    /// <summary>인벤 칸에서 끌어 창 밖(월드)에 놓으면 원래 칸으로 되돌리고 버리기 확인 창을 연다(U24). 처리했으면 true</summary>
+    private bool TryDropOutside(Vector2 screenPos)
+    {
+        if (itemCheck == null || currentParent == null || currentParent.childCount > 0 || currentParent.parent == null
+            || !currentParent.parent.CompareTag("Inventory") || changeParent != null || changeBox != null || equipBox != null)
+        {
+            return false;
+        }
+        InventoryManager inv = InventoryManager.instance;
+        if (inv == null || InventoryDrop.IsOverInventoryWindow(inv, screenPos))
+        {
+            return false;
+        }
+        ReturnToOrigin();
+        InventoryDrop.Request(inv, itemCheck);
+        return true;
     }
 
     /// <summary>퀵슬롯 칸 위에 놓으면 등록만 하고 아이템은 원래 칸으로 되돌린다(BasicFeatures.md 3절). 처리했으면 true</summary>

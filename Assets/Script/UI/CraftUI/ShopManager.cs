@@ -227,46 +227,36 @@ public class ShopManager : MonoBehaviour
     }
     public int currentSellValue = 0; // 현재 가지고 있는 int 수
     public GameObject sellUIGameObject;
-    int totalSellPrice;
     public TextMeshProUGUI sellText;
     public Slider sellSlider; // Unity Inspector에서 Slider를 할당
-    int output;
     public void SellItemUI()
     {
-        InitializeSlider();
         state = "Buy";
-        sellUIGameObject.SetActive(true);
-        totalSellPrice = (int)(sellSlider.value * nowShopItem.buyprice);
-        sellText.text = Loc.F("Buy {0} {1}EA,  Price : {2}", nowShopItem.itemData.itemNameT, sellSlider.value, totalSellPrice);
+        ItemCheck target = nowShopItem;
+        int unit = target.buyprice;
+        int max = Mathf.Max(1, BuyLimit(target)); // 살 수 없어도 max 가 min 보다 작아지지 않게 1, 실제 구매 수는 BuyItem 이 다시 자른다(B-018)
+        QuantityPopup.Open(new QuantityRequest
+        {
+            Title = "구매",
+            ItemName = target.itemData.itemNameT,
+            Min = 1,
+            Max = max,
+            Initial = 1,
+            ConfirmLabel = "구매",
+            Detail = n => "합계 " + QuantityRules.Total(unit, n).ToString("N0") + " 골드 (보유 " + DatabaseManager.money.ToString("N0") + ")",
+            OnConfirm = BuyItem,
+            OnCancel = CancelBuyQuantity
+        });
     }
-    void OnSliderValueChanged(float value)
+
+    /// <summary>수량 창 취소: 상품 상세로 돌아간다(예전 Back 경로와 같은 상태)</summary>
+    void CancelBuyQuantity()
     {
-        output = Mathf.RoundToInt(value);
-    }
-    void RightMove()
-    {
-        CusorContinuousInputCheck();
-        sellSlider.value += 1;
-        totalSellPrice = (int)(sellSlider.value * nowShopItem.buyprice);
-        sellText.text = Loc.F("Buy {0} {1}EA,  Price : {2}", nowShopItem.itemData.itemNameT, sellSlider.value, totalSellPrice);
-    }
-    void LeftMove()
-    {
-        CusorContinuousInputCheck();
-        sellSlider.value -= 1;
-        totalSellPrice = (int)(sellSlider.value * nowShopItem.buyprice);
-        sellText.text = Loc.F("Buy {0} {1}EA,  Price : {2}", nowShopItem.itemData.itemNameT, sellSlider.value, totalSellPrice);
-    }
-    void InitializeSlider()
-    {
-        sellSlider.onValueChanged.RemoveListener(OnSliderValueChanged); // 열 때마다 누적되지 않게(B-018)
-        sellSlider.onValueChanged.AddListener(OnSliderValueChanged);
-        // 슬라이더의 최소값과 최대값 설정. 살 수 없어도 max 가 min 보다 작아지지 않게 1 로 막고, 실제 구매 수는 BuyItem 이 다시 자른다(B-018)
-        sellSlider.minValue = 1;
-        sellSlider.maxValue = Mathf.Max(1, BuyLimit(nowShopItem));
-        // 슬라이더의 현재 값 설정
-        sellSlider.value = 1;
-        output = 1;
+        InventoryManager.instance.state = "ShopCusorOn";
+        state = "";
+        cusor.SetActive(true);
+        isMoveCusor = true;
+        DetailOff();
     }
     /// <summary>가진 돈으로 살 수 있는 최대 개수(최대 maxStack). 가격 0 이하면 maxStack (0 나누기 방지, B-018)</summary>
     public static int MaxAffordable(int maxStack, int price, int money)
@@ -307,9 +297,9 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void BuyItem()
+    void BuyItem(int requested)
     {
-        int count = Mathf.Min(Mathf.RoundToInt(sellSlider.value), BuyLimit(nowShopItem));
+        int count = Mathf.Min(requested, BuyLimit(nowShopItem));
         int bought = 0, spent = 0;
         InventoryManager.instance.BeginSaveBatch(); // N개 구매 = 저장 1회(B-022)
         try
@@ -330,7 +320,7 @@ public class ShopManager : MonoBehaviour
                     }
                 }
             }
-            ReportBought(nowShopItem, bought, spent, Mathf.RoundToInt(sellSlider.value));
+            ReportBought(nowShopItem, bought, spent, requested);
             InventoryManager.instance.SaveInventory(); // 하나도 못 샀어도 돈·인벤을 한 번 저장(배치 안이라 표시만)
         }
         finally
@@ -374,27 +364,9 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (InventoryManager.instance.state == "BuyDetail")
+        if (QuantityPopup.IsBlocking)
         {
-            if ((rightInventoryAction.triggered || (checkRepeat == false && horizontalInput == 1)) && sellSlider.value < sellSlider.maxValue)
-            {
-                RightMove();
-            }
-            else if ((leftInventoryAction.triggered || (checkRepeat == false && horizontalInput == -1)) && sellSlider.value > 1)
-            {
-                LeftMove();
-            }
-            if (selectAction.triggered)
-            {
-                if (DatabaseManager.money >= nowShopItem.buyprice)
-                {
-                    BuyItem();
-                }
-                else
-                {
-                    PickupLog.Warn(Loc.T("Not enough gold"));
-                }
-            }
+            return; // 수량 창이 모달
         }
         if (ShopUI.activeSelf == true && InventoryManager.instance.state == "ShopCusorOn")
         {
