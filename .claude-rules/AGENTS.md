@@ -94,6 +94,7 @@
 | `Game/QuestSystemDesign.md` | 퀘스트 통합 설계(REWORK-5): 3계통 비교·공통 데이터 모델·Q 창·추적 HUD·입구 통일·U7 정책·P0~P5 |
 | `Game/EquipSplitPlaybook.md` | 장비 부위 분리 노하우: 속옷 기반 몸+5부위 쌓기·영역 지도·배낭/랜턴=상의·절차·함정 |
 | `Game/FloorTransition.md` | 층계 전환 규칙: 이동 조건·칭호 부하·포털/귀환·안전지대·구현 갭 FT-* |
+| `Game/LevelDesignRef.md` | 레벨 디자인 참고(REWORK-7·10): 메랜 DB 레벨 구간별 몹 HP·EXP·맵당 개체 수와 우리 1~2층계 대조·튀는 구간 L1~L7·수정안 |
 
 ## 운영
 

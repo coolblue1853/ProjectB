@@ -32,3 +32,8 @@
 - 행동 속성 8열(move·edge·chase·chaseRange·visionY·giveUp·aggro·attack)을 MonsterSheet 맨 뒤에 추가, `MobBehaviorRules`+BT 훅 5곳. 일반 몹 배정은 `MobRules.md`, 빈 값=기존 동작.
 - BUG-U23: 소형 몹 본체 콜라이더 월드 하한 1.2x1.1(토끼·유령·돌토끼·허수아비·버섯·두더지 확대). 컴파일 0·EditMode 1080 통과·play probe(후공 맞은 뒤 추격, 제자리, 히트박스) 확인.
 - 남음: edge=fall 배정·정예 속성, 실전 체감, 스킬 종류별(AoE·화살) 실판정 확인, 후공 8초·hop 높이 튜닝.
+
+## 11-11 REWORK-7·10 레벨 디자인 참고 (builder)
+- `Game/LevelDesignRef.md` 신규: 메랜 DB 몹 749종·맵 7곳(WebFetch, Chrome 미연결) 레벨 구간 HP·EXP·맵당 개체 수 표 → 우리 1~2층 대조, 튀는 구간 L1~L7.
+- 주요: 2층 EXP 2.8배 도약, 1층 후반 HP 정체(EXP/HP 증가), DeathBringer HP 2500 이상치, 층계 경계 HP 8배.
+- CSV 변경 없음(Unity MCP ECONNREFUSED, EditMode 불가). 사이트에 맵 크기·발판·리젠 없음 → Q-LVREF.
