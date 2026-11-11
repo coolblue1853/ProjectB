@@ -41,7 +41,7 @@ public class DismantleInput : MonoBehaviour
             _pending = null;
             return;
         }
-        if (ConfirmPopup.IsBlocking || !Pressed() || !(string.IsNullOrEmpty(inv.state) || inv.state == "detail"))
+        if (ConfirmPopup.IsBlocking || InventorySearch.IsBlocking || !Pressed() || !(string.IsNullOrEmpty(inv.state) || inv.state == "detail"))
         {
             return;
         }

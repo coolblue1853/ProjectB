@@ -124,7 +124,7 @@ public class GearPresets : MonoBehaviour
     public static bool CanUse()
     {
         InventoryManager inv = InventoryManager.instance;
-        return _instance != null && inv != null && inv.inventory != null && inv.inventory.activeSelf && string.IsNullOrEmpty(inv.state)
+        return _instance != null && !InventorySearch.IsBlocking && inv != null && inv.inventory != null && inv.inventory.activeSelf && string.IsNullOrEmpty(inv.state)
             && inv.chest == null && (inv.ShopGameObject == null || !inv.ShopGameObject.activeSelf);
     }
 

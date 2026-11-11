@@ -71,3 +71,9 @@
 - EarlyHour: Q105·106·107·201·206·207 데이터 조정, Q109·Q110 신규(`EarlyHourPlan` §10 정정: RatChief 미배치→killElite 보류, Q107 선행 Q103, Q110 선행 Q108). 핀 테스트 값만 갱신.
 - FastTravel: 정류장 CSV·상태(ES3 ft.stops/ft.last)·마차 NPC 9곳·NpcMenu 행 모드·요금/금지 규칙·FT_Q 7건. 컴파일 0·EditMode 1146 통과·play probe(NPC 배치·목적지 9줄·확인→75G 차감 이동) 확인.
 - 미검증: 실패드·실마우스, 맵별 NPC 위치 캡처, 슬롯 전환 ES3. 남음: P4 히든 포털, 재진입 가드.
+
+
+## 11-11 슬롯 훅 확인 · 히든 포털 P4 · 인벤 S4 검색 (builder)
+- 슬롯 훅: `BossLoot` 첫 처치가 `grantsRank`→`boss:N` 호출 중(1~3층계·bestiary:B04 연결 확인). 4~7층계(룬·허리띠·성물·마법석)는 보스 에셋 없음 = 콘텐츠 대기(EquipSlotExpansion §10).
+- 히든 포털: `HiddenPortals.csv`+`HiddenPortals.cs`(숲 샛길·일반 숲 각 1쌍, 지면 스냅·마우스 클릭·숨김 라벨). S4 검색: `InventorySearch`(/·Ctrl+F·한글 IME·Esc, 패드 LT+RB 첫 글자, 버튼 "검색 /"), 입력 중 단축키 차단(IsBlocking).
+- 컴파일 0·EditMode 1154 통과(신규 8)·play probe 이동·검색 확인. 미검증: 실패드·실마우스·실제 IME, 일반 숲 히든 포털 실좌표. Q-FT5 임시 가정 유지.

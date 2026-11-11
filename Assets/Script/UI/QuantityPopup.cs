@@ -32,7 +32,7 @@ public sealed class QuantityPopup : MonoBehaviour
     private static int _closedFrame = -1;
 
     /// <summary>열려 있거나 이번 프레임에 막 닫혔다. 호스트 창은 이 동안 같은 입력을 다시 처리하지 않는다</summary>
-    public static bool IsBlocking => (_instance != null && _instance._open) || _closedFrame == Time.frameCount;
+    public static bool IsBlocking => (_instance != null && _instance._open) || _closedFrame == Time.frameCount || InventorySearch.IsBlocking;
 
     public static bool IsOpen => _instance != null && _instance._open;
     public static int CurrentValue => _instance != null ? _instance._value : 0;

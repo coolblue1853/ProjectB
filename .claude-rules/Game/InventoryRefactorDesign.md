@@ -584,3 +584,9 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 ### 9-7. S3·S5 구현 결과 (11-11)
 - 드래그: `ItemDrag.ResolveDropTargets` 가 놓은 자리를 UI 레이캐스트로 찾는다(콜라이더 의존 제거). 빈 칸 이동·교환·같은 아이템 합치기(모델 `Move`). 새 `InventoryToolbar`(런타임 버튼 5개, BOX 탭 아래): 정렬 R/R3·쌓기 T/LT+LB·필터 G/LT+RT·잠금 L/LT+R3(커서 아이템)·가방 N/LT+X(첫 클릭 안내, 5초 안 재클릭 구매). 쌓기=`SlotContainer.MergeStacks`(순서 유지, 전 페이지).
 - 검증: EditMode 1051 통과, probe 로 드래그 3종·버튼 5종 확인+스크린샷. 미검증: 실마우스 드래그, 패드, 창고 열림 중 버튼.
+
+### 9-8. S4 이름 검색 구현 (11-11)
+- 규칙 `Inventory/Model/InventorySearchRules.cs`(공백 구분 낱말 모두 포함·대소문자 무시, 글자 붙이기·지우기, 패드용 첫 글자 순환), 동작 `UI/InventorySearch.cs`. 맞지 않는 칸은 필터와 같이 반투명(`InventoryFilterView.Apply` 가 필터와 검색을 함께 판정). 인벤을 닫으면 검색도 해제.
+- 키보드: `/` 또는 Ctrl+F 로 입력 시작 → 글자·한글(IME) 입력, Backspace, Enter 확정(검색어 유지), Esc 해제. 입력 중에는 `UiLock("InvSearch")` + `QuantityPopup.IsBlocking`(검색 포함)으로 R·G·T 등 단축키가 먹지 않는다.
+- 패드(글자판 없음, 임시 가정): LT+RB 로 가방 아이템 이름 첫 글자를 하나씩 넘기고 끝에서 해제. 마우스: 인벤 창 버튼 "검색 /"(입력 시작·확정 토글, 라벨에 검색어 표시).
+- 검증: EditMode 통과, probe 로 입력 중 G 필터 불발·한글 '물' 검색 시 물약 2종만 밝음·해제 복원 확인. 미검증: 실제 IME 조합 입력, 실패드·실마우스.

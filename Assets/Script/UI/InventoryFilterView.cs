@@ -57,16 +57,17 @@ public class InventoryFilterView : MonoBehaviour
                 Current = InventoryFilter.All; // 닫으면 해제
                 Apply(m);
             }
+            InventorySearch.Clear(); // 검색도 같이 해제
             return;
         }
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
         bool pressed = (kb != null && kb.gKey.wasPressedThisFrame) || (pad != null && PadChordRules.FilterChord(pad.leftTrigger.isPressed, pad.rightTrigger.wasPressedThisFrame));
-        if (pressed && m.state == "" && m.chest == null)
+        if (pressed && m.state == "" && m.chest == null && !QuantityPopup.IsBlocking)
         {
             Cycle(m);
         }
-        else if (Current != InventoryFilter.All && Time.unscaledTime >= _nextRefresh)
+        else if ((Current != InventoryFilter.All || InventorySearch.Active) && Time.unscaledTime >= _nextRefresh)
         {
             _nextRefresh = Time.unscaledTime + RefreshInterval;
             Apply(m); // 새로 들어온 아이템 반영
@@ -109,7 +110,7 @@ public class InventoryFilterView : MonoBehaviour
                 {
                     continue;
                 }
-                bool show = InventoryFilterRules.Matches(Current, ic.itemData.type);
+                bool show = InventoryFilterRules.Matches(Current, ic.itemData.type) && InventorySearchRules.Matches(InventorySearch.Query, ic.itemData.itemNameT);
                 CanvasGroup cg = item.GetComponent<CanvasGroup>();
                 if (cg == null)
                 {

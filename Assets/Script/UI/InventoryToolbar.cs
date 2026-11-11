@@ -19,6 +19,7 @@ public sealed class InventoryToolbar : MonoBehaviour
     private GameObject _root;
     private TextMeshProUGUI _bagLabel;
     private TextMeshProUGUI _filterLabel;
+    private TextMeshProUGUI _searchLabel;
     private Transform _builtFor;
     private float _nextLabel;
 
@@ -108,6 +109,11 @@ public sealed class InventoryToolbar : MonoBehaviour
             {
                 _filterLabel.text = filter;
             }
+            string search = InventorySearch.ButtonLabel();
+            if (search != _searchLabel.text)
+            {
+                _searchLabel.text = search;
+            }
         }
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
@@ -141,7 +147,7 @@ public sealed class InventoryToolbar : MonoBehaviour
         rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
         rt.pivot = new Vector2(0.5f, 1f);
         float scale = Mathf.Max(0.01f, _root.transform.lossyScale.x);
-        rt.sizeDelta = new Vector2(ButtonW / scale, 7f * (ButtonH + Gap) / scale);
+        rt.sizeDelta = new Vector2(ButtonW / scale, 8f * (ButtonH + Gap) / scale);
         // "BOX n" 탭 아래(탭 중심 x)에 세로로 쌓는다
         Vector3 tab = anchor.position;
         float tabHalf = 0f;
@@ -151,8 +157,8 @@ public sealed class InventoryToolbar : MonoBehaviour
             tabHalf = tabRt.rect.height * 0.5f * tabRt.lossyScale.y;
         }
         _root.transform.position = new Vector3(tab.x, tab.y - tabHalf - 60f, 0f);
-        Action[] actions = { OnSort, OnStack, OnFilter, OnLock, OnBag };
-        string[] names = { "정렬 R", "쌓기 T", "필터", "잠금 L", "가방" };
+        Action[] actions = { OnSort, OnStack, OnFilter, OnLock, OnBag, OnSearch };
+        string[] names = { "정렬 R", "쌓기 T", "필터", "잠금 L", "가방", "검색 /" };
         for (int i = 0; i < names.Length; i++)
         {
             TextMeshProUGUI label = MakeButton(rt, i, names[i], scale, actions[i]);
@@ -164,9 +170,13 @@ public sealed class InventoryToolbar : MonoBehaviour
             {
                 _bagLabel = label;
             }
+            else if (i == 5)
+            {
+                _searchLabel = label;
+            }
         }
-        MakeHint(rt, 5, "분해 D · 버리기 Del · 비교 Shift\n프리셋 7 8 9 · 되사기 U", scale);
-        MakeHint(rt, 6, "패드: 분해 L3 두 번 · 비교 LT\n잠금 LT+R3 · 필터 LT+RT", scale);
+        MakeHint(rt, 6, "분해 D · 버리기 Del · 비교 Shift\n프리셋 7 8 9 · 되사기 U", scale);
+        MakeHint(rt, 7, "패드: 분해 L3 두 번 · 비교 LT\n잠금 LT+R3 · 필터 LT+RT\n검색 LT+RB(첫 글자)", scale);
     }
 
     /// <summary>버튼 아래 조작 안내 글(U39): 화면 버튼이 없는 단축키를 보여 준다. 클릭 대상 아님</summary>
@@ -264,6 +274,11 @@ public sealed class InventoryToolbar : MonoBehaviour
     {
         InventoryManager m = InventoryManager.instance;
         InventoryConvenience.ToggleLock(m, m.state == "detail" ? m.detail : m.CursorItem());
+    }
+
+    private static void OnSearch()
+    {
+        InventorySearch.Toggle();
     }
 
     private static void OnBag()
