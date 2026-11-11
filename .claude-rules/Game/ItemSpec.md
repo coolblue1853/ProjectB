@@ -27,7 +27,7 @@
 | 16 | setName | string | 세트 표시 이름 |
 | 17 | WeaponType | string | 무기 계열(10-31, `WeaponKind` 열거형 이름: Sword·Greatsword·Scythe·Dagger·Knuckle·Claw·Spear·Adae·Staff·Axe·Mace·Whip·Dual·Bow·Bulwark …). 무기 행만 채움, 나머지 빈칸. 프리팹 `Weapon._kind` 가 None 이 아니면 일치해야 한다(DataIntegrity). 툴팁 "Weapon (활)" 표시 |
 | 18 | category | string | Junk/Material 등(빈 값 = 기존 동작) |
-| 19 | effectIds | string | **(REWORK-12 P2)** `EquipEffects.csv` 효과 id 를 `;` 로 연결(최대 3). 빈칸 = 효과 없음. 파서는 머리글 이름으로 찾는다(열 19 는 StartMastery 자리와 겹치지 않게). 현재 `LeafStaff`=EF_LeafStaff·`BearClaw`=EF_BearClaw 만 시험 적용(R 예산 이내, 임시) |
+| 19 | effectIds | string | **(REWORK-12 P2)** `EquipEffects.csv` 효과 id 를 `;` 로 연결(최대 3). 빈칸 = 효과 없음. 파서는 머리글 이름으로 찾는다(열 19 는 StartMastery 자리와 겹치지 않게). 현재 `LeafStaff`·`BearClaw`·`LeafAdae`(시험)·`GatekeepersOath`·`WispLantern`·`QuakestoneMaul`·`FangDagger` 에 부착(임시값, P5) |
 
 **현황:**
 - 유효 행 81개: 장비 48(무기 15, 방어구 5부위 × 4~5, 반지 6, 목걸이 7), Misc 23, Consum 9, 테스트 행 일부
@@ -54,7 +54,7 @@
 - 키는 `{tfName}_{장착수}`이다.
 - 효과 문법은 `(sign)값 스탯 [스킬명]`이고, 여러 효과는 `/`로 구분한다. 스킬명의 `_`는 공백으로 바뀐다.
 - 지원 스탯: Def, Hp, skillHitCount, bulletCount, coolDown
-- `SetItem.csv` 3열 `effectIds`(REWORK-12 P2, `;` 구분, 빈칸 = 기존 동작): 세트 단계가 켜질 때 `SkillEffectService.AttachIds("Set:키", ids)`. 현재 전 행 빈칸.
+- `SetItem.csv` 3열 `effectIds`(REWORK-12 P2, `;` 구분, 빈칸 = 기존 동작): 세트 단계가 켜질 때 `SkillEffectService.AttachIds("Set:키", ids)`. 11단계 연결(P7: LeafArmor_5·WolfArmor_4/5·WispArmor_4/5·GroveArmor_4/5·BogArmor_4/5·StoneArmor_4/5 → `EF_Set_*`), 나머지 빈칸.
 - 방어구 프리팹 hp·armor 와 세트 Hp/Def 기준은 `Docs/Playtest/Floor1Balance.md` §8 (11-02 재정리: 권장 풀세트 HP ≈ 성장 HP 40~65 %, 세트 HP ≤ 장비 HP 절반).
 
 | 키 | 효과 |

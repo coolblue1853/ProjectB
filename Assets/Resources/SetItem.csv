@@ -3,7 +3,7 @@ setName,effect,effectIds
 RabbitArmor_2,(+)4 Def,
 RabbitArmor_5,(+)15 Hp,
 LeafArmor_2,(+)1 skillHitCount Rising_Roots/(+)2 bulletCount Scattering_Leaves,
-LeafArmor_5,(+)2 skillHitCount Rising_Roots/(+)50 coolDown Haste,
+LeafArmor_5,(+)2 skillHitCount Rising_Roots/(+)50 coolDown Haste,EF_Set_Leaf5
 RatArmor_2,(+)3 Poison/(+)5 Crit,
 RatArmor_5,(+)8 Poison/(+)15 CritDmg/(+)10 MoveSpeed,
 ScareArmor_2,(+)4 Def/(+)5 IncDmg,
@@ -12,20 +12,20 @@ CliffArmor_2,(+)6 Def/(+)5 Crit,
 CliffArmor_4,(+)10 IncDmg/(+)20 coolDown Cyclone_Edge/(+)20 coolDown Starfall,
 CliffArmor_5,(+)20 CritDmg/(+)10 AtkSpeed/(+)30 coolDown Skybreaker/(+)30 coolDown Cliff_Quake/(+)30 coolDown Talon_Dive,
 WolfArmor_2,(+)8 MoveSpeed/(+)8 Crit/(+)3 IncDmg,
-WolfArmor_4,(+)15 CritDmg/(+)7 IncDmg/(+)40 coolDown Howl_of_the_Pack/(+)30 coolDown Boar_Charge,
-WolfArmor_5,(+)8 AtkSpeed/(+)18 Hp,
+WolfArmor_4,(+)15 CritDmg/(+)7 IncDmg/(+)40 coolDown Howl_of_the_Pack/(+)30 coolDown Boar_Charge,EF_Set_Wolf4
+WolfArmor_5,(+)8 AtkSpeed/(+)18 Hp,EF_Set_Wolf5
 WispArmor_2,(+)6 Def/(+)20 Hp,
-WispArmor_4,(+)8 IncDmg/(+)40 coolDown Ghostlight_Ring/(+)30 coolDown Shell_Guard,
-WispArmor_5,(+)8 Def/(+)15 CritDmg/(+)40 coolDown Wisp_Bolt,
+WispArmor_4,(+)8 IncDmg/(+)40 coolDown Ghostlight_Ring/(+)30 coolDown Shell_Guard,EF_Set_Wisp4
+WispArmor_5,(+)8 Def/(+)15 CritDmg/(+)40 coolDown Wisp_Bolt,EF_Set_Wisp5
 GroveArmor_2,(+)4 Def/(+)8 Hp,
-GroveArmor_4,(+)10 IncDmg/(+)40 coolDown Ancient_Roots/(+)30 coolDown Mauling_Rush,
-GroveArmor_5,(+)6 AtkSpeed/(+)20 CritDmg/(+)20 Hp,
+GroveArmor_4,(+)10 IncDmg/(+)40 coolDown Ancient_Roots/(+)30 coolDown Mauling_Rush,EF_Set_Grove4
+GroveArmor_5,(+)6 AtkSpeed/(+)20 CritDmg/(+)20 Hp,EF_Set_Grove5
 FaeArmor_2,(+)8 MoveSpeed/(+)6 Crit,
 FaeArmor_4,(+)12 CritDmg/(+)40 coolDown Phantom_Glide/(+)40 coolDown Fairy_Dust_Bolt,
 FaeArmor_5,(+)12 IncDmg/(+)10 AtkSpeed/(+)8 DropRate,
 BogArmor_2,(+)6 MoveSpeed/(+)4 Def,
-BogArmor_4,(+)8 IncDmg/(+)30 coolDown Tongue_Lash/(+)30 coolDown Jaw_Shake/(+)30 coolDown Pincer_Flurry,
-BogArmor_5,(+)6 AtkSpeed/(+)15 BleedDmg/(+)2 IncDmg,
+BogArmor_4,(+)8 IncDmg/(+)30 coolDown Tongue_Lash/(+)30 coolDown Jaw_Shake/(+)30 coolDown Pincer_Flurry,EF_Set_Bog4
+BogArmor_5,(+)6 AtkSpeed/(+)15 BleedDmg/(+)2 IncDmg,EF_Set_Bog5
 GloomArmor_2,(+)25 Hp/(+)5 Crit,
 GloomArmor_4,(+)40 coolDown Bloodsting/(+)35 coolDown Slime_Smash,
 GloomArmor_5,(+)12 Poison/(+)10 IncDmg/(+)10 CritDmg,
@@ -36,8 +36,8 @@ RaiderArmor_2,(+)4 Def/(+)15 Hp,
 RaiderArmor_4,(+)30 coolDown Shield_Shove/(+)35 coolDown Counter_Stance/(+)8 IncDmg,
 RaiderArmor_5,(+)33 Hp/(+)8 Def/(+)10 CritDmg,
 StoneArmor_2,(+)6 Def/(+)16 Hp,
-StoneArmor_4,(+)30 coolDown Rolling_Charge/(+)30 coolDown Aftershock/(+)30 coolDown Boulder_Toss/(+)8 IncDmg,
-StoneArmor_5,(+)8 Def/(+)28 Hp/(+)10 IncDmg,
+StoneArmor_4,(+)30 coolDown Rolling_Charge/(+)30 coolDown Aftershock/(+)30 coolDown Boulder_Toss/(+)8 IncDmg,EF_Set_Stone4
+StoneArmor_5,(+)8 Def/(+)28 Hp/(+)10 IncDmg,EF_Set_Stone5
 RampartArmor_2,(+)6 Def/(+)15 Hp,
 RampartArmor_4,(+)30 coolDown Shield_Rush/(+)30 coolDown Halberd_Sweep/(+)8 IncDmg,
 RampartArmor_5,(+)8 Def/(+)35 Hp/(+)12 CritDmg,

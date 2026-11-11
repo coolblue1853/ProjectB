@@ -218,6 +218,7 @@ public class DatabaseManager : MonoBehaviour
             {
                 setName = setsDataList[itemNum].setName,
                 effect = setsDataList[itemNum].effect,
+                effectIds = setsDataList[itemNum].effectIds, // 세트 단계 장비 효과 id (P2 에서 누락돼 세트 효과가 안 걸리던 버그, P7 수정)
     
             };
             return newItem;

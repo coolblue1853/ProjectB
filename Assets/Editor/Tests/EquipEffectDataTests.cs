@@ -127,7 +127,7 @@ public class EquipEffectDataTests
     [Test]
     public void OnlyTestItems_HaveEffectIds()
     {
-        string[] withEffects = AllSources().Where(s => s.Value.Length > 0).Select(s => s.Key).OrderBy(x => x).ToArray();
+        string[] withEffects = AllSources().Where(s => s.Value.Length > 0 && !System.Text.RegularExpressions.Regex.IsMatch(s.Key, "_[0-9]+$")).Select(s => s.Key).OrderBy(x => x).ToArray(); // 세트 단계 키(Name_N)는 P7 에서 별도 검증
         Assert.AreEqual(new[] { "BearClaw", "FangDagger", "GatekeepersOath", "LeafAdae", "LeafStaff", "QuakestoneMaul", "WispLantern" }, withEffects); // P5 무기 효과 추가(11-11)
     }
 

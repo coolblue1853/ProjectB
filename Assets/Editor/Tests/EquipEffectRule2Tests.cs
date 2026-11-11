@@ -148,4 +148,40 @@ public class EquipEffectRule2Tests
         Assert.AreEqual(string.Empty, EffectTooltip.Block(new List<string>(), "H"));
         EffectTable.ResetCache();
     }
+
+    [Test]
+    public void EffectScore_FollowsDesignTable()
+    {
+        Assert.AreEqual(10f, EffectScore.Of(Mod("x", EffectOp.CooldownPct, 20f)), 0.001f);
+        Assert.AreEqual(4f, EffectScore.Of(Mod("x", EffectOp.ProjectileAdd, 1f)), 0.001f);
+        Assert.AreEqual(6f, EffectScore.Of(Mod("x", EffectOp.CooldownPct, 20f, "Night")), 0.001f);
+        Assert.AreEqual(12f, EffectScore.Of(new EffectEntry { kind = EffectKind.Rule, rule = EffectRule.Chain }), 0.001f);
+        Assert.AreEqual("none", EffectScore.Judge("R", 0f));
+        Assert.AreEqual("ok", EffectScore.Judge("R", 11f));
+        Assert.AreEqual("over", EffectScore.Judge("R", 14f));
+        Assert.AreEqual("n/a", EffectScore.Judge("C", 0f));
+    }
+
+    [Test]
+    public void SetItemCsv_EffectIds_AllExist()
+    {
+        EffectTable.ResetCache();
+        EffectTable.Load();
+        string[] lines = UnityEngine.Resources.Load<UnityEngine.TextAsset>("SetItem").text.Replace("\r", "").Split('\n');
+        int withIds = 0;
+        for (int i = 2; i < lines.Length; i++)
+        {
+            string[] c = lines[i].Split(',');
+            if (c.Length < 3 || string.IsNullOrWhiteSpace(c[c.Length - 1]))
+            {
+                continue;
+            }
+            withIds++;
+            foreach (string id in SkillEffectService.SplitIds(c[c.Length - 1]))
+            {
+                Assert.IsNotNull(EffectTable.Get(id), c[0] + " -> " + id);
+            }
+        }
+        Assert.AreEqual(11, withIds);
+    }
 }
