@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public sealed class ItemSortComparer : IComparer<ItemStack>
 {
     static readonly string[] TypeOrder = { "Equip", "Consum", "Misc" };
-    static readonly string[] AreaOrder = { "Weapon", "Head", "Chest", "Hand", "Leg", "Shoes", "Ring", "Necklace" };
+    static readonly string[] AreaOrder = { "Weapon", "Chest", "Ring", "Necklace", "Earring", "Charm", "Bracelet", "Belt", "Stone", "Head", "Hand", "Leg", "Shoes" };
     static readonly string[] RarityOrder = { "L", "U", "R", "C" };
 
     readonly IItemCatalog catalog;

@@ -167,7 +167,7 @@ public class NpcQuestObjectiveTests
         _seed = 5;
         NpcQuestLog.Accept("T7");
         Assert.AreEqual(NpcQuestStatus.Ready, NpcQuestLog.StatusOf("T7"));
-        Assert.IsTrue(NpcQuestObjectiveRules.EnhanceMatches("armor", "Head"));
+        Assert.IsTrue(NpcQuestObjectiveRules.EnhanceMatches("armor", "Chest"));
         Assert.IsFalse(NpcQuestObjectiveRules.EnhanceMatches("armor", "Weapon"));
         Assert.IsFalse(NpcQuestObjectiveRules.EnhanceMatches("armor", "Ring"));
         Assert.IsTrue(NpcQuestObjectiveRules.EnhanceMatches("any", "Ring"));

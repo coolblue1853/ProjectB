@@ -75,7 +75,7 @@ public class Floor2DataTests
     [Test]
     public void SetItems_TfNameLinksToSetItemKeys()
     {
-        // 세트 소속 아이템의 tfName 이 SetItem 키(tfName_2/_4/_6)와 이어지는지 (MigrationPlan §2 b)
+        // 세트 소속 아이템의 tfName 이 SetItem 키(tfName_2/_4/_5)와 이어지는지 (MigrationPlan §2 b)
         var keys = new HashSet<string>(Resources.Load<TextAsset>("Floor2Preview/Floor2SetItem").text
             .Replace("\r", "").Split('\n').Skip(1).Where(x => x.Length > 0).Select(x => x.Split(',')[0]));
         int checkedSets = 0;
@@ -92,7 +92,7 @@ public class Floor2DataTests
         }
         foreach (string tf in sets)
         {
-            foreach (string n in new[] { "_2", "_4", "_6" })
+            foreach (string n in new[] { "_2", "_4", "_5" })
             {
                 Assert.IsTrue(keys.Contains(tf + n), "SetItem 키 없음: " + tf + n);
             }

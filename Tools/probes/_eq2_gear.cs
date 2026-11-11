@@ -1,0 +1,10 @@
+var sb = new System.Text.StringBuilder();
+var d = SaveManager.instance.datas;
+sb.Append("invenItemNull=" + (d.invenItem == null));
+for (int i = 1; i < 10; i++) sb.Append(" g" + i + "=" + (d.equipGear[i, 0] ?? "null"));
+var db = DatabaseManager.instance;
+int idx = db.FindItemDataIndex("LeafHandArmor");
+sb.Append(" LeafHandArmor idx=" + idx + " area=" + (idx >= 0 ? db.LoadItemData(idx).equipArea : "?"));
+var inv = InventoryManager.instance;
+foreach (int b in new[] {1,3,5,7}) sb.Append(" b" + b + "=" + (inv.equipBox[b].transform.childCount > 0 ? inv.equipBox[b].transform.GetChild(0).name : "-") + "/" + (inv.equipItemCheck[b] != null));
+return sb.ToString();

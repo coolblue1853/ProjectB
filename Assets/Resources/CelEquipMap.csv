@@ -1,9 +1,5 @@
 itemName,layerId
-# 장착 아이템 이름 → 던파식 장비 레이어(Resources/PixelRig/Equip/<id>), CelEquipmentPlan. 임시 대응(Q-426): 기본 장비 모자·갑옷에 철 투구·흉갑
-Cap,iron_helm
+# 장착 아이템 이름 → 던파식 장비 레이어(Resources/PixelRig/Equip/<id>), CelEquipmentPlan. 임시 대응(Q-426): 기본 장비 모자·갑옷에 철 투구·흉갑 [v2 11-11: 의상(_top)만 유효, 모자·장갑·신발 줄 삭제]
 Armor,iron_plate
 HighArmor,iron_plate
-LeafCap,leaf_set_cap
 LeafArmor,leaf_set_top
-LeafHandArmor,leaf_set_glove
-LeafShoes,leaf_set_shoes

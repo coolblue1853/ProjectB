@@ -56,7 +56,7 @@ public class InventoryManager : MonoBehaviour
     public int maxHor = 5;
     public int maxVer = 5;
 
-    public GameObject[] equipBox; // 1: 반지, 2: 모자, 3: 목걸이, 5: 갑옷, 6: 장갑, 7: 무기, 8:바지, 9:신발
+    public GameObject[] equipBox; // 1: 반지, 3: 목걸이, 5: 의상(갑옷), 7: 무기. 2·6·8·9(모자·장갑·바지·신발)는 v2 에서 폐지돼 숨김(구 세이브 이행 전용)
     public ItemCheck[] equipItemCheck = new ItemCheck[10];
 
     // 나중에 퍼블릭 해체;
@@ -291,6 +291,7 @@ public class InventoryManager : MonoBehaviour
     public void LoadInventory()
     {
         bool newGame = SaveManager.instance.datas.invenItem == null;
+        List<LegacyGearMigration.Entry> legacy = null;
         if (newGame)
         {
             SaveManager.instance.datas.money = DatabaseManager.money;
@@ -299,10 +300,13 @@ public class InventoryManager : MonoBehaviour
         else
         {
             DatabaseManager.money = SaveManager.instance.datas.money;
+            legacy = LegacyGearMigration.Collect(SaveManager.instance.datas.equipGear, SaveManager.instance.datas.equipmentFlags);
             LoadEquipItem();
             Service.LoadFrom(SaveManager.instance.datas.invenItem, SaveManager.instance.datas.inventoryFlags);
         }
         ExtraEquip.Load();
+        MigrateLegacyGear(legacy);
+        HideRetiredEquipBoxes();
         ExtraEquipPanel.Ensure(inventory != null ? inventory.transform : null);
         EnsureDefaultWeapon();
         if (newGame)
@@ -312,7 +316,8 @@ public class InventoryManager : MonoBehaviour
     }
 
     /// <summary>새 게임 시작 방어구 5부위(2026-11-07 사용자 요청: 잎사귀 세트로 시작). 기본 장비가 있던 칸은 교체되어 인벤토리로 간다.</summary>
-    public static readonly string[] StartOutfit = { "LeafCap", "LeafArmor", "LeafLegArmor", "LeafHandArmor", "LeafShoes" };
+    /// <summary>시작 장비(v2): 의상(LeafArmor)·반지(옛 장갑)·목걸이(옛 하의)·귀걸이(옛 투구). 옛 신발은 보조장비(해금 슬롯)라 시작에 끼우지 않는다</summary>
+    public static readonly string[] StartOutfit = { "LeafCap", "LeafArmor", "LeafLegArmor", "LeafHandArmor" };
 
     private void EquipStartOutfit()
     {
@@ -323,6 +328,12 @@ public class InventoryManager : MonoBehaviour
             item.SetItem(id);
             if (item.itemData == null)
             {
+                Destroy(go);
+                continue;
+            }
+            if (System.Enum.TryParse(item.itemData.equipArea, out EquipSlot slot) && SlotRules.IsExtra(slot))
+            {
+                ExtraEquip.TryPlaceDirect(item.itemData); // 귀걸이: 추가 슬롯은 인벤을 거치지 않고 직접 장착
                 Destroy(go);
                 continue;
             }
@@ -800,35 +811,77 @@ public class InventoryManager : MonoBehaviour
         GameObject insPositon = inventoryBox[boxCusor];
         cusor.transform.position = insPositon.transform.position;
     }
+    /// <summary>장비창 커서 이동 격자(v2): 반지·목걸이 / 의상 / 무기 / 추가 슬롯 줄(귀걸이·보조장비·팔찌·허리띠·마법석). 10 이상 = EquipSlot 값</summary>
+    static readonly int[][] EquipNavRows =
+    {
+        new[] { 1, 3 },
+        new[] { 5 },
+        new[] { 7 },
+        new[] { (int)EquipSlot.Earring, (int)EquipSlot.Charm, (int)EquipSlot.Bracelet, (int)EquipSlot.Belt, (int)EquipSlot.Stone },
+        new[] { ExtraEquipPanel.PetNodeBase, ExtraEquipPanel.PetNodeBase + 1, ExtraEquipPanel.PetNodeBase + 2 }, // 펫: 켜기·HP%·MP%
+    };
+
+    GameObject EquipNavBox(int node)
+    {
+        return node >= 10 ? ExtraEquipPanel.BoxOfNode(node) : equipBox[node];
+    }
+
     void ChangeEquipCusor(int cusorNum)
     {
         OnlyDetailObOff();
-        nowEquipBox = equipBox[cusorNum];
-        cusor.transform.position = nowEquipBox.transform.position;
+        nowEquipBox = EquipNavBox(cusorNum);
+        if (nowEquipBox != null)
+        {
+            cusor.transform.position = nowEquipBox.transform.position;
+        }
+        ExtraEquipPanel.TipForNode(cusorNum);
     }
+
     void EquipmentCusorManage()
     {
-        if (leftInventoryAction.triggered && (equipCusor != 5 && equipCusor % 3 != 1))
+        int row = 0;
+        int col = 0;
+        for (int r = 0; r < EquipNavRows.Length; r++)
         {
-            equipCusor -= 1;
-            ChangeEquipCusor(equipCusor);
+            int c = System.Array.IndexOf(EquipNavRows[r], equipCusor);
+            if (c >= 0)
+            {
+                row = r;
+                col = c;
+                break;
+            }
+        }
+        int[] cur = EquipNavRows[row];
+        if (leftInventoryAction.triggered)
+        {
+            if (col > 0)
+            {
+                equipCusor = cur[col - 1];
+                ChangeEquipCusor(equipCusor);
+            }
         }
         else if (rightInventoryAction.triggered)
         {
-            if (equipCusor % 3 != 0) equipCusor += 1;
-            else MoveCusor2Inventory();
+            if (col < cur.Length - 1)
+            {
+                equipCusor = cur[col + 1];
+                ChangeEquipCusor(equipCusor);
+            }
+            else
+            {
+                MoveCusor2Inventory();
+            }
+        }
+        else if (upInventoryAction.triggered && row > 0)
+        {
+            int[] up = EquipNavRows[row - 1];
+            equipCusor = up[Mathf.Min(col, up.Length - 1)];
             ChangeEquipCusor(equipCusor);
         }
-        else if (upInventoryAction.triggered)
+        else if (downInventoryAction.triggered && row < EquipNavRows.Length - 1)
         {
-            if (equipCusor == 7) equipCusor = 5;
-            else if (equipCusor > 3) equipCusor -= 3;
-            ChangeEquipCusor(equipCusor);
-        }
-        else if (downInventoryAction.triggered)
-        {
-            if (equipCusor == 1) equipCusor = 5;
-            else if (equipCusor < 7) equipCusor += 3;
+            int[] down = EquipNavRows[row + 1];
+            equipCusor = down[Mathf.Min(col, down.Length - 1)];
             ChangeEquipCusor(equipCusor);
         }
     }
@@ -901,7 +954,7 @@ public class InventoryManager : MonoBehaviour
             else // 그외 장비창 접촉
             {
                 changeCusor.SetActive(false);
-                equipCusor = 6;
+                equipCusor = 3; // 오른쪽 열(목걸이)
                 nowEquipBox = equipBox[equipCusor];
                 cusor.transform.position = nowEquipBox.transform.position;
                 state = "Equipment";
@@ -945,13 +998,9 @@ public class InventoryManager : MonoBehaviour
         if (nowItem != null) detail = nowItem;
 
         if (detail.itemData.equipArea == "Ring") return equipBox[1];
-        else if (detail.itemData.equipArea == "Head") return equipBox[2];
         else if (detail.itemData.equipArea == "Necklace") return equipBox[3];
         else if (detail.itemData.equipArea == "Chest") return equipBox[5];
-        else if (detail.itemData.equipArea == "Hand") return equipBox[6];
         else if (detail.itemData.equipArea == "Weapon") return equipBox[7];
-        else if (detail.itemData.equipArea == "Leg") return equipBox[8];
-        else if (detail.itemData.equipArea == "Shoes") return equipBox[9];
         else return null;
     }
     public SkillCooldown skillCooldown;
@@ -988,35 +1037,117 @@ public class InventoryManager : MonoBehaviour
     {
         for (int i = 1; i < equipItemCheck.Length; i++)
         {
-            if (SaveManager.instance.datas.equipGear[i, 0] != null && SaveManager.instance.datas.equipGear[i, 0] != "")
+            if (LegacyGearMigration.IsLegacyIndex(i))
             {
-                GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
-                ItemCheck item = equip.GetComponent<ItemCheck>();
-                item.SetItem(SaveManager.instance.datas.equipGear[i, 0]);
-                if (item.itemData != null)
-                {
-                    int[] flags = SaveManager.instance.datas.equipmentFlags;
-                    ItemFlagSave.Apply(item.itemData, flags != null && i < flags.Length ? flags[i] : 0);
-                }
-                if (item.itemData == null) // 아이템 시트에서 사라진 이름(손상·구버전 세이브)
-                {
-                    Debug.LogWarning("[PB][Save] 알 수 없는 장비 무시: " + SaveManager.instance.datas.equipGear[i, 0]);
-                    Destroy(equip);
-                    continue;
-                }
-                // 손상 세이브에서 크래시하지 않게 TryParse, 실패하면 시트 기본값 유지(B-020)
-                if (int.TryParse(SaveManager.instance.datas.equipGear[i, 1], out int tier))
-                {
-                    item.itemData.tear = tier;
-                }
-                if (int.TryParse(SaveManager.instance.datas.equipGear[i, 2], out int upgrade))
-                {
-                    item.itemData.upgrade = upgrade;
-                }
-                UseEquipment(item);
+                continue; // 폐지된 투구·장갑·하의·신발 칸: MigrateLegacyGear 가 새 슬롯으로 옮긴다
+            }
+            string[,] gear = SaveManager.instance.datas.equipGear;
+            if (gear[i, 0] != null && gear[i, 0] != "")
+            {
+                SpawnSavedGear(i, gear[i, 0], gear[i, 1], gear[i, 2]);
             }
         }
         Invoke("ResetInventory", 0.4f);
+    }
+
+    /// <summary>세이브 장비 한 칸을 만들어 장착한다. flagIndex = equipmentFlags 인덱스(잠금·신규 비트). 만들지 못하면 null</summary>
+    ItemCheck SpawnSavedGear(int flagIndex, string name, string tierText, string upgradeText)
+    {
+        GameObject equip = Instantiate(itemPrefab, this.transform.position, Quaternion.identity, this.transform);
+        ItemCheck item = equip.GetComponent<ItemCheck>();
+        item.SetItem(name);
+        if (item.itemData != null)
+        {
+            int[] flags = SaveManager.instance.datas.equipmentFlags;
+            ItemFlagSave.Apply(item.itemData, flags != null && flagIndex < flags.Length ? flags[flagIndex] : 0);
+        }
+        if (item.itemData == null) // 아이템 시트에서 사라진 이름(손상·구버전 세이브)
+        {
+            Debug.LogWarning("[PB][Save] 알 수 없는 장비 무시: " + name);
+            Destroy(equip);
+            return null;
+        }
+        // 손상 세이브에서 크래시하지 않게 TryParse, 실패하면 시트 기본값 유지(B-020)
+        if (int.TryParse(tierText, out int tier))
+        {
+            item.itemData.tear = tier;
+        }
+        if (int.TryParse(upgradeText, out int upgrade))
+        {
+            item.itemData.upgrade = upgrade;
+        }
+        UseEquipment(item);
+        return item;
+    }
+
+    /// <summary>
+    /// 구 세이브 이행(v2): 구 투구·장갑·하의·신발 칸의 아이템을 새 부위 칸 → 새 슬롯 → 인벤토리 순으로 옮긴다. 공간이 없으면 구 칸 기록을 남긴다(소실 금지).
+    /// 인벤 로드와 ExtraEquip.Load 뒤에 부른다.
+    /// </summary>
+    void MigrateLegacyGear(List<LegacyGearMigration.Entry> legacy)
+    {
+        if (legacy == null || legacy.Count == 0)
+        {
+            return;
+        }
+        var datas = SaveManager.instance.datas;
+        DatabaseManager db = DatabaseManager.instance;
+        bool changed = false;
+        foreach (LegacyGearMigration.Entry e in legacy)
+        {
+            int dbIndex = db != null ? db.FindItemDataIndex(e.Name) : -1;
+            ItemData def = dbIndex >= 0 ? db.LoadItemData(dbIndex) : null;
+            if (def == null)
+            {
+                continue; // 시트에서 사라진 이름: 구 칸 기록을 그대로 둔다
+            }
+            int box = LegacyGearMigration.BoxIndexOf(def.equipArea);
+            bool boxFree = box >= 0 && equipItemCheck[box] == null && equipBox[box].transform.childCount == 0;
+            bool extraFree = System.Enum.TryParse(def.equipArea, out EquipSlot slot) && SlotRules.IsExtra(slot) && ExtraEquip.IsUnlocked(slot) && ExtraEquip.Get(slot) == null;
+            def.tear = int.TryParse(e.Tier, out int tier) ? tier : def.tear;
+            def.upgrade = int.TryParse(e.Upgrade, out int up) ? up : def.upgrade;
+            ItemFlagSave.Apply(def, e.Flags);
+            LegacyGearMigration.Target target = LegacyGearMigration.Decide(def.equipArea, boxFree, extraFree, true);
+            bool done = false;
+            if (target == LegacyGearMigration.Target.Box)
+            {
+                done = SpawnSavedGear(e.Index, e.Name, e.Tier, e.Upgrade) != null; // 장비 칸 저장은 UseEquipment → SaveEquipItem
+            }
+            else if (target == LegacyGearMigration.Target.Extra)
+            {
+                done = ExtraEquip.TryPlaceDirect(def);
+            }
+            if (!done)
+            {
+                done = CreatItem(e.Name, false, def, AddSource.Unequip); // 가방이 가득이면 false → 구 칸에 남김
+            }
+            if (done)
+            {
+                LegacyGearMigration.Clear(datas.equipGear, datas.equipmentFlags, e.Index);
+                changed = true;
+                GameLog.Info(GameLog.Cat.Item, "구 장비 칸 이행: " + e.Name + " (" + def.equipArea + ")");
+            }
+            else
+            {
+                GameLog.Warn(GameLog.Cat.Item, "구 장비 이행 보류(가방 가득): " + e.Name);
+            }
+        }
+        if (changed)
+        {
+            SaveInventory();
+        }
+    }
+
+    /// <summary>폐지된 투구(2)·장갑(6)·하의(8)·신발(9) 칸을 숨긴다. 이행하지 못한 아이템이 들어 있는 칸은 남긴다</summary>
+    void HideRetiredEquipBoxes()
+    {
+        foreach (int i in LegacyGearMigration.LegacyIndexes)
+        {
+            if (equipBox != null && i < equipBox.Length && equipBox[i] != null && equipBox[i].transform.childCount == 0)
+            {
+                equipBox[i].SetActive(false);
+            }
+        }
     }
 
     void ResetInventory()
@@ -1346,7 +1477,14 @@ public class InventoryManager : MonoBehaviour
             if (state == "Equipment")
             {
                 EquipmentCusorManage();
-                if (selectAction.triggered && nowEquipBox.transform.childCount != 0)
+                if (equipCusor >= 10)
+                {
+                    if (selectAction.triggered)
+                    {
+                        ExtraEquipPanel.ActivateNode(equipCusor); // 추가 슬롯: 장착품 해제 / 펫 줄: 설정 바꾸기
+                    }
+                }
+                else if (selectAction.triggered && nowEquipBox.transform.childCount != 0)
                 {
                     if (equipDetail.activeSelf == true)
                     {
@@ -1635,6 +1773,18 @@ public class InventoryManager : MonoBehaviour
             }
         }
         return TryConsume(found);
+    }
+    /// <summary>효과가 정확히 "stat +" 한 줄(예: stat="hp")인 첫 소비 아이템 1개를 쓴다(펫 자동 물약). 없거나 쿨다운이면 false</summary>
+    public bool ConsumeFirstByEffect(string stat)
+    {
+        foreach (ItemCheck check in EnumerateInventoryItems())
+        {
+            if (check.itemData != null && check.itemData.type == "Consum" && PetPotionRules.IsSimpleRestore(check.itemData.effectOb, stat))
+            {
+                return TryConsume(check);
+            }
+        }
+        return false;
     }
     public void RepeatCheck()
     {

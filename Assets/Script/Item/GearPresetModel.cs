@@ -8,7 +8,7 @@ using System.Text;
 public sealed class GearPresetModel
 {
     public const int PresetCount = 3;
-    public static readonly string[] Areas = { "Weapon", "Head", "Chest", "Hand", "Leg", "Shoes", "Ring", "Necklace" };
+    public static readonly string[] Areas = { "Weapon", "Chest", "Ring", "Necklace" };
 
     public struct Entry
     {

@@ -201,7 +201,7 @@ namespace ProjectB.EditorTools
             {
                 { "CliffArmor_2", "(+)15 Def/(+)5 Crit" },
                 { "CliffArmor_4", "(+)10 IncDmg/(+)20 coolDown Cyclone_Edge/(+)20 coolDown Starfall" },
-                { "CliffArmor_6", "(+)20 CritDmg/(+)10 AtkSpeed/(+)30 coolDown Skybreaker/(+)30 coolDown Cliff_Quake/(+)30 coolDown Talon_Dive" },
+                { "CliffArmor_5", "(+)20 CritDmg/(+)10 AtkSpeed/(+)30 coolDown Skybreaker/(+)30 coolDown Cliff_Quake/(+)30 coolDown Talon_Dive" },
             };
             foreach (var kv in rows)
             {

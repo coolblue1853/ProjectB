@@ -332,8 +332,7 @@ public class EquipBoxCheck : MonoBehaviour
         reciveEquipArea = equipArea;
         NpcQuestLog.Refresh(); // 세트가 아닌 방어구 착용도 퀘스트 표시에 반영
 
-        string folderPath = equipArea+"/";
-        GameObject prefab = Resources.Load<GameObject>(folderPath + equipName);        // 리소스 폴더 내의 equipName을 로드합니다.
+        GameObject prefab = GearPrefabCache.Get(equipArea, equipName); // Resources/{부위}/{이름}, 없으면 옛 부위 폴더(v2 폴백)
         if(equipArea != "Weapon")
         {
             string texturePath = "Sprite/";

@@ -46,7 +46,7 @@ public class Floor2LinkTests
         Assert.IsNotEmpty(tf);
         foreach (string t in tf)
         {
-            foreach (int n in new[] { 2, 4, 6 })
+            foreach (int n in new[] { 2, 4, 5 })
             {
                 Assert.IsTrue(keys.Contains(t + "_" + n), "세트 키 없음: " + t + "_" + n);
             }

@@ -3,17 +3,17 @@ using System.Text;
 using UnityEngine;
 
 /// <summary>
-/// 장착한 방어구 → 던파식 장비 레이어(CelEquipmentPlan). 인벤토리 코드는 건드리지 않고 장비 칸(모자 2·옷 5·장갑 6·신발 9; 바지 8은 외형에서 뺌 — 몸+옷 한 조각 방식 11-10)을
+/// 장착한 방어구 → 던파식 장비 레이어(CelEquipmentPlan). 인벤토리 코드는 건드리지 않고 장비 칸(의상 5; 모자·장갑·바지·신발은 v2 에서 폐지 — 몸+옷 한 조각 방식)을
 /// 0.5초마다 살펴, 장착 아이템 이름이 바뀌었을 때만 대응표(Resources/CelEquipMap.csv: 아이템 이름,레이어 id)로 레이어를 다시 합성한다.
 /// PixelRigInstaller 가 픽셀 리그에 붙인다.
 /// </summary>
-// [v2 예정 11-10] 외형은 의상 한 벌 + 무기뿐이다. 구현 시 모자·장갑·신발 칸 합성(ArmorBoxes 2·6·9, DefaultLayers cap/glove/shoes)과 임시 규칙(*_glove/*_shoes 기본값,
-// CelComposer.AlignBoots)을 지운다. 기본 동작은 의상, 공격 동작은 무기가 정하며 둘은 독립(모션 소유 원칙).
+// [v2 11-11] 외형은 의상 한 벌 + 무기뿐이다: 의상 칸(5)만 합성한다(모자·장갑·신발 칸 합성과 *_glove/*_shoes 임시 규칙, CelComposer.AlignBoots 삭제).
+// 기본 동작은 의상, 공격 동작은 무기가 정하며 둘은 독립(모션 소유 원칙).
 public class CelEquipSync : MonoBehaviour
 {
-    private static readonly int[] ArmorBoxes = { 2, 5, 6, 9 };
+    private static readonly int[] ArmorBoxes = { 5 };
     /// <summary>빈 칸에 보이는 기본 의상 레이어(옷 한 벌=base_coat_top 은 목 아래 전부). ArmorBoxes 와 같은 순서. 속옷 몸(기반)은 겉으로 드러나지 않는다(11-09 사용자).</summary>
-    private static readonly string[] DefaultLayers = { "base_coat_cap", "base_coat_top", "base_coat_glove", "base_coat_shoes" };
+    private static readonly string[] DefaultLayers = { "base_coat_top" };
     private const float CheckInterval = 0.5f;
     private const string MapPath = "CelEquipMap";
     private const string LayerDir = "PixelRig/Equip/";
@@ -94,15 +94,6 @@ public class CelEquipSync : MonoBehaviour
             if (itemName.Length == 0)
             {
                 id = DefaultLayers[i];
-                // 11-10: 장갑·신발 칸이 비면 '옷이 그린 손발'(같은 세트의 *_glove/*_shoes)이 기본이다. 코트 신발을 다른 옷 포즈에 얹으면 다리와 떨어져 뜬다
-                if ((i == 2 || i == 3) && names.Length > 1 && names[1].Length > 0 && _map.TryGetValue(names[1], out string topId) && topId.EndsWith("_top"))
-                {
-                    string own = topId.Substring(0, topId.Length - 4) + (i == 2 ? "_glove" : "_shoes");
-                    if (Resources.Load<CelEquipLayer>(LayerDir + own) != null)
-                    {
-                        id = own;
-                    }
-                }
             }
             if (id != null || (itemName.Length > 0 && _map.TryGetValue(itemName, out id)))
             {

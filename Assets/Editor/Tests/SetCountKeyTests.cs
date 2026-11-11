@@ -34,7 +34,7 @@ public class SetCountKeyTests
             string[] c = rows.FirstOrDefault(r => r[nameCol] == w);
             Assert.IsNotNull(c, w + " 행 없음");
             Assert.IsNotEmpty(c[tf], w + " tfName 비어 있음");
-            foreach (string t in new[] { "_2", "_4", "_6" })
+            foreach (string t in new[] { "_2", "_4", "_5" })
             {
                 Assert.Contains(c[tf] + t, setKeys, w + " 세트 키 없음");
             }

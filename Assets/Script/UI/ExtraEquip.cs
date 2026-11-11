@@ -5,27 +5,57 @@ using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
-/// 신규 장비 슬롯(귀걸이·팔찌·부적·마법석) 런타임 상태 (EquipSlotExpansion.md). 순수 규칙은 SlotRules, 여기는 ItemData 보관·ES3 저장·인벤 연결.
-/// 기본 8칸 장비 경로(equipBox·equipGear)는 건드리지 않는다. 장착 판정은 ItemSheet equipArea 가 Earring/Bracelet/Charm/Stone 인 아이템만.
+/// 추가 장비 슬롯(귀걸이·팔찌·보조장비(Charm)·마법석·허리띠) 런타임 상태 (EquipSlotExpansion.md, v2). 순수 규칙은 SlotRules, 여기는 ItemData 보관·ES3 저장·인벤 연결.
+/// 의상·무기·반지·목걸이 경로(equipBox·equipGear)는 건드리지 않는다. 장착 판정은 ItemSheet equipArea 가 Earring/Bracelet/Charm/Stone/Belt 인 아이템만.
+/// 귀걸이는 시작부터 열려 있고, 나머지는 SlotUnlocks.csv 의 훅(ExtraEquipRewards.TriggerHook)으로 해금한다.
 /// </summary>
 public static class ExtraEquip
 {
-    static readonly ItemData[] Items = new ItemData[4];
+    static readonly ItemData[] Items = new ItemData[SlotRules.Extras.Length];
     static int _mask;
-    static readonly object[] StatSources = { new object(), new object(), new object(), new object() };
+    static readonly object[] StatSources = { new object(), new object(), new object(), new object(), new object() };
     static bool _loaded;
 
     public static event Action Changed;
 
-    /// <summary>슬롯별 장착 아이템 보조 스탯을 PlayerStats 에 다시 건다 (R4)</summary>
+    static readonly string[] SetCounted = new string[SlotRules.Extras.Length]; // 세트 수에 더해 둔 tfName(귀걸이만)
+    static readonly int[] HpApplied = new int[SlotRules.Extras.Length];
+    static readonly string[] HpKey = new string[SlotRules.Extras.Length];
+
+    /// <summary>슬롯별 장착 아이템 보조 스탯을 PlayerStats 에 다시 건다 (R4). 귀걸이는 세트 수에도 센다(시작 5칸)</summary>
     static void ApplyStats()
     {
         for (int i = 0; i < Items.Length; i++)
         {
             ExtraEquipStats.Apply(StatSources[i], Items[i] == null ? null : Items[i].name);
+            ExtraEquipPrefabStats.Apply(StatSources[i], Items[i], ref HpKey[i], ref HpApplied[i]); // 옛 투구·신발 프리팹 스탯 보존(표에 없는 아이템)
             // 효과 서비스 출처 연결: 아이템의 effectIds(없으면 Detach)
             SkillEffectService.AttachIds("Extra:" + i, Items[i] == null ? null : Items[i].effectIds, Items[i] == null ? null : Items[i].rarity);
+            SyncSetCount(i);
         }
+    }
+
+    /// <summary>귀걸이 칸의 세트 키(tfName)를 DatabaseManager 세트 카운터와 맞춘다. 같은 값이면 아무것도 하지 않는다(멱등)</summary>
+    static void SyncSetCount(int i)
+    {
+        string want = SlotRules.Extras[i] == EquipSlot.Earring && Items[i] != null ? Items[i].tfName : null;
+        if (string.IsNullOrEmpty(want))
+        {
+            want = null;
+        }
+        if (want == SetCounted[i] || DatabaseManager.instance == null)
+        {
+            return;
+        }
+        if (SetCounted[i] != null)
+        {
+            DatabaseManager.MinusSetDict(SetCounted[i], 1);
+        }
+        if (want != null)
+        {
+            DatabaseManager.PlusSetDict(want, 1);
+        }
+        SetCounted[i] = want;
     }
 
     static int Idx(EquipSlot s) => Array.IndexOf(SlotRules.Extras, s);
@@ -57,28 +87,36 @@ public static class ExtraEquip
         return true;
     }
 
-    /// <summary>잠금 툴팁: 해금 조건 한 줄 (설계 §3, 임시 가정)</summary>
+    /// <summary>잠금 툴팁: 해금 층계 한 줄 (층계는 SlotUnlocks.csv)</summary>
     public static string UnlockHint(EquipSlot s)
     {
-        switch (s)
-        {
-            case EquipSlot.Earring: return Loc.T("Locked: complete the Floor 1 bestiary or first-clear a Floor 1 boss");
-            case EquipSlot.Bracelet: return Loc.T("Locked: first-clear a Floor 2 boss");
-            case EquipSlot.Charm: return Loc.T("Locked: complete the Floor 3 bestiary or finish its quest chain");
-            case EquipSlot.Stone: return Loc.T("Locked: first-clear a Floor 4 boss");
-            default: return "";
-        }
+        SlotUnlockRow r = SlotUnlockTable.Current.ForKey(s.ToString());
+        return r == null ? "" : Loc.F("Locked: advance the Floor {0} story", r.Floor);
+    }
+
+    /// <summary>별도 콘텐츠(펫·룬·성물) 잠금 툴팁</summary>
+    public static string ContentUnlockHint(string key)
+    {
+        SlotUnlockRow r = SlotUnlockTable.Current.ForKey(key);
+        return r == null ? "" : Loc.F("Locked: advance the Floor {0} story", r.Floor);
     }
 
     public static string SlotLabel(EquipSlot s)
     {
-        return Loc.T(s == EquipSlot.Earring ? "EARRING" : s == EquipSlot.Bracelet ? "BRACELET" : s == EquipSlot.Charm ? "CHARM" : "STONE");
+        switch (s)
+        {
+            case EquipSlot.Earring: return Loc.T("EARRING");
+            case EquipSlot.Bracelet: return Loc.T("BRACELET");
+            case EquipSlot.Charm: return Loc.T("SUBGEAR");
+            case EquipSlot.Belt: return Loc.T("BELT");
+            default: return Loc.T("STONE");
+        }
     }
 
     /// <summary>11-05 폐기된 부위 이름(Title·Aura·Cape). 순수 판정</summary>
     public static bool IsDiscardedArea(string equipArea)
     {
-        return equipArea == "Title" || equipArea == "Aura" || equipArea == "Cape";
+        return equipArea == "Title" || equipArea == "Aura" || equipArea == "Cape" || SlotRules.IsRetiredArea(equipArea); // 투구·장갑·하의·신발은 v2 에서 슬롯 폐지
     }
 
     /// <summary>인벤의 신규 슬롯 장비를 장착한다. 대상 부위가 아니면 false(기본 경로로), 잠금이면 true(처리됨·장착 안 함)</summary>
@@ -113,6 +151,24 @@ public static class ExtraEquip
         }
         Save();
         inv.SaveInventory();
+        ApplyStats();
+        Changed?.Invoke();
+        return true;
+    }
+
+    /// <summary>
+    /// 구 세이브 이행용: 인벤을 거치지 않고 해당 슬롯에 직접 장착. 슬롯이 해금이고 비어 있을 때만 true(아니면 호출자가 인벤으로 돌려보낸다)
+    /// </summary>
+    public static bool TryPlaceDirect(ItemData data)
+    {
+        EnsureLoaded();
+        if (data == null || !Enum.TryParse(data.equipArea, out EquipSlot slot) || !SlotRules.IsExtra(slot) || !IsUnlocked(slot) || Items[Idx(slot)] != null)
+        {
+            return false;
+        }
+        data.isNew = false;
+        Items[Idx(slot)] = data;
+        Save();
         ApplyStats();
         Changed?.Invoke();
         return true;
@@ -192,6 +248,7 @@ public static class ExtraEquip
         _mask = 0;
         Array.Clear(Items, 0, Items.Length);
         ApplyStats();
+        Array.Clear(SetCounted, 0, SetCounted.Length);
     }
 
     static ItemData ResolveStack(DatabaseManager db, ItemStack st)
@@ -308,52 +365,72 @@ public static class ExtraEquip
     }
 }
 
-/// <summary>해금 보상 연결 (SLOT-3): 해금되면 첫 아이템을 인벤에 지급한다. 같은 슬롯은 한 번만 열리므로 중복 지급 없음</summary>
+/// <summary>
+/// 해금 훅 (SLOT-3, v2): 스토리 진행 호출처가 TriggerHook("boss:N" / "bestiary:B04")를 부르면 SlotUnlocks.csv 의 해당 줄을 해금한다.
+/// 장비 슬롯은 ExtraEquip.Unlock + 첫 아이템 지급, 별도 콘텐츠(펫·룬·성물)는 ContentFeatures.Unlock. 같은 항목은 한 번만 열리므로 중복 지급 없음.
+/// </summary>
 public static class ExtraEquipRewards
 {
-    public const string BestiaryEarringMilestone = "B04";
-    static readonly string[] FirstItem = { "EarringPlain", "BraceletPlain", "CharmPlain", "StonePlain" };
+    public const string BestiaryEarringMilestone = "B04"; // 이름은 구 호환: 지금은 1층계 해금(보조장비) 훅 bestiary:B04
 
     public static void OnFloorBossFirstKill(int floor)
     {
-        if (SlotRules.TrySlotForFloor(floor, out EquipSlot slot))
-        {
-            Grant(slot);
-        }
+        TriggerHook("boss:" + floor);
     }
 
     public static void OnBestiaryMilestone(string id)
     {
-        if (id == BestiaryEarringMilestone)
-        {
-            Grant(EquipSlot.Earring);
-        }
+        TriggerHook("bestiary:" + id);
     }
 
-    public static void Grant(EquipSlot slot)
+    /// <summary>훅 이름으로 해금. 새로 열렸으면 true</summary>
+    public static bool TriggerHook(string hookId)
+    {
+        SlotUnlockRow row = SlotUnlockTable.Current.ForHook(hookId);
+        if (row == null)
+        {
+            return false;
+        }
+        if (!row.IsSlot)
+        {
+            return ContentFeatures.Unlock(row.Key);
+        }
+        return Enum.TryParse(row.Key, out EquipSlot slot) && Grant(slot);
+    }
+
+    public static bool Grant(EquipSlot slot)
     {
         if (!ExtraEquip.Unlock(slot))
         {
-            return;
+            return false;
         }
         PickupLog.Notice(Loc.T("New equipment slot unlocked: ") + ExtraEquip.SlotLabel(slot));
-        int i = Array.IndexOf(SlotRules.Extras, slot);
-        string item = i >= 0 ? FirstItem[i] : "";
-        if (item.Length > 0 && InventoryManager.instance != null)
+        string item = slot + "Plain";
+        DatabaseManager db = DatabaseManager.instance;
+        if (db != null && db.FindItemDataIndex(item) >= 0 && InventoryManager.instance != null)
         {
             ExtraEquip.GrantFirstItem(item);
         }
+        return true;
     }
 }
 
 /// <summary>
-/// 장비창 옆 신규 4칸 (코드 생성 임시 UI): 잠금 표시·호버 툴팁·클릭 해제. 게임패드·키보드 커서 이동은 후속(TechDebt).
-/// InventoryManager.inventory 아래에 한 번 만든다.
+/// 장비창 아래 추가 5칸 (코드 생성 임시 UI): 잠금 표시·호버 툴팁·클릭 해제. 키보드·패드는 InventoryManager 장비 커서 격자의 마지막 줄(equipCusor 10~14)이 같은 칸을 가리킨다.
+/// InventoryManager.inventory 아래에 한 번 만든다. 폐지된 4칸(투구·장갑·하의·신발)은 만들지 않는다.
 /// </summary>
 public sealed class ExtraEquipPanel : MonoBehaviour
 {
-    readonly TextMeshProUGUI[] _labels = new TextMeshProUGUI[4];
+    static ExtraEquipPanel _instance;
+    static readonly EquipSlot[] DisplayOrder = { EquipSlot.Earring, EquipSlot.Charm, EquipSlot.Bracelet, EquipSlot.Belt, EquipSlot.Stone };
+    readonly TextMeshProUGUI[] _labels = new TextMeshProUGUI[SlotRules.Extras.Length];
+    readonly GameObject[] _boxes = new GameObject[SlotRules.Extras.Length];
+    readonly GameObject[] _petBoxes = new GameObject[3];
+    readonly TextMeshProUGUI[] _petLabels = new TextMeshProUGUI[3];
     TextMeshProUGUI _tip;
+
+    /// <summary>장비 커서 격자에서 펫 줄(켜기·HP%·MP%)의 노드 번호 시작값. EquipSlot 값(10~14)과 겹치지 않는다</summary>
+    public const int PetNodeBase = 20;
 
     public static void Ensure(Transform parent)
     {
@@ -367,32 +444,132 @@ public sealed class ExtraEquipPanel : MonoBehaviour
         go.AddComponent<ExtraEquipPanel>().Build();
     }
 
+    /// <summary>슬롯 칸 오브젝트(커서 위치용). 패널이 없으면 null</summary>
+    public static GameObject BoxOf(EquipSlot slot)
+    {
+        int i = Array.IndexOf(SlotRules.Extras, slot);
+        return _instance != null && i >= 0 ? _instance._boxes[i] : null;
+    }
+
+    /// <summary>장비 커서 노드(10~14 슬롯, 20~22 펫 줄)의 칸 오브젝트. 패널이 없으면 null</summary>
+    public static GameObject BoxOfNode(int node)
+    {
+        if (node >= PetNodeBase)
+        {
+            int k = node - PetNodeBase;
+            return _instance != null && k < _instance._petBoxes.Length ? _instance._petBoxes[k] : null;
+        }
+        return BoxOf((EquipSlot)node);
+    }
+
+    /// <summary>키보드·패드 커서가 칸에 올라왔을 때 툴팁(호버와 같은 문구)</summary>
+    public static void TipForNode(int node)
+    {
+        if (_instance != null)
+        {
+            _instance.ShowTip(node >= PetNodeBase ? PetTipText(node - PetNodeBase) : node >= 10 ? SlotTipText((EquipSlot)node) : "");
+        }
+    }
+
+    /// <summary>키보드·패드 선택·클릭: 슬롯 칸이면 해제, 펫 줄이면 자동 먹기 켜기/기준 % 바꾸기</summary>
+    public static void ActivateNode(int node)
+    {
+        if (node < PetNodeBase)
+        {
+            Activate((EquipSlot)node);
+            return;
+        }
+        switch (node - PetNodeBase)
+        {
+            case 0: PetFeature.Toggle(); break;
+            case 1: PetFeature.CycleHp(); break;
+            default: PetFeature.CycleMp(); break;
+        }
+        if (_instance != null)
+        {
+            _instance.Refresh();
+            _instance.ShowTip(PetTipText(node - PetNodeBase));
+        }
+    }
+
+    public static string PetTipText(int k)
+    {
+        if (!PetFeature.IsUnlocked)
+        {
+            return ExtraEquip.ContentUnlockHint(ContentFeatures.Pet);
+        }
+        return k == 0 ? Loc.T("Pet: auto-drink potions (select to toggle)") : k == 1 ? Loc.T("Drink an HP potion at or below this % (select to change)") : Loc.T("Drink a stamina potion at or below this % (select to change)");
+    }
+
+    /// <summary>키보드·패드 선택·클릭: 잠금이 아니고 장착품이 있으면 해제(인벤이 가득이면 거절)</summary>
+    public static void Activate(EquipSlot slot)
+    {
+        if (ExtraEquip.IsUnlocked(slot) && ExtraEquip.Get(slot) != null)
+        {
+            ExtraEquip.Unequip(slot);
+        }
+    }
+
+    public static string SlotTipText(EquipSlot slot)
+    {
+        ItemData d = ExtraEquip.Get(slot);
+        return !ExtraEquip.IsUnlocked(slot) ? ExtraEquip.UnlockHint(slot) : d != null ? d.description : ExtraEquip.SlotLabel(slot);
+    }
+
     void Build()
     {
+        _instance = this;
         var rt = (RectTransform)transform;
         // 장비 그리드(BackGround) 아래 빈 띠에 맞춤: 인벤 칸·프리셋 박스를 가리지 않는다
         rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
         rt.pivot = new Vector2(0.5f, 1f);
         rt.anchoredPosition = new Vector2(-332f, -80f);
-        rt.sizeDelta = new Vector2(290f, 66f);
-        for (int i = 0; i < 4; i++)
+        rt.sizeDelta = new Vector2(290f, 60f); // 아래 툴팁 줄은 패널 밖으로 나가 장비 프리셋 박스 위에 잠깐 겹친다
+        int n = DisplayOrder.Length;
+        float w = (282f - (n - 1) * 3f) / n; // 칸 너비: 패널 폭 안에 n 칸
+        for (int i = 0; i < n; i++)
         {
-            var box = new GameObject("Box" + i, typeof(RectTransform), typeof(Image));
+            // 화면 순서 = 층계 순서(귀걸이 → 보조장비 1 → 팔찌 3 → 허리띠 5 → 마법석 7), 저장 순서(Extras)와는 별개
+            int slotIndex = Array.IndexOf(SlotRules.Extras, DisplayOrder[i]);
+            var box = new GameObject("Box" + slotIndex, typeof(RectTransform), typeof(Image));
             box.transform.SetParent(transform, false);
             box.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.12f);
             var br = (RectTransform)box.transform;
             br.anchorMin = br.anchorMax = br.pivot = new Vector2(0f, 1f);
-            br.anchoredPosition = new Vector2(4f + i * 71f, -4f);
-            br.sizeDelta = new Vector2(67f, 26f);
-            box.AddComponent<ExtraSlotBox>().Init(this, SlotRules.Extras[i]);
-            _labels[i] = NewText("Label", box.transform, 10f, new Vector2(67f, 26f), Vector2.zero);
-            _labels[i].alignment = TextAlignmentOptions.Center;
-            _labels[i].enableAutoSizing = true;
-            _labels[i].fontSizeMax = 10f;
-            _labels[i].fontSizeMin = 6f;
-            _labels[i].overflowMode = TextOverflowModes.Ellipsis;
+            br.anchoredPosition = new Vector2(4f + i * (w + 3f), -4f);
+            br.sizeDelta = new Vector2(w, 26f);
+            box.AddComponent<ExtraSlotBox>().Init(this, SlotRules.Extras[slotIndex]);
+            _boxes[slotIndex] = box;
+            _labels[slotIndex] = NewText("Label", box.transform, 10f, new Vector2(w, 26f), Vector2.zero);
+            _labels[slotIndex].alignment = TextAlignmentOptions.Center;
+            _labels[slotIndex].enableAutoSizing = true;
+            _labels[slotIndex].fontSizeMax = 10f;
+            _labels[slotIndex].fontSizeMin = 6f;
+            _labels[slotIndex].overflowMode = TextOverflowModes.Ellipsis;
         }
-        _tip = NewText("Tip", transform, 9f, new Vector2(282f, 26f), new Vector2(4f, -34f));
+        string[] petNames = { "PetToggle", "PetHp", "PetMp" };
+        float pw = (282f - 6f) / 3f;
+        for (int k = 0; k < 3; k++)
+        {
+            var pbox = new GameObject(petNames[k], typeof(RectTransform), typeof(Image));
+            pbox.transform.SetParent(transform, false);
+            pbox.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.12f);
+            var pr = (RectTransform)pbox.transform;
+            pr.anchorMin = pr.anchorMax = pr.pivot = new Vector2(0f, 1f);
+            pr.anchoredPosition = new Vector2(4f + k * (pw + 3f), -33f);
+            pr.sizeDelta = new Vector2(pw, 22f);
+            pbox.AddComponent<ExtraSlotBox>().InitNode(this, PetNodeBase + k);
+            _petBoxes[k] = pbox;
+            _petLabels[k] = NewText("Label", pbox.transform, 10f, new Vector2(pw, 22f), Vector2.zero);
+            _petLabels[k].alignment = TextAlignmentOptions.Center;
+            _petLabels[k].enableAutoSizing = true;
+            _petLabels[k].fontSizeMax = 10f;
+            _petLabels[k].fontSizeMin = 6f;
+            _petLabels[k].overflowMode = TextOverflowModes.Ellipsis;
+        }
+        PetFeature.Changed += Refresh;
+        ContentFeatures.Unlocked += OnContentUnlocked;
+        _tip = NewText("Tip", transform, 9f, new Vector2(282f, 26f), new Vector2(4f, -58f));
         _tip.enableWordWrapping = true;
         _tip.color = new Color(1f, 1f, 1f, 0.7f);
         ExtraEquip.Changed += Refresh;
@@ -417,6 +594,12 @@ public sealed class ExtraEquipPanel : MonoBehaviour
     void OnDestroy()
     {
         ExtraEquip.Changed -= Refresh;
+        PetFeature.Changed -= Refresh;
+        ContentFeatures.Unlocked -= OnContentUnlocked;
+        if (_instance == this)
+        {
+            _instance = null;
+        }
     }
 
     public void ShowTip(string text)
@@ -427,8 +610,17 @@ public sealed class ExtraEquipPanel : MonoBehaviour
         }
     }
 
+    void OnContentUnlocked(string key)
+    {
+        Refresh();
+    }
+
     void Refresh()
     {
+        bool pet = PetFeature.IsUnlocked;
+        _petLabels[0].text = !pet ? "[X] " + Loc.T("PET") : Loc.T("PET") + (PetFeature.Enabled ? " ON" : " OFF");
+        _petLabels[1].text = "HP " + PetFeature.HpPercent + "%";
+        _petLabels[2].text = "SP " + PetFeature.MpPercent + "%";
         for (int i = 0; i < _labels.Length; i++)
         {
             EquipSlot s = SlotRules.Extras[i];
@@ -439,11 +631,13 @@ public sealed class ExtraEquipPanel : MonoBehaviour
     }
 }
 
-/// <summary>신규 슬롯 한 칸: 호버 → 툴팁, 클릭 → 해제</summary>
+/// <summary>추가 슬롯 한 칸: 호버 → 툴팁, 클릭 → 해제</summary>
 public sealed class ExtraSlotBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     ExtraEquipPanel _panel;
     EquipSlot _slot;
+
+    int _node = -1; // 펫 줄이면 장비 커서 노드 번호(20~22), 슬롯 칸이면 -1
 
     public void Init(ExtraEquipPanel panel, EquipSlot slot)
     {
@@ -451,10 +645,15 @@ public sealed class ExtraSlotBox : MonoBehaviour, IPointerEnterHandler, IPointer
         _slot = slot;
     }
 
+    public void InitNode(ExtraEquipPanel panel, int node)
+    {
+        _panel = panel;
+        _node = node;
+    }
+
     public void OnPointerEnter(PointerEventData e)
     {
-        ItemData d = ExtraEquip.Get(_slot);
-        _panel.ShowTip(!ExtraEquip.IsUnlocked(_slot) ? ExtraEquip.UnlockHint(_slot) : d != null ? d.description : ExtraEquip.SlotLabel(_slot));
+        _panel.ShowTip(_node >= 0 ? ExtraEquipPanel.PetTipText(_node - ExtraEquipPanel.PetNodeBase) : ExtraEquipPanel.SlotTipText(_slot));
     }
 
     public void OnPointerExit(PointerEventData e)
@@ -464,9 +663,11 @@ public sealed class ExtraSlotBox : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerClick(PointerEventData e)
     {
-        if (ExtraEquip.IsUnlocked(_slot) && ExtraEquip.Get(_slot) != null)
+        if (_node >= 0)
         {
-            ExtraEquip.Unequip(_slot);
+            ExtraEquipPanel.ActivateNode(_node);
+            return;
         }
+        ExtraEquipPanel.Activate(_slot);
     }
 }

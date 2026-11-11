@@ -1,40 +1,55 @@
 ﻿using System;
 
 /// <summary>
-/// [v2 예정 11-10] 해금 규칙이 바뀐다: 시작 5칸(의상·무기·반지·목걸이·귀걸이) 외에 홀수 층계(1 보조장비·3 팔찌·5 허리띠·7 마법석)만 해금 슬롯이고,
-/// 해금 조건은 보스 처치가 아니라 스토리 진행이다. 짝수 층계(2 펫·4 룬·6 성물)는 슬롯이 아니라 별도 콘텐츠라 여기에 넣지 않는다.
-/// 현재 코드는 옛 4칸(귀걸이·팔찌·부적·마법석)·층계 1~4 순서다. 세이브 키 이름은 바꾸지 않고 추가만 한다.
-/// 신규 장비 슬롯(EquipSlotExpansion.md 4~5절) 규칙 — 순수 C#. 기본 8칸은 항상 해금, 신규 4칸은 해금 비트가 필요하다.
-/// 세이브 키: equip.extra(string[4]), equip.extraUnlock(int 비트마스크). 키가 없으면 전부 잠금·빈칸(구 세이브 호환).
+/// 장비 슬롯 규칙 (EquipSlotExpansion.md, v2 11-11) — 순수 C#.
+/// 시작 5칸(의상·무기·반지·목걸이·귀걸이)은 항상 열려 있다. 해금 슬롯은 홀수 층계(1 보조장비·3 팔찌·5 허리띠·7 마법석)이고,
+/// 층계→슬롯·해금 훅은 Resources/SlotUnlocks.csv(SlotUnlockTable)에서 읽는다. 짝수 층계(펫·룬·성물)는 슬롯이 아니라 별도 콘텐츠(Features).
+/// 세이브 키: equip.extra(string[]), equip.extraUnlock(int 비트마스크). 키가 없으면 해금 슬롯은 잠금·빈칸(구 세이브 호환). 키 이름은 바꾸지 않고 배열 끝에만 추가한다.
 /// </summary>
 public static class SlotRules
 {
     public const string SaveKeyExtra = "equip.extra";
     public const string SaveKeyUnlock = "equip.extraUnlock";
 
-    /// <summary>세이브 배열 순서 = 비트 순서</summary>
-    public static readonly EquipSlot[] Extras = { EquipSlot.Earring, EquipSlot.Bracelet, EquipSlot.Charm, EquipSlot.Stone };
+    /// <summary>세이브 배열 순서 = 비트 순서. 구 세이브 호환을 위해 순서 고정, 새 슬롯은 끝에만 추가(Belt)</summary>
+    public static readonly EquipSlot[] Extras = { EquipSlot.Earring, EquipSlot.Bracelet, EquipSlot.Charm, EquipSlot.Stone, EquipSlot.Belt };
 
-    public const int AllExtraMask = 15;
+    public const int AllExtraMask = 31;
 
-    /// <summary>층계 번호(1~4, 탐험가 승급 rank 와 같음) → 해금되는 슬롯. 범위 밖이면 false</summary>
-    public static bool TrySlotForFloor(int floor, out EquipSlot slot)
+    /// <summary>시작 5칸(의상·무기·반지·목걸이·귀걸이) — 세트 효과가 세는 칸. 최대 5셋</summary>
+    public static readonly EquipSlot[] Starting = { EquipSlot.Outfit, EquipSlot.Weapon, EquipSlot.Ring, EquipSlot.Necklace, EquipSlot.Earring };
+
+    /// <summary>폐지된 슬롯(투구·장갑·하의·신발). 구 세이브·문자열 파싱 전용</summary>
+    public static bool IsRetired(EquipSlot slot)
     {
-        slot = default;
-        if (floor < 1 || floor > Extras.Length)
-        {
-            return false;
-        }
-        slot = Extras[floor - 1];
-        return true;
+        return slot == EquipSlot.Head || slot == EquipSlot.Hand || slot == EquipSlot.Leg || slot == EquipSlot.Shoes;
     }
 
+    /// <summary>폐지 부위 이름("Head"·"Hand"·"Leg"·"Shoes")인가</summary>
+    public static bool IsRetiredArea(string area)
+    {
+        return area == "Head" || area == "Hand" || area == "Leg" || area == "Shoes";
+    }
+
+    /// <summary>시작부터 열려 있는 추가 저장 슬롯(귀걸이)</summary>
+    public static bool IsAlwaysOpen(EquipSlot slot)
+    {
+        return slot == EquipSlot.Earring;
+    }
+
+    /// <summary>층계 번호(홀수 1·3·5·7) → 해금되는 장비 슬롯. 짝수 층계(별도 콘텐츠)·범위 밖이면 false</summary>
+    public static bool TrySlotForFloor(int floor, out EquipSlot slot)
+    {
+        return SlotUnlockTable.Current.TrySlotForFloor(floor, out slot);
+    }
+
+    /// <summary>해금형 저장 슬롯인가(귀걸이 포함 — 저장 배열에 속하는지)</summary>
     public static bool IsExtra(EquipSlot slot)
     {
         return Array.IndexOf(Extras, slot) >= 0;
     }
 
-    /// <summary>1=Earring, 2=Bracelet, 4=Charm, 8=Stone. 기본 슬롯은 0</summary>
+    /// <summary>1=Earring, 2=Bracelet, 4=Charm, 8=Stone, 16=Belt. 그 밖의 슬롯은 0</summary>
     public static int Bit(EquipSlot slot)
     {
         int i = Array.IndexOf(Extras, slot);
@@ -43,7 +58,7 @@ public static class SlotRules
 
     public static bool IsUnlocked(int mask, EquipSlot slot)
     {
-        return !IsExtra(slot) || (mask & Bit(slot)) != 0;
+        return !IsExtra(slot) || IsAlwaysOpen(slot) || (mask & Bit(slot)) != 0;
     }
 
     public static int Unlock(int mask, EquipSlot slot)
@@ -78,7 +93,7 @@ public static class SlotRules
     }
 }
 
-/// <summary>신규 슬롯 ES3 입출력 (얇은 래퍼 — 로직은 EquipmentModel/SlotRules). 읽기 실패 시 잠금·빈칸</summary>
+/// <summary>장비 슬롯 ES3 입출력 (얇은 래퍼 — 로직은 EquipmentModel/SlotRules). 읽기 실패 시 잠금·빈칸</summary>
 public static class EquipExtraSave
 {
     public static void Save(EquipmentModel model)

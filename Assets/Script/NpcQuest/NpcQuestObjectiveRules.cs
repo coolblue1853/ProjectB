@@ -9,7 +9,7 @@ public static class NpcQuestObjectiveRules
     public const string AnyTarget = "any";
     public const string AnyElite = "*";
 
-    private static readonly string[] ArmorAreas = { "Head", "Chest", "Hand", "Leg", "Shoes" };
+    private static readonly string[] ArmorAreas = { "Chest" }; // v2: 방어구 = 의상 하나(옛 투구·장갑·하의·신발은 폐지, 반지·목걸이·귀걸이는 장신구)
 
     /// <summary>"sets:N" 이면 N(최소 부위 수)을 돌려준다</summary>
     public static bool TryParseSets(string target, out int minParts)

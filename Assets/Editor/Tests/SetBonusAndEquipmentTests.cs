@@ -9,13 +9,13 @@ public class SetBonusAndEquipmentTests
         public readonly Dictionary<string, ItemDef> Defs = new Dictionary<string, ItemDef>();
         public FakeCatalog()
         {
-            foreach (var area in new[] { "Head", "Chest", "Leg", "Hand", "Shoes", "Weapon" })
+            foreach (var area in new[] { "Earring", "Chest", "Necklace", "Ring", "Weapon" })
             {
                 Defs["Rabbit" + area] = new ItemDef { Id = "Rabbit" + area, Type = "Equip", EquipArea = area, SetKey = "RabbitArmor", MaxStack = 1 };
             }
             Defs["Necklace1"] = new ItemDef { Id = "Necklace1", Type = "Equip", EquipArea = "Necklace", MaxStack = 1 };
-            Defs["Rat1"] = new ItemDef { Id = "Rat1", Type = "Equip", EquipArea = "Head", SetKey = "RatArmor", MaxStack = 1 };
-            Defs["Plain"] = new ItemDef { Id = "Plain", Type = "Equip", EquipArea = "Head", SetKey = "", MaxStack = 1 };
+            Defs["Rat1"] = new ItemDef { Id = "Rat1", Type = "Equip", EquipArea = "Earring", SetKey = "RatArmor", MaxStack = 1 };
+            Defs["Plain"] = new ItemDef { Id = "Plain", Type = "Equip", EquipArea = "Earring", SetKey = "", MaxStack = 1 };
             Defs["Wood"] = new ItemDef { Id = "Wood", Type = "Misc", MaxStack = 99 };
         }
         public ItemDef Get(string id) => id != null && Defs.TryGetValue(id, out var d) ? d : null;
@@ -54,7 +54,7 @@ public class SetBonusAndEquipmentTests
     public void EmptySetKey_Ignored()
     {
         var cat = new FakeCatalog();
-        var counts = SetBonusEvaluator.CountPieces(new[] { cat.Get("Plain"), cat.Get("RabbitHead") });
+        var counts = SetBonusEvaluator.CountPieces(new[] { cat.Get("Plain"), cat.Get("RabbitEarring") });
         Assert.IsFalse(counts.ContainsKey(""));
         Assert.AreEqual(1, counts["RabbitArmor"]);
     }
@@ -88,9 +88,9 @@ public class SetBonusAndEquipmentTests
         var cat = new FakeCatalog();
         var inv = new SlotContainer(cat, 4, 4);
         var eq = new EquipmentModel(cat);
-        inv.TryAdd(new ItemStack("RabbitHead", 1, 0, 3));
+        inv.TryAdd(new ItemStack("RabbitEarring", 1, 0, 3));
         Assert.IsTrue(eq.Equip(inv, 0));
-        Assert.AreEqual(3, eq[EquipSlot.Head].Upgrade);
+        Assert.AreEqual(3, eq[EquipSlot.Earring].Upgrade);
         Assert.IsTrue(inv[0].IsEmpty);
     }
 
@@ -100,12 +100,12 @@ public class SetBonusAndEquipmentTests
         var cat = new FakeCatalog();
         var inv = new SlotContainer(cat, 4, 4);
         var eq = new EquipmentModel(cat);
-        inv.TryAdd(new ItemStack("RabbitHead", 1));
+        inv.TryAdd(new ItemStack("RabbitEarring", 1));
         eq.Equip(inv, 0);
         inv.TryAdd(new ItemStack("Rat1", 1));
         Assert.IsTrue(eq.Equip(inv, 0));
-        Assert.AreEqual("Rat1", eq[EquipSlot.Head].Id);
-        Assert.AreEqual("RabbitHead", inv[0].Id);
+        Assert.AreEqual("Rat1", eq[EquipSlot.Earring].Id);
+        Assert.AreEqual("RabbitEarring", inv[0].Id);
     }
 
     [Test]
@@ -131,10 +131,10 @@ public class SetBonusAndEquipmentTests
         var cat = new FakeCatalog();
         var inv = new SlotContainer(cat, 1, 1);
         var eq = new EquipmentModel(cat);
-        inv.TryAdd(new ItemStack("RabbitHead", 1));
+        inv.TryAdd(new ItemStack("RabbitEarring", 1));
         eq.Equip(inv, 0);
         inv.TryAdd(new ItemStack("Wood", 1));
-        Assert.IsFalse(eq.Unequip(EquipSlot.Head, inv));
-        Assert.AreEqual("RabbitHead", eq[EquipSlot.Head].Id);
+        Assert.IsFalse(eq.Unequip(EquipSlot.Earring, inv));
+        Assert.AreEqual("RabbitEarring", eq[EquipSlot.Earring].Id);
     }
 }

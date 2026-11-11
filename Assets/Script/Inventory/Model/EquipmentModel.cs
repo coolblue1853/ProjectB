@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// [EQUIP-SLOT-REFORM v2 · 11-10 확정, 구현 예정 — 상세 Docs/Handoff/equip_redistribution.md, Game/EquipSlotExpansion.md]
-/// 목표 슬롯표: 시작 5칸 = 의상(Chest 로 이행, 외형 한 벌·기본 동작 결정)·무기·반지·목걸이·귀걸이.
-/// 홀수 층계 = 장비 슬롯 해금: 1 보조장비(옛 부적 Charm)·3 팔찌·5 허리띠·7 마법석. 해금은 스토리 진행.
-/// 짝수 층계 = 장비가 아닌 별도 콘텐츠: 2 펫·4 룬·6 성물 — 이 enum 에 넣지 않는다(세트 효과에도 안 들어감).
-/// 세트 효과에 들어가는 것은 장비 슬롯뿐(지금은 시작 5칸 기준 최대 5셋, 해금 슬롯 포함은 나중).
-/// 투구(Head)·장갑(Hand)·하의(Leg)·신발(Shoes)은 외형 합침 후 폐지 예정(반지·목걸이·귀걸이 등으로 이행). 값·세이브 인덱스는 이름만 바뀌고 유지한다.
-/// 모션 소유 원칙: 의상=기본 동작, 무기=공격 동작, 둘은 독립(합으로 늘림).
-/// 장비 부위 = 세이브 인덱스 그대로 (equipGear[슬롯]). 10~13 은 해금형 비외형 장신구 슬롯(귀걸이·팔찌·부적·마법석, EquipSlotExpansion.md, 별도 ES3 키). 11-05 이전 이름 Title·Aura·Cape 는 폐기, 값 유지</summary>
-public enum EquipSlot { Ring = 1, Head = 2, Necklace = 3, Chest = 5, Hand = 6, Weapon = 7, Leg = 8, Shoes = 9, Earring = 10, Bracelet = 11, Charm = 12, Stone = 13 }
+/// [EQUIP-SLOT-REFORM v2 · 11-11 구현 — 상세 Docs/Handoff/equip_redistribution.md, Game/EquipSlotExpansion.md]
+/// 시작 5칸 = 의상(Outfit=Chest=5, 외형 한 벌·기본 동작 결정)·무기·반지·목걸이·귀걸이(Earring=10, 항상 열림).
+/// 홀수 층계 = 장비 슬롯 해금(Assets/Resources/SlotUnlocks.csv): 1 보조장비(옛 부적 Charm=12)·3 팔찌(11)·5 허리띠(Belt=14)·7 마법석(13).
+/// 짝수 층계(2 펫·4 룬·6 성물)는 장비가 아닌 별도 콘텐츠(Assets/Script/Features) — 이 enum 에 넣지 않는다(세트 효과에도 안 들어감).
+/// 투구(Head=2)·장갑(Hand=6)·하의(Leg=8)·신발(Shoes=9)은 슬롯 폐지: 구 세이브·문자열 파싱용으로만 남기며 SlotRules.IsRetired 로 걸러낸다. 값·세이브 인덱스는 유지.
+/// 세트 효과에 들어가는 것은 장비 슬롯뿐(시작 5칸 기준 최대 5셋). 모션 소유 원칙: 의상=기본 동작, 무기=공격 동작, 둘은 독립.
+/// 장비 부위 = 세이브 인덱스 그대로 (equipGear[슬롯]). 10~14 는 해금형·비외형 장신구 슬롯(별도 ES3 키). 11-05 이전 이름 Title·Aura·Cape 는 폐기, 값 유지
+/// </summary>
+public enum EquipSlot { Ring = 1, Head = 2, Necklace = 3, Chest = 5, Outfit = 5, Hand = 6, Weapon = 7, Leg = 8, Shoes = 9, Earring = 10, Bracelet = 11, Charm = 12, Stone = 13, Belt = 14 }
 
 /// <summary>
 /// 장비 모델 (InventoryRefactorDesign 2.6) — 순수 C#. 부위 문자열 매핑은 TryGetSlot 한 곳(B-011 "Neckles" 류 재발 방지).
@@ -28,7 +28,7 @@ public sealed class EquipmentModel
 
     public event Action<EquipSlot, ItemStack, ItemStack> OnChanged; // 슬롯, 이전, 이후
 
-    /// <summary>신규 슬롯 해금 비트마스크 (SlotRules.Bit). 기본 8칸은 항상 해금</summary>
+    /// <summary>신규 슬롯 해금 비트마스크 (SlotRules.Bit). 시작 5칸·귀걸이는 항상 해금</summary>
     public int ExtraUnlockMask { get; private set; }
 
     public bool IsUnlocked(EquipSlot slot)
@@ -36,7 +36,7 @@ public sealed class EquipmentModel
         return SlotRules.IsUnlocked(ExtraUnlockMask, slot);
     }
 
-    /// <summary>신규 슬롯 해금(영구, 이미 해금이면 false). 기본 8칸은 false</summary>
+    /// <summary>신규 슬롯 해금(영구, 이미 해금이면 false). 시작 슬롯은 false</summary>
     public bool Unlock(EquipSlot slot)
     {
         if (!SlotRules.IsExtra(slot) || IsUnlocked(slot))
@@ -47,7 +47,7 @@ public sealed class EquipmentModel
         return true;
     }
 
-    /// <summary>신규 슬롯 아이템을 세이브 문자열 4개로 (Earring·Bracelet·Charm·Stone, 빈칸 "")</summary>
+    /// <summary>신규 슬롯 아이템을 세이브 문자열 배열로 (SlotRules.Extras 순서, 빈칸 "")</summary>
     public string[] ToExtraArray()
     {
         var arr = new string[SlotRules.Extras.Length];
@@ -107,7 +107,7 @@ public sealed class EquipmentModel
         {
             return false;
         }
-        return Enum.TryParse(def.EquipArea, out slot) && Enum.IsDefined(typeof(EquipSlot), slot);
+        return Enum.TryParse(def.EquipArea, out slot) && Enum.IsDefined(typeof(EquipSlot), slot) && !SlotRules.IsRetired(slot);
     }
 
     /// <summary>인벤 index 칸의 장비를 장착. 기존 장비는 그 칸으로 교환. 부위가 안 맞으면 false</summary>

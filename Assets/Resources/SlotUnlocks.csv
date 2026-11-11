@@ -1,0 +1,8 @@
+key,kind,floor,hookId
+Charm,slot,1,boss:1;bestiary:B04
+Pet,content,2,boss:2
+Bracelet,slot,3,boss:3
+Rune,content,4,boss:4
+Belt,slot,5,boss:5
+Relic,content,6,boss:6
+Stone,slot,7,boss:7

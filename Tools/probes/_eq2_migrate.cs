@@ -1,0 +1,15 @@
+var inv = InventoryManager.instance;
+var d = SaveManager.instance.datas;
+d.equipGear[2, 0] = "WolfCap"; d.equipGear[2, 1] = "1"; d.equipGear[2, 2] = "3";
+d.equipGear[6, 0] = "WolfHandArmor"; d.equipGear[8, 0] = "WolfLegArmor"; d.equipGear[9, 0] = "WolfShoes";
+var list = LegacyGearMigration.Collect(d.equipGear, d.equipmentFlags);
+var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public;
+typeof(InventoryManager).GetMethod("MigrateLegacyGear", flags).Invoke(inv, new object[] { list });
+var sb = new System.Text.StringBuilder("entries=" + list.Count);
+for (int i = 1; i < 10; i++) sb.Append(" g" + i + "=" + (d.equipGear[i, 0] ?? "null"));
+var e = ExtraEquip.Get(EquipSlot.Earring);
+sb.Append(" earr=" + (e != null ? e.name + "|t" + e.tear + "|u" + e.upgrade + "|set=" + e.tfName : "-"));
+sb.Append(" bag: WolfHandArmor=" + DatabaseManager.inventoryItemStack.ContainsKey("WolfHandArmor") + " WolfLegArmor=" + DatabaseManager.inventoryItemStack.ContainsKey("WolfLegArmor") + " WolfShoes=" + DatabaseManager.inventoryItemStack.ContainsKey("WolfShoes"));
+sb.Append(" setStack=" + string.Join(",", System.Linq.Enumerable.Select(DatabaseManager.setsEffectStack, kv => kv.Key + ":" + kv.Value)));
+sb.Append(" es3extra=" + (ES3.KeyExists("equip.extra") ? string.Join("|", ES3.Load<string[]>("equip.extra")) : "none"));
+return sb.ToString();
