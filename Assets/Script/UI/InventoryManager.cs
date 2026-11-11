@@ -2057,10 +2057,12 @@ public class InventoryManager : MonoBehaviour
         int wornUp = worn != null ? worn.itemData.upgrade : 0;
         if (d.equipArea != "Weapon")
         {
-            return TooltipBuilder.ArmorBlock(GearPrefabCache.Comp<Equipment>(prefab), d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Equipment>() : null, wornUp);
+            return TooltipBuilder.ArmorBlock(GearPrefabCache.Comp<Equipment>(prefab), d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Equipment>() : null, wornUp)
+                + EffectTooltip.ForItem(d.effectIds, WeaponKind.None);
         }
         Weapon weapon = GearPrefabCache.Comp<Weapon>(prefab);
-        return TooltipBuilder.WeaponBlock(weapon, d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Weapon>() : null, wornUp) + WeaponMasteryTooltip.Build(weapon);
+        return TooltipBuilder.WeaponBlock(weapon, d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Weapon>() : null, wornUp) + WeaponMasteryTooltip.Build(weapon)
+            + EffectTooltip.ForItem(d.effectIds, weapon != null ? weapon.Kind : WeaponKind.None);
     }
 
     /// <summary>같은 부위에 착용 중인 아이템 (없으면 null). 비교 패널(ComparePanel)도 쓴다</summary>
@@ -2139,7 +2141,14 @@ public class InventoryManager : MonoBehaviour
             DatabaseManager.setsEffectStack.TryGetValue(d.tfName, out worn);
         }
         string setName = string.IsNullOrEmpty(d.setName) ? null : Loc.T(d.setName);
-        return TooltipBuilder.SetBlock(setName, worn, SetPartCount(d.tfName), tiers);
+        // 단계별 특수 효과(SetItem.csv effectIds): 단계 줄 아래에 덧붙인다(P6)
+        var extras = new List<string>(tiers.Count);
+        for (int t = 0; t < tiers.Count; t++)
+        {
+            SetData sd = string.IsNullOrEmpty(d.tfName) ? null : DatabaseManager.instance.LoadSetsData(DatabaseManager.instance.FindSetsDataIndex(d.tfName + "_" + tiers[t].Key));
+            extras.Add(sd != null ? EffectTooltip.ForSetTier(sd.effectIds, worn >= tiers[t].Key, WeaponKind.None) : string.Empty);
+        }
+        return TooltipBuilder.SetBlock(setName, worn, SetPartCount(d.tfName), tiers, extras);
     }
 
     static readonly Dictionary<string, int> setPartCache = new Dictionary<string, int>();

@@ -95,6 +95,15 @@ public static class SkillEffectService
         {
             Active.AddRange(l);
         }
+        _basicMul = 1f + EffectResolver.BasicDamagePct(Active) / 100f;
+    }
+
+    static float _basicMul = 1f;
+
+    /// <summary>평타(Basic) 피해 배율. 스킬 타격·효과 없음 = 1 (Recompute 때만 계산, 매 타격 호출 안전)</summary>
+    public static float BasicDamageMul(bool isSkill)
+    {
+        return isSkill ? 1f : _basicMul;
     }
 
     // 스태미나 감소율은 BlockReason 이 매 프레임 부르므로 스킬 이름별로 캐시한다(레거시 Dictionary 와 무관 → Recompute 때만 무효화)
@@ -123,6 +132,7 @@ public static class SkillEffectService
         Sources.Clear();
         Active.Clear();
         _staminaCache.Clear();
+        _basicMul = 1f;
     }
 
     public static int ActiveCount => Active.Count;

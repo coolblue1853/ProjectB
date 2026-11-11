@@ -8438,6 +8438,238 @@ MonoBehaviour:
         \uC0AC\uC6A9 (\uC120\uD0DD\uD558\uBA74 \uBCC0\uACBD)"
       Flags: 0000
       Languages_Touch: []
+    - Term: Special Effects
+      TermType: 0
+      Description: 
+      Languages:
+      - Special Effects
+      - "\uD2B9\uC218 \uD6A8\uACFC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (inactive)
+      TermType: 0
+      Description: 
+      Languages:
+      - (inactive)
+      - "(\uBE44\uD65C\uC131)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (capped)
+      TermType: 0
+      Description: 
+      Languages:
+      - (capped)
+      - "(\uC0C1\uD55C)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (locked)
+      TermType: 0
+      Description: 
+      Languages:
+      - (locked)
+      - "(\uC7A0\uAE40)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: when
+      TermType: 0
+      Description: 
+      Languages:
+      - when
+      - "\uC870\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: All skills
+      TermType: 0
+      Description: 
+      Languages:
+      - All skills
+      - "\uBAA8\uB4E0 \uC2A4\uD0AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} cooldown -{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} cooldown -{1}%'
+      - "{0} \uC7AC\uC0AC\uC6A9 \uB300\uAE30 -{1}%"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} damage +{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} damage +{1}%'
+      - "{0} \uD53C\uD574 +{1}%"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} range +{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} range +{1}%'
+      - "{0} \uBC94\uC704 +{1}%"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} projectile speed +{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} projectile speed +{1}%'
+      - "{0} \uD0C4 \uC18D\uB3C4 +{1}%"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} duration +{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} duration +{1}%'
+      - "{0} \uC9C0\uC18D \uC2DC\uAC04 +{1}%"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} projectiles +{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} projectiles +{1}'
+      - "{0} \uD0C4 +{1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} hits +{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} hits +{1}'
+      - "{0} \uD0C0\uACA9 +{1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} pierce +{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} pierce +{1}'
+      - "{0} \uAD00\uD1B5 +{1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} summons +{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} summons +{1}'
+      - "{0} \uC18C\uD658 +{1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} stamina cost -{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} stamina cost -{1}%'
+      - "{0} \uC2A4\uD0DC\uBBF8\uB098 \uC18C\uBAA8 -{1}%"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} proc chance +{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} proc chance +{1}%'
+      - "{0} \uBC1C\uB3D9 \uD655\uB960 +{1}%"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} charges +{1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} charges +{1}'
+      - "{0} \uCDA9\uC804 +{1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} fire as {1} ({2} deg)'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} fire as {1} ({2} deg)'
+      - "{0} {1} \uD615\uD0DC\uB85C \uBC1C\uC0AC ({2}\uB3C4)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} projectiles home in on enemies'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} projectiles home in on enemies'
+      - "{0} \uD0C4\uC774 \uC801\uC744 \uCD94\uC801"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} target {1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} target {1}'
+      - "{0} \uB300\uC0C1 {1}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} on hit: {1} ({2} damage)'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} on hit: {1} ({2}% damage)'
+      - "{0} \uC801\uC911 \uC2DC {1} ({2}% \uD53C\uD574)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} pierce {1} enemies'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} pierce {1} enemies'
+      - "{0} \uC801 {1}\uBA85 \uAD00\uD1B5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} return at max range'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} return at max range'
+      - "{0} \uCD5C\uB300 \uC0AC\uAC70\uB9AC\uC5D0\uC11C \uB418\uB3CC\uC544\uC634"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} chain to up to {1} nearby enemies'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} chain to up to {1} nearby enemies'
+      - "{0} \uADFC\uCC98 \uC801 \uCD5C\uB300 {1}\uBA85\uC5D0\uAC8C \uC5F0\uC1C4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} on kill: cast {1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} on kill: cast {1}'
+      - "{0} \uCC98\uCE58 \uC2DC {1} \uC2DC\uC804"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} may also cast {1} ({2} )'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} may also cast {1} ({2}%)'
+      - "{0} \uD655\uB960\uB85C {1} \uCD94\uAC00 \uC2DC\uC804 ({2}%)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} cooldown -{1}s on {2}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} cooldown -{1}s on {2}'
+      - "{0} {2} \uC2DC \uC7AC\uC0AC\uC6A9 \uB300\uAE30 -{1}\uCD08"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} replaced by variant {1}'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} replaced by variant {1}'
+      - "{0} \uBCC0\uD615: {1}"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

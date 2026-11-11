@@ -94,4 +94,58 @@ public class EquipEffectRule2Tests
         Assert.Greater(v.transform.localScale.x, basePf.transform.localScale.x);
         Assert.AreEqual(0.3f, basePf.transform.localScale.x, 0.001f, "공유 원본 스케일 무변경");
     }
+
+    static EffectEntry Mod(string sel, EffectOp op, float v, string cond = null)
+    {
+        return new EffectEntry { id = "T", kind = EffectKind.Mod, selector = sel, op = op, value = v, cond = cond };
+    }
+
+    [Test]
+    public void BasicDamagePct_OnlyBasicSelector_AllExcluded_Capped()
+    {
+        var act = new List<ActiveEffect>
+        {
+            new ActiveEffect { entry = Mod("Basic", EffectOp.DamagePct, 10f) },
+            new ActiveEffect { entry = Mod("tag:Basic", EffectOp.DamagePct, 15f) },
+            new ActiveEffect { entry = Mod("all", EffectOp.DamagePct, 50f) },
+            new ActiveEffect { entry = Mod("Basic", EffectOp.RangePct, 50f) },
+            new ActiveEffect { entry = Mod("Basic", EffectOp.DamagePct, 99f, "Night") },
+        };
+        Assert.AreEqual(25f, EffectResolver.BasicDamagePct(act), 0.001f);
+        act.Add(new ActiveEffect { entry = Mod("Basic", EffectOp.DamagePct, 500f) });
+        Assert.AreEqual(EffectCaps.DamagePct, EffectResolver.BasicDamagePct(act), 0.001f);
+        Assert.AreEqual(0f, EffectResolver.BasicDamagePct(null));
+    }
+
+    [Test]
+    public void BasicDamageMul_SkillHitIgnored_RecomputeApplies()
+    {
+        SkillEffectService.ClearAll();
+        EffectTable.Build(new List<EffectEntry> { Mod("Basic", EffectOp.DamagePct, 20f) });
+        EffectTable.Get("T");
+        SkillEffectService.AttachIds("Test:Basic", "T");
+        Assert.AreEqual(1.2f, SkillEffectService.BasicDamageMul(false), 0.001f);
+        Assert.AreEqual(1f, SkillEffectService.BasicDamageMul(true));
+        SkillEffectService.ClearAll();
+        Assert.AreEqual(1f, SkillEffectService.BasicDamageMul(false));
+        EffectTable.ResetCache();
+    }
+
+    [Test]
+    public void TooltipLines_DescribeAllEntries_SkipUnknown()
+    {
+        EffectTable.Build(new List<EffectEntry>
+        {
+            Mod("Gate_Cleave", EffectOp.DamagePct, 15f),
+            new EffectEntry { id = "T", entry = 2, kind = EffectKind.Rule, selector = "Gate_Cleave", rule = EffectRule.OnKillCast, p1 = "Stone_Sentinels", p2 = "20" },
+        });
+        List<string> lines = EffectTooltip.Lines("T;NoSuch", null, e => e.kind == EffectKind.Rule ? " (inactive)" : "");
+        Assert.AreEqual(2, lines.Count);
+        StringAssert.Contains("damage +15%", lines[0]);
+        StringAssert.EndsWith("(inactive)", lines[1]);
+        string block = EffectTooltip.Block(lines, "Special Effects");
+        StringAssert.Contains("Special Effects", block);
+        Assert.AreEqual(string.Empty, EffectTooltip.Block(new List<string>(), "H"));
+        EffectTable.ResetCache();
+    }
 }

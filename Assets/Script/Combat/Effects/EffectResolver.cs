@@ -27,6 +27,30 @@ public static class EffectResolver
         }
     }
 
+    /// <summary>평타 피해 +% 합계: 선택자가 "Basic" 또는 "tag:Basic" 인 조건 없는 DamagePct 행만(all 은 평타 제외). 상한 적용</summary>
+    public static float BasicDamagePct(IList<ActiveEffect> active)
+    {
+        float sum = 0f;
+        for (int i = 0; active != null && i < active.Count; i++)
+        {
+            EffectEntry e = active[i].entry;
+            if (e.kind != EffectKind.Mod || e.op != EffectOp.DamagePct || !string.IsNullOrEmpty(e.cond) || string.IsNullOrEmpty(e.selector))
+            {
+                continue;
+            }
+            foreach (string part in e.selector.Split('|'))
+            {
+                string p = part.Trim();
+                if (p == "Basic" || p == "tag:Basic")
+                {
+                    sum += e.value;
+                    break;
+                }
+            }
+        }
+        return sum < 0f ? 0f : sum > EffectCaps.DamagePct ? EffectCaps.DamagePct : sum;
+    }
+
     /// <summary>선택자 일치. "all", 스킬 이름, "tag:X", "kind:X", '|' 로 OR. 스킬 이름은 _ ↔ 공백 무시</summary>
     public static bool Matches(string selector, string skillName, string kind, Func<string, string, bool> hasTag)
     {

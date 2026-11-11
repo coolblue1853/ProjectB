@@ -108,8 +108,8 @@ public static class EffectDescriber
             case EffectRule.Pierce: return Fmt(tr, "{0} pierce {1} enemies", target, e.p1);
             case EffectRule.Return: return Fmt(tr, "{0} return at max range", target);
             case EffectRule.Chain: return Fmt(tr, "{0} chain to up to {1} nearby enemies", target, e.p1);
-            case EffectRule.OnKillCast: return Fmt(tr, "{0} on kill: cast {1}", target, e.p1);
-            case EffectRule.Proc: return Fmt(tr, "{0} may also cast {1} ({2}%)", target, e.p1, e.p2);
+            case EffectRule.OnKillCast: return Fmt(tr, "{0} on kill: cast {1}", target, Tr(tr, SkillTagTable.Norm(e.p1)));
+            case EffectRule.Proc: return Fmt(tr, "{0} may also cast {1} ({2}%)", target, Tr(tr, SkillTagTable.Norm(e.p1)), e.p2);
             case EffectRule.CooldownRefund: return Fmt(tr, "{0} cooldown -{1}s on {2}", target, e.p1, e.p2);
             case EffectRule.Replace: return Fmt(tr, "{0} replaced by variant {1}", target, e.p1);
             default: return "";

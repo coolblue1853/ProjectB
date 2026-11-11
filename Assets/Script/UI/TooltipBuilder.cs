@@ -228,7 +228,7 @@ public static class TooltipBuilder
     // ── 세트 ──
 
     /// <summary>세트 블록: 머리줄 "< 이름 > (착용/전체)" + 단계별 효과(도달 단계는 세트색, 아니면 회색)</summary>
-    public static string SetBlock(string setDisplay, int worn, int total, IList<KeyValuePair<int, string>> tiers)
+    public static string SetBlock(string setDisplay, int worn, int total, IList<KeyValuePair<int, string>> tiers, IList<string> tierExtra = null)
     {
         var sb = new StringBuilder();
         if (!string.IsNullOrEmpty(setDisplay))
@@ -240,10 +240,15 @@ public static class TooltipBuilder
             }
             sb.Append("</color>\n");
         }
-        foreach (KeyValuePair<int, string> t in tiers)
+        for (int i = 0; i < tiers.Count; i++)
         {
+            KeyValuePair<int, string> t = tiers[i];
             sb.Append("<color=").Append(worn >= t.Key ? ColorSet : ColorOff).Append(">(").Append(t.Key).Append(") ")
               .Append(t.Value).Append("</color>\n");
+            if (tierExtra != null && i < tierExtra.Count && !string.IsNullOrEmpty(tierExtra[i]))
+            {
+                sb.Append(tierExtra[i]).Append('\n'); // 이 단계의 특수 효과 줄(P6)
+            }
         }
         return sb.ToString();
     }

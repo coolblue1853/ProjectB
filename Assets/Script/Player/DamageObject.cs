@@ -548,6 +548,7 @@ public class DamageObject : MonoBehaviour
                     // 무기 계열 기믹(끝 판정·쪼개기 등)이 이 타격의 피해 배율을 바꾼다
                     float ratio = _hitModifiers != null ? dmgRatio * HitModifierMul(enemyHealth, collision) : dmgRatio;
                     ratio *= SkillTreeEffects.DamageMul(isSkill); // 스킬트리 평타·기술 단련·극의(효과 없으면 1)
+                    ratio *= SkillEffectService.BasicDamageMul(isSkill); // 장비 효과 평타 피해(Basic 선택자, 없으면 1)
                     enemyHealth.damage2Enemy(damageArr, stiffnessTime, knockForce, dir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, ratio);
 
                     }
@@ -565,7 +566,7 @@ public class DamageObject : MonoBehaviour
                             }
                         }
                         // 적에게 데미지를 입히고 데미지를 입힌 적 리스트에 추가
-                        enemyHealth.damage2Enemy(damageArr, stiffnessTime, absorbPower, absorbDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio * SkillTreeEffects.DamageMul(isSkill));
+                        enemyHealth.damage2Enemy(damageArr, stiffnessTime, absorbPower, absorbDir, this.transform.position.x, isNockBackChangeDir, isSkill, ShakeTime, dmgRatio * SkillTreeEffects.DamageMul(isSkill) * SkillEffectService.BasicDamageMul(isSkill));
                     }
 
                 MasterAudio.PlaySound(damageSound);
