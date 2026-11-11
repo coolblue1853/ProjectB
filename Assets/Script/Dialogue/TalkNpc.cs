@@ -20,6 +20,7 @@ public class TalkNpc : MonoBehaviour
 
     KeyAction action;
     TextMeshPro prompt;
+    bool _promptPad;
     bool playerNear;
     public bool HasServiceLabel { get; set; }
 
@@ -53,7 +54,7 @@ public class TalkNpc : MonoBehaviour
         {
             prompt.font = theme.pixelFont;
         }
-        prompt.text = Loc.T("UP  TALK");
+        RefreshPromptText();
         prompt.fontSize = 3f;
         prompt.alignment = TextAlignmentOptions.Center;
         prompt.color = theme.unique;
@@ -89,6 +90,19 @@ public class TalkNpc : MonoBehaviour
         action.UI.Up.Disable();
     }
 
+    /// <summary>입력 장치에 맞춰 프롬프트 문구를 바꾼다(키보드 ↑, 패드 십자키 ↑). 바뀔 때만 문자열을 만든다.</summary>
+    void RefreshPromptText()
+    {
+        bool pad = InputDeviceHint.UsingGamepad;
+        if (prompt == null || (_promptPad == pad && !string.IsNullOrEmpty(prompt.text)))
+        {
+            return;
+        }
+
+        _promptPad = pad;
+        prompt.text = (pad ? "D-PAD " : "") + Loc.T("UP  TALK"); // 번역은 기존 키를 재사용(패드는 접두만)
+    }
+
     void OnDestroy()
     {
         action?.Dispose();
@@ -101,6 +115,10 @@ public class TalkNpc : MonoBehaviour
         if (prompt.gameObject.activeSelf != showPrompt)
         {
             prompt.gameObject.SetActive(showPrompt);
+        }
+        if (showPrompt)
+        {
+            RefreshPromptText();
         }
         bool mine = InteractArbiter.Contend(gameObject, transform.position, canTalk);
         if (mine && action.UI.Up.triggered)

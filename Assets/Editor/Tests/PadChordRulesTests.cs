@@ -31,4 +31,12 @@ public class PadChordRulesTests
         Assert.IsTrue(PadChordRules.LockChord(true, true));
         Assert.IsFalse(PadChordRules.FilterChord(true, false));
     }
+
+    [Test]
+    public void LtR3_NeverSorts_R3AloneSorts()
+    {
+        Assert.IsFalse(PadChordRules.SortAlone(true, true));
+        Assert.IsTrue(PadChordRules.SortAlone(false, true));
+        Assert.IsFalse(PadChordRules.SortAlone(false, false));
+    }
 }

@@ -14,6 +14,12 @@ public static class PadChordRules
         return lt && rtPressedThisFrame;
     }
 
+    /// <summary>정렬 단독(R3). LT 가 눌린 프레임은 잠금 조합(LT+R3)이므로 정렬하지 않는다(U36 후속)</summary>
+    public static bool SortAlone(bool lt, bool r3PressedThisFrame)
+    {
+        return r3PressedThisFrame && !lt;
+    }
+
     /// <summary>잠금 토글(LT+R3)</summary>
     public static bool LockChord(bool lt, bool r3PressedThisFrame)
     {

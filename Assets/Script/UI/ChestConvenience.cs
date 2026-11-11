@@ -201,7 +201,7 @@ public partial class Chest
         }
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
-        if (chestFocus && ((kb != null && kb.rKey.wasPressedThisFrame) || (pad != null && pad.rightStickButton.wasPressedThisFrame)))
+        if (chestFocus && ((kb != null && kb.rKey.wasPressedThisFrame) || (pad != null && PadChordRules.SortAlone(pad.leftTrigger.isPressed, pad.rightStickButton.wasPressedThisFrame))))
         {
             SortStorage();
         }

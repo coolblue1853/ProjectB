@@ -97,3 +97,7 @@
 - U33: `Assets/Editor/ReleaseCheatGate`(릴리스 빌드서 SR Debugger 끔·빌드 뒤 복원). U36: 패드 LT+R3 미니맵(`PadFieldInput.LtR3`, 아티팩트 R3 와 분리, InputAudit §14 등록). U31: `TalkNpc` 범위 최소 2.2.
 - U29·U30 은 이미 구현(UiLock.TryBack·PauseMenu) 확인만, U35·U42 는 코드 확인만(시각 미검증). 컴파일 0·EditMode 1184 통과·probe `_u36_pad` 확인.
 - 미검증: 실제 릴리스 빌드, 실패드, NPC 범위 실플레이.
+
+## 11-11 잔여 후속 A~D (builder)
+- (A) `ReleaseCheatGate`: 복원값을 EditorPrefs 에 보관, 빌드 종료 감시(update)·에디터 로드 보정으로 실패/취소 빌드도 SR Debugger 복원. 테스트 `ReleaseCheatGateTests`. (B) 창고 R3 정렬이 LT+R3 에 반응하던 것 `PadChordRules.SortAlone` 으로 차단, InputAudit §14 갱신. (C) `InputDeviceHint`+`TalkNpc` 프롬프트 패드 시 "D-PAD " 접두(아이콘 그림 없음). (D) Q201·Q401·Q404 대사 열 이행.
+- 컴파일 0·EditMode 1186 통과·probe `_u31_hint` 확인. 미검증: 실제 릴리스 빌드 실패 시나리오, 실패드.
