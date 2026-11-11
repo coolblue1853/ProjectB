@@ -31,15 +31,17 @@ public static class WeaponMasteryTooltip
         int maxLv = perWeapon ? WeaponMasteryRules.MaxLevel : TypeMasteryRules.MaxLevel;
         var sb = new StringBuilder();
         sb.Append('\n');
+        string kindName = SkillTreeText.KindName(WeaponMasteryService.KindOf(w.MasteryKey));
+        string title = SkillTreeText.TitleOf(lv);
         if (lv >= maxLv)
         {
-            sb.Append(Loc.F("Weapon mastery Lv {0} (MAX)", lv));
+            sb.Append(perWeapon ? Loc.F("Weapon mastery Lv {0} (MAX)", lv) : Loc.F("{0} mastery Lv {1} {2} (MAX)", kindName, lv, title));
         }
         else
         {
             int inLv = perWeapon ? WeaponMasteryRules.ExpInLevel(exp) : TypeMasteryRules.ExpInLevel(exp);
             int toNext = perWeapon ? WeaponMasteryRules.ExpToNext(lv) : TypeMasteryRules.ExpToNext(lv);
-            sb.Append(Loc.F("Weapon mastery Lv {0} ({1}/{2})", lv, inLv, toNext));
+            sb.Append(perWeapon ? Loc.F("Weapon mastery Lv {0} ({1}/{2})", lv, inLv, toNext) : Loc.F("{0} mastery Lv {1} {2} ({3}/{4})", kindName, lv, title, inLv, toNext));
             int bestLv = int.MaxValue;
             string bestName = null;
             for (int i = 0; i < w.skill.Length; i++)

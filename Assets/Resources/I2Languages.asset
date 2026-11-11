@@ -3367,14 +3367,6 @@ MonoBehaviour:
       - "\uB4DC\uB86D: {0}\uB9C8\uB9AC \uB354 \uCC98\uCE58"
       Flags: 0000
       Languages_Touch: []
-    - Term: ARROWS select B BACK close
-      TermType: 0
-      Description: 
-      Languages:
-      - ARROWS select    B / BACK close
-      - "\uBC29\uD5A5\uD0A4 \uC120\uD0DD    B / \uB4A4\uB85C \uB2EB\uAE30"
-      Flags: 0000
-      Languages_Touch: []
     - Term: Forest Road
       TermType: 0
       Description: 
@@ -6526,32 +6518,6 @@ MonoBehaviour:
       - "\uB300\uC7A5\uC758 \uC624\uAE30 \uBC18\uC9C0"
       Flags: 0000
       Languages_Touch: []
-    - Term: ARROWS select TAB zones B BACK close
-      TermType: 0
-      Description: 
-      Languages:
-      - ARROWS select    TAB zones    B / BACK close
-      - "\uBC29\uD5A5\uD0A4 \uC120\uD0DD    TAB \uAD6C\uC5ED    B / \uB4A4\uB85C
-        \uB2EB\uAE30"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: TAB bestiary B BACK close
-      TermType: 0
-      Description: 
-      Languages:
-      - TAB bestiary    B / BACK close
-      - "TAB \uB3C4\uAC10    B / \uB4A4\uB85C \uB2EB\uAE30"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: UP DOWN select SELECT travel HOME village M BACK close
-      TermType: 0
-      Description: 
-      Languages:
-      - UP/DOWN select    SELECT travel    HOME village    M / BACK close
-      - "\uC704/\uC544\uB798 \uC120\uD0DD    \uC120\uD0DD \uC774\uB3D9    HOME \uB9C8\uC744   
-        M / \uB4A4\uB85C \uB2EB\uAE30"
-      Flags: 0000
-      Languages_Touch: []
     - Term: Connections
       TermType: 0
       Description: 
@@ -8282,6 +8248,194 @@ MonoBehaviour:
       Languages:
       - ALWAYS DAY
       - "\uB0AE \uACE0\uC815"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} mastery Lv {1} {2} ({3} {4})'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} mastery Lv {1} {2} ({3}/{4})'
+      - "{0} \uC219\uB828 Lv{1} {2} ({3}/{4})"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} mastery Lv {1} {2} (MAX)'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} mastery Lv {1} {2} (MAX)'
+      - "{0} \uC219\uB828 Lv{1} {2} (\uCD5C\uB300)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0} mastery Lv {1}! Skill point +1'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} mastery Lv {1}! Skill point +1'
+      - "{0} \uC219\uB828 Lv{1}! \uC2A4\uD0AC \uD3EC\uC778\uD2B8 +1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ARROWS select B ESC close
+      TermType: 0
+      Description: 
+      Languages:
+      - ARROWS select    B / ESC close
+      - "\uBC29\uD5A5\uD0A4 \uC120\uD0DD    B / ESC \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ARROWS select TAB zones B ESC close
+      TermType: 0
+      Description: 
+      Languages:
+      - ARROWS select    TAB zones    B / ESC close
+      - "\uBC29\uD5A5\uD0A4 \uC120\uD0DD    TAB \uAD6C\uC5ED    B / ESC \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: TAB bestiary B ESC close
+      TermType: 0
+      Description: 
+      Languages:
+      - TAB bestiary    B / ESC close
+      - "TAB \uB3C4\uAC10    B / ESC \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP DOWN select SELECT travel HOME village M ESC close
+      TermType: 0
+      Description: 
+      Languages:
+      - UP/DOWN select    SELECT travel    HOME village    M / ESC close
+      - "\uC704/\uC544\uB798 \uC120\uD0DD    \uC120\uD0DD \uC774\uB3D9    HOME \uB9C8\uC744   
+        M / ESC \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Locked: advance the Floor {0} story'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Locked: advance the Floor {0} story'
+      - "\uC7A0\uAE40: {0}\uCE35\uACC4 \uC774\uC57C\uAE30 \uC9C4\uD589"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'New feature unlocked:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'New feature unlocked: '
+      - "\uC0C8 \uAE30\uB2A5 \uD574\uAE08: "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: EARRING
+      TermType: 0
+      Description: 
+      Languages:
+      - EARRING
+      - "\uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BRACELET
+      TermType: 0
+      Description: 
+      Languages:
+      - BRACELET
+      - "\uD314\uCC0C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: SUBGEAR
+      TermType: 0
+      Description: 
+      Languages:
+      - SUBGEAR
+      - "\uBCF4\uC870\uC7A5\uBE44"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BELT
+      TermType: 0
+      Description: 
+      Languages:
+      - BELT
+      - "\uD5C8\uB9AC\uB760"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: STONE
+      TermType: 0
+      Description: 
+      Languages:
+      - STONE
+      - "\uB9C8\uBC95\uC11D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PET
+      TermType: 0
+      Description: 
+      Languages:
+      - PET
+      - "\uD3AB"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pet
+      TermType: 0
+      Description: 
+      Languages:
+      - Pet
+      - "\uD3AB"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rune
+      TermType: 0
+      Description: 
+      Languages:
+      - Rune
+      - "\uB8EC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Relic
+      TermType: 0
+      Description: 
+      Languages:
+      - Relic
+      - "\uC131\uBB3C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'RUNE: coming soon'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'RUNE: coming soon'
+      - "\uB8EC: \uC900\uBE44 \uC911"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'RELIC: coming soon'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'RELIC: coming soon'
+      - "\uC131\uBB3C: \uC900\uBE44 \uC911"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Pet: auto-drink potions (select to toggle)'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Pet: auto-drink potions (select to toggle)'
+      - "\uD3AB: \uBB3C\uC57D \uC790\uB3D9 \uBA39\uAE30 (\uC120\uD0DD\uD558\uBA74
+        \uCF1C\uAE30/\uB044\uAE30)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Drink an HP potion at or below this (select to change)
+      TermType: 0
+      Description: 
+      Languages:
+      - Drink an HP potion at or below this % (select to change)
+      - "\uC774 % \uC774\uD558\uC5D0\uC11C HP \uBB3C\uC57D \uC0AC\uC6A9 (\uC120\uD0DD\uD558\uBA74
+        \uBCC0\uACBD)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Drink a stamina potion at or below this (select to change)
+      TermType: 0
+      Description: 
+      Languages:
+      - Drink a stamina potion at or below this % (select to change)
+      - "\uC774 % \uC774\uD558\uC5D0\uC11C \uC2A4\uD0DC\uBBF8\uB098 \uBB3C\uC57D
+        \uC0AC\uC6A9 (\uC120\uD0DD\uD558\uBA74 \uBCC0\uACBD)"
       Flags: 0000
       Languages_Touch: []
     CaseInsensitiveTerms: 0

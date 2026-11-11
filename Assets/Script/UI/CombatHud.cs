@@ -104,7 +104,9 @@ public class CombatHud : MonoBehaviour
     {
         AttackManager am = FindFirstObjectByType<AttackManager>();
         Weapon w = am != null ? am.equipWeapon : null;
-        string msg = Loc.F("Weapon mastery Lv {0}!", level);
+        string msg = WeaponMasteryRules.PerWeaponMastery
+            ? Loc.F("Weapon mastery Lv {0}!", level)
+            : Loc.F("{0} mastery Lv {1}! Skill point +1", SkillTreeText.KindName(WeaponMasteryService.KindOf(key)), level); // 타입 숙련: 트리 포인트 안내
         if (w != null && w.MasteryKey == key)
         {
             for (int i = 0; i < w.skill.Length; i++)

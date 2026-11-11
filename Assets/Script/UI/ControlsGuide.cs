@@ -97,6 +97,7 @@ public static class ControlsGuide
                 new Row("퀘스트", "Q", "SELECT 길게"),
                 new Row("층계 지도", "M", "LT+START"),
                 new Row("도감", "B", "LT+SELECT"),
+                new Row("스킬창", "K", "LT+Y"),
                 new Row("미니맵 켜기·끄기", "N", "-"),
                 new Row("제작 핀", "P", "-"),
                 new Row("조작 안내", "F10", "-"),

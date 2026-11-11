@@ -21,6 +21,8 @@ public static class LocUi
         ("HIT", "히트"), ("ARMOR", "방어"), ("Not enough stamina", "스태미나 부족"),
         ("LEVEL UP", "레벨 업"), ("EXP", "경험치"), ("CONTROLS", "조작 안내"), ("On cooldown", "재사용 대기 중"), ("Unlocks at weapon mastery Lv {0}", "무기 숙련 Lv {0} 에 해금"),
         ("Lv {0}", "Lv {0}"), ("Weapon mastery Lv {0} ({1}/{2})", "무기 숙련 Lv {0} ({1}/{2})"), ("Weapon mastery Lv {0} (MAX)", "무기 숙련 Lv {0} (최대)"),
+        ("{0} mastery Lv {1} {2} ({3}/{4})", "{0} 숙련 Lv{1} {2} ({3}/{4})"), ("{0} mastery Lv {1} {2} (MAX)", "{0} 숙련 Lv{1} {2} (최대)"),
+        ("{0} mastery Lv {1}! Skill point +1", "{0} 숙련 Lv{1}! 스킬 포인트 +1"),
         ("Next unlock: {0} (Lv {1})", "다음 해금: {0} (Lv {1})"), ("Weapon mastery Lv {0}!", "무기 숙련 Lv {0}!"), ("Skill unlocked: {0}", "스킬 해금: {0}"),
         ("Inventory Full", "인벤토리 가득 참"), ("Not enough gold", "골드 부족"),
         ("Only consumables go in quick slots", "퀵슬롯에는 소비 아이템만 넣을 수 있다"),

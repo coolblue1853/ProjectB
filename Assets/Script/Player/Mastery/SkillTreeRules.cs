@@ -21,6 +21,15 @@ public enum TreeStat
     Ultimate,
 }
 
+/// <summary>스킬창 탭(WeaponSkillProgression.md V.3b). 타입 트리 노드는 Type, 공용 노드는 전투·생활·편의성</summary>
+public enum SkillTab
+{
+    Type,
+    Combat,
+    Life,
+    Convenience,
+}
+
 public enum InvestResult
 {
     Ok,
@@ -41,9 +50,11 @@ public sealed class SkillNode
     public readonly float PerLevel;
     public readonly string PrereqId;
     public readonly int PrereqLevel;
+    public readonly SkillTab Tab;
 
-    public SkillNode(string id, string name, bool common, TreeStat stat, float perLevel, int maxLevel, int cost = 1, string prereqId = null, int prereqLevel = 0)
+    public SkillNode(string id, string name, bool common, TreeStat stat, float perLevel, int maxLevel, int cost = 1, string prereqId = null, int prereqLevel = 0, SkillTab tab = SkillTab.Type)
     {
+        Tab = tab;
         Id = id;
         Name = name;
         Common = common;
@@ -84,18 +95,32 @@ public static class SkillTreeRules
         new SkillNode("M2", "숙달", false, TreeStat.SkillCooldown, 3f, 3, 1, "M1", 3),
         new SkillNode("M3", "효율", false, TreeStat.StaminaCost, 4f, 3, 1, "M1", 3),
         // 공용 트리(선행 없음)
-        new SkillNode("C1", "급소 감각", true, TreeStat.CritChance, 0.5f, 10),
-        new SkillNode("C2", "치명 감각", true, TreeStat.CritDamage, 2f, 10),
-        new SkillNode("C3", "손놀림", true, TreeStat.AttackSpeed, 1f, 10),
-        new SkillNode("C4", "경공", true, TreeStat.MoveSpeed, 1f, 5),
-        new SkillNode("C5", "강인함", true, TreeStat.MaxHp, 2f, 10),
-        new SkillNode("C6", "단단함", true, TreeStat.Defense, 1f, 10),
-        new SkillNode("C7", "호흡", true, TreeStat.StaminaRegen, 2f, 5),
+        new SkillNode("C1", "급소 감각", true, TreeStat.CritChance, 0.5f, 10, 1, null, 0, SkillTab.Combat),
+        new SkillNode("C2", "치명 감각", true, TreeStat.CritDamage, 2f, 10, 1, null, 0, SkillTab.Combat),
+        new SkillNode("C3", "손놀림", true, TreeStat.AttackSpeed, 1f, 10, 1, null, 0, SkillTab.Combat),
+        new SkillNode("C4", "경공", true, TreeStat.MoveSpeed, 1f, 5, 1, null, 0, SkillTab.Convenience),
+        new SkillNode("C5", "강인함", true, TreeStat.MaxHp, 2f, 10, 1, null, 0, SkillTab.Combat),
+        new SkillNode("C6", "단단함", true, TreeStat.Defense, 1f, 10, 1, null, 0, SkillTab.Combat),
+        new SkillNode("C7", "호흡", true, TreeStat.StaminaRegen, 2f, 5, 1, null, 0, SkillTab.Convenience),
     };
 
     public static IReadOnlyList<SkillNode> Nodes
     {
         get { return _nodes; }
+    }
+
+    /// <summary>탭에 속한 노드(표 순서). 생활 탭은 아직 노드가 없다(채집·낚시·요리·제작 훅 확인 뒤 추가)</summary>
+    public static List<SkillNode> NodesOf(SkillTab tab)
+    {
+        var list = new List<SkillNode>();
+        for (int i = 0; i < _nodes.Length; i++)
+        {
+            if (_nodes[i].Tab == tab)
+            {
+                list.Add(_nodes[i]);
+            }
+        }
+        return list;
     }
 
     public static SkillNode Find(string id)
