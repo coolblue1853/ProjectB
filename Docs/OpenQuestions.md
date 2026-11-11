@@ -689,3 +689,5 @@
 ## Q-LVREF 메랜 DB 조사 한계 (11-11, REWORK-7·10)
 - Claude in Chrome 미연결, WebFetch 로 공개 페이지만 열람. 사이트에 맵 크기·발판·로프·리젠 주기·몹 공격력이 없다. 임시 가정: 리젠은 현행 10초 유지, 맵 구조는 `MapReview.md` 에서 우리 씬만 점검.
 - 질문: 2층 EXP 도약(Lv15 85 → Lv16 240)이 의도인가? 임시 가정 = 의도, HP 도약만 완화 대상. DeathBringer(Lv17 HP 2500) 조정은 EditMode 가능할 때 적용.
+
+- (11-11 총괄) Q-LVREF 2층 EXP 도약(Lv15 85→Lv16 240): 임시 가정 = 의도, HP 도약(Lv15→19 8배)만 완화 검토. DeathBringer HP 2500 이상치는 수정안 문서에만 있음(미적용).
