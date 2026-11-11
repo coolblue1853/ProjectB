@@ -14,6 +14,7 @@ public sealed class InventoryConvenience : MonoBehaviour
     private BulkSaleRules.Plan _shownPlan;
     private bool _shownShop;
     private bool _hintTextReady;
+    private GameObject _sellButton;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Boot()
@@ -37,6 +38,7 @@ public sealed class InventoryConvenience : MonoBehaviour
         {
             _pending = null;
             if (_hint != null) { _hint.gameObject.SetActive(false); }
+            if (_sellButton != null) { _sellButton.SetActive(false); }
             return;
         }
         bool shop = _inv.ShopGameObject != null && _inv.ShopGameObject.activeSelf;
@@ -63,6 +65,38 @@ public sealed class InventoryConvenience : MonoBehaviour
             RequestBulkSale(_inv);
         }
         ShowHint(shop);
+        ShowSellButton(shop && browse && !ConfirmPopup.IsBlocking);
+    }
+
+    /// <summary>상점 창 일괄 판매 버튼(마우스 클릭). 키보드 J·패드 LT+L3 는 위 LateUpdate 가 받는다</summary>
+    private void ShowSellButton(bool visible)
+    {
+        if (_sellButton == null)
+        {
+            if (!visible || _hint == null) { return; }
+            UiTheme theme = UiTheme.Get();
+            Image img = theme.NewPanel("SellJunkButton", transform, true);
+            img.raycastTarget = true;
+            RectTransform rect = img.rectTransform;
+            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 1f);
+            rect.anchoredPosition = new Vector2(0f, -160f);
+            rect.sizeDelta = new Vector2(520f, 64f);
+            var btn = img.gameObject.AddComponent<Button>();
+            btn.targetGraphic = img;
+            btn.onClick.AddListener(() => RequestBulkSaleConfirm(InventoryManager.instance));
+            var label = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TextMeshProUGUI>();
+            label.transform.SetParent(rect, false);
+            label.font = theme.pixelFont;
+            label.fontSize = 26f;
+            label.alignment = TextAlignmentOptions.Center;
+            label.raycastTarget = false;
+            label.text = "잡템 일괄 판매  (J / LT+L3)";
+            label.rectTransform.anchorMin = Vector2.zero;
+            label.rectTransform.anchorMax = Vector2.one;
+            label.rectTransform.offsetMin = label.rectTransform.offsetMax = Vector2.zero;
+            _sellButton = img.gameObject;
+        }
+        if (_sellButton.activeSelf != visible) { _sellButton.SetActive(visible); }
     }
 
     public static bool ToggleLock(InventoryManager inv, ItemCheck item)
@@ -99,6 +133,55 @@ public sealed class InventoryConvenience : MonoBehaviour
             return false;
         }
         _pending = null;
+        ExecuteSale(inv, current);
+        return true;
+    }
+
+    /// <summary>버튼 경로: 계획을 만들어 확인창(ConfirmPopup)을 거친 뒤 같은 판매 로직(ExecuteSale)을 실행한다</summary>
+    public bool RequestBulkSaleConfirm(InventoryManager inv)
+    {
+        if (inv == null || inv.ShopGameObject == null || !inv.ShopGameObject.activeSelf
+            || !(string.IsNullOrEmpty(inv.state) || inv.state == "detail" || inv.state == "ShopCusorOn")
+            || ConfirmPopup.IsBlocking || QuantityPopup.IsBlocking)
+        {
+            return false;
+        }
+        BulkSaleRules.Plan plan = BulkSaleRules.Build(inv.Service.ScanModel(), CsvItemCatalog.Shared);
+        if (plan.Count == 0 || plan.Price > int.MaxValue - (long)DatabaseManager.money)
+        {
+            _pending = null;
+            PickupLog.Warn(plan.Count == 0 ? "판매할 잠금 해제 잡템이 없습니다" : "골드 한도를 초과합니다");
+            return false;
+        }
+        _pending = null;
+        ConfirmPopup.Open(new ConfirmRequest
+        {
+            Title = "잡템 일괄 판매",
+            Message = "잠금 해제 잡템 " + plan.Count + "개를 " + plan.Price + "G 에 판매합니다.\n(잠금·창고 아이템 제외)",
+            YesLabel = "판매",
+            NoLabel = "취소",
+            OnYes = () =>
+            {
+                // 확인창이 열린 사이 인벤이 바뀌었을 수 있으니 다시 계산해 맞을 때만 판매
+                InventoryManager now = InventoryManager.instance;
+                if (now == null || now.ShopGameObject == null || !now.ShopGameObject.activeSelf)
+                {
+                    return;
+                }
+                BulkSaleRules.Plan fresh = BulkSaleRules.Build(now.Service.ScanModel(), CsvItemCatalog.Shared);
+                if (fresh.Count == 0 || !BulkSaleRules.Matches(plan, fresh))
+                {
+                    PickupLog.Warn("인벤토리가 바뀌어 판매를 취소했습니다");
+                    return;
+                }
+                ExecuteSale(now, fresh);
+            },
+        });
+        return true;
+    }
+
+    private static void ExecuteSale(InventoryManager inv, BulkSaleRules.Plan current)
+    {
         if (inv.state == "detail") { inv.DetailOff(); }
         inv.BeginSaveBatch();
         try
@@ -124,7 +207,6 @@ public sealed class InventoryConvenience : MonoBehaviour
         }
         Sfx.Play(SfxId.Money);
         PickupLog.Report("잡템 " + current.Count + "개 판매 +" + current.Price + "G", 1, "C");
-        return true;
     }
 
     private void MarkSeen(GameObject page)
@@ -151,6 +233,7 @@ public sealed class InventoryConvenience : MonoBehaviour
             var canvas = gameObject.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = 65;
+            if (GetComponent<GraphicRaycaster>() == null) { gameObject.AddComponent<GraphicRaycaster>(); }
             var scaler = gameObject.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920f, 1080f);
