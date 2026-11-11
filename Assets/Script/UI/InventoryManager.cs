@@ -1459,6 +1459,24 @@ public class InventoryManager : MonoBehaviour
         return (kb != null && kb.rKey.wasPressedThisFrame) || (gp != null && !gp.leftTrigger.isPressed && gp.rightStickButton.wasPressedThisFrame);
     }
 
+    /// <summary>자동 쌓기: 가방 전체의 같은 아이템을 합치고 저장한다(S3). 합친 게 있으면 true</summary>
+    public bool StackAll()
+    {
+        if (InventoryFilterView.Current != InventoryFilter.All)
+        {
+            PickupLog.Warn("필터를 전체로 돌린 뒤 쌓을 수 있습니다");
+            return false;
+        }
+        bool changed = Service.StackAll();
+        if (changed)
+        {
+            SaveInventory();
+            Sfx.Play(SfxId.UiMove);
+        }
+        PickupLog.Notice(changed ? "같은 아이템을 쌓았습니다" : "더 쌓을 아이템이 없습니다");
+        return changed;
+    }
+
     /// <summary>현재 페이지만 정렬하고 저장한다</summary>
     public void SortCurrentPage()
     {

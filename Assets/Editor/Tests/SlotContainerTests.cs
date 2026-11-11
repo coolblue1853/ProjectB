@@ -282,4 +282,31 @@ public class SlotContainerTests
         Assert.AreEqual("Ore", c[2].Id);
         Assert.IsTrue(c[3].IsEmpty);
     }
+
+    [Test]
+    public void MergeStacks_FillsEarlierSlotsKeepingOrder()
+    {
+        var c = New();
+        c.PutAt(0, Wood(4));
+        c.PutAt(1, new ItemStack("Ore", 2));
+        c.PutAt(3, Wood(5));
+        c.PutAt(5, Wood(8));
+        Assert.IsTrue(c.MergeStacks());
+        Assert.AreEqual(10, c[0].Count);          // 4+5+1
+        Assert.AreEqual("Ore", c[1].Id);
+        Assert.IsTrue(c[3].IsEmpty);
+        Assert.AreEqual(7, c[5].Count);           // 8 중 1 은 앞으로, 남은 7
+        Assert.AreEqual(17, c.Count("Wood"));
+        Assert.IsFalse(c.MergeStacks());
+    }
+
+    [Test]
+    public void MergeStacks_NothingToMerge_ReturnsFalse()
+    {
+        var c = New();
+        c.PutAt(0, Wood(10));
+        c.PutAt(2, Wood(10));
+        c.PutAt(3, new ItemStack("Sword", 1));
+        Assert.IsFalse(c.MergeStacks());
+    }
 }

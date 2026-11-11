@@ -568,9 +568,9 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 |---|---|---|
 | S1 | 수량 창 공용화(구매·판매·나누기·꺼내기) + 버리기(U24) | 11-11 구현 |
 | S2 | 우클릭 사용/장착/판매(U25) + 호버 툴팁(U26) + 상점 칸 마우스(U27) | 11-11 구현 |
-| S3 | 화면 버튼(정렬·필터·잠금·버리기, U39) + `ConfirmPopup`(U40) | 대기 |
+| S3 | 칸끼리 드래그 교환(레이캐스트 드롭)·화면 버튼(정렬·쌓기·필터·잠금, U39)·자동 쌓기 | 11-11 구현. `ConfirmPopup`(U40)은 대기 |
 | S4 | 이름 검색, 자동 쌓기(정렬과 합침) | 대기 |
-| S5 | 가방 확장 인벤 창 버튼·패드 안내(INV-BAG-EXP) | 대기 |
+| S5 | 가방 확장 인벤 창 버튼(INV-BAG-EXP) | 11-11 구현(버튼 `가방 +5칸 가격`, N·LT+X 도 인벤 열림에서 동작) |
 
 ### 9-5. S1 구현 결과 (11-11)
 - 새 파일: `Inventory/Model/QuantityRules.cs`, `UI/QuantityPopup.cs`(런타임 생성 캔버스, 씬 수정 없음), `Inventory/InventoryDrop.cs`. 기존 슬라이더 3벌의 값 처리는 제거(씬 필드·오브젝트는 남김, 열지 않음).
@@ -580,3 +580,7 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 - **발견**: `Item.prefab` 의 `ItemDrag` 가 2024년부터 비활성(m_Enabled 0)이라 인벤 칸 클릭·우클릭·드래그가 전부 죽어 있었다. 활성화함(BoxCollider2D 는 그대로 꺼 둠 → 칸끼리 드래그 교환은 여전히 원위치로 돌아오고, 퀵슬롯 등록·인벤 밖 버리기는 동작). 칸끼리 드래그는 콜라이더 트리거 의존이라 후속 판단 필요.
 - 새 파일: `Inventory/Model/QuickUseRules.cs`(순수 규칙), `Inventory/InventoryQuickUse.cs`, `UI/HoverTip.cs`(툴팁+`ItemTipText`), `UI/CraftUI/ShopSlotMouse.cs`. 우클릭: 창고 열림=이동, 상점 열림=판매 수량 창, 평소 소모품 사용·장비 착용. 호버=툴팁(가방 장비는 착용품 비교). 상점: 호버=커서, 클릭=상세, 선택 칸 재클릭·우클릭=구매 수량 창, 휠=페이지, 우상단 X 닫기. 키·패드는 기존 Z/A 두 번 경로.
 - 검증: EditMode 1049 통과, 플레이 프로브로 호버 툴팁(스크린샷)·우클릭 사용/착용/판매·상점 클릭 구매·휠·X 확인. 미검증: 실제 마우스 입력(이벤트 직접 주입), 패드.
+
+### 9-7. S3·S5 구현 결과 (11-11)
+- 드래그: `ItemDrag.ResolveDropTargets` 가 놓은 자리를 UI 레이캐스트로 찾는다(콜라이더 의존 제거). 빈 칸 이동·교환·같은 아이템 합치기(모델 `Move`). 새 `InventoryToolbar`(런타임 버튼 5개, BOX 탭 아래): 정렬 R/R3·쌓기 T/LT+LB·필터 G/LT+RT·잠금 L/LT+R3(커서 아이템)·가방 N/LT+X(첫 클릭 안내, 5초 안 재클릭 구매). 쌓기=`SlotContainer.MergeStacks`(순서 유지, 전 페이지).
+- 검증: EditMode 1051 통과, probe 로 드래그 3종·버튼 5종 확인+스크린샷. 미검증: 실마우스 드래그, 패드, 창고 열림 중 버튼.

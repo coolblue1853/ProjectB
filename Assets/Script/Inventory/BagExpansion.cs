@@ -62,17 +62,39 @@ public class BagExpansion : MonoBehaviour
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
         bool pressed = (kb != null && kb.nKey.wasPressedThisFrame) || (pad != null && pad.leftTrigger.isPressed && pad.buttonWest.wasPressedThisFrame);
-        if (pressed && Buyback.CanUse())
+        if (pressed && (Buyback.CanUse() || InventoryToolbar.CanUseBag()))
         {
-            if (Time.unscaledTime <= _armedUntil)
-            {
-                _armedUntil = -1f;
-                TryBuy();
-            }
-            else
-            {
-                Describe();
-            }
+            Press();
+        }
+    }
+
+    /// <summary>N·패드 LT+X·인벤 창 버튼 공용: 첫 입력은 안내(5초 확인 대기), 대기 중 한 번 더 누르면 구매</summary>
+    public static void Press()
+    {
+        if (Time.unscaledTime <= _armedUntil)
+        {
+            _armedUntil = -1f;
+            TryBuy();
+        }
+        else
+        {
+            Describe();
+        }
+    }
+
+    /// <summary>인벤 창 버튼 글자: 다음 단계 칸 수·가격, 못 사는 이유</summary>
+    public static string ButtonLabel()
+    {
+        int cur = Unlocked;
+        BagExpansionRules.Block block = Rules.Check(cur, Floor, DatabaseManager.money, out BagExpansionRules.Step next);
+        switch (block)
+        {
+            case BagExpansionRules.Block.Max:
+                return "가방 최대";
+            case BagExpansionRules.Block.NeedFloor:
+                return "가방 " + next.MinFloor + "층계~";
+            default:
+                return "가방 +" + (next.Slots - cur) + "칸 " + next.Price.ToString("N0") + "G";
         }
     }
 

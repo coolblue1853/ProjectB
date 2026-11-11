@@ -266,12 +266,10 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 if (changeParent == null && t.CompareTag("Box"))
                 {
                     changeParent = t;
-                    break;
                 }
-                if (changeBox == null && t.CompareTag("UpperBox"))
+                else if (changeBox == null && t.CompareTag("UpperBox"))
                 {
                     changeBox = t;
-                    break;
                 }
             }
         }

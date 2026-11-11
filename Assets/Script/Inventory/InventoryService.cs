@@ -113,6 +113,18 @@ public sealed class InventoryService
         return true;
     }
 
+    /// <summary>같은 아이템을 순서 변경 없이 앞 칸으로 합친다(전 페이지). 바뀐 게 있으면 true</summary>
+    public bool StackAll()
+    {
+        SyncModelFromViews();
+        if (!model.MergeStacks())
+        {
+            return false;
+        }
+        ApplyDirty(null);
+        return true;
+    }
+
     /// <summary>page 페이지만 정렬한다(같은 스택 병합 → ItemSortComparer 순). 바뀐 칸만 다시 그린다</summary>
     public void SortPage(int page)
     {

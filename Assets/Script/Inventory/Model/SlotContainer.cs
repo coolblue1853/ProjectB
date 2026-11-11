@@ -192,6 +192,26 @@ public sealed class SlotContainer
         return true;
     }
 
+    /// <summary>
+    /// 자동 쌓기(S3): 순서는 그대로 두고, 같은 스택(id·티어·강화·잠금)이 여러 칸이면 앞 칸에 채워 넣는다.
+    /// 합쳐서 비게 된 칸만 빈칸이 된다. 바뀐 칸이 있으면 true
+    /// </summary>
+    public bool MergeStacks()
+    {
+        bool changed = false;
+        for (int i = 0; i < Unlocked; i++)
+        {
+            for (int j = i + 1; j < Unlocked && !slots[i].IsEmpty && slots[i].Count < MaxStack(slots[i].Id); j++)
+            {
+                if (!slots[j].IsEmpty && slots[i].CanStackWith(slots[j]))
+                {
+                    changed |= Move(j, i);
+                }
+            }
+        }
+        return changed;
+    }
+
     /// <summary>같은 스택을 합친 뒤 비교자 순으로 앞에서부터 채운다</summary>
     public void Sort(IComparer<ItemStack> cmp)
     {

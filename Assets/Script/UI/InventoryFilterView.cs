@@ -64,14 +64,23 @@ public class InventoryFilterView : MonoBehaviour
         bool pressed = (kb != null && kb.gKey.wasPressedThisFrame) || (pad != null && PadChordRules.FilterChord(pad.leftTrigger.isPressed, pad.rightTrigger.wasPressedThisFrame));
         if (pressed && m.state == "" && m.chest == null)
         {
-            Current = InventoryFilterRules.Next(Current);
-            Apply(m);
-            _nextRefresh = Time.unscaledTime + RefreshInterval;
+            Cycle(m);
         }
         else if (Current != InventoryFilter.All && Time.unscaledTime >= _nextRefresh)
         {
             _nextRefresh = Time.unscaledTime + RefreshInterval;
             Apply(m); // 새로 들어온 아이템 반영
+        }
+    }
+
+    /// <summary>필터를 한 단계 넘긴다(G·패드 LT+RT·화면 버튼 공용)</summary>
+    public static void Cycle(InventoryManager m)
+    {
+        Current = InventoryFilterRules.Next(Current);
+        Apply(m);
+        if (_instance != null)
+        {
+            _instance._nextRefresh = Time.unscaledTime + RefreshInterval;
         }
     }
 
