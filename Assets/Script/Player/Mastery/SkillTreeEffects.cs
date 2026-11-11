@@ -15,7 +15,7 @@ public static class SkillTreeEffects
     public const float UltimateCasterMul = 1.10f;
 
     static WeaponKind _kind = WeaponKind.None;
-    static float _atk, _skl, _cd, _stamina, _regen, _hp;
+    static float _atk, _skl, _cd, _stamina, _regen, _hp, _commonCd, _commonStamina;
     static bool _ultimate;
     static bool _hpDirty;
     static int _hpBonus;
@@ -25,7 +25,7 @@ public static class SkillTreeEffects
     static void ResetStatics()
     {
         _kind = WeaponKind.None;
-        _atk = _skl = _cd = _stamina = _regen = _hp = 0f;
+        _atk = _skl = _cd = _stamina = _regen = _hp = _commonCd = _commonStamina = 0f;
         _ultimate = false;
         _hpDirty = false;
         _hpBonus = 0;
@@ -63,17 +63,12 @@ public static class SkillTreeEffects
     /// <summary>해당 종류 스킬의 쿨다운 감소 %(장착 무기 타입과 같을 때만, 공용 포함)</summary>
     public static float CooldownPct(WeaponKind kind)
     {
-        return kind == _kind || kind == WeaponKind.None ? _cd : CommonOnly(TreeStat.SkillCooldown);
+        return kind == _kind || kind == WeaponKind.None ? _cd : _commonCd;
     }
 
     public static float StaminaCostPct(WeaponKind kind)
     {
-        return kind == _kind || kind == WeaponKind.None ? _stamina : CommonOnly(TreeStat.StaminaCost);
-    }
-
-    static float CommonOnly(TreeStat stat)
-    {
-        return SkillTreeService.Mod(stat, WeaponKind.None);
+        return kind == _kind || kind == WeaponKind.None ? _stamina : _commonStamina;
     }
 
     /// <summary>타격 하나의 트리 데미지 배율(평타=평타 단련, 스킬=기술 단련, 극의 포함). 효과 없으면 1</summary>
@@ -109,6 +104,8 @@ public static class SkillTreeEffects
         _skl = SkillTreeService.Mod(TreeStat.SkillDamage, kind);
         _cd = SkillTreeService.Mod(TreeStat.SkillCooldown, kind);
         _stamina = SkillTreeService.Mod(TreeStat.StaminaCost, kind);
+        _commonCd = SkillTreeService.Mod(TreeStat.SkillCooldown, WeaponKind.None);
+        _commonStamina = SkillTreeService.Mod(TreeStat.StaminaCost, WeaponKind.None);
         _regen = SkillTreeService.Mod(TreeStat.StaminaRegen, kind);
         _hp = SkillTreeService.Mod(TreeStat.MaxHp, kind);
         _ultimate = SkillTreeService.Mod(TreeStat.Ultimate, kind) > 0f;
@@ -170,6 +167,7 @@ public static class SkillTreeEffects
 /// <summary>무기 교체·DB 로드 지연·최대 HP 동기화를 감시하는 상주 구동기</summary>
 public sealed class SkillTreeEffectsDriver : MonoBehaviour
 {
+    static SkillTreeEffectsDriver _instance;
     Weapon _last;
     bool _applied;
     int _retry;
@@ -177,9 +175,13 @@ public sealed class SkillTreeEffectsDriver : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Spawn()
     {
+        if (_instance != null)
+        {
+            return; // 씬 로드마다 중복 생성 방지
+        }
         var go = new GameObject("[SkillTreeEffects]") { hideFlags = HideFlags.HideAndDontSave };
         DontDestroyOnLoad(go);
-        go.AddComponent<SkillTreeEffectsDriver>();
+        _instance = go.AddComponent<SkillTreeEffectsDriver>();
     }
 
     void Update()
