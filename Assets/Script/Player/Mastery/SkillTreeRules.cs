@@ -200,6 +200,41 @@ public static class SkillTreeRules
         return Math.Max(0f, Math.Min(value, Cap(stat)));
     }
 
+    /// <summary>
+    /// 정수 스탯(PlayerStats.GetInt = 반올림)에 얹을 트리 값. 0.5·1.5 단위 합이 은행가 반올림(0.5→0, 2.5→2)으로 뭉치지 않게
+    /// 0 에서 먼 쪽으로 올린다(레벨마다 단조 증가: 0.5·n → 1,1,2,2,3).
+    /// </summary>
+    public static float ToWholePoints(float value)
+    {
+        return (float)Math.Round(value, MidpointRounding.AwayFromZero);
+    }
+
+    /// <summary>극의 배율. 마지막 타 계열(느린 무기는 더 크게)과 전 타격 계열(연타·원거리·캐스터는 작게)</summary>
+    public static float UltimateMul(WeaponKind kind, bool isSkill, bool isFinalHit)
+    {
+        switch (kind)
+        {
+            case WeaponKind.Staff:
+            case WeaponKind.Tome:
+                return 1.10f;
+            case WeaponKind.Dagger:
+            case WeaponKind.Dual:
+            case WeaponKind.Claw:
+            case WeaponKind.Knuckle:
+                return 1.06f;
+            case WeaponKind.Bow:
+            case WeaponKind.Crossbow:
+                return 1.08f;
+            case WeaponKind.Greatsword:
+            case WeaponKind.Axe:
+            case WeaponKind.Mace:
+            case WeaponKind.Scythe:
+                return !isSkill && isFinalHit ? 1.20f : 1f;
+            default:
+                return !isSkill && isFinalHit ? 1.15f : 1f;
+        }
+    }
+
     /// <summary>평타+스킬 데미지 합이 상한을 넘으면 비율을 유지한 채 줄인다</summary>
     public static void ClampDamagePair(ref float attack, ref float skill)
     {

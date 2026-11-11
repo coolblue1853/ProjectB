@@ -63,6 +63,7 @@ public class PlayerHealthManager : MonoBehaviour
         {
             nowHp = 0;
         }
+        CombatState.Mark(Time.unscaledTime);
         if (OnHpDamaged != null) OnHpDamaged(this, EventArgs.Empty);
     }
     [Tooltip("플레이어 회복·피격 숫자 프리팹 (적과 같은 EnemyDamge)")]

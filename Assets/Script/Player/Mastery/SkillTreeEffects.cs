@@ -9,16 +9,13 @@
 public static class SkillTreeEffects
 {
     const string Group = "SkillTree";
-    /// <summary>극의 기본 효과: 평타 마지막 타 데미지 배율</summary>
-    public const float UltimateFinalHitMul = 1.15f;
-    /// <summary>극의 Staff·Tome: 발사체(전 타격) 데미지 배율</summary>
-    public const float UltimateCasterMul = 1.10f;
 
     static WeaponKind _kind = WeaponKind.None;
     static float _atk, _skl, _cd, _stamina, _regen, _hp, _commonCd, _commonStamina;
     static bool _ultimate;
     static bool _hpDirty;
     static int _hpBonus;
+    static int _hpBasis = int.MinValue;
     static PlayerHealthManager _hpTarget;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -29,6 +26,7 @@ public static class SkillTreeEffects
         _ultimate = false;
         _hpDirty = false;
         _hpBonus = 0;
+        _hpBasis = int.MinValue;
         _hpTarget = null;
         SkillTreeService.Changed -= OnTreeChanged;
         SkillTreeService.Changed += OnTreeChanged;
@@ -79,16 +77,9 @@ public static class SkillTreeEffects
         {
             return mul;
         }
-        if (_kind == WeaponKind.Staff || _kind == WeaponKind.Tome)
-        {
-            return mul * UltimateCasterMul;
-        }
         Weapon w = Weapon.Equipped;
-        if (!isSkill && w != null && w.maxComboCount > 0 && w.nowConboCount >= w.maxComboCount)
-        {
-            return mul * UltimateFinalHitMul;
-        }
-        return mul;
+        bool final = !isSkill && w != null && w.maxComboCount > 0 && w.nowConboCount >= w.maxComboCount;
+        return mul * SkillTreeRules.UltimateMul(_kind, isSkill, final);
     }
 
     static void OnTreeChanged()
@@ -110,10 +101,11 @@ public static class SkillTreeEffects
         _hp = SkillTreeService.Mod(TreeStat.MaxHp, kind);
         _ultimate = SkillTreeService.Mod(TreeStat.Ultimate, kind) > 0f;
         PlayerStats.RemoveByGroup(Group);
-        AddMod(StatId.CritRate, ModType.Add, SkillTreeService.Mod(TreeStat.CritChance, kind));
-        AddMod(StatId.CritDmg, ModType.Add, SkillTreeService.Mod(TreeStat.CritDamage, kind));
-        AddMod(StatId.AttackSpeed, ModType.Add, SkillTreeService.Mod(TreeStat.AttackSpeed, kind));
-        AddMod(StatId.MoveSpeed, ModType.Add, SkillTreeService.Mod(TreeStat.MoveSpeed, kind));
+        // 정수 스탯(GetInt 반올림)은 0.5 단위가 뭉치므로 정수 포인트로 올려 얹는다. 퍼센트 모디파이어(방어)는 그대로
+        AddMod(StatId.CritRate, ModType.Add, SkillTreeRules.ToWholePoints(SkillTreeService.Mod(TreeStat.CritChance, kind)));
+        AddMod(StatId.CritDmg, ModType.Add, SkillTreeRules.ToWholePoints(SkillTreeService.Mod(TreeStat.CritDamage, kind)));
+        AddMod(StatId.AttackSpeed, ModType.Add, SkillTreeRules.ToWholePoints(SkillTreeService.Mod(TreeStat.AttackSpeed, kind)));
+        AddMod(StatId.MoveSpeed, ModType.Add, SkillTreeRules.ToWholePoints(SkillTreeService.Mod(TreeStat.MoveSpeed, kind)));
         AddMod(StatId.Def, ModType.Percent, SkillTreeService.Mod(TreeStat.Defense, kind));
         _hpDirty = true;
     }
@@ -141,12 +133,14 @@ public static class SkillTreeEffects
             _hpBonus = 0;
             _hpDirty = true;
         }
-        if (!_hpDirty)
+        // 장비 착용·해제·강화로 기준 최대 HP 가 바뀌면 트리 증가분(%)도 다시 계산한다
+        if (!_hpDirty && phm.fullHP - _hpBonus == _hpBasis)
         {
             return;
         }
         _hpDirty = false;
         int basis = phm.fullHP - _hpBonus;
+        _hpBasis = basis;
         int target = Mathf.RoundToInt(basis * _hp / 100f);
         int delta = target - _hpBonus;
         if (delta != 0)

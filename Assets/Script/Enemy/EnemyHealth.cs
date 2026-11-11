@@ -275,6 +275,7 @@ public class EnemyHealth : PoolAble
     {
         nowHP -= amount;
         MarkProvoked();
+        CombatState.Mark(Time.unscaledTime);
         if (isBossMob)
         {
             (bossPhase != null ? bossPhase : bossPhase = GetComponent<BossPhase>())?.OnDamaged(); // 페이즈 임계값 검사 (C4)

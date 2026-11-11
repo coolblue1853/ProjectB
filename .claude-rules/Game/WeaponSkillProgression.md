@@ -312,7 +312,7 @@ P1 까지는 플레이 영향이 없으므로 안전하게 먼저 넣을 수 있
 | P2 | 완료(프로브 검증) | `SkillTreeService`(투자·선행 거부·리스펙·`Mod`·`spent>earned` 자동 초기화). 골드 = `DatabaseManager.money`. 전투 중 차단은 UI(P5)에서 |
 | P3·P4 | 완료 11-11 | `SkillTreeEffects`(+구동기): 치명·공속·이동은 PlayerStats Add, 방어는 Percent, 최대 HP 는 fullHP 증가분, 평타·기술 단련·극의는 `DamageObject` 피해 배율, 쿨·소모는 `SkillEffectService`, 회복은 `PlayerHealthManager` 간격. 프로브 `wskill_p3.cs` |
 | P5·P6 | 완료 11-11 | `SkillTreeWindow`(K, 패드 LT+Y: 십자·A 투자·X 초기화·LB/RB 탭·Start 닫기), 탭 4(생활은 노드 없음), 툴팁·토스트·Loc·조작 안내 |
-| P7 | 메모 | 정수 스탯(치명·공속 0.5/1.5 단위)은 `GetInt` 반올림이라 1레벨 값이 뭉친다 → 체감 때 노드 단위를 정수화 검토. 극의는 기본(마지막 타 +15%)·Staff/Tome(+10%)만, 나머지 타입 고유 극의·생활 노드·전투 중 창 차단은 후속 |
+| P7 | 완료 11-11(수치) | ① 정수 스탯 뭉침: `SkillTreeRules.ToWholePoints`(0 에서 먼 쪽 반올림, 0.5×Lv → 1,1,2,2,3)로 치명·치명피해·공속·이동 정수화(노드 값·세이브 불변). ② 극의 전 타입: `SkillTreeRules.UltimateMul` — 마지막 타 계열 일반 ×1.15·중무기(대검·도끼·철퇴·낫) ×1.20, 전 타격 계열 Staff/Tome ×1.10·Bow/Crossbow ×1.08·Dagger/Dual/Claw/Knuckle ×1.06(차지·연타 판정 훅은 없어 피해 배율로 대체, 임시). ③ 전투 중 K 창 차단: `CombatState`(피격·타격 후 5초) + 알림. ④ 장비로 기준 최대 HP 가 바뀌면 트리 HP% 재계산(`SyncMaxHp` 기준 변화 감지). 테스트 `SkillTreeP7Tests`·프로브 `wskill_p7.cs`. 남음: 생활 노드(훅 없음)·리스펙 UI 전투 중 차단은 창 자체가 막혀 불필요 |
 
 P0~P2 는 플레이 영향 없음(안전). P1 은 해금 판정 기준이 바뀌므로 반드시 구세이브 이행 프로브 후 커밋.
 

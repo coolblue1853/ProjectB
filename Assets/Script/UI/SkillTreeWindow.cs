@@ -50,6 +50,10 @@ public sealed class SkillTreeWindow : MonoBehaviour
         {
             _instance.Close();
         }
+        else if (CombatState.IsInCombat())
+        {
+            PickupLog.Notice("전투 중에는 스킬창을 열 수 없습니다");
+        }
         else
         {
             _instance.Open();
