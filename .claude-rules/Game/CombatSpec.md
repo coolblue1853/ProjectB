@@ -61,11 +61,27 @@ dmg    = (base + armorAtp) × critM × inc
 skill  = 스킬 공격이면 × (1 + 스킬뎀/100)
 def    = 적 방어 × (1 - 방무/100)                                 🐞 현재 코드는 `× 방무/100`(반대 의미)
 dmg    = dmg² / (dmg + def)
-final  = dmg × (1 + 최종뎀/100) × dmgRatio × 레벨차배율   (레벨차: 몹Lv − 플레이어Lv ≥ 4 이면 초과 1당 −3%, 최대 −30%. +3=0%, +4=−3%, +13=−30%. 몹 Lv 미지정=1. MISS 없음. `DamageCalculator.LevelGapMul`)
+final  = dmg × (1 + 최종뎀/100) × dmgRatio × 레벨차배율   (레벨차: 몹Lv − 플레이어Lv ≥ 4 이면 초과 1당 −3%, 최대 −30%. +3=0%, +4=−3%, +13=−30%. 몹 Lv 미지정=1. MISS 는 4-1절. `DamageCalculator.LevelGapMul`)
 추가타 = final × 추가타%/100 (별도 숫자로 표시)
 ```
 
 > ✅ 위 식이 현재 구현이다: `Script/Combat/DamageCalculator.cs` (순수 함수, 테스트 `Assets/Editor/Tests/DamageCalculatorTests.cs`). % 계산은 `StatMath`를 쓴다.
+
+### 4-1. 미스(회피) 시스템 (REWORK-13, 11-11) — `Script/Combat/MissRules.cs`
+
+레벨 차 피해 감소(`LevelGapMul`)와 **별개로 겹쳐** 적용한다(빗나가지 않은 타는 감소된 피해).
+
+| 방향 | 기준 차이 | 미스율 | 상한 |
+|---|---|---|---|
+| 내 공격 → 몹 | 몹 Lv − 내 Lv ≥ `LevelGapStart`(4) | (차이 − 4 + 1) × 6 % − 명중 | 60 % |
+| 몹 공격 → 나 | 내 Lv − 몹 Lv ≥ 4 | (차이 − 4 + 1) × 6 % + 회피 | 50 % |
+
+- 예: 몹 +4 = 6 %, +5 = 12 %, +13 = 60 %(상한). 몹이 낮거나 +3 이하면 0 %.
+- **보스(`isBossMob`)·몹 Lv 미지정(0)은 양방향 미스 없음.** 보스 회피 불가는 명중/회피 보너스로도 못 바꾼다.
+- **명중/회피:** `MissRules.accuracyBonus`(내 미스율 −%p, 하한 0)·`evasionBonus`(몹 공격 미스율 +%p, 같은 레벨도 적용). 현재 공급원(장비 스탯)은 없고 0. 스탯 도입 시 `ItemSheet` 컬럼을 맨 뒤에 추가해 이 두 값에 합산(후속).
+- **판정 위치:** 내 공격 = `EnemyHealth.damage2Enemy` 맨 앞(타마다 굴림, 미스면 피해·넉백·경직·히트 연출 없음). 몹 공격 = `EnemyDamageObject.OnTriggerEnter2D`(공격 1회당 1번), 몸박 = `ContactDamage.Apply`(미스 시 0.9초 재굴림 유예). 무적 중이면 굴리지 않는다. 반사·독·포자 틱은 미스 없음.
+- **표시:** `HitFeedback.TextKind.Miss` 회색 "MISS"(현지화 "빗나감"). 몹 머리 위(내 공격) / 내 머리 위(몹 공격).
+- 검증: `MissRulesTests`(곡선·상한·보스·명중/회피).
 
 **상태이상:**
 

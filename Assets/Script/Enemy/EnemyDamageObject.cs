@@ -216,6 +216,12 @@ public class EnemyDamageObject : PoolAble
                 int dealt = damage;
                 if (enemyOb != null && enemyOb.TryGetComponent(out EnemyHealth owner))
                 {
+                    if (!isPlayerAttack && playerHealth.CanBeHit && MissRules.MobAttackMisses(owner.Level, owner.isBossMob))
+                    {
+                        playerHealth.ShowMiss(); // 내 레벨이 훨씬 높아 빗나감
+                        damagedPlayer[collision] = true;
+                        return;
+                    }
                     BossPhase bp = enemyOb.GetComponent<BossPhase>();
                     dealt = EnemyAttackScale.Apply(damage, owner.IsElite, bp != null ? bp.DamageMultiplier : 1f);
                 }

@@ -53,6 +53,7 @@ public sealed class ContactDamage : MonoBehaviour
     private Collider2D _playerCol;
     private PlayerHealthManager _hp;
     private Cooldown _nextCheck;
+    private Cooldown _missGrace; // 미스 뒤 같은 몸박을 0.1초마다 다시 굴리지 않게
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Boot()
@@ -82,7 +83,7 @@ public sealed class ContactDamage : MonoBehaviour
         {
             return;
         }
-        if (_hp == null || !_hp.CanBeHit)
+        if (_hp == null || !_hp.CanBeHit || !_missGrace.Ready(Time.time))
         {
             return;
         }
@@ -137,6 +138,12 @@ public sealed class ContactDamage : MonoBehaviour
     {
         int raw = ContactRules.ScaledDamage(mob.ContactDamage, mob.IsElite, mob.isBossMob);
         float sign = ContactRules.KnockSign(player.position.x, mob.transform.position.x);
+        if (MissRules.MobAttackMisses(mob.Level, mob.isBossMob))
+        {
+            _missGrace.Arm(Time.time, ContactRules.InvincibleTime);
+            _hp.ShowMiss();
+            return;
+        }
         GameLog.Info(GameLog.Cat.Combat, "몸박 " + mob.name + " 원피해 " + raw + (mob.IsElite ? " [정예]" : ""), mob);
         _hp.damage2Player(raw, ContactRules.StiffTime, ContactRules.KnockFor(mob.IsElite, mob.isBossMob), new Vector2(sign, 0.5f), mob.transform.position.x, false, ContactRules.InvincibleTime);
     }

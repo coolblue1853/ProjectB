@@ -349,6 +349,12 @@ public class PlayerHealthManager : MonoBehaviour
         .SetLink(gameObject);
     }
     bool isAlphaChange = false;
+    /// <summary>몹 공격이 빗나갔음을 표시(MISS 문자). 피해·무적·경직 없음</summary>
+    public void ShowMiss()
+    {
+        HitFeedback.SpawnText(_numberPrefab, NumberAnchor(), "MISS", HitFeedback.TextKind.Miss);
+    }
+
     /// <summary>지금 피해를 받을 수 있는가: 피격 무적·대시/스킬 무적이 아니고 살아 있다</summary>
     public bool CanBeHit => !isNoDamge && !DatabaseManager.isInvincibility && nowHp > 0;
 

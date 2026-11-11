@@ -414,6 +414,12 @@ public class EnemyHealth : PoolAble
     public void damage2Enemy(int[] damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, bool isSkill, float shaking, float dmgRatio)
     {    
 
+        if (MissRules.PlayerAttackMisses(Level, isBossMob))
+        {
+            GameLog.Info(GameLog.Cat.Combat, name + " MISS (몹 Lv " + Level + " / 내 Lv " + LevelSystem.Level + ")", this);
+            HitFeedback.SpawnText(damageNumber, transform.position + Vector3.up, "MISS", HitFeedback.TextKind.Miss);
+            return; // 빗나감: 피해·넉백·경직·히트 피드백 없음
+        }
         shakeTime = shaking;
         var result = DamageCalculator.Calculate(damage, DamageCalculator.PlayerOffense.FromDatabase(), enemyDef,
             isBleeding, isSkill, dmgRatio, UnityEngine.Random.value, UnityEngine.Random.Range(0f, 100f),

@@ -237,7 +237,7 @@ public static class HitFeedback
         }
     }
 
-    public enum TextKind { Immune, Block, Status, Gold }
+    public enum TextKind { Immune, Block, Status, Gold, Miss }
 
     const float TextThrottle = 0.5f;
     static float lastImmuneTime = -10f, lastBlockTime = -10f;
@@ -273,6 +273,7 @@ public static class HitFeedback
         {
             case TextKind.Immune: color = new Color(0.62f, 0.9f, 1f); scale = 1.1f; break;
             case TextKind.Block: color = new Color(0.85f, 0.85f, 0.9f); scale = 1.1f; break;
+            case TextKind.Miss: color = new Color(0.72f, 0.72f, 0.78f); scale = 1.1f; break;
             case TextKind.Gold: color = new Color(1f, 0.82f, 0.3f); scale = 1.2f; offset = new Vector3(0f, 1f, 0f); break;
             default: color = new Color(0.8f, 0.6f, 1f); scale = 0.95f; offset = new Vector3(0f, 0.4f, 0f); break;
         }
