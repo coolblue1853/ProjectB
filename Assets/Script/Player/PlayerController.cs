@@ -279,9 +279,16 @@ public class PlayerController : MonoBehaviour
     /// 지상 앞키는 true(정지 대신 전진 허용)를 돌려준다. 스킬·UI 잠금이 겹치면 아무것도 안 한다</summary>
     bool UpdateAttackRecoveryMove(Weapon w)
     {
+        _ciLungeVx = 0f;
+        _ciMode = AttackMoveMode.Free;
         if (w == null || !w.OwnsMoveLockInRecovery || moveAction == null || states == "dash" || states == "wallJump" || isUpLadder)
         {
             return false;
+        }
+        WeaponMoveProfile ci = CiProfile(w);
+        if (ci != null && ci.ModeAt(w.nowConboCount) != AttackMoveMode.Free)
+        {
+            return UpdateCiRecovery(w, ci);
         }
         float h = MoveInput();
         float facing = transform.localScale.x < 0f ? -1f : 1f;
@@ -303,6 +310,118 @@ public class PlayerController : MonoBehaviour
             facing = -facing;
         }
         return OnMovementGround && w.CanDriftNow(h, facing);
+    }
+
+    // ── CombatInputRedesign CI-P2·P3: 무기 타입별 공격 중 이동 모드(화이트리스트 타입만, 나머지는 위 현행 경로) ──
+    Weapon _ciWeapon;
+    WeaponMoveProfile _ciProfile;
+    AttackMoveMode _ciMode = AttackMoveMode.Free; // 이번 프레임 적용 모드(Free = 새 규칙 아님)
+    float _ciLungeVx;                             // 이번 프레임 Lunge 가로 속도(부호 포함, 0 = 정지)
+    StickDigital _ciStick;
+    float _ciSeenStartedAt = float.NaN, _ciStart, _ciTotal, _ciHit;
+    Collider2D _ciCol;
+    static int s_ciLedgeMask, s_ciEnemyMask;
+    const float CiLedgeProbe = 0.7f, CiMobProbe = 0.25f;
+
+    /// <summary>장착 무기의 활성 프로파일(화이트리스트 밖이면 null). 무기가 바뀔 때만 다시 조회한다</summary>
+    WeaponMoveProfile CiProfile(Weapon w)
+    {
+        if (w != _ciWeapon)
+        {
+            _ciWeapon = w;
+            _ciProfile = WeaponMoveProfiles.ActiveProfileOf(w);
+            _ciSeenStartedAt = float.NaN;
+        }
+        return _ciProfile;
+    }
+
+    /// <summary>이번 공격의 시작·후딜 총 길이·판정 시점. 공격 애니 시작(attackStartedAt)이 바뀔 때만 다시 계산한다(Weapon 의 비공개 값을 같은 식으로 재현)</summary>
+    void CiRefreshTiming(Weapon w)
+    {
+        if (_ciSeenStartedAt == attackStartedAt)
+        {
+            return;
+        }
+        _ciSeenStartedAt = attackStartedAt;
+        int step = w.nowConboCount;
+        bool hasDelay = w.isHasDelayTime && w.delayTime != null && w.delayTime.Length >= step && step > 0;
+        float delay = hasDelay ? w.delayTime[step - 1] / StatMath.AttackSpeedMul : 0f;
+        float baseTime = w.attckSpeed != null && w.attckSpeed.Length >= step && step > 0 ? w.attckSpeed[step - 1] : 0.3f;
+        if (hasDelay)
+        {
+            baseTime += w.delayTime[step - 1];
+        }
+        _ciTotal = baseTime / StatMath.AttackSpeedMul;
+        _ciHit = delay + (w.attackAnimName != null && w.attackAnimName.Length >= step && step > 0 && WeaponFx.IsMeleeSwing(w.swingVfx)
+            ? WeaponFx.StrikeDelayFor(w.attackAnimName[step - 1], Rig) / StatMath.AttackSpeedMul : 0f);
+        _ciStart = attackStartedAt - delay; // 후딜 타이머는 지연 생성 전(입력 순간)부터 돈다
+    }
+
+    /// <summary>화이트리스트 무기 후딜: 모드별 앞키 처리(InPlace 무시·Lunge 고정 거리), 등급별 캔슬. 항상 false(이동 잠금 유지, Lunge 속도는 Update 가 얹는다)</summary>
+    bool UpdateCiRecovery(Weapon w, WeaponMoveProfile prof)
+    {
+        int step = w.nowConboCount;
+        AttackMoveMode mode = prof.ModeAt(step);
+        _ciMode = mode;
+        CiRefreshTiming(w);
+        float elapsed = Time.time - _ciStart;
+        int dir = _ciStick.Update(MoveInput());
+        float facing = transform.localScale.x < 0f ? -1f : 1f;
+        bool back = dir * facing < 0f;
+        bool wantJump = jumpAction.triggered || jumpBuffer.Peek(Time.time);
+        if (wantJump && verticalAction.ReadValue<float>() >= -0.5f && !isWall && CanMovementJump && AttackMoveRules.CanJumpCancel(prof.Class, elapsed, _ciTotal, _ciHit))
+        {
+            EndRecoveryForMove(w);
+            return false;
+        }
+        int floor = MovementUnlocks.Instance != null ? MovementUnlocks.Instance.HighestFloor : 1;
+        bool finisher = CombatRules.IsFinisher(step, w.attackAnimName != null ? w.attackAnimName.Length : 0);
+        if (dir != 0 && (mode == AttackMoveMode.InPlace || back) && AttackMoveRules.CanMoveCancel(prof.Class, MovementUnlockRules.CancelStartRatio(floor), elapsed, _ciTotal, _ciHit, finisher))
+        {
+            EndRecoveryForMove(w); // 캔슬 창이 열린 뒤 InPlace 는 아무 방향키, Lunge 는 뒤키만 이동 시작(앞키는 고정 거리 Lunge 뒤 후딜 끝까지 제자리 — 현행도 앞키로는 캔슬 안 함)
+            return false;
+        }
+        float lungeTime = AttackMoveRules.LungeTime(_ciHit);
+        if (back && mode != AttackMoveMode.InPlace && elapsed >= lungeTime && CombatRules.CanTurnInRecovery(elapsed, _ciTotal, _ciHit, finisher))
+        {
+            transform.localScale = new Vector3(dir < 0 ? -chInRommSize : chInRommSize, chInRommSize, 1); // 모션은 유지, 몸만 새 방향(InPlace·Lunge 중에는 고정)
+            facing = -facing;
+        }
+        if (mode == AttackMoveMode.LungeOnForward && OnMovementGround && dir * facing > 0f)
+        {
+            float speed = AttackMoveRules.LungeVelocity(mode, prof.LungeDistAt(step), elapsed, _ciHit, true);
+            if (speed > 0f && !CiLungeBlocked(facing))
+            {
+                _ciLungeVx = facing * speed;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>Lunge 중단: 앞에 몹 몸 / 발판 끝(낙하 방지). 벽은 물리 충돌이 막는다</summary>
+    bool CiLungeBlocked(float dir)
+    {
+        if (_ciCol == null)
+        {
+            _ciCol = bc != null ? bc : GetComponent<Collider2D>();
+            if (_ciCol == null)
+            {
+                return false;
+            }
+        }
+        if (s_ciLedgeMask == 0)
+        {
+            s_ciLedgeMask = LayerMask.GetMask("Ground", "Platform", "Ground Soft", "Ground Hard");
+            s_ciEnemyMask = LayerMask.GetMask("Enemy");
+        }
+        Bounds bds = _ciCol.bounds;
+        Vector2 front = new Vector2(bds.center.x + dir * bds.extents.x, bds.center.y);
+        if (Physics2D.Raycast(front, new Vector2(dir, 0f), CiMobProbe, s_ciEnemyMask).collider != null)
+        {
+            return true;
+        }
+        Vector2 foot = new Vector2(front.x + dir * 0.15f, bds.min.y + 0.1f);
+        return Physics2D.Raycast(foot, Vector2.down, CiLedgeProbe, s_ciLedgeMask).collider == null;
     }
 
     void EndRecoveryForMove(Weapon w)
@@ -433,15 +552,15 @@ public class PlayerController : MonoBehaviour
             if (moveBlocked && states != "dash" && !isUpLadder && !MovementGrounded)
             {
                 // CF-6: 공중 평타는 가로 관성 유지(입력 없으면 0.15초 내 감속, 입력 시 이동속도 x0.7)
-                float airVx = CombatRules.AirAttackVx(rb.linearVelocity.x, MoveInput(), moveSpeed * StatMath.MoveSpeedMul, Time.deltaTime);
+                float airVx = AttackMoveRules.AirAttackVx(_ciMode, rb.linearVelocity.x, MoveInput(), moveSpeed * StatMath.MoveSpeedMul, Time.deltaTime);
                 if (airVx != rb.linearVelocity.x)
                 {
                     rb.linearVelocity = new Vector2(airVx, rb.linearVelocity.y);
                 }
             }
-            else if (rb.linearVelocity.x != 0f && moveBlocked && states != "dash")
+            else if (moveBlocked && states != "dash" && rb.linearVelocity.x != _ciLungeVx)
             {
-                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                rb.linearVelocity = new Vector2(_ciLungeVx, rb.linearVelocity.y); // CI-P2: 평소 0, 화이트리스트 Lunge 중에만 고정 거리 속도
             }
             UpdateJumpCut();
 
