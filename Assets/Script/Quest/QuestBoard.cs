@@ -79,7 +79,8 @@ public class QuestBoard : MonoBehaviour
 
     private void Update()
     {
-        if (!_useUpKey || !_playerNear || !_upAction.triggered || DatabaseManager.isOpenUI)
+        bool mine = InteractArbiter.Contend(gameObject, transform.position, _useUpKey && _playerNear);
+        if (!mine || !_upAction.triggered || DatabaseManager.isOpenUI)
         {
             return;
         }

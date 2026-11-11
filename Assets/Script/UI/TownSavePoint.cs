@@ -27,7 +27,8 @@ public sealed class TownSavePoint : MonoBehaviour
 
     private void Update()
     {
-        if (_action.UI.Up.triggered && !DatabaseManager.isOpenUI && IsNear())
+        bool mine = InteractArbiter.Contend(gameObject, transform.position, IsNear());
+        if (mine && _action.UI.Up.triggered && !DatabaseManager.isOpenUI)
         {
             SaveNow();
         }

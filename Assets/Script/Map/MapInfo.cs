@@ -29,6 +29,8 @@ public class MapInfo : MonoBehaviour
 
     /// <summary>지금 열린 맵의 지면 이동 배율. StatMath.MoveSpeedMul 이 곱한다</summary>
     public static float CurrentGroundMoveMul { get; private set; } = 1f;
+    /// <summary>현재 맵의 카메라 하한 y — 낙사 복귀(FallRecovery) 기준</summary>
+    public static float CurrentBottom { get; private set; } = DefaultBottom;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void ResetStatics()
@@ -100,6 +102,7 @@ public class MapInfo : MonoBehaviour
     public static void Apply(MapInfo info)
     {
         CurrentGroundMoveMul = info != null && info.groundMoveMul > 0f ? info.groundMoveMul : 1f;
+        CurrentBottom = info != null ? info.cameraBottom : DefaultBottom;
         var bounds = Object.FindFirstObjectByType<ProCamera2DNumericBoundaries>();
         if (bounds == null)
         {

@@ -151,6 +151,10 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
+        if (GetComponent<FallRecovery>() == null)
+        {
+            gameObject.AddComponent<FallRecovery>();
+        }
         _movementUnlocks = GetComponent<MovementUnlocks>();
         if (_movementUnlocks == null)
         {

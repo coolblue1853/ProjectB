@@ -280,7 +280,8 @@ public partial class Chest : MonoBehaviour
     private void Update()
     {
         UpdateConvenience();
-        if (isChestClose == true&& upAction.triggered && DatabaseManager.isOpenUI == false)
+        bool mine = InteractArbiter.Contend(gameObject, transform.position, isChestClose);
+        if (mine && upAction.triggered && DatabaseManager.isOpenUI == false)
         {
             state = ""; 
             InventoryManager.instance.RepeatCheck();

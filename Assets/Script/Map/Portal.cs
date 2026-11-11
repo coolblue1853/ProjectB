@@ -80,12 +80,13 @@ public class Portal : MonoBehaviour
             player = null; // 텔레포트·맵 교체로 Exit 이벤트 없이 벗어난 경우
             _playerCol = null;
         }
-        if (seal != null && upAction.triggered && player != null && DatabaseManager.isUsePortal == false && !seal.IsOpen)
+        bool mine = InteractArbiter.Contend(gameObject, transform.position, player != null);
+        if (seal != null && mine && upAction.triggered && DatabaseManager.isUsePortal == false && !seal.IsOpen)
         {
             seal.NotifySealed();
             return;
         }
-        if (upAction.triggered == true && player != null)
+        if (upAction.triggered == true && mine)
         {
             Use(player);
         }

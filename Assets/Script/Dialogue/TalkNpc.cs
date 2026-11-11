@@ -83,7 +83,8 @@ public class TalkNpc : MonoBehaviour
         {
             prompt.gameObject.SetActive(showPrompt);
         }
-        if (canTalk && action.UI.Up.triggered)
+        bool mine = InteractArbiter.Contend(gameObject, transform.position, canTalk);
+        if (mine && action.UI.Up.triggered)
         {
             FacePlayer();
             NpcInteraction.Run(gameObject, null, null, null, TalkConversation);
