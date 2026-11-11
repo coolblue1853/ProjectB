@@ -205,12 +205,18 @@ public class EnemyHealth : PoolAble
         {
             _dash = gameObject.AddComponent<TempMobDash>();
         }
+        if (MobShootRules.TryGetProfile(row.trait, out MobShootRules.Profile shootProfile) && !TryGetComponent(out _shooter))
+        {
+            _shooter = gameObject.AddComponent<TempMobShooter>();
+            _shooter.Init(shootProfile);
+        }
     }
 
     // 0 = 프로필 없음(1배). 필드 초기값에 기대지 않는다(에디터에서 만든 컴포넌트는 0으로 시작한 사례, 11-01 테스트)
     float _moveMul, _knockbackMul, _jumpMul;
     bool _sturdy; // trait sturdy = 경직 저항 50%
     TempMobDash _dash;
+    TempMobShooter _shooter;
     // 필드 초기화에 기대지 않는다: 테스트·에디터가 만든 컴포넌트는 초기화가 안 돈 사례가 있다(11-01 _moveMul 와 같은 이유)
     MobReflectRules _reflectRules; // 반사 자세(F2-MOBREFLECT)
     MobDebuffRules _debuffRules; // 런타임 디버프(둔화·석화 연쇄 제한, F2-DEBUFF)
@@ -218,7 +224,7 @@ public class EnemyHealth : PoolAble
     MobDebuffRules _debuff => _debuffRules ?? (_debuffRules = new MobDebuffRules());
 
     /// <summary>추적·순찰 이동 배율(임시 몹 특성 slow·dash). 기존 몹은 1</summary>
-    public float MoveSpeedMul => (_moveMul > 0f ? _moveMul : 1f) * (_dash != null ? _dash.ChaseMul : 1f) * _debuff.SlowMul;
+    public float MoveSpeedMul => (_moveMul > 0f ? _moveMul : 1f) * (_dash != null ? _dash.ChaseMul : 1f) * (_shooter != null ? _shooter.ChaseMul : 1f) * _debuff.SlowMul;
     /// <summary>넉백 힘 배율(heavy 0.5). 기존 몹은 1</summary>
     public float KnockbackMul => _knockbackMul > 0f ? _knockbackMul : 1f;
     /// <summary>경직 저항 0~1(보스 0.6·sturdy 0.5·정예 0.3 중 최대, 던파식 경직 수치 정리). 슈퍼아머 몹은 경직 자체가 없다</summary>
