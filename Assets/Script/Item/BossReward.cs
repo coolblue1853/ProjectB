@@ -89,7 +89,11 @@ public static class BossLoot
             loot.Add(r.setPieces[Random.Range(0, r.setPieces.Length)]);
         }
         int stones = BossRetryRules.Stones(Random.Range(r.stoneMin, r.stoneMax + 1), mult);
-        stones += BossRetryRules.Stones(GatekeeperTrial.BonusStones(bossName), mult); // 문지기 a=1 보너스(Floor1Completion 14-1)
+        int gateBonus = GatekeeperTrial.BonusStones(bossName); // 문지기 a=1 보너스(Floor1Completion 14-1)
+        if (gateBonus > 0)
+        {
+            stones += BossRetryRules.Stones(gateBonus, mult);
+        }
         if (!ES3.KeyExists(firstKey))
         {
             stones += r.firstKillStones;

@@ -135,3 +135,9 @@
 ## 11-11 밤 이월 2차 (builder)
 - 탑 근교 무기: Q610 보상 강화석→FairysGrimoire(마도서). 도감 B08~B13: 새 metric `zone`(9열 zone=MonsterSheet zone, `BestiaryZoneRules`, 밤·보스·미니보스 제외 전종) 보상=구역 세트 부위 1. 사냥 의뢰 D18~D23(성채·탑·늪 미니보스·정예). Tough Rat Hide→Junk(참조 없음 확인, 핀 테스트 정정). `ItemIconLoader`: 아이콘 없으면 Error 대신 이름당 1회 Warning+기존 임시 그림 유지.
 - 프로브 `_f1e_flow2`: Q1~Q7 62건 선행→수락→목표→보고→완료 bad=0(안내판 필터 일치 포함). 컴파일 0·EditMode 1220 통과. 미검증: 실제 플레이로 도감 전종 지급·안내판 상호작용.
+
+## 11-11 밤 마감 (주간 약 61%, 상한 65%)
+- 완료·push: 1층 초반(밤 안내 QuestNightHint·낮 쥐 도둑·튜토리얼/마차 문구·기본 칼 3타 복원), 정예 쥐 두목 R-6, CI-P4·P7, 상점 일괄 판매 버튼, 깊은 숲·늪 EXP 감액·Q410 10%·Q602 +800·문지기 보너스·구역 보고 안내판 ZoneReportSign, 도감 B08~B13(zone metric)·사냥 의뢰 D18~D23·Q610 마도서, ItemIconLoader 폴백, 몹 사격(숲 사냥꾼·유적 파수꾼), SampleScene 커밋(맵 2장 보존).
+- 리뷰 필수 1건 수정: 문지기 보너스 0일 때 강화석 +1 이 붙던 버그(BossReward). 도감 종 캐시는 빈 목록 미캐시. EditMode 1226 통과.
+- 다음 주 후보: 밤 몹 추가(그래픽 필요), 덩굴 요정 속박, 감시병 장전 튜닝, ZoneReportSign Active 탭 노출 정리(권장), TempMobShooter 정적 풀 씬 전환 초기화, 실제 플레이 검증 전부(`UserPlaytest_1111.md`·`Weekend1Guide.md`).
+

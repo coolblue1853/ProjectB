@@ -105,7 +105,10 @@ public static class BestiaryZoneRules
                 list.Add(r.id);
             }
         }
-        s_species[zoneKey] = list;
+        if (list.Count > 0)
+        {
+            s_species[zoneKey] = list; // 빈 목록(테이블 로드 전)은 캐시하지 않는다
+        }
         return list;
     }
 
