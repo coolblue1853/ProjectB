@@ -31,7 +31,7 @@ public class AttackManager : MonoBehaviour
     InputBuffer chargeBuffer => _chargeBuffer ?? (_chargeBuffer = new InputBuffer(_chargeReleaseBufferTime));
     InputBuffer attackBuffer => _attackBuffer ?? (_attackBuffer = new InputBuffer(_attackBufferTime));
     [Tooltip("스킬 선입력 시간(초). 후딜 중 누른 스킬을 이 시간 안에 쓸 수 있게 되면 발동 (W-09)")]
-    [SerializeField] private float _skillBufferTime = 0.2f;
+    [SerializeField] private float _skillBufferTime = 0.2f; // 미사용(11-11): 스킬 선입력은 CombatRules.SkillBufferTime(0.15)으로 통일(CI-P5). 직렬화 호환용으로만 남김
     InputBuffer[] skillBuffers;
     KeyAction action;
     InputAction attackAction;
@@ -173,8 +173,14 @@ public class AttackManager : MonoBehaviour
             {
                 attackBuffer.Press(Time.time);
             }
+            else if (!staggered && attackAction.IsPressed() && AttackMoveRules.HoldRepeatAllowed(equipWeapon.nowConboCount, equipWeapon.maxComboCount))
+            {
+                attackBuffer.Press(Time.time); // CI-P6: 키를 쥔 채 콤보 중간이면 다음 타 선입력을 재장전(마지막 타 뒤에는 재누름 필요)
+            }
             InputBuffer meleeBuf = charge != null ? chargeBuffer : attackBuffer;
-            if (!staggered && equipWeapon.CanMeleeNow && meleeBuf.Consume(Time.time))
+            // CI-P6: 점프와 거의 동시에 누른 평타는 점프가 먼저 나가고 공중 평타 1타가 된다
+            bool jumpFirst = PlayerController.instance != null && PlayerController.instance.DeferAttackForJump();
+            if (!staggered && equipWeapon.CanMeleeNow && !jumpFirst && meleeBuf.Consume(Time.time))
             {
                 equipWeapon.MeleeAttack();
             }
@@ -199,7 +205,7 @@ public class AttackManager : MonoBehaviour
             skillBuffers = new InputBuffer[skillBackGround.Length];
             for (int i = 0; i < skillBuffers.Length; i++)
             {
-                skillBuffers[i] = new InputBuffer(_skillBufferTime);
+                skillBuffers[i] = new InputBuffer(CombatRules.SkillBufferTime);
             }
         }
         for (int i = 0; i < skillBackGround.Length; i++)

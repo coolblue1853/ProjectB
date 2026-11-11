@@ -61,3 +61,8 @@
 - U40: `ConfirmPopup`(UI/ConfirmPopup.cs, 기본 아니오, 마우스·←→·Z/Enter/A·Esc/B) 신규, 퀘스트 포기(창 안 확인 제거)·가방 확장(구 N 두 번)·장비 분해(구 D 두 번)에 적용. `DismantleInput.Request`·`BagExpansion.TryBuy/Describe` 프로브 창구는 유지.
 - U37: 도감·지도·미니맵·방어·스킬창·퀘스트 6키를 키 설정 재지정 대상으로(`Hotkeys`, inputactions 액션 6 추가, 충돌 규칙은 InputAudit §14). F10 안내 창 넘침 수정(패널 1000·글자 21). U38: null 체크 누락 없음 확인.
 - 컴파일 0·EditMode 1114 통과(신규 7)·play probe(확인창 기본 아니오·←·Esc→아니오·Enter→예, B→U 재지정 후 U 로 도감 열림, 키 설정·F10 화면 확인). 미검증: 실마우스·패드, 퀘스트 포기·분해·가방 확장 실조작.
+
+## 11-11 REWORK-4 전투 입력 CI-P0~P3·P5·P6 (builder, Weapon.cs 미수정)
+- 신규 `AttackMoveRules`·`WeaponMoveProfiles`(전 타입 표+`EnabledKinds` 화이트리스트=롤백 한 줄)·`DirectionBuffer`·`StickDigital`. 한손검·검방·단검·쌍검 Lunge, 대검·둔기·방패·활류 InPlace(PlayerController), 방향 버퍼 0.08·점프 `TryConsumeJump` 일원화·스킬 버퍼 0.15·홀드 연타·A+X 동시(점프 먼저).
+- 컴파일 0·EditMode 1138 통과(신규 24)·play probe `_ci_move`(A·B·C)·`_ci_input`(E·F·H) 통과. 미검증: 실패드·마우스 체감, 프로브 D·G·I 전수(P4·P7 필요). Q-CI9·10 기록.
+- 남음: CI-P4·P7(Weapon.cs 모션 방 커밋 뒤), 창·낫·클로·너클·채찍·철퇴·도끼·태도·지팡이 모드 적용, P8 문서.

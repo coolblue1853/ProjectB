@@ -266,4 +266,24 @@ public class AttackMoveRulesTests
         }
         Assert.IsNotNull(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Dagger, null));
     }
+
+    // ── CI-P5·P6 ──
+    [Test]
+    public void HoldRepeat_OnlyMidCombo()
+    {
+        Assert.IsFalse(AttackMoveRules.HoldRepeatAllowed(0, 3)); // 콤보 밖
+        Assert.IsTrue(AttackMoveRules.HoldRepeatAllowed(1, 3));
+        Assert.IsTrue(AttackMoveRules.HoldRepeatAllowed(2, 3));
+        Assert.IsFalse(AttackMoveRules.HoldRepeatAllowed(3, 3)); // 마지막 타 뒤: 재누름 필요
+        Assert.IsFalse(AttackMoveRules.HoldRepeatAllowed(1, 1)); // 단타 무기
+    }
+
+    [Test]
+    public void Buffers_SkillAndJumpAndSimulWindow()
+    {
+        Assert.AreEqual(0.15f, CombatRules.SkillBufferTime, Eps);
+        Assert.AreEqual(0.15f, CombatRules.JumpBufferTime, Eps);
+        Assert.AreEqual(2f / 60f, AttackMoveRules.JumpAttackSimulWindow, Eps);
+        Assert.AreEqual(0.08f, DirectionBuffer.DefaultWindow, Eps);
+    }
 }

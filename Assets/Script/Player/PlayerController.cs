@@ -293,7 +293,7 @@ public class PlayerController : MonoBehaviour
         float h = MoveInput();
         float facing = transform.localScale.x < 0f ? -1f : 1f;
         bool back = h * facing < 0f;
-        bool wantJump = jumpAction.triggered || jumpBuffer.Peek(Time.time);
+        bool wantJump = JumpWanted();
         if (wantJump && verticalAction.ReadValue<float>() >= -0.5f && !isWall && CanMovementJump && w.CanJumpCancelNow)
         {
             EndRecoveryForMove(w);
@@ -318,6 +318,20 @@ public class PlayerController : MonoBehaviour
     AttackMoveMode _ciMode = AttackMoveMode.Free; // 이번 프레임 적용 모드(Free = 새 규칙 아님)
     float _ciLungeVx;                             // 이번 프레임 Lunge 가로 속도(부호 포함, 0 = 정지)
     StickDigital _ciStick;
+    readonly DirectionBuffer _dirBuffer = new DirectionBuffer();
+    bool _ciBufferedStart; // 이번 공격이 버퍼된(스틱 복귀 직후 0.08초 안) 방향으로 시작했다 — 그 Lunge(최대 0.30초)는 끝까지 전진, 실제 입력이 나타나면 해제
+    float _ciStartDir;
+
+    /// <summary>매 프레임 좌우 입력(디지털 0.5 이상)을 방향 버퍼에 기록한다</summary>
+    void RecordDirection()
+    {
+        if (moveAction == null)
+        {
+            return;
+        }
+        float h = MoveInput();
+        _dirBuffer.Record(Time.time, StickDigital.Digital(h)); // 0.5 미만 약한 기울임은 방향으로 기록하지 않는다(§4.3)
+    }
     float _ciSeenStartedAt = float.NaN, _ciStart, _ciTotal, _ciHit;
     Collider2D _ciCol;
     static int s_ciLedgeMask, s_ciEnemyMask;
@@ -366,9 +380,13 @@ public class PlayerController : MonoBehaviour
         CiRefreshTiming(w);
         float elapsed = Time.time - _ciStart;
         int dir = _ciStick.Update(MoveInput());
+        if (dir != 0)
+        {
+            _ciBufferedStart = false;
+        }
         float facing = transform.localScale.x < 0f ? -1f : 1f;
         bool back = dir * facing < 0f;
-        bool wantJump = jumpAction.triggered || jumpBuffer.Peek(Time.time);
+        bool wantJump = JumpWanted();
         if (wantJump && verticalAction.ReadValue<float>() >= -0.5f && !isWall && CanMovementJump && AttackMoveRules.CanJumpCancel(prof.Class, elapsed, _ciTotal, _ciHit))
         {
             EndRecoveryForMove(w);
@@ -387,7 +405,8 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(dir < 0 ? -chInRommSize : chInRommSize, chInRommSize, 1); // 모션은 유지, 몸만 새 방향(InPlace·Lunge 중에는 고정)
             facing = -facing;
         }
-        if (mode == AttackMoveMode.LungeOnForward && OnMovementGround && dir * facing > 0f)
+        bool forward = dir * facing > 0f || (dir == 0 && _ciBufferedStart && _ciStartDir * facing > 0f); // 버퍼된 시작 방향은 실제 입력이 나타나기 전까지 앞키로 본다
+        if (mode == AttackMoveMode.LungeOnForward && OnMovementGround && forward)
         {
             float speed = AttackMoveRules.LungeVelocity(mode, prof.LungeDistAt(step), elapsed, _ciHit, true);
             if (speed > 0f && !CiLungeBlocked(facing))
@@ -424,6 +443,44 @@ public class PlayerController : MonoBehaviour
         return Physics2D.Raycast(foot, Vector2.down, CiLedgeProbe, s_ciLedgeMask).collider == null;
     }
 
+    float _lastJumpPressAt = float.NegativeInfinity;
+
+    /// <summary>CI-P6: 점프를 방금(같은 프레임 ±2f) 눌렀고 곧 뛸 수 있으면 true — 평타는 점프 뒤 공중에서 나가도록 AttackManager 가 잠깐 미룬다</summary>
+    public bool DeferAttackForJump()
+    {
+        if (jumpAction == null || !OnMovementGround || !CanMovementJump)
+        {
+            return false;
+        }
+        return jumpAction.triggered || Time.time - _lastJumpPressAt <= AttackMoveRules.JumpAttackSimulWindow;
+    }
+
+    /// <summary>점프 입력이 있는가(이번 프레임 눌림 또는 버퍼 0.15초 안). 후딜 캔슬 판정과 소비가 같은 기준을 쓴다(CI-P5, I5)</summary>
+    bool JumpWanted()
+    {
+        return jumpAction.triggered || jumpBuffer.Peek(Time.time);
+    }
+
+    /// <summary>점프 소비의 유일한 창구: 후딜 이동잠금이 없고(캔슬 판정은 위 후딜 처리가 먼저 잠금을 푼다) 벽·대시 중이 아니며 지상·코요테·남은 점프가 있을 때만 버퍼를 소모한다. 아니면 버퍼에 남긴다</summary>
+    bool TryConsumeJump()
+    {
+        if (!jumpBuffer.Peek(Time.time) || DatabaseManager.weaponStopMove != false || isWall || states == "dash")
+        {
+            return false;
+        }
+        if (!CanMovementJump)
+        {
+            return false; // 코요테: 발판에서 걸어 내려간 직후에는 지상 점프로 인정(CanMovementJump 에 포함)
+        }
+        jumpBuffer.Consume(Time.time);
+        if (jumpsRemaining <= 0)
+        {
+            jumpsRemaining = 1;
+        }
+        Jump();
+        return true;
+    }
+
     void EndRecoveryForMove(Weapon w)
     {
         StopAttackAnim();
@@ -437,11 +494,24 @@ public class PlayerController : MonoBehaviour
     /// 입력이 없으면 현재 방향 그대로. 대시·벽점프 중에는 돌지 않는다</summary>
     public void FaceInputForAttack()
     {
+        FaceInput(true);
+    }
+
+    /// <summary>CI-P5: 새 공격은 스틱을 막 놓은 직후(0.08초)에도 그 방향으로 시작하고, 약한 기울임(0.5 미만)은 방향으로 치지 않는다. 대시는 현행 그대로(buffered=false)</summary>
+    void FaceInput(bool buffered)
+    {
         if (moveAction == null || states == "dash" || states == "wallJump")
         {
             return;
         }
         float h = MoveInput();
+        if (buffered)
+        {
+            float digital = StickDigital.Digital(h);
+            h = _dirBuffer.Resolve(Time.time, digital);
+            _ciBufferedStart = digital == 0f && h != 0f;
+            _ciStartDir = h;
+        }
         if (h < 0f)
         {
             transform.localScale = new Vector3(-chInRommSize, chInRommSize, 1);
@@ -492,6 +562,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerStatus.Tick(); // 시간 만료 토큰(대시 무적 등) 해제
         TickHitStop();
+        RecordDirection();
        if (verticalInput == 0 && states != "move" && isUpLadder ==true && isAttackAnim == false)
         {
             PlayLoopAnim("RopeStay");
@@ -600,24 +671,16 @@ public class PlayerController : MonoBehaviour
             if (jumpAction.triggered)
             {
                 jumpBuffer.Press(Time.time);
+                _lastJumpPressAt = Time.time;
             }
             if (jumpAction.triggered && DatabaseManager.weaponStopMove == false && verticalInput < -0.5f && currentOneWayPlatform != null)
             {
                 jumpBuffer.Clear();
                 DisableCollision(); // 하향 점프는 누른 순간에만
             }
-            else if (jumpBuffer.Peek(Time.time) && DatabaseManager.weaponStopMove == false && isWall == false && states != "dash")
+            else
             {
-                // 코요테: 발판에서 걸어 내려간 직후에는 지상 점프로 인정
-                if (CanMovementJump)
-                {
-                    jumpBuffer.Consume(Time.time);
-                    if (jumpsRemaining <= 0)
-                    {
-                        jumpsRemaining = 1;
-                    }
-                    Jump();
-                }
+                TryConsumeJump();
             }
 
             // 대쉬 타이머 업데이트
@@ -938,7 +1001,7 @@ public class PlayerController : MonoBehaviour
         ChangeLadderLayerOrder();
         CancelSkillHold(); // 홀드 중 대시하면 홀드를 끝낸다(쿨 적용)
         // 공격 중 대시는 잠긴 방향이 아니라 입력 방향으로 나가고, 남은 모션 동안 방향 잠금도 푼다 (10-30). states 가 dash 로 바뀌기 전에 불러야 돈다
-        FaceInputForAttack();
+        FaceInput(false);
         attackFacingLocked = false;
         MasterAudio.PlaySound("Dash");
         if (isAttackAnim == false)

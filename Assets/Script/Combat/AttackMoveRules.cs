@@ -103,6 +103,16 @@ public static class AttackMoveRules
         }
     }
 
+    // ── 홀드 연타·점프+공격 동시 (§4.5, CI-P6) ──
+    /// <summary>A·X 를 이 시간(2f) 안에 거의 동시에 누르면 점프 먼저</summary>
+    public const float JumpAttackSimulWindow = 2f / 60f;
+
+    /// <summary>공격 키를 쥐고 있을 때 다음 타를 자동 선입력할 수 있는가: 콤보 중간(1 이상, 마지막 타 미만)만. 마지막 타 뒤·단타 무기는 재누름 필요(Q-CI4)</summary>
+    public static bool HoldRepeatAllowed(int step, int maxStep)
+    {
+        return step >= 1 && step < maxStep;
+    }
+
     // ── 공중 (§3.5) ──
     public const float InPlaceAirInputMul = 0.3f;
 

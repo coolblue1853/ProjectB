@@ -102,6 +102,8 @@ public static class CombatRules
 
     // ── 조작감 CF-4·6·7: 점프 버퍼·코요테, 공중 평타 관성, 가변 점프 (CombatFeelPlan §3) ──
     public const float JumpBufferTime = 0.15f, CoyoteTime = 0.12f;
+    /// <summary>스킬 선입력 9f(CombatInputRedesign §4.1, 패드 어깨 버튼은 누르는 정확도가 낮다). 임시값</summary>
+    public const float SkillBufferTime = 0.15f;
     public const float AirAttackInputMul = 0.7f, AirAttackDecelTime = 0.15f;
     public const float JumpCutMul = 0.7f, JumpMinHold = 0.08f;
 
