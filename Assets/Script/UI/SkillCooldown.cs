@@ -188,6 +188,14 @@ public class SkillCooldown : MonoBehaviour
             cooldownImage[i].sprite = null;
         }
     }
+    /// <summary>쿨 환급(장비 효과 CooldownRefund): 쿨 중인 슬롯의 남은 시간을 seconds 만큼 줄인다. 다 줄면 CheckCoolTime 이 해제</summary>
+    public void Refund(int slot, float seconds)
+    {
+        if (slot >= 0 && slot < isCooldown.Length && isCooldown[slot] && seconds > 0f)
+        {
+            cooldownTimer[slot] -= seconds;
+        }
+    }
     // 스킬을 사용할 때 호출되는 함수
     public void UseSkill(int skillNum,string skillName, WeaponKind kind = WeaponKind.None) 
     {

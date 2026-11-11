@@ -36,6 +36,10 @@ public class Skill : MonoBehaviour
     public int objectMaxCount; // 최대 발생량이 증가하는 아이템 효과를 위함. 아무리 많아도 여기에 지정된 횟수만큼 나감.
      bool isActiveHold = false;
     private TempSkillFxLibrary _tempFxLibrary;
+    /// <summary>스킬이 실제로 발동됐을 때(ActiveSkill) 발생 — 장비 효과 Proc 용</summary>
+    public static event System.Action<Skill> Cast;
+    /// <summary>마지막으로 발동된 슬롯(없으면 -1) — 장비 효과 쿨 환급 용</summary>
+    public int ActiveSlot => _activeSlot;
     private int _activeSlot = -1; // 실제로 발동된 슬롯(ActiveSkill 인자). Inspector skillNum 과 다를 수 있다 (B-113)
     private Sequence _spawnDelaySequence;  // 선딜 뒤 데미지 오브젝트 생성
     private Sequence _dmgDelaySequence;    // 선딜 뒤 데미지 설정
@@ -324,7 +328,31 @@ public class Skill : MonoBehaviour
                 }
             }
             SkillAnimCheck(num);
+            Cast?.Invoke(this);
         }
+    }
+
+    /// <summary>장비 효과 OnKillCast·Proc 의 무료 시전: 첫 판정 프리팹만 pos 에 생성(비용·쿨·모션 없음, 규칙 재적용 없음 → 재연쇄 안 됨). dmgPct=피해 % (100=원래 피해)</summary>
+    public DamageObject SpawnFree(Vector3 pos, float dmgPct, float faceX)
+    {
+        if (skillprefab == null || skillprefab.Length == 0 || skillprefab[0] == null)
+        {
+            return null;
+        }
+        GameObject go = Instantiate(skillprefab[0], pos, Quaternion.identity);
+        if (!go.TryGetComponent(out DamageObject d))
+        {
+            Destroy(go);
+            return null;
+        }
+        d.skillName = skillName;
+        d.SetDamge(RuleMath.ScaleFirstTwo(damgeArray, dmgPct));
+        d.isSkill = true;
+        if (d.isLaunch)
+        {
+            go.transform.up = new Vector2(faceX >= 0f ? 1f : -1f, 0f);
+        }
+        return d;
     }
    
     /// <summary>AttackManager → Weapon.ReleaseWeaponSkill 에서 슬롯 키 해제가 온다. 실제로 발동된 슬롯일 때만 홀드 종료 (B-113, 설계 2.4-1~3)</summary>

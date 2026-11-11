@@ -57,8 +57,20 @@ public static class SkillRuleHandlers
                 case EffectRule.OnHitSpawn:
                     AddHitSpawn(d, e);
                     break;
+                case EffectRule.Chain:
+                    if (!d.TryGetComponent(out RuleChain _))
+                    {
+                        d.gameObject.AddComponent<RuleChain>().Init(d, (int)F(e.p1, 2f), F(e.p2, 4f), F(e.p3, 25f));
+                    }
+                    break;
+                case EffectRule.CooldownRefund:
+                    if (RuleMath.Trigger(e.p2) == "Hit" && !d.TryGetComponent(out RuleHitRefund _))
+                    {
+                        d.gameObject.AddComponent<RuleHitRefund>().Init(d, F(e.p1, 1f), e.id + "#" + e.entry);
+                    }
+                    break;
                 default:
-                    break; // FireMode 는 발사부, 나머지(Chain·OnKillCast·Proc 등)는 P4 이후
+                    break; // FireMode 는 발사부, OnKillCast·Proc·CooldownRefund(Kill)는 SkillRuleEvents
             }
         }
     }
