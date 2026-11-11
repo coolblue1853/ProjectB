@@ -25,6 +25,8 @@ public class EnemyPatrol : EnemyAction
     {
         return isEnd ? TaskStatus.Success : TaskStatus.Running;
     }
+    const float HopForce = 6f;
+
     public void StartPatrol()
     {
         movePoint = Random.Range(xMin, xMax);
@@ -40,8 +42,24 @@ public class EnemyPatrol : EnemyAction
             movePoint = direction == 0 ? -movePoint : movePoint;
         }
 
+        // REWORK-3: stay 는 제자리(이동 0), hop 은 걸으며 한 번 뛴다
+        MobBehavior mb = enemyHealth != null ? enemyHealth.Behavior : null;
+        if (mb != null && mb.Move == MobMove.Hop && body != null)
+        {
+            body.linearVelocity = new Vector2(body.linearVelocity.x, HopForce * (enemyHealth.JumpMul));
+        }
+        bool stay = mb != null && mb.Move == MobMove.Stay;
+        if (stay)
+        {
+            movePoint = 0;
+        }
+
         // 방향 설정: 이동할 방향에 맞게 로컬 스케일 변경
-        if (movePoint > 0)
+        if (stay)
+        {
+            // 제자리: 보는 방향 유지
+        }
+        else if (movePoint > 0)
         {
             enemyObject.transform.localScale = new Vector3(Mathf.Abs(enemyObject.transform.localScale.x), enemyObject.transform.localScale.y, 1);
         }
@@ -53,7 +71,7 @@ public class EnemyPatrol : EnemyAction
         // 애니메이션 설정
         if (anim != null)
         {
-            anim.SetBool("isWalk", true);
+            anim.SetBool("isWalk", !stay);
         }
 
         // 이동 범위가 originMax를 초과하면 원위치로 돌아옴

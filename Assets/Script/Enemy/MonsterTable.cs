@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// 몬스터 스탯 데이터 (Resources/MonsterSheet.csv, QualityRoadmap C5). 프리팹 이름이 키. EnemyHealth 가 Awake 에서 행이 있으면 적용한다.
-/// 컬럼: id,displayName,floor,zone,maxHP,enemyDef,isBoss,superArmor,hpHeight,moveSpeed,dropRate,note,level,exp,contactDamage,killKey,tint,trait — 빈 값은 프리팹 값 유지.
+/// 컬럼: id,displayName,floor,zone,maxHP,enemyDef,isBoss,superArmor,hpHeight,moveSpeed,dropRate,note,level,exp,contactDamage,killKey,tint,trait,move,edge,chase,chaseRange,visionY,giveUp,aggro,attack — 빈 값은 프리팹 값 유지.
 /// killKey: 처치 메시지·퀘스트 키(비면 프리팹 이름). tint: 임시 그림이 없을 때 호스트 스프라이트에 곱하는 RRGGBB. trait: 특성(spore).
 /// 컬럼 추가는 맨 뒤에만(기존 행 호환).
 /// </summary>
@@ -19,6 +19,7 @@ public static class MonsterTable
         public int? level, exp, contactDamage; // 클래식 메이플 레벨·처치 EXP·몸박 공격력(몸박 구현은 다음 단계)
         public string killKey, trait;          // 새 몹의 처치 키·특성(없으면 빈 문자열)
         public Color? tint;                    // 임시 그림 없을 때의 색 곱(없으면 null)
+        public MobBehavior behavior;           // REWORK-3 행동 속성(전부 빈 값이면 null = 프리팹 BT 그대로)
     }
 
     static Dictionary<string, Row> rows;
@@ -106,6 +107,10 @@ public static class MonsterTable
             {
                 r.trait = c[17].Trim();
             }
+            if (c.Length > 25)
+            {
+                r.behavior = MobBehaviorRules.Parse(c[18], c[19], c[20], c[21], c[22], c[23], c[24], c[25]);
+            }
             rows[r.id] = r;
         }
         GameLog.Info(GameLog.Cat.AI, "MonsterSheet 로드: " + rows.Count + "행");
@@ -128,6 +133,7 @@ public static class MonsterTable
         if (r.isBoss.HasValue) enemy.isBossMob = r.isBoss.Value;
         if (r.superArmor.HasValue) enemy.isSuperArmor = r.superArmor.Value;
         if (r.hpHeight.HasValue) enemy.hpHeight = r.hpHeight.Value;
+        enemy.Behavior = r.behavior;
         return true;
     }
 }

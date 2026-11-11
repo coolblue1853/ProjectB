@@ -26,6 +26,14 @@ public class EnemyAttackNode : EnemyAction
         StopAction();
         isEnd = false;
 
+        // REWORK-3 attack=contact: 공격 판정을 만들지 않는다(몸 접촉 피해만)
+        MobBehavior mb = GetComponent<EnemyHealth>().Behavior;
+        if (mb != null && mb.Attack == MobAttackKind.Contact)
+        {
+            isEnd = true;
+            return;
+        }
+
         // 공격 시작
         StartAttack();
     }
@@ -95,7 +103,9 @@ public class EnemyAttackNode : EnemyAction
             return; // 풀에 없는 공격(GetOb 가 경고를 남김)
         }
         // U16: 원거리(발사형) 공격은 목표가 같은 발판 층 근처일 때만 쏜다 — 밧줄·아래 층 플레이어까지 쏴서 오르지 못하던 문제
-        if (damage.TryGetComponent(out EnemyDamageObject shot) && shot.isLaunch && !RangedAttackRules.InReach(enemyObject.transform.position.y, AttackTargetY()))
+        MobBehavior mb = enemyHealth != null ? enemyHealth.Behavior : null;
+        if (damage.TryGetComponent(out EnemyDamageObject shot) && MobBehaviorRules.LimitsVertical(mb, shot.isLaunch)
+            && Mathf.Abs(AttackTargetY() - enemyObject.transform.position.y) > MobBehaviorRules.VerticalGap(mb))
         {
             if (damage.TryGetComponent(out PoolAble pooled))
             {

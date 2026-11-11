@@ -1,4 +1,4 @@
-id,displayName,floor,zone,maxHP,enemyDef,isBoss,superArmor,hpHeight,moveSpeed,dropRate,note,level,exp,contactDamage,killKey,tint,trait
+id,displayName,floor,zone,maxHP,enemyDef,isBoss,superArmor,hpHeight,moveSpeed,dropRate,note,level,exp,contactDamage,killKey,tint,trait,move,edge,chase,chaseRange,visionY,giveUp,aggro,attack
 ScaleStatue_BD,Scale Statue,2,Statue Garden,1110,26,0,1,-1.2,,,reflect stance guard (draft),19,394,34,,,
 GardenerGolem_BD,Gardener Golem,2,Statue Garden,760,26,0,0,-1.2,,,shears two hit and vine bind (draft),19,394,33,,,
 WingedStatue_BD,Winged Statue,2,Statue Garden,530,26,0,0,-1.2,,,dive thrust flier (draft),19,394,27,,,

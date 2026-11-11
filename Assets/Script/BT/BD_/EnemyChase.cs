@@ -70,6 +70,10 @@ public class EnemyChase : EnemyAction
         direction = Mathf.Sign(chaseTarget.transform.position.x - enemyObject.transform.position.x);
         ChangeFace();
         chaseSpeed = moveDuration > 0f ? moveDistance / moveDuration : 0f;
+        if (enemyHealth != null && enemyHealth.Behavior != null && !enemyHealth.Behavior.ChasesPlayer)
+        {
+            chaseSpeed = 0f; // REWORK-3 chase=no: 제자리에서 몸만 돌려 공격한다
+        }
         bt.sequence?.Kill();
         bt.sequence = DOTween.Sequence()
             .AppendInterval(moveDuration)

@@ -24,8 +24,9 @@ public class EnemyGroundChecker : EnemyConditional
         // 디버그용 Ray 출력 (필요할 때만 활성화)
        // Debug.DrawRay(groundCheck2.transform.position, Vector2.down * groundRayLength, Color.red);
 
-        // 바닥이 없고 점프 중이지 않으면 성공 반환
-        if (hitRay.collider == null && !bt.isJumping)
+        // 바닥이 없고 점프 중이지 않으면 성공 반환 (edge=fall 몹은 돌아서지 않고 그대로 걷는다 — REWORK-3)
+        MobBehavior mb = enemyHealth != null ? enemyHealth.Behavior : null;
+        if (hitRay.collider == null && !bt.isJumping && (mb == null || mb.Edge != MobEdge.Fall))
         {
             return TaskStatus.Success;
         }

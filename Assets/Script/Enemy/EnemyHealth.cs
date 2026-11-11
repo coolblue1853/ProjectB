@@ -222,6 +222,29 @@ public class EnemyHealth : PoolAble
     /// <summary>BT 도약 높이 배율(lowhop 0.8). 기존 몹은 1</summary>
     public float JumpMul => _jumpMul > 0f ? _jumpMul : 1f;
     int _contactBase;
+
+    /// <summary>BUG-U23: 작은 몹의 본체 콜라이더(플레이어 스킬 판정 대상)를 월드 하한까지 키운다. 발·가로 중심 유지.</summary>
+    void EnsureMinHitbox()
+    {
+        if (isBossMob || !TryGetComponent(out BoxCollider2D box))
+        {
+            return;
+        }
+        if (MobBehaviorRules.FitHitbox(box.size, box.offset, transform.lossyScale, MobBehaviorRules.MinHitWidth, MobBehaviorRules.MinHitHeight, out Vector2 size, out Vector2 offset))
+        {
+            box.size = size;
+            box.offset = offset;
+        }
+    }
+
+    /// <summary>REWORK-3 행동 속성(없으면 null = 프리팹 BT 동작 그대로). MonsterTable.Apply 가 채운다.</summary>
+    public MobBehavior Behavior { get; set; }
+    /// <summary>추격 유지 중(인식 성공 뒤 giveUp 거리까지 놓치지 않음). 풀 재사용 때 초기화</summary>
+    public bool ChaseLatched { get; set; }
+    float _provokedUntil;
+    /// <summary>맞아서 반응 중인가(후공 몹용)</summary>
+    public bool IsProvoked => Time.time < _provokedUntil;
+    public void MarkProvoked() { _provokedUntil = Time.time + MobBehaviorRules.ProvokeSeconds; }
     float _enabledAt;
     const float SpawnGraceTime = 0.3f;
 
@@ -251,6 +274,7 @@ public class EnemyHealth : PoolAble
     public void Damage(int amount)
     {
         nowHP -= amount;
+        MarkProvoked();
         if (isBossMob)
         {
             (bossPhase != null ? bossPhase : bossPhase = GetComponent<BossPhase>())?.OnDamaged(); // 페이즈 임계값 검사 (C4)
@@ -287,6 +311,7 @@ public class EnemyHealth : PoolAble
         MonsterTable.Apply(this); // Resources/MonsterSheet.csv 값이 있으면 프리팹 값을 덮어쓴다 (C5)
         MonsterTable.Row levelRow = MonsterTable.Get(name);
         Level = levelRow != null && levelRow.level.HasValue ? levelRow.level.Value : 0;
+        EnsureMinHitbox();
         _contactBase = levelRow != null && levelRow.contactDamage.HasValue ? levelRow.contactDamage.Value : 0;
         BossPhase.AttachIfBoss(this); // 보스 페이즈 (C4)
         anim = transform.GetComponent<Animator>();
@@ -313,6 +338,8 @@ public class EnemyHealth : PoolAble
     {
         Active.Add(this);
         _enabledAt = Time.time;
+        ChaseLatched = false;
+        _provokedUntil = 0f;
         ApplyGatekeeperTrial();
         ///isReleased = false;
         nowHP = maxHP;

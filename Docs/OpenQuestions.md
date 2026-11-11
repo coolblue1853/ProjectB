@@ -681,3 +681,7 @@
 ## Q-EFX7 장비 효과 등급 승격 (11-11, REWORK-12 P5)
 - 설계 §4.2 의 U 목표 효과(RootStaff·WispLantern·FrogTongueWhip·QuakestoneMaul)는 아이템이 현재 R 이라 `EF_U_*` 로 정의만 하고 부착하지 않았다. 임시 가정: 등급을 U 로 올리는 것은 가격·드롭 연출·`Floor1Balance` 에 영향이 있어 사용자 확인 후 진행. L 등급 신설도 같은 이유로 보류(Gatekeeper's Oath 는 U 유지).
 - Gatekeeper's Oath 고유 보너스(슈퍼아머 발동 시 쿨 -2초)는 슈퍼아머 이벤트 훅 필요 → 임시로 생략.
+
+## Q-MOBAI 몹 행동 속성 (11-11, REWORK-3·BUG-U23)
+- 유형·배정은 메이플 일반 유형 기준 임시 가정(`Game/MobRules.md` 행동 속성 절). 후공 반응 시간 8초·hop 높이·히트박스 하한(1.2x1.1)은 체감 후 조정.
+- edge=fall·정예/보스 속성 배정은 보류. 비공격(passive) 몹의 몸박 피해는 유지(몸박도 끌지는 사용자 결정 대기).

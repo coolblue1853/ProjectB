@@ -27,3 +27,8 @@
 - P4 Rule 2차(Chain·OnKillCast·Proc·CooldownRefund, `SkillRuleEvents`)·P5 Replace 변형(`SkillVariants`, GateCleave_Wide)·P6 툴팁 특수 효과 구획+평타 Basic 피해·P7 세트 11단계 데이터+`EffectScore`·점검 표·P8 트리×장비 쿨 곱 결합. 컴파일 0·EditMode 1070 통과·probe efx_p4b/p5/p6/p7/p8.
 - 버그 2건 수정: `LoadItemData`(P3)·`LoadSetsData`(P7) 가 effectIds 미복사 → 세트 단계 효과가 실제로 안 걸렸음.
 - 남음: 신규 장신구·팔찌(Teleport 쿨 훅 필요), U 등급 승격 Q-EFX7, 변형 판정 실시전(숙련 잠금으로 프로브 불가)·실마우스/패드·체감 플레이, 세트 창 별도 화면·효과 상세 토글·교체 미리보기 효과 줄, Gatekeeper 고유 보너스(슈퍼아머 이벤트), Crit 트리거.
+
+## 11-11 REWORK-3·BUG-U23 (builder)
+- 행동 속성 8열(move·edge·chase·chaseRange·visionY·giveUp·aggro·attack)을 MonsterSheet 맨 뒤에 추가, `MobBehaviorRules`+BT 훅 5곳. 일반 몹 배정은 `MobRules.md`, 빈 값=기존 동작.
+- BUG-U23: 소형 몹 본체 콜라이더 월드 하한 1.2x1.1(토끼·유령·돌토끼·허수아비·버섯·두더지 확대). 컴파일 0·EditMode 1080 통과·play probe(후공 맞은 뒤 추격, 제자리, 히트박스) 확인.
+- 남음: edge=fall 배정·정예 속성, 실전 체감, 스킬 종류별(AoE·화살) 실판정 확인, 후공 8초·hop 높이 튜닝.

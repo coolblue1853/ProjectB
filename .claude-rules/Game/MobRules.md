@@ -61,3 +61,28 @@
 - 일반 몹 소스는 크기가 맞는 DS 소형 몹(같은 종류 편집). 큰 골렘 파생(17차)은 엘리트·보스용.
 - 생성 레시피 정리(16~17차): 같은 종류 DS 스프라이트 편집(비율+자세 2~3항목) → 합격본을 새 소스로 재질·부품 교체 파생. 앵커만 바꾼 문장 생성은 풍이 깨져 폐기.
 - 색감 후처리(0생성): 몸을 거의 검은색에 가깝게 어둡게 + 발광색 1개 유지(사용자 레퍼런스 결). 형태: "jagged angular shards" 지시 추가.
+
+## 행동 속성 8열 (11-11 REWORK-3, `MonsterSheet.csv` 맨 뒤, 코드 `MobBehaviorRules`)
+빈 값 = 현재 BT 동작 그대로(전부 비면 null). 보스는 전부 빈 값(기존 BT 유지). 훅: `PlayerChecker`(폭 18 이상 = 인식 검사)·`EnemyChase`·`EnemyPatrol`·`EnemyGroundChecker`·`EnemyAttackNode`.
+| 열 | 값 | 효과 |
+|----|----|------|
+| move | patrol / stay / hop | 순찰(기본) / 제자리(이동 0·방향 유지) / 순찰하며 걸음마다 한 번 뜀(`HopForce` 6, `JumpMul` 반영) |
+| edge | turn / fall | 가장자리에서 돌아섬(기본) / 돌아서지 않고 그대로 낙하(구현만, 미배정) |
+| chase | yes / no | 추격 이동 여부. no = 제자리에서 몸만 돌려 공격(원거리·고정 포대용) |
+| chaseRange | 숫자 | 인식 가로 전체 폭(기본 프리팹 20) |
+| visionY | 숫자 | 인식 수직 반폭(기본 5)·원거리 공격 수직 한계(기본 2.5, U16) |
+| giveUp | 숫자 | 추격 중·맞은 뒤 가로 포기 거리(인식 폭보다 클 때만 의미) |
+| aggro | first / reactive / passive | 선공(기본) / 후공(맞은 뒤 8초 반응·추격 중이면 유지) / 비공격(인식 안 함) |
+| attack | melee / ranged / contact | 근접 / 원거리(수직 한계 적용) / 접촉만(공격 판정 안 만듦) |
+
+**일반 몹 배정(임시 가정, 메이플 유형 참고):** 기본 = patrol·turn·chase yes·first, attack 은 프리팹 BT 의 공격 사거리 상자(폭 10 이상 = ranged, 아니면 melee)로 채움.
+- 토끼: hop·chase no·passive·contact(BT 에 인식 노드 없음, 몸박만). 돌토끼: hop·reactive.
+- 허수아비: stay·chase no(제자리 포대). 눈알·가고일: stay·chase no·visionY 3. 골렘(대): chase no·visionY 3.
+- 버섯 4종(포자·숲·깊은숲·늪): reactive·chase no·giveUp 12. 두더지 2종: reactive·giveUp 14. 달팽이: reactive·chase no.
+- 엔트·숲 오우거: stay·reactive·chase no·giveUp 14. 산적 궁수·보초: chase no·visionY 2.5.
+- 늑대 계열: giveUp 24(끈질김). 개구리·두꺼비: hop. 모기: giveUp 30. 쥐 도적: chaseRange 16.
+- 미배정: edge=fall(떨어진 몹이 아래 층에 갇힐 수 있어 검증 후), 보스·정예(기존 BT).
+
+## 히트박스 하한 (11-11 BUG-U23)
+소형 몹 본체 BoxCollider2D(플레이어 스킬·화살 판정 대상)의 월드 크기가 가로 1.2·세로 1.1 미만이면 하한까지 키운다(`EnemyHealth.EnsureMinHitbox`, 발·가로 중심 유지, Awake 1회). 대상: 토끼 0.78x0.61·유령/돌 정령 0.92x0.79·돌토끼 1.10x0.79·허수아비 폭 0.82·버섯 0.96·두더지 높이 1.0. 스프라이트는 그대로. 주인공 콜라이더 0.28x1.56.
+- 히트박스 하한은 본체 콜라이더를 키우므로 몸박 접촉 범위도 같이 조금 넓어진다(소형 몹만, 메이플도 몸박 판정이 후한 편이라 의도). 지형 충돌은 발 기준·가로 최대 +0.4라 문제 없음(play probe 확인).

@@ -23,7 +23,7 @@ public class Floor2BalanceTests
             {
                 continue;
             }
-            Assert.That(c.Length, Is.InRange(15, 18), c[0]); // 15열 + 선택 killKey/tint/trait
+            Assert.That(c.Length, Is.InRange(15, 26), c[0]); // 15열 + 선택 killKey/tint/trait + 행동 속성 8열(REWORK-3)
             Assert.IsTrue(ids.Add(c[0]), "중복 id: " + c[0]);
             if (c[2] != "2")
             {
