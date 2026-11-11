@@ -94,10 +94,11 @@ public static class ControlsGuide
             {
                 new Row("가방", "{UI/OpenInventory}", "{UI/OpenInventory}"),
                 new Row("제작", "{UI/OpenCraft}", "{UI/OpenCraft}"),
-                new Row("퀘스트", "Q", "SELECT 길게"),
+                new Row("퀘스트 (창 안: H 추적창 접기 · Del 포기)", "Q", "SELECT 길게 (LT 접기 · Y 포기)"),
                 new Row("층계 지도", "M", "LT+START"),
                 new Row("도감", "B", "LT+SELECT"),
                 new Row("스킬창", "K", "LT+Y"),
+                new Row("방어 (방패 장착 시)", "G", "LT"),
                 new Row("미니맵 켜기·끄기", "N", "-"),
                 new Row("제작 핀", "P", "-"),
                 new Row("조작 안내", "F10", "-"),
@@ -110,6 +111,9 @@ public static class ControlsGuide
             RightColumn = true,
             Rows = new[]
             {
+                new Row("가방 확장 / 쌓기", "N / T", "LT+X / LT+LB"),
+                new Row("페이지 넘기기", "Q E · 1~5(BOX)", "LB RB"),
+                new Row("버리기 (수량 창)", "Del", "상세창 RT"),
                 new Row("아이템 잠금 / 해제", "L", "LT+R3"),
                 new Row("정렬", "R", "R3"),
                 new Row("분해 (두 번 눌러 확정)", "D", "-"),

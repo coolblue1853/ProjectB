@@ -43,11 +43,13 @@ public class TimeChange : MonoBehaviour
 
     void Update()
     {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         var keyboard = UnityEngine.InputSystem.Keyboard.current; // 디버그 키(0): 시간 60초 추가 — 레거시 Input 대신 New Input System
         if (keyboard != null && keyboard.digit0Key.wasPressedThisFrame)
         {
             AddTime(60); //시간 추가
         }
+#endif
 
         if (_lockDaytime)
         {

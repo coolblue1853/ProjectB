@@ -98,12 +98,12 @@ public sealed class InventoryToolbar : MonoBehaviour
         if (Time.unscaledTime >= _nextLabel)
         {
             _nextLabel = Time.unscaledTime + 0.25f; // 글자는 0.25초마다만 갱신(문자열 할당·TMP 재생성 억제)
-            string bag = BagExpansion.ButtonLabel();
+            string bag = "N · " + BagExpansion.ButtonLabel();
             if (bag != _bagLabel.text)
             {
                 _bagLabel.text = bag;
             }
-            string filter = "필터 " + InventoryFilterRules.Label(InventoryFilterView.Current);
+            string filter = "필터 G · " + InventoryFilterRules.Label(InventoryFilterView.Current);
             if (filter != _filterLabel.text)
             {
                 _filterLabel.text = filter;
@@ -141,7 +141,7 @@ public sealed class InventoryToolbar : MonoBehaviour
         rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
         rt.pivot = new Vector2(0.5f, 1f);
         float scale = Mathf.Max(0.01f, _root.transform.lossyScale.x);
-        rt.sizeDelta = new Vector2(ButtonW / scale, 5f * (ButtonH + Gap) / scale);
+        rt.sizeDelta = new Vector2(ButtonW / scale, 7f * (ButtonH + Gap) / scale);
         // "BOX n" 탭 아래(탭 중심 x)에 세로로 쌓는다
         Vector3 tab = anchor.position;
         float tabHalf = 0f;
@@ -165,6 +165,33 @@ public sealed class InventoryToolbar : MonoBehaviour
                 _bagLabel = label;
             }
         }
+        MakeHint(rt, 5, "분해 D · 버리기 Del · 비교 Shift\n프리셋 7 8 9 · 되사기 U", scale);
+        MakeHint(rt, 6, "패드: 분해 L3 두 번 · 비교 LT\n잠금 LT+R3 · 필터 LT+RT", scale);
+    }
+
+    /// <summary>버튼 아래 조작 안내 글(U39): 화면 버튼이 없는 단축키를 보여 준다. 클릭 대상 아님</summary>
+    private static void MakeHint(RectTransform parent, int index, string text, float scale)
+    {
+        UiTheme theme = UiTheme.Get();
+        var go = new GameObject("Hint" + index, typeof(RectTransform), typeof(TextMeshProUGUI));
+        go.transform.SetParent(parent, false);
+        var label = go.GetComponent<TextMeshProUGUI>();
+        if (theme.pixelFont != null)
+        {
+            label.font = theme.pixelFont;
+        }
+        label.enableAutoSizing = true;
+        label.fontSizeMax = 26f / scale;
+        label.fontSizeMin = 8f / scale;
+        label.fontSize = 26f / scale;
+        label.raycastTarget = false;
+        label.alignment = TextAlignmentOptions.Center;
+        label.color = new Color(0.8f, 0.8f, 0.8f, 0.9f);
+        label.text = text;
+        RectTransform r = label.rectTransform;
+        r.anchorMin = r.anchorMax = r.pivot = new Vector2(0.5f, 1f);
+        r.sizeDelta = new Vector2(ButtonW / scale, ButtonH / scale);
+        r.anchoredPosition = new Vector2(0f, -index * (ButtonH + Gap) / scale);
     }
 
     private static TextMeshProUGUI MakeButton(RectTransform parent, int index, string text, float scale, Action onClick)
