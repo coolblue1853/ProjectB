@@ -33,6 +33,7 @@ public class EnemyHealthBar : MonoBehaviour
     }
 
     private TMPro.TextMeshProUGUI _lvLabel;
+    private bool _labelWanted; // 이 몹이 레벨 라벨을 가져야 하는가(레벨>0, 보스 아님). 실제 표시는 LateUpdate 가 바 상태와 맞춘다
 
     /// <summary>
     /// 레벨 라벨은 주인 몹이 켜져 있고 살아 있고 레벨이 있을 때만 보인다.
@@ -40,16 +41,16 @@ public class EnemyHealthBar : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
-        if (_lvLabel == null || !_lvLabel.gameObject.activeSelf)
+        if (_lvLabel == null)
         {
             return;
         }
-        // BUG-U9: HP 바 본체가 꺼졌는데 라벨(같은 부모의 형제)만 켜져 허공에 "Lv.1"이 뜨는 경우도 숨긴다
-        bool visible = healthSystem != null && healthSystem.isActiveAndEnabled && healthSystem.nowHP > 0 && healthSystem.Level > 0
+        // BUG-U9: 라벨은 매 프레임 "HP 바와 같은 조건"으로 켜고 끈다(한 번 꺼지면 영영 안 켜지던 것 + 바만 꺼졌는데 라벨만 남는 것 모두 방지)
+        bool visible = _labelWanted && healthSystem != null && healthSystem.isActiveAndEnabled && healthSystem.nowHP > 0
             && hpBarRect != null && hpBarRect.gameObject.activeInHierarchy;
-        if (!visible)
+        if (_lvLabel.gameObject.activeSelf != visible)
         {
-            _lvLabel.gameObject.SetActive(false);
+            _lvLabel.gameObject.SetActive(visible);
         }
     }
 
@@ -77,6 +78,7 @@ public class EnemyHealthBar : MonoBehaviour
     private void RefreshLevelLabel()
     {
         bool show = healthSystem != null && healthSystem.Level > 0 && !healthSystem.isBossMob;
+        _labelWanted = show;
         if (!show)
         {
             if (_lvLabel != null)

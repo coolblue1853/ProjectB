@@ -88,3 +88,7 @@
 - 설계서만: REWORK-4(CI-P0~P3·P5·P6 구현 완료, P4·P7 은 모션 방 `Weapon.cs` 정리 후), REWORK-9(`EarlyHourPlan.md`, R-5·R-6 killElite 보류).
 - 남은 것: 4~7층계 보스 콘텐츠(해금 훅은 연결됨), 요리 레시피 CSV화, 퀘스트 대사 나머지, 리뷰 권장(NpcQuestWindow 629줄 분할 등), U9 재현, REWORK-4 P4·P7, 플레이 미검증 전체(`Docs/Playtest/UserPlaytest_1111.md`).
 - Spartan 설치(11-11): 점검 스크립트·git 가드 훅 적용, 훅 실차단은 새 세션에서 확인 필요.
+
+## 11-11 밤 정리 세션
+- (A) NpcQuestWindow partial 분할(441+187줄)·만료 추적 id Prune·Redraw Query 캐시·Tracker.OnDisable HUD 숨김·빈 입구 차단 커밋. (B) `CookingRecipes.csv`+`CookingRecipeCsv` 로더(폴백 DefaultRecipes). EditMode 1184 통과.
+- (C) U9: 풀 반환·사망·맵 전환 뒤 고아 라벨 0건, 원인 미확정. 기존 방어가 라벨을 영영 못 켜던 결함을 라벨-바 매 프레임 동기로 수정. 프로브 `Tools/probes/_u9_*.cs`(미추적).
