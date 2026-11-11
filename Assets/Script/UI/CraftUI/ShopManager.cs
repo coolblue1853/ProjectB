@@ -428,6 +428,8 @@ public class ShopManager : MonoBehaviour
             Invoke("ChangeisMoveCusor", 0.2f);
             ShopUI.SetActive(true);
             ShopStockExtender.RefreshFor(this); // 층계가 오른 뒤 처음 열 때 새 품목을 진열
+            AttachMouse();
+            EnsureCloseButton();
             ResetStockSelection();
             InventoryManager.instance.state = "ShopCusorOn";
             InventoryManager.instance.cusor.SetActive(false);
@@ -606,27 +608,181 @@ public class ShopManager : MonoBehaviour
             SetDetail();
             DetailOff();
         }
-        if (rightSholderAction.triggered && LV1craftBox[nowLv].transform.childCount > nowPage + 1)
+        if (rightSholderAction.triggered)
         {
-            LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(false);
-            line = 0;
-            childCount = 0;
-            nowPage += 1;
-            DetailOff();
-            LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(true);
-            nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
-            SetDetail();
+            ChangePage(1);
         }
-        if (leftSholderAction.triggered && 0 < nowPage)
+        if (leftSholderAction.triggered)
         {
-            LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(false);
-            line = 0;
-            childCount = 0;
-            nowPage -= 1;
-            DetailOff();
-            LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(true);
-            nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
-            SetDetail();
+            ChangePage(-1);
         }
+    }
+
+    /// <summary>진열 페이지를 delta(±1)만큼 넘긴다. 끝이면 무시(키보드 LB·RB, 마우스 휠 공용)</summary>
+    void ChangePage(int delta)
+    {
+        int next = nowPage + delta;
+        if (next < 0 || next >= LV1craftBox[nowLv].transform.childCount)
+        {
+            return;
+        }
+        LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(false);
+        line = 0;
+        childCount = 0;
+        nowPage = next;
+        DetailOff();
+        LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(true);
+        nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
+        SetDetail();
+    }
+
+    // ───────────── 마우스 (REWORK-2 S2 U27) ─────────────
+
+    /// <summary>진열된 모든 칸에 마우스 입력을 붙인다(재고가 늘 수 있어 열 때마다 확인)</summary>
+    void AttachMouse()
+    {
+        if (LV1craftBox == null || LV1craftBox.Length == 0 || LV1craftBox[0] == null)
+        {
+            return;
+        }
+        foreach (ItemCheck it in LV1craftBox[0].GetComponentsInChildren<ItemCheck>(true))
+        {
+            if (it.GetComponent<ShopSlotMouse>() == null)
+            {
+                it.gameObject.AddComponent<ShopSlotMouse>().Init(this, it);
+            }
+        }
+    }
+
+    /// <summary>지금 보이는 페이지의 칸이면 줄·열 번호를 돌려준다</summary>
+    bool TryLocate(ItemCheck item, out int ln, out int ch)
+    {
+        ln = ch = -1;
+        if (item == null || item.transform.parent == null || item.transform.parent.parent == null
+            || LV1craftBox[nowLv].transform.GetChild(nowPage) != item.transform.parent.parent)
+        {
+            return false;
+        }
+        ln = item.transform.parent.GetSiblingIndex();
+        ch = item.transform.GetSiblingIndex();
+        return true;
+    }
+
+    /// <summary>마우스를 칸에 올림: 상점 쪽에 포커스가 있을 때만 커서를 옮긴다(가방을 조작 중이면 건드리지 않음)</summary>
+    public void HoverSlot(ItemCheck item)
+    {
+        int ln, ch;
+        if (QuantityPopup.IsBlocking || state != "" || InventoryManager.instance.state != "ShopCusorOn" || nowShopItem == item
+            || !TryLocate(item, out ln, out ch))
+        {
+            return;
+        }
+        MoveCusorByMouse(ln, ch);
+        DetailOff();
+    }
+
+    /// <summary>호버 툴팁 문구. 상세창이 이미 그 칸을 보여 주면 비운다</summary>
+    public string TipText(ItemCheck item)
+    {
+        if (item == null || item.itemData == null || (isBuyDetail && nowShopItem == item))
+        {
+            return "";
+        }
+        return ItemTipText.Build(item, item.buyprice, false);
+    }
+
+    /// <summary>
+    /// 칸 클릭. 왼쪽=선택(상세창, 키보드 Z 한 번), 이미 선택·상세가 열린 칸을 다시 누르거나 오른쪽 클릭=구매 수량 창(Z 두 번).
+    /// 가방 쪽에 포커스가 있었으면 상점으로 되돌린다.
+    /// </summary>
+    public void PickByMouse(ItemCheck item, bool buy)
+    {
+        int ln, ch;
+        InventoryManager inv = InventoryManager.instance;
+        if (QuantityPopup.IsBlocking || !ShopUI.activeSelf || state != "" || !TryLocate(item, out ln, out ch))
+        {
+            return;
+        }
+        if (inv.state != "ShopCusorOn")
+        {
+            inv.DetailOff();
+            inv.state = "ShopCusorOn";
+            inv.cusor.SetActive(false);
+            cusor.SetActive(true);
+            isMoveCusor = true;
+        }
+        bool again = nowShopItem == item && isBuyDetail;
+        MoveCusorByMouse(ln, ch);
+        if (!again)
+        {
+            DetailOff();
+            SetNeedDetail();
+        }
+        if (!buy && !again)
+        {
+            return;
+        }
+        if (CanBuyOne(nowShopItem))
+        {
+            inv.state = "BuyDetail";
+            SellItemUI();
+        }
+        else
+        {
+            Sfx.Play(SfxId.CraftFail, 0.4f); // 이유는 CanBuyOne 이 알렸다
+        }
+    }
+
+    /// <summary>마우스 휠: 진열 페이지 넘기기</summary>
+    public void PageByMouse(int delta)
+    {
+        if (QuantityPopup.IsBlocking || state != "" || !ShopUI.activeSelf)
+        {
+            return;
+        }
+        ChangePage(delta);
+    }
+
+    private GameObject _closeButton;
+
+    /// <summary>우상단 닫기 X(없으면 한 번 만든다). 누르면 Esc 와 같이 인벤·상점을 함께 닫는다</summary>
+    void EnsureCloseButton()
+    {
+        if (_closeButton != null || ShopUI == null)
+        {
+            return;
+        }
+        UiTheme theme = UiTheme.Get();
+        Image img = theme.NewPanel("CloseX", ShopUI.transform, true);
+        img.raycastTarget = true;
+        RectTransform rt = img.rectTransform;
+        rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(1f, 1f);
+        rt.anchoredPosition = new Vector2(-8f, -8f);
+        rt.sizeDelta = new Vector2(52f, 52f);
+        var btn = img.gameObject.AddComponent<Button>();
+        btn.targetGraphic = img;
+        btn.onClick.AddListener(() =>
+        {
+            if (!QuantityPopup.IsBlocking && InventoryManager.instance != null)
+            {
+                InventoryManager.instance.CloseAllWindows();
+            }
+        });
+        var go = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
+        go.transform.SetParent(rt, false);
+        var label = go.GetComponent<TextMeshProUGUI>();
+        if (theme.pixelFont != null)
+        {
+            label.font = theme.pixelFont;
+        }
+        label.fontSize = 30f;
+        label.raycastTarget = false;
+        label.alignment = TextAlignmentOptions.Center;
+        label.text = "X";
+        label.rectTransform.anchorMin = Vector2.zero;
+        label.rectTransform.anchorMax = Vector2.one;
+        label.rectTransform.offsetMin = label.rectTransform.offsetMax = Vector2.zero;
+        _closeButton = img.gameObject;
+        rt.SetAsLastSibling();
     }
 }

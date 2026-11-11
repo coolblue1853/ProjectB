@@ -567,7 +567,7 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 | 단계 | 내용 | 상태 |
 |---|---|---|
 | S1 | 수량 창 공용화(구매·판매·나누기·꺼내기) + 버리기(U24) | 11-11 구현 |
-| S2 | 우클릭 사용/장착/판매(U25) + 호버 툴팁(U26) + 상점 칸 마우스(U27) | 대기 |
+| S2 | 우클릭 사용/장착/판매(U25) + 호버 툴팁(U26) + 상점 칸 마우스(U27) | 11-11 구현 |
 | S3 | 화면 버튼(정렬·필터·잠금·버리기, U39) + `ConfirmPopup`(U40) | 대기 |
 | S4 | 이름 검색, 자동 쌓기(정렬과 합침) | 대기 |
 | S5 | 가방 확장 인벤 창 버튼·패드 안내(INV-BAG-EXP) | 대기 |
@@ -575,3 +575,8 @@ public readonly struct SetEffect { char Sign; int Value; string Stat; string Ski
 ### 9-5. S1 구현 결과 (11-11)
 - 새 파일: `Inventory/Model/QuantityRules.cs`, `UI/QuantityPopup.cs`(런타임 생성 캔버스, 씬 수정 없음), `Inventory/InventoryDrop.cs`. 기존 슬라이더 3벌의 값 처리는 제거(씬 필드·오브젝트는 남김, 열지 않음).
 - 검증: 플레이 모드에서 키보드 ↑↓←→·숫자·C 최대·백스페이스·Esc 취소(인벤 유지)·Enter 확정·버리기 7개(30→23)·나누기(스택 2개) 확인, 스크린샷으로 레이아웃 확인. **미검증**: 마우스 버튼 클릭·휠, 패드 입력, 상점 구매·판매·창고 꺼내기 실화면, 인벤 밖 드래그 버리기.
+
+### 9-6. S2 구현 결과 (11-11)
+- **발견**: `Item.prefab` 의 `ItemDrag` 가 2024년부터 비활성(m_Enabled 0)이라 인벤 칸 클릭·우클릭·드래그가 전부 죽어 있었다. 활성화함(BoxCollider2D 는 그대로 꺼 둠 → 칸끼리 드래그 교환은 여전히 원위치로 돌아오고, 퀵슬롯 등록·인벤 밖 버리기는 동작). 칸끼리 드래그는 콜라이더 트리거 의존이라 후속 판단 필요.
+- 새 파일: `Inventory/Model/QuickUseRules.cs`(순수 규칙), `Inventory/InventoryQuickUse.cs`, `UI/HoverTip.cs`(툴팁+`ItemTipText`), `UI/CraftUI/ShopSlotMouse.cs`. 우클릭: 창고 열림=이동, 상점 열림=판매 수량 창, 평소 소모품 사용·장비 착용. 호버=툴팁(가방 장비는 착용품 비교). 상점: 호버=커서, 클릭=상세, 선택 칸 재클릭·우클릭=구매 수량 창, 휠=페이지, 우상단 X 닫기. 키·패드는 기존 Z/A 두 번 경로.
+- 검증: EditMode 1049 통과, 플레이 프로브로 호버 툴팁(스크린샷)·우클릭 사용/착용/판매·상점 클릭 구매·휠·X 확인. 미검증: 실제 마우스 입력(이벤트 직접 주입), 패드.

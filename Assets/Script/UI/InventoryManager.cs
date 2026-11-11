@@ -2008,9 +2008,6 @@ public class InventoryManager : MonoBehaviour
         Transform equip = equipDetail.gameObject.transform;
         ItemData d = detail.itemData;
         GameObject prefab = GearPrefabCache.Get(d.equipArea, detail.name);
-        ItemCheck worn = compare ? EquippedFor(d.equipArea) : null;
-        GameObject wornPrefab = worn != null ? GearPrefabCache.Get(worn.itemData.equipArea, worn.name) : null;
-        int wornUp = worn != null ? worn.itemData.upgrade : 0;
         equip.GetChild(0).GetComponent<Image>().sprite = detail.image.sprite;
         equip.GetChild(1).GetComponent<TextMeshProUGUI>().text = TooltipBuilder.Name(d.itemNameT, d.rarity, d.upgrade);
         equip.GetChild(2).GetComponent<TextMeshProUGUI>().text = ItemText.TypeLine(d, true);
@@ -2019,19 +2016,33 @@ public class InventoryManager : MonoBehaviour
         equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + d.tear;
         equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = "<color=" + TooltipBuilder.RarityColor(d.rarity) + ">" + TooltipBuilder.RarityName(d.rarity) + "</color>";
         SetEffectDetail(equip.GetChild(8).gameObject, detail);
-        var stats = equip.GetChild(7).GetComponent<TextMeshProUGUI>();
-        if (d.equipArea != "Weapon")
+        equip.GetChild(7).GetComponent<TextMeshProUGUI>().text = EquipStatText(detail, compare);
+        if (d.equipArea == "Weapon")
         {
-            stats.text = TooltipBuilder.ArmorBlock(GearPrefabCache.Comp<Equipment>(prefab), d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Equipment>() : null, wornUp);
-        }
-        else
-        {
-            Weapon weapon = GearPrefabCache.Comp<Weapon>(prefab);
-            stats.text = TooltipBuilder.WeaponBlock(weapon, d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Weapon>() : null, wornUp) + WeaponMasteryTooltip.Build(weapon);
-            CheckSkillDetail(weapon);
+            CheckSkillDetail(GearPrefabCache.Comp<Weapon>(prefab));
         }
         equip.transform.position = detailPos.transform.position;
         equipDetail.SetActive(true);
+    }
+
+    /// <summary>장비 스탯 블록 문구(강화 반영, compare 면 착용품 비교). 상세창·호버 툴팁 공용</summary>
+    public string EquipStatText(ItemCheck item, bool compare)
+    {
+        ItemData d = item.itemData;
+        GameObject prefab = GearPrefabCache.Get(d.equipArea, item.name);
+        ItemCheck worn = compare ? EquippedFor(d.equipArea) : null;
+        if (worn == item)
+        {
+            worn = null;
+        }
+        GameObject wornPrefab = worn != null ? GearPrefabCache.Get(worn.itemData.equipArea, worn.name) : null;
+        int wornUp = worn != null ? worn.itemData.upgrade : 0;
+        if (d.equipArea != "Weapon")
+        {
+            return TooltipBuilder.ArmorBlock(GearPrefabCache.Comp<Equipment>(prefab), d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Equipment>() : null, wornUp);
+        }
+        Weapon weapon = GearPrefabCache.Comp<Weapon>(prefab);
+        return TooltipBuilder.WeaponBlock(weapon, d.upgrade, wornPrefab != null ? wornPrefab.GetComponent<Weapon>() : null, wornUp) + WeaponMasteryTooltip.Build(weapon);
     }
 
     /// <summary>같은 부위에 착용 중인 아이템 (없으면 null). 비교 패널(ComparePanel)도 쓴다</summary>
@@ -2089,7 +2100,12 @@ public class InventoryManager : MonoBehaviour
     /// <summary>세트 효과(D3): "< 세트 > (착용/전체)" + 도달 단계 세트색, 미도달 회색</summary>
     public void SetEffectDetail(GameObject textObject, ItemCheck nowItem)
     {
-        ItemData d = nowItem.itemData;
+        textObject.GetComponent<TextMeshProUGUI>().text = SetEffectText(nowItem.itemData);
+    }
+
+    /// <summary>세트 효과 블록 문구(상세창·호버 툴팁 공용)</summary>
+    public string SetEffectText(ItemData d)
+    {
         var tiers = new List<KeyValuePair<int, string>>();
         for (int i = 0; i < 8; i++)
         {
@@ -2105,7 +2121,7 @@ public class InventoryManager : MonoBehaviour
             DatabaseManager.setsEffectStack.TryGetValue(d.tfName, out worn);
         }
         string setName = string.IsNullOrEmpty(d.setName) ? null : Loc.T(d.setName);
-        textObject.GetComponent<TextMeshProUGUI>().text = TooltipBuilder.SetBlock(setName, worn, SetPartCount(d.tfName), tiers);
+        return TooltipBuilder.SetBlock(setName, worn, SetPartCount(d.tfName), tiers);
     }
 
     static readonly Dictionary<string, int> setPartCache = new Dictionary<string, int>();
@@ -2134,6 +2150,12 @@ public class InventoryManager : MonoBehaviour
     }
 
     public void SetConsumEffect(GameObject textObject, ItemCheck nowItem)
+    {
+        textObject.GetComponent<TextMeshProUGUI>().text = ConsumEffectText(nowItem);
+    }
+
+    /// <summary>소모품 효과 문구(상세창·호버 툴팁 공용)</summary>
+    public string ConsumEffectText(ItemCheck nowItem)
     {
         StringBuilder allSetStr = new StringBuilder();
         string[] effect = nowItem.itemData.effectOb.Split("/");
@@ -2165,7 +2187,7 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        textObject.GetComponent<TextMeshProUGUI>().text = allSetStr.ToString();
+        return allSetStr.ToString();
     }
 
     public void SetWeaponDetail(GameObject textObject, Weapon weapon, int upgrade = 0)

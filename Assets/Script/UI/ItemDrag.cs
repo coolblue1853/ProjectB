@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
+public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 
 {
     public static Vector2 DefaultPos;
+    /// <summary>끄는 중인 아이템이 있다(호버 툴팁을 띄우지 않는다)</summary>
+    public static bool IsDragging { get; private set; }
    public Transform currentParent;
     Transform changeParent;
     Transform changeBox;
@@ -46,18 +48,43 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         return eventData.button == PointerEventData.InputButton.Left && kb != null && kb.shiftKey.isPressed;
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        // U26: 마우스를 올리면 즉시 툴팁. 장비칸에 낀 아이템은 비교 없이, 가방 장비는 착용품과 비교
+        HoverTip.Show(this, BuildTip);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        HoverTip.Hide(this);
+    }
+
+    private string BuildTip()
+    {
+        ItemCheck item = itemCheck != null ? itemCheck : GetComponent<ItemCheck>();
+        bool worn = transform.parent != null && transform.parent.GetComponent<EquipBoxCheck>() != null;
+        return ItemTipText.Build(item, -1, !worn);
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right || (IsShiftLeftClick(eventData) && InventoryManager.instance != null && InventoryManager.instance.chest != null))
         {
-            // U17: 우클릭·Shift+클릭 = 창고 ↔ 가방 빠른 이동(창고가 열려 있을 때만)
+            // U25: 우클릭 = 창고 열림 이동 / 상점 열림 판매 / 평소 소모품 사용·장비 착용. U17: Shift+클릭 = 창고 이동
             InventoryManager inv = InventoryManager.instance;
-            if (inv != null && inv.chest != null)
+            ItemCheck item = itemCheck != null ? itemCheck : GetComponent<ItemCheck>();
+            if (eventData.button == PointerEventData.InputButton.Right)
             {
-                inv.chest.QuickMove(itemCheck != null ? itemCheck : GetComponent<ItemCheck>());
+                HoverTip.Hide(this);
+                InventoryQuickUse.Run(inv, item);
+            }
+            else if (inv != null && inv.chest != null)
+            {
+                inv.chest.QuickMove(item);
             }
         }
-        else if (eventData.button == PointerEventData.InputButton.Left)
+        else if (eventData.button == PointerEventData.InputButton.Left && !QuantityPopup.IsBlocking
+            && (InventoryManager.instance == null || !QuickUseRules.IsModal(InventoryManager.instance.state)))
         {
             if(this.gameObject.transform.parent.parent != null)
             {
@@ -114,6 +141,8 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             Debug.LogWarning("부모가 없습니다.");
         }
         DefaultPos = this.transform.position;
+        IsDragging = true;
+        HoverTip.Hide();
         // 끄는 동안 아이템은 슬롯 밖(드래그 캔버스)이라 스캔 저장에 안 잡힌다 → 놓을 때까지 저장을 미룬다(B-219)
         if (!_holdingSave)
         {
@@ -150,6 +179,11 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     /// </summary>
     private void OnDisable()
     {
+        HoverTip.Hide(this);
+        if (_holdingSave)
+        {
+            IsDragging = false;
+        }
         ReleaseSaveHold(gameObject.scene.isLoaded);
     }
 
@@ -192,6 +226,7 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
+        IsDragging = false;
         try
         {
             if (!TryDropOnQuickSlot(eventData.position) && !TryDropOutside(eventData.position))
