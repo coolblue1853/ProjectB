@@ -122,3 +122,8 @@
 
 - 상한 65%로 상향(사용자 11-11 밤): 범위는 1층계 초반 유지, 남으면 그래픽 방 몫으로 반환, 그 뒤 사용자 추가 지시.
 - 65% 안에서 초반 작업 후 남으면 미룬 항목을 가까운 콘텐츠 순서(깊은 숲→늪→성채→탑→문지기)로 진행. 그래픽 몫 따로 확보하지 않음(사용자 11-11 밤 재지시).
+
+## 11-11 R-6 정예 배치 + CI-P4·P7 (builder)
+- R-6: `trait elite` 프로필(항상 정예, HP×4)·샛길 낮 `Rabbit2_2`/밤 `RatCheif` 에 쥐 두목 배치, Q106 `objective2 killElite RatChief_BD` + `NpcQuestLog` 두 번째 목표 판정(세이브 4번째 필드). 프로브 `_r6_elite`: 낮 샛길서 정예 쥐 두목 HP160 확인.
+- CI-P4: `WeaponMoveProfiles` 전 타입 화이트리스트 + `Weapon.CheckAttackWait` 한 줄 훅(`LocksMove`). CI-P7: `AttackManager` 선행 소비(`Weapon.CanComboEarlyNow` 1줄). 프로브 `_ci_p4p7`: 12종 모드·간격(경량 0.75·표준 0.90·대검 1.0·지팡이 잠금 없음).
+- 컴파일(내 변경) 0·EditMode 1193 통과. 미검증: 실 몹 전투로 Q106 완료 흐름, 실패드. 타인 수정 `InventoryConvenience.cs` 컴파일 에러는 내 변경 아님.

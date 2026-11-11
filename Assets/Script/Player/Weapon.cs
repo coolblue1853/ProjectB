@@ -271,6 +271,10 @@ public class Weapon : MonoBehaviour
     /// <summary>지금 평타를 낼 수 있는지 (후딜·스킬 대기 끝)</summary>
     public bool CanMeleeNow => isAttackWait == true && (isSkillAttackWait || isSkillCancel);
 
+    /// <summary>CI-P7: 후딜 경과가 fraction(×총 후딜)과 판정 시점을 지났고 마무리 타가 아니면 다음 콤보 타를 앞당겨 소비할 수 있다</summary>
+    public bool CanComboEarlyNow(float fraction) => !isAttackWait && isSkillAttackWait && nowConboCount > 0 && nowConboCount < maxComboCount
+        && _attackWaitTotal > 0f && Time.time - _attackWaitStartedAt >= Mathf.Max(_attackHitDelay, fraction * _attackWaitTotal);
+
     [Tooltip("후딜이 끝난 뒤 다음 콤보 입력을 기다리는 시간(초). 이 안에 누르면 다음 단계로 이어진다 (W-02/W-03)")]
     [SerializeField] private float _comboGrace = 0.45f;
     [Tooltip("평타 판정이 열려 있는 시간 = 공격 주기 × 이 비율 (단타 판정만). 0이면 프리팹 holdingTime 그대로 (W-07)")]
@@ -428,7 +432,7 @@ public class Weapon : MonoBehaviour
     {
         ReleaseAttackLocks();
         attackWaitSequence.Kill();
-        if (isWeaponStopMove == true)
+        if (isWeaponStopMove == true || WeaponMoveProfiles.LocksMove(this)) // CI-P4: 타입 표(Free 아님)면 프리팹 값과 무관하게 잠금
         {
             moveLockToken = PlayerStatus.Acquire(StatusFlag.MoveLock, "Weapon:" + name);
         }

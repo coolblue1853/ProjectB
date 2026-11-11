@@ -141,6 +141,13 @@ public class AttackManager : MonoBehaviour
         }
     }
 
+    /// <summary>선행 소비 등급: 화이트리스트 무기의 이동 등급, 그 밖에는 Free(= 소비 비율 1.0, 현행)</summary>
+    static MoveWeightClass EarlyComboClass(Weapon w)
+    {
+        WeaponMoveProfile p = WeaponMoveProfiles.ActiveProfileOf(w);
+        return p != null ? p.Class : MoveWeightClass.Free;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -180,6 +187,11 @@ public class AttackManager : MonoBehaviour
             InputBuffer meleeBuf = charge != null ? chargeBuffer : attackBuffer;
             // CI-P6: 점프와 거의 동시에 누른 평타는 점프가 먼저 나가고 공중 평타 1타가 된다
             bool jumpFirst = PlayerController.instance != null && PlayerController.instance.DeferAttackForJump();
+            if (!staggered && !jumpFirst && charge == null && meleeBuf.Peek(Time.time) && !equipWeapon.CanMeleeNow
+                && equipWeapon.CanComboEarlyNow(AttackMoveRules.ComboConsumeFraction(EarlyComboClass(equipWeapon))))
+            {
+                equipWeapon.CancelMeleeRecovery(); // CI-P7: 후딜 타이머는 그대로 두고 다음 타 소비만 앞당긴다(이전 타 후딜·잠금은 즉시 종료)
+            }
             if (!staggered && equipWeapon.CanMeleeNow && !jumpFirst && meleeBuf.Consume(Time.time))
             {
                 equipWeapon.MeleeAttack();

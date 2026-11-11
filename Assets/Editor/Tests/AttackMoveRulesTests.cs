@@ -247,9 +247,32 @@ public class AttackMoveRulesTests
     {
         Assert.IsNotNull(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Sword, null));
         Assert.IsNotNull(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Greatsword, null));
-        Assert.IsNull(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Spear, null)); // P4 대기
-        Assert.IsNull(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Staff, null));
+        Assert.IsNotNull(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Spear, null)); // CI-P4 이후 화이트리스트
+        Assert.IsNotNull(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Staff, null));
         Assert.IsNull(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.None, null));
+    }
+
+    [Test]
+    public void LocksMove_FreeKindsDoNotLock_OthersLockPerStep()
+    {
+        Assert.IsFalse(WeaponMoveProfiles.LocksMove(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Staff, null), 1));
+        Assert.IsFalse(WeaponMoveProfiles.LocksMove(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Adae, null), 2));
+        Assert.IsFalse(WeaponMoveProfiles.LocksMove(null, 1)); // 화이트리스트 밖 = 프리팹 값만
+        Assert.IsTrue(WeaponMoveProfiles.LocksMove(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Spear, null), 1));
+        Assert.IsTrue(WeaponMoveProfiles.LocksMove(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Axe, null), 1)); // InPlace
+        Assert.IsTrue(WeaponMoveProfiles.LocksMove(WeaponMoveProfiles.ActiveProfileOf(WeaponKind.Axe, null), 2)); // Lunge
+    }
+
+    [Test]
+    public void EveryTableKind_IsWhitelisted()
+    {
+        foreach (WeaponKind k in System.Enum.GetValues(typeof(WeaponKind)))
+        {
+            if (WeaponMoveProfiles.ProfileOf(k, null) != null)
+            {
+                Assert.IsTrue(WeaponMoveProfiles.EnabledKinds.Contains(k), k + " 표에는 있으나 화이트리스트에 없다");
+            }
+        }
     }
 
     [Test]

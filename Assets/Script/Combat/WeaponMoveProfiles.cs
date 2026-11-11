@@ -87,13 +87,15 @@ public static class WeaponMoveProfiles
     /// <summary>
     /// 새 규칙을 실제로 쓰는 타입(단계별 화이트리스트).
     /// CI-P2: 한손검·검방·단검·쌍검(Sword·Dagger·Dual). CI-P3: 대검·둔기·방패·활·석궁·투창·마도서(InPlace).
-    /// 나머지(창·낫·클로·너클·채찍·철퇴·도끼·태도·지팡이·아대)는 CI-P4(Weapon.cs 훅) 전까지 현행 경로.
+    /// CI-P4: 창·낫·클로·너클·채찍·철퇴·도끼·태도(Lunge/InPlace 혼합) + 지팡이·아대(Free 명시, 이동 잠금 없음). Weapon.CheckAttackWait 가 <see cref="LocksMove"/> 로 잠금을 건다.
     /// </summary>
     public static readonly HashSet<WeaponKind> EnabledKinds = new HashSet<WeaponKind>
     {
         WeaponKind.Sword, WeaponKind.Dagger, WeaponKind.Dual,
         WeaponKind.Greatsword, WeaponKind.Mace, WeaponKind.Bulwark,
         WeaponKind.Bow, WeaponKind.Crossbow, WeaponKind.Javelin, WeaponKind.Tome,
+        WeaponKind.Spear, WeaponKind.Scythe, WeaponKind.Claw, WeaponKind.Knuckle, WeaponKind.Whip,
+        WeaponKind.Flail, WeaponKind.Axe, WeaponKind.Tachi, WeaponKind.Staff, WeaponKind.Adae,
     };
 
     /// <summary>표 전체 조회(화이트리스트 무관). 표에 없는 타입은 null</summary>
@@ -111,6 +113,18 @@ public static class WeaponMoveProfiles
     public static WeaponMoveProfile ActiveProfileOf(WeaponKind kind, string itemKey)
     {
         return EnabledKinds.Contains(kind) ? ProfileOf(kind, itemKey) : null;
+    }
+
+    /// <summary>이 단계(콤보 단계, 1부터)에서 프로파일이 이동 잠금을 거는가: Free 가 아니면 true (CI-P4, Weapon.CheckAttackWait 한 줄 훅)</summary>
+    public static bool LocksMove(WeaponMoveProfile profile, int step)
+    {
+        return profile != null && profile.ModeAt(step) != AttackMoveMode.Free;
+    }
+
+    /// <summary>무기 후딜에 이동 잠금을 걸어야 하는가(화이트리스트 밖이면 false = 프리팹 isWeaponStopMove 만 따른다)</summary>
+    public static bool LocksMove(Weapon w)
+    {
+        return w != null && LocksMove(ActiveProfileOf(w), w.nowConboCount);
     }
 
     /// <summary>장착 무기 → 활성 프로파일. 프리팹 _kind 가 비면 ItemSheet WeaponType 으로 보충한다(WeaponMasteryService.KindOf)</summary>
