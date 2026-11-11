@@ -632,6 +632,7 @@ public class ShopManager : MonoBehaviour
         nowPage = next;
         DetailOff();
         LV1craftBox[nowLv].transform.GetChild(nowPage).transform.gameObject.SetActive(true);
+        AttachMouse(); // 열린 뒤 새로 생긴 칸에도 마우스 입력을 붙인다
         nowShopItem = LV1craftBox[nowLv].transform.GetChild(nowPage).transform.GetChild(line).transform.GetChild(childCount).GetComponent<ItemCheck>();
         SetDetail();
     }
@@ -647,6 +648,11 @@ public class ShopManager : MonoBehaviour
         }
         foreach (ItemCheck it in LV1craftBox[0].GetComponentsInChildren<ItemCheck>(true))
         {
+            ItemDrag drag = it.GetComponent<ItemDrag>();
+            if (drag != null)
+            {
+                drag.enabled = false; // 진열품은 끌어서 가져갈 수 없다(인벤 프리팹 복제 대비)
+            }
             if (it.GetComponent<ShopSlotMouse>() == null)
             {
                 it.gameObject.AddComponent<ShopSlotMouse>().Init(this, it);

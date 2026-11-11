@@ -24,8 +24,7 @@ public static class InventoryQuickUse
         switch (action)
         {
             case QuickUseRules.Action.Move:
-                inv.chest.QuickMove(item);
-                return true;
+                return inv.chest.QuickMove(item);
             case QuickUseRules.Action.Sell:
                 inv.ChangeCusor(item.transform.parent.gameObject);
                 inv.BoxContentChecker(item.gameObject); // 상세창을 띄워 두어 취소하면 키보드와 같은 상태로 돌아온다

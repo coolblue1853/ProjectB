@@ -68,8 +68,14 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right || (IsShiftLeftClick(eventData) && InventoryManager.instance != null && InventoryManager.instance.chest != null))
+        InventoryManager manager = InventoryManager.instance;
+        bool modal = QuantityPopup.IsBlocking || (manager != null && QuickUseRules.IsModal(manager.state));
+        if (eventData.button == PointerEventData.InputButton.Right || (IsShiftLeftClick(eventData) && manager != null && manager.chest != null))
         {
+            if (modal && eventData.button != PointerEventData.InputButton.Right)
+            {
+                return; // Shift+클릭 창고 이동도 좌클릭과 같이 수량 창·모달 중에는 막는다(우클릭은 Run 안에서 막음)
+            }
             // U25: 우클릭 = 창고 열림 이동 / 상점 열림 판매 / 평소 소모품 사용·장비 착용. U17: Shift+클릭 = 창고 이동
             InventoryManager inv = InventoryManager.instance;
             ItemCheck item = itemCheck != null ? itemCheck : GetComponent<ItemCheck>();
@@ -83,10 +89,9 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 inv.chest.QuickMove(item);
             }
         }
-        else if (eventData.button == PointerEventData.InputButton.Left && !QuantityPopup.IsBlocking
-            && (InventoryManager.instance == null || !QuickUseRules.IsModal(InventoryManager.instance.state)))
+        else if (eventData.button == PointerEventData.InputButton.Left && !modal)
         {
-            if(this.gameObject.transform.parent.parent != null)
+            if (transform.parent != null && transform.parent.parent != null)
             {
                 if (this.gameObject.transform.parent.parent.gameObject.transform.tag == "Inventory")
                 {
@@ -108,6 +113,20 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             && !InventoryManager.CanUnequip(GetComponent<ItemCheck>()))
         {
             eventData.pointerDrag = null; // 장착한 무기는 끌어서 뺄 수 없다(빈손 방지). 교체는 인벤토리 무기를 끌어다 놓으면 된다
+            return;
+        }
+        if (transform.parent == null || transform.parent.parent == null || transform.parent.parent.parent == null)
+        {
+            eventData.pointerDrag = null; // 칸 계층이 아닌 곳(예: 이미 드래그 캔버스)에서는 시작하지 않는다
+            return;
+        }
+        if (dragCanvus == null)
+        {
+            dragCanvus = GameObject.FindWithTag("dragCanvas");
+        }
+        if (dragCanvus == null)
+        {
+            eventData.pointerDrag = null;
             return;
         }
         if(InventoryManager.instance.chest != null && this.gameObject.transform.parent.parent.gameObject.transform.tag == "Chest")
@@ -224,9 +243,49 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         changeBox = null;
     }
 
+    private static readonly List<RaycastResult> RayHits = new List<RaycastResult>();
+
+    /// <summary>
+    /// 놓은 자리의 칸(Box)·페이지 탭(UpperBox)을 UI 레이캐스트로 찾는다. 예전에는 BoxCollider2D 트리거에 의존했는데
+    /// Item.prefab 의 콜라이더가 꺼져 있어 칸끼리 교환이 죽어 있었다. 위쪽(그려진 순서) 칸이 우선, 끄는 중인 자기 자신은 칸이 아니라 무시된다.
+    /// </summary>
+    private void ResolveDropTargets(PointerEventData eventData)
+    {
+        changeParent = null;
+        changeBox = null;
+        if (EventSystem.current == null)
+        {
+            return;
+        }
+        RayHits.Clear();
+        EventSystem.current.RaycastAll(eventData, RayHits);
+        for (int i = 0; i < RayHits.Count; i++)
+        {
+            for (Transform t = RayHits[i].gameObject.transform; t != null; t = t.parent)
+            {
+                if (changeParent == null && t.CompareTag("Box"))
+                {
+                    changeParent = t;
+                    break;
+                }
+                if (changeBox == null && t.CompareTag("UpperBox"))
+                {
+                    changeBox = t;
+                    break;
+                }
+            }
+        }
+        RayHits.Clear();
+        if (changeParent != null && changeParent.parent == null)
+        {
+            changeParent = null;
+        }
+    }
+
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
         IsDragging = false;
+        ResolveDropTargets(eventData);
         try
         {
             if (!TryDropOnQuickSlot(eventData.position) && !TryDropOutside(eventData.position))
