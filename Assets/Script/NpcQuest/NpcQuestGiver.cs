@@ -79,7 +79,7 @@ public class NpcQuestGiver : MonoBehaviour
         {
             return;
         }
-        NpcQuestStatus s = NpcQuestLog.BestFor(_npcId, out _);
+        NpcQuestStatus s = QuestService.BestFor(_npcId, out _);
         string state = "";
         switch (s)
         {
@@ -106,7 +106,7 @@ public class NpcQuestGiver : MonoBehaviour
     {
         get
         {
-            NpcQuestStatus s = NpcQuestLog.BestFor(_npcId, out _);
+            NpcQuestStatus s = QuestService.BestFor(_npcId, out _);
             return s == NpcQuestStatus.Available || s == NpcQuestStatus.Active || s == NpcQuestStatus.Ready;
         }
     }

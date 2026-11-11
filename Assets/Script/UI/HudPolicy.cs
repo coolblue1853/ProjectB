@@ -17,7 +17,7 @@ public static class HudPolicy
     public const float ColumnWidth = 380f;
     public const float ColumnTopAboveMiddle = 125f;
     public const float ColumnGap = 8f;
-    public const float TrackerMaxHeight = 190f;
+    public const float TrackerMaxHeight = 330f;
 
     /// <summary>큰 창이 열려 있으면 true. 창 하나라도 UiLock 을 잡으면 DatabaseManager.isOpenUI 가 true(대화·일시정지·타이틀·미니게임 포함 — 기존 HUD 들이 이미 그렇게 숨었다).</summary>
     public static bool Hidden => DatabaseManager.isOpenUI;

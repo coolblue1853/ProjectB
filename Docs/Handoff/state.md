@@ -16,3 +16,4 @@
 - 슬롯 개편 v2 완료(10f676151·64af17e48): 시작 5칸·홀수 층계 해금(`SlotUnlocks.csv`)·구 세이브 이행·펫 자동 물약·룬/성물 뼈대. 컴파일 0·EditMode 1021 통과·장비창 스크린샷 확인.
 - 남음: 5·7층계 해금 스토리 호출 지점, 펫 자동 물약 실제 발동·펫 줄 키보드·패드 확인, 장비창 툴팁 겹침, 개발 세이브 정리(가방 Wolf 시험 아이템), 콘솔 `Destroy may not be called from edit mode` 출처 미확인.
 - BUG-U9: 방어 수정만(재현 못 함). REWORK-0 1차 표 U24~U42 완료(P0 2건: U32 `↑` 중복 반응, U34 낙사 복귀) — 다음은 ③ REWORK-8 키 충돌, P0 수정.
+- 11-11 REWORK-5 P2~P4 완료: 퀘스트 창 재작성(3탭·상세·보상·포기 확인·마우스/키/패드, `QuestWindowText/View`), 추적 HUD 단일화(최대 5·`…외 n건`·접기 `quest.hudFold`), 입구 모드(`QuestEntrance` 게시판·푯말, `BountyPanel`→`BountyGraduation`). 컴파일 0·EditMode 1038 통과·플레이로 창/입구 텍스트·스크린샷 확인. 미검증: 실제 마우스 클릭·패드 입력, 푯말 ↑ 실입력. P5(QuestCatalog 삭제·objective2)는 이행 동등성 테스트 기준값이라 보류.

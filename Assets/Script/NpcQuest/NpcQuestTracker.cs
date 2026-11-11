@@ -1,9 +1,14 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>화면 우측 작은 퀘스트 추적 표시: 추적 지정한(NpcQuestTrack, 최대 3개) 퀘스트의 제목·목표 x/y·목표 구역 (완료 가능이면 노란색). 없으면 숨김.</summary>
+/// <summary>
+/// 화면 우측 퀘스트 추적 HUD (REWORK-5 P3, 3계통 단일): 헤더 "▼ 퀘스트 (n)" + 추적 중인 퀘스트(최대 NpcQuestTrack.Max, 현상 포함)를
+/// 전부 같은 2줄 형식 `[유형] 제목` / `  목표 현재/필요 @구역`(완료 가능이면 노란 제목 + "완료! ○○에게 보고")로 보여 준다.
+/// 초과분은 "…외 n건", 구역 세트 재료 한 줄은 목록 아래. 헤더를 클릭하면(또는 Q 창의 H·LT) 접고 ES3 quest.hudFold 에 저장. 없으면 숨김.
+/// </summary>
 public class NpcQuestTracker : MonoBehaviour
 {
     private const float RefreshInterval = 0.5f;
@@ -14,6 +19,7 @@ public class NpcQuestTracker : MonoBehaviour
     private string _lastText; // 마지막으로 적용한 추적 문구 — 같으면 TMP 높이 재계산을 건너뛴다(LP-3)
     private bool _dirty = true;
     private bool _wasHidden;
+    private bool _lastFold;
 
     private void Awake()
     {
@@ -57,7 +63,34 @@ public class NpcQuestTracker : MonoBehaviour
         tr.anchorMax = Vector2.one;
         tr.offsetMin = new Vector2(10f, 6f);
         tr.offsetMax = new Vector2(-10f, -6f);
+        // 헤더 줄 클릭 = 접기/펼치기 (마우스). 키·패드는 Q 창에서(H · LT)
+        canvas.gameObject.AddComponent<GraphicRaycaster>();
+        var hgo = new GameObject("FoldHeader", typeof(RectTransform), typeof(Image), typeof(Button));
+        hgo.transform.SetParent(_root.transform, false);
+        var himg = hgo.GetComponent<Image>();
+        himg.color = new Color(1f, 1f, 1f, 0f);
+        var hbtn = hgo.GetComponent<Button>();
+        hbtn.targetGraphic = himg;
+        hbtn.transition = Selectable.Transition.None;
+        hbtn.navigation = new Navigation { mode = Navigation.Mode.None };
+        hbtn.onClick.AddListener(OnHeaderClick);
+        var hr = (RectTransform)hgo.transform;
+        hr.anchorMin = new Vector2(0f, 1f);
+        hr.anchorMax = new Vector2(1f, 1f);
+        hr.pivot = new Vector2(0.5f, 1f);
+        hr.sizeDelta = new Vector2(0f, 28f);
+        hr.anchoredPosition = Vector2.zero;
         _root.SetActive(false);
+    }
+
+    private void OnHeaderClick()
+    {
+        NpcQuestTrack.SetHudFolded(!NpcQuestTrack.HudFolded);
+        if (UnityEngine.EventSystems.EventSystem.current != null)
+        {
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+        }
+        _dirty = true;
     }
 
     private void OnEnable()
@@ -79,10 +112,11 @@ public class NpcQuestTracker : MonoBehaviour
     private void Update()
     {
         bool hidden = HudPolicy.Hidden;
-        if (hidden != _wasHidden)
+        if (hidden != _wasHidden || NpcQuestTrack.HudFolded != _lastFold)
         {
             _wasHidden = hidden;
-            _dirty = true; // 창이 열리고 닫히는 즉시 반영
+            _lastFold = NpcQuestTrack.HudFolded;
+            _dirty = true; // 창이 열리고 닫히는 즉시, 접기가 바뀌면 바로 반영
         }
         if (!_dirty && Time.unscaledTime < _nextRefresh)
         {
@@ -101,10 +135,10 @@ public class NpcQuestTracker : MonoBehaviour
             HudPolicy.TrackerHeight = 0f;
             return;
         }
-        var active = NpcQuestTrack.Tracked(NpcQuestLog.ActiveQuests());
-        string bounty = BountyBoard.Instance != null ? BountyBoard.Instance.TrackerText() : "";
+        List<NpcQuestDef> all = QuestService.ActiveAll();
+        List<NpcQuestDef> active = NpcQuestTrack.Tracked(all);
         string setLine = ZoneProgress.TrackerLine(); // 현재 구역 세트 재료 n/m 한 줄(L6)
-        if (active.Count == 0 && bounty.Length == 0 && setLine.Length == 0)
+        if (all.Count == 0 && setLine.Length == 0)
         {
             if (_root.activeSelf)
             {
@@ -114,23 +148,7 @@ public class NpcQuestTracker : MonoBehaviour
             HudPolicy.TrackerHeight = 0f;
             return;
         }
-        var sb = new StringBuilder();
-        sb.Append(setLine);
-        sb.Append(bounty); // 사냥 의뢰 게시대(Floor1Extra)의 진행 중 의뢰 — 퀘스트 추적 3개와 별개로 한 줄 묶음
-        for (int i = 0; i < active.Count; i++)
-        {
-            NpcQuestDef d = active[i];
-            bool ready = NpcQuestLog.StatusOf(d) == NpcQuestStatus.Ready;
-            sb.Append(ready ? "<color=#FFD633>" : "<color=#FFFFFF>").Append(d.Title).Append("</color>\n");
-            string zone = NpcQuestZone.Of(d);
-            sb.Append("<color=#BBBBBB>  ").Append(ready ? "완료! " + QuestService.ReportTarget(d) + "에게 보고" : NpcQuestWindow.ObjectiveText(d)).Append("</color>");
-            if (!ready && zone.Length > 0)
-            {
-                sb.Append("  <color=#7FA8C8>@").Append(zone).Append("</color>");
-            }
-            sb.Append('\n');
-        }
-        string built = sb.ToString();
+        string built = BuildText(all, active, setLine, NpcQuestTrack.HudFolded);
         if (built == _lastText && _root.activeSelf)
         {
             return; // 값이 그대로면 텍스트·높이 갱신 생략
@@ -145,5 +163,45 @@ public class NpcQuestTracker : MonoBehaviour
         {
             _root.SetActive(true);
         }
+    }
+
+    /// <summary>추적 HUD 본문 (순수 함수 — 테스트가 형식을 확인한다). all = 진행 중 전부, tracked = 표시할 것</summary>
+    public static string BuildText(IList<NpcQuestDef> all, IList<NpcQuestDef> tracked, string setLine, bool folded)
+    {
+        var sb = new StringBuilder();
+        bool anyReady = false;
+        foreach (NpcQuestDef d in all)
+        {
+            anyReady |= QuestService.IsReady(d);
+        }
+        if (all.Count > 0)
+        {
+            sb.Append("<color=#88AACC>").Append(folded ? "▶" : "▼").Append(" 퀘스트 (").Append(all.Count).Append(")</color>");
+            sb.Append(folded && anyReady ? "  <color=#FFD633>완료 가능!</color>" : "").Append('\n');
+        }
+        if (folded)
+        {
+            return sb.ToString();
+        }
+        for (int i = 0; i < tracked.Count; i++)
+        {
+            NpcQuestDef d = tracked[i];
+            bool ready = QuestService.IsReady(d);
+            sb.Append(ready ? "<color=#FFD633>" : "<color=#FFFFFF>").Append('[').Append(QuestService.KindTag(d)).Append("] ").Append(d.Title).Append("</color>\n");
+            string zone = QuestService.ZoneOf(d);
+            sb.Append("<color=#BBBBBB>  ").Append(ready ? "완료! " + QuestService.ReportTarget(d) + "에게 보고" : QuestService.Objective(d)).Append("</color>");
+            if (!ready && !string.IsNullOrEmpty(zone))
+            {
+                sb.Append("  <color=#7FA8C8>@").Append(zone).Append("</color>");
+            }
+            sb.Append('\n');
+        }
+        int extra = tracked.Count >= NpcQuestTrack.Max ? all.Count - tracked.Count : 0;
+        if (extra > 0)
+        {
+            sb.Append("<color=#777777>…외 ").Append(extra).Append("건</color>\n");
+        }
+        sb.Append(setLine);
+        return sb.ToString();
     }
 }

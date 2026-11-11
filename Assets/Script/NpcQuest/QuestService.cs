@@ -8,6 +8,8 @@ public sealed class QuestFilter
     public string Giver;
     public string Source;
     public string Zone;
+    /// <summary>true 면 giver 가 보고 대상(reportTo)인 퀘스트도 포함 — 입구 창이 "받을 것 + 보고할 것" 을 함께 보여 줄 때</summary>
+    public bool ReportToo;
 }
 
 /// <summary>Query 결과: 필터한 탭의 정렬된 목록</summary>
@@ -128,7 +130,7 @@ public static class QuestService
 
     private static bool Matches(NpcQuestDef d, QuestFilter f)
     {
-        if (!string.IsNullOrEmpty(f.Giver) && d.Giver != f.Giver)
+        if (!string.IsNullOrEmpty(f.Giver) && d.Giver != f.Giver && !(f.ReportToo && d.ReportNpc == f.Giver))
         {
             return false;
         }
@@ -179,7 +181,13 @@ public static class QuestService
         if (IsBountyId(id))
         {
             BountyBoard b = BountyBoard.Instance;
-            return b != null && b.Accept(id.Substring(QuestBountyLink.Prefix.Length));
+            bool ok = b != null && b.Accept(id.Substring(QuestBountyLink.Prefix.Length));
+            if (ok)
+            {
+                NpcQuestTrack.OnAccepted(id); // 현상도 자리가 남으면 추적에 붙인다
+                NpcQuestLog.NotifyTrackingChanged();
+            }
+            return ok;
         }
         return NpcQuestLog.Accept(id);
     }
@@ -190,7 +198,13 @@ public static class QuestService
         if (IsBountyId(id))
         {
             BountyBoard b = BountyBoard.Instance;
-            return b != null && b.Abandon(id.Substring(QuestBountyLink.Prefix.Length));
+            bool ok = b != null && b.Abandon(id.Substring(QuestBountyLink.Prefix.Length));
+            if (ok)
+            {
+                NpcQuestTrack.OnCompleted(id);
+                NpcQuestLog.NotifyTrackingChanged();
+            }
+            return ok;
         }
         return NpcQuestLog.Abandon(id);
     }
@@ -201,7 +215,13 @@ public static class QuestService
         if (IsBountyId(id))
         {
             BountyBoard b = BountyBoard.Instance;
-            return b != null && b.TryReport(id.Substring(QuestBountyLink.Prefix.Length));
+            bool ok = b != null && b.TryReport(id.Substring(QuestBountyLink.Prefix.Length));
+            if (ok)
+            {
+                NpcQuestTrack.OnCompleted(id);
+                NpcQuestLog.NotifyTrackingChanged();
+            }
+            return ok;
         }
         NpcQuestDef d = NpcQuestCatalog.Find(id);
         if (d != null && NpcQuestLog.StatusOf(d) == NpcQuestStatus.Ready && !NpcQuestLog.RewardCapacity(d))
@@ -210,6 +230,46 @@ public static class QuestService
             return false;
         }
         return NpcQuestLog.Complete(id);
+    }
+
+    /// <summary>진행 중(수락함·완료 가능) 전부: CSV 퀘스트 + 진행 중 현상. 추적 HUD·창이 같은 목록을 쓴다</summary>
+    public static List<NpcQuestDef> ActiveAll()
+    {
+        var list = new List<NpcQuestDef>(NpcQuestLog.ActiveQuests());
+        list.AddRange((BountyActive ?? QuestBountyLink.Active)());
+        return list;
+    }
+
+    public static bool IsReady(NpcQuestDef d)
+    {
+        return StatusOf(d) == NpcQuestStatus.Ready;
+    }
+
+    /// <summary>NPC·입구 id 의 가장 눈에 띄는 퀘스트 상태(머리 위 !/? 와 선택지 노출 조건이 같은 값을 쓴다)</summary>
+    public static NpcQuestStatus BestFor(string giverId, out NpcQuestDef quest)
+    {
+        return NpcQuestLog.BestFor(giverId, out quest);
+    }
+
+    /// <summary>유형 한 글자: 메인 주 · 사이드 서 · 보상 보 · 현상 현</summary>
+    public static string KindTag(NpcQuestDef d)
+    {
+        if (IsBounty(d))
+        {
+            return "현";
+        }
+        switch (d != null ? d.Kind : "")
+        {
+            case "main": return "주";
+            case "side": return "서";
+            default: return "보";
+        }
+    }
+
+    /// <summary>구역 태그 (현상은 현상 정의의 zone, 그 외 NpcQuestZone)</summary>
+    public static string ZoneOf(NpcQuestDef d)
+    {
+        return IsBounty(d) ? QuestBountyLink.Zone(d) : NpcQuestZone.Of(d);
     }
 
     private static bool IsBountyId(string id)

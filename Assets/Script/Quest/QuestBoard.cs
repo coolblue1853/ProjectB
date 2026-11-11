@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// 마을 의뢰 게시판 입구 (REWORK-5 P1). 게시판 퀘스트(토끼 소동~심연의 마법사·땔감·치유사·대장장이 제자)는
 /// QuestsFloor1.csv(giver=questboard)로 옮겨졌고 NPC 퀘스트와 같은 대화·진행·보상 규칙을 쓴다.
-/// 이 컴포넌트는 범위 안에서 ↑(키보드 ↑ / 패드 D패드 위 — UI Up 액션)를 누르면 NpcQuestGiver("questboard") 대화를 여는 입구이고,
+/// 이 컴포넌트는 범위 안에서 ↑(키보드 ↑ / 패드 D패드 위 — UI Up 액션)를 누르면 퀘스트 창을 입구 모드(giver=questboard)로 여는 입구이고,
 /// 로드 때 구 Quest Machine 저장(qm.journal)을 한 번 npcq.state 로 이행한다(QuestMigration).
 /// Quest Machine 퀘스트 생성·HUD·보상은 더 하지 않는다.
 /// </summary>
@@ -84,10 +84,10 @@ public class QuestBoard : MonoBehaviour
         {
             return;
         }
-        NpcQuestGiver giver = GetComponent<NpcQuestGiver>();
-        if (giver != null && giver.HasQuest)
+        QuestFilter entrance = QuestEntrance.Board();
+        if (QuestEntrance.HasAnything(entrance))
         {
-            giver.TalkQuest();
+            QuestEntrance.Open(entrance); // REWORK-5 P4: 입구 모드 퀘스트 창(대사 없이 요약·수락·보고)
         }
         else
         {

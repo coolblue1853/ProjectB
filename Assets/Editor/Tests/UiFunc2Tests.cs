@@ -12,7 +12,7 @@ public class UiFunc2Tests
     {
         NpcQuestTrack.Reset();
         _active = new List<NpcQuestDef>();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < NpcQuestTrack.Max + 2; i++) // 상한 + 2개(11-11 P3: 상한 5)
         {
             _active.Add(NpcQuestCatalog.All[i]);
         }
@@ -27,12 +27,12 @@ public class UiFunc2Tests
     // ── 퀘스트 추적 ──
 
     [Test]
-    public void 추적_지정_전에는_진행_중_앞_3개를_자동_추적한다()
+    public void 추적_지정_전에는_진행_중_앞_상한만큼을_자동_추적한다()
     {
         List<NpcQuestDef> t = NpcQuestTrack.Tracked(_active);
-        Assert.AreEqual(3, t.Count);
+        Assert.AreEqual(NpcQuestTrack.Max, t.Count);
         Assert.AreEqual(_active[0].Id, t[0].Id);
-        Assert.AreEqual(_active[2].Id, t[2].Id);
+        Assert.AreEqual(_active[NpcQuestTrack.Max - 1].Id, t[NpcQuestTrack.Max - 1].Id);
     }
 
     [Test]
@@ -40,28 +40,28 @@ public class UiFunc2Tests
     {
         Assert.IsTrue(NpcQuestTrack.Toggle(_active[0].Id, _active)); // 켜져 있던 것을 끔
         Assert.IsFalse(NpcQuestTrack.IsTracked(_active[0].Id, _active));
-        Assert.AreEqual(2, NpcQuestTrack.Tracked(_active).Count);
-        Assert.IsTrue(NpcQuestTrack.Toggle(_active[4].Id, _active));
-        Assert.IsTrue(NpcQuestTrack.IsTracked(_active[4].Id, _active));
-        Assert.AreEqual(3, NpcQuestTrack.Tracked(_active).Count);
+        Assert.AreEqual(NpcQuestTrack.Max - 1, NpcQuestTrack.Tracked(_active).Count);
+        Assert.IsTrue(NpcQuestTrack.Toggle(_active[NpcQuestTrack.Max].Id, _active));
+        Assert.IsTrue(NpcQuestTrack.IsTracked(_active[NpcQuestTrack.Max].Id, _active));
+        Assert.AreEqual(NpcQuestTrack.Max, NpcQuestTrack.Tracked(_active).Count);
     }
 
     [Test]
-    public void 추적은_3개까지만_켤_수_있다()
+    public void 추적은_상한까지만_켤_수_있다()
     {
-        Assert.IsFalse(NpcQuestTrack.Toggle(_active[3].Id, _active));
-        Assert.IsFalse(NpcQuestTrack.IsTracked(_active[3].Id, _active));
-        Assert.AreEqual(3, NpcQuestTrack.Tracked(_active).Count);
+        Assert.IsFalse(NpcQuestTrack.Toggle(_active[NpcQuestTrack.Max].Id, _active));
+        Assert.IsFalse(NpcQuestTrack.IsTracked(_active[NpcQuestTrack.Max].Id, _active));
+        Assert.AreEqual(NpcQuestTrack.Max, NpcQuestTrack.Tracked(_active).Count);
     }
 
     [Test]
     public void 새로_수락한_퀘스트는_지정_모드에서_자리가_있을_때만_붙는다()
     {
         NpcQuestTrack.Toggle(_active[0].Id, _active);
-        NpcQuestTrack.OnAccepted(_active[3].Id);
-        Assert.IsTrue(NpcQuestTrack.IsTracked(_active[3].Id, _active));
-        NpcQuestTrack.OnAccepted(_active[4].Id); // 이미 3개
-        Assert.IsFalse(NpcQuestTrack.IsTracked(_active[4].Id, _active));
+        NpcQuestTrack.OnAccepted(_active[NpcQuestTrack.Max].Id);
+        Assert.IsTrue(NpcQuestTrack.IsTracked(_active[NpcQuestTrack.Max].Id, _active));
+        NpcQuestTrack.OnAccepted(_active[NpcQuestTrack.Max + 1].Id); // 이미 상한
+        Assert.IsFalse(NpcQuestTrack.IsTracked(_active[NpcQuestTrack.Max + 1].Id, _active));
     }
 
     [Test]
@@ -81,13 +81,21 @@ public class UiFunc2Tests
         Assert.IsNull(NpcQuestTrack.Serialize()); // 자동 모드는 저장하지 않는다
         NpcQuestTrack.Toggle(_active[1].Id, _active);
         string text = NpcQuestTrack.Serialize();
-        Assert.AreEqual(_active[0].Id + ";" + _active[2].Id, text);
+        var expected = new List<string>();
+        for (int i = 0; i < NpcQuestTrack.Max; i++)
+        {
+            if (i != 1)
+            {
+                expected.Add(_active[i].Id);
+            }
+        }
+        Assert.AreEqual(string.Join(";", expected), text);
         NpcQuestTrack.Reset();
         NpcQuestTrack.Deserialize(text);
-        Assert.AreEqual(2, NpcQuestTrack.Tracked(_active).Count);
+        Assert.AreEqual(NpcQuestTrack.Max - 1, NpcQuestTrack.Tracked(_active).Count);
         Assert.IsFalse(NpcQuestTrack.IsTracked(_active[1].Id, _active));
         NpcQuestTrack.Deserialize(null);
-        Assert.AreEqual(3, NpcQuestTrack.Tracked(_active).Count); // 키 없음 = 자동
+        Assert.AreEqual(NpcQuestTrack.Max, NpcQuestTrack.Tracked(_active).Count); // 키 없음 = 자동
         NpcQuestTrack.Deserialize("nope;" + _active[2].Id + ";" + _active[2].Id);
         Assert.AreEqual(1, NpcQuestTrack.Tracked(_active).Count); // 모르는 id·중복은 버린다
     }
@@ -99,9 +107,10 @@ public class UiFunc2Tests
         NpcQuestTrack.Saver = t => saved = t;
         try
         {
-            NpcQuestTrack.Toggle(_active[0].Id, _active);
-            NpcQuestTrack.Toggle(_active[1].Id, _active);
-            NpcQuestTrack.Toggle(_active[2].Id, _active);
+            for (int i = 0; i < NpcQuestTrack.Max; i++)
+            {
+                NpcQuestTrack.Toggle(_active[i].Id, _active);
+            }
             NpcQuestTrack.Save();
             Assert.AreEqual("", saved);
             NpcQuestTrack.Deserialize(saved);

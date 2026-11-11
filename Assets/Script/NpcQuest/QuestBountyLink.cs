@@ -2,7 +2,7 @@
 
 /// <summary>
 /// 퀘스트 창(J)에 게시대 현상 의뢰(BountyBoard)를 읽기 전용으로 합쳐 보여 주기 위한 어댑터.
-/// 현상 의뢰를 NpcQuestDef 모양으로 바꿔 같은 목록에 넣는다(Id 접두사 "bounty:"). 수락·보고는 마을 게시대에서만 한다.
+/// 현상 의뢰를 NpcQuestDef 모양으로 바꿔 같은 목록에 넣는다(Id 접두사 "bounty:"). 수락·보고는 입구 모드 창(QuestEntrance.Kiosk)에서 QuestService 로 한다.
 /// 진행 저장은 BountyBoard 가 그대로 맡는다(여기서는 쓰지 않는다).
 /// </summary>
 public static class QuestBountyLink
@@ -84,7 +84,7 @@ public static class QuestBountyLink
         return new NpcQuestDef
         {
             Id = id,
-            Title = "[현상] " + d.Title,
+            Title = d.Title, // 유형 태그(현)는 창·HUD 가 붙인다
             Giver = Giver,
             MinLevel = d.MinLevel,
             Objective = NpcQuestObjective.Kill,
@@ -94,7 +94,10 @@ public static class QuestBountyLink
             Gold = r != null ? r.Gold : 0,
             RewardItem = r != null && r.HasItem ? r.Item : "",
             RewardCount = r != null ? r.Count : 0,
-            Description = "마을 게시대에서 수락하고 보고하는 하루 현상 의뢰. 같은 몹류를 " + d.Count + "마리 처치한다.",
+            Description = "같은 몹류를 " + d.Count + "마리 처치하는 하루 현상. 하루가 지나면 사라진다.",
+            Source = "bounty",
+            ReportTo = Giver,
+            Zone = d.Zone,
         };
     }
 }

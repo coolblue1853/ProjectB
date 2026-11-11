@@ -1,47 +1,46 @@
 ﻿using System.Collections.Generic;
-using System.Text;
-using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 /// <summary>
-/// 퀘스트 창: 받을 수 있는 / 진행 중 / 완료 탭(구역별 묶음, 게시대 현상 의뢰 포함). 진행 중은 완료 가능을 맨 위에, 목표 x/y·목표 구역·보상을 보여 주고 Z 로 추적을 지정한다(최대 3개, 우측 추적 HUD 와 연결).
-/// J(패드 오른쪽 스틱 누름)로 열고 닫는다. 위/아래 선택, 좌/우 탭, Back 으로 닫기.
-/// 코드 생성 UI (BestiaryWindow 와 같은 방식). 열려 있는 동안 UiLock "NpcQuest".
+/// 퀘스트 창 (REWORK-5 P2): 받을 수 있는 / 진행 중 / 완료 3탭, 구역별 묶음, 우측 상세(요약·요구 사항·보상·안내).
+/// 일반 모드(Q 키·패드 SELECT 길게): 보기·추적·포기. 입구 모드(게시판·푯말 ↑): 같은 창에서 수락·보고도 가능, 목록은 입구 필터.
+/// 조작 3경로 — 마우스: 탭·줄·버튼 클릭, 휠. 키보드: ↑↓ ←→ Z(추적·접기) Enter(입구 수락·보고) Del(포기) H(추적창 접기) Q/Esc.
+/// 패드: D패드·스틱, LB/RB 탭, A·X 추적(입구는 A 수락·보고), Y 포기, LT 추적창 접기, B/Start 닫기.
+/// 열려 있는 동안 UiLock "NpcQuest". 화면 구성은 QuestWindowView, 문구는 QuestWindowText.
 /// </summary>
 public class NpcQuestWindow : MonoBehaviour
 {
-    private const int MaxRows = 9;
+    private const float ActGuard = 0.25f; // 열 때 누른 ↑·A 가 곧바로 수락으로 이어지지 않게
+
     private static NpcQuestWindow s_instance;
 
     private KeyAction _action;
-    private InputAction _up, _down, _left, _right, _select, _back;
-    private GameObject _panel;
-    private TextMeshProUGUI _list, _detail, _title, _hint;
-    private int _cursor;
-    private bool _open;
-    private int _count;
-    private QuestListRules.Tab _tab;
-    private List<NpcQuestDef> _shown = new List<NpcQuestDef>();
+    private InputAction _up, _down, _left, _right, _select, _confirm, _back;
+    private readonly QuestWindowView _v = new QuestWindowView();
     private readonly List<Row> _rows = new List<Row>(); // 커서 단위: 구역 머리글(접기 대상) + 펼쳐진 구역의 퀘스트
+    private QuestFilter _entrance; // null = 일반 모드
+    private QuestListRules.Tab _tab;
+    private int _cursor, _first;
+    private bool _open, _confirming;
+    private float _openedAt;
+    private NpcQuestDef _confirmTarget;
     private string _notice = "";
 
     private sealed class Row
     {
         public NpcQuestDef Quest; // null = 머리글
-        public string Key;        // 머리글 접기 키
-        public string Text;       // 머리글 표시
+        public string Key;
+        public string Text;
         public bool Folded;
-        public int Count;         // 머리글 구역의 퀘스트 수
-    }
-
-    private NpcQuestDef CurrentQuest()
-    {
-        return _rows.Count == 0 ? null : _rows[Mathf.Clamp(_cursor, 0, _rows.Count - 1)].Quest;
+        public int Count;
     }
 
     public static bool IsOpen => s_instance != null && s_instance._open;
+
+    /// <summary>현재 열린 입구 필터 (테스트·프로브용). 일반 모드·닫힘이면 null</summary>
+    public static QuestFilter EntranceFilter => IsOpen ? s_instance._entrance : null;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics()
@@ -61,8 +60,25 @@ public class NpcQuestWindow : MonoBehaviour
         }
         else
         {
-            s_instance.Open();
+            s_instance.OpenWindow(null);
         }
+    }
+
+    /// <summary>입구 모드로 연다. giver(필터)에 맞는 퀘스트만, 수락·보고 버튼 활성 (QuestEntrance 가 부른다)</summary>
+    public static bool OpenEntrance(QuestFilter filter)
+    {
+        if (s_instance == null || s_instance._open || DatabaseManager.isOpenUI)
+        {
+            return false;
+        }
+        s_instance.OpenWindow(filter);
+        return true;
+    }
+
+    /// <summary>목표 문장: "슬라임 처치 3/8" 같은 한 줄 (QuestService.Objective 로 이동 — REWORK-5)</summary>
+    public static string ObjectiveText(NpcQuestDef d)
+    {
+        return QuestService.Objective(d);
     }
 
     private void Awake()
@@ -74,6 +90,7 @@ public class NpcQuestWindow : MonoBehaviour
         _left = _action.UI.LeftInventory;
         _right = _action.UI.RightInventory;
         _select = _action.UI.Select;
+        _confirm = _action.UI.Enter;
         _back = _action.UI.Back;
     }
 
@@ -104,6 +121,7 @@ public class NpcQuestWindow : MonoBehaviour
     private void Update()
     {
         Keyboard kb = Keyboard.current;
+        Gamepad pad = Gamepad.current;
         PadFieldInput.Refresh();
         // 패드는 SELECT 길게(0.8초). R3 는 아티팩트 사용과 겹쳐서 뺐다(AUTO-49). 눌린 순간 UI 가 열려 있었으면(인벤 프리셋 저장 등) 무시
         bool padHold = PadFieldInput.Select == PadGesture.Hold && (_open || !PadFieldInput.SelectInUi);
@@ -117,48 +135,52 @@ public class NpcQuestWindow : MonoBehaviour
         {
             return;
         }
-        if (UiLock.TryBack("NpcQuest", _back.triggered || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))) // 패드 Start 로도 닫는다(T11-4)
+        bool back = _back.triggered || (pad != null && pad.startButton.wasPressedThisFrame); // 패드 Start 로도 닫는다(T11-4)
+        if (UiLock.TryBack("NpcQuest", back))
         {
-            Close();
+            if (_confirming)
+            {
+                CancelConfirm();
+            }
+            else
+            {
+                Close();
+            }
             return;
         }
-        int n = _count;
-        int prev = _cursor;
-        if (_left.triggered || _right.triggered)
+        if (_confirming)
         {
-            _tab = QuestListRules.Step(_tab, _left.triggered ? -1 : 1);
-            _cursor = 0;
-            _notice = "";
-            Sfx.Play(SfxId.UiMove, 0.6f);
-            Redraw();
+            if (_confirm.triggered)
+            {
+                DoAbandon();
+            }
             return;
         }
-        if (_select.triggered && n > 0)
+        HandleNavigation(kb, pad);
+        HandleActions(kb, pad);
+    }
+
+    private void HandleNavigation(Keyboard kb, Gamepad pad)
+    {
+        int n = _rows.Count;
+        int prevCursor = _cursor;
+        int tabStep = (_left.triggered || (pad != null && pad.leftShoulder.wasPressedThisFrame)) ? -1
+            : (_right.triggered || (pad != null && pad.rightShoulder.wasPressedThisFrame)) ? 1 : 0;
+        if (tabStep != 0)
         {
-            Row row = _rows[Mathf.Clamp(_cursor, 0, n - 1)];
-            if (row.Quest == null)
-            {
-                QuestFoldRules.Toggle(row.Key);
-                _notice = "";
-                Sfx.Play(SfxId.UiMove, 0.6f);
-                Redraw();
-                return;
-            }
-            if (_tab == QuestListRules.Tab.Active && !QuestBountyLink.IsBounty(row.Quest))
-            {
-                ToggleTracking();
-                return;
-            }
+            SetTab(QuestListRules.Step(_tab, tabStep));
+            return;
         }
-        if (_up.triggered && n > 0)
+        float wheel = Mouse.current != null ? Mouse.current.scroll.ReadValue().y : 0f;
+        if (_up.triggered || wheel > 0.5f)
         {
-            _cursor = (_cursor - 1 + n) % n;
+            _cursor = n > 0 ? (_cursor - 1 + n) % n : 0;
         }
-        else if (_down.triggered && n > 0)
+        else if (_down.triggered || wheel < -0.5f)
         {
-            _cursor = (_cursor + 1) % n;
+            _cursor = n > 0 ? (_cursor + 1) % n : 0;
         }
-        if (_cursor != prev)
+        if (_cursor != prevCursor)
         {
             _notice = "";
             Sfx.Play(SfxId.UiMove, 0.6f);
@@ -166,48 +188,172 @@ public class NpcQuestWindow : MonoBehaviour
         }
     }
 
-    private void Open()
+    private void HandleActions(Keyboard kb, Gamepad pad)
     {
-        if (_panel == null)
+        bool hudFold = (kb != null && kb.hKey.wasPressedThisFrame) || (pad != null && pad.leftTrigger.wasPressedThisFrame);
+        if (hudFold)
         {
-            Build();
+            NpcQuestTrack.SetHudFolded(!NpcQuestTrack.HudFolded);
+            _notice = NpcQuestTrack.HudFolded ? "추적창을 접었습니다" : "추적창을 폈습니다";
+            Redraw();
+            return;
         }
+        bool padX = pad != null && pad.buttonWest.wasPressedThisFrame;
+        bool padY = pad != null && pad.buttonNorth.wasPressedThisFrame;
+        bool del = kb != null && kb.deleteKey.wasPressedThisFrame;
+        bool confirm = _confirm.triggered && Time.unscaledTime > _openedAt + ActGuard;
+        bool select = _select.triggered && Time.unscaledTime > _openedAt + ActGuard;
+        bool z = kb != null && kb.zKey.wasPressedThisFrame;
+        Row row = CurrentRow();
+        if (row == null)
+        {
+            return;
+        }
+        if (row.Quest == null)
+        {
+            if (select || confirm || padX || z)
+            {
+                ToggleFold(row);
+            }
+            return;
+        }
+        if (del || padY)
+        {
+            AskAbandon();
+        }
+        else if (_entrance != null ? (z || padX) : (select || padX))
+        {
+            ToggleTracking();
+        }
+        else if (_entrance != null && confirm)
+        {
+            Primary();
+        }
+    }
+
+    // ───── 열기·닫기 ─────
+
+    private void OpenWindow(QuestFilter entrance)
+    {
+        if (_v.Panel == null)
+        {
+            _v.Build(gameObject, i => SetTab((QuestListRules.Tab)i), OnRowClick, Primary, ToggleTracking, AskAbandon, Close, DoAbandon, CancelConfirm);
+        }
+        _entrance = entrance;
         _open = true;
+        _confirming = false;
         _cursor = 0;
-        _tab = QuestListRules.Tab.Active;
+        _first = 0;
+        _tab = entrance != null ? EntranceStartTab(entrance) : QuestListRules.Tab.Active;
         _notice = "";
+        _openedAt = Time.unscaledTime;
         UiLock.Set("NpcQuest", true);
         _action.UI.Enable();
-        _panel.SetActive(true);
+        _v.Panel.SetActive(true);
+        _v.Confirm.SetActive(false);
         Redraw();
         Sfx.Play(SfxId.UiOpen);
     }
 
+    /// <summary>입구는 받을 게 있으면 받을 수 있는 탭, 아니면 진행 중 탭부터</summary>
+    private static QuestListRules.Tab EntranceStartTab(QuestFilter f)
+    {
+        QuestFilter probe = Clone(f, QuestListRules.Tab.Available);
+        if (QuestService.Query(probe).Items.Count > 0)
+        {
+            return QuestListRules.Tab.Available;
+        }
+        return QuestService.Query(Clone(f, QuestListRules.Tab.Active)).Items.Count > 0 ? QuestListRules.Tab.Active : QuestListRules.Tab.Available;
+    }
+
     private void Close()
     {
+        bool was = _open;
         _open = false;
+        _confirming = false;
+        _entrance = null;
         UiLock.Set("NpcQuest", false);
-        _action.UI.Disable();
-        if (_panel != null)
+        if (was)
         {
-            _panel.SetActive(false);
+            _action.UI.Disable();
+        }
+        if (_v.Panel != null)
+        {
+            _v.Panel.SetActive(false);
         }
     }
 
-    /// <summary>목표 문장: "슬라임 처치 3/8" 같은 한 줄 (QuestService.Objective 로 이동 — REWORK-5)</summary>
-    public static string ObjectiveText(NpcQuestDef d)
+    private static QuestFilter Clone(QuestFilter f, QuestListRules.Tab tab)
     {
-        return QuestService.Objective(d);
+        return new QuestFilter { Tab = tab, Giver = f?.Giver, Source = f?.Source, Zone = f?.Zone, ReportToo = f != null && f.ReportToo };
+    }
+
+    // ───── 동작 ─────
+
+    private void SetTab(QuestListRules.Tab tab)
+    {
+        _tab = tab;
+        _cursor = 0;
+        _first = 0;
+        _notice = "";
+        Sfx.Play(SfxId.UiMove, 0.6f);
+        Redraw();
+    }
+
+    private Row CurrentRow()
+    {
+        return _rows.Count == 0 ? null : _rows[Mathf.Clamp(_cursor, 0, _rows.Count - 1)];
+    }
+
+    private NpcQuestDef CurrentQuest()
+    {
+        return CurrentRow()?.Quest;
+    }
+
+    private void OnRowClick(int slot)
+    {
+        ClearUiFocus();
+        int idx = _first + slot;
+        if (idx >= _rows.Count)
+        {
+            return;
+        }
+        _cursor = idx;
+        _notice = "";
+        if (_rows[idx].Quest == null)
+        {
+            ToggleFold(_rows[idx]);
+            return;
+        }
+        Sfx.Play(SfxId.UiMove, 0.6f);
+        Redraw();
+    }
+
+    private static void ClearUiFocus()
+    {
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null); // 클릭한 버튼에 포커스가 남아 Enter 가 한 번 더 눌리는 것을 막는다
+        }
+    }
+
+    private void ToggleFold(Row row)
+    {
+        QuestFoldRules.Toggle(row.Key);
+        _notice = "";
+        Sfx.Play(SfxId.UiMove, 0.6f);
+        Redraw();
     }
 
     private void ToggleTracking()
     {
-        var active = NpcQuestLog.ActiveQuests();
+        ClearUiFocus();
         NpcQuestDef cur = CurrentQuest();
-        if (cur == null)
+        if (cur == null || _tab != QuestListRules.Tab.Active)
         {
             return;
         }
+        List<NpcQuestDef> active = QuestService.ActiveAll();
         if (NpcQuestTrack.Toggle(cur.Id, active))
         {
             _notice = NpcQuestTrack.IsTracked(cur.Id, active) ? "<color=#FFD633>추적을 켰습니다</color>" : "<color=#BBBBBB>추적을 껐습니다</color>";
@@ -215,88 +361,171 @@ public class NpcQuestWindow : MonoBehaviour
         }
         else
         {
-            _notice = "<color=#FF7766>추적은 최대 " + NpcQuestTrack.Max + "개 — 다른 퀘스트의 추적을 먼저 끄세요</color>";
+            _notice = "<color=#FF7766>추적은 최대 " + NpcQuestTrack.Max + "개 - 다른 퀘스트의 추적을 먼저 끄세요</color>";
         }
         NpcQuestLog.NotifyTrackingChanged(); // 표시 갱신(Redraw 포함) + 저장
+        Redraw();
+    }
+
+    private void AskAbandon()
+    {
+        ClearUiFocus();
+        NpcQuestDef cur = CurrentQuest();
+        if (cur == null || _tab != QuestListRules.Tab.Active)
+        {
+            return;
+        }
+        _confirming = true;
+        _confirmTarget = cur;
+        _v.ConfirmText.text = "<color=#FFD633>" + cur.Title + "</color>\n퀘스트를 포기할까요?\n<color=#BBBBBB>진행 기록이 지워집니다. 아이템·장비는 그대로입니다.</color>";
+        _v.Confirm.SetActive(true);
+        Sfx.Play(SfxId.UiMove, 0.6f);
+    }
+
+    private void CancelConfirm()
+    {
+        ClearUiFocus();
+        _confirming = false;
+        _v.Confirm.SetActive(false);
+    }
+
+    private void DoAbandon()
+    {
+        ClearUiFocus();
+        NpcQuestDef d = _confirmTarget;
+        _confirming = false;
+        _v.Confirm.SetActive(false);
+        if (d != null && QuestService.Abandon(d.Id))
+        {
+            _notice = "<color=#BBBBBB>포기했습니다: " + d.Title + "</color>";
+            Sfx.Play(SfxId.UiMove, 0.6f);
+        }
+        Redraw();
+    }
+
+    /// <summary>입구 모드의 수락·보고 (일반 모드에서는 버튼이 없다)</summary>
+    private void Primary()
+    {
+        ClearUiFocus();
+        NpcQuestDef d = CurrentQuest();
+        if (d == null || _entrance == null)
+        {
+            return;
+        }
+        NpcQuestStatus s = QuestService.StatusOf(d);
+        if (_tab == QuestListRules.Tab.Available)
+        {
+            if (!QuestService.CanAccept(d, out string reason))
+            {
+                _notice = "<color=#FF7766>" + reason + "</color>";
+            }
+            else if (QuestService.Accept(d.Id))
+            {
+                _notice = "<color=#FFD633>수락: " + d.Title + "</color>";
+                PickupLog.Notice("퀘스트 수락 - " + d.Title);
+                Sfx.Play(SfxId.UiOpen, 0.6f);
+            }
+        }
+        else if (_tab == QuestListRules.Tab.Active)
+        {
+            if (s != NpcQuestStatus.Ready)
+            {
+                _notice = "<color=#FF9966>아직 목표를 달성하지 못했습니다</color>";
+            }
+            else if (!QuestEntrance.CanReportHere(d, _entrance))
+            {
+                _notice = "<color=#FF9966>" + QuestService.ReportTarget(d) + "에게 보고해야 합니다</color>";
+            }
+            else if (QuestService.Report(d.Id))
+            {
+                _notice = "<color=#88DD88>보고 완료: " + d.Title + "</color>";
+                Sfx.Play(SfxId.UiOpen, 0.6f);
+            }
+            else
+            {
+                _notice = "<color=#FF7766>가방 공간이 부족합니다</color>";
+            }
+        }
+        Redraw();
+    }
+
+    // ───── 그리기 ─────
+
+    private QuestFilter FilterFor(QuestListRules.Tab tab)
+    {
+        return Clone(_entrance, tab);
     }
 
     private void Redraw()
     {
-        var active = NpcQuestLog.ActiveQuests();
-        var bountyActive = QuestBountyLink.Active();
-        int activeCount = active.Count + bountyActive.Count;
-        _shown = BuildList(active, bountyActive);
-        BuildRows();
-        _count = _rows.Count;
-        _cursor = Mathf.Clamp(_cursor, 0, Mathf.Max(0, _count - 1));
-        int availableCount = QuestListRules.Available(NpcQuestCatalog.All, NpcQuestLog.StatusOf).Count + QuestBountyLink.Available().Count;
-        _title.text = (Loc.IsKorean ? "퀘스트" : "QUESTS") + "   "
-            + TabLabel(QuestListRules.Tab.Available, "받을 수 있는 " + availableCount)
-            + "  " + TabLabel(QuestListRules.Tab.Active, "진행 중 " + activeCount)
-            + "  " + TabLabel(QuestListRules.Tab.Done, "완료 " + CountDone());
-
-        var list = new StringBuilder();
-        if (_count == 0)
+        if (!_open)
         {
-            list.Append("<color=#999999>" + EmptyText() + "</color>");
-        }
-        // 줄 = 구분 머리글 + 퀘스트. 커서가 보이도록 아래로 스크롤
-        var lines = new List<string>();
-        int cursorLine = 0;
-        for (int i = 0; i < _count; i++)
-        {
-            Row row = _rows[i];
-            if (row.Quest == null)
-            {
-                if (i == _cursor)
-                {
-                    cursorLine = lines.Count;
-                }
-                lines.Add((i == _cursor ? "> " : "  ") + (row.Folded ? "[+] " : "[-] ") + row.Text + (row.Folded ? " <color=#999999>(" + row.Count + ")</color>" : ""));
-                continue;
-            }
-            NpcQuestDef d = row.Quest;
-            bool ready = _tab == QuestListRules.Tab.Active && IsReady(d);
-            bool low = _tab == QuestListRules.Tab.Available && IsLevelLow(d);
-            if (i == _cursor)
-            {
-                cursorLine = lines.Count;
-            }
-            string star = _tab == QuestListRules.Tab.Active && !QuestBountyLink.IsBounty(d) && NpcQuestTrack.IsTracked(d.Id, active) ? "<color=#7FE0FF>*</color>" : " ";
-            string color = _tab == QuestListRules.Tab.Done ? "#AAAAAA" : ready ? "#FFD633" : low ? "#888888" : "#FFFFFF";
-            string mark = ready ? "? " : _tab == QuestListRules.Tab.Available ? "! " : "";
-            lines.Add((i == _cursor ? "> " : "  ") + star + "<color=" + color + ">" + mark + d.Title + (low ? "  (Lv " + d.MinLevel + ")" : "") + "</color>");
-        }
-        int first = Mathf.Max(0, cursorLine - MaxRows + 1);
-        for (int i = first; i < lines.Count && i < first + MaxRows; i++)
-        {
-            list.Append(lines[i]).Append('\n');
-        }
-        _list.text = list.ToString();
-        _hint.text = HintText(_tab == QuestListRules.Tab.Active);
-        if (_count == 0)
-        {
-            _detail.text = "";
             return;
         }
-        NpcQuestDef cur = CurrentQuest();
-        _detail.text = cur != null ? DetailText(cur, active) : "<color=#999999>구역 머리글 — Z / Pad A 로 접기·펼치기</color>";
+        QuestView view = QuestService.Query(FilterFor(_tab));
+        int availN = QuestService.Query(FilterFor(QuestListRules.Tab.Available)).Items.Count;
+        int activeN = QuestService.Query(FilterFor(QuestListRules.Tab.Active)).Items.Count;
+        int doneN = QuestService.Query(FilterFor(QuestListRules.Tab.Done)).Items.Count;
+        SetTabLabel(0, "받을 수 있는 " + availN);
+        SetTabLabel(1, "진행 중 " + activeN);
+        SetTabLabel(2, "완료 " + doneN);
+        _v.Title.text = _entrance != null ? "입구" : "퀘스트";
+
+        BuildRows(OrderForTab(view.Items));
+        _cursor = Mathf.Clamp(_cursor, 0, Mathf.Max(0, _rows.Count - 1));
+        if (_cursor < _first)
+        {
+            _first = _cursor;
+        }
+        else if (_cursor >= _first + QuestWindowView.Rows)
+        {
+            _first = _cursor - QuestWindowView.Rows + 1;
+        }
+        _first = Mathf.Clamp(_first, 0, Mathf.Max(0, _rows.Count - QuestWindowView.Rows));
+        DrawRows();
+        DrawDetail();
+        _v.Hint.text = QuestWindowText.Hint(_entrance != null);
     }
 
-    /// <summary>_shown(구역별로 이미 묶임)을 머리글+퀘스트 행으로 펴고, 접힌 구역은 퀘스트를 감춘다</summary>
-    private void BuildRows()
+    private void SetTabLabel(int i, string text)
+    {
+        bool on = (int)_tab == i;
+        _v.TabText[i].text = on ? "<color=#FFFFFF>[" + text + "]</color>" : "<color=#777777>" + text + "</color>";
+    }
+
+    /// <summary>받을 수 있는 탭: 수락 가능 → 레벨 부족 순, 진행 중: 완료 가능이 맨 위. 각각 구역별로 묶는다</summary>
+    private List<NpcQuestDef> OrderForTab(List<NpcQuestDef> items)
+    {
+        var first = new List<NpcQuestDef>();
+        var rest = new List<NpcQuestDef>();
+        foreach (NpcQuestDef d in items)
+        {
+            NpcQuestStatus s = QuestService.StatusOf(d);
+            bool lead = _tab == QuestListRules.Tab.Active ? s == NpcQuestStatus.Ready : s != NpcQuestStatus.LevelLow;
+            (_tab == QuestListRules.Tab.Done || lead ? first : rest).Add(d);
+        }
+        if (_tab == QuestListRules.Tab.Active)
+        {
+            first.AddRange(QuestListRules.GroupByZone(rest, QuestService.ZoneOf));
+            return first;
+        }
+        List<NpcQuestDef> res = QuestListRules.GroupByZone(first, QuestService.ZoneOf);
+        res.AddRange(QuestListRules.GroupByZone(rest, QuestService.ZoneOf));
+        return res;
+    }
+
+    private void BuildRows(List<NpcQuestDef> ordered)
     {
         _rows.Clear();
         Row head = null;
-        string lastHeader = null;
-        foreach (NpcQuestDef d in _shown)
+        string last = null;
+        foreach (NpcQuestDef d in ordered)
         {
-            bool ready = _tab == QuestListRules.Tab.Active && IsReady(d);
-            bool low = _tab == QuestListRules.Tab.Available && IsLevelLow(d);
-            string header = HeaderOf(d, ready, low);
-            if (header != lastHeader)
+            NpcQuestStatus s = QuestService.StatusOf(d);
+            string header = QuestWindowText.Header(d, _tab == QuestListRules.Tab.Active && s == NpcQuestStatus.Ready, _tab == QuestListRules.Tab.Available && s == NpcQuestStatus.LevelLow);
+            if (header != last)
             {
-                lastHeader = header;
+                last = header;
                 string key = QuestFoldRules.Key(_tab, header);
                 head = new Row { Key = key, Text = header, Folded = QuestFoldRules.IsFolded(key) };
                 _rows.Add(head);
@@ -309,212 +538,92 @@ public class NpcQuestWindow : MonoBehaviour
         }
     }
 
-    private List<NpcQuestDef> BuildList(List<NpcQuestDef> active, List<NpcQuestDef> bountyActive)
+    private void DrawRows()
     {
-        switch (_tab)
+        List<NpcQuestDef> active = QuestService.ActiveAll();
+        for (int i = 0; i < QuestWindowView.Rows; i++)
         {
-            case QuestListRules.Tab.Available:
+            int idx = _first + i;
+            bool has = idx < _rows.Count;
+            _v.RowButtons[i].gameObject.SetActive(has);
+            if (!has)
             {
-                // 수락 가능 → 레벨 부족 순, 각각 구역별로 묶는다
-                var open = new List<NpcQuestDef>();
-                var low = new List<NpcQuestDef>();
-                foreach (NpcQuestDef d in QuestListRules.Available(NpcQuestCatalog.All, NpcQuestLog.StatusOf))
-                {
-                    (IsLevelLow(d) ? low : open).Add(d);
-                }
-                open.AddRange(QuestBountyLink.Available());
-                List<NpcQuestDef> res = QuestListRules.GroupByZone(open, ZoneOf);
-                res.AddRange(QuestListRules.GroupByZone(low, ZoneOf));
-                return res;
+                continue;
             }
-            case QuestListRules.Tab.Active:
+            Row row = _rows[idx];
+            if (row.Quest == null)
             {
-                // 완료 가능이 맨 위, 나머지는 구역별
-                var all = new List<NpcQuestDef>(active);
-                all.AddRange(bountyActive);
-                var ready = new List<NpcQuestDef>();
-                var rest = new List<NpcQuestDef>();
-                foreach (NpcQuestDef d in all)
-                {
-                    (IsReady(d) ? ready : rest).Add(d);
-                }
-                ready.AddRange(QuestListRules.GroupByZone(rest, ZoneOf));
-                return ready;
+                _v.RowText[i].text = (row.Folded ? "[+] " : "[-] ") + row.Text + (row.Folded ? " <color=#999999>(" + row.Count + ")</color>" : "");
             }
-            default:
-                return QuestListRules.GroupByZone(QuestListRules.Done(NpcQuestCatalog.All, NpcQuestLog.IsDone), ZoneOf);
-        }
-    }
-
-    private string TabLabel(QuestListRules.Tab tab, string text)
-    {
-        return _tab == tab ? "<color=#FFFFFF>[" + text + "]</color>" : "<color=#777777>" + text + "</color>";
-    }
-
-    private string EmptyText()
-    {
-        switch (_tab)
-        {
-            case QuestListRules.Tab.Available: return "지금 받을 수 있는 퀘스트가 없습니다.\n레벨을 올리거나 선행 퀘스트를 끝내 보세요.";
-            case QuestListRules.Tab.Active: return "진행 중인 퀘스트가 없습니다.\n마을 NPC 머리 위 ! 를 찾아 보세요.";
-            default: return "완료한 퀘스트가 없습니다.";
-        }
-    }
-
-    private static bool IsReady(NpcQuestDef d)
-    {
-        return QuestBountyLink.IsBounty(d) ? QuestBountyLink.IsReady(d) : NpcQuestLog.StatusOf(d) == NpcQuestStatus.Ready;
-    }
-
-    private static bool IsLevelLow(NpcQuestDef d)
-    {
-        return !QuestBountyLink.IsBounty(d) && NpcQuestLog.StatusOf(d) == NpcQuestStatus.LevelLow;
-    }
-
-    private static string ZoneOf(NpcQuestDef d)
-    {
-        return QuestBountyLink.IsBounty(d) ? QuestBountyLink.Zone(d) : NpcQuestZone.Of(d);
-    }
-
-    private static string HeaderOf(NpcQuestDef d, bool ready, bool low)
-    {
-        if (ready)
-        {
-            return "<color=#FFD633>- 완료 가능 -</color>";
-        }
-        string zone = ZoneOf(d);
-        string label = zone.Length > 0 ? zone : "기타";
-        if (low)
-        {
-            return "<color=#888888>- 레벨 부족 · " + label + " -</color>";
-        }
-        return "<color=#88AACC>- " + label + " -</color>";
-    }
-
-    private string DetailText(NpcQuestDef cur, List<NpcQuestDef> active)
-    {
-        bool bounty = QuestBountyLink.IsBounty(cur);
-        bool activeTab = _tab == QuestListRules.Tab.Active;
-        bool done = activeTab && IsReady(cur);
-        var sb = new StringBuilder();
-        sb.Append("<color=#FFD633>").Append(cur.Title).Append("</color>\n");
-        sb.Append("의뢰인  ").Append(NpcQuestCatalog.NpcName(cur.Giver)).Append("   필요 레벨 ").Append(cur.MinLevel).Append('\n');
-        string zone = ZoneOf(cur);
-        if (zone.Length > 0)
-        {
-            sb.Append("목표 구역  <color=#9ED0FF>").Append(zone).Append("</color>\n");
-        }
-        sb.Append('\n').Append(cur.Description).Append("\n\n");
-        string goal = bounty ? "처치 " + QuestBountyLink.Progress(cur) + "/" + cur.Count : ObjectiveText(cur);
-        if (_tab == QuestListRules.Tab.Done)
-        {
-            sb.Append("<color=#88DD88>완료</color>   목표  ").Append(goal);
-        }
-        else
-        {
-            sb.Append(done ? "<color=#FFD633>" : "").Append("목표  ").Append(goal).Append(done ? "  (완료! 의뢰인에게 보고)</color>" : "");
-        }
-        sb.Append("\n\n보상  EXP ").Append(cur.Exp).Append("   ").Append(cur.Gold).Append(" G");
-        if (!string.IsNullOrEmpty(cur.RewardItem))
-        {
-            sb.Append("   ").Append(ItemText.DisplayName(cur.RewardItem)).Append(" x").Append(cur.RewardCount);
-        }
-        if (_tab == QuestListRules.Tab.Available)
-        {
-            sb.Append("\n\n").Append(IsLevelLow(cur) ? "<color=#FF9966>레벨 " + cur.MinLevel + " 부터 받을 수 있습니다</color>"
-                : "<color=#FFD633>" + NpcQuestCatalog.NpcName(cur.Giver) + "에게 말을 걸어 수락하세요</color>");
-        }
-        else if (activeTab && !bounty)
-        {
-            bool tracked = NpcQuestTrack.IsTracked(cur.Id, active);
-            sb.Append("\n\n").Append(tracked ? "<color=#7FE0FF>* 추적 중</color>" : "<color=#777777>추적 안 함</color>")
-              .Append("  (").Append(NpcQuestTrack.Tracked(active).Count).Append('/').Append(NpcQuestTrack.Max).Append(')');
-            if (_notice.Length > 0)
+            else
             {
-                sb.Append("   ").Append(_notice);
+                bool tracked = _tab == QuestListRules.Tab.Active && NpcQuestTrack.IsTracked(row.Quest.Id, active);
+                _v.RowText[i].text = QuestWindowText.RowLine(row.Quest, _tab, QuestService.StatusOf(row.Quest), tracked);
             }
+            _v.RowBg[i].color = idx == _cursor ? new Color(1f, 0.85f, 0.4f, 0.32f) : new Color(1f, 1f, 1f, row.Quest == null ? 0.05f : 0f);
         }
-        return sb.ToString();
+        _v.ListInfo.text = _rows.Count > QuestWindowView.Rows ? (_cursor + 1) + "/" + _rows.Count : "";
     }
 
-    private static string HintText(bool activeTab)
+    private void DrawDetail()
     {
-        return activeTab ? "위/아래 선택    좌/우 탭    Z 추적 지정(최대 3) / 구역 접기    Q / BACK 닫기" : "위/아래 선택    좌/우 탭(받을 수 있는·진행 중·완료)    Z 구역 접기    Q / BACK 닫기";
-    }
-
-    private static int CountDone()
-    {
-        int n = 0;
-        foreach (NpcQuestDef d in NpcQuestCatalog.All)
+        NpcQuestDef cur = CurrentQuest();
+        bool entrance = _entrance != null;
+        if (_rows.Count == 0)
         {
-            if (NpcQuestLog.IsDone(d.Id))
-            {
-                n++;
-            }
+            _v.Detail.text = "<color=#999999>" + QuestWindowText.Empty(_tab) + "</color>";
         }
-        return n;
-    }
-
-    private void Build()
-    {
-        UiTheme theme = UiTheme.Get();
-        var canvas = gameObject.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 70;
-        var scaler = gameObject.AddComponent<CanvasScaler>();
-        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1920f, 1080f);
-        scaler.matchWidthOrHeight = 0.5f;
-
-        _panel = theme.NewPanel("Panel", transform).gameObject;
-        var pr = (RectTransform)_panel.transform;
-        pr.anchorMin = pr.anchorMax = new Vector2(0.5f, 0.5f);
-        pr.sizeDelta = new Vector2(1180f, 640f);
-
-        _title = NewText("Title", pr, theme, 42f);
-        Place(_title.rectTransform, new Vector2(30f, -18f), new Vector2(1100f, 54f));
-        _title.color = theme.unique;
-
-        _hint = NewText("Hint", pr, theme, 22f);
-        Place(_hint.rectTransform, new Vector2(30f, -600f), new Vector2(1100f, 30f));
-        _hint.color = new Color(1f, 1f, 1f, 0.55f);
-
-        Image left = theme.NewPanel("ListBg", pr, true);
-        Place(left.rectTransform, new Vector2(30f, -86f), new Vector2(380f, 500f));
-        _list = NewText("List", left.transform, theme, 26f);
-        Place(_list.rectTransform, new Vector2(12f, -10f), new Vector2(356f, 480f));
-        _list.enableWordWrapping = false;
-        _list.overflowMode = TextOverflowModes.Truncate;
-
-        _detail = NewText("Detail", pr, theme, 26f);
-        Place(_detail.rectTransform, new Vector2(436f, -90f), new Vector2(720f, 490f));
-        _detail.enableWordWrapping = true;
-        _panel.SetActive(false);
-    }
-
-    private static TextMeshProUGUI NewText(string name, Transform parent, UiTheme theme, float size)
-    {
-        var go = new GameObject(name, typeof(RectTransform), typeof(TextMeshProUGUI));
-        go.transform.SetParent(parent, false);
-        var t = go.GetComponent<TextMeshProUGUI>();
-        if (theme.pixelFont != null)
+        else if (cur == null)
         {
-            t.font = theme.pixelFont;
+            _v.Detail.text = "<color=#999999>구역 머리글 - Z · A · 클릭으로 접기/펼치기</color>";
         }
-        t.fontSize = size;
-        t.alignment = TextAlignmentOptions.TopLeft;
-        t.raycastTarget = false;
-        t.richText = true;
-        t.outlineWidth = 0.2f;
-        t.outlineColor = new Color32(0, 0, 0, 200);
-        return t;
+        ShowActions(cur);
+        if (cur == null)
+        {
+            _v.RewardHeader.gameObject.SetActive(false);
+            _v.RewardIcon.gameObject.SetActive(false);
+            _v.RewardText.text = "";
+            _v.Guide.text = _notice;
+            return;
+        }
+        NpcQuestStatus s = QuestService.StatusOf(cur);
+        _v.Detail.text = QuestWindowText.Detail(cur, _tab, s);
+        _v.RewardHeader.gameObject.SetActive(true);
+        _v.RewardText.text = QuestWindowText.RewardLine(cur);
+        Sprite icon = string.IsNullOrEmpty(cur.RewardItem) ? null : Resources.Load<Sprite>("Item/" + cur.RewardItem);
+        _v.RewardIcon.sprite = icon;
+        _v.RewardIcon.gameObject.SetActive(icon != null);
+        List<NpcQuestDef> active = QuestService.ActiveAll();
+        string guide = QuestWindowText.Guide(cur, _tab, s, entrance, NpcQuestTrack.IsTracked(cur.Id, active), NpcQuestTrack.Tracked(active).Count);
+        if (_notice.Length > 0)
+        {
+            guide += "\n" + _notice;
+        }
+        if (entrance && _entrance.Source == "bounty")
+        {
+            guide += "\n<color=#AAAAAA>" + BountyGraduation.Check() + "</color>";
+        }
+        _v.Guide.text = guide;
     }
 
-    private static void Place(RectTransform rt, Vector2 topLeft, Vector2 size)
+    /// <summary>버튼 3개: 입구 모드는 수락/보고 + 추적 + 포기, 일반 모드는 추적 + 포기 (보기만 하는 탭은 숨김)</summary>
+    private void ShowActions(NpcQuestDef cur)
     {
-        rt.anchorMin = rt.anchorMax = new Vector2(0f, 1f);
-        rt.pivot = new Vector2(0f, 1f);
-        rt.anchoredPosition = topLeft;
-        rt.sizeDelta = size;
+        bool activeTab = _tab == QuestListRules.Tab.Active && cur != null;
+        bool entrance = _entrance != null;
+        bool primaryOn = entrance && cur != null && _tab != QuestListRules.Tab.Done;
+        _v.Primary.gameObject.SetActive(primaryOn);
+        _v.Track.gameObject.SetActive(activeTab);
+        _v.Abandon.gameObject.SetActive(activeTab);
+        if (primaryOn)
+        {
+            _v.PrimaryText.text = _tab == QuestListRules.Tab.Available ? "수락 (Enter · A)" : "보고 (Enter · A)";
+        }
+        if (activeTab)
+        {
+            bool tracked = NpcQuestTrack.IsTracked(cur.Id, QuestService.ActiveAll());
+            _v.TrackText.text = (tracked ? "추적 해제" : "추적") + " (Z · X)";
+            _v.AbandonText.text = "포기 (Del · Y)";
+        }
     }
 }

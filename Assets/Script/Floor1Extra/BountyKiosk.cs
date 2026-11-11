@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-/// <summary>마을 사냥 의뢰 푯말: 가까이 서면 "↑ 사냥 의뢰", ↑ 로 BountyPanel 을 연다</summary>
+/// <summary>마을 사냥 의뢰 푯말: 가까이 서면 "↑ 사냥 의뢰", ↑ 로 퀘스트 창(입구 모드, 현상 필터)을 연다</summary>
 [RequireComponent(typeof(BoxCollider2D))]
 public class BountyKiosk : MonoBehaviour
 {
@@ -41,14 +41,15 @@ public class BountyKiosk : MonoBehaviour
 
     private void Update()
     {
-        bool show = _near && !BountyPanel.IsOpen;
+        bool mine = InteractArbiter.Contend(this, transform.position, _near); // ↑ 중재(U32): 가장 가까운 상호작용 1개만
+        bool show = mine && !NpcQuestWindow.IsOpen;
         if (_prompt.gameObject.activeSelf != show)
         {
             _prompt.gameObject.SetActive(show);
         }
         if (show && Floor1Input.UpPressed && !DatabaseManager.isOpenUI)
         {
-            BountyPanel.Open();
+            QuestEntrance.Open(QuestEntrance.Kiosk()); // REWORK-5 P4: 입구 모드 퀘스트 창
         }
     }
 

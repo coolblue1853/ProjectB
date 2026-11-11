@@ -3,7 +3,7 @@ using PixelCrushers;
 using UnityEngine;
 
 /// <summary>
-/// 마을 사냥 의뢰 게시대의 상태·저장·처치 집계 (패널 그림은 BountyPanel, 푯말 배치는 BountyKioskPlacer).
+/// 마을 사냥 의뢰 게시대의 상태·저장·처치 집계 (화면은 퀘스트 창 입구 모드(QuestEntrance), 푯말 배치는 BountyKioskPlacer).
 /// 하루 = TimeChange 밤→낮 전환 1회. 하루에 3건이 걸리고, 한 번에 하나만 받는다. 켜고 끄기: Floor1Content.csv 의 bounty.
 /// </summary>
 public class BountyBoard : MonoBehaviour, IMessageHandler
@@ -48,7 +48,6 @@ public class BountyBoard : MonoBehaviour, IMessageHandler
             s_instance._state = ES3.Load<BountyState>(SaveKey);
             s_instance.DropUnknownIds();
         }
-        go.AddComponent<BountyPanel>();
         BountyKioskPlacer.Place();
     }
 

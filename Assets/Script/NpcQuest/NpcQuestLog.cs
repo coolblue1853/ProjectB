@@ -469,6 +469,7 @@ public static class NpcQuestLog
             Deserialize(SaveUtil.LoadOr(SaveKey, ""));
             Loaded = true;
             NpcQuestTrack.Load();
+            NpcQuestTrack.LoadFold();
             Changed?.Invoke(); // 추적 목록을 읽은 뒤 한 번 더 알린다
         }
         catch (Exception e)
