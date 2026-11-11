@@ -57,7 +57,7 @@ public static partial class StoryDialogues
         BuildGreeting(91, SenaTalk, SenaId, Floor1Chatter.Pages("sena", "약초는 뿌리가 마르기 전에 캐야 해요.\n해가 지면 늪 근처는 피하세요."));
         BuildGreeting(92, EveTalk, EveId, Floor1Chatter.Pages("eve", "지도에는 돌아온 사람이 본 길만 남아.\n빈 곳은 직접 가 봐야지."));
 
-        BuildGreeting(93, CoachTalk, CoachId, "어서 오세요. 마차는 한 번 가 본 곳이라면 어디든 갑니다.", "요금만 내시면 눈 깜짝할 새에 도착하지요.");
+        BuildGreeting(93, CoachTalk, CoachId, "어서 오세요. 마차는 한 번 가 본 곳이라면 어디든 갑니다.", "요금만 내시면 눈 깜짝할 새에 도착하지요.", "처음 가는 지역은 그곳 마차 의뢰(구역 처치)를 마쳐야 길이 열려요.");
 
         int id = QuestConvBase;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)

@@ -153,7 +153,7 @@ public class NpcQuestTracker : MonoBehaviour
             HudPolicy.TrackerHeight = 0f;
             return;
         }
-        string built = BuildText(all, active, setLine, NpcQuestTrack.HudFolded);
+        string built = BuildText(all, active, setLine, NpcQuestTrack.HudFolded, QuestNightHint.SecondsUntilNightNow());
         if (built == _lastText && _root.activeSelf)
         {
             return; // 값이 그대로면 텍스트·높이 갱신 생략
@@ -171,7 +171,7 @@ public class NpcQuestTracker : MonoBehaviour
     }
 
     /// <summary>추적 HUD 본문 (순수 함수 — 테스트가 형식을 확인한다). all = 진행 중 전부, tracked = 표시할 것</summary>
-    public static string BuildText(IList<NpcQuestDef> all, IList<NpcQuestDef> tracked, string setLine, bool folded)
+    public static string BuildText(IList<NpcQuestDef> all, IList<NpcQuestDef> tracked, string setLine, bool folded, float secondsUntilNight = -1f)
     {
         var sb = new StringBuilder();
         bool anyReady = false;
@@ -200,6 +200,11 @@ public class NpcQuestTracker : MonoBehaviour
                 sb.Append("  <color=#7FA8C8>@").Append(zone).Append("</color>");
             }
             sb.Append('\n');
+            string night = QuestNightHint.Line(d, ready, secondsUntilNight);
+            if (night.Length > 0)
+            {
+                sb.Append("<color=#9FA8FF>  ").Append(night).Append("</color>\n");
+            }
         }
         int extra = tracked.Count >= NpcQuestTrack.Max ? all.Count - tracked.Count : 0;
         if (extra > 0)

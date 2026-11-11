@@ -45,9 +45,9 @@ Lv1_NearForest_SideRoad,Mole,8,10,,2|2|1|1|2
 Lv1_NearForest_SideRoad,Mole2,9,10,,2|1|2|1|1|2
 Lv1_NearForest_SideRoad,Mole3,9,10,MossShellBeetle_BD,2|1|2|1|2|1
 Lv1_NearForest_SideRoad,Rabbit,13,10,,1|1|1|1|1|1|1|2|1|1|2
-Lv1_NearForest_SideRoad,Rabbit2,6,10,,1|1|1|1|2
+Lv1_NearForest_SideRoad,Rabbit2,6,10,RatThief_BD@0.3,1|1|1|1|2
 Lv1_NearForest_SideRoad,Rabbit2_2,8,10,RatChief_BD@0.125,2|2|1|2|1
-Lv1_NearForest_SideRoad,Rabbit3,10,10,,2|1|2|2|1|1|1
+Lv1_NearForest_SideRoad,Rabbit3,10,10,RatThief_BD@0.4,2|1|2|2|1|1|1
 Lv1_NearForest_SideRoad,RatCheif,5,10,RatChief_BD@0.2,1|1|1|1|1
 Lv1_NearForest_SideRoad,RatCheif2,10,10,,2|1|2|2|1|1|1
 Lv1_NearForest_SideRoad,RatThief,8,10,,2|1|2|1|2

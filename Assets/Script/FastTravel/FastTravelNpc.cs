@@ -76,7 +76,7 @@ public static class FastTravelFlow
 
     private static string Reason(FastTravelRules.Block b, FastTravelStop dest)
     {
-        return b == FastTravelRules.Block.Locked ? dest.DisplayName + " 마차 퀘스트를 먼저 깨세요" : FastTravelRules.Reason(b);
+        return b == FastTravelRules.Block.Locked ? dest.DisplayName + " 마차 의뢰(구역 처치)를 먼저 깨세요" : FastTravelRules.Reason(b);
     }
 
     private static void Confirm(FastTravelStop from, FastTravelStop dest)

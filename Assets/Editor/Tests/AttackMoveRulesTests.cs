@@ -110,6 +110,15 @@ public class AttackMoveRulesTests
     }
 
     [Test]
+    public void ComboConsumeFraction_BaseSwordKeepsOldInterval()
+    {
+        // 기본 칼 3타 간격 보존(Q-CI10 되돌림): 표준 등급이어도 기본 칼은 1.0, 다른 표준·경량 무기는 등급 값 유지
+        Assert.AreEqual(1f, AttackMoveRules.ComboConsumeFraction(MoveWeightClass.Standard, InventoryManager.DefaultWeapon), Eps);
+        Assert.AreEqual(0.90f, AttackMoveRules.ComboConsumeFraction(MoveWeightClass.Standard, "RustedSwordandShield"), Eps);
+        Assert.AreEqual(0.75f, AttackMoveRules.ComboConsumeFraction(MoveWeightClass.Light, "Dagger"), Eps);
+    }
+
+    [Test]
     public void AirAttackVx_InPlaceUses03_OthersUse07()
     {
         Assert.AreEqual(5f * 0.3f, AttackMoveRules.AirAttackVx(AttackMoveMode.InPlace, 0f, 1f, 5f, 0.016f), Eps);

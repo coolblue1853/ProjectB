@@ -62,6 +62,11 @@ public static class QuestWindowText
         sb.Append("<color=#88AACC>-- 요구 사항 --</color>\n");
         bool ready = status == NpcQuestStatus.Ready;
         sb.Append(ready ? "<color=" + Gold + ">" : "").Append(QuestService.Objective(d)).Append(ready ? "  (달성)</color>" : "");
+        string night = tab == QuestListRules.Tab.Active ? QuestNightHint.Line(d, ready, QuestNightHint.SecondsUntilNightNow()) : "";
+        if (night.Length > 0)
+        {
+            sb.Append("\n<color=#9FA8FF>").Append(night).Append("</color>");
+        }
         if (d.Objective == NpcQuestObjective.Collect && !d.IsRecordsTarget && tab != QuestListRules.Tab.Done)
         {
             sb.Append("\n<color=#777777>가방에 든 수량만 셉니다. 창고 보관분은 꺼내야 제출됩니다.</color>");

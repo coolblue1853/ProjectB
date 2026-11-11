@@ -188,7 +188,7 @@ public class AttackManager : MonoBehaviour
             // CI-P6: 점프와 거의 동시에 누른 평타는 점프가 먼저 나가고 공중 평타 1타가 된다
             bool jumpFirst = PlayerController.instance != null && PlayerController.instance.DeferAttackForJump();
             if (!staggered && !jumpFirst && charge == null && meleeBuf.Peek(Time.time) && !equipWeapon.CanMeleeNow
-                && equipWeapon.CanComboEarlyNow(AttackMoveRules.ComboConsumeFraction(EarlyComboClass(equipWeapon))))
+                && equipWeapon.CanComboEarlyNow(AttackMoveRules.ComboConsumeFraction(EarlyComboClass(equipWeapon), equipWeapon.MasteryKey)))
             {
                 equipWeapon.CancelMeleeRecovery(); // CI-P7: 후딜 타이머는 그대로 두고 다음 타 소비만 앞당긴다(이전 타 후딜·잠금은 즉시 종료)
             }

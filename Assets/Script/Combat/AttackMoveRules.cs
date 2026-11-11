@@ -103,6 +103,12 @@ public static class AttackMoveRules
         }
     }
 
+    /// <summary>무기 키까지 본 선행 소비 비율. 기본 칼(InventoryManager.DefaultWeapon)은 3타 간격 보존 규칙(모션 불변)에 따라 항상 1.0 — 경량·표준 다른 무기만 등급 값을 쓴다.</summary>
+    public static float ComboConsumeFraction(MoveWeightClass cls, string itemKey)
+    {
+        return itemKey == InventoryManager.DefaultWeapon ? 1f : ComboConsumeFraction(cls);
+    }
+
     // ── 홀드 연타·점프+공격 동시 (§4.5, CI-P6) ──
     /// <summary>A·X 를 이 시간(2f) 안에 거의 동시에 누르면 점프 먼저</summary>
     public const float JumpAttackSimulWindow = 2f / 60f;
