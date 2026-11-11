@@ -9,7 +9,7 @@ public class JunkCategoryDataTests
     {
         "Small Bone", "Round Bone", "Rabbit Hide", "Fine Rabbit Hide", "Disgusting Rat Meat", "Rat Thief's Stash",
         "Filthy Rat Hide", "Rat Cheif 's Loot", "Ominous Black Liquid", "Blackened Branch", "Malice-Infused Branch",
-        "Eerie Cloth Scrap", "Gloomy Cloth Scrap",
+        "Eerie Cloth Scrap", "Gloomy Cloth Scrap", "Tough Rat Hide",
     };
 
     private static string[] Lines(string name)
@@ -72,13 +72,15 @@ public class JunkCategoryDataTests
         }
     }
 
+    // 11-11 정정: 이전 핀은 "퀘스트 보상이라 비분류"였으나 CSV·씬 어디에도 레시피·퀘스트·보상 참조가 없고 쥐 몹 드롭(씬 DropManager)뿐이다.
+    // JunkItems_AreNotReferencedByRecipesQuestsOrRewards 가 참조 금지를 계속 지키므로 Junk 로 분류한다(B5).
     [Test]
-    public void ToughRatHide_QuestReward_StaysUnclassified()
+    public void ToughRatHide_IsJunk_NotReferencedByDataTables()
     {
         foreach (string line in Lines("ItemSheet"))
         {
             string[] c = line.Split(',');
-            if (c.Length > 18 && c[1] == "Tough Rat Hide") { Assert.AreNotEqual("Junk", c[18].Trim()); }
+            if (c.Length > 18 && c[1] == "Tough Rat Hide") { Assert.AreEqual("Junk", c[18].Trim()); }
         }
     }
 }

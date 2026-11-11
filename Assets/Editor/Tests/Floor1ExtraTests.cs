@@ -110,7 +110,7 @@ public class Floor1ExtraTests
     public void Bestiary_MilestonesClaimInOrder()
     {
         List<BestiaryMilestoneDef> defs = BestiaryMilestoneRules.Parse(Resources.Load<TextAsset>("Floor1BestiaryRewards").text);
-        Assert.AreEqual(7, defs.Count);
+        Assert.AreEqual(13, defs.Count); // B01~B07 + 구역 전종 B08~B13 (11-11 이월 2차)
         var claimed = new HashSet<string>();
         Assert.IsNull(BestiaryMilestoneRules.NextClaimable(defs, claimed, 2, 99));
         BestiaryMilestoneDef first = BestiaryMilestoneRules.NextClaimable(defs, claimed, 7, 120);
@@ -119,6 +119,62 @@ public class Floor1ExtraTests
         Assert.AreEqual("B02", BestiaryMilestoneRules.NextClaimable(defs, claimed, 7, 120).Id);
         claimed.Add("B02");
         Assert.AreEqual("B05", BestiaryMilestoneRules.NextClaimable(defs, claimed, 7, 120).Id);
+    }
+
+    private static HashSet<string> ItemNames()
+    {
+        var set = new HashSet<string>();
+        foreach (string line in Resources.Load<TextAsset>("ItemSheet").text.Replace(((char)13).ToString(), "").Split((char)10))
+        {
+            string[] c = line.Split(',');
+            if (c.Length > 2) { set.Add(c[1].Trim()); }
+        }
+        return set;
+    }
+
+    [Test]
+    public void Bestiary_ZoneRows_B08toB13_HaveSpeciesAndRealItems()
+    {
+        List<BestiaryMilestoneDef> defs = BestiaryMilestoneRules.Parse(Resources.Load<TextAsset>("Floor1BestiaryRewards").text);
+        HashSet<string> items = ItemNames();
+        for (int n = 8; n <= 13; n++)
+        {
+            string id = "B" + n.ToString("00");
+            BestiaryMilestoneDef d = defs.Find(x => x.Id == id);
+            Assert.IsNotNull(d, id);
+            Assert.AreEqual("zone", d.Metric, id);
+            Assert.GreaterOrEqual(BestiaryZoneRules.SpeciesOf(d.Zone).Count, 4, id + " 구역 종 수 " + d.Zone);
+            Assert.IsTrue(items.Contains(d.Reward.Item), id + " 보상 아이템 실존 " + d.Reward.Item);
+            Assert.LessOrEqual(d.Reward.Exp, 700, id);
+        }
+    }
+
+    [Test]
+    public void Bestiary_ZoneCleared_NeedsEverySpecies()
+    {
+        var species = new List<string> { "A", "B", "C" };
+        Assert.IsFalse(BestiaryZoneRules.Cleared(species, id => id == "C" ? 0 : 3));
+        Assert.IsTrue(BestiaryZoneRules.Cleared(species, id => 1));
+        Assert.IsFalse(BestiaryZoneRules.Cleared(new List<string>(), id => 9), "빈 종 목록은 달성 아님");
+        List<BestiaryMilestoneDef> defs = BestiaryMilestoneRules.Parse(Resources.Load<TextAsset>("Floor1BestiaryRewards").text);
+        var claimed = new HashSet<string> { "B01", "B02", "B03", "B04", "B05", "B06", "B07" };
+        Assert.IsNull(BestiaryMilestoneRules.NextClaimable(defs, claimed, 99, 99999), "zone 단계는 판정자 없이 열리지 않는다");
+        Assert.AreEqual("B10", BestiaryMilestoneRules.NextClaimable(defs, claimed, 99, 99999, z => z == "Deep Forest").Id);
+    }
+
+    [Test]
+    public void Bounties_NewMinibossAndEliteTargets_ExistInMonsterSheet()
+    {
+        var ids = new HashSet<string>();
+        foreach (MonsterTable.Row r in MonsterTable.All()) { ids.Add(r.id); }
+        List<BountyDef> defs = LoadBounties();
+        foreach (string id in new[] { "D18", "D19", "D20", "D21", "D22", "D23" })
+        {
+            BountyDef d = BountyRules.Find(defs, id);
+            Assert.IsNotNull(d, id);
+            foreach (string t in d.Targets) { Assert.IsTrue(ids.Contains(t), id + " 대상 " + t); }
+        }
+        Assert.AreEqual(23, defs.Count);
     }
 
     [Test]

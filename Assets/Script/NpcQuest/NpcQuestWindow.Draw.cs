@@ -148,7 +148,7 @@ public partial class NpcQuestWindow
         _v.Detail.text = QuestWindowText.Detail(cur, _tab, s);
         _v.RewardHeader.gameObject.SetActive(true);
         _v.RewardText.text = QuestWindowText.RewardLine(cur);
-        Sprite icon = string.IsNullOrEmpty(cur.RewardItem) ? null : Resources.Load<Sprite>("Item/" + cur.RewardItem);
+        Sprite icon = string.IsNullOrEmpty(cur.RewardItem) ? null : ItemIconLoader.Load(cur.RewardItem);
         _v.RewardIcon.sprite = icon;
         _v.RewardIcon.gameObject.SetActive(icon != null);
         List<NpcQuestDef> active = QuestService.ActiveAll();

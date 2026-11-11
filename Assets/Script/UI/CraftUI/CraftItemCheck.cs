@@ -61,10 +61,10 @@ public class CraftItemCheck : MonoBehaviour
     void LoadImage()
     {
         // 리소스 폴더 내에 있는 이미지 파일의 경로
-        string resourcePath = "Item/" + itemData.name;
+        string itemKey = itemData.name;
 
         // 리소스로드를 통해 이미지를 가져옵니다.
-        Sprite sprite = Resources.Load<Sprite>(resourcePath);
+        Sprite sprite = ItemIconLoader.Load(itemKey);
 
         if (sprite != null)
         {
@@ -72,10 +72,6 @@ public class CraftItemCheck : MonoBehaviour
             Image imageComponent = GetComponent<Image>();
             imageComponent.sprite = sprite;
             image = imageComponent;
-        }
-        else
-        {
-            Debug.LogError("이미지 파일을 로드하지 못했습니다: " + resourcePath);
         }
     }
 }

@@ -230,7 +230,7 @@ public class QuickSlotBar : MonoBehaviour
         for (int i = 0; i < QuickSlotModel.SlotCount; i++)
         {
             string id = _model[i];
-            Sprite sprite = id != null ? Resources.Load<Sprite>("Item/" + id) : null;
+            Sprite sprite = id != null ? ItemIconLoader.Load(id) : null;
             _icons[i].sprite = sprite;
             _icons[i].enabled = sprite != null;
             _groups[i] = id != null ? GroupOfItem(id) : null;

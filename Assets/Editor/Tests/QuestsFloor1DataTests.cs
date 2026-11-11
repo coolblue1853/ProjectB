@@ -137,4 +137,13 @@ public class QuestsFloor1DataTests
         Assert.AreEqual("WildBoar_BD", NpcQuestCatalog.Find("Q202").Target);
         Assert.AreEqual("FangDagger", NpcQuestCatalog.Find("Q202").RewardItem);
     }
+
+    // 탑 근교 무기 공백(11-11 이월 2차): 곁가지 Q610 보상을 강화석 1 → 신규 무기(마도서)로 교체. 강화석은 Q605 외 상점·드롭으로 수급 가능.
+    [Test]
+    public void Q610_Rewards_TowerOutskirtsWeapon()
+    {
+        NpcQuestDef d = NpcQuestCatalog.Find("Q610");
+        Assert.AreEqual("FairysGrimoire", d.RewardItem);
+        Assert.AreEqual(1, d.RewardCount);
+    }
 }

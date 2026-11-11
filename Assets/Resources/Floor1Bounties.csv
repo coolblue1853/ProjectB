@@ -16,3 +16,9 @@ D14,성채,산적 보급로,BanditCutthroat_BD|BanditArcher_BD,8,10,180,300,Poti
 D15,성채,방패 깨기,BanditShieldman_BD,6,10,190,320,Enhance Stone,1
 D16,탑 근교,골렘 해체,GolemSmall_BD|GolemMedium_BD,6,12,240,400,Enhance Stone,1
 D17,탑 근교,폐허 정령,RuinSpirit_BD,6,12,250,400,,0
+D18,성채,산적 부관 추격,BanditLieutenant_BD,1,10,280,400,Enhance Stone,1
+D19,성채,밤 횃불병 정리,BanditTorchbearer_BD,5,10,220,340,Potion,2
+D20,성채,초병·벌목꾼 소탕,BanditSentry_BD|BanditWoodcutter_BD,8,10,200,320,Potion,2
+D21,탑 근교,원로 골렘 토벌,ElderGolem_BD,1,12,400,480,Enhance Stone,2
+D22,탑 근교,폐허 감시자 해체,RuinWarden_BD,6,12,260,420,Enhance Stone,1
+D23,늪,늙은 악어 사냥,OldCroc_BD,1,9,300,360,Enhance Stone,1

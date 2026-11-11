@@ -131,3 +131,7 @@
 ## 11-11 밤 미룬 항목 1~6 (builder)
 - Q-CI11 기본 칼 원복(ActiveProfileOf null). 늪 곁가지 EXP 감액(Q406~409 ≤3,000, Q602 +800, 핀 갱신). 구역 보고 안내판 ZoneReportSign(깊은 숲·늪·요새·탑 입구, 이브 보고, ReportOnly 필터). 정령잉어 3→10%. 문지기 a=1 강화석 +2·입장 알림. Q704 는 이미 talk 1회(변경 없음). 깊은 숲 Q30x 는 ≤1,316 이라 감액 불필요.
 - 컴파일 0·EditMode 1216 통과. 미검증: 안내판 실제 배치 위치·플레이 화면(UnityMCP 프로브 미실행).
+
+## 11-11 밤 이월 2차 (builder)
+- 탑 근교 무기: Q610 보상 강화석→FairysGrimoire(마도서). 도감 B08~B13: 새 metric `zone`(9열 zone=MonsterSheet zone, `BestiaryZoneRules`, 밤·보스·미니보스 제외 전종) 보상=구역 세트 부위 1. 사냥 의뢰 D18~D23(성채·탑·늪 미니보스·정예). Tough Rat Hide→Junk(참조 없음 확인, 핀 테스트 정정). `ItemIconLoader`: 아이콘 없으면 Error 대신 이름당 1회 Warning+기존 임시 그림 유지.
+- 프로브 `_f1e_flow2`: Q1~Q7 62건 선행→수락→목표→보고→완료 bad=0(안내판 필터 일치 포함). 컴파일 0·EditMode 1220 통과. 미검증: 실제 플레이로 도감 전종 지급·안내판 상호작용.

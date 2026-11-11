@@ -279,7 +279,7 @@ public class PickupLog : MonoBehaviour
             row.version = line.version;
             row.rect.gameObject.SetActive(true);
             bool gold = line.itemName == GoldKey;
-            row.icon.sprite = gold ? GoldSprites.Get(0) : Resources.Load<Sprite>("Item/" + line.itemName);
+            row.icon.sprite = gold ? GoldSprites.Get(0) : ItemIconLoader.Load(line.itemName);
             row.icon.enabled = row.icon.sprite != null;
             Color c = theme.RarityColor(line.rarity);
             row.glow.enabled = line.emphasis;

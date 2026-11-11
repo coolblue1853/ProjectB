@@ -300,7 +300,7 @@ public class EnhanceWindow : MonoBehaviour
             }
             ItemData d = items[i].itemData;
             row.bg.color = i == cursor ? Color.white : new Color(1f, 1f, 1f, 0f);
-            row.icon.sprite = Resources.Load<Sprite>("Item/" + d.name);
+            row.icon.sprite = ItemIconLoader.Load(d.name);
             row.icon.enabled = row.icon.sprite != null;
             row.text.text = (InventoryManager.instance.EquippedFor(d.equipArea) == items[i] ? "[착용] " : "") + "<color=#" + ColorUtility.ToHtmlStringRGB(theme.RarityColor(d.rarity)) + ">" + EnhanceRules.DisplayName(string.IsNullOrEmpty(d.itemNameT) ? d.name : d.itemNameT, d.upgrade) + "</color>";
         }
