@@ -168,7 +168,11 @@ public static class ExtraEquip
         }
         data.isNew = false;
         Items[Idx(slot)] = data;
-        Save();
+        if (!Save())
+        {
+            Items[Idx(slot)] = null; // 저장 확인 전에는 장착으로 치지 않는다(호출자가 구 칸을 지우지 않게)
+            return false;
+        }
         ApplyStats();
         Changed?.Invoke();
         return true;
@@ -337,11 +341,12 @@ public static class ExtraEquip
         }
     }
 
-    static void Save()
+    /// <summary>저장 성공 여부(읽기 실패 차단·ES3 예외면 false)</summary>
+    static bool Save()
     {
         if (_saveBlocked)
         {
-            return;
+            return false;
         }
         var ids = new string[Items.Length];
         for (int i = 0; i < ids.Length; i++)
@@ -353,14 +358,16 @@ public static class ExtraEquip
             if (SaveSink != null)
             {
                 SaveSink(ids, _mask);
-                return;
+                return true;
             }
             ES3.Save(SlotRules.SaveKeyExtra, ids);
             ES3.Save(SlotRules.SaveKeyUnlock, _mask);
+            return true;
         }
         catch (Exception e)
         {
             GameLog.Warn(GameLog.Cat.Item, "신규 장비 슬롯 저장 실패: " + e.Message);
+            return false;
         }
     }
 }

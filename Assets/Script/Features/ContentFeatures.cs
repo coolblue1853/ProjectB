@@ -66,8 +66,8 @@ public static class ContentFeatures
         return true;
     }
 
-    /// <summary>테스트·초기화용: 메모리 상태를 비우고 다음 접근 때 세이브를 다시 읽는다</summary>
-    public static void ResetForTests()
+    /// <summary>메모리 상태를 비우고 다음 접근 때 세이브를 다시 읽는다(세이브 로드·삭제 때, 테스트)</summary>
+    public static void ResetCache()
     {
         _set = null;
     }

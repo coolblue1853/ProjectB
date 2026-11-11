@@ -305,6 +305,8 @@ public class InventoryManager : MonoBehaviour
             Service.LoadFrom(SaveManager.instance.datas.invenItem, SaveManager.instance.datas.inventoryFlags);
         }
         ExtraEquip.Load();
+        PetFeature.ResetCache();
+        ContentFeatures.ResetCache();
         MigrateLegacyGear(legacy);
         HideRetiredEquipBoxes();
         ExtraEquipPanel.Ensure(inventory != null ? inventory.transform : null);
@@ -333,7 +335,10 @@ public class InventoryManager : MonoBehaviour
             }
             if (System.Enum.TryParse(item.itemData.equipArea, out EquipSlot slot) && SlotRules.IsExtra(slot))
             {
-                ExtraEquip.TryPlaceDirect(item.itemData); // 귀걸이: 추가 슬롯은 인벤을 거치지 않고 직접 장착
+                if (!ExtraEquip.TryPlaceDirect(item.itemData)) // 귀걸이: 추가 슬롯은 인벤을 거치지 않고 직접 장착
+                {
+                    CreatItem(item.itemData.name, false, item.itemData, AddSource.Other); // 저장 실패·칸 막힘: 가방으로(소실 금지)
+                }
                 Destroy(go);
                 continue;
             }
@@ -585,6 +590,8 @@ public class InventoryManager : MonoBehaviour
                 }
             }
             SaveInventory();
+            PetFeature.ResetCache();
+            ContentFeatures.ResetCache();
         }
     }
 
@@ -1080,6 +1087,9 @@ public class InventoryManager : MonoBehaviour
         return item;
     }
 
+    /// <summary>이행이 보류된(가방 가득) 구 칸 번호 — HideRetiredEquipBoxes 가 숨기지 않는다</summary>
+    readonly HashSet<int> _pendingLegacyBoxes = new HashSet<int>();
+
     /// <summary>
     /// 구 세이브 이행(v2): 구 투구·장갑·하의·신발 칸의 아이템을 새 부위 칸 → 새 슬롯 → 인벤토리 순으로 옮긴다. 공간이 없으면 구 칸 기록을 남긴다(소실 금지).
     /// 인벤 로드와 ExtraEquip.Load 뒤에 부른다.
@@ -1093,6 +1103,7 @@ public class InventoryManager : MonoBehaviour
         var datas = SaveManager.instance.datas;
         DatabaseManager db = DatabaseManager.instance;
         bool changed = false;
+        _pendingLegacyBoxes.Clear();
         foreach (LegacyGearMigration.Entry e in legacy)
         {
             int dbIndex = db != null ? db.FindItemDataIndex(e.Name) : -1;
@@ -1130,7 +1141,12 @@ public class InventoryManager : MonoBehaviour
             else
             {
                 GameLog.Warn(GameLog.Cat.Item, "구 장비 이행 보류(가방 가득): " + e.Name);
+                _pendingLegacyBoxes.Add(e.Index);
             }
+        }
+        if (_pendingLegacyBoxes.Count > 0)
+        {
+            PickupLog.Notice(Loc.T("Bag is full: old gear is kept in its old slot until you free space"));
         }
         if (changed)
         {
@@ -1143,7 +1159,7 @@ public class InventoryManager : MonoBehaviour
     {
         foreach (int i in LegacyGearMigration.LegacyIndexes)
         {
-            if (equipBox != null && i < equipBox.Length && equipBox[i] != null && equipBox[i].transform.childCount == 0)
+            if (equipBox != null && i < equipBox.Length && equipBox[i] != null && equipBox[i].transform.childCount == 0 && !_pendingLegacyBoxes.Contains(i))
             {
                 equipBox[i].SetActive(false);
             }

@@ -92,31 +92,3 @@ public static class SlotRules
         return new ItemStack(p[0], 1, tier, up);
     }
 }
-
-/// <summary>장비 슬롯 ES3 입출력 (얇은 래퍼 — 로직은 EquipmentModel/SlotRules). 읽기 실패 시 잠금·빈칸</summary>
-public static class EquipExtraSave
-{
-    public static void Save(EquipmentModel model)
-    {
-        ES3.Save(SlotRules.SaveKeyExtra, model.ToExtraArray());
-        ES3.Save(SlotRules.SaveKeyUnlock, model.ExtraUnlockMask);
-    }
-
-    public static void Load(EquipmentModel model, SlotContainer inventory)
-    {
-        string[] ids = null;
-        int mask = 0;
-        try
-        {
-            ids = SaveUtil.LoadOrThrow<string[]>(SlotRules.SaveKeyExtra, null);
-            mask = SaveUtil.LoadOrThrow(SlotRules.SaveKeyUnlock, 0);
-        }
-        catch (Exception e)
-        {
-            GameLog.Warn(GameLog.Cat.Item, "신규 장비 슬롯 세이브 읽기 실패, 잠금·빈칸으로 시작: " + e.Message);
-            ids = null;
-            mask = 0;
-        }
-        model.LoadExtra(ids, mask, inventory);
-    }
-}

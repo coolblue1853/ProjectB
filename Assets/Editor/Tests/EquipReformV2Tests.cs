@@ -151,6 +151,31 @@ public class EquipReformV2Tests
     }
 
     [Test]
+    public void SlotUnlockTable_NoDuplicateFloorOrKey_AndValidRows()
+    {
+        SlotUnlockTable.Reload();
+        var floors = new System.Collections.Generic.HashSet<int>();
+        var keys = new System.Collections.Generic.HashSet<string>();
+        Assert.Greater(SlotUnlockTable.Current.Rows.Count, 0);
+        foreach (SlotUnlockRow r in SlotUnlockTable.Current.Rows)
+        {
+            Assert.IsTrue(floors.Add(r.Floor), "같은 층계 중복 행: " + r.Floor);
+            Assert.IsTrue(keys.Add(r.Key), "같은 키 중복 행: " + r.Key);
+            Assert.Greater(r.Floor, 0, r.Key);
+            Assert.IsFalse(string.IsNullOrEmpty(r.Key));
+            if (r.IsSlot)
+            {
+                Assert.IsTrue(System.Enum.TryParse(r.Key, out EquipSlot s) && SlotRules.IsExtra(s), r.Key + " 는 추가 슬롯 이름이어야 한다");
+                Assert.AreEqual(1, r.Floor % 2, r.Key + " 슬롯은 홀수 층계");
+            }
+            else
+            {
+                Assert.AreEqual(0, r.Floor % 2, r.Key + " 콘텐츠는 짝수 층계");
+            }
+        }
+    }
+
+    [Test]
     public void Features_ContentUnlockKeys_ComeFromTable()
     {
         SlotUnlockTable.Reload();

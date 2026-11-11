@@ -11,7 +11,7 @@ public static class PetPotionRules
     /// <summary>현재/최대가 기준 % 이하이면 마실 때. 죽었거나(현재 0 이하) 최대값이 없으면 false</summary>
     public static bool NeedsPotion(int current, int max, int percent)
     {
-        return max > 0 && current > 0 && current * 100 <= percent * max;
+        return max > 0 && current > 0 && (long)current * 100 <= (long)percent * max;
     }
 
     /// <summary>다음 기준 %(목록 끝에서 처음으로 돈다). 목록에 없는 값은 가장 가까운 윗단계</summary>
@@ -111,7 +111,8 @@ public static class PetFeature
         }
     }
 
-    public static void ReloadForTests()
+    /// <summary>캐시를 비워 다음 접근 때 세이브를 다시 읽게 한다(세이브 로드·삭제 때, 테스트)</summary>
+    public static void ResetCache()
     {
         _loaded = false;
     }
