@@ -77,3 +77,8 @@
 - 슬롯 훅: `BossLoot` 첫 처치가 `grantsRank`→`boss:N` 호출 중(1~3층계·bestiary:B04 연결 확인). 4~7층계(룬·허리띠·성물·마법석)는 보스 에셋 없음 = 콘텐츠 대기(EquipSlotExpansion §10).
 - 히든 포털: `HiddenPortals.csv`+`HiddenPortals.cs`(숲 샛길·일반 숲 각 1쌍, 지면 스냅·마우스 클릭·숨김 라벨). S4 검색: `InventorySearch`(/·Ctrl+F·한글 IME·Esc, 패드 LT+RB 첫 글자, 버튼 "검색 /"), 입력 중 단축키 차단(IsBlocking).
 - 컴파일 0·EditMode 1154 통과(신규 8)·play probe 이동·검색 확인. 미검증: 실패드·실마우스·실제 IME, 일반 숲 히든 포털 실좌표. Q-FT5 임시 가정 유지.
+
+## 11-11 WSKILL-V2-2 P7 · 퀘스트 대사 CSV (builder)
+- P7: 정수 스탯 `ToWholePoints`(0.5→1,1,2,2,3)·극의 전 타입 `UltimateMul`·`CombatState` 5초 전투 중 K 창 차단·장비 HP 변화 시 트리 HP% 재계산. `SkillTreeP7Tests` + probe `wskill_p7`.
+- 대사: 로더·열(offer/progress/done)·CSV 우선 폴백은 이미 있었음 → 6건(Q204·Q301·Q403·Q502·Q601·Q604) 새 대사 이행 + `QuestVoiceCsvTests`(형식 상한·폴백). Q102 빈 값 핀·QuestCatalog 기준값 불변.
+- 컴파일 0·EditMode 1177 통과·play probe 확인. 미검증: 실 NPC 대화창 화면, 생활 노드(훅 없음).

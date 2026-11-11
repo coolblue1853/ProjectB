@@ -7,25 +7,25 @@ Q105,이끼 낀 껍질,ruen,3,Q102,kill,MossShellBeetle_BD,5,600,120,Potion,1,�
 Q201,나무에 새겨진 별,elder,3,Q101,collect,StarBarkFragment,3,1000,160,WolfCap,1,샛길의 오른쪽 일반 숲 포털 → 숲 늑대를 사냥해 별무늬 수피 조각 3개를 주워 장로에게 보고한다. 수락 중에만 조각이 떨어진다.,,main,eve
 Q202,숲의 경계선,ruen,4,Q102,kill,WildBoar_BD,8,900,210,FangDagger,1,샛길 오른쪽 일반 숲 포털에서 들어가 왼쪽으로 이동하며 멧돼지 8마리를 처치한 뒤 마을 루엔에게 보고한다.,,reward
 Q203,불가에서 만든 첫 끼,merchant,4,Q103,craft,Herb Roasted Rabbit,1,1080,140,Herb Roasted Rabbit,1,샛길 화로(입구에서 오른쪽)에서 토끼고기 2·약초 1·나무 1로 허브 토끼구이를 만든다. ↑ 시작·X 요리 및 뒤집기·ESC 취소.,,reward
-Q204,어두워지는 숲,eve,5,Q202,visit,forest_night_post,1,1000,210,WolfShoes,1,일반 숲 입구 이브에게 받은 뒤 왼쪽으로 조금 가서 금빛 별 관측지를 밟고 이브에게 돌아온다. 방문은 낮에도 가능하다.,,side
-Q301,말하는 나이테,elder,6,Q201,kill,AncientEnt_BD,1,1300,300,GroveCap,1,메인: 고대 엔트의 기억에서 탑의 문장을 본다.,,main
+Q204,어두워지는 숲,eve,5,Q202,visit,forest_night_post,1,1000,210,WolfShoes,1,일반 숲 입구 이브에게 받은 뒤 왼쪽으로 조금 가서 금빛 별 관측지를 밟고 이브에게 돌아온다. 방문은 낮에도 가능하다.,,side,,숲이 밤마다 조금씩 어두워져.^길가 별빛이 언제부터 줄었는지 보고 싶어.|왼쪽 끝 관측지까지 가 줘.^밟기만 하면 돼.,아직이야? 관측지는 입구에서 왼쪽으로 조금 더 가.,…빛이 이어져 있어. 누군가 일부러 놓은 길이야.^고마워. 다음엔 둥지 쪽을 같이 보자.
+Q301,말하는 나이테,elder,6,Q201,kill,AncientEnt_BD,1,1300,300,GroveCap,1,메인: 고대 엔트의 기억에서 탑의 문장을 본다.,,main,,깊은 숲 한가운데 늙은 엔트가 서 있네.^그 나이테를 들여다보고 싶네.|쓰러뜨려야 속이 보일 걸세.^서두르지는 말게.,엔트는 깊은 숲 안쪽에 있네.^뿌리가 움직이니 발밑을 보게.,…문양이 있었군. 브로치와 닮은 결이야.^아직은 뜻을 말하기 이르네.
 Q302,곰의 길,ruen,6,Q202,kill,ForestBear_BD,7,1200,250,BearClaw,1,깊은 숲의 중형 몬스터를 소개한다.,,reward
 Q303,죽은 나무의 심장,smith,7,Q302,collect,EntHeartwood,3,1316,270,Enhance Stone,1,엔트 파밍과 대장장이 방문을 연결한다.,,reward
 Q304,새벽의 빈 둥지,eve,8,Q302,visit,deep_nest,1,1300,240,RootStaff,1,흔적 추적 및 정예 둥지 위치를 안내한다.,,side
 Q305,가지뿔에 걸린 길,ruen,7,Q302,kill,BranchAntlerFox_BD,6,850,200,Potion,1,깊은 숲의 가지뿔 여우 6마리를 처치해 루엔에게 보고한다. 짧게 돌진하니 달려드는 방향을 보고 거리를 벌린다.,,reward
 Q401,물속의 네 갈래 별,elder,9,Q301,collect,SwampStarShard,3,1500,350,CrocJawAxe,1,메인: 늪 악어가 삼킨 별 문장 조각을 모은다.,,main
 Q402,늪이 삼킨 낚싯줄,merchant,9,Q401,collect,Moss Loach,2,1400,250,BogCap,1,낚시 입문: 늪 낚시터에서 이끼미꾸라지를 낚는다.,,reward
-Q403,가라앉지 않는 진흙,sena,10,Q401,kill,BogSlime_BD,8,1469,310,Potion,1,야간 늪 사냥과 슬라임 위험을 안내한다.,,reward
+Q403,가라앉지 않는 진흙,sena,10,Q401,kill,BogSlime_BD,8,1469,310,Potion,1,야간 늪 사냥과 슬라임 위험을 안내한다.,,reward,,늪 슬라임이 길가까지 번졌어요.^조금만 줄여 주실래요?|밤엔 진흙이 더 크게 움직여요.^물약을 넉넉히 챙기세요.,아직 남았어요. 진흙에 가려진 몸을 조심하세요.^무리하지는 마세요.,무사히 돌아오셨네요.^길이 한결 마르겠어요. 감사합니다.
 Q404,부풀어 오른 심장,ruen,11,Q403,kill,GiantSlime_BD,1,1600,470,Enhance Stone,1,늪 보스 공략 후 성채 분기와 탑 근교를 연다.,,main
 Q405,등에 핀 포자,sena,9,Q401,kill,SporeBackToad_BD,6,950,230,Potion,1,늪의 포자등 두꺼비 6마리를 처치해 세나에게 보고한다. 맞으면 포자 구름이 퍼지니 터진 자리에서 물러난다.,,reward
 Q501,사라진 운반대,merchant,11,Q404,kill,BanditCutthroat_BD,8,800,350,,,선택: 산적 성채의 보급로를 확인한다.,,side
-Q502,빼앗긴 대장간 화물,smith,12,Q501,collect,StolenForgeCrate,4,900,420,T0_Ore,1,선택: 산적 궁수 드롭을 모아 제작 거점을 돕는다.,,side
+Q502,빼앗긴 대장간 화물,smith,12,Q501,collect,StolenForgeCrate,4,900,420,T0_Ore,1,선택: 산적 궁수 드롭을 모아 제작 거점을 돕는다.,,side,,궁수들이 대장간 화물을 가져갔어.^되찾아 와.|성채 안쪽이다.^화살 조심해.,상자는 궁수 곁에 있어.^빈손으로 오지 마.,내 상자가 맞아. 쇠도 멀쩡하군.^수고했다. 몫은 챙겨 가.
 Q503,방패 너머의 길,ruen,12,Q501,kill,BanditShieldman_BD,7,811,390,,,선택: 성채 안쪽으로 진입한다.,,side
 Q504,성채에 남은 밤,eve,13,Q502,kill,BanditChief_BD,1,900,650,ChiefsLastStandRing,1,선택: 성채 분기 보스를 격파한다.,,side
-Q601,별이 닿은 돌문,elder,13,Q401,visit,tower_altar,1,1700,540,,,메인: 브로치가 유적 제단에 반응한다.,,main
+Q601,별이 닿은 돌문,elder,13,Q401,visit,tower_altar,1,1700,540,,,메인: 브로치가 유적 제단에 반응한다.,,main,,탑 가까이에 네 갈래 별 제단이 있네.^브로치를 가져가 보게.|반응이 있다면 그것이 길일세.^돌아와 들려주게.,제단은 탑 근교 길가에 있네.^브로치가 따뜻해지는지 살피게.,브로치가 응답했다니…^그 길은 아직 끝이 아니네. 쉬었다 가게.
 Q602,돌에 묻힌 기록,eve,13,Q601,collect,excavation.records,5,1800,470,,,탑 근교 유적에서 발굴을 반복해 아버지의 기록 5편을 모은다. 유물을 하나라도 캐면 기록 1편을 얻고(확률로 더 나오기도 한다) 일반 5분·희귀 10분 후 다시 발굴할 수 있다.,,side
 Q603,잠들지 않는 골렘,smith,14,Q601,kill,GolemMedium_BD,6,1607,580,Enhance Stone,2,골렘 사냥과 강화 재료 획득을 안내한다.,,reward
-Q604,첫 번째 문의 수호자,elder,15,Q601,kill,Gatekeeper_BD,1,2000,1000,BroochResonance,1,메인: 문지기 격파 후 브로치에 다음 층계 길이 새겨진다.,,main
+Q604,첫 번째 문의 수호자,elder,15,Q601,kill,Gatekeeper_BD,1,2000,1000,BroochResonance,1,메인: 문지기 격파 후 브로치에 다음 층계 길이 새겨진다.,,main,,문 앞에 서 있는 문지기가 있네.^그를 쓰러뜨려야 위로 가는 길이 열리네.|누구인지는 묻지 않겠네.^다만 준비는 충분히 하게.,문지기는 탑 근교 문 앞에 있네.^준비가 되거든 서게.,문이 열렸군. 브로치에 새 길이 새겨졌네.^무사히 돌아왔으니 그것으로 됐네.
 Q106,쥐 도둑 소탕,ruen,2,Q102,kill,RatThief_BD,6,600,70,RatCap,1,쥐 도둑 6마리를 처치해 루엔에게 보고한다.,,reward,
 Q107,기본 방어구 착용,merchant,3,Q103,equip,armor,1,400,70,LeafCap,1,기본 방어구를 1부위 착용하고 상인에게 보고한다.,,reward,
 Q108,표본 버섯 채집,sena,3,Q103,collect,Forest Mushroom,5,300,70,Potion,1,샛길 약초 덤불에서 숲 버섯 5개를 모아 세나에게 보고한다.,,reward
