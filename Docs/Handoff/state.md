@@ -1,4 +1,4 @@
-# 상태 (11-04 총괄 마감, 주간 34%)
+﻿# 상태 (11-04 총괄 마감, 주간 34%)
 - 오늘 완료: GUARD-BANNER·SAFE-ZONE(60c1f176), NPC_BLOCK·QUEST-UI(e4170c76), 설계 4종(Q-DEATH·EquipSlotExpansion·Floor1Completion §15·InventoryRefactorDesign §7), 낙하물·봇 점프·MAP-SCAN(8c3bdbbe), INV-EXP-1~3(14711f2d), TUTORIAL-HINT(df080212), MINIMAP 점(a0320663), SETTINGS-KEYS(기존 구현 확인 5ac9640d), CHIEF-1·2(9e8ca9d6)·SLOT-1(3dc2dfae), PV2 7항목 통과(54e2c7d4).
 - 주의: 다른 프로세스가 같은 큐·state.md 를 병행 수정 중(INV-EXP·TUTORIAL·SETTINGS 가 세션 시작 전 이미 구현됨). 중복 확인 필요.
 - 사용자 대기: Q-DEATH 승인(Lv1~10 EXP 손실 0, 보스 구간 7%) → DEATH-PENALTY-IMPL. Q-SLOT·Q-INV02 임시 가정 확인. Q13~18 주말.
@@ -47,3 +47,7 @@
 - REWORK-15: `MonsterSheet.csv` HP 22종 조정(1층 Lv11~15 76~110 → 200~350, 2층 일반 몹 완화·상향, DeathBringer 2500 → 700·EXP 566), 정예 3종 HP 기반 x4. probe `_bal_ttk` 처치 1.5~2s → 3.5~7s(1층 후반). `MiniBossDataTests` x10 → x4~x10. EditMode 1096 통과. 상세 `LevelDesignRef.md` §7.
 - REWORK-14: `Game/FastTravel.md` 신규(설계만): 정류장 9곳·퀘스트 해금·요금·ES3 `ft.stops`·3경로·히든 포털·P0~P5. 코드 없음.
 - 남음: 실플레이 체감·보스 HP·초반 장비 스탯 상한 점검(Q-BAL1), 마차 구현 P0~.
+
+## 11-11 REWORK-11 요리 일괄 (builder)
+- `Game/Cooking.md` 신규(진단·설계). Town x=-406 마을 요리대(쿨 0)·요리 X → `QuantityPopup` 일괄(최대 10, 한 판 등급 전체 적용, 가방 부족 시 부분 지급)·선택 단계 마우스 버튼·MiniGameSpot ↑ 중재·대장장이 쌓이는 제작물 일괄(상한 99).
+- 컴파일 0·EditMode 1107 통과(신규 11)·play probe(요리대 존재·팝업·2개분 소모·탄 요리 2) 확인. 미검증: 실마우스·패드, 완벽 등급 일괄, 대장장이 UI 실조작. Loc 6키 I2 동기화.

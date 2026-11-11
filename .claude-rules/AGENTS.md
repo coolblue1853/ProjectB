@@ -93,6 +93,7 @@
 | `Game/EquipEffectDesign.md` | 장비·세트 효과 설계(REWORK-12): 스킬 수정자·규칙 대체 프레임워크, 등급별 효과 표, 1층계 효과 초안, P0~P8 |
 | `Game/QuestSystemDesign.md` | 퀘스트 통합 설계(REWORK-5): 3계통 비교·공통 데이터 모델·Q 창·추적 HUD·입구 통일·U7 정책·P0~P5 |
 | `Game/QuestDesign.md` | 퀘스트 콘텐츠(REWORK-6): 메이플 퀘스트 구성 조사·유형 3종 정의·대사 단계 형식·층계별 메인 줄기·사이드 사슬·재분류표 |
+| `Game/Cooking.md` | 요리·일괄 제작(REWORK-11): 현재 구조 진단·마을 요리대·수량 선택 일괄·한 판 등급 전체 적용·대장장이 일괄 제작 통일 |
 | `Game/EquipSplitPlaybook.md` | 장비 부위 분리 노하우: 속옷 기반 몸+5부위 쌓기·영역 지도·배낭/랜턴=상의·절차·함정 |
 | `Game/FloorTransition.md` | 층계 전환 규칙: 이동 조건·칭호 부하·포털/귀환·안전지대·구현 갭 FT-* |
 | `Game/FastTravel.md` | 빠른 이동(REWORK-14): 수레(마차) 형제 NPC 정류장·퀘스트 해금·골드 이동 규칙·ES3 `ft.stops`·3경로 입력·히든 포털·P0~P5(설계만) |

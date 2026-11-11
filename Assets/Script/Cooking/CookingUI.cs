@@ -32,6 +32,7 @@ public class CookingUI : MonoBehaviour
     private TextMeshProUGUI _line;
     private TextMeshProUGUI _help;
     private GameObject _bar;
+    private GameObject _buttons;
     private RectTransform _perfectRect;
     private RectTransform _goodRect;
     private RectTransform _safeRect;
@@ -111,15 +112,16 @@ public class CookingUI : MonoBehaviour
     {
         _panelRect.sizeDelta = new Vector2(PanelWidth, s.Phase == CookPhase.Result ? ResultHeight : PlayHeight);
         _bar.SetActive(s.Phase == CookPhase.Play);
+        _buttons.SetActive(s.Phase == CookPhase.Select && s.Recipes.Count > 0);
         _timeFill.parent.gameObject.SetActive(s.Phase == CookPhase.Play);
         switch (s.Phase)
         {
             case CookPhase.Select:
-                _help.text = Loc.T(s.Recipes.Count > 0 ? "LEFT RIGHT pick  ·  X cook  ·  ESC close" : "ESC close");
+                _help.text = Loc.T(s.Recipes.Count > 0 ? "LEFT RIGHT pick  ·  X cook (pick how many)  ·  ESC close" : "ESC close");
                 break;
             case CookPhase.Play:
                 bool grill = s.Recipe.Method == CookMethod.Grill;
-                _message.text = ItemText.DisplayName(s.Recipe.Id);
+                _message.text = ItemText.DisplayName(s.Recipe.Id) + (s.Count > 1 ? " x" + s.Count : "");
                 _help.text = Loc.T(grill ? "X flip when the cursor hits the mark  ·  ESC stop" : "Hold X for heat  ·  keep it in the blue  ·  ESC stop");
                 BuildZones(grill);
                 break;
@@ -145,7 +147,10 @@ public class CookingUI : MonoBehaviour
         }
         CookRecipe r = s.Recipes[s.Index];
         _message.text = (s.Index > 0 ? "< " : "  ") + ItemText.DisplayName(r.Id) + (s.Index < s.Recipes.Count - 1 ? " >" : "  ");
-        _sub.text = Loc.T(r.Method == CookMethod.Grill ? "Grill - flip on time" : "Boil - hold the heat") + "  (" + (s.Index + 1) + "/" + s.Recipes.Count + ")";
+        InventoryManager inv = InventoryManager.instance;
+        int max = inv != null ? CookingRules.MaxCount(r, inv.CountItem) : 1;
+        _sub.text = Loc.T(r.Method == CookMethod.Grill ? "Grill - flip on time" : "Boil - hold the heat") + "  (" + (s.Index + 1) + "/" + s.Recipes.Count + ")  "
+            + string.Format(Loc.T("Up to x{0}"), max);
         _line.text = IngredientText(r);
     }
 
@@ -241,7 +246,7 @@ public class CookingUI : MonoBehaviour
             _sub.text = Loc.T("Got: ") + "<color=#" + ColorUtility.ToHtmlStringRGB(theme.RarityColor(rarity)) + ">"
                 + ItemText.DisplayName(stove.ResultId) + "</color> x" + stove.ResultCount;
         }
-        _line.text = "";
+        _line.text = stove.Lost > 0 && !stove.BagFull ? string.Format(Loc.T("Bag full - {0} left behind"), stove.Lost) : "";
     }
 
     private static string GradeKey(CookGrade grade, bool overheated)
@@ -285,6 +290,7 @@ public class CookingUI : MonoBehaviour
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920f, 1080f);
         scaler.matchWidthOrHeight = 0.5f;
+        gameObject.AddComponent<GraphicRaycaster>(); // 선택 단계 마우스 버튼(◀ ▶ 요리)
 
         Image panel = theme.NewPanel("CookingPanel", transform, false, 0.9f);
         _panel = panel.gameObject;
@@ -331,7 +337,60 @@ public class CookingUI : MonoBehaviour
         hr.anchoredPosition = new Vector2(0f, 24f);
         hr.sizeDelta = new Vector2(PanelWidth - 24f, 20f);
 
+        BuildButtons(theme, pr);
         _panel.SetActive(false);
+    }
+
+    /// <summary>선택 단계 마우스 경로: ◀ ▶ 로 레시피 고르기, [요리] 로 시작(키 X·패드 West 와 같은 RequestStart)</summary>
+    private void BuildButtons(UiTheme theme, RectTransform parent)
+    {
+        _buttons = new GameObject("Buttons", typeof(RectTransform));
+        _buttons.transform.SetParent(parent, false);
+        var br = (RectTransform)_buttons.transform;
+        br.anchorMin = Vector2.zero;
+        br.anchorMax = Vector2.one;
+        br.offsetMin = br.offsetMax = Vector2.zero;
+        NewButton(theme, br, "<", new Vector2(-150f, -120f), new Vector2(64f, 44f), () => Pick(-1));
+        NewButton(theme, br, Loc.T("Cook"), new Vector2(0f, -120f), new Vector2(160f, 44f), Start);
+        NewButton(theme, br, ">", new Vector2(150f, -120f), new Vector2(64f, 44f), () => Pick(1));
+    }
+
+    private static void Pick(int dx)
+    {
+        CookingStove stove = CookingStove.Current;
+        if (stove != null)
+        {
+            stove.SelectDelta(dx);
+        }
+    }
+
+    private static void Start()
+    {
+        CookingStove stove = CookingStove.Current;
+        if (stove != null)
+        {
+            stove.RequestStart();
+        }
+    }
+
+    private static void NewButton(UiTheme theme, RectTransform parent, string label, Vector2 pos, Vector2 size, System.Action onClick)
+    {
+        Image img = theme.NewPanel("Btn_" + label, parent, true);
+        img.raycastTarget = true;
+        RectTransform rt = img.rectTransform;
+        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 1f);
+        rt.pivot = new Vector2(0.5f, 1f);
+        rt.anchoredPosition = pos;
+        rt.sizeDelta = size;
+        var btn = img.gameObject.AddComponent<Button>();
+        btn.targetGraphic = img;
+        btn.onClick.AddListener(() => onClick());
+        TextMeshProUGUI t = NewText(theme, "Label", rt, Vector2.zero, 22f);
+        t.rectTransform.anchorMin = Vector2.zero;
+        t.rectTransform.anchorMax = Vector2.one;
+        t.rectTransform.offsetMin = t.rectTransform.offsetMax = Vector2.zero;
+        t.alignment = TextAlignmentOptions.Center;
+        t.text = label;
     }
 
     private static Image NewImage(string name, Transform parent, Color color)

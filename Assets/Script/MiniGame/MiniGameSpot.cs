@@ -129,7 +129,9 @@ public abstract class MiniGameSpot : MonoBehaviour
         {
             _prompt.gameObject.SetActive(can);
         }
-        if (can && pressed)
+        // ↑ 중재(REWORK-0): 겹친 NPC·포털·상점이 있으면 가장 가까운 하나만 ↑ 를 쓴다
+        bool mine = InteractArbiter.Contend(this, transform.position, can);
+        if (can && pressed && mine)
         {
             Begin();
         }

@@ -1,0 +1,10 @@
+var pc = UnityEngine.Object.FindFirstObjectByType<PlayerController>();
+CookingStove k = null;
+foreach (var s in UnityEngine.Object.FindObjectsByType<CookingStove>(FindObjectsInactive.Include, FindObjectsSortMode.None)) if (s.IsKitchen) k = s;
+if (k == null) return "no kitchen";
+var inv = InventoryManager.instance;
+inv.Service.Add("Rabbit Meat", 7, AddSource.Other);
+inv.Service.Add("GreenHurb", 4, AddSource.Other);
+inv.Service.Add("Wood", 5, AddSource.Other);
+pc.transform.position = new UnityEngine.Vector3(k.transform.position.x, k.transform.position.y + 0.5f, pc.transform.position.z);
+return "kitchen " + k.transform.position + " active=" + k.gameObject.activeInHierarchy + " map=" + k.transform.parent.name + " rabbit=" + inv.CountItem("Rabbit Meat");

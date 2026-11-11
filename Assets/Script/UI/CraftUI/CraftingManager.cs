@@ -173,15 +173,56 @@ public class CraftingManager : MonoBehaviour
         image.sprite = changeImage.sprite;
     }
 
+    /// <summary>제작 키·버튼 진입점. 쌓이는 결과물이고 2회분 이상이면 수량 창(REWORK-11, 요리와 같은 QuantityPopup), 아니면 1개 제작</summary>
     public void Craft()
     {
+        if (QuantityPopup.IsOpen)
+        {
+            return;
+        }
+        ItemData data = nowCraftItem.itemData;
+        int max = BatchMax();
+        if (max >= 2 && data != null && data.maxStack > 1)
+        {
+            OpenBatchPopup(data, max);
+            return;
+        }
+        CraftCount(1);
+    }
+
+    /// <summary>재료·골드로 한 번에 만들 수 있는 최대 개수(BatchRules)</summary>
+    int BatchMax()
+    {
+        string resultName = nowCraftItem.itemData.name;
+        return BatchRules.MaxCount(AggregateNeeds(), InventoryManager.instance.CountItem, CraftGoldRules.GoldFor(resultName), DatabaseManager.money, BatchRules.CraftCap);
+    }
+
+    void OpenBatchPopup(ItemData data, int max)
+    {
+        int gold = CraftGoldRules.GoldFor(data.name);
+        QuantityPopup.Open(new QuantityRequest
+        {
+            Title = Loc.T("Craft how many?"),
+            ItemName = data.itemNameT,
+            Min = 1,
+            Max = max,
+            Initial = 1,
+            ConfirmLabel = Loc.T("Craft"),
+            Detail = n => n + " / " + max + (gold > 0 ? "  (" + CraftGoldRules.CostLabel(gold * n) + ")" : ""),
+            OnConfirm = CraftCount,
+        });
+    }
+
+    void CraftCount(int count)
+    {
+        count = Mathf.Max(1, count);
         // 같은 재료가 여러 줄로 나뉜 레시피도 합산해서 판정한다 (예: Ring ×6)
         var needs = AggregateNeeds();
         foreach (var need in needs)
         {
-            if (InventoryManager.instance.CountItem(need.Key) < need.Value)
+            if (InventoryManager.instance.CountItem(need.Key) < need.Value * count)
             {
-                Debug.Log($"제작 실패: 재료 부족 ({need.Key} {InventoryManager.instance.CountItem(need.Key)}/{need.Value})");
+                Debug.Log($"제작 실패: 재료 부족 ({need.Key} {InventoryManager.instance.CountItem(need.Key)}/{need.Value * count})");
                 Sfx.Play(SfxId.CraftFail);
                 return;
             }
@@ -189,14 +230,15 @@ public class CraftingManager : MonoBehaviour
 
         // 표시 이름(itemNameT)이 아니라 아이템 키(name)로 생성해야 한다
         string resultName = nowCraftItem.itemData.name;
-        int goldCost = CraftGoldRules.GoldFor(resultName);
+        int goldCost = CraftGoldRules.GoldFor(resultName) * count;
         if (CraftGoldRules.Short(goldCost, DatabaseManager.money))
         {
             Debug.Log($"제작 실패: 골드 부족 ({DatabaseManager.money}/{goldCost})");
             Sfx.Play(SfxId.CraftFail);
             return;
         }
-        if (!InventoryManager.instance.HasRoomFor(resultName))
+        bool bulk = count > 1;
+        if (bulk ? !InventoryManager.instance.Service.Add(resultName, count, AddSource.Craft) : !InventoryManager.instance.HasRoomFor(resultName))
         {
             Debug.Log("제작 실패: 인벤토리 공간 부족");
             Sfx.Play(SfxId.CraftFail);
@@ -206,13 +248,24 @@ public class CraftingManager : MonoBehaviour
         DatabaseManager.money = CraftGoldRules.Spend(goldCost, DatabaseManager.money);
         foreach (var need in needs)
         {
-            InventoryManager.instance.DeletItemByName(need.Key, need.Value);
+            InventoryManager.instance.DeletItemByName(need.Key, need.Value * count);
         }
-        InventoryManager.instance.CreatItem(resultName, false, null, AddSource.Craft);
+        if (bulk)
+        {
+            InventoryManager.instance.SaveInventory();
+            PickupLog.Report(nowCraftItem.itemData.itemNameT, count, nowCraftItem.itemData.rarity.ToString());
+        }
+        else
+        {
+            InventoryManager.instance.CreatItem(resultName, false, null, AddSource.Craft);
+        }
         InventoryManager.instance.RebuildItemStackCache();
-        PixelCrushers.MessageSystem.SendMessage(this, "Craft", resultName); // 제작 퀘스트 (G11)
-        PixelCrushers.MessageSystem.SendMessage(this, "Craft", "Any");
-        Debug.Log("제작 성공: " + resultName);
+        for (int i = 0; i < count; i++)
+        {
+            PixelCrushers.MessageSystem.SendMessage(this, "Craft", resultName); // 제작 퀘스트 (G11)
+            PixelCrushers.MessageSystem.SendMessage(this, "Craft", "Any");
+        }
+        Debug.Log("제작 성공: " + resultName + " x" + count);
         Sfx.Play(SfxId.Craft);
     }
 
@@ -401,6 +454,10 @@ public class CraftingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (QuantityPopup.IsBlocking)
+        {
+            return; // 수량 창이 열려 있거나 방금 닫힘 — 같은 입력을 다시 처리하지 않는다
+        }
 
 
 

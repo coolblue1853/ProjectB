@@ -5,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 /// 캠프 화로 배치(씬 파일을 고치지 않고 부트 때 맵 오브젝트 아래에 만든다, ExcavationSitePlacer 와 같은 방식).
 /// y 는 지면 높이이고, 화로가 처음 켜질 때 아래 지면에 다시 붙는다. 표시는 코드 도트(돌 테두리 + 장작 + 불꽃)와 LightFlicker 불빛.
 /// 지금(층계 1): 초반 숲 샛길(야영지 자리) 1 · 늪 1 — 포털·다른 미니게임 지점과 떨어진 자리.
+/// 마을 요리대(REWORK-11, Cooking.md): Town x=-406(루엔 -402.5·세나 -409.5 사이) — 쿨타임 없음, 그림은 임시(화로 도트 재사용).
 /// </summary>
 public static class CookingStovePlacer
 {
@@ -12,11 +13,13 @@ public static class CookingStovePlacer
     {
         public string Map;
         public Vector2 Position;
+        public bool Kitchen;
 
-        public Placement(string map, float x, float y)
+        public Placement(string map, float x, float y, bool kitchen = false)
         {
             Map = map;
             Position = new Vector2(x, y);
+            Kitchen = kitchen;
         }
     }
 
@@ -24,6 +27,7 @@ public static class CookingStovePlacer
     {
         new Placement("Lv1_NearForest_SideRoad", -375f, 1.4f),
         new Placement("Lv1_Swamp", -296f, -180f),
+        new Placement("Town", -406f, 135.5f, true),
     };
 
     private static Sprite _fire;
@@ -64,9 +68,9 @@ public static class CookingStovePlacer
 
     private static void Create(Transform parent, Placement p, int index)
     {
-        var go = new GameObject("CookingStove_" + index);
+        var go = new GameObject((p.Kitchen ? "TownKitchen_" : "CookingStove_") + index);
         go.transform.SetParent(parent, false);
-        go.transform.position = new Vector3(p.Position.x, p.Position.y, parent.position.z);
+        go.transform.position = new Vector3(p.Position.x, p.Position.y, p.Kitchen ? 0f : parent.position.z); // 마을 NPC 와 같은 z=0
         go.layer = LayerMask.NameToLayer("Default");
         var box = go.AddComponent<BoxCollider2D>();
         box.isTrigger = true;
@@ -90,7 +94,7 @@ public static class CookingStovePlacer
         light.pointLightInnerRadius = 0.4f;
         glow.AddComponent<LightFlicker>();
 
-        go.AddComponent<CookingStove>().Init(sr);
+        go.AddComponent<CookingStove>().Init(sr, p.Kitchen);
     }
 
     /// <summary>모닥불(24×18, PPU 16): 돌 테두리 + 엇갈린 장작 + 세 겹 불꽃(빨강·주황·노랑)</summary>

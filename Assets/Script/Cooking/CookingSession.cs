@@ -29,6 +29,8 @@ public sealed class CookingSession
     public CookGrade Grade { get; private set; }
     public bool Cancelled { get; private set; }
     public bool Overheated { get; private set; }
+    /// <summary>이번 판으로 한꺼번에 만드는 개수(1 이상). 한 판의 등급이 전부에 적용된다</summary>
+    public int Count { get; private set; } = 1;
     /// <summary>플레이 시작 뒤 경과(결과가 나면 결과 뒤 경과)</summary>
     public float Elapsed { get; private set; }
 
@@ -65,13 +67,14 @@ public sealed class CookingSession
         Index = Math.Max(0, Math.Min(_recipes.Count - 1, Index + dx));
     }
 
-    /// <summary>선택 단계: 고른 레시피로 시작. 레시피가 없으면 null</summary>
-    public CookRecipe Confirm()
+    /// <summary>선택 단계: 고른 레시피로 count 개를 한 판에 시작. 레시피가 없으면 null</summary>
+    public CookRecipe Confirm(int count = 1)
     {
         if (Phase != CookPhase.Select || _recipes.Count == 0)
         {
             return null;
         }
+        Count = Math.Max(1, count);
         Recipe = _recipes[Index];
         Phase = CookPhase.Play;
         Elapsed = 0f;

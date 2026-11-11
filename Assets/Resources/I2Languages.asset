@@ -8670,6 +8670,55 @@ MonoBehaviour:
       - "{0} \uBCC0\uD615: {1}"
       Flags: 0000
       Languages_Touch: []
+    - Term: LEFT RIGHT pick X cook (pick how many) ESC close
+      TermType: 0
+      Description: 
+      Languages:
+      - "LEFT RIGHT pick  \xB7  X cook (pick how many)  \xB7  ESC close"
+      - "\uC88C\uC6B0 \uACE0\uB974\uAE30  \xB7  X \uC694\uB9AC(\uAC1C\uC218 \uC120\uD0DD) 
+        \xB7  ESC \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cook how many?
+      TermType: 0
+      Description: 
+      Languages:
+      - Cook how many?
+      - "\uBA87 \uAC1C \uC694\uB9AC\uD560\uAE4C?"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cook
+      TermType: 0
+      Description: 
+      Languages:
+      - Cook
+      - "\uC694\uB9AC"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Up to x{0}
+      TermType: 0
+      Description: 
+      Languages:
+      - Up to x{0}
+      - "\uCD5C\uB300 x{0}"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Craft how many?
+      TermType: 0
+      Description: 
+      Languages:
+      - Craft how many?
+      - "\uBA87 \uAC1C \uC81C\uC791\uD560\uAE4C?"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bag full - {0} left behind
+      TermType: 0
+      Description: 
+      Languages:
+      - Bag full - {0} left behind
+      - "\uAC00\uBC29\uC774 \uAC00\uB4DD \uCC28 {0}\uAC1C\uB97C \uB450\uACE0 \uC654\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

@@ -74,6 +74,7 @@ public static class CookingRules
     // 공통
     public const float StoveCooldown = 90f;
     public const string BurntId = "Burnt Meal";
+    public const float KitchenCooldown = 0f;      // 마을 요리대는 쿨타임 없음(일괄 요리가 이를 대신함)
 
     public static readonly CookRecipe[] Recipes =
     {
@@ -161,6 +162,29 @@ public static class CookingRules
     public static int ResultCount(CookGrade grade)
     {
         return grade == CookGrade.Perfect ? 2 : 1;
+    }
+
+    /// <summary>일괄 요리 결과 개수: 한 판의 등급을 batch 개 전부에 적용(완벽 2n, 좋음·보통 n, 실패 n 개의 탄 요리)</summary>
+    public static int ResultCount(CookGrade grade, int batch)
+    {
+        return ResultCount(grade) * Math.Max(1, batch);
+    }
+
+    /// <summary>가진 재료로 이 레시피를 최대 몇 번 만들 수 있나(상한 BatchRules.CookCap)</summary>
+    public static int MaxCount(CookRecipe recipe, Func<string, int> have)
+    {
+        var needs = new List<KeyValuePair<string, int>>(recipe.Ingredients.Length);
+        foreach (CookIngredient i in recipe.Ingredients)
+        {
+            needs.Add(new KeyValuePair<string, int>(i.Id, i.Count));
+        }
+        return BatchRules.MaxCount(needs, have, 0, 0, BatchRules.CookCap);
+    }
+
+    /// <summary>한 판의 진행 시간(초). 일괄이어도 같다(한 번의 미니게임)</summary>
+    public static float PlaySeconds(CookMethod method)
+    {
+        return method == CookMethod.Grill ? GrillTotalTime : BoilTime;
     }
 
     /// <summary>결과 아이템 이름(실패면 탄 요리)</summary>
