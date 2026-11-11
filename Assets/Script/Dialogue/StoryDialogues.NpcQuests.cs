@@ -10,8 +10,9 @@ public static partial class StoryDialogues
     public const string RuenTalk = "Village/Ruen";
     public const string SenaTalk = "Village/Sena";
     public const string EveTalk = "Village/Eve";
+    public const string CoachTalk = "Village/Coach";
 
-    private const int RuenId = 7, SenaId = 8, EveId = 9, BoardId = 10;
+    private const int RuenId = 7, SenaId = 8, EveId = 9, BoardId = 10, CoachId = 11;
     private const int QuestConvBase = 100;
 
     public static string OfferConversation(string questId) => "NpcQ/" + questId + "/offer";
@@ -28,10 +29,15 @@ public static partial class StoryDialogues
         db.actors.Add(template.CreateActor(SenaId, "약초꾼 세나", false));
         db.actors.Add(template.CreateActor(EveId, "떠돌이 탐험가 이브", false));
         db.actors.Add(template.CreateActor(BoardId, "의뢰 게시판", false));
+        db.actors.Add(template.CreateActor(CoachId, "마차꾼", false));
     }
 
     private static int ActorOf(string npcId)
     {
+        if (npcId != null && npcId.StartsWith("coach"))
+        {
+            return CoachId;
+        }
         switch (npcId)
         {
             case "elder": return ElderId;
@@ -50,6 +56,8 @@ public static partial class StoryDialogues
         BuildGreeting(90, RuenTalk, RuenId, Floor1Chatter.Pages("ruen", "조용히 걸어. 발소리가 크면 사냥감이 먼저 도망가거든."));
         BuildGreeting(91, SenaTalk, SenaId, Floor1Chatter.Pages("sena", "약초는 뿌리가 마르기 전에 캐야 해요.\n해가 지면 늪 근처는 피하세요."));
         BuildGreeting(92, EveTalk, EveId, Floor1Chatter.Pages("eve", "지도에는 돌아온 사람이 본 길만 남아.\n빈 곳은 직접 가 봐야지."));
+
+        BuildGreeting(93, CoachTalk, CoachId, "어서 오세요. 마차는 한 번 가 본 곳이라면 어디든 갑니다.", "요금만 내시면 눈 깜짝할 새에 도착하지요.");
 
         int id = QuestConvBase;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)

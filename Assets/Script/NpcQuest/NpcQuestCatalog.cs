@@ -245,6 +245,10 @@ public static class NpcQuestCatalog
             case "bountyboard": return "마을 게시대";
             case "questboard": return "의뢰 게시판";
         }
+        if (npcId != null && npcId.StartsWith("coach"))
+        {
+            return "마차꾼";
+        }
         return npcId;
     }
 

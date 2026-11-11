@@ -66,3 +66,8 @@
 - 신규 `AttackMoveRules`·`WeaponMoveProfiles`(전 타입 표+`EnabledKinds` 화이트리스트=롤백 한 줄)·`DirectionBuffer`·`StickDigital`. 한손검·검방·단검·쌍검 Lunge, 대검·둔기·방패·활류 InPlace(PlayerController), 방향 버퍼 0.08·점프 `TryConsumeJump` 일원화·스킬 버퍼 0.15·홀드 연타·A+X 동시(점프 먼저).
 - 컴파일 0·EditMode 1138 통과(신규 24)·play probe `_ci_move`(A·B·C)·`_ci_input`(E·F·H) 통과. 미검증: 실패드·마우스 체감, 프로브 D·G·I 전수(P4·P7 필요). Q-CI9·10 기록.
 - 남음: CI-P4·P7(Weapon.cs 모션 방 커밋 뒤), 창·낫·클로·너클·채찍·철퇴·도끼·태도·지팡이 모드 적용, P8 문서.
+
+## 11-11 EarlyHour P0·P1 + FastTravel P0~P3·P5 일부 (builder)
+- EarlyHour: Q105·106·107·201·206·207 데이터 조정, Q109·Q110 신규(`EarlyHourPlan` §10 정정: RatChief 미배치→killElite 보류, Q107 선행 Q103, Q110 선행 Q108). 핀 테스트 값만 갱신.
+- FastTravel: 정류장 CSV·상태(ES3 ft.stops/ft.last)·마차 NPC 9곳·NpcMenu 행 모드·요금/금지 규칙·FT_Q 7건. 컴파일 0·EditMode 1146 통과·play probe(NPC 배치·목적지 9줄·확인→75G 차감 이동) 확인.
+- 미검증: 실패드·실마우스, 맵별 NPC 위치 캡처, 슬롯 전환 ES3. 남음: P4 히든 포털, 재진입 가드.

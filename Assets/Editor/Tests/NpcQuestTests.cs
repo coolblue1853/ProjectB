@@ -58,7 +58,7 @@ public class NpcQuestTests
 
     [Test] public void CSV_71개_파싱_EXP_합계_127375()
     {
-        Assert.AreEqual(62 + 11, NpcQuestCatalog.All.Count); // 62(+EarlyHour Q109·Q110) + 게시판·촌장 이행 11(REWORK-5, EXP 0)
+        Assert.AreEqual(69 + 11, NpcQuestCatalog.All.Count); // 69(+EarlyHour Q109·Q110, 마차 FT_Q_* 7) + 게시판·촌장 이행 11(REWORK-5, EXP 0)
         int exp = 0;
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
         {
@@ -192,7 +192,14 @@ public class NpcQuestTests
         foreach (NpcQuestDef d in NpcQuestCatalog.All)
         {
             Assert.IsTrue(ids.Add(d.Id), "중복 id " + d.Id);
-            Assert.Contains(d.Giver, npcs, d.Id + " 의뢰 NPC");
+            if (d.Giver.StartsWith("coach"))
+            {
+                Assert.IsTrue(System.Linq.Enumerable.Any(FastTravelStops.All, s => s.NpcId == d.Giver), d.Id + " 마차 NPC 가 정류장 표에 없음");
+            }
+            else
+            {
+                Assert.Contains(d.Giver, npcs, d.Id + " 의뢰 NPC");
+            }
             if (!string.IsNullOrEmpty(d.Requires))
             {
                 Assert.IsNotNull(NpcQuestCatalog.Find(d.Requires), d.Id + " 선행 " + d.Requires);

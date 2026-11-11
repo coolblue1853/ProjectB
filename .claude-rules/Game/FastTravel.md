@@ -101,3 +101,10 @@
 - Q-FT3 이동 금지 상황 — 임시: 보스 30유닛·전투 직후 3초.
 - Q-FT4 구세이브 자동 해금 — 임시: 자동 해금 채택.
 - Q-FT5 히든 포털 맵당 개수(0~2)·표식 강도 — 임시.
+
+## 11. 구현 상태 (11-11, builder)
+- 완료: P0(`FastTravelRules`·`FastTravelState`·EditMode `FastTravelTests` 8건), P1(`FastTravelStops.csv` 로더·`FastTravelNpc`·`FastTravelFlow`, `NpcMenu` 행 모드·"마차로 이동"·`ConfirmPopup`), P2(`FT_Q_*` 7건 `QuestsFloor1.csv`, giver `coach_*`, 완료→`FastTravelHost` 가 `NpcQuestLog.Changed` 로 AutoUnlock), P3 일부(보스 30유닛·피격 3초·사망 금지), P5 일부(구세이브 자동 해금).
+- 설계 정정: 해금 퀘스트는 표대로 **7건**(Normal·Deep·Swamp·Fort·Tower·Cliffs·Rampart, 설계 본문 "8건"은 오기). 퀘스트는 EXP 0·골드만(EXP 합 핀 테스트 유지), 처치 5마리, 선행 없음(걸어가야 받음).
+- 마차 NPC 는 `FastTravelStops.csv` 의 `npcName`(=NPC id)·anchorX/Y 로 부트 때 배치(`NpcQuestPlacer.CreateCoaches`, 상인 도트 + 색조 임시). anchor 는 각 맵 입구 포털 +4 유닛, Y 는 지면 스냅. 도착 위치는 `GoToMap` 기본(입구 포털) 그대로.
+- ↑ 상호작용은 기존 `TalkNpc` 의 `InteractArbiter.Contend` 를 그대로 사용(`NpcInteraction.Run` 이 `FastTravelNpc` 를 보고 Travel 항목 추가). 3경로 입력은 `NpcMenu`(↑↓·Enter·A·마우스·Esc·B)·`ConfirmPopup`(←→·Z·A) 공용.
+- 미구현: P4 히든 포털, 마차 NPC 실좌표 맵별 캡처(낮), 실패드·실마우스 확인, 이동 중 재진입 가드(리뷰 권장), ES3 `ft.*` 슬롯 전환 실기.

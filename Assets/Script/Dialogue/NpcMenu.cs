@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public sealed class NpcMenu : MonoBehaviour
 {
-    private const int MaxRows = 7;
+    private const int MaxRows = 10;
     private const float RowHeight = 52f;
 
     private static NpcMenu s_instance;
@@ -23,6 +23,9 @@ public sealed class NpcMenu : MonoBehaviour
     private readonly List<Image> _bgs = new List<Image>();
     private readonly List<TextMeshProUGUI> _labels = new List<TextMeshProUGUI>();
     private List<NpcMenuRules.Kind> _kinds;
+    private List<string> _rowLabels;   // 행 모드(목적지 목록 등): 항목마다 글자·불가 사유(null=선택 가능), 마지막 줄은 닫기
+    private List<string> _rowReasons;
+    private Action<int> _onRow;
     private Action<NpcMenuRules.Kind> _onPick;
     private int _cursor;
     private int _openFrame;
@@ -46,6 +49,30 @@ public sealed class NpcMenu : MonoBehaviour
             s_instance = go.AddComponent<NpcMenu>();
         }
         s_instance.Show(title, kinds, onPick);
+    }
+
+    /// <summary>
+    /// 행 모드: 임의 글자 목록. reasons[i] 가 null 이 아니면 그 줄은 고를 수 없고(회색) 고르면 사유만 알린다. 닫기 줄은 자동으로 붙는다.
+    /// </summary>
+    public static void OpenRows(string title, IList<string> labels, IList<string> reasons, Action<int> onPick)
+    {
+        var kinds = new List<NpcMenuRules.Kind>();
+        var texts = new List<string>();
+        var why = new List<string>();
+        for (int i = 0; i < labels.Count && i < MaxRows - 1; i++)
+        {
+            kinds.Add(NpcMenuRules.Kind.Talk);
+            texts.Add(labels[i]);
+            why.Add(reasons != null && i < reasons.Count ? reasons[i] : null);
+        }
+        kinds.Add(NpcMenuRules.Kind.Close);
+        texts.Add(NpcMenuRules.Label(NpcMenuRules.Kind.Close));
+        why.Add(null);
+        Open(title, kinds, null);
+        s_instance._rowLabels = texts;
+        s_instance._rowReasons = why;
+        s_instance._onRow = onPick;
+        s_instance.Redraw();
     }
 
     /// <summary>프로브·테스트용: 커서 위치 항목을 고른다</summary>
@@ -83,6 +110,9 @@ public sealed class NpcMenu : MonoBehaviour
     {
         _kinds = kinds;
         _onPick = onPick;
+        _rowLabels = null;
+        _rowReasons = null;
+        _onRow = null;
         _cursor = 0;
         _open = true;
         _openFrame = Time.frameCount;
@@ -171,6 +201,24 @@ public sealed class NpcMenu : MonoBehaviour
             return;
         }
         NpcMenuRules.Kind kind = _kinds[index];
+        if (_rowLabels != null)
+        {
+            string why = _rowReasons[index];
+            if (kind != NpcMenuRules.Kind.Close && why != null)
+            {
+                PickupLog.Warn(why); // 고를 수 없는 줄: 메뉴는 그대로 두고 사유만 알린다
+                Sfx.Play(SfxId.UiMove, 0.6f);
+                return;
+            }
+            Action<int> row = _onRow;
+            Close();
+            Sfx.Play(SfxId.UiOpen, 0.5f);
+            if (kind != NpcMenuRules.Kind.Close)
+            {
+                row?.Invoke(index);
+            }
+            return;
+        }
         Action<NpcMenuRules.Kind> cb = _onPick;
         Close();
         Sfx.Play(SfxId.UiOpen, 0.5f);
@@ -193,8 +241,9 @@ public sealed class NpcMenu : MonoBehaviour
             }
             bool on = i == _cursor;
             _bgs[i].color = on ? Color.white : new Color(1f, 1f, 1f, 0f);
-            _labels[i].color = on ? theme.unique : Color.white;
-            _labels[i].text = (on ? "> " : "  ") + NpcMenuRules.Label(_kinds[i]);
+            bool blocked = _rowReasons != null && _rowReasons[i] != null;
+            _labels[i].color = blocked ? new Color(0.55f, 0.55f, 0.55f) : on ? theme.unique : Color.white;
+            _labels[i].text = (on ? "> " : "  ") + (_rowLabels != null ? _rowLabels[i] : NpcMenuRules.Label(_kinds[i]));
         }
     }
 

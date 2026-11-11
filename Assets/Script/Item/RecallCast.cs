@@ -81,7 +81,7 @@ public sealed class RecallCast : MonoBehaviour
     }
 
     /// <summary>살아 있는 보스까지 최단 거리. 없으면 -1</summary>
-    private static float NearestBossDistance(Vector3 from)
+    public static float NearestBossDistance(Vector3 from)
     {
         float best = -1f;
         foreach (EnemyHealth e in EnemyHealth.Active)

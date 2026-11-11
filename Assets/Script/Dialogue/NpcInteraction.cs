@@ -20,7 +20,8 @@ public static class NpcInteraction
         NpcQuestGiver giver = npc != null ? npc.GetComponent<NpcQuestGiver>() : null;
         bool quest = giver != null && giver.HasQuest;
         bool trial = giver != null && giver.NpcId == "smith";
-        var kinds = NpcMenuRules.Build(quest, shop != null, craft != null, enhance != null, trial, talk != null);
+        FastTravelNpc coach = npc != null ? npc.GetComponent<FastTravelNpc>() : null;
+        var kinds = NpcMenuRules.Build(quest, shop != null, craft != null, enhance != null, trial, talk != null, coach != null);
         Action<NpcMenuRules.Kind> act = kind =>
         {
             switch (kind)
@@ -31,6 +32,7 @@ public static class NpcInteraction
                 case NpcMenuRules.Kind.Enhance: enhance(); break;
                 case NpcMenuRules.Kind.Trial: WeaponTrial.TryTalk(npc.transform); break;
                 case NpcMenuRules.Kind.Talk: talk(); break;
+                case NpcMenuRules.Kind.Travel: coach.OpenDestinations(); break;
             }
         };
         if (!NpcMenuRules.NeedsMenu(kinds))

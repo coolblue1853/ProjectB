@@ -53,6 +53,7 @@ public static class NpcQuestPlacer
             }
             CreateNpc(n, map.transform, src);
         }
+        CreateCoaches(maps, town);
         foreach (Marker m in Markers)
         {
             MapInfo map = Find(maps, m.Map);
@@ -103,7 +104,28 @@ public static class NpcQuestPlacer
         }
     }
 
-    private static void CreateNpc(NewNpc n, Transform parent, Transform src)
+    /// <summary>마차 NPC (FastTravel.md): 정류장 표(FastTravelStops.csv)의 npcName·anchorX 로 각 맵에 배치. 도트는 상인 임시 + 색조</summary>
+    private static void CreateCoaches(MapInfo[] maps, MapInfo town)
+    {
+        Transform src = town != null ? town.transform.Find("Shop") : null;
+        foreach (FastTravelStop s in FastTravelStops.All)
+        {
+            if (string.IsNullOrEmpty(s.NpcId) || !s.AnchorX.HasValue)
+            {
+                continue;
+            }
+            MapInfo map = Find(maps, s.Id);
+            if (map == null || src == null)
+            {
+                Debug.LogWarning("[PB][FastTravel] 마차 NPC 배치 실패: " + s.Id);
+                continue;
+            }
+            var n = new NewNpc { Id = s.NpcId, Conversation = StoryDialogues.CoachTalk, Map = s.Id, Source = "Shop", X = s.AnchorX.Value, Y = s.AnchorY, Tint = new Color(1f, 0.85f, 0.55f) };
+            CreateNpc(n, map.transform, src).AddComponent<FastTravelNpc>().Init(s.Id);
+        }
+    }
+
+    private static GameObject CreateNpc(NewNpc n, Transform parent, Transform src)
     {
         var go = new GameObject("NPC_" + n.Id);
         go.transform.SetParent(parent, false);
@@ -135,6 +157,7 @@ public static class NpcQuestPlacer
         {
             go.AddComponent<GroundSnapOnce>();
         }
+        return go;
     }
 
     private static void CreateMarker(Marker m, Transform parent)

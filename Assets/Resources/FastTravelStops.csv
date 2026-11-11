@@ -1,0 +1,10 @@
+﻿id,order,floor,displayName,anchorX,anchorY,questId,npcName,alwaysOpen
+Town,0,1,마을,-393,,,coach_town,1
+Lv1_NearForest_SideRoad,1,1,숲 샛길,-421.5,1.4,,coach_sideroad,1
+Lv1_NormalForest,2,1,일반 숲,-421.5,1.4,FT_Q_Normal,coach_normal,
+Lv1_DeepForest,3,1,깊은 숲,-421.5,1.4,FT_Q_Deep,coach_deep,
+Lv1_Swamp,4,1,늪,-413,-178.5,FT_Q_Swamp,coach_swamp,
+Lv1_BanditFortress,5,1,산적 요새,-421.5,1.4,FT_Q_Fort,coach_fort,
+Lv1_TowerOutskirts,6,1,탑 근교,-421.5,1.4,FT_Q_Tower,coach_tower,
+Lv2_MagicCliffs,7,2,마법 절벽,-413,-178.5,FT_Q_Cliffs,coach_cliffs,
+Lv2_BrokenRampart,8,2,부서진 성벽,-421.5,1.4,FT_Q_Rampart,coach_rampart,

@@ -3,12 +3,19 @@
 /// <summary>NPC 대화 선택지 규칙 (순수, REWORK-8). NPC 가 가진 기능만 순서대로 뽑고, 마지막은 항상 닫기.</summary>
 public static class NpcMenuRules
 {
-    public enum Kind { Quest, Shop, Craft, Enhance, Trial, Talk, Close }
+    public enum Kind { Quest, Shop, Craft, Enhance, Trial, Talk, Close, Travel }
 
     public static List<Kind> Build(bool quest, bool shop, bool craft, bool enhance, bool trial, bool talk)
     {
+        return Build(quest, shop, craft, enhance, trial, talk, false);
+    }
+
+    /// <summary>travel = 마차 NPC(빠른 이동). "마차로 이동" 은 퀘스트 다음에 둔다</summary>
+    public static List<Kind> Build(bool quest, bool shop, bool craft, bool enhance, bool trial, bool talk, bool travel)
+    {
         var list = new List<Kind>();
         if (quest) { list.Add(Kind.Quest); }
+        if (travel) { list.Add(Kind.Travel); }
         if (shop) { list.Add(Kind.Shop); }
         if (craft) { list.Add(Kind.Craft); }
         if (enhance) { list.Add(Kind.Enhance); }
@@ -34,6 +41,7 @@ public static class NpcMenuRules
             case Kind.Enhance: return "강화";
             case Kind.Trial: return "무기 시험";
             case Kind.Talk: return "그냥 대화";
+            case Kind.Travel: return "마차로 이동";
             default: return "닫기";
         }
     }

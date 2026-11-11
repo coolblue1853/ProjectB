@@ -38,7 +38,7 @@ public class QuestsFloor1DataTests
             sum += d.Exp;
         }
         Assert.AreEqual(90700, sum, "89500 + EarlyHour R-1·3·7·8 (+300+100+300+500)");
-        Assert.AreEqual(27 + 29 + 4 + 2 + 11, all.Count, "기존 27 + 신규 29 + 신규 맵 4 + EarlyHour Q109·Q110 + 게시판·촌장 이행 11");
+        Assert.AreEqual(27 + 29 + 4 + 2 + 7 + 11, all.Count, "기존 27 + 신규 29 + 신규 맵 4 + EarlyHour Q109·Q110 + 마차 FT_Q 7 + 게시판·촌장 이행 11");
     }
 
     [Test]
