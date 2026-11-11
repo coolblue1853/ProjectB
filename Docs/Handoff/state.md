@@ -101,3 +101,9 @@
 ## 11-11 잔여 후속 A~D (builder)
 - (A) `ReleaseCheatGate`: 복원값을 EditorPrefs 에 보관, 빌드 종료 감시(update)·에디터 로드 보정으로 실패/취소 빌드도 SR Debugger 복원. 테스트 `ReleaseCheatGateTests`. (B) 창고 R3 정렬이 LT+R3 에 반응하던 것 `PadChordRules.SortAlone` 으로 차단, InputAudit §14 갱신. (C) `InputDeviceHint`+`TalkNpc` 프롬프트 패드 시 "D-PAD " 접두(아이콘 그림 없음). (D) Q201·Q401·Q404 대사 열 이행.
 - 컴파일 0·EditMode 1186 통과·probe `_u31_hint` 확인. 미검증: 실제 릴리스 빌드 실패 시나리오, 실패드.
+
+## 11-11 ES3 호환 점검 (reviewer-arch, 10f676151^..HEAD)
+- 새 키: ft.stops·ft.last, features.unlocked, feature.pet.auto/hpPct/mpPct, quest.hudFold, npcq.tracked. 기존 키 이름·타입 변경·삭제 없음. 구세이브 로드 예외·유실 위험 높음 0.
+- 중간 1: 구세이브 `equip.extraUnlock` 비트가 새 해금 규칙과 어긋나도 `rawMask & 31` 로 그대로 열린 채 남음(의도된 관대 이행 — 빼앗지 않음). 필요하면 SlotUnlocks.csv 기준 재계산 보정.
+- 낮음: 구세이브에서 전투 액션을 B·M·N 에 지정했다면 새 창 열기 키와 충돌(Q 만 `DropNewlyReservedKeys` 가 되돌림). MonsterSheet 18→26열은 `c.Length > 25` 가드로 안전.
+- 주간 사용량 54~55%, 사용자 상한 60%.
