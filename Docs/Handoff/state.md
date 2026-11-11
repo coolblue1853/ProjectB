@@ -22,3 +22,8 @@
 - 11-11 REWORK-1 S3·S5: 칸 드래그 교환 복구(레이캐스트 드롭: 이동·교환·합치기)·`InventoryToolbar` 화면 버튼(정렬·쌓기·필터·잠금·가방 확장, 키·패드 병행, 쌓기 T/LT+LB)·S2 리뷰 지적 반영. 컴파일 0·EditMode 1051 통과·probe+스크린샷. 미검증: 실마우스·패드·창고 열림 버튼. 남음: ConfirmPopup(U40)·이름 검색(S4).
 - 11-11 WSKILL-V2-2 P3~P6 완료(1e0dcddb1·fe82ac803): 타입·공용 트리 효과 연결, 스킬창 K/LT+Y(마우스·키·패드), 툴팁·토스트·Loc. 컴파일 0·EditMode 1055 통과·probe wskill_p3/p5 확인. 미검증: 실마우스·패드 입력.
 - 남음: P7 수치 조정(체감 플레이 후), 생활 탭 노드, 타입별 극의, 전투 중 창 차단, 최대 HP 장비 변경 시 재계산(권고).
+
+## 11-11 REWORK-12 P4~P8 (builder)
+- P4 Rule 2차(Chain·OnKillCast·Proc·CooldownRefund, `SkillRuleEvents`)·P5 Replace 변형(`SkillVariants`, GateCleave_Wide)·P6 툴팁 특수 효과 구획+평타 Basic 피해·P7 세트 11단계 데이터+`EffectScore`·점검 표·P8 트리×장비 쿨 곱 결합. 컴파일 0·EditMode 1070 통과·probe efx_p4b/p5/p6/p7/p8.
+- 버그 2건 수정: `LoadItemData`(P3)·`LoadSetsData`(P7) 가 effectIds 미복사 → 세트 단계 효과가 실제로 안 걸렸음.
+- 남음: 신규 장신구·팔찌(Teleport 쿨 훅 필요), U 등급 승격 Q-EFX7, 변형 판정 실시전(숙련 잠금으로 프로브 불가)·실마우스/패드·체감 플레이, 세트 창 별도 화면·효과 상세 토글·교체 미리보기 효과 줄, Gatekeeper 고유 보너스(슈퍼아머 이벤트), Crit 트리거.

@@ -184,4 +184,14 @@ public class EquipEffectRule2Tests
         }
         Assert.AreEqual(11, withIds);
     }
+
+    [Test]
+    public void CooldownCombined_MultipliesEquipAndTree()
+    {
+        Assert.AreEqual(66f, CooldownMath.CombinedPct(60f, 15f), 0.001f); // 0.4 x 0.85 = 0.34
+        Assert.AreEqual(60f, CooldownMath.CombinedPct(60f, 0f), 0.001f);
+        Assert.AreEqual(15f, CooldownMath.CombinedPct(0f, 15f), 0.001f);
+        Assert.AreEqual(66f, CooldownMath.CombinedPct(90f, 40f), 0.001f, "각 버킷이 먼저 상한(60·15)을 통과한다");
+        Assert.AreEqual(5.1f, CooldownMath.Apply(15f, CooldownMath.CombinedPct(60f, 15f)), 0.001f);
+    }
 }

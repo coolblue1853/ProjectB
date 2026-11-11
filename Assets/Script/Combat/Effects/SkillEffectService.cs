@@ -144,7 +144,7 @@ public static class SkillEffectService
         DatabaseManager.skillHitCount.TryGetValue(skillName ?? "", out int hit);
         DatabaseManager.skillBulletCount.TryGetValue(skillName ?? "", out int bullet);
         SkillMods m = EffectResolver.Resolve(Active, skillName, kind == WeaponKind.None ? null : kind.ToString(), cd, hit, bullet, SkillTagTable.HasTag, null);
-        m.cooldownPct += SkillTreeEffects.CooldownPct(kind); // 스킬트리 숙달(장착 타입 한정, 공용 포함)
+        m.cooldownPct = CooldownMath.CombinedPct(m.cooldownPct, SkillTreeEffects.CooldownPct(kind)); // 스킬트리 숙달(장착 타입 한정, 공용 포함)과 곱 결합(설계 §2.7, P8)
         return m;
     }
 }

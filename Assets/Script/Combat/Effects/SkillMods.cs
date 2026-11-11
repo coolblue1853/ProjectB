@@ -65,6 +65,16 @@ public static class CooldownMath
         return r < floor ? floor : r;
     }
 
+    /// <summary>장비 %와 트리 %를 곱 결합한 실효 쿨감 %(소비자는 기존처럼 % 하나만 읽는다). 트리가 0 이하면 장비 값 그대로(장비 상한은 이미 적용돼 있음)</summary>
+    public static float CombinedPct(float equipPct, float treePct)
+    {
+        if (treePct <= 0f)
+        {
+            return equipPct;
+        }
+        return (1f - Multiplier(equipPct, treePct)) * 100f;
+    }
+
     /// <summary>장비 버킷과 트리 버킷의 곱 결합 배율 (60%·15% → 0.34)</summary>
     public static float Multiplier(float equipPct, float treePct)
     {
