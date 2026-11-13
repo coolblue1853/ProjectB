@@ -9,13 +9,13 @@
 
 ## [권장]
 
-1. `Assets/Script/UI/ExtraEquip.cs:293` + `Assets/Script/Inventory/Model/EquipmentModel.cs:77` — 로드 때 `equipArea`(또는 `TryGetSlot`)가 칸과 정확히 같아야 통과한다. Ring2 칸에 `equipArea=Ring` 반지를 끼우면 다음 로드에서 폐기 장신구로 보고 가방으로 돌려보낸다. 지금은 Ring2 아이템·UI가 없어 잠재 문제다. 대안: `SlotRules.Accepts(slot, want)` 한 곳에서 Ring2←Ring 을 허용하고 두 로더가 같이 쓴다. SLOT-R 후속.
-2. `Assets/Script/Combat/Effects/SkillRuleEvents.cs:148` — 처치마다 스킬×규칙 수만큼 `"Refund:" + r.id + "#" + r.entry` 문자열 생성·`float.TryParse(p3)`. 다수 처치 때 GC. 대안: `EffectEntry` 로드 때 키와 p3 float 캐시.
-3. `Assets/Script/Inventory/Model/SlotRules.cs:17` — `AllExtraMask` 31→63. 구 빌드로 되돌리면 비트 32를 버려 Ring2 아이템이 사라진다. 지금은 Ring2 아이템이 없어 영향 없음. 대안: 롤백 정책 문서에 한 줄.
+1. `Assets/Script/UI/ExtraEquip.cs:293` + `Assets/Script/Inventory/Model/EquipmentModel.cs:77` — 로드 때 `equipArea`(또는 `TryGetSlot`)가 칸과 정확히 같아야 통과한다. Ring2 칸에 `equipArea=Ring` 반지를 끼우면 다음 로드에서 폐기 장신구로 보고 가방으로 돌려보낸다. 지금은 Ring2 아이템·UI가 없어 잠재 문제다. 대안: `SlotRules.Accepts(slot, want)` 한 곳에서 Ring2←Ring 을 허용하고 두 로더가 같이 쓴다. SLOT-R 후속. **수정 a90550f04**
+2. `Assets/Script/Combat/Effects/SkillRuleEvents.cs:148` — 처치마다 스킬×규칙 수만큼 `"Refund:" + r.id + "#" + r.entry` 문자열 생성·`float.TryParse(p3)`. 다수 처치 때 GC. 대안: `EffectEntry` 로드 때 키와 p3 float 캐시. **수정 a90550f04**
+3. `Assets/Script/Inventory/Model/SlotRules.cs:17` — `AllExtraMask` 31→63. 구 빌드로 되돌리면 비트 32를 버려 Ring2 아이템이 사라진다. 지금은 Ring2 아이템이 없어 영향 없음. 대안: 롤백 정책 문서에 한 줄. **수정 a90550f04**
 
 ## [참고]
 
-4. `Assets/Script/UI/SetOverviewPopup.cs` `RepCache` — static 가변 캐시, 지우는 곳 없음. DB 재로드 시 옛 `ItemData` 참조가 남는다. 대안: DB 로드 시점에 `Clear` 또는 인스턴스 필드로.
+4. `Assets/Script/UI/SetOverviewPopup.cs` `RepCache` — static 가변 캐시, 지우는 곳 없음. DB 재로드 시 옛 `ItemData` 참조가 남는다. 대안: DB 로드 시점에 `Clear` 또는 인스턴스 필드로. **수정 a90550f04**
 5. `SetOverviewPopup.BuildText` — `InventoryManager.instance.SetEffectText`·`DatabaseManager.setsEffectStack` 직접 참조(UI끼리 결합). 순수 규칙(SetOverview)은 분리돼 수용 가능.
 6. `ExtraSlotBox.OnPointerExit`(`ExtraEquip.cs:759`) — 마우스가 SET 칸을 벗어나면 키보드·패드 커서가 SET 노드에 있어도 팝업을 닫는다(혼용 입력 때만). 대안: 커서 노드가 SetNode 면 유지.
 7. `Assets/Script/Dialogue/PixelDialogueUI.cs:168` — 마지막 대사를 Space 로 닫는 같은 프레임에 점프가 들어가는지는 UiLock 해제 순서에 달림. Z 확정도 같은 구조라 회귀는 아님. 대안: 해제를 다음 프레임으로 미루거나 플레이 1회 확인(`UserPlaytest_1111.md` 항목 있음).
