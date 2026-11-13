@@ -7,7 +7,7 @@ public sealed class BestiaryMilestoneDef
 {
     public string Id;
     public string Metric; // kinds = 처치한 몬스터 종류 수, kills = 누적 처치 수, zone = Zone 의 일반 몬스터 전종 처치(B08~B13)
-    public string Zone;   // zone 단계 전용: MonsterSheet zone 값('|' 로 여러 개). 문서의 9번째 열
+    public string Zone;   // zone 단계 전용: MonsterSheet zone 값('|' 로 여러 개, '-id' 로 종 제외). 문서의 9번째 열
     public int Threshold;
     public string Title;
     public Floor1Data.Reward Reward;
@@ -78,7 +78,7 @@ public static class BestiaryMilestoneRules
     }
 }
 
-/// <summary>구역 전종 처치 판정 (B08~B13). 종 목록은 MonsterSheet 에서 zone 값이 정확히 같은 1층계 행(밤·보스·미니보스 표기가 붙은 행 제외)</summary>
+/// <summary>구역 전종 처치 판정 (B08~B13). 종 목록은 MonsterSheet 에서 zone 값이 정확히 같은 1층계 행(밤·보스·미니보스 표기가 붙은 행, 제외 토큰(-id) 종 제외)</summary>
 public static class BestiaryZoneRules
 {
     private static readonly Dictionary<string, List<string>> s_species = new Dictionary<string, List<string>>();
@@ -89,18 +89,30 @@ public static class BestiaryZoneRules
         s_species.Clear();
     }
 
-    /// <summary>zoneKey('|' 로 여러 zone) 의 일반 몬스터 id 목록 (캐시)</summary>
+    /// <summary>zoneKey('|' 로 여러 zone, '-id' 는 제외 종) 의 일반 몬스터 id 목록 (캐시)</summary>
     public static List<string> SpeciesOf(string zoneKey)
     {
         if (s_species.TryGetValue(zoneKey, out List<string> cached))
         {
             return cached;
         }
-        var zones = new HashSet<string>(zoneKey.Split('|'));
+        var zones = new HashSet<string>();
+        var excluded = new HashSet<string>(); // '-' 로 시작하는 토큰 = 종 제외(공유 그림 몹처럼 처치가 다른 id 로 기록돼 달성 불가한 행)
+        foreach (string token in zoneKey.Split('|'))
+        {
+            if (token.StartsWith("-", StringComparison.Ordinal))
+            {
+                excluded.Add(token.Substring(1));
+            }
+            else
+            {
+                zones.Add(token);
+            }
+        }
         var list = new List<string>();
         foreach (MonsterTable.Row r in MonsterTable.All())
         {
-            if (r.floor == 1 && zones.Contains(r.zone))
+            if (r.floor == 1 && zones.Contains(r.zone) && !excluded.Contains(r.id))
             {
                 list.Add(r.id);
             }

@@ -159,7 +159,7 @@ public class Floor1ExtraTests
         List<BestiaryMilestoneDef> defs = BestiaryMilestoneRules.Parse(Resources.Load<TextAsset>("Floor1BestiaryRewards").text);
         var claimed = new HashSet<string> { "B01", "B02", "B03", "B04", "B05", "B06", "B07" };
         Assert.IsNull(BestiaryMilestoneRules.NextClaimable(defs, claimed, 99, 99999), "zone 단계는 판정자 없이 열리지 않는다");
-        Assert.AreEqual("B10", BestiaryMilestoneRules.NextClaimable(defs, claimed, 99, 99999, z => z == "Deep Forest").Id);
+        Assert.AreEqual("B10", BestiaryMilestoneRules.NextClaimable(defs, claimed, 99, 99999, z => z.StartsWith("Deep Forest")).Id);
     }
 
     [Test]

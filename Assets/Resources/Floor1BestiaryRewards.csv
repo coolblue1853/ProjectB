@@ -7,8 +7,8 @@ B05,kills,100,200,0,Potion,5,누적 처치 100,
 B06,kills,300,500,300,Enhance Stone,1,누적 처치 300,
 B07,kills,1000,1500,0,Enhance Stone,3,누적 처치 1000,
 B08,zone,0,150,150,RatCap,1,샛길 전종 처치,Forest Side Road|Forest Road
-B09,zone,0,200,250,WolfCap,1,일반 숲 전종 처치,Normal Forest
-B10,zone,0,250,350,GroveCap,1,깊은 숲 전종 처치,Deep Forest
-B11,zone,0,300,450,BogCap,1,늪 전종 처치,Swamp
+B09,zone,0,200,250,WolfCap,1,일반 숲 전종 처치,Normal Forest|-ForestSpore_BD
+B10,zone,0,250,350,GroveCap,1,깊은 숲 전종 처치,Deep Forest|-DeepSpore_BD|-DeepGoblin_BD
+B11,zone,0,300,450,BogCap,1,늪 전종 처치,Swamp|-SwampSpore_BD
 B12,zone,0,350,550,RaiderCap,1,성채 전종 처치,Bandit Fortress
 B13,zone,0,400,700,StoneArmor,1,탑 근교 전종 처치,Tower Outskirts
