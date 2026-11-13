@@ -249,6 +249,8 @@ public class EnemyHealth : PoolAble
 
     /// <summary>REWORK-3 행동 속성(없으면 null = 프리팹 BT 동작 그대로). MonsterTable.Apply 가 채운다.</summary>
     public MobBehavior Behavior { get; set; }
+    /// <summary>낙하·착지 판정용(REWORK-3 P2 스포너 정리)</summary>
+    public Rigidbody2D Body => rb;
     /// <summary>추격 유지 중(인식 성공 뒤 giveUp 거리까지 놓치지 않음). 풀 재사용 때 초기화</summary>
     public bool ChaseLatched { get; set; }
     float _provokedUntil;

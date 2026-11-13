@@ -483,8 +483,69 @@ public class EnemySpawner : MonoBehaviour
         return ArrivalSafeZone.PickIndex(_candidateBuffer, preferred, ArrivalSafeZone.Points);
     }
 
+    private bool _killPlaneReady;
+    private bool _hasKillPlane;
+    private float _killPlaneY;
+
+    /// <summary>맵 하한(MapInfo.cameraBottom)과 가장 낮은 스폰 발판으로 킬플레인을 한 번 계산한다. MapInfo 없는 맵은 끈다(영역 이탈 처리만).</summary>
+    private void EnsureKillPlane()
+    {
+        if (_killPlaneReady)
+        {
+            return;
+        }
+        _killPlaneReady = true;
+        MapInfo map = GetComponentInParent<MapInfo>();
+        if (map == null || enemyPositionArray == null || enemyPositionArray.Length == 0)
+        {
+            return;
+        }
+        float lowest = float.MaxValue;
+        foreach (GameObject p in enemyPositionArray)
+        {
+            if (p != null)
+            {
+                lowest = Mathf.Min(lowest, p.transform.position.y);
+            }
+        }
+        _hasKillPlane = lowest < float.MaxValue;
+        _killPlaneY = _hasKillPlane ? MobBehaviorRules.KillPlaneY(map.cameraBottom, lowest) : 0f;
+    }
+
+    /// <summary>
+    /// REWORK-3 P2 낙하 몹 정리(메이플 관례). 킬플레인 아래 = 드롭·EXP·처치 카운트 없이 즉시 반환(슬롯 비움 → 같은 주기에 리스폰).
+    /// edge=fall 몹이 아래 발판에 착지했으면 순찰 기준점을 그 자리로 옮겨 그 발판에서 계속 활동한다.
+    /// </summary>
+    private void SweepFallen()
+    {
+        EnsureKillPlane();
+        for (int i = 0; i < enemyCount; i++)
+        {
+            GameObject go = enemySlot[i];
+            if (go == null || !go.activeSelf || !go.TryGetComponent(out EnemyHealth e))
+            {
+                continue;
+            }
+            Vector3 pos = go.transform.position;
+            if (_hasKillPlane && pos.y < _killPlaneY)
+            {
+                GameLog.Info(GameLog.Cat.Spawn, name + ": 슬롯 " + i + " 킬플레인 아래 제거 y=" + pos.y.ToString("F1"), this);
+                e.ForceEnemyRelease(); // 이벤트로 슬롯이 비워진다
+                continue;
+            }
+            MobBehavior b = e.Behavior;
+            Rigidbody2D body = e.Body;
+            if (b != null && body != null && e.hasSpawnPosition
+                && MobBehaviorRules.ShouldRehome(b.Edge, e.spawnPosition.y, pos.y, body.linearVelocity.y))
+            {
+                e.spawnPosition = pos;
+            }
+        }
+    }
+
     private void CycleCheck()
     {
+        SweepFallen();
         for (int i = 0; i < enemyCount; i++)
         {
             // 비어 있거나, 다른 경로로 반환되어 비활성화된 슬롯은 다시 채운다

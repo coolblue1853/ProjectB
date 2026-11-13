@@ -37,6 +37,25 @@ public static class MobBehaviorRules
     public const float ProvokeSeconds = 8f;
     /// <summary>BUG-U23 몹 히트박스 월드 하한(가로·세로). 토끼 0.78x0.61·유령 0.92x0.79 같은 소형 몹이 스킬 판정에 안 걸리던 문제. 이보다 큰 몹은 그대로.</summary>
     public const float MinHitWidth = 1.2f, MinHitHeight = 1.1f;
+    /// <summary>REWORK-3 P2: edge=fall 몹이 이만큼 이상 아래 발판에 내려앉으면 순찰 기준점을 그 자리로 옮긴다(작은 단차는 무시)</summary>
+    public const float RehomeDrop = 1.5f;
+    /// <summary>착지 판정 세로 속도 한계</summary>
+    public const float RehomeMaxVy = 0.05f;
+
+    /// <summary>
+    /// 몹 킬플레인 y(REWORK-3 P2). 맵 카메라 하한과 가장 낮은 스폰 발판 중 낮은 쪽에서 플레이어 낙사 여유(FallRecovery.KillMargin)만큼 아래.
+    /// 발판 기준을 같이 보는 것은 하한이 기본값(-10)으로 남은 깊은 맵에서 스폰 즉시 제거되지 않게 하려는 것.
+    /// </summary>
+    public static float KillPlaneY(float mapBottom, float lowestSpawnY)
+    {
+        return Mathf.Min(mapBottom, lowestSpawnY) - FallRecovery.KillMargin;
+    }
+
+    /// <summary>edge=fall 몹이 아래 발판에 착지했으면 true — 메이플처럼 그 발판에서 계속 활동하도록 기준점을 옮긴다</summary>
+    public static bool ShouldRehome(MobEdge edge, float homeY, float y, float vy)
+    {
+        return edge == MobEdge.Fall && homeY - y > RehomeDrop && Mathf.Abs(vy) < RehomeMaxVy;
+    }
 
     public static MobBehavior Parse(string move, string edge, string chase, string chaseRange, string visionY, string giveUp, string aggro, string attack)
     {

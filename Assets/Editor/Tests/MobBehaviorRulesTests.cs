@@ -4,6 +4,24 @@ using UnityEngine;
 public class MobBehaviorRulesTests
 {
     [Test]
+    public void KillPlane_UsesLowerOfMapBottomAndSpawnMinusMargin()
+    {
+        Assert.AreEqual(-10f - FallRecovery.KillMargin, MobBehaviorRules.KillPlaneY(-10f, 5f), 1e-4f);
+        // 맵 하한 값이 잘못돼(기본 -10) 스폰 발판이 그보다 아래면 발판 기준으로 내려 즉사하지 않게
+        Assert.AreEqual(-180f - FallRecovery.KillMargin, MobBehaviorRules.KillPlaneY(-10f, -180f), 1e-4f);
+    }
+
+    [Test]
+    public void ShouldRehome_OnlyFallMobLandedBelowHome()
+    {
+        Assert.IsTrue(MobBehaviorRules.ShouldRehome(MobEdge.Fall, 0f, -3f, 0f), "떨어져 아래 발판에 선 몹");
+        Assert.IsFalse(MobBehaviorRules.ShouldRehome(MobEdge.Fall, 0f, -3f, -5f), "낙하 중");
+        Assert.IsFalse(MobBehaviorRules.ShouldRehome(MobEdge.Fall, 0f, -0.5f, 0f), "같은 발판(작은 단차)");
+        Assert.IsFalse(MobBehaviorRules.ShouldRehome(MobEdge.Turn, 0f, -3f, 0f), "turn 몹은 기준점 유지");
+        Assert.IsFalse(MobBehaviorRules.ShouldRehome(MobEdge.Default, 0f, -3f, 0f));
+    }
+
+    [Test]
     public void Parse_AllBlank_IsNull()
     {
         Assert.IsNull(MobBehaviorRules.Parse("", "", "", "", "", "", "", ""));
