@@ -272,3 +272,5 @@ index,name,type,description,price,weight,acqPath,maxStack,effectOb,effectPow,equ
 314,HuntersJavelin,Equip,equipment,500,2,-,1,-,0,Weapon,,Hunters Javelin,0,R,0,,Javelin,,
 315,FairysGrimoire,Equip,equipment,500,2,-,1,-,0,Weapon,,Fairys Grimoire,0,R,0,,Tome,,
 316,BeltPlain,Equip,Belt. Defense +1.,150,1,Boss,1,-,0,Belt,,Plain Belt,0,C,0,,,,
+317,WandererBracelet,Equip,Bracelet. Attack Speed +2%. Movement skill cooldown -20%.,600,1,Boss,1,-,0,Bracelet,,Wanderer's Bracelet,0,R,0,,,,EF_WandererBracelet
+318,HunterCharm,Equip,Charm. Drop Rate +2%. On kill all skill cooldowns -0.5s (once per 1s).,900,1,Boss,1,-,0,Charm,,Hunter's Charm,0,U,0,,,,EF_HunterCharm

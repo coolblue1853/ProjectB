@@ -150,6 +150,7 @@
 - (10-31) 소비 아이템 추가: Small/Medium/Large HP Potion(246~248, hp +120/220/320)·Recall Scroll(249, effectOb `recall +`). 구매가는 price x1.5. 기존 Potion 은 hp +500(고급 물약). 상세는 `ClassicMapleDesign.md` 12절.
 
 - (10-31) `ArmorCraftRecipes.csv` 에 Wolf·Grove·Bog 방어구 15행 추가(방어구 대장장이 추가 페이지, 재료는 구역 35% 드롭 재료). `QuestsFloor1.csv` rewardItem 에 장비 보상(Q102 LeafAdae 등 9건). 세트 수치는 `Docs/Balance/Floor1FirstHourGear.md` §3.
+- (11-14) 장신구 2종: 317 `WandererBracelet`(Bracelet, R, effectIds `EF_WandererBracelet`)·318 `HunterCharm`(Charm, U, `EF_HunterCharm`), 보조 스탯은 `ExtraEquipStats.csv`. 열 추가 없음. `SkillTags.csv` 에 이동기 8종 `Dash`(Leaf Teleport 는 `Teleport;Dash`).
 
 ### 착용 중 강화 (2026-11-01)
 

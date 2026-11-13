@@ -65,3 +65,6 @@ EF_Set_Bog5,1,Rule,Tongue_Lash,,,,,Chain,2,4,30,,,
 EF_Set_Stone4,1,Mod,Boulder_Toss,DamagePct,20,,,,,,,,,
 EF_Set_Stone5,1,Rule,Boulder_Toss,,,,,OnHitSpawn,Explode,60,1.5,,,
 EF_Set_Stone5,2,Rule,Quake_Slam,,,,,Proc,Aftershock,12,2,,,
+# 신규 장신구(REWORK-12 P8 이월분, 11-14). 수치 = 설계 §4.2 초안 그대로(Q-EFX). 팔찌는 3층계 해금, 부적(보조장비)은 1층계 해금
+EF_WandererBracelet,1,Mod,tag:Dash,CooldownPct,20,,,,,,,,,
+EF_HunterCharm,1,Rule,all,,,,,CooldownRefund,0.5,Kill,1,,,

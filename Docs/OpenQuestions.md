@@ -755,3 +755,6 @@
 
 ## 11-13 주말 준비 마무리 (builder)
 - Q-CI14 NEXT-13 확인: CI-P5(방향 버퍼·`FaceInputForAttack`)·CI-P6(홀드 연타 재장전 `HoldRepeatAllowed`·점프+공격 `DeferAttackForJump`)는 `AttackManager`/`PlayerController` 에서 무기 구분 없이 기본 칼(RustedSword)에도 걸린다. 입력 선입력 시점만 바꾸고 모션·판정 프리팹·후딜 길이·3타 간격(선행 소비는 기본 칼 1.0 고정)은 불변이라 '기본 칼 3타 보존' 위반 아님 -> 기본 칼 제외하지 않음(임시 가정). 홀드 연타는 마지막 타 뒤 재누름 필요라 3타 순환이 자동으로 이어지지 않는다. 실패드 체감은 NEXT-8 에서 확인.
+
+## 11-14 장비 효과 장신구 (REWORK-12, builder)
+- Q-EFX8 신규 장신구 획득처·수치(임시 가정): 사냥꾼 부적(HunterCharm, 보조장비=Charm, U, 처치 시 모든 스킬 쿨 -0.5초·내부 쿨 1초, 드롭률 +2%)은 우두머리 늑대(AlphaWolf_BD) 10% 추가 드롭. 방랑자의 팔찌(WandererBracelet, R, 이동기 `tag:Dash` 쿨 -20%·공속 +2%)는 팔찌 칸이 3층계 해금이라 **획득처 없음**(3층계 드롭표 만들 때 연결). 상급 팔찌(U, 도착 지점 폭발)는 텔레포트에 적중 판정이 없어 보류.

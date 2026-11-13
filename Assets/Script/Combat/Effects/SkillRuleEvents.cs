@@ -50,6 +50,29 @@ public static class RuleMath
         return true;
     }
 
+    /// <summary>
+    /// CooldownRefund(Kill) 내부 쿨: p3(초)가 비면 항상 허용(기존 동작). 있으면 처치 한 번에 항목별로 한 번만 판정하고
+    /// 그 결과를 같은 처치의 다른 스킬에도 쓴다(선택자 all = 모든 스킬 환급, 사냥꾼 부적). thisKill 은 처치마다 비운다
+    /// </summary>
+    public static bool RefundOnKill(Dictionary<string, float> next, Dictionary<string, bool> thisKill, string key, float now, string p3)
+    {
+        if (string.IsNullOrEmpty(p3))
+        {
+            return true;
+        }
+        if (thisKill.TryGetValue(key, out bool ok))
+        {
+            return ok;
+        }
+        if (!float.TryParse(p3, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float cd))
+        {
+            return true;
+        }
+        ok = PassInternalCooldown(next, key, now, cd);
+        thisKill[key] = ok;
+        return ok;
+    }
+
     /// <summary>스킬 이름 비교(공백 = 밑줄 동일 취급, 대소문자 무시)</summary>
     public static bool SameSkill(string a, string b)
     {
@@ -71,6 +94,7 @@ public static class SkillRuleEvents
     private static readonly Dictionary<string, float> Next = new Dictionary<string, float>();
     private static readonly List<EffectEntry> Seen = new List<EffectEntry>(8);
     private static readonly HashSet<string> Missing = new HashSet<string>();
+    private static readonly Dictionary<string, bool> RefundThisKill = new Dictionary<string, bool>(4);
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Hook()
@@ -80,12 +104,14 @@ public static class SkillRuleEvents
         Skill.Cast -= OnCast;
         Skill.Cast += OnCast;
         Next.Clear();
+        RefundThisKill.Clear();
         RuleHitRefund.ClearCooldowns();
     }
 
     public static void ClearCooldowns()
     {
         Next.Clear();
+        RefundThisKill.Clear();
     }
 
     private static void OnKilled(EnemyHealth enemy)
@@ -96,6 +122,7 @@ public static class SkillRuleEvents
             return;
         }
         Seen.Clear();
+        RefundThisKill.Clear();
         Vector3 pos = enemy.transform.position + Vector3.up * 0.2f;
         for (int i = 0; i < w.skill.Length; i++)
         {
@@ -117,7 +144,8 @@ public static class SkillRuleEvents
                     Seen.Add(r);
                     CastFree(w, r, pos, "OnKill:");
                 }
-                else if (r.rule == EffectRule.CooldownRefund && RuleMath.Trigger(r.p2) == "Kill")
+                else if (r.rule == EffectRule.CooldownRefund && RuleMath.Trigger(r.p2) == "Kill"
+                    && (string.IsNullOrEmpty(r.p3) || RuleMath.RefundOnKill(Next, RefundThisKill, "Refund:" + r.id + "#" + r.entry, Time.time, r.p3)))
                 {
                     Refund(s, SkillRuleHandlers.F(r.p1, 1f));
                 }

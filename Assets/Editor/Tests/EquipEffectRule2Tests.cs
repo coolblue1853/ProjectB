@@ -42,6 +42,23 @@ public class EquipEffectRule2Tests
     }
 
     [Test]
+    public void RefundOnKill_InternalCooldownOncePerKill_EmptyP3Always()
+    {
+        var next = new Dictionary<string, float>();
+        var kill = new Dictionary<string, bool>();
+        Assert.IsTrue(RuleMath.RefundOnKill(next, kill, "a", 0f, "1"));
+        Assert.IsTrue(RuleMath.RefundOnKill(next, kill, "a", 0f, "1"), "같은 처치 안의 다른 스킬도 환급(모든 스킬)");
+        kill.Clear();
+        Assert.IsFalse(RuleMath.RefundOnKill(next, kill, "a", 0.5f, "1"), "내부 쿨 1초 안의 다음 처치는 막힘");
+        Assert.IsFalse(RuleMath.RefundOnKill(next, kill, "a", 0.5f, "1"));
+        kill.Clear();
+        Assert.IsTrue(RuleMath.RefundOnKill(next, kill, "a", 1.0f, "1"));
+        kill.Clear();
+        Assert.IsTrue(RuleMath.RefundOnKill(next, kill, "b", 1.1f, ""), "p3 비면 내부 쿨 없음(기존 동작)");
+        Assert.IsTrue(RuleMath.RefundOnKill(next, kill, "b", 1.1f, null));
+    }
+
+    [Test]
     public void SameSkill_SpaceEqualsUnderscore()
     {
         Assert.IsTrue(RuleMath.SameSkill("Scattering Leaves", "Scattering_Leaves"));

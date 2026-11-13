@@ -62,6 +62,7 @@ public static class LocItems
         ("Snail Shell", "달팽이 껍데기"), ("Tusk Knuckles", "엄니 너클"), ("Wisp Lantern", "도깨비불 등불"), ("Shell Shield", "껍데기 방패"),
         ("Pack Hunter Hood", "무리 사냥꾼 두건"), ("Pack Hunter Coat", "무리 사냥꾼 외투"), ("Pack Hunter Greaves", "무리 사냥꾼 각반"),
         ("Pack Hunter Gloves", "무리 사냥꾼 장갑"), ("Pack Hunter Boots", "무리 사냥꾼 장화"),
+        ("Wanderer's Bracelet", "방랑자의 팔찌"), ("Hunter's Charm", "사냥꾼 부적"),
         ("Night Lantern Hood", "밤의 등불 두건"), ("Night Lantern Coat", "밤의 등불 외투"), ("Night Lantern Greaves", "밤의 등불 각반"),
         ("Night Lantern Gloves", "밤의 등불 장갑"), ("Night Lantern Boots", "밤의 등불 장화"),
         ("Bear Claw", "곰 발톱"), ("Root Staff", "뿌리 지팡이"), ("Heartwood Greatsword", "심재 대검"), ("Bear Pelt", "곰 가죽"),

@@ -47,6 +47,7 @@ public class EquipEffectDataTests
     {
         SkillEffectService.ClearAll();
         EffectTable.ResetCache();
+        SkillTagTable.ResetCache();
     }
 
     [Test]
@@ -128,7 +129,7 @@ public class EquipEffectDataTests
     public void OnlyTestItems_HaveEffectIds()
     {
         string[] withEffects = AllSources().Where(s => s.Value.Length > 0 && !System.Text.RegularExpressions.Regex.IsMatch(s.Key, "_[0-9]+$")).Select(s => s.Key).OrderBy(x => x).ToArray(); // 세트 단계 키(Name_N)는 P7 에서 별도 검증
-        Assert.AreEqual(new[] { "BearClaw", "FangDagger", "GatekeepersOath", "LeafAdae", "LeafStaff", "QuakestoneMaul", "WispLantern" }, withEffects); // P5 무기 효과 추가(11-11)
+        Assert.AreEqual(new[] { "BearClaw", "FangDagger", "GatekeepersOath", "HunterCharm", "LeafAdae", "LeafStaff", "QuakestoneMaul", "WandererBracelet", "WispLantern" }, withEffects); // P5 무기 효과(11-11), 장신구 2종(11-14)
     }
 
     [Test]
@@ -200,5 +201,53 @@ public class EquipEffectDataTests
         Assert.AreEqual(0f, m.damagePct);
         Assert.AreEqual(0f, m.rangePct);
         Assert.AreEqual(0, SkillEffectService.ActiveCount);
+    }
+
+    [Test]
+    public void WandererBracelet_CutsDashSkillCooldown_Only()
+    {
+        EffectTable.Build(Table());
+        SkillTagTable.ResetCache();
+        SkillEffectService.AttachIds("Extra:1", ItemEffectIds("WandererBracelet"), "R");
+        Assert.AreEqual(20f, SkillEffectService.Query("Leaf Teleport", WeaponKind.Staff).cooldownPct, "텔레포트 쿨 -20%");
+        Assert.AreEqual(20f, SkillEffectService.Query("Shadow_Step", WeaponKind.None).cooldownPct, "이동기(tag:Dash) 공통");
+        Assert.AreEqual(0f, SkillEffectService.Query("Scattering_Leaves", WeaponKind.Staff).cooldownPct, "공격 스킬 무영향");
+        SkillEffectService.Detach("Extra:1");
+        Assert.AreEqual(0f, SkillEffectService.Query("Leaf Teleport", WeaponKind.Staff).cooldownPct, "해제 원복");
+    }
+
+    [Test]
+    public void HunterCharm_AddsKillRefundRule_ToEverySkill()
+    {
+        EffectTable.Build(Table());
+        SkillEffectService.AttachIds("Extra:2", ItemEffectIds("HunterCharm"), "U");
+        foreach (string skill in new[] { "Scattering_Leaves", "Gate_Cleave", "Leaf Teleport" })
+        {
+            EffectEntry[] rules = SkillEffectService.Query(skill, WeaponKind.None).rules;
+            Assert.IsNotNull(rules, skill);
+            EffectEntry r = rules.First(x => x.rule == EffectRule.CooldownRefund);
+            Assert.AreEqual("Kill", RuleMath.Trigger(r.p2));
+            Assert.AreEqual("0.5", r.p1);
+            Assert.AreEqual("1", r.p3, "내부 쿨 1초");
+        }
+    }
+
+    [Test]
+    public void NewAccessories_HaveSlotAreaAndExtraStats()
+    {
+        string[] stats = Lines("ExtraEquipStats.csv").Select(l => l.Split(',')[0]).ToArray();
+        string[] head = Lines("ItemSheet.csv")[1].Split(',');
+        int area = System.Array.IndexOf(head, "equipArea");
+        foreach (var pair in new[] { ("WandererBracelet", "Bracelet"), ("HunterCharm", "Charm") })
+        {
+            string[] row = Lines("ItemSheet.csv").Select(l => l.Split(',')).First(c => c.Length > 1 && c[1] == pair.Item1);
+            Assert.AreEqual(pair.Item2, row[area], pair.Item1);
+            CollectionAssert.Contains(stats, pair.Item1);
+        }
+    }
+
+    static string ItemEffectIds(string item)
+    {
+        return IdColumn("ItemSheet.csv", 1, 1).First(kv => kv.Key == item).Value;
     }
 }
