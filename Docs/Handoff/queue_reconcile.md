@@ -30,7 +30,7 @@
 | REWORK-11 요리 일괄 | 완료(코드) | 52b67c97f(요리대·일괄), 84b8be51d, `.claude-rules/Game/Cooking.md`, state:51-54 | 실마우스·패드, 요리대 도트(그래픽 방), 생활 탭 연동 — 완벽 일괄·대장장이 일괄은 11-14 probe 검증 | 하 | 0% |
 | REWORK-4 전투 입력 재설계 | 부분 | f6e8739f3(무기별 이동 모드), `Assets/Script/Combat/AttackMoveRules.cs`·`WeaponMoveProfiles`·`DirectionBuffer`, state:65-69 | CI-P4·P7(Weapon.cs, 모션 방 커밋 뒤), 나머지 무기 모드, 실패드 검증 | 상 | 6% |
 | REWORK-9 초반 1시간 시간표 | 부분 | 736bcfcd7·b447d20f7·e612bbafd(설계), `.claude-rules/Game/EarlyHourPlan.md`, state:88 | 설계 완료. R-1~14 CSV 조정 미착수, killElite 보류(R-5·R-6), 실플레이 검증 시나리오 | 상 | 8% |
-| 펫(자동 물약) | 부분 | 10f676151(`Assets/Script/Features/PetFeature.cs`), 4e3baebf4(범위 추가), state:16-17 | 자동 물약 실발동, 펫 줄 키보드·패드 확인. 짝수 층계 해금이라 1층 영향 없음 | 하 | 1% |
+| 펫(자동 물약) | 완료(코드) | 10f676151(`Assets/Script/Features/PetFeature.cs`), 4e3baebf4(범위 추가), state:16-17 | 펫 줄 키보드·패드 실확인(자동 물약 실발동은 11-14 probe 검증). 짝수 층계 해금이라 1층 영향 없음 | 하 | 0% |
 | 공통 규칙: 3경로(마우스·키보드·패드) | 부분 | 4596422c5(InputAudit §14), f9c176eb4, NEXT-8(실패드 미검증) | 각 UI 실패드·실마우스 검증 | 상 | 2% |
 | G1 묶음 부위별 방어구 교체 | 그래픽 | 1a84bfc28·c54c956ef·6f01d0909 | 건드리지 않음 | - | - |
 | G1-1 영역 지도 | 그래픽 | 6f01d0909 | 건드리지 않음 | - | - |
