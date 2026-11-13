@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
 {
     static PauseMenu instance;
 
-    readonly string[] items = { "RESUME", "TOWER MAP", "BESTIARY", "SETTINGS", "CONTROLS", "RETURN TO VILLAGE", "QUIT GAME" };
+    readonly string[] items = { "RESUME", "INVENTORY", "TOWER MAP", "BESTIARY", "SETTINGS", "CONTROLS", "RETURN TO VILLAGE", "QUIT GAME" };
     readonly string[] settingItems = { "MASTER VOLUME", "SCREEN SHAKE", "HIT FLASH", "LANGUAGE", "PICKUP", "HINTS", "DPAD MOVE", "DAY/NIGHT", "KEY BINDINGS", "BACK" };
     bool settingsMode;
     readonly List<(Image bg, TextMeshProUGUI text)> rows = new List<(Image, TextMeshProUGUI)>();
@@ -74,7 +74,7 @@ public class PauseMenu : MonoBehaviour
         }
         if (UiLock.TryBack("Pause", esc))
         {
-            if (settingsMode) { settingsMode = false; cursor = 3; Redraw(); }
+            if (settingsMode) { settingsMode = false; cursor = 4; Redraw(); }
             else Close();
             return;
         }
@@ -204,7 +204,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (settingsMode)
         {
-            if (cursor == settingItems.Length - 1) { settingsMode = false; cursor = 3; Redraw(); }
+            if (cursor == settingItems.Length - 1) { settingsMode = false; cursor = 4; Redraw(); }
             else if (cursor == System.Array.IndexOf(settingItems, "KEY BINDINGS")) { KeyBindWindow.Open(); }
             else Adjust(1);
             return;
@@ -216,22 +216,29 @@ public class PauseMenu : MonoBehaviour
                 break;
             case 1:
                 Close();
-                WaypointMap.OpenNow();
+                if (InventoryManager.instance != null)
+                {
+                    InventoryManager.instance.OpenFromField(); // 패드 인벤 경로(Start 는 일시정지 전용)
+                }
                 break;
             case 2:
                 Close();
-                BestiaryWindow.Toggle();
+                WaypointMap.OpenNow();
                 break;
             case 3:
+                Close();
+                BestiaryWindow.Toggle();
+                break;
+            case 4:
                 settingsMode = true;
                 cursor = 0;
                 Redraw();
                 break;
-            case 4:
+            case 5:
                 Close();
                 ControlsWindow.Toggle();
                 break;
-            case 5:
+            case 6:
                 Close();
                 if (PlayerController.instance != null)
                 {
@@ -239,7 +246,7 @@ public class PauseMenu : MonoBehaviour
                     MapInfo.GoToTown(PlayerController.instance.gameObject);
                 }
                 break;
-            case 6:
+            case 7:
                 if (SaveManager.instance != null)
                 {
                     SaveManager.instance.SaveProgress();

@@ -175,4 +175,5 @@
 - 남음(SLOT-R5): Ring2 해금 CSV 행·장비창 표시(DisplayOrder)·아이템은 미구현(필요 시).
 - (11-14 입력 검증) 인벤·상점·창고·가방 확장을 가상 키보드·패드로 몰아 봄(`Tools/probes/_inputsweep.cs`, InputAudit §14): 대부분 통과.
 - 수정: 확인창이 열려도 인벤이 ←→ 를 처리하던 것(`ConfirmPopup.IsBlocking`), 패드 LT+X 가 교체 모드로 새던 것(`ltChord`). EditMode 1252/1252.
-- 남음: 패드 Start 필드 일시정지·인벤 충돌(설계 결정 F1), 실마우스·실패드 손맛은 UserPlaytest_1111.
+- (11-14 F1 해소) 패드 Start=일시정지·창 닫기 전용, 패드 인벤=일시정지 메뉴 가방 항목(PauseMenu·InventoryManager.OpenFromField). 세트 노드 팝업 커서 유지(ExtraEquip 참고6). 가상 패드 통과, EditMode 1252/1252.
+- 남음: 실마우스·실패드 손맛은 UserPlaytest_1111.

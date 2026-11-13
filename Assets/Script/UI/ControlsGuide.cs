@@ -83,7 +83,7 @@ public static class ControlsGuide
                 new Row("퀵슬롯 등록", "자동(빈 칸) · 가방에서 끌어 놓기 · Shift+1~4", "자동(빈 칸)"),
                 new Row("NPC 말 걸기(선택지)·포털·채집·화로", "↑", "십자 ↑"),
                 new Row("대화 넘기기", "Enter / Z / Space / 클릭", "A"),
-                new Row("창 닫기 · 일시정지", "ESC", "B / START"),
+                new Row("창 닫기 · 일시정지(필드)", "ESC", "B / START"),
             },
         },
         new Section
@@ -92,7 +92,7 @@ public static class ControlsGuide
             RightColumn = true,
             Rows = new[]
             {
-                new Row("가방", "{UI/OpenInventory}", "{UI/OpenInventory}"),
+                new Row("가방", "{UI/OpenInventory}", "일시정지(START) > 가방"),
                 new Row("제작", "{UI/OpenCraft}", "{UI/OpenCraft}"),
                 new Row("퀘스트", "{QuestWindow}", "SELECT 길게"),
                 new Row("  퀘스트 창 안: 추적창 접기 / 포기", "H / Del", "LT / Y"),

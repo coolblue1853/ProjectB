@@ -758,6 +758,11 @@ public sealed class ExtraSlotBox : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerExit(PointerEventData e)
     {
+        InventoryManager inv = InventoryManager.instance;
+        if (_node == ExtraEquipPanel.SetNode && inv != null && inv.nowEquipBox == gameObject)
+        {
+            return; // 키보드·패드 커서가 세트 칸에 있으면 마우스가 벗어나도 팝업 유지(리뷰 1114 참고 6)
+        }
         _panel.ShowSetOverview(false);
         _panel.ShowTip("");
     }

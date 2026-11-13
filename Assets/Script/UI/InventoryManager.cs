@@ -1613,21 +1613,37 @@ public class InventoryManager : MonoBehaviour
 
         if (openInventoryAction.triggered && !PadFieldInput.StartChordThisFrame) // LT+START = 지도(AUTO-49)
         {
+            Gamepad pad = Gamepad.current;
+            bool padStart = pad != null && pad.startButton.wasPressedThisFrame;
             if (inventory.activeSelf == true)
             {
-                CloseAllWindows(); // 창고·상점·하위 창까지 함께 닫는다(U1)
+                // 패드 Start 는 맨 위 창 하나만 닫는다(하위 창이 위에 있으면 그 창이 먼저, F1). 키보드 I 는 그대로
+                if (!padStart || UiLock.TryBack("InvGroup", true))
+                {
+                    CloseAllWindows(); // 창고·상점·하위 창까지 함께 닫는다(U1)
+                }
             }
-            else if (inventory.activeSelf == false && DatabaseManager.isOpenUI == false)
+            else if (!padStart && inventory.activeSelf == false && DatabaseManager.isOpenUI == false)
             {
-                UiLock.Set("InvGroup", true);
-                inventory.SetActive(true);
-                Sfx.Play(SfxId.UiOpen, 0.5f);
-                cusor.SetActive(true);
-                instance.nowBox = 0;
-                instance.boxCusor = 0;
-                instance.ResetBoxOrigin();
+                OpenFromField(); // 필드의 패드 Start = 일시정지 전용(PauseMenu). 패드 인벤은 일시정지 메뉴 > 인벤토리
             }
         }
+    }
+
+    /// <summary>필드에서 인벤을 연다(키보드 I · 일시정지 메뉴 INVENTORY 항목 공용)</summary>
+    public void OpenFromField()
+    {
+        if (inventory.activeSelf || DatabaseManager.isOpenUI)
+        {
+            return;
+        }
+        UiLock.Set("InvGroup", true);
+        inventory.SetActive(true);
+        Sfx.Play(SfxId.UiOpen, 0.5f);
+        cusor.SetActive(true);
+        instance.nowBox = 0;
+        instance.boxCusor = 0;
+        instance.ResetBoxOrigin();
     }
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     /// <summary>디버그: F1~F6 로 테스트 아이템 묶음 생성(New Input System, 저장 1회)</summary>

@@ -15,6 +15,7 @@ public static class LocTerms
         ("PAUSED", "일시정지"),
         ("SETTINGS", "설정"),
         ("RESUME", "계속하기"),
+        ("INVENTORY", "가방"),
         ("TOWER MAP", "탑 지도"),
         ("BESTIARY", "도감"),
         ("RETURN TO VILLAGE", "마을로 귀환"),
