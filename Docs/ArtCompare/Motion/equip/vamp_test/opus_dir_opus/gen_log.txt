@@ -1,0 +1,4 @@
+1 edit_image_pro_flash A seed=11 est=5 total=5
+2 animate_image_pixminimax B seed=7001 est=1 total=6
+3 animate_image_pixminimax B-retry1 seed=7002 (7001: lining lost in raw_3-4) est=1 total=7
+TOTAL generations = 7 / 20

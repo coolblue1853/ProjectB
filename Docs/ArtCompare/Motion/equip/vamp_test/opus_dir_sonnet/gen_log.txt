@@ -1,0 +1,3 @@
+edit_image_pro_flash seed=11 est=5 cum=5
+animate_image_pixminimax seed=7001 est=1 cum=6
+cum total=6 (edit 5 + animate 1)
