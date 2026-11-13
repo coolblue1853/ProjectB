@@ -289,3 +289,4 @@
 - `SetOverviewPopup` 이 `DatabaseManager.setsEffectStack`·`Items`·`InventoryManager.instance` 정적 참조에 직접 의존(리뷰 권장: 데이터 주입). 의상·무기 장착 변경 중 팝업이 열려 있으면 다음 호버 때 갱신(추가 칸 변경만 즉시 갱신).
 - (11-14 reviewer-arch, 5a8d91dd8 참고) `EnemySpawner.cs:519-545` 슬롯 보스(isBossMob)가 킬플레인 아래로 떨어지면 보상 없이 제거됨 — 보스는 SweepFallen 제외 또는 기준점 복귀 권장(**해결 a8239e57f**: 보스는 스폰 위치로 복귀). `MobBehaviorRules.ShouldRehome` 은 vy≈0 순간만 봐 공중 정점에서 기준점이 옮겨질 수 있음(희박).
 - (11-14) 덩굴 요정(VineFairy_BD) 속박 미연결: `Floor2MobBehaviorRules.CanVineBind`(사거리 3·쿨 8)는 호출처가 없고 몹은 trait=slow 이동 감속만 한다. 속박(플레이어 이동 잠금·시전 BT·Loc)은 신규 스킬이라 별도 작업 필요.
+- (11-14 Sonnet 총괄 점검, 004165e31) `EffectDetailMode.Poll` 은 툴팁·장비 상세 표시 중에만 호출돼 오발동 없음. 단 도감·스킬트리에서 툴팁을 띄운 채 Tab 을 누르면 탭 전환과 효과 상세 토글이 함께 일어난다(무해). 필요하면 해당 창 열림 시 InputAllowed 에서 차단.
