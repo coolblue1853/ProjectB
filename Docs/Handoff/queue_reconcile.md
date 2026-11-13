@@ -27,7 +27,7 @@
 | REWORK-13 미스(회피) 시스템 | 완료 | 5d9ff15fe(미스 시스템), `Assets/Script/Combat/MissRules.cs`(PlayerAttackMissMax 60) | 11-14 검증(MISS 표시·상한 프로브·테스트 1255). 남음: 명중/회피 장비 스탯 공급원 | 중 | 2% |
 | REWORK-15 몹 HP 곡선 | 완료 | 11cd4320a(MonsterSheet HP 22종·정예 x4), probe `_bal_ttk`, state:47 | 체감 플레이 확인은 사용자 몫 | 상 | 0% |
 | REWORK-14 빠른 이동(마차) | 부분 | 6dcbcf134(FastTravel P0~P3·P5 일부), 265047bfe(히든 포털 P4), `Assets/Script/FastTravel/*.cs` 5개, `.claude-rules/Game/FastTravel.md` | 재진입 가드 완료(11-14). 남음: 정류장 9곳 실플레이·실패드/마우스 사용자 확인, 요금 튜닝, 마차꾼 도트(그래픽 의뢰) | 하 | 1% |
-| REWORK-11 요리 일괄 | 부분 | 52b67c97f(요리대·일괄), 84b8be51d, `.claude-rules/Game/Cooking.md`, state:51-54 | 레시피 CSV화, 완벽 등급 일괄, 대장장이 UI 실조작 | 하 | 2% |
+| REWORK-11 요리 일괄 | 완료(코드) | 52b67c97f(요리대·일괄), 84b8be51d, `.claude-rules/Game/Cooking.md`, state:51-54 | 실마우스·패드, 요리대 도트(그래픽 방), 생활 탭 연동 — 완벽 일괄·대장장이 일괄은 11-14 probe 검증 | 하 | 0% |
 | REWORK-4 전투 입력 재설계 | 부분 | f6e8739f3(무기별 이동 모드), `Assets/Script/Combat/AttackMoveRules.cs`·`WeaponMoveProfiles`·`DirectionBuffer`, state:65-69 | CI-P4·P7(Weapon.cs, 모션 방 커밋 뒤), 나머지 무기 모드, 실패드 검증 | 상 | 6% |
 | REWORK-9 초반 1시간 시간표 | 부분 | 736bcfcd7·b447d20f7·e612bbafd(설계), `.claude-rules/Game/EarlyHourPlan.md`, state:88 | 설계 완료. R-1~14 CSV 조정 미착수, killElite 보류(R-5·R-6), 실플레이 검증 시나리오 | 상 | 8% |
 | 펫(자동 물약) | 부분 | 10f676151(`Assets/Script/Features/PetFeature.cs`), 4e3baebf4(범위 추가), state:16-17 | 자동 물약 실발동, 펫 줄 키보드·패드 확인. 짝수 층계 해금이라 1층 영향 없음 | 하 | 1% |

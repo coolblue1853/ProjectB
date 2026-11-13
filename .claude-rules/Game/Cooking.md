@@ -30,3 +30,4 @@
 - 레시피 CSV 화 완료(11-11): `Resources/CookingRecipes.csv`(id,method,rarity,ingredients=`재료*개수;…`) → `CookingRecipeCsv.Load/Parse` → `CookingRules.Recipes`. 파일이 없거나 유효 줄 0 이면 코드 `DefaultRecipes` 폴백, 잘못된 줄은 경고 후 건너뜀. 테스트 `CookingRecipeCsvTests`.
 - 생활 탭 트리(V.3b) 연동·요리대 전용 도트·요리 버프 시간 연계는 미구현.
 - 실마우스·실패드 입력은 미검증(probe 는 API 호출).
+- 검증 완료(11-14, play probe): 완벽 등급 일괄(3회분 → 구운 토끼 6개, 손실 0), 대장장이 쌓이는 제작물 2회분 이상 → `QuantityPopup` 열림·확정 → 지급. 콘솔 에러 0. 코드·데이터 추가 작업 없음. 남음: 실마우스·실패드, 요리대 도트, 생활 탭 연동.
