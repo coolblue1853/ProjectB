@@ -435,9 +435,14 @@ public sealed class ExtraEquipPanel : MonoBehaviour
     readonly GameObject[] _petBoxes = new GameObject[3];
     readonly TextMeshProUGUI[] _petLabels = new TextMeshProUGUI[3];
     TextMeshProUGUI _tip;
+    GameObject _setBox;
+    SetOverviewPopup _setPopup;
 
     /// <summary>장비 커서 격자에서 펫 줄(켜기·HP%·MP%)의 노드 번호 시작값. EquipSlot 값(10~14)과 겹치지 않는다</summary>
     public const int PetNodeBase = 20;
+
+    /// <summary>펫 줄 오른쪽 끝 "SET" 칸(세트 창, REWORK-12 P6)의 커서 노드 번호</summary>
+    public const int SetNode = PetNodeBase + 3;
 
     public static void Ensure(Transform parent)
     {
@@ -461,6 +466,10 @@ public sealed class ExtraEquipPanel : MonoBehaviour
     /// <summary>장비 커서 노드(10~14 슬롯, 20~22 펫 줄)의 칸 오브젝트. 패널이 없으면 null</summary>
     public static GameObject BoxOfNode(int node)
     {
+        if (node == SetNode)
+        {
+            return _instance != null ? _instance._setBox : null;
+        }
         if (node >= PetNodeBase)
         {
             int k = node - PetNodeBase;
@@ -474,6 +483,12 @@ public sealed class ExtraEquipPanel : MonoBehaviour
     {
         if (_instance != null)
         {
+            _instance.ShowSetOverview(node == SetNode);
+            if (node == SetNode)
+            {
+                _instance.ShowTip(SetTipText());
+                return;
+            }
             _instance.ShowTip(node >= PetNodeBase ? PetTipText(node - PetNodeBase) : node >= 10 ? SlotTipText((EquipSlot)node) : "");
         }
     }
@@ -481,6 +496,14 @@ public sealed class ExtraEquipPanel : MonoBehaviour
     /// <summary>키보드·패드 선택·클릭: 슬롯 칸이면 해제, 펫 줄이면 자동 먹기 켜기/기준 % 바꾸기</summary>
     public static void ActivateNode(int node)
     {
+        if (node == SetNode)
+        {
+            if (_instance != null)
+            {
+                _instance.ShowSetOverview(true); // 다시 계산해서 띄운다(장착 변경 직후 갱신용)
+            }
+            return;
+        }
         if (node < PetNodeBase)
         {
             Activate((EquipSlot)node);
@@ -514,6 +537,28 @@ public sealed class ExtraEquipPanel : MonoBehaviour
         if (ExtraEquip.IsUnlocked(slot) && ExtraEquip.Get(slot) != null)
         {
             ExtraEquip.Unequip(slot);
+        }
+    }
+
+    public static string SetTipText()
+    {
+        return "착용 세트 효과 (세트색 단계 = 켜짐)"; // 세트 문구는 SetSwapPreview 와 같이 한글 직접(Loc 용어 미등록)
+    }
+
+    /// <summary>세트 창 띄우기/숨기기: SET 칸 호버·커서일 때만 보인다</summary>
+    public void ShowSetOverview(bool on)
+    {
+        if (_setPopup == null)
+        {
+            return;
+        }
+        if (on)
+        {
+            _setPopup.Show();
+        }
+        else
+        {
+            _setPopup.Hide();
         }
     }
 
@@ -555,7 +600,7 @@ public sealed class ExtraEquipPanel : MonoBehaviour
             _labels[slotIndex].overflowMode = TextOverflowModes.Ellipsis;
         }
         string[] petNames = { "PetToggle", "PetHp", "PetMp" };
-        float pw = (282f - 6f) / 3f;
+        float pw = (282f - 9f) / 4f; // 펫 3칸 + SET 1칸
         for (int k = 0; k < 3; k++)
         {
             var pbox = new GameObject(petNames[k], typeof(RectTransform), typeof(Image));
@@ -574,6 +619,7 @@ public sealed class ExtraEquipPanel : MonoBehaviour
             _petLabels[k].fontSizeMin = 6f;
             _petLabels[k].overflowMode = TextOverflowModes.Ellipsis;
         }
+        BuildSetBox(pw);
         PetFeature.Changed += Refresh;
         ContentFeatures.Unlocked += OnContentUnlocked;
         _tip = NewText("Tip", transform, 9f, new Vector2(282f, 26f), new Vector2(4f, -58f));
@@ -581,6 +627,28 @@ public sealed class ExtraEquipPanel : MonoBehaviour
         _tip.color = new Color(1f, 1f, 1f, 0.7f);
         ExtraEquip.Changed += Refresh;
         Refresh();
+    }
+
+    /// <summary>펫 줄 오른쪽 끝 SET 칸 + 세트 창 팝업(기존 칸과 같은 반투명 스킨)</summary>
+    private void BuildSetBox(float pw)
+    {
+        _setBox = new GameObject("SetOverview", typeof(RectTransform), typeof(Image));
+        _setBox.transform.SetParent(transform, false);
+        _setBox.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.12f);
+        var sr = (RectTransform)_setBox.transform;
+        sr.anchorMin = sr.anchorMax = sr.pivot = new Vector2(0f, 1f);
+        sr.anchoredPosition = new Vector2(4f + 3f * (pw + 3f), -33f);
+        sr.sizeDelta = new Vector2(pw, 22f);
+        _setBox.AddComponent<ExtraSlotBox>().InitNode(this, SetNode);
+        TextMeshProUGUI label = NewText("Label", _setBox.transform, 10f, new Vector2(pw, 22f), Vector2.zero);
+        label.alignment = TextAlignmentOptions.Center;
+        label.text = "세트";
+        _setPopup = SetOverviewPopup.Create(transform);
+    }
+
+    private void OnDisable()
+    {
+        ShowSetOverview(false); // 장비창을 닫으면 세트 창도 닫는다
     }
 
     static TextMeshProUGUI NewText(string name, Transform parent, float size, Vector2 sizeDelta, Vector2 pos)
@@ -628,6 +696,10 @@ public sealed class ExtraEquipPanel : MonoBehaviour
         _petLabels[0].text = !pet ? "[X] " + Loc.T("PET") : Loc.T("PET") + (PetFeature.Enabled ? " ON" : " OFF");
         _petLabels[1].text = "HP " + PetFeature.HpPercent + "%";
         _petLabels[2].text = "SP " + PetFeature.MpPercent + "%";
+        if (_setPopup != null && _setPopup.IsShown)
+        {
+            _setPopup.Show(); // 열린 채 추가 칸 장착이 바뀌면 다시 계산
+        }
         for (int i = 0; i < _labels.Length; i++)
         {
             EquipSlot s = SlotRules.Extras[i];
@@ -644,7 +716,7 @@ public sealed class ExtraSlotBox : MonoBehaviour, IPointerEnterHandler, IPointer
     ExtraEquipPanel _panel;
     EquipSlot _slot;
 
-    int _node = -1; // 펫 줄이면 장비 커서 노드 번호(20~22), 슬롯 칸이면 -1
+    int _node = -1; // 펫 줄·SET 칸이면 장비 커서 노드 번호(20~23), 슬롯 칸이면 -1
 
     public void Init(ExtraEquipPanel panel, EquipSlot slot)
     {
@@ -660,11 +732,18 @@ public sealed class ExtraSlotBox : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData e)
     {
+        if (_node == ExtraEquipPanel.SetNode)
+        {
+            _panel.ShowSetOverview(true);
+            _panel.ShowTip(ExtraEquipPanel.SetTipText());
+            return;
+        }
         _panel.ShowTip(_node >= 0 ? ExtraEquipPanel.PetTipText(_node - ExtraEquipPanel.PetNodeBase) : ExtraEquipPanel.SlotTipText(_slot));
     }
 
     public void OnPointerExit(PointerEventData e)
     {
+        _panel.ShowSetOverview(false);
         _panel.ShowTip("");
     }
 

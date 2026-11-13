@@ -3,6 +3,9 @@
 /// <summary>세트별 정의 단계 (SetItem.csv 키 "RabbitArmor_2" → 세트 RabbitArmor, 단계 2). 효과 문자열은 SetEffectApplier.Parse 로 해석</summary>
 public sealed class SetTierTable
 {
+    /// <summary>SetItem.csv 세트 단계 상한(P7 11단계). 단계 조회 루프는 이 값을 공유한다</summary>
+    public const int MaxTier = 11;
+
     readonly Dictionary<string, SortedDictionary<int, string>> tiers = new Dictionary<string, SortedDictionary<int, string>>();
 
     public void Define(string setKey, int tier, string effect)

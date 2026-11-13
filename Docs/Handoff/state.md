@@ -168,3 +168,6 @@
 - REWORK-12 장신구(11-14, 083c27d48): 방랑자의 팔찌(tag:Dash 쿨 -20%, 3층계 해금이라 획득처 없음)·사냥꾼 부적(처치 시 전 스킬 쿨 -0.5초·내부 쿨 1초, AlphaWolf 10%). 텔레포트는 Leaf Teleport 스킬이라 SkillTags 만 등록. EditMode 1243/1243, 프로브 확인.
 - 남음(REWORK-12): 세트 창 화면(단계 표시·마우스/키보드/패드), 효과 상세 토글, SetSwapPreview 효과 줄, Q-EFX7·Q-EFX8, Gatekeeper 보너스, Bog5 Bleed.
 - 주의: 주간 사용량 78% 도달로 세트 창은 착수 안 함(EquipEffectDesign P6 보류 그대로).
+- REWORK-12 세트 창(11-14): 장비창 추가 칸 펫 줄 끝 "세트" 칸(커서 노드 23) 호버·키보드/패드 커서 → 착용 세트 요약 팝업(세트별 기존 툴팁 세트 단락·켜진 단계·다음 단계까지 부위 수). 순수 규칙 `SetOverview` + 테스트 7, 단계 상한 공용 `SetTierTable.MaxTier=11`(SetEffectText 0~7 루프 버그 함께 수정). EditMode 1250/1250, 플레이 프로브·스샷 확인.
+- 남음(REWORK-12): 효과 상세 토글, SetSwapPreview 효과 줄, 세트 창 문구 Loc 등록(한글 직접), 세트 부위 수 표시가 착용 수보다 작게 나오는 경우("5/4", SetPartCount 가 부위 종류 수) 점검, Q-EFX7·8, Gatekeeper 보너스, Bog5 Bleed.
+- 주의: SET 팝업은 호버·커서 중에만 보임. 정적 캐시 RepCache(세트 키→대표 아이템)는 찾은 것만 저장.

@@ -846,7 +846,7 @@ public class InventoryManager : MonoBehaviour
         new[] { 5 },
         new[] { 7 },
         new[] { (int)EquipSlot.Earring, (int)EquipSlot.Charm, (int)EquipSlot.Bracelet, (int)EquipSlot.Belt, (int)EquipSlot.Stone },
-        new[] { ExtraEquipPanel.PetNodeBase, ExtraEquipPanel.PetNodeBase + 1, ExtraEquipPanel.PetNodeBase + 2 }, // 펫: 켜기·HP%·MP%
+        new[] { ExtraEquipPanel.PetNodeBase, ExtraEquipPanel.PetNodeBase + 1, ExtraEquipPanel.PetNodeBase + 2, ExtraEquipPanel.SetNode }, // 펫: 켜기·HP%·MP% + 세트 창
     };
 
     GameObject EquipNavBox(int node)
@@ -2127,7 +2127,7 @@ public class InventoryManager : MonoBehaviour
     public string SetEffectText(ItemData d)
     {
         var tiers = new List<KeyValuePair<int, string>>();
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i <= SetTierTable.MaxTier; i++)
         {
             string effect = SetItem.SetEffectStr(d.tfName, i);
             if (!string.IsNullOrEmpty(effect))

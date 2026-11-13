@@ -280,3 +280,9 @@
 ## 11-13 REWORK-3 edge=fall 남은 것 (P2)
 - edge=fall 몹(토끼·돌토끼·늪 개구리·포자등 두꺼비)이 떨어진 뒤 복귀·킬플레인·스포너 재배치가 없다. 도달 불가 층에 갇히거나 맵 밖으로 떨어지는지 실전 확인 필요. 문제 시 해당 행 edge 를 turn 으로 되돌리면 롤백.
 - (11-14 reviewer-arch, cda9e80bc 참고) `HudPolicy.cs:99-112` QM HUD 상시 꺼짐인데 `_qm` 없으면 1초마다 FindFirstObjectByType 재탐색 — 1회 탐색 실패 플래그로. `QuestBoard.cs:11` 씬의 빈 QuestGiver 컴포넌트는 씬 정리 때 제거.
+
+## 11-14 REWORK-12 세트 창 남은 것 (P3)
+
+- 세트 창 문구("세트"·"착용 세트 효과"·"다음 단계(n)까지 m부위")는 한글 직접 — Loc 용어 미등록(SetSwapPreview 와 같은 상태). 영어 모드에서 한글로 보임.
+- `InventoryManager.SetPartCount` 가 부위 종류 수라 착용 수가 더 크게 나오는 경우가 있다(스샷 "자연의 보답 (5/4)"). v2 슬롯 기준 전체 수 정의 필요.
+- `SetOverviewPopup` 이 `DatabaseManager.setsEffectStack`·`Items`·`InventoryManager.instance` 정적 참조에 직접 의존(리뷰 권장: 데이터 주입). 의상·무기 장착 변경 중 팝업이 열려 있으면 다음 호버 때 갱신(추가 칸 변경만 즉시 갱신).

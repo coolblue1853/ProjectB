@@ -60,7 +60,7 @@ public static class SetOverview
         return n;
     }
 
-    static int Compare(SetOverviewEntry a, SetOverviewEntry b)
+    private static int Compare(SetOverviewEntry a, SetOverviewEntry b)
     {
         int c = b.ActiveTiers.Count.CompareTo(a.ActiveTiers.Count);
         if (c != 0)
