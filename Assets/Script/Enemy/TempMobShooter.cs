@@ -11,6 +11,7 @@ public sealed class TempMobShooter : MonoBehaviour
     const string ArrowPath = "FX/MobArrow";
     static ObjectPool<GameObject> s_pool;
     static GameObject s_prefab;
+    static int s_terrainMask;
 
     private EnemyHealth _enemy;
     private MobShootRules.Profile _profile;
@@ -72,6 +73,10 @@ public sealed class TempMobShooter : MonoBehaviour
 
     void Fire()
     {
+        if (IsLineBlocked())
+        {
+            return;
+        }
         int dmg = MobShootRules.ShotDamage(_enemy.ContactDamage, _profile.DamageMul);
         GameObject arrow = dmg > 0 ? GetArrow() : null;
         if (arrow == null)
@@ -87,6 +92,26 @@ public sealed class TempMobShooter : MonoBehaviour
             shot.enemyOb = gameObject;
             shot.LaunchObject();
         }
+    }
+
+    // 발사 시점 1회: 몹 가슴 → 플레이어 가슴 사이에 발판·벽이 있으면 쏘지 않는다(할당 없는 Raycast).
+    bool IsLineBlocked()
+    {
+        PlayerController player = PlayerController.instance;
+        if (player == null)
+        {
+            return true;
+        }
+        if (s_terrainMask == 0)
+        {
+            s_terrainMask = LayerMask.GetMask("Ground", "Wall");
+        }
+        Vector2 from = (Vector2)transform.position + new Vector2(0f, 0.5f);
+        Vector2 to = (Vector2)player.transform.position + new Vector2(0f, 0.5f);
+        Vector2 delta = to - from;
+        float dist = delta.magnitude;
+        RaycastHit2D hit = Physics2D.Raycast(from, delta / Mathf.Max(dist, 0.0001f), dist, s_terrainMask);
+        return MobShootRules.IsBlocked(hit.collider != null ? hit.distance : -1f, dist);
     }
 
     static GameObject GetArrow()
@@ -124,5 +149,6 @@ public sealed class TempMobShooter : MonoBehaviour
     {
         s_pool = null;
         s_prefab = null;
+        s_terrainMask = 0;
     }
 }

@@ -48,6 +48,12 @@ public static class MobShootRules
         return cooldownReady && ax >= p.MinRange && ax <= p.MaxRange && RangedAttackRules.InReach(0f, dy);
     }
 
+    /// <summary>사격선이 지형에 막혔는가. hitDistance = 지형 레이캐스트 적중 거리(없으면 음수), shotDistance = 몹→플레이어 거리.</summary>
+    public static bool IsBlocked(float hitDistance, float shotDistance)
+    {
+        return hitDistance >= 0f && hitDistance < shotDistance;
+    }
+
     /// <summary>화살 피해 = 몸박 기준값 x 배율(반올림, 최소 1). 몸박 값이 없으면 0(사격 안 함).</summary>
     public static int ShotDamage(int contactBase, float mul)
     {

@@ -34,6 +34,14 @@ public class MobShootRulesTests
     }
 
     [Test]
+    public void IsBlocked_HitBeforePlayerOnly()
+    {
+        Assert.IsFalse(MobShootRules.IsBlocked(-1f, 5f));
+        Assert.IsTrue(MobShootRules.IsBlocked(2f, 5f));
+        Assert.IsFalse(MobShootRules.IsBlocked(5f, 5f));
+    }
+
+    [Test]
     public void ShotDamage_ScalesFromContact()
     {
         Assert.AreEqual(10, MobShootRules.ShotDamage(20, MobShootRules.Shoot.DamageMul));
