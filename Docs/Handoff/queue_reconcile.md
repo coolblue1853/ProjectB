@@ -24,7 +24,7 @@
 | REWORK-7 레벨 디자인 참고 | 완료 | c6e859c7d·bdf9ffce9, `.claude-rules/Game/LevelDesignRef.md`, Q-LVREF(`Docs/OpenQuestions.md`:689) | 산출물 완료. 수정안 반영 여부는 REWORK-15 와 묶어 사용자 판단 | 중 | 0% |
 | REWORK-10 맵 구조·몹 배치 | 부분 | 14671055e·a87ebe053·c0a426259, 11-13 7314bda68(깊은 숲 2층 몹 혼입 제거·Lv4~9 EXP), `Docs/Playtest/MapReview.md` 작성 | 남음: 지형 3벌 복제(씬)·비활성 8맵 폭/층 실측·늪 포인트 몰림·리젠 차등·막다른 맵 히든 포털(MapReview §4). 타일맵 그림은 그래픽 | 상 | 4% |
 | REWORK-6 퀘스트 콘텐츠 | 부분 | 87678eb17(QuestDesign.md·kind 재분류), 1bbd3932b(U7), 07bc7372d, state:41-45·89 | 퀘스트 대사 나머지 단계(1층계 main·side 완료 11-13, 남음: Q101 코드 대사 유지·reward 계열 코드 대사 유지·Q 창 노출 Q-QD2·2층계) | 하 | 2% |
-| REWORK-13 미스(회피) 시스템 | 부분 | 5d9ff15fe(미스 시스템), `Assets/Script/Combat/MissRules.cs`(PlayerAttackMissMax 60) | MISS 표시·수치 프로브·보스 예외 검증 미확인 | 중 | 2% |
+| REWORK-13 미스(회피) 시스템 | 완료 | 5d9ff15fe(미스 시스템), `Assets/Script/Combat/MissRules.cs`(PlayerAttackMissMax 60) | 11-14 검증(MISS 표시·상한 프로브·테스트 1255). 남음: 명중/회피 장비 스탯 공급원 | 중 | 2% |
 | REWORK-15 몹 HP 곡선 | 완료 | 11cd4320a(MonsterSheet HP 22종·정예 x4), probe `_bal_ttk`, state:47 | 체감 플레이 확인은 사용자 몫 | 상 | 0% |
 | REWORK-14 빠른 이동(마차) | 부분 | 6dcbcf134(FastTravel P0~P3·P5 일부), 265047bfe(히든 포털 P4), `Assets/Script/FastTravel/*.cs` 5개, `.claude-rules/Game/FastTravel.md` | P5 나머지, 정류장 9곳 실플레이 검증 | 하 | 3% |
 | REWORK-11 요리 일괄 | 부분 | 52b67c97f(요리대·일괄), 84b8be51d, `.claude-rules/Game/Cooking.md`, state:51-54 | 레시피 CSV화, 완벽 등급 일괄, 대장장이 UI 실조작 | 하 | 2% |
