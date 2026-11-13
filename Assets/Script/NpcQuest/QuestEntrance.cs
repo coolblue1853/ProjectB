@@ -18,12 +18,12 @@ public static class QuestEntrance
     }
 
     /// <summary>
-    /// 구역 안내판(깊은 숲·늪·요새·탑 입구, 11-13 결정 "수락·보고 허용"): 그 구역을 목표로 하는 퀘스트는 giver·reportTo NPC 와 무관하게
+    /// 구역 안내판(깊은 숲·늪·요새·탑 입구, 11-13 결정 "수락·보고 허용"): 그 구역을 목표로 하는 퀘스트는(진행 중은 보고 가능한 것만 보인다) giver·reportTo NPC 와 무관하게
     /// 안내판에서 수락하고 보고한다(일반 숲·마을까지 돌아가지 않게). 현상은 제외
     /// </summary>
     public static QuestFilter ZoneSign(string mapId)
     {
-        return new QuestFilter { ZoneKeys = NpcQuestZone.ZonesOfSign(mapId), ReportToo = true };
+        return new QuestFilter { ZoneKeys = NpcQuestZone.ZonesOfSign(mapId), ReportToo = true, ReadyOnly = true };
     }
 
     /// <summary>입구 창을 연다. 현상은 열기 전에 오늘 목록을 보장한다. 이미 다른 UI 가 열려 있으면 false</summary>

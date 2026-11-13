@@ -242,7 +242,7 @@ public class QuestWindowTests
         Assert.IsTrue(QuestService.Accept("E1"));
         Assert.IsTrue(QuestService.Accept("E2"));
         Assert.IsTrue(QuestService.Accept("E3"));
-        CollectionAssert.AreEqual(new[] { "E1" }, QuestService.Query(deep.WithTab(QuestListRules.Tab.Active)).Items.Select(d => d.Id).ToArray(), "진행 중 = 이 구역 목표만");
+        Assert.IsEmpty(QuestService.Query(deep.WithTab(QuestListRules.Tab.Active)).Items, "안내판은 미완료 진행 중(Ready 아님)을 숨긴다");
         Assert.IsTrue(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E1"), deep), "루엔발·이브 보고 퀘스트도 안내판에서 보고");
         Assert.IsFalse(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E2"), deep), "다른 구역 퀘스트는 이 안내판에서 보고 불가");
         Assert.IsFalse(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E3"), deep));

@@ -14,11 +14,13 @@ public sealed class QuestFilter
     public bool ReportOnly;
     /// <summary>구역 안내판용: 비어 있지 않으면 목표 구역이 이 구역(들) 중 하나인 퀘스트만, giver·reportTo NPC 와 무관하게 수락·보고 대상으로 본다(현상 제외). 지정되면 다른 조건(Giver·Source·Zone·ReportOnly)은 무시하고, 빈 배열은 아무것도 맞지 않는다</summary>
     public string[] ZoneKeys;
+    /// <summary>true 면 진행 중 탭에 보고 가능(Ready)만 보인다 — 구역 안내판은 미완료 진행 현황을 노출하지 않는다(NEXT-4)</summary>
+    public bool ReadyOnly;
 
     /// <summary>같은 입구 조건으로 탭만 바꾼 복사본</summary>
     public QuestFilter WithTab(QuestListRules.Tab tab)
     {
-        return new QuestFilter { Tab = tab, Giver = Giver, Source = Source, Zone = Zone, ReportToo = ReportToo, ReportOnly = ReportOnly, ZoneKeys = ZoneKeys };
+        return new QuestFilter { Tab = tab, Giver = Giver, Source = Source, Zone = Zone, ReportToo = ReportToo, ReportOnly = ReportOnly, ZoneKeys = ZoneKeys, ReadyOnly = ReadyOnly };
     }
 }
 
@@ -122,7 +124,7 @@ public static class QuestService
                 foreach (NpcQuestDef d in sorted)
                 {
                     NpcQuestStatus s = StatusOf(d);
-                    if (s == NpcQuestStatus.Active || s == NpcQuestStatus.Ready)
+                    if (s == NpcQuestStatus.Ready || (s == NpcQuestStatus.Active && !f.ReadyOnly))
                     {
                         active.Add(d);
                     }
