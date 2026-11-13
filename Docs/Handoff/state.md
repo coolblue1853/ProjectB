@@ -180,3 +180,6 @@
 
 - (11-14 리뷰1114 반영 a90550f04) Ring2←Ring 허용 SlotRules.Accepts·환급 키/쿨 캐시·RepCache 무효화·롤백 주의 문서. EditMode 1253/1253.
 - 남음: 없음(권장 1~3·참고 4 완료).
+
+- (11-14 패드 인벤 단축) 필드 Select 짧게=인벤, 다음 아티팩트=R3 길게, R3 짧게=사용. PadFieldInput.R3 추가, InputAudit·ControlsGuide 갱신. 가상 패드 프로브 검증, 실패드는 UserPlaytest_1111.
+- 남음: 실패드 손맛 확인.

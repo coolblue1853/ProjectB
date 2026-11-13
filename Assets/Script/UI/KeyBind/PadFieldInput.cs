@@ -3,7 +3,8 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// 필드 패드 입력 집계(AUTO-49, InputAudit P2·P3·P4·P5). 프레임당 한 번 계산해 소비자가 같은 값을 읽는다.
-/// SELECT: 짧게 = 아티팩트 교체, 길게 = 퀘스트 창. L3: 짧게 = 퀵슬롯 1, 길게 = 퀵슬롯 4. LT+SELECT = 도감, LT+START = 지도.
+/// SELECT: 짧게 = 인벤 열기, 길게 = 퀘스트 창. L3: 짧게 = 퀵슬롯 1, 길게 = 퀵슬롯 4. R3: 짧게 = 아티팩트 사용, 길게 = 다음 아티팩트.
+/// LT+SELECT = 도감, LT+START = 지도, LT+R3 = 미니맵.
 /// 소비자는 읽기 전에 Refresh()를 매 프레임 불러야 한다(제스처 판정이 프레임 폴링이라 빠지면 놓친다).
 /// 눌린 순간 UI 가 열려 있었는지(InUi)를 함께 돌려줘, 인벤토리 안 SELECT·L3 동작과 겹치지 않게 한다.
 /// </summary>
@@ -12,6 +13,8 @@ public static class PadFieldInput
     private static int _frame = -1;
     private static PadHoldTracker _select;
     private static PadHoldTracker _l3;
+    private static PadHoldTracker _r3;
+    private static bool _r3InUi;
     private static bool _selectInUi;
     private static bool _l3InUi;
 
@@ -19,6 +22,9 @@ public static class PadFieldInput
     public static bool SelectInUi { get; private set; }
     public static PadGesture L3 { get; private set; }
     public static bool L3InUi { get; private set; }
+    /// <summary>R3 제스처(짧게 = 아티팩트 사용, 길게 = 다음 아티팩트). LT+R3 는 세지 않는다</summary>
+    public static PadGesture R3 { get; private set; }
+    public static bool R3InUi { get; private set; }
     public static bool LtSelect { get; private set; }
     public static bool LtStart { get; private set; }
     /// <summary>LT+R3 조합 이번 프레임(U36 미니맵 켜기·끄기, 필드 한정 소비자가 isOpenUI 로 거른다)</summary>
@@ -55,6 +61,7 @@ public static class PadFieldInput
         _frame = Time.frameCount;
         Select = PadGesture.None;
         L3 = PadGesture.None;
+        R3 = PadGesture.None;
         LtSelect = false;
         LtStart = false;
         LtR3 = false;
@@ -63,6 +70,7 @@ public static class PadFieldInput
         {
             _select.Cancel();
             _l3.Cancel();
+            _r3.Cancel();
             return;
         }
         bool lt = pad.leftTrigger.isPressed;
@@ -78,17 +86,25 @@ public static class PadFieldInput
         {
             _l3InUi = DatabaseManager.isOpenUI;
         }
+        if (pad.rightStickButton.wasPressedThisFrame)
+        {
+            _r3InUi = DatabaseManager.isOpenUI;
+        }
         if (lt)
         {
             // 누르는 도중 LT 를 더하면 조합으로 보고 진행 중 제스처를 버린다(SELECT 길게 중 LT → 퀘스트 창 오발동 방지)
             _select.Cancel();
             _l3.Cancel();
+            _r3.Cancel(); // R3 길게 중 LT 를 더해도(LT+R3 미니맵) 다음 아티팩트가 오발동하지 않게
+            _r3InUi = false;
             _l3InUi = false;
             _selectInUi = false; // 취소한 제스처의 UI 상태가 다음 눌림까지 남지 않게(ReviewCode_1105b #4)
         }
         // LT 조합(LT+SELECT 등)은 제스처로 세지 않는다
         Select = _select.Step(pad.selectButton.wasPressedThisFrame && !lt, pad.selectButton.isPressed, now, PadFieldInputRules.QuestHoldSeconds);
         L3 = _l3.Step(pad.leftStickButton.wasPressedThisFrame && !lt, pad.leftStickButton.isPressed, now, PadFieldInputRules.Quick4HoldSeconds);
+        R3 = _r3.Step(pad.rightStickButton.wasPressedThisFrame && !lt, pad.rightStickButton.isPressed, now, PadFieldInputRules.ArtifactNextHoldSeconds);
+        R3InUi = _r3InUi;
         SelectInUi = _selectInUi;
         L3InUi = _l3InUi;
     }

@@ -138,8 +138,8 @@ public class ArtifactSystem : MonoBehaviour
         {
             return;
         }
-        // 패드 SELECT 는 짧게 뗄 때만 교체(길게 = 퀘스트 창, AUTO-49). 키보드 Tab 은 누르는 즉시
-        bool padNext = PadFieldInput.Select == PadGesture.Tap && !PadFieldInput.SelectInUi;
+        // 패드 R3 는 짧게 뗄 때 사용, 길게(0.5초) 누르면 다음 아티팩트. SELECT 는 인벤(짧게)·퀘스트(길게)로 넘어갔다. 키보드 Tab·V 는 누르는 즉시
+        bool padNext = PadFieldInput.R3 == PadGesture.Hold && !PadFieldInput.R3InUi;
         bool keyNext = action.Player.ArtifactNext.WasPressedThisFrame() && !PadFieldInput.IsFromGamepad(action.Player.ArtifactNext);
         if (keyNext || padNext)
         {
@@ -147,7 +147,11 @@ public class ArtifactSystem : MonoBehaviour
         }
         PadFieldInput.Refresh();
         // LT+R3 = 미니맵(U36)이라 패드 조합에서는 아티팩트를 쓰지 않는다
-        if (action.Player.Artifact.WasPressedThisFrame() && !(PadFieldInput.LtR3 && PadFieldInput.IsFromGamepad(action.Player.Artifact)))
+        // R3 기본 키는 위 제스처(뗄 때)로 쓴다. 다른 패드 버튼으로 바꾼 경우만 누르는 즉시 사용
+        bool pressed = action.Player.Artifact.WasPressedThisFrame();
+        bool padR3 = pressed && IsPadR3(action.Player.Artifact);
+        bool padGestureUse = PadFieldInput.R3 == PadGesture.Tap && !PadFieldInput.R3InUi && PadBoundToR3(action.Player.Artifact);
+        if ((pressed && !padR3 && !(PadFieldInput.LtR3 && PadFieldInput.IsFromGamepad(action.Player.Artifact))) || padGestureUse)
         {
             TryUse();
         }
@@ -158,6 +162,24 @@ public class ArtifactSystem : MonoBehaviour
             cdFill.fillAmount = d != null && d.cooldown > 0f ? Mathf.Clamp01(left / d.cooldown) : 0f;
             label.text = left > 0.05f ? Mathf.CeilToInt(left).ToString() : keyLabel;
         }
+    }
+
+    static bool PadBoundToR3(InputAction a)
+    {
+        for (int i = 0; i < a.bindings.Count; i++)
+        {
+            if (a.bindings[i].effectivePath == "<Gamepad>/rightStickPress")
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static bool IsPadR3(InputAction a)
+    {
+        Gamepad pad = Gamepad.current;
+        return pad != null && a.activeControl == pad.rightStickButton;
     }
 
     void CycleEquipped()

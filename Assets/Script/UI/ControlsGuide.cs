@@ -71,7 +71,7 @@ public static class ControlsGuide
                 new Row("장비 스킬 4", "{SkillF}", "{SkillF}"),
                 new Row("다운된 적 공격", "↓+{Attack}", "↓+{Attack}"),
                 new Row("대시 (뒤 층계 개방)", "{Dash}", "{Dash}"),
-                new Row("아티팩트 / 다음", "{Artifact} / {ArtifactNext}", "{Artifact} / {ArtifactNext}"),
+                new Row("아티팩트 / 다음", "{Artifact} / {ArtifactNext}", "R3 / R3 길게"),
             },
         },
         new Section
@@ -92,7 +92,7 @@ public static class ControlsGuide
             RightColumn = true,
             Rows = new[]
             {
-                new Row("가방", "{UI/OpenInventory}", "일시정지(START) > 가방"),
+                new Row("가방", "{UI/OpenInventory}", "SELECT 짧게"),
                 new Row("제작", "{UI/OpenCraft}", "{UI/OpenCraft}"),
                 new Row("퀘스트", "{QuestWindow}", "SELECT 길게"),
                 new Row("  퀘스트 창 안: 추적창 접기 / 포기", "H / Del", "LT / Y"),

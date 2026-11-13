@@ -53,6 +53,9 @@ public static class PadFieldInputRules
     /// <summary>퀘스트 창: SELECT 길게</summary>
     public const float QuestHoldSeconds = 0.8f;
 
+    /// <summary>다음 아티팩트: R3 길게(짧게 = 아티팩트 사용)</summary>
+    public const float ArtifactNextHoldSeconds = 0.5f;
+
     /// <summary>퀵슬롯 4: L3 길게(짧게 = 퀵슬롯 1)</summary>
     public const float Quick4HoldSeconds = 0.5f;
 

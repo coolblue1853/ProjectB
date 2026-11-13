@@ -605,7 +605,7 @@ public partial class @KeyAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""647518f4-54fd-4e7e-a6c1-a57d782e2ac4"",
-                    ""path"": ""<Gamepad>/select"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

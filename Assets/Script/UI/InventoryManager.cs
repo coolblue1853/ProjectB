@@ -1625,8 +1625,15 @@ public class InventoryManager : MonoBehaviour
             }
             else if (!padStart && inventory.activeSelf == false && DatabaseManager.isOpenUI == false)
             {
-                OpenFromField(); // 필드의 패드 Start = 일시정지 전용(PauseMenu). 패드 인벤은 일시정지 메뉴 > 인벤토리
+                OpenFromField(); // 필드의 패드 Start = 일시정지 전용(PauseMenu). 패드 인벤 = SELECT 짧게(아래) 또는 일시정지 메뉴 > 인벤토리
             }
+        }
+
+        // 패드 SELECT 짧게(뗄 때) = 인벤 열기. 눌린 순간 UI 가 열려 있었으면(프리셋 넘기기 등) 무시 — 닫기는 Start
+        PadFieldInput.Refresh();
+        if (PadFieldInput.Select == PadGesture.Tap && !PadFieldInput.SelectInUi && !inventory.activeSelf && !DatabaseManager.isOpenUI)
+        {
+            OpenFromField();
         }
     }
 

@@ -59,7 +59,7 @@ public class InputBindingsTests
         // 패드 면 버튼은 모두 기본 사용 중이라 교환(Swapped)이 되지만, 예약(Reserved)이 아니면 된다
         AssertOwnDefaultRoundTrip("Quick1", "<Gamepad>/leftStickPress");
         AssertOwnDefaultRoundTrip("Artifact", "<Gamepad>/rightStickPress");
-        AssertOwnDefaultRoundTrip("ArtifactNext", "<Gamepad>/select");
+        Assert.AreEqual("", Path("ArtifactNext", true)); // 다음 아티팩트 = R3 길게(고정 제스처), 패드 기본 키 없음
         // 타 액션은 그 키 거부(예약 유지)
         Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Quick2", true, "<Gamepad>/leftStickPress", out _));
         Assert.AreEqual(InputBindings.AssignResult.Reserved, InputBindings.Assign(_ka.asset, "Quick1", true, "<Gamepad>/rightStickPress", out _));
