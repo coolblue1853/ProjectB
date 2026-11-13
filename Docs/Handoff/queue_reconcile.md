@@ -22,7 +22,7 @@
 | REWORK-3 몹 행동 속성 | 부분 | e6b524591(속성 8열·BT 훅), `Assets/Script/Enemy/MobBehaviorRules.cs`, state:31-32 | 실전 체감(낙하 후 갇힘 확인), 후공 8초·hop 높이 튜닝 | 상 | 3% |
 | BUG-U23 작은 몹 판정 | 완료 | e6b524591(콜라이더 하한 1.2x1.1), state:33(EditMode 1080·play probe) | 없음(체감 확인은 REWORK-3) | 중 | 0% |
 | REWORK-7 레벨 디자인 참고 | 완료 | c6e859c7d·bdf9ffce9, `.claude-rules/Game/LevelDesignRef.md`, Q-LVREF(`Docs/OpenQuestions.md`:689) | 산출물 완료. 수정안 반영 여부는 REWORK-15 와 묶어 사용자 판단 | 중 | 0% |
-| REWORK-10 맵 구조·몹 배치 | 부분 | 14671055e(맵 컨셉 시트), a87ebe053(재점검), c0a426259(범위 정정), `Docs/Playtest/MapReview.md` 없음 | 맵별 표(크기·층·로프·포털·스폰 지점·밀도·리젠) 작성, 메이플 값과 비교. 타일맵 그림은 그래픽 | 상 | 6% |
+| REWORK-10 맵 구조·몹 배치 | 부분 | 14671055e·a87ebe053·c0a426259, 11-13 7314bda68(깊은 숲 2층 몹 혼입 제거·Lv4~9 EXP), `Docs/Playtest/MapReview.md` 작성 | 남음: 지형 3벌 복제(씬)·비활성 8맵 폭/층 실측·늪 포인트 몰림·리젠 차등·막다른 맵 히든 포털(MapReview §4). 타일맵 그림은 그래픽 | 상 | 4% |
 | REWORK-6 퀘스트 콘텐츠 | 부분 | 87678eb17(QuestDesign.md·kind 재분류), 1bbd3932b(U7), 07bc7372d, state:41-45·89 | 퀘스트 대사 나머지 단계(1층계 main·side 완료 11-13, 남음: Q101 코드 대사 유지·reward 계열 코드 대사 유지·Q 창 노출 Q-QD2·2층계) | 하 | 2% |
 | REWORK-13 미스(회피) 시스템 | 부분 | 5d9ff15fe(미스 시스템), `Assets/Script/Combat/MissRules.cs`(PlayerAttackMissMax 60) | MISS 표시·수치 프로브·보스 예외 검증 미확인 | 중 | 2% |
 | REWORK-15 몹 HP 곡선 | 완료 | 11cd4320a(MonsterSheet HP 22종·정예 x4), probe `_bal_ttk`, state:47 | 체감 플레이 확인은 사용자 몫 | 상 | 0% |
@@ -69,7 +69,7 @@
 2. REWORK-0 관례 이탈: 2차 점검과 나머지 수정 (상, 6%)
 3. REWORK-8 키·NPC: U38 null 체크, 실마우스·패드 검증 (상, 3%)
 4. REWORK-3 몹 행동 속성: edge=fall 배정, 정예 속성, 튜닝 (상, 3%)
-5. REWORK-10 맵 구조: `Docs/Playtest/MapReview.md` 맵별 표 미작성 (상, 6%)
+5. REWORK-10 맵 구조: MapReview 표·데이터 수정 완료(11-13), 남음 = 씬 지형 3벌 복제 해소·비활성 맵 실측 (상, 4%)
 6. REWORK-1 인벤·상점·창고: 실마우스·패드 검증 (상, 3%)
 7. REWORK-5 퀘스트 통합: P5 정리와 플레이 검증 (상, 5%)
 8. REWORK-6 퀘스트 콘텐츠: 대사 나머지 단계 (상, 5%)
