@@ -5,6 +5,8 @@ public enum MobMove { Default, Patrol, Stay, Hop }
 public enum MobEdge { Default, Turn, Fall }
 public enum MobAggro { Default, First, Reactive, Passive }
 public enum MobAttackKind { Default, Melee, Ranged, Contact }
+/// <summary>킬플레인 아래 처리: 일반 몹 제거, 슬롯 보스 스폰 위치 복귀</summary>
+public enum FallAction { Remove, Return }
 
 /// <summary>
 /// 파싱된 행동 속성. 필드가 비어 있으면(Default/null) 프리팹 BT 값을 그대로 쓴다.
@@ -49,6 +51,12 @@ public static class MobBehaviorRules
     public static float KillPlaneY(float mapBottom, float lowestSpawnY)
     {
         return Mathf.Min(mapBottom, lowestSpawnY) - FallRecovery.KillMargin;
+    }
+
+    /// <summary>킬플레인 아래 처리 — 슬롯 보스는 보상 없이 사라지면 전투가 끊기므로 스폰 위치로 복귀, 일반 몹은 제거</summary>
+    public static FallAction KillPlaneAction(bool isBoss)
+    {
+        return isBoss ? FallAction.Return : FallAction.Remove;
     }
 
     /// <summary>edge=fall 몹이 아래 발판에 착지했으면 true — 메이플처럼 그 발판에서 계속 활동하도록 기준점을 옮긴다</summary>

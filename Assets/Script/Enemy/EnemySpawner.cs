@@ -529,6 +529,17 @@ public class EnemySpawner : MonoBehaviour
             Vector3 pos = go.transform.position;
             if (_hasKillPlane && pos.y < _killPlaneY)
             {
+                if (MobBehaviorRules.KillPlaneAction(e.isBossMob) == FallAction.Return && e.hasSpawnPosition)
+                {
+                    // 슬롯 보스: 보상 없이 사라지면 전투가 끊기므로 스폰 위치로 순간 복귀
+                    GameLog.Info(GameLog.Cat.Spawn, name + ": 슬롯 " + i + " 보스 킬플레인 복귀 y=" + pos.y.ToString("F1"), this);
+                    go.transform.position = e.spawnPosition;
+                    if (e.Body != null)
+                    {
+                        e.Body.linearVelocity = Vector2.zero;
+                    }
+                    continue;
+                }
                 GameLog.Info(GameLog.Cat.Spawn, name + ": 슬롯 " + i + " 킬플레인 아래 제거 y=" + pos.y.ToString("F1"), this);
                 e.ForceEnemyRelease(); // 이벤트로 슬롯이 비워진다
                 continue;

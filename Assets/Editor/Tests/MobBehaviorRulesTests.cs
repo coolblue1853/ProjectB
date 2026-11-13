@@ -12,6 +12,13 @@ public class MobBehaviorRulesTests
     }
 
     [Test]
+    public void KillPlaneAction_BossReturnsNormalRemoved()
+    {
+        Assert.AreEqual(FallAction.Return, MobBehaviorRules.KillPlaneAction(true), "슬롯 보스는 복귀");
+        Assert.AreEqual(FallAction.Remove, MobBehaviorRules.KillPlaneAction(false), "일반 몹은 제거");
+    }
+
+    [Test]
     public void ShouldRehome_OnlyFallMobLandedBelowHome()
     {
         Assert.IsTrue(MobBehaviorRules.ShouldRehome(MobEdge.Fall, 0f, -3f, 0f), "떨어져 아래 발판에 선 몹");
