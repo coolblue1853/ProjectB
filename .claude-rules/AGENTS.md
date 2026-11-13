@@ -123,4 +123,5 @@
 | `Docs/Playtest/UserPlaytest_1111.md` *(저장소 루트)* | 11-11 사용자 플레이 확인 목록(미검증 항목) |
 | `Docs/Handoff/outfit_one_piece_decision.md` *(저장소 루트)* | 외형 슬롯=의상 하나·층계별 해금 슬롯·세트 단계 이펙트 결정과 총괄 요청(11-10) |
 | `Docs/Handoff/queue.md` *(저장소 루트)* | 작업 큐 원본(현재 상태 `Docs/Handoff/state.md`) |
+| `Docs/Handoff/graphics_requests.md` *(저장소 루트)* | 그래픽 방에 맡길 필요 그래픽 의뢰 목록(우선순위·확인 요청) |
 | 그 밖의 `Docs/Playtest/*`·`Docs/Balance/*`·`Docs/Handoff/*` 문서 | `Framework/DocIndexFull.md` 의 점검·감사·인수인계 절 |
