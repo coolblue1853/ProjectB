@@ -11,7 +11,7 @@
 
 | 항목 | 상태 | 증거 | 남은 일 | 1층 영향 | 비용(주간 %) |
 |------|------|------|---------|----------|--------------|
-| REWORK-0 관례 이탈 점검 | 부분 | e02f712e3(1차 점검), dc25967e4(U32·U34 수정), `Docs/Playtest/ConventionAudit.md`, state:18 | U24~U42 1차 표 완료. 2차 점검 갱신과 나머지 수정안 적용 | 상 | 6% |
+| REWORK-0 관례 이탈 점검 | 부분 | e02f712e3(1차 점검), dc25967e4(U32·U34 수정), `Docs/Playtest/ConventionAudit.md`, state:18 | U24~U42 1차 표 완료. 11-13 U15 퀵슬롯 자동 등록·대화 Space/클릭 진행 수정, U14 구현 확인. 남음: 2차 점검 5종(장비 창 마우스·창고 문구 한글화·낙사·카메라·포털), U6/U8b 는 REWORK-5 | 상 | 6% |
 | BUG-U9 허공 LV 표시 | 사용자 필요 | 6f395c13b·748a3c232(방어·동기화 수정), state:18 "재현 못 함" | 사용자 재현 또는 계측 로그 | 하 | 0% |
 | REWORK-8 키 배치·NPC 정리 | 부분 | 4596422c5(K→Y·키 표), f9c176eb4(ConfirmPopup·U37·U38·U40), 32a9523d3(NPC 선택지·Q), state:55-64 | 실마우스·패드 검증, 하단 안내 일치 확인 | 상 | 3% |
 | REWORK-5 퀘스트 통합 | 부분 | 90d33fdff(P0·P1), 18ff75578(설계), d78e6dd34(P2~P4), `Game/QuestSystemDesign.md` §7 | P5: Quest Machine·QuestBoard Build 코드 정리, objective2 판정, 플레이 검증 | 상 | 5% |

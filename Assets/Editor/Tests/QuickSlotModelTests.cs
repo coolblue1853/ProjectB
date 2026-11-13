@@ -83,4 +83,28 @@ public class QuickSlotModelTests
         Assert.IsTrue(cd.IsReady(ConsumeCooldown.PotionGroup, 10f + ConsumeCooldown.PotionSeconds));
         Assert.AreEqual(1f, cd.Fraction(ConsumeCooldown.PotionGroup, 10f), 1e-4f);
     }
+
+    [Test]
+    public void AutoSlot_FirstEmpty_SkipsTakenAndExisting()
+    {
+        var m = new QuickSlotModel();
+        Assert.AreEqual(0, m.AutoSlotFor("Red Potion"));
+        m.Assign(0, "Red Potion");
+        Assert.AreEqual(-1, m.AutoSlotFor("Red Potion")); // 이미 등록된 아이템은 다시 넣지 않음
+        Assert.AreEqual(1, m.AutoSlotFor("Blue Potion"));
+        m.Assign(1, "A");
+        m.Assign(2, "B");
+        m.Assign(3, "C");
+        Assert.AreEqual(-1, m.AutoSlotFor("Blue Potion")); // 빈 칸 없으면 덮어쓰지 않음
+        Assert.AreEqual(-1, m.AutoSlotFor(null));
+    }
+
+    [Test]
+    public void AutoSlot_SourceFilter()
+    {
+        Assert.IsTrue(QuickSlotAutoRules.Accepts(AddSource.Pickup));
+        Assert.IsTrue(QuickSlotAutoRules.Accepts(AddSource.Shop));
+        Assert.IsFalse(QuickSlotAutoRules.Accepts(AddSource.Load));
+        Assert.IsFalse(QuickSlotAutoRules.Accepts(AddSource.Chest));
+    }
 }

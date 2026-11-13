@@ -58,11 +58,11 @@ public static class FirstHintRules
             case Rope: return "로프: [↑] [↓] 로 오르내려요.";
             case Gather: return "채집물 앞에서 [↑] 를 누르면 채집해요.";
             case Equip: return "장비를 얻었어요! [" + key("UI/OpenInventory") + "] 로 가방을 열어 장착해요.";
-            case Potion: return "물약을 얻었어요! 가방에서 Shift+[1~4] 로 퀵슬롯에 등록하면 [1~4] 로 써요.";
+            case Potion: return "물약을 얻었어요! 빈 퀵슬롯에 자동 등록되고 [1~4] 로 써요. 바꾸려면 가방에서 끌어다 놓거나 Shift+[1~4].";
             case TutMove: return "[←] [→] 로 이동, [" + key("Run") + "] 를 누른 채 달려요.";
             case TutAttack: return "[" + key("Attack") + "] 로 공격해요. 연타하면 콤보가 이어져요.";
             case TutJump: return "[" + key("Jump") + "] 로 점프, 공중에서 한 번 더 누르면 2단 점프예요.";
-            case TutPotion: return "물약은 가방에서 Shift+[1~4] 로 퀵슬롯에 등록하고 [1~4] 로 써요.";
+            case TutPotion: return "물약은 빈 퀵슬롯에 자동 등록되고 [1~4] 로 써요. 가방에서 끌어다 놓거나 Shift+[1~4] 로 바꿔요.";
             case TutQuest: return "[Q] 로 퀘스트를 확인하고, 사냥꾼 루엔에게 [↑] 로 말을 걸어 의뢰를 받아요.";
             case LevelUp: return "[Q] 로 퀘스트를 확인하고 다음 목표를 찾아봐요.";
         }

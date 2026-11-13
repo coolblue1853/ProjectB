@@ -275,3 +275,4 @@ UI 탐색은 방향키/십자/스틱 → UI 맵 4방향 + `verticalCheck`·`hori
 패드 신규(11-11): 퀘스트 창 LB/RB 탭, X 추적, Y 포기, LT 추적창 접기. 퀘스트 창 밖 영향 없음. 수량 창·버리기는 §13 말미.
 
 해결(11-11, U37): 도감 B·지도 M·미니맵 N·방어 G·스킬창 K·퀘스트 Q 를 `KeyAction` Player 맵 액션(Bestiary·WorldMap·Minimap·Guard·SkillWindow·QuestWindow, 키보드 칸만)으로 추가했고 `Hotkeys.Pressed/Held` 가 키 설정(ES3 `settings.bindings`, 구 세이브는 기본 키)에서 읽는다. 충돌 규칙: 6개끼리는 서로 바꾸고(Swapped), 전투 14종이 쓰는 키·고정 키(ESC·Enter·I·P·J·이동·인벤/제작/포털)는 거절(Reserved), 전투 액션이 6개의 현재 키를 쓰는 것도 거절. 패드는 기존 고정 제스처(LT+SELECT 등)라 키 설정 패드 칸은 '-'. 창 안 같은 키(가방 N 확장, G 필터)는 창 범위 키라 재지정 대상이 아님. U38: 직접 `Keyboard.current.` 접근 2곳과 지역 변수 전수 확인 결과 null 체크 누락 없음(수정 없음). U40: `ConfirmPopup`(예/아니오, 기본 아니오, ←→·Z/Enter/A·Esc/B·마우스) 도입, 퀘스트 포기·가방 확장·장비 분해에 적용.
+- (11-13 REWORK-0) 퀵슬롯 등록: 마우스 드래그·키 Shift+1~4·패드는 소비 아이템 획득 시 빈 칸 자동 등록(수동 교체 버튼 없음, 실패드 확인 필요). 대화 넘기기: Enter/Z/Space/마우스 클릭/패드 A, 선택지 마우스 호버·클릭.

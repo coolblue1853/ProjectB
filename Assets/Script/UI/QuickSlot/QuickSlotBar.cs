@@ -78,11 +78,37 @@ public class QuickSlotBar : MonoBehaviour
     private void OnEnable()
     {
         _action?.Enable();
+        InventoryService.OnItemAdded += OnItemAdded;
     }
 
     private void OnDisable()
     {
         _action?.Disable();
+        InventoryService.OnItemAdded -= OnItemAdded;
+    }
+
+    /// <summary>
+    /// REWORK-0 U15: 소비 아이템을 새로 얻으면(줍기·구매·제작·요리) 빈 퀵슬롯에 자동 등록한다.
+    /// 패드는 가방 안 등록 버튼이 없어서(인벤 L3·십자 겹침) 이 경로가 패드 등록 수단이다. 이미 찬 칸은 건드리지 않는다.
+    /// </summary>
+    private void OnItemAdded(ItemStack stack, AddSource source)
+    {
+        if (!QuickSlotAutoRules.Accepts(source) || stack.IsEmpty || !CsvItemCatalog.Shared.Exists(stack.Id))
+        {
+            return;
+        }
+        if (CsvItemCatalog.Shared.Get(stack.Id).Type != "Consum")
+        {
+            return;
+        }
+        int slot = _model.AutoSlotFor(stack.Id);
+        if (slot < 0)
+        {
+            return;
+        }
+        _model.Assign(slot, stack.Id);
+        Punch(slot);
+        GameLog.Info(GameLog.Cat.Item, "퀵슬롯 " + (slot + 1) + " 자동 등록: " + stack.Id);
     }
 
     private void OnDestroy()

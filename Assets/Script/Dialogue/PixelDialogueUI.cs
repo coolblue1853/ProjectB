@@ -164,12 +164,16 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
             return;
         }
         Keyboard kb = Keyboard.current;
-        bool confirm = select.triggered || (kb != null && (kb.enterKey.wasPressedThisFrame || kb.zKey.wasPressedThisFrame));
+        // REWORK-0: 장르 관례대로 Space·마우스 왼쪽 클릭으로도 대사를 넘긴다(Enter·Z·패드 A 유지)
+        bool keyConfirm = select.triggered || (kb != null && (kb.enterKey.wasPressedThisFrame || kb.zKey.wasPressedThisFrame || kb.spaceKey.wasPressedThisFrame));
+        Mouse mouse = Mouse.current;
+        bool click = mouse != null && mouse.leftButton.wasPressedThisFrame;
         if (responses != null)
         {
-            UpdateResponses(confirm);
+            UpdateResponses(keyConfirm, mouse);
             return;
         }
+        bool confirm = keyConfirm || click;
         if (!waitingContinue || !confirm)
         {
             return;
@@ -184,9 +188,24 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
         DialogueManager.instance.conversationView?.HandleContinueButtonClick();
     }
 
-    void UpdateResponses(bool confirm)
+    void UpdateResponses(bool confirm, Mouse mouse)
     {
         int n = Mathf.Min(responses.Length, MaxResponses);
+        if (mouse != null)
+        {
+            // 마우스: 올리면 커서 이동, 선택지 위 클릭 = 그 선택지 확정(NpcMenu 와 같은 방식)
+            int hit = ResponseUnderMouse(mouse.position.ReadValue(), n);
+            if (hit >= 0 && hit != cursor && mouse.delta.ReadValue().sqrMagnitude > 0.01f)
+            {
+                cursor = hit;
+                RedrawResponses();
+            }
+            if (hit >= 0 && mouse.leftButton.wasPressedThisFrame)
+            {
+                cursor = hit;
+                confirm = true;
+            }
+        }
         if (up.triggered)
         {
             cursor = (cursor - 1 + n) % n;
@@ -206,6 +225,19 @@ public class PixelDialogueUI : MonoBehaviour, IDialogueUI
             HideResponses();
             SelectedResponseHandler?.Invoke(this, new SelectedResponseEventArgs(r));
         }
+    }
+
+    int ResponseUnderMouse(Vector2 screen, int n)
+    {
+        for (int i = 0; i < n && i < responseRows.Count; i++)
+        {
+            RectTransform rt = (RectTransform)responseRows[i].bg.transform;
+            if (rt.gameObject.activeInHierarchy && RectTransformUtility.RectangleContainsScreenPoint(rt, screen, null))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
     void RedrawResponses()

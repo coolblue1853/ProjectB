@@ -59,6 +59,26 @@ public sealed class QuickSlotModel
         return -1;
     }
 
+    /// <summary>
+    /// 자동 등록 칸(REWORK-0 U15): id 가 이미 어느 칸에 있으면 -1, 아니면 가장 앞의 빈 칸, 빈 칸이 없으면 -1.
+    /// 이미 채운 칸은 덮어쓰지 않는다(사용자가 고른 배치 보존).
+    /// </summary>
+    public int AutoSlotFor(string id)
+    {
+        if (string.IsNullOrEmpty(id) || IndexOf(id) >= 0)
+        {
+            return -1;
+        }
+        for (int i = 0; i < SlotCount; i++)
+        {
+            if (_ids[i] == null)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public string[] ToSaveArray()
     {
         var a = new string[SlotCount];

@@ -80,9 +80,9 @@ public static class ControlsGuide
             Rows = new[]
             {
                 new Row("물약·귀환 주문서", "{Quick1} {Quick2} {Quick3} {Quick4}", "L3 / 십자 ←→ / L3 길게"),
-                new Row("퀵슬롯 등록", "가방에서 Shift+1~4", "-"),
+                new Row("퀵슬롯 등록", "자동(빈 칸) · 가방에서 끌어 놓기 · Shift+1~4", "자동(빈 칸)"),
                 new Row("NPC 말 걸기(선택지)·포털·채집·화로", "↑", "십자 ↑"),
-                new Row("대화 넘기기", "Enter / Z", "A"),
+                new Row("대화 넘기기", "Enter / Z / Space / 클릭", "A"),
                 new Row("창 닫기 · 일시정지", "ESC", "B / START"),
             },
         },
