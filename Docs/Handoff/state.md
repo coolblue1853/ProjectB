@@ -158,3 +158,4 @@
 - REWORK-6 대사(11-13): QuestsFloor1.csv 빈 main·side 6건(Q304·Q501·Q503·Q504·Q602·Q704) 대사 열 이행, 보상·EXP 불변. QuestVoiceCsvTests 케이스 6 추가, EditMode 1240/1240.
 - 남음: Q101 튜토리얼 코드 대사 유지, reward 계열 코드 대사(CSV 이행은 선택), 2층계 QuestsFloor2·사이드 ㉣㉤.
 - 주의: 대사는 새로 쓴 초안(이브 관찰 반말·일사 존댓말·루엔 반말·장로 하게체), 인게임 눈 확인 미검증.
+- 11-13 저녁 사용자 정정: 주간 98%까지 사용(그래픽 작업 없음), 5시간 97% 넘으면 resetsAt 까지 대기 후 재개. 판단 많은 REWORK(12·10·5·6·0·3 설계)는 builder opus, 구조 변경은 reviewer-arch. 재설정(11-16 13:07 KST) 뒤 60% 계획은 그대로.
