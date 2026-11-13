@@ -553,7 +553,7 @@ public sealed class ExtraEquipPanel : MonoBehaviour
 
     public static string SetTipText()
     {
-        return "착용 세트 효과 (세트색 단계 = 켜짐)"; // 세트 문구는 SetSwapPreview 와 같이 한글 직접(Loc 용어 미등록)
+        return Loc.T("Worn set effects (set-colored tier = active)");
     }
 
     /// <summary>세트 창 띄우기/숨기기: SET 칸 호버·커서일 때만 보인다</summary>

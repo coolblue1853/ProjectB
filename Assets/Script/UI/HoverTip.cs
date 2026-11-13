@@ -82,7 +82,11 @@ public sealed class HoverTip : MonoBehaviour
             Hide();
             return;
         }
-        if (Time.unscaledTime >= _nextRefresh)
+        if (EffectDetailMode.InputAllowed() && EffectDetailMode.Poll())
+        {
+            Apply(true); // 상세 토글: 즉시 다시 그린다
+        }
+        else if (Time.unscaledTime >= _nextRefresh)
         {
             Apply(false);
         }

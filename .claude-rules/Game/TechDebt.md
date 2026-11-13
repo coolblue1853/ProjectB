@@ -284,7 +284,7 @@
 
 ## 11-14 REWORK-12 세트 창 남은 것 (P3)
 
-- 세트 창 문구("세트"·"착용 세트 효과"·"다음 단계(n)까지 m부위")는 한글 직접 — Loc 용어 미등록(SetSwapPreview 와 같은 상태). 영어 모드에서 한글로 보임.
+- 세트 창 문구("세트"·"착용 세트 효과"·"다음 단계(n)까지 m부위")는 한글 직접 — Loc 용어 미등록(SetSwapPreview 와 같은 상태). 영어 모드에서 한글로 보임. **해결 ebb3d9e0f**(세트 창 팝업·SetTipText Loc 등록; SetSwapPreview 는 별건).
 - `InventoryManager.SetPartCount` 가 부위 종류 수라 착용 수가 더 크게 나오는 경우가 있다(스샷 "자연의 보답 (5/4)"). v2 슬롯 기준 전체 수 정의 필요.
 - `SetOverviewPopup` 이 `DatabaseManager.setsEffectStack`·`Items`·`InventoryManager.instance` 정적 참조에 직접 의존(리뷰 권장: 데이터 주입). 의상·무기 장착 변경 중 팝업이 열려 있으면 다음 호버 때 갱신(추가 칸 변경만 즉시 갱신).
 - (11-14 reviewer-arch, 5a8d91dd8 참고) `EnemySpawner.cs:519-545` 슬롯 보스(isBossMob)가 킬플레인 아래로 떨어지면 보상 없이 제거됨 — 보스는 SweepFallen 제외 또는 기준점 복귀 권장(**해결 a8239e57f**: 보스는 스폰 위치로 복귀). `MobBehaviorRules.ShouldRehome` 은 vy≈0 순간만 봐 공중 정점에서 기준점이 옮겨질 수 있음(희박).

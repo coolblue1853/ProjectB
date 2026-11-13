@@ -30,10 +30,28 @@ public static class EffectTooltip
                 {
                     continue;
                 }
-                lines.Add(status == null ? line : line + status(entries[i]));
+                string st = status == null ? string.Empty : status(entries[i]);
+                line += st;
+                if (EffectDetailMode.On)
+                {
+                    line += DetailLine(entries[i], st, tr);
+                }
+                lines.Add(line);
             }
         }
         return lines;
+    }
+
+    /// <summary>상세 토글이 켜졌을 때 효과 줄 아래에 붙는 설명(종류·적용 대상·비활성/상한 사유)</summary>
+    public static string DetailLine(EffectEntry e, string status, Func<string, string> tr)
+    {
+        string kind = tr(e.kind == EffectKind.Rule ? "Rule (changes how the skill works)" : "Modifier (adds up with other effects)");
+        string detail = kind + " / " + string.Format(tr("Applies to: {0}"), EffectDescriber.Target(e.selector, tr));
+        if (!string.IsNullOrEmpty(status))
+        {
+            detail += " / " + tr(status.Trim() == tr("(inactive)") ? "Off: skill rule slots are full" : "Capped: the extra is ignored");
+        }
+        return "\n   <size=85%>" + detail + "</size>";
     }
 
     /// <summary>줄 목록 → 색 입힌 블록(앞에 머리줄). 줄이 없으면 빈 문자열</summary>
@@ -58,7 +76,8 @@ public static class EffectTooltip
         {
             return string.Empty;
         }
-        return Block(Lines(effectIds, Loc.T, e => Status(e, kind)), Loc.T("Special Effects"));
+        string block = Block(Lines(effectIds, Loc.T, e => Status(e, kind)), Loc.T("Special Effects"));
+        return block.Length == 0 ? block : block + "<color=" + ColorOff + "><size=80%>" + Loc.T(EffectDetailMode.On ? "Tab / Y: hide details" : "Tab / Y: show details") + "</size></color>\n";
     }
 
     /// <summary>세트 단계 효과 줄(세트 블록 단계 줄 아래에 붙인다, 끝에 개행 없음). 달성 = 세트색, 미달성 = 회색 + "(잠김)". 없으면 빈 문자열</summary>

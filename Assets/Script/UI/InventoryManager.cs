@@ -1520,6 +1520,10 @@ public class InventoryManager : MonoBehaviour
             {
                 myMoney.text = DatabaseManager.money.ToString();
             }
+            if (equipDetail.activeSelf && EffectDetailMode.InputAllowed() && EffectDetailMode.Poll())
+            {
+                RefreshEquipDetailText(); // 효과 상세 토글(Tab/패드 Y)
+            }
             if (state == "Equipment")
             {
                 EquipmentCusorManage();
@@ -2075,6 +2079,7 @@ public class InventoryManager : MonoBehaviour
         equip.GetChild(5).GetComponent<TextMeshProUGUI>().text = "T" + d.tear;
         equip.GetChild(6).GetComponent<TextMeshProUGUI>().text = "<color=" + TooltipBuilder.RarityColor(d.rarity) + ">" + TooltipBuilder.RarityName(d.rarity) + "</color>";
         SetEffectDetail(equip.GetChild(8).gameObject, detail);
+        _equipDetailCompare = compare;
         equip.GetChild(7).GetComponent<TextMeshProUGUI>().text = EquipStatText(detail, compare);
         if (d.equipArea == "Weapon")
         {
@@ -2082,6 +2087,20 @@ public class InventoryManager : MonoBehaviour
         }
         equip.transform.position = detailPos.transform.position;
         equipDetail.SetActive(true);
+    }
+
+    bool _equipDetailCompare;
+
+    /// <summary>효과 상세 토글 뒤 장비 상세창의 스탯·세트 글만 다시 쓴다</summary>
+    void RefreshEquipDetailText()
+    {
+        if (detail == null || detail.itemData == null || detail.itemData.type != "Equip")
+        {
+            return;
+        }
+        Transform equip = equipDetail.transform;
+        SetEffectDetail(equip.GetChild(8).gameObject, detail);
+        equip.GetChild(7).GetComponent<TextMeshProUGUI>().text = EquipStatText(detail, _equipDetailCompare);
     }
 
     /// <summary>장비 스탯 블록 문구(강화 반영, compare 면 착용품 비교). 상세창·호버 툴팁 공용</summary>

@@ -59,6 +59,14 @@ public sealed class SetOverviewPopup : MonoBehaviour
         transform.SetAsLastSibling();
     }
 
+    private void Update()
+    {
+        if (EffectDetailMode.InputAllowed() && EffectDetailMode.Poll())
+        {
+            Show(); // 효과 상세 토글: 다시 그린다
+        }
+    }
+
     public bool IsShown => gameObject.activeSelf;
 
     public void Hide()
@@ -71,12 +79,12 @@ public sealed class SetOverviewPopup : MonoBehaviour
     {
         var sb = new StringBuilder();
         List<SetOverviewEntry> list = SetOverview.Build(DatabaseManager.setsEffectStack, LoadTable());
-        sb.Append("<color=#FFD480>착용 세트 효과</color>");
+        sb.Append("<color=#FFD480>").Append(Loc.T("Worn Set Effects")).Append("</color>");
         if (list.Count == 0)
         {
-            return sb.Append("\n<color=").Append(TooltipBuilder.ColorOff).Append(">착용 중인 세트 없음</color>").ToString();
+            return sb.Append("\n<color=").Append(TooltipBuilder.ColorOff).Append(">").Append(Loc.T("No set worn")).Append("</color>").ToString();
         }
-        sb.Append(" <size=80%>(켜진 단계 ").Append(SetOverview.TotalActiveTiers(list)).Append(")</size>\n");
+        sb.Append(" <size=80%>").Append(Loc.F("(active tiers {0})", SetOverview.TotalActiveTiers(list))).Append("</size>\n");
         foreach (SetOverviewEntry e in list)
         {
             ItemData rep = RepresentativeOf(e.SetKey);
@@ -89,7 +97,7 @@ public sealed class SetOverviewPopup : MonoBehaviour
                 sb.Append("< ").Append(e.SetKey).Append(" > (").Append(e.Worn).Append(")\n");
             }
             sb.Append("<size=80%><color=").Append(TooltipBuilder.ColorOff).Append(">");
-            sb.Append(e.NextTier > 0 ? "다음 단계(" + e.NextTier + ")까지 " + e.NeedForNext + "부위" : "모든 단계 켜짐");
+            sb.Append(e.NextTier > 0 ? Loc.F("Next tier ({0}): {1} more pieces", e.NextTier, e.NeedForNext) : Loc.T("All tiers active"));
             sb.Append("</color></size>\n");
         }
         return sb.ToString().TrimEnd();
