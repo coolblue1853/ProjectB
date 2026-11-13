@@ -107,7 +107,8 @@
 - 설계 정정: 해금 퀘스트는 표대로 **7건**(Normal·Deep·Swamp·Fort·Tower·Cliffs·Rampart, 설계 본문 "8건"은 오기). 퀘스트는 EXP 0·골드만(EXP 합 핀 테스트 유지), 처치 5마리, 선행 없음(걸어가야 받음).
 - 마차 NPC 는 `FastTravelStops.csv` 의 `npcName`(=NPC id)·anchorX/Y 로 부트 때 배치(`NpcQuestPlacer.CreateCoaches`, 상인 도트 + 색조 임시). anchor 는 각 맵 입구 포털 +4 유닛, Y 는 지면 스냅. 도착 위치는 `GoToMap` 기본(입구 포털) 그대로.
 - ↑ 상호작용은 기존 `TalkNpc` 의 `InteractArbiter.Contend` 를 그대로 사용(`NpcInteraction.Run` 이 `FastTravelNpc` 를 보고 Travel 항목 추가). 3경로 입력은 `NpcMenu`(↑↓·Enter·A·마우스·Esc·B)·`ConfirmPopup`(←→·Z·A) 공용.
-- 미구현: P4 히든 포털, 마차 NPC 실좌표 맵별 캡처(낮), 실패드·실마우스 확인, 이동 중 재진입 가드(리뷰 권장), ES3 `ft.*` 슬롯 전환 실기.
+- 미구현: P4 히든 포털, 마차 NPC 실좌표 맵별 캡처(낮), 실패드·실마우스 확인, ES3 `ft.*` 슬롯 전환 실기.
+- 11-14: 이동 직후 재진입 가드 완료(`FastTravelRules.InCooldown` 1.5초, `FastTravelFlow.Travel`, EditMode 테스트). 남은 것은 사용자 실기(실패드·마우스·낮 캡처)·요금 튜닝(Q-FT2)·마차꾼 전용 도트(graphics_requests).
 
 ## 12. P4 히든 포털 구현 (11-11 builder)
 - 데이터 `Resources/HiddenPortals.csv`(`map,id,ax,ay,bx,by,note`) → `HiddenPortalTable`(파싱·검증: 두 끝 6유닛 이상, id 중복 제거) → `HiddenPortals.Boot` 가 부트 때 맵마다 `Portal` 두 개를 만든다(씬 수정 없음, `openMap` 비어 같은 맵 이동·도착 무적 2초 그대로).
