@@ -1,6 +1,6 @@
 # 퀘스트 시스템 통합 설계 (REWORK-5, 11-09)
 
-범위: NPC 퀘스트·게시판 퀘스트·사냥꾼 의뢰/현상 3계통을 **한 데이터 모델·한 창(Q)·한 추적 HUD**로 합친다. 입구(NPC·게시판·푯말)는 같은 목록의 필터일 뿐이다. 콘텐츠(유형 정의·대사·층계별 줄기)는 `REWORK-6`(`Game/QuestDesign.md`)에서 확정하고, 이 문서는 틀과 빈칸만 둔다. 구현 현황은 §7 아래 `7-2`에 있다(P0·P1 완료, P2~P5 대기).
+범위: NPC 퀘스트·게시판 퀘스트·사냥꾼 의뢰/현상 3계통을 **한 데이터 모델·한 창(Q)·한 추적 HUD**로 합친다. 입구(NPC·게시판·푯말)는 같은 목록의 필터일 뿐이다. 콘텐츠(유형 정의·대사·층계별 줄기)는 `REWORK-6`(`Game/QuestDesign.md`)에서 확정하고, 이 문서는 틀과 빈칸만 둔다. 구현 현황은 §7 아래 `7-2`에 있다(P0~P5 코드 완료 11-14, 플레이 검증 일부 남음).
 
 관련: `Docs/Playtest/ConventionAudit.md` U6·U6a·U7·U8·U8b·U13, `Game/Floor1Completion.md` §4-1(신규 퀘스트 29건)·§12, `Game/TowerWorld.md`(세계관), `Docs/Handoff/queue.md` REWORK-5·6·BUG-U7.
 규칙: 모든 UI는 마우스·키보드·게임패드 3경로. 그래픽 제작 금지(텍스트·기존 UI·기존 아이템 아이콘 재사용). 기존 CSV 컬럼은 **맨 뒤에만 추가**, ES3 기존 키 이름 유지.
@@ -208,7 +208,7 @@ static string ReportTarget(NpcQuestDef d);     // 보고할 NPC·입구 이름
 | P2 창 | 상세 패널(요약·요구 사항·보상 아이콘·보고 안내)·포기·유형 태그·한글 라벨·추적 Z(현상 포함)·입구 모드 플래그 | `NpcQuestWindow.cs`(500줄 넘으면 `QuestWindowDetail.cs` 분리), `QuestListRules`, `QuestService.cs` | 플레이: 3탭·마우스/키보드/패드 3경로 각각 선택·추적·포기. 스크린샷으로 글자 크기·줄바꿈·보상 표기(영문 없음) 확인. 선행 조치: Quest Machine HUD 컨텐츠 제거 |
 | P3 HUD | `NpcQuestTracker` 단일화(현상·세트줄 정리)·최대 5·접기·`quest.hudFold` | `NpcQuestTracker.cs`, `NpcQuestTrack.cs`(Max), `BountyBoard.TrackerText` 사용 중단, `HudPolicy` | 플레이: 수락 6건 → 5개+`…외 1건`, 접기 토글, 완료 시 `○○에게 보고`, 큰 창 열면 숨김 |
 | P4 입구 통일 | 게시판·푯말을 `QuestEntrance.Open` 으로 교체, `BountyPanel` 은 입구 모드 창 사용, NPC 선택지 노출 조건을 `Query` 로 | `QuestBoard.cs`, `BountyKiosk.cs`·`BountyPanel.cs`, `NpcMenuRules.cs`·`NpcInteraction.cs`, `NpcQuestGiver.cs`, `QuestBountyLink.cs` | 플레이: 세 입구 모두 같은 창·같은 규칙, 보상 가방 부족 시 안내·보류 |
-| P5 정리·확장 | Quest Machine 퀘스트 UI·`QuestBoard` 의 Build 코드 제거(플러그인은 다른 곳에서 안 쓰면 참조 정리), 2번째 목표 `objective2` 판정(필요 시) | `Quest/QuestCatalog.cs`(삭제 후보), `DialogueBoot.cs` 일부 | 컴파일·`Docs/Playtest/ConventionAudit.md` U6·U6a·U7·U8·U8b 갱신 |
+| P5 정리·확장 **(완료 11-14)** | Quest Machine 퀘스트 UI·`QuestBoard` 의 Build 코드 제거(플러그인은 다른 곳에서 안 쓰면 참조 정리), 2번째 목표 `objective2` 판정(필요 시) | `Quest/QuestCatalog.cs`(삭제 후보), `DialogueBoot.cs` 일부 | 컴파일·`Docs/Playtest/ConventionAudit.md` U6·U6a·U7·U8·U8b 갱신 |
 
 각 단계: 정적 테스트(EditMode)→Unity 콘솔 에러 0→플레이 모드 실제 입력 경로 확인→커밋. 확인 못 한 것은 "미검증"으로 기록. `BountyBoard` 일일 3건·`ZoneProgress` 는 건드리지 않는다.
 
@@ -217,7 +217,8 @@ static string ReportTarget(NpcQuestDef d);     // 보고할 NPC·입구 이름
 - **P1 완료:** 게시판 Chain 5 + 부가 3 + 촌장 Story 3 = 11건을 `QuestsFloor1.csv` 행으로 이행(id 유지, 한글 재작성, exp 0·stones·artifact, 게시판 giver=`questboard`, 촌장 giver=`elder` kind=main·minLevel 6/13/15). `s_wood`·`s_herb` 는 `collect`(U7 해소), `s_craft` 는 `craft`+target `Any`(CraftingManager 가 따로 보내는 Any 메시지). `NpcQuestRewards` 가 stones·artifact 지급·가방 공간 검사. `QuestMigration`(qm.journal → npcq.state, 키 `quest.migrated`, qm.* 디스크 유지, 저널 메모리에서만 삭제). `QuestBoard` 는 ↑ 입구(`NpcQuestGiver("questboard")` 대화)로 축소, `DialogueBoot` 촌장 퀘스트 대화는 NpcQuestGiver 로 연결.
 - **미검증(플레이):** 게시판 ↑ 대화·머리 위 !·촌장 "일 묻기"→퀘스트 대화·실제 구 세이브 이행은 에디터에 씬이 없어 EditMode 로만 확인. 다음 세션이 플레이 검증부터 한다.
 - **P2~P4 완료(11-11):** `NpcQuestWindow`(+`QuestWindowText`·`QuestWindowView`) 재작성: 3탭·상세(요약·요구 사항·보상 아이콘·안내)·포기 확인·유형 태그·Z 추적(현상 포함)·입구 모드. `NpcQuestTracker` 단일화(최대 5·접기 `quest.hudFold`). `QuestEntrance.Board/Kiosk/Open`, 푯말 ↑ 중재(`InteractArbiter`), `BountyPanel` 삭제(졸업 점검만 `BountyGraduation`). 키: Del 포기·H/LT 추적창 접기·Enter/A 입구 수락·보고. P5 보류.
-- **남은 것:** P2(창 상세 패널·포기·입구 모드·한글 라벨), P3(HUD 단일화·최대 5·접기·`quest.hudFold`), P4(푯말·NPC 선택지를 `QuestService.Query` 로 통일), P5(`QuestCatalog` 삭제·Quest Machine UI 정리·`objective2`). `QuestCatalog` 는 이행 id·동등성 테스트 기준값으로 남겨 둠.
+- **P5 완료(11-14, cda9e80bc):** `QuestCatalog` 삭제(동등성 기준값은 `QuestSystemTests.LegacySnapshot` 고정표), `ContentValidation` 은 `NpcQuestCatalog` 검사. `HudPolicy` 의 Quest Machine 추적 HUD 배치 코드 제거·캔버스 항상 숨김. `QuestBoard` 의 `RequireComponent(QuestGiver)` 제거 — Quest Machine 은 구 저장 이행(`QuestBoard.Start` → `QuestMigration.RunOnce`, `qm.journal` 읽기)에만 남는다. `objective2` 는 `killElite` 만 판정(이미 구현, Q106), 창 요구 사항은 두 번째 목표를 따로 한 줄·줄마다 달성 표시(`QuestService.ObjectiveMain/ObjectiveExtra`), 추적 HUD 는 한 줄 형식 유지. EditMode 1239/1239, 플레이 프로브 q_rabbits 수락→처치→보고 확인.
+- **남은 것:** ① 씬(SampleScene 수정 금지)에 남은 Quest Machine `UnityUIQuestHUD`·게시판 `QuestGiver` 오브젝트 제거(씬 작업 허가 후. 그때 `HudPolicyDriver` 의 `_qm` 탐색도 삭제). ② 구 저장 이행이 끝난 뒤(충분한 기간 후) `QuestMigration`·Quest Machine 플러그인 참조 제거 검토. ③ `objective2` 의 다른 값(kill·collect)은 미지원 — 쓰면 `ContentValidation`·`NpcQuestExtraObjectiveTests` 가 잡는다. ④ 플레이 미검증: 게시판 ↑ 입구 모드 창·실제 구 세이브 이행·패드 경로.
 
 ### 7-1. 함정
 - `NpcQuestLog` 는 정적 클래스라 테스트용 훅(`LevelGetter`·`ItemCounter`·`SaveHook`)을 쓰고 `ResetStatics` 에 새 훅을 꼭 추가.

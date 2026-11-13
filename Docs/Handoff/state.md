@@ -162,3 +162,6 @@
 - REWORK-10(11-13): `Docs/Playtest/MapReview.md` 1층계 9맵 표. 1층 맵이 지형 3벌 복제(숲 A·B, 늪 C)임을 발견(씬 작업 필요, 미적용).
 - 적용 7314bda68: 깊은 숲·심부 Goblin1 의 2층 CliffGoblin(Lv16·EXP 240) 혼입 제거(여우/숲고블린 전량), Lv4~9 몹 EXP 상향(처치 수 Lv4 171→133, Lv6~8 ~270→~183), 미니보스 x20. EditMode 1240/1240.
 - 남음: 비활성 8맵 폭·층 실측 프로브, 늪 포인트 한 점 8마리, 리젠 10초 차등, 막다른 맵 히든 포털, EarlyHourPlan 시간표 재측정(사냥 EXP 증가 반영).
+- REWORK-5 P5(11-14, cda9e80bc): 구 QuestCatalog 삭제(LegacySnapshot 고정표), QM 추적 HUD 항상 숨김·배치 코드 제거, QuestBoard RequireComponent 제거, objective2 창 두 줄. EditMode 1239/1239, 프로브 q_rabbits 수락→보고 확인.
+- 남음(REWORK-5): 씬 QM HUD·게시판 QuestGiver 제거(씬 허가 필요), 게시판 ↑ 입구·구 세이브 이행·패드 플레이 검증.
+- 주의: QuestMigration·Quest Machine 참조는 구 저장 이행용으로 유지(qm.* 키 삭제 금지).
