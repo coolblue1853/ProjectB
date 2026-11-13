@@ -283,7 +283,7 @@ DataIntegrity 가 아이템별 합계가 등급 예산의 ±30% 안인지 경고
 | P3 **[완료 11-09]** | Rule 핸들러 1차: `FireMode`·`Homing`·`Pierce/Return`·`OnHitSpawn`(Explode/Slow) + `Skill.RoundSpawn` 전략 위임 | 프로브: Leaf 5세트 장착 → Scattering Leaves 탄 방향 각도 분포·되돌아옴 로그, 스크린샷(낮 시간대). 비장착 시 기존과 동일 | `Skill.cs`(RoundSpawn), 신규 `Rules/*`, `StraightArrow`·`HomingOrb` |
 | P4 **[완료 11-11]** | Rule 2차: `Chain`·`OnKillCast`·`Proc`·`CooldownRefund`(+ 적 사망 이벤트 훅) | 프로브: 소환 프로브로 적 3마리 배치 → Chain 전이 수·감쇠·`OnKillCast` 발동·내부 쿨 | `EnemyHealth` 사망 이벤트, `KillSummonProc` 일반화, `SkillCooldown` |
 | P5 **[완료 11-11]** | `Replace` 변형 프리팹 경로 + 유니크·레전더리 효과 데이터 | 프로브: Gatekeeper's Oath 변형 시전, 공유 프리팹 무변경 확인(프리팹 해시) | `Resources/Weapon/Variants/*`, `EquipEffects.csv` |
-| P6 **[완료 11-11, 일부 보류]** | UI: 툴팁 "특수 효과" 구획, 세트 창 효과 목록·미리보기·상한 표시, 평타 `damagePct` 한 줄 | 스크린샷(툴팁·세트 창), 마우스·키보드·패드(가상 패드 프로브) 3경로 확인, `InputAudit.md` 갱신 | `TooltipBuilder.cs`, 세트 창 UI(`SetSwapPreview` 호출 UI), Loc CSV |
+| P6 **[완료 11-11, 일부 보류 — 남음 11-14: 세트 창 화면·효과 상세 토글·SetSwapPreview 효과 줄]** | UI: 툴팁 "특수 효과" 구획, 세트 창 효과 목록·미리보기·상한 표시, 평타 `damagePct` 한 줄 | 스크린샷(툴팁·세트 창), 마우스·키보드·패드(가상 패드 프로브) 3경로 확인, `InputAudit.md` 갱신 | `TooltipBuilder.cs`, 세트 창 UI(`SetSwapPreview` 호출 UI), Loc CSV |
 | P7 **[완료 11-11, 일부 보류]** | 1층계 데이터 적용(§4) + 기존 아이템 재점검 도구(등급 대비 효과 없는 아이템 목록 → 보강 큐) | 프로브: 6세트 각 단계 `Query` 덤프 vs §4 표, 체감 프로브(쿨·피해 수치), 점수 합계 | `EquipEffects.csv`, `ItemSheet.csv`, `SetItem.csv`, `Docs/Playtest/EquipEffectAudit.md`(신규, 도구 출력) |
 | P8 **[완료 11-11, 장신구 11-14]** | 숙련·공용 트리(WSKILL P3·P4)와 합산 결합 확인, 수치 조정, 신규 4칸 장신구·팔찌 추가 | 트리+장비 동시 장착으로 곱 결합 프로브, 1층계 플레이 체감 기록 | 문서, `SkillTreeService` 연결부 |
 

@@ -165,3 +165,6 @@
 - REWORK-5 P5(11-14, cda9e80bc): 구 QuestCatalog 삭제(LegacySnapshot 고정표), QM 추적 HUD 항상 숨김·배치 코드 제거, QuestBoard RequireComponent 제거, objective2 창 두 줄. EditMode 1239/1239, 프로브 q_rabbits 수락→보고 확인.
 - 남음(REWORK-5): 씬 QM HUD·게시판 QuestGiver 제거(씬 허가 필요), 게시판 ↑ 입구·구 세이브 이행·패드 플레이 검증.
 - 주의: QuestMigration·Quest Machine 참조는 구 저장 이행용으로 유지(qm.* 키 삭제 금지).
+- REWORK-12 장신구(11-14, 083c27d48): 방랑자의 팔찌(tag:Dash 쿨 -20%, 3층계 해금이라 획득처 없음)·사냥꾼 부적(처치 시 전 스킬 쿨 -0.5초·내부 쿨 1초, AlphaWolf 10%). 텔레포트는 Leaf Teleport 스킬이라 SkillTags 만 등록. EditMode 1243/1243, 프로브 확인.
+- 남음(REWORK-12): 세트 창 화면(단계 표시·마우스/키보드/패드), 효과 상세 토글, SetSwapPreview 효과 줄, Q-EFX7·Q-EFX8, Gatekeeper 보너스, Bog5 Bleed.
+- 주의: 주간 사용량 78% 도달로 세트 창은 착수 안 함(EquipEffectDesign P6 보류 그대로).
