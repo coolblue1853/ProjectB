@@ -11,7 +11,7 @@
 
 | 항목 | 상태 | 증거 | 남은 일 | 1층 영향 | 비용(주간 %) |
 |------|------|------|---------|----------|--------------|
-| REWORK-0 관례 이탈 점검 | 부분 | e02f712e3(1차 점검), dc25967e4(U32·U34 수정), `Docs/Playtest/ConventionAudit.md`, state:18 | U24~U42 1차 표 완료. 11-13 U15 퀵슬롯 자동 등록·대화 Space/클릭 진행 수정, U14 구현 확인. 남음: 2차 점검 5종(장비 창 마우스·창고 문구 한글화·낙사·카메라·포털), U6/U8b 는 REWORK-5 | 상 | 6% |
+| REWORK-0 관례 이탈 점검 | 부분 | e02f712e3(1차), dc25967e4(U32·U34), 3149f3793(2차 5종), `Docs/Playtest/ConventionAudit.md` 11-14 절 | 1차 표·2차 점검 5종 완료(착용품 우클릭 해제·영문 버튼 한글화·낙사 확인·카메라/포털 체감은 UserPlaytest). 남음: 패드 수동 퀵슬롯 교체=사용자 확인, U6/U8b 는 REWORK-5 | 중 | 1% |
 | BUG-U9 허공 LV 표시 | 사용자 필요 | 6f395c13b·748a3c232(방어·동기화 수정), state:18 "재현 못 함" | 사용자 재현 또는 계측 로그 | 하 | 0% |
 | REWORK-8 키 배치·NPC 정리 | 부분 | 4596422c5(K→Y·키 표), f9c176eb4(ConfirmPopup·U37·U38·U40), 32a9523d3(NPC 선택지·Q), state:55-64 | 실마우스·패드 검증, 하단 안내 일치 확인 | 상 | 3% |
 | REWORK-5 퀘스트 통합 | 부분 | 90d33fdff(P0·P1), 18ff75578(설계), d78e6dd34(P2~P4), cda9e80bc(P5), `Game/QuestSystemDesign.md` §7 | P5 코드 완료(11-14). 남음: 씬 QM HUD·QuestGiver 제거(씬 허가 필요), 게시판 입구·구 세이브 이행·패드 플레이 검증 | 상 | 5% |
@@ -46,7 +46,7 @@
 | SLOT-R5 반지2(Ring2) 로더 | 완료 11-14 | `EquipSlot.Ring2=15`·비트 32(Belt 가 14·16 선점), `SlotRules.Extras` 끝 추가·AllExtraMask 63, 구 세이브 테스트 | 로더만. 해금 CSV·UI·아이템은 필요 시 별도 | - | - |
 | DUR-REVIEW 내구도 | 사용자 필요 | `.claude-rules/Game/Durability.md`(추천 보류), 0ba158c84 | PT-BOT 로그에서 골드 과잉 확인 시 재검토. 코드 없음 | 하 | 0% |
 | AUTO-129 일회성 프로브 삭제 | 미착수 | `Tools/probes/_*.cs` 335개 잔존, `Docs/Playtest/ProbeInventory.md` 존재 | 삭제 조건 충족분만 선별 삭제 후 문서 갱신 | 하 | 1% |
-| AUTO-130 11차 정적 리뷰 | 미착수 | `Docs/Playtest/ReviewCode_1105d.md` 없음 | 리뷰 문서 신규 작성 | 하 | 2% |
+| AUTO-130 11차 정적 리뷰 | 완료 | d5ddd69ac, `Docs/Playtest/ReviewCode_1114.md` | - | - | 0% |
 | NEXT-1 밤 몹 추가 | 그래픽 | queue.md 313행 | 그래픽 방 작업 | - | - |
 | NEXT-2 덩굴 요정 속박 | 부분 | `Assets/Script/Combat/Rules/Floor2MobBehaviorRules.cs`(VineRange 3·VineCooldown 8, 정원사 골렘) | 덩굴 요정 대상 연결 여부 확인, 플레이 확인 | 하 | 1% |
 | NEXT-3 감시병 장전 튜닝 | 부분 | `Assets/Script/Combat/Rules/AmmoMagazine.cs`(3발·재장전 1.2s), 2f6fa20ca(원거리 몹) | 실측 튜닝 | 하 | 1% |
@@ -61,7 +61,7 @@
 | NEXT-12 주인공 리그 변경(38ba36c6f) | 그래픽 | queue.md 324행 | 그래픽 방 확인, 되돌리기 금지 | - | - |
 | NEXT-13 기본 칼 3타 보존 | 완료 | db6f66b4f(11-13 완료 기록, Q-CI14) | 없음 | 중 | 0% |
 | NEXT-14 몹 사격 시야 판정 코드 | 완료 | aa2eb25b6, 9680fc538, db6f66b4f(플레이 미검증 기록) | 플레이 검증은 NEXT-5 와 묶음 | 중 | 0% |
-| NEXT-15 안내판·쥐 스폰 스크린샷 검증 | 미착수 | Unity MCP ECONNREFUSED 로 수행 불가 | Unity 연결 복구 후 spartan:unity-render | 중 | 2% |
+| NEXT-15 안내판·쥐 스폰 스크린샷 검증 | 완료 | 9b0f07619, `Docs/Playtest/NEXT15/` | - | - | 0% |
 
 ## 미착수·부분 중 1층계 플레이 영향 큰 순 Top 10
 
