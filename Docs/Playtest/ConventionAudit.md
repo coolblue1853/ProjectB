@@ -70,7 +70,7 @@
 | U1 창고에서 I | 수정됨(11-09 `CloseAllWindows`) — 변경 없음 |
 | U25 우클릭·U26 호버 툴팁·U27 상점 마우스 | 구현됨(3af1354b5 REWORK-2 S2: `ItemDrag`·`ShopSlotMouse`) — 표 상태만 낡음 |
 | U24 버리기·U28 수량 선택·U39 편의 키 노출 | 구현됨(`InventoryDrop`·`QuantityPopup`·`InventoryToolbar`) |
-| U37·U38·U40 키 설정·하드코딩 키·확인창 | 구현됨(f9c176eb4 `ConfirmPopup`, 창 열기 키 6종 재지정). `kb.bKey` 하드코딩 grep 0건 |
+| U37·U38·U40 키 설정·하드코딩 키·확인창 | 구현됨(f9c176eb4 `ConfirmPopup`, 창 열기 키 6종 재지정). `kb.bKey` 하드코딩 grep 0건. U38 null 체크는 11-13 전수 재점검 누락 0, 회귀 테스트 `InputNullGuardTests` |
 | U6a 퀘스트 상세 영문 | 코드에 ACCEPT/DECLINE/QUEST BOARD 문자열 0건(퀘스트 창 재작성으로 해소 추정). 화면 확인은 주말 플레이에서 |
 | U9 허공 레벨 표시 | 원인 미확정 유지(재현 못 함) — 주말 플레이에서 보이면 번호만 기록 |
 | U42 몹 이동 | 사례 대기 유지(REWORK-3) |
