@@ -10,6 +10,7 @@ public class EquipSlotExpansionTests
         {
             { "Crown", new ItemDef { Id = "Crown", Type = "Equip", EquipArea = "Earring", MaxStack = 1 } },
             { "Halo", new ItemDef { Id = "Halo", Type = "Equip", EquipArea = "Bracelet", MaxStack = 1 } },
+            { "PlainRing", new ItemDef { Id = "PlainRing", Type = "Equip", EquipArea = "Ring", MaxStack = 1 } },
             { "Band2", new ItemDef { Id = "Band2", Type = "Equip", EquipArea = "Ring2", MaxStack = 1 } },
             { "Charm1", new ItemDef { Id = "Charm1", Type = "Equip", EquipArea = "Charm", MaxStack = 1 } },
             { "OldHelm", new ItemDef { Id = "OldHelm", Type = "Equip", EquipArea = "Head", MaxStack = 1 } },
@@ -175,6 +176,22 @@ public class EquipSlotExpansionTests
         Assert.AreEqual("Band2", eq[EquipSlot.Ring2].Id);
         Assert.AreEqual("Band2|1|2", eq.ToExtraArray()[5]);
         Assert.AreEqual(32, eq.ExtraUnlockMask);
+    }
+
+    [Test]
+    public void Ring2_AcceptsRingArea_RoundtripKeeps_RetiredStillReturns()
+    {
+        Assert.IsTrue(SlotRules.Accepts(EquipSlot.Ring2, EquipSlot.Ring));
+        Assert.IsTrue(SlotRules.Accepts(EquipSlot.Ring2, EquipSlot.Ring2));
+        Assert.IsFalse(SlotRules.Accepts(EquipSlot.Bracelet, EquipSlot.Ring));
+        var cat = new Cat();
+        var inv = new SlotContainer(cat, 4, 4);
+        var eq = new EquipmentModel(cat);
+        Assert.AreEqual(0, eq.LoadExtra(new[] { "", "", "", "", "", "PlainRing" }, 63, inv));
+        Assert.AreEqual("PlainRing", eq[EquipSlot.Ring2].Id);
+        Assert.AreEqual(1, eq.LoadExtra(new[] { "", "", "", "", "", "OldTitle" }, 63, inv), "폐기 아이템은 여전히 가방 반환");
+        Assert.IsTrue(eq[EquipSlot.Ring2].IsEmpty);
+        Assert.AreEqual(1, inv.Count("OldTitle"));
     }
 
     [Test]

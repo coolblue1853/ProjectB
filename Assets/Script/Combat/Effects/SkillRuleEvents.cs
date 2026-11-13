@@ -68,6 +68,20 @@ public static class RuleMath
         {
             return true;
         }
+        return RefundOnKill(next, thisKill, key, now, cd);
+    }
+
+    /// <summary>파싱·키 조립을 미리 해 둔 호출용(EffectEntry 캐시). cd 가 NaN 이면 내부 쿨 없음</summary>
+    public static bool RefundOnKill(Dictionary<string, float> next, Dictionary<string, bool> thisKill, string key, float now, float cd)
+    {
+        if (float.IsNaN(cd))
+        {
+            return true;
+        }
+        if (thisKill.TryGetValue(key, out bool ok))
+        {
+            return ok;
+        }
         ok = PassInternalCooldown(next, key, now, cd);
         thisKill[key] = ok;
         return ok;
@@ -145,7 +159,7 @@ public static class SkillRuleEvents
                     CastFree(w, r, pos, "OnKill:");
                 }
                 else if (r.rule == EffectRule.CooldownRefund && RuleMath.Trigger(r.p2) == "Kill"
-                    && (string.IsNullOrEmpty(r.p3) || RuleMath.RefundOnKill(Next, RefundThisKill, "Refund:" + r.id + "#" + r.entry, Time.time, r.p3)))
+                    && (string.IsNullOrEmpty(r.p3) || RuleMath.RefundOnKill(Next, RefundThisKill, r.RefundKey, Time.time, r.RefundCooldown)))
                 {
                     Refund(s, SkillRuleHandlers.F(r.p1, 1f));
                 }

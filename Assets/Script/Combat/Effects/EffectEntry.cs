@@ -58,4 +58,26 @@ public sealed class EffectEntry
     public string nameKey;
     public string descKey;
     public string minGrade;
+
+    // 아래 캐시는 id·entry·p3 가 로드 때만 채워진다는 전제(로드 후 변경 금지)
+    string _refundKey;
+    float _refundCd = float.NaN;
+    bool _refundCdParsed;
+
+    /// <summary>처치 환급 내부 쿨 키. 처음 한 번만 만들어 캐시(처치마다 문자열 생성 방지)</summary>
+    public string RefundKey => _refundKey ?? (_refundKey = "Refund:" + id + "#" + entry);
+
+    /// <summary>p3 내부 쿨(초). 비었거나 파싱 불가면 NaN. 처음 한 번만 파싱해 캐시</summary>
+    public float RefundCooldown
+    {
+        get
+        {
+            if (!_refundCdParsed)
+            {
+                _refundCdParsed = true;
+                _refundCd = !string.IsNullOrEmpty(p3) && float.TryParse(p3, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float cd) ? cd : float.NaN;
+            }
+            return _refundCd;
+        }
+    }
 }

@@ -290,7 +290,7 @@ public static class ExtraEquip
                 {
                     continue;
                 }
-                if (!Enum.TryParse(d.equipArea, out EquipSlot want) || want != SlotRules.Extras[i])
+                if (!Enum.TryParse(d.equipArea, out EquipSlot want) || !SlotRules.Accepts(SlotRules.Extras[i], want))
                 {
                     // 폐기된 칭호·오라 등(11-05): 장착 해제하고 인벤으로 반환, 가득이면 판매값 골드 지급
                     bagTouched |= ReturnOrRefund(d);

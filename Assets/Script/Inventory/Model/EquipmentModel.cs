@@ -76,7 +76,7 @@ public sealed class EquipmentModel
                 continue;
             }
             ItemDef def = catalog.Get(st.Id);
-            bool mismatch = def == null || !TryGetSlot(def, out EquipSlot want) || want != slot; // 폐기 아이템(구 Title/Aura 등)이 낀 구 세이브
+            bool mismatch = def == null || !TryGetSlot(def, out EquipSlot want) || !SlotRules.Accepts(slot, want); // 폐기 아이템(구 Title/Aura 등)이 낀 구 세이브
             if ((mismatch || !IsUnlocked(slot)) && inventory != null && inventory.TryAddAll(st))
             {
                 returned++;

@@ -13,6 +13,8 @@ public sealed class SetOverviewPopup : MonoBehaviour
 {
     const float Width = 290f, Pad = 6f;
     static readonly Dictionary<string, ItemData> RepCache = new Dictionary<string, ItemData>();
+    static object _repCacheSource;
+    static int _repCacheCount; // 캐시를 만든 시점의 DB 아이템 목록(재로드되면 참조가 달라져 비운다)
 
     TextMeshProUGUI _text;
     RectTransform _rt;
@@ -118,13 +120,19 @@ public sealed class SetOverviewPopup : MonoBehaviour
     /// <summary>세트 키를 가진 장비 하나(세트 이름·부위 수 표시용)</summary>
     private static ItemData RepresentativeOf(string setKey)
     {
-        if (RepCache.TryGetValue(setKey, out ItemData d))
-        {
-            return d;
-        }
         if (DatabaseManager.instance == null || DatabaseManager.instance.Items == null)
         {
             return null;
+        }
+        if (!ReferenceEquals(_repCacheSource, DatabaseManager.instance.Items) || _repCacheCount != DatabaseManager.instance.Items.Count)
+        {
+            RepCache.Clear(); // DB 재로드: 옛 ItemData 참조 폐기
+            _repCacheSource = DatabaseManager.instance.Items;
+            _repCacheCount = DatabaseManager.instance.Items.Count;
+        }
+        if (RepCache.TryGetValue(setKey, out ItemData d))
+        {
+            return d;
         }
         foreach (ItemData item in DatabaseManager.instance.Items)
         {

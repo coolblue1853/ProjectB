@@ -56,6 +56,12 @@ public static class SlotRules
         return i < 0 ? 0 : 1 << i;
     }
 
+    /// <summary>칸 slot 이 부위 want 아이템을 받는가. 같은 부위이거나, 반지2 칸이 Ring 아이템을 받는 경우(두 로더 공용)</summary>
+    public static bool Accepts(EquipSlot slot, EquipSlot want)
+    {
+        return want == slot || (slot == EquipSlot.Ring2 && want == EquipSlot.Ring);
+    }
+
     public static bool IsUnlocked(int mask, EquipSlot slot)
     {
         return !IsExtra(slot) || IsAlwaysOpen(slot) || (mask & Bit(slot)) != 0;
