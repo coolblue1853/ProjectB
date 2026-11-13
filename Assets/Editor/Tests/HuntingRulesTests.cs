@@ -259,7 +259,12 @@ public class HuntingRulesTests
         Assert.AreEqual(1f, rows["A/D"].ProfileRatio);
         // 11-01: 새 몹은 기존 몹 자리를 통째로 빼앗지 않는다(가지뿔 여우·포자등 두꺼비 절반 섞기)
         var floor1 = HuntingSpawnTable.Parse(Resources.Load<TextAsset>("HuntingSpawnsFloor1").text);
-        Assert.AreEqual(0.5f, floor1["Lv1_DeepForest/Goblin1"].ProfileRatio);
+        // 11-13 REWORK-10: 깊은 숲 Goblin1 은 비율 섞기 때 나머지가 2층 CliffGoblin(Lv16, EXP 240)으로 남아 여우 전량으로 바꿨다.
+        // 고블린은 심부(DeepForestCore) Goblin1 의 DeepGoblin_BD(Lv7)로 옮겼다.
+        Assert.AreEqual("BranchAntlerFox_BD", floor1["Lv1_DeepForest/Goblin1"].Profile);
+        Assert.AreEqual(1f, floor1["Lv1_DeepForest/Goblin1"].ProfileRatio);
+        Assert.AreEqual("DeepGoblin_BD", floor1["Lv1_DeepForestCore/Goblin1"].Profile);
+        Assert.AreEqual(1f, floor1["Lv1_DeepForestCore/Goblin1"].ProfileRatio);
         Assert.AreEqual(0.5f, floor1["Lv1_Swamp/Frog1"].ProfileRatio);
     }
 
