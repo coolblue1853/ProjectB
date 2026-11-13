@@ -12,6 +12,7 @@ public sealed class TempMobShooter : MonoBehaviour
     static ObjectPool<GameObject> s_pool;
     static GameObject s_prefab;
     static int s_terrainMask;
+    static bool s_maskReady;
 
     private EnemyHealth _enemy;
     private MobShootRules.Profile _profile;
@@ -65,6 +66,10 @@ public sealed class TempMobShooter : MonoBehaviour
         {
             return;
         }
+        if (IsLineBlocked())
+        {
+            return; // 벽·발판 너머면 준비 동작 자체를 시작하지 않는다
+        }
         _dir = Mathf.Sign(d.x);
         _winding = true;
         _fireAt.Arm(Time.time, _profile.Windup);
@@ -102,9 +107,10 @@ public sealed class TempMobShooter : MonoBehaviour
         {
             return true;
         }
-        if (s_terrainMask == 0)
+        if (!s_maskReady)
         {
             s_terrainMask = LayerMask.GetMask("Ground", "Wall");
+            s_maskReady = true;
         }
         Vector2 from = (Vector2)transform.position + new Vector2(0f, 0.5f);
         Vector2 to = (Vector2)player.transform.position + new Vector2(0f, 0.5f);
@@ -150,5 +156,6 @@ public sealed class TempMobShooter : MonoBehaviour
         s_pool = null;
         s_prefab = null;
         s_terrainMask = 0;
+        s_maskReady = false;
     }
 }
