@@ -54,12 +54,12 @@ Q506,무법자 세트 착용,smith,12,Q502,equip,OutlawArmor,3,2200,460,OutlawAr
 Q507,무기 강화 +5,merchant,12,Q504,enhance,weapon,5,2300,480,CutthroatDagger,1,선택: 무기를 +5까지 강화한다.,,reward
 Q508,약탈자 세트 착용,eve,13,Q503,equip,RaiderArmor,3,2200,460,RaiderArmor,1,선택: 약탈자 세트를 3부위 착용한다. 밤 성채에서 재료를 모은다.,,reward
 Q509,성채 광맥 채집,sena,13,Q504,collect,Bog Copper Ore,3,2300,480,Enhance Stone,1,선택: 희귀 광맥에서 늪 구리 광석 3개를 모은다.,,reward
-Q605,장로 골렘,ruen,13,Q601,killElite,ElderGolem_BD,1,7200,500,StoneCap,1,탑 근교의 장로 골렘을 처치해 루엔에게 보고한다.,,reward
-Q606,돌탑 세트 착용,smith,13,Q603,equip,StoneArmor,3,7500,520,StoneArmor,1,돌탑 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
-Q607,유적 파편 수집,eve,14,Q602,collect,Ancient Relic Shard,8,7800,540,StoneLegArmor,1,탑 근교 유적 발굴로 고대 유물 파편 8개를 모아 이브에게 보고한다.,,reward
-Q608,석판 조각 수집,sena,14,Q601,collect,Monolith Shard,6,7800,540,StoneHandArmor,1,탑 근교에서 석판 조각 6개를 모아 세나에게 보고한다.,,reward
-Q609,방어구 강화 +5,merchant,14,Q606,enhance,armor,5,8100,560,StoneShoes,1,방어구를 +5까지 강화하고 상인에게 보고한다.,,reward
-Q610,도감 12종,elder,14,Q603,bestiary,any,12,8400,580,FairysGrimoire,1,서로 다른 몬스터 12종을 처치해 장로에게 보고한다.,,reward
+Q605,장로 골렘,ruen,13,Q601,killElite,ElderGolem_BD,1,2400,500,StoneCap,1,탑 근교의 장로 골렘을 처치해 루엔에게 보고한다.,,reward
+Q606,돌탑 세트 착용,smith,13,Q603,equip,StoneArmor,3,2500,520,StoneArmor,1,돌탑 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
+Q607,유적 파편 수집,eve,14,Q602,collect,Ancient Relic Shard,8,2600,540,StoneLegArmor,1,탑 근교 유적 발굴로 고대 유물 파편 8개를 모아 이브에게 보고한다.,,reward
+Q608,석판 조각 수집,sena,14,Q601,collect,Monolith Shard,6,2600,540,StoneHandArmor,1,탑 근교에서 석판 조각 6개를 모아 세나에게 보고한다.,,reward
+Q609,방어구 강화 +5,merchant,14,Q606,enhance,armor,5,2700,560,StoneShoes,1,방어구를 +5까지 강화하고 상인에게 보고한다.,,reward
+Q610,도감 12종,elder,14,Q603,bestiary,any,12,2800,580,FairysGrimoire,1,서로 다른 몬스터 12종을 처치해 장로에게 보고한다.,,reward
 Q701,정예 사냥 5,elder,15,Q610,killElite,*,5,1000,200,Enhance Stone,1,정예 몬스터 5마리를 처치해 장로에게 보고한다.,,reward
 Q702,세트 3종 착용,smith,15,Q609,equip,sets:3,3,1000,200,Enhance Stone,1,서로 다른 세트 3종을 각 3부위 이상 착용한다.,,reward
 Q703,도감 15종,eve,15,Q610,bestiary,any,15,1000,200,Enhance Stone,1,서로 다른 몬스터 15종을 처치해 이브에게 보고한다.,,reward
