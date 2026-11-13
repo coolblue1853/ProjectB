@@ -71,7 +71,7 @@ public static class LocTerms
         (" complete! Report to the quest board.", " 완료! 퀘스트 게시판에 보고하세요."),
         (" complete! Report to the Village Elder.", " 완료! 촌장에게 보고하세요."),
 
-        // ── 퀘스트 (QuestCatalog) ──
+        // ── 퀘스트 (구 QuestCatalog, 이행 전 Quest Machine 저널 문자열용) ──
         ("Rabbit Trouble", "토끼 소동"),
         ("The rabbits by the forest road are eating our crops. Drive off 10 of them!", "숲길 토끼들이 밭을 갉아먹고 있어요. 10마리만 쫓아내 주세요!"),
         ("Hunt rabbits on the forest road.", "숲길에서 토끼를 사냥하세요."),

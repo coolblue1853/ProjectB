@@ -7,9 +7,9 @@ using UnityEngine.InputSystem;
 /// QuestsFloor1.csv(giver=questboard)로 옮겨졌고 NPC 퀘스트와 같은 대화·진행·보상 규칙을 쓴다.
 /// 이 컴포넌트는 범위 안에서 ↑(키보드 ↑ / 패드 D패드 위 — UI Up 액션)를 누르면 퀘스트 창을 입구 모드(giver=questboard)로 여는 입구이고,
 /// 로드 때 구 Quest Machine 저장(qm.journal)을 한 번 npcq.state 로 이행한다(QuestMigration).
-/// Quest Machine 퀘스트 생성·HUD·보상은 더 하지 않는다.
+/// Quest Machine 퀘스트 생성·HUD·보상은 더 하지 않는다. Quest Machine 은 구 저장 이행(QuestJournal 읽기)에만 쓴다(REWORK-5 P5).
+/// 씬에 남은 QuestGiver 컴포넌트는 퀘스트가 없어 아무 일도 하지 않는다(씬 수정 없이 RequireComponent 만 뗌).
 /// </summary>
-[RequireComponent(typeof(QuestGiver))]
 public class QuestBoard : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _questMark;
@@ -51,7 +51,7 @@ public class QuestBoard : MonoBehaviour
         {
             _questMark.enabled = false; // 머리 위 !/? 는 NpcQuestGiver 가 같은 규칙으로 그린다
         }
-        yield return null; // QuestGiver·QuestJournal 의 Start 가 끝난 뒤
+        yield return null; // QuestJournal 의 Start 가 끝난 뒤
         if (!QuestMigration.Needed())
         {
             yield break;

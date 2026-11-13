@@ -61,7 +61,19 @@ public static class QuestWindowText
         sb.Append("<color=#CCCCCC>").Append(Summary(d)).Append("</color>\n\n");
         sb.Append("<color=#88AACC>-- 요구 사항 --</color>\n");
         bool ready = status == NpcQuestStatus.Ready;
-        sb.Append(ready ? "<color=" + Gold + ">" : "").Append(QuestService.Objective(d)).Append(ready ? "  (달성)</color>" : "");
+        string extra = QuestService.ObjectiveExtra(d);
+        if (extra.Length == 0)
+        {
+            AppendRequirement(sb, QuestService.ObjectiveMain(d), ready);
+        }
+        else
+        {
+            // 요구 사항 목록형(§3): 두 번째 목표는 따로 한 줄, 줄마다 달성 표시
+            bool active = status == NpcQuestStatus.Active;
+            AppendRequirement(sb, QuestService.ObjectiveMain(d), ready || (active && QuestService.Progress(d) >= d.Count));
+            sb.Append('\n');
+            AppendRequirement(sb, extra, ready || (active && NpcQuestLog.ExtraDone(d)));
+        }
         string night = tab == QuestListRules.Tab.Active ? QuestNightHint.Line(d, ready, QuestNightHint.SecondsUntilNightNow()) : "";
         if (night.Length > 0)
         {
@@ -72,6 +84,11 @@ public static class QuestWindowText
             sb.Append("\n<color=#777777>가방에 든 수량만 셉니다. 창고 보관분은 꺼내야 제출됩니다.</color>");
         }
         return sb.ToString();
+    }
+
+    private static void AppendRequirement(StringBuilder sb, string line, bool done)
+    {
+        sb.Append(done ? "<color=" + Gold + ">" : "").Append(line).Append(done ? "  (달성)</color>" : "");
     }
 
     /// <summary>요약 대사 한 줄 (description, 비면 목표 문장)</summary>

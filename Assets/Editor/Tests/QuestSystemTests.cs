@@ -110,27 +110,41 @@ public class QuestSystemTests
 
     // ── P1 게시판 퀘스트 CSV ──
 
+    // 구 QuestCatalog(P5 에서 삭제)의 값을 고정한 기준표: id, 목표, 대상(| 목록), 수, 골드, 강화석, 선행, 아티팩트, giver (exp 는 구 정의에 없어 늘 0)
+    private static readonly string[][] LegacySnapshot =
+    {
+        new[] { "q_rabbits", "Kill", "Rabbit_BD|StoneRabbit_BD", "10", "150", "1", "", "None", "questboard" },
+        new[] { "q_moles", "Kill", "FlowerMole_BD|LeftMole_BD", "8", "300", "2", "q_rabbits", "StarBurst", "questboard" },
+        new[] { "q_terror", "Kill", "PassiveTerror_BD", "1", "600", "3", "q_moles", "None", "questboard" },
+        new[] { "q_goblins", "Kill", "CliffGoblin_BD", "10", "1000", "4", "q_terror", "None", "questboard" },
+        new[] { "q_wizard", "Kill", "AbyssWizard_BD", "1", "3000", "8", "q_goblins", "None", "questboard" },
+        new[] { "s_wood", "Collect", "Wood", "10", "120", "0", "", "None", "questboard" },
+        new[] { "s_herb", "Collect", "GreenHurb", "6", "150", "1", "", "None", "questboard" },
+        new[] { "s_craft", "Craft", "Any", "2", "200", "2", "", "None", "questboard" },
+        new[] { "st_father1", "Kill", "AncientEnt_BD", "1", "800", "3", "", "None", "elder" },
+        new[] { "st_father2", "Kill", "GolemSmall_BD|GolemMedium_BD|GolemLarge_BD", "12", "1500", "5", "st_father1", "None", "elder" },
+        new[] { "st_father3", "Kill", "Gatekeeper_BD", "1", "3000", "8", "st_father2", "None", "elder" },
+    };
+
     [Test]
     public void 게시판_퀘스트는_구_정의와_보상_목표가_같다()
     {
-        foreach (QuestCatalog.Def old in QuestCatalog.Chain.Concat(QuestCatalog.Side).Concat(QuestCatalog.Story))
+        foreach (string[] old in LegacySnapshot)
         {
-            NpcQuestDef d = NpcQuestCatalog.Find(old.id);
-            Assert.IsNotNull(d, old.id);
-            Assert.AreEqual(old.count, d.Count, old.id + " count");
-            Assert.AreEqual(old.gold, d.Gold, old.id + " gold");
-            Assert.AreEqual(old.stones, d.Stones, old.id + " stones");
-            Assert.AreEqual(old.exp, d.Exp, old.id + " exp");
-            Assert.AreEqual(old.requires ?? "", d.Requires, old.id + " requires");
-            Assert.AreEqual(old.artifact.ToString() == "None" ? ArtifactId.None : old.artifact, NpcQuestRewards.ParseArtifact(d.Artifact), old.id + " artifact");
-            Assert.AreEqual(old.id.StartsWith("st_") ? "elder" : "questboard", d.Giver, old.id + " giver");
-            if (old.message == "Kill")
-            {
-                Assert.AreEqual(NpcQuestObjective.Kill, d.Objective, old.id);
-                CollectionAssert.AreEquivalent(old.targets, d.Target.Split('|'), old.id + " targets");
-            }
+            string id = old[0];
+            NpcQuestDef d = NpcQuestCatalog.Find(id);
+            Assert.IsNotNull(d, id);
+            Assert.AreEqual(old[1], d.Objective.ToString(), id + " objective");
+            CollectionAssert.AreEquivalent(old[2].Split('|'), d.Target.Split('|'), id + " targets");
+            Assert.AreEqual(int.Parse(old[3]), d.Count, id + " count");
+            Assert.AreEqual(int.Parse(old[4]), d.Gold, id + " gold");
+            Assert.AreEqual(int.Parse(old[5]), d.Stones, id + " stones");
+            Assert.AreEqual(0, d.Exp, id + " exp");
+            Assert.AreEqual(old[6], d.Requires, id + " requires");
+            Assert.AreEqual(old[7], NpcQuestRewards.ParseArtifact(d.Artifact).ToString(), id + " artifact");
+            Assert.AreEqual(old[8], d.Giver, id + " giver");
         }
-        Assert.AreEqual(QuestMigration.LegacyIds.Length, QuestCatalog.Chain.Count + QuestCatalog.Side.Count + QuestCatalog.Story.Count);
+        CollectionAssert.AreEquivalent(QuestMigration.LegacyIds, LegacySnapshot.Select(r => r[0]).ToArray());
     }
 
     [Test]

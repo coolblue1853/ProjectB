@@ -41,7 +41,7 @@ namespace ProjectB.EditorTools
             CheckSfx(sb);
             CheckAudio(sb);
             CheckDialogue(sb);
-            int quests = QuestCatalog.All().Count() + QuestCatalog.Story.Count;
+            int quests = NpcQuestCatalog.All.Count;
             string summary = "검사: 퀘스트 " + quests + " · 몬스터 프리팹 " + monsterPrefabs.Count + " / CSV " + MonsterTable.All().Count() +
                 " · 아이템 " + itemNames.Count + " · 효과음 " + System.Enum.GetValues(typeof(SfxId)).Length + System.Environment.NewLine;
             return summary + (sb.Length == 0 ? "문제 없음 ✅" : sb.ToString());
@@ -49,26 +49,25 @@ namespace ProjectB.EditorTools
 
         static void CheckQuests(StringBuilder sb, HashSet<string> monsters, HashSet<string> items)
         {
-            var ids = new HashSet<string>(QuestCatalog.All().Concat(QuestCatalog.Story).Select(d => d.id));
-            foreach (QuestCatalog.Def d in QuestCatalog.All().Concat(QuestCatalog.Story))
+            // REWORK-5 P5: 게임이 실제로 쓰는 퀘스트 CSV(NpcQuestCatalog)를 검사한다(구 QuestCatalog 삭제)
+            var ids = new HashSet<string>(NpcQuestCatalog.All.Select(d => d.Id));
+            foreach (NpcQuestDef d in NpcQuestCatalog.All)
             {
-                if (d.message == "Kill")
+                if (d.Objective == NpcQuestObjective.Kill)
                 {
-                    foreach (string t in d.targets)
+                    foreach (string t in d.Target.Split('|'))
                     {
-                        if (!monsters.Contains(t)) sb.AppendLine("❌ 퀘스트 " + d.id + ": 처치 대상 프리팹 없음 " + t);
+                        if (!monsters.Contains(t) && MonsterTable.Get(t) == null) sb.AppendLine("❌ 퀘스트 " + d.Id + ": 처치 대상 몬스터 없음(프리팹·MonsterSheet) " + t);
                     }
                 }
-                else if (d.message == "Pickup")
+                else if (d.Objective == NpcQuestObjective.Collect && !d.IsRecordsTarget)
                 {
-                    foreach (string t in d.targets)
-                    {
-                        if (!items.Contains(t)) sb.AppendLine("❌ 퀘스트 " + d.id + ": 줍기 대상 아이템 없음 " + t);
-                    }
+                    if (!items.Contains(d.Target)) sb.AppendLine("❌ 퀘스트 " + d.Id + ": 수집 대상 아이템 없음 " + d.Target);
                 }
-                if (!string.IsNullOrEmpty(d.rewardItem) && !items.Contains(d.rewardItem)) sb.AppendLine("❌ 퀘스트 " + d.id + ": 보상 아이템 없음 " + d.rewardItem);
-                if (!string.IsNullOrEmpty(d.requires) && !ids.Contains(d.requires)) sb.AppendLine("❌ 퀘스트 " + d.id + ": 선행 퀘스트 없음 " + d.requires);
-                if (d.count <= 0) sb.AppendLine("⚠ 퀘스트 " + d.id + ": 목표 수 0");
+                if (!string.IsNullOrEmpty(d.RewardItem) && !items.Contains(d.RewardItem)) sb.AppendLine("❌ 퀘스트 " + d.Id + ": 보상 아이템 없음 " + d.RewardItem);
+                if (!string.IsNullOrEmpty(d.Requires) && !ids.Contains(d.Requires)) sb.AppendLine("❌ 퀘스트 " + d.Id + ": 선행 퀘스트 없음 " + d.Requires);
+                if (d.Count <= 0) sb.AppendLine("⚠ 퀘스트 " + d.Id + ": 목표 수 0");
+                if (!string.IsNullOrEmpty(d.Objective2) && !NpcQuestLog.HasExtra(d)) sb.AppendLine("❌ 퀘스트 " + d.Id + ": 두 번째 목표 판정 불가 " + d.Objective2 + "/" + d.Target2 + "/" + d.Count2);
             }
         }
 

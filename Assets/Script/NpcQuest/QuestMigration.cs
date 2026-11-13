@@ -18,7 +18,7 @@ public static class QuestMigration
     public const string LegacyElderKey = "qm.elder";
     public const string LegacyJournalKey = "qm.journal";
 
-    /// <summary>이행 대상 구 퀘스트 id (QuestCatalog 의 Chain·Side·Story)</summary>
+    /// <summary>이행 대상 구 퀘스트 id (구 QuestCatalog 의 Chain·Side·Story — 정의는 P5 에서 삭제, 기준값은 QuestSystemTests.LegacySnapshot)</summary>
     public static readonly string[] LegacyIds =
     {
         "q_rabbits", "q_moles", "q_terror", "q_goblins", "q_wizard",

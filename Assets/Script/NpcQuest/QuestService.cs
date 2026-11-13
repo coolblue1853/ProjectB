@@ -301,8 +301,25 @@ public static class QuestService
         return id != null && id.StartsWith(QuestBountyLink.Prefix);
     }
 
-    /// <summary>"대상 이름 + 행동 현재/필요" 한 줄 (예: "토끼 처치 4/10")</summary>
+    /// <summary>"대상 이름 + 행동 현재/필요" 한 줄 (예: "토끼 처치 4/10"). 두 번째 목표가 있으면 " · " 로 이어 붙인다(추적 HUD 한 줄용)</summary>
     public static string Objective(NpcQuestDef d)
+    {
+        string extra = ObjectiveExtra(d);
+        return extra.Length == 0 ? ObjectiveMain(d) : ObjectiveMain(d) + " · " + extra;
+    }
+
+    /// <summary>두 번째 목표(objective2) 줄 (예: "쥐 대장 처치 0/1"). 없거나 현상이면 빈 문자열</summary>
+    public static string ObjectiveExtra(NpcQuestDef d)
+    {
+        if (IsBounty(d) || !NpcQuestLog.HasExtra(d))
+        {
+            return "";
+        }
+        return (d.Target2 == NpcQuestObjectiveRules.AnyElite ? "정예" : MonsterTable.DisplayName(d.Target2)) + " 처치 " + NpcQuestLog.Progress2(d) + "/" + d.Count2;
+    }
+
+    /// <summary>첫 번째 목표 줄만</summary>
+    public static string ObjectiveMain(NpcQuestDef d)
     {
         int have = Progress(d);
         string what;
@@ -318,12 +335,7 @@ public static class QuestService
             case NpcQuestObjective.Bestiary: what = "도감 몬스터 종류 처치"; break;
             default: what = NpcQuestCatalog.NpcName(d.Target) + "와(과) 대화"; break;
         }
-        string line = what + " " + have + "/" + d.Count;
-        if (!IsBounty(d) && NpcQuestLog.HasExtra(d))
-        {
-            line += " · " + (d.Target2 == NpcQuestObjectiveRules.AnyElite ? "정예" : MonsterTable.DisplayName(d.Target2)) + " 처치 " + NpcQuestLog.Progress2(d) + "/" + d.Count2;
-        }
-        return line;
+        return what + " " + have + "/" + d.Count;
     }
 
     private static string EquipText(string target)

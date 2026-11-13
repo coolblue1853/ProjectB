@@ -94,4 +94,44 @@ public class NpcQuestExtraObjectiveTests
         Assert.AreEqual("RatChief_BD", row.killKey, "killElite 메시지 id");
         Assert.IsTrue(TempMobTraits.Has(row.trait, "elite"));
     }
+
+    [Test]
+    public void 창_요구_사항은_두_번째_목표를_따로_한_줄로_줄마다_달성_표시()
+    {
+        NpcQuestDef d = NpcQuestCatalog.Find("X1");
+        NpcQuestLog.Accept("X1");
+        NpcQuestLog.OnKill("RatThief_BD");
+        NpcQuestLog.OnKill("RatThief_BD");
+        string text = QuestWindowText.Detail(d, QuestListRules.Tab.Active, NpcQuestLog.StatusOf("X1"));
+        string[] lines = text.Split('\n');
+        string main = System.Array.Find(lines, l => l.Contains(" 처치 2/2"));
+        string extra = System.Array.Find(lines, l => l.Contains(" 처치 0/1"));
+        Assert.IsNotNull(main, text);
+        Assert.IsNotNull(extra, text);
+        Assert.AreNotEqual(main, extra);
+        StringAssert.Contains("(달성)", main);
+        StringAssert.DoesNotContain("(달성)", extra);
+        Assert.AreEqual(QuestService.ObjectiveMain(d) + " · " + QuestService.ObjectiveExtra(d), QuestService.Objective(d), "추적 HUD 한 줄 형식 유지");
+    }
+
+    [Test]
+    public void 두_번째_목표가_없으면_Objective_는_첫_줄과_같다()
+    {
+        NpcQuestDef d = NpcQuestCatalog.Find("X2");
+        Assert.AreEqual("", QuestService.ObjectiveExtra(d));
+        Assert.AreEqual(QuestService.ObjectiveMain(d), QuestService.Objective(d));
+    }
+
+    [Test]
+    public void 실제_CSV_의_objective2_는_모두_판정_가능한_값이다()
+    {
+        NpcQuestCatalog.SetTableForTests(null);
+        foreach (NpcQuestDef d in NpcQuestCatalog.All)
+        {
+            if (!string.IsNullOrEmpty(d.Objective2) || !string.IsNullOrEmpty(d.Target2) || d.Count2 > 0)
+            {
+                Assert.IsTrue(NpcQuestLog.HasExtra(d), d.Id + ": objective2 판정 불가(" + d.Objective2 + "/" + d.Target2 + "/" + d.Count2 + ") — 지원 값은 killElite 뿐");
+            }
+        }
+    }
 }
