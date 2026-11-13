@@ -173,3 +173,6 @@
 - 주의: SET 팝업은 호버·커서 중에만 보임. 정적 캐시 RepCache(세트 키→대표 아이템)는 찾은 것만 저장.
 - SLOT-R5(11-14): Ring2=15·비트 32 로더 추가(Belt 가 14·16 선점이라 번호 조정), 구 5칸 세이브 빈칸·잠금 테스트, ExtraEquip StatSources 길이 버그 방지. EditMode 1252/1252.
 - 남음(SLOT-R5): Ring2 해금 CSV 행·장비창 표시(DisplayOrder)·아이템은 미구현(필요 시).
+- (11-14 입력 검증) 인벤·상점·창고·가방 확장을 가상 키보드·패드로 몰아 봄(`Tools/probes/_inputsweep.cs`, InputAudit §14): 대부분 통과.
+- 수정: 확인창이 열려도 인벤이 ←→ 를 처리하던 것(`ConfirmPopup.IsBlocking`), 패드 LT+X 가 교체 모드로 새던 것(`ltChord`). EditMode 1252/1252.
+- 남음: 패드 Start 필드 일시정지·인벤 충돌(설계 결정 F1), 실마우스·실패드 손맛은 UserPlaytest_1111.

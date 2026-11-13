@@ -15,9 +15,9 @@
 | BUG-U9 허공 LV 표시 | 사용자 필요 | 6f395c13b·748a3c232(방어·동기화 수정), state:18 "재현 못 함" | 사용자 재현 또는 계측 로그 | 하 | 0% |
 | REWORK-8 키 배치·NPC 정리 | 부분 | 4596422c5(K→Y·키 표), f9c176eb4(ConfirmPopup·U37·U38·U40), 32a9523d3(NPC 선택지·Q), state:55-64 | 실마우스·패드 검증, 하단 안내 일치 확인 | 상 | 3% |
 | REWORK-5 퀘스트 통합 | 부분 | 90d33fdff(P0·P1), 18ff75578(설계), d78e6dd34(P2~P4), cda9e80bc(P5), `Game/QuestSystemDesign.md` §7 | P5 코드 완료(11-14). 남음: 씬 QM HUD·QuestGiver 제거(씬 허가 필요), 게시판 입구·구 세이브 이행·패드 플레이 검증 | 상 | 5% |
-| REWORK-1 인벤·상점·창고 재설계 | 부분 | 12e8b4fe0(S3·S5 툴바·가방 확장 버튼), state:20-22(S1~S5) | 구현 대부분 완료. 실마우스·패드 검증, 창고 편의 확인 | 상 | 3% |
-| REWORK-2 인벤·상점 재구현·수량 창 | 부분 | 3af1354b5(우클릭·툴팁·상점 마우스), 52aeac8a3(U14), `Assets/Script/UI/QuantityPopup.cs` | 실마우스·패드 검증 | 상 | 2% |
-| INV-BAG-EXP 가방 확장 | 부분 | `Assets/Script/Inventory/BagExpansion.cs`·`Model/BagExpansionRules.cs`, `UI/InventoryToolbar.cs`(확장 버튼 12e8b4fe0), f9c176eb4(확장 확인창) | 구매 경로·가격·최대 칸 실확인, 패드 확장 확인, 유저 안내 문구 | 중 | 2% |
+| REWORK-1 인벤·상점·창고 재설계 | 부분 | 12e8b4fe0(S3·S5 툴바·가방 확장 버튼), state:20-22(S1~S5) | 구현 대부분 완료. 가상 입력(키·패드) 검증 통과(11-14, InputAudit §14), 실마우스·실패드 손맛만 남음(UserPlaytest_1111) | 상 | 3% |
+| REWORK-2 인벤·상점 재구현·수량 창 | 부분 | 3af1354b5(우클릭·툴팁·상점 마우스), 52aeac8a3(U14), `Assets/Script/UI/QuantityPopup.cs` | 가상 입력 통과(11-14), 실마우스·실패드 손맛만 남음 | 상 | 1% |
+| INV-BAG-EXP 가방 확장 | 부분 | `Assets/Script/Inventory/BagExpansion.cs`·`Model/BagExpansionRules.cs`, `UI/InventoryToolbar.cs`(확장 버튼 12e8b4fe0), f9c176eb4(확장 확인창) | 가상 입력(N·LT+X)·구매·확인창 통과(11-14, 한도 시 X 새는 버그 수정), 가격·최대 칸 실확인과 유저 안내 문구 남음 | 중 | 2% |
 | REWORK-12 장비·세트 효과 | 부분 | 8dd03b9de(P8 쿨 곱), e9b535d4f(P7 세트 11단계·EffectScore), 906467331(P6 툴팁), 083c27d48(장신구 2종·환급 내부 쿨), 세트 창(11-14, SetOverview·SetOverviewPopup), `Assets/Script/Combat/Effects/SkillVariants.cs`, state:26-30 | 효과 상세 토글, 세트 창 문구 Loc 등록, Q-EFX7, 변형 실플레이, Gatekeeper 보너스, 팔찌 획득처(3층계) | 상 | 5% |
 | REWORK-3 몹 행동 속성 | 부분 | e6b524591(속성 8열·BT 훅), `Assets/Script/Enemy/MobBehaviorRules.cs`, state:31-32 | 실전 체감(낙하 후 갇힘 확인), 후공 8초·hop 높이 튜닝 | 상 | 3% |
 | BUG-U23 작은 몹 판정 | 완료 | e6b524591(콜라이더 하한 1.2x1.1), state:33(EditMode 1080·play probe) | 없음(체감 확인은 REWORK-3) | 중 | 0% |

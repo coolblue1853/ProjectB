@@ -1491,9 +1491,9 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        if (QuantityPopup.IsBlocking)
+        if (QuantityPopup.IsBlocking || ConfirmPopup.IsBlocking)
         {
-            return; // 수량 창이 모달: 같은 입력을 인벤이 다시 처리하지 않는다
+            return; // 수량 창·확인창이 모달: 같은 입력(←→ 등)을 인벤이 다시 처리하지 않는다
         }
         verticalInput = (verticalCheck.ReadValue<float>());
         horizontalInput = (horizontalCheck.ReadValue<float>());
@@ -1594,7 +1594,8 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        if (changeAction.triggered && inventory.activeSelf == true)
+        bool ltChord = Gamepad.current != null && Gamepad.current.leftTrigger.isPressed; // LT+X = 가방 확장·상점 물약 충전: 교체 모드로 새지 않게
+        if (changeAction.triggered && inventory.activeSelf == true && !ltChord)
         {
             ActiveChangeCursor();
         }
