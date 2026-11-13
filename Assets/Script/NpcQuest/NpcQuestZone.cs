@@ -22,7 +22,46 @@ public static class NpcQuestZone
         { FathersRecords.SaveKey, "Tower Outskirts" },
     };
 
+    /// <summary>구역 안내판이 다루는 목표 구역(MonsterSheet zone 이름, 영문 원본). 마차 정류장 맵 id 기준</summary>
+    private static readonly Dictionary<string, string[]> SignZones = new Dictionary<string, string[]>
+    {
+        { "Lv1_DeepForest", new[] { "Deep Forest", "Deep Forest Core" } },
+        { "Lv1_Swamp", new[] { "Swamp", "Mist Swamp" } },
+        { "Lv1_BanditFortress", new[] { "Bandit Fortress" } },
+        { "Lv1_TowerOutskirts", new[] { "Tower Outskirts" } },
+    };
+
     private static readonly Dictionary<string, string> s_cache = new Dictionary<string, string>();
+
+    private static bool MatchesZone(string zone, string name)
+    {
+        return zone.StartsWith(name, System.StringComparison.Ordinal) && (zone.Length == name.Length || (zone.Length > name.Length + 1 && zone[name.Length] == ' ' && zone[name.Length + 1] == '('));
+    }
+
+    /// <summary>안내판 맵 id 의 목표 구역 이름들 (없으면 빈 배열)</summary>
+    public static string[] ZonesOfSign(string mapId)
+    {
+        return mapId != null && SignZones.TryGetValue(mapId, out string[] z) ? z : System.Array.Empty<string>();
+    }
+
+    /// <summary>d 의 목표 구역이 keys(영문 원본) 중 하나인가. "구역 (night)" 같은 꼬리표가 붙은 값도 같은 구역으로 본다</summary>
+    public static bool InZones(NpcQuestDef d, string[] keys)
+    {
+        string zone = Of(d);
+        if (string.IsNullOrEmpty(zone) || keys == null)
+        {
+            return false;
+        }
+        foreach (string k in keys)
+        {
+            // CSV zone 열은 영문 원본, 파생 값은 현지화된 이름이라 둘 다 비교한다
+            if (MatchesZone(zone, k) || MatchesZone(zone, Loc.Region(k)))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics()

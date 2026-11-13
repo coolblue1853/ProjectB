@@ -33,7 +33,7 @@ try {
    if (NpcQuestLog.HasExtra(d)) for (int i = 0; i < d.Count2; i++) NpcQuestLog.OnKillElite(d.Target2);
    var st2 = NpcQuestLog.StatusOf(d);
    bool ready = st2 == NpcQuestStatus.Ready;
-   var zv = QuestService.Query(new QuestFilter { Tab = QuestListRules.Tab.Active, Giver = QuestEntrance.ZoneReportNpc, ReportToo = true, ReportOnly = true });
+   var zv = QuestService.Query(QuestEntrance.ZoneSign("Lv1_DeepForest").WithTab(QuestListRules.Tab.Active));
    bool inSign = zv.Items.Exists(x => x.Id == d.Id); bool wantSign = d.ReportNpc == "eve";
    bool signOk = inSign == wantSign;
    bool ok = ready && signOk && (wantSign ? QuestService.Report(d.Id) : NpcQuestLog.Complete(d.Id)) && NpcQuestLog.StatusOf(d) == NpcQuestStatus.Done;

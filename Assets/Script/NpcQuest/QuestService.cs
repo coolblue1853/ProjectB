@@ -12,6 +12,14 @@ public sealed class QuestFilter
     public bool ReportToo;
     /// <summary>true 면 giver 가 보고 대상인 퀘스트만 보인다(받을 것 탭은 비움) — 구역 보고 안내판(ZoneReportSign)용</summary>
     public bool ReportOnly;
+    /// <summary>구역 안내판용: 비어 있지 않으면 목표 구역이 이 구역(들) 중 하나인 퀘스트만, giver·reportTo NPC 와 무관하게 수락·보고 대상으로 본다(현상 제외). 지정되면 다른 조건(Giver·Source·Zone·ReportOnly)은 무시하고, 빈 배열은 아무것도 맞지 않는다</summary>
+    public string[] ZoneKeys;
+
+    /// <summary>같은 입구 조건으로 탭만 바꾼 복사본</summary>
+    public QuestFilter WithTab(QuestListRules.Tab tab)
+    {
+        return new QuestFilter { Tab = tab, Giver = Giver, Source = Source, Zone = Zone, ReportToo = ReportToo, ReportOnly = ReportOnly, ZoneKeys = ZoneKeys };
+    }
 }
 
 /// <summary>Query 결과: 필터한 탭의 정렬된 목록</summary>
@@ -136,6 +144,10 @@ public static class QuestService
 
     private static bool Matches(NpcQuestDef d, QuestFilter f)
     {
+        if (f.ZoneKeys != null)
+        {
+            return !IsBounty(d) && NpcQuestZone.InZones(d, f.ZoneKeys);
+        }
         if (f.ReportOnly && !string.IsNullOrEmpty(f.Giver) && d.ReportNpc != f.Giver)
         {
             return false;

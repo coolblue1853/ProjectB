@@ -2,8 +2,9 @@
 using UnityEngine;
 
 /// <summary>
-/// 구역 보고 안내판: 깊은 숲·늪·산적 요새·탑 근교 입구(마차 자리 옆)에 서서, ↑ 로 이브가 보고 대상인 퀘스트를
-/// 일반 숲까지 돌아가지 않고 보고하게 한다(QuestEntrance.ZoneReport). 수락은 하지 않는다(보고 전용).
+/// 구역 안내판: 깊은 숲·늪·산적 요새·탑 근교 입구(마차 자리 옆)에 서서, ↑ 로 이 구역 퀘스트를
+/// 일반 숲까지 돌아가지 않고 보고하게 한다. 11-13 결정: 이 구역을 목표로 하는 퀘스트는 giver·reportTo NPC 와 무관하게
+/// 안내판에서 수락·보고한다(QuestEntrance.ZoneSign).
 /// </summary>
 [RequireComponent(typeof(BoxCollider2D))]
 public class ZoneReportSign : MonoBehaviour
@@ -15,6 +16,7 @@ public class ZoneReportSign : MonoBehaviour
     public const float OffsetFromCoach = 3.5f;
 
     private TextMeshPro _prompt;
+    private string _mapId;
     private bool _near;
 
     private void Awake()
@@ -28,7 +30,7 @@ public class ZoneReportSign : MonoBehaviour
         {
             _prompt.font = theme.pixelFont;
         }
-        _prompt.text = "↑ 퀘스트 보고";
+        _prompt.text = "↑ 퀘스트 수락·보고";
         _prompt.fontSize = 3f;
         _prompt.alignment = TextAlignmentOptions.Center;
         _prompt.color = theme != null ? theme.unique : Color.yellow;
@@ -58,7 +60,7 @@ public class ZoneReportSign : MonoBehaviour
         }
         if (show && Floor1Input.UpPressed && !DatabaseManager.isOpenUI)
         {
-            QuestEntrance.Open(QuestEntrance.ZoneReport());
+            QuestEntrance.Open(QuestEntrance.ZoneSign(_mapId));
         }
     }
 
@@ -79,7 +81,7 @@ public class ZoneReportSign : MonoBehaviour
     }
 
     /// <summary>맵 하나에 안내판을 세운다(x 는 마차 자리 + OffsetFromCoach, 높이는 지면 스냅)</summary>
-    public static GameObject Create(Transform map, float x, float y, SpriteRenderer sortingSource)
+    public static GameObject Create(Transform map, string mapId, float x, float y, SpriteRenderer sortingSource)
     {
         var go = new GameObject("ZoneReportSign");
         go.transform.SetParent(map, false);
@@ -98,7 +100,7 @@ public class ZoneReportSign : MonoBehaviour
             sr.sortingLayerID = sortingSource.sortingLayerID;
             sr.sortingOrder = sortingSource.sortingOrder;
         }
-        go.AddComponent<ZoneReportSign>();
+        go.AddComponent<ZoneReportSign>()._mapId = mapId;
         go.AddComponent<GroundSnapOnce>();
         return go;
     }

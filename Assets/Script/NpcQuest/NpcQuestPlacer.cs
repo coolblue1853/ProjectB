@@ -126,7 +126,7 @@ public static class NpcQuestPlacer
         }
     }
 
-    /// <summary>구역 보고 안내판: 깊은 숲·늪·요새·탑 입구(마차 자리 옆)에 세워 이브 보고 퀘스트를 현지에서 보고한다</summary>
+    /// <summary>구역 안내판: 깊은 숲·늪·요새·탑 입구(마차 자리 옆)에 세워 그 구역 퀘스트를 현지에서 수락·보고한다</summary>
     private static void CreateReportSigns(MapInfo[] maps, MapInfo town)
     {
         Transform src = town != null ? town.transform.Find("Shop") : null;
@@ -143,7 +143,7 @@ public static class NpcQuestPlacer
                 Debug.LogWarning("[PB][NpcQuest] 구역 보고 안내판 배치 실패: " + s.Id);
                 continue;
             }
-            ZoneReportSign.Create(map.transform, s.AnchorX.Value + ZoneReportSign.OffsetFromCoach, s.AnchorY ?? src.position.y, srcSr);
+            ZoneReportSign.Create(map.transform, s.Id, s.AnchorX.Value + ZoneReportSign.OffsetFromCoach, s.AnchorY ?? src.position.y, srcSr);
         }
     }
 

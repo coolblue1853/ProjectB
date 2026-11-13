@@ -271,7 +271,7 @@ public partial class NpcQuestWindow : MonoBehaviour
 
     private static QuestFilter Clone(QuestFilter f, QuestListRules.Tab tab)
     {
-        return new QuestFilter { Tab = tab, Giver = f?.Giver, Source = f?.Source, Zone = f?.Zone, ReportToo = f != null && f.ReportToo, ReportOnly = f != null && f.ReportOnly };
+        return f != null ? f.WithTab(tab) : new QuestFilter { Tab = tab };
     }
 
     // ───── 동작 ─────

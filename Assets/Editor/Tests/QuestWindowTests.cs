@@ -231,22 +231,35 @@ public class QuestWindowTests
         Assert.IsFalse(QuestEntrance.HasAnything(QuestEntrance.Board()));
     }
 
+    // 11-13 결정(수락·보고 허용): 이전 "이브가 보고 대상인 퀘스트만, 수락 불가" 핀을 대체한다. 안내판 구역을 목표로 하는 퀘스트는 NPC 와 무관하게 수락·보고된다.
     [Test]
-    public void 구역_보고_안내판은_이브가_보고_대상인_진행_중만_보여_준다()
+    public void 구역_안내판은_그_구역_목표_퀘스트를_NPC_무관하게_수락_보고한다()
     {
-        NpcQuestCatalog.SetTableForTests("h\nE1,루엔발,ruen,1,,kill,Rabbit_BD,1,0,0,,,x,,,eve\nE2,이브발,eve,1,,kill,Rabbit_BD,1,0,0,,,x\nE3,세나,sena,1,,kill,Rabbit_BD,1,0,0,,,x");
-        QuestFilter f = QuestEntrance.ZoneReport();
-        Assert.AreEqual("eve", f.Giver);
-        Assert.IsFalse(QuestEntrance.HasAnything(f), "수락 전엔 받을 것도 보고할 것도 없다(안내판은 수락 불가)");
+        NpcQuestCatalog.SetTableForTests("h\nE1,깊은숲A,ruen,1,,kill,Rabbit_BD,1,0,0,,,x,,,eve,,,,Deep Forest\nE2,늪B,sena,1,,kill,Rabbit_BD,1,0,0,,,x,,,,,,,Swamp\nE3,숲길C,smith,1,,kill,Rabbit_BD,1,0,0,,,x");
+        QuestFilter deep = QuestEntrance.ZoneSign("Lv1_DeepForest");
+        Assert.IsTrue(QuestEntrance.HasAnything(deep), "수락 가능한 깊은 숲 퀘스트가 있다");
+        CollectionAssert.AreEqual(new[] { "E1" }, QuestService.Query(deep.WithTab(QuestListRules.Tab.Available)).Items.Select(d => d.Id).ToArray(), "받을 것 = 이 구역 목표만(giver·reportTo 무관)");
         Assert.IsTrue(QuestService.Accept("E1"));
         Assert.IsTrue(QuestService.Accept("E2"));
         Assert.IsTrue(QuestService.Accept("E3"));
-        var active = new QuestFilter { Tab = QuestListRules.Tab.Active, Giver = f.Giver, ReportToo = true, ReportOnly = true };
-        CollectionAssert.AreEquivalent(new[] { "E1", "E2" }, QuestService.Query(active).Items.Select(d => d.Id).ToArray());
-        Assert.IsEmpty(QuestService.Query(f).Items, "받을 것 탭은 비어 있다");
-        Assert.IsTrue(QuestEntrance.HasAnything(f));
-        Assert.IsTrue(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E1"), f), "루엔발 퀘스트도 보고 대상 eve 라 안내판에서 보고");
-        Assert.IsFalse(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E3"), f));
+        CollectionAssert.AreEqual(new[] { "E1" }, QuestService.Query(deep.WithTab(QuestListRules.Tab.Active)).Items.Select(d => d.Id).ToArray(), "진행 중 = 이 구역 목표만");
+        Assert.IsTrue(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E1"), deep), "루엔발·이브 보고 퀘스트도 안내판에서 보고");
+        Assert.IsFalse(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E2"), deep), "다른 구역 퀘스트는 이 안내판에서 보고 불가");
+        Assert.IsFalse(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E3"), deep));
+        Assert.IsTrue(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E2"), QuestEntrance.ZoneSign("Lv1_Swamp")));
+        Assert.IsFalse(QuestEntrance.HasAnything(QuestEntrance.ZoneSign("Lv1_TowerOutskirts")), "목표가 탑 근교인 퀘스트가 없으면 비어 있다");
+        Assert.IsEmpty(NpcQuestZone.ZonesOfSign("Lv1_Unknown"));
+        Assert.IsFalse(QuestEntrance.HasAnything(QuestEntrance.ZoneSign("Lv1_Unknown")), "미등록 맵 안내판은 비어 있다");
+        Assert.IsFalse(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("E1"), QuestEntrance.ZoneSign("Lv1_Unknown")));
+    }
+
+    [Test]
+    public void 구역_안내판_구역_꼬리표_밤_보스도_같은_구역으로_본다()
+    {
+        NpcQuestCatalog.SetTableForTests("h\nN1,밤,eve,1,,kill,Ghost_BD,1,0,0,,,x");
+        Assert.AreEqual("Deep Forest (night)", MonsterTable.Get("Ghost_BD").zone);
+        Assert.IsTrue(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("N1"), QuestEntrance.ZoneSign("Lv1_DeepForest")));
+        Assert.IsFalse(QuestEntrance.CanReportHere(NpcQuestCatalog.Find("N1"), QuestEntrance.ZoneSign("Lv1_Swamp")));
     }
 
     [Test]
