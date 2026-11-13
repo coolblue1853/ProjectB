@@ -10,6 +10,7 @@ public class EquipSlotExpansionTests
         {
             { "Crown", new ItemDef { Id = "Crown", Type = "Equip", EquipArea = "Earring", MaxStack = 1 } },
             { "Halo", new ItemDef { Id = "Halo", Type = "Equip", EquipArea = "Bracelet", MaxStack = 1 } },
+            { "Band2", new ItemDef { Id = "Band2", Type = "Equip", EquipArea = "Ring2", MaxStack = 1 } },
             { "Charm1", new ItemDef { Id = "Charm1", Type = "Equip", EquipArea = "Charm", MaxStack = 1 } },
             { "OldHelm", new ItemDef { Id = "OldHelm", Type = "Equip", EquipArea = "Head", MaxStack = 1 } },
             { "OldTitle", new ItemDef { Id = "OldTitle", Type = "Equip", EquipArea = "Etc", MaxStack = 1 } },
@@ -49,13 +50,14 @@ public class EquipSlotExpansionTests
         Assert.AreEqual(12, (int)EquipSlot.Charm);
         Assert.AreEqual(13, (int)EquipSlot.Stone);
         Assert.AreEqual(14, (int)EquipSlot.Belt);
+        Assert.AreEqual(15, (int)EquipSlot.Ring2);
     }
 
     [Test]
     public void SaveArrayOrder_KeepsOldFour_BeltAppended()
     {
-        CollectionAssert.AreEqual(new[] { EquipSlot.Earring, EquipSlot.Bracelet, EquipSlot.Charm, EquipSlot.Stone, EquipSlot.Belt }, SlotRules.Extras);
-        Assert.AreEqual(31, SlotRules.AllExtraMask);
+        CollectionAssert.AreEqual(new[] { EquipSlot.Earring, EquipSlot.Bracelet, EquipSlot.Charm, EquipSlot.Stone, EquipSlot.Belt, EquipSlot.Ring2 }, SlotRules.Extras);
+        Assert.AreEqual(63, SlotRules.AllExtraMask);
     }
 
     [Test]
@@ -66,6 +68,7 @@ public class EquipSlotExpansionTests
         Assert.AreEqual(4, SlotRules.Bit(EquipSlot.Charm));
         Assert.AreEqual(8, SlotRules.Bit(EquipSlot.Stone));
         Assert.AreEqual(16, SlotRules.Bit(EquipSlot.Belt));
+        Assert.AreEqual(32, SlotRules.Bit(EquipSlot.Ring2));
         Assert.AreEqual(0, SlotRules.Bit(EquipSlot.Ring));
         Assert.IsTrue(SlotRules.IsUnlocked(0, EquipSlot.Weapon));
         Assert.IsTrue(SlotRules.IsUnlocked(0, EquipSlot.Earring), "귀걸이는 시작부터 열림");
@@ -135,7 +138,7 @@ public class EquipSlotExpansionTests
         inv.TryAdd(new ItemStack("Halo", 1, 2, 3));
         Assert.IsTrue(eq.Equip(inv, 0));
         string[] arr = eq.ToExtraArray();
-        Assert.AreEqual(5, arr.Length);
+        Assert.AreEqual(6, arr.Length);
         Assert.AreEqual("", arr[0]);
         Assert.AreEqual("Halo|2|3", arr[1]);
 
@@ -145,6 +148,33 @@ public class EquipSlotExpansionTests
         Assert.AreEqual("Halo", back[EquipSlot.Bracelet].Id);
         Assert.AreEqual(2, back[EquipSlot.Bracelet].Tier);
         Assert.AreEqual(3, back[EquipSlot.Bracelet].Upgrade);
+    }
+
+    [Test]
+    public void Ring2_OldFiveSlotSave_LoadsEmptyAndLocked()
+    {
+        // 구 세이브: Belt 까지 5칸 배열·마스크 31 (Ring2 키 없음) → Ring2 는 빈칸·잠금, 기존 칸은 그대로
+        var cat = new Cat();
+        var inv = new SlotContainer(cat, 4, 4);
+        var eq = new EquipmentModel(cat);
+        Assert.AreEqual(0, eq.LoadExtra(new[] { "", "Halo", "", "", "" }, 31, inv));
+        Assert.AreEqual("Halo", eq[EquipSlot.Bracelet].Id);
+        Assert.IsTrue(eq[EquipSlot.Ring2].IsEmpty);
+        Assert.IsFalse(eq.IsUnlocked(EquipSlot.Ring2));
+        Assert.AreEqual(31, eq.ExtraUnlockMask);
+        Assert.AreEqual(6, eq.ToExtraArray().Length);
+    }
+
+    [Test]
+    public void Ring2_UnlockedRoundtrip_KeepsItem()
+    {
+        var cat = new Cat();
+        var eq = new EquipmentModel(cat);
+        Assert.IsTrue(eq.Unlock(EquipSlot.Ring2));
+        eq.LoadExtra(new[] { "", "", "", "", "", "Band2|1|2" }, eq.ExtraUnlockMask, new SlotContainer(cat, 4, 4));
+        Assert.AreEqual("Band2", eq[EquipSlot.Ring2].Id);
+        Assert.AreEqual("Band2|1|2", eq.ToExtraArray()[5]);
+        Assert.AreEqual(32, eq.ExtraUnlockMask);
     }
 
     [Test]

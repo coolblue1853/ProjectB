@@ -11,10 +11,10 @@ public static class SlotRules
     public const string SaveKeyExtra = "equip.extra";
     public const string SaveKeyUnlock = "equip.extraUnlock";
 
-    /// <summary>세이브 배열 순서 = 비트 순서. 구 세이브 호환을 위해 순서 고정, 새 슬롯은 끝에만 추가(Belt)</summary>
-    public static readonly EquipSlot[] Extras = { EquipSlot.Earring, EquipSlot.Bracelet, EquipSlot.Charm, EquipSlot.Stone, EquipSlot.Belt };
+    /// <summary>세이브 배열 순서 = 비트 순서. 구 세이브 호환을 위해 순서 고정, 새 슬롯은 끝에만 추가(Belt, Ring2)</summary>
+    public static readonly EquipSlot[] Extras = { EquipSlot.Earring, EquipSlot.Bracelet, EquipSlot.Charm, EquipSlot.Stone, EquipSlot.Belt, EquipSlot.Ring2 };
 
-    public const int AllExtraMask = 31;
+    public const int AllExtraMask = 63;
 
     /// <summary>시작 5칸(의상·무기·반지·목걸이·귀걸이) — 세트 효과가 세는 칸. 최대 5셋</summary>
     public static readonly EquipSlot[] Starting = { EquipSlot.Outfit, EquipSlot.Weapon, EquipSlot.Ring, EquipSlot.Necklace, EquipSlot.Earring };
@@ -49,7 +49,7 @@ public static class SlotRules
         return Array.IndexOf(Extras, slot) >= 0;
     }
 
-    /// <summary>1=Earring, 2=Bracelet, 4=Charm, 8=Stone, 16=Belt. 그 밖의 슬롯은 0</summary>
+    /// <summary>1=Earring, 2=Bracelet, 4=Charm, 8=Stone, 16=Belt, 32=Ring2. 그 밖의 슬롯은 0</summary>
     public static int Bit(EquipSlot slot)
     {
         int i = Array.IndexOf(Extras, slot);

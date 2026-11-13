@@ -43,7 +43,7 @@
 | G3 여유 그래픽 묶음 | 그래픽 | 143c4e066(세부 단계 문서) | 건드리지 않음 | - | - |
 | 사용자 검토 필요 줄(그래픽 큐 제외) | 그래픽 | queue.md 41행 | 건드리지 않음 | - | - |
 | INV-EXP-4 시작 칸·가격 보정 | 사용자 필요 | 103e8179f(AUTO-4 경제 표), state:1 "통주 로그 필요" | PtBot 로그 확보 후 가격표 조정 | 하 | 0% |
-| SLOT-R5 반지2(Ring2) 로더 | 미착수 | `Ring2`·비트 16 코드 없음(grep 0건), `.claude-rules/Game/EquipSlotExpansion.md`:83 | 선택 항목. 14번 슬롯·짧은 구 배열 허용 로더 | 하 | 1% |
+| SLOT-R5 반지2(Ring2) 로더 | 완료 11-14 | `EquipSlot.Ring2=15`·비트 32(Belt 가 14·16 선점), `SlotRules.Extras` 끝 추가·AllExtraMask 63, 구 세이브 테스트 | 로더만. 해금 CSV·UI·아이템은 필요 시 별도 | - | - |
 | DUR-REVIEW 내구도 | 사용자 필요 | `.claude-rules/Game/Durability.md`(추천 보류), 0ba158c84 | PT-BOT 로그에서 골드 과잉 확인 시 재검토. 코드 없음 | 하 | 0% |
 | AUTO-129 일회성 프로브 삭제 | 미착수 | `Tools/probes/_*.cs` 335개 잔존, `Docs/Playtest/ProbeInventory.md` 존재 | 삭제 조건 충족분만 선별 삭제 후 문서 갱신 | 하 | 1% |
 | AUTO-130 11차 정적 리뷰 | 미착수 | `Docs/Playtest/ReviewCode_1105d.md` 없음 | 리뷰 문서 신규 작성 | 하 | 2% |

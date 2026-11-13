@@ -171,3 +171,5 @@
 - REWORK-12 세트 창(11-14): 장비창 추가 칸 펫 줄 끝 "세트" 칸(커서 노드 23) 호버·키보드/패드 커서 → 착용 세트 요약 팝업(세트별 기존 툴팁 세트 단락·켜진 단계·다음 단계까지 부위 수). 순수 규칙 `SetOverview` + 테스트 7, 단계 상한 공용 `SetTierTable.MaxTier=11`(SetEffectText 0~7 루프 버그 함께 수정). EditMode 1250/1250, 플레이 프로브·스샷 확인.
 - 남음(REWORK-12): 효과 상세 토글, SetSwapPreview 효과 줄, 세트 창 문구 Loc 등록(한글 직접), 세트 부위 수 표시가 착용 수보다 작게 나오는 경우("5/4", SetPartCount 가 부위 종류 수) 점검, Q-EFX7·8, Gatekeeper 보너스, Bog5 Bleed.
 - 주의: SET 팝업은 호버·커서 중에만 보임. 정적 캐시 RepCache(세트 키→대표 아이템)는 찾은 것만 저장.
+- SLOT-R5(11-14): Ring2=15·비트 32 로더 추가(Belt 가 14·16 선점이라 번호 조정), 구 5칸 세이브 빈칸·잠금 테스트, ExtraEquip StatSources 길이 버그 방지. EditMode 1252/1252.
+- 남음(SLOT-R5): Ring2 해금 CSV 행·장비창 표시(DisplayOrder)·아이템은 미구현(필요 시).

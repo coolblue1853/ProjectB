@@ -8,9 +8,9 @@ using System.Collections.Generic;
 /// 짝수 층계(2 펫·4 룬·6 성물)는 장비가 아닌 별도 콘텐츠(Assets/Script/Features) — 이 enum 에 넣지 않는다(세트 효과에도 안 들어감).
 /// 투구(Head=2)·장갑(Hand=6)·하의(Leg=8)·신발(Shoes=9)은 슬롯 폐지: 구 세이브·문자열 파싱용으로만 남기며 SlotRules.IsRetired 로 걸러낸다. 값·세이브 인덱스는 유지.
 /// 세트 효과에 들어가는 것은 장비 슬롯뿐(시작 5칸 기준 최대 5셋). 모션 소유 원칙: 의상=기본 동작, 무기=공격 동작, 둘은 독립.
-/// 장비 부위 = 세이브 인덱스 그대로 (equipGear[슬롯]). 10~14 는 해금형·비외형 장신구 슬롯(별도 ES3 키). 11-05 이전 이름 Title·Aura·Cape 는 폐기, 값 유지
+/// 장비 부위 = 세이브 인덱스 그대로 (equipGear[슬롯]). 10~15 는 해금형(15=반지2 Ring2, SLOT-R5 로더만 — 해금 CSV·UI·아이템 없음)·비외형 장신구 슬롯(별도 ES3 키). 11-05 이전 이름 Title·Aura·Cape 는 폐기, 값 유지
 /// </summary>
-public enum EquipSlot { Ring = 1, Head = 2, Necklace = 3, Chest = 5, Outfit = 5, Hand = 6, Weapon = 7, Leg = 8, Shoes = 9, Earring = 10, Bracelet = 11, Charm = 12, Stone = 13, Belt = 14 }
+public enum EquipSlot { Ring = 1, Head = 2, Necklace = 3, Chest = 5, Outfit = 5, Hand = 6, Weapon = 7, Leg = 8, Shoes = 9, Earring = 10, Bracelet = 11, Charm = 12, Stone = 13, Belt = 14, Ring2 = 15 }
 
 /// <summary>
 /// 장비 모델 (InventoryRefactorDesign 2.6) — 순수 C#. 부위 문자열 매핑은 TryGetSlot 한 곳(B-011 "Neckles" 류 재발 방지).

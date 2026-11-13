@@ -106,7 +106,7 @@
 - [x] SLOT-R2 (완료 11-05 83b14fe7) 슬롯 데이터 (R1 후): ItemSheet 260·261 equipArea→Etc(행 삭제 금지), 신규 4슬롯 첫 아이템·소수 드롭 장신구 행, `ExtraEquip.FirstItem` 갱신, ItemSpec 부위 값 표 갱신.
 - [x] SLOT-R3 (완료 11-05 83b14fe7, 패드 커서는 TechDebt 유지·미검증) 슬롯 UI 문구 (R1 후): 라벨·해금 조건 툴팁·아이콘(기존 장신구 재색조), 패드 커서 확인.
 - [x] SLOT-R4 (완료 11-05 83b14fe7, EditMode ExtraEquipStatsTests) 신규 슬롯 스탯 합산·세트 무영향 EditMode 확인 (R2 후).
-- [ ] SLOT-R5 (선택) Ring2=14·비트 16·짧은 구 배열 허용 로더.
+- [x] SLOT-R5 (완료 11-14) 반지2 로더: Belt 가 14·비트 16 을 이미 써서 Ring2=15·비트 32·Extras 끝 추가·AllExtraMask 63. 구 5칸 세이브는 빈칸·잠금(EquipSlotExpansionTests 2건 추가). 해금 CSV·UI 표시·아이템은 없음(로더만). EditMode 1252 통과.
 - [ ] DUR-REVIEW 내구도·수리: 추천=보류(`Game/Durability.md`). 3~4층계 골드 과잉이 PT-BOT 로그로 확인되면 재검토. 코드 없음.
 - [x] INV-FILTER (완료 11-05 d184495b, 플레이 표시 미검증) (낮음) 가방 보기 필터 탭(전체/장비/소비/재료), 설계 `InventoryRefactorDesign.md` §8. INV-EXP-4 로그 후 판단.
 - [x] AUTO-1 (4feeb1f2) (담당: 미정, 문서·데이터, 우선순위 1) 1층계 퀘스트 연속 동종 금지 점검 (파일: `QuestsFloor1.csv`, `Docs/Playtest/Floor1ContentList.md`): `Floor1Completion.md` §10 R1(Q201·Q202·Q204 늑대 3연속 등)을 현재 CSV 와 대조해 인접 퀘스트 목표 몹 겹침을 표로 뽑고, 겹치면 목표 몹/수량 교체(보상·EXP 합 유지). 완료: 위반 0건, CSV 로드 EditMode 테스트 통과. 읽을 문서: `Floor1Completion.md` §9~12·§14(충돌 시 §14 우선). 주의: AUTO-2 와 같은 CSV 라 AUTO-1 먼저.

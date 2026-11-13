@@ -13,7 +13,17 @@ public static class ExtraEquip
 {
     static readonly ItemData[] Items = new ItemData[SlotRules.Extras.Length];
     static int _mask;
-    static readonly object[] StatSources = { new object(), new object(), new object(), new object(), new object() };
+    static readonly object[] StatSources = NewStatSources(SlotRules.Extras.Length); // 슬롯 수와 항상 같은 길이(Ring2 추가 때 IndexOutOfRange 방지)
+
+    static object[] NewStatSources(int n)
+    {
+        var a = new object[n];
+        for (int i = 0; i < n; i++)
+        {
+            a[i] = new object();
+        }
+        return a;
+    }
     static bool _loaded;
 
     public static event Action Changed;
@@ -109,6 +119,7 @@ public static class ExtraEquip
             case EquipSlot.Bracelet: return Loc.T("BRACELET");
             case EquipSlot.Charm: return Loc.T("SUBGEAR");
             case EquipSlot.Belt: return Loc.T("BELT");
+            case EquipSlot.Ring2: return Loc.T("RING2");
             default: return Loc.T("STONE");
         }
     }
@@ -702,6 +713,10 @@ public sealed class ExtraEquipPanel : MonoBehaviour
         }
         for (int i = 0; i < _labels.Length; i++)
         {
+            if (_labels[i] == null)
+            {
+                continue; // 표시 순서에 없는 칸(Ring2 로더 전용)
+            }
             EquipSlot s = SlotRules.Extras[i];
             ItemData d = ExtraEquip.Get(s);
             _labels[i].text = !ExtraEquip.IsUnlocked(s) ? "[X] " + ExtraEquip.SlotLabel(s)
