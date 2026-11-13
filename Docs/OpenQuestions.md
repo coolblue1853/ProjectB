@@ -752,3 +752,6 @@
 - Q-CI13 해소: 기본 칼(RustedSword) 선행 소비 비율을 1.0 으로 되돌림(`AttackMoveRules.ComboConsumeFraction(cls, itemKey)`). 경량 0.75·표준 0.90 은 다른 무기만 유지(기본 모션·칼 3타 보존 규칙). 검방(RustedSwordandShield)은 표준 0.90 유지. Q-CI11(기본 칼 후딜 이동 잠금·Lunge 변경)은 별도로 남아 있음 — 3타 보존 관점에서 되돌릴지 사용자 판단 필요.
 - Q-EH9 샛길 낮 쥐 도둑: 낮 스포너 Rabbit2(30%)·Rabbit3(40%)를 RatThief_BD 프로필로 섞음(밤 RatThief 스포너 그대로). Q106 은 낮에도 진행 가능해 '밤 전용'이 아니므로 설명만 '낮에는 드물게, 밤에 더 많이'로 적고 밤 안내 줄(QuestNightHint)은 Q104·Q205 에만 건다.
 - Q-EH10 밤 안내: 낮이고 낮 고정이 꺼져 있을 때만 '밤까지 약 N분'(올림, 1분 미만 1분). Q창은 열 때 계산(열린 동안 갱신 안 함), HUD 는 갱신.
+
+## 11-13 주말 준비 마무리 (builder)
+- Q-CI14 NEXT-13 확인: CI-P5(방향 버퍼·`FaceInputForAttack`)·CI-P6(홀드 연타 재장전 `HoldRepeatAllowed`·점프+공격 `DeferAttackForJump`)는 `AttackManager`/`PlayerController` 에서 무기 구분 없이 기본 칼(RustedSword)에도 걸린다. 입력 선입력 시점만 바꾸고 모션·판정 프리팹·후딜 길이·3타 간격(선행 소비는 기본 칼 1.0 고정)은 불변이라 '기본 칼 3타 보존' 위반 아님 -> 기본 칼 제외하지 않음(임시 가정). 홀드 연타는 마지막 타 뒤 재누름 필요라 3타 순환이 자동으로 이어지지 않는다. 실패드 체감은 NEXT-8 에서 확인.

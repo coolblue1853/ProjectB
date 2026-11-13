@@ -22,5 +22,19 @@
 - 도감 B08·B10 수정 예정
 - 탑 곁가지 EXP 감액 예정
 
+## 치트·디버그 이동 (11-13 점검)
+- 에디터·Development 빌드에서 SR Debugger 로 쓴다. 우하단에 `Cheat` 묶음이 고정 표시된다(Level +1·EXP +500·Gold +1000·Heal·Unstuck·God Mode·Day/Night/Day-Night Cycle·Fill Quests·Save). 전체 창은 화면 오른쪽 위 구석 세 번 탭 또는 Ctrl+Shift+F1, 옵션 탭에서 `Move`(Town·Side Road·Near Forest·Normal Forest·Deep Forest·Swamp·Bandit Fortress·Tower Outskirts)와 `Quest`(Item Key·Give Item·Give LeafAdae+FangDagger) 묶음. 구현 `Assets/Script/DebugTools/SROptions.ProjectB.cs`.
+- 릴리스 차단: `Assets/Editor/ReleaseCheatGate.cs` 가 비 Development 빌드 직전 SR Debugger `Settings.IsEnabled` 를 끄고 빌드 뒤 복원한다(`ReleaseCheatGateTests` 로 복원 로직 검증). 실제 릴리스 빌드로 확인한 적은 없다(코드·테스트 확인만).
+- 프로브(unity-mcp, 에디터 플레이 중): `bash Tools/u.sh cs Tools/probes/_f1_goto.cs`(요새로 이동, 맵 id 만 바꿔 쓴다), `Tools/probes/f1fr_gotown.cs`(마을). 구역 전체 순회는 `ZONE_MAPS="..." bash Tools/zone_soak.sh 8`(세이브 백업·복원).
+
+## 알려진 콘솔 에러 (11-13 순회: 마을·샛길·일반 숲·깊은 숲·늪·성채·탑 근교, 낮·밤 각 8초, `Tools/zone_soak.sh`)
+| 구역 | 낮 에러 | 밤 에러 | 비고 |
+|---|---|---|---|
+| 마을 | 0 | 0 | |
+| 샛길·일반 숲 | 0 | 0 | 낮 경고 1건씩(아틀라스 제외 후) |
+| 깊은 숲·늪·탑 근교 | 0 | 0 | 낮 경고 1건씩, 이동 직후 몹 수 0 은 스포너 지연(이상 없음 판정 anomalies=0) |
+| 성채 | 0 | 0 | |
+총 에러 0건. 경고만 낮 6곳에서 1건씩 있었고 내용은 수집하지 않았다(필요하면 `Logs/zone_soak/*_day.warn.json`).
+
 ## 기록 방법
 발견 사항을 `Docs/Playtest/Weekend1_Findings.md` 에 번호·한 줄로 쌓는다(없으면 새로 만들기). 다음 주 큐의 원본이 된다.
