@@ -6,7 +6,7 @@
 - 외형은 **의상 하나 + 무기**뿐이다. 부위 분리·섞어 입기·마스크 생성·모자 오버레이는 폐기(아래 11-10 밤 결정 절). 다시 제안·시험하지 않는다. 상세 `Docs/Handoff/outfit_one_piece_decision.md`.
 - **헤어스타일 고정**, 나중에 머리색·눈색·피부색만 변경. 의상별 헤어·이동 방식(활공·일반 걷기)·직업 컨셉·팔레트는 **사용자가 하나씩 지정**한다. 지정 없이 멋대로 만들지 않는다(질문은 `Docs/OpenQuestions.md`에 임시 가정과 함께).
 - 판정은 **흰 바탕 5배 확대, 프레임별**. 훑어보기 합격 금지. 하위 세션 자체 판정은 재확인. 인게임은 `Tools/probes/rig_action_strip.cs`(흰 바탕·플레이어만).
-- 새 의상 생성: 속옷 걷기/대기 프레임에 의상 edit(5세대) → 그 첫 프레임으로 pixminimax(1세대), 머리 묶음 고정 지시 포함, 상한을 정하고 낭비 금지. 판단이 많은 생성은 Opus 하위 세션에 지시서로(`Docs/ArtCompare/Motion/equip/vamp_test/REVIEW_BRIEF.md`).
+- 새 의상 생성: 속옷 걷기/대기 프레임에 의상 edit(5세대) → 그 첫 프레임으로 pixminimax(1세대), 머리 묶음 고정 지시 포함, 상한을 정하고 낭비 금지. **PixelLab 생성은 전부 Opus 하위 세션**에 지시서로(공격 모션 포함, 사용자 11-13, `Docs/ArtCompare/Motion/equip/vamp_test/REVIEW_BRIEF.md`).
 - 시험 기록: `Docs/ArtCompare/Motion/equip/vamp_test/`(뱀파이어 걷기 Sonnet·Opus, 사무라이 걷기 Opus).
 
 ## 구조 (한 줄)
