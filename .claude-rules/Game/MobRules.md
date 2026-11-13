@@ -81,7 +81,8 @@
 - 버섯 4종(포자·숲·깊은숲·늪): reactive·chase no·giveUp 12. 두더지 2종: reactive·giveUp 14. 달팽이: reactive·chase no.
 - 엔트·숲 오우거: stay·reactive·chase no·giveUp 14. 산적 궁수·보초: chase no·visionY 2.5.
 - 늑대 계열: giveUp 24(끈질김). 개구리·두꺼비: hop. 모기: giveUp 30. 쥐 도적: chaseRange 16.
-- 미배정: edge=fall(떨어진 몹이 아래 층에 갇힐 수 있어 검증 후), 보스·정예(기존 BT).
+- **edge=fall 배정(11-13):** 뛰는 몹 4종(토끼·돌토끼·늪 개구리·포자등 두꺼비)만 가장자리에서 돌아서지 않고 떨어진다(메이플 개구리·토끼 유형). 떨어진 몹의 복귀·낙하 후 갇힘 처리는 없음 -> 실전 확인 필요(TechDebt).
+- **정예(RatChief·미니보스 5종) 배정(11-13):** edge=turn 유지(절대 fall 금지), 선공·추격 yes, giveUp 30(끈질김). 보스는 기존 BT(빈 값). 데이터 테스트 `SheetRows_EdgeFall_OnlyHoppersNeverEliteOrBoss`.
 
 ## 히트박스 하한 (11-11 BUG-U23)
 소형 몹 본체 BoxCollider2D(플레이어 스킬·화살 판정 대상)의 월드 크기가 가로 1.2·세로 1.1 미만이면 하한까지 키운다(`EnemyHealth.EnsureMinHitbox`, 발·가로 중심 유지, Awake 1회). 대상: 토끼 0.78x0.61·유령/돌 정령 0.92x0.79·돌토끼 1.10x0.79·허수아비 폭 0.82·버섯 0.96·두더지 높이 1.0. 스프라이트는 그대로. 주인공 콜라이더 0.28x1.56.

@@ -109,4 +109,30 @@ public class MobBehaviorRulesTests
         Assert.AreEqual(MobMove.Stay, MonsterTable.Get("Scarecrow_BD").behavior.Move);
         Assert.AreEqual(MobAggro.Reactive, MonsterTable.Get("SporeShroom_BD").behavior.Aggro);
     }
+
+    [Test]
+    public void SheetRows_EdgeFall_OnlyHoppersNeverEliteOrBoss()
+    {
+        string[] hoppers = { "Rabbit_BD", "StoneRabbit_BD", "SwampFrog_BD", "SporeBackToad_BD" };
+        string[] elites = { "RatChief_BD", "AlphaWolf_BD", "OldBear_BD", "OldCroc_BD", "BanditLieutenant_BD", "ElderGolem_BD" };
+        foreach (string id in hoppers)
+        {
+            Assert.AreEqual(MobEdge.Fall, MonsterTable.Get(id).behavior.Edge, id);
+        }
+        foreach (string id in elites)
+        {
+            MobBehavior b = MonsterTable.Get(id).behavior;
+            Assert.AreEqual(MobEdge.Turn, b.Edge, id + " 정예는 낭떠러지에서 돌아선다");
+            Assert.AreEqual(MobAggro.First, b.Aggro, id);
+            Assert.IsTrue(b.ChasesPlayer, id);
+            Assert.AreEqual(30f, b.GiveUp, id + " 정예는 끈질기게 추격");
+        }
+        foreach (MonsterTable.Row r in MonsterTable.All())
+        {
+            if (r.behavior != null && r.behavior.Edge == MobEdge.Fall)
+            {
+                Assert.Contains(r.id, hoppers, r.id + " 는 edge=fall 배정 목록 밖");
+            }
+        }
+    }
 }

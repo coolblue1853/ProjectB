@@ -7,12 +7,12 @@ FlowerMole_BD,Flower Mole,1,Forest Side Road,20,2,0,0,-1.2,,,,1,6,13,,,,patrol,t
 GazeEye_BD,Gaze Eye,2,Magic Cliffs (night),330,3,0,0,-1.2,,,,17,283,23,,,,stay,turn,no,,3,,first,ranged
 LeftMole_BD,Leaf Mole,1,Forest Side Road,24,3,0,0,-1.2,,,,2,8,19,,,,patrol,turn,yes,,,14,reactive,ranged
 PassiveTerror_BD,Passive Terror,1,Forest Side Road (night),3800,12,1,1,0,,,,3,320,37,,,,,,,,,,,
-Rabbit_BD,Forest Rabbit,1,Forest Road,20,2,0,0,-0.8,,,,1,6,13,,,,hop,turn,no,,,,passive,contact
-RatChief_BD,Rat Chief,1,Forest Side Road,40,2,0,0,-1.2,,,,3,10,19,RatChief_BD,,elite,patrol,turn,yes,,,,first,melee
+Rabbit_BD,Forest Rabbit,1,Forest Road,20,2,0,0,-0.8,,,,1,6,13,,,,hop,fall,no,,,,passive,contact
+RatChief_BD,Rat Chief,1,Forest Side Road,40,2,0,0,-1.2,,,,3,10,19,RatChief_BD,,elite,patrol,turn,yes,,,30,first,melee
 RatThief_BD,Rat Thief,1,Forest Side Road,20,2,0,0,-1.2,,,,2,8,16,RatThief_BD,,,patrol,turn,yes,16,,,first,melee
 Scarecrow_BD,Scarecrow,1,Forest Side Road,40,2,0,0,-1.5,,,,3,10,17,,,,stay,turn,no,,,,first,ranged
 SporeShroom_BD,Spore Shroom,2,Magic Cliffs,390,4,0,0,-1.2,,,,16,240,26,,,,patrol,turn,no,,,12,reactive,ranged
-StoneRabbit_BD,Stone Rabbit,1,Forest Road,44,6,0,0,-1.2,,,,3,10,21,,,,hop,turn,yes,,,,reactive,melee
+StoneRabbit_BD,Stone Rabbit,1,Forest Road,44,6,0,0,-1.2,,,,3,10,21,,,,hop,fall,yes,,,,reactive,melee
 ForestWolf_BD,Forest Wolf,1,Normal Forest,46,5,0,0,-1.2,,,pack hunter (gen_forest_mobs),4,7,18,,,,patrol,turn,yes,,,24,first,melee
 WildBoar_BD,Wild Boar,1,Normal Forest,62,5,0,0,-1.2,,,charge (gen_forest_mobs),5,9,20,,,,patrol,turn,yes,,,,first,melee
 Wisp_BD,Wisp,1,Normal Forest (night),26,2,0,0,-1.2,,,night (gen_forest_mobs),3,6,16,,,,patrol,turn,yes,,,,first,ranged
@@ -22,7 +22,7 @@ Ent_BD,Ent,1,Deep Forest,135,10,0,0,-1.2,,,slow root tank (gen_deep_forest_mobs)
 Ghost_BD,Ghost,1,Deep Forest (night),84,3,0,0,-1.2,,,night translucent (gen_deep_forest_mobs),6,10,18,,,,patrol,turn,yes,,,,first,ranged
 Fairy_BD,Fairy,1,Deep Forest (night),90,3,0,0,-1.0,,,night small glow (gen_deep_forest_mobs),7,13,19,,,,patrol,turn,yes,,,,first,ranged
 AncientEnt_BD,Ancient Ent,1,Deep Forest (boss),3000,18,1,1,0,,,zone boss (gen_deep_forest_mobs),9,950,27,,,,,,,,,,,
-SwampFrog_BD,Swamp Frog,1,Swamp,160,11,0,0,-1.0,,,tongue hop (gen_swamp_mobs),9,29,23,,,,hop,turn,yes,,,,first,melee
+SwampFrog_BD,Swamp Frog,1,Swamp,160,11,0,0,-1.0,,,tongue hop (gen_swamp_mobs),9,29,23,,,,hop,fall,yes,,,,first,melee
 MarshCrab_BD,Marsh Crab,1,Swamp,160,18,0,0,-1.0,,,pincer guard (gen_swamp_mobs),10,35,28,,,,patrol,turn,yes,,,,first,melee
 BogCroc_BD,Bog Croc,1,Swamp,230,11,0,0,-1.0,,,heavy bite (gen_swamp_mobs),11,43,28,,,,patrol,turn,yes,,,,first,melee
 SwampMosquito_BD,Swamp Mosquito,1,Swamp (night),135,9,0,0,-1.0,,,night flying drain (gen_swamp_mobs),9,29,22,,,,patrol,turn,yes,,,30,first,ranged
@@ -50,12 +50,12 @@ DeepGoblin_BD,Forest Goblin,1,Deep Forest,135,4,0,0,-1.2,,,shared CliffGoblin ar
 SwampSpore_BD,Spore Shroom,1,Swamp,165,4,0,0,-1.2,,,shared SporeShroom art with floor 1 stats,9,29,23,,,,patrol,turn,no,,,12,reactive,ranged
 MossShellBeetle_BD,Moss Shell Beetle,1,Forest Side Road,52,7,0,0,-1.2,,,slow tank body slam (temp art tint),3,10,19,MossShellBeetle_BD,6F9A55,slow|heavy|sturdy,patrol,turn,yes,,,,first,melee
 BranchAntlerFox_BD,Branch Antler Fox,1,Deep Forest,130,5,0,0,-1.2,,,fast short dash (temp art tint),7,13,23,BranchAntlerFox_BD,B07A4A,dash,patrol,turn,yes,,,,first,melee
-SporeBackToad_BD,Spore Back Toad,1,Swamp,165,10,0,0,-1.0,,,short hop and spore cloud on hit (temp art tint),9,29,22,SporeBackToad_BD,7FA05A,spore|lowhop,hop,turn,yes,,,,first,melee
-AlphaWolf_BD,Alpha Wolf,1,Normal Forest (miniboss),460,5,0,0,-1.2,,,miniboss M1 ForestWolf x10 HP (L3),4,140,18,AlphaWolf_BD,,,patrol,turn,yes,,,24,first,melee
-OldBear_BD,Old Bear,1,Deep Forest (miniboss),1150,8,0,0,-1.2,,,miniboss M2 ForestBear x10 HP (L3),7,260,23,OldBear_BD,,,patrol,turn,yes,,,,first,melee
-OldCroc_BD,Old Croc,1,Swamp (miniboss),940,11,0,0,-1.0,,,miniboss M3 BogCroc x10 HP (L3),11,860,28,OldCroc_BD,,,patrol,turn,yes,,,,first,melee
-BanditLieutenant_BD,Bandit Lieutenant,1,Bandit Fortress (miniboss),960,14,0,0,-1.2,,,miniboss M4 BanditCutthroat x10 HP (L3),12,920,26,BanditLieutenant_BD,,,patrol,turn,yes,,,,first,melee
-ElderGolem_BD,Elder Golem,1,Tower Outskirts (miniboss),1400,27,0,1,-1.2,,,miniboss M5 GolemLarge x10 HP super armor (L3),15,1700,31,ElderGolem_BD,,,patrol,turn,yes,,,,first,ranged
+SporeBackToad_BD,Spore Back Toad,1,Swamp,165,10,0,0,-1.0,,,short hop and spore cloud on hit (temp art tint),9,29,22,SporeBackToad_BD,7FA05A,spore|lowhop,hop,fall,yes,,,,first,melee
+AlphaWolf_BD,Alpha Wolf,1,Normal Forest (miniboss),460,5,0,0,-1.2,,,miniboss M1 ForestWolf x10 HP (L3),4,140,18,AlphaWolf_BD,,,patrol,turn,yes,,,30,first,melee
+OldBear_BD,Old Bear,1,Deep Forest (miniboss),1150,8,0,0,-1.2,,,miniboss M2 ForestBear x10 HP (L3),7,260,23,OldBear_BD,,,patrol,turn,yes,,,30,first,melee
+OldCroc_BD,Old Croc,1,Swamp (miniboss),940,11,0,0,-1.0,,,miniboss M3 BogCroc x10 HP (L3),11,860,28,OldCroc_BD,,,patrol,turn,yes,,,30,first,melee
+BanditLieutenant_BD,Bandit Lieutenant,1,Bandit Fortress (miniboss),960,14,0,0,-1.2,,,miniboss M4 BanditCutthroat x10 HP (L3),12,920,26,BanditLieutenant_BD,,,patrol,turn,yes,,,30,first,melee
+ElderGolem_BD,Elder Golem,1,Tower Outskirts (miniboss),1400,27,0,1,-1.2,,,miniboss M5 GolemLarge x10 HP super armor (L3),15,1700,31,ElderGolem_BD,,,patrol,turn,yes,,,30,first,ranged
 ForestHunter_BD,Forest Hunter,1,Normal Forest,56,6,0,0,-1.2,,,ranged hunter temp tint on wolf host (L7),5,10,20,ForestHunter_BD,5E7F3A,shoot,patrol,turn,yes,,,24,first,melee
 VineFairy_BD,Vine Fairy,1,Normal Forest,70,3,0,0,-1.0,,,slow binder temp tint on boar host (L7),6,11,18,VineFairy_BD,4FB36A,slow,patrol,turn,yes,,,,first,melee
 ForestOgre_BD,Forest Ogre,1,Deep Forest,230,12,0,0,-1.2,,,slow tank temp tint on Ent host (L7),9,24,28,ForestOgre_BD,8A6A3A,slow|heavy|sturdy,stay,turn,no,,,14,reactive,ranged

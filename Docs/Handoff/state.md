@@ -149,3 +149,6 @@
 - NEXT-15 완료(11-13): 안내판 4곳(깊은 숲·늪·산적 요새·탑 근교) 낮 프롬프트·입구 창 스샷 `Docs/Playtest/NEXT15/`, 콘솔 에러 0. 깊은 숲은 수락 가능 퀘스트 0이라 창 안 열림(정상).
 - 낮 쥐 도둑: Lv1_NearForest_SideRoad 낮 스폰 RatThief_BD 4마리 확인·스샷(`SideRoad_day_rat.png`). 그림은 아직 토끼 계열(NEXT-11 의뢰 유지).
 - 관찰(미수정, 경미): 맵 이동 직후 맵 이름 라벨이 이전 맵 것으로 남음(산적 요새 스샷 "탑 아래 마을") — 갱신 지연 가능, 플레이 확인 필요.
+- REWORK-8 U38 완료(11-13): Keyboard/Gamepad/Mouse .current 전수 정적 스캔(변수 파생 포함) 누락 0 -> 코드 수정 없음, 소스 스캔 회귀 테스트 `InputNullGuardTests` 추가.
+- REWORK-3 데이터(11-13): MonsterSheet edge=fall = 토끼·돌토끼·늪 개구리·포자등 두꺼비, 정예 6종(쥐 두목·미니보스 5) giveUp 30·turn 유지. 수치 튜닝 없음. 컴파일 0·EditMode 1232/1232·play probe(edge 로딩) 확인. 미검증: 실제 낙하·낙하 후 갇힘.
+- 남음: fall 몹 낙하 후 복귀·갇힘 처리(TechDebt), 후공 8초·hop 높이 튜닝, 실마우스·패드.

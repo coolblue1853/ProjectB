@@ -13,13 +13,13 @@
 |------|------|------|---------|----------|--------------|
 | REWORK-0 관례 이탈 점검 | 부분 | e02f712e3(1차 점검), dc25967e4(U32·U34 수정), `Docs/Playtest/ConventionAudit.md`, state:18 | U24~U42 1차 표 완료. 2차 점검 갱신과 나머지 수정안 적용 | 상 | 6% |
 | BUG-U9 허공 LV 표시 | 사용자 필요 | 6f395c13b·748a3c232(방어·동기화 수정), state:18 "재현 못 함" | 사용자 재현 또는 계측 로그 | 하 | 0% |
-| REWORK-8 키 배치·NPC 정리 | 부분 | 4596422c5(K→Y·키 표), f9c176eb4(ConfirmPopup·U37·U38·U40), 32a9523d3(NPC 선택지·Q), state:55-64 | U38 null 체크 잔여, 실마우스·패드 검증, 하단 안내 일치 확인 | 상 | 3% |
+| REWORK-8 키 배치·NPC 정리 | 부분 | 4596422c5(K→Y·키 표), f9c176eb4(ConfirmPopup·U37·U38·U40), 32a9523d3(NPC 선택지·Q), state:55-64 | 실마우스·패드 검증, 하단 안내 일치 확인 | 상 | 3% |
 | REWORK-5 퀘스트 통합 | 부분 | 90d33fdff(P0·P1), 18ff75578(설계), d78e6dd34(P2~P4), `Game/QuestSystemDesign.md` §7 | P5: Quest Machine·QuestBoard Build 코드 정리, objective2 판정, 플레이 검증 | 상 | 5% |
 | REWORK-1 인벤·상점·창고 재설계 | 부분 | 12e8b4fe0(S3·S5 툴바·가방 확장 버튼), state:20-22(S1~S5) | 구현 대부분 완료. 실마우스·패드 검증, 창고 편의 확인 | 상 | 3% |
 | REWORK-2 인벤·상점 재구현·수량 창 | 부분 | 3af1354b5(우클릭·툴팁·상점 마우스), 52aeac8a3(U14), `Assets/Script/UI/QuantityPopup.cs` | 실마우스·패드 검증 | 상 | 2% |
 | INV-BAG-EXP 가방 확장 | 부분 | `Assets/Script/Inventory/BagExpansion.cs`·`Model/BagExpansionRules.cs`, `UI/InventoryToolbar.cs`(확장 버튼 12e8b4fe0), f9c176eb4(확장 확인창) | 구매 경로·가격·최대 칸 실확인, 패드 확장 확인, 유저 안내 문구 | 중 | 2% |
 | REWORK-12 장비·세트 효과 | 부분 | 8dd03b9de(P8 쿨 곱), e9b535d4f(P7 세트 11단계·EffectScore), 906467331(P6 툴팁), `Assets/Script/Combat/Effects/SkillVariants.cs`, state:26-30 | 신규 장신구·팔찌(Teleport 쿨 훅), Q-EFX7, 변형 실플레이, 세트 창 화면, Gatekeeper 보너스 | 상 | 8% |
-| REWORK-3 몹 행동 속성 | 부분 | e6b524591(속성 8열·BT 훅), `Assets/Script/Enemy/MobBehaviorRules.cs`, state:31-32 | edge=fall 배정·정예 속성, 실전 체감, 후공 8초·hop 높이 튜닝 | 상 | 3% |
+| REWORK-3 몹 행동 속성 | 부분 | e6b524591(속성 8열·BT 훅), `Assets/Script/Enemy/MobBehaviorRules.cs`, state:31-32 | 실전 체감(낙하 후 갇힘 확인), 후공 8초·hop 높이 튜닝 | 상 | 3% |
 | BUG-U23 작은 몹 판정 | 완료 | e6b524591(콜라이더 하한 1.2x1.1), state:33(EditMode 1080·play probe) | 없음(체감 확인은 REWORK-3) | 중 | 0% |
 | REWORK-7 레벨 디자인 참고 | 완료 | c6e859c7d·bdf9ffce9, `.claude-rules/Game/LevelDesignRef.md`, Q-LVREF(`Docs/OpenQuestions.md`:689) | 산출물 완료. 수정안 반영 여부는 REWORK-15 와 묶어 사용자 판단 | 중 | 0% |
 | REWORK-10 맵 구조·몹 배치 | 부분 | 14671055e(맵 컨셉 시트), a87ebe053(재점검), c0a426259(범위 정정), `Docs/Playtest/MapReview.md` 없음 | 맵별 표(크기·층·로프·포털·스폰 지점·밀도·리젠) 작성, 메이플 값과 비교. 타일맵 그림은 그래픽 | 상 | 6% |
