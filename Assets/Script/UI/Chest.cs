@@ -259,6 +259,7 @@ public partial class Chest : MonoBehaviour
     }
     private void Start()
     {
+        StaticLabelKo.Apply(divideUI != null ? divideUI.transform : null); // 창고 나누기 창 close 버튼 등 씬 영문 문구
         inventoryUI[0].transform.SetAsLastSibling();
         InventoryAlpha inventoryAlpha = inventoryUI[0].GetComponent<InventoryAlpha>();
         inventoryAlpha.A21();

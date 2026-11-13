@@ -46,6 +46,7 @@ public class DivideSlider : MonoBehaviour
         rightAction = action.UI.RightInventory;
         enterAction = action.UI.Enter;
         horizontalCheck = action.UI.horizontalCheck;
+        StaticLabelKo.Apply(transform); // 씬 영문 close·divide 버튼 문구(REWORK-0 2차)
     }
 
 

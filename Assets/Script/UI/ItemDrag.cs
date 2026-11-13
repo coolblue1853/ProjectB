@@ -70,6 +70,15 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         InventoryManager manager = InventoryManager.instance;
         bool modal = QuantityPopup.IsBlocking || (manager != null && QuickUseRules.IsModal(manager.state));
+        bool worn = transform.parent != null && transform.parent.GetComponent<EquipBoxCheck>() != null;
+        if (manager != null && !modal && QuickUseRules.ShouldUnequipWorn(worn, eventData.button == PointerEventData.InputButton.Right,
+            eventData.button == PointerEventData.InputButton.Left ? eventData.clickCount : 0, manager.chest != null,
+            manager.ShopGameObject != null && manager.ShopGameObject.activeSelf, manager.state))
+        {
+            HoverTip.Hide(this);
+            manager.UnequipWorn(GetComponent<ItemCheck>()); // 메이플: 착용품 우클릭·더블클릭 = 해제(무기·가방 가득이면 그대로)
+            return;
+        }
         if (eventData.button == PointerEventData.InputButton.Right || (IsShiftLeftClick(eventData) && manager != null && manager.chest != null))
         {
             if (modal && eventData.button != PointerEventData.InputButton.Right)

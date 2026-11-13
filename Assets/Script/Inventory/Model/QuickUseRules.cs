@@ -36,6 +36,23 @@ public static class QuickUseRules
         }
     }
 
+    /// <summary>
+    /// 장비칸에 낀 아이템을 마우스로 해제할지(REWORK-0 2차, 메이플: 착용품 더블클릭 해제). 우클릭 또는 왼쪽 더블클릭.
+    /// 창고·상점이 열려 있거나 모달 상태면 하지 않는다. 무기 해제 금지는 InventoryManager.CanUnequip 이 따로 막는다.
+    /// </summary>
+    public static bool ShouldUnequipWorn(bool worn, bool rightClick, int clickCount, bool chestOpen, bool shopOpen, string state)
+    {
+        if (!worn || chestOpen || shopOpen)
+        {
+            return false;
+        }
+        if (!rightClick && clickCount < 2)
+        {
+            return false;
+        }
+        return StateAllows(state) || state == "Equipment";
+    }
+
     /// <summary>우클릭을 받아도 되는 인벤 상태(상세·커서·상점 커서). 수량 창·나누기·교체 등 모달 상태는 막는다</summary>
     public static bool StateAllows(string state)
     {

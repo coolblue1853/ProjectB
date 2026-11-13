@@ -120,6 +120,7 @@ public static class LocUi
         ("Sell {0} {1}EA,  Price : {2}", "{0} {1}개 판매,  가격 : {2}"),
         ("Buy {0} {1}EA,  Price : {2}", "{0} {1}개 구매,  가격 : {2}"),
         ("Price : ", "가격 : "),
+        ("Bag is full: old gear is kept in its old slot until you free space", "가방이 가득 찼습니다: 빈칸이 생길 때까지 옛 장비는 원래 칸에 남습니다"),
         ("Misc", "재료"), ("Consum", "소모품"), ("Equip", "장비"),
         ("Weapon", "무기"), ("Head", "머리"), ("Chest", "몸통"), ("Leg", "다리"), ("Hand", "손"),
         ("Common", "일반"), ("Rare", "희귀"), ("Unique", "고유"),

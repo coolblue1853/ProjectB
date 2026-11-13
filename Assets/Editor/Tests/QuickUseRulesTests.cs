@@ -58,4 +58,16 @@ public class QuickUseRulesTests
         QuickUseRules.Place(10f, 500f, 3000f, 200f, 1920f, 1080f, 20f, out x, out y);
         Assert.AreEqual(0f, x);
     }
+
+    [Test]
+    public void UnequipWorn_RightOrDoubleClick_OnlyWhenNoChestShopModal()
+    {
+        Assert.IsTrue(QuickUseRules.ShouldUnequipWorn(true, true, 1, false, false, ""));
+        Assert.IsTrue(QuickUseRules.ShouldUnequipWorn(true, false, 2, false, false, "Equipment"));
+        Assert.IsFalse(QuickUseRules.ShouldUnequipWorn(true, false, 1, false, false, ""));
+        Assert.IsFalse(QuickUseRules.ShouldUnequipWorn(false, true, 1, false, false, ""));
+        Assert.IsFalse(QuickUseRules.ShouldUnequipWorn(true, true, 1, true, false, ""));
+        Assert.IsFalse(QuickUseRules.ShouldUnequipWorn(true, true, 1, false, true, ""));
+        Assert.IsFalse(QuickUseRules.ShouldUnequipWorn(true, true, 1, false, false, "divide"));
+    }
 }

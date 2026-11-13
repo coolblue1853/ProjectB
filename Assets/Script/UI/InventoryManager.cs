@@ -433,6 +433,7 @@ public class InventoryManager : MonoBehaviour
     }
     private void Start()
     {
+        StaticLabelKo.Apply(transform); // 수량 창 close·divide 등 씬 영문 버튼 문구
         inventory.SetActive(true);
         if (SaveManager.instance != null)
         {
@@ -1033,6 +1034,22 @@ public class InventoryManager : MonoBehaviour
     }
     public SkillCooldown skillCooldown;
 
+
+    /// <summary>마우스로 장비칸 착용품 해제(우클릭·더블클릭). 키 경로 UnUseEquipment 를 그대로 쓴다. 무기·가방 가득이면 false</summary>
+    public bool UnequipWorn(ItemCheck item)
+    {
+        if (item == null || item.itemData == null || item == _unequipping || !CanUnequip(item) || !CheckBoxCanCreatAll())
+        {
+            return false; // _unequipping: DeletPrefab 이 DOTween 으로 늦게 돌아 그 사이 연타하면 가방에 복제되던 것 방지
+        }
+        _unequipping = item;
+        UnUseEquipment(item);
+        ForgetEquippedItem(item); // 드래그 해제 경로와 같이 장착 목록에서 지운다
+        DetailOff();
+        return true;
+    }
+
+    private ItemCheck _unequipping;
 
     void UnUseEquipment(ItemCheck nowItem = null)
     {
