@@ -118,6 +118,9 @@
 | `Docs/Playtest/SaveMigrationAudit.md` *(저장소 루트)* | 세이브 호환 점검과 권고 |
 | `Docs/Playtest/ReviewCode_1105c.md` *(저장소 루트)* | 코드 커밋 정적 리뷰(1105·b·c 같은 형식) |
 | `Docs/Playtest/Floor1PlayVerify.md` *(저장소 루트)* | 1층계 플레이 검증 표(미검증 통합) |
+| `Docs/Playtest/Floor1Readiness.md` *(저장소 루트)* | 1층계 주말 확인 전 준비도 점검(사용자 결정·코드 작업 목록) |
+| `Docs/Playtest/Weekend1Guide.md` *(저장소 루트)* | 1층계 주말 플레이 테스트 가이드(진행 순서·알려진 임시 목록) |
+| `Docs/Playtest/UserPlaytest_1111.md` *(저장소 루트)* | 11-11 사용자 플레이 확인 목록(미검증 항목) |
 | `Docs/Handoff/outfit_one_piece_decision.md` *(저장소 루트)* | 외형 슬롯=의상 하나·층계별 해금 슬롯·세트 단계 이펙트 결정과 총괄 요청(11-10) |
 | `Docs/Handoff/queue.md` *(저장소 루트)* | 작업 큐 원본(현재 상태 `Docs/Handoff/state.md`) |
 | 그 밖의 `Docs/Playtest/*`·`Docs/Balance/*`·`Docs/Handoff/*` 문서 | `Framework/DocIndexFull.md` 의 점검·감사·인수인계 절 |

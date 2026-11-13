@@ -95,6 +95,9 @@
 | `Docs/Playtest/ProbeInventory.md` | 미추적 `_`접두 프로브 전수 표와 유지/통합/삭제 후보 판정(삭제는 사용자 확인 후) |
 | `Docs/Playtest/ReviewCode_1105.md` · `Docs/Playtest/ReviewCode_1105b.md` · `Docs/Playtest/ReviewCode_1105c.md` | 코드 커밋 정적 리뷰(1~8차 큐) |
 | `Docs/Playtest/Floor1PlayVerify.md` · `Docs/Playtest/Floor1Balance.md` · `Docs/Playtest/Floor1Fastest.md` · `Docs/Playtest/Floor1Fullrun.md` · `Docs/Playtest/Floor1ContentList.md` · `Docs/Playtest/Floor1NavReview.md` | 1층계 플레이 검증·밸런스·최단 경로·전체 주행·콘텐츠 목록·길찾기 |
+| `Docs/Playtest/Floor1Readiness.md` *(저장소 루트)* | 1층계 주말 확인 전 준비도 점검(사용자 결정·코드 작업 목록) |
+| `Docs/Playtest/Weekend1Guide.md` *(저장소 루트)* | 1층계 주말 플레이 테스트 가이드(진행 순서·알려진 임시 목록) |
+| `Docs/Playtest/UserPlaytest_1111.md` *(저장소 루트)* | 11-11 사용자 플레이 확인 목록(미검증 항목) |
 | `Docs/Playtest/FirstHourChecklist.md` · `Docs/Playtest/FirstHourGuide.md` · `Docs/Playtest/Rehearsal3.md` · `Docs/Playtest/PtBot.md` | 첫 1시간 점검·가이드·리허설·자동 플레이 봇 |
 | `Docs/Playtest/ChestReview.md` · `Docs/Playtest/DataIntegrity.md` · `Docs/Playtest/EconomyAudit.md` · `Docs/Playtest/InventoryConvenienceReview.md` · `Docs/Playtest/MapScan.md` · `Docs/Playtest/NpcVoice.md` · `Docs/Playtest/PortalTransition.md` · `Docs/Playtest/QuestUiAudit.md` · `Docs/Playtest/SaveSlotCheck.md` · `Docs/Playtest/ShopMapleReview.md` · `Docs/Playtest/SideRoadEconomy.md` · `Docs/Playtest/TempAssets.md` · `Docs/Playtest/TempFxSlots.md` · `Docs/Playtest/Town1Audit.md` | 기타 점검 문서 |
 | `Docs/Handoff/queue.md` · `Docs/Handoff/state.md` · `Docs/Handoff/README.md` · `Docs/Handoff/ChiefPrompt.md` · `Docs/Handoff/scene_backup/README.md` | 작업 큐 원본·현재 상태·인수인계 안내·총괄 프롬프트·씬 백업 |

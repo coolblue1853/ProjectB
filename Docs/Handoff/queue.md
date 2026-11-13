@@ -307,3 +307,16 @@
 - [x] BUG-U17 [코드/버그] (사용자 11-08, 최우선) 창고에서 아이템이 안 꺼내짐. 재현·원인·수정. `ConventionAudit.md` U17. **(11-09 코드 완료·push, 실제 플레이 검증 대기: `Docs/Playtest/Floor1PlayVerify.md`)**
 - [x] TASK-DATA-1 [데이터, 소] (사용자 11-08) ① 소모품·기타 재료 스택 기본 100 이상(ItemSheet, 장비는 1) ② 인벤 기본 칸 확대(시작 25→상의 후, 확장 기능 유지) ③ 새 무기 스킬 이름·설명 한글화(Loc). ES3 기존 키 유지, 스택 한도 상향은 구세이브 호환(초과 스택 없음). 마우스·키보드·패드 UI 영향 확인. **(11-09 코드 완료·push, 실제 플레이 검증 대기: `Docs/Playtest/Floor1PlayVerify.md`)**
 - [x] TASK-FX-1 [코드, 소] (사용자 11-08) 가산 이펙트 중첩 시 과도한 밝기: 같은 화면 가산 혼합 이펙트의 동시 개수·합산 알파 상한 또는 셰이더 clamp. 그래픽 파일 제작·수정 없음(코드·머티리얼 설정만). `ConventionAudit.md` U22. **(11-09 코드 완료·push, 실제 플레이 검증 대기: `Docs/Playtest/Floor1PlayVerify.md`)**
+
+## 11-13 이월 (state.md 다음 주 후보 + Opus 검토 항목)
+
+- [ ] NEXT-1 [그래픽] 밤 몹 추가 — 그래픽 필요. 그래픽 방 작업 후 사용자 검토.
+- [ ] NEXT-2 [Unity] 덩굴 요정 속박 구현·플레이 확인.
+- [ ] NEXT-3 [Unity] 감시병 장전 튜닝.
+- [ ] NEXT-4 [Unity] ZoneReportSign Active 탭 노출 정리(권장).
+- [ ] NEXT-5 [Unity] 사격 시야 판정.
+- [ ] NEXT-6 [Unity] TempMobShooter 정적 풀 씬 전환 초기화.
+- [ ] NEXT-7 [Unity·플레이] 실플레이 검증 전부: `Docs/Playtest/UserPlaytest_1111.md`·`Docs/Playtest/Weekend1Guide.md`.
+- [ ] NEXT-8 [Unity] 실패드 검증 CI-P4·P7(`Docs/OpenQuestions.md` Q-CI12 등).
+- [ ] NEXT-9 [그래픽 방 확인] 커밋 `38ba36c6f` 에 섞인 주인공 리그 변경 확인(사용자 미커밋 변경 포함 가능).
+- [ ] NEXT-10 [판단 필요] Opus 검토에서 나온 항목: 저장소 Docs·state.md 에 원문이 없어 이관 불가. 총괄이 항목을 전달하면 여기에 추가.

@@ -12,7 +12,7 @@
 
 | 순서 | 결정 항목 | 왜 필요한가 | 근거 |
 |---|---|---|---|
-| A1 | **신규 맵 2장(`Lv1_DeepForestCore`·`Lv1_MistSwamp`) 씬 저장 방침** | 두 맵은 `SampleScene.unity` 안에만 있고, 그 씬은 git 에서 `M`(사용자 미커밋 변경 섞임). 백업은 `Assets/Backup/Floor1Maps/*.prefab` 뿐이며 포털 씬 참조는 끊긴 상태. 저장 안 하면 다음 세션에서 소실 위험 | `Docs/Handoff/queue.md` 맵 2장 항목, `Docs/Handoff/scene_backup/README.md` |
+| A1 | **신규 맵 2장(`Lv1_DeepForestCore`·`Lv1_MistSwamp`) 씬 저장 방침** | 두 맵은 `SampleScene.unity` 안에만 있고, 그 씬은 `38ba36c6f` 로 커밋됨(사용자 미커밋 변경 포함 가능). 백업은 `Assets/Backup/Floor1Maps/*.prefab` 뿐이며 포털 씬 참조는 끊긴 상태. 저장 안 하면 다음 세션에서 소실 위험 | `Docs/Handoff/queue.md` 맵 2장 항목, `Docs/Handoff/scene_backup/README.md` |
 | A2 | **퀘스트 EXP 기준** (문서 43,900 vs CSV 90,700) | 문서 §4-1·§14-3(51,100)·§14-9(196분)은 옛 합계. 실제 CSV 신규 29건 합 90,700 이고 `QuestsFloor1DataTests.cs:40` 이 90,700 을 고정값으로 검사한다(R-1 재조정 흔적). 최단 시간 모델(Floor1Fastest 176/168분)은 CSV 기준 | `Assets/Resources/QuestsFloor1.csv`, `Assets/Editor/Tests/QuestsFloor1DataTests.cs:29-40` |
 | A3 | **정예 인장 지급 범위** | 문서 §4-5 는 "정예 둥지 5곳 전부 인장 지급"이나, 구현은 늪·성채·탑 3곳만(`NestHuntPlacer`, `ZoneSeal_*` 3종). 일반·깊은 숲 둥지는 인장 없음. Q308 보상의 `ZoneSeal_Deep` 은 아이템 행 없음(CSV 주석 "인장 보상은 아이템 추가 후 교체") | `QuestsFloor1.csv:46`, `ItemSheet.csv:258-260`, `NestHuntPlacer.cs` |
 | A4 | **Q701 목표** | 문서: "인장 3개 + 정예 2". CSV: `killElite * 5`(정예 아무거나 5). 졸업 시험 달성도(인장 40%)와 실제 퀘스트가 따로 논다 | `QuestsFloor1.csv:63` |
