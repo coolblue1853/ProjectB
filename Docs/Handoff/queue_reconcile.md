@@ -48,10 +48,10 @@
 | AUTO-129 일회성 프로브 삭제 | 미착수 | `Tools/probes/_*.cs` 335개 잔존, `Docs/Playtest/ProbeInventory.md` 존재 | 삭제 조건 충족분만 선별 삭제 후 문서 갱신 | 하 | 1% |
 | AUTO-130 11차 정적 리뷰 | 완료 | d5ddd69ac, `Docs/Playtest/ReviewCode_1114.md` | - | - | 0% |
 | NEXT-1 밤 몹 추가 | 그래픽 | queue.md 313행 | 그래픽 방 작업 | - | - |
-| NEXT-2 덩굴 요정 속박 | 부분 | `Assets/Script/Combat/Rules/Floor2MobBehaviorRules.cs`(VineRange 3·VineCooldown 8, 정원사 골렘) | 덩굴 요정 대상 연결 여부 확인, 플레이 확인 | 하 | 1% |
+| NEXT-2 덩굴 요정 속박 | 부분 | `Assets/Script/Combat/Rules/Floor2MobBehaviorRules.cs`(VineRange 3·VineCooldown 8, 정원사 골렘) | 11-14 확인: 미연결(CanVineBind 호출처 없음, 덩굴 요정은 slow 감속만). TechDebt 기록·보류 | 하 | 1% |
 | NEXT-3 감시병 장전 튜닝 | 부분 | `Assets/Script/Combat/Rules/AmmoMagazine.cs`(3발·재장전 1.2s), 2f6fa20ca(원거리 몹) | 실측 튜닝 | 하 | 1% |
 | NEXT-4 ZoneReportSign 탭 노출 | 완료 | 09ef24e74(Ready만 노출), db6f66b4f(완료 기록) | 없음 | 하 | 0% |
-| NEXT-5 몹 사격 시야 판정 | 부분 | aa2eb25b6, 9680fc538 | 플레이 검증(NEXT-14 와 같이 미검증) | 중 | 1% |
+| NEXT-5 몹 사격 시야 판정 | 부분 | aa2eb25b6, 9680fc538 | 11-14 플레이 프로브 검증 완료(탁 트임 false·벽 사이 true) | 중 | 0% |
 | NEXT-6 TempMobShooter 정적 풀 초기화 | 완료 | db6f66b4f(11-13 완료 기록) | 없음 | 하 | 0% |
 | NEXT-7 실플레이 검증 전부 | 사용자 필요 | `Docs/Playtest/UserPlaytest_1111.md`, `Docs/Playtest/Weekend1Guide.md` 존재 | 사용자 실플레이 | 상 | 0% |
 | NEXT-8 실패드 검증 CI-P4·P7 | 사용자 필요 | `Docs/OpenQuestions.md`:746 Q-CI12 | 실제 패드 필요 | 상 | 0% |

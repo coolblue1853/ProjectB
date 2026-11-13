@@ -199,3 +199,5 @@
 - 남음: 실마우스 해제·카메라 맵 끝·포털 패드 체감(`UserPlaytest_1111.md`), 패드 수동 퀵슬롯 교체 사용자 확인.
 - (11-14 REWORK-12 마무리) 효과 상세 토글(Tab/패드 Y, 호버 툴팁·장비 상세창·세트 창 공용 `EffectDetailMode`)·세트 창 문구 Loc 등록(LocUi 13종+I2). EditMode 1261/1261. 미검증: 실입력(키·패드) 인게임.
 - 남음: SetSwapPreview 효과 줄·Loc, 변형 실플레이, Q-EFX7.
+- (11-14 NEXT-5·14) 몹 사격 시야 판정 플레이 프로브 확인: 탁 트임 차단 false, 지형 벽 사이 차단 true. 코드 변경 없음.
+- 남음: NEXT-2 덩굴 요정 속박 미연결(`CanVineBind` 호출처 없음, slow 감속만) — TechDebt 기록, 신규 스킬 구현 필요.

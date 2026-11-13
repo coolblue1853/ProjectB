@@ -311,10 +311,10 @@
 ## 11-13 이월 (state.md 다음 주 후보 + Opus 검토 항목)
 
 - [ ] NEXT-1 [그래픽] 밤 몹 추가 — 그래픽 필요. 그래픽 방 작업 후 사용자 검토.
-- [ ] NEXT-2 [Unity] 덩굴 요정 속박 구현·플레이 확인.
+- [ ] NEXT-2 [확인 11-14, 미연결] 덩굴 요정(VineFairy_BD) trait=slow 이동 감속뿐, 속박 미연결(`CanVineBind` 호출처 없음). 신규 스킬이라 TechDebt 기록, 보류.
 - [ ] NEXT-3 [Unity] 감시병 장전 튜닝.
 - [ ] NEXT-4 [완료 11-13] ZoneReportSign Active 탭 노출 정리(권장).
-- [ ] NEXT-5 [Unity] 사격 시야 판정.
+- [x] NEXT-5 [완료 11-14] 사격 시야 판정 플레이 프로브 확인(탁 트임 차단 false·벽 사이 차단 true).
 - [ ] NEXT-6 [완료 11-13] TempMobShooter 정적 풀 씬 전환 초기화.
 - [ ] NEXT-7 [Unity·플레이] 실플레이 검증 전부: `Docs/Playtest/UserPlaytest_1111.md`·`Docs/Playtest/Weekend1Guide.md`.
 - [ ] NEXT-8 [Unity] 실패드 검증 CI-P4·P7(`Docs/OpenQuestions.md` Q-CI12 등).
@@ -323,6 +323,6 @@
 - [ ] NEXT-11 낮 쥐 도둑·쥐 두목이 토끼 그림으로 나옴(Q106 목표 식별 어려움) — 그래픽 방 의뢰(전용 스프라이트).
 - [ ] NEXT-12 38ba36c6f(SampleScene)에 섞인 주인공 리그 변경(Adventurer·CelFist·LeftWeapon 등) 그래픽 방 확인. 이 커밋 되돌리기 금지(맵 2장 소실).
 - [ ] NEXT-13 [완료 11-13: 기본 칼에도 걸리나 3타 보존 위반 아님, Q-CI14] CI-P5·P6(방향 버퍼·홀드 연타·점프+공격)이 기본 칼에도 적용되는지 확인, CI-P4 이후 비기본 무기 조작감 변화는 실패드로 검증.
-- [ ] NEXT-14 [완료 11-13, 플레이 미검증] 몹 사격 시야 판정 추가(TempMobShooter.cs: 발판·벽 너머 사격 방지).
+- [x] NEXT-14 [완료 11-13, 11-14 플레이 검증] 몹 사격 시야 판정 추가(TempMobShooter.cs: 발판·벽 너머 사격 방지).
 - [x] NEXT-15 안내판 4곳·낮 쥐 스폰 프로브 스크린샷 검증(spartan:unity-render). [완료 11-13]
 - [ ] NEXT-16 [설계 제약, 사용자 11-13 via 픽셀렙 모션생성] 캐릭터 커스터마이즈 UI는 머리색·눈색·피부색 3항목만. 헤어스타일 선택 기능·UI는 만들지 않음(머리·얼굴은 모든 의상에서 같은 그림, 색은 팔레트 교체로 비용 0). 상세 `Docs/Handoff/outfit_one_piece_decision.md` 맨 아래 "추가 결정 (11-13)". 구현은 나중, 지금은 제약 기록만.
