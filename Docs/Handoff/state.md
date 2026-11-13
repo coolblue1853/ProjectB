@@ -183,3 +183,6 @@
 
 - (11-14 패드 인벤 단축) 필드 Select 짧게=인벤, 다음 아티팩트=R3 길게, R3 짧게=사용. PadFieldInput.R3 추가, InputAudit·ControlsGuide 갱신. 가상 패드 프로브 검증, 실패드는 UserPlaytest_1111.
 - 남음: 실패드 손맛 확인.
+
+- (11-14 REWORK-3 P2 5a8d91dd8) edge=fall 몹 낙하 후: 킬플레인 아래 제거(드롭·EXP 없음)→리스폰, 아래 발판 착지 시 기준점 이동. EditMode 1255/1255, 플레이 프로브 검증.
+- 남음: 후공 8초·hop 높이 튜닝.

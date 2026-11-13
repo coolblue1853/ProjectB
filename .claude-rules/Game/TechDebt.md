@@ -278,7 +278,8 @@
 - (11-11) 수량 창 이행 뒤 죽은 코드: `InventoryManager`·`ShopManager` 의 `sellSlider`/`sellText`/`sellUIGameObject`, `DivideSlider`·`ChestDivideSlider`(씬 직렬화 필드라 씬 정리와 함께 제거). 모달 가드 `QuantityPopup.IsBlocking` 이 호스트 Update 5곳에 흩어져 있음 → `UiLock` 최상위 조회로 일원화 후보. `ForceClose` 때 `ShopManager.state`("Buy") 가 남을 수 있음(구매 시작 때 덮어써서 실해 없음).
 
 ## 11-13 REWORK-3 edge=fall 남은 것 (P2)
-- edge=fall 몹(토끼·돌토끼·늪 개구리·포자등 두꺼비)이 떨어진 뒤 복귀·킬플레인·스포너 재배치가 없다. 도달 불가 층에 갇히거나 맵 밖으로 떨어지는지 실전 확인 필요. 문제 시 해당 행 edge 를 turn 으로 되돌리면 롤백.
+- **해결 5a8d91dd8:** 스포너 주기마다 킬플레인(min(MapInfo.cameraBottom, 최저 스폰 발판) - 8) 아래 몹은 드롭·EXP·처치 카운트 없이 제거 → 슬롯 비움 → 리스폰. edge=fall 몹이 1.5 이상 아래 발판에 착지하면 순찰 기준점 이동(그 발판에서 계속 활동). 영역 밖 낙하는 기존 영역 이탈 페이드. 보스도 킬플레인 아래면 보상 없이 제거(보스는 edge=turn 이라 낙하 없음 가정).
+- (원문) edge=fall 몹(토끼·돌토끼·늪 개구리·포자등 두꺼비)이 떨어진 뒤 복귀·킬플레인·스포너 재배치가 없다. 도달 불가 층에 갇히거나 맵 밖으로 떨어지는지 실전 확인 필요. 문제 시 해당 행 edge 를 turn 으로 되돌리면 롤백.
 - (11-14 reviewer-arch, cda9e80bc 참고) `HudPolicy.cs:99-112` QM HUD 상시 꺼짐인데 `_qm` 없으면 1초마다 FindFirstObjectByType 재탐색 — 1회 탐색 실패 플래그로. `QuestBoard.cs:11` 씬의 빈 QuestGiver 컴포넌트는 씬 정리 때 제거.
 
 ## 11-14 REWORK-12 세트 창 남은 것 (P3)

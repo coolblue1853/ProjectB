@@ -19,7 +19,7 @@
 | REWORK-2 인벤·상점 재구현·수량 창 | 부분 | 3af1354b5(우클릭·툴팁·상점 마우스), 52aeac8a3(U14), `Assets/Script/UI/QuantityPopup.cs` | 가상 입력 통과(11-14), 실마우스·실패드 손맛만 남음 | 상 | 1% |
 | INV-BAG-EXP 가방 확장 | 부분 | `Assets/Script/Inventory/BagExpansion.cs`·`Model/BagExpansionRules.cs`, `UI/InventoryToolbar.cs`(확장 버튼 12e8b4fe0), f9c176eb4(확장 확인창) | 가상 입력(N·LT+X)·구매·확인창 통과(11-14, 한도 시 X 새는 버그 수정), 가격·최대 칸 실확인과 유저 안내 문구 남음 | 중 | 2% |
 | REWORK-12 장비·세트 효과 | 부분 | 8dd03b9de(P8 쿨 곱), e9b535d4f(P7 세트 11단계·EffectScore), 906467331(P6 툴팁), 083c27d48(장신구 2종·환급 내부 쿨), 세트 창(11-14, SetOverview·SetOverviewPopup), `Assets/Script/Combat/Effects/SkillVariants.cs`, state:26-30 | 효과 상세 토글, 세트 창 문구 Loc 등록, Q-EFX7, 변형 실플레이, Gatekeeper 보너스, 팔찌 획득처(3층계) | 상 | 5% |
-| REWORK-3 몹 행동 속성 | 부분 | e6b524591(속성 8열·BT 훅), `Assets/Script/Enemy/MobBehaviorRules.cs`, state:31-32 | 실전 체감(낙하 후 갇힘 확인), 후공 8초·hop 높이 튜닝 | 상 | 3% |
+| REWORK-3 몹 행동 속성 | 부분 | e6b524591(속성 8열·BT 훅), `Assets/Script/Enemy/MobBehaviorRules.cs`, state:31-32 | 낙하 후 정리 해결(5a8d91dd8), 남음: 후공 8초·hop 높이 튜닝 | 상 | 3% |
 | BUG-U23 작은 몹 판정 | 완료 | e6b524591(콜라이더 하한 1.2x1.1), state:33(EditMode 1080·play probe) | 없음(체감 확인은 REWORK-3) | 중 | 0% |
 | REWORK-7 레벨 디자인 참고 | 완료 | c6e859c7d·bdf9ffce9, `.claude-rules/Game/LevelDesignRef.md`, Q-LVREF(`Docs/OpenQuestions.md`:689) | 산출물 완료. 수정안 반영 여부는 REWORK-15 와 묶어 사용자 판단 | 중 | 0% |
 | REWORK-10 맵 구조·몹 배치 | 부분 | 14671055e·a87ebe053·c0a426259, 11-13 7314bda68(깊은 숲 2층 몹 혼입 제거·Lv4~9 EXP), `Docs/Playtest/MapReview.md` 작성 | 남음: 지형 3벌 복제(씬)·비활성 8맵 폭/층 실측·늪 포인트 몰림·리젠 차등·막다른 맵 히든 포털(MapReview §4). 타일맵 그림은 그래픽 | 상 | 4% |
