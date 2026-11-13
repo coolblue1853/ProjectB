@@ -31,10 +31,13 @@ public static class FastTravelFlow
     /// <summary>프로브·테스트용: 마지막으로 이동한 목적지 id</summary>
     public static string LastTravelled { get; private set; } = "";
 
+    private static float _lastTravelAt = -999f;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics()
     {
         LastTravelled = "";
+        _lastTravelAt = -999f;
     }
 
     public static void Open(string fromStopId)
@@ -96,6 +99,10 @@ public static class FastTravelFlow
     /// <summary>요금을 내고 이동한다. 확인 사이에 상태가 바뀌었을 수 있어 다시 판정한다. 성공하면 true</summary>
     public static bool Travel(FastTravelStop dest, int fee)
     {
+        if (FastTravelRules.InCooldown(Time.unscaledTime, _lastTravelAt))
+        {
+            return false; // 이동 직후 이중 입력 무시
+        }
         FastTravelRules.Block b = Evaluate(dest, fee);
         if (b != FastTravelRules.Block.None)
         {
@@ -111,6 +118,7 @@ public static class FastTravelFlow
         FastTravelState.Last = dest.Id;
         FastTravelState.Save();
         LastTravelled = dest.Id;
+        _lastTravelAt = Time.unscaledTime;
         Sfx.Play(SfxId.Money);
         GameLog.Info(GameLog.Cat.Map, "마차 이동: " + dest.Id + " (" + fee + "G)");
         return true;

@@ -114,4 +114,12 @@ public class FastTravelTests
         }
         Assert.GreaterOrEqual(seen.Count, 9);
     }
+
+    [Test]
+    public void InCooldown_BlocksRapidSecondTravel()
+    {
+        Assert.IsTrue(FastTravelRules.InCooldown(10.5f, 10f), "0.5초 뒤 재진입 차단");
+        Assert.IsFalse(FastTravelRules.InCooldown(12f, 10f), "가드 시간 경과 후 허용");
+        Assert.IsFalse(FastTravelRules.InCooldown(0f, -999f), "첫 이동은 허용");
+    }
 }

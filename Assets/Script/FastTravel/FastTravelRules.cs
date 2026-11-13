@@ -10,6 +10,15 @@ public static class FastTravelRules
 
     public enum Block { None, Dead, Boss, Combat, Locked, NoGold }
 
+    /// <summary>이동 직후 재진입 가드 시간(초). 확인 팝업 연타·이중 입력으로 두 번 결제되는 것을 막는다</summary>
+    public const float TravelCooldown = 1.5f;
+
+    /// <summary>직전 이동 시각(now 와 같은 시계)으로부터 가드 시간 안이면 true</summary>
+    public static bool InCooldown(float now, float lastTravelAt)
+    {
+        return now - lastTravelAt < TravelCooldown;
+    }
+
     /// <summary>fee = (50 + 25 x |순번차|), 2층계 이상 도착은 x2 (임시 가정 Q-FT2)</summary>
     public static int Fee(int fromOrder, int toOrder, int toFloor)
     {
