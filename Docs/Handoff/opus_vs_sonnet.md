@@ -10,6 +10,7 @@
 | 시각(KST) | 주간% | 5시간% | Opus 구간 커밋 | 주간 증가 | 모델별 weighted(M, 14:16Z~) | 메모 |
 |---|---|---|---|---|---|---|
 | 11-14 00:38 | 75 | 95 | 6(REWORK-8 U38·3 데이터·0 퀵슬롯·6 대사·10 데이터+MapReview, NEXT-15) | +6%p | opus 4.85 · sonnet 6.42 · haiku 0.69 | 건당 약 1.0%p(Opus 총괄+Sonnet builder 혼합). 범위·테스트 이상 없음, 테스트 약화 없음(핀 변경은 데이터 정정 사유 기록). Opus가 REWORK-10에서 깊은 숲 2층 몹 혼입 같은 구조 문제를 찾아 고침. 5시간 94%에서 선제 대기(재개 03:22 KST). |
+| 11-14 03:38 | 76 | 12 | 8(+REWORK-5 P5 refactor cda9e80bc·문서 62b5c8a04) | +7%p | 상단 표 갱신 생략(집계 실행 시 확인) | 5시간 재설정 직후 Opus 자동 재개 정상. P5는 테스트 삭제(HudPolicyTests 37줄)가 있었으나 삭제된 HudPolicy 함수 2개 전용이고, QuestSystemTests는 LegacySnapshot 고정표로 같은 필드를 그대로 검증 → 약화 아님. 범위·개행·ES3 이상 없음. |
 
 ## 해석 메모
 - 같은 구간의 sonnet weighted 6.42M 은 이 구세션(점검)과 Opus 세션이 부린 Sonnet builder 합계라 순수 비교는 아님. 순수 비교는 builder 모델별로 갈라 재야 함(다음 점검부터 builder 모델 기록).
