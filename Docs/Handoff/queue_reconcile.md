@@ -23,7 +23,7 @@
 | BUG-U23 작은 몹 판정 | 완료 | e6b524591(콜라이더 하한 1.2x1.1), state:33(EditMode 1080·play probe) | 없음(체감 확인은 REWORK-3) | 중 | 0% |
 | REWORK-7 레벨 디자인 참고 | 완료 | c6e859c7d·bdf9ffce9, `.claude-rules/Game/LevelDesignRef.md`, Q-LVREF(`Docs/OpenQuestions.md`:689) | 산출물 완료. 수정안 반영 여부는 REWORK-15 와 묶어 사용자 판단 | 중 | 0% |
 | REWORK-10 맵 구조·몹 배치 | 부분 | 14671055e(맵 컨셉 시트), a87ebe053(재점검), c0a426259(범위 정정), `Docs/Playtest/MapReview.md` 없음 | 맵별 표(크기·층·로프·포털·스폰 지점·밀도·리젠) 작성, 메이플 값과 비교. 타일맵 그림은 그래픽 | 상 | 6% |
-| REWORK-6 퀘스트 콘텐츠 | 부분 | 87678eb17(QuestDesign.md·kind 재분류), 1bbd3932b(U7), 07bc7372d, state:41-45·89 | 퀘스트 대사 나머지 단계 | 상 | 5% |
+| REWORK-6 퀘스트 콘텐츠 | 부분 | 87678eb17(QuestDesign.md·kind 재분류), 1bbd3932b(U7), 07bc7372d, state:41-45·89 | 퀘스트 대사 나머지 단계(1층계 main·side 완료 11-13, 남음: Q101 코드 대사 유지·reward 계열 코드 대사 유지·Q 창 노출 Q-QD2·2층계) | 하 | 2% |
 | REWORK-13 미스(회피) 시스템 | 부분 | 5d9ff15fe(미스 시스템), `Assets/Script/Combat/MissRules.cs`(PlayerAttackMissMax 60) | MISS 표시·수치 프로브·보스 예외 검증 미확인 | 중 | 2% |
 | REWORK-15 몹 HP 곡선 | 완료 | 11cd4320a(MonsterSheet HP 22종·정예 x4), probe `_bal_ttk`, state:47 | 체감 플레이 확인은 사용자 몫 | 상 | 0% |
 | REWORK-14 빠른 이동(마차) | 부분 | 6dcbcf134(FastTravel P0~P3·P5 일부), 265047bfe(히든 포털 P4), `Assets/Script/FastTravel/*.cs` 5개, `.claude-rules/Game/FastTravel.md` | P5 나머지, 정류장 9곳 실플레이 검증 | 하 | 3% |

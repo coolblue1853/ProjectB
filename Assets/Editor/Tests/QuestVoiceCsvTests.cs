@@ -16,6 +16,12 @@ public class QuestVoiceCsvTests
     [TestCase("Q502")]
     [TestCase("Q601")]
     [TestCase("Q604")]
+    [TestCase("Q304")]
+    [TestCase("Q501")]
+    [TestCase("Q503")]
+    [TestCase("Q504")]
+    [TestCase("Q602")]
+    [TestCase("Q704")]
     public void 이행된_퀘스트는_CSV_열_대사를_쓴다(string id)
     {
         NpcQuestDef d = NpcQuestCatalog.Find(id);
