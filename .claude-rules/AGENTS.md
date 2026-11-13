@@ -121,6 +121,7 @@
 | `Docs/Playtest/Floor1Readiness.md` *(저장소 루트)* | 1층계 주말 확인 전 준비도 점검(사용자 결정·코드 작업 목록) |
 | `Docs/Playtest/Weekend1Guide.md` *(저장소 루트)* | 1층계 주말 플레이 테스트 가이드(진행 순서·알려진 임시 목록) |
 | `Docs/Playtest/UserPlaytest_1111.md` *(저장소 루트)* | 11-11 사용자 플레이 확인 목록(미검증 항목) |
+| `Docs/Playtest/MapLayoutSpec.md` *(저장소 루트)* | 1층계 맵 9장 고유 지형 설계안(발판 층·로프·포털·스폰·동선)·씬 이전 체크리스트(메랜 실측은 미확인) |
 | `Docs/Playtest/MapReview.md` *(저장소 루트)* | 1층계 맵별 점검표(몹 종·개체·HP·EXP·지형·포털·문제·수정안), 지형 3벌 복제 |
 | `Docs/Handoff/outfit_one_piece_decision.md` *(저장소 루트)* | 외형 슬롯=의상 하나·층계별 해금 슬롯·세트 단계 이펙트 결정과 총괄 요청(11-10) |
 | `Docs/Handoff/queue.md` *(저장소 루트)* | 작업 큐 원본(현재 상태 `Docs/Handoff/state.md`) |
