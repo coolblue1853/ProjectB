@@ -201,3 +201,5 @@
 - 남음: SetSwapPreview 효과 줄·Loc, 변형 실플레이, Q-EFX7.
 - (11-14 NEXT-5·14) 몹 사격 시야 판정 플레이 프로브 확인: 탁 트임 차단 false, 지형 벽 사이 차단 true. 코드 변경 없음.
 - 남음: NEXT-2 덩굴 요정 속박 미연결(`CanVineBind` 호출처 없음, slow 감속만) — TechDebt 기록, 신규 스킬 구현 필요.
+- (11-14 입력 표시 대조) ControlsGuide·인벤 툴바 안내·메뉴 SELECT 문구를 InputAudit 과 일치시킴, 가방 확장 안내(125칸·650~22000G). EditMode 1261/1261, 컴파일 0. 미검증: 화면 캡처·실패드.
+- 남음: 상점 O·H 패드 매핑 확인, UI 안 Y(나누기) vs 효과 상세 Y 충돌 판단.

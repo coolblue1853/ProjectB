@@ -305,3 +305,10 @@ UI 탐색은 방향키/십자/스틱 → UI 맵 4방향 + `verticalCheck`·`hori
 - **개정 11-14(패드 인벤 직접 단축)**: 필드 Select 짧게=인벤 열기(`InventoryManager`, `PadFieldInput.Select` Tap·`!SelectInUi`), 다음 아티팩트=R3 길게(`PadFieldInput.R3`, 0.5초·LT 더하면 취소), R3 짧게=아티팩트 사용(뗄 때). `ArtifactNext` 패드 기본 경로는 비움(ES3 키 이름 불변). 가상 패드 프로브 검증, 실패드 미검증.
 
 - (11-14) 효과 상세 토글 = 키보드 Tab / 패드 Y(North) (`EffectDetailMode`, 세션 한정). 창고가 열려 있으면 Tab 은 창고 이동 전환이라 토글 안 함. 패드 Y 는 인벤 나누기와 겹치나 나누기는 쌓임 칸, 토글은 장비 상세창 열림 한정. 실입력 미검증.
+
+## 11-14 표시물 대조 (REWORK-8 하단 안내·INV-BAG-EXP 안내)
+- 고침: ControlsGuide 미니맵 패드 LT+R3·제작 핀 R3·보기 필터 G / LT+RT·효과 상세 Tab / Y·장비칸 착용품 해제(우클릭·더블클릭)·가방 확장 최대 125칸 행 추가. 인벤 툴바 안내에 효과 상세 Tab/Y·가방 확장 N/LT+X(+5칸씩, 최대 125) 추가.
+- 메뉴 안내의 "SELECT"(=확인 뜻)가 패드 Select 버튼과 혼동 → 일시정지·키 설정·강화·워프 지도 안내를 A / ENTER, ESC / START, B / ESC 로 교체(Loc 새 키 추가, 옛 키 유지, I2 동기화).
+- 가방 확장 실제 값(BagExpansion.csv): 40칸 시작, 17단계 +5칸씩 125칸, 650G~22,000G, 층계 1/2/3/4 단계별 해금. 인벤 버튼이 다음 단계 가격을 표시.
+- 충돌 메모: UI 안 Y = 나누기, 효과 상세 토글도 Y(EffectDetailMode). UI 안 Tab = 창고 이동, 창고 열림 중엔 효과 상세 양보. 실기 미검증.
+- 미확인: 상점 O·H 패드, 화면 캡처 미실시.

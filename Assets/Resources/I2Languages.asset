@@ -8907,6 +8907,49 @@ MonoBehaviour:
       - "\uBC18\uC9C0 2"
       Flags: 0000
       Languages_Touch: []
+    - Term: UP DOWN A ENTER select ESC START resume
+      TermType: 0
+      Description: 
+      Languages:
+      - "UP/DOWN  \xB7  A / ENTER select  \xB7  ESC / START resume"
+      - "\uC704/\uC544\uB798  \xB7  A / ENTER \uC120\uD0DD  \xB7  ESC / START \uACC4\uC18D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP DOWN LEFT RIGHT column A ENTER rebind ESC B back
+      TermType: 0
+      Description: 
+      Languages:
+      - "UP/DOWN  \xB7  LEFT/RIGHT column  \xB7  A / ENTER rebind  \xB7  ESC / B
+        back"
+      - "\uC704/\uC544\uB798  \xB7  \uC88C/\uC6B0 \uC5F4  \xB7  A / ENTER \uD0A4
+        \uBCC0\uACBD  \xB7  ESC / B \uB4A4\uB85C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP DOWN select A ENTER enhance B ESC close
+      TermType: 0
+      Description: 
+      Languages:
+      - UP/DOWN select    A / ENTER enhance    B / ESC close
+      - "\uC704/\uC544\uB798 \uC120\uD0DD    A / ENTER \uAC15\uD654    B / ESC \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: A ENTER travel here
+      TermType: 0
+      Description: 
+      Languages:
+      - A / ENTER  travel here
+      - "A / ENTER  \uC774\uACF3\uC73C\uB85C \uC774\uB3D9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UP DOWN select A ENTER travel HOME village M ESC close
+      TermType: 0
+      Description: 
+      Languages:
+      - UP/DOWN select    A / ENTER travel    HOME village    M / ESC close
+      - "\uC704/\uC544\uB798 \uC120\uD0DD    A / ENTER \uC774\uB3D9    HOME \uB9C8\uC744   
+        M / ESC \uB2EB\uAE30"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

@@ -175,8 +175,8 @@ public sealed class InventoryToolbar : MonoBehaviour
                 _searchLabel = label;
             }
         }
-        MakeHint(rt, 6, "분해 D · 버리기 Del · 비교 Shift\n프리셋 7 8 9 · 되사기 U", scale);
-        MakeHint(rt, 7, "패드: 분해 L3 두 번 · 비교 LT\n잠금 LT+R3 · 필터 LT+RT\n검색 LT+RB(첫 글자)", scale);
+        MakeHint(rt, 6, "분해 D · 버리기 Del · 비교 Shift\n프리셋 7 8 9 · 되사기 U · 효과 상세 Tab\n가방 확장 N (+5칸씩, 최대 125칸)", scale);
+        MakeHint(rt, 7, "패드: 분해 L3 두 번 · 비교 LT\n잠금 LT+R3 · 필터 LT+RT\n확장 LT+X · 효과 상세 Y\n검색 LT+RB(첫 글자)", scale);
     }
 
     /// <summary>버튼 아래 조작 안내 글(U39): 화면 버튼이 없는 단축키를 보여 준다. 클릭 대상 아님</summary>

@@ -282,7 +282,7 @@ public class PauseMenu : MonoBehaviour
             rows[i].text.color = i == cursor ? theme.unique : Color.white;
             rows[i].text.text = (i == cursor ? "> " : "  ") + Loc.T(list[i]) + "<color=#9ED0FF>" + value + "</color>";
         }
-        hint.text = Loc.T(settingsMode ? "UP/DOWN  ·  LEFT/RIGHT adjust  ·  ESC back" : "UP/DOWN  ·  SELECT / ENTER  ·  ESC resume");
+        hint.text = Loc.T(settingsMode ? "UP/DOWN  ·  LEFT/RIGHT adjust  ·  ESC back" : "UP/DOWN  ·  A / ENTER select  ·  ESC / START resume");
     }
 
     void Build()
@@ -332,7 +332,7 @@ public class PauseMenu : MonoBehaviour
         hint = NewText("Hint", pr, theme, 20f);
         Place(hint.rectTransform, new Vector2(0f, -638f), new Vector2(520f, 28f));
         hint.alignment = TextAlignmentOptions.Center;
-        hint.text = "UP/DOWN  ·  SELECT / ENTER  ·  ESC resume";
+        hint.text = "UP/DOWN  ·  A / ENTER select  ·  ESC / START resume";
         hint.color = new Color(1f, 1f, 1f, 0.55f);
         panel.SetActive(false);
     }

@@ -296,7 +296,7 @@ public class WaypointMap : MonoBehaviour
               + (d > 0 ? "<color=#" + ColorUtility.ToHtmlStringRGB(theme.warning) + ">" + Loc.F("Deficit {0}  (-{1}% damage)", d, Mathf.RoundToInt(d * AscentLoad.PenaltyPerPoint * 100f)) + "</color>"
                        : "<color=#8CFF8C>" + Loc.T("No ascent penalty") + "</color>")
               + BuildConnections(cur.map, theme)
-              + "\n\n<size=80%>" + Loc.T("SELECT  travel here") + "</size>"
+              + "\n\n<size=80%>" + Loc.T("A / ENTER  travel here") + "</size>"
             : Loc.T("Undiscovered.") + "\n" + Loc.T("Reach it on foot to unlock the waypoint.");
     }
 
@@ -322,7 +322,7 @@ public class WaypointMap : MonoBehaviour
         head.color = theme.unique;
         var hint = NewText("Hint", pr, theme, 22f);
         Place(hint.rectTransform, new Vector2(30f, -520f), new Vector2(940f, 30f));
-        hint.text = Loc.T("UP/DOWN select    SELECT travel    HOME village    M / ESC close");
+        hint.text = Loc.T("UP/DOWN select    A / ENTER travel    HOME village    M / ESC close");
         hint.color = new Color(1f, 1f, 1f, 0.55f);
 
         for (int r = 0; r < 9; r++)

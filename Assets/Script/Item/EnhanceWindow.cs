@@ -378,7 +378,7 @@ public class EnhanceWindow : MonoBehaviour
 
         var hint = NewText("Hint", pr, theme, 22f);
         Place(hint.rectTransform, new Vector2(0f, 0f), new Vector2(30f, 18f), new Vector2(940f, 30f));
-        hint.text = Loc.T("UP/DOWN select    SELECT enhance    BACK close");
+        hint.text = Loc.T("UP/DOWN select    A / ENTER enhance    B / ESC close");
         hint.color = new Color(1f, 1f, 1f, 0.6f);
 
         for (int r = 0; r < VisibleRows; r++)

@@ -36,6 +36,7 @@ public static class LocUi
         ("BESTIARY", "도감"), ("WORLD MAP", "층계 지도"), ("MINIMAP", "미니맵"), ("GUARD", "방어"), ("SKILL WINDOW", "스킬창"), ("QUEST WINDOW", "퀘스트 창"),
         ("PRESS A KEY  ·  ESC cancel", "새 키를 누르세요  ·  ESC 취소"), ("PRESS A BUTTON  ·  START cancel", "새 버튼을 누르세요  ·  START 취소"),
         ("UP/DOWN  ·  LEFT/RIGHT column  ·  SELECT rebind  ·  ESC back", "위/아래  ·  좌/우 열  ·  선택 키 변경  ·  ESC 뒤로"),
+        ("UP/DOWN  ·  LEFT/RIGHT column  ·  A / ENTER rebind  ·  ESC / B back", "위/아래  ·  좌/우 열  ·  A / ENTER 키 변경  ·  ESC / B 뒤로"),
         ("That key is reserved", "이동·확인용 고정 키라 지정할 수 없다"),
         ("Special Effects", "특수 효과"), ("(inactive)", "(비활성)"), ("(capped)", "(상한)"), ("(locked)", "(잠김)"), ("when", "조건"), ("All skills", "모든 스킬"), ("{0} cooldown -{1}%", "{0} 재사용 대기 -{1}%"), ("{0} damage +{1}%", "{0} 피해 +{1}%"), ("{0} range +{1}%", "{0} 범위 +{1}%"), ("{0} projectile speed +{1}%", "{0} 탄 속도 +{1}%"), ("{0} duration +{1}%", "{0} 지속 시간 +{1}%"), ("{0} projectiles +{1}", "{0} 탄 +{1}"), ("{0} hits +{1}", "{0} 타격 +{1}"), ("{0} pierce +{1}", "{0} 관통 +{1}"), ("{0} summons +{1}", "{0} 소환 +{1}"), ("{0} stamina cost -{1}%", "{0} 스태미나 소모 -{1}%"), ("{0} proc chance +{1}%", "{0} 발동 확률 +{1}%"), ("{0} charges +{1}", "{0} 충전 +{1}"), ("{0} fire as {1} ({2} deg)", "{0} {1} 형태로 발사 ({2}도)"), ("{0} projectiles home in on enemies", "{0} 탄이 적을 추적"), ("{0} target {1}", "{0} 대상 {1}"), ("{0} on hit: {1} ({2}% damage)", "{0} 적중 시 {1} ({2}% 피해)"), ("{0} pierce {1} enemies", "{0} 적 {1}명 관통"), ("{0} return at max range", "{0} 최대 사거리에서 되돌아옴"), ("{0} chain to up to {1} nearby enemies", "{0} 근처 적 최대 {1}명에게 연쇄"), ("{0} on kill: cast {1}", "{0} 처치 시 {1} 시전"), ("{0} may also cast {1} ({2}%)", "{0} 확률로 {1} 추가 시전 ({2}%)"), ("{0} cooldown -{1}s on {2}", "{0} {2} 시 재사용 대기 -{1}초"), ("{0} replaced by variant {1}", "{0} 변형: {1}"),
         ("EQUIPPED", "착용 중"),
@@ -94,6 +95,7 @@ public static class LocUi
         ("On fail", "실패 시"), ("-1 level", "-1 단계"), ("keep level", "단계 유지"),
         ("Crystals", "층계 결정"), ("Gold", "골드"),
         ("UP/DOWN select    SELECT enhance    BACK close", "위/아래 선택    선택 강화    뒤로 닫기"),
+        ("UP/DOWN select    A / ENTER enhance    B / ESC close", "위/아래 선택    A / ENTER 강화    B / ESC 닫기"),
         ("No equipment in inventory", "인벤토리에 장비가 없다"),
 
         // ── 도감 ──
@@ -112,9 +114,10 @@ public static class LocUi
         ("Ascent load", "상승 부하"), ("Your resistance", "내 저항"),
         ("Deficit {0}  (-{1}% damage)", "부족 {0}  (-{1}% 피해)"),
         ("No ascent penalty", "상승 페널티 없음"),
-        ("SELECT  travel here", "선택  이곳으로 이동"),
+        ("SELECT  travel here", "선택  이곳으로 이동"), ("A / ENTER  travel here", "A / ENTER  이곳으로 이동"),
         ("Undiscovered.", "미발견."), ("Reach it on foot to unlock the waypoint.", "직접 걸어서 도착하면 웨이포인트가 열린다."),
         ("UP/DOWN select    SELECT travel    HOME village    M / ESC close", "위/아래 선택    선택 이동    HOME 마을    M / ESC 닫기"),
+        ("UP/DOWN select    A / ENTER travel    HOME village    M / ESC close", "위/아래 선택    A / ENTER 이동    HOME 마을    M / ESC 닫기"),
         ("Boss reward", "보스 보상"), ("Unique!", "고유템!"),
         ("Connections", "연결 구역"), ("Sealed", "봉인"), ("Upper road", "윗길로"),
 

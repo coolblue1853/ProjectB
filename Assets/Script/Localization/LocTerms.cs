@@ -29,6 +29,7 @@ public static class LocTerms
         ("OFF", "끄기"),
         ("UP/DOWN  ·  LEFT/RIGHT adjust  ·  ESC back", "위/아래  ·  좌/우 조절  ·  ESC 뒤로"),
         ("UP/DOWN  ·  SELECT / ENTER  ·  ESC resume", "위/아래  ·  선택 / ENTER  ·  ESC 계속"),
+        ("UP/DOWN  ·  A / ENTER select  ·  ESC / START resume", "위/아래  ·  A / ENTER 선택  ·  ESC / START 계속"),
 
         // ── 구역·배너 ──
         ("FLOOR", "층계"),

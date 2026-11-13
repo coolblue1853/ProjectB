@@ -263,7 +263,7 @@ public class KeyBindWindow : MonoBehaviour
                 row.kb.text = row.pad.text = "";
             }
         }
-        _hint.text = Loc.T(_op != null ? _column == 1 ? "PRESS A BUTTON  ·  START cancel" : "PRESS A KEY  ·  ESC cancel" : "UP/DOWN  ·  LEFT/RIGHT column  ·  SELECT rebind  ·  ESC back");
+        _hint.text = Loc.T(_op != null ? _column == 1 ? "PRESS A BUTTON  ·  START cancel" : "PRESS A KEY  ·  ESC cancel" : "UP/DOWN  ·  LEFT/RIGHT column  ·  A / ENTER rebind  ·  ESC / B back");
     }
 
     private string Cell(string key, bool selected)
