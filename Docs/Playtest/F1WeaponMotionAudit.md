@@ -44,7 +44,46 @@
 | 아대(LeafAdae) | SwingDown 1종 | 흩날리는 잎(round)=SwingDown, 버프 2=Charge | 평타→`Throw`(표창). 흩날리는 잎→`Spin`, 버프 하나→`Backstep` |
 | 방패(Shell·Raider·Monolith) | 한손검 3타 | 찌르기=Stab, 강타=**Guard(대기)**, 막기=Guard | 강타→`ShieldBash`, Boulder Toss→`Throw`. 막기(hold)는 `Guard` 유지 |
 
-## 해야 할 일 정리
+## 정정(11-14): 셀 이름 66개 중 실제 그림은 13종뿐
+
+`CelDS/cel.json`을 열어 보니 이름만 66개이고 대부분 다른 셀 그림을 빌려 쓴다. 새 방식(ds03 기준 그림 + `animate_image_pixminimax` 문장 방식, 빈손 생성 → 이펙트 지우기 → 무기는 코드)으로 만든 실제 공격 그림은 아래뿐이다.
+
+- 확정: `ds_stab`·`ds_down`·`ds_up`(기본 칼 3타), 이동·점프·피격·사망·로프
+- 있음(품질 미확인): `ds_side`(수평), `ds_cross`(교차), `ds_flurry`(연타), `ds_charge`(모으기), `ds_airstab`·`ds_airdown`·`ds_airup`(공중)
+
+빌려 쓰는 예: `Bow`·`Throw`·`ShieldBash`·`Kick`·`PalmBlast`·`Lunge` = 찌르기 그림, `WhipSnap`·`Slam`·`LowSweep`·`LeapSlam`·`GreatDown` = 내려베기 그림, `Guard` = 대기, `Backstep` = 피격, `Punch` = 연타, `Raise`·`GreatUpper` = 올려베기, `Spin`·`DashSlash` = 수평. 그래서 위 표의 "연결"만으로는 화면이 안 바뀐다 → **새 방식으로 새로 찍어야 한다.**
+
+### 1층계에 필요한 새 셀 (새 방식, Opus 하위 세션)
+
+| # | 셀 | 쓰는 무기 | 비고 |
+|---|---|---|---|
+| 1 | `Bow` 활 쏘기 | 활·석궁 평타·연사 | |
+| 2 | 곡사(하늘로 쏘기) | 활 화살비·Pitch Shot | 신규 이름 |
+| 3 | `ShoulderAim` 어깨 조준 | 석궁 | 선택(1번 재사용 가능) |
+| 4 | `Throw` 던지기 | 투창·아대 평타, 방패 Boulder Toss | |
+| 5 | `WhipSnap` 채찍 휘둘러 치기 | 채찍 평타 | 사슬은 `WeaponChain` 코드 |
+| 6 | `ShieldBash` 방패 밀치기 | 방패 강타 | |
+| 7 | `Guard` 방패 막기 | 방패 막기(hold) | 지금 대기 그림 |
+| 8 | `Punch` 원투 | 너클 평타 | |
+| 9 | `Lunge` 몸째 돌진 찌르기 | 창·채찍·투창 스킬, 창 2타 | |
+| 10 | `DashSlash` 돌진 베기 | 한손검·단검·창·낫 스킬 | |
+| 11 | `Backstep` 뒤로 빠지기 | 단검·쌍검·너클·아대 스킬 | |
+| 12 | `LowSweep` 하단 쓸기 | 도끼·낫·단검 스킬 | |
+| 13 | `GreatDown` 양손 내려찍기 | 대검·둔기 평타, 도끼 스킬 | 지금 한손 내려베기 그림 |
+| 14 | `GreatUpper` 양손 올려치기 | 대검 스킬 | |
+| 15 | `Slam` 지면 강타 | 둔기·대검·한손검 스킬 | |
+| 16 | `LeapSlam` 점프 내려찍기 | 한손검·채찍 스킬 | |
+| 17 | `Spin` 회전 베기 | 도끼·낫 hold, 아대 | 합격 레시피 M4-a(`MotionTheory.md` §11) 결과 있음 → 셀 반영만(생성 0~1) |
+| 18 | `Raise` 들어올리기·포효 | 지팡이 치유, 버프·포효, 깃발 | |
+| 19 | `PalmBlast` 장풍·빔 | 완드·마도서·랜턴 | |
+| 20 | 할퀴기 2타 | 클로 평타 | 신규 이름 |
+| 21 | (선택) `Kick` | 너클 Hop | |
+
+기존 그림 재사용(새로 안 찍음): 한손검 3타, 수평(`ds_side`: 도끼·대검 수평, 창 휘두르기), 교차·연타(단검·쌍검), 모으기(`Cast`·`Charge`: 지팡이·시전·버프 일부). 단 이 4종도 기본 코트 흰 바탕 확인이 먼저다.
+
+예상 PixelLab: 셀 하나 4~8장 1호출 = 1생성, 재시도 포함 셀당 2~3생성 → 약 40~60생성.
+
+## 해야 할 일 정리 (정정 전 초안 — 위 정정 절이 우선)
 
 1. **연결 작업(생성 0, 코드)**: 위 표 제안대로 무기 프리팹 `attackAnimName`·`skillAnim` 또는 `SkillCels` 표를 고친다. 스킬 판정 시점(`WeaponFx.StrikeFrame`·`MotionFxTable`)이 새 셀에 맞는지 같이 확인. 총괄(코드) 몫.
 2. **기존 셀 흰 바탕 확인(생성 0)**: 연결에 쓰는 셀 약 20개(Bow·WhipSnap·ShieldBash·Throw·DashSlash·Backstep·LowSweep·Raise·PalmBlast·DaggerFlurry·DaggerCross·Kick·Slam·LeapSlam·Lunge·Punch·GreatDown·GreatSide·GreatUpper·Charge·Cast·Spin·ShoulderAim)를 기본 코트로 찍어 탈락만 추린다.
