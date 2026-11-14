@@ -119,6 +119,30 @@ public class SaveCompatTests
         Assert.AreEqual(Datas.EquipRows, n.equipmentFlags.Length);
     }
 
+    [Test]
+    public void Datas_NormalizeItems_PadsShortItemFields()
+    {
+        var d = new Datas { invenItem = new string[2, 3, 2], chestItem = null };
+        d.invenItem[1, 2, 0] = "Wood";
+        d.invenItem[1, 2, 1] = "7";
+        Assert.Throws<System.IndexOutOfRangeException>(() => SaveMapper.ReadCell(d.invenItem, 1, 2)); // 고치기 전: 티어·강화 칸이 없어 터진다
+        d.NormalizeItems();
+        Assert.AreEqual(Datas.ItemFields, d.invenItem.GetLength(2));
+        Assert.AreEqual(2, d.invenItem.GetLength(0));
+        Assert.AreEqual(3, d.invenItem.GetLength(1));
+        ItemStack st = SaveMapper.ReadCell(d.invenItem, 1, 2);
+        Assert.AreEqual("Wood", st.Id);
+        Assert.AreEqual(7, st.Count);
+        Assert.AreEqual(0, st.Tier);
+        Assert.AreEqual(0, st.Upgrade);
+        Assert.IsNull(d.chestItem); // 없는 배열은 새 게임 판정(null)을 지키려고 그대로 둔다
+
+        var full = new string[1, 1, Datas.ItemFields];
+        var f = new Datas { chestItem = full };
+        f.NormalizeItems();
+        Assert.AreSame(full, f.chestItem); // 정상 배열은 그대로
+    }
+
     static void AssertFields(System.Type t, params string[] names)
     {
         foreach (string n in names)

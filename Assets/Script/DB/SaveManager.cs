@@ -54,6 +54,40 @@ public class Datas
             equipmentFlags = fixedFlags;
         }
     }
+
+    /// <summary>아이템 칸 필드 수 {이름, 수량, 티어, 강화}</summary>
+    public const int ItemFields = 4;
+
+    /// <summary>
+    /// 구세이브·손상 세이브의 인벤·창고 아이템 배열에서 칸 필드 수(3번째 차원)가 모자라면 4로 채운다(모자란 값은 null → 0 으로 읽힘). ES3 로드 직후 호출.
+    /// 쪽·칸 수(1·2번째 차원)와 inventoryFlags·chestFlags 는 읽는 쪽(SaveMapper.ReadCell·ItemFlagSave.At)이 범위를 검사하므로 손대지 않는다(R7)
+    /// </summary>
+    public void NormalizeItems()
+    {
+        invenItem = PadItemFields(invenItem);
+        chestItem = PadItemFields(chestItem);
+    }
+
+    private static string[,,] PadItemFields(string[,,] arr)
+    {
+        if (arr == null || arr.GetLength(2) >= ItemFields)
+        {
+            return arr;
+        }
+        int pages = arr.GetLength(0), slots = arr.GetLength(1), fields = arr.GetLength(2);
+        var fixedArr = new string[pages, slots, ItemFields];
+        for (int p = 0; p < pages; p++)
+        {
+            for (int s = 0; s < slots; s++)
+            {
+                for (int f = 0; f < fields; f++)
+                {
+                    fixedArr[p, s, f] = arr[p, s, f];
+                }
+            }
+        }
+        return fixedArr;
+    }
 }
 
 public class SaveManager : MonoBehaviour
@@ -238,6 +272,7 @@ public class SaveManager : MonoBehaviour
         {
             ES3.LoadInto(keyName, datas);
             datas.NormalizeEquip(); // 짧은 장비 배열(구·손상 세이브) 방어
+            datas.NormalizeItems(); // 칸 필드가 모자란 인벤·창고 배열 방어
         }
         else
         {
