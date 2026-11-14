@@ -71,6 +71,10 @@ public class PixelRig : CharacterRig
     // 점프 세분(상승·꼭대기·낙하)과 착지 눌림 — 플레이어 코드는 Play("Jump") 하나만 부른다
     private Rigidbody2D _body;
     private float _playedAt;
+    private const float StrikeHoldCap = 0.5f; // 타격 붙들기 최대(실시간) — 히트스톱·사망으로 셀 시간이 멈춰도 이동 그림이 영영 막히지 않게
+    private float _holdStrikeEnd = -1f; // 이 셀 시간(_time)까지 이동 그림 전환을 미룬다(HoldStrike), 음수면 없음
+    private float _holdStrikeCap;
+    private string _deferredAnim; // 타격 붙들기 동안 미뤄 둔 이동 그림
     private float _landUntil;
     private Clip _launch, _up, _apex, _fall, _land, _hurt, _kneel, _fidget;
     // 대기 습관: 대기로 6초 넘게 서 있으면 배낭 추켜올리기를 한 번, 이후 다시 6초
@@ -182,6 +186,13 @@ public class PixelRig : CharacterRig
 
     public override void Play(string anim)
     {
+        if (_holdStrikeEnd >= 0f && _time < _holdStrikeEnd && Time.time < _holdStrikeCap && IsLocomotion(anim))
+        {
+            _deferredAnim = anim; // 타격 그림이 끝나면 LateUpdate 가 재생한다
+            return;
+        }
+        _holdStrikeEnd = -1f;
+        _deferredAnim = null;
         // 점프 중에 땅 동작으로 바뀌면 착지 눌림을 잠깐 보여 준다
         if (_requested == "Jump" && _land != null && (anim == "Idle" || anim == "Walk" || anim == "Run"))
         {
@@ -230,6 +241,19 @@ public class PixelRig : CharacterRig
         _time = 0f;
         _clipSpeed = 1f;
         _fxCel = null;
+    }
+
+    private static bool IsLocomotion(string anim)
+    {
+        return anim == "Idle" || anim == "Walk" || anim == "Run" || anim == "Jump";
+    }
+
+    public override void HoldStrike(string anim)
+    {
+        float end = _requested == anim ? StrikeEndTime(anim) : -1f;
+        _holdStrikeEnd = end > 0f ? end : -1f;
+        _holdStrikeCap = Time.time + StrikeHoldCap;
+        _deferredAnim = null;
     }
 
     public override void CrossFade(string anim, float fade)
@@ -471,6 +495,11 @@ public class PixelRig : CharacterRig
 
     private void LateUpdate()
     {
+        if (_deferredAnim != null && (_time >= _holdStrikeEnd || Time.time >= _holdStrikeCap))
+        {
+            string deferred = _deferredAnim;
+            Play(deferred); // 붙들기를 풀고 미뤄 둔 이동 그림으로
+        }
         if (_current == null || _current.clip == null)
         {
             return;

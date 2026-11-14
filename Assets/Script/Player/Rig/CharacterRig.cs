@@ -37,6 +37,14 @@ public abstract class CharacterRig : MonoBehaviour
         return -1f;
     }
 
+    /// <summary>
+    /// 방금 재생한 공격 셀의 타격 프레임이 끝날 때까지 이동 그림(Idle·Walk·Run·Jump) 전환을 미룬다. 공격 상태(isAttackAnim)·잠금 시간은 건드리지 않는다 —
+    /// 스킬 attckSpeed 가 타격 프레임보다 짧을 때 그림만 끝까지 보이게 한다(R7, 너클 돌진 찌르기 0.1초 vs 0.17초). 기본은 아무것도 안 함.
+    /// </summary>
+    public virtual void HoldStrike(string anim)
+    {
+    }
+
     /// <summary>소켓에 붙인 무기 스프라이트를 리그에 맞게 정리한다(정렬 순서·크기). 기본은 아무것도 안 함.</summary>
     public virtual void AdoptWeapon(Transform weapon, bool isLeft)
     {

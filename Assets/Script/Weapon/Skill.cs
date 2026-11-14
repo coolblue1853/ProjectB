@@ -460,9 +460,9 @@ public class Skill : MonoBehaviour
 
     void SkillEffect() // 기술 에니메이션 및 데미지 오브젝트에 공격설정
     {
-        // 동작 시간이 셀의 타격 프레임 끝보다 짧으면 타격 그림이 잘린다(너클 돌진 찌르기 0.1초 < 0.17초) — 잠금 시간(attckSpeed)은 그대로, 그림만 타격까지 보인다
-        float animTime = Mathf.Max(attckSpeed, PlayerController.instance.Rig.StrikeEndTime(skillAnim));
-        PlayerController.instance.ActiveAttackAnim(false, skillAnim, animTime / StatMath.AttackSpeedMul, false, !_turnDuringCast);
+        PlayerController.instance.ActiveAttackAnim(false, skillAnim, attckSpeed / StatMath.AttackSpeedMul, false, !_turnDuringCast);
+        // 동작 시간이 셀의 타격 프레임 끝보다 짧으면 타격 그림이 잘린다(너클 돌진 찌르기 0.1초 < 0.17초) — 공격 상태·잠금 시간(attckSpeed)은 그대로, 그림만 리그가 타격 끝까지 붙든다(R7)
+        PlayerController.instance.Rig.HoldStrike(skillAnim);
         PlayerHealthManager.Instance.SteminaDown(EffectiveStamina);
 
         float waitTime = 0;
