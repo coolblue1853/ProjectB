@@ -118,6 +118,7 @@ public static class PixelRigBuilder
         so.FindProperty("_cel").objectReferenceValue = celSr;
         so.FindProperty("_celFist").objectReferenceValue = fistSr;
         BuildCel(so.FindProperty("_celClips"), ox);
+        BuildOutfitCels(so.FindProperty("_outfitCels"));
         so.FindProperty("_celArtWeapon").boolValue = s_celDir == CelDSDir;
         BuildEquipLayers();
         so.FindProperty("_airLegF").objectReferenceValue = PartSprite(LegPose("leg_l", 1, 1));
@@ -806,6 +807,55 @@ public static class PixelRigBuilder
                 wp.GetArrayElementAtIndex(i).boolValue = f.behind;
                 abp.GetArrayElementAtIndex(i).floatValue = f.angleB;
                 wl.GetArrayElementAtIndex(i).floatValue = f.weaponLen;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 의상 한 벌 통짜 셀 묶음(11-15, Tools/pixelfx/outfit_cel_import.py 산출): CelDS/Outfits/&lt;의상&gt;/&lt;코트 셀 PNG 이름&gt;.png → _outfitCels.
+    /// 피벗은 코트 셀과 같은 DSPivot. 부위 레이어 합성을 안 하므로 읽기 가능(isReadable)은 끈다. CelDS 가 아닌 예전 리그는 비운다
+    /// </summary>
+    private static void BuildOutfitCels(SerializedProperty arr)
+    {
+        string root = CelDSDir + "/Outfits";
+        if (s_celDir != CelDSDir || !Directory.Exists(root))
+        {
+            arr.arraySize = 0;
+            return;
+        }
+        // 그림이 없는 폴더는 빼고 이름 순(프리팹 diff 가 매번 같게)
+        string[] dirs = System.Array.FindAll(Directory.GetDirectories(root), x => Directory.GetFiles(x, "*.png").Length > 0);
+        System.Array.Sort(dirs, System.StringComparer.Ordinal);
+        // 700장 가까이라 임포트 설정은 한 번에 묶어 다시 가져온다(장마다 SaveAndReimport 하면 수 분)
+        AssetDatabase.StartAssetEditing();
+        try
+        {
+            foreach (string dir in dirs)
+            {
+                foreach (string png in Directory.GetFiles(dir, "*.png"))
+                {
+                    ImportPart(Path.GetFileNameWithoutExtension(png), DSPivot, dir.Replace('\\', '/'));
+                }
+            }
+        }
+        finally
+        {
+            AssetDatabase.StopAssetEditing();
+        }
+        arr.arraySize = dirs.Length;
+        for (int d = 0; d < dirs.Length; d++)
+        {
+            string dir = dirs[d].Replace('\\', '/');
+            string[] pngs = Directory.GetFiles(dir, "*.png");
+            System.Array.Sort(pngs, System.StringComparer.Ordinal);
+            SerializedProperty e = arr.GetArrayElementAtIndex(d);
+            e.FindPropertyRelative("id").stringValue = Path.GetFileName(dir);
+            SerializedProperty sp = e.FindPropertyRelative("sprites");
+            sp.arraySize = pngs.Length;
+            for (int i = 0; i < pngs.Length; i++)
+            {
+                string name = Path.GetFileNameWithoutExtension(pngs[i]);
+                sp.GetArrayElementAtIndex(i).objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(dir + "/" + name + ".png");
             }
         }
     }

@@ -228,3 +228,5 @@
 - 남음: ~~새 셀 무기 손·각도 채널~~(11-14 해결), 의상별 셀 묶음, 부위 분리 경로 정리(TechDebt 11-14), Q-COAT1·2.
 - 11-14 코트 셀 무기 손·각도: `coat_cel_hands.py` 로 cb_* 26클립에 주먹 좌표·각도·주먹 PNG(피격·대시만 숨김), 셀 이름 키 기준이라 다른 의상 통짜 셀도 재사용. 컴파일 0·EditMode 1268 통과·대표 7무기 낮 캡처 시트 `Docs/Playtest/CoatHand/coat_hand_sheet.png`.
 - 미검증: 손·각도 그래픽 판정(사용자), 키보드·패드 실입력 공격.
+- 11-15 의상 셀 연결(builder): 의상 칸 ScareArmor·LeafArmor·WispArmor·WolfArmor·RatArmor → `CelDS/Outfits/<id>` 통짜 셀(`OutfitCels`, 없는 클립은 코트 폴백, 쥐는 기본 4종만). 캡처 `Docs/Playtest/OutfitCel/outfit_sheet.png`.
+- 남은 것: 의상 그림 사용자 판정(미검증), 쥐 공격 136장(11-25 충전 후 importer 재실행+Build Adventurer DS), 키보드·패드 실입력 미검증, Q-OUTFIT1·2.

@@ -58,6 +58,7 @@
 - 완료(11-14 밤, 사용자 판정 대기·게임 미연결): 허수아비·나뭇잎·도깨비불·늑대 = 기본 4종(`<의상>/{idle,walk,run,jump}/f0~8`, f0=기준 그림) + 공격 136장(`<의상>/attack/`, 파일 이름=코트 셀 이름 그대로) + `basic.gif`·`attack.gif`. 쥐 = 기본 4종만.
 - 남은 일: 쥐 공격 136장(약 100생성) — 잔량 60이라 11-25 충전 후. 입력은 `coat_nopack/`(업로드 3일 만료 시 다시 올림), 참조 `rat/ref.png`.
 - 메모: 허수아비 공격은 배낭 있는 코트로 만들었지만 배낭이 머리·코트에 묻혀 보이지 않아 그대로 둠. 늑대 점프의 붉은 이펙트 점은 픽셀로 지움. 사용 셀은 f1~f8(달리기는 f1부터 반복).
+- 게임 연결(11-15, builder): 의상 칸 아이템 `ScareArmor`·`LeafArmor`·`WispArmor`·`WolfArmor`·`RatArmor` → 셀 묶음 scarecrow·leaf·wisp·wolf·rat(`OutfitCels.ByItem`). 기본 4종이 코트 ds_idle·walk·run·점프(crouch 1·arc 3·land 3, 의상별 칸 표) 자리를, 공격 136장이 같은 이름 코트 셀을 대신한다. 없는 클립(쥐 공격 등)은 코트 폴백. 3타는 그림만 바뀌고 타이밍·스미어·판정 그대로. 그래픽 판정 대기(미검증), Q-OUTFIT1·2. 의상 그림이 없는 코트 셀(ds_side·flurry·cross·charge·hurt·airdown — 대검 옆베기·단검 연타·시전·대검 공중 등)은 클립째 코트(+그 의상 부위 레이어, 대응표에 없으면 기본 코트 레이어)로 보인다.
 
 ## 미리 만든 시안 (11-14 밤, 2층계 세트·잎사귀 후드, 판정 대기)
 - `concepts4/`: 나뭇잎 기준 그림을 `edit_image_pro_flash`로 다시 그림(seed 9901~9914, 60생성). 비교는 `sheet.png`·`sheet2.png`.

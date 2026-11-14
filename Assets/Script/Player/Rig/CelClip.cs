@@ -29,6 +29,15 @@ public class CelClip
     /// <summary>의상 한 벌(통짜) 셀(11-14 기본 코트 새 셀): 그림에 의상이 이미 그려져 있어 장비 레이어(부위 분리, g2_export)를 합성하지 않는다</summary>
     public bool outfit;
 
+    /// <summary>그림만 바꾼 의상 통짜 복사본(11-15 OutfitCels): 나머지 필드(타이밍·타격·손·각도·주먹)는 얕은 복사로 전부 그대로, outfit = true</summary>
+    public CelClip CloneWith(Sprite[] art)
+    {
+        var c = (CelClip)MemberwiseClone();
+        c.sprites = art;
+        c.outfit = true;
+        return c;
+    }
+
     /// <summary>클립 전체 길이(초) — 프레임별 시간이 있으면 그 합</summary>
     public float Length
     {

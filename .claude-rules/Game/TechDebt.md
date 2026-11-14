@@ -292,7 +292,7 @@
 - (11-14 Sonnet 총괄 점검, 004165e31) `EffectDetailMode.Poll` 은 툴팁·장비 상세 표시 중에만 호출돼 오발동 없음. 단 도감·스킬트리에서 툴팁을 띄운 채 Tab 을 누르면 탭 전환과 효과 상세 토글이 함께 일어난다(무해). 필요하면 해당 창 열림 시 InputAllowed 에서 차단.
 
 ## 11-14 기본 코트 통짜 셀 연결 남은 것 (P2)
-- 통짜 의상 셀(`CelClip.outfit`, `cb_*` 29종)은 부위 레이어 합성을 건너뛴다. 기본 코트 외 의상(잎사귀 등)을 입어도 이 셀들은 코트로 보인다 → 의상별 셀 묶음(의상 id → 셀 접두)으로 고르는 경로가 필요하다.
+- ~~통짜 의상 셀은 다른 의상을 입어도 코트로 보인다~~ → 11-15 해결: 의상 아이템 → 셀 묶음 id(`OutfitCels.ByItem`, 허수아비·나뭇잎·도깨비불·늑대·쥐) → `CelDS/Outfits/<id>/<코트 셀 PNG 이름>.png`. `PixelRig.SetEquipmentLayers(layers, outfitId)` 가 클립 프레임 그림이 전부 있으면 의상 그림 복사본(outfit=true, 타이밍·타격·손·각도·주먹은 코트 값), 하나라도 없으면 코트 클립으로 폴백. 가져오기 `Tools/pixelfx/outfit_cel_import.py`, 굽기 Build Adventurer DS(`_outfitCels`). 남은 것: 쥐 공격 136장(11-25 충전 후, 넣으면 importer 재실행+재굽기), 의상별 손 표(`HANDS_BY_PREFIX`)는 아직 코트 표 공용, 의상 그림 판정 미검증. 의상 셀이 없는 클립(GreatSide·DaggerFlurry·Cast·Backstep 등 `ds_side/flurry/cross/charge/hurt/airdown` 그림)은 코트+부위 레이어로 보인다.
 - 부위 분리 경로(`g2_export.py` 5부위, `CelEquipSync`·`CelComposer`·`base_coat_*`/`leaf_set_*` 레이어)는 그대로 남아 있다. 의상 한 벌 구조가 확정되면 이동·3타 셀도 통짜로 바꾸고 이 경로를 정리한다(큰 리팩터라 이번엔 안 함). 제거 조건: cel.json 에서 outfit 아닌 클립(이동·3타 포함)이 0개가 되고 모든 의상이 통짜 셀 묶음을 가질 때.
 - ~~새 코트 셀은 무기 손·각도 채널이 없다~~ → 11-14 해결: `Tools/pixelfx/coat_cel_hands.py` 표(묶음 키별 주먹 좌표·각도 + `<셀>_fist.png`)로 26클립에 넣음(피격·대시만 숨김 유지). 표는 셀 이름 `<접두>_<키>_<n>` 의 키로 찾아 다른 의상 통짜 셀도 같은 키면 재사용. 각도·손 위치 그래픽 판정은 미검증(사용자 확인 대기), lowsweep 3칸은 손이 가려 위치 추정.
   - 새 의상 통짜 셀을 넣으면: 체형·자세가 다르면 `HANDS_BY_PREFIX[접두]` 에 그 의상 표를 따로 둔다(없으면 기본 표 폴백 + 로그). 5배 시트로 주먹 위치를 눈으로 확인하고, 스크립트가 찍는 "주먹 빈 그림"(피부색이 다른 의상은 `make_fist` 살색 임계값에 안 걸림) 경고를 본다. `make_fist` 는 `build_cel_ds.py` 에서 import 중 — 공용 모듈로 옮기는 건 P3.

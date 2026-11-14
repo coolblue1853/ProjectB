@@ -54,7 +54,7 @@ public class CelEquipSync : MonoBehaviour
             if (_lastKey != "off")
             {
                 _lastKey = "off";
-                _rig.SetEquipmentLayers(null); // 맨몸
+                _rig.SetEquipmentLayers(null, null); // 맨몸(코트 셀)
             }
             return;
         }
@@ -87,15 +87,18 @@ public class CelEquipSync : MonoBehaviour
         LoadMap();
         _layers.Clear();
         string[] names = key.Split('|');
+        string outfitId = null;
         for (int i = 0; i < ArmorBoxes.Length && i < names.Length; i++)
         {
             string itemName = names[i];
+            outfitId = outfitId ?? OutfitCels.IdFor(itemName); // 의상 한 벌 통짜 셀 묶음(11-15)
             string id = null;
-            if (itemName.Length == 0)
+            // 빈 칸·대응표에 없는 의상은 기본 코트 레이어(11-15: 속옷 몸이 드러나지 않게 — 쥐 의상 공격처럼 의상 셀이 없는 클립의 코트 폴백)
+            if (itemName.Length == 0 || !_map.TryGetValue(itemName, out id))
             {
-                id = DefaultLayers[i];
+                id = i < DefaultLayers.Length ? DefaultLayers[i] : null;
             }
-            if (id != null || (itemName.Length > 0 && _map.TryGetValue(itemName, out id)))
+            if (id != null)
             {
                 CelEquipLayer layer = Resources.Load<CelEquipLayer>(LayerDir + id);
                 if (layer == null || !layer.forDS)
@@ -108,7 +111,7 @@ public class CelEquipSync : MonoBehaviour
                 }
             }
         }
-        _rig.SetEquipmentLayers(_layers);
+        _rig.SetEquipmentLayers(_layers, outfitId);
     }
 
     private static void LoadMap()

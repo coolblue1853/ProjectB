@@ -34,6 +34,9 @@ public class PixelRig : CharacterRig
     [SerializeField] private SpriteRenderer _cel;
     [SerializeField] private SpriteRenderer _celFist; // 무기 위 주먹(정렬 = 앞 무기 + 1)
     [SerializeField] private CelClip[] _celClips = new CelClip[0];
+    // 의상 한 벌 통짜 셀 묶음(11-15, OutfitCels): SetOutfit 이 같은 이름 그림으로 클립을 바꾸고, 없는 클립은 코트 셀 그대로
+    [SerializeField] private OutfitCelSet[] _outfitCels = new OutfitCelSet[0];
+    private string _outfitId;
     private bool _airAttack; // 공중에서 시작한 공격 — CelDS 는 "Air"+셀 이름(다리 접은 그림)이 있으면 그걸로
     [SerializeField] private bool _celArtWeapon; // 셀 그림에 칼·궤적이 그려져 있다(CelDS) — 무기 스프라이트·장비 레이어·기본 스미어를 쓰지 않는다
 
@@ -168,13 +171,7 @@ public class PixelRig : CharacterRig
         _byName.TryGetValue("DeathKneel", out _kneel);
         _byName.TryGetValue("IdleFidget", out _fidget);
         _byName.TryGetValue("JumpCrouch", out _crouch);
-        foreach (CelClip cc in _celClips)
-        {
-            if (cc != null && cc.sprites.Length > 0)
-            {
-                _celByName[cc.name] = cc;
-            }
-        }
+        RebuildCelLookup(null);
         _byName.TryGetValue("JumpArc", out _arc);
         _byName.TryGetValue("Run", out _run);
         _byName.TryGetValue("Walk", out _walk);
@@ -607,7 +604,8 @@ public class PixelRig : CharacterRig
             transform.localScale = ls;
         }
         MotionFx(cel, i);
-        _cel.sprite = _celComposite.TryGetValue(cel.name, out Sprite[] comp) && i < comp.Length && comp[i] != null ? comp[i] : cel.sprites[i];
+        // 의상 셀로 바뀐 클립(outfit)은 코트 이름으로 만든 부위 합성을 쓰지 않는다
+        _cel.sprite = !cel.outfit && _celComposite.TryGetValue(cel.name, out Sprite[] comp) && i < comp.Length && comp[i] != null ? comp[i] : cel.sprites[i];
         if (_celFist != null)
         {
             _celFist.sprite = i < cel.fists.Length ? cel.fists[i] : null;
@@ -669,6 +667,53 @@ public class PixelRig : CharacterRig
     /// 장비 외형 레이어 적용(던파식, CelEquipmentPlan): 슬롯 순서로 맨몸 셀에 지울 마스크·덮어쓰기를 합성해 캐시한다. 빈 목록이면 맨몸.
     /// </summary>
     public void SetEquipmentLayers(IEnumerable<CelEquipLayer> layers)
+    {
+        SetEquipmentLayers(layers, _outfitId);
+    }
+
+    /// <summary>
+    /// 장착 의상 셀 묶음(OutfitCels.IdFor) + 부위 레이어를 함께 적용. id 묶음이 있는 클립은 의상 그림, 없는 클립은 코트 셀(+레이어 합성)로 폴백한다.
+    /// </summary>
+    public void SetEquipmentLayers(IEnumerable<CelEquipLayer> layers, string outfitId)
+    {
+        if (outfitId != _outfitId)
+        {
+            RebuildCelLookup(outfitId);
+        }
+        ComposeLayers(layers);
+    }
+
+    /// <summary>지금 적용된 의상 셀 묶음 id(null = 코트)</summary>
+    public string OutfitId => _outfitId;
+
+    /// <summary>클립 이름 → 재생할 셀. 의상 묶음 그림이 클립 프레임을 전부 가지면 그 복사본, 아니면 코트 클립(Awake·의상 교체 때만)</summary>
+    private void RebuildCelLookup(string outfitId)
+    {
+        _outfitId = outfitId;
+        Dictionary<string, Sprite> outfit = null;
+        if (!string.IsNullOrEmpty(outfitId))
+        {
+            foreach (OutfitCelSet set in _outfitCels)
+            {
+                if (set != null && set.id == outfitId)
+                {
+                    outfit = OutfitCels.Index(set);
+                    break;
+                }
+            }
+        }
+        _celByName.Clear();
+        foreach (CelClip cc in _celClips)
+        {
+            if (cc != null && cc.sprites.Length > 0)
+            {
+                _celByName[cc.name] = OutfitCels.Swap(cc, outfit) ?? cc;
+            }
+        }
+        _endCel = null; // 코트 클립 참조가 남아 한 번 코트로 보이지 않게
+    }
+
+    private void ComposeLayers(IEnumerable<CelEquipLayer> layers)
     {
         foreach (Sprite sp in _composedSprites)
         {
