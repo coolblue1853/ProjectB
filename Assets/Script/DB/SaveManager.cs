@@ -20,6 +20,40 @@ public class Datas
     public int[,] chestFlags;
     public int[] equipmentFlags = new int[10];
     public string[,] equipGear = new string[10, 3]; // 장비아이템, [이름,티어,강화]
+
+    public const int EquipRows = 10;
+    public const int EquipCols = 3;
+
+    /// <summary>구세이브·손상 세이브의 짧거나 빈 장비 배열을 정상 크기로 채운다(모자란 칸은 비움). ES3 로드 직후 호출 — 안 하면 장비 로드·저장에서 IndexOutOfRange</summary>
+    public void NormalizeEquip()
+    {
+        if (equipGear == null || equipGear.GetLength(0) < EquipRows || equipGear.GetLength(1) < EquipCols)
+        {
+            var fixedGear = new string[EquipRows, EquipCols];
+            if (equipGear != null)
+            {
+                int rows = System.Math.Min(equipGear.GetLength(0), EquipRows);
+                int cols = System.Math.Min(equipGear.GetLength(1), EquipCols);
+                for (int r = 0; r < rows; r++)
+                {
+                    for (int c = 0; c < cols; c++)
+                    {
+                        fixedGear[r, c] = equipGear[r, c];
+                    }
+                }
+            }
+            equipGear = fixedGear;
+        }
+        if (equipmentFlags == null || equipmentFlags.Length < EquipRows)
+        {
+            var fixedFlags = new int[EquipRows];
+            if (equipmentFlags != null)
+            {
+                System.Array.Copy(equipmentFlags, fixedFlags, equipmentFlags.Length);
+            }
+            equipmentFlags = fixedFlags;
+        }
+    }
 }
 
 public class SaveManager : MonoBehaviour
@@ -156,6 +190,7 @@ public class SaveManager : MonoBehaviour
         if (hadFile) // 슬롯 파일(SaveSlots 가 기본 경로를 정한다)
         {
             ES3.LoadInto(keyName, datas);
+            datas.NormalizeEquip(); // 짧은 장비 배열(구·손상 세이브) 방어
         }
         else
         {

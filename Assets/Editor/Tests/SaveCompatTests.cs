@@ -97,6 +97,28 @@ public class SaveCompatTests
             "invenItem", "chestItem", "bagUnlocked", "inventoryFlags", "chestFlags", "equipmentFlags", "equipGear");
     }
 
+    [Test]
+    public void Datas_NormalizeEquip_PadsShortArrays()
+    {
+        var d = new Datas { equipGear = new string[5, 2], equipmentFlags = new int[3] };
+        d.equipGear[1, 0] = "LeafHandArmor";
+        d.equipGear[4, 1] = "7";
+        d.equipmentFlags[2] = 5;
+        d.NormalizeEquip();
+        Assert.AreEqual(Datas.EquipRows, d.equipGear.GetLength(0));
+        Assert.AreEqual(Datas.EquipCols, d.equipGear.GetLength(1));
+        Assert.AreEqual("LeafHandArmor", d.equipGear[1, 0]);
+        Assert.AreEqual("7", d.equipGear[4, 1]);
+        Assert.IsNull(d.equipGear[9, 2]);
+        Assert.AreEqual(Datas.EquipRows, d.equipmentFlags.Length);
+        Assert.AreEqual(5, d.equipmentFlags[2]);
+
+        var n = new Datas { equipGear = null, equipmentFlags = null };
+        n.NormalizeEquip();
+        Assert.AreEqual(Datas.EquipRows, n.equipGear.GetLength(0));
+        Assert.AreEqual(Datas.EquipRows, n.equipmentFlags.Length);
+    }
+
     static void AssertFields(System.Type t, params string[] names)
     {
         foreach (string n in names)
