@@ -230,3 +230,6 @@
 - 미검증: 손·각도 그래픽 판정(사용자), 키보드·패드 실입력 공격.
 - 11-15 의상 셀 연결(builder): 의상 칸 ScareArmor·LeafArmor·WispArmor·WolfArmor·RatArmor → `CelDS/Outfits/<id>` 통짜 셀(`OutfitCels`, 없는 클립은 코트 폴백, 쥐는 기본 4종만). 캡처 `Docs/Playtest/OutfitCel/outfit_sheet.png`.
 - 남은 것: 의상 그림 사용자 판정(미검증), 쥐 공격 136장(11-25 충전 후 importer 재실행+Build Adventurer DS), 키보드·패드 실입력 미검증, Q-OUTFIT1·2.
+
+## 버그 사냥 라운드
+- R1 11-15 ① 1층계 흐름: 발견 0·수정 0(코드 변경 없음). 확인: 7맵 사망 부활(마을 복귀·HP 회복·잠금 해제)·마을 사망·포털 이동 중 사망·포털 연타+웨이포인트 끼어들기(활성 맵 1·isUsePortal 해제)·보스(산적 두목) 처치 보상·졸개 정리 모두 정상, 콘솔 error 0. 실입력 보스전·귀환 주문서 소모 완료는 미검증. 참고: 에디터가 "Recovering Scene Backups" 창에서 멈춰 Temp/__Backupscenes 를 __Backupscenes.bak_0115 로 옮겨 재기동.
