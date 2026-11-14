@@ -597,7 +597,10 @@ public class PlayerHealthManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            if (transform.parent == null)
+            {
+                DontDestroyOnLoad(this.gameObject); // 루트가 아니면 효과 없이 경고만 남는다
+            }
         }
         else
         {

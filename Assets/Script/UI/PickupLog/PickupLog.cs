@@ -238,6 +238,12 @@ public class PickupLog : MonoBehaviour
         }
     }
 
+    static bool IsItemKey(string key)
+    {
+        DatabaseManager db = DatabaseManager.instance;
+        return db != null && db.FindItemDataIndex(key) >= 0;
+    }
+
     /// <summary>표시 이름(ItemSheet itemNameT). 아이템이 아닌 문구(승급 알림 등)는 그대로</summary>
     static string DisplayName(string key)
     {
@@ -279,7 +285,7 @@ public class PickupLog : MonoBehaviour
             row.version = line.version;
             row.rect.gameObject.SetActive(true);
             bool gold = line.itemName == GoldKey;
-            row.icon.sprite = gold ? GoldSprites.Get(0) : ItemIconLoader.Load(line.itemName);
+            row.icon.sprite = gold ? GoldSprites.Get(0) : (IsItemKey(line.itemName) ? ItemIconLoader.Load(line.itemName) : null); // 발견·정예 같은 문구 줄은 아이콘 조회·경고 생략
             row.icon.enabled = row.icon.sprite != null;
             Color c = theme.RarityColor(line.rarity);
             row.glow.enabled = line.emphasis;

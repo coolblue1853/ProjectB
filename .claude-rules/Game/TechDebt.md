@@ -298,3 +298,10 @@
   - 새 의상 통짜 셀을 넣으면: 체형·자세가 다르면 `HANDS_BY_PREFIX[접두]` 에 그 의상 표를 따로 둔다(없으면 기본 표 폴백 + 로그). 5배 시트로 주먹 위치를 눈으로 확인하고, 스크립트가 찍는 "주먹 빈 그림"(피부색이 다른 의상은 `make_fist` 살색 임계값에 안 걸림) 경고를 본다. `make_fist` 는 `build_cel_ds.py` 에서 import 중 — 공용 모듈로 옮기는 건 P3.
 - `build_cel_ds.py` 는 CelDS 를 통째로 지우고 ds01 원본으로 다시 쓴다(g2 속옷 바탕·코트 셀이 사라짐). 다시 돌리면 `g2_export.py` → `coat_cel_import.py` 순서로 복구해야 한다.
 - 돌진 베기·뒤로 빠지기 등은 그림만 바꿨다. 스킬 이동 거리·판정 시점이 새 셀과 맞는지 미확인.
+
+## 콘솔 경고 전수 (11-15 버그 사냥 R6)
+- 고침: `DontDestroyOnLoad only works for root`(SkillCooldown·PlayerHealthManager, 루트 아닐 때 호출 생략), 줄 문구 `발견: ...`·`정예: ...` 가 아이템 아이콘 조회로 `아이템 아이콘 없음` 경고(PickupLog, 아이템 키일 때만 조회).
+- 남김(게임 코드): CS0618 `FindFirstObjectByType` 등 137건(Unity 6 deprecated, 동작 차이 우려로 일괄 치환 안 함), CS0414·CS0108·CS0162·CS0219 30건(미사용 필드·멤버 숨김, 결함 아님).
+- 남김(설정): `Sprite X matches more than one built-in atlases`(FlowerAttck1·LeafAttck1·VenomVesh1~6) — FlowerMole/LeafMole/RatThief 폴더 아틀라스와 Attack·RatCheif 아틀라스가 같은 스프라이트를 중복 포함. 첫 아틀라스를 쓰므로 동작 영향 없음, 배칭만 손해. 아틀라스 YAML 수기 편집은 재패킹 위험이라 보류(Unity 에서 중복 항목 제거 필요).
+- 남김(서드파티·의도): MasterAudio `The Playlist 'Town' is already loaded`(시작 직후 1회, BgmDirector 와 기본 재생목록 중복 요청), `[PB][Player][ANOMALY] Invincible 잠금 12초`(대화창을 열어 둔 채 방치할 때의 진단 로그, 의도), `아이템 아이콘 없음`(그래픽 방 담당, 이름당 1회, 의도).
+- 낡은 프로브: `Tools/probes/firsthour_talks.cs` 가 `NpcQuestGiver.TryTalk`·`UpdateResponses(bool)` 시그니처 변경을 따라가지 못함(컴파일 실패/TargetParameterCountException 반복). `Tools/ptbot.sh camp=1` 도 이번엔 run.log 없이 멈춤.
