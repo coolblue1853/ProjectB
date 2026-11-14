@@ -95,6 +95,13 @@ public static class QuestService
     {
         f = f ?? new QuestFilter();
         var view = new QuestView { Tab = f.Tab };
+        if (f.Tab == QuestListRules.Tab.All)
+        {
+            // 전체 탭(U6): 세 탭 결과를 합쳐 상태순(완료 가능 > 진행 중 > 수락 가능 > 레벨 부족 > 완료)으로. 입구 조건(ReportOnly·ReadyOnly)은 각 탭이 그대로 적용
+            view.Items.AddRange(MergeByState(Query(f.WithTab(QuestListRules.Tab.Available)).Items,
+                Query(f.WithTab(QuestListRules.Tab.Active)).Items, Query(f.WithTab(QuestListRules.Tab.Done)).Items));
+            return view;
+        }
         var pool = new List<KeyValuePair<int, NpcQuestDef>>();
         int n = 0;
         foreach (NpcQuestDef d in All())
@@ -142,6 +149,16 @@ public static class QuestService
                 break;
         }
         return view;
+    }
+
+    /// <summary>세 탭 결과를 전체 탭 순서(상태순)로 합친다 — Query(All) 과 퀘스트 창이 같이 쓴다</summary>
+    public static List<NpcQuestDef> MergeByState(List<NpcQuestDef> available, List<NpcQuestDef> active, List<NpcQuestDef> done)
+    {
+        var merged = new List<NpcQuestDef>(available.Count + active.Count + done.Count);
+        merged.AddRange(available);
+        merged.AddRange(active);
+        merged.AddRange(done);
+        return QuestListRules.SortByState(merged, StatusOf);
     }
 
     private static bool Matches(NpcQuestDef d, QuestFilter f)

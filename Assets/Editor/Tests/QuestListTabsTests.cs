@@ -7,12 +7,12 @@ public class QuestListTabsTests
     private static NpcQuestDef Q(string id) => new NpcQuestDef { Id = id, Title = id };
 
     [Test]
-    public void 탭은_받을_수_있는_진행_중_완료_순으로_순환한다()
+    public void 탭은_전체_받을_수_있는_진행_중_완료_순으로_순환한다()
     {
         Assert.AreEqual(QuestListRules.Tab.Active, QuestListRules.Step(QuestListRules.Tab.Available, 1));
         Assert.AreEqual(QuestListRules.Tab.Done, QuestListRules.Step(QuestListRules.Tab.Active, 1));
-        Assert.AreEqual(QuestListRules.Tab.Available, QuestListRules.Step(QuestListRules.Tab.Done, 1));
-        Assert.AreEqual(QuestListRules.Tab.Done, QuestListRules.Step(QuestListRules.Tab.Available, -1));
+        Assert.AreEqual(QuestListRules.Tab.All, QuestListRules.Step(QuestListRules.Tab.Done, 1), "U6: 전체 탭이 맨 앞");
+        Assert.AreEqual(QuestListRules.Tab.All, QuestListRules.Step(QuestListRules.Tab.Available, -1));
     }
 
     [Test]

@@ -66,8 +66,8 @@ public class QuestWindowTests
         StringAssert.Contains("요구 사항", text);
         StringAssert.Contains("0/10", text);
         StringAssert.Contains("[주 메인]", text);
-        StringAssert.Contains("EXP 50", QuestWindowText.RewardLine(d));
-        StringAssert.Contains("20 G", QuestWindowText.RewardLine(d));
+        StringAssert.Contains("경험치 50", QuestWindowText.RewardLine(d));
+        StringAssert.Contains("20 골드", QuestWindowText.RewardLine(d));
     }
 
     [Test]

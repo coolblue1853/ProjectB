@@ -231,13 +231,67 @@ public static class QuestFoldRules
 /// <summary>퀘스트 창 목록 규칙 (순수): 받을 수 있는 / 진행 중(완료 가능이 맨 위) / 완료 세 탭, 같은 구역끼리 묶는다</summary>
 public static class QuestListRules
 {
-    public enum Tab { Available, Active, Done }
+    /// <summary>탭. All(전체, U6)은 접기 키 정수((int)tab)가 바뀌지 않게 맨 뒤에 붙였고, 화면·순환 순서는 Order 를 따른다</summary>
+    public enum Tab { Available, Active, Done, All }
 
-    /// <summary>좌(-1)/우(+1) 탭 순환: 받을 수 있는 → 진행 중 → 완료</summary>
+    /// <summary>화면 왼쪽부터·순환 순서: 전체 → 받을 수 있는 → 진행 중 → 완료</summary>
+    public static readonly Tab[] Order = { Tab.All, Tab.Available, Tab.Active, Tab.Done };
+
+    /// <summary>좌(-1)/우(+1) 탭 순환 (Order 순서)</summary>
     public static Tab Step(Tab tab, int dir)
     {
-        int n = System.Enum.GetValues(typeof(Tab)).Length;
-        return (Tab)(((int)tab + dir + n) % n);
+        int n = Order.Length;
+        int i = System.Array.IndexOf(Order, tab);
+        return Order[((i < 0 ? 0 : i) + dir % n + n) % n];
+    }
+
+    /// <summary>상태 정렬 순위 (메이플 관례): 완료 가능 0 · 진행 중 1 · 수락 가능 2 · 레벨 부족 3 · 완료 4 · 잠김 5</summary>
+    public static int Rank(NpcQuestStatus s)
+    {
+        switch (s)
+        {
+            case NpcQuestStatus.Ready: return 0;
+            case NpcQuestStatus.Active: return 1;
+            case NpcQuestStatus.Available: return 2;
+            case NpcQuestStatus.LevelLow: return 3;
+            case NpcQuestStatus.Done: return 4;
+            default: return 5;
+        }
+    }
+
+    /// <summary>상태 순위로 안정 정렬 (같은 상태는 원래 순서)</summary>
+    public static List<NpcQuestDef> SortByState(IList<NpcQuestDef> list, System.Func<NpcQuestDef, NpcQuestStatus> statusOf)
+    {
+        var buckets = new List<NpcQuestDef>[6];
+        for (int i = 0; i < buckets.Length; i++)
+        {
+            buckets[i] = new List<NpcQuestDef>();
+        }
+        foreach (NpcQuestDef d in list)
+        {
+            buckets[Rank(statusOf(d))].Add(d);
+        }
+        var res = new List<NpcQuestDef>(list.Count);
+        foreach (List<NpcQuestDef> b in buckets)
+        {
+            res.AddRange(b);
+        }
+        return res;
+    }
+
+    /// <summary>상태가 속하는 실제 탭 (전체 탭에서 수락·보고·추적·포기 판정에 쓴다)</summary>
+    public static Tab TabOf(NpcQuestStatus s)
+    {
+        switch (s)
+        {
+            case NpcQuestStatus.Ready:
+            case NpcQuestStatus.Active:
+                return Tab.Active;
+            case NpcQuestStatus.Done:
+                return Tab.Done;
+            default:
+                return Tab.Available;
+        }
     }
 
     /// <summary>받을 수 있는 퀘스트: 수락 가능을 먼저, 레벨 부족(회색)을 뒤에. 각각 표 순서</summary>

@@ -20,6 +20,7 @@ public partial class NpcQuestWindow : MonoBehaviour
     private InputAction _up, _down, _left, _right, _select, _confirm, _back;
     private readonly QuestWindowView _v = new QuestWindowView();
     private readonly List<Row> _rows = new List<Row>(); // 커서 단위: 구역 머리글(접기 대상) + 펼쳐진 구역의 퀘스트
+    private readonly Dictionary<string, Sprite> _icons = new Dictionary<string, Sprite>(); // 목록 아이콘 캐시(null 포함)
     private QuestFilter _entrance; // null = 일반 모드
     private QuestListRules.Tab _tab;
     private int _cursor, _first;
@@ -232,25 +233,19 @@ public partial class NpcQuestWindow : MonoBehaviour
         _open = true;
         _cursor = 0;
         _first = 0;
-        _tab = entrance != null ? EntranceStartTab(entrance) : QuestListRules.Tab.Active;
+        _tab = entrance != null ? QuestListRules.Tab.All : QuestListRules.Tab.Active; // 입구는 받은 것·안 받은 것을 상태순 한 목록으로(U6)
         _notice = "";
         _openedAt = Time.unscaledTime;
         UiLock.Set("NpcQuest", true);
         _action.UI.Enable();
         _v.Panel.SetActive(true);
         Redraw();
-        Sfx.Play(SfxId.UiOpen);
-    }
-
-    /// <summary>입구는 받을 게 있으면 받을 수 있는 탭, 아니면 진행 중 탭부터</summary>
-    private static QuestListRules.Tab EntranceStartTab(QuestFilter f)
-    {
-        QuestFilter probe = Clone(f, QuestListRules.Tab.Available);
-        if (QuestService.Query(probe).Items.Count > 0)
+        if (_rows.Count > 1 && _rows[0].Quest == null && _rows[1].Quest != null)
         {
-            return QuestListRules.Tab.Available;
+            _cursor = 1; // 첫 머리글이 아니라 첫 퀘스트를 고른 채로 연다(상세가 바로 보이게)
+            Redraw();
         }
-        return QuestService.Query(Clone(f, QuestListRules.Tab.Active)).Items.Count > 0 ? QuestListRules.Tab.Active : QuestListRules.Tab.Available;
+        Sfx.Play(SfxId.UiOpen);
     }
 
     private void Close()
@@ -296,6 +291,12 @@ public partial class NpcQuestWindow : MonoBehaviour
         return CurrentRow()?.Quest;
     }
 
+    /// <summary>퀘스트가 실제로 속한 탭 — 전체 탭에서는 상태로 판정(수락·보고·추적·포기 버튼을 상태에 맞춘다)</summary>
+    private QuestListRules.Tab RowTab(NpcQuestDef d)
+    {
+        return _tab == QuestListRules.Tab.All ? QuestListRules.TabOf(QuestService.StatusOf(d)) : _tab;
+    }
+
     private void OnRowClick(int slot)
     {
         ClearUiFocus();
@@ -335,7 +336,7 @@ public partial class NpcQuestWindow : MonoBehaviour
     {
         ClearUiFocus();
         NpcQuestDef cur = CurrentQuest();
-        if (cur == null || _tab != QuestListRules.Tab.Active)
+        if (cur == null || RowTab(cur) != QuestListRules.Tab.Active)
         {
             return;
         }
@@ -357,7 +358,7 @@ public partial class NpcQuestWindow : MonoBehaviour
     {
         ClearUiFocus();
         NpcQuestDef cur = CurrentQuest();
-        if (cur == null || _tab != QuestListRules.Tab.Active)
+        if (cur == null || RowTab(cur) != QuestListRules.Tab.Active)
         {
             return;
         }
@@ -403,7 +404,8 @@ public partial class NpcQuestWindow : MonoBehaviour
             return;
         }
         NpcQuestStatus s = QuestService.StatusOf(d);
-        if (_tab == QuestListRules.Tab.Available)
+        QuestListRules.Tab tab = RowTab(d);
+        if (tab == QuestListRules.Tab.Available)
         {
             if (!QuestService.CanAccept(d, out string reason))
             {
@@ -416,7 +418,7 @@ public partial class NpcQuestWindow : MonoBehaviour
                 Sfx.Play(SfxId.UiOpen, 0.6f);
             }
         }
-        else if (_tab == QuestListRules.Tab.Active)
+        else if (tab == QuestListRules.Tab.Active)
         {
             if (s != NpcQuestStatus.Ready)
             {

@@ -29,6 +29,12 @@ public static class ItemIconLoader
         return sprite;
     }
 
+    /// <summary>경고 없이 읽는다 (없을 수 있는 이름을 확인할 때 — 퀘스트 목록 아이콘 대체 판정)</summary>
+    public static Sprite LoadQuiet(string itemName)
+    {
+        return string.IsNullOrEmpty(itemName) ? null : Resources.Load<Sprite>("Item/" + itemName);
+    }
+
     /// <summary>이미 경고한 이름인지(테스트용)</summary>
     public static bool HasWarned(string itemName)
     {

@@ -4,21 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 퀘스트 창(Q) 화면 구성 (REWORK-5 P2). 코드 생성 UI: 탭·목록 9줄·상세·보상 아이콘·버튼 3개·포기 확인창.
+/// 퀘스트 창(Q) 화면 구성 (REWORK-5 P2, U6). 코드 생성 UI: 탭 4개(전체·받을 수 있는·진행 중·완료)·목록 9줄(줄마다 아이콘)·상세·보상 아이콘·버튼 3개.
 /// 모든 항목은 Button 이라 마우스로도 조작한다(키보드·패드는 NpcQuestWindow 가 직접 처리).
 /// </summary>
 public sealed class QuestWindowView
 {
     public const int Rows = 9;
     public const float RowH = 56f;
+    public static readonly int TabCount = QuestListRules.Order.Length; // 탭 수 = 화면 순서 배열 길이(어긋나지 않게)
+    private const float ListW = 440f;
+    private const float DetailX = 496f;
+    private const float DetailW = 660f;
 
     public GameObject Panel;
     public TextMeshProUGUI Title, Hint, Detail, RewardHeader, RewardText, Guide, ListInfo;
-    public readonly Button[] Tabs = new Button[3];
-    public readonly TextMeshProUGUI[] TabText = new TextMeshProUGUI[3];
+    /// <summary>탭 배열은 QuestListRules.Tab 정수로 찾는다 (화면 위치는 QuestListRules.Order 순서)</summary>
+    public readonly Button[] Tabs = new Button[TabCount];
+    public readonly TextMeshProUGUI[] TabText = new TextMeshProUGUI[TabCount];
     public readonly Button[] RowButtons = new Button[Rows];
     public readonly Image[] RowBg = new Image[Rows];
     public readonly TextMeshProUGUI[] RowText = new TextMeshProUGUI[Rows];
+    public readonly Image[] RowIcon = new Image[Rows];
     public Button Primary, Track, Abandon, Close;
     public TextMeshProUGUI PrimaryText, TrackText, AbandonText;
     public Image RewardIcon;
@@ -41,67 +47,78 @@ public sealed class QuestWindowView
         pr.anchorMin = pr.anchorMax = new Vector2(0.5f, 0.5f);
         pr.sizeDelta = new Vector2(1180f, 700f);
 
-        Title = NewText("Title", pr, theme, 38f);
+        Title = NewText("Title", pr, theme, 34f);
         Place(Title.rectTransform, new Vector2(30f, -18f), new Vector2(210f, 54f));
         Title.text = "퀘스트";
         Title.color = theme.unique;
-        float[] tabX = { 250f, 500f, 700f };
-        float[] tabW = { 240f, 190f, 170f };
-        for (int i = 0; i < 3; i++)
+        Title.enableAutoSizing = true; // 입구 이름(떠돌이 탐험가 이브 등)이 길어도 칸 안에
+        Title.fontSizeMin = 20f;
+        Title.fontSizeMax = 34f;
+        float[] tabW = { 140f, 240f, 190f, 170f }; // Order 순서: 전체 · 받을 수 있는 · 진행 중 · 완료
+        float x = 250f;
+        for (int i = 0; i < TabCount; i++)
         {
-            int idx = i;
-            Tabs[i] = NewButton("Tab" + i, pr, theme, new Vector2(tabX[i], -16f), new Vector2(tabW[i], 48f), 26f, out TabText[i], () => onTab(idx));
-            TabText[i].alignment = TextAlignmentOptions.Center;
+            int idx = (int)QuestListRules.Order[i];
+            Tabs[idx] = NewButton("Tab" + idx, pr, theme, new Vector2(x, -16f), new Vector2(tabW[i], 48f), 26f, out TabText[idx], () => onTab(idx));
+            TabText[idx].alignment = TextAlignmentOptions.Center;
+            x += tabW[i] + 6f;
         }
         Close = NewButton("Close", pr, theme, new Vector2(1040f, -16f), new Vector2(110f, 48f), 24f, out TextMeshProUGUI closeText, onClose);
         closeText.text = "닫기";
         closeText.alignment = TextAlignmentOptions.Center;
 
         Image left = theme.NewPanel("ListBg", pr, true);
-        Place(left.rectTransform, new Vector2(30f, -76f), new Vector2(380f, Rows * RowH + 14f));
+        Place(left.rectTransform, new Vector2(30f, -76f), new Vector2(ListW, Rows * RowH + 14f));
         for (int i = 0; i < Rows; i++)
         {
             int idx = i;
-            Button b = NewButton("Row" + i, left.transform, theme, new Vector2(6f, -7f - i * RowH), new Vector2(368f, RowH - 2f), 24f, out RowText[i], () => onRow(idx));
+            Button b = NewButton("Row" + i, left.transform, theme, new Vector2(6f, -7f - i * RowH), new Vector2(ListW - 12f, RowH - 2f), 24f, out RowText[i], () => onRow(idx));
             b.transition = Selectable.Transition.None;
             RowButtons[i] = b;
             RowBg[i] = b.GetComponent<Image>();
             RowText[i].enableWordWrapping = false;
             RowText[i].overflowMode = TextOverflowModes.Truncate;
             RowText[i].alignment = TextAlignmentOptions.Left;
-            RowText[i].rectTransform.offsetMin = new Vector2(8f, 0f);
+            RowText[i].rectTransform.offsetMin = new Vector2(52f, 0f);
+            var rowIconGo = new GameObject("Icon", typeof(RectTransform), typeof(Image));
+            rowIconGo.transform.SetParent(b.transform, false);
+            RowIcon[i] = rowIconGo.GetComponent<Image>();
+            RowIcon[i].raycastTarget = false;
+            RowIcon[i].preserveAspect = true;
+            Place(RowIcon[i].rectTransform, new Vector2(8f, -8f), new Vector2(38f, 38f));
+            RowIcon[i].gameObject.SetActive(false); // 스프라이트가 없으면 흰 네모가 되므로 그릴 때만 켠다
         }
         ListInfo = NewText("ListInfo", pr, theme, 20f);
-        Place(ListInfo.rectTransform, new Vector2(30f, -(76f + Rows * RowH + 18f)), new Vector2(380f, 26f));
+        Place(ListInfo.rectTransform, new Vector2(30f, -(76f + Rows * RowH + 18f)), new Vector2(ListW, 26f));
         ListInfo.alignment = TextAlignmentOptions.Right;
         ListInfo.color = new Color(1f, 1f, 1f, 0.5f);
 
-        Detail = NewText("Detail", pr, theme, 26f);
-        Place(Detail.rectTransform, new Vector2(436f, -80f), new Vector2(720f, 250f));
+        Detail = NewText("Detail", pr, theme, 24f);
+        Place(Detail.rectTransform, new Vector2(DetailX, -80f), new Vector2(DetailW, 250f));
         Detail.enableWordWrapping = true;
         Detail.overflowMode = TextOverflowModes.Truncate;
 
-        RewardHeader = NewText("RewardHeader", pr, theme, 26f);
-        Place(RewardHeader.rectTransform, new Vector2(436f, -340f), new Vector2(720f, 32f));
+        RewardHeader = NewText("RewardHeader", pr, theme, 24f);
+        Place(RewardHeader.rectTransform, new Vector2(DetailX, -340f), new Vector2(DetailW, 32f));
         RewardHeader.text = "<color=#88AACC>-- 보상 --</color>";
         var iconGo = new GameObject("RewardIcon", typeof(RectTransform), typeof(Image));
         iconGo.transform.SetParent(pr, false);
         RewardIcon = iconGo.GetComponent<Image>();
         RewardIcon.raycastTarget = false;
         RewardIcon.preserveAspect = true;
-        Place(RewardIcon.rectTransform, new Vector2(436f, -376f), new Vector2(40f, 40f));
-        RewardText = NewText("RewardText", pr, theme, 26f);
-        Place(RewardText.rectTransform, new Vector2(486f, -382f), new Vector2(670f, 36f));
+        Place(RewardIcon.rectTransform, new Vector2(DetailX, -376f), new Vector2(40f, 40f));
+        RewardText = NewText("RewardText", pr, theme, 24f);
+        Place(RewardText.rectTransform, new Vector2(DetailX + 50f, -382f), new Vector2(DetailW - 50f, 36f));
         RewardText.enableWordWrapping = false;
 
         Guide = NewText("Guide", pr, theme, 24f);
-        Place(Guide.rectTransform, new Vector2(436f, -432f), new Vector2(720f, 150f));
+        Place(Guide.rectTransform, new Vector2(DetailX, -432f), new Vector2(DetailW, 150f));
         Guide.enableWordWrapping = true;
         Guide.overflowMode = TextOverflowModes.Truncate;
 
-        Primary = NewButton("Primary", pr, theme, new Vector2(436f, -588f), new Vector2(180f, 46f), 24f, out PrimaryText, onPrimary);
-        Track = NewButton("Track", pr, theme, new Vector2(626f, -588f), new Vector2(180f, 46f), 24f, out TrackText, onTrack);
-        Abandon = NewButton("Abandon", pr, theme, new Vector2(816f, -588f), new Vector2(180f, 46f), 24f, out AbandonText, onAbandon);
+        Primary = NewButton("Primary", pr, theme, new Vector2(DetailX, -588f), new Vector2(180f, 46f), 24f, out PrimaryText, onPrimary);
+        Track = NewButton("Track", pr, theme, new Vector2(DetailX + 190f, -588f), new Vector2(180f, 46f), 24f, out TrackText, onTrack);
+        Abandon = NewButton("Abandon", pr, theme, new Vector2(DetailX + 380f, -588f), new Vector2(180f, 46f), 24f, out AbandonText, onAbandon);
         foreach (TextMeshProUGUI t in new[] { PrimaryText, TrackText, AbandonText })
         {
             t.alignment = TextAlignmentOptions.Center;

@@ -22,6 +22,85 @@ public static class QuestWindowText
         }
     }
 
+    /// <summary>상태 이름 (전체 탭 머리글·상세)</summary>
+    public static string StateName(NpcQuestStatus s)
+    {
+        switch (s)
+        {
+            case NpcQuestStatus.Ready: return "완료 가능";
+            case NpcQuestStatus.Active: return "진행 중";
+            case NpcQuestStatus.Available: return "수락 가능";
+            case NpcQuestStatus.LevelLow: return "레벨 부족";
+            case NpcQuestStatus.Done: return "완료";
+            default: return "잠김";
+        }
+    }
+
+    /// <summary>상태 색: 완료 가능 금색 · 진행 중 하늘색 · 수락 가능 노랑 · 레벨 부족 회색 · 완료 연두 회색</summary>
+    public static string StateColor(NpcQuestStatus s)
+    {
+        switch (s)
+        {
+            case NpcQuestStatus.Ready: return Gold;
+            case NpcQuestStatus.Active: return "#7FE0FF";
+            case NpcQuestStatus.Available: return "#FFF3A0";
+            case NpcQuestStatus.Done: return "#88BB88";
+            default: return Grey;
+        }
+    }
+
+    /// <summary>전체 탭 머리글: 상태별 묶음</summary>
+    public static string StateHeader(NpcQuestStatus s)
+    {
+        return "<color=" + StateColor(s) + ">- " + StateName(s) + " -</color>";
+    }
+
+    /// <summary>유형별 대체 아이콘 (기존 아이템 아이콘 재사용, 새 그림 없음): 메인 귀환 주문서 · 사이드 룬석 · 보상 고블린 주화 · 현상 녹슨 검</summary>
+    public static string KindIcon(NpcQuestDef d)
+    {
+        switch (QuestService.KindTag(d))
+        {
+            case "주": return "Recall Scroll";
+            case "서": return "Forgotten Runestone";
+            case "현": return "RustedSword";
+            default: return "Tarnished Goblin Coin";
+        }
+    }
+
+    /// <summary>목록 아이콘 이름: 보상 아이템 아이콘이 있으면 그것, 없으면 유형별 대체 (빈 칸·흰 네모 없음)</summary>
+    public static string IconName(NpcQuestDef d, System.Func<string, bool> hasIcon)
+    {
+        if (d != null && !string.IsNullOrEmpty(d.RewardItem) && hasIcon(d.RewardItem))
+        {
+            return d.RewardItem;
+        }
+        return KindIcon(d);
+    }
+
+    /// <summary>창 제목: 일반 모드 "퀘스트", 입구 모드는 입구 이름(의뢰 게시판·사냥 현상·구역 안내판·NPC 이름)</summary>
+    public static string EntranceTitle(QuestFilter f)
+    {
+        if (f == null)
+        {
+            return "퀘스트";
+        }
+        if (f.ZoneKeys != null)
+        {
+            return "구역 안내판";
+        }
+        if (f.Source == "bounty")
+        {
+            return "사냥 현상";
+        }
+        return string.IsNullOrEmpty(f.Giver) ? "퀘스트" : NpcQuestCatalog.NpcName(f.Giver);
+    }
+
+    /// <summary>퀘스트를 주는 쪽의 표시 이름 (현상은 푯말)</summary>
+    public static string GiverName(NpcQuestDef d)
+    {
+        return QuestService.IsBounty(d) ? NpcQuestCatalog.NpcName(QuestBountyLink.Giver) : NpcQuestCatalog.NpcName(d.Giver);
+    }
+
     public static string Header(NpcQuestDef d, bool ready, bool low)
     {
         if (ready)
@@ -48,7 +127,7 @@ public static class QuestWindowText
         {
             sb.Append(" (Lv ").Append(d.MinLevel).Append(')');
         }
-        sb.Append("</color><pos=312><color=#777777>").Append(QuestService.KindTag(d)).Append("</color>");
+        sb.Append("</color><pos=340><color=#777777>").Append(QuestService.KindTag(d)).Append("</color>");
         return sb.ToString();
     }
 
@@ -57,7 +136,9 @@ public static class QuestWindowText
     {
         var sb = new StringBuilder();
         sb.Append("<color=").Append(Gold).Append('>').Append(d.Title).Append("</color>  <color=#9ED0FF>Lv ").Append(d.MinLevel)
-          .Append("</color>  <color=#BBBBBB>[").Append(QuestService.KindTag(d)).Append(' ').Append(KindName(d)).Append("]</color>\n");
+          .Append("</color>  <color=#BBBBBB>[").Append(QuestService.KindTag(d)).Append(' ').Append(KindName(d)).Append("]</color>  <color=")
+          .Append(StateColor(status)).Append('>').Append(StateName(status)).Append("</color>\n");
+        sb.Append("<color=#AAAAAA>의뢰인: ").Append(GiverName(d)).Append("  ·  보고: ").Append(QuestService.ReportTarget(d)).Append("</color>\n");
         sb.Append("<color=#CCCCCC>").Append(Summary(d)).Append("</color>\n\n");
         sb.Append("<color=#88AACC>-- 요구 사항 --</color>\n");
         bool ready = status == NpcQuestStatus.Ready;
@@ -97,7 +178,7 @@ public static class QuestWindowText
         return string.IsNullOrEmpty(d.Description) ? QuestService.Objective(d) : d.Description;
     }
 
-    /// <summary>보상 줄 글자 (아이콘은 따로): 아이템 ×n · EXP · 골드 · 강화석 · 성물</summary>
+    /// <summary>보상 줄 글자 (아이콘은 따로): 아이템 ×n · 경험치 · 골드 · 강화석 · 성물</summary>
     public static string RewardLine(NpcQuestDef d)
     {
         var parts = new System.Collections.Generic.List<string>();
@@ -107,11 +188,11 @@ public static class QuestWindowText
         }
         if (d.Exp > 0)
         {
-            parts.Add("EXP " + d.Exp);
+            parts.Add("경험치 " + d.Exp);
         }
         if (d.Gold > 0)
         {
-            parts.Add(d.Gold + " G");
+            parts.Add(d.Gold + " 골드");
         }
         if (d.Stones > 0)
         {
@@ -173,6 +254,7 @@ public static class QuestWindowText
         {
             case QuestListRules.Tab.Available: return "지금 받을 수 있는 퀘스트가 없습니다.\n레벨을 올리거나 선행 퀘스트를 끝내 보세요.";
             case QuestListRules.Tab.Active: return "진행 중인 퀘스트가 없습니다.\n마을 NPC 머리 위 ! 를 찾아 보세요.";
+            case QuestListRules.Tab.All: return "이곳에서 받거나 보고할 퀘스트가 없습니다.";
             default: return "완료한 퀘스트가 없습니다.";
         }
     }
