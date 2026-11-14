@@ -28,5 +28,9 @@
 - (11-14) T5 안개늪 반영 자리: 썩은 통나무 발판(징검 6칸 29장·윗길 36~48칸 14장, 지금은 MagicCliffs 나무 난간 타일 129~176 임시)·물웅덩이 수면 17곳(지금은 sea 스프라이트 틴트 임시)·안개 오버레이(선택). 좌표는 MapLayoutSpec §5 안개늪 줄.
 - (11-14) T1 일반 숲 반영 자리(선택): 1칸 계단 3줄(3칸×6단, x -226~-208·-111~-93·19~37)·윗발판 12장(7~21칸) — 지금은 숲 지면 타일(TileMap1_1·2_3·1 1_0·5_12)·발판 TileMap5_0~2 임시. 경사 연결 그림이 오면 계단 자리를 바꾼다. 좌표는 MapLayoutSpec §5
 
+## 진행 (11-14)
+- 아이콘 없는 아이템 12개 전부 생성: 구역 인장 3종·`BanditPlunderMedal`·`ChiefsLastStandRing`·`TitleWanderer`·`AuraFaintGlow`·`SentryCrossbow`·`HuntersJavelin`·`FairysGrimoire`·`WandererBracelet`·`HunterCharm`. pixflux 32px(검정 외곽선·기본 음영, seed 3101) → 8배 256px. 시안 `Docs/ArtCompare/Icons/missing12/`(교체용 `x256/`, 비교 `sheet.png`). 12생성. 성채 인장은 문양 없이 붉은 밀랍만 나왔다(색으로 구분은 됨). 총괄에 `Resources/Item/` 반영 요청.
+- 제작 방어구 30점은 ItemSheet 이름 기준으로 이미 아이콘이 있다(누락 0).
+
 ## 규칙
 - 그래픽은 사용자 검토 후 적용(`graphics-user-review`). 개발 쪽은 파일 경로·이름 규칙만 맞추면 코드 수정 없이 교체되게 해 두었다(`ItemIconLoader` 폴백 등).
