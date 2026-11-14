@@ -10,6 +10,7 @@ public class EnemyCameraShake : EnemyAction
 
     public override void OnStart()
     {
+        isEnd = false; // 재사용(풀 재활용·BT 재진입) 때 이전 완료 값이 남아 흔들림 없이 끝나지 않게
         ShakeCamera();
     }
 
@@ -20,18 +21,12 @@ public class EnemyCameraShake : EnemyAction
 
     void ShakeCamera()
     {
-        // 시퀀스가 없다면 새로 생성, 있다면 재시작
-        if (shakeSequence == null)
-        {
-            shakeSequence = DOTween.Sequence()
-             .AppendCallback(() => ProCamera2DShake.Instance.Shake(ShakeName))
-            .OnComplete(OnSequenceComplete);
-
-        }
-        else
-        {
-            shakeSequence.Restart(); // 이미 존재하는 시퀀스를 재시작
-        }
+        // 끝난 시퀀스는 DOTween 이 자동 Kill 하므로 Restart 가 먹지 않는다 — 매번 새로 만든다
+        shakeSequence.Kill();
+        shakeSequence = DOTween.Sequence()
+            .AppendCallback(() => ProCamera2DShake.Instance.Shake(ShakeName))
+            .OnComplete(OnSequenceComplete)
+            .SetLink(gameObject);
 
 
     }

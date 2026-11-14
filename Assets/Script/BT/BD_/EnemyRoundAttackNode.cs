@@ -39,10 +39,12 @@ public class EnemyRoundAttackNode : EnemyAction
 
         }
         FaceChange();
+        bt.sequence.Kill(); // 이전 시퀀스가 남아 돌지 않게 재시작 전에 끈다
         bt.sequence = DOTween.Sequence()
        .AppendCallback(() => CreatDamageOb())
        //  .Append(enemyObject.transform.DOMoveX(enemyObject.transform.position.x + moveDistance * direction, moveDuration).SetEase(Ease.Linear))
-       .OnComplete(() => OnSequenceComplete());
+       .OnComplete(() => OnSequenceComplete())
+       .SetLink(enemyObject); // 몹이 파괴되면(풀 초과 등) 같이 끝낸다 — 파괴된 transform 접근 방지
 
     }
 
@@ -68,6 +70,10 @@ public class EnemyRoundAttackNode : EnemyAction
         {
             //var damage = Object.Instantiate(damageOb, new Vector2(player.transform.position.x, attackPivot.transform.position.y), attackPivot.transform.rotation);
             var damage = enemySpowner.GetOb(attackName);
+            if (damage == null)
+            {
+                return; // 풀에 없는 공격(GetOb 가 경고를 남김)
+            }
             damage.transform.position = new Vector2(player.transform.position.x, player.transform.position.y - 1f);
             damage.transform.rotation = attackPivot.transform.rotation;
             damageObject = damage;
@@ -109,6 +115,10 @@ public class EnemyRoundAttackNode : EnemyAction
                 // 탄막 생성
                 //GameObject bullet = GameObject.Instantiate(damageOb, attackPivot.transform.position + new Vector3(x, y, 0f), Quaternion.identity, this.transform);
                 var damage = enemySpowner.GetOb(attackName);
+                if (damage == null)
+                {
+                    return; // 풀에 없는 공격(GetOb 가 경고를 남김)
+                }
                 damage.transform.position = attackPivot.transform.position + new Vector3(x, y, 0f);
                 damage.transform.rotation = Quaternion.identity;
                 if (isSetParent)
@@ -121,7 +131,7 @@ public class EnemyRoundAttackNode : EnemyAction
 
                 var enemyDamageObject = damageObject.GetComponent<EnemyDamageObject>();
                 if (enemyDamageObject != null) enemyDamageObject.enemyOb = this.gameObject; // 분리 생성 탄막도 정예/보스 공격 배율 적용(AUTO-5)
-                if (enemyDamageObject.isLaunch) enemyDamageObject.LaunchObject();
+                if (enemyDamageObject != null && enemyDamageObject.isLaunch) enemyDamageObject.LaunchObject();
             }
 
         }
