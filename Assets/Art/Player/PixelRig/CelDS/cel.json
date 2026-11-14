@@ -3860,54 +3860,54 @@
    {
     "png": "cb_airstab_0",
     "hand": [
-     40,
-     42
+     56,
+     24
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_airstab_1",
     "hand": [
-     40,
-     42
+     56,
+     24
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.06,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_airstab_2",
     "hand": [
-     40,
-     42
+     55,
+     23
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.09,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_airstab_3",
     "hand": [
-     40,
-     42
+     54,
+     23
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 0.0
    }
   ]
  },
@@ -3920,41 +3920,41 @@
    {
     "png": "cb_airdown_0",
     "hand": [
-     40,
-     42
+     44,
+     9
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.08,
-    "angle": -999.0
+    "angle": 120.0
    },
    {
     "png": "cb_airdown_1",
     "hand": [
-     40,
-     42
+     50,
+     39
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.09,
-    "angle": -999.0
+    "angle": 315.0
    },
    {
     "png": "cb_airdown_2",
     "hand": [
-     40,
-     42
+     49,
+     38
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.12,
-    "angle": -999.0
+    "angle": 300.0
    }
   ]
  },
@@ -3967,54 +3967,54 @@
    {
     "png": "cb_airup_0",
     "hand": [
-     40,
-     42
+     46,
+     40
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 300.0
    },
    {
     "png": "cb_airup_1",
     "hand": [
-     40,
-     42
+     55,
+     22
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.06,
-    "angle": -999.0
+    "angle": 20.0
    },
    {
     "png": "cb_airup_2",
     "hand": [
-     40,
-     42
+     46,
+     6
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.09,
-    "angle": -999.0
+    "angle": 75.0
    },
    {
     "png": "cb_airup_3",
     "hand": [
      40,
-     42
+     4
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 100.0
    }
   ]
  },
@@ -4204,54 +4204,54 @@
    {
     "png": "cb_hslash_0",
     "hand": [
-     40,
-     42
+     10,
+     32
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 170.0
    },
    {
     "png": "cb_hslash_1",
     "hand": [
-     40,
-     42
+     11,
+     30
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 165.0
    },
    {
     "png": "cb_hslash_2",
     "hand": [
-     40,
-     42
+     54,
+     30
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 10.0
    },
    {
     "png": "cb_hslash_3",
     "hand": [
-     40,
-     42
+     51,
+     29
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.15,
-    "angle": -999.0
+    "angle": 0.0
    }
   ]
  },
@@ -4264,54 +4264,54 @@
    {
     "png": "cb_xslash_0",
     "hand": [
-     40,
-     42
+     12,
+     15
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 135.0
    },
    {
     "png": "cb_xslash_1",
     "hand": [
-     40,
-     42
+     53,
+     41
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 330.0
    },
    {
     "png": "cb_xslash_2",
     "hand": [
-     40,
-     42
+     53,
+     41
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 330.0
    },
    {
     "png": "cb_xslash_3",
     "hand": [
-     40,
-     42
+     53,
+     41
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.15,
-    "angle": -999.0
+    "angle": 330.0
    }
   ]
  },
@@ -4324,106 +4324,106 @@
    {
     "png": "cb_flurry_0",
     "hand": [
-     40,
-     42
+     41,
+     32
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_flurry_1",
     "hand": [
-     40,
-     42
+     53,
+     31
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_flurry_2",
     "hand": [
-     40,
-     42
+     42,
+     32
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_flurry_3",
     "hand": [
-     40,
-     42
+     41,
+     32
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_flurry_4",
     "hand": [
-     40,
-     42
+     53,
+     31
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_flurry_5",
     "hand": [
-     40,
-     42
+     42,
+     32
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_flurry_6",
     "hand": [
-     40,
-     42
+     41,
+     32
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_flurry_7",
     "hand": [
-     40,
-     42
+     53,
+     31
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 0.0
    }
   ]
  },
@@ -4436,54 +4436,54 @@
    {
     "png": "cb_smash_0",
     "hand": [
-     40,
-     42
+     14,
+     13
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.12,
-    "angle": -999.0
+    "angle": 135.0
    },
    {
     "png": "cb_smash_1",
     "hand": [
-     40,
-     42
+     49,
+     49
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 345.0
    },
    {
     "png": "cb_smash_2",
     "hand": [
-     40,
-     42
+     48,
+     47
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 345.0
    },
    {
     "png": "cb_smash_3",
     "hand": [
-     40,
-     42
+     47,
+     45
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.16,
-    "angle": -999.0
+    "angle": 340.0
    }
   ]
  },
@@ -4496,54 +4496,54 @@
    {
     "png": "cb_bow_0",
     "hand": [
-     40,
-     42
+     54,
+     27
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_bow_1",
     "hand": [
-     40,
-     42
+     50,
+     27
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_bow_2",
     "hand": [
-     40,
-     42
+     49,
+     27
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_bow_3",
     "hand": [
-     40,
-     42
+     47,
+     27
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.15,
-    "angle": -999.0
+    "angle": 0.0
    }
   ]
  },
@@ -4556,54 +4556,54 @@
    {
     "png": "cb_throw_0",
     "hand": [
-     40,
-     42
+     8,
+     19
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 150.0
    },
    {
     "png": "cb_throw_1",
     "hand": [
-     40,
-     42
+     6,
+     21
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 150.0
    },
    {
     "png": "cb_throw_2",
     "hand": [
-     40,
-     42
+     58,
+     28
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_throw_3",
     "hand": [
-     40,
-     42
+     56,
+     34
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.15,
-    "angle": -999.0
+    "angle": 350.0
    }
   ]
  },
@@ -4616,28 +4616,28 @@
    {
     "png": "cb_one_0",
     "hand": [
-     40,
-     42
+     55,
+     27
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_one_1",
     "hand": [
-     40,
-     42
+     38,
+     26
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.16,
-    "angle": -999.0
+    "angle": 0.0
    }
   ]
  },
@@ -4650,28 +4650,28 @@
    {
     "png": "cb_two_0",
     "hand": [
-     40,
-     42
+     35,
+     27
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.08,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_two_1",
     "hand": [
-     40,
-     42
+     55,
+     29
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.18,
-    "angle": -999.0
+    "angle": 0.0
    }
   ]
  },
@@ -4684,41 +4684,41 @@
    {
     "png": "cb_whip_0",
     "hand": [
-     40,
-     42
+     8,
+     19
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.12,
-    "angle": -999.0
+    "angle": 120.0
    },
    {
     "png": "cb_whip_1",
     "hand": [
-     40,
-     42
+     54,
+     37
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.08,
-    "angle": -999.0
+    "angle": 330.0
    },
    {
     "png": "cb_whip_2",
     "hand": [
-     40,
-     42
+     51,
+     30
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.18,
-    "angle": -999.0
+    "angle": 0.0
    }
   ]
  },
@@ -4731,28 +4731,28 @@
    {
     "png": "cb_claw1_0",
     "hand": [
-     40,
-     42
+     54,
+     47
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 330.0
    },
    {
     "png": "cb_claw1_1",
     "hand": [
-     40,
-     42
+     47,
+     45
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.16,
-    "angle": -999.0
+    "angle": 330.0
    }
   ]
  },
@@ -4765,28 +4765,28 @@
    {
     "png": "cb_claw2_0",
     "hand": [
-     40,
-     42
+     42,
+     18
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 70.0
    },
    {
     "png": "cb_claw2_1",
     "hand": [
-     40,
-     42
+     56,
+     44
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.18,
-    "angle": -999.0
+    "angle": 330.0
    }
   ]
  },
@@ -4799,54 +4799,54 @@
    {
     "png": "cb_cast_0",
     "hand": [
-     40,
-     42
+     36,
+     29
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 70.0
    },
    {
     "png": "cb_cast_1",
     "hand": [
-     40,
-     42
+     35,
+     28
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 70.0
    },
    {
     "png": "cb_cast_2",
     "hand": [
-     40,
-     42
+     53,
+     25
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 10.0
    },
    {
     "png": "cb_cast_3",
     "hand": [
-     40,
-     42
+     53,
+     25
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.15,
-    "angle": -999.0
+    "angle": 10.0
    }
   ]
  },
@@ -4859,54 +4859,54 @@
    {
     "png": "cb_dashstab_0",
     "hand": [
-     40,
-     42
+     38,
+     31
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_dashstab_1",
     "hand": [
-     40,
-     42
+     58,
+     31
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_dashstab_2",
     "hand": [
-     40,
-     42
+     56,
+     31
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_dashstab_3",
     "hand": [
-     40,
-     42
+     55,
+     31
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.15,
-    "angle": -999.0
+    "angle": 0.0
    }
   ]
  },
@@ -4919,20 +4919,20 @@
    {
     "png": "cb_lowsweep_0",
     "hand": [
-     40,
-     42
+     14,
+     39
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 200.0
    },
    {
     "png": "cb_lowsweep_1",
     "hand": [
-     40,
+     11,
      42
     ],
     "handB": [
@@ -4940,33 +4940,33 @@
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 195.0
    },
    {
     "png": "cb_lowsweep_2",
     "hand": [
-     40,
-     42
+     46,
+     48
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 320.0
    },
    {
     "png": "cb_lowsweep_3",
     "hand": [
-     40,
-     42
+     52,
+     59
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.15,
-    "angle": -999.0
+    "angle": 10.0
    }
   ]
  },
@@ -4979,54 +4979,54 @@
    {
     "png": "cb_backstep_0",
     "hand": [
-     40,
-     42
+     44,
+     35
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 340.0
    },
    {
     "png": "cb_backstep_1",
     "hand": [
-     40,
-     42
+     43,
+     31
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 340.0
    },
    {
     "png": "cb_backstep_2",
     "hand": [
-     40,
-     42
+     42,
+     32
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 340.0
    },
    {
     "png": "cb_backstep_3",
     "hand": [
-     40,
-     42
+     43,
+     38
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 340.0
    }
   ]
  },
@@ -5039,41 +5039,41 @@
    {
     "png": "cb_roar_0",
     "hand": [
-     40,
-     42
+     45,
+     33
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 340.0
    },
    {
     "png": "cb_roar_1",
     "hand": [
-     40,
-     42
+     44,
+     33
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 340.0
    },
    {
     "png": "cb_roar_2",
     "hand": [
-     40,
-     42
+     43,
+     25
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.3,
-    "angle": -999.0
+    "angle": 80.0
    }
   ]
  },
@@ -5086,54 +5086,54 @@
    {
     "png": "cb_charge_0",
     "hand": [
-     40,
-     42
+     46,
+     36
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 340.0
    },
    {
     "png": "cb_charge_1",
     "hand": [
-     40,
-     42
+     46,
+     37
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 340.0
    },
    {
     "png": "cb_charge_2",
     "hand": [
-     40,
-     42
+     46,
+     38
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 340.0
    },
    {
     "png": "cb_charge_3",
     "hand": [
-     40,
-     42
+     46,
+     37
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 340.0
    }
   ]
  },
@@ -5146,54 +5146,54 @@
    {
     "png": "cb_bowlob_0",
     "hand": [
-     40,
-     42
+     52,
+     15
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 45.0
    },
    {
     "png": "cb_bowlob_1",
     "hand": [
-     40,
-     42
+     48,
+     15
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 45.0
    },
    {
     "png": "cb_bowlob_2",
     "hand": [
-     40,
-     42
+     46,
+     15
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 45.0
    },
    {
     "png": "cb_bowlob_3",
     "hand": [
-     40,
-     42
+     45,
+     15
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.15,
-    "angle": -999.0
+    "angle": 45.0
    }
   ]
  },
@@ -5206,54 +5206,54 @@
    {
     "png": "cb_shbash_0",
     "hand": [
-     40,
-     42
+     31,
+     33
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_shbash_1",
     "hand": [
-     40,
-     42
+     30,
+     34
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_shbash_2",
     "hand": [
-     40,
-     42
+     58,
+     30
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 0.0
    },
    {
     "png": "cb_shbash_3",
     "hand": [
-     40,
-     42
+     57,
+     30
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.15,
-    "angle": -999.0
+    "angle": 0.0
    }
   ]
  },
@@ -5266,54 +5266,54 @@
    {
     "png": "cb_shblock_0",
     "hand": [
-     40,
-     42
+     50,
+     22
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 90.0
    },
    {
     "png": "cb_shblock_1",
     "hand": [
-     40,
-     42
+     47,
+     22
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 90.0
    },
    {
     "png": "cb_shblock_2",
     "hand": [
-     40,
-     42
+     44,
+     22
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 90.0
    },
    {
     "png": "cb_shblock_3",
     "hand": [
-     40,
-     42
+     42,
+     22
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.0,
-    "angle": -999.0
+    "angle": 90.0
    }
   ]
  },
@@ -5326,54 +5326,54 @@
    {
     "png": "cb_spin_0",
     "hand": [
-     40,
-     42
+     11,
+     30
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.08,
-    "angle": -999.0
+    "angle": 180.0
    },
    {
     "png": "cb_spin_1",
     "hand": [
-     40,
-     42
+     8,
+     30
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 180.0
    },
    {
     "png": "cb_spin_2",
     "hand": [
-     40,
-     42
+     24,
+     33
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 225.0
    },
    {
     "png": "cb_spin_3",
     "hand": [
-     40,
-     42
+     57,
+     31
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.14,
-    "angle": -999.0
+    "angle": 0.0
    }
   ]
  },
@@ -5386,67 +5386,67 @@
    {
     "png": "cb_upper_0",
     "hand": [
-     40,
-     42
+     29,
+     39
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 250.0
    },
    {
     "png": "cb_upper_1",
     "hand": [
-     40,
-     42
+     17,
+     37
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 235.0
    },
    {
     "png": "cb_upper_2",
     "hand": [
-     40,
-     42
+     17,
+     37
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.07,
-    "angle": -999.0
+    "angle": 230.0
    },
    {
     "png": "cb_upper_3",
     "hand": [
-     40,
-     42
+     53,
+     20
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.08,
-    "angle": -999.0
+    "angle": 50.0
    },
    {
     "png": "cb_upper_4",
     "hand": [
      40,
-     42
+     7
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.3,
-    "angle": -999.0
+    "angle": 120.0
    }
   ]
  },
@@ -5459,93 +5459,93 @@
    {
     "png": "cb_leapslam_0",
     "hand": [
-     40,
-     42
+     47,
+     21
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.08,
-    "angle": -999.0
+    "angle": 100.0
    },
    {
     "png": "cb_leapslam_1",
     "hand": [
-     40,
-     42
+     46,
+     20
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.08,
-    "angle": -999.0
+    "angle": 100.0
    },
    {
     "png": "cb_leapslam_2",
     "hand": [
-     40,
-     42
+     44,
+     9
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.06,
-    "angle": -999.0
+    "angle": 120.0
    },
    {
     "png": "cb_leapslam_3",
     "hand": [
-     40,
-     42
+     50,
+     39
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.06,
-    "angle": -999.0
+    "angle": 315.0
    },
    {
     "png": "cb_leapslam_4",
     "hand": [
-     40,
-     42
+     49,
+     38
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.06,
-    "angle": -999.0
+    "angle": 300.0
    },
    {
     "png": "cb_leapslam_5",
     "hand": [
-     40,
-     42
+     48,
+     47
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.1,
-    "angle": -999.0
+    "angle": 345.0
    },
    {
     "png": "cb_leapslam_6",
     "hand": [
-     40,
-     42
+     47,
+     45
     ],
     "handB": [
      26,
      42
     ],
     "time": 0.2,
-    "angle": -999.0
+    "angle": 340.0
    }
   ]
  }

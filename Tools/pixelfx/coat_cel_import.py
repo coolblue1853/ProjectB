@@ -4,7 +4,7 @@
       재사용은 Assets/Art/Player/PixelRig/EquipDS/base_coat/<이름>.png (코트 기준 그림)
 결과: Assets/Art/Player/PixelRig/CelDS/cb_<키>_<n>.png + cel.json 항목 추가·교체("outfit": true)
  - outfit = 의상 한 벌 통짜 그림. 리그가 장비 레이어(g2_export 부위 분리)를 합성하지 않는다.
- - 무기 손·각도 채널은 아직 없다(angle -999 = 무기 숨김). TechDebt 참고.
+ - 무기 손·각도 채널은 coat_cel_hands.py 표로 넣는다(가져온 뒤 자동 적용, 피격·대시는 숨김 유지).
  - cel.json 의 다른 항목(기본 칼 3타·이동·점프 등)은 건드리지 않는다.
 다음: Unity 메뉴 Tools/ProjectB/Pixel Rig/Build Adventurer DS.
 사용: python Tools/pixelfx/coat_cel_import.py
@@ -13,6 +13,9 @@ import json
 import os
 import shutil
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from coat_cel_hands import apply  # noqa: E402  무기 손·각도·주먹(11-14)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SRC = os.path.join(ROOT, "Docs/ArtCompare/Motion/coat_basic")
@@ -91,6 +94,7 @@ def main():
             out.append({"png": name, "hand": HAND, "handB": HAND_B, "time": times[n] if times else 0.0, "angle": NO_ANGLE})
         for clip in clips:
             cel[clip] = {"frame": frame, "loop": loop, "strike": strike, "outfit": True, "frames": out}
+    print("hand clips", apply(cel))
     with open(cel_path, "w", encoding="utf-8") as f:
         json.dump(cel, f, indent=1)
     print("clips", len(cel), "coat sets", len(SETS))

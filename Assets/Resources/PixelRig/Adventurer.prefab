@@ -3508,15 +3508,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 814afb01331689744864528d02d3c049, type: 3}
     - {fileID: 21300000, guid: 8d5399ee38c47154f97efb98523140ee, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 340e6fa5fb3d0d640afed5e86e9ad14a, type: 3}
+    - {fileID: 21300000, guid: d24361fc65dce2f498aa59e56aefafc4, type: 3}
+    - {fileID: 21300000, guid: 9b5cfaeb593c781458ecd7875ad99f47, type: 3}
+    - {fileID: 21300000, guid: a2ff6c2f8f7366644aa686ed3657932b, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.6805556, y: 1.0138888}
+    - {x: 0.6805556, y: 1.0138888}
+    - {x: 0.6527778, y: 1.0416666}
+    - {x: 0.625, y: 1.0416666}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -3539,10 +3539,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 0
+    - 0
+    - 0
+    - 0
     strike: 1
     outfit: 1
   - name: AirSwingDown
@@ -3553,13 +3553,13 @@ MonoBehaviour:
     - {fileID: 21300000, guid: d442ef68905c3a7488bf2420922300ee, type: 3}
     - {fileID: 21300000, guid: 00cf39342a032694286bfaf487e4b812, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 51495d5e89d4616478028ea61f3f92bd, type: 3}
+    - {fileID: 21300000, guid: 86d3ecf57fb09044fbe4528e3b017ed4, type: 3}
+    - {fileID: 21300000, guid: e9d62071f05c15e41ae1a375b84b7137, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.3472222, y: 1.4305556}
+    - {x: 0.5138889, y: 0.5972222}
+    - {x: 0.4861111, y: 0.625}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -3578,9 +3578,9 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
+    - 120
+    - 315
+    - 300
     strike: 1
     outfit: 1
   - name: AirSwingUp
@@ -3592,15 +3592,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 0bc59564808d6c94e86c39045ce5d790, type: 3}
     - {fileID: 21300000, guid: 5e69a55933d9be84ba4ff71c2efd7267, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 9159241f51976514b9fdd2102d38b11f, type: 3}
+    - {fileID: 21300000, guid: 723000ff13f3ef44b9a917afe825f259, type: 3}
+    - {fileID: 21300000, guid: e091aeb02cdb3be4bbba148d7ea6d412, type: 3}
+    - {fileID: 21300000, guid: 65dfffcf56ea1c649a9ce2b66e93365a, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.4027778, y: 0.5694444}
+    - {x: 0.6527778, y: 1.0694444}
+    - {x: 0.4027778, y: 1.5138888}
+    - {x: 0.2361111, y: 1.5694444}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -3623,10 +3623,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 300
+    - 20
+    - 75
+    - 100
     strike: 1
     outfit: 1
   - name: AirGreatDown
@@ -3776,15 +3776,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 5a39d83050c7e0e4fa6109fa5df80a94, type: 3}
     - {fileID: 21300000, guid: 3145094c0034b0e4cabb5cdfce8532d2, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: fa9b4f029ebcb6848954f9d8b7aac079, type: 3}
+    - {fileID: 21300000, guid: 8c72081ada499ee4b8e1c63260c3d62b, type: 3}
+    - {fileID: 21300000, guid: 833cc2c6ff9ee384eb8d63e5102dd8d8, type: 3}
+    - {fileID: 21300000, guid: ac5ba6d084ab65d468d2dfa297bc19e8, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: -0.5972222, y: 0.7916667}
+    - {x: -0.5694444, y: 0.8472222}
+    - {x: 0.625, y: 0.8472222}
+    - {x: 0.5416667, y: 0.875}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -3807,10 +3807,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 170
+    - 165
+    - 10
+    - 0
     strike: 2
     outfit: 1
   - name: CoatXSlash
@@ -3822,15 +3822,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 3f3e07255fdb5264d91556df40052894, type: 3}
     - {fileID: 21300000, guid: 02902703c8313a643902ea4faec3f4c6, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 636553d2471f2224ea9fcde330d20d16, type: 3}
+    - {fileID: 21300000, guid: 0fb0cce2751b7e74196e746399baf99f, type: 3}
+    - {fileID: 21300000, guid: 2d6cc84acb0660f42b9750bc3bb9664d, type: 3}
+    - {fileID: 21300000, guid: 9c0c55acc05b3404b8021a991b3f0edc, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: -0.5416667, y: 1.2638888}
+    - {x: 0.5972222, y: 0.5416667}
+    - {x: 0.5972222, y: 0.5416667}
+    - {x: 0.5972222, y: 0.5416667}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -3853,10 +3853,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 135
+    - 330
+    - 330
+    - 330
     strike: 2
     outfit: 1
   - name: CoatFlurry
@@ -3872,23 +3872,23 @@ MonoBehaviour:
     - {fileID: 21300000, guid: f8cf9402fa7fccd46a6dd11777645bdb, type: 3}
     - {fileID: 21300000, guid: 554e431243ed6fc4c8750d45f6573aed, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 33764dd8368b0e9489ab6c78f6830efa, type: 3}
+    - {fileID: 21300000, guid: c9a2798116f9c3c488a99d23ce847701, type: 3}
+    - {fileID: 21300000, guid: 7aaa0e0b0761b694db46f3cf333774b8, type: 3}
+    - {fileID: 21300000, guid: 055ac1a4a4473474d84115f222a12010, type: 3}
+    - {fileID: 21300000, guid: 6209e8536df8ce54092523f984b9e413, type: 3}
+    - {fileID: 21300000, guid: 0b6a5d39ed1019f4f9ce93ed12bc429c, type: 3}
+    - {fileID: 21300000, guid: 58f2b97694d0cfc41a5282343091b92b, type: 3}
+    - {fileID: 21300000, guid: f32572e8cc339b442b049a142f56eb08, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2638889, y: 0.7916667}
+    - {x: 0.5972222, y: 0.8194444}
+    - {x: 0.29166666, y: 0.7916667}
+    - {x: 0.2638889, y: 0.7916667}
+    - {x: 0.5972222, y: 0.8194444}
+    - {x: 0.29166666, y: 0.7916667}
+    - {x: 0.2638889, y: 0.7916667}
+    - {x: 0.5972222, y: 0.8194444}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -3927,14 +3927,14 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
-    - -999
-    - -999
-    - -999
-    - -999
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
     strike: 1
     outfit: 1
   - name: CoatSmash
@@ -3946,15 +3946,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: f0fee6c71970f384d8fe2947bbf8a371, type: 3}
     - {fileID: 21300000, guid: 2bdeaf749e9ba36489fd5c3062a76e11, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: f262970a2670599428a43fa032d17956, type: 3}
+    - {fileID: 21300000, guid: 17e85f2e22b54014b90f12472e5eb890, type: 3}
+    - {fileID: 21300000, guid: 4cb90c8ab1362f04d80aa3692b75ec9a, type: 3}
+    - {fileID: 21300000, guid: c4ea25be35514a0458c32eb3d2f0b3b4, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: -0.4861111, y: 1.3194444}
+    - {x: 0.4861111, y: 0.31944445}
+    - {x: 0.45833334, y: 0.375}
+    - {x: 0.43055555, y: 0.43055555}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -3977,10 +3977,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 135
+    - 345
+    - 345
+    - 340
     strike: 2
     outfit: 1
   - name: CoatBow
@@ -3992,15 +3992,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 6b622f6c1b2280b46bcc7b6b986a3098, type: 3}
     - {fileID: 21300000, guid: 4eaf2677b4bc8df42922b5cc546cba09, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 901bb5d8f06239b458140504b87a4ff5, type: 3}
+    - {fileID: 21300000, guid: 9d7db955c3d5f614fa7f2cf2c16e69b7, type: 3}
+    - {fileID: 21300000, guid: d0d05115eb86cb04aba806c3cc71cd38, type: 3}
+    - {fileID: 21300000, guid: 99cb82307f8d71e4297ed30e105bb905, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.625, y: 0.9305556}
+    - {x: 0.5138889, y: 0.9305556}
+    - {x: 0.4861111, y: 0.9305556}
+    - {x: 0.43055555, y: 0.9305556}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4023,10 +4023,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 0
+    - 0
+    - 0
+    - 0
     strike: 2
     outfit: 1
   - name: CoatThrow
@@ -4038,15 +4038,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: f53c5d4569e9d4a4db4f4f64a27b07f6, type: 3}
     - {fileID: 21300000, guid: 0a29a5272b829964ca7a92cc7a9152ee, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: ce221d48a4d199d4381d22d44dc8860a, type: 3}
+    - {fileID: 21300000, guid: c5c1f2f92fc63514a965d3ce5c1a0b9c, type: 3}
+    - {fileID: 21300000, guid: 8dea61a82a1480449ab4bfcd8ca32ce1, type: 3}
+    - {fileID: 21300000, guid: 19e6e16347b70b1498cff263363a74cc, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: -0.6527778, y: 1.1527778}
+    - {x: -0.7083333, y: 1.0972222}
+    - {x: 0.7361111, y: 0.9027778}
+    - {x: 0.6805556, y: 0.7361111}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4069,10 +4069,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 150
+    - 150
+    - 0
+    - 350
     strike: 2
     outfit: 1
   - name: CoatOne
@@ -4082,11 +4082,11 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 57b74dbfe7a5c444ea143f7aa581449a, type: 3}
     - {fileID: 21300000, guid: 99595fc3b059cce4ba1596c068e22e54, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: a9f51295bb80d3e44b785194d6e8a584, type: 3}
+    - {fileID: 21300000, guid: faace2232f1eb8d4491b117e2f379125, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.6527778, y: 0.9305556}
+    - {x: 0.18055555, y: 0.9583333}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4101,8 +4101,8 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
+    - 0
+    - 0
     strike: 0
     outfit: 1
   - name: CoatTwo
@@ -4112,11 +4112,11 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 9209ebf1b3fd4564cbdcf34313c9fae9, type: 3}
     - {fileID: 21300000, guid: 22251af8fb2ccb24f9351268d1577c8a, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 434a75b14d8b9f645897040727e78192, type: 3}
+    - {fileID: 21300000, guid: 622246ef306af504687a1e77a3f53225, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.097222224, y: 0.9305556}
+    - {x: 0.6527778, y: 0.875}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4131,8 +4131,8 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
+    - 0
+    - 0
     strike: 1
     outfit: 1
   - name: CoatWhip
@@ -4143,13 +4143,13 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 56302bdc614575b45b1889100164436f, type: 3}
     - {fileID: 21300000, guid: fc4e01bbdae7beb4a8df57c8e80f251d, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 69fb99e5c3fb2dd4aa0db4d29162454c, type: 3}
+    - {fileID: 21300000, guid: 1f9b88c52d2a3f544bb850b89bd4c529, type: 3}
+    - {fileID: 21300000, guid: ef4616ba92f13a140b8d0bd0dbbb2a24, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: -0.6527778, y: 1.1527778}
+    - {x: 0.625, y: 0.6527778}
+    - {x: 0.5416667, y: 0.8472222}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4168,9 +4168,9 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
+    - 120
+    - 330
+    - 0
     strike: 1
     outfit: 1
   - name: CoatClaw1
@@ -4180,11 +4180,11 @@ MonoBehaviour:
     - {fileID: 21300000, guid: adf4986364b1abf4aa064b8de986e418, type: 3}
     - {fileID: 21300000, guid: 239afd51660895d40a58e6d970b5f31f, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: c182c91019aebfa4fa26e8c0019c66ee, type: 3}
+    - {fileID: 21300000, guid: 1c49a11563f2bb44996831be53f6a34d, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.625, y: 0.375}
+    - {x: 0.43055555, y: 0.43055555}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4199,8 +4199,8 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
+    - 330
+    - 330
     strike: 0
     outfit: 1
   - name: CoatClaw2
@@ -4210,11 +4210,11 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 0d701d7e843765a41be8b3815b51bf25, type: 3}
     - {fileID: 21300000, guid: 187c4eb91244fc345a6d5efdf5c6f230, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 0c332e720dc4dd441b3ac99a8fb5e812, type: 3}
+    - {fileID: 21300000, guid: a1ea6950fa535d246a3d927a19da2cca, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.29166666, y: 1.1805556}
+    - {x: 0.6805556, y: 0.45833334}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4229,8 +4229,8 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
+    - 70
+    - 330
     strike: 1
     outfit: 1
   - name: CoatCast
@@ -4242,15 +4242,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 247d5735cbea06841aa29cb1d8b1d976, type: 3}
     - {fileID: 21300000, guid: d5a364b6007421d4c969b8ad25827050, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: d59195b41f0377140b5f21b70bf4cdd5, type: 3}
+    - {fileID: 21300000, guid: 6c4dc3a1a80939446ba8c2b42b41b75a, type: 3}
+    - {fileID: 21300000, guid: a56a71d10ecc46c4783275ed0cd805a2, type: 3}
+    - {fileID: 21300000, guid: 1ed851dd1a8f9124180419099b1f400e, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.125, y: 0.875}
+    - {x: 0.097222224, y: 0.9027778}
+    - {x: 0.5972222, y: 0.9861111}
+    - {x: 0.5972222, y: 0.9861111}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4273,10 +4273,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 70
+    - 70
+    - 10
+    - 10
     strike: 2
     outfit: 1
   - name: CoatDashStab
@@ -4288,15 +4288,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 135137b37db898048a5fe4f353769fbd, type: 3}
     - {fileID: 21300000, guid: 141874ba2927eab4db8bed16db1ddf4d, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 5a348d50e0ae5da4d9faad95da95d380, type: 3}
+    - {fileID: 21300000, guid: 069941b03514d19468cd6fc08a1b1990, type: 3}
+    - {fileID: 21300000, guid: 4d0e1e9746fd6464ba3f810aaa918fc9, type: 3}
+    - {fileID: 21300000, guid: 17aebb93d02b153428b83632788580c8, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.18055555, y: 0.8194444}
+    - {x: 0.7361111, y: 0.8194444}
+    - {x: 0.6805556, y: 0.8194444}
+    - {x: 0.6527778, y: 0.8194444}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4319,10 +4319,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 0
+    - 0
+    - 0
+    - 0
     strike: 2
     outfit: 1
   - name: CoatLowSweep
@@ -4334,15 +4334,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 0b0d80cb73537dd40bfed5928c1e28d1, type: 3}
     - {fileID: 21300000, guid: d74ea6c67f5ff8344901c3d9bb4e1d36, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 3baf6d6076f9c7f4fbdbb180d5d90d47, type: 3}
+    - {fileID: 21300000, guid: 22d3c64f043c16d4e8c730207beffcaf, type: 3}
+    - {fileID: 21300000, guid: 99ee5f314cb549f4e828a0428924a23c, type: 3}
+    - {fileID: 21300000, guid: 500448565015af4459ed71eeb7a3824d, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: -0.4861111, y: 0.5972222}
+    - {x: -0.5694444, y: 0.5138889}
+    - {x: 0.4027778, y: 0.3472222}
+    - {x: 0.5694444, y: 0.041666668}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4365,10 +4365,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 200
+    - 195
+    - 320
+    - 10
     strike: 2
     outfit: 1
   - name: CoatBackstep
@@ -4380,15 +4380,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 958227c91bc66e745ae5bfdb31da115d, type: 3}
     - {fileID: 21300000, guid: 279df2288caa7c94ca921ddf519c0dcf, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 803091419ee0f83498d113adecc3fde6, type: 3}
+    - {fileID: 21300000, guid: ce24edd61b11f0a469d16864898371c5, type: 3}
+    - {fileID: 21300000, guid: d7eb1a50b6818ff49a7b75178b30ba9a, type: 3}
+    - {fileID: 21300000, guid: cdd9fa4cc985d0c42a94b2329f745394, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.3472222, y: 0.7083333}
+    - {x: 0.31944445, y: 0.8194444}
+    - {x: 0.29166666, y: 0.7916667}
+    - {x: 0.31944445, y: 0.625}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4411,10 +4411,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 340
+    - 340
+    - 340
+    - 340
     strike: -1
     outfit: 1
   - name: CoatRoar
@@ -4425,13 +4425,13 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 4f801250846de094988d1ccea4929bed, type: 3}
     - {fileID: 21300000, guid: 8ba10488aa463484f8a63e419d58e181, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 0bc00f2e4ee90da4f8ba50cb99bf7501, type: 3}
+    - {fileID: 21300000, guid: 3655d9716720a9e4293838f93995929d, type: 3}
+    - {fileID: 21300000, guid: 06a24a92e256fce4ca29b8d15d790786, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.375, y: 0.7638889}
+    - {x: 0.3472222, y: 0.7638889}
+    - {x: 0.31944445, y: 0.9861111}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4450,9 +4450,9 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
+    - 340
+    - 340
+    - 80
     strike: 2
     outfit: 1
   - name: CoatCharge
@@ -4464,15 +4464,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: d617107195e131f48b31359508cc1c90, type: 3}
     - {fileID: 21300000, guid: 2db9ed6fd5bae6f47aec5e4a7f897cc5, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: ebd4a9556cff63549a23056065991db5, type: 3}
+    - {fileID: 21300000, guid: d20c7e484d6844f40863d319b384a6ae, type: 3}
+    - {fileID: 21300000, guid: e331fbabee5677b498e2982f28de9671, type: 3}
+    - {fileID: 21300000, guid: 1079e0d835940d14bbdd34a9f73835c9, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.4027778, y: 0.6805556}
+    - {x: 0.4027778, y: 0.6527778}
+    - {x: 0.4027778, y: 0.625}
+    - {x: 0.4027778, y: 0.6527778}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4495,10 +4495,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 340
+    - 340
+    - 340
+    - 340
     strike: 3
     outfit: 1
   - name: CoatBowLob
@@ -4510,15 +4510,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: cc6cea7986a5c8b4fba3231cc7689672, type: 3}
     - {fileID: 21300000, guid: c832d169035ec524c9bcf88e1fac000d, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: f57dc046d8e8e014882dc798048c4f8e, type: 3}
+    - {fileID: 21300000, guid: 664234e583c14b44cad9df872ded1c15, type: 3}
+    - {fileID: 21300000, guid: c045e3b486af8b046899e99627973473, type: 3}
+    - {fileID: 21300000, guid: d63ec00cc10160a4e986cd8898f58587, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.5694444, y: 1.2638888}
+    - {x: 0.45833334, y: 1.2638888}
+    - {x: 0.4027778, y: 1.2638888}
+    - {x: 0.375, y: 1.2638888}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4541,10 +4541,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 45
+    - 45
+    - 45
+    - 45
     strike: 2
     outfit: 1
   - name: CoatShBash
@@ -4556,15 +4556,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: e098d6cb763c9b04185f265f3debc91c, type: 3}
     - {fileID: 21300000, guid: 92b7c31b3b414cf498d56c9c3d56356d, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 8d7b67b4a8c30b5478df9db965b4e1fd, type: 3}
+    - {fileID: 21300000, guid: 413855cb3ab556a44be3cd2ed173d853, type: 3}
+    - {fileID: 21300000, guid: 23b747892fd2a3e4986c6b9a2240fae7, type: 3}
+    - {fileID: 21300000, guid: 3f0114180d742f44ca81dbcd23948cce, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: -0.013888889, y: 0.7638889}
+    - {x: -0.041666668, y: 0.7361111}
+    - {x: 0.7361111, y: 0.8472222}
+    - {x: 0.7083333, y: 0.8472222}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4587,10 +4587,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 0
+    - 0
+    - 0
+    - 0
     strike: 2
     outfit: 1
   - name: CoatShBlock
@@ -4602,15 +4602,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 45a7d1ac680e44049bfceef8eaba3a0a, type: 3}
     - {fileID: 21300000, guid: f12838ebac39fa64faaf08e93785c1e3, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 6fbac9a246037a64b82340d346d12ab1, type: 3}
+    - {fileID: 21300000, guid: fca518a47e408fc44a9842c4372352ae, type: 3}
+    - {fileID: 21300000, guid: 46f0a01c35cafd645a1500a6785b15ee, type: 3}
+    - {fileID: 21300000, guid: a919dba72967bb34cb8dc3b5ce1f6834, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.5138889, y: 1.0694444}
+    - {x: 0.43055555, y: 1.0694444}
+    - {x: 0.3472222, y: 1.0694444}
+    - {x: 0.29166666, y: 1.0694444}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4633,10 +4633,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 90
+    - 90
+    - 90
+    - 90
     strike: -1
     outfit: 1
   - name: CoatSpin
@@ -4648,15 +4648,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 2d788dbc56cb91f4c885153a1d87292b, type: 3}
     - {fileID: 21300000, guid: 1bc01a5c1ff655b478c9c45f040f2288, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: efb39cd46846b0d4ea5cc5f6684f1294, type: 3}
+    - {fileID: 21300000, guid: 57aa0f3ee6973bb49a50719a894b2aab, type: 3}
+    - {fileID: 21300000, guid: 99c4c45074b342a4c8d60ba50ea0ecf3, type: 3}
+    - {fileID: 21300000, guid: 555d82b3a670fdf47944b1ecccbd088b, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: -0.5694444, y: 0.8472222}
+    - {x: -0.6527778, y: 0.8472222}
+    - {x: -0.20833333, y: 0.7638889}
+    - {x: 0.7083333, y: 0.8194444}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4679,10 +4679,10 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
+    - 180
+    - 180
+    - 225
+    - 0
     strike: 2
     outfit: 1
   - name: CoatUpper
@@ -4695,17 +4695,17 @@ MonoBehaviour:
     - {fileID: 21300000, guid: e3839ab58f60e07489dd40e1609a71e5, type: 3}
     - {fileID: 21300000, guid: 0a2070a92fcd37149a6f0b0f230f6edc, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 9ca54484ff22cf0498117451d6994a80, type: 3}
+    - {fileID: 21300000, guid: 2750970dc3fa0e54d88600a63fa540b1, type: 3}
+    - {fileID: 21300000, guid: 2842b58c45f0e824bacd61179f3d6078, type: 3}
+    - {fileID: 21300000, guid: 57a506b015a4b394dbd09eaa386ff880, type: 3}
+    - {fileID: 21300000, guid: 773f2547aab79cb419892155cb718f9b, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: -0.06944445, y: 0.5972222}
+    - {x: -0.4027778, y: 0.6527778}
+    - {x: -0.4027778, y: 0.6527778}
+    - {x: 0.5972222, y: 1.125}
+    - {x: 0.2361111, y: 1.4861112}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4732,11 +4732,11 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
-    - -999
+    - 250
+    - 235
+    - 230
+    - 50
+    - 120
     strike: 3
     outfit: 1
   - name: CoatLeapSlam
@@ -4751,21 +4751,21 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 032421246af8ce84dbc0bcd010e0a63c, type: 3}
     - {fileID: 21300000, guid: d17e4ff99a1d81b4db6d1561cdb084f1, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: c2c7ce11406f561439f4975d1b7995a9, type: 3}
+    - {fileID: 21300000, guid: 331fd1d0b06d19f4ca81b915dd615eea, type: 3}
+    - {fileID: 21300000, guid: 2cb283701dda5ad4b979681db7edf8c7, type: 3}
+    - {fileID: 21300000, guid: bdbdeb53ba8cf524580cbc58e3c2dbde, type: 3}
+    - {fileID: 21300000, guid: 544dc13944a77ae47909c523114d9229, type: 3}
+    - {fileID: 21300000, guid: 78b1368e3a825ae4cb088291c94ba94c, type: 3}
+    - {fileID: 21300000, guid: e871861e4f721894e890af13a6cd0a48, type: 3}
     hand:
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.43055555, y: 1.0972222}
+    - {x: 0.4027778, y: 1.125}
+    - {x: 0.3472222, y: 1.4305556}
+    - {x: 0.5138889, y: 0.5972222}
+    - {x: 0.4861111, y: 0.625}
+    - {x: 0.45833334, y: 0.375}
+    - {x: 0.43055555, y: 0.43055555}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -4800,13 +4800,13 @@ MonoBehaviour:
     - 1
     - 1
     angles:
-    - -999
-    - -999
-    - -999
-    - -999
-    - -999
-    - -999
-    - -999
+    - 100
+    - 100
+    - 120
+    - 315
+    - 300
+    - 345
+    - 340
     strike: 5
     outfit: 1
   _celArtWeapon: 1
