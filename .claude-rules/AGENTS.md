@@ -112,6 +112,9 @@
 | `Docs/Playtest/InputAudit.md` *(저장소 루트)* | 키보드·패드 조작 점검표(충돌·미지정) |
 | `Docs/Playtest/DedupAudit.md` *(저장소 루트)* | 중복 코드 정리 후보 8건 |
 | `Docs/OpenQuestions.md` *(저장소 루트)* | 사용자 확인이 필요한 기획 질문과 임시 가정 |
+| `Docs/Reference/MapleMaps/README.md` *(저장소 루트)* | 메이플 맵 4천 장 실측 요약(GMS v83): 폭·층·로프·포털·스폰·몹. 맵 설계 개선 재료(복제 금지) |
+| `Docs/Reference/MapleMobs/README.md` *(저장소 루트)* | 메이플 몹 1.5천 종 HP·EXP·방어 곡선(밸런스 기준) |
+| `Docs/Reference/MapleQuests/README.md` *(저장소 루트)* | 메이플 퀘스트 2.7천 개 구조·연계·지역별 말투(원문 없음) |
 | `Docs/MorningQuestions.md` *(저장소 루트)* | 아침에 한 번에 답할 질문 모음(번호·추천) |
 | `Docs/AutomationLog.md` *(저장소 루트)* | 예약 자동 실행 기록과 사용량 예산 규칙 |
 | `Docs/Floor2Data/Preflight.md` *(저장소 루트)* | 2층계 병합 사전 점검(#8 통과) |

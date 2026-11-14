@@ -108,3 +108,4 @@
 - 미해결: L1 2층 EXP 도약 유지(Q-LVREF), 보스 HP(1층 3000~5000, 2층 8000/18000)는 사냥 몹 상향으로 비율이 줄어 재조정 안 함, 초반 장비 스탯 상한(무기 프리팹 수치)은 이번에 점검하지 못함(후속), 1층 Lv6~9 HP 상향은 보류.
 - **11-13 REWORK-10 적용:** L7 1층 Lv4~9 일반 몹 EXP 상향(처치 수/레벨 Lv4 171→133, Lv6~8 262~276→181~184), 미니보스 x20 동반. 깊은 숲 Goblin1 나머지 절반이 2층 CliffGoblin(Lv16·EXP 240)으로 나오던 혼입 제거. 상세 `Docs/Playtest/MapReview.md` §3.
 - (이전) EXP 단차 L7 은 미적용. 사이트 데이터는 WebFetch 요약 기반이며 일부 표본이다.
+- **11-14 실측 자료 위치:** 맵 3,878장·몹 1,564종·퀘스트 2,766개 전수 요약이 `Docs/Reference/MapleMaps/`·`MapleMobs/`·`MapleQuests/`에 있다(maplestory.io GMS v83, 각 README 참조). 이 문서의 사이트 표본 수치보다 전수 자료를 우선한다. 몹 레벨대 곡선은 `MapleMobs/mobs_by_level.md`, Lv1~70 사냥터 통계는 `MapleMaps/levels_1_70.md`.

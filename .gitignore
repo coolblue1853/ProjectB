@@ -78,3 +78,6 @@ crashlytics-build.properties
 # unity-mcp 스크린샷
 /[Aa]ssets/Screenshots/
 /[Aa]ssets/Screenshots.meta
+
+# 메이플 맵 참고 자료 원본 캐시
+Tools/cache/
