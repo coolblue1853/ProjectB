@@ -158,6 +158,11 @@ public class EnemyDamageObject : PoolAble
     /// </summary>
     protected override void OnBeforeRelease()
     {
+        // 부모 몹에 붙은 채 풀로 돌아가면, 몹이 풀 초과로 파괴될 때 풀 안의 판정이 같이 파괴된다(R10)
+        if (transform.parent != null)
+        {
+            transform.SetParent(null);
+        }
         if (sequence != null)
         {
             sequence.Kill();

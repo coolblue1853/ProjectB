@@ -313,6 +313,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnTakeFromPool(GameObject go)
     {
+        if (go == null)
+        {
+            return; // 풀 안에서 파괴된 항목(부모 몹과 함께 파괴된 공격 판정 등). GetOb 가 다음 항목을 꺼낸다(R10)
+        }
         go.SetActive(true);
         activeObjects.Add(go);
     }
@@ -337,7 +341,16 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogWarning($"{name}: '{goName}'은(는) 오브젝트풀에 등록되지 않은 오브젝트입니다.");
             return null;
         }
-        return pool.Get();
+        // 풀 안에서 파괴된 항목은 건너뛴다. 없으면 풀이 새로 만든다(R10)
+        for (int tries = 0; tries < 8; tries++)
+        {
+            GameObject go = pool.Get();
+            if (go != null)
+            {
+                return go;
+            }
+        }
+        return null;
     }
 
     /// <summary>
