@@ -62,7 +62,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 2
   skillImage: {fileID: 21300000, guid: 513683719aec6ba4983c3620febc6a25, type: 3}
-  skillAnim: StrongStab
+  skillAnim: CoatDashStab
   isWeaponStopMove: 1
   _turnDuringCast: 0
   useStemina: 5
@@ -164,7 +164,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: cdb9bf10b51a13a4ba8c6213759e44d7, type: 3}
-  skillAnim: RightHandstabbing_OneHand
+  skillAnim: CoatHSlash
   isWeaponStopMove: 0
   _turnDuringCast: 0
   useStemina: 1

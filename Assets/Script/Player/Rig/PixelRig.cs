@@ -699,9 +699,9 @@ public class PixelRig : CharacterRig
         }
         foreach (CelClip clip in _celClips)
         {
-            if (clip == null || clip.sprites.Length == 0)
+            if (clip == null || clip.sprites.Length == 0 || clip.outfit)
             {
-                continue;
+                continue; // 통짜 의상 셀은 그림 그대로(부위 레이어를 덮으면 옛 그림이 겹친다)
             }
             Sprite[] comp = CelComposer.Compose(clip, ordered);
             _celComposite[clip.name] = comp;

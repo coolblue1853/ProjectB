@@ -59,7 +59,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 18acb0b1ef0486b45b853780cfbef404, type: 3}
-  skillAnim: SwordDownEndless
+  skillAnim: CoatCharge
   isWeaponStopMove: 1
   useStemina: 5
   attckSpeed: 8
@@ -159,7 +159,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: a1a42815d65e21448b2235d794e500ef, type: 3}
-  skillAnim: GreatVashDown
+  skillAnim: CoatSmash
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5
@@ -324,8 +324,8 @@ MonoBehaviour:
   - GreatVashDownDelay
   - GreatSideAttackDelay
   attackAnimName:
-  - GreatVashDown
-  - GreatSideAttack
+  - CoatSmash
+  - CoatHSlash
   spriteReverse: 0000
   skill:
   - {fileID: 342058023}
@@ -707,7 +707,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 9
   skillImage: {fileID: 21300000, guid: edae1dbcf6232414d84f87723ad3a7c5, type: 3}
-  skillAnim: StaffStraight
+  skillAnim: CoatUpper
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 1

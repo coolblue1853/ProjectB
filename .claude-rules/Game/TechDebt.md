@@ -290,3 +290,10 @@
 - (11-14 reviewer-arch, 5a8d91dd8 참고) `EnemySpawner.cs:519-545` 슬롯 보스(isBossMob)가 킬플레인 아래로 떨어지면 보상 없이 제거됨 — 보스는 SweepFallen 제외 또는 기준점 복귀 권장(**해결 a8239e57f**: 보스는 스폰 위치로 복귀). `MobBehaviorRules.ShouldRehome` 은 vy≈0 순간만 봐 공중 정점에서 기준점이 옮겨질 수 있음(희박).
 - (11-14) 덩굴 요정(VineFairy_BD) 속박 미연결: `Floor2MobBehaviorRules.CanVineBind`(사거리 3·쿨 8)는 호출처가 없고 몹은 trait=slow 이동 감속만 한다. 속박(플레이어 이동 잠금·시전 BT·Loc)은 신규 스킬이라 별도 작업 필요.
 - (11-14 Sonnet 총괄 점검, 004165e31) `EffectDetailMode.Poll` 은 툴팁·장비 상세 표시 중에만 호출돼 오발동 없음. 단 도감·스킬트리에서 툴팁을 띄운 채 Tab 을 누르면 탭 전환과 효과 상세 토글이 함께 일어난다(무해). 필요하면 해당 창 열림 시 InputAllowed 에서 차단.
+
+## 11-14 기본 코트 통짜 셀 연결 남은 것 (P2)
+- 통짜 의상 셀(`CelClip.outfit`, `cb_*` 29종)은 부위 레이어 합성을 건너뛴다. 기본 코트 외 의상(잎사귀 등)을 입어도 이 셀들은 코트로 보인다 → 의상별 셀 묶음(의상 id → 셀 접두)으로 고르는 경로가 필요하다.
+- 부위 분리 경로(`g2_export.py` 5부위, `CelEquipSync`·`CelComposer`·`base_coat_*`/`leaf_set_*` 레이어)는 그대로 남아 있다. 의상 한 벌 구조가 확정되면 이동·3타 셀도 통짜로 바꾸고 이 경로를 정리한다(큰 리팩터라 이번엔 안 함). 제거 조건: cel.json 에서 outfit 아닌 클립(이동·3타 포함)이 0개가 되고 모든 의상이 통짜 셀 묶음을 가질 때.
+- 새 코트 셀은 무기 손·각도 채널이 없다(angle -999 = 무기 숨김). 평타·스킬 중 무기가 안 보인다. 셀마다 주먹 좌표·칼 각도(`build_cel_ds.py` HAND_OVERRIDE 방식)를 넣어야 한다.
+- `build_cel_ds.py` 는 CelDS 를 통째로 지우고 ds01 원본으로 다시 쓴다(g2 속옷 바탕·코트 셀이 사라짐). 다시 돌리면 `g2_export.py` → `coat_cel_import.py` 순서로 복구해야 한다.
+- 돌진 베기·뒤로 빠지기 등은 그림만 바꿨다. 스킬 이동 거리·판정 시점이 새 셀과 맞는지 미확인.

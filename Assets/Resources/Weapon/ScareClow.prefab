@@ -74,7 +74,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: c7da0a71e3d4c8b44932df2dd7f693c8, type: 3}
-  skillAnim: Dash
+  skillAnim: CoatDashStab
   isWeaponStopMove: 1
   useStemina: 5
   attckSpeed: 0.4
@@ -179,7 +179,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 3f34559540016944e8c58da076d4ad3c, type: 3}
-  skillAnim: Dash
+  skillAnim: CoatUpper
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5
@@ -310,8 +310,8 @@ MonoBehaviour:
   delayTime: []
   delayAnimName: []
   attackAnimName:
-  - RightPunch
-  - LeftPunch
+  - CoatClaw1
+  - CoatClaw2
   spriteReverse: 0000
   skill:
   - {fileID: 342058023}
@@ -826,7 +826,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 4d45d05cc69d1234ca1b8c8afe6e4766, type: 3}
-  skillAnim: 
+  skillAnim: CoatRoar
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5

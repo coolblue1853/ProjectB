@@ -135,3 +135,30 @@
 - 11-14 무기 전용 4종(4생성, 묶음 `coat_basic/batch_weapon.gif`, 사용자 판정 대기): 활 곡사 `bowlob_g1`(오른쪽 위 45도 조준), 방패 밀치기 `shbash_g1`(1~2칸 정면 가드 후 밀기, 먼지 지움), 방패 막기 `shblock_g1`, 회전 베기 `spin_g1`(등→정면→오른쪽 마무리 한 바퀴, 흰 궤적 좌표로 지움 — 3칸 앞손이 같이 지워짐).
 - 11-14 연타(단검·쌍검, Claude 재량): `flurry_g1` 8장 1생성, 낮은 자세로 빠른 찌르기 3회 + 마지막 뻗기. 왼손 교대는 약하다. 사용자 판정 대기.
 - 주의: `CelDS/ds_*`는 이제 속옷 몸이다. 코트 기준 그림은 `EquipDS/base_coat/`.
+- 11-14 게임 연결(builder, 사용자 "일단 다해봐"): `Tools/pixelfx/coat_cel_import.py` 가 `coat_basic/<폴더>/c1~cN` 을 `CelDS/cb_<키>_<n>.png` 로 복사하고 `cel.json` 에 **통짜 의상 셀**(`"outfit": true` → `CelClip.outfit`, 리그가 부위 레이어 합성을 건너뜀)로 넣는다. 그다음 `Build Adventurer DS`. 기본 칼 3타·이동·점프 셀은 그대로(인게임에서 3타는 여전히 속옷 바탕+코트 레이어 합성 확인). 무기 손·각도 채널이 없어 새 셀 재생 중엔 무기가 안 보인다(TechDebt 11-14).
+  | 셀(클립) | 원본 | 상태 | 쓰는 무기(평타 / 스킬) |
+  |---|---|---|---|
+  | `Hurt` | `hurt_g2` 1~3 | 합격 | 공통 피격 |
+  | `Dash` | `dash_g2` 1~4 | 합격 | 공통 대시, 너클 Hoof Step·Pebble Hop |
+  | `CoatHSlash` | `hslash_g4` 1~4 | 합격 | 둔기·대검 평타 2타, PoisonSword·VineLash 평타 2타 / 한손검 Slash·Vile Ambush, 단검 Swift Assault·Bloodsting, 도끼·낫 수평·Phantom Glide, 창 Charge Forward!·Raid Charge(돌진 베기 = 수평 베기) |
+  | `AirStab`·`AirSwingUp`·`AirSwingDown` | `airstab_g1`·`airup_g1`·`airdown_g2` 2~4 | 임시 | 기본 칼 공중 3타(점프 중 공격) |
+  | `CoatXSlash` | `cross_g3` | 임시 | Fang·Cutthroat 평타 3타, TwinFang 4타 / Backstab·Cross Fang |
+  | `CoatFlurry` | `flurry_g1` 1~8 | 임시 | RatChief·Bloodsting 평타 3타, TwinFang 2타 |
+  | `CoatSmash` | `smash_g1` | 임시 | 둔기·대검 평타 1타 / 내려찍기·지면 강타(Club Smash·Root Tremor·Quake Slam·Aftershock·Gate Cleave·Stone Sentinels 등), Timber Chop, This is Our Turf |
+  | `CoatBow`·`CoatBowLob` | `bow_g2`·`bowlob_g1` | 임시 | 활·석궁 평타·연사 / 화살비·Pitch Shot |
+  | `CoatThrow` | `throw_g2` | 임시 | 투창·아대 평타 / Boulder Toss |
+  | `CoatOne`·`CoatTwo` | `onetwo_g1` 1~2·3~4(둘로 나눔) | 임시 | 너클 평타 2타 / Pincer Flurry |
+  | `CoatWhip` | `whip_use` 1~3 | 임시 | 채찍 평타 |
+  | `CoatClaw1`·`CoatClaw2` | `claw_g1` 1~2·3~4(둘로 나눔) | 임시 | 클로 평타 2타 |
+  | `CoatCast` | `cast_g1` | 임시 | 랜턴·완드·마도서 평타 / 볼트·창·빔(장풍 = 시전), 지팡이 뿌리 |
+  | `CoatDashStab` | `dashstab_g1` | 임시 | 창·채찍·클로·너클 돌진, Fang Rush, Turn and Thrust |
+  | `CoatLowSweep` | `lowsweep_g1` | 임시 | 도끼·낫 Eruption 계열, Ground Sweep |
+  | `CoatBackstep` | `backstep_g1` | 임시 | 단검 버프 1, Sway Back·Shell Back, Falling Leaf Step |
+  | `CoatRoar` | `roar_use` 1~3 | 임시 | Bear Roar·Encroaching Darkness(빈 애니 채움), Rally·Howl·Swarm Call, 치유·축복·고리 |
+  | `CoatCharge` | `charge_g1` | 임시 | 모으기(hold), 단검 버프 2, 순간이동, Haste |
+  | `CoatUpper` | `base_coat/ds_up` 0~4(재사용) | 임시 | Ancient Wrath, 클로 Upswipe·Rising Dread, 너클 Uppercut |
+  | `CoatLeapSlam` | `base_coat/ds_arc` 0~1 + `airdown_g2` 2~4 + `smash_g1` 3~4 | 임시 | 한손검 Smash Down, 채찍 Leap Slam·Pounce Lash |
+  | `CoatShBash`·`CoatShBlock` | `shbash_g1`·`shblock_g1` | 임시 | 방패 강타·막기 |
+  | `CoatSpin` | `spin_g1` | 임시 | 도끼·낫 회전, Scattering Leaves |
+  - 평타 유지(기본 칼 3타 셀): RustedSword, 도끼·낫, 창 2종, 지팡이 2종, 방패 3종, 단검 1타. 무기 40종 152곳 변경, 이름 확인 프로브 152/152.
+  - 검증: 컴파일 0, EditMode 1268/1268, 플레이 모드 낮 전환 후 셀 고정 캡처 `Logs/playtest/coat/g_*.png`·`_ingame_sheet.png`(수평 베기·피격·대시·내려찍기·활·채찍·시전·공중 찌르기·점프 내려찍기·회전). 키보드·패드 실입력으로 무기를 휘둘러 보는 확인은 **미검증**. 판정(5배 흰 바탕)은 사용자 몫.

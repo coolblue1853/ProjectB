@@ -59,7 +59,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 4
   skillImage: {fileID: 21300000, guid: 272cd0aad114ae445aa40b469d5b6207, type: 3}
-  skillAnim: GroundAttack
+  skillAnim: CoatLeapSlam
   isWeaponStopMove: 1
   useStemina: 5
   attckSpeed: 0.7
@@ -157,7 +157,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 3
   skillImage: {fileID: 21300000, guid: acf324f120b882f40a704f1d8e6787d1, type: 3}
-  skillAnim: WideVesh
+  skillAnim: CoatHSlash
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.4

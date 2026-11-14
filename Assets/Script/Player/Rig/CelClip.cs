@@ -26,6 +26,8 @@ public class CelClip
     public const float NoAngle = -999f;
     /// <summary>타격 프레임(그림 속 칼이 지나가는 프레임). -1 이면 MotionFxTable·WeaponFx 표를 쓴다 — 던전 슬래셔 그림체 셀(CelDS, 11-01)은 cel.json 에 직접 적는다</summary>
     public int strike = -1;
+    /// <summary>의상 한 벌(통짜) 셀(11-14 기본 코트 새 셀): 그림에 의상이 이미 그려져 있어 장비 레이어(부위 분리, g2_export)를 합성하지 않는다</summary>
+    public bool outfit;
 
     /// <summary>클립 전체 길이(초) — 프레임별 시간이 있으면 그 합</summary>
     public float Length

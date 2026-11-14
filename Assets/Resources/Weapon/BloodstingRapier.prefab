@@ -62,7 +62,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 1.5
   skillImage: {fileID: 21300000, guid: 595cbfe59d8aa264f853f24da80d0955, type: 3}
-  skillAnim: RightHandVashDown_OneHand
+  skillAnim: CoatHSlash
   isWeaponStopMove: 1
   useStemina: 5
   attckSpeed: 0.5
@@ -339,7 +339,7 @@ MonoBehaviour:
   attackAnimName:
   - RightHandstabbing_OneHand
   - RightHandstabbing_OneHand
-  - RightHandVashDown_OneHand
+  - CoatFlurry
   spriteReverse: 000000
   skill:
   - {fileID: 342058023}
@@ -663,7 +663,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 595cbfe59d8aa264f853f24da80d0955, type: 3}
-  skillAnim: Skill_Blow
+  skillAnim: CoatRoar
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5

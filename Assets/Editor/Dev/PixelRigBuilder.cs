@@ -708,6 +708,7 @@ public static class PixelRigBuilder
         public float frame;
         public bool loop;
         public int strike = -1;
+        public bool outfit;
         public CelFrameJson[] frames;
     }
 
@@ -733,6 +734,11 @@ public static class PixelRigBuilder
         // 직업 외형 셀(10-30): "J<직업>_<셀>" 이름은 목록 없이 전부(build_cel 이 register 의 직업 셀을 넣는다)
         var all = new List<string>(names);
         foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(text, "\"(J[A-Z]{2}_[A-Za-z]+)\": "))
+        {
+            all.Add(m.Groups[1].Value);
+        }
+        // 기본 코트 통짜 의상 셀(11-14, Tools/pixelfx/coat_cel_import.py): "Coat<동작>" 이름은 목록 없이 전부
+        foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(text, "\"(Coat[A-Za-z0-9]+)\": "))
         {
             all.Add(m.Groups[1].Value);
         }
@@ -762,6 +768,7 @@ public static class PixelRigBuilder
             e.FindPropertyRelative("frame").floatValue = clip.frame;
             e.FindPropertyRelative("loop").boolValue = clip.loop;
             e.FindPropertyRelative("strike").intValue = clip.strike;
+            e.FindPropertyRelative("outfit").boolValue = clip.outfit;
             SerializedProperty sp = e.FindPropertyRelative("sprites");
             SerializedProperty fp = e.FindPropertyRelative("fists");
             fp.arraySize = clip.frames.Length;

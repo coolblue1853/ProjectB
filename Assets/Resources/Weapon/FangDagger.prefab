@@ -86,7 +86,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 2e11280555f9f4b4196126aa8bf3a585, type: 3}
-  skillAnim: StabLR
+  skillAnim: CoatDashStab
   isWeaponStopMove: 1
   useStemina: 5
   attckSpeed: 1
@@ -195,7 +195,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 00231801d1251c24a8fbbc97411e230b, type: 3}
-  skillAnim: SpeadBuff
+  skillAnim: CoatBackstep
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5
@@ -295,7 +295,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 5a8592c895b062548b79627fbcbcab97, type: 3}
-  skillAnim: SpeadBuff
+  skillAnim: CoatCharge
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5
@@ -464,7 +464,7 @@ MonoBehaviour:
   attackAnimName:
   - RightHandstabbing_OneHand
   - LeftHandStab
-  - CrossAttack
+  - CoatXSlash
   spriteReverse: 000000
   skill:
   - {fileID: 342058023}
@@ -1300,7 +1300,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 8
   skillImage: {fileID: 21300000, guid: bedb3de5c0bbfda42ac7c586d116e0b7, type: 3}
-  skillAnim: StaffAttack
+  skillAnim: CoatRoar
   isWeaponStopMove: 1
   useStemina: 5
   attckSpeed: 1

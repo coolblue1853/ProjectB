@@ -159,7 +159,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 7b1449a8312509d449e2448e4d53f456, type: 3}
-  skillAnim: DeathSideGround
+  skillAnim: CoatLowSweep
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5
@@ -259,7 +259,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 7b1449a8312509d449e2448e4d53f456, type: 3}
-  skillAnim: GreatSideAttack
+  skillAnim: CoatHSlash
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5
@@ -778,7 +778,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 7b1449a8312509d449e2448e4d53f456, type: 3}
-  skillAnim: Spining
+  skillAnim: CoatSpin
   isWeaponStopMove: 0
   useStemina: 5
   attckSpeed: 5

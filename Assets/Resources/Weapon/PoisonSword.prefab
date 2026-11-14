@@ -59,7 +59,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: f16cd36fd89685f48b375797d15b21ed, type: 3}
-  skillAnim: SideAttack
+  skillAnim: CoatHSlash
   isWeaponStopMove: 1
   useStemina: 5
   attckSpeed: 1
@@ -159,7 +159,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: 7292ceafe9f653d4a95d063f16a2b755, type: 3}
-  skillAnim: SwordDown
+  skillAnim: CoatSmash
   isWeaponStopMove: 1
   useStemina: 1
   attckSpeed: 0.5
@@ -290,7 +290,7 @@ MonoBehaviour:
   delayAnimName: []
   attackAnimName:
   - RightHandVashDown_OneHand
-  - SideAttack
+  - CoatHSlash
   spriteReverse: 0000
   skill:
   - {fileID: 342058023}

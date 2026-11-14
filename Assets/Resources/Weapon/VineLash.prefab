@@ -62,7 +62,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 2
   skillImage: {fileID: 21300000, guid: c6d23b2054a38df46a257213c4addd85, type: 3}
-  skillAnim: StrongStab
+  skillAnim: CoatDashStab
   isWeaponStopMove: 1
   _turnDuringCast: 0
   useStemina: 5
@@ -164,7 +164,7 @@ MonoBehaviour:
   isButtonDownSkill: 1
   SkillCoolTime: 0.1
   skillImage: {fileID: 21300000, guid: c6d23b2054a38df46a257213c4addd85, type: 3}
-  skillAnim: RightHandstabbing_OneHand
+  skillAnim: CoatLeapSlam
   isWeaponStopMove: 0
   _turnDuringCast: 0
   useStemina: 1
@@ -296,8 +296,8 @@ MonoBehaviour:
   delayTime: []
   delayAnimName: []
   attackAnimName:
-  - RightHandstabbing_OneHand
-  - RightHandVashDown_OneHand
+  - CoatWhip
+  - CoatHSlash
   spriteReverse: 0000
   skill:
   - {fileID: 342058023}

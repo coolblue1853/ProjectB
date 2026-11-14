@@ -664,6 +664,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: Walk
     frame: 0.1
     loop: 1
@@ -741,6 +742,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: Run
     frame: 0.08
     loop: 1
@@ -818,6 +820,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: JumpCrouch
     frame: 0.08
     loop: 0
@@ -839,6 +842,7 @@ MonoBehaviour:
     angles:
     - -999
     strike: -1
+    outfit: 0
   - name: JumpArc
     frame: 0.1
     loop: 0
@@ -876,6 +880,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: Land
     frame: 0.06
     loop: 0
@@ -913,23 +918,16 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: Dash
-    frame: 0.08
-    loop: 1
+    frame: 0.05
+    loop: 0
     sprites:
-    - {fileID: 21300000, guid: 53154daae6ef652459558cb4b3096638, type: 3}
-    - {fileID: 21300000, guid: 8424f97029c35464996c1bf56b498cbf, type: 3}
-    - {fileID: 21300000, guid: 410fdde1adb076f4cb77d1cd1e38d433, type: 3}
-    - {fileID: 21300000, guid: 9445bb309e891c0478f19dff0bb4e3d8, type: 3}
-    - {fileID: 21300000, guid: 4feaad58de80ace408bf511701037a1b, type: 3}
-    - {fileID: 21300000, guid: 0ac194773b09a7147a0f345ec866e3b2, type: 3}
-    - {fileID: 21300000, guid: 884c62135b664e84ea17d4efcf7693d6, type: 3}
-    - {fileID: 21300000, guid: 121568f0dc22db74ab99c72f91a8b4da, type: 3}
+    - {fileID: 21300000, guid: 48a0213e338cd064ea931ef49da23ebb, type: 3}
+    - {fileID: 21300000, guid: 3da031a2891ca724ca097a346053e749, type: 3}
+    - {fileID: 21300000, guid: 860eafd78edff7f4c9d68bc3ad98f3ae, type: 3}
+    - {fileID: 21300000, guid: d4b736ae1ab44fc4ab9b2a20bdbe1908, type: 3}
     fists:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -939,15 +937,7 @@ MonoBehaviour:
     - {x: 0.2361111, y: 0.5138889}
     - {x: 0.2361111, y: 0.5138889}
     - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
     handB:
-    - {x: -0.15277778, y: 0.5138889}
-    - {x: -0.15277778, y: 0.5138889}
-    - {x: -0.15277778, y: 0.5138889}
-    - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
@@ -957,16 +947,8 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    behind: 0000000000000000
+    behind: 00000000
     anglesB:
-    - -999
-    - -999
-    - -999
-    - -999
     - -999
     - -999
     - -999
@@ -976,27 +958,20 @@ MonoBehaviour:
     - 1
     - 1
     - 1
-    - 1
-    - 1
-    - 1
-    - 1
     angles:
     - -999
     - -999
     - -999
     - -999
-    - -999
-    - -999
-    - -999
-    - -999
     strike: -1
+    outfit: 1
   - name: Hurt
-    frame: 0.08
+    frame: 0.075
     loop: 0
     sprites:
-    - {fileID: 21300000, guid: e53a463ad18446344bfba15c3d3bad4a, type: 3}
-    - {fileID: 21300000, guid: 2c2d17c746e64cb4bbaddb12160b02e4, type: 3}
-    - {fileID: 21300000, guid: d0dd75fac3e5a754db38911eae82bc13, type: 3}
+    - {fileID: 21300000, guid: 45e459fa4e1da2f4592bdc31c53ba678, type: 3}
+    - {fileID: 21300000, guid: 5c27bc94ee4c15a4f9f53ee6e1e7c89f, type: 3}
+    - {fileID: 21300000, guid: 293672264ec834849b6997c6a83082b2, type: 3}
     fists:
     - {fileID: 0}
     - {fileID: 0}
@@ -1027,6 +1002,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 1
   - name: Death
     frame: 0.1
     loop: 0
@@ -1104,6 +1080,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: Stab
     frame: 0.083
     loop: 0
@@ -1149,6 +1126,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: SwingDown
     frame: 0.083
     loop: 0
@@ -1194,6 +1172,7 @@ MonoBehaviour:
     - 350
     - 330
     strike: 2
+    outfit: 0
   - name: SwingUp
     frame: 0.083
     loop: 0
@@ -1247,6 +1226,7 @@ MonoBehaviour:
     - 50
     - 120
     strike: 3
+    outfit: 0
   - name: RopeUp
     frame: 0.1
     loop: 1
@@ -1308,6 +1288,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: RopeStay
     frame: 0.1
     loop: 1
@@ -1329,6 +1310,7 @@ MonoBehaviour:
     angles:
     - -999
     strike: -1
+    outfit: 0
   - name: GreatDown
     frame: 0.083
     loop: 0
@@ -1374,6 +1356,7 @@ MonoBehaviour:
     - 350
     - 330
     strike: 2
+    outfit: 0
   - name: GreatSide
     frame: 0.083
     loop: 0
@@ -1419,6 +1402,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 2
+    outfit: 0
   - name: DaggerFlurry
     frame: 0.06
     loop: 1
@@ -1480,6 +1464,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 0
+    outfit: 0
   - name: DaggerCross
     frame: 0.083
     loop: 0
@@ -1533,6 +1518,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 2
+    outfit: 0
   - name: AirSlash
     frame: 0.083
     loop: 0
@@ -1578,6 +1564,7 @@ MonoBehaviour:
     - 350
     - 330
     strike: 2
+    outfit: 0
   - name: Lunge
     frame: 0.083
     loop: 0
@@ -1623,6 +1610,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: Spin
     frame: 0.083
     loop: 0
@@ -1668,6 +1656,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 2
+    outfit: 0
   - name: Cast
     frame: 0.083
     loop: 0
@@ -1737,6 +1726,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 3
+    outfit: 0
   - name: Throw
     frame: 0.083
     loop: 0
@@ -1782,6 +1772,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: Guard
     frame: 0.12
     loop: 1
@@ -1859,6 +1850,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: Charge
     frame: 0.083
     loop: 0
@@ -1928,6 +1920,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 3
+    outfit: 0
   - name: LeapSlam
     frame: 0.083
     loop: 0
@@ -1973,6 +1966,7 @@ MonoBehaviour:
     - 350
     - 330
     strike: 2
+    outfit: 0
   - name: Backstep
     frame: 0.08
     loop: 0
@@ -2010,6 +2004,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: Punch
     frame: 0.06
     loop: 1
@@ -2071,6 +2066,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 0
+    outfit: 0
   - name: Iaido
     frame: 0.083
     loop: 0
@@ -2116,6 +2112,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 2
+    outfit: 0
   - name: ShoulderAim
     frame: 0.083
     loop: 0
@@ -2161,6 +2158,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: Raise
     frame: 0.083
     loop: 0
@@ -2214,6 +2212,7 @@ MonoBehaviour:
     - 50
     - 120
     strike: 1
+    outfit: 0
   - name: Knockdown
     frame: 0.1
     loop: 0
@@ -2291,6 +2290,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: Place
     frame: 0.08
     loop: 0
@@ -2312,6 +2312,7 @@ MonoBehaviour:
     angles:
     - -999
     strike: -1
+    outfit: 0
   - name: Kick
     frame: 0.083
     loop: 0
@@ -2357,6 +2358,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: Grab
     frame: 0.083
     loop: 0
@@ -2402,6 +2404,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: Ride
     frame: 0.12
     loop: 1
@@ -2479,6 +2482,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: StabEnd
     frame: 0.08
     loop: 0
@@ -2500,6 +2504,7 @@ MonoBehaviour:
     angles:
     - -999
     strike: -1
+    outfit: 0
   - name: SwingDownEnd
     frame: 0.08
     loop: 0
@@ -2521,6 +2526,7 @@ MonoBehaviour:
     angles:
     - -999
     strike: -1
+    outfit: 0
   - name: Bow
     frame: 0.083
     loop: 0
@@ -2566,6 +2572,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: GreatSideOne
     frame: 0.083
     loop: 0
@@ -2611,6 +2618,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 2
+    outfit: 0
   - name: ShieldBash
     frame: 0.083
     loop: 0
@@ -2656,6 +2664,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: Slam
     frame: 0.083
     loop: 0
@@ -2701,6 +2710,7 @@ MonoBehaviour:
     - 350
     - 330
     strike: 2
+    outfit: 0
   - name: Pull
     frame: 0.06
     loop: 1
@@ -2762,6 +2772,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 0
+    outfit: 0
   - name: LowSweep
     frame: 0.083
     loop: 0
@@ -2807,6 +2818,7 @@ MonoBehaviour:
     - 350
     - 330
     strike: 2
+    outfit: 0
   - name: GreatUpper
     frame: 0.083
     loop: 0
@@ -2860,6 +2872,7 @@ MonoBehaviour:
     - 50
     - 120
     strike: 1
+    outfit: 0
   - name: DashSlash
     frame: 0.083
     loop: 0
@@ -2905,6 +2918,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 2
+    outfit: 0
   - name: WhipSnap
     frame: 0.083
     loop: 0
@@ -2950,6 +2964,7 @@ MonoBehaviour:
     - 350
     - 330
     strike: 2
+    outfit: 0
   - name: Roundhouse
     frame: 0.083
     loop: 0
@@ -2995,6 +3010,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 2
+    outfit: 0
   - name: DualPistol
     frame: 0.083
     loop: 0
@@ -3040,6 +3056,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: Rifle
     frame: 0.083
     loop: 0
@@ -3085,6 +3102,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: SwordPistol
     frame: 0.083
     loop: 0
@@ -3130,6 +3148,7 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: Sheathe
     frame: 0.12
     loop: 1
@@ -3207,6 +3226,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: Victory
     frame: 0.083
     loop: 0
@@ -3276,6 +3296,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 3
+    outfit: 0
   - name: Dance
     frame: 0.12
     loop: 1
@@ -3353,6 +3374,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: Lute
     frame: 0.12
     loop: 1
@@ -3430,6 +3452,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: -1
+    outfit: 0
   - name: PalmBlast
     frame: 0.083
     loop: 0
@@ -3475,14 +3498,15 @@ MonoBehaviour:
     - 0
     - 8
     strike: 1
+    outfit: 0
   - name: AirStab
     frame: 0.083
     loop: 0
     sprites:
-    - {fileID: 21300000, guid: 68b20d134b85fdc41acb6f6f33647288, type: 3}
-    - {fileID: 21300000, guid: 7a42e6858952a494e8e1584cc3889c6d, type: 3}
-    - {fileID: 21300000, guid: 5bcf3720752a8424b88d138adbba1e20, type: 3}
-    - {fileID: 21300000, guid: 5703edfd9b0a3ce498573c47e9c3ae56, type: 3}
+    - {fileID: 21300000, guid: 48b1d2867ab5fc34f92f03ae41ca6ff6, type: 3}
+    - {fileID: 21300000, guid: 7802331e760fe1d419de76be0746f0d7, type: 3}
+    - {fileID: 21300000, guid: 814afb01331689744864528d02d3c049, type: 3}
+    - {fileID: 21300000, guid: 8d5399ee38c47154f97efb98523140ee, type: 3}
     fists:
     - {fileID: 0}
     - {fileID: 0}
@@ -3520,16 +3544,15 @@ MonoBehaviour:
     - -999
     - -999
     strike: 1
+    outfit: 1
   - name: AirSwingDown
     frame: 0.083
     loop: 0
     sprites:
-    - {fileID: 21300000, guid: c258135b93b25d142a1a3ab60f93677b, type: 3}
-    - {fileID: 21300000, guid: 1cc79e650b861c740ac15035f5f59ba2, type: 3}
-    - {fileID: 21300000, guid: a008d139d2374144590c6b508e63b041, type: 3}
-    - {fileID: 21300000, guid: d2199b1c7c219cb449736ec1cb79afee, type: 3}
+    - {fileID: 21300000, guid: cca483971d77b38499f0526c6dba4806, type: 3}
+    - {fileID: 21300000, guid: d442ef68905c3a7488bf2420922300ee, type: 3}
+    - {fileID: 21300000, guid: 00cf39342a032694286bfaf487e4b812, type: 3}
     fists:
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -3537,20 +3560,16 @@ MonoBehaviour:
     - {x: 0.2361111, y: 0.5138889}
     - {x: 0.2361111, y: 0.5138889}
     - {x: 0.2361111, y: 0.5138889}
-    - {x: 0.2361111, y: 0.5138889}
     handB:
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
     - {x: -0.15277778, y: 0.5138889}
-    - {x: -0.15277778, y: 0.5138889}
     times:
-    - 0.07
-    - 0.06
+    - 0.08
     - 0.09
-    - 0.1
-    behind: 00000000
+    - 0.12
+    behind: 000000
     anglesB:
-    - -999
     - -999
     - -999
     - -999
@@ -3558,21 +3577,20 @@ MonoBehaviour:
     - 1
     - 1
     - 1
-    - 1
     angles:
     - -999
     - -999
     - -999
-    - -999
     strike: 1
+    outfit: 1
   - name: AirSwingUp
     frame: 0.083
     loop: 0
     sprites:
-    - {fileID: 21300000, guid: b9501875b6352ab4698400356a0ff546, type: 3}
-    - {fileID: 21300000, guid: 7ae8fc0cfc6b612459f60a560dbab8fb, type: 3}
-    - {fileID: 21300000, guid: 52464c653bdffca468dd0d2dbb1f9d96, type: 3}
-    - {fileID: 21300000, guid: 1546af3bf541be54f8ac012b782110f5, type: 3}
+    - {fileID: 21300000, guid: b40c25a5dcc3bba41a6dab94ee1f5b8b, type: 3}
+    - {fileID: 21300000, guid: 49b1e803347fc8f439747944cbfb23b4, type: 3}
+    - {fileID: 21300000, guid: 0bc59564808d6c94e86c39045ce5d790, type: 3}
+    - {fileID: 21300000, guid: 5e69a55933d9be84ba4ff71c2efd7267, type: 3}
     fists:
     - {fileID: 0}
     - {fileID: 0}
@@ -3610,6 +3628,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 1
+    outfit: 1
   - name: AirGreatDown
     frame: 0.083
     loop: 0
@@ -3655,6 +3674,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 1
+    outfit: 0
   - name: AirGreatSide
     frame: 0.083
     loop: 0
@@ -3700,6 +3720,7 @@ MonoBehaviour:
     - -999
     - -999
     strike: 1
+    outfit: 0
   - name: AirGreatSideOne
     frame: 0.083
     loop: 0
@@ -3745,6 +3766,1049 @@ MonoBehaviour:
     - -999
     - -999
     strike: 1
+    outfit: 0
+  - name: CoatHSlash
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 618d91ddd71328e44a557dab877fca67, type: 3}
+    - {fileID: 21300000, guid: a28efe11153aef546bd18cb859f66510, type: 3}
+    - {fileID: 21300000, guid: 5a39d83050c7e0e4fa6109fa5df80a94, type: 3}
+    - {fileID: 21300000, guid: 3145094c0034b0e4cabb5cdfce8532d2, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.07
+    - 0.1
+    - 0.15
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatXSlash
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 7e0030098358c5e4cb790bb99e771159, type: 3}
+    - {fileID: 21300000, guid: d9609bb2da4205d4e8898e562a62fd46, type: 3}
+    - {fileID: 21300000, guid: 3f3e07255fdb5264d91556df40052894, type: 3}
+    - {fileID: 21300000, guid: 02902703c8313a643902ea4faec3f4c6, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.07
+    - 0.1
+    - 0.15
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatFlurry
+    frame: 0.05
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: cb0ad5de58183304cbc5869113076768, type: 3}
+    - {fileID: 21300000, guid: 2c2d88d2f473b264d9aa95a620ad05a4, type: 3}
+    - {fileID: 21300000, guid: 554d892028584b3439fb49139b912497, type: 3}
+    - {fileID: 21300000, guid: 03f5ca78abbac234896ce2bbdc8599db, type: 3}
+    - {fileID: 21300000, guid: f4e3f1ea0e39baa418667c4b6a4f74ba, type: 3}
+    - {fileID: 21300000, guid: c204599d6432710479a4e690b0d72e49, type: 3}
+    - {fileID: 21300000, guid: f8cf9402fa7fccd46a6dd11777645bdb, type: 3}
+    - {fileID: 21300000, guid: 554e431243ed6fc4c8750d45f6573aed, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    behind: 0000000000000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 1
+    outfit: 1
+  - name: CoatSmash
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 12e2024732f4cc2468af60a558c5202f, type: 3}
+    - {fileID: 21300000, guid: 7970b5e76f64a0d42864acab35f10eb0, type: 3}
+    - {fileID: 21300000, guid: f0fee6c71970f384d8fe2947bbf8a371, type: 3}
+    - {fileID: 21300000, guid: 2bdeaf749e9ba36489fd5c3062a76e11, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.12
+    - 0.07
+    - 0.1
+    - 0.16
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatBow
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 3fe4e6598c4f76649b73c82530d65aa0, type: 3}
+    - {fileID: 21300000, guid: 43a94f458df434649a124a000e5b6427, type: 3}
+    - {fileID: 21300000, guid: 6b622f6c1b2280b46bcc7b6b986a3098, type: 3}
+    - {fileID: 21300000, guid: 4eaf2677b4bc8df42922b5cc546cba09, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.07
+    - 0.1
+    - 0.15
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatThrow
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 372b067c5c70a614b83db4ade9b66b36, type: 3}
+    - {fileID: 21300000, guid: ce0f764202190b8498063fec382cc601, type: 3}
+    - {fileID: 21300000, guid: f53c5d4569e9d4a4db4f4f64a27b07f6, type: 3}
+    - {fileID: 21300000, guid: 0a29a5272b829964ca7a92cc7a9152ee, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.07
+    - 0.1
+    - 0.15
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatOne
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 57b74dbfe7a5c444ea143f7aa581449a, type: 3}
+    - {fileID: 21300000, guid: 99595fc3b059cce4ba1596c068e22e54, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.16
+    behind: 0000
+    anglesB:
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    strike: 0
+    outfit: 1
+  - name: CoatTwo
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 9209ebf1b3fd4564cbdcf34313c9fae9, type: 3}
+    - {fileID: 21300000, guid: 22251af8fb2ccb24f9351268d1577c8a, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.08
+    - 0.18
+    behind: 0000
+    anglesB:
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    strike: 1
+    outfit: 1
+  - name: CoatWhip
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: ab765c6fc42fdd542accc553c8e1fb82, type: 3}
+    - {fileID: 21300000, guid: 56302bdc614575b45b1889100164436f, type: 3}
+    - {fileID: 21300000, guid: fc4e01bbdae7beb4a8df57c8e80f251d, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.12
+    - 0.08
+    - 0.18
+    behind: 000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    strike: 1
+    outfit: 1
+  - name: CoatClaw1
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: adf4986364b1abf4aa064b8de986e418, type: 3}
+    - {fileID: 21300000, guid: 239afd51660895d40a58e6d970b5f31f, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.16
+    behind: 0000
+    anglesB:
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    strike: 0
+    outfit: 1
+  - name: CoatClaw2
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 0d701d7e843765a41be8b3815b51bf25, type: 3}
+    - {fileID: 21300000, guid: 187c4eb91244fc345a6d5efdf5c6f230, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.18
+    behind: 0000
+    anglesB:
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    strike: 1
+    outfit: 1
+  - name: CoatCast
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 60b33f5779e1f854582eb10837a8a732, type: 3}
+    - {fileID: 21300000, guid: ef2c3a33e591f604886f115c682d73fe, type: 3}
+    - {fileID: 21300000, guid: 247d5735cbea06841aa29cb1d8b1d976, type: 3}
+    - {fileID: 21300000, guid: d5a364b6007421d4c969b8ad25827050, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.07
+    - 0.1
+    - 0.15
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatDashStab
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 47c74205e4e3ea445bd2a697d8931dcc, type: 3}
+    - {fileID: 21300000, guid: e55bcf8fe10a0ba4a95cb688b48feab1, type: 3}
+    - {fileID: 21300000, guid: 135137b37db898048a5fe4f353769fbd, type: 3}
+    - {fileID: 21300000, guid: 141874ba2927eab4db8bed16db1ddf4d, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.07
+    - 0.1
+    - 0.15
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatLowSweep
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: cf605bfac65b2804790d3a1c813e1be5, type: 3}
+    - {fileID: 21300000, guid: 122d1d55907c2bb489ee9e9bee9234b7, type: 3}
+    - {fileID: 21300000, guid: 0b0d80cb73537dd40bfed5928c1e28d1, type: 3}
+    - {fileID: 21300000, guid: d74ea6c67f5ff8344901c3d9bb4e1d36, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.07
+    - 0.1
+    - 0.15
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatBackstep
+    frame: 0.07
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 2c8c6867c8a90274f8acf338a8c71624, type: 3}
+    - {fileID: 21300000, guid: a7a9c9414bbc76b449be00e40e29a981, type: 3}
+    - {fileID: 21300000, guid: 958227c91bc66e745ae5bfdb31da115d, type: 3}
+    - {fileID: 21300000, guid: 279df2288caa7c94ca921ddf519c0dcf, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0
+    - 0
+    - 0
+    - 0
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: -1
+    outfit: 1
+  - name: CoatRoar
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 913cfc14e7ff6854b95ab4ec2e29de59, type: 3}
+    - {fileID: 21300000, guid: 4f801250846de094988d1ccea4929bed, type: 3}
+    - {fileID: 21300000, guid: 8ba10488aa463484f8a63e419d58e181, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.1
+    - 0.3
+    behind: 000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatCharge
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 362b754d243e0d64a96a3609c12bb522, type: 3}
+    - {fileID: 21300000, guid: 6e4c6e1ddb8b4aa4caab00993a51b8e9, type: 3}
+    - {fileID: 21300000, guid: d617107195e131f48b31359508cc1c90, type: 3}
+    - {fileID: 21300000, guid: 2db9ed6fd5bae6f47aec5e4a7f897cc5, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0
+    - 0
+    - 0
+    - 0
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 3
+    outfit: 1
+  - name: CoatBowLob
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 0da2ef7d52212884cbff72df4eb43826, type: 3}
+    - {fileID: 21300000, guid: 77adc0039df022a439cd28c62b941129, type: 3}
+    - {fileID: 21300000, guid: cc6cea7986a5c8b4fba3231cc7689672, type: 3}
+    - {fileID: 21300000, guid: c832d169035ec524c9bcf88e1fac000d, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.07
+    - 0.1
+    - 0.15
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatShBash
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: da03e9749dc9c454aa39042206c381ce, type: 3}
+    - {fileID: 21300000, guid: 57bbc22af9db9d64cae65130f6926a96, type: 3}
+    - {fileID: 21300000, guid: e098d6cb763c9b04185f265f3debc91c, type: 3}
+    - {fileID: 21300000, guid: 92b7c31b3b414cf498d56c9c3d56356d, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.07
+    - 0.1
+    - 0.15
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatShBlock
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 4d4f619a51790fd4b8aee9451578d968, type: 3}
+    - {fileID: 21300000, guid: 15353df5f1f916146901e2f5e35aaab1, type: 3}
+    - {fileID: 21300000, guid: 45a7d1ac680e44049bfceef8eaba3a0a, type: 3}
+    - {fileID: 21300000, guid: f12838ebac39fa64faaf08e93785c1e3, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0
+    - 0
+    - 0
+    - 0
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: -1
+    outfit: 1
+  - name: CoatSpin
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 5cc466cc680b6c74283cec3d0439331b, type: 3}
+    - {fileID: 21300000, guid: c60696ca4c25fdf42ba8392041d0a5c6, type: 3}
+    - {fileID: 21300000, guid: 2d788dbc56cb91f4c885153a1d87292b, type: 3}
+    - {fileID: 21300000, guid: 1bc01a5c1ff655b478c9c45f040f2288, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.08
+    - 0.07
+    - 0.07
+    - 0.14
+    behind: 00000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 2
+    outfit: 1
+  - name: CoatUpper
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 7aef7d52e26c31a408f54de5c000cbbe, type: 3}
+    - {fileID: 21300000, guid: 5b0ed5ab7faf8854a8cc8ae18234b457, type: 3}
+    - {fileID: 21300000, guid: a3f1ac5e2c1498c44ac64af00caa5d0a, type: 3}
+    - {fileID: 21300000, guid: e3839ab58f60e07489dd40e1609a71e5, type: 3}
+    - {fileID: 21300000, guid: 0a2070a92fcd37149a6f0b0f230f6edc, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.1
+    - 0.07
+    - 0.07
+    - 0.08
+    - 0.3
+    behind: 0000000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 3
+    outfit: 1
+  - name: CoatLeapSlam
+    frame: 0.083
+    loop: 0
+    sprites:
+    - {fileID: 21300000, guid: 61c4f6a23545fe240a379a1c5515e873, type: 3}
+    - {fileID: 21300000, guid: 8ab1b45a819c3074c839cd39970eea49, type: 3}
+    - {fileID: 21300000, guid: 1e65a921795a726409c4c17fe3cb1833, type: 3}
+    - {fileID: 21300000, guid: a75bda8684e167d4d8d77d1b040f83d7, type: 3}
+    - {fileID: 21300000, guid: 5c73cb2e22972294f9d8982394044bca, type: 3}
+    - {fileID: 21300000, guid: 032421246af8ce84dbc0bcd010e0a63c, type: 3}
+    - {fileID: 21300000, guid: d17e4ff99a1d81b4db6d1561cdb084f1, type: 3}
+    fists:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hand:
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    - {x: 0.2361111, y: 0.5138889}
+    handB:
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    - {x: -0.15277778, y: 0.5138889}
+    times:
+    - 0.08
+    - 0.08
+    - 0.06
+    - 0.06
+    - 0.06
+    - 0.1
+    - 0.2
+    behind: 00000000000000
+    anglesB:
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    weaponLen:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    angles:
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    - -999
+    strike: 5
+    outfit: 1
   _celArtWeapon: 1
 --- !u!1 &3535350247772215805
 GameObject:
