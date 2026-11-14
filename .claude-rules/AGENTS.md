@@ -106,6 +106,7 @@
 | 파일 | 설명 |
 |------|------|
 | `Docs/Playtest/UpslashDirGen.md` *(저장소 루트)* | 올려베기 방향 전환(②③④) 생성 기록·합격 세트·재생성 절약 교훈 |
+| `Docs/Playtest/F1WeaponMotionAudit.md` *(저장소 루트)* | 1층계 무기 40종 평타·스킬 재생 셀 점검·미연결 셀·새로 만들 셀 목록 |
 | `Docs/Playtest/MotionJudgeLog.md` *(저장소 루트)* | 모션 판정 기록: Claude 판정 vs 사용자 판정 비교·연구 실험 표 |
 | `Docs/Playtest/MobJudgeLog.md` *(저장소 루트)* | 몬스터 판정 기록(Claude 판정 먼저 → 사용자 판정, 실패 원인) |
 | `Docs/Playtest/ConventionAudit.md` *(저장소 루트)* | 장르 관례 이탈 점검·사용자 제보(창고 I 키 버그 등) 목록 |
