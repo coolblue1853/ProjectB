@@ -206,3 +206,5 @@
 - 11-14 08:55 총괄 정지(주간 89%): 남은 큐는 사용자 확인(UserPlaytest_1111)·사용자 결정(AUTO-129 프로브 삭제·씬 허가)·주말 발견 의존 튜닝(REWORK-9 R-1~14·NEXT-3·후공/hop·마차 요금·리젠 차등)·그래픽·2층계(덩굴 속박)뿐이라 사용량 채우기 작업 안 함. 다음: 11-16 13:07 예약 — Weekend1_Findings 분류부터.
 - (11-14 REWORK-10 맵 설계) `Docs/Playtest/MapLayoutSpec.md`: 1층계 맵 9장 고유 지형 설계안·씬 체크리스트. 메랜 DB 접속 실패(WebFetch ECONNRESET·Chrome 미연결)라 메이플 맵 실측 표는 전부 미확인.
 - 남음: 보존 2장 확정(사용자), 메랜 맵 구조 채우기, 씬 이전(사용자 허가 후), 새 타일 T1~T5 그래픽 방 의뢰(graphics_requests.md).
+- (11-14 REWORK-10 씬) BanditFortress 고유 지형 반영: 안뜰·목책·망루·옥상 4단, 사다리 7, 스폰 9포인트×4, 포털 왕복·스폰 발판 위 확인(플레이 프로브). 히든 포털 bf_ledge 미적용.
+- 남음: 고유 지형 4장(NormalForest·DeepForestCore·MistSwamp·TowerOutskirts)·Swamp 분산, T2 석재 그림은 그래픽 방.
