@@ -834,6 +834,7 @@ public class InventoryManager : MonoBehaviour
     void MoveCusor2Inventory() // 장비창 => 인벤토리로 커서를 옮기는 함수
     {
         OnlyDetailObOff();
+        ExtraEquipPanel.ClearTip();
         nowEquipBox = null;
         state = "boxChange";
         boxCusor = 0;

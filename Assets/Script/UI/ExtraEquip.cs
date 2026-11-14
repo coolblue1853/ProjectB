@@ -504,6 +504,12 @@ public sealed class ExtraEquipPanel : MonoBehaviour
         }
     }
 
+    /// <summary>커서가 장비 격자를 떠날 때(인벤으로 이동) 툴팁·세트 창을 닫는다. 안 닫으면 SET 칸에서 오른쪽으로 나간 뒤에도 세트 창이 남는다</summary>
+    public static void ClearTip()
+    {
+        TipForNode(-1);
+    }
+
     /// <summary>키보드·패드 선택·클릭: 슬롯 칸이면 해제, 펫 줄이면 자동 먹기 켜기/기준 % 바꾸기</summary>
     public static void ActivateNode(int node)
     {
