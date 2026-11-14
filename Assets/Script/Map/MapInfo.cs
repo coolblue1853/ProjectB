@@ -127,8 +127,8 @@ public class MapInfo : MonoBehaviour
     /// 카메라 벽(CamBoundary, ProCamera2DGeometryBoundaries 의 3D 콜라이더)을 숫자 경계에 합치고 벽 경계 기능은 끈다.
     /// 10-29 사용자 "가만히 있어도 화면이 떨린다": 벽이 카메라를 밀고 따라가기가 다시 당겨 매 프레임 0.1씩 왕복했다(마을 오른쪽 벽 -380, 숫자 경계 -88).
     /// 플레이어 높이(±10)에 걸친 벽 중 플레이어 왼쪽에서 가장 가까운 벽의 오른쪽 면 = 왼쪽 경계, 오른쪽 벽의 왼쪽 면 = 오른쪽 경계.
-    /// 11-14: 다른 맵(MapInfo)에 속한 벽은 무시한다. 포털은 새 맵을 켠 직후(출발 맵이 아직 켜진 채) MapChanged 를 부르므로,
-    /// 같은 높이대 맵(늪 ↔ 안개늪)이면 출발 맵의 벽이 새 맵 경계를 잘랐다.
+    /// 11-14: 다른 맵(MapInfo)에 속한 벽은 무시한다(방어용). 예전 포털은 출발 맵이 켜진 채 MapChanged 를 불러
+    /// 같은 높이대 맵(늪 ↔ 안개늪)에서 출발 맵 벽이 새 맵 경계를 잘랐다. 지금은 출발 맵을 끈 뒤 부르지만(c9e651717) 남겨 둔다.
     /// </summary>
     private static bool ClampToWalls(ProCamera2DNumericBoundaries bounds, MapInfo info, bool hasX, ref float left, ref float right)
     {
