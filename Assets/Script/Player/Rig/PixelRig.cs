@@ -325,6 +325,25 @@ public class PixelRig : CharacterRig
         return t;
     }
 
+    /// <summary>
+    /// 셀 자체가 가진 타격 프레임(cel.json strike)이 끝나는 시각. 통짜 코트 셀(돌진 찌르기 등)만 해당 — 스킬 attckSpeed 가 이보다 짧으면
+    /// 공격 상태가 먼저 끝나 대기 자세로 돌아가며 타격 프레임이 한 번도 안 보인다(R2: 너클 돌진 찌르기 0.1초 vs 타격 0.17초)
+    /// </summary>
+    public override float StrikeEndTime(string anim)
+    {
+        if (string.IsNullOrEmpty(anim))
+        {
+            return -1f;
+        }
+        Clip clip = Resolve(anim);
+        string key = RequestOverride(anim) ?? CelKey(clip != null ? clip.name : MapName(anim), anim, MotionVariants.Find(anim));
+        if (!_celByName.TryGetValue(key, out CelClip cel) || cel.loop || cel.strike < 0 || cel.strike >= cel.sprites.Length)
+        {
+            return -1f;
+        }
+        return cel.StartTimeOf(cel.strike + 1);
+    }
+
     public override Transform GetBoneSocket(string socket)
     {
         return socket == "LeftWeapon" ? _socketLeft : _socketRight;

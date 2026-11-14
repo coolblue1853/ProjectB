@@ -31,6 +31,12 @@ public abstract class CharacterRig : MonoBehaviour
         return -1f;
     }
 
+    /// <summary>공격 셀의 타격 프레임이 끝나는 시각(초, 속도 1). 타격 프레임을 모르면 음수 — 스킬 동작 시간이 이보다 짧으면 타격 그림이 잘린다(R2)</summary>
+    public virtual float StrikeEndTime(string anim)
+    {
+        return -1f;
+    }
+
     /// <summary>소켓에 붙인 무기 스프라이트를 리그에 맞게 정리한다(정렬 순서·크기). 기본은 아무것도 안 함.</summary>
     public virtual void AdoptWeapon(Transform weapon, bool isLeft)
     {
