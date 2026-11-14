@@ -53,6 +53,8 @@
 - 허수아비 확정 기준 그림 `Docs/ArtCompare/Motion/outfit/scarecrow/ref.png`, 기본 4종 완료(`basic.gif`). 공격 옮겨 입히기는 아직(사용자 요청으로 일시 정지).
 - 공격 프레임 목록: CelDS `cb_*`(fist 제외 108) + base_coat `ds_stab·down·up`(13) + CelDS `ds_death·rope·ropestay`(15) = 136. 업로드 ref는 `Docs/ArtCompare/Motion/outfit/coat_attack_uploads.json`(3일 유효).
 - PixelLab 잔량 680(11-25 갱신). 5벌 약 520 예상.
+- (교훈) 코트 프레임을 그대로 transfer_outfit 하면 **배낭·포니테일이 남는다**(나뭇잎 첫 공격 136장 탈락, 사용자 지적). 원본 코트는 배낭이 맞고 다른 의상만 없어야 한다. 그래서 공격 입력용으로 `coat_nopack/`(edit_animation으로 배낭·랜턴·포니테일만 지운 코트 136장, 90생성)을 한 번 만들고, 이후 의상은 이것을 입력으로 쓴다. 픽셀로 배낭 영역을 지우는 방법(region_map 라벨 7)은 몸에 구멍이 나서 실패.
+- 나뭇잎 기준 그림은 꼬리머리를 인페인트로 지운 판(`leaf/ref.png`)으로 교체, 기본 4종도 다시 생성.
 
 ## (폐기) 추가 결정 (11-13 사용자): 헤어스타일 고정, 색만 변경
 
