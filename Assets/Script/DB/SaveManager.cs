@@ -105,7 +105,15 @@ public class SaveManager : MonoBehaviour
         }
         datas.mapName = map.name;
         MapInfo info = map.GetComponent<MapInfo>(); // 맵 경계 갱신보다 먼저 불릴 수 있어 새 맵 하한으로 직접 판단한다
-        StorePlayerPos(info != null ? info.cameraBottom : MapInfo.CurrentBottom);
+        if (!StorePlayerPos(info != null ? info.cameraBottom : MapInfo.CurrentBottom))
+        {
+            // 거부되면 mapName 은 새 맵인데 playerPos 는 구 맵 좌표로 남는다(R7) → 새 맵 첫 포털 앞으로 기록한다
+            Portal entry = map.GetComponentInChildren<Portal>(true);
+            if (entry != null)
+            {
+                datas.playerPos = entry.transform.position;
+            }
+        }
         DataSave();
     }
 
@@ -173,18 +181,20 @@ public class SaveManager : MonoBehaviour
         StorePlayerPos(MapInfo.CurrentBottom);
     }
 
-    private void StorePlayerPos(float mapBottom)
+    /// <returns>기록했으면 true, 맵 밖이라 거부했으면 false(플레이어 없음도 true — 거부가 아니다)</returns>
+    private bool StorePlayerPos(float mapBottom)
     {
         if (player == null)
         {
-            return;
+            return true;
         }
         Vector2 pos = player.transform.position;
         if (FallRecovery.IsLost(pos.y, mapBottom))
         {
-            return;
+            return false;
         }
         datas.playerPos = pos;
+        return true;
     }
     void Start()
     {
