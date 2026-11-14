@@ -13,10 +13,12 @@ public static class PitReturn
     /// <summary>
     /// 구덩이가 있는 복제 지형 구역. 11-14 일반 숲은 고유 지형(구덩이 없음)으로 바뀌어 뺐다 —
     /// 샛길에서 넘어올 때 샛길이 아직 켜져 있어 샛길 구덩이를 재고 일반 숲 땅속에 포털을 만들었다.
+    /// 산적 성채도 뺐다 — 고유 지형의 해자는 계단식(바닥 -3.6, 길 -1.6~-0.6)이라 걸어서 나올 수 있어 구덩이가 아니다.
+    /// 탑 근교는 기존 지면(-437~-137)을 그대로 둬 구덩이(바닥 -3.6, 길 1.4)가 남아 있어 유지한다(11-14 실측).
     /// </summary>
     private static readonly string[] Maps =
     {
-        "Lv1_NearForest_SideRoad", "Lv1_DeepForest", "Lv1_BanditFortress", "Lv1_TowerOutskirts",
+        "Lv1_NearForest_SideRoad", "Lv1_DeepForest", "Lv1_TowerOutskirts",
     };
 
     private const float PitX = -248f, RoadX = -274f;

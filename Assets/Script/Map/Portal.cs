@@ -143,6 +143,12 @@ public class Portal : MonoBehaviour
         {
             AbleOpenMap();
             AbleCloseMap();
+            // 11-14: 출발 맵을 끈 뒤에 알린다(구독자가 FindObjectsOfType·OverlapBox 로 출발 맵 오브젝트를 잡던 버그 방지)
+            MapChanged?.Invoke(openMap);
+            if (openMapCheck != null)
+            {
+                openMapCheck.AbleSpwaner();
+            }
         }
         else
         {
@@ -169,9 +175,6 @@ public class Portal : MonoBehaviour
         openMap.SetActive(true);
         Sfx.Play(SfxId.Portal, 0.6f);
         GameLog.Info(GameLog.Cat.Map, "포털 " + name + ": " + (closeMap ? closeMap.name : "-") + " → " + openMap.name, this);
-        MapChanged?.Invoke(openMap);
-        if (openMapCheck != null)
-            openMapCheck.AbleSpwaner();
     }
     void AbleCloseMap()
     {
