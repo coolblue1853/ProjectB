@@ -208,3 +208,5 @@
 - 남음: 보존 2장 확정(사용자), 메랜 맵 구조 채우기, 씬 이전(사용자 허가 후), 새 타일 T1~T5 그래픽 방 의뢰(graphics_requests.md).
 - (11-14 REWORK-10 씬) BanditFortress 고유 지형 반영: 안뜰·목책·망루·옥상 4단, 사다리 7, 스폰 9포인트×4, 포털 왕복·스폰 발판 위 확인(플레이 프로브). 히든 포털 bf_ledge 미적용.
 - 남음: 고유 지형 4장(NormalForest·DeepForestCore·MistSwamp·TowerOutskirts)·Swamp 분산, T2 석재 그림은 그래픽 방.
+- (11-14 REWORK-10 씬) DeepForestCore 고유 지형 "뿌리 동굴" 반영: U자 바닥·양쪽 뿌리 둔덕·T2/T3 뿌리 발판, 로프 6, 스폰 낮/밤 각 22슬롯, 포털 왕복·스폰 발판 위 확인. 히든 포털 미적용.
+- 남음: 고유 지형 3장(NormalForest·MistSwamp·TowerOutskirts)·Swamp 분산, 뿌리 T4·석재 T2 그림은 그래픽 방.
