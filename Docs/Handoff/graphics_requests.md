@@ -32,6 +32,7 @@
 - 아이콘 없는 아이템 12개 전부 생성: 구역 인장 3종·`BanditPlunderMedal`·`ChiefsLastStandRing`·`TitleWanderer`·`AuraFaintGlow`·`SentryCrossbow`·`HuntersJavelin`·`FairysGrimoire`·`WandererBracelet`·`HunterCharm`. pixflux 32px(검정 외곽선·기본 음영, seed 3101) → 8배 256px. 시안 `Docs/ArtCompare/Icons/missing12/`(교체용 `x256/`, 비교 `sheet.png`). 12생성. 성채 인장은 문양 없이 붉은 밀랍만 나왔다(색으로 구분은 됨). 총괄에 `Resources/Item/` 반영 요청.
   - 사용자: 1차는 어둡고 디아블로풍이다 → "메이플 아이템 아이콘풍으로, 색이 아니라 아트풍이 밝게". 2차(밝은 색 평면)는 탈락. **3차 확정 방식(`v3/`)**: `create_image_pro_flash` 32px + style_image = 메이플 원본 아이콘 1장(목걸이 1122000, maplestory.io gms/62, 레퍼런스 전용, 저장소에 넣지 않음), 프롬프트 "MapleStory style item icon: <물건>, cheerful cartoon look, dark outline, glossy highlight", seed 3501. 1장 5생성, 12장 60생성. `x256/`은 3차로 덮어씀. 사용자 판정 대기.
 - 제작 방어구 30점은 ItemSheet 이름 기준으로 이미 아이콘이 있다(누락 0).
+- (11-14) 아이콘 12종 `Assets/Resources/Item/`에 반영(`x256/` 3차 파일을 같은 이름으로 복사, 임포트 Sprite·Point·비압축·PPU 100·maxSize 2048, 기존 아이콘과 동일). 누락 경고 0, 콘솔 error 0. 인게임 육안 판정은 사용자 대기.
 
 ## 규칙
 - 그래픽은 사용자 검토 후 적용(`graphics-user-review`). 개발 쪽은 파일 경로·이름 규칙만 맞추면 코드 수정 없이 교체되게 해 두었다(`ItemIconLoader` 폴백 등).
