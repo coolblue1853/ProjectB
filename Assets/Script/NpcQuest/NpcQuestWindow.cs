@@ -152,6 +152,10 @@ public partial class NpcQuestWindow : MonoBehaviour
 
     private void HandleNavigation(Keyboard kb, Gamepad pad)
     {
+        if (QuestListRules.NavBlocked(Time.unscaledTime - _openedAt))
+        {
+            return; // 열 때 누른 방향키가 창 입력에 새어 들어와 커서가 움직이지 않게
+        }
         int n = _rows.Count;
         int prevCursor = _cursor;
         int tabStep = (_left.triggered || (pad != null && pad.leftShoulder.wasPressedThisFrame)) ? -1

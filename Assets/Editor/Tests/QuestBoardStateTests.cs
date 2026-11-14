@@ -125,4 +125,12 @@ public class QuestBoardStateTests
         StringAssert.Contains("20 골드", reward);
         Assert.IsFalse(reward.Contains("EXP"));
     }
+
+    [Test]
+    public void 창을_연_직후에는_방향_입력을_막고_지나면_받는다()
+    {
+        Assert.IsTrue(QuestListRules.NavBlocked(0f));
+        Assert.IsTrue(QuestListRules.NavBlocked(QuestListRules.NavGuard - 0.01f));
+        Assert.IsFalse(QuestListRules.NavBlocked(QuestListRules.NavGuard));
+    }
 }

@@ -231,6 +231,14 @@ public static class QuestFoldRules
 /// <summary>퀘스트 창 목록 규칙 (순수): 받을 수 있는 / 진행 중(완료 가능이 맨 위) / 완료 세 탭, 같은 구역끼리 묶는다</summary>
 public static class QuestListRules
 {
+    /// <summary>창을 연 직후 이 시간 동안은 방향 입력을 무시한다. 열 때 누른 ↑ 가 같은 순간 창 쪽 입력에도 몇 프레임 잡혀 커서가 맨 아래 줄로 감기던 문제(11-15 R8)</summary>
+    public const float NavGuard = 0.12f;
+
+    public static bool NavBlocked(float sinceOpen)
+    {
+        return sinceOpen < NavGuard;
+    }
+
     /// <summary>탭. All(전체, U6)은 접기 키 정수((int)tab)가 바뀌지 않게 맨 뒤에 붙였고, 화면·순환 순서는 Order 를 따른다</summary>
     public enum Tab { Available, Active, Done, All }
 
