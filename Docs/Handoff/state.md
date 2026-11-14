@@ -213,3 +213,5 @@
 - 11-14 총괄 정지(주간 97%): 메이플 참고 자료 Docs/Reference/Maple*(0f206324c, maplestory.io GMS v83 — 개선 재료, 그대로 넣지 않음). 맵 고유 지형 2/5 반영: BanditFortress f74a25756·DeepForestCore 0a640975c(둘 다 실입력 사다리·점프 미검증, 씬 변경은 해당 맵 하위만 확인). 남음: TowerOutskirts·MistSwamp·NormalForest(같은 절차, MapLayoutSpec §5), 퀘스트 보드 U6(놓친 사용자 제보), 퀘스트 한글 본문 나머지(maple_maps_dump fetchko 재실행). 11-16 13:07 예약 작업과 함께.
 - (11-14 REWORK-10 씬) TowerOutskirts 고유 지형 "무너진 계단 폐허" 반영: 폭 -640~-137 확장·고지대·큰 층 4·무너진 계단 3줄·사다리 11·탑 입구 최상단, 스폰 낮/밤 각 46슬롯, 포털 왕복·스폰 발판 위 확인. 실입력 사다리·점프 미검증.
 - 남음: 고유 지형 2장(NormalForest·MistSwamp)·Swamp 분산, 석재 T2·T3·뿌리 T4 그림은 그래픽 방.
+- (11-14 REWORK-10 씬) MistSwamp 고유 지형 "안개 속 좁은 섬·썩은 통나무 순환로" 반영: 폭 -422~277 확장·물웅덩이 17·좁은 섬 8·중앙 큰 섬·통나무 징검 29·윗길 14·로프 10, 스폰 낮/밤 각 42슬롯, 포털 왕복·스폰 발판 위 확인. MapInfo 카메라 벽 필터(같은 높이대 맵 복귀 경계 버그). 실입력 로프·점프 미검증.
+- 남음: 고유 지형 1장(NormalForest)·Swamp 분산, 석재 T2·T3·뿌리 T4·통나무/수면 T5 그림은 그래픽 방.

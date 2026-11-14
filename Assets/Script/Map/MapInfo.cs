@@ -112,7 +112,7 @@ public class MapInfo : MonoBehaviour
         // 좌우 경계: 맵 타일맵의 실제 가로 범위(AssetIntegrationPlan 6절 5 — 맵 끝에서 타일 밖 빈 공간이 보이던 문제)
         float left = 0f, right = 0f;
         bool hasX = info != null && info.TryGetTileXRange(out left, out right);
-        hasX = ClampToWalls(bounds, hasX, ref left, ref right);
+        hasX = ClampToWalls(bounds, info, hasX, ref left, ref right);
         bounds.UseLeftBoundary = hasX;
         bounds.UseRightBoundary = hasX;
         if (hasX)
@@ -127,8 +127,10 @@ public class MapInfo : MonoBehaviour
     /// 카메라 벽(CamBoundary, ProCamera2DGeometryBoundaries 의 3D 콜라이더)을 숫자 경계에 합치고 벽 경계 기능은 끈다.
     /// 10-29 사용자 "가만히 있어도 화면이 떨린다": 벽이 카메라를 밀고 따라가기가 다시 당겨 매 프레임 0.1씩 왕복했다(마을 오른쪽 벽 -380, 숫자 경계 -88).
     /// 플레이어 높이(±10)에 걸친 벽 중 플레이어 왼쪽에서 가장 가까운 벽의 오른쪽 면 = 왼쪽 경계, 오른쪽 벽의 왼쪽 면 = 오른쪽 경계.
+    /// 11-14: 다른 맵(MapInfo)에 속한 벽은 무시한다. 포털은 새 맵을 켠 직후(출발 맵이 아직 켜진 채) MapChanged 를 부르므로,
+    /// 같은 높이대 맵(늪 ↔ 안개늪)이면 출발 맵의 벽이 새 맵 경계를 잘랐다.
     /// </summary>
-    static bool ClampToWalls(ProCamera2DNumericBoundaries bounds, bool hasX, ref float left, ref float right)
+    private static bool ClampToWalls(ProCamera2DNumericBoundaries bounds, MapInfo info, bool hasX, ref float left, ref float right)
     {
         var geo = bounds.GetComponent<ProCamera2DGeometryBoundaries>();
         PlayerController player = PlayerController.instance;
@@ -141,6 +143,10 @@ public class MapInfo : MonoBehaviour
         float wallLeft = float.MinValue, wallRight = float.MaxValue;
         foreach (Collider c in Physics.OverlapBox(new Vector3(p.x, p.y, 0f), new Vector3(2000f, 10f, 100f), Quaternion.identity, geo.BoundariesLayerMask))
         {
+            if (IsOtherMapWall(c, info))
+            {
+                continue;
+            }
             Bounds b = c.bounds;
             if (b.max.x <= p.x)
             {
@@ -163,6 +169,17 @@ public class MapInfo : MonoBehaviour
         left = Mathf.Max(left, wallLeft == float.MinValue ? left : wallLeft);
         right = Mathf.Min(right, wallRight == float.MaxValue ? right : wallRight);
         return true;
+    }
+
+    /// <summary>벽이 지금 맵이 아닌 다른 맵(MapInfo) 아래에 있으면 true. 맵에 속하지 않은 벽·맵 정보 없음은 그대로 쓴다</summary>
+    private static bool IsOtherMapWall(Collider wall, MapInfo info)
+    {
+        if (info == null)
+        {
+            return false;
+        }
+        MapInfo owner = wall.GetComponentInParent<MapInfo>();
+        return owner != null && owner != info;
     }
 
     /// <summary>맵 아래 모든 타일맵(비활성 포함)의 칠해진 칸을 합친 월드 가로 범위. 타일이 없으면 false</summary>
