@@ -104,7 +104,9 @@ public class SaveManager : MonoBehaviour
             return;
         }
         datas.mapName = map.name;
-        SavePos();
+        MapInfo info = map.GetComponent<MapInfo>(); // 맵 경계 갱신보다 먼저 불릴 수 있어 새 맵 하한으로 직접 판단한다
+        StorePlayerPos(info != null ? info.cameraBottom : MapInfo.CurrentBottom);
+        DataSave();
     }
 
     private void RestoreMap()
@@ -145,6 +147,44 @@ public class SaveManager : MonoBehaviour
         {
             pools.AbleSpwaner();
         }
+        FixLostPosition(target);
+    }
+
+    /// <summary>저장 위치가 맵 밖(허공)이면 그 맵의 첫 포털 앞으로 옮긴다(손상·구세이브가 y≈-74312 로 저장돼 있던 경우)</summary>
+    private void FixLostPosition(Transform map)
+    {
+        MapInfo info = map.GetComponent<MapInfo>();
+        Portal entry = map.GetComponentInChildren<Portal>(true);
+        if (info == null || entry == null || !FallRecovery.IsLost(datas.playerPos.y, info.cameraBottom))
+        {
+            return;
+        }
+        GameLog.Info(GameLog.Cat.Save, "저장 위치가 맵 밖 " + datas.playerPos + " → " + entry.transform.position);
+        datas.playerPos = entry.transform.position;
+        if (player != null)
+        {
+            player.transform.position = datas.playerPos;
+        }
+    }
+
+    /// <summary>플레이어 위치를 저장값에 기록한다. 맵 밖(낙하 중)이면 직전 값을 지킨다</summary>
+    private void StorePlayerPos()
+    {
+        StorePlayerPos(MapInfo.CurrentBottom);
+    }
+
+    private void StorePlayerPos(float mapBottom)
+    {
+        if (player == null)
+        {
+            return;
+        }
+        Vector2 pos = player.transform.position;
+        if (FallRecovery.IsLost(pos.y, mapBottom))
+        {
+            return;
+        }
+        datas.playerPos = pos;
     }
     void Start()
     {
@@ -152,7 +192,7 @@ public class SaveManager : MonoBehaviour
     }
     public void SavePos() 
     {
-        datas.playerPos = player.transform.position;
+        StorePlayerPos();
         DataSave();
     }
 
@@ -162,10 +202,7 @@ public class SaveManager : MonoBehaviour
         {
             InventoryManager.instance.SaveInventoryAndChest();
         }
-        if (player != null)
-        {
-            datas.playerPos = player.transform.position;
-        }
+        StorePlayerPos();
         DataSave();
     }
     public void SaveTime(float time)

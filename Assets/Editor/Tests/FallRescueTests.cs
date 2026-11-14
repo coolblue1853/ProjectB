@@ -16,4 +16,14 @@ public class FallRescueTests
     {
         Assert.IsFalse(FallRescueRules.ShouldRescue(-9999f, float.NegativeInfinity));
     }
+
+    [Test]
+    public void Lost_BelowMapBottomMinusKillMargin()
+    {
+        Assert.IsFalse(FallRecovery.IsLost(-10f, -10f));
+        Assert.IsFalse(FallRecovery.IsLost(-10f - FallRecovery.KillMargin, -10f)); // 경계는 아직 아니다
+        Assert.IsTrue(FallRecovery.IsLost(-10f - FallRecovery.KillMargin - 0.01f, -10f));
+        Assert.IsTrue(FallRecovery.IsLost(-74312f, -188f)); // 11-15 R5: 허공에서 저장된 y
+        Assert.IsFalse(FallRecovery.IsLost(-179f, -188f)); // 2층계 맵은 하한이 낮아 정상 위치
+    }
 }

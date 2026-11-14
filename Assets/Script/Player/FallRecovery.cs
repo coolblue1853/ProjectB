@@ -11,12 +11,23 @@ public sealed class FallRecovery : MonoBehaviour
     public const float KillMargin = 8f;
     private const float RecordInterval = 0.25f;
     private const float MapJumpDistance = 25f;
+    private const float LostRetry = 3f;
 
     private Rigidbody2D _rb;
     private PlayerController _pc;
     private Vector2 _safe;
     private bool _hasSafe;
     private float _nextRecord;
+    private float _nextLost;
+
+    /// <summary>
+    /// 맵 카메라 하한보다 한참 아래인가(맵 밖). 안전 위치가 없어도(로드·텔레포트 직후 공중) 판단하는 기준이며,
+    /// 이 위치는 저장하지 않는다(11-15 R5: y≈-74312 로 저장돼 다음 로드도 허공에서 시작하던 문제).
+    /// </summary>
+    public static bool IsLost(float y, float mapBottom)
+    {
+        return y < mapBottom - KillMargin;
+    }
 
     private void Awake()
     {
@@ -41,9 +52,17 @@ public sealed class FallRecovery : MonoBehaviour
             _safe = pos;
             _hasSafe = true;
         }
-        if (_hasSafe && pos.y < MapInfo.CurrentBottom - KillMargin)
+        if (_hasSafe && IsLost(pos.y, MapInfo.CurrentBottom))
         {
             Recover();
+        }
+        else if (!_hasSafe && IsLost(pos.y, MapInfo.CurrentBottom) && Time.time >= _nextLost && !ScreenFader.Busy)
+        {
+            // 안전 위치가 한 번도 없었다(로드·웨이포인트 직후 허공) → 영원히 떨어지므로 마을로 보낸다
+            _nextLost = Time.time + LostRetry;
+            GameLog.Info(GameLog.Cat.Map, "낙사 복귀: 안전 위치 없음 y=" + pos.y + " → 마을");
+            PickupLog.Notice("길을 잃어 마을로 돌아왔어요.");
+            MapInfo.GoToTown(_pc.gameObject);
         }
     }
 
