@@ -210,3 +210,4 @@
 - 남음: 고유 지형 4장(NormalForest·DeepForestCore·MistSwamp·TowerOutskirts)·Swamp 분산, T2 석재 그림은 그래픽 방.
 - (11-14 REWORK-10 씬) DeepForestCore 고유 지형 "뿌리 동굴" 반영: U자 바닥·양쪽 뿌리 둔덕·T2/T3 뿌리 발판, 로프 6, 스폰 낮/밤 각 22슬롯, 포털 왕복·스폰 발판 위 확인. 히든 포털 미적용.
 - 남음: 고유 지형 3장(NormalForest·MistSwamp·TowerOutskirts)·Swamp 분산, 뿌리 T4·석재 T2 그림은 그래픽 방.
+- 11-14 총괄 정지(주간 97%): 메이플 참고 자료 Docs/Reference/Maple*(0f206324c, maplestory.io GMS v83 — 개선 재료, 그대로 넣지 않음). 맵 고유 지형 2/5 반영: BanditFortress f74a25756·DeepForestCore 0a640975c(둘 다 실입력 사다리·점프 미검증, 씬 변경은 해당 맵 하위만 확인). 남음: TowerOutskirts·MistSwamp·NormalForest(같은 절차, MapLayoutSpec §5), 퀘스트 보드 U6(놓친 사용자 제보), 퀘스트 한글 본문 나머지(maple_maps_dump fetchko 재실행). 11-16 13:07 예약 작업과 함께.
