@@ -106,3 +106,7 @@
 4. **스킬 이름 없는 애니 채우기**: `Bear Roar`·`Encroaching Darkness` `skillAnim`=`Raise`.
 
 미검증: 표는 프리팹·코드 정적 분석. 실제 재생 화면은 확인하지 않았다.
+
+## 진행 기록
+- 11-14 피격(코트): pixminimax 4장, 첫·끝 = `EquipDS/base_coat/ds_idle_0`, east·side·seed 7001, 2생성(1회는 속옷 몸 `CelDS/ds_idle_0`을 잘못 넣어 버림). 속도선은 최대 연결 덩어리만 남겨 지움. 결과 `Docs/ArtCompare/Motion/coat_basic/hurt_g2/c1~c3.png`. 사용자 판정 대기, 게임 미반영(의상 한 벌 구조 정리 뒤 반영).
+- 주의: `CelDS/ds_*`는 이제 속옷 몸이다. 코트 기준 그림은 `EquipDS/base_coat/`.
