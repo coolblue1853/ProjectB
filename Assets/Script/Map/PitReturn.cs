@@ -10,10 +10,13 @@ using UnityEngine;
 /// </summary>
 public static class PitReturn
 {
-    /// <summary>구덩이가 있는 복제 지형 구역</summary>
+    /// <summary>
+    /// 구덩이가 있는 복제 지형 구역. 11-14 일반 숲은 고유 지형(구덩이 없음)으로 바뀌어 뺐다 —
+    /// 샛길에서 넘어올 때 샛길이 아직 켜져 있어 샛길 구덩이를 재고 일반 숲 땅속에 포털을 만들었다.
+    /// </summary>
     private static readonly string[] Maps =
     {
-        "Lv1_NearForest_SideRoad", "Lv1_NormalForest", "Lv1_DeepForest", "Lv1_BanditFortress", "Lv1_TowerOutskirts",
+        "Lv1_NearForest_SideRoad", "Lv1_DeepForest", "Lv1_BanditFortress", "Lv1_TowerOutskirts",
     };
 
     private const float PitX = -248f, RoadX = -274f;
