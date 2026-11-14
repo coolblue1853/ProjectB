@@ -48,6 +48,12 @@
 - 공격 모션만 코트 프레임을 transfer_outfit으로 옮겨 모든 무기에 대응시킨다.
 - 시안 확정: 잎사귀 `concepts2/leaf_b_shoe`, 쥐 `concepts2/rat_shoe`, 늑대 `concepts2/wolf_shoe`, 도깨비불 `concepts3/wisp_shortcape`(합격), 허수아비 `concepts3/scare_arm2`(원본 scare_c에 팔 부분만 합성, 판정 대기).
 
+## 진행 (11-14 밤)
+- 순서(사용자): 허수아비 → 나뭇잎 → 도깨비불 → 늑대 → 쥐. 의상마다 기본 4종(pixminimax 8프레임×4, 4생성) + 공격 136프레임(transfer_outfit 14장씩 10회, 약 100생성).
+- 허수아비 확정 기준 그림 `Docs/ArtCompare/Motion/outfit/scarecrow/ref.png`, 기본 4종 완료(`basic.gif`). 공격 옮겨 입히기는 아직(사용자 요청으로 일시 정지).
+- 공격 프레임 목록: CelDS `cb_*`(fist 제외 108) + base_coat `ds_stab·down·up`(13) + CelDS `ds_death·rope·ropestay`(15) = 136. 업로드 ref는 `Docs/ArtCompare/Motion/outfit/coat_attack_uploads.json`(3일 유효).
+- PixelLab 잔량 680(11-25 갱신). 5벌 약 520 예상.
+
 ## (폐기) 추가 결정 (11-13 사용자): 헤어스타일 고정, 색만 변경
 
 - **헤어스타일은 고정**이다. 의상이나 직업에 따라 바꾸지 않고, 헤어스타일 선택 기능도 두지 않는다(포니테일·고글 등 얼굴·머리는 모든 의상에서 같은 그림).
