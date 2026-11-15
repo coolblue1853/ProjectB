@@ -137331,6 +137331,7 @@ MonoBehaviour:
   _cel: {fileID: 0}
   _celFist: {fileID: 0}
   _celClips: []
+  _outfitCels: []
   _celArtWeapon: 0
 --- !u!4 &336627577
 Transform:
@@ -357848,7 +357849,7 @@ MonoBehaviour:
     dropProbability: 0.04
     offsetY: 0.5
   - itemName: PhantomScythe
-    dropProbability: 0.02
+    dropProbability: 0.01
     offsetY: 0.5
   - itemName: FaeCap
     dropProbability: 0.003
@@ -463511,7 +463512,7 @@ MonoBehaviour:
     dropProbability: 0.04
     offsetY: 0.5
   - itemName: PhantomScythe
-    dropProbability: 0.02
+    dropProbability: 0.01
     offsetY: 0.5
   - itemName: FaeCap
     dropProbability: 0.003
@@ -543252,7 +543253,7 @@ MonoBehaviour:
     dropProbability: 0.04
     offsetY: 0.5
   - itemName: PhantomScythe
-    dropProbability: 0.02
+    dropProbability: 0.01
     offsetY: 0.5
   - itemName: FaeCap
     dropProbability: 0.003
@@ -881538,7 +881539,7 @@ MonoBehaviour:
     dropProbability: 0.04
     offsetY: 0.5
   - itemName: PhantomScythe
-    dropProbability: 0.02
+    dropProbability: 0.01
     offsetY: 0.5
   - itemName: FaeCap
     dropProbability: 0.003
@@ -1054109,6 +1054110,7 @@ MonoBehaviour:
   _cel: {fileID: 0}
   _celFist: {fileID: 0}
   _celClips: []
+  _outfitCels: []
   _celArtWeapon: 0
 --- !u!4 &1450019478
 Transform:
@@ -1744216,7 +1744218,7 @@ MonoBehaviour:
     dropProbability: 0.04
     offsetY: 0.5
   - itemName: PhantomScythe
-    dropProbability: 0.02
+    dropProbability: 0.01
     offsetY: 0.5
   - itemName: FaeCap
     dropProbability: 0.003
