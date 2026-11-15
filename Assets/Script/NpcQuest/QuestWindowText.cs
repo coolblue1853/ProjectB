@@ -244,8 +244,8 @@ public static class QuestWindowText
     public static string Hint(bool entrance)
     {
         return entrance
-            ? "↑↓ 선택  ←→ 탭  Enter 수락·보고  Z 추적  Del 포기  Esc 닫기\n패드: ↕ 선택  LB/RB 탭  A 수락·보고  X 추적  Y 포기  B 닫기"
-            : "↑↓ 선택  ←→ 탭  Z 추적/접기  Del 포기  H 추적창 접기  Q·Esc 닫기\n패드: ↕ 선택  LB/RB 탭  A·X 추적  Y 포기  LT 추적창  B 닫기";
+            ? "↑↓ 선택  ←→ 탭  Enter 수락·보고  Z 추적  Del 포기  Esc 닫기\n패드: ↑↓ 선택  LB/RB 탭  A 수락·보고  X 추적  Y 포기  B 닫기"
+            : "↑↓ 선택  ←→ 탭  Z 추적/접기  Del 포기  H 추적창 접기  Q·Esc 닫기\n패드: ↑↓ 선택  LB/RB 탭  A·X 추적  Y 포기  LT 추적창  B 닫기";
     }
 
     public static string Empty(QuestListRules.Tab tab)

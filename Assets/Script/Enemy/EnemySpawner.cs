@@ -333,6 +333,12 @@ public class EnemySpawner : MonoBehaviour
         Destroy(go);
     }
 
+    /// <summary>시체 풀에서 꺼낸다. 시체 풀이 없는 스포너(약초 등 시체 없는 몹)는 경고 없이 null</summary>
+    private GameObject GetDeadBody()
+    {
+        return pools.ContainsKey(DeadBodyKey) ? GetOb(DeadBodyKey) : null;
+    }
+
     /// <summary>키에 해당하는 풀에서 오브젝트를 꺼낸다. 등록되지 않은 키면 null.</summary>
     public GameObject GetOb(string goName)
     {
@@ -474,7 +480,7 @@ public class EnemySpawner : MonoBehaviour
         }
         if (isDeadBody)
         {
-            GameObject deadbody = GetOb(DeadBodyKey);
+            GameObject deadbody = GetDeadBody();
             if (deadbody != null)
             {
                 deadbody.transform.position = pos;
@@ -794,7 +800,7 @@ public class EnemySpawner : MonoBehaviour
         }
         if (isDeadBody)
         {
-            GameObject deadbody = GetOb(DeadBodyKey);
+            GameObject deadbody = GetDeadBody();
             if (deadbody != null)
             {
                 deadbody.transform.position = pos;
@@ -823,7 +829,7 @@ public class EnemySpawner : MonoBehaviour
         }
         if (isDeadBody)
         {
-            GameObject deadbody = GetOb(DeadBodyKey);
+            GameObject deadbody = GetDeadBody();
             if (deadbody != null)
             {
                 deadbody.transform.position = pos;

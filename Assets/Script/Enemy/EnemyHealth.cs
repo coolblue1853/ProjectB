@@ -787,6 +787,10 @@ public class EnemyHealth : PoolAble
     public PosionAttack CreatPoisonPrefab(int poisonDamage, float damageInterval,int damageCount, string label = "POISON")
     {
         PosionAttack posionAttack = null;
+        if (!isActiveAndEnabled)
+        {
+            return null; // 비활성 몹의 자식으로 만들면 코루틴 시작 에러(Error 105회 기록). 풀 반환·사망 직후 호출 무시
+        }
         if (this.gameObject != null)
         {
             StatusTint.Ensure(gameObject);
@@ -803,6 +807,10 @@ public class EnemyHealth : PoolAble
     }
     public void CreatBleedingPrefab(int bleedingDamage, float bleedingDamageInterval, int bleedingDamageCount)
     {
+        if (!isActiveAndEnabled)
+        {
+            return;
+        }
         if(this.gameObject != null)
         {
             StatusTint.Ensure(gameObject);

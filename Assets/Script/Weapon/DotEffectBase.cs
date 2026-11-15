@@ -17,6 +17,11 @@ public abstract class DotEffectBase : MonoBehaviour
     /// <summary>기존 프리팹·호출부 호환을 위해 이름 유지</summary>
     public void ActivePoison(int baseDamage, float interval, int count)
     {
+        if (!isActiveAndEnabled)
+        {
+            Destroy(gameObject); // 비활성 계층에서는 코루틴을 시작할 수 없다
+            return;
+        }
         if (routine != null)
         {
             StopCoroutine(routine);
