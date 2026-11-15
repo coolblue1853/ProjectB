@@ -159,6 +159,8 @@ def section_header(L, rows, bad, name, tks, sts):
     L.append("")
     L.append("- 총 %s (게임 시간) · 줄 %d (%s)%s" % (fmt_time(total), len(rows),
              " ".join("%s %d" % kv for kv in c.most_common()), " · 깨진 줄 %d" % bad if bad else ""))
+    srcs = Counter(r.get("src", "?") for r in rows)
+    L.append("- 출처: " + " ".join("src=%s %d" % kv for kv in srcs.most_common()))
     meta = next((r for r in rows if r.get("k") == "meta"), None)
     if meta:
         L.append("- 메타: %s git %s · %dx%d · %s · 시작 Lv%s %s · 영상 %s" % (
