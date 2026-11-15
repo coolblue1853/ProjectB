@@ -72,13 +72,55 @@ public sealed class PlayRecorder : MonoBehaviour
         Source = "human";
     }
 
+    /// <summary>에디터 전용: 다음 플레이 시작 기록의 출처를 미리 정한다(bot_run.sh 가 플레이 전에 "bot" 으로 둔다 — 사람 폴더에 빈 세션을 남기지 않게). 한 번 쓰면 지운다</summary>
+    public const string PendingSourceKey = "PB.PlayRec.NextSource";
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Boot()
     {
+#if UNITY_EDITOR
+        string pending = UnityEditor.SessionState.GetString(PendingSourceKey, "");
+        if (pending.Length > 0)
+        {
+            UnityEditor.SessionState.EraseString(PendingSourceKey); // 기록이 꺼져 있어도 소비한다(다음 판에 남지 않게)
+            Source = pending;
+        }
+#endif
         if (!Enabled || _inst != null)
         {
             return;
         }
+        Spawn();
+    }
+
+    /// <summary>
+    /// 기록 출처를 바꿔 새 세션을 연다(봇 시작·종료 때). 지금 세션을 닫고(영상 포함) 출처별 폴더(<see cref="PlayRecWriter.DirNameFor"/>)에 새 jsonl 을 연다.
+    /// 출처가 같고 기록 중이면 아무것도 하지 않는다. Enabled 가 false 면 출처만 바꾼다.
+    /// </summary>
+    public static void Restart(string source)
+    {
+        if (Source == source && _inst != null && PlayRecWriter.IsOpen)
+        {
+            return;
+        }
+        Source = source;
+        if (!Enabled)
+        {
+            return;
+        }
+        if (_inst != null)
+        {
+            PlayRecorder old = _inst;
+            old.Shutdown();
+            old.enabled = false; // OnDisable 로 구독을 바로 푼다(Destroy 는 프레임 끝)
+            _inst = null;
+            Destroy(old.gameObject);
+        }
+        Spawn();
+    }
+
+    private static void Spawn()
+    {
         GameObject go = new GameObject("PlayRecorder");
         DontDestroyOnLoad(go);
         _inst = go.AddComponent<PlayRecorder>();

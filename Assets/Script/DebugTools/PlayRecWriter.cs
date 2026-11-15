@@ -38,14 +38,21 @@ public static class PlayRecWriter
         Session = null;
     }
 
+    /// <summary>기록 출처별 폴더 이름. 사람 = playrec, 그 밖(봇·재생) = playrec_bot — 봇 세션이 사람 기록을 정리(최근 30판)로 밀어내지 않게 나눈다</summary>
+    public static string DirNameFor(string source)
+    {
+        return string.IsNullOrEmpty(source) || source == "human" ? "playrec" : "playrec_bot";
+    }
+
     /// <summary>메인 스레드에서 한 번. 기록 폴더를 만들고 오래된 세션을 지운 뒤 새 jsonl 을 연다.</summary>
     public static void Open()
     {
         _mainThreadId = Thread.CurrentThread.ManagedThreadId;
+        string dirName = DirNameFor(PlayRecorder.Source);
 #if UNITY_EDITOR
-        Dir = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "Logs", "playrec");
+        Dir = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "Logs", dirName);
 #else
-        Dir = Path.Combine(Application.persistentDataPath, "playrec");
+        Dir = Path.Combine(Application.persistentDataPath, dirName);
 #endif
         Directory.CreateDirectory(Dir);
         PruneOldSessions(Dir, KeepSessions);
