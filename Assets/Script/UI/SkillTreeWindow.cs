@@ -279,6 +279,7 @@ public sealed class SkillTreeWindow : MonoBehaviour
         if (r == InvestResult.Ok)
         {
             _notice = n.Name + " Lv" + SkillTreeService.LevelOf(tree, n.Id);
+            PlayRecorder.Event("invest", n.Id, SkillTreeService.LevelOf(tree, n.Id), tree); // 기록기: 스킬 투자 결정
             Sfx.Play(SfxId.UiOpen, 0.7f);
         }
         else

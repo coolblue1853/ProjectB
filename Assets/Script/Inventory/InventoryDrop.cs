@@ -82,6 +82,7 @@ public static class InventoryDrop
         if (inv.Service.RemoveAt(item, Mathf.Min(count, have)))
         {
             inv.SaveInventory();
+            PlayRecorder.Event("drop", id, Mathf.Min(count, have)); // 기록기: 버리기 결정
             PickupLog.Notice(label + " " + Mathf.Min(count, have) + "개를 버렸다");
             GameLog.Info(GameLog.Cat.Item, "버리기: " + id + " x" + Mathf.Min(count, have));
         }

@@ -25,6 +25,9 @@ public sealed class TempMobDash : MonoBehaviour
 
     public bool IsDashing => _state == State.Dash;
 
+    /// <summary>웅크림(돌진 예고) 중 — 관측 전용</summary>
+    public bool IsCrouching => _state == State.Crouch;
+
     void Awake()
     {
         _enemy = GetComponent<EnemyHealth>();

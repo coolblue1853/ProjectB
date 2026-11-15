@@ -8,6 +8,11 @@ public sealed class SporeCloud : MonoBehaviour
 {
     const float Duration = 2.5f, Cooldown = 3.5f, TickInterval = 0.8f, Radius = 1.3f;
     const int TickDamage = 5;
+
+    // ── 관측 전용(PlayObsTerrain 의 위험 칸) ──
+    public const float ObsRadius = Radius;
+    public bool ObsCloudActive => _cloud != null && _cloud.gameObject.activeSelf;
+    public Vector3 ObsCloudPos => _cloud != null ? _cloud.position : transform.position;
     static Sprite s_sprite;
 
     EnemyHealth _enemy;

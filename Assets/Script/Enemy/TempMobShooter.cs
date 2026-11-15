@@ -23,6 +23,9 @@ public sealed class TempMobShooter : MonoBehaviour
     /// <summary>추적 이동 배율: 준비 중 0</summary>
     public float ChaseMul => _winding ? 0f : 1f;
 
+    /// <summary>조준(사격 예고) 중 — 관측 전용</summary>
+    public bool IsWindingUp => _winding;
+
     public void Init(MobShootRules.Profile profile)
     {
         _profile = profile;

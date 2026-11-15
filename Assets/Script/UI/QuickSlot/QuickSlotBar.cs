@@ -176,6 +176,12 @@ public class QuickSlotBar : MonoBehaviour
         }
     }
 
+    /// <summary>slot 칸에 등록된 아이템 id(없으면 null) — 관측 전용</summary>
+    public static string SlotItem(int slot)
+    {
+        return _instance != null ? _instance._model[slot] : null;
+    }
+
     /// <summary>slot 칸의 아이템을 1개 사용한다(사용했으면 true). 프로브·게임패드 확장용 공개 창구</summary>
     public static bool Use(int slot)
     {
@@ -212,6 +218,7 @@ public class QuickSlotBar : MonoBehaviour
             return false;
         }
         _instance._model.Assign(slot, item.name);
+        PlayRecorder.Event("quick", item.name, slot); // 기록기: 퀵슬롯 배치 결정
         _instance.Punch(slot);
         Sfx.Play(SfxId.UiMove, 0.7f);
         return true;

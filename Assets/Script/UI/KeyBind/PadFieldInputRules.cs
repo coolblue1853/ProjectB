@@ -73,6 +73,12 @@ public static class PadFieldInputRules
         return next < 0 ? next + count : next;
     }
 
+    /// <summary>SELECT+R3 동시 누름(플레이 기록기 북마크): 둘 다 눌린 상태에서 그중 하나가 이번 프레임에 눌렸다</summary>
+    public static bool IsSelectR3Chord(bool selectHeld, bool r3Held, bool eitherPressedThisFrame)
+    {
+        return selectHeld && r3Held && eitherPressedThisFrame;
+    }
+
     /// <summary>LT 를 누른 채 다른 버튼을 눌렀는가(조합 입력). LT 단독 동작과 구분</summary>
     public static bool IsLtChord(bool ltHeld, bool buttonPressedThisFrame)
     {

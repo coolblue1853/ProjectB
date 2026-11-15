@@ -249,6 +249,14 @@ public class EnemyHealth : PoolAble
 
     /// <summary>REWORK-3 행동 속성(없으면 null = 프리팹 BT 동작 그대로). MonsterTable.Apply 가 채운다.</summary>
     public MobBehavior Behavior { get; set; }
+
+    // ── 관측 전용(PlayObsEnemies 가 읽기만 한다, 상태를 바꾸지 않는다) ──
+    /// <summary>Animator isAttack 이 켜져 있다(BT 공격 준비~공격). isAttack 이 없는 애니메이터는 항상 false</summary>
+    public bool ObsAttackFlag => animHasAttack && anim != null && anim.isActiveAndEnabled && anim.GetBool(IsAttackId);
+    public bool ObsHasAttackAnim => animHasAttack;
+    public bool ObsDead => deadOnec || nowHP <= 0;
+    public TempMobDash ObsDash => _dash;
+    public TempMobShooter ObsShooter => _shooter;
     /// <summary>낙하·착지 판정용(REWORK-3 P2 스포너 정리)</summary>
     public Rigidbody2D Body => rb;
     /// <summary>추격 유지 중(인식 성공 뒤 giveUp 거리까지 놓치지 않음). 풀 재사용 때 초기화</summary>
@@ -466,7 +474,7 @@ public class EnemyHealth : PoolAble
 
        // 최종데미지
         Damage((int)finDmg);
-        PlayRecorder.Dealt(this, (int)finDmg, isSkill, isCrit);
+        PlayRecorder.Dealt(this, (int)finDmg, isSkill, isCrit, isSuperArmor ? 0f : force);
         HitFeedback.SpawnNumber(damageNumber, transform.position + Vector3.up, (int)finDmg,
             isCrit ? HitFeedback.NumberKind.Crit : HitFeedback.NumberKind.Normal);
 

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// 필드 패드 입력 집계(AUTO-49, InputAudit P2·P3·P4·P5). 프레임당 한 번 계산해 소비자가 같은 값을 읽는다.
 /// SELECT: 짧게 = 인벤 열기, 길게 = 퀘스트 창. L3: 짧게 = 퀵슬롯 1, 길게 = 퀵슬롯 4. R3: 짧게 = 아티팩트 사용, 길게 = 다음 아티팩트.
-/// LT+SELECT = 도감, LT+START = 지도, LT+R3 = 미니맵.
+/// LT+SELECT = 도감, LT+START = 지도, LT+R3 = 미니맵. SELECT+R3 = 플레이 기록 북마크(기록기 켜짐일 때만, 두 버튼 제스처를 버린다).
 /// 소비자는 읽기 전에 Refresh()를 매 프레임 불러야 한다(제스처 판정이 프레임 폴링이라 빠지면 놓친다).
 /// 눌린 순간 UI 가 열려 있었는지(InUi)를 함께 돌려줘, 인벤토리 안 SELECT·L3 동작과 겹치지 않게 한다.
 /// </summary>
@@ -29,6 +29,10 @@ public static class PadFieldInput
     public static bool LtStart { get; private set; }
     /// <summary>LT+R3 조합 이번 프레임(U36 미니맵 켜기·끄기, 필드 한정 소비자가 isOpenUI 로 거른다)</summary>
     public static bool LtR3 { get; private set; }
+    /// <summary>SELECT+R3 동시 누름 이번 프레임(PlayRecorder 북마크). 이때 SELECT·R3 짧게/길게 제스처는 버린다</summary>
+    public static bool SelectR3 { get; private set; }
+    /// <summary>SELECT+R3 조합을 쓸지. 플레이 기록기가 켜져 있을 때만 true(꺼져 있으면 예전 동작 그대로)</summary>
+    public static bool SelectR3ChordEnabled;
 
     // 소비자(아티팩트·퀘스트 창 등)가 비활성이어도 홀드 타이머가 흐르도록 매 프레임 Refresh 를 부르는 구동기(ReviewCode_1105b #3)
     private sealed class Driver : MonoBehaviour
@@ -65,6 +69,7 @@ public static class PadFieldInput
         LtSelect = false;
         LtStart = false;
         LtR3 = false;
+        SelectR3 = false;
         Gamepad pad = Gamepad.current;
         if (pad == null)
         {
@@ -100,10 +105,23 @@ public static class PadFieldInput
             _l3InUi = false;
             _selectInUi = false; // 취소한 제스처의 UI 상태가 다음 눌림까지 남지 않게(ReviewCode_1105b #4)
         }
+        bool selectNow = pad.selectButton.wasPressedThisFrame;
+        bool r3Now = pad.rightStickButton.wasPressedThisFrame;
+        SelectR3 = SelectR3ChordEnabled && PadFieldInputRules.IsSelectR3Chord(pad.selectButton.isPressed, pad.rightStickButton.isPressed, selectNow || r3Now);
+        if (SelectR3)
+        {
+            // 북마크 조합: 인벤(SELECT)·아티팩트(R3)가 같이 나가지 않게 두 제스처를 버린다
+            _select.Cancel();
+            _r3.Cancel();
+            _selectInUi = false;
+            _r3InUi = false;
+            selectNow = false;
+            r3Now = false;
+        }
         // LT 조합(LT+SELECT 등)은 제스처로 세지 않는다
-        Select = _select.Step(pad.selectButton.wasPressedThisFrame && !lt, pad.selectButton.isPressed, now, PadFieldInputRules.QuestHoldSeconds);
+        Select = _select.Step(selectNow && !lt, pad.selectButton.isPressed, now, PadFieldInputRules.QuestHoldSeconds);
         L3 = _l3.Step(pad.leftStickButton.wasPressedThisFrame && !lt, pad.leftStickButton.isPressed, now, PadFieldInputRules.Quick4HoldSeconds);
-        R3 = _r3.Step(pad.rightStickButton.wasPressedThisFrame && !lt, pad.rightStickButton.isPressed, now, PadFieldInputRules.ArtifactNextHoldSeconds);
+        R3 = _r3.Step(r3Now && !lt, pad.rightStickButton.isPressed, now, PadFieldInputRules.ArtifactNextHoldSeconds);
         R3InUi = _r3InUi;
         SelectInUi = _selectInUi;
         L3InUi = _l3InUi;

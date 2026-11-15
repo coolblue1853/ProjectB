@@ -5,6 +5,15 @@ using DG.Tweening;
 using DarkTonic.MasterAudio;
 public class EnemyDamageObject : PoolAble
 {
+    /// <summary>켜져 있는 몹 공격 판정·투사체(관측 전용 목록: PlayObsEnemies 가 읽기만 한다)</summary>
+    public static readonly HashSet<EnemyDamageObject> Live = new HashSet<EnemyDamageObject>();
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetLive()
+    {
+        Live.Clear();
+    }
+
     public string attackSound;
     public bool isDestroyByTime = true;
     public float holdingTime = 0;
@@ -69,7 +78,7 @@ public class EnemyDamageObject : PoolAble
     }
     private void OnEnable()
     {
-
+        Live.Add(this);
         isEndInit = false;
 
         DOTween.Kill(this.gameObject);
@@ -170,8 +179,14 @@ public class EnemyDamageObject : PoolAble
         }
     }
 
+    private void OnDisable()
+    {
+        Live.Remove(this);
+    }
+
     private void OnDestroy()
     {
+        Live.Remove(this);
         // Stop any active DOTween sequences when the object is destroyed
         if (sequence != null)
         {
@@ -223,6 +238,7 @@ public class EnemyDamageObject : PoolAble
                 {
                     if (!isPlayerAttack && playerHealth.CanBeHit && MissRules.MobAttackMisses(owner.Level, owner.isBossMob))
                     {
+                        PlayRecorder.HitMiss(enemyOb); // 기록기: 레벨 차 빗나감
                         playerHealth.ShowMiss(); // 내 레벨이 훨씬 높아 빗나감
                         damagedPlayer[collision] = true;
                         return;
@@ -230,6 +246,7 @@ public class EnemyDamageObject : PoolAble
                     BossPhase bp = enemyOb.GetComponent<BossPhase>();
                     dealt = EnemyAttackScale.Apply(damage, owner.IsElite, bp != null ? bp.DamageMultiplier : 1f);
                 }
+                PlayRecorder.HitBy(enemyOb); // 기록기: 이번 피격 시도의 공격자
                 playerHealth.damage2Player(dealt, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);
 
                 // Mark the enemy as damaged

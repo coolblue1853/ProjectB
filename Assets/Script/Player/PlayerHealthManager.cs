@@ -365,6 +365,7 @@ public class PlayerHealthManager : MonoBehaviour
     /// <param name="invincibleTime">피격 후 무적 시간. 0 이하면 noDamgeTime</param>
     public void damage2Player(int damage, float stiffTime, float force, Vector2 knockbackDir, float x, bool isDirChange, float invincibleTime = 0f)
     {
+        PlayRecorder.HitAttempt(damage, isNoDamge, DatabaseManager.isInvincibility); // 기록기: 피격 시도(무적·피격 무적 여부)
 
         if (isNoDamge == false && DatabaseManager.isInvincibility == true)
         {
@@ -375,6 +376,7 @@ public class PlayerHealthManager : MonoBehaviour
             int dmgAfDef = DamageCalculator.IncomingToPlayer(damage, Def, StatMath.IncomingDamageMul * AscentLoad.IncomingMul()); // 상승 부하: 받는 피해 증가
             // 홀드 방어(방패 등): 피해 감소 + 경직 없음. F2-GUARD 도 같은 훅 사용 (AUTO-15)
             bool guarded = PlayerGuard.TryIntercept(ref dmgAfDef, out bool parried);
+            PlayRecorder.Guarded(guarded, parried); // 기록기: 방어·패링 결과
             if (guarded)
             {
                 stiffTime = 0f;

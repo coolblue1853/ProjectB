@@ -1318,6 +1318,7 @@ public class InventoryManager : MonoBehaviour
         int fromIndex = Service.IndexOf(detail);
         if (fromIndex >= 0)
         {
+            PlayRecorder.Event("equip", detail.name, int.MinValue, area); // 기록기: 플레이어 장착 결정(로드·기본 무기는 제외)
             if (!Service.TakeOut(detail, equipBox.transform))
             {
                 GameLog.Warn(GameLog.Cat.Item, "장착 실패(인벤 칸에서 꺼내지 못함): " + detail.name);

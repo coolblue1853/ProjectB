@@ -2,8 +2,9 @@
 using UnityEngine;
 
 /// <summary>
-/// 게임 상태 관측(읽기 전용). PlayRecorder 의 스냅샷이 쓰고, 나중에 자동 플레이 봇(B단계)도 같은 클래스를 재사용한다.
+/// 게임 상태 관측(읽기 전용). PlayRecorder 의 스냅샷·학습 틱이 쓰고, 자동 플레이 봇(B단계)도 같은 클래스를 재사용한다.
 /// Observe() 한 번에 필드를 갱신한다. 할당을 피한다: 가까운 적은 고정 배열, 포털·NPC·드롭은 몇 초마다 한 번만 FindObjectsByType 으로 캐시.
+/// 하위 관측: Foes(적·투사체 6+4, PlayObsEnemies) · Terrain(격자·발판 끝·낙하, PlayObsTerrain) · Context(1초 맥락, ObserveContext) · Ui(포커스 경로).
 /// 맵 밖·타이틀처럼 값이 없어도 예외 없이 HasPlayer=false 등 빈 값으로 둔다. 게임 상태를 바꾸지 않는다.
 /// </summary>
 public sealed class PlayObservation
@@ -44,8 +45,21 @@ public sealed class PlayObservation
     public readonly NearEnemy[] Enemies = new NearEnemy[NearCount];
     public NearPoint Portal, Npc, Drop;
 
-    private readonly EnemyHealth[] _near = new EnemyHealth[NearCount];
-    private readonly float[] _nearD = new float[NearCount];
+    // 전투 상태(학습 틱)
+    /// <summary>지금 피해를 받을 수 있는가(피격 무적·대시/스킬 무적이 아님)</summary>
+    public bool CanBeHit;
+    /// <summary>장착 무기의 현재 콤보 단계(Weapon.nowConboCount), 무기 없으면 0</summary>
+    public int Combo;
+    /// <summary>던파식 히트 카운터(CombatHud.Hits)</summary>
+    public int Hits;
+    /// <summary>스킬 칸 4개의 남은 쿨다운(초), 쿨다운 아님 = 0</summary>
+    public readonly float[] Cooldowns = new float[4];
+    public bool TerrainChanged;
+
+    public readonly PlayObsEnemies Foes = new PlayObsEnemies();
+    public readonly PlayObsTerrain Terrain = new PlayObsTerrain();
+    public readonly PlayObsContext Context = new PlayObsContext();
+    public readonly PlayObsUi Ui = new PlayObsUi();
     private readonly List<Transform> _portals = new List<Transform>(16);
     private readonly List<Transform> _npcs = new List<Transform>(16);
     private readonly List<Transform> _drops = new List<Transform>(32);
@@ -63,6 +77,13 @@ public sealed class PlayObservation
     {
         _nextStaticScan = 0f;
         _nextDropScan = 0f;
+        Terrain.ForceRescan();
+    }
+
+    /// <summary>진행 맥락(1초마다 부른다 — 퀘스트 목록 할당이 있어 매 틱 부르지 않는다)</summary>
+    public void ObserveContext()
+    {
+        Context.Observe();
     }
 
     public void Observe()
@@ -73,6 +94,7 @@ public sealed class PlayObservation
         Portal = default(NearPoint);
         Npc = default(NearPoint);
         Drop = default(NearPoint);
+        TerrainChanged = false;
         if (!HasPlayer)
         {
             OnRope = false;
@@ -81,6 +103,9 @@ public sealed class PlayObservation
             Fsm = "";
             Flags = "";
             HasHealth = false;
+            CanBeHit = false;
+            Foes.Clear();
+            Terrain.Clear();
             return;
         }
         Transform tf = pc.transform;
@@ -111,62 +136,43 @@ public sealed class PlayObservation
             Mp = hm.nowStemina;
             MpMax = hm.fullStemina;
         }
+        CanBeHit = HasHealth && hm.CanBeHit;
         Level = LevelSystem.Level;
         Exp = LevelSystem.Exp;
         Gold = DatabaseManager.money;
-        ObserveEnemies(p);
+        ObserveCombat();
+        Foes.Observe(p, Time.time);
+        CopyNearEnemies();
+        TerrainChanged = Terrain.Observe(pc, Grounded, Face, Time.unscaledTime);
         RescanIfDue();
         Portal = Nearest(_portals, p, false);
         Npc = Nearest(_npcs, p, false);
         Drop = Nearest(_drops, p, true);
     }
 
-    private void ObserveEnemies(Vector3 p)
+    /// <summary>st(R1) 용 가까운 적 3마리 = Foes 앞 3개</summary>
+    private void CopyNearEnemies()
     {
-        for (int i = 0; i < NearCount; i++)
+        EnemyCount = Mathf.Min(NearCount, Foes.FoeCount);
+        for (int i = 0; i < EnemyCount; i++)
         {
-            _near[i] = null;
-            _nearD[i] = float.MaxValue;
+            PlayObsEnemies.Foe f = Foes.Foes[i];
+            Enemies[i].Id = f.Id;
+            Enemies[i].Dx = f.Dx;
+            Enemies[i].Dy = f.Dy;
+            Enemies[i].HpPercent = f.HpPercent;
         }
-        foreach (EnemyHealth e in EnemyHealth.Active)
+    }
+
+    private void ObserveCombat()
+    {
+        Weapon w = Weapon.Equipped;
+        Combo = w != null ? w.nowConboCount : 0;
+        Hits = CombatHud.Hits;
+        SkillCooldown cd = SkillCooldown.instance;
+        for (int i = 0; i < Cooldowns.Length; i++)
         {
-            if (e == null || !e.gameObject.activeInHierarchy)
-            {
-                continue;
-            }
-            Vector3 q = e.transform.position;
-            float dx = q.x - p.x;
-            float dy = q.y - p.y;
-            float d = dx * dx + dy * dy;
-            for (int i = 0; i < NearCount; i++)
-            {
-                if (d < _nearD[i])
-                {
-                    for (int j = NearCount - 1; j > i; j--)
-                    {
-                        _near[j] = _near[j - 1];
-                        _nearD[j] = _nearD[j - 1];
-                    }
-                    _near[i] = e;
-                    _nearD[i] = d;
-                    break;
-                }
-            }
-        }
-        for (int i = 0; i < NearCount; i++)
-        {
-            EnemyHealth e = _near[i];
-            if (e == null)
-            {
-                break;
-            }
-            Vector3 q = e.transform.position;
-            Enemies[i].Id = e.KillMessageId;
-            Enemies[i].Dx = q.x - p.x;
-            Enemies[i].Dy = q.y - p.y;
-            Enemies[i].HpPercent = e.maxHP > 0 ? Mathf.Clamp(e.nowHP * 100 / e.maxHP, 0, 100) : 0;
-            EnemyCount = i + 1;
-            _near[i] = null; // 참조를 오래 쥐지 않는다
+            Cooldowns[i] = cd != null ? cd.Remaining(i) : 0f;
         }
     }
 
@@ -177,22 +183,22 @@ public sealed class PlayObservation
         {
             _nextStaticScan = now + StaticRescanSeconds;
             _portals.Clear();
-            Portal[] portals = Object.FindObjectsByType<Portal>(FindObjectsSortMode.None);
+            Portal[] portals = Object.FindObjectsByType<Portal>();
             for (int i = 0; i < portals.Length; i++)
             {
                 _portals.Add(portals[i].transform);
             }
             _npcs.Clear();
-            AddAll(Object.FindObjectsByType<TalkNpc>(FindObjectsSortMode.None), _npcs);
-            AddAll(Object.FindObjectsByType<ShopUI>(FindObjectsSortMode.None), _npcs);
-            AddAll(Object.FindObjectsByType<EquipSmithUI>(FindObjectsSortMode.None), _npcs);
-            AddAll(Object.FindObjectsByType<WeaponSmithUI>(FindObjectsSortMode.None), _npcs);
+            AddAll(Object.FindObjectsByType<TalkNpc>(), _npcs);
+            AddAll(Object.FindObjectsByType<ShopUI>(), _npcs);
+            AddAll(Object.FindObjectsByType<EquipSmithUI>(), _npcs);
+            AddAll(Object.FindObjectsByType<WeaponSmithUI>(), _npcs);
         }
         if (now >= _nextDropScan)
         {
             _nextDropScan = now + DropRescanSeconds;
             _drops.Clear();
-            DropItemCheck[] drops = Object.FindObjectsByType<DropItemCheck>(FindObjectsSortMode.None);
+            DropItemCheck[] drops = Object.FindObjectsByType<DropItemCheck>();
             for (int i = 0; i < drops.Length; i++)
             {
                 _drops.Add(drops[i].transform);

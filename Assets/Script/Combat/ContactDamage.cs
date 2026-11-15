@@ -141,10 +141,12 @@ public sealed class ContactDamage : MonoBehaviour
         if (MissRules.MobAttackMisses(mob.Level, mob.isBossMob))
         {
             _missGrace.Arm(Time.time, ContactRules.InvincibleTime);
+            PlayRecorder.HitMiss(mob.gameObject); // 기록기: 레벨 차 빗나감
             _hp.ShowMiss();
             return;
         }
         GameLog.Info(GameLog.Cat.Combat, "몸박 " + mob.name + " 원피해 " + raw + (mob.IsElite ? " [정예]" : ""), mob);
+        PlayRecorder.HitBy(mob.gameObject); // 기록기: 이번 피격 시도의 공격자(몸박)
         _hp.damage2Player(raw, ContactRules.StiffTime, ContactRules.KnockFor(mob.IsElite, mob.isBossMob), new Vector2(sign, 0.5f), mob.transform.position.x, false, ContactRules.InvincibleTime);
     }
 
