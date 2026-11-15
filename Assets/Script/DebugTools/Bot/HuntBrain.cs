@@ -43,6 +43,8 @@ public sealed class HuntBrain : IBotBrain
     private readonly BotAvoid _avoid = new BotAvoid();
     private readonly BotPotion _potion = new BotPotion();
     private readonly BotErrand _errand;
+    private readonly BotQuest _quest;
+    private string[] _questMaps;
     private readonly bool[] _skillOn = new bool[4];
     private readonly float[] _skillFail = new float[4];
     private readonly string[] _quick = new string[4];
@@ -86,11 +88,13 @@ public sealed class HuntBrain : IBotBrain
     public int AvoidWindows => _avoid.Windows;
     public float Range => _range.Range;
     public BotErrand Errand => _errand;
+    public BotQuest Quest => _quest;
 
     public HuntBrain(IBotNavigator nav)
     {
         _nav = nav;
         _errand = new BotErrand(nav);
+        _quest = new BotQuest(nav);
     }
 
     public void Begin(BotContext ctx)
@@ -106,6 +110,8 @@ public sealed class HuntBrain : IBotBrain
         _mapName = null;
         _lastTarget = ctx.Now;
         _errand.Begin(ctx);
+        _quest.Begin(ctx);
+        _questMaps = null;
     }
 
     public BotIntent Decide(BotContext ctx)
@@ -116,6 +122,19 @@ public sealed class HuntBrain : IBotBrain
         {
             LastNote = it.Note;
             return it; // 마을 업무 중: 창을 직접 연다(CloseUi 가 닫지 않게 먼저)
+        }
+        if (_errand.Returning)
+        {
+            _quest.Hold(ctx.Now);
+        }
+        else
+        {
+            _quest.Evaluate(ctx);
+            if (_quest.Run(ctx, NearFoe(o, 3f), ref it))
+            {
+                LastNote = it.Note;
+                return it; // 퀘스트 받기·보고 중: 대화창을 직접 연다(CloseUi 가 닫지 않게 먼저)
+            }
         }
         if (CloseUi(ctx, ref it))
         {
@@ -387,7 +406,8 @@ public sealed class HuntBrain : IBotBrain
         _travelBlockedUntil = 0f;
         _travelSince = -1f;
         _ignore.Clear();
-        int i = ctx.Maps != null ? System.Array.IndexOf(ctx.Maps, map) : -1;
+        string[] maps = EffMaps(ctx);
+        int i = maps != null ? System.Array.IndexOf(maps, map) : -1;
         if (i >= 0)
         {
             _circIdx = i;
@@ -456,9 +476,25 @@ public sealed class HuntBrain : IBotBrain
         return true;
     }
 
+    /// <summary>
+    /// 사냥 맵 목록. 따라가는 처치 퀘스트가 있으면 그 목표 몹이 나오는 맵 하나(맵 이동이 허용된 실행에서만 — ctx.Maps 가 비면 이동 없음 그대로)
+    /// </summary>
+    private string[] EffMaps(BotContext ctx)
+    {
+        if (ctx.Maps == null || ctx.Maps.Length == 0 || _quest.HuntMap == null)
+        {
+            return ctx.Maps;
+        }
+        if (_questMaps == null || _questMaps[0] != _quest.HuntMap)
+        {
+            _questMaps = new[] { _quest.HuntMap };
+        }
+        return _questMaps;
+    }
+
     private bool Travel(BotContext ctx, ref BotIntent it)
     {
-        string[] maps = ctx.Maps;
+        string[] maps = EffMaps(ctx);
         if (maps == null || maps.Length == 0 || ctx.Now < _travelBlockedUntil)
         {
             return false;
@@ -608,12 +644,51 @@ public sealed class HuntBrain : IBotBrain
         }
         for (int i = 0; i < foes.FoeCount; i++)
         {
-            if (foes.Foes[i].Uid == _targetUid && Alive(foes.Foes[i]) && !_ignoreNow.Contains(_targetUid))
+            if (foes.Foes[i].Uid == _targetUid && Alive(foes.Foes[i]) && !_ignoreNow.Contains(_targetUid)
+                && (!_quest.HasHuntTargets || _quest.IsTarget(foes.Foes[i].Id) || !AnyTarget(foes)))
             {
                 return i;
             }
         }
+        PreferQuestTargets(foes);
         return Choose(foes, ctx.Rng.NextDouble(), ctx.Profile, _ignoreNow);
+    }
+
+    /// <summary>따라가는 퀘스트의 목표 몹이 쓸 만하게 보이면 다른 몹은 이번 선택에서 뺀다(목표 몹이 없으면 아무거나 — 가만히 있지 않는다)</summary>
+    private void PreferQuestTargets(PlayObsEnemies foes)
+    {
+        if (!_quest.HasHuntTargets)
+        {
+            return;
+        }
+        bool any = false;
+        for (int i = 0; i < foes.FoeCount && !any; i++)
+        {
+            any = Usable(foes.Foes[i], _ignoreNow) && _quest.IsTarget(foes.Foes[i].Id);
+        }
+        if (!any)
+        {
+            return;
+        }
+        for (int i = 0; i < foes.FoeCount; i++)
+        {
+            if (!_quest.IsTarget(foes.Foes[i].Id))
+            {
+                _ignoreNow.Add(foes.Foes[i].Uid);
+            }
+        }
+    }
+
+    private bool AnyTarget(PlayObsEnemies foes)
+    {
+        for (int i = 0; i < foes.FoeCount; i++)
+        {
+            if (Alive(foes.Foes[i]) && _quest.IsTarget(foes.Foes[i].Id))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static bool Alive(PlayObsEnemies.Foe f)

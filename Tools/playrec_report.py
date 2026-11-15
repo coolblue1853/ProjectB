@@ -137,6 +137,8 @@ def build(jsonl, status_text):
     L.append("- 마을 업무(상태 줄): 왕복 %s · 판매 %s · 구매(물약) %s · 장착 %s · 귀환 주문서 %s · 업무 중단 %s · 막힘(stucks) %s · 진척없음 경고 %s · 사망 %s"
              % (st.get("trips", "?"), st.get("sold", "?"), st.get("bought", "?"), st.get("equipped", "?"), st.get("recalls", "?"),
                 st.get("errandAborts", "?"), st.get("stucks", "?"), st.get("warns", "?"), st.get("deaths", "?")))
+    L.append("- 퀘스트(상태 줄): 완료 %s · 받음 %s · 보고 %s · 중단 %s · 사냥 맵 %s"
+             % (st.get("questsDone", "?"), st.get("questAccepted", "?"), st.get("questReported", "?"), st.get("questAborts", "?"), st.get("huntMap", "?")))
     L.append("- 기록 이벤트: 판매 %d · 장착 %d · 구매 %d · 처치 %d (jsonl ev)" % (sells, equips, buys, kills))
     L.append("- 메타: 시작 Lv%s · 보유 골드 %s · git %s" % (meta.get("lv", "?"), meta.get("gold", "?"), meta.get("git", "?")))
     L.append("")

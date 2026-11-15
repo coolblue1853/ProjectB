@@ -331,7 +331,7 @@ public sealed class PlayBot : MonoBehaviour
                 + " range=" + _hunt.Range.ToString("F1");
             BotErrand er = _hunt.Errand;
             s += " trips=" + er.Trips + " sold=" + er.Sold + " bought=" + er.PotionsBought + " equipped=" + er.Equipped + " gold+=" + er.GoldGained
-                + " weapon=" + (InventoryManager.instance != null && InventoryManager.instance.EquippedFor("Weapon") != null ? InventoryManager.instance.EquippedFor("Weapon").name : "-") + " recalls=" + er.Recalls + " errandAborts=" + er.Aborts + (er.Returning ? " errand=" + er.Phased : "");
+                + " weapon=" + (InventoryManager.instance != null && InventoryManager.instance.EquippedFor("Weapon") != null ? InventoryManager.instance.EquippedFor("Weapon").name : "-") + " recalls=" + er.Recalls + " errandAborts=" + er.Aborts + " questsDone=" + _hunt.Quest.Completed + " questAccepted=" + _hunt.Quest.Accepted + " questReported=" + _hunt.Quest.Reported + " questAborts=" + _hunt.Quest.Aborts + " huntMap=" + (_hunt.Quest.HuntMap ?? "-") + " quest=" + _hunt.Quest.Phased + (er.Returning ? " errand=" + er.Phased : "");
         }
         return s;
     }
