@@ -292,3 +292,20 @@ python Tools/playrec_summary.py Logs/playrec/<세션>.jsonl [출력.md] [--frame
 - SideRoad x≈-386 `do=drop` 진척 없음 16건(15분 실행 마을 복귀 직후): 닿지 않는 드롭(1칸 턱 위 발판?)으로 추정 — 미조사.
 - NormalForest → DeepForest `맵 이동 경로 없음` 4건(막힘 직후 간선 금지) 재계획 대기.
 - 구매를 H 대신 메뉴 수량 입력으로(골드 비율), 퀘스트 따라가기(B3 나머지), 귀환 주문서 실사용 확인.
+
+## 13. 봇 B3 보완 + B4 자동 보고 (11-16)
+### 13.1 B3 보완
+- **구매 = 메뉴 직접 구매**: H(일괄 충전)는 응급식량·귀환 주문서까지 채워 골드가 -2만씩 빠졌다 → 제거(`RefillMinGold` 2000 임시 규칙도 삭제). `BotErrand.DoBuy`: 판매를 마친 가방 커서에서 ←(boxChange 를 지나 ← 한 번 더 = 상점 진열 복귀. **Back 은 상점을 닫는다**) → 진열에서 HP 물약(퀵슬롯에 등록된 종류, 없으면 Medium) 칸까지 ↑↓←→ → Select ×2(상세 → 수량 창) → 수량 창에서 ↑↓(±1)·←→(±10)로 목표 수량 → Select. 수량 = 가진 골드의 25~35%로 살 수 있는 수를 스택 한도(99) 남은 수로 자른 값(`BotErrandRules.PotionBuyAmount`·`ToQuantity`·`ToStockCell`, EditMode 시험). 창이 최대값에 막혀 안 늘면 2번 뒤 확정.
+- **단계 시간 제한**: 판매·장착이 하나씩 진행되는 동안(`SellDone+EquipDone` 증가)은 45초 제한을 새로 센다. 옛 장비·잡템 14개 판매가 45초를 넘겨 구매 전에 업무가 접히던 버그(30분 첫 실행, 세션 022417). 중단돼도 이미 한 판매·장착은 센다.
+- **닿지 않는 드롭**: `HuntBrain` 이 같은 자리 드롭을 10초(`DropChaseSeconds`) 넘게 쫓으면 그 좌표(반경 1.5)를 60초 무시 목록에 넣는다(경고 `닿지 않는 드롭 … 무시`). 발밑 가방-가득 규칙은 그대로. 마지막 10초 값은 30분 재실행 미검증(20초 값으로는 경고 32건 남음).
+- **맵 이동 경로 없음 원인**: 이동 그래프는 NormalForest 전 구간에서 포털(seg 46)까지 길이 있다(오프라인 BFS 로 확인). 실패는 길 부재가 아니라 걷기 실패다. 경고에 `이유=`(`GraphNavigator.TravelFail`)를 달았다. 막힘 북마크(NormalForest x≈-137, y 11.3, 1칸 턱 앞) PNG 에는 오른쪽에 나무 상자가 보인다 → 길을 가로막는 오브젝트 가능성. **미해결**(TechDebt).
+- **귀환 주문서**: 메뉴 구매는 물약만 산다. 시험은 `PREP_RECALL=<개>`(`bot_prep_recall.cs` 가 가방에 넣고 퀵슬롯 3번 등록). **실사용 확인**(세션 035806): t=70 `퀵슬롯 3 사용: Recall Scroll` → t=94 상점 앞 도착, recalls=1·왕복 1·구매 96.
+
+### 13.2 B4 자동 보고서
+`bash Tools/bot_run.sh <분>` 한 번 → 끝나면 `Logs/playrec_bot/<세션>_{summary,balance,report}.md`. `Tools/playrec_report.py`(300줄 이내): ①한눈에(왕복·판매·구매·장착·막힘·사망·처치/분) ②막힘(위치·북마크 PNG) ③예외·error 상위 ④사망 ⑤봇 경고 상위 ⑥사람 대비(11-15 사람 기록 2개를 `playrec_balance` 로 돌린 `human_1115_balance.md` 와 맵·낮밤별 처치/분·EXP/분·받은피해/분, 몹별 처치시간·피해/처치를 비교, 2배 초과 ▲·절반 미만 ▼) ⑦밸런스 표. 최종 상태 줄은 `--status` 로 받는다.
+- **손 시험 기록 분리**: 에이전트가 손으로 돌리는 플레이는 `Tools/playtest.sh` 가 시작 전 기록 출처를 `test` 로 걸어 `Logs/playrec_test/` 로 간다(`PlayRecWriter.DirNameFor("test")`). 사람 `Logs/playrec/`·봇 `Logs/playrec_bot/` 와 섞이지 않는다.
+- 시험 준비 환경변수: `PREP_LEVEL="<Lv> <골드>"`(`bot_prep_level.cs`), `PREP_BAG`, `PREP_RECALL`. 모두 봇 시작 전 시험용, 세이브는 스크립트가 백업·원복·md5 확인.
+
+### 13.3 합격 실행 (Lv3·골드 300, 마을 시작, 30분, `PREP_BAG="6 8 1"`)
+세션 20261116_032517: 처치 479(15.7/분)·왕복 3·판매 19·구매 96(Small HP Potion, 골드 약 2400)·장착 2·업무 중단 0·막힘 11·진척없음 경고 32·사망 1(DeepForest, Lv3)·골드 +15400·세이브 원복 md5 일치. 수정 전 같은 조건(세션 022417): 단계 시간 초과로 업무 중단·구매 0.
+- 퀘스트 따라가기는 범위 밖(TechDebt).

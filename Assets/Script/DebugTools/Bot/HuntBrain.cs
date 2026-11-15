@@ -29,6 +29,10 @@ public sealed class HuntBrain : IBotBrain
     public const float DropUnderDy = 1.5f;
     public const float DropUnderSeconds = 1.5f;
     public const float DropBlockSeconds = 30f;
+    /// <summary>같은 드롭을 이만큼 쫓아도 못 줍는 드롭(닿지 않는 발판·벽 너머)은 무시 목록에 넣는다</summary>
+    public const float DropChaseSeconds = 10f;
+    public const float DropIgnoreSeconds = 60f;
+    public const float DropSameRadius = 1.5f;
 
     private readonly IBotNavigator _nav;
     private readonly DirectNavigator _wanderNav = new DirectNavigator(); // 돌아다님은 가짜 목표로 길찾기 상태를 흐리지 않게 따로
@@ -65,6 +69,8 @@ public sealed class HuntBrain : IBotBrain
     private float _townFailSince = -1f;
     private float _dropNearSince = -1f;
     private float _dropBlockUntil;
+    private float _chaseX, _chaseY, _chaseSince = -1f;
+    private readonly System.Collections.Generic.List<Vector3> _ignoredDrops = new System.Collections.Generic.List<Vector3>(); // x, y, 만료 시각
     private float _lastNoneKindLog = -100f;
 
     public string LastNote { get; private set; } = "";
@@ -88,6 +94,8 @@ public sealed class HuntBrain : IBotBrain
     {
         _targetUid = 0;
         _goDrop = false;
+        _chaseSince = -1f;
+        _ignoredDrops.Clear();
         _nav.Reset();
         _progress.Reset(ctx.Now, ctx.Obs.X);
         _killsSeen = ctx.Kills;
@@ -168,10 +176,16 @@ public sealed class HuntBrain : IBotBrain
         if (!o.Drop.Found || Mathf.Abs(o.Drop.Dx) >= DropRange || ctx.Now < _dropBlockUntil)
         {
             _dropNearSince = -1f;
+            _chaseSince = -1f;
+            return false;
+        }
+        if (IgnoredDrop(ctx, o.X + o.Drop.Dx, o.Y + o.Drop.Dy))
+        {
             return false;
         }
         if (Mathf.Abs(o.Drop.Dx) < DropUnderDx && Mathf.Abs(o.Drop.Dy) < DropUnderDy)
         {
+            _chaseSince = -1f;
             if (_dropNearSince < 0f)
             {
                 _dropNearSince = ctx.Now;
@@ -187,7 +201,48 @@ public sealed class HuntBrain : IBotBrain
         else
         {
             _dropNearSince = -1f;
+            if (ChaseTooLong(ctx, o.X + o.Drop.Dx, o.Y + o.Drop.Dy))
+            {
+                return false;
+            }
         }
+        return true;
+    }
+
+    private bool IgnoredDrop(BotContext ctx, float x, float y)
+    {
+        for (int i = _ignoredDrops.Count - 1; i >= 0; i--)
+        {
+            Vector3 g = _ignoredDrops[i];
+            if (ctx.Now >= g.z)
+            {
+                _ignoredDrops.RemoveAt(i);
+            }
+            else if (Mathf.Abs(g.x - x) < DropSameRadius && Mathf.Abs(g.y - y) < DropSameRadius)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>같은 자리 드롭을 DropChaseSeconds 넘게 쫓았으면 무시 목록에 넣는다(닿지 않는 드롭)</summary>
+    private bool ChaseTooLong(BotContext ctx, float x, float y)
+    {
+        if (_chaseSince < 0f || Mathf.Abs(_chaseX - x) > DropSameRadius || Mathf.Abs(_chaseY - y) > DropSameRadius)
+        {
+            _chaseX = x;
+            _chaseY = y;
+            _chaseSince = ctx.Now;
+            return false;
+        }
+        if (ctx.Now - _chaseSince <= DropChaseSeconds)
+        {
+            return false;
+        }
+        _chaseSince = -1f;
+        _ignoredDrops.Add(new Vector3(x, y, ctx.Now + DropIgnoreSeconds));
+        Debug.LogWarning("[PB][Bot] 닿지 않는 드롭 " + DropIgnoreSeconds + "초 무시 map=" + BgmDirector.CurrentMap + " drop=(" + x.ToString("F1") + "," + y.ToString("F1") + ")");
         return true;
     }
 
@@ -388,7 +443,7 @@ public sealed class HuntBrain : IBotBrain
             else if (ctx.Now - _townFailSince > TownPathGrace)
             {
                 _townFailSince = -1f;
-                _errand.Abort(ctx, "마을 경로 없음 " + _mapName);
+                _errand.Abort(ctx, "마을 경로 없음 " + _mapName + " 이유=" + (_nav is GraphNavigator ? ((GraphNavigator)_nav).TravelFail : "-"));
             }
             return false;
         }
@@ -429,7 +484,7 @@ public sealed class HuntBrain : IBotBrain
         if (!_nav.TravelTo(ctx, maps[next], ref it))
         {
             _travelBlockedUntil = ctx.Now + TravelRetry; // 길 없음·막힘: 잠시 사냥하다 다시 시도
-            Debug.LogWarning("[PB][Bot] 맵 이동 경로 없음 " + _mapName + " -> " + maps[next]);
+            Debug.LogWarning("[PB][Bot] 맵 이동 경로 없음 " + _mapName + " -> " + maps[next] + " 이유=" + (_nav is GraphNavigator ? ((GraphNavigator)_nav).TravelFail : "-") + " x=" + ctx.Obs.X.ToString("F1"));
             return false;
         }
         _circDir = dir;

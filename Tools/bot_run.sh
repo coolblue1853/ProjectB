@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # 자동 플레이 봇 한 번: 세이브 백업 → 플레이 → (시험 준비) 사냥터로 → PlayBot.Run → N분 → 정지 → 플레이 끔 → 세이브 원복·md5 → 요약·밸런스 md
-# 사용: [PREP_BAG="<남길 물약> <남길 빈칸> [무기약화 0|1]"] bash Tools/bot_run.sh <분> [goal=hunt] [시작 맵=Lv1_NearForest_SideRoad] [순회 맵(쉼표, 기본 PlayBot.DefaultMaps, "-" = 이동 없음)]
+# 끝나면 <세션>_summary.md · _balance.md · _report.md(막힘·예외·사망·사람 대비 한 장, Tools/playrec_report.py) 를 만든다. 손 시험은 Logs/playrec_test/ (Tools/playtest.sh)
+# 사용: [PREP_LEVEL="<레벨> <골드>"] [PREP_RECALL=<개수>] [PREP_BAG="<남길 물약> <남길 빈칸> [무기약화 0|1]"] bash Tools/bot_run.sh <분> [goal=hunt] [시작 맵=Lv1_NearForest_SideRoad] [순회 맵(쉼표, 기본 PlayBot.DefaultMaps, "-" = 이동 없음)]
 # 기록은 Logs/playrec_bot/<세션>.jsonl (src=bot). 사람 기록 Logs/playrec/ 은 건드리지 않는다. 설계: .claude-rules/Game/PlayBotDesign.md 10절
 set -u
 cd "$(dirname "$0")/.."
@@ -43,6 +44,13 @@ if [ -n "${PREP_BAG:-}" ]; then # 시험 준비: PREP_BAG="<남길 물약 수> <
   set -- $PREP_BAG
   echo "가방 준비: $(probe bot_prep_bag "s/__POT__/${1:-2}/g; s/__FREE__/${2:-3}/g; s/__WEAKEN__/${3:-0}/g")"
 fi
+if [ -n "${PREP_LEVEL:-}" ]; then # 시험 준비: PREP_LEVEL="<레벨> <골드>" — 낮은 레벨 상태(세이브는 끝나고 원복)
+  set -- $PREP_LEVEL
+  echo "레벨 준비: $(probe bot_prep_level "s/__LV__/${1:-3}/g; s/__GOLD__/${2:-300}/g")"
+fi
+if [ -n "${PREP_RECALL:-}" ]; then # 시험 준비: PREP_RECALL=<개수> — 귀환 주문서를 가방에 넣고 퀵슬롯 3번에 등록(귀환 주문서 실사용 확인)
+  echo "귀환 주문서 준비: $(probe bot_prep_recall "s/__N__/${PREP_RECALL}/g")"
+fi
 r=$(probe bot_start "s/__MIN__/$((MIN + 1))/; s/__GOAL__/$GOAL/; s/__MAPS__/$MAPS/")
 echo "시작: $r"
 case "$r" in *start=True*) ;; *) echo "봇 시작 실패"; exit 1 ;; esac
@@ -61,6 +69,9 @@ restore
 if [ -z "$REC" ] || [ ! -f "$REC" ]; then echo "기록 파일 없음: $REC"; exit 1; fi
 python -X utf8 Tools/playrec_summary.py "$REC" >/dev/null
 python -X utf8 Tools/playrec_balance.py "$REC" -o "${REC%.jsonl}_balance.md" >/dev/null
+python -X utf8 Tools/playrec_report.py "$REC" --status "$r" >/dev/null || echo "보고서 생성 실패"
 echo "기록: $REC"
 echo "요약: ${REC%.jsonl}_summary.md"
 echo "밸런스: ${REC%.jsonl}_balance.md"
+echo "보고서: ${REC%.jsonl}_report.md"
+echo "최종 상태: $r"

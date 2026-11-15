@@ -11,6 +11,8 @@ mkdir -p Logs/playtest
 
 $C call manage_scene '{"action":"load","path":"Assets/Scenes/SampleScene.unity"}' 2>/dev/null | head -c 300; echo
 $C call read_console '{"action":"clear"}' >/dev/null 2>&1
+# 손 시험 기록은 사람 폴더(Logs/playrec)에 섞이지 않게 Logs/playrec_test 로 보낸다
+PD=$(mktemp -d); sed 's/__SRC__/test/g' Tools/probes/bot_pending_source.cs > "$PD/bot_pending_source.cs"; timeout 60 bash Tools/u.sh cs "$PD/bot_pending_source.cs" >/dev/null 2>&1
 $C call manage_editor '{"action":"play"}' 2>/dev/null | head -c 300; echo
 sleep "$WAIT"
 $C call manage_camera '{"action":"screenshot","properties":{"include_image":true}}' "Logs/playtest/$NAME.png" 2>/dev/null | grep -v '"data"' | head -c 400; echo

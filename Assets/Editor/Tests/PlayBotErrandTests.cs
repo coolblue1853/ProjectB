@@ -133,4 +133,35 @@ public class PlayBotErrandTests
         v.NpcMenuOpen = false;
         Assert.AreEqual(BotKey.None, BotMenuNav.ToNpcShop(v));
     }
+
+    [Test]
+    public void PotionBuyAmount_PctOfGold_CappedByStackRoom()
+    {
+        Assert.AreEqual(0, BotErrandRules.PotionBuyAmount(0, 70, 0, 99, 0.3f));
+        Assert.AreEqual(0, BotErrandRules.PotionBuyAmount(100, 70, 0, 99, 0.3f));
+        Assert.AreEqual(85, BotErrandRules.PotionBuyAmount(20000, 70, 0, 99, 0.3f));
+        Assert.AreEqual(9, BotErrandRules.PotionBuyAmount(20000, 70, 90, 99, 0.3f));
+        Assert.AreEqual(0, BotErrandRules.PotionBuyAmount(20000, 70, 99, 99, 0.3f));
+        Assert.AreEqual(0, BotErrandRules.PotionBuyAmount(20000, 0, 0, 99, 0.3f));
+    }
+
+    [Test]
+    public void ToQuantity_StepsTenThenOne()
+    {
+        Assert.AreEqual(BotKey.Right, BotErrandRules.ToQuantity(1, 30));
+        Assert.AreEqual(BotKey.Up, BotErrandRules.ToQuantity(28, 30));
+        Assert.AreEqual(BotKey.Down, BotErrandRules.ToQuantity(31, 30));
+        Assert.AreEqual(BotKey.Left, BotErrandRules.ToQuantity(50, 30));
+        Assert.AreEqual(BotKey.Select, BotErrandRules.ToQuantity(30, 30));
+    }
+
+    [Test]
+    public void ToStockCell_RowFirstThenColumn()
+    {
+        Assert.AreEqual(BotKey.Down, BotErrandRules.ToStockCell(0, 3, 1, 0));
+        Assert.AreEqual(BotKey.Up, BotErrandRules.ToStockCell(1, 0, 0, 2));
+        Assert.AreEqual(BotKey.Right, BotErrandRules.ToStockCell(0, 0, 0, 2));
+        Assert.AreEqual(BotKey.Left, BotErrandRules.ToStockCell(0, 3, 0, 1));
+        Assert.AreEqual(BotKey.Select, BotErrandRules.ToStockCell(0, 2, 0, 2));
+    }
 }

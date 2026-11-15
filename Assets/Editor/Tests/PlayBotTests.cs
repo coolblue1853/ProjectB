@@ -266,5 +266,6 @@ public class PlayBotTests
         Assert.AreEqual("playrec", PlayRecWriter.DirNameFor(null));
         Assert.AreEqual("playrec_bot", PlayRecWriter.DirNameFor("bot"));
         Assert.AreEqual("playrec_bot", PlayRecWriter.DirNameFor("replay"));
+        Assert.AreEqual("playrec_test", PlayRecWriter.DirNameFor("test"));
     }
 }

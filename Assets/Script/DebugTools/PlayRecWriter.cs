@@ -38,9 +38,13 @@ public static class PlayRecWriter
         Session = null;
     }
 
-    /// <summary>기록 출처별 폴더 이름. 사람 = playrec, 그 밖(봇·재생) = playrec_bot — 봇 세션이 사람 기록을 정리(최근 30판)로 밀어내지 않게 나눈다</summary>
+    /// <summary>기록 출처별 폴더 이름. 사람 = playrec, 시험(test) = playrec_test, 그 밖(봇·재생) = playrec_bot — 봇 세션이 사람 기록을 정리(최근 30판)로 밀어내지 않게 나눈다</summary>
     public static string DirNameFor(string source)
     {
+        if (source == "test")
+        {
+            return "playrec_test"; // 에이전트가 손으로 돌린 시험(Tools/playtest.sh) — 사람·봇 기록에 섞지 않는다
+        }
         return string.IsNullOrEmpty(source) || source == "human" ? "playrec" : "playrec_bot";
     }
 

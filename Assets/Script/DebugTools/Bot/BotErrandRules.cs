@@ -185,4 +185,49 @@ public static class BotErrandRules
     {
         return area == "Weapon" || area == "Chest" || area == "Ring" || area == "Necklace";
     }
+
+    /// <summary>물약 구매 수: 가진 골드의 pct 비율로 살 수 있는 수, 스택 한도 남은 수로 자른다. 1개도 못 사면 0</summary>
+    public static int PotionBuyAmount(int gold, int price, int have, int maxStack, float pct)
+    {
+        if (price <= 0 || gold <= 0)
+        {
+            return 0;
+        }
+        int byGold = Mathf.FloorToInt(gold * Mathf.Clamp01(pct) / price);
+        int room = Mathf.Max(0, maxStack - have);
+        return Mathf.Max(0, Mathf.Min(byGold, room));
+    }
+
+    /// <summary>수량 창에서 목표 수량까지: 위 +1, 아래 -1, 오른쪽 +10, 왼쪽 -10. 같으면 확정</summary>
+    public static BotKey ToQuantity(int current, int target)
+    {
+        int d = target - current;
+        if (d == 0)
+        {
+            return BotKey.Select;
+        }
+        if (d >= 10)
+        {
+            return BotKey.Right;
+        }
+        if (d <= -10)
+        {
+            return BotKey.Left;
+        }
+        return d > 0 ? BotKey.Up : BotKey.Down;
+    }
+
+    /// <summary>상점 진열 격자에서 현재 칸(line,col) → 목표 칸까지 키 한 번(같으면 Select)</summary>
+    public static BotKey ToStockCell(int line, int col, int tline, int tcol)
+    {
+        if (line != tline)
+        {
+            return line < tline ? BotKey.Down : BotKey.Up;
+        }
+        if (col != tcol)
+        {
+            return col < tcol ? BotKey.Right : BotKey.Left;
+        }
+        return BotKey.Select;
+    }
 }

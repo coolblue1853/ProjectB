@@ -108,6 +108,9 @@ public sealed class GraphNavigator : IBotNavigator
     public string LastStuck { get; private set; } = "";
     private int _dbgCur = -1, _dbgGoal = -1;
 
+    /// <summary>마지막 TravelTo 실패 이유(경고 로그용)</summary>
+    public string TravelFail { get; private set; } = "";
+
     /// <summary>상태 한 줄(디버그): 지금 구간·목표 구간·진행 간선·남은 경로</summary>
     public string DebugState
     {
@@ -144,6 +147,7 @@ public sealed class GraphNavigator : IBotNavigator
         EnsureGraph(ctx);
         if (_g == null)
         {
+            TravelFail = "그래프 없음";
             return false;
         }
         if (_hopFrom != _gMap || _hopTo != map)
@@ -156,6 +160,7 @@ public sealed class GraphNavigator : IBotNavigator
         int pi = next != null ? _g.PortalTo(next, ctx.Obs.X) : -1;
         if (pi < 0)
         {
+            TravelFail = next == null ? "맵 인접표에 길 없음 from=" + _gMap : "포털 없음 next=" + next;
             return false;
         }
         BotNavGraph.PortalRec p = _g.portals[pi];
@@ -168,11 +173,14 @@ public sealed class GraphNavigator : IBotNavigator
             if (_watch.Check(ctx.Now, 0f) == BotNavWatch.Verdict.Stuck)
             {
                 RecordStuck(ctx); // 포털이 안 탄다(봉인 등): 판단 층이 잠시 맵 이동을 쉰다
+                TravelFail = "포털이 안 탄다 → " + p.toMap;
                 return false;
             }
             return true;
         }
-        return SteerTo(ctx, p.seg, p.x, p.x - o.X, 0f, ref intent);
+        bool steered = SteerTo(ctx, p.seg, p.x, p.x - o.X, 0f, ref intent);
+        TravelFail = steered ? "" : "포털 쪽 걷기 실패 " + DebugState;
+        return steered;
     }
 
     private void EnsureGraph(BotContext ctx)

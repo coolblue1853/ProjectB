@@ -17,8 +17,6 @@ public sealed class BotErrand
     public const float RecallHold = 3.6f;
     public const float RecallRetry = 25f;
     public const int MaxAttempts = 3;
-    /// <summary>H(물약 충전)는 퀵슬롯 소비품을 가득 채운다(음식 포함 수만 골드). 이 골드 미만이면 사지 않고 판매 수익만 챙긴다 — 임시 규칙(PlayBotDesign 12.4)</summary>
-    public const int RefillMinGold = 2000;
     public const int FocusErrand = -4;
 
     private enum Phase { None, Equip, Walk, Talk, Sell, Buy, Close }
@@ -40,6 +38,13 @@ public sealed class BotErrand
     private int _talkTries;
     private float _talkAt;
     private float _buyAt = -1f;
+    private int _progressSeen;
+    private ItemCheck _buyItem;
+    private int _buyQty;
+    private int _buyTries;
+    private bool _buyConfirmed;
+    private int _qtyLast = -1;
+    private int _qtyStuck;
     private int _lastTarget = -1;
     private int _potionsBefore;
     private int _goldBefore;
@@ -171,6 +176,12 @@ public sealed class BotErrand
         if (Returning)
         {
             Aborts++;
+            if (_phase != Phase.None)
+            {
+                GoldGained += DatabaseManager.money - _goldBefore; // 중단돼도 이미 한 판매·장착은 센다
+                Sold += _gear.SellDone;
+                Equipped += _gear.EquipDone;
+            }
             Debug.LogWarning("[PB][Bot] 귀환 업무 중단 " + why + " phase=" + _phase + " map=" + BgmDirector.CurrentMap);
         }
         Returning = false;
@@ -209,8 +220,14 @@ public sealed class BotErrand
             _attempts.Clear();
             _gear.ResetCounts();
             _junkPresses = 0;
+            _progressSeen = 0;
             _talkTries = 0;
             _buyAt = -1f;
+            _buyItem = null;
+            _buyConfirmed = false;
+            _buyTries = 0;
+            _qtyLast = -1;
+            _qtyStuck = 0;
             Enter(Phase.Equip, ctx.Now);
             Debug.Log("[PB][Bot] 마을 도착 업무 시작 gold=" + _goldBefore);
         }
@@ -220,6 +237,12 @@ public sealed class BotErrand
         {
             Abort(ctx, "단계 시간 초과");
             return false;
+        }
+        int progress = _gear.SellDone + _gear.EquipDone;
+        if (progress != _progressSeen)
+        {
+            _progressSeen = progress;
+            _phaseSince = ctx.Now; // 팔거나 끼는 일이 진행되는 동안은 단계 제한 시간을 새로 센다(잡템 14개 판매 = 45초 넘음)
         }
         BotMenuView v = ReadView();
         switch (_phase)
@@ -378,41 +401,151 @@ public sealed class BotErrand
     {
         if (!v.ShopOpen)
         {
+            Debug.Log("[PB][Bot] 구매 단계: 상점이 닫혀 있다 state=" + v.State + " npcMenu=" + v.NpcMenuOpen);
             Enter(Phase.Close, ctx.Now);
+            return;
+        }
+        if (QuantityPopup.IsOpen && _buyItem != null)
+        {
+            DoBuyQuantity(ctx, ref it);
             return;
         }
         if (v.Popup || v.State == "Sell" || v.State == "Buy" || v.State == "BuyDetail")
         {
             return; // 판매·구매 직후 창이 닫히는 사이: 기다린다(여기서 Back 을 누르면 상점이 닫힌다)
         }
-        if (v.State != "" && v.State != "ShopCusorOn" && v.State != "detail")
+        if (_buyConfirmed)
         {
-            Press(ctx, BotKey.Back, ref it); // 가방 페이지 고르기 등에서 빠져나온다
+            if (ctx.Now >= _buyAt)
+            {
+                int gained = HpPotions() - _potionsBefore;
+                if (gained > 0)
+                {
+                    PotionsBought += gained;
+                }
+                Debug.Log("[PB][Bot] 물약 구매 " + _buyItem.name + " x" + gained + " gold=" + DatabaseManager.money);
+                Enter(Phase.Close, ctx.Now);
+            }
             return;
         }
-        if (_buyAt < 0f && DatabaseManager.money < RefillMinGold)
+        if (v.State != "ShopCusorOn")
         {
+            // 판매를 마친 커서는 가방 칸(State ""): ← 로 왼쪽 끝을 지나 페이지 고르기(boxChange)로 들어가고, boxChange 에서 ← 를 한 번 더 누르면 상점 진열로 돌아온다(Back 은 상점을 닫는다)
+            bool left = string.IsNullOrEmpty(v.State) || v.State == "boxChange";
+            Press(ctx, left ? BotKey.Left : BotKey.Back, ref it);
+            return;
+        }
+        if (_buyItem == null && !PickPotion(ctx, out _buyItem, out _buyQty))
+        {
+            Debug.Log("[PB][Bot] 구매 단계: 살 물약 없음/수량 0 gold=" + DatabaseManager.money);
             Enter(Phase.Close, ctx.Now);
             return;
         }
-        if (_buyAt < 0f)
+        ItemCheck cur = ActiveShopItem();
+        if (cur == null || cur.transform.parent == null || _buyTries > 60)
         {
-            if (Press(ctx, BotKey.Refill, ref it, 0.8f))
+            Debug.Log("[PB][Bot] 구매 단계: 진열 칸 이동 실패 tries=" + _buyTries + " cur=" + (cur != null));
+            Enter(Phase.Close, ctx.Now);
+            return;
+        }
+        BotKey key = BotErrandRules.ToStockCell(cur.transform.parent.GetSiblingIndex(), cur.transform.GetSiblingIndex(),
+            _buyItem.transform.parent.GetSiblingIndex(), _buyItem.transform.GetSiblingIndex());
+        if (key == BotKey.Select && cur != _buyItem)
+        {
+            key = BotKey.None;
+        }
+        if (Press(ctx, key, ref it, key == BotKey.Select ? 0.3f : 0f))
+        {
+            _buyTries++; // 실제로 누른 키만 센다
+        }
+    }
+
+    /// <summary>수량 창: 위·아래(±1)·좌우(±10)로 목표 수량에 맞춘 뒤 확정</summary>
+    private void DoBuyQuantity(BotContext ctx, ref BotIntent it)
+    {
+        int cur = QuantityPopup.CurrentValue;
+        BotKey key = BotErrandRules.ToQuantity(cur, _buyQty);
+        if (ctx.Now < _nextKey)
+        {
+            return; // 키 간격 안: 값이 바뀔 시간을 준다(막힘 판정도 누른 뒤에만)
+        }
+        if (key != BotKey.Select && cur == _qtyLast && ++_qtyStuck >= 2)
+        {
+            key = BotKey.Select; // 창 최대값에 막혀 더 안 늘어난다
+        }
+        if (Press(ctx, key, ref it, key == BotKey.Select ? 0.4f : 0f))
+        {
+            _qtyStuck = cur == _qtyLast ? _qtyStuck : 0;
+            _qtyLast = cur;
+            if (key == BotKey.Select)
             {
+                _buyConfirmed = true;
+                _buyAt = ctx.Now + 1f;
                 _potionsBefore = HpPotions();
-                _buyAt = ctx.Now + 1.2f; // 실제로 눌렀을 때만 결과를 기다린다
             }
-            return;
         }
-        if (ctx.Now >= _buyAt)
+    }
+
+    /// <summary>진열 첫 페이지에서 살 HP 물약(퀵슬롯에 등록된 종류, 없으면 Medium)과 수량(가진 골드 25~35%)</summary>
+    private bool PickPotion(BotContext ctx, out ItemCheck item, out int qty)
+    {
+        item = null;
+        qty = 0;
+        ItemCheck cur = ActiveShopItem();
+        if (cur == null || cur.transform.parent == null || cur.transform.parent.parent == null)
         {
-            int gained = HpPotions() - _potionsBefore;
-            if (gained > 0)
-            {
-                PotionsBought += gained;
-            }
-            Enter(Phase.Close, ctx.Now);
+            return false;
         }
+        string want = null;
+        for (int s = 0; s < QuickSlotModel.SlotCount && want == null; s++)
+        {
+            string id = QuickSlotBar.SlotItem(s);
+            want = BotPotion.IsHpPotion(id) ? id : null;
+        }
+        Transform page = cur.transform.parent.parent;
+        ItemCheck fallback = null;
+        for (int l = 0; l < page.childCount; l++)
+        {
+            Transform line = page.GetChild(l);
+            for (int c = 0; c < line.childCount; c++)
+            {
+                ItemCheck ic = line.GetChild(c).GetComponent<ItemCheck>();
+                if (ic == null || !BotPotion.IsHpPotion(ic.name))
+                {
+                    continue;
+                }
+                if (ic.name == want)
+                {
+                    item = ic;
+                }
+                else if (fallback == null || ic.name == "Medium HP Potion")
+                {
+                    fallback = ic;
+                }
+            }
+        }
+        item = item != null ? item : fallback;
+        if (item == null)
+        {
+            return false;
+        }
+        float pct = Mathf.Lerp(0.25f, 0.35f, (float)ctx.Rng.NextDouble());
+        qty = BotErrandRules.PotionBuyAmount(DatabaseManager.money, item.buyprice, InventoryManager.instance.CountItem(item.name), item.itemData != null ? item.itemData.maxStack : 99, pct);
+        Debug.Log("[PB][Bot] 물약 구매 계획 " + item.name + " x" + qty + " gold=" + DatabaseManager.money + " price=" + item.buyprice);
+        return qty > 0;
+    }
+
+    private ItemCheck ActiveShopItem()
+    {
+        ShopManager[] all = Object.FindObjectsByType<ShopManager>(FindObjectsSortMode.None);
+        for (int i = 0; i < all.Length; i++)
+        {
+            if (all[i].ShopUI != null && all[i].ShopUI.activeSelf)
+            {
+                return all[i].nowShopItem;
+            }
+        }
+        return null;
     }
 
     private void DoClose(BotContext ctx, BotMenuView v, ref BotIntent it)
