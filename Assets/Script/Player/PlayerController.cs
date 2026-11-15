@@ -561,6 +561,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerStatus.Tick(); // 시간 만료 토큰(대시 무적 등) 해제
+        if (isRun && DatabaseManager.isOpenUI)
+        {
+            StopRun();
+        }
         TickHitStop();
         RecordDirection();
        if (verticalInput == 0 && states != "move" && isUpLadder ==true && isAttackAnim == false)
@@ -831,6 +835,11 @@ public class PlayerController : MonoBehaviour
     }
     private void runSteminaDown()
     {
+        if (!RunDrainRules.ShouldDrain(DatabaseManager.isOpenUI, isUpLadder, MoveInput()))
+        {
+            StopRun(); // 창·대화로 입력이 잠기거나 멈췄으면 달리기 해제(소모 중단). 다시 Shift 로 재개
+            return;
+        }
         if (PlayerHealthManager.Instance.nowStemina > runStemina)
         {
             PlayerHealthManager.Instance.SteminaDown(runStemina);
@@ -845,6 +854,14 @@ public class PlayerController : MonoBehaviour
             waitSequence = DOTween.Sequence()
                 .AppendInterval(intervalRunStemina)
                 .OnComplete(() => runSteminaDown());
+        }
+    }
+    private void StopRun()
+    {
+        isRun = false;
+        if (waitSequence != null)
+        {
+            waitSequence.Kill();
         }
     }
     float verticalInput;
