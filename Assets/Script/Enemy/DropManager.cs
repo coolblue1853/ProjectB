@@ -222,7 +222,8 @@ public class DropManager : MonoBehaviour
         foreach (DropItem d in dropItems)
         {
             int idx = DatabaseManager.instance.FindItemDataIndex(d.itemName);
-            if (idx >= 0 && DatabaseManager.instance.LoadItemData(idx).type == "Equip" && !result.Contains(d.itemName))
+            ItemData data = idx >= 0 ? DatabaseManager.instance.LoadItemData(idx) : null;
+            if (data != null && data.type == "Equip" && !data.retired && !result.Contains(d.itemName))
             {
                 result.Add(d.itemName);
             }
@@ -234,6 +235,11 @@ public class DropManager : MonoBehaviour
     {
         if (itemPrefab == null)
         {
+            return false;
+        }
+        if (DatabaseManager.instance != null && DatabaseManager.instance.IsRetired(itemName))
+        {
+            GameLog.Warn(GameLog.Cat.Item, "폐기 장비는 떨어뜨리지 않음(드롭표 정리 누락): " + itemName, this);
             return false;
         }
         var newItem = GetGo(itemName);

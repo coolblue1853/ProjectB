@@ -18,6 +18,7 @@ public class ItemDatabase : MonoBehaviour
 
         // effectIds 는 머리글(2번째 줄) 이름으로 찾는다 — 구 CSV(열 없음)도 안전. 현재 CSV 의 열 19 가 effectIds 라 옛 StartMastery(case 19)는 그 열이면 건너뛴다(StartMastery 열을 넣으려면 20 이후로)
         int effectIdsCol = System.Array.IndexOf(lines.Length > 1 ? lines[1].Trim().Split(',') : new string[0], "effectIds");
+        int retiredCol = System.Array.IndexOf(lines.Length > 1 ? lines[1].Trim().Split(',') : new string[0], "retired"); // 옛 체계 폐기 표시(LegacyGearAudit, 1=장착 불가·획득 경로 없음)
         for (int i = 2; i < lines.Length; i++) // 첫 번째 줄은 타입 정의, 두 번째 줄은 열 이름이므로 2부터 시작합니다.
         {
             string[] values = lines[i].Split(','); // 각 라인의 데이터를 쉼표로 분할합니다.
@@ -98,6 +99,10 @@ public class ItemDatabase : MonoBehaviour
                 {
                     item.effectIds = values[j].Trim(); // 효과 id 를 ';' 로 연결(EquipEffectDesign §2.8). 빈칸 = 효과 없음
                 }
+                if (j == retiredCol)
+                {
+                    item.retired = values[j].Trim() == "1";
+                }
             }
 
             items.Add(item);
@@ -136,4 +141,5 @@ public class ItemData
     public int startMastery = 1; // ItemSheet 맨 뒤 선택 컬럼 StartMastery (WeaponSkillProgression 5.2)
     public string effectIds; // ItemSheet 맨 뒤 effectIds (EquipEffects.csv id, ';' 구분, 빈 칸 = 효과 없음)
     public string weaponType; // ItemSheet 맨 뒤 컬럼 WeaponType (WeaponKind 이름, 빈 칸 = 무기 아님)
+    public bool retired; // ItemSheet 맨 뒤 retired (1 = 옛 체계 폐기: 장착 불가·판매만, 세이브 호환으로 행 유지)
 }

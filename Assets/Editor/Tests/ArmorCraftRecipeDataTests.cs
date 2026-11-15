@@ -6,7 +6,7 @@ using UnityEngine;
 public class ArmorCraftRecipeDataTests
 {
     private static readonly string[] NewSets = { "Wisp", "Fae", "Gloom", "Outlaw", "Raider", "Stone" };
-    private static readonly string[] Parts = { "Cap", "HandArmor", "LegArmor", "Shoes", "Armor" };
+    private static readonly string[] Parts = { "Cap", "HandArmor", "LegArmor", "Armor" }; // 신발 폐기(LegacyGearAudit)
 
     private static Dictionary<string, string[]> LoadItems()
     {

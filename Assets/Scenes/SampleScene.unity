@@ -2844,9 +2844,6 @@ MonoBehaviour:
   - itemName: Four-Leaf Clover Ring
     dropProbability: 0.001
     offsetY: 1
-  - itemName: Shoes
-    dropProbability: 0.002
-    offsetY: 1
   - itemName: HandArmor
     dropProbability: 0.002
     offsetY: 1
@@ -4798,9 +4795,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RampartHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RampartShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -22669,9 +22663,6 @@ MonoBehaviour:
   - itemName: LeafHandArmor
     dropProbability: 0.001
     offsetY: 1
-  - itemName: LeafShoes
-    dropProbability: 0.001
-    offsetY: 1
   - itemName: Green Wreath
     dropProbability: 0.001
     offsetY: 1
@@ -23045,9 +23036,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RampartHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RampartShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -31256,9 +31244,6 @@ MonoBehaviour:
   - itemName: RaiderHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: RaiderShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
     count: 1
@@ -31626,9 +31611,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: WispHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: WispShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -32757,9 +32739,6 @@ MonoBehaviour:
   - itemName: StoneHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: StoneShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -33760,9 +33739,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: SkyHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: SkyShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -53029,9 +53005,6 @@ MonoBehaviour:
   - itemName: BogHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: BogShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -56485,9 +56458,6 @@ MonoBehaviour:
   - itemName: WispHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: WispShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -56742,9 +56712,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: WispHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: WispShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -57146,9 +57113,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: GloomHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: GloomShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -59311,9 +59275,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: WispHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: WispShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -89338,9 +89299,6 @@ MonoBehaviour:
   - itemName: GroveHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: GroveShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -100879,9 +100837,6 @@ MonoBehaviour:
   - itemName: StoneHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: StoneShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -101548,9 +101503,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: OutlawHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: OutlawShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -103505,9 +103457,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: GroveHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: GroveShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -107244,9 +107193,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: OutlawHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: OutlawShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -117356,9 +117302,6 @@ MonoBehaviour:
   - itemName: LeafHandArmor
     dropProbability: 0.001
     offsetY: 1
-  - itemName: LeafShoes
-    dropProbability: 0.001
-    offsetY: 1
   - itemName: Green Wreath
     dropProbability: 0.001
     offsetY: 1
@@ -119987,9 +119930,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: BogHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: BogShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -127125,9 +127065,6 @@ MonoBehaviour:
   - itemName: RampartHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: RampartShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: LeafAdae
     count: 1
@@ -133555,9 +133492,6 @@ MonoBehaviour:
   - itemName: Four-Leaf Clover Ring
     dropProbability: 0.001
     offsetY: 1
-  - itemName: Shoes
-    dropProbability: 0.002
-    offsetY: 1
   - itemName: HandArmor
     dropProbability: 0.002
     offsetY: 1
@@ -137545,9 +137479,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RaiderHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RaiderShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -149151,9 +149082,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RaiderHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RaiderShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -315631,9 +315559,6 @@ MonoBehaviour:
   - itemName: RatHandArmor
     dropProbability: 0.002
     offsetY: 0.4
-  - itemName: RatShoes
-    dropProbability: 0.002
-    offsetY: 0.4
   - itemName: Disgusting Rat Meat
     dropProbability: 0.1
     offsetY: 0.4
@@ -325554,9 +325479,6 @@ MonoBehaviour:
   - itemName: StoneHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: StoneShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Rabbit Hide
     count: 4
@@ -328099,9 +328021,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: WolfHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: WolfShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -357863,9 +357782,6 @@ MonoBehaviour:
   - itemName: FaeHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: FaeShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -361686,9 +361602,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: GloomHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: GloomShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -384073,9 +383986,6 @@ MonoBehaviour:
   - itemName: BogHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: BogShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -399164,9 +399074,6 @@ MonoBehaviour:
   - itemName: FaeHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: FaeShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -404476,9 +404383,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: WolfHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: WolfShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -412123,9 +412027,6 @@ MonoBehaviour:
   - itemName: StoneHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: StoneShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -415353,9 +415254,6 @@ MonoBehaviour:
   - itemName: WolfHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: WolfShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -418193,9 +418091,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RaiderHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RaiderShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -458951,9 +458846,6 @@ MonoBehaviour:
   - itemName: GroveHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: GroveShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Rabbit Hide
     count: 4
@@ -459523,9 +459415,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: WispHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: WispShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -463526,9 +463415,6 @@ MonoBehaviour:
   - itemName: FaeHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: FaeShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -463913,9 +463799,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: SkyHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: SkyShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -487674,9 +487557,6 @@ MonoBehaviour:
   - itemName: WolfHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: WolfShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Rabbit Hide
     count: 4
@@ -495651,9 +495531,6 @@ MonoBehaviour:
   - itemName: WispHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: WispShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: SacreGreatSword
     count: 1
@@ -499095,9 +498972,6 @@ MonoBehaviour:
   - itemName: StoneHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: StoneShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Rabbit Hide
     count: 4
@@ -499401,9 +499275,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: SkyHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: SkyShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -499765,9 +499636,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: WolfHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: WolfShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -501128,9 +500996,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: OutlawHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: OutlawShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -535605,9 +535470,6 @@ MonoBehaviour:
   - itemName: RatHandArmor
     dropProbability: 0.002
     offsetY: 0.4
-  - itemName: RatShoes
-    dropProbability: 0.002
-    offsetY: 0.4
   - itemName: Disgusting Rat Meat
     dropProbability: 0.1
     offsetY: 0.4
@@ -536594,9 +536456,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RampartHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RampartShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -539246,9 +539105,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: FaeHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: FaeShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -542015,9 +541871,6 @@ MonoBehaviour:
   - itemName: SkyHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: SkyShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -543265,9 +543118,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: FaeHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: FaeShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -568549,9 +568399,6 @@ MonoBehaviour:
   - itemName: StoneHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: StoneShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Leather Knuckles
     count: 1
@@ -569734,9 +569581,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: OutlawHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: OutlawShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -587052,9 +586896,6 @@ MonoBehaviour:
   - itemName: StoneHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: StoneShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
     count: 1
@@ -590978,9 +590819,6 @@ MonoBehaviour:
   - itemName: SkyHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: SkyShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
     count: 1
@@ -591246,9 +591084,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: OutlawHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: OutlawShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -592378,9 +592213,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: GloomHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: GloomShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -595217,9 +595049,6 @@ MonoBehaviour:
   - itemName: FaeHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: FaeShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -595515,9 +595344,6 @@ MonoBehaviour:
     dropProbability: 0.002
     offsetY: 0
   - itemName: ScareHandArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareShoes
     dropProbability: 0.002
     offsetY: 0
   - itemName: Shabby Straw Ring
@@ -615910,9 +615736,6 @@ MonoBehaviour:
   - itemName: RaiderHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: RaiderShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Leather Knuckles
     count: 1
@@ -619551,9 +619374,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: GloomHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: GloomShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -660184,9 +660004,6 @@ MonoBehaviour:
     dropProbability: 0.002
     offsetY: 1
   - itemName: LeafHandArmor
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: LeafShoes
     dropProbability: 0.001
     offsetY: 1
   - itemName: Green Wreath
@@ -790828,9 +790645,6 @@ MonoBehaviour:
   - itemName: Four-Leaf Clover Ring
     dropProbability: 0.001
     offsetY: 1
-  - itemName: Shoes
-    dropProbability: 0.002
-    offsetY: 1
   - itemName: HandArmor
     dropProbability: 0.002
     offsetY: 1
@@ -845952,9 +845766,6 @@ MonoBehaviour:
   - itemName: GloomHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: GloomShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -873858,9 +873669,6 @@ MonoBehaviour:
   - itemName: BogHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: BogShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -876009,9 +875817,6 @@ MonoBehaviour:
   - itemName: WolfHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: WolfShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Leather Knuckles
     count: 1
@@ -877091,9 +876896,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: StoneHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: StoneShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -881551,9 +881353,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: FaeHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: FaeShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -899045,9 +898844,6 @@ MonoBehaviour:
   - itemName: RampartHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: RampartShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -913089,9 +912885,6 @@ MonoBehaviour:
   - itemName: RampartHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: RampartShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Leather Knuckles
     count: 1
@@ -924588,9 +924381,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: WispHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: WispShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -995506,9 +995296,6 @@ MonoBehaviour:
   - itemName: T1_Ore
     dropProbability: 0.1
     offsetY: 0.5
-  - itemName: CliffShoes
-    dropProbability: 0.002
-    offsetY: 0.5
   - itemName: CliffBlade
     dropProbability: 0.0008
     offsetY: 0.5
@@ -1049116,9 +1048903,6 @@ MonoBehaviour:
   - itemName: WispHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: WispShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -1055161,9 +1054945,6 @@ MonoBehaviour:
   - itemName: StoneHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: StoneShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -1055895,9 +1055676,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: OutlawHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: OutlawShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1056633,9 +1056411,6 @@ MonoBehaviour:
     dropProbability: 0.15
     offsetY: 0.5
   - itemName: CliffHandArmor
-    dropProbability: 0.15
-    offsetY: 0.5
-  - itemName: CliffShoes
     dropProbability: 0.15
     offsetY: 0.5
   - itemName: CliffStaff
@@ -1063916,9 +1063691,6 @@ MonoBehaviour:
   - itemName: GloomHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: GloomShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: LeafAdae
     count: 1
@@ -1064961,9 +1064733,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: GloomHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: GloomShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1079890,9 +1079659,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RaiderHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RaiderShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1105327,9 +1105093,6 @@ MonoBehaviour:
     dropProbability: 0.002
     offsetY: 0
   - itemName: ScareHandArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareShoes
     dropProbability: 0.002
     offsetY: 0
   - itemName: Shabby Straw Ring
@@ -1607718,9 +1607481,6 @@ MonoBehaviour:
   - itemName: WolfHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: WolfShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -1613120,9 +1612880,6 @@ MonoBehaviour:
   - itemName: SkyHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: SkyShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -1616822,9 +1616579,6 @@ MonoBehaviour:
   - itemName: BogHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: BogShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -1617703,9 +1617457,6 @@ MonoBehaviour:
     dropProbability: 0.002
     offsetY: 0
   - itemName: ScareHandArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareShoes
     dropProbability: 0.002
     offsetY: 0
   - itemName: Shabby Straw Ring
@@ -1624351,9 +1624102,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: WispHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: WispShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1631824,9 +1631572,6 @@ MonoBehaviour:
   - itemName: GloomHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: GloomShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: LeafAdae
     count: 1
@@ -1635458,9 +1635203,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: OutlawHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: OutlawShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1710137,9 +1709879,6 @@ MonoBehaviour:
   - itemName: StoneHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: StoneShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -1711469,9 +1711208,6 @@ MonoBehaviour:
     dropProbability: 0.002
     offsetY: 0
   - itemName: ScareHandArmor
-    dropProbability: 0.002
-    offsetY: 0
-  - itemName: ScareShoes
     dropProbability: 0.002
     offsetY: 0
   - itemName: Shabby Straw Ring
@@ -1720466,9 +1720202,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: SkyHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: SkyShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1744232,9 +1743965,6 @@ MonoBehaviour:
   - itemName: FaeHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: FaeShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: ScareClow
     count: 1
@@ -1747772,9 +1747502,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: BogHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: BogShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1762637,9 +1762364,6 @@ MonoBehaviour:
   - itemName: GroveHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: GroveShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Leather Knuckles
     count: 1
@@ -1762813,9 +1762537,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RaiderHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RaiderShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1764425,9 +1764146,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: OutlawHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: OutlawShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1766514,9 +1766232,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RampartHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RampartShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1770303,9 +1770018,6 @@ MonoBehaviour:
   - itemName: SkyHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: SkyShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: RatArmor
     count: 1
@@ -1771223,9 +1770935,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: SkyHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: SkyShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1775090,9 +1774799,6 @@ MonoBehaviour:
   - itemName: Four-Leaf Clover Ring
     dropProbability: 0.001
     offsetY: 1
-  - itemName: Shoes
-    dropProbability: 0.002
-    offsetY: 1
   - itemName: HandArmor
     dropProbability: 0.002
     offsetY: 1
@@ -1776070,9 +1775776,6 @@ MonoBehaviour:
     dropProbability: 0.2
     offsetY: 0
   - itemName: ScareHandArmor
-    dropProbability: 0.2
-    offsetY: 0
-  - itemName: ScareShoes
     dropProbability: 0.2
     offsetY: 0
   objectInfos:
@@ -1778844,9 +1778547,6 @@ MonoBehaviour:
   - itemName: OutlawHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: OutlawShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: LeafAdae
     count: 1
@@ -1779021,9 +1778721,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: OutlawHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: OutlawShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1785072,9 +1784769,6 @@ MonoBehaviour:
     dropProbability: 0.002
     offsetY: 0.4
   - itemName: RatHandArmor
-    dropProbability: 0.002
-    offsetY: 0.4
-  - itemName: RatShoes
     dropProbability: 0.002
     offsetY: 0.4
   - itemName: Disgusting Rat Meat
@@ -1803284,9 +1802978,6 @@ MonoBehaviour:
   - itemName: RatHandArmor
     dropProbability: 0.002
     offsetY: 0.4
-  - itemName: RatShoes
-    dropProbability: 0.002
-    offsetY: 0.4
   - itemName: Disgusting Rat Meat
     dropProbability: 0.1
     offsetY: 0.4
@@ -1805551,9 +1805242,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: GroveHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: GroveShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1862112,9 +1861800,6 @@ MonoBehaviour:
   - itemName: OutlawHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: OutlawShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: LeafStaff
     count: 1
@@ -1913552,9 +1913237,6 @@ MonoBehaviour:
   - itemName: FaeHandArmor
     dropProbability: 0.003
     offsetY: 0.5
-  - itemName: FaeShoes
-    dropProbability: 0.003
-    offsetY: 0.5
   objectInfos:
   - objectName: Nasty Rat Ring
     count: 1
@@ -1914991,9 +1914673,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RampartHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RampartShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1917335,9 +1917014,6 @@ MonoBehaviour:
     dropProbability: 0.003
     offsetY: 0.5
   - itemName: RampartHandArmor
-    dropProbability: 0.003
-    offsetY: 0.5
-  - itemName: RampartShoes
     dropProbability: 0.003
     offsetY: 0.5
   objectInfos:
@@ -1921668,9 +1921344,6 @@ MonoBehaviour:
     dropProbability: 0.002
     offsetY: 1
   - itemName: LeafHandArmor
-    dropProbability: 0.001
-    offsetY: 1
-  - itemName: LeafShoes
     dropProbability: 0.001
     offsetY: 1
   - itemName: Green Wreath

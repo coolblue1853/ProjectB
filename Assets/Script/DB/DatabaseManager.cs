@@ -198,6 +198,7 @@ public class DatabaseManager : MonoBehaviour
                 weaponType = ItemDataList[itemNum].weaponType,
                 category = ItemDataList[itemNum].category,
                 effectIds = ItemDataList[itemNum].effectIds, // 장비 효과 id (P2 에서 누락돼 아이템 효과가 안 걸리던 버그)
+                retired = ItemDataList[itemNum].retired,
             };
             return newItem;
 
@@ -231,6 +232,23 @@ public class DatabaseManager : MonoBehaviour
             return null;
         }
     }
+    /// <summary>옛 체계 폐기 장비(ItemSheet retired=1)인가. 시트에 없으면 false (LegacyGearAudit)</summary>
+    public bool IsRetired(string itemName)
+    {
+        if (ItemDataList == null)
+        {
+            return false;
+        }
+        foreach (ItemData d in ItemDataList)
+        {
+            if (d.name == itemName)
+            {
+                return d.retired;
+            }
+        }
+        return false;
+    }
+
     public int FindItemDataIndex(string targetValue)
     {
         if (ItemDataList != null)

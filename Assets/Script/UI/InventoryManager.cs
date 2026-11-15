@@ -1123,6 +1123,16 @@ public class InventoryManager : MonoBehaviour
         {
             item.itemData.upgrade = upgrade;
         }
+        if (item.itemData.retired)
+        {
+            // 옛 체계 폐기 장비(LegacyGearAudit): 장착하지 않고 가방으로, 가방이 가득이면 판매값 골드(추가 칸 폐기 반환과 같은 규칙 Q-SLOT4).
+            // 빈 칸에 다른 장비(기본 무기 포함)가 들어가면 세이브 칸이 덮여 사라지므로 칸에 남겨 두지 않는다
+            bool toBag = ExtraEquip.ReturnOrRefund(item.itemData);
+            LegacyGearMigration.Clear(SaveManager.instance.datas.equipGear, SaveManager.instance.datas.equipmentFlags, flagIndex);
+            GameLog.Info(GameLog.Cat.Item, "폐기 장비 장착 해제 → " + (toBag ? "가방: " : "판매값 골드: ") + name);
+            Destroy(equip);
+            return null;
+        }
         UseEquipment(item);
         return item;
     }
@@ -1158,7 +1168,7 @@ public class InventoryManager : MonoBehaviour
             def.tear = int.TryParse(e.Tier, out int tier) ? tier : def.tear;
             def.upgrade = int.TryParse(e.Upgrade, out int up) ? up : def.upgrade;
             ItemFlagSave.Apply(def, e.Flags);
-            LegacyGearMigration.Target target = LegacyGearMigration.Decide(def.equipArea, boxFree, extraFree, true);
+            LegacyGearMigration.Target target = LegacyGearMigration.Decide(def.retired ? null : def.equipArea, boxFree, extraFree, true); // 폐기 장비(retired)는 가방으로
             bool done = false;
             if (target == LegacyGearMigration.Target.Box)
             {

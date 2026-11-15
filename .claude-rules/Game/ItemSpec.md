@@ -28,6 +28,7 @@
 | 17 | WeaponType | string | 무기 계열(10-31, `WeaponKind` 열거형 이름: Sword·Greatsword·Scythe·Dagger·Knuckle·Claw·Spear·Adae·Staff·Axe·Mace·Whip·Dual·Bow·Bulwark …). 무기 행만 채움, 나머지 빈칸. 프리팹 `Weapon._kind` 가 None 이 아니면 일치해야 한다(DataIntegrity). 툴팁 "Weapon (활)" 표시 |
 | 18 | category | string | Junk/Material 등(빈 값 = 기존 동작) |
 | 19 | effectIds | string | **(REWORK-12 P2)** `EquipEffects.csv` 효과 id 를 `;` 로 연결(최대 3). 빈칸 = 효과 없음. 파서는 머리글 이름으로 찾는다(열 19 는 StartMastery 자리와 겹치지 않게). 현재 `LeafStaff`·`BearClaw`·`LeafAdae`(시험)·`GatekeepersOath`·`WispLantern`·`QuakestoneMaul`·`FangDagger` 에 부착(임시값, P5) |
+| 20 | retired | int | **(11-15 LegacyGearAudit)** 1 = 옛 체계 폐기(신발 16종·시험 더미·옛 칭호/오라). 행은 세이브 호환으로 유지, 장착 불가·판매 가능, 획득 경로(드롭·상점·제작·보상)에 넣지 않는다(`LegacyGearIntegrityTests`). 파서는 머리글 이름으로 찾는다. 빈칸 = 현행 |
 
 **현황:**
 - 유효 행 81개: 장비 48(무기 15, 방어구 5부위 × 4~5, 반지 6, 목걸이 7), Misc 23, Consum 9, 테스트 행 일부

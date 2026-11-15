@@ -19,7 +19,6 @@ MonoBehaviour:
   - ScareArmor
   - ScareLegArmor
   - ScareHandArmor
-  - ScareShoes
   - ScareStaff
   uniqueItem: Necklace of Silent Screams
   uniqueChance: 0.08
@@ -29,3 +28,4 @@ MonoBehaviour:
   firstKillStones: 5
   grantsRank: 0
   firstKillArtifact: 2
+  grantsSeal: 0

@@ -37,7 +37,7 @@ public class SelfCraftPagesTests
         var csv = UnityEngine.Resources.Load<UnityEngine.TextAsset>(SelfCraftPages.ArmorResourcePath);
         Assert.IsNotNull(csv);
         var list = SelfCraftPages.Parse(csv.text);
-        Assert.AreEqual(46, list.Count); // 인장 반지 1 + 첫 1시간 계보 방어구 15(Wolf·Grove·Bog 각 5) + L5 신규 6세트 30
+        Assert.AreEqual(37, list.Count); // 인장 반지 1 + 계보 9세트 × 4부위 36(신발 레시피 9개는 LegacyGearAudit 로 폐기)
         Assert.AreEqual("Bringer's Sigil Ring", list[0].Result);
         CollectionAssert.AreEqual(new[] { "Death Sigil", "T1_Ore" }, list[0].Ids);
         CollectionAssert.AreEqual(new[] { 8, 10 }, list[0].Counts);
@@ -82,11 +82,11 @@ public class SelfCraftPagesTests
     {
         Assert.AreEqual(390, CraftGoldRules.GoldFor("WolfArmor"));
         Assert.AreEqual(290, CraftGoldRules.GoldFor("WispLegArmor"));
-        Assert.AreEqual(320, CraftGoldRules.GoldFor("FaeShoes"));
+        Assert.AreEqual(0, CraftGoldRules.GoldFor("FaeShoes")); // 신발 레시피 폐기(LegacyGearAudit)
         Assert.AreEqual(0, CraftGoldRules.GoldFor("Bringer's Sigil Ring"));
-        int[] sums = { 1300, 2000, 1700, 2500, 2100 };
+        int[] sums = { 1090, 1680, 1430, 2100, 1760 }; // 옛 합계에서 신발 몫(210·320·270·400·340)을 뺐다
         string[][] sets = { new[] { "Wolf", "Wisp" }, new[] { "Grove", "Fae" }, new[] { "Bog", "Gloom" }, new[] { "Outlaw", "Raider" }, new[] { "Stone" } };
-        string[] parts = { "Cap", "HandArmor", "LegArmor", "Shoes", "Armor" };
+        string[] parts = { "Cap", "HandArmor", "LegArmor", "Armor" };
         for (int i = 0; i < sets.Length; i++)
         {
             foreach (string set in sets[i])

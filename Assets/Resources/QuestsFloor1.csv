@@ -7,7 +7,7 @@ Q105,이끼 낀 껍질,ruen,3,Q102,kill,MossShellBeetle_BD,5,600,120,Potion,1,�
 Q201,나무에 새겨진 별,elder,3,Q101,collect,StarBarkFragment,3,1000,160,WolfCap,1,샛길의 오른쪽 일반 숲 포털 → 숲 늑대를 사냥해 별무늬 수피 조각 3개를 주워 이브에게 보고한다. 수락 중에만 조각이 떨어진다.,,main,eve,샛길 너머 일반 숲에서 늑대가 나무껍질을 물어뜯고 있네.^껍질에 별무늬가 새겨졌다는 소문이 있네.|조각 3개를 주워 이브에게 가져가 보게.^의뢰를 받은 동안에만 떨어지네.,껍질 조각 3개일세.^늑대 발톱을 조심하게.,…네 갈래 별이야. 브로치 문양이랑 같아.^누가 새긴 걸까. 더 보고 싶어.
 Q202,숲의 경계선,ruen,4,Q102,kill,WildBoar_BD,8,900,210,FangDagger,1,샛길 오른쪽 일반 숲 포털에서 들어가 왼쪽으로 이동하며 멧돼지 8마리를 처치한 뒤 마을 루엔에게 보고한다.,,reward
 Q203,불가에서 만든 첫 끼,merchant,4,Q103,craft,Herb Roasted Rabbit,1,1080,140,Herb Roasted Rabbit,1,샛길 화로(입구에서 오른쪽)에서 토끼고기 2·약초 1·나무 1로 허브 토끼구이를 만든다. ↑ 시작·X 요리 및 뒤집기·ESC 취소.,,reward
-Q204,어두워지는 숲,eve,5,Q202,visit,forest_night_post,1,1000,210,WolfShoes,1,일반 숲 입구 이브에게 받은 뒤 왼쪽으로 조금 가서 금빛 별 관측지를 밟고 이브에게 돌아온다. 방문은 낮에도 가능하다.,,side,,숲이 밤마다 조금씩 어두워져.^길가 별빛이 언제부터 줄었는지 보고 싶어.|왼쪽 끝 관측지까지 가 줘.^밟기만 하면 돼.,아직이야? 관측지는 입구에서 왼쪽으로 조금 더 가.,…빛이 이어져 있어. 누군가 일부러 놓은 길이야.^고마워. 다음엔 둥지 쪽을 같이 보자.
+Q204,어두워지는 숲,eve,5,Q202,visit,forest_night_post,1,1000,210,WolfHandArmor,1,일반 숲 입구 이브에게 받은 뒤 왼쪽으로 조금 가서 금빛 별 관측지를 밟고 이브에게 돌아온다. 방문은 낮에도 가능하다.,,side,,숲이 밤마다 조금씩 어두워져.^길가 별빛이 언제부터 줄었는지 보고 싶어.|왼쪽 끝 관측지까지 가 줘.^밟기만 하면 돼.,아직이야? 관측지는 입구에서 왼쪽으로 조금 더 가.,…빛이 이어져 있어. 누군가 일부러 놓은 길이야.^고마워. 다음엔 둥지 쪽을 같이 보자.
 Q301,말하는 나이테,elder,6,Q201,kill,AncientEnt_BD,1,1300,300,GroveCap,1,메인: 고대 엔트의 기억에서 탑의 문장을 본다.,,main,,깊은 숲 한가운데 늙은 엔트가 서 있네.^그 나이테를 들여다보고 싶네.|쓰러뜨려야 속이 보일 걸세.^서두르지는 말게.,엔트는 깊은 숲 안쪽에 있네.^뿌리가 움직이니 발밑을 보게.,…문양이 있었군. 브로치와 닮은 결이야.^아직은 뜻을 말하기 이르네.
 Q302,곰의 길,ruen,6,Q202,kill,ForestBear_BD,7,1200,250,BearClaw,1,깊은 숲의 중형 몬스터를 소개한다.,,reward
 Q303,죽은 나무의 심장,smith,7,Q302,collect,EntHeartwood,3,1316,270,Enhance Stone,1,엔트 파밍과 대장장이 방문을 연결한다.,,reward
@@ -30,7 +30,7 @@ Q106,쥐 도둑 소탕,ruen,2,Q102,kill,RatThief_BD,6,600,70,RatCap,1,쥐 도둑
 Q107,기본 방어구 착용,merchant,3,Q103,equip,armor,1,400,70,LeafCap,1,기본 방어구를 1부위 착용하고 상인에게 보고한다.,,reward,
 Q108,표본 버섯 채집,sena,3,Q103,collect,Forest Mushroom,5,300,70,Potion,1,샛길 약초 덤불에서 숲 버섯 5개를 모아 세나에게 보고한다.,,reward
 Q205,도깨비불 사냥,eve,4,Q201,kill,Wisp_BD,8,500,120,Wisp Ember,3,밤에만 나오는 도깨비불 8마리를 처치해 이브에게 보고한다. 낮이면 해가 질 때까지 기다린다.,,reward
-Q206,늑대 다리 갑옷 제작,smith,5,Q202,craft,WolfLegArmor,1,800,120,Enhance Stone,2,늑대 송곳니 8개와 멧돼지 엄니 3개로 늑대 다리 갑옷을 제작해 대장장이에게 보고한다.,,reward,
+Q206,늑대 목걸이 제작,smith,5,Q202,craft,WolfLegArmor,1,800,120,Enhance Stone,2,늑대 송곳니 8개와 멧돼지 엄니 3개로 무리 사냥꾼 목걸이를 제작해 대장장이에게 보고한다.,,reward,
 Q207,우두머리 늑대,ruen,5,Q202,killElite,AlphaWolf_BD,1,1000,120,WolfArmor,1,일반 숲의 우두머리 늑대를 처치해 루엔에게 보고한다.,,reward,
 Q109,첫 강화,smith,5,Q107,enhance,weapon,1,300,50,Enhance Stone,2,대장장이에게서 무기를 한 단계 강화한다. 강화석 1개와 약간의 골드가 든다.,,reward,
 Q110,마을 요리대 일괄 요리,sena,5,Q108,craft,Herb Roasted Rabbit,3,500,80,Potion,1,마을 요리대에서 한 번에 3개를 만든다. 재료는 토끼고기 6 약초 3 나무 3.,,reward,
@@ -41,10 +41,10 @@ FT_Q_Fort,산적 요새 마차 정류장,coach_fort,11,,kill,BanditSentry_BD,5,0
 FT_Q_Tower,탑 근교 마차 정류장,coach_tower,12,,kill,GolemSmall_BD,5,0,150,,,탑 근교에서 작은 골렘 5마리를 처치하면 이곳 마차 정류장이 열린다.,,side,,길이 험하니 마차가 다니려면 주변부터 정리해야 하오.^탑 근교 작은 골렘 5마리만 처치해 주시오.,탑 근교 작은 골렘 5마리요. 아직 길이 막혀 있소.,수고했소! 이제 이곳 정류장으로 마차를 보내겠소.^마차꾼에게 말을 걸면 열린 곳 어디로든 가오.
 FT_Q_Cliffs,마법 절벽 마차 정류장,coach_cliffs,15,,kill,CliffGoblin_BD,5,0,200,,,마법 절벽에서 절벽 고블린 5마리를 처치하면 이곳 마차 정류장이 열린다.,,side,,길이 험하니 마차가 다니려면 주변부터 정리해야 하오.^마법 절벽 절벽 고블린 5마리만 처치해 주시오.,마법 절벽 절벽 고블린 5마리요. 아직 길이 막혀 있소.,수고했소! 이제 이곳 정류장으로 마차를 보내겠소.^마차꾼에게 말을 걸면 열린 곳 어디로든 가오.
 FT_Q_Rampart,부서진 성벽 마차 정류장,coach_rampart,17,,kill,RampartKnight_BD,5,0,240,,,부서진 성벽에서 성벽 기사 5마리를 처치하면 이곳 마차 정류장이 열린다.,,side,,길이 험하니 마차가 다니려면 주변부터 정리해야 하오.^부서진 성벽 성벽 기사 5마리만 처치해 주시오.,부서진 성벽 성벽 기사 5마리요. 아직 길이 막혀 있소.,수고했소! 이제 이곳 정류장으로 마차를 보내겠소.^마차꾼에게 말을 걸면 열린 곳 어디로든 가오.
-Q306,곰 가죽 장갑 제작,sena,6,Q302,craft,GroveHandArmor,1,900,200,GroveLegArmor,1,곰 가죽으로 숲지기 장갑을 제작해 세나에게 보고한다.,,reward
+Q306,곰 가죽 반지 제작,sena,6,Q302,craft,GroveHandArmor,1,900,200,GroveLegArmor,1,곰 가죽으로 고대 숲 반지를 제작해 세나에게 보고한다.,,reward
 Q307,숲지기 세트 착용,smith,7,Q303,equip,GroveArmor,3,900,200,GroveArmor,1,숲지기 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
 Q308,깊은 숲 둥지 정예,eve,7,Q304,killElite,*,1,900,200,Enhance Stone,2,깊은 숲 둥지의 정예를 처치해 이브에게 보고한다. 구역 인장 보상은 아이템 추가 후 교체.,,reward
-Q309,늙은 곰,ruen,8,Q305,killElite,OldBear_BD,1,1000,220,GroveShoes,1,깊은 숲의 늙은 곰을 처치해 루엔에게 보고한다.,,reward
+Q309,늙은 곰,ruen,8,Q305,killElite,OldBear_BD,1,1000,220,Enhance Stone,2,깊은 숲의 늙은 곰을 처치해 루엔에게 보고한다.,,reward
 Q406,늪 낚시,sena,9,Q402,collect,Amber Trout,2,2800,300,BogLegArmor,1,늪 낚시터에서 호박송어 2마리를 낚아 세나에게 보고한다.,,reward
 Q407,늪 사냥꾼 세트 착용,smith,10,Q405,equip,BogArmor,3,2900,310,BogArmor,1,늪 사냥꾼 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
 Q408,늪 둥지 정예,eve,10,Q403,killElite,*,1,3000,310,ZoneSeal_Swamp,1,늪 둥지의 정예를 처치해 이브에게 보고한다.,,reward
@@ -58,7 +58,7 @@ Q605,장로 골렘,ruen,13,Q601,killElite,ElderGolem_BD,1,2400,500,StoneCap,1,�
 Q606,돌탑 세트 착용,smith,13,Q603,equip,StoneArmor,3,2500,520,StoneArmor,1,돌탑 세트를 3부위 착용하고 대장장이에게 보고한다.,,reward
 Q607,유적 파편 수집,eve,14,Q602,collect,Ancient Relic Shard,8,2600,540,StoneLegArmor,1,탑 근교 유적 발굴로 고대 유물 파편 8개를 모아 이브에게 보고한다.,,reward
 Q608,석판 조각 수집,sena,14,Q601,collect,Monolith Shard,6,2600,540,StoneHandArmor,1,탑 근교에서 석판 조각 6개를 모아 세나에게 보고한다.,,reward
-Q609,방어구 강화 +5,merchant,14,Q606,enhance,armor,5,2700,560,StoneShoes,1,방어구를 +5까지 강화하고 상인에게 보고한다.,,reward
+Q609,방어구 강화 +5,merchant,14,Q606,enhance,armor,5,2700,560,Enhance Stone,3,방어구를 +5까지 강화하고 상인에게 보고한다.,,reward
 Q610,도감 12종,elder,14,Q603,bestiary,any,12,2800,580,FairysGrimoire,1,서로 다른 몬스터 12종을 처치해 장로에게 보고한다.,,reward
 Q701,정예 사냥 5,elder,15,Q610,killElite,*,5,1000,200,Enhance Stone,1,정예 몬스터 5마리를 처치해 장로에게 보고한다.,,reward
 Q702,세트 3종 착용,smith,15,Q609,equip,sets:3,3,1000,200,Enhance Stone,1,서로 다른 세트 3종을 각 3부위 이상 착용한다.,,reward

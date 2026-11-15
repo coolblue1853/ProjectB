@@ -103,7 +103,7 @@ public sealed class EquipmentModel
     public static bool TryGetSlot(ItemDef def, out EquipSlot slot)
     {
         slot = default;
-        if (def == null || def.Type != "Equip" || string.IsNullOrEmpty(def.EquipArea))
+        if (def == null || def.Type != "Equip" || def.Retired || string.IsNullOrEmpty(def.EquipArea))
         {
             return false;
         }

@@ -133,7 +133,7 @@ public static class ExtraEquip
     /// <summary>인벤의 신규 슬롯 장비를 장착한다. 대상 부위가 아니면 false(기본 경로로), 잠금이면 true(처리됨·장착 안 함)</summary>
     public static bool TryHandleEquip(ItemCheck item)
     {
-        if (item != null && item.itemData != null && IsDiscardedArea(item.itemData.equipArea))
+        if (item != null && item.itemData != null && (item.itemData.retired || IsDiscardedArea(item.itemData.equipArea))) // retired = 옛 체계 폐기 장비(LegacyGearAudit)
         {
             GameLog.Info(GameLog.Cat.Item, "폐기된 부위 아이템은 장착 불가: " + item.itemData.equipArea);
             return true; // 처리됨: 기본 장착 경로로 넘기지 않는다
@@ -173,7 +173,7 @@ public static class ExtraEquip
     public static bool TryPlaceDirect(ItemData data)
     {
         EnsureLoaded();
-        if (data == null || !Enum.TryParse(data.equipArea, out EquipSlot slot) || !SlotRules.IsExtra(slot) || !IsUnlocked(slot) || Items[Idx(slot)] != null)
+        if (data == null || data.retired || !Enum.TryParse(data.equipArea, out EquipSlot slot) || !SlotRules.IsExtra(slot) || !IsUnlocked(slot) || Items[Idx(slot)] != null)
         {
             return false;
         }
@@ -290,7 +290,7 @@ public static class ExtraEquip
                 {
                     continue;
                 }
-                if (!Enum.TryParse(d.equipArea, out EquipSlot want) || !SlotRules.Accepts(SlotRules.Extras[i], want))
+                if (d.retired || !Enum.TryParse(d.equipArea, out EquipSlot want) || !SlotRules.Accepts(SlotRules.Extras[i], want))
                 {
                     // 폐기된 칭호·오라 등(11-05): 장착 해제하고 인벤으로 반환, 가득이면 판매값 골드 지급
                     bagTouched |= ReturnOrRefund(d);
@@ -319,7 +319,7 @@ public static class ExtraEquip
     }
 
     /// <summary>가방에 넣고, 실패하면 판매값 골드로 보상. 가방에 들어갔으면 true</summary>
-    static bool ReturnOrRefund(ItemData d)
+    public static bool ReturnOrRefund(ItemData d)
     {
         InventoryManager inv = InventoryManager.instance;
         bool ok = BagReturn != null ? BagReturn(d) : inv != null && inv.CreatItem(d.name, false, d, AddSource.Unequip);

@@ -48,6 +48,7 @@ public sealed class ItemDef
 {
     public string Id, Type, EquipArea, SetKey, Rarity, DisplayName, Category;
     public int MaxStack = 1, Price;
+    public bool Retired; // 옛 체계 폐기(ItemSheet retired=1): 장착 불가·판매만
 }
 
 public interface IItemCatalog

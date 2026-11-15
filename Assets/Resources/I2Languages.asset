@@ -8950,6 +8950,399 @@ MonoBehaviour:
         M / ESC \uB2EB\uAE30"
       Flags: 0000
       Languages_Touch: []
+    - Term: Basic Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Basic Earring
+      - "\uAE30\uBCF8 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Basic Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Basic Necklace
+      - "\uAE30\uBCF8 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Basic Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Basic Ring
+      - "\uAE30\uBCF8 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Leaf Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Leaf Earring
+      - "\uC78E\uC0AC\uADC0 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Leaf Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Leaf Necklace
+      - "\uC78E\uC0AC\uADC0 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Leaf Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Leaf Ring
+      - "\uC78E\uC0AC\uADC0 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rat Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Rat Earring
+      - "\uC950 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rat Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Rat Necklace
+      - "\uC950 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rat Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Rat Ring
+      - "\uC950 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Scarecrow Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Scarecrow Earring
+      - "\uD5C8\uC218\uC544\uBE44 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Scarecrow Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Scarecrow Necklace
+      - "\uD5C8\uC218\uC544\uBE44 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Scarecrow Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Scarecrow Ring
+      - "\uD5C8\uC218\uC544\uBE44 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwalker Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwalker Earring
+      - "\uC808\uBCBD \uC21C\uB840\uC790 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwalker Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwalker Necklace
+      - "\uC808\uBCBD \uC21C\uB840\uC790 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cliffwalker Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Cliffwalker Ring
+      - "\uC808\uBCBD \uC21C\uB840\uC790 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pack Hunter Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Pack Hunter Earring
+      - "\uBB34\uB9AC \uC0AC\uB0E5\uAFBC \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pack Hunter Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Pack Hunter Necklace
+      - "\uBB34\uB9AC \uC0AC\uB0E5\uAFBC \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pack Hunter Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Pack Hunter Ring
+      - "\uBB34\uB9AC \uC0AC\uB0E5\uAFBC \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Night Lantern Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Night Lantern Earring
+      - "\uBC24\uC758 \uB4F1\uBD88 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Night Lantern Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Night Lantern Necklace
+      - "\uBC24\uC758 \uB4F1\uBD88 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Night Lantern Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Night Lantern Ring
+      - "\uBC24\uC758 \uB4F1\uBD88 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Grove Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Grove Earring
+      - "\uACE0\uB300 \uC232 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Grove Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Grove Necklace
+      - "\uACE0\uB300 \uC232 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ancient Grove Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Ancient Grove Ring
+      - "\uACE0\uB300 \uC232 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Will-o'-Fae Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Will-o'-Fae Earring
+      - "\uC694\uC815 \uB3C4\uAE68\uBE44\uBD88 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Will-o'-Fae Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Will-o'-Fae Necklace
+      - "\uC694\uC815 \uB3C4\uAE68\uBE44\uBD88 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Will-o'-Fae Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Will-o'-Fae Ring
+      - "\uC694\uC815 \uB3C4\uAE68\uBE44\uBD88 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Stalker Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Stalker Earring
+      - "\uB2AA \uCD94\uC801\uC790 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Stalker Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Stalker Necklace
+      - "\uB2AA \uCD94\uC801\uC790 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bog Stalker Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Bog Stalker Ring
+      - "\uB2AA \uCD94\uC801\uC790 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gloom Swarm Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Gloom Swarm Earring
+      - "\uC74C\uC6B8\uD55C \uB5BC \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gloom Swarm Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Gloom Swarm Necklace
+      - "\uC74C\uC6B8\uD55C \uB5BC \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gloom Swarm Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Gloom Swarm Ring
+      - "\uC74C\uC6B8\uD55C \uB5BC \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outlaw Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Outlaw Earring
+      - "\uBB34\uBC95\uC790 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outlaw Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Outlaw Necklace
+      - "\uBB34\uBC95\uC790 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outlaw Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Outlaw Ring
+      - "\uBB34\uBC95\uC790 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Iron Raider Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron Raider Earring
+      - "\uAC15\uCCA0 \uC57D\uD0C8\uC790 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Iron Raider Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron Raider Necklace
+      - "\uAC15\uCCA0 \uC57D\uD0C8\uC790 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Iron Raider Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron Raider Ring
+      - "\uAC15\uCCA0 \uC57D\uD0C8\uC790 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stoneborn Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Stoneborn Earring
+      - "\uB3CC\uC5D0\uC11C \uAE68\uC5B4\uB09C \uC790\uC758 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stoneborn Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Stoneborn Necklace
+      - "\uB3CC\uC5D0\uC11C \uAE68\uC5B4\uB09C \uC790\uC758 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stoneborn Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Stoneborn Ring
+      - "\uB3CC\uC5D0\uC11C \uAE68\uC5B4\uB09C \uC790\uC758 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Guard Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Guard Earring
+      - "\uC131\uBCBD \uC218\uBE44\uB300 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Guard Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Guard Necklace
+      - "\uC131\uBCBD \uC218\uBE44\uB300 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rampart Guard Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Rampart Guard Ring
+      - "\uC131\uBCBD \uC218\uBE44\uB300 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skybound Earring
+      TermType: 0
+      Description: 
+      Languages:
+      - Skybound Earring
+      - "\uD558\uB298\uC744 \uD5A5\uD55C \uC790\uC758 \uADC0\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skybound Necklace
+      TermType: 0
+      Description: 
+      Languages:
+      - Skybound Necklace
+      - "\uD558\uB298\uC744 \uD5A5\uD55C \uC790\uC758 \uBAA9\uAC78\uC774"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Skybound Ring
+      TermType: 0
+      Description: 
+      Languages:
+      - Skybound Ring
+      - "\uD558\uB298\uC744 \uD5A5\uD55C \uC790\uC758 \uBC18\uC9C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Discontinued gear. No longer equippable.
+      TermType: 0
+      Description: 
+      Languages:
+      - Discontinued gear. No longer equippable.
+      - "\uB2E8\uC885\uB41C \uC7A5\uBE44. \uB354 \uC774\uC0C1 \uC7A5\uCC29\uD560
+        \uC218 \uC5C6\uB2E4."
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

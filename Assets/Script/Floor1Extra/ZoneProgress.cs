@@ -32,9 +32,9 @@ public static class ZoneProgress
         new Zone { Map = "Lv1_TowerOutskirts", ZoneKo = "탑 근교", ZoneEn = "Tower Outskirts", MiniId = "ElderGolem_BD", GuardKo = "원로 골렘", GuardEn = "Elder Golem", GoalKo = "벌판 가운데 있다", GoalEn = "in the open field", SetPrefix = "Stone", SetKo = "돌", Elites = 1 },
     };
 
-    public static readonly string[] SetParts = { "Cap", "HandArmor", "LegArmor", "Shoes", "Armor" };
+    public static readonly string[] SetParts = { "Cap", "HandArmor", "LegArmor", "Armor" }; // 신발은 옛 체계 폐기(LegacyGearAudit) — 귀걸이·반지·목걸이·의상 4부위
     public const string RecipeResource = "ArmorCraftRecipes";
-    public const int SetPartTotal = 5;
+    public const int SetPartTotal = 4;
 
     /// <summary>현재 구역 맵 이름(ZoneBanner 가 맵 진입 때 갱신). 수호자 없는 맵이면 표에서 못 찾는다</summary>
     public static string CurrentMap { get; private set; }
@@ -94,13 +94,13 @@ public static class ZoneProgress
         return z.ZoneEn + " Guardian - " + z.GuardEn + (defeated ? " defeated" : ": " + z.GoalEn);
     }
 
-    /// <summary>세트 완성 부위 수 근사: 장착 수 + 가방의 세트 부위 수(최대 5)</summary>
+    /// <summary>세트 완성 부위 수 근사: 장착 수 + 가방의 세트 부위 수(최대 SetParts 수)</summary>
     public static int OwnedParts(int equipped, int inBag)
     {
         return Mathf.Clamp(equipped + inBag, 0, SetParts.Length);
     }
 
-    /// <summary>다음 만들 부위의 재료 보유/필요 합. 세트가 이미 5부위면 false</summary>
+    /// <summary>다음 만들 부위의 재료 보유/필요 합. 세트 부위를 다 가졌으면 false</summary>
     public static bool NextPartMaterials(IList<SelfCraftPages.Recipe> recipes, string prefix, int ownedParts, Func<string, int> have, out int got, out int need)
     {
         got = 0;

@@ -113,6 +113,7 @@
 | `Docs/Playtest/MotionJudgeLog.md` *(저장소 루트)* | 모션 판정 기록: Claude 판정 vs 사용자 판정 비교·연구 실험 표 |
 | `Docs/Playtest/MobJudgeLog.md` *(저장소 루트)* | 몬스터 판정 기록(Claude 판정 먼저 → 사용자 판정, 실패 원인) |
 | `Docs/Playtest/ConventionAudit.md` *(저장소 루트)* | 장르 관례 이탈 점검·사용자 제보(창고 I 키 버그 등) 목록 |
+| `Docs/Playtest/LegacyGearAudit.md` *(저장소 루트)* | 옛 장비 정리 전수 대조표(획득 경로·분류·조치)·retired 열·신발 폐기·장신구 이름 이행 |
 | `Docs/Playtest/InputAudit.md` *(저장소 루트)* | 키보드·패드 조작 점검표(충돌·미지정) |
 | `Docs/Playtest/DedupAudit.md` *(저장소 루트)* | 중복 코드 정리 후보 8건 |
 | `Docs/OpenQuestions.md` *(저장소 루트)* | 사용자 확인이 필요한 기획 질문과 임시 가정 |

@@ -56,7 +56,7 @@ public class TownStockTests
                 Assert.Greater((int)(sell * 1.5f), sell, "매매 차익: " + id);
             }
         }
-        Assert.AreEqual(14, seen.Count);
+        Assert.AreEqual(13, seen.Count); // 기본 신발 진열 폐기(LegacyGearAudit)
         Assert.IsFalse(seen.Contains("Potion"));
         Assert.IsFalse(seen.Contains("BroochResonance"));
     }

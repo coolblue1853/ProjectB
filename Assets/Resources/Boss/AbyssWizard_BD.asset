@@ -19,7 +19,6 @@ MonoBehaviour:
   - CliffArmor
   - CliffLegArmor
   - CliffHandArmor
-  - CliffShoes
   - CliffBlade
   - CliffStaff
   uniqueItem: AbyssStaff
@@ -30,3 +29,4 @@ MonoBehaviour:
   firstKillStones: 5
   grantsRank: 3
   firstKillArtifact: 3
+  grantsSeal: 0

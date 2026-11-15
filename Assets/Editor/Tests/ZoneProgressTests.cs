@@ -15,7 +15,7 @@ public class ZoneProgressTests
     [Test]
     public void CompletionPercent_CountsChestMiniAndSet()
     {
-        var c = new ZoneProgress.Counts { ChestDone = 1, ChestTotal = 2, MiniDone = 1, MiniTotal = 1, SetParts = 2, Colonies = 3, Elites = 1 };
+        var c = new ZoneProgress.Counts { ChestDone = 1, ChestTotal = 3, MiniDone = 1, MiniTotal = 1, SetParts = 2, Colonies = 3, Elites = 1 };
         Assert.AreEqual(50, ZoneProgress.CompletionPercent(c)); // 4 / 8
         Assert.AreEqual(0, ZoneProgress.CompletionPercent(new ZoneProgress.Counts { MiniTotal = 1 }));
     }
@@ -45,9 +45,9 @@ public class ZoneProgressTests
     }
 
     [Test]
-    public void OwnedParts_ClampsToFive()
+    public void OwnedParts_ClampsToSetParts()
     {
-        Assert.AreEqual(5, ZoneProgress.OwnedParts(4, 3));
+        Assert.AreEqual(4, ZoneProgress.OwnedParts(4, 3)); // 신발 폐기 후 4부위
         Assert.AreEqual(0, ZoneProgress.OwnedParts(0, 0));
     }
 

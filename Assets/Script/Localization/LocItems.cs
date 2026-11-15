@@ -104,5 +104,23 @@ public static class LocItems
         ("Rampart Guard Gauntlets", "성벽 수비대 건틀릿"), ("Rampart Guard Sabatons", "성벽 수비대 철장화"),
         ("Skybound Cowl", "하늘을 향한 자의 두건"), ("Skybound Vest", "하늘을 향한 자의 조끼"), ("Skybound Leggings", "하늘을 향한 자의 바지"),
         ("Skybound Gloves", "하늘을 향한 자의 장갑"), ("Skybound Boots", "하늘을 향한 자의 장화"),
+        // ── 세트 장신구 이름 이행(LegacyGearAudit 11-15): 옛 투구·하의·장갑 → 귀걸이·목걸이·반지 (키는 그대로) ──
+        ("Basic Earring", "기본 귀걸이"), ("Basic Necklace", "기본 목걸이"), ("Basic Ring", "기본 반지"),
+        ("Leaf Earring", "잎사귀 귀걸이"), ("Leaf Necklace", "잎사귀 목걸이"), ("Leaf Ring", "잎사귀 반지"),
+        ("Rat Earring", "쥐 귀걸이"), ("Rat Necklace", "쥐 목걸이"), ("Rat Ring", "쥐 반지"),
+        ("Scarecrow Earring", "허수아비 귀걸이"), ("Scarecrow Necklace", "허수아비 목걸이"), ("Scarecrow Ring", "허수아비 반지"),
+        ("Cliffwalker Earring", "절벽 순례자 귀걸이"), ("Cliffwalker Necklace", "절벽 순례자 목걸이"), ("Cliffwalker Ring", "절벽 순례자 반지"),
+        ("Pack Hunter Earring", "무리 사냥꾼 귀걸이"), ("Pack Hunter Necklace", "무리 사냥꾼 목걸이"), ("Pack Hunter Ring", "무리 사냥꾼 반지"),
+        ("Night Lantern Earring", "밤의 등불 귀걸이"), ("Night Lantern Necklace", "밤의 등불 목걸이"), ("Night Lantern Ring", "밤의 등불 반지"),
+        ("Ancient Grove Earring", "고대 숲 귀걸이"), ("Ancient Grove Necklace", "고대 숲 목걸이"), ("Ancient Grove Ring", "고대 숲 반지"),
+        ("Will-o'-Fae Earring", "요정 도깨비불 귀걸이"), ("Will-o'-Fae Necklace", "요정 도깨비불 목걸이"), ("Will-o'-Fae Ring", "요정 도깨비불 반지"),
+        ("Bog Stalker Earring", "늪 추적자 귀걸이"), ("Bog Stalker Necklace", "늪 추적자 목걸이"), ("Bog Stalker Ring", "늪 추적자 반지"),
+        ("Gloom Swarm Earring", "음울한 떼 귀걸이"), ("Gloom Swarm Necklace", "음울한 떼 목걸이"), ("Gloom Swarm Ring", "음울한 떼 반지"),
+        ("Outlaw Earring", "무법자 귀걸이"), ("Outlaw Necklace", "무법자 목걸이"), ("Outlaw Ring", "무법자 반지"),
+        ("Iron Raider Earring", "강철 약탈자 귀걸이"), ("Iron Raider Necklace", "강철 약탈자 목걸이"), ("Iron Raider Ring", "강철 약탈자 반지"),
+        ("Stoneborn Earring", "돌에서 깨어난 자의 귀걸이"), ("Stoneborn Necklace", "돌에서 깨어난 자의 목걸이"), ("Stoneborn Ring", "돌에서 깨어난 자의 반지"),
+        ("Rampart Guard Earring", "성벽 수비대 귀걸이"), ("Rampart Guard Necklace", "성벽 수비대 목걸이"), ("Rampart Guard Ring", "성벽 수비대 반지"),
+        ("Skybound Earring", "하늘을 향한 자의 귀걸이"), ("Skybound Necklace", "하늘을 향한 자의 목걸이"), ("Skybound Ring", "하늘을 향한 자의 반지"),
+        ("Discontinued gear. No longer equippable.", "단종된 장비. 더 이상 장착할 수 없다."),
     };
 }

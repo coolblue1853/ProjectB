@@ -818,9 +818,6 @@ MonoBehaviour:
   - itemName: Four-Leaf Clover Ring
     dropProbability: 0.001
     offsetY: 0
-  - itemName: Shoes
-    dropProbability: 0.002
-    offsetY: 0
   - itemName: HandArmor
     dropProbability: 0.002
     offsetY: 0

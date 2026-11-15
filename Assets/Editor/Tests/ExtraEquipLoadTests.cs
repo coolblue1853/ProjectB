@@ -77,6 +77,22 @@ public class ExtraEquipLoadTests
     }
 
     [Test]
+    public void RetiredItem_InMatchingSlot_ReturnedAndCleared()
+    {
+        // LegacyGearAudit: 보조장비 칸(Charm) 부위가 맞아도 retired 면 장착 해제·가방 반환·저장
+        int returned = 0;
+        ExtraEquip.BagReturn = d => { returned++; return true; };
+        ItemData shoes = Make("WolfShoes", "Charm");
+        shoes.retired = true;
+        ExtraEquip.LoadCore(SlotRules.AllExtraMask, new[] { "", "", "WolfShoes", "" }, Resolver(shoes));
+        Assert.AreEqual(1, returned);
+        Assert.AreEqual(1, _saves);
+        Assert.AreEqual("", _saved[2]);
+        Assert.IsNull(ExtraEquip.Get(EquipSlot.Charm));
+        Assert.IsFalse(ExtraEquip.TryPlaceDirect(shoes), "폐기 장비는 직접 장착도 안 된다");
+    }
+
+    [Test]
     public void ValidItem_NoSaveOnLoad()
     {
         ExtraEquip.LoadCore(SlotRules.AllExtraMask, new[] { "Ring", "", "", "" }, Resolver(Make("Ring", "Earring")));
