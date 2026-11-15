@@ -12,7 +12,7 @@ RatChief_BD,Rat Chief,1,Forest Side Road,40,2,0,0,-1.2,,,,3,10,19,RatChief_BD,,e
 RatThief_BD,Rat Thief,1,Forest Side Road,20,2,0,0,-1.2,,,,2,8,16,RatThief_BD,,,patrol,turn,yes,16,,,first,melee
 Scarecrow_BD,Scarecrow,1,Forest Side Road,40,2,0,0,-1.5,,,,3,10,17,,,,stay,turn,no,,,,first,ranged
 SporeShroom_BD,Spore Shroom,2,Magic Cliffs,390,4,0,0,-1.2,,,,16,240,26,,,,patrol,turn,no,,,12,reactive,ranged
-StoneRabbit_BD,Stone Rabbit,1,Forest Road,44,6,0,0,-1.2,,,,3,10,21,,,,hop,fall,yes,,,,reactive,melee
+StoneRabbit_BD,Stone Rabbit,1,Forest Road,44,6,0,0,-1.2,,,,3,14,21,,,,hop,fall,yes,,,,reactive,melee
 ForestWolf_BD,Forest Wolf,1,Normal Forest,46,5,0,0,-1.2,,,pack hunter (gen_forest_mobs),4,9,18,,,,patrol,turn,yes,,,24,first,melee
 WildBoar_BD,Wild Boar,1,Normal Forest,62,5,0,0,-1.2,,,charge (gen_forest_mobs),5,10,20,,,,patrol,turn,yes,,,,first,melee
 Wisp_BD,Wisp,1,Normal Forest (night),26,2,0,0,-1.2,,,night (gen_forest_mobs),3,6,16,,,,patrol,turn,yes,,,,first,ranged
