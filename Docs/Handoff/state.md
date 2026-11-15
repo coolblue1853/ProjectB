@@ -244,3 +244,7 @@
 - R10 11-15 풀 파괴 경고: 코드상 결함 확정·방어 수정(4d3a24f15). 원인: 공격 판정(isSetParent)이 몹의 자식인 채 풀 반환(부모 유지) → 몹이 풀 초과로 Destroy 되면 풀 안 판정도 같이 파괴 → 다음 GetOb 의 OnTakeFromPool 이 파괴된 GameObject 접근. 수정: 반환 시 부모 해제(EnemyDamageObject.OnBeforeRelease), OnTakeFromPool null 건너뛰기·GetOb 재시도. 회귀 PoolDestroyedItemTests 2건(수정 전 빨강 확인), EditMode 1288/1288. 실플레이 재현은 못 함(미검증: 맵 전환 중 공격 시전 실플레이).
 - R11 11-15 풀·DOTween 전수: 후보 3·수정 2(9bc90054b). 원인 EnemyRoundAttackNode 의 GetOb null 미검사·시퀀스 Kill/SetLink 누락, EnemyCameraShake 의 죽은 시퀀스 Restart(두 번째부터 흔들림 없음)·isEnd 미리셋. 나머지(DropManager·TempMobShooter·EnemySpawner·EnemyHealth·DamageObject·구독 해제)는 결함 경로 없음. EditMode 1288/1288, 실플레이 미검증(보스 카메라 흔들림 2회째).
 - R12 11-15 최근 기능 코드 정적 리뷰(haiku): 필수 0. `_unequipping` 후보는 DeletPrefab 이 장착 인스턴스를 Destroy 하므로 오지적. **버그 사냥 정지(주간 43%)**: R9·R12 발견 0으로 수확 감소, 사용량 채우기 금지 원칙에 따라 60% 전 멈춤. 남은 미검증: 창고 정렬·수량·인출 실입력, 지역 배너, 탑 문지기 실전, 보스 카메라 흔들림 2회째, 맵 전환 중 몹 공격.
+
+## 11-16 새벽 봇 현황
+- `bash Tools/bot_run.sh <분>` → 봇 실행 + `Logs/playrec_bot/<세션>_report.md`(막힘·오류·사망·맵/몹 밸런스·사람 대비). 30분 무개입 사냥·귀환·판매·구매·장착·퀘스트 보고 1 확인.
+- 남은 것: SideRoad x≈-386 계단 위 몹 공중 공격 분기(MoveX=0)·로프0 반복 막힘, 퀘스트 수락 대화 미검증, B4 자동 밸런싱 반복·모방 실험. 상세 `PlayBotDesign.md` 11~15절.
