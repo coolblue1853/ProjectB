@@ -143,6 +143,9 @@
   - #7 정예 장비 확정 100→40%
   - #9 PhantomScythe 2→1%
 - **#8 보류:** 정예 비율이 설정값 0.04 의 2배(8%)로 나온 원인부터 찾는다(중복 판정 의심). 버그면 고치고 eliteChance 는 0.04 그대로 둔다.
+  - **#8 결과(11-15 적용 후): 중복 판정 버그 아님. `eliteChance` 0.04 유지.** 코드 확인: 정예 굴림은 `EnemySpawner.CycleCheck` 스폰 1회당 1번(`AlwaysElite || Random.value < eliteChance`)이고, `PromoteElite` 는 `IsElite` 가드, 풀 반환 `OnDisable` 에서 `DemoteElite` 로 플래그를 지운다(재활성 때 재굴림·플래그 잔존 없음).
+  - 로그 실측(두 세션 스폰 1061건, "슬롯 N 스폰" 대 "정예 승격"): 승격 68건 = 6.4%. 이 중 `RatChief_BD` 가 22건(스폰 106건, trait elite 라 `AlwaysElite`)이고 나머지는 46/955 = 4.8%로 0.04 와 표본 오차 안(±1.4%p)이다.
+  - 8%(53/663)는 처치 기준 비율이다. 원인은 ① RatChief 의 항상 정예(승격의 32%) ② 일반 몹은 덜 잡힌 채 영역을 벗어나 사라질 수 있는 처치 대 스폰 분모 차이 ③ 퀘스트 추적 정예(`SpawnTracked`)·미니보스(`MiniBossSite`)가 이 굴림과 별개로 정예를 만든다는 점이다. 수정할 코드는 없다. R2.1 이후 `ev kill` 의 `el` 필드로 정예 처치를 직접 센다.
 - **R2.1 적용:**
   - `ev kill` 에 몹 id·인스턴스 id·EXP·골드·정예·맵·밤 필드를 넣는다.
   - 한글 로그 U+FFFD 깨짐을 고친다.

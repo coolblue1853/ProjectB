@@ -22,8 +22,8 @@
    - 판매 기록에 PoisonSword, RatCap, Ring Finger that Tears Wounds, Necklace of Spreading Corruption, Necklace of the Sly Plunderer 가 보인다.
    - 이것들이 폐기 슬롯·옛 체계 아이템인지 대조해 드롭표·상점·제작에서 빼고, 남은 것은 새 슬롯 체계로 이행한다.
    - 참고: `Game/EquipSlotExpansion.md`, `Docs/Handoff/equip_redistribution.md`.
-5. [ ] **드롭률(사용자 "좀 높은 느낌"):** 21분에 골드 약 2만, 줍기 334. 메이플 초반 기준(`Docs/Reference/MapleMobs`, `Game/LevelDesignRef.md`)과 비교해 드롭률·골드량을 낮추는 안을 낸다. designer 가 표를 만들고 builder 가 CSV 에 반영한다.
-6. [ ] **몹 밸런스(사용자):** "아직 안 잡혔다, **밤 몹은 더 세야 한다**." 밤 전용 몹(또는 밤 보정)의 HP·공격·EXP 배율을 정한다. 낮 대비 HP·공격 ×1.3~1.5, EXP·드롭 보상 소폭 상향을 임시 가정으로 `Docs/OpenQuestions.md` 에 적는다. 기록의 맵별 처치 속도와 받은 피해로 1층계 몹별 이상치를 뽑는다.
+5. [x] **드롭률(a5bec8654·290edbc27·5ba65eb6d·fa3bbfabd, 정예 장비 40%·PhantomScythe 1%·Ghost count×0.6·StoneRabbit EXP14):** 21분에 골드 약 2만, 줍기 334. 메이플 초반 기준(`Docs/Reference/MapleMobs`, `Game/LevelDesignRef.md`)과 비교해 드롭률·골드량을 낮추는 안을 낸다. designer 가 표를 만들고 builder 가 CSV 에 반영한다.
+6. [x] **몹 밸런스(36aa02c9d 밤 배율 코드 HP1.4·공격1.3·EXP1.15, a44dc0795 기록기 R2.1):** "아직 안 잡혔다, **밤 몹은 더 세야 한다**." 밤 전용 몹(또는 밤 보정)의 HP·공격·EXP 배율을 정한다. 낮 대비 HP·공격 ×1.3~1.5, EXP·드롭 보상 소폭 상향을 임시 가정으로 `Docs/OpenQuestions.md` 에 적는다. 기록의 맵별 처치 속도와 받은 피해로 1층계 몹별 이상치를 뽑는다.
 5·6 공통. **기록 기반 밸런스 조사 도구(사용자 11-15):** `Tools/playrec_balance.py` 를 만든다. 입력은 jsonl 여러 개, 출력은 `Docs/Balance/PlayBalance_<날짜>.md` 이다.
    - **몹별:** 처치 수, 평균 처치 시간(첫 타 → 처치), 받은 피해·플레이어를 때린 비율, EXP/처치, 드롭/처치(골드·아이템 등급별).
    - **맵·시간대별:** 처치/분, EXP/분, 골드/분, 받은 피해/분, 낮/밤 구분. 낮/밤 구분은 기록에 시각 필드가 없으면 R2 에 추가한다.
