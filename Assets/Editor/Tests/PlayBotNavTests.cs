@@ -342,6 +342,7 @@ public class PlayBotNavTests
         Assert.AreEqual(BotAvoid.React.Back, a.Update(e, 2.0f, p, rng));
         Assert.AreEqual(-1, a.FoeDir);
         Assert.AreEqual(2, a.Windows);
+        Assert.AreEqual(2, a.Moves, "반응 하나당 1(틱 수 아님)");
         SetFoe(e, 8, 6f, PlayRecThreat.StAttack);
         Assert.AreEqual(2, a.Windows, "먼 적은 보지 않는다");
     }

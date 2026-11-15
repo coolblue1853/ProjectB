@@ -96,6 +96,8 @@ public sealed class BotAvoid
     private float _until;
 
     public int Windows { get; private set; }
+    /// <summary>이동·점프·대시 반응(공격·무반응 제외)이 시작된 횟수</summary>
+    public int Moves { get; private set; }
     /// <summary>현재 반응의 적 쪽 방향(-1·1)</summary>
     public int FoeDir { get; private set; } = 1;
 
@@ -154,6 +156,10 @@ public sealed class BotAvoid
         if (_pending != React.None && now >= _due)
         {
             _active = _pending;
+            if (_active != React.Attack)
+            {
+                Moves++;
+            }
             FoeDir = _pendingDir;
             _pending = React.None;
             _until = now + Active;

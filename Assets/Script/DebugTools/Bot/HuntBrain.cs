@@ -61,7 +61,8 @@ public sealed class HuntBrain : IBotBrain
     public bool NoProgress { get; private set; }
     public int Dashes { get; private set; }
     public int Skills { get; private set; }
-    public int Avoids { get; private set; }
+    /// <summary>회피 동작(뒤·앞·점프·대시)을 낸 횟수(반응 하나당 1, 판단 틱 수 아님)</summary>
+    public int Avoids => _avoid.Moves;
     public int Potions => _potion.Uses;
     public int AvoidWindows => _avoid.Windows;
     public float Range => _range.Range;
@@ -140,7 +141,9 @@ public sealed class HuntBrain : IBotBrain
     {
         PlayObservation o = ctx.Obs;
         Weapon w = Weapon.Equipped;
-        _range.SetKind(w != null ? w.Kind : WeaponKind.None);
+        // 구 무기 프리팹은 _kind 가 비어 있어 ItemSheet WeaponType 으로 보충한다(WeaponMoveProfiles 와 같은 규칙). 안 읽으면 사거리가 1.3 기본값에 머문다
+        WeaponKind kind = w == null ? WeaponKind.None : (w.Kind != WeaponKind.None ? w.Kind : WeaponMasteryService.KindOf(w.MasteryKey));
+        _range.SetKind(kind);
         float range = _range.Range;
         int side = f.Dx >= 0f ? 1 : -1;
         CheckSkillFail(ctx);
@@ -243,7 +246,6 @@ public sealed class HuntBrain : IBotBrain
             default:
                 return;
         }
-        Avoids++;
         it.Note = "avoid";
     }
 

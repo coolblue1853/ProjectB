@@ -239,21 +239,22 @@ python Tools/playrec_summary.py Logs/playrec/<세션>.jsonl [출력.md] [--frame
 - 맵 순환: `PlayBot.Run(분, goal, maps)` 기본 `Lv1_NearForest_SideRoad,Lv1_NormalForest,Lv1_DeepForest`, 맵마다 120초(적이 20초 없으면 일찍) 사냥 후 다음 맵(왕복). `-` = 맵 이동 없음.
 
 ### 11.6 실행·지표
-`bash Tools/bot_run.sh <분> [goal=hunt] [시작 맵=Lv1_NearForest_SideRoad] [순환 맵 쉼표 목록|-]`. 상태 줄에 kills·deaths·mapMoves·stucks·reroutes·edgeFails·navJumps·downJumps·ropes·portals·skills·dashes·avoids·potions·range.
+`bash Tools/bot_run.sh <분> [goal=hunt] [시작 맵=Lv1_NearForest_SideRoad] [순환 맵 쉼표 목록|-]`. 상태 줄에 kills·deaths·mapMoves·stucks·reroutes·edgeFails·navJumps·downJumps·ropes·portals·skills·dashes·avoidMoves·avoidWindows·potions·range.
 
 ### 11.7 사람 대 봇 (11-15, `bot_run.sh 10`, Lv8 세이브, 세션 20261115_225213)
 | 지표 | 사람 | B1(5분) | B2(10분) | 메모 |
 |---|---|---|---|---|
 | 반응(적 6칸 진입 → 첫 공격) 중앙 | 0.71초 | 2.16초 | **1.24초**(n=25, 무반응 9) | 합격선 1.4 통과. 앞선 10분 실행 1.18초(n=23) |
 | 처치/분 | 14.7(합) | 13.7 | 13.1(135) | 앞선 실행 15.5 |
-| 막힘(Stuck) | — | 막힘 점프 27 | 15(재계획 18·간선 실패 28·막힘 점프 1) | 앞선 실행 26. 남은 것 대부분 NormalForest x≈−356.6 계단 모서리(게임 버그) |
+| 막힘(Stuck) | — | 막힘 점프 27 | 15(재계획 18·간선 실패 28·막힘 점프 1) → 수정 후 10분 8·8분 5·15분 13(NormalForest x≈380 후반 포함) | 앞선 실행 26. 남은 것 대부분 NormalForest x≈−356.6 계단 모서리(게임 버그) |
 | 사망 | 0 | 0 | 0 | |
-| 맵 이동 | — | 0 | 1(SideRoad → NormalForest) | NormalForest → DeepForest 는 −356.6 고착으로 못 감 |
+| 맵 이동 | — | 0 | 1(SideRoad → NormalForest) | 11-16 수정 후 15분: 3회(Side→Normal→Deep→Normal) 순환 확인. 10분 실행은 NormalForest 가 넓어 1회(포털까지 약 8분) |
 | 로프·하향 점프·이동 점프 | — | — | 6 · 3 · 45 | |
 | 스킬·대시 | 스킬 많이 씀 | 0 | 94(9.1/분) · 57 | |
 | 회피(예고 → 첫 반응) | 사람 분포 | 없음 | 예고 73건, 반응 시간 중앙 0.20초, jump 21·none 19·fwd 18·back 12 | ForestHunter 사격은 96% 맞음(반응해도 못 피함) |
 | 평타 간격 중앙 | 0.21초 | 0.22초 | 0.22초 | |
-| 포션 | 문턱 사용 | 없음 | 0 | Lv8 세이브는 받은 피해 합 464 로 문턱까지 안 떨어짐 — 실사용 미검증 |
-- 사거리는 무기 종류를 못 읽으면 기본 1.3(이 세이브 무기는 기본값으로 나왔다). Lv3 세이브 실행은 하지 않았다(미검증).
-- 상태 줄 `avoids=a/b` 의 a 는 반응을 낸 판단 틱 수, b 는 예고 창 수다(반응 횟수 아님).
+| 포션 | 문턱 사용 | 없음 | 0 | 수정 후 NormalForest·DeepForest 에서 3~10회 실사용, HP 117→213 처럼 회복 확인(11-16) |
+- 사거리 수정(11-16): 구 무기 프리팹은 `Weapon._kind` 가 비어 1.3 이었다. `HuntBrain` 이 `WeaponMasteryService.KindOf(MasteryKey)` 로 보충(WeaponMoveProfiles 와 같은 규칙) → 1.9(대검). 15분 실행 끝무렵 DeepForest 에서 1.3 으로 다시 보인 구간은 원인 미확인.
+- Lv3 세이브(level 3·exp 0 으로 고쳐 8분, 끝나고 원본 md5 복원): 최대 HP 116(Lv8 은 156), 사망 0, 162처치, 맵 이동 1, 막힘 4, 포션 1.
+- 상태 줄: `avoidMoves`(뒤·앞·점프·대시 반응 횟수, 틱 아님) `avoidWindows`(예고 창 수)로 이름을 바로잡았다.
 

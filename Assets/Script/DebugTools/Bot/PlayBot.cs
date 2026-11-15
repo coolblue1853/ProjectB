@@ -307,7 +307,7 @@ public sealed class PlayBot : MonoBehaviour
         }
         if (_hunt != null)
         {
-            s += " skills=" + _hunt.Skills + " dashes=" + _hunt.Dashes + " avoids=" + _hunt.Avoids + "/" + _hunt.AvoidWindows + " potions=" + _hunt.Potions
+            s += " skills=" + _hunt.Skills + " dashes=" + _hunt.Dashes + " avoidMoves=" + _hunt.Avoids + " avoidWindows=" + _hunt.AvoidWindows + " potions=" + _hunt.Potions
                 + " range=" + _hunt.Range.ToString("F1");
         }
         return s;
