@@ -5,7 +5,7 @@
 ## 1. 목적
 - 사람이 직접 플레이한 기록(jsonl + mp4)을 남기고, 요약 통계와 학습 행으로 **사람처럼 노는 자동 플레이 봇**의 설계·학습 입력을 얻는다.
 - 봇은 **진짜 입력만** 쓴다. 치트·순간이동·직접 위치 변경·내부 함수 직접 호출 금지. 기록기는 게임 상태를 바꾸지 않는다(읽기·구독, 게임 코드에는 한 줄 훅만).
-- R2 까지 기록기와 요약기다. 봇은 아직 없다.
+- R2 까지 기록기와 요약기. R3-2(버릇 모델)·B0(입력 재생)·B1(봇 뼈대)은 11-15 — 9·10절.
 
 ## 2. 구성 (`Assets/Script/DebugTools/`)
 
@@ -25,9 +25,16 @@
 | `PlayRecSnapshot.cs` · `PlayRecJson.cs` | `st` 직렬화 · JSON 조립 + `PlayRecStuck`(막힘) |
 | `Assets/Editor/Tests/PlayRecorderTests.cs` · `PlayRecR2Tests.cs` | EditMode 시험 |
 | `Tools/playrec_summary.py` | jsonl → markdown 요약(150줄 이내) + `--frames` |
+| `Tools/playrec_fit.py` · `Tools/tests/test_playrec_fit.py` | 사람 기록 → 버릇 모델 `Assets/Resources/Bot/human_profile.json`(9절) |
+| `Bot/BotInput.cs` · `BotKeyMap.cs` | 가상 장치 입력 계층(액션 이름 API, 리바인딩 추종)·경로 ↔ 키 변환(10절) |
+| `Bot/BotProfile.cs` · `BotRules.cs` | 프로필 읽기·분위수 샘플링 · 평타 리듬(BotAttackRhythm)·막힘(BotStuck) 순수 로직 |
+| `Bot/PlayBot.cs` · `BotTypes.cs` · `HuntBrain.cs` | B1 봇: 인지→판단(IBotBrain 10Hz)→입력, 이동(IBotNavigator) 확장 지점 |
+| `Bot/BotReplay.cs` · `Tools/playrec_replay_cmp.py` | B0 입력 재생·비교 |
+| `Tools/bot_run.sh` · `Tools/probes/bot_*.cs` · `SROptions.Bot.cs` | 봇 실행 스크립트·프로브·SRDebugger "Bot" 묶음 |
+| `Assets/Editor/Tests/PlayBotTests.cs` | 봇 EditMode 시험(키 매핑·샘플링·리듬·막힘·목표·재생 변환·기록 폴더) |
 
 - 자동 시작: `RuntimeInitializeOnLoadMethod`(AfterSceneLoad), `DontDestroyOnLoad`. 플레이 모드·빌드 모두 기본 켜짐. 끄려면 부트스트랩 전에 `PlayRecorder.Enabled = false`(실행 중에 바꾸면 기록만 멈춘다). 영상만 끄려면 `VideoEnabled = false`.
-- 출력: 에디터 `<프로젝트>/Logs/playrec/<yyyyMMdd_HHmmss>.jsonl`·`.mp4`·`<세션>/mark_NN.png`(gitignore), 빌드 `Application.persistentDataPath/playrec/`.
+- 출력: 에디터 `<프로젝트>/Logs/playrec/<yyyyMMdd_HHmmss>.jsonl`(출처 human) · 봇·재생(`Source` bot·replay)은 `Logs/playrec_bot/`(`PlayRecWriter.DirNameFor` — 최근 30판 정리가 폴더별이라 봇이 사람 기록을 밀어내지 않는다). 출처 전환은 `PlayRecorder.Restart(source)`(현재 세션 닫고 새 세션), 플레이 시작 전 지정은 에디터 `SessionState` `PB.PlayRec.NextSource`(`bot_pending_source.cs`)·`.mp4`·`<세션>/mark_NN.png`(gitignore), 빌드 `Application.persistentDataPath/playrec/`.
 - 종료: 플레이 정지·앱 종료·도메인 리로드(`AssemblyReloadEvents.beforeAssemblyReload`) 어디서든 `Shutdown` 한 번 — 마지막 `vf`(end) → ffmpeg 표준입력 닫고 대기(최대 약 8초, 넘으면 Kill) → 파일 닫기.
 - GameLog 연결: `GameLog.Info` → `PlayRecorder.Log`(1순위 이벤트 경로). `Warn`/`Anomaly` 는 `logMessageReceivedThreaded`.
 
@@ -118,7 +125,7 @@ python Tools/playrec_summary.py Logs/playrec/<세션>.jsonl [출력.md] [--frame
 기본 출력 `<세션>_summary.md`(150줄 이내): 메타·tk Hz·맵 체류, 영상(크기·프레임·버림), 북마크(영상 시각), 입력 상위, 전투 리듬(평타 간격·반응 시간·점프/대시/방향 전환), 전투 결과(처치·피해·치명·넉백·콤보·사망), 회피(피격 시도 결과, 예고 → 반응 종류·시간·종별 맞은 비율, 종별 신호·상태 분포), UI(창 열기·체류, 상점에서 본 품목, 결정 목록과 골드·스탯 변화), 사람 신호·막힘, 성능(프레임·끊김·GC), 경고. `--frames` 는 북마크·막힘·사망마다 `ffmpeg -ss` 로 한 장씩 `<세션>_frames/` 에 뽑는다(t → u 는 tk, u → 영상 초는 vf 보간).
 
 ## 7. 봇 계획 메모
-1. 가상 `Keyboard`/`Gamepad` 를 `InputSystem.AddDevice` 로 만들고 `QueueStateEvent` 로 누르고 뗀다. 비포커스 입력은 `Framework/EditorAutomation.md` 의 `input_bg_on`.
+1. 가상 `Keyboard`/`Gamepad` 를 `InputSystem.AddDevice` 로 만든다 — 구현·키보드 주입 결론은 10절. (`input_bg_on` 프로브는 설정 에셋을 메모리에서 바꾼다 — 봇은 쓰지 않는다)
 2. 관측은 `PlayObservation` 그대로, 행동 = `tk.a` 비트 + `mx`/`my`. 학습 쌍 = (tk 관측 + 최근 gd, 다음 틱 a).
 3. 봇도 `PlayRecorder.Source = "bot"` 로 같은 jsonl 을 남기고 같은 요약기로 사람과 비교한다.
 4. 금지 재확인: 위치·HP·아이템을 코드로 바꾸지 않는다. 막힘은 봇 정책 문제로 보고하고 게임 코드는 건드리지 않는다.
@@ -132,3 +139,65 @@ python Tools/playrec_summary.py Logs/playrec/<세션>.jsonl [출력.md] [--frame
   - 영상: ffprobe 640x360·15fps, 길이 = 프레임/15 와 일치(예 421초 6314프레임, 버림 0). 플레이 정지 뒤 ffmpeg 프로세스 0. 영상 프레임 방향 정상. `summary.py --frames` 로 북마크·사망 프레임 추출 확인.
   - 성능(pf, 같은 장면 8초씩 번갈아): 기록기+영상 켬 평균 4.94ms vs 끔 4.73ms(+0.2ms, 에디터 3840x2160).
   - 미검증: `kill`(키 주입 공격이 처치까지 못 감), `stuck` 실전 발생(순수 로직 시험만), qclose·osc 사람 신호(주입 간격이 판정 밖), 상점 UI 를 통한 실제 구매(리플렉션으로 BuyItem/SellItem 호출 — 훅·dec 는 확인), 빌드 경로, 도메인 리로드 중 영상 종료(Stop(true)) 경로.
+- R3-2·B0·B1(11-15): EditMode 전체 1365 통과, 컴파일 오류 0, 콘솔 error 0. `test_playrec_fit` 16개 통과. 세이브 백업 → 원복 md5 일치(매 실행).
+  - B0 재생(`20261115_131248` t 0~150, 마을 시작): 원본 808 · 재생 795 사건, 순서 일치(LCS) 95.3%, 앞 사건과의 간격 오차 중앙 0.008초·p90 0.037초. 남는 차이는 게임 상태 차(창이 열려 Player 맵 꺼짐 → Move 218/194, PortalOn 62/80, Select 85/79).
+  - B1 `bot_run.sh 5`(Lv1_NearForest_SideRoad, 세이브 Lv8, 리뷰 반영 뒤 최종 `20261115_185253`): 처치 73(13.7/분), 받은 피해 8회 합 8, 사망 0, 막힘 점프 27·반대 걷기 1, 진척 없음 경고 1(못 닿는 목표 10초 무시 추가 전 17), src=bot 14210줄. transform·rigidbody·치트 대입 grep 0. B0 재생은 리뷰 반영(정상 종료 때 사람 출처 복귀·neg 만 있는 축 건너뜀) 전 코드로 측정.
+
+## 9. 버릇 모델 `human_profile.json` (R3-2)
+`python Tools/playrec_fit.py <기록.jsonl>... [-o 경로]` (기본 `Assets/Resources/Bot/human_profile.json`). 원본은 읽기만 한다. 11-15 학습 자료 = `20261115_131248` + `20261115_133116`(39분, 필드 28분, 처치 574).
+
+| 필드 | 형식 |
+|---|---|
+| `version` `minN`(=5) `sources` `minutes` `fieldMinutes` `kills` | 머리 |
+| `dists[]` | `{key, n, unit, p10, p25, p50, p75, p90}` — n < minN 이면 백분위 null(추측 기본값 없음) |
+| `ratios[]` | `{key, n(분모), k(분자), value}` — n < minN 이면 value null |
+| `rates[]` | `{key, n(사건 수), minutes, value(분당)}` — n < minN 또는 1분 미만이면 null |
+
+| key | 정의 |
+|---|---|
+| `react.engage` | 적이 \|dx\|≤6 안에 새로 들어온 순간 → 다음 평타·스킬(5초 안). summary 와 같은 정의(접근 시간 포함) |
+| `react.idle` | 예고 창(`av`)이 열릴 때 아무 키도 안 누르고 있었으면 → 첫 입력(3초 안). 순수 반응 시간 — 봇 반응 지연에 쓴다 |
+| `press.<액션>` | 같은 액션 S → C 누름 시간(Player 맵은 접두 생략, `UI/Select` `UI/Back` `UI/OpenInventory` `Portal/PortalOn`) |
+| `attack.interval` | 평타 S 간격(2초 이하) |
+| `attack.burstWithin` · `burstLen` · `burstGap` | 연타 묶음(간격 0.35초 이하로 이어짐 — 분포가 0.1~0.3 / 0.4+ 로 갈림): 묶음 안 간격·묶음 길이(타수)·묶음 사이 간격(10초 이하) |
+| `move.dirChange` | 좌우 이동 방향이 뒤집힌 시각 사이 간격 |
+| `avoid.rt` · `avoid.r.*` · `avoid.res.*` | `av` 첫 반응까지 초(반응 있음만) · 첫 반응 종류 비율 · 결과 비율 |
+| `jump.ctx.*` | 점프 직전 상황(우선순위): enemy_near(2.5 안 산 적) · rope · edge(바라보는 쪽 발판 끝 1.0 안) · moving · standing |
+| `target.nearest` · `lowestHp` · `dropFirst` | 처치 직후 다음 첫 타격 대상을 처치 순간 후보(산 적 2+)와 절대 위치로 대조: 최근접이었나 · (HP 가 서로 다를 때) HP 최저였나 · (드롭이 있을 때) 다음 타격 전에 주웠나. 옛 기록엔 dmg 인스턴스 id 가 없어 같은 종 최근접으로 맞은 몹을 잡는다(근사) |
+| `potion.hpPct` | 포션 `use` 직전 HP% |
+| `return.bagFree` · `return.potions` | 다른 맵 → 마을 이동 직전 cx 의 가방 빈 칸·포션 수 |
+| `hunt.segment` | 마을 밖 전투 이벤트(dmg·kill·hurt)가 15초 안으로 이어진 구간 길이 |
+| `rest.idle` | `hs` idle(3초 이상 무입력) 길이 |
+| `menu.focusInterval` | 같은 창 안 포커스 이동(`fo`) 간격(5초 이하) |
+| rates `jump.perMinute` · `jump.fieldPerMinute` · `kill.perMinute` | 분당 빈도 |
+
+11-15 값(중앙): 평타 누름 0.113초, 묶음 안 간격 0.202초, 묶음 4타, 묶음 사이 0.90초, react.idle 0.081초(p75 0.32), react.engage 0.76초, 방향 전환 1.21초, 포션 HP 66%(n=11), 귀환 직전 가방 빈 칸 11·포션 15(n=5), 사냥 구간 58초(n=18), 목표 최근접 49%·HP 최저 12%·드롭 먼저 27%, 필드 점프 7.3/분. null(n<5): press.Artifact·ArtifactNext·Guard·QuestWindow·Quick3·WorldMap.
+
+## 10. 봇(B0·B1)
+### 10.1 입력 경로와 키보드 주입 결론
+- **결론: 키보드 주입은 된다.** 가상 `Keyboard`("BotKeyboard")로 이동·평타·점프·창 키가 모두 액션을 일으킨다(11-15 플레이 모드 확인, 에디터 최소화·비포커스).
+- 이전 "키보드 주입 안 됨"의 원인(둘 다):
+  1. **검증 방법 착시:** 프로브(`u.sh cs`)는 에디터 업데이트에서 돈다. 거기서 읽는 `kb.xKey.isPressed` 는 에디터 상태 버퍼라 플레이어에서 눌려 있어도 false 가 나온다. 실제로는 캐릭터가 움직이고 있었다. 반영 확인은 플레이어 위치·fsm·기록기 `in` 행으로 한다.
+  2. **설정에 따른 이벤트 경로:** 입력 시스템 기본값(`editorInputBehaviorInPlayMode = PointersAndKeyboardsRespectGameViewFocus`)이면 게임 뷰 비포커스 때 키보드·포인터 *이벤트*(`QueueStateEvent`)는 플레이어 업데이트에서 빠져 에디터 업데이트로 간다(`InputManager.OnUpdate`). 가상 키보드도 `Keyboard` 라 같은 규칙에 걸린다. 패드는 예외라 "패드로는 된다"가 나왔다. 기본값으로 바꿔 확인: QueueStateEvent 키보드 = 안 움직임, 아래 Direct = 움직임.
+- 이 프로젝트 설정 에셋 `Assets/InputSystem/InputSystem.inputsettings.asset` 은 이미 `m_BackgroundBehavior: 2`(IgnoreFocus)·`m_EditorInputBehaviorInPlayMode: 2`(AllDeviceInputAlwaysGoesToGameView)로 커밋돼 있다(6088747d3) → QueueStateEvent 키보드도 된다. 설정 변경은 필요 없다. 다른 설정의 프로젝트·빌드에서 이벤트 경로를 쓰려면 이 두 값을 위처럼 둔다(방법만 기록, 이번에 바꾸지 않음).
+- **BotInput 기본 = Direct:** `InputState.Change(봇키보드, 상태)` 를 `InputSystem.onAfterUpdate`(Dynamic 업데이트 직후)에 쓴다. 이벤트 경로·포커스 규칙을 타지 않고, 액션은 상태 변화 감시로 똑같이 발동하며, 그 프레임 `Update` 들에서 `WasPressedThisFrame` 이 참이다(프레임 중간에 쓰면 먼저 돈 스크립트가 놓친다). `KeyboardDirect = false` 면 QueueStateEvent. 패드 경로(`Route.Pad`)는 QueueStateEvent.
+- 패드 바인딩: 전투 액션(Move·Jump·Dash·Run·Attack·Skill 4)은 모두 패드 칸이 있다(시험 `EveryPlayerCombatAction_HasPadBinding`). 키보드 전용: Bestiary·WorldMap·Minimap·Guard·SkillWindow·QuestWindow(패드는 고정 제스처), Quick4·ArtifactNext 패드 빈 칸.
+### 10.2 BotInput API
+`Press(action, duration=-1)`(음수면 `press.<action>` 분포 샘플) · `Hold` · `Release` · `Stick(x, y)`(x = Move, y = `UI/verticalCheck`; 키보드는 ±0.5 넘으면 화살표) · `SetPath(path, down)`(재생용 저수준) · `ReleaseAll` · `Tick(now)`(소유자 Update). 액션 이름은 `Attack` 처럼 쓰면 Player 맵, `UI/Back` 처럼 맵을 붙여도 된다. 키 경로는 `InputBindings.Master`(저장된 리바인딩 반영)의 effectivePath 를 읽고 `InputBindings.Version` 이 바뀌면 다시 읽는다. Press/Hold/Release 시작은 0~25ms 흔들림. 같은 키를 여러 액션이 쓰면(예 Z = Dash·UI/Select) 하나라도 눌려 있으면 누른 상태.
+### 10.3 B0 `BotReplay`
+`BotReplay.Play(jsonl, from, sec)`(프로브 `bot_replay.cs`): 구간의 `in` 행을 키보드 경로 단계로 바꿔(버튼 S/C, 1D 축은 값 부호로 양쪽 키, Debug Menu·키보드 칸 없는 액션 제외, 같은 키는 마지막 단계가 이김) **실제 시각** 기준으로 재생한다. in 행엔 t 만 있어 u = 앞 tk 행 u + (t − t_tk)(0~0.05). 일시정지(timeScale 0) 중 t 가 멈추므로 게임 시간으로 재생하면 멈춘다(첫 시도에서 확인). 같은 키를 한 프레임에 눌렀다 떼면 상쇄되므로 다음 프레임으로 미룬다. 비교 `python Tools/playrec_replay_cmp.py <원본> <시작> <길이> <재생>`.
+### 10.4 B1 `PlayBot`
+- `PlayBot.Run(minutes, goal)`(실제 시간 분, goal = hunt) / `Stop(resumeHuman)` / `Status()`. 프로브 `bot_start`·`bot_status`·`bot_stop`, SRDebugger "Bot" 묶음(Bot Hunt 5 min · Bot Stop · Bot Status). 실행 중 `PlayRecorder.Source = "bot"`(`Restart`), 끝나면 사람 기록으로 되돌린다(`bot_run.sh` 는 곧 플레이를 끄므로 되돌리지 않음).
+- 루프: 매 프레임 `BotInput.Tick`·평타 리듬, 10Hz(게임 시간) 판단. 인지 = 봇 전용 `PlayObservation`(기록기와 같은 관측). 목표(Focus)가 바뀌면 `react.idle` 샘플만큼 늦게 반영한다.
+- `HuntBrain`(IBotBrain): 사람 비율대로 목표(HP 최저 12% · 최근접 49% · 나머지 두 번째로 가까운 것, 같은 층 |dy|≤2 우선) → 걸어가서 \|dx\|≤1.3·\|dy\|≤1.2 면 평타(`BotAttackRhythm`: 묶음 길이·안 간격·사이 간격 샘플). 처치 직후 드롭이 있으면 `target.dropFirst` 확률로 먼저 줍기(접촉 자동 줍기). 적이 없으면 드롭 → 없으면 발판 끝에서 돌아서며 돌아다님. 창이 1.5초 넘게 열려 있으면 `UI/Back`.
+- `DirectNavigator`(IBotNavigator): 목표 쪽 직진, 목표가 1.5~4 위에 있고 가까우면 점프. 막힘(`BotStuck`): 0.8초 제자리 → 점프, 2초 → 1.5초 반대로. 목표 진척(가까워짐·HP 감소·처치)이 3초 없으면 `[PB][Bot] 진척 없음` 경고(3초마다) + 그 목표를 10초 무시.
+- 확장 지점: B2 = `IBotNavigator` 교체(발판·로프·포털 그래프, 회피·스킬은 HuntBrain 확장), B3 = `IBotBrain` 교체(귀환·판매·퀘스트, `return.*`·`potion.hpPct` 사용).
+### 10.5 실행
+`bash Tools/bot_run.sh <분> [goal=hunt] [맵=Lv1_NearForest_SideRoad]`: 세이브 백업(`Logs/playrec_bot/save_backup_*`) → 다음 기록 출처 bot → 플레이 → 시험 준비(`bot_prep_map.cs` 가 `MapInfo.GoToMap` — 봇 실행 전만, 실행 중엔 거절) → `PlayBot.Run(분+1)` → 분마다 상태 → 정지 → 플레이 끔 → 세이브 원복·md5 확인 → `playrec_summary.py`·`playrec_balance.py -o <세션>_balance.md` → 경로 출력.
+### 10.6 사람 대 봇 (11-15, 요약기 같은 정의)
+| 지표 | 사람 | 봇(5분, Lv8 세이브) | 메모 |
+|---|---|---|---|
+| 평타 간격 중앙 | 0.21초(131248) · 0.208(두 기록 합) | 0.22초 | 묶음 리듬 샘플 그대로 |
+| 반응(적 6칸 진입 → 첫 공격) 중앙 | 0.71초(131248) · 0.76(합) | 2.16초 | 봇은 1.3 안에 들어가야 친다(사람은 대시·스킬로 먼저 친다). B2 에서 사거리·대시 반영 |
+| 처치/분 | 9.8(Lv1→5) · 18.8(Lv5→8) · 합 14.7 | 13.7 | 봇 세이브가 Lv8(한두 대에 처치) |
+| 점프/분 | 5.5(131248) · 필드 7.3(합) | 5.1 | 막힘 점프 포함 |

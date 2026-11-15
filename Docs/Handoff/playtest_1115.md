@@ -31,3 +31,5 @@
    - **기준선 대비:** 메이플 초반 기준선(`Docs/Reference/MapleMobs`, `Game/LevelDesignRef.md`)과 비교해 튀는 항목을 표시하고, 수정안 표를 낸다. 수정안은 CSV 컬럼과 값까지 쓴다.
    - **이후 쓰임:** 봇 기록에도 같은 도구를 쓴다. 사람 1회 → 봇 반복 실행으로 표본을 늘리고, 밸런스 수정 → 봇 재실행 → 지표 비교의 자동 반복이 목표다.
 7. [ ] **봇:** `PlayBotPlan.md` R3(파이썬 분석 도구, 이전 시도는 중단·미커밋) → B0 입력 재생 → B1~B4. 이 두 기록을 학습 자료로 쓴다.
+   - 11-15 1단계 완료(R3-2·B0·B1, `PlayBotDesign.md` 9·10절): 버릇 모델 `Tools/playrec_fit.py` → `Assets/Resources/Bot/human_profile.json`, 가상 입력 `BotInput`(키보드 주입 됨 — 원인은 프로브 isPressed 착시·설정별 이벤트 경로), B0 재생 순서 일치 95%·간격 오차 중앙 8ms, B1 `bash Tools/bot_run.sh 5` 처치 73(13.7/분, 사람 14.7), 기록 `Logs/playrec_bot/`(src=bot).
+   - 남은 것: B2(로프·포털 길찾기·스킬·회피·사거리), B3(마을 업무), 반응(진입→첫 공격) 봇 2.16초 vs 사람 0.71초.

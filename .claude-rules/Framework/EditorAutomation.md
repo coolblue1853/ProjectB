@@ -44,6 +44,7 @@ bash Tools/playtest.sh 10 이름                                                
 ## 가상 키 입력 테스트 (2026-10-18)
 
 - 에디터가 최소화·비포커스면 Input System이 키보드를 비활성화한다. `Tools/probes/input_bg_on.cs`(백그라운드 입력 허용 + 키보드 재활성) → `press_key.cs`(`__KEY__`=Key 이름, 0.1초 뒤 뗌) → 끝나면 `input_bg_off.cs`로 복구.
+- (2026-11-15) 프로브는 에디터 업데이트에서 돈다 — 거기서 읽는 `kb.xKey.isPressed` 는 에디터 상태 버퍼라 플레이어에서 눌려 있어도 false 다. 주입 확인은 플레이어 위치·fsm·기록기 `in` 행으로 한다. 봇 입력은 `BotInput`(가상 장치, 설정 변경 없음)을 쓴다 — `Game/PlayBotDesign.md` 10절.
 - 스크린샷에 오버레이 UI가 빠질 때가 있다(타이밍). 창을 연 뒤 2~3초 기다려 다시 찍는다.
 - (2026-10-30) 이미 누른 키가 있는 상태에서 DOTween 콜백 안에서 `KeyboardState(D, A)` 를 큐잉하면 두 번째 키가 반영되지 않는 경우가 있었다(프로브 최상단에서는 정상). 키 두 개 동시 검증은 해당 게임 API(`Weapon.ActiveWeaponSkill` 등)를 직접 부르고, 큐잉한 키는 `kb.xKey.isPressed` 로 반영됐는지 로그로 확인한다. 최소화된 에디터는 게임 시간이 실제보다 느리니 대기는 넉넉히(1초+).
 
