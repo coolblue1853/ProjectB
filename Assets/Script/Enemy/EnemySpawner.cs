@@ -417,12 +417,23 @@ public class EnemySpawner : MonoBehaviour
     #endregion
 
     #region Spawn
+    private static bool IsNightNow()
+    {
+        return TimeChange.instance != null && !TimeChange.instance.isDaytime;
+    }
+
     private bool IsMyTime()
     {
         return TimeChange.instance != null && TimeChange.instance.isDaytime == isDaytimeSpowner;
     }
 
-    /// <summary>정예 확정 보상: 강화석 1~2 + 이 스포너 드롭표의 장비 1개(없으면 강화석 1개 추가)</summary>
+    /// <summary>정예 장비 드롭 확률(11-15: 100%에서 40%로. 나머지는 강화석·골드 보상만)</summary>
+    public const float EliteEquipChance = 0.4f;
+
+    /// <summary>정예 장비 드롭 판정(순수). roll 은 [0,1)</summary>
+    public static bool EliteEquipDrops(float roll) => roll < EliteEquipChance;
+
+    /// <summary>정예 확정 보상: 강화석 1~2 + 40% 로 이 스포너 드롭표의 장비 1개(드롭표에 장비가 없으면 장비 몫은 없다)</summary>
     List<string> EliteLoot()
     {
         var loot = new List<string> { EnhanceRules.StoneName };
