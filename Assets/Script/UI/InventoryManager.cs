@@ -319,7 +319,8 @@ public class InventoryManager : MonoBehaviour
 
     /// <summary>새 게임 시작 방어구 5부위(2026-11-07 사용자 요청: 잎사귀 세트로 시작). 기본 장비가 있던 칸은 교체되어 인벤토리로 간다.</summary>
     /// <summary>시작 장비(v2): 의상(LeafArmor)·반지(옛 장갑)·목걸이(옛 하의)·귀걸이(옛 투구). 옛 신발은 보조장비(해금 슬롯)라 시작에 끼우지 않는다</summary>
-    public static readonly string[] StartOutfit = { "LeafCap", "LeafArmor", "LeafLegArmor", "LeafHandArmor" };
+    /// 11-15 사용자: 새 게임은 기본 무기만 들고 시작한다(잎사귀 세트 시작 폐지). 다시 쓰려면 id 를 넣는다.
+    public static readonly string[] StartOutfit = { };
 
     private void EquipStartOutfit()
     {
