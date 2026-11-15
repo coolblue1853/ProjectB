@@ -10,14 +10,14 @@
 - 사람 신호: 수량 팝업 바로 닫기 39회, NpcMenu 바로 닫기 21회, UI 위 키 연타 78회.
 
 ## 순서 (위에서부터)
-1. [ ] **스태미너:** 달리다 대화·창 열면 스태미너가 계속 준다. builder 수정본이 커밋 안 된 채 작업 트리에 있다(`PlayerController.cs` +17줄, `Player/State/RunDrainRules.cs`). 이것을 검증하고 커밋한다(EditMode 테스트 추가, 플레이로 확인).
-2. [ ] **기록에서 나온 오류:**
+1. [x] **스태미너(429de8fcc):** 달리다 대화·창 열면 스태미너가 계속 준다. builder 수정본이 커밋 안 된 채 작업 트리에 있다(`PlayerController.cs` +17줄, `Player/State/RunDrainRules.cs`). 이것을 검증하고 커밋한다(EditMode 테스트 추가, 플레이로 확인).
+2. [x] **기록에서 나온 오류(36ce68c37):** 독·출혈 비활성 가드, Missing script 3프리팹 제거, 시체 풀 경고 제거, ↕→↑↓. 10.7초 끊김은 기록 t=0 진입 프레임(게임 결함 아님), GC 40ms·초당 9MB 할당은 TechDebt.
    - `PoisonDamage(Clone)`·`BleedingDamage(Clone)` 비활성 상태 코루틴 시작 Error 105회(t=117~).
    - `PhantomScytheSpiningSlash` Missing script.
    - `GreenHurb: 'dead'` 풀 미등록.
    - ThaleahFat_TMP 에 `↕`(U+2195) 글리프 없음.
    - 최악 프레임 10.7초 끊김과 할당 급증(t≈1136, 힙 1313MB). 원인을 확인한다.
-3. [ ] **막힘 지점:** Lv1_NearForest_SideRoad (-320.7, 1.3) 오른쪽, Lv1_DeepForest (-218~-223, -0.7) 좌우. 프레임 PNG 를 보고 지형·벽 문제인지 판정한다.
+3. [x] **막힘 지점(판정: 지형 정상):** 4장 모두 근접 전투 중 MoveLock(fl=ML)으로 속도 0, 벽·콜라이더 문제 아님. 기록기 stuck 판정 오탐(TechDebt). Lv1_NearForest_SideRoad (-320.7, 1.3) 오른쪽, Lv1_DeepForest (-218~-223, -0.7) 좌우. 프레임 PNG 를 보고 지형·벽 문제인지 판정한다.
 4. [ ] **옛 장비 정리(사용자):** "여전히 장착되는 예전 아이템들이 남아 있다."
    - 판매 기록에 PoisonSword, RatCap, Ring Finger that Tears Wounds, Necklace of Spreading Corruption, Necklace of the Sly Plunderer 가 보인다.
    - 이것들이 폐기 슬롯·옛 체계 아이템인지 대조해 드롭표·상점·제작에서 빼고, 남은 것은 새 슬롯 체계로 이행한다.
