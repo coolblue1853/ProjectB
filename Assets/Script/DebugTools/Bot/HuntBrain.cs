@@ -32,6 +32,8 @@ public sealed class HuntBrain : IBotBrain
     /// <summary>같은 드롭을 이만큼 쫓아도 못 줍는 드롭(닿지 않는 발판·벽 너머)은 무시 목록에 넣는다</summary>
     public const float DropChaseSeconds = 10f;
     public const float DropIgnoreSeconds = 60f;
+    /// <summary>드롭 쪽 이동에 길이 없는 상태가 이만큼 이어지면 그 드롭을 무시한다(제자리에 서서 기다리지 않는다)</summary>
+    public const float DropNoPathSeconds = 1.5f;
     public const float DropSameRadius = 1.5f;
 
     private readonly IBotNavigator _nav;
@@ -52,6 +54,7 @@ public sealed class HuntBrain : IBotBrain
     private float _uiSince = -1f;
     private float _lastBack;
     private readonly BotStuck _progress = new BotStuck();
+    private readonly BotStall _dropStall = new BotStall();
     private int _killsSeen;
     private readonly Dictionary<int, float> _ignore = new Dictionary<int, float>();
     private readonly HashSet<int> _ignoreNow = new HashSet<int>();
@@ -96,6 +99,7 @@ public sealed class HuntBrain : IBotBrain
         _goDrop = false;
         _chaseSince = -1f;
         _ignoredDrops.Clear();
+        _dropStall.Clear();
         _nav.Reset();
         _progress.Reset(ctx.Now, ctx.Obs.X);
         _killsSeen = ctx.Kills;
@@ -132,7 +136,7 @@ public sealed class HuntBrain : IBotBrain
         bool dropOk = DropOk(ctx);
         if (_goDrop && dropOk)
         {
-            return Steer(ctx, o.Drop.Dx, o.Drop.Dy, BotIntent.FocusDrop, "drop", ref it);
+            return SteerDrop(ctx, ref it);
         }
         _goDrop = false;
         if (ReturnToTown(ctx, ref it))
@@ -148,7 +152,7 @@ public sealed class HuntBrain : IBotBrain
         {
             if (dropOk)
             {
-                return Steer(ctx, o.Drop.Dx, o.Drop.Dy, BotIntent.FocusDrop, "drop", ref it);
+                return SteerDrop(ctx, ref it);
             }
             return Wander(ctx, ref it);
         }
@@ -513,6 +517,25 @@ public sealed class HuntBrain : IBotBrain
         _progress.Progress(ctx.Now);
         _targetUid = 0;
         NoProgress = false;
+    }
+
+    /// <summary>드롭 쪽으로 간다. 이동 그래프에 길이 없어(NoPath) 1.5초 넘게 못 가면 그 드롭을 무시 목록에 넣는다</summary>
+    private BotIntent SteerDrop(BotContext ctx, ref BotIntent it)
+    {
+        PlayObservation o = ctx.Obs;
+        float dx = o.Drop.Dx;
+        float dy = o.Drop.Dy;
+        it.Focus = BotIntent.FocusDrop;
+        it.Note = "drop";
+        bool moved = _nav.Steer(ctx, dx, dy, ref it);
+        if (_dropStall.Update(ctx.Now, !moved, DropNoPathSeconds))
+        {
+            _ignoredDrops.Add(new Vector3(o.X + dx, o.Y + dy, ctx.Now + DropIgnoreSeconds));
+            Debug.LogWarning("[PB][Bot] 길 없는 드롭 " + DropIgnoreSeconds + "초 무시 map=" + BgmDirector.CurrentMap + " drop=(" + (o.X + dx).ToString("F1") + "," + (o.Y + dy).ToString("F1") + ")");
+        }
+        NoProgress = _progress.NoProgress(ctx.Now);
+        LastNote = it.Note;
+        return it;
     }
 
     private BotIntent Steer(BotContext ctx, float dx, float dy, int focus, string note, ref BotIntent it)

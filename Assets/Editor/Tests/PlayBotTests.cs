@@ -268,4 +268,58 @@ public class PlayBotTests
         Assert.AreEqual("playrec_bot", PlayRecWriter.DirNameFor("replay"));
         Assert.AreEqual("playrec_test", PlayRecWriter.DirNameFor("test"));
     }
+
+    [Test]
+    public void AgentFlag_ActiveOnlyInWindow()
+    {
+        System.DateTime now = new System.DateTime(2026, 11, 16, 5, 0, 0, System.DateTimeKind.Utc);
+        Assert.IsTrue(PlayRecAgentFlag.IsActive(now.AddMinutes(-10), now));
+        Assert.IsFalse(PlayRecAgentFlag.IsActive(now.AddMinutes(-31), now));
+        Assert.IsFalse(PlayRecAgentFlag.IsActive(now.AddHours(-5), now));
+    }
+
+    [Test]
+    public void NavWatch_WalkingIsNotStuck()
+    {
+        BotNavWatch w = new BotNavWatch();
+        w.Reset(0f);
+        // 목표가 바뀌어 거리 지표가 줄지 않아도(30 → 40 → 40) 계속 걸으면 막힘이 아니다
+        float x = 0f;
+        for (int i = 1; i <= 100; i++)
+        {
+            x += 0.3f;
+            Assert.AreEqual(BotNavWatch.Verdict.None, w.Check(i * 0.1f, 40f, x), "t=" + i * 0.1f);
+        }
+    }
+
+    [Test]
+    public void NavWatch_StandingStillIsStuck()
+    {
+        BotNavWatch w = new BotNavWatch();
+        w.Reset(0f);
+        BotNavWatch.Verdict v = BotNavWatch.Verdict.None;
+        BotNavWatch.Verdict first = BotNavWatch.Verdict.None;
+        for (int i = 1; i <= 80 && v != BotNavWatch.Verdict.Stuck; i++)
+        {
+            v = w.Check(i * 0.1f, 40f, 5f);
+            if (first == BotNavWatch.Verdict.None && v != BotNavWatch.Verdict.None)
+            {
+                first = v;
+            }
+        }
+        Assert.AreEqual(BotNavWatch.Verdict.Reroute, first);
+        Assert.AreEqual(BotNavWatch.Verdict.Stuck, v);
+    }
+
+    [Test]
+    public void Stall_FiresAfterSecondsAndClears()
+    {
+        BotStall s = new BotStall();
+        Assert.IsFalse(s.Update(0f, true, 1.5f));
+        Assert.IsFalse(s.Update(1.4f, true, 1.5f));
+        Assert.IsTrue(s.Update(1.6f, true, 1.5f));
+        Assert.IsFalse(s.Update(1.7f, true, 1.5f)); // 한 번 주고 다시 센다
+        Assert.IsFalse(s.Update(2.0f, false, 1.5f));
+        Assert.IsFalse(s.Update(2.1f, true, 1.5f));
+    }
 }

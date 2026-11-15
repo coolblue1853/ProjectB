@@ -12,15 +12,20 @@ public sealed class BotNavWatch
 
     public enum Verdict { None, Reroute, Stuck }
 
+    /// <summary>제자리가 아니라 이만큼 움직였으면 걷고 있는 것 — 거리 지표(목표가 바뀌거나 지나쳐도 늘어남)가 안 줄어도 막힘으로 보지 않는다</summary>
+    public const float MoveProgress = 1.5f;
+
     private float _last;
     private float _best = float.MaxValue;
     private int _reroutes;
+    private float _anchorX = float.NaN;
 
     public void Reset(float now)
     {
         _last = now;
         _best = float.MaxValue;
         _reroutes = 0;
+        _anchorX = float.NaN;
     }
 
     /// <summary>간선 성공 같은 확실한 진척</summary>
@@ -29,6 +34,23 @@ public sealed class BotNavWatch
         _last = now;
         _best = float.MaxValue;
         _reroutes = 0;
+    }
+
+    /// <summary>x = 지금 위치. 마지막 진척 뒤 MoveProgress 넘게 움직였으면 진척(막힘 오탐 방지: 11-16 NormalForest x≈-137 걷는 중 막힘)</summary>
+    public Verdict Check(float now, float metric, float x)
+    {
+        if (float.IsNaN(_anchorX))
+        {
+            _anchorX = x;
+        }
+        else if (Mathf.Abs(x - _anchorX) >= MoveProgress)
+        {
+            _anchorX = x;
+            _best = metric;
+            _last = now;
+            return Verdict.None;
+        }
+        return Check(now, metric);
     }
 
     public Verdict Check(float now, float metric)
@@ -45,6 +67,7 @@ public sealed class BotNavWatch
         }
         _last = now;
         _best = float.MaxValue;
+        _anchorX = float.NaN;
         if (_reroutes < MaxReroutes)
         {
             _reroutes++;
@@ -539,7 +562,7 @@ public sealed class GraphNavigator : IBotNavigator
             _watch.Progress(ctx.Now); // 공격·스킬 이동 잠금 중에는 못 움직이는 게 정상
             return true;
         }
-        BotNavWatch.Verdict v = _watch.Check(ctx.Now, metric);
+        BotNavWatch.Verdict v = _watch.Check(ctx.Now, metric, ctx.Obs.X);
         if (v == BotNavWatch.Verdict.None)
         {
             return true;

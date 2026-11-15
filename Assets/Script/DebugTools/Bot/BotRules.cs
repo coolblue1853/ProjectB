@@ -107,3 +107,38 @@ public sealed class BotStuck
         return Act.None;
     }
 }
+
+/// <summary>
+/// 길이 없어 못 가는 상태(막힘)가 이어진 시간을 센다(순수). 닿지 않는 드롭 쪽으로 가려 하는데 이동 그래프에 길이 없으면(간선 금지 등)
+/// 제자리에서 10초 넘게 서 있던 것(11-16 SideRoad x≈-313 do=drop)을 짧게 끊는 데 쓴다.
+/// </summary>
+public sealed class BotStall
+{
+    private float _since = -1f;
+
+    public void Clear()
+    {
+        _since = -1f;
+    }
+
+    /// <summary>blocked 가 seconds 넘게 이어지면 참(한 번 참을 주고 다시 센다)</summary>
+    public bool Update(float now, bool blocked, float seconds)
+    {
+        if (!blocked)
+        {
+            _since = -1f;
+            return false;
+        }
+        if (_since < 0f)
+        {
+            _since = now;
+            return false;
+        }
+        if (now - _since <= seconds)
+        {
+            return false;
+        }
+        _since = -1f;
+        return true;
+    }
+}

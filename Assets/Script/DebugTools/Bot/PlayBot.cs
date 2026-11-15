@@ -136,6 +136,7 @@ public sealed class PlayBot : MonoBehaviour
         _brain = _hunt;
         _obs.ForceRescan();
         _obs.Observe();
+        PlayRecorder.WriteStartMeta(_obs); // 준비 프로브(레벨·골드) 뒤 값으로 메타를 한 번 더 — 리포트 '시작 Lv' 가 실제와 맞게
         _brain.Begin(_ctx);
         _lastMap = BgmDirector.CurrentMap;
         _startReal = Time.unscaledTime;

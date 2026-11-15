@@ -93,12 +93,30 @@ public sealed class PlayRecorder : MonoBehaviour
             UnityEditor.SessionState.EraseString(PendingSourceKey); // 기록이 꺼져 있어도 소비한다(다음 판에 남지 않게)
             Source = pending;
         }
+        else if (PlayRecAgentFlag.IsActiveNow())
+        {
+            Source = "test"; // 에이전트가 MCP 로 직접 Play 한 시험 = 사람 기록에 섞지 않는다(Tools/u.sh 가 .agent_active 를 갱신)
+        }
 #endif
         if (!Enabled || _inst != null)
         {
             return;
         }
         Spawn();
+    }
+
+    /// <summary>
+    /// 봇 시작 직전 상태(준비 프로브가 레벨·골드를 바꾼 뒤 값)로 메타 행을 한 번 더 쓴다. 리포트·요약은 마지막 meta 를 읽는다.
+    /// 첫 meta 는 Play 직후(준비 전)라 실제 시작 상태와 다르다. 기록이 꺼져 있거나 첫 meta 전이면 아무것도 안 한다.
+    /// </summary>
+    public static void WriteStartMeta(PlayObservation obs)
+    {
+        if (_inst == null || !_inst._metaWritten || obs == null)
+        {
+            return;
+        }
+        obs.ObserveContext();
+        PlayRecMeta.Write(_inst._hooks.Map, obs, _inst._video);
     }
 
     /// <summary>

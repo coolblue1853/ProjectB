@@ -3,6 +3,7 @@
 # manage_editor play 뒤에는 타이틀 오버레이를 자동 해제한다(자동화 프로브가 입력 잠금에 막히지 않게).
 cd "$(dirname "$0")/.."
 export PATH="$PATH:/c/Users/user/.local/bin"
+mkdir -p Logs; touch Logs/.agent_active # 에이전트 활동 표시: 30분 안에 시작한 Play 는 기록이 Logs/playrec_test 로 간다(PlayRecAgentFlag)
 run() { uv run -q --with mcp python Tools/unity_mcp_call.py "$@" 2>/dev/null; }
 if [ "$1" = "call" ] && [ "$2" = "manage_editor" ] && [[ "$3" == *'"play"'* ]]; then
   run "$@"; rc=$?

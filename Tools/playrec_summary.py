@@ -161,7 +161,7 @@ def section_header(L, rows, bad, name, tks, sts):
              " ".join("%s %d" % kv for kv in c.most_common()), " · 깨진 줄 %d" % bad if bad else ""))
     srcs = Counter(r.get("src", "?") for r in rows)
     L.append("- 출처: " + " ".join("src=%s %d" % kv for kv in srcs.most_common()))
-    meta = next((r for r in rows if r.get("k") == "meta"), None)
+    meta = next((r for r in reversed(rows) if r.get("k") == "meta"), None)  # 마지막 meta = 봇 시작 직전 상태
     if meta:
         L.append("- 메타: %s git %s · %dx%d · %s · 시작 Lv%s %s · 영상 %s" % (
             meta.get("ver"), meta.get("git"), meta.get("sw", 0), meta.get("sh", 0), meta.get("dev", ""),
