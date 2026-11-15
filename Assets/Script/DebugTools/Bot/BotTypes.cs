@@ -29,6 +29,8 @@ public struct BotIntent
     public int Quick;
     /// <summary>판단을 바꿀 때 반응 지연을 둘 기준(목표 바뀜 등). 같으면 지연 없이 갱신</summary>
     public int Focus;
+    /// <summary>이번 틱 누를 메뉴 키 한 번(마을 업무, BotErrand)</summary>
+    public BotKey Menu;
     /// <summary>로그용 짧은 설명</summary>
     public string Note;
 

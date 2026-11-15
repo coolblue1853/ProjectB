@@ -34,4 +34,5 @@
    - 11-15 1단계 완료(R3-2·B0·B1, `PlayBotDesign.md` 9·10절): 버릇 모델 `Tools/playrec_fit.py` → `Assets/Resources/Bot/human_profile.json`, 가상 입력 `BotInput`(키보드 주입 됨 — 원인은 프로브 isPressed 착시·설정별 이벤트 경로), B0 재생 순서 일치 95%·간격 오차 중앙 8ms, B1 `bash Tools/bot_run.sh 5` 처치 73(13.7/분, 사람 14.7), 기록 `Logs/playrec_bot/`(src=bot).
    - 11-15 B2 완료(`PlayBotDesign.md` 11절): 맵 지형으로 미리 굽는 이동 그래프 `Assets/Bot/Nav/*.json`(1층계 전 맵) + 점프·하향 점프·로프·포털 진짜 입력, 무기별 사거리·스킬·대시·회피·포션. `bash Tools/bot_run.sh 10`: 반응 1.24초(합격선 1.4, 사람 0.71), 처치 13.1/분(사람 14.7), 막힘 15(B1 막힘 점프 27), 사망 0, 맵 이동 1, 로프 6.
    - B1 막힘 원인: 1칸 턱 면에 붙으면 땅 판정이 꺼져 점프가 안 나가는 게임 버그(TechDebt 11-15 P2) + 공격 이동 잠금 오탐.
+   - 11-16 B3 축소판(`PlayBotDesign.md` 12절): 귀환 판단 → 마을 → 장착·판매·충전 → 사냥터 복귀. 15분 `PREP_BAG="3 3 1" bash Tools/bot_run.sh 15`: 왕복 1·판매 11·구매 97·장착 2·사망 0·처치 158(10.2/분). 남은 것: 퀘스트 따라가기, 메뉴 구매, 귀환 주문서 실사용 확인.
    - 11-16: 계단 모서리 고착 게임 수정 완료(Wall 레이어 꼭대기를 바닥으로, TechDebt 11-15 P2), 사거리 1.3 원인(무기 _kind 빈 구 프리팹)·상태 줄 이름 수정, 포션 실사용·Lv3 세이브 실행 확인, 15분 봇 맵 3회 순환(Deep 도달). 남은 것: 15분 끝 NormalForest x≈380 막힘 8건 조사, DeepForest 에서 사거리 1.3 재발 원인, B3(마을 업무).

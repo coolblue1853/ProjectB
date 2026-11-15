@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 자동 플레이 봇 한 번: 세이브 백업 → 플레이 → (시험 준비) 사냥터로 → PlayBot.Run → N분 → 정지 → 플레이 끔 → 세이브 원복·md5 → 요약·밸런스 md
-# 사용: bash Tools/bot_run.sh <분> [goal=hunt] [시작 맵=Lv1_NearForest_SideRoad] [순회 맵(쉼표, 기본 PlayBot.DefaultMaps, "-" = 이동 없음)]
+# 사용: [PREP_BAG="<남길 물약> <남길 빈칸> [무기약화 0|1]"] bash Tools/bot_run.sh <분> [goal=hunt] [시작 맵=Lv1_NearForest_SideRoad] [순회 맵(쉼표, 기본 PlayBot.DefaultMaps, "-" = 이동 없음)]
 # 기록은 Logs/playrec_bot/<세션>.jsonl (src=bot). 사람 기록 Logs/playrec/ 은 건드리지 않는다. 설계: .claude-rules/Game/PlayBotDesign.md 10절
 set -u
 cd "$(dirname "$0")/.."
@@ -39,6 +39,10 @@ for i in $(seq 1 20); do
   case "$r" in *already*) break ;; esac
 done
 sleep 3
+if [ -n "${PREP_BAG:-}" ]; then # 시험 준비: PREP_BAG="<남길 물약 수> <남길 빈칸 수> [1=착용 무기를 약한 것으로 바꿔 장착 시험]" (마을 업무 시험용, 봇 시작 전만)
+  set -- $PREP_BAG
+  echo "가방 준비: $(probe bot_prep_bag "s/__POT__/${1:-2}/g; s/__FREE__/${2:-3}/g; s/__WEAKEN__/${3:-0}/g")"
+fi
 r=$(probe bot_start "s/__MIN__/$((MIN + 1))/; s/__GOAL__/$GOAL/; s/__MAPS__/$MAPS/")
 echo "시작: $r"
 case "$r" in *start=True*) ;; *) echo "봇 시작 실패"; exit 1 ;; esac

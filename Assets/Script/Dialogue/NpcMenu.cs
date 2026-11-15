@@ -40,6 +40,12 @@ public sealed class NpcMenu : MonoBehaviour
     /// <summary>프로브·테스트용: 현재 선택지 항목 수</summary>
     public static int Count => s_instance != null && s_instance._kinds != null ? s_instance._kinds.Count : 0;
 
+    /// <summary>봇·프로브용 읽기: 선택지에서 kind 가 몇 번째 줄인지(없으면 -1)</summary>
+    public static int RowOf(NpcMenuRules.Kind kind)
+    {
+        return IsOpen && s_instance._kinds != null ? s_instance._kinds.IndexOf(kind) : -1;
+    }
+
     public static void Open(string title, List<NpcMenuRules.Kind> kinds, Action<NpcMenuRules.Kind> onPick)
     {
         if (s_instance == null)

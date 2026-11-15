@@ -54,6 +54,19 @@ public static class BotNavBaker
         return n;
     }
 
+    /// <summary>맵 루트(포함 안 함) 아래로 collider 까지 꺼진 오브젝트가 없는가. 맵 루트 자체가 꺼져 있는 것(다른 맵)은 보지 않는다</summary>
+    private static bool ActiveBelow(Transform t, Transform map)
+    {
+        for (; t != null && t != map; t = t.parent)
+        {
+            if (!t.gameObject.activeSelf)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static BotNavBuild.Input Collect(Transform map)
     {
         BotNavBuild.Input input = new BotNavBuild.Input { Map = map.name };
@@ -67,6 +80,10 @@ public static class BotNavBaker
         AddRuntimeSteps(map);
         foreach (Collider2D c in map.GetComponentsInChildren<Collider2D>(true))
         {
+            if (!ActiveBelow(c.transform, map))
+            {
+                continue; // 꺼진 견본·장식(Town 의 "sample (n)")은 런타임에 없다 — 안 빼면 허공 발판이 그래프에 생겨 "지형과 다름"으로 직진 이동이 된다
+            }
             int layer = c.gameObject.layer;
             if (c.CompareTag("Ladder") && c is BoxCollider2D)
             {
@@ -84,6 +101,11 @@ public static class BotNavBaker
             {
                 // 비활성 맵의 합성 콜라이더 경로는 옛 지오메트리가 남아 있는 경우가 있다(11-15 Lv1_Swamp 실측) → 타일맵이 있으면 칸에서 직접 만든다
                 UnityEngine.Tilemaps.Tilemap tm = cc.GetComponent<UnityEngine.Tilemaps.Tilemap>();
+                UnityEngine.Tilemaps.TilemapCollider2D tc = cc.GetComponent<UnityEngine.Tilemaps.TilemapCollider2D>();
+                if (tc != null && !tc.enabled)
+                {
+                    continue; // 타일맵 콜라이더가 꺼져 있으면 충돌이 없다(Town 의 "Deco" 타일)
+                }
                 if (tm != null)
                 {
                     AddTileRuns(tm, input);

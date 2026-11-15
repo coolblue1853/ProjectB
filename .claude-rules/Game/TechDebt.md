@@ -310,3 +310,9 @@
 ## 11-15 봇 B2 가 찾은 게임 쪽 문제 (코드 수정 없음 — 봇은 피해 간다)
 - **[수정 11-15] 1칸 계단 모서리 고착(P2):** 원인 = 턱 위 발판이 `Wall` 레이어 타일맵(꼭대기), `Ground` 타일맵은 그 칸에서 한 칸 아래라 발 레이(Ground 마스크)와 `TouchingFloor`(Ground 필터)가 둘 다 못 잡음. 수정: `PlayerController.CreateFloorFilter()` 가 Ground+Wall 레이어·위 법선(60~120°)으로 접촉을 본다. 재현: SideRoad `x=-357,y=0.5` 에서 왼쪽으로 밀기 → 수정 전 `floor=False grounded=False jumps=0 canJump=False`, 후 `floor=True jumps=1 canJump=True`. EditMode `FloorContactTests` 3건(Wall 꼭대기·Ground 꼭대기 = 바닥, 벽 옆면만 = 바닥 아님). 사람 플레이에도 해당했던 버그.
 - **런타임 지형 추가(P3, 기록):** `EarlyForestSteps` 가 플레이 때 SideRoad·NormalForest 에 타일 2칸씩을 놓는다. 씬만 읽는 도구(맵 스캔·봇 그래프)는 이것을 따로 반영해야 한다 — `BotNavBaker` 는 `EarlyForestSteps.StepPositions` 를 읽어 맞춘다.
+
+## 11-16 봇 B3 가 찾은 것
+- **가방이 가득 차면 드롭 줍기가 조용히 거절된다**: 사냥 중 같은 드롭 위를 왔다 갔다(NormalForest x≈364~383 `진척 없음 do=drop` 8건). 사람에게는 "가방이 가득" 안내가 필요할 수 있음(확인 안 함). 봇은 마을 귀환으로 해결.
+- **숫자 키 겹침**: 가방 열린 채 숫자 1~5 는 가방 페이지 넘기기와 퀵슬롯 사용(비상식량 등)을 동시에 한다. 사람도 같은 일을 겪는다(미확인 — 인벤 열림 중 퀵슬롯 사용을 막거나 페이지 키를 분리).
+- **상점 H(물약 충전)가 음식·귀환 주문서까지 퀵슬롯 소비품 전부를 가득 채운다**: 한 번에 골드 약 2만. 사람에게는 충전 금액 확인이 필요할 수 있음.
+- `Weapon.Kind` 가 무기 교체 순간 None 으로 보일 수 있음(봇 사거리가 1.3 으로 되돌아가던 유력 원인).

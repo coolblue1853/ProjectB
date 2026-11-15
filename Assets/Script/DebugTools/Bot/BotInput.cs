@@ -27,6 +27,7 @@ public sealed class BotInput : IDisposable
         public float T;
         public string Action;
         public bool Down;
+        public bool Raw; // true 면 Action 이 장치 경로("<Keyboard>/h") — 액션 바인딩을 거치지 않는다
     }
 
     private struct Binding
@@ -94,6 +95,14 @@ public sealed class BotInput : IDisposable
         Schedule(t0 + Mathf.Max(0.02f, duration), full, false);
     }
 
+    /// <summary>장치 경로 키 하나를 duration 초 누른다(액션이 없는 키: 상점 H·J, 가방 페이지 숫자). 예약·흔들림은 Press 와 같다</summary>
+    public void PressKey(string path, float duration = DefaultPress)
+    {
+        float t0 = _now + Jitter();
+        _ops.Add(new Op { T = t0, Action = path, Down = true, Raw = true });
+        _ops.Add(new Op { T = t0 + Mathf.Max(0.05f, duration), Action = path, Down = false, Raw = true });
+    }
+
     public void Hold(string action)
     {
         Schedule(_now + Jitter(), BotKeyMap.FullName(action), true);
@@ -157,7 +166,8 @@ public sealed class BotInput : IDisposable
                 continue;
             }
             _ops.RemoveAt(i);
-            if (op.Down ? _held.Add(op.Action) : _held.Remove(op.Action))
+            HashSet<string> set = op.Raw ? _rawDown : _held;
+            if (op.Down ? set.Add(op.Action) : set.Remove(op.Action))
             {
                 _dirty = true;
             }

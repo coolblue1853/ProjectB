@@ -250,6 +250,25 @@ public sealed class PlayBot : MonoBehaviour
         {
             _input.Press(QuickActions[want.Quick - 1]);
         }
+        PressMenu(want.Menu);
+    }
+
+    /// <summary>메뉴 키(마을 업무): 액션이 있는 키는 Press, H·J 는 장치 키 경로로 누른다</summary>
+    private void PressMenu(BotKey key)
+    {
+        switch (key)
+        {
+            case BotKey.None: return;
+            case BotKey.Up: _input.Press("UI/UPInventory"); return;
+            case BotKey.Down: _input.Press("UI/DownInventory"); return;
+            case BotKey.Left: _input.Press("UI/LeftInventory"); return;
+            case BotKey.Right: _input.Press("UI/RightInventory"); return;
+            case BotKey.Select: _input.Press("UI/Select"); return;
+            case BotKey.Back: _input.Press("UI/Back"); return;
+            case BotKey.Inventory: _input.Press("UI/OpenInventory"); return;
+            case BotKey.Refill: _input.PressKey("<Keyboard>/h"); return;
+            case BotKey.Junk: _input.PressKey("<Keyboard>/j"); return;
+        }
     }
 
     private static readonly string[] QuickActions = { "Quick1", "Quick2", "Quick3", "Quick4" };
@@ -309,6 +328,9 @@ public sealed class PlayBot : MonoBehaviour
         {
             s += " skills=" + _hunt.Skills + " dashes=" + _hunt.Dashes + " avoidMoves=" + _hunt.Avoids + " avoidWindows=" + _hunt.AvoidWindows + " potions=" + _hunt.Potions
                 + " range=" + _hunt.Range.ToString("F1");
+            BotErrand er = _hunt.Errand;
+            s += " trips=" + er.Trips + " sold=" + er.Sold + " bought=" + er.PotionsBought + " equipped=" + er.Equipped + " gold+=" + er.GoldGained
+                + " weapon=" + (InventoryManager.instance != null && InventoryManager.instance.EquippedFor("Weapon") != null ? InventoryManager.instance.EquippedFor("Weapon").name : "-") + " recalls=" + er.Recalls + " errandAborts=" + er.Aborts + (er.Returning ? " errand=" + er.Phased : "");
         }
         return s;
     }

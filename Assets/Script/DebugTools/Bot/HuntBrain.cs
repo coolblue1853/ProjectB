@@ -24,6 +24,11 @@ public sealed class HuntBrain : IBotBrain
     public const float SkillCheck = 0.5f;
     public const float SkillFailSeconds = 5f;
     public const float SwingWindow = 1.0f;
+    public const float TownPathGrace = 15f;
+    public const float DropUnderDx = 0.8f;
+    public const float DropUnderDy = 1.5f;
+    public const float DropUnderSeconds = 1.5f;
+    public const float DropBlockSeconds = 30f;
 
     private readonly IBotNavigator _nav;
     private readonly DirectNavigator _wanderNav = new DirectNavigator(); // 돌아다님은 가짜 목표로 길찾기 상태를 흐리지 않게 따로
@@ -31,6 +36,7 @@ public sealed class HuntBrain : IBotBrain
     private readonly BotRange _range = new BotRange();
     private readonly BotAvoid _avoid = new BotAvoid();
     private readonly BotPotion _potion = new BotPotion();
+    private readonly BotErrand _errand;
     private readonly bool[] _skillOn = new bool[4];
     private readonly float[] _skillFail = new float[4];
     private readonly string[] _quick = new string[4];
@@ -56,6 +62,10 @@ public sealed class HuntBrain : IBotBrain
     private int _circIdx;
     private int _circDir = 1;
     private float _travelBlockedUntil;
+    private float _townFailSince = -1f;
+    private float _dropNearSince = -1f;
+    private float _dropBlockUntil;
+    private float _lastNoneKindLog = -100f;
 
     public string LastNote { get; private set; } = "";
     public bool NoProgress { get; private set; }
@@ -66,10 +76,12 @@ public sealed class HuntBrain : IBotBrain
     public int Potions => _potion.Uses;
     public int AvoidWindows => _avoid.Windows;
     public float Range => _range.Range;
+    public BotErrand Errand => _errand;
 
     public HuntBrain(IBotNavigator nav)
     {
         _nav = nav;
+        _errand = new BotErrand(nav);
     }
 
     public void Begin(BotContext ctx)
@@ -81,12 +93,18 @@ public sealed class HuntBrain : IBotBrain
         _killsSeen = ctx.Kills;
         _mapName = null;
         _lastTarget = ctx.Now;
+        _errand.Begin(ctx);
     }
 
     public BotIntent Decide(BotContext ctx)
     {
         PlayObservation o = ctx.Obs;
         BotIntent it = default(BotIntent);
+        if (_errand.Run(ctx, ref it))
+        {
+            LastNote = it.Note;
+            return it; // 마을 업무 중: 창을 직접 연다(CloseUi 가 닫지 않게 먼저)
+        }
         if (CloseUi(ctx, ref it))
         {
             return it;
@@ -103,11 +121,16 @@ public sealed class HuntBrain : IBotBrain
             _goDrop = o.Drop.Found && ctx.Rng.NextDouble() < ctx.Profile.RatioOr("target.dropFirst", 0f);
         }
         BotAvoid.React react = _avoid.Update(o.Foes, ctx.Now, ctx.Profile, ctx.Rng);
-        if (_goDrop && o.Drop.Found && Mathf.Abs(o.Drop.Dx) < DropRange)
+        bool dropOk = DropOk(ctx);
+        if (_goDrop && dropOk)
         {
             return Steer(ctx, o.Drop.Dx, o.Drop.Dy, BotIntent.FocusDrop, "drop", ref it);
         }
         _goDrop = false;
+        if (ReturnToTown(ctx, ref it))
+        {
+            return it;
+        }
         if (Travel(ctx, ref it))
         {
             return it;
@@ -115,7 +138,7 @@ public sealed class HuntBrain : IBotBrain
         int idx = FindTarget(ctx);
         if (idx < 0)
         {
-            if (o.Drop.Found && Mathf.Abs(o.Drop.Dx) < DropRange)
+            if (dropOk)
             {
                 return Steer(ctx, o.Drop.Dx, o.Drop.Dy, BotIntent.FocusDrop, "drop", ref it);
             }
@@ -135,6 +158,39 @@ public sealed class HuntBrain : IBotBrain
         return it;
     }
 
+    /// <summary>
+    /// 줍으러 갈 드롭이 있나. 발밑(가로 0.8·세로 1.5 안)에 1.5초 넘게 있는데 안 주워지면 가방이 가득 찬 것이라 30초 동안 무시한다
+    /// (11-15 NormalForest x≈364~383 "진척 없음 do=drop" 8건의 원인: 가방 빈칸 0 에서 같은 드롭 위를 왔다 갔다 함).
+    /// </summary>
+    private bool DropOk(BotContext ctx)
+    {
+        PlayObservation o = ctx.Obs;
+        if (!o.Drop.Found || Mathf.Abs(o.Drop.Dx) >= DropRange || ctx.Now < _dropBlockUntil)
+        {
+            _dropNearSince = -1f;
+            return false;
+        }
+        if (Mathf.Abs(o.Drop.Dx) < DropUnderDx && Mathf.Abs(o.Drop.Dy) < DropUnderDy)
+        {
+            if (_dropNearSince < 0f)
+            {
+                _dropNearSince = ctx.Now;
+            }
+            else if (ctx.Now - _dropNearSince > DropUnderSeconds)
+            {
+                _dropNearSince = -1f;
+                _dropBlockUntil = ctx.Now + DropBlockSeconds;
+                Debug.LogWarning("[PB][Bot] 발밑 드롭이 안 주워짐(가방 가득?) — " + DropBlockSeconds + "초 무시 map=" + BgmDirector.CurrentMap + " x=" + o.X.ToString("F1"));
+                return false;
+            }
+        }
+        else
+        {
+            _dropNearSince = -1f;
+        }
+        return true;
+    }
+
     // ───── 전투 ─────
 
     private void Fight(BotContext ctx, PlayObsEnemies.Foe f, ref BotIntent it)
@@ -143,7 +199,15 @@ public sealed class HuntBrain : IBotBrain
         Weapon w = Weapon.Equipped;
         // 구 무기 프리팹은 _kind 가 비어 있어 ItemSheet WeaponType 으로 보충한다(WeaponMoveProfiles 와 같은 규칙). 안 읽으면 사거리가 1.3 기본값에 머문다
         WeaponKind kind = w == null ? WeaponKind.None : (w.Kind != WeaponKind.None ? w.Kind : WeaponMasteryService.KindOf(w.MasteryKey));
-        _range.SetKind(kind);
+        if (kind != WeaponKind.None)
+        {
+            _range.SetKind(kind); // 무기를 바꾸는 순간 None 이 잠깐 보이면 기본 1.3 으로 되돌아가던 것을 막는다(11-15 DeepForest 에서 range 1.3 으로 보인 구간의 유력 원인)
+        }
+        else if (ctx.Now - _lastNoneKindLog > 30f)
+        {
+            _lastNoneKindLog = ctx.Now;
+            Debug.LogWarning("[PB][Bot] 무기 계열 None w=" + (w == null ? "null" : w.name + " mastery=" + w.MasteryKey) + " map=" + BgmDirector.CurrentMap + " range=" + _range.Range.ToString("F1"));
+        }
         float range = _range.Range;
         int side = f.Dx >= 0f ? 1 : -1;
         CheckSkillFail(ctx);
@@ -289,6 +353,48 @@ public sealed class HuntBrain : IBotBrain
     {
         int dir = _circDir;
         return NextIndex(len, _circIdx, inList, ref dir);
+    }
+
+    /// <summary>귀환 중이면 마을로: 귀환 주문서가 있으면 쓰고, 없으면 포털 길찾기. 근처에 적이 있으면 먼저 싸운다(마을 도착 뒤는 BotErrand.Run)</summary>
+    private bool ReturnToTown(BotContext ctx, ref BotIntent it)
+    {
+        if (!_errand.Evaluate(ctx) || _mapName == BotErrand.Town)
+        {
+            return false;
+        }
+        bool foe = NearFoe(ctx.Obs, 3f);
+        if (_errand.TryRecall(ctx, foe, ref it))
+        {
+            return true;
+        }
+        if (foe)
+        {
+            return false;
+        }
+        if (_errand.ReturnSeconds(ctx.Now) > TravelGiveUp * 2f)
+        {
+            _errand.Abort(ctx, "마을 가는 데 너무 오래 걸림");
+            return false;
+        }
+        it.Focus = BotIntent.FocusWander;
+        it.Note = "toTown";
+        if (!_nav.TravelTo(ctx, BotErrand.Town, ref it))
+        {
+            // 간선 금지(막힘 직후 20초) 때문에 잠깐 길이 없을 수 있다: 15초 넘게 계속 없을 때만 접는다
+            if (_townFailSince < 0f)
+            {
+                _townFailSince = ctx.Now;
+            }
+            else if (ctx.Now - _townFailSince > TownPathGrace)
+            {
+                _townFailSince = -1f;
+                _errand.Abort(ctx, "마을 경로 없음 " + _mapName);
+            }
+            return false;
+        }
+        _townFailSince = -1f;
+        LastNote = it.Note;
+        return true;
     }
 
     private bool Travel(BotContext ctx, ref BotIntent it)
