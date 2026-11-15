@@ -269,7 +269,48 @@ public class EnemyHealth : PoolAble
     const float SpawnGraceTime = 0.3f;
 
     /// <summary>몸박 공격력(방어 적용 전). 정예는 x1.5, 값이 없으면 0</summary>
-    public int ContactDamage => IsElite ? Mathf.RoundToInt(_contactBase * EliteAtkMul) : _contactBase;
+    public int ContactDamage => NightMobRules.Scale(IsElite ? Mathf.RoundToInt(_contactBase * EliteAtkMul) : _contactBase, NightAtkMul);
+
+    // ── 밤 스폰 배율(NightMobRules). 스폰 때 한 번 정하고 이미 살아 있는 몹은 건드리지 않는다 ──
+    int _nightBaseHP;
+    float _nightAtkMul = 1f;
+    float _nightExpMul = 1f;
+    /// <summary>밤 스포너가 이 몹을 마지막으로 꺼낸 상태(배율 적용 중)인가</summary>
+    public bool NightSpawned { get; private set; }
+    /// <summary>밤 스폰이 아니면 1(필드 기본값에 기대지 않는다: 직렬화된 프리팹 인스턴스는 초기화식 값이 0 으로 올 수 있다)</summary>
+    public float NightAtkMul => NightSpawned ? _nightAtkMul : 1f;
+    public float NightExpMul => NightSpawned ? _nightExpMul : 1f;
+    /// <summary>기록기용: 이번 처치로 받은 EXP·골드·정예 여부(반환·Demote 전에 채우고 다음 스폰 OnEnable 에서 비운다)</summary>
+    public int LastKillExp { get; set; }
+    public int LastKillGold { get; set; }
+    public bool LastKillElite { get; private set; }
+
+    /// <summary>스포너가 스폰 직후·정예 승격 전에 부른다. 풀 재사용에도 기준 HP 에서 다시 계산한다(복리 방지). 보스는 제외</summary>
+    public void ApplyNightMultipliers(bool night)
+    {
+        if (isBossMob || IsElite)
+        {
+            return;
+        }
+        if (_nightBaseHP <= 0)
+        {
+            if (!night)
+            {
+                return;
+            }
+            _nightBaseHP = maxHP;
+        }
+        NightMobRules.Mul m = NightMobRules.For(night);
+        NightSpawned = night;
+        _nightAtkMul = m.Atk;
+        _nightExpMul = m.Exp;
+        maxHP = NightMobRules.Scale(_nightBaseHP, m.Hp);
+        nowHP = maxHP;
+        if (hpBar != null)
+        {
+            hpBar.setHpBar(this);
+        }
+    }
 
     /// <summary>지금 몸박을 줄 수 있는가: 죽는 중·사라지는 중·막 소환된 직후(0.3초)는 아니다</summary>
     public bool CanContact => !deadOnec && nowHP > 0 && Time.time - _enabledAt >= SpawnGraceTime
@@ -359,6 +400,9 @@ public class EnemyHealth : PoolAble
     {
         Active.Add(this);
         _enabledAt = Time.time;
+        LastKillExp = 0;
+        LastKillGold = 0;
+        LastKillElite = false;
         ChaseLatched = false;
         _provokedUntil = 0f;
         ApplyGatekeeperTrial();
@@ -864,6 +908,7 @@ public class EnemyHealth : PoolAble
         {
             PixelCrushers.MessageSystem.SendMessage(this, "KillElite", KillMessageId); // NPC 퀘스트 killElite 목표
         }
+        LastKillElite = IsElite;
         LevelSystem.OnEnemyKilled(this); // 처치 EXP (정예 x4, 보스 고정)
         // 사망 연출(연기·정예/보스 폭발): 반환 전, 정예 여부·스프라이트 경계가 살아 있을 때 (사망 1회만 조회)
         DeathFx.Play(this, TryGetComponent(out SpriteRenderer body) ? body.bounds : new Bounds(transform.position, Vector3.one));

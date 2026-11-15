@@ -441,8 +441,11 @@ public class EnemySpawner : MonoBehaviour
         {
             loot.Add(EnhanceRules.StoneName);
         }
-        List<string> equips = dropManager.EquipmentNames();
-        loot.Add(equips.Count > 0 ? equips[Random.Range(0, equips.Count)] : EnhanceRules.StoneName);
+        if (EliteEquipDrops(Random.value))
+        {
+            List<string> equips = dropManager.EquipmentNames();
+            loot.Add(equips.Count > 0 ? equips[Random.Range(0, equips.Count)] : EnhanceRules.StoneName);
+        }
         return loot;
     }
 
@@ -484,8 +487,9 @@ public class EnemySpawner : MonoBehaviour
             if (released != null)
             {
                 bool isBoss = released.TryGetComponent(out EnemyHealth bossHp) && bossHp.isBossMob;
-                string monsterId = released.GetComponent<EnemyHealth>().MonsterId;
-                dropManager.DropGold(monsterId, wasElite, isBoss, pos);
+                EnemyHealth releasedHp = released.GetComponent<EnemyHealth>();
+                string monsterId = releasedHp.MonsterId;
+                releasedHp.LastKillGold = dropManager.DropGold(monsterId, wasElite, isBoss, pos); // 기록기 ev kill 용
                 dropManager.DropExtra(monsterId, pos); // 계보 무기 추가 드롭(MonsterExtraDrops.csv)
             }
         }
@@ -621,6 +625,7 @@ public class EnemySpawner : MonoBehaviour
             DropRaiderHandler(enemyHealth);
             enemyHealth.OnReleasedToPool += OnEnemyReleased;
             enemySlot[i] = enemyObject;
+            enemyHealth.ApplyNightMultipliers(!isDaytimeSpowner); // 밤 스포너 몹: HP·공격·EXP 배율(정예 승격 전에, 정예와는 곱)
             if (enemyHealth.AlwaysElite || Random.value < eliteChance)
             {
                 enemyHealth.PromoteElite();
@@ -655,6 +660,7 @@ public class EnemySpawner : MonoBehaviour
         enemyHealth.OnReleasedToPool -= OnTrackedReleased;
         DropRaiderHandler(enemyHealth);
         enemyHealth.OnReleasedToPool += OnMinionReleased;
+        enemyHealth.ApplyNightMultipliers(false); // 보스 부하는 밤 배율 제외(풀 객체가 밤 값을 들고 있으면 기준값으로 되돌린다)
         if (!minions.Contains(enemyHealth))
         {
             minions.Add(enemyHealth);
@@ -741,6 +747,7 @@ public class EnemySpawner : MonoBehaviour
         enemyHealth.OnReleasedToPool -= OnTrackedReleased;
         DropRaiderHandler(enemyHealth);
         enemyHealth.OnReleasedToPool += OnTrackedReleased;
+        enemyHealth.ApplyNightMultipliers(IsNightNow()); // 정예 승격 전(풀 객체가 다른 시간대 값을 들고 있지 않게)
         enemyHealth.PromoteElite();
         enemyHealth.Snare(stunSeconds);
         tracked = enemyHealth;
@@ -776,6 +783,7 @@ public class EnemySpawner : MonoBehaviour
         enemyHealth.OnReleasedToPool -= OnMinionReleased;
         enemyHealth.OnReleasedToPool -= OnTrackedReleased;
         DropRaiderHandler(enemyHealth);
+        enemyHealth.ApplyNightMultipliers(IsNightNow());
         System.Action<int, int, Vector3, bool, bool> handler = null;
         handler = (num, force, at, isDeadBody, isDrop) =>
         {

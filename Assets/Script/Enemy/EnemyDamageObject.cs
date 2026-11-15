@@ -244,7 +244,7 @@ public class EnemyDamageObject : PoolAble
                         return;
                     }
                     BossPhase bp = enemyOb.GetComponent<BossPhase>();
-                    dealt = EnemyAttackScale.Apply(damage, owner.IsElite, bp != null ? bp.DamageMultiplier : 1f);
+                    dealt = EnemyAttackScale.Apply(damage, owner.IsElite, (bp != null ? bp.DamageMultiplier : 1f) * owner.NightAtkMul);
                 }
                 PlayRecorder.HitBy(enemyOb); // 기록기: 이번 피격 시도의 공격자
                 playerHealth.damage2Player(dealt, stiffnessTime, knockForce, knockbackDir, this.transform.position.x, isNockBackChangeDir);

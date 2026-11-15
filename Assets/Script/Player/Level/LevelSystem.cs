@@ -53,7 +53,9 @@ public static class LevelSystem
         }
         MonsterTable.Row r = MonsterTable.Get(e.MonsterId);
         int baseExp = r != null && r.exp.HasValue ? r.exp.Value : 0;
-        GainExp(LevelRules.KillExp(baseExp, e.IsElite && !e.IsMiniBoss, e.isBossMob), e.name);
+        int gain = LevelRules.KillExp(NightMobRules.Scale(baseExp, e.NightExpMul), e.IsElite && !e.IsMiniBoss, e.isBossMob);
+        e.LastKillExp = gain;
+        GainExp(gain, e.name);
     }
 
     /// <summary>가장 최근 레벨업으로 오른 자동 성장 수치(레벨업 배너용)</summary>
