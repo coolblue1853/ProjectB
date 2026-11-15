@@ -1443,6 +1443,7 @@ public class InventoryManager : MonoBehaviour
             return;
         }
         totalSellPrice = QuantityRules.Total(detail.itemData.price, sellCount);
+        PlayRecorder.Event("sell", detail.name, sellCount);
         // 되사기 기록용(칸에서 빼면 오브젝트가 파괴될 수 있어 먼저 읽는다)
         string soldId = detail != null ? detail.name : null;
         int soldTier = detail != null && detail.itemData != null ? detail.itemData.tear : 0;
@@ -1813,6 +1814,7 @@ public class InventoryManager : MonoBehaviour
         }
         ConsumeCooldown.Shared.Start(group, Time.time);
         SaveInventory(); // 효과(CSV 파싱)에서 예외가 나도 차감은 저장되게 먼저 저장
+        PlayRecorder.Event("use", item.name);
         item.ApplyConsumeEffect();
         return true;
     }

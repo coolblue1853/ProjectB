@@ -300,6 +300,7 @@ public class ShopManager : MonoBehaviour
     void BuyItem(int requested)
     {
         int count = Mathf.Min(requested, BuyLimit(nowShopItem));
+        PlayRecorder.Event("buy", nowShopItem != null ? nowShopItem.name : null, count);
         int bought = 0, spent = 0;
         InventoryManager.instance.BeginSaveBatch(); // N개 구매 = 저장 1회(B-022)
         try

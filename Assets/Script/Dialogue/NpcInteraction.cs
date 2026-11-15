@@ -17,6 +17,7 @@ public static class NpcInteraction
             return; // 한 NPC 에 상호작용 컴포넌트가 여럿이어도 같은 ↑ 프레임에는 한 번만
         }
         s_lastRunFrame = Time.frameCount;
+        PlayRecorder.Event("npc", npc != null ? npc.name : null);
         NpcQuestGiver giver = npc != null ? npc.GetComponent<NpcQuestGiver>() : null;
         bool quest = giver != null && giver.HasQuest;
         bool trial = giver != null && giver.NpcId == "smith";

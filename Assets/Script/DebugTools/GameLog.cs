@@ -17,6 +17,7 @@ public static class GameLog
     [Conditional("PB_DEBUG")]
     public static void Info(Cat cat, string message, Object context = null)
     {
+        PlayRecorder.Log((int)cat, message); // 기록기로도 보낸다(k:"log")
         if (!Enabled[(int)cat])
         {
             return;

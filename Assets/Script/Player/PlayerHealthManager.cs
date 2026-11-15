@@ -65,6 +65,7 @@ public class PlayerHealthManager : MonoBehaviour
         }
         CombatState.Mark(Time.unscaledTime);
         if (OnHpDamaged != null) OnHpDamaged(this, EventArgs.Empty);
+        PlayRecorder.Event("hurt", null, amount);
     }
     [Tooltip("플레이어 회복·피격 숫자 프리팹 (적과 같은 EnemyDamge)")]
     [SerializeField] private DamageNumbersPro.DamageNumber _numberPrefab;
@@ -217,6 +218,7 @@ public class PlayerHealthManager : MonoBehaviour
         isDead = true;
         LevelSystem.ApplyDeathPenalty(BgmDirector.BossNearPlayer()); // Lv1~10 0%, 그 외 5% (레벨 다운 없음)
         GameLog.Info(GameLog.Cat.Player, "플레이어 사망 → " + RespawnDelay + "초 뒤 마을 부활");
+        PlayRecorder.Event("death");
         Sfx.Play(SfxId.PlayerDeath);
         deathInputLock = PlayerStatus.Acquire(StatusFlag.InputLock, "Death");
         deathInvincible = PlayerStatus.Acquire(StatusFlag.Invincible, "Death");
@@ -277,6 +279,7 @@ public class PlayerHealthManager : MonoBehaviour
         }
         PlayerRespawned?.Invoke();
         GameLog.Info(GameLog.Cat.Player, "부활 완료 (마을 이동=" + toTown + ")");
+        PlayRecorder.Event("revive", toTown ? "town" : "here");
     }
 
     private void ResetMHp()

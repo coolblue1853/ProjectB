@@ -74,6 +74,8 @@
 | `Game/Floor1Completion.md` | **1층계 완성 계획(11-02)**: 최단 클리어 2h40 추정(반복 사냥 72%) → 신규 퀘스트 29·미니보스 5·정예 둥지 3·세트 제작 레시피 +30·졸업 시험 게이트로 "할 것 2시간" 재설계, 무기 타입·세트 표, 로직 부족 L1~L10, 임시 리소스 목록 |
 | `Game/EquipEffectDesign.md` | **장비·세트 효과 설계(REWORK-12, 11-09)**: 현황 진단(훅은 쿨·타격·탄 3종뿐), 데이터 주도 스킬 수정자(Mod)·규칙 대체(Rule) 타입, CSV 컬럼안(`effectIds`·`EquipEffects.csv`·`SkillTags.csv`), 합산·상한·충돌, 등급별 효과 슬롯·강도 점수, 1층계 세트 6종·계보 무기·장신구 초안, 구현 P0~P8, 세이브·3경로 UI |
 | `Game/CombatFeelPlan.md` | **전투 조작감 개선 계획(11-02)**: 공격 중 이동불가·후딜·점프 제한 진단, 메이플 뼈대+던파식 전진 보정+캔슬 창 선택, CF-1~13 항목·층계별 개방 |
+| `Game/PlayBotDesign.md` | **플레이 기록기·봇 설계(R1, 11-15)**: PlayRecorder jsonl 로그 형식(in·st·ev·log·warn)·요약 스크립트 `Tools/playrec_summary.py`·가상 키보드 봇 2단계 메모 |
+| `Game/PlayBotPlan.md` | 자동 플레이 봇 단계 계획: 기록기 R1~R3·봇 B0~B4·예산·합격 기준 |
 
 ## 운영
 

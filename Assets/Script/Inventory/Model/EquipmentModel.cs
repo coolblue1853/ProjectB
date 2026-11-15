@@ -129,6 +129,7 @@ public sealed class EquipmentModel
             inventory.PutAt(index, old);
         }
         slots[slot] = item.WithCount(1);
+        PlayRecorder.Event("equip", item.Id, int.MinValue, slot.ToString());
         OnChanged?.Invoke(slot, old, slots[slot]);
         return true;
     }

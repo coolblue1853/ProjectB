@@ -100,6 +100,8 @@
 | `Game/FastTravel.md` | 빠른 이동(REWORK-14): 수레(마차) 형제 NPC 정류장·퀘스트 해금·골드 이동 규칙·ES3 `ft.stops`·3경로 입력·히든 포털·P0~P5(설계만) |
 | `Game/EarlyHourPlan.md` | 초반 30분·1시간 시간표(REWORK-9): 필수 경험·변화 간격·막힘/단조 구간·퀘스트 CSV 조정 R-1~14·검증 시나리오 |
 | `Game/LevelDesignRef.md` | 레벨 디자인 참고(REWORK-7·10): 메랜 DB 레벨 구간별 몹 HP·EXP·맵당 개체 수와 우리 1~2층계 대조·튀는 구간 L1~L7·수정안 |
+| `Game/PlayBotDesign.md` | 플레이 기록기(PlayRecorder) 구현 형식: jsonl 로그 표·요약 스크립트 사용법·봇 2단계 메모 |
+| `Game/PlayBotPlan.md` | 자동 플레이 봇 단계 계획: 기록기 R1~R3·봇 B0~B4·예산·합격 기준 |
 
 ## 운영
 

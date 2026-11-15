@@ -466,6 +466,7 @@ public class EnemyHealth : PoolAble
 
        // 최종데미지
         Damage((int)finDmg);
+        PlayRecorder.Dealt(this, (int)finDmg, isSkill, isCrit);
         HitFeedback.SpawnNumber(damageNumber, transform.position + Vector3.up, (int)finDmg,
             isCrit ? HitFeedback.NumberKind.Crit : HitFeedback.NumberKind.Normal);
 

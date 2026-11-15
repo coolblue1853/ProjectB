@@ -52,4 +52,7 @@ public static class UiLock
     }
 
     public static bool IsHeld(string owner) => tokens.ContainsKey(owner);
+
+    /// <summary>열려 있는 창 소유자 목록(열린 순서). 읽기 전용 — PlayRecorder 의 상태 스냅샷용</summary>
+    public static IReadOnlyList<string> Held => order;
 }
