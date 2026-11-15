@@ -7,7 +7,8 @@
 
 기록 형식은 .claude-rules/Game/PlayBotDesign.md. 처치·EXP·골드·드롭은 log(Player/Item/Combat) 미러에서 읽는다
 (같은 시각의 `Player EXP +N (몹)` 줄 = 처치 1건, 같은 시각 `Item 드롭 이름 (확률 N%)`·`골드 드롭 NG (몹, LvN)` 줄 = 그 처치의 드롭).
-한글 로그 문구는 기록 단계에서 깨져 있으므로(U+FFFD) 영문 토큰·숫자만 정규식에 쓴다.
+기록기 R2.1 이후 `ev kill` 행에 mid·id·exp·gold·el·map·night·ns 가 있으면 그 값을 쓰고, 없는 옛 기록은 위 로그 근사를 쓴다.
+jsonl 은 UTF-8 그대로이므로 한글도 읽힌다(윈도우 콘솔이 cp949 라 화면에서 깨져 보였을 뿐) — 출력은 UTF-8 로 고정한다.
 낮/밤은 cx 행의 night 필드(1초 주기 carry-forward)다. 없으면 '미기록'.
 """
 import bisect
@@ -156,6 +157,38 @@ class Timeline:
         return self.vs[i] if i >= 0 else (self.vs[0] if self.vs else self.default)
 
 
+def overlay_kill_events(rows, kills, map_tl, night_tl, lv_tl):
+    """R2.1 `ev kill` 행(mid·id·exp·gold·el·map·night 필드)이 있으면 로그 근사 위에 덮어쓴다.
+    같은 시각(0.1초) 안의 가장 가까운 미매칭 로그 처치와 짝짓고, 짝이 없으면 새 처치로 추가한다.
+    옛 기록(필드 없음)은 아무것도 하지 않는다 -> 기존 근사(로그 파싱·mark_elite) 그대로."""
+    evs = [r for r in rows if r.get("k") == "ev" and r.get("e") == "kill" and "mid" in r]
+    if not evs:
+        return
+    free = list(range(len(kills)))
+    for r in evs:
+        t = r["t"]
+        best, bd = None, 0.1
+        for i in free:
+            d = abs(kills[i]["t"] - t)
+            if d <= bd:
+                best, bd = i, d
+        if best is None:
+            kills.append({"t": t, "mob": r.get("a", "?"), "exp": 0, "gold": 0, "items": [], "sure": [], "prof": None,
+                          "map": map_tl.at(t), "night": night_tl.at(t), "lv": lv_tl.at(t), "ttk": None})
+            k = kills[-1]
+        else:
+            free.remove(best)
+            k = kills[best]
+        k["mid"], k["uid"] = r.get("mid", ""), r.get("id", 0)
+        k["exp"], k["elite"] = r.get("exp", k["exp"]), bool(r.get("el", 0))
+        k["gold"] = r.get("gold", k["gold"])
+        if r.get("map"):
+            k["map"] = r["map"]
+        k["night"] = r.get("night", k["night"])
+        k["night_spawn"] = bool(r.get("ns", 0))
+    kills.sort(key=lambda k: k["t"])
+
+
 def build_session(rows):
     """한 세션 -> dict(kills, ttks, hurts, dwell, picks, equips, sells, deaths, has_night)."""
     st = [r for r in rows if r.get("k") == "st" and r.get("pl", 1) != 0 and "map" in r]
@@ -198,6 +231,7 @@ def build_session(rows):
             h = parse_hit(msg)
             if h:
                 hits.append((t, h[0], h[1], h[2]))
+    overlay_kill_events(rows, kills, map_tl, night_tl, lv_tl)
     ttks = track_hits(hits)
     for c in ttks:
         c["map"], c["night"], c["lv"] = map_tl.at(c["t1"]), night_tl.at(c["t1"]), lv_tl.at(c["t1"])
@@ -344,7 +378,8 @@ def mark_elite(kills):
         by[k["mob"]].append(k["exp"])
     base = {m: Counter(v).most_common(1)[0][0] for m, v in by.items()}
     for k in kills:
-        k["elite"] = k["exp"] >= 2 * base[k["mob"]]
+        if "elite" not in k:  # R2.1 이후 기록은 ev kill 의 el 필드가 이미 채웠다(근사 불필요)
+            k["elite"] = k["exp"] >= 2 * base[k["mob"]]
     return base
 
 
@@ -574,6 +609,8 @@ def keep_analysis(path):
 
 
 def main(argv):
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     out_path, paths, i = None, [], 1
     while i < len(argv):
         if argv[i] == "-o":

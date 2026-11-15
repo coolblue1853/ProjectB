@@ -41,9 +41,9 @@
 | `st` | `map` `x` `y` `vx` `vy` `gr` `rope` `lad` `face` `fsm` `fl`(I무적 S슈아 M이동잠금 L로프잠금 U입력잠금 D대시잠금) `hp` `hpm` `mp` `mpm` `lv` `exp` `gold` `ui`[창] `en`[{id,dx,dy,hp%}x3] `pt` `npc` `drop` | 10Hz(tk 2번에 1번). 플레이어 없으면 `pl:0`+`ui` |
 | `ev` | `e` `a` `v` `b` | 아래 이벤트 목록 |
 | `log` | `cat` `msg`(300자) | GameLog.Info 미러 |
-| `warn` | `ty` Warning·Error·Exception·stuck·snapshot, `msg` `stk` `n` | 같은 메시지는 처음 5번 + 100번째마다. `stuck` 은 `map x y fsm mv` |
+| `warn` | `ty` Warning·Error·Exception·stuck·snapshot, `msg` `stk` `n` | 같은 메시지는 처음 5번 + 100번째마다. `stuck` 은 `map x y fsm mv`. 이동 입력을 눌러도 이동 잠금(`fl` 에 M)이거나 공격 모션 중이면 막힘으로 보지 않는다(R2.1, `PlayRecStuck.IsExcused`) |
 
-`ev` 이름: `dmg`(a 대상, v 피해, b basic/skill[+crit], `kb` 넉백 힘(슈퍼아머 0), `cb` 콤보 단계, `hc` 히트 카운터) · `hurt`(v) · `kill` · `pick` · `lvup` · `death` · `revive` · `map` · `qacc`/`qdone` · `npc` · `buy`(a,v) · `sell`(a,v) · `equip`(a, b 슬롯) · `skill`(a, v 슬롯) · `use` · `drop`(a,v 버림) · `quick`(a 아이템, v 슬롯) · `invest`(a 노드, v 레벨, b 트리).
+`ev` 이름: `dmg`(a 대상, `id` 몹 인스턴스, v 피해, b basic/skill[+crit], `kb` 넉백 힘(슈퍼아머 0), `cb` 콤보 단계, `hc` 히트 카운터) · `hurt`(v) · `kill`(R2.1: a 종 id(처치 메시지 id), `mid` MonsterSheet id, `id` 인스턴스(=`dmg`·`hitat` 의 id), `exp` 받은 EXP(밤·정예 배율 반영), `gold` 떨어진 골드, `el` 정예 1/0, `map`, `night` 처치 시각 밤 1/0, `ns` 밤 스폰 몹 1/0 — 옛 기록은 a 만 있다) · `pick` · `lvup` · `death` · `revive` · `map` · `qacc`/`qdone` · `npc` · `buy`(a,v) · `sell`(a,v) · `equip`(a, b 슬롯) · `skill`(a, v 슬롯) · `use` · `drop`(a,v 버림) · `quick`(a 아이템, v 슬롯) · `invest`(a 노드, v 레벨, b 트리).
 
 ### 3.2 `tk` — 20Hz 학습 행 (실제 시간 기준 0.05초마다)
 | 필드 | 뜻 | 단위 | 없음 값 |
@@ -106,6 +106,7 @@
   - 프리팹 이름이 시트 id 와 달라 정적으로 못 본 행(변종·엘리트, 쓰는 프리팹의 신호를 따른다): `ForestSpore_BD`·`DeepSpore_BD`·`SwampSpore_BD`·`DeepGoblin_BD`·`MossShellBeetle_BD`·`SporeBackToad_BD`·`AlphaWolf_BD`·`OldBear_BD`·`OldCroc_BD`·`BanditLieutenant_BD`·`ElderGolem_BD`·`VineFairy_BD`·`ForestOgre_BD`·`BanditSentry_BD`·`RuinWarden_BD` → 미확인(첫 실전 기록의 `en` 신호 열로 확인).
   - 나머지 `*_BD` 프리팹 44개는 `isAttack` 이 있다. 단 **BT 가 `isAttack` 과 공격 판정을 같은 프레임에 켜는 몹**(실측: `RatChief_BD`·`RatThief_BD` — SetBool 직후 EnemyAttackNode)은 예고 구간이 0 이라 `en` 상태가 추적 → 공격으로 바로 간다. 이런 몹은 `av` 창이 공격 시작에서 열리고 `tele:0` 으로 남는다(반응 시간은 "공격 시작 → 첫 입력").
 - 접촉 피해(`ContactDamage`)는 예고·공격 상태가 없다. 피격 결과는 `hitat` 으로 남지만 `av` 창은 열리지 않는다.
+- **인코딩(R2.1):** jsonl 은 UTF-8(BOM 없음)이고 한글이 그대로 들어간다. 11-15 에 보고된 U+FFFD 깨짐은 기록 결함이 아니라 윈도우 콘솔(cp949)에서 읽은 표시 깨짐이었다(두 세션 파일 strict UTF-8 디코드 통과, EF BF BD 0개). 파이썬 도구는 출력을 UTF-8 로 고정한다. 터미널에서 직접 볼 때는 `python -X utf8`.
 - 도트 피해 처치는 `kill` 에서 빠진다(`EnemyHealth.Killed` 는 직격만). `dmg` 에 스킬명 없음(`skill` 이벤트와 시각으로 맞춘다).
 - 자체 커서만 쓰는 창(EventSystem 선택을 안 쓰는 창)은 `fo` 경로가 없다(창 이름만 `ui`).
 - R1 의 `EquipmentModel` 장착 훅은 그 클래스가 쓰이지 않아 발생하지 않는다 → 장착은 `InventoryManager.UseEquipment` 훅(인벤에서 꺼낸 장착만, 로드·기본 무기 제외).

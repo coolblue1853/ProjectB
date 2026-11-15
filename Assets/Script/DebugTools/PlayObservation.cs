@@ -35,6 +35,8 @@ public sealed class PlayObservation
     public bool HasPlayer;
     public float X, Y, Vx, Vy;
     public bool Grounded, OnRope, NearLadder;
+    /// <summary>공격 모션 재생 중(막힘 판정 제외용)</summary>
+    public bool Attacking;
     public int Face = 1;
     public string Fsm = "";
     public string Flags = "";
@@ -102,6 +104,7 @@ public sealed class PlayObservation
             NearLadder = false;
             Fsm = "";
             Flags = "";
+            Attacking = false;
             HasHealth = false;
             CanBeHit = false;
             Foes.Clear();
@@ -125,6 +128,7 @@ public sealed class PlayObservation
         NearLadder = pc.isLadder;
         Face = tf.localScale.x < 0f ? -1 : 1;
         Fsm = pc.states ?? "";
+        Attacking = pc.IsAttackAnimating;
         Flags = FlagCombos[FlagMask()];
 
         PlayerHealthManager hm = PlayerHealthManager.Instance;

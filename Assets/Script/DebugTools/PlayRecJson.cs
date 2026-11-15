@@ -190,6 +190,12 @@ public sealed class PlayRecStuck
     public const float HoldSeconds = 2f;
     public const float MinMove = 0.2f;
 
+    /// <summary>정상 정지: 이동 잠금(fl 에 M)이나 공격 모션 중이면 입력을 눌러도 안 움직이는 게 맞으므로 막힘으로 보지 않는다(11-15 오탐 수정)</summary>
+    public static bool IsExcused(string flags, bool attacking)
+    {
+        return attacking || (flags != null && flags.IndexOf('M') >= 0);
+    }
+
     private bool _armed;
     private bool _fired;
     private float _t0;

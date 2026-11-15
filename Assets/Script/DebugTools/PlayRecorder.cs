@@ -476,7 +476,8 @@ public sealed class PlayRecorder : MonoBehaviour
 
     private void CheckStuck(float now)
     {
-        bool held = _obs.HasPlayer && Mathf.Abs(_input.MoveX) > 0.3f && !_obs.UiOpen && !_obs.OnRope && _obs.Fsm != "dash";
+        bool held = _obs.HasPlayer && Mathf.Abs(_input.MoveX) > 0.3f && !_obs.UiOpen && !_obs.OnRope && _obs.Fsm != "dash"
+            && !PlayRecStuck.IsExcused(_obs.Flags, _obs.Attacking);
         if (!_stuck.Feed(now, held, _obs.X, _obs.Y))
         {
             return;

@@ -408,6 +408,8 @@ def build(rows, bad, name, path, frames=False):
 
 
 def main(argv):
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")  # 윈도우 콘솔 cp949 로 한글이 깨져 보이는 것 방지
     args = [a for a in argv[1:] if not a.startswith("--")]
     frames = "--frames" in argv
     if not args:

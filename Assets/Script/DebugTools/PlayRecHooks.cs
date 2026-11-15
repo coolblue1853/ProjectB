@@ -94,6 +94,7 @@ public sealed class PlayRecHooks
                 PlayRecJson.KeyStr(sb, "a", target != null ? target.KillMessageId : "");
                 PlayRecJson.KeyInt(sb, "v", amount);
                 PlayRecJson.KeyStr(sb, "b", DmgKinds[(skill ? 1 : 0) + (crit ? 2 : 0)]);
+                PlayRecJson.KeyInt(sb, "id", target != null ? RuntimeHelpers.GetHashCode(target) : 0);
                 PlayRecJson.KeyNum(sb, "kb", knock, 1);
                 PlayRecJson.KeyInt(sb, "cb", w != null ? w.nowConboCount : 0);
                 PlayRecJson.KeyInt(sb, "hc", CombatHud.Hits);
@@ -154,9 +155,43 @@ public sealed class PlayRecHooks
         PickupLog.Picked -= OnPicked;
     }
 
-    private static void OnKilled(EnemyHealth e)
+    private void OnKilled(EnemyHealth e)
     {
-        PlayRecorder.Event("kill", e != null ? e.KillMessageId : null);
+        WriteKill(e, Map, TimeChange.instance != null && !TimeChange.instance.isDaytime);
+    }
+
+    /// <summary>
+    /// 처치 ev kill: a 종 id(처치 메시지 id) · mid MonsterSheet id · id 인스턴스(피해 ev·hitat 의 id 와 같다) ·
+    /// exp 받은 EXP(밤·정예 배율 반영) · gold 떨어진 골드 · el 정예(1/0) · map · night(1/0, 처치 시각의 시간대) · ns 밤 스폰 몹(배율 적용, 1/0).
+    /// </summary>
+    public static void WriteKill(EnemyHealth e, string map, bool night)
+    {
+        if (!PlayRecorder.Enabled || !PlayRecWriter.IsOpen)
+        {
+            return;
+        }
+        lock (PlayRecWriter.Gate)
+        {
+            try
+            {
+                StringBuilder sb = PlayRecWriter.Begin("ev");
+                PlayRecJson.KeyStr(sb, "e", "kill");
+                PlayRecJson.KeyStr(sb, "a", e != null ? e.KillMessageId : "");
+                PlayRecJson.KeyStr(sb, "mid", e != null ? e.MonsterId : "");
+                PlayRecJson.KeyInt(sb, "id", e != null ? RuntimeHelpers.GetHashCode(e) : 0);
+                PlayRecJson.KeyInt(sb, "exp", e != null ? e.LastKillExp : 0);
+                PlayRecJson.KeyInt(sb, "gold", e != null ? e.LastKillGold : 0);
+                PlayRecJson.KeyInt(sb, "el", e != null && e.LastKillElite ? 1 : 0);
+                PlayRecJson.KeyStr(sb, "map", map);
+                PlayRecJson.KeyInt(sb, "night", night ? 1 : 0);
+                PlayRecJson.KeyInt(sb, "ns", e != null && e.NightSpawned ? 1 : 0);
+                PlayRecWriter.Commit();
+            }
+            catch (Exception)
+            {
+                PlayRecWriter.Discard();
+            }
+        }
     }
 
     private static void OnLevelUp(int level)
