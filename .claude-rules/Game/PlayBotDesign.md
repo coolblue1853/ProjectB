@@ -193,7 +193,7 @@ python Tools/playrec_summary.py Logs/playrec/<세션>.jsonl [출력.md] [--frame
 - `DirectNavigator`(IBotNavigator): 목표 쪽 직진, 목표가 1.5~4 위에 있고 가까우면 점프. 막힘(`BotStuck`): 0.8초 제자리 → 점프, 2초 → 1.5초 반대로. 목표 진척(가까워짐·HP 감소·처치)이 3초 없으면 `[PB][Bot] 진척 없음` 경고(3초마다) + 그 목표를 10초 무시.
 - 확장 지점: B2 = `IBotNavigator` 교체(발판·로프·포털 그래프, 회피·스킬은 HuntBrain 확장), B3 = `IBotBrain` 교체(귀환·판매·퀘스트, `return.*`·`potion.hpPct` 사용).
 ### 10.5 실행
-`bash Tools/bot_run.sh <분> [goal=hunt] [맵=Lv1_NearForest_SideRoad]`: 세이브 백업(`Logs/playrec_bot/save_backup_*`) → 다음 기록 출처 bot → 플레이 → 시험 준비(`bot_prep_map.cs` 가 `MapInfo.GoToMap` — 봇 실행 전만, 실행 중엔 거절) → `PlayBot.Run(분+1)` → 분마다 상태 → 정지 → 플레이 끔 → 세이브 원복·md5 확인 → `playrec_summary.py`·`playrec_balance.py -o <세션>_balance.md` → 경로 출력.
+`bash Tools/bot_run.sh <분> [goal=hunt] [맵=Lv1_NearForest_SideRoad] [순환 맵 목록|-]`(11.6): 세이브 백업(`Logs/playrec_bot/save_backup_*`) → 다음 기록 출처 bot → 플레이 → 시험 준비(`bot_prep_map.cs` 가 `MapInfo.GoToMap` — 봇 실행 전만, 실행 중엔 거절) → `PlayBot.Run(분+1)` → 분마다 상태 → 정지 → 플레이 끔 → 세이브 원복·md5 확인 → `playrec_summary.py`·`playrec_balance.py -o <세션>_balance.md` → 경로 출력.
 ### 10.6 사람 대 봇 (11-15, 요약기 같은 정의)
 | 지표 | 사람 | 봇(5분, Lv8 세이브) | 메모 |
 |---|---|---|---|
@@ -201,3 +201,59 @@ python Tools/playrec_summary.py Logs/playrec/<세션>.jsonl [출력.md] [--frame
 | 반응(적 6칸 진입 → 첫 공격) 중앙 | 0.71초(131248) · 0.76(합) | 2.16초 | 봇은 1.3 안에 들어가야 친다(사람은 대시·스킬로 먼저 친다). B2 에서 사거리·대시 반영 |
 | 처치/분 | 9.8(Lv1→5) · 18.8(Lv5→8) · 합 14.7 | 13.7 | 봇 세이브가 Lv8(한두 대에 처치) |
 | 점프/분 | 5.5(131248) · 필드 7.3(합) | 5.1 | 막힘 점프 포함 |
+
+## 11. 봇 B2 — 이동 그래프·전투 (11-15)
+### 11.1 이동 그래프 형식 (`BotNavGraph`, 순수)
+- 파일: `Assets/Bot/Nav/<맵>.json`(JsonUtility). **Resources 밖** = 플레이어 빌드에 안 들어간다. 런타임은 에디터 플레이에서만 `System.IO` 로 읽고, 빌드·파일 없음이면 그래프 없이 직진(`DirectNavigator`).
+- 노드 = 발판 구간 `Seg`(표면 꺾은선 px/py, `oneWay`, 양끝 `openL/openR` = 낭떠러지면 참·벽/턱이면 거짓). 간선 `Edge`: 종류 0 떨어지기 · 1 점프 · 2 높은 점프(2단, 1층계는 점프 1회라 안 씀) · 3 하향 점프 · 4 로프 · 5 같은 맵 포털. `ax0~ax1` = 출발 x 범위, `lx` = 도착 x, `dir` = 동작 중 좌우, `cost` = 동작 초.
+- 다른 맵으로 가는 포털은 `portals`(toMap·도착 좌표·앉은 구간)에 따로 두고 `BotMapRoute.NextHop`(포털 BFS, 목적지가 Town 이 아니면 Town 경유 안 함)이 쓴다.
+- 길찾기: 구간 다익스트라(구간마다 가장 싸게 도착한 x 하나만 들고 가는 근사), 비용 = 걷기 거리/8 + 동작 비용.
+
+### 11.2 굽기 (`BotNavBuild` 순수 + `Assets/Editor/Dev/BotNavBaker.cs`)
+- 메뉴 `Tools/Bot/Bake Nav Graphs` 또는 `bash Tools/u.sh cs Tools/probes/bot_nav_bake.cs`(플레이 아닐 때). `Map` 아래 맵마다 한 파일. **맵 지형을 바꾸면 다시 굽는다** — 맵 들어갈 때 `GraphNavigator.MatchesTerrain`(구간 몇 곳 레이캐스트 70%)이 어긋나면 경고 `[PB][Bot] 이동 그래프가 지형과 다름` 후 직진 이동.
+- 고체: Ground/Wall 타일맵은 **타일 셀 가로 줄**로(꺼진 맵의 CompositeCollider 경로는 낡아 쓰면 안 된다), 타일맵 없는 콜라이더는 경로/상자. 단방향 = PlatformEffector 상자. 로프 = 사다리 상자. 포털 = 포털 컴포넌트(도착 맵·좌표).
+- 런타임에 깔리는 타일 `EarlyForestSteps`(SideRoad·NormalForest 계단 2곳)는 굽기에서 같은 셀 계산으로 흉내 낸다(읽기 접근자 `StepPositions`·`AppliesTo` 추가, 동작 변화 없음).
+- 표면 = 고체 가장자리를 0.25 간격으로 훑어 "아래는 고체·위는 빈칸"인 조각 → 이어 붙여 꺾은선 → 머리 위 공간(y+0.5·1.2) 막힌 곳에서 끊는다. 간선: 열린 끝 떨어지기, 겹치면 위 단방향으로 점프(≤2.3)·아래로 하향 점프, 틈(≤3.2) 건너 점프, 로프 위아래로 이어지는 구간, 같은 맵 포털.
+- 1층계 결과: SideRoad 53구간·170간선·로프 16·포털 5, NormalForest 49·155·8·3, DeepForest 28·79·5·5 외 전 맵 12개.
+
+### 11.3 간선 실행 (`GraphNavigator`, IBotNavigator)
+- 진짜 입력만: 점프 = Jump 0.45초 누름(일찍 떼면 점프 컷), 점프 중 좌우는 떼고 이륙 후 `lx` 쪽. 하향 점프 = ↓(−0.5 아래) 누른 채 Jump. 로프 = 로프 x 로 걸어가 ↑/↓ **톡**(UPInventory/DownInventory 누른 순간 판정) 후 방향 유지, 닿지 않으면 점프해 잡기. 포털 = ↑ 톡.
+- 이륙 범위는 벽/턱 쪽으로 0.25 안쪽, 이륙 1.5 안·간선 진행 중엔 **매 프레임 판단**(`Precise`, 10Hz 면 지나쳐 턱에 붙는다).
+- 성공 = 0.3초 뒤 출발 구간 아닌 구간에 섬(중간 발판 착지도 성공, 다시 계획). 실패(시간 초과 3초·로프 4+|dy|/4초·1.6초 뒤 아직 출발 구간) → 그 간선 20초 금지 후 다시 계획. 1초마다 재계획.
+- 간선 없이 로프에 매달림 → 목표 높이 쪽으로 오르내리고, 2.5초 넘으면 목표 쪽으로 뛰어내린다.
+- `FaceAhead`: 막힌 끝(벽·턱) 0.3 안으로는 몸을 붙이지 않는다(직진·이륙 접근·돌아다님 모두). 돌아다님은 `BlockedAhead` 면 돌아선다.
+
+### 11.4 실패 처리
+- `BotNavWatch`(순수): 목표까지 거리 진척이 3초 없으면 **Reroute**(현재 간선 금지 + 다시 계획), 다음 3초도 없으면 **Stuck** → `RecordStuck`: 경고 `[PB][Bot] 막힘 map x y` + `PlayRecorder.RequestBookmark()`(기록 `bm` 행 + 화면 PNG = 위치·스크린샷, 20초에 한 번). 간선 실행 중·공격 MoveLock(`M` 플래그) 중엔 보지 않는다.
+- 금지 간선 때문에 길이 없으면 NoPath 막힘(20초에 한 번). 포털이 3+3초 안 타지면 막힘 + 맵 이동을 30초 쉼, 한 번의 맵 이동이 90초 넘으면 포기하고 30초 사냥.
+- **B1 막힘 점프 27회 원인**(11-15 확인):
+  1. **계단 모서리 고착(게임 쪽):** 1칸 턱 면에 몸을 붙이고 밀면 `MovementGrounded` 가 꺼지고, 코요테 시간 뒤 남은 점프 0 → `CanMovementJump` 거짓이라 Jump 입력이 무시된다. 공중 입력은 반대 방향을 막아 빠져나오지도 못한다. 봇은 점프만 눌러대다 막힘. 위치 SideRoad·NormalForest x≈−356.6, −388, −385. → 봇은 턱에 붙지 않게(FaceAhead·이륙 안쪽·점프 때 좌우 뗌·0.5~0.8초 뒤로 물러남) 우회. 게임 수정은 `TechDebt.md` 11-15 절(P2).
+  2. **오탐:** 평타·스킬 MoveLock 중 제자리를 막힘으로 셌다 → 제외.
+
+### 11.5 전투 (`HuntBrain` + `BotCombat.cs`)
+- 사거리 `BotRange`: 무기 종류별 기본값(활 7 · 석궁 6 · 마도서/투창 5 · 채찍 2.6 · 창 2.3 … 검 1.6 · 단검/손톱 1.2 · 너클 1.1, 고정 1.3 폐지), 연속 3번 헛치면 0.2 줄임(최소 0.9). 평타는 사거리 안 + 같은 층(|dy|≤1.2).
+- 스킬 `BotSkill.Pick`: HUD(`SkillCooldown` 아이콘·`WeaponMasteryService.IsSlotUnlocked`)로 쓸 수 있는 칸만, 사람 `press.Skill*` 횟수 비율로 고른다. 바라보고 max(사거리+0.5, 3) 안이면.
+- 대시: |dx| 3.5~9 에서 1.2초 간격(사람이 대시로 먼저 붙는 것 흉내 — 반응 시간 단축의 주 원인).
+- 회피 `BotAvoid`: 적이 예고·공격 상태로 가로 3.5·세로 1.5 안에 들어온 창마다 한 번, 사람 `avoid.r.*` 비율로 반응 종류(맞받아 공격·앞으로·물러남·점프·대시·무시), 지연 = `avoid.rt` 샘플, 0.35초 유지.
+- 포션 `BotPotion`: 문턱 = `potion.hpPct` 샘플(30~85 자름). 퀵슬롯에서 이름으로 HP 포션 칸을 찾고, 눌렀는데 HP 가 안 오르면 그 칸 30초 제외.
+- 맵 순환: `PlayBot.Run(분, goal, maps)` 기본 `Lv1_NearForest_SideRoad,Lv1_NormalForest,Lv1_DeepForest`, 맵마다 120초(적이 20초 없으면 일찍) 사냥 후 다음 맵(왕복). `-` = 맵 이동 없음.
+
+### 11.6 실행·지표
+`bash Tools/bot_run.sh <분> [goal=hunt] [시작 맵=Lv1_NearForest_SideRoad] [순환 맵 쉼표 목록|-]`. 상태 줄에 kills·deaths·mapMoves·stucks·reroutes·edgeFails·navJumps·downJumps·ropes·portals·skills·dashes·avoids·potions·range.
+
+### 11.7 사람 대 봇 (11-15, `bot_run.sh 10`, Lv8 세이브, 세션 20261115_225213)
+| 지표 | 사람 | B1(5분) | B2(10분) | 메모 |
+|---|---|---|---|---|
+| 반응(적 6칸 진입 → 첫 공격) 중앙 | 0.71초 | 2.16초 | **1.24초**(n=25, 무반응 9) | 합격선 1.4 통과. 앞선 10분 실행 1.18초(n=23) |
+| 처치/분 | 14.7(합) | 13.7 | 13.1(135) | 앞선 실행 15.5 |
+| 막힘(Stuck) | — | 막힘 점프 27 | 15(재계획 18·간선 실패 28·막힘 점프 1) | 앞선 실행 26. 남은 것 대부분 NormalForest x≈−356.6 계단 모서리(게임 버그) |
+| 사망 | 0 | 0 | 0 | |
+| 맵 이동 | — | 0 | 1(SideRoad → NormalForest) | NormalForest → DeepForest 는 −356.6 고착으로 못 감 |
+| 로프·하향 점프·이동 점프 | — | — | 6 · 3 · 45 | |
+| 스킬·대시 | 스킬 많이 씀 | 0 | 94(9.1/분) · 57 | |
+| 회피(예고 → 첫 반응) | 사람 분포 | 없음 | 예고 73건, 반응 시간 중앙 0.20초, jump 21·none 19·fwd 18·back 12 | ForestHunter 사격은 96% 맞음(반응해도 못 피함) |
+| 평타 간격 중앙 | 0.21초 | 0.22초 | 0.22초 | |
+| 포션 | 문턱 사용 | 없음 | 0 | Lv8 세이브는 받은 피해 합 464 로 문턱까지 안 떨어짐 — 실사용 미검증 |
+- 사거리는 무기 종류를 못 읽으면 기본 1.3(이 세이브 무기는 기본값으로 나왔다). Lv3 세이브 실행은 하지 않았다(미검증).
+- 상태 줄 `avoids=a/b` 의 a 는 반응을 낸 판단 틱 수, b 는 예고 창 수다(반응 횟수 아님).
+

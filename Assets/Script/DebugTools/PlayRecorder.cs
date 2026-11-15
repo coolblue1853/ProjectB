@@ -29,6 +29,14 @@ public sealed class PlayRecorder : MonoBehaviour
     private static int _mainThreadId;
 
     public static string FilePath => PlayRecWriter.FilePath;
+    private static bool _botMark;
+
+    /// <summary>봇이 막힘 지점을 북마크로 남긴다(F8 과 같은 bm 행 + PNG, 다음 프레임). 기록 중이 아니면 무시</summary>
+    public static void RequestBookmark()
+    {
+        _botMark = true;
+    }
+
     /// <summary>영상 파일 경로(녹화 중이 아니면 null)</summary>
     public static string VideoPath => _inst != null && _inst._video.Active ? _inst._video.Path : null;
 
@@ -318,7 +326,9 @@ public sealed class PlayRecorder : MonoBehaviour
             _nextTick = real - _nextTick > 0.25f ? real + TickInterval : _nextTick + TickInterval;
             Tick(now, real);
         }
-        if (PlayRecBookmark.Pressed())
+        bool botMark = _botMark;
+        _botMark = false;
+        if (PlayRecBookmark.Pressed() || botMark)
         {
             try
             {

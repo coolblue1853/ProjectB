@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # 자동 플레이 봇 한 번: 세이브 백업 → 플레이 → (시험 준비) 사냥터로 → PlayBot.Run → N분 → 정지 → 플레이 끔 → 세이브 원복·md5 → 요약·밸런스 md
-# 사용: bash Tools/bot_run.sh <분> [goal=hunt] [맵=Lv1_NearForest_SideRoad]
+# 사용: bash Tools/bot_run.sh <분> [goal=hunt] [시작 맵=Lv1_NearForest_SideRoad] [순회 맵(쉼표, 기본 PlayBot.DefaultMaps, "-" = 이동 없음)]
 # 기록은 Logs/playrec_bot/<세션>.jsonl (src=bot). 사람 기록 Logs/playrec/ 은 건드리지 않는다. 설계: .claude-rules/Game/PlayBotDesign.md 10절
 set -u
 cd "$(dirname "$0")/.."
 MIN=${1:?사용: bot_run.sh <분> [goal] [맵]}
 GOAL=${2:-hunt}
 MAP=${3:-Lv1_NearForest_SideRoad}
+MAPS=${4:-}
 SAVE_DIR=/c/Users/user/AppData/LocalLow/DefaultCompany/ProjectB
 BK=Logs/playrec_bot/save_backup_$(date +%Y%m%d_%H%M%S)
 TMP=$(mktemp -d)
@@ -38,7 +39,7 @@ for i in $(seq 1 20); do
   case "$r" in *already*) break ;; esac
 done
 sleep 3
-r=$(probe bot_start "s/__MIN__/$((MIN + 1))/; s/__GOAL__/$GOAL/")
+r=$(probe bot_start "s/__MIN__/$((MIN + 1))/; s/__GOAL__/$GOAL/; s/__MAPS__/$MAPS/")
 echo "시작: $r"
 case "$r" in *start=True*) ;; *) echo "봇 시작 실패"; exit 1 ;; esac
 END=$(( $(date +%s) + MIN * 60 ))

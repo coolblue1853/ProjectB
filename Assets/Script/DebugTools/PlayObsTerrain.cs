@@ -24,6 +24,8 @@ public sealed class PlayObsTerrain
     public int Ox, Oy;
     public uint Hash;
     public float EdgeL = -1f, EdgeR = -1f, Fall = -1f, DropF = -1f;
+    /// <summary>발(몸 콜라이더 아래끝) 월드 y — 봇 이동 그래프의 표면 높이와 비교한다</summary>
+    public float FeetY;
 
     private readonly Collider2D[] _hits = new Collider2D[8];
     private readonly List<SporeCloud> _clouds = new List<SporeCloud>(8);
@@ -53,6 +55,7 @@ public sealed class PlayObsTerrain
     {
         EnsureReady();
         Vector2 feet = FeetOf(pc);
+        FeetY = feet.y;
         int ox = PlayRecGrid.OriginX(feet.x);
         int oy = PlayRecGrid.OriginY(feet.y + 0.05f);
         bool changed = false;

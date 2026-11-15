@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// 자동 플레이 봇(B1 뼈대). 인지(PlayObservation, 화면 수준) → 판단(IBotBrain, 10Hz) → 입력(BotInput, 진짜 가상 장치) 루프.
+/// 자동 플레이 봇(B1 뼈대 → B2 이동 그래프·전투). 인지(PlayObservation, 화면 수준) → 판단(IBotBrain, 10Hz) → 입력(BotInput, 진짜 가상 장치) 루프.
 /// 금지: transform·rigidbody 조작, 게임 함수 호출(공격·이동·포털·상점), 치트·시간 조작. 게임 이벤트는 읽기 구독만(처치 수 세기).
 /// 켜기: <see cref="Run"/> (프로브 bot_start.cs, SRDebugger "Bot" 묶음), 끄기: <see cref="Stop"/>. 실행 중 기록 출처는 "bot"(Logs/playrec_bot/).
-/// 설계는 PlayBotDesign.md 10절.
+/// 설계는 PlayBotDesign.md 10·11절.
 /// </summary>
 public sealed class PlayBot : MonoBehaviour
 {
@@ -13,6 +13,8 @@ public sealed class PlayBot : MonoBehaviour
     public const float JumpCooldown = 0.6f;
     public const float WarnInterval = 3f;
     public const string GoalHunt = "hunt";
+    /// <summary>기본 사냥 순회(1층계 로프·포털이 있는 맵 3장, 왕복)</summary>
+    public const string DefaultMaps = "Lv1_NearForest_SideRoad,Lv1_NormalForest,Lv1_DeepForest";
 
     private static PlayBot _inst;
 
@@ -20,7 +22,11 @@ public sealed class PlayBot : MonoBehaviour
     private readonly BotContext _ctx = new BotContext();
     private BotInput _input;
     private IBotBrain _brain;
-    private DirectNavigator _nav;
+    private GraphNavigator _nav;
+    private HuntBrain _hunt;
+    private string _lastMap;
+    private bool _wasDead;
+    private int _downArm;
     private BotAttackRhythm _rhythm;
     private BotIntent _current;
     private BotIntent _pending;
@@ -36,6 +42,8 @@ public sealed class PlayBot : MonoBehaviour
     public static bool IsRunning => _inst != null;
     public static int Kills => _inst != null ? _inst._ctx.Kills : _lastKills;
     public static int Warns { get; private set; }
+    public static int MapMoves { get; private set; }
+    public static int Deaths { get; private set; }
     private static int _lastKills;
     private static string _lastStatus = "idle";
 
@@ -44,12 +52,14 @@ public sealed class PlayBot : MonoBehaviour
     {
         _inst = null; // 도메인 리로드를 끈 플레이 모드 진입에서 이전 판 값이 남지 않게
         Warns = 0;
+        MapMoves = 0;
+        Deaths = 0;
         _lastKills = 0;
         _lastStatus = "idle";
     }
 
-    /// <summary>봇을 켠다. minutes = 실제 시간(분), goal = "hunt"(B1 은 이것만). 플레이어가 없으면 false</summary>
-    public static bool Run(float minutes, string goal = GoalHunt)
+    /// <summary>봇을 켠다. minutes = 실제 시간(분), goal = "hunt", maps = 사냥 순회 맵(쉼표, 비면 DefaultMaps · "-" 면 맵 이동 없음). 플레이어가 없으면 false</summary>
+    public static bool Run(float minutes, string goal = GoalHunt, string maps = null)
     {
         if (_inst != null || BotReplay.IsRunning)
         {
@@ -65,7 +75,7 @@ public sealed class PlayBot : MonoBehaviour
         PlayBot b = go.AddComponent<PlayBot>();
         try
         {
-            b.Begin(Mathf.Max(0.1f, minutes), string.IsNullOrEmpty(goal) ? GoalHunt : goal);
+            b.Begin(Mathf.Max(0.1f, minutes), string.IsNullOrEmpty(goal) ? GoalHunt : goal, maps);
         }
         catch (System.Exception e)
         {
@@ -100,9 +110,11 @@ public sealed class PlayBot : MonoBehaviour
         return _inst.Describe();
     }
 
-    private void Begin(float minutes, string goal)
+    private void Begin(float minutes, string goal, string maps)
     {
         Warns = 0;
+        MapMoves = 0;
+        Deaths = 0;
         if (goal != GoalHunt)
         {
             Debug.LogWarning("[PB][Bot] B1 은 hunt 만 지원 — " + goal + " 대신 hunt");
@@ -115,18 +127,21 @@ public sealed class PlayBot : MonoBehaviour
         _ctx.Goal = goal;
         _ctx.Kills = 0;
         _ctx.Now = Time.time;
+        _ctx.Maps = maps == "-" ? null : (string.IsNullOrEmpty(maps) ? DefaultMaps : maps).Split(',');
         PlayRecorder.Restart("bot");
         _input = new BotInput(_ctx.Profile, BotInput.Route.Keyboard, seed + 1);
         _rhythm = new BotAttackRhythm(_ctx.Profile, _ctx.Rng);
-        _nav = new DirectNavigator();
-        _brain = new HuntBrain(_nav);
+        _nav = new GraphNavigator();
+        _hunt = new HuntBrain(_nav);
+        _brain = _hunt;
         _obs.ForceRescan();
         _obs.Observe();
         _brain.Begin(_ctx);
+        _lastMap = BgmDirector.CurrentMap;
         _startReal = Time.unscaledTime;
         _endReal = _startReal + minutes * 60f;
         EnemyHealth.Killed += OnKilled;
-        Debug.Log("[PB][Bot] 시작 " + minutes + "분 goal=" + goal + " seed=" + seed + " profile n=" + _ctx.Profile.dists.Count);
+        Debug.Log("[PB][Bot] 시작 " + minutes + "분 goal=" + goal + " seed=" + seed + " profile n=" + _ctx.Profile.dists.Count + " maps=" + maps + " graph=" + (BotNavGraph.Load(_lastMap) != null));
     }
 
     private void OnKilled(EnemyHealth e)
@@ -147,7 +162,7 @@ public sealed class PlayBot : MonoBehaviour
         }
         float now = Time.time;
         _ctx.Now = now;
-        if (now >= _nextDecide)
+        if (now >= _nextDecide || (_nav != null && _nav.Precise))
         {
             _nextDecide = now + DecideInterval;
             Decide(now);
@@ -171,16 +186,13 @@ public sealed class PlayBot : MonoBehaviour
         {
             return;
         }
+        TrackMapAndDeath();
         BotIntent want = _brain.Decide(_ctx);
         if (want.Back)
         {
             _input.Press("UI/Back");
         }
-        if (want.Jump && _obs.Grounded && now - _lastJump > JumpCooldown)
-        {
-            _lastJump = now;
-            _input.Press("Jump");
-        }
+        PressJump(want, now);
         if (want.Focus != _current.Focus && !(_hasPending && want.Focus == _pending.Focus))
         {
             // 새 목표: 사람 반응 시간만큼 늦게 바꾼다
@@ -196,7 +208,69 @@ public sealed class PlayBot : MonoBehaviour
         {
             Commit(want, now);
         }
+        PressActions(want);
         WarnIfStuck(now);
+    }
+
+    /// <summary>점프: 땅·로프에서(AirJump 면 공중도). 하향 점프는 ↓ 가 먼저 눌린 다음 틱에 누른다(게임이 점프 순간의 ↓ 를 본다)</summary>
+    private void PressJump(BotIntent want, float now)
+    {
+        if (!want.Jump)
+        {
+            _downArm = 0;
+            return;
+        }
+        if (want.MoveY < 0 && (_input.StickValue.y > -0.5f || _downArm++ < 1))
+        {
+            _input.Stick(want.MoveX, want.MoveY); // ↓ 를 먼저(반응 지연 없이) 누른다
+            return;
+        }
+        bool canJump = _obs.Grounded || _obs.OnRope || want.AirJump || Mathf.Abs(_obs.Vy) < 0.05f; // 턱에 붙어 isOnGround 가 꺼져도 게임은 TouchingFloor 로 점프를 받는다
+        if (canJump && (want.AirJump || now - _lastJump > JumpCooldown))
+        {
+            _lastJump = now;
+            _downArm = 0;
+            _input.Press("Jump", want.JumpHold > 0f ? want.JumpHold : -1f);
+        }
+    }
+
+    /// <summary>대시·스킬·퀵슬롯: 이동 축을 반영한 뒤 한 번씩 누른다(대시 방향 = 바라보는 쪽)</summary>
+    private void PressActions(BotIntent want)
+    {
+        if (want.Dash)
+        {
+            _input.Stick(want.MoveX, want.MoveY);
+            _input.Press("Dash");
+        }
+        if (want.Skill > 0 && want.Skill <= BotSkill.Actions.Length)
+        {
+            _input.Press(BotSkill.Actions[want.Skill - 1]);
+        }
+        if (want.Quick > 0 && want.Quick <= QuickActions.Length)
+        {
+            _input.Press(QuickActions[want.Quick - 1]);
+        }
+    }
+
+    private static readonly string[] QuickActions = { "Quick1", "Quick2", "Quick3", "Quick4" };
+
+    /// <summary>맵 이동·사망을 관측으로 센다(맵 이름 변화, HP 0 진입)</summary>
+    private void TrackMapAndDeath()
+    {
+        string map = BgmDirector.CurrentMap;
+        if (map != _lastMap)
+        {
+            MapMoves++;
+            Debug.Log("[PB][Bot] 맵 이동 " + _lastMap + " -> " + map + " graph=" + (BotNavGraph.Load(map) != null));
+            _lastMap = map;
+        }
+        bool dead = _obs.HasHealth && _obs.Hp <= 0;
+        if (dead && !_wasDead)
+        {
+            Deaths++;
+            Debug.LogWarning("[PB][Bot] 사망 map=" + map + " x=" + _obs.X.ToString("F1"));
+        }
+        _wasDead = dead;
     }
 
     private void Commit(BotIntent it, float now)
@@ -211,7 +285,7 @@ public sealed class PlayBot : MonoBehaviour
 
     private void WarnIfStuck(float now)
     {
-        HuntBrain hb = _brain as HuntBrain;
+        HuntBrain hb = _hunt;
         if (hb == null || !hb.NoProgress || now - _lastWarn < WarnInterval)
         {
             return;
@@ -223,9 +297,20 @@ public sealed class PlayBot : MonoBehaviour
 
     private string Describe()
     {
-        return "running=1 sec=" + (Time.unscaledTime - _startReal).ToString("F0") + " kills=" + _ctx.Kills + " warns=" + Warns
-            + " stuckJumps=" + (_nav != null ? _nav.StuckJumps : 0) + " reverses=" + (_nav != null ? _nav.Reverses : 0)
-            + " do=" + _current.Note + " map=" + BgmDirector.CurrentMap;
+        string s = "running=1 sec=" + (Time.unscaledTime - _startReal).ToString("F0") + " kills=" + _ctx.Kills + " deaths=" + Deaths
+            + " mapMoves=" + MapMoves + " warns=" + Warns + " do=" + _current.Note + " map=" + BgmDirector.CurrentMap;
+        if (_nav != null)
+        {
+            s += " stucks=" + _nav.Stucks + " reroutes=" + _nav.Reroutes + " edgeFails=" + _nav.EdgeFails + " stuckJumps=" + _nav.StuckJumps
+                + " reverses=" + _nav.Reverses + " navJumps=" + _nav.Jumps + " downJumps=" + _nav.DownJumps + " ropes=" + _nav.Ropes + " portals=" + _nav.Portals
+                + " graph=" + (_nav.HasGraph ? 1 : 0) + " " + _nav.DebugState + (_nav.Stucks > 0 ? " lastStuck=" + _nav.LastStuck.Replace(' ', '_') : "");
+        }
+        if (_hunt != null)
+        {
+            s += " skills=" + _hunt.Skills + " dashes=" + _hunt.Dashes + " avoids=" + _hunt.Avoids + "/" + _hunt.AvoidWindows + " potions=" + _hunt.Potions
+                + " range=" + _hunt.Range.ToString("F1");
+        }
+        return s;
     }
 
     /// <summary>정상 정지: 키를 다 떼고 장치 제거, 기록 출처 되돌리기, 로그</summary>
