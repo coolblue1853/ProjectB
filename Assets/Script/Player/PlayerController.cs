@@ -37,12 +37,21 @@ public class PlayerController : MonoBehaviour
     {
         if (!s_floorFilterReady)
         {
-            s_floorFilter = new ContactFilter2D();
-            s_floorFilter.SetLayerMask(LayerMask.GetMask("Ground"));
-            s_floorFilter.SetNormalAngle(60f, 120f);
+            s_floorFilter = CreateFloorFilter();
             s_floorFilterReady = true;
         }
         return rb.IsTouching(s_floorFilter);
+    }
+
+    // Ground 만 보면 1칸 턱 위에 서 있을 때(Wall 타일맵 꼭대기가 발판, Ground 타일맵은 한 칸 아래) 땅 판정이 꺼져 점프가 무시됐다(11-15).
+    // 위를 향한 면이면 Wall 레이어 위도 바닥이다. 옆 법선(벽 면)은 각도 필터로 걸러진다.
+    /// <summary>바닥 접촉 필터(Ground+Wall 레이어, 위를 향한 법선). 시험에서도 쓴다</summary>
+    public static ContactFilter2D CreateFloorFilter()
+    {
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(LayerMask.GetMask("Ground", "Wall"));
+        filter.SetNormalAngle(60f, 120f);
+        return filter;
     }
     /// <summary>치트 Unstuck 용: 조작이 막혔을 때 원인을 남길 상태 한 줄</summary>
     public string DebugStateLine()
