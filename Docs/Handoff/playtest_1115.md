@@ -18,7 +18,7 @@
    - ThaleahFat_TMP 에 `↕`(U+2195) 글리프 없음.
    - 최악 프레임 10.7초 끊김과 할당 급증(t≈1136, 힙 1313MB). 원인을 확인한다.
 3. [x] **막힘 지점(판정: 지형 정상):** 4장 모두 근접 전투 중 MoveLock(fl=ML)으로 속도 0, 벽·콜라이더 문제 아님. 기록기 stuck 판정 오탐(TechDebt). Lv1_NearForest_SideRoad (-320.7, 1.3) 오른쪽, Lv1_DeepForest (-218~-223, -0.7) 좌우. 프레임 PNG 를 보고 지형·벽 문제인지 판정한다.
-4. [ ] **옛 장비 정리(사용자):** "여전히 장착되는 예전 아이템들이 남아 있다."
+4. [x] **옛 장비 정리(사용자, 해시 a5200d7a0, `Docs/Playtest/LegacyGearAudit.md`):** 신발 16종 retired·획득 경로 제거, 세트 장신구 48개 이름 이행(귀걸이·목걸이·반지), 판매 기록의 쥐 두목 계보 장비는 현행 유지. "여전히 장착되는 예전 아이템들이 남아 있다."
    - 판매 기록에 PoisonSword, RatCap, Ring Finger that Tears Wounds, Necklace of Spreading Corruption, Necklace of the Sly Plunderer 가 보인다.
    - 이것들이 폐기 슬롯·옛 체계 아이템인지 대조해 드롭표·상점·제작에서 빼고, 남은 것은 새 슬롯 체계로 이행한다.
    - 참고: `Game/EquipSlotExpansion.md`, `Docs/Handoff/equip_redistribution.md`.
