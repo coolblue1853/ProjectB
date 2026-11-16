@@ -1423,6 +1423,19 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 공격·스킬 잠금(LadderLock) 중에 로프 트리거에 들어오면 Enter 를 놓쳐, 잠금이 풀린 뒤에도 로프 밑에 서서 ↑ 가 안 먹는다(11-16 봇 SideRoad x=-393.6 y=7.2 점프·낙하 반복).
+    /// 안에 머무는 동안 잠금이 풀리면 근처 로프로 본다(실제로 잡는 건 ↑/↓ 를 누른 순간뿐).
+    /// </summary>
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!isLadder && DatabaseManager.checkAttackLadder == false && collision.CompareTag("Ladder"))
+        {
+            isLadder = true;
+            nowLadder = collision.gameObject;
+        }
+    }
+
     bool isRopeAttack = false;
     private void OnTriggerExit2D(Collider2D collision)
     {
