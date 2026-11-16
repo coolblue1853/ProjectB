@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 자동 플레이 봇 한 번: 세이브 백업 → 플레이 → (시험 준비) 사냥터로 → PlayBot.Run → N분 → 정지 → 플레이 끔 → 세이브 원복·md5 → 요약·밸런스 md
 # 끝나면 <세션>_summary.md · _balance.md · _report.md(막힘·예외·사망·사람 대비 한 장, Tools/playrec_report.py) 를 만든다. 손 시험은 Logs/playrec_test/ (Tools/playtest.sh)
-# 사용: [PREP_LEVEL="<레벨> <골드>"] [PREP_RECALL=<개수>] [PREP_BAG="<남길 물약> <남길 빈칸> [무기약화 0|1]"] bash Tools/bot_run.sh <분> [goal=hunt] [시작 맵=Lv1_NearForest_SideRoad] [순회 맵(쉼표, 기본 PlayBot.DefaultMaps, "-" = 이동 없음)]
+# 사용: [PREP_LEVEL="<레벨> <골드>"] [PREP_TIME=day|night] [PREP_RECALL=<개수>] [PREP_BAG="<남길 물약> <남길 빈칸> [무기약화 0|1]"] bash Tools/bot_run.sh <분> [goal=hunt] [시작 맵=Lv1_NearForest_SideRoad] [순회 맵(쉼표, 기본 PlayBot.DefaultMaps, "-" = 이동 없음)]
 # 기록은 Logs/playrec_bot/<세션>.jsonl (src=bot). 사람 기록 Logs/playrec/ 은 건드리지 않는다. 설계: .claude-rules/Game/PlayBotDesign.md 10절
 set -u
 cd "$(dirname "$0")/.."
@@ -53,6 +53,9 @@ if [ -n "${PREP_RECALL:-}" ]; then # 시험 준비: PREP_RECALL=<개수> — 귀
 fi
 if [ -n "${PREP_NOQUEST:-}" ]; then # 시험 준비: PREP_NOQUEST=1 — 진행 중 퀘스트 비움(퀘스트 받기 경로 시험)
   echo "퀘스트 비움: $(probe bot_prep_noquest)"
+fi
+if [ -n "${PREP_TIME:-}" ]; then # 시험 준비: PREP_TIME=day|night — 낮/밤 고정(런타임만, 밸런스 비교용)
+  echo "시간 고정: $(probe bot_prep_time "s/__MODE__/${PREP_TIME}/g")"
 fi
 r=$(probe bot_start "s/__MIN__/$((MIN + 1))/; s/__GOAL__/$GOAL/; s/__MAPS__/$MAPS/")
 echo "시작: $r"

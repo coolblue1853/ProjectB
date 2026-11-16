@@ -304,6 +304,7 @@ python Tools/playrec_summary.py Logs/playrec/<세션>.jsonl [출력.md] [--frame
 ### 13.2 B4 자동 보고서
 `bash Tools/bot_run.sh <분>` 한 번 → 끝나면 `Logs/playrec_bot/<세션>_{summary,balance,report}.md`. `Tools/playrec_report.py`(300줄 이내): ①한눈에(왕복·판매·구매·장착·막힘·사망·처치/분) ②막힘(위치·북마크 PNG) ③예외·error 상위 ④사망 ⑤봇 경고 상위 ⑥사람 대비(11-15 사람 기록 2개를 `playrec_balance` 로 돌린 `human_1115_balance.md` 와 맵·낮밤별 처치/분·EXP/분·받은피해/분, 몹별 처치시간·피해/처치를 비교, 2배 초과 ▲·절반 미만 ▼) ⑦밸런스 표. 최종 상태 줄은 `--status` 로 받는다.
 - **손 시험 기록 분리**: 에이전트가 손으로 돌리는 플레이는 `Tools/playtest.sh` 가 시작 전 기록 출처를 `test` 로 걸어 `Logs/playrec_test/` 로 간다(`PlayRecWriter.DirNameFor("test")`). 사람 `Logs/playrec/`·봇 `Logs/playrec_bot/` 와 섞이지 않는다.
+- **`PREP_TIME=day|night`**(11-16): 낮/밤 고정(`bot_prep_time.cs`, 런타임 `TimeChange` 만, 세이브 불변). 밤은 `_lockedTimeValue` 를 밤 구간 중앙으로. 낮밤 밸런스 비교용(`Docs/Balance/BotBalance_1116.md`).
 - 시험 준비 환경변수: `PREP_LEVEL="<Lv> <골드>"`(`bot_prep_level.cs`), `PREP_BAG`, `PREP_RECALL`. 모두 봇 시작 전 시험용, 세이브는 스크립트가 백업·원복·md5 확인.
 
 ### 13.3 합격 실행 (Lv3·골드 300, 마을 시작, 30분, `PREP_BAG="6 8 1"`)
