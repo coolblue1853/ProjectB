@@ -436,6 +436,10 @@ public sealed class PlayRecorder : MonoBehaviour
             }
             StringBuilder sb = PlayRecWriter.Begin("tk");
             PlayRecTick.WriteTick(sb, _tick, real, mask, mx, my, _obs, uiOpen);
+            if (Source == "bot")
+            {
+                PlayRecTick.WriteBotTrace(sb);
+            }
             PlayRecWriter.Commit();
         }
         _anyHeld = mask != 0 || Mathf.Abs(mx) > 0.3f || Mathf.Abs(my) > 0.3f;

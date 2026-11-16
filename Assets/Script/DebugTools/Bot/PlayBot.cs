@@ -56,6 +56,7 @@ public sealed class PlayBot : MonoBehaviour
         Deaths = 0;
         _lastKills = 0;
         _lastStatus = "idle";
+        BotTrace.Reset();
     }
 
     /// <summary>봇을 켠다. minutes = 실제 시간(분), goal = "hunt", maps = 사냥 순회 맵(쉼표, 비면 DefaultMaps · "-" 면 맵 이동 없음). 플레이어가 없으면 false</summary>
@@ -188,7 +189,9 @@ public sealed class PlayBot : MonoBehaviour
             return;
         }
         TrackMapAndDeath();
+        BotTrace.BeginDecide();
         BotIntent want = _brain.Decide(_ctx);
+        BotTrace.SetFocus(want.Focus);
         if (want.Back)
         {
             _input.Press("UI/Back");

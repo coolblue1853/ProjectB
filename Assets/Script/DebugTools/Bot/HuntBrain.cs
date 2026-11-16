@@ -759,10 +759,13 @@ public sealed class HuntBrain : IBotBrain
     {
         PlayObservation o = ctx.Obs;
         float edge = _wanderDir > 0 ? o.Terrain.EdgeR : o.Terrain.EdgeL;
-        if ((o.Grounded && edge >= 0f && edge < 0.6f && o.Terrain.DropF > 2f) || _nav.BlockedAhead(ctx, _wanderDir))
+        // DropF -1 = 끝 너머에 바닥이 없는 구덩이(SideRoad x≈-437, 밤 몹 없을 때 낙사 복귀 반복). 닿는 낮은 단(0~2)만 내려간다
+        bool pit = o.Terrain.DropF > 2f || o.Terrain.DropF < 0f;
+        if ((o.Grounded && edge >= 0f && edge < 0.6f && pit) || _nav.BlockedAhead(ctx, _wanderDir))
         {
             _wanderDir = -_wanderDir; // 낭떠러지·막힌 끝 앞에서 돌아선다
         }
+        BotTrace.MarkEdge("wander", -1);
         it.Focus = BotIntent.FocusWander;
         it.Note = "wander";
         it.MoveX = _wanderDir;

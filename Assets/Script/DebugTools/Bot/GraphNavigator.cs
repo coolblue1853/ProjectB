@@ -229,6 +229,27 @@ public sealed class GraphNavigator : IBotNavigator
 
     private bool SteerTo(BotContext ctx, int goal, float gx, float dx, float dy, ref BotIntent intent)
     {
+        bool ok = SteerToCore(ctx, goal, gx, dx, dy, ref intent);
+        BotTrace.MarkEdge(_edge >= 0 && _g != null ? EdgeName(_g.edges[_edge].kind) : "walk", goal);
+        return ok;
+    }
+
+    private static string EdgeName(int kind)
+    {
+        switch (kind)
+        {
+            case BotNavGraph.KindFall: return "drop";
+            case BotNavGraph.KindJump: return "jump";
+            case BotNavGraph.KindJumpHigh: return "jumphigh";
+            case BotNavGraph.KindDownJump: return "down";
+            case BotNavGraph.KindRope: return "rope";
+            case BotNavGraph.KindPortal: return "portal";
+        }
+        return "walk";
+    }
+
+    private bool SteerToCore(BotContext ctx, int goal, float gx, float dx, float dy, ref BotIntent intent)
+    {
         PlayObservation o = ctx.Obs;
         if (ctx.Now - _lastSteer > 0.5f)
         {

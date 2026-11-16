@@ -348,4 +348,10 @@ python Tools/playrec_summary.py Logs/playrec/<세션>.jsonl [출력.md] [--frame
 - **게임 버그 1건 수정(f79fea024)**: `PlayerController.isLadder` 는 `OnTriggerEnter2D` 에서만 켜진다. 공격·스킬 `LadderLock` 중에 로프 트리거에 들어오면 Enter 를 놓쳐, 잠금이 풀려도 트리거 안에 서서 ↑ 가 안 먹는다(발판 y=7.2 가 로프1 아래 끝 7.9 와 겹침 → 같은 자리 점프 반복). `OnTriggerStay2D` 로 복구. 프로브 `rope_stay_enter`/`rope_stay_read` 로 수정 전 False · 후 True 확인.
 - **남은 봇 원인**: ② 로프를 오르다 목표 발판 높이를 지나 로프 끝(15)·점프 최고점(18.5)까지 갔다 떨어져 재잡기(RopeStep 이 위 끝만 기다림, RopeLoose 는 목표가 같은 높이여도 `dy>-0.5` 라 위로) ③ 계단 위 쥐 도둑 접근 중 회피(Back)·공격 분기와 충돌.
 - **시도·실패**: RopeLoose 같은 높이면 옆 점프 하차 / RopeStep 에서 FeetY≥목표Y-0.15 면 옆 점프 하차 / 둘 병행. 15분(낮 고정 `PREP_TIME=day`, Lv3, 처치 400~460)에서 막힘 11·9·15건(분당 0.6~1.0)으로 기준(11건 0.73/분)과 차이 없어 **모두 되돌렸다**. 규칙만으로 부족 — 막힘 순간의 현재 간선·목표를 기록(예: tk 에 `ed2` 간선 종류·`tg` 목표 uid)해 다시 본다.
-- **별건(미수정)**: 밤에 SideRoad 몹이 전부 사라지면 Wander 가 x≈-437 왼쪽 구덩이로 걸어 떨어져 `낙사 복귀` 를 8분 반복. 막힘 기준 비교는 `PREP_TIME=day` 로 해야 한다. 밤 비교 시 이 시간이 처치율을 깎는다.
+- **별건(미수정)**: 밤에 SideRoad 몹이 전부 사라지면 Wander 가 x≈-437 왼쪽 구덩이로 걸어 떨어져 `낙사 복귀` 를 8분 반복. 막힘 기준 비교는 `PREP_TIME=day` 로 해야 한다. 밤 비교 시 이 시간이 처치율을 깎는다. → 15.5 에서 수정.
+
+### 15.5 간선 기록 필드 + 구덩이 반복 수정 (11-16 후속)
+- **tk 새 필드(src=bot 만, 사람 형식 불변)**: `be` 따라가는 간선(walk·drop(낙하 간선)·jump·jumphigh·down·rope·portal·wander·none), `bn` 길찾기 목표 구간(없으면 -1), `bf` Focus(몹 Uid=인스턴스 ID라 음수일 수 있음 · 0 없음 · -1 배회 · -2 드롭 · -3 창). `BotTrace`(정적, 마지막 Decide 값)를 `PlayBot.Decide` 가 비우고 `GraphNavigator.SteerTo`·`HuntBrain.Wander` 가 채우며 `PlayRecTick.WriteBotTrace` 가 쓴다.
+- **집계**: `python -X utf8 Tools/playrec_stuck_tk.py <jsonl...> --edges [--sec 5]` — 막힘 경고 직전 구간에서 가장 오래 따라간 간선·Focus 분류별 건수.
+- **구덩이 반복 원인·수정**: 구덩이 너머는 바닥이 없어 `Terrain.DropF = -1` 인데 Wander 의 돌아서기 조건이 `DropF > 2` 뿐이었다. `DropF < 0` 도 돌아서게 고침(`HuntBrain.Wander`).
+- **검증**: 밤 15분 161911 — `낙사 복귀` 0회(수정 전 143651 에서 424회), 처치 224(14.6/분)·사망 0, 막힘 25. 막힘 직전 간선: rope 13·walk 11·jump 1(walk/드롭 Focus 9). 막힘 전부 SideRoad x≈-378~-399. 낮 15분 163816 — 처치 457·사망 0·막힘 9(walk 4·rope 3·wander 1·jump 1, Focus 전부 몹)·낙사 복귀 0. EditMode 1421 통과·콘솔 error 0. 한계: 밤 실행은 몹이 남아 Wander 비중이 작아 구덩이 상황을 충분히 만들지 못했다(재현 조건 미확인).

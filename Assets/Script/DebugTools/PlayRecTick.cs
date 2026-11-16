@@ -60,6 +60,14 @@ public static class PlayRecTick
         WritePoint(sb, "npc", o.Npc);
     }
 
+    /// <summary>봇 전용 추가 필드(사람 기록에는 없다): be = 따라가는 간선 종류, bn = 목표 구간, bf = Focus(몹 Uid·-1 배회·-2 드롭·-3 창)</summary>
+    public static void WriteBotTrace(StringBuilder sb)
+    {
+        PlayRecJson.KeyStr(sb, "be", BotTrace.Edge);
+        PlayRecJson.KeyInt(sb, "bn", BotTrace.Node);
+        PlayRecJson.KeyInt(sb, "bf", BotTrace.Focus);
+    }
+
     /// <summary>s 비트: 1 접지, 2 로프 위, 4 로프/사다리 근처, 8 왼쪽 봄, 16 피해 가능(무적 아님)</summary>
     public static int StateBits(PlayObservation o)
     {
