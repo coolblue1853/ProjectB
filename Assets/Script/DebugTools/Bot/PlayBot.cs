@@ -128,6 +128,7 @@ public sealed class PlayBot : MonoBehaviour
         _ctx.Goal = goal;
         _ctx.Kills = 0;
         _ctx.Now = Time.time;
+        _ctx.LevelMaps = string.IsNullOrEmpty(maps);
         _ctx.Maps = maps == "-" ? null : (string.IsNullOrEmpty(maps) ? DefaultMaps : maps).Split(',');
         PlayRecorder.Restart("bot");
         _input = new BotInput(_ctx.Profile, BotInput.Route.Keyboard, seed + 1);
@@ -272,6 +273,8 @@ public sealed class PlayBot : MonoBehaviour
             case BotKey.Inventory: _input.Press("UI/OpenInventory"); return;
             case BotKey.Refill: _input.PressKey("<Keyboard>/h"); return;
             case BotKey.Junk: _input.PressKey("<Keyboard>/j"); return;
+            case BotKey.SkillWindow: _input.Press("SkillWindow"); return;
+            case BotKey.Confirm: _input.Press("UI/Enter"); return;
         }
     }
 
@@ -334,7 +337,7 @@ public sealed class PlayBot : MonoBehaviour
                 + " range=" + _hunt.Range.ToString("F1");
             BotErrand er = _hunt.Errand;
             s += " trips=" + er.Trips + " sold=" + er.Sold + " bought=" + er.PotionsBought + " equipped=" + er.Equipped + " gold+=" + er.GoldGained
-                + " weapon=" + (InventoryManager.instance != null && InventoryManager.instance.EquippedFor("Weapon") != null ? InventoryManager.instance.EquippedFor("Weapon").name : "-") + " recalls=" + er.Recalls + " errandAborts=" + er.Aborts + " questsDone=" + _hunt.Quest.Completed + " questAccepted=" + _hunt.Quest.Accepted + " questReported=" + _hunt.Quest.Reported + " questAborts=" + _hunt.Quest.Aborts + " huntMap=" + (_hunt.Quest.HuntMap ?? "-") + " quest=" + _hunt.Quest.Phased + (er.Returning ? " errand=" + er.Phased : "");
+                + " weapon=" + (InventoryManager.instance != null && InventoryManager.instance.EquippedFor("Weapon") != null ? InventoryManager.instance.EquippedFor("Weapon").name : "-") + " recalls=" + er.Recalls + " errandAborts=" + er.Aborts + " questsDone=" + _hunt.Quest.Completed + " questAccepted=" + _hunt.Quest.Accepted + " questReported=" + _hunt.Quest.Reported + " questAborts=" + _hunt.Quest.Aborts + " skillInvests=" + _hunt.Skill.Invested + " skillAborts=" + _hunt.Skill.Aborts + " huntMap=" + (_hunt.Quest.HuntMap ?? "-") + " quest=" + _hunt.Quest.Phased + (er.Returning ? " errand=" + er.Phased : "");
         }
         return s;
     }

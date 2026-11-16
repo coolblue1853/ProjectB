@@ -44,6 +44,7 @@ public sealed class HuntBrain : IBotBrain
     private readonly BotPotion _potion = new BotPotion();
     private readonly BotErrand _errand;
     private readonly BotQuest _quest;
+    private readonly BotSkillInvest _skill = new BotSkillInvest();
     private string[] _questMaps;
     private readonly bool[] _skillOn = new bool[4];
     private readonly float[] _skillFail = new float[4];
@@ -89,6 +90,7 @@ public sealed class HuntBrain : IBotBrain
     public float Range => _range.Range;
     public BotErrand Errand => _errand;
     public BotQuest Quest => _quest;
+    public BotSkillInvest Skill => _skill;
 
     public HuntBrain(IBotNavigator nav)
     {
@@ -111,6 +113,7 @@ public sealed class HuntBrain : IBotBrain
         _lastTarget = ctx.Now;
         _errand.Begin(ctx);
         _quest.Begin(ctx);
+        _skill.Begin(ctx);
         _questMaps = null;
     }
 
@@ -135,6 +138,11 @@ public sealed class HuntBrain : IBotBrain
                 LastNote = it.Note;
                 return it; // 퀘스트 받기·보고 중: 대화창을 직접 연다(CloseUi 가 닫지 않게 먼저)
             }
+        }
+        if (!_errand.Returning && !_quest.Busy && _skill.Run(ctx, NearFoe(o, 3f), ref it))
+        {
+            LastNote = it.Note;
+            return it; // 스킬 투자 중: 스킬창을 직접 연다(CloseUi 가 닫지 않게 먼저)
         }
         if (CloseUi(ctx, ref it))
         {
@@ -482,13 +490,22 @@ public sealed class HuntBrain : IBotBrain
     /// </summary>
     private string[] EffMaps(BotContext ctx)
     {
-        if (ctx.Maps == null || ctx.Maps.Length == 0 || _quest.HuntMap == null)
+        if (ctx.Maps == null || ctx.Maps.Length == 0)
         {
             return ctx.Maps;
         }
-        if (_questMaps == null || _questMaps[0] != _quest.HuntMap)
+        string want = _quest.HuntMap;
+        if (want == null && ctx.LevelMaps)
         {
-            _questMaps = new[] { _quest.HuntMap };
+            want = BotQuestRules.LevelMap(LevelSystem.Level, ctx.Maps); // 퀘스트 목표 맵이 없으면 Lv 에 맞는 사냥터
+        }
+        if (want == null)
+        {
+            return ctx.Maps;
+        }
+        if (_questMaps == null || _questMaps[0] != want)
+        {
+            _questMaps = new[] { want };
         }
         return _questMaps;
     }

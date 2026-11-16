@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>봇이 누를 메뉴 키(진짜 키 입력으로 바뀐다). Inventory = I, Refill = H(상점 물약 충전), Junk = J(잡템 일괄 판매). 숫자 키는 퀵슬롯(아이템 사용)과 겹쳐 쓰지 않는다 — 가방 페이지는 ← 로 칸 왼쪽 끝을 지나 페이지 고르기(boxChange)로 바꾼다</summary>
-public enum BotKey { None, Up, Down, Left, Right, Select, Back, Inventory, Refill, Junk }
+public enum BotKey { None, Up, Down, Left, Right, Select, Back, Inventory, Refill, Junk, SkillWindow, Confirm }
 
 /// <summary>메뉴 상태 읽기값(화면에 보이는 것 = 열린 창·커서). 게임 쪽 읽기는 BotErrand 가 채운다</summary>
 public struct BotMenuView

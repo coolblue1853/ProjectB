@@ -51,6 +51,17 @@ public static class BotQuestRules
         }
     }
 
+    /// <summary>Lv 에 맞는 사냥터(MapReview 권장 Lv: 샛길 1~3·일반 숲 3~6·깊은 숲 6~9 — 경계 Lv 는 한 단계 안전하게 4·7 부터 넘어간다). maps 에 있는 것만. 없으면 null</summary>
+    public static string LevelMap(int level, string[] maps)
+    {
+        string want = level >= 7 ? "Lv1_DeepForest" : level >= 4 ? "Lv1_NormalForest" : "Lv1_NearForest_SideRoad";
+        if (maps == null)
+        {
+            return null;
+        }
+        return System.Array.IndexOf(maps, want) >= 0 ? want : null;
+    }
+
     /// <summary>"a|b" 목록 대상을 배열로</summary>
     public static string[] Split(string target)
     {

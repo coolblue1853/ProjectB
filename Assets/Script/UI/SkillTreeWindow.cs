@@ -24,6 +24,17 @@ public sealed class SkillTreeWindow : MonoBehaviour
     string _notice = "";
     List<SkillNode> _nodes = new List<SkillNode>();
 
+    /// <summary>봇·진단용 읽기: 지금 탭과 커서 줄</summary>
+    public static SkillTab CurrentTab
+    {
+        get { return _instance != null ? _instance._tab : SkillTab.Type; }
+    }
+
+    public static int CursorIndex
+    {
+        get { return _instance != null ? _instance._cursor : 0; }
+    }
+
     public static bool IsOpen
     {
         get { return _instance != null && _instance._open; }

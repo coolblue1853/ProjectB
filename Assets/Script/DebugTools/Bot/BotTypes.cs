@@ -53,6 +53,8 @@ public sealed class BotContext
     public int Kills;
     /// <summary>사냥 순회 맵(비거나 1장이면 맵 이동 없음). HuntBrain 이 왕복한다</summary>
     public string[] Maps;
+    /// <summary>true 면 순회 대신 Lv 에 맞는 사냥터 하나(퀘스트 목표 맵이 없을 때). 맵 목록을 직접 준 실행은 false</summary>
+    public bool LevelMaps;
 }
 
 /// <summary>목표 층(B3 확장 지점): 퀘스트·귀환·판매 같은 상위 목표를 정하고 의도를 낸다. B1 은 HuntBrain 하나</summary>
