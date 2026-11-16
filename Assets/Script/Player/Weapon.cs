@@ -130,8 +130,25 @@ public class Weapon : MonoBehaviour
     [Tooltip("ItemSheet WeaponType 과 같아야 한다. 계열 기믹(WeaponGimmick)은 이 프리팹 루트에 붙인다")]
     [SerializeField] private WeaponKind _kind = WeaponKind.None;
     private WeaponGimmick[] _gimmicks;
-    /// <summary>이 무기의 계열</summary>
-    public WeaponKind Kind => _kind;
+    /// <summary>이 무기의 계열. 구 프리팹은 _kind 가 비어 있어 ItemSheet WeaponType 으로 보충한다(DB 가 안 떴으면 None, 캐시 안 함)</summary>
+    public WeaponKind Kind
+    {
+        get
+        {
+            if (_kind == WeaponKind.None && !_kindResolved)
+            {
+                WeaponKind k = WeaponMasteryService.KindOf(MasteryKey);
+                if (k == WeaponKind.None)
+                {
+                    return k;
+                }
+                _kind = k;
+                _kindResolved = true;
+            }
+            return _kind;
+        }
+    }
+    private bool _kindResolved;
     /// <summary>활 차지 기믹(없으면 null) — AttackManager 가 키 누름·뗌을 넘긴다</summary>
     public ChargeShot Charge { get; private set; }
     /// <summary>지금 이동 속도에 곱할 배율. 평타 후딜 중이면 무기별 배율, 아니면 1</summary>

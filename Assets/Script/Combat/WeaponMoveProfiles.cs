@@ -131,14 +131,13 @@ public static class WeaponMoveProfiles
         return w != null && LocksMove(ActiveProfileOf(w), w.nowConboCount);
     }
 
-    /// <summary>장착 무기 → 활성 프로파일. 프리팹 _kind 가 비면 ItemSheet WeaponType 으로 보충한다(WeaponMasteryService.KindOf)</summary>
+    /// <summary>장착 무기 → 활성 프로파일. Weapon.Kind 가 프리팹 _kind 빈 값을 ItemSheet WeaponType 으로 보충한다</summary>
     public static WeaponMoveProfile ActiveProfileOf(Weapon w)
     {
         if (w == null)
         {
             return null;
         }
-        WeaponKind kind = w.Kind != WeaponKind.None ? w.Kind : WeaponMasteryService.KindOf(w.MasteryKey);
-        return ActiveProfileOf(kind, w.MasteryKey);
+        return ActiveProfileOf(w.Kind, w.MasteryKey); // 구 프리팹 _kind 보충은 Weapon.Kind 가 한다
     }
 }

@@ -275,8 +275,7 @@ public sealed class HuntBrain : IBotBrain
     {
         PlayObservation o = ctx.Obs;
         Weapon w = Weapon.Equipped;
-        // 구 무기 프리팹은 _kind 가 비어 있어 ItemSheet WeaponType 으로 보충한다(WeaponMoveProfiles 와 같은 규칙). 안 읽으면 사거리가 1.3 기본값에 머문다
-        WeaponKind kind = w == null ? WeaponKind.None : (w.Kind != WeaponKind.None ? w.Kind : WeaponMasteryService.KindOf(w.MasteryKey));
+        WeaponKind kind = w == null ? WeaponKind.None : w.Kind; // 구 프리팹 _kind 보충은 Weapon.Kind 가 한다
         if (kind != WeaponKind.None)
         {
             _range.SetKind(kind); // 무기를 바꾸는 순간 None 이 잠깐 보이면 기본 1.3 으로 되돌아가던 것을 막는다(11-15 DeepForest 에서 range 1.3 으로 보인 구간의 유력 원인)
