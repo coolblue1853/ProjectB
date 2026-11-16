@@ -153,4 +153,26 @@ public class ShopRulesTests
         Assert.IsNull(s.Id);
         Assert.AreEqual(2, m.Count);
     }
+
+    [Test]
+    public void RefillDefault_OnlyHpPotions_NotRationsOrScrolls()
+    {
+        Assert.IsTrue(ShopRules.IsRefillDefault("hp +"));            // Small/Medium/Large HP Potion
+        Assert.IsFalse(ShopRules.IsRefillDefault("fullness +"));     // 응급식량
+        Assert.IsFalse(ShopRules.IsRefillDefault("recall +"));       // 귀환 주문서
+        Assert.IsFalse(ShopRules.IsRefillDefault("stemina +"));      // 스태미나 약
+        Assert.IsFalse(ShopRules.IsRefillDefault(null));
+        Assert.IsFalse(ShopRules.IsRefillDefault(""));
+    }
+
+    [Test]
+    public void RefillMessage_ListsRowsTotalAndSkipNote()
+    {
+        string m = ShopRules.RefillMessage(new[] { "A x10 (250G)", "B x5 (150G)" }, 400, 1000, false);
+        StringAssert.Contains("A x10 (250G)", m);
+        StringAssert.Contains("B x5 (150G)", m);
+        StringAssert.Contains("합계 400G (보유 1000G)", m);
+        StringAssert.DoesNotContain("응급식량", m);
+        StringAssert.Contains("응급식량·주문서는 포함하지 않는다", ShopRules.RefillMessage(new[] { "A x1 (1G)" }, 1, 5, true));
+    }
 }

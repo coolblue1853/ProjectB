@@ -368,6 +368,11 @@ public sealed class BotErrand
             Enter(Phase.Close, ctx.Now);
             return;
         }
+        if (ConfirmPopup.IsOpen)
+        {
+            Press(ctx, BotErrandRules.ToConfirmYes(ConfirmPopup.Selected), ref it, 0.4f); // 확인창도 진짜 입력으로(←로 예 → Select)
+            return;
+        }
         if (v.Popup)
         {
             Press(ctx, BotKey.Select, ref it);
@@ -403,6 +408,11 @@ public sealed class BotErrand
         {
             Debug.Log("[PB][Bot] 구매 단계: 상점이 닫혀 있다 state=" + v.State + " npcMenu=" + v.NpcMenuOpen);
             Enter(Phase.Close, ctx.Now);
+            return;
+        }
+        if (ConfirmPopup.IsOpen)
+        {
+            Press(ctx, BotErrandRules.ToConfirmYes(ConfirmPopup.Selected), ref it, 0.4f);
             return;
         }
         if (QuantityPopup.IsOpen && _buyItem != null)

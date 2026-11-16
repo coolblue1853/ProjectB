@@ -72,7 +72,7 @@ public sealed class ShopConvenience : MonoBehaviour
             SetText(null);
             return;
         }
-        bool browse = string.IsNullOrEmpty(_inv.state) || _inv.state == "ShopCusorOn" || _inv.state == "detail";
+        bool browse = !ConfirmPopup.IsBlocking && (string.IsNullOrEmpty(_inv.state) || _inv.state == "ShopCusorOn" || _inv.state == "detail");
         Keyboard kb = Keyboard.current;
         Gamepad pad = Gamepad.current;
         if (browse)
@@ -83,7 +83,7 @@ public sealed class ShopConvenience : MonoBehaviour
             }
             if ((kb != null && kb.hKey.wasPressedThisFrame) || (pad != null && pad.leftTrigger.isPressed && pad.buttonWest.wasPressedThisFrame))
             {
-                RefillQuickSlots();
+                RequestRefill();
             }
         }
         ApplyDim();
@@ -97,61 +97,182 @@ public sealed class ShopConvenience : MonoBehaviour
 
     // ---- 물약 충전 ----------------------------------------------------------------------------------------------
 
-    /// <summary>퀵슬롯의 소비품(이 상점이 파는 것)을 최대 수량까지 채운다. 산 총 개수</summary>
-    public static int RefillQuickSlots()
+    /// <summary>충전 계획 한 줄: 퀵슬롯 칸 하나의 충전 아이템·수량·값</summary>
+    public readonly struct RefillLine
     {
+        public readonly string Id;
+        public readonly string Label;
+        public readonly int Amount;
+        public readonly int UnitPrice;
+        public readonly ItemData Data;
+
+        public RefillLine(string id, string label, int amount, int unitPrice, ItemData data)
+        {
+            Id = id;
+            Label = label;
+            Amount = amount;
+            UnitPrice = unitPrice;
+            Data = data;
+        }
+
+        public int Cost => Amount * UnitPrice;
+    }
+
+    /// <summary>충전 계획과 사유(살 것이 없을 때 안내용). 아무것도 사지 않는다</summary>
+    public sealed class RefillPlan
+    {
+        public readonly System.Collections.Generic.List<RefillLine> Lines = new System.Collections.Generic.List<RefillLine>();
+        public int Candidates;
+        public int Full;
+        public int SkippedOther; // 물약이 아니라 기본 대상에서 뺀 소비품 칸(응급식량·귀환 주문서 등)
+        public ShopRules.BuyBlock LastBlock = ShopRules.BuyBlock.None;
+
+        public int TotalGold
+        {
+            get
+            {
+                int sum = 0;
+                for (int i = 0; i < Lines.Count; i++)
+                {
+                    sum += Lines[i].Cost;
+                }
+                return sum;
+            }
+        }
+    }
+
+    /// <summary>퀵슬롯의 물약(이 상점이 파는 것)을 최대 수량까지 채울 계획. 응급식량·귀환 주문서 같은 비물약은 기본 대상에서 뺀다</summary>
+    public static RefillPlan BuildRefillPlan()
+    {
+        var plan = new RefillPlan();
         InventoryManager inv = InventoryManager.instance;
         QuickSlotModel quick = QuickSlotBar.Model;
         DatabaseManager db = DatabaseManager.instance;
         if (inv == null || quick == null || db == null)
         {
+            return plan;
+        }
+        long money = DatabaseManager.money;
+        for (int slot = 0; slot < QuickSlotModel.SlotCount; slot++)
+        {
+            string id = quick[slot];
+            if (id == null || !ShopStockExtender.Sells(id))
+            {
+                continue;
+            }
+            ItemData data = db.LoadItemData(db.FindItemDataIndex(id));
+            if (data == null || data.type != "Consum")
+            {
+                continue;
+            }
+            if (!ShopRules.IsRefillDefault(data.effectOb))
+            {
+                plan.SkippedOther++;
+                continue;
+            }
+            plan.Candidates++;
+            int price = ShopRules.BuyPrice(data.price);
+            int have = inv.Service.ScanModel().Count(id);
+            int space = ShopManager.BagSpaceFor(id);
+            int target = ShopRules.RefillTarget(data.maxStack);
+            int left = (int)System.Math.Min(int.MaxValue, money);
+            int amount = ShopRules.RefillAmount(have, target, price, left, space);
+            if (amount <= 0)
+            {
+                if (have >= target)
+                {
+                    plan.Full++;
+                }
+                else
+                {
+                    plan.LastBlock = ShopRules.CheckBuy(price, left, space);
+                }
+                continue;
+            }
+            money -= (long)price * amount; // 같은 골드로 여러 칸을 계획하므로 앞 칸이 쓴 만큼 뺀다
+            plan.Lines.Add(new RefillLine(id, data.itemNameT, amount, price, data));
+        }
+        return plan;
+    }
+
+    /// <summary>H / 패드 LT+X: 계획을 세우고 대상·총액 확인창을 띄운다(예 → 충전). 살 것이 없으면 사유만 알린다</summary>
+    public static void RequestRefill()
+    {
+        if (ConfirmPopup.IsOpen)
+        {
+            return;
+        }
+        RefillPlan plan = BuildRefillPlan();
+        if (plan.Lines.Count == 0)
+        {
+            WarnNothingToRefill(plan);
+            return;
+        }
+        ConfirmPopup.Open(new ConfirmRequest
+        {
+            Title = "물약 충전",
+            Message = ShopRules.RefillMessage(DescribeRefill(plan), plan.TotalGold, DatabaseManager.money, plan.SkippedOther > 0),
+            YesLabel = "충전",
+            NoLabel = "취소",
+            OnYes = () => RefillQuickSlots()
+        });
+    }
+
+    private static string[] DescribeRefill(RefillPlan plan)
+    {
+        var rows = new string[plan.Lines.Count];
+        for (int i = 0; i < rows.Length; i++)
+        {
+            RefillLine l = plan.Lines[i];
+            rows[i] = l.Label + " x" + l.Amount + " (" + l.Cost + "G)";
+        }
+        return rows;
+    }
+
+    private static void WarnNothingToRefill(RefillPlan plan)
+    {
+        if (plan.Candidates == 0)
+        {
+            PickupLog.Warn(plan.SkippedOther > 0 ? "퀵슬롯에 충전할 물약이 없다(응급식량·주문서는 직접 구매)" : "퀵슬롯에 이 상점이 파는 소비품이 없다");
+        }
+        else if (plan.Full == plan.Candidates)
+        {
+            PickupLog.Warn("퀵슬롯 물약이 이미 가득하다");
+        }
+        else
+        {
+            PickupLog.Warn(plan.LastBlock == ShopRules.BuyBlock.BagFull ? "가방이 가득 차 충전하지 못했다" : "골드가 모자라 충전하지 못했다");
+        }
+    }
+
+    /// <summary>계획(물약만)대로 충전한다(확인창에서 예를 누른 뒤 부른다). 산 총 개수</summary>
+    public static int RefillQuickSlots()
+    {
+        InventoryManager inv = InventoryManager.instance;
+        if (inv == null)
+        {
             return 0;
         }
-        int candidates = 0, full = 0, totalBought = 0;
-        ShopRules.BuyBlock lastBlock = ShopRules.BuyBlock.None;
+        RefillPlan plan = BuildRefillPlan();
+        int totalBought = 0;
         inv.BeginSaveBatch();
         try
         {
-            for (int slot = 0; slot < QuickSlotModel.SlotCount; slot++)
+            for (int i = 0; i < plan.Lines.Count; i++)
             {
-                string id = quick[slot];
-                if (id == null || !ShopStockExtender.Sells(id))
-                {
-                    continue;
-                }
-                ItemData data = db.LoadItemData(db.FindItemDataIndex(id));
-                if (data == null || data.type != "Consum")
-                {
-                    continue;
-                }
-                candidates++;
-                int price = ShopRules.BuyPrice(data.price);
-                int have = inv.Service.ScanModel().Count(id);
-                int space = ShopManager.BagSpaceFor(id);
-                int amount = ShopRules.RefillAmount(have, ShopRules.RefillTarget(data.maxStack), price, DatabaseManager.money, space);
-                if (amount <= 0)
-                {
-                    if (have >= ShopRules.RefillTarget(data.maxStack))
-                    {
-                        full++;
-                    }
-                    else
-                    {
-                        lastBlock = ShopRules.CheckBuy(price, DatabaseManager.money, space);
-                    }
-                    continue;
-                }
+                RefillLine l = plan.Lines[i];
+                ItemData data = l.Data;
                 data.tear = 0;
                 data.upgrade = 0;
-                if (!inv.Service.Add(id, amount, AddSource.Shop, data))
+                if (!inv.Service.Add(l.Id, l.Amount, AddSource.Shop, data))
                 {
-                    lastBlock = ShopRules.BuyBlock.BagFull;
+                    plan.LastBlock = ShopRules.BuyBlock.BagFull;
                     continue;
                 }
-                DatabaseManager.money -= price * amount;
-                totalBought += amount;
-                PickupLog.Report(data.itemNameT, amount, data.rarity);
-                GameLog.Info(GameLog.Cat.Item, "물약 충전: " + id + " +" + amount + " (-" + price * amount + "G)");
+                DatabaseManager.money -= l.Cost;
+                totalBought += l.Amount;
+                PickupLog.Report(l.Label, l.Amount, data.rarity);
+                GameLog.Info(GameLog.Cat.Item, "물약 충전: " + l.Id + " +" + l.Amount + " (-" + l.Cost + "G)");
             }
             inv.SaveInventory();
         }
@@ -163,17 +284,9 @@ public sealed class ShopConvenience : MonoBehaviour
         {
             Sfx.Play(SfxId.Money);
         }
-        else if (candidates == 0)
-        {
-            PickupLog.Warn("퀵슬롯에 이 상점이 파는 소비품이 없다");
-        }
-        else if (full == candidates)
-        {
-            PickupLog.Warn("퀵슬롯 물약이 이미 가득하다");
-        }
         else
         {
-            PickupLog.Warn(lastBlock == ShopRules.BuyBlock.BagFull ? "가방이 가득 차 충전하지 못했다" : "골드가 모자라 충전하지 못했다");
+            WarnNothingToRefill(plan);
         }
         return totalBought;
     }

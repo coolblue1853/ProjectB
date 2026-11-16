@@ -217,6 +217,16 @@ public static class BotErrandRules
         return d > 0 ? BotKey.Up : BotKey.Down;
     }
 
+    /// <summary>확인창(ConfirmPopup, 0=예 1=아니오 -1=닫힘)에서 "예"로 가는 키 한 번: 예에 있으면 Select, 아니오에 있으면 Left. 기본 선택이 아니오라 Select 만 누르면 취소가 된다(H 충전 확인창)</summary>
+    public static BotKey ToConfirmYes(int selected)
+    {
+        if (selected < 0)
+        {
+            return BotKey.None;
+        }
+        return selected == 0 ? BotKey.Select : BotKey.Left;
+    }
+
     /// <summary>상점 진열 격자에서 현재 칸(line,col) → 목표 칸까지 키 한 번(같으면 Select)</summary>
     public static BotKey ToStockCell(int line, int col, int tline, int tcol)
     {

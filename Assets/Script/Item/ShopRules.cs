@@ -57,6 +57,28 @@ public static class ShopRules
         return Math.Max(1, maxStack);
     }
 
+    /// <summary>H 충전의 기본 대상인가: HP 를 채우는 물약만(응급식량·귀환 주문서·스태미나 약은 제외). 판별은 쿨다운 그룹과 같은 effectOb 기준</summary>
+    public static bool IsRefillDefault(string effectOb)
+    {
+        return ConsumeCooldown.GroupOf(effectOb) == ConsumeCooldown.PotionGroup;
+    }
+
+    /// <summary>충전 확인창 본문: 대상별 줄 + 총액 + 보유 골드. otherSkipped 이면 물약이 아닌 칸을 뺐다고 알린다</summary>
+    public static string RefillMessage(string[] rows, int totalGold, int money, bool otherSkipped)
+    {
+        var sb = new System.Text.StringBuilder();
+        for (int i = 0; i < rows.Length; i++)
+        {
+            sb.Append(rows[i]).Append('\n');
+        }
+        sb.Append("합계 ").Append(totalGold).Append("G (보유 ").Append(money).Append("G)");
+        if (otherSkipped)
+        {
+            sb.Append("\n응급식량·주문서는 포함하지 않는다");
+        }
+        return sb.ToString();
+    }
+
     public static bool FilterMatches(SellFilter filter, string type)
     {
         switch (filter)

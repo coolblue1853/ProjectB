@@ -164,4 +164,12 @@ public class PlayBotErrandTests
         Assert.AreEqual(BotKey.Left, BotErrandRules.ToStockCell(0, 3, 0, 1));
         Assert.AreEqual(BotKey.Select, BotErrandRules.ToStockCell(0, 2, 0, 2));
     }
+
+    [Test]
+    public void ToConfirmYes_LeftFromNoThenSelect()
+    {
+        Assert.AreEqual(BotKey.Left, BotErrandRules.ToConfirmYes(1));
+        Assert.AreEqual(BotKey.Select, BotErrandRules.ToConfirmYes(0));
+        Assert.AreEqual(BotKey.None, BotErrandRules.ToConfirmYes(-1));
+    }
 }
