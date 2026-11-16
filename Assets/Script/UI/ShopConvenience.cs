@@ -210,10 +210,10 @@ public sealed class ShopConvenience : MonoBehaviour
         }
         ConfirmPopup.Open(new ConfirmRequest
         {
-            Title = "물약 충전",
+            Title = Loc.T("Refill potions"),
             Message = ShopRules.RefillMessage(DescribeRefill(plan), plan.TotalGold, DatabaseManager.money, plan.SkippedOther > 0),
-            YesLabel = "충전",
-            NoLabel = "취소",
+            YesLabel = Loc.T("Refill"),
+            NoLabel = Loc.T("Cancel"),
             OnYes = () => RefillQuickSlots()
         });
     }
@@ -233,15 +233,15 @@ public sealed class ShopConvenience : MonoBehaviour
     {
         if (plan.Candidates == 0)
         {
-            PickupLog.Warn(plan.SkippedOther > 0 ? "퀵슬롯에 충전할 물약이 없다(응급식량·주문서는 직접 구매)" : "퀵슬롯에 이 상점이 파는 소비품이 없다");
+            PickupLog.Warn(Loc.T(plan.SkippedOther > 0 ? "No potions to refill in quick slots (buy emergency food and scrolls yourself)" : "No quick-slot item is sold at this shop"));
         }
         else if (plan.Full == plan.Candidates)
         {
-            PickupLog.Warn("퀵슬롯 물약이 이미 가득하다");
+            PickupLog.Warn(Loc.T("Quick-slot potions are already full"));
         }
         else
         {
-            PickupLog.Warn(plan.LastBlock == ShopRules.BuyBlock.BagFull ? "가방이 가득 차 충전하지 못했다" : "골드가 모자라 충전하지 못했다");
+            PickupLog.Warn(Loc.T(plan.LastBlock == ShopRules.BuyBlock.BagFull ? "Bag is full: could not refill" : "Not enough gold: could not refill"));
         }
     }
 
@@ -389,8 +389,8 @@ public sealed class ShopConvenience : MonoBehaviour
         _shownCount = count;
         _shownGold = gold;
         _shownFilter = s_filter;
-        string line1 = "<color=#A0A0A0>판매 필터 </color><color=#FFD480>[" + ShopRules.FilterLabel(s_filter) + "]</color>"
-            + "<color=#A0A0A0>  O 바꾸기</color>" + System.Environment.NewLine + "<color=#A0A0A0>H 퀵슬롯 물약 충전  ·  [ ] 되사기 고르기</color>";
+        string line1 = "<color=#A0A0A0>" + Loc.T("Sell filter ") + "</color><color=#FFD480>[" + ShopRules.FilterLabel(s_filter) + "]</color>"
+            + "<color=#A0A0A0>  " + Loc.T("O: change") + "</color>" + System.Environment.NewLine + "<color=#A0A0A0>" + Loc.T("H: refill quick-slot potions  |  [ ]: pick buyback") + "</color>";
         SetText(item != null && item.itemData != null ? line1 + "\n" + SalePreview(item) : line1);
     }
 
@@ -400,18 +400,18 @@ public sealed class ShopConvenience : MonoBehaviour
         string name = TooltipBuilder.Name(d.itemNameT, d.rarity, d.upgrade);
         if (d.isLocked)
         {
-            return name + " <color=#FF8060>잠금 - 판매할 수 없다 (L 해제)</color>";
+            return name + " <color=#FF8060>" + Loc.T("Locked - cannot sell (L to unlock)") + "</color>";
         }
         if (!ItemTradeRules.CanSell(item.name))
         {
-            return name + " <color=#FF8060>판매할 수 없는 물건</color>";
+            return name + " <color=#FF8060>" + Loc.T("Cannot be sold") + "</color>";
         }
         if (!ShopRules.FilterMatches(s_filter, d.type))
         {
-            return name + " <color=#808080>필터(" + ShopRules.FilterLabel(s_filter) + ") 밖 - 판매 안 됨</color>";
+            return name + " <color=#808080>" + Loc.F("Outside filter ({0}) - will not sell", ShopRules.FilterLabel(s_filter)) + "</color>";
         }
         long total = ShopRules.SaleTotal(d.price, item.nowStack);
-        return name + " <color=#FFE08A>개당 " + d.price.ToString("N0") + "G  x" + item.nowStack + " = " + total.ToString("N0") + "G</color>";
+        return name + " <color=#FFE08A>" + Loc.F("{0}G each  x{1} = {2}G", d.price.ToString("N0"), item.nowStack, total.ToString("N0")) + "</color>";
     }
 
     private void SetText(string text)

@@ -9343,6 +9343,178 @@ MonoBehaviour:
         \uC218 \uC5C6\uB2E4."
       Flags: 0000
       Languages_Touch: []
+    - Term: Refill potions
+      TermType: 0
+      Description: 
+      Languages:
+      - Refill potions
+      - "\uBB3C\uC57D \uCDA9\uC804"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Refill
+      TermType: 0
+      Description: 
+      Languages:
+      - Refill
+      - "\uCDA9\uC804"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cancel
+      TermType: 0
+      Description: 
+      Languages:
+      - Cancel
+      - "\uCDE8\uC18C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: No potions to refill in quick slots (buy emergency food and scrolls yourself)
+      TermType: 0
+      Description: 
+      Languages:
+      - No potions to refill in quick slots (buy emergency food and scrolls yourself)
+      - "\uD035\uC2AC\uB86F\uC5D0 \uCDA9\uC804\uD560 \uBB3C\uC57D\uC774 \uC5C6\uB2E4(\uC751\uAE09\uC2DD\uB7C9\xB7\uC8FC\uBB38\uC11C\uB294
+        \uC9C1\uC811 \uAD6C\uB9E4)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: No quick-slot item is sold at this shop
+      TermType: 0
+      Description: 
+      Languages:
+      - No quick-slot item is sold at this shop
+      - "\uD035\uC2AC\uB86F\uC5D0 \uC774 \uC0C1\uC810\uC774 \uD30C\uB294 \uC18C\uBE44\uD488\uC774
+        \uC5C6\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Quick-slot potions are already full
+      TermType: 0
+      Description: 
+      Languages:
+      - Quick-slot potions are already full
+      - "\uD035\uC2AC\uB86F \uBB3C\uC57D\uC774 \uC774\uBBF8 \uAC00\uB4DD\uD558\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Bag is full: could not refill'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Bag is full: could not refill'
+      - "\uAC00\uBC29\uC774 \uAC00\uB4DD \uCC28 \uCDA9\uC804\uD558\uC9C0 \uBABB\uD588\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Not enough gold: could not refill'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Not enough gold: could not refill'
+      - "\uACE8\uB4DC\uAC00 \uBAA8\uC790\uB77C \uCDA9\uC804\uD558\uC9C0 \uBABB\uD588\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Sell filter
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Sell filter '
+      - "\uD310\uB9E4 \uD544\uD130 "
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'O: change'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'O: change'
+      - "O \uBC14\uAFB8\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'H: refill quick-slot potions : pick buyback'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'H: refill quick-slot potions  |  [ ]: pick buyback'
+      - "H \uD035\uC2AC\uB86F \uBB3C\uC57D \uCDA9\uC804  \xB7  [ ] \uB418\uC0AC\uAE30
+        \uACE0\uB974\uAE30"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Locked - cannot sell (L to unlock)
+      TermType: 0
+      Description: 
+      Languages:
+      - Locked - cannot sell (L to unlock)
+      - "\uC7A0\uAE08 - \uD310\uB9E4\uD560 \uC218 \uC5C6\uB2E4 (L \uD574\uC81C)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cannot be sold
+      TermType: 0
+      Description: 
+      Languages:
+      - Cannot be sold
+      - "\uD310\uB9E4\uD560 \uC218 \uC5C6\uB294 \uBB3C\uAC74"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Outside filter ({0}) - will not sell
+      TermType: 0
+      Description: 
+      Languages:
+      - Outside filter ({0}) - will not sell
+      - "\uD544\uD130({0}) \uBC16 - \uD310\uB9E4 \uC548 \uB428"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: '{0}G each x{1} = {2}G'
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}G each  x{1} = {2}G'
+      - "\uAC1C\uB2F9 {0}G  x{1} = {2}G"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Total {0}G (owned {1}G)
+      TermType: 0
+      Description: 
+      Languages:
+      - Total {0}G (owned {1}G)
+      - "\uD569\uACC4 {0}G (\uBCF4\uC720 {1}G)"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Emergency food and scrolls are not included
+      TermType: 0
+      Description: 
+      Languages:
+      - Emergency food and scrolls are not included
+      - "\uC751\uAE09\uC2DD\uB7C9\xB7\uC8FC\uBB38\uC11C\uB294 \uD3EC\uD568\uD558\uC9C0
+        \uC54A\uB294\uB2E4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gear
+      TermType: 0
+      Description: 
+      Languages:
+      - Gear
+      - "\uC7A5\uBE44"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Consumables
+      TermType: 0
+      Description: 
+      Languages:
+      - Consumables
+      - "\uC18C\uBE44"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Other
+      TermType: 0
+      Description: 
+      Languages:
+      - Other
+      - "\uAE30\uD0C0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: All
+      TermType: 0
+      Description: 
+      Languages:
+      - All
+      - "\uC804\uCCB4"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

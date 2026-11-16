@@ -71,10 +71,10 @@ public static class ShopRules
         {
             sb.Append(rows[i]).Append('\n');
         }
-        sb.Append("합계 ").Append(totalGold).Append("G (보유 ").Append(money).Append("G)");
+        sb.Append(Loc.F("Total {0}G (owned {1}G)", totalGold, money));
         if (otherSkipped)
         {
-            sb.Append("\n응급식량·주문서는 포함하지 않는다");
+            sb.Append('\n').Append(Loc.T("Emergency food and scrolls are not included"));
         }
         return sb.ToString();
     }
@@ -99,10 +99,10 @@ public static class ShopRules
     {
         switch (f)
         {
-            case SellFilter.Equip: return "장비";
-            case SellFilter.Consum: return "소비";
-            case SellFilter.Misc: return "기타";
-            default: return "전체";
+            case SellFilter.Equip: return Loc.T("Gear");
+            case SellFilter.Consum: return Loc.T("Consumables");
+            case SellFilter.Misc: return Loc.T("Other");
+            default: return Loc.T("All");
         }
     }
 

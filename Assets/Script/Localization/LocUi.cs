@@ -173,6 +173,16 @@ public static class LocUi
         ("Drink a stamina potion at or below this % (select to change)", "이 % 이하에서 스태미나 물약 사용 (선택하면 변경)"),
         ("New equipment slot unlocked: ", "새 장비 슬롯 해금: "), ("Trial readiness", "시험 준비도"), ("Other side", "건너편"),
         ("Nest raid wave {0}/{1}", "둥지 습격 {0}/{1}차례"), ("Monsters left: {0} - defeat them all", "남은 몬스터 {0}마리 - 모두 쓰러뜨려라"),
+        // ── 상점 편의(H 물약 충전·판매 필터) ──
+        ("Refill potions", "물약 충전"), ("Refill", "충전"), ("Cancel", "취소"),
+        ("No potions to refill in quick slots (buy emergency food and scrolls yourself)", "퀵슬롯에 충전할 물약이 없다(응급식량·주문서는 직접 구매)"),
+        ("No quick-slot item is sold at this shop", "퀵슬롯에 이 상점이 파는 소비품이 없다"), ("Quick-slot potions are already full", "퀵슬롯 물약이 이미 가득하다"),
+        ("Bag is full: could not refill", "가방이 가득 차 충전하지 못했다"), ("Not enough gold: could not refill", "골드가 모자라 충전하지 못했다"),
+        ("Sell filter ", "판매 필터 "), ("O: change", "O 바꾸기"), ("H: refill quick-slot potions  |  [ ]: pick buyback", "H 퀵슬롯 물약 충전  ·  [ ] 되사기 고르기"),
+        ("Locked - cannot sell (L to unlock)", "잠금 - 판매할 수 없다 (L 해제)"), ("Cannot be sold", "판매할 수 없는 물건"),
+        ("Outside filter ({0}) - will not sell", "필터({0}) 밖 - 판매 안 됨"), ("{0}G each  x{1} = {2}G", "개당 {0}G  x{1} = {2}G"),
+        ("Total {0}G (owned {1}G)", "합계 {0}G (보유 {1}G)"), ("Emergency food and scrolls are not included", "응급식량·주문서는 포함하지 않는다"),
+        ("Gear", "장비"), ("Consumables", "소비"), ("Other", "기타"), ("All", "전체"),
         ("Defeat the nest's elite", "둥지의 정예를 쓰러뜨려라"), ("Defeat it for a chest reward", "처치하면 상자 보상"), ("Survived!", "버텼다!"), ("Plunder! x{0}", "약탈! x{0}"), ("Bestiary reward - ", "도감 보상 - "),
     };
 }
