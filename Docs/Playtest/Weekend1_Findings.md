@@ -10,9 +10,9 @@
 2. [x] (e42c75923) 가방이 가득 차면 드롭 줍기가 안내 없이 거절된다(사람은 왜 안 주워지는지 모름). 메이플식 "가방이 가득 찼습니다" 안내 필요.
 3. [x] (7fb5d5803, 실플레이 재현 안 됨·규칙 통합) 가방 열린 채 숫자 1~5 가 가방 페이지 넘기기와 퀵슬롯 사용을 동시에 한다.
 4. [x] (f40a8451d) 상점 H(소비품 충전)가 물약뿐 아니라 응급식량·귀환 주문서까지 전부 채워 한 번에 약 2만 골드를 쓴다. 충전 대상·금액 확인창 필요.
-5. 옛 무기 프리팹의 `Weapon._kind` 가 비어 있다(봇은 `WeaponMasteryService.KindOf` 로 보충). 교체 순간 None 으로 보이는 경우도 있음 → 프리팹 값을 채우거나 런타임 보충을 게임 쪽에 둔다.
-6. 콘솔 error: EditMode 뒤 "Destroy may not be called from edit mode"(BurnStack 정리), Floor2Data 헤더 열 순서 error. 원인 미확인.
-7. (미검증) 폐기 장비를 낀 옛 세이브 로드 → 가방 반환/골드 환산 경로를 플레이로 확인 못 함.
+5. [x] (c1fb27590) 옛 무기 프리팹의 `Weapon._kind` 가 비어 있다(봇은 `WeaponMasteryService.KindOf` 로 보충). 교체 순간 None 으로 보이는 경우도 있음 → 프리팹 값을 채우거나 런타임 보충을 게임 쪽에 둔다. 처리: 프리팹 53개 중 45개 비어 있었고(전부 ItemSheet WeaponType 있음) `Weapon.Kind` 가 `WeaponMasteryService.KindOf` 로 보충(DB 미로드면 None·캐시 안 함). 플레이로 PhantomScythe=Scythe 확인. 호출부 보충 코드 정리.
+6. [x] (aed570f3e) 콘솔 error: EditMode 뒤 "Destroy may not be called from edit mode"(BurnStack 정리), Floor2Data 헤더 열 순서 error. 원인: Destroy = DotEffectBase 가 EditMode 에서 Destroy 호출(isPlaying 분기로 해결), 헤더 error = Floor2DataTests 가 일부러 넣은 b,a 머리글(실데이터 헤더는 일치, 시험은 logReject=false). EditMode 1421 통과·콘솔 error 0.
+7. [x] 폐기 장비를 낀 옛 세이브 로드 → 플레이 프로브로 확인(코드 수정 없음): 가방 여유 시 가방 반환·칸 비움, 가방 가득이면 판매값/2 골드(Ring 250, HighArmor 2500, 추가슬롯 Shoes 150). 무기 칸이 비면 기본 무기 자동 장착(EnsureDefaultWeapon). 세이브 원복 md5 일치. 상점 H 문구 LocUi 이동은 588fd656e.
 
 ## 튜닝 (사용자 확인 후 CSV 반영)
 8. `BotBalance_1116.md` 수정안: RatChief_BD contactDamage 19→15, StoneRabbit_BD 21→17, CreepingTerror_BD 21→16(표본 1), ForestSnail_BD maxHP 130→100, LeftMole_BD maxHP 24→18.
