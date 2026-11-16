@@ -51,6 +51,9 @@ fi
 if [ -n "${PREP_RECALL:-}" ]; then # 시험 준비: PREP_RECALL=<개수> — 귀환 주문서를 가방에 넣고 퀵슬롯 3번에 등록(귀환 주문서 실사용 확인)
   echo "귀환 주문서 준비: $(probe bot_prep_recall "s/__N__/${PREP_RECALL}/g")"
 fi
+if [ -n "${PREP_NOQUEST:-}" ]; then # 시험 준비: PREP_NOQUEST=1 — 진행 중 퀘스트 비움(퀘스트 받기 경로 시험)
+  echo "퀘스트 비움: $(probe bot_prep_noquest)"
+fi
 r=$(probe bot_start "s/__MIN__/$((MIN + 1))/; s/__GOAL__/$GOAL/; s/__MAPS__/$MAPS/")
 echo "시작: $r"
 case "$r" in *start=True*) ;; *) echo "봇 시작 실패"; exit 1 ;; esac

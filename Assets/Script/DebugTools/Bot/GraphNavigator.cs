@@ -221,6 +221,8 @@ public sealed class GraphNavigator : IBotNavigator
             _g = null;
         }
         _banUntil.Clear();
+        _repeatCount.Clear();
+        _repeatAt.Clear();
         Reset();
         _watch.Reset(ctx.Now);
     }
@@ -299,6 +301,11 @@ public sealed class GraphNavigator : IBotNavigator
                 intent.MoveX = 0;
             }
             return Watch(ctx, Mathf.Abs(tx - o.X), ref intent); // 경로가 바뀌면 Plan 이 다른 tx 를 준다 — 거리만 본다
+        }
+        if (RepeatBan(ctx.Now, _path[0]))
+        {
+            _path = null; // 같은 간선만 계속 반복 — 잠시 금지하고 다른 길을 찾는다
+            return true;
         }
         _edge = _path[0];
         _edgeFrom = cur;
@@ -538,6 +545,32 @@ public sealed class GraphNavigator : IBotNavigator
         }
         intent.MoveY = !o.Grounded ? Tap(t, 0.2f) * dirY : 0;
     }
+
+    public const int RepeatLimit = 5;
+    public const float RepeatWindow = 30f;
+    public const float RepeatBanSeconds = 15f;
+    private readonly Dictionary<int, int> _repeatCount = new Dictionary<int, int>();
+    private readonly Dictionary<int, float> _repeatAt = new Dictionary<int, float>();
+
+    /// <summary>같은 간선을 30초 안에 5번째 시작하면 15초 금지(SideRoad 로프0 위·아래 점프·낙하 반복, 11-16)</summary>
+    private bool RepeatBan(float now, int edge)
+    {
+        _repeatCount.TryGetValue(edge, out int n);
+        _repeatAt.TryGetValue(edge, out float at);
+        n = now - at > RepeatWindow ? 1 : n + 1;
+        _repeatAt[edge] = now;
+        if (n < RepeatLimit)
+        {
+            _repeatCount[edge] = n;
+            return false;
+        }
+        _repeatCount[edge] = 0;
+        _banUntil[edge] = now + RepeatBanSeconds;
+        EdgeRepeatBans++;
+        return true;
+    }
+
+    public int EdgeRepeatBans { get; private set; }
 
     private bool Finish(BotContext ctx, bool ok)
     {

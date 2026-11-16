@@ -294,7 +294,9 @@ public sealed class HuntBrain : IBotBrain
         {
             TrySkill(ctx, ref it);
         }
-        if (Mathf.Abs(f.Dx) <= range && Mathf.Abs(f.Dy) <= AttackDy)
+        // 공중에서 다른 발판의 몹: 공격 분기가 이동을 끊어 점프가 제자리로 떨어진다(SideRoad x≈-386 계단) → 착지 전엔 접근을 이어 간다
+        bool airOtherFloor = !o.Grounded && Mathf.Abs(f.Dy) > 0.5f;
+        if (Mathf.Abs(f.Dx) <= range && Mathf.Abs(f.Dy) <= AttackDy && !airOtherFloor)
         {
             it.MoveX = o.Face != side ? side : 0; // 반대를 보고 있으면 한 걸음 돌아선다
             it.Attack = true;
