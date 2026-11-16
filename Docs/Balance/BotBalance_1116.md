@@ -139,3 +139,19 @@
 | 5 | 8행 LeftMole_BD `maxHP` | 24→18 | 메이플 Lv2 대비 3.0배▲, 처치 3.5s/2타(n14). FlowerMole(6행, 4.0s)도 같은 경향이나 20이라 이번엔 제외 |
 - 보류: Rabbit·FlowerMole·RatThief HP 2.5배▲ 는 Lv5 봇이 1타에 잡을 만큼 쉽다 — 저레벨 첫 판 체감은 사람 기록으로 재확인 후.
 - 다음 봇 회차(예산 내): DeepForest 밤(Ghost count ×0.6·PhantomScythe 1%)·Forest Road 낮(StoneRabbit EXP14) 방문 맵으로 `bot_run.sh 12 hunt <맵>` 2회, Lv 7·3 시작.
+
+## 2회차 (11-16, 봇 3회: Ghost 밤 2 + SideRoad 낮 1, 세이브 원복 md5 일치 3회)
+기록: `Logs/playrec_bot/20261116_123001`(Ghost 밤 Lv7, 순환 맵 켠 채 → DeepForest 84초뿐, 처치 19)·`20261116_124315`(Ghost 밤 Lv7, 이동 없음 `-`)·`20261116_125626`(SideRoad 낮 Lv5). `playrec_balance.py` 합산.
+
+| 항목 | 11-15 사람 | 2회차 봇 | 비고 |
+|---|---|---|---|
+| DeepForest 밤 처치/분 | 73.1 | 3.4~6.9 (n8) | 봇 Lv7 사망 1·12분 중 DeepForest 체류 1.2분(나머지 마을 귀환) |
+| DeepForest 밤 EXP/분 | 1327 | 98~198 | 6.7배 이상 하락(표본 n8, 저신뢰) |
+| Ghost EXP/처치 | 16(CSV) | 22.3 (일반 7) | CSV 대비 ×1.39(밤 ×1.12 로 설명 안 됨, 레벨 보정 확인 필요) |
+| Ghost 피격/처치·피해/처치 | - | 1.38·25.5 | 받은피해 331~480/분, SideRoad 낮 18/분의 18배 이상 |
+| SideRoad 낮 | - | 처치 403, 32.6/분, EXP 182/분, 피해 18/분 | 1회차 낮(152) 대비 EXP +20% |
+- 판정: Ghost 밤 배율 하락은 확인(8배 문제 해소 방향). 단 count ×0.6 효과와 봇 한계를 분리 못 함(n8). 처치당 피해 25.5 는 전 몹 최고권 — 낮 SideRoad 대비 위험 과다.
+- StoneRabbit: 봇이 SideRoad 12분 동안 한 번도 못 만남(처치 0, 풀 생성 로그만 12). EXP14·처치시간 **미확인**. 시작 맵 Lv1_NearForest 에서도 같은 슬롯(Rabbit2_2)이라 다음 회차는 해당 슬롯 근처로 이동 필요.
+- 같은 몹 낮/밤 비교: 불가(낮 Rabbit, 밤 Ghost·RatThief 로 종 불일치). 1회차 RatThief(밤 HP 28 관측) 만 유효.
+- 수정안: `MonsterSheet.csv` 22행 Ghost_BD `contactDamage`(15열) 18→14. 근거: 처치당 피해 25.5·밤 ×1.3 효과 18→23. StoneRabbit 21→17 안(2번)은 미관측이라 유지·보류. (CSV 미수정)
+- 도구 메모: `bot_run.sh` 4번째 인자 `-` 없으면 순환 맵으로 떠남(첫 Ghost 실행 낭비).
