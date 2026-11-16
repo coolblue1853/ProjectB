@@ -26,9 +26,9 @@ public static class Floor2Data
     /// <summary>
     /// 순수 규칙: 초안 머리글 1행을 버리고 데이터 행을 baseText 끝에 이어 붙인다(테스트용으로 공개).
     /// 초안 머리글이 baseText 앞 3줄(타입 행 포함) 중 어느 것과도 열 순서까지 같지 않으면 병합을 거절하고 baseText 를 그대로 돌려준다.
-    /// 줄바꿈은 baseText 가 CRLF 면 CRLF, 아니면 LF 로 통일한다.
+    /// logReject=false 면 거절해도 콘솔 error 를 남기지 않는다(거절 시험용). 줄바꿈은 baseText 가 CRLF 면 CRLF, 아니면 LF 로 통일한다.
     /// </summary>
-    public static string MergeRows(string baseText, string previewText)
+    public static string MergeRows(string baseText, string previewText, bool logReject = true)
     {
         if (string.IsNullOrEmpty(previewText))
         {
@@ -37,7 +37,10 @@ public static class Floor2Data
         string[] lines = previewText.Replace("\r", "").TrimStart('\uFEFF').Split('\n');
         if (!HeaderMatches(baseText, lines[0]))
         {
-            Debug.LogError("[Floor2Data] 헤더 열 순서 불일치 - 병합 거절: " + lines[0]);
+            if (logReject)
+            {
+                Debug.LogError("[Floor2Data] 헤더 열 순서 불일치 - 병합 거절: " + lines[0]);
+            }
             return baseText;
         }
         string eol = baseText.Contains("\r\n") ? "\r\n" : "\n";

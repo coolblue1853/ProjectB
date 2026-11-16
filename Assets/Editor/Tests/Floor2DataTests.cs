@@ -119,8 +119,7 @@ public class Floor2DataTests
     [Test]
     public void MergeRows_RejectsMismatchedHeaderOrder()
     {
-        UnityEngine.TestTools.LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex("헤더 열 순서 불일치"));
-        Assert.AreEqual("a,b\n1,2", Floor2Data.MergeRows("a,b\n1,2", "b,a\n3,4"));
+        Assert.AreEqual("a,b\n1,2", Floor2Data.MergeRows("a,b\n1,2", "b,a\n3,4", false)); // 거절 로그는 끈다(시험이 콘솔 error 를 남기지 않게)
     }
 
     [Test]

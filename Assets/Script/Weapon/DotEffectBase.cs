@@ -19,7 +19,7 @@ public abstract class DotEffectBase : MonoBehaviour
     {
         if (!isActiveAndEnabled)
         {
-            Destroy(gameObject); // 비활성 계층에서는 코루틴을 시작할 수 없다
+            DestroySelf(); // 비활성 계층에서는 코루틴을 시작할 수 없다
             return;
         }
         if (routine != null)
@@ -63,7 +63,16 @@ public abstract class DotEffectBase : MonoBehaviour
         }
         ended = true;
         OnEnd();
-        Destroy(gameObject);
+        DestroySelf();
+    }
+
+    /// <summary>EditMode 테스트에서는 Destroy 가 오류를 내므로 지우지 않는다(테스트가 부모를 DestroyImmediate 로 정리)</summary>
+    private void DestroySelf()
+    {
+        if (Application.isPlaying)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnDisable()
