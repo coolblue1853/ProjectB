@@ -17,7 +17,7 @@
 ## 튜닝 (사용자 확인 후 CSV 반영)
 8. `BotBalance_1116.md` 수정안: RatChief_BD contactDamage 19→15, StoneRabbit_BD 21→17, CreepingTerror_BD 21→16(표본 1), ForestSnail_BD maxHP 130→100, LeftMole_BD maxHP 24→18.
 9. 밤 배율은 방향만 확인(같은 맵 받은피해/분 1.75배). 같은 몹 낮/밤 1.3배 실측은 아직(낮 Rabbit·밤 RatThief 로 몹이 달랐다).
-10. Ghost count×0.6·StoneRabbit EXP14 실측 → 11-16 2회차 봇 실행 중(`BotBalance_1116.md` 2회차 절).
+10. Ghost 밤 EXP/분 1327→98~198 로 내려옴(n=8 저신뢰, dda411c32). Ghost EXP/처치 22.3 = CSV 16×1.39 로 밤 배율만으로 설명 안 됨(원인 미확인). 수정안 Ghost_BD contactDamage 18→14 는 "밤 몹은 더 세야" 요구와 충돌하므로 보류 권장. StoneRabbit 은 봇이 못 만나 미관측.
 11. NormalForest 분당 EXP 가 봇 기준 사람의 0.4~0.5배. 동선 차이인지 밸런스인지 미판정.
 
 ## 그래픽
