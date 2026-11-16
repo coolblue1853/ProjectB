@@ -155,3 +155,6 @@
 - 같은 몹 낮/밤 비교: 불가(낮 Rabbit, 밤 Ghost·RatThief 로 종 불일치). 1회차 RatThief(밤 HP 28 관측) 만 유효.
 - 수정안: `MonsterSheet.csv` 22행 Ghost_BD `contactDamage`(15열) 18→14. 근거: 처치당 피해 25.5·밤 ×1.3 효과 18→23. StoneRabbit 21→17 안(2번)은 미관측이라 유지·보류. (CSV 미수정)
 - 도구 메모: `bot_run.sh` 4번째 인자 `-` 없으면 순환 맵으로 떠남(첫 Ghost 실행 낭비).
+
+## 반영 (11-16)
+- 사용자 승인으로 MonsterSheet.csv 반영: RatChief_BD·StoneRabbit_BD·CreepingTerror_BD contactDamage 19→15·21→17·21→16, ForestSnail_BD·LeftMole_BD maxHP 130→100·24→18. 봇 재측정은 아직.
