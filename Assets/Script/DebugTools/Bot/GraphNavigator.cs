@@ -549,6 +549,10 @@ public sealed class GraphNavigator : IBotNavigator
             }
             return;
         }
+        if (_ropeCounted && RopeArrived(o.Terrain.FeetY, targetY, dirY))
+        {
+            return; // 로프 위 끝을 벗어난 뒤: 목표 발판 높이 근처면 점프·↑ 없이 그냥 내려앉는다(Grounded 가 잠깐 참이라 다시 뛰어 로프 끝~최고점을 오가던 막힘, 11-16 SideRoad 로프0)
+        }
         if (Mathf.Abs(o.X - e.lx) > 0.25f && o.Grounded)
         {
             intent.MoveX = e.lx > o.X ? 1 : -1;
@@ -565,6 +569,12 @@ public sealed class GraphNavigator : IBotNavigator
             intent.JumpHold = 0.3f;
         }
         intent.MoveY = !o.Grounded ? Tap(t, 0.2f) * dirY : 0;
+    }
+
+    /// <summary>로프를 탄 뒤 로프에서 벗어났고, 발이 목표 발판 높이(위로 가면 0.6 아래까지, 아래로 가면 0.6 위까지)에 닿았다</summary>
+    public static bool RopeArrived(float feetY, float targetY, int dirY)
+    {
+        return dirY > 0 ? feetY >= targetY - 0.6f : feetY <= targetY + 0.6f;
     }
 
     public const int RepeatLimit = 5;

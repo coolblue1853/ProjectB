@@ -404,4 +404,14 @@ public class PlayBotNavTests
         Assert.AreEqual(1, HuntBrain.NextIndex(3, 0, true, ref dir));
         Assert.AreEqual(0, HuntBrain.NextIndex(3, 2, false, ref dir), "목록 밖이면 첫 맵");
     }
+
+    [Test]
+    public void RopeArrived_발판높이_근처면_내려앉기()
+    {
+        Assert.IsTrue(GraphNavigator.RopeArrived(7.6f, 6.4f, 1));
+        Assert.IsTrue(GraphNavigator.RopeArrived(5.9f, 6.4f, 1));
+        Assert.IsFalse(GraphNavigator.RopeArrived(5.0f, 6.4f, 1));
+        Assert.IsTrue(GraphNavigator.RopeArrived(0.0f, 0.4f, -1));
+        Assert.IsFalse(GraphNavigator.RopeArrived(3.0f, 0.4f, -1));
+    }
 }

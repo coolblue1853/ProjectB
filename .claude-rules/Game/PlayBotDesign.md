@@ -355,3 +355,9 @@ python Tools/playrec_summary.py Logs/playrec/<세션>.jsonl [출력.md] [--frame
 - **집계**: `python -X utf8 Tools/playrec_stuck_tk.py <jsonl...> --edges [--sec 5]` — 막힘 경고 직전 구간에서 가장 오래 따라간 간선·Focus 분류별 건수.
 - **구덩이 반복 원인·수정**: 구덩이 너머는 바닥이 없어 `Terrain.DropF = -1` 인데 Wander 의 돌아서기 조건이 `DropF > 2` 뿐이었다. `DropF < 0` 도 돌아서게 고침(`HuntBrain.Wander`).
 - **검증**: 밤 15분 161911 — `낙사 복귀` 0회(수정 전 143651 에서 424회), 처치 224(14.6/분)·사망 0, 막힘 25. 막힘 직전 간선: rope 13·walk 11·jump 1(walk/드롭 Focus 9). 막힘 전부 SideRoad x≈-378~-399. 낮 15분 163816 — 처치 457·사망 0·막힘 9(walk 4·rope 3·wander 1·jump 1, Focus 전부 몹)·낙사 복귀 0. EditMode 1421 통과·콘솔 error 0. 한계: 밤 실행은 몹이 남아 Wander 비중이 작아 구덩이 상황을 충분히 만들지 못했다(재현 조건 미확인).
+
+### 15.6 로프 막힘 원인 확정·수정 (11-16)
+- **원인**: tk 기록(세션 161911 t≈206)에서 로프 위 끝을 벗어난 순간 `Grounded` 가 잠깐 참이라 `RopeStep` 의 "로프 밑이 머리보다 높다 → 점프" 가 발동 → 로프 끝(피벗 y≈8.5)에서 수직 점프(최고점 11.2) → 떨어지며 ↑ 톡으로 로프 재잡기 → 반복. 발판(seg 25, 발 6.4)은 로프 끝(7.65) 아래라 가만히 있으면 내려앉는다. 로프 끝에서 점프 입력 발생 24건(밤)·38건(낮) 확인. 이전 규칙(RopeLoose·발판 높이 하차)은 로프 위에서만 동작해 이 지점을 못 건드렸다.
+- **수정**: `GraphNavigator.RopeStep` — 로프를 탄 뒤(`_ropeCounted`) 로프를 벗어났고 발이 목표 발판 높이(`RopeArrived`, ±0.6)면 점프·↑ 없이 둔다. 순수 `RopeArrived` EditMode 테스트 추가.
+- **전→후(15분)**: 밤 161911→165926 막힘 25→11(rope 13→1, walk 11→7), 처치 224→317. 낮 163816→171529 막힘 9→1(walk 1), 처치 457→579. 사망 0·세이브 md5 일치·EditMode 1422 통과·콘솔 error 0.
+- **남은 walk 막힘**: 밤 7건(Focus 몹 5) — 미조사.
