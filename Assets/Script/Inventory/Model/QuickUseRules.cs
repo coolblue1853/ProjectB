@@ -99,4 +99,10 @@ public static class QuickUseRules
             y = 0f;
         }
     }
+
+    /// <summary>숫자 키 퀵슬롯 사용 허용(주말1 버그 3). 가방(또는 어떤 UI 창)이 열려 있거나 수량 창·확인창이 떠 있으면 숫자 키는 그 창의 것(가방 페이지 1~5)이라 퀵슬롯을 쓰지 않는다 — 메이플 관례</summary>
+    public static bool CanUseByKey(bool inventoryOpen, bool uiLocked, bool modalOpen)
+    {
+        return !inventoryOpen && !uiLocked && !modalOpen;
+    }
 }

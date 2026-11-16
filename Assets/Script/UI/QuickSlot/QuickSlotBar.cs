@@ -170,7 +170,7 @@ public class QuickSlotBar : MonoBehaviour
             }
             return;
         }
-        if (!DatabaseManager.isOpenUI)
+        if (QuickUseRules.CanUseByKey(false, DatabaseManager.isOpenUI, ConfirmPopup.IsBlocking || QuantityPopup.IsBlocking))
         {
             Use(slot);
         }

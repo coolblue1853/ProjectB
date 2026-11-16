@@ -70,4 +70,13 @@ public class QuickUseRulesTests
         Assert.IsFalse(QuickUseRules.ShouldUnequipWorn(true, true, 1, false, true, ""));
         Assert.IsFalse(QuickUseRules.ShouldUnequipWorn(true, true, 1, false, false, "divide"));
     }
+
+    [Test]
+    public void CanUseByKey_BlockedWhileAnyWindowOpen()
+    {
+        Assert.IsTrue(QuickUseRules.CanUseByKey(false, false, false));
+        Assert.IsFalse(QuickUseRules.CanUseByKey(true, false, false));  // 가방: 숫자 = 페이지
+        Assert.IsFalse(QuickUseRules.CanUseByKey(false, true, false));  // 다른 UI 창
+        Assert.IsFalse(QuickUseRules.CanUseByKey(false, false, true));  // 수량·확인창
+    }
 }
