@@ -312,6 +312,64 @@ public class PlayBotTests
     }
 
     [Test]
+    public void NavWatch_ClimbingStairsIsNotStuck()
+    {
+        // 계단 점프: 바닥이 0.26 → 1.26 → 2.26 으로 올라가는 중(점프 꼭대기 오르내림 포함), x 는 제자리 근처
+        BotNavWatch w = new BotNavWatch();
+        w.Reset(0f);
+        for (int i = 1; i <= 120; i++)
+        {
+            float t = i * 0.1f;
+            float floor = 0.26f + (int)((t + 2f) / 4f);
+            float y = floor + (i % 10 == 0 ? 2.5f : 0f);
+            Assert.AreEqual(BotNavWatch.Verdict.None, w.Check(t, 40f, -386f, y, true), "t=" + t);
+        }
+    }
+
+    [Test]
+    public void NavWatch_JumpingInPlaceIsStillStuck()
+    {
+        // 같은 높이 제자리 점프(바닥 안 올라감)는 점프 간선 수행 중이어도 막힘
+        BotNavWatch w = new BotNavWatch();
+        w.Reset(0f);
+        BotNavWatch.Verdict v = BotNavWatch.Verdict.None;
+        for (int i = 1; i <= 100 && v != BotNavWatch.Verdict.Stuck; i++)
+        {
+            float y = 1.26f + (i % 10 < 3 ? 2.5f : 0f);
+            v = w.Check(i * 0.1f, 40f, -386f, y, true);
+        }
+        Assert.AreEqual(BotNavWatch.Verdict.Stuck, v);
+    }
+
+    [Test]
+    public void NavWatch_FlatStandingIsStuckEvenIfClimbing()
+    {
+        BotNavWatch w = new BotNavWatch();
+        w.Reset(0f);
+        BotNavWatch.Verdict v = BotNavWatch.Verdict.None;
+        for (int i = 1; i <= 100 && v != BotNavWatch.Verdict.Stuck; i++)
+        {
+            v = w.Check(i * 0.1f, 40f, 5f, 2.26f, true);
+        }
+        Assert.AreEqual(BotNavWatch.Verdict.Stuck, v);
+    }
+
+    [Test]
+    public void NavWatch_ClimbRise_PureFunction()
+    {
+        System.Collections.Generic.List<float> ts = new System.Collections.Generic.List<float>();
+        System.Collections.Generic.List<float> ys = new System.Collections.Generic.List<float>();
+        for (int i = 0; i <= 40; i++)
+        {
+            ts.Add(i * 0.1f);
+            ys.Add(i < 20 ? 0.26f : 1.26f);
+        }
+        Assert.AreEqual(1f, BotNavWatch.ClimbRise(ts, ys, 4f), 0.001f);
+        Assert.AreEqual(0f, BotNavWatch.ClimbRise(ts, ys, 1f), 0.001f, "기록이 짧으면 0");
+        Assert.AreEqual(0f, BotNavWatch.ClimbRise(new System.Collections.Generic.List<float>(), new System.Collections.Generic.List<float>(), 9f));
+    }
+
+    [Test]
     public void Stall_FiresAfterSecondsAndClears()
     {
         BotStall s = new BotStall();

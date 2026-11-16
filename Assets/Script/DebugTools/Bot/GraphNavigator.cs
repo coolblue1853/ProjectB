@@ -15,10 +15,16 @@ public sealed class BotNavWatch
     /// <summary>제자리가 아니라 이만큼 움직였으면 걷고 있는 것 — 거리 지표(목표가 바뀌거나 지나쳐도 늘어남)가 안 줄어도 막힘으로 보지 않는다</summary>
     public const float MoveProgress = 1.5f;
 
+    public const float ClimbWindow = 5f;
+    public const float ClimbMinSpan = 2.5f;
+    public const float ClimbRiseMin = 0.5f;
+
     private float _last;
     private float _best = float.MaxValue;
     private int _reroutes;
     private float _anchorX = float.NaN;
+    private readonly List<float> _ts = new List<float>();
+    private readonly List<float> _ys = new List<float>();
 
     public void Reset(float now)
     {
@@ -51,6 +57,52 @@ public sealed class BotNavWatch
             return Verdict.None;
         }
         return Check(now, metric);
+    }
+
+    /// <summary>
+    /// 점프·로프 간선을 해내는 중이면 위로 오르는 것도 진척(11-16 SideRoad 계단: 한 칸 올라가는 데 4~7초, 3초 순이동이 1.5 미만이라 막힘 오탐 5건).
+    /// y 는 최근 5초만 쌓고, 바닥 높이(가장 낮은 y)가 처음보다 ClimbRiseMin 올랐을 때만 진척으로 본다 — 제자리 점프(오르내림)는 바닥이 안 올라 막힘 그대로.
+    /// </summary>
+    public Verdict Check(float now, float metric, float x, float y, bool climbing)
+    {
+        _ts.Add(now);
+        _ys.Add(y);
+        while (_ts.Count > 0 && now - _ts[0] > ClimbWindow)
+        {
+            _ts.RemoveAt(0);
+            _ys.RemoveAt(0);
+        }
+        if (climbing && ClimbRise(_ts, _ys, now) >= ClimbRiseMin)
+        {
+            _anchorX = x;
+            _best = metric;
+            _last = now;
+            return Verdict.None;
+        }
+        return Check(now, metric, x);
+    }
+
+    /// <summary>순수: 가장 오래된 샘플 1초 안의 최저 y 와 최근 1초 안의 최저 y 의 차. 기록이 ClimbMinSpan 보다 짧으면 0</summary>
+    public static float ClimbRise(List<float> ts, List<float> ys, float now)
+    {
+        if (ts.Count < 2 || now - ts[0] < ClimbMinSpan)
+        {
+            return 0f;
+        }
+        float oldFloor = float.MaxValue;
+        float newFloor = float.MaxValue;
+        for (int i = 0; i < ts.Count; i++)
+        {
+            if (ts[i] - ts[0] <= 1f && ys[i] < oldFloor)
+            {
+                oldFloor = ys[i];
+            }
+            if (now - ts[i] <= 1f && ys[i] < newFloor)
+            {
+                newFloor = ys[i];
+            }
+        }
+        return newFloor - oldFloor;
     }
 
     public Verdict Check(float now, float metric)
@@ -102,6 +154,7 @@ public sealed class GraphNavigator : IBotNavigator
     private int _pathFrom = -1, _pathGoal = -1;
     private float _planAt = -10f;
     private int _edge = -1;
+    private float _climbEdgeAt = -100f;
     private int _edgeFrom = -1;
     private float _edgeStart;
     private int _tick;
@@ -260,6 +313,11 @@ public sealed class GraphNavigator : IBotNavigator
         _preciseAt = ctx.Now;
         if (_edge >= 0 && ContinueEdge(ctx, ref intent))
         {
+            int ek = _g.edges[_edge].kind;
+            if (ek == BotNavGraph.KindJump || ek == BotNavGraph.KindJumpHigh || ek == BotNavGraph.KindRope)
+            {
+                _climbEdgeAt = ctx.Now; // 점프·로프 간선 수행 중 — 막힘 감시가 위쪽 진척을 본다
+            }
             _watch.Progress(ctx.Now); // 간선은 제 시간 제한(Finish 실패 → 간선 빼고 다른 길)이 있다. 로프를 오르는 중 거리 지표로 끊지 않는다
             return true;
         }
@@ -626,7 +684,7 @@ public sealed class GraphNavigator : IBotNavigator
             _watch.Progress(ctx.Now); // 공격·스킬 이동 잠금 중에는 못 움직이는 게 정상
             return true;
         }
-        BotNavWatch.Verdict v = _watch.Check(ctx.Now, metric, ctx.Obs.X);
+        BotNavWatch.Verdict v = _watch.Check(ctx.Now, metric, ctx.Obs.X, ctx.Obs.Y, ctx.Now - _climbEdgeAt <= BotNavWatch.ClimbWindow);
         if (v == BotNavWatch.Verdict.None)
         {
             return true;
