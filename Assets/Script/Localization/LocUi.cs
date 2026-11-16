@@ -24,7 +24,7 @@ public static class LocUi
         ("{0} mastery Lv {1} {2} ({3}/{4})", "{0} 숙련 Lv{1} {2} ({3}/{4})"), ("{0} mastery Lv {1} {2} (MAX)", "{0} 숙련 Lv{1} {2} (최대)"),
         ("{0} mastery Lv {1}! Skill point +1", "{0} 숙련 Lv{1}! 스킬 포인트 +1"),
         ("Next unlock: {0} (Lv {1})", "다음 해금: {0} (Lv {1})"), ("Weapon mastery Lv {0}!", "무기 숙련 Lv {0}!"), ("Skill unlocked: {0}", "스킬 해금: {0}"),
-        ("Inventory Full", "인벤토리 가득 참"), ("Not enough gold", "골드 부족"),
+        ("Inventory Full", "가방이 가득 찼습니다"), ("Not enough gold", "골드 부족"),
         ("Only consumables go in quick slots", "퀵슬롯에는 소비 아이템만 넣을 수 있다"),
         ("DAY/NIGHT", "낮/밤"), ("CYCLE", "순환"), ("ALWAYS DAY", "낮 고정"),
         ("PICKUP", "줍기"),("ALL", "전부"), ("SKIP COMMON MAT.", "일반 재료 제외"),
