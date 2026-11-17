@@ -766,3 +766,8 @@
 ## 11-15 의상 셀 연결 (builder)
 - Q-OUTFIT1 의상 아이템 → 셀 묶음: 장비 칸 5(의상)의 `ScareArmor`=허수아비, `LeafArmor`=나뭇잎(Nature's Reward), `WispArmor`=도깨비불(Night Lantern), `WolfArmor`=늑대(Pack Hunter), `RatArmor`=쥐(기본 4종만, 공격은 코트). 표는 코드 `OutfitCels.ByItem`. 2층계 `FaeArmor`(Will-o'-Fae)는 도깨비불 계열처럼 보이지만 연결 안 함. 임시 가정: 이대로.
 - Q-OUTFIT2 점프 8칸 → 코트 7자리: 의상마다 공중 칸이 달라 그림 바닥선으로 나눴다(`Tools/pixelfx/outfit_cel_import.py` JUMP 표, 웅크림 1·공중 3·착지 3, 남는 칸 버림·모자라면 반복). 3타 회복 1칸(`ds_stabend_0`·`ds_downend_0`)은 의상 그림이 없어 찌르기·내려베기 마지막 칸으로 대신. 임시 가정: 사용자 판정 때 조정.
+
+## 11-17 Q106 쥐 두목 정예 확인 (builder)
+- 결론: 게임 버그 아님. 봇 기록에서 Q106 은 `qacc`→`qdone` 으로 완료(173003 세션 t=207→622초, 180753 세션도 보고 단계 도달). 정예 쥐 두목 처치는 `KillElite` 메시지로 `Progress2` 에 정상 집계(EditMode `NpcQuestExtraObjectiveTests` 통과 구조와 일치). 이전 봇 보고 "비정예 두목을 안 세서 Active"는 봇이 killElite 를 목표로 사냥하지 않던 탓.
+- 관찰: `MonsterSheet` trait `elite` 는 프로필(`HuntingSpawnsFloor1.csv` Rabbit2_2 12.5%, RatCheif 20%)로 입힌 개체만 항상 정예다. 밤 스포너가 프리팹 RatChief_BD 를 그대로 쓰는 개체는 `EnemyHealth.Awake` 가 trait 를 보지 않아 정예 4% 확률뿐(봇 처치 EXP 12, el 0 / 정예 EXP 40). 정예 쥐 두목은 낮 SideRoad 에서 2마리/주기 나온다(두 세션 정예 처치 8회).
+- 임시 가정: 그대로 둔다(밤 쥐 두목 10마리가 전부 정예가 되면 난이도 급등). 퀘스트 설명에 "쥐 두목(정예)은 낮 샛길에서 나온다" 한 줄 추가를 추천. 확인 필요: 밤 쥐 두목을 정예로 통일할지(코드 `EnemyHealth.Awake` 에 AlwaysElite 설정 한 줄) 또는 설명만 고칠지.
