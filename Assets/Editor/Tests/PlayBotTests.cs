@@ -232,6 +232,17 @@ public class PlayBotTests
 
     }
 
+    [Test]
+    public void Choose_SkipsProps()
+    {
+        var p = new BotProfile();
+        PlayObsEnemies.Foe tree = F(1, 0.2f, 0f, 100);
+        tree.Prop = true; // 나무·바위 같은 파괴 오브젝트는 목표가 아니다(11-17 봇이 나무를 몹처럼 침)
+        PlayObsEnemies e = Foes(tree, F(2, 3f, 0f, 100));
+        Assert.AreEqual(1, HuntBrain.Choose(e, 0.3, p));
+        Assert.AreEqual(-1, HuntBrain.Choose(Foes(tree), 0.3, p));
+    }
+
     // ───── 재생·기록 폴더 ─────
 
     [Test]

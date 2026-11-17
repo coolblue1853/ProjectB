@@ -29,6 +29,8 @@ public sealed class PlayObsEnemies
         public int State;
         public bool Hitbox;
         public int Sig;
+        /// <summary>MonsterSheet 에 없는 파괴 오브젝트(나무·바위·채집 풀). 몹이 아니다 — 봇은 목표·위협으로 세지 않는다</summary>
+        public bool Prop;
     }
 
     public struct Proj
@@ -54,6 +56,7 @@ public sealed class PlayObsEnemies
     private readonly HashSet<int> _hitboxOwners = new HashSet<int>();
     private readonly Dictionary<int, Mem> _mem = new Dictionary<int, Mem>();
     private readonly List<int> _forget = new List<int>();
+    private readonly Dictionary<string, bool> _propByName = new Dictionary<string, bool>();
     private float _nextForget;
 
     public void Clear()
@@ -144,7 +147,19 @@ public sealed class PlayObsEnemies
         f.Sig = (e.ObsHasAttackAnim ? SigAnim : 0) | (dash != null ? SigDash : 0) | (shooter != null ? SigShoot : 0);
         bool ownHitbox = _hitboxOwners.Contains(RuntimeHelpers.GetHashCode(e.gameObject));
         f.Hitbox = ownHitbox || (dash != null && dash.IsDashing);
+        f.Prop = IsProp(e.name);
         f.State = StateOf(e, m, dash, shooter, f.Hitbox);
+    }
+
+    /// <summary>MonsterSheet 행이 없는 이름은 파괴 오브젝트다(이름별 캐시 — 틱마다 문자열을 만들지 않는다)</summary>
+    private bool IsProp(string name)
+    {
+        if (!_propByName.TryGetValue(name, out bool prop))
+        {
+            prop = MonsterTable.Get(name) == null;
+            _propByName[name] = prop;
+        }
+        return prop;
     }
 
     private static int StateOf(EnemyHealth e, Mem m, TempMobDash dash, TempMobShooter shooter, bool hitbox)

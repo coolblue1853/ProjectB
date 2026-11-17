@@ -189,12 +189,19 @@ public sealed class BotPotion
     public const float Cooldown = 1.5f;
     public const float BadSeconds = 30f;
     public const float FallbackPct = 50f;
+    /// <summary>급격한 피해: 최근 약 2초 안 최고 HP 에서 이만큼(최대 HP %) 깎이고 HP 가 BurstMaxPct 아래면 임계와 무관하게 마신다(몹 6마리가 겹쳐 초당 40씩 깎여 임계 50% 에서 마시면 늦던 DeepForest 사망, 11-17)</summary>
+    public const float BurstDropPct = 30f;
+    public const float BurstMaxPct = 75f;
+    public const float BurstBucket = 1f;
 
     private float _threshold = -1f;
     private float _last = -100f;
     private int _lastSlot;
     private int _hpAtUse;
     private readonly float[] _badUntil = new float[4];
+    private float _bucketAt = -100f;
+    private int _bucketMax;
+    private int _prevMax;
 
     public int Uses { get; private set; }
 
@@ -212,6 +219,24 @@ public sealed class BotPotion
         return n.Contains("hp") || n.Contains("potion") || n.Contains("herbal");
     }
 
+    /// <summary>최근 1~2초(1초 칸 두 개) 최고 HP 에서 BurstDropPct% 넘게 깎이고 HP 가 BurstMaxPct% 아래인가. 매 호출마다 칸을 갱신한다</summary>
+    private bool Burst(int hp, int hpMax, float now)
+    {
+        if (now - _bucketAt >= BurstBucket || now < _bucketAt)
+        {
+            _prevMax = _bucketMax;
+            _bucketMax = hp;
+            _bucketAt = now;
+        }
+        _bucketMax = Mathf.Max(_bucketMax, hp);
+        if (hpMax <= 0 || hp <= 0)
+        {
+            return false;
+        }
+        int recent = Mathf.Max(_bucketMax, _prevMax);
+        return (recent - hp) * 100f / hpMax >= BurstDropPct && hp * 100f / hpMax < BurstMaxPct;
+    }
+
     /// <summary>누를 퀵슬롯 1~4(없으면 0). slots = 칸별 아이템 이름</summary>
     public int Decide(int hp, int hpMax, float now, string[] slots, BotProfile p, System.Random rng)
     {
@@ -224,6 +249,7 @@ public sealed class BotPotion
         {
             _lastSlot = 0;
         }
+        bool burst = Burst(hp, hpMax, now);
         if (hpMax <= 0 || hp <= 0 || now - _last < Cooldown)
         {
             return 0;
@@ -232,7 +258,7 @@ public sealed class BotPotion
         {
             _threshold = Mathf.Clamp(p.Sample("potion.hpPct", rng, FallbackPct), 30f, 85f);
         }
-        if (hp * 100f / hpMax >= _threshold)
+        if (hp * 100f / hpMax >= _threshold && !burst)
         {
             return 0;
         }

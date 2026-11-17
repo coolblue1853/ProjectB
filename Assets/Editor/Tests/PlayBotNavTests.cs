@@ -359,6 +359,22 @@ public class PlayBotNavTests
     }
 
     [Test]
+    public void Potion_BurstDrinksAboveThreshold_SlowDropDoesNot()
+    {
+        BotProfile p = new BotProfile();
+        p.dists.Add(new BotProfile.Dist { key = "potion.hpPct", n = 50, p10 = 40f, p25 = 40f, p50 = 40f, p75 = 40f, p90 = 40f });
+        string[] slots = { "Small HP Potion", null, null, null };
+        BotPotion slow = new BotPotion();
+        System.Random rng = new System.Random(3);
+        Assert.AreEqual(0, slow.Decide(100, 100, 0f, slots, p, rng));
+        Assert.AreEqual(0, slow.Decide(85, 100, 1.2f, slots, p, rng));
+        Assert.AreEqual(0, slow.Decide(70, 100, 2.4f, slots, p, rng), "천천히 깎이면 임계(40%) 전까지 안 마신다");
+        BotPotion fast = new BotPotion();
+        Assert.AreEqual(0, fast.Decide(100, 100, 0f, slots, p, rng));
+        Assert.AreEqual(1, fast.Decide(60, 100, 0.8f, slots, p, rng), "0.8초에 40% 깎임 = 급격한 피해");
+    }
+
+    [Test]
     public void Potion_UsesHpSlotBelowThreshold_SkipsDeadSlot()
     {
         BotProfile p = new BotProfile();

@@ -36,6 +36,8 @@ public sealed class HuntBrain : IBotBrain
     /// <summary>드롭 쪽 이동에 길이 없는 상태가 이만큼 이어지면 그 드롭을 무시한다(제자리에 서서 기다리지 않는다)</summary>
     public const float DropNoPathSeconds = 1.5f;
     public const float DropSameRadius = 1.5f;
+    /// <summary>세로로 이만큼 넘게 떨어진 드롭은 닿지 않는다(월드 밖으로 떨어지는 드롭을 쫓다 몹 속에서 죽던 DeepForest x≈-219 사망, 11-17)</summary>
+    public const float DropMaxDy = 12f;
 
     private readonly IBotNavigator _nav;
     private readonly DirectNavigator _wanderNav = new DirectNavigator(); // 돌아다님은 가짜 목표로 길찾기 상태를 흐리지 않게 따로
@@ -232,7 +234,7 @@ public sealed class HuntBrain : IBotBrain
     private bool DropOk(BotContext ctx)
     {
         PlayObservation o = ctx.Obs;
-        if (!o.Drop.Found || Mathf.Abs(o.Drop.Dx) >= DropRange || ctx.Now < _dropBlockUntil)
+        if (!o.Drop.Found || Mathf.Abs(o.Drop.Dx) >= DropRange || Mathf.Abs(o.Drop.Dy) > DropMaxDy || ctx.Now < _dropBlockUntil)
         {
             _dropNearSince = -1f;
             _chaseSince = -1f;
@@ -751,7 +753,7 @@ public sealed class HuntBrain : IBotBrain
 
     private static bool Alive(PlayObsEnemies.Foe f)
     {
-        return f.State != 5 && f.HpPercent > 0;
+        return f.State != 5 && f.HpPercent > 0 && !f.Prop; // 나무·바위 같은 파괴 오브젝트는 몹이 아니다(목표·근접 위협에서 뺀다)
     }
 
     private static bool Usable(PlayObsEnemies.Foe f, HashSet<int> ignore)
