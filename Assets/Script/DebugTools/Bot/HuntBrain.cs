@@ -69,6 +69,18 @@ public sealed class HuntBrain : IBotBrain
     private string _mapName;
     private float _mapSince;
     private float _lastTarget;
+    private Vector2 _lastFightPos;
+    private bool _hasFightPos;
+    private string _fightMap;
+    private float _homeBlockedUntil;
+    private bool _homing;
+    private float _targetSeen;
+    private float _seekBlockedUntil;
+    private const float SeekAfter = 10f;
+    private const float SeekArrive = 5f;
+    private const float HomeStart = 6f;
+    private const float HomeArrive = 2f;
+    private const float HomeAfter = 6f; // 적이 안 보인 지 이만큼 지나면 마지막으로 싸운 자리로 돌아간다(몹 없는 구덩이·막다른 길에서 못 나오던 막힘, 11-17)
     private int _circIdx;
     private int _circDir = 1;
     private float _travelBlockedUntil;
@@ -110,6 +122,11 @@ public sealed class HuntBrain : IBotBrain
         _progress.Reset(ctx.Now, ctx.Obs.X);
         _killsSeen = ctx.Kills;
         _mapName = null;
+        _hasFightPos = false;
+        _homing = false;
+        _homeBlockedUntil = 0f;
+        _seekBlockedUntil = 0f;
+        _targetSeen = ctx.Now;
         _lastTarget = ctx.Now;
         _errand.Begin(ctx);
         _quest.Begin(ctx);
@@ -174,6 +191,10 @@ public sealed class HuntBrain : IBotBrain
         {
             return it;
         }
+        if (SeekQuestMob(ctx, ref it))
+        {
+            return it;
+        }
         int idx = FindTarget(ctx);
         if (idx < 0)
         {
@@ -184,6 +205,12 @@ public sealed class HuntBrain : IBotBrain
             return Wander(ctx, ref it);
         }
         _lastTarget = ctx.Now;
+        if (o.Grounded && !o.OnRope)
+        {
+            _lastFightPos = new Vector2(o.X, o.Y); // 땅에 서서 싸운 자리만(공중·로프 위 좌표는 길찾기 목표로 못 쓴다)
+            _hasFightPos = true;
+            _fightMap = _mapName;
+        }
         PlayObsEnemies.Foe f = o.Foes.Foes[idx];
         TrackProgress(ctx, f);
         if (NoProgress)
@@ -411,6 +438,7 @@ public sealed class HuntBrain : IBotBrain
         }
         _mapName = map;
         _mapSince = ctx.Now;
+        _targetSeen = ctx.Now;
         _lastTarget = ctx.Now;
         _travelBlockedUntil = 0f;
         _travelSince = -1f;
@@ -772,9 +800,65 @@ public sealed class HuntBrain : IBotBrain
         return second;
     }
 
+    /// <summary>
+    /// 따라가는 처치 퀘스트의 목표 몹이 한동안 안 보이면 그 몹이 나오는 스포너 자리로 간다(11-17: 이끼껍질 딱정벌레 스포너가 안쪽 구덩이에 있어
+    /// 토끼·쥐만 잡다 퀘스트가 안 끝났다). 가까이 적이 있으면 싸우고, 길이 없으면 10초 쉰다.
+    /// </summary>
+    private bool SeekQuestMob(BotContext ctx, ref BotIntent it)
+    {
+        PlayObservation o = ctx.Obs;
+        if (!_quest.HasHuntTargets)
+        {
+            return false;
+        }
+        if (AnyTarget(o.Foes))
+        {
+            _targetSeen = ctx.Now;
+            return false;
+        }
+        if (ctx.Now - _targetSeen < SeekAfter || ctx.Now < _seekBlockedUntil || NearFoe(o, 3f) || !_quest.TryFindSpawn(new Vector2(o.X, o.Y), out Vector2 sp))
+        {
+            return false;
+        }
+        if (Mathf.Abs(sp.x - o.X) + Mathf.Abs(sp.y - o.Y) < SeekArrive)
+        {
+            return false; // 도착했는데도 안 보이면(리스폰 대기) 근처에서 평소대로
+        }
+        it.Focus = BotIntent.FocusWander;
+        it.Note = "seek";
+        if (_nav.Steer(ctx, sp.x - o.X, sp.y - o.Y, ref it))
+        {
+            LastNote = it.Note;
+            return true;
+        }
+        _seekBlockedUntil = ctx.Now + 10f;
+        return false;
+    }
+
     private BotIntent Wander(BotContext ctx, ref BotIntent it)
     {
         PlayObservation o = ctx.Obs;
+        float homeDist = _hasFightPos && _fightMap == _mapName ? Mathf.Abs(_lastFightPos.x - o.X) + Mathf.Abs(_lastFightPos.y - o.Y) : 0f;
+        if (_homing && homeDist < HomeArrive)
+        {
+            _homing = false; // 도착(들어가는 6 과 나오는 2 를 달리해 경계에서 떨지 않는다)
+        }
+        else if (!_homing && ctx.Now > _homeBlockedUntil && ctx.Now - _lastTarget > HomeAfter && homeDist > HomeStart)
+        {
+            _homing = true;
+        }
+        if (_homing && ctx.Now > _homeBlockedUntil)
+        {
+            it.Focus = BotIntent.FocusWander;
+            it.Note = "home";
+            if (_nav.Steer(ctx, _lastFightPos.x - o.X, _lastFightPos.y - o.Y, ref it))
+            {
+                LastNote = it.Note;
+                return it;
+            }
+            _homing = false;
+            _homeBlockedUntil = ctx.Now + 10f; // 길이 없으면 10초 쉬고 다시 시도(NoPath 막힘 기록이 쌓이지 않게)
+        }
         float edge = _wanderDir > 0 ? o.Terrain.EdgeR : o.Terrain.EdgeL;
         // DropF -1 = 끝 너머에 바닥이 없는 구덩이(SideRoad x≈-437, 밤 몹 없을 때 낙사 복귀 반복). 닿는 낮은 단(0~2)만 내려간다
         bool pit = o.Terrain.DropF > 2f || o.Terrain.DropF < 0f;

@@ -15,6 +15,9 @@ public struct BotQuestInfo
     /// <summary>처치형: 목표 몹이 나오는 맵(모르면 null)</summary>
     public string HuntMap;
     public bool Tracked;
+    /// <summary>처치형 첫 목표 진행·필요량(모르면 0/0 = 미완료로 본다)</summary>
+    public int Have;
+    public int Need;
 }
 
 public enum BotQuestJobKind { None, Report, Accept }
@@ -166,10 +169,31 @@ public static class BotQuestRules
         return new BotQuestJob { Kind = kind, QuestId = d.Id, Npc = npc, Map = NpcMap(npc) };
     }
 
-    /// <summary>사냥 방향: 진행 중(완료 전) 처치 퀘스트 중 추적 중인 것 → 표 순서. 없으면 -1</summary>
-    public static int PickHunt(IList<BotQuestInfo> q)
+    /// <summary>밤에만 나오는 처치 목표 몹(낮에는 사냥 방향에서 뒤로 민다)</summary>
+    public static bool NightOnly(string[] targets)
+    {
+        if (targets == null || targets.Length == 0)
+        {
+            return false;
+        }
+        for (int i = 0; i < targets.Length; i++)
+        {
+            if (targets[i] != "Scarecrow_BD")
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// 사냥 방향: 진행 중(완료 전) 처치 퀘스트 한 건. 첫 목표가 아직 안 찬 것(+4) > 지금 시간대에 나오는 것(+2) > 추적 중(+1), 같으면 표 순서. 없으면 -1.
+    /// 첫 목표가 찼는데 정예(killElite) 같은 둘째 목표가 남은 퀘스트는 뒤로 밀려, 그 때문에 다른 퀘스트를 못 하는 일이 없다(11-17: Q106 쥐 두목 정예 때문에 Q104·Q105 를 못 했다).
+    /// </summary>
+    public static int PickHunt(IList<BotQuestInfo> q, bool night = true)
     {
         int best = -1;
+        int bestScore = -1;
         for (int i = 0; i < q.Count; i++)
         {
             BotQuestInfo d = q[i];
@@ -177,8 +201,10 @@ public static class BotQuestRules
             {
                 continue;
             }
-            if (best < 0 || (d.Tracked && !q[best].Tracked))
+            int score = (d.Need > 0 && d.Have >= d.Need ? 0 : 4) + (night || !NightOnly(d.Targets) ? 2 : 0) + (d.Tracked ? 1 : 0);
+            if (score > bestScore)
             {
+                bestScore = score;
                 best = i;
             }
         }

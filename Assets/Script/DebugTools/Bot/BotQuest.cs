@@ -25,6 +25,14 @@ public sealed class BotQuest
     private readonly Dictionary<string, int> _fails = new Dictionary<string, int>();
     private readonly Dictionary<string, float> _blockedQuests = new Dictionary<string, float>();
     private HashSet<string> _huntTargets;
+    private readonly List<SpawnPt> _spawns = new List<SpawnPt>();
+
+    private struct SpawnPt
+    {
+        public string Map;
+        public HashSet<string> Mobs;
+        public Vector2 Pos;
+    }
     private BotQuestJob _job;
     private Phase _phase;
     private float _phaseSince;
@@ -99,12 +107,42 @@ public sealed class BotQuest
 
     public bool HasHuntTargets => _huntTargets != null;
 
+    /// <summary>지금 맵에서 목표 몹이 나오는 스포너 중 from 에서 가장 가까운 자리(없으면 false). 목표 몹이 안 보일 때 그리로 찾아간다</summary>
+    public bool TryFindSpawn(Vector2 from, out Vector2 pos)
+    {
+        pos = default(Vector2);
+        if (_huntTargets == null)
+        {
+            return false;
+        }
+        string map = BgmDirector.CurrentMap;
+        float best = float.MaxValue;
+        bool found = false;
+        for (int i = 0; i < _spawns.Count; i++)
+        {
+            SpawnPt s = _spawns[i];
+            if (s.Map != map || !_huntTargets.Overlaps(s.Mobs))
+            {
+                continue;
+            }
+            float d = Mathf.Abs(s.Pos.x - from.x) + Mathf.Abs(s.Pos.y - from.y);
+            if (d < best)
+            {
+                best = d;
+                pos = s.Pos;
+                found = true;
+            }
+        }
+        return found;
+    }
+
     // ───── 읽기 ─────
 
     private void Scan()
     {
         _scanned = true;
         _mapMobs.Clear();
+        _spawns.Clear();
         MapInfo[] maps = Object.FindObjectsByType<MapInfo>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         for (int i = 0; i < maps.Length; i++)
         {
@@ -112,7 +150,10 @@ public sealed class BotQuest
             EnemySpawner[] sp = maps[i].GetComponentsInChildren<EnemySpawner>(true);
             for (int s = 0; s < sp.Length; s++)
             {
-                AddSpawner(set, maps[i].name, sp[s]);
+                var one = new HashSet<string>();
+                AddSpawner(one, maps[i].name, sp[s]);
+                set.UnionWith(one);
+                _spawns.Add(new SpawnPt { Map = maps[i].name, Mobs = one, Pos = sp[s].transform.position });
             }
             _mapMobs[maps[i].name] = set;
         }
@@ -169,6 +210,8 @@ public sealed class BotQuest
                 Target = d.Target, Targets = targets,
                 HuntMap = targets != null ? BotQuestRules.PickHuntMap(targets, _mapMobs, BgmDirector.CurrentMap) : null,
                 Tracked = tracked != null && tracked.Contains(d),
+                Have = d.Objective == NpcQuestObjective.Kill ? QuestService.Progress(d) : 0,
+                Need = d.Count,
             });
         }
     }
@@ -188,7 +231,7 @@ public sealed class BotQuest
             Scan();
         }
         Read(ctx.Now);
-        int h = BotQuestRules.PickHunt(_infos);
+        int h = BotQuestRules.PickHunt(_infos, TimeChange.instance == null || TimeChange.instance.isDaytime == false);
         HuntMap = h >= 0 ? _infos[h].HuntMap : null;
         _huntTargets = h >= 0 ? new HashSet<string>(_infos[h].Targets) : null;
         if (_phase != Phase.None || ctx.Now < _blockedUntil)

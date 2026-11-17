@@ -83,6 +83,22 @@ public class PlayBotQuestTests
     }
 
     [Test]
+    public void PickHunt_SkipsPrimaryDoneAndNightOnlyByDay()
+    {
+        BotQuestInfo a = Q("a", NpcQuestStatus.Active, NpcQuestObjective.Kill, "r", hunt: "M");
+        a.Have = 6; a.Need = 6; a.Targets = new[] { "rat" }; // 첫 목표 찼고 정예만 남음
+        BotQuestInfo b = Q("b", NpcQuestStatus.Active, NpcQuestObjective.Kill, "r", hunt: "M");
+        b.Targets = new[] { "Scarecrow_BD" }; b.Need = 6; // 밤 전용
+        BotQuestInfo c = Q("c", NpcQuestStatus.Active, NpcQuestObjective.Kill, "r", hunt: "M");
+        c.Targets = new[] { "beetle" }; c.Need = 5;
+        var q = new List<BotQuestInfo> { a, b, c };
+        Assert.AreEqual(2, BotQuestRules.PickHunt(q, false)); // 낮: 딱정벌레
+        Assert.AreEqual(1, BotQuestRules.PickHunt(q, true));  // 밤: 허수아비(표 순서)
+        q.RemoveAt(2); q.RemoveAt(1);
+        Assert.AreEqual(0, BotQuestRules.PickHunt(q, false)); // 남은 게 정예뿐이면 그것
+    }
+
+    [Test]
     public void ToNpcQuest_Keys()
     {
         Assert.AreEqual(BotKey.None, BotQuestRules.ToNpcQuest(false, 0, 0));

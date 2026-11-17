@@ -17,6 +17,8 @@ public static class BotNavBuild
     public const float MinSegLen = 0.5f;
     public const float JumpUp = 2.3f;
     public const float JumpUpHigh = 4.6f;
+    /// <summary>점프로 로프 아래 끝을 잡을 수 있는 최대 높이(표면→로프 y0). 사람이 오른 SideRoad x=-229.5(2.53)를 포함하도록 2.6 (2.4 였을 때 구덩이에서 못 나가는 섬이 생겼다, 11-16)</summary>
+    public const float RopeReachBelow = 2.6f;
     public const float GapMax = 3.2f;
     public const float JoinEps = 0.06f;
 
@@ -415,7 +417,7 @@ public static class BotNavBuild
                     continue;
                 }
                 float y = s.Y(rope.x);
-                if (y >= rope.y0 - 2.4f && y <= rope.y1 + 1.2f) // 위 끝: 트리거를 벗어난 뒤 남은 상승(약 1.7)으로 올라설 수 있는 높이
+                if (y >= rope.y0 - RopeReachBelow && y <= rope.y1 + 1.2f) // 위 끝: 트리거를 벗어난 뒤 남은 상승(약 1.7)으로 올라설 수 있는 높이
                 {
                     on.Add(i);
                 }
