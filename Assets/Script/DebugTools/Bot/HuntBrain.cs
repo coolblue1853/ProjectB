@@ -18,6 +18,7 @@ public sealed class HuntBrain : IBotBrain
     public const float IdleTravel = 20f;
     public const float TravelRetry = 30f;
     public const float TravelGiveUp = 90f;   // 한 번의 맵 이동이 이보다 오래 걸리면 잠시 사냥으로 돌아간다
+    public const float ReturnGiveUp = 360f;  // 마을 귀환 전체 제한: 깊은 숲 동쪽 끝에서 마을까지 걸어서 약 250초(11-17 90분 런 — 180초는 길을 가던 중 접혔다)
     public const float DashMin = 3.5f;
     public const float DashMax = 9f;
     public const float DashGap = 1.2f;
@@ -187,7 +188,7 @@ public sealed class HuntBrain : IBotBrain
         {
             return it;
         }
-        if (Travel(ctx, ref it))
+        if (!_quest.Busy && !_errand.Returning && Travel(ctx, ref it)) // 퀘스트 일(마을 보고 등)·귀환이 맵 이동을 맡는 동안엔 순회·Lv 맵 이동을 쉰다 — 둘이 반대 포털로 번갈아 끌던 계단 진동(11-17)
         {
             return it;
         }
@@ -487,7 +488,7 @@ public sealed class HuntBrain : IBotBrain
         {
             return false;
         }
-        if (_errand.ReturnSeconds(ctx.Now) > TravelGiveUp * 2f)
+        if (_errand.ReturnSeconds(ctx.Now) > ReturnGiveUp)
         {
             _errand.Abort(ctx, "마을 가는 데 너무 오래 걸림");
             return false;
@@ -630,11 +631,16 @@ public sealed class HuntBrain : IBotBrain
         return it;
     }
 
+    /// <summary>창이 열린 채 ESC 로 닫아 복구한 횟수(창 열림 1건 = 1회)</summary>
+    public int UiRecoveries { get; private set; }
+    private bool _uiCounted;
+
     private bool CloseUi(BotContext ctx, ref BotIntent it)
     {
         if (!ctx.Obs.UiOpen)
         {
             _uiSince = -1f;
+            _uiCounted = false;
             return false;
         }
         if (_uiSince < 0f)
@@ -645,6 +651,12 @@ public sealed class HuntBrain : IBotBrain
         {
             it.Back = true;
             _lastBack = ctx.Now;
+            if (!_uiCounted)
+            {
+                _uiCounted = true; // 창 하나가 열린 한 번(여러 번 ESC 가 필요해도 1회)을 복구 1회로 센다 — 보고서 B5-2
+                UiRecoveries++;
+                Debug.LogWarning("[PB][Bot] UI 복구(ESC) " + (ctx.Now - _uiSince).ToString("F1") + "s 열려 있음 map=" + _mapName + " 누적=" + UiRecoveries);
+            }
         }
         it.Focus = BotIntent.FocusUi;
         it.Note = "ui";

@@ -109,6 +109,25 @@ def jsonl_digest(path):
     return errs, warns, deaths, buys, sells, equips, kills, last
 
 
+def progress_digest(path):
+    """st 행에서 끝 Lv·골드와 맵 방문 순서(맵, 들어간 초)를 뽑는다."""
+    order, lv0, lv, gold = [], None, None, None
+    for ln in open(path, encoding="utf-8"):
+        if '"k":"st"' not in ln:
+            continue
+        try:
+            r = json.loads(ln)
+        except ValueError:
+            continue
+        m = r.get("map")
+        if m and (not order or order[-1][0] != m):
+            order.append((m, int(r.get("t", 0))))
+        if lv0 is None and r.get("lv"):
+            lv0 = r["lv"]
+        lv, gold = r.get("lv", lv), r.get("gold", gold)
+    return order, lv0, lv, gold
+
+
 def build(jsonl, status_text):
     base = jsonl[:-6]
     name = os.path.basename(base)
@@ -137,9 +156,12 @@ def build(jsonl, status_text):
     L.append("- 마을 업무(상태 줄): 왕복 %s · 판매 %s · 구매(물약) %s · 장착 %s · 귀환 주문서 %s · 업무 중단 %s · 막힘(stucks) %s · 진척없음 경고 %s · 사망 %s"
              % (st.get("trips", "?"), st.get("sold", "?"), st.get("bought", "?"), st.get("equipped", "?"), st.get("recalls", "?"),
                 st.get("errandAborts", "?"), st.get("stucks", "?"), st.get("warns", "?"), st.get("deaths", "?")))
+    L.append("- UI 복구(창이 열린 채 ESC 로 닫음): %d회" % sum(n for m, n in warns.items() if "UI 복구" in m))
     L.append("- 퀘스트(상태 줄): 완료 %s · 받음 %s · 보고 %s · 중단 %s · 사냥 맵 %s"
              % (st.get("questsDone", "?"), st.get("questAccepted", "?"), st.get("questReported", "?"), st.get("questAborts", "?"), st.get("huntMap", "?")))
     L.append("- 기록 이벤트: 판매 %d · 장착 %d · 구매 %d · 처치 %d (jsonl ev)" % (sells, equips, buys, kills))
+    order, lv0, lv1, gold1 = progress_digest(jsonl)
+    L.append("- 진행: Lv %s → %s · 끝 골드 %s · 맵 순서 %s" % (meta.get("lv", lv0), lv1, gold1, " → ".join("%s(%ds)" % (m.replace("Lv1_", "").replace("Lv2_", ""), t) for m, t in order[:30])))
     L.append("- 메타: 시작 Lv%s · 보유 골드 %s · git %s" % (meta.get("lv", "?"), meta.get("gold", "?"), meta.get("git", "?")))
     L.append("")
 
