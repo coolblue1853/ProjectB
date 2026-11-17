@@ -158,7 +158,7 @@ MonoBehaviour:
   isLeft: 0
   isRight: 1
   isButtonDownSkill: 1
-  SkillCoolTime: 0.1
+  SkillCoolTime: 4
   skillImage: {fileID: 21300000, guid: f10b1a75c8445694a96c21c4dfe6c0a9, type: 3}
   skillAnim: StaffAttack
   isWeaponStopMove: 1
