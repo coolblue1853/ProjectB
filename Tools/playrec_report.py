@@ -128,6 +128,19 @@ def progress_digest(path):
     return order, lv0, lv, gold
 
 
+def curve_line(jsonl):
+    """Tools/playrec_curve.py 를 돌려 CURVE_SUMMARY 한 줄을 받는다(실패하면 빈 문자열)."""
+    try:
+        out = subprocess.run([sys.executable, "-X", "utf8", os.path.join(ROOT, "Tools", "playrec_curve.py"), jsonl],
+                             cwd=ROOT, capture_output=True, text=True, encoding="utf-8", check=False).stdout
+    except OSError:
+        return ""
+    for ln in out.splitlines():
+        if ln.startswith("CURVE_SUMMARY "):
+            return ln[len("CURVE_SUMMARY "):]
+    return ""
+
+
 def build(jsonl, status_text):
     base = jsonl[:-6]
     name = os.path.basename(base)
@@ -162,6 +175,9 @@ def build(jsonl, status_text):
     L.append("- 기록 이벤트: 판매 %d · 장착 %d · 구매 %d · 처치 %d (jsonl ev)" % (sells, equips, buys, kills))
     order, lv0, lv1, gold1 = progress_digest(jsonl)
     L.append("- 진행: Lv %s → %s · 끝 골드 %s · 맵 순서 %s" % (meta.get("lv", lv0), lv1, gold1, " → ".join("%s(%ds)" % (m.replace("Lv1_", "").replace("Lv2_", ""), t) for m, t in order[:30])))
+    cs = curve_line(jsonl)
+    if cs:
+        L.append("- 곡선 비교(사람 11-15 기록 대비, `%s_curve.md`·`_curve.png`): %s" % (name, cs))
     L.append("- 메타: 시작 Lv%s · 보유 골드 %s · git %s" % (meta.get("lv", "?"), meta.get("gold", "?"), meta.get("git", "?")))
     L.append("")
 
