@@ -160,4 +160,15 @@ public class MobBehaviorRulesTests
             }
         }
     }
+
+    [Test]
+    public void IsAlwaysElite_RatChiefPrefab_True_OthersFalse()
+    {
+        // 11-17 Q106: 밤 스포너가 프로필 없이 내는 RatChief_BD 도 항상 정예(퀘스트 '정예 1'과 일치)
+        Assert.IsTrue(MonsterTable.IsAlwaysElite("RatChief_BD"));
+        Assert.IsTrue(MonsterTable.IsAlwaysElite("RatChief_BD(Clone)"));
+        Assert.IsFalse(MonsterTable.IsAlwaysElite("Scarecrow_BD"));
+        Assert.IsFalse(MonsterTable.IsAlwaysElite("NoSuchMob"));
+        Assert.IsFalse(MonsterTable.IsAlwaysElite(null));
+    }
 }

@@ -40,6 +40,13 @@ public static class MonsterTable
         return rows.TryGetValue(key, out Row r) ? r : null;
     }
 
+    /// <summary>MonsterSheet trait elite 인 프리팹/프로필이면 true. 프로필 없이 프리팹 이름으로 직접 스폰되는 개체(밤 스포너 쥐 두목)도 항상 정예다(11-17 Q106 통일).</summary>
+    public static bool IsAlwaysElite(string prefabName)
+    {
+        Row r = string.IsNullOrEmpty(prefabName) ? null : Get(prefabName);
+        return r != null && TempMobTraits.Has(r.trait, "elite");
+    }
+
     /// <summary>배너·로그용 표시 이름: MonsterSheet displayName, 없으면 프리팹 이름에서 (Clone)·_BD 를 뗀 것.</summary>
     public static string DisplayName(string prefabName)
     {

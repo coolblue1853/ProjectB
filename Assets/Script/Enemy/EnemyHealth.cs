@@ -371,6 +371,7 @@ public class EnemyHealth : PoolAble
     {
         MonsterId = ExtraDrops.MonsterId(name);
         MonsterTable.Apply(this); // Resources/MonsterSheet.csv 값이 있으면 프리팹 값을 덮어쓴다 (C5)
+        AlwaysElite = MonsterTable.IsAlwaysElite(name); // 프리팹 이름이 elite 행이면(밤 스포너 RatChief_BD) 확률 없이 정예. 프로필 몹은 ApplySpawnProfile 이 다시 정한다
         MonsterTable.Row levelRow = MonsterTable.Get(name);
         Level = levelRow != null && levelRow.level.HasValue ? levelRow.level.Value : 0;
         EnsureMinHitbox();
