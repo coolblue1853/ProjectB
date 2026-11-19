@@ -64,3 +64,15 @@
 - `Tools/playtest.sh [대기초] [이름]`: 씬 로드→콘솔 비움→Play→대기→스크린샷→콘솔 요약→Stop 한 사이클.
 - `_run`·`_cap_run` 접미 파일은 같은 이름 본체를 감싼 래퍼이므로 본체와 함께 두거나 함께 지운다.
 - `__FROM__`·`MODE`·`DELAY` 같은 자리표시자가 있는 파일(`_f1nm_trip*`, `_fd3`, `_uf_lock_on`)은 호출 스크립트가 치환해야 동작한다.
+
+## 11-19 보관 (AUTO-129)
+
+- 기준: 삭제 후보 중 (1) 판정 삭제 후보 (2) 결과가 문서에 기록됨 (3) `Tools/*.sh`·`*.py`·`Assets/Script`·`.claude-rules`·`Docs/Handoff`에 파일명 참조 없음 (4) 재실행 지목 프로브 아님 (5) 수정 11-16 이후 아님. 애매하면 남김.
+- 검사 대상 48개: `_b` `_c` `_m` `_trace` `_intr` `_dash1`~`_dash8` `_foxp` `_dnf_air` `_dnf_cap` `_dnf_hud`·`_hud2`·`_hud3` `_dnf_q` `_dnf_spawn` `_dnf_wpn` `_f1_caches` `_f1_free` `_f1_inv` `_f1_kiosk` `_f1_near` `_f1_tokiosk` `_f1_tre` `_f1_up` `_f1c2_natural` `_f1c2_rare` `_f1c2_t01` `_f1c2_tonight` `_pv2t` `_pv7_dbg` `_pv7_go` `_uf_sr`·`_sr2`·`_sr3` `_t` `_t2`·`_t3`·`_t4`·`_t5`·`_t7`·`_t9`·`_t10`
+- 옮긴 수: **0** (`Logs/probe_archive/` 로 옮긴 파일 없음)
+- 남긴 수: **48** (전부). 이유:
+  - (2) 미충족: 48개 모두 "결과 기록 문서" 열이 `없음` 또는 `간접`. 문서에 파일명 기록도 없음(`_b`·`_c`·`_m`은 흔한 글자라 문서 grep 오탐, 기록 아님).
+  - `_dnf_*` 군은 `CombatFeelPlan.md`가 설계 결정만 적고 프로브 결과는 없음(간접) → 애매하므로 유지.
+  - (3) 참조 없음 확인: `Tools/*.sh`·`*.py`·`Assets/Script`·`.claude-rules`·`Docs/Handoff`에서 전부 0건. (4)·(5) 해당 없음(수정 시각 11-01~11-06).
+  - `.meta` 파일은 없음(미추적 프로브 전부 `nometa`).
+- 되돌리는 법: 옮긴 파일이 없으므로 해당 없음. 후속에 기록 문서가 생기면(결과 1줄을 문서에 남긴 뒤) 같은 기준으로 재검사.
