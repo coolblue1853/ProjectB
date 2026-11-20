@@ -838,6 +838,13 @@ public sealed class HuntBrain : IBotBrain
         {
             return false; // 도착했는데도 안 보이면(리스폰 대기) 근처에서 평소대로
         }
+        // 가는 쪽 끝 너머가 바닥 없는 구덩이면(SideRoad x≈-437, 꽃두더지 스포너가 구덩이 건너 서쪽 구역에 있다) 그쪽 직진은 낙사 반복이다 — 1분 쉬고 평소대로 사냥한다(11-19)
+        float seekEdge = sp.x > o.X ? o.Terrain.EdgeR : o.Terrain.EdgeL;
+        if (o.Grounded && seekEdge >= 0f && seekEdge < 1.5f && (o.Terrain.DropF > 2f || o.Terrain.DropF < 0f))
+        {
+            _seekBlockedUntil = ctx.Now + 60f;
+            return false;
+        }
         it.Focus = BotIntent.FocusWander;
         it.Note = "seek";
         if (_nav.Steer(ctx, sp.x - o.X, sp.y - o.Y, ref it))

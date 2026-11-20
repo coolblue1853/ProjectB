@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """봇 기록 1개 -> 자동 플레이테스트 보고서 한 장(<세션>_report.md, 300줄 이내). 표준 라이브러리만.
 
-사용: python Tools/playrec_report.py <봇 jsonl> [--status "<봇 상태 줄>"] [-o 출력.md]
+사용: python Tools/playrec_report.py <봇 jsonl> [--status "<봇 상태 줄>"] [--prep "fresh=1 time=day level=-"] [--cond "<시작 조건 한 줄>"] [-o 출력.md]
 - 같은 폴더의 <세션>_summary.md · <세션>_balance.md 를 읽는다(없으면 playrec_summary.py·playrec_balance.py 를 돌려 만든다).
 - 사람 기준값: Logs/playrec/20261115_131248·133116(읽기 전용)을 playrec_balance 로 돌린 표(Logs/playrec_bot/human_1115_balance.md, 없으면 생성)와
   맵·낮밤별 처치/분·EXP/분·받은피해/분, 몹별 처치시간·피해/처치를 비교해 2배 초과(▲)·절반 미만(▼)을 표시한다.
@@ -141,7 +141,59 @@ def curve_line(jsonl):
     return ""
 
 
-def build(jsonl, status_text):
+def human_start():
+    """사람 기록 첫 세션 meta 의 시작 조건 한 줄(없으면 빈 문자열)."""
+    path = os.path.join(ROOT, HUMAN_JSONL[0])
+    if not os.path.exists(path):
+        return ""
+    for ln in open(path, encoding="utf-8"):
+        if '"k":"meta"' not in ln:
+            continue
+        try:
+            m = json.loads(ln)
+        except ValueError:
+            return ""
+        return "사람 %s: %s" % (m.get("session", "?"), start_text(m))
+    return ""
+
+
+def start_text(m):
+    eq = [e for e in (m.get("eq") or []) if e]
+    return ("Lv%s · EXP %s%% · 골드 %s · 장비 %s · 가방 빈칸 %s · 가방 %s · 스킬 투자 %s · 진행 퀘스트 %d · 완료 퀘스트 %s · 낮/밤 %s"
+            % (m.get("lv", "?"), m.get("expp", "?"), m.get("gold", "?"), ",".join(eq) or "없음", m.get("bag", "?"), m.get("bagItems", "미기록"),
+               m.get("skillSpent", "미기록"), len(m.get("q") or []), m.get("doneQ", "미기록"), {0: "낮", 1: "밤"}.get(m.get("night"), "?")))
+
+
+def start_warnings(m, cond, prep):
+    """PREP_FRESH 인데 새 게임 조건이 아니면 경고 문장들. meta(첫 틱)와 시작 직전 조건(cond) 둘 다 본다."""
+    warns = []
+    if prep.get("fresh") != "1":
+        return warns
+    eq = [e for e in (m.get("eq") or []) if e]
+    if eq != ["RustedSword"]:
+        warns.append("meta 장비가 기본 무기 1개가 아님: %s" % (",".join(eq) or "없음"))
+    if m.get("skillSpent", 0) != 0:
+        warns.append("meta 스킬 투자 %s (0 이어야 함)" % m.get("skillSpent"))
+    if m.get("doneQ", 0) != 0:
+        warns.append("meta 완료 퀘스트 %s (0 이어야 함)" % m.get("doneQ"))
+    if m.get("lv") != 1:
+        warns.append("meta 시작 레벨 %s (1 이어야 함)" % m.get("lv"))
+    if "skillSpent" not in m:
+        warns.append("meta 에 시작 조건 필드(skillSpent·doneQ)가 없음 — 기록기가 옛 판")
+    if cond:
+        if "eq=-,-,-,-,-,-,-,RustedSword,-,-" not in cond:
+            warns.append("시작 직전 장비가 기본 무기 1개가 아님: " + cond)
+        if "skillSpent=0 " not in cond + " ":
+            warns.append("시작 직전 스킬 투자가 0 이 아님: " + cond)
+        if "doneQ=0 " not in cond + " ":
+            warns.append("시작 직전 완료 퀘스트가 0 이 아님: " + cond)
+    else:
+        warns.append("시작 직전 조건(--cond)이 비어 있음")
+    return warns
+
+
+def build(jsonl, status_text, prep=None, cond=""):
+    prep = prep or {}
     base = jsonl[:-6]
     name = os.path.basename(base)
     sum_path, bal_path = base + "_summary.md", base + "_balance.md"
@@ -158,6 +210,11 @@ def build(jsonl, status_text):
     errs, warns, deaths, buys, sells, equips, kills, meta = jsonl_digest(jsonl)
     st = parse_status(status_text)
     L = ["# 봇 자동 플레이테스트 보고: " + name, ""]
+    for w in start_warnings(meta, cond, prep):
+        L.append("**경고: 새 게임 시작 조건 위반 — %s**" % w)
+    if any(ln.startswith("**경고") for ln in L):
+        L.append("**이 보고서의 레벨·EXP·처치·사망·곡선 수치는 신뢰하지 않는다.**")
+        L.append("")
 
     # 1. 한눈에
     head = summ[:8]
@@ -178,7 +235,12 @@ def build(jsonl, status_text):
     cs = curve_line(jsonl)
     if cs:
         L.append("- 곡선 비교(사람 11-15 기록 대비, `%s_curve.md`·`_curve.png`): %s" % (name, cs))
-    L.append("- 메타: 시작 Lv%s · 보유 골드 %s · git %s" % (meta.get("lv", "?"), meta.get("gold", "?"), meta.get("git", "?")))
+    L.append("- 메타(봇 %s, 준비 %s, git %s): %s" % (name, " ".join("%s=%s" % kv for kv in prep.items()) or "없음", meta.get("git", "?"), start_text(meta)))
+    if cond:
+        L.append("- 시작 직전(봇 시작 프로브): %s" % cond)
+    hs = human_start()
+    if hs:
+        L.append("- 메타(%s)" % hs)
     L.append("")
 
     # 2. 막힘
@@ -276,9 +338,14 @@ def main(argv):
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     jsonl, status, out, i = None, "", None, 1
+    prep, cond = {}, ""
     while i < len(argv):
         if argv[i] == "--status":
             status, i = argv[i + 1], i + 2
+        elif argv[i] == "--prep":
+            prep, i = dict(kv.split("=", 1) for kv in argv[i + 1].split() if "=" in kv), i + 2
+        elif argv[i] == "--cond":
+            cond, i = argv[i + 1], i + 2
         elif argv[i] == "-o":
             out, i = argv[i + 1], i + 2
         else:
@@ -286,7 +353,7 @@ def main(argv):
     if not jsonl or not jsonl.endswith(".jsonl"):
         print(__doc__)
         return 2
-    name, lines = build(jsonl, status)
+    name, lines = build(jsonl, status, prep, cond)
     out = out or jsonl[:-6] + "_report.md"
     with open(out, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")

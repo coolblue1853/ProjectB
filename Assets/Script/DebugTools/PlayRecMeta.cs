@@ -33,6 +33,7 @@ public static class PlayRecMeta
                 PlayRecJson.KeyInt(sb, "gold", c.Gold);
                 PlayRecJson.KeyInt(sb, "hasPl", o.HasPlayer ? 1 : 0);
                 PlayRecTick.WriteContext(sb, c);
+                WriteStart(sb);
                 PlayRecJson.KeyStr(sb, "video", video != null && video.Active ? PlayRecVideo.Width + "x" + PlayRecVideo.Height + "@" + PlayRecVideo.Fps + " crf" + PlayRecVideo.Crf : "off");
                 if (video != null && video.Error != null)
                 {
@@ -46,6 +47,78 @@ public static class PlayRecMeta
                 PlayRecWriter.Discard();
             }
         }
+    }
+
+    /// <summary>시작 조건(새 게임 검사용): EXP·스킬 투자 합·완료 퀘스트 수·가방 내용(id×수량). 읽기 전용</summary>
+    private static void WriteStart(StringBuilder sb)
+    {
+        PlayRecJson.KeyInt(sb, "exp", LevelSystem.Exp);
+        PlayRecJson.KeyInt(sb, "skillSpent", SkillSpentTotal());
+        PlayRecJson.KeyInt(sb, "doneQ", DoneQuests());
+        PlayRecJson.KeyStr(sb, "bagItems", BagItems());
+    }
+
+    public static int SkillSpentTotal()
+    {
+        int sum = SkillTreeService.Spent(SkillTreeRules.CommonTree);
+        foreach (WeaponKind k in Enum.GetValues(typeof(WeaponKind)))
+        {
+            if (k != WeaponKind.None)
+            {
+                sum += SkillTreeService.Spent(k.ToString());
+            }
+        }
+        return sum;
+    }
+
+    public static int DoneQuests()
+    {
+        int n = 0;
+        foreach (NpcQuestDef d in NpcQuestCatalog.All)
+        {
+            if (NpcQuestLog.IsDone(d.Id))
+            {
+                n++;
+            }
+        }
+        return n;
+    }
+
+    public static string BagItems()
+    {
+        InventoryManager inv = InventoryManager.instance;
+        if (inv == null)
+        {
+            return "?";
+        }
+        StringBuilder sb = new StringBuilder();
+        foreach (ItemCheck it in inv.EnumerateInventoryItems())
+        {
+            if (sb.Length > 0)
+            {
+                sb.Append(';');
+            }
+            sb.Append(it.name).Append('x').Append(it.nowStack);
+        }
+        return sb.Length == 0 ? "-" : sb.ToString();
+    }
+
+    /// <summary>한 줄 시작 조건(프로브·bot_run.sh 용): 봇 시작 직전 상태</summary>
+    public static string StartLine()
+    {
+        PlayObsContext c = new PlayObsContext();
+        c.Observe();
+        StringBuilder sb = new StringBuilder();
+        sb.Append("lv=").Append(c.Level).Append(" exp=").Append(LevelSystem.Exp).Append(" gold=").Append(c.Gold);
+        sb.Append(" night=").Append(c.Night).Append(" skillSpent=").Append(SkillSpentTotal());
+        sb.Append(" doneQ=").Append(DoneQuests()).Append(" activeQ=").Append(c.QuestCount);
+        sb.Append(" eq=");
+        for (int i = 0; i < c.Equip.Length; i++)
+        {
+            sb.Append(i > 0 ? "," : "").Append(c.Equip[i] ?? "-");
+        }
+        sb.Append(" bag=").Append(BagItems());
+        return sb.ToString();
     }
 
     private static string Devices()

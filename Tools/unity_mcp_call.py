@@ -9,6 +9,7 @@ Claude 세션에 MCP가 로드되지 않았을 때 Bash에서 에디터를 조�
 import asyncio
 import json
 import os
+import re
 import sys
 
 from mcp import ClientSession, StdioServerParameters
@@ -33,6 +34,16 @@ async def main() -> None:
         read, write = streams[0], streams[1]
         async with ClientSession(read, write) as session:
             await session.initialize()
+            # 에디터가 둘 이상 열려 있으면(다른 프로젝트 포함) 호출마다 인스턴스 선택이 필요하다: 목록에서 UNITY_MCP_INSTANCE(기본 ProjectB) 로 시작하는 것을 고른다(11-21)
+            try:
+                want = os.environ.get("UNITY_MCP_INSTANCE", "ProjectB")
+                listing = await session.read_resource("mcpforunity://instances")
+                text = " ".join(getattr(c, "text", "") or "" for c in listing.contents)
+                m = re.search(re.escape(want) + r"@[0-9a-f]+", text)
+                if m:
+                    await session.call_tool("set_active_instance", {"instance": m.group(0)})
+            except Exception:
+                pass
             cmd = sys.argv[1] if len(sys.argv) > 1 else "list"
             if cmd == "list":
                 tools = await session.list_tools()

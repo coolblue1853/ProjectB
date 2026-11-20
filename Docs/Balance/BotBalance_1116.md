@@ -158,3 +158,13 @@
 
 ## 반영 (11-16)
 - 사용자 승인으로 MonsterSheet.csv 반영: RatChief_BD·StoneRabbit_BD·CreepingTerror_BD contactDamage 19→15·21→17·21→16, ForestSnail_BD·LeftMole_BD maxHP 130→100·24→18. 봇 재측정은 아직.
+
+## 재측정 (11-21, 새 게임 조건: Lv1·기본 무기·투자 0·낮, `PREP_FRESH=1` 60분 2회)
+기록: `Logs/playrec_bot/20261119_221425`(NormalForest 진입, 사망 15)·`20261120_234742`(SideRoad 에 머묾, 사망 0). 이전 수치(장비 미초기화)는 무효.
+| 몹 | Lv | n | 피격/처치 | 피해/처치 | 비고 |
+|---|---|---|---|---|---|
+| Rabbit | 1 | 189+386 | 1.2 | 10.6 | Lv1 HP ~100 대비 안전. CSV와 HP 일치 |
+| ForestWolf | 4 | 34 | 4.6 | 73.5 | Lv4 HP 약 110 의 2/3 |
+| ForestSpore(SporeShroom) | 5 | 43 | 5.4 | 122.2 | 처치 1마리에 Lv4 HP 초과, 3~5마리 겹침 시 사망 15건(x≈-180 NormalForest) |
+- 튜닝 8번(fe7f63429)의 5종(RatChief·StoneRabbit·CreepingTerror·ForestSnail·LeftMole)은 **두 런 모두 한 번도 만나지 못해 재측정 불가**(미확인). 근거가 된 피해 수치가 장비 과다로 낮았을 가능성은 이번에도 검증 못 함.
+- 새로 보인 것: Lv4 신규 캐릭터에 NormalForest ForestSpore 가 처치당 피해 122(HP 약 110 초과). 사람은 이 구간에 장비·퀘스트 보상(LeafAdae 등)을 받은 상태라 봇 조건과 다르다. 수정안은 제시하지 않는다(봇이 퀘스트 보상 없이 올라간 영향 분리 불가). CSV 는 바꾸지 않았다.

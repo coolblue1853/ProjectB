@@ -147,16 +147,20 @@ public sealed class PlayObsEnemies
         f.Sig = (e.ObsHasAttackAnim ? SigAnim : 0) | (dash != null ? SigDash : 0) | (shooter != null ? SigShoot : 0);
         bool ownHitbox = _hitboxOwners.Contains(RuntimeHelpers.GetHashCode(e.gameObject));
         f.Hitbox = ownHitbox || (dash != null && dash.IsDashing);
-        f.Prop = IsProp(e.name);
+        f.Prop = IsProp(e);
         f.State = StateOf(e, m, dash, shooter, f.Hitbox);
     }
 
-    /// <summary>MonsterSheet 행이 없는 이름은 파괴 오브젝트다(이름별 캐시 — 틱마다 문자열을 만들지 않는다)</summary>
-    private bool IsProp(string name)
+    /// <summary>
+    /// 파괴 오브젝트(tree·Rock·GreenHurb)는 행동 트리(BehaviorTree)도 드롭 매니저(DropManager)도 없는 EnemyHealth 다(프리팹 전수 대조, 11-19).
+    /// 시트 행 유무로 가르면 시트에 없는 실제 몹(RatThief_Summon 등)을 파괴물로 오인해 목표·위협에서 뺀다(R1). 이름별 캐시 — 틱마다 컴포넌트를 찾지 않는다
+    /// </summary>
+    private bool IsProp(EnemyHealth e)
     {
+        string name = e.name;
         if (!_propByName.TryGetValue(name, out bool prop))
         {
-            prop = MonsterTable.Get(name) == null;
+            prop = e.GetComponent<BehaviorDesigner.Runtime.BehaviorTree>() == null && e.GetComponent<DropManager>() == null;
             _propByName[name] = prop;
         }
         return prop;

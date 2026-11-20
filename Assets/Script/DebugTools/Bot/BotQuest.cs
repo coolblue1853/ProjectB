@@ -162,6 +162,11 @@ public sealed class BotQuest
 
     private static void AddSpawner(HashSet<string> set, string map, EnemySpawner sp)
     {
+        GameObject prefab = sp.EnemyPrefab; // 슬롯은 지금 떠 있는 개체뿐이라 새 게임 첫 스캔에는 비어 있다(11-19: Q102 꽃두더지 HuntMap 이 null 이라 봇이 퀘스트를 못 받았다) — 풀 프리팹을 먼저 본다
+        if (prefab != null)
+        {
+            set.Add(ExtraDrops.MonsterId(prefab.name));
+        }
         if (sp.enemySlot != null)
         {
             for (int k = 0; k < sp.enemySlot.Length; k++)

@@ -406,3 +406,20 @@ python Tools/playrec_summary.py Logs/playrec/<세션>.jsonl [출력.md] [--frame
 - **파괴물**: 수정 후 직접 목표는 안 됨(런타임 `MonsterTable.Get` 로 tree·Rock·GreenHurb=null·곰·요정·쥐두목=있음 확인). 범위 공격 부수 타격(Rock 160회·tree 63회 `dmg`)은 남는다.
 - **곡선 비교**: `Tools/playrec_curve.py <봇 jsonl>` — 분 단위 Lv·누적 EXP(레벨 표 합+현재)·골드·퀘스트 곡선 PNG 1장 + md 표(`<세션>_curve.png/.md`), `bot_run.sh` 보고서 1절에 한 줄(`playrec_report.py` 가 호출). 사람 기록(11-15 두 세션 이어 붙임)은 **39분뿐**이라 합격선(60분 지점 Lv·EXP 0.5~2배)은 겹친 39분 지점에서 판정하고 60분은 끝 20% 기울기 외삽을 참고로 적는다. 예시(무효 측정 포함): 39분 Lv 7/8(0.88배) EXP 0.82배. 봇은 46~62분에 EXP 가 거의 안 늘던 구간이 있었다(183334, 원인 미조사).
 - **중단 사유**: 90분 재런 2회 중 하나는 Unity 에디터가 중간에 종료(`EditorApplicationQuit`, 원인 미상)돼 11분에서 끊겼고, 재기동 뒤 다시 1분 만에 종료됐다. 세이브는 백업 md5 와 일치로 원복했다.
+
+## 19. 새 게임 시작(PREP_FRESH) + 60분 기준선 (11-19~21, B5)
+- **구현**: `PREP_FRESH=1 bash Tools/bot_run.sh <분>` — 세이브 백업(md5 검증 통과 때만) → 세이브 폴더 비움(`${SAVE_DIR:?}` 보호) → 플레이 → 게임 자신의 새 게임 경로(`SaveManager.DataLoad` hadFile=false → `EnsureDefaultWeapon`)로 시작. 레벨·골드·장비를 손으로 맞추지 않는다. 시간대 미지정이면 `day`(R5). 맵 준비 20회 실패 시 `exit 1`(R3, trap 이 원복). 끝·중단·kill 어느 쪽이든 trap 이 폴더를 비우고 백업을 되돌린 뒤 md5 확인(11-20 직접 kill 로 확인).
+- **시작 조건 검사**: `PlayRecMeta` 에 `exp·skillSpent·doneQ·bagItems` 추가, `PlayRecMeta.StartLine()`(프로브 `bot_start_cond.cs`)이 시작 직전 한 줄을 낸다. `playrec_report.py --prep --cond` 가 '메타' 줄(봇·시작 직전·사람)을 쓰고, `PREP_FRESH` 인데 장비≠기본 무기 1개·스킬 투자≠0·완료 퀘스트≠0·Lv≠1 이면 보고서 맨 위에 **경고** 줄과 "수치 신뢰 안 함"을 띄운다. 새 게임 실측: Lv1·EXP0·골드0·장비 RustedSword 1개·가방 비어 있음·투자 0·완료 0·진행 0. 새 게임은 인트로 대화(장로 Q101, 대화창이 12초 넘게 열려 `[ANOMALY] Invincible` error 1건)로 시작하지만 봇이 실제 입력으로 넘긴다(Q101 수락·완료 36초).
+- **사람 11-15 기록**: 첫 세션 meta = Lv1·EXP0%·골드0·장비 RustedSword·가방 빈칸 40·퀘스트 0·포션 0, git 5183c46c2 는 "새 게임 시작 장비를 기본 무기만으로" 커밋(13:11) 직후(세션 13:12) → 새 게임 시작으로 판단. 당시 meta 에 스킬 투자·완료 퀘스트 필드가 없어 그 둘은 미확인.
+- **R1 확인**: 1층계 관측 몹 27종 중 시트에 없는 건 tree·Rock·GreenHurb(파괴물)뿐이었다. 그러나 프리팹 전수 대조에서 `RatThief_Summon`(BehaviorTree 있음·시트 없음)이 파괴물로 오인될 수 있었다. `PlayObsEnemies.IsProp` 를 "BehaviorTree 도 DropManager 도 없는 EnemyHealth"로 바꿨다(tree·Rock·GreenHurb = true, 시트 없는 실제 몹 = false).
+- **새 게임에서 드러난 봇 버그 2건(수정)**: ①`BotQuest.Scan` 이 `enemySlot`(지금 떠 있는 개체)만 보아 새 게임 첫 스캔은 맵별 몹 목록이 비었다(SideRoad 에 토끼·두더지 없음) → Q102 꽃두더지 HuntMap=null 이라 퀘스트를 한 건도 못 받았다(이전 런은 세이브에 완료 이력이 있어 가려졌다). `EnemySpawner.EnemyPrefab` 을 함께 읽게 했다. ②수정 ① 뒤 꽃두더지 스포너가 구덩이 건너(SideRoad x≈-437 서쪽 구역)라 `SeekQuestMob` 이 구덩이로 직진해 낙사를 반복(11분 이상 stucks 96) → 가는 쪽 끝 너머가 바닥 없는 구덩이면 60초 쉬고 평소대로 사냥.
+- **기준선 결과(수정 전·후, 새 게임·낮 고정)**:
+  | 런 | 사람 11-15 39분 | A. 20261119_221425 (Scan 버그) | B. 20261120_234742 (수정 ①②) |
+  |---|---|---|---|
+  | Lv / EXP(39분) | Lv8 / 13062 | Lv4 (0.50배) / 2333 (0.18배) | Lv4 (0.50배) / 3130 (0.24배) |
+  | 60분 | 외삽 Lv11 | Lv4 · 처치 290 · **사망 15** | Lv5 · 처치 409 · 사망 0 · 막힘 21 |
+  | 퀘스트 완료 | 9(39분) | 1 | 1 (Q101 만) |
+  판정 **불합격**(39분 Lv·EXP 모두 사람의 0.5배 미만). 원인은 사람과 같은 일을 못 하는 봇 쪽이다: A 는 퀘스트 없이 Lv4 에 NormalForest 로 올라가 ForestSpore 떼(피해/처치 122, Lv4 HP 약 110)에 반복 사망(x≈-180). B 는 Q102(꽃두더지)를 받고 SideRoad 에 묶여 토끼(EXP 6)만 409마리 잡음(Q102 목표 몹이 서쪽 구역이라 못 채움 → Q103~ 후속 퀘스트·LeafAdae 보상·진행이 전부 막힘). 사람은 39분에 퀘스트 9건.
+- **미해결(다음)**: ①꽃두더지 서쪽 구역 이동(SideRoad 끝 포털 x≈-728 은 그래프 `toMap` 이 비어 있어 봇이 못 씀 — 포털 도착 맵 기록·퀘스트 목표 맵 이동 추가 필요) ②Q102 가 안 풀릴 때 포기하고 Lv 맞는 사냥터로 가는 규칙 ③SideRoad (-393.6,7.2) 막힘 반복 ④B 의 50~60분 EXP 정체(처치는 계속, 레벨 5 에 갇힘 — LevelMap 이 Lv4 이상이면 NormalForest 인데 퀘스트 HuntMap 이 우선) ⑤새 게임 인트로 대화 12초 error 는 게임쪽(TechDebt).
+- **도구**: 에디터가 둘 이상 열리면(다른 프로젝트 `SCoW` 등) 모든 u.sh 호출이 `instance_selection_required` 로 실패해 봇 상태 폴링이 끊긴다 → `Tools/unity_mcp_call.py` 가 `mcpforunity://instances` 에서 `ProjectB@…` 를 골라 `set_active_instance`(UNITY_MCP_INSTANCE 로 변경). 에디터가 "Recovering Scene Backups" 창에 걸려 MCP 가 안 올라오면 `Temp/__Backupscenes` 를 옮기고 재기동(11-20 이렇게 복구, 사본 `Logs/Backupscenes_20261120`).
+- **에디터 종료 원인(Step 0)**: 11-17 22:14 `Editor-prev.log` 는 크래시가 아니라 정상 종료 요청(`Internal_EditorApplicationQuit`, 레이아웃 저장·플러그인 정리·"Package Manager server shutdown" 순). 종료 직전 TMP 동적 폰트 정리(`FontEngine` 약 600MB 누수 보고)가 있어 메모리 압박은 의심만 한다. 사용자가 닫았는지는 로그로 구분 불가. 두 번째는 확인 못 함(로그 한 벌만 남음).
